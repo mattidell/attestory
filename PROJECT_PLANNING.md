@@ -18,6 +18,19 @@ Product intent and phase direction are inputs to planning. The agent owns transl
 
 Planning should make the next implementation step obvious before code changes begin. Phase documents describe where the project is going. Roadmaps describe the milestone sequence and status. Milestone plans describe the tracks, contracts, fixtures, and verification needed to implement safely.
 
+## Development Posture
+
+Audience: Shared
+
+The project is early. The owner's stated posture, which planning and execution should assume:
+
+- **Iteration over meticulous upfront planning.** Work is treated as prototype-grade until proven otherwise. Backtracking and repeating work is an acceptable — often preferred — alternative to exhaustive up-front design. The goal of the project is to refine taste, design, and governance iteratively; discarded work that sharpened a decision was not wasted.
+- **Merge does not imply endorsement.** Work lands on `main` that the owner or a later agent may judge undesired, unsatisfactory, or simply pointed in a direction no longer wanted. That is an expected outcome, not a failure. Reviews of merged work are normal and recorded under `docs/reviews/`.
+- **Snapshot and reset, not open-ended branches.** The owner does not want many worktrees or long-lived branches open at once. When merged work is deemed undesired, the remedy is: snapshot the current state (a `snapshot/<date>-<topic>` branch or tag at the abandoned tip), then reset `main` to an earlier commit and proceed. History is preserved in snapshots; `main` tells the current story. Resets of `main` are owner-directed; agents perform them only on direction, and never without creating the snapshot ref first.
+- **Multiple agents collaborate.** Sessions get interrupted and resumed by different agents. Hand-offs are disclosed in retrospectives; interrupted work is either committed, snapshotted, or cleanly discarded — not left as ambient worktree state.
+
+This posture coexists with the milestone protocol below: planning discipline governs how work is built; the posture governs how finished work is judged and, when necessary, unwound.
+
 ## Canonical Meta Documents
 
 Canonical project implementation meta documents live at the repository root and use all-caps filenames.

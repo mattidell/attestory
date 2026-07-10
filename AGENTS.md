@@ -14,6 +14,16 @@ Read these before substantial work:
 - `docs/phases/<phase-name>/milestones/*.md`: milestone execution plans with track-level plans.
 - Up to the five most recent files in `docs/milestone-retrospectives/`, newest first, before planning a new milestone.
 
+## Owner Posture and Collaboration Rules
+
+The owner's development posture is defined in `PROJECT_PLANNING.md` (Development Posture). Operational consequences for agents:
+
+- **Apologize rather than ask permission.** For reversible work inside an agreed direction, proceed and disclose plainly — in the commit, the retrospective, or the report — rather than blocking on questions. Reserve questions for irreversible actions (history rewrites, data deletion, publishing) and genuine direction changes.
+- **Snapshot-and-reset protocol.** When the owner directs that merged work be unwound: (1) create `snapshot/<date>-<topic>` at the current `main` tip; (2) verify the snapshot ref exists; (3) reset `main` to the directed commit; (4) record what was unwound and why in `docs/reviews/` or the relevant retrospective. Never reset or rewrite `main` without the snapshot ref, and never on your own initiative.
+- **Worktree and branch hygiene.** Keep open worktrees to a minimum. Remove worktrees that are clean and no longer needed, including stale ones left by other agents. Delete merged milestone and continuation branches after confirming their commits are reachable from `main`. Do not leave uncommitted work in a worktree at hand-off: commit it, snapshot it, or discard it and say so.
+- **Hand-offs.** If you resume another agent's interrupted work, say so in the retrospective, note what you adopted versus reworked, and leave the tree clean for the next agent.
+- **Review records.** Critical reviews of merged work live under `docs/reviews/` with dated filenames. A review is advisory: the owner decides whether to act, ignore, or snapshot-and-reset.
+
 ## Development Priorities
 
 Prioritize in this order:
