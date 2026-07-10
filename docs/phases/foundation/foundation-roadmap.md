@@ -14,9 +14,9 @@ Audience: Product (roadmap); Shared (status)
 
 ## Status
 
-Active milestone: **Governance Installation** (plan: `milestones/governance-installation.md`).
+Active milestone: none — Governance Installation complete; Workspace Kernel is next and awaits its milestone plan.
 
-- Governance Installation — in progress (planned 2026-07-09). Impacts: `docs/governance/`, `docs/adr/`, `docs/milestone-retrospectives/`, root meta documents, `tools/`, `tests/`.
+- Governance Installation — **complete** (2026-07-09, merge `6e4eefa`; retrospective: `docs/milestone-retrospectives/2026-07-09-governance-installation.md`). Impacts: `docs/governance/`, `docs/adr/`, `docs/milestone-retrospectives/`, root meta documents, `tools/`, `tests/`.
 - Workspace Kernel — not started. Planning note: persistence model (append-only act log) is the first Tier 2 ADR of the milestone.
 - Derivation Machinery — not started.
 - First Tax Slice — not started.
