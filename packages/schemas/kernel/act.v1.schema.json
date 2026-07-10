@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act.v1",
+  "title": "Act envelope",
+  "description": "An authoritative event: an actor did something and the workspace changed. The envelope is kind-agnostic; each kind's payload is validated against its own published schema (act-<kind>.v1). Acts commit against a specific workspace revision (Article 6) and record who performed them (Ontology, Actor).",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "act.v1" },
+    "act_id": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "pattern": "^[a-z][a-z-]*[a-z]$" },
+    "actor": { "type": "string", "minLength": 1 },
+    "at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
+    "committed_against": { "type": "integer", "minimum": 0 },
+    "payload": { "type": "object" }
+  },
+  "required": ["schema", "act_id", "kind", "actor", "at", "committed_against", "payload"],
+  "additionalProperties": false
+}

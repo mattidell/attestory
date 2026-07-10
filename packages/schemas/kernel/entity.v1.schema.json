@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/entity.v1",
+  "title": "Entity",
+  "description": "A thing-flavor citizen that facts may be individuated on (a counterparty, an account, a property). Entities are never sources: evidence is a distinct citizen with its own schema and acts, and no fact is keyed on it (Article 1).",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "entity.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "label": { "type": "string", "minLength": 1 }
+  },
+  "required": ["schema", "id", "kind", "label"],
+  "additionalProperties": false
+}

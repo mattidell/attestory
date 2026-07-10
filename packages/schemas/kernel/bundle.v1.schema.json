@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/bundle.v1",
+  "title": "Fact-type bundle",
+  "description": "A declared body of fact types taken up wholesale by an adoption act (Ontology §4, Adoption; milestone-scoped minimal form). Nested fact types name their own schema version and are validated against it.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "bundle.v1" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "label": { "type": "string", "minLength": 1 },
+    "fact_types": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": { "schema": { "const": "fact-type.v1" } },
+        "required": ["schema"]
+      }
+    }
+  },
+  "required": ["schema", "id", "label", "fact_types"],
+  "additionalProperties": false
+}

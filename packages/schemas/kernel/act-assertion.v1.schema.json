@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-assertion.v1",
+  "title": "Assertion act payload",
+  "description": "The fundamental act: an actor takes a claim as true here, and a finding comes to stand (Ontology section 4). The finding is captured whole in the act.",
+  "type": "object",
+  "properties": {
+    "finding": {
+      "type": "object",
+      "properties": { "schema": { "const": "finding.v1" } },
+      "required": ["schema"]
+    }
+  },
+  "required": ["finding"],
+  "additionalProperties": false
+}

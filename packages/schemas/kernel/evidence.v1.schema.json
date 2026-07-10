@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/evidence.v1",
+  "title": "Evidence",
+  "description": "Material the user submitted as ground for claims: a source-flavor citizen with its own identity and lifecycle (Ontology section 3). Evidence supports findings; it never becomes them, and nothing is keyed on it (Article 1).",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "evidence.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "label": { "type": "string", "minLength": 1 },
+    "content": { "type": "object" }
+  },
+  "required": ["schema", "id", "kind", "label", "content"],
+  "additionalProperties": false
+}

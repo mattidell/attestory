@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-bundle-adoption.v1",
+  "title": "Bundle adoption act payload",
+  "description": "The user takes up a declared fact-type bundle; facts arrive with the territory (Ontology §2). The bundle is captured whole in the act — what was adopted is never a matter of reconstruction. The kernel validates the nested bundle against the schema version it names.",
+  "type": "object",
+  "properties": {
+    "bundle": {
+      "type": "object",
+      "properties": { "schema": { "const": "bundle.v1" } },
+      "required": ["schema"]
+    }
+  },
+  "required": ["bundle"],
+  "additionalProperties": false
+}

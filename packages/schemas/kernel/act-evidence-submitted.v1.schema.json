@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-evidence-submitted.v1",
+  "title": "Evidence submission act payload",
+  "type": "object",
+  "properties": {
+    "evidence": {
+      "type": "object",
+      "properties": { "schema": { "const": "evidence.v1" } },
+      "required": ["schema"]
+    }
+  },
+  "required": ["evidence"],
+  "additionalProperties": false
+}
