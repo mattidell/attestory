@@ -88,17 +88,48 @@ class TestFindingCurrency(CurrencyFixture):
         self.assertEqual(view.current_finding_ids, frozenset({"finding-from-evidence"}))
         self.assertEqual(view.displaced_evidence_ids, frozenset({"demo-evidence-001"}))
 
-    def test_individuation_edge_displaces_finding_when_keyed_citizen_is_displaced(self) -> None:
+    def test_individuation_edge_displaces_finding_when_keyed_citizen_is_superseded(self) -> None:
         state = project(
             self.base_acts()
             + (
                 act(3, "assertion", {"finding": demo_finding("finding-keyed")}),
+                act(
+                    4,
+                    "entity-superseded",
+                    {
+                        "entity_id": "demo-corp-a",
+                        "replacement": demo_entity("demo-corp-a2", "Corp A (corrected)"),
+                    },
+                ),
             ),
             self.registry,
         )
-        view = compute_currency(state, root_displacements={"demo-corp-a"})
+        view = compute_currency(state)
         self.assertIn("finding-keyed", view.displaced_finding_ids)
         self.assertEqual(view.reasons["finding-keyed"][0].kind, "individuation")
+        self.assertEqual(view.reasons["finding-keyed"][0].by, "demo-corp-a")
+
+    def test_succession_leaves_successor_facts_open_not_answered(self) -> None:
+        state = project(
+            self.base_acts()
+            + (
+                act(3, "assertion", {"finding": demo_finding("finding-keyed")}),
+                act(
+                    4,
+                    "entity-superseded",
+                    {
+                        "entity_id": "demo-corp-a",
+                        "replacement": demo_entity("demo-corp-a2", "Corp A (corrected)"),
+                    },
+                ),
+            ),
+            self.registry,
+        )
+        view = compute_currency(state)
+        # The old answer does not migrate to the successor's fact; the
+        # successor's question is open, which is the truth about where
+        # things stand.
+        self.assertEqual(view.current_finding_ids, frozenset())
 
 
 class TestDisplacementEdges(unittest.TestCase):

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-entity-superseded.v1",
+  "title": "Entity supersession act payload",
+  "description": "Supersedes an entity citizen, optionally with a successor (the corrected entity). This is succession, not correction (Ontology section 7): the facts individuated on the superseded entity - and every finding answering them - leave current state together along the individuation edge, while remaining in history together. Omitting the replacement is withdrawal.",
+  "type": "object",
+  "properties": {
+    "entity_id": { "type": "string", "minLength": 1 },
+    "replacement": {
+      "type": "object",
+      "properties": { "schema": { "const": "entity.v1" } },
+      "required": ["schema"]
+    }
+  },
+  "required": ["entity_id"],
+  "additionalProperties": false
+}

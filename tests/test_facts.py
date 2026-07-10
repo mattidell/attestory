@@ -96,6 +96,67 @@ class TestAdoptionAndIndividuation(FactsFixture):
         self.assertEqual(first, second)
 
 
+class TestEntitySupersession(FactsFixture):
+    def _adopted_with_corp_a(self) -> tuple[dict[str, object], ...]:
+        return (
+            act(0, "bundle-adoption", {"bundle": demo_bundle()}),
+            act(1, "entity-introduced", {"entity": demo_entity("demo-corp-a", "Corp A")}),
+        )
+
+    def test_superseding_an_entity_removes_its_facts_from_current_lattice(self) -> None:
+        state = project(
+            self._adopted_with_corp_a()
+            + (act(2, "entity-superseded", {"entity_id": "demo-corp-a"}),),
+            self.registry,
+        )
+        current = facts_of(state)
+        self.assertNotIn(
+            "demo.counterparty-payment|counterparty=demo-corp-a,period=2025", current
+        )
+        full = facts_of(state, include_displaced=True)
+        self.assertIn(
+            "demo.counterparty-payment|counterparty=demo-corp-a,period=2025", full
+        )
+
+    def test_replacement_entity_individuates_successor_facts(self) -> None:
+        state = project(
+            self._adopted_with_corp_a()
+            + (
+                act(
+                    2,
+                    "entity-superseded",
+                    {
+                        "entity_id": "demo-corp-a",
+                        "replacement": demo_entity("demo-corp-a2", "Corp A (corrected)"),
+                    },
+                ),
+            ),
+            self.registry,
+        )
+        current = facts_of(state)
+        self.assertIn(
+            "demo.counterparty-payment|counterparty=demo-corp-a2,period=2025", current
+        )
+        self.assertEqual(state.entities["demo-corp-a"].status, "superseded")
+        self.assertEqual(state.entities["demo-corp-a"].successor_id, "demo-corp-a2")
+
+    def test_superseding_unknown_or_non_current_entity_is_rejected(self) -> None:
+        state = project(self._adopted_with_corp_a(), self.registry)
+        with self.assertRaises(FactModelError):
+            apply_act(
+                state, act(2, "entity-superseded", {"entity_id": "demo-ghost"}), self.registry
+            )
+        superseded = apply_act(
+            state, act(2, "entity-superseded", {"entity_id": "demo-corp-a"}), self.registry
+        )
+        with self.assertRaises(FactModelError):
+            apply_act(
+                superseded,
+                act(3, "entity-superseded", {"entity_id": "demo-corp-a"}),
+                self.registry,
+            )
+
+
 class TestSemanticRejection(FactsFixture):
     def test_duplicate_entity_id_is_rejected(self) -> None:
         state = apply_act(

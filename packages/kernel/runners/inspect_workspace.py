@@ -80,17 +80,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    registry = SchemaRegistry()
-    contents = ActLog(args.workspace, registry).read()
-    model = build_read_model(contents.acts, registry)
-    selected = _select_view(model, args.view)
-    if args.json:
+    selected = inspect_workspace(args.workspace, args.view)
+    if args.json or args.view != "all":
         print(json.dumps(selected, indent=2, sort_keys=True))
     else:
-        if args.view != "all":
-            print(json.dumps(selected, indent=2, sort_keys=True))
-        else:
-            print(_human(model), end="")
+        print(_human(selected), end="")
     return 0
 
 

@@ -63,11 +63,19 @@ def initial_state() -> FindingState:
     return FindingState()
 
 
-def _current_evidence(state: FindingState) -> dict[str, EvidenceLifecycle]:
+def current_evidence_ids(state: FindingState) -> set[str]:
+    """The single source of evidence currency; currency views reuse it."""
     return {
-        evidence_id: lifecycle
+        evidence_id
         for evidence_id, lifecycle in state.evidence.items()
         if lifecycle.status == "current"
+    }
+
+
+def _current_evidence(state: FindingState) -> dict[str, EvidenceLifecycle]:
+    return {
+        evidence_id: state.evidence[evidence_id]
+        for evidence_id in current_evidence_ids(state)
     }
 
 
@@ -147,6 +155,40 @@ def _validate_finding(
             f"{fact_type['id']}: {first.message}"
         )
 
+    # Elective answers are constituted by choice; determinable answers
+    # report the world (Ontology §2, basis; Article 3). The fact's
+    # declared nature and the finding's basis must agree in both
+    # directions, or an election could be "closed" by a report and a
+    # worldly fact by fiat.
+    elective_fact = fact.nature == "elective"
+    elective_basis = finding["basis"] == "elective"
+    if elective_fact and not elective_basis:
+        raise FindingModelError(
+            f"finding {finding['id']}: fact {fact.fact_id} is elective; "
+            f"its answer is constituted by choice, not {finding['basis']}"
+        )
+    if elective_basis and not elective_fact:
+        raise FindingModelError(
+            f"finding {finding['id']}: fact {fact.fact_id} is determinable; "
+            "an elective basis cannot constitute its answer"
+        )
+
+    # Correction is governed by the fact type's declared supersession
+    # rules (Ontology §2, Supersession). Only the "free" policy is
+    # published today, but the declaration is consulted, not decorative:
+    # restricted policies arrive with rule artifacts and bind here.
+    already_answered = any(
+        existing["fact_id"] == finding["fact_id"]
+        for existing in state.findings.values()
+    )
+    if already_answered:
+        policy = fact_type["supersession"]["policy"]
+        if policy != "free":
+            raise FindingModelError(
+                f"finding {finding['id']}: fact {fact.fact_id} is governed by "
+                f"supersession policy '{policy}', which does not permit correction here"
+            )
+
     if finding["basis"] == "documentary" and not finding["evidence_ids"]:
         raise FindingModelError(
             f"documentary finding {finding['id']} names no evidence"
@@ -181,7 +223,7 @@ def apply_act(
     state: FindingState, act: dict[str, Any], registry: SchemaRegistry
 ) -> FindingState:
     """Advance the evidence/finding projection by one act."""
-    if act["kind"] in {"bundle-adoption", "entity-introduced"}:
+    if act["kind"] in {"bundle-adoption", "entity-introduced", "entity-superseded"}:
         return replace(
             state,
             fact_state=facts.apply_act(state.fact_state, act, registry),

@@ -134,6 +134,85 @@ class TestAssertionFindings(FindingsFixture):
             )
         self.assertIn("names no evidence", str(ctx.exception))
 
+    def test_elective_fact_requires_elective_basis(self) -> None:
+        # A report cannot close an election: the choice constitutes the
+        # answer (Article 3).
+        finding = demo_finding(
+            finding_id="demo-finding-choice",
+            fact_id="demo.rate-choice|period=2025",
+            value="standard",
+            evidence_ids=[],
+            basis="attested",
+        )
+        with self.assertRaises(FindingModelError) as ctx:
+            project(
+                self.base_acts() + (act(3, "assertion", {"finding": finding}),),
+                self.registry,
+            )
+        self.assertIn("constituted by choice", str(ctx.exception))
+
+    def test_elective_basis_cannot_close_a_determinable_fact(self) -> None:
+        finding = demo_finding(
+            finding_id="demo-finding-fiat",
+            value=1200,
+            evidence_ids=[],
+            basis="elective",
+        )
+        with self.assertRaises(FindingModelError) as ctx:
+            project(
+                self.base_acts() + (act(3, "assertion", {"finding": finding}),),
+                self.registry,
+            )
+        self.assertIn("determinable", str(ctx.exception))
+
+    def test_elective_assertion_closes_elective_fact(self) -> None:
+        finding = demo_finding(
+            finding_id="demo-finding-choice",
+            fact_id="demo.rate-choice|period=2025",
+            value="standard",
+            evidence_ids=[],
+            basis="elective",
+        )
+        state = project(
+            self.base_acts() + (act(3, "assertion", {"finding": finding}),),
+            self.registry,
+        )
+        self.assertIn("demo-finding-choice", state.findings)
+
+    def test_supersession_policy_is_consulted_on_correction(self) -> None:
+        # Plant a policy the published schema does not offer directly in
+        # the projection: correction must be refused, proving the
+        # declaration is read rather than decorative.
+        import dataclasses
+        import json as jsonlib
+
+        state = project(
+            self.base_acts()
+            + (act(3, "assertion", {"finding": demo_finding("first")}),),
+            self.registry,
+        )
+        locked = jsonlib.loads(
+            jsonlib.dumps(state.fact_state.fact_types["demo.counterparty-payment"])
+        )
+        locked["supersession"]["policy"] = "locked"
+        state = dataclasses.replace(
+            state,
+            fact_state=dataclasses.replace(
+                state.fact_state,
+                fact_types={
+                    **state.fact_state.fact_types,
+                    "demo.counterparty-payment": locked,
+                },
+            ),
+        )
+        with self.assertRaises(FindingModelError) as ctx:
+            apply_act(
+                state,
+                act(4, "assertion", {"finding": demo_finding("second", value=1300)}),
+                self.registry,
+            )
+        self.assertIn("supersession policy", str(ctx.exception))
+
     def test_attested_assertion_can_stand_without_evidence(self) -> None:
         finding = demo_finding(
             finding_id="demo-finding-attested",

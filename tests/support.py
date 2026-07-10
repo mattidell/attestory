@@ -131,16 +131,26 @@ def demo_finding(
     value: Any = 1200,
     evidence_ids: list[str] | None = None,
     basis: str = "documentary",
+    captured: bool = False,
 ) -> dict[str, Any]:
-    return {
+    """A synthetic asserted finding.
+
+    ``captured`` is opt-in: capture preserves a claim that was shown by a
+    proposing process, and the demo scenarios model direct manual entry,
+    where nothing was presented. Decorative capture would dilute the
+    vocabulary (Ontology §3).
+    """
+    finding: dict[str, Any] = {
         "schema": "finding.v1",
         "id": finding_id,
         "fact_id": fact_id if fact_id is not None else demo_payment_fact_id(),
         "value": value,
         "basis": basis,
         "evidence_ids": evidence_ids if evidence_ids is not None else ["demo-evidence-001"],
-        "capture": {
+    }
+    if captured:
+        finding["capture"] = {
             "presented": {"value": value, "basis": basis},
             "asserted": {"value": value, "basis": basis},
-        },
-    }
+        }
+    return finding

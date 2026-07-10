@@ -10,8 +10,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Mapping
 
-from packages.kernel.facts import facts_of
-from packages.kernel.findings import FindingState
+from packages.kernel.facts import facts_of, superseded_entity_ids
+from packages.kernel.findings import FindingState, current_evidence_ids
 
 DECLARED_EDGE_KINDS = frozenset({"derivation", "individuation"})
 
@@ -94,44 +94,39 @@ def _finding_corrections(
     return displaced, reasons
 
 
-def _declared_edges(
-    state: FindingState,
-    extra_edges: EdgeMap | None,
-) -> dict[str, dict[str, set[str]]]:
+def _declared_edges(state: FindingState) -> dict[str, dict[str, set[str]]]:
     edges: dict[str, dict[str, set[str]]] = {"derivation": {}, "individuation": {}}
     for finding_id, finding in state.findings.items():
         for pinned_id in finding.get("pins", {}).get("finding_ids", []):
             _add_edge(edges, "derivation", pinned_id, finding_id)
 
-    lattice = facts_of(state.fact_state)
+    # Individuation edges come from the full historical lattice: a fact
+    # whose keyed-on entity was superseded has left current state, but
+    # the edge from that entity to the findings answering the fact is
+    # still what displacement propagates along.
+    lattice = facts_of(state.fact_state, include_displaced=True)
     for finding_id, finding in state.findings.items():
         fact = lattice.get(finding["fact_id"])
         if fact is None:
             continue
         for citizen_id in fact.individuated_by:
             _add_edge(edges, "individuation", citizen_id, finding_id)
-
-    if extra_edges is not None:
-        for kind in DECLARED_EDGE_KINDS:
-            for source, dependents in extra_edges.get(kind, {}).items():
-                for dependent in dependents:
-                    _add_edge(edges, kind, source, dependent)
     return edges
 
 
-def compute_currency(
-    state: FindingState,
-    *,
-    root_displacements: set[str] | None = None,
-    extra_edges: EdgeMap | None = None,
-) -> CurrencyView:
-    """Compute currency from a projection, never from stored flags."""
+def compute_currency(state: FindingState) -> CurrencyView:
+    """Compute currency from a projection, never from stored flags.
+
+    Displacement roots come from the record alone: corrections (a later
+    finding for the same fact) and superseded entities. There is no
+    caller-supplied displacement — displacement is a consequence of the
+    record, not an argument (Article 7).
+    """
     correction_roots, reason_lists = _finding_corrections(state)
     roots = set(correction_roots)
-    if root_displacements is not None:
-        roots.update(root_displacements)
+    roots.update(superseded_entity_ids(state.fact_state))
 
-    closure, closure_reasons = displacement_closure(roots, _declared_edges(state, extra_edges))
+    closure, closure_reasons = displacement_closure(roots, _declared_edges(state))
     for citizen_id, citizen_reasons in closure_reasons.items():
         reason_lists.setdefault(citizen_id, []).extend(citizen_reasons)
 
@@ -139,11 +134,7 @@ def compute_currency(
     displaced_findings = finding_ids & closure
     current_findings = finding_ids - displaced_findings
 
-    current_evidence = {
-        evidence_id
-        for evidence_id, lifecycle in state.evidence.items()
-        if lifecycle.status == "current"
-    }
+    current_evidence = current_evidence_ids(state)
     displaced_evidence = set(state.evidence) - current_evidence
 
     return CurrencyView(
