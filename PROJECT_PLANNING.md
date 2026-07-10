@@ -62,6 +62,8 @@ Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or 
 
 **Traceability.** Every conclusion in the evaluation analysis cites a specific exhibit — a drafted artifact at a path on a named prototype branch, a recorded test result, a review note. A conclusion the reader cannot follow to its exhibit is not evidence and does not support an ADR. The same rule flows downstream: the ADR cites the analysis, the analysis cites exhibits, and a break anywhere in that chain is grounds to send the ADR back.
 
+**Process evaluation.** The process itself is under evaluation while it runs, not only in the retrospective. The foreman maintains a dated **process log** (`docs/prototypes/<topic>/process-log.md`), written as incidents happen — never reconstructed afterward — against declared incident categories: hollow measurements, context leaks, no-progress iterations, charter drift, wordsmithed dissent, role breaches, and foreman errors. The foreman's participant review is **conformance review only** (did the reviewer run its charter's checks; did roles stay separated), never a second judgment on artifact findings — quality belongs to the committee. Owner check-ins at disposition points have a fixed shape: evidence status against the charter, process incidents since the last check-in, and a recommendation; the owner then sample-audits one review. The retrospective treats the process — foreman included — as a subject, and material lessons amend the process by superseding ADR.
+
 ## Canonical Meta Documents
 
 Canonical project implementation meta documents live at the repository root and use all-caps filenames.

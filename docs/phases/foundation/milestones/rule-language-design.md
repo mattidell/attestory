@@ -39,9 +39,9 @@ What is the rule artifact's operation vocabulary and expression encoding? Candid
 
 ## Contracts
 
-- `docs/prototypes/rule-language/` document set: charters, iteration examinations, committee review notes, evaluation analysis.
+- `docs/prototypes/rule-language/` document set: charters, iteration examinations, committee review notes, role charters (`roles/`), the process log (`process-log.md`), and the evaluation analysis.
 - `prototypes/rule-language/it<N>` branches: maintained evidence exhibits, never merged.
-- Successor ADRs (0005+) citing the evaluation analysis.
+- Successor ADRs citing the evaluation analysis.
 
 ## Fixtures
 
@@ -49,7 +49,7 @@ The fixture charter is Track 1's deliverable and is itself committee-reviewed. B
 
 ## Verification
 
-- Process verification: each iteration has a charter, an examination, and review notes; the analysis traces every conclusion to evidence; dissent is recorded.
+- Process verification: each iteration has a charter, an examination, and review notes; the analysis traces every conclusion to evidence; dissent is recorded; the process log is maintained as incidents occur, and owner check-ins at disposition points follow the fixed shape (evidence status, incidents, recommendation).
 - Technical verification on prototype branches: the throwaway evaluator runs the drafted rules against synthetic workspaces; double-run equality for purity; a manual portability thought-test (could a second implementation be written from the artifacts alone?).
 - `main` verification unchanged: `python3 -m unittest`, `tools/governance_lint.py`, mypy — documents only.
 
