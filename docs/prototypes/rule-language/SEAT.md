@@ -6,7 +6,7 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Round 0 — delta confirmation. Owner disposition (2026-07-10): charter amended to v2 with all ten review findings; the dissenting adversary delta-confirms the amendment. One seat is open **now**: adversary delta-confirmation (bounded scope — see "Delta confirmation" in `reviews/round-0.md`). A fresh agent resuming this project takes that seat. On dissent withdrawal (or owner override), the foreman opens the it1 builder seat.
+Round 0 — delta confirmation complete. Owner disposition (2026-07-10): charter amended to v2 with all ten review findings; adversary delta-confirmation withdrew the dissent (`reviews/round-0-adversary-delta.md`). The foreman now opens the it1 builder seat.
 
 ## Seats
 
@@ -18,11 +18,11 @@ Round 0 — delta confirmation. Owner disposition (2026-07-10): charter amended 
 | Reviewer: governance | `roles/reviewer-governance.md` | codex (resume session, 2026-07-10) | complete (round 0, charter review: `reviews/round-0-governance.md`) |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | not yet open (needs artifacts) |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | — | not yet open (starved seat; launch line in role file) |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | codex (resume session, 2026-07-10) | **open now**: delta-confirmation of charter v2 (`reviews/round-0.md`, Delta confirmation) |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | codex (resume session, 2026-07-10) | complete (round 0 delta-confirmation: `reviews/round-0-adversary-delta.md`) |
 
 ## Next action
 
-Fill the adversary delta-confirmation seat (fresh session; generic resumption dispatches here). On dissent withdrawal: foreman opens the it1 builder seat.
+Foreman opens the it1 builder seat.
 
 ## Evidence exhibits
 
