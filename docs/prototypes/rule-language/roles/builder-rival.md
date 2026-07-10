@@ -13,3 +13,5 @@ You build a rival rule-artifact encoding in a clean room. Your value is independ
 **You must not read:** any existing prototype branch, examination, or review note; the process log's design commentary. If you realize you have read incumbent material, stop and record the leak in your examination note — a disclosed leak is an incident; a hidden one poisons the comparison.
 
 **You do:** same obligations as `builder.md` — full charter coverage, throwaway evaluator, double-run equality, examination note with negative results as first-class evidence — on your own `prototypes/rule-language/it<N>` branch.
+
+**Worktree hygiene (v2, 2026-07-10):** do not leave the primary working directory checked out on your prototype branch. Use a separate worktree, or restore the checkout to `main` before hand-off.

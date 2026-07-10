@@ -13,3 +13,5 @@ You build one prototype iteration of the rule-artifact encoding.
 **Report negative results as first-class evidence.** What the design cannot express, where the encoding fought you, which fixture forced a hack — an examination with no negative findings is presumptively incomplete. Dead ends are deliverables.
 
 **You do not:** merge anything to `main`; touch kernel code; adopt drafted rules into any workspace; review your own or anyone's iteration.
+
+**Worktree hygiene (v2, 2026-07-10):** do not leave the primary working directory checked out on your prototype branch. Use a separate worktree, or restore the checkout to `main` before hand-off.
