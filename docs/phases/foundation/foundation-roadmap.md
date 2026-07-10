@@ -14,13 +14,14 @@ Audience: Product (roadmap); Shared (status)
 
 ## Status
 
-Active milestone: **Workspace Kernel** (plan: `milestones/workspace-kernel.md`, planned 2026-07-10; Tier 2 decisions ratified 2026-07-10; ready for execution).
+Active milestone: **Derivation Machinery** (next planning target; not yet planned).
 
 - Governance Installation — **complete** (2026-07-09, merge `6e4eefa`; retrospective: `docs/milestone-retrospectives/2026-07-09-governance-installation.md`). Impacts: `docs/governance/`, `docs/adr/`, `docs/milestone-retrospectives/`, root meta documents, `tools/`, `tests/`.
-- Workspace Kernel — planned (2026-07-10). Tier 2 decisions ratified 2026-07-10 (ADR-0002, ADR-0003): persistence (append-only JSONL act log), schema technology and identity (JSON Schema 2020-12, opaque IDs), synthetic kernel vocabulary, minimal adoption act. Impacts: `packages/kernel/`, `packages/schemas/kernel/`, `packages/sample_data/kernel/`, `tests/conformance/`, `docs/adr/`.
-- Derivation Machinery — not started.
+- Workspace Kernel — **complete** (2026-07-10, merge `c8799ce`; retrospective: `docs/milestone-retrospectives/2026-07-10-workspace-kernel.md`). Tier 2 decisions ratified 2026-07-10 (ADR-0002, ADR-0003): persistence (append-only JSONL act log), schema technology and identity (JSON Schema 2020-12, opaque IDs), synthetic kernel vocabulary, minimal adoption act. Impacts: `packages/kernel/`, `packages/schemas/kernel/`, `packages/sample_data/kernel/`, `tests/conformance/`, `docs/adr/`, `README.md`.
+- Derivation Machinery — next planning target.
 - First Tax Slice — not started.
 
 ### Implementation notes
 
 - 2026-07-09: The recomposed Principles document was initially missing from the repository; the user recovered it as `docs/INTAKE_PRINCIPLES.md` during milestone planning. The full five-document set stamps v0.1 in this milestone.
+- 2026-07-10: Workspace Kernel completed in a secondary worktree continuation branch because the original milestone branch was checked out elsewhere at Track 3. The final merge to `main` preserves one implementation commit per track.
