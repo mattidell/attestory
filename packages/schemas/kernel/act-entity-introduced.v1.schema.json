@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-entity-introduced.v1",
+  "title": "Entity introduction act payload",
+  "type": "object",
+  "properties": {
+    "entity": {
+      "type": "object",
+      "properties": { "schema": { "const": "entity.v1" } },
+      "required": ["schema"]
+    }
+  },
+  "required": ["entity"],
+  "additionalProperties": false
+}

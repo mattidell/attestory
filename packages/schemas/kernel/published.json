@@ -1,3 +1,8 @@
 {
-  "act.v1.schema.json": "d71acc2e45850ee98c4a27e5ac1a5671e94ec8a8fdaabdd27cf6c41736e6b3c4"
+  "act-bundle-adoption.v1.schema.json": "00ce2db7279284d0150a3ab4381279a7e90f3e82e9b670a488faff0b2f7e7bf8",
+  "act-entity-introduced.v1.schema.json": "50166ff2744a565bbc4518adc7f9d2344367b9c03a3700a3e199fbd1f4d33f7d",
+  "act.v1.schema.json": "d71acc2e45850ee98c4a27e5ac1a5671e94ec8a8fdaabdd27cf6c41736e6b3c4",
+  "bundle.v1.schema.json": "e390e84381fa22b7329015d6325af2deb6e3d12137028244f67e668279fa6737",
+  "entity.v1.schema.json": "32cb2d6da3aeb8f0b1bc5aa0d654de2698d3892f57242847294eae5a74eabeff",
+  "fact-type.v1.schema.json": "63a4f4feff13b4fcae315c76841f616c0fa785347e60e66d78b9152b88ad1ecf"
 }

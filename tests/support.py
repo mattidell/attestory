@@ -51,3 +51,57 @@ def demo_note_act(index: int, text: str | None = None) -> dict[str, Any]:
         "committed_against": index,
         "payload": {"text": text if text is not None else f"note {index}"},
     }
+
+
+def demo_fact_type_payment() -> dict[str, Any]:
+    return {
+        "schema": "fact-type.v1",
+        "id": "demo.counterparty-payment",
+        "title": "Payment received from a counterparty",
+        "nature": "determinable",
+        "identity_keys": [
+            {"name": "counterparty", "kind": "entity", "entity_kind": "demo.counterparty"},
+            {"name": "period", "kind": "literal", "values": ["2025"]},
+        ],
+        "value_schema": {"type": "number"},
+        "supersession": {"policy": "free"},
+    }
+
+
+def demo_fact_type_rate_choice() -> dict[str, Any]:
+    return {
+        "schema": "fact-type.v1",
+        "id": "demo.rate-choice",
+        "title": "Rate treatment for the period",
+        "nature": "elective",
+        "identity_keys": [
+            {"name": "period", "kind": "literal", "values": ["2025"]},
+        ],
+        "value_schema": {"enum": ["standard", "reduced"]},
+        "supersession": {"policy": "free"},
+    }
+
+
+def demo_bundle() -> dict[str, Any]:
+    return {
+        "schema": "bundle.v1",
+        "id": "demo.vocabulary",
+        "label": "Demo vocabulary",
+        "fact_types": [demo_fact_type_payment(), demo_fact_type_rate_choice()],
+    }
+
+
+def act(index: int, kind: str, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema": "act.v1",
+        "act_id": f"demo-act-{index:03d}",
+        "kind": kind,
+        "actor": "user",
+        "at": f"2026-01-01T00:{index // 60:02d}:{index % 60:02d}Z",
+        "committed_against": index,
+        "payload": payload,
+    }
+
+
+def demo_entity(entity_id: str, label: str, kind: str = "demo.counterparty") -> dict[str, Any]:
+    return {"schema": "entity.v1", "id": entity_id, "kind": kind, "label": label}
