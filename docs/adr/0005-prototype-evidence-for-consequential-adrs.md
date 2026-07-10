@@ -1,6 +1,6 @@
 # ADR 0005 — Consequential ADRs Require Prototype Evidence
 
-- Status: proposed (pending owner ratification)
+- Status: accepted (ratified 2026-07-10)
 - Tier: 3
 - Date: 2026-07-10
 
