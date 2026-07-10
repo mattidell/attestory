@@ -5,6 +5,7 @@ This file defines how agents should work in this repository. It is a canonical p
 ## Canonical References
 
 Read these before substantial work:
+- `docs/governance/`: the ratified governance set — Constitution (norms), Ontology (meaning), Engineering Constraints (implementation patterns and detections), Principles (interpretation where the others are silent), Commentary (rationale). This is the sole contract authority; see `docs/governance/README.md` for the authority order.
 - `README.md`: current usage and runner commands.
 - `PROJECT_PLANNING.md`: planning process, milestone rules, parallel work rules, and archival rules.
 - `docs/phase-state.md`: summary pointer to the active phase.
@@ -89,7 +90,12 @@ Each retrospective should include:
 
 ## Contract-First Development
 
-Refer to governance documents
+Contracts descend from the governance set in `docs/governance/`. Schemas, artifact shapes, runner behavior, and persistence boundaries must conform to the Constitution's articles and the Ontology's definitions; the Engineering Constraints state the foreclosed implementation patterns and the detections that catch violations. When a contract decision is not determined by the governance set, it is a Tier 2 or Tier 3 decision: record an ADR.
+
+Guardrails:
+- The `archive/` tree is historical reference only. It holds the pre-governance v2 engine, which predates the Ontology and violates it in places. Use it for tax-domain reference and sanity checks, never as a source of contracts, schemas, or patterns.
+- Do not build on reserved or deferred ontology entries (T1 derived-finding authority construction; T2 stance; redaction). If a milestone appears to need one, stop and surface the resolution as a Tier 3 decision instead of improvising doctrine.
+- Changes to `docs/governance/` require a new version and user ratification; agents may propose governance changes but never adopt them.
 
 ## Fixture Rules
 
