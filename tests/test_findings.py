@@ -134,6 +134,51 @@ class TestAssertionFindings(FindingsFixture):
             )
         self.assertIn("names no evidence", str(ctx.exception))
 
+    def test_elective_fact_requires_elective_basis(self) -> None:
+        # A report cannot close an election: the choice constitutes the
+        # answer (Article 3).
+        finding = demo_finding(
+            finding_id="demo-finding-choice",
+            fact_id="demo.rate-choice|period=2025",
+            value="standard",
+            evidence_ids=[],
+            basis="attested",
+        )
+        with self.assertRaises(FindingModelError) as ctx:
+            project(
+                self.base_acts() + (act(3, "assertion", {"finding": finding}),),
+                self.registry,
+            )
+        self.assertIn("constituted by choice", str(ctx.exception))
+
+    def test_elective_basis_cannot_close_a_determinable_fact(self) -> None:
+        finding = demo_finding(
+            finding_id="demo-finding-fiat",
+            value=1200,
+            evidence_ids=[],
+            basis="elective",
+        )
+        with self.assertRaises(FindingModelError) as ctx:
+            project(
+                self.base_acts() + (act(3, "assertion", {"finding": finding}),),
+                self.registry,
+            )
+        self.assertIn("determinable", str(ctx.exception))
+
+    def test_elective_assertion_closes_elective_fact(self) -> None:
+        finding = demo_finding(
+            finding_id="demo-finding-choice",
+            fact_id="demo.rate-choice|period=2025",
+            value="standard",
+            evidence_ids=[],
+            basis="elective",
+        )
+        state = project(
+            self.base_acts() + (act(3, "assertion", {"finding": finding}),),
+            self.registry,
+        )
+        self.assertIn("demo-finding-choice", state.findings)
+
     def test_attested_assertion_can_stand_without_evidence(self) -> None:
         finding = demo_finding(
             finding_id="demo-finding-attested",

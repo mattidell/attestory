@@ -155,6 +155,24 @@ def _validate_finding(
             f"{fact_type['id']}: {first.message}"
         )
 
+    # Elective answers are constituted by choice; determinable answers
+    # report the world (Ontology §2, basis; Article 3). The fact's
+    # declared nature and the finding's basis must agree in both
+    # directions, or an election could be "closed" by a report and a
+    # worldly fact by fiat.
+    elective_fact = fact.nature == "elective"
+    elective_basis = finding["basis"] == "elective"
+    if elective_fact and not elective_basis:
+        raise FindingModelError(
+            f"finding {finding['id']}: fact {fact.fact_id} is elective; "
+            f"its answer is constituted by choice, not {finding['basis']}"
+        )
+    if elective_basis and not elective_fact:
+        raise FindingModelError(
+            f"finding {finding['id']}: fact {fact.fact_id} is determinable; "
+            "an elective basis cannot constitute its answer"
+        )
+
     if finding["basis"] == "documentary" and not finding["evidence_ids"]:
         raise FindingModelError(
             f"documentary finding {finding['id']} names no evidence"
