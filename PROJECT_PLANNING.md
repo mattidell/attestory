@@ -2,19 +2,19 @@
 
 ## Audience
 
-Project documentation serves three distinct audiences: User, Agent, and User+Agent.
+Project documentation serves three distinct audiences: Product, Agent, and Shared.
 
-User-targeted documentation is for a human reader making product, portfolio, or sequencing decisions. It emphasizes product direction, capability, sequencing, and why the work matters.
+Product-facing documentation is for readers making product, portfolio, or sequencing decisions. It emphasizes product direction, capability, sequencing, and why the work matters.
 
 Agent-targeted documentation is for implementation work. It contains the operational detail needed to change the project safely: file paths, constraints, verification commands, dependency notes, track sequencing, and guardrails.
 
-User+Agent documentation is shared planning context. It connects human-readable project intent to enough implementation precision for safe execution.
+Shared documentation is planning context that connects reader-friendly project intent to enough implementation precision for safe execution.
 
 ## Overview
 
 This document defines how planning works in this repository. It keeps product direction, implementation planning, and execution guardrails separate so each decision is made at the right level.
 
-The user owns product intent, phase direction, milestone approval, and whether planning is complete enough to implement. The agent owns translating that direction into explicit planning documents, preserving data safety, identifying contract dependencies, making atomic implementation changes, and verifying the result.
+Product intent and phase direction are inputs to planning. The agent owns translating that direction into explicit planning documents, preserving data safety, identifying contract dependencies, determining readiness from the planning requirements, making atomic implementation changes, and verifying the result.
 
 Planning should make the next implementation step obvious before code changes begin. Phase documents describe where the project is going. Roadmaps describe the milestone sequence and status. Milestone plans describe the tracks, contracts, fixtures, and verification needed to implement safely.
 
@@ -34,7 +34,7 @@ These documents should be stable references for contributors and agents. They sh
 
 Planning is organized around phases, milestones, and tracks.
 
-The user provides product direction, approves priorities, and decides when the plan is ready to move forward. The agent turns that direction into structured planning, identifies implementation dependencies, and keeps execution aligned with the agreed plan.
+Product direction and priorities set the planning context. The agent turns that context into structured planning, identifies implementation dependencies, and keeps execution aligned with the committed plan.
 
 ### Phases
 
@@ -42,7 +42,7 @@ Phases describe major periods of project development. A phase explains where the
 
 Each phase has an overview and a roadmap. The overview describes the phase purpose, scope, and exit criteria. The roadmap describes the milestone sequence, current status, lessons learned, and how each milestone changes the project.
 
-The user shapes the phase by defining the product intent and deciding whether the phase still reflects the desired direction. The agent maintains the phase documents so they match the current project state and give future implementation work a clear boundary.
+Phase documents capture product intent and desired direction. The agent maintains the phase documents so they match the current project state and give future implementation work a clear boundary.
 
 ### Milestones
 
@@ -50,38 +50,34 @@ Milestones are bounded product or architecture capabilities inside a phase. A mi
 
 Milestones replace informal track groups. They make progress easier to evaluate because each one has a concrete outcome, a clear relationship to the phase roadmap, and a defined point at which the project can reassess direction.
 
-The user evaluates whether the milestone is valuable and sequenced correctly. The agent translates the milestone into executable planning, including contracts, fixtures, verification, and track-level implementation steps.
+Milestone documents state the capability value and sequencing rationale. The agent translates the milestone into executable planning, including contracts, fixtures, verification, and track-level implementation steps.
 
 ### Tracks
 
 Tracks are the implementation steps inside a milestone. A track is small enough to reason about independently and specific enough to verify when complete.
 
-Tracks give the agent a practical execution unit while keeping the user connected to milestone-level progress. The user should not need to manage track mechanics, but track boundaries make implementation easier to review and keep commits aligned with the plan.
+Tracks give the agent a practical execution unit while keeping milestone-level progress visible. Track boundaries make implementation easier to verify and keep commits aligned with the plan.
 
 ## Process
 
-Audience: Users+Agents
+Audience: Shared
 
 Planning precedes implementation.
 
-Documentation should preserve the distinction between audience and instruction. User-targeted sections describe product direction and capability; they do not tell the reader how to perform implementation work. Agent-targeted sections carry instructions, constraints, commands, and guardrails. User+Agent sections may include structured scope and exit criteria when that detail is necessary to align product intent with implementation boundaries.
+Documentation should preserve the distinction between audience and instruction. Product-facing sections describe product direction and capability; they do not tell the reader how to perform implementation work. Agent-targeted sections carry instructions, constraints, commands, and guardrails. Shared sections may include structured scope and exit criteria when that detail is necessary to align product intent with implementation boundaries.
 
 The default sequence is:
 1. Create or update the relevant planning document.
 2. Commit planning changes separately.
-3. Confirm with the orchestrating developer that planning is complete.
-4. Create or switch to a dedicated milestone execution branch from the committed planning state.
-5. Implement one atomic track.
-6. Run verification for that track.
-7. Commit the completed track before starting the next track.
-8. Repeat track implementation, verification, and commit until milestone work is complete.
-9. Stop for orchestrating developer review.
-10. Complete the milestone only after the orchestrating developer explicitly instructs the agent to do so.
-11. Update status, roadmap notes, or consumer-facing docs when behavior changes.
+3. Create or switch to a dedicated milestone execution branch from the committed planning state.
+4. Implement one atomic track.
+5. Run verification for that track.
+6. Commit the completed track before starting the next track.
+7. Repeat track implementation, verification, and commit until milestone work is complete.
+8. Complete the milestone branch using the milestone completion protocol.
+9. Update status, roadmap notes, or consumer-facing docs when behavior changes.
 
-If planning changes during implementation, separate the planning update from code changes whenever possible. Follow-up planning clarifications should usually be squashed into the relevant planning commit when the orchestrating developer recommends that history shape. Do not squash implementation commits into planning commits.
-
-If planning is not confirmed complete, do not begin implementation unless the orchestrating developer explicitly instructs otherwise.
+If planning changes during implementation, separate the planning update from code changes whenever possible. Follow-up planning clarifications before implementation should usually be squashed into the relevant planning commit to keep planning history clean. Do not squash implementation commits into planning commits.
 
 ### Milestone Execution Branch Protocol
 
@@ -91,10 +87,10 @@ Milestone implementation happens on a separate milestone execution branch. Do no
 
 Before creating the milestone execution branch:
 - Commit the milestone planning changes separately from implementation work.
-- Confirm the milestone plan is complete, reviewed, and committed.
+- Ensure the milestone plan has the required contents and is committed.
 
 Before implementing the first track:
-- Create a dedicated branch for the milestone from the committed planning state, normally based on `main`, unless the orchestrating developer specifies another base.
+- Create a dedicated branch for the milestone from the committed planning state, normally based on `main`, unless the milestone plan specifies another base.
 - Use a branch name that clearly identifies the milestone.
 - Confirm the milestone execution branch includes the committed planning state but does not include uncommitted planning changes.
 
@@ -104,20 +100,20 @@ During milestone execution:
 - Create one implementation commit per completed track.
 - Do not combine all milestone implementation work into one final commit.
 - Keep planning changes, if any are needed during execution, separate from implementation commits whenever possible.
-- Do not merge the milestone branch to `main` after implementation is complete.
+- Do not merge the milestone branch to `main` until all planned tracks are complete and verified.
 
-When all tracks are complete, the milestone branch history should show a distinct commit for each completed track, unless the milestone plan explicitly approved a grouped track commit before implementation. The agent stops and reports the branch, track commits, verification performed, and any residual risks. The orchestrating developer reviews the branch and decides whether the milestone is ready to complete.
+When all tracks are complete, the milestone branch history should show a distinct commit for each completed track, unless the milestone plan explicitly specified a grouped track commit before implementation. The agent records the branch, track commits, verification performed, and any residual risks in the appropriate status or completion note, then completes the milestone.
 
-Milestone completion requires explicit orchestrating developer instruction. When instructed to complete the milestone:
+Milestone completion requires completed tracks, passing required verification, and a branch history that matches the milestone plan. To complete the milestone:
 - Switch to `main`.
-- Update `main` from the expected upstream if one is configured and the orchestrating developer has not requested otherwise.
+- Update `main` from the expected upstream if one is configured.
 - Confirm the milestone branch contains the expected per-track commits rather than a single combined milestone implementation commit.
 - Merge the milestone execution branch into `main` using a non-fast-forward merge commit.
 - Put the milestone name in the merge commit message.
 - Run the required integration verification after the merge.
 - Report the merge commit and verification result.
 
-Do not squash, rebase away, or collapse the per-track implementation commits during milestone completion unless the orchestrating developer explicitly directs that history shape.
+Do not squash, rebase away, or collapse the per-track implementation commits during milestone completion unless the milestone plan explicitly requires that history shape.
 
 ### Document Layout
 
@@ -135,8 +131,8 @@ docs/phases/
 ```
 
 Each phase should have two phase-level documents:
-- `<phase-name>-overview.md`: user-targeted phase purpose and User+Agent scope.
-- `<phase-name>-roadmap.md`: user-targeted milestone roadmap followed by roadmap status and implementation notes.
+- `<phase-name>-overview.md`: product-facing phase purpose and shared scope.
+- `<phase-name>-roadmap.md`: product-facing milestone roadmap followed by roadmap status and implementation notes.
 
 The roadmap document is the canonical phase state document for that phase. It should contain the active milestone, milestone status, implementation notes, pivots, lessons learned, and impacted project areas.
 
@@ -162,7 +158,7 @@ Before starting a new milestone, create or update a planning document with:
 
 Milestone planning should happen before implementation and before creating the milestone execution branch. If the plan changes during implementation, update the plan in a separate commit or clearly separate the planning change from code changes.
 
-Planning commits are mandatory. Initial plan generation must be committed before the milestone execution branch begins implementation. A planning document is not considered ready for execution until it has been reviewed, confirmed as complete by the orchestrating developer, and committed separately from implementation.
+Planning commits are mandatory. Initial plan generation must be committed before the milestone execution branch begins implementation. A planning document is ready for execution when it contains the required milestone-plan contents and is committed separately from implementation.
 
 ## Track Planning Checklist
 
@@ -188,20 +184,20 @@ Parallelization levels:
 
 Before parallel work begins, create or update the relevant milestone plan with a parallel work manifest. A parallel work manifest belongs only in a milestone planning document under the phase's `milestones/` directory, not in phase overviews or roadmaps.
 
-Do not add a parallel work manifest by default. Add it only when the user or orchestrating developer explicitly requests parallel execution planning for that milestone.
+Do not add a parallel work manifest by default. Add it only when parallel execution is part of the milestone plan.
 
 The manifest must include:
 - Milestone: the milestone the parallel work belongs to.
 - Branches or workstreams: each parallel branch or stream and its owner if applicable.
 - Dependencies fulfilled: the contracts, fixtures, or prior tracks already completed.
-- Dependencies pending: any workstream that must wait for another before implementation or merge.
+- Dependencies pending: any workstream whose implementation or merge depends on another workstream.
 - Constraints: files, schemas, artifacts, or behavior that must not change in each stream.
 - Conflict hotspots: files or directories likely to conflict.
 - Merge order: the dependency-first order in which work should be merged.
 - Rebase points: when downstream branches must rebase onto producer branches.
 - Verification per stream: tests or commands required for each stream.
 - Integration verification: tests or commands required after the streams are merged.
-- Data safety notes: confirmation that no stream touches personal or private data.
+- Data safety notes: statement that no stream touches personal or private data.
 
 Template:
 
@@ -213,15 +209,15 @@ Milestone:
 
 Workstreams:
 - Track 19 return artifact contract
-- Track 22 return review renderer using a static sample fixture
+- Track 22 return artifact renderer using a static sample fixture
 - Documentation update for prototype transition
 
 Dependencies fulfilled:
 - Field resolution schema and workspace artifact are stable.
 
 Dependencies pending:
-- Track 20 generation waits for Track 19 schema merge.
-- Golden return fixtures wait for Track 20 generation merge.
+- Track 20 generation depends on the Track 19 schema merge.
+- Golden return fixtures depend on the Track 20 generation merge.
 
 Constraints:
 - Do not change `field-resolution.json` shape.
@@ -263,24 +259,24 @@ Golden fixture updates require single-owner coordination. Do not update the same
 
 Roadmaps should be coarse-grained and milestone-oriented.
 
-Each roadmap starts with the planned roadmap. The roadmap itself should use only user-targeted language and describe the milestone sequence, delivered capability, why the milestone matters, and why it is sequenced where it is.
+Each roadmap starts with the planned roadmap. The roadmap itself should use only product-facing language and describe the milestone sequence, delivered capability, why the milestone matters, and why it is sequenced where it is.
 
 After the roadmap, include a status section. The status section should include each milestone, implementation notes, pivots, lessons learned, active milestone state, and the part of the project impacted, such as CLIs, runners, workspace workflows, schemas, fixtures, UI, API, persistence, or architecture boundaries.
 
 Roadmaps should not duplicate detailed track plans. If a roadmap item needs execution detail, create or update a milestone plan under that phase's `milestones/` directory.
 
-## Planning Review
+## Planning Maintenance
 
-Planning should be reviewed at milestone boundaries and before any transition to a new project phase.
+Planning should be checked for currency at milestone boundaries and before any transition to a new project phase.
 
-Review questions:
+Maintenance checks:
 - Does the current plan still describe what the code does?
 - Are obsolete assumptions marked obsolete or archived?
 - Are active plans still actionable?
 - Are planned artifacts reflected in schemas, fixtures, tests, and runner docs?
 - Are personal-data guardrails still explicit?
 
-If the answer is no, update planning before continuing implementation.
+If any check fails, update planning before continuing implementation.
 
 ## Archive Rules
 
@@ -303,9 +299,9 @@ The project may keep two kinds of changelog-like documents:
 Consumer-facing changelog entries should describe capabilities:
 - Added synthetic workspace execution.
 - Added field resolution artifact.
-- Added return artifact review.
+- Added return artifact inspection.
 
-They should not describe low-level commit mechanics unless relevant to users or integrators.
+They should not describe low-level commit mechanics unless relevant to readers or integrators.
 
 ## Data Safety Rules
 

@@ -11,6 +11,7 @@ Read these before substantial work:
 - `docs/phases/<phase-name>/<phase-name>-overview.md`: phase purpose, scope, and exit criteria.
 - `docs/phases/<phase-name>/<phase-name>-roadmap.md`: phase roadmap, active milestone, milestone status, and implementation notes.
 - `docs/phases/<phase-name>/milestones/*.md`: milestone execution plans with track-level plans.
+- Up to the five most recent files in `docs/milestone-retrospectives/`, newest first, before planning a new milestone.
 
 ## Development Priorities
 
@@ -34,16 +35,57 @@ High-level requirements:
 - Milestone plans live under the relevant phase's `milestones/` directory.
 - Track plans sit inside the relevant milestone plan.
 - Initial milestone plan generation must be committed before the milestone execution branch begins implementation.
-- The orchestrating developer must confirm planning is complete before implementation starts.
+- Planning must contain the required milestone-plan contents and be committed before implementation starts.
 - Planning and implementation must be committed separately.
 - Milestone implementation must happen on a dedicated milestone execution branch, not directly on `main`.
 - Each completed track must be committed separately before the next track starts, unless the milestone plan explicitly groups tracks.
 - At the end of milestone implementation, the branch history must contain the expected per-track commits rather than one combined milestone implementation commit.
-- When all milestone tracks are complete, stop for orchestrating developer review before completing the milestone.
-- Milestone completion requires explicit instruction and uses a non-fast-forward merge from the milestone branch into `main`, with the milestone name in the merge commit message.
-- Parallel work manifests belong only in milestone plans and only when explicitly requested.
+- When all milestone tracks are complete, report milestone status, and continue the planning/development loop.
+- Milestone completion uses a non-fast-forward merge from the milestone branch into `main`, with the milestone name in the merge commit message.
+- Parallel work manifests belong only in milestone plans and only when parallel execution is part of the milestone plan.
 - Roadmaps are milestone-level product documents and carry phase status, not detailed execution plans.
-- Follow-up plan clarifications default to being squashed into the relevant planning commit when directed by the orchestrating developer.
+- Follow-up plan clarifications before implementation default to being squashed into the relevant planning commit to keep planning history clean.
+- Before planning a new milestone, read up to the five most recent milestone retrospective files from `docs/milestone-retrospectives/` and carry forward relevant lessons into the milestone plan.
+- Architectural changes made during a milestone must be documented in ADRs under `docs/adr/`, using the decision tier to choose the record shape.
+- After each milestone, write a milestone retrospective under `docs/milestone-retrospectives/` before starting the next milestone plan.
+
+## Decision Records
+
+Use ADRs for architectural changes, boundary decisions, contract commitments, and decisions that shape future implementation.
+
+ADR location and naming:
+- Store ADRs under `docs/adr/`.
+- Use numbered kebab-case filenames, for example `0001-rule-artifacts-are-versioned.md`.
+- Do not edit accepted ADR decisions in place to change history. Add a superseding ADR when a decision changes materially.
+
+Decision tiers:
+- Tier 1: reversible internal implementation choices, such as file layout, helper structure, local typing strategy, or fixture organization. Document in the milestone retrospective unless the choice affects an architectural boundary; use an ADR only when the decision is likely to be reused or cited.
+- Tier 2: contract or architecture choices future surfaces consume, such as schema shape, artifact identity, runner behavior, persistence boundaries, or fixture contract structure. Create or update an ADR in `docs/adr/`.
+- Tier 3: product thesis, user-visible concepts, naming, irreversible boundaries, data safety posture, or legal/governance meaning. Create or update an ADR in `docs/adr/` with context, decision, consequences, and alternatives considered.
+
+ADR entries should state:
+- Status: proposed, accepted, superseded, or retired.
+- Tier: 1, 2, or 3.
+- Context: the milestone and problem that forced the decision.
+- Decision: the commitment made.
+- Consequences: what this enables, forecloses, or requires.
+- Links: related milestone plan, retrospective, schemas, fixtures, or superseding ADRs.
+
+## Milestone Retrospectives
+
+After each milestone, create a retrospective in `docs/milestone-retrospectives/`.
+
+Retrospective filenames should be dated and milestone-specific, for example `2026-07-10-engine-contract-stabilization.md`.
+
+Each retrospective should include:
+- Milestone: name, branch, and merge commit when applicable.
+- Shipped: concise capability summary.
+- Verification: commands run and results.
+- Decisions: Tier 1/2/3 decisions made, with links to ADRs for Tier 2 and Tier 3 items.
+- Deviations: where implementation differed from the plan and why.
+- Data safety: statement of synthetic-only committed data and any relevant checks.
+- Follow-ups: concrete work items for future milestones.
+- Planning lessons: what should change in the next milestone plan.
 
 ## Contract-First Development
 
@@ -64,7 +106,7 @@ Use ignored local output for:
 - Personal experiments.
 - Generated scratch files.
 
-Golden fixture changes must be intentional. Regenerate only when the contract or expected behavior changed, then review the diff.
+Golden fixture changes must be intentional. Regenerate only when the contract or expected behavior changed, then inspect the diff.
 
 ## Data Safety Rules
 
@@ -106,11 +148,11 @@ Avoid commits that mix:
 
 Commit messages should describe the capability or contract added.
 
-Planning commits should precede implementation commits and should not be made on the milestone execution branch unless the orchestrating developer explicitly directs otherwise. If a plan is revised before implementation begins, keep the planning history clean by squashing revisions into the relevant planning commit when directed by the orchestrating developer.
+Planning commits should precede implementation commits and should not be made on the milestone execution branch. If a plan is revised before implementation begins, keep the planning history clean by squashing revisions into the relevant planning commit.
 
-Milestone implementation should be one completed track per commit. A completed milestone branch should show distinct commits for each completed track, unless the milestone plan explicitly approved a grouped track commit before implementation. Do not squash, rebase away, or collapse track commits when completing a milestone unless the orchestrating developer explicitly directs that history shape.
+Milestone implementation should be one completed track per commit. A completed milestone branch should show distinct commits for each completed track, unless the milestone plan explicitly specified a grouped track commit before implementation. Do not squash, rebase away, or collapse track commits when completing a milestone unless the milestone plan explicitly requires that history shape.
 
-Milestone branch completion must be done only after orchestrating developer approval. Merge the milestone branch into `main` with a non-fast-forward merge commit and include the milestone name in the merge commit message.
+Milestone branch completion must be done after planned tracks are complete and required verification passes. Merge the milestone branch into `main` with a non-fast-forward merge commit and include the milestone name in the merge commit message.
 
 ## Documentation Rules
 
