@@ -6,7 +6,7 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Round 0 — charter review. `harvest-notes.md` and `charter-it1.md` are committed; the charter is the artifact under review (see `reviews/round-0.md`). The governance review is complete; the adversary seat is open **now**. A fresh agent resuming this project takes the adversary seat per its role file, scoped as round-0 directs. When both reviews exist, the foreman conformance-checks them and presents the owner disposition.
+Round 0 — charter review. `harvest-notes.md` and `charter-it1.md` are committed; the charter is the artifact under review (see `reviews/round-0.md`). The governance and adversary reviews are complete. The foreman conformance-checks them and presents the owner disposition.
 
 ## Seats
 
@@ -18,11 +18,11 @@ Round 0 — charter review. `harvest-notes.md` and `charter-it1.md` are committe
 | Reviewer: governance | `roles/reviewer-governance.md` | codex (resume session, 2026-07-10) | complete (round 0, charter review: `reviews/round-0-governance.md`) |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | not yet open (needs artifacts) |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | — | not yet open (starved seat; launch line in role file) |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | — | **open now** (round 0, charter review) |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | codex (resume session, 2026-07-10) | complete (round 0, charter review: `reviews/round-0-adversary.md`) |
 
 ## Next action
 
-Fill the remaining open round-0 adversary seat (fresh sessions; generic resumption dispatches here). Then: foreman conformance check → owner disposition (amend charter, or approve and open the it1 builder seat).
+Foreman conformance check → owner disposition (amend charter, or approve and open the it1 builder seat).
 
 ## Evidence exhibits
 
