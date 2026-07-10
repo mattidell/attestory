@@ -2,6 +2,7 @@
   "act-assertion.v1.schema.json": "ce0d76989f85cddb54acd4d5b4c42b20af83165f334b1e3927f5e1bedd17dc3d",
   "act-bundle-adoption.v1.schema.json": "00ce2db7279284d0150a3ab4381279a7e90f3e82e9b670a488faff0b2f7e7bf8",
   "act-entity-introduced.v1.schema.json": "50166ff2744a565bbc4518adc7f9d2344367b9c03a3700a3e199fbd1f4d33f7d",
+  "act-entity-superseded.v1.schema.json": "33d6dda1e31e126f0c7e17b50814b9efc2d18a490a005423898db7c0bc41a354",
   "act-evidence-replaced.v1.schema.json": "d3935f225abcd7a932fea94b0f751c8249b0f4f78427970c604f6e31efb85208",
   "act-evidence-submitted.v1.schema.json": "cfb1b12f8171b7599b6a1fc9895fb6b18676b56d5988db1f6c723cd2d578e6dd",
   "act.v1.schema.json": "d71acc2e45850ee98c4a27e5ac1a5671e94ec8a8fdaabdd27cf6c41736e6b3c4",

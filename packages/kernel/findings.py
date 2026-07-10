@@ -63,11 +63,19 @@ def initial_state() -> FindingState:
     return FindingState()
 
 
-def _current_evidence(state: FindingState) -> dict[str, EvidenceLifecycle]:
+def current_evidence_ids(state: FindingState) -> set[str]:
+    """The single source of evidence currency; currency views reuse it."""
     return {
-        evidence_id: lifecycle
+        evidence_id
         for evidence_id, lifecycle in state.evidence.items()
         if lifecycle.status == "current"
+    }
+
+
+def _current_evidence(state: FindingState) -> dict[str, EvidenceLifecycle]:
+    return {
+        evidence_id: state.evidence[evidence_id]
+        for evidence_id in current_evidence_ids(state)
     }
 
 
@@ -181,7 +189,7 @@ def apply_act(
     state: FindingState, act: dict[str, Any], registry: SchemaRegistry
 ) -> FindingState:
     """Advance the evidence/finding projection by one act."""
-    if act["kind"] in {"bundle-adoption", "entity-introduced"}:
+    if act["kind"] in {"bundle-adoption", "entity-introduced", "entity-superseded"}:
         return replace(
             state,
             fact_state=facts.apply_act(state.fact_state, act, registry),
