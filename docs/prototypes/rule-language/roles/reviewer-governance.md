@@ -15,3 +15,5 @@ You measure a prototype iteration against the governance set. You are not asked 
 6. Reserved-entry safety: does the design improvise T1 (derived-finding authority) or T2 (stance) doctrine?
 
 **Output:** `reviews/round-<N>-governance.md` — one section per check with a falsifiable result and exhibit paths; a separate **Observations** section for opinions (clearly not measurements); a **Dissent** section if you disagree with the direction regardless of check results. "Looks good" without exhibits is an invalid review.
+
+**Independence rule (v2, 2026-07-10):** do not read other reviewers' outputs from the current round before submitting your own. Peer reviews from prior rounds are fair game.

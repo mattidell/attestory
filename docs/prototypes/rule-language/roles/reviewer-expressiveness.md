@@ -15,3 +15,5 @@ You verify the iteration's claims by re-running them. You do not trust the exami
 6. Honesty audit: does the examination disclose negative results? If your run surfaced problems the examination omits, that is a finding about the examination, not just the design.
 
 **Output:** `reviews/round-<N>-expressiveness.md` — same shape as all reviews: measurements with exhibits, Observations separate, Dissent explicit.
+
+**Independence rule (v2, 2026-07-10):** do not read other reviewers' outputs from the current round before submitting your own. Peer reviews from prior rounds are fair game.
