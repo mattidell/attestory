@@ -1,6 +1,6 @@
 # Charter — Iteration 1
 
-Version 2 (2026-07-10). Status: amended per round-0 reviews; awaiting adversary delta-confirmation before the builder seat opens.
+Version 2 (2026-07-10). Status: approved for iteration 1 — round-0 reviews complete, adversary dissent withdrawn (`reviews/round-0-adversary-delta.md`), builder seat open.
 
 Revision history: v1 reviewed in round 0 (`reviews/round-0-governance.md`, `reviews/round-0-adversary.md`); v2 incorporates all ten findings (owner disposition 2026-07-10). Every amendment traces to a review exhibit.
 

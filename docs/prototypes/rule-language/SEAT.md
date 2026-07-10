@@ -6,14 +6,14 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Round 0 — delta confirmation complete. Owner disposition (2026-07-10): charter amended to v2 with all ten review findings; adversary delta-confirmation withdrew the dissent (`reviews/round-0-adversary-delta.md`). The foreman now opens the it1 builder seat.
+Iteration 1 — build. Charter v2 is approved (round 0 complete; dissent withdrawn). One seat is open **now**: builder it1. A fresh agent resuming this project takes that seat per `roles/builder.md`: work only on branch `prototypes/rule-language/it1`; draft F1–F14 per `charter-it1.md`; throwaway evaluator with double-run, shuffled-order, and F13 stage-divergence runs; examination note answering Q1–Q11 (negative results are first-class). The examination note is handed to the foreman for commit; nothing merges to `main` from the prototype branch.
 
 ## Seats
 
 | Seat | Role file | Holder | Status |
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | claude (session lineage of milestone planning, 2026-07-10) | active |
-| Builder it1 | `roles/builder.md` | — | not yet open (opens after charter disposition) |
+| Builder it1 | `roles/builder.md` | — | **open now** (charter v2; branch `prototypes/rule-language/it1`) |
 | Rival builder | `roles/builder-rival.md` | — | not yet open (starved seat; launch line in role file) |
 | Reviewer: governance | `roles/reviewer-governance.md` | codex (resume session, 2026-07-10) | complete (round 0, charter review: `reviews/round-0-governance.md`) |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | not yet open (needs artifacts) |
@@ -22,7 +22,7 @@ Round 0 — delta confirmation complete. Owner disposition (2026-07-10): charter
 
 ## Next action
 
-Foreman opens the it1 builder seat.
+Fill the builder it1 seat (fresh session; generic resumption dispatches here). When the examination note lands: foreman assembles round 1 (all four reviewer seats; legibility is owner-launched via its role file's launch line).
 
 ## Evidence exhibits
 
