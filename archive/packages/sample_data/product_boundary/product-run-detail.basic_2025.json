@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "run_summary": {
+    "schema_version": "1.0.0",
+    "run_id": "demo-basic-w2-1099-int-2025-run-001",
+    "workspace_id": "demo-basic-w2-1099-int-2025",
+    "tax_year": 2025,
+    "created_at": "2026-01-01T00:00:00Z",
+    "completed_at": "2026-01-01T00:00:02Z",
+    "status": "succeeded",
+    "input_revision_refs": [
+      {
+        "draft_id": "demo-w2-acme-2025",
+        "revision_id": "demo-w2-acme-2025-rev-001",
+        "document_type": "w2"
+      },
+      {
+        "draft_id": "demo-1099-int-example-bank-2025",
+        "revision_id": "demo-1099-int-example-bank-2025-rev-001",
+        "document_type": "1099-int"
+      }
+    ],
+    "result_summary": {
+      "validation_error_count": 0,
+      "blocked_field_count": 0,
+      "generated_artifact_count": 8
+    },
+    "detail_ref": {
+      "artifact_type": "product_run_detail",
+      "media_type": "application/json",
+      "uri": "runs/demo-basic-w2-1099-int-2025-run-001/product-run-detail.json"
+    }
+  },
+  "run_payload": {
+    "schema_version": "1.0.0",
+    "run_id": "demo-basic-w2-1099-int-2025-run-001",
+    "owner_id": "demo-owner",
+    "workspace_id": "demo-basic-w2-1099-int-2025",
+    "tax_year": 2025,
+    "jurisdictions": ["federal"],
+    "data_classification": "synthetic_demo",
+    "source_draft_snapshots": [
+      {
+        "draft_id": "demo-w2-acme-2025",
+        "document_type": "w2",
+        "revision_id": "demo-w2-acme-2025-rev-001",
+        "payload": {
+          "schema_version": "1.0.0",
+          "source_document_id": "demo-w2-acme-2025",
+          "source_revision_id": "demo-w2-acme-2025-rev-001",
+          "document_type": "w2",
+          "tax_year": 2025,
+          "entered_at": "2026-01-15T12:00:00Z",
+          "label": "Demo W-2: Acme Robotics",
+          "field_values": [
+            {
+              "source_field_id": "w2.box1.wages",
+              "value": {
+                "amount": 8250000,
+                "currency": "USD",
+                "scale": 2
+              }
+            },
+            {
+              "source_field_id": "w2.box2.federal_income_tax_withheld",
+              "value": {
+                "amount": 1140000,
+                "currency": "USD",
+                "scale": 2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "draft_id": "demo-1099-int-example-bank-2025",
+        "document_type": "1099-int",
+        "revision_id": "demo-1099-int-example-bank-2025-rev-001",
+        "payload": {
+          "schema_version": "1.0.0",
+          "source_document_id": "demo-1099-int-example-bank-2025",
+          "source_revision_id": "demo-1099-int-example-bank-2025-rev-001",
+          "document_type": "1099-int",
+          "tax_year": 2025,
+          "entered_at": "2026-01-16T12:00:00Z",
+          "label": "Demo 1099-INT: Example Bank",
+          "field_values": [
+            {
+              "source_field_id": "1099_int.payer.name",
+              "value": "Example Bank"
+            },
+            {
+              "source_field_id": "1099_int.box1.interest_income",
+              "value": {
+                "amount": 43210,
+                "currency": "USD",
+                "scale": 2
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifact_refs": [
+    {
+      "artifact_type": "normalized_source_documents",
+      "media_type": "application/json",
+      "uri": "runs/demo-basic-w2-1099-int-2025-run-001/normalized-source-documents.json"
+    },
+    {
+      "artifact_type": "source_validation",
+      "media_type": "application/json",
+      "uri": "runs/demo-basic-w2-1099-int-2025-run-001/source-validation.json"
+    },
+    {
+      "artifact_type": "field_coverage",
+      "media_type": "application/json",
+      "uri": "runs/demo-basic-w2-1099-int-2025-run-001/field-coverage.json"
+    },
+    {
+      "artifact_type": "field_resolution",
+      "media_type": "application/json",
+      "uri": "runs/demo-basic-w2-1099-int-2025-run-001/field-resolution.json"
+    },
+    {
+      "artifact_type": "return_artifact",
+      "media_type": "application/json",
+      "uri": "runs/demo-basic-w2-1099-int-2025-run-001/return-artifact.json"
+    },
+    {
+      "artifact_type": "return_review_markdown",
+      "media_type": "text/markdown",
+      "uri": "runs/demo-basic-w2-1099-int-2025-run-001/return-artifact.md"
+    },
+    {
+      "artifact_type": "field_coverage_markdown",
+      "media_type": "text/markdown",
+      "uri": "runs/demo-basic-w2-1099-int-2025-run-001/field-coverage.md"
+    },
+    {
+      "artifact_type": "run_manifest",
+      "media_type": "application/json",
+      "uri": "runs/demo-basic-w2-1099-int-2025-run-001/run-manifest.json"
+    }
+  ]
+}

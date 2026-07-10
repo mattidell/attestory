@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finances-app.local/schemas/tax-workspace.schema.json",
+  "title": "Tax Workspace",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "label",
+    "tax_year",
+    "jurisdiction",
+    "source_document_drafts"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tax_year": {
+      "type": "integer",
+      "minimum": 2000
+    },
+    "jurisdiction": {
+      "type": "string",
+      "const": "federal"
+    },
+    "source_document_drafts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/sourceDocumentDraftRef"
+      }
+    }
+  },
+  "$defs": {
+    "sourceDocumentDraftRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

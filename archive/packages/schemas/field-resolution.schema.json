@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finances-app.local/schemas/field-resolution.schema.json",
+  "title": "Field Resolution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "tax_year",
+    "jurisdiction",
+    "fields"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "tax_year": {
+      "type": "integer",
+      "minimum": 2000
+    },
+    "jurisdiction": {
+      "type": "string",
+      "const": "federal"
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resolvedField"
+      }
+    }
+  },
+  "$defs": {
+    "resolvedField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_id",
+        "form_id",
+        "label",
+        "required",
+        "population_mode",
+        "status",
+        "value",
+        "values",
+        "dependency_field_ids",
+        "blocking_field_ids",
+        "source_attributions"
+      ],
+      "properties": {
+        "field_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "form_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "population_mode": {
+          "type": "string",
+          "enum": ["direct", "computed", "optional"]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "resolved_direct",
+            "resolved_computed",
+            "blocked_missing_source",
+            "blocked_missing_computation",
+            "optional_not_populated"
+          ]
+        },
+        "value": {
+          "oneOf": [
+            { "$ref": "#/$defs/moneyValue" },
+            { "type": "string" },
+            { "type": "boolean" },
+            { "type": "null" }
+          ]
+        },
+        "values": {
+          "type": "array"
+        },
+        "dependency_field_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocking_field_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_attributions": {
+          "type": "array"
+        }
+      }
+    },
+    "moneyValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "currency", "scale"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string",
+          "const": "USD"
+        },
+        "scale": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

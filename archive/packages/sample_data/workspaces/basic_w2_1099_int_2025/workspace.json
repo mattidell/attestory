@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "workspace_id": "demo-basic-w2-1099-int-2025",
+  "label": "Demo federal workspace: W-2 and 1099-INT",
+  "tax_year": 2025,
+  "jurisdiction": "federal",
+  "source_document_drafts": [
+    {
+      "path": "../../source_document_drafts/w2_basic_draft.2025.json"
+    },
+    {
+      "path": "../../source_document_drafts/1099_int_basic_draft.2025.json"
+    }
+  ]
+}

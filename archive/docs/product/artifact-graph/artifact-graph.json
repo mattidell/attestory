@@ -1,0 +1,1674 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Artifact Graph",
+  "intro": [
+    "This document summarizes the canonical and run-snapshot artifact layers in the fact-centered product architecture. Detailed artifact entries live in the layer-specific documents linked below."
+  ],
+  "durability_classes": [
+    {
+      "id": "canonical",
+      "description": "a versioned source of truth, reusable definition, or accumulated contributed state."
+    },
+    {
+      "id": "run_snapshot",
+      "description": "an immutable artifact produced or frozen by one workspace run."
+    }
+  ],
+  "scope_note": [
+    "Projection-only review models, local-only implementation details, and disposable diagnostics are out of scope unless they become canonical or run-snapshot artifacts later."
+  ],
+  "durability_rule": [
+    "`run_snapshot` is only for artifacts a run produces or freezes for reproducibility. Contributed artifacts accumulate canonically.",
+    "This means user input, source records, provenance records, and fact instances have canonical homes between runs. Runs do not own those artifacts; runs select exact ids or revisions from them through `ProductRunPayload` and record those selections in `RunManifest`."
+  ],
+  "edge_types": [
+    {
+      "id": "production",
+      "heading": "Production Edge",
+      "description": [
+        "A production edge means the upstream artifact is required to produce the downstream artifact."
+      ],
+      "example": {
+        "edge": "FactInstanceSet -> MappingTrace",
+        "explanation": [
+          "The mapping trace cannot be produced without the selected fact instances."
+        ]
+      },
+      "questions_intro": "Production edges are dependency edges. They answer:",
+      "questions": [
+        "What must already exist before this artifact can be built?",
+        "What should be recorded as a run input or definition input?",
+        "What affects reproducibility if it changes?"
+      ]
+    },
+    {
+      "id": "audit",
+      "heading": "Audit Edge",
+      "description": [
+        "An audit edge means the upstream artifact explains, supports, or provides traceability for the downstream artifact, but the downstream artifact can remain meaningful as a produced state without embedding the full trace."
+      ],
+      "example": {
+        "edge": "ComputationTrace -> ReturnInstance",
+        "explanation": [
+          "The return instance records the produced return state. The computation trace explains how that state was produced."
+        ]
+      },
+      "questions_intro": "Audit edges answer:",
+      "questions": [
+        "What explains this output?",
+        "What should a reviewer inspect to understand a value?",
+        "What provides provenance, dependency, blocking, or rule-version context?"
+      ]
+    },
+    {
+      "id": "mixed",
+      "heading": "Mixed Edge",
+      "description": [
+        "Some relationships are both production and audit edges."
+      ],
+      "example": {
+        "edge": "FieldResolution -> ReturnInstance",
+        "explanation": [
+          "The return instance is assembled from resolved fields, so this is a production edge. It is also an audit edge because field resolution preserves status, dependency, and blocking context that explains the produced fields."
+        ]
+      },
+      "closing_note": [
+        "When an edge is mixed, the graph should name both roles instead of forcing a single label."
+      ]
+    }
+  ],
+  "reproducibility_note": [
+    "Reproducibility edges are production edges that should be recorded directly or indirectly in `RunManifest`."
+  ],
+  "run_manifest_note": [
+    "`RunManifest` should identify exact artifact versions or revisions where available. When artifact identity is not yet versioned, it should at least record stable artifact type, path or URI, schema version, run id, and the exact fact instance ids selected from `FactInstanceSet`."
+  ],
+  "cross_flow_note": [
+    "The cross-layer flow lists production edges that cross layer boundaries, grouped by source artifact. Every artifact also feeds `RunManifest`; those index edges are omitted here for readability. The core edge distinctions and dependency details are defined in [Artifact Graph Core Edges](artifact-graph-core-edges.md)."
+  ],
+  "layers": [
+    {
+      "id": "product",
+      "name": "Product Layer",
+      "doc_file": "artifact-graph-product-layer.md",
+      "description": [
+        "The product layer owns workspace and run lifecycle artifacts. It does not own tax semantics or computation rules."
+      ],
+      "nodes": [
+        "ProductWorkspace",
+        "ProductContributionPayload",
+        "ProductRunPayload",
+        "ProductRunSummary",
+        "RunManifest"
+      ]
+    },
+    {
+      "id": "input",
+      "name": "Input Layer",
+      "doc_file": "artifact-graph-input-layer.md",
+      "description": [
+        "The input layer captures user-entered and source-shaped material before it becomes normalized facts. It includes source family planning, source-to-fact mapping, user entry batches, and concrete source records available for run selection.",
+        "This layer exists because user input is not the same thing as a fact. A manual entry can be incomplete, source-shaped, unreviewed, superseded, or grouped by document/workspace context before it becomes an accepted fact instance."
+      ],
+      "nodes": [
+        "SourceFamilyInventory",
+        "SourceMappingDefinition",
+        "ManualFactEntryBatch",
+        "SourceRecordSet"
+      ]
+    },
+    {
+      "id": "fact",
+      "name": "Fact Layer",
+      "doc_file": "artifact-graph-fact-layer.md",
+      "description": [
+        "The fact layer is the stable semantic input center. It models fact meaning, assertion scope, accumulated fact assertions, supersession, and provenance. User-entered and source-shaped material is captured in the input layer before it becomes normalized facts."
+      ],
+      "nodes": [
+        "FactTypeCatalog",
+        "FactDefinitionCatalog",
+        "FactAssertionScope",
+        "ProvenanceRecordSet",
+        "FactInstanceSet"
+      ]
+    },
+    {
+      "id": "computation_definition",
+      "name": "Computation Definition Layer",
+      "doc_file": "artifact-graph-computation-definition-layer.md",
+      "description": [
+        "The computation definition layer owns canonical return-construction definitions: form structure, mappings, bridges, computation contracts, and tax parameters. It models computation contracts without requiring every algorithm to be declarative data."
+      ],
+      "nodes": [
+        "FormDefinitionCatalog",
+        "FactToReturnMapping",
+        "CrossFormBridge",
+        "ComputationSpecCatalog",
+        "TaxParameterSet"
+      ]
+    },
+    {
+      "id": "run_trace",
+      "name": "Run Trace Layer",
+      "doc_file": "artifact-graph-run-trace-layer.md",
+      "description": [
+        "The run trace layer records how a run moved from accepted facts through mappings and computation to resolved return fields. These artifacts explain production; they are not the produced return itself."
+      ],
+      "nodes": [
+        "FactCoverage",
+        "MappingTrace",
+        "ComputationTrace",
+        "FieldResolution"
+      ]
+    },
+    {
+      "id": "production",
+      "name": "Production Layer",
+      "doc_file": "artifact-graph-production-layer.md",
+      "description": [
+        "The production layer records the return state produced by a run. It should answer what was produced, while run trace artifacts answer how and why."
+      ],
+      "nodes": [
+        "ReturnInstance",
+        "ReturnArtifact"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ProductWorkspace",
+      "layer": "product",
+      "durability": "canonical",
+      "category": "product",
+      "purpose": [
+        "Defines a user-owned or demo-owned tax-year workspace.",
+        "Owns workspace identity, tax year, supported jurisdictions, data classification, input references, and run history entry points."
+      ],
+      "boundary_owner": [
+        "workspace/product"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "run_input",
+      "personal_data_risk": "medium",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "ProductContributionPayload",
+      "layer": "product",
+      "durability": "canonical",
+      "category": "product",
+      "purpose": [
+        "Captures one contribution event: the exact workspace input submitted for normalization into facts.",
+        "Freezes the manual entry batch ids or revisions the contribution normalized; future upload or import references belong here as well.",
+        "Records the source record, provenance record, and fact instance ids the contribution produced.",
+        "Provides the product boundary for input-to-facts, symmetric to `ProductRunPayload` for facts-to-return. Contribution and run are distinct product events.",
+        "Accumulates as append-only workspace event history; each contribution payload is immutable once created."
+      ],
+      "boundary_owner": [
+        "workspace/product"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "run_input",
+      "personal_data_risk": "medium",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "ProductRunPayload",
+      "layer": "product",
+      "durability": "run_snapshot",
+      "category": "product",
+      "frozen_by_run": true,
+      "purpose": [
+        "Captures the exact workspace inputs selected for a run.",
+        "Provides the immutable run input boundary between product workspace state and fact/computation execution.",
+        "Records the exact fact instance ids selected from the canonical `FactInstanceSet`.",
+        "Does not re-freeze entry batches, source records, or provenance ids; input-side evidence remains reachable transitively through fact provenance.",
+        "Provides the product boundary for facts-to-return; contribution events are captured separately by `ProductContributionPayload`."
+      ],
+      "boundary_owner": [
+        "workspace/product"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "run_input",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "ProductRunSummary",
+      "layer": "product",
+      "durability": "run_snapshot",
+      "category": "product",
+      "purpose": [
+        "Records the list-view summary of a completed run: status, timestamps, input revisions, result counts, and manifest reference."
+      ],
+      "boundary_owner": [
+        "workspace/product"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "run_output",
+      "personal_data_risk": "medium",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "RunManifest",
+      "layer": "product",
+      "durability": "run_snapshot",
+      "category": "product",
+      "purpose": [
+        "Records the exact artifact references for a completed run.",
+        "Serves as the canonical product-facing and reproducibility index for run inputs, definition inputs, and run-snapshot outputs.",
+        "Replaces a separate product run detail artifact in the canonical graph; any run detail screen or read model should project from this manifest and related artifacts."
+      ],
+      "boundary_owner": [
+        "workspace/product"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "run_output",
+      "personal_data_risk": "medium",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "SourceFamilyInventory",
+      "layer": "input",
+      "durability": "canonical",
+      "category": "input",
+      "purpose": [
+        "Catalogs source families supported by the current-year workflow.",
+        "Records source roles, workspace/UI entry points, current input files, fact files, mapping files, fact definition files, and return mapping status."
+      ],
+      "boundary_owner": [
+        "workspace/product",
+        "fact"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "SourceMappingDefinition",
+      "layer": "input",
+      "durability": "canonical",
+      "category": "input",
+      "purpose": [
+        "Defines source-shaped fields and maps them to normalized fact definitions.",
+        "Examples include W-2 box mappings, 1099 mappings, rental manual input mappings, prior-year return mappings, Schedule A support mappings, and credits support mappings."
+      ],
+      "boundary_owner": [
+        "fact"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "ManualFactEntryBatch",
+      "layer": "input",
+      "durability": "canonical",
+      "category": "input",
+      "purpose": [
+        "Captures user-entered facts or source-shaped entries for a tax year and jurisdiction.",
+        "Preserves entry ids, source type, document or source label, target fact id, value, and entry notes before or during normalization.",
+        "Accumulates as contributed workspace input between runs; individual runs select exact batch ids or revisions."
+      ],
+      "boundary_owner": [
+        "workspace/product",
+        "fact"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "run_input",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "SourceRecordSet",
+      "layer": "input",
+      "durability": "canonical",
+      "category": "input",
+      "purpose": [
+        "Captures the concrete sources that produced or supported facts.",
+        "Source records may represent tax documents, manual entry batches, prior returns, imported account data, reviewed support workspaces, depreciation tables, or bootstrap sources.",
+        "Accumulates evidence between runs so later arrivals, such as corrected documents, have a durable place to land before the next run."
+      ],
+      "boundary_owner": [
+        "fact"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "run_input",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "FactTypeCatalog",
+      "layer": "fact",
+      "durability": "canonical",
+      "category": "fact",
+      "purpose": [
+        "Defines reusable value shapes for facts, such as money, boolean, date, scalar strings, and structured object facts."
+      ],
+      "boundary_owner": [
+        "fact"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "FactDefinitionCatalog",
+      "layer": "fact",
+      "durability": "canonical",
+      "category": "fact",
+      "purpose": [
+        "Defines the semantic facts the system understands, independent of a specific taxpayer run.",
+        "Examples include W-2 wages, interest income, rental property facts, prior-year return facts, dependent eligibility facts, and depreciation support facts."
+      ],
+      "boundary_owner": [
+        "fact"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "FactAssertionScope",
+      "layer": "fact",
+      "durability": "canonical",
+      "category": "fact",
+      "purpose": [
+        "Defines the identity dimensions used to decide whether fact instances are competing revisions of the same assertion or separate facts that can coexist.",
+        "Typical scope dimensions include tax year, jurisdiction, subject, employer, payer, property, account, dependent, activity, period, or other domain-specific entity ids.",
+        "Excludes source record identity. Different source records can provide evidence for the same scoped assertion, especially when corrected documents arrive."
+      ],
+      "boundary_owner": [
+        "fact"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "ProvenanceRecordSet",
+      "layer": "fact",
+      "durability": "canonical",
+      "category": "fact",
+      "purpose": [
+        "Records why each fact is believed, where it came from, how it was captured or derived, and what review state applies.",
+        "Generalizes beyond source documents to cover manual entry, prior returns, imports, reviewed domain inputs, bootstrap data, and derived facts.",
+        "Records the mapping definition versions and contribution context applied when facts were normalized.",
+        "Accumulates evidence links between runs; run snapshots select exact provenance ids relevant to selected facts."
+      ],
+      "boundary_owner": [
+        "fact"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "run_input",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "FactInstanceSet",
+      "layer": "fact",
+      "durability": "canonical",
+      "category": "fact",
+      "purpose": [
+        "Captures the accumulated normalized fact assertions for a workspace or product fact context.",
+        "Provides the durable identity space for facts between runs.",
+        "This is the stable semantic input center from which runs select exact fact instances.",
+        "May contain supersession chains through optional `supersedes_fact_instance_id` links.",
+        "Current fact state is computed as the tip per `fact_id` plus assertion scope.",
+        "A run snapshot records exact fact instance ids, normally current tips but optionally historical instances when intentionally selected."
+      ],
+      "boundary_owner": [
+        "fact"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "run_input",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ],
+      "sections": [
+        {
+          "title": "Supersession Semantics",
+          "body": [
+            "Fact instances are immutable. Corrections or replacements create a new fact instance that optionally points to the prior instance it supersedes. Supersession belongs in the canonical `FactInstanceSet`; individual runs snapshot exact fact instance ids from that set.",
+            "",
+            "Minimal fact instance additions:",
+            "",
+            "```json",
+            "{",
+            "  \"scope\": {",
+            "    \"tax_year\": 2025,",
+            "    \"jurisdiction\": \"federal\",",
+            "    \"subject_id\": \"taxpayer.primary\",",
+            "    \"employer_id\": \"employer.acme\"",
+            "  },",
+            "  \"supersedes_fact_instance_id\": \"fact.example.previous\"",
+            "}",
+            "```",
+            "",
+            "Validation expectations:",
+            "- A fact instance may supersede at most one prior fact instance.",
+            "- The superseded instance must have the same `fact_id`.",
+            "- The superseded instance must have the same assertion scope.",
+            "- A fact instance cannot supersede itself.",
+            "- Supersession chains must not contain cycles.",
+            "- Multiple unsuperseded tips for the same `fact_id` and assertion scope are conflicts unless the fact definition explicitly allows concurrent instances.",
+            "- A run snapshot should record exact fact instance ids, whether they are current tips or intentionally selected historical instances."
+          ]
+        },
+        {
+          "title": "Standing Trace Test: W-2c Correction",
+          "body": [
+            "The common W-2c correction case should remain the standing test for fact scope and supersession.",
+            "",
+            "Initial W-2:",
+            "- `SourceRecordSet` contains a source record for the original W-2 from Employer A.",
+            "- `ProvenanceRecordSet` records that the original W-2 supports `irs.w2.wages_box1`.",
+            "- `FactInstanceSet` contains a wages fact scoped by taxpayer, tax year, jurisdiction, and employer.",
+            "",
+            "Corrected W-2c:",
+            "- `SourceRecordSet` gets a new source record for the W-2c.",
+            "- `ProvenanceRecordSet` records that the W-2c supports a replacement wages fact.",
+            "- `FactInstanceSet` gets a new wages fact with the same `fact_id` and same domain scope, using `supersedes_fact_instance_id` to point to the original wages fact.",
+            "",
+            "Result:",
+            "- The original W-2 and W-2c remain distinct source records in provenance.",
+            "- The corrected wages fact can supersede the original because source record identity is not part of assertion scope.",
+            "- A run before the correction can still reference the original fact instance.",
+            "- A run after the correction normally selects the W-2c fact as the current tip."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FormDefinitionCatalog",
+      "layer": "computation_definition",
+      "durability": "canonical",
+      "category": "computation_definition",
+      "purpose": [
+        "Defines form, schedule, worksheet, field, table, part, and display structure for a tax year and jurisdiction."
+      ],
+      "boundary_owner": [
+        "computation"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "FactToReturnMapping",
+      "layer": "computation_definition",
+      "durability": "canonical",
+      "category": "computation_definition",
+      "purpose": [
+        "Defines how normalized facts feed return fields, schedules, worksheets, or intermediate computation inputs."
+      ],
+      "boundary_owner": [
+        "computation"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "CrossFormBridge",
+      "layer": "computation_definition",
+      "durability": "canonical",
+      "category": "computation_definition",
+      "purpose": [
+        "Defines explicit cross-form relationships, such as schedule totals flowing to Form 1040 fields.",
+        "Keeps cross-form dependencies reviewable outside individual computation implementations."
+      ],
+      "boundary_owner": [
+        "computation"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "ComputationSpecCatalog",
+      "layer": "computation_definition",
+      "durability": "canonical",
+      "category": "computation_definition",
+      "purpose": [
+        "Defines computation contracts: computation identity, tax year, jurisdiction, consumed inputs, produced outputs, parameter references, implementation identity, dependencies, and verification scope.",
+        "Models the computation process contract without forcing every algorithm into declarative JSON."
+      ],
+      "boundary_owner": [
+        "computation"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "TaxParameterSet",
+      "layer": "computation_definition",
+      "durability": "canonical",
+      "category": "computation_definition",
+      "purpose": [
+        "Defines tax-year parameter data used by computations, such as thresholds, rates, caps, phaseout ranges, and lookup tables."
+      ],
+      "boundary_owner": [
+        "computation"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "definition_input",
+      "personal_data_risk": "low",
+      "commit_policy": [
+        "canonical_definition_allowed"
+      ]
+    },
+    {
+      "id": "FactCoverage",
+      "layer": "run_trace",
+      "durability": "run_snapshot",
+      "category": "run_trace",
+      "purpose": [
+        "Records whether expected or required facts are present, missing, optional, unreviewed, conflicting, or superseded for a run.",
+        "Generalizes the current source-field coverage artifact around facts rather than source documents."
+      ],
+      "boundary_owner": [
+        "audit/run_trace"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "run_output",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "MappingTrace",
+      "layer": "run_trace",
+      "durability": "run_snapshot",
+      "category": "run_trace",
+      "purpose": [
+        "Records which fact instances mapped to which return or computation fields, which mapping definition applied, and which facts were ignored, filtered, or unavailable."
+      ],
+      "boundary_owner": [
+        "audit/run_trace"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "run_output",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "ComputationTrace",
+      "layer": "run_trace",
+      "durability": "run_snapshot",
+      "category": "run_trace",
+      "purpose": [
+        "Records computation execution at the domain level: computation specs used, parameters used, input values, output values, dependency edges, blocked computations, and implementation identity.",
+        "Does not need to expose every line of code execution."
+      ],
+      "boundary_owner": [
+        "audit/run_trace"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "run_output",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "FieldResolution",
+      "layer": "run_trace",
+      "durability": "run_snapshot",
+      "category": "run_trace",
+      "purpose": [
+        "Records the per-return-field outcome of a run after mapping and computation.",
+        "Captures resolved direct values, resolved computed values, blocked fields, optional fields, dependency fields, blocking inputs, and audit references."
+      ],
+      "boundary_owner": [
+        "audit/run_trace"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "run_output",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "ReturnInstance",
+      "layer": "production",
+      "durability": "run_snapshot",
+      "category": "production",
+      "purpose": [
+        "Captures the produced return state for one run: form values, table values, statuses, context, and source run identity.",
+        "Answers what return state was produced, not the full explanation of how it was produced."
+      ],
+      "boundary_owner": [
+        "return_production"
+      ],
+      "schema_status": "new_required",
+      "manifest_role": "run_output",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    },
+    {
+      "id": "ReturnArtifact",
+      "layer": "production",
+      "durability": "run_snapshot",
+      "category": "production",
+      "purpose": [
+        "Provides the durable return-output package or normalized return projection generated from the return instance."
+      ],
+      "boundary_owner": [
+        "return_production"
+      ],
+      "schema_status": "revise_existing",
+      "manifest_role": "run_output",
+      "personal_data_risk": "high",
+      "commit_policy": [
+        "synthetic_fixture_allowed",
+        "real_data_local_only"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "ProductWorkspace",
+      "to": "ProductRunPayload",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "A run payload snapshots the selected workspace state and input revisions for a specific execution."
+      ],
+      "notes": [
+        "The workspace remains mutable over time.",
+        "The run payload must be immutable once created."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductWorkspace",
+      "to": "ManualFactEntryBatch",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Manual entry batches are created within a workspace and inherit workspace identity, tax year, jurisdiction, and data classification context."
+      ],
+      "notes": [
+        "A run should snapshot exact manual entry revisions rather than reading mutable latest workspace input state."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductRunPayload",
+      "to": "ProductRunSummary",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "A run summary records the outcome of executing one run payload."
+      ],
+      "notes": [
+        "The summary should reference exact input revisions and generated output counts."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductRunPayload",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "A run manifest belongs to one run payload and indexes the exact inputs, definitions, and generated artifacts for that run."
+      ],
+      "notes": [
+        "The manifest should refer to artifacts by stable artifact references, not absolute local paths."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductRunSummary",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Run manifest embeds or references the corresponding run summary so product surfaces can move from run lists to run inspection."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductWorkspace",
+      "to": "ProductContributionPayload",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Contribution events are workspace-scoped and inherit workspace identity, tax year, jurisdiction, and data classification context."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ManualFactEntryBatch",
+      "to": "ProductContributionPayload",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "The contribution payload freezes the exact manual entry batch ids or revisions submitted for normalization."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductContributionPayload",
+      "to": "SourceRecordSet",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "A contribution event creates or updates the source records for the submitted material."
+      ],
+      "audit_value": [
+        "The contribution payload explains when and through which submission a source record entered the workspace."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductContributionPayload",
+      "to": "ProvenanceRecordSet",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "A contribution event appends the provenance records for the facts it produced."
+      ],
+      "audit_value": [
+        "The contribution payload explains the capture context and normalization pass behind provenance records."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductContributionPayload",
+      "to": "FactInstanceSet",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "A contribution event appends the produced fact instances to the canonical ledger."
+      ],
+      "audit_value": [
+        "The contribution payload explains when and how facts entered the ledger, including supersessions created by corrections."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "FactInstanceSet",
+      "to": "ProductRunPayload",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "The run payload records the exact fact instance ids selected from the canonical fact instance set."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductRunPayload",
+      "to": "FactCoverage",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Run outputs derive from the exact inputs selected by the run payload."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductRunPayload",
+      "to": "MappingTrace",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Run outputs derive from the exact inputs selected by the run payload."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductRunPayload",
+      "to": "ComputationTrace",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Run outputs derive from the exact inputs selected by the run payload."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductRunPayload",
+      "to": "FieldResolution",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Run outputs derive from the exact inputs selected by the run payload."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "ProductRunPayload",
+      "to": "ReturnInstance",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Run outputs derive from the exact inputs selected by the run payload."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "FieldResolution",
+      "to": "ProductRunSummary",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "The run summary reports result counts and statuses derived from field resolution."
+      ],
+      "doc_layer": "product"
+    },
+    {
+      "from": "SourceFamilyInventory",
+      "to": "ManualFactEntryBatch",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Manual entry batches are organized around supported source families, such as W-2, 1099-INT, rental manual inputs, prior-year return inputs, Schedule A support, credits support, and depreciation bootstrap inputs."
+      ],
+      "audit_value": [
+        "The inventory explains why a source family exists, whether it is modeled, and which files or workflows represent it."
+      ],
+      "doc_layer": "input"
+    },
+    {
+      "from": "SourceMappingDefinition",
+      "to": "ManualFactEntryBatch",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Manual entry fields should be constrained by source-to-fact mappings where the input is source-shaped."
+      ],
+      "audit_value": [
+        "The mapping explains how source-shaped entries are expected to become normalized facts."
+      ],
+      "doc_layer": "input"
+    },
+    {
+      "from": "ManualFactEntryBatch",
+      "to": "SourceRecordSet",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "A manual entry batch creates or updates concrete source records in the workspace fact context, such as user-entered W-2 records, reviewed rental input groups, or prior-year return context records."
+      ],
+      "audit_value": [
+        "Source records should retain the batch, entry labels, source type, and review context needed to explain later facts."
+      ],
+      "doc_layer": "input"
+    },
+    {
+      "from": "SourceRecordSet",
+      "to": "ProvenanceRecordSet",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Provenance records reference source records to explain the origin of fact assertions."
+      ],
+      "notes": [
+        "Source records are not limited to source documents. They may represent manual entry batches, prior returns, imports, domain workspaces, depreciation tables, bootstrap data, or derived computation sources."
+      ],
+      "doc_layer": "input"
+    },
+    {
+      "from": "ManualFactEntryBatch",
+      "to": "FactInstanceSet",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Manual entry batches can normalize directly into fact instances when each entry already identifies a target fact."
+      ],
+      "notes": [
+        "The `prototype` branch contains `manual-fact-entry.schema.json`, where each entry has `entry_id`, `source_type`, `document_label`, `fact_id`, `value`, and optional `notes`."
+      ],
+      "doc_layer": "input"
+    },
+    {
+      "from": "ManualFactEntryBatch",
+      "to": "ProvenanceRecordSet",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Manual entry batches provide the capture context provenance records reference for user-entered facts."
+      ],
+      "doc_layer": "input"
+    },
+    {
+      "from": "SourceMappingDefinition",
+      "to": "SourceRecordSet",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Source records for source-shaped input follow the field structure declared by source mapping definitions."
+      ],
+      "doc_layer": "input"
+    },
+    {
+      "from": "SourceMappingDefinition",
+      "to": "FactInstanceSet",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Source-shaped entries normalize into fact instances through source mapping definitions."
+      ],
+      "review_note": "Listed in the prior Emits only; confirm normalization reads mappings directly or only through entry batches.",
+      "doc_layer": "input"
+    },
+    {
+      "from": "SourceFamilyInventory",
+      "to": "SourceRecordSet",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Source records identify the source family they belong to."
+      ],
+      "review_note": "Listed in the prior Emits only; confirm source records reference the family inventory directly.",
+      "doc_layer": "input"
+    },
+    {
+      "from": "ProductWorkspace",
+      "to": "SourceRecordSet",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Source records are captured within a workspace and inherit its identity and data classification context."
+      ],
+      "doc_layer": "input"
+    },
+    {
+      "from": "FactDefinitionCatalog",
+      "to": "ManualFactEntryBatch",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Manual entries that directly target facts must reference known fact definitions."
+      ],
+      "doc_layer": "input"
+    },
+    {
+      "from": "FactTypeCatalog",
+      "to": "FactDefinitionCatalog",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Fact definitions use fact types to declare their value shapes."
+      ],
+      "notes": [
+        "Both artifacts are canonical definition inputs."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "FactDefinitionCatalog",
+      "to": "FactInstanceSet",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Each fact instance must identify a known fact definition."
+      ],
+      "audit_value": [
+        "The definition explains the semantic meaning of the instance."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "FactAssertionScope",
+      "to": "FactInstanceSet",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Each fact instance belongs to an assertion scope that defines what counts as the same current-valued assertion."
+      ],
+      "audit_value": [
+        "Scope prevents supersession and current-tip logic from confusing similar facts that can coexist, such as W-2 wages from different employers or rental expenses for different properties."
+      ],
+      "notes": [
+        "Scope should use domain identity dimensions, not source record identity.",
+        "Examples include employer, payer, property, account, dependent, activity, period, taxpayer, jurisdiction, and tax year.",
+        "Source records belong in provenance so corrected documents can supersede prior facts in the same assertion scope."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "ProvenanceRecordSet",
+      "to": "FactInstanceSet",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Fact instances should be connected to provenance records that explain why the fact is believed and how it entered the run."
+      ],
+      "notes": [
+        "This replaces a hard requirement that fact instances directly contain `document_id`."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "FactInstanceSet",
+      "to": "FactCoverage",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Fact coverage evaluates the selected fact instances against expected or required fact needs for a run."
+      ],
+      "audit_value": [
+        "Shows present, missing, optional, unreviewed, conflicting, or superseded facts before return production."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "FactInstanceSet",
+      "to": "FactInstanceSet",
+      "types": ["audit"],
+      "origin": "documented",
+      "allow_self_reference": true,
+      "meaning": [
+        "Fact instances may reference prior fact instances with `supersedes_fact_instance_id`."
+      ],
+      "audit_value": [
+        "Supersession preserves correction history without introducing a separate ledger artifact."
+      ],
+      "notes": [
+        "Supersession should only link instances with the same `fact_id` and same assertion scope.",
+        "Supersession chains must not contain cycles.",
+        "The current tip for a scoped assertion can be computed as the instance not superseded by another instance in the same set."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "FactDefinitionCatalog",
+      "to": "FactAssertionScope",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Assertion scopes declare which identity dimensions apply to which fact definitions."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "FactDefinitionCatalog",
+      "to": "ProvenanceRecordSet",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Provenance records reference the fact definitions their evidence supports."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "FactTypeCatalog",
+      "to": "FactInstanceSet",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Fact instance values conform to the value shapes declared by fact types."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "SourceRecordSet",
+      "to": "FactInstanceSet",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Fact instances derive from the concrete source records that support them."
+      ],
+      "doc_layer": "fact"
+    },
+    {
+      "from": "FactDefinitionCatalog",
+      "to": "FactToReturnMapping",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Mappings must reference known fact definitions."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "FormDefinitionCatalog",
+      "to": "FactToReturnMapping",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Mappings must target known form, schedule, worksheet, field, or intermediate computation definitions."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "FactToReturnMapping",
+      "to": "MappingTrace",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "The mapping trace records which mapping definitions were applied to selected fact instances."
+      ],
+      "audit_value": [
+        "Explains why a fact did or did not feed a return field or computation input."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "FormDefinitionCatalog",
+      "to": "ComputationSpecCatalog",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Computation specs identify the form fields, schedule fields, worksheet fields, or intermediate outputs they produce."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "TaxParameterSet",
+      "to": "ComputationSpecCatalog",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Computation specs reference parameter sets used by tax-year computations."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "ComputationSpecCatalog",
+      "to": "ComputationTrace",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Computation trace records which computation specs ran, which inputs they used, which outputs they produced, and what blocked or changed execution."
+      ],
+      "audit_value": [
+        "Gives rule, parameter, implementation, and dependency context without requiring every algorithm step to be modeled as data."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "TaxParameterSet",
+      "to": "ComputationTrace",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Computation trace must record the parameter sets used for reproducibility and review."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "CrossFormBridge",
+      "to": "ComputationTrace",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Cross-form bridge definitions participate in schedule-to-return and form-to-form value flow."
+      ],
+      "audit_value": [
+        "Explains why a value moved from one form or schedule to another."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "FormDefinitionCatalog",
+      "to": "CrossFormBridge",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Cross-form bridges reference known form and schedule definitions on both ends of the flow."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "FactDefinitionCatalog",
+      "to": "ComputationSpecCatalog",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Computation specs declare consumed inputs against known fact definitions."
+      ],
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "CrossFormBridge",
+      "to": "FieldResolution",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Field resolution applies cross-form bridge flows when resolving dependent fields."
+      ],
+      "review_note": "Listed in the prior Emits only; confirm resolution reads bridges directly or only through computation trace.",
+      "doc_layer": "computation_definition"
+    },
+    {
+      "from": "FactCoverage",
+      "to": "MappingTrace",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Mapping can distinguish between available, missing, optional, or blocked facts when creating trace entries."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "MappingTrace",
+      "to": "ComputationTrace",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Computations consume mapped fact values and intermediate inputs."
+      ],
+      "audit_value": [
+        "Lets a reviewer trace from computation output back to mapped facts."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "MappingTrace",
+      "to": "FieldResolution",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Field resolution uses mapping trace to resolve direct fields and explain unavailable direct fields."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "ComputationTrace",
+      "to": "FieldResolution",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "Field resolution uses computation trace to resolve computed fields, blocked computed fields, and dependency chains."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "FactCoverage",
+      "to": "FieldResolution",
+      "types": ["audit"],
+      "origin": "documented",
+      "meaning": [
+        "Fact coverage explains missing or optional input conditions that appear in field resolution."
+      ],
+      "notes": [
+        "Field resolution should not need to duplicate the full fact coverage payload."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "ProvenanceRecordSet",
+      "to": "MappingTrace",
+      "types": ["audit"],
+      "origin": "documented",
+      "meaning": [
+        "Provenance records explain where mapped facts came from."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "ProvenanceRecordSet",
+      "to": "ComputationTrace",
+      "types": ["audit"],
+      "origin": "documented",
+      "meaning": [
+        "Provenance records allow computation outputs to trace back through input facts to source records or prior derivations."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "ProvenanceRecordSet",
+      "to": "FieldResolution",
+      "types": ["audit"],
+      "origin": "documented",
+      "meaning": [
+        "Field resolution can reference provenance so output fields remain explainable without embedding all source detail."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "FactInstanceSet",
+      "to": "MappingTrace",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "The mapping trace cannot be produced without the selected fact instances."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "FactInstanceSet",
+      "to": "ComputationTrace",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Computation trace records the fact instance inputs computations consumed."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "FactDefinitionCatalog",
+      "to": "FactCoverage",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Fact coverage evaluates expected and required facts against known fact definitions."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "ComputationSpecCatalog",
+      "to": "FactCoverage",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Fact coverage derives expected fact needs from computation spec input requirements."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "ProvenanceRecordSet",
+      "to": "FactCoverage",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Coverage review states derive from provenance record review context."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "FactAssertionScope",
+      "to": "FactCoverage",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Coverage conflict and supersession evaluation uses assertion scopes to group competing fact instances."
+      ],
+      "review_note": "Listed in the prior Emits only; confirm coverage reads scopes directly.",
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "FormDefinitionCatalog",
+      "to": "FieldResolution",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "Field resolution resolves outcomes for the fields declared by form definitions."
+      ],
+      "doc_layer": "run_trace"
+    },
+    {
+      "from": "FieldResolution",
+      "to": "ReturnInstance",
+      "types": ["production", "audit"],
+      "origin": "documented",
+      "meaning": [
+        "The return instance is assembled from resolved fields and tables."
+      ],
+      "audit_value": [
+        "Field resolution explains resolved, blocked, optional, overridden, suppressed, or unavailable output states."
+      ],
+      "doc_layer": "production"
+    },
+    {
+      "from": "ComputationTrace",
+      "to": "ReturnInstance",
+      "types": ["audit"],
+      "origin": "documented",
+      "meaning": [
+        "Computation trace explains how computed return values were produced."
+      ],
+      "notes": [
+        "The return instance should remain the produced return state. It should not need to embed the full computation trace."
+      ],
+      "doc_layer": "production"
+    },
+    {
+      "from": "FormDefinitionCatalog",
+      "to": "ReturnInstance",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "The return instance conforms to the form and field definitions for its tax year and jurisdiction."
+      ],
+      "doc_layer": "production"
+    },
+    {
+      "from": "ReturnInstance",
+      "to": "ReturnArtifact",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "The return artifact is a durable output package or normalized projection generated from the return instance."
+      ],
+      "doc_layer": "production"
+    },
+    {
+      "from": "ReturnInstance",
+      "to": "ProductRunSummary",
+      "types": ["production"],
+      "origin": "reconciled",
+      "meaning": [
+        "The run summary reports produced return state counts and status."
+      ],
+      "doc_layer": "production"
+    },
+    {
+      "from": "ReturnArtifact",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "documented",
+      "meaning": [
+        "Run manifest indexes the return artifact as one generated artifact of the run."
+      ],
+      "doc_layer": "production"
+    },
+    {
+      "from": "FactTypeCatalog",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "FactDefinitionCatalog",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "FactAssertionScope",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "SourceFamilyInventory",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "SourceMappingDefinition",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "FormDefinitionCatalog",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "FactToReturnMapping",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "CrossFormBridge",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "ComputationSpecCatalog",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "TaxParameterSet",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "ProductWorkspace",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "ProductContributionPayload",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "documented",
+      "manifest_index": true
+    },
+    {
+      "from": "ManualFactEntryBatch",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "SourceRecordSet",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "ProvenanceRecordSet",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "FactInstanceSet",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "FactCoverage",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "MappingTrace",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "ComputationTrace",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "FieldResolution",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    },
+    {
+      "from": "ReturnInstance",
+      "to": "RunManifest",
+      "types": ["production"],
+      "origin": "reconciled",
+      "manifest_index": true
+    }
+  ]
+}

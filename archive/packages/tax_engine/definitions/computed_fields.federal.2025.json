@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "tax_year": 2025,
+  "jurisdiction": "federal",
+  "computations": [
+    {
+      "computation_id": "irs.2025.f1040sb.line4.total_interest",
+      "destination_field_id": "irs.2025.f1040sb.line4",
+      "operation": "sum",
+      "input_field_ids": [
+        "irs.2025.f1040sb.part_i.interest_payers.interest_amount"
+      ]
+    },
+    {
+      "computation_id": "irs.2025.f1040.line2b.taxable_interest",
+      "destination_field_id": "irs.2025.f1040.line2b",
+      "operation": "copy",
+      "input_field_ids": [
+        "irs.2025.f1040sb.line4"
+      ]
+    }
+  ]
+}

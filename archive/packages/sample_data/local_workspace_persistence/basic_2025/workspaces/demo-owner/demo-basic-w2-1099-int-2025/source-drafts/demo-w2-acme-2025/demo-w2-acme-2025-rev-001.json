@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "source_document_id": "demo-w2-acme-2025",
+  "source_revision_id": "demo-w2-acme-2025-rev-001",
+  "document_type": "w2",
+  "tax_year": 2025,
+  "entered_at": "2026-01-15T12:00:00Z",
+  "label": "Demo W-2: Acme Robotics",
+  "field_values": [
+    {
+      "source_field_id": "w2.box1.wages",
+      "value": {
+        "amount": 8250000,
+        "currency": "USD",
+        "scale": 2
+      }
+    },
+    {
+      "source_field_id": "w2.box2.federal_income_tax_withheld",
+      "value": {
+        "amount": 1140000,
+        "currency": "USD",
+        "scale": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "source_document_id": "demo-w2-missing-wages-2025",
+  "source_revision_id": "demo-w2-missing-wages-2025-rev-001",
+  "document_type": "w2",
+  "tax_year": 2025,
+  "entered_at": "2026-01-17T12:00:00Z",
+  "label": "Demo W-2: Missing Wages",
+  "fields": [
+    {
+      "source_field_id": "w2.box1.wages",
+      "field_number": "1",
+      "label": "Wages, tips, other compensation",
+      "required": true,
+      "value": null
+    },
+    {
+      "source_field_id": "w2.box2.federal_income_tax_withheld",
+      "field_number": "2",
+      "label": "Federal income tax withheld",
+      "required": false,
+      "value": {
+        "amount": 1140000,
+        "currency": "USD",
+        "scale": 2
+      }
+    }
+  ]
+}

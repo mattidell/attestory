@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "demo-basic-w2-1099-int-2025-run-001",
+  "workspace_id": "demo-basic-w2-1099-int-2025",
+  "tax_year": 2025,
+  "jurisdiction": "federal",
+  "engine_version": "prototype",
+  "created_at": "2026-01-01T00:00:00Z",
+  "inputs": [
+    {
+      "artifact_type": "tax_workspace",
+      "path": "packages/sample_data/workspaces/basic_w2_1099_int_2025/workspace.json",
+      "media_type": "application/json"
+    },
+    {
+      "artifact_type": "source_document_draft",
+      "path": "packages/sample_data/source_document_drafts/w2_basic_draft.2025.json",
+      "media_type": "application/json"
+    },
+    {
+      "artifact_type": "source_document_draft",
+      "path": "packages/sample_data/source_document_drafts/1099_int_basic_draft.2025.json",
+      "media_type": "application/json"
+    }
+  ],
+  "outputs": [
+    {
+      "artifact_type": "normalized_source_documents",
+      "path": "packages/sample_data/workspaces/basic_w2_1099_int_2025/expected/normalized-source-documents.json",
+      "media_type": "application/json"
+    },
+    {
+      "artifact_type": "source_validation",
+      "path": "packages/sample_data/workspaces/basic_w2_1099_int_2025/expected/source-validation.json",
+      "media_type": "application/json"
+    },
+    {
+      "artifact_type": "field_coverage",
+      "path": "packages/sample_data/workspaces/basic_w2_1099_int_2025/expected/field-coverage.json",
+      "media_type": "application/json"
+    },
+    {
+      "artifact_type": "field_resolution",
+      "path": "packages/sample_data/workspaces/basic_w2_1099_int_2025/expected/field-resolution.json",
+      "media_type": "application/json"
+    },
+    {
+      "artifact_type": "return_artifact",
+      "path": "packages/sample_data/workspaces/basic_w2_1099_int_2025/expected/return-artifact.json",
+      "media_type": "application/json"
+    },
+    {
+      "artifact_type": "return_review_markdown",
+      "path": "packages/sample_data/workspaces/basic_w2_1099_int_2025/expected/return-artifact.md",
+      "media_type": "text/markdown"
+    },
+    {
+      "artifact_type": "field_coverage_markdown",
+      "path": "packages/sample_data/workspaces/basic_w2_1099_int_2025/expected/field-coverage.md",
+      "media_type": "text/markdown"
+    },
+    {
+      "artifact_type": "run_manifest",
+      "path": "packages/sample_data/workspaces/basic_w2_1099_int_2025/expected/run-manifest.json",
+      "media_type": "application/json"
+    }
+  ]
+}

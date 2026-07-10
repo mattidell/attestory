@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finances-app.local/schemas/product-run-summary.schema.json",
+  "title": "Product Run Summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "workspace_id",
+    "tax_year",
+    "created_at",
+    "completed_at",
+    "status",
+    "input_revision_refs",
+    "result_summary",
+    "detail_ref"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tax_year": {
+      "type": "integer",
+      "minimum": 2000
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["succeeded"]
+    },
+    "input_revision_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/inputRevisionRef"
+      }
+    },
+    "result_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validation_error_count",
+        "blocked_field_count",
+        "generated_artifact_count"
+      ],
+      "properties": {
+        "validation_error_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blocked_field_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "generated_artifact_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "detail_ref": {
+      "$ref": "#/$defs/artifactReference"
+    }
+  },
+  "$defs": {
+    "inputRevisionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["draft_id", "revision_id", "document_type"],
+      "properties": {
+        "draft_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "document_type": {
+          "type": "string",
+          "enum": ["w2", "1099-int"]
+        }
+      }
+    },
+    "artifactReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_type", "media_type", "uri"],
+      "properties": {
+        "artifact_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uri": {
+          "type": "string",
+          "minLength": 1,
+          "not": {
+            "pattern": "^/"
+          }
+        }
+      }
+    }
+  }
+}

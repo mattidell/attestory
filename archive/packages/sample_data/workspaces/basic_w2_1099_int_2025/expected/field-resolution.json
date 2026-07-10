@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0.0",
+  "tax_year": 2025,
+  "jurisdiction": "federal",
+  "fields": [
+    {
+      "field_id": "irs.2025.f1040.line1a",
+      "form_id": "irs.2025.f1040",
+      "label": "Form 1040 line 1a wages",
+      "required": true,
+      "population_mode": "direct",
+      "status": "resolved_direct",
+      "value": {
+        "amount": 8250000,
+        "currency": "USD",
+        "scale": 2
+      },
+      "values": [
+        {
+          "amount": 8250000,
+          "currency": "USD",
+          "scale": 2
+        }
+      ],
+      "dependency_field_ids": [],
+      "blocking_field_ids": [],
+      "source_attributions": [
+        {
+          "source_document_id": "demo-w2-acme-2025",
+          "source_revision_id": "demo-w2-acme-2025-rev-001",
+          "source_document_label": "Demo W-2: Acme Robotics",
+          "source_document_type": "w2",
+          "entered_at": "2026-01-15T12:00:00Z",
+          "source_field_number": "1",
+          "source_field_id": "w2.box1.wages",
+          "source_field_label": "Wages, tips, other compensation"
+        }
+      ]
+    },
+    {
+      "field_id": "irs.2025.f1040.line25a",
+      "form_id": "irs.2025.f1040",
+      "label": "Form 1040 line 25a federal income tax withheld from Forms W-2",
+      "required": false,
+      "population_mode": "direct",
+      "status": "resolved_direct",
+      "value": {
+        "amount": 1140000,
+        "currency": "USD",
+        "scale": 2
+      },
+      "values": [
+        {
+          "amount": 1140000,
+          "currency": "USD",
+          "scale": 2
+        }
+      ],
+      "dependency_field_ids": [],
+      "blocking_field_ids": [],
+      "source_attributions": [
+        {
+          "source_document_id": "demo-w2-acme-2025",
+          "source_revision_id": "demo-w2-acme-2025-rev-001",
+          "source_document_label": "Demo W-2: Acme Robotics",
+          "source_document_type": "w2",
+          "entered_at": "2026-01-15T12:00:00Z",
+          "source_field_number": "2",
+          "source_field_id": "w2.box2.federal_income_tax_withheld",
+          "source_field_label": "Federal income tax withheld"
+        }
+      ]
+    },
+    {
+      "field_id": "irs.2025.f1040.line25b",
+      "form_id": "irs.2025.f1040",
+      "label": "Form 1040 line 25b federal income tax withheld from Forms 1099",
+      "required": false,
+      "population_mode": "direct",
+      "status": "optional_not_populated",
+      "value": null,
+      "values": [],
+      "dependency_field_ids": [],
+      "blocking_field_ids": [],
+      "source_attributions": []
+    },
+    {
+      "field_id": "irs.2025.f1040sb.part_i.interest_payers.payer_name",
+      "form_id": "irs.2025.f1040sb",
+      "label": "Schedule B Part I interest payer name",
+      "required": true,
+      "population_mode": "direct",
+      "status": "resolved_direct",
+      "value": "Example Bank",
+      "values": [
+        "Example Bank"
+      ],
+      "dependency_field_ids": [],
+      "blocking_field_ids": [],
+      "source_attributions": [
+        {
+          "source_document_id": "demo-1099-int-example-bank-2025",
+          "source_revision_id": "demo-1099-int-example-bank-2025-rev-001",
+          "source_document_label": "Demo 1099-INT: Example Bank",
+          "source_document_type": "1099-int",
+          "entered_at": "2026-01-16T12:00:00Z",
+          "source_field_number": "payer",
+          "source_field_id": "1099_int.payer.name",
+          "source_field_label": "Payer name"
+        }
+      ]
+    },
+    {
+      "field_id": "irs.2025.f1040sb.part_i.interest_payers.interest_amount",
+      "form_id": "irs.2025.f1040sb",
+      "label": "Schedule B Part I interest amount",
+      "required": true,
+      "population_mode": "direct",
+      "status": "resolved_direct",
+      "value": {
+        "amount": 43210,
+        "currency": "USD",
+        "scale": 2
+      },
+      "values": [
+        {
+          "amount": 43210,
+          "currency": "USD",
+          "scale": 2
+        }
+      ],
+      "dependency_field_ids": [],
+      "blocking_field_ids": [],
+      "source_attributions": [
+        {
+          "source_document_id": "demo-1099-int-example-bank-2025",
+          "source_revision_id": "demo-1099-int-example-bank-2025-rev-001",
+          "source_document_label": "Demo 1099-INT: Example Bank",
+          "source_document_type": "1099-int",
+          "entered_at": "2026-01-16T12:00:00Z",
+          "source_field_number": "1",
+          "source_field_id": "1099_int.box1.interest_income",
+          "source_field_label": "Interest income"
+        }
+      ]
+    },
+    {
+      "field_id": "irs.2025.f1040sb.line4",
+      "form_id": "irs.2025.f1040sb",
+      "label": "Schedule B line 4 total interest",
+      "required": true,
+      "population_mode": "computed",
+      "status": "resolved_computed",
+      "value": {
+        "amount": 43210,
+        "currency": "USD",
+        "scale": 2
+      },
+      "values": [
+        {
+          "amount": 43210,
+          "currency": "USD",
+          "scale": 2
+        }
+      ],
+      "dependency_field_ids": [
+        "irs.2025.f1040sb.part_i.interest_payers.interest_amount"
+      ],
+      "blocking_field_ids": [],
+      "source_attributions": []
+    },
+    {
+      "field_id": "irs.2025.f1040.line2b",
+      "form_id": "irs.2025.f1040",
+      "label": "Form 1040 line 2b taxable interest",
+      "required": true,
+      "population_mode": "computed",
+      "status": "resolved_computed",
+      "value": {
+        "amount": 43210,
+        "currency": "USD",
+        "scale": 2
+      },
+      "values": [
+        {
+          "amount": 43210,
+          "currency": "USD",
+          "scale": 2
+        }
+      ],
+      "dependency_field_ids": [
+        "irs.2025.f1040sb.line4"
+      ],
+      "blocking_field_ids": [],
+      "source_attributions": []
+    }
+  ]
+}

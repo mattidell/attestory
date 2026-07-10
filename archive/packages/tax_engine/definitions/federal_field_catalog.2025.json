@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "tax_year": 2025,
+  "jurisdiction": "federal",
+  "fields": [
+    {
+      "field_id": "irs.2025.f1040.line1a",
+      "form_id": "irs.2025.f1040",
+      "label": "Form 1040 line 1a wages",
+      "required": true,
+      "population_mode": "direct"
+    },
+    {
+      "field_id": "irs.2025.f1040.line25a",
+      "form_id": "irs.2025.f1040",
+      "label": "Form 1040 line 25a federal income tax withheld from Forms W-2",
+      "required": false,
+      "population_mode": "direct"
+    },
+    {
+      "field_id": "irs.2025.f1040.line25b",
+      "form_id": "irs.2025.f1040",
+      "label": "Form 1040 line 25b federal income tax withheld from Forms 1099",
+      "required": false,
+      "population_mode": "direct"
+    },
+    {
+      "field_id": "irs.2025.f1040sb.part_i.interest_payers.payer_name",
+      "form_id": "irs.2025.f1040sb",
+      "label": "Schedule B Part I interest payer name",
+      "required": true,
+      "population_mode": "direct"
+    },
+    {
+      "field_id": "irs.2025.f1040sb.part_i.interest_payers.interest_amount",
+      "form_id": "irs.2025.f1040sb",
+      "label": "Schedule B Part I interest amount",
+      "required": true,
+      "population_mode": "direct"
+    },
+    {
+      "field_id": "irs.2025.f1040sb.line4",
+      "form_id": "irs.2025.f1040sb",
+      "label": "Schedule B line 4 total interest",
+      "required": true,
+      "population_mode": "computed"
+    },
+    {
+      "field_id": "irs.2025.f1040.line2b",
+      "form_id": "irs.2025.f1040",
+      "label": "Form 1040 line 2b taxable interest",
+      "required": true,
+      "population_mode": "computed"
+    }
+  ]
+}

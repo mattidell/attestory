@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0.0",
+  "tax_year": 2025,
+  "jurisdiction": "federal",
+  "forms": [
+    {
+      "form_id": "irs.2025.f1040",
+      "fields": [
+        {
+          "field_id": "irs.2025.f1040.line1a",
+          "label": "Form 1040 line 1a wages",
+          "status": "resolved_direct",
+          "value": {
+            "amount": 8250000,
+            "currency": "USD",
+            "scale": 2
+          },
+          "values": [
+            {
+              "amount": 8250000,
+              "currency": "USD",
+              "scale": 2
+            }
+          ]
+        },
+        {
+          "field_id": "irs.2025.f1040.line25a",
+          "label": "Form 1040 line 25a federal income tax withheld from Forms W-2",
+          "status": "resolved_direct",
+          "value": {
+            "amount": 1140000,
+            "currency": "USD",
+            "scale": 2
+          },
+          "values": [
+            {
+              "amount": 1140000,
+              "currency": "USD",
+              "scale": 2
+            }
+          ]
+        },
+        {
+          "field_id": "irs.2025.f1040.line2b",
+          "label": "Form 1040 line 2b taxable interest",
+          "status": "resolved_computed",
+          "value": {
+            "amount": 43210,
+            "currency": "USD",
+            "scale": 2
+          },
+          "values": [
+            {
+              "amount": 43210,
+              "currency": "USD",
+              "scale": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "form_id": "irs.2025.f1040sb",
+      "fields": [
+        {
+          "field_id": "irs.2025.f1040sb.part_i.interest_payers.payer_name",
+          "label": "Schedule B Part I interest payer name",
+          "status": "resolved_direct",
+          "value": "Example Bank",
+          "values": [
+            "Example Bank"
+          ]
+        },
+        {
+          "field_id": "irs.2025.f1040sb.part_i.interest_payers.interest_amount",
+          "label": "Schedule B Part I interest amount",
+          "status": "resolved_direct",
+          "value": {
+            "amount": 43210,
+            "currency": "USD",
+            "scale": 2
+          },
+          "values": [
+            {
+              "amount": 43210,
+              "currency": "USD",
+              "scale": 2
+            }
+          ]
+        },
+        {
+          "field_id": "irs.2025.f1040sb.line4",
+          "label": "Schedule B line 4 total interest",
+          "status": "resolved_computed",
+          "value": {
+            "amount": 43210,
+            "currency": "USD",
+            "scale": 2
+          },
+          "values": [
+            {
+              "amount": 43210,
+              "currency": "USD",
+              "scale": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "resolution_summary": {
+    "field_count": 7,
+    "status_counts": {
+      "resolved_direct": 4,
+      "optional_not_populated": 1,
+      "resolved_computed": 2
+    },
+    "form_counts": {
+      "irs.2025.f1040": {
+        "resolved_direct": 2,
+        "optional_not_populated": 1,
+        "resolved_computed": 1
+      },
+      "irs.2025.f1040sb": {
+        "resolved_direct": 2,
+        "resolved_computed": 1
+      }
+    },
+    "blocked_fields": [],
+    "optional_unpopulated_fields": [
+      {
+        "field_id": "irs.2025.f1040.line25b",
+        "form_id": "irs.2025.f1040",
+        "label": "Form 1040 line 25b federal income tax withheld from Forms 1099",
+        "status": "optional_not_populated",
+        "blocking_field_ids": []
+      }
+    ]
+  }
+}

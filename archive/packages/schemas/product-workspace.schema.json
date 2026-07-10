@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finances-app.local/schemas/product-workspace.schema.json",
+  "title": "Product Workspace",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "owner_id",
+    "workspace_id",
+    "tax_year",
+    "jurisdictions",
+    "data_classification",
+    "source_drafts"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "owner_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tax_year": {
+      "type": "integer",
+      "minimum": 2000
+    },
+    "jurisdictions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["federal"]
+      }
+    },
+    "data_classification": {
+      "type": "string",
+      "enum": ["synthetic_demo"]
+    },
+    "source_drafts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sourceDraft"
+      }
+    }
+  },
+  "$defs": {
+    "sourceDraft": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "draft_id",
+        "document_type",
+        "revision_id",
+        "status",
+        "label",
+        "uri"
+      ],
+      "properties": {
+        "draft_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "document_type": {
+          "type": "string",
+          "enum": ["w2", "1099-int"]
+        },
+        "revision_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "archived"]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uri": {
+          "type": "string",
+          "minLength": 1,
+          "not": {
+            "pattern": "^/"
+          }
+        }
+      }
+    }
+  }
+}

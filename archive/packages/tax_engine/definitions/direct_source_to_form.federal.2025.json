@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "tax_year": 2025,
+  "jurisdiction": "federal",
+  "mappings": [
+    {
+      "mapping_id": "direct.w2.box1.to.f1040.line1a",
+      "source_document_type": "w2",
+      "source_field_id": "w2.box1.wages",
+      "destination_field_id": "irs.2025.f1040.line1a",
+      "destination_form_id": "irs.2025.f1040",
+      "destination_label": "Form 1040 line 1a wages"
+    },
+    {
+      "mapping_id": "direct.w2.box2.to.f1040.line25a",
+      "source_document_type": "w2",
+      "source_field_id": "w2.box2.federal_income_tax_withheld",
+      "destination_field_id": "irs.2025.f1040.line25a",
+      "destination_form_id": "irs.2025.f1040",
+      "destination_label": "Form 1040 line 25a federal income tax withheld from Forms W-2"
+    },
+    {
+      "mapping_id": "direct.1099_int.payer.to.schedule_b.interest_payer_name",
+      "source_document_type": "1099-int",
+      "source_field_id": "1099_int.payer.name",
+      "destination_field_id": "irs.2025.f1040sb.part_i.interest_payers.payer_name",
+      "destination_form_id": "irs.2025.f1040sb",
+      "destination_label": "Schedule B Part I interest payer name"
+    },
+    {
+      "mapping_id": "direct.1099_int.box1.to.schedule_b.interest_amount",
+      "source_document_type": "1099-int",
+      "source_field_id": "1099_int.box1.interest_income",
+      "destination_field_id": "irs.2025.f1040sb.part_i.interest_payers.interest_amount",
+      "destination_form_id": "irs.2025.f1040sb",
+      "destination_label": "Schedule B Part I interest amount"
+    },
+    {
+      "mapping_id": "direct.1099_int.box4.to.f1040.line25b",
+      "source_document_type": "1099-int",
+      "source_field_id": "1099_int.box4.federal_income_tax_withheld",
+      "destination_field_id": "irs.2025.f1040.line25b",
+      "destination_form_id": "irs.2025.f1040",
+      "destination_label": "Form 1040 line 25b federal income tax withheld from Forms 1099"
+    }
+  ]
+}

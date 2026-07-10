@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "owner_id": "demo-owner",
+  "workspace_id": "demo-basic-w2-1099-int-2025",
+  "tax_year": 2025,
+  "jurisdictions": ["federal"],
+  "data_classification": "synthetic_demo",
+  "source_drafts": [
+    {
+      "draft_id": "demo-w2-acme-2025",
+      "document_type": "w2",
+      "revision_id": "demo-w2-acme-2025-rev-001",
+      "status": "active",
+      "label": "Demo W-2: Acme Robotics",
+      "uri": "packages/sample_data/source_document_drafts/w2_basic_draft.2025.json"
+    },
+    {
+      "draft_id": "demo-1099-int-example-bank-2025",
+      "document_type": "1099-int",
+      "revision_id": "demo-1099-int-example-bank-2025-rev-001",
+      "status": "active",
+      "label": "Demo 1099-INT: Example Bank",
+      "uri": "packages/sample_data/source_document_drafts/1099_int_basic_draft.2025.json"
+    }
+  ]
+}

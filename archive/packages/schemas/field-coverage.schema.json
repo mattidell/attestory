@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finances-app.local/schemas/field-coverage.schema.json",
+  "title": "Field Coverage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "tax_year",
+    "jurisdiction",
+    "fields"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "tax_year": {
+      "type": "integer",
+      "minimum": 2000
+    },
+    "jurisdiction": {
+      "type": "string",
+      "const": "federal"
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/coverageField"
+      }
+    }
+  },
+  "$defs": {
+    "coverageField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_id",
+        "form_id",
+        "label",
+        "required",
+        "population_mode",
+        "status",
+        "values",
+        "source_attributions",
+        "needed_source_field_ids"
+      ],
+      "properties": {
+        "field_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "form_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "population_mode": {
+          "type": "string",
+          "enum": ["direct", "computed", "optional"]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "directly_populated",
+            "requires_computation",
+            "missing_required_source_data",
+            "optional_not_populated"
+          ]
+        },
+        "values": {
+          "type": "array"
+        },
+        "source_attributions": {
+          "type": "array"
+        },
+        "needed_source_field_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finances-app.local/schemas/return-artifact.schema.json",
+  "title": "Return Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "tax_year",
+    "jurisdiction",
+    "forms",
+    "resolution_summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "tax_year": {
+      "type": "integer",
+      "minimum": 2000
+    },
+    "jurisdiction": {
+      "type": "string",
+      "const": "federal"
+    },
+    "forms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/returnForm"
+      }
+    },
+    "resolution_summary": {
+      "$ref": "#/$defs/resolutionSummary"
+    }
+  },
+  "$defs": {
+    "returnForm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["form_id", "fields"],
+      "properties": {
+        "form_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/returnField"
+          }
+        }
+      }
+    },
+    "returnField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_id",
+        "label",
+        "status",
+        "value",
+        "values"
+      ],
+      "properties": {
+        "field_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": ["resolved_direct", "resolved_computed"]
+        },
+        "value": {
+          "oneOf": [
+            { "$ref": "#/$defs/moneyValue" },
+            { "type": "string" },
+            { "type": "boolean" },
+            { "type": "null" }
+          ]
+        },
+        "values": {
+          "type": "array"
+        }
+      }
+    },
+    "resolutionSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_count",
+        "status_counts",
+        "form_counts",
+        "blocked_fields",
+        "optional_unpopulated_fields"
+      ],
+      "properties": {
+        "field_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status_counts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "form_counts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "blocked_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/summaryField"
+          }
+        },
+        "optional_unpopulated_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/summaryField"
+          }
+        }
+      }
+    },
+    "summaryField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_id",
+        "form_id",
+        "label",
+        "status",
+        "blocking_field_ids"
+      ],
+      "properties": {
+        "field_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "form_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "blocked_missing_source",
+            "blocked_missing_computation",
+            "optional_not_populated"
+          ]
+        },
+        "blocking_field_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "moneyValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "currency", "scale"],
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string",
+          "const": "USD"
+        },
+        "scale": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

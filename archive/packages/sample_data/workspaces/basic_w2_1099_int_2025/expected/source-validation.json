@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "documents": [
+    {
+      "source_document_id": "demo-w2-acme-2025",
+      "source_revision_id": "demo-w2-acme-2025-rev-001",
+      "document_type": "w2",
+      "label": "Demo W-2: Acme Robotics",
+      "missing_required_fields": [],
+      "valid": true
+    },
+    {
+      "source_document_id": "demo-1099-int-example-bank-2025",
+      "source_revision_id": "demo-1099-int-example-bank-2025-rev-001",
+      "document_type": "1099-int",
+      "label": "Demo 1099-INT: Example Bank",
+      "missing_required_fields": [],
+      "valid": true
+    }
+  ],
+  "valid": true
+}

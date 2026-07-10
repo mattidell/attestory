@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finances-app.local/schemas/computed-field-definitions.schema.json",
+  "title": "Computed Field Definitions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "tax_year",
+    "jurisdiction",
+    "computations"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "tax_year": {
+      "type": "integer",
+      "minimum": 2000
+    },
+    "jurisdiction": {
+      "type": "string",
+      "const": "federal"
+    },
+    "computations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/computation"
+      }
+    }
+  },
+  "$defs": {
+    "computation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "computation_id",
+        "destination_field_id",
+        "operation",
+        "input_field_ids"
+      ],
+      "properties": {
+        "computation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination_field_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["sum", "copy"]
+        },
+        "input_field_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

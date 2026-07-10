@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finances-app.local/schemas/direct-source-mapping.schema.json",
+  "title": "Direct Source Mapping",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "tax_year",
+    "jurisdiction",
+    "mappings"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "tax_year": {
+      "type": "integer",
+      "minimum": 2000
+    },
+    "jurisdiction": {
+      "type": "string",
+      "const": "federal"
+    },
+    "mappings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mapping"
+      }
+    }
+  },
+  "$defs": {
+    "mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mapping_id",
+        "source_document_type",
+        "source_field_id",
+        "destination_field_id",
+        "destination_form_id",
+        "destination_label"
+      ],
+      "properties": {
+        "mapping_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_document_type": {
+          "type": "string",
+          "enum": ["w2", "1099-int"]
+        },
+        "source_field_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination_field_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination_form_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination_label": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

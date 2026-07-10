@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "demo-basic-w2-1099-int-2025-run-001",
+  "workspace_id": "demo-basic-w2-1099-int-2025",
+  "tax_year": 2025,
+  "created_at": "2026-01-01T00:00:00Z",
+  "completed_at": "2026-01-01T00:00:02Z",
+  "status": "succeeded",
+  "input_revision_refs": [
+    {
+      "draft_id": "demo-w2-acme-2025",
+      "revision_id": "demo-w2-acme-2025-rev-001",
+      "document_type": "w2"
+    },
+    {
+      "draft_id": "demo-1099-int-example-bank-2025",
+      "revision_id": "demo-1099-int-example-bank-2025-rev-001",
+      "document_type": "1099-int"
+    }
+  ],
+  "result_summary": {
+    "validation_error_count": 0,
+    "blocked_field_count": 0,
+    "generated_artifact_count": 8
+  },
+  "detail_ref": {
+    "artifact_type": "product_run_detail",
+    "media_type": "application/json",
+    "uri": "runs/demo-basic-w2-1099-int-2025-run-001/product-run-detail.json"
+  }
+}

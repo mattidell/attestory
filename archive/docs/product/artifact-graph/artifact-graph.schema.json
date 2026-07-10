@@ -1,0 +1,309 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "artifact-graph.schema.json",
+  "title": "Artifact Graph Definition",
+  "description": "Canonical definition of the product artifact graph. The markdown documents under docs/product/artifact-graph/ are generated projections of this file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "title",
+    "intro",
+    "durability_classes",
+    "scope_note",
+    "durability_rule",
+    "edge_types",
+    "reproducibility_note",
+    "run_manifest_note",
+    "cross_flow_note",
+    "layers",
+    "nodes",
+    "edges"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "intro": {
+      "$ref": "#/$defs/paragraphs"
+    },
+    "durability_classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "description"],
+        "properties": {
+          "id": {
+            "enum": ["canonical", "run_snapshot"]
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "scope_note": {
+      "$ref": "#/$defs/paragraphs"
+    },
+    "durability_rule": {
+      "$ref": "#/$defs/paragraphs"
+    },
+    "edge_types": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "heading", "description"],
+        "properties": {
+          "id": {
+            "enum": ["production", "audit", "mixed"]
+          },
+          "heading": {
+            "type": "string"
+          },
+          "description": {
+            "$ref": "#/$defs/paragraphs"
+          },
+          "example": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["edge", "explanation"],
+            "properties": {
+              "edge": {
+                "type": "string"
+              },
+              "explanation": {
+                "$ref": "#/$defs/paragraphs"
+              }
+            }
+          },
+          "questions_intro": {
+            "type": "string"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "closing_note": {
+            "$ref": "#/$defs/paragraphs"
+          }
+        }
+      }
+    },
+    "reproducibility_note": {
+      "$ref": "#/$defs/paragraphs"
+    },
+    "run_manifest_note": {
+      "$ref": "#/$defs/paragraphs"
+    },
+    "cross_flow_note": {
+      "$ref": "#/$defs/paragraphs"
+    },
+    "layers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "doc_file", "description", "nodes"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "doc_file": {
+            "type": "string",
+            "pattern": "^artifact-graph-[a-z-]+\\.md$"
+          },
+          "description": {
+            "$ref": "#/$defs/paragraphs"
+          },
+          "nodes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/node_id"
+            }
+          }
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "layer",
+          "durability",
+          "category",
+          "purpose",
+          "boundary_owner",
+          "schema_status",
+          "manifest_role",
+          "personal_data_risk",
+          "commit_policy"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/node_id"
+          },
+          "layer": {
+            "type": "string"
+          },
+          "durability": {
+            "enum": ["canonical", "run_snapshot"]
+          },
+          "category": {
+            "enum": [
+              "product",
+              "input",
+              "fact",
+              "computation_definition",
+              "run_trace",
+              "production"
+            ]
+          },
+          "purpose": {
+            "$ref": "#/$defs/bullet_lines"
+          },
+          "boundary_owner": {
+            "$ref": "#/$defs/bullet_lines"
+          },
+          "schema_status": {
+            "enum": ["new_required", "revise_existing", "exists"]
+          },
+          "manifest_role": {
+            "enum": ["definition_input", "run_input", "run_output"]
+          },
+          "personal_data_risk": {
+            "enum": ["low", "medium", "high"]
+          },
+          "commit_policy": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "canonical_definition_allowed",
+                "synthetic_fixture_allowed",
+                "real_data_local_only"
+              ]
+            }
+          },
+          "frozen_by_run": {
+            "type": "boolean",
+            "description": "True only for run_snapshot artifacts that freeze contributed inputs (for example ProductRunPayload). Exempts the node from the run_input-implies-canonical durability rule."
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["title", "body"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Verbatim markdown lines rendered after the node entry."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "to", "types", "origin"],
+        "properties": {
+          "from": {
+            "$ref": "#/$defs/node_id"
+          },
+          "to": {
+            "$ref": "#/$defs/node_id"
+          },
+          "types": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": ["production", "audit"]
+            }
+          },
+          "origin": {
+            "enum": ["documented", "reconciled"],
+            "description": "documented: carried verbatim from the hand-written layer docs. reconciled: recovered from Consumes/Emits lists or diagrams during the F4 extraction; prose was newly written and should be reviewed."
+          },
+          "meaning": {
+            "$ref": "#/$defs/bullet_lines"
+          },
+          "audit_value": {
+            "$ref": "#/$defs/bullet_lines"
+          },
+          "notes": {
+            "$ref": "#/$defs/bullet_lines"
+          },
+          "doc_layer": {
+            "type": "string",
+            "description": "Layer document in which this edge is rendered. Defaults to the target node's layer."
+          },
+          "manifest_index": {
+            "type": "boolean",
+            "description": "True for the implicit everything-feeds-RunManifest index edges. Rendered only through RunManifest's Consumes list, not as core edges."
+          },
+          "allow_self_reference": {
+            "type": "boolean",
+            "description": "Permits from == to. Only valid for audit-only edges (for example fact supersession)."
+          },
+          "review_note": {
+            "type": "string",
+            "description": "Open question about this edge recorded during extraction. Not rendered; resolve by editing the edge."
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "node_id": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Za-z0-9]*$"
+    },
+    "paragraphs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "bullet_lines": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

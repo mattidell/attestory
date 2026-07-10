@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "source_document_id": "demo-1099-int-example-bank-2025",
+  "source_revision_id": "demo-1099-int-example-bank-2025-rev-001",
+  "document_type": "1099-int",
+  "tax_year": 2025,
+  "entered_at": "2026-01-16T12:00:00Z",
+  "label": "Demo 1099-INT: Example Bank",
+  "field_values": [
+    {
+      "source_field_id": "1099_int.payer.name",
+      "value": "Example Bank"
+    },
+    {
+      "source_field_id": "1099_int.box1.interest_income",
+      "value": {
+        "amount": 43210,
+        "currency": "USD",
+        "scale": 2
+      }
+    }
+  ]
+}
