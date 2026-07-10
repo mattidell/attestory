@@ -12,3 +12,7 @@ Both seats are unstarved: a fresh agent told to resume this project will be disp
 ## After both reviews
 
 Foreman conformance-checks the reviews, logs incidents, and presents the owner disposition: amend charter / approve charter and open the it1 builder seat.
+
+## Delta confirmation (owner disposition 2026-07-10: amend all + delta-confirm)
+
+The charter was amended to v2 incorporating all ten findings. The **adversary seat reopens for a bounded delta-confirmation**: read `charter-it1.md` v2 and your own `round-0-adversary.md`; for each of your seven required amendments, confirm the v2 text closes it or state precisely what remains open. This is not a fresh attack round — new attacks belong to round 1. Output: `round-0-adversary-delta.md` with per-finding confirmed/open status and a closing line either withdrawing or maintaining your dissent. The builder seat opens on withdrawal (or on owner override if dissent is maintained).
