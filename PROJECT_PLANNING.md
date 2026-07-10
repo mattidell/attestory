@@ -31,6 +31,29 @@ The project is early. The owner's stated posture, which planning and execution s
 
 This posture coexists with the milestone protocol below: planning discipline governs how work is built; the posture governs how finished work is judged and, when necessary, unwound.
 
+## Prototype-Driven Decisions
+
+Audience: Shared
+
+Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or a Tier 2 ADR that fixes a contract future content or surfaces will be authored against (a *contract-foundational* decision), must cite a **prototype evaluation analysis** as evidence. An ADR whose central design element is a placeholder is not ready to propose. Exceptions (trivially reversible decisions, or decisions forced by an external constraint) must say so in the ADR.
+
+**Authorization.** Agents are pre-authorized to build prototypes before proposing such ADRs. Prototyping is the expected first move when a consequential contract is undesigned — do not ask permission to start one.
+
+**The loop.** Each prototype iteration runs:
+
+1. **Charter** — declare the questions this iteration must answer and the fixtures or edge cases in scope. Fixture selection is itself reviewed: the charter names the classes of case the design must survive, drawn from real content and prior-iteration lessons.
+2. **Build** — implement on a prototype branch.
+3. **Examine** — record the contracts that emerged and the implementation results against the charter's questions.
+4. **Committee review** — multiple reviewers with distinct charters (see below).
+5. **Disposition** — enumerate the questions that remain; decide whether to iterate (new charter: more fixtures, edge cases, or a rival design) or to conclude.
+6. Repeat until the reviewers agree the evidence suffices. Then write the **prototype evaluation analysis** — what was built, what questions were asked and answered, what evidence supports each conclusion, what dissent remains — and only then draft the ADR, citing it.
+
+**Committee.** At least two reviewers besides the builder, with distinct review charters — for example: contract fidelity against the governance set; implementation results and expressiveness against the charter's fixtures; fresh-reader legibility (can a reader recover the meaning from the artifact alone?). The owner's disposition closes each round. Dissent is recorded in the round's review notes, never resolved by wordsmithing; unresolved dissent is cited in the ADR.
+
+**Termination.** Every iteration opens with declared questions. An iteration that resolves no new questions forces a stop-and-decide. Default cap: three iterations before an owner check-in.
+
+**Artifacts.** `docs/prototypes/<topic>/` holds charters, iteration examinations, committee review notes, and the final evaluation analysis — these merge to `main`. Prototype code lives on maintained branches named `prototype/<topic>/it<N>`; prototype branches are evidence exhibits — never merged to `main`, never deleted.
+
 ## Canonical Meta Documents
 
 Canonical project implementation meta documents live at the repository root and use all-caps filenames.

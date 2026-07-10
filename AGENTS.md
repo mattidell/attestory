@@ -64,6 +64,11 @@ High-level requirements:
 
 Use ADRs for architectural changes, boundary decisions, contract commitments, and decisions that shape future implementation.
 
+Prototype evidence rules (see `PROJECT_PLANNING.md`, Prototype-Driven Decisions):
+- Tier 3 ADRs and contract-foundational Tier 2 ADRs require a prototype evaluation analysis as cited evidence. Do not propose an ADR whose central design element is still a placeholder.
+- You are authorized to build prototypes before proposing such ADRs — do not ask permission. Keep prototype code on `prototype/<topic>/it<N>` branches; never merge it to `main`; never delete those branches. Only the documents under `docs/prototypes/<topic>/` merge.
+- A decision that shapes all future content (for example, the language tax rules are written in) is Tier 3, not a contracts line-item in a milestone plan. It gets the prototype process and its own ratification.
+
 ADR location and naming:
 - Store ADRs under `docs/adr/`.
 - Use numbered kebab-case filenames, for example `0001-rule-artifacts-are-versioned.md`.
