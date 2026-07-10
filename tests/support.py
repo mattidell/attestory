@@ -105,3 +105,42 @@ def act(index: int, kind: str, payload: dict[str, Any]) -> dict[str, Any]:
 
 def demo_entity(entity_id: str, label: str, kind: str = "demo.counterparty") -> dict[str, Any]:
     return {"schema": "entity.v1", "id": entity_id, "kind": kind, "label": label}
+
+
+def demo_evidence(
+    evidence_id: str = "demo-evidence-001",
+    label: str = "Demo statement",
+    content: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    return {
+        "schema": "evidence.v1",
+        "id": evidence_id,
+        "kind": "demo.statement",
+        "label": label,
+        "content": content if content is not None else {"amount": 1200},
+    }
+
+
+def demo_payment_fact_id(counterparty_id: str = "demo-corp-a") -> str:
+    return f"demo.counterparty-payment|counterparty={counterparty_id},period=2025"
+
+
+def demo_finding(
+    finding_id: str = "demo-finding-001",
+    fact_id: str | None = None,
+    value: Any = 1200,
+    evidence_ids: list[str] | None = None,
+    basis: str = "documentary",
+) -> dict[str, Any]:
+    return {
+        "schema": "finding.v1",
+        "id": finding_id,
+        "fact_id": fact_id if fact_id is not None else demo_payment_fact_id(),
+        "value": value,
+        "basis": basis,
+        "evidence_ids": evidence_ids if evidence_ids is not None else ["demo-evidence-001"],
+        "capture": {
+            "presented": {"value": value, "basis": basis},
+            "asserted": {"value": value, "basis": basis},
+        },
+    }

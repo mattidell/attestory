@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-evidence-replaced.v1",
+  "title": "Evidence replacement act payload",
+  "description": "Supersedes an evidence citizen, optionally with a successor (the corrected copy). Omitting the replacement is withdrawal. Either way, findings grounded on the old evidence keep their content and identity; only their evidentiary standing changes (Article 1).",
+  "type": "object",
+  "properties": {
+    "evidence_id": { "type": "string", "minLength": 1 },
+    "replacement": {
+      "type": "object",
+      "properties": { "schema": { "const": "evidence.v1" } },
+      "required": ["schema"]
+    }
+  },
+  "required": ["evidence_id"],
+  "additionalProperties": false
+}
