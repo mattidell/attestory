@@ -18,7 +18,7 @@ Round 1 — review of the it1 build. The build is complete (branch `prototypes/r
 | Reviewer: governance | `roles/reviewer-governance.md` | — | **open now** (round 1: `reviews/round-1.md`) |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | **open now** (round 1: `reviews/round-1.md`) |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | — | **owner-launch now** (round 1 launch line in `reviews/round-1.md`, Legibility scope) |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | codex (resume session, 2026-07-10) | complete (round 0 delta-confirmation: `reviews/round-0-adversary-delta.md`) |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | — | **open now** (round 1: `reviews/round-1.md`; round-0 work complete: `reviews/round-0-adversary.md`, `-delta.md`) |
 
 ## Next action
 
