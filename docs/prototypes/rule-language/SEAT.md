@@ -6,7 +6,7 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Track 1 — evidence harvest and fixture charter. Foreman is producing `harvest-notes.md` and `charter-it1.md`. Next disposition: committee review of the charter.
+Round 0 — charter review. `harvest-notes.md` and `charter-it1.md` are committed; the charter is the artifact under review (see `reviews/round-0.md`). Two seats are open **now**: governance reviewer and adversary. A fresh agent resuming this project takes whichever of those two seats is still unfilled, per its role file, scoped as round-0 directs. When both reviews exist, the foreman conformance-checks them and presents the owner disposition.
 
 ## Seats
 
@@ -15,14 +15,14 @@ Track 1 — evidence harvest and fixture charter. Foreman is producing `harvest-
 | Foreman | `roles/foreman.md` | claude (session lineage of milestone planning, 2026-07-10) | active |
 | Builder it1 | `roles/builder.md` | — | not yet open (opens after charter disposition) |
 | Rival builder | `roles/builder-rival.md` | — | not yet open (starved seat; launch line in role file) |
-| Reviewer: governance | `roles/reviewer-governance.md` | — | next: charter review (see below) |
+| Reviewer: governance | `roles/reviewer-governance.md` | — | **open now** (round 0, charter review) |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | not yet open (needs artifacts) |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | — | not yet open (starved seat; launch line in role file) |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | — | next: charter review (see below) |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | — | **open now** (round 0, charter review) |
 
 ## Next action
 
-When `charter-it1.md` is committed: charter review round. The charter (not code) is the artifact under review — governance reviewer checks it against the governance set and milestone plan; adversary attacks its coverage (attack surface 1 applies to charters directly). Round stub: `reviews/round-0.md`. Owner disposition follows.
+Fill the two open round-0 seats (fresh sessions; generic resumption dispatches here). Then: foreman conformance check → owner disposition (amend charter, or approve and open the it1 builder seat).
 
 ## Evidence exhibits
 
