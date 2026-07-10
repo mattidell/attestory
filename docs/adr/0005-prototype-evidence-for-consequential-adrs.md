@@ -28,6 +28,10 @@ The Prototype-Driven Decisions process defined in `PROJECT_PLANNING.md` governs 
 - The repository accumulates maintained prototype branches and `docs/prototypes/` document sets as a permanent evidence record.
 - The process is itself under evaluation: the first run (Rule Language Design) treats the process as a retrospective subject, and this ADR may be amended by a superseding ADR as lessons accumulate.
 
+## Amendment (2026-07-10) — Exhibit tags
+
+Point 8's "never merged, never deleted" branch rule created standing branch sprawl (one permanent ref per iteration), against the owner's worktree/branch-hygiene posture. Amended mechanics, owner-directed: a prototype branch exists only while its iteration is active; on conclusion the foreman tags the tip as `exhibits/<topic>/it<N>` and deletes the branch ref. Evidence preservation is unchanged — commits are permanent and cited by tag; exhibit tags are never deleted or moved. The decision content (prototype code never merges; only documents merge; evidence chains cite exhibits) is unchanged.
+
 ## Erratum (2026-07-10)
 
 Minutes after ratification, the branch namespace was corrected from `prototype/<topic>/it<N>` to `prototypes/<topic>/it<N>`: the ref `refs/heads/prototype` already exists (the project's original real-data prototype branch, which is never touched), and git cannot nest a namespace under an existing branch name. Editorial correction only; no decision content changed.
