@@ -23,6 +23,7 @@ The owner's development posture is defined in `PROJECT_PLANNING.md` (Development
 - **Worktree and branch hygiene.** Keep open worktrees to a minimum. Remove worktrees that are clean and no longer needed, including stale ones left by other agents. Delete merged milestone and continuation branches after confirming their commits are reachable from `main`. Do not leave uncommitted work in a worktree at hand-off: commit it, snapshot it, or discard it and say so.
 - **Hand-offs.** If you resume another agent's interrupted work, say so in the retrospective, note what you adopted versus reworked, and leave the tree clean for the next agent.
 - **Review records.** Critical reviews of merged work live under `docs/reviews/` with dated filenames. A review is advisory: the owner decides whether to act, ignore, or snapshot-and-reset.
+- **Prototype-process dispatch.** If the active milestone (per `docs/phase-state.md`) is a prototype-process milestone, do not start working generally: read the seat file (`docs/prototypes/<topic>/SEAT.md`) and take the seat it assigns, under that seat's role charter. Do not self-assign the foreman seat unless the seat file marks it vacant; record any succession in the process log. Context-starved seats are never taken by generic resumption — they are launched by the owner with the role file's launch line.
 
 ## Development Priorities
 

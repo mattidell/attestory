@@ -2,7 +2,9 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: planned; execution pending owner go after process regroup.
+Status: in execution (owner go 2026-07-10). Execution state lives in `docs/prototypes/rule-language/SEAT.md`.
+
+Protocol deviation, declared: the milestone-execution-branch protocol does not apply here. This milestone's deliverables are documents that must be continuously visible on `main` for seat dispatch (seat file, process log, charters, reviews), so document commits land on `main` directly; prototype code lands only on `prototypes/rule-language/it<N>` branches and never merges.
 
 ## Objective
 
