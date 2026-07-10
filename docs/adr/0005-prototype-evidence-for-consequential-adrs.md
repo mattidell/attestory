@@ -19,7 +19,7 @@ The Prototype-Driven Decisions process defined in `PROJECT_PLANNING.md` governs 
 5. Roles are separated: builder ≠ reviewers ≠ foreman; no one reviews artifacts produced under their own charter.
 6. Evidence must include at least one rival design on the same fixtures before the committee may conclude, or an explicit argument why comparison was unnecessary.
 7. Termination is disciplined: declared questions per iteration, stop-and-decide on no-new-questions, three-iteration default cap, owner kill at any disposition.
-8. Prototype branches (`prototype/<topic>/it<N>`) are maintained evidence exhibits — never merged, never deleted. Only documents merge to `main`. Every analysis conclusion cites a followable exhibit; a broken evidence chain sends the ADR back.
+8. Prototype branches (`prototypes/<topic>/it<N>`) are maintained evidence exhibits — never merged, never deleted. Only documents merge to `main`. Every analysis conclusion cites a followable exhibit; a broken evidence chain sends the ADR back.
 
 ## Consequences
 
@@ -27,6 +27,10 @@ The Prototype-Driven Decisions process defined in `PROJECT_PLANNING.md` governs 
 - Decision latency for consequential contracts increases by design; the cost is paid in prototype iterations rather than in rework of ratified mistakes.
 - The repository accumulates maintained prototype branches and `docs/prototypes/` document sets as a permanent evidence record.
 - The process is itself under evaluation: the first run (Rule Language Design) treats the process as a retrospective subject, and this ADR may be amended by a superseding ADR as lessons accumulate.
+
+## Erratum (2026-07-10)
+
+Minutes after ratification, the branch namespace was corrected from `prototype/<topic>/it<N>` to `prototypes/<topic>/it<N>`: the ref `refs/heads/prototype` already exists (the project's original real-data prototype branch, which is never touched), and git cannot nest a namespace under an existing branch name. Editorial correction only; no decision content changed.
 
 ## Links
 

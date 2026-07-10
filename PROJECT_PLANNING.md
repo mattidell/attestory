@@ -58,7 +58,7 @@ Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or 
 
 **Termination.** Every iteration opens with declared questions. An iteration that resolves no new questions forces a stop-and-decide. Default cap: three iterations before an owner check-in. The owner may kill the effort at any disposition point; a killed prototype is snapshotted like any other abandoned work.
 
-**Artifacts.** `docs/prototypes/<topic>/` holds charters, iteration examinations, committee review notes, and the final evaluation analysis — these merge to `main`. Prototype code lives on maintained branches named `prototype/<topic>/it<N>`; prototype branches are evidence exhibits — never merged to `main`, never deleted.
+**Artifacts.** `docs/prototypes/<topic>/` holds charters, iteration examinations, committee review notes, and the final evaluation analysis — these merge to `main`. Prototype code lives on maintained branches named `prototypes/<topic>/it<N>`; prototype branches are evidence exhibits — never merged to `main`, never deleted.
 
 **Traceability.** Every conclusion in the evaluation analysis cites a specific exhibit — a drafted artifact at a path on a named prototype branch, a recorded test result, a review note. A conclusion the reader cannot follow to its exhibit is not evidence and does not support an ADR. The same rule flows downstream: the ADR cites the analysis, the analysis cites exhibits, and a break anywhere in that chain is grounds to send the ADR back.
 

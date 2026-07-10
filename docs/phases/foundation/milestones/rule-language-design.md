@@ -40,7 +40,7 @@ What is the rule artifact's operation vocabulary and expression encoding? Candid
 ## Contracts
 
 - `docs/prototypes/rule-language/` document set: charters, iteration examinations, committee review notes, evaluation analysis.
-- `prototype/rule-language/it<N>` branches: maintained evidence exhibits, never merged.
+- `prototypes/rule-language/it<N>` branches: maintained evidence exhibits, never merged.
 - Successor ADRs (0005+) citing the evaluation analysis.
 
 ## Fixtures
@@ -74,7 +74,7 @@ Verification: committee reviews the charter before any building (fixture selecti
 ### Track 2 — Prototype iteration(s)
 
 Goal: candidate encoding(s) with charter rules drafted in full and a throwaway evaluator proving expressiveness and purity. Per the rivals rule, the effort does not conclude on a single design: expect a second iteration to build a genuinely different encoding on the same fixture charter.
-Outputs: `prototype/rule-language/it<N>` branch(es); examination notes per iteration.
+Outputs: `prototypes/rule-language/it<N>` branch(es); examination notes per iteration.
 Verification: evaluator runs on the prototype branch; examination answers the charter's questions or records why not.
 
 ### Track 3 — Committee review rounds
