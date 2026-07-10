@@ -173,6 +173,22 @@ def _validate_finding(
             "an elective basis cannot constitute its answer"
         )
 
+    # Correction is governed by the fact type's declared supersession
+    # rules (Ontology §2, Supersession). Only the "free" policy is
+    # published today, but the declaration is consulted, not decorative:
+    # restricted policies arrive with rule artifacts and bind here.
+    already_answered = any(
+        existing["fact_id"] == finding["fact_id"]
+        for existing in state.findings.values()
+    )
+    if already_answered:
+        policy = fact_type["supersession"]["policy"]
+        if policy != "free":
+            raise FindingModelError(
+                f"finding {finding['id']}: fact {fact.fact_id} is governed by "
+                f"supersession policy '{policy}', which does not permit correction here"
+            )
+
     if finding["basis"] == "documentary" and not finding["evidence_ids"]:
         raise FindingModelError(
             f"documentary finding {finding['id']} names no evidence"

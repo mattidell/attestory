@@ -17,16 +17,6 @@
         ],
         "finding": {
           "basis": "documentary",
-          "capture": {
-            "asserted": {
-              "basis": "documentary",
-              "value": 1300
-            },
-            "presented": {
-              "basis": "documentary",
-              "value": 1300
-            }
-          },
           "evidence_ids": [
             "demo-evidence-001"
           ],

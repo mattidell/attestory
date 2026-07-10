@@ -179,6 +179,40 @@ class TestAssertionFindings(FindingsFixture):
         )
         self.assertIn("demo-finding-choice", state.findings)
 
+    def test_supersession_policy_is_consulted_on_correction(self) -> None:
+        # Plant a policy the published schema does not offer directly in
+        # the projection: correction must be refused, proving the
+        # declaration is read rather than decorative.
+        import dataclasses
+        import json as jsonlib
+
+        state = project(
+            self.base_acts()
+            + (act(3, "assertion", {"finding": demo_finding("first")}),),
+            self.registry,
+        )
+        locked = jsonlib.loads(
+            jsonlib.dumps(state.fact_state.fact_types["demo.counterparty-payment"])
+        )
+        locked["supersession"]["policy"] = "locked"
+        state = dataclasses.replace(
+            state,
+            fact_state=dataclasses.replace(
+                state.fact_state,
+                fact_types={
+                    **state.fact_state.fact_types,
+                    "demo.counterparty-payment": locked,
+                },
+            ),
+        )
+        with self.assertRaises(FindingModelError) as ctx:
+            apply_act(
+                state,
+                act(4, "assertion", {"finding": demo_finding("second", value=1300)}),
+                self.registry,
+            )
+        self.assertIn("supersession policy", str(ctx.exception))
+
     def test_attested_assertion_can_stand_without_evidence(self) -> None:
         finding = demo_finding(
             finding_id="demo-finding-attested",
