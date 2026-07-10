@@ -50,9 +50,17 @@ Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or 
 
 **Committee.** At least two reviewers besides the builder, with distinct review charters — for example: contract fidelity against the governance set; implementation results and expressiveness against the charter's fixtures; fresh-reader legibility (can a reader recover the meaning from the artifact alone?). The owner's disposition closes each round. Dissent is recorded in the round's review notes, never resolved by wordsmithing; unresolved dissent is cited in the ADR.
 
-**Termination.** Every iteration opens with declared questions. An iteration that resolves no new questions forces a stop-and-decide. Default cap: three iterations before an owner check-in.
+**Reviews are measurements.** A review charter must define what it measures and what failure looks like before reviewing begins, and its notes must report falsifiable results — a scored recovery attempt, a fixture the design failed, a contract clause it violates, or an explicit attestation that a defined check was run and found nothing. "Reviewed, looks good" is not a valid review. The owner audits by sampling: one review per round examined for whether its measurements are real, rather than reading everything.
+
+**Role separation.** Builder, reviewers, and foreman are distinct agents or fresh contexts. The builder never reviews their own iteration. The foreman (the agent leading the effort: chartering, sequencing, recommending dispositions) never serves as a committee reviewer of work produced under their own charter — the foreman reviews the process, not the artifacts.
+
+**Rivals, not refinements.** Before the committee may conclude, the evidence must include at least one rival design exercised on the same fixture charter — a genuinely different shape, not a parameter tweak of the first attempt. A design that has only ever competed against its own earlier drafts has not been tested. If the analysis concludes without a rival, it must argue explicitly why comparison was unnecessary, and that argument is itself subject to committee dissent.
+
+**Termination.** Every iteration opens with declared questions. An iteration that resolves no new questions forces a stop-and-decide. Default cap: three iterations before an owner check-in. The owner may kill the effort at any disposition point; a killed prototype is snapshotted like any other abandoned work.
 
 **Artifacts.** `docs/prototypes/<topic>/` holds charters, iteration examinations, committee review notes, and the final evaluation analysis — these merge to `main`. Prototype code lives on maintained branches named `prototype/<topic>/it<N>`; prototype branches are evidence exhibits — never merged to `main`, never deleted.
+
+**Traceability.** Every conclusion in the evaluation analysis cites a specific exhibit — a drafted artifact at a path on a named prototype branch, a recorded test result, a review note. A conclusion the reader cannot follow to its exhibit is not evidence and does not support an ADR. The same rule flows downstream: the ADR cites the analysis, the analysis cites exhibits, and a break anywhere in that chain is grounds to send the ADR back.
 
 ## Canonical Meta Documents
 

@@ -23,7 +23,7 @@ What is the rule artifact's operation vocabulary and expression encoding? Candid
 
 ## Scope
 
-- Fixture charter: the classes of real rule the language must express, drawn from the First-Tax-Slice content (W-2 wages and withholding, 1099-INT interest, Form 1040 core lines) plus named hard classes (rounding, tables/brackets, applicability, bridges), informed by the archive and prototype-branch encodings.
+- Fixture charter: the classes of real rule the language must express, drawn from the First-Tax-Slice content (W-2 wages and withholding, 1099-INT interest, Form 1040 core lines) plus named hard classes (rounding and ordering dependencies, tables/brackets, applicability, cross-form bridges, and "any reasonable method" delegation points where the law leaves the method open), informed by the archive and prototype-branch encodings.
 - Prototype iterations per the convention: candidate encoding(s) with the charter's real rules drafted in full; a throwaway evaluator on the prototype branch to test expressiveness and purity; examination notes recording emergent contracts and results.
 - Committee review rounds with distinct charters: governance fidelity (Article 11, Ontology §5), expressiveness against the fixture charter, and fresh-reader legibility (a reviewer who has not seen the rule's English description must recover it from the artifact alone).
 - Prototype evaluation analysis under `docs/prototypes/rule-language/`.
@@ -73,7 +73,7 @@ Verification: committee reviews the charter before any building (fixture selecti
 
 ### Track 2 — Prototype iteration(s)
 
-Goal: candidate encoding(s) with charter rules drafted in full and a throwaway evaluator proving expressiveness and purity.
+Goal: candidate encoding(s) with charter rules drafted in full and a throwaway evaluator proving expressiveness and purity. Per the rivals rule, the effort does not conclude on a single design: expect a second iteration to build a genuinely different encoding on the same fixture charter.
 Outputs: `prototype/rule-language/it<N>` branch(es); examination notes per iteration.
 Verification: evaluator runs on the prototype branch; examination answers the charter's questions or records why not.
 
@@ -86,5 +86,5 @@ Verification: at least two reviewers with distinct charters per round; owner dis
 ### Track 4 — Evaluation analysis and ADR proposals
 
 Goal: the evidence document and the ADRs it supports.
-Outputs: `docs/prototypes/rule-language/evaluation-analysis.md`; proposed ADR-0005 (rule language, Tier 3) and companions (publication act kind; record placement — Tier 2).
+Outputs: `docs/prototypes/rule-language/evaluation-analysis.md`; the proposed rule-language ADR (Tier 3; numbered on proposal) and companions (publication act kind; record placement — Tier 2).
 Verification: every ADR conclusion traces to analysis evidence; governance lint; owner ratification is the exit.
