@@ -1,0 +1,20 @@
+{
+  "demo.counterparty-payment|counterparty=demo-corp-a,period=2025": [
+    {
+      "basis": "documentary",
+      "current": false,
+      "evidence_ids": [
+        "demo-evidence-001"
+      ],
+      "finding_id": "finding-old"
+    },
+    {
+      "basis": "documentary",
+      "current": true,
+      "evidence_ids": [
+        "demo-evidence-001"
+      ],
+      "finding_id": "finding-new"
+    }
+  ]
+}

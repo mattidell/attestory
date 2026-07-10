@@ -1,0 +1,39 @@
+{
+  "evidence_ids": [
+    "demo-evidence-001"
+  ],
+  "finding_ids": [
+    "finding-new"
+  ],
+  "findings": {
+    "finding-new": {
+      "evidence": [
+        {
+          "evidence_id": "demo-evidence-001",
+          "status": "current",
+          "successor_id": null
+        }
+      ],
+      "finding": {
+        "basis": "documentary",
+        "capture": {
+          "asserted": {
+            "basis": "documentary",
+            "value": 1300
+          },
+          "presented": {
+            "basis": "documentary",
+            "value": 1300
+          }
+        },
+        "evidence_ids": [
+          "demo-evidence-001"
+        ],
+        "fact_id": "demo.counterparty-payment|counterparty=demo-corp-a,period=2025",
+        "id": "finding-new",
+        "schema": "finding.v1",
+        "value": 1300
+      }
+    }
+  }
+}

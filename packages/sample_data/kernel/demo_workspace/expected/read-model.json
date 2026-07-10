@@ -1,0 +1,99 @@
+{
+  "current": {
+    "evidence_ids": [
+      "demo-evidence-001"
+    ],
+    "finding_ids": [
+      "finding-new"
+    ],
+    "findings": {
+      "finding-new": {
+        "evidence": [
+          {
+            "evidence_id": "demo-evidence-001",
+            "status": "current",
+            "successor_id": null
+          }
+        ],
+        "finding": {
+          "basis": "documentary",
+          "capture": {
+            "asserted": {
+              "basis": "documentary",
+              "value": 1300
+            },
+            "presented": {
+              "basis": "documentary",
+              "value": 1300
+            }
+          },
+          "evidence_ids": [
+            "demo-evidence-001"
+          ],
+          "fact_id": "demo.counterparty-payment|counterparty=demo-corp-a,period=2025",
+          "id": "finding-new",
+          "schema": "finding.v1",
+          "value": 1300
+        }
+      }
+    }
+  },
+  "facts": {
+    "demo.counterparty-payment|counterparty=demo-corp-a,period=2025": {
+      "current_finding_id": "finding-new",
+      "fact_id": "demo.counterparty-payment|counterparty=demo-corp-a,period=2025",
+      "fact_type_id": "demo.counterparty-payment",
+      "individuated_by": [
+        "demo-corp-a"
+      ],
+      "keys": [
+        {
+          "name": "counterparty",
+          "value": "demo-corp-a"
+        },
+        {
+          "name": "period",
+          "value": "2025"
+        }
+      ],
+      "nature": "determinable"
+    },
+    "demo.rate-choice|period=2025": {
+      "current_finding_id": null,
+      "fact_id": "demo.rate-choice|period=2025",
+      "fact_type_id": "demo.rate-choice",
+      "individuated_by": [],
+      "keys": [
+        {
+          "name": "period",
+          "value": "2025"
+        }
+      ],
+      "nature": "elective"
+    }
+  },
+  "history_by_fact": {
+    "demo.counterparty-payment|counterparty=demo-corp-a,period=2025": [
+      {
+        "basis": "documentary",
+        "current": false,
+        "evidence_ids": [
+          "demo-evidence-001"
+        ],
+        "finding_id": "finding-old"
+      },
+      {
+        "basis": "documentary",
+        "current": true,
+        "evidence_ids": [
+          "demo-evidence-001"
+        ],
+        "finding_id": "finding-new"
+      }
+    ]
+  },
+  "open_fact_ids": [
+    "demo.rate-choice|period=2025"
+  ],
+  "revision": 5
+}
