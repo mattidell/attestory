@@ -12,7 +12,7 @@ Round 2 — review of the it2 rival build and the comparison against it1. The ri
 
 | Seat | Role file | Holder | Status |
 |---|---|---|---|
-| Foreman | `roles/foreman.md` | claude (session lineage of milestone planning, 2026-07-10) | active |
+| Foreman | `roles/foreman.md` | — | **vacant** (founding foreman thread ended 2026-07-10; successor: resume generically, take this seat, log the succession per `roles/foreman.md`) |
 | Builder it1 | `roles/builder.md` | codex (resume session, 2026-07-10) | complete (branch `prototypes/rule-language/it1` @ `362f8a3`; `examination-it1.md`) |
 | Rival builder | `roles/builder-rival.md` | owner-launched clean room (2026-07-10) | complete (branch `prototypes/rule-language/it2` @ `623957c`; `examination-it2.md`) |
 | Reviewer: governance | `roles/reviewer-governance.md` | — | **open now** (round 2: `reviews/round-2.md`) |
