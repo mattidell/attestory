@@ -113,3 +113,17 @@ dispositions.
   `roles/builder.md`, produce prototype artifacts and `examination-it1.md` on
   the branch, do not touch production `packages/`, report negative results, and
   leave the primary checkout on `main`.
+
+- **2026-07-11 (event, builder)** - it1 build complete on branch
+  `prototypes/tax-citizen-families/it1` at `88f0139`. Builder produced
+  candidate contract, draft schemas, positive/negative examples, source catalog,
+  synthetic scenario, validator, and `examination-it1.md`. Foreman verification
+  reran in the prototype worktree: `python3
+  docs/prototypes/tax-citizen-families/it1/validators/validate_it1.py` passed;
+  `python3 tools/governance_lint.py` passed; JSON parse check over all it1 JSON
+  passed. Prototype and primary worktrees were clean.
+
+- **2026-07-11 (event, foreman)** - it1 examination copied to main as
+  `examination-it1.md`; prototype artifacts remain on the prototype branch and
+  are not merged. Round 1 assembled in `reviews/round-1.md` with governance,
+  expressiveness, adversary, and context-starved legibility review seats.
