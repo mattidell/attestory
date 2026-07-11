@@ -175,3 +175,19 @@ dispositions.
   worktree removed after confirming cleanliness. Rival builder seat opened for
   owner launch on branch `prototypes/tax-citizen-families/it2`. Per owner
   instruction, no subagent is spawned for the builder role.
+
+- **2026-07-11 (event, rival builder)** - Clean-room it2 build complete on
+  branch `prototypes/tax-citizen-families/it2` at `989d9fe`. Builder produced
+  two new draft citizen families (`form-field.v1`, `source-citation.v1`),
+  tax content authored on existing kernel fact types, rule artifacts,
+  parameters, synthetic fixtures, and a harness. Foreman verification reran from
+  a branch archive: `PYTHONPATH=/tmp/tcf-it2-review python3
+  /tmp/tcf-it2-review/docs/prototypes/tax-citizen-families/it2/tools/harness.py`
+  passed all 77 checks. No prototype worktree remains open.
+
+- **2026-07-11 (event, foreman)** - it2 examination copied to main as
+  `examination-it2.md`; prototype artifacts remain on the it2 branch and are
+  not merged. Round 2 assembled in `reviews/round-2.md` as a comparative review
+  of it2 against the charter and it1 evidence. Governance, expressiveness,
+  adversary, and context-starved legibility review seats opened. Per owner
+  instruction, any review subagents use `gpt-5.6-luna` with high reasoning.

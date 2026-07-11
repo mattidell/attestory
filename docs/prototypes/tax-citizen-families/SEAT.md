@@ -10,10 +10,9 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Rival builder seat is open for owner launch.** Iteration 1 is concluded and
-preserved as exhibit tag `exhibits/tax-citizen-families/it1` at `88f0139`.
-Round 1 is closed. The next build is the clean-room rival on branch
-`prototypes/tax-citizen-families/it2`.
+**Round 2 comparative review is open.** Iteration 2 is built on branch
+`prototypes/tax-citizen-families/it2` at commit `989d9fe`; examination is
+`examination-it2.md`. Review scope is `reviews/round-2.md`.
 
 ## Seats
 
@@ -21,22 +20,28 @@ Round 1 is closed. The next build is the clean-room rival on branch
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | codex (planning session, 2026-07-11) | active |
 | Builder it1 | `roles/builder.md` | `codex-builder-it1-2026-07-11` | complete; exhibit `exhibits/tax-citizen-families/it1` |
-| Rival builder | `roles/builder-rival.md` | owner launch needed | open on branch `prototypes/tax-citizen-families/it2` |
+| Rival builder | `roles/builder-rival.md` | owner-launched clean-room session | complete (`989d9fe`; `examination-it2.md`) |
 | Reviewer: governance | `roles/reviewer-governance.md` | `codex-governance-r1-2026-07-11` | round 1 complete |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `codex-expressiveness-r1-2026-07-11` | round 1 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-r1-2026-07-11` | round 1 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 1 complete |
+| Reviewer: governance | `roles/reviewer-governance.md` | open | round 2 open |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | open | round 2 open |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | open | round 2 open |
+| Reviewer: legibility | `roles/reviewer-legibility.md` | not opened | context-starved; owner launch for round 2 |
 
 ## Next Action
 
-The owner launches the rival builder with the launch line in
-`roles/builder-rival.md`. Do not use a subagent for the builder role. The rival
-builder reads only the role-permitted materials and works on branch
-`prototypes/tax-citizen-families/it2`.
+Generic resumption may claim one open unstarved reviewer seat for round 2.
+Review subagents, if used, must be `gpt-5.6-luna` with high reasoning. Do not
+read same-round peer outputs before submitting. Expressiveness must run
+reproduction checks before opening `examination-it2.md`. The legibility seat is
+context-starved and must be owner-launched using `roles/reviewer-legibility.md`
+and the scope in `reviews/round-2.md`.
 
 ## Planned Exhibits
 
 - Tag `exhibits/tax-citizen-families/it1` - first candidate contract at
   `88f0139`.
-- Branch `prototypes/tax-citizen-families/it2` - clean-room rival, open for
-  owner launch.
+- Branch `prototypes/tax-citizen-families/it2` - clean-room rival at `989d9fe`,
+  available for round 2 review.
