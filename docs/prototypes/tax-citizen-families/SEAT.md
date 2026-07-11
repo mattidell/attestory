@@ -10,10 +10,10 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Round 2 comparative review is complete; owner disposition is next.**
-Iteration 2 is built on branch `prototypes/tax-citizen-families/it2` at commit
-`989d9fe`; examination is `examination-it2.md`. Reviews are complete under
-`reviews/round-2*.md`.
+**Iteration 3 targeted repair builder seat is open for owner launch.**
+Iteration 2 is preserved as exhibit `exhibits/tax-citizen-families/it2` at
+`989d9fe`. Iteration 3 starts from that commit on branch
+`prototypes/tax-citizen-families/it3` and is governed by `charter-it3.md`.
 
 ## Seats
 
@@ -30,19 +30,22 @@ Iteration 2 is built on branch `prototypes/tax-citizen-families/it2` at commit
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `codex-expressiveness-r2-2026-07-11` | round 2 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-r2-2026-07-11` | round 2 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 2 complete |
+| Builder it3 | `roles/builder.md` | not opened | owner launch pending; targeted repair |
 
 ## Next Action
 
-Owner disposition is required. Foreman recommendation: do not ratify it2 as a
-Tier 2 contract basis yet; proceed to a third iteration focused on the converged
-round-2 gaps. If accepted, the foreman should preserve it2 as an exhibit, close
-the it2 branch/worktree state, and open an owner-launched it3 builder seat
-without spawning a builder subagent.
+Owner should launch the it3 builder in a fresh session. Use `roles/builder.md`
+with `charter-it3.md`; work only on branch
+`prototypes/tax-citizen-families/it3`; produce final artifacts under
+`docs/prototypes/tax-citizen-families/it3/` and write
+`examination-it3.md`. This is a targeted repair-and-decision pass, not a
+clean-room rival. Per owner instruction, foreman does not spawn a builder
+subagent.
 
 ## Planned Exhibits
 
 - Tag `exhibits/tax-citizen-families/it1` - first candidate contract at
   `88f0139`.
-- Branch `prototypes/tax-citizen-families/it2` - clean-room rival at `989d9fe`,
-  reviewed in round 2; pending owner disposition before exhibit tagging or
-  cleanup.
+- Tag `exhibits/tax-citizen-families/it2` - clean-room rival at `989d9fe`.
+- Branch `prototypes/tax-citizen-families/it3` - targeted repair branch opened
+  from it2 at `989d9fe`.

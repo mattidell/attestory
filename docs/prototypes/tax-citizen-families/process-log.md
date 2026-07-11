@@ -247,3 +247,14 @@ dispositions.
   explanation evidence. Iteration 2 remains on branch
   `prototypes/tax-citizen-families/it2` pending owner disposition; no exhibit
   tag or branch cleanup has been applied yet.
+
+- **2026-07-11 (disposition, owner/foreman)** - Owner accepted a targeted
+  repair-and-decision pass instead of a full clean-room third prototype.
+  Iteration 2 preserved as exhibit tag `exhibits/tax-citizen-families/it2` at
+  `989d9fe`; branch `prototypes/tax-citizen-families/it3` opened from the same
+  commit; branch `prototypes/tax-citizen-families/it2` removed after confirming
+  no worktree was attached. Charter `charter-it3.md` created with explicit
+  repair gates R1-R13 and clean-room mini-spikes limited to closure semantics,
+  citation attachment, line-boundary strategy, and source-instance identity.
+  Builder it3 seat is owner-launch pending. Per owner instruction, no builder
+  subagent is spawned by the foreman.
