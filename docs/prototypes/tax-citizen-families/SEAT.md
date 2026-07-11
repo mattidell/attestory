@@ -22,17 +22,17 @@ branch `prototypes/tax-citizen-families/it1`; prototype code never merges to
 | Foreman | `roles/foreman.md` | codex (planning session, 2026-07-11) | active |
 | Reviewer: governance | `roles/reviewer-governance.md` | `codex-governance-delta-2026-07-11` | round 0 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-delta-2026-07-11` | round 0 complete |
-| Builder it1 | `roles/builder.md` | open | iteration 1 open |
+| Builder it1 | `roles/builder.md` | `codex-builder-it1-2026-07-11` | active on branch `prototypes/tax-citizen-families/it1` |
 | Rival builder | `roles/builder-rival.md` | not opened | context-starved; opens after it1 review |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | not opened | opens after a build |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | not opened | context-starved; opens after a build |
 
 ## Next Action
 
-Generic resumption may claim the it1 builder seat. The builder must follow
-`roles/builder.md`, work on branch `prototypes/tax-citizen-families/it1`, use a
-separate worktree, and write `examination-it1.md` with evidence paths and
-negative results. Context-starved rival and legibility seats remain closed.
+Builder it1 is active in the separate worktree
+`/tmp/tax-citizen-families-it1` on branch
+`prototypes/tax-citizen-families/it1`. Context-starved rival and legibility
+seats remain closed.
 
 ## Planned Exhibits
 

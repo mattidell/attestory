@@ -105,3 +105,11 @@ dispositions.
   closed. Builder it1 seat opened on branch
   `prototypes/tax-citizen-families/it1`; rival and reviewer seats remain closed
   until iteration 1 is built and examined.
+
+- **2026-07-11 (event, foreman)** - Builder it1 dispatched under stable label
+  `codex-builder-it1-2026-07-11`. Branch
+  `prototypes/tax-citizen-families/it1` created from main at `953dab4` in
+  worktree `/tmp/tax-citizen-families-it1`. Builder instructions: follow
+  `roles/builder.md`, produce prototype artifacts and `examination-it1.md` on
+  the branch, do not touch production `packages/`, report negative results, and
+  leave the primary checkout on `main`.
