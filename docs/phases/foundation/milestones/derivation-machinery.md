@@ -2,7 +2,9 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: planned (re-planned 2026-07-10 against ADRs 0006/0007/0008; execution pending owner go). Predecessor plan archived at `docs/archive/2026-07-10-derivation-machinery-plan/` (built against rejected ADR-0004; its track structure is inherited, its contracts are superseded).
+Status: **all tracks complete, awaiting non-ff merge to `main`** (built 2026-07-11 on branch `milestone/derivation-machinery`). One decision surfaced mid-build and was ratified: ADR-0009 (derived-finding shape). Predecessor plan archived at `docs/archive/2026-07-10-derivation-machinery-plan/` (built against rejected ADR-0004; its track structure is inherited, its contracts are superseded).
+
+Track commits: T1 `74efa50` · T2 `9c95f99` · T3 `a8b9367` · ADR-0009 `194f206`/`06e84bd` · schema amendment `c9f6161` · T4 `e6d1b24` · T5 `8fbf463` · T6 `7b3f750`. Verification at completion: full suite 168 green, mypy strict clean, governance lint conformant, fixtures synthetic.
 
 ## Objective
 
@@ -19,16 +21,16 @@ Derivation becomes executable without moving tax meaning into code — now again
 
 From `evaluation-analysis.md` §5; each becomes a tested exit obligation except where deferral is declared:
 
-| Condition | Disposition in this milestone |
-|---|---|
-| §5.1 schema as runtime authority (incl. per-op required fields) | Track 1–2 core contract |
-| §5.2 versioned operation-semantics canon (`round`, `range_lookup`, `bracket_fold`) | Track 1 deliverable |
-| §5.3 source-set closure vocabulary (absent ≠ asserted zero) | Track 4 |
-| §5.4 second-runner portability (E11.2) | Track 5 |
-| §5.5 storage-level record atomicity evidence (E6.1/E14.1) | Track 3 (fault injection) |
-| §5.6 form-field/fact-type citizen families | **Deferred to First Tax Slice** — schema hooks only, documented; real-content milestone is where these families earn their shape |
-| §5.7 one role vocabulary | Track 1 |
-| §5.8 pins from versioned inputs, never evaluator constants | Track 4 (governance/engine identity read from adopted, versioned inputs) |
+| Condition | Disposition in this milestone | Discharged by |
+|---|---|---|
+| §5.1 schema as runtime authority (incl. per-op required fields) | Track 1–2 core contract | ✅ `test_language_schemas` (per-op mutation rejection); loader validates against published schemas |
+| §5.2 versioned operation-semantics canon (`round`, `range_lookup`, `bracket_fold`) | Track 1 deliverable | ✅ canon citizens + `OperationSemanticsCanon` tests; evaluator defers to canon |
+| §5.3 source-set closure vocabulary (absent ≠ asserted zero) | Track 4 | ✅ `BlockingVocabulary` two-layer closure (blocks unclosed; publishes zero when closed) |
+| §5.4 second-runner portability (E11.2) | Track 5 | ✅ `test_portability` byte-equality across forward + demand-driven runners |
+| §5.5 storage-level record atomicity evidence (E6.1/E14.1) | Track 3 (fault injection) | ✅ `test_records` exhaustive byte-truncation + recovery |
+| §5.6 form-field/fact-type citizen families | **Deferred to First Tax Slice** — schema hooks only, documented | ⏭️ documented in `first-tax-slice-inputs.md` (carried obligation) |
+| §5.7 one role vocabulary | Track 1 | ✅ `role_vocabulary_report` + `OneRoleVocabulary` tests; package/artifact role agreement in Track 2 |
+| §5.8 pins from versioned inputs, never evaluator constants | Track 4 | ✅ `PinsProvenance` value check + runner source audit (no hardcoded governance identity) |
 
 ## Scope
 
