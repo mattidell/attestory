@@ -18,7 +18,7 @@ Round 2 — review of the it2 rival build and the comparison against it1. The ri
 | Builder it1 | `roles/builder.md` | codex (resume session, 2026-07-10) | complete (branch `prototypes/rule-language/it1` @ `362f8a3`; `examination-it1.md`) |
 | Rival builder | `roles/builder-rival.md` | owner-launched clean room (2026-07-10) | complete (branch `prototypes/rule-language/it2` @ `623957c`; `examination-it2.md`) |
 | Reviewer: governance | `roles/reviewer-governance.md` | claude (resume session, 2026-07-10) | complete (round 2: `reviews/round-2-governance.md`) |
-| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | **open now** (round 2: `reviews/round-2.md`) |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | claude (resume session, 2026-07-10) | active (round-2 review in progress; see cross-seat disclosure in `process-log.md`) |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | — | **owner-launch now** (round-2 launch line in `reviews/round-2.md`, Legibility scope) |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | claude (resume session, 2026-07-10) | complete (round 2: `reviews/round-2-adversary.md`) |
 
