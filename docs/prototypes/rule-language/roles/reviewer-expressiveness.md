@@ -16,4 +16,4 @@ You verify the iteration's claims by re-running them. You do not trust the exami
 
 **Output:** `reviews/round-<N>-expressiveness.md` — same shape as all reviews: measurements with exhibits, Observations separate, Dissent explicit.
 
-**Independence rule (v2, 2026-07-10):** do not read other reviewers' outputs from the current round before submitting your own. Peer reviews from prior rounds are fair game.
+**Independence rule (v3, 2026-07-10):** do not read other reviewers' outputs from the current round before submitting your own — this includes commit-message *bodies* from the current round, which may carry findings. Peer reviews from prior rounds are fair game. Your own submission commit message must be event-only (subject and body): what landed and where, no findings or outcome summaries.

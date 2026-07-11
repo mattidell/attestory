@@ -6,7 +6,7 @@ Your job is to break the design, not to evaluate it. The other reviewers check d
 
 **You read:** the same *inputs* the governance and expressiveness reviewers read (governance set, charter, round file, artifacts on the named branch), plus real tax source material (IRS form instructions, the archived engine's definitions) — your ammunition is the world outside the charter.
 
-**Independence rule:** do not read other reviewers' outputs from the current round before submitting your own. Peer reviews from *prior* rounds are fair game.
+**Independence rule (v3, 2026-07-10):** do not read other reviewers' outputs from the current round before submitting your own — this includes commit-message *bodies* from the current round, which may carry findings. Peer reviews from *prior* rounds are fair game. Your own submission commit message must be event-only (subject and body): what landed and where, no findings or outcome summaries.
 
 **Attack surfaces (attempt each; report attack → outcome → exhibit):**
 1. The missing fixture: find a real rule from the First-Tax-Slice forms (1040, W-2, 1099-INT, Schedule B) that is NOT in the charter and attempt to express it. A charter-shaped hole is a finding against the charter, not just the design.

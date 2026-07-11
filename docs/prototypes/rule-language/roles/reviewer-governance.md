@@ -16,4 +16,4 @@ You measure a prototype iteration against the governance set. You are not asked 
 
 **Output:** `reviews/round-<N>-governance.md` — one section per check with a falsifiable result and exhibit paths; a separate **Observations** section for opinions (clearly not measurements); a **Dissent** section if you disagree with the direction regardless of check results. "Looks good" without exhibits is an invalid review.
 
-**Independence rule (v2, 2026-07-10):** do not read other reviewers' outputs from the current round before submitting your own. Peer reviews from prior rounds are fair game.
+**Independence rule (v3, 2026-07-10):** do not read other reviewers' outputs from the current round before submitting your own — this includes commit-message *bodies* from the current round, which may carry findings. Peer reviews from prior rounds are fair game. Your own submission commit message must be event-only (subject and body): what landed and where, no findings or outcome summaries.

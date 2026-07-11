@@ -6,13 +6,15 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). Three seats are open **now** for fresh agents resuming this project: governance, expressiveness, adversary — scoped by `reviews/round-2.md` (comparative round; contract tightness is an explicit axis). The legibility seat is starved and owner-launched (round-2 launch line in `reviews/round-2.md`). When all four reviews exist, the foreman scores legibility, conformance-checks, and presents the owner disposition.
+Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). Governance is complete; adversary is active; **expressiveness is open now** for a fresh agent resuming this project — scoped by `reviews/round-2.md` (comparative round; contract tightness is an explicit axis). The legibility seat is starved and owner-launched (round-2 launch line in `reviews/round-2.md`). When all four reviews exist, the foreman scores legibility, conformance-checks, and presents the owner disposition.
+
+**Dispatch warning for open round-2 seats (independence rule v3):** do not read commit-message *bodies* from this round before submitting — one landed round-2 commit body carries findings (see process log). Subjects are fine. Your own submission commit message must be event-only.
 
 ## Seats
 
 | Seat | Role file | Holder | Status |
 |---|---|---|---|
-| Foreman | `roles/foreman.md` | — | **vacant** (founding foreman thread ended 2026-07-10; successor: resume generically, take this seat, log the succession per `roles/foreman.md`) |
+| Foreman | `roles/foreman.md` | claude (resume session, 2026-07-10) | active (succession logged in `process-log.md`) |
 | Builder it1 | `roles/builder.md` | codex (resume session, 2026-07-10) | complete (branch `prototypes/rule-language/it1` @ `362f8a3`; `examination-it1.md`) |
 | Rival builder | `roles/builder-rival.md` | owner-launched clean room (2026-07-10) | complete (branch `prototypes/rule-language/it2` @ `623957c`; `examination-it2.md`) |
 | Reviewer: governance | `roles/reviewer-governance.md` | claude (resume session, 2026-07-10) | complete (round 2: `reviews/round-2-governance.md`) |
@@ -22,7 +24,7 @@ Round 2 — review of the it2 rival build and the comparison against it1. The ri
 
 ## Next action
 
-Fill the four round-2 seats: governance, expressiveness, adversary by fresh-session resumption (one seat each, first-come); legibility by the owner launch line in `reviews/round-2.md`. Then foreman scoring, conformance check, and owner disposition (iterate/converge vs conclude to evaluation analysis and ADRs).
+Fill the remaining round-2 seats: expressiveness by fresh-session resumption; legibility by the owner launch line in `reviews/round-2.md`; adversary completes its active review. Then foreman scoring, conformance check, and owner disposition (iterate/converge vs conclude to evaluation analysis and ADRs). Owner sampling audit has not yet occurred in any round — invite it at the round-2 disposition.
 
 ## Evidence exhibits
 
