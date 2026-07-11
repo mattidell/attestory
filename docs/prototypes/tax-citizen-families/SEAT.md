@@ -10,10 +10,10 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Iteration 3 targeted repair builder seat is open for owner launch.**
-Iteration 2 is preserved as exhibit `exhibits/tax-citizen-families/it2` at
-`989d9fe`. Iteration 3 starts from that commit on branch
-`prototypes/tax-citizen-families/it3` and is governed by `charter-it3.md`.
+**Iteration 3 targeted repair is returned to the owner-launched builder for
+mandatory closeout.** The branch has a clean checkpoint at `d5ace21`, but the
+required `examination-it3.md`, R1-R13 evidence checklist, and gate-specific
+harness increments are not present. Round 3 review is not open.
 
 ## Seats
 
@@ -30,16 +30,17 @@ Iteration 2 is preserved as exhibit `exhibits/tax-citizen-families/it2` at
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `codex-expressiveness-r2-2026-07-11` | round 2 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-r2-2026-07-11` | round 2 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 2 complete |
-| Builder it3 | `roles/builder.md` | not opened | owner launch pending; targeted repair |
+| Builder it3 | `roles/builder.md` | owner-launched it2 builder session | active; closeout required after checkpoint `d5ace21` |
 
 ## Next Action
 
-Owner should launch the it3 builder in a fresh session. Use `roles/builder.md`
-with `charter-it3.md`; work only on branch
-`prototypes/tax-citizen-families/it3`; produce final artifacts under
-`docs/prototypes/tax-citizen-families/it3/` and write
-`examination-it3.md`. This is a targeted repair-and-decision pass, not a
-clean-room rival. Per owner instruction, foreman does not spawn a builder
+Owner should return control to the same it3 builder session to complete the
+charter. The builder must work only on branch
+`prototypes/tax-citizen-families/it3`, finish gate-specific evidence for
+R1-R13, correct the it3 README/handoff text, and write
+`docs/prototypes/tax-citizen-families/examination-it3.md` with the required
+R1-R13 path-and-command checklist. The foreman will then rerun verification and
+open round 3. Per owner instruction, the foreman does not spawn a builder
 subagent.
 
 ## Planned Exhibits

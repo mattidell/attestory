@@ -258,3 +258,13 @@ dispositions.
   citation attachment, line-boundary strategy, and source-instance identity.
   Builder it3 seat is owner-launch pending. Per owner instruction, no builder
   subagent is spawned by the foreman.
+
+- **2026-07-11 (event, builder/foreman)** - Owner reported the owner-launched
+  it3 builder complete. Foreman inspected clean checkpoint `d5ace21` on branch
+  `prototypes/tax-citizen-families/it3` and reran `PYTHONPATH=. python3
+  docs/prototypes/tax-citizen-families/it3/tools/harness.py`; its core checks
+  passed. The handoff is not charter-complete: `examination-it3.md` and its
+  required R1-R13 evidence checklist are absent, the harness says gate-specific
+  checks remain for later increments, and the README still identifies the
+  artifact as it2. Round 3 was not opened. The branch remains intact and the
+  seat is returned to the same owner-launched builder for mandatory closeout.
