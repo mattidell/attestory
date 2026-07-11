@@ -1,0 +1,13 @@
+{
+  "schema": "artifact-package.v1",
+  "id": "demo.package.first-slice.2025",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax", "effective_from": "2025-01-01" },
+  "members": [
+    { "role": "parameter", "id": "demo.parameter.standard-deduction.2025", "version": "v1" },
+    { "role": "parameter", "id": "demo.parameter.regular-tax-split.2025", "version": "v1" },
+    { "role": "parameter", "id": "demo.parameter.tax-table-sample.2025", "version": "v1" },
+    { "role": "field-mapping", "id": "demo.rule.wages-to-1040-line1a", "version": "v1" },
+    { "role": "computation", "id": "demo.rule.tax-table-line16", "version": "v1" }
+  ]
+}

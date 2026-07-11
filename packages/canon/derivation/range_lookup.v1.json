@@ -1,0 +1,10 @@
+{
+  "schema": "operation-semantics.v1",
+  "operation": "range_lookup",
+  "version": "v1",
+  "spec": {
+    "boundary": "lower_inclusive_upper_exclusive",
+    "on_miss": "block",
+    "row_shape": ["lower", "upper", "value"]
+  }
+}

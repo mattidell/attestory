@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/operation-semantics.v1",
+  "title": "Operation semantics canon",
+  "description": "A versioned semantic specification for one data operation whose meaning an enum name alone cannot carry (ADR-0006 decision 4): round (modes, stages, tie-break, unit), range_lookup (boundary convention, miss behavior), bracket_fold (fold arithmetic, boundary, miss behavior). These are the authority for evaluator behavior — the runner conforms to canon, canon does not describe the runner. Structured, not narrative: every field is machine-readable and the runner is tested against it.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "operation-semantics.v1" },
+    "operation": { "enum": ["round", "range_lookup", "bracket_fold"] },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "spec": { "type": "object" }
+  },
+  "required": ["schema", "operation", "version", "spec"],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": { "properties": { "operation": { "const": "round" } }, "required": ["operation"] },
+      "then": {
+        "properties": {
+          "spec": {
+            "type": "object",
+            "properties": {
+              "modes": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "enum": ["half_up", "half_even", "down", "up"] },
+                "uniqueItems": true
+              },
+              "stages": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "enum": ["source", "after_aggregate", "final"] },
+                    "applies": { "type": "string", "minLength": 1 }
+                  },
+                  "required": ["name", "applies"],
+                  "additionalProperties": false
+                }
+              },
+              "tie_break": { "enum": ["away_from_zero", "to_even", "toward_zero"] },
+              "unit": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" }
+            },
+            "required": ["modes", "stages", "tie_break", "unit"],
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "range_lookup" } }, "required": ["operation"] },
+      "then": {
+        "properties": {
+          "spec": {
+            "type": "object",
+            "properties": {
+              "boundary": { "enum": ["lower_inclusive_upper_exclusive", "lower_exclusive_upper_inclusive"] },
+              "on_miss": { "enum": ["block", "zero"] },
+              "row_shape": {
+                "type": "array",
+                "items": { "enum": ["lower", "upper", "value"] },
+                "minItems": 1
+              }
+            },
+            "required": ["boundary", "on_miss", "row_shape"],
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "bracket_fold" } }, "required": ["operation"] },
+      "then": {
+        "properties": {
+          "spec": {
+            "type": "object",
+            "properties": {
+              "method": { "enum": ["marginal"] },
+              "boundary": { "enum": ["lower_inclusive_upper_exclusive", "lower_exclusive_upper_inclusive"] },
+              "open_top": { "type": "boolean" },
+              "on_miss": { "enum": ["block", "zero"] },
+              "row_shape": {
+                "type": "array",
+                "items": { "enum": ["lower", "upper", "rate"] },
+                "minItems": 1
+              }
+            },
+            "required": ["method", "boundary", "open_top", "on_miss", "row_shape"],
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  ]
+}

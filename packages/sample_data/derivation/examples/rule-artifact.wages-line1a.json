@@ -1,0 +1,18 @@
+{
+  "schema": "rule-artifact.v1",
+  "id": "demo.rule.wages-to-1040-line1a",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "field-mapping",
+  "requires": ["rounding.convention"],
+  "when": true,
+  "value": {
+    "op": "round",
+    "value": { "op": "add", "args": [{ "op": "collect", "name": "demo.w2.box1", "source_set": "demo.w2" }] },
+    "mode": { "op": "ref", "name": "rounding.convention" },
+    "stage": "after_aggregate"
+  },
+  "publishes": "demo.form1040.line1a",
+  "blocked": { "code": "OPEN_DEPENDENCY", "missing": ["rounding.convention"] },
+  "notes": "Collect W-2 box 1 across the source set, aggregate, then round under the asserted convention."
+}

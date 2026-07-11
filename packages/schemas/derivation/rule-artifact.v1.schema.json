@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/rule-artifact.v1",
+  "title": "Rule artifact",
+  "description": "One guarded single-publication clause (ADR-0006 decision 1): requires (declared dependencies), when (applicability guard), value (expression), publishes (exactly one output symbol), blocked (declared code and missing symbols). Computations, applicability declarations, field mappings, and cross-form bridges share this shape, distinguished by role. The value/when expressions are bounded trees over the closed operation vocabulary; each operation carries per-operation required-field constraints (ADR-0006 decision 3) enforced by the $defs/expr oneOf below, so an operation with absent operands is a validation failure, not tolerated input.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "rule-artifact.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "scope": { "$ref": "#/$defs/scope" },
+    "role": { "enum": ["computation", "applicability", "field-mapping", "cross-form-bridge"] },
+    "requires": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "when": { "$ref": "#/$defs/expr" },
+    "value": { "$ref": "#/$defs/expr" },
+    "publishes": { "type": "string", "minLength": 1 },
+    "blocked": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]+$" },
+        "missing": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      },
+      "required": ["code", "missing"],
+      "additionalProperties": false
+    },
+    "notes": { "type": "string" }
+  },
+  "required": ["schema", "id", "version", "scope", "role", "requires", "when", "value", "publishes", "blocked"],
+  "additionalProperties": false,
+  "$defs": {
+    "scope": {
+      "type": "object",
+      "properties": {
+        "tax_year": { "type": "integer" },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "family": { "type": "string", "minLength": 1 },
+        "effective_from": { "type": "string", "format": "date" }
+      },
+      "required": ["tax_year", "jurisdiction", "family"],
+      "additionalProperties": false
+    },
+    "expr": {
+      "oneOf": [
+        { "type": ["string", "number", "boolean", "null"] },
+        {
+          "type": "object",
+          "required": ["op", "name"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "ref" },
+            "name": { "type": "string", "minLength": 1 }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "name"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "collect" },
+            "name": { "type": "string", "minLength": 1 },
+            "source_set": { "type": "string", "minLength": 1 }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "parameter_id"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "parameter" },
+            "parameter_id": { "type": "string", "minLength": 1 },
+            "key": { "$ref": "#/$defs/expr" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "args"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "add" },
+            "args": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expr" } }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "left", "right"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "subtract" },
+            "left": { "$ref": "#/$defs/expr" },
+            "right": { "$ref": "#/$defs/expr" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "args"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "max" },
+            "args": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expr" } }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "left", "right", "cmp"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "compare" },
+            "left": { "$ref": "#/$defs/expr" },
+            "right": { "$ref": "#/$defs/expr" },
+            "cmp": { "enum": ["eq", "ne", "gt", "gte", "lt", "lte"] }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "args"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "all" },
+            "args": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expr" } }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "args"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "any" },
+            "args": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expr" } }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "value"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "not" },
+            "value": { "$ref": "#/$defs/expr" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "when", "then", "else"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "choose" },
+            "when": { "$ref": "#/$defs/expr" },
+            "then": { "$ref": "#/$defs/expr" },
+            "else": { "$ref": "#/$defs/expr" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "table_id", "key", "value"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "range_lookup" },
+            "table_id": { "type": "string", "minLength": 1 },
+            "key": { "$ref": "#/$defs/expr" },
+            "value": { "$ref": "#/$defs/expr" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "table_id", "key", "value"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "bracket_fold" },
+            "table_id": { "type": "string", "minLength": 1 },
+            "key": { "$ref": "#/$defs/expr" },
+            "value": { "$ref": "#/$defs/expr" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "value", "mode", "stage"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "round" },
+            "value": { "$ref": "#/$defs/expr" },
+            "mode": { "$ref": "#/$defs/expr" },
+            "stage": { "enum": ["source", "after_aggregate", "final"] }
+          }
+        }
+      ]
+    }
+  }
+}
