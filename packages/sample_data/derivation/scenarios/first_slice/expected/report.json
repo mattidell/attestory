@@ -1,0 +1,314 @@
+{
+  "blocked": [],
+  "explanations": {
+    "demo.form1040.line16": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "demo.package.first-slice.2025",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.finding.filing",
+          "kind": "choice",
+          "produced_by": null,
+          "role": "choice",
+          "symbol": "filing_status",
+          "value": "single",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.finding.line15",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "demo.form1040.line15",
+          "value": "14950",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.finding.rounding",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "rounding.convention",
+          "value": "half_up",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "range_lookup",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "round",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.parameter.regular-tax-split.2025",
+          "kind": "parameter",
+          "produced_by": null,
+          "role": "parameter",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.parameter.tax-table-sample.2025",
+          "kind": "parameter",
+          "produced_by": null,
+          "role": "parameter",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:0bbb8a393a05e9a0be9804f3",
+      "kind": "derived",
+      "produced_by": {
+        "id": "demo.rule.tax-table-line16",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "demo.form1040.line16",
+      "value": "1559",
+      "version": "v1"
+    },
+    "demo.form1040.line1a": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "demo.package.first-slice.2025",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.finding.rounding",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "rounding.convention",
+          "value": "half_up",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.finding.w2a",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "demo.w2.box1",
+          "value": "40000",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.finding.w2b",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "demo.w2.box1",
+          "value": "2000",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "round",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:b66171f9c919076e30f0dd50",
+      "kind": "derived",
+      "produced_by": {
+        "id": "demo.rule.wages-to-1040-line1a",
+        "role": "field-mapping",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "demo.form1040.line1a",
+      "value": "42000",
+      "version": "v1"
+    },
+    "demo.form1040.line9": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "demo.package.first-slice.2025",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "demo.package.first-slice.2025",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo.finding.rounding",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "rounding.convention",
+              "value": "half_up",
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo.finding.w2a",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "demo.w2.box1",
+              "value": "40000",
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo.finding.w2b",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "demo.w2.box1",
+              "value": "2000",
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "round",
+              "kind": "operation-semantics",
+              "produced_by": null,
+              "role": "operation-semantics",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:b66171f9c919076e30f0dd50",
+          "kind": "derived",
+          "produced_by": {
+            "id": "demo.rule.wages-to-1040-line1a",
+            "role": "field-mapping",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "demo.form1040.line1a",
+          "value": "42000",
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:dc9268d393d578594e9a5cd5",
+      "kind": "derived",
+      "produced_by": {
+        "id": "demo.rule.total-income-line9",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "demo.form1040.line9",
+      "value": "42000",
+      "version": "v1"
+    }
+  },
+  "published": [
+    {
+      "finding_id": "finding:derived:0bbb8a393a05e9a0be9804f3",
+      "symbol": "demo.form1040.line16",
+      "value": "1559"
+    },
+    {
+      "finding_id": "finding:derived:b66171f9c919076e30f0dd50",
+      "symbol": "demo.form1040.line1a",
+      "value": "42000"
+    },
+    {
+      "finding_id": "finding:derived:dc9268d393d578594e9a5cd5",
+      "symbol": "demo.form1040.line9",
+      "value": "42000"
+    }
+  ],
+  "run_id": "demo.run.first-slice",
+  "stop_reason": "saturated"
+}

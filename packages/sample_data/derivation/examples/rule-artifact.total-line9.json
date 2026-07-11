@@ -1,0 +1,13 @@
+{
+  "schema": "rule-artifact.v1",
+  "id": "demo.rule.total-income-line9",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["demo.form1040.line1a"],
+  "when": true,
+  "value": { "op": "ref", "name": "demo.form1040.line1a" },
+  "publishes": "demo.form1040.line9",
+  "blocked": { "code": "OPEN_DEPENDENCY", "missing": ["demo.form1040.line1a"] },
+  "notes": "Demo slice: total income is wages only, so line 9 carries line 1a forward — a derived value depending on another derived value, for explanation chaining."
+}
