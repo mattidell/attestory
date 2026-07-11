@@ -18,11 +18,11 @@ Round 1 — review of the it1 build. The build is complete (branch `prototypes/r
 | Reviewer: governance | `roles/reviewer-governance.md` | codex (resume session, 2026-07-10) | complete (round 1: `reviews/round-1-governance.md`) |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | codex (resume session, 2026-07-10) | complete (round 1: `reviews/round-1-expressiveness.md`) |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | — | **owner-launch now** (round 1 launch line in `reviews/round-1.md`, Legibility scope) |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | — | **open now** (round 1: `reviews/round-1.md`; round-0 work complete: `reviews/round-0-adversary.md`, `-delta.md`) |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | codex (resume session, 2026-07-10) | complete (round 1: `reviews/round-1-adversary.md`) |
 
 ## Next action
 
-Fill the remaining round-1 seats: adversary by fresh-session resumption; legibility by the owner launch line in `reviews/round-1.md`. Then foreman scoring, conformance check, and owner disposition.
+Fill the remaining round-1 seat: legibility by the owner launch line in `reviews/round-1.md`. Then foreman scoring, conformance check, and owner disposition.
 
 ## Evidence exhibits
 
