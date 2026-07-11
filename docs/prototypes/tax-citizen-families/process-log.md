@@ -297,3 +297,9 @@ dispositions.
   the required ordering point and reported reproduction, independent probes,
   and gate dispositions. Round 3 remains open; outcome summary is withheld
   until the remaining seats land or the owner disposes without them.
+
+- **2026-07-11 (event, governance reviewer)** - Round 3 governance review
+  submitted at `reviews/round-3-governance.md`. Reviewer reported measurements,
+  observations, dissent, independent probes, and tagged-harness reproduction.
+  Round 3 remains open; outcome summary is withheld until the remaining seats
+  land or the owner disposes without them.
