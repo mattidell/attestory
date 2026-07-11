@@ -1,6 +1,6 @@
 # ADR 0006 — Rule Artifact Language
 
-- Status: proposed
+- Status: accepted (ratified 2026-07-10)
 - Tier: 3
 - Date: 2026-07-10
 

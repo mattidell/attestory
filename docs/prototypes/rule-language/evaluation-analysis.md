@@ -61,6 +61,7 @@ Each traces to a disclosed negative result or review finding; the ADRs carry the
 5. **Storage-level record evidence (E6.1/E14.1)** — record pair proven conceptually, not against real atomic writes (`examination-it2.md` negative 5).
 6. **Form-field/fact-type citizen families** — both corpora reference them as bare id strings (`examination-it1.md` Q11 negative evidence; `round-2-legibility.md` L-10).
 7. **One role vocabulary** across artifact, package member, and pin (`round-2-adversary.md` attack 7; `round-2-legibility.md` L-8).
+8. **Governance pins from versioned inputs, not evaluator constants.** Both iterations hardcode governance identity (`GOVERNANCE` tuple, literal `"version":"0.1"`) as ambient Python constants rather than reading a governance-version citizen or run input (`round-2-governance.md` check 2, carried unchanged from round 1). A pin whose value originates in evaluator code is not a pin; governance versions must be pinned from versioned/adopted inputs. (Added at governance sign-off delta-confirmation, 2026-07-11 — the bounded dispute's requested condition.)
 
 ## 6. Dissent record
 
@@ -68,4 +69,4 @@ No reviewer dissented from concluding the prototype effort. Standing dissents, a
 
 ## 7. Committee sign-off
 
-The milestone exit requires recorded committee agreement that the evidence suffices. Round-2 review positions consenting to conclusion are on record (§6); sign-off on *this document* — that it traces their findings faithfully — is a bounded delta-confirmation per seat, pending in `SEAT.md`.
+The milestone exit requires recorded committee agreement that the evidence suffices. Round-2 review positions consenting to conclusion are on record (§6). Sign-off delta-confirmations recorded 2026-07-11 in each seat's round-2 review file: expressiveness confirmed; adversary confirmed; governance confirmed with one bounded dispute — the governance-pin runtime-source requirement was missing from the conditions — resolved by adding §5.8 and the corresponding ADR-0007 requirement before ratification. The starved legibility seat is excluded from sign-off by design (it cannot audit this document without de-starving); its evidence is represented by the foreman scoring documents.

@@ -2,7 +2,7 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: in execution (owner go 2026-07-10). Execution state lives in `docs/prototypes/rule-language/SEAT.md`.
+Status: **complete** (2026-07-10). ADRs 0006/0007/0008 ratified; evaluation analysis at `docs/prototypes/rule-language/evaluation-analysis.md`; retrospective at `docs/milestone-retrospectives/2026-07-10-rule-language-design.md`. The prototype process is closed (`docs/prototypes/rule-language/SEAT.md` is historical).
 
 Protocol deviation, declared: the milestone-execution-branch protocol does not apply here. This milestone's deliverables are documents that must be continuously visible on `main` for seat dispatch (seat file, process log, charters, reviews), so document commits land on `main` directly; prototype code lands only on `prototypes/rule-language/it<N>` branches and never merges.
 

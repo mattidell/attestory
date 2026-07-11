@@ -6,7 +6,7 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). **Concluded by owner disposition (2026-07-10): no it3.** it2 is tag `exhibits/rule-language/it2`. The evaluation analysis (`evaluation-analysis.md`) and ADR proposals 0006/0007/0008 are drafted. Current step: **committee sign-off disposition** — expressiveness and adversary sign-offs are complete; governance delta-confirmation is complete with a bounded dispute. Resolve the governance bounded dispute before owner ratification of ADRs 0006/0007/0008. After ratification: milestone retrospective (foreman).
+**Process closed.** ADRs 0006/0007/0008 ratified by owner disposition 2026-07-10 (0007 amended pre-ratification to resolve the governance sign-off dispute — see process log). The evaluation analysis is the milestone's evidence document; all three iterations are exhibit tags. No seats are open and none will reopen; a fresh agent resuming this project should not take a seat here — see `docs/phase-state.md` for the active milestone. Remaining foreman item: milestone retrospective (`docs/milestone-retrospectives/`).
 
 ## Seats
 
@@ -22,7 +22,7 @@ Round 2 — review of the it2 rival build and the comparison against it1. The ri
 
 ## Next action
 
-Resolve the governance bounded dispute before owner ratification of ADRs 0006/0007/0008. After ratification: milestone retrospective treating the process itself as a subject (raw material: this log's incidents); phase-state and milestone-status updates; Derivation Machinery re-planning follows ratification (outside this milestone).
+None in this process. Milestone retrospective, phase-state, and milestone-status updates are foreman work outside this seat file; Derivation Machinery re-planning follows ratification as its own milestone.
 
 ## Evidence exhibits
 

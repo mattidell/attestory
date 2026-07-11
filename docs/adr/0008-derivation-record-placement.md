@@ -1,6 +1,6 @@
 # ADR 0008 — Derivation Record Placement and Timing
 
-- Status: proposed
+- Status: accepted (ratified 2026-07-10)
 - Tier: 2
 - Date: 2026-07-10
 
