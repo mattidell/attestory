@@ -268,3 +268,19 @@ dispositions.
   checks remain for later increments, and the README still identifies the
   artifact as it2. Round 3 was not opened. The branch remains intact and the
   seat is returned to the same owner-launched builder for mandatory closeout.
+
+- **2026-07-11 (event, builder)** - Iteration 3 closeout completed on branch
+  `prototypes/tax-citizen-families/it3` at `be72d63`. Builder added the required
+  `examination-it3.md`, corrected the handoff README, and extended the harness
+  with gate-specific evidence mapped to R1-R13.
+
+- **2026-07-11 (event, foreman)** - Foreman independently reran `PYTHONPATH=.
+  python3 docs/prototypes/tax-citizen-families/it3/tools/harness.py`; all 203
+  checks passed. `python3 tools/governance_lint.py`, JSON parsing for every it3
+  JSON file, and `git diff --check` also passed. Both worktrees were clean.
+  Iteration 3 was preserved as exhibit tag
+  `exhibits/tax-citizen-families/it3` at `be72d63`; the active prototype branch
+  and temporary review worktree were removed after verifying the tag. The it3
+  examination was copied to main and round 3 assembled in
+  `reviews/round-3.md`. Governance, expressiveness, adversary, and owner-launched
+  context-starved legibility review seats opened.

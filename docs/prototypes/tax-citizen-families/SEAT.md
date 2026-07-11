@@ -10,10 +10,11 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Iteration 3 targeted repair is returned to the owner-launched builder for
-mandatory closeout.** The branch has a clean checkpoint at `d5ace21`, but the
-required `examination-it3.md`, R1-R13 evidence checklist, and gate-specific
-harness increments are not present. Round 3 review is not open.
+**Round 3 targeted repair review is open.** Iteration 3 is preserved as exhibit
+tag `exhibits/tax-citizen-families/it3` at `be72d63`; its active prototype
+branch has been removed. Governance, expressiveness, and adversary seats are
+open for foreman dispatch. The context-starved legibility seat requires owner
+launch.
 
 ## Seats
 
@@ -30,23 +31,23 @@ harness increments are not present. Round 3 review is not open.
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `codex-expressiveness-r2-2026-07-11` | round 2 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-r2-2026-07-11` | round 2 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 2 complete |
-| Builder it3 | `roles/builder.md` | owner-launched it2 builder session | active; closeout required after checkpoint `d5ace21` |
+| Builder it3 | `roles/builder.md` | owner-launched it2 builder session | complete; exhibit `exhibits/tax-citizen-families/it3` |
+| Reviewer: governance | `roles/reviewer-governance.md` | dispatch pending | round 3 open |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | dispatch pending | round 3 open |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | dispatch pending | round 3 open |
+| Reviewer: legibility | `roles/reviewer-legibility.md` | owner launch needed | round 3 open |
 
 ## Next Action
 
-Owner should return control to the same it3 builder session to complete the
-charter. The builder must work only on branch
-`prototypes/tax-citizen-families/it3`, finish gate-specific evidence for
-R1-R13, correct the it3 README/handoff text, and write
-`docs/prototypes/tax-citizen-families/examination-it3.md` with the required
-R1-R13 path-and-command checklist. The foreman will then rerun verification and
-open round 3. Per owner instruction, the foreman does not spawn a builder
-subagent.
+Foreman dispatches governance, expressiveness, and adversary reviewers using
+`gpt-5.6-luna` with high reasoning. Owner launches the context-starved
+legibility reviewer using `roles/reviewer-legibility.md` and `reviews/round-3.md`.
+No reviewer may read same-round peer output before submission.
 
 ## Planned Exhibits
 
 - Tag `exhibits/tax-citizen-families/it1` - first candidate contract at
   `88f0139`.
 - Tag `exhibits/tax-citizen-families/it2` - clean-room rival at `989d9fe`.
-- Branch `prototypes/tax-citizen-families/it3` - targeted repair branch opened
-  from it2 at `989d9fe`.
+- Tag `exhibits/tax-citizen-families/it3` - targeted repair candidate at
+  `be72d63`.
