@@ -291,3 +291,9 @@ dispositions.
   round-3 review file, and was instructed not to read same-round peer outputs or
   commit-message bodies. The context-starved legibility seat remains reserved
   for owner launch.
+
+- **2026-07-11 (event, expressiveness reviewer)** - Round 3 expressiveness
+  review submitted at `reviews/round-3-expressiveness.md`. Reviewer disclosed
+  the required ordering point and reported reproduction, independent probes,
+  and gate dispositions. Round 3 remains open; outcome summary is withheld
+  until the remaining seats land or the owner disposes without them.
