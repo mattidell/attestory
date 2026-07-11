@@ -25,19 +25,18 @@ them by pasting the launch line from the role file into a fresh session.
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `codex-expressiveness-r1-2026-07-11` | round 1 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-r1-2026-07-11` | round 1 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 1 complete |
-| Reviewer: governance | `roles/reviewer-governance.md` | open | round 2 open |
-| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | open | round 2 open |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | open | round 2 open |
+| Reviewer: governance | `roles/reviewer-governance.md` | `codex-governance-r2-2026-07-11` | round 2 complete |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `codex-expressiveness-r2-2026-07-11` | round 2 complete |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-r2-2026-07-11` | round 2 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | not opened | context-starved; owner launch for round 2 |
 
 ## Next Action
 
-Generic resumption may claim one open unstarved reviewer seat for round 2.
-Review subagents, if used, must be `gpt-5.6-luna` with high reasoning. Do not
-read same-round peer outputs before submitting. Expressiveness must run
-reproduction checks before opening `examination-it2.md`. The legibility seat is
-context-starved and must be owner-launched using `roles/reviewer-legibility.md`
-and the scope in `reviews/round-2.md`.
+Round 2 unstarved reviews are complete and committed. The remaining open seat is
+context-starved legibility; it must be owner-launched using
+`roles/reviewer-legibility.md` and the scope in `reviews/round-2.md`. Foreman
+conformance and outcome summaries wait until legibility lands or the owner
+disposes without it.
 
 ## Planned Exhibits
 

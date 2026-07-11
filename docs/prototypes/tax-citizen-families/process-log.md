@@ -191,3 +191,19 @@ dispositions.
   of it2 against the charter and it1 evidence. Governance, expressiveness,
   adversary, and context-starved legibility review seats opened. Per owner
   instruction, any review subagents use `gpt-5.6-luna` with high reasoning.
+
+- **2026-07-11 (event, governance reviewer)** - Round 2 governance review
+  submitted at `reviews/round-2-governance.md`. Round 2 remains open; outcome
+  summary withheld until the context-starved legibility seat lands or the owner
+  disposes without it.
+
+- **2026-07-11 (event, adversary reviewer)** - Round 2 adversary review
+  submitted at `reviews/round-2-adversary.md`. Round 2 remains open; outcome
+  summary withheld until the context-starved legibility seat lands or the owner
+  disposes without it.
+
+- **2026-07-11 (event, expressiveness reviewer)** - Round 2 expressiveness
+  review submitted at `reviews/round-2-expressiveness.md`. Reviewer disclosed
+  the required ordering point in the review. Round 2 remains open; outcome
+  summary withheld until the context-starved legibility seat lands or the owner
+  disposes without it.
