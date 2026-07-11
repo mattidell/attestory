@@ -6,7 +6,7 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). Governance, expressiveness, and adversary are complete; the legibility seat is starved and owner-launched (round-2 launch line in `reviews/round-2.md`). When all four reviews exist, the foreman scores legibility, conformance-checks, and presents the owner disposition.
+Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). Governance, expressiveness, and adversary are complete and conformance-checked by the foreman (expressiveness conformant-with-disclosure; see process log). The round waits only on the legibility seat — starved and owner-launched (round-2 launch line in `reviews/round-2.md`). When it lands, the foreman scores it, closes the round with outcome summaries, and presents the owner disposition.
 
 **Dispatch warning for the remaining open round-2 seats (independence rule v3):** do not read commit-message *bodies* from this round before submitting — landed round-2 commit bodies from governance and adversary are event-only per v3, but check before relying on that. Subjects are fine. Your own submission commit message must be event-only.
 

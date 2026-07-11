@@ -14,4 +14,4 @@ You are the instrument for Article 11's core claim: a rule's complete meaning is
 
 **Output:** `reviews/round-<N>-legibility.md`: one recovery attempt per artifact. The foreman scores recoveries against intended meanings afterward; you never see the intended meanings.
 
-**Independence rule (v3, 2026-07-10):** do not read other reviewers' outputs from the current round before submitting your own — this includes commit-message *bodies* from the current round, which may carry findings. Peer reviews from prior rounds are fair game. (You are starved: you do not read git history at all; the foreman commits your output.)
+**Independence rule (v4, 2026-07-10):** do not read other reviewers' outputs from the current round before submitting your own — this includes commit-message *bodies* from the current round, which may carry findings. Peer reviews from prior rounds are fair game. (You are starved: you do not read git history at all; the foreman commits your output.) **One seat per identity per round:** a session that has held any reviewer seat in the current round must not claim another reviewer seat in the same round.
