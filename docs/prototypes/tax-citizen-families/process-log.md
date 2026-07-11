@@ -303,3 +303,10 @@ dispositions.
   observations, dissent, independent probes, and tagged-harness reproduction.
   Round 3 remains open; outcome summary is withheld until the remaining seats
   land or the owner disposes without them.
+
+- **2026-07-11 (event, adversary reviewer)** - Round 3 adversary review
+  submitted at `reviews/round-3-adversary.md`. Reviewer reported attacks for
+  R1-R13, including failed attacks, independent probes, primary-source checks,
+  observations, and explicit dissent. Round 3 remains open; outcome summary is
+  withheld until the context-starved legibility seat lands or the owner
+  disposes without it.
