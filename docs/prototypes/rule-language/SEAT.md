@@ -6,7 +6,7 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). **Concluded by owner disposition (2026-07-10): no it3.** it2 is tag `exhibits/rule-language/it2`. The evaluation analysis (`evaluation-analysis.md`) and ADR proposals 0006/0007/0008 are drafted. Current step: **committee sign-off** — three bounded delta-confirmation seats are open **now** for fresh agents resuming this project: governance, expressiveness, adversary. Scope per seat: read `evaluation-analysis.md` and your own `reviews/round-2-<seat>.md`; confirm (or dispute, with citations) that the analysis traces your findings faithfully and that its §5 conditions cover your dissent; append a dated sign-off section to your round-2 review file. No new review work; no re-reading of peer reviews required. After sign-off: owner ratification of the ADRs, then the milestone retrospective (foreman).
+Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). **Concluded by owner disposition (2026-07-10): no it3.** it2 is tag `exhibits/rule-language/it2`. The evaluation analysis (`evaluation-analysis.md`) and ADR proposals 0006/0007/0008 are drafted. Current step: **committee sign-off** — governance and adversary bounded delta-confirmation seats remain open for fresh agents resuming this project; expressiveness sign-off is complete. Scope per open seat: read `evaluation-analysis.md` and your own `reviews/round-2-<seat>.md`; confirm (or dispute, with citations) that the analysis traces your findings faithfully and that its §5 conditions cover your dissent; append a dated sign-off section to your round-2 review file. No new review work; no re-reading of peer reviews required. After sign-off: owner ratification of the ADRs, then the milestone retrospective (foreman).
 
 ## Seats
 
@@ -16,13 +16,13 @@ Round 2 — review of the it2 rival build and the comparison against it1. The ri
 | Builder it1 | `roles/builder.md` | codex (resume session, 2026-07-10) | complete (branch `prototypes/rule-language/it1` @ `362f8a3`; `examination-it1.md`) |
 | Rival builder | `roles/builder-rival.md` | owner-launched clean room (2026-07-10) | complete (branch `prototypes/rule-language/it2` @ `623957c`; `examination-it2.md`) |
 | Reviewer: governance | `roles/reviewer-governance.md` | claude (resume session, 2026-07-10) | complete (round 2: `reviews/round-2-governance.md`) |
-| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | codex (resume session, 2026-07-10) | complete (round 2: `reviews/round-2-expressiveness.md`; process disclosure recorded in review) |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | codex (resume session, 2026-07-10) | complete; sign-off complete 2026-07-11 (round 2: `reviews/round-2-expressiveness.md`; process disclosure recorded in review) |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session (2026-07-10) | complete (round 2: `reviews/round-2-legibility.md`; foreman scoring `round-2-legibility-scoring.md`) |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | claude (resume session, 2026-07-10) | complete (round 2: `reviews/round-2-adversary.md`) |
 
 ## Next action
 
-Fill the three sign-off seats by fresh-session resumption (one seat each, first-come; one-seat-per-identity rule applies). Then: owner ratification of ADRs 0006/0007/0008; milestone retrospective treating the process itself as a subject (raw material: this log's incidents); phase-state and milestone-status updates; Derivation Machinery re-planning follows ratification (outside this milestone).
+Fill the remaining governance and adversary sign-off seats by fresh-session resumption (one seat each, first-come; one-seat-per-identity rule applies). Then: owner ratification of ADRs 0006/0007/0008; milestone retrospective treating the process itself as a subject (raw material: this log's incidents); phase-state and milestone-status updates; Derivation Machinery re-planning follows ratification (outside this milestone).
 
 ## Evidence exhibits
 
