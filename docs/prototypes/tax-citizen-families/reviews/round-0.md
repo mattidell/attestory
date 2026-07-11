@@ -1,6 +1,8 @@
 # Round 0 - Charter Review
 
-Status: open. Builder seat is blocked until this review round is disposed.
+Status: complete. Both reviews were submitted; the foreman conformance check is
+recorded in `process-log.md`. Builder seat remains blocked because the charter
+was amended to v2 and `round-0-delta.md` is open for bounded confirmation.
 
 ## Scope
 
@@ -21,4 +23,3 @@ families.
 
 Same-round peer outputs and commit-message bodies are off-limits before
 submission.
-

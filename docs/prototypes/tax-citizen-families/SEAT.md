@@ -10,17 +10,17 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Round 0 charter review is open.** The charter is `charter-it1.md`. No builder
-seat opens until the charter-review disposition closes or the owner overrides
-the dissent.
+**Round 0 delta-confirmation is open.** The charter is `charter-it1.md` v2. No
+builder seat opens until bounded delta-confirmation closes or the owner
+overrides remaining dissent.
 
 ## Seats
 
 | Seat | Role file | Holder | Status |
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | codex (planning session, 2026-07-11) | active |
-| Reviewer: governance | `roles/reviewer-governance.md` | codex (resume session, 2026-07-11) | round 0 complete |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | codex (resume session, 2026-07-11) | round 0 complete |
+| Reviewer: governance | `roles/reviewer-governance.md` | open for bounded delta-confirmation | round 0 delta open |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | open for bounded delta-confirmation | round 0 delta open |
 | Builder it1 | `roles/builder.md` | not opened | blocked on round 0 disposition |
 | Rival builder | `roles/builder-rival.md` | not opened | context-starved; opens after it1 review |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | not opened | opens after a build |
@@ -28,14 +28,10 @@ the dissent.
 
 ## Next Action
 
-Round 0 reviewers measure whether `charter-it1.md` is a sufficient fixture and
-question set for a contract-foundational Tier 2 decision about form-field, tax
-fact-type, source-set closure, rendered-absence, and source-citation content.
-
-Generic resumption may claim an open unstarved reviewer seat, but only one
-reviewer seat per identity per round. Do not read same-round peer outputs before
-submitting. Governance and adversary reviews are now submitted; foreman/owner
-disposition remains open.
+Round 0 reviewers perform bounded delta-confirmation against `charter-it1.md`
+v2 and `reviews/round-0-delta.md`. Generic resumption may claim an open
+unstarved delta seat, but only one reviewer seat per identity per round. Do not
+read same-round peer outputs before submitting.
 
 ## Planned Exhibits
 

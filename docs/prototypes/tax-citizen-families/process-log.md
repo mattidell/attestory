@@ -36,3 +36,32 @@ dispositions.
   citation authority, cross-year evolution, and recomputable coverage. The
   review recommends charter amendments before builder dispatch; round-0
   disposition remains with the foreman/owner.
+
+- **2026-07-11 (incident: identity ambiguity / process gap)** - Both completed
+  round-0 review records and `SEAT.md` identify their holders generically as
+  `codex (resume session, 2026-07-11)`. The process rule is one reviewer seat
+  per identity per round, but the current local record does not distinguish
+  whether these were separate identities/sessions or the same reasoning process.
+  The reviews remain usable for charter amendment because both attest that no
+  same-round peer output or commit-message body was read before submission, both
+  are measurement-shaped, and both findings are independently checkable from
+  the charter and cited sources. Remedy for this process: delta-confirmation
+  seats are reopened with explicit one-seat-per-identity language; future seat
+  claims should record a stable reviewer label beyond generic model family.
+
+- **2026-07-11 (event, foreman)** - Round-0 conformance check complete.
+  Governance review: six declared checks answered in check -> result -> exhibit
+  shape, observations/dissent separated, independence attested - conformant
+  with two amendment requests. Adversary review: six required attacks attempted
+  with outcomes and exhibits, failed attacks reported, explicit dissent from
+  builder dispatch as written - conformant with amendment requests. Convergent
+  disposition: amend charter before opening the builder seat.
+
+- **2026-07-11 (event, foreman)** - Charter amended to v2. Amendments adopted:
+  evidence removal/re-upload peerage probe; validation results for positive and
+  negative instances; 1099-INT box distinction/negative fixture; W-2 identity
+  collision pressure; four-state absence/invalidity matrix; false-guard
+  rendered absence; precise citation locator/year mutation and non-operative
+  parity; old-year/later-year/mixed-year versioning probe; coverage rebuild and
+  stale-projection probe. Round-0 delta-confirmation opened in
+  `reviews/round-0-delta.md`; builder seat remains blocked.
