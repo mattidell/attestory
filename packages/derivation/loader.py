@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from packages.kernel.schema_registry import (
+    KERNEL_SCHEMA_DIR,
     SchemaRegistry,
     SchemaValidationError,
 )
@@ -28,6 +29,16 @@ from packages.kernel.schema_registry import (
 _PACKAGES_DIR = Path(__file__).resolve().parent.parent
 DERIVATION_SCHEMA_DIR = _PACKAGES_DIR / "schemas" / "derivation"
 CANON_DIR = _PACKAGES_DIR / "canon" / "derivation"
+
+
+def workspace_registry() -> SchemaRegistry:
+    """A registry spanning both act families a workspace act log stores.
+
+    ADR-0010: the act log admits kernel acts and derived-publication acts, so
+    the registry that validates it must span the kernel and derivation schema
+    directories. Schema ids are unique across the two families.
+    """
+    return SchemaRegistry([KERNEL_SCHEMA_DIR, DERIVATION_SCHEMA_DIR])
 
 RULE_ARTIFACT_SCHEMA = "rule-artifact.v1"
 PARAMETER_SCHEMA = "parameter-declaration.v1"
