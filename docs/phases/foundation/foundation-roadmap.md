@@ -16,13 +16,13 @@ Audience: Product (roadmap); Shared (status)
 
 ## Status
 
-Active milestone: **Rule Language Design** (plan: `milestones/rule-language-design.md`; planned 2026-07-10; execution pending owner go after process regroup).
+Active milestone: **Derivation Machinery** (plan: `milestones/derivation-machinery.md`; re-planned 2026-07-10 against ADRs 0006/0007/0008; execution pending owner go).
 
 - Governance Installation — **complete** (2026-07-09, merge `6e4eefa`; retrospective: `docs/milestone-retrospectives/2026-07-09-governance-installation.md`). Impacts: `docs/governance/`, `docs/adr/`, `docs/milestone-retrospectives/`, root meta documents, `tools/`, `tests/`.
 - Workspace Kernel — **complete** (2026-07-10, merge `c8799ce`; retrospective: `docs/milestone-retrospectives/2026-07-10-workspace-kernel.md`). Tier 2 decisions ratified 2026-07-10 (ADR-0002, ADR-0003): persistence (append-only JSONL act log), schema technology and identity (JSON Schema 2020-12, opaque IDs), synthetic kernel vocabulary, minimal adoption act. Impacts: `packages/kernel/`, `packages/schemas/kernel/`, `packages/sample_data/kernel/`, `tests/conformance/`, `docs/adr/`, `README.md`.
 - Kernel Reconciliation patch — **complete** (2026-07-10, merge of `patch-kernel-reconciliation`): entity supersession act, record-only displacement, elective/basis coherence, consulted supersession policy. Closes the findings of `docs/reviews/2026-07-10-workspace-kernel-tracks-4-7.md`.
-- Rule Language Design — planned (2026-07-10); execution pending owner go. First run of the prototype-driven decision process.
-- Derivation Machinery — deferred pending the rule-language ADR; first plan archived, full state at branch `snapshot/2026-07-10-derivation-machinery-plan`.
+- Rule Language Design — **complete** (2026-07-10; retrospective: `docs/milestone-retrospectives/2026-07-10-rule-language-design.md`). ADRs 0006/0007/0008 ratified; evidence at `docs/prototypes/rule-language/evaluation-analysis.md`; iterations preserved as tags `exhibits/rule-language/it0`–`it2`. First run of the prototype-driven decision process, completed with two iterations of a three-iteration cap.
+- Derivation Machinery — re-planned (2026-07-10) against the ratified ADRs; execution pending owner go. Predecessor plan archived (`docs/archive/2026-07-10-derivation-machinery-plan/`, snapshot branch `snapshot/2026-07-10-derivation-machinery-plan`); the evaluation analysis' §5 ratification conditions are the plan's entry checklist.
 - First Tax Slice — not started.
 
 ### Implementation notes

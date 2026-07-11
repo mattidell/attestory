@@ -18,4 +18,4 @@ Active phase: **Foundation** — `docs/phases/foundation/`
 
 Canonical phase state lives in the phase roadmap: `docs/phases/foundation/foundation-roadmap.md`.
 
-Active milestone: none — **Rule Language Design** completed 2026-07-10 (`docs/phases/foundation/milestones/rule-language-design.md`); next is Derivation Machinery re-planning (owner go required).
+Active milestone: **Derivation Machinery** — `docs/phases/foundation/milestones/derivation-machinery.md` (re-planned 2026-07-10 against ADRs 0006/0007/0008; execution pending owner go). Rule Language Design completed 2026-07-10.
