@@ -32,17 +32,17 @@ launch.
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-r2-2026-07-11` | round 2 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 2 complete |
 | Builder it3 | `roles/builder.md` | owner-launched it2 builder session | complete; exhibit `exhibits/tax-citizen-families/it3` |
-| Reviewer: governance | `roles/reviewer-governance.md` | dispatch pending | round 3 open |
-| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | dispatch pending | round 3 open |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | dispatch pending | round 3 open |
+| Reviewer: governance | `roles/reviewer-governance.md` | `Lovelace` (`019f5384-e415-7691-af20-9fbe46907be3`) | round 3 active |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `Nietzsche` (`019f5384-e48f-7403-a906-71a39169e794`) | round 3 active |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | `Hume` (`019f5384-e559-7673-87f9-1fba1b904f68`) | round 3 active |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner launch needed | round 3 open |
 
 ## Next Action
 
-Foreman dispatches governance, expressiveness, and adversary reviewers using
-`gpt-5.6-luna` with high reasoning. Owner launches the context-starved
-legibility reviewer using `roles/reviewer-legibility.md` and `reviews/round-3.md`.
-No reviewer may read same-round peer output before submission.
+Governance, expressiveness, and adversary reviewers complete their independent
+reviews. Owner launches the context-starved legibility reviewer using
+`roles/reviewer-legibility.md` and `reviews/round-3.md`. No reviewer may read
+same-round peer output before submission.
 
 ## Planned Exhibits
 
