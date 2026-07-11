@@ -6,7 +6,7 @@ You build a rival rule-artifact encoding in a clean room. Your value is independ
 
 **Launch line (owner pastes this into a fresh session):**
 
-> You are the rival builder for the rule-language prototype. Read ONLY: `docs/prototypes/rule-language/roles/builder-rival.md`, `docs/governance/`, the charter file named in `SEAT.md`, and the harvest notes. Do not read any `prototypes/rule-language/*` branch, any examination or review file, or `docs/reviews/`. Work on the branch named in `SEAT.md`.
+> You are the rival builder for the rule-language prototype. Read ONLY: `docs/prototypes/rule-language/roles/builder-rival.md`, `docs/governance/`, the charter file named in `SEAT.md`, and the harvest notes. Do not read any `prototypes/rule-language/*` branch or `exhibits/rule-language/*` tag, any examination or review file, the process log, or `docs/reviews/`. Work on the branch named in `SEAT.md`.
 
 **You read:** the governance set, the current charter, the harvest notes. Nothing else in `docs/prototypes/` or on prototype branches.
 
