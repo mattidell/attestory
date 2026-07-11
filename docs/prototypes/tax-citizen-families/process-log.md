@@ -77,3 +77,16 @@ dispositions.
   parity; old-year/later-year/mixed-year versioning probe; coverage rebuild and
   stale-projection probe. Round-0 delta-confirmation opened in
   `reviews/round-0-delta.md`; builder seat remains blocked.
+
+- **2026-07-11 (event, adversary delta reviewer)** - Stable reviewer label
+  `codex-adversary-delta-2026-07-11` claimed the open adversary
+  delta-confirmation seat. No same-round peer delta output or commit-message
+  body was read before the review; this identity holds only the adversary delta
+  seat in this round.
+
+- **2026-07-11 (event, adversary delta reviewer)** - Bounded delta-confirmation
+  submitted at `reviews/round-0-adversary-delta.md`. Findings A1, A2, A4, A5,
+  and A6 are closed by v2. A3 is partially closed: the four-state and
+  non-publication requirements are present, but per-state explanation-walk
+  evidence is not explicit. Builder dispatch remains subject to foreman/owner
+  disposition of that residual gap.
