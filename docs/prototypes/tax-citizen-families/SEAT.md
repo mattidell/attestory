@@ -10,11 +10,11 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Round 3 targeted repair review is open.** Iteration 3 is preserved as exhibit
-tag `exhibits/tax-citizen-families/it3` at `be72d63`; its active prototype
-branch has been removed. Governance, expressiveness, and adversary seats are
-open for foreman dispatch. The context-starved legibility seat requires owner
-launch.
+**Round 3 targeted repair review is waiting on the context-starved legibility
+seat.** Iteration 3 is preserved as exhibit tag
+`exhibits/tax-citizen-families/it3` at `be72d63`; its active prototype branch
+has been removed. Governance, expressiveness, and adversary reviews are
+complete. The legibility seat requires owner launch.
 
 ## Seats
 
@@ -39,10 +39,10 @@ launch.
 
 ## Next Action
 
-Governance, expressiveness, and adversary reviewers complete their independent
-reviews. Owner launches the context-starved legibility reviewer using
-`roles/reviewer-legibility.md` and `reviews/round-3.md`. No reviewer may read
-same-round peer output before submission.
+Owner launches the context-starved legibility reviewer using
+`roles/reviewer-legibility.md` and `reviews/round-3.md`. That reviewer reads
+only the role, round file, and the artifact files listed in the round file; it
+must not read the charter, examination, git history, or same-round peer output.
 
 ## Planned Exhibits
 
