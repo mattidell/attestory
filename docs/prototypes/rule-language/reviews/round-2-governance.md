@@ -134,3 +134,21 @@ The rounding-semantics and false-vs-blocked findings (Check 1) are now confirmed
 ## Dissent
 
 No dissent from proceeding with the process. I dissent from any framing that treats it2 as the strictly-superior successor on governance grounds alone: it2 is ahead on vocabulary closure, package-closure enforcement, and scope-escape checking; it1 is ahead on schema-to-runtime binding. An it3 or an evaluation-analysis synthesis should explicitly combine it2's package/scope enforcement and enumerated vocabulary with it1's genuine `jsonschema`-backed validation — treating either artifact corpus alone as ratifiable would carry forward a defect the other iteration already solved.
+
+## Sign-off — Evaluation Analysis Delta Confirmation (2026-07-11)
+
+Delta-confirmation reviewer: Codex resume session, 2026-07-11.
+
+Scope: bounded delta-confirmation against `evaluation-analysis.md` and this review only. I performed no new review work and did not re-read peer round-2 reviews for this sign-off.
+
+Result: bounded dispute.
+
+The evaluation analysis faithfully traces the governance review's central comparative findings and dissent:
+
+- The schema-to-runtime authority regression is recorded in C6 and ratification condition §5.1, including the synthesis that it2's schema content plus it1's `jsonschema`-backed validation would beat both.
+- The package-closure and scope-as-content improvements are recorded in C7.
+- The operation-semantics gap is recorded in C9 and ratification condition §5.2.
+- The absent-source/asserted-zero and false/inapplicable record gaps are recorded in C10 and ratification condition §5.3.
+- The governance dissent from treating it2 as a single strictly superior successor is preserved in §6.
+
+Bounded dispute: this review's Check 2 found that governance-version pinning remains evaluator-carried in both iterations: `GOVERNANCE` and `"version":"0.1"` are ambient Python constants rather than values read from a governance-version citizen or run input. The analysis mentions governance pins in C3 and ADR-0007 requires governance-version pins, but neither the analysis conditions nor the ADR drafts state the corresponding runtime-source requirement: governance versions must be pinned from versioned/adopted inputs, not hardcoded evaluator constants. Before owner ratification, add this as a ratification condition or explicitly fold it into the schema/runtime-authority condition.
