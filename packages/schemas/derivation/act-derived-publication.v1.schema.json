@@ -2,48 +2,16 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "derivation/act-derived-publication.v1",
   "title": "Derived-publication act payload",
-  "description": "The act kind by which a derived finding enters the record (ADR-0007). Never an assertion: it records a determination the machinery made, attributed to the adopting actor through the adoption pin, not to the evaluator. The act pins its full lineage with roles (decision 3) — input/choice findings, parameters, the firing rule, mappings/bridges, the adoption act, governance versions, and optionally engine identity — every pin value originating in a versioned/adopted input, never an evaluator constant (decision 4). run_id links the act to its ADR-0008 record pair. Deterministic content-addressed ids (decision 5) are a runner obligation proven by portability tests, not constrained here beyond non-emptiness.",
+  "description": "The act kind by which a derived finding enters the record (ADR-0007). Never an assertion: it records a determination the machinery made, attributed to the adopting actor through the adoption pin, not to the evaluator. It carries a derived-finding.v1 (ADR-0009 decision 2), whose role-bearing pins ARE the act's full lineage (ADR-0007 decision 3) — input/choice findings, parameters, the firing rule, mappings/bridges, the adoption act, governance versions, and optionally engine identity — every pin value originating in a versioned/adopted input, never an evaluator constant (decision 4). The lineage lives on the finding, not duplicated on the act. run_id links the act to its ADR-0008 record pair. Deterministic content-addressed ids (decision 5) are a runner obligation proven by portability tests.",
   "type": "object",
   "properties": {
     "run_id": { "type": "string", "minLength": 1 },
     "finding": {
       "type": "object",
-      "properties": { "schema": { "const": "finding.v1" } },
+      "properties": { "schema": { "const": "derived-finding.v1" } },
       "required": ["schema"]
-    },
-    "pins": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "#/$defs/pin" }
     }
   },
-  "required": ["run_id", "finding", "pins"],
-  "additionalProperties": false,
-  "$defs": {
-    "pin": {
-      "type": "object",
-      "properties": {
-        "role": {
-          "enum": [
-            "parameter",
-            "computation",
-            "applicability",
-            "field-mapping",
-            "cross-form-bridge",
-            "input",
-            "choice",
-            "adoption",
-            "governance",
-            "engine",
-            "package",
-            "operation-semantics"
-          ]
-        },
-        "id": { "type": "string", "minLength": 1 },
-        "version": { "type": "string", "pattern": "^v[0-9]+$" }
-      },
-      "required": ["role", "id", "version"],
-      "additionalProperties": false
-    }
-  }
+  "required": ["run_id", "finding"],
+  "additionalProperties": false
 }

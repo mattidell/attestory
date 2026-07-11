@@ -33,6 +33,7 @@ RULE_ARTIFACT_SCHEMA = "rule-artifact.v1"
 PARAMETER_SCHEMA = "parameter-declaration.v1"
 PACKAGE_SCHEMA = "artifact-package.v1"
 PUBLICATION_ACT_SCHEMA = "act-derived-publication.v1"
+DERIVED_FINDING_SCHEMA = "derived-finding.v1"
 DERIVATION_RECORD_SCHEMA = "derivation-record.v1"
 OPERATION_SEMANTICS_SCHEMA = "operation-semantics.v1"
 

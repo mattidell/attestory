@@ -61,8 +61,24 @@ class PositiveExamples(LanguageSchemaFixture):
 
     def test_publication_act_payload_validates(self) -> None:
         # The act payload has no self-declaring `schema` field (the envelope
-        # carries it), so it is validated by named schema.
-        self.schemas.validate(PUBLICATION_ACT_SCHEMA, _example("act-derived-publication.json"))
+        # carries it), so it is validated by named schema. Per ADR-0009 it
+        # carries a derived-finding.v1, whose role-bearing pins are the
+        # lineage; the embedded finding is validated against its own schema.
+        act = _example("act-derived-publication.json")
+        self.schemas.validate(PUBLICATION_ACT_SCHEMA, act)
+        self.schemas.validate_declared(act["finding"])
+
+    def test_derived_finding_has_no_human_basis(self) -> None:
+        # ADR-0009: a derived finding must not carry a human basis. The schema
+        # forbids it (additionalProperties:false), so an injected basis fails.
+        finding = _example("act-derived-publication.json")["finding"]
+        finding["basis"] = "attested"
+        self.assert_rejected("derived-finding.v1", finding)
+
+    def test_derived_finding_requires_role_bearing_pins(self) -> None:
+        finding = _example("act-derived-publication.json")["finding"]
+        finding["pins"] = []  # a bare/empty lineage is rejected (ADR-0007 d3)
+        self.assert_rejected("derived-finding.v1", finding)
 
 
 class OperationVocabularyConstraints(LanguageSchemaFixture):

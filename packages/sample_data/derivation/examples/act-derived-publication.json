@@ -1,22 +1,17 @@
 {
   "run_id": "demo.run.0001",
   "finding": {
-    "schema": "finding.v1",
-    "id": "demo.finding.line1a",
-    "fact_id": "demo.fact.form1040.line1a",
+    "schema": "derived-finding.v1",
+    "id": "finding:derived:6f1a2b3c4d5e60718293a4b5",
+    "symbol": "demo.form1040.line1a",
     "value": "42000",
-    "basis": "attested",
-    "evidence_ids": [],
-    "pins": {
-      "finding_ids": ["demo.finding.w2-box1"],
-      "artifact_ids": ["demo.rule.wages-to-1040-line1a"]
-    }
-  },
-  "pins": [
-    { "role": "input", "id": "demo.finding.w2-box1", "version": "v1" },
-    { "role": "field-mapping", "id": "demo.rule.wages-to-1040-line1a", "version": "v1" },
-    { "role": "adoption", "id": "demo.act.adopt-first-slice", "version": "v1" },
-    { "role": "governance", "id": "governance.constitution", "version": "v1" },
-    { "role": "operation-semantics", "id": "round", "version": "v1" }
-  ]
+    "version": "v1",
+    "pins": [
+      { "role": "input", "id": "demo.finding.w2-box1", "version": "v1" },
+      { "role": "field-mapping", "id": "demo.rule.wages-to-1040-line1a", "version": "v1" },
+      { "role": "adoption", "id": "demo.act.adopt-first-slice", "version": "v1" },
+      { "role": "governance", "id": "governance.constitution", "version": "v1" },
+      { "role": "operation-semantics", "id": "round", "version": "v1" }
+    ]
+  }
 }
