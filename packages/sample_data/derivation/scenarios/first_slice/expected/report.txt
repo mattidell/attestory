@@ -1,0 +1,35 @@
+Run: demo.run.first-slice (saturated)
+Published:
+  - demo.form1040.line16 = 1559  [finding:derived:0bbb8a393a05e9a0be9804f3]
+  - demo.form1040.line1a = 42000  [finding:derived:b66171f9c919076e30f0dd50]
+  - demo.form1040.line9 = 42000  [finding:derived:dc9268d393d578594e9a5cd5]
+Blocked:
+  - none
+Explanations:
+  [output] demo.form1040.line16 = 1559  <- demo.rule.tax-table-line16
+    [adoption] demo.package.first-slice.2025
+    [choice] filing_status = single
+    [governance] governance.constitution
+    [input] demo.form1040.line15 = 14950
+    [input] rounding.convention = half_up
+    [operation-semantics] range_lookup
+    [operation-semantics] round
+    [parameter] demo.parameter.regular-tax-split.2025
+    [parameter] demo.parameter.tax-table-sample.2025
+  [output] demo.form1040.line1a = 42000  <- demo.rule.wages-to-1040-line1a
+    [adoption] demo.package.first-slice.2025
+    [governance] governance.constitution
+    [input] rounding.convention = half_up
+    [input] demo.w2.box1 = 40000
+    [input] demo.w2.box1 = 2000
+    [operation-semantics] round
+  [output] demo.form1040.line9 = 42000  <- demo.rule.total-income-line9
+    [adoption] demo.package.first-slice.2025
+    [governance] governance.constitution
+    [input] demo.form1040.line1a = 42000  <- demo.rule.wages-to-1040-line1a
+      [adoption] demo.package.first-slice.2025
+      [governance] governance.constitution
+      [input] rounding.convention = half_up
+      [input] demo.w2.box1 = 40000
+      [input] demo.w2.box1 = 2000
+      [operation-semantics] round

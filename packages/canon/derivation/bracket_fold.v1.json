@@ -1,0 +1,12 @@
+{
+  "schema": "operation-semantics.v1",
+  "operation": "bracket_fold",
+  "version": "v1",
+  "spec": {
+    "method": "marginal",
+    "boundary": "lower_inclusive_upper_exclusive",
+    "open_top": true,
+    "on_miss": "block",
+    "row_shape": ["lower", "upper", "rate"]
+  }
+}

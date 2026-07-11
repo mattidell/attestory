@@ -1,0 +1,9 @@
+{
+  "act-derived-publication.v1.schema.json": "d77a1fd9af946e963f10da3306f165607741906cce8fbc2d9f43a7238ca08dca",
+  "artifact-package.v1.schema.json": "5663562271cdb31db6739d5d7b7bc870a120cd178b39cd5bb4c35e72add7bd01",
+  "derivation-record.v1.schema.json": "acb0b5a891ca084343394fea055071c79cc83ff90be32db00225c20bc90756bf",
+  "derived-finding.v1.schema.json": "1b5f49aaffbdcc118cf6c901b80e16d18a3cd1429e4dc2e05de9f3544e2f1c3e",
+  "operation-semantics.v1.schema.json": "9b144ce850029264b539603f927294091a73905c1117ae20a8d5817bdfe0d440",
+  "parameter-declaration.v1.schema.json": "f8a8fa869c4c64d2ac081083fdfa81a8aca42fa791aa478d3d392040e4c510b1",
+  "rule-artifact.v1.schema.json": "9a98d3f4f7e1d1d842291db2f28291c3b61812a64a4ed7069ab23950ca458118"
+}

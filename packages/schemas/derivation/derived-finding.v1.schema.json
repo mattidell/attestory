@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/derived-finding.v1",
+  "title": "Derived finding",
+  "description": "A machine-derived determination (ADR-0009). Distinct from the kernel finding.v1: it carries no human `basis`, because its ground is not documentary, attested, or elective but mechanical and fully pinned. Its authority is located in the attribution chain — pins -> publication act -> adoption act -> user — which is the Ontology recorded-instrument framing (the value belongs to the user the way a spreadsheet's results belong to the person who built the sheet). The role-bearing pins are that chain, and are mandatory (minItems 1); a bare id bag is rejected (ADR-0007 decision 3). The id is content-addressed (ADR-0007 decision 5), proven by portability tests, not constrained here beyond non-emptiness.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "derived-finding.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "symbol": { "type": "string", "minLength": 1 },
+    "value": {},
+    "version": { "const": "v1" },
+    "pins": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/pin" }
+    }
+  },
+  "required": ["schema", "id", "symbol", "value", "version", "pins"],
+  "additionalProperties": false,
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "enum": [
+            "parameter",
+            "computation",
+            "applicability",
+            "field-mapping",
+            "cross-form-bridge",
+            "input",
+            "choice",
+            "adoption",
+            "governance",
+            "engine",
+            "package",
+            "operation-semantics"
+          ]
+        },
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" }
+      },
+      "required": ["role", "id", "version"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "derivation-record.v1",
+  "record_id": "demo.record.run-0001.completed",
+  "run_id": "demo.run.0001",
+  "phase": "completed",
+  "workspace_revision": 7,
+  "governance_pins": [
+    { "role": "governance", "id": "governance.constitution", "version": "v1" }
+  ],
+  "adoption_pin": { "role": "adoption", "id": "demo.act.adopt-first-slice", "version": "v1" },
+  "stop_reason": "saturated",
+  "published": [
+    { "symbol": "demo.form1040.line1a", "finding_id": "demo.finding.line1a", "act_id": "demo.act.pub.line1a" }
+  ],
+  "blocked": [
+    { "artifact_id": "demo.rule.tax-table-line16", "code": "OPEN_TAX_TABLE_ROW", "missing": ["demo.form1040.line15", "filing_status"] }
+  ],
+  "dispositions": [
+    { "artifact_id": "demo.rule.wages-to-1040-line1a", "disposition": "published", "pins": [
+      { "role": "input", "id": "demo.finding.w2-box1", "version": "v1" }
+    ] },
+    { "artifact_id": "demo.rule.tax-table-line16", "disposition": "inapplicable", "guard_result": false, "pins": [
+      { "role": "input", "id": "demo.finding.line15", "version": "v1" }
+    ] }
+  ]
+}

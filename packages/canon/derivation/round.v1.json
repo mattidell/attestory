@@ -1,0 +1,15 @@
+{
+  "schema": "operation-semantics.v1",
+  "operation": "round",
+  "version": "v1",
+  "spec": {
+    "modes": ["half_up", "half_even", "down", "up"],
+    "stages": [
+      { "name": "source", "applies": "round each source amount as read, before any aggregation" },
+      { "name": "after_aggregate", "applies": "round once after summing a collected set of source amounts" },
+      { "name": "final", "applies": "round the terminal computed value of the clause, after all arithmetic" }
+    ],
+    "tie_break": "away_from_zero",
+    "unit": "1"
+  }
+}

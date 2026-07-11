@@ -1,0 +1,28 @@
+{
+  "schema": "rule-artifact.v1",
+  "id": "demo.rule.tax-table-line16",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["demo.form1040.line15", "filing_status", "rounding.convention"],
+  "when": {
+    "op": "compare",
+    "left": { "op": "ref", "name": "demo.form1040.line15" },
+    "cmp": "lt",
+    "right": { "op": "parameter", "parameter_id": "demo.parameter.regular-tax-split.2025" }
+  },
+  "value": {
+    "op": "round",
+    "value": {
+      "op": "range_lookup",
+      "table_id": "demo.parameter.tax-table-sample.2025",
+      "key": { "op": "ref", "name": "filing_status" },
+      "value": { "op": "ref", "name": "demo.form1040.line15" }
+    },
+    "mode": { "op": "ref", "name": "rounding.convention" },
+    "stage": "final"
+  },
+  "publishes": "demo.form1040.line16",
+  "blocked": { "code": "OPEN_TAX_TABLE_ROW", "missing": ["demo.form1040.line15", "filing_status"] },
+  "notes": "Below the split, tax is read from the sample table; an unrepresented row blocks rather than inventing a value."
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/parameter-declaration.v1",
+  "title": "Parameter declaration",
+  "description": "A policy value as a separate versioned citizen cited by id (ADR-0006 decision 5); policy values never inline into rules. Monetary values are decimal strings to avoid binary float. The values shape is deliberately open: scalars, filing-status maps, and banded tables (range_lookup / bracket_fold corpora) are all parameter values, distinguished by the consuming operation's semantics canon, not by this schema.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "parameter-declaration.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "tax_year": { "type": "integer" },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "family": { "type": "string", "minLength": 1 },
+        "effective_from": { "type": "string", "format": "date" }
+      },
+      "required": ["tax_year", "jurisdiction", "family"],
+      "additionalProperties": false
+    },
+    "values": {}
+  },
+  "required": ["schema", "id", "version", "scope", "values"],
+  "additionalProperties": false
+}
