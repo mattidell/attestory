@@ -2,7 +2,7 @@
 
 Audience: Agents (planning material; not a milestone plan)
 
-Accumulated inputs for the First Tax Slice milestone (roadmap item 5, not yet planned). Each entry names its source so the eventual plan inherits evidence, not folklore.
+Accumulated inputs for the First Tax Slice milestone (roadmap item 5). These inputs have been converted into the milestone plan at `first-tax-slice.md`; this file remains as source material so the plan inherits evidence, not folklore.
 
 ## Carried obligations
 
