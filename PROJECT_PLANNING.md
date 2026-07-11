@@ -216,6 +216,23 @@ Before implementing a track, identify:
 - Verification: the exact test or command proving the change.
 - Migration risk: whether existing artifact shapes or golden fixtures change.
 - Data safety: whether any local, private, or generated data path is touched.
+- Payload instantiation: if the track commits a schema that carries or references a payload, one hand-written, fully-resolved instance of that payload, committed alongside the schema as its positive example, before the schema is committed. A payload specified only by reference to another citizen is not yet instantiated.
+
+## Payload Instantiation Gate
+
+A schema that names another citizen as its payload — a `$ref`, "carries a finding," "wraps an act" — has deferred a modeling decision, not made one. The deferral stays invisible until something must *produce* the payload, often several tracks later in runner code, at which point discovering a bad fit costs a half-built runner instead of a paper example. This gate pulls that discovery left, to the cheapest point.
+
+Discharge the gate by instantiation, not inspection: write the payload out as concrete data, filling every required field of every referenced type with an honest value, and **commit the instance alongside the schema as its positive example** — the counterpart of the negative examples schemas already ship with. An uncommitted instance is an unauditable gate: a reviewer cannot distinguish a discharged gate from a claimed one, and checks here leave evidence. The committed instance does triple duty: gate evidence, documentation for a fresh reader, and a seed fixture for the track's tests.
+
+Resolution is bounded, not endless: expand references until you reach a contract that already has a committed positive instance, then *cite* that instance rather than re-expanding it. The gate's cost is one layer of new modeling per track, by construction.
+
+Two failure modes then surface immediately and for free:
+- Invariant collision: a referenced type requires a field the new producer cannot supply honestly — a machine output forced to name a human `basis`, say. The instance cannot be written without lying.
+- Reserved-boundary contact: filling a field honestly would require constructing doctrine the project has reserved. The instance cannot be written without improvising.
+
+Either failure is now a planning-time signal that the track needs its own decision — usually a Tier 2/3 ADR — before code depends on the contract. Motivating incident: ADR-0009 (derived-finding shape) was forced during runner implementation because `act-derived-publication.v1` was committed referencing the kernel `finding.v1` with no worked derived-finding instance; a single hand-written instance would have hit the missing, un-suppliable `basis` at track-planning time, and the ADR would have been written and ratified before the runner was attempted.
+
+The gate binds any track whose outputs include a schema. It does not bind tracks that only add code, tests, or fixtures against contracts already instantiated by an earlier track.
 
 ## Parallel Work Rules
 
