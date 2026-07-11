@@ -11,7 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 import jsonschema
 
@@ -46,19 +46,31 @@ class SchemaRegistry:
     a mutated or unlisted schema is a registry defect, not a warning.
     """
 
-    def __init__(self, schema_dir: Path | None = None) -> None:
-        self._dir = schema_dir if schema_dir is not None else KERNEL_SCHEMA_DIR
+    def __init__(self, schema_dir: Path | Sequence[Path] | None = None) -> None:
+        if schema_dir is None:
+            self._dirs: list[Path] = [KERNEL_SCHEMA_DIR]
+        elif isinstance(schema_dir, Path):
+            self._dirs = [schema_dir]
+        else:
+            self._dirs = list(schema_dir)
         self._schemas: dict[str, dict[str, Any]] = {}
         self._validators: dict[str, jsonschema.Draft202012Validator] = {}
         self._load()
 
     def _load(self) -> None:
-        manifest_path = self._dir / PUBLISHED_MANIFEST_NAME
+        # A registry may span several published directories (e.g. the kernel and
+        # derivation schema families sharing one workspace act log). Each is its
+        # own checksum-manifested set; schema ids must be unique across them.
+        for directory in self._dirs:
+            self._load_directory(directory)
+
+    def _load_directory(self, directory: Path) -> None:
+        manifest_path = directory / PUBLISHED_MANIFEST_NAME
         if not manifest_path.exists():
             raise SchemaRegistryError(f"missing schema manifest: {manifest_path}")
         manifest: dict[str, str] = json.loads(manifest_path.read_text("utf-8"))
 
-        schema_files = sorted(self._dir.glob("*.schema.json"))
+        schema_files = sorted(directory.glob("*.schema.json"))
         listed = set(manifest)
         present = {p.name for p in schema_files}
         for unlisted in sorted(present - listed):
@@ -74,6 +86,8 @@ class SchemaRegistry:
                     f"(expected {manifest[path.name][:12]}..., found {digest[:12]}...)"
                 )
             schema_id = path.name.removesuffix(".schema.json")
+            if schema_id in self._schemas:
+                raise SchemaRegistryError(f"duplicate schema id across directories: {schema_id}")
             document: dict[str, Any] = json.loads(path.read_text("utf-8"))
             try:
                 jsonschema.Draft202012Validator.check_schema(document)
