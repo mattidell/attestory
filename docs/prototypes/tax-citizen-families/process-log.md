@@ -364,3 +364,11 @@ dispositions.
   commit positive/negative examples for each changed relationship. Failure of
   any such end-to-end check should be recorded as a design escalation rather
   than replaced by another helper assertion.
+
+- **2026-07-11 (disposition, owner/foreman)** - Owner authorized the recommended
+  bounded integration proof at the three-iteration cap. Branch
+  `prototypes/tax-citizen-families/it4` opened from immutable it3 exhibit
+  `be72d63`. Charter `charter-it4.md` limits the iteration to I1-I9 end-to-end
+  integration gates, prohibits new tax breadth, and rejects helper-local or
+  tautological checks as gate closure. Builder it4 is owner-launch pending; per
+  owner instruction, the foreman does not spawn a builder subagent.

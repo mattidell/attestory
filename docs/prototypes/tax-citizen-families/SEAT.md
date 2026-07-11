@@ -10,10 +10,10 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Round 3 is closed; owner disposition is required at the three-iteration
-cap.** Iteration 3 remains useful evidence but is not sufficient for the
-contract-foundational Tier 2 decision. No fourth iteration, evaluation
-analysis, or ADR is open.
+**Iteration 4 bounded integration proof is open for owner-launched builder.**
+The owner authorized the recommended continuation at the three-iteration
+disposition point. Branch `prototypes/tax-citizen-families/it4` starts from
+exhibit it3 at `be72d63` and is governed by `charter-it4.md`.
 
 ## Seats
 
@@ -35,15 +35,14 @@ analysis, or ADR is open.
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `Nietzsche` (`019f5384-e48f-7403-a906-71a39169e794`) | round 3 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `Hume` (`019f5384-e559-7673-87f9-1fba1b904f68`) | round 3 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 3 complete |
+| Builder it4 | `roles/builder.md` | not opened | owner launch pending; bounded integration proof |
 
 ## Next Action
 
-Owner decides whether to stop the effort or authorize one bounded integration
-proof as iteration 4. The recommended continuation is not another broad domain
-prototype: branch from exhibit it3, add no new tax breadth, and require
-end-to-end evidence for authoritative projection, package/provenance joins,
-record-derived coverage and explanations, correction lifecycle, citation-role
-validation, and committed relationship negatives. Per owner instruction, the
+Owner launches the it4 builder in a fresh session using `roles/builder.md` and
+`charter-it4.md`. Work only on branch
+`prototypes/tax-citizen-families/it4`; produce final artifacts under `it4/` and
+write `examination-it4.md` with the I1-I9 checklist. Per owner instruction, the
 foreman does not spawn a builder subagent.
 
 ## Planned Exhibits
@@ -53,3 +52,5 @@ foreman does not spawn a builder subagent.
 - Tag `exhibits/tax-citizen-families/it2` - clean-room rival at `989d9fe`.
 - Tag `exhibits/tax-citizen-families/it3` - targeted repair candidate at
   `be72d63`.
+- Branch `prototypes/tax-citizen-families/it4` - bounded integration proof
+  opened from exhibit it3 at `be72d63`.
