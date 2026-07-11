@@ -32,6 +32,7 @@ from packages.derivation.evaluator import (
     EvalBlocked,
     evaluate,
 )
+from packages.kernel.act_log import ActLog
 from packages.derivation.loader import DerivationSchemas, PUBLICATION_ACT_SCHEMA
 from packages.derivation.records import (
     RecordStream,
@@ -251,6 +252,30 @@ def run(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
             progress = True
     state.finalize_unreached()
     return state.result()
+
+
+def append_publications(act_log: ActLog, result: RunResult, *, actor: str, at: str) -> int:
+    """Append each publication as a `derived-publication` act-log envelope.
+
+    ADR-0010: publication acts land in the workspace act log (ADR-0008), so
+    derived findings enter the projection from the record. The envelope's actor
+    and timestamp come from the persistence boundary — not the sealed runner —
+    while the act_id is content-addressed over the payload, so it is stable
+    across runs. Returns the new revision.
+    """
+    revision = act_log.read().revision
+    for pub in result.publications:
+        envelope = {
+            "schema": "act.v1",
+            "act_id": _content_id("act:publication:", pub.act),
+            "kind": "derived-publication",
+            "actor": actor,
+            "at": at,
+            "committed_against": revision,
+            "payload": pub.act,
+        }
+        revision = act_log.append(envelope, expected_revision=revision)
+    return revision
 
 
 def run_and_record(

@@ -218,20 +218,30 @@ _APPLIERS = {
     "assertion": apply_assertion,
 }
 
+_FACT_ACT_KINDS = frozenset({"bundle-adoption", "entity-introduced", "entity-superseded"})
+
+# The act kinds the kernel projection owns. Other families (e.g. the derivation
+# family's `derived-publication`) may share the workspace act log; the kernel
+# projects only its own kinds and passes over the rest (ADR-0010 compose-over).
+# This is safe: the act log validates every committed act against its payload
+# schema at read time, so a non-kernel kind here is a known other-family act,
+# never a typo.
+KERNEL_ACT_KINDS = _FACT_ACT_KINDS | frozenset(_APPLIERS)
+
 
 def apply_act(
     state: FindingState, act: dict[str, Any], registry: SchemaRegistry
 ) -> FindingState:
     """Advance the evidence/finding projection by one act."""
-    if act["kind"] in {"bundle-adoption", "entity-introduced", "entity-superseded"}:
+    kind = act["kind"]
+    if kind not in KERNEL_ACT_KINDS:
+        return state  # not a kernel act; another family projects it
+    if kind in _FACT_ACT_KINDS:
         return replace(
             state,
             fact_state=facts.apply_act(state.fact_state, act, registry),
         )
-    applier = _APPLIERS.get(act["kind"])
-    if applier is None:
-        raise FindingModelError(f"no applier for act kind: {act['kind']}")
-    return applier(state, act["payload"], registry)
+    return _APPLIERS[kind](state, act["payload"], registry)
 
 
 def project(acts: tuple[dict[str, Any], ...], registry: SchemaRegistry) -> FindingState:
