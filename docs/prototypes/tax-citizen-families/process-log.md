@@ -127,3 +127,19 @@ dispositions.
   `examination-it1.md`; prototype artifacts remain on the prototype branch and
   are not merged. Round 1 assembled in `reviews/round-1.md` with governance,
   expressiveness, adversary, and context-starved legibility review seats.
+
+- **2026-07-11 (event, governance reviewer)** - Round 1 governance review
+  submitted at `reviews/round-1-governance.md`. Round 1 remains open; outcome
+  summary withheld until the context-starved legibility seat lands or the owner
+  disposes without it.
+
+- **2026-07-11 (event, adversary reviewer)** - Round 1 adversary review
+  submitted at `reviews/round-1-adversary.md`. Round 1 remains open; outcome
+  summary withheld until the context-starved legibility seat lands or the owner
+  disposes without it.
+
+- **2026-07-11 (event, expressiveness reviewer)** - Round 1 expressiveness
+  review submitted at `reviews/round-1-expressiveness.md`. Reviewer disclosed
+  the required ordering point in the review. Round 1 remains open; outcome
+  summary withheld until the context-starved legibility seat lands or the owner
+  disposes without it.
