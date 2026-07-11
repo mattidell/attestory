@@ -207,3 +207,43 @@ dispositions.
   the required ordering point in the review. Round 2 remains open; outcome
   summary withheld until the context-starved legibility seat lands or the owner
   disposes without it.
+
+- **2026-07-11 (event, legibility reviewer)** - Round 2 legibility review
+  submitted at `reviews/round-2-legibility.md` by owner-launched context-starved
+  session. Scope was limited to `roles/reviewer-legibility.md`,
+  `reviews/round-2.md`, and the files listed in the round file.
+
+- **2026-07-11 (event, foreman)** - Round-2 conformance verdict and close.
+  Governance: measured the requested governance fidelity checks against it2,
+  separated observations and dissent, and verified same-round isolation;
+  conformant. Expressiveness: ran reproduction checks before opening the
+  examination, reported passing harness claims separately from coverage
+  failures, and disclosed ordering; conformant. Adversary: reported successful
+  and failed attacks, comparative disposition, and verification probes;
+  conformant. Legibility: starved scope respected, with per-artifact
+  recoverability and confidence labels; conformant.
+
+  Evidence status against the charter: it2 is useful evidence and materially
+  improves on it1 in exercised 1099-INT box mapping, closure pin visibility,
+  concrete form-field citizens, strict schema negatives, inert citation text,
+  dual-runner parity, and a narrow mixed-package evolution check. It is not
+  sufficient for Tier 2 ratification as-is. Converged gaps include incomplete
+  two-source W-2 identity pressure, line 1z omission, under-specified standard
+  deduction and line 16 method eligibility, missing all-elective-open fixture
+  evidence, citation links not attached to non-form fact/rule/parameter
+  content, incomplete cross-year/content-package checks, coverage rebuilt from
+  fixture booleans rather than authoritative records, explanation walks only
+  for the closure-backed zero, and fresh-reader join gaps between fact types,
+  rule inputs, citations, package membership, and scenarios.
+
+  Incidents since last check-in: none requiring reset or review invalidation.
+  The context-starved legibility seat landed after the unstarved reviews and was
+  committed as an event-only review before outcome summary.
+
+  Recommendation: do not ratify it2 yet. Proceed to a third iteration focused
+  on the converged gaps, especially authoritative coverage records, closure
+  load-bearing semantics, cross-citizen citation/year/package relationships,
+  line 1z and line 12/16 guard coverage, source-instance identity, and complete
+  explanation evidence. Iteration 2 remains on branch
+  `prototypes/tax-citizen-families/it2` pending owner disposition; no exhibit
+  tag or branch cleanup has been applied yet.

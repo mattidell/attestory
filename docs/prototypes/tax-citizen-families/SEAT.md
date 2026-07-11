@@ -10,9 +10,10 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Round 2 comparative review is open.** Iteration 2 is built on branch
-`prototypes/tax-citizen-families/it2` at commit `989d9fe`; examination is
-`examination-it2.md`. Review scope is `reviews/round-2.md`.
+**Round 2 comparative review is complete; owner disposition is next.**
+Iteration 2 is built on branch `prototypes/tax-citizen-families/it2` at commit
+`989d9fe`; examination is `examination-it2.md`. Reviews are complete under
+`reviews/round-2*.md`.
 
 ## Seats
 
@@ -28,19 +29,20 @@ them by pasting the launch line from the role file into a fresh session.
 | Reviewer: governance | `roles/reviewer-governance.md` | `codex-governance-r2-2026-07-11` | round 2 complete |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `codex-expressiveness-r2-2026-07-11` | round 2 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-r2-2026-07-11` | round 2 complete |
-| Reviewer: legibility | `roles/reviewer-legibility.md` | not opened | context-starved; owner launch for round 2 |
+| Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 2 complete |
 
 ## Next Action
 
-Round 2 unstarved reviews are complete and committed. The remaining open seat is
-context-starved legibility; it must be owner-launched using
-`roles/reviewer-legibility.md` and the scope in `reviews/round-2.md`. Foreman
-conformance and outcome summaries wait until legibility lands or the owner
-disposes without it.
+Owner disposition is required. Foreman recommendation: do not ratify it2 as a
+Tier 2 contract basis yet; proceed to a third iteration focused on the converged
+round-2 gaps. If accepted, the foreman should preserve it2 as an exhibit, close
+the it2 branch/worktree state, and open an owner-launched it3 builder seat
+without spawning a builder subagent.
 
 ## Planned Exhibits
 
 - Tag `exhibits/tax-citizen-families/it1` - first candidate contract at
   `88f0139`.
 - Branch `prototypes/tax-citizen-families/it2` - clean-room rival at `989d9fe`,
-  available for round 2 review.
+  reviewed in round 2; pending owner disposition before exhibit tagging or
+  cleanup.
