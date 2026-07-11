@@ -143,3 +143,35 @@ dispositions.
   the required ordering point in the review. Round 1 remains open; outcome
   summary withheld until the context-starved legibility seat lands or the owner
   disposes without it.
+
+- **2026-07-11 (event, legibility reviewer)** - Round 1 legibility review
+  submitted at `reviews/round-1-legibility.md` by owner-launched context-starved
+  session. Scope was limited to `roles/reviewer-legibility.md`, `reviews/round-1.md`,
+  and the files listed in the round file.
+
+- **2026-07-11 (event, foreman)** - Round-1 conformance verdict and close.
+  Governance: declared governance checks answered with exhibits; no dissent from
+  it1 as iteration evidence; conformant. Expressiveness: reproduction checks
+  run before opening the examination, ordering point disclosed, six required
+  checks reported with commands and exhibits; conformant. Adversary: eleven
+  attacks including failed attacks, official-source probes, observations and
+  dissent separated; conformant. Legibility: starved scope respected, per-
+  artifact recovery with confidence and gaps; conformant. Outcome: it1 is useful
+  evidence but not ratifiable as-is. Convergent findings: the companion-family
+  direction is strong; `fact-type.v1` alone is insufficient; form-field,
+  source-field, citation, rule-binding, tax-fact companion, and coverage-report
+  families are plausible. Open weaknesses: incomplete F3/F6 coverage; 1040 line
+  1z and standard-deduction/line-16 guard defaults; engagement identity not yet
+  independently individuated; invalid source value modeled as a finding; source
+  citation and mixed-year consistency are asserted or stringly checked rather
+  than schema/resolver enforced; stale coverage and parity/hash evidence are
+  scenario assertions; fresh reader could recover the family boundaries but not
+  a closed explanatory slice from the listed artifacts alone. Disposition:
+  conclude it1 and proceed to a clean-room rival on the same charter v3, with
+  round-1 findings as lenses for later comparison rather than charter edits.
+
+- **2026-07-11 (disposition, foreman)** - it1 preserved as exhibit tag
+  `exhibits/tax-citizen-families/it1` at `88f0139`; prototype branch ref and
+  worktree removed after confirming cleanliness. Rival builder seat opened for
+  owner launch on branch `prototypes/tax-citizen-families/it2`. Per owner
+  instruction, no subagent is spawned for the builder role.
