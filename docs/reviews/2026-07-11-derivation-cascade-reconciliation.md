@@ -90,3 +90,22 @@ the reserved T1 derived-finding-authority entry, and does not re-open ADR-0009.
   read, project) under the combined registry.
 - Kernel suite and derivation suite stay green; the E7.x displacement detections
   cover the derivation edge, not only individuation.
+
+## Resolution (2026-07-11)
+
+Addressed by the Derivation Cascade Reconciliation patch (merge `18ce073`), on
+the `patch-kernel-reconciliation` precedent, in the ADR-0010 order:
+
+- Combined schema registry (`SchemaRegistry` spans kernel + derivation dirs;
+  `workspace_registry()`).
+- Act log admits `derived-publication` envelopes (`append_publications`); the
+  kernel projection scopes to `KERNEL_ACT_KINDS` and passes over the rest
+  (compose-over).
+- Derivation-currency layer (`packages/derivation/projection.py`) contributes
+  derived-finding pin edges into the kernel's `displacement_closure`;
+  `currency.py` unchanged.
+
+Acceptance met: `tests/derivation/test_cascade.py` proves adopt → assert W-2 →
+derive line1a/line9 → supersede W-2 → both derived findings displace, and an
+unrelated correction displaces nothing. Full suite 179 green. Re-derivation
+remains out of scope as chartered.
