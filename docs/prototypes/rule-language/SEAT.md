@@ -6,7 +6,7 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). **Round 2 is complete.** All four reviews landed and conformance-checked; legibility scored (`reviews/round-2-legibility-scoring.md`); round-close outcome summaries in the process log. The process now waits on the **owner disposition**: conclude to the evaluation analysis and ADRs, or an it3 convergence build (iteration cap allows one more before mandatory owner check-in). No seats are open; do not self-assign review work.
+Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). **Concluded by owner disposition (2026-07-10): no it3.** it2 is tag `exhibits/rule-language/it2`. The evaluation analysis (`evaluation-analysis.md`) and ADR proposals 0006/0007/0008 are drafted. Current step: **committee sign-off** — three bounded delta-confirmation seats are open **now** for fresh agents resuming this project: governance, expressiveness, adversary. Scope per seat: read `evaluation-analysis.md` and your own `reviews/round-2-<seat>.md`; confirm (or dispute, with citations) that the analysis traces your findings faithfully and that its §5 conditions cover your dissent; append a dated sign-off section to your round-2 review file. No new review work; no re-reading of peer reviews required. After sign-off: owner ratification of the ADRs, then the milestone retrospective (foreman).
 
 ## Seats
 
@@ -22,10 +22,10 @@ Round 2 — review of the it2 rival build and the comparison against it1. The ri
 
 ## Next action
 
-Owner disposition on round 2: conclude (evaluation analysis + ADR proposals) vs it3 convergence build. Owner sampling audit has not yet occurred in any round — invited at this disposition. On conclude: tag `exhibits/rule-language/it2`, remove the branch ref per the exhibit-tag refinement, open the evaluation-analysis work.
+Fill the three sign-off seats by fresh-session resumption (one seat each, first-come; one-seat-per-identity rule applies). Then: owner ratification of ADRs 0006/0007/0008; milestone retrospective treating the process itself as a subject (raw material: this log's incidents); phase-state and milestone-status updates; Derivation Machinery re-planning follows ratification (outside this milestone).
 
 ## Evidence exhibits
 
 - Tag `exhibits/rule-language/it0` — pre-process derivation spike, admitted as exhibit by owner disposition 2026-07-10. Mined by the harvest; not a process-conformant iteration.
 - Tag `exhibits/rule-language/it1` — iteration 1 (primary design, expression trees) @ `362f8a3`; concluded by owner disposition 2026-07-10 after round 1. Examination on `main`; reviews under `reviews/round-1*`.
-- Branch `prototypes/rule-language/it2` — active rival iteration under review (clean-room build; guarded single-publication clauses, schema-enumerated operations, closed packages, start/completion records); becomes tag `exhibits/rule-language/it2` when the iteration concludes.
+- Tag `exhibits/rule-language/it2` — iteration 2 (clean-room rival; guarded single-publication clauses, schema-enumerated operations, closed packages, start/completion records) @ `623957c`; concluded by owner disposition 2026-07-10 after round 2. Examination on `main`; reviews under `reviews/round-2*`.
