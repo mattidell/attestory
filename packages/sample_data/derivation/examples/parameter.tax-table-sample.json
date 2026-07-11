@@ -1,0 +1,18 @@
+{
+  "schema": "parameter-declaration.v1",
+  "id": "demo.parameter.tax-table-sample.2025",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax", "effective_from": "2025-01-01" },
+  "values": {
+    "single": [
+      { "lower": "14950", "upper": "15000", "value": "1559" },
+      { "lower": "19950", "upper": "20000", "value": "2159" }
+    ],
+    "married_filing_jointly": [
+      { "lower": "29950", "upper": "30000", "value": "3120" }
+    ],
+    "head_of_household": [
+      { "lower": "29950", "upper": "30000", "value": "3257" }
+    ]
+  }
+}
