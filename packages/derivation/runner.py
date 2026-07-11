@@ -125,6 +125,10 @@ class _Run:
         for fact in ctx.sources:
             self.sources.setdefault(fact.name, []).append(fact.value)
             self.source_fids.setdefault(fact.name, []).append(fact.finding_id)
+        self.resolved: set[str] = set()
+        self.publications: list[Publication] = []
+        self.dispositions: list[dict[str, Any]] = []
+        self.blocked: list[dict[str, Any]] = []
 
     def env(self) -> Environment:
         return Environment(
@@ -155,87 +159,98 @@ class _Run:
         pins.extend(self.ctx.governance_pins)
         return _sorted_pins(pins)
 
+    def is_eligible(self, rule: dict[str, Any]) -> bool:
+        return all(req in self.symbols for req in rule["requires"])
+
+    def attempt(self, rule: dict[str, Any]) -> str:
+        """Fire one eligible rule, recording its outcome. Returns the outcome.
+
+        This is the single per-rule step both schedulers share: eligibility is
+        the caller's precondition, everything downstream (guard, value, publish,
+        pins, finding assembly) is identical regardless of traversal order — so
+        two schedulers reaching a rule with the same state produce byte-identical
+        findings.
+        """
+        rule_id = rule["id"]
+        access = AccessLog()
+        try:
+            guard = evaluate(rule["when"], self.env(), access)
+        except EvalBlocked as exc:
+            self._record_blocked(rule, access, exc.category, exc.missing)
+            return "blocked"
+        if not guard:
+            self.dispositions.append({"artifact_id": rule_id, "disposition": "inapplicable",
+                                      "guard_result": False, "pins": self.pins_for(rule, access)})
+            self.resolved.add(rule_id)
+            return "inapplicable"
+        try:
+            value = evaluate(rule["value"], self.env(), access)
+        except EvalBlocked as exc:
+            self._record_blocked(rule, access, exc.category, exc.missing)
+            return "blocked"
+
+        symbol = rule["publishes"]
+        pins = self.pins_for(rule, access)
+        body = {"symbol": symbol, "value": _value_str(value), "pins": pins}
+        finding = {
+            "schema": "derived-finding.v1",
+            "id": _content_id("finding:derived:", body),
+            "symbol": symbol,
+            "value": body["value"],
+            "version": "v1",
+            "pins": pins,
+        }
+        act = {"run_id": self.ctx.run_id, "finding": finding}
+        self.schemas.validate(PUBLICATION_ACT_SCHEMA, act)
+        self.schemas.validate_declared(finding)
+        self.publications.append(Publication(act=act, finding=finding))
+        self.dispositions.append({"artifact_id": rule_id, "disposition": "published", "pins": pins})
+        self.symbols[symbol] = value
+        # Downstream refs to this symbol pin THIS derived finding, as an input.
+        self.symbol_pin[symbol] = (finding["id"], "v1", "input")
+        self.resolved.add(rule_id)
+        return "published"
+
+    def _record_blocked(self, rule: dict[str, Any], access: AccessLog, code: str, missing: list[str]) -> None:
+        rule_id = rule["id"]
+        self.blocked.append({"artifact_id": rule_id, "code": code, "missing": missing})
+        self.dispositions.append({"artifact_id": rule_id, "disposition": "blocked",
+                                  "pins": self.pins_for(rule, access)})
+        self.resolved.add(rule_id)
+
+    def finalize_unreached(self) -> None:
+        """Rules that never became eligible saturate blocked on their gap."""
+        for rule in self.ctx.rules:
+            if rule["id"] in self.resolved:
+                continue
+            missing = [req for req in rule["requires"] if req not in self.symbols]
+            self.blocked.append({"artifact_id": rule["id"], "code": BLOCK_ABSENT, "missing": missing})
+            self.dispositions.append({"artifact_id": rule["id"], "disposition": "blocked", "pins": []})
+
+    def result(self) -> RunResult:
+        return RunResult(
+            run_id=self.ctx.run_id,
+            publications=self.publications,
+            dispositions=self.dispositions,
+            blocked=self.blocked,
+            stop_reason="saturated",
+            symbols=self.symbols,
+        )
+
 
 def run(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
+    """Forward, data-driven saturation: fire every eligible rule until fixpoint."""
     state = _Run(ctx, schemas)
-    pending = {rule["id"]: rule for rule in ctx.rules}
-    resolved: set[str] = set()
-    publications: list[Publication] = []
-    dispositions: list[dict[str, Any]] = []
-    blocked: list[dict[str, Any]] = []
-
     progress = True
     while progress:
         progress = False
-        for rule_id, rule in pending.items():
-            if rule_id in resolved:
+        for rule in ctx.rules:
+            if rule["id"] in state.resolved or not state.is_eligible(rule):
                 continue
-            if any(req not in state.symbols for req in rule["requires"]):
-                continue  # not eligible yet; a later publication may satisfy it
-            access = AccessLog()
-            try:
-                guard = evaluate(rule["when"], state.env(), access)
-            except EvalBlocked as exc:
-                blocked.append({"artifact_id": rule_id, "code": exc.category, "missing": exc.missing})
-                dispositions.append({"artifact_id": rule_id, "disposition": "blocked",
-                                     "pins": state.pins_for(rule, access)})
-                resolved.add(rule_id)
-                progress = True
-                continue
-            if not guard:
-                dispositions.append({"artifact_id": rule_id, "disposition": "inapplicable",
-                                     "guard_result": False, "pins": state.pins_for(rule, access)})
-                resolved.add(rule_id)
-                progress = True
-                continue
-            try:
-                value = evaluate(rule["value"], state.env(), access)
-            except EvalBlocked as exc:
-                blocked.append({"artifact_id": rule_id, "code": exc.category, "missing": exc.missing})
-                dispositions.append({"artifact_id": rule_id, "disposition": "blocked",
-                                     "pins": state.pins_for(rule, access)})
-                resolved.add(rule_id)
-                progress = True
-                continue
-
-            symbol = rule["publishes"]
-            pins = state.pins_for(rule, access)
-            body = {"symbol": symbol, "value": _value_str(value), "pins": pins}
-            finding = {
-                "schema": "derived-finding.v1",
-                "id": _content_id("finding:derived:", body),
-                "symbol": symbol,
-                "value": body["value"],
-                "version": "v1",
-                "pins": pins,
-            }
-            act = {"run_id": ctx.run_id, "finding": finding}
-            schemas.validate(PUBLICATION_ACT_SCHEMA, act)
-            schemas.validate_declared(finding)
-            publications.append(Publication(act=act, finding=finding))
-            dispositions.append({"artifact_id": rule_id, "disposition": "published", "pins": pins})
-            state.symbols[symbol] = value
-            # Downstream refs to this symbol pin THIS derived finding, as an input.
-            state.symbol_pin[symbol] = (finding["id"], "v1", "input")
-            resolved.add(rule_id)
+            state.attempt(rule)
             progress = True
-
-    # Saturation reached: rules still unresolved never became eligible.
-    for rule_id, rule in pending.items():
-        if rule_id in resolved:
-            continue
-        missing = [req for req in rule["requires"] if req not in state.symbols]
-        blocked.append({"artifact_id": rule_id, "code": BLOCK_ABSENT, "missing": missing})
-        dispositions.append({"artifact_id": rule_id, "disposition": "blocked", "pins": []})
-
-    return RunResult(
-        run_id=ctx.run_id,
-        publications=publications,
-        dispositions=dispositions,
-        blocked=blocked,
-        stop_reason="saturated",
-        symbols=state.symbols,
-    )
+    state.finalize_unreached()
+    return state.result()
 
 
 def run_and_record(
