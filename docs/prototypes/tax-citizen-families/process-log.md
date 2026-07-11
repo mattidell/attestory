@@ -57,6 +57,18 @@ dispositions.
   builder dispatch as written - conformant with amendment requests. Convergent
   disposition: amend charter before opening the builder seat.
 
+- **2026-07-11 (event, governance delta reviewer)** - Stable reviewer label
+  `codex-governance-delta-2026-07-11` claimed the open governance
+  delta-confirmation seat. No same-round peer delta output or commit-message
+  body was read before the review; this identity holds only the governance
+  delta seat in this round.
+
+- **2026-07-11 (event, governance delta reviewer)** - Governance
+  delta-confirmation submitted at
+  `reviews/round-0-governance-delta.md`. Both prior governance findings were
+  marked closed; no new governance gap was identified. The adversary delta
+  seat remains open.
+
 - **2026-07-11 (event, foreman)** - Charter amended to v2. Amendments adopted:
   evidence removal/re-upload peerage probe; validation results for positive and
   negative instances; 1099-INT box distinction/negative fixture; W-2 identity

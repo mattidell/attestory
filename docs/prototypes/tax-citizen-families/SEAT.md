@@ -19,7 +19,7 @@ overrides remaining dissent.
 | Seat | Role file | Holder | Status |
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | codex (planning session, 2026-07-11) | active |
-| Reviewer: governance | `roles/reviewer-governance.md` | open for bounded delta-confirmation | round 0 delta open |
+| Reviewer: governance | `roles/reviewer-governance.md` | `codex-governance-delta-2026-07-11` | round 0 delta complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | open for bounded delta-confirmation | round 0 delta open |
 | Builder it1 | `roles/builder.md` | not opened | blocked on round 0 disposition |
 | Rival builder | `roles/builder-rival.md` | not opened | context-starved; opens after it1 review |
