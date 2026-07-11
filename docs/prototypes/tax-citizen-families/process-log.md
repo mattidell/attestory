@@ -90,3 +90,18 @@ dispositions.
   non-publication requirements are present, but per-state explanation-walk
   evidence is not explicit. Builder dispatch remains subject to foreman/owner
   disposition of that residual gap.
+
+- **2026-07-11 (event, foreman)** - Round-0 delta conformance check complete.
+  Governance delta: bounded to the two prior governance findings, both marked
+  closed with charter exhibits, no new review work - conformant. Adversary
+  delta: bounded to six prior attacks, five closed and A3 partially closed with
+  one explicit residual evidence-shape gap - conformant. Foreman disposition:
+  amend the charter to state the A3 explanation-walk requirement rather than
+  opening the builder under an implicit qualification.
+
+- **2026-07-11 (disposition, foreman)** - Charter amended to v3. F5 and F7 now
+  require explanation-walk evidence for each absence, invalidity, and rendered-
+  absence state; Evidence Expected carries the same obligation. Round 0 is
+  closed. Builder it1 seat opened on branch
+  `prototypes/tax-citizen-families/it1`; rival and reviewer seats remain closed
+  until iteration 1 is built and examined.

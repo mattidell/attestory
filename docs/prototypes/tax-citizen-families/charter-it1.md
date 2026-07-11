@@ -1,7 +1,7 @@
 # Charter - Iteration 1
 
-Version 2 (2026-07-11). Status: amended after round 0 review; builder seat not
-open until bounded delta-confirmation or owner disposition closes round 0.
+Version 3 (2026-07-11). Status: approved for iteration 1; round 0 review and
+delta-confirmation complete; builder seat open.
 
 Revision history: v1 reviewed in round 0 (`reviews/round-0-governance.md`,
 `reviews/round-0-adversary.md`). v2 incorporates the governance evidence
@@ -9,7 +9,9 @@ conditions and the adversary fixture attacks: evidence peerage mutation,
 strict positive/negative validation results, 1099-INT box distinctions,
 identity-collision pressure, absence/invalidity matrix, resolved-citation
 mutation, cross-year versioning negative, and coverage rebuild/stale-projection
-check.
+check. v3 incorporates the adversary delta's remaining A3 evidence-shape
+condition: every absence/invalidity matrix state needs explanation-walk
+evidence.
 
 ## What Iteration 1 Builds
 
@@ -56,7 +58,10 @@ boundaries.
   set with a closure assertion, no source and no closure assertion, and a
   present but schema-invalid source value. The dependent rules must publish only
   where the state honestly supports publication; unclosed and invalid states
-  must block with distinct declared reasons and no exception text.
+  must block with distinct declared reasons and no exception text. The
+  examination must include explanation-walk evidence for each state: what act,
+  finding, closure assertion, block record, or validation result explains the
+  state.
 - **F6 - Form 1040 core fields.** Lines 1a, 2b, 9, 11, 12, 15, and 16 are
   represented with enough declared meaning for rules, rendering, source
   citations, and explanation to reference them without relying on bare strings.
@@ -64,7 +69,9 @@ boundaries.
   distinguish a computed zero, a closure-backed zero, a blocked unclosed source,
   a blocked invalid source, and guard/non-existence. The false-guard case must
   name the artifact guard and its inapplicable disposition; no finding may be
-  published for blocked or false-guard non-existence.
+  published for blocked or false-guard non-existence. Each rendered-absence
+  state must have an explanation path that terminates at declared content and
+  records, never at renderer convention.
 - **F8 - Source citation placement and mutation.** W-2, 1099-INT, Form 1040
   line, standard deduction, taxable income, and tax-table facts/rules each cite
   their official source without making citations hidden runner inputs. At least
@@ -139,7 +146,8 @@ multi-party authority, and reserved stance/position doctrine.
 Draft schemas or amendments; positive and negative examples with validation
 results; a minimal synthetic scenario for F1-F8 and F10-F11; mutation results
 for evidence replacement/removal, citation locator/year, mixed-year package
-membership, and stale coverage projection; a short examination note answering
-Q1-Q10 with paths to exhibits; explicit negative results. If the design cannot
-make one of the distinctions without lying or building on a reserved entry, that
-failure is evidence.
+membership, and stale coverage projection; explanation-walk evidence for every
+absence/invalidity/rendered-absence state in F5 and F7; a short examination note
+answering Q1-Q10 with paths to exhibits; explicit negative results. If the
+design cannot make one of the distinctions without lying or building on a
+reserved entry, that failure is evidence.

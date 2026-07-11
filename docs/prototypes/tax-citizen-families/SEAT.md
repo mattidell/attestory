@@ -10,28 +10,29 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Round 0 delta-confirmation is open.** The charter is `charter-it1.md` v2. No
-builder seat opens until bounded delta-confirmation closes or the owner
-overrides remaining dissent.
+**Iteration 1 builder seat is open.** The charter is `charter-it1.md` v3.
+Round 0 review and delta-confirmation are complete. Builder work happens on
+branch `prototypes/tax-citizen-families/it1`; prototype code never merges to
+`main`.
 
 ## Seats
 
 | Seat | Role file | Holder | Status |
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | codex (planning session, 2026-07-11) | active |
-| Reviewer: governance | `roles/reviewer-governance.md` | `codex-governance-delta-2026-07-11` | round 0 delta complete |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-delta-2026-07-11` | round 0 delta complete |
-| Builder it1 | `roles/builder.md` | not opened | blocked on round 0 disposition |
+| Reviewer: governance | `roles/reviewer-governance.md` | `codex-governance-delta-2026-07-11` | round 0 complete |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | `codex-adversary-delta-2026-07-11` | round 0 complete |
+| Builder it1 | `roles/builder.md` | open | iteration 1 open |
 | Rival builder | `roles/builder-rival.md` | not opened | context-starved; opens after it1 review |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | not opened | opens after a build |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | not opened | context-starved; opens after a build |
 
 ## Next Action
 
-Round 0 reviewers perform bounded delta-confirmation against `charter-it1.md`
-v2 and `reviews/round-0-delta.md`. Generic resumption may claim an open
-unstarved delta seat, but only one reviewer seat per identity per round. Do not
-read same-round peer outputs before submitting.
+Generic resumption may claim the it1 builder seat. The builder must follow
+`roles/builder.md`, work on branch `prototypes/tax-citizen-families/it1`, use a
+separate worktree, and write `examination-it1.md` with evidence paths and
+negative results. Context-starved rival and legibility seats remain closed.
 
 ## Planned Exhibits
 
