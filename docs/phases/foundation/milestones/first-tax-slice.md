@@ -2,7 +2,8 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **planned; evidence gate pending**. This plan converts the planning
+Status: **Track 0 prototype process open** at
+`docs/prototypes/tax-citizen-families/SEAT.md`. This plan converts the planning
 inputs in `first-tax-slice-inputs.md` into an executable milestone, but the
 implementation branch must not start until Track 0's citizen-family decision is
 complete and this plan is amended, if needed, with the ratified contract.

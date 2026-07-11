@@ -18,4 +18,4 @@ Active phase: **Foundation** — `docs/phases/foundation/`
 
 Canonical phase state lives in the phase roadmap: `docs/phases/foundation/foundation-roadmap.md`.
 
-Active milestone: **First Tax Slice** — plan at `docs/phases/foundation/milestones/first-tax-slice.md`; planning inputs preserved at `docs/phases/foundation/milestones/first-tax-slice-inputs.md`. Status: planned with Track 0 evidence gate pending; no implementation branch yet. Derivation Machinery completed 2026-07-11 (merge `e1608bf`; retrospective `docs/milestone-retrospectives/2026-07-11-derivation-machinery.md`).
+Active milestone: **First Tax Slice** — plan at `docs/phases/foundation/milestones/first-tax-slice.md`; planning inputs preserved at `docs/phases/foundation/milestones/first-tax-slice-inputs.md`. Status: Track 0 prototype process open for the tax citizen-family evidence gate; read `docs/prototypes/tax-citizen-families/SEAT.md` before taking work. No implementation branch yet. Derivation Machinery completed 2026-07-11 (merge `e1608bf`; retrospective `docs/milestone-retrospectives/2026-07-11-derivation-machinery.md`).
