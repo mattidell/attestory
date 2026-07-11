@@ -14,3 +14,13 @@ dispositions.
   drafted the charter and process files, so round 0 reviews must measure fixture
   selection before any builder seat opens.
 
+- **2026-07-11 (event, governance reviewer)** - Generic resumption claimed the
+  open governance-reviewer seat for round 0. No same-round peer review or
+  commit-message body was read before the review; one reviewer seat is held by
+  this identity in this round.
+
+- **2026-07-11 (event, governance reviewer)** - Governance review submitted at
+  `reviews/round-0-governance.md`; the governance seat is complete. The review
+  recommends two evidence-strengthening charter amendments before builder
+  dispatch: an explicit evidence removal/re-upload peerage probe and strict
+  validation/rejection results for positive and negative instances.

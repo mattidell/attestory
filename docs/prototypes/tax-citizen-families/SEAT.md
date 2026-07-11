@@ -19,7 +19,7 @@ the dissent.
 | Seat | Role file | Holder | Status |
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | codex (planning session, 2026-07-11) | active |
-| Reviewer: governance | `roles/reviewer-governance.md` | open | round 0 open |
+| Reviewer: governance | `roles/reviewer-governance.md` | codex (resume session, 2026-07-11) | round 0 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | open | round 0 open |
 | Builder it1 | `roles/builder.md` | not opened | blocked on round 0 disposition |
 | Rival builder | `roles/builder-rival.md` | not opened | context-starved; opens after it1 review |
@@ -42,4 +42,3 @@ submitting.
   builder seat opens.
 - Branch `prototypes/tax-citizen-families/it2` - clean-room rival after it1
   review, unless the owner stops the process earlier.
-
