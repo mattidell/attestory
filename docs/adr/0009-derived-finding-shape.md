@@ -1,6 +1,6 @@
 # ADR 0009 — Derived-Finding Shape and the Reserved Authority Boundary
 
-- Status: proposed (owner ratification required)
+- Status: accepted (ratified 2026-07-11; amended pre-ratification — authority positively located in the attribution chain per the recorded instrument framing)
 - Tier: 3
 - Date: 2026-07-11
 
@@ -37,6 +37,21 @@ Track 1's `act-derived-publication.v1` provisionally references `finding.v1`
 for its carried finding. That reference is the artifact of the unresolved
 question, not a settled choice — surfacing it here is the point.
 
+What the reservation does *not* cover matters as much as what it does. The
+governance set already answers where a derived finding's authority comes
+from, as defined doctrine, not open work: the user is the author of both
+finding kinds — "one directly, one through instruments — the way the results
+in a spreadsheet belong to the person who built the sheet" (Ontology §2,
+findings); machinery publications "are acts of the user, performed through
+the instruments the user took up," and "the machinery is never the author of
+anything" (Ontology §2, act); "every derived finding traces through its run
+to an adoption act, and through the adoption act to the user" (Ontology §2,
+adoption). ADR-0007 decision 2 ratified the mechanical form of this framing:
+the publication act is attributed to the adopting actor through the adopted
+instrument. T1 reserves the *fuller account* of what this authorship amounts
+to — its language is "the instrument framing is recorded; a fuller account is
+open work" — not the framing itself.
+
 ## Evidence
 
 Per ADR-0005 this is not a placeholder decision: the two ratified prototype
@@ -51,13 +66,18 @@ either exhibit.
 
 ## Decision (proposed)
 
-1. **A derived finding is its own citizen kind, `derived-finding.v1`, carrying
-   no human-authority basis.** Shape: `{schema, id, symbol, value, version,
-   pins}`. It asserts *what was computed and from what*, never *who stands
-   behind it as a human claim*. This is the minimal shape that lets the runner
-   publish without constructing T1 authority doctrine — it remains compatible
-   with any future T1 resolution, which may add an authority/standing view
-   *over* derived findings without reshaping them.
+1. **A derived finding is its own citizen kind, `derived-finding.v1`, and its
+   authority is carried by its attribution chain, not by a basis field.**
+   Shape: `{schema, id, symbol, value, version, pins}`. `basis` is the
+   kernel's vocabulary for the grounds of a *human* determination — a document
+   stood behind it, a person attested it, a person elected it. A derived
+   finding's ground is mechanical and fully pinned: pins → publication act →
+   adoption act → user. That chain *is* the recorded instrument framing
+   (Context above) — the user's authorship, reachable through the record,
+   exactly as the Ontology defines it. Nothing about the value's standing is
+   left unexpressed by omitting `basis`; a basis field on a derived finding
+   would be either a misrepresentation (borrowing a human ground) or an
+   improvised T1 construction (inventing a machine one).
 2. **`act-derived-publication.v1` carries a `derived-finding.v1`, not a
    `finding.v1`.** The Track 1 publication-act schema is amended on the
    milestone branch to reference the new kind. (The schema is unmerged and
@@ -69,6 +89,18 @@ either exhibit.
    `finding.v1`. This keeps human findings and machine findings in distinct
    citizen families, which the "form-field/fact-type citizen families" work
    (First Tax Slice, §5.6) can build on without retrofitting authority.
+
+## What T1 still reserves
+
+This ADR consumes the recorded instrument framing and nothing further. Open
+under T1, untouched by this shape: what instrument-authorship amounts to at
+the filing boundary (where workspace acts meet legal acts); whether and how a
+derived finding may serve as the *basis* of a subsequent human act (e.g., an
+attestation that cites a computed value); and multi-party authority over
+adopted instruments. A future T1 resolution may add standing/authority
+doctrine as a view over derived findings; it will not need to reshape the
+citizen, because the chain it would interpret is already mandatory in the
+shape.
 
 ## Consequences
 
