@@ -1,7 +1,7 @@
 # Round 3 - Targeted Repair Review
 
-Status: open. Iteration 3 is preserved as exhibit tag
-`exhibits/tax-citizen-families/it3` at commit `be72d63`.
+Status: closed; owner disposition pending. Iteration 3 is preserved as exhibit
+tag `exhibits/tax-citizen-families/it3` at commit `be72d63`.
 
 ## Scope
 

@@ -310,3 +310,57 @@ dispositions.
   observations, and explicit dissent. Round 3 remains open; outcome summary is
   withheld until the context-starved legibility seat lands or the owner
   disposes without it.
+
+- **2026-07-11 (event, legibility reviewer)** - Round 3 legibility review
+  submitted at `reviews/round-3-legibility.md` by an owner-launched
+  context-starved session. The reviewer attested to the restricted scope,
+  reported per-artifact recoverability with required confidence labels, and
+  did not treat unexecuted harness claims as observed results.
+
+- **2026-07-11 (event, foreman)** - Round-3 conformance verdict and close.
+  Governance: measured R1-R13 against the governance set, reproduced the tagged
+  harness, separated observations and dissent, and respected same-round
+  isolation; conformant. Expressiveness: ran reproduction and independent
+  probes before opening the examination, disclosed ordering, and separated
+  green checks from contract sufficiency; conformant. Adversary: attacked every
+  R1-R13 claim, reported successful and failed attacks, checked primary tax
+  sources, and kept observations and dissent separate; conformant. Legibility:
+  starved scope respected, with per-artifact recovery, confidence labels, and
+  explicit stops where machinery knowledge was required; conformant.
+
+  Evidence status against the charter: it3 materially strengthens the evidence
+  for determinable/attested closure semantics, an honest line-1z completeness
+  boundary, explicit standard-deduction and tax-method guard behavior,
+  all-elective-open saturation, rendered-absence distinctions, W-2 slip identity
+  as a peer to evidence, and inert citation attachments. It is not sufficient
+  for the contract-foundational Tier 2 decision. Convergent blockers are that
+  W-2 correction is not exercised through supersession; closure, eligibility,
+  and tax-method projections are supplied by fixture/harness state rather than
+  authoritative findings; `closed_sets` remains load-bearing machinery outside
+  a versioned adopted package; coverage and several explanation checks are
+  harness-local reconstructions rather than end-to-end record consumers;
+  citation roles and cross-citizen year/package joins are incompletely enforced;
+  scenario provenance strings are not resolved; and committed negatives do not
+  cover every materially changed relationship.
+
+  Incidents since last check-in: one builder handoff was returned because the
+  mandatory examination and gate-specific checks were absent. A hollow-
+  measurement incident remains: all 203 checks genuinely pass, but several
+  checks are tautological, helper-local, or bypass the authoritative boundary
+  named by the gate, so the aggregate pass count overstates evidentiary closure.
+  Foreman error: the starved round packet requested R1-R13 reporting without
+  restating the gate definitions available only in the excluded charter; the
+  legibility review's artifact findings remain valid, but its gate numbering is
+  not used for cross-review convergence.
+
+  Recommendation: do not ratify and do not open a fourth broad prototype. The
+  three-iteration cap requires owner disposition. If the effort continues,
+  authorize one bounded iteration-4 integration proof from the it3 exhibit,
+  with no new domain breadth or citizen families. Its acceptance checks should
+  require scenarios to materialize authoritative findings and acts, execute
+  declared projections through adopted/pinned content, resolve package and
+  provenance joins, rebuild coverage and all five explanations from actual
+  records, exercise correction/supersession, reject wrong citation roles, and
+  commit positive/negative examples for each changed relationship. Failure of
+  any such end-to-end check should be recorded as a design escalation rather
+  than replaced by another helper assertion.
