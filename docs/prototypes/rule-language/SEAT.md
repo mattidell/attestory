@@ -20,7 +20,7 @@ Round 2 — review of the it2 rival build and the comparison against it1. The ri
 | Reviewer: governance | `roles/reviewer-governance.md` | claude (resume session, 2026-07-10) | complete (round 2: `reviews/round-2-governance.md`) |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | **open now** (round 2: `reviews/round-2.md`) |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | — | **owner-launch now** (round-2 launch line in `reviews/round-2.md`, Legibility scope) |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | — | **reopened now** (prior holder's session halted mid-review with no output landed; fresh resumption takes the seat and starts the round-2 attack run from scratch per `reviews/round-2.md`) |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | claude (resume session, 2026-07-10) | active (round-2 attack run in progress) |
 
 ## Next action
 
