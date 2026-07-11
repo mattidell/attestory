@@ -179,3 +179,19 @@ I dissent from treating it2 as ratifiable as-is, for the same reason as round 1'
 - `docs/governance/engineering-constraints.md` — E3.1, E4.1, E6.1, E11.2, E11.3, E14.1 (contract detections these attacks probe).
 - `reviews/round-1-adversary.md` — attacks 1–7 and their exhibits, re-run above.
 - `rival-rule-language/evaluator.py`, `artifacts/*.json`, `schemas/*.json`, `tests/test_prototype.py` on `prototypes/rule-language/it2` @ `623957c`.
+
+## Evaluation-analysis sign-off — 2026-07-11
+
+Scope: bounded delta-confirmation only. I read `evaluation-analysis.md` and this review file, and did not re-run attacks, read same-round peer reviews, or perform new review work.
+
+Result: sign off; no dispute. The analysis traces the adversary findings faithfully:
+
+- Parity 1 and Parity 6 are represented by C6 and ratification condition §5.1: the declared schema must be the runtime authority, not a decorative file beside a looser validator.
+- Parity 2 is represented by C10(a) and §5.3: absent-source versus asserted-zero needs source-set closure vocabulary.
+- Parity 3 is represented by C8: duplicate output ownership is deterministic in it2 but still contract-open without package-level unique ownership or declared conflict semantics.
+- Parity 4 and Parity 5 are represented by C7: it2's year-scope and package-closure checks are real comparative wins.
+- Attack 7 is represented by §5.7's role-vocabulary condition: duplicated package-member roles and artifact roles must collapse into one governed vocabulary.
+- Attack 8 is represented by C10(b): present-but-invalid values must not leak exception strings as block reasons.
+- Attack 9 is represented by C10(c): evaluated-and-inapplicable must be distinguishable from never-reached if the record is to explain completion.
+
+The §5 conditions cover the adversary dissent. I continue to dissent from treating either prototype corpus as ratifiable as-is, but do not dissent from using the synthesized contract as the basis for ADRs if those conditions are carried forward.
