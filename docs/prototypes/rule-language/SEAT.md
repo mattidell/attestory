@@ -6,7 +6,7 @@ Context-starved seats (rival builder, legibility reviewer) are NOT filled by gen
 
 ## Current step
 
-Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). Governance is complete; adversary is active; **expressiveness is open now** for a fresh agent resuming this project — scoped by `reviews/round-2.md` (comparative round; contract tightness is an explicit axis). The legibility seat is starved and owner-launched (round-2 launch line in `reviews/round-2.md`). When all four reviews exist, the foreman scores legibility, conformance-checks, and presents the owner disposition.
+Round 2 — review of the it2 rival build and the comparison against it1. The rival build is complete (branch `prototypes/rule-language/it2`, tip `623957c`); the examination is on `main` (`examination-it2.md`). Governance is complete; **expressiveness and adversary are open now**, one seat per fresh agent resuming this project (first-come) — scoped by `reviews/round-2.md` (comparative round; contract tightness is an explicit axis). The legibility seat is starved and owner-launched (round-2 launch line in `reviews/round-2.md`). When all four reviews exist, the foreman scores legibility, conformance-checks, and presents the owner disposition.
 
 **Dispatch warning for open round-2 seats (independence rule v3):** do not read commit-message *bodies* from this round before submitting — one landed round-2 commit body carries findings (see process log). Subjects are fine. Your own submission commit message must be event-only.
 
@@ -20,11 +20,11 @@ Round 2 — review of the it2 rival build and the comparison against it1. The ri
 | Reviewer: governance | `roles/reviewer-governance.md` | claude (resume session, 2026-07-10) | complete (round 2: `reviews/round-2-governance.md`) |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | **open now** (round 2: `reviews/round-2.md`) |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | — | **owner-launch now** (round-2 launch line in `reviews/round-2.md`, Legibility scope) |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | codex (resume session, 2026-07-10) | active (round 2: comparative review) |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | — | **reopened now** (prior holder's session halted mid-review with no output landed; fresh resumption takes the seat and starts the round-2 attack run from scratch per `reviews/round-2.md`) |
 
 ## Next action
 
-Fill the remaining round-2 seats: expressiveness by fresh-session resumption; legibility by the owner launch line in `reviews/round-2.md`; adversary completes its active review. Then foreman scoring, conformance check, and owner disposition (iterate/converge vs conclude to evaluation analysis and ADRs). Owner sampling audit has not yet occurred in any round — invite it at the round-2 disposition.
+Fill the remaining round-2 seats: expressiveness and adversary by fresh-session resumption (one seat each, first-come); legibility by the owner launch line in `reviews/round-2.md`. Then foreman scoring, conformance check, and owner disposition (iterate/converge vs conclude to evaluation analysis and ADRs). Owner sampling audit has not yet occurred in any round — invite it at the round-2 disposition.
 
 ## Evidence exhibits
 
