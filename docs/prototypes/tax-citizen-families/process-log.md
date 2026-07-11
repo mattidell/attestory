@@ -24,3 +24,15 @@ dispositions.
   recommends two evidence-strengthening charter amendments before builder
   dispatch: an explicit evidence removal/re-upload peerage probe and strict
   validation/rejection results for positive and negative instances.
+
+- **2026-07-11 (event, adversary reviewer)** - Generic resumption claimed the
+  open adversary-reviewer seat. No same-round peer review or commit-message body
+  was read before submission; one reviewer seat is held by this identity in
+  this round.
+
+- **2026-07-11 (event, adversary reviewer)** - Adversary review submitted at
+  `reviews/round-0-adversary.md`. Six charter attacks remain open: 1099-INT
+  edge semantics, document/fact identity collision, absence and invalidity,
+  citation authority, cross-year evolution, and recomputable coverage. The
+  review recommends charter amendments before builder dispatch; round-0
+  disposition remains with the foreman/owner.

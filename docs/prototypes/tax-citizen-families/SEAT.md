@@ -20,7 +20,7 @@ the dissent.
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | codex (planning session, 2026-07-11) | active |
 | Reviewer: governance | `roles/reviewer-governance.md` | codex (resume session, 2026-07-11) | round 0 complete |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | open | round 0 open |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | codex (resume session, 2026-07-11) | round 0 complete |
 | Builder it1 | `roles/builder.md` | not opened | blocked on round 0 disposition |
 | Rival builder | `roles/builder-rival.md` | not opened | context-starved; opens after it1 review |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | not opened | opens after a build |
@@ -34,7 +34,8 @@ fact-type, source-set closure, rendered-absence, and source-citation content.
 
 Generic resumption may claim an open unstarved reviewer seat, but only one
 reviewer seat per identity per round. Do not read same-round peer outputs before
-submitting.
+submitting. Governance and adversary reviews are now submitted; foreman/owner
+disposition remains open.
 
 ## Planned Exhibits
 
