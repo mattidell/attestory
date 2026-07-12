@@ -23,10 +23,8 @@ against git, trust git and say so.
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
-  authorized SC-P1 progression. Repair1 is complete and preserved;
-  `charter-repair2.md` is prepared for the original it1 builder's continuity at
-  `/tmp/finances-source-completeness-repair2`; foreman must
-  not spawn it.
+  authorized SC-P1 progression. Repair1 and repair2 are complete and preserved;
+  committee round 2 is assembled over the executable evidence.
 - **Delegated authority:** foreman decides iteration continuation and rung
   progression within the approved plan/caps. Solicit owner input only when the
   process is genuinely blocked or an intentionally unspawned builder in another
@@ -46,11 +44,9 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** owner resumes the original it1 builder on
-  `charter-repair2.md`; after builder completion, foreman resumes automatically,
-  performs conformance, integrates/preserves the exhibit, and determines
-  whether the new evidence requires another committee round. Do not open rung
-  3 implicitly.
+- **Next actions in order:** dispatch the three independent round-2 reviewers;
+  integrate their reviews; perform final Gate 5 triage; then write the partial
+  evaluation analysis if SC-P1/SC-P2 evidence is sufficient.
 - **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.

@@ -133,3 +133,18 @@ close (log hygiene per `roles/foreman.md`).
   foreman authorized `charter-repair2.md`: one throwaway evaluator copy, SC-P1
   only, no production work. This is an explicit additional bounded pass beyond
   the original repair cap, not silent expansion.
+- Repair2 conformance: commit `6144b65` changes only the three charter-permitted
+  artifacts; examination is 126/200 lines; no production imports or edits.
+  Foreman reran 11 end-to-end prototype tests: all pass for both mapping shapes.
+  The copied two-layer path blocks false/absent/displaced/truthy/ambiguous and
+  caller-injected authority through publication, pins the exact current finding,
+  and kills caller-union and presence-only mutants.
+- Foreman disposition: SC-P1's declared executable uncertainty is answered; no
+  further builder iteration is warranted. Remaining seam removal, production
+  pins, and persisted displacement are milestone production conditions, not
+  prototype gaps. Repair2 integrated and preserved as
+  `exhibits/source-completeness/repair2` at `6144b65`; branch/worktree deleted.
+- Committee round 2 assembled to review executable SC-P1 evidence. Governance
+  and adversary remain High/high; conditional expressiveness opens at
+  Medium/medium because the evidence now includes a throwaway evaluator. No
+  tier changes from the approved plan.
