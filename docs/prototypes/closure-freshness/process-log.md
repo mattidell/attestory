@@ -21,3 +21,12 @@
 - Committee round 1 prepared with owner-launched Medium governance/adversary
   seats. Central attack: horizon succession as legitimate individuation versus
   disguised third edge; no reducer authorized.
+- Round 1 reviews integrated. Governance conditionally accepts both paper shapes
+  if a recorded horizon citizen exists; adversary rejects incumbent computed-
+  divergence root and retains rival as conditional. Both require reducer proof.
+  Governance review path was mechanically corrected from repository-root
+  `reviews/`; content unchanged.
+- Gate 5 triage selects it2 rival shape only. `charter-repair1.md` authorizes a
+  minimal ordered-act reducer and contract note, with it2 builder continuity,
+  to prove atomic horizon succession, two-edge cascade, rebuild equality,
+  isolation, and negative rejection. No production/governance changes.

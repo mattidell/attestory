@@ -2,10 +2,11 @@
 
 ## Current step
 
-Both paper rivals integrated and preserved. Owner-launched Medium-tier committee
-round 1 prepared.
+Round 1 triaged; rival shape selected conditionally. Recorded-horizon reducer
+repair prepared with it2 builder continuity.
 
 ## Next action
 
-Owner launches governance and adversary reviewers from `round-1.md` in prepared
-isolated worktrees. Foreman resumes after both return.
+Owner resumes the it2 rival builder as repair builder on `charter-repair1.md`,
+branch `prototypes/closure-freshness/repair1`, worktree
+`/tmp/finances-closure-freshness-repair1`. Foreman resumes after completion.
