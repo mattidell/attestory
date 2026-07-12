@@ -10,10 +10,11 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Narrow evaluation analysis is complete; owner ADR disposition is pending.**
-The broad prototype loop remains closed. `evaluation-analysis.md` supports five
-bounded conclusions and explicitly excludes the unresolved authority
-boundaries. No ADR has been drafted or ratified.
+**Two narrow Tier 2 ADR drafts are proposed for owner disposition.** ADR-0011
+covers fact-type reuse, W-2 slip identity/correction, and affirmative-only
+closure authority.
+ADR-0012 covers first-class form fields and rendered dispositions. The broad
+prototype loop remains closed; neither ADR is ratified.
 
 ## Seats
 
@@ -43,11 +44,10 @@ boundaries. No ADR has been drafted or ratified.
 
 ## Next Action
 
-Owner reviews `evaluation-analysis.md` and decides whether to authorize a narrow
-Tier 2 ADR draft, preferably split if fact identity/nature and presentation
-content cannot remain independent. No further prototype iteration is
-recommended. Proposed economic gates remain recommendations until the owner
-ratifies a `PROJECT_PLANNING.md` amendment.
+Owner reviews proposed ADR-0011 and ADR-0012 and accepts, amends, or rejects each
+independently. No further prototype iteration is recommended. Proposed economic
+gates remain recommendations until the owner ratifies a
+`PROJECT_PLANNING.md` amendment.
 
 ## Planned Exhibits
 

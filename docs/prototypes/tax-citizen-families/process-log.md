@@ -505,3 +505,21 @@ dispositions.
   closure, coverage, non-publication explanations, citation resolver authority,
   persistence ordering, documentary correction provenance, and 1099-INT source
   identity. No ADR was drafted or ratified.
+
+- **2026-07-11 (event, foreman)** - Owner directed drafting the two ADRs
+  recommended by the narrow analysis. Proposed Tier 2 ADR-0011 covers C1-C3:
+  kernel `fact-type.v1` reuse, W-2 slip identity and mechanical correction, and
+  determinable/attested closure with affirmative-only authority. Proposed Tier
+  2 ADR-0012 covers
+  C4-C5: first-class form-field citizens and five rendered dispositions. Both
+  drafts cite `evaluation-analysis.md`, repeat its exclusions, and do not adopt
+  prototype implementations. Neither draft is ratified pending owner
+  disposition.
+
+- **2026-07-11 (analysis refinement, foreman)** - Drafting ADR-0011 exposed that
+  the earlier phrase "one-sided closure" overclaimed the evidence and left
+  reopening/correction ambiguous. `evaluation-analysis.md` C3 and ADR-0011 now
+  state the supported boundary precisely: closure is determinable and attested,
+  and only a current true finding authorizes closed membership; false may record
+  explicit not-closed and absence remains unknown. The round-4 negative proves
+  value-insensitive projection is invalid, not that false findings are forbidden.

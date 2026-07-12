@@ -16,7 +16,7 @@ This analysis answers five propositions only:
 1. whether existing kernel `fact-type.v1` is sufficient for the exercised core
    tax facts, without a specialized tax-fact-type schema;
 2. how a W-2 wage fact is individuated relative to evidence and corrected;
-3. the nature and assertion shape of source-set closure facts;
+3. the nature and authority condition of source-set closure facts;
 4. whether an official form field is a first-class content citizen distinct
    from a derivation output symbol; and
 5. which rendered-absence dispositions that form-field content must distinguish.
@@ -47,7 +47,7 @@ charter. It3 and it4 are repair/integration evidence, not additional rivals.
 ### C1 - Reuse kernel `fact-type.v1` for the exercised core tax facts
 
 The exercised W-2 wage, interest-by-box, filing-status, rounding, itemization,
-and true-only source-set-closure questions fit the existing kernel fact-type
+and source-set-closure questions fit the existing kernel fact-type
 contract: declared identity keys, determinable/elective nature, value schema,
 and supersession policy.
 
@@ -100,13 +100,14 @@ This supports the identity and mechanical correction contract. It does not
 settle W-2c evidence replacement, previously-reported/corrected-value capture,
 or documentary provenance for a legal correction workflow.
 
-### C3 - Source-set closure is a one-sided determinable, attested fact
+### C3 - Source-set closure is determinable and attested; only affirmative findings authorize closure
 
 The question is whether the user has completed the named source family for the
 scope, a condition the world/user record determines rather than a tax election.
 Authority enters through an attested asserted finding. A current true finding
-means closed; open or not-yet-closed is represented by absence of a current
-closure finding, not by an asserted authoritative `false` closure.
+means closed. A false finding, if the content model records one, means explicitly
+not closed and never authorizes empty-source publication; absence means closure
+is unknown/not established.
 
 Evidence:
 
@@ -120,12 +121,13 @@ Evidence:
 - It4 asserts the closure through the kernel and publishes a pinned symbol
   projection from the attested finding (`examination-it4.md`, I1/I2; round-4
   governance I1/I2 reproduced evidence).
-- Round-4 expressiveness demonstrates why asserted false must not carry closure:
+- Round-4 expressiveness demonstrates why asserted false must not carry closure
+  authority:
   the adapter can place a false closure fact into `closed_sets` and report the
-  family closed. This is negative evidence for one-sided true-only assertion,
-  not support for a boolean false state.
+  family closed. This is negative evidence for value-insensitive projection,
+  not evidence that the record must forbid an explicit false determination.
 
-This conclusion settles fact nature, basis, and one-sided assertion shape only.
+This conclusion settles fact nature, basis, and affirmative-only authority only.
 The source-family mapping, empty-collect authority, `closed_sets`, adoption, and
 pinning remain unresolved.
 
@@ -217,12 +219,12 @@ introduced a companion form-field citizen.
 Rejected because closure reports completeness; it does not constitute a tax-law
 choice. Round-2 dissent and the it3 closure mini-spike resolve this distinction.
 
-### Asserted false closure
+### Treating asserted false as closure authority
 
-Rejected because it creates a standing answer that can be mistaken for closed
-membership and complicates the meaning of open. Round-4 false-closure mutation
-demonstrates the failure. Closure is a one-sided true assertion; absence means
-open/not established.
+Rejected because round-4 mutation demonstrates that value-insensitive mapping
+can place a false finding into closed membership. Only current true may authorize
+closure. A false finding may record an explicit not-closed determination;
+absence means unknown/not established.
 
 ### One undifferentiated blank/zero state
 
@@ -263,8 +265,8 @@ These conditions implement the five conclusions without expanding them:
   examples before runner consumption;
 - preserve W-2 peer identity and same-fact correction/displacement as golden
   contract fixtures;
-- define closure value schema so only a true assertion can become a current
-  closure finding; false/missing remains open;
+- define closure projection so only a current true finding authorizes closure;
+  false and missing never enter closed membership;
 - keep form-field identity separate from output-symbol identity and reject
   cross-year or wrong-line bindings;
 - preserve the five disposition kinds in form-field content and runner records,
