@@ -439,3 +439,10 @@ dispositions.
   production conditions, observations, and explicit dissent. Round 4 remains
   open; outcome summary is withheld until the remaining seats land or the owner
   disposes without them.
+
+- **2026-07-11 (event, adversary reviewer)** - Round 4 adversary review
+  submitted at `reviews/round-4-adversary.md` after the resumed session
+  completed. Reviewer reported 21 attacks across I1-I9, including failed
+  attacks, command reproduction, official-source checks, observations, and
+  explicit dissent. Round 4 remains open; outcome summary is withheld until the
+  remaining seats land or the owner disposes without them.
