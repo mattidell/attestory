@@ -10,11 +10,10 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Two narrow Tier 2 ADR drafts are proposed for owner disposition.** ADR-0011
-covers fact-type reuse, W-2 slip identity/correction, and affirmative-only
-closure authority.
-ADR-0012 covers first-class form fields and rendered dispositions. The broad
-prototype loop remains closed; neither ADR is ratified.
+**The narrow prototype decision is ratified and the prototype process is
+complete.** The owner accepted Tier 2 ADR-0011 and ADR-0012 on 2026-07-11. The
+broad prototype loop remains closed. First Tax Slice must be replanned to the
+ratified scope before implementation begins.
 
 ## Seats
 
@@ -44,10 +43,10 @@ prototype loop remains closed; neither ADR is ratified.
 
 ## Next Action
 
-Owner reviews proposed ADR-0011 and ADR-0012 and accepts, amends, or rejects each
-independently. No further prototype iteration is recommended. Proposed economic
-gates remain recommendations until the owner ratifies a
-`PROJECT_PLANNING.md` amendment.
+Foreman or planning agent amends the First Tax Slice milestone plan and roadmap
+to the ratified narrow scope in a separate planning commit before creating the
+milestone execution branch. Proposed economic gates remain recommendations
+until the owner ratifies a `PROJECT_PLANNING.md` amendment.
 
 ## Planned Exhibits
 

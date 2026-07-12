@@ -1,6 +1,6 @@
 # ADR 0012 - Form-Field Citizens and Rendered Dispositions
 
-- Status: proposed
+- Status: accepted (ratified 2026-07-11)
 - Tier: 2
 - Date: 2026-07-11
 
@@ -140,4 +140,3 @@ already implemented.
   evidence), ADR-0006 (rule language), ADR-0008 (record placement)
 - Companion proposal: ADR-0011 (tax fact identity and source-set closure)
 - Exhibits: `exhibits/tax-citizen-families/it1` through `it4`
-

@@ -523,3 +523,13 @@ dispositions.
   and only a current true finding authorizes closed membership; false may record
   explicit not-closed and absence remains unknown. The round-4 negative proves
   value-insensitive projection is invalid, not that false findings are forbidden.
+
+- **2026-07-11 (ratification, owner/foreman)** - Owner ratified proposed Tier 2
+  ADR-0011 and ADR-0012 without amendment. ADR-0011 accepts kernel
+  `fact-type.v1` reuse for the bounded facts, W-2-slip peer identity and
+  mechanical correction, and determinable/attested closure with
+  affirmative-only authority. ADR-0012 accepts first-class versioned form-field
+  citizens and five rendered dispositions. Both retain the narrow analysis'
+  explicit exclusions. The prototype process is complete; First Tax Slice
+  implementation remains blocked only on a separate milestone-plan adjustment
+  to match the ratified scope.

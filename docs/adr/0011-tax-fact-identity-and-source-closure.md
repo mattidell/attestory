@@ -1,6 +1,6 @@
 # ADR 0011 - Tax Fact Identity and Source-Set Closure
 
-- Status: proposed
+- Status: accepted (ratified 2026-07-11)
 - Tier: 2
 - Date: 2026-07-11
 
