@@ -1,0 +1,18 @@
+{
+  "schema": "act.v1",
+  "act_id": "sa-act-004",
+  "kind": "assertion",
+  "actor": "user",
+  "at": "2026-07-12T00:00:04Z",
+  "committed_against": 7,
+  "payload": {
+    "finding": {
+      "schema": "finding.v1",
+      "id": "finding.w2.box1.employer-alpha.slip-1.corrected",
+      "fact_id": "fact.tax.us.2025.w2.box1-wages.employer-alpha.slip-1",
+      "value": 51000,
+      "basis": "documentary",
+      "evidence_ids": []
+    }
+  }
+}

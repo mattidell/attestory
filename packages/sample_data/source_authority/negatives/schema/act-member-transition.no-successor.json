@@ -1,0 +1,15 @@
+{
+  "family": { "id": "tax.us.2025.family.w2-box1", "version": "v1" },
+  "scope": { "tax-year": "2025", "subject": "taxpayer-primary" },
+  "member": {
+    "action": "assert",
+    "finding": {
+      "schema": "finding.v1",
+      "id": "finding.w2.box1.employer-alpha.slip-1.original",
+      "fact_id": "fact.tax.us.2025.w2.box1-wages.employer-alpha.slip-1",
+      "value": 50000,
+      "basis": "documentary",
+      "evidence_ids": []
+    }
+  }
+}

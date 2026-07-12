@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/source-family.v1",
+  "title": "Source-family declaration",
+  "description": "A versioned declaration of what a source family means (ADR-0016 decisions 1-2): an exact natural-language closure claim plus a canonical member predicate, together the semantic authority. Ids, titles, and rule symbols cannot broaden this meaning; the subtotal symbol named here is the only output closure of this family may authorize (ADR-0016 decision 5). Mapping, subtotal calculation, and coverage all pin one declaration id and version.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "source-family.v1" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "tax_year": { "type": "integer" },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "family": { "type": "string", "minLength": 1 }
+      },
+      "required": ["tax_year", "jurisdiction", "family"],
+      "additionalProperties": false
+    },
+    "closure_claim": { "type": "string", "minLength": 1 },
+    "member_predicate": {
+      "type": "object",
+      "properties": {
+        "fact_type": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" }
+      },
+      "required": ["fact_type"],
+      "additionalProperties": false
+    },
+    "authorizes_subtotal": { "type": "string", "minLength": 1 }
+  },
+  "required": ["schema", "id", "version", "title", "scope", "closure_claim", "member_predicate", "authorizes_subtotal"],
+  "additionalProperties": false
+}

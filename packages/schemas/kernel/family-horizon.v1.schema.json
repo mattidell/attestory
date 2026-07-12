@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/family-horizon.v1",
+  "title": "Family membership horizon",
+  "description": "An ordinary recorded citizen marking a membership state of one source family declaration version within one scope (ADR-0017 decision 1). Succession is explicit: predecessor is null only for the genesis horizon established before any member exists. Closure facts are keyed on the horizon current at attestation; horizon succession is an individuation root that displaces them (ADR-0017 decisions 2 and 5). The scope is a non-empty map of declared key names to values — a horizon is never global.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "family-horizon.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "family": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" }
+      },
+      "required": ["id", "version"],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "minLength": 1 },
+      "propertyNames": { "pattern": "^[a-z][a-z0-9-]*$" }
+    },
+    "predecessor": {
+      "oneOf": [
+        { "type": "string", "minLength": 1 },
+        { "type": "null" }
+      ]
+    }
+  },
+  "required": ["schema", "id", "family", "scope", "predecessor"],
+  "additionalProperties": false
+}

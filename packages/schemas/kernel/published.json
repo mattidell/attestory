@@ -5,10 +5,13 @@
   "act-entity-superseded.v1.schema.json": "33d6dda1e31e126f0c7e17b50814b9efc2d18a490a005423898db7c0bc41a354",
   "act-evidence-replaced.v1.schema.json": "d3935f225abcd7a932fea94b0f751c8249b0f4f78427970c604f6e31efb85208",
   "act-evidence-submitted.v1.schema.json": "cfb1b12f8171b7599b6a1fc9895fb6b18676b56d5988db1f6c723cd2d578e6dd",
+  "act-horizon-genesis.v1.schema.json": "54e3363ce7c3f968eb51d2e504e052bb4a5bf6283e6861ef8dc4595fcb23b8f7",
+  "act-member-transition.v1.schema.json": "32f9cb947eb13b7df76d36c9fa675b64fd29774d6c64f9a1ef4b3ca0a3617eb5",
   "act.v1.schema.json": "d71acc2e45850ee98c4a27e5ac1a5671e94ec8a8fdaabdd27cf6c41736e6b3c4",
   "bundle.v1.schema.json": "e390e84381fa22b7329015d6325af2deb6e3d12137028244f67e668279fa6737",
   "entity.v1.schema.json": "32cb2d6da3aeb8f0b1bc5aa0d654de2698d3892f57242847294eae5a74eabeff",
   "evidence.v1.schema.json": "052e9b3a32f7d5ce5c2f9cc45dc9eb29bff1117ee3a9daafb5963db27c229f42",
   "fact-type.v1.schema.json": "63a4f4feff13b4fcae315c76841f616c0fa785347e60e66d78b9152b88ad1ecf",
+  "family-horizon.v1.schema.json": "c5da368c6a1af002b7647e41fe48ca0f840474ad5e6811fb12c425425a4b2e58",
   "finding.v1.schema.json": "24c8a86abc0c87d480c9cd486fce59565920ec36acfc465a153f9281cc48fe46"
 }

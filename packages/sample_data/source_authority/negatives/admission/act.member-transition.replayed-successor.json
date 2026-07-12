@@ -1,0 +1,20 @@
+{
+  "schema": "act.v1",
+  "act_id": "sa-neg-003",
+  "kind": "member-transition",
+  "actor": "user",
+  "at": "2026-07-12T00:01:03Z",
+  "committed_against": 8,
+  "payload": {
+    "family": { "id": "tax.us.2025.family.w2-box1", "version": "v1" },
+    "scope": { "tax-year": "2025", "subject": "taxpayer-primary" },
+    "member": {
+      "action": "remove",
+      "fact_id": "fact.tax.us.2025.w2.box1-wages.employer-alpha.slip-1"
+    },
+    "successor": {
+      "id": "horizon.w2-box1.taxpayer-primary.2025.h1",
+      "predecessor": "horizon.w2-box1.taxpayer-primary.2025.h2"
+    }
+  }
+}

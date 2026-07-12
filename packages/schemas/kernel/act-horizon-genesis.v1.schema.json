@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-horizon-genesis.v1",
+  "title": "Horizon genesis act payload",
+  "description": "Establishes the initial membership horizon for one family declaration version and scope, before any member exists (ADR-0017 decision 1). Required so closure over an empty family has a current horizon to key on. Admission rejects a genesis for a family/scope that already has a horizon; the genesis horizon's predecessor is null by construction, so no predecessor field exists here.",
+  "type": "object",
+  "properties": {
+    "family": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" }
+      },
+      "required": ["id", "version"],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "minLength": 1 },
+      "propertyNames": { "pattern": "^[a-z][a-z0-9-]*$" }
+    },
+    "horizon_id": { "type": "string", "minLength": 1 }
+  },
+  "required": ["family", "scope", "horizon_id"],
+  "additionalProperties": false
+}
