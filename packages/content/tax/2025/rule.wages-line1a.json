@@ -1,0 +1,23 @@
+{
+  "schema": "rule-artifact.v1",
+  "id": "tax.us.2025.rule.w2-box1-to-line1a",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "field-mapping",
+  "requires": ["rounding.convention"],
+  "when": true,
+  "value": {
+    "op": "round",
+    "value": {
+      "op": "add",
+      "args": [
+        { "op": "collect", "name": "tax.us.2025.w2.box1-wages", "source_set": "tax.us.2025.w2" }
+      ]
+    },
+    "mode": { "op": "ref", "name": "rounding.convention" },
+    "stage": "after_aggregate"
+  },
+  "publishes": "tax.us.2025.wages.total-w2-box1",
+  "blocked": { "code": "OPEN_DEPENDENCY", "missing": ["rounding.convention"] },
+  "notes": "Aggregates current tax.us.2025.w2.box1-wages findings across the present source set and rounds under the asserted rounding convention, per Form 1040 (2025) line 1a: 'Total amount from Form(s) W-2, box 1 (see instructions)', checked against the official IRS Form 1040 (2025) at Track 1 implementation time. Nonempty present-source paths only in this milestone; an unclosed empty source set blocks rather than publishing (no closure-to-collect mapping exists yet, ADR-0011)."
+}

@@ -1,0 +1,75 @@
+{
+  "adoption_pin": {
+    "id": "tax.us.2025.package.first-tax-slice",
+    "role": "adoption",
+    "version": "v1"
+  },
+  "closed_sets": [],
+  "governance_pins": [
+    {
+      "id": "governance.constitution",
+      "role": "governance",
+      "version": "v1"
+    }
+  ],
+  "inputs": [
+    {
+      "finding_id": "tax.us.2025.finding.rounding-convention",
+      "role": "input",
+      "symbol": "rounding.convention",
+      "value": "half_up"
+    }
+  ],
+  "parameters": [],
+  "rules": [
+    {
+      "blocked": {
+        "code": "OPEN_DEPENDENCY",
+        "missing": [
+          "rounding.convention"
+        ]
+      },
+      "id": "tax.us.2025.rule.w2-box1-to-line1a",
+      "notes": "Aggregates current tax.us.2025.w2.box1-wages findings across the present source set and rounds under the asserted rounding convention, per Form 1040 (2025) line 1a: 'Total amount from Form(s) W-2, box 1 (see instructions)', checked against the official IRS Form 1040 (2025) at Track 1 implementation time. Nonempty present-source paths only in this milestone; an unclosed empty source set blocks rather than publishing (no closure-to-collect mapping exists yet, ADR-0011).",
+      "publishes": "tax.us.2025.wages.total-w2-box1",
+      "requires": [
+        "rounding.convention"
+      ],
+      "role": "field-mapping",
+      "schema": "rule-artifact.v1",
+      "scope": {
+        "family": "individual-income-tax",
+        "jurisdiction": "US-federal",
+        "tax_year": 2025
+      },
+      "value": {
+        "mode": {
+          "name": "rounding.convention",
+          "op": "ref"
+        },
+        "op": "round",
+        "stage": "after_aggregate",
+        "value": {
+          "args": [
+            {
+              "name": "tax.us.2025.w2.box1-wages",
+              "op": "collect",
+              "source_set": "tax.us.2025.w2"
+            }
+          ],
+          "op": "add"
+        }
+      },
+      "version": "v1",
+      "when": true
+    }
+  ],
+  "run_id": "tax.us.2025.run.present-zero-w2",
+  "sources": [
+    {
+      "finding_id": "demo-finding-w2-alpha-1-box1",
+      "name": "tax.us.2025.w2.box1-wages",
+      "value": "0"
+    }
+  ]
+}
