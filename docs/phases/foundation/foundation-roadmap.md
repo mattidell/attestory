@@ -20,7 +20,7 @@ Audience: Product (roadmap); Shared (status)
 
 ## Status
 
-Active milestone: **Source Completeness And Interest Slice** — not yet planned.
+Active milestone: **Source Completeness And Interest Slice** (plan: `milestones/source-completeness-and-interest-slice.md`). Status: initial plan committed; Track 0 reserved-contract prototype process chartered but owner-gated (not yet launched); Tracks 1+ provisional pending Track 0 ADR ratification. Central undecided contracts: the closure-fact-to-`collect` mapping (replacing caller-supplied `closed_sets`) and 1099-INT source-instance identity — both flagged contract-foundational by ADR-0011 "Not Decided".
 
 - Governance Installation — **complete** (2026-07-09, merge `6e4eefa`; retrospective: `docs/milestone-retrospectives/2026-07-09-governance-installation.md`). Impacts: `docs/governance/`, `docs/adr/`, `docs/milestone-retrospectives/`, root meta documents, `tools/`, `tests/`.
 - Workspace Kernel — **complete** (2026-07-10, merge `c8799ce`; retrospective: `docs/milestone-retrospectives/2026-07-10-workspace-kernel.md`). Tier 2 decisions ratified 2026-07-10 (ADR-0002, ADR-0003): persistence (append-only JSONL act log), schema technology and identity (JSON Schema 2020-12, opaque IDs), synthetic kernel vocabulary, minimal adoption act. Impacts: `packages/kernel/`, `packages/schemas/kernel/`, `packages/sample_data/kernel/`, `tests/conformance/`, `docs/adr/`, `README.md`.
