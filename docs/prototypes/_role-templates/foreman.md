@@ -47,11 +47,18 @@ merely cite:
    drops (a converged design needs a cheaper repair build; a settled contract
    needs a lighter reviewer). Record each change and its rationale in the process
    log at dispatch time.
-5. **Sub-agent dispatch.** If you are able to spawn sub-agents to fill roles, ask
-   the owner for confirmation before spawning, and dispatch each sub-agent at the
-   capability tier and reasoning effort the plan assigns that role (as currently
-   revised). Do not silently spawn a role or run one off-tier without recording
-   the change first.
+5. **Sub-agent dispatch.** If you are able to spawn sub-agents, dispatch each at
+   the capability tier and reasoning effort the plan assigns that role (as
+   currently revised), and do not run one off-tier without recording the change
+   first. **Spawn the committee reviewers by default** — owner approval of the
+   prototype plan (which names the reviewer seats and tiers) is their standing
+   authorization, so no per-spawn confirmation is needed; spawn each in an
+   isolated context and do not let reviewers see each other's in-progress work.
+   For a context-starved reviewer seat (legibility), construct a clean-room
+   prompt carrying only the artifact under review and the review charter — no
+   process history — so starvation is preserved; this prompt discipline is yours.
+   For non-reviewer role spawns, ask the owner for confirmation first. If you
+   lack sub-agent capability, reviewers are owner-launched from role files.
 
 These are stewardship duties, not authority over artifact quality: you still
 never review artifact quality, overrule a committee finding on the merits, or

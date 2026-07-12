@@ -96,6 +96,22 @@ It is an optional economy, not a required seat, and is formalized for the
 prototype process only (the milestone lifecycle may adopt the same principle
 later). This is a refinement of the foreman stewardship role, not a new decision.
 
+## Amendment (2026-07-12) — Reviewer sub-agent dispatch
+
+Owner-directed refinement of decisions 3 and 4. When the foreman agent has
+sub-agent capability, it spawns the committee reviewers as sub-agents **by
+default**, each at the plan's stage-appropriate tier, in independent contexts.
+Owner approval of the prototype plan (which names the reviewer seats and tiers)
+is the standing authorization, so reviewers need no per-spawn confirmation; the
+general confirmation gate still applies to non-reviewer spawns. Within-round
+independence holds (reviewers do not see each other's in-progress work). For the
+context-starved legibility seat, the foreman constructs a clean-room prompt
+carrying only the artifact and the review charter — no process history — so
+starvation is preserved by foreman prompt discipline. When the foreman lacks
+sub-agent capability, reviewers are owner-launched from role files as before.
+This amends the `AGENTS.md` prototype-process-dispatch guardrail, which
+previously reserved all context-starved seats to owner launch.
+
 ## Alternatives Considered
 
 - **Keep the v1 gates as retrospective guidance.** Rejected: advisory gates with
