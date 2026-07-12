@@ -40,9 +40,10 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 
 ## Next Action
 
-Track 0 is complete. Foreman records the process retrospective and rewrites the
-provisional milestone tracks against accepted ADR-0014/0015. SC-P3 remains
-explicitly unresolved and cannot be improvised during implementation.
+Track 0 is complete and retrospectively closed. SC-P3 remains explicitly
+unresolved and is routed to a separate bounded decision before closure-backed
+interest zero or coverage implementation; it cannot be improvised in milestone
+code.
 
 ## Planned Exhibits
 

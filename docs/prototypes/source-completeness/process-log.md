@@ -231,3 +231,6 @@ close (log hygiene per `roles/foreman.md`).
 - Owner ratified ADR-0014 and ADR-0015 on 2026-07-12. Prototype Track 0 is
   complete under partial ratification: SC-P1/SC-P2 accepted; SC-P3 unresolved;
   SC-D1 remains implementation work. No further prototype iteration opens.
+- `process-retrospective.md` closes this topic. SC-P3 is routed as a separate
+  bounded decision because it blocks closure-backed interest zero and coverage
+  meaning but is not part of accepted ADR-0014/0015.
