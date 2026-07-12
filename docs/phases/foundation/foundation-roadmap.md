@@ -20,7 +20,7 @@ Audience: Product (roadmap); Shared (status)
 
 ## Status
 
-Active milestone: **Source Completeness And Interest Slice** (plan: `milestones/source-completeness-and-interest-slice.md`). Status: Track 0 complete; ADR-0014 (reusable adopted source-closure mapping) and ADR-0015 (logical 1099-INT statement-instance identity) ratified 2026-07-12. SC-P3 source-family claim/coverage semantics remain unresolved under partial ratification. Implementation tracks are being rewritten against accepted contracts before branch execution.
+Active milestone: **Source Completeness And Interest Slice** (plan: `milestones/source-completeness-and-interest-slice.md`). Status: ADR-0014 through ADR-0017 ratified; implementation plan ready with six tracks. The product scope is narrowed by ADR-0016: this milestone ships an honest Form 1099-INT box-1 subtotal, closure/freshness, and exact-claim coverage—not Form 1040 line 2b. Implementation branch has not started.
 
 - Governance Installation — **complete** (2026-07-09, merge `6e4eefa`; retrospective: `docs/milestone-retrospectives/2026-07-09-governance-installation.md`). Impacts: `docs/governance/`, `docs/adr/`, `docs/milestone-retrospectives/`, root meta documents, `tools/`, `tests/`.
 - Workspace Kernel — **complete** (2026-07-10, merge `c8799ce`; retrospective: `docs/milestone-retrospectives/2026-07-10-workspace-kernel.md`). Tier 2 decisions ratified 2026-07-10 (ADR-0002, ADR-0003): persistence (append-only JSONL act log), schema technology and identity (JSON Schema 2020-12, opaque IDs), synthetic kernel vocabulary, minimal adoption act. Impacts: `packages/kernel/`, `packages/schemas/kernel/`, `packages/sample_data/kernel/`, `tests/conformance/`, `docs/adr/`, `README.md`.

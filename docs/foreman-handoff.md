@@ -24,7 +24,8 @@ against git, trust git and say so.
   0015 ratified. SC-P3 is split into `docs/prototypes/source-family-semantics/`;
   source-family evaluation is complete and ADR-0016 ratified. SFS-P3 is routed
   to a separate Tier-3 late-member freshness decision.
-- **Current plan gate:** ADR-0017 ratified; all Track-0 decisions complete.
+- **Current plan gate:** ADR-0017 ratified; closure-freshness retrospective
+  written; six-track milestone implementation plan ready for its planning commit.
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
@@ -53,9 +54,8 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** close closure-freshness process retrospective;
-  finalize milestone implementation tracks; commit planning separately; create
-  `milestone/source-completeness`; execute one track per commit.
+- **Next actions in order:** commit final milestone planning separately; create
+  `milestone/source-completeness`; execute Tracks 1–6 one commit each.
 - **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.

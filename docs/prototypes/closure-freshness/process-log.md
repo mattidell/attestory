@@ -48,3 +48,5 @@
   recommended. Owner ratification pending.
 - Owner ratified ADR-0017 on 2026-07-12. Closure Freshness topic complete; the
   Source Completeness milestone may now plan closure-backed zero production.
+- `process-retrospective.md` closes the topic and carries schema/admission,
+  encapsulation, act identity, and replay conditions into milestone planning.

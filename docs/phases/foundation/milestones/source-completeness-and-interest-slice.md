@@ -2,35 +2,35 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **Track 0 complete — ADR-0014 and ADR-0015 ratified 2026-07-12;
-implementation replanning active.** SC-P3 source-family claim/coverage semantics
-remain unresolved under partial ratification. Tracks 1+ below are still
-provisional until this plan is rewritten against the accepted contracts.
+Status: **implementation plan ready — ADR-0014 through ADR-0017 ratified
+2026-07-12.** Track 0 and its two follow-on decision topics are complete.
+Implementation has not started; create `milestone/source-completeness` only
+after this planning commit lands.
 
 ## Objective
 
-Add taxable interest to the engine honestly — but the milestone's real product
-is the two authority contracts that adding it forces, which First Tax Slice
-deliberately deferred:
+Add the first honest taxable-interest source subtotal and the authority machinery
+it forces. The ratified decisions show that a Form 1099-INT box-1 family is not
+coextensive with Form 1040 line 2b, so this milestone no longer promises line-2b
+publication. Its product is the reusable closure/horizon substrate plus a real
+box-1 subtotal and coverage surface that cannot masquerade as total taxable
+interest.
 
-1. **Source-set closure as recorded authority.** Today the saturation runner
-   reads a `closed_sets` frozenset off `RunContext` (`evaluator.py`, the
-   `collect` operation's two-layer check). ADR-0011 ratified that source-set
-   closure is a determinable, affirmative-only *fact*, but explicitly reserved
-   *how a closure finding becomes a member of `closed_sets`* — the
-   closure-fact-to-source-family/collect mapping. Until that mapping is a
-   pinned, adopted contract, no rule can publish a closure-backed empty-source
-   zero without the runner trusting a caller-supplied set, which ADR-0011
-   forbids being cited as approval of.
-2. **1099-INT source-instance identity.** W-2 wages are keyed by an employer
-   plus a W-2-slip citizen (ADR-0011). Interest arrives on 1099-INT statements
-   tied to payers and accounts. Whether the analogous identity key is the payer,
-   the account, the statement, or some composite — and how that interacts with
-   source-set closure ("that's all my interest income") — is undecided.
+1. **Source-set closure as recorded authority.** Replace caller-supplied
+   `closed_sets` with ADR-0014's pinned adopted mapping and current literal-true
+   closure authority.
+2. **1099-INT statement identity.** Implement ADR-0015's logical statement
+   instance, preserving multiple same-payer returns and same-fact correction
+   without evidence-derived keys.
+3. **Exact family meaning.** Implement ADR-0016's exact claim/predicate and
+   subtotal composition so box-1 closure never gains line-2b authority.
+4. **Late-member freshness.** Implement ADR-0017's recorded family horizons and
+   atomic membership transition so later members invalidate prior closure-backed
+   zeroes through existing individuation and derivation edges.
 
-The interest slice (1099-INT box 1 → a Form 1040 interest line) is the *fixture
-corpus* that makes those two contracts earn their shape against real content,
-exactly as the W-2 slice did for fact identity and form-field citizens.
+The Form 1099-INT box-1 subtotal is the fixture corpus that makes these
+contracts earn their production shape against real content, exactly as the W-2
+slice did for identity and currency.
 
 ## Why This Is A Separate Milestone
 
@@ -64,11 +64,8 @@ prototype process, mirroring First Tax Slice.
 
 Firm scope for this milestone:
 
-- **Track 0 prototype process** to settle the two reserved contracts above,
-  producing an evaluation analysis and the ADR(s) it cites.
-
-Provisional scope, contingent on Track 0's ratified ADRs (exact shape decided by
-the evaluation analysis, not pre-committed here):
+- **Track 0 decision processes — complete:** Source Completeness, Source-Family
+  Semantics, and Closure Freshness; ADR-0014 through ADR-0017 accepted.
 
 - Tax year 2025, US federal individual income tax.
 - 1099-INT box-1 taxable-interest fact type and source-instance identity under
@@ -77,26 +74,28 @@ the evaluation analysis, not pre-committed here):
   closure finding authorize an empty-source publication through the existing
   two-layer `collect` check — replacing caller-supplied `closed_sets` with a
   pinned, adopted contract.
-- A Form 1040 taxable-interest form-field citizen (line 2b family) under
-  ADR-0012, binding the interest output symbol.
-- One real rule aggregating current 1099-INT box-1 findings into the interest
-  output symbol.
-- A record-derived **coverage** read model surfacing open (unclosed) source sets
-  as first-class gaps.
-- Synthetic scenarios covering: one 1099-INT, multiple payers/accounts, a
-  closure-backed empty-source zero (no interest, source family asserted
-  complete), an *unclosed* empty source (blocked, not zero), and correction/
-  displacement of an interest finding.
+- A declared Form 1099-INT box-1 source family and independently adopted closure
+  mapping under ADR-0014/0016.
+- An ordinary recorded family/scope horizon and atomic membership-changing act
+  under ADR-0017, projected through existing individuation/derivation currency.
+- One real rule aggregating current 1099-INT box-1 findings into a **box-1 source
+  subtotal symbol**, not Form 1040 line 2b.
+- A record-derived coverage read model reporting the exact authoritative box-1
+  closure claim and freshness state, never “all taxable interest complete.”
+- Synthetic scenarios covering: one statement, multiple same-payer statement
+  instances, closure-backed empty box-1 subtotal zero, unclosed empty block,
+  same-member value correction, late-member horizon invalidation/no
+  resurrection, re-attestation/rerun, and family isolation.
 
 ## Non-Goals And Deferred Boundaries
 
 - No Schedule B (interest/dividend detail schedule) or its $1,500 threshold
   logic.
-- No dividends, tax-exempt interest, OID, or any 1099-INT box other than box 1
-  unless Track 0's fixtures require another box to settle identity.
-- No downstream Form 1040 lines beyond the interest line and the existing
-  line 1a (no lines 9, 11, 12, 15, 16), no standard deduction, no tax-method
-  condition structure — roadmap item 7.
+- No dividends, tax-exempt interest, OID, or any 1099-INT box other than box 1.
+- **No Form 1040 line 2b publication or form-field citizen.** ADR-0016 requires
+  a broader taxable-interest universe or proven coextensive composition; this
+  milestone implements only the B1 subtotal. No downstream lines 9, 11, 12,
+  15, or 16, standard deduction, or tax-method conditions — roadmap item 7.
 - No citation resolver; citation references stay inert opaque strings
   (ADR-0012 "Not Decided").
 - No non-publication explanation API (blocked/invalid/guard-inapplicable walks)
@@ -104,111 +103,151 @@ the evaluation analysis, not pre-committed here):
 - No UI, filing workflow, persistence beyond existing workspace/record
   contracts, personal data, extraction, or reserved ontology work.
 
-## Track 0 — Reserved-Contract Prototype Process (owner-gated)
+## Track 0 — Contract Decisions (complete)
 
-Goal: settle the source-closure-mapping and 1099-INT identity contracts with a
-prototype evaluation analysis before any interest content is written, per
-ADR-0005.
+Three bounded decision topics produced the implementation authority:
 
-This track does not begin until the owner gives go. Per ADR-0013, it opens with
-an **owner-approved, committed `docs/prototypes/source-completeness/plan.md`**
-that instantiates the economic gates (decision inventory, per-proposition
-eligibility scores, paper-first evidence plan, authorized evidence rung, fixed
-caps, foreman-owned review triage, partial-ratification intent, and the role
-capability tiers) before the first charter. It then runs the ADR-0005 loop
-(charter → build → examine → committee → disposition) under role separation and
-measured reviews, with the foreman as scope-and-economy steward. The foreman
-copies the canonical charter from `docs/prototypes/_role-templates/foreman.md`;
-context-starved seats are owner-launched from role files.
+- `docs/prototypes/source-completeness/` → ADR-0014 adopted mapping and
+  ADR-0015 statement-instance identity;
+- `docs/prototypes/source-family-semantics/` → ADR-0016 exact family claim,
+  predicate, and subtotal composition;
+- `docs/prototypes/closure-freshness/` → ADR-0017 recorded family horizons and
+  late-member currency.
 
-### Declared questions the prototype must answer
+All evaluations are exhibit-traced, process retrospectives are recorded, and
+prototype code remains unmerged evidence. Track 0 is closed; Tracks 1–6 below
+are production reimplementation, not prototype promotion.
 
-1. **Closure-to-`collect` mapping.** How does a current, affirmative source-set
-   closure finding become a member of the runner's `closed_sets` for a specific
-   source family, as a *pinned, adopted* input rather than a caller-supplied
-   set? What is the adopted artifact that declares the mapping, and how do its
-   pins reach the closure finding so an empty-source zero explains itself?
-2. **Affirmative-only enforcement on the path.** ADR-0011 decision 5 requires
-   that only a *true* closure finding admits a source family into closed
-   membership — a false or absent finding must block, never zero. Does the
-   mapping preserve that on the real runner path (the it4 value-insensitive-
-   adapter failure must not recur)?
-3. **1099-INT source-instance identity.** What individuates a taxable-interest
-   fact — payer, account, statement, or composite — such that multiple accounts
-   from one payer stay distinct (the W-2 two-slip analogue), correction preserves
-   same-fact history, and evidence never rekeys the fact (Article 1)?
-4. **Interaction of identity and closure.** How does "that's all my interest
-   income" (a source-family closure) relate to the per-instance identity key?
-   What is the source family that closure closes over, in terms the mapping and
-   the coverage read model can both consume?
-5. **Coverage from records.** Can open (unclosed) source families be derived as
-   gaps purely from the act log and run records, without a second authoritative
-   store (Articles 5, 7, 14)?
+## Track 1 — Contract Schemas And Payload Instances
 
-### Charter constraints (reviewed as part of the charter)
+Goal: publish the production contract shapes before any runner consumes them.
 
-- Fixtures must include at least the W-2 slice's proven-hard cases translated to
-  interest (multi-instance same-payer, correction/displacement) plus the
-  closure-specific cases (asserted-complete empty source → zero;
-  unasserted empty source → blocked; false closure → blocked).
-- At least one **rival design** on the same fixture charter before the committee
-  may conclude (ADR-0005): e.g. mapping-as-adopted-parameter vs.
-  mapping-as-dedicated-citizen for closure; payer-keyed vs. account-keyed vs.
-  statement-keyed identity.
-- Reviews are measurements: each committee charter declares what it measures and
-  what failure looks like before reviewing (contract fidelity against the
-  governance set + ADR-0011; expressiveness against the fixtures; fresh-reader
-  legibility; adversary attack-parity).
-- Prototype code lives on `prototypes/source-completeness/it<N>` branches and
-  never merges; concluded iterations become `exhibits/source-completeness/it<N>`
-  tags. Only documents under `docs/prototypes/source-completeness/` merge.
+- Add versioned schemas and registry entries for source-family declarations,
+  adopted source-closure mappings, family horizons, and the atomic
+  membership-changing act required by ADR-0017.
+- The atomic act carries one member assertion/removal/reclassification and one
+  same-family/scope horizon successor referencing the current predecessor.
+- Add hand-written fully resolved positives plus isolated negatives for empty
+  ids, missing/future/replayed/wrong-predecessor/mis-scoped/global successors,
+  half transitions, claim/predicate mismatch, and narrow-subtotal composition.
+- Declare that same-member value correction uses the ordinary assertion path
+  and does not advance the horizon.
+- Publish immutable schema manifests; synthetic ids only.
 
-### Outputs
+Verification: schema registry positives/negatives, published-manifest
+immutability, governance lint, data-safety scan.
 
-Charters, iteration examinations, committee review notes, a dated process log,
-the evaluation analysis, and the accepted ADR(s) — one for the closure mapping,
-one for 1099-INT identity (or a combined ADR if the analysis shows they are one
-decision). Exhibit tags for each iteration.
+Commit: one Track 1 contract commit.
 
-### Verification
+## Track 2 — Atomic Horizon Projection And Currency
 
-Process conformance (foreman conformance review: charters run their checks,
-roles separated, rival present, dissent recorded not wordsmithed) and governance
-lint on merged documents.
+Goal: implement ADR-0017 in the kernel/workspace record without adding a third
+edge or stored currency.
 
-## Provisional Tracks 1–N (shape set by Track 0)
+- Admit the atomic membership-changing act as one all-or-nothing transition;
+  malformed payloads alter neither member state nor horizon state.
+- Project ordinary horizon citizens/succession keyed by exact family declaration
+  version and scope.
+- Key closure facts on the horizon and feed recorded superseded horizons into
+  the existing individuation root set; dependent closure findings and derived
+  zeroes fall through existing individuation then derivation edges.
+- Encapsulate projection state; currency accepts immutable projected record
+  state only, never caller roots/stale flags.
+- Test incremental-versus-full-rebuild equality after every act, no
+  resurrection, family isolation, correction-versus-reclassification, act
+  identity/idempotence, interruption safety, and E7.2 exact edge closure.
 
-These are placeholders to show the intended arc; their exact boundaries,
-contracts, and count are set by the Track 0 evaluation analysis and are not
-committed until the ADR(s) ratify. They must not be implemented before then.
+Verification: kernel/currency/conformance suites plus targeted horizon replay
+tests and mypy.
 
-- **Track 1 — 1099-INT vocabulary and interest form-field content.** Production
-  interest fact type under the Track 0 identity ADR; Form 1040 interest-line
-  form-field citizen; positive and isolated-negative instances. Payload
-  Instantiation Gate binds any new schema.
-- **Track 2 — Source-closure mapping and adopted package.** The adopted
-  closure-to-`collect` mapping artifact replacing caller-supplied `closed_sets`;
-  affirmative-only enforcement proven on the real runner path.
-- **Track 3 — Interest derivation and closure-backed zero.** Rule aggregating
-  1099-INT box-1 findings into the interest symbol; closure-backed empty-source
-  zero vs. unclosed-empty blocked, both explained; two-runner parity and CLI
-  goldens.
-- **Track 4 — Coverage read model.** Record-derived open-source-family gaps as a
-  first-class read model.
-- **Track 5 — Correction cascade, documentation, and completion.** Interest
-  correction/displacement; README, phase state, roadmap status; milestone
-  retrospective; non-ff merge with one implementation commit per track.
+Commit: one Track 2 machinery commit.
+
+## Track 3 — Adopted Source-Family Mapping And Single Dispatch
+
+Goal: reimplement ADR-0014/0016 as adopted content and remove caller authority.
+
+- Load/validate source-family declarations and closure mappings as versioned
+  adopted artifacts with exact claim + canonical predicate.
+- Build the runner environment only from the adopted mapping, current literal-
+  true closure finding keyed on the current horizon, and current record state.
+- Remove `RunContext.closed_sets` and every alternate caller-set/carrier path;
+  audit all environment constructors.
+- Retain exact mapping, declaration, horizon, and closure-finding identities for
+  explanation pins.
+- Validate subtotal/final-universe compatibility; labels/symbols cannot broaden
+  authority.
+- Exercise false/absent/displaced/truthy/ambiguous/duplicate/fabricated mapping
+  and caller-injection negatives on the real two-layer `collect` path.
+
+Verification: runner/reference-runner parity, package validation, mutation
+negatives, explanation pin tests, no-other-constructor audit, mypy.
+
+Commit: one Track 3 authority-dispatch commit.
+
+## Track 4 — 1099-INT Box-1 Content And Present-Source Subtotal
+
+Goal: publish real interest content without claiming total taxable interest.
+
+- Add logical Form 1099-INT statement-instance entities and a box-1 fact type
+  keyed by tax year, subject, payer, and statement instance under ADR-0015.
+- Define deterministic statement assertion/anti-duplication and
+  correction-versus-new-original validation without evidence keys.
+- Add the exact B1 source-family declaration and adopted mapping; coverage and
+  reports use the authoritative claim, not shorthand.
+- Add one rule aggregating current box-1 findings into a B1 subtotal symbol.
+- Add synthetic one-statement, two same-payer statements, present computed-zero,
+  evidence-key rejection, payer/account collision, and same-fact correction
+  scenarios. No line-2b form-field binding.
+
+Verification: schema/content tests, package closure, two-runner byte parity,
+CLI goldens, computed-zero input pins/no closure pin, data-safety scan.
+
+Commit: one Track 4 tax-content commit.
+
+## Track 5 — Closure-Backed Zero, Coverage, And Lifecycle
+
+Goal: exercise the accepted authority/freshness contracts end to end.
+
+- Add empty B1 closed → subtotal zero and empty B1 open → blocked scenarios.
+- Explanation for closure-backed zero reaches exact declaration, mapping,
+  horizon, current closure finding, adoption, rule, and run.
+- Add late member after zero: atomic horizon successor makes old closure/zero
+  noncurrent without manual withdrawal; coverage opens; removal does not
+  resurrect; re-attestation plus explicit rerun publishes successor.
+- Add same-member value correction (no horizon advance), predicate-changing
+  correction (horizon advance), malformed-transition rejection, rebuild parity,
+  family isolation, and record-derived exact-claim coverage read model.
+- Update README and product briefing to say B1 subtotal, not line 2b.
+
+Verification: full tests, governance lint, mypy, forward/reference parity,
+workspace/CLI goldens, explanation walks, data-safety scan.
+
+Commit: one Track 5 integration/lifecycle commit.
+
+## Track 6 — Completion
+
+Goal: close the milestone with truthful documentation and clean history.
+
+- Run full milestone verification.
+- Update roadmap, phase state, README, and any consumer-facing capability notes.
+- Write the milestone retrospective with branch/commits, decisions, deviations,
+  data safety, follow-ups, and planning lessons.
+- Confirm one implementation commit per Track 1–5 plus a separate completion
+  documentation commit, then non-fast-forward merge
+  `milestone/source-completeness` into `main` with the milestone name.
+
+Commit: one Track 6 completion-documentation commit before merge.
 
 ## Payload Instantiation Gate
 
 Every new schema or materially changed payload relationship gets a hand-written,
-fully-resolved positive instance and isolated negative before runner code
-consumes it (`PROJECT_PLANNING.md`). This binds the interest fact type, the
-closure-mapping artifact, and the interest form-field citizen. Prototype
-instances may guide production examples but are re-validated against the accepted
-ADRs and production schema ids, never copied.
+fully resolved positive instance and isolated negative before runner code
+consumes it (`PROJECT_PLANNING.md`). This binds the source-family declaration,
+closure mapping, horizon citizen, atomic member-change act, statement instance,
+and interest fact type. Prototype instances guide but are never copied; every
+production instance is revalidated against accepted ADRs and production ids.
 
-## Verification (milestone-level, provisional)
+## Verification (milestone-level)
 
 - `python3 -m unittest`
 - `python3 tools/governance_lint.py`
@@ -217,10 +256,13 @@ ADRs and production schema ids, never copied.
   content.
 - Package closure and unique-output validation over the interest package.
 - Forward/reference runner byte parity for every scenario.
-- Closure-backed-zero vs. unclosed-blocked distinction proven on the real path,
-  including a false-closure-blocks negative.
-- Explanation walks for a published interest value and a closure-backed zero.
-- Coverage read model over synthetic records.
+- Atomic horizon admission/rejection, incremental/full-rebuild equality, no
+  resurrection, family isolation, and exact two-edge cascade.
+- No `RunContext.closed_sets` or alternate caller-authority constructor remains.
+- Closure-backed B1 subtotal zero vs. open-family block, including false,
+  absent, displaced, truthy, ambiguous, duplicate, and fabricated negatives.
+- Explanation walks for a present B1 subtotal and closure-backed B1 zero.
+- Exact-claim coverage read model over synthetic records; no line-2b claim.
 - Data-safety scan for private markers, personal names, account identifiers, and
   absolute local paths.
 
@@ -233,18 +275,21 @@ the data-safety scan explicitly covers account-identifier patterns.
 
 ## Exit Criteria
 
-- Track 0's evaluation analysis is written, its ADR(s) ratified, and each
-  conclusion exhibit-traced (ADR-0005 traceability).
+- Track 0 and follow-on evaluations are written; ADR-0014 through ADR-0017 are
+  ratified and exhibit-traced.
 - The closure-to-`collect` mapping is a pinned, adopted contract; no rule or
   runner path relies on caller-supplied `closed_sets`.
 - A false or absent closure finding blocks; only a current true finding admits a
   source family into closed membership, proven on the real path.
 - 1099-INT fact identity contains no evidence/document key and keeps multiple
   same-payer instances distinct.
-- Taxable interest publishes to a first-class form-field citizen; a
-  closure-backed empty-source zero and an unclosed-empty block are distinct and
+- 1099-INT box-1 publishes to a B1 subtotal symbol only; it never masquerades as
+  Form 1040 line 2b or all taxable interest.
+- A closure-backed empty B1 subtotal zero and open-family block are distinct and
   each explain themselves.
-- The coverage read model surfaces open source families from records alone.
+- A later relevant member atomically advances the horizon and makes old
+  closure/zero noncurrent without manual withdrawal; removal cannot resurrect.
+- Coverage surfaces the exact authoritative B1 claim and freshness from records.
 - Full verification passes; committed data is synthetic.
 - Milestone retrospective written before the next milestone plan.
 - The milestone branch merges non-fast-forward into `main` with one
@@ -252,8 +297,7 @@ the data-safety scan explicitly covers account-identifier patterns.
 
 ## Implementation Branch And Commit Shape
 
-Track 0 runs on `prototypes/source-completeness/it<N>` branches (documents only
-merge to `main`; code never does). After Track 0 concludes and its ADR(s)
-ratify, create `milestone/source-completeness` from `main` for Tracks 1–N, one
-commit per completed track, non-ff merge with the milestone name in the merge
-commit.
+Prototype topics are complete and preserved by exhibit tags. Create
+`milestone/source-completeness` from the committed implementation plan for
+Tracks 1–6, one commit per completed track, then non-fast-forward merge with the
+milestone name in the merge commit.

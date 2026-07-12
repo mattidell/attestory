@@ -2,7 +2,8 @@
 
 ## Current step
 
-Topic complete. Tier-3 ADR-0017 ratified; no further build.
+Topic complete and retrospectively closed. Tier-3 ADR-0017 ratified; no further
+build.
 
 ## Next action
 
