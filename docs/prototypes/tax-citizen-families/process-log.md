@@ -432,3 +432,10 @@ dispositions.
   original identities; each accepted resume. Round 4 returned to active status.
   The interruption produced no review artifact and does not alter reviewer
   scope or independence requirements.
+
+- **2026-07-11 (event, governance reviewer)** - Round 4 governance review
+  submitted at `reviews/round-4-governance.md` after the resumed session
+  completed. Reviewer reported I1-I9 measurements, command reproduction,
+  production conditions, observations, and explicit dissent. Round 4 remains
+  open; outcome summary is withheld until the remaining seats land or the owner
+  disposes without them.

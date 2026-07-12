@@ -36,7 +36,7 @@ after a brief owner-directed interruption. No round-4 review has landed.
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `Hume` (`019f5384-e559-7673-87f9-1fba1b904f68`) | round 3 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 3 complete |
 | Builder it4 | `roles/builder.md` | owner-launched builder session | complete; exhibit `exhibits/tax-citizen-families/it4` |
-| Reviewer: governance | `roles/reviewer-governance.md` | `Ampere` (`019f53df-8003-7131-860a-86b43dabb107`) | round 4 active; resumed |
+| Reviewer: governance | `roles/reviewer-governance.md` | `Ampere` (`019f53df-8003-7131-860a-86b43dabb107`) | round 4 complete |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `Lorentz` (`019f53df-7f81-7f01-8873-67ebffb46ce5`) | round 4 active; resumed |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `Harvey` (`019f53df-80d1-7470-b663-cdd74a312710`) | round 4 active; resumed |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner launch needed | round 4 open |
