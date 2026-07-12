@@ -2,8 +2,8 @@
 
 ## Current step
 
-Topic evaluation complete. SFS-P1/P2 support proposed ADR-0016; SFS-P3 is routed
-to a separate Tier-3 freshness decision. Owner ratification pending.
+Topic complete. ADR-0016 ratified; SFS-P3 is routed to a separate Tier-3
+freshness decision.
 
 ## Seats
 
@@ -18,5 +18,5 @@ to a separate Tier-3 freshness decision. Owner ratification pending.
 
 ## Next action
 
-Owner ratifies or rejects proposed ADR-0016. No further builder work opens in
-this topic.
+Foreman records the process retrospective and drafts the separate Tier-3
+late-member freshness prototype plan. No further builder work opens here.

@@ -48,3 +48,5 @@
 - Final triage: SFS-P1/P2 converged; SFS-P3 is a separate Tier-3 boundary under
   reserved T1/Article 7 constraints. `evaluation-analysis.md` and proposed
   ADR-0016 drafted. No further build in this topic; owner ratification pending.
+- Owner ratified ADR-0016 on 2026-07-12. Source-Family Semantics topic complete;
+  SFS-P3 remains explicitly unresolved and moves to a separate Tier-3 process.
