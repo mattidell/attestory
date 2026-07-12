@@ -22,7 +22,8 @@ against git, trust git and say so.
   `docs/prototypes/source-completeness/plan.md` (approved 2026-07-12, solo).
 - **Follow-on decision:** Source Completeness Track 0 is closed with ADR-0014/
   0015 ratified. SC-P3 is split into `docs/prototypes/source-family-semantics/`;
-  its draft paper-first plan awaits owner approval before any charter/build.
+  its paper-first plan is owner-approved and incumbent `charter-it1.md` is ready
+  in `/tmp/finances-source-family-semantics-it1` for external builder work.
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
@@ -48,9 +49,10 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** owner approves/revises the source-family-semantics
-  plan; foreman issues the incumbent paper charter and external-builder handoff;
-  after that decision ratifies, rewrite milestone implementation tracks.
+- **Next actions in order:** owner resumes the incumbent builder on
+  source-family-semantics `charter-it1.md`; foreman integrates/preserves it and
+  prepares the clean-room rival; after that decision ratifies, rewrite milestone
+  implementation tracks.
 - **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.

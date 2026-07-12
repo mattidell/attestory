@@ -2,7 +2,8 @@
 
 Audience: Agents
 
-Status: **draft — owner approval required before charter or builder dispatch.**
+Status: **approved by owner, 2026-07-12.** This approval authorizes the plan's
+named Medium-tier review seats; builder launches remain owner-controlled.
 
 Topic: the SC-P3 boundary deferred by the Source Completeness evaluation: what
 a source family means, what a closure assertion claims complete, and when that
