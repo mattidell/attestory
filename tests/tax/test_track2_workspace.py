@@ -93,12 +93,13 @@ class WorkspaceFixtureFixture(unittest.TestCase):
 
 
 class RebuildsExpectedGolden(WorkspaceFixtureFixture):
+    # Track 2's own fixtures. Track 4 commits a fifth workspace
+    # (w2_correction_cascade) that also carries derived-publication acts;
+    # it has its own golden test and is deliberately not asserted here.
+    TRACK2_FIXTURES = ("present_zero_w2", "single_w2", "two_w2_same_employer", "w2_correction")
+
     def test_every_committed_workspace_rebuilds_its_golden(self) -> None:
-        fixtures = sorted(p.name for p in WORKSPACE_ROOT.iterdir() if p.is_dir())
-        self.assertEqual(
-            fixtures, ["present_zero_w2", "single_w2", "two_w2_same_employer", "w2_correction"]
-        )
-        for name in fixtures:
+        for name in self.TRACK2_FIXTURES:
             with self.subTest(fixture=name):
                 model = build_read_model(self._acts(name), self.registry)
                 self.assertEqual(model, self._expected(name))
