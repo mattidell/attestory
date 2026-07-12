@@ -210,3 +210,21 @@ close (log hygiene per `roles/foreman.md`).
   `exhibits/source-completeness/repair4`; branch/worktree deleted. Compact round
   4 prepared for owner-launched Medium/medium governance, adversary, and
   expressiveness review. Foreman does not spawn reviewers per owner direction.
+- Owner-launched round 4 reviews landed independently: governance 45/150,
+  adversary 40/150, expressiveness 42/150. All reproduce 12 passing tests and
+  converge on the single supported entry.
+- Review-model evaluation: mechanically strong (scope, isolation, citations,
+  concise outputs, reproduction) but weaker measurement precision. Governance
+  and expressiveness mislabel throwaway evidence as level 4; governance
+  overstates Python privacy; adversary asserts unmeasured evolution behavior;
+  expressiveness misses repair4's absent computed-zero fixture and incorrectly
+  reports full coverage/schema authority. Classified in `round-4-triage.md`;
+  claims are excluded rather than wordsmithed.
+- Final Gate 5 disposition: SC-P1 shape A converged; remaining routing,
+  adoption, pins, schemas, computed-zero regression, and persisted displacement
+  are production conditions. SC-P2 converged to logical statement identity with
+  assertion/anti-duplication conditions. SC-P3 remains unresolved under partial
+  ratification.
+- `evaluation-analysis.md` completed with exhibit-traced C1–C4. Proposed
+  ADR-0014 (adopted source-closure mapping) and ADR-0015 (1099-INT statement
+  identity) drafted; owner ratification pending. No further build recommended.

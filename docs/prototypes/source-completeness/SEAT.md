@@ -11,7 +11,7 @@ confirmation.
 
 ## Current Step
 
-**Repair pass 4 integrated; owner-launched Medium-tier round 4 prepared.** The
+**Prototype evaluation complete; ADR-0014/0015 proposed for owner ratification.** The
 first dispatch was halted before producing anything, but its branch later
 landed commit `d47d12c` with the four chartered paper deliverables. They are on
 `main` and preserved at `exhibits/source-completeness/it1`. The clean-room rival
@@ -34,14 +34,14 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 | Reviewer: governance r3 | `roles/reviewer-governance.md` | owner-launched | complete; review integrated |
 | Reviewer: adversary r3 | `roles/reviewer-adversary.md` | owner-launched | complete; review integrated |
 | Reviewer: expressiveness r3 | `roles/reviewer-expressiveness.md` | owner-launched | complete; review integrated |
-| Reviewer: governance r4 | `roles/reviewer-governance.md` | owner-launched | ready; Medium/medium, isolated branch/worktree |
-| Reviewer: adversary r4 | `roles/reviewer-adversary.md` | owner-launched | ready; Medium/medium, isolated branch/worktree |
-| Reviewer: expressiveness r4 | `roles/reviewer-expressiveness.md` | owner-launched | ready; Medium/medium, isolated branch/worktree |
+| Reviewer: governance r4 | `roles/reviewer-governance.md` | owner-launched | complete; review integrated |
+| Reviewer: adversary r4 | `roles/reviewer-adversary.md` | owner-launched | complete; review integrated |
+| Reviewer: expressiveness r4 | `roles/reviewer-expressiveness.md` | owner-launched | complete; review integrated |
 
 ## Next Action
 
-Owner launches the three independent Medium-tier reviewers from `round-4.md`;
-foreman resumes after all return.
+Owner reviews and ratifies or rejects proposed ADR-0014 and ADR-0015. No further
+prototype build is recommended; SC-P3 remains explicitly unresolved.
 
 ## Planned Exhibits
 
