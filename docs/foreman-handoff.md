@@ -24,8 +24,8 @@ against git, trust git and say so.
   0015 ratified. SC-P3 is split into `docs/prototypes/source-family-semantics/`;
   source-family evaluation is complete and ADR-0016 ratified. SFS-P3 is routed
   to a separate Tier-3 late-member freshness decision.
-- **Current plan gate:** round 1 selects rival horizon-citizen shape
-  conditionally; `charter-repair1.md` reducer probe prepared for it2 builder.
+- **Current plan gate:** recorded-horizon reducer integrated; owner-launched
+  Medium code-evidence round 2 prepared.
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
@@ -54,8 +54,9 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** owner resumes it2 builder on closure-freshness
-  `charter-repair1.md`; foreman integrates and opens code-evidence review.
+- **Next actions in order:** owner launches closure-freshness round-2 governance,
+  adversary, and expressiveness reviewers; foreman triages and drafts Tier-3
+  evaluation/ADR if converged.
 - **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.

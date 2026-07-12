@@ -2,11 +2,10 @@
 
 ## Current step
 
-Round 1 triaged; rival shape selected conditionally. Recorded-horizon reducer
-repair prepared with it2 builder continuity.
+Recorded-horizon reducer integrated and preserved. Owner-launched Medium-tier
+round 2 prepared.
 
 ## Next action
 
-Owner resumes the it2 rival builder as repair builder on `charter-repair1.md`,
-branch `prototypes/closure-freshness/repair1`, worktree
-`/tmp/finances-closure-freshness-repair1`. Foreman resumes after completion.
+Owner launches round-2 governance, adversary, and expressiveness reviewers in
+prepared isolated worktrees. Foreman resumes after all return.

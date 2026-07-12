@@ -9,5 +9,6 @@ Report attack → outcome → exhibit, including resisted attacks. Find any thir
 edge, stored staleness bit, derived authority, or state where old zero remains
 current. Do not read the peer review.
 
-Commit only `reviews/round-1-adversary.md`, with no line cap. Do not merge, tag,
-or delete.
+For round 2, commit only
+`docs/prototypes/closure-freshness/reviews/round-2-adversary.md`, with no line
+cap. Do not merge, tag, or delete.

@@ -8,5 +8,6 @@ succession is legitimate individuation or a disguised third edge, test whether
 closure remains user-attested rather than derived authority, and identify every
 claim requiring reducer evidence. Cite each result. Do not read the peer review.
 
-Commit only `reviews/round-1-governance.md`, with no line cap. Do not merge,
-tag, or delete.
+For round 2, commit only
+`docs/prototypes/closure-freshness/reviews/round-2-governance.md`, with no line
+cap. Do not merge, tag, or delete.

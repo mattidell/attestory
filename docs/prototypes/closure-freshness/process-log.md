@@ -30,3 +30,11 @@
   minimal ordered-act reducer and contract note, with it2 builder continuity,
   to prove atomic horizon succession, two-edge cascade, rebuild equality,
   isolation, and negative rejection. No production/governance changes.
+- Repair1 conformance: commit `111579f` changes only four chartered artifacts;
+  examination 54/150 lines. Foreman reran five test groups: all pass. Prefix
+  incremental/rebuild equality, atomic rejection, two-edge inventory, no
+  resurrection, isolation, and two mutants measured. Integrated/preserved as
+  `exhibits/closure-freshness/repair1`.
+- Committee round 2 prepared with owner-launched Medium governance, adversary,
+  and conditional expressiveness seats. Review paths are written explicitly to
+  prevent the prior repository-root placement defect.
