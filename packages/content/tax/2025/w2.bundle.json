@@ -1,0 +1,47 @@
+{
+  "schema": "bundle.v1",
+  "id": "tax.us.2025.w2-vocabulary",
+  "label": "US federal 2025 W-2 vocabulary: box 1 wages per slip and source-set closure (ADR-0011)",
+  "fact_types": [
+    {
+      "schema": "fact-type.v1",
+      "id": "tax.us.2025.w2.box1-wages",
+      "title": "Wages, tips, other compensation in box 1 of one W-2 slip: keyed by employer, tax year, and the W-2-slip thing, never by submitted evidence; two same-employer slips are two facts, and a corrected value for the same slip supersedes under this policy (ADR-0011)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "employer",
+          "kind": "entity",
+          "entity_kind": "tax.us.employer"
+        },
+        {
+          "name": "w2-slip",
+          "kind": "entity",
+          "entity_kind": "tax.us.w2-slip"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": { "type": "number", "minimum": 0 },
+      "supersession": { "policy": "free" }
+    },
+    {
+      "schema": "fact-type.v1",
+      "id": "tax.us.2025.w2.source-closure",
+      "title": "Attestation that the W-2 source family is complete for tax year 2025: a determinable completeness report, not a tax election; authority is affirmative-only — only a current true value means closed, false means explicitly not closed, and no current finding means unknown (ADR-0011)",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": { "type": "boolean" },
+      "supersession": { "policy": "free" }
+    }
+  ]
+}

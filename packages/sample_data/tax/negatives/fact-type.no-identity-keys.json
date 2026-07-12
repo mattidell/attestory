@@ -1,0 +1,13 @@
+{
+  "schema": "fact-type.v1",
+  "id": "demo.tax.negative-fact",
+  "title": "Negative: no identity keys at all",
+  "nature": "determinable",
+  "identity_keys": [],
+  "value_schema": {
+    "type": "number"
+  },
+  "supersession": {
+    "policy": "free"
+  }
+}

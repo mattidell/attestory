@@ -1,0 +1,5 @@
+{
+  "schema": "entity.v1",
+  "id": "demo-negative-entity",
+  "label": "Negative: entity with no kind"
+}

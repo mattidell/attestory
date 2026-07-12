@@ -1,0 +1,23 @@
+{
+  "schema": "form-field.v1",
+  "id": "demo.tax.formx.line-9z",
+  "version": "v1",
+  "form": {
+    "authority": "Demo Authority",
+    "form_id": "FORM-X",
+    "tax_year": 2025,
+    "jurisdiction": "demo"
+  },
+  "line": "9z",
+  "label": "Demo total (synthetic)",
+  "description": "A hand-written positive instance for schema tests. Entirely synthetic; no official form meaning.",
+  "binds_symbol": "demo.tax.total-x",
+  "citation_ref": "citation.demo.formx.line-9z",
+  "dispositions": {
+    "published_value": { "render": "{value}", "explain": "Demo published amount lineage." },
+    "computed_zero": { "render": "0", "explain": "Demo computed zero from present findings." },
+    "closure_backed_zero": { "render": "0", "explain": "Demo zero backed by affirmative closure." },
+    "blocked": { "render": "", "explain": "Demo blocked: required state absent or invalid." },
+    "guard_inapplicable": { "render": "", "explain": "Demo inapplicable: rule guard is false." }
+  }
+}

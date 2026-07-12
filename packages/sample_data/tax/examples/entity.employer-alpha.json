@@ -1,0 +1,6 @@
+{
+  "schema": "entity.v1",
+  "id": "demo-employer-alpha",
+  "kind": "tax.us.employer",
+  "label": "Alpha Manufacturing Co (synthetic employer)"
+}

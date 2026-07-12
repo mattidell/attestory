@@ -1,0 +1,6 @@
+{
+  "schema": "entity.v1",
+  "id": "demo-w2-slip-alpha-2",
+  "kind": "tax.us.w2-slip",
+  "label": "Alpha Manufacturing W-2 slip 2 of 2 for 2025 (synthetic)"
+}
