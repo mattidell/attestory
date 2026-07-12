@@ -412,3 +412,10 @@ dispositions.
   examination was copied to main and round 4 assembled in
   `reviews/round-4.md`. Governance, expressiveness, adversary, and
   owner-launched context-starved legibility review seats opened.
+
+- **2026-07-11 (event, foreman)** - Round 4 governance, expressiveness, and
+  adversary reviewers dispatched in parallel as `Ampere`, `Lorentz`, and
+  `Harvey`, respectively. Each uses `gpt-5.6-luna` with high reasoning, owns one
+  round-4 review file, and was instructed not to read same-round peer outputs or
+  commit-message bodies. The context-starved legibility seat remains reserved
+  for owner launch.
