@@ -446,3 +446,11 @@ dispositions.
   attacks, command reproduction, official-source checks, observations, and
   explicit dissent. Round 4 remains open; outcome summary is withheld until the
   remaining seats land or the owner disposes without them.
+
+- **2026-07-11 (event, expressiveness reviewer)** - Round 4 expressiveness
+  review submitted at `reviews/round-4-expressiveness.md` after the resumed
+  session completed. Reviewer disclosed the required pre-examination ordering,
+  reproduced the tagged commands and adapter path, ran independent probes, and
+  reported gate dispositions and an honesty audit. Round 4 remains open;
+  outcome summary is withheld until the context-starved legibility seat lands
+  or the owner disposes without it.

@@ -10,10 +10,9 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Round 4 bounded integration review is active.** Iteration 4 remains preserved
-as exhibit tag `exhibits/tax-citizen-families/it4` at `9debc4d`. Governance,
-expressiveness, and adversary sessions resumed under their original identities
-after a brief owner-directed interruption. No round-4 review has landed.
+**Round 4 is waiting on the context-starved legibility seat.** Iteration 4
+remains preserved as exhibit tag `exhibits/tax-citizen-families/it4` at
+`9debc4d`. Governance, expressiveness, and adversary reviews are complete.
 
 ## Seats
 
@@ -37,16 +36,16 @@ after a brief owner-directed interruption. No round-4 review has landed.
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 3 complete |
 | Builder it4 | `roles/builder.md` | owner-launched builder session | complete; exhibit `exhibits/tax-citizen-families/it4` |
 | Reviewer: governance | `roles/reviewer-governance.md` | `Ampere` (`019f53df-8003-7131-860a-86b43dabb107`) | round 4 complete |
-| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `Lorentz` (`019f53df-7f81-7f01-8873-67ebffb46ce5`) | round 4 active; resumed |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `Lorentz` (`019f53df-7f81-7f01-8873-67ebffb46ce5`) | round 4 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `Harvey` (`019f53df-80d1-7470-b663-cdd74a312710`) | round 4 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner launch needed | round 4 open |
 
 ## Next Action
 
-Governance, expressiveness, and adversary reviewers complete their independent
-reviews. Owner launches the context-starved legibility reviewer using
-`roles/reviewer-legibility.md` and `reviews/round-4.md`. No reviewer may read
-same-round peer output.
+Owner launches the context-starved legibility reviewer using
+`roles/reviewer-legibility.md` and `reviews/round-4.md`. The reviewer reads only
+the role, round file, and listed exhibit files; it must not read the charter,
+examination, git history, prior reviews, or same-round peer output.
 
 ## Planned Exhibits
 
