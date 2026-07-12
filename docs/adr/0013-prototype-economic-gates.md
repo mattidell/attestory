@@ -81,6 +81,21 @@ replaced) with:
 - ADR-0005's core decision is unchanged; this ADR extends its process. Future
   material lessons amend the process by a further superseding ADR.
 
+## Amendment (2026-07-12) — Optional foreman helper
+
+Same-day owner discussion refined decision 4. The foreman seat splits into a
+judgment core and a clerical shell; the shell may be delegated. Within the
+prototype process, the foreman may delegate mechanical, auditable clerical work
+(SEAT.md maintenance, round-file assembly, exhibit tagging, log-hygiene
+formatting, traceability existence checks, data-safety scans, disposition-packet
+collation, dictated status/wording edits) to an Economy- or Medium-tier helper
+under the sub-agent confirmation gate, remaining fully accountable. The helper
+never triages findings, decides dispositions, assigns capability tiers, changes
+scope, composes status meaning, reviews artifact quality, or approves anything.
+It is an optional economy, not a required seat, and is formalized for the
+prototype process only (the milestone lifecycle may adopt the same principle
+later). This is a refinement of the foreman stewardship role, not a new decision.
+
 ## Alternatives Considered
 
 - **Keep the v1 gates as retrospective guidance.** Rejected: advisory gates with

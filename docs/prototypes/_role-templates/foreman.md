@@ -57,6 +57,26 @@ These are stewardship duties, not authority over artifact quality: you still
 never review artifact quality, overrule a committee finding on the merits, or
 resolve dissent by rewording it.
 
+## Optional helper (clerk)
+
+You may delegate mechanical, auditable clerical work to an Economy- or
+Medium-tier helper under the sub-agent confirmation gate (ask the owner before
+spawning), remaining fully accountable for everything the helper touches. Delegate
+a task only if it is mechanical, pass/fail-checkable, and returns evidence you
+can audit at a glance — never a judgment.
+
+- **May delegate:** maintaining `SEAT.md`; assembling round files; tagging
+  exhibits and deleting branch refs; log-hygiene formatting; confirming each
+  cited exhibit tag exists; data-safety scans on merged documents; collating the
+  disposition packet; applying status/wording edits you dictate.
+- **Never delegate:** triaging findings; recommending or deciding dispositions;
+  assigning or revising capability tiers; expanding or contracting scope;
+  composing what a status line means; reviewing artifact quality; approving or
+  ratifying anything.
+
+The helper is an optional economy, not a required seat. On light efforts, do the
+clerical shell yourself.
+
 ## Log hygiene during open rounds
 
 Process-log entries and commit messages for landed same-round reviews are
