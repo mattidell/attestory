@@ -152,3 +152,27 @@ close (log hygiene per `roles/foreman.md`).
   `/root/sc_round2_expressiveness` launched concurrently in separate contexts,
   branches, and worktrees. Same-round peer outputs were denied; expressiveness
   was instructed to reproduce both suites before reading examinations.
+- Round 2 reviews completed independently and landed: governance 120/150,
+  adversary 100/150, expressiveness 89/150. Expressiveness independently
+  reproduced 15+11 passing tests before reading examinations. Adversary's first
+  run hit an automated safety false positive; foreman reissued the same benign
+  contract-validation task in neutral language, with no scope or context change.
+- Gate 5 triage in `round-2-triage.md`: public carrier construction and duplicate
+  authority are decision-blocking for SC-P1; shape B's ordinary second-rule
+  outage rejects shape B; shape A survives. Production seam removal/pins/
+  persistence and richer fixtures remain production conditions.
+- Governance dissented that repair2 exceeded the approved cap without a plan
+  amendment. Foreman accepts the process finding: owner delegation/preference
+  was logged but not reflected in `plan.md`. Gate 4 is now explicitly amended
+  with the owner's 2026-07-12 direction: one additional bounded pass at a time,
+  central question only, each stop-and-decide logged.
+- Foreman authorizes `charter-repair3.md`: shape A only, construction provenance
+  and one-authority-per-family invariant, fabricated/duplicate/stale-pin cases,
+  no production or adjacent scope. Original it1 builder continuity retained.
+- Artifact-cost stop: topic Markdown reached 2,740 lines, exceeding the plan's
+  ≤1,800 target after two additional bounded repairs and a three-seat code
+  review. Under delegated authority, foreman continues only the central repair3
+  blocker, caps its examination at 200 lines, and freezes further process-doc
+  proliferation: no new broad round file or full committee unless repair3
+  produces materially new evidence requiring it. This cap crossing remains a
+  process deviation for the retrospective; it is not normalized away.

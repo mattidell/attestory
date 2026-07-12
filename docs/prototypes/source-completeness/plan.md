@@ -107,6 +107,15 @@ authorized in this prototype**; production integration is milestone Tracks
   stop-and-decide with the owner. Repair passes use `repair<N>` names rather
   than iteration numbers and default to the original incumbent builder for
   deliberate defect continuity; they are not clean-room rivals.
+
+  **Owner amendment, 2026-07-12:** the owner delegated iteration/rung decisions
+  to the foreman and prefers bounded additional rounds over punting a central
+  unresolved problem. After the original repair cap is consumed, the foreman
+  may authorize **one additional pass at a time** only when it states one
+  central question, bounded artifacts/cost, and a pass/fail result. Each such
+  stop-and-decide and rationale is logged; adjacent or open-ended work remains
+  prohibited. This reconciles repair2+ with the fixed-cap control rather than
+  removing the control.
 - Reviewers per round: **two by default** — governance-fidelity and adversary.
   The expressiveness/implementation-results seat is the named third, opened
   only if a code rung (≥3) actually runs and only for that round. No starved

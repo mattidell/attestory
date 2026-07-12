@@ -11,7 +11,7 @@ confirmation.
 
 ## Current Step
 
-**Repair pass 2 complete; committee round 2 opening on executable evidence.** The
+**Round 2 triaged; repair pass 3 prepared for shape-A construction safety.** The
 first dispatch was halted before producing anything, but its branch later
 landed commit `d47d12c` with the four chartered paper deliverables. They are on
 `main` and preserved at `exhibits/source-completeness/it1`. The clean-room rival
@@ -25,15 +25,16 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 | Builder it1 | `roles/builder.md` | Claude Opus 4.8 session (commit `d47d12c`) | complete; exhibit tagged, branch deleted |
 | Builder repair1 | `roles/builder.md` | original it1 builder (deliberate continuity) | complete; exhibit `exhibits/source-completeness/repair1` |
 | Builder repair2 | `roles/builder.md` | original it1 builder (deliberate continuity) | complete; exhibit `exhibits/source-completeness/repair2` |
+| Builder repair3 | `roles/builder.md` | original it1 builder (deliberate continuity) | ready; `charter-repair3.md`, branch `prototypes/source-completeness/repair3`, worktree `/tmp/finances-source-completeness-repair3` |
 | Rival builder | `roles/builder-rival.md` | `/root/source_completeness_rival_it2`, 2026-07-12 | complete; exhibit tagged, branch/worktree deleted |
-| Reviewer: governance | `roles/reviewer-governance.md` | `/root/sc_round2_governance` | round 2 active in isolated worktree |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | `/root/sc_round2_adversary` | round 2 active in isolated worktree |
-| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `/root/sc_round2_expressiveness` | round 2 active; executable evidence reproduction |
+| Reviewer: governance | `roles/reviewer-governance.md` | `/root/sc_round2_governance` | round 2 complete; review integrated |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | `/root/sc_round2_adversary` | round 2 complete; review integrated |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `/root/sc_round2_expressiveness` | round 2 complete; review integrated |
 
 ## Next Action
 
-Await all three independent round-2 reviews, integrate them after all finish,
-then perform final Gate 5 triage.
+Owner resumes original it1 builder on `charter-repair3.md` in the prepared
+worktree. Foreman resumes automatically after completion.
 
 ## Planned Exhibits
 
