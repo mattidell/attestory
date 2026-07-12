@@ -42,7 +42,6 @@ def _context(source_finding_id: str, source_value: str, run_id: str) -> RunConte
         canon=load_canon(schemas),
         inputs=[InputFinding("rounding.convention", "half_up", "tax.us.2025.finding.rounding-convention", "input")],
         sources=[SourceFact("tax.us.2025.w2.box1-wages", source_value, source_finding_id)],
-        closed_sets=frozenset(),
         adoption_pin=ADOPTION_PIN,
         governance_pins=GOV_PINS,
     )

@@ -22,6 +22,7 @@ from typing import Any
 from packages.derivation.evaluator import BLOCK_ABSENT, BLOCK_CLOSURE, BLOCK_LOOKUP_MISS
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.records import RecordStream
+from tests.support import demo_closure_authority
 from packages.derivation.runner import (
     InputFinding,
     RunContext,
@@ -69,7 +70,6 @@ class RunnerFixture(unittest.TestCase):
                 SourceFact("demo.w2.box1", "40000", "f.w2a"),
                 SourceFact("demo.w2.box1", "2000", "f.w2b"),
             ],
-            closed_sets=frozenset(),
             adoption_pin=ADOPTION_PIN,
             governance_pins=GOV_PINS,
         )
@@ -117,12 +117,17 @@ class EligibilityAndSaturation(RunnerFixture):
 
 class BlockingVocabulary(RunnerFixture):
     def test_unclosed_empty_source_blocks_with_closure_code(self) -> None:
-        result = run(self.context(sources=[], closed_sets=frozenset()), self.schemas)
+        result = run(self.context(sources=[]), self.schemas)
         blocked = {b["artifact_id"]: b for b in result.blocked}
         self.assertEqual(blocked[self.wages["id"]]["code"], BLOCK_CLOSURE)
 
-    def test_declared_closed_empty_source_publishes_zero(self) -> None:
-        result = run(self.context(sources=[], closed_sets=frozenset({"demo.w2"})), self.schemas)
+    def test_closure_authority_empty_source_publishes_zero(self) -> None:
+        # ADR-0014: the zero requires the full recorded authority chain —
+        # adopted declaration and mapping plus a current literal-true
+        # closure finding on the current horizon. No closed-set input exists.
+        result = run(
+            self.context(sources=[], **demo_closure_authority()), self.schemas
+        )
         self.assertEqual(self.published(result)["demo.form1040.line1a"], "0")
 
     def test_out_of_domain_elective_blocks_invalid_without_leaking_exceptions(self) -> None:

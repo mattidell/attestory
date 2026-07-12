@@ -52,6 +52,10 @@ class AccessLog:
     parameters: set[str] = field(default_factory=set)
     tables: set[str] = field(default_factory=set)
     operations: set[str] = field(default_factory=set)
+    # Families whose closure authority an empty collect actually stood on;
+    # a closure-backed zero pins these, present-source aggregation never
+    # populates it (ADR-0014 decision 5).
+    closure_reads: set[str] = field(default_factory=set)
 
 
 @dataclass(frozen=True)
@@ -115,6 +119,7 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
             source_set = expr.get("source_set")
             if source_set is None or source_set not in env.closed_sets:
                 raise EvalBlocked(BLOCK_CLOSURE, [source_set or name])
+            access.closure_reads.add(source_set)
             return []
         return [_as_decimal(v) for v in rows]
 

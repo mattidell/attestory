@@ -60,7 +60,6 @@ class CorrectionCascade(unittest.TestCase):
             canon=load_canon(self.schemas),
             inputs=[InputFinding("rounding.convention", "half_up", "f.rounding", "input")],
             sources=[SourceFact("demo.w2.box1", "42000", "finding-w2")],
-            closed_sets=frozenset({"demo.w2"}),
             adoption_pin={"role": "adoption", "id": "demo.package.first-slice.2025", "version": "v1"},
             governance_pins=[{"role": "governance", "id": "governance.constitution", "version": "v1"}],
         )

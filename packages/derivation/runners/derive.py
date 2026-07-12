@@ -18,9 +18,17 @@ from typing import Any, Sequence
 from packages.derivation.explanation import explain, index_derived
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.runner import InputFinding, RunContext, SourceFact, run
+from packages.derivation.source_authority import ClosureFindingRecord
 
 
 def _context(scenario: dict[str, Any]) -> RunContext:
+    if "closed_sets" in scenario:
+        raise ValueError(
+            "scenario names caller-supplied closed_sets; that input was "
+            "removed by ADR-0014 — closure enters only through the adopted "
+            "mapping and record state in the scenario's closure section"
+        )
+    closure = scenario.get("closure", {})
     return RunContext(
         run_id=scenario["run_id"],
         rules=scenario["rules"],
@@ -28,9 +36,14 @@ def _context(scenario: dict[str, Any]) -> RunContext:
         canon=load_canon(DerivationSchemas()),
         inputs=[InputFinding(**i) for i in scenario["inputs"]],
         sources=[SourceFact(**s) for s in scenario["sources"]],
-        closed_sets=frozenset(scenario.get("closed_sets", [])),
         adoption_pin=scenario["adoption_pin"],
         governance_pins=scenario["governance_pins"],
+        family_declarations=closure.get("family_declarations", []),
+        closure_mappings=closure.get("mappings", []),
+        closure_findings=[
+            ClosureFindingRecord(**record) for record in closure.get("findings", [])
+        ],
+        current_horizons=closure.get("current_horizons", {}),
     )
 
 
@@ -46,6 +59,12 @@ def build_report(scenario: dict[str, Any]) -> dict[str, Any]:
     for source in scenario["sources"]:
         input_index[source["finding_id"]] = {
             "symbol": source["name"], "value": source["value"], "role": "input",
+        }
+    # Closure findings are leaf findings a closure-backed zero pins; index
+    # them so the explanation walk renders the authority, not a bare id.
+    for record in scenario.get("closure", {}).get("findings", []):
+        input_index[record["finding_id"]] = {
+            "symbol": record["fact_type"], "value": record["value"], "role": "input",
         }
     published = sorted(
         ({"symbol": pub.finding["symbol"], "value": pub.finding["value"], "finding_id": pub.finding["id"]}

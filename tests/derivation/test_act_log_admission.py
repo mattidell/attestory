@@ -45,7 +45,6 @@ class ActLogAdmission(unittest.TestCase):
             inputs=[InputFinding("rounding.convention", "half_up", "f.rounding", "input")],
             sources=[SourceFact("demo.w2.box1", "40000", "f.w2a"),
                      SourceFact("demo.w2.box1", "2000", "f.w2b")],
-            closed_sets=frozenset(),
             adoption_pin={"role": "adoption", "id": "demo.package.first-slice.2025", "version": "v1"},
             governance_pins=[{"role": "governance", "id": "governance.constitution", "version": "v1"}],
         )
