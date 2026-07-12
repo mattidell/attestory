@@ -54,11 +54,11 @@ merely cite:
    prototype plan (which names the reviewer seats and tiers) is their standing
    authorization, so no per-spawn confirmation is needed; spawn each in an
    isolated context and do not let reviewers see each other's in-progress work.
-   For a context-starved reviewer seat (legibility), construct a clean-room
-   prompt carrying only the artifact under review and the review charter — no
-   process history — so starvation is preserved; this prompt discipline is yours.
-   For non-reviewer role spawns, ask the owner for confirmation first. If you
-   lack sub-agent capability, reviewers are owner-launched from role files.
+   Prototype legibility is a normal reviewer, not a starved seat — the starved
+   fresh-reader rigor is the periodic owner-spawned Legibility Audit
+   (`docs/legibility-audits/`), not your concern here. For non-reviewer role
+   spawns, ask the owner for confirmation first. If you lack sub-agent
+   capability, reviewers are owner-launched from role files.
 
 These are stewardship duties, not authority over artifact quality: you still
 never review artifact quality, overrule a committee finding on the merits, or

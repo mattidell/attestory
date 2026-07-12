@@ -50,7 +50,7 @@ Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or 
 
 **Committee.** At least two reviewers besides the builder, with distinct review charters — for example: contract fidelity against the governance set; implementation results and expressiveness against the charter's fixtures; fresh-reader legibility (can a reader recover the meaning from the artifact alone?). The owner's disposition closes each round. Dissent is recorded in the round's review notes, never resolved by wordsmithing; unresolved dissent is cited in the ADR.
 
-**Reviewer dispatch.** When the foreman agent has sub-agent capability, it spawns the committee reviewers as sub-agents by default, each at the capability tier the plan assigns for the current round (Gate 8), in independent contexts. Owner approval of the prototype plan — which names the reviewer seats and their tiers — is the standing authorization; no per-spawn confirmation is needed for reviewers named in the plan (the general sub-agent confirmation gate still applies to other role spawns). Reviewers are dispatched in isolation and do not see each other's in-progress reviews (within-round independence). For context-starved reviewer seats (legibility), the foreman constructs a clean-room prompt carrying only the artifact under review and the review charter — no process history — so starvation is preserved; this prompt discipline is a foreman responsibility. When the foreman lacks sub-agent capability, reviewers are owner-launched from role files as before.
+**Reviewer dispatch.** When the foreman agent has sub-agent capability, it spawns the committee reviewers as sub-agents by default, each at the capability tier the plan assigns for the current round (Gate 8), in independent contexts. Owner approval of the prototype plan — which names the reviewer seats and their tiers — is the standing authorization; no per-spawn confirmation is needed for reviewers named in the plan (the general sub-agent confirmation gate still applies to other role spawns). Reviewers are dispatched in isolation and do not see each other's in-progress reviews (within-round independence). Prototype legibility review is a normal foreman-spawned reviewer charter and no longer requires a context-starved seat; the starved fresh-reader rigor lives in the periodic **Legibility Audit** (`docs/legibility-audits/`), which runs at the project level on an owner-triggered cadence rather than inside every iteration. When the foreman lacks sub-agent capability, reviewers are owner-launched from role files as before.
 
 **Reviews are measurements.** A review charter must define what it measures and what failure looks like before reviewing begins, and its notes must report falsifiable results — a scored recovery attempt, a fixture the design failed, a contract clause it violates, or an explicit attestation that a defined check was run and found nothing. "Reviewed, looks good" is not a valid review. The owner audits by sampling: one review per round examined for whether its measurements are real, rather than reading everything.
 
@@ -374,6 +374,10 @@ Maintenance checks:
 - Are personal-data guardrails still explicit?
 
 If any check fails, update planning before continuing implementation.
+
+### Periodic Legibility Audit
+
+At phase boundaries, and after any milestone that introduces a new citizen family or contract vocabulary, the owner should consider running a **Legibility Audit** (`docs/legibility-audits/`): an owner-spawned, context-starved fresh reader attempts declared recovery tasks against a curated artifact slice, testing whether the shipped system's numbers explain themselves from the artifacts alone. It is a project-level fitness function for the auditability thesis, distinct from the per-iteration prototype legibility review; its findings are advisory and feed the backlog. Launch prompt: `docs/legibility-audits/audit-prompt.md`.
 
 ## Archive Rules
 
