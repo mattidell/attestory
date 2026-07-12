@@ -10,10 +10,10 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Round 4 and the broad prototype loop are closed; owner disposition is
-pending.** All four reviews are complete. The recommendation is to write a
-narrow evaluation analysis for converged conclusions, not build it5 or adopt
-the rival implementation wholesale.
+**Narrow evaluation analysis is complete; owner ADR disposition is pending.**
+The broad prototype loop remains closed. `evaluation-analysis.md` supports five
+bounded conclusions and explicitly excludes the unresolved authority
+boundaries. No ADR has been drafted or ratified.
 
 ## Seats
 
@@ -43,8 +43,9 @@ the rival implementation wholesale.
 
 ## Next Action
 
-Owner reviews `process-retrospective.md` and decides whether to authorize a
-narrow evaluation analysis and ADR scope. No further prototype iteration is
+Owner reviews `evaluation-analysis.md` and decides whether to authorize a narrow
+Tier 2 ADR draft, preferably split if fact identity/nature and presentation
+content cannot remain independent. No further prototype iteration is
 recommended. Proposed economic gates remain recommendations until the owner
 ratifies a `PROJECT_PLANNING.md` amendment.
 

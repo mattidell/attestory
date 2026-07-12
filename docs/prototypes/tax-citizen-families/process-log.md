@@ -493,3 +493,15 @@ dispositions.
   authority boundaries to separately scored decisions or production
   ratification conditions. Process cost and proposed economic gates are recorded
   in `process-retrospective.md` for owner disposition.
+
+- **2026-07-11 (disposition, owner/foreman)** - Owner authorized the narrow
+  evaluation analysis recommended by the process retrospective. Foreman wrote
+  `evaluation-analysis.md` for five bounded conclusions only: kernel
+  `fact-type.v1` sufficiency for exercised core facts, W-2 slip identity and
+  mechanical correction, one-sided determinable/attested closure, first-class
+  form-field citizenship, and five rendered-absence dispositions. The analysis
+  records alternatives, production conditions, committee dissent, and explicit
+  exclusions for `closed_sets`, scalar condition modeling, package/adoption
+  closure, coverage, non-publication explanations, citation resolver authority,
+  persistence ordering, documentary correction provenance, and 1099-INT source
+  identity. No ADR was drafted or ratified.
