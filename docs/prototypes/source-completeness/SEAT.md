@@ -11,16 +11,16 @@ confirmation.
 
 ## Current Step
 
-**Plan approved (2026-07-12); iteration 1 chartered and dispatched.** The it1
-builder is a foreman-spawned sub-agent working `charter-it1.md` at rung 1
-(paper) on branch `prototypes/source-completeness/it1`.
+**Plan approved (2026-07-12); charter it1 issued but unworked.** The first
+it1 builder dispatch was halted by the owner before producing anything; its
+empty branch ref was deleted. The charter stands as issued.
 
 ## Seats
 
 | Seat | Role file | Holder | Status |
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | Fable 5 session, 2026-07-12 | active |
-| Builder it1 | `roles/builder.md` | foreman-spawned sub-agent (High tier), owner-confirmed 2026-07-12 | dispatched |
+| Builder it1 | `roles/builder.md` | — (first dispatch halted by owner 2026-07-12, no output) | vacant; re-dispatch needs fresh owner confirmation |
 | Rival builder | `roles/builder-rival.md` | — | next: owner-confirmed spawn or owner-launched clean-room session after it1 lands |
 | Reviewer: governance | `roles/reviewer-governance.md` | — | opens for round 1 after it2 (standing-authorized) |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | — | opens for round 1 after it2 (standing-authorized) |

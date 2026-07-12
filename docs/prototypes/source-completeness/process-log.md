@@ -22,3 +22,10 @@ close (log hygiene per `roles/foreman.md`).
   effort, exactly as the plan's Gate 8 table assigns — no tier revision.
 - Session note: owner flagged the session limit is near; foreman handoff note
   (`docs/foreman-handoff.md`) refreshed for mid-iteration succession.
+- Owner directed a halt of the it1 builder sub-agent; stopped before any
+  deliverable was produced (it had completed grounding reads and created the
+  branch only). Empty branch ref `prototypes/source-completeness/it1`
+  (pointing at `10c0b01`, zero commits) deleted. Charter it1 remains issued
+  and unworked; builder count under Gate 4 stays 0 of 2 used, since no
+  iteration artifacts exist. Re-dispatch requires fresh per-spawn owner
+  confirmation.
