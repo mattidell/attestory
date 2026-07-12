@@ -1,0 +1,12 @@
+Run: tax.us.2025.run.present-zero-w2 (saturated)
+Published:
+  - tax.us.2025.wages.total-w2-box1 = 0  [finding:derived:4c411e29c6281a02ae465a1b]
+Blocked:
+  - none
+Explanations:
+  [output] tax.us.2025.wages.total-w2-box1 = 0  <- tax.us.2025.rule.w2-box1-to-line1a
+    [adoption] tax.us.2025.package.first-tax-slice
+    [governance] governance.constitution
+    [input] tax.us.2025.w2.box1-wages = 0
+    [input] rounding.convention = half_up
+    [operation-semantics] round

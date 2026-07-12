@@ -1,0 +1,9 @@
+{
+  "schema": "artifact-package.v1",
+  "id": "tax.us.2025.package.first-tax-slice",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax", "effective_from": "2025-01-01" },
+  "members": [
+    { "role": "field-mapping", "id": "tax.us.2025.rule.w2-box1-to-line1a", "version": "v1" }
+  ]
+}

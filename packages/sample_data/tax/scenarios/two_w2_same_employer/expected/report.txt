@@ -1,0 +1,13 @@
+Run: tax.us.2025.run.two-w2-same-employer (saturated)
+Published:
+  - tax.us.2025.wages.total-w2-box1 = 60000  [finding:derived:5babb827ccd3a11b09f87b88]
+Blocked:
+  - none
+Explanations:
+  [output] tax.us.2025.wages.total-w2-box1 = 60000  <- tax.us.2025.rule.w2-box1-to-line1a
+    [adoption] tax.us.2025.package.first-tax-slice
+    [governance] governance.constitution
+    [input] tax.us.2025.w2.box1-wages = 52000
+    [input] tax.us.2025.w2.box1-wages = 8000
+    [input] rounding.convention = half_up
+    [operation-semantics] round

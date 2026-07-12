@@ -1,0 +1,6 @@
+{
+  "schema": "bundle.v1",
+  "id": "demo.tax.negative-bundle",
+  "label": "Negative: bundle with an empty fact-type body",
+  "fact_types": []
+}

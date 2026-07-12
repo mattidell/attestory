@@ -1,0 +1,19 @@
+{
+  "schema": "fact-type.v1",
+  "id": "demo.tax.negative-fact",
+  "title": "Negative: keyed by submitted evidence, forbidden by Article 1 / ADR-0011",
+  "nature": "determinable",
+  "identity_keys": [
+    {
+      "name": "source-document",
+      "kind": "evidence",
+      "evidence_kind": "demo.w2-upload"
+    }
+  ],
+  "value_schema": {
+    "type": "number"
+  },
+  "supersession": {
+    "policy": "free"
+  }
+}

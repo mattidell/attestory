@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tax/form-field.v1",
+  "title": "Form field",
+  "description": "A first-class versioned content citizen for one official form location (ADR-0012). It declares what the printed field means and how a current derivation disposition is presented; it is never a fact, finding, rule, or authoritative store of a rendered value. `binds_symbol` is one-way presentation content: the rule publishes a symbol without knowing which fields render it, and the field references the symbol it presents without owning the derived finding. `citation_ref` is an inert reference under ADR-0012; a future resolver decision governs its semantics. Published versions are immutable (Article 9, ADR-0003); a new form year, locator, meaning, binding, or rendering contract is a new citizen/version, never an edit.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "form-field.v1" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "form": {
+      "type": "object",
+      "properties": {
+        "authority": { "type": "string", "minLength": 1 },
+        "form_id": { "type": "string", "minLength": 1 },
+        "tax_year": { "type": "integer" },
+        "jurisdiction": { "type": "string", "minLength": 1 }
+      },
+      "required": ["authority", "form_id", "tax_year", "jurisdiction"],
+      "additionalProperties": false
+    },
+    "line": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "binds_symbol": { "type": "string", "minLength": 1 },
+    "citation_ref": { "type": "string", "minLength": 1 },
+    "dispositions": {
+      "type": "object",
+      "description": "Declared rendering and explanation instructions for the five ADR-0012 disposition classes. A renderer selects an instruction from the actual current output/run disposition; it never invents state — no inferring closure from an empty collection, turning a block into zero, or rendering a false guard as a computed blank. Machine records may refine `blocked` into schema'd codes; the field carries one blocked instruction and the explanation surface preserves the refinement.",
+      "properties": {
+        "published_value": { "$ref": "#/$defs/instruction" },
+        "computed_zero": { "$ref": "#/$defs/instruction" },
+        "closure_backed_zero": { "$ref": "#/$defs/instruction" },
+        "blocked": { "$ref": "#/$defs/instruction" },
+        "guard_inapplicable": { "$ref": "#/$defs/instruction" }
+      },
+      "required": [
+        "published_value",
+        "computed_zero",
+        "closure_backed_zero",
+        "blocked",
+        "guard_inapplicable"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "form",
+    "line",
+    "label",
+    "description",
+    "binds_symbol",
+    "citation_ref",
+    "dispositions"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "instruction": {
+      "type": "object",
+      "description": "`render` is the literal placed in the cell for the disposition: the token {value} substitutes the published amount, and the empty string means an intentionally blank cell. `explain` states the lineage the explanation surface must preserve — computed_zero and closure_backed_zero may share a glyph but never an explanation (ADR-0012 decision 6).",
+      "properties": {
+        "render": { "type": "string" },
+        "explain": { "type": "string", "minLength": 1 }
+      },
+      "required": ["render", "explain"],
+      "additionalProperties": false
+    }
+  }
+}
