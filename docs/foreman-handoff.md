@@ -23,8 +23,9 @@ against git, trust git and say so.
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
-  authorized SC-P1 rung 2. `charter-repair1.md` is prepared for the original it1
-  builder's continuity at `/tmp/finances-source-completeness-repair1`; foreman must
+  authorized SC-P1 progression. Repair1 is complete and preserved;
+  `charter-repair2.md` is prepared for the original it1 builder's continuity at
+  `/tmp/finances-source-completeness-repair2`; foreman must
   not spawn it.
 - **Delegated authority:** foreman decides iteration continuation and rung
   progression within the approved plan/caps. Solicit owner input only when the
@@ -46,7 +47,7 @@ against git, trust git and say so.
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
 - **Next actions in order:** owner resumes the original it1 builder on
-  `charter-repair1.md`; after builder completion, foreman resumes automatically,
+  `charter-repair2.md`; after builder completion, foreman resumes automatically,
   performs conformance, integrates/preserves the exhibit, and determines
   whether the new evidence requires another committee round. Do not open rung
   3 implicitly.

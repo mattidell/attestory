@@ -113,3 +113,23 @@ close (log hygiene per `roles/foreman.md`).
   cost, artifact set, and pass/fail result. Foreman retains scope/economy duty:
   adjacent questions, open-ended evidence, and unmeasurable builds are still
   rerouted or stopped rather than absorbed.
+- Repair1 returned commit `5eee68c`; foreman initially compared the branch to
+  newer `main` and incorrectly reported that the builder touched foreman-owned
+  state. Commit inspection showed only the three charter-permitted artifacts;
+  correction issued immediately. This was a foreman comparison-base error, not
+  a builder role breach.
+- Repair1 conformance: examination 118/200 lines; resolver and mutation suite
+  only; no production imports/edits. Foreman reran 15 tests: all pass. Evidence
+  proves current literal-true-only admission, exact authority pins, ambiguity
+  blocking, caller-set exclusion at the resolver boundary, and kills presence,
+  currency-blind, and truthy mutants for both mapping shapes.
+- Repair1 integrated and preserved as `exhibits/source-completeness/repair1` at
+  `5eee68c`; branch/worktree deleted. The single planned repair-pass cap is now
+  consumed.
+- Stop-and-decide after the cap: repair1 identified exactly the plan's declared
+  real-path uncertainty—whether resolved membership is the sole writer through
+  the two-layer collect check. Under the owner's delegated progression authority
+  and stated preference for bounded iterations over punting central questions,
+  foreman authorized `charter-repair2.md`: one throwaway evaluator copy, SC-P1
+  only, no production work. This is an explicit additional bounded pass beyond
+  the original repair cap, not silent expansion.

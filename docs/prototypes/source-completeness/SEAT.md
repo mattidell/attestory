@@ -11,7 +11,7 @@ confirmation.
 
 ## Current Step
 
-**Round-1 disposition ratified; repair pass 1 prepared.** The
+**Repair pass 1 complete; repair pass 2 prepared for the real-path boundary.** The
 first dispatch was halted before producing anything, but its branch later
 landed commit `d47d12c` with the four chartered paper deliverables. They are on
 `main` and preserved at `exhibits/source-completeness/it1`. The clean-room rival
@@ -23,7 +23,8 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | Codex session, 2026-07-12 | active; succeeded prior session on owner instruction |
 | Builder it1 | `roles/builder.md` | Claude Opus 4.8 session (commit `d47d12c`) | complete; exhibit tagged, branch deleted |
-| Builder repair1 | `roles/builder.md` | original it1 builder (deliberate continuity) | ready; `charter-repair1.md`, branch `prototypes/source-completeness/repair1`, isolated worktree `/tmp/finances-source-completeness-repair1` |
+| Builder repair1 | `roles/builder.md` | original it1 builder (deliberate continuity) | complete; exhibit `exhibits/source-completeness/repair1` |
+| Builder repair2 | `roles/builder.md` | original it1 builder (deliberate continuity) | ready; `charter-repair2.md`, branch `prototypes/source-completeness/repair2`, isolated worktree `/tmp/finances-source-completeness-repair2` |
 | Rival builder | `roles/builder-rival.md` | `/root/source_completeness_rival_it2`, 2026-07-12 | complete; exhibit tagged, branch/worktree deleted |
 | Reviewer: governance | `roles/reviewer-governance.md` | `/root/sc_round1_governance` | round 1 complete; review integrated |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `/root/sc_round1_adversary` | round 1 complete; review integrated |
@@ -31,8 +32,8 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 
 ## Next Action
 
-Owner resumes the original it1 builder on `charter-repair1.md`, branch
-`prototypes/source-completeness/repair1`, in the prepared isolated worktree. The
+Owner resumes the original it1 builder on `charter-repair2.md`, branch
+`prototypes/source-completeness/repair2`, in the prepared isolated worktree. The
 foreman does not spawn this builder. After it completes, the foreman has owner-
 delegated authority to decide continuation and rung progression within plan
 caps without another disposition check-in.
@@ -41,3 +42,4 @@ caps without another disposition check-in.
 
 - `exhibits/source-completeness/it1` at `d47d12c`.
 - `exhibits/source-completeness/it2` at `82ffb7f0`.
+- `exhibits/source-completeness/repair1` at `5eee68c`.
