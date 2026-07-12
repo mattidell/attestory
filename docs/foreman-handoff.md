@@ -24,7 +24,8 @@ against git, trust git and say so.
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
   authorized SC-P1 rung 2. `charter-it3.md` is prepared for the original it1
-  builder's continuity; foreman must not spawn it.
+  builder's continuity at `/tmp/finances-source-completeness-it3`; foreman must
+  not spawn it.
 - **Exhibit state:** it1's four chartered documents are merged to `main`; immutable tag
   `exhibits/source-completeness/it1` points to `d47d12c`, and the concluded
   branch is deleted. It2 is likewise preserved at
