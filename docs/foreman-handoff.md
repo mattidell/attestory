@@ -23,9 +23,9 @@ against git, trust git and say so.
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
-  authorized SC-P1 progression. Repair1–3 and round 2 are complete; shape A is
-  selected. Compact round 3 is prepared for owner-launched Medium-tier review
-  of the repaired construction boundary.
+  authorized SC-P1 progression. Repair1–3 and round 3 are complete; shape A is
+  selected. Round 3 found duck-carrier and alternate-callable bypasses;
+  `charter-repair4.md` is prepared to expose one supported evaluation entry.
 - **Delegated authority:** foreman decides iteration continuation and rung
   progression within the approved plan/caps. Solicit owner input only when the
   process is genuinely blocked or an intentionally unspawned builder in another
@@ -45,9 +45,9 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** owner launches three independent Medium-tier round-3
-  reviewers; foreman integrates all reviews and performs final triage before the
-  partial evaluation analysis.
+- **Next actions in order:** owner resumes original it1 builder on
+  `charter-repair4.md`; foreman integrates and determines the smallest necessary
+  Medium-tier review before the partial evaluation analysis.
 - **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.

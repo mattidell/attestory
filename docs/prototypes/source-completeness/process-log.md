@@ -189,3 +189,15 @@ close (log hygiene per `roles/foreman.md`).
   despite the document freeze. Owner directed the foreman not to spawn reviewers
   and will launch them. Owner selected Medium-tier review models (GPT-5.6 Terra
   where runtime selection is available); plan Gate 8 updated from round 3 onward.
+- Owner-launched round 3 reviews landed independently: governance 87/150,
+  adversary 107/150, expressiveness 63/150. All reproduce repair3's intended
+  paths, but all reject its unconditional sufficiency call.
+- Gate 5 classifications: duck-typed carrier fields and the callable raw/
+  trusting evaluator paths are `decision-blocking` for SC-P1; passed validated
+  cases are converged evidence; Article 9/10/11 schema/adoption and system-wide
+  routing remain `production-condition`; SC-P2/SC-P3 observations are
+  `deferred-breadth`. No shape-B or adjacent work reopens.
+- Foreman authorizes `charter-repair4.md`, one central pass/fail question: a
+  self-contained selected surface with one supported calculation entry,
+  internal immediate resolution/consumption, and all unsafe paths test-local.
+  This is a bounded additional pass under the amended Gate 4 delegation.
