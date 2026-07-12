@@ -13,7 +13,7 @@ from typing import Any
 
 import jsonschema
 
-from packages.kernel import facts
+from packages.kernel import facts, horizons
 from packages.kernel.schema_registry import SchemaRegistry
 
 EVIDENCE_SCHEMA = "evidence.v1"
@@ -52,11 +52,16 @@ class FindingStanding:
 
 @dataclass(frozen=True)
 class FindingState:
-    """Fold state for evidence and asserted findings."""
+    """Fold state for evidence, asserted findings, and horizon chains."""
 
     fact_state: facts.KernelState = field(default_factory=facts.initial_state)
     evidence: dict[str, EvidenceLifecycle] = field(default_factory=dict)
     findings: dict[str, dict[str, Any]] = field(default_factory=dict)
+    horizon_state: horizons.HorizonState = field(default_factory=horizons.initial_state)
+    # Facts whose member standing was withdrawn by a member-transition
+    # remove/reclassify. Withdrawal is a displacement *root* over the
+    # fact's findings (like correction), never a new edge kind.
+    withdrawn_fact_ids: frozenset[str] = frozenset()
 
 
 def initial_state() -> FindingState:
@@ -212,10 +217,116 @@ def apply_assertion(
     return replace(state, findings=findings)
 
 
+def _horizon_entity(citizen: dict[str, Any]) -> dict[str, Any]:
+    """Project a horizon citizen into the fact lattice as an entity record.
+
+    Closure fact types key on ``kernel.family-horizon`` with an ordinary
+    entity key, so the lattice individuates one closure fact per horizon
+    and succession displaces it through the existing individuation edge
+    (ADR-0017 decision 5). The entity record is a projection of the same
+    act, not a second store.
+    """
+    family = citizen["family"]
+    return {
+        "schema": facts.ENTITY_SCHEMA,
+        "id": citizen["id"],
+        "kind": horizons.HORIZON_ENTITY_KIND,
+        "label": f"Membership horizon for {family['id']} {family['version']}",
+    }
+
+
+def _introduce_horizon_entity(
+    entities: dict[str, facts.EntityLifecycle], citizen: dict[str, Any]
+) -> None:
+    if citizen["id"] in entities:
+        raise FindingModelError(
+            f"horizon id collides with an existing entity: {citizen['id']}"
+        )
+    entities[citizen["id"]] = facts.EntityLifecycle(
+        entity=_horizon_entity(citizen), status="current"
+    )
+
+
+def apply_horizon_genesis(
+    state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
+) -> FindingState:
+    horizon_state = horizons.apply_genesis(state.horizon_state, payload, registry)
+    entities = dict(state.fact_state.entities)
+    citizen = horizon_state.horizons[payload["horizon_id"]].horizon
+    _introduce_horizon_entity(entities, citizen)
+    return replace(
+        state,
+        horizon_state=horizon_state,
+        fact_state=replace(state.fact_state, entities=entities),
+    )
+
+
+def _withdraw_member_fact(state: FindingState, fact_id: str) -> frozenset[str]:
+    if fact_id in state.withdrawn_fact_ids:
+        raise FindingModelError(f"member fact already withdrawn: {fact_id}")
+    if not any(
+        finding["fact_id"] == fact_id for finding in state.findings.values()
+    ):
+        raise FindingModelError(
+            f"member removal names a fact with no recorded finding: {fact_id}"
+        )
+    return state.withdrawn_fact_ids | {fact_id}
+
+
+def apply_member_transition(
+    state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
+) -> FindingState:
+    """One atomic membership transition: member half plus horizon successor.
+
+    The horizon half is validated first, so every admission negative in
+    the recorded corpus (missing genesis, replayed successor, wrong or
+    future predecessor) rejects before the member half is examined. Any
+    rejection raises out of this pure function, leaving neither member
+    state nor horizon state changed (ADR-0017 decision 3).
+    """
+    horizon_state, predecessor_id = horizons.apply_transition(
+        state.horizon_state, payload, registry
+    )
+
+    member = payload["member"]
+    findings = dict(state.findings)
+    withdrawn = state.withdrawn_fact_ids
+    if member["action"] in ("assert", "reclassify"):
+        finding = member["finding"]
+        _validate_finding(state, finding, registry)
+        findings[finding["id"]] = finding
+    if member["action"] in ("remove", "reclassify"):
+        withdrawn = _withdraw_member_fact(state, member["fact_id"])
+
+    entities = dict(state.fact_state.entities)
+    predecessor_lifecycle = entities.get(predecessor_id)
+    if predecessor_lifecycle is None:
+        raise FindingModelError(
+            f"horizon {predecessor_id} has no projected entity record"
+        )
+    successor_citizen = horizon_state.horizons[payload["successor"]["id"]].horizon
+    _introduce_horizon_entity(entities, successor_citizen)
+    entities[predecessor_id] = facts.EntityLifecycle(
+        entity=predecessor_lifecycle.entity,
+        status="superseded",
+        successor_id=payload["successor"]["id"],
+    )
+
+    return replace(
+        state,
+        horizon_state=horizon_state,
+        findings=findings,
+        withdrawn_fact_ids=withdrawn,
+        fact_state=replace(state.fact_state, entities=entities),
+    )
+
+
 _APPLIERS = {
     "evidence-submitted": apply_evidence_submitted,
     "evidence-replaced": apply_evidence_replaced,
     "assertion": apply_assertion,
+    "horizon-genesis": apply_horizon_genesis,
+    "member-transition": apply_member_transition,
 }
 
 _FACT_ACT_KINDS = frozenset({"bundle-adoption", "entity-introduced", "entity-superseded"})

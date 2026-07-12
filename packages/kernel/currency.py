@@ -94,6 +94,26 @@ def _finding_corrections(
     return displaced, reasons
 
 
+def _member_withdrawals(
+    state: FindingState,
+) -> tuple[set[str], dict[str, list[DisplacementReason]]]:
+    """Findings answering a withdrawn member fact are displacement roots.
+
+    Withdrawal is recorded by a member-transition act (ADR-0017); like
+    correction it contributes roots, never a new edge kind, so Article
+    7's two-edge closure is untouched.
+    """
+    displaced: set[str] = set()
+    reasons: dict[str, list[DisplacementReason]] = {}
+    for finding_id, finding in state.findings.items():
+        if finding["fact_id"] in state.withdrawn_fact_ids:
+            displaced.add(finding_id)
+            reasons.setdefault(finding_id, []).append(
+                DisplacementReason(kind="withdrawal", by=finding["fact_id"])
+            )
+    return displaced, reasons
+
+
 def _declared_edges(state: FindingState) -> dict[str, dict[str, set[str]]]:
     edges: dict[str, dict[str, set[str]]] = {"derivation": {}, "individuation": {}}
     for finding_id, finding in state.findings.items():
@@ -124,6 +144,10 @@ def compute_currency(state: FindingState) -> CurrencyView:
     """
     correction_roots, reason_lists = _finding_corrections(state)
     roots = set(correction_roots)
+    withdrawal_roots, withdrawal_reasons = _member_withdrawals(state)
+    roots.update(withdrawal_roots)
+    for withdrawn_id, withdrawn_reasons in withdrawal_reasons.items():
+        reason_lists.setdefault(withdrawn_id, []).extend(withdrawn_reasons)
     roots.update(superseded_entity_ids(state.fact_state))
 
     closure, closure_reasons = displacement_closure(roots, _declared_edges(state))
