@@ -174,9 +174,9 @@ converges, logging each change at dispatch time.
 | Builder it1 | High (high) | Novel synthesis at paper rung: mapping shape + identity rivals |
 | Rival builder (it2) | High (high) | Clean-room independence is the value; same difficulty |
 | Repair builder (if authorized) | Medium (medium) | Converged design; imitation/repair work |
-| Reviewer: governance-fidelity | High (high) | Contract fidelity against governance set + ADR-0011 |
-| Reviewer: adversary | High (high) | Attack construction (false-closure, identity traps) |
-| Reviewer: expressiveness (conditional) | Medium (medium) | Reproduction of claims; opens only at rung ≥ 3 |
+| Reviewer: governance-fidelity | Medium (medium) | Owner-selected review tier from round 3 onward; current binding GPT-5.6 Terra where selectable |
+| Reviewer: adversary | Medium (medium) | Owner-selected review tier from round 3 onward; bounded contract robustness checks |
+| Reviewer: expressiveness (conditional) | Medium (medium) | Reproduction of claims; opens only at rung ≥ 3; current binding GPT-5.6 Terra where selectable |
 | Clerk (optional) | Economy (low) | SEAT/log/round-file mechanics; foreman may skip the seat |
 
 Reviewer seats named here are standing-authorized for foreman sub-agent

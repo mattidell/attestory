@@ -176,3 +176,16 @@ close (log hygiene per `roles/foreman.md`).
   proliferation: no new broad round file or full committee unless repair3
   produces materially new evidence requiring it. This cap crossing remains a
   process deviation for the retrospective; it is not normalized away.
+- Owner clarified that iterations may carry larger related scope provided
+  evaluation is not monolithic: individual propositions advance evidence depth
+  independently. Added the principle to `PROJECT_PLANNING.md`; future reviews
+  report per-question sufficiency.
+- Repair3 conformance: commit `b09d0b5` changes only three permitted artifacts;
+  examination 116/200 lines; foreman reran 11 tests, all pass. Fabricated,
+  provenance-mismatched, duplicate/reordered, and stale-pin carriers reject;
+  the bypass mutant publishes and is killed. Repair3 integrated and preserved
+  as `exhibits/source-completeness/repair3`; branch/worktree deleted.
+- Repair3 is materially new central evidence, so a compact round 3 is required
+  despite the document freeze. Owner directed the foreman not to spawn reviewers
+  and will launch them. Owner selected Medium-tier review models (GPT-5.6 Terra
+  where runtime selection is available); plan Gate 8 updated from round 3 onward.
