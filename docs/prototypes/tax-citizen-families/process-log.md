@@ -384,3 +384,16 @@ dispositions.
   continue independent gates and commit failing tests for machinery gaps; and
   provide both per-artifact and per-gate change inventories. The clarification
   records that `run_and_record` does not itself append publication acts.
+
+- **2026-07-11 (event, builder/foreman)** - Owner reported it4 complete at
+  `8fc3a53`. Foreman independently reran the authoritative-path harness (70
+  checks), the 14-scenario it3 regression, governance lint, JSON parsing, and
+  `git diff --check`; all passed and the worktree was clean. The handoff is not
+  charter-complete: I4 lacks required mixed-year negatives for fact types,
+  citations, symbol bindings, and scenario provenance; I7 tests only one of the
+  required wrong-year directions; I8 does not commit examples for projection
+  adoption/pins, correction/supersession, package membership, provenance
+  resolution, coverage reconstruction, or explanation termination; and I9
+  omits the required hard-coded coverage-map and explanation-index bypass
+  probes. Round 4 was not opened. The branch remains intact at `8fc3a53` and is
+  returned to the same owner-launched builder for mandatory evidence closeout.

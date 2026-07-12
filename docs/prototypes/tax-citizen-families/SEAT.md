@@ -10,10 +10,10 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Iteration 4 bounded integration proof is open for owner-launched builder.**
-The owner authorized the recommended continuation at the three-iteration
-disposition point. Branch `prototypes/tax-citizen-families/it4` starts from
-exhibit it3 at `be72d63` and is governed by `charter-it4.md`.
+**Iteration 4 is returned to the owner-launched builder for mandatory evidence
+closeout.** The authoritative-path harness and regression pass at `8fc3a53`,
+but charter-required evidence for I4, I7, I8, and I9 is incomplete. Round 4 is
+not open.
 
 ## Seats
 
@@ -35,15 +35,19 @@ exhibit it3 at `be72d63` and is governed by `charter-it4.md`.
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `Nietzsche` (`019f5384-e48f-7403-a906-71a39169e794`) | round 3 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `Hume` (`019f5384-e559-7673-87f9-1fba1b904f68`) | round 3 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 3 complete |
-| Builder it4 | `roles/builder.md` | not opened | owner launch pending; bounded integration proof |
+| Builder it4 | `roles/builder.md` | owner-launched builder session | active; evidence closeout required after `8fc3a53` |
 
 ## Next Action
 
-Owner launches the it4 builder in a fresh session using `roles/builder.md` and
-`charter-it4.md`. Work only on branch
-`prototypes/tax-citizen-families/it4`; produce final artifacts under `it4/` and
-write `examination-it4.md` with the I1-I9 checklist. Per owner instruction, the
-foreman does not spawn a builder subagent.
+Owner returns control to the same it4 builder session. Preserve the passing
+authoritative path and add only the missing charter evidence: I4 mixed-year
+negatives for fact types, citations, symbol bindings, and scenario provenance;
+I7 wrong-year rejection in both directions; I8 committed positive/negative
+relationship examples for projection adoption/pins, correction/supersession,
+package membership, provenance resolution, coverage reconstruction, and
+explanation termination; and I9 bypass probes for hard-coded coverage maps and
+hard-coded explanation input indexes. Update `examination-it4.md` and commit the
+closeout. Per owner instruction, the foreman does not spawn a builder subagent.
 
 ## Planned Exhibits
 
