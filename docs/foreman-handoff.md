@@ -22,7 +22,8 @@ against git, trust git and say so.
   `docs/prototypes/source-completeness/plan.md` (approved 2026-07-12, solo).
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
   integration, and exhibit preservation are complete for both rivals. Committee
-  round 1 is assembled in `round-1.md` and ready for reviewer dispatch.
+  round 1 is active: governance and adversary reviewers run independently in
+  isolated contexts/worktrees.
 - **Exhibit state:** it1's four chartered documents are merged to `main`; immutable tag
   `exhibits/source-completeness/it1` points to `d47d12c`, and the concluded
   branch is deleted. It2 is likewise preserved at
@@ -34,17 +35,14 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** (1) committee round 1 (governance + adversary only — standing-authorized
-  foreman spawns, no per-spawn ask), attack parity across both designs;
-  (4) foreman triage (Gate 5), then evaluation analysis and ADR drafting if
+- **Next actions in order:** (1) land both round-1 reviews after both finish;
+  (2) foreman triage (Gate 5), then evaluation analysis and ADR drafting if
   paper converged — the plan's Gate 2 expectation is SC-P2/P3 settle at
   paper, SC-P1 maybe needs rung 2/3; any climb is one rung, logged, and only
   for the affirmative-only-enforcement question.
 - **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.
-- **Pending owner decisions / flags:** (1) explicit instruction before any
-  it2 rival builder spawn (the owner's latest direction forbids an implicit
-  dispatch); (2) confirmation path for the it2 rival (foreman spawn
-  or owner-launched via the role-file launch line); (3) Legibility Audit
+- **Pending owner decisions / flags:** (1) round-1 disposition after foreman
+  triage, including whether SC-P1 climbs one rung; (2) Legibility Audit
   allowed-slice and cadence tuning (carried, untouched).

@@ -72,3 +72,7 @@ close (log hygiene per `roles/foreman.md`).
 - Committee round 1 assembled in `round-1.md`: governance-fidelity and
   adversary only, both High tier / high effort as planned, with parity across
   both paper designs and no rung climb authorized.
+- Dispatch: governance reviewer `/root/sc_round1_governance` and adversary
+  reviewer `/root/sc_round1_adversary` spawned concurrently in separate
+  contexts, branches, and worktrees. Each was denied the same-round peer output
+  and assigned the unchanged High/high Gate 8 tier.

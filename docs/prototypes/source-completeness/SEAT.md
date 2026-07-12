@@ -25,13 +25,14 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 | Foreman | `roles/foreman.md` | Codex session, 2026-07-12 | active; succeeded prior session on owner instruction |
 | Builder it1 | `roles/builder.md` | Claude Opus 4.8 session (commit `d47d12c`) | complete; exhibit tagged, branch deleted |
 | Rival builder | `roles/builder-rival.md` | `/root/source_completeness_rival_it2`, 2026-07-12 | complete; exhibit tagged, branch/worktree deleted |
-| Reviewer: governance | `roles/reviewer-governance.md` | pending dispatch | round 1, standing-authorized |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | pending dispatch | round 1, standing-authorized |
+| Reviewer: governance | `roles/reviewer-governance.md` | `/root/sc_round1_governance` | round 1 active in isolated worktree |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | `/root/sc_round1_adversary` | round 1 active in isolated worktree |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | conditional (opens only at evidence rung ≥ 3) |
 
 ## Next Action
 
-Dispatch both round-1 reviewers independently from `round-1.md`.
+Await both independent round-1 reviews, then land them without exposing either
+reviewer to the peer output and perform Gate 5 triage.
 
 ## Planned Exhibits
 
