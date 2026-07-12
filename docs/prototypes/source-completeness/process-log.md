@@ -63,3 +63,12 @@ close (log hygiene per `roles/foreman.md`).
   `de22faa`, and created isolated worktree
   `/tmp/finances-source-completeness-it2`. Rival work then resumed there. No
   incumbent-artifact context leak occurred; the branch history is clean.
+- Iteration 2 conformance: commit `82ffb7f0` changes only `it2/design.md` and
+  `examination-it2.md`; examination is 99 lines (cap 200); no code or
+  production schema changed; rung 1 held. Builder cap is now 2 of 2 used.
+- Iteration 2 integrated to `main`; tip `82ffb7f0` preserved as immutable tag
+  `exhibits/source-completeness/it2`; concluded branch and isolated worktree
+  deleted.
+- Committee round 1 assembled in `round-1.md`: governance-fidelity and
+  adversary only, both High tier / high effort as planned, with parity across
+  both paper designs and no rung climb authorized.
