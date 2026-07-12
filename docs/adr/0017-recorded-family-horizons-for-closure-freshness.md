@@ -1,6 +1,6 @@
 # ADR 0017 - Recorded Family Horizons for Closure Freshness
 
-- Status: proposed
+- Status: accepted (ratified 2026-07-12)
 - Tier: 3
 - Date: 2026-07-12
 

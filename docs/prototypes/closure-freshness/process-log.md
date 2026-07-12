@@ -46,3 +46,5 @@
 - `evaluation-analysis.md` and proposed Tier-3 ADR-0017 drafted. CF-P1/CF-P2
   converge for recorded horizon succession; no further prototype build
   recommended. Owner ratification pending.
+- Owner ratified ADR-0017 on 2026-07-12. Closure Freshness topic complete; the
+  Source Completeness milestone may now plan closure-backed zero production.

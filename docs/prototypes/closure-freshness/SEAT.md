@@ -2,9 +2,9 @@
 
 ## Current step
 
-Evaluation complete. Proposed Tier-3 ADR-0017 awaits owner ratification; no
-further build recommended.
+Topic complete. Tier-3 ADR-0017 ratified; no further build.
 
 ## Next action
 
-Owner ratifies or rejects ADR-0017.
+Foreman records the process retrospective and rewrites milestone implementation
+tracks against ADR-0014 through ADR-0017.
