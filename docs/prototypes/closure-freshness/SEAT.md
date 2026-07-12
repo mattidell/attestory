@@ -2,10 +2,9 @@
 
 ## Current step
 
-Recorded-horizon reducer integrated and preserved. Owner-launched Medium-tier
-round 2 prepared.
+Evaluation complete. Proposed Tier-3 ADR-0017 awaits owner ratification; no
+further build recommended.
 
 ## Next action
 
-Owner launches round-2 governance, adversary, and expressiveness reviewers in
-prepared isolated worktrees. Foreman resumes after all return.
+Owner ratifies or rejects ADR-0017.

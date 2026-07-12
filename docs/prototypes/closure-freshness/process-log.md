@@ -38,3 +38,11 @@
 - Committee round 2 prepared with owner-launched Medium governance, adversary,
   and conditional expressiveness seats. Review paths are written explicitly to
   prevent the prior repository-root placement defect.
+- Round 2 reviews integrated at correct topic paths: governance 141 lines,
+  adversary 137, expressiveness 133. All reproduce five passing tests and the
+  two-edge result. Expressiveness finds `None` horizon/empty-id validation gaps;
+  adversary finds direct mutable-state tamper outside admitted acts. Final triage
+  classifies these as production conditions/non-blocking defects.
+- `evaluation-analysis.md` and proposed Tier-3 ADR-0017 drafted. CF-P1/CF-P2
+  converge for recorded horizon succession; no further prototype build
+  recommended. Owner ratification pending.

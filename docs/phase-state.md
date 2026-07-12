@@ -18,4 +18,4 @@ Active phase: **Foundation** — `docs/phases/foundation/`
 
 Canonical phase state lives in the phase roadmap: `docs/phases/foundation/foundation-roadmap.md`.
 
-Active milestone: **Source Completeness And Interest Slice** — ADR-0014, ADR-0015, and ADR-0016 ratified 2026-07-12. Late-member freshness remains a Tier-3 boundary; closure-backed zero remains blocked. Owner approved `docs/prototypes/closure-freshness/plan.md`; incumbent paper iteration is chartered and awaiting external builder work. First Tax Slice completed 2026-07-11 (merge `c548766`; retrospective `docs/milestone-retrospectives/2026-07-11-first-tax-slice.md`).
+Active milestone: **Source Completeness And Interest Slice** — ADR-0014, ADR-0015, and ADR-0016 ratified 2026-07-12. Closure Freshness evidence is complete: recorded family horizons support late-member invalidation using individuation then derivation, with rebuild/no-resurrection evidence. Proposed Tier-3 ADR-0017 awaits owner ratification; closure-backed zero remains blocked until ratified. First Tax Slice completed 2026-07-11 (merge `c548766`; retrospective `docs/milestone-retrospectives/2026-07-11-first-tax-slice.md`).
