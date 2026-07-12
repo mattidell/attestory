@@ -33,7 +33,9 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 
 Owner resumes the original it1 builder on `charter-it3.md`, branch
 `prototypes/source-completeness/it3`, in the prepared isolated worktree. The
-foreman does not spawn this builder.
+foreman does not spawn this builder. After it completes, the foreman has owner-
+delegated authority to decide continuation and rung progression within plan
+caps without another disposition check-in.
 
 ## Planned Exhibits
 

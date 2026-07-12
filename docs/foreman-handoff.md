@@ -26,6 +26,10 @@ against git, trust git and say so.
   authorized SC-P1 rung 2. `charter-it3.md` is prepared for the original it1
   builder's continuity at `/tmp/finances-source-completeness-it3`; foreman must
   not spawn it.
+- **Delegated authority:** foreman decides iteration continuation and rung
+  progression within the approved plan/caps. Solicit owner input only when the
+  process is genuinely blocked or an intentionally unspawned builder in another
+  thread needs to resume.
 - **Exhibit state:** it1's four chartered documents are merged to `main`; immutable tag
   `exhibits/source-completeness/it1` points to `d47d12c`, and the concluded
   branch is deleted. It2 is likewise preserved at

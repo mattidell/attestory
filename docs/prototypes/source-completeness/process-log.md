@@ -95,3 +95,8 @@ close (log hygiene per `roles/foreman.md`).
   shapes, presence-only mutant, exact-pin identity, and caller-injection/
   ambiguity negatives. Rung 3, production work, SC-P2, SC-P3, and SC-D1 remain
   unauthorized. Builder tier stays High/high for the cross-rival defect seam.
+- Owner delegated iteration-continuation and evidence-rung progression decisions
+  to the foreman within the approved plan and caps. Owner input is required only
+  for a genuine process block or when a builder intentionally kept outside the
+  foreman's spawned agents must resume in another thread. Iteration 3 is such an
+  external-builder handoff; its resume state is prepared and reported.
