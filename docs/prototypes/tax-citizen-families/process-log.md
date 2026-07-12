@@ -397,3 +397,18 @@ dispositions.
   omits the required hard-coded coverage-map and explanation-index bypass
   probes. Round 4 was not opened. The branch remains intact at `8fc3a53` and is
   returned to the same owner-launched builder for mandatory evidence closeout.
+
+- **2026-07-11 (event, builder)** - Iteration 4 evidence closeout completed at
+  `9debc4d`. Builder added the returned I4 mixed-year checks, both I7 year
+  directions, committed I8 relationship examples, and the two missing I9
+  bypass probes; `examination-it4.md` and captured evidence were updated.
+
+- **2026-07-11 (event, foreman)** - Foreman independently reran the expanded
+  authoritative-path harness (92 checks), 14-scenario it3 regression,
+  governance lint, JSON parsing, and `git diff --check`; all passed and both
+  worktrees were clean. Iteration 4 was preserved as exhibit tag
+  `exhibits/tax-citizen-families/it4` at `9debc4d`; the active branch and
+  temporary review worktree were removed after tag verification. The it4
+  examination was copied to main and round 4 assembled in
+  `reviews/round-4.md`. Governance, expressiveness, adversary, and
+  owner-launched context-starved legibility review seats opened.

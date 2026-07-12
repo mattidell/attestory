@@ -10,10 +10,10 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Iteration 4 is returned to the owner-launched builder for mandatory evidence
-closeout.** The authoritative-path harness and regression pass at `8fc3a53`,
-but charter-required evidence for I4, I7, I8, and I9 is incomplete. Round 4 is
-not open.
+**Round 4 bounded integration review is open.** Iteration 4 is preserved as
+exhibit tag `exhibits/tax-citizen-families/it4` at `9debc4d`; its active branch
+has been removed. Governance, expressiveness, and adversary seats are open for
+foreman dispatch. Legibility requires owner launch.
 
 ## Seats
 
@@ -35,19 +35,18 @@ not open.
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `Nietzsche` (`019f5384-e48f-7403-a906-71a39169e794`) | round 3 complete |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `Hume` (`019f5384-e559-7673-87f9-1fba1b904f68`) | round 3 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 3 complete |
-| Builder it4 | `roles/builder.md` | owner-launched builder session | active; evidence closeout required after `8fc3a53` |
+| Builder it4 | `roles/builder.md` | owner-launched builder session | complete; exhibit `exhibits/tax-citizen-families/it4` |
+| Reviewer: governance | `roles/reviewer-governance.md` | dispatch pending | round 4 open |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | dispatch pending | round 4 open |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | dispatch pending | round 4 open |
+| Reviewer: legibility | `roles/reviewer-legibility.md` | owner launch needed | round 4 open |
 
 ## Next Action
 
-Owner returns control to the same it4 builder session. Preserve the passing
-authoritative path and add only the missing charter evidence: I4 mixed-year
-negatives for fact types, citations, symbol bindings, and scenario provenance;
-I7 wrong-year rejection in both directions; I8 committed positive/negative
-relationship examples for projection adoption/pins, correction/supersession,
-package membership, provenance resolution, coverage reconstruction, and
-explanation termination; and I9 bypass probes for hard-coded coverage maps and
-hard-coded explanation input indexes. Update `examination-it4.md` and commit the
-closeout. Per owner instruction, the foreman does not spawn a builder subagent.
+Foreman dispatches governance, expressiveness, and adversary reviewers using
+`gpt-5.6-luna` with high reasoning. Owner launches the context-starved
+legibility reviewer using `roles/reviewer-legibility.md` and
+`reviews/round-4.md`. No reviewer may read same-round peer output.
 
 ## Planned Exhibits
 
@@ -56,5 +55,5 @@ closeout. Per owner instruction, the foreman does not spawn a builder subagent.
 - Tag `exhibits/tax-citizen-families/it2` - clean-room rival at `989d9fe`.
 - Tag `exhibits/tax-citizen-families/it3` - targeted repair candidate at
   `be72d63`.
-- Branch `prototypes/tax-citizen-families/it4` - bounded integration proof
-  opened from exhibit it3 at `be72d63`.
+- Tag `exhibits/tax-citizen-families/it4` - bounded integration proof at
+  `9debc4d`.
