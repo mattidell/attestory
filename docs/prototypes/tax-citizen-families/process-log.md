@@ -419,3 +419,16 @@ dispositions.
   round-4 review file, and was instructed not to read same-round peer outputs or
   commit-message bodies. The context-starved legibility seat remains reserved
   for owner launch.
+
+- **2026-07-11 (event, owner/foreman)** - Owner directed that the three active
+  round-4 review agents be aborted. Foreman shut down `Ampere`, `Lorentz`, and
+  `Harvey`; each was still running. No partial review file or review commit
+  landed, so no output from those sessions is admitted as evidence. Round 4
+  remains open with reviewer dispatch stopped pending owner direction. The
+  context-starved legibility seat was not launched.
+
+- **2026-07-11 (event, owner/foreman)** - Owner immediately withdrew the abort
+  direction. Foreman resumed the same three review sessions under their
+  original identities; each accepted resume. Round 4 returned to active status.
+  The interruption produced no review artifact and does not alter reviewer
+  scope or independence requirements.

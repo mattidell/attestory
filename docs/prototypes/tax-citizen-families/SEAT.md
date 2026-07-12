@@ -10,10 +10,10 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**Round 4 bounded integration review is open.** Iteration 4 is preserved as
-exhibit tag `exhibits/tax-citizen-families/it4` at `9debc4d`; its active branch
-has been removed. Governance, expressiveness, and adversary seats are open for
-foreman dispatch. Legibility requires owner launch.
+**Round 4 bounded integration review is active.** Iteration 4 remains preserved
+as exhibit tag `exhibits/tax-citizen-families/it4` at `9debc4d`. Governance,
+expressiveness, and adversary sessions resumed under their original identities
+after a brief owner-directed interruption. No round-4 review has landed.
 
 ## Seats
 
@@ -36,9 +36,9 @@ foreman dispatch. Legibility requires owner launch.
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `Hume` (`019f5384-e559-7673-87f9-1fba1b904f68`) | round 3 complete |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner-launched fresh session | round 3 complete |
 | Builder it4 | `roles/builder.md` | owner-launched builder session | complete; exhibit `exhibits/tax-citizen-families/it4` |
-| Reviewer: governance | `roles/reviewer-governance.md` | `Ampere` (`019f53df-8003-7131-860a-86b43dabb107`) | round 4 active |
-| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `Lorentz` (`019f53df-7f81-7f01-8873-67ebffb46ce5`) | round 4 active |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | `Harvey` (`019f53df-80d1-7470-b663-cdd74a312710`) | round 4 active |
+| Reviewer: governance | `roles/reviewer-governance.md` | `Ampere` (`019f53df-8003-7131-860a-86b43dabb107`) | round 4 active; resumed |
+| Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | `Lorentz` (`019f53df-7f81-7f01-8873-67ebffb46ce5`) | round 4 active; resumed |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | `Harvey` (`019f53df-80d1-7470-b663-cdd74a312710`) | round 4 active; resumed |
 | Reviewer: legibility | `roles/reviewer-legibility.md` | owner launch needed | round 4 open |
 
 ## Next Action
