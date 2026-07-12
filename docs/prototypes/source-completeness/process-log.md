@@ -54,3 +54,12 @@ close (log hygiene per `roles/foreman.md`).
   role, governance, ADR-0011, plan, and `charter-it2.md`; iteration 1 outputs,
   exhibit tags, examinations, reviews, seat/log, and handoff were explicitly
   denied.
+- Foreman error / isolation incident: the rival initially switched the shared
+  primary checkout instead of creating a separate worktree. Before artifact
+  work began, a foreman dispatch-record commit (`518a4c9`) consequently landed
+  on the rival branch. The rival stopped immediately, attested it had created
+  no files or commits and had not read the accidental commit, and the foreman
+  moved the dispatch record to `main` as `7537002`, restored the rival branch to
+  `de22faa`, and created isolated worktree
+  `/tmp/finances-source-completeness-it2`. Rival work then resumed there. No
+  incumbent-artifact context leak occurred; the branch history is clean.
