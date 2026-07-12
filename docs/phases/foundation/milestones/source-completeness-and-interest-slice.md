@@ -111,12 +111,16 @@ Goal: settle the source-closure-mapping and 1099-INT identity contracts with a
 prototype evaluation analysis before any interest content is written, per
 ADR-0005.
 
-This track does not begin until the owner gives go on the charter below. It runs
-the ADR-0005 loop (charter → build → examine → committee → disposition) under
-the same role separation and measured-review rules that First Tax Slice's Track 0
-used. The foreman charters, sequences, and recommends dispositions but never
-reviews artifacts produced under their own charter; context-starved seats are
-owner-launched from role files.
+This track does not begin until the owner gives go. Per ADR-0013, it opens with
+an **owner-approved, committed `docs/prototypes/source-completeness/plan.md`**
+that instantiates the economic gates (decision inventory, per-proposition
+eligibility scores, paper-first evidence plan, authorized evidence rung, fixed
+caps, foreman-owned review triage, partial-ratification intent, and the role
+capability tiers) before the first charter. It then runs the ADR-0005 loop
+(charter → build → examine → committee → disposition) under role separation and
+measured reviews, with the foreman as scope-and-economy steward. The foreman
+copies the canonical charter from `docs/prototypes/_role-templates/foreman.md`;
+context-starved seats are owner-launched from role files.
 
 ### Declared questions the prototype must answer
 
