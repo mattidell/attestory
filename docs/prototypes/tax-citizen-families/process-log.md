@@ -372,3 +372,15 @@ dispositions.
   integration gates, prohibits new tax breadth, and rejects helper-local or
   tautological checks as gate closure. Builder it4 is owner-launch pending; per
   owner instruction, the foreman does not spawn a builder subagent.
+
+- **2026-07-11 (charter clarification, foreman)** - Builder asked whether the
+  it4 authoritative path requires a persisted synthetic workspace, whether
+  production packages may be consumed, how much it3 content remains in scope,
+  how machinery gaps are escalated, and the required change-inventory shape.
+  Charter advanced to v2 with binding answers: use `ActLog`, adoption-gated
+  `run_and_record`, `RecordStream`, `append_publications`, and ADR-0010
+  `workspace_currency`; consume but do not modify `packages/`; retain the it3
+  domain breadth while selecting minimal representative integration scenarios;
+  continue independent gates and commit failing tests for machinery gaps; and
+  provide both per-artifact and per-gate change inventories. The clarification
+  records that `run_and_record` does not itself append publication acts.

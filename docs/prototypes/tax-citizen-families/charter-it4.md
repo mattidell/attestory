@@ -1,6 +1,6 @@
 # Charter - Iteration 4 Bounded Integration Proof
 
-Version 1 (2026-07-11). Status: approved by owner at the three-iteration
+Version 2 (2026-07-11). Status: approved by owner at the three-iteration
 disposition point.
 
 Iteration 4 is an exceptional bounded integration proof based on exhibit
@@ -117,3 +117,75 @@ The examination must include:
 
 The builder does not review the work. Prototype artifacts never merge to
 `main`; only the examination and process/review documents may later merge.
+
+## Binding Builder Clarifications
+
+These clarifications answer the builder's pre-build questions and are part of
+the acceptance contract.
+
+### Authoritative substrate
+
+Yes: the proof uses a real synthetic workspace and the ratified persistence and
+derivation boundaries wherever they exist. The expected normal sequence is:
+
+1. append bundle/adoption, entity, evidence, assertion, and supersession acts to
+   a kernel `ActLog` using the combined published schema registry;
+2. project current facts/findings from the act log and construct the run input
+   from that projection, not directly from scenario booleans or dictionaries;
+3. call `packages.derivation.runner.run_and_record` against a persisted
+   `RecordStream`, with the adoption gate active;
+4. append successful publications through
+   `packages.derivation.runner.append_publications` (because `run_and_record`
+   records the run but does not itself append publication acts to `ActLog`);
+5. read current and displaced kernel/derived findings through
+   `packages.derivation.projection.workspace_currency`, the ADR-0010
+   compose-over boundary; and
+6. derive coverage and explanations from those persisted acts, findings,
+   adopted artifacts, and records.
+
+If no ratified component currently converts projected workspace state into a
+`RunContext`, the builder may implement a throwaway, versioned integration
+adapter under the it4 prototype tree. That adapter is part of the evidence and
+must resolve declared bindings/projections; it may not smuggle tax meaning or
+fixture truth into the context.
+
+### `packages/` boundary
+
+Importing and exercising existing `packages/` APIs is required and in bounds.
+Modifying production files under `packages/` is out of bounds for this builder
+seat. A gate that requires such a modification is demonstrated as far as the
+existing boundary permits, then marked failed/escalated with a minimal failing
+integration test. Prototype-only adapters, resolver contracts, fixtures, and
+validators live under the it4 artifact tree.
+
+### Content scope
+
+The it3 domain semantics and tax breadth are frozen, but the builder need not
+run every it3 scenario through every new probe. Use the smallest representative
+scenario set that closes I1-I9 while retaining all required pressure: two W-2
+slips plus correction, one closure-backed path, standard-deduction eligibility,
+line-16 method selection, both years for scope checks, all five explanation
+states, and citation/provenance negatives. Keep an it3 regression run to detect
+accidental semantic loss. Do not reduce the proof to wages/line 1a/line 9,
+because that would remove boundaries I1-I9 explicitly require.
+
+### Machinery gaps and escalation
+
+A genuine machinery gap is not an immediate stop-and-ask. Continue all
+independent gates, commit the smallest failing integration test that exposes the
+gap, and mark the affected gate failed/escalated in the examination. Stop and
+ask only if proceeding would require changing ratified governance, resolving a
+reserved doctrine entry, modifying production `packages/`, or expanding domain
+scope. Do not replace a machinery gap with a prototype helper that claims the
+missing production behavior exists.
+
+### Change inventory
+
+Provide both views:
+
+- a per-artifact or per-family it3 -> it4 inventory with `reused unchanged`,
+  `rewired`, `added`, or `removed`, plus the behavioral reason; and
+- a gate matrix mapping every change to I1-I9, evidence paths, and commands.
+
+Also identify any it3 artifact retained only for regression compatibility and
+not relied upon as new it4 evidence.
