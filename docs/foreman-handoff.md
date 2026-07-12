@@ -18,30 +18,38 @@ against git, trust git and say so.
 ## Current state (updated 2026-07-12)
 
 - **Active milestone / phase:** Foundation phase; milestone **Source Completeness
-  And Interest Slice** — Track 0 begun on owner go (2026-07-12): topic directory
-  created at `docs/prototypes/source-completeness/` with the ADR-0013 prototype
-  plan drafted, foreman seat taken by this session.
-- **What I'm mid-doing:** plan.md drafted and committed as **draft — awaiting
-  solo owner approval**. No charter written, no seats beyond foreman filled;
-  that is the gate, not an omission.
-- **Done this stretch (all committed to `main`):** created
-  `docs/prototypes/source-completeness/` — `plan.md` (Gates 0–8 instantiated:
-  SC-P1 closure→collect mapping primary at score 7; SC-P2 1099-INT identity and
-  SC-P3 source-family definition as dependent secondaries; SC-D1 coverage read
-  model split out to milestone Track 4 at score 2; rung 1 paper-first; caps: two
-  builders incl. rival, two default reviewers, expressiveness conditional on
-  rung ≥ 3, ≤ 1,800 total process-doc lines), `SEAT.md`, `process-log.md`, and
-  six role files (foreman specialized from the canonical template; no starved
-  legibility seat per ADR-0013 amendment). Governance lint conformant; 232
-  tests pass.
-- **Next action:** owner reviews `plan.md` (solo, per ADR-0013). On approval:
-  foreman writes `charter-it1.md` inside the Gate 2 paper scope, then asks
-  owner confirmation to spawn the it1 builder (High tier). Reviewer spawns are
-  standing-authorized by plan approval; builder/clerk spawns are not.
-- **In-flight / uncommitted:** tree clean after commit; no prototype branches
-  yet (first one will be `prototypes/source-completeness/it1`).
-- **Pending owner decisions / flags:** (1) **approve/amend plan.md** — key
-  judgment calls to sanity-check: SC-D1 routed out of the prototype entirely,
-  expressiveness reviewer made conditional, and the 1,800-line process-doc cap;
-  (2) Legibility Audit allowed-slice and cadence tuning (carried from last
-  stretch, untouched).
+  And Interest Slice**, Track 0 running under the **owner-approved**
+  `docs/prototypes/source-completeness/plan.md` (approved 2026-07-12, solo).
+- **What I'm mid-doing:** iteration 1 is dispatched. `charter-it1.md` is issued
+  (rung 1 paper, SC-P1/P2/P3 only) and the it1 builder was spawned as a
+  foreman sub-agent (High tier; owner's "approved, begin" recorded as the
+  per-spawn confirmation in `process-log.md`). The session limit was expected
+  to cut this session mid-iteration — this note is written for that.
+- **How to reconcile it1 state on resume:** check whether branch
+  `prototypes/source-completeness/it1` exists and whether
+  `docs/prototypes/source-completeness/examination-it1.md` exists. Both
+  present and committed → it1 landed; verify against the charter's
+  pre-declared checks (process conformance only, not quality), update
+  `SEAT.md`, log it, and move to the it2 rival. Branch absent or half-done →
+  the builder was cut off; re-dispatch a fresh it1 builder on the same
+  charter (owner confirmation needed again unless the owner pre-authorizes),
+  discarding any partial branch (log the discard).
+- **Done this stretch (committed to `main`):** topic scaffolding + draft plan
+  (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
+  this note (commit at/after this write). Governance lint conformant, 232
+  tests pass as of `e4d1bcc`.
+- **Next actions in order:** (1) land or re-run it1; (2) it2 clean-room rival
+  on the same charter — per-spawn owner confirmation, or owner pastes the
+  launch line from `roles/builder-rival.md`; keep it2 starved of it1 outputs;
+  (3) committee round 1 (governance + adversary only — standing-authorized
+  foreman spawns, no per-spawn ask), attack parity across both designs;
+  (4) foreman triage (Gate 5), then evaluation analysis and ADR drafting if
+  paper converged — the plan's Gate 2 expectation is SC-P2/P3 settle at
+  paper, SC-P1 maybe needs rung 2/3; any climb is one rung, logged, and only
+  for the affirmative-only-enforcement question.
+- **Budget state (Gate 4):** builders used after it1: 1 of 2. Repair passes
+  used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
+  seat+log+roles ≈ 560 of the ≤ 1,800 target.
+- **Pending owner decisions / flags:** (1) confirmation to spawn the it2
+  rival when it1 lands (or owner-launch it via the role-file launch line);
+  (2) Legibility Audit allowed-slice and cadence tuning (carried, untouched).

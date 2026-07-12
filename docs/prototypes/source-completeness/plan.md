@@ -2,9 +2,10 @@
 
 Audience: Agents
 
-Status: **draft — awaiting owner approval.** Per ADR-0013, no charter may be
-written and no seat other than the foreman may be filled until the owner
-approves this plan. Owner review is solo; the committee does not review plans.
+Status: **approved by owner, 2026-07-12** (solo review per ADR-0013). This
+approval is the standing authorization for foreman-spawned reviewer seats
+named in Gate 8; builder and clerk spawns still require per-spawn owner
+confirmation.
 
 Topic: the two authority contracts reserved by ADR-0011 and named as Track 0 of
 the Source Completeness And Interest Slice milestone
