@@ -11,7 +11,7 @@ confirmation.
 
 ## Current Step
 
-**Round 3 triaged; repair pass 4 prepared for a single supported entry.** The
+**Repair pass 4 integrated; owner-launched Medium-tier round 4 prepared.** The
 first dispatch was halted before producing anything, but its branch later
 landed commit `d47d12c` with the four chartered paper deliverables. They are on
 `main` and preserved at `exhibits/source-completeness/it1`. The clean-room rival
@@ -26,7 +26,7 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 | Builder repair1 | `roles/builder.md` | original it1 builder (deliberate continuity) | complete; exhibit `exhibits/source-completeness/repair1` |
 | Builder repair2 | `roles/builder.md` | original it1 builder (deliberate continuity) | complete; exhibit `exhibits/source-completeness/repair2` |
 | Builder repair3 | `roles/builder.md` | original it1 builder (deliberate continuity) | complete; exhibit `exhibits/source-completeness/repair3` |
-| Builder repair4 | `roles/builder.md` | original it1 builder (deliberate continuity) | ready; `charter-repair4.md`, branch `prototypes/source-completeness/repair4`, worktree `/tmp/finances-source-completeness-repair4` |
+| Builder repair4 | `roles/builder.md` | original it1 builder (deliberate continuity) | complete; exhibit `exhibits/source-completeness/repair4` |
 | Rival builder | `roles/builder-rival.md` | `/root/source_completeness_rival_it2`, 2026-07-12 | complete; exhibit tagged, branch/worktree deleted |
 | Reviewer: governance | `roles/reviewer-governance.md` | `/root/sc_round2_governance` | round 2 complete; review integrated |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | `/root/sc_round2_adversary` | round 2 complete; review integrated |
@@ -34,11 +34,14 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 | Reviewer: governance r3 | `roles/reviewer-governance.md` | owner-launched | complete; review integrated |
 | Reviewer: adversary r3 | `roles/reviewer-adversary.md` | owner-launched | complete; review integrated |
 | Reviewer: expressiveness r3 | `roles/reviewer-expressiveness.md` | owner-launched | complete; review integrated |
+| Reviewer: governance r4 | `roles/reviewer-governance.md` | owner-launched | ready; Medium/medium, isolated branch/worktree |
+| Reviewer: adversary r4 | `roles/reviewer-adversary.md` | owner-launched | ready; Medium/medium, isolated branch/worktree |
+| Reviewer: expressiveness r4 | `roles/reviewer-expressiveness.md` | owner-launched | ready; Medium/medium, isolated branch/worktree |
 
 ## Next Action
 
-Owner resumes the original it1 builder on `charter-repair4.md`; foreman resumes
-after completion.
+Owner launches the three independent Medium-tier reviewers from `round-4.md`;
+foreman resumes after all return.
 
 ## Planned Exhibits
 
@@ -47,3 +50,4 @@ after completion.
 - `exhibits/source-completeness/repair1` at `5eee68c`.
 - `exhibits/source-completeness/repair2` at `6144b65`.
 - `exhibits/source-completeness/repair3` at `b09d0b5`.
+- `exhibits/source-completeness/repair4` at `1c3ccb1`.

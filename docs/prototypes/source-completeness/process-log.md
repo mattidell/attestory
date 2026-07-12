@@ -201,3 +201,12 @@ close (log hygiene per `roles/foreman.md`).
   self-contained selected surface with one supported calculation entry,
   internal immediate resolution/consumption, and all unsafe paths test-local.
   This is a bounded additional pass under the amended Gate 4 delegation.
+- Repair4 conformance: commit `1c3ccb1` changes only three permitted artifacts;
+  examination 116/200 lines; foreman reran 12 tests, all pass. The selected
+  module exposes one public callable accepting only declared mapping/findings;
+  duck/carrier/raw evaluator parameters are absent and unsafe variants are
+  test-local.
+- Repair4 integrated and preserved as
+  `exhibits/source-completeness/repair4`; branch/worktree deleted. Compact round
+  4 prepared for owner-launched Medium/medium governance, adversary, and
+  expressiveness review. Foreman does not spawn reviewers per owner direction.
