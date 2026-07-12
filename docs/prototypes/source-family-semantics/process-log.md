@@ -18,3 +18,9 @@
 - `charter-it2.md` issued for a clean-room paper rival on the same cases.
   Incumbent artifacts/process log explicitly denied; High/high external builder
   handoff prepared.
+- It2 conformance: commit `f48a102` changes only design/examination; examination
+  67/120 lines; all six cases and per-proposition dispositions present; paper
+  boundary and clean-room exclusions held. Integrated and preserved as
+  `exhibits/source-family-semantics/it2`; branch/worktree deleted.
+- Committee round 1 prepared with owner-launched Medium/medium governance and
+  adversary seats, equal cases across both rivals, no code or taxonomy expansion.

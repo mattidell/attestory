@@ -2,8 +2,8 @@
 
 ## Current step
 
-Incumbent paper design integrated and preserved. Clean-room rival charter is
-issued and external handoff prepared.
+Both paper rivals integrated and preserved. Owner-launched Medium-tier committee
+round 1 is prepared.
 
 ## Seats
 
@@ -11,11 +11,11 @@ issued and external handoff prepared.
 |---|---|---|
 | Foreman | current Codex foreman | active |
 | Incumbent builder | owner-launched external context | complete; exhibit `exhibits/source-family-semantics/it1` |
-| Rival builder | owner-launched external context | ready; `charter-it2.md`, branch `prototypes/source-family-semantics/it2`, worktree `/tmp/finances-source-family-semantics-it2` |
-| Governance reviewer | owner-launched Medium tier | blocked on rival evidence |
-| Adversary reviewer | owner-launched Medium tier | blocked on rival evidence |
+| Rival builder | owner-launched external context | complete; exhibit `exhibits/source-family-semantics/it2` |
+| Governance reviewer | owner-launched Medium tier | ready; branch/worktree `reviews/sfs-r1-governance` / `/tmp/finances-sfs-r1-governance` |
+| Adversary reviewer | owner-launched Medium tier | ready; branch/worktree `reviews/sfs-r1-adversary` / `/tmp/finances-sfs-r1-adversary` |
 
 ## Next action
 
-Owner launches the clean-room rival from `charter-it2.md` in the prepared
-worktree. Foreman resumes automatically when the builder returns.
+Owner launches both independent reviewers from `round-1.md`. Foreman resumes
+after both return.
