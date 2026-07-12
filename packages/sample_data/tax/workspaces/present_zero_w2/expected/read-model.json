@@ -1,0 +1,86 @@
+{
+  "current": {
+    "evidence_ids": [
+      "demo-evidence-w2-alpha-1"
+    ],
+    "finding_ids": [
+      "demo-finding-w2-alpha-1-box1"
+    ],
+    "findings": {
+      "demo-finding-w2-alpha-1-box1": {
+        "evidence": [
+          {
+            "evidence_id": "demo-evidence-w2-alpha-1",
+            "status": "current",
+            "successor_id": null
+          }
+        ],
+        "finding": {
+          "basis": "documentary",
+          "evidence_ids": [
+            "demo-evidence-w2-alpha-1"
+          ],
+          "fact_id": "tax.us.2025.w2.box1-wages|employer=demo-employer-alpha,w2-slip=demo-w2-slip-alpha-1,tax-year=2025",
+          "id": "demo-finding-w2-alpha-1-box1",
+          "schema": "finding.v1",
+          "value": 0
+        }
+      }
+    }
+  },
+  "facts": {
+    "tax.us.2025.w2.box1-wages|employer=demo-employer-alpha,w2-slip=demo-w2-slip-alpha-1,tax-year=2025": {
+      "current_finding_id": "demo-finding-w2-alpha-1-box1",
+      "fact_id": "tax.us.2025.w2.box1-wages|employer=demo-employer-alpha,w2-slip=demo-w2-slip-alpha-1,tax-year=2025",
+      "fact_type_id": "tax.us.2025.w2.box1-wages",
+      "individuated_by": [
+        "demo-employer-alpha",
+        "demo-w2-slip-alpha-1"
+      ],
+      "keys": [
+        {
+          "name": "employer",
+          "value": "demo-employer-alpha"
+        },
+        {
+          "name": "w2-slip",
+          "value": "demo-w2-slip-alpha-1"
+        },
+        {
+          "name": "tax-year",
+          "value": "2025"
+        }
+      ],
+      "nature": "determinable"
+    },
+    "tax.us.2025.w2.source-closure|tax-year=2025": {
+      "current_finding_id": null,
+      "fact_id": "tax.us.2025.w2.source-closure|tax-year=2025",
+      "fact_type_id": "tax.us.2025.w2.source-closure",
+      "individuated_by": [],
+      "keys": [
+        {
+          "name": "tax-year",
+          "value": "2025"
+        }
+      ],
+      "nature": "determinable"
+    }
+  },
+  "history_by_fact": {
+    "tax.us.2025.w2.box1-wages|employer=demo-employer-alpha,w2-slip=demo-w2-slip-alpha-1,tax-year=2025": [
+      {
+        "basis": "documentary",
+        "current": true,
+        "evidence_ids": [
+          "demo-evidence-w2-alpha-1"
+        ],
+        "finding_id": "demo-finding-w2-alpha-1-box1"
+      }
+    ]
+  },
+  "open_fact_ids": [
+    "tax.us.2025.w2.source-closure|tax-year=2025"
+  ],
+  "revision": 5
+}
