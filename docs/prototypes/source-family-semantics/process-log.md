@@ -33,3 +33,11 @@
 - Plan amended with SFS-P3, a tightly dependent late-member freshness/currency
   proposition forced by the declared lifecycle. `charter-repair1.md` authorized:
   SFS-P1/P2 paper repair plus an SFS-P3 static state table; no code/depth climb.
+- Repair1 conformance: commit `b38f131` changes only design/examination;
+  examination 59/120 lines. SFS-P1/P2 settle at paper; SFS-P3 state table shows
+  ADR-0010 cannot reach a later previously unknown member and declines to invent
+  machinery. Integrated/preserved as `exhibits/source-family-semantics/repair1`.
+- Foreman boundary call: a family frontier/horizon capable of changing derived
+  currency may touch the governance-reserved derived-finding authority boundary.
+  No code climb authorized. Round 2 will measure the escalation before a
+  separate Tier-3 decision plan is considered.

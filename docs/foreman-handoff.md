@@ -22,8 +22,8 @@ against git, trust git and say so.
   `docs/prototypes/source-completeness/plan.md` (approved 2026-07-12, solo).
 - **Follow-on decision:** Source Completeness Track 0 is closed with ADR-0014/
   0015 ratified. SC-P3 is split into `docs/prototypes/source-family-semantics/`;
-  both paper rivals and round 1 are complete. `round-1-triage.md` adds SFS-P3
-  late-member freshness; incumbent `charter-repair1.md` is prepared.
+  repair1 is integrated. SFS-P1/P2 settle at paper; SFS-P3 exposes a possible
+  reserved currency/authority boundary. Owner-launched Medium round 2 is ready.
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
@@ -52,9 +52,9 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** owner resumes incumbent builder on source-family
-  semantics `charter-repair1.md`; foreman decides any SFS-P3 depth progression,
-  then reviews/evaluates and rewrites milestone implementation tracks.
+- **Next actions in order:** owner launches source-family-semantics round-2
+  governance/adversary reviewers; foreman partially evaluates SFS-P1/P2 and
+  routes SFS-P3 to a separate Tier-3 decision if the boundary is confirmed.
 - **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.
