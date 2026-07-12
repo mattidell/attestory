@@ -2,10 +2,10 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **Track 0 active — iteration 1 paper design integrated; rival dispatch
-paused pending explicit owner instruction.** Tracks 1+ are provisional: their
-contracts depend on ADRs that Track 0's prototype evaluation analysis must
-produce and the owner must ratify.
+Status: **Track 0 complete — ADR-0014 and ADR-0015 ratified 2026-07-12;
+implementation replanning active.** SC-P3 source-family claim/coverage semantics
+remain unresolved under partial ratification. Tracks 1+ below are still
+provisional until this plan is rewritten against the accepted contracts.
 
 ## Objective
 

@@ -11,7 +11,7 @@ confirmation.
 
 ## Current Step
 
-**Prototype evaluation complete; ADR-0014/0015 proposed for owner ratification.** The
+**Prototype complete; ADR-0014 and ADR-0015 ratified.** The
 first dispatch was halted before producing anything, but its branch later
 landed commit `d47d12c` with the four chartered paper deliverables. They are on
 `main` and preserved at `exhibits/source-completeness/it1`. The clean-room rival
@@ -40,8 +40,9 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 
 ## Next Action
 
-Owner reviews and ratifies or rejects proposed ADR-0014 and ADR-0015. No further
-prototype build is recommended; SC-P3 remains explicitly unresolved.
+Track 0 is complete. Foreman records the process retrospective and rewrites the
+provisional milestone tracks against accepted ADR-0014/0015. SC-P3 remains
+explicitly unresolved and cannot be improvised during implementation.
 
 ## Planned Exhibits
 

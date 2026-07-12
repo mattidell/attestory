@@ -24,8 +24,8 @@ against git, trust git and say so.
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
   authorized SC-P1 progression. Repair1–3 and round 3 are complete; shape A is
-  selected. Repair4 and round 4 are complete. Evaluation analysis and proposed
-  ADR-0014/0015 are drafted; owner ratification is next. SC-P3 remains deferred.
+  selected. Repair4 and round 4 are complete. Owner ratified ADR-0014/0015;
+  Track 0 is complete under partial ratification. SC-P3 remains unresolved.
 - **Delegated authority:** foreman decides iteration continuation and rung
   progression within the approved plan/caps. Solicit owner input only when the
   process is genuinely blocked or an intentionally unspawned builder in another
@@ -45,9 +45,9 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** owner ratifies/rejects proposed ADR-0014/0015; on
-  ratification, foreman marks them accepted, closes Track 0, rewrites provisional
-  milestone tracks into an implementation plan, and starts the milestone branch.
+- **Next actions in order:** write the prototype process retrospective; rewrite
+  provisional milestone tracks into the accepted-contract implementation plan;
+  commit planning separately; then start the milestone branch.
 - **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.

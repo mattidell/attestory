@@ -1,6 +1,6 @@
 # ADR 0015 - 1099-INT Statement-Instance Identity
 
-- Status: proposed
+- Status: accepted (ratified 2026-07-12)
 - Tier: 2
 - Date: 2026-07-12
 

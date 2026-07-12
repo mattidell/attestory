@@ -228,3 +228,6 @@ close (log hygiene per `roles/foreman.md`).
 - `evaluation-analysis.md` completed with exhibit-traced C1–C4. Proposed
   ADR-0014 (adopted source-closure mapping) and ADR-0015 (1099-INT statement
   identity) drafted; owner ratification pending. No further build recommended.
+- Owner ratified ADR-0014 and ADR-0015 on 2026-07-12. Prototype Track 0 is
+  complete under partial ratification: SC-P1/SC-P2 accepted; SC-P3 unresolved;
+  SC-D1 remains implementation work. No further prototype iteration opens.
