@@ -2,7 +2,7 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **planning complete; execution branch not yet created**. Track 0's
+Status: **in execution on `milestone/first-tax-slice`**. Track 0's
 prototype process concluded with accepted Tier 2 ADR-0011 and ADR-0012. This
 2026-07-11 scope amendment replaces the original W-2 + 1099-INT/core-return
 implementation scope with a W-2 -> Form 1040 line 1a vertical slice. The

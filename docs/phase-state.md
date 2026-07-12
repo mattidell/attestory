@@ -18,4 +18,4 @@ Active phase: **Foundation** — `docs/phases/foundation/`
 
 Canonical phase state lives in the phase roadmap: `docs/phases/foundation/foundation-roadmap.md`.
 
-Active milestone: **First Tax Slice** — plan at `docs/phases/foundation/milestones/first-tax-slice.md`; broad planning inputs preserved at `docs/phases/foundation/milestones/first-tax-slice-inputs.md`. Status: Track 0 and ADR ratification complete; narrowed planning complete; execution branch `milestone/first-tax-slice` not yet created.
+Active milestone: **First Tax Slice** — plan at `docs/phases/foundation/milestones/first-tax-slice.md`; broad planning inputs preserved at `docs/phases/foundation/milestones/first-tax-slice-inputs.md`. Status: Track 0 and ADR ratification complete; narrowed planning complete; execution branch `milestone/first-tax-slice` created 2026-07-11 with a green verification baseline (unittest 179 OK, governance lint conformant, mypy clean); Tracks 1–4 pending.
