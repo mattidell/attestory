@@ -45,3 +45,7 @@ close (log hygiene per `roles/foreman.md`).
 - Iteration 1 integrated to `main`; tip `d47d12c` preserved as immutable tag
   `exhibits/source-completeness/it1`; concluded branch deleted. No builder was
   dispatched during integration.
+- Owner explicitly instructed the foreman to spawn the rival builder.
+  `charter-it2.md` issued at rung 1 for SC-P1/P2/P3 on
+  `prototypes/source-completeness/it2`; rival remains High tier / high effort,
+  unchanged from Gate 8 because clean-room novel synthesis remains the task.

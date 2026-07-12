@@ -21,8 +21,8 @@ against git, trust git and say so.
   And Interest Slice**, Track 0 running under the **owner-approved**
   `docs/prototypes/source-completeness/plan.md` (approved 2026-07-12, solo).
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
-  integration, and exhibit preservation are complete. The process is paused
-  before rival-builder dispatch under the owner's explicit instruction.
+  integration, and exhibit preservation are complete. The owner has now
+  explicitly authorized rival-builder dispatch; `charter-it2.md` is issued.
 - **it1 state:** four chartered documents are merged to `main`; immutable tag
   `exhibits/source-completeness/it1` points to `d47d12c`, and the concluded
   branch is deleted. Builder iterations used 1 of 2. The examination recommends that SC-P1's
@@ -32,9 +32,8 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** (1) pause until the owner explicitly instructs a
-  builder spawn; then it2 clean-room
-  rival on the same charter, kept starved of it1 outputs;
+- **Next actions in order:** (1) run it2 clean-room rival on
+  `charter-it2.md`, kept starved of it1 outputs;
   (3) committee round 1 (governance + adversary only — standing-authorized
   foreman spawns, no per-spawn ask), attack parity across both designs;
   (4) foreman triage (Gate 5), then evaluation analysis and ADR drafting if
