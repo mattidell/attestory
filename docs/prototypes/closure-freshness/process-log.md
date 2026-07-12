@@ -8,3 +8,9 @@
 - Owner approved plan. `charter-it1.md` issued for High/high incumbent paper
   design across seven cases; every standing effect must classify under
   derivation/individuation or expose a governance conflict. No code authorized.
+- It1 conformance: commit `3f98725` changes only design/examination; examination
+  88/150 lines; seven cases and complete two-edge inventory present; paper
+  boundary held. CF-P1 paper-settled; CF-P2 proposes a tiny reducer only.
+  Integrated/preserved as `exhibits/closure-freshness/it1`.
+- `charter-it2.md` issued for High/high clean-room rival on the same seven cases;
+  incumbent artifacts/process log denied; no reducer authorized.

@@ -2,10 +2,11 @@
 
 ## Current step
 
-Plan approved; incumbent paper charter issued. External builder handoff ready.
+Incumbent paper design integrated and preserved. Clean-room rival charter and
+external handoff ready.
 
 ## Next action
 
-Owner resumes incumbent builder on `charter-it1.md`, branch
-`prototypes/closure-freshness/it1`, worktree
-`/tmp/finances-closure-freshness-it1`. Foreman resumes after completion.
+Owner launches clean-room rival on `charter-it2.md`, branch
+`prototypes/closure-freshness/it2`, worktree
+`/tmp/finances-closure-freshness-it2`. Foreman resumes after completion.
