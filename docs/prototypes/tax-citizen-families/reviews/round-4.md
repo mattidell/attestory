@@ -1,7 +1,7 @@
 # Round 4 - Bounded Integration Review
 
-Status: open. Iteration 4 is preserved as exhibit tag
-`exhibits/tax-citizen-families/it4` at commit `9debc4d`.
+Status: closed; owner disposition pending. Iteration 4 is preserved as exhibit
+tag `exhibits/tax-citizen-families/it4` at commit `9debc4d`.
 
 ## Scope
 

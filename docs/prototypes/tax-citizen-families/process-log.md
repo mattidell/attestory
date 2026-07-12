@@ -454,3 +454,42 @@ dispositions.
   reported gate dispositions and an honesty audit. Round 4 remains open;
   outcome summary is withheld until the context-starved legibility seat lands
   or the owner disposes without it.
+
+- **2026-07-11 (event, legibility reviewer)** - Round 4 legibility review
+  submitted at `reviews/round-4-legibility.md` by an owner-launched
+  context-starved session. Restricted scope was respected; the review reported
+  per-artifact recoverability, required confidence labels, gate readout, and an
+  overall legibility verdict without claiming unseen execution results.
+
+- **2026-07-11 (event, foreman)** - Round-4 conformance verdict and close.
+  Governance reproduced the tagged commands, measured I1-I9 against governance,
+  separated contract sufficiency from production conditions, and stated dissent;
+  conformant. Expressiveness disclosed pre-examination ordering, reproduced the
+  persisted path, ran independent probes, and separated positive execution from
+  authority claims; conformant. Adversary reported 21 attacks including failed
+  attacks, official-source checks, observations, and dissent; conformant.
+  Legibility respected starved scope and labeled recoverability confidence;
+  conformant.
+
+  Evidence status: it4 proves a real persisted tax run path and materially
+  closes W-2 correction/displacement evidence. The committee does not find the
+  full citizen-family corpus ratification-ready. Convergent blockers include
+  aggregate eligibility/method scalarization, caller-supplied and unpinned
+  `closed_sets`, incomplete adopted-content/package closure, hard-coded coverage
+  family meaning, missing non-publication explanation walks, and a citation
+  resolver not established as an adopted normal-path authority. The legibility
+  instrument independently recovered the declared vocabulary but could not
+  recover persisted execution evidence from the scoped artifacts.
+
+  Incidents since the prior check-in: the builder handoff was returned once for
+  missing I4/I7/I8/I9 evidence; the three unstarved reviewers were briefly
+  aborted and then resumed under their original identities by owner direction,
+  with no partial output admitted. No role breach or same-round peer reading was
+  reported.
+
+  Recommendation: close the broad prototype loop and do not build it5. Do not
+  adopt the rival implementation wholesale. Preserve it as evidence, write a
+  narrow evaluation analysis for converged conclusions, and defer unresolved
+  authority boundaries to separately scored decisions or production
+  ratification conditions. Process cost and proposed economic gates are recorded
+  in `process-retrospective.md` for owner disposition.
