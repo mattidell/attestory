@@ -11,3 +11,10 @@
 - Owner approved the plan. `charter-it1.md` issued for an incumbent paper design
   covering all six declared universe-alignment cases; High/high builder tier;
   no code or evidence climb. External builder handoff prepared.
+- It1 conformance: commit `5ef3435` changes only design/examination; examination
+  53/120 lines; all six cases, lifecycle, universe map, positives/negatives, and
+  per-proposition dispositions present; paper boundary held. Integrated and
+  preserved as `exhibits/source-family-semantics/it1`; branch/worktree deleted.
+- `charter-it2.md` issued for a clean-room paper rival on the same cases.
+  Incumbent artifacts/process log explicitly denied; High/high external builder
+  handoff prepared.
