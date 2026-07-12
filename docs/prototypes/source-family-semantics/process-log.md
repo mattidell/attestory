@@ -24,3 +24,6 @@
   `exhibits/source-family-semantics/it2`; branch/worktree deleted.
 - Committee round 1 prepared with owner-launched Medium/medium governance and
   adversary seats, equal cases across both rivals, no code or taxonomy expansion.
+- Owner removed review-document line caps after observing wasted reviewer effort
+  spent trimming valid evidence. Active roles/round updated: review cost is
+  bounded by declared measurements, and reviewers stop when those are complete.

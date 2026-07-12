@@ -19,5 +19,7 @@ all six charter cases with equal effort. Failure is any broader result/coverage
 claim than the closed member universe, any form/evidence identity substitution,
 or any late-discovery lifecycle that leaves a false zero current.
 
-Outputs are `reviews/round-1-<seat>.md`, ≤120 lines. Reviewers are independent;
-findings recommend only and do not expand taxonomy or implementation scope.
+Outputs are `reviews/round-1-<seat>.md`, with no line cap. Reviewers stop after
+completely reporting the declared measurements rather than trimming evidence.
+Reviewers are independent; findings recommend only and do not expand taxonomy
+or implementation scope.

@@ -58,7 +58,8 @@ would be a tiny resolver table, not a calculation engine.
   the owner's standing progression delegation only after logged triage.
 - Two Medium/medium reviewers by default. No expressiveness seat unless code is
   authorized.
-- Charter ≤ 100 lines; examination/review ≤ 120 lines; total topic Markdown
+- Charter ≤ 100 lines; examination ≤ 120 lines; reviews have no line cap and
+  stop when their declared measurements are completely reported; total topic Markdown
   target ≤ 900 lines.
 
 ## Gate 5 — Triage

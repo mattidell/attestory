@@ -8,5 +8,5 @@ For every case report attempted substitution → outcome → exhibit, including
 resisted attempts. Find any path where a narrower closure produces broader zero
 or coverage-complete meaning. Do not read the same-round peer review.
 
-Commit only `reviews/round-1-adversary.md` (≤120 lines). Do not merge, tag, or
-delete.
+Commit only `reviews/round-1-adversary.md`. Report every declared measurement
+completely; do not trim evidence to a line target. Do not merge, tag, or delete.

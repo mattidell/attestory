@@ -8,5 +8,5 @@ each design; whether closure stays determinable/current-true; whether evidence
 becomes identity; and whether a narrow family gains undeclared broader tax
 authority. Cite every result. Do not read the same-round peer review.
 
-Commit only `reviews/round-1-governance.md` (≤120 lines). Do not merge, tag, or
-delete.
+Commit only `reviews/round-1-governance.md`. Report every declared measurement
+completely; do not trim evidence to a line target. Do not merge, tag, or delete.

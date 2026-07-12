@@ -38,6 +38,9 @@ against git, trust git and say so.
   round can state a bounded question, cost, artifacts, and pass/fail result,
   prefer iterating over deferring the problem. Do not absorb adjacent or
   open-ended work.
+- **Review length:** reviews have no line cap. Bound them through explicit
+  measurements and stop conditions; do not make reviewers compress valid
+  evidence to satisfy arbitrary length targets.
 - **Exhibit state:** it1's four chartered documents are merged to `main`; immutable tag
   `exhibits/source-completeness/it1` points to `d47d12c`, and the concluded
   branch is deleted. It2 is likewise preserved at
