@@ -2,7 +2,8 @@
 
 Audience: Agents
 
-Status: **draft — owner approval required.** Tier-3 decision process.
+Status: **approved by owner, 2026-07-12.** Tier-3 decision process. Builder and
+review seats remain owner-launched unless explicitly delegated.
 
 Problem: a closure-backed empty zero pins a true closure and mapping but no
 member finding. A later, previously unknown family member therefore has no

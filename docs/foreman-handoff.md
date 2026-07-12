@@ -24,8 +24,8 @@ against git, trust git and say so.
   0015 ratified. SC-P3 is split into `docs/prototypes/source-family-semantics/`;
   source-family evaluation is complete and ADR-0016 ratified. SFS-P3 is routed
   to a separate Tier-3 late-member freshness decision.
-- **Current plan gate:** draft `docs/prototypes/closure-freshness/plan.md`
-  awaits owner approval; no charter/build has started.
+- **Current plan gate:** closure-freshness plan approved; incumbent
+  `charter-it1.md` ready at `/tmp/finances-closure-freshness-it1`.
 - **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
   integration, and exhibit preservation are complete for both rivals. Committee
   round 1 reviews are integrated; owner ratified `round-1-triage.md` and
@@ -54,8 +54,8 @@ against git, trust git and say so.
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** owner approves/revises closure-freshness plan;
-  foreman issues incumbent paper charter and external-builder handoff.
+- **Next actions in order:** owner resumes closure-freshness incumbent builder;
+  foreman integrates/preserves and prepares clean-room rival.
 - **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.
