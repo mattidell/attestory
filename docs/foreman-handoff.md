@@ -20,35 +20,33 @@ against git, trust git and say so.
 - **Active milestone / phase:** Foundation phase; milestone **Source Completeness
   And Interest Slice**, Track 0 running under the **owner-approved**
   `docs/prototypes/source-completeness/plan.md` (approved 2026-07-12, solo).
-- **What I'm mid-doing:** `charter-it1.md` is issued (rung 1 paper,
-  SC-P1/P2/P3 only) and stands **unworked**. The first it1 builder dispatch
-  was **halted on owner direction** before producing anything (grounding
-  reads only); its empty branch ref was deleted and the halt is logged. The
-  owner did not state a reason before the session boundary — do not assume
-  the charter or plan is at fault; ask.
-- **it1 state on resume:** no `prototypes/source-completeness/it1` branch and
-  no `examination-it1.md` should exist. If they do, they postdate this note —
-  trust git and the process log over this paragraph. Gate 4 budget: builder
-  iterations used 0 of 2 (the halted dispatch produced no iteration).
+- **What I'm mid-doing:** Foreman succession and git reconciliation are
+  complete. Contrary to the prior handoff, `prototypes/source-completeness/it1`
+  now points to committed paper deliverables at `d47d12c`; mechanical
+  conformance passed. Integration and exhibit preservation are next.
+- **it1 state:** four chartered documents exist only on the prototype branch;
+  builder iterations used 1 of 2. The examination recommends that SC-P1's
+  affirmative-only enforcement may need a later rung climb, but the foreman
+  has made no artifact-quality disposition.
 - **Done this stretch (committed to `main`):** topic scaffolding + draft plan
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** (1) on owner go (fresh per-spawn confirmation),
-  re-dispatch the it1 builder on the standing charter; (2) it2 clean-room rival
-  on the same charter — per-spawn owner confirmation, or owner pastes the
-  launch line from `roles/builder-rival.md`; keep it2 starved of it1 outputs;
+- **Next actions in order:** (1) integrate `d47d12c`, tag it as
+  `exhibits/source-completeness/it1`, and delete the concluded branch; (2) pause
+  until the owner explicitly instructs a builder spawn; then it2 clean-room
+  rival on the same charter, kept starved of it1 outputs;
   (3) committee round 1 (governance + adversary only — standing-authorized
   foreman spawns, no per-spawn ask), attack parity across both designs;
   (4) foreman triage (Gate 5), then evaluation analysis and ADR drafting if
   paper converged — the plan's Gate 2 expectation is SC-P2/P3 settle at
   paper, SC-P1 maybe needs rung 2/3; any climb is one rung, logged, and only
   for the affirmative-only-enforcement question.
-- **Budget state (Gate 4):** builder iterations used: 0 of 2. Repair passes
+- **Budget state (Gate 4):** builder iterations used: 1 of 2. Repair passes
   used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
   seat+log+roles ≈ 570 of the ≤ 1,800 target.
-- **Pending owner decisions / flags:** (1) **why the it1 builder was halted**
-  and whether/when to re-dispatch (fresh per-spawn confirmation needed);
-  (2) confirmation path for the it2 rival when its turn comes (foreman spawn
+- **Pending owner decisions / flags:** (1) explicit instruction before any
+  it2 rival builder spawn (the owner's latest direction forbids an implicit
+  dispatch); (2) confirmation path for the it2 rival (foreman spawn
   or owner-launched via the role-file launch line); (3) Legibility Audit
   allowed-slice and cadence tuning (carried, untouched).

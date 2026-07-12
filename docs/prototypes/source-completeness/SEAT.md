@@ -11,16 +11,17 @@ confirmation.
 
 ## Current Step
 
-**Plan approved (2026-07-12); charter it1 issued but unworked.** The first
-it1 builder dispatch was halted by the owner before producing anything; its
-empty branch ref was deleted. The charter stands as issued.
+**Iteration 1 built; foreman conformance checked; integration pending.** The
+first dispatch was halted before producing anything, but its branch later
+landed commit `d47d12c` with the four chartered paper deliverables. No further
+builder dispatch is authorized unless the owner explicitly instructs it.
 
 ## Seats
 
 | Seat | Role file | Holder | Status |
 |---|---|---|---|
-| Foreman | `roles/foreman.md` | Fable 5 session, 2026-07-12 | active |
-| Builder it1 | `roles/builder.md` | — (first dispatch halted by owner 2026-07-12, no output) | vacant; re-dispatch needs fresh owner confirmation |
+| Foreman | `roles/foreman.md` | Codex session, 2026-07-12 | active; succeeded prior session on owner instruction |
+| Builder it1 | `roles/builder.md` | Claude Opus 4.8 session (commit `d47d12c`) | complete; branch awaits integration/exhibit preservation |
 | Rival builder | `roles/builder-rival.md` | — | next: owner-confirmed spawn or owner-launched clean-room session after it1 lands |
 | Reviewer: governance | `roles/reviewer-governance.md` | — | opens for round 1 after it2 (standing-authorized) |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | — | opens for round 1 after it2 (standing-authorized) |
@@ -28,11 +29,11 @@ empty branch ref was deleted. The charter stands as issued.
 
 ## Next Action
 
-When it1 lands (branch committed, `examination-it1.md` merged): dispatch the
-clean-room rival (it2) on the same charter — per-spawn owner confirmation
-required, or the owner pastes the launch line from `roles/builder-rival.md`
-into a fresh session. Committee round 1 runs only after both designs exist.
+Integrate the already committed it1 documents and preserve branch tip
+`d47d12c` as `exhibits/source-completeness/it1`. Then pause: the owner has
+explicitly directed that no builder agent be spawned unless they instruct it.
+Committee round 1 runs only after a separately authorized rival design exists.
 
 ## Planned Exhibits
 
-None yet. Concluded iterations become `exhibits/source-completeness/it<N>`.
+- Pending integration: `exhibits/source-completeness/it1` at `d47d12c`.

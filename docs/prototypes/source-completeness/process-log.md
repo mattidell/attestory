@@ -29,3 +29,16 @@ close (log hygiene per `roles/foreman.md`).
   and unworked; builder count under Gate 4 stays 0 of 2 used, since no
   iteration artifacts exist. Re-dispatch requires fresh per-spawn owner
   confirmation.
+- Foreman succession: Codex session took the foreman seat on the owner's
+  instruction to continue progress. Git reconciliation found that the it1
+  branch had subsequently landed `d47d12c` with four paper deliverables,
+  superseding the handoff note's empty-branch state.
+- Conformance check: `d47d12c` changes only the four charter-permitted
+  documents; `examination-it1.md` is 114 lines (cap 200); no code or production
+  schema changed; the builder remained at rung 1. Builder count is now 1 of 2.
+- Foreman error: the succeeding foreman ran the mechanical conformance read
+  before recording succession, contrary to the role file's ordering rule.
+  Corrected immediately in this log; no artifact-quality judgment or mutation
+  occurred.
+- Owner instruction: do not spawn builder agents unless explicitly instructed.
+  Rival dispatch is paused regardless of the plan's ordinary next action.
