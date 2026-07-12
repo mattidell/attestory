@@ -27,3 +27,9 @@
 - Owner removed review-document line caps after observing wasted reviewer effort
   spent trimming valid evidence. Active roles/round updated: review cost is
   bounded by declared measurements, and reviewers stop when those are complete.
+- Round 1 reviews integrated. Governance passes both paper alignments; adversary
+  finds shared consistent-mislabel and late-discovery-trigger failures. Gate 5
+  triage recorded in `round-1-triage.md`.
+- Plan amended with SFS-P3, a tightly dependent late-member freshness/currency
+  proposition forced by the declared lifecycle. `charter-repair1.md` authorized:
+  SFS-P1/P2 paper repair plus an SFS-P3 static state table; no code/depth climb.

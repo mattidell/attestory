@@ -15,6 +15,7 @@ claim is coextensive with mapping and coverage consumers.
 |---|---|---|
 | SFS-P1 | A closure-authorized source family has one declared universe shared by its user-facing claim, member fact types/source instances, adopted mapping, and coverage consumer; closure never silently broadens from a document family to a tax concept. | Primary |
 | SFS-P2 | A Form 1099-INT box-1 family and the full taxable-interest concept are either explicitly distinct families/subtotals or proven coextensive before closure may authorize a Form 1040 line-2b zero. | Tightly dependent secondary |
+| SFS-P3 | A closure-backed result becomes stale when a later member assertion crosses the closure's declared completeness horizon; the contract identifies how the old result becomes noncurrent instead of assuming manual closure withdrawal. | Tightly dependent secondary, added after round-1 decision blocker |
 
 No coverage storage, UI wording system, full interest taxonomy, or production
 content enters this topic.
@@ -74,7 +75,9 @@ deferred decisions, not charter expansion.
 The floor is SFS-P1: a precise family/closure semantic contract that prevents a
 narrow document closure from authorizing a broader tax-concept zero. SFS-P2 may
 settle only the box-1/line-2b relationship and explicitly defer other interest
-families.
+families. After round 1, closure-backed zero implementation also requires SFS-P3
+or an explicit separate machinery decision; manual-withdrawal assumption is not
+an acceptable production condition.
 
 ## Gate 7 — Production boundary
 
