@@ -76,3 +76,13 @@ close (log hygiene per `roles/foreman.md`).
   reviewer `/root/sc_round1_adversary` spawned concurrently in separate
   contexts, branches, and worktrees. Each was denied the same-round peer output
   and assigned the unchanged High/high Gate 8 tier.
+- Both reviews completed independently and passed mechanical conformance:
+  governance 115/150 lines, adversary 140/150 lines, one permitted output each.
+  Reviews landed on `main`; isolated worktrees and review branches removed.
+- Gate 5 triage recorded in `round-1-triage.md`. Decision-blocking: SC-P1 real
+  enforcement remains unmeasured; incumbent SC-P2 collision/rekeying; both
+  SC-P3 family/claim definitions fail adversary alignment. Production
+  conditions: caller-set API removal, schemas/structural suites, rival identity
+  anti-duplication, selected-mapping uniqueness/pins. SC-D1 remains deferred.
+  Recommendation: Gate 6 partial continuation for SC-P1/SC-P2, defer SC-P3,
+  owner-authorize rung 2 for SC-P1 only; no rung 3 or repair pass.

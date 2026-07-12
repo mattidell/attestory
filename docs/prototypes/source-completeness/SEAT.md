@@ -11,8 +11,7 @@ confirmation.
 
 ## Current Step
 
-**Both rival paper iterations integrated and preserved; committee round 1
-opening.** The
+**Committee round 1 complete; foreman triage awaiting owner disposition.** The
 first dispatch was halted before producing anything, but its branch later
 landed commit `d47d12c` with the four chartered paper deliverables. They are on
 `main` and preserved at `exhibits/source-completeness/it1`. The clean-room rival
@@ -25,14 +24,14 @@ is integrated and preserved at `exhibits/source-completeness/it2`.
 | Foreman | `roles/foreman.md` | Codex session, 2026-07-12 | active; succeeded prior session on owner instruction |
 | Builder it1 | `roles/builder.md` | Claude Opus 4.8 session (commit `d47d12c`) | complete; exhibit tagged, branch deleted |
 | Rival builder | `roles/builder-rival.md` | `/root/source_completeness_rival_it2`, 2026-07-12 | complete; exhibit tagged, branch/worktree deleted |
-| Reviewer: governance | `roles/reviewer-governance.md` | `/root/sc_round1_governance` | round 1 active in isolated worktree |
-| Reviewer: adversary | `roles/reviewer-adversary.md` | `/root/sc_round1_adversary` | round 1 active in isolated worktree |
+| Reviewer: governance | `roles/reviewer-governance.md` | `/root/sc_round1_governance` | round 1 complete; review integrated |
+| Reviewer: adversary | `roles/reviewer-adversary.md` | `/root/sc_round1_adversary` | round 1 complete; review integrated |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | conditional (opens only at evidence rung ≥ 3) |
 
 ## Next Action
 
-Await both independent round-1 reviews, then land them without exposing either
-reviewer to the peer output and perform Gate 5 triage.
+Owner disposition on `round-1-triage.md`: recommended partial continuation
+(SC-P1/SC-P2), SC-P3 deferral, and rung 2 authorization for SC-P1 only.
 
 ## Planned Exhibits
 
