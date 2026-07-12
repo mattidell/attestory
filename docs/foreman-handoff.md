@@ -30,6 +30,10 @@ against git, trust git and say so.
   progression within the approved plan/caps. Solicit owner input only when the
   process is genuinely blocked or an intentionally unspawned builder in another
   thread needs to resume.
+- **Iteration preference:** when a central uncertainty remains and another
+  round can state a bounded question, cost, artifacts, and pass/fail result,
+  prefer iterating over deferring the problem. Do not absorb adjacent or
+  open-ended work.
 - **Exhibit state:** it1's four chartered documents are merged to `main`; immutable tag
   `exhibits/source-completeness/it1` points to `d47d12c`, and the concluded
   branch is deleted. It2 is likewise preserved at

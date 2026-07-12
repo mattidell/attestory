@@ -108,3 +108,8 @@ close (log hygiene per `roles/foreman.md`).
   contracts in the builder role, bound seat→charter→branch→worktree, and added
   the two-message external-builder handshake to the canonical and specialized
   foreman roles. No prototype artifact was discarded.
+- Owner clarified iteration posture: prefer additional focused rounds over
+  punting a central unresolved problem when each round has a bounded question,
+  cost, artifact set, and pass/fail result. Foreman retains scope/economy duty:
+  adjacent questions, open-ended evidence, and unmeasurable builds are still
+  rerouted or stopped rather than absorbed.
