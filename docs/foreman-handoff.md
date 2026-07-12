@@ -27,11 +27,14 @@ against git, trust git and say so.
   prototype economic gates + prototype plan + role capability budget (ADR-0013);
   added the optional foreman clerk; made the foreman spawn committee reviewers by
   default; added the periodic owner-spawned Legibility Audit and moved starved
-  legibility rigor out of prototype iterations. Latest commit at write time:
-  `3a77929` (plus this note).
+  legibility rigor out of prototype iterations; added this handoff-note mechanism.
+  HEAD at write time: `65dc6c4`.
 - **Next action:** on owner go, draft `docs/prototypes/source-completeness/plan.md`
   (the owner-approved prototype plan required before Track 0's first charter),
-  instantiating the economic gates including the seat/tier table.
+  instantiating the economic gates including the seat/tier table. Creating that
+  file — with the topic dir, `SEAT.md`, and role files copied from
+  `docs/prototypes/_role-templates/` — is the first concrete development step;
+  none of it exists yet by design (Track 0 not launched).
 - **In-flight / uncommitted:** tree clean; no open branches beyond `main` and the
   usual historical refs; no open worktrees.
 - **Pending owner decisions / flags:** (1) whether to launch Source Completeness
