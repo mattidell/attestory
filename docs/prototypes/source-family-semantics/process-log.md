@@ -41,3 +41,10 @@
   currency may touch the governance-reserved derived-finding authority boundary.
   No code climb authorized. Round 2 will measure the escalation before a
   separate Tier-3 decision plan is considered.
+- Round 2 reviews integrated: governance 180 lines, adversary 211 lines, both
+  complete declared measurements without line trimming. Governance wrote to a
+  repository-root `reviews/` path; foreman mechanically relocated it during
+  integration without content changes. Logged as reviewer path defect.
+- Final triage: SFS-P1/P2 converged; SFS-P3 is a separate Tier-3 boundary under
+  reserved T1/Article 7 constraints. `evaluation-analysis.md` and proposed
+  ADR-0016 drafted. No further build in this topic; owner ratification pending.

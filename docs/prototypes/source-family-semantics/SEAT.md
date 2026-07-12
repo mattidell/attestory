@@ -2,8 +2,8 @@
 
 ## Current step
 
-Repair1 integrated; Medium-tier round 2 prepared to review settled semantics and
-the late-member machinery escalation boundary.
+Topic evaluation complete. SFS-P1/P2 support proposed ADR-0016; SFS-P3 is routed
+to a separate Tier-3 freshness decision. Owner ratification pending.
 
 ## Seats
 
@@ -18,5 +18,5 @@ the late-member machinery escalation boundary.
 
 ## Next action
 
-Owner launches independent round-2 governance and adversary reviewers from
-`round-2.md`; foreman resumes after both return.
+Owner ratifies or rejects proposed ADR-0016. No further builder work opens in
+this topic.
