@@ -2,11 +2,10 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **planning in progress — Track 0 (prototype process) is owner-gated and
-not yet launched.** This is the initial plan. Tracks 1+ are provisional: their
+Status: **Track 0 active — iteration 1 paper design integrated; rival dispatch
+paused pending explicit owner instruction.** Tracks 1+ are provisional: their
 contracts depend on ADRs that Track 0's prototype evaluation analysis must
-produce and the owner must ratify. No prototype build begins until the owner
-gives go on the Track 0 charter.
+produce and the owner must ratify.
 
 ## Objective
 

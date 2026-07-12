@@ -42,3 +42,6 @@ close (log hygiene per `roles/foreman.md`).
   occurred.
 - Owner instruction: do not spawn builder agents unless explicitly instructed.
   Rival dispatch is paused regardless of the plan's ordinary next action.
+- Iteration 1 integrated to `main`; tip `d47d12c` preserved as immutable tag
+  `exhibits/source-completeness/it1`; concluded branch deleted. No builder was
+  dispatched during integration.

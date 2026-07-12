@@ -20,21 +20,20 @@ against git, trust git and say so.
 - **Active milestone / phase:** Foundation phase; milestone **Source Completeness
   And Interest Slice**, Track 0 running under the **owner-approved**
   `docs/prototypes/source-completeness/plan.md` (approved 2026-07-12, solo).
-- **What I'm mid-doing:** Foreman succession and git reconciliation are
-  complete. Contrary to the prior handoff, `prototypes/source-completeness/it1`
-  now points to committed paper deliverables at `d47d12c`; mechanical
-  conformance passed. Integration and exhibit preservation are next.
-- **it1 state:** four chartered documents exist only on the prototype branch;
-  builder iterations used 1 of 2. The examination recommends that SC-P1's
+- **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
+  integration, and exhibit preservation are complete. The process is paused
+  before rival-builder dispatch under the owner's explicit instruction.
+- **it1 state:** four chartered documents are merged to `main`; immutable tag
+  `exhibits/source-completeness/it1` points to `d47d12c`, and the concluded
+  branch is deleted. Builder iterations used 1 of 2. The examination recommends that SC-P1's
   affirmative-only enforcement may need a later rung climb, but the foreman
   has made no artifact-quality disposition.
 - **Done this stretch (committed to `main`):** topic scaffolding + draft plan
   (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
   this note (commit at/after this write). Governance lint conformant, 232
   tests pass as of `e4d1bcc`.
-- **Next actions in order:** (1) integrate `d47d12c`, tag it as
-  `exhibits/source-completeness/it1`, and delete the concluded branch; (2) pause
-  until the owner explicitly instructs a builder spawn; then it2 clean-room
+- **Next actions in order:** (1) pause until the owner explicitly instructs a
+  builder spawn; then it2 clean-room
   rival on the same charter, kept starved of it1 outputs;
   (3) committee round 1 (governance + adversary only — standing-authorized
   foreman spawns, no per-spawn ask), attack parity across both designs;
