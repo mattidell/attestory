@@ -49,3 +49,8 @@ close (log hygiene per `roles/foreman.md`).
   `charter-it2.md` issued at rung 1 for SC-P1/P2/P3 on
   `prototypes/source-completeness/it2`; rival remains High tier / high effort,
   unchanged from Gate 8 because clean-room novel synthesis remains the task.
+- Dispatch: clean-room rival spawned as `/root/source_completeness_rival_it2`
+  with no forked conversation context. Its read allowlist names only the rival
+  role, governance, ADR-0011, plan, and `charter-it2.md`; iteration 1 outputs,
+  exhibit tags, examinations, reviews, seat/log, and handoff were explicitly
+  denied.

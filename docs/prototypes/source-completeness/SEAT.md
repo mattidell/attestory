@@ -23,7 +23,7 @@ instructed the foreman to spawn the clean-room rival on 2026-07-12.
 |---|---|---|---|
 | Foreman | `roles/foreman.md` | Codex session, 2026-07-12 | active; succeeded prior session on owner instruction |
 | Builder it1 | `roles/builder.md` | Claude Opus 4.8 session (commit `d47d12c`) | complete; exhibit tagged, branch deleted |
-| Rival builder | `roles/builder-rival.md` | pending dispatch, 2026-07-12 | authorized; charter `charter-it2.md`, branch `prototypes/source-completeness/it2` |
+| Rival builder | `roles/builder-rival.md` | `/root/source_completeness_rival_it2`, 2026-07-12 | active; charter `charter-it2.md`, branch `prototypes/source-completeness/it2` |
 | Reviewer: governance | `roles/reviewer-governance.md` | — | opens for round 1 after it2 (standing-authorized) |
 | Reviewer: adversary | `roles/reviewer-adversary.md` | — | opens for round 1 after it2 (standing-authorized) |
 | Reviewer: expressiveness | `roles/reviewer-expressiveness.md` | — | conditional (opens only at evidence rung ≥ 3) |
