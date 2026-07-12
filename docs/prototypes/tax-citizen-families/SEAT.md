@@ -10,10 +10,9 @@ them by pasting the launch line from the role file into a fresh session.
 
 ## Current Step
 
-**The narrow prototype decision is ratified and the prototype process is
-complete.** The owner accepted Tier 2 ADR-0011 and ADR-0012 on 2026-07-11. The
-broad prototype loop remains closed. First Tax Slice must be replanned to the
-ratified scope before implementation begins.
+**The prototype process and narrowing plan are complete.** ADR-0011/0012 are
+ratified and the First Tax Slice milestone now targets W-2 box 1 -> Form 1040
+line 1a. No prototype or reviewer seat is open.
 
 ## Seats
 
@@ -43,10 +42,10 @@ ratified scope before implementation begins.
 
 ## Next Action
 
-Foreman or planning agent amends the First Tax Slice milestone plan and roadmap
-to the ratified narrow scope in a separate planning commit before creating the
-milestone execution branch. Proposed economic gates remain recommendations
-until the owner ratifies a `PROJECT_PLANNING.md` amendment.
+Create `milestone/first-tax-slice` from the narrowing planning commit and begin
+Track 1 under `docs/phases/foundation/milestones/first-tax-slice.md`. Proposed
+economic gates remain recommendations until the owner ratifies a
+`PROJECT_PLANNING.md` amendment.
 
 ## Planned Exhibits
 

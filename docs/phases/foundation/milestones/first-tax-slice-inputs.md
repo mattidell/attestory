@@ -1,5 +1,10 @@
 # First Tax Slice — Planning Inputs
 
+Status note (2026-07-11): preserved broad source material. Track 0 concluded
+with ADR-0011/0012 and the implementation milestone was narrowed to W-2 box 1
+-> Form 1040 line 1a. Unresolved inputs here are deferred to later roadmap
+milestones; they are not current First Tax Slice implementation scope.
+
 Audience: Agents (planning material; not a milestone plan)
 
 Accumulated inputs for the First Tax Slice milestone (roadmap item 5). These inputs have been converted into the milestone plan at `first-tax-slice.md`; this file remains as source material so the plan inherits evidence, not folklore.

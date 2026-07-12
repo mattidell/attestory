@@ -2,269 +2,246 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **Track 0 prototype process open** at
-`docs/prototypes/tax-citizen-families/SEAT.md`. This plan converts the planning
-inputs in `first-tax-slice-inputs.md` into an executable milestone, but the
-implementation branch must not start until Track 0's citizen-family decision is
-complete and this plan is amended, if needed, with the ratified contract.
+Status: **planning complete; execution branch not yet created**. Track 0's
+prototype process concluded with accepted Tier 2 ADR-0011 and ADR-0012. This
+2026-07-11 scope amendment replaces the original W-2 + 1099-INT/core-return
+implementation scope with a W-2 -> Form 1040 line 1a vertical slice. The
+broader planning input remains preserved in `first-tax-slice-inputs.md`.
 
 ## Objective
 
-The finished machinery computes a thin, real federal tax slice as content:
-synthetic W-2 and 1099-INT facts flow through declared, adopted rule artifacts
-into Form 1040 core values with golden outcomes, explanation chains, source-set
-closure gaps, and a supersession cascade acceptance. The milestone proves the
-Foundation phase thesis at tax-content scale: the engine stays thin, tax meaning
-is data, and every value answers through findings, rules, parameters, adoption,
-records, and governance pins.
+Prove the Foundation thesis at the smallest real tax-content scale: synthetic
+W-2 box-1 findings flow through an adopted rule artifact into a first-class 2025
+Form 1040 line-1a field, with trustworthy identity, explanation for published
+values, correction/displacement, explicit re-derivation, and two-runner parity.
+
+This milestone implements the contracts actually ratified after Track 0. It is
+not a complete return, readiness calculation, or source-completeness workflow.
+
+## Planning Amendment Rationale
+
+The original milestone combined W-2 and 1099-INT source identity, closure-backed
+zeros, core Form 1040 lines, standard deduction, line-16 method selection,
+coverage, citation resolution, and all-state explanations. Prototype review
+showed that several of those depend on unresolved authority or machinery
+contracts. See:
+
+- `docs/prototypes/tax-citizen-families/evaluation-analysis.md`;
+- `docs/prototypes/tax-citizen-families/process-retrospective.md`;
+- ADR-0011 (tax fact identity and closure); and
+- ADR-0012 (form-field citizens and rendered dispositions).
+
+The scope is narrowed so production work can begin without turning unresolved
+prototype exclusions into code authority.
 
 ## Current State
 
 - Governance v0.1 is the contract authority.
-- Workspace Kernel is complete: append-only act log, fact types, facts,
-  findings, adoption, evidence, supersession, read models, and inspection.
-- Rule Language Design is ratified by ADR-0006/0007/0008, with ADR-0005's
-  prototype-evidence rule in force for consequential contract decisions.
-- Derivation Machinery is complete: schema-backed rule artifacts, closed
-  packages, operation-semantics canon, adoption gate, saturation runner,
-  reference runner parity, records, explanation, and CLI.
-- Derivation Cascade Reconciliation is complete under ADR-0010:
-  derived-publication acts enter the act log and derived findings displace when
-  pinned inputs are superseded.
-- The carried obligation is unresolved: form-field and tax fact-type citizen
-  families were intentionally deferred from Derivation Machinery §5.6 because
-  the prototypes referenced them as bare ids.
+- Workspace Kernel, Rule Language, Derivation Machinery, and ADR-0010 composed
+  currency are complete.
+- Derived-publication acts enter the act log; source correction can displace a
+  dependent derived chain.
+- ADR-0011 ratifies kernel `fact-type.v1` reuse, W-2-slip peer identity,
+  mechanical correction, and determinable/attested closure with
+  affirmative-only closure authority.
+- ADR-0012 ratifies first-class form-field citizens and five rendered
+  dispositions.
+- Prototype code remains evidence only under exhibit tags; nothing from it is
+  merged or adopted as production implementation.
 
 ## Scope
 
-- A narrow federal individual-income-tax content corpus for one tax year,
-  covering W-2 wages and 1099-INT taxable interest into Form 1040 core lines.
-- Declared source-set closure facts for W-2 and 1099-INT source families, so an
-  empty or missing source set is distinguishable from a closure-backed zero.
-- Form-field and tax fact-type citizen contracts sufficient for this slice,
-  with committed positive examples for any new schema family.
-- Rule artifacts and parameters authored as real tax content, citing official
-  source material verified at implementation time from primary sources.
-- Synthetic workspaces and golden outcomes for: normal W-2 + 1099-INT,
-  interest-only, wages-only, closure-backed zero interest, unclosed source-set
-  gap, present-but-invalid source value, and supersession cascade.
-- Rendering-content metadata for absence on included Form 1040 lines,
-  distinguishing computed zero, closure-backed zero, and guard/non-existence.
-- Coverage read model or report surface over current facts and derivation
-  records that exposes open source-set closure assertions as first-class gaps.
+- Tax year 2025, US federal individual income tax.
+- W-2-slip entity content peer to evidence.
+- W-2 box-1 wage fact type using kernel `fact-type.v1`, keyed by employer,
+  tax year, and W-2-slip citizen within the workspace/taxpayer scope.
+- W-2 source-set closure fact type implementing ADR-0011 nature, basis, and
+  affirmative-only authority as schema/content examples only.
+- Production `form-field.v1` schema and a Form 1040 line-1a citizen implementing
+  ADR-0012.
+- One real rule artifact aggregating current W-2 box-1 findings into the line-1a
+  output symbol.
+- One adopted artifact package containing the bounded line-1a rule and only the
+  existing machinery members it requires.
+- Synthetic scenarios for one W-2, two same-employer slips, a present numeric
+  zero, correction/displacement, and explicit re-derivation.
+- Explanation walks for published nonzero and computed-zero line-1a findings.
+- Form-field content for all five ADR-0012 dispositions, while runtime
+  acceptance in this milestone is limited to states the included line-1a path
+  actually produces.
+- Official IRS source references checked at implementation time. Form-field
+  content may carry an opaque citation reference; semantic citation resolution
+  is deferred.
 
-## Non-Goals
+## Non-Goals And Deferred Boundaries
 
-- No UI or filing workflow.
-- No personal data, uploaded real documents, or fixtures derived from personal
-  records.
-- No extraction, proposals, consultation grants, or nondeterministic model
-  flows.
-- No broad federal coverage beyond the proving slice; Schedule B behavior,
-  withholding/payment lines, credits, itemized deductions, state taxes, and
-  filing transmission are out of scope unless a narrow bridge is required to
-  keep the included 1040 lines honest.
-- No resolution of reserved stance/position doctrine or the fuller
-  derived-finding authority construction.
-- No new derivation machinery unless the content exposes a defect in the
-  already-ratified machinery; such a defect becomes a separate decision or patch,
-  not hidden content work.
+- No 1099-INT or other interest content.
+- No Form 1040 line 1z, line 9, line 11, line 12, line 15, or line 16.
+- No closure-backed empty-source zero and no operational source-family mapping.
+- No caller-supplied `closed_sets` contract or replacement.
+- No coverage/readiness report.
+- No standard-deduction eligibility or tax-method condition model.
+- No complete adopted manifest spanning form fields, citations, bindings, and
+  resolver citizens; the package uses the existing ADR-0006 rule/parameter
+  boundary only.
+- No citation resolver or citation semantic-attachment contract.
+- No explanation API for blocked, invalid, or guard-inapplicable fields.
+- No W-2c documentary workflow; the milestone proves same-fact mechanical
+  correction with synthetic evidence only.
+- No UI, filing workflow, personal data, extraction, proposals, persistence
+  beyond existing workspace/record contracts, or reserved ontology work.
+
+These are not accidental omissions. They are the explicit exclusions in the
+narrow evaluation analysis and become separately planned work only after their
+own economic/decision gates.
 
 ## Contracts
 
-- Existing kernel contracts: fact-type bundles, facts, assertion acts, evidence
-  acts, act envelopes, currency, and read models.
-- Existing derivation contracts: rule artifacts, parameters, artifact packages,
-  operation-semantics canon, derived-publication acts, derivation records, and
-  explanation pins.
-- New or settled content contracts expected here:
-  - `form-field` citizen family, if the evidence gate finds that form line
-    identity, rendering absence, or form-source citations need first-class
-    lifecycle beyond rule symbols.
-  - Tax fact-type bundle content for W-2, 1099-INT, Form 1040 core facts,
-    rounding convention, filing status, source-set closure assertions, and any
-    source/document identities needed for fact individuation.
-  - Rendering-absence metadata, either as form-field content or a separate
-    declared family if Track 0 proves the concepts are not the same thing.
-  - A coverage/gap report shape, derived from workspace state and records, not
-    stored as authoritative form state.
-- Payload Instantiation Gate: any track that adds a schema must commit a
-  hand-written positive example alongside it before runner code consumes it.
+### Existing
 
-## Evidence And Decision Gate
+- Kernel: schema registry, bundle adoption, entities, facts, findings, assertion
+  and evidence acts, act log, currency, and read models.
+- Derivation: rule artifacts, artifact package, operation-semantics canon,
+  adoption gate, run records, publication acts, explanation pins, reference
+  runner, and ADR-0010 composed currency.
 
-Track 0 is a gate, not tax implementation. The form-field/fact-type contract is
-contract-foundational Tier 2 unless the gate argues a narrower Tier 1 exception.
-Under ADR-0005, a Tier 2 contract-foundational decision needs prototype
-evaluation evidence before an ADR is proposed.
+### Implemented Here
 
-The gate must answer:
+- Production form-field schema/instances under ADR-0012.
+- 2025 W-2-slip and box-1 fact-type content under ADR-0011.
+- 2025 W-2 closure fact-type content and examples under ADR-0011, without an
+  operational closure-to-collect mapping.
+- Form 1040 line-1a form-field content with output-symbol binding, inert source
+  reference, and disposition instructions.
+- W-2 box-1 -> line-1a rule and bounded package content.
 
-- Whether existing `fact-type.v1` is sufficient for real tax fact types, or
-  whether it needs a new version or companion citizens.
-- Whether form fields are merely rule output symbols, first-class citizens, or
-  generated content with lineage.
-- Where rendered-absence semantics live, and how they avoid conflating computed
-  zero, closure-backed zero, and guard-based non-existence.
-- How source-set closure assertions are fact types: identity keys,
-  supersession, basis, and rule pins.
-- Which authoritative source citations live in rule artifacts, parameters,
-  form-field citizens, or package metadata.
+### Payload Instantiation Gate
 
-If the answer requires a Tier 2 ADR, the gate produces a prototype evaluation
-analysis, ADR draft, accepted ADR, and any plan amendment before Track 1 starts.
-If the answer is genuinely Tier 1, the gate records the exception rationale in
-this plan or the retrospective before Track 1 starts.
+Every new schema or materially changed relationship gets a hand-written
+positive instance and isolated negative instance before runner code consumes
+it. Prototype instances may guide production examples but are not copied
+without re-validation against the accepted ADRs and production schema ids.
 
-## Fixtures
+## Synthetic Fixtures
 
-All committed fixtures are synthetic and publishable. Fixture taxpayers,
-employers, payers, forms, and values use demo ids and manufactured values.
+- `single_w2`: one W-2 box-1 finding publishes line 1a.
+- `two_w2_same_employer`: two W-2-slip citizens from the same employer/year
+  remain distinct and aggregate.
+- `present_zero_w2`: a present W-2 finding with numeric zero publishes a
+  computed zero, not a closure-backed zero.
+- `w2_correction`: a later finding for the same W-2 fact displaces the original
+  and the dependent line-1a finding; the second slip, if present, remains
+  current.
+- `w2_rederive`: an explicit subsequent run publishes the corrected line-1a
+  successor.
 
-Planned scenarios:
-
-- `w2_and_interest`: one W-2 and one 1099-INT produce wages, taxable interest,
-  total income, adjusted gross income for the narrow no-adjustment case, taxable
-  income, and tax.
-- `wages_only_closed_interest`: W-2 wages plus an asserted complete 1099-INT
-  source set with no interest sources publishes a closure-backed zero interest
-  value.
-- `interest_only_closed_w2`: 1099-INT interest plus an asserted complete W-2
-  source set with no wage sources publishes a closure-backed zero wage value.
-- `unclosed_interest`: missing 1099-INT closure blocks the interest-dependent
-  total rather than publishing a zero.
-- `invalid_source_value`: a present source finding outside the declared value
-  domain blocks with a schema'd invalid-value code and no exception text.
-- `supersession_cascade`: correcting a source finding displaces dependent 1040
-  values through ADR-0010's derivation-currency layer; re-derivation may publish
-  successors, but displacement itself is the required acceptance.
-- `rendered_absence`: included form fields show distinct rendering instructions
-  for computed zero, closure-backed zero, and guard/non-existence.
+All fixtures are synthetic and publishable. No value, identifier, or evidence
+artifact derives from a real person.
 
 ## Verification
 
 - `python3 -m unittest`
 - `python3 tools/governance_lint.py`
 - `python3 -m mypy`
-- Derivation CLI golden for the First Tax Slice scenario set.
-- Reference-runner parity on every First Tax Slice scenario.
-- Package validation proves all real-content rule/parameter/form artifacts are
-  closed under exact versions and scope.
-- Explanation-walk tests for every published Form 1040 value.
-- Coverage/gap tests showing open W-2 and 1099-INT closure assertions as gaps.
-- Supersession cascade golden proving source correction displaces dependent
-  derived findings.
-- Data-safety fixture scan for private markers, real personal names, real
-  account identifiers, and absolute local paths.
-
-## Data Safety
-
-Tax law content and public form structure may be committed; taxpayer data may
-not. Fixture values are manufactured and must not be copied from personal
-records. Personal experiments remain under ignored paths such as `local-data/`,
-`temp/`, `private-archive/`, `uploads/`, and `generated/user/`.
-
-Official tax sources must be checked from primary sources at implementation
-time. Do not rely on memory for current tax-year values, form instructions, or
-thresholds.
+- Focused schema positive/negative tests and published-manifest immutability.
+- Package closure and unique-output validation over the bounded package.
+- Forward/reference runner byte parity for every scenario.
+- Derivation CLI goldens for `single_w2`, `two_w2_same_employer`, and
+  `present_zero_w2`.
+- Published-finding explanation walks for nonzero and computed-zero line 1a.
+- ADR-0010 correction/displacement and explicit re-derivation golden.
+- Data-safety scan for private markers, personal names, account identifiers, and
+  absolute local paths.
 
 ## Exit Criteria
 
-- Track 0 decision gate complete, with ADR evidence or an explicit Tier 1
-  exception.
-- Any new schema family has a committed positive example and negative schema
-  tests before code consumes it.
-- Adopted rule package covers the declared W-2 and 1099-INT to Form 1040 slice
-  entirely as artifacts and parameters.
-- All planned scenarios have committed synthetic fixtures and golden reports.
-- Coverage reports identify unclosed source sets as gaps; derivation never
-  silently treats missing source facts as zero.
-- Explanation chains for every published 1040 value terminate at acts,
-  findings, artifacts, records, and governance pins, never code.
-- Full verification is green.
-- Milestone retrospective written after non-fast-forward merge to `main`.
+- ADR-0011 and ADR-0012 are reflected in production schemas/content and tests.
+- No specialized tax-fact-type schema is introduced.
+- W-2 fact identity contains no evidence/document key and distinguishes two
+  same-employer/year slips.
+- Same-fact correction displaces the original finding and derived line 1a;
+  explicit rerun publishes the successor.
+- Form 1040 line 1a is a first-class versioned form-field citizen distinct from
+  its output symbol.
+- The form-field schema carries all five disposition instructions; implemented
+  runtime states never conflate present zero with missing/closed sources.
+- The bounded package validates and both runners agree on every scenario.
+- Full verification passes; committed data is synthetic.
+- Milestone retrospective is written before the next milestone plan.
+- The milestone branch merges non-fast-forward to `main` with one implementation
+  commit per completed track.
 
 ## Tracks
 
-### Track 0 — Citizen-family evidence gate
+### Track 0 - Citizen-Family Evidence Gate (Complete)
 
-Goal: settle the form-field, tax fact-type, source-set closure, and
-rendered-absence content contracts before implementation depends on them.
-Boundary: no production schemas or rule corpus are consumed by runner code in
-this track.
-Inputs: `first-tax-slice-inputs.md`, ADR-0005/0006/0009/0010, prototype
-evidence §5.6, official-source examples selected for this slice.
-Outputs: prototype charter/evaluation artifacts if Tier 2, ADR if required,
-positive example sketches, and a plan amendment with the selected contract.
-Verification: process conformance for any prototype; `python3
-tools/governance_lint.py`; plan diff reviewed against ADR outcome.
-Migration risk: high if skipped; low after ADR because implementation consumes
-only ratified shapes.
-Data safety: documents and synthetic examples only.
+Goal: settle contract-foundational fact/form decisions before implementation.
+Inputs: original planning input, governance, ADR-0005, prototype charters and
+fixtures. Outputs: four exhibits, committee reviews, process retrospective,
+narrow evaluation analysis, accepted ADR-0011 and ADR-0012, and this scope
+amendment. Verification: process conformance and governance lint.
+Migration risk: discharged for the accepted scope; excluded decisions remain
+deferred. Data safety: documents and synthetic exhibits only.
 
-### Track 1 — Tax vocabulary and schema/content foundation
+### Track 1 - W-2 Vocabulary And Form-Field Contract
 
-Goal: publish the selected citizen families and tax fact-type bundle content for
-the slice.
-Boundary: no derivation rules yet; no fixture workspaces beyond positive
-examples needed for schema instantiation.
-Inputs: Track 0 decision; kernel schema registry.
-Outputs: schemas if required, positive examples, tax fact-type bundle(s), form
-field or rendering content, schema tests, published manifests.
-Verification: focused schema tests; registry immutability checks; full suite.
-Migration risk: durable content contract begins here.
-Data safety: synthetic examples only.
+Goal: publish production schema/content implementing ADR-0011 and ADR-0012.
+Boundary: no derivation rule or runnable workspace.
+Inputs: ADR-0003, ADR-0011, ADR-0012, kernel schemas.
+Outputs: production `form-field.v1` schema; positive/negative form-field
+instances; W-2-slip entity examples; W-2 box-1 and closure fact-type bundle
+content; line-1a form-field content; published schema manifest updates.
+Verification: schema tests, isolated negatives, registry immutability, full
+suite, governance lint.
+Migration risk: creates durable production content ids and form-field contract.
+Data safety: public form metadata and synthetic ids only.
 
-### Track 2 — Source-set closure and synthetic workspaces
+### Track 2 - Synthetic W-2 Workspace And Correction
 
-Goal: instantiate W-2 and 1099-INT source facts plus closure assertions in
-synthetic workspaces.
-Boundary: no Form 1040 derived outputs yet.
-Inputs: Track 1 fact types; kernel act log and assertion APIs.
-Outputs: synthetic act logs or scenario inputs for the planned source-set
-fixtures; coverage/gap tests for open and closed source families.
-Verification: workspace inspection/read-model tests; data-safety fixture scan.
-Migration risk: fact identity keys and closure fact shape become fixture
-contracts.
-Data safety: manufactured payers, employers, and amounts only.
+Goal: instantiate the ratified identity and lifecycle through the real kernel.
+Boundary: no derived Form 1040 output yet.
+Inputs: Track 1 bundle/content; kernel act log, evidence, assertion, projection,
+and currency APIs.
+Outputs: synthetic workspaces/fixtures for one slip, two same-employer slips,
+present zero, and same-fact correction; current/displaced-state goldens.
+Verification: workspace projection/read-model tests, identity collision
+negative, correction/displacement tests, fixture data-safety scan.
+Migration risk: fixture contract fixes W-2-slip identity and correction usage.
+Data safety: manufactured employers, slips, evidence, and amounts only.
 
-### Track 3 — Rule artifacts and parameters for the tax slice
+### Track 3 - Line-1a Rule Package And Integration
 
-Goal: author the real-content rule package for W-2 wages, 1099-INT taxable
-interest, total income, the narrow no-adjustment AGI path, standard deduction,
-taxable income, and tax for the fixture ranges.
-Boundary: no broad tax coverage; rules block outside declared source and
-parameter coverage.
-Inputs: Tracks 1-2; official IRS sources checked at implementation time;
-operation-semantics canon.
-Outputs: rule artifacts, parameters, artifact package, source citations, package
-validation tests, reference-runner parity.
-Verification: package closure and scope tests; derivation runner unit tests;
-reference-runner byte equality.
-Migration risk: tax content identities and version scopes become durable.
-Data safety: public tax law content plus synthetic fixture values only.
+Goal: derive Form 1040 line 1a from current W-2 box-1 findings through adopted
+machinery.
+Boundary: nonempty present-source paths only; no closure-backed empty-source
+publication, downstream Form 1040 lines, or new machinery.
+Inputs: Tracks 1-2; ADR-0006 rule language; current derivation APIs; official
+2025 Form 1040 and W-2 primary sources checked at implementation time.
+Outputs: line-1a rule artifact, bounded package, source-reference content,
+normal/two-slip/zero scenario runs, forward/reference parity, CLI goldens, and
+published-value explanation goldens.
+Verification: package validation, schema authority, runner parity, determinism,
+CLI subprocess tests, explanation pin walks, full suite.
+Migration risk: durable tax rule/package ids begin here.
+Data safety: public tax law plus synthetic fixture values only.
 
-### Track 4 — Golden scenarios, explanation, and rendered absence
+### Track 4 - Correction Cascade, Documentation, And Completion
 
-Goal: make the slice inspectable: committed scenario goldens, explanation
-goldens, rendered-absence metadata, and gap reports.
-Boundary: no UI renderer; command/test output only.
-Inputs: Track 3 rule package and scenario outputs.
-Outputs: golden reports for all scenarios; CLI fixtures; tests distinguishing
-computed zero, closure-backed zero, and guard/non-existence.
-Verification: derivation CLI subprocess tests; explanation-walk tests; coverage
-gap tests; full suite.
-Migration risk: golden outcomes change only when content contracts change.
-Data safety: fixture scan.
-
-### Track 5 — Supersession cascade acceptance and documentation
-
-Goal: prove the source-correction cascade over real slice content and document
-how to run the milestone.
-Boundary: no auto-re-derivation orchestration beyond explicit runner execution.
-Inputs: Track 4 scenarios; ADR-0010 projection/currency layer.
-Outputs: supersession cascade golden; README/phase documentation updates;
-milestone completion status.
-Verification: full suite, governance lint, mypy, derivation CLI, cascade golden.
-Migration risk: none beyond accepted ADR-0010 behavior.
+Goal: prove correction through derived displacement and explicit re-derivation,
+then close the milestone cleanly.
+Boundary: no auto-rerun orchestration and no W-2c documentary semantics.
+Inputs: Track 3 package/scenarios; ADR-0010 workspace currency.
+Outputs: correction/displacement/re-derivation golden; README, phase state,
+roadmap status, and milestone retrospective.
+Verification: correction golden, both runners, full unittest/mypy/governance
+lint suite, data-safety scan, clean worktree.
+Migration risk: none beyond accepted ADR-0010 and ADR-0011 behavior.
 Data safety: synthetic only.
+
+## Implementation Branch And Commit Shape
+
+After this planning commit, create `milestone/first-tax-slice` from `main`.
+Implementation history must contain one commit for each completed Track 1-4.
+When all exit criteria pass, merge non-fast-forward into `main` with the
+milestone name in the merge commit, delete the merged branch/worktree, and
+write the milestone retrospective before planning follow-on work.

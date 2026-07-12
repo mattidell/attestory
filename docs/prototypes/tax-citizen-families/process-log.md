@@ -533,3 +533,14 @@ dispositions.
   explicit exclusions. The prototype process is complete; First Tax Slice
   implementation remains blocked only on a separate milestone-plan adjustment
   to match the ratified scope.
+
+- **2026-07-11 (planning disposition, owner/foreman)** - Owner directed the
+  narrowing planning commit. First Tax Slice was amended from W-2 + 1099-INT and
+  downstream Form 1040 core lines to a W-2 box-1 -> line-1a vertical slice that
+  implements only ADR-0011/0012 contracts. Track 0 is complete. Tracks 1-4 now
+  cover production vocabulary/form-field content, synthetic W-2 identity and
+  correction, the bounded line-1a rule/package path, and correction/re-derivation
+  completion. Operational closure mapping, 1099-INT, coverage, downstream tax
+  conditions, complete content manifests, citation authority, and
+  non-publication explanations moved to later roadmap milestones. No execution
+  branch existed during this planning amendment.
