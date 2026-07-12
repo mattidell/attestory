@@ -148,3 +148,7 @@ close (log hygiene per `roles/foreman.md`).
   and adversary remain High/high; conditional expressiveness opens at
   Medium/medium because the evidence now includes a throwaway evaluator. No
   tier changes from the approved plan.
+- Dispatch: `/root/sc_round2_governance`, `/root/sc_round2_adversary`, and
+  `/root/sc_round2_expressiveness` launched concurrently in separate contexts,
+  branches, and worktrees. Same-round peer outputs were denied; expressiveness
+  was instructed to reproduce both suites before reading examinations.
