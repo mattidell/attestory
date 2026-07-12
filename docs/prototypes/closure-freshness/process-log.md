@@ -14,3 +14,10 @@
   Integrated/preserved as `exhibits/closure-freshness/it1`.
 - `charter-it2.md` issued for High/high clean-room rival on the same seven cases;
   incumbent artifacts/process log denied; no reducer authorized.
+- It2 conformance: commit `32e1312` changes only design/examination; examination
+  56/150 lines; all seven cases and two-edge inventory present; clean-room/paper
+  boundary held. CF-P1 paper-settled; CF-P2 requests tiny reducer evidence.
+  Integrated/preserved as `exhibits/closure-freshness/it2`.
+- Committee round 1 prepared with owner-launched Medium governance/adversary
+  seats. Central attack: horizon succession as legitimate individuation versus
+  disguised third edge; no reducer authorized.

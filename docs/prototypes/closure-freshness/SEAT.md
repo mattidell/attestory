@@ -2,11 +2,10 @@
 
 ## Current step
 
-Incumbent paper design integrated and preserved. Clean-room rival charter and
-external handoff ready.
+Both paper rivals integrated and preserved. Owner-launched Medium-tier committee
+round 1 prepared.
 
 ## Next action
 
-Owner launches clean-room rival on `charter-it2.md`, branch
-`prototypes/closure-freshness/it2`, worktree
-`/tmp/finances-closure-freshness-it2`. Foreman resumes after completion.
+Owner launches governance and adversary reviewers from `round-1.md` in prepared
+isolated worktrees. Foreman resumes after both return.
