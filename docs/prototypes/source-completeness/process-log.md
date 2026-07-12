@@ -86,3 +86,12 @@ close (log hygiene per `roles/foreman.md`).
   anti-duplication, selected-mapping uniqueness/pins. SC-D1 remains deferred.
   Recommendation: Gate 6 partial continuation for SC-P1/SC-P2, defer SC-P3,
   owner-authorize rung 2 for SC-P1 only; no rung 3 or repair pass.
+- Owner ratified the round-1 disposition and authorized the SC-P1 rung-2
+  climb. Owner requested continuity of the original it1 builder and directed
+  the foreman to prepare state and report when to resume it; foreman will not
+  spawn the builder.
+- `charter-it3.md` issued as the plan's single owner-authorized repair pass:
+  rung 2 validator/resolver mutations, SC-P1 only, both surviving authority
+  shapes, presence-only mutant, exact-pin identity, and caller-injection/
+  ambiguity negatives. Rung 3, production work, SC-P2, SC-P3, and SC-D1 remain
+  unauthorized. Builder tier stays High/high for the cross-rival defect seam.
