@@ -100,3 +100,11 @@ close (log hygiene per `roles/foreman.md`).
   for a genuine process block or when a builder intentionally kept outside the
   foreman's spawned agents must resume in another thread. Iteration 3 is such an
   external-builder handoff; its resume state is prepared and reported.
+- Owner supplied handoff feedback: `it3` obscured that the work is a repair
+  pass, incumbent-builder continuity and the builder completion contract lived
+  outside durable role state, and the owner prompt duplicated the charter.
+  Before build work began, foreman renamed the state to `repair1` /
+  `charter-repair1.md`, encoded repair continuity and completion/readback
+  contracts in the builder role, bound seat→charter→branch→worktree, and added
+  the two-message external-builder handshake to the canonical and specialized
+  foreman roles. No prototype artifact was discarded.

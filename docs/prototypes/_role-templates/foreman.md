@@ -90,6 +90,15 @@ Process-log entries and commit messages for landed same-round reviews are
 event-only while the round is open. Outcome summaries are written only at round
 close.
 
+## External builder handoff
+
+Before handing a builder to an owner-controlled context, make `SEAT.md`
+self-describing: bind the seat to its role, charter, branch, and worktree. End
+the handoff message with exactly `ready for builder prompt?`. After the owner
+answers affirmatively, output only the builder prompt. Point to the repository
+entry chain rather than restating the charter, and require the builder to echo
+its understood scope, evidence-rung ceiling, and stop conditions before writing.
+
 ## Succession
 
 If the foreman seat is vacant and you take it, record a dated succession entry in

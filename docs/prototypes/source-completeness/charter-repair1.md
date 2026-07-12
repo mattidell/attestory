@@ -1,10 +1,10 @@
-# Charter: Iteration 3 — SC-P1 Rung-2 Enforcement Repair
+# Charter: Repair Pass 1 — SC-P1 Rung-2 Enforcement
 
 Date: 2026-07-12. Foreman-issued after owner ratification of round-1 triage.
 This is the plan's single owner-authorized repair pass, assigned to the original
 it1 builder for continuity.
 
-- **Branch:** `prototypes/source-completeness/it3`
+- **Branch:** `prototypes/source-completeness/repair1`
 - **Evidence rung:** 2 — validator/resolver mutations only. No throwaway
   evaluator (rung 3), persisted integration (rung 4), or production edits.
 - **Builder seat:** original it1 builder, High tier (high effort). Tier remains
@@ -34,8 +34,8 @@ for explanation pins—without a presence-only adapter?
 
 ## Deliverables
 
-All work stays under `docs/prototypes/source-completeness/it3/`, plus
-`examination-it3.md` (≤ 200 lines):
+All work stays under `docs/prototypes/source-completeness/repair1/`, plus
+`examination-repair1.md` (≤ 200 lines):
 
 1. Minimal validator/resolver mutations for the dedicated-mapping-citizen
    shape and the embedded-adopted-parameter shape. Shared mechanics may be
@@ -49,7 +49,7 @@ All work stays under `docs/prototypes/source-completeness/it3/`, plus
      explanation pins.
 3. A presence-only mutant that would admit on finding existence must be killed
    by the false-closure case for each shape.
-4. `examination-it3.md`: commands/results, evidence paths, every negative
+4. `examination-repair1.md`: commands/results, evidence paths, every negative
    result, and one disposition—SC-P1 enforcement settled at rung 2 or the
    precise reason rung 3 is still needed.
 

@@ -24,3 +24,17 @@ T1/T2 doctrine; climb an evidence rung the charter has not authorized.
 
 **Worktree hygiene:** use a separate worktree or restore the primary checkout
 to `main` before hand-off.
+
+**Repair continuity:** rival iterations are clean-room. A repair pass is
+deliberately not clean-room and defaults to the original incumbent builder so
+the builder carries defect and design continuity. Read the repair charter's
+named prior exhibits and reviews.
+
+**Start handshake:** before writing, echo the assignment's scope, evidence-rung
+ceiling, and stop conditions to the owner/foreman. Begin only after that readback
+matches the charter.
+
+**Completion contract:** commit the completed charter deliverables atomically
+on the named prototype branch. Do not merge to `main`, create/move exhibit tags,
+or delete the branch/worktree. Report the commit id, changed paths, line counts,
+commands/checks run, negative results, and any recommended rung progression.

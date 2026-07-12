@@ -104,7 +104,9 @@ authorized in this prototype**; production integration is milestone Tracks
 - Builder iterations: **two**, of which one is the clean-room rival (rival
   designs required on both the mapping shape and the identity key). One
   owner-authorized repair pass beyond that; any further build is
-  stop-and-decide with the owner.
+  stop-and-decide with the owner. Repair passes use `repair<N>` names rather
+  than iteration numbers and default to the original incumbent builder for
+  deliberate defect continuity; they are not clean-room rivals.
 - Reviewers per round: **two by default** — governance-fidelity and adversary.
   The expressiveness/implementation-results seat is the named third, opened
   only if a code rung (≥3) actually runs and only for that round. No starved
