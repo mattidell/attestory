@@ -1,0 +1,6 @@
+Run: tax.us.2025.run.open-empty-1099int (saturated)
+Published:
+  - none
+Blocked:
+  - tax.us.2025.rule.f1099int-b1-subtotal: SOURCE_SET_UNCLOSED (missing tax.us.2025.f1099int.b1)
+Explanations:

@@ -1,0 +1,14 @@
+Run: tax.us.2025.run.closure-backed-zero-1099int (saturated)
+Published:
+  - tax.us.2025.interest.b1-subtotal = 0  [finding:derived:d42720a0eafd9096f5c8979c]
+Blocked:
+  - none
+Explanations:
+  [output] tax.us.2025.interest.b1-subtotal = 0  <- tax.us.2025.rule.f1099int-b1-subtotal
+    [adoption] tax.us.2025.package.interest-slice
+    [governance] governance.constitution
+    [input] tax.us.2025.f1099int.b1.source-closure = True
+    [input] rounding.convention = half_up
+    [operation-semantics] round
+    [package] tax.us.2025.closure-mapping.f1099int-b1
+    [package] tax.us.2025.f1099int.b1
