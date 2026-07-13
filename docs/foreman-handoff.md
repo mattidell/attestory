@@ -15,65 +15,41 @@ to, then continue."* The new foreman reads those, reconciles the in-flight state
 below against `git status` / `git log`, and proceeds. If the note looks stale
 against git, trust git and say so.
 
-## Current state (updated 2026-07-12, post-implementation)
+## Current state (updated 2026-07-13, governance remediation)
 
-- **Milestone complete.** Source Completeness And Interest Slice Tracks 1–6
-  are implemented on `milestone/source-completeness` (T1 `9797b66`, T2
-  `e4a0e4d`, T3 `41a9948`, T4 `871ae60`, T5 `7cab080`, T6 completion docs),
-  each track one commit, full verification green at every step (final: 314
-  tests, lint conformant, mypy clean). Owner authorized implementation start
-  2026-07-12 (remote confirmation). Merged to `main` non-ff as `382a7af` (2026-07-12); milestone branch deleted.
-- **Follow-ups (recorded in the retrospective):** W-2 closure mapping not
-  yet adopted (W-2 empty collect still blocks); workspace-service guard for
-  routing member-predicate assertions through transitions; line 2b awaits
-  the ADR-0016 universe/composition decision (roadmap item 7).
-- **Next milestone:** not planned. Roadmap item 7 is the natural candidate;
-  planning needs an owner go.
-
-## Prior state (Track 0 era, superseded)
-
-- **Active milestone / phase:** Foundation phase; milestone **Source Completeness
-  And Interest Slice**, Track 0 running under the **owner-approved**
-  `docs/prototypes/source-completeness/plan.md` (approved 2026-07-12, solo).
-- **Follow-on decision:** Source Completeness Track 0 is closed with ADR-0014/
-  0015 ratified. SC-P3 is split into `docs/prototypes/source-family-semantics/`;
-  source-family evaluation is complete and ADR-0016 ratified. SFS-P3 is routed
-  to a separate Tier-3 late-member freshness decision.
-- **Current plan gate:** ADR-0017 ratified; closure-freshness retrospective
-  written; six-track milestone implementation plan ready for its planning commit.
-- **What I'm mid-doing:** Foreman succession, git reconciliation, iteration 1
-  integration, and exhibit preservation are complete for both rivals. Committee
-  round 1 reviews are integrated; owner ratified `round-1-triage.md` and
-  authorized SC-P1 progression. Repair1–3 and round 3 are complete; shape A is
-  selected. Repair4 and round 4 are complete. Owner ratified ADR-0014/0015;
-  Track 0 is complete under partial ratification. SC-P3 remains unresolved.
-- **Delegated authority:** foreman decides iteration continuation and rung
-  progression within the approved plan/caps. Solicit owner input only when the
-  process is genuinely blocked or an intentionally unspawned builder in another
-  thread needs to resume.
-- **Iteration preference:** when a central uncertainty remains and another
-  round can state a bounded question, cost, artifacts, and pass/fail result,
-  prefer iterating over deferring the problem. Do not absorb adjacent or
-  open-ended work.
-- **Review length:** reviews have no line cap. Bound them through explicit
-  measurements and stop conditions; do not make reviewers compress valid
-  evidence to satisfy arbitrary length targets.
-- **Exhibit state:** it1's four chartered documents are merged to `main`; immutable tag
-  `exhibits/source-completeness/it1` points to `d47d12c`, and the concluded
-  branch is deleted. It2 is likewise preserved at
-  `exhibits/source-completeness/it2` (`82ffb7f0`). Builder iterations used 2 of
-  2. Both examinations recommend that SC-P1's
-  affirmative-only enforcement may need a later rung climb, but the foreman
-  has made no artifact-quality disposition.
-- **Done this stretch (committed to `main`):** topic scaffolding + draft plan
-  (`e4d1bcc`); then plan approval edit, `charter-it1.md`, SEAT/log updates,
-  this note (commit at/after this write). Governance lint conformant, 232
-  tests pass as of `e4d1bcc`.
-- **Next actions in order:** commit final milestone planning separately; create
-  `milestone/source-completeness`; execute Tracks 1–6 one commit each.
-- **Budget state (Gate 4):** builder iterations used: 2 of 2. Repair passes
-  used: 0 of 1. Reviewer rounds: 0. Process-doc lines so far: plan+charter+
-  seat+log+roles ≈ 570 of the ≤ 1,800 target.
-- **Pending owner decisions / flags:** (1) owner launch/resumption of original
-  it1 builder; (2) Legibility Audit
-  allowed-slice and cadence tuning (carried, untouched).
+- **Seat:** Claude is principal foreman (owner-appointed 2026-07-13), relieving
+  the previous Codex foreman. The 2026-07-12/13 shadow-foreman review found the
+  previous foreman's Track 0 runs skipped the clean-room rival seats both
+  approved plans required, left SEATs/logs stale, and drafted ADRs 0019/0020
+  from single-context evidence; the owner directed remediation, owner-paced,
+  **no foreman-spawned agents without a fresh owner go**.
+- **Milestone:** Core Tax Conditions And Presentation Integration, **paused for
+  remediation**. ADRs 0018–0022 are all *proposed*, none ratified
+  (phase-state corrected).
+- **NPE topic:** remediation complete through round 2. Clean-room rival it2
+  built; round-2 governance/adversary reviews and `round-2-triage.md` done.
+  Converged shape: durable Run Disposition Ledger in the ADR-0008 closing
+  record + it1's multi-rule nodes + cycle detection, under five
+  decision-blocking repairs (NPE-A4, G6, A5, A6, A7). ADR-0020 as drafted
+  (transient Execution Map) does not match; redraft pending owner go.
+- **CS topic:** round 1R (independent re-performance of the it1 review) is
+  prepared for **owner-launched** seats from `roles/reviewer-governance.md` /
+  `roles/reviewer-adversary.md`; outputs `reviews/round-1r-*.md`, CS-G#R/CS-A#R
+  numbering. Evaluation reopened; ADR-0019 on hold; rival charter deferred
+  until round 1R lands.
+- **Git:** Track 3 implementation parked on `wip/track3-core-conditions`
+  (`c8be492`), not for merge. Milestone branch working tree holds only
+  uncommitted remediation docs (both topics' SEAT/log/evaluation edits, NPE
+  it2 + round-2 files, CS round-1R role files) — owner holds commit go.
+  History still contains Track 1 conditional-structure schemas (`df847f1`) and
+  Track 2 (`660102d`) built on proposed ADRs; owner deciding reset scope
+  (candidate reset point if chosen: `c415b10`, then re-land retained
+  prototype/remediation docs and amended ADRs).
+- **Standing owner directives:** every prototype round gets rival
+  (independent) reviews and a rival builder; agents must treat non-accepted
+  ADRs as non-binding (mark rejected ADRs rather than delete — formalization
+  of this instruction pending, likely an ADR-0013 amendment or AGENTS.md line).
+- **Pending owner decisions:** see phase-state correction block and the
+  decision brief given 2026-07-13 — commit go for remediation docs; CS
+  round-1R launch; ADR-0020 redraft go; ADR-0019 disposition; history reset
+  scope for Tracks 1/2; rejected-ADR instruction formalization.

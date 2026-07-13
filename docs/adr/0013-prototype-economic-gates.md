@@ -115,6 +115,24 @@ fresh-reader rigor moves to a periodic, owner-spawned **Legibility Audit** at th
 project level (`docs/legibility-audits/`), decoupling that measurement from every
 prototype iteration.
 
+## Amendment (2026-07-13) — Rival evidence every round; non-accepted ADRs are inert
+
+Owner-directed after the Core Tax Conditions governance remediation, in which a
+foreman satisfied the plans' rival requirement by having the incumbent author
+both competing shapes in one context. Two rules are now explicit:
+
+1. **Genuine rivalry per round.** Every prototype round requires independently
+   contexted rival evidence: build rounds get a clean-room rival builder (denied
+   all incumbent material), and review rounds get reviewers in independent
+   contexts. A single context authoring competing shapes does not satisfy the
+   rival requirement, and an evaluation may not claim it does.
+
+2. **Non-accepted ADRs are inert.** Agents treat only `accepted`-status ADRs as
+   binding contracts. `proposed` drafts guide work on their own topic only and
+   must not be implemented against outside their prototype. Rejected or
+   superseded ADRs are retained — never deleted — with their status marked, and
+   are explicitly ignored as authority while remaining citable as history.
+
 ## Alternatives Considered
 
 - **Keep the v1 gates as retrospective guidance.** Rejected: advisory gates with
