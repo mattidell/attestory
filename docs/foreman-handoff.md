@@ -22,9 +22,7 @@ against git, trust git and say so.
   `e4a0e4d`, T3 `41a9948`, T4 `871ae60`, T5 `7cab080`, T6 completion docs),
   each track one commit, full verification green at every step (final: 314
   tests, lint conformant, mypy clean). Owner authorized implementation start
-  2026-07-12 (remote confirmation). Non-ff merge to `main` follows the T6
-  commit; the post-merge docs commit records the merge hash in the
-  retrospective.
+  2026-07-12 (remote confirmation). Merged to `main` non-ff as `382a7af` (2026-07-12); milestone branch deleted.
 - **Follow-ups (recorded in the retrospective):** W-2 closure mapping not
   yet adopted (W-2 empty collect still blocks); workspace-service guard for
   routing member-predicate assertions through transitions; line 2b awaits

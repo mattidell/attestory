@@ -2,7 +2,7 @@
 
 - Milestone: Source Completeness And Interest Slice (Foundation phase)
 - Branch: `milestone/source-completeness`
-- Merge commit: recorded in the post-merge docs commit on `main`
+- Merge commit: `382a7af` (non-ff into `main`, 2026-07-12)
 - Implementation commits: Track 1 `9797b66`, Track 2 `e4a0e4d`, Track 3
   `41a9948`, Track 4 `871ae60`, Track 5 `7cab080`, plus this Track 6
   completion-documentation commit.
