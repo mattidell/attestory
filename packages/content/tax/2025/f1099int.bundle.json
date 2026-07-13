@@ -1,0 +1,32 @@
+{
+  "schema": "bundle.v1",
+  "id": "tax.us.2025.f1099int.vocabulary",
+  "label": "Form 1099-INT box 1 vocabulary for tax year 2025",
+  "fact_types": [
+    {
+      "schema": "fact-type.v1",
+      "id": "tax.us.2025.f1099int.box1-interest",
+      "title": "Interest income reported in box 1 of one logical Form 1099-INT statement instance furnished by a payer for 2025; the statement instance is peer to evidence and its identity carries no file, upload, scan, document, or evidence key (ADR-0015). Multiple originals from one payer - including several concerning one account - are distinct statement instances; a corrected copy of the same logical return answers this same fact and supersedes its prior finding.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.us.interest-payer"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1099int-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "number"},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v1",
+      "id": "tax.us.2025.f1099int.b1.source-closure",
+      "title": "User-attested closure of the Form 1099-INT box-1 source family for 2025, keyed on the family membership horizon current at attestation (ADR-0017): true asserts every furnished 1099-INT box-1 statement item is recorded as of that horizon. This claim covers box 1 only - never other boxes, non-form interest, or Form 1040 line 2b (ADR-0016). A later membership transition displaces this closure through horizon succession; re-attestation on the successor horizon is required.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "family-horizon", "kind": "entity", "entity_kind": "kernel.family-horizon"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"}
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "blocked": [],
+  "explanations": {
+    "tax.us.2025.interest.b1-subtotal": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.interest-slice",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-1099int-alpha-a-box1",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.f1099int.box1-interest",
+          "value": "120",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-1099int-alpha-b-box1",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.f1099int.box1-interest",
+          "value": "35",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.finding.rounding-convention",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "rounding.convention",
+          "value": "half_up",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "round",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:a95da6cc6966886569e14a7c",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.interest.b1-subtotal",
+      "value": "155",
+      "version": "v1"
+    }
+  },
+  "published": [
+    {
+      "finding_id": "finding:derived:a95da6cc6966886569e14a7c",
+      "symbol": "tax.us.2025.interest.b1-subtotal",
+      "value": "155"
+    }
+  ],
+  "run_id": "tax.us.2025.run.two-1099int-same-payer",
+  "stop_reason": "saturated"
+}

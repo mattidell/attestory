@@ -1,0 +1,32 @@
+{
+  "schema": "rule-artifact.v1",
+  "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "role": "computation",
+  "requires": ["rounding.convention"],
+  "when": true,
+  "value": {
+    "op": "round",
+    "value": {
+      "op": "add",
+      "args": [
+        {
+          "op": "collect",
+          "name": "tax.us.2025.f1099int.box1-interest",
+          "source_set": "tax.us.2025.f1099int.b1"
+        }
+      ]
+    },
+    "mode": { "op": "ref", "name": "rounding.convention" },
+    "stage": "after_aggregate"
+  },
+  "publishes": "tax.us.2025.interest.b1-subtotal",
+  "blocked": { "code": "OPEN_DEPENDENCY", "missing": ["rounding.convention"] },
+  "notes": "Aggregates current tax.us.2025.f1099int.box1-interest findings into the B1 source subtotal under the asserted rounding convention. The source_set names the adopted source-family declaration tax.us.2025.f1099int.b1; an empty family publishes zero only through a current literal-true closure finding admitted by the adopted mapping (ADR-0014), and otherwise blocks. This symbol is the box-1 subtotal only - per ADR-0016 it never publishes to, or stands behind, Form 1040 line 2b or any claim about total taxable interest."
+}

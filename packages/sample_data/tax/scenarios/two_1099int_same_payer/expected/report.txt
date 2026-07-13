@@ -1,0 +1,13 @@
+Run: tax.us.2025.run.two-1099int-same-payer (saturated)
+Published:
+  - tax.us.2025.interest.b1-subtotal = 155  [finding:derived:a95da6cc6966886569e14a7c]
+Blocked:
+  - none
+Explanations:
+  [output] tax.us.2025.interest.b1-subtotal = 155  <- tax.us.2025.rule.f1099int-b1-subtotal
+    [adoption] tax.us.2025.package.interest-slice
+    [governance] governance.constitution
+    [input] tax.us.2025.f1099int.box1-interest = 120
+    [input] tax.us.2025.f1099int.box1-interest = 35
+    [input] rounding.convention = half_up
+    [operation-semantics] round

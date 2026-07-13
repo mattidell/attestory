@@ -19,6 +19,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from packages.derivation.loader import DERIVATION_SCHEMA_DIR
+from packages.derivation.source_authority import validate_mapping_against_family
 from packages.kernel.schema_registry import (
     KERNEL_SCHEMA_DIR,
     SchemaRegistry,
@@ -30,28 +32,27 @@ TAX_SCHEMA_DIR = _PACKAGES_DIR / "schemas" / "tax"
 TAX_CONTENT_DIR = _PACKAGES_DIR / "content" / "tax" / "2025"
 
 FORM_FIELD_SCHEMA = "form-field.v1"
+SOURCE_FAMILY_SCHEMA = "source-family.v1"
+CLOSURE_MAPPING_SCHEMA = "source-closure-mapping.v1"
 W2_BUNDLE_FILE = "w2.bundle.json"
+F1099INT_BUNDLE_FILE = "f1099int.bundle.json"
 
 
 def tax_registry() -> SchemaRegistry:
-    """A registry spanning the kernel and tax schema families.
+    """A registry spanning the kernel, tax, and derivation schema families.
 
     Bundle and fact-type content validate against the kernel family;
-    form-field content validates against the tax family. Schema ids are
-    unique across the directories (enforced on load).
+    form-field content validates against the tax family; source-family
+    declarations and closure mappings validate against the derivation
+    family. Schema ids are unique across the directories (enforced on
+    load).
     """
-    return SchemaRegistry([KERNEL_SCHEMA_DIR, TAX_SCHEMA_DIR])
+    return SchemaRegistry([KERNEL_SCHEMA_DIR, TAX_SCHEMA_DIR, DERIVATION_SCHEMA_DIR])
 
 
-def load_w2_bundle(registry: SchemaRegistry | None = None) -> dict[str, Any]:
-    """Load and strictly validate the 2025 W-2 vocabulary bundle.
-
-    The bundle envelope and every nested fact type validate against their
-    declared schema versions. Nested fact-type ids must be unique.
-    """
-    reg = registry if registry is not None else tax_registry()
+def _load_bundle(filename: str, reg: SchemaRegistry) -> dict[str, Any]:
     bundle: dict[str, Any] = json.loads(
-        (TAX_CONTENT_DIR / W2_BUNDLE_FILE).read_text("utf-8")
+        (TAX_CONTENT_DIR / filename).read_text("utf-8")
     )
     reg.validate_declared(bundle)
     seen: set[str] = set()
@@ -63,6 +64,82 @@ def load_w2_bundle(registry: SchemaRegistry | None = None) -> dict[str, Any]:
             )
         seen.add(fact_type["id"])
     return bundle
+
+
+def load_w2_bundle(registry: SchemaRegistry | None = None) -> dict[str, Any]:
+    """Load and strictly validate the 2025 W-2 vocabulary bundle.
+
+    The bundle envelope and every nested fact type validate against their
+    declared schema versions. Nested fact-type ids must be unique.
+    """
+    reg = registry if registry is not None else tax_registry()
+    return _load_bundle(W2_BUNDLE_FILE, reg)
+
+
+def load_f1099int_bundle(registry: SchemaRegistry | None = None) -> dict[str, Any]:
+    """Load and strictly validate the 2025 Form 1099-INT box-1 bundle."""
+    reg = registry if registry is not None else tax_registry()
+    return _load_bundle(F1099INT_BUNDLE_FILE, reg)
+
+
+def load_source_families(
+    registry: SchemaRegistry | None = None,
+) -> dict[str, dict[str, Any]]:
+    """Load every committed source-family declaration, mapped id -> citizen."""
+    reg = registry if registry is not None else tax_registry()
+    by_id: dict[str, dict[str, Any]] = {}
+    for path in sorted(TAX_CONTENT_DIR.glob("family.*.json")):
+        citizen: dict[str, Any] = json.loads(path.read_text("utf-8"))
+        declared = reg.validate_declared(citizen)
+        if declared != SOURCE_FAMILY_SCHEMA:
+            raise SchemaValidationError(
+                SOURCE_FAMILY_SCHEMA,
+                [f"{path.name} declares {declared}, not {SOURCE_FAMILY_SCHEMA}"],
+            )
+        if citizen["id"] in by_id:
+            raise SchemaValidationError(
+                SOURCE_FAMILY_SCHEMA, [f"duplicate source-family id: {citizen['id']}"]
+            )
+        by_id[citizen["id"]] = citizen
+    return by_id
+
+
+def load_closure_mappings(
+    registry: SchemaRegistry | None = None,
+) -> dict[str, dict[str, Any]]:
+    """Load every committed closure mapping, validated against its family.
+
+    Each mapping validates against the published schema *and* against the
+    declaration it pins (ADR-0014/0016): a mapping whose family is not
+    committed, whose member fact type diverges from the canonical
+    predicate, or whose admitted symbol is not the declaration's
+    authorized subtotal is a content defect, never a silent pass.
+    """
+    reg = registry if registry is not None else tax_registry()
+    families = load_source_families(reg)
+    by_id: dict[str, dict[str, Any]] = {}
+    for path in sorted(TAX_CONTENT_DIR.glob("closure-mapping.*.json")):
+        citizen: dict[str, Any] = json.loads(path.read_text("utf-8"))
+        declared = reg.validate_declared(citizen)
+        if declared != CLOSURE_MAPPING_SCHEMA:
+            raise SchemaValidationError(
+                CLOSURE_MAPPING_SCHEMA,
+                [f"{path.name} declares {declared}, not {CLOSURE_MAPPING_SCHEMA}"],
+            )
+        family = families.get(citizen["family"]["id"])
+        if family is None:
+            raise SchemaValidationError(
+                CLOSURE_MAPPING_SCHEMA,
+                [f"{path.name} pins family {citizen['family']['id']}, "
+                 "which no committed declaration provides"],
+            )
+        validate_mapping_against_family(citizen, family)
+        if citizen["id"] in by_id:
+            raise SchemaValidationError(
+                CLOSURE_MAPPING_SCHEMA, [f"duplicate mapping id: {citizen['id']}"]
+            )
+        by_id[citizen["id"]] = citizen
+    return by_id
 
 
 def load_form_fields(registry: SchemaRegistry | None = None) -> dict[str, dict[str, Any]]:

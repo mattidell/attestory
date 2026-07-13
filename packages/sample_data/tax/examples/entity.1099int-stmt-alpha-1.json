@@ -1,0 +1,6 @@
+{
+  "schema": "entity.v1",
+  "id": "stmt.demo-payer-bank-alpha.2025.a",
+  "kind": "tax.us.1099int-statement",
+  "label": "Bank Alpha 1099-INT statement instance 1 of 2 for 2025, first synthetic account (synthetic)"
+}
