@@ -15,7 +15,24 @@ to, then continue."* The new foreman reads those, reconciles the in-flight state
 below against `git status` / `git log`, and proceeds. If the note looks stale
 against git, trust git and say so.
 
-## Current state (updated 2026-07-12)
+## Current state (updated 2026-07-12, post-implementation)
+
+- **Milestone complete.** Source Completeness And Interest Slice Tracks 1–6
+  are implemented on `milestone/source-completeness` (T1 `9797b66`, T2
+  `e4a0e4d`, T3 `41a9948`, T4 `871ae60`, T5 `7cab080`, T6 completion docs),
+  each track one commit, full verification green at every step (final: 314
+  tests, lint conformant, mypy clean). Owner authorized implementation start
+  2026-07-12 (remote confirmation). Non-ff merge to `main` follows the T6
+  commit; the post-merge docs commit records the merge hash in the
+  retrospective.
+- **Follow-ups (recorded in the retrospective):** W-2 closure mapping not
+  yet adopted (W-2 empty collect still blocks); workspace-service guard for
+  routing member-predicate assertions through transitions; line 2b awaits
+  the ADR-0016 universe/composition decision (roadmap item 7).
+- **Next milestone:** not planned. Roadmap item 7 is the natural candidate;
+  planning needs an owner go.
+
+## Prior state (Track 0 era, superseded)
 
 - **Active milestone / phase:** Foundation phase; milestone **Source Completeness
   And Interest Slice**, Track 0 running under the **owner-approved**
