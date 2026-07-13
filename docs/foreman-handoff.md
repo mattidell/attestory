@@ -32,24 +32,23 @@ against git, trust git and say so.
   record + it1's multi-rule nodes + cycle detection, under five
   decision-blocking repairs (NPE-A4, G6, A5, A6, A7). ADR-0020 as drafted
   (transient Execution Map) does not match; redraft pending owner go.
-- **CS topic:** round 1R (independent re-performance of the it1 review) is
-  prepared for **owner-launched** seats from `roles/reviewer-governance.md` /
-  `roles/reviewer-adversary.md`; outputs `reviews/round-1r-*.md`, CS-G#R/CS-A#R
-  numbering. Evaluation reopened; ADR-0019 on hold; rival charter deferred
-  until round 1R lands.
-- **Git:** Track 3 implementation parked on `wip/track3-core-conditions`
-  (`c8be492`), not for merge. Milestone branch working tree holds only
-  uncommitted remediation docs (both topics' SEAT/log/evaluation edits, NPE
-  it2 + round-2 files, CS round-1R role files) — owner holds commit go.
-  History still contains Track 1 conditional-structure schemas (`df847f1`) and
-  Track 2 (`660102d`) built on proposed ADRs; owner deciding reset scope
-  (candidate reset point if chosen: `c415b10`, then re-land retained
-  prototype/remediation docs and amended ADRs).
-- **Standing owner directives:** every prototype round gets rival
-  (independent) reviews and a rival builder; agents must treat non-accepted
-  ADRs as non-binding (mark rejected ADRs rather than delete — formalization
-  of this instruction pending, likely an ADR-0013 amendment or AGENTS.md line).
-- **Pending owner decisions:** see phase-state correction block and the
-  decision brief given 2026-07-13 — commit go for remediation docs; CS
-  round-1R launch; ADR-0020 redraft go; ADR-0019 disposition; history reset
-  scope for Tracks 1/2; rejected-ADR instruction formalization.
+- **CS topic:** round 1R complete and triaged (`round-1r-triage.md`,
+  2026-07-13). Both independent seats: Shape A conditionally accept, Shape B
+  reject as specified — inverting the tainted outcome draft ADR-0019 rests on.
+  CS-P1 not settled by it1 (categorical guards / canon operation citizens do
+  not execute under committed evaluator contracts).
+- **Git:** owner-directed reset done 2026-07-13 — milestone branch rebuilt
+  from `c415b10` as `fc9a855` (all Track 0 docs + remediation retained; Track
+  1/2 implementation dropped). Pre-reset history at
+  `archive/core-tax-conditions-pre-reset`; Track 3 WIP at
+  `wip/track3-core-conditions` (`c8be492`). Verified at `fc9a855`: 314 tests
+  OK (use the project `.venv`, not system python), governance lint conformant.
+- **Standing owner directives (formalized):** ADR-0013 amendment + AGENTS.md
+  lines (2026-07-13) — rival evidence every round; non-accepted ADRs are
+  inert; rejected ADRs retained, never deleted.
+- **Pending owner decisions:** (1) ADR-0019 disposition — foreman recommends
+  `rejected` status, retained; (2) go/no-go on a CS clean-room rival-builder
+  charter in the Shape A family (resolve CS-G1R/A1R/A2R); (3) CS
+  evaluation-analysis rewrite; (4) NPE ADR-0020 post-redraft review round
+  (redraft landed in `fc9a855`); (5) eventual re-run of Tracks 1–3 after
+  ratifications.
