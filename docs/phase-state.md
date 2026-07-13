@@ -8,9 +8,9 @@ This file is the re-entry point. Alongside the phase pointer below, it carries a
 
 **Shims in place.** Only the "free" supersession policy; demo/synthetic vocabulary; minimal adoption act; E8.1 N/A pending UI. The W-2 family has no adopted closure mapping yet — its empty source set still blocks (honest, not deficient). The kernel does not police predicate membership: routing member assertions through transition acts is a workspace-service-layer obligation, recorded in the retrospective. Citation references remain inert opaque strings (ADR-0012 "Not Decided").
 
-**What we want next.** Roadmap item 7 (downstream lines): Form 1040 line 2b needs a broader taxable-interest universe or a proven coextensive composition per ADR-0016 before any publication; then downstream lines 9/11/12/15/16, standard deduction, and tax-method conditions.
+**What we want next.** Form 1040 lines 2b, 9, 11, 12, 15, and 16, standard deduction and tax-method condition structures, adopted-content manifests, citation resolution, and non-publication explanation walking.
 
-**Nature of the pending contract change.** No ratified-but-unimplemented contracts remain. The next contract-shaped question is the taxable-interest universe/composition ADR-0016 requires before line 2b, and the workspace-service membership-routing guard noted above.
+**Nature of the pending contract change.** Five contract-foundational topics: taxable-interest composition (Form 1040 line 2b), standard-deduction/tax-method selection conditions, adopted-content manifests, citation authority resolver, and non-publication explanations.
 
 ## Pointers
 
@@ -18,4 +18,5 @@ Active phase: **Foundation** — `docs/phases/foundation/`
 
 Canonical phase state lives in the phase roadmap: `docs/phases/foundation/foundation-roadmap.md`.
 
-Active milestone: none — **Source Completeness And Interest Slice completed 2026-07-12** (branch `milestone/source-completeness`, one commit per track; retrospective `docs/milestone-retrospectives/2026-07-12-source-completeness-and-interest-slice.md`). ADR-0014 through ADR-0017 implemented: adopted closure/horizon machinery, exact-claim coverage, and the Form 1099-INT box-1 subtotal — not Form 1040 line 2b (ADR-0016). Next milestone (roadmap item 7, downstream lines) is not yet planned.
+Active milestone: **Core Tax Conditions And Presentation Integration** (proposed/planning) — `docs/phases/foundation/milestones/core-tax-conditions-and-presentation-integration.md`. Source Completeness And Interest Slice completed 2026-07-12 (branch `milestone/source-completeness`, retrospective `docs/milestone-retrospectives/2026-07-12-source-completeness-and-interest-slice.md`).
+
