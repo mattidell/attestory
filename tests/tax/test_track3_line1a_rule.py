@@ -95,7 +95,6 @@ class ScenarioFixture(unittest.TestCase):
             canon=self.canon,
             inputs=[InputFinding(**i) for i in scenario["inputs"]],
             sources=[SourceFact(**s) for s in scenario["sources"]],
-            closed_sets=frozenset(scenario.get("closed_sets", [])),
             adoption_pin=scenario["adoption_pin"],
             governance_pins=scenario["governance_pins"],
         )

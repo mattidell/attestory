@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/source-closure-mapping.v1",
+  "title": "Adopted source-closure mapping",
+  "description": "The independently versioned, adopted citizen through which source closure enters calculation (ADR-0014 decisions 1-2). It pins one source-family declaration version, names the member and closure fact types, names the closure identity key that carries the family horizon (ADR-0017 decision 2), and declares the single affirmative admission condition. The condition vocabulary is closed: exactly one matching current closure finding whose value is literal boolean true admits the family; there is no truthy, presence-only, or caller-supplied variant (ADR-0014 decisions 3-4). The admitted symbol must equal the declaration's authorized subtotal; a broader symbol is a composition defect rejected at load (ADR-0016 decisions 3-4).",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "source-closure-mapping.v1" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "family": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" }
+      },
+      "required": ["id", "version"],
+      "additionalProperties": false
+    },
+    "member_fact_type": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "closure_fact_type": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "closure_horizon_key": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "admits_symbol": { "type": "string", "minLength": 1 },
+    "admission": {
+      "type": "object",
+      "properties": {
+        "condition": { "enum": ["current-literal-true"] }
+      },
+      "required": ["condition"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "version", "family", "member_fact_type", "closure_fact_type", "closure_horizon_key", "admits_symbol", "admission"],
+  "additionalProperties": false
+}

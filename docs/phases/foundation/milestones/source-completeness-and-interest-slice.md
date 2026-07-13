@@ -2,10 +2,12 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **implementation plan ready — ADR-0014 through ADR-0017 ratified
-2026-07-12.** Track 0 and its two follow-on decision topics are complete.
-Implementation has not started; create `milestone/source-completeness` only
-after this planning commit lands.
+Status: **complete (2026-07-12).** Tracks 1–6 landed on
+`milestone/source-completeness`, one commit per track; retrospective at
+`docs/milestone-retrospectives/2026-07-12-source-completeness-and-interest-slice.md`.
+The plan below is preserved as executed authority; deviations are recorded
+in the retrospective (genesis act kind, horizon-as-entity projection,
+closure pins reusing published roles).
 
 ## Objective
 

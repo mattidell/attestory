@@ -1,0 +1,7 @@
+{
+  "schema": "family-horizon.v1",
+  "id": "horizon.w2-box1.taxpayer-primary.2025.h1",
+  "family": { "id": "tax.us.2025.family.w2-box1", "version": "v1" },
+  "scope": { "tax-year": "2025", "subject": "taxpayer-primary" },
+  "predecessor": ""
+}

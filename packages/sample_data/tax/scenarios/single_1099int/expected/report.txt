@@ -1,0 +1,12 @@
+Run: tax.us.2025.run.single-1099int (saturated)
+Published:
+  - tax.us.2025.interest.b1-subtotal = 120  [finding:derived:374435a9d23f4855db501b21]
+Blocked:
+  - none
+Explanations:
+  [output] tax.us.2025.interest.b1-subtotal = 120  <- tax.us.2025.rule.f1099int-b1-subtotal
+    [adoption] tax.us.2025.package.interest-slice
+    [governance] governance.constitution
+    [input] tax.us.2025.f1099int.box1-interest = 120
+    [input] rounding.convention = half_up
+    [operation-semantics] round

@@ -1,0 +1,13 @@
+{
+  "schema": "act.v1",
+  "act_id": "sa-neg-004",
+  "kind": "horizon-genesis",
+  "actor": "user",
+  "at": "2026-07-12T00:01:04Z",
+  "committed_against": 8,
+  "payload": {
+    "family": { "id": "tax.us.2025.family.w2-box1", "version": "v1" },
+    "scope": { "tax-year": "2025", "subject": "taxpayer-primary" },
+    "horizon_id": "horizon.w2-box1.taxpayer-primary.2025.h0-duplicate"
+  }
+}

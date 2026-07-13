@@ -1,0 +1,15 @@
+{
+  "blocked": [
+    {
+      "artifact_id": "tax.us.2025.rule.f1099int-b1-subtotal",
+      "code": "SOURCE_SET_UNCLOSED",
+      "missing": [
+        "tax.us.2025.f1099int.b1"
+      ]
+    }
+  ],
+  "explanations": {},
+  "published": [],
+  "run_id": "tax.us.2025.run.open-empty-1099int",
+  "stop_reason": "saturated"
+}

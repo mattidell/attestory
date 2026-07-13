@@ -4,7 +4,6 @@
     "role": "adoption",
     "version": "v1"
   },
-  "closed_sets": [],
   "governance_pins": [
     {
       "id": "governance.constitution",

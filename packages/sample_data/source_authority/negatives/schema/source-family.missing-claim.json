@@ -1,0 +1,9 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.family.w2-box1",
+  "version": "v1",
+  "title": "Form W-2 box 1 wage statements",
+  "scope": { "tax_year": 2025, "jurisdiction": "us", "family": "tax" },
+  "member_predicate": { "fact_type": "tax.us.2025.w2.box1-wages" },
+  "authorizes_subtotal": "tax.us.2025.wages.total-w2-box1"
+}

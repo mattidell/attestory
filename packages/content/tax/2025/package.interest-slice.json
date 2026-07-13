@@ -1,0 +1,14 @@
+{
+  "schema": "artifact-package.v1",
+  "id": "tax.us.2025.package.interest-slice",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "members": [
+    { "role": "computation", "id": "tax.us.2025.rule.f1099int-b1-subtotal", "version": "v1" }
+  ]
+}

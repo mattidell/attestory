@@ -1,0 +1,10 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099int.b1",
+  "version": "v1",
+  "title": "Form 1099-INT box 1 statement items, tax year 2025",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "closure_claim": "Every interest amount reported in box 1 of a Form 1099-INT furnished to the taxpayer for tax year 2025 is recorded as a statement item. This claim covers Form 1099-INT box 1 only: it says nothing about other 1099-INT boxes, interest not reported on Form 1099-INT, or total taxable interest (Form 1040 line 2b).",
+  "member_predicate": { "fact_type": "tax.us.2025.f1099int.box1-interest" },
+  "authorizes_subtotal": "tax.us.2025.interest.b1-subtotal"
+}

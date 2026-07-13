@@ -39,6 +39,11 @@ from packages.derivation.records import (
     closing_record,
     start_run,
 )
+from packages.derivation.source_authority import (
+    ClosureFindingRecord,
+    audit_collect_authority,
+    resolve_closure_admissions,
+)
 
 
 @dataclass(frozen=True)
@@ -62,15 +67,26 @@ class SourceFact:
 
 @dataclass(frozen=True)
 class RunContext:
+    """Everything one run reads. There is no closed-set input.
+
+    Closure authority arrives only as adopted declaration/mapping citizens
+    plus closure findings and current horizons marshalled from record
+    state; the runner resolves admission internally (ADR-0014 decision 4).
+    A caller cannot name a set closed — it can only present the record.
+    """
+
     run_id: str
     rules: list[dict[str, Any]]
     parameters: dict[str, dict[str, Any]]
     canon: dict[str, dict[str, Any]]
     inputs: list[InputFinding]
     sources: list[SourceFact]
-    closed_sets: frozenset[str]
     adoption_pin: dict[str, Any]
     governance_pins: list[dict[str, Any]]
+    family_declarations: list[dict[str, Any]] = field(default_factory=list)
+    closure_mappings: list[dict[str, Any]] = field(default_factory=list)
+    closure_findings: list[ClosureFindingRecord] = field(default_factory=list)
+    current_horizons: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -116,6 +132,18 @@ class _Run:
     def __init__(self, ctx: RunContext, schemas: DerivationSchemas) -> None:
         self.ctx = ctx
         self.schemas = schemas
+        # Single dispatch: the admitted family set is computed here from
+        # adopted mappings and record state; both runners share it, and no
+        # other constructor path exists (ADR-0014 decision 4).
+        audit_collect_authority(
+            ctx.rules, ctx.closure_mappings, ctx.family_declarations
+        )
+        self.admissions = resolve_closure_admissions(
+            ctx.closure_mappings,
+            ctx.family_declarations,
+            ctx.closure_findings,
+            ctx.current_horizons,
+        )
         self.symbols: dict[str, Any] = {i.symbol: i.value for i in ctx.inputs}
         # symbol -> (finding_id, version, pin-role) for building dependency pins
         self.symbol_pin: dict[str, tuple[str, str, str]] = {
@@ -135,7 +163,7 @@ class _Run:
         return Environment(
             symbols=self.symbols,
             sources=self.sources,
-            closed_sets=self.ctx.closed_sets,
+            closed_sets=frozenset(self.admissions),
             parameters=self.ctx.parameters,
             canon=self.ctx.canon,
         )
@@ -152,6 +180,18 @@ class _Run:
                 pins.append({"role": "input", "id": fid, "version": "v1"})
         for pid in access.parameters | access.tables:
             pins.append({"role": "parameter", "id": pid, "version": self.ctx.parameters[pid]["version"]})
+        # A closure-backed zero pins the exact adopted mapping and
+        # declaration versions plus the exact current closure finding it
+        # stood on; the horizon identity travels in that finding's fact key
+        # (ADR-0014 decision 5). Present-source paths never reach here.
+        for family_id in access.closure_reads:
+            admission = self.admissions[family_id]
+            pins.append({"role": "package", "id": admission.mapping_id,
+                         "version": admission.mapping_version})
+            pins.append({"role": "package", "id": admission.declaration_id,
+                         "version": admission.declaration_version})
+            pins.append({"role": "input", "id": admission.closure_finding_id,
+                         "version": "v1"})
         for op in access.operations:
             pins.append({"role": "operation-semantics", "id": op, "version": self.ctx.canon[op]["version"]})
         # Adoption and governance identity come from the run context — versioned

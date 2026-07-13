@@ -5,5 +5,7 @@
   "derived-finding.v1.schema.json": "1b5f49aaffbdcc118cf6c901b80e16d18a3cd1429e4dc2e05de9f3544e2f1c3e",
   "operation-semantics.v1.schema.json": "9b144ce850029264b539603f927294091a73905c1117ae20a8d5817bdfe0d440",
   "parameter-declaration.v1.schema.json": "f8a8fa869c4c64d2ac081083fdfa81a8aca42fa791aa478d3d392040e4c510b1",
-  "rule-artifact.v1.schema.json": "9a98d3f4f7e1d1d842291db2f28291c3b61812a64a4ed7069ab23950ca458118"
+  "rule-artifact.v1.schema.json": "9a98d3f4f7e1d1d842291db2f28291c3b61812a64a4ed7069ab23950ca458118",
+  "source-closure-mapping.v1.schema.json": "4e9edb40963ca2e315a33cbe3e45981b6c3da105349d30d32ed288b8c85bb2ff",
+  "source-family.v1.schema.json": "78462f32843d005801c4e50272ee864c340f20966f5e88b894b0a7deb14d8490"
 }

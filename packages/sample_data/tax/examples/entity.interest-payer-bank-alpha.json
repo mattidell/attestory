@@ -1,0 +1,6 @@
+{
+  "schema": "entity.v1",
+  "id": "demo-payer-bank-alpha",
+  "kind": "tax.us.interest-payer",
+  "label": "Bank Alpha Savings (synthetic interest payer)"
+}

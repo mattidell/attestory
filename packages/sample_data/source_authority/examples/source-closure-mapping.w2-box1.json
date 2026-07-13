@@ -1,0 +1,11 @@
+{
+  "schema": "source-closure-mapping.v1",
+  "id": "tax.us.2025.closure-mapping.w2-box1",
+  "version": "v1",
+  "family": { "id": "tax.us.2025.family.w2-box1", "version": "v1" },
+  "member_fact_type": "tax.us.2025.w2.box1-wages",
+  "closure_fact_type": "tax.us.2025.w2.source-closure",
+  "closure_horizon_key": "family-horizon",
+  "admits_symbol": "tax.us.2025.wages.total-w2-box1",
+  "admission": { "condition": "current-literal-true" }
+}

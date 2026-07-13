@@ -154,3 +154,48 @@ def demo_finding(
             "asserted": {"value": value, "basis": basis},
         }
     return finding
+
+
+def demo_closure_authority(*, closed: bool = True) -> dict[str, Any]:
+    """RunContext kwargs granting closure authority over the demo W-2 family.
+
+    ADR-0014: there is no closed-set input. Tests that want the empty demo
+    source set to publish zero must present the full authority chain — an
+    adopted declaration and mapping, one current literal-true closure
+    finding, and the current horizon — exactly as the persistence boundary
+    marshals it from record state.
+    """
+    from packages.derivation.source_authority import ClosureFindingRecord
+
+    declaration = {
+        "schema": "source-family.v1",
+        "id": "demo.w2",
+        "version": "v1",
+        "title": "Demo W-2 box 1 statements",
+        "scope": {"tax_year": 2025, "jurisdiction": "us", "family": "tax"},
+        "closure_claim": "Every demo W-2 box 1 statement is recorded.",
+        "member_predicate": {"fact_type": "demo.w2.box1"},
+        "authorizes_subtotal": "demo.form1040.line1a",
+    }
+    mapping = {
+        "schema": "source-closure-mapping.v1",
+        "id": "demo.mapping.w2",
+        "version": "v1",
+        "family": {"id": "demo.w2", "version": "v1"},
+        "member_fact_type": "demo.w2.box1",
+        "closure_fact_type": "demo.w2.closure",
+        "closure_horizon_key": "family-horizon",
+        "admits_symbol": "demo.form1040.line1a",
+        "admission": {"condition": "current-literal-true"},
+    }
+    findings = (
+        [ClosureFindingRecord("f.closure.demo", "demo.w2.closure", "demo.h0", True)]
+        if closed
+        else []
+    )
+    return {
+        "family_declarations": [declaration],
+        "closure_mappings": [mapping],
+        "closure_findings": findings,
+        "current_horizons": {"demo.w2": "demo.h0"},
+    }

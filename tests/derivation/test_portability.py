@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Any
 
 from packages.derivation.loader import DerivationSchemas, load_canon
+from tests.support import demo_closure_authority
 from packages.derivation.reference_runner import run_reference
 from packages.derivation.runner import (
     InputFinding,
@@ -78,7 +79,6 @@ class PortabilityFixture(unittest.TestCase):
                 SourceFact("demo.w2.box1", "40000", "f.w2a"),
                 SourceFact("demo.w2.box1", "2000", "f.w2b"),
             ],
-            closed_sets=frozenset(),
             adoption_pin=ADOPTION_PIN,
             governance_pins=GOV_PINS,
         )
@@ -104,7 +104,7 @@ class ByteEqualityAcrossRunners(PortabilityFixture):
         ]))
 
     def test_closure_zero_scenario_is_byte_identical(self) -> None:
-        self._assert_portable(self.context(sources=[], closed_sets=frozenset({"demo.w2"})))
+        self._assert_portable(self.context(sources=[], **demo_closure_authority()))
 
     def test_both_runners_agree_on_computed_values(self) -> None:
         primary = {p.finding["symbol"]: p.finding["value"] for p in run(self.context(), self.schemas).publications}

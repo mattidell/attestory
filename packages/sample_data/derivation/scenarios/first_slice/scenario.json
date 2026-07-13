@@ -1,168 +1,73 @@
 {
-  "run_id": "demo.run.first-slice",
   "adoption_pin": {
-    "role": "adoption",
     "id": "demo.package.first-slice.2025",
+    "role": "adoption",
     "version": "v1"
   },
   "governance_pins": [
     {
-      "role": "governance",
       "id": "governance.constitution",
+      "role": "governance",
       "version": "v1"
     }
   ],
-  "rules": [
+  "inputs": [
     {
-      "schema": "rule-artifact.v1",
-      "id": "demo.rule.wages-to-1040-line1a",
-      "version": "v1",
-      "scope": {
-        "tax_year": 2025,
-        "jurisdiction": "US-federal",
-        "family": "individual-income-tax"
-      },
-      "role": "field-mapping",
-      "requires": [
-        "rounding.convention"
-      ],
-      "when": true,
-      "value": {
-        "op": "round",
-        "value": {
-          "op": "add",
-          "args": [
-            {
-              "op": "collect",
-              "name": "demo.w2.box1",
-              "source_set": "demo.w2"
-            }
-          ]
-        },
-        "mode": {
-          "op": "ref",
-          "name": "rounding.convention"
-        },
-        "stage": "after_aggregate"
-      },
-      "publishes": "demo.form1040.line1a",
-      "blocked": {
-        "code": "OPEN_DEPENDENCY",
-        "missing": [
-          "rounding.convention"
-        ]
-      },
-      "notes": "Collect W-2 box 1 across the source set, aggregate, then round under the asserted convention."
+      "finding_id": "demo.finding.rounding",
+      "role": "input",
+      "symbol": "rounding.convention",
+      "value": "half_up"
     },
     {
-      "schema": "rule-artifact.v1",
-      "id": "demo.rule.total-income-line9",
-      "version": "v1",
-      "scope": {
-        "tax_year": 2025,
-        "jurisdiction": "US-federal",
-        "family": "individual-income-tax"
-      },
-      "role": "computation",
-      "requires": [
-        "demo.form1040.line1a"
-      ],
-      "when": true,
-      "value": {
-        "op": "ref",
-        "name": "demo.form1040.line1a"
-      },
-      "publishes": "demo.form1040.line9",
-      "blocked": {
-        "code": "OPEN_DEPENDENCY",
-        "missing": [
-          "demo.form1040.line1a"
-        ]
-      },
-      "notes": "Demo slice: total income is wages only, so line 9 carries line 1a forward \u2014 a derived value depending on another derived value, for explanation chaining."
+      "finding_id": "demo.finding.filing",
+      "role": "choice",
+      "symbol": "filing_status",
+      "value": "single"
     },
     {
-      "schema": "rule-artifact.v1",
-      "id": "demo.rule.tax-table-line16",
-      "version": "v1",
-      "scope": {
-        "tax_year": 2025,
-        "jurisdiction": "US-federal",
-        "family": "individual-income-tax"
-      },
-      "role": "computation",
-      "requires": [
-        "demo.form1040.line15",
-        "filing_status",
-        "rounding.convention"
-      ],
-      "when": {
-        "op": "compare",
-        "left": {
-          "op": "ref",
-          "name": "demo.form1040.line15"
-        },
-        "cmp": "lt",
-        "right": {
-          "op": "parameter",
-          "parameter_id": "demo.parameter.regular-tax-split.2025"
-        }
-      },
-      "value": {
-        "op": "round",
-        "value": {
-          "op": "range_lookup",
-          "table_id": "demo.parameter.tax-table-sample.2025",
-          "key": {
-            "op": "ref",
-            "name": "filing_status"
-          },
-          "value": {
-            "op": "ref",
-            "name": "demo.form1040.line15"
-          }
-        },
-        "mode": {
-          "op": "ref",
-          "name": "rounding.convention"
-        },
-        "stage": "final"
-      },
-      "publishes": "demo.form1040.line16",
-      "blocked": {
-        "code": "OPEN_TAX_TABLE_ROW",
-        "missing": [
-          "demo.form1040.line15",
-          "filing_status"
-        ]
-      },
-      "notes": "Below the split, tax is read from the sample table; an unrepresented row blocks rather than inventing a value."
+      "finding_id": "demo.finding.line15",
+      "role": "input",
+      "symbol": "demo.form1040.line15",
+      "value": "14950"
     }
   ],
   "parameters": [
     {
-      "schema": "parameter-declaration.v1",
       "id": "demo.parameter.regular-tax-split.2025",
-      "version": "v1",
+      "schema": "parameter-declaration.v1",
       "scope": {
-        "tax_year": 2025,
-        "jurisdiction": "US-federal",
+        "effective_from": "2025-01-01",
         "family": "individual-income-tax",
-        "effective_from": "2025-01-01"
+        "jurisdiction": "US-federal",
+        "tax_year": 2025
       },
-      "values": "100000"
+      "values": "100000",
+      "version": "v1"
     },
     {
-      "schema": "parameter-declaration.v1",
       "id": "demo.parameter.tax-table-sample.2025",
-      "version": "v1",
+      "schema": "parameter-declaration.v1",
       "scope": {
-        "tax_year": 2025,
-        "jurisdiction": "US-federal",
+        "effective_from": "2025-01-01",
         "family": "individual-income-tax",
-        "effective_from": "2025-01-01"
+        "jurisdiction": "US-federal",
+        "tax_year": 2025
       },
       "values": {
+        "head_of_household": [
+          {
+            "lower": "29950",
+            "upper": "30000",
+            "value": "3257"
+          }
+        ],
+        "married_filing_jointly": [
+          {
+            "lower": "29950",
+            "upper": "30000",
+            "value": "3120"
+          }
+        ],
         "single": [
           {
             "lower": "14950",
@@ -174,57 +79,149 @@
             "upper": "20000",
             "value": "2159"
           }
-        ],
-        "married_filing_jointly": [
-          {
-            "lower": "29950",
-            "upper": "30000",
-            "value": "3120"
-          }
-        ],
-        "head_of_household": [
-          {
-            "lower": "29950",
-            "upper": "30000",
-            "value": "3257"
-          }
         ]
+      },
+      "version": "v1"
+    }
+  ],
+  "rules": [
+    {
+      "blocked": {
+        "code": "OPEN_DEPENDENCY",
+        "missing": [
+          "rounding.convention"
+        ]
+      },
+      "id": "demo.rule.wages-to-1040-line1a",
+      "notes": "Collect W-2 box 1 across the source set, aggregate, then round under the asserted convention.",
+      "publishes": "demo.form1040.line1a",
+      "requires": [
+        "rounding.convention"
+      ],
+      "role": "field-mapping",
+      "schema": "rule-artifact.v1",
+      "scope": {
+        "family": "individual-income-tax",
+        "jurisdiction": "US-federal",
+        "tax_year": 2025
+      },
+      "value": {
+        "mode": {
+          "name": "rounding.convention",
+          "op": "ref"
+        },
+        "op": "round",
+        "stage": "after_aggregate",
+        "value": {
+          "args": [
+            {
+              "name": "demo.w2.box1",
+              "op": "collect",
+              "source_set": "demo.w2"
+            }
+          ],
+          "op": "add"
+        }
+      },
+      "version": "v1",
+      "when": true
+    },
+    {
+      "blocked": {
+        "code": "OPEN_DEPENDENCY",
+        "missing": [
+          "demo.form1040.line1a"
+        ]
+      },
+      "id": "demo.rule.total-income-line9",
+      "notes": "Demo slice: total income is wages only, so line 9 carries line 1a forward \u2014 a derived value depending on another derived value, for explanation chaining.",
+      "publishes": "demo.form1040.line9",
+      "requires": [
+        "demo.form1040.line1a"
+      ],
+      "role": "computation",
+      "schema": "rule-artifact.v1",
+      "scope": {
+        "family": "individual-income-tax",
+        "jurisdiction": "US-federal",
+        "tax_year": 2025
+      },
+      "value": {
+        "name": "demo.form1040.line1a",
+        "op": "ref"
+      },
+      "version": "v1",
+      "when": true
+    },
+    {
+      "blocked": {
+        "code": "OPEN_TAX_TABLE_ROW",
+        "missing": [
+          "demo.form1040.line15",
+          "filing_status"
+        ]
+      },
+      "id": "demo.rule.tax-table-line16",
+      "notes": "Below the split, tax is read from the sample table; an unrepresented row blocks rather than inventing a value.",
+      "publishes": "demo.form1040.line16",
+      "requires": [
+        "demo.form1040.line15",
+        "filing_status",
+        "rounding.convention"
+      ],
+      "role": "computation",
+      "schema": "rule-artifact.v1",
+      "scope": {
+        "family": "individual-income-tax",
+        "jurisdiction": "US-federal",
+        "tax_year": 2025
+      },
+      "value": {
+        "mode": {
+          "name": "rounding.convention",
+          "op": "ref"
+        },
+        "op": "round",
+        "stage": "final",
+        "value": {
+          "key": {
+            "name": "filing_status",
+            "op": "ref"
+          },
+          "op": "range_lookup",
+          "table_id": "demo.parameter.tax-table-sample.2025",
+          "value": {
+            "name": "demo.form1040.line15",
+            "op": "ref"
+          }
+        }
+      },
+      "version": "v1",
+      "when": {
+        "cmp": "lt",
+        "left": {
+          "name": "demo.form1040.line15",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": {
+          "op": "parameter",
+          "parameter_id": "demo.parameter.regular-tax-split.2025"
+        }
       }
     }
   ],
-  "inputs": [
-    {
-      "symbol": "rounding.convention",
-      "value": "half_up",
-      "finding_id": "demo.finding.rounding",
-      "role": "input"
-    },
-    {
-      "symbol": "filing_status",
-      "value": "single",
-      "finding_id": "demo.finding.filing",
-      "role": "choice"
-    },
-    {
-      "symbol": "demo.form1040.line15",
-      "value": "14950",
-      "finding_id": "demo.finding.line15",
-      "role": "input"
-    }
-  ],
+  "run_id": "demo.run.first-slice",
   "sources": [
     {
+      "finding_id": "demo.finding.w2a",
       "name": "demo.w2.box1",
-      "value": "40000",
-      "finding_id": "demo.finding.w2a"
+      "value": "40000"
     },
     {
+      "finding_id": "demo.finding.w2b",
       "name": "demo.w2.box1",
-      "value": "2000",
-      "finding_id": "demo.finding.w2b"
+      "value": "2000"
     }
-  ],
-  "closed_sets": [
-    "demo.w2"
   ]
 }
