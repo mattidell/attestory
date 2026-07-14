@@ -15,121 +15,69 @@ to, then continue."* The new foreman reads those, reconciles the in-flight state
 below against `git status` / `git log`, and proceeds. If the note looks stale
 against git, trust git and say so.
 
-## Current state (updated 2026-07-13, end of remediation session; branch `milestone/core-tax-conditions` at `d13d1fb`)
+## Current state (updated 2026-07-14; branch `milestone/core-tax-conditions`)
 
-- **Seat:** Claude is principal foreman (owner-appointed 2026-07-13, relieving
-  the previous Codex foreman after the governance remediation — full history in
-  the two topics' process logs). Standing owner directives, formalized in the
-  ADR-0013 amendment and AGENTS.md (2026-07-13): rival evidence every round;
+- **Seat:** Claude is principal foreman (owner-appointed 2026-07-13). Standing
+  owner directives (ADR-0013 amendment + AGENTS.md): rival evidence every round;
   non-accepted ADRs are inert; rejected ADRs retained, never deleted; **no
-  foreman-spawned agents without a fresh owner go** (owner has been launching
-  seats from foreman-issued prompts; integrate their outputs from the working
-  tree, commit with foreman custody, and always split unrelated deliveries
-  into separate commits).
+  foreman-spawned agents without a fresh owner go** — the owner launches every
+  builder/reviewer seat from foreman-issued prompts; the foreman integrates
+  their dropped files from the working tree, commits with custody, and **splits
+  each owner-launched delivery into its own commit, separate from foreman doc
+  changes**.
+
+- **The working rhythm (every remediation topic follows it):** foreman drafts
+  `plan.md` → owner approves → foreman writes `charter-it1.md`, owner launches
+  the incumbent → foreman conformance-checks + commits the exhibit → foreman
+  writes `charter-it2.md` (clean-room rival, sealed from it1 **and** any prior
+  spike/ADR), owner launches it → conformance + commit → foreman charters two
+  committee reviewers (Governance + Adversary, independent contexts, both read
+  both designs), owner launches them → foreman triages into
+  `evaluation-analysis.md` → foreman drafts the ADR → owner ratifies. Conformance
+  is scope-only (two files, exam ≤120 lines, all required cases incl. the
+  mandatory ones, Rung boundary held); merits go to the committee.
+
 - **Milestone:** Core Tax Conditions And Presentation Integration — plan
-  **revised 2026-07-14** (see the milestone doc's revision note). Track 0 is
-  **2 of 5 topics settled**; the owner directed remediation of all three
-  remaining topics (interest 0021, manifests 0022, citations 0018) with
-  conforming rival-backed rounds before any implementation track opens. **Track
-  0.a taxable-interest-composition prototype plan drafted** (`docs/prototypes/
-  taxable-interest-composition/plan.md`): committee round **complete**. Both
-  exhibits committed (incumbent `4ea0b6c`, rival `f3ccb43`); both reviews in
-  (`round-1-governance.md` owner-committed `15e90f3`, `round-1-adversary.md`
-  custody); `evaluation-analysis.md` written. **Unanimous:** reject it1, carry
-  it2's mechanism + OID-inclusive boundary. Owner scope decision (2026-07-14):
-  mechanism + honest-partial OID-inclusive boundary. **ADR-0026 drafted
-  (proposed)** — composition citizen + slot bijection, mandatory OID-inclusive
-  positive-source boundary, new provenance-only `composition` pin role +
-  mandatory binding, per-constituent `require_closed` (closes TIC-A3/A5),
-  honesty gate deferring further positive sources (K-1, market discount) and the
-  subtractive-adjustment mechanism (nominee/accrued/premium) to named follow-ons;
-  supersedes inert 0021. **Pending: owner ratification of ADR-0026.** Then Track
-  0.b (manifests, ADR-0022) and Track 0.c (citations, ADR-0018) remain — the two
-  other Track-0 remediations — before implementation. Implementation tracks 1–7
-  rebuild on
-  the ratified ADRs and inherit their production conditions (threaded per track
-  in the plan). ADR status: 0019 rejected
-  (retained); 0023 **accepted** (ratified at patch merge `bf23517`); 0024
-  **accepted** (owner ratification 2026-07-13); 0025 **accepted** (owner
-  ratification 2026-07-14); 0020 **accepted** (owner ratification 2026-07-14);
-  0018/0021/0022 **proposed but non-conforming** — single-author paper spikes,
-  no rival-backed prototype rounds (see 2026-07-14 Track-0 finding below).
-- **Source Completeness reconciliation: CLOSED.** Review → patch → pre-merge
-  review → corrections → owner non-ff merge `bf23517` → ADR-0023 ratified and
-  roadmap updated on `main` (`7a90f89`). 316 tests/lint/mypy green post-merge.
-  Optional follow-up SC-PR3 (thicken the committed SC-R1 probe end-to-end)
-  can ride any future kernel track.
-- **CS topic: closed for decision.** it2 accepted with CS-A10R/A11R errata;
-  `evaluation-analysis.md` rewritten (complete); **ADR-0024** (Conditional
-  Structures in the Rule Language) **accepted** (owner ratification
-  2026-07-13). Track 3 rebuild is now gated only on the ELX topic outcome
-  (its decisions 5–6 upgrade content written under 0024).
-  Track 3's old implementation stays parked at `wip/track3-core-conditions`
-  (`c8be492`), reference only.
-- **ELX topic (expression-language-extensions): CLOSED. ADR-0025 accepted
-  (owner ratification 2026-07-14).** Both exhibits committed (incumbent
-  `a9e4b9c`, rival `b2b9022`); both committee reviews under custody
-  (`reviews/round-1-governance.md` ELX-G1–G6, `reviews/round-1-adversary.md`
-  ELX-A1–A8); `evaluation-analysis.md` written. Unanimous committee outcome:
-  rival (it2) carried for both propositions; incumbent's `default_superseded`
-  root class and generic `match` op rejected. ADR-0025 adopts the rival's
-  same-`fact_id` correction-fold default (`optional_default` on `fact-type.v2`,
-  `resolved_input` branch, `origin` pins, `input_bindings`) and
-  `categorical_compare` + `category_literal` with governed code→label migration;
-  resolves ADR-0024's delegated decisions 5–6. Three production conditions carry
-  to implementation: PC1 transitive `origin` pins; **PC2 — new
-  `CATEGORICAL_DOMAIN_MISMATCH` disposition reason amends the ADR-0012
-  vocabulary** (the one cross-contract reach — implementers must update the
-  disposition/explanation contracts); PC3 unexecuted-at-HEAD (needs
-  correction-fold validation, two-runner parity, five cases as fixtures).
-- **NPE topic: round 3 CLOSED; ADR-0020 NOT ratification-ready; round-4
-  redraft outstanding.** Both round-3 reviews committed under custody
-  (`reviews/round-3-governance.md` NPE-G9–G11 "ready after corrections";
-  `reviews/round-3-adversary.md` NPE-A12–A18 "not ready"). Foreman triage
-  `round-3-triage.md` confirms **seven decision-blocking findings** (the
-  adversary's "not ready" is the correct disposition; the reviewers examined
-  different surfaces, so findings are additive). `evaluation-analysis.md`
-  rewritten for the through-round-3 state (converged shape C1–C3 endorsed;
-  decision text not yet correct). **Pending owner disposition:** commission a
-  round-4 ADR-0020 redraft (foreman custody, as the round-2→round-3 redraft
-  was) folding the seven blockers + NPE-A14 into decision text and the
-  `npe-walk.v1` schema, then a light confirmation review before ratification.
-  **DONE (2026-07-14):** round-4 redraft of ADR-0020 written in foreman custody,
-  folding all seven blockers + NPE-A14 (vocabulary-layering section, ledger
-  totality, `blocked[]` as derived read-model, new decision 1a conflict-loser
-  `inapplicable`, act-log-first walk, `rule_references[]` array, retracted
-  "unchanged" pin walker, shared-table canonical store; fixture repair moved to
-  prerequisites). Confirmation review chartered:
-  `roles/reviewer-adversary-r4.md` (single adversary seat, scoped to the
-  changes). **DONE (2026-07-14):** review committed (`reviews/round-4-adversary.md`,
-  NPE-A19–A22, "ready after listed corrections"); six of eight round-3 blockers
-  confirmed closed; two new decision-blocking defects in the round-4 draft
-  (NPE-A19 absent-deps conflict-loser masked as inapplicable; NPE-A20 unscoped
-  act-log-first walks the wrong run's finding). Both applied in a **round-5
-  corrective redraft** of ADR-0020 (foreman custody, `round-4-triage.md`):
-  decision 1a is now a fixed classification order (absent dep → `blocked`; else
-  already-published → `inapplicable` conflict-loser with `superseded_by`, no
-  synthetic guard; else evaluate), and decision 4 is run-scoped selection.
-  **ADR-0020 ACCEPTED (owner ratification 2026-07-14)**, with the NPE-G10
-  fold+fixture-repair prerequisite to land concurrently in implementation. NPE
-  topic CLOSED.
-- **Git hygiene notes:** use the project `.venv` (system python lacks
-  jsonschema); owner-launched threads drop uncommitted files into this
-  working tree — check `git status` before any `git add -A` and split
-  deliveries from your own doc changes. Milestone roadmap/handoff will
-  conflict with `main`'s at merge; resolve toward the milestone versions.
-- **Pending owner decisions:** (1) approve the Track 0.a interest-composition
-  prototype plan once drafted, then launch its seats; (2) milestone-level
-  process retrospective on the delegation experiment — the CS→ELX arc and the
-  NPE five-round arc are both complete, rich evidence in hand (single-builder
-  rounds would likely have ratified the unsound `default_superseded` mechanism,
-  ELX-A1; NPE's authored-vs-transcribed defect pattern across four drafts);
-  timing owner's.
-- **Track-0 finding (2026-07-14):** the prior Codex foreman's ADRs 0018/0021/
-  0022 are non-conforming single-author paper spikes (0018 has no artifact at
-  all), inert per the ADR-0013 amendment. Owner directed remediation of all
-  three. This is the same skipped-rival defect class that reopened CS/NPE —
-  worth a line in the retrospective about how far it propagated.
-- **Side thread (not foreman scope):** product naming — front-runner
-  "Attestory"; `attestory.com` is a 2026-01-30 GoDaddy registration with a
-  "Launching Soon" page and no other footprint; owner's USPTO check decides.
+  **revised 2026-07-14** (`docs/phases/foundation/milestones/core-tax-conditions-and-presentation-integration.md`,
+  see its revision note). Track 0 (contract decisions) must fully ratify before
+  any implementation track opens; implementation tracks 1–7 rebuild on the
+  ratified ADRs and inherit their production conditions (threaded per track).
+
+- **Track 0 status — 3 of 5 topics settled:**
+  - ✅ Conditional structures → **ADR-0024** accepted; expression extensions → **ADR-0025** accepted.
+  - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
+  - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
+  - 🔧 **Track 0.b — Adopted-content manifests (ADR-0022): NEXT.** Inert single-author spike only; needs full remediation. Must reckon with ADR-0025's new schema versions (`fact-type.v2`, `artifact-package.v2`, `derived-finding.v2`, `rule-artifact.v2`, `operation-semantics.v2`) and ADR-0026's new `composition` citizen + pin role.
+  - 🔧 **Track 0.c — Citation resolution (ADR-0018):** last. **No prototype artifact exists at all** — starts from the plan.
+
+- **➡️ NEXT ACTION: draft the Track 0.b adopted-content-manifests prototype plan**
+  (`docs/prototypes/adopted-content-manifests/plan.md`), following the rhythm
+  above. Seed it from the inert `docs/prototypes/adopted-content-manifests-spike.md`
+  (to supersede, not inherit) and the open question of manifest closure over the
+  new 0025/0026 schema versions and pin roles. Candidate ADR-0027, superseding
+  inert ADR-0022. Owner approves/amends before the incumbent is chartered.
+
+- **ADR ledger:** 0019 rejected (retained); 0023, 0024, 0025, 0020, 0026 **accepted**;
+  0018 & 0022 **inert non-conforming drafts** (to be superseded by conforming
+  successors, retained). Closed-topic detail lives in each
+  `docs/prototypes/<topic>/process-log.md` and `evaluation-analysis.md`.
+
+- **Git/env hygiene:** use the project `.venv` (system python lacks jsonschema);
+  check `git status` before any `git add -A` (owner threads drop uncommitted
+  files); the owner sometimes commits a delivery directly (e.g. the TIC
+  governance review `15e90f3`) — reconcile against git, don't assume custody.
+  Milestone roadmap/handoff will conflict with `main`'s at merge; resolve toward
+  the milestone versions.
+
+- **Pending / deferred (owner-timed, not blocking Track 0.b):**
+  - Milestone-level **process retrospective** on the delegation experiment —
+    rich evidence now in hand across four topics: the two-builder rivalry caught
+    an unsound mechanism (ELX-A1 `default_superseded`) and a substantive omission
+    (TIC-A1 OID); NPE showed an authored-vs-transcribed defect pattern across
+    four drafts; and the skipped-rival defect propagated to 3 inert Track-0 ADRs.
+  - The ADR-0026 deferred follow-ons (further positive interest sources; the
+    subtractive-adjustment mechanism) are future decision topics, not this
+    milestone's blockers.
+  - **Side thread (not foreman scope):** product naming — front-runner
+    "Attestory"; `attestory.com` is a 2026-01-30 GoDaddy "Launching Soon"
+    registration; owner's USPTO check decides.

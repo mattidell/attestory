@@ -1,6 +1,6 @@
 # ADR 0026 — Taxable-Interest Composition and Form 1040 Line 2b
 
-- Status: proposed
+- Status: **accepted** (owner ratification 2026-07-14, principal foreman custody)
 - Tier: 2
 - Date: 2026-07-14
 
