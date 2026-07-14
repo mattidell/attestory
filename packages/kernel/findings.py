@@ -212,6 +212,23 @@ def apply_assertion(
 ) -> FindingState:
     finding = payload["finding"]
     _validate_finding(state, finding, registry)
+
+    # SC-R1: A predicate-matching member fact for an adopted family must not be admittable
+    # through a plain assertion unless the fact is already currently a member of the family
+    # (which represents a same-member correction, not a new membership transition).
+    lattice = facts.facts_of(state.fact_state)
+    fact = lattice.get(finding["fact_id"])
+    if fact and hasattr(registry, "family_member_predicates") and fact.fact_type_id in registry.family_member_predicates:
+        fact_is_member = (
+            any(f["fact_id"] == finding["fact_id"] for f in state.findings.values())
+            and finding["fact_id"] not in state.withdrawn_fact_ids
+        )
+        if not fact_is_member:
+            raise FindingModelError(
+                f"cannot assert member fact {finding['fact_id']} through a plain assertion; "
+                f"must use a member-transition instead"
+            )
+
     findings = dict(state.findings)
     findings[finding["id"]] = finding
     return replace(state, findings=findings)
@@ -294,6 +311,20 @@ def apply_member_transition(
     if member["action"] in ("assert", "reclassify"):
         finding = member["finding"]
         _validate_finding(state, finding, registry)
+
+        # SC-R2: A member-transition asserting a fact already in the family must be rejected.
+        # Same-member value corrections belong on the ordinary assertion path instead.
+        fact_id = finding["fact_id"]
+        is_member = (
+            any(f["fact_id"] == fact_id for f in state.findings.values())
+            and fact_id not in state.withdrawn_fact_ids
+        )
+        if is_member:
+            raise FindingModelError(
+                f"transition asserting fact {fact_id} already in the family is rejected: "
+                f"same-member correction belongs on the ordinary assertion path"
+            )
+
         findings[finding["id"]] = finding
     if member["action"] in ("remove", "reclassify"):
         withdrawn = _withdraw_member_fact(state, member["fact_id"])

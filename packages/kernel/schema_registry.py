@@ -55,6 +55,7 @@ class SchemaRegistry:
             self._dirs = list(schema_dir)
         self._schemas: dict[str, dict[str, Any]] = {}
         self._validators: dict[str, jsonschema.Draft202012Validator] = {}
+        self.family_member_predicates: set[str] = set()
         self._load()
 
     def _load(self) -> None:
