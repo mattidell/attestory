@@ -1,6 +1,6 @@
 # ADR 0024 — Conditional Structures in the Rule Language
 
-- Status: proposed
+- Status: **accepted** (owner ratification 2026-07-13, principal foreman custody)
 - Tier: 2
 - Date: 2026-07-13
 

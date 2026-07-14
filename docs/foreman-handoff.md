@@ -29,7 +29,8 @@ against git, trust git and say so.
 - **Milestone:** Core Tax Conditions And Presentation Integration — remediation
   essentially complete; implementation not restarted. ADR status: 0019
   rejected (retained); 0023 **accepted** (ratified at patch merge `bf23517`);
-  0018/0020/0021/0022/0024 proposed; 0024 awaiting owner ratification call.
+  0024 **accepted** (owner ratification 2026-07-13); 0018/0020/0021/0022
+  proposed.
 - **Source Completeness reconciliation: CLOSED.** Review → patch → pre-merge
   review → corrections → owner non-ff merge `bf23517` → ADR-0023 ratified and
   roadmap updated on `main` (`7a90f89`). 316 tests/lint/mypy green post-merge.
@@ -37,8 +38,9 @@ against git, trust git and say so.
   can ride any future kernel track.
 - **CS topic: closed for decision.** it2 accepted with CS-A10R/A11R errata;
   `evaluation-analysis.md` rewritten (complete); **ADR-0024** (Conditional
-  Structures in the Rule Language) drafted as proposed — owner ratification
-  pending. Track 3 rebuild is gated on ADR-0024 + the ELX topic outcome.
+  Structures in the Rule Language) **accepted** (owner ratification
+  2026-07-13). Track 3 rebuild is now gated only on the ELX topic outcome
+  (its decisions 5–6 upgrade content written under 0024).
   Track 3's old implementation stays parked at `wip/track3-core-conditions`
   (`c8be492`), reference only.
 - **ELX topic (expression-language-extensions): OPEN, in flight.** Incumbent
@@ -65,11 +67,11 @@ against git, trust git and say so.
   working tree — check `git status` before any `git add -A` and split
   deliveries from your own doc changes. Milestone roadmap/handoff will
   conflict with `main`'s at merge; resolve toward the milestone versions.
-- **Pending owner decisions:** (1) ratify ADR-0024; (2) ratify ADR-0020 after
-  round 3; (3) eventual milestone-plan revision + Tracks 1–3 re-run after
-  ratifications (Track 1 conditional-structure schemas rebuild under 0024,
-  not the rejected 0019); (4) milestone-level process retrospective on the
-  delegation experiment (rich material in the process logs), timing owner's.
+- **Pending owner decisions:** (1) ratify ADR-0020 after round 3; (2) eventual
+  milestone-plan revision + Tracks 1–3 re-run after the ELX ratification
+  (Track 1 conditional-structure schemas rebuild under 0024, not the rejected
+  0019); (3) milestone-level process retrospective on the delegation
+  experiment (rich material in the process logs), timing owner's.
 - **Side thread (not foreman scope):** product naming — front-runner
   "Attestory"; `attestory.com` is a 2026-01-30 GoDaddy registration with a
   "Launching Soon" page and no other footprint; owner's USPTO check decides.
