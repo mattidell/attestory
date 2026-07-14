@@ -2,7 +2,7 @@
 
 Audience: Agents
 
-Status: **draft — proposed to owner** (principal foreman, 2026-07-14). Track 0.b of the Core Tax Conditions milestone remediation. Owner may amend before builder launch.
+Status: **approved** (owner approved 2026-07-14; principal foreman custody). Track 0.b of the Core Tax Conditions milestone remediation. Chartering proceeds under this plan.
 
 Topic: What a version-locked **adopted content unit** is — which citizen kinds it must close over, how bidirectional closure and binding integrity are validated, and how that surface absorbs ADR-0025's schema-version extensions and ADR-0026's composition citizen + provenance pin role — so a package cannot partially load, silently drop a required peer, or publish a symbol its form fields and authority citizens do not jointly authorize.
 

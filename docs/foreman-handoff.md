@@ -47,17 +47,16 @@ against git, trust git and say so.
   - ✅ Conditional structures → **ADR-0024** accepted; expression extensions → **ADR-0025** accepted.
   - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
-  - 🔧 **Track 0.b — Adopted-content manifests (ADR-0022): plan drafted, awaiting owner approval.** Inert single-author spike only; needs full remediation. Must reckon with ADR-0006's existing package-as-closed-manifest substrate, ADR-0025's new schema versions (`fact-type.v2`, `artifact-package.v2`, `derived-finding.v2`, `rule-artifact.v2`, `operation-semantics.v2`), and ADR-0026's new `composition` citizen + pin role. Plan: `docs/prototypes/adopted-content-manifests/plan.md`.
+  - 🔧 **Track 0.b — Adopted-content manifests (ADR-0022): plan approved; it1 chartered.** Awaiting owner launch of High-tier incumbent (`charter-it1.md`). Must reckon with ADR-0006 package substrate, ADR-0025 schema versions, ADR-0026 composition + pin role. Plan: `docs/prototypes/adopted-content-manifests/plan.md`.
   - 🔧 **Track 0.c — Citation resolution (ADR-0018):** last. **No prototype artifact exists at all** — starts from the plan.
 
-- **➡️ NEXT ACTION: owner approve/amend the Track 0.b plan**, then authorize
-  chartering. Plan drafted at `docs/prototypes/adopted-content-manifests/plan.md`
-  (process log open). Propositions ACM-P1 (membership surface — extend vs
-  succeed ADR-0006 over form-fields / source-authority / composition / ELX
-  bindings) + ACM-P2 (cross-kind binding + schema-generation coexistence).
-  Candidate ADR-0027 superseding inert ADR-0022. Spike is prior art to
-  supersede — it ignored the committed package-as-closed-manifest substrate.
-  On approval: issue `charter-it1.md` for the High-tier incumbent.
+- **➡️ NEXT ACTION: owner launch the Track 0.b incumbent** from
+  `docs/prototypes/adopted-content-manifests/charter-it1.md` (High tier,
+  independent external context). Plan approved; charter issued. Drop
+  `it1/design.md` + `examination-it1.md` into the working tree; foreman
+  conformance-checks (scope only) and commits under custody, then charters
+  the clean-room rival (sealed from it1 + spike + ADR-0022). Candidate
+  ADR-0027.
 
 - **ADR ledger:** 0019 rejected (retained); 0023, 0024, 0025, 0020, 0026 **accepted**;
   0018 & 0022 **inert non-conforming drafts** (to be superseded by conforming
