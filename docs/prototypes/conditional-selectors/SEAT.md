@@ -16,4 +16,4 @@
 
 ## Next action
 
-It2 delivered and conformance-checked (CS-P2 settled; CS-P1 deliberately unresolved on the optional-input absence gap). Next: committee review round over it2 — Governance and Adversary, Medium tier, independent contexts — pending owner launch or spawn go. Triage and evaluation-analysis rewrite follow; the optional-input absence question is a candidate separate Tier-2 decision.
+Round 2R (committee over it2) prepared: owner launches the two seats from `roles/reviewer-governance-r2.md` and `roles/reviewer-adversary-r2.md`, separate threads, within-round independence. Outputs `reviews/round-2r-governance.md` (CS-G8R+) and `reviews/round-2r-adversary.md` (CS-A10R+). Foreman triage, then evaluation-analysis rewrite, follow; the optional-input absence question is a candidate separate Tier-2 decision. (Post-merge reconciliation review of Source Completeness is owner-launched and in flight, out of this topic.)
