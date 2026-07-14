@@ -43,22 +43,21 @@ against git, trust git and say so.
   (its decisions 5–6 upgrade content written under 0024).
   Track 3's old implementation stays parked at `wip/track3-core-conditions`
   (`c8be492`), reference only.
-- **ELX topic (expression-language-extensions): OPEN, at committee round.**
-  Both exhibits committed and conformance-passed: incumbent `a9e4b9c`, rival
-  `b2b9022`. Committee round chartered — `roles/reviewer-governance.md` and
-  `roles/reviewer-adversary.md` (both ≤100 lines, independent contexts, review
-  **both** designs). **Owner launches the two reviewers**; expect
-  `reviews/round-1-governance.md` (ELX-G*) and `reviews/round-1-adversary.md`
-  (ELX-A*) in the working tree. On arrival: foreman triage (classify every
-  finding decision-blocking / production-condition / non-blocking), write
-  `evaluation-analysis.md`, then draft ADR-0025 for owner ratification.
-  Candidate ADR number 0025. Key divergences the committee weighs: displacement
-  mechanism (incumbent `default_superseded` root class refining ADR-0010
-  decision 5 vs rival extending the existing correction fold over a shared
-  `fact_id`), categorical op (`match` vs `categorical_compare` +
-  `category_literal`), and declaration shape (`optional-input-declaration.v1`
-  citizen vs package-level `input_bindings` + `resolved_input` branch); both
-  keep a `default` pin role.
+- **ELX topic (expression-language-extensions): committee round CLOSED for
+  decision; ADR-0025 proposed, awaiting owner ratification.** Both exhibits
+  committed (incumbent `a9e4b9c`, rival `b2b9022`); both committee reviews
+  committed under custody (`reviews/round-1-governance.md` ELX-G1–G6,
+  `reviews/round-1-adversary.md` ELX-A1–A8). **Unanimous:** both reviewers carry
+  the **rival (it2)** forward for both propositions and reject the incumbent's
+  two distinctive mechanisms (`default_superseded` root class; generic `match`
+  op). `evaluation-analysis.md` written (foreman triage folded in — D1–D4
+  decision-blocking divergences all for the rival, PC1–PC3 production
+  conditions). **ADR-0025** drafted proposed: adopts rival's same-fact-`fact_id`
+  correction-fold default (`optional_default` on `fact-type.v2`, `resolved_input`
+  branch, `origin` pins, `input_bindings`) and `categorical_compare` +
+  `category_literal` with governed code→label migration; resolves ADR-0024's
+  delegated decisions 5–6. **Pending: owner ratification call on ADR-0025.** On
+  ratification, Track 3 rebuild is unblocked (builds on ADRs 0024 + 0025).
 - **NPE topic: round 3 in flight.** ADR-0020 redraft (durable Run Disposition
   Ledger) is under review — **owner has both round-3 prompts**
   (`roles/reviewer-governance-r3.md`, `roles/reviewer-adversary-r3.md`);
