@@ -2,7 +2,7 @@
 
 ## Current step
 
-Round 2 complete and triaged (`round-2-triage.md`). Control returned to owner. Pending owner decisions: rewrite of the reopened `evaluation-analysis.md` from both iterations, and revision of draft ADR-0020 to the converged shape (durable disposition ledger, not transient Execution Map) before ratification.
+Round 3 prepared (2026-07-13, owner-approved): review of the redrafted ADR-0020 (durable Run Disposition Ledger, redraft landed `fc9a855`). Owner launches the two seats from `roles/reviewer-governance-r3.md` and `roles/reviewer-adversary-r3.md`, separate threads. Outputs `reviews/round-3-governance.md` (NPE-G9+) and `reviews/round-3-adversary.md` (NPE-A12+). Foreman triage follows; then the `evaluation-analysis.md` rewrite and owner ratification of ADR-0020.
 
 ## Seats
 

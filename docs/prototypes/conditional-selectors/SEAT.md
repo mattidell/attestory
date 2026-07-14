@@ -2,7 +2,7 @@
 
 ## Current step
 
-**Round 1R complete and triaged** (`round-1r-triage.md`, 2026-07-13). Both independent seats: Shape A conditionally accept, Shape B reject as specified — inverting the tainted process's outcome. Pending owner decisions: ADR-0019 disposition (foreman recommends rejected status, retained), rival-builder charter in the Shape A family, evaluation-analysis rewrite.
+**Topic closed for decision** (2026-07-13): owner accepted it2 with the CS-A10R/A11R errata; `evaluation-analysis.md` rewritten from rounds 1R/2R (status complete); ADR-0024 (Conditional Structures in the Rule Language) drafted as proposed, delegating absence/defaults and categorical comparison to `docs/prototypes/expression-language-extensions/`. Remaining: owner ratification of ADR-0024; Track 3 rebuild waits on it plus the ELX topic outcome.
 
 ## Seats
 
@@ -16,4 +16,4 @@
 
 ## Next action
 
-Round 2R complete and triaged (`round-2r-triage.md`). Both seats conditionally accept it2; the optional-input impossibility claim is confirmed. Pending owner dispositions: accept it2 with the CS-A10R/A11R reorder errata; evaluation-analysis rewrite; fresh conditional-structures ADR (next free number); owner-approved plan for the expression-language-extensions topic (absence/defaults + categorical comparison) before any Track 3 rebuild.
+Owner ratifies ADR-0024 (or amends). Successor decision topic active at `docs/prototypes/expression-language-extensions/` (own SEAT). Track 3 rebuild is gated on ADR-0024 ratification and the ELX outcome.

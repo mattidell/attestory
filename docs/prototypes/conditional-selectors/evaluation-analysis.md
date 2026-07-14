@@ -1,61 +1,43 @@
 # Prototype Evaluation Analysis — Conditional Selectors
 
-Foreman, 2026-07-13. Status: **reopened 2026-07-12 by shadow foreman, owner-directed** — the plan's clean-room rival requirement (Gates 4/8) was not met (the incumbent authored both shapes; see process log), and a repair pass ran without the plan pre-authorizing one. Remediation proceeds owner-paced, starting with an independent re-performance of the round-1 review (round 1R, owner-launched seats). Round-1/2 conclusions stand as evidence but are provisional. Prior text preserved unedited below.
-
-Shape B (First-class Selector Citizen) is recommended with payload-level spousal-case grouping refactoring.
+Foreman (principal), 2026-07-13. Status: **complete** (rewritten from remediated evidence; supersedes the withdrawn 2026-07-13 analysis that recommended the selector citizen — see process log for the remediation history).
 
 ## Decision under evidence
 
-This analysis evaluates how conditional standard-deduction status lookups and tax bracket method/rate selection are modeled and resolved within the derivation cascade.
+How conditional standard-deduction selection and tax-computation-method selection are modeled and resolved within the derivation cascade (CS-P1), and how their tables are represented (CS-P2).
 
 ## Evidence
 
 | Evidence | Contribution |
 |---|---|
-| `exhibits/conditional-selectors/it1` (`55331c8`) | Shape A (rule cascade) vs Shape B (first-class selector) design, cases, and trace |
-| Round 1 reviews/triage | Goverance rejection of Shape B due to implicit defaults and displacement bypass; adversary case matching bugs |
-| `prototypes/conditional-selectors/repair1` (`36d2fe8`) | Repaired Shape B with parameters, explicit defaults, V0 absence pinning, mutually exclusive guards, and clamp/null-brackets progressive lookup |
-| Round 2 reviews/triage | Governance ratification of repaired Shape B; adversary spousal-case grouping logic leak identified |
+| `it1/design.md` + `examination-it1.md` (incumbent, both shapes) | Shape A vs Shape B designs |
+| Round 1R (`reviews/round-1r-*.md`, `round-1r-triage.md`) | Independent re-review: Shape A conditionally accepted, Shape B rejected as specified; executability defects in both as drafted |
+| `it2/design.md` + `examination-it2.md` (clean-room rival) | Strongest Shape A form, verified by read-only evaluator execution |
+| Round 2R (`reviews/round-2r-*.md`, `round-2r-triage.md`) | Both seats conditionally accept it2; optional-input impossibility claim confirmed after counterexample attempts |
 
-The rival requirement is satisfied: iteration 1 compared Shape A (standard rule cascade) and Shape B (first-class selector citizen) across all 5 required cases.
+The plan's rival requirement is genuinely satisfied: it2 was built clean-room (all incumbent and prior-round material denied), and each review round ran in independent contexts.
 
 ## Supported conclusions
 
-### C1 — First-class Selector Citizen (Shape B) preserves graph simplicity and logic-parameter separation
-A dedicated selector citizen consolidates complex conditional branching and optional dependency lookups into a single node. This reduces file count from 9 files (under Shape A's cascade) to 2 files (1 selector, 1 base parameters), preventing dependency graph explosion. Hardcoded constants are factored out to parameter files, satisfying CS-P2.
+### C1 — CS-P1 settled for the guarded-derivation subset (owner accepted 2026-07-13)
+Conditional selections are modeled as rule-driven derived findings in the existing rule language — guarded rules, parameter lookups, `choose`/`all` control, canon operation citizens — with no new citizen type and no new runner pathway. All five filing statuses, age/blindness/spousal scoping, bracket folding with lower-inclusive/upper-exclusive bands, zero/negative income, and the asserted itemization override (which honestly blocks downstream rather than inventing a deduction) execute against the committed evaluator.
 
-Evidence: `repair1` design payloads; Round 2 reviews.
+**Errata accepted with the design (CS-A10R/A11R):** the spouse-adjustment `all(...)` expressions must place `spouse_allowed` before the spouse-flag references so the evaluator's left-to-right short-circuit skips absent spouse inputs for Single/HoH/QSS and ineligible-MFS filers; and the design's requirement that demographic flags be explicitly asserted must be documented. Recorded here and in ADR-0024 rather than rebuilt.
 
-### C2 — Optional dependencies require V0 Absence Pinning to preserve displacement integrity
-When optional inputs (such as spouse fields for standard deduction adjustments) are unasserted, the runner cannot establish standard version-displacement checks if these inputs are later provided, unless it tracks their absence. By writing a **V0 Absence Pin** for absent optional symbols and evaluating them as their declared default values, the runner can evaluate safely (Article 12) without hardcoded hacks (Article 11). If the optional facts are later asserted at version `v1` or higher, standard version-supersession triggers displacement along the derivation edge, satisfying Article 7's two-edge constraint.
+### C2 — CS-P2 settled
+Every amount and rate lives in a versioned parameter citizen (`p.standard-deduction`, `p.additional-deduction`, `p.brackets`); rules carry only logic, references, and control mechanics. Confirmed sound by round-2R governance (Articles 9/11).
 
-Evidence: `repair1` evaluation mechanics; Round 2 governance approval.
-
-### C3 — Case match conditions must be mutually exclusive and order-independent
-To prevent sequential array-index dependencies, case guards must be evaluated concurrently. The runner enforces that exactly one case matches (or executes a declared fallback), throwing a collision error if multiple guards are true.
-
-Evidence: `repair1` collision checks; Round 2 reviews.
-
-### C4 — MFS and QSS must be treated as non-spousal cases to prevent logic leakage
-Qualifying Surviving Spouse (QSS) and Married Filing Separately (MFS) receive standard deduction bases and rates but cannot claim additional spouse deductions. Grouping MFS and QSS with MFJ in the spousal case allows unasserted spouse claims to leak into their calculations. They must be grouped under Case 1 (non-spousal), leaving Case 2 strictly for MFJ.
-
-Evidence: Round 2 adversary findings.
-
----
+### C3 — The optional-input absence gap is a genuine contract gap, split out
+Under committed contracts there is no honest optional default: referencing an absent scalar input blocks, and a default-injecting rule silently overwrites an asserted input. The rival proved it by probe; the round-2R adversary confirmed it after refuting three counterexample constructions (staged multi-publisher rules, closure-aggregation, evaluation-order tricks). Routed to the `expression-language-extensions` topic together with categorical/string comparison (the numeric status-code workaround is executable but illegible — CS-G8R).
 
 ## Rejected alternatives
 
-- **Shape A (Rule Cascade):** Rejected due to graph density explosion (9 files for standard deduction) and rule-level logic leakage (spouse shares applied to single filers).
-- **Implicit Defaulting in Runner:** Rejected as it embeds tax meaning in code (violating Article 11) and derives from unasserted claims (violating Article 12).
-- **Default fallback `default: null`:** Rejected. Fallback defaults override fast-failing error checks and hide unsupported status errors.
-
----
+- **Shape B (first-class selector citizen), ADR-0019:** rejected — policy values embedded in logic, an optional contract matching no committed schema, an unlicensed native runner pathway, non-exhaustive cases (round 1R). ADR-0019 retained with rejected status.
+- **Default-injecting rules:** rejected — silent overwrite of asserted inputs (CS-A4R, reproduced by it2's probe).
 
 ## Production conditions
 
-- Implement `selector-artifact.v1` schema and loader.
-- Implement V0 Absence Pinning in the runner.
-- Enforce mutual exclusivity and throw `SELECTOR_COLLISION_ERROR` at runtime.
-- Clamp taxable income to zero and check sorted order in `bracket_fold`.
-- Support `"limit": null` as an infinite upper bound on progressive brackets.
-- Refactor standard-deduction cases to place MFS and QSS under Case 1 (non-spousal).
+- Apply the C1 errata in implementation content and tests.
+- Categorical status representation upgrades from numeric codes when `expression-language-extensions` ratifies (ADR-0024 carries this as a condition).
+- Package validation over the complete parameter/canon/rule corpus, adoption, and two-runner parity — implementation evidence for the rebuilt Track 3.
+- Itemized-deduction package design (authority question 2) stays with roadmap content planning.
