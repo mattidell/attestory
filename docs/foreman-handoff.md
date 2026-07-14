@@ -27,10 +27,11 @@ against git, trust git and say so.
   tree, commit with foreman custody, and always split unrelated deliveries
   into separate commits).
 - **Milestone:** Core Tax Conditions And Presentation Integration — remediation
-  essentially complete; implementation not restarted. ADR status: 0019
-  rejected (retained); 0023 **accepted** (ratified at patch merge `bf23517`);
-  0024 **accepted** (owner ratification 2026-07-13); 0018/0020/0021/0022
-  proposed.
+  essentially complete; implementation not restarted but now **unblocked** —
+  both rule-language engine decisions are ratified. ADR status: 0019 rejected
+  (retained); 0023 **accepted** (ratified at patch merge `bf23517`); 0024
+  **accepted** (owner ratification 2026-07-13); 0025 **accepted** (owner
+  ratification 2026-07-14); 0018/0020/0021/0022 proposed.
 - **Source Completeness reconciliation: CLOSED.** Review → patch → pre-merge
   review → corrections → owner non-ff merge `bf23517` → ADR-0023 ratified and
   roadmap updated on `main` (`7a90f89`). 316 tests/lint/mypy green post-merge.
@@ -43,21 +44,22 @@ against git, trust git and say so.
   (its decisions 5–6 upgrade content written under 0024).
   Track 3's old implementation stays parked at `wip/track3-core-conditions`
   (`c8be492`), reference only.
-- **ELX topic (expression-language-extensions): committee round CLOSED for
-  decision; ADR-0025 proposed, awaiting owner ratification.** Both exhibits
-  committed (incumbent `a9e4b9c`, rival `b2b9022`); both committee reviews
-  committed under custody (`reviews/round-1-governance.md` ELX-G1–G6,
-  `reviews/round-1-adversary.md` ELX-A1–A8). **Unanimous:** both reviewers carry
-  the **rival (it2)** forward for both propositions and reject the incumbent's
-  two distinctive mechanisms (`default_superseded` root class; generic `match`
-  op). `evaluation-analysis.md` written (foreman triage folded in — D1–D4
-  decision-blocking divergences all for the rival, PC1–PC3 production
-  conditions). **ADR-0025** drafted proposed: adopts rival's same-fact-`fact_id`
-  correction-fold default (`optional_default` on `fact-type.v2`, `resolved_input`
-  branch, `origin` pins, `input_bindings`) and `categorical_compare` +
-  `category_literal` with governed code→label migration; resolves ADR-0024's
-  delegated decisions 5–6. **Pending: owner ratification call on ADR-0025.** On
-  ratification, Track 3 rebuild is unblocked (builds on ADRs 0024 + 0025).
+- **ELX topic (expression-language-extensions): CLOSED. ADR-0025 accepted
+  (owner ratification 2026-07-14).** Both exhibits committed (incumbent
+  `a9e4b9c`, rival `b2b9022`); both committee reviews under custody
+  (`reviews/round-1-governance.md` ELX-G1–G6, `reviews/round-1-adversary.md`
+  ELX-A1–A8); `evaluation-analysis.md` written. Unanimous committee outcome:
+  rival (it2) carried for both propositions; incumbent's `default_superseded`
+  root class and generic `match` op rejected. ADR-0025 adopts the rival's
+  same-`fact_id` correction-fold default (`optional_default` on `fact-type.v2`,
+  `resolved_input` branch, `origin` pins, `input_bindings`) and
+  `categorical_compare` + `category_literal` with governed code→label migration;
+  resolves ADR-0024's delegated decisions 5–6. Three production conditions carry
+  to implementation: PC1 transitive `origin` pins; **PC2 — new
+  `CATEGORICAL_DOMAIN_MISMATCH` disposition reason amends the ADR-0012
+  vocabulary** (the one cross-contract reach — implementers must update the
+  disposition/explanation contracts); PC3 unexecuted-at-HEAD (needs
+  correction-fold validation, two-runner parity, five cases as fixtures).
 - **NPE topic: round 3 in flight.** ADR-0020 redraft (durable Run Disposition
   Ledger) is under review — **owner has both round-3 prompts**
   (`roles/reviewer-governance-r3.md`, `roles/reviewer-adversary-r3.md`);
@@ -70,11 +72,15 @@ against git, trust git and say so.
   working tree — check `git status` before any `git add -A` and split
   deliveries from your own doc changes. Milestone roadmap/handoff will
   conflict with `main`'s at merge; resolve toward the milestone versions.
-- **Pending owner decisions:** (1) ratify ADR-0020 after round 3; (2) eventual
-  milestone-plan revision + Tracks 1–3 re-run after the ELX ratification
-  (Track 1 conditional-structure schemas rebuild under 0024, not the rejected
-  0019); (3) milestone-level process retrospective on the delegation
-  experiment (rich material in the process logs), timing owner's.
+- **Pending owner decisions:** (1) ratify ADR-0020 after NPE round 3; (2)
+  milestone-plan revision + Tracks 1–3 re-run — **now unblocked** (Track 1
+  conditional-structure schemas rebuild under ADR-0024, not the rejected 0019;
+  Track 3 rebuilds under ADRs 0024 + 0025; ELX production conditions PC1–PC3
+  land here); (3) milestone-level process retrospective on the delegation
+  experiment — the CS→ELX arc is now complete, so its strongest evidence
+  (single-builder rounds would likely have ratified the unsound
+  `default_superseded` mechanism the two-builder round caught, ELX-A1) is in
+  hand; timing owner's.
 - **Side thread (not foreman scope):** product naming — front-runner
   "Attestory"; `attestory.com` is a 2026-01-30 GoDaddy registration with a
   "Launching Soon" page and no other footprint; owner's USPTO check decides.

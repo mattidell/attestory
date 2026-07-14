@@ -1,6 +1,6 @@
 # ADR 0025 — Expression Language Extensions: Declared Optional Defaults and Categorical Comparison
 
-- Status: proposed
+- Status: **accepted** (owner ratification 2026-07-14, principal foreman custody)
 - Tier: 2
 - Date: 2026-07-14
 
