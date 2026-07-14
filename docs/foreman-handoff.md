@@ -46,9 +46,9 @@ against git, trust git and say so.
 - **Standing owner directives (formalized):** ADR-0013 amendment + AGENTS.md
   lines (2026-07-13) — rival evidence every round; non-accepted ADRs are
   inert; rejected ADRs retained, never deleted.
-- **Pending owner decisions:** (1) ADR-0019 disposition — foreman recommends
-  `rejected` status, retained; (2) go/no-go on a CS clean-room rival-builder
-  charter in the Shape A family (resolve CS-G1R/A1R/A2R); (3) CS
-  evaluation-analysis rewrite; (4) NPE ADR-0020 post-redraft review round
-  (redraft landed in `fc9a855`); (5) eventual re-run of Tracks 1–3 after
-  ratifications.
+- **Pending:** (1) owner launches the CS it2 clean-room rival builder
+  (`charter-it2.md`, `roles/builder-rival.md`; ADR-0019 flipped to rejected
+  2026-07-13); (2) after it2: foreman conformance check, committee review
+  round, triage, CS evaluation-analysis rewrite; (3) NPE ADR-0020
+  post-redraft review round (redraft landed in `fc9a855`); (4) eventual
+  re-run of Tracks 1–3 after ratifications.

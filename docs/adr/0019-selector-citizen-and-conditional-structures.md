@@ -1,8 +1,20 @@
 # ADR 0019 — Selector Citizen and Conditional Structures
 
-- Status: proposed
+- Status: **rejected** (owner decision 2026-07-13; retained per ADR-0013 amendment — inert as authority, citable as history)
 - Tier: 2
 - Date: 2026-07-13
+
+> **Rejection note (2026-07-13, principal foreman).** This draft rested on the
+> tainted conditional-selectors round whose rival requirement was never met.
+> The independent round-1R re-review (`docs/prototypes/conditional-selectors/round-1r-triage.md`)
+> rejected the selector-citizen shape as specified: policy values embedded in
+> selector logic (CS-G2R), an optional-input contract that matches no committed
+> schema (CS-G3R), an unlicensed native runner pathway with undefined
+> package/lineage/edge contracts (CS-G4R), non-exhaustive filing-status cases
+> (CS-A3R), and — common to both shapes — guard expressions that do not execute
+> under the committed evaluator (CS-G1R, CS-A1R, CS-A2R). A selector citizen may
+> return only via a fresh charter that declares the contract boundaries CS-G4R
+> names. The decision text below is preserved unedited as history.
 
 ## Context
 

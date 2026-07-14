@@ -10,10 +10,10 @@
 |---|---|---|
 | Foreman | Claude, principal foreman (owner-appointed 2026-07-13, relieving previous Codex foreman) | active; owner-paced, no unapproved spawns |
 | Incumbent builder | owner-launched external context | completed; it1 exhibit `exhibits/conditional-selectors/it1`, repair1 branch `prototypes/conditional-selectors/repair1` |
-| Rival builder | vacant | deferred; charter follows round 1R |
+| Rival builder | owner-launched external context, from `roles/builder-rival.md` | charter issued (`charter-it2.md`); ready to launch |
 | Governance reviewer (round 1R) | owner-launched external context | completed 2026-07-12; `reviews/round-1r-governance.md` |
 | Adversary reviewer (round 1R) | foreman-spawned sub-agent (Medium tier, owner go 2026-07-13) | completed; `reviews/round-1r-adversary.md` |
 
 ## Next action
 
-Owner decisions per `round-1r-triage.md`: (1) ADR-0019 disposition — foreman recommends `rejected` status, file retained; (2) go/no-go on a clean-room rival-builder charter in the Shape A family resolving CS-G1R/A1R/A2R; (3) evaluation-analysis rewrite from round-1R evidence.
+ADR-0019 rejected (owner, 2026-07-13; retained). Owner launches the it2 clean-room rival builder from `roles/builder-rival.md` under `charter-it2.md`. On completion: foreman conformance check, committee review round over it2, triage, then evaluation-analysis rewrite.
