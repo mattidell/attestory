@@ -46,6 +46,12 @@ against git, trust git and say so.
 - **Standing owner directives (formalized):** ADR-0013 amendment + AGENTS.md
   lines (2026-07-13) — rival evidence every round; non-accepted ADRs are
   inert; rejected ADRs retained, never deleted.
+- **Commissioned review:** owner commissioned a post-merge reconciliation
+  review of Source Completeness And Interest Slice (`382a7af`) — charter at
+  `docs/reviews/charter-2026-07-13-source-completeness-reconciliation.md`,
+  owner-launched seat, output
+  `docs/reviews/2026-07-13-source-completeness-reconciliation.md`. A patch
+  branch off `main` follows only if the review's verdict warrants one.
 - **Pending:** (1) owner launches the CS it2 clean-room rival builder
   (`charter-it2.md`, `roles/builder-rival.md`; ADR-0019 flipped to rejected
   2026-07-13); (2) after it2: foreman conformance check, committee review
