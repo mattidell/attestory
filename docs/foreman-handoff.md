@@ -56,11 +56,16 @@ against git, trust git and say so.
   All other milestone guarantees verified: lifecycle/horizon goldens, shared
   admission resolution for coverage, schema-manifest immutability, 314 tests,
   lint, data safety. Precedent shape: `patch-kernel-reconciliation`.
-  Patch chartered (owner go 2026-07-13):
-  `docs/reviews/charter-2026-07-13-source-completeness-patch.md`, branch
-  `patch-source-completeness-reconciliation` off `main` (`5116e01`),
-  owner-launched builder, SC-R1+SC-R2 only, Tier-2 ADR if the admission
-  contract changes; owner merges non-ff after verification.
+  Patch built, pre-merge reviewed, and corrected: branch
+  `patch-source-completeness-reconciliation` at `e7be083` is
+  **merge-ready** (review:
+  `docs/reviews/2026-07-13-source-completeness-patch-review.md` — SC-R1/
+  SC-R2 closure verified by exact reproductions; boundary is
+  kernel-enforced reject-at-admission; 316 tests/lint/mypy green;
+  SC-PR1 renumber to ADR-0023 and SC-PR2 relative links applied by
+  foreman). Awaiting owner non-ff merge to `main` and ratification call
+  on ADR-0023. SC-PR3 (thicken committed SC-R1 probe end-to-end) is an
+  optional follow-up.
 - **Pending:** (1) owner launches the CS it2 clean-room rival builder
   (`charter-it2.md`, `roles/builder-rival.md`; ADR-0019 flipped to rejected
   2026-07-13); (2) after it2: foreman conformance check, committee review
