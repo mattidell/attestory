@@ -72,12 +72,19 @@ against git, trust git and say so.
   round-4 ADR-0020 redraft (foreman custody, as the round-2→round-3 redraft
   was) folding the seven blockers + NPE-A14 into decision text and the
   `npe-walk.v1` schema, then a light confirmation review before ratification.
-  Six of eight fixes are ADR-text/vocab/concurrent-schema corrections; two are
-  substantive and need the owner's eye — **NPE-A13** (published finding
-  returns `no_disposition_recorded` after an interrupted run — a false "no
-  explanation" vs Articles 8/15) and **NPE-A12b** (the only *new* decision:
-  canonical disposition of an unselected conflict-loser, which the forward and
-  reference runners currently record differently).
+  **DONE (2026-07-14):** round-4 redraft of ADR-0020 written in foreman custody,
+  folding all seven blockers + NPE-A14 (vocabulary-layering section, ledger
+  totality, `blocked[]` as derived read-model, new decision 1a conflict-loser
+  `inapplicable`, act-log-first walk, `rule_references[]` array, retracted
+  "unchanged" pin walker, shared-table canonical store; fixture repair moved to
+  prerequisites). Confirmation review chartered:
+  `roles/reviewer-adversary-r4.md` (single adversary seat, scoped to the
+  changes; shape not reopened). **Owner launches the r4 adversary**; expect
+  `reviews/round-4-adversary.md` (NPE-A19+). On arrival: foreman triage; if
+  clean, owner ratification call on ADR-0020; if corrections, another custody
+  redraft. The two substantive fixes to sanity-check on read: decision 1a
+  (conflict-loser canonical disposition, both runners must agree) and decision 4
+  (act-log-first, so a published finding never reports `no_disposition_recorded`).
 - **Git hygiene notes:** use the project `.venv` (system python lacks
   jsonschema); owner-launched threads drop uncommitted files into this
   working tree — check `git status` before any `git add -A` and split
