@@ -36,9 +36,17 @@ against git, trust git and say so.
   exhibits committed (incumbent `4ea0b6c`, rival `f3ccb43`); both reviews in
   (`round-1-governance.md` owner-committed `15e90f3`, `round-1-adversary.md`
   custody); `evaluation-analysis.md` written. **Unanimous:** reject it1, carry
-  it2's mechanism + OID-inclusive boundary. **Pending owner scope decision**
-  (see below) then foreman drafts **ADR-0026** (supersedes inert 0021).
-  Implementation tracks 1–7 rebuild on
+  it2's mechanism + OID-inclusive boundary. Owner scope decision (2026-07-14):
+  mechanism + honest-partial OID-inclusive boundary. **ADR-0026 drafted
+  (proposed)** — composition citizen + slot bijection, mandatory OID-inclusive
+  positive-source boundary, new provenance-only `composition` pin role +
+  mandatory binding, per-constituent `require_closed` (closes TIC-A3/A5),
+  honesty gate deferring further positive sources (K-1, market discount) and the
+  subtractive-adjustment mechanism (nominee/accrued/premium) to named follow-ons;
+  supersedes inert 0021. **Pending: owner ratification of ADR-0026.** Then Track
+  0.b (manifests, ADR-0022) and Track 0.c (citations, ADR-0018) remain — the two
+  other Track-0 remediations — before implementation. Implementation tracks 1–7
+  rebuild on
   the ratified ADRs and inherit their production conditions (threaded per track
   in the plan). ADR status: 0019 rejected
   (retained); 0023 **accepted** (ratified at patch merge `bf23517`); 0024
