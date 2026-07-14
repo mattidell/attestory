@@ -32,12 +32,13 @@ against git, trust git and say so.
   remaining topics (interest 0021, manifests 0022, citations 0018) with
   conforming rival-backed rounds before any implementation track opens. **Track
   0.a taxable-interest-composition prototype plan drafted** (`docs/prototypes/
-  taxable-interest-composition/plan.md`, proposed to owner): TIC-P1 (coextensive
-  line-2b universe + declaration mechanism, discharging ADR-0016 decision 4)
-  primary, TIC-P2 (honest zero + late-member lifecycle) dependent; candidate
-  ADR-0026 supersedes the inert 0021. **Next action: owner approves/amends the
-  plan, then foreman charters the incumbent and owner launches it** (same
-  pattern as CS/NPE/ELX). Implementation tracks 1–7 rebuild on
+  taxable-interest-composition/plan.md`): committee round **complete**. Both
+  exhibits committed (incumbent `4ea0b6c`, rival `f3ccb43`); both reviews in
+  (`round-1-governance.md` owner-committed `15e90f3`, `round-1-adversary.md`
+  custody); `evaluation-analysis.md` written. **Unanimous:** reject it1, carry
+  it2's mechanism + OID-inclusive boundary. **Pending owner scope decision**
+  (see below) then foreman drafts **ADR-0026** (supersedes inert 0021).
+  Implementation tracks 1–7 rebuild on
   the ratified ADRs and inherit their production conditions (threaded per track
   in the plan). ADR status: 0019 rejected
   (retained); 0023 **accepted** (ratified at patch merge `bf23517`); 0024
