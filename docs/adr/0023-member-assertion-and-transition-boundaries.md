@@ -1,4 +1,4 @@
-# ADR 0018 - Member Assertion and Transition Boundaries
+# ADR 0023 - Member Assertion and Transition Boundaries
 
 - Status: proposed
 - Tier: 2
@@ -32,6 +32,6 @@ These defects violate Constitution Articles 7, 12, and 13. While ADR-0017 decisi
 
 ## Links
 
-- Charter: [charter-2026-07-13-source-completeness-patch.md](file:///Users/mattidell/git/personal/finances/docs/reviews/charter-2026-07-13-source-completeness-patch.md)
-- Review: [2026-07-13-source-completeness-reconciliation.md](file:///Users/mattidell/git/personal/finances/docs/reviews/2026-07-13-source-completeness-reconciliation.md)
-- Precedents: [ADR-0016](file:///Users/mattidell/git/personal/finances/docs/adr/0016-source-family-claim-and-composition.md), [ADR-0017](file:///Users/mattidell/git/personal/finances/docs/adr/0017-recorded-family-horizons-for-closure-freshness.md)
+- Charter: `docs/reviews/charter-2026-07-13-source-completeness-patch.md`
+- Review: `docs/reviews/2026-07-13-source-completeness-reconciliation.md`
+- Precedents: `docs/adr/0016-source-family-claim-and-composition.md`, `docs/adr/0017-recorded-family-horizons-for-closure-freshness.md`
