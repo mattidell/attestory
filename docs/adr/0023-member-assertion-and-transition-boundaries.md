@@ -1,6 +1,6 @@
 # ADR 0023 - Member Assertion and Transition Boundaries
 
-- Status: proposed
+- Status: accepted (ratified by owner 2026-07-13, at merge `bf23517` per `docs/reviews/charter-2026-07-13-source-completeness-patch.md`)
 - Tier: 2
 - Date: 2026-07-13
 
