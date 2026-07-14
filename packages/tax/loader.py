@@ -47,7 +47,11 @@ def tax_registry() -> SchemaRegistry:
     family. Schema ids are unique across the directories (enforced on
     load).
     """
-    return SchemaRegistry([KERNEL_SCHEMA_DIR, TAX_SCHEMA_DIR, DERIVATION_SCHEMA_DIR])
+    reg = SchemaRegistry([KERNEL_SCHEMA_DIR, TAX_SCHEMA_DIR, DERIVATION_SCHEMA_DIR])
+    families = load_source_families(reg)
+    for family in families.values():
+        reg.family_member_predicates.add(family["member_predicate"]["fact_type"])
+    return reg
 
 
 def _load_bundle(filename: str, reg: SchemaRegistry) -> dict[str, Any]:

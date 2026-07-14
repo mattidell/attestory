@@ -376,6 +376,42 @@ class ScenarioGoldens(unittest.TestCase):
         explanation = json.dumps(closed["explanations"])
         self.assertIn("demo-finding-b1-closure-h0", explanation)
         self.assertIn(FAMILY_ID, opened["blocked"][0]["missing"])
+class RegressionProbes(LifecycleFixture):
+    """Probes for SC-R1 and SC-R2 to verify admission boundaries."""
+
+    def test_sc_r1_plain_assertion_rejected(self) -> None:
+        """SC-R1: Asserting a member fact via a plain assertion must be rejected at admission."""
+        acts = self.opening_acts()
+        acts += [
+            act(
+                "entity-introduced",
+                {"entity": entity("demo-payer-bank-alpha", "tax.us.interest-payer",
+                                  "Bank Alpha Savings (synthetic interest payer)")},
+                3,
+            ),
+            act(
+                "entity-introduced",
+                {"entity": entity("stmt.demo-payer-bank-alpha.2025.a",
+                                  "tax.us.1099int-statement",
+                                  "Bank Alpha 1099-INT statement instance (synthetic)")},
+                4,
+            ),
+        ]
+        state = findings.project(tuple(acts), self.registry)
+        
+        # Now try to append a normal assertion for the member fact:
+        plain_assertion = act(
+            "assertion",
+            {"finding": finding("b1.member.a", MEMBER_FACT, 120)},
+            5,
+        )
+        
+        # Verify that it is rejected at admission:
+        from packages.kernel.findings import FindingModelError
+        with self.assertRaisesRegex(FindingModelError, "cannot assert member fact.*through a plain assertion"):
+            findings.apply_act(state, plain_assertion, self.registry)
+
+
 
 
 if __name__ == "__main__":
