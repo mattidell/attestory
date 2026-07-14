@@ -16,4 +16,4 @@
 
 ## Next action
 
-Round 2R (committee over it2) prepared: owner launches the two seats from `roles/reviewer-governance-r2.md` and `roles/reviewer-adversary-r2.md`, separate threads, within-round independence. Outputs `reviews/round-2r-governance.md` (CS-G8R+) and `reviews/round-2r-adversary.md` (CS-A10R+). Foreman triage, then evaluation-analysis rewrite, follow; the optional-input absence question is a candidate separate Tier-2 decision. (Post-merge reconciliation review of Source Completeness is owner-launched and in flight, out of this topic.)
+Round 2R complete and triaged (`round-2r-triage.md`). Both seats conditionally accept it2; the optional-input impossibility claim is confirmed. Pending owner dispositions: accept it2 with the CS-A10R/A11R reorder errata; evaluation-analysis rewrite; fresh conditional-structures ADR (next free number); owner-approved plan for the expression-language-extensions topic (absence/defaults + categorical comparison) before any Track 3 rebuild.
