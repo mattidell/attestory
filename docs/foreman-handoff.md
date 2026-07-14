@@ -41,13 +41,18 @@ against git, trust git and say so.
   pending. Track 3 rebuild is gated on ADR-0024 + the ELX topic outcome.
   Track 3's old implementation stays parked at `wip/track3-core-conditions`
   (`c8be492`), reference only.
-- **ELX topic (expression-language-extensions): OPEN, in flight.** Owner-
-  approved plan + `charter-it1.md` committed (`d13d1fb`); the **owner has the
-  incumbent-builder launch prompt** — expect `it1/design.md` +
-  `examination-it1.md` to appear in the working tree. On arrival: foreman
-  conformance check (two files only, exam ≤120, five Gate 2 cases, Rung 2
-  boundary), commit as its own exhibit, then charter the clean-room rival
-  (it2), then committee round. Candidate ADR number 0025.
+- **ELX topic (expression-language-extensions): OPEN, in flight.** Incumbent
+  exhibit delivered and committed (`a9e4b9c`) — passed foreman conformance
+  (two files, exam 70 lines, five Gate 2 cases, Rung 2 boundary held; merits
+  deferred to committee). `charter-it2.md` (clean-room rival, ≤100 lines,
+  sealed from it1 outputs) issued at the next governance commit; **owner
+  launches the rival** and drops `it2/design.md` + `examination-it2.md` into
+  the working tree. On arrival: foreman conformance check, commit as its own
+  exhibit, then charter and owner-launch the two committee reviewers
+  (Governance, Adversary) over both designs. Candidate ADR number 0025.
+  Committee will weigh the incumbent's proposed `default_superseded` root
+  class (refines ADR-0010 decision 5), `optional-input-declaration.v1`
+  citizen, `default` pin role, and `match` op.
 - **NPE topic: round 3 in flight.** ADR-0020 redraft (durable Run Disposition
   Ledger) is under review — **owner has both round-3 prompts**
   (`roles/reviewer-governance-r3.md`, `roles/reviewer-adversary-r3.md`);
