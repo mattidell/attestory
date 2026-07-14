@@ -31,7 +31,9 @@ against git, trust git and say so.
   both rule-language engine decisions are ratified. ADR status: 0019 rejected
   (retained); 0023 **accepted** (ratified at patch merge `bf23517`); 0024
   **accepted** (owner ratification 2026-07-13); 0025 **accepted** (owner
-  ratification 2026-07-14); 0018/0020/0021/0022 proposed.
+  ratification 2026-07-14); 0020 **accepted** (owner ratification 2026-07-14);
+  0018/0021/0022 **proposed but non-conforming** — single-author paper spikes,
+  no rival-backed prototype rounds (see 2026-07-14 Track-0 finding below).
 - **Source Completeness reconciliation: CLOSED.** Review → patch → pre-merge
   review → corrections → owner non-ff merge `bf23517` → ADR-0023 ratified and
   roadmap updated on `main` (`7a90f89`). 316 tests/lint/mypy green post-merge.
@@ -88,10 +90,9 @@ against git, trust git and say so.
   decision 1a is now a fixed classification order (absent dep → `blocked`; else
   already-published → `inapplicable` conflict-loser with `superseded_by`, no
   synthetic guard; else evaluate), and decision 4 is run-scoped selection.
-  **Pending: owner ratification of ADR-0020 (round-5)**, with the NPE-G10
-  fold+fixture-repair prerequisite landing concurrently. Foreman recommends
-  ratify — no further review round (shape stable since round 2; corrections are
-  the reviewer's specified shapes). This is the last milestone decision gate.
+  **ADR-0020 ACCEPTED (owner ratification 2026-07-14)**, with the NPE-G10
+  fold+fixture-repair prerequisite to land concurrently in implementation. NPE
+  topic CLOSED.
 - **Git hygiene notes:** use the project `.venv` (system python lacks
   jsonschema); owner-launched threads drop uncommitted files into this
   working tree — check `git status` before any `git add -A` and split

@@ -1,6 +1,6 @@
 # ADR 0020 — Non-Publication Explanation Walking
 
-- Status: proposed (round-5 corrective redraft 2026-07-14, applying the round-4 confirmation review's two decision-blocking corrections NPE-A19/A20 plus NPE-A22; round-4 folded the round-3 triage's seven blockers + NPE-A14; durable-ledger shape unchanged since round 2)
+- Status: **accepted** (owner ratification 2026-07-14, principal foreman custody; round-5 corrective redraft, applying the round-4 confirmation review's two decision-blocking corrections NPE-A19/A20 plus NPE-A22; round-4 folded the round-3 triage's seven blockers + NPE-A14; durable-ledger shape unchanged since round 2). Ratified with the NPE-G10 prerequisite — the single-surface schema fold and `derivation-record.completed.json` fixture repair — to land concurrently in implementation.
 - Tier: 2
 - Date: 2026-07-14
 
