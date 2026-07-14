@@ -2,18 +2,18 @@
 
 ## Current step
 
-Incumbent it1 conformant and committed. Clean-room rival it2 chartered (`charter-it2.md`). Owner launches the High-tier rival from that charter in a **separate** external context, sealed from it1 / spike / ADR-0022. Outputs: `it2/design.md` + `examination-it2.md`; foreman conformance-checks and commits under custody.
+Both builder exhibits conformant and committed. Committee round-1 prepared: owner launches Governance and Adversary from `roles/reviewer-governance.md` and `roles/reviewer-adversary.md` in **separate** threads (independent contexts; do not share drafts). Outputs `reviews/round-1-governance.md` (ACM-G*) and `reviews/round-1-adversary.md` (ACM-A*). Foreman triage follows into `evaluation-analysis.md`, then ADR-0027 draft.
 
 ## Seats
 
 | Role | Holder | Status |
 |---|---|---|
 | Foreman | principal foreman (owner-appointed) | active; owner-paced, no unapproved spawns |
-| Incumbent builder | owner-launched external context | **completed** — exhibit at it1; examination-it1.md |
-| Rival builder | owner-launched external context | **chartered — awaiting launch** (`charter-it2.md`; clean-room sealed) |
-| Governance reviewer | — | not yet chartered |
-| Adversary reviewer | — | not yet chartered |
+| Incumbent builder | owner-launched external context | completed — `it1/` |
+| Rival builder | owner-launched external context | completed — `it2/` |
+| Governance reviewer | owner-launched external context | **chartered — awaiting launch** |
+| Adversary reviewer | owner-launched external context | **chartered — awaiting launch** |
 
 ## Next action
 
-Owner: launch the clean-room rival with `docs/prototypes/adopted-content-manifests/charter-it2.md` (High tier, independent context; must not see it1). Drop `it2/design.md` and `examination-it2.md` into the working tree for foreman custody.
+Owner: launch both committee seats (separate contexts) from the role files under `roles/`. Drop review files into `reviews/` for foreman custody.
