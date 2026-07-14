@@ -46,12 +46,17 @@ against git, trust git and say so.
 - **Standing owner directives (formalized):** ADR-0013 amendment + AGENTS.md
   lines (2026-07-13) — rival evidence every round; non-accepted ADRs are
   inert; rejected ADRs retained, never deleted.
-- **Commissioned review:** owner commissioned a post-merge reconciliation
-  review of Source Completeness And Interest Slice (`382a7af`) — charter at
-  `docs/reviews/charter-2026-07-13-source-completeness-reconciliation.md`,
-  owner-launched seat, output
-  `docs/reviews/2026-07-13-source-completeness-reconciliation.md`. A patch
-  branch off `main` follows only if the review's verdict warrants one.
+- **Reconciliation review delivered** (owner-launched, integrated 2026-07-13):
+  `docs/reviews/2026-07-13-source-completeness-reconciliation.md`. Verdict: a
+  patch branch off `main` **is warranted**, minimal set SC-R1 (plain assertion
+  of a predicate-matching member leaves the stale closure zero and `closed`
+  coverage current — the known honor-system hole, now with a concrete
+  reproduction) and SC-R2 (a same-member value correction is wrongly accepted
+  as a membership transition and advances the horizon, contra ADR-0017 d4).
+  All other milestone guarantees verified: lifecycle/horizon goldens, shared
+  admission resolution for coverage, schema-manifest immutability, 314 tests,
+  lint, data safety. Precedent shape: `patch-kernel-reconciliation`.
+  Patch branch go is an owner decision.
 - **Pending:** (1) owner launches the CS it2 clean-room rival builder
   (`charter-it2.md`, `roles/builder-rival.md`; ADR-0019 flipped to rejected
   2026-07-13); (2) after it2: foreman conformance check, committee review
