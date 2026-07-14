@@ -10,10 +10,10 @@
 |---|---|---|
 | Foreman | Claude, principal foreman (owner-appointed 2026-07-13, relieving previous Codex foreman) | active; owner-paced, no unapproved spawns |
 | Incumbent builder | owner-launched external context | completed; it1 exhibit `exhibits/conditional-selectors/it1`, repair1 branch `prototypes/conditional-selectors/repair1` |
-| Rival builder | owner-launched external context, from `roles/builder-rival.md` | charter issued (`charter-it2.md`); ready to launch |
+| Rival builder | owner-launched external context | completed; it2 exhibit committed `a6982e6` |
 | Governance reviewer (round 1R) | owner-launched external context | completed 2026-07-12; `reviews/round-1r-governance.md` |
 | Adversary reviewer (round 1R) | foreman-spawned sub-agent (Medium tier, owner go 2026-07-13) | completed; `reviews/round-1r-adversary.md` |
 
 ## Next action
 
-ADR-0019 rejected (owner, 2026-07-13; retained). Owner launches the it2 clean-room rival builder from `roles/builder-rival.md` under `charter-it2.md`. On completion: foreman conformance check, committee review round over it2, triage, then evaluation-analysis rewrite.
+It2 delivered and conformance-checked (CS-P2 settled; CS-P1 deliberately unresolved on the optional-input absence gap). Next: committee review round over it2 — Governance and Adversary, Medium tier, independent contexts — pending owner launch or spawn go. Triage and evaluation-analysis rewrite follow; the optional-input absence question is a candidate separate Tier-2 decision.
