@@ -79,12 +79,19 @@ against git, trust git and say so.
   "unchanged" pin walker, shared-table canonical store; fixture repair moved to
   prerequisites). Confirmation review chartered:
   `roles/reviewer-adversary-r4.md` (single adversary seat, scoped to the
-  changes; shape not reopened). **Owner launches the r4 adversary**; expect
-  `reviews/round-4-adversary.md` (NPE-A19+). On arrival: foreman triage; if
-  clean, owner ratification call on ADR-0020; if corrections, another custody
-  redraft. The two substantive fixes to sanity-check on read: decision 1a
-  (conflict-loser canonical disposition, both runners must agree) and decision 4
-  (act-log-first, so a published finding never reports `no_disposition_recorded`).
+  changes). **DONE (2026-07-14):** review committed (`reviews/round-4-adversary.md`,
+  NPE-A19–A22, "ready after listed corrections"); six of eight round-3 blockers
+  confirmed closed; two new decision-blocking defects in the round-4 draft
+  (NPE-A19 absent-deps conflict-loser masked as inapplicable; NPE-A20 unscoped
+  act-log-first walks the wrong run's finding). Both applied in a **round-5
+  corrective redraft** of ADR-0020 (foreman custody, `round-4-triage.md`):
+  decision 1a is now a fixed classification order (absent dep → `blocked`; else
+  already-published → `inapplicable` conflict-loser with `superseded_by`, no
+  synthetic guard; else evaluate), and decision 4 is run-scoped selection.
+  **Pending: owner ratification of ADR-0020 (round-5)**, with the NPE-G10
+  fold+fixture-repair prerequisite landing concurrently. Foreman recommends
+  ratify — no further review round (shape stable since round 2; corrections are
+  the reviewer's specified shapes). This is the last milestone decision gate.
 - **Git hygiene notes:** use the project `.venv` (system python lacks
   jsonschema); owner-launched threads drop uncommitted files into this
   working tree — check `git status` before any `git add -A` and split

@@ -1,9 +1,12 @@
 # Prototype Evaluation Analysis — Non-Publication Explanations
 
-Foreman synthesis, rewritten 2026-07-14 for the through-round-3 state. Advisory
-to the owner. Supersedes the reopened round-1 text (which recommended a
-transient Execution Map, since withdrawn). Status: **decision converged on
-shape; ADR-0020 not yet ratification-ready** — a round-4 redraft is outstanding.
+Foreman synthesis. Advisory to the owner. Supersedes the reopened round-1 text
+(which recommended a transient Execution Map, since withdrawn). Status
+(updated 2026-07-14 post round 4): **converged shape endorsed; ADR-0020
+round-5 corrective redraft complete and recommended for ratification.** The
+round-4 confirmation review returned "ready after listed corrections"; both
+decision-blocking corrections (NPE-A19, NPE-A20) are applied. See
+`round-4-triage.md`.
 
 ## Decision under evidence
 
