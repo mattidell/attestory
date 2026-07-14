@@ -56,7 +56,11 @@ against git, trust git and say so.
   All other milestone guarantees verified: lifecycle/horizon goldens, shared
   admission resolution for coverage, schema-manifest immutability, 314 tests,
   lint, data safety. Precedent shape: `patch-kernel-reconciliation`.
-  Patch branch go is an owner decision.
+  Patch chartered (owner go 2026-07-13):
+  `docs/reviews/charter-2026-07-13-source-completeness-patch.md`, branch
+  `patch-source-completeness-reconciliation` off `main` (`5116e01`),
+  owner-launched builder, SC-R1+SC-R2 only, Tier-2 ADR if the admission
+  contract changes; owner merges non-ff after verification.
 - **Pending:** (1) owner launches the CS it2 clean-room rival builder
   (`charter-it2.md`, `roles/builder-rival.md`; ADR-0019 flipped to rejected
   2026-07-13); (2) after it2: foreman conformance check, committee review
