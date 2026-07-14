@@ -2,7 +2,17 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **proposed.** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
+Status: **in progress — Track 0 remediation (2 of 5 topics settled).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
+
+## Revision note (2026-07-14, principal foreman)
+
+This plan was revised after the governance remediation. Two corrections to the original:
+
+1. **Track 0 was never complete.** Only two of the five contract topics carry conforming, rival-backed evidence and ratified ADRs: conditional structures (**ADR-0024**) and its expression-language extensions (**ADR-0025**), and non-publication explanations (**ADR-0020**), all ratified 2026-07-13/14. The other three — taxable-interest composition (ADR-0021), adopted-content manifests (ADR-0022), citation resolution (ADR-0018) — exist only as **single-author paper spikes with no clean-room rival, committee review, or evaluation analysis** (0018 has no prototype artifact at all). Under the ADR-0013 amendment (non-accepted ADRs are inert; every prototype round requires independently-contexted rival evidence), those three proposed ADRs are inert drafts, not decisions. The owner directed (2026-07-14) that **all three be remediated** with conforming rounds before their implementation tracks.
+
+2. **Implementation was reset.** Track work built on proposed ADRs was removed from the milestone branch (pre-reset history at `archive/core-tax-conditions-pre-reset`; Track 3 WIP parked at `wip/track3-core-conditions`, reference only). Implementation tracks rebuild on the ratified ADRs and inherit their production conditions (listed per track below).
+
+Sequencing: **finish Track 0 (three remediations) before any implementation track opens.** Each remediation follows the pattern just used for conditional-selectors/expression-language-extensions/non-publication-explanations — owner-launched incumbent + clean-room rival exhibits under foreman custody, owner-launched committee (Governance + Adversary), foreman evaluation analysis, owner ratification of a conforming ADR that supersedes the inert draft.
 
 ## Objective
 
@@ -21,6 +31,8 @@ The previous retrospective (`docs/milestone-retrospectives/2026-07-12-source-com
 
 - The W-2 box-1 wages (`tax.us.2025.wages.total-w2-box1` -> Form 1040 line 1a) and the Form 1099-INT box-1 subtotal (`tax.us.2025.interest.b1-subtotal`) calculations are stable and fully verified on synthetic workspaces.
 - Atomic family horizons, horizon citizens, and member-transition acts are implemented and project through derivation currency (ADR-0017).
+- **Ratified Track-0 decisions (implementation not started):** ADR-0024 (conditional structures in the rule language) + ADR-0025 (expression-language extensions: declared optional defaults and categorical comparison); ADR-0020 (non-publication explanation walking — durable run disposition ledger). Implementation rebuilds under these; see the per-track production conditions.
+- **Non-conforming proposed drafts (inert, need remediation):** ADR-0021 (interest composition), ADR-0022 (manifests), ADR-0018 (citations) — paper spikes only, no rival evidence.
 - No Form 1040 line 2b exists; interest aggregation blocks at the subtotal layer because no coextensive composition has been declared or mapped for the broader taxable-interest universe.
 - Standard deduction, taxable income, and tax table calculations do not exist.
 - Form-field citizens support the five ADR-0012 dispositions in content, but the explanation API only supports walks for published values (nonzero and computed/closure zeros).
@@ -84,7 +96,8 @@ The previous retrospective (`docs/milestone-retrospectives/2026-07-12-source-com
 
 ## Exit Criteria
 
-- Track 0 evaluation analyses are written; ADRs for interest composition, condition structure, manifests, citations, and explanations are ratified.
+- All five Track-0 topics carry conforming rival-backed evidence and ratified ADRs: condition structure (0024/0025) and explanations (0020) are done; interest composition (0021 successor), manifests (0022 successor), and citations (0018 successor) are remediated with incumbent + clean-room rival + committee rounds and ratified, superseding the inert spike drafts.
+- The ratified ADRs' production conditions are met: ELX PC1 (transitive `origin` pins), PC2 (`CATEGORICAL_DOMAIN_MISMATCH` added to ADR-0012 vocabulary), PC3 (default-resolution correction-fold validation, parity, ELX fixtures); NPE-G10 (single-surface fold + fixture repair landed with the schema); NPE-A21 (mixed multi-publisher projection defined).
 - Form 1040 line 2b publishes correctly under the coextensive interest composition or blocks if the composition is unclosed.
 - Downstream lines (9, 11, 12, 15, 16) derive correctly on all golden scenarios.
 - Standard deduction is calculated based on filing status and age/blindness/dependency conditions, and can be overridden by itemization.
@@ -99,40 +112,46 @@ The previous retrospective (`docs/milestone-retrospectives/2026-07-12-source-com
 
 ### Track 0 - Contract Decisions
 
-Goal: Settle the five contract-foundational topics before implementation.
-- Run prototype iterations and write evaluations for:
-  - Taxable-interest composition (Form 1040 line 2b).
-  - Conditional standard deduction and tax method selection.
-  - Adopted-content manifests.
-  - Citation resolution.
-  - Non-publication explanation walks.
-- Draft and ratify Tier 2/3 ADRs.
-- Verification: prototype reviews, conformance verdicts, process logs.
-- Commit: one planning update/ADR commit.
+Goal: Settle all five contract-foundational topics with conforming, rival-backed evidence before implementation.
+
+**Settled (ratified, conforming):**
+- ✅ Conditional standard-deduction / tax-method selection → **ADR-0024** (conditional structures) + **ADR-0025** (declared optional defaults, categorical comparison). Evidence: `docs/prototypes/conditional-selectors/`, `docs/prototypes/expression-language-extensions/`.
+- ✅ Non-publication explanation walks → **ADR-0020** (durable run disposition ledger). Evidence: `docs/prototypes/non-publication-explanations/`.
+
+**Remediation outstanding (owner directive 2026-07-14 — remediate all three; inert drafts are superseded, never silently ratified):**
+- **0.a Taxable-interest composition (ADR-0021).** Draft the prototype plan; owner-launch incumbent + clean-room rival exhibits (foreman custody); owner-launch committee (Governance + Adversary); foreman evaluation analysis; ratify a conforming ADR superseding the 0021 spike draft. Key questions the spike left unproven: whether line 2b composes fixed subtotals (b1/b3/non-form) or a broader coextensive taxable-interest universe per ADR-0016, and the empty-filer double-closure flow.
+- **0.b Adopted-content manifests (ADR-0022).** Same process. Questions: manifest closure semantics over rules/schemas/params/form-fields, version-lock enforcement, and interaction with ADR-0025's new schema versions (`fact-type.v2`, `artifact-package.v2`, `derived-finding.v2`, `rule-artifact.v2`, `operation-semantics.v2`).
+- **0.c Citation resolution (ADR-0018).** Same process — no prototype artifact exists yet, so it starts from the plan. Questions: resolver contract, semantic pin attachment, and what "verifiable citation" means against ADR-0012's inert-string status.
+- Verification per topic: conformance verdicts, committee reviews, evaluation analysis, process log.
+- Commit: one governance commit per ratified ADR (foreman custody).
 
 ### Track 1 - Contract Schemas And Payload Instances
 
-Goal: Publish the production contract schemas and payload instances ratified in Track 0.
-- Publish schemas for adopted-content manifests, citation resolution, and conditional structures.
+Goal: Publish the production contract schemas ratified in Track 0. Opens only after Track 0 is fully ratified.
+- Publish the ADR-0024/0025 conditional-structure schemas: `fact-type.v2` (`optional_default`), `artifact-package.v2` (`input_bindings`), `derived-finding.v2` (`resolved_input` branch), pin-schema (`default` role, `input`-pin `origin`), `rule-artifact.v2` (`categorical_compare`, `category_literal`), `operation-semantics.v2`. **ELX PC1:** the `input`-pin `origin` field is required and copied transitively. **ELX PC2:** add `CATEGORICAL_DOMAIN_MISMATCH` to the ADR-0012 disposition vocabulary (a vocabulary amendment, not just a schema).
+- Publish the ADR-0020 record change: the single-surface disposition ledger fold on `derivation-record.v1` (ledger authoritative, `blocked[]` derived) **and repair the self-contradictory `derivation-record.completed.json` fixture concurrently (NPE-G10 prerequisite)**; the `npe-walk.v1` schema with `rule_references[]` arrays.
+- Publish the manifest and citation schemas ratified in Track 0.a–0.c.
 - Commit positive and negative payload instances for each schema.
 - Verification: schema tests, isolated negatives, registry immutability.
 - Commit: one Track 1 contract schema commit.
 
 ### Track 2 - Taxable Interest Composition and Line 2b
 
-Goal: Implement interest composition and Form 1040 line 2b.
+Goal: Implement interest composition and Form 1040 line 2b, per the ratified ADR-0021 successor.
 - Add line 2b form-field and rule artifact, consuming the B1 subtotal.
-- Define interest composition mapping.
+- Define interest composition mapping as ratified.
 - Verification: forward/reference runner parity, scenario tests for empty/closed/unclosed interest.
 - Commit: one Track 2 line-2b interest commit.
 
 ### Track 3 - Core Tax Conditions (Standard Deduction & Tax Method)
 
-Goal: Implement the conditional selection logic for standard deduction and tax computation.
-- Add standard deduction amount lookup tables and select rule.
-- Add tax table lookup tables and select rule.
+Goal: Implement the conditional selection logic for standard deduction and tax computation under ADR-0024 + ADR-0025 (rebuild; the `wip/track3-core-conditions` parking is reference-only and built on the rejected ADR-0019).
+- Add standard deduction amount lookup tables (parameter citizens `p.standard-deduction`, `p.additional-deduction`) and the guarded selection rules; filing status as a first-class categorical domain (ADR-0025 decision 5), migrating off ADR-0024's interim numeric-string codes via the governed successor-claim path.
+- Add tax table lookup tables (`p.brackets`) and the bracket-fold select rule.
+- Optional demographic scalars (`taxpayer_age65`, `taxpayer_blind`) use ADR-0025 declared optional defaults (`optional_default` on `fact-type.v2`).
 - Implement Form 1040 lines 9, 11, 12, 15, and 16.
-- Verification: parity, unit tests for standard deduction selection and tax tables.
+- **ELX PC3:** mixed-family correction-fold validation for default-resolution findings; two-runner parity; the five ELX Gate-2 cases as synthetic fixtures.
+- Verification: parity, unit tests for standard-deduction selection, categorical guards, and tax tables.
 - Commit: one Track 3 core tax calculations commit.
 
 ### Track 4 - Adopted Content Manifests & Package Verification
@@ -144,10 +163,13 @@ Goal: Build the adopted-content manifests and enforce package verification.
 
 ### Track 5 - Citation Resolution & Non-Publication Explanations
 
-Goal: Implement citation resolver and extended explanation walks.
-- Add semantic citation resolver.
-- Implement explanation walking for blocked and inapplicable form fields.
-- Verification: explanation tests on blocked/inapplicable scenarios.
+Goal: Implement the citation resolver (ratified ADR-0018 successor) and the ADR-0020 non-publication explanation walker.
+- Add the semantic citation resolver as ratified.
+- Implement the run disposition ledger: the runner writes one row per package rule artifact using ADR-0020 decision 1a's classification order (absent dependency → `blocked`; else already-published conflict-loser → `inapplicable` with a `superseded_by` reference and no synthetic guard; else evaluate), applied identically by the saturation runner and the reference runner's `finalize_unreached()`.
+- Implement the `npe-walk.v1` walker as a pure projection with ADR-0020 decision 4 run-scoped finding selection (ledger published-ref for the run → run-scoped act-log `derived-publication` → ledger non-published row → `no_disposition_recorded`), cycle detection, and the shared memoization table.
+- Modify `explanation.py` to accept the additive optional shared-memoization parameter (ADR-0020 decision 2); committed single-branch behavior preserved when the parameter is absent.
+- Define the mixed-disposition projection for multi-publisher symbol nodes (NPE-A21 production condition).
+- Verification: explanation tests on blocked/inapplicable/conflict-loser scenarios; interrupted-run recovery walk; two-runner ledger parity; multi-run same-symbol run-scoped selection.
 - Commit: one Track 5 citation and explanation commit.
 
 ### Track 6 - Integration and Lifecycle Verification

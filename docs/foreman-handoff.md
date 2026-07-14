@@ -26,9 +26,16 @@ against git, trust git and say so.
   seats from foreman-issued prompts; integrate their outputs from the working
   tree, commit with foreman custody, and always split unrelated deliveries
   into separate commits).
-- **Milestone:** Core Tax Conditions And Presentation Integration — remediation
-  essentially complete; implementation not restarted but now **unblocked** —
-  both rule-language engine decisions are ratified. ADR status: 0019 rejected
+- **Milestone:** Core Tax Conditions And Presentation Integration — plan
+  **revised 2026-07-14** (see the milestone doc's revision note). Track 0 is
+  **2 of 5 topics settled**; the owner directed remediation of all three
+  remaining topics (interest 0021, manifests 0022, citations 0018) with
+  conforming rival-backed rounds before any implementation track opens. **Next
+  action: draft the Track 0.a taxable-interest-composition prototype plan**
+  (owner approves, then owner-launches incumbent + clean-room rival, same
+  pattern as the three topics just closed). Implementation tracks 1–7 rebuild on
+  the ratified ADRs and inherit their production conditions (threaded per track
+  in the plan). ADR status: 0019 rejected
   (retained); 0023 **accepted** (ratified at patch merge `bf23517`); 0024
   **accepted** (owner ratification 2026-07-13); 0025 **accepted** (owner
   ratification 2026-07-14); 0020 **accepted** (owner ratification 2026-07-14);
@@ -98,15 +105,18 @@ against git, trust git and say so.
   working tree — check `git status` before any `git add -A` and split
   deliveries from your own doc changes. Milestone roadmap/handoff will
   conflict with `main`'s at merge; resolve toward the milestone versions.
-- **Pending owner decisions:** (1) ratify ADR-0020 after NPE round 3; (2)
-  milestone-plan revision + Tracks 1–3 re-run — **now unblocked** (Track 1
-  conditional-structure schemas rebuild under ADR-0024, not the rejected 0019;
-  Track 3 rebuilds under ADRs 0024 + 0025; ELX production conditions PC1–PC3
-  land here); (3) milestone-level process retrospective on the delegation
-  experiment — the CS→ELX arc is now complete, so its strongest evidence
-  (single-builder rounds would likely have ratified the unsound
-  `default_superseded` mechanism the two-builder round caught, ELX-A1) is in
-  hand; timing owner's.
+- **Pending owner decisions:** (1) approve the Track 0.a interest-composition
+  prototype plan once drafted, then launch its seats; (2) milestone-level
+  process retrospective on the delegation experiment — the CS→ELX arc and the
+  NPE five-round arc are both complete, rich evidence in hand (single-builder
+  rounds would likely have ratified the unsound `default_superseded` mechanism,
+  ELX-A1; NPE's authored-vs-transcribed defect pattern across four drafts);
+  timing owner's.
+- **Track-0 finding (2026-07-14):** the prior Codex foreman's ADRs 0018/0021/
+  0022 are non-conforming single-author paper spikes (0018 has no artifact at
+  all), inert per the ADR-0013 amendment. Owner directed remediation of all
+  three. This is the same skipped-rival defect class that reopened CS/NPE —
+  worth a line in the retrospective about how far it propagated.
 - **Side thread (not foreman scope):** product naming — front-runner
   "Attestory"; `attestory.com` is a 2026-01-30 GoDaddy registration with a
   "Launching Soon" page and no other footprint; owner's USPTO check decides.
