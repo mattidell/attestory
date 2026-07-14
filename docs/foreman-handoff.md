@@ -60,13 +60,24 @@ against git, trust git and say so.
   vocabulary** (the one cross-contract reach — implementers must update the
   disposition/explanation contracts); PC3 unexecuted-at-HEAD (needs
   correction-fold validation, two-runner parity, five cases as fixtures).
-- **NPE topic: round 3 in flight.** ADR-0020 redraft (durable Run Disposition
-  Ledger) is under review — **owner has both round-3 prompts**
-  (`roles/reviewer-governance-r3.md`, `roles/reviewer-adversary-r3.md`);
-  expect `reviews/round-3-governance.md` (NPE-G9+) and
-  `reviews/round-3-adversary.md` (NPE-A12+) in the working tree. On arrival:
-  foreman triage (`round-3-triage.md`), rewrite the reopened
-  `evaluation-analysis.md`, then owner ratification call on ADR-0020.
+- **NPE topic: round 3 CLOSED; ADR-0020 NOT ratification-ready; round-4
+  redraft outstanding.** Both round-3 reviews committed under custody
+  (`reviews/round-3-governance.md` NPE-G9–G11 "ready after corrections";
+  `reviews/round-3-adversary.md` NPE-A12–A18 "not ready"). Foreman triage
+  `round-3-triage.md` confirms **seven decision-blocking findings** (the
+  adversary's "not ready" is the correct disposition; the reviewers examined
+  different surfaces, so findings are additive). `evaluation-analysis.md`
+  rewritten for the through-round-3 state (converged shape C1–C3 endorsed;
+  decision text not yet correct). **Pending owner disposition:** commission a
+  round-4 ADR-0020 redraft (foreman custody, as the round-2→round-3 redraft
+  was) folding the seven blockers + NPE-A14 into decision text and the
+  `npe-walk.v1` schema, then a light confirmation review before ratification.
+  Six of eight fixes are ADR-text/vocab/concurrent-schema corrections; two are
+  substantive and need the owner's eye — **NPE-A13** (published finding
+  returns `no_disposition_recorded` after an interrupted run — a false "no
+  explanation" vs Articles 8/15) and **NPE-A12b** (the only *new* decision:
+  canonical disposition of an unselected conflict-loser, which the forward and
+  reference runners currently record differently).
 - **Git hygiene notes:** use the project `.venv` (system python lacks
   jsonschema); owner-launched threads drop uncommitted files into this
   working tree — check `git status` before any `git add -A` and split
