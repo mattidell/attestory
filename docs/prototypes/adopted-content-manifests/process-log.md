@@ -1,0 +1,8 @@
+# Adopted-Content Manifests Prototype — Process Log
+
+## 2026-07-14
+
+- Topic opened as **Track 0.b** of the Core Tax Conditions milestone remediation (owner sequenced manifests next after ADR-0026 ratification closed Track 0.a). The prior `docs/prototypes/adopted-content-manifests-spike.md` and proposed ADR-0022 are inert single-author work (no rival, no committee, no evaluation analysis); the conforming ADR (candidate **0027**) will supersede them, both retained.
+- **Important substrate (not a blank slate):** ADR-0006 decisions 6–7 already make packages closed manifests; production has `artifact-package.v1` and `package_validation.py` (rules/parameters, parameter-table closure, scope, output ownership). The spike ignored this and invented a path-based `manifest.json`. Post-0006 citizen kinds (form-fields, source-family/mapping, and on paper ADR-0025 `input_bindings` / ADR-0026 composition + `composition` pin role) sit outside today's package membership — that gap is the topic.
+- `plan.md` drafted by the principal foreman and **proposed to the owner**. Two propositions: **ACM-P1** (adopted-content membership surface — which kinds a closed unit pins; extend vs succeed ADR-0006) primary; **ACM-P2** (cross-kind binding integrity + schema-generation coexistence for 0025/0026) dependent. Rung 2 authorized (paper + throwaway probes against the committed package validator). Seven Gate-2 cases including dangling form-field, unlicensed composition, ELX binding hole, version-skew, and a mandatory package-version lifecycle trace.
+- Awaiting owner approval/amendment before `charter-it1.md` is issued. No builder or reviewer seats launched.

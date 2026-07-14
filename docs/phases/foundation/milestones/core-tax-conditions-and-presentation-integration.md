@@ -2,9 +2,11 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **in progress — Track 0 remediation (2 of 5 topics settled).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
+Status: **in progress — Track 0 remediation (3 of 5 topics settled).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
 
 ## Revision note (2026-07-14, principal foreman)
+
+**Update (same day, post ADR-0026):** Track 0.a closed — ADR-0026 accepted. Track 0 is **3 of 5**. Track 0.b plan drafted and proposed to owner.
 
 This plan was revised after the governance remediation. Two corrections to the original:
 
@@ -32,7 +34,8 @@ The previous retrospective (`docs/milestone-retrospectives/2026-07-12-source-com
 - The W-2 box-1 wages (`tax.us.2025.wages.total-w2-box1` -> Form 1040 line 1a) and the Form 1099-INT box-1 subtotal (`tax.us.2025.interest.b1-subtotal`) calculations are stable and fully verified on synthetic workspaces.
 - Atomic family horizons, horizon citizens, and member-transition acts are implemented and project through derivation currency (ADR-0017).
 - **Ratified Track-0 decisions (implementation not started):** ADR-0024 (conditional structures in the rule language) + ADR-0025 (expression-language extensions: declared optional defaults and categorical comparison); ADR-0020 (non-publication explanation walking — durable run disposition ledger). Implementation rebuilds under these; see the per-track production conditions.
-- **Non-conforming proposed drafts (inert, need remediation):** ADR-0021 (interest composition), ADR-0022 (manifests), ADR-0018 (citations) — paper spikes only, no rival evidence.
+- **Settled this remediation cycle:** ADR-0026 (taxable-interest composition) accepted 2026-07-14, superseding inert ADR-0021.
+- **Non-conforming proposed drafts (inert, need remediation):** ADR-0022 (manifests — plan drafted), ADR-0018 (citations) — paper spikes only, no rival evidence.
 - No Form 1040 line 2b exists; interest aggregation blocks at the subtotal layer because no coextensive composition has been declared or mapped for the broader taxable-interest universe.
 - Standard deduction, taxable income, and tax table calculations do not exist.
 - Form-field citizens support the five ADR-0012 dispositions in content, but the explanation API only supports walks for published values (nonzero and computed/closure zeros).
@@ -119,8 +122,8 @@ Goal: Settle all five contract-foundational topics with conforming, rival-backed
 - ✅ Non-publication explanation walks → **ADR-0020** (durable run disposition ledger). Evidence: `docs/prototypes/non-publication-explanations/`.
 
 **Remediation outstanding (owner directive 2026-07-14 — remediate all three; inert drafts are superseded, never silently ratified):**
-- **0.a Taxable-interest composition (ADR-0021).** Draft the prototype plan; owner-launch incumbent + clean-room rival exhibits (foreman custody); owner-launch committee (Governance + Adversary); foreman evaluation analysis; ratify a conforming ADR superseding the 0021 spike draft. Key questions the spike left unproven: whether line 2b composes fixed subtotals (b1/b3/non-form) or a broader coextensive taxable-interest universe per ADR-0016, and the empty-filer double-closure flow.
-- **0.b Adopted-content manifests (ADR-0022).** Same process. Questions: manifest closure semantics over rules/schemas/params/form-fields, version-lock enforcement, and interaction with ADR-0025's new schema versions (`fact-type.v2`, `artifact-package.v2`, `derived-finding.v2`, `rule-artifact.v2`, `operation-semantics.v2`).
+- ✅ **0.a Taxable-interest composition → ADR-0026 accepted** (Track 0.a closed 2026-07-14). Mechanism + honest-partial OID-inclusive line-2b boundary; supersedes inert ADR-0021. Evidence: `docs/prototypes/taxable-interest-composition/`.
+- **0.b Adopted-content manifests (ADR-0022).** Plan drafted (`docs/prototypes/adopted-content-manifests/plan.md`), awaiting owner approval then incumbent/rival/committee remediation. Questions: membership surface over form-fields / source-authority / composition / ELX bindings (extend vs succeed ADR-0006), version-lock and schema-generation coexistence with ADR-0025 (`fact-type.v2`, `artifact-package.v2`, `derived-finding.v2`, `rule-artifact.v2`, `operation-semantics.v2`) and ADR-0026's `composition` pin role.
 - **0.c Citation resolution (ADR-0018).** Same process — no prototype artifact exists yet, so it starts from the plan. Questions: resolver contract, semantic pin attachment, and what "verifiable citation" means against ADR-0012's inert-string status.
 - Verification per topic: conformance verdicts, committee reviews, evaluation analysis, process log.
 - Commit: one governance commit per ratified ADR (foreman custody).

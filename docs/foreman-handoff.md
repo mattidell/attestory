@@ -47,15 +47,17 @@ against git, trust git and say so.
   - ✅ Conditional structures → **ADR-0024** accepted; expression extensions → **ADR-0025** accepted.
   - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
-  - 🔧 **Track 0.b — Adopted-content manifests (ADR-0022): NEXT.** Inert single-author spike only; needs full remediation. Must reckon with ADR-0025's new schema versions (`fact-type.v2`, `artifact-package.v2`, `derived-finding.v2`, `rule-artifact.v2`, `operation-semantics.v2`) and ADR-0026's new `composition` citizen + pin role.
+  - 🔧 **Track 0.b — Adopted-content manifests (ADR-0022): plan drafted, awaiting owner approval.** Inert single-author spike only; needs full remediation. Must reckon with ADR-0006's existing package-as-closed-manifest substrate, ADR-0025's new schema versions (`fact-type.v2`, `artifact-package.v2`, `derived-finding.v2`, `rule-artifact.v2`, `operation-semantics.v2`), and ADR-0026's new `composition` citizen + pin role. Plan: `docs/prototypes/adopted-content-manifests/plan.md`.
   - 🔧 **Track 0.c — Citation resolution (ADR-0018):** last. **No prototype artifact exists at all** — starts from the plan.
 
-- **➡️ NEXT ACTION: draft the Track 0.b adopted-content-manifests prototype plan**
-  (`docs/prototypes/adopted-content-manifests/plan.md`), following the rhythm
-  above. Seed it from the inert `docs/prototypes/adopted-content-manifests-spike.md`
-  (to supersede, not inherit) and the open question of manifest closure over the
-  new 0025/0026 schema versions and pin roles. Candidate ADR-0027, superseding
-  inert ADR-0022. Owner approves/amends before the incumbent is chartered.
+- **➡️ NEXT ACTION: owner approve/amend the Track 0.b plan**, then authorize
+  chartering. Plan drafted at `docs/prototypes/adopted-content-manifests/plan.md`
+  (process log open). Propositions ACM-P1 (membership surface — extend vs
+  succeed ADR-0006 over form-fields / source-authority / composition / ELX
+  bindings) + ACM-P2 (cross-kind binding + schema-generation coexistence).
+  Candidate ADR-0027 superseding inert ADR-0022. Spike is prior art to
+  supersede — it ignored the committed package-as-closed-manifest substrate.
+  On approval: issue `charter-it1.md` for the High-tier incumbent.
 
 - **ADR ledger:** 0019 rejected (retained); 0023, 0024, 0025, 0020, 0026 **accepted**;
   0018 & 0022 **inert non-conforming drafts** (to be superseded by conforming
