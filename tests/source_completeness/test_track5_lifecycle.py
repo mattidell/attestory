@@ -411,7 +411,68 @@ class RegressionProbes(LifecycleFixture):
         with self.assertRaisesRegex(FindingModelError, "cannot assert member fact.*through a plain assertion"):
             findings.apply_act(state, plain_assertion, self.registry)
 
+    def test_sc_r2_same_member_transition_rejected(self) -> None:
+        """SC-R2: Asserting an already existing member fact via a member-transition must be rejected."""
+        acts = self.opening_acts()
+        acts += [
+            act(
+                "entity-introduced",
+                {"entity": entity("demo-payer-bank-alpha", "tax.us.interest-payer",
+                                  "Bank Alpha Savings (synthetic interest payer)")},
+                3,
+            ),
+            act(
+                "entity-introduced",
+                {"entity": entity("stmt.demo-payer-bank-alpha.2025.a",
+                                  "tax.us.1099int-statement",
+                                  "Bank Alpha 1099-INT statement instance (synthetic)")},
+                4,
+            ),
+            # First member transition: adds member fact at 120.
+            act(
+                "member-transition",
+                {
+                    "family": FAMILY,
+                    "scope": SCOPE,
+                    "member": {
+                        "action": "assert",
+                        "finding": finding("b1.member.a", MEMBER_FACT, 120),
+                    },
+                    "successor": {"id": "b1.h1", "predecessor": "b1.h0"},
+                },
+                5,
+            ),
+        ]
+        state = findings.project(tuple(acts), self.registry)
+        
+        # Try to submit a second member-transition asserting the identical fact (value correction to 125):
+        same_member_transition = act(
+            "member-transition",
+            {
+                "family": FAMILY,
+                "scope": SCOPE,
+                "member": {
+                    "action": "assert",
+                    "finding": finding("b1.member.a.corrected", MEMBER_FACT, 125),
+                },
+                "successor": {"id": "b1.h2", "predecessor": "b1.h1"},
+            },
+            6,
+        )
+        
+        # Verify that it is rejected at admission:
+        from packages.kernel.findings import FindingModelError
+        with self.assertRaisesRegex(FindingModelError, "already in the family"):
+            findings.apply_act(state, same_member_transition, self.registry)
 
+        # But a plain assertion for the same-member correction (once member is already in family) IS allowed:
+        plain_correction = act(
+            "assertion",
+            {"finding": finding("b1.member.a.corrected", MEMBER_FACT, 125)},
+            6,
+        )
+        state_after_correction = findings.apply_act(state, plain_correction, self.registry)
+        self.assertIn("b1.member.a.corrected", state_after_correction.findings)
 
 
 if __name__ == "__main__":

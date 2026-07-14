@@ -311,6 +311,20 @@ def apply_member_transition(
     if member["action"] in ("assert", "reclassify"):
         finding = member["finding"]
         _validate_finding(state, finding, registry)
+
+        # SC-R2: A member-transition asserting a fact already in the family must be rejected.
+        # Same-member value corrections belong on the ordinary assertion path instead.
+        fact_id = finding["fact_id"]
+        is_member = (
+            any(f["fact_id"] == fact_id for f in state.findings.values())
+            and fact_id not in state.withdrawn_fact_ids
+        )
+        if is_member:
+            raise FindingModelError(
+                f"transition asserting fact {fact_id} already in the family is rejected: "
+                f"same-member correction belongs on the ordinary assertion path"
+            )
+
         findings[finding["id"]] = finding
     if member["action"] in ("remove", "reclassify"):
         withdrawn = _withdraw_member_fact(state, member["fact_id"])
