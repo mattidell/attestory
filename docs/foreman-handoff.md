@@ -47,16 +47,15 @@ against git, trust git and say so.
   - ✅ Conditional structures → **ADR-0024** accepted; expression extensions → **ADR-0025** accepted.
   - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
-  - 🔧 **Track 0.b — Adopted-content manifests (ADR-0022): plan approved; it1 chartered.** Awaiting owner launch of High-tier incumbent (`charter-it1.md`). Must reckon with ADR-0006 package substrate, ADR-0025 schema versions, ADR-0026 composition + pin role. Plan: `docs/prototypes/adopted-content-manifests/plan.md`.
+  - 🔧 **Track 0.b — Adopted-content manifests (ADR-0022): it1 done; it2 chartered.** Incumbent exhibit committed (extend package.v2; form-field/composition/ELX binding codes). Awaiting owner launch of clean-room rival (`charter-it2.md`). Plan: `docs/prototypes/adopted-content-manifests/plan.md`.
   - 🔧 **Track 0.c — Citation resolution (ADR-0018):** last. **No prototype artifact exists at all** — starts from the plan.
 
-- **➡️ NEXT ACTION: owner launch the Track 0.b incumbent** from
-  `docs/prototypes/adopted-content-manifests/charter-it1.md` (High tier,
-  independent external context). Plan approved; charter issued. Drop
-  `it1/design.md` + `examination-it1.md` into the working tree; foreman
-  conformance-checks (scope only) and commits under custody, then charters
-  the clean-room rival (sealed from it1 + spike + ADR-0022). Candidate
-  ADR-0027.
+- **➡️ NEXT ACTION: owner launch the Track 0.b clean-room rival** from
+  `docs/prototypes/adopted-content-manifests/charter-it2.md` (High tier,
+  independent external context, **sealed from it1 + spike + ADR-0022**).
+  Incumbent it1 conformant and committed. Drop `it2/design.md` +
+  `examination-it2.md`; foreman conformance + commit, then charter committee
+  (Governance + Adversary) over both designs. Candidate ADR-0027.
 
 - **ADR ledger:** 0019 rejected (retained); 0023, 0024, 0025, 0020, 0026 **accepted**;
   0018 & 0022 **inert non-conforming drafts** (to be superseded by conforming
