@@ -47,16 +47,16 @@ against git, trust git and say so.
   - ✅ Conditional structures → **ADR-0024** accepted; expression extensions → **ADR-0025** accepted.
   - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
-  - 🔧 **Track 0.b — Adopted-content manifests (ADR-0022): both exhibits done; committee chartered.** it1 extends package.v2 via admitted_schemas + individual fact-type pins; it2 via schema_contracts/checksums + entrypoints + fact-type-bundle. Awaiting Governance + Adversary launch. Plan: `docs/prototypes/adopted-content-manifests/plan.md`.
+  - 🔧 **Track 0.b — Adopted-content manifests (ADR-0022): both exhibits + adversary done; governance pending.** it1 extends package.v2 via admitted_schemas + individual fact-type pins; it2 via schema_contracts/checksums + entrypoints + fact-type-bundle. Adversary review under custody (`reviews/round-1-adversary.md`, ACM-A1–A7): REJECT it1 both props; CONDITIONALLY ACCEPT it2 (A1/A3/A5/A7 conditions). Governance seats exited without delivery — **relaunch Governance only**. Plan: `docs/prototypes/adopted-content-manifests/plan.md`.
   - 🔧 **Track 0.c — Citation resolution (ADR-0018):** last. **No prototype artifact exists at all** — starts from the plan.
 
-- **➡️ NEXT ACTION: owner launch Track 0.b committee** (two Medium seats,
-  independent contexts) from
-  `docs/prototypes/adopted-content-manifests/roles/reviewer-governance.md`
-  and `.../reviewer-adversary.md`. Both builder exhibits committed. Drop
-  `reviews/round-1-governance.md` (ACM-G*) and `reviews/round-1-adversary.md`
-  (ACM-A*); foreman triage → evaluation-analysis → ADR-0027 draft.
-  Candidate ADR-0027.
+- **➡️ NEXT ACTION: owner relaunch Track 0.b Governance only** (one Medium
+  seat, fresh independent context) from
+  `docs/prototypes/adopted-content-manifests/roles/reviewer-governance.md`.
+  Do **not** share adversary output with that seat. Drop
+  `reviews/round-1-governance.md` (ACM-G*). Adversary already committed
+  (`e8fb06c`). After governance lands: foreman triage → evaluation-analysis →
+  ADR-0027 draft. Candidate ADR-0027.
 
 - **ADR ledger:** 0019 rejected (retained); 0023, 0024, 0025, 0020, 0026 **accepted**;
   0018 & 0022 **inert non-conforming drafts** (to be superseded by conforming
