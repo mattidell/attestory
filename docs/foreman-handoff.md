@@ -80,6 +80,11 @@ against git, trust git and say so.
     an unsound mechanism (ELX-A1 `default_superseded`) and a substantive omission
     (TIC-A1 OID); NPE showed an authored-vs-transcribed defect pattern across
     four drafts; and the skipped-rival defect propagated to 3 inert Track-0 ADRs.
+    **Proposed ADR-0013 amendment awaiting ratification here:** foreman-authored
+    fixes to adversary/governance findings default to a scoped confirmation pass
+    (foreman recommends it proactively; owner is never asked to adjudicate
+    "is this in-evidence?"). See ADR-0013 "Amendment (2026-07-15, proposed)".
+    Origin: the ADR-0028 decision-7 over-trigger handback.
   - The ADR-0026 deferred follow-ons (further positive interest sources; the
     subtractive-adjustment mechanism) are future decision topics, not this
     milestone's blockers.
