@@ -48,18 +48,18 @@ against git, trust git and say so.
   - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
   - ✅ **Track 0.b floor — ADR-0027 accepted (2026-07-15).** Hybrid: extend package.v2; it2 typed graph / role canon / package-instance immutability / exclusive projection / form-field producer integrity; it1 `admitted_schemas`; reject path-manifest (0022 superseded); reject it1-alone. **Not Decided N1/N2** (fact-surface versioning ⋂ wholesale adoption; declared composition-obligation trigger) → residual micro-round plan **proposed**: `docs/prototypes/adopted-content-manifests/micro-round/plan.md`. Complete membership surface / full Track 4 closure waits on residual ADR (~0028).
-  - ✅ **Track 0.b floor — ADR-0027 accepted.** Residual N1/N2: micro-round complete; **ADR-0028 proposed** (not accepted). Decision 7 retyped to **same-quantity source aggregation** after owner-requested over-trigger review (`micro-round/review-feedback-adr0028.md`). On-record note: include-by-default *reasons* for closing A7 remain valid; defaulting to ratification without confirmation was a communication/process miss (proposed ADR-0013 amendment). Scoped confirmation charter: `micro-round/charter-confirm-decision7.md`.
-  - 🔧 **Track 0.c — Citation resolution:** plan drafted (`docs/prototypes/citation-resolution/plan.md`) but **do not sequence seats until 0028 accepts**.
+  - ✅ **Track 0.b floor — ADR-0027 accepted.** Residual N1/N2: **ADR-0028 proposed**. Confirm round 1 → needs redesign (quantity identity). Decisions 7–8 redesigned (closed quantity vocabulary + pairwise same-quantity force-declare). Confirm round 2 chartered. Citations sequestered until 0028 accepts.
+  - 🔧 **Track 0.c — Citation resolution:** plan at `docs/prototypes/citation-resolution/plan.md` — seats after 0028 accepts.
 
-- **➡️ NEXT ACTION: owner launch scoped Medium adversary confirmation** from
-  `docs/prototypes/adopted-content-manifests/micro-round/charter-confirm-decision7.md`.
-  Drop `micro-round/reviews/confirm-decision7-adversary.md` (MR-C*). Then foreman
-  integrates; if confirm, send ADR-0028 to owner ratification; if fail, retype
-  again. Citations Track 0.c waits on 0028 accept.
+- **➡️ NEXT ACTION: owner launch confirm round 2** from
+  `docs/prototypes/adopted-content-manifests/micro-round/charter-confirm-decision7-round2.md`.
+  Drop `micro-round/reviews/confirm-decision7-round2-adversary.md`. On **confirm**:
+  send ADR-0028 to owner ratification. On **fail/redesign**: fix again — do not
+  ratify. Citations wait on 0028 accept.
 
-- **ADR ledger:** 0019 rejected; 0023, 0024, 0025, 0020, 0026, **0027 accepted**;
-  0022 superseded by 0027; **0028 proposed** (decision 7 retyped; confirmation pending);
-  0018 inert; ADR-0013 amendment **proposed** (foreman-authored fixes default to confirmation).
+- **ADR ledger:** 0019 rejected; 0020, 0023–0027 accepted; 0022 superseded;
+  **0028 proposed** (post-redesign; confirm-2 pending); 0018 inert; ADR-0013
+  amendment proposed (foreman-authored fixes default to confirmation).
 
 
 - **Git/env hygiene:** use the project `.venv` (system python lacks jsonschema);

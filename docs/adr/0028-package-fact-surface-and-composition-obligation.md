@@ -1,6 +1,6 @@
 # ADR 0028 — Package Fact-Surface Membership and Composition-Obligation Trigger
 
-- Status: **proposed** (2026-07-15; decision 7 retyped after over-trigger review; awaiting scoped adversary confirmation then owner ratification)
+- Status: **proposed** (2026-07-15; decision 7 redesigned after confirmation MR-C1–C5; awaiting second scoped confirmation then owner ratification)
 - Tier: 2
 - Date: 2026-07-15
 
@@ -11,7 +11,7 @@ ADR-0027 accepted the adopted-content membership **floor** (extend `artifact-pac
 - **N1** — fact-surface versioning ⋂ wholesale-adoption reconciliation (ACM-G1 / A4 / A7 from the main ACM round)
 - **N2** — declared composition-obligation trigger (ACM-A3)
 
-The residual micro-round produced two clean-room-separated designs and two independent committee reviews. Both reviewers **rejected** the rival (it2) on both propositions. The incumbent (it1) supplies the carry-forward mechanisms; the adversary proved two completeness holes (orphan individual pin for mapping; structural force-declare bypass for multi-source bare sums that avoid the family-subtotal shape). This decision settles N1/N2 by carrying it1's dual fact surface and non-circular obligation design **with those holes closed**: A4 inclusion completeness; A7 closed by **same-quantity** force-declare (not any-multi-input). An intermediate any-multi-input draft over-fired on line 9; see `review-feedback-adr0028.md` and the evaluation-analysis on-record correction. Evidence: `docs/prototypes/adopted-content-manifests/micro-round/evaluation-analysis.md`.
+The residual micro-round produced two clean-room-separated designs and two independent committee reviews. Both reviewers **rejected** the rival (it2) on both propositions. The incumbent (it1) supplies the carry-forward mechanisms; the adversary proved two completeness holes (orphan individual pin for mapping; structural force-declare bypass for multi-source bare sums that avoid the family-subtotal shape). This decision settles N1/N2 by carrying it1's dual fact surface and non-circular obligation design **with those holes closed**: A4 inclusion completeness; A7 closed by **same-quantity** force-declare (not any-multi-input). An intermediate any-multi-input draft over-fired on line 9 (`review-feedback-adr0028.md`). A same-quantity retype without mandatory quantity identity failed scoped confirmation (`confirm-decision7-adversary.md` MR-C1/C5). Decisions 7–8 now pin closed quantity vocabulary + pairwise same-quantity force-declare. Evidence: `docs/prototypes/adopted-content-manifests/micro-round/evaluation-analysis.md`.
 
 ## Decision
 
@@ -30,22 +30,31 @@ The residual micro-round produced two clean-room-separated designs and two indep
 
 6. **Per obligated symbol `S`, require full composition binding.** The package must contain: (a) a composition member whose `publishes == S`; (b) the producing rule's provenance-only `composition: {id, version}` pin resolving to that member; (c) slot bijection with the rule's constituents when the composition is present. Missing pin and missing member are both rejects even when one or the other is absent. No derivation edge from the composition pin (ADR-0026 decision 4; ADR-0010).
 
-7. **Structural force-declare (same-quantity source aggregation — non-omittable net).** Independent of the obligation list being authored first, package validation **requires** that a published symbol `S` appear in `composition_obligations` when the producing rule has **two or more** distinct adopted inputs that are **alternative sources or subtotals of `S`'s own tax quantity** — that is: source-family `authorizes_subtotal` values for that quantity, **or** raw source amounts (including ELX of source facts) of that **same** quantity. Undeclared → reject.
+7. **Quantity identity is mandatory, closed, and versioned declared content.** A versioned **quantity vocabulary** (kernel or package-admitted immutable content, same monotony discipline as the role canon under ADR-0027) enumerates tax-quantity ids (e.g. taxable interest, wages). Every residual-closed `fact-type.v2` that can appear as a **source amount** in package aggregation **must** carry a required field `quantity: {id, version}` resolving to that vocabulary. Source-family declarations inherit that quantity from their member fact type (or must declare a matching quantity). Missing, unknown, or non-vocabulary quantity tokens **reject at load** — they do not fail open. Quantity identity is never runner-resident free text or a soft "as needed" annotation (closes confirmation MR-C1 / MR-C5: undeclared-tag evasion and spelling drift).
 
-   This preserves the residual incumbent's force-declare architecture and still catches the adversary MR-A7 construction (raw multi-amount line-2b that omits family pins). It does **not** fire merely because a rule aggregates ≥2 inputs of **different** quantities (ordinary downstream arithmetic: Form 1040 line 9 = line 1a + line 2b; lines 11/15/16). Those cross-quantity folds must validate **without** a `composition_obligations` entry.
+8. **Structural force-declare (same-quantity source aggregation — non-omittable net).** Independent of the obligation list being authored first, package validation **requires** that a published symbol `S` appear in `composition_obligations` when the producing rule has **two or more** distinct adopted inputs that share the **same** resolved quantity id `Q`, where each such input is either:
+   - a source-family `authorizes_subtotal` whose family's quantity is `Q`, or
+   - a raw source amount (including ELX of a source fact) whose fact-type quantity is `Q`.
 
-   **Quantity identity** is declared content (on source-family / fact-type / mapping surfaces as needed for the join) — not runner-resident symbol tables (Article 11). Implementation must make the same-quantity join schema-authoritative (ADR-0006 decision 3).
+   **Join direction (normative):** the force-declare join is **pairwise among the rule's inputs** on mandatory quantity ids — it does **not** require `S` to already carry an independent quantity declaration for the join to be expressible (so the MR-A7 raw multi-ELX construction remains checkable with no family/composition present). When ≥2 inputs share `Q`, force-declare fires for `S`.
 
-   **History:** an earlier draft broadened to "any ≥2 multi-input aggregation," which closes A7 but over-fires on line 9 et al. Owner-requested review (`micro-round/review-feedback-adr0028.md`) rejected that draft as ratification-unready; this decision uses the same-quantity retype. A scoped adversary confirmation pass on both trigger directions is required before acceptance.
+   **Cross-quantity non-trigger:** if no two inputs share a quantity id (e.g. Form 1040 line 9 = line 1a wages-quantity + line 2b interest-quantity; line 15-style multi-quantity folds), force-declare does **not** fire. Those packages must validate without a `composition_obligations` entry for `S`.
 
-8. **Schema authority, not prose.** Package and rule schema successors admit the obligation field and composition pin with versions; admitted_schemas must list residual schema generations used (ADR-0027 decision 3). Form-fields remain presentation-only (ADR-0012). No runner-resident symbol-name table (Article 11).
+   **Undeclared quantity on an aggregation input:** if a rule has ≥2 adopted inputs and any of those inputs lacks a resolvable mandatory quantity (where residual-closed content requires one), reject with a contained quantity/schema issue **before** treating force-declare as inapplicable — never fail open into "no shared quantity ⇒ no obligation."
+
+   This preserves the residual incumbent's force-declare architecture, still catches MR-A7 (raw same-quantity multi-amount line 2b), exempts ordinary cross-quantity arithmetic (review-feedback line 9), and pins the quantity mechanism the first confirmation found underspecified (`confirm-decision7-adversary.md` MR-C1, MR-C5).
+
+9. **Schema authority for composition obligation and pins.** Package and rule schema successors admit the obligation field and composition pin with versions; `admitted_schemas` must list residual schema generations used (ADR-0027 decision 3). Form-fields remain presentation-only (ADR-0012). No runner-resident symbol-name table (Article 11).
+
+
 
 ## Consequences
 
 - ADR-0027 Not Decided N1/N2 are **closed** by this decision once accepted.
 - Track 4 may implement full membership closure over the fact surface and composition obligation under ADR-0027 + this ADR.
-- **PC1.** Goldens (reject direction): unversioned fact pin; pin/bundle/adoption drift; mapping fact unpinned; bare multi-source **same-quantity** sum without obligation (family-subtotal fold **and** MR-A7 raw multi-amount line-2b); obligation without pin; orphan individual pin cannot close mapping without adoption cover.
-- **PC1b.** Golden (accept / non-trigger direction): Form 1040 line 9 = line 1a + line 2b (cross-quantity total income) **validates without** a `composition_obligations` entry; similarly lines 11/15/16-style cross-quantity folds must not be force-declared as composition-governed solely for having ≥2 inputs.
+- **PC1.** Goldens (reject direction): unversioned fact pin; pin/bundle/adoption drift; mapping fact unpinned; bare multi-source **same-quantity** sum without obligation (family-subtotal fold **and** MR-A7 raw multi-amount line-2b with mandatory quantity tags present); raw multi-ELX **without** quantity tags on source fact types → quantity-mandatory reject (not fail-open); obligation without pin; orphan individual pin cannot close mapping without adoption cover.
+- **PC1b.** Golden (accept / non-trigger direction): Form 1040 line 9 = line 1a + line 2b (cross-quantity) **validates without** `composition_obligations`; line 15-style multi-quantity folds likewise. Quantity vocabulary spelling is closed — no silent free-string match.
+- **PC1c.** Confirmation: a second scoped adversary pass must re-check MR-C1–C4 against decisions 7–8 before acceptance.
 - **PC2.** Migration of committed v1 bundles to v2 is implementation work; residual pins target only versioned citizens.
 - **PC3.** Issue-code strings are implementation detail.
 - Supersedes nothing in ADR-0027's accepted decisions 1–7; amends only the residual carve-out.

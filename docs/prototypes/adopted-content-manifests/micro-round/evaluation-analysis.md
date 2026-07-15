@@ -153,3 +153,20 @@ technical call the owner is not positioned to make.
    ADR-0013 amendment: foreman-authored fixes default to confirmation).
 
 Premature "accepted" status on ADR-0028 (if any) is **reverted to proposed**.
+
+---
+
+## Confirmation round 1 disposition (2026-07-15)
+
+Scoped adversary (`confirm-decision7-adversary.md`): **needs redesign**.
+
+- **Hold:** same-quantity vs cross-quantity cut (MR-C2 line 9, MR-C3 line 15,
+  MR-C4 family-subtotal).
+- **Fail paper:** MR-C1 A7 raw multi-ELX — join direction ambiguous; quantity
+  tags not mandatory/closed → undeclared-tag fail-open (MR-C5).
+
+**Foreman response (no ratification):** redesign ADR-0028 into decision 7
+(mandatory closed versioned quantity vocabulary + required fact-type quantity)
+and decision 8 (pairwise same-quantity force-declare; reject missing quantity
+before fail-open). Charter round-2 confirmation. Do not send to owner
+ratification until round 2 confirms.
