@@ -40,6 +40,15 @@ class MemberIssue:
 
 
 @dataclass(frozen=True)
+class CitationResolution:
+    """One exact package citation resolved without external legal claims."""
+
+    citation_id: str
+    version: str
+    status: str = "statically_resolved"
+
+
+@dataclass(frozen=True)
 class PackageValidation:
     """A contained validation outcome for one package against a corpus."""
 
@@ -47,6 +56,7 @@ class PackageValidation:
     ok: bool
     issues: tuple[MemberIssue, ...]
     output_owners: dict[str, str]
+    citation_resolutions: tuple[CitationResolution, ...]
 
 
 def _corpus_key(citizen_id: str, version: str) -> tuple[str, str]:
@@ -89,6 +99,7 @@ def validate_package(
             ok=False,
             issues=(MemberIssue(package_id, str(package.get("version", "")), "PACKAGE_SCHEMA_INVALID", str(exc)),),
             output_owners={},
+            citation_resolutions=(),
         )
 
     package_scope = {key: package["scope"].get(key) for key in _SCOPE_KEYS}
@@ -109,6 +120,11 @@ def validate_package(
         resolved.append((pin, citizen))
 
     member_ids = {pin["id"] for pin in package["members"]}
+    citation_keys = {
+        _corpus_key(pin["id"], pin["version"])
+        for pin, citizen in resolved
+        if citizen["schema"] == "citation.v1" and pin["role"] == "citation"
+    }
     produced: dict[str, list[str]] = {}
 
     admitted = package.get("admitted_schemas", [])
@@ -197,23 +213,28 @@ def validate_package(
                 if ref not in member_ids:
                     issues.append(MemberIssue(pin["id"], pin["version"], "CLOSURE_MISSING_PARAMETER",
                                               f"references {ref!r}, absent from package"))
+            for citation in citizen.get("citations", []):
+                citation_key = _corpus_key(citation["id"], citation["version"])
+                if citation_key not in citation_keys:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "CITATION_ABSENT",
+                                              f"rule citation {citation_key} is not an exact citation package member"))
 
         # Mapping exact joins validation
         if citizen["schema"] == "source-closure-mapping.v2":
-            for key in ("member_fact_type", "closure_fact_type"):
-                ft_pin = citizen.get(key)
+            for mapping_key in ("member_fact_type", "closure_fact_type"):
+                ft_pin = citizen.get(mapping_key)
                 if ft_pin:
                     ft_key = (ft_pin["id"], ft_pin["version"])
                     if ft_key not in fact_surface:
                         issues.append(MemberIssue(pin["id"], pin["version"], "MAPPING_FACT_TYPE_NOT_ADMITTED",
-                                                  f"mapping {key} {ft_key} not in package fact surface"))
+                                                  f"mapping {mapping_key} {ft_key} not in package fact surface"))
 
         # Form-field binds symbol & citation validation
         if citizen["schema"] in {"form-field.v1", "form-field.v2"}:
             cit_pin = citizen.get("citation")
-            if cit_pin and cit_pin["id"] not in member_ids:
+            if cit_pin and _corpus_key(cit_pin["id"], cit_pin["version"]) not in citation_keys:
                 issues.append(MemberIssue(pin["id"], pin["version"], "CITATION_ABSENT",
-                                          f"form-field citation {cit_pin['id']} not in package"))
+                                          f"form-field citation {(cit_pin['id'], cit_pin['version'])} is not an exact citation package member"))
 
     # 3. Input bindings validation
     input_symbols = set()
@@ -293,7 +314,7 @@ def validate_package(
                     issues.append(MemberIssue(ft_id, "", "QUANTITY_TAG_MISSING",
                                               f"source amount fact type {ft_id} is missing quantity tag"))
                     return None
-                return ft_citizen["quantity"]["id"]
+                return str(ft_citizen["quantity"]["id"])
         return None
 
     # 6. Force-declare same-quantity source aggregation (ADR-0028 decision 8)
@@ -305,7 +326,7 @@ def validate_package(
                 q = get_input_quantity(inp)
                 if q is not None:
                     input_qs.append(q)
-            q_counts = {}
+            q_counts: dict[str, int] = {}
             for q in input_qs:
                 q_counts[q] = q_counts.get(q, 0) + 1
             shared_qs = [q for q, count in q_counts.items() if count >= 2]
@@ -368,6 +389,9 @@ def validate_package(
                 comp = citizen.get("composition")
                 if comp and comp["id"] in member_ids:
                     adj[m_id].add(comp["id"])
+                for citation in citizen.get("citations", []):
+                    if _corpus_key(citation["id"], citation["version"]) in citation_keys:
+                        adj[m_id].add(citation["id"])
             elif citizen["schema"] in {"form-field.v1", "form-field.v2"}:
                 symbol = citizen["binds_symbol"]
                 for p_id in produced.get(symbol, []):
@@ -376,8 +400,8 @@ def validate_package(
                 if cit and cit["id"] in member_ids:
                     adj[m_id].add(cit["id"])
             elif citizen["schema"] == "source-closure-mapping.v2":
-                for key in ("member_fact_type", "closure_fact_type"):
-                    ft_pin = citizen.get(key)
+                for mapping_key in ("member_fact_type", "closure_fact_type"):
+                    ft_pin = citizen.get(mapping_key)
                     if ft_pin and ft_pin["id"] in member_ids:
                         adj[m_id].add(ft_pin["id"])
             elif citizen["schema"] == "taxable-interest-composition.v1":
@@ -440,5 +464,8 @@ def validate_package(
         ok=not issues,
         issues=tuple(issues),
         output_owners=output_owners,
+        citation_resolutions=tuple(
+            CitationResolution(citation_id=citation_id, version=version)
+            for citation_id, version in sorted(citation_keys)
+        ),
     )
-

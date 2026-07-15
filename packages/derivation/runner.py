@@ -115,6 +115,11 @@ def _value_str(value: Any) -> str:
     return str(value)
 
 
+_LEDGER_EXCLUDED_PIN_ROLES = frozenset(
+    {"computation", "applicability", "field-mapping", "cross-form-bridge"}
+)
+
+
 def _canonical(payload: Any) -> str:
     return json.dumps(payload, sort_keys=True, separators=(",", ":"))
 
@@ -230,6 +235,7 @@ class _Run:
         self.resolved: set[str] = set()
         self.dispositions: list[dict[str, Any]] = []
         self.blocked: list[dict[str, Any]] = []
+        self.symbol_publisher: dict[str, dict[str, Any]] = {}
 
     def env(self) -> Environment:
         return Environment(
@@ -283,6 +289,13 @@ class _Run:
         pins.extend(self.ctx.governance_pins)
         return _sorted_pins(pins)
 
+    def ledger_pins_for(self, rule: dict[str, Any], access: AccessLog) -> list[dict[str, Any]]:
+        """Return v2 disposition evidence in the record schema's pin vocabulary."""
+        pins = self.pins_for(rule, access)
+        if not self.use_v2:
+            return pins
+        return [pin for pin in pins if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES]
+
     def is_eligible(self, rule: dict[str, Any]) -> bool:
         return all(req in self.symbols for req in rule["requires"])
 
@@ -297,23 +310,53 @@ class _Run:
         """
         rule_id = rule["id"]
         access = AccessLog()
+
+        # 1. If any declared dependency is absent -> blocked
+        missing = [req for req in rule["requires"] if req not in self.symbols]
+        if missing:
+            self._record_blocked(rule, access, "DEPENDENCY_ABSENT", missing)
+            return "blocked"
+
+        # 2. Else, if the output symbol is already published by another producer under conflict semantics
+        symbol = rule["publishes"]
+        if symbol in self.symbols:
+            winner = self.symbol_publisher.get(symbol)
+            disposition_row = {
+                "artifact_id": rule_id,
+                "disposition": "inapplicable",
+                "pins": []
+            }
+            if self.use_v2:
+                if winner:
+                    disposition_row["superseded_by"] = {"role": "package", "id": winner["id"], "version": winner["version"]}
+            self.dispositions.append(disposition_row)
+            self.resolved.add(rule_id)
+            return "inapplicable"
+
+        # 3. Evaluate guard
         try:
             guard = evaluate(rule["when"], self.env(), access)
         except EvalBlocked as exc:
             self._record_blocked(rule, access, exc.category, exc.missing)
             return "blocked"
         if not guard:
-            self.dispositions.append({"artifact_id": rule_id, "disposition": "inapplicable",
-                                       "guard_result": False, "pins": self.pins_for(rule, access)})
+            disposition_row = {
+                "artifact_id": rule_id,
+                "disposition": "inapplicable",
+                "guard_result": False,
+                "pins": self.ledger_pins_for(rule, access)
+            }
+            self.dispositions.append(disposition_row)
             self.resolved.add(rule_id)
             return "inapplicable"
+
+        # 4. Evaluate value
         try:
             value = evaluate(rule["value"], self.env(), access)
         except EvalBlocked as exc:
             self._record_blocked(rule, access, exc.category, exc.missing)
             return "blocked"
 
-        symbol = rule["publishes"]
         pins = self.pins_for(rule, access)
         
         provenance = "assertion"
@@ -340,7 +383,20 @@ class _Run:
             self.schemas.validate(PUBLICATION_ACT_SCHEMA, act)
             self.schemas.validate_declared(finding)
         self.publications.append(Publication(act=act, finding=finding))
-        self.dispositions.append({"artifact_id": rule_id, "disposition": "published", "pins": pins})
+
+        self.symbol_publisher[symbol] = rule
+
+        disposition_row = {
+            "artifact_id": rule_id,
+            "disposition": "published",
+            "pins": self.ledger_pins_for(rule, access)
+        }
+        if self.use_v2:
+            disposition_row["finding_id"] = finding["id"]
+            disposition_row["act_id"] = _content_id("act:publication:", act)
+            disposition_row["symbol"] = symbol
+        self.dispositions.append(disposition_row)
+
         self.symbols[symbol] = value
         # Downstream refs to this symbol pin THIS derived finding, as an input.
         self.symbol_pin[symbol] = (finding["id"], schema_ver, "input", provenance if self.use_v2 else None)
@@ -350,8 +406,15 @@ class _Run:
     def _record_blocked(self, rule: dict[str, Any], access: AccessLog, code: str, missing: list[str]) -> None:
         rule_id = rule["id"]
         self.blocked.append({"artifact_id": rule_id, "code": code, "missing": missing})
-        self.dispositions.append({"artifact_id": rule_id, "disposition": "blocked",
-                                  "pins": self.pins_for(rule, access)})
+        disposition_row = {
+            "artifact_id": rule_id,
+            "disposition": "blocked",
+            "pins": self.ledger_pins_for(rule, access)
+        }
+        if self.use_v2:
+            disposition_row["code"] = code
+            disposition_row["missing"] = missing
+        self.dispositions.append(disposition_row)
         self.resolved.add(rule_id)
 
     def finalize_unreached(self) -> None:
@@ -359,9 +422,105 @@ class _Run:
         for rule in self.ctx.rules:
             if rule["id"] in self.resolved:
                 continue
+
+            # 1. If any dependency is absent -> blocked
             missing = [req for req in rule["requires"] if req not in self.symbols]
-            self.blocked.append({"artifact_id": rule["id"], "code": BLOCK_ABSENT, "missing": missing})
-            self.dispositions.append({"artifact_id": rule["id"], "disposition": "blocked", "pins": []})
+            if missing:
+                self.blocked.append({"artifact_id": rule["id"], "code": BLOCK_ABSENT, "missing": missing})
+                disposition_row = {
+                    "artifact_id": rule["id"],
+                    "disposition": "blocked",
+                    "pins": []
+                }
+                if self.use_v2:
+                    disposition_row["code"] = "DEPENDENCY_ABSENT"
+                    disposition_row["missing"] = missing
+                self.dispositions.append(disposition_row)
+                self.resolved.add(rule["id"])
+                continue
+
+            # 2. Else if output symbol already published by another producer under conflict semantics -> inapplicable conflict-loser
+            symbol = rule["publishes"]
+            if symbol in self.symbols:
+                winner = self.symbol_publisher.get(symbol)
+                disposition_row = {
+                    "artifact_id": rule["id"],
+                    "disposition": "inapplicable",
+                    "pins": []
+                }
+                if self.use_v2:
+                    if winner:
+                        disposition_row["superseded_by"] = {"role": "package", "id": winner["id"], "version": winner["version"]}
+                self.dispositions.append(disposition_row)
+                self.resolved.add(rule["id"])
+                continue
+
+            # 3. Else evaluate (fallback)
+            access = AccessLog()
+            try:
+                guard = evaluate(rule["when"], self.env(), access)
+            except EvalBlocked as exc:
+                self._record_blocked(rule, access, exc.category, exc.missing)
+                continue
+            if not guard:
+                disposition_row = {
+                    "artifact_id": rule["id"],
+                    "disposition": "inapplicable",
+                    "guard_result": False,
+                    "pins": self.ledger_pins_for(rule, access)
+                }
+                self.dispositions.append(disposition_row)
+                self.resolved.add(rule["id"])
+                continue
+
+            try:
+                value = evaluate(rule["value"], self.env(), access)
+            except EvalBlocked as exc:
+                self._record_blocked(rule, access, exc.category, exc.missing)
+                continue
+
+            pins = self.pins_for(rule, access)
+            provenance = "assertion"
+            if self.use_v2:
+                for pin in pins:
+                    if pin.get("role") == "input" and pin.get("origin") == "declared_default":
+                        provenance = "declared_default"
+                        break
+            schema_ver = "v2" if self.use_v2 else "v1"
+            body = {"symbol": symbol, "value": _value_str(value), "pins": pins}
+            finding = {
+                "schema": f"derived-finding.{schema_ver}",
+                "id": _content_id("finding:derived:", body),
+                "symbol": symbol,
+                "value": body["value"],
+                "version": schema_ver,
+                "pins": pins,
+            }
+            act = {"run_id": self.ctx.run_id, "finding": finding}
+            if self.use_v2:
+                self.schemas.validate_declared(finding)
+            else:
+                self.schemas.validate(PUBLICATION_ACT_SCHEMA, act)
+                self.schemas.validate_declared(finding)
+            self.publications.append(Publication(act=act, finding=finding))
+
+            self.symbol_publisher[symbol] = rule
+
+            disposition_row = {
+                "artifact_id": rule["id"],
+                "disposition": "published",
+                "pins": self.ledger_pins_for(rule, access)
+            }
+            if self.use_v2:
+                disposition_row["finding_id"] = finding["id"]
+                disposition_row["act_id"] = _content_id("act:publication:", act)
+                disposition_row["symbol"] = symbol
+            self.dispositions.append(disposition_row)
+
+            self.symbols[symbol] = value
+            # Downstream refs to this symbol pin THIS derived finding, as an input.
+            self.symbol_pin[symbol] = (finding["id"], schema_ver, "input", provenance if self.use_v2 else None)
+            self.resolved.add(rule["id"])
 
     def result(self) -> RunResult:
         return RunResult(
@@ -429,6 +588,7 @@ def run_and_record(
     a detectable open run, ADR-0008); the completion record carries the run's
     published/blocked surface and per-rule dispositions.
     """
+    use_v2 = any(rule.get("schema") == "rule-artifact.v2" for rule in ctx.rules)
     start_run(
         stream,
         record_id=start_record_id,
@@ -437,6 +597,7 @@ def run_and_record(
         governance_pins=ctx.governance_pins,
         adoption_pin=ctx.adoption_pin,
         adopted_packages=adopted_packages,
+        use_v2=use_v2,
     )
     result = run(ctx, schemas)
     published = [
@@ -456,6 +617,7 @@ def run_and_record(
             published=published,
             blocked=result.blocked,
             dispositions=result.dispositions,
+            use_v2=use_v2,
         )
     )
     return result
