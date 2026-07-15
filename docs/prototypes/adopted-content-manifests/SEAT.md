@@ -2,17 +2,9 @@
 
 ## Current step
 
-**ADR-0027 accepted** (floor). Residual micro-round plan **approved**; it1
-chartered. See `micro-round/SEAT.md`.
-
-## Seats
-
-| Role | Holder | Status |
-|---|---|---|
-| Foreman | principal foreman (owner-appointed) | active |
-| Main-round builders/reviewers | completed | closed |
-| Micro-round incumbent | owner-launched | chartered — awaiting launch |
+ADR-0027 accepted (floor). Residual micro-round: it1 done; it2 chartered.
+See `micro-round/SEAT.md`.
 
 ## Next action
 
-Owner: launch micro-round incumbent (`micro-round/charter-it1.md`).
+Owner: launch micro-round clean-room rival (`micro-round/charter-it2.md`).
