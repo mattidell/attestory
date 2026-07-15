@@ -50,10 +50,13 @@ against git, trust git and say so.
   - ✅ Adopted-content manifests → **ADR-0027** + **ADR-0028** accepted (Track 0.b floor + residual).
   - ✅ Citation resolution → **ADR-0029** accepted (Track 0.c; supersedes inert ADR-0018).
 
-- **➡️ NEXT ACTION: begin implementation tracks** per
-  `docs/phases/foundation/milestones/core-tax-conditions-and-presentation-integration.md`
-  (Tracks 1–7 rebuild on ratified ADRs and inherit production conditions). Owner
-  paces which track opens first. Track 0 is no longer a gate.
+- **Implementation tracks OPEN (2026-07-15).** Track 0 complete. Track **1 active**
+  (contract schemas + payload instances per ADRs 0020/0024–0029). Tracks 2–7
+  open and sequenced after Track 1 as the plan requires.
+
+- **➡️ NEXT ACTION: complete Track 1** — publish v2/contract schemas, positive/
+  negative payloads, schema tests, registry manifests. One Track 1 commit.
+  Then Track 2 (line 2b / ADR-0026) unless owner reprioritizes.
 
 - **ADR ledger:** 0019 rejected (retained); 0020, 0023, 0024, 0025, 0026, **0027**,
   **0028**, **0029 accepted**; 0021 superseded by 0026; 0022 superseded by 0027;

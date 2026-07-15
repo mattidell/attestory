@@ -2,14 +2,14 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **in progress — Track 0 complete; implementation tracks open.** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
+Status: **in progress — implementation (Track 1 active; Tracks 2–7 open, sequenced).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
 
 ## Revision note (2026-07-14, principal foreman)
 
 **Update (same day, post ADR-0026):** Track 0.a closed — ADR-0026 accepted. Track 0 is **3 of 5**. Track 0.b plan drafted and proposed to owner.
 
 
-**Update (2026-07-15):** ADR-0027 + ADR-0028 accepted (manifests). **ADR-0029 accepted** (citations). **Track 0 complete (5/5).** Implementation tracks may open.
+**Update (2026-07-15):** ADR-0027 + ADR-0028 accepted (manifests). **ADR-0029 accepted** (citations). **Track 0 complete (5/5).** Implementation tracks **opened**; Track 1 (contract schemas) active first.
 
 This plan was revised after the governance remediation. Two corrections to the original:
 
@@ -36,7 +36,7 @@ The previous retrospective (`docs/milestone-retrospectives/2026-07-12-source-com
 
 - The W-2 box-1 wages (`tax.us.2025.wages.total-w2-box1` -> Form 1040 line 1a) and the Form 1099-INT box-1 subtotal (`tax.us.2025.interest.b1-subtotal`) calculations are stable and fully verified on synthetic workspaces.
 - Atomic family horizons, horizon citizens, and member-transition acts are implemented and project through derivation currency (ADR-0017).
-- **Ratified Track-0 decisions (implementation not started):** ADR-0024 (conditional structures in the rule language) + ADR-0025 (expression-language extensions: declared optional defaults and categorical comparison); ADR-0020 (non-publication explanation walking — durable run disposition ledger). Implementation rebuilds under these; see the per-track production conditions.
+- **Ratified Track-0 decisions (implementation open 2026-07-15):** ADR-0024 (conditional structures in the rule language) + ADR-0025 (expression-language extensions: declared optional defaults and categorical comparison); ADR-0020 (non-publication explanation walking — durable run disposition ledger). Implementation rebuilds under these; see the per-track production conditions.
 - **Settled this remediation cycle:** ADR-0026 (taxable-interest composition) accepted 2026-07-14, superseding inert ADR-0021.
 - **Non-conforming proposed drafts (inert, need remediation):** ADR-0022 (manifests — plan drafted), ADR-0018 (citations) — paper spikes only, no rival evidence.
 - No Form 1040 line 2b exists; interest aggregation blocks at the subtotal layer because no coextensive composition has been declared or mapped for the broader taxable-interest universe.
@@ -133,6 +133,8 @@ Goal: Settle all five contract-foundational topics with conforming, rival-backed
 
 ### Track 1 - Contract Schemas And Payload Instances
 
+**Status: in progress** (opened 2026-07-15).
+
 Goal: Publish the production contract schemas ratified in Track 0. Opens only after Track 0 is fully ratified.
 - Publish the ADR-0024/0025 conditional-structure schemas: `fact-type.v2` (`optional_default`), `artifact-package.v2` (`input_bindings`), `derived-finding.v2` (`resolved_input` branch), pin-schema (`default` role, `input`-pin `origin`), `rule-artifact.v2` (`categorical_compare`, `category_literal`), `operation-semantics.v2`. **ELX PC1:** the `input`-pin `origin` field is required and copied transitively. **ELX PC2:** add `CATEGORICAL_DOMAIN_MISMATCH` to the ADR-0012 disposition vocabulary (a vocabulary amendment, not just a schema).
 - Publish the ADR-0020 record change: the single-surface disposition ledger fold on `derivation-record.v1` (ledger authoritative, `blocked[]` derived) **and repair the self-contradictory `derivation-record.completed.json` fixture concurrently (NPE-G10 prerequisite)**; the `npe-walk.v1` schema with `rule_references[]` arrays.
@@ -143,6 +145,8 @@ Goal: Publish the production contract schemas ratified in Track 0. Opens only af
 
 ### Track 2 - Taxable Interest Composition and Line 2b
 
+**Status: open** (blocked only on Track 1 schemas it consumes).
+
 Goal: Implement interest composition and Form 1040 line 2b, per the ratified ADR-0021 successor.
 - Add line 2b form-field and rule artifact, consuming the B1 subtotal.
 - Define interest composition mapping as ratified.
@@ -150,6 +154,8 @@ Goal: Implement interest composition and Form 1040 line 2b, per the ratified ADR
 - Commit: one Track 2 line-2b interest commit.
 
 ### Track 3 - Core Tax Conditions (Standard Deduction & Tax Method)
+
+**Status: open** (rebuild on ADR-0024/0025; `wip/track3-core-conditions` reference only).
 
 Goal: Implement the conditional selection logic for standard deduction and tax computation under ADR-0024 + ADR-0025 (rebuild; the `wip/track3-core-conditions` parking is reference-only and built on the rejected ADR-0019).
 - Add standard deduction amount lookup tables (parameter citizens `p.standard-deduction`, `p.additional-deduction`) and the guarded selection rules; filing status as a first-class categorical domain (ADR-0025 decision 5), migrating off ADR-0024's interim numeric-string codes via the governed successor-claim path.
@@ -162,12 +168,16 @@ Goal: Implement the conditional selection logic for standard deduction and tax c
 
 ### Track 4 - Adopted Content Manifests & Package Verification
 
+**Status: open** (implements ADR-0027/0028).
+
 Goal: Build the adopted-content manifests and enforce package verification.
 - Implement package validation that reads the manifest and asserts version-locked graph completeness.
 - Verification: package validation tests, missing dependency negatives.
 - Commit: one Track 4 manifest commit.
 
 ### Track 5 - Citation Resolution & Non-Publication Explanations
+
+**Status: open** (implements ADR-0029 + ADR-0020).
 
 Goal: Implement the citation resolver (ratified ADR-0018 successor) and the ADR-0020 non-publication explanation walker.
 - Add the semantic citation resolver as ratified.
@@ -180,12 +190,16 @@ Goal: Implement the citation resolver (ratified ADR-0018 successor) and the ADR-
 
 ### Track 6 - Integration and Lifecycle Verification
 
+**Status: open** (after Tracks 2–5 content lands).
+
 Goal: Verify the entire Cascade and scenarios.
 - Add scenarios: `single_standard_deduction`, `mfj_standard_deduction`, `standard_deduction_age_blind`, `itemized_deduction_override`, `unclosed_interest_composition`, `tax_bracket_boundaries`.
 - Verification: forward/reference parity, CLI goldens.
 - Commit: one Track 6 integration scenario commit.
 
 ### Track 7 - Completion
+
+**Status: open** (milestone close).
 
 Goal: Close the milestone.
 - Update phase state and roadmap documents.
