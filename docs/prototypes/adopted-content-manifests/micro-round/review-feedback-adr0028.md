@@ -37,18 +37,28 @@ without composition license"); governance read the family-subtotal trigger as
 adequate (MR-P2 case 7 "valid") and didn't probe either boundary. No seat
 constructed the line-9 case.
 
-**Fairness note (added 2026-07-15, correcting this review's first draft):** the
-drafting foreman did **not** silently launder the broadening — it surfaced it to
-the owner and offered to charter a **repair exhibit** ("if the A7 broadening
-feels out-of-evidence, say so and I'll charter a repair exhibit instead"). That
-is the right instinct and an honest off-ramp; an earlier version of this note
-wrongly implied the risk was under-surfaced. The one thing that offer lacked was
-a **target**: it framed the question as *provenance* ("is the broadening
-out-of-evidence?"), which the owner would judge as "yes, A7 justifies it" —
-whereas the live problem is *correctness* (the broadened trigger over-fires on
-line 9). This note's contribution is not "a risk was hidden"; it is the specific
-failure case and the retype below, so the repair the foreman already offered can
-be aimed.
+**Communication assessment (2026-07-15).** The drafting foreman *mentioned* the
+broadening and offered a repair exhibit — but conditioned it on the owner judging
+whether the broadening "feels out-of-evidence," and otherwise defaulted the
+recommendation toward ratification. **That is a communication miss, not adequate
+surfacing.** Mentioning a risk is not the same as communicating it. Two problems:
+
+1. **It offloads an un-evaluable judgment onto the owner.** Whether a fix is
+   "out-of-evidence" is a technical call about what the round's evidence supports
+   — precisely what the foreman exists to assess and the owner is not positioned
+   to. Punting it to the owner defaults to permissive.
+2. **It defaults the wrong way.** A fix that is foreman-authored and never
+   builder-tested or reviewer-checked should default to *more review*, with the
+   foreman **proactively recommending** a confirmation pass — not to
+   ratification-unless-the-owner-objects.
+
+The conservative disposition is the foreman's obligation: when you author a
+patch to close an adversary finding, recommend the scoped confirmation pass by
+default and tell the owner the specific thing it must test — do not make further
+review contingent on the owner detecting a problem the owner cannot see. The
+finding below stands in full: **decision 7 is not ratification-ready; the default
+is further review.** (An earlier version of this note softened this to a mere
+"framing" nuance; that softening was wrong.)
 
 **The missing distinction (the actual fix target):** ADR-0026 "composition" means
 coextensiveness over the **sources of one quantity** (all taxable-interest
