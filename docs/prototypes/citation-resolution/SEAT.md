@@ -2,18 +2,20 @@
 
 ## Current step
 
-it1 conformant and committed. `charter-it2.md` issued (clean-room sealed from
-it1 and inert ADR-0018). Owner launches **High** rival for CIT-P1 + CIT-P2.
+Both exhibits conformant and committed. Designs **converge** on citation as
+versioned package citizen + exact pins; **diverge** on display canonicalization
+and case-5 registry depth → committee chartered. Owner launches Governance +
+Adversary from `roles/reviewer-*.md` in **separate** contexts.
 
 ## Seats
 
 | Role | Holder | Status |
 |---|---|---|
-| Foreman | principal foreman (owner-appointed) | active; owner-paced |
-| Incumbent builder | owner-launched | completed — `it1/` |
-| Rival builder | owner-launched | **chartered — awaiting launch** |
-| Governance / Adversary | — | after both exhibits |
+| Foreman | principal foreman | active; owner-paced |
+| Incumbent / rival | completed | `it1/`, `it2/` |
+| Governance reviewer | owner-launched | **chartered — awaiting launch** |
+| Adversary reviewer | owner-launched | **chartered — awaiting launch** |
 
 ## Next action
 
-Owner: launch High clean-room rival from `charter-it2.md` (do not share it1).
+Owner: launch both Medium committee seats (independent contexts).
