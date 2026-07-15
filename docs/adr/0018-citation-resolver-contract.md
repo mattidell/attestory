@@ -1,6 +1,6 @@
 # ADR 0018 — Citation Resolver Contract and Semantic Pins
 
-- Status: proposed
+- Status: **superseded** by ADR-0029 when accepted (retained; inert single-author draft — do not implement)
 - Tier: 2
 - Date: 2026-07-13
 

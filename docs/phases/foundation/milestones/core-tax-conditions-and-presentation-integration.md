@@ -127,7 +127,7 @@ Goal: Settle all five contract-foundational topics with conforming, rival-backed
 **Remediation outstanding (owner directive 2026-07-14 — remediate all three; inert drafts are superseded, never silently ratified):**
 - ✅ **0.a Taxable-interest composition → ADR-0026 accepted** (Track 0.a closed 2026-07-14). Mechanism + honest-partial OID-inclusive line-2b boundary; supersedes inert ADR-0021. Evidence: `docs/prototypes/taxable-interest-composition/`.
 - ✅ **0.b Adopted-content manifests → ADR-0027 + ADR-0028 accepted** (2026-07-15; supersedes inert ADR-0022). Floor + fact-surface + composition-obligation. Track 4 full membership closure unblocked.
-- 🔧 **0.c Citation resolution (ADR-0018 inert).** Plan **approved**; it1 chartered (`docs/prototypes/citation-resolution/`). CIT-P1 identity/authority; CIT-P2 resolver. Candidate ADR ~0029. Awaiting High incumbent launch.
+- 🔧 **0.c Citation resolution → ADR-0029 proposed** (committee complete; supersedes inert ADR-0018 when accepted). Carry it2 structural resolver. Awaiting owner ratification.
 - Verification per topic: conformance verdicts, committee reviews, evaluation analysis, process log.
 - Commit: one governance commit per ratified ADR (foreman custody).
 
