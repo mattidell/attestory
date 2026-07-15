@@ -1,0 +1,25 @@
+{
+  "content_fixture": "../core_tax_conditions.content.json",
+  "run_id": "tax.us.2025.run.unclosed-interest-composition",
+  "inputs": [
+    {"finding_id": "demo-finding-rounding-unclosed", "role": "input", "symbol": "rounding.convention", "value": "half_up"},
+    {"finding_id": "demo-finding-status-unclosed", "role": "input", "symbol": "filing_status", "value": "single"}
+  ],
+  "sources": [
+    {"finding_id": "demo-finding-w2-unclosed", "name": "tax.us.2025.w2.box1-wages", "value": "5e4"},
+    {"finding_id": "demo-finding-int-unclosed", "name": "tax.us.2025.f1099int.box1-interest", "value": "10"}
+  ],
+  "closure": {
+    "findings": [
+      {"fact_type": "tax.us.2025.f1099int.b1.source-closure", "finding_id": "demo-closure-unclosed-b1", "horizon_id": "demo-horizon-unclosed-b1", "value": true},
+      {"fact_type": "tax.us.2025.f1099int.b3.source-closure", "finding_id": "demo-closure-unclosed-b3", "horizon_id": "demo-horizon-unclosed-b3", "value": true},
+      {"fact_type": "tax.us.2025.f1099oid.b1.source-closure", "finding_id": "demo-closure-unclosed-oid", "horizon_id": "demo-horizon-unclosed-oid", "value": true}
+    ],
+    "current_horizons": {
+      "tax.us.2025.f1099int.b1": "demo-horizon-unclosed-b1",
+      "tax.us.2025.f1099int.b3": "demo-horizon-unclosed-b3",
+      "tax.us.2025.f1099oid.b1": "demo-horizon-unclosed-oid",
+      "tax.us.2025.non-form-interest": "demo-horizon-unclosed-nonform"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "package": "../../../content/tax/2025/package.core-calculations.json",
+  "adoption_pin": {
+    "id": "tax.us.2025.package.core-calculations",
+    "role": "adoption",
+    "version": "v1"
+  },
+  "governance_pins": [
+    {
+      "id": "governance.constitution",
+      "role": "governance",
+      "version": "v1"
+    }
+  ],
+  "rules": [
+    "../../../content/tax/2025/rule.wages-line1a.json",
+    "../../../content/tax/2025/rule.f1099int-b1-subtotal.json",
+    "../../../content/tax/2025/rule.f1099int-b3-subtotal.json",
+    "../../../content/tax/2025/rule.f1099oid-subtotal.json",
+    "../../../content/tax/2025/rule.non-form-interest-subtotal.json",
+    "../../../content/tax/2025/rule.form1040-line2b.json",
+    "../../../content/tax/2025/rule.form1040-standard-deduction.json",
+    "../../../content/tax/2025/rule.form1040-line9.json",
+    "../../../content/tax/2025/rule.form1040-line11.json",
+    "../../../content/tax/2025/rule.form1040-line12.json",
+    "../../../content/tax/2025/rule.form1040-line15.json",
+    "../../../content/tax/2025/rule.form1040-line16.json"
+  ],
+  "parameters": [
+    "../../../content/tax/2025/parameter.standard-deduction-base.json",
+    "../../../content/tax/2025/parameter.additional-deduction-rate.json",
+    "../../../content/tax/2025/parameter.tax-brackets.json",
+    "../../../content/tax/2025/parameter.default-false.json",
+    "../../../content/tax/2025/parameter.default-zero.json"
+  ],
+  "family_declarations": [
+    "../../../content/tax/2025/family.f1099int-b1.json",
+    "../../../content/tax/2025/family.f1099int-b3.json",
+    "../../../content/tax/2025/family.f1099oid-b1.json",
+    "../../../content/tax/2025/family.non-form-interest.json"
+  ],
+  "mappings": [
+    "../../../content/tax/2025/closure-mapping.f1099int-b1.json",
+    "../../../content/tax/2025/closure-mapping.f1099int-b3.json",
+    "../../../content/tax/2025/closure-mapping.f1099oid-b1.json",
+    "../../../content/tax/2025/closure-mapping.non-form-interest.json"
+  ],
+  "fact_type_bundles": [
+    "../../../content/tax/2025/w2.bundle.json",
+    "../../../content/tax/2025/f1099int.bundle.json",
+    "../../../content/tax/2025/interest_composition.bundle.json",
+    "../../../content/tax/2025/core_calculations.bundle.json"
+  ]
+}

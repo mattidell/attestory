@@ -1,0 +1,25 @@
+{
+  "content_fixture": "../core_tax_conditions.content.json",
+  "run_id": "tax.us.2025.run.single-standard-deduction",
+  "inputs": [
+    {"finding_id": "demo-finding-rounding-single", "role": "input", "symbol": "rounding.convention", "value": "half_up"},
+    {"finding_id": "demo-finding-status-single", "role": "input", "symbol": "filing_status", "value": "single"}
+  ],
+  "sources": [
+    {"finding_id": "demo-finding-w2-single", "name": "tax.us.2025.w2.box1-wages", "value": "5e4"}
+  ],
+  "closure": {
+    "findings": [
+      {"fact_type": "tax.us.2025.f1099int.b1.source-closure", "finding_id": "demo-closure-single-b1", "horizon_id": "demo-horizon-single-b1", "value": true},
+      {"fact_type": "tax.us.2025.f1099int.b3.source-closure", "finding_id": "demo-closure-single-b3", "horizon_id": "demo-horizon-single-b3", "value": true},
+      {"fact_type": "tax.us.2025.f1099oid.b1.source-closure", "finding_id": "demo-closure-single-oid", "horizon_id": "demo-horizon-single-oid", "value": true},
+      {"fact_type": "tax.us.2025.non-form-interest.source-closure", "finding_id": "demo-closure-single-nonform", "horizon_id": "demo-horizon-single-nonform", "value": true}
+    ],
+    "current_horizons": {
+      "tax.us.2025.f1099int.b1": "demo-horizon-single-b1",
+      "tax.us.2025.f1099int.b3": "demo-horizon-single-b3",
+      "tax.us.2025.f1099oid.b1": "demo-horizon-single-oid",
+      "tax.us.2025.non-form-interest": "demo-horizon-single-nonform"
+    }
+  }
+}
