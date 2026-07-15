@@ -59,11 +59,19 @@ ROLE_VOCABULARY = frozenset(
         "cross-form-bridge",
         "input",
         "choice",
+        "default",
+        "composition",
+        "citation",
         "adoption",
         "governance",
         "engine",
         "package",
         "operation-semantics",
+        "form-field",
+        "source-family",
+        "source-closure-mapping",
+        "fact-type",
+        "fact-type-bundle",
     }
 )
 

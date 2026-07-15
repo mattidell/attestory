@@ -12,9 +12,7 @@
   "published": [
     { "symbol": "demo.form1040.line1a", "finding_id": "demo.finding.line1a", "act_id": "demo.act.pub.line1a" }
   ],
-  "blocked": [
-    { "artifact_id": "demo.rule.tax-table-line16", "code": "OPEN_TAX_TABLE_ROW", "missing": ["demo.form1040.line15", "filing_status"] }
-  ],
+  "blocked": [],
   "dispositions": [
     { "artifact_id": "demo.rule.wages-to-1040-line1a", "disposition": "published", "pins": [
       { "role": "input", "id": "demo.finding.w2-box1", "version": "v1" }

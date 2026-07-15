@@ -1,0 +1,1 @@
+{"schema":"derived-finding.v2","id":"demo.finding.default","symbol":"demo.taxpayer.age65","value":false,"version":"v2","pins":[{"role":"input","id":"demo.taxpayer.age65","version":"v1"}]}

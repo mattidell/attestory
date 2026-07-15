@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "derivation/operation-semantics.v2", "title": "Operation semantics canon, conditional extensions",
+  "description": "Versioned semantic citizens for categorical comparison and source-set closure requirement. Evaluation and dispatch are not implemented by this schema (ADR-0025 decision 5; ADR-0026 decision 5).",
+  "type": "object", "properties": {"schema": {"const": "operation-semantics.v2"}, "operation": {"enum": ["categorical_compare", "require_closed"]}, "version": {"type": "string", "pattern": "^v[0-9]+$"}, "spec": {"type": "object"}}, "required": ["schema", "operation", "version", "spec"], "additionalProperties": false,
+  "allOf": [
+    {"if": {"properties": {"operation": {"const": "categorical_compare"}}, "required": ["operation"]}, "then": {"properties": {"spec": {"type": "object", "properties": {"operators": {"const": ["eq", "ne"]}, "domain_mismatch": {"const": "block"}}, "required": ["operators", "domain_mismatch"], "additionalProperties": false}}}},
+    {"if": {"properties": {"operation": {"const": "require_closed"}}, "required": ["operation"]}, "then": {"properties": {"spec": {"type": "object", "properties": {"subject": {"const": "source_set"}, "admission": {"const": "current-literal-true"}}, "required": ["subject", "admission"], "additionalProperties": false}}}}
+  ]
+}

@@ -1,0 +1,1 @@
+{"schema":"derived-finding.v2","id":"demo.finding.default","symbol":"demo.taxpayer.age65","value":false,"version":"v2","pins":[{"role":"input","id":"demo.taxpayer.age65","version":"v1","origin":"declared_default"},{"role":"default","id":"demo.parameter.age65-default","version":"v1"}],"resolved_input":{"fact_id":"demo.taxpayer.age65","origin":"declared_default"}}

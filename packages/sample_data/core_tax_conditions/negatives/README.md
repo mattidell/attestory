@@ -1,0 +1,1 @@
+Schema negatives in this directory each contain one structural defect and must be rejected by their named published schema. Package graph, adoption, binding, slot-bijection, and force-declare negatives are deliberately not represented as schema failures: those cross-citizen joins are the Track 4 validator contract.

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "derivation/source-closure-mapping.v2", "title": "Versioned source-closure mapping",
+  "description": "The adopted closure mapping with exact fact-type pins. Resolution into the closed package fact surface is package validation, while bare fact-type identifiers are structurally inexpressible (ADR-0028 decision 4).",
+  "type": "object", "properties": {"schema": {"const": "source-closure-mapping.v2"}, "id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}, "family": {"$ref": "#/$defs/pin"}, "member_fact_type": {"$ref": "#/$defs/pin"}, "closure_fact_type": {"$ref": "#/$defs/pin"}, "closure_horizon_key": {"type": "string", "minLength": 1}, "admits_symbol": {"type": "string", "minLength": 1}, "admission": {"type": "object", "properties": {"condition": {"const": "current-literal-true"}}, "required": ["condition"], "additionalProperties": false}}, "required": ["schema", "id", "version", "family", "member_fact_type", "closure_fact_type", "closure_horizon_key", "admits_symbol", "admission"], "additionalProperties": false,
+  "$defs": {"pin": {"type": "object", "properties": {"id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}}, "required": ["id", "version"], "additionalProperties": false}}
+}

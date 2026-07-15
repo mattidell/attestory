@@ -1,0 +1,1 @@
+{"schema":"bundle.v2","id":"demo.bundle.tax","version":"v1","label":"Demo tax bundle","fact_types":[{"schema":"fact-type.v2","id":"demo.taxable-interest.amount"}]}

@@ -1,0 +1,1 @@
+{"schema":"rule-artifact.v2","id":"demo.rule.status-check","version":"v1","scope":{"tax_year":2025,"jurisdiction":"US-federal","family":"demo"},"role":"computation","requires":[],"pins":[{"role":"input","id":"demo.filing-status","version":"v1"}],"when":true,"value":true,"publishes":"demo.status-eligible","blocked":{"code":"DEPENDENCY_ABSENT","missing":[]}}
