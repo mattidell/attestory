@@ -2,6 +2,5 @@
 
 ## Current step
 
-**Complete.** ADR-0027 (floor) + ADR-0028 (N1/N2 residual) **accepted**.
-Main-round and micro-round seats closed. Implementation inherits production
-conditions in Track 4.
+ADR-0027 accepted (floor). Residual ADR-0028 **proposed** — decision 7 retyped;
+awaiting scoped confirmation then owner ratification. See `micro-round/SEAT.md`.

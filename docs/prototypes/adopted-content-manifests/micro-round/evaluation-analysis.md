@@ -127,3 +127,29 @@ whether or not those inputs are family `authorizes_subtotal` values.
 **Disposition after owner request for this record (2026-07-15):** rationale
 recorded; A7 broadening retained; ADR-0028 proceeds to **accepted** under
 owner direction to continue progress with that default disclosed.
+
+---
+
+## Correction (2026-07-15) — premature default challenged; decision 7 retyped
+
+Owner-requested review (`review-feedback-adr0028.md`, commits through `adccc60`)
+found the any-multi-input A7 broadening **over-fires** on ordinary downstream
+arithmetic (line 9 = 1a+2b; lines 11/15/16) — untested by the residual round.
+The communication failure was real: stating a risk while defaulting to
+ratification and asking the owner whether it "feels out-of-evidence" offloads a
+technical call the owner is not positioned to make.
+
+**Corrected disposition (this session):**
+
+1. Recorded the original include-by-default *reasons* (same architecture;
+   completeness hole; Gate-6 honesty) — those still explain **why** a
+   family-subtotal-only net is insufficient.
+2. **Do not** accept ADR-0028 on the any-multi-input predicate.
+3. **Retype** decision 7 to **same-quantity source aggregation** (still catches
+   MR-A7 raw line-2b; exempts cross-quantity line 9).
+4. Add **PC1b** negative golden: line 9 validates without composition obligation.
+5. **Default further review:** charter a scoped adversary confirmation pass on
+   both trigger directions before owner ratification (aligns with proposed
+   ADR-0013 amendment: foreman-authored fixes default to confirmation).
+
+Premature "accepted" status on ADR-0028 (if any) is **reverted to proposed**.
