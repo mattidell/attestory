@@ -1,0 +1,6 @@
+{
+  "schema": "quantity-vocabulary.v1",
+  "id": "tax.us.2025.quantity.taxable-interest",
+  "version": "v1",
+  "quantities": ["taxable-interest", "wages"]
+}

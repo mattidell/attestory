@@ -15,7 +15,8 @@
     "source-family.v1",
     "taxable-interest-composition.v1",
     "citation.v1",
-    "form-field.v2"
+    "form-field.v2",
+    "quantity-vocabulary.v1"
   ],
   "members": [
     { "role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.interest_composition.vocabulary", "version": "v1" },
@@ -35,7 +36,8 @@
     { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.non-form-interest-subtotal", "version": "v1" },
     { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.form1040-line2b", "version": "v1" },
     { "role": "form-field", "schema": "form-field.v2", "id": "tax.us.2025.form1040.line-2b", "version": "v1" },
-    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-2b", "version": "v1" }
+    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-2b", "version": "v1" },
+    { "role": "parameter", "schema": "quantity-vocabulary.v1", "id": "tax.us.2025.quantity.taxable-interest", "version": "v1" }
   ],
   "input_bindings": [
     { "symbol": "rounding.convention", "fact_type": { "id": "rounding.convention", "version": "v1" }, "mode": "required" }

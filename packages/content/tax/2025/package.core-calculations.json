@@ -16,7 +16,8 @@
     "taxable-interest-composition.v1",
     "citation.v1",
     "form-field.v2",
-    "parameter-declaration.v1"
+    "parameter-declaration.v1",
+    "quantity-vocabulary.v1"
   ],
   "members": [
     { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.w2-box1-to-line1a", "version": "v1" },
@@ -68,7 +69,8 @@
     { "role": "parameter", "schema": "parameter-declaration.v1", "id": "demo.parameter.additional-deduction-rate.2025", "version": "v1" },
     { "role": "parameter", "schema": "parameter-declaration.v1", "id": "demo.parameter.tax-brackets.2025", "version": "v1" },
     { "role": "parameter", "schema": "parameter-declaration.v1", "id": "tax.us.2025.parameter.default-false", "version": "v1" },
-    { "role": "parameter", "schema": "parameter-declaration.v1", "id": "tax.us.2025.parameter.default-zero", "version": "v1" }
+    { "role": "parameter", "schema": "parameter-declaration.v1", "id": "tax.us.2025.parameter.default-zero", "version": "v1" },
+    { "role": "parameter", "schema": "quantity-vocabulary.v1", "id": "tax.us.2025.quantity.taxable-interest", "version": "v1" }
   ],
   "input_bindings": [
     { "symbol": "rounding.convention", "fact_type": { "id": "rounding.convention", "version": "v1" }, "mode": "required" },
