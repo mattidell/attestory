@@ -2,23 +2,21 @@
 
 ## Current step
 
-Committee round-1 **complete**. Both reviews under custody. Foreman synthesis in
-`evaluation-analysis.md`; candidate **ADR-0027** drafted as **proposed**.
-Awaiting **owner ratification** of ADR-0027 (or amendment). No further builder
-or reviewer seats. Implementation Track 4 must not open until acceptance.
+**ADR-0027 accepted** (2026-07-15) on the rival-backed floor (extend-not-fork;
+it2 graph/role/immutability + it1 admitted_schemas; reject it1-alone; reject
+path-manifest). **Not Decided N1/N2** (fact-surface membership; composition
+obligation trigger) deferred to residual micro-round.
+
+Main committee seats closed. Residual work: `micro-round/` (plan proposed).
 
 ## Seats
 
 | Role | Holder | Status |
 |---|---|---|
-| Foreman | principal foreman (owner-appointed) | active; owner-paced, no unapproved spawns |
-| Incumbent builder | owner-launched external context | completed — `it1/` |
-| Rival builder | owner-launched external context | completed — `it2/` |
-| Governance reviewer | owner-launched external context | completed — `reviews/round-1-governance.md` |
-| Adversary reviewer | owner-launched external context | completed — `reviews/round-1-adversary.md` |
+| Foreman | principal foreman (owner-appointed) | active |
+| Incumbent / rival / committee (main round) | owner-launched | completed |
+| Micro-round seats | see `micro-round/SEAT.md` | plan proposed |
 
 ## Next action
 
-Owner: read `evaluation-analysis.md` and `docs/adr/0027-adopted-content-manifests.md`;
-ratify, amend, or reject. On accept: foreman marks ADR accepted, refreshes
-phase-state/handoff/milestone (Track 0.b closed; Track 0.c citations next).
+Owner: approve micro-round plan, then launch seats from charters as issued.

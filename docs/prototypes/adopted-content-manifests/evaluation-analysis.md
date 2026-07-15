@@ -76,3 +76,13 @@ Independent convergence on that floor is strong evidence that **extend-the-packa
 3. **Owner call on depth of G1 in this ADR vs a paired micro-decision:** whether `fact-type.v2` / `bundle.v2` version fields are inlined in ADR-0027 (recommended — otherwise exact-member-version is unimplementable) or split. Foreman recommends **inline** so Track 4 has one contract.
 
 Advisory only — the owner decides disposition.
+
+---
+
+## Owner disposition (2026-07-15)
+
+Ratified the synthesis recommendation's **floor and hybrid carry-forward** as
+**ADR-0027 accepted**. Explicitly **did not** ratify draft decisions on the
+fact-type membership surface or the declared composition-obligation trigger;
+those are residual micro-round N1/N2 under
+`docs/prototypes/adopted-content-manifests/micro-round/`.

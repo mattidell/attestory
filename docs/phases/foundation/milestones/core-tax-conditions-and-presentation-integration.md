@@ -2,11 +2,14 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **in progress — Track 0 remediation (3 of 5 topics settled).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
+Status: **in progress — Track 0 remediation (floor progress: ADR-0027 accepted with residual micro-round; citations open).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
 
 ## Revision note (2026-07-14, principal foreman)
 
 **Update (same day, post ADR-0026):** Track 0.a closed — ADR-0026 accepted. Track 0 is **3 of 5**. Track 0.b plan drafted and proposed to owner.
+
+
+**Update (2026-07-15):** ADR-0027 accepted (manifests floor). Residual micro-round for fact-surface + composition-obligation before claiming complete membership surface. Track 0 not fully closed.
 
 This plan was revised after the governance remediation. Two corrections to the original:
 
@@ -123,7 +126,7 @@ Goal: Settle all five contract-foundational topics with conforming, rival-backed
 
 **Remediation outstanding (owner directive 2026-07-14 — remediate all three; inert drafts are superseded, never silently ratified):**
 - ✅ **0.a Taxable-interest composition → ADR-0026 accepted** (Track 0.a closed 2026-07-14). Mechanism + honest-partial OID-inclusive line-2b boundary; supersedes inert ADR-0021. Evidence: `docs/prototypes/taxable-interest-composition/`.
-- **0.b Adopted-content manifests (ADR-0022).** Plan drafted (`docs/prototypes/adopted-content-manifests/plan.md`), awaiting owner approval then incumbent/rival/committee remediation. Questions: membership surface over form-fields / source-authority / composition / ELX bindings (extend vs succeed ADR-0006), version-lock and schema-generation coexistence with ADR-0025 (`fact-type.v2`, `artifact-package.v2`, `derived-finding.v2`, `rule-artifact.v2`, `operation-semantics.v2`) and ADR-0026's `composition` pin role.
+- ✅ **0.b Adopted-content manifests floor → ADR-0027 accepted** (2026-07-15; supersedes inert ADR-0022). Hybrid package.v2 membership; N1/N2 residual micro-round plan proposed (`docs/prototypes/adopted-content-manifests/micro-round/plan.md`) for fact-surface versioning ⋂ wholesale adoption and declared composition-obligation trigger (candidate residual ADR ~0028). Full Track 4 membership closure waits on residual.
 - **0.c Citation resolution (ADR-0018).** Same process — no prototype artifact exists yet, so it starts from the plan. Questions: resolver contract, semantic pin attachment, and what "verifiable citation" means against ADR-0012's inert-string status.
 - Verification per topic: conformance verdicts, committee reviews, evaluation analysis, process log.
 - Commit: one governance commit per ratified ADR (foreman custody).

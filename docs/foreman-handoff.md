@@ -47,19 +47,21 @@ against git, trust git and say so.
   - ✅ Conditional structures → **ADR-0024** accepted; expression extensions → **ADR-0025** accepted.
   - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
-  - 🔧 **Track 0.b — Adopted-content manifests: committee complete; ADR-0027 proposed.** Both exhibits + both reviews under custody (`e8fb06c` adversary, `bf4cb59` governance). Synthesis: `docs/prototypes/adopted-content-manifests/evaluation-analysis.md`. Hybrid carry-forward (extend package.v2; it2 graph/role/immutability + it1 admitted_schemas; reject path-manifest ADR-0022; reject it1-alone). Joint prereqs G1 fact-type/bundle versions + A3 declared composition obligation. Draft: `docs/adr/0027-adopted-content-manifests.md` (**proposed**). Plan: `docs/prototypes/adopted-content-manifests/plan.md`.
-  - 🔧 **Track 0.c — Citation resolution (ADR-0018):** last. **No prototype artifact exists at all** — starts from the plan after 0.b ratifies.
+  - ✅ **Track 0.b floor — ADR-0027 accepted (2026-07-15).** Hybrid: extend package.v2; it2 typed graph / role canon / package-instance immutability / exclusive projection / form-field producer integrity; it1 `admitted_schemas`; reject path-manifest (0022 superseded); reject it1-alone. **Not Decided N1/N2** (fact-surface versioning ⋂ wholesale adoption; declared composition-obligation trigger) → residual micro-round plan **proposed**: `docs/prototypes/adopted-content-manifests/micro-round/plan.md`. Complete membership surface / full Track 4 closure waits on residual ADR (~0028).
+  - 🔧 **Track 0.b residual micro-round** — plan proposed; owner approve then Medium incumbent+rival on MR-P1/MR-P2.
+  - 🔧 **Track 0.c — Citation resolution (ADR-0018):** after residual (or owner may sequence in parallel after plan approval — default is residual first). **No prototype artifact exists at all**.
 
-- **➡️ NEXT ACTION: owner ratify / amend / reject ADR-0027.** Evidence in
-  `evaluation-analysis.md`. On accept: foreman marks ADR accepted, closes
-  Track 0.b in phase-state/milestone/handoff, sequences Track 0.c
-  (citation resolution) plan draft. Do **not** open implementation Track 4
-  until acceptance.
+- **➡️ NEXT ACTION: owner approve / amend micro-round plan** at
+  `docs/prototypes/adopted-content-manifests/micro-round/plan.md`. On approve:
+  foreman issues `charter-it1.md`; owner launches Medium incumbent (both
+  MR-P1 and MR-P2). Do not open full Track 4 membership closure until residual
+  ADR accepts (partial loader work against ADR-0027 decisions 1–7 is allowed
+  only if it does not claim N1/N2 settled).
 
-- **ADR ledger:** 0019 rejected (retained); 0023, 0024, 0025, 0020, 0026 **accepted**;
-  0018 & 0022 **inert non-conforming drafts** (to be superseded by conforming
-  successors, retained). Closed-topic detail lives in each
-  `docs/prototypes/<topic>/process-log.md` and `evaluation-analysis.md`.
+- **ADR ledger:** 0019 rejected (retained); 0023, 0024, 0025, 0020, 0026, **0027 accepted**;
+  0022 **superseded** by 0027 (retained); 0018 inert. Residual N1/N2 → candidate ~0028.
+  Closed-topic detail lives in each `docs/prototypes/<topic>/process-log.md` and
+  `evaluation-analysis.md`.
 
 - **Git/env hygiene:** use the project `.venv` (system python lacks jsonschema);
   check `git status` before any `git add -A` (owner threads drop uncommitted
