@@ -2,19 +2,18 @@
 
 ## Current step
 
-Plan **approved** (2026-07-15). `charter-it1.md` issued. Owner launches **High**
-incumbent for CIT-P1 + CIT-P2. Drop `it1/design.md` + `examination-it1.md` for
-foreman custody/conformance. Then foreman issues sealed `charter-it2.md`.
+it1 conformant and committed. `charter-it2.md` issued (clean-room sealed from
+it1 and inert ADR-0018). Owner launches **High** rival for CIT-P1 + CIT-P2.
 
 ## Seats
 
 | Role | Holder | Status |
 |---|---|---|
 | Foreman | principal foreman (owner-appointed) | active; owner-paced |
-| Incumbent builder | owner-launched external context | **chartered — awaiting launch** |
-| Rival builder | — | sealed; after it1 |
+| Incumbent builder | owner-launched | completed — `it1/` |
+| Rival builder | owner-launched | **chartered — awaiting launch** |
 | Governance / Adversary | — | after both exhibits |
 
 ## Next action
 
-Owner: launch High incumbent from `charter-it1.md`.
+Owner: launch High clean-room rival from `charter-it2.md` (do not share it1).
