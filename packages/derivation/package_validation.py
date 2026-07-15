@@ -19,8 +19,11 @@ The it2 attack corpus is the acceptance bar (round-2 adversary parity):
 
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import dataclass
-from typing import Any, Iterable
+from pathlib import Path
+from typing import Any, Iterable, Mapping
 
 from packages.kernel.schema_registry import SchemaValidationError
 from packages.derivation.loader import DerivationSchemas, PACKAGE_SCHEMA
@@ -57,6 +60,68 @@ class PackageValidation:
     issues: tuple[MemberIssue, ...]
     output_owners: dict[str, str]
     citation_resolutions: tuple[CitationResolution, ...]
+
+
+class PackageIntegrityError(ValueError):
+    """An offered package is not the immutable published instance."""
+
+
+def package_instance_checksum(package: Mapping[str, Any]) -> str:
+    """Return the SHA-256 of canonical package bytes, excluding its checksum.
+
+    ``package_checksum`` records the checksum rather than participating in its
+    own digest. The published-package registry pins that same digest by exact
+    package id/version, so recomputing the field after an in-place edit cannot
+    rewrite an already published package version.
+    """
+    body = {key: value for key, value in package.items() if key != "package_checksum"}
+    canonical = json.dumps(body, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def load_published_package_checksums(path: Path) -> dict[tuple[str, str], str]:
+    """Load the small publication registry for immutable package instances."""
+    document: dict[str, Any] = json.loads(path.read_text("utf-8"))
+    entries = document.get("packages")
+    if not isinstance(entries, list):
+        raise PackageIntegrityError(f"{path}: packages must be an array")
+    registry: dict[tuple[str, str], str] = {}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            raise PackageIntegrityError(f"{path}: package entry must be an object")
+        package_id = entry.get("id")
+        version = entry.get("version")
+        checksum = entry.get("checksum")
+        if not isinstance(package_id, str) or not isinstance(version, str):
+            raise PackageIntegrityError(f"{path}: package entry needs string id and version")
+        if not isinstance(checksum, str) or len(checksum) != 64:
+            raise PackageIntegrityError(f"{path}: package entry {package_id}@{version} has invalid checksum")
+        key = (package_id, version)
+        if key in registry:
+            raise PackageIntegrityError(f"{path}: duplicate package entry {package_id}@{version}")
+        registry[key] = checksum
+    return registry
+
+
+def verify_published_package(
+    package: Mapping[str, Any], published_checksums: Mapping[tuple[str, str], str]
+) -> None:
+    """Reject an unpublished, corrupted, or rewritten package instance."""
+    package_id = package.get("id")
+    version = package.get("version")
+    recorded = package.get("package_checksum")
+    if not isinstance(package_id, str) or not isinstance(version, str):
+        raise PackageIntegrityError("package needs string id and version")
+    if not isinstance(recorded, str):
+        raise PackageIntegrityError(f"{package_id}@{version}: package_checksum is missing")
+    actual = package_instance_checksum(package)
+    if recorded != actual:
+        raise PackageIntegrityError(f"{package_id}@{version}: PACKAGE_CHECKSUM_MISMATCH")
+    published = published_checksums.get((package_id, version))
+    if published is None:
+        raise PackageIntegrityError(f"{package_id}@{version}: PACKAGE_UNPUBLISHED")
+    if actual != published:
+        raise PackageIntegrityError(f"{package_id}@{version}: PACKAGE_VERSION_REWRITE")
 
 
 def _corpus_key(citizen_id: str, version: str) -> tuple[str, str]:

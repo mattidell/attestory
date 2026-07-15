@@ -1,0 +1,14 @@
+{
+  "packages": [
+    {
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v1",
+      "checksum": "a1504433a726088ee3f25c41b4df66a4cc8f98d1b19d97511d48fd692f7de9a3"
+    },
+    {
+      "id": "tax.us.2025.package.interest-slice",
+      "version": "v1",
+      "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d"
+    }
+  ]
+}

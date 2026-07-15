@@ -1,5 +1,6 @@
 {
   "package": "../../../content/tax/2025/package.core-calculations.json",
+  "package_registry": "../../../content/tax/2025/published-packages.json",
   "adoption_pin": {
     "id": "tax.us.2025.package.core-calculations",
     "role": "adoption",

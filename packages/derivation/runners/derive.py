@@ -18,6 +18,10 @@ from typing import Any, Sequence, cast
 
 from packages.derivation.explanation import explain, index_derived
 from packages.derivation.loader import DerivationSchemas, load_canon
+from packages.derivation.package_validation import (
+    load_published_package_checksums,
+    verify_published_package,
+)
 from packages.derivation.runner import InputFinding, RunContext, SourceFact, run
 from packages.derivation.source_authority import ClosureFindingRecord
 
@@ -41,6 +45,10 @@ def _load_content_fixture(scenario_path: Path, fixture_ref: str) -> dict[str, An
         return [_load_json((fixture_path.parent / ref).resolve()) for ref in fixture[key]]
 
     package = _load_json((fixture_path.parent / fixture["package"]).resolve())
+    published_checksums = load_published_package_checksums(
+        (fixture_path.parent / fixture["package_registry"]).resolve()
+    )
+    verify_published_package(package, published_checksums)
     fact_types: list[dict[str, Any]] = []
     for bundle in citizens("fact_type_bundles"):
         fact_types.extend(bundle["fact_types"])

@@ -12,7 +12,13 @@ from pathlib import Path
 from typing import Any
 
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.package_validation import validate_package
+from packages.derivation.package_validation import (
+    PackageIntegrityError,
+    load_published_package_checksums,
+    package_instance_checksum,
+    validate_package,
+    verify_published_package,
+)
 
 EXAMPLES = Path(__file__).resolve().parent.parent.parent / "packages" / "sample_data" / "derivation" / "examples"
 
@@ -27,6 +33,11 @@ _CITIZEN_FILES = [
 
 def _load(name: str) -> dict[str, Any]:
     loaded: dict[str, Any] = json.loads((EXAMPLES / name).read_text("utf-8"))
+    return loaded
+
+
+def _load_path(path: Path) -> dict[str, Any]:
+    loaded: dict[str, Any] = json.loads(path.read_text("utf-8"))
     return loaded
 
 
@@ -53,6 +64,36 @@ class ValidPackage(PackageValidationFixture):
         self.assertTrue(result.ok, msg=str(result.issues))
         self.assertEqual(result.output_owners["demo.form1040.line1a"], "demo.rule.wages-to-1040-line1a")
         self.assertEqual(result.output_owners["demo.form1040.line16"], "demo.rule.tax-table-line16")
+
+
+class PackageInstanceImmutability(unittest.TestCase):
+    def setUp(self) -> None:
+        self.package = _load("artifact-package.json")
+        self.package["package_checksum"] = package_instance_checksum(self.package)
+        self.published = {(self.package["id"], self.package["version"]): self.package["package_checksum"]}
+
+    def test_exact_published_instance_is_accepted(self) -> None:
+        verify_published_package(self.package, self.published)
+
+    def test_changed_bytes_with_stale_checksum_are_rejected(self) -> None:
+        changed = copy.deepcopy(self.package)
+        changed["members"].pop()
+        with self.assertRaisesRegex(PackageIntegrityError, "PACKAGE_CHECKSUM_MISMATCH"):
+            verify_published_package(changed, self.published)
+
+    def test_recomputed_checksum_cannot_rewrite_published_version(self) -> None:
+        changed = copy.deepcopy(self.package)
+        changed["members"].pop()
+        changed["package_checksum"] = package_instance_checksum(changed)
+        with self.assertRaisesRegex(PackageIntegrityError, "PACKAGE_VERSION_REWRITE"):
+            verify_published_package(changed, self.published)
+
+    def test_committed_tax_registry_matches_the_exact_package_bytes(self) -> None:
+        content = Path("packages/content/tax/2025")
+        registry = load_published_package_checksums(content / "published-packages.json")
+        for filename in ("package.core-calculations.json", "package.interest-slice.json"):
+            with self.subTest(filename=filename):
+                verify_published_package(_load_path(content / filename), registry)
 
 
 class Parity1Containment(PackageValidationFixture):
