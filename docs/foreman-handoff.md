@@ -54,9 +54,20 @@ against git, trust git and say so.
   (contract schemas + payload instances per ADRs 0020/0024–0029). Tracks 2–7
   open and sequenced after Track 1 as the plan requires.
 
-- **➡️ NEXT ACTION: complete Track 1** — publish v2/contract schemas, positive/
-  negative payloads, schema tests, registry manifests. One Track 1 commit.
-  Then Track 2 (line 2b / ADR-0026) unless owner reprioritizes.
+- **➡️ NEXT ACTION: execute Track 1 per the work order** —
+  `docs/phases/foundation/milestones/core-tax-conditions-track-1-plan.md`
+  (foreman-prepared 2026-07-15). It enumerates every new/changed schema in
+  dependency layers A→E (quantity vocab, role canon, fact-type.v2/bundle.v2,
+  package.v2, derived-finding.v2, rule-artifact.v2, operation-semantics.v2,
+  source-closure-mapping.v2, derivation-record fold, npe-walk.v1,
+  taxable-interest-composition.v1, citation.v1, form-field.v2 + ADR-0012 vocab),
+  with per-schema positive/negative payloads, schema tests, and registry
+  immutability. **Scope fence:** schemas + payloads + tests + `published.json`
+  only — validator dispatch is Track 4, content is Tracks 2/3, runner/walker is
+  Track 5. **Open question for owner:** who drives Track 1 — an owner-launched
+  implementation seat or the foreman directly under owner go (repo code, not a
+  decision round, so the rival discipline does not apply). Then Track 2
+  (line 2b / ADR-0026) unless reprioritized.
 
 - **ADR ledger:** 0019 rejected (retained); 0020, 0023, 0024, 0025, 0026, **0027**,
   **0028**, **0029 accepted**; 0021 superseded by 0026; 0022 superseded by 0027;
