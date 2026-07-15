@@ -1,6 +1,6 @@
 # ADR 0022 — Adopted-Content Manifests
 
-- Status: proposed
+- Status: **superseded** by ADR-0027 (retained; inert single-author draft — path-manifest approach rejected)
 - Tier: 2
 - Date: 2026-07-13
 
