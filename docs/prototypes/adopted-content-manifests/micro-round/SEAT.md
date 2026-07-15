@@ -2,19 +2,24 @@
 
 ## Current step
 
-it1 conformant and committed. `charter-it2.md` issued (clean-room sealed).
-Owner launches **Medium** rival for MR-P1 + MR-P2. Drop `it2/design.md` +
-`examination-it2.md` for foreman custody.
+Both residual exhibits conformant and committed. Designs **diverge** on pin unit
+and composition-obligation declaration surface → committee round chartered
+(plan Gate 4: do not waive). Owner launches Governance + Adversary from
+`roles/reviewer-*.md` in **separate** contexts. Drop
+`reviews/round-1-governance.md` (MR-G*) and `reviews/round-1-adversary.md`
+(MR-A*). Then foreman triage → evaluation-analysis → residual ADR (~0028).
 
 ## Seats
 
 | Role | Holder | Status |
 |---|---|---|
 | Foreman | principal foreman (owner-appointed) | active; owner-paced |
-| Incumbent builder | owner-launched external context | completed — `it1/` |
-| Rival builder | owner-launched external context | **chartered — awaiting launch** |
-| Governance / Adversary | — | after both exhibits (owner may waive if independent convergence — plan Gate 4) |
+| Incumbent builder | owner-launched | completed — `it1/` |
+| Rival builder | owner-launched | completed — `it2/` |
+| Governance reviewer | owner-launched | **chartered — awaiting launch** |
+| Adversary reviewer | owner-launched | **chartered — awaiting launch** |
 
 ## Next action
 
-Owner: launch Medium clean-room rival from `charter-it2.md` (do not share it1).
+Owner: launch both Medium committee seats (independent contexts) from
+`roles/reviewer-governance.md` and `roles/reviewer-adversary.md`.
