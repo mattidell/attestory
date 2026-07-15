@@ -48,21 +48,17 @@ against git, trust git and say so.
   - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
   - ✅ **Track 0.b floor — ADR-0027 accepted (2026-07-15).** Hybrid: extend package.v2; it2 typed graph / role canon / package-instance immutability / exclusive projection / form-field producer integrity; it1 `admitted_schemas`; reject path-manifest (0022 superseded); reject it1-alone. **Not Decided N1/N2** (fact-surface versioning ⋂ wholesale adoption; declared composition-obligation trigger) → residual micro-round plan **proposed**: `docs/prototypes/adopted-content-manifests/micro-round/plan.md`. Complete membership surface / full Track 4 closure waits on residual ADR (~0028).
-  - 🔧 **Track 0.b residual micro-round** — both exhibits under custody; committee chartered (Gate 4: designs diverge — no waiver). it1: dual pin + `composition_obligations` + multi-source force-declare. it2: fact-type pins + adopted-bundle inclusion + `composition-obligation.v1` citizen. Awaiting Governance + Adversary.
-  - 🔧 **Track 0.c — Citation resolution (ADR-0018):** after residual (default). **No prototype artifact exists at all**.
+  - 🔧 **Track 0.b residual micro-round — committee complete; ADR-0028 proposed.** Both exhibits + both reviews under custody. Synthesis: reject it2; carry it1 dual fact surface + non-circular `composition_obligations` with committee tightenings (A4 inclusion covers all of F(P); A7 broaden force-declare beyond family-subtotal-only). Evidence: `micro-round/evaluation-analysis.md`. Draft: `docs/adr/0028-package-fact-surface-and-composition-obligation.md` (**proposed**).
+  - 🔧 **Track 0.c — Citation resolution (ADR-0018):** after 0028 accepts (default). **No prototype artifact exists at all**.
 
-- **➡️ NEXT ACTION: owner launch micro-round committee** (two Medium seats,
-  independent contexts) from
-  `docs/prototypes/adopted-content-manifests/micro-round/roles/reviewer-governance.md`
-  and `.../reviewer-adversary.md`. Drop `micro-round/reviews/round-1-governance.md`
-  (MR-G*) and `.../round-1-adversary.md` (MR-A*). Then foreman triage →
-  evaluation-analysis → residual ADR (~0028). Full Track 4 membership closure
-  waits on residual ADR acceptance.
+- **➡️ NEXT ACTION: owner ratify / amend / reject ADR-0028.** On accept: close
+  Track 0.b residual (0027 N1/N2 done); full Track 4 membership surface unblocked;
+  sequence Track 0.c plan. On reject of A7 broadening as out-of-evidence: order
+  repair exhibit before re-draft.
 
-- **ADR ledger:** 0019 rejected (retained); 0023, 0024, 0025, 0020, 0026, **0027 accepted**;
-  0022 **superseded** by 0027 (retained); 0018 inert. Residual N1/N2 → candidate ~0028.
-  Closed-topic detail lives in each `docs/prototypes/<topic>/process-log.md` and
-  `evaluation-analysis.md`.
+- **ADR ledger:** 0019 rejected; 0023, 0024, 0025, 0020, 0026, **0027 accepted**;
+  0022 superseded by 0027; **0028 proposed** (residual N1/N2); 0018 inert.
+  Closed-topic detail in each topic's process-log / evaluation-analysis.
 
 - **Git/env hygiene:** use the project `.venv` (system python lacks jsonschema);
   check `git status` before any `git add -A` (owner threads drop uncommitted

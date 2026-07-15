@@ -46,7 +46,7 @@ These were draft decisions 6–7 of the pre-ratification ADR-0027 text. Owner di
 - **N1 — Fact-surface versioning ⋂ wholesale-adoption reconciliation (ACM-G1, ACM-A7, related A4).** How exact member versions apply to fact types and bundles given HEAD `fact-type.v1` / `bundle.v1` lack `version`, and given wholesale `act-bundle-adoption`. Whether packages pin individual fact types, bundles, or both; inclusion joins so binding checks and runtime vocabulary cannot drift; mapping fact-type dependency edges.
 - **N2 — Declared composition-obligation trigger (ACM-A3).** How a package discovers that a published symbol is composition-governed **without** circular dependence on a composition citizen already being present, so a bare multi-source sum cannot validate while still aligning with ADR-0026 decision 4's mandatory licensed `composition` pin (and without runner-resident symbol special cases — Article 11).
 
-Until N1/N2 are ratified (candidate ADR number assigned at micro-round close), implementation may land the ratified decisions 1–7 above but **must not** claim the fact-type membership surface or composition-obligation mechanism are settled; Track 4's complete membership closure waits on the residual ADR.
+Until N1/N2 are ratified, implementation may land the ratified decisions 1–7 above but **must not** claim the fact-type membership surface or composition-obligation mechanism are settled; Track 4's complete membership closure waits on the residual ADR. **Status 2026-07-15:** residual micro-round complete; candidate **ADR-0028 proposed** (`docs/adr/0028-package-fact-surface-and-composition-obligation.md`) — awaits owner ratification.
 
 ## Consequences
 
