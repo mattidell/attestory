@@ -2,20 +2,22 @@
 
 ## Current step
 
-Both exhibits conformant and committed. Designs **converge** on citation as
-versioned package citizen + exact pins; **diverge** on display canonicalization
-and case-5 registry depth → committee chartered. Owner launches Governance +
-Adversary from `roles/reviewer-*.md` in **separate** contexts.
+Both builder exhibits under custody. Committee **partial**: Adversary review
+under custody (`reviews/round-1-adversary.md`, CIT-A1–A9). **Governance still
+missing** — relaunch if prior seat exited without delivery. Independent context;
+do not pass adversary output to governance. After governance lands: foreman
+triage → evaluation-analysis → ADR-0029 draft.
 
 ## Seats
 
 | Role | Holder | Status |
 |---|---|---|
-| Foreman | principal foreman | active; owner-paced |
-| Incumbent / rival | completed | `it1/`, `it2/` |
-| Governance reviewer | owner-launched | **chartered — awaiting launch** |
-| Adversary reviewer | owner-launched | **chartered — awaiting launch** |
+| Foreman | principal foreman | active |
+| Incumbent / rival | completed | closed |
+| Governance reviewer | owner-launched | **chartered — awaiting delivery / relaunch** |
+| Adversary reviewer | owner-launched | **completed** — `reviews/round-1-adversary.md` |
 
 ## Next action
 
-Owner: launch both Medium committee seats (independent contexts).
+Owner: deliver or relaunch Governance only from `roles/reviewer-governance.md`.
+Drop `reviews/round-1-governance.md` (CIT-G*). Adversary is done.
