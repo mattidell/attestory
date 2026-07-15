@@ -1,0 +1,98 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.core_calculations.vocabulary",
+  "version": "v1",
+  "label": "Filing status, taxpayer and spouse demographics, and itemized deductions fact types for tax year 2025",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.filing-status",
+      "version": "v1",
+      "title": "Filing status for tax year 2025",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["single", "married_filing_jointly", "married_filing_separately", "head_of_household", "qualifying_surviving_spouse"]
+      },
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.taxpayer-over-65",
+      "version": "v1",
+      "title": "Taxpayer is over 65 years of age for 2025",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"},
+      "optional_default": {
+        "parameter": {"id": "tax.us.2025.parameter.default-false", "version": "v1"}
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.taxpayer-blind",
+      "version": "v1",
+      "title": "Taxpayer is blind for 2025",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"},
+      "optional_default": {
+        "parameter": {"id": "tax.us.2025.parameter.default-false", "version": "v1"}
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.spouse-over-65",
+      "version": "v1",
+      "title": "Spouse is over 65 years of age for 2025",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"},
+      "optional_default": {
+        "parameter": {"id": "tax.us.2025.parameter.default-false", "version": "v1"}
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.spouse-blind",
+      "version": "v1",
+      "title": "Spouse is blind for 2025",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"},
+      "optional_default": {
+        "parameter": {"id": "tax.us.2025.parameter.default-false", "version": "v1"}
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.deductions.itemized",
+      "version": "v1",
+      "title": "Taxpayer asserted itemized deductions for 2025",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "number"},
+      "supersession": {"policy": "free"},
+      "optional_default": {
+        "parameter": {"id": "tax.us.2025.parameter.default-zero", "version": "v1"}
+      }
+    }
+  ]
+}

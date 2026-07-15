@@ -1,0 +1,26 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-line9",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["tax.us.2025.wages.total-w2-box1", "tax.us.2025.interest.taxable-total"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.wages.total-w2-box1", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.interest.taxable-total", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      { "op": "ref", "name": "tax.us.2025.wages.total-w2-box1" },
+      { "op": "ref", "name": "tax.us.2025.interest.taxable-total" }
+    ]
+  },
+  "publishes": "tax.us.2025.income.total-income",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.wages.total-w2-box1", "tax.us.2025.interest.taxable-total"]
+  },
+  "notes": "Form 1040 Line 9: Total income from wages and taxable interest."
+}

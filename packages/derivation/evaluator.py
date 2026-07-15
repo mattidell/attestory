@@ -25,6 +25,7 @@ BLOCK_ABSENT = "DEPENDENCY_ABSENT"
 BLOCK_INVALID = "DEPENDENCY_INVALID"
 BLOCK_CLOSURE = "SOURCE_SET_UNCLOSED"
 BLOCK_LOOKUP_MISS = "LOOKUP_MISS"
+BLOCK_CATEGORICAL_DOMAIN_MISMATCH = "CATEGORICAL_DOMAIN_MISMATCH"
 
 _ROUND_MODES = {
     "half_up": ROUND_HALF_UP,
@@ -67,6 +68,8 @@ class Environment:
     closed_sets: frozenset[str]             # source sets asserted complete (layer 2)
     parameters: dict[str, dict[str, Any]]   # parameter id -> parameter citizen
     canon: dict[str, dict[str, Any]]        # operation -> operation-semantics citizen
+    symbol_fact_types: dict[str, str] = field(default_factory=dict)
+    categorical_domains: dict[str, list[str]] = field(default_factory=dict)
 
 
 def _as_decimal(value: Any) -> Decimal:
@@ -106,7 +109,11 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         access.refs.add(expr["name"])
         if expr["name"] not in env.symbols:
             raise EvalBlocked(BLOCK_ABSENT, [expr["name"]])
-        return env.symbols[expr["name"]]
+        val = env.symbols[expr["name"]]
+        fact_type_id = env.symbol_fact_types.get(expr["name"])
+        if fact_type_id is not None:
+            _validate_categorical_value(fact_type_id, str(val), env)
+        return val
 
     if op == "collect":
         name = expr["name"]
@@ -184,6 +191,16 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         access.closure_reads.add(source_set)
         return True
 
+    if op == "categorical_compare":
+        left_domain, left_val = _eval_categorical_operand(expr["left"], env, access)
+        right_domain, right_val = _eval_categorical_operand(expr["right"], env, access)
+        if left_domain != right_domain:
+            raise EvalBlocked(BLOCK_CATEGORICAL_DOMAIN_MISMATCH, [f"{left_domain} != {right_domain}"])
+        return left_val == right_val if expr["cmp"] == "eq" else left_val != right_val
+
+    if op == "category_literal":
+        return expr["value"]
+
     raise EvalBlocked(BLOCK_INVALID, [f"unknown op survived schema: {op}"])
 
 
@@ -256,3 +273,28 @@ def _bracket_fold(expr: dict[str, Any], env: Environment, access: AccessLog) -> 
         top = value if upper is None else min(value, upper)
         total += (top - lower) * Decimal(row["rate"])
     return total
+
+
+def _eval_categorical_operand(expr: Any, env: Environment, access: AccessLog) -> tuple[str, str]:
+    if not isinstance(expr, dict):
+        raise EvalBlocked(BLOCK_CATEGORICAL_DOMAIN_MISMATCH, [f"not a categorical expression: {expr}"])
+    op = expr.get("op")
+    if op == "category_literal":
+        fact_type = expr["fact_type"]
+        fact_type_id = fact_type["id"] if isinstance(fact_type, dict) else fact_type
+        val = expr["value"]
+        _validate_categorical_value(fact_type_id, val, env)
+        return fact_type_id, val
+    if op == "ref":
+        name = expr["name"]
+        val = evaluate(expr, env, access)
+        fact_type_id = str(env.symbol_fact_types.get(name, name))
+        _validate_categorical_value(fact_type_id, str(val), env)
+        return fact_type_id, str(val)
+    raise EvalBlocked(BLOCK_CATEGORICAL_DOMAIN_MISMATCH, [f"not a categorical expression: {expr}"])
+
+
+def _validate_categorical_value(fact_type_id: str, val: str, env: Environment) -> None:
+    valid_values = env.categorical_domains.get(fact_type_id)
+    if valid_values is not None and val not in valid_values:
+        raise EvalBlocked(BLOCK_INVALID, [val])

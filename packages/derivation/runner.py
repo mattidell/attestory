@@ -87,6 +87,8 @@ class RunContext:
     closure_mappings: list[dict[str, Any]] = field(default_factory=list)
     closure_findings: list[ClosureFindingRecord] = field(default_factory=list)
     current_horizons: dict[str, str] = field(default_factory=dict)
+    fact_types: list[dict[str, Any]] = field(default_factory=list)
+    input_bindings: list[dict[str, Any]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -144,18 +146,88 @@ class _Run:
             ctx.closure_findings,
             ctx.current_horizons,
         )
-        self.symbols: dict[str, Any] = {i.symbol: i.value for i in ctx.inputs}
-        # symbol -> (finding_id, version, pin-role) for building dependency pins
-        self.symbol_pin: dict[str, tuple[str, str, str]] = {
-            i.symbol: (i.finding_id, "v1", i.role) for i in ctx.inputs
-        }
+        
+        self.use_v2 = any(rule.get("schema") == "rule-artifact.v2" for rule in ctx.rules)
+        self.symbol_fact_types: dict[str, str] = {}
+        self.categorical_domains: dict[str, list[str]] = {}
+        
+        fact_types_by_id = {ft["id"]: ft for ft in ctx.fact_types}
+        for ft in ctx.fact_types:
+            val_schema = ft.get("value_schema", {})
+            if isinstance(val_schema, dict) and "enum" in val_schema:
+                self.categorical_domains[ft["id"]] = val_schema["enum"]
+
+        self.symbols: dict[str, Any] = {}
+        # symbol -> (finding_id, version, pin-role, provenance)
+        self.symbol_pin: dict[str, tuple[str, str, str, str | None]] = {}
+        
+        for i in ctx.inputs:
+            self.symbols[i.symbol] = i.value
+            fact_type_id = i.symbol
+            for binding in ctx.input_bindings:
+                if binding["symbol"] == i.symbol:
+                    fact_type_id = binding["fact_type"]["id"]
+                    break
+            self.symbol_fact_types[i.symbol] = fact_type_id
+            provenance = "assertion" if self.use_v2 else None
+            self.symbol_pin[i.symbol] = (i.finding_id, "v1", i.role, provenance)
+
+        self.publications: list[Publication] = []
+        
+        if self.use_v2:
+            for binding in ctx.input_bindings:
+                symbol = binding["symbol"]
+                if symbol in self.symbols:
+                    continue
+                if binding["mode"] == "optional_default":
+                    fact_type_id = binding["fact_type"]["id"]
+                    self.symbol_fact_types[symbol] = fact_type_id
+                    ft_def: dict[str, Any] | None = fact_types_by_id.get(fact_type_id)
+                    if ft_def is not None and "optional_default" in ft_def:
+                        opt_def = ft_def["optional_default"]
+                        param_id = opt_def["parameter"]["id"]
+                        param_version = opt_def["parameter"]["version"]
+                        param_val = ctx.parameters.get(param_id, {}).get("values")
+                        if param_val is not None:
+                            pins = [self.ctx.adoption_pin] + self.ctx.governance_pins
+                            pins.append({
+                                "role": "parameter",
+                                "id": param_id,
+                                "version": param_version
+                            })
+                            pins = _sorted_pins(pins)
+
+                            body = {
+                                "symbol": symbol,
+                                "value": _value_str(param_val),
+                                "pins": pins,
+                                "resolved_input": {
+                                    "fact_id": fact_type_id,
+                                    "origin": "declared_default"
+                                }
+                            }
+                            finding_id = _content_id("finding:derived:", body)
+                            finding = {
+                                "schema": "derived-finding.v2",
+                                "id": finding_id,
+                                "symbol": symbol,
+                                "value": body["value"],
+                                "version": "v2",
+                                "pins": pins,
+                                "resolved_input": body["resolved_input"]
+                            }
+                            self.schemas.validate_declared(finding)
+                            act = {"run_id": self.ctx.run_id, "finding": finding}
+                            self.publications.append(Publication(act=act, finding=finding))
+                            self.symbols[symbol] = param_val
+                            self.symbol_pin[symbol] = (finding_id, "v2", "input", "declared_default")
+
         self.sources: dict[str, list[str]] = {}
         self.source_fids: dict[str, list[str]] = {}
         for fact in ctx.sources:
             self.sources.setdefault(fact.name, []).append(fact.value)
             self.source_fids.setdefault(fact.name, []).append(fact.finding_id)
         self.resolved: set[str] = set()
-        self.publications: list[Publication] = []
         self.dispositions: list[dict[str, Any]] = []
         self.blocked: list[dict[str, Any]] = []
 
@@ -166,6 +238,8 @@ class _Run:
             closed_sets=frozenset(self.admissions),
             parameters=self.ctx.parameters,
             canon=self.ctx.canon,
+            symbol_fact_types=self.symbol_fact_types,
+            categorical_domains=self.categorical_domains,
         )
 
     def pins_for(self, rule: dict[str, Any], access: AccessLog) -> list[dict[str, Any]]:
@@ -173,11 +247,17 @@ class _Run:
             {"role": rule["role"], "id": rule["id"], "version": rule["version"]}
         ]
         for name in access.refs:
-            fid, ver, role = self.symbol_pin[name]
-            pins.append({"role": role, "id": fid, "version": ver})
+            fid, ver, role, provenance = self.symbol_pin[name]
+            pin = {"role": role, "id": fid, "version": ver}
+            if self.use_v2 and role == "input":
+                pin["origin"] = provenance if provenance is not None else "assertion"
+            pins.append(pin)
         for name in access.collects:
             for fid in self.source_fids.get(name, []):
-                pins.append({"role": "input", "id": fid, "version": "v1"})
+                pin = {"role": "input", "id": fid, "version": "v1"}
+                if self.use_v2:
+                    pin["origin"] = "assertion"
+                pins.append(pin)
         for pid in access.parameters | access.tables:
             pins.append({"role": "parameter", "id": pid, "version": self.ctx.parameters[pid]["version"]})
         # A closure-backed zero pins the exact adopted mapping and
@@ -190,8 +270,11 @@ class _Run:
                          "version": admission.mapping_version})
             pins.append({"role": "package", "id": admission.declaration_id,
                          "version": admission.declaration_version})
-            pins.append({"role": "input", "id": admission.closure_finding_id,
-                         "version": "v1"})
+            pin = {"role": "input", "id": admission.closure_finding_id,
+                   "version": "v1"}
+            if self.use_v2:
+                pin["origin"] = "assertion"
+            pins.append(pin)
         for op in access.operations:
             pins.append({"role": "operation-semantics", "id": op, "version": self.ctx.canon[op]["version"]})
         # Adoption and governance identity come from the run context — versioned
@@ -221,7 +304,7 @@ class _Run:
             return "blocked"
         if not guard:
             self.dispositions.append({"artifact_id": rule_id, "disposition": "inapplicable",
-                                      "guard_result": False, "pins": self.pins_for(rule, access)})
+                                       "guard_result": False, "pins": self.pins_for(rule, access)})
             self.resolved.add(rule_id)
             return "inapplicable"
         try:
@@ -232,23 +315,35 @@ class _Run:
 
         symbol = rule["publishes"]
         pins = self.pins_for(rule, access)
+        
+        provenance = "assertion"
+        if self.use_v2:
+            for pin in pins:
+                if pin.get("role") == "input" and pin.get("origin") == "declared_default":
+                    provenance = "declared_default"
+                    break
+
+        schema_ver = "v2" if self.use_v2 else "v1"
         body = {"symbol": symbol, "value": _value_str(value), "pins": pins}
         finding = {
-            "schema": "derived-finding.v1",
+            "schema": f"derived-finding.{schema_ver}",
             "id": _content_id("finding:derived:", body),
             "symbol": symbol,
             "value": body["value"],
-            "version": "v1",
+            "version": schema_ver,
             "pins": pins,
         }
         act = {"run_id": self.ctx.run_id, "finding": finding}
-        self.schemas.validate(PUBLICATION_ACT_SCHEMA, act)
-        self.schemas.validate_declared(finding)
+        if self.use_v2:
+            self.schemas.validate_declared(finding)
+        else:
+            self.schemas.validate(PUBLICATION_ACT_SCHEMA, act)
+            self.schemas.validate_declared(finding)
         self.publications.append(Publication(act=act, finding=finding))
         self.dispositions.append({"artifact_id": rule_id, "disposition": "published", "pins": pins})
         self.symbols[symbol] = value
         # Downstream refs to this symbol pin THIS derived finding, as an input.
-        self.symbol_pin[symbol] = (finding["id"], "v1", "input")
+        self.symbol_pin[symbol] = (finding["id"], schema_ver, "input", provenance if self.use_v2 else None)
         self.resolved.add(rule_id)
         return "published"
 

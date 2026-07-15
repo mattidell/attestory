@@ -1,0 +1,19 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-line11",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["tax.us.2025.income.total-income"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.income.total-income", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": { "op": "ref", "name": "tax.us.2025.income.total-income" },
+  "publishes": "tax.us.2025.income.agi",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.income.total-income"]
+  },
+  "notes": "Form 1040 Line 11: Adjusted Gross Income."
+}

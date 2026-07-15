@@ -1,0 +1,26 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-line12",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["demo.form1040.standard_deduction", "tax.us.2025.deductions.itemized"],
+  "pins": [
+    { "role": "input", "id": "demo.form1040.standard_deduction", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.deductions.itemized", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "max",
+    "args": [
+      { "op": "ref", "name": "demo.form1040.standard_deduction" },
+      { "op": "ref", "name": "tax.us.2025.deductions.itemized" }
+    ]
+  },
+  "publishes": "tax.us.2025.deductions.total",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["demo.form1040.standard_deduction", "tax.us.2025.deductions.itemized"]
+  },
+  "notes": "Selects standard deduction or itemized override, whichever is larger, for Form 1040 Line 12."
+}

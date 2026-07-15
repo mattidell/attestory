@@ -1,0 +1,12 @@
+{
+  "schema": "parameter-declaration.v1",
+  "id": "tax.us.2025.parameter.default-false",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "values": false
+}
