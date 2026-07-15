@@ -108,8 +108,12 @@ class FamilyAndMapping(unittest.TestCase):
         mappings = load_closure_mappings()
         self.assertIn(FAMILY_ID, families)
         mapping = next(m for m in mappings.values() if m["family"]["id"] == FAMILY_ID)
-        self.assertEqual(mapping["member_fact_type"], BOX1_FACT_TYPE)
-        self.assertEqual(mapping["closure_fact_type"], CLOSURE_FACT_TYPE)
+        m_type = mapping["member_fact_type"]
+        member_id = m_type["id"] if isinstance(m_type, dict) else m_type
+        c_type = mapping["closure_fact_type"]
+        closure_id = c_type["id"] if isinstance(c_type, dict) else c_type
+        self.assertEqual(member_id, BOX1_FACT_TYPE)
+        self.assertEqual(closure_id, CLOSURE_FACT_TYPE)
         self.assertEqual(mapping["admits_symbol"], SUBTOTAL_SYMBOL)
 
     def test_the_exact_claim_says_box1_only(self) -> None:
@@ -200,9 +204,20 @@ class StatementMechanics(unittest.TestCase):
 class PackageClosure(unittest.TestCase):
     def test_interest_package_closes_and_owns_its_symbol(self) -> None:
         schemas = DerivationSchemas()
-        rule = _load(TAX_CONTENT_DIR / "rule.f1099int-b1-subtotal.json")
         package = _load(TAX_CONTENT_DIR / "package.interest-slice.json")
-        result = validate_package(package, {(rule["id"], rule["version"]): rule}, schemas)
+        corpus = {}
+        for member in package["members"]:
+            suffix = member["id"].replace("tax.us.2025.", "")
+            if suffix.endswith(".vocabulary"):
+                suffix = suffix.replace(".vocabulary", ".bundle")
+            elif suffix in {"f1099int.b1", "f1099int.b3", "f1099oid.b1", "non-form-interest"}:
+                suffix = "family." + suffix.replace(".", "-")
+            elif suffix == "form1040.line-2b":
+                suffix = suffix + ".form-field"
+            filename = f"{suffix}.json"
+            corpus[(member["id"], member["version"])] = _load(TAX_CONTENT_DIR / filename)
+
+        result = validate_package(package, corpus, schemas)
         self.assertTrue(result.ok, msg=str(result.issues))
         self.assertEqual(result.output_owners[SUBTOTAL_SYMBOL], RULE_ID)
 

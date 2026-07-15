@@ -82,7 +82,7 @@ def validate_package(
     package_id = str(package.get("id", "<unidentified>"))
 
     try:
-        schemas.validate(PACKAGE_SCHEMA, package)
+        schemas.validate_declared(package)
     except SchemaValidationError as exc:
         return PackageValidation(
             package_id=package_id,
@@ -117,22 +117,23 @@ def validate_package(
         # role (rules) or be "parameter" (parameter declarations). This is the
         # one-role-vocabulary cross-position check (decision 9): the same token
         # means the same thing in the package and in the artifact.
-        if citizen["schema"] == "rule-artifact.v1":
+        if citizen["schema"] in {"rule-artifact.v1", "rule-artifact.v2"}:
             if pin_role != citizen["role"]:
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
-                                          f"package role {pin_role!r} != artifact role {citizen['role']!r}"))
+                                           f"package role {pin_role!r} != artifact role {citizen['role']!r}"))
         elif citizen["schema"] == "parameter-declaration.v1":
             if pin_role != "parameter":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
-                                          f"parameter member declared as {pin_role!r}"))
+                                           f"parameter member declared as {pin_role!r}"))
 
         # Scope as content (decision 6): member scope must match package scope.
-        member_scope = {key: citizen.get("scope", {}).get(key) for key in _SCOPE_KEYS}
-        if member_scope != package_scope:
-            issues.append(MemberIssue(pin["id"], pin["version"], "SCOPE_MISMATCH",
-                                      f"member scope {member_scope} != package scope {package_scope}"))
+        if "scope" in citizen:
+            member_scope = {key: citizen.get("scope", {}).get(key) for key in _SCOPE_KEYS}
+            if member_scope != package_scope:
+                issues.append(MemberIssue(pin["id"], pin["version"], "SCOPE_MISMATCH",
+                                          f"member scope {member_scope} != package scope {package_scope}"))
 
-        if citizen["schema"] == "rule-artifact.v1":
+        if citizen["schema"] in {"rule-artifact.v1", "rule-artifact.v2"}:
             produced.setdefault(citizen["publishes"], []).append(pin["id"])
             # Reference closure (decision 6): every parameter/table a member
             # consults must itself be a member.

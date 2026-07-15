@@ -1,0 +1,94 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.interest_composition.vocabulary",
+  "version": "v1",
+  "label": "Form 1099-INT box 3, Form 1099-OID box 1 and Non-Form Interest vocabulary for tax year 2025",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099int.box3-interest",
+      "version": "v1",
+      "title": "Interest income reported in box 3 of one logical Form 1099-INT statement instance furnished by a payer for 2025.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.us.interest-payer"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1099int-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "number"},
+      "supersession": {"policy": "free"},
+      "source_amount": true,
+      "quantity": {"id": "tax.us.2025.quantity.taxable-interest", "version": "v1"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099int.b3.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the Form 1099-INT box-3 source family for 2025.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "family-horizon", "kind": "entity", "entity_kind": "kernel.family-horizon"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099oid.box1-interest-oid",
+      "version": "v1",
+      "title": "Original issue discount (OID) reported in box 1 of one logical Form 1099-OID statement instance furnished by a payer for 2025.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.us.interest-payer"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1099oid-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "number"},
+      "supersession": {"policy": "free"},
+      "source_amount": true,
+      "quantity": {"id": "tax.us.2025.quantity.taxable-interest", "version": "v1"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099oid.b1.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the Form 1099-OID box-1 source family for 2025.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "family-horizon", "kind": "entity", "entity_kind": "kernel.family-horizon"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.non-form-interest.amount",
+      "version": "v1",
+      "title": "Interest income received without a Form 1099-INT/OID statement instance for 2025.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.us.interest-payer"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "number"},
+      "supersession": {"policy": "free"},
+      "source_amount": true,
+      "quantity": {"id": "tax.us.2025.quantity.taxable-interest", "version": "v1"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.non-form-interest.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the Non-Form Interest source family for 2025.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "family-horizon", "kind": "entity", "entity_kind": "kernel.family-horizon"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"}
+    }
+  ]
+}

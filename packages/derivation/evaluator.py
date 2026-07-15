@@ -177,6 +177,13 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         access.tables.add(expr["table_id"])
         return _bracket_fold(expr, env, access)
 
+    if op == "require_closed":
+        source_set = expr["source_set"]
+        if source_set not in env.closed_sets:
+            raise EvalBlocked(BLOCK_CLOSURE, [source_set])
+        access.closure_reads.add(source_set)
+        return True
+
     raise EvalBlocked(BLOCK_INVALID, [f"unknown op survived schema: {op}"])
 
 

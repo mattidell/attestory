@@ -20,7 +20,10 @@
       {"type": "object", "properties": {"op": {"const": "category_literal"}, "fact_type": {"$ref": "#/$defs/exact_pin"}, "value": {"type": "string", "minLength": 1}}, "required": ["op", "fact_type", "value"], "additionalProperties": false},
       {"type": "object", "properties": {"op": {"const": "not"}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "value"], "additionalProperties": false},
       {"type": "object", "properties": {"op": {"const": "choose"}, "when": {"$ref": "#/$defs/expr"}, "then": {"$ref": "#/$defs/expr"}, "else": {"$ref": "#/$defs/expr"}}, "required": ["op", "when", "then", "else"], "additionalProperties": false},
-      {"type": "object", "properties": {"op": {"const": "require_closed"}, "source_set": {"type": "string", "minLength": 1}}, "required": ["op", "source_set"], "additionalProperties": false}
+      {"type": "object", "properties": {"op": {"const": "require_closed"}, "source_set": {"type": "string", "minLength": 1}}, "required": ["op", "source_set"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "range_lookup"}, "table_id": {"type": "string", "minLength": 1}, "key": {"$ref": "#/$defs/expr"}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "table_id", "key", "value"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "bracket_fold"}, "table_id": {"type": "string", "minLength": 1}, "key": {"$ref": "#/$defs/expr"}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "table_id", "key", "value"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "round"}, "value": {"$ref": "#/$defs/expr"}, "mode": {"$ref": "#/$defs/expr"}}, "required": ["op", "value", "mode"], "additionalProperties": false}
     ]}
   }
 }

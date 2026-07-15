@@ -1,0 +1,39 @@
+{
+  "schema": "form-field.v2",
+  "id": "tax.us.2025.form1040.line-2b",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "2b",
+  "label": "Taxable interest",
+  "description": "Form 1040 (2025), line 2b: total taxable interest income. Sum of positive interest source families (B1, B3, OID, unreported), gated on the closure of all constituents.",
+  "binds_symbol": "tax.us.2025.interest.taxable-total",
+  "citation": { "id": "tax.us.2025.citation.form1040.line-2b", "version": "v1" },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "A current derived finding publishes this taxable interest amount; its lineage pins the constituent subtotals."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a computed zero from present subtotals that sum to zero. All constituent families are closed."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a zero because all constituent families are attested closed on their current horizons with no recorded members."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Taxable interest is blocked because one or more constituent interest families are unclosed or their dependencies are missing.",
+      "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_OPEN"]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "No value exists because the rule guard is false."
+    }
+  }
+}

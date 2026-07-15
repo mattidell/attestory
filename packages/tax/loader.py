@@ -125,22 +125,22 @@ def load_closure_mappings(
     for path in sorted(TAX_CONTENT_DIR.glob("closure-mapping.*.json")):
         citizen: dict[str, Any] = json.loads(path.read_text("utf-8"))
         declared = reg.validate_declared(citizen)
-        if declared != CLOSURE_MAPPING_SCHEMA:
+        if declared not in {"source-closure-mapping.v1", "source-closure-mapping.v2"}:
             raise SchemaValidationError(
-                CLOSURE_MAPPING_SCHEMA,
-                [f"{path.name} declares {declared}, not {CLOSURE_MAPPING_SCHEMA}"],
+                "source-closure-mapping.v2",
+                [f"{path.name} declares {declared}, not source-closure-mapping.v1 or source-closure-mapping.v2"],
             )
         family = families.get(citizen["family"]["id"])
         if family is None:
             raise SchemaValidationError(
-                CLOSURE_MAPPING_SCHEMA,
+                "source-closure-mapping.v2",
                 [f"{path.name} pins family {citizen['family']['id']}, "
                  "which no committed declaration provides"],
             )
         validate_mapping_against_family(citizen, family)
         if citizen["id"] in by_id:
             raise SchemaValidationError(
-                CLOSURE_MAPPING_SCHEMA, [f"duplicate mapping id: {citizen['id']}"]
+                "source-closure-mapping.v2", [f"duplicate mapping id: {citizen['id']}"]
             )
         by_id[citizen["id"]] = citizen
     return by_id
@@ -149,7 +149,7 @@ def load_closure_mappings(
 def load_form_fields(registry: SchemaRegistry | None = None) -> dict[str, dict[str, Any]]:
     """Load every committed form-field citizen, mapped id -> citizen.
 
-    Each citizen validates against the published ``form-field.v1`` schema.
+    Each citizen validates against the published ``form-field.v1`` or ``form-field.v2`` schema.
     A duplicate id is a content defect: two published fields with one id
     would make the printed-locator identity ambiguous.
     """
@@ -158,14 +158,14 @@ def load_form_fields(registry: SchemaRegistry | None = None) -> dict[str, dict[s
     for path in sorted(TAX_CONTENT_DIR.glob("*.form-field.json")):
         citizen: dict[str, Any] = json.loads(path.read_text("utf-8"))
         declared = reg.validate_declared(citizen)
-        if declared != FORM_FIELD_SCHEMA:
+        if declared not in {"form-field.v1", "form-field.v2"}:
             raise SchemaValidationError(
-                FORM_FIELD_SCHEMA,
-                [f"{path.name} declares {declared}, not {FORM_FIELD_SCHEMA}"],
+                "form-field.v2",
+                [f"{path.name} declares {declared}, not form-field.v1 or form-field.v2"],
             )
         if citizen["id"] in by_id:
             raise SchemaValidationError(
-                FORM_FIELD_SCHEMA, [f"duplicate form-field id: {citizen['id']}"]
+                "form-field.v2", [f"duplicate form-field id: {citizen['id']}"]
             )
         by_id[citizen["id"]] = citizen
     return by_id

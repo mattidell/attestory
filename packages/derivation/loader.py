@@ -28,7 +28,9 @@ from packages.kernel.schema_registry import (
 
 _PACKAGES_DIR = Path(__file__).resolve().parent.parent
 DERIVATION_SCHEMA_DIR = _PACKAGES_DIR / "schemas" / "derivation"
+TAX_SCHEMA_DIR = _PACKAGES_DIR / "schemas" / "tax"
 CANON_DIR = _PACKAGES_DIR / "canon" / "derivation"
+
 
 
 def workspace_registry() -> SchemaRegistry:
@@ -101,10 +103,11 @@ CANON_OPERATIONS = frozenset({"round", "range_lookup", "bracket_fold"})
 class DerivationSchemas:
     """The published derivation schema set, loaded once and validated against."""
 
-    def __init__(self, schema_dir: Path | None = None) -> None:
-        self._registry = SchemaRegistry(
-            schema_dir if schema_dir is not None else DERIVATION_SCHEMA_DIR
-        )
+    def __init__(self, schema_dir: Path | list[Path] | None = None) -> None:
+        if schema_dir is not None:
+            self._registry = SchemaRegistry(schema_dir)
+        else:
+            self._registry = SchemaRegistry([KERNEL_SCHEMA_DIR, DERIVATION_SCHEMA_DIR, TAX_SCHEMA_DIR])
 
     def schema_ids(self) -> list[str]:
         return self._registry.schema_ids()

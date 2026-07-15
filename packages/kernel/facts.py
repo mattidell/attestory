@@ -66,7 +66,7 @@ def initial_state() -> KernelState:
 
 
 def _validate_fact_type(fact_type: dict[str, Any], registry: SchemaRegistry) -> None:
-    registry.validate(FACT_TYPE_SCHEMA, fact_type)
+    registry.validate_declared(fact_type)
     names = [key["name"] for key in fact_type["identity_keys"]]
     if len(names) != len(set(names)):
         raise FactModelError(
@@ -85,7 +85,7 @@ def apply_bundle_adoption(
     state: KernelState, payload: dict[str, Any], registry: SchemaRegistry
 ) -> KernelState:
     bundle = payload["bundle"]
-    registry.validate(BUNDLE_SCHEMA, bundle)
+    registry.validate_declared(bundle)
     fact_types = dict(state.fact_types)
     seen: set[str] = set()
     for fact_type in bundle["fact_types"]:
