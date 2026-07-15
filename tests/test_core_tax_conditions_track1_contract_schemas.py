@@ -5,6 +5,7 @@ import shutil
 import tempfile
 import unittest
 from pathlib import Path
+from typing import Any, ClassVar, cast
 
 from packages.derivation.loader import DERIVATION_SCHEMA_DIR
 from packages.kernel.schema_registry import KERNEL_SCHEMA_DIR, SchemaRegistry, SchemaRegistryError, SchemaValidationError
@@ -24,11 +25,13 @@ NEW_SCHEMAS = {
 }
 
 
-def load(path: Path) -> dict:
-    return json.loads(path.read_text("utf-8"))
+def load(path: Path) -> dict[str, Any]:
+    return cast(dict[str, Any], json.loads(path.read_text("utf-8")))
 
 
 class TrackOneSchemaContracts(unittest.TestCase):
+    registry: ClassVar[SchemaRegistry]
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.registry = SchemaRegistry([KERNEL_SCHEMA_DIR, DERIVATION_SCHEMA_DIR, TAX_SCHEMA_DIR])
