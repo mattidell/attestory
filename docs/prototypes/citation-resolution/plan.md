@@ -2,7 +2,7 @@
 
 Audience: Agents
 
-Status: **proposed** (foreman draft 2026-07-15; awaits owner approval). Track **0.c** of the Core Tax Conditions milestone remediation — last remaining Track-0 contract topic after ADR-0026, 0027, and 0028 closed the interest and membership surfaces.
+Status: **approved** (owner approved 2026-07-15; principal foreman custody). Track **0.c** of the Core Tax Conditions milestone remediation — last remaining Track-0 contract topic after ADR-0026, 0027, and 0028 closed the interest and membership surfaces. Chartering proceeds under this plan.
 
 Topic: What a **verifiable citation** is on form-fields and rules — structured identity, resolver contract, attachment/pin surface, and load-time validation — so ADR-0012's inert opaque citation strings are replaced without inventing runner-resident legal interpretation (Article 11) or a second authority beside adopted content.
 

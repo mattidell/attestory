@@ -49,11 +49,12 @@ against git, trust git and say so.
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
   - ✅ **Track 0.b floor — ADR-0027 accepted (2026-07-15).** Hybrid: extend package.v2; it2 typed graph / role canon / package-instance immutability / exclusive projection / form-field producer integrity; it1 `admitted_schemas`; reject path-manifest (0022 superseded); reject it1-alone. **Not Decided N1/N2** (fact-surface versioning ⋂ wholesale adoption; declared composition-obligation trigger) → residual micro-round plan **proposed**: `docs/prototypes/adopted-content-manifests/micro-round/plan.md`. Complete membership surface / full Track 4 closure waits on residual ADR (~0028).
   - ✅ **Track 0.b complete — ADR-0027 + ADR-0028 accepted** (2026-07-15). Floor + fact-surface membership + composition-obligation (same-quantity force-declare; closed quantity vocabulary). Track 4 full membership closure unblocked under both ADRs. Evidence: main ACM + micro-round evaluation-analyses and reviews.
-  - 🔧 **Track 0.c — Citation resolution:** plan **proposed** at `docs/prototypes/citation-resolution/plan.md` (supersede inert ADR-0018; candidate ~0029). **Unsealed** for owner approval.
+  - 🔧 **Track 0.c — Citation resolution:** plan **approved**; `charter-it1.md` issued. Awaiting High incumbent launch (CIT-P1 + CIT-P2; mandatory cases 3, 4, 7). Candidate ADR ~0029.
 
-- **➡️ NEXT ACTION: owner approve / amend Track 0.c citation plan**
-  (`docs/prototypes/citation-resolution/plan.md`). On approve: foreman issues
-  `charter-it1.md`; owner launches High incumbent (CIT-P1 + CIT-P2).
+- **➡️ NEXT ACTION: owner launch Track 0.c High incumbent** from
+  `docs/prototypes/citation-resolution/charter-it1.md`. Drop `it1/design.md` +
+  `examination-it1.md`. Foreman conformance (scope only) → custody → sealed
+  `charter-it2.md`.
 
 - **ADR ledger:** 0019 rejected; 0020, 0023, 0024, 0025, 0026, **0027**, **0028 accepted**;
   0022 superseded by 0027; 0018 inert (awaiting 0029); ADR-0013 amendment still

@@ -2,16 +2,19 @@
 
 ## Current step
 
-Plan **proposed** and **unsealed** (Track 0.b closed; ADR-0028 accepted).
-Awaiting owner approval of `plan.md`.
+Plan **approved** (2026-07-15). `charter-it1.md` issued. Owner launches **High**
+incumbent for CIT-P1 + CIT-P2. Drop `it1/design.md` + `examination-it1.md` for
+foreman custody/conformance. Then foreman issues sealed `charter-it2.md`.
 
 ## Seats
 
 | Role | Holder | Status |
 |---|---|---|
 | Foreman | principal foreman (owner-appointed) | active; owner-paced |
-| Builders / reviewers | — | awaiting plan approval |
+| Incumbent builder | owner-launched external context | **chartered — awaiting launch** |
+| Rival builder | — | sealed; after it1 |
+| Governance / Adversary | — | after both exhibits |
 
 ## Next action
 
-Owner: approve / amend `docs/prototypes/citation-resolution/plan.md`.
+Owner: launch High incumbent from `charter-it1.md`.
