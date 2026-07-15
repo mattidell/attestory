@@ -35,10 +35,20 @@ package**, or forces spurious composition citizens on every arithmetic line.
 pushed only toward *more* inclusion ("no multi-source publishing path validates
 without composition license"); governance read the family-subtotal trigger as
 adequate (MR-P2 case 7 "valid") and didn't probe either boundary. No seat
-constructed the line-9 case. So the fix is foreman-authored and unverified in
-the over-direction — the same class of risk as the parent ACM round (closing an
-adversary hole by unilateral broadening without checking what the broadening
-breaks), recreated in the residual.
+constructed the line-9 case.
+
+**Fairness note (added 2026-07-15, correcting this review's first draft):** the
+drafting foreman did **not** silently launder the broadening — it surfaced it to
+the owner and offered to charter a **repair exhibit** ("if the A7 broadening
+feels out-of-evidence, say so and I'll charter a repair exhibit instead"). That
+is the right instinct and an honest off-ramp; an earlier version of this note
+wrongly implied the risk was under-surfaced. The one thing that offer lacked was
+a **target**: it framed the question as *provenance* ("is the broadening
+out-of-evidence?"), which the owner would judge as "yes, A7 justifies it" —
+whereas the live problem is *correctness* (the broadened trigger over-fires on
+line 9). This note's contribution is not "a risk was hidden"; it is the specific
+failure case and the retype below, so the repair the foreman already offered can
+be aimed.
 
 **The missing distinction (the actual fix target):** ADR-0026 "composition" means
 coextensiveness over the **sources of one quantity** (all taxable-interest
