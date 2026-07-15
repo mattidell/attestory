@@ -2,7 +2,7 @@
 
 Audience: Agents
 
-Status: **proposed** (foreman draft 2026-07-15; awaits owner approval). Residual of Track 0.b after **ADR-0027 accepted** with explicit Not Decided carve-outs N1/N2.
+Status: **approved** (owner approved 2026-07-15; principal foreman custody). Residual of Track 0.b after **ADR-0027 accepted** with explicit Not Decided carve-outs N1/N2. Chartering proceeds under this plan.
 
 Topic: Two tightly scoped contract questions left open by ADR-0027 — (1) how the **fact surface** enters exact package membership given unversioned HEAD fact-type/bundle schemas and wholesale bundle adoption, and (2) how a package declares a **composition-governed** publication obligation without circular dependence on a composition citizen already being present.
 
