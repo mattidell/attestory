@@ -2,14 +2,14 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **in progress — Track 0 remediation (4 of 5 topics settled; citations open).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
+Status: **in progress — Track 0 complete; implementation tracks open.** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
 
 ## Revision note (2026-07-14, principal foreman)
 
 **Update (same day, post ADR-0026):** Track 0.a closed — ADR-0026 accepted. Track 0 is **3 of 5**. Track 0.b plan drafted and proposed to owner.
 
 
-**Update (2026-07-15):** ADR-0027 accepted (manifests floor). ADR-0028 accepted after confirm rounds (same-quantity force-declare + closed quantity vocabulary). Track 0.b complete. Track 0.c citation plan unsealed for owner approval.
+**Update (2026-07-15):** ADR-0027 + ADR-0028 accepted (manifests). **ADR-0029 accepted** (citations). **Track 0 complete (5/5).** Implementation tracks may open.
 
 This plan was revised after the governance remediation. Two corrections to the original:
 
@@ -17,7 +17,7 @@ This plan was revised after the governance remediation. Two corrections to the o
 
 2. **Implementation was reset.** Track work built on proposed ADRs was removed from the milestone branch (pre-reset history at `archive/core-tax-conditions-pre-reset`; Track 3 WIP parked at `wip/track3-core-conditions`, reference only). Implementation tracks rebuild on the ratified ADRs and inherit their production conditions (listed per track below).
 
-Sequencing: **finish Track 0 (three remediations) before any implementation track opens.** Each remediation follows the pattern just used for conditional-selectors/expression-language-extensions/non-publication-explanations — owner-launched incumbent + clean-room rival exhibits under foreman custody, owner-launched committee (Governance + Adversary), foreman evaluation analysis, owner ratification of a conforming ADR that supersedes the inert draft.
+Sequencing: **Track 0 complete (2026-07-15).** Implementation tracks may open; each inherits production conditions from the ratified ADRs. Each remediation follows the pattern just used for conditional-selectors/expression-language-extensions/non-publication-explanations — owner-launched incumbent + clean-room rival exhibits under foreman custody, owner-launched committee (Governance + Adversary), foreman evaluation analysis, owner ratification of a conforming ADR that supersedes the inert draft.
 
 ## Objective
 
@@ -127,7 +127,7 @@ Goal: Settle all five contract-foundational topics with conforming, rival-backed
 **Remediation outstanding (owner directive 2026-07-14 — remediate all three; inert drafts are superseded, never silently ratified):**
 - ✅ **0.a Taxable-interest composition → ADR-0026 accepted** (Track 0.a closed 2026-07-14). Mechanism + honest-partial OID-inclusive line-2b boundary; supersedes inert ADR-0021. Evidence: `docs/prototypes/taxable-interest-composition/`.
 - ✅ **0.b Adopted-content manifests → ADR-0027 + ADR-0028 accepted** (2026-07-15; supersedes inert ADR-0022). Floor + fact-surface + composition-obligation. Track 4 full membership closure unblocked.
-- 🔧 **0.c Citation resolution → ADR-0029 proposed** (committee complete; supersedes inert ADR-0018 when accepted). Carry it2 structural resolver. Awaiting owner ratification.
+- ✅ **0.c Citation resolution → ADR-0029 accepted** (2026-07-15; supersedes inert ADR-0018). Structural/adoption-only resolver; single form-field pin; rule pin array; four discriminated authority families.
 - Verification per topic: conformance verdicts, committee reviews, evaluation analysis, process log.
 - Commit: one governance commit per ratified ADR (foreman custody).
 

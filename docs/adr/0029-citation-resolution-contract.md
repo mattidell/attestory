@@ -1,6 +1,6 @@
 # ADR 0029 — Citation Resolution Contract
 
-- Status: **proposed** (foreman draft 2026-07-15; awaits owner ratification)
+- Status: **accepted** (owner ratification 2026-07-15, principal foreman custody)
 - Tier: 2
 - Date: 2026-07-15
 

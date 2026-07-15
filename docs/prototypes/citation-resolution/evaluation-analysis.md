@@ -73,3 +73,9 @@ That convergent floor is strong evidence for the P1 skeleton.
 3. If the owner disputes single form-field pin (G4) or no-display (G5), name the clause — those are the only sharp governance/adversary agreements against it1.
 
 Advisory only — the owner decides disposition.
+
+---
+
+## Owner disposition (2026-07-15)
+
+**ADR-0029 accepted** (owner ratification). Track 0.c closed.
