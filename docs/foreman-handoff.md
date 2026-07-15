@@ -48,18 +48,17 @@ against git, trust git and say so.
   - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
   - ✅ **Track 0.b floor — ADR-0027 accepted (2026-07-15).** Hybrid: extend package.v2; it2 typed graph / role canon / package-instance immutability / exclusive projection / form-field producer integrity; it1 `admitted_schemas`; reject path-manifest (0022 superseded); reject it1-alone. **Not Decided N1/N2** (fact-surface versioning ⋂ wholesale adoption; declared composition-obligation trigger) → residual micro-round plan **proposed**: `docs/prototypes/adopted-content-manifests/micro-round/plan.md`. Complete membership surface / full Track 4 closure waits on residual ADR (~0028).
-  - ✅ **Track 0.b floor — ADR-0027 accepted.** Residual N1/N2: **ADR-0028 proposed**. Confirm round 1 → needs redesign (quantity identity). Decisions 7–8 redesigned (closed quantity vocabulary + pairwise same-quantity force-declare). Confirm round 2 chartered. Citations sequestered until 0028 accepts.
+  - ✅ **Track 0.b floor — ADR-0027 accepted.** Residual N1/N2: **ADR-0028 proposed — confirmation complete (round 2 confirm).** Ready for owner ratification. Evidence: micro-round evaluation-analysis + both confirm reviews. Citations sequestered until 0028 accepts.
   - 🔧 **Track 0.c — Citation resolution:** plan at `docs/prototypes/citation-resolution/plan.md` — seats after 0028 accepts.
 
-- **➡️ NEXT ACTION: owner launch confirm round 2** from
-  `docs/prototypes/adopted-content-manifests/micro-round/charter-confirm-decision7-round2.md`.
-  Drop `micro-round/reviews/confirm-decision7-round2-adversary.md`. On **confirm**:
-  send ADR-0028 to owner ratification. On **fail/redesign**: fix again — do not
-  ratify. Citations wait on 0028 accept.
+- **➡️ NEXT ACTION: owner ratify / amend / reject ADR-0028**
+  (`docs/adr/0028-package-fact-surface-and-composition-obligation.md`). On accept:
+  foreman marks accepted, closes 0027 residual N1/N2, unseals Track 0.c plan
+  approval path. On reject: name the clause. Do not open Track 4 full membership
+  until accepted.
 
 - **ADR ledger:** 0019 rejected; 0020, 0023–0027 accepted; 0022 superseded;
-  **0028 proposed** (post-redesign; confirm-2 pending); 0018 inert; ADR-0013
-  amendment proposed (foreman-authored fixes default to confirmation).
+  **0028 proposed (confirm-2 passed)**; 0018 inert; ADR-0013 amendment proposed.
 
 
 - **Git/env hygiene:** use the project `.venv` (system python lacks jsonschema);

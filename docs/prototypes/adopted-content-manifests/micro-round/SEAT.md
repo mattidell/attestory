@@ -2,19 +2,17 @@
 
 ## Current step
 
-Confirmation round 1: **needs redesign** (custody `1ca6d55`). ADR-0028
-decisions 7–8 redesigned (mandatory closed quantity vocabulary + pairwise
-same-quantity force-declare). **Round-2 confirmation** chartered
-(`charter-confirm-decision7-round2.md`). Awaiting owner launch. ADR-0028 remains
-**proposed** — not ratification-ready until confirm.
+Confirm round 2: **confirm** (custody). ADR-0028 **proposed — ready for owner
+ratification**. No open seats. Do not implement Track 4 full membership until
+0028 is accepted.
 
 ## Seats
 
-| Role | Holder | Status |
-|---|---|---|
-| Confirm round 1 | completed | `reviews/confirm-decision7-adversary.md` |
-| Confirm round 2 | owner-launched | **chartered — awaiting launch** |
+| Role | Status |
+|---|---|
+| Confirm round 1 | completed — needs redesign |
+| Confirm round 2 | completed — **confirm** |
 
 ## Next action
 
-Owner: launch Medium confirmation from `charter-confirm-decision7-round2.md`.
+Owner: ratify / amend / reject `docs/adr/0028-package-fact-surface-and-composition-obligation.md`.

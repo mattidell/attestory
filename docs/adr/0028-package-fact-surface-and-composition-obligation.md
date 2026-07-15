@@ -1,6 +1,6 @@
 # ADR 0028 — Package Fact-Surface Membership and Composition-Obligation Trigger
 
-- Status: **proposed** (2026-07-15; decision 7 redesigned after confirmation MR-C1–C5; awaiting second scoped confirmation then owner ratification)
+- Status: **proposed** (2026-07-15; confirm rounds 1–2 complete — round 2 **confirm**; ready for owner ratification)
 - Tier: 2
 - Date: 2026-07-15
 
@@ -54,7 +54,7 @@ The residual micro-round produced two clean-room-separated designs and two indep
 - Track 4 may implement full membership closure over the fact surface and composition obligation under ADR-0027 + this ADR.
 - **PC1.** Goldens (reject direction): unversioned fact pin; pin/bundle/adoption drift; mapping fact unpinned; bare multi-source **same-quantity** sum without obligation (family-subtotal fold **and** MR-A7 raw multi-amount line-2b with mandatory quantity tags present); raw multi-ELX **without** quantity tags on source fact types → quantity-mandatory reject (not fail-open); obligation without pin; orphan individual pin cannot close mapping without adoption cover.
 - **PC1b.** Golden (accept / non-trigger direction): Form 1040 line 9 = line 1a + line 2b (cross-quantity) **validates without** `composition_obligations`; line 15-style multi-quantity folds likewise. Quantity vocabulary spelling is closed — no silent free-string match.
-- **PC1c.** Confirmation: a second scoped adversary pass must re-check MR-C1–C4 against decisions 7–8 before acceptance.
+- **PC1c.** Confirmation: round 1 needs redesign (`confirm-decision7-adversary.md`); round 2 **confirm** (`confirm-decision7-round2-adversary.md` MR-C6-1–6). Ready for owner ratification.
 - **PC2.** Migration of committed v1 bundles to v2 is implementation work; residual pins target only versioned citizens.
 - **PC3.** Issue-code strings are implementation detail.
 - Supersedes nothing in ADR-0027's accepted decisions 1–7; amends only the residual carve-out.

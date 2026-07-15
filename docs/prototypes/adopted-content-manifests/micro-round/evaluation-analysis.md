@@ -170,3 +170,17 @@ Scoped adversary (`confirm-decision7-adversary.md`): **needs redesign**.
 and decision 8 (pairwise same-quantity force-declare; reject missing quantity
 before fail-open). Charter round-2 confirmation. Do not send to owner
 ratification until round 2 confirms.
+
+---
+
+## Confirmation round 2 disposition (2026-07-15)
+
+Scoped adversary (`confirm-decision7-round2-adversary.md`): **confirm**.
+
+All six required cases hold under redesigned decisions 7–8 (MR-C6-1 through
+MR-C6-6): tagged A7 reject; omitted-tag reject (no fail-open); line 9 / line 15
+accept; family-subtotal reject; closed-vocabulary spelling drift reject.
+
+**Recommendation:** owner **ratify ADR-0028** as proposed (decisions 1–9). On
+accept: close ADR-0027 residual N1/N2; unseal Track 0.c; Track 4 may claim full
+membership closure under 0027+0028.
