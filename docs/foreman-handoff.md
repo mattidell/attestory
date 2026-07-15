@@ -43,22 +43,21 @@ against git, trust git and say so.
   any implementation track opens; implementation tracks 1–7 rebuild on the
   ratified ADRs and inherit their production conditions (threaded per track).
 
-- **Track 0 status — floor progress (citations + 0028 residual still open):**
+- **Track 0 status — 4 of 5 topics settled (citations remain):**
   - ✅ Conditional structures → **ADR-0024** accepted; expression extensions → **ADR-0025** accepted.
   - ✅ Non-publication explanations → **ADR-0020** accepted (5 rounds; NPE-G10 fold+fixture-repair lands concurrently in implementation).
   - ✅ **Taxable-interest composition → ADR-0026 accepted (Track 0.a, just closed).** Mechanism + honest-partial OID-inclusive boundary; new provenance-only `composition` pin role; per-constituent `require_closed`; K-1/market-discount and subtractive adjustments (nominee/accrued/premium) deferred to named follow-ons.
   - ✅ **Track 0.b floor — ADR-0027 accepted (2026-07-15).** Hybrid: extend package.v2; it2 typed graph / role canon / package-instance immutability / exclusive projection / form-field producer integrity; it1 `admitted_schemas`; reject path-manifest (0022 superseded); reject it1-alone. **Not Decided N1/N2** (fact-surface versioning ⋂ wholesale adoption; declared composition-obligation trigger) → residual micro-round plan **proposed**: `docs/prototypes/adopted-content-manifests/micro-round/plan.md`. Complete membership surface / full Track 4 closure waits on residual ADR (~0028).
-  - ✅ **Track 0.b floor — ADR-0027 accepted.** Residual N1/N2: **ADR-0028 proposed — confirmation complete (round 2 confirm).** Ready for owner ratification. Evidence: micro-round evaluation-analysis + both confirm reviews. Citations sequestered until 0028 accepts.
-  - 🔧 **Track 0.c — Citation resolution:** plan at `docs/prototypes/citation-resolution/plan.md` — seats after 0028 accepts.
+  - ✅ **Track 0.b complete — ADR-0027 + ADR-0028 accepted** (2026-07-15). Floor + fact-surface membership + composition-obligation (same-quantity force-declare; closed quantity vocabulary). Track 4 full membership closure unblocked under both ADRs. Evidence: main ACM + micro-round evaluation-analyses and reviews.
+  - 🔧 **Track 0.c — Citation resolution:** plan **proposed** at `docs/prototypes/citation-resolution/plan.md` (supersede inert ADR-0018; candidate ~0029). **Unsealed** for owner approval.
 
-- **➡️ NEXT ACTION: owner ratify / amend / reject ADR-0028**
-  (`docs/adr/0028-package-fact-surface-and-composition-obligation.md`). On accept:
-  foreman marks accepted, closes 0027 residual N1/N2, unseals Track 0.c plan
-  approval path. On reject: name the clause. Do not open Track 4 full membership
-  until accepted.
+- **➡️ NEXT ACTION: owner approve / amend Track 0.c citation plan**
+  (`docs/prototypes/citation-resolution/plan.md`). On approve: foreman issues
+  `charter-it1.md`; owner launches High incumbent (CIT-P1 + CIT-P2).
 
-- **ADR ledger:** 0019 rejected; 0020, 0023–0027 accepted; 0022 superseded;
-  **0028 proposed (confirm-2 passed)**; 0018 inert; ADR-0013 amendment proposed.
+- **ADR ledger:** 0019 rejected; 0020, 0023, 0024, 0025, 0026, **0027**, **0028 accepted**;
+  0022 superseded by 0027; 0018 inert (awaiting 0029); ADR-0013 amendment still
+  **proposed** (foreman-authored fixes default to confirmation) for process retrospective.
 
 
 - **Git/env hygiene:** use the project `.venv` (system python lacks jsonschema);

@@ -2,7 +2,8 @@
 
 ## Current step
 
-Plan **proposed** (`plan.md`). Awaiting owner approval. Track 0.c.
+Plan **proposed** and **unsealed** (Track 0.b closed; ADR-0028 accepted).
+Awaiting owner approval of `plan.md`.
 
 ## Seats
 

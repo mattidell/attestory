@@ -2,5 +2,6 @@
 
 ## Current step
 
-ADR-0027 accepted (floor). ADR-0028 proposed — confirmation complete (**confirm**);
-awaiting owner ratification. See `micro-round/SEAT.md`.
+**Complete.** ADR-0027 (floor) + ADR-0028 (N1/N2 residual) **accepted**.
+Main-round and micro-round seats closed. Track 4 implements full membership
+closure under both ADRs.

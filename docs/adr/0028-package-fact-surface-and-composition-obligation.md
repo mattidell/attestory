@@ -1,12 +1,12 @@
 # ADR 0028 — Package Fact-Surface Membership and Composition-Obligation Trigger
 
-- Status: **proposed** (2026-07-15; confirm rounds 1–2 complete — round 2 **confirm**; ready for owner ratification)
+- Status: **accepted** (owner ratification 2026-07-15, principal foreman custody; confirm rounds 1–2 complete)
 - Tier: 2
 - Date: 2026-07-15
 
 ## Context
 
-ADR-0027 accepted the adopted-content membership **floor** (extend `artifact-package.v2`, typed closed graph, role canon, `admitted_schemas`, package-instance immutability, exclusive execution projection, form-field producer integrity, provenance-only `composition` pin) but left **Not Decided**:
+ADR-0027 accepted the adopted-content membership **floor** (extend `artifact-package.v2`, typed closed graph, role canon, `admitted_schemas`, package-instance immutability, exclusive execution projection, form-field producer integrity, provenance-only `composition` pin) but left **Not Decided** (now closed by this ADR):
 
 - **N1** — fact-surface versioning ⋂ wholesale-adoption reconciliation (ACM-G1 / A4 / A7 from the main ACM round)
 - **N2** — declared composition-obligation trigger (ACM-A3)

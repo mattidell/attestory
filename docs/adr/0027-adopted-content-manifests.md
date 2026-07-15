@@ -1,6 +1,6 @@
 # ADR 0027 — Adopted-Content Manifests (Package Membership Closure)
 
-- Status: **accepted** (owner ratification 2026-07-15, principal foreman custody; residual N1/N2 pending ADR-0028 acceptance)
+- Status: **accepted** (owner ratification 2026-07-15, principal foreman custody; residual N1/N2 closed by ADR-0028 accepted 2026-07-15)
 - Tier: 2
 - Date: 2026-07-15
 
@@ -24,7 +24,7 @@ The `adopted-content-manifests` prototype (Track 0.b remediation) produced two c
    
    Pin-role tokens are monotonous: a single immutable **role canon** defines each token's meaning across schema generations. Load-time validation rejects role-semantic divergence (two admitted generations assigning incompatible meanings to the same token). Packages may not privately redefine historical schema roles.
 
-   How fact types and bundles enter the member pin table is proposed in **ADR-0028** (dual pin unit, versioned fact-type/bundle, wholesale nested-set equality) — binding only when 0028 is accepted.
+   How fact types and bundles enter the member pin table is settled by **ADR-0028** (dual pin unit, versioned fact-type/bundle, wholesale nested-set equality).
 
 3. **Schema-generation admission consumes the existing registry.** Each v2 package declares `admitted_schemas`: a list of schema identifiers (and generations) the unit closes over. Unadmitted schema generations **reject at load** (no silent skip). Schema **byte** immutability remains the ADR-0003 publication registry / `published.json` path — packages do **not** embed schema content checksums (that would dual-bookkeep schema publication).
 
@@ -39,11 +39,14 @@ The `adopted-content-manifests` prototype (Track 0.b remediation) produced two c
 
 7. **Exclusive execution projection.** After adoption, derivation and rendering operate only on the **resolved member graph** of adopted package(s). Co-located unpinned files may exist for authoring or corpus supply but are not adopted, not executable, and not renderable.
 
-## Residual (open — ADR-0028)
+## Residual (closed)
 
-Draft decisions 6–7 of the pre-ratification ADR-0027 text were deferred to a residual micro-round. That round completed exhibits and committee; **ADR-0028 is proposed** (decision 7 retyped to same-quantity force-declare after over-trigger review). Until ADR-0028 is **accepted**, Track 4 must not claim complete membership closure over the fact surface or composition-obligation mechanism.
+Draft decisions 6–7 of the pre-ratification ADR-0027 text were deferred to a residual micro-round (owner 2026-07-15). That round completed with conforming exhibits, committee, evaluation-analysis, and two confirmation passes on the force-declare boundary. **ADR-0028 accepted** (2026-07-15) settles:
 
-See `docs/adr/0028-package-fact-surface-and-composition-obligation.md` and `docs/prototypes/adopted-content-manifests/micro-round/review-feedback-adr0028.md`.
+- **N1** — fact-surface versioning ⋂ wholesale-adoption reconciliation
+- **N2** — declared composition-obligation trigger (same-quantity force-declare; mandatory closed quantity vocabulary)
+
+Track 4 may claim complete membership closure under ADR-0027 + ADR-0028. See `docs/adr/0028-package-fact-surface-and-composition-obligation.md`.
 
 ## Consequences
 

@@ -2,14 +2,14 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **in progress — Track 0 remediation (0028 confirmation pending; citations open).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
+Status: **in progress — Track 0 remediation (4 of 5 topics settled; citations open).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
 
 ## Revision note (2026-07-14, principal foreman)
 
 **Update (same day, post ADR-0026):** Track 0.a closed — ADR-0026 accepted. Track 0 is **3 of 5**. Track 0.b plan drafted and proposed to owner.
 
 
-**Update (2026-07-15):** ADR-0027 accepted (manifests floor). Residual ADR-0028 proposed; decision-7 over-trigger found in owner-requested review; retyped to same-quantity; confirmation pending. Track 0.c citation plan drafted but sequestered.
+**Update (2026-07-15):** ADR-0027 accepted (manifests floor). ADR-0028 accepted after confirm rounds (same-quantity force-declare + closed quantity vocabulary). Track 0.b complete. Track 0.c citation plan unsealed for owner approval.
 
 This plan was revised after the governance remediation. Two corrections to the original:
 
@@ -126,8 +126,8 @@ Goal: Settle all five contract-foundational topics with conforming, rival-backed
 
 **Remediation outstanding (owner directive 2026-07-14 — remediate all three; inert drafts are superseded, never silently ratified):**
 - ✅ **0.a Taxable-interest composition → ADR-0026 accepted** (Track 0.a closed 2026-07-14). Mechanism + honest-partial OID-inclusive line-2b boundary; supersedes inert ADR-0021. Evidence: `docs/prototypes/taxable-interest-composition/`.
-- 🔧 **0.b Adopted-content manifests → ADR-0027 accepted; ADR-0028 proposed** (supersedes inert ADR-0022). Floor closed; residual N1/N2 in 0028 — decision 7 retyped to same-quantity force-declare; scoped confirmation pending before acceptance. Track 4 full membership closure waits on 0028.
-- 🔧 **0.c Citation resolution (ADR-0018 inert).** Plan proposed (`docs/prototypes/citation-resolution/plan.md`). Questions: CIT-P1 identity/authority model; CIT-P2 resolver contract and load-time integrity. Candidate ADR ~0029.
+- ✅ **0.b Adopted-content manifests → ADR-0027 + ADR-0028 accepted** (2026-07-15; supersedes inert ADR-0022). Floor + fact-surface + composition-obligation. Track 4 full membership closure unblocked.
+- 🔧 **0.c Citation resolution (ADR-0018 inert).** Plan proposed and **unsealed** (`docs/prototypes/citation-resolution/plan.md`). CIT-P1 identity/authority; CIT-P2 resolver. Candidate ADR ~0029. Awaiting owner plan approval.
 - Verification per topic: conformance verdicts, committee reviews, evaluation analysis, process log.
 - Commit: one governance commit per ratified ADR (foreman custody).
 

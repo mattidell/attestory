@@ -184,3 +184,9 @@ accept; family-subtotal reject; closed-vocabulary spelling drift reject.
 **Recommendation:** owner **ratify ADR-0028** as proposed (decisions 1–9). On
 accept: close ADR-0027 residual N1/N2; unseal Track 0.c; Track 4 may claim full
 membership closure under 0027+0028.
+
+---
+
+## Owner disposition (2026-07-15)
+
+**ADR-0028 accepted** (owner ratification). Residual micro-round closed.
