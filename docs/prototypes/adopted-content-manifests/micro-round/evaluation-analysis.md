@@ -63,3 +63,67 @@ Both designs, under independent authorship, converged on:
 3. On acceptance: close Track 0.b residual; ADR-0027 N1/N2 no longer open; Track 4 may claim full membership surface; sequence Track 0.c citations.
 
 Advisory only — the owner decides disposition.
+
+---
+
+## On the record: A7 broadening — recognized, included by default
+
+**What MR-A7 proved.** The incumbent's structural force-declare fires only when
+≥2 inputs are each an `authorizes_subtotal` of a **pinned** source-family. A
+package can publish a multi-source aggregate (e.g. multi-input ELX fold) with
+**no** family pins, **no** `composition_obligations` entry, **no** composition
+citizen, and **no** composition pin — and it1's written net does not reject.
+Adversary classed this **decision-blocking** for complete MR-P2 settlement.
+Governance did not surface this cut (conditional accept on schema wiring only).
+
+**What "broadening" means.** Keep it1's architecture: (1) package-authoritative
+obligation list discoverable without composition presence; (2) a structural
+trigger that **forces listing** before composition lookup. Change only the
+trigger's **predicate** so the A7 construction cannot omit the list. The
+ratified predicate (ADR-0028 decision 7) is graph-checkable: a producing rule
+with ≥2 distinct input refs that resolve to different published symbols of
+package members must list its `publishes` symbol under `composition_obligations`,
+whether or not those inputs are family `authorizes_subtotal` values.
+
+**Why include by default (not repair-first).**
+
+1. **Same mechanism, completeness hole — not a rival architecture.** The
+   committee already selected it1's force-declare direction over it2's
+   omittable obligation citizen (A6/G3). A7 shows that direction's net is
+   **incomplete**, not that a different N2 architecture is required. Widening
+   the predicate is specification completion of the accepted direction under a
+   concrete adversarial counterexample — analogous to prior residual closures
+   that folded committee holes into ADR text rather than re-running builders
+   for every completeness gap.
+
+2. **Ratifying it1 unchanged would over-claim Gate 6.** Leaving force-declare
+   as family-subtotal-only while marking MR-P2 "settled" would re-introduce the
+   exact ACM-A3 failure mode N2 was chartered to kill: bare multi-source
+   publication without a discoverable obligation. Including the A7 fix is the
+   conservative honesty move relative to the residual charter.
+
+3. **Evidence is the hole + the intended net, not a second exhibit of the fix.**
+   The adversary supplied input → expected reject → it1 fails. That is enough
+   to **forbid** the incomplete predicate. The complete predicate is the
+   minimal strengthening that makes the expected reject true for that input
+   class without inventing a new citizen kind or reopening ADR-0027. A repair
+   builder would almost certainly restate the same strengthening; the cost is
+   another Medium launch cycle for low mechanism entropy.
+
+4. **Risk accepted and named.** The broadening is **not** independently
+   rival-authored. Implementers need the checkable rule (decision 7) and
+   production golden PC for the A7 construction. If the owner later judges the
+   multi-input threshold wrong (e.g. too broad for legitimate non-composition
+   multi-ref rules), that is an ADR amendment or Track-4 production condition
+   refinement — cheaper than having ratified a known bypass.
+
+5. **What would have forced repair-first instead.** If A7 had required a
+   **new** discoverability surface (new citizen, runner policy, form-field
+   authority, or path-manifest), or if governance and adversary had split on
+   whether force-declare itself was sound, the default would have been a
+   repair/rival pass. Neither applied: both reject it2; governance accepts
+   it1's P2 direction; adversary's block is completeness of the same net.
+
+**Disposition after owner request for this record (2026-07-15):** rationale
+recorded; A7 broadening retained; ADR-0028 proceeds to **accepted** under
+owner direction to continue progress with that default disclosed.

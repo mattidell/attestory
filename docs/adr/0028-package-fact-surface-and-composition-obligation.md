@@ -1,6 +1,6 @@
 # ADR 0028 — Package Fact-Surface Membership and Composition-Obligation Trigger
 
-- Status: **proposed** (foreman draft 2026-07-15; awaits owner ratification)
+- Status: **accepted** (owner ratification 2026-07-15 after on-record A7-broadening rationale; principal foreman custody)
 - Tier: 2
 - Date: 2026-07-15
 
@@ -11,7 +11,7 @@ ADR-0027 accepted the adopted-content membership **floor** (extend `artifact-pac
 - **N1** — fact-surface versioning ⋂ wholesale-adoption reconciliation (ACM-G1 / A4 / A7 from the main ACM round)
 - **N2** — declared composition-obligation trigger (ACM-A3)
 
-The residual micro-round produced two clean-room-separated designs and two independent committee reviews. Both reviewers **rejected** the rival (it2) on both propositions. The incumbent (it1) supplies the carry-forward mechanisms; the adversary proved two completeness holes (orphan individual pin for mapping; structural force-declare bypass for multi-source bare sums that avoid the family-subtotal shape). This decision settles N1/N2 by carrying it1's dual fact surface and non-circular obligation design **with those holes closed in the contract text**. Evidence: `docs/prototypes/adopted-content-manifests/micro-round/evaluation-analysis.md`.
+The residual micro-round produced two clean-room-separated designs and two independent committee reviews. Both reviewers **rejected** the rival (it2) on both propositions. The incumbent (it1) supplies the carry-forward mechanisms; the adversary proved two completeness holes (orphan individual pin for mapping; structural force-declare bypass for multi-source bare sums that avoid the family-subtotal shape). This decision settles N1/N2 by carrying it1's dual fact surface and non-circular obligation design **with those holes closed in the contract text** (A4 inclusion completeness; A7-broadened force-declare — see evaluation-analysis on-record section). Evidence: `docs/prototypes/adopted-content-manifests/micro-round/evaluation-analysis.md`.
 
 ## Decision
 
@@ -30,7 +30,7 @@ The residual micro-round produced two clean-room-separated designs and two indep
 
 6. **Per obligated symbol `S`, require full composition binding.** The package must contain: (a) a composition member whose `publishes == S`; (b) the producing rule's provenance-only `composition: {id, version}` pin resolving to that member; (c) slot bijection with the rule's constituents when the composition is present. Missing pin and missing member are both rejects even when one or the other is absent. No derivation edge from the composition pin (ADR-0026 decision 4; ADR-0010).
 
-7. **Structural force-declare (non-omittable net).** Independent of the obligation list being authored first, package validation **requires** that a published symbol `S` appear in `composition_obligations` when the producing computation aggregates **two or more** distinct adopted inputs that are source-family `authorizes_subtotal` values **or** otherwise composition-shaped multi-source folds under adopted content (including multi-input aggregations that omit family pins). Undeclared → reject. This broadens the residual incumbent's family-subtotal-only trigger so a bare multi-source sum cannot omit the declaration surface by avoiding that shape.
+7. **Structural force-declare (non-omittable net).** Independent of the obligation list being authored first, package validation **requires** that a published symbol `S` appear in `composition_obligations` when the producing rule has **two or more** distinct input refs (pins or expression references) that resolve to **different published symbols** of package members (including family `authorizes_subtotal` symbols and other package-published computations). Undeclared → reject. This is the residual incumbent's force-declare architecture with a **broader, graph-checkable predicate** than family-subtotal-only: it closes the adversary MR-A7 construction (multi-source bare sum that omits family pins and therefore never fired the narrower trigger). Rationale for including this strengthening without a repair exhibit is recorded in `docs/prototypes/adopted-content-manifests/micro-round/evaluation-analysis.md` (section "On the record: A7 broadening").
 
 8. **Schema authority, not prose.** Package and rule schema successors admit the obligation field and composition pin with versions; admitted_schemas must list residual schema generations used (ADR-0027 decision 3). Form-fields remain presentation-only (ADR-0012). No runner-resident symbol-name table (Article 11).
 
@@ -49,7 +49,7 @@ The residual micro-round produced two clean-room-separated designs and two indep
 - **Incumbent residual surface unchanged.** Rejected as complete N1/N2: orphan individual pin mapping hole (MR-A4); structural force-declare bypass (MR-A7).
 - **Hardcoded symbol lists in the runner for composition-governed lines.** Rejected: Article 11.
 - **Form-field as obligation authority.** Rejected: ADR-0012 presentation-only.
-- **Leaving N2 open for another builder round.** Considered; not chosen in the draft — the adversary hole is a net-completeness gap on an accepted direction; the broadened force-declare is the same mechanism completed. Owner may still demand a repair exhibit before acceptance.
+- **Leaving N2 open for another builder round.** Considered; not chosen in the draft — the adversary hole is a net-completeness gap on an accepted direction; the broadened force-declare is the same mechanism completed. Owner requested on-record rationale (2026-07-15); broadening retained and ADR accepted with that disclosure. A later amendment remains available if Track-4 goldens show the multi-input threshold is too broad.
 
 ## Links
 

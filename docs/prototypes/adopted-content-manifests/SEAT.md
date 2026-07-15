@@ -2,5 +2,6 @@
 
 ## Current step
 
-ADR-0027 accepted (floor). Residual micro-round: committee done; **ADR-0028
-proposed**. See `micro-round/SEAT.md`.
+**Complete.** ADR-0027 (floor) + ADR-0028 (N1/N2 residual) **accepted**.
+Main-round and micro-round seats closed. Implementation inherits production
+conditions in Track 4.

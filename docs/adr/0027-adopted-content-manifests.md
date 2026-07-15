@@ -1,6 +1,6 @@
 # ADR 0027 — Adopted-Content Manifests (Package Membership Closure)
 
-- Status: **accepted** (owner ratification 2026-07-15, principal foreman custody; residual micro-round deferred — see Not Decided)
+- Status: **accepted** (owner ratification 2026-07-15, principal foreman custody; residual N1/N2 closed by ADR-0028 accepted 2026-07-15)
 - Tier: 2
 - Date: 2026-07-15
 
@@ -24,7 +24,7 @@ The `adopted-content-manifests` prototype (Track 0.b remediation) produced two c
    
    Pin-role tokens are monotonous: a single immutable **role canon** defines each token's meaning across schema generations. Load-time validation rejects role-semantic divergence (two admitted generations assigning incompatible meanings to the same token). Packages may not privately redefine historical schema roles.
 
-   How fact types and bundles enter the member pin table (individual pins vs bundle membership, version identity, inclusion joins with wholesale bundle adoption) is **Not Decided** — see residual micro-round.
+   How fact types and bundles enter the member pin table is settled by **ADR-0028** (dual pin unit, versioned fact-type/bundle, wholesale nested-set equality).
 
 3. **Schema-generation admission consumes the existing registry.** Each v2 package declares `admitted_schemas`: a list of schema identifiers (and generations) the unit closes over. Unadmitted schema generations **reject at load** (no silent skip). Schema **byte** immutability remains the ADR-0003 publication registry / `published.json` path — packages do **not** embed schema content checksums (that would dual-bookkeep schema publication).
 
@@ -39,14 +39,14 @@ The `adopted-content-manifests` prototype (Track 0.b remediation) produced two c
 
 7. **Exclusive execution projection.** After adoption, derivation and rendering operate only on the **resolved member graph** of adopted package(s). Co-located unpinned files may exist for authoring or corpus supply but are not adopted, not executable, and not renderable.
 
-## Not Decided (residual micro-round — required before Track 4 closes the membership surface)
+## Residual (closed)
 
-These were draft decisions 6–7 of the pre-ratification ADR-0027 text. Owner direction (2026-07-15): do **not** ratify them on current evidence; settle via a short paired micro-round (one incumbent + one clean-room rival) covering both questions together:
+Draft decisions 6–7 of the pre-ratification ADR-0027 text were deferred to a residual micro-round (owner 2026-07-15). That round completed; **ADR-0028 accepted** (2026-07-15) settles:
 
-- **N1 — Fact-surface versioning ⋂ wholesale-adoption reconciliation (ACM-G1, ACM-A7, related A4).** How exact member versions apply to fact types and bundles given HEAD `fact-type.v1` / `bundle.v1` lack `version`, and given wholesale `act-bundle-adoption`. Whether packages pin individual fact types, bundles, or both; inclusion joins so binding checks and runtime vocabulary cannot drift; mapping fact-type dependency edges.
-- **N2 — Declared composition-obligation trigger (ACM-A3).** How a package discovers that a published symbol is composition-governed **without** circular dependence on a composition citizen already being present, so a bare multi-source sum cannot validate while still aligning with ADR-0026 decision 4's mandatory licensed `composition` pin (and without runner-resident symbol special cases — Article 11).
+- **N1** — fact-surface versioning ⋂ wholesale-adoption reconciliation
+- **N2** — declared composition-obligation trigger (including A7-broadened structural force-declare; rationale on record in the micro-round evaluation-analysis)
 
-Until N1/N2 are ratified, implementation may land the ratified decisions 1–7 above but **must not** claim the fact-type membership surface or composition-obligation mechanism are settled; Track 4's complete membership closure waits on the residual ADR. **Status 2026-07-15:** residual micro-round complete; candidate **ADR-0028 proposed** (`docs/adr/0028-package-fact-surface-and-composition-obligation.md`) — awaits owner ratification.
+Track 4 may claim complete membership closure under ADR-0027 + ADR-0028. See `docs/adr/0028-package-fact-surface-and-composition-obligation.md`.
 
 ## Consequences
 
