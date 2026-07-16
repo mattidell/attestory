@@ -1,6 +1,6 @@
 # ADR 0030 — Branch and Merge Strategy
 
-- Status: **proposed** (owner directed Option B 2026-07-15; awaits explicit ratification)
+- Status: **accepted** (owner ratification 2026-07-15; Option B). Applies to the next phase; the Core Tax Conditions milestone merges once per this ADR's Transition clause.
 - Tier: 2 (process)
 - Date: 2026-07-15
 

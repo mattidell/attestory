@@ -2,7 +2,7 @@
 
 Audience: Agents (Objective and Scope are Shared)
 
-Status: **in progress — implementation (Track 1 active; Tracks 2–7 open, sequenced).** Next milestone after Source Completeness And Interest Slice (completed 2026-07-12).
+Status: **complete (2026-07-15, remediated re-close).** Tracks 0–7 landed; premature merge reopened, reviewed, remediated (R1–R4R), and merged once to the reconciled `main` per ADR-0030's Transition clause. Retrospective: `docs/milestone-retrospectives/2026-07-15-core-tax-conditions-and-presentation-integration.md`.
 
 ## Revision note (2026-07-14, principal foreman)
 

@@ -2,10 +2,11 @@
 
 ## Current step
 
-**R4R returned `ready` (`696ef88`). R5 is chartered and awaits owner direction
-on the `main` reconciliation path.** Closure records can be prepared under
-foreman custody; no milestone-complete status or `main` mutation occurs until
-the owner selects a path.
+**R5 COMPLETE — milestone closed for merge.** Owner reconciled `main` (reset to
+`7a90f89`); ADR-0013 amendment + ADR-0030 ratified; retrospective written;
+closure records (milestone doc, roadmap, phase-state, handoff) updated.
+**No remediation seat is open.** Next action is the owner's single no-ff merge of
+`milestone/core-tax-conditions` into `main`; the next phase is owner-directed.
 
 ## Repository entry chain
 

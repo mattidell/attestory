@@ -133,7 +133,7 @@ both competing shapes in one context. Two rules are now explicit:
    superseded ADRs are retained — never deleted — with their status marked, and
    are explicitly ignored as authority while remaining citable as history.
 
-## Amendment (2026-07-15, **proposed** — pending owner ratification at the milestone-process retrospective) — Foreman-authored fixes default to confirmation
+## Amendment (2026-07-15, **accepted** — owner ratification 2026-07-15) — Foreman-authored fixes default to confirmation
 
 Owner-directed after the Core Tax Conditions Track 0.b residual round, in which
 the foreman closed a decision-blocking adversary finding (a force-declare

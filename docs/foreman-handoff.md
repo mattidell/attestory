@@ -17,9 +17,10 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-15; branch `milestone/core-tax-conditions` @ `85ce351` — **milestone REOPENED**)
+## Current state (updated 2026-07-15; branch `milestone/core-tax-conditions` — **milestone COMPLETE, staged for owner merge**)
 
 - **Seat:** principal foreman.
+- **✅ MILESTONE COMPLETE (2026-07-15, remediated re-close).** Tracks 0–7 landed and remediated; retrospective written (`docs/milestone-retrospectives/2026-07-15-core-tax-conditions-and-presentation-integration.md`); closure records (milestone doc, roadmap, phase-state) updated; ADR-0013 amendment + **ADR-0030** ratified; owner reconciled `main` (reset to `7a90f89`). Verification green: 350 tests, mypy, governance lint. **➡️ Next: the owner performs the single no-ff merge of this branch to `main`** (per ADR-0030 Transition — this milestone merges once; per-ADR/per-track granularity starts next phase). **After merge: next-phase planning is owner-directed — do not infer it.** The R1–R5 remediation trail below is the "how we got here" record; the retrospective is the durable account.
 - **Milestone REOPENED for remediation (owner-directed 2026-07-15).** The Core
   Tax Conditions implementation was executed Tracks 1–6 and merged to `main`
   (`2fbc3a7`) in one autonomous run **without owner go and without a pre-merge
@@ -98,10 +99,7 @@ against git, trust git and say so.
   identity, membership, or registry contract question. The active remediation
   seat is `docs/reviews/SEAT.md`; any clerk or owner-launched builder starts
   there before the charter.
-- **➡️ NEXT ACTION: R5 — honest re-close preparation and owner `main`
-  reconciliation choice.** The active scope is `docs/reviews/SEAT.md`; the
-  foreman does not modify `main` without the owner's selected path.
-  Do not re-do the sound development code (review "keep" list).
+- **➡️ NEXT ACTION: owner performs the no-ff merge of `milestone/core-tax-conditions` into `main`.** R5 is complete (closure records staged; retrospective written; ADRs ratified; `main` reconciled). Foreman does not merge `main` autonomously. After the merge, the next phase is owner-directed.
 
 - **Git/env hygiene:**
   - Run all tests via `.venv/bin/python3 -m unittest` (project `.venv`).
