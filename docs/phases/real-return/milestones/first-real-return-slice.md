@@ -46,8 +46,10 @@ across more content. Selected by the owner 2026-07-15 over coverage breadth
   non-publication explanations.
 - All data is synthetic (`demo-*`); fixture-safety tests in the suite
   (`tests/test_kernel_fixtures.py`) enforce this inside the repo, but nothing
-  defines where *real* data may live. The repository's GitHub remote is
-  **public**, so the safety contract is already internet-facing.
+  defines where *real* data may live. The repository has a GitHub remote
+  (private for now, per the ADR-0030 amendment's interim posture), so the
+  safety contract must treat every push as publication regardless of
+  visibility.
 - Package resolution exists only inside the fixture boundary (ADR-0027
   deferral).
 - The W-2 family has no closure mapping: an empty W-2 set blocks, and there is

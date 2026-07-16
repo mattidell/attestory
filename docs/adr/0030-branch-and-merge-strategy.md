@@ -96,10 +96,16 @@ until `main` freezes them.
    premature-merge failure mode this ADR responds to becomes impossible rather
    than merely forbidden. Agents force-push only their own unit branch, and
    only before its review has begun.
-8. **A push is publication.** The remote (`github.com/mattidell/attestory`)
-   is public; anything pushed is world-readable and may be cached or indexed
-   even if later deleted. The synthetic-only fixture-safety suite is therefore
-   a **pre-push gate**, not just a pre-commit courtesy, and the Real Return
+8. **A push is publication, regardless of current repo visibility.** The
+   remote (`github.com/mattidell/attestory`) hosts a copy of the record on a
+   third party; visibility is a mutable setting, so the privacy posture must
+   not depend on it — anything ever pushed is treated as potentially
+   world-readable (and, while public, may be cached or indexed even if later
+   deleted). The synthetic-only fixture-safety suite is therefore a
+   **pre-push gate**, not just a pre-commit courtesy, and the Real Return
    phase's D1 residency contract extends to the remote: live data is never in
    the repository *or* on any remote, and the D1 kill-test list must include
-   the push surface.
+   the push surface. *Interim posture (owner decision, 2026-07-16): the repo
+   was found public and is set **private** until this amendment is ratified
+   and the merge gates (merge-commit-only, `main` branch protection) are
+   configured; making it public again is a standalone owner decision.*
