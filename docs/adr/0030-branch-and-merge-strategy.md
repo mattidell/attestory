@@ -47,3 +47,59 @@ Applies to the **next phase**. The current Core Tax Conditions milestone finishe
 
 - Related process: ADR-0005, ADR-0013 (and its 2026-07-15 proposed amendment — foreman-authored fixes default to confirmation).
 - Evidence of the failure this addresses: `docs/reviews/2026-07-15-core-tax-conditions-premerge-review.md` (PMR-1–7).
+
+## Amendment (2026-07-16, **proposed**) — Commit references, pull requests, and agent push
+
+Status: proposed (awaiting owner ratification). Motivated by the owner's move
+to GitHub pull requests with possibly batched merges (rebase-before-merge
+rewrites pre-merge SHAs) and by the ~50 SHA references orphaned by the Core
+Tax Conditions rebase (retrospective follow-up).
+
+### A. Two-phase commit referencing
+
+The unit's *name* is its identity; commits are its transient representation
+until `main` freezes them.
+
+1. **Before a unit reaches `main`, governance records cite the unit by name,
+   never by SHA.** Durable names that predate the commits: the ADR number, the
+   charter/review filename, the branch name, and the PR number. In-flight
+   documents (charters, reviews, process logs, the handoff) write "R2 landed
+   on `<branch>` (PR #N)", not "R2 landed (`<sha>`)".
+2. **A SHA may be cited only once it is reachable from `main`** (which this
+   ADR makes append-only in practice — those SHAs are durable). Post-merge
+   records (roadmap status lines, retrospectives, ADR closing notes) backfill
+   the unit's no-ff **merge-commit** SHA as the anchor for the whole unit.
+3. **Annotated tags are reserved for landmarks** (ratified ADRs, milestone
+   closes), applied on `main` post-merge. Not every track — tag sprawl is its
+   own legibility cost.
+4. Already-orphaned historical SHAs stay as history (per the retrospective);
+   this rule prevents new ones.
+
+### B. Pull-request integration
+
+5. **Each merge unit gets a pull request**; the PR number joins the unit's
+   durable name. The repository merge method is **merge commit only** —
+   squash-merge and rebase-merge are disabled in repo settings, since either
+   would silently destroy the no-ff topology decisions 2–4 depend on. As a
+   hedge against platform dependency, the merge commit message retains the
+   "Merge pull request #N" line so a bare clone resolves PR references.
+6. **Unit branches are ephemeral and may be rebased freely before merge;
+   `main` never is.** Batching *merges* is permitted; batching *reviews* is
+   not — the review happens at PR-open cadence (merge unit = review unit is
+   unchanged; only the merge may lag its review).
+
+### C. Agent push and the publication boundary
+
+7. **Agents may push unit branches and open PRs** — clerical, auditable,
+   reversible acts. **Merging to `main` is owner-held**, enforced structurally
+   by branch protection on `main` (require a PR; no direct pushes), so the
+   premature-merge failure mode this ADR responds to becomes impossible rather
+   than merely forbidden. Agents force-push only their own unit branch, and
+   only before its review has begun.
+8. **A push is publication.** The remote (`github.com/mattidell/attestory`)
+   is public; anything pushed is world-readable and may be cached or indexed
+   even if later deleted. The synthetic-only fixture-safety suite is therefore
+   a **pre-push gate**, not just a pre-commit courtesy, and the Real Return
+   phase's D1 residency contract extends to the remote: live data is never in
+   the repository *or* on any remote, and the D1 kill-test list must include
+   the push surface.

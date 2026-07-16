@@ -44,8 +44,10 @@ across more content. Selected by the owner 2026-07-15 over coverage breadth
 - Lines 1a/2b/9/11/12/15/16 flow end-to-end on synthetic fixtures with honest
   blocking, byte-verified packages, a run-disposition ledger, and walkable
   non-publication explanations.
-- All data is synthetic (`demo-*`); `check_data_safety.py` enforces fixture
-  safety inside the repo, but nothing defines where *real* data may live.
+- All data is synthetic (`demo-*`); fixture-safety tests in the suite
+  (`tests/test_kernel_fixtures.py`) enforce this inside the repo, but nothing
+  defines where *real* data may live. The repository's GitHub remote is
+  **public**, so the safety contract is already internet-facing.
 - Package resolution exists only inside the fixture boundary (ADR-0027
   deferral).
 - The W-2 family has no closure mapping: an empty W-2 set blocks, and there is
