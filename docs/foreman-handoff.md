@@ -62,6 +62,14 @@ against git, trust git and say so.
   assigns a fresh independent reviewer four falsifiable checks over R1/R2 and
   requires an explicit `ready` / `not ready` verdict. The foreman will not
   review the artifact's merits.
+- **R4 returned `not ready` (`30c4248`):** the R1 mechanism is sound, but its
+  required ACM-A1 golden is not run by any committed test. Triage is recorded
+  in `docs/reviews/2026-07-15-core-tax-conditions-r4-triage.md` as
+  decision-blocking, without reopening the ADR contract.
+- **Repair1 chartered:**
+  `docs/reviews/charter-2026-07-15-core-tax-conditions-repair1-acm-a1-execution.md`
+  permits only wiring the existing ACM-A1 scenario into the executed golden
+  suite. Then repeat R3 verification and fresh independent R4 review.
 - **R2 charter (completed):**
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
   bounds the required registry-verified member-byte check and its mutation
@@ -69,9 +77,10 @@ against git, trust git and say so.
   identity, membership, or registry contract question. The active remediation
   seat is `docs/reviews/SEAT.md`; any clerk or owner-launched builder starts
   there before the charter.
-- **➡️ NEXT ACTION: R4 — independent remediation re-review**, owner-paced. The
-  owner launches the R4 reviewer from `docs/reviews/SEAT.md`; the foreman
-  retains branch and evidence-record custody. Then R5 only on `ready`.
+- **➡️ NEXT ACTION: repair1 — execute the existing ACM-A1 golden**, owner-paced.
+  The owner launches the repair builder from `docs/reviews/SEAT.md`; the
+  foreman retains branch and evidence-record custody. R3 repeat, R4 repeat,
+  and R5 remain blocked until the repair lands.
   Do not re-do the sound development code (review "keep" list).
 
 - **Git/env hygiene:**
