@@ -20,7 +20,7 @@ Audience: Product (roadmap); Shared (status)
 
 ## Status
 
-Active milestone: **Core Tax Conditions And Presentation Integration** (proposed/planning; plan: `docs/phases/foundation/milestones/core-tax-conditions-and-presentation-integration.md`).
+**Phase COMPLETE (2026-07-15).** All seven roadmap items closed; the remediated Core Tax Conditions milestone merged to `main` (`3283033`). The successor phase is **Real Return** (`docs/phases/real-return/`), which selects milestones from a maturity-matrix frontier rather than a pre-written ladder.
 
 - Governance Installation — **complete** (2026-07-09, merge `6e4eefa`; retrospective: `docs/milestone-retrospectives/2026-07-09-governance-installation.md`). Impacts: `docs/governance/`, `docs/adr/`, `docs/milestone-retrospectives/`, root meta documents, `tools/`, `tests/`.
 - Workspace Kernel — **complete** (2026-07-10, merge `c8799ce`; retrospective: `docs/milestone-retrospectives/2026-07-10-workspace-kernel.md`). Tier 2 decisions ratified 2026-07-10 (ADR-0002, ADR-0003): persistence (append-only JSONL act log), schema technology and identity (JSON Schema 2020-12, opaque IDs), synthetic kernel vocabulary, minimal adoption act. Impacts: `packages/kernel/`, `packages/schemas/kernel/`, `packages/sample_data/kernel/`, `tests/conformance/`, `docs/adr/`, `README.md`.
