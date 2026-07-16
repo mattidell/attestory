@@ -122,11 +122,18 @@ sensitivity-inheritance makes a disposition report describing a real run
 sensitive. The Constitution governance note classes such conflicts as **defects
 requiring versioned correction** — owner's to reconcile before ADR-0031.
 
-## Next foreman action
+## Round 3 — ADR + confirmation pass
 
-Convergence is reached (it2 basis). Path forward pending owner input on: (1) the
-doc-vs-doc reconciliation above; (2) approval to author **ADR-0031** on the
-it2 basis, naming the residuals + Gate-7 production conditions, with a scoped
-confirmation pass for the foreman-authored locator-screen refinement. No Round-2
-build iteration is warranted — the incumbent's gaps are resolved by adoption,
-not by unresolved uncertainty.
+| When | Event |
+|---|---|
+| 2026-07-16 | Owner decisions: (1) Ontology governs the doc-vs-doc conflict → milestone plan Verification corrected by version (disposition detail quarantined; only a non-descriptive attestation crosses). (2) Author ADR-0031 on the it2 basis with the confirmation pass. |
+| 2026-07-16 | **ADR-0031 authored** (`docs/adr/0031-real-data-residency-boundary.md`, status **proposed**). Decisions 1–4, 6–8 on the it2/committee basis; Decision 5 (provenance/allow-list locator screen) is a foreman-authored fix marked **pending scoped confirmation**. Production conditions named for Tracks 1/3. |
+| 2026-07-16 | Confirmation pass chartered (`charter-confirm-locator-screen.md`, Medium) exercising the **over-inclusion** direction of Decision 5; dispatched as an isolated sub-agent. **Awaiting `reviews/confirm-locator-screen.md`.** |
+
+## Next foreman action (after confirmation pass)
+
+If the pass returns clean: finalize Decision 5 as ratifiable and open the D1
+ratification PR (ADR-0031 + full evidence bundle) for owner-held merge. If it
+finds over-fire: apply the minimal named amendment (e.g. a scoped declaration
+privilege), re-confirm if the amendment is itself foreman-authored, then open the
+PR. Ratification (proposed → accepted) is owner-held.

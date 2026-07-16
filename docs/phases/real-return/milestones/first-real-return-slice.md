@@ -120,8 +120,17 @@ it was synthesized.
 - The complete in-repo suite (`.venv/bin/python3 -m unittest`), mypy, and
   governance lint stay green and stay fully synthetic.
 - A live-run smoke executed by the owner against the out-of-repo workspace is
-  the milestone's acceptance evidence; its *report* (dispositions, not values)
-  is what reviews cite.
+  the milestone's acceptance evidence. **Corrected 2026-07-16 (D1 finding,
+  Ontology §8 governs):** the disposition report *describes* a real run and
+  therefore inherits the workspace's sensitivity — it stays in quarantine and
+  is **not** cited in in-repo reviews. What crosses into the repo is a
+  **non-descriptive attestation** only: that the owner ran the slice, that
+  dispositions were observed in quarantine, and that no artifact crossed the
+  boundary — never which lines published or blocked or why. (Supersedes the
+  prior wording "its *report* (dispositions, not values) is what reviews cite,"
+  which conflicted with sensitivity inheritance; the Constitution governance
+  note requires such conflicts be corrected by version. ADR-0031 records the
+  boundary this rests on.)
 - The extended data-safety check is part of the standard gate.
 
 ## Exit criteria
