@@ -15,6 +15,8 @@ to, then continue."* The new foreman reads those, reconciles the in-flight state
 below against `git status` / `git log`, and proceeds. If the note looks stale
 against git, trust git and say so.
 
+**Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
+
 ## Current state (updated 2026-07-15; branch `milestone/core-tax-conditions` @ `85ce351` — **milestone REOPENED**)
 
 - **Seat:** principal foreman.
