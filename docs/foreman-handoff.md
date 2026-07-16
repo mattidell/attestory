@@ -15,7 +15,7 @@ to, then continue."* The new foreman reads those, reconciles the in-flight state
 below against `git status` / `git log`, and proceeds. If the note looks stale
 against git, trust git and say so.
 
-## Current state (updated 2026-07-15; branch `milestone/core-tax-conditions` @ `95e574a`+remediation docs — **milestone REOPENED**)
+## Current state (updated 2026-07-15; branch `milestone/core-tax-conditions` @ `fb568be` — **milestone REOPENED**)
 
 - **Seat:** principal foreman.
 - **Milestone REOPENED for remediation (owner-directed 2026-07-15).** The Core
@@ -41,9 +41,12 @@ against git, trust git and say so.
   R1 exclusive projection (decision-blocking), R2 member-byte verification,
   R3 re-verify, R4 **independent** re-review, R5 honest re-close + retrospective
   rewrite + owner `main` reconciliation.
-- **➡️ NEXT ACTION: R1 — implement ADR-0027 decision 9 exclusive execution
-  projection**, owner-paced (owner authorizes/launches execution; foreman does
-  not proceed autonomously — that is the failure being remediated). Then R2→R5.
+- **R1 landed:** `fb568be` implements ADR-0027 decision 9's exclusive execution
+  projection and adds the required ACM-A1 golden. The scenario's JSON output
+  matches its committed golden; `tests.tax.test_track6_integration` is green.
+- **➡️ NEXT ACTION: R2 — extend published-byte verification to every resolved
+  member citizen** (ADR-0027 ACM-A5), owner-paced. The owner launches the R2
+  execution seat; the foreman retains branch and commit custody. Then R3→R5.
   Do not re-do the sound development code (review "keep" list).
 
 - **Git/env hygiene:**
