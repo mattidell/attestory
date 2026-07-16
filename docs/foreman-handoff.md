@@ -46,16 +46,24 @@ against git, trust git and say so.
 - **R1 landed:** `85ce351` implements ADR-0027 decision 9's exclusive execution
   projection and adds the required ACM-A1 golden. The scenario's JSON output
   matches its committed golden; `tests.tax.test_track6_integration` is green.
-- **R2 chartered:**
+- **R2 landed (`351c880`):** member-citizen bytes are registry-verified during
+  package resolution; the required unchanged-identity mutation golden passed
+  in `tests.derivation.test_package_validation` (13 tests). The ad-hoc checksum
+  generator used to produce registry entries is preserved under ignored `temp/`.
+- **R3 chartered:**
+  `docs/reviews/charter-2026-07-15-core-tax-conditions-r3-reverification.md`
+  assigns an owner-launched verifier the complete suite, mypy, and governance
+  lint. Failures stop for foreman triage; passing evidence opens R4 only.
+- **R2 charter (completed):**
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
   bounds the required registry-verified member-byte check and its mutation
   golden. It expressly reserves full verification for R3 and stops on any new
   identity, membership, or registry contract question. The active remediation
   seat is `docs/reviews/SEAT.md`; any clerk or owner-launched builder starts
   there before the charter.
-- **➡️ NEXT ACTION: R2 — extend published-byte verification to every resolved
-  member citizen** (ADR-0027 ACM-A5), owner-paced. The owner launches the R2
-  execution seat; the foreman retains branch and commit custody. Then R3→R5.
+- **➡️ NEXT ACTION: R3 — full remediation re-verification**, owner-paced. The
+  owner launches the R3 verifier from `docs/reviews/SEAT.md`; the foreman
+  retains branch and evidence-record custody. Then R4→R5.
   Do not re-do the sound development code (review "keep" list).
 
 - **Git/env hygiene:**
