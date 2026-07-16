@@ -54,6 +54,9 @@ against git, trust git and say so.
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r3-reverification.md`
   assigns an owner-launched verifier the complete suite, mypy, and governance
   lint. Failures stop for foreman triage; passing evidence opens R4 only.
+- **R3 passed:** all three required commands are green; durable evidence is
+  `docs/reviews/2026-07-15-core-tax-conditions-r3-verification.md`. R4 is now
+  eligible for its owner-launched independent review.
 - **R2 charter (completed):**
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
   bounds the required registry-verified member-byte check and its mutation
