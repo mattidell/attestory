@@ -80,6 +80,10 @@ against git, trust git and say so.
 - **R3R passed:** all three required commands are green; durable evidence is
   `docs/reviews/2026-07-15-core-tax-conditions-r3r-verification.md`. Fresh
   independent R4R review is now eligible.
+- **R4R chartered:**
+  `docs/reviews/charter-2026-07-15-core-tax-conditions-r4r-independent-rereview.md`
+  assigns a fresh independent reviewer to measure that Repair1 made ACM-A1 an
+  executed guard without reopening the settled R1/R2 mechanisms.
 - **R2 charter (completed):**
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
   bounds the required registry-verified member-byte check and its mutation
@@ -87,10 +91,10 @@ against git, trust git and say so.
   identity, membership, or registry contract question. The active remediation
   seat is `docs/reviews/SEAT.md`; any clerk or owner-launched builder starts
   there before the charter.
-- **➡️ NEXT ACTION: R3R — full remediation re-verification after Repair1**,
-  owner-paced. The owner launches the verifier from `docs/reviews/SEAT.md`;
-  the foreman retains branch and evidence-record custody. R4R and R5 remain
-  blocked until all R3R commands pass.
+- **➡️ NEXT ACTION: R4R — fresh independent re-review after Repair1**,
+  owner-paced. The owner launches the reviewer from `docs/reviews/SEAT.md`;
+  the foreman retains branch and evidence-record custody. R5 opens only on
+  `ready`.
   Do not re-do the sound development code (review "keep" list).
 
 - **Git/env hygiene:**
