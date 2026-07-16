@@ -17,7 +17,31 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-15; branch `milestone/core-tax-conditions` — **milestone COMPLETE, staged for owner merge**)
+## Current state (updated 2026-07-15; branch `planning/first-real-return-slice` — **Real Return phase planning, awaiting owner plan approval**)
+
+- **Seat:** principal foreman.
+- **Foundation phase COMPLETE.** Owner performed the no-ff merge of the
+  remediated Core Tax Conditions milestone (`3283033` on `main`). The
+  remediation trail below this section is historical record only.
+- **Owner directed next-phase planning (2026-07-15)** and selected, from
+  presented candidates: milestone = **First Real Return Slice**; structure =
+  **new phase + maturity matrix** as the selection instrument.
+- **Planning artifacts drafted** on `planning/first-real-return-slice`:
+  - `docs/phases/real-return/real-return-roadmap.md` (phase thesis +
+    frontier-driven selection)
+  - `docs/phases/real-return/maturity-matrix.md` (aspects × domains, v1
+    hand-maintained)
+  - `docs/phases/real-return/milestones/first-real-return-slice.md`
+    (milestone plan, **proposed**: D1 residency Tier 3, D2 contribution
+    Tier 3, D3 production resolver Tier 2; Tracks 0–5 under ADR-0030
+    per-ADR/per-track merges)
+  - `docs/phase-state.md` rewritten (briefing + pointers; Foundation history
+    pruned to its durable homes)
+- **➡️ NEXT ACTION: owner reviews/approves the milestone plan.** On approval:
+  no-ff merge this planning unit to `main`, then open Track 0 with the D1
+  prototype plan (owner-approved before first charter, ADR-0013).
+
+## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
 - **Seat:** principal foreman.
 - **✅ MILESTONE COMPLETE (2026-07-15, remediated re-close).** Tracks 0–7 landed and remediated; retrospective written (`docs/milestone-retrospectives/2026-07-15-core-tax-conditions-and-presentation-integration.md`); closure records (milestone doc, roadmap, phase-state) updated; ADR-0013 amendment + **ADR-0030** ratified; owner reconciled `main` (reset to `7a90f89`). Verification green: 350 tests, mypy, governance lint. **➡️ Next: the owner performs the single no-ff merge of this branch to `main`** (per ADR-0030 Transition — this milestone merges once; per-ADR/per-track granularity starts next phase). **After merge: next-phase planning is owner-directed — do not infer it.** The R1–R5 remediation trail below is the "how we got here" record; the retrospective is the durable account.
