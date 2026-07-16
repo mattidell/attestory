@@ -77,6 +77,9 @@ against git, trust git and say so.
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r3r-reverification-after-repair1.md`
   repeats complete verification before the required fresh independent R4R
   review.
+- **R3R passed:** all three required commands are green; durable evidence is
+  `docs/reviews/2026-07-15-core-tax-conditions-r3r-verification.md`. Fresh
+  independent R4R review is now eligible.
 - **R2 charter (completed):**
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
   bounds the required registry-verified member-byte check and its mutation
