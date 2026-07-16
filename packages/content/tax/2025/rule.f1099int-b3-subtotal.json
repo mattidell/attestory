@@ -1,0 +1,34 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "role": "computation",
+  "requires": ["rounding.convention"],
+  "pins": [
+    { "role": "input", "id": "rounding.convention", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "round",
+    "value": {
+      "op": "add",
+      "args": [
+        {
+          "op": "collect",
+          "name": "tax.us.2025.f1099int.box3-interest",
+          "source_set": "tax.us.2025.f1099int.b3"
+        }
+      ]
+    },
+    "mode": { "op": "ref", "name": "rounding.convention" }
+  },
+  "publishes": "tax.us.2025.interest.b3-subtotal",
+  "blocked": { "code": "OPEN_DEPENDENCY", "missing": ["rounding.convention"] },
+  "notes": "Aggregates Form 1099-INT box 3 interest findings under the asserted rounding convention."
+}

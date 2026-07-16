@@ -48,8 +48,9 @@ def marshal_closure_authority(
     records: list[ClosureFindingRecord] = []
     for mapping in mappings:
         fact_type = mapping["closure_fact_type"]
+        fact_type_id = fact_type["id"] if isinstance(fact_type, dict) else fact_type
         horizon_key = mapping["closure_horizon_key"]
-        prefix = f"{fact_type}|"
+        prefix = f"{fact_type_id}|"
         for finding_id in sorted(currency.current_finding_ids):
             finding = state.findings.get(finding_id)
             if finding is None or not finding["fact_id"].startswith(prefix):
@@ -64,7 +65,7 @@ def marshal_closure_authority(
             records.append(
                 ClosureFindingRecord(
                     finding_id=finding_id,
-                    fact_type=fact_type,
+                    fact_type=fact_type_id,
                     horizon_id=horizon_id,
                     value=finding["value"],
                 )

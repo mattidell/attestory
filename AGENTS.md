@@ -70,6 +70,8 @@ Prototype evidence rules (see `PROJECT_PLANNING.md`, Prototype-Driven Decisions)
 - You are authorized to build prototypes before proposing such ADRs — do not ask permission. Keep prototype code on `prototypes/<topic>/it<N>` branches and never merge it to `main`; only the documents under `docs/prototypes/<topic>/` merge. When an iteration concludes, the foreman preserves it as tag `exhibits/<topic>/it<N>` and deletes the branch ref; exhibit tags are never deleted or moved.
 - A decision that shapes all future content (for example, the language tax rules are written in) is Tier 3, not a contracts line-item in a milestone plan. It gets the prototype process and its own ratification.
 - Prototype roles are separated: the builder never reviews their own iteration; the foreman never reviews artifacts produced under their own charter. Review notes must report measurements against a pre-declared check, not impressions.
+- Only `accepted`-status ADRs are binding. A `proposed` ADR guides its own prototype topic only and must not be implemented against elsewhere; rejected/superseded ADRs are retained with status marked and ignored as authority (ADR-0013, 2026-07-13 amendment).
+- Every prototype round requires independently contexted rival evidence: clean-room rival builders for build rounds, independent-context reviewers for review rounds. One context authoring both competing shapes does not satisfy a plan's rival requirement (ADR-0013, 2026-07-13 amendment).
 
 ADR location and naming:
 - Store ADRs under `docs/adr/`.

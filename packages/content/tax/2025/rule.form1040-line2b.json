@@ -1,0 +1,54 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-line2b",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.interest.b1-subtotal",
+    "tax.us.2025.interest.b3-subtotal",
+    "tax.us.2025.interest.oid-subtotal",
+    "tax.us.2025.interest.non-form-subtotal"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.interest.b1-subtotal", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.interest.b3-subtotal", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.interest.oid-subtotal", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.interest.non-form-subtotal", "version": "v1", "origin": "assertion" }
+  ],
+  "when": {
+    "op": "all",
+    "args": [
+      { "op": "require_closed", "source_set": "tax.us.2025.f1099int.b1" },
+      { "op": "require_closed", "source_set": "tax.us.2025.f1099int.b3" },
+      { "op": "require_closed", "source_set": "tax.us.2025.f1099oid.b1" },
+      { "op": "require_closed", "source_set": "tax.us.2025.non-form-interest" }
+    ]
+  },
+  "value": {
+    "op": "add",
+    "args": [
+      { "op": "ref", "name": "tax.us.2025.interest.b1-subtotal" },
+      { "op": "ref", "name": "tax.us.2025.interest.b3-subtotal" },
+      { "op": "ref", "name": "tax.us.2025.interest.oid-subtotal" },
+      { "op": "ref", "name": "tax.us.2025.interest.non-form-subtotal" }
+    ]
+  },
+  "publishes": "tax.us.2025.interest.taxable-total",
+  "composition": { "id": "tax.us.2025.interest-composition", "version": "v1" },
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "tax.us.2025.interest.b1-subtotal",
+      "tax.us.2025.interest.b3-subtotal",
+      "tax.us.2025.interest.oid-subtotal",
+      "tax.us.2025.interest.non-form-subtotal"
+    ]
+  },
+  "notes": "Computes taxable interest by summing B1, B3, OID, and Non-Form subtotals, gated on closure of all positive source families."
+}

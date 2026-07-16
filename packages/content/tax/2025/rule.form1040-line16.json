@@ -1,0 +1,30 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-line16",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["tax.us.2025.income.taxable-income", "filing_status", "rounding.convention"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.income.taxable-income", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.filing-status", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "rounding.convention", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "round",
+    "value": {
+      "op": "bracket_fold",
+      "table_id": "demo.parameter.tax-brackets.2025",
+      "key": { "op": "ref", "name": "filing_status" },
+      "value": { "op": "ref", "name": "tax.us.2025.income.taxable-income" }
+    },
+    "mode": { "op": "ref", "name": "rounding.convention" }
+  },
+  "publishes": "tax.us.2025.tax.total-tax",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.income.taxable-income", "filing_status", "rounding.convention"]
+  },
+  "notes": "Calculates tax based on taxable income and filing status using progressive brackets."
+}

@@ -1,0 +1,24 @@
+{
+  "content_fixture": "fixture.json",
+  "run_id": "tax.us.2025.run.acm-a1-unpinned",
+  "inputs": [
+    {"finding_id": "demo-finding-rounding-unpinned", "role": "input", "symbol": "rounding.convention", "value": "half_up"},
+    {"finding_id": "demo-finding-status-unpinned", "role": "input", "symbol": "filing_status", "value": "single"}
+  ],
+  "sources": [
+    {"finding_id": "demo-finding-w2-unpinned", "name": "tax.us.2025.w2.box1-wages", "value": "5e4"}
+  ],
+  "closure": {
+    "findings": [
+      {"fact_type": "tax.us.2025.f1099int.b1.source-closure", "finding_id": "demo-closure-unpinned-b1", "horizon_id": "demo-horizon-unpinned-b1", "value": true},
+      {"fact_type": "tax.us.2025.f1099int.b3.source-closure", "finding_id": "demo-closure-unpinned-b3", "horizon_id": "demo-horizon-unpinned-b3", "value": true},
+      {"fact_type": "tax.us.2025.f1099oid.b1.source-closure", "finding_id": "demo-closure-unpinned-oid", "horizon_id": "demo-horizon-unpinned-oid", "value": true}
+    ],
+    "current_horizons": {
+      "tax.us.2025.f1099int.b1": "demo-horizon-unpinned-b1",
+      "tax.us.2025.f1099int.b3": "demo-horizon-unpinned-b3",
+      "tax.us.2025.f1099oid.b1": "demo-horizon-unpinned-oid",
+      "tax.us.2025.non-form-interest": "demo-horizon-unpinned-nonform"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"schema":"fact-type.v2","id":"demo.tax.elective","version":"v1","title":"Demo elective","nature":"elective","identity_keys":[{"name":"choice","kind":"literal","values":["yes"]}],"value_schema":{"type":"boolean"},"supersession":{"policy":"free"},"optional_default":{"parameter":{"id":"demo.parameter.no","version":"v1"}}}

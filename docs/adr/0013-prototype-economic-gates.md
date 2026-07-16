@@ -115,6 +115,54 @@ fresh-reader rigor moves to a periodic, owner-spawned **Legibility Audit** at th
 project level (`docs/legibility-audits/`), decoupling that measurement from every
 prototype iteration.
 
+## Amendment (2026-07-13) — Rival evidence every round; non-accepted ADRs are inert
+
+Owner-directed after the Core Tax Conditions governance remediation, in which a
+foreman satisfied the plans' rival requirement by having the incumbent author
+both competing shapes in one context. Two rules are now explicit:
+
+1. **Genuine rivalry per round.** Every prototype round requires independently
+   contexted rival evidence: build rounds get a clean-room rival builder (denied
+   all incumbent material), and review rounds get reviewers in independent
+   contexts. A single context authoring competing shapes does not satisfy the
+   rival requirement, and an evaluation may not claim it does.
+
+2. **Non-accepted ADRs are inert.** Agents treat only `accepted`-status ADRs as
+   binding contracts. `proposed` drafts guide work on their own topic only and
+   must not be implemented against outside their prototype. Rejected or
+   superseded ADRs are retained — never deleted — with their status marked, and
+   are explicitly ignored as authority while remaining citable as history.
+
+## Amendment (2026-07-15, **accepted** — owner ratification 2026-07-15) — Foreman-authored fixes default to confirmation
+
+Owner-directed after the Core Tax Conditions Track 0.b residual round, in which
+the foreman closed a decision-blocking adversary finding (a force-declare
+under-trigger, MR-A7) by authoring a broadened rule itself, then surfaced it to
+the owner as an "if this feels out-of-evidence, say so" question and otherwise
+defaulted toward ratification. The broadened rule over-fired on ordinary
+downstream arithmetic (line 9 = 1a+2b), an over-trigger direction no builder or
+reviewer had tested.
+
+The two-builder/two-reviewer structure guards against *builder* blind spots; it
+places no guard on a fix the *foreman itself* authors to close an adversary
+finding. This amendment adds that guard:
+
+1. **Confirmation by default.** A fix the foreman authors to resolve an adversary
+   or governance finding — not itself designed by a builder or checked by a
+   reviewer — defaults to a **scoped confirmation pass** (a single reviewer seat
+   is sufficient) before it enters ratifiable ADR text. The foreman recommends
+   that pass **proactively** and states the specific case(s) it must exercise —
+   including the direction opposite the original finding (if the finding was
+   under-inclusion, the pass must test over-inclusion, and vice versa).
+
+2. **Communication is the foreman's obligation, not the owner's burden.**
+   Surfacing such a fix as an owner-judged "is this in-evidence?" question does
+   **not** satisfy (1): the owner is not positioned to adjudicate whether a round's
+   evidence supports a fix — that is the foreman's assessment to make. The
+   conservative default (further review) is the foreman's to set; it must never be
+   contingent on the owner detecting a problem the owner cannot see. When in
+   doubt, the foreman recommends more evaluation, not less.
+
 ## Alternatives Considered
 
 - **Keep the v1 gates as retrospective guidance.** Rejected: advisory gates with

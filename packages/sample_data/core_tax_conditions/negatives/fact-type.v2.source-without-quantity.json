@@ -1,0 +1,1 @@
+{"schema":"fact-type.v2","id":"demo.tax.amount","version":"v1","title":"Demo amount","nature":"determinable","identity_keys":[{"name":"statement","kind":"literal","values":["demo"]}],"value_schema":{"type":"string"},"supersession":{"policy":"free"},"source_amount":true}

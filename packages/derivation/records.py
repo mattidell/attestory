@@ -93,7 +93,7 @@ class RecordStream:
         except (json.JSONDecodeError, UnicodeDecodeError) as exc:
             raise RecordStreamCorruption(f"malformed committed record at index {index}: {exc}") from exc
         try:
-            self._schemas.validate(DERIVATION_RECORD_SCHEMA, record)
+            self._schemas.validate_declared(record)
         except Exception as exc:  # SchemaValidationError; a committed line must conform
             raise RecordStreamCorruption(f"committed record at index {index} does not conform: {exc}") from exc
         return record
@@ -116,7 +116,7 @@ class RecordStream:
 
     def append(self, record: dict[str, Any]) -> None:
         """Commit one record: validate, then a single fsynced newline write."""
-        self._schemas.validate(DERIVATION_RECORD_SCHEMA, record)
+        self._schemas.validate_declared(record)
         contents = self.read()
         self._check_pairing([*contents.records, record])
         line = json.dumps(record, sort_keys=True, separators=(",", ":"))
@@ -152,9 +152,10 @@ def started_record(
     workspace_revision: int,
     governance_pins: list[dict[str, Any]],
     adoption_pin: dict[str, Any],
+    use_v2: bool = False,
 ) -> dict[str, Any]:
     return {
-        "schema": "derivation-record.v1",
+        "schema": "derivation-record.v2" if use_v2 else "derivation-record.v1",
         "record_id": record_id,
         "run_id": run_id,
         "phase": "started",
@@ -176,11 +177,12 @@ def closing_record(
     published: list[dict[str, Any]],
     blocked: list[dict[str, Any]],
     dispositions: list[dict[str, Any]],
+    use_v2: bool = False,
 ) -> dict[str, Any]:
     if phase not in _CLOSING_PHASES:
         raise RecordStreamError(f"not a closing phase: {phase}")
-    return {
-        "schema": "derivation-record.v1",
+    record = {
+        "schema": "derivation-record.v2" if use_v2 else "derivation-record.v1",
         "record_id": record_id,
         "run_id": run_id,
         "phase": phase,
@@ -188,10 +190,12 @@ def closing_record(
         "governance_pins": governance_pins,
         "adoption_pin": adoption_pin,
         "stop_reason": stop_reason,
-        "published": published,
-        "blocked": blocked,
         "dispositions": dispositions,
     }
+    if not use_v2:
+        record["published"] = published
+        record["blocked"] = blocked
+    return record
 
 
 def start_run(
@@ -203,6 +207,7 @@ def start_run(
     governance_pins: list[dict[str, Any]],
     adoption_pin: dict[str, Any],
     adopted_packages: set[str],
+    use_v2: bool = False,
 ) -> dict[str, Any]:
     """Gate on adoption, then write the started record.
 
@@ -217,6 +222,7 @@ def start_run(
         workspace_revision=workspace_revision,
         governance_pins=governance_pins,
         adoption_pin=adoption_pin,
+        use_v2=use_v2,
     )
     stream.append(record)
     return record
@@ -239,6 +245,7 @@ def recover_interrupted(
     if standing is None:
         raise RecordStreamError(f"no open run to recover: {run_id}")
     start = standing.start
+    use_v2 = start.get("schema") == "derivation-record.v2"
     record = closing_record(
         record_id=record_id,
         run_id=run_id,
@@ -250,6 +257,7 @@ def recover_interrupted(
         published=[],
         blocked=[],
         dispositions=[],
+        use_v2=use_v2,
     )
     stream.append(record)
     return record

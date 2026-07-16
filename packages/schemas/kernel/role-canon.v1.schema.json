@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/role-canon.v1",
+  "title": "Package and provenance role canon",
+  "description": "Immutable versioned canon assigning one durable meaning to every member and pin role token across schema generations (ADR-0027 decision 2). Cross-generation semantic comparison is a loader validation concern.",
+  "type": "object",
+  "properties": {
+    "schema": {"const": "role-canon.v1"},
+    "id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^v[0-9]+$"},
+    "roles": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "parameter": {"type": "string", "minLength": 1}, "computation": {"type": "string", "minLength": 1}, "applicability": {"type": "string", "minLength": 1}, "field-mapping": {"type": "string", "minLength": 1}, "cross-form-bridge": {"type": "string", "minLength": 1}, "input": {"type": "string", "minLength": 1}, "choice": {"type": "string", "minLength": 1}, "default": {"type": "string", "minLength": 1}, "composition": {"type": "string", "minLength": 1}, "citation": {"type": "string", "minLength": 1}, "adoption": {"type": "string", "minLength": 1}, "governance": {"type": "string", "minLength": 1}, "engine": {"type": "string", "minLength": 1}, "package": {"type": "string", "minLength": 1}, "operation-semantics": {"type": "string", "minLength": 1}, "form-field": {"type": "string", "minLength": 1}, "source-family": {"type": "string", "minLength": 1}, "source-closure-mapping": {"type": "string", "minLength": 1}, "fact-type": {"type": "string", "minLength": 1}, "fact-type-bundle": {"type": "string", "minLength": 1}
+      },
+      "required": ["parameter", "computation", "applicability", "field-mapping", "cross-form-bridge", "input", "choice", "default", "composition", "citation", "adoption", "governance", "engine", "package", "operation-semantics", "form-field", "source-family", "source-closure-mapping", "fact-type", "fact-type-bundle"]
+    }
+  },
+  "required": ["schema", "id", "version", "roles"],
+  "additionalProperties": false
+}

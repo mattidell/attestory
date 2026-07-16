@@ -1,0 +1,27 @@
+{
+  "content_fixture": "../core_tax_conditions.content.json",
+  "run_id": "tax.us.2025.run.standard-deduction-age-blind",
+  "inputs": [
+    {"finding_id": "demo-finding-rounding-age-blind", "role": "input", "symbol": "rounding.convention", "value": "half_up"},
+    {"finding_id": "demo-finding-status-age-blind", "role": "input", "symbol": "filing_status", "value": "single"},
+    {"finding_id": "demo-finding-over65-age-blind", "role": "input", "symbol": "taxpayer_over_65", "value": true},
+    {"finding_id": "demo-finding-blind-age-blind", "role": "input", "symbol": "taxpayer_blind", "value": true}
+  ],
+  "sources": [
+    {"finding_id": "demo-finding-w2-age-blind", "name": "tax.us.2025.w2.box1-wages", "value": "5e4"}
+  ],
+  "closure": {
+    "findings": [
+      {"fact_type": "tax.us.2025.f1099int.b1.source-closure", "finding_id": "demo-closure-age-blind-b1", "horizon_id": "demo-horizon-age-blind-b1", "value": true},
+      {"fact_type": "tax.us.2025.f1099int.b3.source-closure", "finding_id": "demo-closure-age-blind-b3", "horizon_id": "demo-horizon-age-blind-b3", "value": true},
+      {"fact_type": "tax.us.2025.f1099oid.b1.source-closure", "finding_id": "demo-closure-age-blind-oid", "horizon_id": "demo-horizon-age-blind-oid", "value": true},
+      {"fact_type": "tax.us.2025.non-form-interest.source-closure", "finding_id": "demo-closure-age-blind-nonform", "horizon_id": "demo-horizon-age-blind-nonform", "value": true}
+    ],
+    "current_horizons": {
+      "tax.us.2025.f1099int.b1": "demo-horizon-age-blind-b1",
+      "tax.us.2025.f1099int.b3": "demo-horizon-age-blind-b3",
+      "tax.us.2025.f1099oid.b1": "demo-horizon-age-blind-oid",
+      "tax.us.2025.non-form-interest": "demo-horizon-age-blind-nonform"
+    }
+  }
+}

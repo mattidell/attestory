@@ -1,0 +1,30 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-line15",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["tax.us.2025.income.agi", "tax.us.2025.deductions.total"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.income.agi", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.deductions.total", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "max",
+    "args": [
+      0,
+      {
+        "op": "subtract",
+        "left": { "op": "ref", "name": "tax.us.2025.income.agi" },
+        "right": { "op": "ref", "name": "tax.us.2025.deductions.total" }
+      }
+    ]
+  },
+  "publishes": "tax.us.2025.income.taxable-income",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.income.agi", "tax.us.2025.deductions.total"]
+  },
+  "notes": "Form 1040 Line 15: Taxable income clamped at zero."
+}

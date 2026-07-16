@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/fact-type.v2",
+  "title": "Versioned fact type",
+  "description": "Versioned fact-type surface for exact fact identity, declared optional defaults, and mandatory source-amount quantity pins (ADR-0025 decision 1; ADR-0028 decisions 1 and 7). Pin resolution and default-value compatibility are deferred to package validation.",
+  "type": "object",
+  "properties": {
+    "schema": {"const": "fact-type.v2"}, "id": {"type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$"}, "version": {"type": "string", "pattern": "^v[0-9]+$"}, "title": {"type": "string", "minLength": 1}, "nature": {"enum": ["determinable", "elective"]},
+    "identity_keys": {"type": "array", "minItems": 1, "items": {"oneOf": [
+      {"type": "object", "properties": {"name": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"}, "kind": {"const": "entity"}, "entity_kind": {"type": "string", "minLength": 1}}, "required": ["name", "kind", "entity_kind"], "additionalProperties": false},
+      {"type": "object", "properties": {"name": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"}, "kind": {"const": "literal"}, "values": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}}, "required": ["name", "kind", "values"], "additionalProperties": false}
+    ]}},
+    "value_schema": {"type": "object"}, "supersession": {"type": "object", "properties": {"policy": {"const": "free"}}, "required": ["policy"], "additionalProperties": false},
+    "optional_default": {"type": "object", "properties": {"parameter": {"$ref": "#/$defs/exact_pin"}}, "required": ["parameter"], "additionalProperties": false},
+    "source_amount": {"type": "boolean"}, "quantity": {"$ref": "#/$defs/exact_pin"}
+  },
+  "required": ["schema", "id", "version", "title", "nature", "identity_keys", "value_schema", "supersession"], "additionalProperties": false,
+  "allOf": [
+    {"if": {"properties": {"nature": {"const": "elective"}}, "required": ["nature"]}, "then": {"not": {"required": ["optional_default"]}}},
+    {"if": {"properties": {"source_amount": {"const": true}}, "required": ["source_amount"]}, "then": {"required": ["quantity"]}}
+  ],
+  "$defs": {"exact_pin": {"type": "object", "properties": {"id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}}, "required": ["id", "version"], "additionalProperties": false}}
+}

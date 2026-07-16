@@ -1,0 +1,1 @@
+{"schema":"operation-semantics.v2","operation":"categorical_compare","version":"v1","spec":{"operators":["eq","ne"],"domain_mismatch":"false"}}

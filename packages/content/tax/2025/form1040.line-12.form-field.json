@@ -1,0 +1,18 @@
+{
+  "schema": "form-field.v2",
+  "id": "tax.us.2025.form1040.line-12",
+  "version": "v1",
+  "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+  "line": "12",
+  "label": "Standard deduction or itemized deductions",
+  "description": "Form 1040 Line 12 standard deduction or itemized deductions",
+  "binds_symbol": "tax.us.2025.deductions.total",
+  "citation": { "id": "tax.us.2025.citation.form1040.line-12", "version": "v1" },
+  "dispositions": {
+    "published_value": { "render": "{value}", "explain": "published total deductions" },
+    "computed_zero": { "render": "0", "explain": "computed zero" },
+    "closure_backed_zero": { "render": "0", "explain": "closure zero" },
+    "blocked": { "render": "", "explain": "blocked", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID"] },
+    "guard_inapplicable": { "render": "", "explain": "guard false" }
+  }
+}

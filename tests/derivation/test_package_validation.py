@@ -12,7 +12,14 @@ from pathlib import Path
 from typing import Any
 
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.package_validation import validate_package
+from packages.derivation.package_validation import (
+    PackageIntegrityError,
+    load_published_package_checksums,
+    package_instance_checksum,
+    citizen_checksum,
+    validate_package,
+    verify_published_package,
+)
 
 EXAMPLES = Path(__file__).resolve().parent.parent.parent / "packages" / "sample_data" / "derivation" / "examples"
 
@@ -30,6 +37,11 @@ def _load(name: str) -> dict[str, Any]:
     return loaded
 
 
+def _load_path(path: Path) -> dict[str, Any]:
+    loaded: dict[str, Any] = json.loads(path.read_text("utf-8"))
+    return loaded
+
+
 def _corpus(citizens: list[dict[str, Any]]) -> dict[tuple[str, str], dict[str, Any]]:
     return {(c["id"], c["version"]): c for c in citizens}
 
@@ -39,9 +51,13 @@ class PackageValidationFixture(unittest.TestCase):
         self.schemas = DerivationSchemas()
         self.package = _load("artifact-package.json")
         self.citizens = [_load(name) for name in _CITIZEN_FILES]
+        self.citizen_checksums = {
+            (c["id"], c.get("version", "v1")): citizen_checksum(c)
+            for c in self.citizens
+        }
 
     def validate(self) -> Any:
-        return validate_package(self.package, _corpus(self.citizens), self.schemas)
+        return validate_package(self.package, _corpus(self.citizens), self.schemas, self.citizen_checksums)
 
     def codes(self, result: Any) -> list[str]:
         return sorted(issue.code for issue in result.issues)
@@ -53,6 +69,36 @@ class ValidPackage(PackageValidationFixture):
         self.assertTrue(result.ok, msg=str(result.issues))
         self.assertEqual(result.output_owners["demo.form1040.line1a"], "demo.rule.wages-to-1040-line1a")
         self.assertEqual(result.output_owners["demo.form1040.line16"], "demo.rule.tax-table-line16")
+
+
+class PackageInstanceImmutability(unittest.TestCase):
+    def setUp(self) -> None:
+        self.package = _load("artifact-package.json")
+        self.package["package_checksum"] = package_instance_checksum(self.package)
+        self.published = {(self.package["id"], self.package["version"]): self.package["package_checksum"]}
+
+    def test_exact_published_instance_is_accepted(self) -> None:
+        verify_published_package(self.package, self.published)
+
+    def test_changed_bytes_with_stale_checksum_are_rejected(self) -> None:
+        changed = copy.deepcopy(self.package)
+        changed["members"].pop()
+        with self.assertRaisesRegex(PackageIntegrityError, "PACKAGE_CHECKSUM_MISMATCH"):
+            verify_published_package(changed, self.published)
+
+    def test_recomputed_checksum_cannot_rewrite_published_version(self) -> None:
+        changed = copy.deepcopy(self.package)
+        changed["members"].pop()
+        changed["package_checksum"] = package_instance_checksum(changed)
+        with self.assertRaisesRegex(PackageIntegrityError, "PACKAGE_VERSION_REWRITE"):
+            verify_published_package(changed, self.published)
+
+    def test_committed_tax_registry_matches_the_exact_package_bytes(self) -> None:
+        content = Path("packages/content/tax/2025")
+        registry = load_published_package_checksums(content / "published-packages.json")
+        for filename in ("package.core-calculations.json", "package.interest-slice.json"):
+            with self.subTest(filename=filename):
+                verify_published_package(_load_path(content / filename), registry)
 
 
 class Parity1Containment(PackageValidationFixture):
@@ -76,6 +122,7 @@ class Parity3OutputOwnership(PackageValidationFixture):
         rival = copy.deepcopy(_load("rule-artifact.tax-table-line16.json"))
         rival["id"] = "demo.rule.tax-table-line16-rival"
         self.citizens.append(rival)
+        self.citizen_checksums[(rival["id"], rival.get("version", "v1"))] = citizen_checksum(rival)
         self.package["members"].append({"role": "computation", "id": rival["id"], "version": "v1"})
         result = self.validate()
         self.assertIn("OUTPUT_OWNERSHIP_CONFLICT", self.codes(result))
@@ -84,6 +131,7 @@ class Parity3OutputOwnership(PackageValidationFixture):
         rival = copy.deepcopy(_load("rule-artifact.tax-table-line16.json"))
         rival["id"] = "demo.rule.tax-table-line16-rival"
         self.citizens.append(rival)
+        self.citizen_checksums[(rival["id"], rival.get("version", "v1"))] = citizen_checksum(rival)
         self.package["members"].append({"role": "computation", "id": rival["id"], "version": "v1"})
         self.package["conflict_semantics"] = [
             {"symbol": "demo.form1040.line16", "resolution": "first-guarded-wins"}
@@ -110,6 +158,7 @@ class Attack5YearIdentity(PackageValidationFixture):
         drifted = copy.deepcopy(self.citizens[0])
         drifted["scope"]["tax_year"] = 2024
         self.citizens[0] = drifted
+        self.citizen_checksums[(drifted["id"], drifted.get("version", "v1"))] = citizen_checksum(drifted)
         result = self.validate()
         self.assertIn("SCOPE_MISMATCH", self.codes(result))
 
@@ -128,6 +177,20 @@ class RoleAndPresence(PackageValidationFixture):
                 member["version"] = "v2"  # no such version in corpus
         result = self.validate()
         self.assertIn("MEMBER_ABSENT", self.codes(result))
+
+
+class Parity7MemberVerification(PackageValidationFixture):
+    def test_member_bytes_verified_against_registry(self) -> None:
+        # A synthetic golden mutates a resolved member's bytes while retaining its
+        # published (id, version) and demonstrates rejection at adoption.
+        drifted = copy.deepcopy(self.citizens[0])
+        # Mutate the value in a schema-valid way
+        drifted["notes"] = "compromised bytes"
+        self.citizens[0] = drifted
+        # The registry (self.citizen_checksums) retains the original checksum from setUp
+        result = self.validate()
+        self.assertIn("MEMBER_CHECKSUM_MISMATCH", self.codes(result))
+
 
 
 if __name__ == "__main__":

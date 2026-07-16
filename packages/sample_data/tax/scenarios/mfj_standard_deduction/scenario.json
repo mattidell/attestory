@@ -1,0 +1,26 @@
+{
+  "content_fixture": "../core_tax_conditions.content.json",
+  "run_id": "tax.us.2025.run.mfj-standard-deduction",
+  "inputs": [
+    {"finding_id": "demo-finding-rounding-mfj", "role": "input", "symbol": "rounding.convention", "value": "half_up"},
+    {"finding_id": "demo-finding-status-mfj", "role": "input", "symbol": "filing_status", "value": "married_filing_jointly"}
+  ],
+  "sources": [
+    {"finding_id": "demo-finding-w2-mfj", "name": "tax.us.2025.w2.box1-wages", "value": "9e4"},
+    {"finding_id": "demo-finding-int-mfj", "name": "tax.us.2025.f1099int.box1-interest", "value": "100"}
+  ],
+  "closure": {
+    "findings": [
+      {"fact_type": "tax.us.2025.f1099int.b1.source-closure", "finding_id": "demo-closure-mfj-b1", "horizon_id": "demo-horizon-mfj-b1", "value": true},
+      {"fact_type": "tax.us.2025.f1099int.b3.source-closure", "finding_id": "demo-closure-mfj-b3", "horizon_id": "demo-horizon-mfj-b3", "value": true},
+      {"fact_type": "tax.us.2025.f1099oid.b1.source-closure", "finding_id": "demo-closure-mfj-oid", "horizon_id": "demo-horizon-mfj-oid", "value": true},
+      {"fact_type": "tax.us.2025.non-form-interest.source-closure", "finding_id": "demo-closure-mfj-nonform", "horizon_id": "demo-horizon-mfj-nonform", "value": true}
+    ],
+    "current_horizons": {
+      "tax.us.2025.f1099int.b1": "demo-horizon-mfj-b1",
+      "tax.us.2025.f1099int.b3": "demo-horizon-mfj-b3",
+      "tax.us.2025.f1099oid.b1": "demo-horizon-mfj-oid",
+      "tax.us.2025.non-form-interest": "demo-horizon-mfj-nonform"
+    }
+  }
+}

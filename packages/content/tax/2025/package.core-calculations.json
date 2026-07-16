@@ -1,0 +1,91 @@
+{
+  "schema": "artifact-package.v2",
+  "id": "tax.us.2025.package.core-calculations",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "admitted_schemas": [
+    "fact-type.v2",
+    "bundle.v2",
+    "rule-artifact.v2",
+    "source-closure-mapping.v2",
+    "source-family.v1",
+    "taxable-interest-composition.v1",
+    "citation.v1",
+    "form-field.v2",
+    "parameter-declaration.v1",
+    "quantity-vocabulary.v1"
+  ],
+  "members": [
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.w2-box1-to-line1a", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.f1099int-b1-subtotal", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.f1099int-b3-subtotal", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.f1099oid-subtotal", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.non-form-interest-subtotal", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.form1040-line2b", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.form1040-standard-deduction", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.form1040-line9", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.form1040-line11", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.form1040-line12", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.form1040-line15", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.form1040-line16", "version": "v1" },
+
+    { "role": "source-family", "schema": "source-family.v1", "id": "tax.us.2025.f1099int.b1", "version": "v1" },
+    { "role": "source-family", "schema": "source-family.v1", "id": "tax.us.2025.f1099int.b3", "version": "v1" },
+    { "role": "source-family", "schema": "source-family.v1", "id": "tax.us.2025.f1099oid.b1", "version": "v1" },
+    { "role": "source-family", "schema": "source-family.v1", "id": "tax.us.2025.non-form-interest", "version": "v1" },
+
+    { "role": "source-closure-mapping", "schema": "source-closure-mapping.v2", "id": "tax.us.2025.closure-mapping.f1099int-b1", "version": "v1" },
+    { "role": "source-closure-mapping", "schema": "source-closure-mapping.v2", "id": "tax.us.2025.closure-mapping.f1099int-b3", "version": "v1" },
+    { "role": "source-closure-mapping", "schema": "source-closure-mapping.v2", "id": "tax.us.2025.closure-mapping.f1099oid-b1", "version": "v1" },
+    { "role": "source-closure-mapping", "schema": "source-closure-mapping.v2", "id": "tax.us.2025.closure-mapping.non-form-interest", "version": "v1" },
+
+    { "role": "composition", "schema": "taxable-interest-composition.v1", "id": "tax.us.2025.interest-composition", "version": "v1" },
+
+    { "role": "form-field", "schema": "form-field.v2", "id": "tax.us.2025.form1040.line-1a", "version": "v1" },
+    { "role": "form-field", "schema": "form-field.v2", "id": "tax.us.2025.form1040.line-2b", "version": "v1" },
+    { "role": "form-field", "schema": "form-field.v2", "id": "tax.us.2025.form1040.line-9", "version": "v1" },
+    { "role": "form-field", "schema": "form-field.v2", "id": "tax.us.2025.form1040.line-11", "version": "v1" },
+    { "role": "form-field", "schema": "form-field.v2", "id": "tax.us.2025.form1040.line-12", "version": "v1" },
+    { "role": "form-field", "schema": "form-field.v2", "id": "tax.us.2025.form1040.line-15", "version": "v1" },
+    { "role": "form-field", "schema": "form-field.v2", "id": "tax.us.2025.form1040.line-16", "version": "v1" },
+
+    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-1a", "version": "v1" },
+    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-2b", "version": "v1" },
+    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-9", "version": "v1" },
+    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-11", "version": "v1" },
+    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-12", "version": "v1" },
+    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-15", "version": "v1" },
+    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-16", "version": "v1" },
+
+    { "role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.interest_composition.vocabulary", "version": "v1" },
+    { "role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.core_calculations.vocabulary", "version": "v1" },
+    { "role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.w2-vocabulary", "version": "v1" },
+
+    { "role": "parameter", "schema": "parameter-declaration.v1", "id": "demo.parameter.standard-deduction-base.2025", "version": "v1" },
+    { "role": "parameter", "schema": "parameter-declaration.v1", "id": "demo.parameter.additional-deduction-rate.2025", "version": "v1" },
+    { "role": "parameter", "schema": "parameter-declaration.v1", "id": "demo.parameter.tax-brackets.2025", "version": "v1" },
+    { "role": "parameter", "schema": "parameter-declaration.v1", "id": "tax.us.2025.parameter.default-false", "version": "v1" },
+    { "role": "parameter", "schema": "parameter-declaration.v1", "id": "tax.us.2025.parameter.default-zero", "version": "v1" },
+    { "role": "parameter", "schema": "quantity-vocabulary.v1", "id": "tax.us.2025.quantity.taxable-interest", "version": "v1" }
+  ],
+  "input_bindings": [
+    { "symbol": "rounding.convention", "fact_type": { "id": "rounding.convention", "version": "v1" }, "mode": "required" },
+    { "symbol": "filing_status", "fact_type": { "id": "tax.us.2025.filing-status", "version": "v1" }, "mode": "required" },
+    { "symbol": "taxpayer_over_65", "fact_type": { "id": "tax.us.2025.taxpayer-over-65", "version": "v1" }, "mode": "optional_default" },
+    { "symbol": "taxpayer_blind", "fact_type": { "id": "tax.us.2025.taxpayer-blind", "version": "v1" }, "mode": "optional_default" },
+    { "symbol": "spouse_over_65", "fact_type": { "id": "tax.us.2025.spouse-over-65", "version": "v1" }, "mode": "optional_default" },
+    { "symbol": "spouse_blind", "fact_type": { "id": "tax.us.2025.spouse-blind", "version": "v1" }, "mode": "optional_default" },
+    { "symbol": "tax.us.2025.deductions.itemized", "fact_type": { "id": "tax.us.2025.deductions.itemized", "version": "v1" }, "mode": "optional_default" }
+  ],
+  "entrypoints": [
+    { "id": "tax.us.2025.rule.form1040-line16", "version": "v1" }
+  ],
+  "composition_obligations": [
+    "tax.us.2025.interest.taxable-total"
+  ],
+  "package_checksum": "0aa00a6e410e37904b494aa6cdfcce225ddae7bdd34407c6f8d3107392bf3539"
+}

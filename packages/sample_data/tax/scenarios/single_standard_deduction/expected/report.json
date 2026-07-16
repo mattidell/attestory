@@ -1,0 +1,4615 @@
+{
+  "blocked": [],
+  "explanations": {
+    "demo.form1040.standard_deduction": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-status-single",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "filing_status",
+          "value": "single",
+          "version": "v1"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.parameter.default-false",
+              "kind": "parameter",
+              "produced_by": null,
+              "role": "parameter",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:034ec7a3c90de85e27043492",
+          "kind": "derived",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "taxpayer_over_65",
+          "value": "false",
+          "version": "v2"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.parameter.default-false",
+              "kind": "parameter",
+              "produced_by": null,
+              "role": "parameter",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:6c1dfebfe87f10fa62f7bff8",
+          "kind": "derived",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "taxpayer_blind",
+          "value": "false",
+          "version": "v2"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.parameter.standard-deduction-base.2025",
+          "kind": "parameter",
+          "produced_by": null,
+          "role": "parameter",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:75c6c166924f08b23c429e82",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.form1040-standard-deduction",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "demo.form1040.standard_deduction",
+      "value": "15000",
+      "version": "v2"
+    },
+    "spouse_blind": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.parameter.default-false",
+          "kind": "parameter",
+          "produced_by": null,
+          "role": "parameter",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:3052de6132345126bc694683",
+      "kind": "derived",
+      "produced_by": null,
+      "role": "output",
+      "symbol": "spouse_blind",
+      "value": "false",
+      "version": "v2"
+    },
+    "spouse_over_65": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.parameter.default-false",
+          "kind": "parameter",
+          "produced_by": null,
+          "role": "parameter",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:44c298df3d30e131e1255bb1",
+      "kind": "derived",
+      "produced_by": null,
+      "role": "output",
+      "symbol": "spouse_over_65",
+      "value": "false",
+      "version": "v2"
+    },
+    "tax.us.2025.deductions.itemized": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.parameter.default-zero",
+          "kind": "parameter",
+          "produced_by": null,
+          "role": "parameter",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:a2afd606bfb41a378c7ae6b6",
+      "kind": "derived",
+      "produced_by": null,
+      "role": "output",
+      "symbol": "tax.us.2025.deductions.itemized",
+      "value": "0",
+      "version": "v2"
+    },
+    "tax.us.2025.deductions.total": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-finding-status-single",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "filing_status",
+              "value": "single",
+              "version": "v1"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.parameter.default-false",
+                  "kind": "parameter",
+                  "produced_by": null,
+                  "role": "parameter",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:034ec7a3c90de85e27043492",
+              "kind": "derived",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "taxpayer_over_65",
+              "value": "false",
+              "version": "v2"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.parameter.default-false",
+                  "kind": "parameter",
+                  "produced_by": null,
+                  "role": "parameter",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:6c1dfebfe87f10fa62f7bff8",
+              "kind": "derived",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "taxpayer_blind",
+              "value": "false",
+              "version": "v2"
+            },
+            {
+              "children": [],
+              "finding_id": "demo.parameter.standard-deduction-base.2025",
+              "kind": "parameter",
+              "produced_by": null,
+              "role": "parameter",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:75c6c166924f08b23c429e82",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.form1040-standard-deduction",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "demo.form1040.standard_deduction",
+          "value": "15000",
+          "version": "v2"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.parameter.default-zero",
+              "kind": "parameter",
+              "produced_by": null,
+              "role": "parameter",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:a2afd606bfb41a378c7ae6b6",
+          "kind": "derived",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.deductions.itemized",
+          "value": "0",
+          "version": "v2"
+        }
+      ],
+      "finding_id": "finding:derived:30bf852e9adcb8ac8cbeae02",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.form1040-line12",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.deductions.total",
+      "value": "15000",
+      "version": "v2"
+    },
+    "tax.us.2025.income.agi": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-closure-single-b1",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.f1099int.b1.source-closure",
+                  "value": true,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-closure-single-b3",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.f1099int.b3.source-closure",
+                  "value": true,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-closure-single-nonform",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.non-form-interest.source-closure",
+                  "value": true,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-closure-single-oid",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+                  "value": true,
+                  "version": "v1"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-closure-single-oid",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+                      "value": true,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-finding-rounding-single",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "rounding.convention",
+                      "value": "half_up",
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "round",
+                      "kind": "operation-semantics",
+                      "produced_by": null,
+                      "role": "operation-semantics",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.f1099oid.b1",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:0e4b2035ea40d91c4cbf48ef",
+                  "kind": "derived",
+                  "produced_by": {
+                    "id": "tax.us.2025.rule.f1099oid-subtotal",
+                    "role": "computation",
+                    "version": "v1"
+                  },
+                  "role": "input",
+                  "symbol": "tax.us.2025.interest.oid-subtotal",
+                  "value": "0",
+                  "version": "v2"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-closure-single-nonform",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "tax.us.2025.non-form-interest.source-closure",
+                      "value": true,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-finding-rounding-single",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "rounding.convention",
+                      "value": "half_up",
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "round",
+                      "kind": "operation-semantics",
+                      "produced_by": null,
+                      "role": "operation-semantics",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.non-form-interest",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:2df3a1d6788ad932e78a6f1a",
+                  "kind": "derived",
+                  "produced_by": {
+                    "id": "tax.us.2025.rule.non-form-interest-subtotal",
+                    "role": "computation",
+                    "version": "v1"
+                  },
+                  "role": "input",
+                  "symbol": "tax.us.2025.interest.non-form-subtotal",
+                  "value": "0",
+                  "version": "v2"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-closure-single-b3",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "tax.us.2025.f1099int.b3.source-closure",
+                      "value": true,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-finding-rounding-single",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "rounding.convention",
+                      "value": "half_up",
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "round",
+                      "kind": "operation-semantics",
+                      "produced_by": null,
+                      "role": "operation-semantics",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.f1099int.b3",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:7b43d7aed004521f50fda919",
+                  "kind": "derived",
+                  "produced_by": {
+                    "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+                    "role": "computation",
+                    "version": "v1"
+                  },
+                  "role": "input",
+                  "symbol": "tax.us.2025.interest.b3-subtotal",
+                  "value": "0",
+                  "version": "v2"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-closure-single-b1",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "tax.us.2025.f1099int.b1.source-closure",
+                      "value": true,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-finding-rounding-single",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "rounding.convention",
+                      "value": "half_up",
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "round",
+                      "kind": "operation-semantics",
+                      "produced_by": null,
+                      "role": "operation-semantics",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.f1099int.b1",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:7c2b5254c98fc53f520c2f13",
+                  "kind": "derived",
+                  "produced_by": {
+                    "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+                    "role": "computation",
+                    "version": "v1"
+                  },
+                  "role": "input",
+                  "symbol": "tax.us.2025.interest.b1-subtotal",
+                  "value": "0",
+                  "version": "v2"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.f1099int.b1",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.f1099int.b3",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.f1099oid.b1",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.non-form-interest",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:7e69ad4303f3f06ebaec8ae6",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.form1040-line2b",
+                "role": "computation",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "tax.us.2025.interest.taxable-total",
+              "value": "0",
+              "version": "v2"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-finding-rounding-single",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "rounding.convention",
+                  "value": "half_up",
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-finding-w2-single",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.w2.box1-wages",
+                  "value": "5e4",
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "round",
+                  "kind": "operation-semantics",
+                  "produced_by": null,
+                  "role": "operation-semantics",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:8e586171714c1a29a5ee7509",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.w2-box1-to-line1a",
+                "role": "field-mapping",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "tax.us.2025.wages.total-w2-box1",
+              "value": "50000",
+              "version": "v2"
+            }
+          ],
+          "finding_id": "finding:derived:b20f85a8731610465c5d2c41",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.form1040-line9",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.income.total-income",
+          "value": "50000",
+          "version": "v2"
+        }
+      ],
+      "finding_id": "finding:derived:b7ac814d01a66374da4126be",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.form1040-line11",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.income.agi",
+      "value": "50000",
+      "version": "v2"
+    },
+    "tax.us.2025.income.taxable-income": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-finding-status-single",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "filing_status",
+                  "value": "single",
+                  "version": "v1"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.parameter.default-false",
+                      "kind": "parameter",
+                      "produced_by": null,
+                      "role": "parameter",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:034ec7a3c90de85e27043492",
+                  "kind": "derived",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "taxpayer_over_65",
+                  "value": "false",
+                  "version": "v2"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.parameter.default-false",
+                      "kind": "parameter",
+                      "produced_by": null,
+                      "role": "parameter",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:6c1dfebfe87f10fa62f7bff8",
+                  "kind": "derived",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "taxpayer_blind",
+                  "value": "false",
+                  "version": "v2"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo.parameter.standard-deduction-base.2025",
+                  "kind": "parameter",
+                  "produced_by": null,
+                  "role": "parameter",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:75c6c166924f08b23c429e82",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.form1040-standard-deduction",
+                "role": "computation",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "demo.form1040.standard_deduction",
+              "value": "15000",
+              "version": "v2"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.parameter.default-zero",
+                  "kind": "parameter",
+                  "produced_by": null,
+                  "role": "parameter",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:a2afd606bfb41a378c7ae6b6",
+              "kind": "derived",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.deductions.itemized",
+              "value": "0",
+              "version": "v2"
+            }
+          ],
+          "finding_id": "finding:derived:30bf852e9adcb8ac8cbeae02",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.form1040-line12",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.deductions.total",
+          "value": "15000",
+          "version": "v2"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-closure-single-b1",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "tax.us.2025.f1099int.b1.source-closure",
+                      "value": true,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-closure-single-b3",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "tax.us.2025.f1099int.b3.source-closure",
+                      "value": true,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-closure-single-nonform",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "tax.us.2025.non-form-interest.source-closure",
+                      "value": true,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-closure-single-oid",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+                      "value": true,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.package.core-calculations",
+                          "kind": "adoption",
+                          "produced_by": null,
+                          "role": "adoption",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "governance.constitution",
+                          "kind": "governance",
+                          "produced_by": null,
+                          "role": "governance",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-closure-single-oid",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+                          "value": true,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-finding-rounding-single",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "rounding.convention",
+                          "value": "half_up",
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "round",
+                          "kind": "operation-semantics",
+                          "produced_by": null,
+                          "role": "operation-semantics",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.f1099oid.b1",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        }
+                      ],
+                      "finding_id": "finding:derived:0e4b2035ea40d91c4cbf48ef",
+                      "kind": "derived",
+                      "produced_by": {
+                        "id": "tax.us.2025.rule.f1099oid-subtotal",
+                        "role": "computation",
+                        "version": "v1"
+                      },
+                      "role": "input",
+                      "symbol": "tax.us.2025.interest.oid-subtotal",
+                      "value": "0",
+                      "version": "v2"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.package.core-calculations",
+                          "kind": "adoption",
+                          "produced_by": null,
+                          "role": "adoption",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "governance.constitution",
+                          "kind": "governance",
+                          "produced_by": null,
+                          "role": "governance",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-closure-single-nonform",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "tax.us.2025.non-form-interest.source-closure",
+                          "value": true,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-finding-rounding-single",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "rounding.convention",
+                          "value": "half_up",
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "round",
+                          "kind": "operation-semantics",
+                          "produced_by": null,
+                          "role": "operation-semantics",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.non-form-interest",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        }
+                      ],
+                      "finding_id": "finding:derived:2df3a1d6788ad932e78a6f1a",
+                      "kind": "derived",
+                      "produced_by": {
+                        "id": "tax.us.2025.rule.non-form-interest-subtotal",
+                        "role": "computation",
+                        "version": "v1"
+                      },
+                      "role": "input",
+                      "symbol": "tax.us.2025.interest.non-form-subtotal",
+                      "value": "0",
+                      "version": "v2"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.package.core-calculations",
+                          "kind": "adoption",
+                          "produced_by": null,
+                          "role": "adoption",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "governance.constitution",
+                          "kind": "governance",
+                          "produced_by": null,
+                          "role": "governance",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-closure-single-b3",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "tax.us.2025.f1099int.b3.source-closure",
+                          "value": true,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-finding-rounding-single",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "rounding.convention",
+                          "value": "half_up",
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "round",
+                          "kind": "operation-semantics",
+                          "produced_by": null,
+                          "role": "operation-semantics",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.f1099int.b3",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        }
+                      ],
+                      "finding_id": "finding:derived:7b43d7aed004521f50fda919",
+                      "kind": "derived",
+                      "produced_by": {
+                        "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+                        "role": "computation",
+                        "version": "v1"
+                      },
+                      "role": "input",
+                      "symbol": "tax.us.2025.interest.b3-subtotal",
+                      "value": "0",
+                      "version": "v2"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.package.core-calculations",
+                          "kind": "adoption",
+                          "produced_by": null,
+                          "role": "adoption",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "governance.constitution",
+                          "kind": "governance",
+                          "produced_by": null,
+                          "role": "governance",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-closure-single-b1",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "tax.us.2025.f1099int.b1.source-closure",
+                          "value": true,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-finding-rounding-single",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "rounding.convention",
+                          "value": "half_up",
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "round",
+                          "kind": "operation-semantics",
+                          "produced_by": null,
+                          "role": "operation-semantics",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.f1099int.b1",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        }
+                      ],
+                      "finding_id": "finding:derived:7c2b5254c98fc53f520c2f13",
+                      "kind": "derived",
+                      "produced_by": {
+                        "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+                        "role": "computation",
+                        "version": "v1"
+                      },
+                      "role": "input",
+                      "symbol": "tax.us.2025.interest.b1-subtotal",
+                      "value": "0",
+                      "version": "v2"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.f1099int.b1",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.f1099int.b3",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.f1099oid.b1",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.non-form-interest",
+                      "kind": "package",
+                      "produced_by": null,
+                      "role": "package",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:7e69ad4303f3f06ebaec8ae6",
+                  "kind": "derived",
+                  "produced_by": {
+                    "id": "tax.us.2025.rule.form1040-line2b",
+                    "role": "computation",
+                    "version": "v1"
+                  },
+                  "role": "input",
+                  "symbol": "tax.us.2025.interest.taxable-total",
+                  "value": "0",
+                  "version": "v2"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-finding-rounding-single",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "rounding.convention",
+                      "value": "half_up",
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-finding-w2-single",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "tax.us.2025.w2.box1-wages",
+                      "value": "5e4",
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "round",
+                      "kind": "operation-semantics",
+                      "produced_by": null,
+                      "role": "operation-semantics",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:8e586171714c1a29a5ee7509",
+                  "kind": "derived",
+                  "produced_by": {
+                    "id": "tax.us.2025.rule.w2-box1-to-line1a",
+                    "role": "field-mapping",
+                    "version": "v1"
+                  },
+                  "role": "input",
+                  "symbol": "tax.us.2025.wages.total-w2-box1",
+                  "value": "50000",
+                  "version": "v2"
+                }
+              ],
+              "finding_id": "finding:derived:b20f85a8731610465c5d2c41",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.form1040-line9",
+                "role": "computation",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "tax.us.2025.income.total-income",
+              "value": "50000",
+              "version": "v2"
+            }
+          ],
+          "finding_id": "finding:derived:b7ac814d01a66374da4126be",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.form1040-line11",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.income.agi",
+          "value": "50000",
+          "version": "v2"
+        }
+      ],
+      "finding_id": "finding:derived:43f03fff7d60e8858c978321",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.form1040-line15",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.income.taxable-income",
+      "value": "35000",
+      "version": "v2"
+    },
+    "tax.us.2025.income.total-income": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-closure-single-b1",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.f1099int.b1.source-closure",
+              "value": true,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-closure-single-b3",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.f1099int.b3.source-closure",
+              "value": true,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-closure-single-nonform",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.non-form-interest.source-closure",
+              "value": true,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-closure-single-oid",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+              "value": true,
+              "version": "v1"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-closure-single-oid",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+                  "value": true,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-finding-rounding-single",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "rounding.convention",
+                  "value": "half_up",
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "round",
+                  "kind": "operation-semantics",
+                  "produced_by": null,
+                  "role": "operation-semantics",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.f1099oid.b1",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:0e4b2035ea40d91c4cbf48ef",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.f1099oid-subtotal",
+                "role": "computation",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "tax.us.2025.interest.oid-subtotal",
+              "value": "0",
+              "version": "v2"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-closure-single-nonform",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.non-form-interest.source-closure",
+                  "value": true,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-finding-rounding-single",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "rounding.convention",
+                  "value": "half_up",
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "round",
+                  "kind": "operation-semantics",
+                  "produced_by": null,
+                  "role": "operation-semantics",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.non-form-interest",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:2df3a1d6788ad932e78a6f1a",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.non-form-interest-subtotal",
+                "role": "computation",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "tax.us.2025.interest.non-form-subtotal",
+              "value": "0",
+              "version": "v2"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-closure-single-b3",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.f1099int.b3.source-closure",
+                  "value": true,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-finding-rounding-single",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "rounding.convention",
+                  "value": "half_up",
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "round",
+                  "kind": "operation-semantics",
+                  "produced_by": null,
+                  "role": "operation-semantics",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.f1099int.b3",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:7b43d7aed004521f50fda919",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+                "role": "computation",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "tax.us.2025.interest.b3-subtotal",
+              "value": "0",
+              "version": "v2"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-closure-single-b1",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.f1099int.b1.source-closure",
+                  "value": true,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "demo-finding-rounding-single",
+                  "kind": "input",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "rounding.convention",
+                  "value": "half_up",
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "round",
+                  "kind": "operation-semantics",
+                  "produced_by": null,
+                  "role": "operation-semantics",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.f1099int.b1",
+                  "kind": "package",
+                  "produced_by": null,
+                  "role": "package",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                }
+              ],
+              "finding_id": "finding:derived:7c2b5254c98fc53f520c2f13",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+                "role": "computation",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "tax.us.2025.interest.b1-subtotal",
+              "value": "0",
+              "version": "v2"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.f1099int.b1",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.f1099int.b3",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.f1099oid.b1",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.non-form-interest",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:7e69ad4303f3f06ebaec8ae6",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.form1040-line2b",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.interest.taxable-total",
+          "value": "0",
+          "version": "v2"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-finding-rounding-single",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "rounding.convention",
+              "value": "half_up",
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-finding-w2-single",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.w2.box1-wages",
+              "value": "5e4",
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "round",
+              "kind": "operation-semantics",
+              "produced_by": null,
+              "role": "operation-semantics",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:8e586171714c1a29a5ee7509",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.w2-box1-to-line1a",
+            "role": "field-mapping",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.wages.total-w2-box1",
+          "value": "50000",
+          "version": "v2"
+        }
+      ],
+      "finding_id": "finding:derived:b20f85a8731610465c5d2c41",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.form1040-line9",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.income.total-income",
+      "value": "50000",
+      "version": "v2"
+    },
+    "tax.us.2025.interest.b1-subtotal": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-closure-single-b1",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.f1099int.b1.source-closure",
+          "value": true,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-rounding-single",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "rounding.convention",
+          "value": "half_up",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "round",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.f1099int.b1",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:7c2b5254c98fc53f520c2f13",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.interest.b1-subtotal",
+      "value": "0",
+      "version": "v2"
+    },
+    "tax.us.2025.interest.b3-subtotal": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-closure-single-b3",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.f1099int.b3.source-closure",
+          "value": true,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-rounding-single",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "rounding.convention",
+          "value": "half_up",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "round",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.f1099int.b3",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:7b43d7aed004521f50fda919",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.interest.b3-subtotal",
+      "value": "0",
+      "version": "v2"
+    },
+    "tax.us.2025.interest.non-form-subtotal": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-closure-single-nonform",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.non-form-interest.source-closure",
+          "value": true,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-rounding-single",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "rounding.convention",
+          "value": "half_up",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "round",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.non-form-interest",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:2df3a1d6788ad932e78a6f1a",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.non-form-interest-subtotal",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.interest.non-form-subtotal",
+      "value": "0",
+      "version": "v2"
+    },
+    "tax.us.2025.interest.oid-subtotal": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-closure-single-oid",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+          "value": true,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-rounding-single",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "rounding.convention",
+          "value": "half_up",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "round",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.f1099oid.b1",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:0e4b2035ea40d91c4cbf48ef",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.f1099oid-subtotal",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.interest.oid-subtotal",
+      "value": "0",
+      "version": "v2"
+    },
+    "tax.us.2025.interest.taxable-total": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-closure-single-b1",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.f1099int.b1.source-closure",
+          "value": true,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-closure-single-b3",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.f1099int.b3.source-closure",
+          "value": true,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-closure-single-nonform",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.non-form-interest.source-closure",
+          "value": true,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-closure-single-oid",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+          "value": true,
+          "version": "v1"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-closure-single-oid",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+              "value": true,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-finding-rounding-single",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "rounding.convention",
+              "value": "half_up",
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "round",
+              "kind": "operation-semantics",
+              "produced_by": null,
+              "role": "operation-semantics",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.f1099oid.b1",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:0e4b2035ea40d91c4cbf48ef",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.f1099oid-subtotal",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.interest.oid-subtotal",
+          "value": "0",
+          "version": "v2"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-closure-single-nonform",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.non-form-interest.source-closure",
+              "value": true,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-finding-rounding-single",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "rounding.convention",
+              "value": "half_up",
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "round",
+              "kind": "operation-semantics",
+              "produced_by": null,
+              "role": "operation-semantics",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.non-form-interest",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:2df3a1d6788ad932e78a6f1a",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.non-form-interest-subtotal",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.interest.non-form-subtotal",
+          "value": "0",
+          "version": "v2"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-closure-single-b3",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.f1099int.b3.source-closure",
+              "value": true,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-finding-rounding-single",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "rounding.convention",
+              "value": "half_up",
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "round",
+              "kind": "operation-semantics",
+              "produced_by": null,
+              "role": "operation-semantics",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.f1099int.b3",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:7b43d7aed004521f50fda919",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.interest.b3-subtotal",
+          "value": "0",
+          "version": "v2"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-closure-single-b1",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "tax.us.2025.f1099int.b1.source-closure",
+              "value": true,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "demo-finding-rounding-single",
+              "kind": "input",
+              "produced_by": null,
+              "role": "input",
+              "symbol": "rounding.convention",
+              "value": "half_up",
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "round",
+              "kind": "operation-semantics",
+              "produced_by": null,
+              "role": "operation-semantics",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.f1099int.b1",
+              "kind": "package",
+              "produced_by": null,
+              "role": "package",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            }
+          ],
+          "finding_id": "finding:derived:7c2b5254c98fc53f520c2f13",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.interest.b1-subtotal",
+          "value": "0",
+          "version": "v2"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.f1099int.b1",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.f1099int.b3",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.f1099oid.b1",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.non-form-interest",
+          "kind": "package",
+          "produced_by": null,
+          "role": "package",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:7e69ad4303f3f06ebaec8ae6",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.form1040-line2b",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.interest.taxable-total",
+      "value": "0",
+      "version": "v2"
+    },
+    "tax.us.2025.tax.total-tax": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-rounding-single",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "rounding.convention",
+          "value": "half_up",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-status-single",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "filing_status",
+          "value": "single",
+          "version": "v1"
+        },
+        {
+          "children": [
+            {
+              "children": [],
+              "finding_id": "tax.us.2025.package.core-calculations",
+              "kind": "adoption",
+              "produced_by": null,
+              "role": "adoption",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [],
+              "finding_id": "governance.constitution",
+              "kind": "governance",
+              "produced_by": null,
+              "role": "governance",
+              "symbol": null,
+              "value": null,
+              "version": "v1"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo-finding-status-single",
+                      "kind": "input",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "filing_status",
+                      "value": "single",
+                      "version": "v1"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.package.core-calculations",
+                          "kind": "adoption",
+                          "produced_by": null,
+                          "role": "adoption",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "governance.constitution",
+                          "kind": "governance",
+                          "produced_by": null,
+                          "role": "governance",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.parameter.default-false",
+                          "kind": "parameter",
+                          "produced_by": null,
+                          "role": "parameter",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        }
+                      ],
+                      "finding_id": "finding:derived:034ec7a3c90de85e27043492",
+                      "kind": "derived",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "taxpayer_over_65",
+                      "value": "false",
+                      "version": "v2"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.package.core-calculations",
+                          "kind": "adoption",
+                          "produced_by": null,
+                          "role": "adoption",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "governance.constitution",
+                          "kind": "governance",
+                          "produced_by": null,
+                          "role": "governance",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.parameter.default-false",
+                          "kind": "parameter",
+                          "produced_by": null,
+                          "role": "parameter",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        }
+                      ],
+                      "finding_id": "finding:derived:6c1dfebfe87f10fa62f7bff8",
+                      "kind": "derived",
+                      "produced_by": null,
+                      "role": "input",
+                      "symbol": "taxpayer_blind",
+                      "value": "false",
+                      "version": "v2"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "demo.parameter.standard-deduction-base.2025",
+                      "kind": "parameter",
+                      "produced_by": null,
+                      "role": "parameter",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:75c6c166924f08b23c429e82",
+                  "kind": "derived",
+                  "produced_by": {
+                    "id": "tax.us.2025.rule.form1040-standard-deduction",
+                    "role": "computation",
+                    "version": "v1"
+                  },
+                  "role": "input",
+                  "symbol": "demo.form1040.standard_deduction",
+                  "value": "15000",
+                  "version": "v2"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.parameter.default-zero",
+                      "kind": "parameter",
+                      "produced_by": null,
+                      "role": "parameter",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    }
+                  ],
+                  "finding_id": "finding:derived:a2afd606bfb41a378c7ae6b6",
+                  "kind": "derived",
+                  "produced_by": null,
+                  "role": "input",
+                  "symbol": "tax.us.2025.deductions.itemized",
+                  "value": "0",
+                  "version": "v2"
+                }
+              ],
+              "finding_id": "finding:derived:30bf852e9adcb8ac8cbeae02",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.form1040-line12",
+                "role": "computation",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "tax.us.2025.deductions.total",
+              "value": "15000",
+              "version": "v2"
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "finding_id": "tax.us.2025.package.core-calculations",
+                  "kind": "adoption",
+                  "produced_by": null,
+                  "role": "adoption",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [],
+                  "finding_id": "governance.constitution",
+                  "kind": "governance",
+                  "produced_by": null,
+                  "role": "governance",
+                  "symbol": null,
+                  "value": null,
+                  "version": "v1"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "finding_id": "tax.us.2025.package.core-calculations",
+                      "kind": "adoption",
+                      "produced_by": null,
+                      "role": "adoption",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [],
+                      "finding_id": "governance.constitution",
+                      "kind": "governance",
+                      "produced_by": null,
+                      "role": "governance",
+                      "symbol": null,
+                      "value": null,
+                      "version": "v1"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.package.core-calculations",
+                          "kind": "adoption",
+                          "produced_by": null,
+                          "role": "adoption",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "governance.constitution",
+                          "kind": "governance",
+                          "produced_by": null,
+                          "role": "governance",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-closure-single-b1",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "tax.us.2025.f1099int.b1.source-closure",
+                          "value": true,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-closure-single-b3",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "tax.us.2025.f1099int.b3.source-closure",
+                          "value": true,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-closure-single-nonform",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "tax.us.2025.non-form-interest.source-closure",
+                          "value": true,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-closure-single-oid",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+                          "value": true,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.package.core-calculations",
+                              "kind": "adoption",
+                              "produced_by": null,
+                              "role": "adoption",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "governance.constitution",
+                              "kind": "governance",
+                              "produced_by": null,
+                              "role": "governance",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "demo-closure-single-oid",
+                              "kind": "input",
+                              "produced_by": null,
+                              "role": "input",
+                              "symbol": "tax.us.2025.f1099oid.b1.source-closure",
+                              "value": true,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "demo-finding-rounding-single",
+                              "kind": "input",
+                              "produced_by": null,
+                              "role": "input",
+                              "symbol": "rounding.convention",
+                              "value": "half_up",
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "round",
+                              "kind": "operation-semantics",
+                              "produced_by": null,
+                              "role": "operation-semantics",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+                              "kind": "package",
+                              "produced_by": null,
+                              "role": "package",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.f1099oid.b1",
+                              "kind": "package",
+                              "produced_by": null,
+                              "role": "package",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            }
+                          ],
+                          "finding_id": "finding:derived:0e4b2035ea40d91c4cbf48ef",
+                          "kind": "derived",
+                          "produced_by": {
+                            "id": "tax.us.2025.rule.f1099oid-subtotal",
+                            "role": "computation",
+                            "version": "v1"
+                          },
+                          "role": "input",
+                          "symbol": "tax.us.2025.interest.oid-subtotal",
+                          "value": "0",
+                          "version": "v2"
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.package.core-calculations",
+                              "kind": "adoption",
+                              "produced_by": null,
+                              "role": "adoption",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "governance.constitution",
+                              "kind": "governance",
+                              "produced_by": null,
+                              "role": "governance",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "demo-closure-single-nonform",
+                              "kind": "input",
+                              "produced_by": null,
+                              "role": "input",
+                              "symbol": "tax.us.2025.non-form-interest.source-closure",
+                              "value": true,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "demo-finding-rounding-single",
+                              "kind": "input",
+                              "produced_by": null,
+                              "role": "input",
+                              "symbol": "rounding.convention",
+                              "value": "half_up",
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "round",
+                              "kind": "operation-semantics",
+                              "produced_by": null,
+                              "role": "operation-semantics",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+                              "kind": "package",
+                              "produced_by": null,
+                              "role": "package",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.non-form-interest",
+                              "kind": "package",
+                              "produced_by": null,
+                              "role": "package",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            }
+                          ],
+                          "finding_id": "finding:derived:2df3a1d6788ad932e78a6f1a",
+                          "kind": "derived",
+                          "produced_by": {
+                            "id": "tax.us.2025.rule.non-form-interest-subtotal",
+                            "role": "computation",
+                            "version": "v1"
+                          },
+                          "role": "input",
+                          "symbol": "tax.us.2025.interest.non-form-subtotal",
+                          "value": "0",
+                          "version": "v2"
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.package.core-calculations",
+                              "kind": "adoption",
+                              "produced_by": null,
+                              "role": "adoption",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "governance.constitution",
+                              "kind": "governance",
+                              "produced_by": null,
+                              "role": "governance",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "demo-closure-single-b3",
+                              "kind": "input",
+                              "produced_by": null,
+                              "role": "input",
+                              "symbol": "tax.us.2025.f1099int.b3.source-closure",
+                              "value": true,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "demo-finding-rounding-single",
+                              "kind": "input",
+                              "produced_by": null,
+                              "role": "input",
+                              "symbol": "rounding.convention",
+                              "value": "half_up",
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "round",
+                              "kind": "operation-semantics",
+                              "produced_by": null,
+                              "role": "operation-semantics",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+                              "kind": "package",
+                              "produced_by": null,
+                              "role": "package",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.f1099int.b3",
+                              "kind": "package",
+                              "produced_by": null,
+                              "role": "package",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            }
+                          ],
+                          "finding_id": "finding:derived:7b43d7aed004521f50fda919",
+                          "kind": "derived",
+                          "produced_by": {
+                            "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+                            "role": "computation",
+                            "version": "v1"
+                          },
+                          "role": "input",
+                          "symbol": "tax.us.2025.interest.b3-subtotal",
+                          "value": "0",
+                          "version": "v2"
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.package.core-calculations",
+                              "kind": "adoption",
+                              "produced_by": null,
+                              "role": "adoption",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "governance.constitution",
+                              "kind": "governance",
+                              "produced_by": null,
+                              "role": "governance",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "demo-closure-single-b1",
+                              "kind": "input",
+                              "produced_by": null,
+                              "role": "input",
+                              "symbol": "tax.us.2025.f1099int.b1.source-closure",
+                              "value": true,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "demo-finding-rounding-single",
+                              "kind": "input",
+                              "produced_by": null,
+                              "role": "input",
+                              "symbol": "rounding.convention",
+                              "value": "half_up",
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "round",
+                              "kind": "operation-semantics",
+                              "produced_by": null,
+                              "role": "operation-semantics",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+                              "kind": "package",
+                              "produced_by": null,
+                              "role": "package",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            },
+                            {
+                              "children": [],
+                              "finding_id": "tax.us.2025.f1099int.b1",
+                              "kind": "package",
+                              "produced_by": null,
+                              "role": "package",
+                              "symbol": null,
+                              "value": null,
+                              "version": "v1"
+                            }
+                          ],
+                          "finding_id": "finding:derived:7c2b5254c98fc53f520c2f13",
+                          "kind": "derived",
+                          "produced_by": {
+                            "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+                            "role": "computation",
+                            "version": "v1"
+                          },
+                          "role": "input",
+                          "symbol": "tax.us.2025.interest.b1-subtotal",
+                          "value": "0",
+                          "version": "v2"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.closure-mapping.f1099int-b1",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.closure-mapping.f1099int-b3",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.closure-mapping.f1099oid-b1",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.closure-mapping.non-form-interest",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.f1099int.b1",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.f1099int.b3",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.f1099oid.b1",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.non-form-interest",
+                          "kind": "package",
+                          "produced_by": null,
+                          "role": "package",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        }
+                      ],
+                      "finding_id": "finding:derived:7e69ad4303f3f06ebaec8ae6",
+                      "kind": "derived",
+                      "produced_by": {
+                        "id": "tax.us.2025.rule.form1040-line2b",
+                        "role": "computation",
+                        "version": "v1"
+                      },
+                      "role": "input",
+                      "symbol": "tax.us.2025.interest.taxable-total",
+                      "value": "0",
+                      "version": "v2"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [],
+                          "finding_id": "tax.us.2025.package.core-calculations",
+                          "kind": "adoption",
+                          "produced_by": null,
+                          "role": "adoption",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "governance.constitution",
+                          "kind": "governance",
+                          "produced_by": null,
+                          "role": "governance",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-finding-rounding-single",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "rounding.convention",
+                          "value": "half_up",
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "demo-finding-w2-single",
+                          "kind": "input",
+                          "produced_by": null,
+                          "role": "input",
+                          "symbol": "tax.us.2025.w2.box1-wages",
+                          "value": "5e4",
+                          "version": "v1"
+                        },
+                        {
+                          "children": [],
+                          "finding_id": "round",
+                          "kind": "operation-semantics",
+                          "produced_by": null,
+                          "role": "operation-semantics",
+                          "symbol": null,
+                          "value": null,
+                          "version": "v1"
+                        }
+                      ],
+                      "finding_id": "finding:derived:8e586171714c1a29a5ee7509",
+                      "kind": "derived",
+                      "produced_by": {
+                        "id": "tax.us.2025.rule.w2-box1-to-line1a",
+                        "role": "field-mapping",
+                        "version": "v1"
+                      },
+                      "role": "input",
+                      "symbol": "tax.us.2025.wages.total-w2-box1",
+                      "value": "50000",
+                      "version": "v2"
+                    }
+                  ],
+                  "finding_id": "finding:derived:b20f85a8731610465c5d2c41",
+                  "kind": "derived",
+                  "produced_by": {
+                    "id": "tax.us.2025.rule.form1040-line9",
+                    "role": "computation",
+                    "version": "v1"
+                  },
+                  "role": "input",
+                  "symbol": "tax.us.2025.income.total-income",
+                  "value": "50000",
+                  "version": "v2"
+                }
+              ],
+              "finding_id": "finding:derived:b7ac814d01a66374da4126be",
+              "kind": "derived",
+              "produced_by": {
+                "id": "tax.us.2025.rule.form1040-line11",
+                "role": "computation",
+                "version": "v1"
+              },
+              "role": "input",
+              "symbol": "tax.us.2025.income.agi",
+              "value": "50000",
+              "version": "v2"
+            }
+          ],
+          "finding_id": "finding:derived:43f03fff7d60e8858c978321",
+          "kind": "derived",
+          "produced_by": {
+            "id": "tax.us.2025.rule.form1040-line15",
+            "role": "computation",
+            "version": "v1"
+          },
+          "role": "input",
+          "symbol": "tax.us.2025.income.taxable-income",
+          "value": "35000",
+          "version": "v2"
+        },
+        {
+          "children": [],
+          "finding_id": "bracket_fold",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "round",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo.parameter.tax-brackets.2025",
+          "kind": "parameter",
+          "produced_by": null,
+          "role": "parameter",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:dc60030592ef665830da539f",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.form1040-line16",
+        "role": "computation",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.tax.total-tax",
+      "value": "3968",
+      "version": "v2"
+    },
+    "tax.us.2025.wages.total-w2-box1": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-rounding-single",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "rounding.convention",
+          "value": "half_up",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "demo-finding-w2-single",
+          "kind": "input",
+          "produced_by": null,
+          "role": "input",
+          "symbol": "tax.us.2025.w2.box1-wages",
+          "value": "5e4",
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "round",
+          "kind": "operation-semantics",
+          "produced_by": null,
+          "role": "operation-semantics",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:8e586171714c1a29a5ee7509",
+      "kind": "derived",
+      "produced_by": {
+        "id": "tax.us.2025.rule.w2-box1-to-line1a",
+        "role": "field-mapping",
+        "version": "v1"
+      },
+      "role": "output",
+      "symbol": "tax.us.2025.wages.total-w2-box1",
+      "value": "50000",
+      "version": "v2"
+    },
+    "taxpayer_blind": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.parameter.default-false",
+          "kind": "parameter",
+          "produced_by": null,
+          "role": "parameter",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:6c1dfebfe87f10fa62f7bff8",
+      "kind": "derived",
+      "produced_by": null,
+      "role": "output",
+      "symbol": "taxpayer_blind",
+      "value": "false",
+      "version": "v2"
+    },
+    "taxpayer_over_65": {
+      "children": [
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.package.core-calculations",
+          "kind": "adoption",
+          "produced_by": null,
+          "role": "adoption",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "governance.constitution",
+          "kind": "governance",
+          "produced_by": null,
+          "role": "governance",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        },
+        {
+          "children": [],
+          "finding_id": "tax.us.2025.parameter.default-false",
+          "kind": "parameter",
+          "produced_by": null,
+          "role": "parameter",
+          "symbol": null,
+          "value": null,
+          "version": "v1"
+        }
+      ],
+      "finding_id": "finding:derived:034ec7a3c90de85e27043492",
+      "kind": "derived",
+      "produced_by": null,
+      "role": "output",
+      "symbol": "taxpayer_over_65",
+      "value": "false",
+      "version": "v2"
+    }
+  },
+  "published": [
+    {
+      "finding_id": "finding:derived:75c6c166924f08b23c429e82",
+      "symbol": "demo.form1040.standard_deduction",
+      "value": "15000"
+    },
+    {
+      "finding_id": "finding:derived:3052de6132345126bc694683",
+      "symbol": "spouse_blind",
+      "value": "false"
+    },
+    {
+      "finding_id": "finding:derived:44c298df3d30e131e1255bb1",
+      "symbol": "spouse_over_65",
+      "value": "false"
+    },
+    {
+      "finding_id": "finding:derived:a2afd606bfb41a378c7ae6b6",
+      "symbol": "tax.us.2025.deductions.itemized",
+      "value": "0"
+    },
+    {
+      "finding_id": "finding:derived:30bf852e9adcb8ac8cbeae02",
+      "symbol": "tax.us.2025.deductions.total",
+      "value": "15000"
+    },
+    {
+      "finding_id": "finding:derived:b7ac814d01a66374da4126be",
+      "symbol": "tax.us.2025.income.agi",
+      "value": "50000"
+    },
+    {
+      "finding_id": "finding:derived:43f03fff7d60e8858c978321",
+      "symbol": "tax.us.2025.income.taxable-income",
+      "value": "35000"
+    },
+    {
+      "finding_id": "finding:derived:b20f85a8731610465c5d2c41",
+      "symbol": "tax.us.2025.income.total-income",
+      "value": "50000"
+    },
+    {
+      "finding_id": "finding:derived:7c2b5254c98fc53f520c2f13",
+      "symbol": "tax.us.2025.interest.b1-subtotal",
+      "value": "0"
+    },
+    {
+      "finding_id": "finding:derived:7b43d7aed004521f50fda919",
+      "symbol": "tax.us.2025.interest.b3-subtotal",
+      "value": "0"
+    },
+    {
+      "finding_id": "finding:derived:2df3a1d6788ad932e78a6f1a",
+      "symbol": "tax.us.2025.interest.non-form-subtotal",
+      "value": "0"
+    },
+    {
+      "finding_id": "finding:derived:0e4b2035ea40d91c4cbf48ef",
+      "symbol": "tax.us.2025.interest.oid-subtotal",
+      "value": "0"
+    },
+    {
+      "finding_id": "finding:derived:7e69ad4303f3f06ebaec8ae6",
+      "symbol": "tax.us.2025.interest.taxable-total",
+      "value": "0"
+    },
+    {
+      "finding_id": "finding:derived:dc60030592ef665830da539f",
+      "symbol": "tax.us.2025.tax.total-tax",
+      "value": "3968"
+    },
+    {
+      "finding_id": "finding:derived:8e586171714c1a29a5ee7509",
+      "symbol": "tax.us.2025.wages.total-w2-box1",
+      "value": "50000"
+    },
+    {
+      "finding_id": "finding:derived:6c1dfebfe87f10fa62f7bff8",
+      "symbol": "taxpayer_blind",
+      "value": "false"
+    },
+    {
+      "finding_id": "finding:derived:034ec7a3c90de85e27043492",
+      "symbol": "taxpayer_over_65",
+      "value": "false"
+    }
+  ],
+  "run_id": "tax.us.2025.run.single-standard-deduction",
+  "stop_reason": "saturated"
+}

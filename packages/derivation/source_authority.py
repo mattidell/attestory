@@ -45,7 +45,9 @@ def validate_mapping_against_family(
             f"but was paired with {family['id']} {family['version']}"
         )
     declared = family["member_predicate"]["fact_type"]
-    if mapping["member_fact_type"] != declared:
+    member_fact_type = mapping["member_fact_type"]
+    member_fact_type_id = member_fact_type["id"] if isinstance(member_fact_type, dict) else member_fact_type
+    if member_fact_type_id != declared:
         raise SourceAuthorityError(
             f"claim/predicate mismatch: mapping {mapping['id']} names member "
             f"fact type {mapping['member_fact_type']} but declaration "
@@ -139,10 +141,12 @@ def resolve_closure_admissions(
         current = current_horizons.get(family_id)
         if current is None:
             continue  # no horizon chain in scope: nothing can admit
+        closure_fact_type = mapping["closure_fact_type"]
+        closure_fact_type_id = closure_fact_type["id"] if isinstance(closure_fact_type, dict) else closure_fact_type
         candidates = [
             record
             for record in closure_findings
-            if record.fact_type == mapping["closure_fact_type"]
+            if record.fact_type == closure_fact_type_id
             and record.horizon_id == current
         ]
         if len(candidates) != 1:

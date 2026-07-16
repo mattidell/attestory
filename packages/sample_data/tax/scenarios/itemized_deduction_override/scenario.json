@@ -1,0 +1,26 @@
+{
+  "content_fixture": "../core_tax_conditions.content.json",
+  "run_id": "tax.us.2025.run.itemized-deduction-override",
+  "inputs": [
+    {"finding_id": "demo-finding-rounding-itemized", "role": "input", "symbol": "rounding.convention", "value": "half_up"},
+    {"finding_id": "demo-finding-status-itemized", "role": "input", "symbol": "filing_status", "value": "married_filing_jointly"},
+    {"finding_id": "demo-finding-itemized", "role": "input", "symbol": "tax.us.2025.deductions.itemized", "value": "3.5e4"}
+  ],
+  "sources": [
+    {"finding_id": "demo-finding-w2-itemized", "name": "tax.us.2025.w2.box1-wages", "value": "9e4"}
+  ],
+  "closure": {
+    "findings": [
+      {"fact_type": "tax.us.2025.f1099int.b1.source-closure", "finding_id": "demo-closure-itemized-b1", "horizon_id": "demo-horizon-itemized-b1", "value": true},
+      {"fact_type": "tax.us.2025.f1099int.b3.source-closure", "finding_id": "demo-closure-itemized-b3", "horizon_id": "demo-horizon-itemized-b3", "value": true},
+      {"fact_type": "tax.us.2025.f1099oid.b1.source-closure", "finding_id": "demo-closure-itemized-oid", "horizon_id": "demo-horizon-itemized-oid", "value": true},
+      {"fact_type": "tax.us.2025.non-form-interest.source-closure", "finding_id": "demo-closure-itemized-nonform", "horizon_id": "demo-horizon-itemized-nonform", "value": true}
+    ],
+    "current_horizons": {
+      "tax.us.2025.f1099int.b1": "demo-horizon-itemized-b1",
+      "tax.us.2025.f1099int.b3": "demo-horizon-itemized-b3",
+      "tax.us.2025.f1099oid.b1": "demo-horizon-itemized-oid",
+      "tax.us.2025.non-form-interest": "demo-horizon-itemized-nonform"
+    }
+  }
+}

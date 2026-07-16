@@ -1,5 +1,5 @@
 {
-  "schema": "rule-artifact.v1",
+  "schema": "rule-artifact.v2",
   "id": "tax.us.2025.rule.f1099int-b1-subtotal",
   "version": "v1",
   "scope": {
@@ -10,6 +10,9 @@
   },
   "role": "computation",
   "requires": ["rounding.convention"],
+  "pins": [
+    { "role": "input", "id": "rounding.convention", "version": "v1", "origin": "assertion" }
+  ],
   "when": true,
   "value": {
     "op": "round",
@@ -23,8 +26,7 @@
         }
       ]
     },
-    "mode": { "op": "ref", "name": "rounding.convention" },
-    "stage": "after_aggregate"
+    "mode": { "op": "ref", "name": "rounding.convention" }
   },
   "publishes": "tax.us.2025.interest.b1-subtotal",
   "blocked": { "code": "OPEN_DEPENDENCY", "missing": ["rounding.convention"] },

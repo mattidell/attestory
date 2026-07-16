@@ -1,0 +1,11 @@
+{
+  "schema": "source-closure-mapping.v2",
+  "id": "tax.us.2025.closure-mapping.f1099int-b3",
+  "version": "v1",
+  "family": { "id": "tax.us.2025.f1099int.b3", "version": "v1" },
+  "member_fact_type": { "id": "tax.us.2025.f1099int.box3-interest", "version": "v1" },
+  "closure_fact_type": { "id": "tax.us.2025.f1099int.b3.source-closure", "version": "v1" },
+  "closure_horizon_key": "family-horizon",
+  "admits_symbol": "tax.us.2025.interest.b3-subtotal",
+  "admission": { "condition": "current-literal-true" }
+}

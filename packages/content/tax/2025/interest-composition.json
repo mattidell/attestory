@@ -1,0 +1,28 @@
+{
+  "schema": "taxable-interest-composition.v1",
+  "id": "tax.us.2025.interest-composition",
+  "version": "v1",
+  "constituents": [
+    {
+      "source_family": { "id": "tax.us.2025.f1099int.b1", "version": "v1" },
+      "authorizes_subtotal": "tax.us.2025.interest.b1-subtotal"
+    },
+    {
+      "source_family": { "id": "tax.us.2025.f1099int.b3", "version": "v1" },
+      "authorizes_subtotal": "tax.us.2025.interest.b3-subtotal"
+    },
+    {
+      "source_family": { "id": "tax.us.2025.f1099oid.b1", "version": "v1" },
+      "authorizes_subtotal": "tax.us.2025.interest.oid-subtotal"
+    },
+    {
+      "source_family": { "id": "tax.us.2025.non-form-interest", "version": "v1" },
+      "authorizes_subtotal": "tax.us.2025.interest.non-form-subtotal"
+    }
+  ],
+  "required_universe": {
+    "claim": "Declared positive taxable-interest families without adjustments."
+  },
+  "publishes": "tax.us.2025.interest.taxable-total",
+  "coextensiveness": "slot-bijection"
+}

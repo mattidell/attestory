@@ -1,14 +1,52 @@
 {
-  "schema": "artifact-package.v1",
+  "schema": "artifact-package.v2",
   "id": "tax.us.2025.package.interest-slice",
   "version": "v1",
   "scope": {
     "tax_year": 2025,
     "jurisdiction": "US-federal",
-    "family": "individual-income-tax",
-    "effective_from": "2025-01-01"
+    "family": "individual-income-tax"
   },
+  "admitted_schemas": [
+    "fact-type.v2",
+    "bundle.v2",
+    "rule-artifact.v2",
+    "source-closure-mapping.v2",
+    "source-family.v1",
+    "taxable-interest-composition.v1",
+    "citation.v1",
+    "form-field.v2",
+    "quantity-vocabulary.v1"
+  ],
   "members": [
-    { "role": "computation", "id": "tax.us.2025.rule.f1099int-b1-subtotal", "version": "v1" }
-  ]
+    { "role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.interest_composition.vocabulary", "version": "v1" },
+    { "role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.f1099int.vocabulary", "version": "v1" },
+    { "role": "source-family", "schema": "source-family.v1", "id": "tax.us.2025.f1099int.b1", "version": "v1" },
+    { "role": "source-family", "schema": "source-family.v1", "id": "tax.us.2025.f1099int.b3", "version": "v1" },
+    { "role": "source-family", "schema": "source-family.v1", "id": "tax.us.2025.f1099oid.b1", "version": "v1" },
+    { "role": "source-family", "schema": "source-family.v1", "id": "tax.us.2025.non-form-interest", "version": "v1" },
+    { "role": "source-closure-mapping", "schema": "source-closure-mapping.v2", "id": "tax.us.2025.closure-mapping.f1099int-b1", "version": "v1" },
+    { "role": "source-closure-mapping", "schema": "source-closure-mapping.v2", "id": "tax.us.2025.closure-mapping.f1099int-b3", "version": "v1" },
+    { "role": "source-closure-mapping", "schema": "source-closure-mapping.v2", "id": "tax.us.2025.closure-mapping.f1099oid-b1", "version": "v1" },
+    { "role": "source-closure-mapping", "schema": "source-closure-mapping.v2", "id": "tax.us.2025.closure-mapping.non-form-interest", "version": "v1" },
+    { "role": "composition", "schema": "taxable-interest-composition.v1", "id": "tax.us.2025.interest-composition", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.f1099int-b1-subtotal", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.f1099int-b3-subtotal", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.f1099oid-subtotal", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.non-form-interest-subtotal", "version": "v1" },
+    { "role": "computation", "schema": "rule-artifact.v2", "id": "tax.us.2025.rule.form1040-line2b", "version": "v1" },
+    { "role": "form-field", "schema": "form-field.v2", "id": "tax.us.2025.form1040.line-2b", "version": "v1" },
+    { "role": "citation", "schema": "citation.v1", "id": "tax.us.2025.citation.form1040.line-2b", "version": "v1" },
+    { "role": "parameter", "schema": "quantity-vocabulary.v1", "id": "tax.us.2025.quantity.taxable-interest", "version": "v1" }
+  ],
+  "input_bindings": [
+    { "symbol": "rounding.convention", "fact_type": { "id": "rounding.convention", "version": "v1" }, "mode": "required" }
+  ],
+  "entrypoints": [
+    { "id": "tax.us.2025.rule.form1040-line2b", "version": "v1" }
+  ],
+  "composition_obligations": [
+    "tax.us.2025.interest.taxable-total"
+  ],
+  "package_checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d"
 }

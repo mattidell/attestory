@@ -1,0 +1,26 @@
+{
+  "content_fixture": "../core_tax_conditions.content.json",
+  "run_id": "tax.us.2025.run.tax-bracket-boundaries",
+  "inputs": [
+    {"finding_id": "demo-finding-rounding-boundary", "role": "input", "symbol": "rounding.convention", "value": "half_up"},
+    {"finding_id": "demo-finding-status-boundary", "role": "input", "symbol": "filing_status", "value": "single"}
+  ],
+  "sources": [
+    {"finding_id": "demo-finding-w2-boundary-low", "name": "tax.us.2025.w2.box1-wages", "value": "2.66e4"},
+    {"finding_id": "demo-finding-w2-boundary-high", "name": "tax.us.2025.w2.box1-wages", "value": "1"}
+  ],
+  "closure": {
+    "findings": [
+      {"fact_type": "tax.us.2025.f1099int.b1.source-closure", "finding_id": "demo-closure-boundary-b1", "horizon_id": "demo-horizon-boundary-b1", "value": true},
+      {"fact_type": "tax.us.2025.f1099int.b3.source-closure", "finding_id": "demo-closure-boundary-b3", "horizon_id": "demo-horizon-boundary-b3", "value": true},
+      {"fact_type": "tax.us.2025.f1099oid.b1.source-closure", "finding_id": "demo-closure-boundary-oid", "horizon_id": "demo-horizon-boundary-oid", "value": true},
+      {"fact_type": "tax.us.2025.non-form-interest.source-closure", "finding_id": "demo-closure-boundary-nonform", "horizon_id": "demo-horizon-boundary-nonform", "value": true}
+    ],
+    "current_horizons": {
+      "tax.us.2025.f1099int.b1": "demo-horizon-boundary-b1",
+      "tax.us.2025.f1099int.b3": "demo-horizon-boundary-b3",
+      "tax.us.2025.f1099oid.b1": "demo-horizon-boundary-oid",
+      "tax.us.2025.non-form-interest": "demo-horizon-boundary-nonform"
+    }
+  }
+}

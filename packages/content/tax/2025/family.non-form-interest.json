@@ -1,0 +1,10 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.non-form-interest",
+  "version": "v1",
+  "title": "Non-Form Interest statement items, tax year 2025",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "closure_claim": "Every interest amount received without a Form 1099-INT statement instance for tax year 2025 is recorded. This claim covers positive non-form interest only: it says nothing about Form 1099-INT/OID boxes, or total taxable interest (Form 1040 line 2b).",
+  "member_predicate": { "fact_type": "tax.us.2025.non-form-interest.amount" },
+  "authorizes_subtotal": "tax.us.2025.interest.non-form-subtotal"
+}

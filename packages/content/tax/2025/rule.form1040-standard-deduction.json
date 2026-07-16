@@ -1,0 +1,132 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-standard-deduction",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["filing_status", "taxpayer_over_65", "taxpayer_blind", "spouse_over_65", "spouse_blind"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.filing-status", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.taxpayer-over-65", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.taxpayer-blind", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.spouse-over-65", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.spouse-blind", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      { "op": "parameter", "parameter_id": "demo.parameter.standard-deduction-base.2025", "key": { "op": "ref", "name": "filing_status" } },
+      {
+        "op": "choose",
+        "when": { "op": "ref", "name": "taxpayer_over_65" },
+        "then": { "op": "parameter", "parameter_id": "demo.parameter.additional-deduction-rate.2025", "key": { "op": "ref", "name": "filing_status" } },
+        "else": 0
+      },
+      {
+        "op": "choose",
+        "when": { "op": "ref", "name": "taxpayer_blind" },
+        "then": { "op": "parameter", "parameter_id": "demo.parameter.additional-deduction-rate.2025", "key": { "op": "ref", "name": "filing_status" } },
+        "else": 0
+      },
+      {
+        "op": "choose",
+        "when": {
+          "op": "all",
+          "args": [
+            {
+              "op": "any",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": { "op": "ref", "name": "filing_status" },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": { "id": "tax.us.2025.filing-status", "version": "v1" },
+                    "value": "married_filing_jointly"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": { "op": "ref", "name": "filing_status" },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": { "id": "tax.us.2025.filing-status", "version": "v1" },
+                    "value": "married_filing_separately"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": { "op": "ref", "name": "filing_status" },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": { "id": "tax.us.2025.filing-status", "version": "v1" },
+                    "value": "qualifying_surviving_spouse"
+                  }
+                }
+              ]
+            },
+            { "op": "ref", "name": "spouse_over_65" }
+          ]
+        },
+        "then": { "op": "parameter", "parameter_id": "demo.parameter.additional-deduction-rate.2025", "key": { "op": "ref", "name": "filing_status" } },
+        "else": 0
+      },
+      {
+        "op": "choose",
+        "when": {
+          "op": "all",
+          "args": [
+            {
+              "op": "any",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": { "op": "ref", "name": "filing_status" },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": { "id": "tax.us.2025.filing-status", "version": "v1" },
+                    "value": "married_filing_jointly"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": { "op": "ref", "name": "filing_status" },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": { "id": "tax.us.2025.filing-status", "version": "v1" },
+                    "value": "married_filing_separately"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": { "op": "ref", "name": "filing_status" },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": { "id": "tax.us.2025.filing-status", "version": "v1" },
+                    "value": "qualifying_surviving_spouse"
+                  }
+                }
+              ]
+            },
+            { "op": "ref", "name": "spouse_blind" }
+          ]
+        },
+        "then": { "op": "parameter", "parameter_id": "demo.parameter.additional-deduction-rate.2025", "key": { "op": "ref", "name": "filing_status" } },
+        "else": 0
+      }
+    ]
+  },
+  "publishes": "demo.form1040.standard_deduction",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["filing_status", "taxpayer_over_65", "taxpayer_blind", "spouse_over_65", "spouse_blind"]
+  },
+  "notes": "Selects standard deduction base and addition rates based on filing status and demographic flags."
+}

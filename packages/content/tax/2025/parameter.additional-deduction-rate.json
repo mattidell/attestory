@@ -1,0 +1,18 @@
+{
+  "schema": "parameter-declaration.v1",
+  "id": "demo.parameter.additional-deduction-rate.2025",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "values": {
+    "single": "2000",
+    "head_of_household": "2000",
+    "married_filing_jointly": "1550",
+    "married_filing_separately": "1550",
+    "qualifying_surviving_spouse": "1550"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-bundle-adoption.v2",
+  "title": "Versioned wholesale bundle adoption act payload",
+  "description": "Captures a full bundle.v2 body for later nested-set equality validation; a pin-only adoption is not accepted (ADR-0028 decision 3).",
+  "type": "object",
+  "properties": {"bundle": {"type": "object", "properties": {"schema": {"const": "bundle.v2"}, "id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}, "fact_types": {"type": "array", "minItems": 1}}, "required": ["schema", "id", "version", "fact_types"], "additionalProperties": true}},
+  "required": ["bundle"], "additionalProperties": false
+}

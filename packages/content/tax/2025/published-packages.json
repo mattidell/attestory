@@ -1,0 +1,241 @@
+{
+  "packages": [
+    {
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v1",
+      "checksum": "0aa00a6e410e37904b494aa6cdfcce225ddae7bdd34407c6f8d3107392bf3539"
+    },
+    {
+      "id": "tax.us.2025.package.interest-slice",
+      "version": "v1",
+      "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d"
+    }
+  ],
+  "citizens": [
+    {
+      "id": "demo.parameter.additional-deduction-rate.2025",
+      "version": "v1",
+      "checksum": "85667def32edc35d8ff35220242c1e1561a7a76a7b7d938df372b9b57e30853a"
+    },
+    {
+      "id": "demo.parameter.standard-deduction-base.2025",
+      "version": "v1",
+      "checksum": "5e7e52f9cec05adf97e65b62ea8483f96292f4f6a80997079dda1985ec15e6fa"
+    },
+    {
+      "id": "demo.parameter.tax-brackets.2025",
+      "version": "v1",
+      "checksum": "e29e578fbdce6f8b41b1919cf5ba748a39d8f3e5467d294504fbe1a8c250ff38"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-11",
+      "version": "v1",
+      "checksum": "06ac7e0f7f99237d6b2192a3ead5bc96ee7a15944a53ebbbda411a98b7806373"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-12",
+      "version": "v1",
+      "checksum": "704b0467d28c19e85465113625c872100c8b5ab4f471408b11d5e139b4076f30"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-15",
+      "version": "v1",
+      "checksum": "aa623014de8906ee199ef03a746c56529564b9886dabe43f6e56ab1ff363a84f"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-16",
+      "version": "v1",
+      "checksum": "217f1585aa1ed63f99ae19e2ee2de9c2d60ac11c474e2ac715a18cc5f433caa8"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-1a",
+      "version": "v1",
+      "checksum": "9ce85771b8156f674701b1490b35a2b58e6439db83edacd25d1c382de12a41e0"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-2b",
+      "version": "v1",
+      "checksum": "88c18b41e0b9c874b11b7feba040a1b5eff465d4435038ceac7de00d41f3c33d"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-9",
+      "version": "v1",
+      "checksum": "039eacc255b40283305be80bac1e2d5632766bbfece72567f616a6b27ac7b08d"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099int-b1",
+      "version": "v1",
+      "checksum": "f2498ff8f084e1381dd74ca46adb9b5d4d9eb9ac3275cd1e1f3446fad9366e7e"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099int-b3",
+      "version": "v1",
+      "checksum": "ed3cd2f4d851ad9a2dcdb131a6b3b4cb783d6b15173d553c6a3430ee1afd4c55"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099oid-b1",
+      "version": "v1",
+      "checksum": "e744ca0bf15fef9dceefd9e07e9526972e3a3fd180c523d95cd65cae18b91e97"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.non-form-interest",
+      "version": "v1",
+      "checksum": "144b677a524674d696f1369902802bc1fc2ca4fb9ca6b4e28ef5d44d50eda4a7"
+    },
+    {
+      "id": "tax.us.2025.core_calculations.vocabulary",
+      "version": "v1",
+      "checksum": "6a6eb5f4739870616fa341438bc72d8d61db5874010d92e05e27c9447a7cb1ea"
+    },
+    {
+      "id": "tax.us.2025.f1099int.b1",
+      "version": "v1",
+      "checksum": "8e02becfe49be8abb0dc57b3998996e7204b736999f17c0f9d0beb816f864c72"
+    },
+    {
+      "id": "tax.us.2025.f1099int.b3",
+      "version": "v1",
+      "checksum": "8a8ff627475952de784904a8ff56d8bc296123d409245a7be081cf435d82494d"
+    },
+    {
+      "id": "tax.us.2025.f1099int.vocabulary",
+      "version": "v1",
+      "checksum": "38b545c8ab61c55253882af1bf8d786683c2c570a5f980761becb73ae62a46d0"
+    },
+    {
+      "id": "tax.us.2025.f1099oid.b1",
+      "version": "v1",
+      "checksum": "67604e3d63bd165fe4341ba9818711af6be673a4bf9d456f8bda0490aae1a38c"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-11",
+      "version": "v1",
+      "checksum": "265a024aa46966020108cc22dbbe6954f0dcbd55b91ef6e051ced3ac491ab25c"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-12",
+      "version": "v1",
+      "checksum": "b03a633230a8726e8e112a2087e3d656eb44024e123ec9684ed393c48c319b94"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-15",
+      "version": "v1",
+      "checksum": "58c7905c3a1a7e9f080617db28cd8661befb0b74634084069fb154d4fbb58222"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-16",
+      "version": "v1",
+      "checksum": "47c7bb6c41e62a02536bdad81813a0c1afa7cf52c868616d0103184b0db55f29"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-1a",
+      "version": "v1",
+      "checksum": "3f4862ad31e2a5ea01cc960b869a7cf6d48e832f7ce4aae00bca75c8c65c1487"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2b",
+      "version": "v1",
+      "checksum": "a862a684a8e0433467a408c45f9f702011243c168fe4025e6366b9535ea80943"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-9",
+      "version": "v1",
+      "checksum": "18b06201ea3fc00f5ac5c7cc693ff6ea7944a1aa574f99d9860cf402dba56378"
+    },
+    {
+      "id": "tax.us.2025.interest-composition",
+      "version": "v1",
+      "checksum": "ddc4ac97544532068667ee0af7591e02cd0d6d40bb5be6ae66763969c93e932a"
+    },
+    {
+      "id": "tax.us.2025.interest_composition.vocabulary",
+      "version": "v1",
+      "checksum": "e44cb13edba089daa166b13181bd3b03327b7d4ad9ad39812cac6aa1659e0dbb"
+    },
+    {
+      "id": "tax.us.2025.non-form-interest",
+      "version": "v1",
+      "checksum": "b31d6ef74f9460279fc651781b2e64384dbc95cc7853ccc609ba2607a55bc2f9"
+    },
+    {
+      "id": "tax.us.2025.parameter.default-false",
+      "version": "v1",
+      "checksum": "e59b98b97bb3cad12f8d36e28539d4658993f2a0d8189735700ef3cbfce3c2b9"
+    },
+    {
+      "id": "tax.us.2025.parameter.default-zero",
+      "version": "v1",
+      "checksum": "cd1d5388cb41d14b6b3bfad2f58a57e9053239adc52e552b4a18dc413d900bb9"
+    },
+    {
+      "id": "tax.us.2025.quantity.taxable-interest",
+      "version": "v1",
+      "checksum": "148ea04b4faaad5d5d2a2e4bb59331feab790f45e0252f00216eed6f55c200eb"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+      "version": "v1",
+      "checksum": "429d548433e4cf31957d11f9679bf870902033df8a942b037fdce30619af6002"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+      "version": "v1",
+      "checksum": "f1dd6cd9569652e0dcfc6e6c31d3bef1b0c311d2e357f27e254be69c60353b59"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099oid-subtotal",
+      "version": "v1",
+      "checksum": "7d86bd56afed474b27adc99e6b4ec2ccbe08e6b0c14232cf7ffe6fcea7ef7e84"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line11",
+      "version": "v1",
+      "checksum": "f5ee4e2100f75fa858b67055004864266b827b2f6669f09ee631f0f32217cdd3"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line12",
+      "version": "v1",
+      "checksum": "065a9606da5b54ec05de28ac597c3dca7d7dbfd588442b46c6bb0a4c16b1f7d7"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line15",
+      "version": "v1",
+      "checksum": "32827e29e3e31175c73c19409efb95cb28bb827617a7cb6f97346e826abbdb34"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line16",
+      "version": "v1",
+      "checksum": "dea6a7abe0f68ffd565ee868004488aaec385326c9e2283614eb50ae67336a12"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line2b",
+      "version": "v1",
+      "checksum": "4cf4c671007c056ab91cce02774a2f3efe12132b781b13fae5c6914c26534c92"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line9",
+      "version": "v1",
+      "checksum": "59481635ae3f6e9f3533b546097c1b5fe10c12b2ceef16897dc67a0cbfcb128c"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-standard-deduction",
+      "version": "v1",
+      "checksum": "3c320eeaab5eab8410c13cd93b2f0c22fb6b524d5be17b210f324b580bc7bac4"
+    },
+    {
+      "id": "tax.us.2025.rule.non-form-interest-subtotal",
+      "version": "v1",
+      "checksum": "eeb99186de1a6b1782ead2c08cc07105f1e7335013037368fc142748b6c9555c"
+    },
+    {
+      "id": "tax.us.2025.rule.w2-box1-to-line1a",
+      "version": "v1",
+      "checksum": "e828316e5abbc00968eb0f5389ab8747dbe418464978afc15877a327904dc54c"
+    },
+    {
+      "id": "tax.us.2025.w2-vocabulary",
+      "version": "v1",
+      "checksum": "7169ac68be56691ab229cb685f25f37d45af3e5834343f6991e9e0f0d31074d5"
+    }
+  ]
+}

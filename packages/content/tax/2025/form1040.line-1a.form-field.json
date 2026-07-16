@@ -1,5 +1,5 @@
 {
-  "schema": "form-field.v1",
+  "schema": "form-field.v2",
   "id": "tax.us.2025.form1040.line-1a",
   "version": "v1",
   "form": {
@@ -10,29 +10,30 @@
   },
   "line": "1a",
   "label": "Total amount from Form(s) W-2, box 1 (see instructions)",
-  "description": "Form 1040 (2025), line 1a: the total of box 1 wages, tips, and other compensation across the taxpayer's Forms W-2 for tax year 2025. Printed label checked against the official IRS Form 1040 (2025) at implementation time. The field presents the current derived finding for the bound symbol; the finding and derivation records remain the authority for value and disposition.",
+  "description": "Form 1040 (2025), line 1a: the total of box 1 wages, tips, and other compensation across the taxpayer's Forms W-2 for tax year 2025.",
   "binds_symbol": "tax.us.2025.wages.total-w2-box1",
-  "citation_ref": "citation.irs.2025.f1040.line-1a",
+  "citation": { "id": "tax.us.2025.citation.form1040.line-1a", "version": "v1" },
   "dispositions": {
     "published_value": {
       "render": "{value}",
-      "explain": "A current derived finding publishes this nonzero amount; its role-bearing pins walk to the current W-2 box 1 findings it aggregates and the adopted rule and parameters that combined them."
+      "explain": "A current derived finding publishes this nonzero amount."
     },
     "computed_zero": {
       "render": "0",
-      "explain": "A current derived finding publishes a numeric zero grounded in present W-2 box 1 findings whose amounts total zero. This is a computed answer from present sources, not an inference from absent ones."
+      "explain": "A current derived finding publishes a numeric zero."
     },
     "closure_backed_zero": {
       "render": "0",
-      "explain": "A current derived finding publishes a numeric zero whose lineage pins a current affirmative W-2 source-set closure finding: the taxpayer attested the W-2 family is complete and empty. Distinct lineage from a computed zero even though the glyph matches."
+      "explain": "A current derived finding publishes a numeric zero whose lineage pins a W-2 source-set closure finding."
     },
     "blocked": {
       "render": "",
-      "explain": "No published value exists because required state is absent, invalid, or otherwise unavailable. The derivation record carries the refined blocked code; this blank never means zero."
+      "explain": "No published value exists because required state is absent.",
+      "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID"]
     },
     "guard_inapplicable": {
       "render": "",
-      "explain": "No value exists because the declared rule guard is false and this field is inapplicable. Inapplicability is recorded with guard provenance; it is never rendered as a computed blank or zero."
+      "explain": "No value exists because the declared rule guard is false."
     }
   }
 }

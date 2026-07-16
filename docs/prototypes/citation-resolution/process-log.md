@@ -1,0 +1,13 @@
+# Citation Resolution Prototype — Process Log
+
+## 2026-07-15
+
+- Topic opened as **Track 0.c** (last Track-0 contract topic). Inert ADR-0018 retained as prior art to supersede. Plan drafted after ADR-0028 acceptance unsealed the topic.
+- Owner **approved** `plan.md` (2026-07-15). Status proposed → approved.
+- `charter-it1.md` issued for High-tier incumbent on CIT-P1 and CIT-P2; mandatory cases 3, 4, 7. Awaiting owner launch. No seats self-taken.
+- it1 delivered (owner-launched High incumbent): `it1/design.md` + `examination-it1.md`. Foreman conformance **PASSED** (scope only): two files, examination 60 lines (≤120), CIT-P1 and CIT-P2 settled-at-static-level, all seven cases with mandatory 3/4/7, Rung 2 held, 0018 supersede-not-inherit. **Notable for later comparison (not merits):** citation as first-class versioned citizen; `citation` package member role; form-field/rule `citation_refs` exact pins; display canonicalization; closure miss and rewrite rejects; Article 11 exclusions explicit. Committed under custody. `charter-it2.md` issued (sealed from it1 and ADR-0018). Awaiting owner launch of rival.
+- it2 delivered (owner-launched High clean-room rival): `it2/design.md` + `examination-it2.md`. Foreman conformance **PASSED** (scope only): two files, examination 48 lines (≤120), CIT-P1/P2 settled-at-static-level, cases 1–7 with mandatory 3/4/7, Rung 2 held. Clean-room: pass on divergence (no display-canonical claim; case 5 structural-only / no legal corpus; different authority_family labels). **Gate 4:** mechanism split on display + verifiability depth → committee. Role files issued.
+- Adversary review delivered: `reviews/round-1-adversary.md` (CIT-A1–A9). Independence attested. Custody committed. **Verdicts:** CIT-P1 conditionally accept both (converge citizen+pin; residual-closed opaque fence); CIT-P2 **reject it1** (A2/A3/A7/A9 display-verifiability and soft-load), **conditionally accept it2** (structural resolver). Governance not in tree — no triage/ADR until second review lands.
+- Governance review delivered: `reviews/round-1-governance.md` (CIT-G1–G8). Custody committed. Accept it2 both props; reject it1 both (G4–G7).
+- Foreman triage (both reviews): `evaluation-analysis.md`. Carry **it2** structural/adoption resolver + single form-field pin + four-family locators; reject it1 display formatter and multi-cite fields. Drafted **ADR-0029 proposed**. Awaiting owner ratification.
+- **Owner ratification (2026-07-15): ADR-0029 accepted.** Track 0.c closed. Track 0 contract remediation complete (5/5 topics). Implementation tracks may open per milestone plan.

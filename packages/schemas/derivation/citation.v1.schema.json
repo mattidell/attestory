@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "derivation/citation.v1", "title": "Structured legal citation",
+  "description": "A first-class versioned citation citizen with a discriminated closed authority family and locator. Resolution is structural/adoption-only and does not claim external legal verification (ADR-0029).",
+  "type": "object", "properties": {"schema": {"const": "citation.v1"}, "id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}, "authority": {"$ref": "#/$defs/authority"}}, "required": ["schema", "id", "version", "authority"], "additionalProperties": false,
+  "$defs": {"authority": {"oneOf": [
+    {"type": "object", "properties": {"family": {"const": "us-code"}, "title": {"type": "string", "minLength": 1}, "section": {"type": "string", "minLength": 1}}, "required": ["family", "title", "section"], "additionalProperties": false},
+    {"type": "object", "properties": {"family": {"const": "irs-form"}, "form_id": {"type": "string", "minLength": 1}, "tax_year": {"type": "integer"}}, "required": ["family", "form_id", "tax_year"], "additionalProperties": false},
+    {"type": "object", "properties": {"family": {"const": "irs-instructions"}, "form_id": {"type": "string", "minLength": 1}, "tax_year": {"type": "integer"}}, "required": ["family", "form_id", "tax_year"], "additionalProperties": false},
+    {"type": "object", "properties": {"family": {"const": "irs-publication"}, "publication": {"type": "string", "minLength": 1}, "revision": {"type": "string", "minLength": 1}}, "required": ["family", "publication", "revision"], "additionalProperties": false}
+  ]}}
+}
