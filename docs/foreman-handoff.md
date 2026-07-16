@@ -70,6 +70,13 @@ against git, trust git and say so.
   `docs/reviews/charter-2026-07-15-core-tax-conditions-repair1-acm-a1-execution.md`
   permits only wiring the existing ACM-A1 scenario into the executed golden
   suite. Then repeat R3 verification and fresh independent R4 review.
+- **Repair1 landed (`6c6f42f`):** the ACM-A1 scenario is now in Track 6's
+  executed golden set and has an explicit absence assertion; the focused Track
+  6 integration suite passed (4 tests).
+- **R3R chartered:**
+  `docs/reviews/charter-2026-07-15-core-tax-conditions-r3r-reverification-after-repair1.md`
+  repeats complete verification before the required fresh independent R4R
+  review.
 - **R2 charter (completed):**
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
   bounds the required registry-verified member-byte check and its mutation
@@ -77,10 +84,10 @@ against git, trust git and say so.
   identity, membership, or registry contract question. The active remediation
   seat is `docs/reviews/SEAT.md`; any clerk or owner-launched builder starts
   there before the charter.
-- **➡️ NEXT ACTION: repair1 — execute the existing ACM-A1 golden**, owner-paced.
-  The owner launches the repair builder from `docs/reviews/SEAT.md`; the
-  foreman retains branch and evidence-record custody. R3 repeat, R4 repeat,
-  and R5 remain blocked until the repair lands.
+- **➡️ NEXT ACTION: R3R — full remediation re-verification after Repair1**,
+  owner-paced. The owner launches the verifier from `docs/reviews/SEAT.md`;
+  the foreman retains branch and evidence-record custody. R4R and R5 remain
+  blocked until all R3R commands pass.
   Do not re-do the sound development code (review "keep" list).
 
 - **Git/env hygiene:**
