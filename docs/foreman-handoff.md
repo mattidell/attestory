@@ -17,29 +17,21 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-15; branch `planning/first-real-return-slice` — **Real Return phase planning, awaiting owner plan approval**)
+## Current state (updated 2026-07-16; branch `decision/d2-contribution` — **D2 prototype stop-and-decide**)
 
 - **Seat:** principal foreman.
-- **Foundation phase COMPLETE.** Owner performed the no-ff merge of the
-  remediated Core Tax Conditions milestone (`3283033` on `main`). The
-  remediation trail below this section is historical record only.
-- **Owner directed next-phase planning (2026-07-15)** and selected, from
-  presented candidates: milestone = **First Real Return Slice**; structure =
-  **new phase + maturity matrix** as the selection instrument.
-- **Planning artifacts drafted** on `planning/first-real-return-slice`:
-  - `docs/phases/real-return/real-return-roadmap.md` (phase thesis +
-    frontier-driven selection)
-  - `docs/phases/real-return/maturity-matrix.md` (aspects × domains, v1
-    hand-maintained)
-  - `docs/phases/real-return/milestones/first-real-return-slice.md`
-    (milestone plan, **proposed**: D1 residency Tier 3, D2 contribution
-    Tier 3, D3 production resolver Tier 2; Tracks 0–5 under ADR-0030
-    per-ADR/per-track merges)
-  - `docs/phase-state.md` rewritten (briefing + pointers; Foundation history
-    pruned to its durable homes)
-- **➡️ NEXT ACTION: owner reviews/approves the milestone plan.** On approval:
-  no-ff merge this planning unit to `main`, then open Track 0 with the D1
-  prototype plan (owner-approved before first charter, ADR-0013).
+- **Real Return phase is active.** D1 is ratified (ADR-0031); D2 Contribution
+  Boundary plan was approved and merged in PR #4 (`548318b`).
+- **D2 builds landed:** incumbent and sealed clean-room rival artifacts are
+  committed at `32de94d`; their examinations meet the 120-line cap and the
+  rival attests its seal. `docs/prototypes/contribution-boundary/SEAT.md` is
+  the active entrypoint.
+- **Fixed-cap incident:** the D2 topic has 1,102 Markdown lines before the seat
+  record, exceeding the plan's 900-line cap. Committee reviewers have not been
+  dispatched. The incident is logged in the D2 process log.
+- **➡️ NEXT ACTION: owner stop-and-decide on the D2 Gate-4 cap.** The foreman
+  does not dispatch the committee until the owner directs whether to accept a
+  recorded cap variance, reduce scope/artifacts, or stop the topic.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
