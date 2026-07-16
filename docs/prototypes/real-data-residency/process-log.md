@@ -128,12 +128,15 @@ requiring versioned correction** — owner's to reconcile before ADR-0031.
 |---|---|
 | 2026-07-16 | Owner decisions: (1) Ontology governs the doc-vs-doc conflict → milestone plan Verification corrected by version (disposition detail quarantined; only a non-descriptive attestation crosses). (2) Author ADR-0031 on the it2 basis with the confirmation pass. |
 | 2026-07-16 | **ADR-0031 authored** (`docs/adr/0031-real-data-residency-boundary.md`, status **proposed**). Decisions 1–4, 6–8 on the it2/committee basis; Decision 5 (provenance/allow-list locator screen) is a foreman-authored fix marked **pending scoped confirmation**. Production conditions named for Tracks 1/3. |
-| 2026-07-16 | Confirmation pass chartered (`charter-confirm-locator-screen.md`, Medium) exercising the **over-inclusion** direction of Decision 5; dispatched as an isolated sub-agent. **Awaiting `reviews/confirm-locator-screen.md`.** |
+| 2026-07-16 | Confirmation pass chartered (`charter-confirm-locator-screen.md`, Medium) exercising the **over-inclusion** direction of Decision 5; dispatched as an isolated sub-agent. |
+| 2026-07-16 | Confirmation pass delivered (`reviews/confirm-locator-screen.md`): **found an over-fire** — a form-only allow-list rejects contract/code that merely *quotes* a denied path form (acutely, ADR-0031 itself). Reviewer named a both-directions-checked amendment (re-scope to owner-local-resolvable forms + structural reserved-illustration-domain privilege), Case 5 preserved. **Amendment applied** to ADR-0031 Decision 5; residual 8(c) added. Per ADR-0013 the reviewer-designed-and-checked fix needs no further pass. ADR-0031 now complete and ratifiable. |
+| 2026-07-16 | D1 ratification PR opened (ADR-0031 + full evidence bundle) for owner-held merge. |
 
-## Next foreman action (after confirmation pass)
+## State: D1 complete pending owner ratification
 
-If the pass returns clean: finalize Decision 5 as ratifiable and open the D1
-ratification PR (ADR-0031 + full evidence bundle) for owner-held merge. If it
-finds over-fire: apply the minimal named amendment (e.g. a scoped declaration
-privilege), re-confirm if the amendment is itself foreman-authored, then open the
-PR. Ratification (proposed → accepted) is owner-held.
+Convergence reached (it2 basis); the one foreman-authored fix (Decision 5) was
+confirmation-checked, found over-firing, and amended per the reviewer's
+both-directions-checked design. ADR-0031 is `proposed`; ratification
+(proposed → accepted) and the no-ff merge to `main` are **owner-held**. On merge:
+advance the phase-state re-entry pointer (Track 0 D1 ratified; D2/D3 next), then
+D2 (contribution) opens with its own prototype plan.

@@ -1,6 +1,6 @@
 # ADR 0031 — Real-Data Residency Boundary
 
-- Status: **proposed** (foreman custody, 2026-07-16; awaiting owner ratification). Decision 5 is **pending a scoped confirmation pass** before it is ratifiable text (ADR-0013 2026-07-15 amendment).
+- Status: **proposed** (foreman custody, 2026-07-16; awaiting owner ratification). The scoped confirmation pass on Decision 5 has run and its named amendment is applied (see Confirmation pass outcome); the ADR is now complete and ratifiable.
 - Tier: 3
 - Date: 2026-07-16
 
@@ -85,16 +85,26 @@ crosses). Decision 7 records the boundary that rests on.
    ignored-root pointer file is rejected as a load-bearing ignore under Article 18
    / Ontology §8.)
 
-5. **Locator content screen is provenance/allow-list, not a prefix denylist.**
-   *(Foreman-authored refinement closing Adversary A2 — **PENDING SCOPED
-   CONFIRMATION** before this decision is ratifiable text; see Confirmation
-   pass.)* Any absolute-path or private-locator form in a crossing artifact is
-   rejected unless it matches a **declared permitted synthetic-path grammar**
-   (the reserved demo/synthetic path domains); all other absolute forms
-   (`/Volumes/…`, `/mnt/…`, `\\host\share`, novel roots) are denied. The screen
-   must not depend on the runtime locator value to be complete, so a fresh clone
-   or CI enforces the same rule. (Replaces both the incumbent's fixed 3-prefix
-   denylist, which a novel root evades, and any reliance on the runtime pointer.)
+5. **Locator content screen targets owner-local-resolvable forms, as
+   defense-in-depth over Decisions 4 and 2.** *(Foreman-authored refinement
+   closing Adversary A2; amended per the confirmation pass — see Confirmation
+   pass outcome. Now ratifiable.)* The residency screen rejects a
+   **private-locator / owner-local-resolvable** token — one that could resolve to
+   the residency root `L` — not every absolute-path string; public system, CI,
+   and container roots are out of the residency screen's scope (governed, if at
+   all, by their own kind and by Decision 2 rule 1 provenance). The screen must
+   not depend on the runtime locator value to be complete, so a fresh clone or CI
+   enforces the same rule. **Declaration privilege (structural, not
+   class-judgment):** a `contract`- or `code`-kind artifact may contain a
+   denied-form token only if that token is a member of a **declared reserved
+   illustration domain** — a fixed, non-resolvable enumeration of example forms
+   that is itself part of the permitted grammar; any token outside that set still
+   denies regardless of kind, so a resolvable owner-local path can never ride in
+   as an "example." This licenses quoted *forms*, never a live locator, and does
+   not weaken the fresh-clone under-inclusion guard (a novel real root is not a
+   member). Primary walls remain Decision 4 (no committed locator) and Decision 2
+   rule 1 (provenance); this form screen is defense-in-depth over them. (Replaces
+   the incumbent's fixed 3-prefix denylist, which a novel root evades.)
 
 6. **Synthetic fixtures are independently constructed, never sanitized.** A real
    document is **never** an input to a repository fixture generator. A public
@@ -134,7 +144,14 @@ crosses). Decision 7 records the boundary that rests on.
    acceptable, flagged for the implementation's local hygiene. (b) The
    coverage-expansion decision log (Decision 6 — the record of which public
    profiles were added after a live session) must itself stay in quarantine, as
-   the *pattern* of additions describes the live document (Adversary A5).
+   the *pattern* of additions describes the live document (Adversary A5). (c) The
+   D1 topic's own establishing evidence (this ADR, the charters, the builds, and
+   the committee reviews) quotes denied path forms as illustrations. The reserved
+   illustration domain (Decision 5) is declared to include the example forms
+   already used in the topic's evidence as of ratification, so the boundary is
+   consistent with its own record; the delivered committee reviews are **not**
+   rewritten (record integrity). Track 1/3 implements the reserved domain and the
+   enforcement together.
 
 ## Production conditions (discharged in milestone Tracks 1/3, per ADR-0027/0028 pattern)
 
@@ -149,17 +166,23 @@ publication cannot be un-published); the reproducible synthetic generator and
 byte-regeneration provenance check; topology/capability audit (E18.1 canary); and
 the kill-test suite over the enumerated surfaces (E18.2 seeded-marker).
 
-## Confirmation pass (Decision 5)
+## Confirmation pass outcome (Decision 5)
 
 Decision 5 is a foreman-authored fix closing an adversary under-inclusion finding
-(prefix denylist under-catches). Per ADR-0013 (2026-07-15) it defaults to a scoped
-confirmation pass before ratifiable text, exercising the **opposite** direction
-(over-inclusion): that the permitted-synthetic-path allow-list does **not**
-over-fire on legitimate `MAY_CROSS` content — e.g. a governance/contract doc that
-legitimately quotes an absolute path in prose, a CI/tooling path, or a
-synthetic-fixture path — while still rejecting a novel real root on a fresh clone.
-Until that pass returns clean, Decision 5 is proposed-pending, and the ADR is not
-ratifiable.
+(prefix denylist under-catches). Per ADR-0013 (2026-07-15) it ran a scoped
+confirmation pass exercising the **opposite** direction, over-inclusion
+(`reviews/confirm-locator-screen.md`, Medium). The pass **found an over-fire**: a
+form-only allow-list denies legitimate `contract`/`code` content that merely
+*quotes* a denied path form — acutely, this ADR's own text and the D1
+charters/reviews would be rejected by the rule they establish. The reviewer named
+a minimal, both-directions-checked amendment — re-scope the screen to
+owner-local-resolvable forms, and add a **structural** reserved-illustration-domain
+declaration privilege — and verified the under-inclusion fix (Case 5) stays closed.
+Decision 5 above is amended accordingly; residual 8(c) records the consequence for
+the topic's own evidence. Because the amendment was **designed and
+both-direction-checked by the reviewer** (not authored unchecked by the foreman),
+it satisfies the ADR-0013 guard without a further confirmation pass. Decision 5 is
+now ratifiable.
 
 ## Consequences
 
