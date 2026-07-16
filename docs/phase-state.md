@@ -20,6 +20,6 @@ Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-
 
 Active milestone: **First Real Return Slice** — **proposed / awaiting owner plan approval** — `docs/phases/real-return/milestones/first-real-return-slice.md`.
 
-**➡️ Next: owner reviews and approves (or amends) the First Real Return Slice milestone plan.** After approval, this planning unit merges no-ff to `main` (ADR-0030) and Track 0 opens with the D1 prototype plan (`docs/prototypes/<topic>/plan.md`, owner-approved before first charter per ADR-0013).
+**➡️ Next: owner reviews and approves (or amends) two artifacts on `planning/first-real-return-slice`:** (1) the First Real Return Slice milestone plan; (2) the proposed ADR-0030 amendment (commit references by unit name, PR integration, agent push policy). After approval, this planning unit merges no-ff to `main`, the GitHub merge gates are configured (merge-commit-only; `main` branch protection), and Track 0 opens with the D1 prototype plan (owner-approved before first charter per ADR-0013). Interim: the GitHub remote is set **private** (owner decision 2026-07-16) until ratification + gates.
 
 Durable history of the Foundation phase (milestones, remediations, corrections) lives in `docs/phases/foundation/foundation-roadmap.md`, the milestone retrospectives, and git history — no longer restated here.
