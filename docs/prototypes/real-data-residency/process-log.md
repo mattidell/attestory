@@ -62,21 +62,71 @@ amounts.
 rule-numbering (Track 1/3); the concrete filesystem path (owner picks at
 bootstrap); exit-code/rule-name vocabulary.
 
-## Round 2 — committee (staged, awaiting dispatch)
+## Round 2 — committee (delivered)
 
-| Seat | Tier | Context | Charter |
-|---|---|---|---|
-| Governance reviewer | Medium | independent | `charter-review-governance.md` |
-| Adversary reviewer | High | independent | `charter-review-adversary.md` |
+| Seat | Tier | Context | Output | Status |
+|---|---|---|---|---|
+| Governance reviewer | Medium | sub-agent, isolated | `reviews/governance-r1.md` | delivered |
+| Adversary reviewer | High | sub-agent, isolated | `reviews/adversary-r1.md` | delivered |
 
-Per ADR-0013's reviewer-dispatch amendment, owner plan approval is standing
-authorization to spawn reviewers as sub-agents; owner has elected external
-launch for prior seats. Dispatch mode is the owner's call.
+Spawned as isolated sub-agents under the plan's standing authorization; each
+returned its review as a final message (never on disk during the other's run),
+so within-round independence held. Both committed under foreman custody.
 
-## Next foreman action (after committee)
+## Foreman triage — committee (Gate 5)
 
-Collate committee findings, triage-classify, and either (a) author ADR-0031 if
-the committee confirms convergence with no decision-blocking defect, recommending
-a scoped confirmation pass for any foreman-authored fix (ADR-0013 2026-07-15
-amendment); or (b) charter a Round-2 build iteration if a decision-blocking
-defect survives.
+**Both reviewers independently converge:** the **rival (it2) design is
+conformant / survives at Rung 2**; the **incumbent (it1) carries
+decision-blocking gaps on the same three axes** the rival resolves. This is
+convergence with a clear winner, not an open split.
+
+**Decision-blocking (all against it1; each resolved by adopting it2):**
+1. **§C.8 push independence.** it1's push scan keys on remote-tracking state
+   (`rev-list --not --remotes`) — the forbidden diff-from-remote mechanism
+   (Governance M2). it2 scans the full outgoing envelope independently.
+2. **Sensitivity inheritance.** it1's content-screen classifier cannot catch
+   *description-based* sensitivity — a review describing a real run passes
+   (Governance M4, Ontology §8). it2 makes personal *description* →
+   `NEVER_CROSSES`.
+3. **Locator model.** it1's ignored-root pointer is a load-bearing ignore, and
+   its locator screen is a prefix denylist that a novel absolute root
+   (`/Volumes/…`) evades on a fresh clone/CI (Governance M6, Adversary A2).
+   it2 commits **no** locator (runtime capability only).
+4. **D1-P2 shape channel.** it1's extract-then-fill leaks observed field names,
+   exact cardinality, and closure topology *as shape* (Adversary A4). it2's
+   independent-construction-from-public-grammar rule closes all three. D1-P2
+   ratifies as one rule; the union does not rescue it1 — it2's rule is adopted.
+
+**Blocking-adjacent:** the hook-bypass seam (Adversary A3) closes only under
+it2's guarded-transport credential-custody framing; it1's remote purge-and-rotate
+is not load-bearing-safe under §C.8. Both name guarded transport as a Gate-7
+production condition.
+
+**Confirmed sound (both):** surface enumeration is complete (Adversary A1, clean
+bill on remote-crossing surfaces); fail-closed totality holds, no third class
+(Adversary A5); E18.3 discharged (Governance M5; it2's byte-regeneration
+stronger).
+
+**Named residuals for the ADR (not blocking):** `git add`→index is local-only
+(no remote carry); coverage-expansion decision log must stay quarantined
+(Adversary A5 selection-pattern channel); the locator screen's
+provenance/allow-list form (permitted synthetic-path grammar; deny all other
+absolute forms) is a **foreman-authored refinement** beyond either builder →
+per ADR-0013 (2026-07-15) it defaults to a scoped confirmation pass before
+ratifiable text.
+
+**Owner-held reconciliation (blocks ratification):** Governance M4 surfaced a
+Constitution/Ontology-vs-milestone-plan conflict — milestone Verification says
+"the report (dispositions, not values) is what reviews cite," but Ontology §8
+sensitivity-inheritance makes a disposition report describing a real run
+sensitive. The Constitution governance note classes such conflicts as **defects
+requiring versioned correction** — owner's to reconcile before ADR-0031.
+
+## Next foreman action
+
+Convergence is reached (it2 basis). Path forward pending owner input on: (1) the
+doc-vs-doc reconciliation above; (2) approval to author **ADR-0031** on the
+it2 basis, naming the residuals + Gate-7 production conditions, with a scoped
+confirmation pass for the foreman-authored locator-screen refinement. No Round-2
+build iteration is warranted — the incumbent's gaps are resolved by adoption,
+not by unresolved uncertainty.
