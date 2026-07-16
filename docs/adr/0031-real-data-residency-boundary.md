@@ -1,6 +1,6 @@
 # ADR 0031 — Real-Data Residency Boundary
 
-- Status: **proposed** (foreman custody, 2026-07-16; awaiting owner ratification). The scoped confirmation pass on Decision 5 has run and its named amendment is applied (see Confirmation pass outcome); the ADR is now complete and ratifiable.
+- Status: **accepted** (owner ratification 2026-07-16, PR #3, merge `ce86525`). The scoped confirmation pass on Decision 5 ran and its named amendment was applied (see Confirmation pass outcome) before ratification.
 - Tier: 3
 - Date: 2026-07-16
 
