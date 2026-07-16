@@ -20,6 +20,7 @@ from packages.derivation.explanation import explain, index_derived
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.package_validation import (
     load_published_package_checksums,
+    load_published_citizen_checksums,
     verify_published_package,
     validate_package,
 )
@@ -65,7 +66,10 @@ def _load_content_fixture(scenario_path: Path, fixture_ref: str) -> dict[str, An
             citizen = _load_json((fixture_path.parent / ref).resolve())
             corpus[(citizen["id"], citizen.get("version", "v1"))] = citizen
 
-    validation = validate_package(package, corpus, DerivationSchemas())
+    published_citizens = load_published_citizen_checksums(
+        (fixture_path.parent / fixture["package_registry"]).resolve()
+    )
+    validation = validate_package(package, corpus, DerivationSchemas(), published_citizens)
     # We do not raise on validation.ok == False here because existing tests
     # may use packages that have reachability or schema mismatch issues during migration.
     # We only care about projecting the resolved member graph.

@@ -80,6 +80,12 @@ def package_instance_checksum(package: Mapping[str, Any]) -> str:
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
+def citizen_checksum(citizen: dict[str, Any]) -> str:
+    """Return the SHA-256 of canonical citizen bytes."""
+    canonical = json.dumps(citizen, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def load_published_package_checksums(path: Path) -> dict[tuple[str, str], str]:
     """Load the small publication registry for immutable package instances."""
     document: dict[str, Any] = json.loads(path.read_text("utf-8"))
@@ -100,6 +106,30 @@ def load_published_package_checksums(path: Path) -> dict[tuple[str, str], str]:
         key = (package_id, version)
         if key in registry:
             raise PackageIntegrityError(f"{path}: duplicate package entry {package_id}@{version}")
+        registry[key] = checksum
+    return registry
+
+
+def load_published_citizen_checksums(path: Path) -> dict[tuple[str, str], str]:
+    """Load the publication registry for immutable citizen bytes."""
+    document: dict[str, Any] = json.loads(path.read_text("utf-8"))
+    entries = document.get("citizens", [])
+    if not isinstance(entries, list):
+        raise PackageIntegrityError(f"{path}: citizens must be an array")
+    registry: dict[tuple[str, str], str] = {}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            raise PackageIntegrityError(f"{path}: citizen entry must be an object")
+        citizen_id = entry.get("id")
+        version = entry.get("version")
+        checksum = entry.get("checksum")
+        if not isinstance(citizen_id, str) or not isinstance(version, str):
+            raise PackageIntegrityError(f"{path}: citizen entry needs string id and version")
+        if not isinstance(checksum, str) or len(checksum) != 64:
+            raise PackageIntegrityError(f"{path}: citizen entry {citizen_id}@{version} has invalid checksum")
+        key = (citizen_id, version)
+        if key in registry:
+            raise PackageIntegrityError(f"{path}: duplicate citizen entry {citizen_id}@{version}")
         registry[key] = checksum
     return registry
 
@@ -148,6 +178,7 @@ def validate_package(
     package: dict[str, Any],
     corpus: dict[tuple[str, str], dict[str, Any]],
     schemas: DerivationSchemas,
+    published_citizen_checksums: Mapping[tuple[str, str], str] | None = None,
 ) -> PackageValidation:
     """Validate a package against a corpus of (id, version) -> citizen.
 
@@ -184,6 +215,17 @@ def validate_package(
         except SchemaValidationError as exc:
             issues.append(MemberIssue(pin["id"], pin["version"], "MEMBER_SCHEMA_INVALID", str(exc)))
             continue
+
+        if published_citizen_checksums is not None:
+            expected_checksum = published_citizen_checksums.get(key)
+            if expected_checksum is None:
+                issues.append(MemberIssue(pin["id"], pin["version"], "MEMBER_UNPUBLISHED", "member not in publication registry"))
+                continue
+            actual_checksum = citizen_checksum(citizen)
+            if expected_checksum != actual_checksum:
+                issues.append(MemberIssue(pin["id"], pin["version"], "MEMBER_CHECKSUM_MISMATCH", "member bytes do not match publication registry"))
+                continue
+
         resolved.append((pin, citizen))
 
     member_ids = {pin["id"] for pin in package["members"]}

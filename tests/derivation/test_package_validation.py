@@ -16,6 +16,7 @@ from packages.derivation.package_validation import (
     PackageIntegrityError,
     load_published_package_checksums,
     package_instance_checksum,
+    citizen_checksum,
     validate_package,
     verify_published_package,
 )
@@ -50,9 +51,13 @@ class PackageValidationFixture(unittest.TestCase):
         self.schemas = DerivationSchemas()
         self.package = _load("artifact-package.json")
         self.citizens = [_load(name) for name in _CITIZEN_FILES]
+        self.citizen_checksums = {
+            (c["id"], c.get("version", "v1")): citizen_checksum(c)
+            for c in self.citizens
+        }
 
     def validate(self) -> Any:
-        return validate_package(self.package, _corpus(self.citizens), self.schemas)
+        return validate_package(self.package, _corpus(self.citizens), self.schemas, self.citizen_checksums)
 
     def codes(self, result: Any) -> list[str]:
         return sorted(issue.code for issue in result.issues)
@@ -117,6 +122,7 @@ class Parity3OutputOwnership(PackageValidationFixture):
         rival = copy.deepcopy(_load("rule-artifact.tax-table-line16.json"))
         rival["id"] = "demo.rule.tax-table-line16-rival"
         self.citizens.append(rival)
+        self.citizen_checksums[(rival["id"], rival.get("version", "v1"))] = citizen_checksum(rival)
         self.package["members"].append({"role": "computation", "id": rival["id"], "version": "v1"})
         result = self.validate()
         self.assertIn("OUTPUT_OWNERSHIP_CONFLICT", self.codes(result))
@@ -125,6 +131,7 @@ class Parity3OutputOwnership(PackageValidationFixture):
         rival = copy.deepcopy(_load("rule-artifact.tax-table-line16.json"))
         rival["id"] = "demo.rule.tax-table-line16-rival"
         self.citizens.append(rival)
+        self.citizen_checksums[(rival["id"], rival.get("version", "v1"))] = citizen_checksum(rival)
         self.package["members"].append({"role": "computation", "id": rival["id"], "version": "v1"})
         self.package["conflict_semantics"] = [
             {"symbol": "demo.form1040.line16", "resolution": "first-guarded-wins"}
@@ -151,6 +158,7 @@ class Attack5YearIdentity(PackageValidationFixture):
         drifted = copy.deepcopy(self.citizens[0])
         drifted["scope"]["tax_year"] = 2024
         self.citizens[0] = drifted
+        self.citizen_checksums[(drifted["id"], drifted.get("version", "v1"))] = citizen_checksum(drifted)
         result = self.validate()
         self.assertIn("SCOPE_MISMATCH", self.codes(result))
 
@@ -169,6 +177,20 @@ class RoleAndPresence(PackageValidationFixture):
                 member["version"] = "v2"  # no such version in corpus
         result = self.validate()
         self.assertIn("MEMBER_ABSENT", self.codes(result))
+
+
+class Parity7MemberVerification(PackageValidationFixture):
+    def test_member_bytes_verified_against_registry(self) -> None:
+        # A synthetic golden mutates a resolved member's bytes while retaining its
+        # published (id, version) and demonstrates rejection at adoption.
+        drifted = copy.deepcopy(self.citizens[0])
+        # Mutate the value in a schema-valid way
+        drifted["notes"] = "compromised bytes"
+        self.citizens[0] = drifted
+        # The registry (self.citizen_checksums) retains the original checksum from setUp
+        result = self.validate()
+        self.assertIn("MEMBER_CHECKSUM_MISMATCH", self.codes(result))
+
 
 
 if __name__ == "__main__":
