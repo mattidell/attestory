@@ -57,6 +57,11 @@ against git, trust git and say so.
 - **R3 passed:** all three required commands are green; durable evidence is
   `docs/reviews/2026-07-15-core-tax-conditions-r3-verification.md`. R4 is now
   eligible for its owner-launched independent review.
+- **R4 chartered:**
+  `docs/reviews/charter-2026-07-15-core-tax-conditions-r4-independent-rereview.md`
+  assigns a fresh independent reviewer four falsifiable checks over R1/R2 and
+  requires an explicit `ready` / `not ready` verdict. The foreman will not
+  review the artifact's merits.
 - **R2 charter (completed):**
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
   bounds the required registry-verified member-byte check and its mutation
@@ -64,9 +69,9 @@ against git, trust git and say so.
   identity, membership, or registry contract question. The active remediation
   seat is `docs/reviews/SEAT.md`; any clerk or owner-launched builder starts
   there before the charter.
-- **➡️ NEXT ACTION: R3 — full remediation re-verification**, owner-paced. The
-  owner launches the R3 verifier from `docs/reviews/SEAT.md`; the foreman
-  retains branch and evidence-record custody. Then R4→R5.
+- **➡️ NEXT ACTION: R4 — independent remediation re-review**, owner-paced. The
+  owner launches the R4 reviewer from `docs/reviews/SEAT.md`; the foreman
+  retains branch and evidence-record custody. Then R5 only on `ready`.
   Do not re-do the sound development code (review "keep" list).
 
 - **Git/env hygiene:**
