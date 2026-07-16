@@ -48,7 +48,9 @@ against git, trust git and say so.
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
   bounds the required registry-verified member-byte check and its mutation
   golden. It expressly reserves full verification for R3 and stops on any new
-  identity, membership, or registry contract question.
+  identity, membership, or registry contract question. The active remediation
+  seat is `docs/reviews/SEAT.md`; any clerk or owner-launched builder starts
+  there before the charter.
 - **➡️ NEXT ACTION: R2 — extend published-byte verification to every resolved
   member citizen** (ADR-0027 ACM-A5), owner-paced. The owner launches the R2
   execution seat; the foreman retains branch and commit custody. Then R3→R5.
