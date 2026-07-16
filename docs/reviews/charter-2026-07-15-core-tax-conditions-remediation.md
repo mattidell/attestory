@@ -1,6 +1,6 @@
 # Charter — Core Tax Conditions Milestone Remediation
 
-Date: 2026-07-15. Chartered by the principal foreman on owner direction, following the retrospective pre-merge review (`2026-07-15-core-tax-conditions-premerge-review.md`). Branch: `milestone/core-tax-conditions` @ `95e574a` (reopened; `main` holds the premature merge pending owner decision).
+Date: 2026-07-15. Chartered by the principal foreman on owner direction, following the retrospective pre-merge review (`2026-07-15-core-tax-conditions-premerge-review.md`). Branch: `milestone/core-tax-conditions` @ `9dfcd62` (reopened; `main` holds the premature merge pending owner decision).
 
 ## Premise
 

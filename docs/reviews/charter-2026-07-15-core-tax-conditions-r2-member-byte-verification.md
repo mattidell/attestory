@@ -3,8 +3,8 @@
 Date: 2026-07-15. Chartered by the principal foreman under the owner-paced
 Core Tax Conditions remediation. Parent charter:
 `charter-2026-07-15-core-tax-conditions-remediation.md`. Branch:
-`milestone/core-tax-conditions` at R1 custody commit `fb568be` (R1's handoff
-record is `daf8c12`).
+`milestone/core-tax-conditions` at R1 custody commit `85ce351` (R1's handoff
+record is `b01c1eb`).
 
 ## Purpose
 

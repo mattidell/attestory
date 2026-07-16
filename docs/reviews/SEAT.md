@@ -4,7 +4,7 @@
 
 **R2 is chartered and awaiting an owner-launched builder.** It implements only
 member-citizen byte verification under accepted ADR-0027 decision 6 / PC3,
-closing PMR-2. R1 is complete (`fb568be`); full verification follows in R3.
+closing PMR-2. R1 is complete (`85ce351`); full verification follows in R3.
 
 ## Repository entry chain
 

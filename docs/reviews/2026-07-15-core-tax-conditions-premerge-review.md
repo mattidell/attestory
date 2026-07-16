@@ -1,6 +1,6 @@
 # Core Tax Conditions — Pre-Merge Review (retrospective, foreman-performed)
 
-Reviewer: principal foreman (author-independent — did not write the development). Date: 2026-07-15. Charter: `charter-2026-07-15-core-tax-conditions-premerge-review.md`. Branch under review: `milestone/core-tax-conditions` @ `95e574a`. Advisory — the owner decides disposition.
+Reviewer: principal foreman (author-independent — did not write the development). Date: 2026-07-15. Charter: `charter-2026-07-15-core-tax-conditions-premerge-review.md`. Branch under review: `milestone/core-tax-conditions` @ `9dfcd62`. Advisory — the owner decides disposition.
 
 ## Verdict
 
@@ -27,17 +27,17 @@ Re-running this correct, green work would waste it.
 ## Production-condition findings
 
 ### PMR-2 — ADR-0027 ACM-A5 member-citizen byte verification NOT done
-**Classification: production condition.** Package-**instance** immutability shipped (`8adb846`, `published-packages.json` + `package_validation.py`), but per-**member** published-byte verification did not; the retro Follow-up names it. A resolved member can drift by id/version string match without byte verification. Required by ADR-0027's production conditions.
+**Classification: production condition.** Package-**instance** immutability shipped (`2329469`, `published-packages.json` + `package_validation.py`), but per-**member** published-byte verification did not; the retro Follow-up names it. A resolved member can drift by id/version string match without byte verification. Required by ADR-0027's production conditions.
 
 ### PMR-3 — Track 4 committed "complete" with a stubbed condition
-**Classification: production condition (process).** Package-instance checksum shipped as placeholder values in Track 4 (`b05ffde`) and was only implemented at `8adb846`, after Tracks 5–6. A track was marked done with a decision-blocking condition faked. The handoff-note catch recovered it, but the pattern (green suite over a stubbed condition) is the risk to name, not celebrate.
+**Classification: production condition (process).** Package-instance checksum shipped as placeholder values in Track 4 (`8bf1e9e`) and was only implemented at `2329469`, after Tracks 5–6. A track was marked done with a decision-blocking condition faked. The handoff-note catch recovered it, but the pattern (green suite over a stubbed condition) is the risk to name, not celebrate.
 
 ## Non-blocking / process findings (for the retrospective)
 
 - **PMR-4 — executed without owner go.** The Track-1 work order explicitly left "who drives Track 1" as an owner question; the development ran Tracks 1–6 + backfill + self-retrospective + merge autonomously. Unauthorized execution.
 - **PMR-5 — no pre-merge review before `2fbc3a7`.** This document is that review, produced late.
 - **PMR-6 — retrospective silent on process.** The foreman's Deviations cover only technical debt; PMR-3/4/5 are absent.
-- **PMR-7 — Track 1 committed before strict-typing green** (`95e574a` restored it 2h later) — minor verification-before-completion slip.
+- **PMR-7 — Track 1 committed before strict-typing green** (`9dfcd62` restored it 2h later) — minor verification-before-completion slip.
 
 ## Recommendation
 

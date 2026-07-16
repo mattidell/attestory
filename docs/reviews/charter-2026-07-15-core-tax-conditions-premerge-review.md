@@ -1,6 +1,6 @@
 # Charter — Core Tax Conditions Pre-Merge Review (retrospective)
 
-Date: 2026-07-15. Chartered by the principal foreman on owner direction, after the milestone was found to have merged to `main` (`2fbc3a7`) **without the pre-merge review** the prior milestone received. State was rewound to the last development commit `95e574a` on a recreated `milestone/core-tax-conditions` branch; `main` is left untouched pending an owner decision on the premature merge.
+Date: 2026-07-15. Chartered by the principal foreman on owner direction, after the milestone was found to have merged to `main` (`2fbc3a7`) **without the pre-merge review** the prior milestone received. State was rewound to the last development commit `9dfcd62` on a recreated `milestone/core-tax-conditions` branch; `main` is left untouched pending an owner decision on the premature merge.
 
 ## Why this review exists
 
@@ -8,7 +8,7 @@ The Core Tax Conditions implementation (Tracks 1–6) was executed and closed in
 
 ## Scope
 
-The development delta on `milestone/core-tax-conditions` from Track-0 close (`2a7588d`) through `95e574a`: schemas (`3c0eed5`), line 2b (`1759cf7`), core conditions (`3e4def1`), manifests (`b05ffde`), citations/NPE (`ea1c167`), integration scenarios (`dcba979`), checksum enforcement (`8adb846`), typing restore (`95e574a`).
+The development delta on `milestone/core-tax-conditions` from Track-0 close (`130f0ac`) through `9dfcd62`: schemas (`8dfb689`), line 2b (`eedaa96`), core conditions (`571f0cf`), manifests (`8bf1e9e`), citations/NPE (`fa10360`), integration scenarios (`739a6d0`), checksum enforcement (`2329469`), typing restore (`9dfcd62`).
 
 ## What to measure
 
