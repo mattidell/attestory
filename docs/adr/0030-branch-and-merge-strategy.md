@@ -48,9 +48,10 @@ Applies to the **next phase**. The current Core Tax Conditions milestone finishe
 - Related process: ADR-0005, ADR-0013 (and its 2026-07-15 proposed amendment — foreman-authored fixes default to confirmation).
 - Evidence of the failure this addresses: `docs/reviews/2026-07-15-core-tax-conditions-premerge-review.md` (PMR-1–7).
 
-## Amendment (2026-07-16, **proposed**) — Commit references, pull requests, and agent push
+## Amendment (2026-07-16, **accepted**) — Commit references, pull requests, and agent push
 
-Status: proposed (awaiting owner ratification). Motivated by the owner's move
+Status: **accepted** (owner ratification 2026-07-16, dual approval alongside
+the First Real Return Slice milestone plan). Motivated by the owner's move
 to GitHub pull requests with possibly batched merges (rebase-before-merge
 rewrites pre-merge SHAs) and by the ~50 SHA references orphaned by the Core
 Tax Conditions rebase (retrospective follow-up).
@@ -106,6 +107,7 @@ until `main` freezes them.
    phase's D1 residency contract extends to the remote: live data is never in
    the repository *or* on any remote, and the D1 kill-test list must include
    the push surface. *Interim posture (owner decision, 2026-07-16): the repo
-   was found public and is set **private** until this amendment is ratified
-   and the merge gates (merge-commit-only, `main` branch protection) are
-   configured; making it public again is a standalone owner decision.*
+   was found public and is set **private**. This amendment is now ratified
+   (2026-07-16); the remote stays private until the merge gates
+   (merge-commit-only, `main` branch protection) are configured. Making it
+   public again is a standalone owner decision.*
