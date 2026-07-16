@@ -84,6 +84,13 @@ against git, trust git and say so.
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r4r-independent-rereview.md`
   assigns a fresh independent reviewer to measure that Repair1 made ACM-A1 an
   executed guard without reopening the settled R1/R2 mechanisms.
+- **R4R returned `ready` (`696ef88`):** its four measurements pass; the
+  decision-blocking ACM-A1 guard is now executed, and the repair remained
+  strictly test-only.
+- **R5 chartered:**
+  `docs/reviews/charter-2026-07-15-core-tax-conditions-r5-honest-reclose.md`
+  scopes the honest closure records and preserves the owner's sole authority
+  to select `main` reconciliation.
 - **R2 charter (completed):**
   `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
   bounds the required registry-verified member-byte check and its mutation
@@ -91,10 +98,9 @@ against git, trust git and say so.
   identity, membership, or registry contract question. The active remediation
   seat is `docs/reviews/SEAT.md`; any clerk or owner-launched builder starts
   there before the charter.
-- **➡️ NEXT ACTION: R4R — fresh independent re-review after Repair1**,
-  owner-paced. The owner launches the reviewer from `docs/reviews/SEAT.md`;
-  the foreman retains branch and evidence-record custody. R5 opens only on
-  `ready`.
+- **➡️ NEXT ACTION: R5 — honest re-close preparation and owner `main`
+  reconciliation choice.** The active scope is `docs/reviews/SEAT.md`; the
+  foreman does not modify `main` without the owner's selected path.
   Do not re-do the sound development code (review "keep" list).
 
 - **Git/env hygiene:**

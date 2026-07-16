@@ -2,22 +2,22 @@
 
 ## Current step
 
-**R3R passed (`7786f36`). R4R is chartered and awaits an owner-launched fresh
-independent reviewer.** It measures whether Repair1 makes ACM-A1 an executed
-guard and preserves the settled R1/R2 mechanisms. R5 remains closed on any
-`not ready` verdict.
+**R4R returned `ready` (`696ef88`). R5 is chartered and awaits owner direction
+on the `main` reconciliation path.** Closure records can be prepared under
+foreman custody; no milestone-complete status or `main` mutation occurs until
+the owner selects a path.
 
 ## Repository entry chain
 
 1. `docs/phase-state.md` — reopened milestone and remediation premise.
 2. `docs/reviews/charter-2026-07-15-core-tax-conditions-remediation.md` —
    R1–R5 sequence and custody rules.
-3. `docs/reviews/charter-2026-07-15-core-tax-conditions-r4r-independent-rereview.md`
-   — the active R4R measurements, independence requirement, and verdict.
-4. `docs/reviews/2026-07-15-core-tax-conditions-r3r-verification.md` — current
+3. `docs/reviews/charter-2026-07-15-core-tax-conditions-r5-honest-reclose.md`
+   — active closure-record scope and owner-only `main` decision.
+4. `docs/reviews/2026-07-15-core-tax-conditions-r4r-independent-rereview.md`
+   — independent `ready` evidence.
+5. `docs/reviews/2026-07-15-core-tax-conditions-r3r-verification.md` — current
    full verification evidence.
-5. `docs/reviews/charter-2026-07-15-core-tax-conditions-repair1-acm-a1-execution.md`
-   — completed repair scope and focused test.
 
 ## Seats
 
@@ -29,11 +29,12 @@ guard and preserves the settled R1/R2 mechanisms. R5 remains closed on any
 | R4 reviewer | complete | `not ready` recorded at `30c4248`; ACM-A1 golden is unexecuted. |
 | Repair1 builder | complete | Repair landed at `6c6f42f`; Track 6 integration suite passed (4 tests). |
 | R3R verifier | complete | R3R evidence recorded at `7786f36`; full suite, mypy, and governance lint passed. |
-| R4R reviewer | vacant | Owner launches a fresh independent context against the R4R charter. Produces a `ready` / `not ready` measurement note only. |
+| R4R reviewer | complete | `ready` recorded at `696ef88`; Repair1 closes the previously inert ACM-A1 guard. |
+| R5 closure | owner decision pending | Foreman prepares closure records; owner chooses the `main` reconciliation path. |
 | Clerk | optional / unassigned | Mechanical handoff, status, and commit-record support only; reads this file and the active charter before acting. |
 
 ## Next action
 
-Owner launches the R4R reviewer from its charter. The reviewer returns its
-independent `ready` / `not ready` measurement note; the foreman records it
-under custody. R5 does not open on `not ready`.
+Owner reviews the R5 charter and chooses `revert and re-merge` or `hold and
+fast-forward` after the foreman prepares the closure-record patch. No `main`
+operation occurs without that direction.
