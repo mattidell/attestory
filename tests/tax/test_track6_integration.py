@@ -29,6 +29,7 @@ NAMES = (
     "itemized_deduction_override",
     "unclosed_interest_composition",
     "tax_bracket_boundaries",
+    "acm_a1_unpinned_content",
 )
 
 
@@ -101,6 +102,17 @@ class Track6IntegrationScenarios(unittest.TestCase):
             "tax.us.2025.rule.form1040-line16",
         ):
             self.assertEqual(blocked[rule_id], "DEPENDENCY_ABSENT")
+
+    def test_acm_a1_projects_only_adopted_members(self) -> None:
+        # Exclusive execution projection (ADR-0027 decision 7 / PMR-1): a
+        # co-located rule that is not a package member must not reach any
+        # execution surface. The scenario adopts the core package while a
+        # sibling unpinned rule publishes tax.us.2025.unpinned_result; that
+        # symbol must be absent from the report. Committed-golden equality is
+        # asserted by test_cli_reports_match_committed_goldens (NAMES).
+        report = self._cli("acm_a1_unpinned_content")
+        published_symbols = {entry["symbol"] for entry in report["published"]}
+        self.assertNotIn("tax.us.2025.unpinned_result", published_symbols)
 
 
 if __name__ == "__main__":
