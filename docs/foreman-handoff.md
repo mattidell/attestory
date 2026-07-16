@@ -44,6 +44,11 @@ against git, trust git and say so.
 - **R1 landed:** `fb568be` implements ADR-0027 decision 9's exclusive execution
   projection and adds the required ACM-A1 golden. The scenario's JSON output
   matches its committed golden; `tests.tax.test_track6_integration` is green.
+- **R2 chartered:**
+  `docs/reviews/charter-2026-07-15-core-tax-conditions-r2-member-byte-verification.md`
+  bounds the required registry-verified member-byte check and its mutation
+  golden. It expressly reserves full verification for R3 and stops on any new
+  identity, membership, or registry contract question.
 - **➡️ NEXT ACTION: R2 — extend published-byte verification to every resolved
   member citizen** (ADR-0027 ACM-A5), owner-paced. The owner launches the R2
   execution seat; the foreman retains branch and commit custody. Then R3→R5.
