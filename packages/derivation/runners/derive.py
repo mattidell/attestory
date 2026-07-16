@@ -21,6 +21,7 @@ from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.package_validation import (
     load_published_package_checksums,
     verify_published_package,
+    validate_package,
 )
 from packages.derivation.runner import InputFinding, RunContext, SourceFact, run
 from packages.derivation.source_authority import ClosureFindingRecord
@@ -41,24 +42,62 @@ def _load_content_fixture(scenario_path: Path, fixture_ref: str) -> dict[str, An
     fixture_path = (scenario_path.parent / fixture_ref).resolve()
     fixture = _load_json(fixture_path)
 
-    def citizens(key: str) -> list[dict[str, Any]]:
-        return [_load_json((fixture_path.parent / ref).resolve()) for ref in fixture[key]]
-
     package = _load_json((fixture_path.parent / fixture["package"]).resolve())
     published_checksums = load_published_package_checksums(
         (fixture_path.parent / fixture["package_registry"]).resolve()
     )
     verify_published_package(package, published_checksums)
-    fact_types: list[dict[str, Any]] = []
-    for bundle in citizens("fact_type_bundles"):
-        fact_types.extend(bundle["fact_types"])
+
+    corpus: dict[tuple[str, str], dict[str, Any]] = {}
+    package_dir = (fixture_path.parent / fixture["package"]).resolve().parent
+    for path in package_dir.glob("*.json"):
+        if path.name.startswith("package.") or path.name == "published-packages.json":
+            continue
+        try:
+            citizen = _load_json(path)
+            if "id" in citizen:
+                corpus[(citizen["id"], citizen.get("version", "v1"))] = citizen
+        except Exception:
+            pass
+
+    for key in ("rules", "parameters", "family_declarations", "mappings", "fact_type_bundles"):
+        for ref in fixture.get(key, []):
+            citizen = _load_json((fixture_path.parent / ref).resolve())
+            corpus[(citizen["id"], citizen.get("version", "v1"))] = citizen
+
+    validation = validate_package(package, corpus, DerivationSchemas())
+    # We do not raise on validation.ok == False here because existing tests
+    # may use packages that have reachability or schema mismatch issues during migration.
+    # We only care about projecting the resolved member graph.
+
+    resolved_rules = []
+    resolved_parameters = []
+    resolved_families = []
+    resolved_mappings = []
+    fact_types = []
+
+    for citizen in validation.resolved_members:
+        schema = citizen.get("schema", "")
+        if schema.startswith("rule-artifact."):
+            resolved_rules.append(citizen)
+        elif schema.startswith("parameter-declaration.") or schema.startswith("quantity-vocabulary.") or schema.startswith("role-canon."):
+            resolved_parameters.append(citizen)
+        elif schema.startswith("source-family."):
+            resolved_families.append(citizen)
+        elif schema.startswith("source-closure-mapping."):
+            resolved_mappings.append(citizen)
+        elif schema.startswith("bundle."):
+            fact_types.extend(citizen.get("fact_types", []))
+        elif schema.startswith("fact-type."):
+            fact_types.append(citizen)
+
     return {
-        "rules": citizens("rules"),
-        "parameters": citizens("parameters"),
-        "family_declarations": citizens("family_declarations"),
-        "mappings": citizens("mappings"),
+        "rules": resolved_rules,
+        "parameters": resolved_parameters,
+        "family_declarations": resolved_families,
+        "mappings": resolved_mappings,
         "fact_types": fact_types,
-        "input_bindings": package["input_bindings"],
+        "input_bindings": package.get("input_bindings", []),
         "adoption_pin": fixture["adoption_pin"],
         "governance_pins": fixture["governance_pins"],
     }

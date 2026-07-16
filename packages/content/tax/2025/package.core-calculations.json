@@ -63,7 +63,7 @@
 
     { "role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.interest_composition.vocabulary", "version": "v1" },
     { "role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.core_calculations.vocabulary", "version": "v1" },
-    { "role": "fact-type-bundle", "schema": "bundle.v1", "id": "tax.us.2025.w2-vocabulary", "version": "v1" },
+    { "role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.w2-vocabulary", "version": "v1" },
 
     { "role": "parameter", "schema": "parameter-declaration.v1", "id": "demo.parameter.standard-deduction-base.2025", "version": "v1" },
     { "role": "parameter", "schema": "parameter-declaration.v1", "id": "demo.parameter.additional-deduction-rate.2025", "version": "v1" },
@@ -87,5 +87,5 @@
   "composition_obligations": [
     "tax.us.2025.interest.taxable-total"
   ],
-  "package_checksum": "a1504433a726088ee3f25c41b4df66a4cc8f98d1b19d97511d48fd692f7de9a3"
+  "package_checksum": "0aa00a6e410e37904b494aa6cdfcce225ddae7bdd34407c6f8d3107392bf3539"
 }

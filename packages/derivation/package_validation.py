@@ -60,6 +60,7 @@ class PackageValidation:
     issues: tuple[MemberIssue, ...]
     output_owners: dict[str, str]
     citation_resolutions: tuple[CitationResolution, ...]
+    resolved_members: tuple[dict[str, Any], ...] = ()
 
 
 class PackageIntegrityError(ValueError):
@@ -165,6 +166,7 @@ def validate_package(
             issues=(MemberIssue(package_id, str(package.get("version", "")), "PACKAGE_SCHEMA_INVALID", str(exc)),),
             output_owners={},
             citation_resolutions=(),
+            resolved_members=(),
         )
 
     package_scope = {key: package["scope"].get(key) for key in _SCOPE_KEYS}
@@ -533,4 +535,5 @@ def validate_package(
             CitationResolution(citation_id=citation_id, version=version)
             for citation_id, version in sorted(citation_keys)
         ),
+        resolved_members=tuple(citizen for pin, citizen in resolved),
     )
