@@ -2,8 +2,14 @@
 
 ## Current step
 
-Iteration 3 builder charters are staged but undispatched. A prior launch was
-rescinded by the owner before either seat created a deliverable.
+Iteration-3 builds delivered (owner re-authorized after the earlier rescission)
+and in foreman custody. Foreman triage: both `it5`/`it6` independently close all
+four Iteration-2 decision-blocking findings (release-byte authority,
+current-user adoption, order-independent same-key refusal, exhaustive ledger),
+retain the strict `ok == True` gate, and name RG-1 (eight core issues) as a MUST
+prerequisite; seal attested. **Blocked on owner approval to dispatch a Round-3
+committee (ADR-0034); no reviewer dispatched.** Cap total 2,937 lines (owner
+variance in effect).
 
 ## Seats
 
@@ -18,8 +24,10 @@ rescinded by the owner before either seat created a deliverable.
 | Round-2 clean-room rival | complete; `it4/design.md`, `examination-it4.md`; seal held |
 | Round-2 Governance reviewer | complete; `reviews/governance-r2.md` |
 | Round-2 Adversary reviewer | complete; `reviews/adversary-r2.md` |
-| Iteration-3 incumbent builder | chartered, not dispatched; `charter-it5.md` |
-| Iteration-3 clean-room rival | chartered, not dispatched; `charter-it6.md`; sealed on launch |
+| Iteration-3 incumbent builder | complete; `it5/design.md`, `examination-it5.md` |
+| Iteration-3 clean-room rival | complete; `it6/design.md`, `examination-it6.md`; seal held |
+| Round-3 Governance reviewer | not dispatched — awaiting owner approval (ADR-0034) |
+| Round-3 Adversary reviewer | not dispatched — awaiting owner approval (ADR-0034) |
 
 ## Next action
 

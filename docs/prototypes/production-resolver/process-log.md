@@ -263,7 +263,57 @@ reviewers (ADR-0034). Earlier statements in this log that describe plan approval
 as standing reviewer authorization are historical accounts of the superseded
 policy, not authority for any future launch.
 
-## Next foreman action
+## Iteration 3 — builder delivery and custody (2026-07-16)
 
-Await a new owner dispatch direction or topic stop. Do not resume either builder
-from its staged charter alone.
+Owner re-authorized the Iteration-3 build (direction: "builds landed") after the
+earlier rescission. Both paired builds delivered and taken into foreman custody:
+`it5/design.md` (229) + `examination-it5.md` (75) incumbent; `it6/design.md` (300)
++ `examination-it6.md` (74) sealed rival. Synthetic-only, data-safety scan clean.
+
+## Foreman triage — Iteration 3 builds (Gate 5; routing, not adjudication)
+
+**Both builds independently close all four Iteration-2 decision-blocking
+findings** — genuine convergence, unlike Iteration 1→2 (which added findings):
+
+1. **Registry/release authority:** both verify **release bytes** against the
+   adoption pin *before* registry use; a caller-selected/forged registry or
+   catalog cannot authenticate evil supply (it5 `RELEASE_CHECKSUM_MISMATCH`; it6
+   `RELEASE_BYTE_MISMATCH` / `REGISTRY_BYTE_MISMATCH`).
+2. **Current-user adoption:** both select exactly one current **user** act by
+   scope + supersession tip; automation/non-user ineligible (Article 4); stale →
+   current tip; two same-scope non-superseding tips → refuse
+   (`ADOPTION_AMBIGUOUS` / `NO_CURRENT_USER_ADOPTION`).
+3. **Order-independent same-key refusal:** both refuse same-key distinct-byte
+   candidates by the *set of digests*, not filesystem order (probed both orders /
+   reversed enumeration).
+4. **Exhaustive ledger (D3-P2):** both enumerate all 25 ADR-0027 (D1–7/PC1–4) and
+   ADR-0028 (D1–9/PC1/PC1b/PC1c/PC2/PC3) slots with an allowed disposition;
+   embedded schema-byte checksums = N/A rejected; D1/D2 = consumed interlocks.
+
+**RG-1 (production MUST):** both retain the strict `validation.ok == True` gate
+(no allowlist) and name RG-1 precisely — validator-reachability repair (4×
+`MEMBER_UNREACHABLE`) + v1-generation content debt (`SCHEMA_NOT_ADMITTED`,
+`ROLE_MISMATCH`, 2× mapping fact-surface). Both observed **exactly eight** core
+issues (corrects the Round-1 triage "seven"; matches Iteration-2 adversary).
+
+**Seal:** attested — it6 read `SEAT.md`/`plan.md`/process log/Iteration-2 reviews
+but not `it5/` or the incumbent designs.
+
+**Convergent contract:** release root → verified registry → package/member pins →
+`ok == True` → exclusive pin-directed graph, with current-user-adoption selection
+and order-independent same-key refusal. This *appears* ratifiable — but
+convergence is the **committee's** call to confirm, not the foreman's.
+
+**Cap:** topic total **2,937 lines** across three iterations, over the 1,800
+target. The owner twice accepted a recorded variance, treating the cap model as a
+later process-design problem (does not authorize weaker evidence). A Round-3
+committee adds ~200 lines.
+
+## Next foreman action — BLOCKED on owner dispatch approval (ADR-0034)
+
+The Iteration-3 builds look convergent and warrant a **Round-3 committee**
+(Governance + Adversary, Medium) to confirm and clear the path to ADR-0033. Under
+**ADR-0034**, every dispatch — including committee reviewers — requires immediate,
+explicit owner approval for the exact role and charter. **No reviewer is
+dispatched.** Awaiting the owner's decision: authorize the Round-3 committee
+dispatch, or stop D3.
