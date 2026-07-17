@@ -163,9 +163,26 @@ not itself amend the cap. Do not charter or dispatch committee reviewers until
 the owner accepts a recorded variance, changes the evidence shape without
 weakening independent review, or stops the topic.
 
+**Owner disposition (2026-07-16):** accept a recorded variance for this
+Iteration-2 committee and direct the foreman to charter and dispatch both
+independent reviewers. The owner explicitly treats the cap model as a later
+process-design problem; it does not authorize weaker evidence, fewer reviewers,
+or scope expansion beyond D3.
+
+## Iteration 2 — committee chartered
+
+| Seat | Tier | Charter | Status |
+|---|---|---|---|
+| Governance reviewer | Medium | `charter-review-governance-r2.md` | chartered |
+| Adversary reviewer | Medium | `charter-review-adversary-r2.md` | chartered |
+
+Both reviewer charters preserve the plan's Rung-2 ceiling and require fresh,
+isolated measurements over `it3` and `it4`; the Round-1 review charters do not
+carry forward. Owner plan approval remains their standing dispatch
+authorization.
+
 ## Next foreman action
 
-Await owner disposition of the Iteration-2 cap incident. Do not stage or
-dispatch committee reviewers. If a variance is accepted, charter fresh isolated
-Governance and Adversary review seats over `it3` and `it4`; neither prior review
-charter covers this iteration.
+Dispatch the two chartered reviewers in isolated contexts. On delivery, take
+custody, update the actual cap total, and triage findings without re-reviewing
+artifact merits.

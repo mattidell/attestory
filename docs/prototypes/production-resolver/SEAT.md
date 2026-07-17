@@ -2,10 +2,9 @@
 
 ## Current step
 
-Round 2 builder artifacts are in foreman custody. They address the Round-1
-registry-anchor, declared-adoption-act, and ledger findings, but committee review
-is stopped at the Gate-4 cap: D3 now has 1,752 Markdown lines, leaving 48 before
-the 1,800-line target.
+Round 2 builder artifacts are in foreman custody. The owner accepted a recorded
+cap variance for this committee only and directed fresh independent Governance
+and Adversary review; the evidence scope and Rung-2 ceiling do not change.
 
 ## Seats
 
@@ -18,10 +17,12 @@ the 1,800-line target.
 | Adversary reviewer | complete; `reviews/adversary-r1.md` |
 | Round-2 incumbent builder | complete; `it3/design.md`, `examination-it3.md` |
 | Round-2 clean-room rival | complete; `it4/design.md`, `examination-it4.md`; seal held |
+| Round-2 Governance reviewer | chartered, Medium; `charter-review-governance-r2.md` |
+| Round-2 Adversary reviewer | chartered, Medium; `charter-review-adversary-r2.md` |
 
 ## Next action
 
-Do not charter or dispatch the committee. The owner must dispose of the cap
-incident: a full independent Governance + Adversary review cannot fit in the
-remaining 48 lines. Only fresh isolated reviewers over these artifacts may
-establish whether they support ADR-0033; the Round-1 reviews do not carry over.
+Dispatch the two fresh isolated reviewers. Only their measurements over these
+artifacts may establish whether an ADR-0033 draft is supportable; the Round-1
+reviews do not carry over. Record the actual post-review cap total and carry the
+owner-directed variance as a planning follow-up.

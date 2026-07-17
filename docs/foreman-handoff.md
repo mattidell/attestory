@@ -34,10 +34,12 @@ against git, trust git and say so.
 - **Round-2 builders delivered:** synthetic incumbent (`it3`) and sealed rival
   (`it4`) artifacts are in custody, individually within cap. The topic is now
   1,752 Markdown lines.
-- **➡️ NEXT ACTION: owner disposes of the Round-2 cap incident before committee
-  review.** Only 48 lines remain under the 1,800-line target; fresh independent
-  Governance and Adversary reviews need a recorded variance or other owner
-  disposition. No ADR-0033 draft exists, and no committee is chartered.
+- **Owner cap disposition:** an explicit variance now covers this committee;
+  preserving both independent reviews and the Rung-2 boundary. The cap model is
+  a planning follow-up, not a reason to weaken evidence.
+- **➡️ NEXT ACTION: dispatch the chartered isolated Governance and Adversary
+  reviewers.** No ADR-0033 draft exists; committee findings determine whether
+  the foreman may prepare one.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
