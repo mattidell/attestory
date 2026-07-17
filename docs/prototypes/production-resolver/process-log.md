@@ -9,6 +9,7 @@ and extends ADR-0027 d7 / ADR-0028 beyond the fixture boundary.
 |---|---|
 | 2026-07-16 | Plan approved by owner (PR #6, merged `a213cf3`). |
 | 2026-07-16 | Charters authored: `charter-it1.md` (incumbent, High), `charter-it2.md` (clean-room rival, High). **Awaiting dispatch (owner-launched builders, per established pattern).** |
+| 2026-07-16 | **Foreman succession / process correction:** a resuming principal foreman took the active seat on `decision/d3-production-resolver`. It found the required topic `SEAT.md` had not been created before the builder or committee stages. The seat record is now created before committee findings are received; reviewer charters are unchanged. This is a foreman/process error, not artifact evidence. |
 
 ## Round 1 seats
 
@@ -71,6 +72,10 @@ schema-byte checksums (rejected), implementation bytes / typed-refusal ledger
 |---|---|---|---|
 | Governance reviewer | Medium | independent sub-agent | `charter-review-governance.md` |
 | Adversary reviewer | Medium | independent sub-agent | `charter-review-adversary.md` |
+
+Both reviewer seats were dispatched in isolated contexts under the approved
+plan's standing authorization. Each is directed to the repaired `SEAT.md`; they
+do not read or coordinate with the other review while it is in progress.
 
 ## Next foreman action (after committee)
 
