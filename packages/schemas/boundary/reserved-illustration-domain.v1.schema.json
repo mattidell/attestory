@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "boundary/reserved-illustration-domain.v1",
+  "title": "Reserved Illustration Domain",
+  "description": "ADR-0031 D1 rule 5: A fixed, non-resolvable enumeration of example forms that is itself part of the permitted grammar.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "reserved-illustration-domain.v1" },
+    "examples": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    }
+  },
+  "required": ["schema", "examples"],
+  "additionalProperties": false
+}

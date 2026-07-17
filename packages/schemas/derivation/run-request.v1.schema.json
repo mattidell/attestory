@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/run-request.v1",
+  "title": "Run Request",
+  "description": "ADR-0032 D3: A closed run request with no value-bearing members, enforcing that runs consume facts, not inputs.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "run-request.v1" }
+  },
+  "required": ["schema"],
+  "additionalProperties": false
+}

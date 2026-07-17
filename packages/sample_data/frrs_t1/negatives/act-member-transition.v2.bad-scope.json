@@ -1,0 +1,15 @@
+{
+  "family": {
+    "id": "f.v1",
+    "version": "v1"
+  },
+  "scope": {},
+  "member": {
+    "action": "remove",
+    "fact_id": "fact-1"
+  },
+  "successor": {
+    "id": "succ-1",
+    "predecessor": "pred-1"
+  }
+}

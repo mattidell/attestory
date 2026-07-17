@@ -1,0 +1,11 @@
+{
+  "schema": "finding.v2",
+  "id": "find-2",
+  "fact_id": "f1",
+  "value": 100,
+  "basis": "documentary",
+  "evidence_ids": [
+    "evid-1"
+  ],
+  "contribution_id": "contrib-1"
+}

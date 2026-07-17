@@ -1,0 +1,15 @@
+{
+  "schema": "contribution-record.v1",
+  "record_id": "rec-1",
+  "contribution_id": "contrib-1",
+  "phase": "completed",
+  "workspace_revision": 1,
+  "stop_reason": "completed",
+  "facts_asserted": [
+    {
+      "fact_id": "f1",
+      "finding_id": "find1",
+      "act_id": "act1"
+    }
+  ]
+}

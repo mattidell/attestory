@@ -1,0 +1,7 @@
+{
+  "schema": "reserved-illustration-domain.v1",
+  "examples": [
+    "example.com"
+  ],
+  "extra": "bad"
+}

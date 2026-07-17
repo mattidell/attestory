@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "boundary/classification.v1",
+  "title": "Data Residency Classification",
+  "description": "ADR-0031 D1 rule 2: A total, fail-closed binary function classifying if an artifact may cross the residency boundary.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "classification.v1" },
+    "decision": { "enum": ["MAY_CROSS", "NEVER_CROSSES"] },
+    "kind": {
+      "enum": [
+        "public-origin code",
+        "public-origin contract",
+        "independently-constructed synthetic fixture"
+      ]
+    },
+    "reason": { "type": "string" }
+  },
+  "required": ["schema", "decision"],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": { "const": "MAY_CROSS" }
+        }
+      },
+      "then": {
+        "required": ["kind"]
+      }
+    }
+  ]
+}

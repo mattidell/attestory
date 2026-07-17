@@ -1,0 +1,5 @@
+{
+  "schema": "classification.v1",
+  "decision": "MAY_CROSS",
+  "kind": "bad kind"
+}

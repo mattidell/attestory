@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/finding.v2",
+  "title": "Finding",
+  "description": "A determination of a fact: an answer, given by someone, at some time, on some basis (Ontology section 2). Immutable; correction is a new finding. The value's shape is governed by the fact type's value_schema. Evidence references are provenance, never identity. The optional capture preserves a presented claim verbatim (Article 2); the optional pins declare derivation-edge dependencies (Article 12; exercised by derivation machinery).",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "finding.v2"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "value": {},
+    "basis": {
+      "enum": [
+        "documentary",
+        "attested",
+        "elective"
+      ]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "capture": {
+      "type": "object",
+      "properties": {
+        "presented": {},
+        "asserted": {}
+      },
+      "required": [
+        "presented",
+        "asserted"
+      ],
+      "additionalProperties": false
+    },
+    "pins": {
+      "type": "object",
+      "properties": {
+        "finding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "artifact_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "finding_ids",
+        "artifact_ids"
+      ],
+      "additionalProperties": false
+    },
+    "contribution_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "fact_id",
+    "value",
+    "basis",
+    "evidence_ids"
+  ],
+  "additionalProperties": false
+}

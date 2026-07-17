@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/release-registry.v1",
+  "title": "Release Registry",
+  "description": "ADR-0033 D1: A versioned publication-root citizen defining immutable identity via checksums of registry documents.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "release-registry.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "package_registry_checksum": { "type": "string", "minLength": 64, "maxLength": 64 },
+    "citizen_registry_checksums": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "minLength": 64, "maxLength": 64 }
+    }
+  },
+  "required": ["schema", "id", "package_registry_checksum"],
+  "additionalProperties": false
+}

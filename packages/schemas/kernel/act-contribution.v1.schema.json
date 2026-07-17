@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-contribution.v1",
+  "title": "Contribution act payload",
+  "description": "Carries a manually-entered batch (ADR-0032).",
+  "type": "object",
+  "properties": {
+    "contribution": {
+      "type": "object",
+      "properties": { "schema": { "const": "contribution.v1" } },
+      "required": ["schema"]
+    }
+  },
+  "required": ["contribution"],
+  "additionalProperties": false
+}

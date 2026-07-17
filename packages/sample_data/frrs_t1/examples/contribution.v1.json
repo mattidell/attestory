@@ -1,0 +1,8 @@
+{
+  "schema": "contribution.v1",
+  "id": "contrib-1",
+  "evidence_id": "evid-1",
+  "content": {
+    "some": "data"
+  }
+}
