@@ -2,9 +2,8 @@
 
 ## Current step
 
-Iteration 3 paired builders are active under owner authorization. They are
-limited to verified registry-release bytes, current-user adoption selection,
-same-key refusal, and exact D3-P2 ledger dispositions.
+Iteration 3 builder charters are staged but undispatched. A prior launch was
+rescinded by the owner before either seat created a deliverable.
 
 ## Seats
 
@@ -19,11 +18,11 @@ same-key refusal, and exact D3-P2 ledger dispositions.
 | Round-2 clean-room rival | complete; `it4/design.md`, `examination-it4.md`; seal held |
 | Round-2 Governance reviewer | complete; `reviews/governance-r2.md` |
 | Round-2 Adversary reviewer | complete; `reviews/adversary-r2.md` |
-| Iteration-3 incumbent builder | dispatched, High; `charter-it5.md` |
-| Iteration-3 clean-room rival | dispatched, High; `charter-it6.md`; sealed |
+| Iteration-3 incumbent builder | chartered, not dispatched; `charter-it5.md` |
+| Iteration-3 clean-room rival | chartered, not dispatched; `charter-it6.md`; sealed on launch |
 
 ## Next action
 
-Await the two sealed builder deliveries. The foreman takes custody, verifies the
-synthetic/Rung-2 boundary and individual caps, then routes only converged
-evidence to fresh independent review. No production code is authorized.
+Await owner direction. Do not dispatch either builder from the staged charter.
+If reauthorized, both seats remain limited to the four committee findings and
+Rung-2 evidence; no production code is authorized.

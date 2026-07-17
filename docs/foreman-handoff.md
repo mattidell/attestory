@@ -34,13 +34,11 @@ against git, trust git and say so.
 - **Round-2 builders delivered:** synthetic incumbent (`it3`) and sealed rival
   (`it4`) artifacts are in custody, individually within cap. The topic is now
   1,752 Markdown lines.
-- **Iteration-3 builders active:** owner-authorized High-tier incumbent and
-  clean-room rival seats are working only on verified registry-release bytes,
-  current user adoption selection, same-key refusal, and an exact D3-P2 ledger.
-  No production resolver code is authorized.
-- **➡️ NEXT ACTION: take custody of the two sealed builder deliveries, then
-  stage fresh review only if the evidence warrants it.** No ADR-0033 draft
-  exists.
+- **Iteration-3 launch rescinded:** both High-tier builder seats were interrupted
+  before writing any artifact. Their charters remain staged, not dispatched, and
+  no production resolver code is authorized.
+- **➡️ NEXT ACTION: owner directs a fresh builder dispatch or stops D3.** No
+  ADR-0033 draft or Iteration-3 evidence exists.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

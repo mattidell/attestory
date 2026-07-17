@@ -251,7 +251,13 @@ verification, current user adoption selection, order-independent same-key
 refusal, and exact ledger dispositions. No production resolver code is
 authorized.
 
+**Owner rescission (2026-07-16):** after dispatch, the owner directed “Don't
+dispatch.” The foreman immediately interrupted both seats. Neither wrote a
+design or examination; the working tree contains only the staged `.gitkeep`
+directories. The charters remain available but are **not dispatched**; no
+artifact or partial work is evidence.
+
 ## Next foreman action
 
-Take custody of the two sealed builder deliveries, verify caps and synthetic
-boundary, then decide whether fresh committee review is warranted.
+Await a new owner dispatch direction or topic stop. Do not resume either builder
+from its staged charter alone.
