@@ -1,17 +1,17 @@
 {
   "family": {
-    "id": "f.v1",
+    "id": "demo.family",
     "version": "v1"
-  },
-  "scope": {
-    "year": "2024"
   },
   "member": {
     "action": "remove",
-    "fact_id": "fact-1"
+    "fact_id": "demo.fact-1"
+  },
+  "scope": {
+    "year": "2025"
   },
   "successor": {
-    "id": "succ-1",
-    "predecessor": "pred-1"
+    "id": "demo.successor-1",
+    "predecessor": "demo.predecessor-1"
   }
 }

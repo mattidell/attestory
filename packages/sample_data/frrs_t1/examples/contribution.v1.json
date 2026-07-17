@@ -1,8 +1,8 @@
 {
-  "schema": "contribution.v1",
-  "id": "contrib-1",
-  "evidence_id": "evid-1",
   "content": {
-    "some": "data"
-  }
+    "example": "synthetic"
+  },
+  "evidence_id": "demo.evidence-1",
+  "id": "demo.contribution-1",
+  "schema": "contribution.v1"
 }

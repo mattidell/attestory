@@ -1,6 +1,6 @@
 {
-  "schema": "reserved-illustration-domain.v1",
   "examples": [
-    "example.com"
-  ]
+    "example.invalid"
+  ],
+  "schema": "reserved-illustration-domain.v1"
 }

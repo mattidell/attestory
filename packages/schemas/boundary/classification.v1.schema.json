@@ -18,14 +18,32 @@
   },
   "required": ["schema", "decision"],
   "additionalProperties": false,
-  "allOf": [
+  "oneOf": [
     {
-      "if": {
-        "properties": {
-          "decision": { "const": "MAY_CROSS" }
+      "properties": {
+        "schema": { "const": "classification.v1" },
+        "decision": { "const": "MAY_CROSS" },
+        "kind": {
+          "enum": [
+            "public-origin code",
+            "public-origin contract",
+            "independently-constructed synthetic fixture"
+          ]
         }
       },
-      "then": {
+      "required": ["schema", "decision", "kind"]
+    },
+    {
+      "properties": {
+        "schema": { "const": "classification.v1" },
+        "decision": { "const": "NEVER_CROSSES" },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "required": ["schema", "decision", "reason"],
+      "not": {
+        "properties": {
+          "kind": {}
+        },
         "required": ["kind"]
       }
     }

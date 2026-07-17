@@ -1,6 +1,6 @@
 {
-  "schema": "classification.v1",
   "decision": "MAY_CROSS",
   "kind": "independently-constructed synthetic fixture",
-  "reason": "Because it is synthetic."
+  "reason": "Generated from public schema contracts only.",
+  "schema": "classification.v1"
 }

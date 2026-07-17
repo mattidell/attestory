@@ -1,12 +1,12 @@
 {
   "finding": {
-    "schema": "finding.v1",
-    "id": "find-2",
-    "fact_id": "f1",
-    "value": 100,
     "basis": "documentary",
     "evidence_ids": [
-      "evid-1"
-    ]
+      "demo.evidence-1"
+    ],
+    "fact_id": "demo.fact-1",
+    "id": "demo.finding-2",
+    "schema": "finding.v1",
+    "value": 100
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "contribution.v1",
-  "id": "contrib-1",
-  "content": {}
+  "content": {},
+  "id": "demo.contribution-1",
+  "schema": "contribution.v1"
 }

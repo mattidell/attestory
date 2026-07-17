@@ -1,15 +1,21 @@
 {
-  "schema": "fixture-provenance-manifest.v1",
-  "generator": {
-    "id": "gen-1",
-    "version": "1.0",
-    "digest": "abcdef"
-  },
-  "grammar_digest": "abcdef",
-  "profile_digest": "abcdef",
-  "seed": "42",
+  "artifacts": [
+    {
+      "path": "examples/run-request.v1.json",
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ],
   "constraints": {},
+  "generator": {
+    "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "id": "demo.generator",
+    "version": "v1"
+  },
+  "grammar_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
   "input_kinds": [
-    "test"
-  ]
+    "public schema contract"
+  ],
+  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "schema": "fixture-provenance-manifest.v1",
+  "seed": "demo-seed"
 }

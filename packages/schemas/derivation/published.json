@@ -1,6 +1,5 @@
 {
   "act-derived-publication.v1.schema.json": "d77a1fd9af946e963f10da3306f165607741906cce8fbc2d9f43a7238ca08dca",
-  "act-package-adoption.v1.schema.json": "52e28e06c32106e2bdbc6be7647682cb205ea25741d28fb923d312b5cae29314",
   "artifact-package.v1.schema.json": "5663562271cdb31db6739d5d7b7bc870a120cd178b39cd5bb4c35e72add7bd01",
   "artifact-package.v2.schema.json": "0eb24ed3105f2a3a33ae4a8960762367ac25eaa8a96b5b7143b047af255b0439",
   "citation.v1.schema.json": "9d68ac294ce99dfee40c5e2f9cc5ea574fc7375a1e0857706aa3e690bdce25ec",
@@ -12,7 +11,6 @@
   "operation-semantics.v1.schema.json": "9b144ce850029264b539603f927294091a73905c1117ae20a8d5817bdfe0d440",
   "operation-semantics.v2.schema.json": "ef8811497229e9d3120dc91f444c8e143efe3f5c759f0f2d5ec5f4975cb78f22",
   "parameter-declaration.v1.schema.json": "f8a8fa869c4c64d2ac081083fdfa81a8aca42fa791aa478d3d392040e4c510b1",
-  "release-registry.v1.schema.json": "0a329c0d73b51cc7ca324b4293d68ffaf67f534902d219b71d8fcd15683644cf",
   "rule-artifact.v1.schema.json": "9a98d3f4f7e1d1d842291db2f28291c3b61812a64a4ed7069ab23950ca458118",
   "rule-artifact.v2.schema.json": "aa6af201ffc2e52a50d2347b508f94643ffc61e37027b36152a50d0d8fc69230",
   "run-request.v1.schema.json": "ef7426c5b1cbcfae5b3d5b8292676b102012dd90bd10f9ded98a59a06c353102",

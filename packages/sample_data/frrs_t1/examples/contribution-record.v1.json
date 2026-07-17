@@ -1,15 +1,15 @@
 {
-  "schema": "contribution-record.v1",
-  "record_id": "rec-1",
-  "contribution_id": "contrib-1",
-  "phase": "completed",
-  "workspace_revision": 1,
-  "stop_reason": "completed",
+  "contribution_id": "demo.contribution-1",
   "facts_asserted": [
     {
-      "fact_id": "f1",
-      "finding_id": "find1",
-      "act_id": "act1"
+      "act_id": "demo.act-1",
+      "fact_id": "demo.fact-1",
+      "finding_id": "demo.finding-1"
     }
-  ]
+  ],
+  "phase": "completed",
+  "record_id": "demo.record-1",
+  "schema": "contribution-record.v1",
+  "stop_reason": "completed",
+  "workspace_revision": 1
 }

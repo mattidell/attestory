@@ -1,7 +1,7 @@
 {
-  "schema": "reserved-illustration-domain.v1",
   "examples": [
-    "example.com"
+    "example.invalid"
   ],
-  "extra": "bad"
+  "extra": "bad",
+  "schema": "reserved-illustration-domain.v1"
 }
