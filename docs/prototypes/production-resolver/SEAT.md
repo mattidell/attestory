@@ -2,10 +2,11 @@
 
 ## Current step
 
-Round 1 committee review is open. The incumbent and sealed clean-room rival
-Rung-2 artifacts are in foreman custody at `783861e`; the committee charters
-were staged at `9d357bd`. This topic is the last Track-0 decision of First Real
-Return Slice.
+Round 1 committee is complete. Both reviews reject wholesale adoption: D3-P1
+needs a publication-registry anchor plus a declared package-adoption act, and
+D3-P2 needs an explicit complete ledger for the selected shape. The topic is
+stopped before a repair round because the approved plan did not pre-authorize
+builder repairs.
 
 ## Seats
 
@@ -14,14 +15,13 @@ Return Slice.
 | Principal foreman | active; holds process and git custody on `decision/d3-production-resolver` |
 | Incumbent builder | complete; `it1/design.md`, `examination-it1.md` |
 | Clean-room rival | complete; `it2/design.md`, `examination-it2.md`; seal held |
-| Governance reviewer | dispatched, Medium; `charter-review-governance.md` |
-| Adversary reviewer | dispatched, Medium; `charter-review-adversary.md` |
+| Governance reviewer | complete; `reviews/governance-r1.md` |
+| Adversary reviewer | complete; `reviews/adversary-r1.md` |
 
 ## Next action
 
-Receive the two isolated committee reviews, then collate and triage their
-falsifiable findings without re-reviewing artifact merits. If the evidence
-converges with no decision-blocking gap, author proposed ADR-0033 and prepare
-the owner-held ratification packet; otherwise charter a scoped next iteration.
-Update the running Markdown-cap total at the round boundary. Reviewers read this
-file, `plan.md`, `process-log.md`, and their own charter before reviewing.
+Owner confirmation is required to charter and dispatch fresh paired Round-2
+builders (incumbent plus sealed clean-room rival). Their bounded task is to
+exercise the committee-identified synthesis; only a new independent committee
+may establish whether it supports ADR-0033. The current total is 1,431 Markdown
+lines, under the 1,800-line cap.

@@ -17,21 +17,24 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-16; branch `decision/d2-contribution` — **D2 prototype stop-and-decide**)
+## Current state (updated 2026-07-16; branch `decision/d3-production-resolver` — **D3 Round-1 stop before repair**)
 
-- **Seat:** principal foreman.
-- **Real Return phase is active.** D1 is ratified (ADR-0031); D2 Contribution
-  Boundary plan was approved and merged in PR #4 (`548318b`).
-- **D2 builds landed:** incumbent and sealed clean-room rival artifacts are
-  committed at `32de94d`; their examinations meet the 120-line cap and the
-  rival attests its seal. `docs/prototypes/contribution-boundary/SEAT.md` is
-  the active entrypoint.
-- **Fixed-cap incident:** the D2 topic has 1,102 Markdown lines before the seat
-  record, exceeding the plan's 900-line cap. Committee reviewers have not been
-  dispatched. The incident is logged in the D2 process log.
-- **➡️ NEXT ACTION: owner stop-and-decide on the D2 Gate-4 cap.** The foreman
-  does not dispatch the committee until the owner directs whether to accept a
-  recorded cap variance, reduce scope/artifacts, or stop the topic.
+- **Seat:** principal foreman. The repaired active entrypoint is
+  `docs/prototypes/production-resolver/SEAT.md`; its creation and this
+  succession are logged in that topic's process log.
+- **Real Return phase is active.** D1 (ADR-0031) and D2 (ADR-0032) are ratified.
+  D3's plan was owner-approved and merged in PR #6 (`a213cf3`).
+- **D3 Round 1 is complete:** two sealed, independent Rung-2 builder artifacts
+  (`783861e`) and two isolated Medium committee reviews are in custody. The
+  topic is 1,431 Markdown lines through committee, below its 1,800-line cap.
+- **Committee result:** no wholesale design is ratifiable. The incumbent's
+  `L`-catalog is self-authenticating; the rival needs a declared package-adoption
+  act and an exhaustive ledger. Both uphold the strict `ok == True` gate; RG-1
+  (current core package repair) remains a MUST production condition.
+- **➡️ NEXT ACTION: owner confirms a bounded, paired Round-2 builder dispatch.**
+  The approved plan pre-authorized no repair pass and the foreman role charter
+  requires confirmation for non-reviewer spawns. No ADR-0033 draft and no new
+  builder charter exists yet.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

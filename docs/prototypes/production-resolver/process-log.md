@@ -77,10 +77,58 @@ Both reviewer seats were dispatched in isolated contexts under the approved
 plan's standing authorization. Each is directed to the repaired `SEAT.md`; they
 do not read or coordinate with the other review while it is in progress.
 
-## Next foreman action (after committee)
+## Round 2 — committee delivered
 
-Collate + triage; if convergence confirmed with no surviving decision-blocking
-defect, author ADR-0033 (naming RG-1 as a production condition if the committee
-upholds the strict gate; recommending a scoped confirmation pass for any
-foreman-authored fix); else charter a Round-2 iteration. On ADR-0033 ratification,
-**Track 0 completes**.
+| Seat | Tier | Output |
+|---|---|---|
+| Governance reviewer | Medium | `reviews/governance-r1.md` (99 lines) |
+| Adversary reviewer | Medium | `reviews/adversary-r1.md` (93 lines) |
+
+The reviewers were isolated and returned independently. Both outputs are
+synthetic-only and within their 120-line caps.
+
+## Foreman triage — committee (Gate 5; routing, not adjudication)
+
+**D3-P1 and D3-P2 are not converged at Rung 2; do not draft ADR-0033.** Both
+reviewers reject wholesale adoption, and neither reviewer found a reason to
+soften the R5 `ok == True` gate.
+
+- **Decision-blocking — incumbent D3-P1:** its `L`-resident installed-content
+  catalog is self-authenticating. It lacks the immutable publication-registry
+  anchor required by ADR-0027 Decision 6 / PC3, so changed same-identity bytes
+  can agree with attacker-selected catalog checksums.
+- **Decision-blocking — rival D3-P1:** its registry-anchored supply is the right
+  direction, but its `AdoptionRecord` has no declared, versioned Article-4 act
+  carrier. The selected package therefore has no stated actor/scope/provenance
+  authority at the production boundary.
+- **Decision-blocking — rival D3-P2:** its ledger omits explicit dispositions
+  for ADR-0027 Decisions 1, 2, 4, 5, and 6. The incumbent's decision-level
+  ledger is the carry-forward basis, but must be exercised against the selected
+  resolver shape rather than inferred into an ADR.
+- **Production condition (settled direction, not a D3-P1 discharge):** retain
+  the strict R5 gate; RG-1 is a MUST prerequisite to a live production run.
+  The adversary observed **eight** contained issues in the current core package,
+  not the earlier triage's seven; the later charter/ADR must name the validator
+  reachability repair and v1-generation content debt without an inaccurate count.
+- **Deferred / owning tracks:** installed D1 wall and D2 marshal-only entrypoint
+  proof remain Tracks 1–3 conditions; D3 consumes them and does not claim them
+  installed. Embedded schema-byte checksums remain rejected under ADR-0027.
+
+**Scope and cap:** 1,431 topic Markdown lines through committee, below the
+1,800-line target; no cap incident and no scope drift. The necessary next round
+stays inside D3: a registry-anchored, adoption-act-bearing resolver contract and
+its exhaustive discharge/defer ledger. The committee's synthesis is a route for
+new evidence, not itself evidence sufficient to ratify.
+
+**Recommendation / stop:** charter a fresh paired Round-2 build (incumbent plus
+sealed clean-room rival) at Rung 2 to exercise that bounded synthesis. The plan
+pre-authorized no repair pass, and builders are non-reviewer seats; per the
+foreman role charter, **owner confirmation is required before dispatch**. No
+builder has been launched.
+
+## Next foreman action
+
+Await owner confirmation to charter and dispatch the two new, independent
+Round-2 builder seats. On an owner-approved repair charter, the builders must
+produce rival evidence against all three decision-blocking findings before a
+fresh committee can reopen ADR-0033.
