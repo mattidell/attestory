@@ -2,9 +2,9 @@
 
 ## Current step
 
-Round 2 builder artifacts are in foreman custody. The owner accepted a recorded
-cap variance for this committee only and directed fresh independent Governance
-and Adversary review; the evidence scope and Rung-2 ceiling do not change.
+Iteration 2 committee is complete. Both reviewers find ADR-0033 unsupported:
+the release/registry bytes are not independently verified, current user adoption
+selection is not defined, and both D3-P2 ledgers overclaim or omit dispositions.
 
 ## Seats
 
@@ -17,12 +17,13 @@ and Adversary review; the evidence scope and Rung-2 ceiling do not change.
 | Adversary reviewer | complete; `reviews/adversary-r1.md` |
 | Round-2 incumbent builder | complete; `it3/design.md`, `examination-it3.md` |
 | Round-2 clean-room rival | complete; `it4/design.md`, `examination-it4.md`; seal held |
-| Round-2 Governance reviewer | chartered, Medium; `charter-review-governance-r2.md` |
-| Round-2 Adversary reviewer | chartered, Medium; `charter-review-adversary-r2.md` |
+| Round-2 Governance reviewer | complete; `reviews/governance-r2.md` |
+| Round-2 Adversary reviewer | complete; `reviews/adversary-r2.md` |
 
 ## Next action
 
-Dispatch the two fresh isolated reviewers. Only their measurements over these
-artifacts may establish whether an ADR-0033 draft is supportable; the Round-1
-reviews do not carry over. Record the actual post-review cap total and carry the
-owner-directed variance as a planning follow-up.
+Owner decides whether to authorize a bounded paired Iteration-3 build or stop
+D3. Any next build must exercise verified release bytes, exact current-user
+adoption selection, order-independent same-key refusal, and an item-by-item
+ledger; it requires new rival and committee evidence. The actual cap total is
+2,081 lines under the owner-directed committee variance.

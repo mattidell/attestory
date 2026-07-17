@@ -181,8 +181,58 @@ isolated measurements over `it3` and `it4`; the Round-1 review charters do not
 carry forward. Owner plan approval remains their standing dispatch
 authorization.
 
+## Iteration 2 — committee delivered
+
+| Seat | Tier | Output |
+|---|---|---|
+| Governance reviewer | Medium | `reviews/governance-r2.md` (99 lines) |
+| Adversary reviewer | Medium | `reviews/adversary-r2.md` (111 lines) |
+
+The reviewers ran in isolated contexts and returned independent synthetic-only
+measurements. The owner-directed committee variance brings the actual topic
+total to **2,081** Markdown lines.
+
+## Foreman triage — Iteration 2 committee (Gate 5; routing, not adjudication)
+
+**D3-P1 and D3-P2 remain decision-blocked; ADR-0033 must not be drafted.** The
+new round resolved previously unstated authority questions, but did not supply
+a ratifiable contract. This is progress in problem definition, not a no-progress
+iteration.
+
+- **Decision-blocking — registry authority:** both designs say a repo-resident
+  registry is immutable, but neither defines a versioned release/registry citizen
+  whose actual bytes are verified against the adoption pin before it authenticates
+  a package or member. A caller-selected/replaced registry can therefore agree
+  with forged supply bytes. The next evidence must probe release-byte mismatch,
+  not merely entry mismatch.
+- **Decision-blocking — current user adoption:** it3's unversioned
+  `AdoptionRecord` permits a system/automation actor, contrary to the Ontology's
+  sole-user actor and Article 4. It4 declares the right *kind* of act but does
+  not define currency/supersession selection under competing or stale acts. The
+  next evidence must select exactly one current user adoption by declared scope,
+  revision, and exact package/trust-anchor pair; caller choice is not authority.
+- **Decision-blocking — it3 supply arbitration:** it3 has no order-independent
+  duplicate/same-key candidate refusal rule. It4's pin-directed verified-candidate
+  direction is the carry-forward basis only after the two authority questions
+  close; no design is adopted wholesale.
+- **Decision-blocking — D3-P2 ledger:** it3 falsely discharges grouped ADR-0027
+  PC and ADR-0028 items; it4 is more explicit but has unclassified
+  "Acknowledged" entries and overstates installed D1/D2 conditions. A future
+  ledger must enumerate every ADR-0027 Decision 1–7 / PC1–PC4 and ADR-0028
+  Decision 1–9 / PC1, PC1b, PC1c, PC2, PC3 as contract-settled,
+  production-condition-with-owner, deferred-with-reason, or N/A.
+- **Production conditions carried:** `validation.ok == True` remains mandatory;
+  RG-1 must name the validator-reachability repair and v1-generation content
+  debt behind the observed eight issues. ADR-0031's wall and ADR-0032's
+  marshal-only live-entrypoint proof remain consumed interlocks, never D3
+  installed discharges.
+
+**Recommendation / stop:** a paired Iteration-3 build is needed to exercise
+release-byte verification, current-user-adoption currency, same-key refusal,
+and the exact ledger. It requires fresh independent rival evidence and fresh
+committee measurement. The owner must decide whether to authorize that scope or
+stop D3; no builder is chartered or dispatched from this triage.
+
 ## Next foreman action
 
-Dispatch the two chartered reviewers in isolated contexts. On delivery, take
-custody, update the actual cap total, and triage findings without re-reviewing
-artifact merits.
+Await owner direction on a bounded paired Iteration-3 charter or topic stop.
