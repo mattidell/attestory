@@ -2,11 +2,10 @@
 
 ## Current step
 
-Round 1 committee is complete. Both reviews reject wholesale adoption: D3-P1
-needs a publication-registry anchor plus a declared package-adoption act, and
-D3-P2 needs an explicit complete ledger for the selected shape. Two Round-2
-builder charters are ready, but the topic is stopped before dispatch for the
-owner's separate cap disposition and launch direction.
+Round 2 builder artifacts are in foreman custody. They address the Round-1
+registry-anchor, declared-adoption-act, and ledger findings, but committee review
+is stopped at the Gate-4 cap: D3 now has 1,752 Markdown lines, leaving 48 before
+the 1,800-line target.
 
 ## Seats
 
@@ -17,13 +16,12 @@ owner's separate cap disposition and launch direction.
 | Round-1 clean-room rival | complete; `it2/design.md`, `examination-it2.md`; seal held |
 | Governance reviewer | complete; `reviews/governance-r1.md` |
 | Adversary reviewer | complete; `reviews/adversary-r1.md` |
-| Round-2 incumbent builder | chartered, not dispatched; `charter-it3.md` |
-| Round-2 clean-room rival | chartered, not dispatched; `charter-it4.md`; sealed on launch |
+| Round-2 incumbent builder | complete; `it3/design.md`, `examination-it3.md` |
+| Round-2 clean-room rival | complete; `it4/design.md`, `examination-it4.md`; seal held |
 
 ## Next action
 
-Do not dispatch the builders. The owner must first dispose of the evidence-cap
-forecast: the charter-only topic is 1,615 lines, and two maximum-size Rung-2
-artifacts plus another committee cannot fit under the 1,800-line target. Their
-bounded task is to exercise the committee-identified synthesis; only a new
-independent committee may establish whether it supports ADR-0033.
+Do not charter or dispatch the committee. The owner must dispose of the cap
+incident: a full independent Governance + Adversary review cannot fit in the
+remaining 48 lines. Only fresh isolated reviewers over these artifacts may
+establish whether they support ADR-0033; the Round-1 reviews do not carry over.

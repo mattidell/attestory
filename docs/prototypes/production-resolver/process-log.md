@@ -130,8 +130,8 @@ builder has been launched.
 
 | Seat | Tier | Charter | Status |
 |---|---|---|---|
-| Incumbent builder | High | `charter-it3.md` | chartered; not dispatched |
-| Clean-room rival | High | `charter-it4.md` | chartered; not dispatched; sealed on launch |
+| Incumbent builder | High | `charter-it3.md` | complete; `it3/design.md`, `examination-it3.md` |
+| Clean-room rival | High | `charter-it4.md` | complete; `it4/design.md`, `examination-it4.md`; seal attested |
 
 The owner authorized these charters on 2026-07-16 and expressly withheld
 dispatch. Each charter stays at the original Rung-2 ceiling and contains the
@@ -146,9 +146,26 @@ plan's 1,800-line target. A full Iteration 2 needs an owner cap disposition or
 a revised evidence shape before dispatch. This is an economy stop, not
 authorization to shrink or skip rival evidence.
 
+## Iteration 2 — builder delivery and custody
+
+Both builder artifacts were delivered to the shared workspace and taken into
+foreman custody on 2026-07-16. The incumbent design/examination are 43/19 lines;
+the sealed rival design/examination are 60/15 lines. They stay within their
+300/120 individual caps, use synthetic scratch-`L` cases only, and make no
+implementation or schema changes. The rival's stated read surface excludes
+`it3/` and `examination-it3.md`; its seal is held as delivered.
+
+**Cap incident / stop-and-decide:** delivery brings the topic to **1,752**
+Markdown lines, 48 below the plan's 1,800-line target. The required two-reviewer
+committee cannot fit inside that remainder. The previous owner instruction
+chartered builders but did not record a cap disposition; artifact delivery does
+not itself amend the cap. Do not charter or dispatch committee reviewers until
+the owner accepts a recorded variance, changes the evidence shape without
+weakening independent review, or stops the topic.
+
 ## Next foreman action
 
-Await owner direction on the cap disposition and a separate dispatch command.
-Do not launch either builder solely because its charter exists. On authorized
-launch, the builders must produce rival evidence against all three
-decision-blocking findings before a fresh committee can reopen ADR-0033.
+Await owner disposition of the Iteration-2 cap incident. Do not stage or
+dispatch committee reviewers. If a variance is accepted, charter fresh isolated
+Governance and Adversary review seats over `it3` and `it4`; neither prior review
+charter covers this iteration.
