@@ -309,11 +309,29 @@ target. The owner twice accepted a recorded variance, treating the cap model as 
 later process-design problem (does not authorize weaker evidence). A Round-3
 committee adds ~200 lines.
 
-## Next foreman action — BLOCKED on owner dispatch approval (ADR-0034)
+## Iteration 3 — committee chartered, owner-authorized, owner-launched
 
-The Iteration-3 builds look convergent and warrant a **Round-3 committee**
-(Governance + Adversary, Medium) to confirm and clear the path to ADR-0033. Under
-**ADR-0034**, every dispatch — including committee reviewers — requires immediate,
-explicit owner approval for the exact role and charter. **No reviewer is
-dispatched.** Awaiting the owner's decision: authorize the Round-3 committee
-dispatch, or stop D3.
+**Owner approved the Round-3 committee dispatch (2026-07-16, ADR-0034)** and
+elected to **launch the reviewers externally** (the foreman's sub-agents failed on
+a session limit this cycle). Charters authored:
+
+| Seat | Tier | Charter | Status |
+|---|---|---|---|
+| Governance reviewer | Medium | `charter-review-governance-r3.md` | owner-launched |
+| Adversary reviewer | Medium | `charter-review-adversary-r3.md` | owner-launched |
+
+Both charters are **confirmation-scoped**: confirm-or-refute whether Iteration 3
+closes the four standing decision-blocking findings and yields a ratifiable
+contract; no fresh open-ended audit (cap discipline). Isolated contexts; each
+returns `reviews/governance-r3.md` / `reviews/adversary-r3.md` (≤120 lines).
+
+## Next foreman action (on receipt)
+
+Collate + triage the Round-3 reviews (Gate 5). If both confirm convergence with no
+surviving decision-blocking defect → author **ADR-0033** (release-root →
+verified-registry → package/member pins → `ok == True` → exclusive graph;
+current-user adoption; order-independent same-key refusal; exhaustive ledger; RG-1
++ strict gate as MUST production conditions), recommending a scoped confirmation
+pass only if a foreman-authored fix is introduced. On ADR-0033 ratification,
+**Track 0 completes**. If a blocker survives, surface to the owner — three
+iterations is the point to weigh re-scope vs another round, not to auto-charter.
