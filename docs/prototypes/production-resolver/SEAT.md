@@ -2,9 +2,9 @@
 
 ## Current step
 
-Iteration-3 committee reviews have been delivered and are in foreman custody.
-They are confirmation-scoped measurements over the independently convergent
-`it5`/`it6` builds; triage determines whether ADR-0033 can be proposed.
+Iteration-3 committee confirms both propositions at Rung 2. The evaluation
+analysis selects the reviewed `it6` authority chain as the ADR basis; proposed
+ADR-0033 is the next foreman record.
 
 ## Seats
 
@@ -26,7 +26,6 @@ They are confirmation-scoped measurements over the independently convergent
 
 ## Next action
 
-Foreman collates and triages the two reviews. If both confirm convergence with no
-decision-blocking gap, it may prepare proposed ADR-0033 for owner ratification;
-otherwise it stops for owner direction. Under ADR-0034, any future dispatch still
-needs immediate, explicit owner approval for the exact role and current charter.
+Author proposed ADR-0033 from `evaluation-analysis.md`, then prepare the
+owner-held ratification packet. Under ADR-0034, any future dispatch still needs
+immediate, explicit owner approval for the exact role and current charter.

@@ -336,13 +336,29 @@ The owner-launched reviewers delivered independent, synthetic-only review files.
 They are now in foreman custody. The actual topic total is **3,366** Markdown
 lines; the owner-directed variance remains a process-planning follow-up.
 
+## Foreman triage — Iteration 3 committee (Gate 5; routing, not adjudication)
+
+**Both D3-P1 and D3-P2 are confirmed at Rung 2; no decision-blocking finding
+survives.** Governance finds both propositions conformant and ratifiable;
+Adversary found no working bypass across its five confirmation attacks.
+
+- **Settled D3-P1:** select the sealed rival's builder-designed release citizen
+  → release-byte verified registry → package/member pins → `ok == True` →
+  exclusive graph chain, with its current-user adoption currency and
+  verified-candidate same-key rule. The incumbent independently corroborates
+  each proposition. This is selection among reviewed designs, not a foreman fix.
+- **Settled D3-P2:** adopt the rival's 25-slot explicit ledger vocabulary;
+  ADR-0031/0032 remain consumed interlocks, and embedded schema-byte checksums
+  remain rejected. No silent partial discharge.
+- **Production conditions:** Track 3 installs the resolver and schemas; Track
+  1/3 install D1 wall proof; Track 2/3 install marshal-only entrypoint proof.
+  RG-1 is MUST: four reachability defects plus v1-generation content debt must
+  be repaired before a live package crosses the hard `ok == True` gate.
+
+The evidence chain is closed in `evaluation-analysis.md`. Next, author proposed
+ADR-0033 for owner-held ratification; no further dispatch is needed.
+
 ## Next foreman action (on receipt)
 
-Collate + triage the Round-3 reviews (Gate 5). If both confirm convergence with no
-surviving decision-blocking defect → author **ADR-0033** (release-root →
-verified-registry → package/member pins → `ok == True` → exclusive graph;
-current-user adoption; order-independent same-key refusal; exhaustive ledger; RG-1
-+ strict gate as MUST production conditions), recommending a scoped confirmation
-pass only if a foreman-authored fix is introduced. On ADR-0033 ratification,
-**Track 0 completes**. If a blocker survives, surface to the owner — three
-iterations is the point to weigh re-scope vs another round, not to auto-charter.
+Author proposed ADR-0033 from the evaluation analysis, then open the owner-held
+ratification packet. On ratification, **Track 0 completes**.
