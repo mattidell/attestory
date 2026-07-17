@@ -1,6 +1,6 @@
 # ADR 0032 — Contribution Boundary
 
-- Status: **proposed** (foreman custody, 2026-07-16; awaiting owner ratification).
+- Status: **accepted** (owner ratification 2026-07-16, PR #5, merge `c9dd3c4`).
 - Tier: 3
 - Date: 2026-07-16
 
