@@ -37,9 +37,24 @@ merely cite:
 2. **Evidence-ladder discipline.** Hold the paper-first rule (Gate 2) before any
    code is dispatched, and do not authorize a more expensive evidence rung
    (Gate 3) than the open question requires.
-3. **Budget enforcement.** Track the fixed caps (Gate 4) and trigger
-   stop-and-decide rather than letting a run drift past them. Session boundaries
-   are the natural cost-shape review points.
+3. **Budget enforcement.** Track the fixed caps (Gate 4) **at every round
+   boundary** — the running total is the foreman's to watch, not the record's to
+   catch after the fact — and trigger stop-and-decide rather than letting a run
+   drift past them. Session boundaries are the natural cost-shape review points.
+   **Cap calibration (recalibrated 2026-07-16).** The per-topic Markdown cap
+   bounds *runaway scope* (extra iterations, adjacent-defect charter creep,
+   prototype eating implementation) — not thorough evidence. Copy-pasted 800–900
+   line caps proved miscalibrated: every real Tier-3 topic exceeded them (e.g. D1
+   real-data-residency at 1,548 through a confirmation round). Realistic
+   defaults: **design ≤ 300 lines** (previously uncapped — the usual overage
+   driver), examination ≤ 120, charter ≤ 100, reviews lean but uncapped, and a
+   **total topic Markdown target ≤ 1,800 lines** through committee (add ~300 for
+   a confirmation round). Treat the total as a genuine stop-and-review trigger a
+   topic should normally sit under, not a target routinely breached. A crossing
+   is a signal to check for scope pathology, not an automatic defect: if the
+   overage is thorough evidence with no extra iterations and no implementation
+   bleed, record that finding and proceed; escalate to the owner only when the
+   overage reflects real scope drift.
 4. **Role capability assignment (dynamic, Gate 8).** Assign each role's capability
    tier (abstract High / Medium / Economy) and reasoning effort in the plan, and
    revise them as the run progresses — as decision boundaries, documents, and

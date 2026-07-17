@@ -106,7 +106,10 @@ Track 2.
   incumbent), each producing all six cases and both propositions.
 - No repair pass pre-authorized.
 - Two reviewers (Governance Medium, Adversary High), independent contexts.
-- Charter ≤ 100 lines; examination ≤ 120 lines; total topic Markdown ≤ 900 lines.
+- Charter ≤ 100 lines; **design ≤ 300 lines**; examination ≤ 120 lines; reviews
+  lean but uncapped; **total topic Markdown target ≤ 1,800 lines** through
+  committee (recalibrated 2026-07-16 — see the foreman role template's cap
+  calibration; the prior copy-pasted 900 was miscalibrated and never enforced).
 
 ## Gate 5 — Triage
 
