@@ -91,6 +91,12 @@ ADR entries should state:
 - Consequences: what this enables, forecloses, or requires.
 - Links: related milestone plan, retrospective, schemas, fixtures, or superseding ADRs.
 
+Every new or materially revised ADR also needs a non-normative plain-language
+analysis under `docs/adr/analyses/`, named after the ADR and linked near the top
+of the ADR. It explains what changes, why it is needed, what it enables or
+protects, and what it does not do. The ADR remains authoritative; historical
+ADRs do not need retroactive companions unless materially revisited.
+
 ## Milestone Retrospectives
 
 After each milestone, create a retrospective in `docs/milestone-retrospectives/`.
