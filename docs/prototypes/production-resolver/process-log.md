@@ -325,6 +325,17 @@ closes the four standing decision-blocking findings and yields a ratifiable
 contract; no fresh open-ended audit (cap discipline). Isolated contexts; each
 returns `reviews/governance-r3.md` / `reviews/adversary-r3.md` (≤120 lines).
 
+## Iteration 3 — committee delivery and custody
+
+| Seat | Tier | Output |
+|---|---|---|
+| Governance reviewer | Medium | `reviews/governance-r3.md` (120 lines) |
+| Adversary reviewer | Medium | `reviews/adversary-r3.md` (119 lines) |
+
+The owner-launched reviewers delivered independent, synthetic-only review files.
+They are now in foreman custody. The actual topic total is **3,366** Markdown
+lines; the owner-directed variance remains a process-planning follow-up.
+
 ## Next foreman action (on receipt)
 
 Collate + triage the Round-3 reviews (Gate 5). If both confirm convergence with no

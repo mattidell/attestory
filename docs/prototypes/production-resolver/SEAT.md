@@ -2,14 +2,9 @@
 
 ## Current step
 
-Iteration-3 builds delivered (owner re-authorized after the earlier rescission)
-and in foreman custody. Foreman triage: both `it5`/`it6` independently close all
-four Iteration-2 decision-blocking findings (release-byte authority,
-current-user adoption, order-independent same-key refusal, exhaustive ledger),
-retain the strict `ok == True` gate, and name RG-1 (eight core issues) as a MUST
-prerequisite; seal attested. **Blocked on owner approval to dispatch a Round-3
-committee (ADR-0034); no reviewer dispatched.** Cap total 2,937 lines (owner
-variance in effect).
+Iteration-3 committee reviews have been delivered and are in foreman custody.
+They are confirmation-scoped measurements over the independently convergent
+`it5`/`it6` builds; triage determines whether ADR-0033 can be proposed.
 
 ## Seats
 
@@ -26,13 +21,12 @@ variance in effect).
 | Round-2 Adversary reviewer | complete; `reviews/adversary-r2.md` |
 | Iteration-3 incumbent builder | complete; `it5/design.md`, `examination-it5.md` |
 | Iteration-3 clean-room rival | complete; `it6/design.md`, `examination-it6.md`; seal held |
-| Round-3 Governance reviewer | not dispatched — awaiting owner approval (ADR-0034) |
-| Round-3 Adversary reviewer | not dispatched — awaiting owner approval (ADR-0034) |
+| Round-3 Governance reviewer | complete; `reviews/governance-r3.md` |
+| Round-3 Adversary reviewer | complete; `reviews/adversary-r3.md` |
 
 ## Next action
 
-Await owner direction. Do not dispatch either builder from the staged charter.
-If reauthorized, both seats remain limited to the four committee findings and
-Rung-2 evidence; no production code is authorized. Under ADR-0034, every future
-dispatch — including committee review — needs immediate, explicit owner approval
-for the exact role and current charter.
+Foreman collates and triages the two reviews. If both confirm convergence with no
+decision-blocking gap, it may prepare proposed ADR-0033 for owner ratification;
+otherwise it stops for owner direction. Under ADR-0034, any future dispatch still
+needs immediate, explicit owner approval for the exact role and current charter.
