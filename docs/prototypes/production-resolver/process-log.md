@@ -126,9 +126,29 @@ pre-authorized no repair pass, and builders are non-reviewer seats; per the
 foreman role charter, **owner confirmation is required before dispatch**. No
 builder has been launched.
 
+## Iteration 2 — paired builders chartered, not dispatched
+
+| Seat | Tier | Charter | Status |
+|---|---|---|---|
+| Incumbent builder | High | `charter-it3.md` | chartered; not dispatched |
+| Clean-room rival | High | `charter-it4.md` | chartered; not dispatched; sealed on launch |
+
+The owner authorized these charters on 2026-07-16 and expressly withheld
+dispatch. Each charter stays at the original Rung-2 ceiling and contains the
+same three Round-1 blockers, while requiring a genuinely independent rival
+shape. No builder worktree or artifact exists.
+
+**Cap forecast / stop before launch:** the pre-charter topic was 1,479 Markdown
+lines; the charter-only total is **1,615**, still under target. Two
+maximum-size designs plus examinations would add up to 840 further lines before
+another committee review, taking the topic to at least 2,455 lines and past the
+plan's 1,800-line target. A full Iteration 2 needs an owner cap disposition or
+a revised evidence shape before dispatch. This is an economy stop, not
+authorization to shrink or skip rival evidence.
+
 ## Next foreman action
 
-Await owner confirmation to charter and dispatch the two new, independent
-Round-2 builder seats. On an owner-approved repair charter, the builders must
-produce rival evidence against all three decision-blocking findings before a
-fresh committee can reopen ADR-0033.
+Await owner direction on the cap disposition and a separate dispatch command.
+Do not launch either builder solely because its charter exists. On authorized
+launch, the builders must produce rival evidence against all three
+decision-blocking findings before a fresh committee can reopen ADR-0033.

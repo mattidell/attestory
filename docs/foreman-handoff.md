@@ -31,10 +31,14 @@ against git, trust git and say so.
   `L`-catalog is self-authenticating; the rival needs a declared package-adoption
   act and an exhaustive ledger. Both uphold the strict `ok == True` gate; RG-1
   (current core package repair) remains a MUST production condition.
-- **➡️ NEXT ACTION: owner confirms a bounded, paired Round-2 builder dispatch.**
-  The approved plan pre-authorized no repair pass and the foreman role charter
-  requires confirmation for non-reviewer spawns. No ADR-0033 draft and no new
-  builder charter exists yet.
+- **Round-2 builders are chartered but not dispatched:** `charter-it3.md` and
+  `charter-it4.md` preserve the two independent High-tier seats and Rung-2
+  ceiling. No builder worktree or artifact exists.
+- **➡️ NEXT ACTION: owner disposes of the Round-2 cap forecast, then separately
+  directs dispatch or continued hold.** The 1,479-line topic cannot fit both
+  maximum-size artifacts and another committee under the 1,800-line target;
+  charter-only work now totals 1,615 lines. No ADR-0033 draft exists, and
+  chartering does not authorize a builder launch.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
