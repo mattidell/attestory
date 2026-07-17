@@ -17,21 +17,19 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-16; branch `decision/d2-contribution` — **D2 prototype stop-and-decide**)
+## Current state (updated 2026-07-17; branch `decision/d3-production-resolver` — **D3 ratified, pending owner merge**)
 
-- **Seat:** principal foreman.
-- **Real Return phase is active.** D1 is ratified (ADR-0031); D2 Contribution
-  Boundary plan was approved and merged in PR #4 (`548318b`).
-- **D2 builds landed:** incumbent and sealed clean-room rival artifacts are
-  committed at `32de94d`; their examinations meet the 120-line cap and the
-  rival attests its seal. `docs/prototypes/contribution-boundary/SEAT.md` is
-  the active entrypoint.
-- **Fixed-cap incident:** the D2 topic has 1,102 Markdown lines before the seat
-  record, exceeding the plan's 900-line cap. Committee reviewers have not been
-  dispatched. The incident is logged in the D2 process log.
-- **➡️ NEXT ACTION: owner stop-and-decide on the D2 Gate-4 cap.** The foreman
-  does not dispatch the committee until the owner directs whether to accept a
-  recorded cap variance, reduce scope/artifacts, or stop the topic.
+- **Seat:** principal foreman. The repaired active entrypoint is
+  `docs/prototypes/production-resolver/SEAT.md`; its creation and this
+  succession are logged in that topic's process log.
+- **Real Return phase is active.** D1 (ADR-0031) and D2 (ADR-0032) are ratified.
+  D3's plan was owner-approved and merged in PR #6 (`a213cf3`).
+- **D3 is ratified:** ADR-0033 accepts the release-root/current-user-adoption
+  resolver contract, strict `ok == True` gate, exhaustive ledger, and RG-1 as a
+  MUST production repair. D1 and D2 were already ratified; Track 0 is complete.
+- **➡️ NEXT ACTION: owner performs D3's per-ADR no-fast-forward merge to `main`.
+  Then implementation Tracks 1–4 can begin on their dedicated short-lived
+  branches.** No production resolver code exists on this decision branch.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

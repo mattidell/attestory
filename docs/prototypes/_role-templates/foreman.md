@@ -65,15 +65,15 @@ merely cite:
 5. **Sub-agent dispatch.** If you are able to spawn sub-agents, dispatch each at
    the capability tier and reasoning effort the plan assigns that role (as
    currently revised), and do not run one off-tier without recording the change
-   first. **Spawn the committee reviewers by default** — owner approval of the
-   prototype plan (which names the reviewer seats and tiers) is their standing
-   authorization, so no per-spawn confirmation is needed; spawn each in an
-   isolated context and do not let reviewers see each other's in-progress work.
+   first. **Before every dispatch, obtain immediate, explicit owner approval for
+   that current topic, role, and charter** (ADR-0034). This includes committee
+   reviewers: plan approval and named reviewer seats make them eligible, never
+   standing authorization. Record the approval before launch; spawn reviewers in
+   isolated contexts and do not let them see each other's in-progress work.
    Prototype legibility is a normal reviewer, not a starved seat — the starved
    fresh-reader rigor is the periodic owner-spawned Legibility Audit
-   (`docs/legibility-audits/`), not your concern here. For non-reviewer role
-   spawns, ask the owner for confirmation first. If you lack sub-agent
-   capability, reviewers are owner-launched from role files.
+   (`docs/legibility-audits/`), not your concern here. If you lack sub-agent
+   capability, the owner launches the role from its charter.
 
 These are stewardship duties, not authority over artifact quality: you still
 never review artifact quality, overrule a committee finding on the merits, or

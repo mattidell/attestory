@@ -1,8 +1,9 @@
 # Milestone: First Real Return Slice
 
-Status: **proposed** (2026-07-15) — awaiting owner plan approval before any
-charter (ADR-0013). First milestone of the Real Return phase; operates under
-ADR-0030 per-ADR / per-track merges (no monolithic milestone branch).
+Status: **active** (2026-07-17) — Track 0 contract decisions are complete;
+ADR-0033 awaits the owner's per-ADR no-fast-forward merge to `main`. First
+milestone of the Real Return phase; operates under ADR-0030 per-ADR / per-track
+merges (no monolithic milestone branch).
 
 ## Decision summary (tiered)
 
@@ -152,14 +153,16 @@ branch with its own review gate and no-ff merge to `main`; there is no
 milestone integration branch. Sequencing below is dependency order, not a
 single-branch plan.
 
-### Track 0 — Contract decisions (D1, D2, D3)
+### Track 0 — Contract decisions (D1, D2, D3) — complete pending D3 merge
 
 Three prototype topics, each with an owner-approved plan before its first
 charter. D1 and D2 are Tier 3 and interlock (contribution writes into the
 residency boundary); their plans may share fixtures but their decisions merge
 as separate ADRs. D3 is Tier 2 and may run after D1 ratifies (the resolver
-must know where live content lives). Gate-0 decision inventories may conclude
-a proposition needs no prototype — that finding is recorded, not assumed.
+must know where live content lives). D1 (ADR-0031), D2 (ADR-0032), and D3
+(ADR-0033) are ratified; D3's per-ADR merge remains owner-held. Gate-0 decision
+inventories may conclude a proposition needs no prototype — that finding is
+recorded, not assumed.
 
 ### Track 1 — Boundary and contribution schemas
 
