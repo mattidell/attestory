@@ -233,6 +233,25 @@ and the exact ledger. It requires fresh independent rival evidence and fresh
 committee measurement. The owner must decide whether to authorize that scope or
 stop D3; no builder is chartered or dispatched from this triage.
 
+## Iteration 3 — paired builders authorized and dispatched
+
+The owner authorized the bounded paired Iteration-3 build on 2026-07-16. This
+is the plan's third iteration and the required owner check-in has therefore
+occurred. The owner continues the earlier cap variance posture while seeking a
+better process model; it does not relax independent rival evidence, the Rung-2
+ceiling, or D3's scope.
+
+| Seat | Tier | Charter | Status |
+|---|---|---|---|
+| Incumbent builder | High | `charter-it5.md` | dispatched |
+| Clean-room rival | High | `charter-it6.md` | dispatched; sealed |
+
+Both charters are limited to the four committee findings: registry-release byte
+verification, current user adoption selection, order-independent same-key
+refusal, and exact ledger dispositions. No production resolver code is
+authorized.
+
 ## Next foreman action
 
-Await owner direction on a bounded paired Iteration-3 charter or topic stop.
+Take custody of the two sealed builder deliveries, verify caps and synthetic
+boundary, then decide whether fresh committee review is warranted.

@@ -2,9 +2,9 @@
 
 ## Current step
 
-Iteration 2 committee is complete. Both reviewers find ADR-0033 unsupported:
-the release/registry bytes are not independently verified, current user adoption
-selection is not defined, and both D3-P2 ledgers overclaim or omit dispositions.
+Iteration 3 paired builders are active under owner authorization. They are
+limited to verified registry-release bytes, current-user adoption selection,
+same-key refusal, and exact D3-P2 ledger dispositions.
 
 ## Seats
 
@@ -19,11 +19,11 @@ selection is not defined, and both D3-P2 ledgers overclaim or omit dispositions.
 | Round-2 clean-room rival | complete; `it4/design.md`, `examination-it4.md`; seal held |
 | Round-2 Governance reviewer | complete; `reviews/governance-r2.md` |
 | Round-2 Adversary reviewer | complete; `reviews/adversary-r2.md` |
+| Iteration-3 incumbent builder | dispatched, High; `charter-it5.md` |
+| Iteration-3 clean-room rival | dispatched, High; `charter-it6.md`; sealed |
 
 ## Next action
 
-Owner decides whether to authorize a bounded paired Iteration-3 build or stop
-D3. Any next build must exercise verified release bytes, exact current-user
-adoption selection, order-independent same-key refusal, and an item-by-item
-ledger; it requires new rival and committee evidence. The actual cap total is
-2,081 lines under the owner-directed committee variance.
+Await the two sealed builder deliveries. The foreman takes custody, verifies the
+synthetic/Rung-2 boundary and individual caps, then routes only converged
+evidence to fresh independent review. No production code is authorized.

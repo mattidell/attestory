@@ -34,12 +34,13 @@ against git, trust git and say so.
 - **Round-2 builders delivered:** synthetic incumbent (`it3`) and sealed rival
   (`it4`) artifacts are in custody, individually within cap. The topic is now
   1,752 Markdown lines.
-- **Iteration-2 committee complete:** both independent reviews reject an
-  ADR-0033 draft. The remaining blockers are verified registry-release bytes,
+- **Iteration-3 builders active:** owner-authorized High-tier incumbent and
+  clean-room rival seats are working only on verified registry-release bytes,
   current user adoption selection, same-key refusal, and an exact D3-P2 ledger.
-  The owner-directed variance closed at 2,081 topic lines.
-- **➡️ NEXT ACTION: owner authorizes a bounded paired Iteration-3 build or stops
-  D3.** No builder is chartered, and no ADR-0033 draft exists.
+  No production resolver code is authorized.
+- **➡️ NEXT ACTION: take custody of the two sealed builder deliveries, then
+  stage fresh review only if the evidence warrants it.** No ADR-0033 draft
+  exists.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
