@@ -143,9 +143,10 @@ ADR-0027/0028 conditions the D3-P2 ledger names.
 | Governance reviewer | Medium | Conformance to ADR-0027 d7 / ADR-0028 (byte-verification, quantity/composition closure), ADR-0031 interlock, and the fixture/production parity guarantee |
 | Adversary reviewer | Medium | Break parity (a production path weaker than the fixture path); slip an unverified or co-located member into the resolved graph; make byte-verification fail open; bypass the ADR-0031 wall via resolution |
 
-Reviewer seats are named here; owner approval of this plan is the standing
-authorization for the foreman to dispatch them as sub-agents in independent
-contexts (ADR-0013 reviewer-dispatch amendment).
+Reviewer seats are named here as eligible roles and tiers. Each dispatch still
+requires the owner's immediate, explicit approval for the current role and
+charter (ADR-0034); plan approval is not standing launch authority. Once
+approved, reviewers run in independent contexts.
 
 ## Review measurements
 

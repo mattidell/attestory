@@ -257,6 +257,12 @@ design or examination; the working tree contains only the staged `.gitkeep`
 directories. The charters remain available but are **not dispatched**; no
 artifact or partial work is evidence.
 
+**Dispatch-policy correction (2026-07-16):** owner direction now requires
+immediate, explicit approval for **every** foreman dispatch, including committee
+reviewers (ADR-0034). Earlier statements in this log that describe plan approval
+as standing reviewer authorization are historical accounts of the superseded
+policy, not authority for any future launch.
+
 ## Next foreman action
 
 Await a new owner dispatch direction or topic stop. Do not resume either builder

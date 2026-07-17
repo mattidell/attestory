@@ -25,4 +25,6 @@ rescinded by the owner before either seat created a deliverable.
 
 Await owner direction. Do not dispatch either builder from the staged charter.
 If reauthorized, both seats remain limited to the four committee findings and
-Rung-2 evidence; no production code is authorized.
+Rung-2 evidence; no production code is authorized. Under ADR-0034, every future
+dispatch — including committee review — needs immediate, explicit owner approval
+for the exact role and current charter.
