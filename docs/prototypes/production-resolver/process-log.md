@@ -25,11 +25,57 @@ and extends ADR-0027 d7 / ADR-0028 beyond the fixture boundary.
 ## Cap tracking (recalibrated)
 
 Running total watched at each round boundary (foreman duty per role template).
-Target ≤ 1,800 lines through committee; per-design ≤ 300.
+**Round-1 total: 1,043 lines** — under the 1,800 target; designs 256/272, under
+the 300 per-design cap. No incident.
 
-## Next foreman action (on receipt)
+## Foreman triage — Round 1 (Gate 5; routing, not adjudication)
 
-Triage-classify each builder's findings (Gate 5), confirm the seal held and the
-running cap total, then dispatch the Round-1 committee — Governance (Medium) +
-Adversary (Medium) — in independent contexts under the plan's standing
-authorization. Do not review artifact quality; triage and route only.
+**Seal:** held. Rival attests it, uses an independent probe (committed fixtures
+staged into scratch `L`, byte-identical parity, 44/44 pins) and distinct
+vocabulary (R1–R8, `SupplyIndex`/`TrustAnchor`, RG-1/2/3).
+
+**Convergence (both — record as settled-at-Rung-2 pending committee):** a
+source-neutral integrity/validation core that byte-verifies package + every
+member **fail-closed** (probed both: `MEMBER_CHECKSUM_MISMATCH`,
+`PACKAGE_CHECKSUM_MISMATCH`, `PACKAGE_VERSION_REWRITE`), projects the exclusive
+resolved graph (ADR-0027 d7; co-located file inert), consumes the ADR-0031 leak
+wall (not re-proven), rejects silent partial load, and is a **strict superset of
+the fixture path** (same validator, more mandatory inputs, stricter gate). Both
+ledgers account for every ADR-0027/0028 named condition; both **reject** embedded
+schema-byte checksums (per ADR-0027's partial rejection).
+
+**The crux (rival surfaced sharply; incumbent softened) → committee:** the
+rival's R5 no-leniency gate (`ok == True` enforced) **would refuse the currently
+committed "ratified" package**, which validates `ok == False` with seven
+contained issues the fixture runner knowingly ignores. Rival RG-1 diagnoses the
+cause as part validator defect (missing reachability edge for `optional_default`
+parameters) and part v1-generation content debt already deferred under ADR-0028
+PC2; it judges the strict gate **correct** (bending it reproduces the
+silent-partial posture case 5 forbids) and requests committee attention. This is
+not a contract defect — it is a correctly fail-closed gate exposing pre-existing
+debt — but it is decision-relevant: if the committee agrees, ADR-0033 must name
+RG-1 (the validator edge fix + the v1-generation debt) as a **MUST** production
+condition, and record that D3's gate refuses the current package until repaired.
+
+**Also for committee:** rival R3 (checksum arbitration closes an unsorted
+fixture-glob enumeration-order race) and R6 (pin-directed supply moves d7 a layer
+earlier — unpinned bytes never read); confirm these are real and correctly closed.
+
+**Deferred (not decision-blocking):** N1/N2 fact-surface joins, embedded
+schema-byte checksums (rejected), implementation bytes / typed-refusal ledger
+(Track 3).
+
+## Round 2 — committee (staged)
+
+| Seat | Tier | Context | Charter |
+|---|---|---|---|
+| Governance reviewer | Medium | independent sub-agent | `charter-review-governance.md` |
+| Adversary reviewer | Medium | independent sub-agent | `charter-review-adversary.md` |
+
+## Next foreman action (after committee)
+
+Collate + triage; if convergence confirmed with no surviving decision-blocking
+defect, author ADR-0033 (naming RG-1 as a production condition if the committee
+upholds the strict gate; recommending a scoped confirmation pass for any
+foreman-authored fix); else charter a Round-2 iteration. On ADR-0033 ratification,
+**Track 0 completes**.
