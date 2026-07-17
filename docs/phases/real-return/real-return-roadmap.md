@@ -28,10 +28,14 @@ scan.
 
 ## Status
 
-Active milestone: **First Real Return Slice** — **proposed / awaiting owner
-plan approval** (plan: `milestones/first-real-return-slice.md`).
+Active milestone: **First Real Return Slice** — **active; Track 0 contract
+decisions complete pending D3's owner-held merge** (plan:
+`milestones/first-real-return-slice.md`).
 
-- First Real Return Slice — **proposed** (2026-07-15). Cross the synthetic
+- First Real Return Slice — **active** (2026-07-17). Track 0 ratified D1
+  residency (ADR-0031), D2 contribution (ADR-0032), and D3 production resolver
+  (ADR-0033); D3 awaits its owner-held per-ADR merge. The implementation tracks
+  then cross the synthetic
   boundary: contribution of the owner's real W-2 / 1099-INT facts, a production
   package resolver, the real-data residency boundary as a ratified contract,
   and the deferred W-2 closure mapping — producing the owner's actual lines

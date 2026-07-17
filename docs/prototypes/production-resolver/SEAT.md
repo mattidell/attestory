@@ -2,8 +2,8 @@
 
 ## Current step
 
-Iteration-3 committee confirms both propositions at Rung 2. Proposed ADR-0033
-selects the reviewed `it6` authority chain and awaits owner ratification.
+Iteration-3 committee confirms both propositions at Rung 2. ADR-0033 is
+accepted and selects the reviewed `it6` authority chain; D3 is complete.
 
 ## Seats
 
@@ -25,6 +25,7 @@ selects the reviewed `it6` authority chain and awaits owner ratification.
 
 ## Next action
 
-Owner ratifies or rejects ADR-0033. No Track-3 implementation begins while it is
-proposed. Under ADR-0034, any future dispatch still needs immediate, explicit
-owner approval for the exact role and current charter.
+The owner performs the D3 per-ADR no-fast-forward merge to `main` (ADR-0030).
+No Track-3 implementation begins from this decision branch. Under ADR-0034, any
+future dispatch still needs immediate, explicit owner approval for the exact
+role and current charter.

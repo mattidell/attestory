@@ -1,7 +1,7 @@
 # Plain-Language Analysis — Production Package Resolver
 
 Companion to [ADR-0033](../0033-production-package-resolver.md). This document
-explains the proposal; the ADR is the normative record.
+explains the accepted decision; the ADR is the normative record.
 
 ## What changes
 

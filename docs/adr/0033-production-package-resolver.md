@@ -1,6 +1,6 @@
 # ADR 0033 — Production Package Resolver
 
-- Status: **proposed** (awaiting owner ratification)
+- Status: **accepted** (owner ratification 2026-07-17)
 - Tier: 2
 - Date: 2026-07-17
 - Plain-language analysis: [why this change is needed](analyses/0033-production-package-resolver.md)

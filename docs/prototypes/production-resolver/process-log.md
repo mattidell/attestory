@@ -371,3 +371,10 @@ implementation begins.
 
 Owner ratifies or rejects proposed ADR-0033. On acceptance, update the decision
 status and Track-0 pointer; **Track 0 completes**.
+
+## Owner ratification — D3 complete
+
+The owner ratified ADR-0033 on 2026-07-17. Its status is now **accepted**; the
+selected production resolver contract is binding and Track 0's final decision is
+complete. The branch awaits the owner's per-ADR no-fast-forward merge to `main`
+under ADR-0030. No Track-3 implementation begins from this decision branch.

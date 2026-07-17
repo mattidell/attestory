@@ -17,28 +17,19 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-16; branch `decision/d3-production-resolver` — **D3 Round-1 stop before repair**)
+## Current state (updated 2026-07-17; branch `decision/d3-production-resolver` — **D3 ratified, pending owner merge**)
 
 - **Seat:** principal foreman. The repaired active entrypoint is
   `docs/prototypes/production-resolver/SEAT.md`; its creation and this
   succession are logged in that topic's process log.
 - **Real Return phase is active.** D1 (ADR-0031) and D2 (ADR-0032) are ratified.
   D3's plan was owner-approved and merged in PR #6 (`a213cf3`).
-- **D3 Round 1 is complete:** two sealed, independent Rung-2 builder artifacts
-  (`783861e`) and two isolated Medium committee reviews are in custody. The
-  topic is 1,431 Markdown lines through committee, below its 1,800-line cap.
-- **Committee result:** no wholesale design is ratifiable. The incumbent's
-  `L`-catalog is self-authenticating; the rival needs a declared package-adoption
-  act and an exhaustive ledger. Both uphold the strict `ok == True` gate; RG-1
-  (current core package repair) remains a MUST production condition.
-- **Round-2 builders delivered:** synthetic incumbent (`it3`) and sealed rival
-  (`it4`) artifacts are in custody, individually within cap. The topic is now
-  1,752 Markdown lines.
-- **D3 evidence converged:** independent builders and the owner-launched
-  confirmation committee support the selected release-root/current-user-adoption
-  resolver contract. No production resolver code is authorized.
-- **➡️ NEXT ACTION: owner ratifies or rejects proposed ADR-0033.** Until
-  acceptance, it guides D3 only; Track 0 remains open.
+- **D3 is ratified:** ADR-0033 accepts the release-root/current-user-adoption
+  resolver contract, strict `ok == True` gate, exhaustive ledger, and RG-1 as a
+  MUST production repair. D1 and D2 were already ratified; Track 0 is complete.
+- **➡️ NEXT ACTION: owner performs D3's per-ADR no-fast-forward merge to `main`.
+  Then implementation Tracks 1–4 can begin on their dedicated short-lived
+  branches.** No production resolver code exists on this decision branch.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
