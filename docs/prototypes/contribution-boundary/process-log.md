@@ -70,15 +70,58 @@ evidence model.
 contribution, the marshal-only constructor made structural (D3), E14.2
 registration (Track 2).
 
-## Round 2 — committee (staged)
+## Round 2 — committee (delivered)
 
-| Seat | Tier | Context | Charter |
+| Seat | Tier | Context | Output |
 |---|---|---|---|
-| Governance reviewer | Medium | independent sub-agent | `charter-review-governance.md` |
-| Adversary reviewer | High | independent sub-agent | `charter-review-adversary.md` |
+| Governance reviewer | Medium | isolated sub-agent | `reviews/governance-r1.md` |
+| Adversary reviewer | High | isolated sub-agent | `reviews/adversary-r1.md` |
 
-## Next foreman action (after committee)
+Spawned as isolated sub-agents (standing plan authorization); each returned its
+review as a final message (never on disk during the other's run) — within-round
+independence held. Both committed under custody.
 
-Collate + triage committee findings; if convergence confirmed with no surviving
-decision-blocking defect, author ADR-0032 (recommending a scoped confirmation
-pass for any foreman-authored fix); else charter a Round-2 build iteration.
+## Foreman triage — committee (Gate 5)
+
+**Both propositions survive at Rung 2; no decision-blocking hole.** The committee
+splits its preference by axis — a synthesis, not "adopt one build":
+
+- **Provenance basis → rival (it2)** (Governance M2): retain `evidence_ids` (the
+  Article 1 documentary channel), add optional `contribution_id`, enforce
+  contribution↔evidence consistency at admission, evidence-id-as-version. The
+  incumbent's `evidence_ids` *removal* is a divergence that weakens Art. 1.
+- **Runs-consume-facts framing → incumbent (it1)** (Adversary A1): the Adversary
+  **reproduced the bypass at the runner** (published `7770000` pinned to ghost
+  ids via a directly-constructed `RunContext`). The incumbent is honest (closes
+  the *request*; names the marshaller as production); the rival **overclaimed**
+  "structural by type" — false, since `inputs`/`sources` accept invented value+id.
+  **MUST conditions for the ADR:** (a) `run-request.v1 ≠ RunContext`; (b) a
+  marshal-only `RunContext` constructor + entrypoint-unreachability kill-test;
+  (c) strike the rival's "structural by type" claim.
+- **Any-order scoped to independent facts** (Adversary A4): a correction of fact X
+  legitimately depends on X's asserting contribution (SC-R1); "any order" is not
+  unconditional. The ADR names this scoping.
+- **Settled (both):** two-edge doctrine held (provenance pin is not an edge, M3/A2);
+  correction-by-supersession clean, horizon does not advance (M4/A5); D1 interlock
+  rests on ADR-0031's fail-closed default, consumed not re-proven (M6/A3).
+
+**Named conditions for the ADR / Track 2 (not decision-blocking):** rival's
+successor carrier act schemas (`act-member-transition.v2` / `act-assertion.v2`
+admitting finding.v2, Governance M1); the E14.2 static check (rule cannot name a
+contribution dependency); contribution-record registration; the marshal-only
+constructor made structural (interlocks D3).
+
+**Authority note:** Art. 12 literally governs *derived*-finding lineage; the
+contribution pin rides a *human* finding, so Art. 1/15 govern with Art. 12 by
+analogy (Governance M2). A precision note for the ADR, not a doc conflict.
+
+**No foreman-authored fix:** every adopted position is builder-designed and
+reviewer-endorsed (a selection among reviewed options per the committee's steer),
+so no scoped confirmation pass is required (ADR-0013 2026-07-15).
+
+## Next foreman action
+
+Author **ADR-0032** on this synthesis (rival provenance + incumbent runs-framing,
+MUST conditions, any-order scoping, named production conditions) and open the D2
+ratification PR for owner-held merge. Ratification (proposed → accepted) is
+owner-held.
