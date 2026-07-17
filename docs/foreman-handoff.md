@@ -34,11 +34,11 @@ against git, trust git and say so.
 - **Round-2 builders delivered:** synthetic incumbent (`it3`) and sealed rival
   (`it4`) artifacts are in custody, individually within cap. The topic is now
   1,752 Markdown lines.
-- **Iteration-3 evidence and committee delivered:** the two independent build
-  artifacts and two owner-launched confirmation reviews are in custody. No
-  production resolver code is authorized.
-- **➡️ NEXT ACTION: foreman triages the committee and, if both propositions pass,
-  drafts proposed ADR-0033 for owner ratification.**
+- **D3 evidence converged:** independent builders and the owner-launched
+  confirmation committee support the selected release-root/current-user-adoption
+  resolver contract. No production resolver code is authorized.
+- **➡️ NEXT ACTION: owner ratifies or rejects proposed ADR-0033.** Until
+  acceptance, it guides D3 only; Track 0 remains open.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

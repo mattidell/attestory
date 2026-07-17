@@ -2,9 +2,8 @@
 
 ## Current step
 
-Iteration-3 committee confirms both propositions at Rung 2. The evaluation
-analysis selects the reviewed `it6` authority chain as the ADR basis; proposed
-ADR-0033 is the next foreman record.
+Iteration-3 committee confirms both propositions at Rung 2. Proposed ADR-0033
+selects the reviewed `it6` authority chain and awaits owner ratification.
 
 ## Seats
 
@@ -26,6 +25,6 @@ ADR-0033 is the next foreman record.
 
 ## Next action
 
-Author proposed ADR-0033 from `evaluation-analysis.md`, then prepare the
-owner-held ratification packet. Under ADR-0034, any future dispatch still needs
-immediate, explicit owner approval for the exact role and current charter.
+Owner ratifies or rejects ADR-0033. No Track-3 implementation begins while it is
+proposed. Under ADR-0034, any future dispatch still needs immediate, explicit
+owner approval for the exact role and current charter.

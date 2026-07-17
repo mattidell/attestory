@@ -358,7 +358,16 @@ Adversary found no working bypass across its five confirmation attacks.
 The evidence chain is closed in `evaluation-analysis.md`. Next, author proposed
 ADR-0033 for owner-held ratification; no further dispatch is needed.
 
+## ADR-0033 proposal
+
+ADR-0033 is now authored with status **proposed**. It selects the rival's
+committee-confirmed release-root / current-user-adoption / verified-candidate
+chain and its item-by-item ledger; no foreman-authored fix enters the decision,
+so no scoped confirmation pass is required. Owner ratification is the sole next
+decision; until accepted, the proposed ADR guides D3 only and no Track-3
+implementation begins.
+
 ## Next foreman action (on receipt)
 
-Author proposed ADR-0033 from the evaluation analysis, then open the owner-held
-ratification packet. On ratification, **Track 0 completes**.
+Owner ratifies or rejects proposed ADR-0033. On acceptance, update the decision
+status and Track-0 pointer; **Track 0 completes**.
