@@ -18,9 +18,9 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
-Milestone: **First Real Return Slice — COMPLETE (2026-07-18)** pending the Track 5 records merge. Plan and per-criterion closure: `docs/phases/real-return/milestones/first-real-return-slice.md`. Retrospective: `docs/milestone-retrospectives/2026-07-18-first-real-return-slice.md`. Deferral ledger: `milestones/first-real-return-slice-deferral-ledger.md`. The owner's attestation (the milestone's acceptance evidence) is recorded in the plan's Verification section (PR #20).
+Milestone: **First Real Return Slice — CLOSED (2026-07-18, Track 5 merged as PR #21, `693b09b`)**. Its review chain: not-ready review → foreman repair → independent delta re-check `ready`, all carried in the PR. Plan and per-criterion closure: `docs/phases/real-return/milestones/first-real-return-slice.md`. Retrospective: `docs/milestone-retrospectives/2026-07-18-first-real-return-slice.md`. Deferral ledger: `milestones/first-real-return-slice-deferral-ledger.md`. The owner's attestation is recorded in the plan's Verification section (PR #20).
 
-**➡️ Next: the owner merges the Track 5 records PR (after dispatching its prepared review per ADR-0034: `docs/reviews/charter-2026-07-18-frrs-t5-completion-review.md`), then selects the next milestone from the maturity-matrix frontier (Tier 3; foreman presents candidates on request).**
+**➡️ Next: no active milestone. The owner selects the next milestone from the maturity-matrix frontier (Tier 3; foreman presents candidates and a recommendation on request): coverage breadth (dividends / Schedule B hard trace), presentation (human surface), or L3→L4 hardening (guarded transport first).**
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 
