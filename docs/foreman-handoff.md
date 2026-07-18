@@ -17,21 +17,22 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; branch `track/frrs-t4-w2-closure-live-integration` — **Track 4 reviewed, awaiting owner merge**)
+## Current state (updated 2026-07-18; branch `repair/frrs-t4-record-pin-origin` — **Track 4c built, review pending**)
 
 - **Seat:** principal foreman. The active milestone is First Real Return Slice.
-  Track 3 and its F1 repair are merged (`8c7af6d`); no reset is pending.
-- **Track 4:** grouped implementation `c39a79b` repairs RG-1 as immutable
-  core-v2/W-2 closure content, installs a capability-gated coordinator, and
-  discharges the named D1/D3 checks synthetically. Repair `a08f37b` closes the
-  review's opaque-guard, path-transaction, and wages-quantity blockers.
-- **Review:** fresh independent delta review `4c4d73f` is **merge-ready**:
-  focused 43 tests, full 416 tests, mypy, governance lint, regeneration and
-  safety scans, and guard/path/quantity counter-probes all pass. The unrelated
-  untracked Track-1 review record remains intentionally excluded.
-- **➡️ NEXT ACTION: push/open the reviewed Track-4 PR if needed; the owner then
-  merges it. Only the owner may next run in quarantined `L` and add the exact
-  non-descriptive attestation. Track 5 records follow that owner action.**
+  Tracks 0–4b are merged (`f977b4d` for 4b); no reset is pending.
+- **Track 4c:** F1 is `57cdb64`; F2/F3 plus the missing coordinator-from-facts
+  golden are `c5e3544`. The repair creates immutable core-v3/W-2-v3 successor
+  content, admits the rounding input and horizon-keyed W-2 closure, and makes
+  historical-directory mapping consumers select the newest immutable mapping.
+  The owner-held scaffold helper is intentionally untracked per the charter.
+- **Verification:** focused and affected suites, then the full suite (**433
+  tests**), mypy, governance lint, regeneration, diff check, and safety scan
+  pass. The repair has not been independently reviewed or merged.
+- **➡️ NEXT ACTION: the owner explicitly dispatches the prepared Track 4c
+  author-independent review seat. After a ready review, the owner merges; only
+  then may the owner run in quarantined `L` and add the exact non-descriptive
+  attestation. Track 5 records follow that action.**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

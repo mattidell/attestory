@@ -1,7 +1,7 @@
 # Foreman findings: Track 4 live path cannot publish (three defects)
 
-Date: 2026-07-18. Author: foreman, owner-directed session. Status: **recorded,
-repair paused by owner decision** — no repair has merged. Evidence below is
+Date: 2026-07-18. Author: foreman, owner-directed session. Status: **repair
+built, independent review pending** — no repair has merged. Evidence below is
 synthetic only, from a scaffolded dry run in a scratch workspace (zero
 personal data; the owner's real run was not attempted).
 
@@ -72,9 +72,20 @@ owner decision) scaffolds a live workspace act log, templates, runner, and a
 renumber/pre-flight mode; its pre-flight is what surfaced F3 and its dry run
 what surfaced F1/F2. Promotion to a committed tool is a later decision.
 
+## Implementation outcome (awaiting review)
+
+F1 landed in `57cdb64`; F2/F3 and the missing golden class landed in
+`c5e3544`. The v3 package adopts `rounding.convention@v1` from the successor
+core vocabulary and the W-2 closure fact/mapping successor carries the family
+horizon. The tax-content loader selects the highest immutable mapping version
+for historical-directory consumers. A synthetic authoritative act log now
+proves all seven form-field bindings publish and the paired record commits;
+the no-rounding and v2-closure counter-probes retain their named failures.
+Full verification: 433 tests, mypy, governance lint, deterministic
+regeneration, and the synthetic safety scan pass.
+
 ## Milestone consequence
 
-Exit criterion 1 (the owner's real run publishes lines 1a/2b/9/11/12/15/16)
-is **not currently achievable** on `main`. The Track 4c repair charter
-(`charter-2026-07-18-frrs-t4c-live-path-repair.md`) defines the fix; the
-owner dispatches the review seat per ADR-0034 when ready.
+Exit criterion 1 remains unavailable on `main` until the Track 4c repair is
+reviewed and owner-merged. The owner dispatches the prepared review seat per
+ADR-0034 when ready.

@@ -1,9 +1,9 @@
 # Milestone: First Real Return Slice
 
-Status: **active** (2026-07-17) — Track 0 contract decisions are complete;
-ADR-0033 awaits the owner's per-ADR no-fast-forward merge to `main`. First
-milestone of the Real Return phase; operates under ADR-0030 per-ADR / per-track
-merges (no monolithic milestone branch).
+Status: **active** (2026-07-18) — Tracks 0–4b are merged; the Track 4c
+live-path repair is built and awaits its owner-dispatched independent review.
+First milestone of the Real Return phase; operates under ADR-0030 per-ADR /
+per-track merges (no monolithic milestone branch).
 
 ## Decision summary (tiered)
 
@@ -42,22 +42,20 @@ across more content. Selected by the owner 2026-07-15 over coverage breadth
 
 ## Current state
 
-- Lines 1a/2b/9/11/12/15/16 flow end-to-end on synthetic fixtures with honest
-  blocking, byte-verified packages, a run-disposition ledger, and walkable
-  non-publication explanations.
+- Lines 1a/2b/9/11/12/15/16 now flow through the live coordinator on a
+  fully-recorded synthetic act log, with honest blocking, byte-verified
+  packages, a run-disposition ledger, and walkable non-publication
+  explanations. The Track 4c build awaits its independent review.
 - All data is synthetic (`demo-*`); fixture-safety tests in the suite
   (`tests/test_kernel_fixtures.py`) enforce this inside the repo, but nothing
   defines where *real* data may live. The repository has a GitHub remote
   (private for now, per the ADR-0030 amendment's interim posture), so the
   safety contract must treat every push as publication regardless of
   visibility.
-- Package resolution exists only inside the fixture boundary (ADR-0027
-  deferral).
-- The W-2 family has no closure mapping: an empty W-2 set blocks, and there is
-  no way to declare "these are all my W-2s."
-- Facts are asserted through kernel member transitions; there is no
-  contribution-level product event recording *how* a batch of real inputs
-  became facts.
+- The v3 package provides an asserted rounding convention vocabulary and a
+  W-2 closure fact keyed by its family horizon; old content remains historical.
+- The owner-held real run remains prohibited until Track 4c receives its
+  chartered review and the owner merges it.
 
 ## Scope
 
