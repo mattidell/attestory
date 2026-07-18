@@ -1,9 +1,12 @@
 # Milestone: Dividends and Schedule B Slice
 
-Status: **proposed** (2026-07-18) — awaiting owner approval of this plan
-(ADR-0013 requires it before any charter). Second milestone of the Real Return
-phase; operates under ADR-0030 per-ADR / per-track merges and ADR-0034
-owner-approved dispatch.
+Status: **approved — active** (owner approval 2026-07-18, recorded at merge
+of the planning branch; ADR-0013 satisfied). Second milestone of the Real
+Return phase; operates under ADR-0030 per-ADR / per-track merges and
+ADR-0034 owner-approved dispatch. The owner's plan-stage scope directions
+(Schedule B whole-form, dependency-form completeness, D2 declared-zero
+narrowing) are recorded in their sections and were part of the approved
+text.
 
 ## Decision summary (tiered)
 
