@@ -164,11 +164,26 @@ must know where live content lives). D1 (ADR-0031), D2 (ADR-0032), and D3
 inventories may conclude a proposition needs no prototype — that finding is
 recorded, not assumed.
 
-### Track 1 — Boundary and contribution schemas
+### Track 1 — Boundary, contribution, and resolver schemas
 
-Schema/contract citizens from the ratified D1/D2 ADRs (live workspace
-residency, contribution event, provenance linkage). Merges after its review
-gate.
+Schema/contract citizens from the ratified D1, D2, **and D3** ADRs (live
+workspace residency, contribution event, provenance linkage, and the production
+resolver's publication-root and adoption citizens). Merges after its review gate.
+
+**Amendment (2026-07-17, owner-directed).** Originally scoped to the D1/D2 ADRs;
+ADR-0033 (D3) ratified after this Track text was written, and the owner directs
+that its **schema citizens** join Track 1 so all three ratified decisions' schema
+contracts land together, ahead of the behavior tracks. The D3 additions are
+`release-registry.v1` (versioned publication-root citizen; immutable identity
+includes the registry document SHA-256) and `act-package-adoption.v1` (the
+declared Article-4 user adoption act pinning exact package `{id, version,
+checksum}` and release), per ADR-0033 Decision 1 — schemas, positive examples,
+named negatives, registry rows, and schema-validation tests, no resolver runtime
+behavior. Track 3 retains the resolver *behavior*; only the schema citizens move
+here. Consequence: the in-flight Track-1 branch
+(`track/frrs-t1-boundary-contribution-schemas`, reviewed 2026-07-17 at D1/D2
+scope) must add the two D3 schema citizens before its merge gate; the pre-merge
+review's finding F1 is dispositioned by this amendment.
 
 ### Track 2 — Contribution machinery
 
@@ -178,9 +193,11 @@ D2 ADR names.
 
 ### Track 3 — Production resolver and live workspace bootstrap
 
-D3 implementation: resolution beyond the fixture boundary, live workspace
-initialization at the D1 location, discharge of the named ADR-0027/0028
-production conditions.
+D3 implementation *behavior*: resolution beyond the fixture boundary, live
+workspace initialization at the D1 location, discharge of the named ADR-0027/0028
+production conditions. (D3's *schema citizens* moved to Track 1 per the 2026-07-17
+amendment; this track consumes them and implements the resolution behavior over
+them.)
 
 ### Track 4 — W-2 closure mapping and live-run integration
 
