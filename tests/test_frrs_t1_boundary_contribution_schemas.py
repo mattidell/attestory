@@ -21,14 +21,17 @@ NEGATIVES = ROOT / "negatives"
 ACT_SCHEMA = {
     "act-contribution.v1.json": "act-contribution.v1",
     "act-member-transition.v2.json": "act-member-transition.v2",
-    "act-assertion.v2.json": "act-assertion.v2"
+    "act-assertion.v2.json": "act-assertion.v2",
+    "act-package-adoption.v1.json": "act-package-adoption.v1",
+    "act-package-adoption.v1.missing-release.json": "act-package-adoption.v1"
 }
 
 NEW_SCHEMAS = {
     "classification.v1", "reserved-illustration-domain.v1", "fixture-provenance-manifest.v1",
     "contribution.v1", "act-contribution.v1", "contribution-record.v1",
     "finding.v2", "act-member-transition.v2", "act-assertion.v2",
-    "run-request.v1"
+    "run-request.v1",
+    "release-registry.v1", "act-package-adoption.v1"
 }
 
 def load(path: Path) -> dict[str, Any]:

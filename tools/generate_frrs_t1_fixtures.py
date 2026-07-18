@@ -39,6 +39,22 @@ def _corpus() -> dict[str, Any]:
             "member": {"action": "remove", "fact_id": "demo.fact-1"},
             "successor": {"id": "demo.successor-1", "predecessor": "demo.predecessor-1"},
         },
+        "examples/act-package-adoption.v1.json": {
+            "package": {
+                "id": "demo.package.interest-slice", "version": "v1",
+                "checksum": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            },
+            "release": {
+                "id": "demo.release-2025", "version": "v1",
+                "checksum": "fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210",
+            },
+            "scope": {"year": "2025"}, "revision": 1,
+            "audit": {"note": "synthetic adoption; non-authoritative"},
+        },
+        "examples/release-registry.v1.json": {
+            "schema": "release-registry.v1", "id": "demo.release-registry-1", "version": "v1",
+            "package_registry_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        },
         "examples/classification.v1.json": {
             "schema": "classification.v1", "decision": "MAY_CROSS",
             "kind": "independently-constructed synthetic fixture",
@@ -105,6 +121,16 @@ def _corpus() -> dict[str, Any]:
             "schema": "reserved-illustration-domain.v1", "examples": ["example.invalid"], "extra": "bad",
         },
         "negatives/run-request.v1.with-value.json": {"schema": "run-request.v1", "some_value": 1},
+        "negatives/act-package-adoption.v1.missing-release.json": {
+            "package": {
+                "id": "demo.package", "version": "v1",
+                "checksum": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+            },
+            "scope": {"year": "2025"}, "revision": 1,
+        },
+        "negatives/release-registry.v1.missing-registry-sha.json": {
+            "schema": "release-registry.v1", "id": "demo.release-registry-1", "version": "v1",
+        },
     }
 
 

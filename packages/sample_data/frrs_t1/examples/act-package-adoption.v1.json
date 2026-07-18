@@ -1,0 +1,19 @@
+{
+  "audit": {
+    "note": "synthetic adoption; non-authoritative"
+  },
+  "package": {
+    "checksum": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "id": "demo.package.interest-slice",
+    "version": "v1"
+  },
+  "release": {
+    "checksum": "fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210",
+    "id": "demo.release-2025",
+    "version": "v1"
+  },
+  "revision": 1,
+  "scope": {
+    "year": "2025"
+  }
+}

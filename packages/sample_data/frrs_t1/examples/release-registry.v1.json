@@ -1,0 +1,6 @@
+{
+  "id": "demo.release-registry-1",
+  "package_registry_sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "schema": "release-registry.v1",
+  "version": "v1"
+}
