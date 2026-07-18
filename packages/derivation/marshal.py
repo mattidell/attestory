@@ -11,7 +11,7 @@ finding is indistinguishable from an absent one downstream.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
 from packages.derivation.source_authority import (
@@ -25,7 +25,10 @@ if TYPE_CHECKING:
     from packages.derivation.runner import RunContext
 
 
-@dataclass(frozen=True)
+_MARSHAL_SEAL = object()
+
+
+@dataclass(frozen=True, init=False)
 class MarshalledRunContext:
     """Opaque product of record-state marshalling for the live executor.
 
@@ -35,6 +38,16 @@ class MarshalledRunContext:
     """
 
     _context: RunContext
+    _seal: object = field(repr=False, compare=False)
+
+    def __init__(self, context: RunContext, seal: object) -> None:
+        if seal is not _MARSHAL_SEAL:
+            raise TypeError("MarshalledRunContext may only be minted by marshal_live_run_context")
+        object.__setattr__(self, "_context", context)
+        object.__setattr__(self, "_seal", seal)
+
+    def _is_minted(self) -> bool:
+        return self._seal is _MARSHAL_SEAL
 
 
 def _fact_keys(fact_id: str) -> dict[str, str]:
@@ -264,5 +277,6 @@ def marshal_live_run_context(
             fact_types=fact_types,
             input_bindings=input_bindings,
             collect_source_names=collect_source_names,
-        )
+        ),
+        _MARSHAL_SEAL,
     )

@@ -1,0 +1,41 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "rounding.convention"
+    ]
+  },
+  "id": "tax.us.2025.rule.w2-box1-to-line1a",
+  "notes": "Aggregates the adopted W-2 family through its adopted closure mapping; an empty source set publishes zero only on a current literal-true closure.",
+  "pins": [],
+  "publishes": "tax.us.2025.wages.total-w2-box1",
+  "requires": [
+    "rounding.convention"
+  ],
+  "role": "field-mapping",
+  "schema": "rule-artifact.v2",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "name": "tax.us.2025.w2.box1-wages",
+          "op": "collect",
+          "source_set": "tax.us.2025.w2"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v2",
+  "when": true
+}

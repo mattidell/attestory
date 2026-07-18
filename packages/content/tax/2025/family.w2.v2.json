@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.wages.total-w2-box1",
+  "closure_claim": "Every furnished Form W-2 box 1 item for tax year 2025 is recorded.",
+  "id": "tax.us.2025.w2",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.w2.box1-wages"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Form W-2 box 1 statement items, tax year 2025",
+  "version": "v2"
+}

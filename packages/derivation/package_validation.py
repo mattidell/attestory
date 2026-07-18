@@ -184,6 +184,18 @@ def _iter_parameter_and_table_refs(expr: Any) -> Iterable[str]:
             yield from _iter_parameter_and_table_refs(item)
 
 
+def _iter_collect_source_sets(expr: Any) -> Iterable[str]:
+    """Yield the adopted family identities named by ``collect`` expressions."""
+    if isinstance(expr, dict):
+        if expr.get("op") == "collect" and isinstance(expr.get("source_set"), str):
+            yield expr["source_set"]
+        for value in expr.values():
+            yield from _iter_collect_source_sets(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_collect_source_sets(item)
+
+
 def validate_package(
     package: dict[str, Any],
     corpus: dict[tuple[str, str], dict[str, Any]],
@@ -513,12 +525,47 @@ def validate_package(
     # 8. Inbound Reachability validation (ADR-0027 decision 4)
     if "entrypoints" in package:
         adj: dict[str, set[str]] = {m_id: set() for m_id in member_ids}
+        # The historical v1 package remains an intentionally recorded RG-1
+        # refusal.  These are the v2 closure edges that its successor adopts;
+        # applying them retroactively would alter the historical contained
+        # issue surface without changing any v1 bytes.
+        closed_v2_surface = str(package.get("version")) != "v1"
+        bundles_for_fact: dict[str, set[str]] = {}
+        for bundle_pin, bundle in resolved:
+            if bundle["schema"] not in {"bundle.v1", "bundle.v2"}:
+                continue
+            for fact in bundle.get("fact_types", []):
+                bundles_for_fact.setdefault(fact["id"], set()).add(bundle_pin["id"])
+        binding_fact_types = {
+            binding["symbol"]: binding["fact_type"]["id"]
+            for binding in package.get("input_bindings", [])
+        }
+        role_canons = {
+            pin["id"] for pin, citizen in resolved
+            if citizen["schema"] == "role-canon.v1"
+        }
         for pin, citizen in resolved:
             m_id = pin["id"]
+            # The immutable role canon is authority for every package pin.  It
+            # is therefore an inbound dependency of every other member, not a
+            # decorative co-located document.
+            if closed_v2_surface and citizen["schema"] != "role-canon.v1":
+                adj[m_id].update(role_canons)
             if citizen["schema"] in {"rule-artifact.v1", "rule-artifact.v2"}:
                 for req in citizen.get("requires", []):
                     for p_id in produced.get(req, []):
                         adj[m_id].add(p_id)
+                    if closed_v2_surface:
+                        adj[m_id].update(bundles_for_fact.get(binding_fact_types.get(req, ""), set()))
+                if closed_v2_surface:
+                    for source_set in _iter_collect_source_sets(citizen["when"]):
+                        for p2, c2 in resolved:
+                            if c2["schema"] == "source-family.v1" and c2["id"] == source_set:
+                                adj[m_id].add(p2["id"])
+                    for source_set in _iter_collect_source_sets(citizen["value"]):
+                        for p2, c2 in resolved:
+                            if c2["schema"] == "source-family.v1" and c2["id"] == source_set:
+                                adj[m_id].add(p2["id"])
                 for pid in set(_iter_parameter_and_table_refs(citizen["when"])) | set(
                     _iter_parameter_and_table_refs(citizen["value"])
                 ):
@@ -542,6 +589,8 @@ def validate_package(
                     ft_pin = citizen.get(mapping_key)
                     if ft_pin and ft_pin["id"] in member_ids:
                         adj[m_id].add(ft_pin["id"])
+                    elif ft_pin and closed_v2_surface:
+                        adj[m_id].update(bundles_for_fact.get(ft_pin["id"], set()))
             elif citizen["schema"] == "taxable-interest-composition.v1":
                 for c in citizen.get("constituents", []):
                     sf_id = c["source_family"]["id"]
@@ -565,6 +614,11 @@ def validate_package(
                         q_id = ft["quantity"]["id"]
                         if q_id in member_ids:
                             adj[m_id].add(q_id)
+                    optional_default = ft.get("optional_default") if closed_v2_surface else None
+                    if isinstance(optional_default, dict):
+                        parameter = optional_default.get("parameter")
+                        if isinstance(parameter, dict) and parameter.get("id") in member_ids:
+                            adj[m_id].add(parameter["id"])
 
         roots = set()
         for entry in package.get("entrypoints", []):

@@ -1,0 +1,27 @@
+{
+  "id": "tax.us.2025.role-canon",
+  "roles": {
+    "adoption": "adoption",
+    "applicability": "rule",
+    "choice": "derivation edge",
+    "citation": "citation metadata",
+    "composition": "composition provenance",
+    "computation": "rule",
+    "cross-form-bridge": "rule",
+    "default": "default provenance",
+    "engine": "engine",
+    "fact-type": "exact fact",
+    "fact-type-bundle": "wholesale fact bundle",
+    "field-mapping": "rule",
+    "form-field": "presentation",
+    "governance": "governance",
+    "input": "derivation edge",
+    "operation-semantics": "operation",
+    "package": "package",
+    "parameter": "declared parameter",
+    "source-closure-mapping": "closure mapping",
+    "source-family": "family"
+  },
+  "schema": "role-canon.v1",
+  "version": "v1"
+}

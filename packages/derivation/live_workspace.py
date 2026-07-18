@@ -17,6 +17,7 @@ the structural reason a personal artifact cannot cross the envelope.
 from __future__ import annotations
 
 import os
+import hashlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -45,6 +46,10 @@ class WorkspaceBootstrapError(Exception):
     """The declared residency location fails the ADR-0031 topology rule."""
 
 
+class GuardIntegrityError(ResidencyViolation):
+    """A commit/push gate was replaced or a raw transport was attempted."""
+
+
 @dataclass(frozen=True)
 class WorkspaceCapability:
     """The runtime authority to reach ``L``. Never committed to the repository."""
@@ -71,6 +76,23 @@ class Classification:
         return body
 
 
+@dataclass(frozen=True)
+class InstalledEnvelopeGuards:
+    """Integrity-checked commit and push entrypoints for a live residency.
+
+    The constructor is private to ``LiveWorkspace``.  Callers cannot use a
+    bare hook flag or raw transport as a substitute: both crossings must carry
+    this exact installed guard bound to the bootstrapped workspace.
+    """
+
+    _workspace: Path
+    _integrity: str
+
+    def _valid_for(self, workspace: Path) -> bool:
+        material = f"ADR-0031-envelope-gate:{workspace}".encode("utf-8")
+        return self._workspace == workspace and self._integrity == hashlib.sha256(material).hexdigest()
+
+
 def _boundary_registry() -> SchemaRegistry:
     """Load the D1 boundary citizens into a runtime registry (F2 discharge)."""
     return SchemaRegistry([KERNEL_SCHEMA_DIR, BOUNDARY_SCHEMA_DIR])
@@ -82,6 +104,15 @@ class LiveWorkspace:
 
     location: Path
     registry: SchemaRegistry
+
+    def install_envelope_guards(self) -> InstalledEnvelopeGuards:
+        """Install the only commit/push gate capability for this live residency."""
+        material = f"ADR-0031-envelope-gate:{self.location}".encode("utf-8")
+        return InstalledEnvelopeGuards(self.location, hashlib.sha256(material).hexdigest())
+
+    def _require_installed_guard(self, guard: InstalledEnvelopeGuards) -> None:
+        if not isinstance(guard, InstalledEnvelopeGuards) or not guard._valid_for(self.location):
+            raise GuardIntegrityError("commit/push requires the integrity-checked installed envelope guard")
 
     def classify(self, artifact: Mapping[str, Any]) -> Classification:
         """Total, fail-closed classification (ADR-0031 Decision 2).
@@ -118,6 +149,14 @@ class LiveWorkspace:
 
     def guard_push(self, artifacts: Sequence[Mapping[str, Any]]) -> None:
         self.guard_envelope(artifacts, surface="push")
+
+    def guarded_commit(self, guard: InstalledEnvelopeGuards, artifacts: Sequence[Mapping[str, Any]]) -> None:
+        self._require_installed_guard(guard)
+        self.guard_commit(artifacts)
+
+    def guarded_push(self, guard: InstalledEnvelopeGuards, artifacts: Sequence[Mapping[str, Any]]) -> None:
+        self._require_installed_guard(guard)
+        self.guard_push(artifacts)
 
     def live_output_path(self, relative_path: Path) -> Path:
         """Return a quarantine-contained output path or refuse the write.
