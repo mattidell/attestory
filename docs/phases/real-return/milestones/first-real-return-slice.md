@@ -240,3 +240,41 @@ merged.
   and live-workspace citizens get schemas like every other citizen.
 - Exceptions to any of the above auto-escalate to Tier 3 per the standing
   protocol.
+
+## Closure (2026-07-18, Track 5)
+
+Milestone complete. Per-criterion disposition, each stated in the strongest
+form the ratified data boundary admits:
+
+1. **Real facts contributed and run** — satisfied by the owner's
+   non-descriptive attestation (Verification section above, recorded
+   2026-07-18, PR #20). Per Ontology §8 this record deliberately does not —
+   and never may — state which lines published or blocked; the attestation
+   plus the in-repo synthetic battery over the identical path is this
+   criterion's complete repo-side evidence. (The Track 4 heading's older
+   phrase "acceptance evidence is the disposition report" is superseded by
+   the corrected Verification contract above.)
+2. **Zero personal data, mechanically checked** — satisfied: track safety
+   scans in every review gate, plus the installed byte-verified commit/push
+   envelope gates (Track 4b) live in the owner's clone and verified at
+   attestation recording.
+3. **D1/D2/D3 ratified; ADR-0027/0028 conditions** — satisfied: ADR-0031/
+   0032/0033 ratified with rival-backed evidence. ADR-0027's production
+   resolver condition discharged (Track 3); member-byte verification held
+   from Foundation. ADR-0028's historical-v1 migration explicitly
+   re-deferred (deferral ledger, entry 9).
+4. **W-2 family closes over the owner's declared set** — satisfied by
+   mechanism plus attestation: the horizon-keyed closure (Track 4c) makes a
+   closure naming anything but the current declared horizon a hard
+   projection error, so any run the attestation covers closed over the
+   declared set by construction.
+5. **Records** — satisfied by this track: maturity matrix updated
+   (data-boundary row L0→L3; covered cells L2→L3, each carrying the
+   Ontology §8 evidential footnote); phase-state briefing rewritten;
+   retrospective written
+   (`docs/milestone-retrospectives/2026-07-18-first-real-return-slice.md`);
+   deferral ledger recorded
+   (`first-real-return-slice-deferral-ledger.md`).
+
+Next milestone selection is owner-directed (Tier 3) from the maturity-matrix
+frontier reading.

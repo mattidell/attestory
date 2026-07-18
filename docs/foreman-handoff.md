@@ -17,32 +17,23 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; `main` at `2a2440e` — **Track 4c merged, owner's quarantined real run is next**)
+## Current state (updated 2026-07-18; branch `track/frrs-t5-completion` — **milestone complete, Track 5 records built, review dispatch pending**)
 
-- **Seat:** principal foreman. The active milestone is First Real Return Slice.
-  Tracks 0–4c are all merged (Track 4c: PR #18, merge `2a2440e`); no reset is
-  pending.
-- **Owner-held run tooling:** `tools/scaffold_live_acts.py` and
-  `workspace-seed/` (synthetic seed + `build.py`) are **intentionally
-  untracked** per the Track 4c charter — never commit them or any workspace
-  output. `build.py <L> --seed <L>/personal-seed.json` seeds and preflights a
-  private workspace; `python3 <L>/runner.py 1` (then 2, 3, …) performs run
-  attempts; reports land under `<L>/outputs/`.
-- **Boundary discipline for the run:** values, dispositions, refusal reasons,
+- **Seat:** principal foreman. **First Real Return Slice is COMPLETE**: Tracks
+  0–4c merged, the owner's real run attested (recorded PR #20), and Track 5
+  (completion records) built on `track/frrs-t5-completion` per its charter
+  (`docs/reviews/charter-2026-07-18-frrs-t5-completion.md`): maturity matrix
+  (data-boundary L0→L3, covered cells L3 with the Ontology §8 evidential
+  footnote), roadmap status, milestone plan closure, deferral ledger (11
+  entries), retrospective, phase-state briefing rewrite.
+- **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
-  session. The only sentence that crosses back is the three-fact attestation:
-  the owner ran the slice; dispositions were observed in quarantine; no
-  artifact crossed the boundary. If a run refuses for what looks like a
-  mechanism defect, characterize it by reproducing it *synthetically* in-repo
-  — never by quoting the live refusal.
-- **Real run done (2026-07-18):** the owner attested in the exact three-fact
-  form; recorded in the milestone plan's Verification section ("Owner
-  attestation"). A pre-flight act-log inconsistency during workspace prep was
-  diagnosed via the synthetic seed (mechanism confirmed sound) and fixed
-  owner-side; no live detail crossed. Envelope gates verified at recording.
-- **➡️ NEXT ACTION: charter Track 5 — the completion records track
-  (maturity-matrix + phase-state updates, retrospective, deferral ledger),
-  itself reviewed and merged per ADR-0030.**
+  session; only the three-fact attestation crossed. Owner-held run tooling
+  (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
+- **➡️ NEXT ACTION: the owner dispatches the Track 5 review seat
+  (`charter-2026-07-18-frrs-t5-completion-review.md`, ADR-0034) and merges
+  the Track 5 PR; then selects the next milestone from the maturity-matrix
+  frontier (Tier 3).**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
