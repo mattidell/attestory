@@ -24,46 +24,62 @@ careful hand-editing.
 | **L3** | Real — operates on the owner's actual data under the ratified data boundary. |
 | **L4** | Hardened — named production conditions discharged; deferrals retired. |
 
-## Matrix (as of 2026-07-15, post-Foundation)
+## Matrix (as of 2026-07-18, post-First-Real-Return-Slice)
 
 | Aspect ↓ / Domain → | W-2 wages (1a) | Interest (2b) | Dividends (3a/3b) | Return-level conditions (status, 12, 15, 16) | Schedule attachments |
 | --- | --- | --- | --- | --- | --- |
-| **Admission & identity** (facts enter with declared identity, member transitions) | L2 | L2 | L0 | L2 | L0 |
-| **Source closure & completeness** (families, mappings, horizons, honest blocking) | L1 ¹ | L2 | L0 | L2 ² | L0 |
-| **Computation** (rules, composition, conditionals) | L2 | L2 ³ | L0 | L2 | L0 |
-| **Adoption & authority** (packages, manifests, byte verification, citations) | L2 ⁴ | L2 ⁴ | L0 | L2 ⁴ | L0 |
-| **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L2 | L2 | L0 | L2 | L0 |
-| **Presentation** (form-field dispositions, rendering; human surface) | L2 ⁵ | L2 ⁵ | L0 | L2 ⁵ | L0 |
-| **Correction & supersession lifecycle** | L2 ⁶ | L2 ⁶ | L0 | L2 ⁶ | L0 |
-| **Data boundary** (real-data residency, contribution, privacy) | L0 | L0 | L0 | L0 | L0 |
+| **Admission & identity** (facts enter with declared identity, member transitions) | L3 ⁷ | L3 ⁷ | L0 | L3 ⁷ | L0 |
+| **Source closure & completeness** (families, mappings, horizons, honest blocking) | L3 ¹ ⁷ | L3 ⁷ | L0 | L3 ² ⁷ | L0 |
+| **Computation** (rules, composition, conditionals) | L3 ⁷ | L3 ³ ⁷ | L0 | L3 ⁷ | L0 |
+| **Adoption & authority** (packages, manifests, byte verification, citations) | L3 ⁴ ⁷ | L3 ⁴ ⁷ | L0 | L3 ⁴ ⁷ | L0 |
+| **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L0 | L3 ⁷ | L0 |
+| **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ⁷ | L3 ⁵ ⁷ | L0 | L3 ⁵ ⁷ | L0 |
+| **Correction & supersession lifecycle** | L3 ⁶ ⁷ | L3 ⁶ ⁷ | L0 | L3 ⁶ ⁷ | L0 |
+| **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ | L3 ⁷ ⁸ | L0 | L3 ⁷ ⁸ | L0 |
 
-Footnotes (honest qualifications, from the Foundation closing briefing):
+Footnotes (honest qualifications; renumbered at milestone close 2026-07-18):
 
-1. The W-2 family has no closure mapping — an empty W-2 set blocks (honest,
-   not deficient). Contract exists (ADR-0014); content absent.
+1. The W-2 family's closure mapping now exists as immutable horizon-keyed v3
+   content (Tracks 4/4c, ADR-0014 pattern); a stale closure is a hard
+   projection error, and an empty declared set can close honestly.
 2. Demographic inputs carry adopted defaults; filing status is a first-class
    categorical domain (ADR-0024/0025).
 3. Named deferrals: further positive interest sources (K-1, market discount)
    and the subtractive-adjustment mechanism (nominee/accrued/premium)
-   (ADR-0026).
-4. Package resolution operates only inside the fixture boundary; a production
-   resolver is deferred (ADR-0027). Byte verification of package instances and
-   member citizens is in place.
+   (ADR-0026). See the milestone deferral ledger.
+4. The production package resolver operates outside the fixture boundary
+   (ADR-0033, Track 3): current-user adoption pins a verified release; bytes
+   are registry-verified before a strict `validation.ok == True` exclusive
+   graph resolves. ADR-0028 historical-v1 migration remains deferred.
 5. E8.1 UI coverage deferred; citation *display* formatting is a deferred
    rendering contract. Presentation today is form-field disposition content,
    not a human surface.
 6. Free supersession policy is a standing shim.
+7. **Evidential basis for every L3 claim (Ontology §8):** the synthetic
+   battery exercises the identical path end-to-end in-repo, and the owner's
+   non-descriptive attestation (milestone plan, Verification, 2026-07-18)
+   establishes that the slice ran on real data in quarantine with the
+   boundary intact. No L3 claim rests on — or may ever cite — quarantined
+   run detail. L3 asserts the *capability operated*, not any particular
+   disposition.
+8. ADR-0031/0032/0033 ratified and implemented: out-of-repo residency with
+   installed byte-verified envelope gates (Track 4b), contribution as a
+   first-class event, fail-closed classification. Guarded transport /
+   credential confinement is a named deferral (ledger), which is what holds
+   this row (and the matrix) short of L4.
 
 ## Frontier reading
 
-The computation/record aspects are uniformly L2 across covered domains; the
-matrix is bottom-heavy. The three live frontiers, in the order the owner
-prioritized (2026-07-15):
+The covered region is now uniformly L3; the matrix is breadth-limited, not
+depth-limited. The live frontiers for the owner's next selection (Tier 3):
 
-1. **Data boundary row: L0 → L3** across covered domains — the First Real
-   Return Slice milestone. Raising this row also lifts every covered L2 cell
-   to L3, because "operates on real data" is exactly what L3 means.
-2. **Dividends / Schedule-attachments columns: L0 → L2** — coverage breadth
+1. **Dividends / Schedule-attachments columns: L0 → L2** — coverage breadth
    (1099-DIV, lines 3a/3b, the Schedule B $1,500 conditional — the designated
-   first hard trace case).
-3. **Presentation aspect toward a human surface** — E8.1, citation display.
+   first hard trace case). Breadth now pays twice: the data boundary and
+   production resolver are in place, so a new domain reaching L2 is one
+   adoption away from L3.
+2. **Presentation aspect toward a human surface** — E8.1, citation display.
+   The first aspect a real user (the owner) now touches every run.
+3. **L3 → L4 hardening** — retire named deferrals from the milestone ledger
+   (guarded transport first; then supersession policy, ADR-0026 interest
+   scope, ADR-0028 migration).

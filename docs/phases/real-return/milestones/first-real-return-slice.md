@@ -1,8 +1,10 @@
 # Milestone: First Real Return Slice
 
-Status: **active** (2026-07-18) — Tracks 0–4b are merged; the Track 4c
-live-path repair passed independent review and awaits the owner's merge disposition.
-First milestone of the Real Return phase; operates under ADR-0030 per-ADR /
+Status: **complete** (2026-07-18) — Tracks 0–4c merged per-track; the owner's
+quarantined real run performed and attested (Verification section, PR #20);
+Track 5 completion records are the closing unit. Per-criterion disposition:
+Closure section below.
+First milestone of the Real Return phase; operated under ADR-0030 per-ADR /
 per-track merges (no monolithic milestone branch).
 
 ## Decision summary (tiered)
@@ -40,23 +42,22 @@ contract-foundational — better ratified before coverage widens than retrofit
 across more content. Selected by the owner 2026-07-15 over coverage breadth
 (dividends/Schedule B), a presentation surface, and deferral hardening.
 
-## Current state
+## Current state (at close, 2026-07-18)
 
-- Lines 1a/2b/9/11/12/15/16 now flow through the live coordinator on a
-  fully-recorded synthetic act log, with honest blocking, byte-verified
-  packages, a run-disposition ledger, and walkable non-publication
-  explanations. The Track 4c repair passed its independent review and awaits
-  the owner's merge disposition.
-- All data is synthetic (`demo-*`); fixture-safety tests in the suite
-  (`tests/test_kernel_fixtures.py`) enforce this inside the repo, but nothing
-  defines where *real* data may live. The repository has a GitHub remote
-  (private for now, per the ADR-0030 amendment's interim posture), so the
-  safety contract must treat every push as publication regardless of
-  visibility.
-- The v3 package provides an asserted rounding convention vocabulary and a
-  W-2 closure fact keyed by its family horizon; old content remains historical.
-- The owner-held real run remains prohibited until the owner merges the
-  independently reviewed Track 4c repair.
+- Lines 1a/2b/9/11/12/15/16 flow through the live coordinator from an
+  authoritative fact log, with honest blocking, byte-verified packages, a
+  run-disposition ledger, and walkable non-publication explanations. Track 4c
+  (v3 rounding vocabulary, horizon-keyed W-2 closure, coordinator-from-facts
+  golden) is merged (PR #18).
+- The owner performed the quarantined real run in the out-of-repo workspace;
+  the three-fact non-descriptive attestation is recorded in the Verification
+  section (PR #20). Everything in-repo remains synthetic (`demo-*`), enforced
+  by fixture-safety tests, per-review safety scans, and the installed
+  byte-verified commit/push envelope gates (Track 4b); every push is treated
+  as publication regardless of remote visibility.
+- (The pre-D1 wording of this section — "nothing defines where *real* data
+  may live" — described the milestone's starting condition; ADR-0031/0032/0033
+  and Tracks 1–4c are that definition, ratified and implemented.)
 
 ## Scope
 
@@ -168,7 +169,7 @@ branch with its own review gate and no-ff merge to `main`; there is no
 milestone integration branch. Sequencing below is dependency order, not a
 single-branch plan.
 
-### Track 0 — Contract decisions (D1, D2, D3) — complete pending D3 merge
+### Track 0 — Contract decisions (D1, D2, D3) — complete (ADRs 0031/0032/0033 merged)
 
 Three prototype topics, each with an owner-approved plan before its first
 charter. D1 and D2 are Tier 3 and interlock (contribution writes into the
@@ -217,7 +218,9 @@ them.)
 ### Track 4 — W-2 closure mapping and live-run integration
 
 W-2 closure-mapping content (ADR-0014 pattern); the live-run smoke harness;
-the owner's first real run. Acceptance evidence is the disposition report.
+the owner's first real run. Acceptance evidence is the non-descriptive
+attestation (Verification section; the original "disposition report" phrase
+here was superseded by the 2026-07-16 correction, applied in place by Track 5).
 
 ### Track 5 — Completion
 
@@ -240,3 +243,43 @@ merged.
   and live-workspace citizens get schemas like every other citizen.
 - Exceptions to any of the above auto-escalate to Tier 3 per the standing
   protocol.
+
+## Closure (2026-07-18, Track 5)
+
+Milestone complete. Per-criterion disposition, each stated in the strongest
+form the ratified data boundary admits:
+
+1. **Real facts contributed and run** — satisfied by the owner's
+   non-descriptive attestation (Verification section above, recorded
+   2026-07-18, PR #20). Per Ontology §8 this record deliberately does not —
+   and never may — state which lines published or blocked; the attestation
+   plus the in-repo synthetic battery over the identical path is this
+   criterion's complete repo-side evidence. (The Track 4 section's older
+   "disposition report" phrase is corrected in place by this track per the
+   corrected Verification contract above.)
+2. **Zero personal data, mechanically checked** — satisfied: track safety
+   scans in every review gate, plus the installed byte-verified commit/push
+   envelope gates (Track 4b) live in the owner's clone and verified at
+   attestation recording.
+3. **D1/D2/D3 ratified; ADR-0027/0028 conditions** — satisfied: ADR-0031/
+   0032/0033 ratified with rival-backed evidence. ADR-0027's production
+   resolver condition discharged (Track 3); member-byte verification held
+   from Foundation. ADR-0028's historical-v1 migration explicitly
+   re-deferred (deferral ledger, entry 9).
+4. **W-2 family closes over the owner's declared set** — satisfied by
+   mechanism plus attestation: the horizon-keyed closure (Track 4c) makes a
+   closure naming anything but the current declared horizon a hard
+   projection error, so any run the attestation covers closed over the
+   declared set by construction.
+5. **Records** — satisfied by this track: maturity matrix updated
+   (data-boundary row L0→L3; every covered capability cell to L3 — all from
+   L2 except W-2 source-closure, which rose from L1 via the Track 4/4c
+   closure-mapping content — each L3 cell carrying the Ontology §8
+   evidential footnote); phase-state briefing rewritten;
+   retrospective written
+   (`docs/milestone-retrospectives/2026-07-18-first-real-return-slice.md`);
+   deferral ledger recorded
+   (`first-real-return-slice-deferral-ledger.md`).
+
+Next milestone selection is owner-directed (Tier 3) from the maturity-matrix
+frontier reading.

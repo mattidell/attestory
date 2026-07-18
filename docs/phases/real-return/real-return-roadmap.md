@@ -28,16 +28,19 @@ scan.
 
 ## Status
 
-Active milestone: **First Real Return Slice** — **active; Tracks 0–4b are
-merged, and the Track 4c live-path repair is reviewed merge-ready awaiting the
-owner's merge disposition**
-(plan: `milestones/first-real-return-slice.md`).
+Active milestone: **First Real Return Slice** — **complete pending the Track 5
+records merge** (plan: `milestones/first-real-return-slice.md`).
 
-- First Real Return Slice — **active** (2026-07-18). D1 residency (ADR-0031),
-  D2 contribution (ADR-0032), and D3 production resolver (ADR-0033) are
-  ratified; Tracks 1–4b are merged. Track 4c builds immutable v3 successor
-  content for the live rounding and W-2-closure inputs, repairs the record pin
-  surface, and adds a coordinator-from-facts golden; it awaits its
-  owner-dispatched independent review returned merge-ready. After owner merge,
-  the owner alone contributes real W-2 / 1099-INT facts and runs the slice in
-  quarantine. The repository continues to carry no personal data.
+- First Real Return Slice — **complete** (2026-07-18; Track 5 records merge
+  pending). D1 residency (ADR-0031), D2 contribution (ADR-0032), and D3
+  production resolver (ADR-0033) ratified; Tracks 1–4c merged per-track
+  (ADR-0030). The owner contributed real W-2 / 1099-INT facts to a
+  quarantined out-of-repo workspace and ran the slice; the non-descriptive
+  attestation — ran the slice, dispositions observed in quarantine, no
+  artifact crossed the boundary — is recorded in the milestone plan
+  (2026-07-18, PR #20). The repository carries no personal data,
+  mechanically gated (Track 4b envelope hooks). Named deferrals live in
+  `milestones/first-real-return-slice-deferral-ledger.md`. The phase's
+  standing test is met: the product computes its user's actual return
+  slice, which it could not do before. Next milestone selection is
+  owner-directed from the maturity-matrix frontier.
