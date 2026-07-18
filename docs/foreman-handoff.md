@@ -17,24 +17,27 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; branch `repair/frrs-t4-record-pin-origin` — **Track 4c reviewed merge-ready, owner merge pending**)
+## Current state (updated 2026-07-18; `main` at `2a2440e` — **Track 4c merged, owner's quarantined real run is next**)
 
 - **Seat:** principal foreman. The active milestone is First Real Return Slice.
-  Tracks 0–4b are merged (`f977b4d` for 4b); no reset is pending.
-- **Track 4c:** F1 is `57cdb64`; F2/F3 plus the missing coordinator-from-facts
-  golden are `c5e3544`. The repair creates immutable core-v3/W-2-v3 successor
-  content, admits the rounding input and horizon-keyed W-2 closure, and makes
-  historical-directory mapping consumers select the newest immutable mapping.
-  The owner-held scaffold helper is intentionally untracked per the charter.
-- **Review and verification:** the author-independent review (`7c490e7`) is
-  merge-ready: no blockers or scope defects, with focused and full (**433
-  tests**) suites, mypy, governance lint, regeneration, diff check, safety
-  scan, and envelope-gate verification clean. Its one non-blocking note
-  corrects F1's former “strictly additive” claim: input pins now require
-  `origin`, matching `rule-artifact.v2`; no committed input pin is affected.
-- **➡️ NEXT ACTION: the owner decides whether to merge Track 4c. Only after
-  merge may the owner run in quarantined `L` and add the exact non-descriptive
-  attestation. Track 5 records follow that action.**
+  Tracks 0–4c are all merged (Track 4c: PR #18, merge `2a2440e`); no reset is
+  pending.
+- **Owner-held run tooling:** `tools/scaffold_live_acts.py` and
+  `workspace-seed/` (synthetic seed + `build.py`) are **intentionally
+  untracked** per the Track 4c charter — never commit them or any workspace
+  output. `build.py <L> --seed <L>/personal-seed.json` seeds and preflights a
+  private workspace; `python3 <L>/runner.py 1` (then 2, 3, …) performs run
+  attempts; reports land under `<L>/outputs/`.
+- **Boundary discipline for the run:** values, dispositions, refusal reasons,
+  and the workspace location never enter the repository, a review, or a chat
+  session. The only sentence that crosses back is the three-fact attestation:
+  the owner ran the slice; dispositions were observed in quarantine; no
+  artifact crossed the boundary. If a run refuses for what looks like a
+  mechanism defect, characterize it by reproducing it *synthetically* in-repo
+  — never by quoting the live refusal.
+- **➡️ NEXT ACTION: the owner performs the quarantined real run and gives the
+  foreman the exact non-descriptive attestation; the foreman records it in the
+  milestone record and charters Track 5.**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
