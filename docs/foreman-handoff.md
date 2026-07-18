@@ -17,25 +17,25 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; branch `track/frrs-t3-resolver-bootstrap` — **Track 3 implemented, awaiting review authorization**)
+## Current state (updated 2026-07-18; branch `review/frrs-t3-premerge-record` — **Track 3 review recorded; blocking repair awaits owner direction**)
 
 - **Seat:** principal foreman. The active milestone is First Real Return Slice;
-  Tracks 0–2 are merged to `main`.
-- **Track 3 build:** commit `66a3497` implements the ADR-0033 production resolver,
-  D1 live-workspace bootstrap/envelope gates, and the ADR-0032 F1 evaluator fence.
-  It is the only Track-3 implementation commit and is based on the merged Track-3
-  plan (`b8c90f7`).
-- **Verification:** system Python is the usable local environment (the checked-in
-  `.venv` has a stale Linux interpreter). Track-3 focused suite: 30 tests green;
-  full suite: 403 tests green; `python3 -m mypy packages tools tests`: clean (86
-  files); `python3 tools/governance_lint.py`: conformant. No committed-data safety
-  concern was found in the Track-3 diff.
-- **➡️ NEXT ACTION: push/open the Track-3 PR if it is not already present, then
-  wait for the owner's immediate, explicit authorization before dispatching an
-  author-independent pre-merge reviewer. Do not dispatch a reviewer merely because
-  the charter names one. The untracked Track-1 re-review record under
-  `docs/reviews/2026-07-17-frrs-t1-d3-schemas-rereview.md` belongs to the owner’s
-  external work; preserve it and do not mix it into Track 3.**
+  Tracks 0–3 are merged to `main` (Track 3 via PR #13, merge `530e387`).
+- **Review record:** the owner-authorized independent review is
+  `docs/reviews/2026-07-18-frrs-t3-resolver-bootstrap-premerge-review.md`.
+  Its verdict is **not merge-ready**, with one blocking finding: an invalid,
+  identity-matching co-located release causes `SchemaValidationError` to escape
+  the release inventory instead of producing a typed refusal or being inert.
+  The review record and its charter are being committed on this documentation
+  branch; the Track-1 re-review record remains unrelated external work and is
+  intentionally not included.
+- **Verification:** review re-ran 30 focused tests, 403 full tests, mypy (86
+  files), governance lint, and the Track-3 data-safety scan successfully. F2,
+  F4, F5, and F6 are non-blocking; F3 and F7 are Track-4 production conditions.
+- **➡️ NEXT ACTION: the owner decides whether to retain `main` and immediately,
+  explicitly authorize a narrowly scoped F1 repair builder, or to direct the
+  snapshot-and-reset protocol. Do not reset `main`, dispatch a builder, or open
+  Track 4 without that direction.**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
