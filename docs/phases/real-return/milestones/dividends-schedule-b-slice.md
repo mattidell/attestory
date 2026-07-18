@@ -25,12 +25,21 @@ owner-approved dispatch.
   dividends.** Today line 16 is a declared rule over ordinary brackets. When
   qualified dividends exist, the correct tax comes from the Qualified
   Dividends and Capital Gain Tax Worksheet, which also reads capital-gain
-  inputs this milestone does not cover. The rival space is real: implement a
-  declared worksheet rule with capital-gain inputs honestly absent-or-zero
-  from declared facts, versus honest-block line 16 whenever 3a > 0 (which
-  likely blocks the owner's real line 16), versus narrower shapes the
-  prototype surfaces. Product-visible: this decision determines whether the
-  owner's real return still publishes its tax line after this milestone.
+  inputs this milestone does not cover. **Owner direction (2026-07-18,
+  recorded at plan stage):** honest blocking is for *factual* incompleteness
+  only, never designed-in incapacity, and a *declared* zero is factual
+  completeness — the same ontology the source-closure design ratified (an
+  empty declared set closes honestly; zero is never assumed, only declared).
+  The rival space is therefore narrowed: the worksheet is implemented as a
+  declared rule with its capital-gain inputs bound to contributed
+  declared-absence facts; "block line 16 whenever 3a > 0" is retired by
+  principle. **A declaration contradicted by facts on record (e.g. a
+  contributed 1099-DIV carrying box 2a against a no-capital-gains
+  declaration) is a hard error**, mirroring stale-closure semantics —
+  otherwise declared-zero degrades into assumed-zero. D2's prototype designs
+  the worksheet rule shape, the declared-absence fact types, and the
+  contradiction check; the remaining rivals are worksheet *variants*, not
+  whether to build it.
 - **Tier 2 (default + veto, prototype-backed): D3 — 1099-DIV statement
   identity and dividend composition.** The 3b (ordinary) composition with a
   declared universe and the 3a (qualified) subset relationship (3a ≤ 3b as a
@@ -84,8 +93,10 @@ explanation/conditional machinery on a qualitatively new disposition kind.
    FinCEN 114 filing Part III can point to is a separate non-1040 filing,
    not an attachment of this return; naming that obligation when triggered
    is in scope, producing it is not.)
-5. **Line 16 disposition under qualified dividends (D2).** Whatever shape D2
-   ratifies, implemented with the same honest-blocking guarantees.
+5. **Line 16 under qualified dividends (D2).** The QDCG worksheet as a
+   declared rule; capital-gain inputs bound to contributed declared-absence
+   facts; the contradiction check as a hard error. Line 16 blocks only when
+   a required declaration is factually missing or contradicted.
 6. **Live-run integration.** The owner's real run over the widened slice;
    acceptance evidence is the non-descriptive attestation, same form as the
    First Real Return Slice.
