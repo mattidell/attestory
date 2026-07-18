@@ -133,6 +133,22 @@ it was synthesized.
   boundary this rests on.)
 - The extended data-safety check is part of the standard gate.
 
+### Owner attestation (recorded 2026-07-18)
+
+The owner (Matt Idell) attested to the foreman, in the exact non-descriptive
+form this section requires:
+
+> "I ran the slice; dispositions were observed in quarantine; no artifact
+> crossed the boundary."
+
+This sentence is the milestone's acceptance evidence in the repository. The
+disposition report and all run detail remain in the quarantined workspace per
+ADR-0031; no further description crosses, and reviews cite only this record.
+Repo-side mechanical confirmation at recording time: `git status` carried no
+workspace artifact (only the intentionally untracked owner-held helpers), and
+`tools/envelope_scan.py --verify` reported the ADR-0031 envelope gates
+installed and byte-intact.
+
 ## Exit criteria
 
 1. The owner has contributed real W-2 and 1099-INT facts to a live workspace

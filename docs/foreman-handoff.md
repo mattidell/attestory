@@ -35,9 +35,14 @@ against git, trust git and say so.
   artifact crossed the boundary. If a run refuses for what looks like a
   mechanism defect, characterize it by reproducing it *synthetically* in-repo
   — never by quoting the live refusal.
-- **➡️ NEXT ACTION: the owner performs the quarantined real run and gives the
-  foreman the exact non-descriptive attestation; the foreman records it in the
-  milestone record and charters Track 5.**
+- **Real run done (2026-07-18):** the owner attested in the exact three-fact
+  form; recorded in the milestone plan's Verification section ("Owner
+  attestation"). A pre-flight act-log inconsistency during workspace prep was
+  diagnosed via the synthetic seed (mechanism confirmed sound) and fixed
+  owner-side; no live detail crossed. Envelope gates verified at recording.
+- **➡️ NEXT ACTION: charter Track 5 — the completion records track
+  (maturity-matrix + phase-state updates, retrospective, deferral ledger),
+  itself reviewed and merged per ADR-0030.**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
