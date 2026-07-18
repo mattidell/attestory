@@ -35,7 +35,7 @@ careful hand-editing.
 | **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L0 | L3 ⁷ | L0 |
 | **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ⁷ | L3 ⁵ ⁷ | L0 | L3 ⁵ ⁷ | L0 |
 | **Correction & supersession lifecycle** | L3 ⁶ ⁷ | L3 ⁶ ⁷ | L0 | L3 ⁶ ⁷ | L0 |
-| **Data boundary** (real-data residency, contribution, privacy) | L3 ⁸ | L3 ⁸ | L0 | L3 ⁸ | L0 |
+| **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ | L3 ⁷ ⁸ | L0 | L3 ⁷ ⁸ | L0 |
 
 Footnotes (honest qualifications; renumbered at milestone close 2026-07-18):
 
