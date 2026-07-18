@@ -1,7 +1,7 @@
 # Foreman findings: Track 4 live path cannot publish (three defects)
 
 Date: 2026-07-18. Author: foreman, owner-directed session. Status: **repair
-built, independent review pending** — no repair has merged. Evidence below is
+built, independently reviewed merge-ready** — no repair has merged. Evidence below is
 synthetic only, from a scaffolded dry run in a scratch workspace (zero
 personal data; the owner's real run was not attempted).
 
@@ -24,10 +24,12 @@ completion record is appended — after the `started` record, leaving an open
 run. Repair (implemented on `repair/frrs-t4-record-pin-origin`, verified
 end-to-end): align the record pin `$def` with `rule-artifact.v2` (add
 `parameter` role; admit `origin` with the input-pin conditional) and
-regenerate the `published.json` row. Strictly widening; the release chain
-attests only the package registry, so no release/adoption cascade. In-place
-widening chosen over a `derivation-record.v3` successor; owner may veto at
-review.
+regenerate the `published.json` row. This aligns the record pin with
+`rule-artifact.v2`: it adds `parameter` and requires `origin` on input pins,
+so it is not purely additive for hypothetical legacy origin-less input pins.
+The release chain attests only the package registry, so no release/adoption
+cascade. In-place alignment chosen over a `derivation-record.v3` successor;
+the independent review found no committed affected record.
 
 ## F2 — no `rounding.convention` fact type exists; every line blocks on the live path
 
@@ -72,7 +74,7 @@ owner decision) scaffolds a live workspace act log, templates, runner, and a
 renumber/pre-flight mode; its pre-flight is what surfaced F3 and its dry run
 what surfaced F1/F2. Promotion to a committed tool is a later decision.
 
-## Implementation outcome (awaiting review)
+## Implementation outcome (independently reviewed merge-ready)
 
 F1 landed in `57cdb64`; F2/F3 and the missing golden class landed in
 `c5e3544`. The v3 package adopts `rounding.convention@v1` from the successor

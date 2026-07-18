@@ -1,7 +1,7 @@
 # Milestone: First Real Return Slice
 
 Status: **active** (2026-07-18) — Tracks 0–4b are merged; the Track 4c
-live-path repair is built and awaits its owner-dispatched independent review.
+live-path repair passed independent review and awaits the owner's merge disposition.
 First milestone of the Real Return phase; operates under ADR-0030 per-ADR /
 per-track merges (no monolithic milestone branch).
 
@@ -45,7 +45,8 @@ across more content. Selected by the owner 2026-07-15 over coverage breadth
 - Lines 1a/2b/9/11/12/15/16 now flow through the live coordinator on a
   fully-recorded synthetic act log, with honest blocking, byte-verified
   packages, a run-disposition ledger, and walkable non-publication
-  explanations. The Track 4c build awaits its independent review.
+  explanations. The Track 4c repair passed its independent review and awaits
+  the owner's merge disposition.
 - All data is synthetic (`demo-*`); fixture-safety tests in the suite
   (`tests/test_kernel_fixtures.py`) enforce this inside the repo, but nothing
   defines where *real* data may live. The repository has a GitHub remote
@@ -54,8 +55,8 @@ across more content. Selected by the owner 2026-07-15 over coverage breadth
   visibility.
 - The v3 package provides an asserted rounding convention vocabulary and a
   W-2 closure fact keyed by its family horizon; old content remains historical.
-- The owner-held real run remains prohibited until Track 4c receives its
-  chartered review and the owner merges it.
+- The owner-held real run remains prohibited until the owner merges the
+  independently reviewed Track 4c repair.
 
 ## Scope
 

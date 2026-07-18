@@ -29,8 +29,8 @@ scan.
 ## Status
 
 Active milestone: **First Real Return Slice** — **active; Tracks 0–4b are
-merged, and the Track 4c live-path repair is built awaiting its chartered
-independent review**
+merged, and the Track 4c live-path repair is reviewed merge-ready awaiting the
+owner's merge disposition**
 (plan: `milestones/first-real-return-slice.md`).
 
 - First Real Return Slice — **active** (2026-07-18). D1 residency (ADR-0031),
@@ -38,6 +38,6 @@ independent review**
   ratified; Tracks 1–4b are merged. Track 4c builds immutable v3 successor
   content for the live rounding and W-2-closure inputs, repairs the record pin
   surface, and adds a coordinator-from-facts golden; it awaits its
-  owner-dispatched independent review. After a ready review and owner merge,
+  owner-dispatched independent review returned merge-ready. After owner merge,
   the owner alone contributes real W-2 / 1099-INT facts and runs the slice in
   quarantine. The repository continues to carry no personal data.

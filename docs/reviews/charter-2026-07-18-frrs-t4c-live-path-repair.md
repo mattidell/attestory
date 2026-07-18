@@ -1,6 +1,7 @@
 # Charter: Track 4c — Live Path Repair (F1–F3)
 
-Date: 2026-07-18. Status: **build complete; independent review pending**.
+Date: 2026-07-18. Status: **independent review complete; merge-ready awaiting
+owner disposition**.
 Origin: the foreman's live-path findings record
 (`2026-07-18-frrs-t4-live-path-findings.md`). Branch:
 `repair/frrs-t4-record-pin-origin`. The owner holds the merge and, per
@@ -10,9 +11,9 @@ ADR-0034, dispatches the review seat.
 
 1. **F1 (carried, implemented):** `derivation-record.v2` pin `$def` aligned
    with `rule-artifact.v2` (`parameter` role; `origin` with the input-pin
-   conditional); `published.json` row regenerated. In-place widening —
-   reviewer measures that every previously valid record stays valid and that
-   no release/adoption byte changes.
+   conditional); `published.json` row regenerated. The alignment adds the
+   `parameter` role and requires `origin` on input pins; review confirms no
+   committed input pin lacks it and that no release/adoption byte changes.
 2. **F2 (implemented):** publish `rounding.convention@v1` as an adopted vocabulary fact
    type in a v3 content cycle via `tools/generate_frrs_t4_content.py`
    (immutable v3 bundle + package; registry, Track-3 release, and adoption
