@@ -138,6 +138,13 @@ def render_fixture_files() -> dict[str, bytes]:
             package_id=core, package_version="v2", release_checksum=release_checksum,
             scope={"jurisdiction": "us", "year": "2051"},
         ),
+        # The live-path repair's immutable successor package.  It has a
+        # distinct synthetic scope so v2 remains independently exercisable.
+        "adoptions/adopt-core-v3-current.json": _adoption_act(
+            "act.adopt.core.v3", actor=SCOPE_USER, revision=3,
+            package_id=core, package_version="v3", release_checksum=release_checksum,
+            scope={"jurisdiction": "us", "year": "2052"},
+        ),
     }
 
     rendered: dict[str, bytes] = {

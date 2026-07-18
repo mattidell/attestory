@@ -1,5 +1,5 @@
 {
-  "act_id": "act.adopt.interest.v2",
+  "act_id": "act.adopt.core.v3",
   "actor": "demo.user.filer-1",
   "at": "2026-07-18T00:00:00Z",
   "committed_against": 1,
@@ -9,21 +9,20 @@
       "note": "synthetic adoption; non-authoritative"
     },
     "package": {
-      "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d",
-      "id": "tax.us.2025.package.interest-slice",
-      "version": "v1"
+      "checksum": "2a15818208b00dce862a685eff3466d912e368f469f4691309559491f9f7eef5",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v3"
     },
     "release": {
       "checksum": "76842e824b66e5ad0138e2a79b9f6ebaf7a2c7eb6fefebe1f647adde5a781f09",
       "id": "demo.release.2025",
       "version": "v1"
     },
-    "revision": 2,
+    "revision": 3,
     "scope": {
       "jurisdiction": "us",
-      "year": "2025"
-    },
-    "supersedes": "act.adopt.interest.v1"
+      "year": "2052"
+    }
   },
   "schema": "act.v1"
 }

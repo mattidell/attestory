@@ -38,6 +38,11 @@ W2_BUNDLE_FILE = "w2.bundle.json"
 F1099INT_BUNDLE_FILE = "f1099int.bundle.json"
 
 
+def _version_rank(version: str) -> int:
+    """Return the numeric rank of a schema-validated ``v<N>`` citizen version."""
+    return int(version.removeprefix("v"))
+
+
 def tax_registry() -> SchemaRegistry:
     """A registry spanning the kernel, tax, and derivation schema families.
 
@@ -138,11 +143,17 @@ def load_closure_mappings(
                  "which no committed declaration provides"],
             )
         validate_mapping_against_family(citizen, family)
-        if citizen["id"] in by_id:
+        existing = by_id.get(citizen["id"])
+        if existing is None:
+            by_id[citizen["id"]] = citizen
+            continue
+        if existing["version"] == citizen["version"]:
             raise SchemaValidationError(
-                "source-closure-mapping.v2", [f"duplicate mapping id: {citizen['id']}"]
+                "source-closure-mapping.v2",
+                [f"duplicate mapping id/version: {citizen['id']}@{citizen['version']}"],
             )
-        by_id[citizen["id"]] = citizen
+        if _version_rank(citizen["version"]) > _version_rank(existing["version"]):
+            by_id[citizen["id"]] = citizen
     return by_id
 
 

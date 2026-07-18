@@ -1,0 +1,73 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.w2.box1-wages",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.employer",
+          "kind": "entity",
+          "name": "employer"
+        },
+        {
+          "entity_kind": "tax.us.w2-slip",
+          "kind": "entity",
+          "name": "w2-slip"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.wages",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Wages, tips, other compensation in box 1 of one W-2 slip: keyed by employer, tax year, and the W-2-slip thing, never by submitted evidence; two same-employer slips are two facts, and a corrected value for the same slip supersedes under this policy (ADR-0011)",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.w2.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Attestation that the W-2 source family is complete for tax year 2025 at the named current family membership horizon.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v3"
+    }
+  ],
+  "id": "tax.us.2025.w2-vocabulary",
+  "label": "US federal 2025 W-2 vocabulary: box 1 wages per slip and source-set closure (ADR-0011)",
+  "schema": "bundle.v2",
+  "version": "v3"
+}

@@ -1,0 +1,201 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.filing-status",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Filing status for tax year 2025",
+      "value_schema": {
+        "enum": [
+          "single",
+          "married_filing_jointly",
+          "married_filing_separately",
+          "head_of_household",
+          "qualifying_surviving_spouse"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.taxpayer-over-65",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.default-false",
+          "version": "v1"
+        }
+      },
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Taxpayer is over 65 years of age for 2025",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.taxpayer-blind",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.default-false",
+          "version": "v1"
+        }
+      },
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Taxpayer is blind for 2025",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.spouse-over-65",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.default-false",
+          "version": "v1"
+        }
+      },
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Spouse is over 65 years of age for 2025",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.spouse-blind",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.default-false",
+          "version": "v1"
+        }
+      },
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Spouse is blind for 2025",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.deductions.itemized",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "optional_default": {
+        "parameter": {
+          "id": "tax.us.2025.parameter.default-zero",
+          "version": "v1"
+        }
+      },
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Taxpayer asserted itemized deductions for 2025",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "rounding.convention",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Rounding convention asserted for the 2025 US federal income-tax computation.",
+      "value_schema": {
+        "enum": [
+          "half_up"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.core_calculations.vocabulary",
+  "label": "Filing status, taxpayer and spouse demographics, and itemized deductions fact types for tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v2"
+}

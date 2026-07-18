@@ -76,9 +76,19 @@
       "version": "v2"
     },
     {
+      "checksum": "55e7febab2f3c0825932e98cd1fceb700eb765bd3401840475f5e74c8f5db4cb",
+      "id": "tax.us.2025.closure-mapping.w2",
+      "version": "v3"
+    },
+    {
       "checksum": "6a6eb5f4739870616fa341438bc72d8d61db5874010d92e05e27c9447a7cb1ea",
       "id": "tax.us.2025.core_calculations.vocabulary",
       "version": "v1"
+    },
+    {
+      "checksum": "9efe37e02ebc394f3260e902d16c6fd27465d515cb9f9f84e780c8df66c0a598",
+      "id": "tax.us.2025.core_calculations.vocabulary",
+      "version": "v2"
     },
     {
       "checksum": "8e02becfe49be8abb0dc57b3998996e7204b736999f17c0f9d0beb816f864c72",
@@ -254,6 +264,11 @@
       "checksum": "2bad9d07dd3896c25ddd5d44ff8399e215c925362df00330a5450aba87edfe26",
       "id": "tax.us.2025.w2-vocabulary",
       "version": "v2"
+    },
+    {
+      "checksum": "f1c01cd427f1f8e3f257bfeec75ae5ca74b95587acf763f8579f64a1da47a962",
+      "id": "tax.us.2025.w2-vocabulary",
+      "version": "v3"
     }
   ],
   "packages": [
@@ -266,6 +281,11 @@
       "checksum": "11fe28b7bacd76f5f13925e18aa2f1cc9dd7c3bffc7855153b3f12a4f3aad45b",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v2"
+    },
+    {
+      "checksum": "2a15818208b00dce862a685eff3466d912e368f469f4691309559491f9f7eef5",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v3"
     },
     {
       "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d",
