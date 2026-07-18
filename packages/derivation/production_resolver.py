@@ -33,6 +33,7 @@ from packages.derivation.package_validation import (
     validate_package,
     verify_published_package,
 )
+from packages.kernel.schema_registry import SchemaValidationError
 
 ADOPTION_SCHEMA = "act-package-adoption.v1"
 RELEASE_SCHEMA = "release-registry.v1"
@@ -220,7 +221,7 @@ def _verify_release_and_registry(
             if candidate.get("id") != release_pin["id"] or candidate.get("version") != release_pin["version"]:
                 continue
             schemas.validate(RELEASE_SCHEMA, candidate)
-        except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError):
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError, SchemaValidationError, ValueError):
             continue
         matching[_sha256_bytes(raw)] = candidate
     release = matching.get(str(release_pin["checksum"]))

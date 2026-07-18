@@ -186,6 +186,22 @@ class ReleaseRegistrySubstitutions(unittest.TestCase):
         assert isinstance(r, Refusal)
         self.assertEqual(r.reason, "RELEASE_ABSENT_OR_MISMATCH")
 
+    def test_identity_matching_schema_invalid_release_is_inert(self) -> None:
+        """A bad co-located release cannot interrupt honest pinned authority."""
+        with TemporaryDirectory() as tmp:
+            rel = Path(tmp) / "releases"
+            rel.mkdir()
+            src = FRRS_T3 / "publication_surface" / "releases" / "demo.release.2025.v1.json"
+            honest = json.loads(src.read_text())
+            invalid = dict(honest)
+            invalid.pop("package_registry_sha256")  # required by release-registry.v1
+            (rel / "aaa-invalid-release.json").write_text(
+                json.dumps(invalid, indent=2, sort_keys=True) + "\n"
+            )
+            shutil.copy2(src, rel / src.name)
+            r = self._clean_current(_surface(release_dir=rel))
+        self.assertIsInstance(r, ResolvedGraph)
+
     def test_replaced_registry_bytes_under_honest_release_refuses(self) -> None:
         with TemporaryDirectory() as tmp:
             reg = Path(tmp) / "published-packages.json"
