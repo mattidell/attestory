@@ -176,7 +176,8 @@ charter. D1 and D2 are Tier 3 and interlock (contribution writes into the
 residency boundary); their plans may share fixtures but their decisions merge
 as separate ADRs. D3 is Tier 2 and may run after D1 ratifies (the resolver
 must know where live content lives). D1 (ADR-0031), D2 (ADR-0032), and D3
-(ADR-0033) are ratified; D3's per-ADR merge remains owner-held. Gate-0 decision
+(ADR-0033) are ratified and merged (D3: PR #7; residual pre-close clause
+cleansed post-merge per the Track 5 delta re-check). Gate-0 decision
 inventories may conclude a proposition needs no prototype — that finding is
 recorded, not assumed.
 
