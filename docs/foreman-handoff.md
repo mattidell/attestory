@@ -17,22 +17,21 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; branch `repair/frrs-t3-f1-release-inventory` — **F1 repair reviewed, awaiting owner merge**)
+## Current state (updated 2026-07-18; branch `plan/frrs-t4-w2-closure-live-integration` — **Track 4 chartered for implementation**)
 
-- **Seat:** principal foreman. The active milestone is First Real Return Slice;
-  Tracks 0–3 are merged to `main` (Track 3 via PR #13, merge `530e387`).
-- **F1 repair:** the owner-authorized implementation commit `0001e74` catches
-  `SchemaValidationError` during matching release inventory and adds an executed
-  identity-matching invalid-release golden. The repair is bounded by
-  `docs/reviews/charter-2026-07-18-frrs-t3-f1-release-inventory-repair.md`.
-- **Review:** fresh author-independent delta review `923d978` is **merge-ready**
-  (`docs/reviews/2026-07-18-frrs-t3-f1-release-inventory-delta-review.md`): 31
-  focused tests, full suite, mypy (86 files), governance lint, data-safety scan,
-  and direct valid-plus-invalid / invalid-only counter-probes all pass. The
-  unrelated untracked Track-1 review record remains intentionally excluded.
-- **➡️ NEXT ACTION: push/open the reviewed F1 repair PR if needed; the owner then
-  merges it. Only after that may Track 4 planning resume. Do not reset `main` or
-  dispatch additional work unless a new finding or owner direction requires it.**
+- **Seat:** principal foreman. The active milestone is First Real Return Slice.
+  Track 3 and its F1 repair are merged (`8c7af6d`); no reset is pending.
+- **Track 4 charter:** `docs/reviews/charter-2026-07-18-frrs-t4-w2-closure-live-integration.md`
+  scopes one grouped implementation commit: immutable core-v2/W-2 closure
+  content plus regenerated publication pins, a capability-gated production live
+  coordinator, the remaining D1/D3 safety checks, and synthetic evidence only.
+- **Owner boundary:** the agent never sees or records real data. After code is
+  reviewed and merged, only the owner runs it in `L` and may create the permitted
+  non-descriptive three-fact attestation. The unrelated untracked Track-1 review
+  record remains intentionally excluded.
+- **➡️ NEXT ACTION: Track 4 builder implements the committed charter, then a fresh
+  author-independent reviewer measures the resulting delta. The owner then merges
+  the Track-4 PR before performing the quarantined real run.**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
