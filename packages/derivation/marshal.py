@@ -11,6 +11,7 @@ finding is indistinguishable from an absent one downstream.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any
 
 from packages.derivation.source_authority import (
@@ -22,6 +23,18 @@ from packages.kernel.findings import FindingState
 
 if TYPE_CHECKING:
     from packages.derivation.runner import RunContext
+
+
+@dataclass(frozen=True)
+class MarshalledRunContext:
+    """Opaque product of record-state marshalling for the live executor.
+
+    The contained context intentionally has no public accessor.  Fixture code
+    may continue to construct ``RunContext`` for scenario coverage, but a live
+    execution must first pass through ``marshal_live_run_context``.
+    """
+
+    _context: RunContext
 
 
 def _fact_keys(fact_id: str) -> dict[str, str]:
@@ -216,4 +229,40 @@ def marshal_run_context(
         current_horizons=dict(current_horizons),
         fact_types=ftypes,
         input_bindings=bindings,
+    )
+
+
+def marshal_live_run_context(
+    *,
+    run_id: str,
+    state: FindingState,
+    currency: CurrencyView,
+    rules: list[dict[str, Any]],
+    parameters: dict[str, dict[str, Any]],
+    canon: dict[str, dict[str, Any]],
+    adoption_pin: dict[str, Any],
+    governance_pins: list[dict[str, Any]],
+    family_declarations: list[dict[str, Any]] | None = None,
+    closure_mappings: list[dict[str, Any]] | None = None,
+    fact_types: list[dict[str, Any]] | None = None,
+    input_bindings: list[dict[str, Any]] | None = None,
+    collect_source_names: list[str] | None = None,
+) -> MarshalledRunContext:
+    """Create the opaque marshalling result accepted by the production executor."""
+    return MarshalledRunContext(
+        marshal_run_context(
+            run_id=run_id,
+            state=state,
+            currency=currency,
+            rules=rules,
+            parameters=parameters,
+            canon=canon,
+            adoption_pin=adoption_pin,
+            governance_pins=governance_pins,
+            family_declarations=family_declarations,
+            closure_mappings=closure_mappings,
+            fact_types=fact_types,
+            input_bindings=input_bindings,
+            collect_source_names=collect_source_names,
+        )
     )

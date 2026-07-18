@@ -533,8 +533,8 @@ class _Run:
         )
 
 
-def run(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
-    """Forward, data-driven saturation: fire every eligible rule until fixpoint."""
+def _execute(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
+    """Evaluator implementation shared by fixture and marshalled live paths."""
     state = _Run(ctx, schemas)
     progress = True
     while progress:
@@ -546,6 +546,17 @@ def run(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
             progress = True
     state.finalize_unreached()
     return state.result()
+
+
+def run(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
+    """Fixture/test evaluator entrypoint for a deliberately assembled context.
+
+    Production callers use ``production_executor.execute_marshaled`` instead;
+    that entrypoint accepts only the opaque result of the record-state
+    marshaller.  Keeping the fixture entrypoint preserves the deterministic
+    legacy scenario corpus without making it a live-run route.
+    """
+    return _execute(ctx, schemas)
 
 
 def append_publications(act_log: ActLog, result: RunResult, *, actor: str, at: str) -> int:

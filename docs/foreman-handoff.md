@@ -17,19 +17,25 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-17; branch `decision/d3-production-resolver` — **D3 ratified, pending owner merge**)
+## Current state (updated 2026-07-18; branch `track/frrs-t3-resolver-bootstrap` — **Track 3 implemented, awaiting review authorization**)
 
-- **Seat:** principal foreman. The repaired active entrypoint is
-  `docs/prototypes/production-resolver/SEAT.md`; its creation and this
-  succession are logged in that topic's process log.
-- **Real Return phase is active.** D1 (ADR-0031) and D2 (ADR-0032) are ratified.
-  D3's plan was owner-approved and merged in PR #6 (`a213cf3`).
-- **D3 is ratified:** ADR-0033 accepts the release-root/current-user-adoption
-  resolver contract, strict `ok == True` gate, exhaustive ledger, and RG-1 as a
-  MUST production repair. D1 and D2 were already ratified; Track 0 is complete.
-- **➡️ NEXT ACTION: owner performs D3's per-ADR no-fast-forward merge to `main`.
-  Then implementation Tracks 1–4 can begin on their dedicated short-lived
-  branches.** No production resolver code exists on this decision branch.
+- **Seat:** principal foreman. The active milestone is First Real Return Slice;
+  Tracks 0–2 are merged to `main`.
+- **Track 3 build:** commit `66a3497` implements the ADR-0033 production resolver,
+  D1 live-workspace bootstrap/envelope gates, and the ADR-0032 F1 evaluator fence.
+  It is the only Track-3 implementation commit and is based on the merged Track-3
+  plan (`b8c90f7`).
+- **Verification:** system Python is the usable local environment (the checked-in
+  `.venv` has a stale Linux interpreter). Track-3 focused suite: 30 tests green;
+  full suite: 403 tests green; `python3 -m mypy packages tools tests`: clean (86
+  files); `python3 tools/governance_lint.py`: conformant. No committed-data safety
+  concern was found in the Track-3 diff.
+- **➡️ NEXT ACTION: push/open the Track-3 PR if it is not already present, then
+  wait for the owner's immediate, explicit authorization before dispatching an
+  author-independent pre-merge reviewer. Do not dispatch a reviewer merely because
+  the charter names one. The untracked Track-1 re-review record under
+  `docs/reviews/2026-07-17-frrs-t1-d3-schemas-rereview.md` belongs to the owner’s
+  external work; preserve it and do not mix it into Track 3.**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

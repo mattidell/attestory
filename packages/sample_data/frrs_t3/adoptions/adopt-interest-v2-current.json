@@ -1,0 +1,29 @@
+{
+  "act_id": "act.adopt.interest.v2",
+  "actor": "demo.user.filer-1",
+  "at": "2026-07-18T00:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d",
+      "id": "tax.us.2025.package.interest-slice",
+      "version": "v1"
+    },
+    "release": {
+      "checksum": "4d3a4fea727a454931525e6aa992f077865f9a7eb0632c8a7cba90678f1e1893",
+      "id": "demo.release.2025",
+      "version": "v1"
+    },
+    "revision": 2,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "act.adopt.interest.v1"
+  },
+  "schema": "act.v1"
+}
