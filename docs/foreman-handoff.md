@@ -17,25 +17,22 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; branch `review/frrs-t3-premerge-record` — **Track 3 review recorded; blocking repair awaits owner direction**)
+## Current state (updated 2026-07-18; branch `repair/frrs-t3-f1-release-inventory` — **F1 repair reviewed, awaiting owner merge**)
 
 - **Seat:** principal foreman. The active milestone is First Real Return Slice;
   Tracks 0–3 are merged to `main` (Track 3 via PR #13, merge `530e387`).
-- **Review record:** the owner-authorized independent review is
-  `docs/reviews/2026-07-18-frrs-t3-resolver-bootstrap-premerge-review.md`.
-  Its verdict is **not merge-ready**, with one blocking finding: an invalid,
-  identity-matching co-located release causes `SchemaValidationError` to escape
-  the release inventory instead of producing a typed refusal or being inert.
-  The review record and its charter are being committed on this documentation
-  branch; the Track-1 re-review record remains unrelated external work and is
-  intentionally not included.
-- **Verification:** review re-ran 30 focused tests, 403 full tests, mypy (86
-  files), governance lint, and the Track-3 data-safety scan successfully. F2,
-  F4, F5, and F6 are non-blocking; F3 and F7 are Track-4 production conditions.
-- **➡️ NEXT ACTION: the owner decides whether to retain `main` and immediately,
-  explicitly authorize a narrowly scoped F1 repair builder, or to direct the
-  snapshot-and-reset protocol. Do not reset `main`, dispatch a builder, or open
-  Track 4 without that direction.**
+- **F1 repair:** the owner-authorized implementation commit `0001e74` catches
+  `SchemaValidationError` during matching release inventory and adds an executed
+  identity-matching invalid-release golden. The repair is bounded by
+  `docs/reviews/charter-2026-07-18-frrs-t3-f1-release-inventory-repair.md`.
+- **Review:** fresh author-independent delta review `923d978` is **merge-ready**
+  (`docs/reviews/2026-07-18-frrs-t3-f1-release-inventory-delta-review.md`): 31
+  focused tests, full suite, mypy (86 files), governance lint, data-safety scan,
+  and direct valid-plus-invalid / invalid-only counter-probes all pass. The
+  unrelated untracked Track-1 review record remains intentionally excluded.
+- **➡️ NEXT ACTION: push/open the reviewed F1 repair PR if needed; the owner then
+  merges it. Only after that may Track 4 planning resume. Do not reset `main` or
+  dispatch additional work unless a new finding or owner direction requires it.**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
