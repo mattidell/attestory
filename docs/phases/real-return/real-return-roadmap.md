@@ -28,11 +28,18 @@ scan.
 
 ## Status
 
-Active milestone: **First Real Return Slice** — **complete pending the Track 5
-records merge** (plan: `milestones/first-real-return-slice.md`).
+Active milestone: **Dividends and Schedule B Slice** — plan approved by the
+owner 2026-07-18 (plan: `milestones/dividends-schedule-b-slice.md`). Raises
+the Dividends and Schedule-attachments matrix columns L0→L3; decision topics
+D1 (attachment ontology, Tier 3), D2 (line 16 under qualified dividends,
+Tier 3, owner-narrowed to the declared-absence worksheet), D3 (1099-DIV
+composition, Tier 2). Track 0 (prototype topics) is next; each prototype
+plan requires owner approval before its first charter (ADR-0013).
 
-- First Real Return Slice — **complete** (2026-07-18; Track 5 records merge
-  pending). D1 residency (ADR-0031), D2 contribution (ADR-0032), and D3
+- Dividends and Schedule B Slice — **active** (approved 2026-07-18).
+
+- First Real Return Slice — **complete** (2026-07-18; Track 5 records merged
+  PR #21). D1 residency (ADR-0031), D2 contribution (ADR-0032), and D3
   production resolver (ADR-0033) ratified; Tracks 1–4c merged per-track
   (ADR-0030). The owner contributed real W-2 / 1099-INT facts to a
   quarantined out-of-repo workspace and ran the slice; the non-descriptive
