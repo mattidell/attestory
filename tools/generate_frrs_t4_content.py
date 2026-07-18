@@ -1,7 +1,7 @@
-"""Generate the immutable, synthetic Track-4 core-package v2 publication set.
+"""Generate the immutable, synthetic Track-4 core-package successor sets.
 
 The script deliberately reads the published v1 surface and writes only new
-``v2`` citizens.  It is deterministic so the package registry, Track-3
+``v2`` and ``v3`` citizens.  It is deterministic so the package registry, Track-3
 publication release, and adoption fixtures can be checked as bytes rather than
 hand-maintained copies.  It never reads a workspace or any user data.
 """
@@ -34,7 +34,12 @@ def _checksum(value: dict[str, Any]) -> str:
 
 
 def render() -> dict[str, bytes]:
-    """Return every Track-4 public content byte, addressed by content filename."""
+    """Return every Track-4 public content byte, addressed by content filename.
+
+    The v3 cycle repairs two live-path omissions without rewriting the v2
+    publication: the required rounding convention becomes an adopted fact,
+    and the W-2 closure fact is individuated by its family horizon.
+    """
     rendered: dict[str, bytes] = {}
 
     # The old W-2 vocabulary lacks a quantity on its source amount.  A new
@@ -131,15 +136,85 @@ def render() -> dict[str, bytes]:
     package["package_checksum"] = _checksum(package)
     rendered["package.core-calculations.v2.json"] = _bytes(package)
 
+    # The live coordinator marshals only asserted facts.  Rounding was already
+    # a required package input, so it must be declared by an adopted vocabulary
+    # rather than invented by the runner or treated as a hidden default.
+    core_vocabulary = _load("core_calculations.bundle.json")
+    core_vocabulary["version"] = "v2"
+    core_vocabulary["fact_types"].append({
+        "schema": "fact-type.v2",
+        "id": "rounding.convention",
+        "version": "v1",
+        "title": "Rounding convention asserted for the 2025 US federal income-tax computation.",
+        "nature": "determinable",
+        "identity_keys": [
+            {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+        ],
+        "value_schema": {"enum": ["half_up"]},
+        "supersession": {"policy": "free"},
+    })
+    rendered["core_calculations.bundle.v2.json"] = _bytes(core_vocabulary)
+
+    # The v2 W-2 closure fact cannot carry the horizon the v2 mapping reads.
+    # Keep the wages fact exactly at v2; only the repaired closure fact gains a
+    # successor version and its required individuating entity key.
+    w2_v3 = _load("w2.bundle.v2.json")
+    w2_v3["version"] = "v3"
+    for fact in w2_v3["fact_types"]:
+        if fact["id"] == "tax.us.2025.w2.source-closure":
+            fact["version"] = "v3"
+            fact["identity_keys"] = [
+                {
+                    "name": "family-horizon",
+                    "kind": "entity",
+                    "entity_kind": "kernel.family-horizon",
+                },
+                {"name": "tax-year", "kind": "literal", "values": ["2025"]},
+            ]
+            fact["title"] = (
+                "Attestation that the W-2 source family is complete for tax year "
+                "2025 at the named current family membership horizon."
+            )
+    rendered["w2.bundle.v3.json"] = _bytes(w2_v3)
+
+    w2_mapping_v3 = _load("closure-mapping.w2.v2.json")
+    w2_mapping_v3["version"] = "v3"
+    w2_mapping_v3["closure_fact_type"] = {
+        "id": "tax.us.2025.w2.source-closure",
+        "version": "v3",
+    }
+    rendered["closure-mapping.w2.v3.json"] = _bytes(w2_mapping_v3)
+
+    package_v3 = _load("package.core-calculations.v2.json")
+    package_v3["version"] = "v3"
+    package_v3["members"] = [dict(member) for member in package_v3["members"]]
+    for member in package_v3["members"]:
+        if member["id"] == "tax.us.2025.core_calculations.vocabulary":
+            member["version"] = "v2"
+        elif member["id"] == "tax.us.2025.w2-vocabulary":
+            member["version"] = "v3"
+        elif member["id"] == "tax.us.2025.closure-mapping.w2":
+            member["version"] = "v3"
+    package_v3["package_checksum"] = _checksum(package_v3)
+    rendered["package.core-calculations.v3.json"] = _bytes(package_v3)
+
     # Publication keeps every historical registry entry and appends exact
     # checksums for the new immutable generation.  The registry itself is the
     # published release input, so it is rendered from content rather than
     # edited separately.
     registry = _load("published-packages.json")
-    package_entries = [dict(entry) for entry in registry["packages"] if (entry["id"], entry["version"]) != (package["id"], package["version"])]
+    package_entries = [dict(entry) for entry in registry["packages"] if (entry["id"], entry["version"]) not in {
+        (package["id"], package["version"]),
+        (package_v3["id"], package_v3["version"]),
+    }]
     citizen_entries = [dict(entry) for entry in registry["citizens"]]
     package_entries.append({"id": package["id"], "version": package["version"], "checksum": package["package_checksum"]})
+    package_entries.append({"id": package_v3["id"], "version": package_v3["version"], "checksum": package_v3["package_checksum"]})
     for name in ("w2.bundle.v2.json", "quantity.wages.v1.json", "rule.wages-line1a.v2.json", "family.w2.v2.json", "closure-mapping.w2.v2.json", "role-canon.v1.json"):
+        citizen = json.loads(rendered[name])
+        citizen_entries = [entry for entry in citizen_entries if (entry["id"], entry["version"]) != (citizen["id"], citizen["version"])]
+        citizen_entries.append({"id": citizen["id"], "version": citizen["version"], "checksum": hashlib.sha256(json.dumps(citizen, sort_keys=True, separators=(",", ":")).encode()).hexdigest()})
+    for name in ("core_calculations.bundle.v2.json", "w2.bundle.v3.json", "closure-mapping.w2.v3.json"):
         citizen = json.loads(rendered[name])
         citizen_entries = [entry for entry in citizen_entries if (entry["id"], entry["version"]) != (citizen["id"], citizen["version"])]
         citizen_entries.append({"id": citizen["id"], "version": citizen["version"], "checksum": hashlib.sha256(json.dumps(citizen, sort_keys=True, separators=(",", ":")).encode()).hexdigest()})

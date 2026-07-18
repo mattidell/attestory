@@ -1,0 +1,22 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.wages.total-w2-box1",
+  "closure_fact_type": {
+    "id": "tax.us.2025.w2.source-closure",
+    "version": "v3"
+  },
+  "closure_horizon_key": "family-horizon",
+  "family": {
+    "id": "tax.us.2025.w2",
+    "version": "v2"
+  },
+  "id": "tax.us.2025.closure-mapping.w2",
+  "member_fact_type": {
+    "id": "tax.us.2025.w2.box1-wages",
+    "version": "v2"
+  },
+  "schema": "source-closure-mapping.v2",
+  "version": "v3"
+}
