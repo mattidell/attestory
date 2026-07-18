@@ -13,9 +13,14 @@ owner-approved dispatch.
   the product decides whether a *form* exists, not just a line value). Covers
   the >$1,500 conditional over both interest and ordinary dividends (the
   conditional reads an existing domain, so its shape touches ratified
-  content), and the scope disposition of Schedule B Part III
-  (foreign-accounts questions). Product-visible and ontology-setting: every
-  future schedule (D, 1, 2, 3…) inherits this shape.
+  content). Product-visible and ontology-setting: every future schedule
+  (D, 1, 2, 3…) inherits this shape. **Owner direction (2026-07-18, recorded
+  at plan stage):** the attachment is a product concept, and *all of
+  Schedule B is in scope* — the determination, Part I/II payer itemizations
+  (derived from statement facts already on record, tying to 2b/3b), and
+  Part III in full (the foreign-account and foreign-trust answers as
+  contributed taxpayer-assertion facts, including the yes-branch form
+  content). D1 designs the citizen shape; it does not relitigate this scope.
 - **Tier 3 (owner, prototype-backed): D2 — Line 16 under qualified
   dividends.** Today line 16 is a declared rule over ordinary brackets. When
   qualified dividends exist, the correct tax comes from the Qualified
@@ -68,10 +73,17 @@ explanation/conditional machinery on a qualitatively new disposition kind.
    form-field dispositions with citations like every existing line.
 3. **Line 9 extension (Tier 1).** Total income includes 3b, under existing
    contracts — content, not a reopened contract.
-4. **Schedule B attachment disposition (D1).** The attachment citizen, the
-   >$1,500 conditional over interest *and* ordinary dividends, Part I/II
-   content when required, Part III per D1's scope disposition. A return that
-   requires Schedule B and cannot complete it blocks honestly.
+4. **Schedule B attachment disposition (D1) — the whole form.** The
+   attachment citizen; the >$1,500 conditional over interest *and* ordinary
+   dividends; Part I/II payer itemizations derived from the statement facts
+   already on record, subtotaled and tied to lines 2b/3b; Part III answered
+   through two new contributed taxpayer-assertion fact types (foreign
+   financial account; foreign trust), yes-branch form content included. A
+   return that requires Schedule B and cannot complete it blocks honestly —
+   on the *attachment*, never on line values that remain computable. (The
+   FinCEN 114 filing Part III can point to is a separate non-1040 filing,
+   not an attachment of this return; naming that obligation when triggered
+   is in scope, producing it is not.)
 5. **Line 16 disposition under qualified dividends (D2).** Whatever shape D2
    ratifies, implemented with the same honest-blocking guarantees.
 6. **Live-run integration.** The owner's real run over the widened slice;
@@ -131,9 +143,11 @@ the synthesis method stated in the introducing track.
   authoritative-surface golden class explicitly. For this milestone that
   means coordinator-from-facts goldens driving `live_coordinate_run` from an
   authoritative fact log for: 3a/3b publication, line 9 with dividends, the
-  Schedule B attachment disposition (both existence outcomes and its blocked
-  form), and line 16 under D2's ratified shape. A green suite without these
-  named goldens is not evidence.
+  Schedule B attachment disposition (both existence outcomes; the complete
+  form with Part I/II itemizations tying to 2b/3b; Part III answered via
+  contributed facts, both branches; and the honest block when required
+  answers are absent), and line 16 under D2's ratified shape. A green suite
+  without these named goldens is not evidence.
 - Acceptance evidence for the real run is the owner's non-descriptive
   attestation in this section — ran the slice, dispositions observed in
   quarantine, no artifact crossed the boundary — never which lines or
@@ -207,6 +221,14 @@ merged as a records track.
 - **Trace over answer:** the attachment disposition must be *walkable* — the
   $1,500 conditional's inputs, threshold, and outcome are explanation
   content, not an opaque boolean.
+- **Dependency-form completeness (owner-ratified at plan stage,
+  2026-07-18):** a form this milestone's return depends on is either fully
+  in scope or an explicit prerequisite track — the milestone may not ship an
+  attachment that is *structurally* born blocked (blocked because scope
+  excluded content the form requires). Honest blocking remains for *factual*
+  incompleteness (the user has not yet contributed an answer), never for
+  designed-in incapacity. This principle binds future milestone plans that
+  introduce attachments.
 - **Schema-as-canon:** the attachment disposition is a new noun and gets a
   schema like every citizen; no attachment exists outside its schema.
 - **Runs consume facts, not inputs; the user controls the context:**
