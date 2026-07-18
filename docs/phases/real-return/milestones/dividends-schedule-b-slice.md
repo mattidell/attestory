@@ -1,0 +1,214 @@
+# Milestone: Dividends and Schedule B Slice
+
+Status: **proposed** (2026-07-18) — awaiting owner approval of this plan
+(ADR-0013 requires it before any charter). Second milestone of the Real Return
+phase; operates under ADR-0030 per-ADR / per-track merges and ADR-0034
+owner-approved dispatch.
+
+## Decision summary (tiered)
+
+- **Tier 3 (owner, prototype-backed): D1 — Schedule attachment ontology.**
+  What an *attachment* is as a citizen: Schedule B's existence is itself a
+  computed, explainable disposition (the designated first hard trace case —
+  the product decides whether a *form* exists, not just a line value). Covers
+  the >$1,500 conditional over both interest and ordinary dividends (the
+  conditional reads an existing domain, so its shape touches ratified
+  content), and the scope disposition of Schedule B Part III
+  (foreign-accounts questions). Product-visible and ontology-setting: every
+  future schedule (D, 1, 2, 3…) inherits this shape.
+- **Tier 3 (owner, prototype-backed): D2 — Line 16 under qualified
+  dividends.** Today line 16 is a declared rule over ordinary brackets. When
+  qualified dividends exist, the correct tax comes from the Qualified
+  Dividends and Capital Gain Tax Worksheet, which also reads capital-gain
+  inputs this milestone does not cover. The rival space is real: implement a
+  declared worksheet rule with capital-gain inputs honestly absent-or-zero
+  from declared facts, versus honest-block line 16 whenever 3a > 0 (which
+  likely blocks the owner's real line 16), versus narrower shapes the
+  prototype surfaces. Product-visible: this decision determines whether the
+  owner's real return still publishes its tax line after this milestone.
+- **Tier 2 (default + veto, prototype-backed): D3 — 1099-DIV statement
+  identity and dividend composition.** The 3b (ordinary) composition with a
+  declared universe and the 3a (qualified) subset relationship (3a ≤ 3b as a
+  structural invariant, not a hope), following the ADR-0015/0016/0026
+  pattern. Gate 0 may find parts need no prototype; that finding is
+  recorded, not assumed.
+- **Tier 1 (log only):** 1099-DIV closure-mapping content under ADR-0014/0017
+  (horizon-keyed, immutable); line-9 total-income content extension to
+  include 3b under existing rule-artifact contracts; live-run harness
+  extension.
+
+## Objective
+
+The owner contributes real 1099-DIV facts through the ratified contribution
+boundary; the return slice grows lines **3a and 3b**, line 9 absorbs
+dividends, and the product computes — with a full walkable trace — whether
+**Schedule B** exists for this return, publishing the attachment disposition
+or blocking honestly. Line 16's disposition under qualified dividends follows
+D2. The repository continues to provably carry zero personal data.
+
+## Why this milestone
+
+Selected by the owner 2026-07-18 over a human presentation surface and
+L3→L4 hardening. The matrix is breadth-limited: every covered cell is L3, and
+the expensive machinery (data boundary, contribution, production resolver) is
+paid for. This milestone is the first repeat purchase of the platform — it
+measures whether the marginal cost of a new domain actually dropped, which is
+the core scalability claim. It also lands the first *hard trace*: a
+computation whose output is the existence of a form, exercising
+explanation/conditional machinery on a qualitatively new disposition kind.
+
+## Scope
+
+1. **1099-DIV source family (D3 + Tier 1 content).** Statement-instance
+   identity, family claim, horizon-keyed closure mapping; boxes in the
+   declared universe: 1a (ordinary), 1b (qualified). The owner's real family
+   closes over their declared set.
+2. **Lines 3a/3b (D3).** Ordinary-dividend composition with a declared
+   universe; qualified as a structurally enforced subset; both lines flow to
+   form-field dispositions with citations like every existing line.
+3. **Line 9 extension (Tier 1).** Total income includes 3b, under existing
+   contracts — content, not a reopened contract.
+4. **Schedule B attachment disposition (D1).** The attachment citizen, the
+   >$1,500 conditional over interest *and* ordinary dividends, Part I/II
+   content when required, Part III per D1's scope disposition. A return that
+   requires Schedule B and cannot complete it blocks honestly.
+5. **Line 16 disposition under qualified dividends (D2).** Whatever shape D2
+   ratifies, implemented with the same honest-blocking guarantees.
+6. **Live-run integration.** The owner's real run over the widened slice;
+   acceptance evidence is the non-descriptive attestation, same form as the
+   First Real Return Slice.
+
+## Non-goals and deferred boundaries
+
+- **No Schedule D / capital gains.** 1099-DIV box 2a (capital gain
+  distributions) is outside the declared universe; if the owner's real
+  1099-DIV carries box 2a, that is a named blocked disposition, never silent
+  omission. Likewise boxes 3, 5 (§199A), 7 (foreign tax), 12
+  (exempt-interest dividends): outside the universe, honest blocking if
+  present. D3's prototype confirms which exclusions actually bind for the
+  owner's shapes.
+- **No document parsing/OCR** — manual contribution remains the mode.
+- **No human presentation surface** — the attachment disposition renders
+  through existing form-field/CLI/JSON surfaces; E8.1 stays on the frontier.
+- **No hardening scope** — the deferral ledger (guarded transport first) is
+  untouched unless the owner separately directs a rider after Track 0
+  economics are known.
+- ADR-0026's interest deferrals (K-1, market discount, subtractive
+  adjustments) remain deferred; Schedule B Part I reads the *existing* 2b
+  composition, it does not widen it.
+
+## Contracts
+
+### Existing (build on, do not reopen)
+
+ADR-0011/0014–0017 (identity, closure, horizons), ADR-0015/0016 as the
+statement/family pattern D3 instantiates, ADR-0019/0024/0025 (selectors,
+conditionals, expressions — the $1,500 conditional's substrate), ADR-0026
+(2b composition, read-only here), ADR-0020/0029 (explanations, citations),
+ADR-0027/0028/0033 (packages, production resolution), ADR-0031/0032 (data
+boundary, contribution), ADR-0030/0034 (process).
+
+### Decided here
+
+D1 attachment ontology, D2 line-16-under-qualified-dividends, D3 dividend
+composition — each through the ADR-0005/0013 prototype process with an
+owner-approved `docs/prototypes/<topic>/plan.md` before first charter, rival
+evidence per ADR-0013, per-ADR no-ff merge on ratification.
+
+## Data safety
+
+Standing rules unchanged and in force: real values never appear in commits,
+fixtures, goldens, charters, reviews, or retrospectives; per-review safety
+scans; installed envelope gates byte-verified in every clone. The owner's
+real 1099-DIV shapes inform synthetic fixtures only by re-expression, with
+the synthesis method stated in the introducing track.
+
+## Verification
+
+- Full in-repo suite, mypy, governance lint stay green and fully synthetic.
+- **Promoted lesson (First Real Return Slice retrospective), now a standing
+  charter requirement:** every behavior track's charter names its
+  authoritative-surface golden class explicitly. For this milestone that
+  means coordinator-from-facts goldens driving `live_coordinate_run` from an
+  authoritative fact log for: 3a/3b publication, line 9 with dividends, the
+  Schedule B attachment disposition (both existence outcomes and its blocked
+  form), and line 16 under D2's ratified shape. A green suite without these
+  named goldens is not evidence.
+- Acceptance evidence for the real run is the owner's non-descriptive
+  attestation in this section — ran the slice, dispositions observed in
+  quarantine, no artifact crossed the boundary — never which lines or
+  attachments published or blocked.
+
+## Exit criteria
+
+1. D1/D2/D3 ratified with rival-backed evidence; per-ADR merges on `main`.
+2. The synthetic battery drives the full widened slice from the
+   authoritative surface, including the named golden classes above.
+3. The owner has contributed real 1099-DIV facts and run the widened slice;
+   the non-descriptive attestation is recorded.
+4. The 1099-DIV family closes over the owner's declared set (horizon-keyed;
+   stale closure remains a hard projection error).
+5. The repository contains zero personal data, mechanically checked.
+6. Maturity matrix updated (Dividends column L0→L3 across aspects;
+   Schedule-attachments column L0→L3 for the aspects Schedule B exercises,
+   with honest footnotes for the rest); phase-state briefing rewritten;
+   retrospective written; deferral ledger for this milestone recorded, and
+   any prior-ledger entries this milestone touches dispositioned by name.
+
+## Tracks
+
+Per ADR-0030, each decision topic and each track is its own short-lived
+branch with its own review gate and no-ff merge; dependency order, not a
+single-branch plan.
+
+### Track 0 — Contract decisions (D1, D2, D3)
+
+Three prototype topics, each with an owner-approved plan before first
+charter. D3 (composition) can start immediately — it instantiates a proven
+pattern. D1 (attachment) and D2 (line 16) are the genuinely new ground; D2
+depends on D3's qualified-subset shape and may run after it ratifies. Gate-0
+economics are reported to the owner before charters are cut; if breadth is
+as cheap as the matrix predicts, the owner may at that point direct a
+hardening rider as a separate track (not assumed here).
+
+### Track 1 — Schema citizens
+
+Schema/contract citizens from the ratified ADRs (statement instance, family,
+composition, attachment disposition), with positive examples, named
+negatives, registry rows, and schema-validation tests. No runtime behavior.
+
+### Track 2 — Composition and conditional machinery
+
+3a/3b composition behavior, line-9 content extension, the Schedule B
+existence conditional and its trace, over synthetic fixtures. Charter names
+its authoritative-surface golden class per the Verification section.
+
+### Track 3 — Line 16 under D2
+
+The ratified line-16 shape implemented with honest blocking; goldens for
+qualified-present and qualified-absent paths from the authoritative surface.
+
+### Track 4 — 1099-DIV closure content and live integration
+
+Closure-mapping content (ADR-0014/0017 pattern), live-run harness extension,
+the owner's real run, attestation recorded.
+
+### Track 5 — Completion
+
+Matrix, phase-state, retrospective, deferral ledger; itself reviewed and
+merged as a records track.
+
+## Principles touched (foreclosure clause)
+
+- **Honest blocking:** a return that requires Schedule B and cannot complete
+  it, or a line 16 the ratified shape cannot certify, blocks with a walkable
+  explanation — never a silently ordinary-bracketed tax or a missing
+  attachment.
+- **Trace over answer:** the attachment disposition must be *walkable* — the
+  $1,500 conditional's inputs, threshold, and outcome are explanation
+  content, not an opaque boolean.
+- **Schema-as-canon:** the attachment disposition is a new noun and gets a
+  schema like every citizen; no attachment exists outside its schema.
+- **Runs consume facts, not inputs; the user controls the context:**
+  unchanged and binding on all new machinery.
+- Exceptions auto-escalate to Tier 3 per the standing protocol.
