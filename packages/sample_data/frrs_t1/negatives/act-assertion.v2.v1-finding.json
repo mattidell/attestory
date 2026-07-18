@@ -1,0 +1,12 @@
+{
+  "finding": {
+    "basis": "documentary",
+    "evidence_ids": [
+      "demo.evidence-1"
+    ],
+    "fact_id": "demo.fact-1",
+    "id": "demo.finding-2",
+    "schema": "finding.v1",
+    "value": 100
+  }
+}

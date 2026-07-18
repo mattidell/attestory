@@ -1,0 +1,21 @@
+{
+  "artifacts": [
+    {
+      "path": "examples/run-request.v1.json",
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ],
+  "constraints": {},
+  "generator": {
+    "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "id": "demo.generator",
+    "version": "v1"
+  },
+  "grammar_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "input_kinds": [
+    "public schema contract"
+  ],
+  "profile_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "schema": "fixture-provenance-manifest.v1",
+  "seed": "demo-seed"
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-member-transition.v2",
+  "title": "Atomic member transition act payload",
+  "description": "One membership-changing transition — add, remove, or reclassify across the canonical member predicate — carrying exactly one same-family/scope horizon successor referencing the current predecessor (ADR-0017 decision 3). The transition is all-or-nothing: a member change without a successor, or a successor without a member change, is malformed and alters nothing. Family and scope are stated once here and bind both halves, so a differently-scoped successor is unrepresentable. A same-member value correction that does not change predicate membership uses the ordinary assertion act and never this kind (ADR-0017 decision 4).",
+  "type": "object",
+  "properties": {
+    "family": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" }
+      },
+      "required": ["id", "version"],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "minLength": 1 },
+      "propertyNames": { "pattern": "^[a-z][a-z0-9-]*$" }
+    },
+    "member": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "action": { "const": "assert" },
+            "finding": {
+              "type": "object",
+              "properties": { "schema": { "const": "finding.v2" } },
+              "required": ["schema"]
+            }
+          },
+          "required": ["action", "finding"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "action": { "const": "remove" },
+            "fact_id": { "type": "string", "minLength": 1 }
+          },
+          "required": ["action", "fact_id"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "action": { "const": "reclassify" },
+            "fact_id": { "type": "string", "minLength": 1 },
+            "finding": {
+              "type": "object",
+              "properties": { "schema": { "const": "finding.v2" } },
+              "required": ["schema"]
+            }
+          },
+          "required": ["action", "fact_id", "finding"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "successor": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "predecessor": { "type": "string", "minLength": 1 }
+      },
+      "required": ["id", "predecessor"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["family", "scope", "member", "successor"],
+  "additionalProperties": false
+}

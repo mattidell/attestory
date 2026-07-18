@@ -1,0 +1,11 @@
+{
+  "package": {
+    "checksum": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "id": "demo.package",
+    "version": "v1"
+  },
+  "revision": 1,
+  "scope": {
+    "year": "2025"
+  }
+}

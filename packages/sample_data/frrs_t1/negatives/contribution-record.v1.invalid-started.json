@@ -1,0 +1,8 @@
+{
+  "contribution_id": "demo.contribution-1",
+  "phase": "started",
+  "record_id": "demo.record-1",
+  "schema": "contribution-record.v1",
+  "stop_reason": "completed",
+  "workspace_revision": 1
+}

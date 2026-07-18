@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/contribution.v1",
+  "title": "Contribution",
+  "description": "A manual entry batch turning real values into facts with provenance (ADR-0032).",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "contribution.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "evidence_id": { "type": "string", "minLength": 1 },
+    "content": { "type": "object" }
+  },
+  "required": ["schema", "id", "evidence_id", "content"],
+  "additionalProperties": false
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/contribution-record.v1",
+  "title": "Contribution record",
+  "description": "An Article 14 process account for a contribution event.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "contribution-record.v1" },
+    "record_id": { "type": "string", "minLength": 1 },
+    "contribution_id": { "type": "string", "minLength": 1 },
+    "phase": { "enum": ["started", "completed", "interrupted", "failed"] },
+    "workspace_revision": { "type": "integer", "minimum": 0 },
+    "stop_reason": { "enum": ["completed", "interrupted", "validation-failed", "execution-failed"] },
+    "facts_asserted": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fact_id": { "type": "string", "minLength": 1 },
+          "finding_id": { "type": "string", "minLength": 1 },
+          "act_id": { "type": "string", "minLength": 1 }
+        },
+        "required": ["fact_id", "finding_id", "act_id"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["schema", "record_id", "contribution_id", "phase", "workspace_revision"],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": { "properties": { "phase": { "const": "started" } } },
+      "then": {
+        "not": { "anyOf": [
+          { "required": ["stop_reason"] },
+          { "required": ["facts_asserted"] }
+        ] }
+      },
+      "else": { "required": ["stop_reason", "facts_asserted"] }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-package-adoption.v1",
+  "title": "Package adoption act payload",
+  "description": "ADR-0033 Decision 1: A declared Article-4 user act pinning an exact package {id, version, checksum} and an exact release {id, version, checksum}, with structured scope, revision, an optional same-scope supersession reference, and non-authoritative audit metadata. The user actor is carried by the act.v1 envelope (Ontology, Actor); the sole-current-user-in-scope selection under supersession is a resolver/admission concern (ADR-0033), not a payload constraint.",
+  "type": "object",
+  "properties": {
+    "package": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" },
+        "checksum": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "required": ["id", "version", "checksum"],
+      "additionalProperties": false
+    },
+    "release": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" },
+        "checksum": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "required": ["id", "version", "checksum"],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "minLength": 1 },
+      "propertyNames": { "pattern": "^[a-z][a-z0-9-]*$" }
+    },
+    "revision": { "type": "integer", "minimum": 0 },
+    "supersedes": { "type": "string", "minLength": 1 },
+    "audit": { "type": "object" }
+  },
+  "required": ["package", "release", "scope", "revision"],
+  "additionalProperties": false
+}

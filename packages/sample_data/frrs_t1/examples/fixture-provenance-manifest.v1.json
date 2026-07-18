@@ -1,0 +1,115 @@
+{
+  "artifacts": [
+    {
+      "path": "examples/act-assertion.v2.json",
+      "sha256": "411b6c59a75239f439af66222c6d88fd34363591e4c0dce9323852681cdb8746"
+    },
+    {
+      "path": "examples/act-contribution.v1.json",
+      "sha256": "e6f23039921bb2bf4a125c02cbdbc89e92a46835ee02fd6c30ad43a9cfc824b6"
+    },
+    {
+      "path": "examples/act-member-transition.v2.json",
+      "sha256": "477c134b6f87adcfc5a0b5c053323e94fe52c162f899806ebd6cbc3af5532321"
+    },
+    {
+      "path": "examples/act-package-adoption.v1.json",
+      "sha256": "25c047ab63c039f284a015a74d5664e4ef67e9d7d250176e7a7d50d1b42a62ed"
+    },
+    {
+      "path": "examples/classification.v1.json",
+      "sha256": "f196e66981ab500509de3ac082ec512b1c76838658595b785f76df5f24087db0"
+    },
+    {
+      "path": "examples/contribution-record.v1.json",
+      "sha256": "26cd0262474265f5989d2fdcccd2e31a7f745d421170bf8f7e5f5f194b5d68c2"
+    },
+    {
+      "path": "examples/contribution.v1.json",
+      "sha256": "13afd2d52fe5bd0a9aeb2a5fb771fa1eb7217187db3d4b8085777326cf54bc3d"
+    },
+    {
+      "path": "examples/finding.v2.json",
+      "sha256": "9c72a1b47d32da0a0ee5200e7f909a01178326694eeecec1d1f224e5456f18f5"
+    },
+    {
+      "path": "examples/release-registry.v1.json",
+      "sha256": "c9f58f7b017bb97e902e68b95d6460d1ee5eb141cca3585b7387303e6a04b807"
+    },
+    {
+      "path": "examples/reserved-illustration-domain.v1.json",
+      "sha256": "856e721b94a6f25e9f803cccdf42bf19ee6fc1c20bc19e8817c297967a7e2ed3"
+    },
+    {
+      "path": "examples/run-request.v1.json",
+      "sha256": "c5aabd4282b6283f931239ae479426684343c976f51dba7cf7b9c7d30e037706"
+    },
+    {
+      "path": "negatives/act-assertion.v2.v1-finding.json",
+      "sha256": "d9a3a0e16f20952db7ffce3c430742e7a0399385b987c57cab0c58edf45d667a"
+    },
+    {
+      "path": "negatives/act-contribution.v1.bad-schema.json",
+      "sha256": "c434294bdf52dcf380b3bcfdfb2878b0a0c0a0b0ce544fcb261bf84d3051e42d"
+    },
+    {
+      "path": "negatives/act-member-transition.v2.bad-scope.json",
+      "sha256": "04d999efa27b1c362fff0253ce7c2c3b677223d7c0f0c79187c0e0b637d287ed"
+    },
+    {
+      "path": "negatives/act-package-adoption.v1.missing-release.json",
+      "sha256": "94b15c0b1ae6506d05739aa5a447d35c46da56127a77f12186127f702a71c79f"
+    },
+    {
+      "path": "negatives/classification.v1.never-with-kind.json",
+      "sha256": "7d5a5943e2ca4f073d666e1d26bfa5a3b4ad9b03dc25dacf7d8adf5c0f63bf9f"
+    },
+    {
+      "path": "negatives/contribution-record.v1.invalid-started.json",
+      "sha256": "41282945975f718dbd9c626d4a4303a76bcd1bd9c6cc40ebba8a5b9571709117"
+    },
+    {
+      "path": "negatives/contribution.v1.missing-evidence.json",
+      "sha256": "5c85952638aadbbbedeec03ce486d8f89ed5025680f5a0c8213d61b8d7be97bb"
+    },
+    {
+      "path": "negatives/finding.v2.bad-basis.json",
+      "sha256": "5a471d5316460405b2dc0366cfe9cedceab3f7bf69758db7d643ce4557ac6397"
+    },
+    {
+      "path": "negatives/fixture-provenance-manifest.v1.missing-attestation.json",
+      "sha256": "583b0cd05c5b4fa7e2739562db44e78a6891257bb05d676602ace8a22e7aaeb5"
+    },
+    {
+      "path": "negatives/release-registry.v1.missing-registry-sha.json",
+      "sha256": "78dfe1cd9db77000799aca53756e239ed3b526e00237998656e49718582fe257"
+    },
+    {
+      "path": "negatives/reserved-illustration-domain.v1.extra-prop.json",
+      "sha256": "a72b36445fad4c3fddd2f46804421fb7506453e900b39ade67b17df875b35459"
+    },
+    {
+      "path": "negatives/run-request.v1.with-value.json",
+      "sha256": "fca1bd9bcc323679a7a352d86ae1084ef128adfdd2422a934daad733fcf964f1"
+    }
+  ],
+  "attestation_no_live_data": true,
+  "constraints": {
+    "construction": "public schemas and accepted contract text only",
+    "live_document_input": false,
+    "reserved_value_domain": "demo identifiers and small integers"
+  },
+  "generator": {
+    "digest": "7bfe0ecf1c335e2ff03349adaf31ef595c87fa81a6b3ee2a203558072cc53f0c",
+    "id": "tools.generate_frrs_t1_fixtures",
+    "version": "v1"
+  },
+  "grammar_digest": "c41c7c9d968a28d82ccb417fc968767515a2bd5af2152f1740fa7e5b83b49dd9",
+  "input_kinds": [
+    "public schema contracts",
+    "accepted repository contracts"
+  ],
+  "profile_digest": "70a96a1a689e8e53bdcaf12d855f4d01cd80c743775d8edf80c35f11544aa688",
+  "schema": "fixture-provenance-manifest.v1",
+  "seed": "frrs-t1-schema-contract-fixtures-v1"
+}

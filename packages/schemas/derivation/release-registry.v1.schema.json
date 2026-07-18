@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/release-registry.v1",
+  "title": "Release Registry",
+  "description": "ADR-0033 Decision 1: A versioned publication-root citizen. Its immutable identity includes the SHA-256 of the exact package registry document it attests, and, where citizen registries are split, the SHA-256 of each separately attested registry document. Schema-only Track 1 citizen; the resolver behavior that verifies release bytes before registry entries authenticate supply is Track 3.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "release-registry.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "package_registry_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "citizen_registry_sha256": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+      "propertyNames": { "pattern": "^[a-z][a-z0-9-]*$" }
+    }
+  },
+  "required": ["schema", "id", "version", "package_registry_sha256"],
+  "additionalProperties": false
+}
