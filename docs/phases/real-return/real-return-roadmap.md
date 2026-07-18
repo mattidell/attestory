@@ -29,13 +29,15 @@ scan.
 ## Status
 
 Active milestone: **First Real Return Slice** — **active; Tracks 0–3 and the
-Track-3 F1 repair are merged, and Track 4 is chartered for implementation**
+Track-3 F1 repair are merged, and Track 4 is reviewed merge-ready awaiting
+owner merge**
 (plan: `milestones/first-real-return-slice.md`).
 
 - First Real Return Slice — **active** (2026-07-18). D1 residency (ADR-0031),
   D2 contribution (ADR-0032), and D3 production resolver (ADR-0033) are
   ratified; Tracks 1–3 plus the reviewed Track-3 F1 repair are merged. Track 4
-  now repairs the immutable core package, adds W-2 closure mapping, and connects
-  the capability-gated synthetic live path. The owner alone later contributes
-  real W-2 / 1099-INT facts and runs the slice in quarantine; the repository
-  continues to carry no personal data.
+  now has repaired the immutable core package, added W-2 closure mapping, and
+  connected the capability-gated synthetic live path. Its reviewed PR awaits the
+  owner merge; the owner alone then contributes real W-2 / 1099-INT facts and
+  runs the slice in quarantine. The repository continues to carry no personal
+  data.

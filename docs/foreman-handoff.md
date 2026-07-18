@@ -17,21 +17,21 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; branch `plan/frrs-t4-w2-closure-live-integration` — **Track 4 chartered for implementation**)
+## Current state (updated 2026-07-18; branch `track/frrs-t4-w2-closure-live-integration` — **Track 4 reviewed, awaiting owner merge**)
 
 - **Seat:** principal foreman. The active milestone is First Real Return Slice.
   Track 3 and its F1 repair are merged (`8c7af6d`); no reset is pending.
-- **Track 4 charter:** `docs/reviews/charter-2026-07-18-frrs-t4-w2-closure-live-integration.md`
-  scopes one grouped implementation commit: immutable core-v2/W-2 closure
-  content plus regenerated publication pins, a capability-gated production live
-  coordinator, the remaining D1/D3 safety checks, and synthetic evidence only.
-- **Owner boundary:** the agent never sees or records real data. After code is
-  reviewed and merged, only the owner runs it in `L` and may create the permitted
-  non-descriptive three-fact attestation. The unrelated untracked Track-1 review
-  record remains intentionally excluded.
-- **➡️ NEXT ACTION: Track 4 builder implements the committed charter, then a fresh
-  author-independent reviewer measures the resulting delta. The owner then merges
-  the Track-4 PR before performing the quarantined real run.**
+- **Track 4:** grouped implementation `c39a79b` repairs RG-1 as immutable
+  core-v2/W-2 closure content, installs a capability-gated coordinator, and
+  discharges the named D1/D3 checks synthetically. Repair `a08f37b` closes the
+  review's opaque-guard, path-transaction, and wages-quantity blockers.
+- **Review:** fresh independent delta review `4c4d73f` is **merge-ready**:
+  focused 43 tests, full 416 tests, mypy, governance lint, regeneration and
+  safety scans, and guard/path/quantity counter-probes all pass. The unrelated
+  untracked Track-1 review record remains intentionally excluded.
+- **➡️ NEXT ACTION: push/open the reviewed Track-4 PR if needed; the owner then
+  merges it. Only the owner may next run in quarantined `L` and add the exact
+  non-descriptive attestation. Track 5 records follow that owner action.**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
