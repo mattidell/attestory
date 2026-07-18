@@ -10,13 +10,16 @@ live path and cannot be reached through this module.
 from __future__ import annotations
 
 import inspect
-from typing import Any, Mapping, Sequence
+from typing import TYPE_CHECKING, Any, Mapping, Sequence
 
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.marshal import marshal_run_context
-from packages.derivation.runner import RunContext, RunResult, run
+from packages.derivation.marshal import marshal_live_run_context
+from packages.derivation.production_executor import execute_marshaled
 from packages.kernel.currency import CurrencyView
 from packages.kernel.findings import FindingState
+
+if TYPE_CHECKING:
+    from packages.derivation.runner import RunResult
 
 RUN_REQUEST_SCHEMA = "run-request.v1"
 
@@ -56,7 +59,7 @@ def live_run(
     :func:`marshal_run_context`.
     """
     validate_run_request(request, schemas)
-    ctx = marshal_run_context(
+    ctx = marshal_live_run_context(
         run_id=run_id,
         state=state,
         currency=currency,
@@ -71,7 +74,7 @@ def live_run(
         input_bindings=[dict(b) for b in (input_bindings or ())],
         collect_source_names=list(collect_source_names or ()),
     )
-    return run(ctx, schemas)
+    return execute_marshaled(ctx, schemas)
 
 
 def live_entrypoint_accepts_raw_inputs() -> bool:
@@ -94,12 +97,10 @@ def live_entrypoint_accepts_raw_inputs() -> bool:
     return bool(forbidden.intersection(params))
 
 
-# Re-export for type identity checks: RunContext is not run-request.v1.
 __all__ = [
     "RUN_REQUEST_SCHEMA",
     "LiveRunError",
     "live_entrypoint_accepts_raw_inputs",
     "live_run",
     "validate_run_request",
-    "RunContext",
 ]
