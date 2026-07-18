@@ -47,7 +47,29 @@ class LogContents:
         return len(self.acts)
 
 
-def _payload_schema_id(kind: str) -> str:
+def _payload_schema_id(kind: str, payload: dict[str, Any] | None = None) -> str:
+    """Resolve the published payload schema for an act kind.
+
+    Successor carrier acts (assertion / member-transition / bundle-adoption)
+    admit both v1 and v2 payloads. The nested citizen's declared schema
+    selects the payload schema so finding.v2 / bundle.v2 acts admit without
+    inventing a second envelope channel (ADR-0032 successor carriers).
+    """
+    if payload is not None:
+        if kind == "assertion":
+            finding = payload.get("finding")
+            if isinstance(finding, dict) and finding.get("schema") == "finding.v2":
+                return "act-assertion.v2"
+        elif kind == "member-transition":
+            member = payload.get("member")
+            if isinstance(member, dict):
+                finding = member.get("finding")
+                if isinstance(finding, dict) and finding.get("schema") == "finding.v2":
+                    return "act-member-transition.v2"
+        elif kind == "bundle-adoption":
+            bundle = payload.get("bundle")
+            if isinstance(bundle, dict) and bundle.get("schema") == "bundle.v2":
+                return "act-bundle-adoption.v2"
     return f"act-{kind}.v1"
 
 
@@ -98,7 +120,7 @@ class ActLog:
                 f"malformed committed line at index {index}: {exc}"
             ) from exc
         self._registry.validate(ACT_ENVELOPE_SCHEMA, act)
-        self._registry.validate(_payload_schema_id(act["kind"]), act["payload"])
+        self._registry.validate(_payload_schema_id(act["kind"], act["payload"]), act["payload"])
         return act
 
     def append(self, act: dict[str, Any], expected_revision: int) -> int:
@@ -109,7 +131,7 @@ class ActLog:
         so interruption can only lose the act, never corrupt history.
         """
         self._registry.validate(ACT_ENVELOPE_SCHEMA, act)
-        self._registry.validate(_payload_schema_id(act["kind"]), act["payload"])
+        self._registry.validate(_payload_schema_id(act["kind"], act["payload"]), act["payload"])
         contents = self.read()
         current = contents.revision
         if expected_revision != current:

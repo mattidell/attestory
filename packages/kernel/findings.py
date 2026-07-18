@@ -18,6 +18,9 @@ from packages.kernel.schema_registry import SchemaRegistry
 
 EVIDENCE_SCHEMA = "evidence.v1"
 FINDING_SCHEMA = "finding.v1"
+FINDING_SCHEMA_V2 = "finding.v2"
+CONTRIBUTION_SCHEMA = "contribution.v1"
+ADMITTED_FINDING_SCHEMAS = frozenset({FINDING_SCHEMA, FINDING_SCHEMA_V2})
 
 
 class FindingModelError(Exception):
@@ -57,6 +60,8 @@ class FindingState:
     fact_state: facts.KernelState = field(default_factory=facts.initial_state)
     evidence: dict[str, EvidenceLifecycle] = field(default_factory=dict)
     findings: dict[str, dict[str, Any]] = field(default_factory=dict)
+    # Contribution citizens (ADR-0032): provenance anchors, never standing edges.
+    contributions: dict[str, dict[str, Any]] = field(default_factory=dict)
     horizon_state: horizons.HorizonState = field(default_factory=horizons.initial_state)
     # Facts whose member standing was withdrawn by a member-transition
     # remove/reclassify. Withdrawal is a displacement *root* over the
@@ -136,11 +141,36 @@ def apply_evidence_replaced(
 def _validate_finding(
     state: FindingState, finding: dict[str, Any], registry: SchemaRegistry
 ) -> None:
-    registry.validate(FINDING_SCHEMA, finding)
+    declared = finding.get("schema")
+    if declared not in ADMITTED_FINDING_SCHEMAS:
+        raise FindingModelError(
+            f"finding names no admitted schema version: {declared!r}"
+        )
+    registry.validate(str(declared), finding)
     if "pins" in finding:
+        # Human findings carry no derivation pins. contribution_id is a
+        # separate provenance field (ADR-0032 Decision 2) and must never
+        # ride pins.finding_ids — the sole derivation-edge surface.
         raise FindingModelError("derived finding pins are not admitted in the kernel yet")
     if finding["id"] in state.findings:
         raise FindingModelError(f"finding already exists: {finding['id']}")
+
+    contribution_id = finding.get("contribution_id")
+    if contribution_id is not None:
+        contribution = state.contributions.get(contribution_id)
+        if contribution is None:
+            raise FindingModelError(
+                f"finding {finding['id']} references unknown contribution: "
+                f"{contribution_id}"
+            )
+        # ADR-0032 Decision 2: contribution.evidence_id must be a member of
+        # the finding's evidence_ids (Article 1 channel retained + consistent).
+        if contribution["evidence_id"] not in finding["evidence_ids"]:
+            raise FindingModelError(
+                f"finding {finding['id']}: contribution {contribution_id} "
+                f"evidence_id {contribution['evidence_id']!r} is not a member of "
+                f"evidence_ids {list(finding['evidence_ids'])}"
+            )
 
     lattice = facts.facts_of(state.fact_state)
     fact = lattice.get(finding["fact_id"])
@@ -232,6 +262,30 @@ def apply_assertion(
     findings = dict(state.findings)
     findings[finding["id"]] = finding
     return replace(state, findings=findings)
+
+
+def apply_contribution(
+    state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
+) -> FindingState:
+    """Admit a contribution citizen (ADR-0032 Decision 1).
+
+    A contribution is an immutable product event: no supersession, no
+    withdrawal. It anchors later findings by id; it is not a standing edge.
+    """
+    contribution = payload["contribution"]
+    registry.validate(CONTRIBUTION_SCHEMA, contribution)
+    contribution_id = contribution["id"]
+    if contribution_id in state.contributions:
+        raise FindingModelError(f"contribution already exists: {contribution_id}")
+    evidence_id = contribution["evidence_id"]
+    if evidence_id not in _current_evidence(state):
+        raise FindingModelError(
+            f"contribution {contribution_id} references non-current evidence: "
+            f"{evidence_id}"
+        )
+    contributions = dict(state.contributions)
+    contributions[contribution_id] = contribution
+    return replace(state, contributions=contributions)
 
 
 def _horizon_entity(citizen: dict[str, Any]) -> dict[str, Any]:
@@ -358,6 +412,7 @@ _APPLIERS = {
     "assertion": apply_assertion,
     "horizon-genesis": apply_horizon_genesis,
     "member-transition": apply_member_transition,
+    "contribution": apply_contribution,
 }
 
 _FACT_ACT_KINDS = frozenset({"bundle-adoption", "entity-introduced", "entity-superseded"})

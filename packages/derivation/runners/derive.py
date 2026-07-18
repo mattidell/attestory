@@ -1,5 +1,13 @@
 """Run a synthetic derivation scenario and explain its outputs.
 
+**Production fence (ADR-0032 Decision 3).** This module is the fixture-scenario
+adapter only. It constructs ``RunContext`` by hand-assembling ``InputFinding``
+and ``SourceFact`` values from scenario JSON — including invented ids — with
+no currency check. That path is authorized solely for synthetic fixtures and
+goldens. A live run must not import or call ``_context`` / ``build_report``;
+the production entrypoint is ``packages.derivation.live.live_run``, which builds
+context only through ``marshal_run_context`` from projected record state.
+
 Reads a synthetic scenario from a JSON file, runs the saturation runner over
 the published schemas and operation-semantics canon, and prints the derived
 findings, the blocked surface, and an explanation tree per output. A scenario
@@ -122,7 +130,12 @@ def load_scenario(path: Path) -> dict[str, Any]:
     return {**content, **scenario}
 
 
+# Production fence: fixture adapter only — never a live-run authorization.
+FIXTURE_ADAPTER_ONLY = True
+
+
 def _context(scenario: dict[str, Any]) -> RunContext:
+    """Fixture-only RunContext builder. Not reachable from live_run."""
     if "closed_sets" in scenario:
         raise ValueError(
             "scenario names caller-supplied closed_sets; that input was "

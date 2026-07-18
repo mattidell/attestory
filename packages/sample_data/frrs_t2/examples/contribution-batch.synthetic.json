@@ -1,0 +1,13 @@
+{
+  "description": "Synthetic manual-entry contribution batch pins (demo.* only).",
+  "contribution_id": "demo.contribution.w2-a",
+  "evidence_id": "demo.evidence.w2-a",
+  "finding_id": "demo.finding.w2-box1-a",
+  "fact_type_id": "demo.w2.box1",
+  "entity_id": "demo.employer-alpha",
+  "value": 52000,
+  "corrected_value": 53000,
+  "corrected_contribution_id": "demo.contribution.w2-a-corr",
+  "corrected_evidence_id": "demo.evidence.w2-a-corr",
+  "corrected_finding_id": "demo.finding.w2-box1-a-corr"
+}

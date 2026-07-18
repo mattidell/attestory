@@ -31,6 +31,16 @@ from packages.derivation.loader import DerivationSchemas, PACKAGE_SCHEMA
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
+# E14.2 (extended by ADR-0032): record-kind and contribution citizens are never
+# permissible rule/package dependencies. Runs consume facts, not process accounts
+# or contribution events.
+_NON_INPUT_SCHEMAS = frozenset({
+    "contribution.v1",
+    "contribution-record.v1",
+    "derivation-record.v1",
+    "derivation-record.v2",
+})
+
 
 @dataclass(frozen=True)
 class MemberIssue:
@@ -267,6 +277,14 @@ def validate_package(
             issues.append(MemberIssue(pin["id"], pin["version"], "SCHEMA_NOT_ADMITTED",
                                        f"schema {citizen['schema']!r} not in admitted_schemas"))
 
+        # E14.2 / ADR-0032: contribution and record citizens are not inputs.
+        if citizen["schema"] in _NON_INPUT_SCHEMAS:
+            issues.append(MemberIssue(
+                pin["id"], pin["version"], "E14_2_FORBIDDEN_DEPENDENCY",
+                f"schema {citizen['schema']!r} is not a permissible package dependency "
+                f"(records and contributions are not rule inputs)",
+            ))
+
         if citizen["schema"] in {"rule-artifact.v1", "rule-artifact.v2"}:
             if pin_role != citizen["role"]:
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
@@ -322,6 +340,17 @@ def validate_package(
                 if ref not in member_ids:
                     issues.append(MemberIssue(pin["id"], pin["version"], "CLOSURE_MISSING_PARAMETER",
                                               f"references {ref!r}, absent from package"))
+            # Pin-target half of E14.2: a rule pin naming a contribution/record
+            # citizen is a forbidden dependency declaration.
+            for rule_pin in citizen.get("pins", []):
+                target_key = _corpus_key(rule_pin["id"], rule_pin["version"])
+                target = corpus.get(target_key)
+                if target is not None and target.get("schema") in _NON_INPUT_SCHEMAS:
+                    issues.append(MemberIssue(
+                        pin["id"], pin["version"], "E14_2_FORBIDDEN_DEPENDENCY",
+                        f"rule pin {rule_pin['id']!r} declares forbidden dependency "
+                        f"schema {target['schema']!r}",
+                    ))
             for citation in citizen.get("citations", []):
                 citation_key = _corpus_key(citation["id"], citation["version"])
                 if citation_key not in citation_keys:
