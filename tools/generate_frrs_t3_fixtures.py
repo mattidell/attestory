@@ -35,10 +35,10 @@ def _sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def _package_checksum(package_id: str) -> str:
+def _package_checksum(package_id: str, version: str = "v1") -> str:
     registry = json.loads(PACKAGE_REGISTRY.read_text("utf-8"))
     for entry in registry["packages"]:
-        if entry["id"] == package_id:
+        if entry["id"] == package_id and entry["version"] == version:
             return str(entry["checksum"])
     raise KeyError(package_id)
 
@@ -58,6 +58,7 @@ def _adoption_act(
     actor: str,
     revision: int,
     package_id: str,
+    package_version: str = "v1",
     release_checksum: str,
     supersedes: str | None = None,
     committed_against: int = 1,
@@ -66,8 +67,8 @@ def _adoption_act(
     payload: dict[str, Any] = {
         "package": {
             "id": package_id,
-            "version": "v1",
-            "checksum": _package_checksum(package_id),
+            "version": package_version,
+            "checksum": _package_checksum(package_id, package_version),
         },
         "release": {
             "id": RELEASE_ID,
@@ -129,6 +130,13 @@ def render_fixture_files() -> dict[str, bytes]:
             "act.adopt.core", actor=SCOPE_USER, revision=1,
             package_id=core, release_checksum=release_checksum,
             scope={"jurisdiction": "us", "year": "2050"},
+        ),
+        # v1 remains a historical hard-gate refusal.  The repaired immutable
+        # v2 package is separately adopted for the synthetic live analogue.
+        "adoptions/adopt-core-v2-current.json": _adoption_act(
+            "act.adopt.core.v2", actor=SCOPE_USER, revision=2,
+            package_id=core, package_version="v2", release_checksum=release_checksum,
+            scope={"jurisdiction": "us", "year": "2051"},
         ),
     }
 

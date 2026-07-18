@@ -17,22 +17,21 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; branch `repair/frrs-t3-f1-release-inventory` — **F1 repair reviewed, awaiting owner merge**)
+## Current state (updated 2026-07-18; branch `track/frrs-t4-w2-closure-live-integration` — **Track 4 reviewed, awaiting owner merge**)
 
-- **Seat:** principal foreman. The active milestone is First Real Return Slice;
-  Tracks 0–3 are merged to `main` (Track 3 via PR #13, merge `530e387`).
-- **F1 repair:** the owner-authorized implementation commit `0001e74` catches
-  `SchemaValidationError` during matching release inventory and adds an executed
-  identity-matching invalid-release golden. The repair is bounded by
-  `docs/reviews/charter-2026-07-18-frrs-t3-f1-release-inventory-repair.md`.
-- **Review:** fresh author-independent delta review `923d978` is **merge-ready**
-  (`docs/reviews/2026-07-18-frrs-t3-f1-release-inventory-delta-review.md`): 31
-  focused tests, full suite, mypy (86 files), governance lint, data-safety scan,
-  and direct valid-plus-invalid / invalid-only counter-probes all pass. The
-  unrelated untracked Track-1 review record remains intentionally excluded.
-- **➡️ NEXT ACTION: push/open the reviewed F1 repair PR if needed; the owner then
-  merges it. Only after that may Track 4 planning resume. Do not reset `main` or
-  dispatch additional work unless a new finding or owner direction requires it.**
+- **Seat:** principal foreman. The active milestone is First Real Return Slice.
+  Track 3 and its F1 repair are merged (`8c7af6d`); no reset is pending.
+- **Track 4:** grouped implementation `c39a79b` repairs RG-1 as immutable
+  core-v2/W-2 closure content, installs a capability-gated coordinator, and
+  discharges the named D1/D3 checks synthetically. Repair `a08f37b` closes the
+  review's opaque-guard, path-transaction, and wages-quantity blockers.
+- **Review:** fresh independent delta review `4c4d73f` is **merge-ready**:
+  focused 43 tests, full 416 tests, mypy, governance lint, regeneration and
+  safety scans, and guard/path/quantity counter-probes all pass. The unrelated
+  untracked Track-1 review record remains intentionally excluded.
+- **➡️ NEXT ACTION: push/open the reviewed Track-4 PR if needed; the owner then
+  merges it. Only the owner may next run in quarantined `L` and add the exact
+  non-descriptive attestation. Track 5 records follow that owner action.**
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

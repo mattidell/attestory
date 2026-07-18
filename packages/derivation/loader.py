@@ -112,6 +112,11 @@ class DerivationSchemas:
     def schema_ids(self) -> list[str]:
         return self._registry.schema_ids()
 
+    @property
+    def registry(self) -> SchemaRegistry:
+        """The published registry for projections that consume this schema set."""
+        return self._registry
+
     def get(self, schema_id: str) -> dict[str, Any]:
         return self._registry.get(schema_id)
 

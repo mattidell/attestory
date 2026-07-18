@@ -10,13 +10,20 @@ live path and cannot be reached through this module.
 from __future__ import annotations
 
 import inspect
+import json
+from dataclasses import dataclass
+from pathlib import Path
 from typing import TYPE_CHECKING, Any, Mapping, Sequence
 
-from packages.derivation.loader import DerivationSchemas
+from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.marshal import marshal_live_run_context
-from packages.derivation.production_executor import execute_marshaled
+from packages.derivation.production_executor import execute_and_record_marshaled, execute_marshaled
+from packages.derivation.production_resolver import PublicationSurface, Refusal, resolve_production_package
+from packages.derivation.records import RecordStream
 from packages.kernel.currency import CurrencyView
-from packages.kernel.findings import FindingState
+from packages.kernel.currency import compute_currency
+from packages.kernel.findings import FindingState, project
+from packages.derivation.live_workspace import LiveWorkspace, WorkspaceCapability, bootstrap_workspace
 
 if TYPE_CHECKING:
     from packages.derivation.runner import RunResult
@@ -26,6 +33,95 @@ RUN_REQUEST_SCHEMA = "run-request.v1"
 
 class LiveRunError(Exception):
     """A live run request or marshalling step is inadmissible."""
+
+
+@dataclass(frozen=True)
+class LiveCoordinatorOutcome:
+    """A capability-gated live attempt, with no repository-facing payload."""
+
+    refusal: Refusal | None
+    output_path: Path | None
+    run_id: str | None
+
+
+def _resolved_run_material(graph: Any) -> tuple[
+    list[dict[str, Any]], dict[str, dict[str, Any]], list[dict[str, Any]],
+    list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[str],
+]:
+    """Derive runner material solely from the resolver's exclusive graph."""
+    members = list(graph.resolved_members)
+    rules = [member for member in members if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2"}]
+    parameters = {member["id"]: member for member in members if member.get("schema") == "parameter-declaration.v1"}
+    families = [member for member in members if member.get("schema") == "source-family.v1"]
+    mappings = [member for member in members if member.get("schema") == "source-closure-mapping.v2"]
+    fact_types = [fact for member in members if member.get("schema") in {"bundle.v1", "bundle.v2"} for fact in member.get("fact_types", [])]
+    collect_names = [family["member_predicate"]["fact_type"] for family in families]
+    return rules, parameters, families, mappings, fact_types, list(graph.package["input_bindings"]), collect_names
+
+
+def live_coordinate_run(
+    capability: WorkspaceCapability,
+    *,
+    repo_root: Path,
+    authoritative_acts: Sequence[Mapping[str, Any]],
+    workspace_revision: int,
+    run_scope: Mapping[str, str],
+    scope_user: str,
+    request: Mapping[str, Any],
+    run_id: str,
+    governance_pins: Sequence[Mapping[str, Any]],
+    surface: PublicationSurface,
+    output_name: str,
+    schemas: DerivationSchemas | None = None,
+) -> LiveCoordinatorOutcome:
+    """Run the one production path from capability, record, and resolved graph.
+
+    There is intentionally no caller package, catalog, path, raw context,
+    fixture adapter, or direct ``runner.run`` parameter. A resolver refusal
+    returns before the record stream is opened, so it cannot manufacture a
+    run account. All durable output remains below ``LiveWorkspace``.
+    """
+    schemas = schemas or DerivationSchemas()
+    workspace: LiveWorkspace = bootstrap_workspace(capability, repo_root=repo_root)
+    guards = workspace.install_envelope_guards()
+    # A live coordinator cannot silently choose a --no-verify/raw-transport
+    # route: both installed gates are entered before any run record or output.
+    workspace.guarded_commit(guards, ())
+    workspace.guarded_push(guards, ())
+    resolved = resolve_production_package(
+        authoritative_acts, run_scope=run_scope, scope_user=scope_user,
+        workspace_revision=workspace_revision, surface=surface, schemas=schemas,
+    )
+    if isinstance(resolved, Refusal):
+        return LiveCoordinatorOutcome(refusal=resolved, output_path=None, run_id=None)
+    validate_run_request(request, schemas)
+    # Resolve the declared destination before execution or opening the record
+    # stream.  An invalid/escaping request is a residency refusal, not a run
+    # that can create a started/completed account.
+    output_path = workspace.reserve_live_output_path(Path("outputs") / output_name)
+    state = project(tuple(dict(act) for act in authoritative_acts), schemas.registry)
+    currency = compute_currency(state)
+    rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)
+    context = marshal_live_run_context(
+        run_id=run_id, state=state, currency=currency, rules=rules, parameters=parameters,
+        canon=load_canon(schemas),
+        adoption_pin={"role": "adoption", "id": resolved.package["id"], "version": resolved.package["version"]},
+        governance_pins=[dict(pin) for pin in governance_pins],
+        family_declarations=families, closure_mappings=mappings, fact_types=fact_types,
+        input_bindings=bindings, collect_source_names=collect_names,
+    )
+    stream = RecordStream(workspace.live_output_path(Path("records")), schemas)
+    result = execute_and_record_marshaled(
+        context, schemas, stream, workspace_revision=workspace_revision,
+        adopted_packages={resolved.package["id"]},
+        start_record_id=f"record:{run_id}:started", completion_record_id=f"record:{run_id}:completed",
+    )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps({
+        "run_id": result.run_id, "stop_reason": result.stop_reason,
+        "dispositions": result.dispositions,
+    }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return LiveCoordinatorOutcome(refusal=None, output_path=output_path, run_id=run_id)
 
 
 def validate_run_request(request: Mapping[str, Any], schemas: DerivationSchemas) -> None:
@@ -100,6 +196,8 @@ def live_entrypoint_accepts_raw_inputs() -> bool:
 __all__ = [
     "RUN_REQUEST_SCHEMA",
     "LiveRunError",
+    "LiveCoordinatorOutcome",
+    "live_coordinate_run",
     "live_entrypoint_accepts_raw_inputs",
     "live_run",
     "validate_run_request",

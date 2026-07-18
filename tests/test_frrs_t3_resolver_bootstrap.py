@@ -226,7 +226,10 @@ class ReleaseRegistrySubstitutions(unittest.TestCase):
             r = self._clean_current(_surface(member_dir=members, registry=members / "published-packages.json"))
         self.assertIsInstance(r, Refusal)
         assert isinstance(r, Refusal)
-        self.assertIn(r.reason, {"MEMBER_ABSENT_OR_MISMATCH", "HARD_GATE_REFUSED"})
+        # Decision 2 must reject the substituted bytes before the Decision-3
+        # hard validator is reached; accepting HARD_GATE_REFUSED here would
+        # mask a member-admission failure.
+        self.assertEqual(r.reason, "MEMBER_ABSENT_OR_MISMATCH")
 
     def test_changed_package_bytes_under_honest_registry_refuses(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -294,7 +297,17 @@ class ExclusiveMemberGraph(unittest.TestCase):
 
     def test_filesystem_order_independence(self) -> None:
         a = self._clean()
-        b = self._clean()
+        with TemporaryDirectory() as tmp:
+            members = Path(tmp) / "content"
+            shutil.copytree(CONTENT, members)
+            # Place an exact verified member under a nested path that sorts
+            # before its original.  Candidate identity/digest admission, not
+            # directory enumeration, must keep the resolved graph unchanged.
+            original = next(members.glob("rule.*.json"))
+            nested = members / "aaa-before" / original.name
+            nested.parent.mkdir()
+            shutil.copy2(original, nested)
+            b = self._clean(_surface(member_dir=members, registry=members / "published-packages.json"))
         self.assertIsInstance(a, ResolvedGraph)
         assert isinstance(a, ResolvedGraph)
         self.assertIsInstance(b, ResolvedGraph)
@@ -399,13 +412,14 @@ class LiveWorkspaceBootstrap(unittest.TestCase):
     def test_commit_and_push_gates_refuse_never_crosses(self) -> None:
         with TemporaryDirectory() as tmp:
             ws = self._ws(tmp)
+            guard = ws.install_envelope_guards()
             personal = {"name": "w2.pdf", "describes_personal": True}
             with self.assertRaises(ResidencyViolation):
-                ws.guard_commit([personal])
+                ws.guarded_commit(guard, [personal])
             with self.assertRaises(ResidencyViolation):
-                ws.guard_push([personal])
+                ws.guarded_push(guard, [personal])
             # A proven public synthetic artifact crosses.
-            ws.guard_commit([{"name": "fixture.json", "kind": "independently-constructed synthetic fixture", "public_origin_proof": True}])
+            ws.guarded_commit(guard, [{"name": "fixture.json", "kind": "independently-constructed synthetic fixture", "public_origin_proof": True}])
 
     def test_live_outputs_cannot_escape_the_residency_root(self) -> None:
         with TemporaryDirectory() as tmp:
