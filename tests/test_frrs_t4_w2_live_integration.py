@@ -11,10 +11,10 @@ import shutil
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import cast
+from typing import Any, cast
 
 from packages.derivation.live import live_coordinate_run
-from packages.derivation.live_workspace import GuardIntegrityError, WorkspaceCapability, bootstrap_workspace
+from packages.derivation.live_workspace import GuardIntegrityError, InstalledEnvelopeGuards, ResidencyViolation, WorkspaceCapability, bootstrap_workspace
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.loader import load_canon
 from packages.derivation.marshal import MarshalledRunContext
@@ -105,6 +105,12 @@ class W2Closure(unittest.TestCase):
         zero = run(context([], [ClosureFindingRecord("demo.w2.closed", "tax.us.2025.w2.source-closure", "demo.w2.h0", True)]), schemas)
         self.assertEqual(zero.symbols["tax.us.2025.wages.total-w2-box1"], 0)
 
+    def test_w2_and_taxable_interest_have_distinct_declared_quantities(self) -> None:
+        w2 = next(fact for fact in json.loads((CONTENT / "w2.bundle.v2.json").read_text())["fact_types"] if fact["id"] == "tax.us.2025.w2.box1-wages")
+        interest = next(fact for fact in json.loads((CONTENT / "f1099int.bundle.json").read_text())["fact_types"] if fact["id"] == "tax.us.2025.f1099int.box1-interest")
+        self.assertEqual(w2["quantity"], {"id": "tax.us.2025.quantity.wages", "version": "v1"})
+        self.assertNotEqual(w2["quantity"], interest["quantity"])
+
 
 class LiveCoordinator(unittest.TestCase):
     def test_refusal_writes_no_run_record(self) -> None:
@@ -125,7 +131,16 @@ class LiveCoordinator(unittest.TestCase):
             records = (root / "L" / "records" / "derivation_records.jsonl").read_text().splitlines()
             self.assertEqual(len(records), 2)
             self.assertEqual({json.loads(line)["phase"] for line in records}, {"started", "completed"})
-            self.assertEqual(sorted(path.relative_to(root / "L").as_posix() for path in (root / "L").rglob("*") if path.is_file()), ["outputs/demo.json", "records/derivation_records.jsonl"])
+            self.assertEqual(
+                sorted(path.relative_to(root / "L").as_posix() for path in (root / "L").rglob("*") if path.is_file()),
+                [
+                    ".residency-envelope-gates/commit.gate",
+                    ".residency-envelope-gates/manifest.json",
+                    ".residency-envelope-gates/push.gate",
+                    "outputs/demo.json",
+                    "records/derivation_records.jsonl",
+                ],
+            )
 
     def test_marshaled_token_and_uninstalled_transport_cannot_be_forged(self) -> None:
         with self.assertRaises(TypeError):
@@ -134,9 +149,50 @@ class LiveCoordinator(unittest.TestCase):
             workspace = bootstrap_workspace(WorkspaceCapability(Path(tmp) / "L"), repo_root=REPO)
             with self.assertRaises(GuardIntegrityError):
                 workspace.guarded_push(object(), [])  # type: ignore[arg-type]
+            with self.assertRaises(TypeError):
+                InstalledEnvelopeGuards(Path(tmp) / "L", "fabricated", object())
             guard = workspace.install_envelope_guards()
             workspace.guarded_commit(guard, [])
             workspace.guarded_push(guard, [])
+            with self.assertRaises(GuardIntegrityError):
+                workspace.guarded_commit(guard, [], no_verify=True)
+            with self.assertRaises(GuardIntegrityError):
+                workspace.guarded_push(guard, [], raw_transport=True)
+            gate = workspace.location / ".residency-envelope-gates" / "push.gate"
+            gate.write_text("tampered\n")
+            manifest = workspace.location / ".residency-envelope-gates" / "manifest.json"
+            body = json.loads(manifest.read_text())
+            body["digests"]["push"] = "0" * 64
+            manifest.write_text(json.dumps(body))
+            with self.assertRaises(GuardIntegrityError):
+                workspace.guarded_push(guard, [])
+        with TemporaryDirectory() as tmp:
+            workspace = bootstrap_workspace(WorkspaceCapability(Path(tmp) / "L"), repo_root=REPO)
+            guard = workspace.install_envelope_guards()
+            (workspace.location / ".residency-envelope-gates" / "commit.gate").unlink()
+            with self.assertRaises(GuardIntegrityError):
+                workspace.guarded_commit(guard, [])
+
+    def test_both_gates_scan_the_complete_declared_envelope(self) -> None:
+        with TemporaryDirectory() as tmp:
+            workspace = bootstrap_workspace(WorkspaceCapability(Path(tmp) / "L"), repo_root=REPO)
+            guard = workspace.install_envelope_guards()
+            envelope: list[dict[str, Any]] = [
+                {"name": "public", "kind": "public-origin code", "public_origin_proof": "published"},
+                {"name": "private", "kind": "public-origin code", "public_origin_proof": "published", "describes_personal": True},
+            ]
+            for crossing in (workspace.guarded_commit, workspace.guarded_push):
+                with self.subTest(crossing=crossing.__name__), self.assertRaises(ResidencyViolation):
+                    crossing(guard, envelope)
+
+    def test_escaping_output_creates_neither_records_nor_output(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with self.assertRaises(ResidencyViolation):
+                live_coordinate_run(WorkspaceCapability(root / "L"), repo_root=REPO, authoritative_acts=[_act("adopt-core-v2-current.json")], workspace_revision=10, run_scope={"jurisdiction": "us", "year": "2051"}, scope_user=USER, request={"schema": "run-request.v1"}, run_id="demo.t4.escape", governance_pins=[], surface=_surface(), output_name="../../escape.json")
+            self.assertFalse((root / "L" / "records").exists())
+            self.assertFalse((root / "L" / "outputs").exists())
+            self.assertFalse((root / "escape.json").exists())
 
 
 class ResolverCounterProbes(unittest.TestCase):

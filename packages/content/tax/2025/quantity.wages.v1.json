@@ -1,0 +1,8 @@
+{
+  "id": "tax.us.2025.quantity.wages",
+  "quantities": [
+    "wages"
+  ],
+  "schema": "quantity-vocabulary.v1",
+  "version": "v1"
+}

@@ -9,12 +9,12 @@
       "note": "synthetic adoption; non-authoritative"
     },
     "package": {
-      "checksum": "5911d7c62fc5349e0c53ba45ee20ca2d5c23d57e08a7c5a73ec5baf46c8dfeb8",
+      "checksum": "11fe28b7bacd76f5f13925e18aa2f1cc9dd7c3bffc7855153b3f12a4f3aad45b",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v2"
     },
     "release": {
-      "checksum": "df8e9b52b9421655d7aa62cc41397d07f1359abc5b0b8b3d6fa161769ab2e35e",
+      "checksum": "44fffcaa0a827439ae4c9a345b5469c568c9358349d648ef487bde2e61ee9374",
       "id": "demo.release.2025",
       "version": "v1"
     },

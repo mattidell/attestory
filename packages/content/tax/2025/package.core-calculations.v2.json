@@ -356,6 +356,12 @@
       "version": "v1"
     },
     {
+      "id": "tax.us.2025.quantity.wages",
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v1",
+      "version": "v1"
+    },
+    {
       "id": "tax.us.2025.w2",
       "role": "source-family",
       "schema": "source-family.v1",
@@ -374,7 +380,7 @@
       "version": "v1"
     }
   ],
-  "package_checksum": "5911d7c62fc5349e0c53ba45ee20ca2d5c23d57e08a7c5a73ec5baf46c8dfeb8",
+  "package_checksum": "11fe28b7bacd76f5f13925e18aa2f1cc9dd7c3bffc7855153b3f12a4f3aad45b",
   "schema": "artifact-package.v2",
   "scope": {
     "family": "individual-income-tax",

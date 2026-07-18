@@ -166,6 +166,11 @@
       "version": "v1"
     },
     {
+      "checksum": "794e0ef1feeb6997bec636397d2f3659104a398a17cad89d7caa991faed3bf59",
+      "id": "tax.us.2025.quantity.wages",
+      "version": "v1"
+    },
+    {
       "checksum": "6b89a21f8c48935bf19a1ae8f76cd431f40792ac6f9d5e6bcb22cf021760e45b",
       "id": "tax.us.2025.role-canon",
       "version": "v1"
@@ -246,7 +251,7 @@
       "version": "v1"
     },
     {
-      "checksum": "a752e97c5512cd7e8fe4b4f5889201a0be9569a3cef723aab9dfc8ae8f4faca9",
+      "checksum": "2bad9d07dd3896c25ddd5d44ff8399e215c925362df00330a5450aba87edfe26",
       "id": "tax.us.2025.w2-vocabulary",
       "version": "v2"
     }
@@ -258,7 +263,7 @@
       "version": "v1"
     },
     {
-      "checksum": "5911d7c62fc5349e0c53ba45ee20ca2d5c23d57e08a7c5a73ec5baf46c8dfeb8",
+      "checksum": "11fe28b7bacd76f5f13925e18aa2f1cc9dd7c3bffc7855153b3f12a4f3aad45b",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v2"
     },

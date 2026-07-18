@@ -412,13 +412,14 @@ class LiveWorkspaceBootstrap(unittest.TestCase):
     def test_commit_and_push_gates_refuse_never_crosses(self) -> None:
         with TemporaryDirectory() as tmp:
             ws = self._ws(tmp)
+            guard = ws.install_envelope_guards()
             personal = {"name": "w2.pdf", "describes_personal": True}
             with self.assertRaises(ResidencyViolation):
-                ws.guard_commit([personal])
+                ws.guarded_commit(guard, [personal])
             with self.assertRaises(ResidencyViolation):
-                ws.guard_push([personal])
+                ws.guarded_push(guard, [personal])
             # A proven public synthetic artifact crosses.
-            ws.guard_commit([{"name": "fixture.json", "kind": "independently-constructed synthetic fixture", "public_origin_proof": True}])
+            ws.guarded_commit(guard, [{"name": "fixture.json", "kind": "independently-constructed synthetic fixture", "public_origin_proof": True}])
 
     def test_live_outputs_cannot_escape_the_residency_root(self) -> None:
         with TemporaryDirectory() as tmp:

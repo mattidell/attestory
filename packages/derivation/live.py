@@ -95,6 +95,10 @@ def live_coordinate_run(
     if isinstance(resolved, Refusal):
         return LiveCoordinatorOutcome(refusal=resolved, output_path=None, run_id=None)
     validate_run_request(request, schemas)
+    # Resolve the declared destination before execution or opening the record
+    # stream.  An invalid/escaping request is a residency refusal, not a run
+    # that can create a started/completed account.
+    output_path = workspace.reserve_live_output_path(Path("outputs") / output_name)
     state = project(tuple(dict(act) for act in authoritative_acts), schemas.registry)
     currency = compute_currency(state)
     rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)
@@ -112,7 +116,6 @@ def live_coordinate_run(
         adopted_packages={resolved.package["id"]},
         start_record_id=f"record:{run_id}:started", completion_record_id=f"record:{run_id}:completed",
     )
-    output_path = workspace.live_output_path(Path("outputs") / output_name)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps({
         "run_id": result.run_id, "stop_reason": result.stop_reason,

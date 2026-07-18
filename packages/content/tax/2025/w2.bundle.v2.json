@@ -23,7 +23,7 @@
       ],
       "nature": "determinable",
       "quantity": {
-        "id": "tax.us.2025.quantity.taxable-interest",
+        "id": "tax.us.2025.quantity.wages",
         "version": "v1"
       },
       "schema": "fact-type.v2",

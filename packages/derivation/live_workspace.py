@@ -18,7 +18,9 @@ from __future__ import annotations
 
 import os
 import hashlib
-from dataclasses import dataclass
+import json
+import secrets
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -76,21 +78,29 @@ class Classification:
         return body
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, init=False)
 class InstalledEnvelopeGuards:
-    """Integrity-checked commit and push entrypoints for a live residency.
+    """An opaque capability minted only by installed live-workspace gates.
 
-    The constructor is private to ``LiveWorkspace``.  Callers cannot use a
-    bare hook flag or raw transport as a substitute: both crossings must carry
-    this exact installed guard bound to the bootstrapped workspace.
+    It deliberately has no public constructor.  A path plus a reproducible
+    digest is not authority: the capability is bound to one ``LiveWorkspace``
+    instance and to the random installation recorded beneath its quarantine.
     """
 
     _workspace: Path
-    _integrity: str
+    _installation_id: str
+    _authority: object
 
-    def _valid_for(self, workspace: Path) -> bool:
-        material = f"ADR-0031-envelope-gate:{workspace}".encode("utf-8")
-        return self._workspace == workspace and self._integrity == hashlib.sha256(material).hexdigest()
+    def __init__(self, *_args: object, **_kwargs: object) -> None:
+        raise TypeError("InstalledEnvelopeGuards may only be minted by an installed LiveWorkspace gate")
+
+    @classmethod
+    def _mint(cls, workspace: Path, installation_id: str, authority: object) -> "InstalledEnvelopeGuards":
+        guard = object.__new__(cls)
+        object.__setattr__(guard, "_workspace", workspace)
+        object.__setattr__(guard, "_installation_id", installation_id)
+        object.__setattr__(guard, "_authority", authority)
+        return guard
 
 
 def _boundary_registry() -> SchemaRegistry:
@@ -104,14 +114,106 @@ class LiveWorkspace:
 
     location: Path
     registry: SchemaRegistry
+    _guard_authority: object = field(default_factory=object, init=False, repr=False)
+    _installation_id: str | None = field(default=None, init=False, repr=False)
+    _installed_digests: dict[str, str] = field(default_factory=dict, init=False, repr=False)
+
+    _GATE_DIR = ".residency-envelope-gates"
+    _MANIFEST = "manifest.json"
+    _SURFACES = ("commit", "push")
+
+    def _gate_root(self) -> Path:
+        return self.location / self._GATE_DIR
+
+    @staticmethod
+    def _gate_bytes(surface: str, installation_id: str) -> bytes:
+        """Stable local hook body; the random installation id binds its files."""
+        return (
+            "attestory ADR-0031 envelope gate\n"
+            f"surface={surface}\n"
+            f"installation={installation_id}\n"
+            "scan=complete-declared-envelope\n"
+        ).encode("utf-8")
+
+    def _read_installed_manifest(self) -> dict[str, object]:
+        root = self._gate_root()
+        manifest_path = root / self._MANIFEST
+        try:
+            body = json.loads(manifest_path.read_text("utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise GuardIntegrityError("installed commit/push gates are missing or unreadable") from exc
+        if not isinstance(body, dict):
+            raise GuardIntegrityError("installed commit/push gate manifest is invalid")
+        return body
+
+    def _verify_installed_gates(self) -> str:
+        """Verify two separately-installed local gate files before crossing."""
+        manifest = self._read_installed_manifest()
+        installation_id = manifest.get("installation_id")
+        digests = manifest.get("digests")
+        if (
+            not isinstance(installation_id, str)
+            or not isinstance(digests, dict)
+            or installation_id != self._installation_id
+            or digests != self._installed_digests
+        ):
+            raise GuardIntegrityError("installed commit/push gate manifest is incomplete")
+        for surface in self._SURFACES:
+            expected = self._installed_digests.get(surface)
+            if not isinstance(expected, str):
+                raise GuardIntegrityError(f"installed {surface} gate manifest entry is missing")
+            try:
+                actual = hashlib.sha256((self._gate_root() / f"{surface}.gate").read_bytes()).hexdigest()
+            except OSError as exc:
+                raise GuardIntegrityError(f"installed {surface} gate is missing") from exc
+            if not secrets.compare_digest(expected, actual):
+                raise GuardIntegrityError(f"installed {surface} gate was tampered")
+        return installation_id
 
     def install_envelope_guards(self) -> InstalledEnvelopeGuards:
-        """Install the only commit/push gate capability for this live residency."""
-        material = f"ADR-0031-envelope-gate:{self.location}".encode("utf-8")
-        return InstalledEnvelopeGuards(self.location, hashlib.sha256(material).hexdigest())
+        """Install distinct commit/push gates and mint their opaque authority.
+
+        Gate state lives only under the runtime residency.  No repository file,
+        locator, or deterministic path-derived token participates in authority.
+        Every bootstrap refreshes the local gate pair and mints a fresh
+        in-process capability that callers cannot fabricate.
+        """
+        root = self._gate_root()
+        if root.is_symlink():
+            raise GuardIntegrityError("installed gate directory may not be a symlink")
+        root.mkdir(mode=0o700, exist_ok=True)
+        # A bootstrap gets fresh installation material.  It never treats a
+        # pre-existing local manifest as authority; the in-process expected
+        # digests below are the authority that detects a manifest+hook rewrite.
+        installation_id = secrets.token_urlsafe(32)
+        digests: dict[str, str] = {}
+        for surface in self._SURFACES:
+            gate_path = root / f"{surface}.gate"
+            if gate_path.is_symlink():
+                raise GuardIntegrityError(f"installed {surface} gate may not be a symlink")
+            gate_bytes = self._gate_bytes(surface, installation_id)
+            gate_path.write_bytes(gate_bytes)
+            gate_path.chmod(0o600)
+            digests[surface] = hashlib.sha256(gate_bytes).hexdigest()
+        manifest_path = root / self._MANIFEST
+        if manifest_path.is_symlink():
+            raise GuardIntegrityError("installed gate manifest may not be a symlink")
+        manifest_path.write_text(
+            json.dumps({"installation_id": installation_id, "digests": digests}, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        manifest_path.chmod(0o600)
+        self._installation_id = installation_id
+        self._installed_digests = digests
+        return InstalledEnvelopeGuards._mint(self.location, installation_id, self._guard_authority)
 
     def _require_installed_guard(self, guard: InstalledEnvelopeGuards) -> None:
-        if not isinstance(guard, InstalledEnvelopeGuards) or not guard._valid_for(self.location):
+        if (
+            type(guard) is not InstalledEnvelopeGuards
+            or guard._workspace != self.location
+            or guard._authority is not self._guard_authority
+            or guard._installation_id != self._verify_installed_gates()
+        ):
             raise GuardIntegrityError("commit/push requires the integrity-checked installed envelope guard")
 
     def classify(self, artifact: Mapping[str, Any]) -> Classification:
@@ -136,27 +238,31 @@ class LiveWorkspace:
             return Classification("MAY_CROSS", kind=kind)
         return Classification("NEVER_CROSSES", reason="no public-origin proof")
 
-    def guard_envelope(self, artifacts: Sequence[Mapping[str, Any]], *, surface: str) -> None:
-        """Refuse the crossing if any artifact is NEVER_CROSSES (commit/push)."""
+    def _scan_declared_envelope(self, artifacts: Sequence[Mapping[str, Any]], *, surface: str) -> None:
+        """Classify every declared artifact before its commit or push crossing."""
         for artifact in artifacts:
             if self.classify(artifact).decision != "MAY_CROSS":
                 raise ResidencyViolation(
                     f"{surface}: artifact {artifact.get('name', '<unnamed>')!r} is NEVER_CROSSES"
                 )
 
-    def guard_commit(self, artifacts: Sequence[Mapping[str, Any]]) -> None:
-        self.guard_envelope(artifacts, surface="commit")
-
-    def guard_push(self, artifacts: Sequence[Mapping[str, Any]]) -> None:
-        self.guard_envelope(artifacts, surface="push")
-
-    def guarded_commit(self, guard: InstalledEnvelopeGuards, artifacts: Sequence[Mapping[str, Any]]) -> None:
+    def guarded_commit(
+        self, guard: InstalledEnvelopeGuards, artifacts: Sequence[Mapping[str, Any]], *, no_verify: bool = False
+    ) -> None:
+        """The only modeled commit crossing; ``--no-verify`` is a hard refusal."""
+        if no_verify:
+            raise GuardIntegrityError("--no-verify cannot bypass the installed commit gate")
         self._require_installed_guard(guard)
-        self.guard_commit(artifacts)
+        self._scan_declared_envelope(artifacts, surface="commit")
 
-    def guarded_push(self, guard: InstalledEnvelopeGuards, artifacts: Sequence[Mapping[str, Any]]) -> None:
+    def guarded_push(
+        self, guard: InstalledEnvelopeGuards, artifacts: Sequence[Mapping[str, Any]], *, raw_transport: bool = False
+    ) -> None:
+        """The only modeled push crossing; raw transport is a hard refusal."""
+        if raw_transport:
+            raise GuardIntegrityError("raw transport cannot bypass the installed push gate")
         self._require_installed_guard(guard)
-        self.guard_push(artifacts)
+        self._scan_declared_envelope(artifacts, surface="push")
 
     def live_output_path(self, relative_path: Path) -> Path:
         """Return a quarantine-contained output path or refuse the write.
@@ -170,6 +276,17 @@ class LiveWorkspace:
         target = (self.location / relative_path).resolve()
         if target != self.location and self.location not in target.parents:
             raise ResidencyViolation("live output path escapes the workspace")
+        return target
+
+    def reserve_live_output_path(self, relative_path: Path) -> Path:
+        """Atomically reserve a validated output slot before a run begins."""
+        target = self.live_output_path(relative_path)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            descriptor = os.open(target, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+        except FileExistsError as exc:
+            raise ResidencyViolation("declared live output path is already reserved") from exc
+        os.close(descriptor)
         return target
 
 

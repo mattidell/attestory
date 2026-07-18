@@ -46,8 +46,16 @@ def render() -> dict[str, bytes]:
         fact["version"] = "v2"
         if fact["id"] == "tax.us.2025.w2.box1-wages":
             fact["source_amount"] = True
-            fact["quantity"] = {"id": "tax.us.2025.quantity.taxable-interest", "version": "v1"}
+            fact["quantity"] = {"id": "tax.us.2025.quantity.wages", "version": "v1"}
     rendered["w2.bundle.v2.json"] = _bytes(w2_bundle)
+
+    wages_quantity = {
+        "schema": "quantity-vocabulary.v1",
+        "id": "tax.us.2025.quantity.wages",
+        "version": "v1",
+        "quantities": ["wages"],
+    }
+    rendered["quantity.wages.v1.json"] = _bytes(wages_quantity)
 
     # The old mapping rule predates v2 rule artifacts.  Its successor has the
     # same tax expression plus the mandatory v2 metadata pin array.
@@ -114,6 +122,7 @@ def render() -> dict[str, bytes]:
             member["version"] = "v2"
     package["members"].extend([
         {"role": "fact-type-bundle", "schema": "bundle.v2", "id": "tax.us.2025.f1099int.vocabulary", "version": "v1"},
+        {"role": "parameter", "schema": "quantity-vocabulary.v1", "id": wages_quantity["id"], "version": wages_quantity["version"]},
         {"role": "source-family", "schema": "source-family.v1", "id": family["id"], "version": family["version"]},
         {"role": "source-closure-mapping", "schema": "source-closure-mapping.v2", "id": mapping["id"], "version": mapping["version"]},
         {"role": "parameter", "schema": "role-canon.v1", "id": role_canon["id"], "version": role_canon["version"]},
@@ -130,7 +139,7 @@ def render() -> dict[str, bytes]:
     package_entries = [dict(entry) for entry in registry["packages"] if (entry["id"], entry["version"]) != (package["id"], package["version"])]
     citizen_entries = [dict(entry) for entry in registry["citizens"]]
     package_entries.append({"id": package["id"], "version": package["version"], "checksum": package["package_checksum"]})
-    for name in ("w2.bundle.v2.json", "rule.wages-line1a.v2.json", "family.w2.v2.json", "closure-mapping.w2.v2.json", "role-canon.v1.json"):
+    for name in ("w2.bundle.v2.json", "quantity.wages.v1.json", "rule.wages-line1a.v2.json", "family.w2.v2.json", "closure-mapping.w2.v2.json", "role-canon.v1.json"):
         citizen = json.loads(rendered[name])
         citizen_entries = [entry for entry in citizen_entries if (entry["id"], entry["version"]) != (citizen["id"], citizen["version"])]
         citizen_entries.append({"id": citizen["id"], "version": citizen["version"], "checksum": hashlib.sha256(json.dumps(citizen, sort_keys=True, separators=(",", ":")).encode()).hexdigest()})
