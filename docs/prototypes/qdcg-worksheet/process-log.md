@@ -31,3 +31,8 @@
   an independent review or a seat release. The examination records D2-P2 as
   unresolved because the short-circuit missing path does not establish a walk
   naming both contributable declarations.
+- Owner released the exact held Confirmation R1 charter. One fresh independent
+  Medium-tier reviewer is launched against `charter-confirmation-r1.md` only;
+  its output is limited to `reviews/confirmation-r1.md`. This dispatch is the
+  owner-approved check after the foreman-authored examination, not a repair or
+  an ADR/production authorization.
