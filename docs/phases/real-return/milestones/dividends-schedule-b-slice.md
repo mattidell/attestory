@@ -199,6 +199,92 @@ economics are reported to the owner before charters are cut; if breadth is
 as cheap as the matrix predicts, the owner may at that point direct a
 hardening rider as a separate track (not assumed here).
 
+### Track 0a — ADR-0037 conditional multi-dependency prerequisite — planned
+
+**Goal.** Reimplement ADR-0037's generic
+`conditional_dependency_set` evaluator-node contract in the production rule
+language, so a condition can activate several factual references, report all
+and only the absent active members in one durable non-publication walk, and
+pin every evaluated input through the existing derivation edges. This is a
+prerequisite to D2 adoption, not D2 implementation.
+
+**Boundary.** This track does not add the QDCG worksheet, declared-absence
+fact types, dividend content, Schedule B behavior, a tax-specific missing-list
+path, a UI aggregation rule, or a third currency edge. It does not reopen
+D1/D3 or change existing `rule-artifact.v1`/`v2` citizens. It introduces no
+real-workspace access, personal data, or live-run attestation.
+
+**Inputs.** ADR-0037 and its cited CMDN evidence; the closed
+`rule-artifact.v2` language and schema loader; evaluator access logging and
+the two existing runners; `derivation-record.v2` and `npe-walk.v1`; and the
+authoritative-fact entrypoint `live_coordinate_run`. The existing
+multi-entry `missing` arrays are the presumed record and NPE surface; changing
+either schema is permitted only if implementation demonstrates that it cannot
+represent the ordered list faithfully.
+
+**Outputs and execution order.**
+
+1. Publish `rule-artifact.v3` with `conditional_dependency_set`: one declared
+   condition expression and a non-empty ordered `members` array whose entries
+   are `ref` expressions only. Commit a hand-written, fully resolved synthetic
+   positive rule artifact alongside the schema, plus schema-validation
+   negatives for an empty member array, a non-`ref` member, and malformed
+   condition/member shapes. The positive is the Payload Instantiation Gate
+   evidence: it names every required rule field and every new expression field
+   concretely, and cites the already-committed referenced-citizen examples
+   rather than leaving a payload implied.
+2. Implement the node in the shared evaluator. It evaluates the condition
+   first; a false condition succeeds without reading, naming, or pinning a
+   member. A true condition evaluates every member exactly once, accumulates
+   `DEPENDENCY_ABSENT` results in declared member order, and propagates any
+   non-absence failure normally. The primary runner and reference runner must
+   both admit the new version through their ordinary schema/validation path;
+   no runner-private rule identifier or tax/form branch is allowed.
+3. Thread the result through the existing blocked disposition, record, and
+   NPE walker. The durable record and walk must preserve all and only the
+   accumulated absent members in declared order; a present member never enters
+   the list. Published results pin the evaluated condition and every active
+   member via the existing access log and derivation edges. Inactive members
+   produce neither access-log entry nor pin. If the current record/NPE schemas
+   prove sufficient, retain their versions and cover the behavior with tests;
+   a required schema version is a separately explained migration in the track
+   review, not an implicit shape change.
+4. Add one fully synthetic coordinator-from-facts fixture family and executed
+   goldens covering the six CMDN paper cases: inactive/no members,
+   active/all present, active/two absent, active/one absent, the contribution
+   and member-supersession lifecycle, and the no-reach-around mutation. The
+   goldens must enter through `live_coordinate_run` from an authoritative act
+   log, not a downstream `RunContext` shortcut.
+
+**Verification.** The focused schema, evaluator/runner, record, NPE,
+portability, and live-coordinator tests must cover the four output stages
+above. The coordinator fixtures assert the complete ordered missing list in
+the completed record and NPE walk; inactive isolation; active publication
+pins; member and condition supersession displacement through the existing
+two-edge model; primary/reference byte equality; and rejection of a mutation
+that omits an active-member pin or tries to obtain a missing list outside the
+declared node. Before review and merge, run the full `.venv/bin/python3 -m
+unittest`, `.venv/bin/python3 -m mypy`, `.venv/bin/python3
+tools/governance_lint.py`, and `.venv/bin/python3 tools/envelope_scan.py
+--verify`. The authoritative-surface golden class is mandatory evidence; a
+green unit suite without it is insufficient.
+
+**Migration risk and data safety.** Existing rule artifacts stay historical;
+only new v3 corpus and new synthetic goldens are added. No existing golden is
+regenerated unless this new language contract demonstrably changes it. All
+identifiers, actors, facts, statement shapes, and values are manufactured
+`demo-*` data; the safety scan must cover every new fixture and generated
+golden, with no local workspace path or real-run detail committed.
+
+**Execution and review gate.** This is one integrated, short-lived per-track
+branch and review unit under ADR-0030: schema/record evidence precedes
+evaluator/explanation work, which precedes coordinator goldens, but the track
+lands only when the complete contract is verified. It has no parallel-work
+manifest because all stages change the same language, evaluator, record, and
+canonical golden surfaces. Implementation and every reviewer dispatch remain
+separately owner-authorized under ADR-0034; this planning approval authorizes
+neither a dispatch nor D2 adoption.
+
 ### Track 1 — Schema citizens
 
 Schema/contract citizens from the ratified ADRs (statement instance, family,
