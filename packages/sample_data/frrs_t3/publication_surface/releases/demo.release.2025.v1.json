@@ -1,6 +1,6 @@
 {
   "id": "demo.release.2025",
-  "package_registry_sha256": "49b836ef625cc7ce91018c09302e552e81fb43b0c6ced062067e123e9a4cc11e",
+  "package_registry_sha256": "e7f824eb06f3ec8b356ef3454cff986ff1c804a47bfea62b3825163731cf7662",
   "schema": "release-registry.v1",
   "version": "v1"
 }

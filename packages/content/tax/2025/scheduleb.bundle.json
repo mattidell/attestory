@@ -1,0 +1,44 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.scheduleb.vocabulary",
+  "version": "v1",
+  "label": "Schedule B Part III taxpayer-assertion vocabulary for tax year 2025",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.scheduleb.foreign-account",
+      "version": "v1",
+      "title": "Schedule B Part III, question 7a: at any time during 2025 did you have a financial interest in or signature authority over a financial account located in a foreign country? (ADR-0036 decision 4: categorical taxpayer-assertion pattern, value domain {yes, no}, never boolean - a no is a present, non-maskable answer.)",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"enum": ["yes", "no"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.scheduleb.foreign-trust",
+      "version": "v1",
+      "title": "Schedule B Part III, question 8: did you receive a distribution from, or were you the grantor of, or transferor to, a foreign trust? (ADR-0036 decision 4: categorical taxpayer-assertion pattern, value domain {yes, no}, never boolean.)",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"enum": ["yes", "no"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.scheduleb.7b-country",
+      "version": "v1",
+      "title": "Schedule B Part III, question 7b: the name of the foreign country where the financial account is located. Required only when question 7a is answered yes (ADR-0036 decision 4 branch requirement); a categorical closed-country-list domain, never a free-text field.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"enum": ["ca", "gb", "mx", "other"]},
+      "supersession": {"policy": "free"}
+    }
+  ]
+}

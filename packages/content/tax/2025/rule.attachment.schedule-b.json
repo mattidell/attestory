@@ -1,0 +1,54 @@
+{
+  "schema": "attachment-rule.v1",
+  "id": "tax.us.2025.rule.attachment.schedule-b",
+  "version": "v1",
+  "title": "Schedule B (Interest and Ordinary Dividends): required when taxable interest or ordinary dividends exceed $1,500 (ADR-0036 decisions 1-4). Part I/II itemization rows come only from collect_members over the same closed families lines 2b/3b already collected; Part I ties to the box-1 (1099-INT) family only, which is the family this milestone's fixtures ever populate for interest - a scope-bounded simplification (see rule.form1040-line2b.json's four-subtotal composition for the full interest surface), never silent about it. Part II ties to the box-1a (1099-DIV ordinary) family, a 1:1 match with line 3b. Part III completeness is presence-semantics only: a yes on foreign-account (7a) adds the 7b country requirement and names the FinCEN-114 obligation (never produced); ADR-0036 ratifies no distinct obligation for foreign-trust (8), so no branch_requirements entry names one for it.",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "attachment": { "authority": "IRS", "form_id": "1040-SCH-B", "tax_year": 2025, "jurisdiction": "US-federal" },
+  "publishes": "tax.us.2025.scheduleb.disposition",
+  "requirement": {
+    "subtotals": ["tax.us.2025.interest.taxable-total", "tax.us.2025.dividends.ordinary-total"],
+    "threshold_parameter": { "id": "tax.us.2025.parameter.schedule-b-threshold", "version": "v1" },
+    "comparison": "strictly_greater_than",
+    "citation": { "id": "tax.us.2025.citation.schedule-b", "version": "v1" }
+  },
+  "itemizations": [
+    {
+      "part_id": "part-i-interest",
+      "label": "Part I: Interest (box-1 / 1099-INT family)",
+      "rows": {
+        "op": "collect_members",
+        "member_fact_type": { "id": "tax.us.2025.f1099int.box1-interest", "version": "v1" },
+        "source_family": { "id": "tax.us.2025.f1099int.b1", "version": "v1" }
+      },
+      "tie_out": { "line_symbol": "tax.us.2025.interest.taxable-total" }
+    },
+    {
+      "part_id": "part-ii-ordinary-dividends",
+      "label": "Part II: Ordinary Dividends (box-1a / 1099-DIV family)",
+      "rows": {
+        "op": "collect_members",
+        "member_fact_type": { "id": "tax.us.2025.f1099div.box1a-ordinary", "version": "v1" },
+        "source_family": { "id": "tax.us.2025.f1099div.1a", "version": "v1" }
+      },
+      "tie_out": { "line_symbol": "tax.us.2025.dividends.ordinary-total" }
+    }
+  ],
+  "completeness": {
+    "required_answers": [
+      { "symbol": "tax.us.2025.scheduleb.foreign-account", "fact_type": { "id": "tax.us.2025.scheduleb.foreign-account", "version": "v1" }, "check": "presence" },
+      { "symbol": "tax.us.2025.scheduleb.foreign-trust", "fact_type": { "id": "tax.us.2025.scheduleb.foreign-trust", "version": "v1" }, "check": "presence" }
+    ],
+    "branch_requirements": [
+      {
+        "when_answer": { "symbol": "tax.us.2025.scheduleb.foreign-account", "equals": "yes" },
+        "adds_required": [
+          { "symbol": "tax.us.2025.scheduleb.7b-country", "fact_type": { "id": "tax.us.2025.scheduleb.7b-country", "version": "v1" }, "check": "presence" }
+        ],
+        "names_obligations": [
+          { "code": "FINCEN_114_NAMED", "label": "Foreign Bank Account Report (FinCEN Form 114 / FBAR) obligation named; this product never produces FinCEN-114 content or a filing artifact of any kind." }
+        ]
+      }
+    ]
+  }
+}

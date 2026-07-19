@@ -61,6 +61,11 @@
       "version": "v1"
     },
     {
+      "checksum": "0c39212c5faa0aacb8329664dd4467de5602d337a39ac19e12517563fcf90e44",
+      "id": "tax.us.2025.citation.schedule-b",
+      "version": "v1"
+    },
+    {
       "checksum": "97e6322f987eff8e091a4a2b13da06b779d6fc67756fd0d4afc77337e29164c1",
       "id": "tax.us.2025.closure-mapping.f1099div-1a",
       "version": "v1"
@@ -226,6 +231,11 @@
       "version": "v1"
     },
     {
+      "checksum": "96e49736ec1a32093cba3cb46f327b8d88e751c0ff786f96157a66316976718b",
+      "id": "tax.us.2025.parameter.schedule-b-threshold",
+      "version": "v1"
+    },
+    {
       "checksum": "fde03742eccfe5550b2cd2b86008b71765480993f455291ccf00aaa06b5b2060",
       "id": "tax.us.2025.quantity.ordinary-dividends",
       "version": "v1"
@@ -248,6 +258,11 @@
     {
       "checksum": "6b89a21f8c48935bf19a1ae8f76cd431f40792ac6f9d5e6bcb22cf021760e45b",
       "id": "tax.us.2025.role-canon",
+      "version": "v1"
+    },
+    {
+      "checksum": "934e62b14328b7160f773d705109196d43f715fbd5d1b976fb512b5bb87dcc62",
+      "id": "tax.us.2025.rule.attachment.schedule-b",
       "version": "v1"
     },
     {
@@ -341,6 +356,26 @@
       "version": "v2"
     },
     {
+      "checksum": "feb7a4bfb28dfae00545cf1d6921e10392cec4ddc4138af27a76186bf48a3eb0",
+      "id": "tax.us.2025.scheduleb.7b-country",
+      "version": "v1"
+    },
+    {
+      "checksum": "78a36f0858431325fb98b7029f27b1a6344049f77d5bfe4ad926d52d258c6cc5",
+      "id": "tax.us.2025.scheduleb.foreign-account",
+      "version": "v1"
+    },
+    {
+      "checksum": "7bba67a712d28246eff33d6f22bdbea19a763297a8e9a43e03946fa6061f45a6",
+      "id": "tax.us.2025.scheduleb.foreign-trust",
+      "version": "v1"
+    },
+    {
+      "checksum": "95b5b191558b354e288bf0858584aaee910fc8515886019eb30a5726c88354c4",
+      "id": "tax.us.2025.scheduleb.vocabulary",
+      "version": "v1"
+    },
+    {
       "checksum": "258e34ce9b28594f1fdef28fdb74ec5473549942e867afe2e022d29f036d8c2a",
       "id": "tax.us.2025.w2",
       "version": "v2"
@@ -381,6 +416,11 @@
       "checksum": "9aefcb0cb6707ed642c59c6cc2796fdd12660b54c4c2647aa1b9a6612b3d0f26",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v4"
+    },
+    {
+      "checksum": "d6505ea8a359b0874697dcefee16d66de5d3405dee48a27938cb26cc955be239",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v5"
     },
     {
       "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d",
