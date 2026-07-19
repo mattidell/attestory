@@ -160,23 +160,30 @@ def load_closure_mappings(
 def load_form_fields(registry: SchemaRegistry | None = None) -> dict[str, dict[str, Any]]:
     """Load every committed form-field citizen, mapped id -> citizen.
 
-    Each citizen validates against the published ``form-field.v1`` or ``form-field.v2`` schema.
-    A duplicate id is a content defect: two published fields with one id
-    would make the printed-locator identity ambiguous.
+    Each citizen validates against a published ``form-field`` schema version.
+    A duplicate id/version pair is a content defect: two published fields with
+    one identity would make the printed-locator identity ambiguous. Distinct
+    versions of one id follow the closure-mapping convention: the highest
+    published version is the current citizen.
     """
     reg = registry if registry is not None else tax_registry()
     by_id: dict[str, dict[str, Any]] = {}
-    for path in sorted(TAX_CONTENT_DIR.glob("*.form-field.json")):
+    for path in sorted(TAX_CONTENT_DIR.glob("*.form-field*.json")):
         citizen: dict[str, Any] = json.loads(path.read_text("utf-8"))
         declared = reg.validate_declared(citizen)
-        if declared not in {"form-field.v1", "form-field.v2"}:
+        if declared not in {"form-field.v1", "form-field.v2", "form-field.v3"}:
             raise SchemaValidationError(
-                "form-field.v2",
-                [f"{path.name} declares {declared}, not form-field.v1 or form-field.v2"],
+                "form-field.v3",
+                [f"{path.name} declares {declared}, not a published form-field schema"],
             )
-        if citizen["id"] in by_id:
+        existing = by_id.get(citizen["id"])
+        if existing is None:
+            by_id[citizen["id"]] = citizen
+            continue
+        if existing["version"] == citizen["version"]:
             raise SchemaValidationError(
-                "form-field.v2", [f"duplicate form-field id: {citizen['id']}"]
+                "form-field.v3", [f"duplicate form-field id: {citizen['id']}"]
             )
-        by_id[citizen["id"]] = citizen
+        if _version_rank(citizen["version"]) > _version_rank(existing["version"]):
+            by_id[citizen["id"]] = citizen
     return by_id

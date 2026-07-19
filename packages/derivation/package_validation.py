@@ -40,6 +40,7 @@ _NON_INPUT_SCHEMAS = frozenset({
     "contribution-record.v1",
     "derivation-record.v1",
     "derivation-record.v2",
+    "derivation-record.v3",
 })
 
 
@@ -318,7 +319,7 @@ def validate_package(
             if pin_role != "parameter":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"parameter declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+        elif citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
             if pin_role != "form-field":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"form-field declared as role {pin_role!r}"))
@@ -393,7 +394,7 @@ def validate_package(
                                                   f"mapping {mapping_key} {ft_key} not in package fact surface"))
 
         # Form-field binds symbol & citation validation
-        if citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+        if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
             cit_pin = citizen.get("citation")
             if cit_pin and _corpus_key(cit_pin["id"], cit_pin["version"]) not in citation_keys:
                 issues.append(MemberIssue(pin["id"], pin["version"], "CITATION_ABSENT",
@@ -421,7 +422,7 @@ def validate_package(
 
     # 4. Form-field binds symbol closure
     for pin, citizen in resolved:
-        if citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+        if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
             symbol = citizen["binds_symbol"]
             if symbol not in produced and symbol not in input_symbols:
                 issues.append(MemberIssue(pin["id"], pin["version"], "FORM_FIELD_BINDING_MISSING",
@@ -597,7 +598,7 @@ def validate_package(
                 for citation in citizen.get("citations", []):
                     if _corpus_key(citation["id"], citation["version"]) in citation_keys:
                         adj[m_id].add(citation["id"])
-            elif citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+            elif citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
                 symbol = citizen["binds_symbol"]
                 for p_id in produced.get(symbol, []):
                     adj[m_id].add(p_id)
@@ -644,7 +645,7 @@ def validate_package(
         for entry in package.get("entrypoints", []):
             roots.add(entry["id"])
         for pin, citizen in resolved:
-            if citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+            if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
                 roots.add(pin["id"])
 
         queue = list(roots & member_ids)

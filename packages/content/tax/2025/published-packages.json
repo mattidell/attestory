@@ -141,6 +141,11 @@
       "version": "v1"
     },
     {
+      "checksum": "a81293da18bbc0355e1ab3cb6ef5071f6618ce8a46643a98c0ebd6010b94f173",
+      "id": "tax.us.2025.form1040.line-2b",
+      "version": "v2"
+    },
+    {
       "checksum": "18b06201ea3fc00f5ac5c7cc693ff6ea7944a1aa574f99d9860cf402dba56378",
       "id": "tax.us.2025.form1040.line-9",
       "version": "v1"

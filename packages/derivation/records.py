@@ -29,6 +29,12 @@ from packages.derivation.loader import DERIVATION_RECORD_SCHEMA, DerivationSchem
 
 RECORD_STREAM_FILENAME = "derivation_records.jsonl"
 
+# The current versioned-ledger record schema. v3 carries the reconciled
+# block-code vocabulary (SOURCE_SET_UNCLOSED, the code the runner actually
+# emits; ADR-0036 production condition 3) and the named tie-out invariant.
+CURRENT_RECORD_SCHEMA = "derivation-record.v3"
+_VERSIONED_RECORD_SCHEMAS = frozenset({"derivation-record.v2", "derivation-record.v3"})
+
 _CLOSING_PHASES = frozenset({"completed", "interrupted", "failed"})
 
 
@@ -155,7 +161,7 @@ def started_record(
     use_v2: bool = False,
 ) -> dict[str, Any]:
     return {
-        "schema": "derivation-record.v2" if use_v2 else "derivation-record.v1",
+        "schema": CURRENT_RECORD_SCHEMA if use_v2 else "derivation-record.v1",
         "record_id": record_id,
         "run_id": run_id,
         "phase": "started",
@@ -182,7 +188,7 @@ def closing_record(
     if phase not in _CLOSING_PHASES:
         raise RecordStreamError(f"not a closing phase: {phase}")
     record = {
-        "schema": "derivation-record.v2" if use_v2 else "derivation-record.v1",
+        "schema": CURRENT_RECORD_SCHEMA if use_v2 else "derivation-record.v1",
         "record_id": record_id,
         "run_id": run_id,
         "phase": phase,
@@ -245,7 +251,7 @@ def recover_interrupted(
     if standing is None:
         raise RecordStreamError(f"no open run to recover: {run_id}")
     start = standing.start
-    use_v2 = start.get("schema") == "derivation-record.v2"
+    use_v2 = start.get("schema") in _VERSIONED_RECORD_SCHEMAS
     record = closing_record(
         record_id=record_id,
         run_id=run_id,
