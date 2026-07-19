@@ -17,7 +17,7 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-19; Track 2 reviewed ready, PR #32 open)
+## Current state (updated 2026-07-19; Track 2 MERGED, Track 3 blocked on unratified D2 — owner decision needed)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
@@ -236,12 +236,47 @@ against git, trust git and say so.
   file — no runner/evaluator/schema touched); full battery re-run clean.
   Foreman re-ran the full battery a third time independently: 510 tests,
   mypy clean (99 files), governance lint conformant, envelope scan clean.
-- **PR #32 opened**
-  (https://github.com/mattidell/attestory/pull/32,
-  `track/dsbs-t2-composition-conditional-machinery` → `main`).
-- **➡️ NEXT ACTION: owner merges PR #32.** Foreman does not merge
-  autonomously (ADR-0030). After merge: Track 3 (line 16 under D2) opens
-  next.
+- **Track 2 MERGED** — PR #32, `c39c6c7` on `main`.
+- **➡️ NEXT ACTION: owner decision on resuming the D2 prototype.** Track 3
+  ("line 16 under D2") cannot be chartered as a production build: **D2 has
+  no ratified ADR.** Checked directly, not assumed from stale notes —
+  `docs/adr/` has no D2/QDCG/line-16 file; `git log -- docs/prototypes/
+  qdcg-worksheet/` shows no activity since `f16cd91` ("plan: inventory D2
+  multi-dependency reporting"), which predates ADR-0037's ratification and
+  Track 0a's merge.
+  - **Where D2 actually stalled:** `docs/prototypes/qdcg-worksheet/confirmation-r1-triage.md`
+    (2026-07-18) — Confirmation R1 returned **not confirmed**. Finding
+    **C1** (decision-blocking): a qualified-positive return with *both*
+    capital-gain declarations absent must non-publish naming both missing
+    declarations in one walk, but the committed (pre-CMDN) evaluator halts
+    on the first absent reference, so the runner/NPE surface could only
+    name one. The owner briefly amended the requirement away (a walk need
+    only name a "currently encountered" gap, not all-at-once), then
+    **reversed that amendment** the same day and routed the underlying
+    all-missing-in-one-walk capability to a separate, narrowly-scoped
+    topic instead of deferring it — that topic became **ADR-0037**
+    (`conditional_dependency_set`), independently ratified and now merged
+    as **Track 0a** (PR #30). The triage's own words: "D2's two-declaration
+    walk is again a prerequisite. No topic plan, charter, implementation,
+    or dispatch was authorized" *for D2 itself* — only for the CMDN
+    substrate.
+  - **What's true now that wasn't true at that triage:** the substrate C1
+    needed no longer needs inventing — it's ratified, production-hardened
+    (Track 0a's own review chain: not-ready → repair → ready), and merged.
+    D2's it1/it2 designs, Repair 1, and Confirmation R1 never got a chance
+    to use it; Repair 1 (`repair1/design.md`) predates ADR-0037 entirely.
+  - **Recommended next step (not started, awaiting owner authorization
+    per ADR-0034/ADR-0013):** a **D2 Repair 2** — incorporate
+    `conditional_dependency_set` into the QDCG worksheet's missing-
+    declaration walk, then a fresh confirmation pass re-measuring
+    specifically C1 (the other five Confirmation R1 measurements already
+    passed and stand). Only after a confirmed design does ADR drafting and
+    ratification become eligible, and only after ratification can Track 3
+    be chartered as a production build — the same sequence D3/D1
+    (ADR-0035/0036) already went through this milestone.
+  - **Foreman is not proceeding to charter or dispatch anything for D2/
+    Track 3 without explicit owner direction** — this is a Tier 2/3 rung
+    (reopening a stalled prototype decision), not a routine continuation.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
