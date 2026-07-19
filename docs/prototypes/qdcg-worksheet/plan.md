@@ -110,9 +110,9 @@ No production code; implementation is milestone Tracks 2–3.
   amendment (as exercised in D1).
 - Two reviewers (Governance Medium, Adversary **High**), independent
   contexts.
-- Charter ≤ 90 lines; design ≤ 300 lines; examination ≤ 100 lines; reviews
-  lean but uncapped; **total topic Markdown target ≤ 1,500 lines** through
-  committee.
+- Builder and review documents have no length cap. Their stop conditions are
+  the declared scope, required cases, proposition-by-proposition examination,
+  evidence rung, and measurement charter; no topic Markdown target applies.
 
 ## Gate 5 — Triage
 

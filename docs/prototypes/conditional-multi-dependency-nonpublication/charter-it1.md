@@ -67,9 +67,9 @@ implementation.
 
 Write only:
 
-- it1/design.md (≤260 lines)
-- examination-it1.md (≤90 lines), separately reporting CMDN-P1, CMDN-P2, and
-  CMDN-P3 as settled-at-rung or unresolved.
+- it1/design.md
+- examination-it1.md, separately reporting CMDN-P1, CMDN-P2, and CMDN-P3 as
+  settled-at-rung or unresolved.
 
 Before writing, echo scope, rung ceiling, exclusions, and stop conditions.
-Then stop after the two files.
+Then stop after the two files. No economic file-length restriction applies.

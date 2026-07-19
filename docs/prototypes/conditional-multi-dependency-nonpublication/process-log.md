@@ -31,3 +31,10 @@
   conditional_requires artifact-block alternative differs from the incumbent’s
   evaluator-node proposal. Both required rival shapes now exist; committee
   review remains owner-gated.
+- Owner directed that builder submissions carry no economic file-length
+  restriction. The binding process rule in PROJECT_PLANNING.md and the active
+  CMDN/D2 prototype materials now bound authors by declared obligations and
+  stop conditions rather than line or Markdown targets. The ratified
+  docs/governance set contained no such restriction and was not revised.
+- Prepared, held Governance and Adversary R1 charters. No reviewer is assigned
+  or dispatched; the owner may approve and release either exact charter later.

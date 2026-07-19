@@ -41,9 +41,9 @@ against git, trust git and say so.
 - **➡️ NEXT ACTION: committee-review gate.** Both external paper rivals are
   landed at docs/prototypes/conditional-multi-dependency-nonpublication/it1/
   and it2/; their charters are complete. Governance and Adversary review each
-  require a separately owner-approved, released exact charter; neither exists.
-  D2 evaluation/ADR work stays blocked. No production work, D1/D3 reopening,
-  or role dispatch is authorized.
+  have a prepared held exact charter, but neither is owner-approved or
+  released. D2 evaluation/ADR work stays blocked. No production work, D1/D3
+  reopening, or role dispatch is authorized.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

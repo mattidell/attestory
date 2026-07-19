@@ -85,9 +85,9 @@ code and never an end-to-end tax slice.
 - Two owner-approved default reviewers, Medium tier: governance and adversary.
 - At most one owner-approved repair pass, then a fresh confirmation reviewer
   only if a foreman-authored repair or a decision-blocking finding requires it.
-- Charter at most 90 lines; design at most 260; examination at most 90.
-- Topic Markdown target through committee: 1,500 lines. Reviews are bounded by
-  complete declared measurements, not a line quota.
+- Builder and review documents have no length cap. Their stop conditions are
+  the declared scope, six paper cases, proposition-by-proposition examination,
+  evidence rung, and measurement charter; no topic Markdown target applies.
 
 ## Gate 5 — Triage
 
