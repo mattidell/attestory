@@ -38,15 +38,11 @@ against git, trust git and say so.
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **➡️ NEXT ACTION: owner disposition on CMDN Round 1.** Both external paper
-  rivals and both external reviews are landed. Governance found both shapes
-  sufficient; Adversary rejected IT2 because a conditionally demanded member
-  could be unpinned and escape supersession. Gate-5 triage recommends IT1’s
-  evaluator-node shape as the converged candidate, with five non-blocking
-  precision obligations. The owner check-in is
-  docs/prototypes/conditional-multi-dependency-nonpublication/round-1-triage.md.
-  D2 evaluation/ADR work stays blocked. No production work, D1/D3 reopening,
-  or role dispatch is authorized.
+- **➡️ NEXT ACTION: owner ratification decision on ADR-0037.** The owner
+  accepted IT1’s evaluator-node candidate for drafting after both external
+  reviews; the evaluation analysis, proposed ADR, and required plain-language
+  companion are complete. No production work, D2 adoption, D1/D3 reopening, or
+  role dispatch is authorized until ADR-0037 ratifies.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

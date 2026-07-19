@@ -44,3 +44,7 @@
   eligibility-member supersession attack. Gate-5 triage preserves IT2 as rival
   evidence and recommends IT1 as the converged candidate; no further role is
   released.
+- Owner accepted the IT1 candidate for evaluation analysis and ADR drafting.
+  The foreman wrote evaluation-analysis.md, proposed ADR-0037, and its
+  plain-language companion. This is drafting only; ratification, production
+  work, and D2 adoption remain unapproved.
