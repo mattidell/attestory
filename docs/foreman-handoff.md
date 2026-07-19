@@ -40,11 +40,10 @@ against git, trust git and say so.
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
 - **➡️ NEXT ACTION: plan the owner-authorized Conditional Multi-Dependency
   Non-Publication topic.** The owner reversed the D2 deferral; the generic
-  all-missing-in-one-walk capability is again a D2 prerequisite. Its bounded
-  Gate-0/Gate-1 inventory is at
-  docs/prototypes/conditional-multi-dependency-nonpublication/; a plan needs
-  owner approval before any charter. D2 evaluation/ADR work stays blocked.
-  No production work, D1/D3 reopening, or role dispatch is authorized.
+  all-missing-in-one-walk capability is again a D2 prerequisite. Its proposed
+  plan is at docs/prototypes/conditional-multi-dependency-nonpublication/plan.md
+  and awaits owner approval before any charter. D2 evaluation/ADR work stays
+  blocked. No production work, D1/D3 reopening, or role dispatch is authorized.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
