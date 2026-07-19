@@ -17,7 +17,7 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-19; Track 1 build in flight at handoff)
+## Current state (updated 2026-07-19; Track 1 build complete, review dispatched)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
@@ -26,23 +26,34 @@ against git, trust git and say so.
   not-ready (F1–F4) → foreman repair `595c4e1` → independent delta
   re-review **ready** (`61452e5`; non-blocking R1 act-determinism note, R2
   private `_content_id` import). D2 adoption is unblocked.
-- **➡️ IN FLIGHT: Track 1 (schema citizens)** on
-  `track/dsbs-t1-schema-citizens`, charter
-  `docs/reviews/charter-2026-07-19-dsbs-t1-schema-citizens.md`
-  (owner-authorized builder dispatch, "dispatching as needed"). Landed at
-  handoff: `1d2a58b` vocabulary reconciliation (SOURCE_SET emit-vs-record,
+- **Track 1 (schema citizens) build is COMPLETE** on
+  `track/dsbs-t1-schema-citizens` (`c6d62f6`), charter
+  `docs/reviews/charter-2026-07-19-dsbs-t1-schema-citizens.md`. Landed:
+  `1d2a58b` vocabulary reconciliation (SOURCE_SET emit-vs-record,
   ADR-0036 PC3; `ITEMIZATION_TIE_OUT_VIOLATION` named, PC1 vocabulary half),
   `2a08d80` 1099-DIV statement/family/closure citizens, `60bbbc0`
-  `dividend-universe.v1`, `272b7a9` generic attachment citizen surface.
-  Still open per charter: the two admission-time validation guards
-  (ADR-0035 universe guard; ADR-0036 boolean-Part-III rejection —
-  `package_validation.py` had uncommitted work-in-progress at handoff) and
-  the full battery. **Reconcile against `git log`/`git status` first; the
-  builder may have advanced past this note — trust git.**
-- **After Track 1 completes:** author-independent pre-merge review (fresh
-  charter, per the Track 0a pattern), per-track PR, owner merge. Then
-  Track 2 (composition and conditional machinery) — its charter must name
-  the authoritative-surface (coordinator-from-facts) golden class, and owes
+  `dividend-universe.v1`, `272b7a9` generic attachment citizen surface,
+  `a6f11f3` the two admission-time validation guards (ADR-0035 runtime
+  universe guard; ADR-0036 presence-encoding guard). Full battery green at
+  handoff: 477 tests, mypy clean (94 files), governance lint conformant,
+  envelope scan clean (rebuilt `.venv` on python3.13 first — the prior venv
+  was a broken symlink to system python3.9, which cannot parse this repo's
+  `str | None` syntax; rebuild pattern: `rm -f .venv/bin/python3
+  .venv/bin/python && /opt/homebrew/bin/python3.13 -m venv --clear .venv &&
+  .venv/bin/python3 -m pip install -r requirements.txt`).
+- **➡️ IN FLIGHT: Track 1 independent pre-merge review**, dispatched as a
+  background sub-agent (author-independent, isolated worktree) under fresh
+  charter `docs/reviews/charter-2026-07-19-dsbs-t1-schema-citizens-review.md`
+  (`c6d62f6`). Verdict lands at
+  `docs/reviews/2026-07-19-dsbs-t1-schema-citizens-review.md`, committed and
+  pushed to `track/dsbs-t1-schema-citizens` by the reviewer. **Reconcile
+  against `git log`/`git status` on that branch first — the review may have
+  landed past this note — trust git.**
+- **After the review returns:** if `ready`, per-track PR and owner merge; if
+  `not ready`, foreman triages findings and charters a repair (Track 0a
+  pattern: not-ready → repair → independent delta re-review). Then Track 2
+  (composition and conditional machinery) — its charter must name the
+  authoritative-surface (coordinator-from-facts) golden class, and owes
   ADR-0035's same-batch admission-ordering kill-test.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
