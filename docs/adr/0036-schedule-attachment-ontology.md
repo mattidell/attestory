@@ -1,7 +1,6 @@
 # ADR 0036 — Schedule Attachment Ontology
 
-- Status: **proposed** (Tier 3 — inert until owner ratification, per the
-  ADR-0013 amendment)
+- Status: **accepted** (owner ratification 2026-07-19, Tier 3)
 - Tier: 3
 - Date: 2026-07-19
 
@@ -91,9 +90,12 @@ confirmation pass that returned NOT-CONFIRMED on the first synthesis and
 3. **Emit/record error-vocabulary reconciliation:** the pre-existing
    discrepancy — the runner emits `SOURCE_SET_UNCLOSED` while committed
    record/walk enums permit `SOURCE_SET_OPEN` (adversary A6, confirmed
-   against source) — is reconciled by versioned schema change, either in
-   Track 1 or the owner's standalone repair track. This ADR takes no
-   position the reconciliation could invert.
+   against source) — is reconciled by versioned schema change **in Track 1**
+   (owner disposition at ratification, 2026-07-19: repair in-milestone
+   because Track 1 already versions the same vocabularies and this
+   milestone's goldens would otherwise pin the inconsistency; a standalone
+   track would have been the disposition had it not impacted scope). This
+   ADR takes no position the reconciliation could invert.
 4. **`collect_members`** as a named new mechanism (same-family same-horizon
    member collection with per-row pins).
 5. The milestone plan's coordinator-from-facts golden classes for the
