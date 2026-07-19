@@ -21,7 +21,7 @@
         "member_fact_type": { "id": "tax.us.2025.f1099int.box1-interest", "version": "v1" },
         "source_family": { "id": "tax.us.2025.f1099int.b1", "version": "v1" }
       },
-      "tie_out": { "line_symbol": "tax.us.2025.interest.taxable-total" }
+      "tie_out": { "line_symbol": "tax.us.2025.interest.b1-subtotal" }
     },
     {
       "part_id": "part-ii-ordinary-dividends",

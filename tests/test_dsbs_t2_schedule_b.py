@@ -86,6 +86,8 @@ def _schedule_b_acts(
     *,
     box1a: float | None = None,
     close_1a: bool = True,
+    box1_interest: float | None = None,
+    box3_interest: float | None = None,
     foreign_account: str | None = None,
     foreign_trust: str | None = None,
     country: str | None = None,
@@ -93,9 +95,14 @@ def _schedule_b_acts(
     """A complete synthetic live record for the v5 package.
 
     ``box1a`` is the single demo statement's ordinary-dividend box amount
-    (``None`` means no member is recorded). ``foreign_account``/
-    ``foreign_trust``/``country`` are the Part III answers - ``None`` means
-    that answer is never asserted (the absence golden).
+    (``None`` means no member is recorded). ``box1_interest``/
+    ``box3_interest`` are 1099-INT amounts - present concurrently, they
+    regression-cover F1 (Part I's tie-out target must be the box-1 subtotal
+    alone, never line 2b's four-family sum, or a non-zero box-3 balance
+    would spuriously fire ITEMIZATION_TIE_OUT_VIOLATION against a correctly
+    computed return). ``foreign_account``/``foreign_trust``/``country`` are
+    the Part III answers - ``None`` means that answer is never asserted
+    (the absence golden).
     """
     acts: list[dict[str, object]] = []
 
@@ -116,6 +123,9 @@ def _schedule_b_acts(
     add("entity-introduced", {"entity": {"schema": "entity.v1", "id": "demo.dsbs.t2.schb.w2", "kind": "tax.us.w2-slip", "label": "Synthetic W-2 slip"}})
     add("entity-introduced", {"entity": {"schema": "entity.v1", "id": "demo.dsbs.t2.schb.payer", "kind": "tax.us.dividend-payer", "label": "Synthetic dividend payer"}})
     add("entity-introduced", {"entity": {"schema": "entity.v1", "id": "demo.dsbs.t2.schb.stmt", "kind": "tax.us.1099div-statement", "label": "Synthetic 1099-DIV statement"}})
+    if box1_interest is not None or box3_interest is not None:
+        add("entity-introduced", {"entity": {"schema": "entity.v1", "id": "demo.dsbs.t2.schb.int-payer", "kind": "tax.us.interest-payer", "label": "Synthetic interest payer"}})
+        add("entity-introduced", {"entity": {"schema": "entity.v1", "id": "demo.dsbs.t2.schb.int-stmt", "kind": "tax.us.1099int-statement", "label": "Synthetic 1099-INT statement"}})
 
     scope = {"tax-year": "2025", "subject": "demo.primary"}
     families = (
@@ -144,6 +154,34 @@ def _schedule_b_acts(
         })
         div1a_horizon = "demo.dsbs.t2.schb.div1a.h1"
 
+    int_b1_horizon = "demo.dsbs.t2.schb.int-b1.h0"
+    if box1_interest is not None:
+        add("member-transition", {
+            "family": {"id": "tax.us.2025.f1099int.b1", "version": "v1"},
+            "scope": scope,
+            "member": {"action": "assert", "finding": {
+                "schema": "finding.v2", "id": "demo.dsbs.t2.schb.finding.int-box1",
+                "fact_id": "tax.us.2025.f1099int.box1-interest|payer=demo.dsbs.t2.schb.int-payer,statement=demo.dsbs.t2.schb.int-stmt,tax-year=2025",
+                "value": box1_interest, "basis": "attested", "evidence_ids": [],
+            }},
+            "successor": {"id": "demo.dsbs.t2.schb.int-b1.h1", "predecessor": int_b1_horizon},
+        })
+        int_b1_horizon = "demo.dsbs.t2.schb.int-b1.h1"
+
+    int_b3_horizon = "demo.dsbs.t2.schb.int-b3.h0"
+    if box3_interest is not None:
+        add("member-transition", {
+            "family": {"id": "tax.us.2025.f1099int.b3", "version": "v1"},
+            "scope": scope,
+            "member": {"action": "assert", "finding": {
+                "schema": "finding.v2", "id": "demo.dsbs.t2.schb.finding.int-box3",
+                "fact_id": "tax.us.2025.f1099int.box3-interest|payer=demo.dsbs.t2.schb.int-payer,statement=demo.dsbs.t2.schb.int-stmt,tax-year=2025",
+                "value": box3_interest, "basis": "attested", "evidence_ids": [],
+            }},
+            "successor": {"id": "demo.dsbs.t2.schb.int-b3.h1", "predecessor": int_b3_horizon},
+        })
+        int_b3_horizon = "demo.dsbs.t2.schb.int-b3.h1"
+
     add("assertion", {"finding": _attested_finding("demo.dsbs.t2.schb.finding.rounding", "rounding.convention|tax-year=2025", "half_up")})
     add("assertion", {"finding": _attested_finding("demo.dsbs.t2.schb.finding.status", "tax.us.2025.filing-status|tax-year=2025", "single")})
 
@@ -156,8 +194,8 @@ def _schedule_b_acts(
 
     closures = [
         ("demo.dsbs.t2.schb.closure.w2", "tax.us.2025.w2.source-closure", "demo.dsbs.t2.schb.w2.h0"),
-        ("demo.dsbs.t2.schb.closure.int-b1", "tax.us.2025.f1099int.b1.source-closure", "demo.dsbs.t2.schb.int-b1.h0"),
-        ("demo.dsbs.t2.schb.closure.int-b3", "tax.us.2025.f1099int.b3.source-closure", "demo.dsbs.t2.schb.int-b3.h0"),
+        ("demo.dsbs.t2.schb.closure.int-b1", "tax.us.2025.f1099int.b1.source-closure", int_b1_horizon),
+        ("demo.dsbs.t2.schb.closure.int-b3", "tax.us.2025.f1099int.b3.source-closure", int_b3_horizon),
         ("demo.dsbs.t2.schb.closure.oid-b1", "tax.us.2025.f1099oid.b1.source-closure", "demo.dsbs.t2.schb.oid-b1.h0"),
         ("demo.dsbs.t2.schb.closure.nonform", "tax.us.2025.non-form-interest.source-closure", "demo.dsbs.t2.schb.nonform.h0"),
         ("demo.dsbs.t2.schb.closure.div1b", "tax.us.2025.f1099div.1b.source-closure", "demo.dsbs.t2.schb.div1b.h0"),
@@ -293,6 +331,38 @@ class RequiredAndComplete(unittest.TestCase):
         self.assertIn("demo.dsbs.t2.schb.finding.country", pin_ids)
 
 
+class PartIInterestTieOutWithConcurrentNonBox1Interest(unittest.TestCase):
+    """Regression for F1 (2026-07-19 independent review): Part I's tie-out
+    target must be the box-1 subtotal alone (tax.us.2025.interest.b1-
+    subtotal), never line 2b's four-family taxable-interest total. Every
+    other Track 2 golden holds box-3/OID/non-form interest at a closure-
+    backed zero, so this is the only test where line 2b's value and the
+    box-1 subtotal genuinely diverge - exactly the input combination that
+    silently misfired before the fix."""
+
+    def test_concurrent_box1_and_box3_interest_does_not_spuriously_tie_out_violate(self) -> None:
+        report = _run(
+            _schedule_b_acts(
+                box1a=2000, box1_interest=300, box3_interest=150,
+                foreign_account="no", foreign_trust="no",
+            ),
+            "demo.dsbs.t2.schb.concurrent-interest",
+        )
+        rows = _by_artifact(report)
+        # Line 2b genuinely composes both families: 300 + 150 = 450, not 300.
+        self.assertEqual(rows["tax.us.2025.rule.form1040-line2b"]["disposition"], "published")
+        row = rows[ATTACHMENT_RULE]
+        self.assertEqual(row["disposition"], "published")
+        self.assertNotEqual(row.get("code"), ITEMIZATION_TIE_OUT_VIOLATION)
+        # Part I's row pins the box-1 finding only, never the box-3 one -
+        # the itemization's own scope is honestly box-1-only, and its
+        # tie-out target must agree with that scope, not with line 2b's
+        # wider composition.
+        pin_ids = {p["id"] for p in row["pins"]}
+        self.assertIn("demo.dsbs.t2.schb.finding.int-box1", pin_ids)
+        self.assertNotIn("demo.dsbs.t2.schb.finding.int-box3", pin_ids)
+
+
 class RequiredAndIncomplete(unittest.TestCase):
     """Charter Verification item 5: required-and-incomplete - honest block
     naming exactly the missing required answer(s), independently for each
@@ -369,6 +439,11 @@ class WholeFormValueContent(unittest.TestCase):
     def _context(self, *, foreign_account: str, country: str | None) -> RunContext:
         inputs = [
             InputFinding("tax.us.2025.interest.taxable-total", "0", "demo.int.zero", "input"),
+            # Part I's tie-out target is the box-1 subtotal alone (F1 fix,
+            # 2026-07-19), not the requirement conditional's taxable-total
+            # input above - both must be supplied since attempt_attachment
+            # reads them for two different purposes (threshold vs. tie-out).
+            InputFinding("tax.us.2025.interest.b1-subtotal", "0", "demo.int.b1.zero", "input"),
             InputFinding("tax.us.2025.dividends.ordinary-total", "2000", "demo.div3b", "input"),
             InputFinding(FOREIGN_ACCOUNT_SYMBOL, foreign_account, "demo.fa", "input"),
             InputFinding(FOREIGN_TRUST_SYMBOL, "no", "demo.ft", "input"),
@@ -450,6 +525,7 @@ class TieOutInvariant(unittest.TestCase):
             canon=self.canon,
             inputs=[
                 InputFinding("tax.us.2025.interest.taxable-total", "0", "demo.int.zero", "input"),
+                InputFinding("tax.us.2025.interest.b1-subtotal", "0", "demo.int.b1.zero", "input"),
                 InputFinding("tax.us.2025.dividends.ordinary-total", dividend_line_value, "demo.div3b", "input"),
                 InputFinding(FOREIGN_ACCOUNT_SYMBOL, "no", "demo.fa", "input"),
                 InputFinding(FOREIGN_TRUST_SYMBOL, "no", "demo.ft", "input"),
