@@ -16,3 +16,10 @@
 - Owner then released the exact incumbent charter while reiterating **do not
   dispatch**. The charter is therefore held and available for a later assigned
   seat, but it remains unassigned and no work has begun.
+- The owner supplied the external incumbent build. It landed only
+  it1/design.md and examination-it1.md, the two chartered outputs; no internal
+  seat was dispatched and no production artifact appeared. It proposes a
+  declared conditional_dependency_set node and labels its schema/evaluator/NPE
+  work as proposed or production-conditioned, not live HEAD behavior. The
+  incumbent charter is complete. Clean-room rival evidence remains required
+  before committee review or any decision conclusion.
