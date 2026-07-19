@@ -55,3 +55,13 @@ its charter. No other role was dispatched.
 **Recommendation (superseded):** do not authorize another D2 repair yet. The
 owner chose the second stated option: an explicit Tier-3 revision of the
 missing-walk requirement.
+
+## Owner disposition — reversal of deferral, 2026-07-18
+
+The owner subsequently directed that the D2 issue is **not deferred** and
+authorized a bounded decision inventory. This supersedes the preceding
+amendment’s deferral of the all-missing-in-one-walk capability. C1 is again
+decision-blocking for D2, but its substrate is now owned by the separate,
+inventory-only topic at
+docs/prototypes/conditional-multi-dependency-nonpublication/. No contract
+shape, charter, or role authorization follows from the inventory.

@@ -38,13 +38,13 @@ against git, trust git and say so.
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **➡️ NEXT ACTION: D2 evaluation analysis and ADR drafting await owner
-  direction.** The owner chose an explicit Tier-3 amendment: a
-  qualified-positive missing-declaration walk names the currently encountered
-  factual gap; progressive contribution and re-run disclose remaining gaps.
-  The generic all-missing-in-one-walk capability is deferred breadth, so
-  Confirmation R1’s sole failure no longer blocks D2. No production work,
-  D1/D3 reopening, or further role dispatch is authorized.
+- **➡️ NEXT ACTION: plan the owner-authorized Conditional Multi-Dependency
+  Non-Publication topic.** The owner reversed the D2 deferral; the generic
+  all-missing-in-one-walk capability is again a D2 prerequisite. Its bounded
+  Gate-0/Gate-1 inventory is at
+  docs/prototypes/conditional-multi-dependency-nonpublication/; a plan needs
+  owner approval before any charter. D2 evaluation/ADR work stays blocked.
+  No production work, D1/D3 reopening, or role dispatch is authorized.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

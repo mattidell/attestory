@@ -47,3 +47,7 @@
   factual gap. The generic all-missing-in-one-walk capability is deferred
   breadth, not a new topic. The plan and triage record the amendment; no role
   is dispatched.
+- Owner then reversed that deferral and authorized only a bounded Gate-0/Gate-1
+  inventory for the generic conditional multi-dependency non-publication
+  substrate. D2’s two-declaration walk is again a prerequisite. No topic plan,
+  charter, implementation, or dispatch was authorized.
