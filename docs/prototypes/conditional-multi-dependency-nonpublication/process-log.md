@@ -13,3 +13,6 @@
   restated “no dispatch”; the seat was interrupted before it wrote any artifact
   or changed any file. The charter is returned to inactive, no seat is
   assigned, and no output exists. No further dispatch is authorized.
+- Owner then released the exact incumbent charter while reiterating **do not
+  dispatch**. The charter is therefore held and available for a later assigned
+  seat, but it remains unassigned and no work has begun.
