@@ -17,7 +17,7 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-19; Track 1 reviewed ready, PR #31 open)
+## Current state (updated 2026-07-19; Track 1 merged, Track 2 chartered awaiting scope confirmation)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
@@ -52,13 +52,28 @@ against git, trust git and say so.
   Foreman triage: no repair needed. Full battery re-run fresh by the
   reviewer in its own worktree: 477 tests OK, mypy clean, governance lint
   conformant, envelope scan clean.
-- **➡️ NEXT ACTION: owner merges PR #31**
-  (https://github.com/mattidell/attestory/pull/31,
-  `track/dsbs-t1-schema-citizens` → `main`). Foreman does not merge
-  autonomously (ADR-0030). After merge: Track 2 (composition and
-  conditional machinery) — its charter must name the authoritative-surface
-  (coordinator-from-facts) golden class, and owes ADR-0035's same-batch
-  admission-ordering kill-test.
+- **Track 1 MERGED** — PR #31, `a870a2f` on `main`.
+- **➡️ NEXT ACTION: owner confirms Track 2 scope, then authorizes build
+  dispatch.** Track 2 charter is written and pushed:
+  `docs/reviews/charter-2026-07-19-dsbs-t2-composition-conditional-machinery.md`
+  on `track/dsbs-t2-composition-conditional-machinery` (`1739737`). It reads
+  Track 2 as owing the full remaining ADR-0035/0036 machinery — 1099-DIV
+  admission-time subset enforcement (decision 4) and same-batch ordering
+  (adversary-minor PC); lines 3a/3b and line-9 extension (D3); and the
+  *complete* Schedule B attachment build (existence conditional,
+  `collect_members` itemization, the `ITEMIZATION_TIE_OUT_VIOLATION`
+  tie-out invariant with both named kill-tests, and Part III completeness)
+  — not only the "existence conditional" the milestone plan's Track 2
+  sentence names verbatim. Basis: both ADRs bind their remaining production
+  conditions to Tracks 1–3, and Track 3 is dedicated solely to line 16/D2,
+  leaving nowhere else for the attachment machinery to land; the synthesis
+  and rival examination independently call `collect_members` and the
+  tie-out check "Track 1/2" work. **This is a foreman scope judgment over a
+  terse plan sentence, not a re-litigated owner decision — surfaced for
+  confirmation, not assumed.** The charter also bakes in the Track-0a-review
+  lesson: every named golden must enter through `live_coordinate_run`, never
+  a `RunContext` shortcut (that gap was the decision-blocking-adjacent
+  finding in the CMDN review chain). No builder dispatched yet.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
