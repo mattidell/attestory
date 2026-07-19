@@ -1,0 +1,12 @@
+{
+  "schema": "fact-type.v2",
+  "id": "demo.fact.answer-first",
+  "version": "v1",
+  "title": "Negative (admission-time, ADR-0036 production condition 2): a boolean-valued Part III answer fact type. This citizen conforms to fact-type.v2 - boolean value schemas are legitimate elsewhere (closure attestations) - but a falsy answer value would let completeness short-circuit past a later answer, so package validation rejects it wherever an attachment rule pins it as a required answer.",
+  "nature": "determinable",
+  "identity_keys": [
+    {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+  ],
+  "value_schema": {"type": "boolean"},
+  "supersession": {"policy": "free"}
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "fact-type.v2",
+  "id": "demo.fact.answer-first",
+  "version": "v1",
+  "title": "Demo Part III taxpayer answer on the taxpayer-assertion pattern (ADR-0036 decision 4): value domain is the categorical {yes, no}, never boolean - a no is a present, truthy, non-maskable finding, so no evaluation order can mask an answer and every answer finding is pinned unconditionally whatever its value.",
+  "nature": "determinable",
+  "identity_keys": [
+    {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+  ],
+  "value_schema": {"enum": ["yes", "no"]},
+  "supersession": {"policy": "free"}
+}

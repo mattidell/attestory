@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/quantity-vocabulary.v2",
+  "title": "Tax quantity vocabulary, dividend quantities added",
+  "description": "Immutable, versioned closed vocabulary for quantity identities used by residual-closed source amount fact types (ADR-0028 decision 7). v2 adds the dividend quantities the 1099-DIV source families tag (ADR-0035 decision 2). Resolution of a quantity pin to an adopted vocabulary citizen is package validation work.",
+  "type": "object",
+  "properties": {
+    "schema": {"const": "quantity-vocabulary.v2"},
+    "id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^v[0-9]+$"},
+    "quantities": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"enum": ["taxable-interest", "wages", "standard-deduction", "taxable-income", "income-tax", "ordinary-dividends", "qualified-dividends"]}
+    }
+  },
+  "required": ["schema", "id", "version", "quantities"],
+  "additionalProperties": false
+}

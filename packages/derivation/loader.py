@@ -74,6 +74,8 @@ ROLE_VOCABULARY = frozenset(
         "source-closure-mapping",
         "fact-type",
         "fact-type-bundle",
+        "dividend-universe",
+        "attachment-rule",
     }
 )
 

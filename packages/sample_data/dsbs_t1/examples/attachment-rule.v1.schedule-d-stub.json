@@ -1,0 +1,32 @@
+{
+  "schema": "attachment-rule.v1",
+  "id": "demo.rule.attachment.schedule-d-stub",
+  "version": "v1",
+  "title": "Generalization stub (ADR-0036 decision 5): a second schedule instantiates the citizen with content only - different form, different trigger symbols, different parts and answers, zero schema keys specific to any schedule",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "demo" },
+  "attachment": { "authority": "DEMO", "form_id": "SCHD-STUB", "tax_year": 2025, "jurisdiction": "US-federal" },
+  "publishes": "demo.attachment.schedule-d-stub.disposition",
+  "requirement": {
+    "subtotals": ["demo.gamma.subtotal"],
+    "threshold_parameter": { "id": "demo.parameter.stub-threshold", "version": "v1" },
+    "comparison": "strictly_greater_than",
+    "citation": { "id": "demo.citation.schedule-d-stub", "version": "v1" }
+  },
+  "itemizations": [
+    {
+      "part_id": "transactions",
+      "label": "Demo stub transaction itemization",
+      "rows": {
+        "op": "collect_members",
+        "member_fact_type": { "id": "demo.fact.gamma-item", "version": "v1" },
+        "source_family": { "id": "demo.family.gamma", "version": "v1" }
+      },
+      "tie_out": { "line_symbol": "demo.gamma.subtotal" }
+    }
+  ],
+  "completeness": {
+    "required_answers": [
+      { "symbol": "demo.answer.stub-election", "fact_type": { "id": "demo.fact.answer-stub-election", "version": "v1" }, "check": "presence" }
+    ]
+  }
+}

@@ -40,6 +40,7 @@ _NON_INPUT_SCHEMAS = frozenset({
     "contribution-record.v1",
     "derivation-record.v1",
     "derivation-record.v2",
+    "derivation-record.v3",
 })
 
 
@@ -185,6 +186,18 @@ def _iter_parameter_and_table_refs(expr: Any) -> Iterable[str]:
             yield from _iter_parameter_and_table_refs(item)
 
 
+def _iter_collect_exprs(expr: Any) -> Iterable[dict[str, Any]]:
+    """Yield every ``collect`` expression node anywhere in an expression."""
+    if isinstance(expr, dict):
+        if expr.get("op") == "collect":
+            yield expr
+        for value in expr.values():
+            yield from _iter_collect_exprs(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_collect_exprs(item)
+
+
 def _iter_collect_source_sets(expr: Any) -> Iterable[str]:
     """Yield the adopted family identities named by ``collect`` expressions."""
     if isinstance(expr, dict):
@@ -276,6 +289,7 @@ def validate_package(
 
     # 1. Fact surface compilation Q(P)
     fact_surface: set[tuple[str, str]] = set()
+    fact_types_by_key: dict[tuple[str, str], dict[str, Any]] = {}
     fact_quantities: dict[str, dict[str, Any]] = {}
     fact_defaults: dict[str, dict[str, Any]] = {}
 
@@ -283,12 +297,14 @@ def validate_package(
         if citizen["schema"] in {"bundle.v1", "bundle.v2"}:
             for ft in citizen.get("fact_types", []):
                 fact_surface.add((ft["id"], ft.get("version", "v1")))
+                fact_types_by_key[(ft["id"], ft.get("version", "v1"))] = ft
                 if "quantity" in ft:
                     fact_quantities[ft["id"]] = ft["quantity"]
                 if "optional_default" in ft:
                     fact_defaults[ft["id"]] = ft["optional_default"]["parameter"]
         elif citizen["schema"] == "fact-type.v2":
             fact_surface.add((citizen["id"], citizen["version"]))
+            fact_types_by_key[(citizen["id"], citizen["version"])] = citizen
             if "quantity" in citizen:
                 fact_quantities[citizen["id"]] = citizen["quantity"]
             if "optional_default" in citizen:
@@ -314,11 +330,11 @@ def validate_package(
             if pin_role != citizen["role"]:
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"package role {pin_role!r} != rule role {citizen['role']!r}"))
-        elif citizen["schema"] in {"parameter-declaration.v1", "quantity-vocabulary.v1", "role-canon.v1"}:
+        elif citizen["schema"] in {"parameter-declaration.v1", "quantity-vocabulary.v1", "quantity-vocabulary.v2", "role-canon.v1"}:
             if pin_role != "parameter":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"parameter declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+        elif citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
             if pin_role != "form-field":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"form-field declared as role {pin_role!r}"))
@@ -350,6 +366,14 @@ def validate_package(
             if pin_role != "operation-semantics":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"operation-semantics declared as role {pin_role!r}"))
+        elif citizen["schema"] == "dividend-universe.v1":
+            if pin_role != "dividend-universe":
+                issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
+                                           f"dividend-universe declared as role {pin_role!r}"))
+        elif citizen["schema"] == "attachment-rule.v1":
+            if pin_role != "attachment-rule":
+                issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
+                                           f"attachment-rule declared as role {pin_role!r}"))
 
         if "scope" in citizen:
             member_scope = {key: citizen.get("scope", {}).get(key) for key in _SCOPE_KEYS}
@@ -393,7 +417,7 @@ def validate_package(
                                                   f"mapping {mapping_key} {ft_key} not in package fact surface"))
 
         # Form-field binds symbol & citation validation
-        if citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+        if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
             cit_pin = citizen.get("citation")
             if cit_pin and _corpus_key(cit_pin["id"], cit_pin["version"]) not in citation_keys:
                 issues.append(MemberIssue(pin["id"], pin["version"], "CITATION_ABSENT",
@@ -421,7 +445,7 @@ def validate_package(
 
     # 4. Form-field binds symbol closure
     for pin, citizen in resolved:
-        if citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+        if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
             symbol = citizen["binds_symbol"]
             if symbol not in produced and symbol not in input_symbols:
                 issues.append(MemberIssue(pin["id"], pin["version"], "FORM_FIELD_BINDING_MISSING",
@@ -435,7 +459,7 @@ def validate_package(
     # 5. Quantity validations (ADR-0028 decision 7)
     quantity_vocabularies = {}
     for pin, citizen in resolved:
-        if citizen["schema"] == "quantity-vocabulary.v1":
+        if citizen["schema"] in {"quantity-vocabulary.v1", "quantity-vocabulary.v2"}:
             quantity_vocabularies[citizen["id"]] = citizen["quantities"]
 
     for ft_id, q_pin in fact_quantities.items():
@@ -597,7 +621,7 @@ def validate_package(
                 for citation in citizen.get("citations", []):
                     if _corpus_key(citation["id"], citation["version"]) in citation_keys:
                         adj[m_id].add(citation["id"])
-            elif citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+            elif citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
                 symbol = citizen["binds_symbol"]
                 for p_id in produced.get(symbol, []):
                     adj[m_id].add(p_id)
@@ -644,7 +668,7 @@ def validate_package(
         for entry in package.get("entrypoints", []):
             roots.add(entry["id"])
         for pin, citizen in resolved:
-            if citizen["schema"] in {"form-field.v1", "form-field.v2"}:
+            if citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
                 roots.add(pin["id"])
 
         queue = list(roots & member_ids)
@@ -662,7 +686,84 @@ def validate_package(
                 issues.append(MemberIssue(m_id, m_pin["version"], "MEMBER_UNREACHABLE",
                                          f"member {m_id} is unreachable from package entrypoints or form fields"))
 
-    # 9. Unique output ownership (decision 7)
+    # 9. Runtime universe guard (ADR-0035 production condition, adversary A2).
+    # The paper unrepresentability becomes a mechanical check: every collect
+    # must target the declared member fact type of a source family the package
+    # carries, and no rule may consume recorded-non-composable content named
+    # by a dividend-universe citizen. The collect-target half binds the
+    # package-language generations that postdate ADR-0035 (artifact-package.v3
+    # onward); the already-published v1/v2 instances are recorded history, the
+    # same posture as the v1 closure-edge exemption above.
+    universe_guard_active = package.get("schema") in {"artifact-package.v3", "artifact-package.v4"}
+    source_family_members = {
+        citizen["id"]: citizen["member_predicate"]["fact_type"]
+        for _, citizen in resolved
+        if citizen["schema"] == "source-family.v1"
+    }
+    recorded_non_composable = {
+        citizen["recorded_boxes_fact_type"]["id"]
+        for _, citizen in resolved
+        if citizen["schema"] == "dividend-universe.v1"
+    }
+    for pin, citizen in resolved:
+        if citizen["schema"] not in _RULE_ARTIFACT_SCHEMAS:
+            continue
+        collect_names: set[str] = set()
+        for expr_key in ("when", "value"):
+            for collect in _iter_collect_exprs(citizen[expr_key]):
+                name = collect.get("name")
+                if isinstance(name, str):
+                    collect_names.add(name)
+                collect_set = collect.get("source_set")
+                if not universe_guard_active:
+                    continue
+                declared_member = source_family_members.get(str(collect_set))
+                if declared_member is None:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "COLLECT_TARGET_NOT_FAMILY",
+                                              f"collect names source_set {collect_set!r}, which no package source-family declares"))
+                elif name != declared_member:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "COLLECT_TARGET_NOT_FAMILY",
+                                              f"collect targets {name!r}, not the declared member fact type {declared_member!r} of family {collect_set!r}"))
+        consumed = collect_names | set(citizen.get("requires", []))
+        consumed.update(_iter_ref_names(citizen["when"]))
+        consumed.update(_iter_ref_names(citizen["value"]))
+        for forbidden in sorted(consumed & recorded_non_composable):
+            issues.append(MemberIssue(pin["id"], pin["version"], "RECORDED_NON_COMPOSABLE_INPUT",
+                                      f"rule consumes recorded-non-composable content {forbidden!r}; the dividend universe composes {{1a, 1b}} only"))
+
+    # 10. Attachment answer encoding guard (ADR-0036 production condition 2).
+    # Completeness is presence-semantics only because every answer value is
+    # truthy: the categorical all-truthy string domain pin is load-bearing, so
+    # a boolean or otherwise falsy-encodable Part III answer fact type on an
+    # attachment is rejected at admission.
+    for pin, citizen in resolved:
+        if citizen["schema"] != "attachment-rule.v1":
+            continue
+        answers = list(citizen["completeness"]["required_answers"])
+        for branch in citizen["completeness"].get("branch_requirements", []):
+            answers.extend(branch.get("adds_required", []))
+        for answer in answers:
+            answer_pin = answer["fact_type"]
+            answer_key = _corpus_key(answer_pin["id"], answer_pin["version"])
+            fact_type = fact_types_by_key.get(answer_key)
+            if fact_type is None:
+                issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ANSWER_FACT_TYPE_ABSENT",
+                                          f"answer fact type {answer_key} not in package fact surface"))
+                continue
+            value_schema = fact_type.get("value_schema", {})
+            domain = value_schema.get("enum")
+            categorical = (
+                list(value_schema) == ["enum"]
+                and isinstance(domain, list)
+                and len(domain) > 0
+                and all(isinstance(v, str) and v for v in domain)
+            )
+            if not categorical:
+                issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ANSWER_NOT_CATEGORICAL",
+                                          f"answer fact type {answer_pin['id']!r} must declare a categorical all-truthy string domain "
+                                          f"(e.g. yes/no); boolean or falsy-valued encodings can short-circuit completeness"))
+
+    # 11. Unique output ownership (decision 7)
     declared_conflicts = {c["symbol"] for c in package.get("conflict_semantics", [])}
     output_owners: dict[str, str] = {}
     for symbol, owners in sorted(produced.items()):

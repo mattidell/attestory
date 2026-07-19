@@ -1,0 +1,6 @@
+{
+  "schema": "quantity-vocabulary.v2",
+  "id": "tax.us.2025.quantity.qualified-dividends",
+  "version": "v1",
+  "quantities": ["qualified-dividends"]
+}

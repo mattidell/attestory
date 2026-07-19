@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tax/attachment-rule.v1",
+  "title": "Schedule attachment rule",
+  "description": "The declared rule that computes a schedule attachment's existence, content, and completeness (ADR-0036 decisions 1-4). The published disposition rides the ratified triad with no embedded state field: not-required publishes a walkable inapplicability disposition, required-and-complete publishes the whole form content pinned to every consumed fact, required-and-incomplete blocks naming each missing contributable fact. The requirement conditional reads existing subtotal symbols against a cited threshold parameter, strictly greater than. Itemization rows come only from collect_members - same closed family, same horizon, per-row member-finding pins; row shape is per-schedule content and has no surface here. The row-sum-equals-line tie-out is the named ITEMIZATION_TIE_OUT_VIOLATION invariant (record/walk vocabularies); its derivation-time check is owed to later tracks. Completeness is presence-semantics with pinned categorical encoding: every required answer is an independent presence check (never a value read), and branch requirements read an answer's value only after presence holds. This surface is generic: no Schedule-B-specific field, trigger shape, or completeness structure (decision 5). Execution semantics are not defined by this schema.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "attachment-rule.v1" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "tax_year": { "type": "integer" },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "family": { "type": "string", "minLength": 1 }
+      },
+      "required": ["tax_year", "jurisdiction", "family"],
+      "additionalProperties": false
+    },
+    "attachment": {
+      "type": "object",
+      "properties": {
+        "authority": { "type": "string", "minLength": 1 },
+        "form_id": { "type": "string", "minLength": 1 },
+        "tax_year": { "type": "integer" },
+        "jurisdiction": { "type": "string", "minLength": 1 }
+      },
+      "required": ["authority", "form_id", "tax_year", "jurisdiction"],
+      "additionalProperties": false
+    },
+    "publishes": { "type": "string", "minLength": 1 },
+    "requirement": {
+      "type": "object",
+      "properties": {
+        "subtotals": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "threshold_parameter": { "$ref": "#/$defs/pin" },
+        "comparison": { "const": "strictly_greater_than" },
+        "citation": { "$ref": "#/$defs/pin" }
+      },
+      "required": ["subtotals", "threshold_parameter", "comparison", "citation"],
+      "additionalProperties": false
+    },
+    "itemizations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "part_id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1 },
+          "rows": { "$ref": "#/$defs/collect_members" },
+          "tie_out": {
+            "type": "object",
+            "properties": { "line_symbol": { "type": "string", "minLength": 1 } },
+            "required": ["line_symbol"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["part_id", "label", "rows", "tie_out"],
+        "additionalProperties": false
+      }
+    },
+    "completeness": {
+      "type": "object",
+      "properties": {
+        "required_answers": {
+          "type": "array", "minItems": 1,
+          "items": { "$ref": "#/$defs/required_answer" }
+        },
+        "branch_requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "when_answer": {
+                "type": "object",
+                "properties": {
+                  "symbol": { "type": "string", "minLength": 1 },
+                  "equals": { "type": "string", "minLength": 1 }
+                },
+                "required": ["symbol", "equals"],
+                "additionalProperties": false
+              },
+              "adds_required": {
+                "type": "array", "minItems": 1,
+                "items": { "$ref": "#/$defs/required_answer" }
+              },
+              "names_obligations": {
+                "type": "array", "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "minLength": 1 },
+                    "label": { "type": "string", "minLength": 1 }
+                  },
+                  "required": ["code", "label"],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": ["when_answer"],
+            "anyOf": [
+              { "required": ["adds_required"] },
+              { "required": ["names_obligations"] }
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["required_answers"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "version", "title", "scope", "attachment", "publishes", "requirement", "itemizations", "completeness"],
+  "additionalProperties": false,
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" }
+      },
+      "required": ["id", "version"],
+      "additionalProperties": false
+    },
+    "collect_members": {
+      "type": "object",
+      "properties": {
+        "op": { "const": "collect_members" },
+        "member_fact_type": { "$ref": "#/$defs/pin" },
+        "source_family": { "$ref": "#/$defs/pin" }
+      },
+      "required": ["op", "member_fact_type", "source_family"],
+      "additionalProperties": false
+    },
+    "required_answer": {
+      "type": "object",
+      "properties": {
+        "symbol": { "type": "string", "minLength": 1 },
+        "fact_type": { "$ref": "#/$defs/pin" },
+        "check": { "const": "presence" }
+      },
+      "required": ["symbol", "fact_type", "check"],
+      "additionalProperties": false
+    }
+  }
+}

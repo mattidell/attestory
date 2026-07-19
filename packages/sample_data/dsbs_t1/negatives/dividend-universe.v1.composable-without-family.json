@@ -1,0 +1,14 @@
+{
+  "schema": "dividend-universe.v1",
+  "id": "demo.dividend-universe",
+  "version": "v1",
+  "title": "Negative: composable box 1b carries no family binding",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "demo" },
+  "composable_boxes": [
+    { "box": "1a", "family": { "id": "demo.family.div-1a", "version": "v1" } },
+    { "box": "1b" }
+  ],
+  "recorded_non_composable_boxes": ["2a", "3", "5", "7", "12"],
+  "recorded_boxes_fact_type": { "id": "demo.fact.recorded-boxes", "version": "v1" },
+  "capital_gain_signal": { "box": "2a", "signal": "CAPITAL_GAIN_DISTRIBUTION_RECORDED" }
+}

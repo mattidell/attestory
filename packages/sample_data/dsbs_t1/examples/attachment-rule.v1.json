@@ -1,0 +1,44 @@
+{
+  "schema": "attachment-rule.v1",
+  "id": "demo.rule.attachment.schedule-x",
+  "version": "v1",
+  "title": "Demo schedule attachment: existence over two subtotals, one itemized part, two Part III answers with a yes-branch",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "demo" },
+  "attachment": { "authority": "DEMO", "form_id": "SCHX", "tax_year": 2025, "jurisdiction": "US-federal" },
+  "publishes": "demo.attachment.schedule-x.disposition",
+  "requirement": {
+    "subtotals": ["demo.alpha.subtotal", "demo.beta.subtotal"],
+    "threshold_parameter": { "id": "demo.parameter.attachment-threshold", "version": "v1" },
+    "comparison": "strictly_greater_than",
+    "citation": { "id": "demo.citation.schedule-x", "version": "v1" }
+  },
+  "itemizations": [
+    {
+      "part_id": "part-1",
+      "label": "Demo part 1 itemization",
+      "rows": {
+        "op": "collect_members",
+        "member_fact_type": { "id": "demo.fact.alpha-item", "version": "v1" },
+        "source_family": { "id": "demo.family.alpha", "version": "v1" }
+      },
+      "tie_out": { "line_symbol": "demo.alpha.subtotal" }
+    }
+  ],
+  "completeness": {
+    "required_answers": [
+      { "symbol": "demo.answer.first", "fact_type": { "id": "demo.fact.answer-first", "version": "v1" }, "check": "presence" },
+      { "symbol": "demo.answer.second", "fact_type": { "id": "demo.fact.answer-second", "version": "v1" }, "check": "presence" }
+    ],
+    "branch_requirements": [
+      {
+        "when_answer": { "symbol": "demo.answer.first", "equals": "yes" },
+        "adds_required": [
+          { "symbol": "demo.answer.first-detail", "fact_type": { "id": "demo.fact.answer-first-detail", "version": "v1" }, "check": "presence" }
+        ],
+        "names_obligations": [
+          { "code": "DEMO_EXTERNAL_FILING_NAMED", "label": "A yes answer names a separate non-produced filing obligation" }
+        ]
+      }
+    ]
+  }
+}

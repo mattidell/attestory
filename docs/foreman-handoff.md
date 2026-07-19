@@ -17,55 +17,52 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; ADR-0037 prerequisite production track planned)
+## Current state (updated 2026-07-19; Track 1 reviewed ready, PR #31 open)
 
-- **Seat:** principal foreman. The active milestone is **Dividends and
-  Schedule B Slice**. D3 is ratified as ADR-0035; D1 is ratified as ADR-0036;
-  ADR-0037 is ratified and merged as `325b1b1`. D2's owner-approved plan is
-  on `main`; its paper artifacts and review packet are on
-  `proto/d2-qdcg-worksheet` at `0cbb5da` (one commit ahead of origin when this
-  note was written).
-- **D2 evidence:** both clean-room rivals establish the worksheet ladder,
-  qualified-zero reduction, and admission-locus contradiction interlock at
-  paper rung. Governance and adversary reviews independently reject the two
-  proposed supersession/disposition postures: it2 relies on non-existent
-  guard-driven producer selection; it1 promises an unavailable blocked code
-  and would demand declarations from no-qualified-dividend returns. The exact
-  Gate-5 disposition is `docs/prototypes/qdcg-worksheet/round-1-triage.md`.
-- **Process:** `process-log.md` was missing at review integration; the foreman
-  logged that as a late-log error rather than reconstructing history. No new
-  role was dispatched after review return.
+- **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
+  Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
+  (generic `conditional_dependency_set` production substrate) merged as
+  **PR #30 (`6f303fe`)** after its full review chain — independent review
+  not-ready (F1–F4) → foreman repair `595c4e1` → independent delta
+  re-review **ready** (`61452e5`; non-blocking R1 act-determinism note, R2
+  private `_content_id` import). D2 adoption is unblocked.
+- **Track 1 (schema citizens) build is COMPLETE** on
+  `track/dsbs-t1-schema-citizens` (`c6d62f6`), charter
+  `docs/reviews/charter-2026-07-19-dsbs-t1-schema-citizens.md`. Landed:
+  `1d2a58b` vocabulary reconciliation (SOURCE_SET emit-vs-record,
+  ADR-0036 PC3; `ITEMIZATION_TIE_OUT_VIOLATION` named, PC1 vocabulary half),
+  `2a08d80` 1099-DIV statement/family/closure citizens, `60bbbc0`
+  `dividend-universe.v1`, `272b7a9` generic attachment citizen surface,
+  `a6f11f3` the two admission-time validation guards (ADR-0035 runtime
+  universe guard; ADR-0036 presence-encoding guard). Full battery green at
+  handoff: 477 tests, mypy clean (94 files), governance lint conformant,
+  envelope scan clean (rebuilt `.venv` on python3.13 first — the prior venv
+  was a broken symlink to system python3.9, which cannot parse this repo's
+  `str | None` syntax; rebuild pattern: `rm -f .venv/bin/python3
+  .venv/bin/python && /opt/homebrew/bin/python3.13 -m venv --clear .venv &&
+  .venv/bin/python3 -m pip install -r requirements.txt`).
+- **Track 1 independent pre-merge review returned READY** (`5bfbf52`,
+  `docs/reviews/2026-07-19-dsbs-t1-schema-citizens-review.md`, dispatched as
+  a background sub-agent under
+  `docs/reviews/charter-2026-07-19-dsbs-t1-schema-citizens-review.md`). All
+  eight charter checks hold; six findings (F1–F6), all non-blocking/
+  observational with file/line evidence (notably F3: the runtime universe
+  guard's v1/v2 exemption covers only the `COLLECT_TARGET_NOT_FAMILY` half,
+  by design and tested — `RECORDED_NON_COMPOSABLE_INPUT` is unconditional).
+  Foreman triage: no repair needed. Full battery re-run fresh by the
+  reviewer in its own worktree: 477 tests OK, mypy clean, governance lint
+  conformant, envelope scan clean.
+- **➡️ NEXT ACTION: owner merges PR #31**
+  (https://github.com/mattidell/attestory/pull/31,
+  `track/dsbs-t1-schema-citizens` → `main`). Foreman does not merge
+  autonomously (ADR-0030). After merge: Track 2 (composition and
+  conditional machinery) — its charter must name the authoritative-surface
+  (coordinator-from-facts) golden class, and owes ADR-0035's same-batch
+  admission-ordering kill-test.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **ADR-0037 production plan:** owner authorized the foreman to plan the
-  prerequisite. Track 0a in the active milestone plan is now the committed
-  execution contract: new rule-language v3 corpus and Payload Instantiation
-  evidence; shared evaluator plus both runners and durable ordered NPE walk;
-  then six coordinator-from-facts goldens, pin/currency mutations, and full
-  verification. It explicitly excludes D2 tax content, D1/D3 reopening, and
-  real data.
-- **ADR-0037 implementation:** Track 0a is implemented on
-  `codex/dsbs-t0a-cmdn-production`. It adds `rule-artifact.v3` and the mechanical
-  `artifact-package.v3` admission surface, the shared evaluator node, ordered
-  durable NPE behavior, package reachability for nested refs, and fully
-  synthetic authoritative-fact coordinator coverage. Focused tests, full
-  suite, mypy, governance lint, and envelope verification passed.
-- **Track 0a review chain complete (2026-07-19).** Independent pre-merge
-  review returned **not ready** (F1 malformed-shape negatives missing; F2
-  paper cases 5/6 not driven through `live_coordinate_run`; F3 no executed
-  pin-strip mutation test; F4 reachability walk widened to v1/v2 without
-  justification). Foreman repair `595c4e1` discharged all four; independent
-  delta re-review (owner-authorized dispatch) returned **ready** (`61452e5`)
-  with two non-blocking observations: R1 (case-5 displacement leg depends on
-  deterministic act identities across regenerated logs) and R2 (pin-mutation
-  test imports private `_content_id`; migrate if a public identity-verify
-  surface appears). Battery: 448 tests, mypy, lint, envelope — green.
-- **➡️ NEXT ACTION: owner merges `codex/dsbs-t0a-cmdn-production` (PR open).**
-  On merge, Track 0 closes and Track 1 (schema citizens) opens; no content
-  track has started. Charter reminder for Tracks 1–4: behavior charters name
-  their authoritative-surface (coordinator-from-facts) golden class.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/dividend-universe.v1",
+  "title": "Declared dividend universe",
+  "description": "The declared 1099-DIV box universe (ADR-0035 decision 3): composable boxes {1a, 1b}, each bound to exactly one source family, and recorded-non-composable boxes {2a, 3, 5, 7, 12} riding the pinned non-member recorded-boxes fact type (explicit null as declared absence). The universe claims completeness only over {1a, 1b}; a box outside the declared enums is structurally unrepresentable, as is a box in both sets. Box 2a present raises the return-level CAPITAL_GAIN_DISTRIBUTION_RECORDED signal, named here on the citizen surface; raising it is Track 2 behavior. No rule may collect recorded-non-composable content (runtime universe guard, package validation).",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "dividend-universe.v1" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "tax_year": { "type": "integer" },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "family": { "type": "string", "minLength": 1 }
+      },
+      "required": ["tax_year", "jurisdiction", "family"],
+      "additionalProperties": false
+    },
+    "composable_boxes": {
+      "type": "array", "minItems": 2, "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "box": { "enum": ["1a", "1b"] },
+          "family": { "$ref": "#/$defs/pin" }
+        },
+        "required": ["box", "family"],
+        "additionalProperties": false
+      },
+      "allOf": [
+        { "contains": { "properties": { "box": { "const": "1a" } }, "required": ["box"] } },
+        { "contains": { "properties": { "box": { "const": "1b" } }, "required": ["box"] } }
+      ]
+    },
+    "recorded_non_composable_boxes": {
+      "type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true,
+      "items": { "enum": ["2a", "3", "5", "7", "12"] }
+    },
+    "recorded_boxes_fact_type": { "$ref": "#/$defs/pin" },
+    "capital_gain_signal": {
+      "type": "object",
+      "properties": {
+        "box": { "const": "2a" },
+        "signal": { "const": "CAPITAL_GAIN_DISTRIBUTION_RECORDED" }
+      },
+      "required": ["box", "signal"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "version", "title", "scope", "composable_boxes", "recorded_non_composable_boxes", "recorded_boxes_fact_type", "capital_gain_signal"],
+  "additionalProperties": false,
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" }
+      },
+      "required": ["id", "version"],
+      "additionalProperties": false
+    }
+  }
+}

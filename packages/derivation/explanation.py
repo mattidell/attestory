@@ -159,7 +159,7 @@ def walk_npe(
     derived: dict[str, dict[str, Any]] | None = None,
     inputs: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """Pure project walker returning an npe-walk.v1 payload (ADR-0020)."""
+    """Pure project walker returning an npe-walk.v2 payload (ADR-0020)."""
     # 1. Locate start/completion records
     start_rec = next((r for r in records if r["run_id"] == run_id and r["phase"] == "started"), None)
     closing_rec = next((r for r in records if r["run_id"] == run_id and r["phase"] in ("completed", "interrupted", "failed")), None)
@@ -329,7 +329,7 @@ def walk_npe(
 
     root_node = walk_symbol(symbol, frozenset())
     return {
-        "schema": "npe-walk.v1",
+        "schema": "npe-walk.v2",
         "id": f"walk:{run_id}:{symbol}",
         "run_id": run_id,
         "workspace_revision": workspace_revision,
