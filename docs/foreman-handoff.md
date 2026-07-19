@@ -38,12 +38,12 @@ against git, trust git and say so.
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **➡️ NEXT ACTION: plan the owner-authorized Conditional Multi-Dependency
-  Non-Publication topic.** The owner reversed the D2 deferral; the generic
-  all-missing-in-one-walk capability is again a D2 prerequisite. Its proposed
-  plan is at docs/prototypes/conditional-multi-dependency-nonpublication/plan.md
-  and awaits owner approval before any charter. D2 evaluation/ADR work stays
-  blocked. No production work, D1/D3 reopening, or role dispatch is authorized.
+- **➡️ NEXT ACTION: held Conditional Multi-Dependency Non-Publication charter.**
+  The owner approved the plan and incumbent charter, but expressly directed no
+  dispatch. The inactive charter is at
+  docs/prototypes/conditional-multi-dependency-nonpublication/charter-it1.md;
+  no rival or reviewer charter exists. D2 evaluation/ADR work stays blocked.
+  No production work, D1/D3 reopening, or role dispatch is authorized.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

@@ -2,10 +2,10 @@
 
 Audience: Agents
 
-Status: **draft — proposed to owner** (principal foreman, 2026-07-18).
-This topic is a D2 prerequisite. It was authorized by the owner only through
-its Gate-0/Gate-1 inventory; this plan needs approval before any charter,
-builder, reviewer, or implementation work.
+Status: **approved — held** (owner, 2026-07-18). This topic is a D2
+prerequisite. The owner also approved the first exact charter, but expressly
+directed no dispatch. Every other role remains unauthorized until separately
+released.
 
 ## Topic
 
