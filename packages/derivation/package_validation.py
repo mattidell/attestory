@@ -315,7 +315,7 @@ def validate_package(
             if pin_role != citizen["role"]:
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"package role {pin_role!r} != rule role {citizen['role']!r}"))
-        elif citizen["schema"] in {"parameter-declaration.v1", "quantity-vocabulary.v1", "role-canon.v1"}:
+        elif citizen["schema"] in {"parameter-declaration.v1", "quantity-vocabulary.v1", "quantity-vocabulary.v2", "role-canon.v1"}:
             if pin_role != "parameter":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"parameter declared as role {pin_role!r}"))
@@ -436,7 +436,7 @@ def validate_package(
     # 5. Quantity validations (ADR-0028 decision 7)
     quantity_vocabularies = {}
     for pin, citizen in resolved:
-        if citizen["schema"] == "quantity-vocabulary.v1":
+        if citizen["schema"] in {"quantity-vocabulary.v1", "quantity-vocabulary.v2"}:
             quantity_vocabularies[citizen["id"]] = citizen["quantities"]
 
     for ft_id, q_pin in fact_quantities.items():

@@ -51,6 +51,16 @@
       "version": "v1"
     },
     {
+      "checksum": "97e6322f987eff8e091a4a2b13da06b779d6fc67756fd0d4afc77337e29164c1",
+      "id": "tax.us.2025.closure-mapping.f1099div-1a",
+      "version": "v1"
+    },
+    {
+      "checksum": "6743488174066593de56dc58a9745f96131001cd9b677c09d5e64393e933b805",
+      "id": "tax.us.2025.closure-mapping.f1099div-1b",
+      "version": "v1"
+    },
+    {
       "checksum": "f2498ff8f084e1381dd74ca46adb9b5d4d9eb9ac3275cd1e1f3446fad9366e7e",
       "id": "tax.us.2025.closure-mapping.f1099int-b1",
       "version": "v1"
@@ -89,6 +99,21 @@
       "checksum": "9efe37e02ebc394f3260e902d16c6fd27465d515cb9f9f84e780c8df66c0a598",
       "id": "tax.us.2025.core_calculations.vocabulary",
       "version": "v2"
+    },
+    {
+      "checksum": "a552649664f304b65721083ac900eff01d79a2e49cc52d8ac7ca2a4c53bd9bbf",
+      "id": "tax.us.2025.f1099div.1a",
+      "version": "v1"
+    },
+    {
+      "checksum": "ea04d3bfd6d5690ea4aa8a26726f9ba7eb195b7549bb28dbf695780b955fcad3",
+      "id": "tax.us.2025.f1099div.1b",
+      "version": "v1"
+    },
+    {
+      "checksum": "3848643e9523b8bef915d979c0efe43df2ba0ece0636e87f64f3f5fe197fa3f2",
+      "id": "tax.us.2025.f1099div.vocabulary",
+      "version": "v1"
     },
     {
       "checksum": "8e02becfe49be8abb0dc57b3998996e7204b736999f17c0f9d0beb816f864c72",
@@ -173,6 +198,16 @@
     {
       "checksum": "cd1d5388cb41d14b6b3bfad2f58a57e9053239adc52e552b4a18dc413d900bb9",
       "id": "tax.us.2025.parameter.default-zero",
+      "version": "v1"
+    },
+    {
+      "checksum": "fde03742eccfe5550b2cd2b86008b71765480993f455291ccf00aaa06b5b2060",
+      "id": "tax.us.2025.quantity.ordinary-dividends",
+      "version": "v1"
+    },
+    {
+      "checksum": "c689a2fe6b7737b21f6ae9252fd3edf47ef88f1038140cc833ba4bb0b272123a",
+      "id": "tax.us.2025.quantity.qualified-dividends",
       "version": "v1"
     },
     {

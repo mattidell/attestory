@@ -1,0 +1,10 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099div.1b",
+  "version": "v1",
+  "title": "Form 1099-DIV box 1b statement items, tax year 2025",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "closure_claim": "Every qualified dividend amount reported in box 1b of a Form 1099-DIV furnished to the taxpayer for tax year 2025 is recorded as a statement item. This claim covers Form 1099-DIV box 1b only: it says nothing about box 1a, the recorded non-composable boxes (2a, 3, 5, 7, 12), dividends not reported on Form 1099-DIV, or qualified dividends in total (Form 1040 line 3a). This family closes independently of the box-1a family; its line may block while the other publishes.",
+  "member_predicate": { "fact_type": "tax.us.2025.f1099div.box1b-qualified" },
+  "authorizes_subtotal": "tax.us.2025.dividends.1b-subtotal"
+}

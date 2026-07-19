@@ -1,0 +1,91 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099div.vocabulary",
+  "version": "v1",
+  "label": "Form 1099-DIV boxes 1a/1b vocabulary for tax year 2025",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099div.box1a-ordinary",
+      "version": "v1",
+      "title": "Total ordinary dividends reported in box 1a of one logical Form 1099-DIV statement instance furnished by a payer for 2025; the statement instance is peer to evidence and its identity carries no file, upload, scan, document, or evidence key (ADR-0015, instantiated per ADR-0035 decision 1). Multiple originals from one payer - including several concerning one account - are distinct statement instances; a corrected copy of the same logical return answers this same fact and supersedes its prior finding.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.us.dividend-payer"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1099div-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "number"},
+      "supersession": {"policy": "free"},
+      "source_amount": true,
+      "quantity": {"id": "tax.us.2025.quantity.ordinary-dividends", "version": "v1"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099div.box1b-qualified",
+      "version": "v1",
+      "title": "Qualified dividends reported in box 1b of one logical Form 1099-DIV statement instance furnished by a payer for 2025, keyed to the same statement identity as box 1a (ADR-0035 decision 2). Box 1b is by definition a subset of box 1a on the same statement; the per-statement invariant 1b <= 1a is enforced at tax-layer admission (ADR-0035 decision 4), never by this value schema, which Draft 2020-12 cannot express cross-field.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.us.dividend-payer"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1099div-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "number"},
+      "supersession": {"policy": "free"},
+      "source_amount": true,
+      "quantity": {"id": "tax.us.2025.quantity.qualified-dividends", "version": "v1"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099div.1a.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the Form 1099-DIV box-1a source family for 2025, keyed on the family membership horizon current at attestation (ADR-0017): true asserts every furnished 1099-DIV box-1a statement item is recorded as of that horizon. This claim covers box 1a only - never box 1b, the recorded non-composable boxes, or Form 1040 line 3b (ADR-0016, ADR-0035 decision 2). A later membership transition displaces this closure through horizon succession; re-attestation on the successor horizon is required.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "family-horizon", "kind": "entity", "entity_kind": "kernel.family-horizon"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099div.1b.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the Form 1099-DIV box-1b source family for 2025, keyed on the family membership horizon current at attestation (ADR-0017): true asserts every furnished 1099-DIV box-1b statement item is recorded as of that horizon. This claim covers box 1b only - never box 1a, the recorded non-composable boxes, or Form 1040 line 3a (ADR-0016, ADR-0035 decision 2); the two per-box families close independently and their lines may block independently. A later membership transition displaces this closure through horizon succession; re-attestation on the successor horizon is required.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "family-horizon", "kind": "entity", "entity_kind": "kernel.family-horizon"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"type": "boolean"},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099div.recorded-boxes",
+      "version": "v1",
+      "title": "Recorded non-composable 1099-DIV box content for one logical statement instance (ADR-0035 decision 3): boxes 2a, 3, 5, 7, and 12 are recorded but never composed into any line. Each box carries either its reported number or explicit null as the declared absence of that box - absence is asserted, never assumed. Box 2a present is the named feed for the CAPITAL_GAIN_DISTRIBUTION_RECORDED return-level signal (raised by Track 2 behavior, not by this fact type); the other boxes are named-only recordings with no D2 linkage. No rule may collect this fact type (runtime universe guard).",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.us.dividend-payer"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1099div-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {
+        "type": "object",
+        "properties": {
+          "2a": {"type": ["number", "null"]},
+          "3": {"type": ["number", "null"]},
+          "5": {"type": ["number", "null"]},
+          "7": {"type": ["number", "null"]},
+          "12": {"type": ["number", "null"]}
+        },
+        "required": ["2a", "3", "5", "7", "12"],
+        "additionalProperties": false
+      },
+      "supersession": {"policy": "free"}
+    }
+  ]
+}
