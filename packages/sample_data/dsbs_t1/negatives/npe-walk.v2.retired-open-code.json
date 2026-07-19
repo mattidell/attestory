@@ -1,0 +1,1 @@
+{"schema":"npe-walk.v2","id":"demo.walk.unclosed","run_id":"demo.run.v3","workspace_revision":3,"root":{"node_id":"demo.node.root","node_kind":"blocked","symbol":"demo.alpha.subtotal","rule_references":[{"id":"demo.rule.unclosed","version":"v1"}],"code":"SOURCE_SET_OPEN","unmet_references":["demo.family.alpha"]}}

@@ -207,5 +207,212 @@ class AttachmentCitizenSurface(TrackOneRegistry):
         self.registry.validate_declared(load(NEGATIVES / "fact-type.v2.boolean-answer.json"))
 
 
+class ReconciledVocabularies(TrackOneRegistry):
+    """ADR-0036 production conditions 1 and 3: the versioned vocabulary change."""
+
+    def test_reconciled_record_and_walk_instances_validate(self) -> None:
+        for name in ("derivation-record.v3.json", "npe-walk.v2.json"):
+            with self.subTest(name=name):
+                self.registry.validate_declared(load(EXAMPLES / name))
+
+    def test_retired_open_code_is_rejected_by_the_reconciled_vocabularies(self) -> None:
+        for name in ("derivation-record.v3.retired-open-code.json", "npe-walk.v2.retired-open-code.json"):
+            with self.subTest(name=name):
+                with self.assertRaises(SchemaValidationError):
+                    self.registry.validate_declared(load(NEGATIVES / name))
+
+    def test_form_field_v3_carries_the_emitted_code_and_line_2b_v2_rides_it(self) -> None:
+        line_2b = load_form_fields()["tax.us.2025.form1040.line-2b"]
+        self.assertEqual(line_2b["schema"], "form-field.v3")
+        self.assertEqual(line_2b["version"], "v2")
+        codes = line_2b["dispositions"]["blocked"]["codes"]
+        self.assertIn("SOURCE_SET_UNCLOSED", codes)
+        self.assertNotIn("SOURCE_SET_OPEN", codes)
+
+    def test_the_runner_emission_is_the_reconciled_code(self) -> None:
+        from packages.derivation.evaluator import BLOCK_CLOSURE
+
+        self.assertEqual(BLOCK_CLOSURE, "SOURCE_SET_UNCLOSED")
+        record_enum = self.registry.get("derivation-record.v3")["$defs"]["disposition"]["properties"]["code"]["enum"]
+        walk_enum = self.registry.get("npe-walk.v2")["$defs"]["node"]["properties"]["code"]["enum"]
+        for enum in (record_enum, walk_enum):
+            self.assertIn(BLOCK_CLOSURE, enum)
+            self.assertIn("ITEMIZATION_TIE_OUT_VIOLATION", enum)
+            self.assertNotIn("SOURCE_SET_OPEN", enum)
+
+
+def _demo_fact_type(fact_id: str, value_schema: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema": "fact-type.v2",
+        "id": fact_id,
+        "version": "v1",
+        "title": f"Demo fact type {fact_id}",
+        "nature": "determinable",
+        "identity_keys": [{"name": "tax-year", "kind": "literal", "values": ["2025"]}],
+        "value_schema": value_schema,
+        "supersession": {"policy": "free"},
+    }
+
+
+def _demo_family() -> dict[str, Any]:
+    return {
+        "schema": "source-family.v1",
+        "id": "demo.family.alpha",
+        "version": "v1",
+        "title": "Demo alpha statement items",
+        "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "demo"},
+        "closure_claim": "Every demo alpha statement item is recorded.",
+        "member_predicate": {"fact_type": "demo.fact.alpha-item"},
+        "authorizes_subtotal": "demo.alpha.subtotal",
+    }
+
+
+def _demo_collect_rule(*, name: str = "demo.fact.alpha-item", source_set: str = "demo.family.alpha",
+                       value: dict[str, Any] | None = None) -> dict[str, Any]:
+    return {
+        "schema": "rule-artifact.v2",
+        "id": "demo.rule.alpha-subtotal",
+        "version": "v1",
+        "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "demo"},
+        "role": "computation",
+        "requires": [],
+        "pins": [],
+        "when": True,
+        "value": value if value is not None else {
+            "op": "add",
+            "args": [{"op": "collect", "name": name, "source_set": source_set}],
+        },
+        "publishes": "demo.alpha.subtotal",
+        "blocked": {"code": "OPEN_DEPENDENCY", "missing": []},
+    }
+
+
+def _demo_universe() -> dict[str, Any]:
+    universe = load(EXAMPLES / "dividend-universe.v1.json")
+    universe["scope"] = {"tax_year": 2025, "jurisdiction": "US-federal", "family": "demo"}
+    return universe
+
+
+def _demo_attachment() -> dict[str, Any]:
+    return load(EXAMPLES / "attachment-rule.v1.json")
+
+
+class AdmissionGuards(unittest.TestCase):
+    """ADR-0035 runtime universe guard and ADR-0036 presence-encoding guard."""
+
+    def setUp(self) -> None:
+        from packages.derivation.loader import DerivationSchemas
+
+        self.schemas = DerivationSchemas()
+
+    def _members(self) -> list[dict[str, Any]]:
+        return [
+            _demo_fact_type("demo.fact.alpha-item", {"type": "number"}),
+            _demo_fact_type("demo.fact.answer-first", {"enum": ["yes", "no"]}),
+            _demo_fact_type("demo.fact.answer-second", {"enum": ["yes", "no"]}),
+            _demo_fact_type("demo.fact.answer-first-detail", {"enum": ["demo-country-a", "demo-country-b"]}),
+            _demo_family(),
+            _demo_collect_rule(),
+            _demo_universe(),
+            _demo_attachment(),
+        ]
+
+    def _package(self, members: list[dict[str, Any]]) -> dict[str, Any]:
+        roles = {
+            "fact-type.v2": "fact-type",
+            "source-family.v1": "source-family",
+            "rule-artifact.v2": "computation",
+            "dividend-universe.v1": "dividend-universe",
+            "attachment-rule.v1": "attachment-rule",
+        }
+        return {
+            "schema": "artifact-package.v4",
+            "id": "demo.package.dsbs-guards",
+            "version": "v1",
+            "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "demo"},
+            "admitted_schemas": sorted({m["schema"] for m in members}),
+            "members": [
+                {"role": roles[m["schema"]], "schema": m["schema"], "id": m["id"], "version": m["version"]}
+                for m in members
+            ],
+            "input_bindings": [],
+            "entrypoints": [{"id": m["id"], "version": m["version"]} for m in members],
+            "composition_obligations": [],
+            "package_checksum": "0" * 64,
+        }
+
+    def _validate(self, members: list[dict[str, Any]]) -> Any:
+        from packages.derivation.package_validation import validate_package
+
+        corpus = {(m["id"], m["version"]): m for m in members}
+        return validate_package(self._package(members), corpus, self.schemas)
+
+    def _codes(self, result: Any) -> set[str]:
+        return {issue.code for issue in result.issues}
+
+    def test_conforming_package_is_admitted_by_both_guards(self) -> None:
+        result = self._validate(self._members())
+        self.assertTrue(result.ok, msg=str(result.issues))
+
+    def test_collect_against_an_undeclared_source_set_is_rejected(self) -> None:
+        members = [m for m in self._members() if m["schema"] != "source-family.v1"]
+        result = self._validate(members)
+        self.assertIn("COLLECT_TARGET_NOT_FAMILY", self._codes(result))
+
+    def test_collect_of_a_non_member_fact_type_is_rejected(self) -> None:
+        members = self._members()
+        members = [
+            _demo_collect_rule(name="demo.fact.answer-first") if m["schema"] == "rule-artifact.v2" else m
+            for m in members
+        ]
+        result = self._validate(members)
+        self.assertIn("COLLECT_TARGET_NOT_FAMILY", self._codes(result))
+
+    def test_rule_consuming_recorded_non_composable_content_is_rejected(self) -> None:
+        members = self._members()
+        recorded_id = _demo_universe()["recorded_boxes_fact_type"]["id"]
+        ref_rule = _demo_collect_rule(value={
+            "op": "add",
+            "args": [
+                {"op": "collect", "name": "demo.fact.alpha-item", "source_set": "demo.family.alpha"},
+                {"op": "ref", "name": recorded_id},
+            ],
+        })
+        members = [ref_rule if m["schema"] == "rule-artifact.v2" else m for m in members]
+        result = self._validate(members)
+        self.assertIn("RECORDED_NON_COMPOSABLE_INPUT", self._codes(result))
+
+    def test_boolean_part_iii_answer_fact_type_is_rejected(self) -> None:
+        members = self._members()
+        boolean_answer = load(NEGATIVES / "fact-type.v2.boolean-answer.json")
+        members = [boolean_answer if m["id"] == "demo.fact.answer-first" else m for m in members]
+        result = self._validate(members)
+        self.assertIn("ATTACHMENT_ANSWER_NOT_CATEGORICAL", self._codes(result))
+
+    def test_otherwise_falsy_categorical_answer_domain_is_rejected(self) -> None:
+        members = self._members()
+        falsy = _demo_fact_type("demo.fact.answer-first", {"enum": ["yes", ""]})
+        members = [falsy if m["id"] == "demo.fact.answer-first" else m for m in members]
+        result = self._validate(members)
+        self.assertIn("ATTACHMENT_ANSWER_NOT_CATEGORICAL", self._codes(result))
+
+    def test_answer_fact_type_missing_from_the_fact_surface_is_rejected(self) -> None:
+        members = [m for m in self._members() if m["id"] != "demo.fact.answer-second"]
+        result = self._validate(members)
+        self.assertIn("ATTACHMENT_ANSWER_FACT_TYPE_ABSENT", self._codes(result))
+
+    def test_published_pre_adr_0035_package_generations_stay_exempt(self) -> None:
+        # The collect-target half binds artifact-package.v3 onward; the
+        # committed v1/v2 instances keep their recorded issue surfaces.
+        from packages.derivation.package_validation import validate_package
+
+        members = [m for m in self._members() if m["schema"] in {"fact-type.v2", "rule-artifact.v2"}]
+        package = self._package(members)
+        package["schema"] = "artifact-package.v2"
+        corpus = {(m["id"], m["version"]): m for m in members}
+        result = validate_package(package, corpus, self.schemas)
+        self.assertNotIn("COLLECT_TARGET_NOT_FAMILY", self._codes(result))
+
+
 if __name__ == "__main__":
     unittest.main()
