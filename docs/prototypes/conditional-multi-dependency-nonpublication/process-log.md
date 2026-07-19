@@ -48,3 +48,6 @@
   The foreman wrote evaluation-analysis.md, proposed ADR-0037, and its
   plain-language companion. This is drafting only; ratification, production
   work, and D2 adoption remain unapproved.
+- Owner ratified ADR-0037. The accepted contract is ready for its per-ADR pull
+  request and owner merge; production implementation and D2 adoption remain
+  separately unauthorized.

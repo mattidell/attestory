@@ -1,7 +1,7 @@
 # Plain-Language Analysis — Conditional Multi-Dependency Non-Publication
 
 Companion to [ADR-0037](../0037-conditional-multi-dependency-nonpublication.md).
-The ADR is the normative record; this document explains the proposed decision.
+The ADR is the normative record; this document explains the accepted decision.
 
 ## What changes
 
@@ -37,4 +37,4 @@ language rather than inventing form-specific exceptions.
 ## What it does not do
 
 It does not implement the schema or evaluator behavior, change tax arithmetic,
-accept personal data, or ratify the ADR. Those steps remain separate.
+or accept personal data. Those steps remain separate.

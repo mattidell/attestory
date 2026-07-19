@@ -1,7 +1,6 @@
 # ADR 0037 — Conditional Multi-Dependency Non-Publication
 
-- Status: **proposed** (owner accepted prototype candidate for ADR drafting,
-  2026-07-18; ratification pending)
+- Status: **accepted** (owner ratification 2026-07-18)
 - Tier: 2
 - Date: 2026-07-18
 - Plain-language companion:
