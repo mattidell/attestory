@@ -1,10 +1,10 @@
 # Charter: Iteration 2 — Conditional Multi-Dependency Non-Publication (Clean-Room Rival)
 
-Status: **owner-approved, held — no seat assigned or dispatched**
+Status: **complete — external clean-room rival build landed**
 
 Date: 2026-07-18. This is the required clean-room rival under the approved
-Conditional Multi-Dependency Non-Publication plan. It becomes executable only
-on a later immediate owner release of this exact current charter.
+Conditional Multi-Dependency Non-Publication plan. The owner supplied the
+external rival build with its two required documents; this charter is complete.
 
 - **Proposed role:** clean-room rival builder, High tier, independent context.
 - **Proposed working location:** docs/prototypes/conditional-multi-dependency-nonpublication/it2/.

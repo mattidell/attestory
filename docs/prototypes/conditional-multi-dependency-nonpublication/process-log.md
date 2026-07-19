@@ -25,3 +25,9 @@
   before committee review or any decision conclusion.
 - Owner authorized the clean-room rival charter. The exact sealed charter is
   held at charter-it2.md; no rival seat is assigned or dispatched.
+- The owner supplied the external clean-room rival build. It landed only
+  it2/design.md and examination-it2.md, the two chartered outputs; no internal
+  seat was dispatched and no production artifact appeared. Its declared
+  conditional_requires artifact-block alternative differs from the incumbent’s
+  evaluator-node proposal. Both required rival shapes now exist; committee
+  review remains owner-gated.
