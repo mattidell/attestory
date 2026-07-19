@@ -101,3 +101,14 @@
   Rung-1 paper design. **Next step, not yet authorized:** a fresh,
   narrowly-scoped confirmation pass re-measuring only what Repair 2
   changed, per the charter's own "After this repair" section.
+- Foreman prepared `charter-confirmation-r2.md`, mirroring
+  `charter-confirmation-r1.md`'s pattern: eight measurements scoped
+  strictly to what Repair 2 changed (the repaired both-absent case, the
+  single-absent case, the re-grounded reduction property, present-`"yes"`
+  structural distinctness, unaffected declared-zero publish/displacement,
+  unaffected D2-P1/D2-P3, the reported `rule-artifact.v3` collateral
+  finding, and a spot-check that the design's HEAD citations are still
+  accurate). Confirmation R1's five passing measurements are declared
+  standing, not re-measured from scratch. Per standing practice, this
+  charter is **prepared and inactive**: no reviewer seat is assigned or
+  dispatched without a separate, explicit owner release under ADR-0034.
