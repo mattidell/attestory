@@ -51,3 +51,23 @@
   inventory for the generic conditional multi-dependency non-publication
   substrate. D2’s two-declaration walk is again a prerequisite. No topic plan,
   charter, implementation, or dispatch was authorized.
+
+## 2026-07-19
+
+- The separately-routed substrate reached full ratification and production:
+  ADR-0037 (`conditional_dependency_set`) accepted, and its production
+  Track 0a landed on `main` (`6f303fe`, PR #30) after a full independent
+  review chain (not-ready F1–F4 → foreman repair → ready). D2 adoption is
+  therefore unblocked, but D2's own prototype had no activity queued against
+  it — the foreman found this on resuming as foreman after the milestone's
+  Track 2 merge and confirmed no D2 ADR exists and no file under this
+  directory has changed since `f16cd91`.
+- Foreman prepared `charter-repair2.md`, a bounded one-finding patch charter
+  scoped only to Confirmation R1's decision-blocking measurement 3 (the
+  qualified-positive, both-declarations-absent missing-declaration walk),
+  now resolvable via the ratified `conditional_dependency_set` node. It
+  explicitly preserves every other Repair 1 outcome (D2-P1, D2-P3, and the
+  rest of D2-P2) unchanged and does not reopen a fresh D2 round. Per the
+  standing pattern, this charter is **prepared and inactive**: no builder
+  seat is assigned or dispatched without a separate, explicit owner release
+  under ADR-0034.
