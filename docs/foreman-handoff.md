@@ -300,15 +300,25 @@ against git, trust git and say so.
     here is live production content for the D2 worksheet itself — only
     the generic `conditional_dependency_set` substrate is committed and
     reviewed; the worksheet's *use* of it is still a Rung-1 paper design.
-  - **➡️ NEXT ACTION, not yet authorized:** a fresh, narrowly-scoped
-    confirmation pass re-measuring only what Repair 2 changed (mirroring
-    `charter-confirmation-r1.md`'s pattern) — not evaluation analysis or
-    ADR drafting, which no charter here authorizes. Only after a confirmed
-    design does ADR drafting/ratification become eligible, and only after
+  - **Confirmation R2 charter drafted (`8685ba5`), prepared and inactive:**
+    `docs/prototypes/qdcg-worksheet/charter-confirmation-r2.md`. Mirrors
+    `charter-confirmation-r1.md`'s pattern: eight measurements scoped
+    strictly to what Repair 2 changed — the repaired both-absent case, the
+    single-absent case, the re-grounded reduction property, present-`"yes"`
+    structural distinctness, unaffected declared-zero publish/displacement,
+    unaffected D2-P1/D2-P3, the reported `rule-artifact.v3` collateral
+    finding, and a spot-check that the design's HEAD citations remain
+    accurate. Confirmation R1's five passing measurements are declared
+    standing, not re-measured. Proposed role: confirmation reviewer, Medium
+    tier, fresh independent context (no access to the Repair 2 builder's
+    session, the foreman's verification pass, or R1's reviewer).
+  - **➡️ NEXT ACTION, not yet authorized:** owner release of the
+    Confirmation R2 reviewer seat under ADR-0034. Only after a `confirmed`
+    result does ADR drafting/ratification become eligible, and only after
     ratification can Track 3 charter as a production build — the same
     sequence D3/D1 (ADR-0035/0036) already went through this milestone.
-  - **Foreman is not proceeding to charter or dispatch a confirmation pass
-    for D2 without explicit owner direction** — this remains a Tier 2/3
+  - **Foreman is not proceeding to dispatch the confirmation pass for D2
+    without explicit owner direction** — this remains a Tier 2/3
     rung.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
