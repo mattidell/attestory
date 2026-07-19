@@ -138,6 +138,82 @@ def apply_evidence_replaced(
     return replace(state, evidence=lifecycles)
 
 
+def _current_value_for_fact(state: FindingState, fact_id: str) -> Any:
+    """The current value answering one fact, or a sentinel if none is current.
+
+    Mirrors ``currency.py``'s correction rule (the last-inserted finding for
+    a fact id wins) without pulling in the full displacement-closure
+    machinery; a withdrawn fact has no current value either.
+    """
+    if fact_id in state.withdrawn_fact_ids:
+        return _NO_CURRENT_VALUE
+    value: Any = _NO_CURRENT_VALUE
+    for existing in state.findings.values():
+        if existing["fact_id"] == fact_id:
+            value = existing["value"]
+    return value
+
+
+_NO_CURRENT_VALUE = object()
+
+
+def _enforce_subset_invariants(
+    state: FindingState, registry: SchemaRegistry, touched_fact_ids: tuple[str, ...]
+) -> None:
+    """Enforce every domain-declared subset invariant a touched fact reaches.
+
+    A subset invariant pairs a subordinate fact type to a dominant one
+    (``registry.subset_invariant_pairs``, e.g. ADR-0035 decision 4: 1099-DIV
+    box 1b <= box 1a for the same statement). Both facts share every
+    identity-key binding but the fact type id, so the fact id's key suffix
+    (everything after the first ``|``) names "the same statement" without
+    any domain knowledge here. Enforcement runs against the fully-updated
+    successor state so it sees the touched act's own change plus every
+    prior admission in the same fold - including same-batch ordering: a
+    dominant fact admitted after its subordinate in one contribution batch
+    is already recorded by the time the subordinate's check (or a later
+    re-check triggered by the dominant admission) runs, because each act
+    folds sequentially and this check runs on the resulting state, not a
+    stale snapshot. A violating pair is never recorded: this function
+    raises before the caller ever observes the successor state.
+    """
+    pairs = getattr(registry, "subset_invariant_pairs", None)
+    if not pairs:
+        return
+    reverse_pairs = {dominant: subordinate for subordinate, dominant in pairs.items()}
+    checked: set[tuple[str, str]] = set()
+    for fact_id in touched_fact_ids:
+        if "|" not in fact_id:
+            continue
+        fact_type_id, suffix = fact_id.split("|", 1)
+        subordinate_type = fact_type_id if fact_type_id in pairs else reverse_pairs.get(fact_type_id)
+        if subordinate_type is None:
+            continue
+        dominant_type = pairs[subordinate_type]
+        key = (subordinate_type, suffix)
+        if key in checked:
+            continue
+        checked.add(key)
+        subordinate_id = f"{subordinate_type}|{suffix}"
+        dominant_id = f"{dominant_type}|{suffix}"
+        subordinate_value = _current_value_for_fact(state, subordinate_id)
+        if subordinate_value is _NO_CURRENT_VALUE:
+            continue
+        dominant_value = _current_value_for_fact(state, dominant_id)
+        if dominant_value is _NO_CURRENT_VALUE:
+            raise FindingModelError(
+                f"subset invariant violated: {subordinate_id} is current "
+                f"({subordinate_value!r}) but {dominant_id} has no current value; "
+                f"rejected, not recorded"
+            )
+        if subordinate_value > dominant_value:
+            raise FindingModelError(
+                f"subset invariant violated: current value of {subordinate_id} "
+                f"({subordinate_value!r}) exceeds current value of {dominant_id} "
+                f"({dominant_value!r}); rejected, not recorded"
+            )
+
+
 def _validate_finding(
     state: FindingState, finding: dict[str, Any], registry: SchemaRegistry
 ) -> None:
@@ -261,7 +337,9 @@ def apply_assertion(
 
     findings = dict(state.findings)
     findings[finding["id"]] = finding
-    return replace(state, findings=findings)
+    new_state = replace(state, findings=findings)
+    _enforce_subset_invariants(new_state, registry, (finding["fact_id"],))
+    return new_state
 
 
 def apply_contribution(
@@ -362,6 +440,7 @@ def apply_member_transition(
     member = payload["member"]
     findings = dict(state.findings)
     withdrawn = state.withdrawn_fact_ids
+    touched_fact_ids: list[str] = []
     if member["action"] in ("assert", "reclassify"):
         finding = member["finding"]
         _validate_finding(state, finding, registry)
@@ -380,8 +459,10 @@ def apply_member_transition(
             )
 
         findings[finding["id"]] = finding
+        touched_fact_ids.append(fact_id)
     if member["action"] in ("remove", "reclassify"):
         withdrawn = _withdraw_member_fact(state, member["fact_id"])
+        touched_fact_ids.append(member["fact_id"])
 
     entities = dict(state.fact_state.entities)
     predecessor_lifecycle = entities.get(predecessor_id)
@@ -397,13 +478,15 @@ def apply_member_transition(
         successor_id=payload["successor"]["id"],
     )
 
-    return replace(
+    new_state = replace(
         state,
         horizon_state=horizon_state,
         findings=findings,
         withdrawn_fact_ids=withdrawn,
         fact_state=replace(state.fact_state, entities=entities),
     )
+    _enforce_subset_invariants(new_state, registry, tuple(touched_fact_ids))
+    return new_state
 
 
 _APPLIERS = {

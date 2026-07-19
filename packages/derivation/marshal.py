@@ -50,6 +50,25 @@ class MarshalledRunContext:
         return self._seal is _MARSHAL_SEAL
 
 
+def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
+    """Every symbol a rule's own eligibility/completeness surface names.
+
+    Ordinary rule-artifact schemas declare `requires` directly. An
+    attachment-rule.v1 citizen (ADR-0036) has no such field - its analogous
+    symbol surface is its requirement conditional's subtotals plus every
+    completeness answer symbol, base and branch-triggered alike.
+    """
+    if rule.get("schema") == "attachment-rule.v1":
+        symbols = list(rule["requirement"]["subtotals"])
+        completeness = rule["completeness"]
+        symbols.extend(a["symbol"] for a in completeness["required_answers"])
+        for branch in completeness.get("branch_requirements", []):
+            symbols.append(branch["when_answer"]["symbol"])
+            symbols.extend(a["symbol"] for a in branch.get("adds_required", []))
+        return symbols
+    return list(rule.get("requires", []))
+
+
 def _fact_keys(fact_id: str) -> dict[str, str]:
     """Parse the canonical fact id rendering: ``type|name=value,...``."""
     _, _, bound = fact_id.partition("|")
@@ -208,8 +227,13 @@ def marshal_run_context(
             continue
         # Only surface as input when some rule requires this type id as a
         # symbol — keeps marshalling from flooding the context with noise.
+        # An attachment-rule.v1 citizen has no `requires` field; its own
+        # analogous symbol surface is requirement.subtotals plus every
+        # completeness answer symbol (base and branch-triggered) - the
+        # legacy-path fallback must see those too, or a live Part III
+        # answer assertion would never reach the run at all.
         required_by_rules = any(
-            type_id in rule.get("requires", []) for rule in rules
+            type_id in _rule_required_symbols(rule) for rule in rules
         )
         if not required_by_rules:
             continue

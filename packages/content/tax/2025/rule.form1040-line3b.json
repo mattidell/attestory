@@ -1,0 +1,30 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-line3b",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "role": "computation",
+  "requires": ["tax.us.2025.dividends.1a-subtotal"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.dividends.1a-subtotal", "version": "v1", "origin": "assertion" }
+  ],
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.f1099div.1a"
+  },
+  "value": {
+    "op": "ref",
+    "name": "tax.us.2025.dividends.1a-subtotal"
+  },
+  "publishes": "tax.us.2025.dividends.ordinary-total",
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": ["tax.us.2025.dividends.1a-subtotal"]
+  },
+  "notes": "Form 1040 Line 3b: total ordinary dividends. Composes from box 1a over the closed tax.us.2025.f1099div.1a family only (ADR-0035 decisions 1-2, per-box closure independence): closed-empty publishes an honest zero, undeclared or open blocks this line independently of line 3a's box-1b family."
+}

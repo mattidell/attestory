@@ -50,7 +50,15 @@ def _resolved_run_material(graph: Any) -> tuple[
 ]:
     """Derive runner material solely from the resolver's exclusive graph."""
     members = list(graph.resolved_members)
-    rules = [member for member in members if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3"}]
+    # ADR-0036: an attachment citizen is interpreted directly from its
+    # declarative requirement/itemizations/completeness structure (by
+    # `_Run.attempt_attachment`, not `evaluate()`) but shares the same
+    # saturation loop and ledger as every rule-artifact schema, so it
+    # belongs in the same `rules` material the runner saturates over.
+    rules = [
+        member for member in members
+        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "attachment-rule.v1"}
+    ]
     parameters = {member["id"]: member for member in members if member.get("schema") == "parameter-declaration.v1"}
     families = [member for member in members if member.get("schema") == "source-family.v1"]
     mappings = [member for member in members if member.get("schema") == "source-closure-mapping.v2"]

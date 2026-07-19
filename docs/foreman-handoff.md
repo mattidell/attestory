@@ -17,7 +17,7 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-19; Track 1 reviewed ready, PR #31 open)
+## Current state (updated 2026-07-19; Track 2 reviewed ready, PR #32 open)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
@@ -52,13 +52,196 @@ against git, trust git and say so.
   Foreman triage: no repair needed. Full battery re-run fresh by the
   reviewer in its own worktree: 477 tests OK, mypy clean, governance lint
   conformant, envelope scan clean.
-- **➡️ NEXT ACTION: owner merges PR #31**
-  (https://github.com/mattidell/attestory/pull/31,
-  `track/dsbs-t1-schema-citizens` → `main`). Foreman does not merge
-  autonomously (ADR-0030). After merge: Track 2 (composition and
-  conditional machinery) — its charter must name the authoritative-surface
-  (coordinator-from-facts) golden class, and owes ADR-0035's same-batch
-  admission-ordering kill-test.
+- **Track 1 MERGED** — PR #31, `a870a2f` on `main`.
+- **Track 2 scope confirmed by owner** (proceed with the full-machinery
+  reading); charter:
+  `docs/reviews/charter-2026-07-19-dsbs-t2-composition-conditional-machinery.md`
+  on `track/dsbs-t2-composition-conditional-machinery` (`1739737`).
+- **Build IN FLIGHT.** First builder dispatch was interrupted mid-task by an
+  API session-limit error (not a real failure) after landing one clean
+  commit and leaving a second deliverable's work uncommitted. Foreman
+  (this session) reconciled directly: found the uncommitted work
+  substantially complete and correct, fixed one genuinely wrong test
+  expectation and one mypy `self.run = run` `TestCase.run`-shadowing bug,
+  reverified the full battery, and committed a clean checkpoint. **Landed
+  on the branch:**
+  - `6312cc4` — **deliverables 1 AND 2** (charter listed them separately;
+    the builder correctly recognized one generic kernel hook covers both):
+    the ADR-0035 1b≤1a admission-time subset invariant
+    (`packages/kernel/findings.py`, a new `registry.subset_invariant_pairs`
+    hook in the same fold every admission path already uses — `project()`,
+    `apply_contribution_batch`, the live coordinator — so it is
+    domain-agnostic kernel machinery, not tax-specific code) with full
+    rejection-semantics tests and the same-batch ordering kill-tests
+    (`tests/tax/test_dsbs_t2_dividend_admission.py`, 9 tests covering both
+    orderings within one batch). 486 tests green at that commit.
+  - `2ed1c9c` — **deliverables 3 and 4**: box-1a/1b subtotal rules, lines
+    3a/3b with per-box closure independence, line-9 v2 folding in 3b,
+    shipped as `tax.us.2025.package.core-calculations` v4 (distinct
+    synthetic scope, year 2053, so v3 stays independently exercisable).
+    Goldens in `tests/test_dsbs_t2_coordinator.py` enter through
+    `live_coordinate_run` per the charter's mandatory shape. One test fix
+    worth knowing for the next builder: **when a composing line's
+    `requires` names a subtotal symbol that itself blocked on an unclosed
+    family, the composing line reports `DEPENDENCY_ABSENT` (its own `when`
+    never runs — `requires` gates evaluation first, `runner.py:310`), and
+    the subtotal rule itself reports `SOURCE_SET_UNCLOSED`** — verified
+    against the already-committed `unclosed_interest_composition` golden
+    for line 2b, the exact same two-tier pattern. Don't assume the
+    composing line carries the closure code directly; check the committed
+    goldens before asserting a block code. 493 tests green at this commit,
+    mypy clean, governance lint conformant, envelope scan clean.
+- **Deliverables 5–8 (the complete Schedule B attachment) LANDED** —
+  `2a10f60`, all in one commit because one execution mechanism serves
+  every deliverable: `attachment-rule.v1` citizens carry no `when`/`value`
+  expression tree (ADR-0036), so they can't run through the ordinary
+  saturation `attempt()` path at all. `packages/derivation/runner.py`
+  gains `_Run.attempt_attachment`, a dedicated interpreter for the
+  citizen's declarative `requirement`/`itemizations`/`completeness`
+  structure, dispatched from the same saturation loop every rule-artifact
+  schema already uses (`is_eligible`/`_execute`/`finalize_unreached` all
+  branch on `rule.get("schema") == "attachment-rule.v1"`).
+  - **5 (existence conditional):** any-of-subtotals strictly-greater-than
+    the cited $1,500 threshold, per-trigger outcome computed (walkable via
+    pins — the disposition record schema is closed, `additionalProperties:
+    false`, so "per-trigger outcome" is reconstructible by walking the
+    pinned subtotal findings against the pinned threshold parameter, not
+    embedded as a free field). Not-required reuses the ordinary
+    `inapplicable`/`guard_result: false` disposition every rule already
+    emits — no new disposition shape needed. New committed test
+    (`AttachmentCannotPropagateToALine`) asserts no sibling line rule
+    (2b/3a/3b/9) names the attachment symbol anywhere in content.
+  - **6 (`collect_members`):** interpreted directly in
+    `attempt_attachment`, not as a new `evaluate()` op — it reads
+    `self.sources`/`self.source_fids` (the same collectible-fact tables
+    `collect` already populates) keyed by `member_fact_type.id`, and pins
+    every row's member finding. Row shape (`finding_id` + `value`) lives
+    only in the runner's internal value construction, never in the closed
+    generic `attachment-rule.v1` schema. **Scope-bounded simplification,
+    stated honestly, not hidden:** Schedule B Part I ties to the box-1
+    (1099-INT) family only — the *only* interest family this milestone's
+    fixtures (both T2's and T1's) ever populate; a full build would need
+    one itemization block per interest source family (b1/b3/oid/non-form)
+    tying to the same composed line. Part II ties 1:1 to box-1a
+    (1099-DIV), no simplification needed there.
+  - **7 (tie-out):** row-sum vs. the named line's *current* value, checked
+    only once completeness holds; mismatch hard-fails the attachment only
+    (`ITEMIZATION_TIE_OUT_VIOLATION`, the exact Track-1 vocabulary, no new
+    code) and never touches the line (the line is a separate rule the
+    attachment only reads). Both named kill-tests
+    (`TieOutInvariant.test_stale_row_set_...`,
+    `test_stale_line_...`) are `RunContext`-level, per the charter's
+    explicit allowance — a correctly-computed live run can never disagree
+    with itself, so the defect isn't expressible through an honest act
+    log.
+  - **8 (Part III completeness):** two new taxpayer-assertion fact types
+    (`tax.us.2025.scheduleb.foreign-account`, `...foreign-trust`) plus the
+    branch-only `...7b-country`, all in a new `scheduleb.bundle.json`
+    (bundle.v2 — a bare top-level `fact-type.v2` member is legal for
+    *package*-level validation but the live *kernel* fact registry only
+    admits fact types reached via bundle-adoption, so a bare member alone
+    would silently reject every live assertion referencing it — caught by
+    a `FindingModelError: finding references unknown fact` failure while
+    building this). Presence is checked independently per required answer
+    before any value is read (three separate goldens: account-absent-
+    alone, trust-absent-alone, both-absent, each naming exactly its own
+    missing symbol(s) — never masking). `foreign-account: yes` adds the
+    7b-country requirement and names `FINCEN_114_NAMED` as a walkable
+    obligation fact (label text only, no form/field/filing key anywhere in
+    the published value — verified by string-absence assertion). ADR-0036
+    ratifies no obligation for `foreign-trust: yes`, so no
+    `branch_requirements` entry names one — documented in the rule
+    citizen's own `title`, not invented.
+  - **Wiring repairs the live path needed** (none of these reopen a
+    ratified decision, all additive): `packages/derivation/live.py`'s rule
+    filter excluded `attachment-rule.v1` from `ctx.rules` entirely (fixed:
+    added to the schema set at line ~53); `packages/derivation/marshal.py`'s
+    legacy single-value input fallback only recognized ordinary
+    rule-artifact `requires` lists to decide whether an unbound current
+    finding should surface as a symbol, so a live Part III answer
+    assertion could never reach a run at all — fixed with a new
+    `_rule_required_symbols` helper that also understands an attachment
+    citizen's own `requirement.subtotals` +
+    `completeness.required_answers`/`branch_requirements` symbol surface.
+  - **Package validation's reachability walker** (`package_validation.py`
+    §8, the `MEMBER_UNREACHABLE` check) has no adjacency case for
+    `attachment-rule.v1`'s structure, so every new v5 citizen (the
+    attachment rule, its citation, its threshold parameter, the new
+    bundle) is listed directly in the package's `entrypoints` — the same
+    sanctioned pattern v4 already used for `dividend-universe.v1`. This is
+    a legitimate, precedented mechanism, not a workaround; extending the
+    walker itself to understand attachment structure natively would be a
+    reasonable cheap follow-up but is not a charter deliverable.
+  - Shipped as `tax.us.2025.package.core-calculations` v5
+    (`tools/generate_dsbs_t2_schedule_b_content.py`) at scope year 2054 —
+    distinct from v4's 2053, v3's 2052, etc., so every prior version stays
+    independently exercisable. Adoption fixture:
+    `packages/sample_data/frrs_t3/adoptions/adopt-core-v5-current.json`.
+  - **16 new tests** in `tests/test_dsbs_t2_schedule_b.py`. All six of the
+    charter's named golden classes now exist and are green: 3a/3b
+    publication and line-9 (already landed at 2ed1c9c, unchanged), Schedule
+    B not-required (`NotRequired`, 3 tests), required-and-complete whole
+    form (`RequiredAndComplete`, 2 tests — Part I/II itemizations tying to
+    2b/3b, Part III both answers present, one `no`/`no` case and one `yes`
+    branch case), required-and-incomplete (`RequiredAndIncomplete`, 4
+    tests — each answer absent alone, both absent together, and the
+    branch-triggered 7b-country absence), and the same-batch ordering +
+    tie-out kill-tests (already landed at 6312cc4 for ordering; tie-out
+    kill-tests new here). Every golden test that is one of the six named
+    classes enters through `live_coordinate_run` from an authoritative act
+    log — confirmed by grep, not assumption: `RunContext(` appears only in
+    the two explicitly-marked supplementary classes (`TieOutInvariant`,
+    `WholeFormValueContent`), both docstring-labeled non-substitutive.
+  - Full battery green at this commit: **509 tests, mypy clean (99
+    files), governance lint conformant, envelope scan clean**
+    (`--range main..HEAD`).
+- **Independent pre-merge review returned NOT READY** (`0541875`,
+  `docs/reviews/2026-07-19-dsbs-t2-composition-conditional-machinery-review.md`,
+  dispatched as a background sub-agent under
+  `docs/reviews/charter-2026-07-19-dsbs-t2-composition-conditional-machinery-review.md`).
+  Eight of nine checks passed on direct re-derivation. **F1 (blocking,
+  confirmed independently by the foreman before repair):** Schedule B's
+  Part I itemization `collect_members`s the box-1/1099-INT family only
+  (as documented), but its `tie_out.line_symbol` named
+  `tax.us.2025.interest.taxable-total` — line 2b's *four*-family sum — not
+  `tax.us.2025.interest.b1-subtotal`, the box-1-only figure the itemization
+  rows actually cover. Any filer with concurrent box-1 and box-3/OID/
+  non-form interest would have spuriously hard-failed with
+  `ITEMIZATION_TIE_OUT_VIOLATION` despite correct computation — invisible
+  in the suite because every Track 2 fixture held non-box-1 interest at a
+  closure-backed zero. This was Track 2's own chartered tie-out mechanism
+  (deliverable 7) comparing the wrong two things, not a boundary or
+  documentation gap.
+- **F1 repaired** (`854c71a`): retargeted the tie-out symbol to
+  `tax.us.2025.interest.b1-subtotal`, regenerated the derived registry/
+  release checksums, added a new `live_coordinate_run` regression golden
+  (`PartIInterestTieOutWithConcurrentNonBox1Interest`, concurrent box-1 +
+  box-3 interest publishes cleanly), and fixed two supplementary
+  `RunContext`-level test classes that needed the newly-required
+  `b1-subtotal` input alongside the pre-existing `taxable-total` input. No
+  runner/evaluator code changed — the tie-out mechanism itself was already
+  correct; the content told it to compare the wrong symbol. Full battery
+  re-verified by the foreman: 510 tests, mypy clean, governance lint
+  conformant, envelope scan clean.
+- **Independent delta re-review returned READY** (`76698cc`,
+  `docs/reviews/2026-07-19-dsbs-t2-delta-rereview.md`). All seven delta
+  checks (R1–R7) pass: F1 discharged by the narrower of the two options
+  the original review named acceptable (retarget the tie-out symbol, not
+  widen the itemization); dividend-side tie-out untouched; the new
+  regression golden constructs a genuinely non-degenerate divergence
+  (line 2b = 450 vs. box-1 subtotal = 300) and enters through
+  `live_coordinate_run`; the two supplementary `RunContext` classes were
+  correctly (not just plausibly) extended; collateral scope is exactly the
+  claimed 14 files (one content line, a pure checksum cascade, one test
+  file — no runner/evaluator/schema touched); full battery re-run clean.
+  Foreman re-ran the full battery a third time independently: 510 tests,
+  mypy clean (99 files), governance lint conformant, envelope scan clean.
+- **PR #32 opened**
+  (https://github.com/mattidell/attestory/pull/32,
+  `track/dsbs-t2-composition-conditional-machinery` → `main`).
+- **➡️ NEXT ACTION: owner merges PR #32.** Foreman does not merge
+  autonomously (ADR-0030). After merge: Track 3 (line 16 under D2) opens
+  next.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
