@@ -82,7 +82,7 @@ dispositions on the ratified triad** — no embedded state field:
 ## Confirmation cases (charter binds the reviewer to these six)
 
 1. Over-blocking: required + both answers present ("no"/"no") → publishes
-   whole. `all(...)` must not over-trigger.
+   whole. The presence check must not over-trigger.
 2. Each answer absent individually → blocks, naming exactly that fact.
 3. Not-required is an atomic disposition — resolves G1 without a state
    field; ADR-0012 atomicity holds.

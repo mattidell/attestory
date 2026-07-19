@@ -149,3 +149,70 @@ No real personal value or workspace path in the synthesis or in this review.
 "$1,500"/"over $1,500" are public statutory constants. (Governance's G3
 `tax.us.2025.*`-vs-`demo-*` process flag persists in the synthesis's carried
 examples; not a data-safety breach, noted.)
+
+---
+
+## Re-confirmation (round 2)
+
+Same seat, narrow re-check per owner-approved bounded revision of
+`synthesis.md` (three deltas, exactly my round-1 findings). Re-exercised
+cases 1, 2, 4, 5 only; cases 3 and 6 stand confirmed from round 1. Revised
+text re-read at the foreman's latest commit on the branch.
+
+- **Case 1 — HOLDS.** Presence-semantics over categorical `{yes, no}`
+  declared facts, boolean encoding excluded: a "no" is a present, truthy,
+  non-maskable finding. Under committed ops the pinned domain makes the
+  round-1 short-circuit unreachable (non-empty strings are never falsy), and
+  the revised text additionally requires per-answer presence checked
+  independently before any value read. `required_complete` publishes on
+  "no"/"no"; no over-trigger.
+- **Case 2 — HOLDS.** Each answer absent individually: the unconditional
+  per-answer presence check dereferences every required answer regardless of
+  any other answer's value, so an absent fact raises
+  `EvalBlocked(DEPENDENCY_ABSENT, [that fact])` (`evaluator.py:108-111`) and
+  is recorded naming exactly it. The round-1 masking path (falsy sibling
+  short-circuits past a later ref) is closed by the encoding pin.
+- **Case 4 — HOLDS-WITH-CONDITION.** The committed-vocabulary claim is
+  withdrawn; the tie-out is now honestly stated as a **new** named invariant
+  (`ITEMIZATION_TIE_OUT_VIOLATION`, record/walk vocabularies extended by
+  schema version), unbuilt contract text owed to Tracks 1–2 with both
+  divergence directions (stale row set, stale line) as named kill-tests.
+  Semantics are committed-consistent: hard-fails the attachment derivation
+  only, never publishes a divergent form, never blocks the line (preserves
+  the by-construction isolation). This is exactly the shape round 1 asked
+  for; it holds as paper, conditional on Tracks 1–2 discharging it.
+- **Case 5 — HOLDS.** With every answer finding pinned unconditionally
+  (whatever its value), supersession has an input edge in both directions:
+  a superseded answer under a current attachment displaces it to non-current
+  (ADR-0010), and a late-contributed answer supersedes the blocked
+  disposition through re-run, never by edit. The round-1 unpinned-answer
+  gap is closed by the same delta as cases 1–2.
+- **Delta 3 (error vocabulary) — accepted.** The `SOURCE_SET_UNCLOSED`
+  (emit) vs `SOURCE_SET_OPEN` (record/walk enums) discrepancy is now carried
+  as a named production condition with no position taken, standalone repair
+  flagged to the owner — this correctly restates adversary A6 and my round-1
+  finding; nothing is silently dropped.
+
+**Round-2 verdict: CONFIRMED-WITH-CONDITIONS.** Conditions that must appear
+in ADR-0036's production conditions:
+
+1. **Tie-out invariant (Tracks 1–2):** `ITEMIZATION_TIE_OUT_VIOLATION` added
+   to the record and walk vocabularies by versioned schema change; the
+   derivation-time check built with both named kill-tests (stale row set,
+   stale line); violation fails the attachment only.
+2. **Presence-not-truthiness (Track 1):** the completeness expression must
+   check each required answer's presence independently of every other
+   answer's value — the categorical `{yes, no}` domain pin is load-bearing,
+   and package validation must reject a boolean or otherwise falsy-valued
+   Part III answer fact type on an attachment.
+3. **Emit/record reconciliation:** the `SOURCE_SET_UNCLOSED`/
+   `SOURCE_SET_OPEN` layer discrepancy reconciled by versioned schema change
+   (or the owner's standalone repair track); the attachment ADR must not fix
+   a position the repair could invert.
+4. Carried from the synthesis unchanged: `collect_members` as a named new
+   mechanism (Tracks 1–2).
+
+Stale note: the synthesis's "Confirmation cases" list still phrases case 1
+as "`all(...)` must not over-trigger" — the revised completeness is no
+longer `all(...)`; harmless as a case label, but ADR text should not carry
+the stale phrasing.
