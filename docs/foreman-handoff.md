@@ -17,7 +17,7 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-19; Track 1 merged, Track 2 chartered awaiting scope confirmation)
+## Current state (updated 2026-07-19; Track 2 build in flight, deliverables 1-4 landed)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
@@ -53,27 +53,60 @@ against git, trust git and say so.
   reviewer in its own worktree: 477 tests OK, mypy clean, governance lint
   conformant, envelope scan clean.
 - **Track 1 MERGED** — PR #31, `a870a2f` on `main`.
-- **➡️ NEXT ACTION: owner confirms Track 2 scope, then authorizes build
-  dispatch.** Track 2 charter is written and pushed:
+- **Track 2 scope confirmed by owner** (proceed with the full-machinery
+  reading); charter:
   `docs/reviews/charter-2026-07-19-dsbs-t2-composition-conditional-machinery.md`
-  on `track/dsbs-t2-composition-conditional-machinery` (`1739737`). It reads
-  Track 2 as owing the full remaining ADR-0035/0036 machinery — 1099-DIV
-  admission-time subset enforcement (decision 4) and same-batch ordering
-  (adversary-minor PC); lines 3a/3b and line-9 extension (D3); and the
-  *complete* Schedule B attachment build (existence conditional,
-  `collect_members` itemization, the `ITEMIZATION_TIE_OUT_VIOLATION`
-  tie-out invariant with both named kill-tests, and Part III completeness)
-  — not only the "existence conditional" the milestone plan's Track 2
-  sentence names verbatim. Basis: both ADRs bind their remaining production
-  conditions to Tracks 1–3, and Track 3 is dedicated solely to line 16/D2,
-  leaving nowhere else for the attachment machinery to land; the synthesis
-  and rival examination independently call `collect_members` and the
-  tie-out check "Track 1/2" work. **This is a foreman scope judgment over a
-  terse plan sentence, not a re-litigated owner decision — surfaced for
-  confirmation, not assumed.** The charter also bakes in the Track-0a-review
-  lesson: every named golden must enter through `live_coordinate_run`, never
-  a `RunContext` shortcut (that gap was the decision-blocking-adjacent
-  finding in the CMDN review chain). No builder dispatched yet.
+  on `track/dsbs-t2-composition-conditional-machinery` (`1739737`).
+- **Build IN FLIGHT.** First builder dispatch was interrupted mid-task by an
+  API session-limit error (not a real failure) after landing one clean
+  commit and leaving a second deliverable's work uncommitted. Foreman
+  (this session) reconciled directly: found the uncommitted work
+  substantially complete and correct, fixed one genuinely wrong test
+  expectation and one mypy `self.run = run` `TestCase.run`-shadowing bug,
+  reverified the full battery, and committed a clean checkpoint. **Landed
+  on the branch:**
+  - `6312cc4` — **deliverables 1 AND 2** (charter listed them separately;
+    the builder correctly recognized one generic kernel hook covers both):
+    the ADR-0035 1b≤1a admission-time subset invariant
+    (`packages/kernel/findings.py`, a new `registry.subset_invariant_pairs`
+    hook in the same fold every admission path already uses — `project()`,
+    `apply_contribution_batch`, the live coordinator — so it is
+    domain-agnostic kernel machinery, not tax-specific code) with full
+    rejection-semantics tests and the same-batch ordering kill-tests
+    (`tests/tax/test_dsbs_t2_dividend_admission.py`, 9 tests covering both
+    orderings within one batch). 486 tests green at that commit.
+  - `2ed1c9c` — **deliverables 3 and 4**: box-1a/1b subtotal rules, lines
+    3a/3b with per-box closure independence, line-9 v2 folding in 3b,
+    shipped as `tax.us.2025.package.core-calculations` v4 (distinct
+    synthetic scope, year 2053, so v3 stays independently exercisable).
+    Goldens in `tests/test_dsbs_t2_coordinator.py` enter through
+    `live_coordinate_run` per the charter's mandatory shape. One test fix
+    worth knowing for the next builder: **when a composing line's
+    `requires` names a subtotal symbol that itself blocked on an unclosed
+    family, the composing line reports `DEPENDENCY_ABSENT` (its own `when`
+    never runs — `requires` gates evaluation first, `runner.py:310`), and
+    the subtotal rule itself reports `SOURCE_SET_UNCLOSED`** — verified
+    against the already-committed `unclosed_interest_composition` golden
+    for line 2b, the exact same two-tier pattern. Don't assume the
+    composing line carries the closure code directly; check the committed
+    goldens before asserting a block code. 493 tests green at this commit,
+    mypy clean, governance lint conformant, envelope scan clean.
+- **➡️ NEXT ACTION: continue the build — deliverables 5–8 remain** (the
+  complete Schedule B attachment): 5 existence conditional (>$1,500 over
+  2b+3b, `guard_inapplicable`-family not-required disposition), 6
+  `collect_members` itemization mechanism for Part I/II rows tying to
+  2b/3b, 7 the `ITEMIZATION_TIE_OUT_VIOLATION` derivation-time check with
+  both named kill-tests (stale row set, stale line — vocabulary already
+  landed in Track 1, do not add a new code), 8 Part III completeness over
+  two new taxpayer-assertion fact types (foreign account, foreign trust)
+  with presence-semantics and the foreign-account yes-branch's 7b-country
+  requirement + named-not-produced FinCEN-114 obligation. All six named
+  golden classes in the charter's Verification section must be satisfied
+  before this track is done; three remain unbuilt (attachment
+  not-required, required-and-complete whole-form, required-and-incomplete
+  honest block). **Reconcile against `git log`/`git status` on
+  `track/dsbs-t2-composition-conditional-machinery` first — trust git over
+  this note.**
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
