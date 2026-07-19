@@ -21,3 +21,7 @@
 - Gate-5 triage is recorded in `round-1-triage.md`. No new builder, repair, or
   reviewer is dispatched: the next repair/confirmation pass requires the
   owner's immediate, explicit authorization under ADR-0034.
+- Owner approved the bounded repair path but directed **do not dispatch**.
+  The foreman prepared inactive, reviewable repair and confirmation charters;
+  neither assigns or launches a seat. A later immediate approval of the exact
+  current charter is still required for each role.

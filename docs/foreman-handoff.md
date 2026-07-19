@@ -38,12 +38,13 @@ against git, trust git and say so.
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **➡️ NEXT ACTION: owner disposition on the D2 repair recommendation.** If
-  accepted, the owner must approve the exact repair builder and fresh
-  confirmation-reviewer charters before dispatch (ADR-0034). The repair is
-  bounded to one successor rule without dual producers or universal declaration
-  demand, plus an honest present-`yes` disposition story; it must not start
-  production work or reopen D1/D3.
+- **➡️ NEXT ACTION: D2 Repair 1 is approved in principle but held.** Inactive
+  exact charters exist at `docs/prototypes/qdcg-worksheet/charter-repair1.md`
+  and `charter-confirmation-r1.md`; the owner expressly directed no dispatch.
+  Release each seat only on a later immediate, explicit owner direction
+  (ADR-0034). The repair is bounded to one successor rule without dual
+  producers or universal declaration demand, plus an honest present-`yes`
+  disposition story; it must not start production work or reopen D1/D3.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

@@ -44,6 +44,9 @@ and state the present-`yes` outcome using only a committed disposition or a
 plainly named versioned production condition. A fresh confirmation reviewer
 would measure those four conditions plus the existing P3 temporal kill cases.
 
-This recommendation does not authorize that pass. Under ADR-0034, the owner
-must approve its exact builder/confirmation roles and charters before any
-dispatch.
+**Owner disposition (2026-07-18):** the owner approved this bounded repair
+path and expressly directed that no role be dispatched now. The inactive
+charters `charter-repair1.md` and `charter-confirmation-r1.md` make the
+proposed roles and measurements reviewable; they are not approval to launch
+either seat. Under ADR-0034, a later, immediate approval of each exact current
+charter remains required before dispatch.
