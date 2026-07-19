@@ -566,8 +566,12 @@ def validate_package(
                 adj[m_id].update(role_canons)
             if citizen["schema"] in _RULE_ARTIFACT_SCHEMAS:
                 declared_refs = set(citizen.get("requires", []))
-                declared_refs.update(_iter_ref_names(citizen["when"]))
-                declared_refs.update(_iter_ref_names(citizen["value"]))
+                # Only v3 can declare refs outside `requires`: conditional
+                # dependency members are nested `ref` expressions in `when`.
+                # v1/v2 keep their requires-only edge computation unchanged.
+                if citizen["schema"] == "rule-artifact.v3":
+                    declared_refs.update(_iter_ref_names(citizen["when"]))
+                    declared_refs.update(_iter_ref_names(citizen["value"]))
                 for req in declared_refs:
                     for p_id in produced.get(req, []):
                         adj[m_id].add(p_id)

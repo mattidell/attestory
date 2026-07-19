@@ -1,0 +1,13 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "demo.rule.non-array-members",
+  "version": "v1",
+  "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "demo"},
+  "role": "computation",
+  "requires": ["demo.condition", "demo.result"],
+  "pins": [],
+  "when": {"op": "conditional_dependency_set", "condition": {"op": "ref", "name": "demo.condition"}, "members": {"op": "ref", "name": "demo.member.alpha"}},
+  "value": {"op": "ref", "name": "demo.result"},
+  "publishes": "demo.conditional.output",
+  "blocked": {"code": "DEPENDENCY_ABSENT", "missing": ["demo.member.alpha"]}
+}

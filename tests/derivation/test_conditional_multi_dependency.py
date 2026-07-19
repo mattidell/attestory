@@ -17,8 +17,11 @@ from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.package_validation import citizen_checksum, package_instance_checksum, validate_package
 from packages.derivation.production_resolver import PublicationSurface
+from packages.derivation.projection import compute_derivation_currency
 from packages.derivation.reference_runner import run_reference
-from packages.derivation.runner import InputFinding, RunContext, run
+from packages.derivation.runner import InputFinding, RunContext, _content_id, run
+from packages.kernel.currency import compute_currency
+from packages.kernel.findings import project
 from packages.kernel.schema_registry import SchemaValidationError
 
 
@@ -63,10 +66,13 @@ class ConditionalDependencySchema(unittest.TestCase):
         validation = validate_package(package, {(rule["id"], rule["version"]): rule}, self.schemas)
         self.assertTrue(validation.ok, validation.issues)
 
-    def test_empty_and_non_ref_members_are_rejected(self) -> None:
+    def test_malformed_conditional_dependency_shapes_are_rejected(self) -> None:
         for name in (
             "negatives/rule-artifact.v3.empty-members.json",
             "negatives/rule-artifact.v3.non-ref-member.json",
+            "negatives/rule-artifact.v3.missing-condition.json",
+            "negatives/rule-artifact.v3.non-array-members.json",
+            "negatives/rule-artifact.v3.member-missing-name.json",
         ):
             with self.subTest(name=name):
                 with self.assertRaises(SchemaValidationError):
@@ -205,7 +211,9 @@ class ConditionalDependencyLiveCoordinator(unittest.TestCase):
             "value_schema": value_schema, "supersession": {"policy": "free"},
         }
 
-    def _surface_and_acts(self, root: Path, values: dict[str, Any]) -> tuple[PublicationSurface, list[dict[str, Any]]]:
+    def _surface_and_acts(
+        self, root: Path, values: dict[str, Any], successors: dict[str, Any] | None = None
+    ) -> tuple[PublicationSurface, list[dict[str, Any]]]:
         member_dir = root / "members"
         release_dir = root / "releases"
         member_dir.mkdir()
@@ -261,6 +269,12 @@ class ConditionalDependencyLiveCoordinator(unittest.TestCase):
                 "fact_id": f"{symbol}|tax-year=2025", "value": value,
                 "basis": "attested", "evidence_ids": [],
             }}))
+        for symbol, value in (successors or {}).items():
+            acts.append(act(len(acts), "assertion", {"finding": {
+                "schema": "finding.v1", "id": f"demo.cmdn.finding.{symbol.rsplit('.', 1)[-1]}.successor",
+                "fact_id": f"{symbol}|tax-year=2025", "value": value,
+                "basis": "attested", "evidence_ids": [],
+            }}))
         acts.append(act(len(acts), "package-adoption", {
             "package": {"id": package["id"], "version": package["version"], "checksum": package["package_checksum"]},
             "release": {"id": release["id"], "version": release["version"], "checksum": hashlib.sha256(release_bytes).hexdigest()},
@@ -296,6 +310,124 @@ class ConditionalDependencyLiveCoordinator(unittest.TestCase):
                 else:
                     input_ids = {pin["id"] for pin in closing["dispositions"][0]["pins"] if pin["role"] == "input"}
                     self.assertEqual(input_ids, expected_inputs)
+
+    def _coordinate(
+        self, root: Path, values: dict[str, Any], run_id: str, successors: dict[str, Any] | None = None
+    ) -> tuple[Any, list[dict[str, Any]]]:
+        surface, acts = self._surface_and_acts(root, values, successors)
+        outcome = live_coordinate_run(
+            WorkspaceCapability(root / "workspace"), repo_root=Path(__file__).resolve().parents[2],
+            authoritative_acts=acts, workspace_revision=len(acts), run_scope={"jurisdiction": "us", "year": "2052"},
+            scope_user="demo.user", request={"schema": "run-request.v1"}, run_id=run_id,
+            governance_pins=[], surface=surface, output_name=f"{run_id}.json",
+        )
+        return outcome, acts
+
+    def test_lifecycle_contribution_and_supersession_through_the_act_log(self) -> None:
+        """CMDN paper case 5, driven entirely from authoritative acts.
+
+        Inactive-to-published contribution ladder, then a member supersession:
+        the re-run pins the successor finding, the published identity is
+        displaced, and the earlier published consumer loses currency under the
+        existing derivation edges.
+        """
+        base = {"demo.condition": True, "demo.result": 17}
+        stages: tuple[tuple[str, dict[str, Any], list[str]], ...] = (
+            ("lifecycle-two-absent", dict(base), ["demo.member.alpha", "demo.member.beta"]),
+            ("lifecycle-one-contributed", {**base, "demo.member.alpha": 0}, ["demo.member.beta"]),
+            ("lifecycle-published", {**base, "demo.member.alpha": 0, "demo.member.beta": 0}, []),
+        )
+        published_row: dict[str, Any] = {}
+        for run_id, values, expected_missing in stages:
+            with self.subTest(run_id=run_id), TemporaryDirectory() as tmp:
+                outcome, _ = self._coordinate(Path(tmp), values, run_id)
+                self.assertIsNone(outcome.refusal)
+                records = [json.loads(line) for line in (Path(tmp) / "workspace" / "records" / "derivation_records.jsonl").read_text().splitlines()]
+                row = records[-1]["dispositions"][0]
+                if expected_missing:
+                    self.assertEqual(row["disposition"], "blocked")
+                    self.assertEqual(row["missing"], expected_missing)
+                else:
+                    self.assertEqual(row["disposition"], "published")
+                    published_row = row
+        original_input_ids = {pin["id"] for pin in published_row["pins"] if pin["role"] == "input"}
+        self.assertIn("demo.cmdn.finding.alpha", original_input_ids)
+
+        with TemporaryDirectory() as tmp:
+            outcome, successor_acts = self._coordinate(
+                Path(tmp), {**base, "demo.member.alpha": 0, "demo.member.beta": 0},
+                "lifecycle-superseded", successors={"demo.member.alpha": 1},
+            )
+            self.assertIsNone(outcome.refusal)
+            records = [json.loads(line) for line in (Path(tmp) / "workspace" / "records" / "derivation_records.jsonl").read_text().splitlines()]
+            successor_row = records[-1]["dispositions"][0]
+        self.assertEqual(successor_row["disposition"], "published")
+        successor_input_ids = {pin["id"] for pin in successor_row["pins"] if pin["role"] == "input"}
+        self.assertIn("demo.cmdn.finding.alpha.successor", successor_input_ids)
+        self.assertNotIn("demo.cmdn.finding.alpha", successor_input_ids)
+        self.assertNotEqual(published_row["finding_id"], successor_row["finding_id"])
+
+        # The earlier published consumer stood on the original alpha finding;
+        # the successor assertion displaces it through the existing two-edge
+        # currency model, with no new machinery.
+        schemas = DerivationSchemas()
+        kernel_currency = compute_currency(project(tuple(dict(a) for a in successor_acts), schemas.registry))
+        self.assertIn("demo.cmdn.finding.alpha", kernel_currency.displaced_finding_ids)
+        derived = {published_row["finding_id"]: {"id": published_row["finding_id"], "pins": published_row["pins"]}}
+        view = compute_derivation_currency(kernel_currency, derived)
+        self.assertIn(published_row["finding_id"], view.displaced_derived_ids)
+
+    def test_no_reach_around_mutation_is_refused_at_the_live_boundary(self) -> None:
+        """CMDN paper case 6, driven from authoritative acts.
+
+        A mutation that removes the declared node and hand-authors its missing
+        list (a post-processing missing-list source outside the language) is
+        refused at the resolver's byte boundary before any record exists.
+        """
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            surface, acts = self._surface_and_acts(root, {"demo.condition": True, "demo.result": 17})
+            rule = _rule()
+            mutated = copy.deepcopy(rule)
+            mutated["when"] = True
+            mutated["blocked"] = {"code": "DEPENDENCY_ABSENT", "missing": ["demo.member.alpha", "demo.member.beta"]}
+            (root / "members" / f"{rule['id']}.{rule['version']}.json").write_text(
+                json.dumps(mutated, sort_keys=True, separators=(",", ":")), encoding="utf-8"
+            )
+            outcome = live_coordinate_run(
+                WorkspaceCapability(root / "workspace"), repo_root=Path(__file__).resolve().parents[2],
+                authoritative_acts=acts, workspace_revision=len(acts), run_scope={"jurisdiction": "us", "year": "2052"},
+                scope_user="demo.user", request={"schema": "run-request.v1"}, run_id="demo.cmdn.reach-around",
+                governance_pins=[], surface=surface, output_name="reach-around.json",
+            )
+            self.assertIsNotNone(outcome.refusal)
+            self.assertIsNone(outcome.output_path)
+            self.assertFalse((root / "workspace" / "records").exists())
+
+
+class ConditionalDependencyPinMutation(unittest.TestCase):
+    """ADR-0037 production condition 5: a stripped active-member pin is rejected."""
+
+    def test_stripping_an_active_member_pin_is_rejected_by_identity_verification(self) -> None:
+        finding = run(_context(condition=True, members=[
+            InputFinding("demo.member.alpha", 0, "demo.finding.alpha", "input"),
+            InputFinding("demo.member.beta", 0, "demo.finding.beta", "input"),
+        ]), DerivationSchemas()).publications[0].finding
+
+        def identity(pins: list[dict[str, Any]]) -> str:
+            return _content_id("finding:derived:", {
+                "symbol": finding["symbol"], "value": finding["value"], "pins": pins,
+            })
+
+        # The intact publication verifies against its own content identity.
+        self.assertEqual(finding["id"], identity(finding["pins"]))
+        # Stripping any single active pin (each member, and the condition)
+        # breaks the content identity: the mutated finding no longer verifies.
+        for stripped in ("demo.finding.alpha", "demo.finding.beta", "demo.finding.condition"):
+            with self.subTest(stripped=stripped):
+                mutated = [pin for pin in finding["pins"] if pin["id"] != stripped]
+                self.assertEqual(len(mutated), len(finding["pins"]) - 1)
+                self.assertNotEqual(finding["id"], identity(mutated))
 
 
 if __name__ == "__main__":
