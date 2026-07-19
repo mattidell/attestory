@@ -20,7 +20,7 @@ Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-
 
 Milestone: **Dividends and Schedule B Slice — ACTIVE (plan approved by the owner 2026-07-18)**. Plan, owner scope directions, and tracks: `docs/phases/real-return/milestones/dividends-schedule-b-slice.md`. Prior milestone: First Real Return Slice — CLOSED 2026-07-18 (Track 5 merged PR #21, `693b09b`; owner attestation PR #20); its plan, retrospective (`docs/milestone-retrospectives/2026-07-18-first-real-return-slice.md`), and deferral ledger remain the durable record.
 
-**➡️ Next: owner merge of ADR-0037’s per-ADR PR #29. Conditional Multi-Dependency Non-Publication is ratified as ADR-0037; its evidence, ADR, and companion are on the current branch. After the owner merge, plan the prerequisite production track before D2 adoption. No production work is authorized yet. D1 and D3 are already ratified.**
+**➡️ Next: owner direction on planning ADR-0037’s prerequisite production track. PR #29 merged ADR-0037 into main (325b1b1); its conditional multi-dependency substrate must be implemented and verified before D2 can adopt it. No production plan or implementation is authorized yet. D1 and D3 are already ratified.**
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 

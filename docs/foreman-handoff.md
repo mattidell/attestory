@@ -38,11 +38,11 @@ against git, trust git and say so.
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **➡️ NEXT ACTION: owner merge of ADR-0037’s per-ADR PR #29.** The owner
-  ratified the evaluator-node candidate as ADR-0037 after both external
-  reviews. The ADR evidence, contract, and companion are ready for merge; only
-  after that may the prerequisite production track be planned. No production
-  work, D2 adoption, D1/D3 reopening, or role dispatch is authorized.
+- **➡️ NEXT ACTION: owner direction on the ADR-0037 prerequisite production
+  track.** PR #29 merged as 325b1b1, placing the evaluator-node contract in
+  main. Its schema/evaluator/record/explanation implementation must be planned
+  and verified before D2 can adopt it. No production plan or implementation,
+  D1/D3 reopening, or role dispatch is authorized.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

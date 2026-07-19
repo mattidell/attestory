@@ -52,3 +52,6 @@
   request and owner merge; production implementation and D2 adoption remain
   separately unauthorized.
 - Per-ADR pull request opened: PR #29. Owner merge remains the next action.
+- PR #29 merged into main as 325b1b1. ADR-0037 is now part of the continuous
+  ratified record. No prerequisite production track has been planned or
+  started.
