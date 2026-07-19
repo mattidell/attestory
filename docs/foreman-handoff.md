@@ -265,17 +265,28 @@ against git, trust git and say so.
     (Track 0a's own review chain: not-ready → repair → ready), and merged.
     D2's it1/it2 designs, Repair 1, and Confirmation R1 never got a chance
     to use it; Repair 1 (`repair1/design.md`) predates ADR-0037 entirely.
-  - **Recommended next step (not started, awaiting owner authorization
-    per ADR-0034/ADR-0013):** a **D2 Repair 2** — incorporate
-    `conditional_dependency_set` into the QDCG worksheet's missing-
-    declaration walk, then a fresh confirmation pass re-measuring
-    specifically C1 (the other five Confirmation R1 measurements already
-    passed and stand). Only after a confirmed design does ADR drafting and
-    ratification become eligible, and only after ratification can Track 3
-    be chartered as a production build — the same sequence D3/D1
-    (ADR-0035/0036) already went through this milestone.
-  - **Foreman is not proceeding to charter or dispatch anything for D2/
-    Track 3 without explicit owner direction** — this is a Tier 2/3 rung
+  - **Charter drafted (`dec5670`), prepared and inactive:**
+    `docs/prototypes/qdcg-worksheet/charter-repair2.md`. A bounded
+    one-finding patch — repair only Confirmation R1's measurement-3 failure
+    (the qualified-positive, both-declarations-absent missing-declaration
+    walk) by substituting `conditional_dependency_set` for Repair 1's plain
+    `all([ref, ref])` guard; explicitly preserves every other Repair 1
+    outcome (D2-P1, D2-P3, the rest of D2-P2) unchanged. Proposed role:
+    incumbent-repair builder, Medium tier; working location
+    `docs/prototypes/qdcg-worksheet/repair2/`; outputs capped at
+    `repair2/design.md` (≤180 lines) and `examination-repair2.md`
+    (≤80 lines). Per standing practice (mirrors `charter-repair1.md`), this
+    charter carries **no seat authorization** — it becomes executable only
+    if the owner approves this exact charter and explicitly releases the
+    builder seat under ADR-0034. After it (if the examination finds D2-P2
+    fully settled): a fresh, narrowly-scoped confirmation pass re-measuring
+    only what Repair 2 changed — not yet authorized either. Only after a
+    confirmed design does ADR drafting/ratification become eligible, and
+    only after ratification can Track 3 charter as a production build —
+    the same sequence D3/D1 (ADR-0035/0036) already went through this
+    milestone.
+  - **Foreman is not proceeding to dispatch anything for D2/Track 3
+    without explicit owner direction** — this is a Tier 2/3 rung
     (reopening a stalled prototype decision), not a routine continuation.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
