@@ -71,3 +71,8 @@
   standing pattern, this charter is **prepared and inactive**: no builder
   seat is assigned or dispatched without a separate, explicit owner release
   under ADR-0034.
+- **Owner released the incumbent-repair builder seat.** Dispatched against
+  the exact `charter-repair2.md` text, Rung 1 paper only, working location
+  `repair2/`, outputs capped at `repair2/design.md` (≤180 lines) and
+  `examination-repair2.md` (≤80 lines). No other role authorized; no
+  production code, schema, or git-config change permitted.
