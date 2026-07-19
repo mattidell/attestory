@@ -25,11 +25,18 @@ dispositions on the ratified triad** — no embedded state field:
 
 ## Semantics carried from it2
 
-1. **Completeness is `all(...)`** over every required Part III answer:
-   foreign-account AND foreign-trust must each be answered; a "no" is an
-   answer; a "yes" on either adds that branch's required content (7b
-   country; 7a names the FinCEN-114 obligation, never produces it). No
-   answer masks another.
+1. **Completeness is presence-semantics, encoding pinned (revised after
+   confirmation round 1).** Part III answers are **categorical declared
+   facts** on the existing taxpayer-assertion pattern — value domain
+   `{yes, no}`, never boolean — and completeness is: *every required answer
+   exists as a current finding*, evaluated unconditionally per answer
+   (presence, not truthiness; a `no` is a present answer). Branch content
+   requirements read the *value* only after presence holds: a `yes` on
+   foreign-account adds 7b country to the required set and names the
+   FinCEN-114 obligation (never produces it); a `yes` on foreign-trust
+   likewise. No evaluation order can mask an answer, because presence of
+   each required fact is checked independently before any value is read.
+   Every answer finding is pinned unconditionally, whatever its value.
 2. **Supersession posture:** the attachment's pins include every Part III
    answer and every row-source fact; a superseded pinned fact makes the
    attachment non-current exactly as any derived finding (ADR-0010
@@ -39,12 +46,28 @@ dispositions on the ratified triad** — no embedded state field:
    (production condition, Track 1/2): the itemization rule collects the
    member findings of the same closed family, at the same horizon, that the
    line's subtotal collected; each row pins its member finding id.
-4. **Tie-out as declared relation:** row-sum must equal the line's published
-   value. Violation is a **hard projection error** using the committed error
-   vocabulary (`SOURCE_SET_UNCLOSED` family / projection-error path — it2's
-   `DEPENDENCY_INVALID` emission is corrected; exact code selection is
-   Track-1 content under the committed vocabulary, confirmation case 4
-   checks the semantics, not the string).
+4. **Tie-out as a NEW named invariant (revised after confirmation round
+   1 — no committed-vocabulary claim).** The declared relation — the
+   itemization's row-sum equals its line's published value, same closed
+   family, same horizon — is enforced by a **new mechanism** this ADR
+   names and Tracks 1–2 build: a derivation-time check with its own new
+   error code (working name `ITEMIZATION_TIE_OUT_VIOLATION`), added to the
+   record and walk vocabularies by schema version, whose violation hard-
+   fails the attachment derivation (never publishes a divergent form,
+   never blocks the line). Confirmation round 1 established that no
+   committed path expresses this; it is therefore an explicit production
+   condition, stated as unbuilt contract text, with both divergence
+   directions (stale row set, stale line) named as its kill-tests.
+
+5. **Error-vocabulary reconciliation (carried, not resolved here).** A real
+   pre-existing discrepancy exists on `main`: the runner *emits*
+   `SOURCE_SET_UNCLOSED` while the committed record/walk enums permit
+   `SOURCE_SET_OPEN` (adversary A6; confirmed against source in
+   confirmation round 1). This synthesis takes no position on which name
+   wins; the ADR carries it as a named production condition — reconcile
+   emit and record layers by versioned schema change — and the foreman has
+   flagged a standalone repair track as an owner option, since the defect
+   predates and exceeds this milestone.
 
 ## Hardening adopted into ADR text
 
