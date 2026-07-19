@@ -265,29 +265,51 @@ against git, trust git and say so.
     (Track 0a's own review chain: not-ready → repair → ready), and merged.
     D2's it1/it2 designs, Repair 1, and Confirmation R1 never got a chance
     to use it; Repair 1 (`repair1/design.md`) predates ADR-0037 entirely.
-  - **Charter drafted (`dec5670`), prepared and inactive:**
-    `docs/prototypes/qdcg-worksheet/charter-repair2.md`. A bounded
-    one-finding patch — repair only Confirmation R1's measurement-3 failure
-    (the qualified-positive, both-declarations-absent missing-declaration
-    walk) by substituting `conditional_dependency_set` for Repair 1's plain
-    `all([ref, ref])` guard; explicitly preserves every other Repair 1
-    outcome (D2-P1, D2-P3, the rest of D2-P2) unchanged. Proposed role:
-    incumbent-repair builder, Medium tier; working location
-    `docs/prototypes/qdcg-worksheet/repair2/`; outputs capped at
-    `repair2/design.md` (≤180 lines) and `examination-repair2.md`
-    (≤80 lines). Per standing practice (mirrors `charter-repair1.md`), this
-    charter carries **no seat authorization** — it becomes executable only
-    if the owner approves this exact charter and explicitly releases the
-    builder seat under ADR-0034. After it (if the examination finds D2-P2
-    fully settled): a fresh, narrowly-scoped confirmation pass re-measuring
-    only what Repair 2 changed — not yet authorized either. Only after a
-    confirmed design does ADR drafting/ratification become eligible, and
-    only after ratification can Track 3 charter as a production build —
-    the same sequence D3/D1 (ADR-0035/0036) already went through this
-    milestone.
-  - **Foreman is not proceeding to dispatch anything for D2/Track 3
-    without explicit owner direction** — this is a Tier 2/3 rung
-    (reopening a stalled prototype decision), not a routine continuation.
+  - **Charter drafted (`dec5670`), released, and landed
+    (`fa89a1e`).** `docs/prototypes/qdcg-worksheet/charter-repair2.md`
+    bounded the fix to a one-finding patch; the owner released the
+    incumbent-repair builder seat; the builder delivered
+    `repair2/design.md` (179/180 lines) and `examination-repair2.md`
+    (80/80 lines), touching no other file. Substitutes
+    `conditional_dependency_set` (condition Q>0, members the two
+    declaration refs) for Repair 1's plain `all([ref, ref])` guard, placed
+    first and unconditionally in the outer `all` so the node's own
+    false-condition contract — not incidental operand ordering — grounds
+    the qualified-zero reduction. The missing-declaration walk now names
+    both absent declarations (or exactly the true single absent one) in
+    one non-publication walk, closing Confirmation R1's measurement-3
+    failure. **Foreman independently re-verified every cited HEAD line**
+    (`evaluator.py` 203–221, `runner.py`'s guard try/except and
+    `_record_blocked`, `explanation.py`'s ordered NPE union,
+    `package_validation.py`'s v3-gated reachability walk, and the
+    `conditional_dependency_set` op's presence in `rule-artifact.v3.schema.json`
+    but absence from `.v2`'s) before committing — every citation checked
+    out exactly, including a subtle correct point about Python `all()`'s
+    generator short-circuit-on-exception behavior.
+  - **One honest, verified collateral finding:** the line-16 successor
+    must be authored under `rule-artifact.v3`, not `.v2`, since
+    `conditional_dependency_set` is schema-admissible only under v3 —
+    corrects Repair 1's stated "v1→v2" package pin to "v1→v3." Scoped
+    strictly to D2-P2's own successor-identity claim; D2-P1 (fact types)
+    and D2-P3 (admission-locus interlock) are unaffected and unchanged.
+  - **Examination verdict: D2-P2 is now fully settled at Rung 1** —
+    successor posture, qualified-zero reduction, present-`"yes"`
+    disposition, and the two-declaration missing walk, all re-derived
+    against one consistent guard expression and cited to committed HEAD
+    source. D2-P1/D2-P3 remain settled, unchanged from Repair 1. Nothing
+    here is live production content for the D2 worksheet itself — only
+    the generic `conditional_dependency_set` substrate is committed and
+    reviewed; the worksheet's *use* of it is still a Rung-1 paper design.
+  - **➡️ NEXT ACTION, not yet authorized:** a fresh, narrowly-scoped
+    confirmation pass re-measuring only what Repair 2 changed (mirroring
+    `charter-confirmation-r1.md`'s pattern) — not evaluation analysis or
+    ADR drafting, which no charter here authorizes. Only after a confirmed
+    design does ADR drafting/ratification become eligible, and only after
+    ratification can Track 3 charter as a production build — the same
+    sequence D3/D1 (ADR-0035/0036) already went through this milestone.
+  - **Foreman is not proceeding to charter or dispatch a confirmation pass
+    for D2 without explicit owner direction** — this remains a Tier 2/3
+    rung.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
