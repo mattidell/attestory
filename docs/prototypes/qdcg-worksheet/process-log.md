@@ -25,3 +25,9 @@
   The foreman prepared inactive, reviewable repair and confirmation charters;
   neither assigns or launches a seat. A later immediate approval of the exact
   current charter is still required for each role.
+- Repair 1 arrived with `repair1/design.md` but without its required
+  examination. By direct owner instruction, the foreman wrote
+  `examination-repair1.md`; this is an explicit role-separation exception, not
+  an independent review or a seat release. The examination records D2-P2 as
+  unresolved because the short-circuit missing path does not establish a walk
+  naming both contributable declarations.

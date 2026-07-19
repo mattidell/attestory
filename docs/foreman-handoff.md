@@ -38,13 +38,15 @@ against git, trust git and say so.
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **➡️ NEXT ACTION: D2 Repair 1 is approved in principle but held.** Inactive
-  exact charters exist at `docs/prototypes/qdcg-worksheet/charter-repair1.md`
-  and `charter-confirmation-r1.md`; the owner expressly directed no dispatch.
-  Release each seat only on a later immediate, explicit owner direction
-  (ADR-0034). The repair is bounded to one successor rule without dual
-  producers or universal declaration demand, plus an honest present-`yes`
-  disposition story; it must not start production work or reopen D1/D3.
+- **➡️ NEXT ACTION: Repair 1 is artifact-complete but unconfirmed.** The owner
+  directed the foreman to supply its missing examination, an explicit
+  role-separation exception recorded in the D2 process log. That examination
+  leaves D2-P2 unresolved: the short-circuit missing path does not establish a
+  walk naming both contributable declarations. Inactive exact charters remain
+  at `docs/prototypes/qdcg-worksheet/charter-repair1.md` and
+  `charter-confirmation-r1.md`; the owner expressly directed no dispatch.
+  Release either seat only on a later immediate, explicit owner direction
+  (ADR-0034). No production work or reopening of D1/D3 is authorized.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
