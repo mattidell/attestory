@@ -9,6 +9,7 @@
   "derivation-record.v3.schema.json": "3de482de6bb8cd1aee14e34e2439778113fa470a698bbf2a762f598eb5a3f230",
   "derived-finding.v1.schema.json": "1b5f49aaffbdcc118cf6c901b80e16d18a3cd1429e4dc2e05de9f3544e2f1c3e",
   "derived-finding.v2.schema.json": "6c75c2c839bc25df63646242b4ae4dbbc4c842fe59beb56ba764701c529dd0f8",
+  "dividend-universe.v1.schema.json": "63f52279c298827e10f2b82884175a6c42d7851c65eb0655cdcfc2e687139feb",
   "npe-walk.v1.schema.json": "bd75734de9a0c82601405a7c50b204de47b22a8f98592e8bc30077b07a3f706d",
   "npe-walk.v2.schema.json": "186f508bead6dc4cd502120503860559782ecda18410a47de96fe64007f5323d",
   "operation-semantics.v1.schema.json": "9b144ce850029264b539603f927294091a73905c1117ae20a8d5817bdfe0d440",

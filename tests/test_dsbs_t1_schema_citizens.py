@@ -105,5 +105,48 @@ class DividendStatementAndFamilyCitizens(TrackOneRegistry):
             self.assertTrue(list(validator.iter_errors({**declared_all_absent, "1a": 100})))
 
 
+class DividendUniverseCitizen(TrackOneRegistry):
+    """ADR-0035 decision 3: the declared dividend universe."""
+
+    def test_committed_universe_and_example_are_schema_instances(self) -> None:
+        for path in (TAX_CONTENT_DIR / "dividend-universe.json", EXAMPLES / "dividend-universe.v1.json"):
+            with self.subTest(path=path.name):
+                self.registry.validate_declared(load(path))
+
+    def test_named_negatives_are_rejected(self) -> None:
+        for name in (
+            "dividend-universe.v1.composable-without-family.json",
+            "dividend-universe.v1.box-in-both-sets.json",
+            "dividend-universe.v1.undeclared-box.json",
+        ):
+            with self.subTest(name=name):
+                with self.assertRaises(SchemaValidationError):
+                    self.registry.validate_declared(load(NEGATIVES / name))
+
+    def test_duplicated_composable_box_cannot_displace_the_other(self) -> None:
+        universe = load(EXAMPLES / "dividend-universe.v1.json")
+        universe["composable_boxes"] = [
+            {"box": "1a", "family": {"id": "demo.family.div-1a", "version": "v1"}},
+            {"box": "1a", "family": {"id": "demo.family.div-1a-again", "version": "v1"}},
+        ]
+        with self.assertRaises(SchemaValidationError):
+            self.registry.validate_declared(universe)
+
+    def test_committed_universe_pins_resolve_to_committed_citizens(self) -> None:
+        universe = load(TAX_CONTENT_DIR / "dividend-universe.json")
+        families = load_source_families()
+        bound = {entry["box"]: entry["family"]["id"] for entry in universe["composable_boxes"]}
+        self.assertEqual(bound, {"1a": "tax.us.2025.f1099div.1a", "1b": "tax.us.2025.f1099div.1b"})
+        for family_id in bound.values():
+            self.assertIn(family_id, families)
+        bundle = load(TAX_CONTENT_DIR / "f1099div.bundle.json")
+        fact_ids = {ft["id"] for ft in bundle["fact_types"]}
+        self.assertIn(universe["recorded_boxes_fact_type"]["id"], fact_ids)
+        self.assertEqual(
+            universe["capital_gain_signal"],
+            {"box": "2a", "signal": "CAPITAL_GAIN_DISTRIBUTION_RECORDED"},
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

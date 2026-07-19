@@ -101,6 +101,11 @@
       "version": "v2"
     },
     {
+      "checksum": "641c8e954afd045c540ef979da4cd538f2009129fa514b98599b5635a0a6bca1",
+      "id": "tax.us.2025.dividend-universe",
+      "version": "v1"
+    },
+    {
       "checksum": "a552649664f304b65721083ac900eff01d79a2e49cc52d8ac7ca2a4c53bd9bbf",
       "id": "tax.us.2025.f1099div.1a",
       "version": "v1"
