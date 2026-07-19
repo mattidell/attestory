@@ -1,7 +1,7 @@
 # ADR 0035 — 1099-DIV Dividend Composition and Lines 3a/3b
 
-- Status: **proposed** (Tier 2 default + veto; owner window open — inert
-  until accepted, per the ADR-0013 amendment)
+- Status: **accepted** (owner ratification 2026-07-18; Tier 2 default +
+  veto, window closed without veto)
 - Tier: 2
 - Date: 2026-07-18
 
