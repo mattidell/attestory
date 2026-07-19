@@ -63,10 +63,14 @@ authority):
    existing line-16 rule as versioned content for all returns (one rule,
    reduction guaranteed), or conditionally selects (two rules, a selector).
    Justify against the anti-wizard and honest-blocking principles.
-3. **Missing declaration blocks (mandatory).** Qualified > 0, no
-   declared-absence facts → line 16 blocks with a walkable explanation
-   naming the two contributable declarations — factual incompleteness,
-   ADR-0036 presence semantics.
+3. **Missing declaration blocks (mandatory; owner-reopened 2026-07-18).**
+   Qualified > 0, no declared-absence facts → line 16 blocks with a walkable
+   explanation naming the two contributable declarations — factual
+   incompleteness, ADR-0036 presence semantics. The generic conditional
+   multi-dependency reporting substrate is a D2 prerequisite, now inventoried
+   separately at docs/prototypes/conditional-multi-dependency-nonpublication/;
+   this topic does not decide its shape. The path may never imply zero, publish
+   ordinary tax, or make declarations unconditional on qualified-zero returns.
 4. **Contradiction kill-case, both orders (mandatory).** (a) Declarations
    current, then a 1099-DIV with box 2a contributed: the contribution (or
    the resulting signal) hard-errors — show where, and what the user is
@@ -106,9 +110,9 @@ No production code; implementation is milestone Tracks 2–3.
   amendment (as exercised in D1).
 - Two reviewers (Governance Medium, Adversary **High**), independent
   contexts.
-- Charter ≤ 90 lines; design ≤ 300 lines; examination ≤ 100 lines; reviews
-  lean but uncapped; **total topic Markdown target ≤ 1,500 lines** through
-  committee.
+- Builder and review documents have no length cap. Their stop conditions are
+  the declared scope, required cases, proposition-by-proposition examination,
+  evidence rung, and measurement charter; no topic Markdown target applies.
 
 ## Gate 5 — Triage
 
@@ -127,11 +131,11 @@ rendering (→ presentation frontier).
 The floor: a worksheet rule whose ladder is citable expression content with
 the reduction property shown by algebra; capital-gain inputs bound only to
 declared-absence facts with presence semantics; line 16 blocking on missing
-declarations; and the contradiction hard-error demonstrated in **both**
-temporal orders with no state in which both a declaration and a box-2a
-signal are current. Without the bidirectional contradiction mechanism the
-topic does not converge — one-directional checking is declared-zero
-degrading to assumed-zero on a delay.
+declarations with a walk naming both contributable facts; and the contradiction
+hard-error demonstrated in **both** temporal orders with no state in which both
+a declaration and a box-2a signal are current. Without the bidirectional
+contradiction mechanism the topic does not converge — one-directional checking
+is declared-zero degrading to assumed-zero on a delay.
 
 ## Gate 7 — Production boundary
 

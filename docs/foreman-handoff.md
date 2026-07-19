@@ -17,26 +17,32 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; `main` at `693b09b` — **First Real Return Slice CLOSED; no active milestone**)
+## Current state (updated 2026-07-18; D2 Round 1 triaged — owner disposition pending)
 
-- **Seat:** principal foreman. **First Real Return Slice is CLOSED**: Tracks
-  0–5 merged (Track 5 records: PR #21, `693b09b`, carrying its own
-  not-ready review → repair → independent `ready` re-check). The owner's real
-  run is attested (PR #20). Durable records: milestone plan closure,
-  retrospective (`2026-07-18-first-real-return-slice.md`), deferral ledger
-  (11 entries; guarded transport is priority), refreshed maturity matrix.
+- **Seat:** principal foreman. The active milestone is **Dividends and
+  Schedule B Slice**. D3 is ratified as ADR-0035; D1 is ratified as ADR-0036.
+  D2's owner-approved plan is on `main`; its paper artifacts and review packet
+  are on `proto/d2-qdcg-worksheet` at `0cbb5da` (one commit ahead of origin
+  when this note was written).
+- **D2 evidence:** both clean-room rivals establish the worksheet ladder,
+  qualified-zero reduction, and admission-locus contradiction interlock at
+  paper rung. Governance and adversary reviews independently reject the two
+  proposed supersession/disposition postures: it2 relies on non-existent
+  guard-driven producer selection; it1 promises an unavailable blocked code
+  and would demand declarations from no-qualified-dividend returns. The exact
+  Gate-5 disposition is `docs/prototypes/qdcg-worksheet/round-1-triage.md`.
+- **Process:** `process-log.md` was missing at review integration; the foreman
+  logged that as a late-log error rather than reconstructing history. No new
+  role was dispatched after review return.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
-  (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked. A
-  cloud review seat once synced a Linux `.venv` over the local one — rebuild
-  with `python3 -m venv .venv && .venv/bin/python3 -m pip install -r
-  requirements.txt` if the battery 127s.
-- **➡️ NEXT ACTION: owner-directed milestone selection (Tier 3) from the
-  maturity-matrix frontier — breadth (dividends / Schedule B), presentation
-  (human surface), or hardening (guarded transport first). The foreman
-  presents candidates and a recommendation on request; do not infer the
-  selection.**
+  (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
+- **➡️ NEXT ACTION: owner merge of ADR-0037’s per-ADR PR #29.** The owner
+  ratified the evaluator-node candidate as ADR-0037 after both external
+  reviews. The ADR evidence, contract, and companion are ready for merge; only
+  after that may the prerequisite production track be planned. No production
+  work, D2 adoption, D1/D3 reopening, or role dispatch is authorized.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
