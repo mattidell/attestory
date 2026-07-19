@@ -39,11 +39,12 @@ against git, trust git and say so.
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
 - **➡️ NEXT ACTION: held Conditional Multi-Dependency Non-Publication charter.**
-  The owner approved the plan and incumbent charter, but expressly directed no
-  dispatch. The inactive charter is at
-  docs/prototypes/conditional-multi-dependency-nonpublication/charter-it1.md;
-  no rival or reviewer charter exists. D2 evaluation/ADR work stays blocked.
-  No production work, D1/D3 reopening, or role dispatch is authorized.
+  The owner-approved incumbent charter is inactive at
+  docs/prototypes/conditional-multi-dependency-nonpublication/charter-it1.md.
+  The foreman briefly misread “activate” as a release; on the owner’s immediate
+  “no dispatch” direction, it interrupted the seat before any output. No rival
+  or reviewer charter is released. D2 evaluation/ADR work stays blocked. No
+  production work, D1/D3 reopening, or role dispatch is authorized.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

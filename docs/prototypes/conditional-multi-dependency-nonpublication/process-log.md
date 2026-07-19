@@ -8,3 +8,8 @@
 - Owner approved the topic plan and the first incumbent-builder charter, while
   expressly directing **no dispatch**. The charter is therefore inactive and
   unassigned; no builder, rival, reviewer, or implementation work has started.
+- **Foreman error / immediate correction:** the foreman interpreted “activate”
+  as a release and briefly launched the incumbent seat. The owner immediately
+  restated “no dispatch”; the seat was interrupted before it wrote any artifact
+  or changed any file. The charter is returned to inactive, no seat is
+  assigned, and no output exists. No further dispatch is authorized.

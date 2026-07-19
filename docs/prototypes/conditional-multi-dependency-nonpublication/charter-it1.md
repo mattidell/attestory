@@ -4,8 +4,8 @@ Status: **owner-approved, inactive — no seat assigned or dispatched**
 
 Date: 2026-07-18. This is the first builder charter under the approved
 Conditional Multi-Dependency Non-Publication plan. The owner approved this
-charter and expressly directed no dispatch. It becomes executable only on a
-later immediate owner release of this exact current charter.
+charter and directed no dispatch. It becomes executable only on a later
+immediate owner release of this exact current charter.
 
 - **Proposed role:** incumbent builder, High tier, independent context.
 - **Proposed working location:** docs/prototypes/conditional-multi-dependency-nonpublication/it1/.
