@@ -17,7 +17,7 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-19; Track 2 review found F1, repair landed, delta re-review dispatched)
+## Current state (updated 2026-07-19; Track 2 reviewed ready, PR #32 open)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
@@ -223,17 +223,25 @@ against git, trust git and say so.
   correct; the content told it to compare the wrong symbol. Full battery
   re-verified by the foreman: 510 tests, mypy clean, governance lint
   conformant, envelope scan clean.
-- **➡️ NEXT ACTION: independent delta re-review dispatched, awaiting
-  result.** Following this milestone's own Track 0a precedent (not-ready →
-  repair → independent delta re-review → ready, not foreman self-
-  certification), a fresh reviewer is dispatched under
-  `docs/reviews/charter-2026-07-19-dsbs-t2-delta-rereview.md` (`1d6e34b`)
-  to verify the repair discharges F1 without disturbing the original
-  review's eight passing checks. Verdict lands at
-  `docs/reviews/2026-07-19-dsbs-t2-delta-rereview.md` on the same branch.
-  **Reconcile against `git log`/`git status` on
-  `track/dsbs-t2-composition-conditional-machinery` first — trust git over
-  this note.**
+- **Independent delta re-review returned READY** (`76698cc`,
+  `docs/reviews/2026-07-19-dsbs-t2-delta-rereview.md`). All seven delta
+  checks (R1–R7) pass: F1 discharged by the narrower of the two options
+  the original review named acceptable (retarget the tie-out symbol, not
+  widen the itemization); dividend-side tie-out untouched; the new
+  regression golden constructs a genuinely non-degenerate divergence
+  (line 2b = 450 vs. box-1 subtotal = 300) and enters through
+  `live_coordinate_run`; the two supplementary `RunContext` classes were
+  correctly (not just plausibly) extended; collateral scope is exactly the
+  claimed 14 files (one content line, a pure checksum cascade, one test
+  file — no runner/evaluator/schema touched); full battery re-run clean.
+  Foreman re-ran the full battery a third time independently: 510 tests,
+  mypy clean (99 files), governance lint conformant, envelope scan clean.
+- **PR #32 opened**
+  (https://github.com/mattidell/attestory/pull/32,
+  `track/dsbs-t2-composition-conditional-machinery` → `main`).
+- **➡️ NEXT ACTION: owner merges PR #32.** Foreman does not merge
+  autonomously (ADR-0030). After merge: Track 3 (line 16 under D2) opens
+  next.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
