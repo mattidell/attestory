@@ -36,3 +36,8 @@
   its output is limited to `reviews/confirmation-r1.md`. This dispatch is the
   owner-approved check after the foreman-authored examination, not a repair or
   an ADR/production authorization.
+- Confirmation R1 returned not confirmed: five checks pass, but the
+  qualified-positive both-absent path records only its first missing
+  declaration. Gate-5 triage records this as D2-decision-blocking and routes
+  the underlying conditional multi-dependency reporting gap as a separate
+  decision; no Repair 2 or further role is opened.

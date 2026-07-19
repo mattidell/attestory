@@ -38,13 +38,15 @@ against git, trust git and say so.
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **➡️ NEXT ACTION: Confirmation R1 is in progress.** The owner released the
-  exact fresh-review charter after the foreman supplied Repair 1's missing
-  examination, an explicit role-separation exception recorded in the D2
-  process log. The reviewer measures the unresolved short-circuit
-  two-declaration walk plus the five other bounded conditions and returns only
-  `confirmed` or `not confirmed`. No production work or reopening of D1/D3
-  is authorized.
+- **➡️ NEXT ACTION: owner disposition on a separate D2-adjacent decision.**
+  Confirmation R1 returned not confirmed: the qualified-positive
+  both-absent path records only its first missing declaration. The D2
+  Gate-5 triage preserves Repair 1’s five passing conditions but classifies the
+  generic conditional multi-dependency reporting gap as a **separate
+  decision**, not a Repair 2 addition. The owner must authorize either a new
+  decision inventory / Gate-1 score for that substrate or an explicit Tier-3
+  revision of the D2 missing-walk requirement. No production work, D1/D3
+  reopening, or further role dispatch is authorized.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

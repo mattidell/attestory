@@ -1,0 +1,45 @@
+# Triage — D2 Confirmation R1
+
+Date: 2026-07-18
+Foreman: principal foreman
+
+This is the Gate-5 disposition of the owner-released fresh confirmation review.
+It classifies the reviewer’s measured failure; it does not re-judge the
+reviewer’s technical conclusion.
+
+## Result
+
+Confirmation R1 is **not confirmed**. Measurements 1, 2, 4, 5, and 6 pass at
+their declared paper/production-condition level. Measurement 3 fails:
+qualified-positive with both declarations absent non-publishes, but the
+committed evaluator raises on the first absent reference, the runner records
+that single missing value, and the NPE walk therefore cannot name both required
+declarations. See reviews/confirmation-r1.md.
+
+## Finding disposition
+
+| Finding | Classification | Disposition |
+|---|---|---|
+| C1 — the qualified-positive, both-absent walk cannot name both factual declaration gaps through the committed expression/runner/NPE path | **decision-blocking** for D2 | D2 cannot enter evaluation analysis or ADR drafting. Its Gate-6 floor expressly requires walkable missing declarations. |
+| C1’s underlying representational gap — conditional collection of more than one absent dependency without making those dependencies unconditional for qualified-zero returns | **separate-decision** | Do not absorb a new evaluator/runner/explanation mechanism into D2 Repair 2. Gate 2 requires a missing production substrate to be routed separately. The owner must decide whether to charter a narrowly scored topic for this generic conditional-dependency/non-publication capability. |
+| Repair 1’s five passing measurements | **production conditions / settled paper evidence** | Preserve them as converged D2 evidence; they need no further prototype iteration unless the separate decision changes their boundary. |
+
+## Owner check-in
+
+**Evidence status:** D2-P1 and D2-P3 are settled at paper rung; D2-P2’s
+single-successor/reduction/present-yes portions are settled, but its
+two-declaration missing-walk condition is not. Repair 1 did not resolve a new
+question beyond exposing the generic substrate gap, so the plan’s
+stop-and-decide rule now applies.
+
+**Process incidents:** the foreman-authored Repair 1 examination was an
+owner-directed role-separation exception, recorded in the process log. The
+fresh confirmation reviewer ran all six declared measurements and stayed within
+its charter. No other role was dispatched.
+
+**Recommendation:** do not authorize another D2 repair yet. First direct the
+disposition of the separate-decision gap: either authorize a new, bounded
+decision inventory / Gate-1 score for conditional multi-dependency
+non-publication, or revise the owner-required D2 missing-walk condition. The
+second choice changes the owner-ratified D2 contract and therefore needs an
+explicit Tier-3 direction; it is not an editorial repair.
