@@ -17,13 +17,14 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-18; D2 Round 1 triaged — owner disposition pending)
+## Current state (updated 2026-07-18; ADR-0037 prerequisite production track planned)
 
 - **Seat:** principal foreman. The active milestone is **Dividends and
-  Schedule B Slice**. D3 is ratified as ADR-0035; D1 is ratified as ADR-0036.
-  D2's owner-approved plan is on `main`; its paper artifacts and review packet
-  are on `proto/d2-qdcg-worksheet` at `0cbb5da` (one commit ahead of origin
-  when this note was written).
+  Schedule B Slice**. D3 is ratified as ADR-0035; D1 is ratified as ADR-0036;
+  ADR-0037 is ratified and merged as `325b1b1`. D2's owner-approved plan is
+  on `main`; its paper artifacts and review packet are on
+  `proto/d2-qdcg-worksheet` at `0cbb5da` (one commit ahead of origin when this
+  note was written).
 - **D2 evidence:** both clean-room rivals establish the worksheet ladder,
   qualified-zero reduction, and admission-locus contradiction interlock at
   paper rung. Governance and adversary reviews independently reject the two
@@ -38,11 +39,33 @@ against git, trust git and say so.
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **➡️ NEXT ACTION: owner direction on the ADR-0037 prerequisite production
-  track.** PR #29 merged as 325b1b1, placing the evaluator-node contract in
-  main. Its schema/evaluator/record/explanation implementation must be planned
-  and verified before D2 can adopt it. No production plan or implementation,
-  D1/D3 reopening, or role dispatch is authorized.
+- **ADR-0037 production plan:** owner authorized the foreman to plan the
+  prerequisite. Track 0a in the active milestone plan is now the committed
+  execution contract: new rule-language v3 corpus and Payload Instantiation
+  evidence; shared evaluator plus both runners and durable ordered NPE walk;
+  then six coordinator-from-facts goldens, pin/currency mutations, and full
+  verification. It explicitly excludes D2 tax content, D1/D3 reopening, and
+  real data.
+- **ADR-0037 implementation:** Track 0a is implemented on
+  `codex/dsbs-t0a-cmdn-production`. It adds `rule-artifact.v3` and the mechanical
+  `artifact-package.v3` admission surface, the shared evaluator node, ordered
+  durable NPE behavior, package reachability for nested refs, and fully
+  synthetic authoritative-fact coordinator coverage. Focused tests, full
+  suite, mypy, governance lint, and envelope verification passed.
+- **Track 0a review chain complete (2026-07-19).** Independent pre-merge
+  review returned **not ready** (F1 malformed-shape negatives missing; F2
+  paper cases 5/6 not driven through `live_coordinate_run`; F3 no executed
+  pin-strip mutation test; F4 reachability walk widened to v1/v2 without
+  justification). Foreman repair `595c4e1` discharged all four; independent
+  delta re-review (owner-authorized dispatch) returned **ready** (`61452e5`)
+  with two non-blocking observations: R1 (case-5 displacement leg depends on
+  deterministic act identities across regenerated logs) and R2 (pin-mutation
+  test imports private `_content_id`; migrate if a public identity-verify
+  surface appears). Battery: 448 tests, mypy, lint, envelope — green.
+- **➡️ NEXT ACTION: owner merges `codex/dsbs-t0a-cmdn-production` (PR open).**
+  On merge, Track 0 closes and Track 1 (schema citizens) opens; no content
+  track has started. Charter reminder for Tracks 1–4: behavior charters name
+  their authoritative-surface (coordinator-from-facts) golden class.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

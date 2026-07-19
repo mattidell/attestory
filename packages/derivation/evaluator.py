@@ -201,6 +201,27 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
     if op == "category_literal":
         return expr["value"]
 
+    if op == "conditional_dependency_set":
+        # ADR-0037: the condition is an ordinary evaluated input.  Only a
+        # true condition activates members; inactive members are not read and
+        # therefore cannot be named or pinned.  Evaluate every active member
+        # so one dependency-absence disposition can honestly name the complete
+        # declared list, while retaining the ordinary propagation of every
+        # non-absence evaluator failure.
+        if not bool(evaluate(expr["condition"], env, access)):
+            return True
+        absent: list[str] = []
+        for member in expr["members"]:
+            try:
+                evaluate(member, env, access)
+            except EvalBlocked as exc:
+                if exc.category != BLOCK_ABSENT:
+                    raise
+                absent.extend(exc.missing)
+        if absent:
+            raise EvalBlocked(BLOCK_ABSENT, absent)
+        return True
+
     raise EvalBlocked(BLOCK_INVALID, [f"unknown op survived schema: {op}"])
 
 

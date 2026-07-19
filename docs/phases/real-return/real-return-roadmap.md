@@ -33,10 +33,16 @@ owner 2026-07-18 (plan: `milestones/dividends-schedule-b-slice.md`). Raises
 the Dividends and Schedule-attachments matrix columns L0→L3; decision topics
 D1 (attachment ontology, Tier 3), D2 (line 16 under qualified dividends,
 Tier 3, owner-narrowed to the declared-absence worksheet), D3 (1099-DIV
-composition, Tier 2). Track 0 (prototype topics) is next; each prototype
-plan requires owner approval before its first charter (ADR-0013).
+composition, Tier 2). Track 0's prototype topics are complete: their accepted
+ADRs are on `main`. The next dependency is ADR-0037's planned production
+Track 0a; it precedes D2 adoption and the existing content tracks.
 
 - Dividends and Schedule B Slice — **active** (approved 2026-07-18).
+  ADR-0035 (D3), ADR-0036 (D1), and the D2 prerequisite ADR-0037 are ratified
+  on `main`. ADR-0037's integrated prerequisite production Track 0a is
+  implemented on its dedicated branch with authoritative-surface goldens and
+  awaits independent review; it must merge before D2 adoption. No reviewer was
+  dispatched during implementation by owner direction.
 
 - First Real Return Slice — **complete** (2026-07-18; Track 5 records merged
   PR #21). D1 residency (ADR-0031), D2 contribution (ADR-0032), and D3

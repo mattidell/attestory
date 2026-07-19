@@ -1,0 +1,14 @@
+{
+  "schema": "artifact-package.v3",
+  "id": "demo.package.conditional-dependency-set",
+  "version": "v2",
+  "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "demo"},
+  "admitted_schemas": ["rule-artifact.v3"],
+  "members": [
+    {"role": "computation", "schema": "rule-artifact.v3", "id": "demo.rule.conditional-dependency-set", "version": "v1"}
+  ],
+  "input_bindings": [],
+  "entrypoints": [{"id": "demo.rule.conditional-dependency-set", "version": "v1"}],
+  "composition_obligations": [],
+  "package_checksum": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}
