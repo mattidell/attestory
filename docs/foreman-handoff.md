@@ -38,8 +38,8 @@ against git, trust git and say so.
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
   (`tools/scaffold_live_acts.py`, `workspace-seed/`) stays untracked.
-- **➡️ NEXT ACTION: owner merge of ADR-0037’s per-ADR pull request.** The
-  owner ratified the evaluator-node candidate as ADR-0037 after both external
+- **➡️ NEXT ACTION: owner merge of ADR-0037’s per-ADR PR #29.** The owner
+  ratified the evaluator-node candidate as ADR-0037 after both external
   reviews. The ADR evidence, contract, and companion are ready for merge; only
   after that may the prerequisite production track be planned. No production
   work, D2 adoption, D1/D3 reopening, or role dispatch is authorized.

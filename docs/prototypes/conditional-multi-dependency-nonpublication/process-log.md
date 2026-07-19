@@ -51,3 +51,4 @@
 - Owner ratified ADR-0037. The accepted contract is ready for its per-ADR pull
   request and owner merge; production implementation and D2 adoption remain
   separately unauthorized.
+- Per-ADR pull request opened: PR #29. Owner merge remains the next action.
