@@ -76,3 +76,28 @@
   `repair2/`, outputs capped at `repair2/design.md` (≤180 lines) and
   `examination-repair2.md` (≤80 lines). No other role authorized; no
   production code, schema, or git-config change permitted.
+- **Repair 2 landed (`fa89a1e`).** `repair2/design.md` (179 lines) and
+  `examination-repair2.md` (80 lines), both at cap, no other file touched.
+  Substitutes `conditional_dependency_set` for Repair 1's plain
+  `all([ref, ref])` guard, placed first and unconditionally so the node's
+  own false-condition contract grounds the qualified-zero reduction; the
+  missing-declaration walk now names both absent declarations (or exactly
+  the one true absent declaration) in a single non-publication walk,
+  closing Confirmation R1's measurement-3 failure. Foreman independently
+  verified every cited HEAD line (evaluator.py, runner.py, explanation.py,
+  package_validation.py, both rule-artifact schema files) before committing
+  — all citations checked out exactly. One honest, verified collateral
+  finding: the line-16 successor must be authored under `rule-artifact.v3`,
+  not `.v2` (confirmed: `conditional_dependency_set` has zero occurrences in
+  the v2 schema, one in v3's), correcting Repair 1's stated package pin;
+  scoped to D2-P2 only, D2-P1/D2-P3 unaffected.
+- **Examination verdict: D2-P2 is now fully settled at Rung 1** (successor
+  posture, qualified-zero reduction, present-`"yes"` disposition, and the
+  two-declaration missing walk, all re-derived against one consistent guard
+  expression and cited to committed HEAD source). D2-P1 and D2-P3 remain
+  settled, unchanged. Nothing here is live production content for the D2
+  worksheet itself — only the generic `conditional_dependency_set`
+  substrate is committed and reviewed; the worksheet's use of it is still a
+  Rung-1 paper design. **Next step, not yet authorized:** a fresh,
+  narrowly-scoped confirmation pass re-measuring only what Repair 2
+  changed, per the charter's own "After this repair" section.
