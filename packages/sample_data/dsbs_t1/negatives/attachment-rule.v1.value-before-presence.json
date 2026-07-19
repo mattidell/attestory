@@ -1,0 +1,22 @@
+{
+  "schema": "attachment-rule.v1",
+  "id": "demo.rule.attachment.schedule-x",
+  "version": "v1",
+  "title": "Negative: a required answer whose completeness check reads the value before presence",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "demo" },
+  "attachment": { "authority": "DEMO", "form_id": "SCHX", "tax_year": 2025, "jurisdiction": "US-federal" },
+  "publishes": "demo.attachment.schedule-x.disposition",
+  "requirement": {
+    "subtotals": ["demo.alpha.subtotal"],
+    "threshold_parameter": { "id": "demo.parameter.attachment-threshold", "version": "v1" },
+    "comparison": "strictly_greater_than",
+    "citation": { "id": "demo.citation.schedule-x", "version": "v1" }
+  },
+  "itemizations": [],
+  "completeness": {
+    "required_answers": [
+      { "symbol": "demo.answer.first", "fact_type": { "id": "demo.fact.answer-first", "version": "v1" }, "check": "value_equals", "equals": "yes" },
+      { "symbol": "demo.answer.second", "fact_type": { "id": "demo.fact.answer-second", "version": "v1" }, "check": "presence" }
+    ]
+  }
+}

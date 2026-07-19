@@ -148,5 +148,64 @@ class DividendUniverseCitizen(TrackOneRegistry):
         )
 
 
+class AttachmentCitizenSurface(TrackOneRegistry):
+    """ADR-0036 decisions 1-5: the generic attachment rule citizen surface."""
+
+    def test_generic_example_and_schedule_d_stub_are_schema_instances(self) -> None:
+        for name in ("attachment-rule.v1.json", "attachment-rule.v1.schedule-d-stub.json"):
+            with self.subTest(name=name):
+                self.registry.validate_declared(load(EXAMPLES / name))
+
+    def test_generalization_stub_shares_the_identical_schema_surface(self) -> None:
+        # ADR-0036 decision 5: a second schedule is content only. Both examples
+        # exercise the same closed key set; nothing on the citizen names a schedule.
+        generic = load(EXAMPLES / "attachment-rule.v1.json")
+        stub = load(EXAMPLES / "attachment-rule.v1.schedule-d-stub.json")
+        self.assertEqual(set(generic), set(stub))
+        schema_keys = set(self.registry.get("attachment-rule.v1")["properties"])
+        self.assertEqual(set(generic), schema_keys)
+        for key in schema_keys:
+            self.assertNotIn("schedule", key)
+            self.assertNotIn("part-iii", key)
+
+    def test_completeness_value_read_before_presence_is_unrepresentable(self) -> None:
+        with self.assertRaises(SchemaValidationError):
+            self.registry.validate_declared(load(NEGATIVES / "attachment-rule.v1.value-before-presence.json"))
+
+    def test_row_outside_the_declared_family_is_unrepresentable(self) -> None:
+        with self.assertRaises(SchemaValidationError):
+            self.registry.validate_declared(load(NEGATIVES / "attachment-rule.v1.row-outside-declared-family.json"))
+
+    def test_rows_come_only_from_collect_members(self) -> None:
+        attachment = load(EXAMPLES / "attachment-rule.v1.json")
+        attachment["itemizations"][0]["rows"] = [
+            {"finding_id": "demo.finding.literal-row", "value": "250.00"}
+        ]
+        with self.assertRaises(SchemaValidationError):
+            self.registry.validate_declared(attachment)
+
+    def test_threshold_comparison_is_pinned_strictly_greater_than(self) -> None:
+        attachment = load(EXAMPLES / "attachment-rule.v1.json")
+        attachment["requirement"]["comparison"] = "greater_than_or_equal"
+        with self.assertRaises(SchemaValidationError):
+            self.registry.validate_declared(attachment)
+
+    def test_taxpayer_answer_pattern_pins_the_categorical_domain(self) -> None:
+        answer = load(EXAMPLES / "fact-type.v2.taxpayer-answer.json")
+        self.registry.validate_declared(answer)
+        self.assertEqual(answer["value_schema"], {"enum": ["yes", "no"]})
+        validator = jsonschema.Draft202012Validator(answer["value_schema"])
+        self.assertEqual(list(validator.iter_errors("no")), [])
+        for falsy in (False, True, "", 0, None):
+            with self.subTest(value=falsy):
+                self.assertTrue(list(validator.iter_errors(falsy)))
+
+    def test_boolean_answer_negative_is_a_fact_type_instance_for_the_admission_guard(self) -> None:
+        # fact-type.v2 legitimately admits boolean value schemas (closure
+        # attestations), so this named negative is rejected at admission by
+        # package validation, not by the fact-type schema.
+        self.registry.validate_declared(load(NEGATIVES / "fact-type.v2.boolean-answer.json"))
+
+
 if __name__ == "__main__":
     unittest.main()

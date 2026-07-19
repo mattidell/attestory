@@ -1,4 +1,5 @@
 {
+  "attachment-rule.v1.schema.json": "1ce9cd6d6ff9c81bcd8fab3519d265762b5ede9b785dc6f02c6ea69c3d0782ba",
   "form-field.v1.schema.json": "fab47d5e3f7b17605d8d8155f9862cde77ada8cd689deb7d693b66cb42df161b",
   "form-field.v2.schema.json": "c9a3d709233809dbe1e2a4a63c923ced8e44465a264ca5560fed508b8dcd374c",
   "form-field.v3.schema.json": "4308aadbe1019e28b4a34807cf85c85edeb7a171ccacefacf86e0488a6bee71a"
