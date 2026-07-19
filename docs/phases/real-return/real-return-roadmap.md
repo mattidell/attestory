@@ -40,9 +40,9 @@ Track 0a; it precedes D2 adoption and the existing content tracks.
 - Dividends and Schedule B Slice — **active** (approved 2026-07-18).
   ADR-0035 (D3), ADR-0036 (D1), and the D2 prerequisite ADR-0037 are ratified
   on `main`. ADR-0037's integrated prerequisite production Track 0a is
-  planned before the existing content tracks; it must land with its
-  authoritative-surface goldens before D2 adoption. No implementation or
-  dispatch is implied by the planning record.
+  implemented on its dedicated branch with authoritative-surface goldens and
+  awaits independent review; it must merge before D2 adoption. No reviewer was
+  dispatched during implementation by owner direction.
 
 - First Real Return Slice — **complete** (2026-07-18; Track 5 records merged
   PR #21). D1 residency (ADR-0031), D2 contribution (ADR-0032), and D3

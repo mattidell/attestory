@@ -152,7 +152,10 @@ class _Run:
             ctx.current_horizons,
         )
         
-        self.use_v2 = any(rule.get("schema") == "rule-artifact.v2" for rule in ctx.rules)
+        self.use_v2 = any(
+            rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3"}
+            for rule in ctx.rules
+        )
         self.symbol_fact_types: dict[str, str] = {}
         self.categorical_domains: dict[str, list[str]] = {}
         
@@ -253,7 +256,14 @@ class _Run:
             {"role": rule["role"], "id": rule["id"], "version": rule["version"]}
         ]
         for name in access.refs:
-            fid, ver, role, provenance = self.symbol_pin[name]
+            # A blocked evaluation can have read a declared ref only far
+            # enough to establish that no current finding exists.  Absence is
+            # recorded in the disposition's missing list; it has no finding
+            # identity to pin.  Present refs retain their ordinary pins.
+            source = self.symbol_pin.get(name)
+            if source is None:
+                continue
+            fid, ver, role, provenance = source
             pin = {"role": role, "id": fid, "version": ver}
             if self.use_v2 and role == "input":
                 pin["origin"] = provenance if provenance is not None else "assertion"
@@ -599,7 +609,10 @@ def run_and_record(
     a detectable open run, ADR-0008); the completion record carries the run's
     published/blocked surface and per-rule dispositions.
     """
-    use_v2 = any(rule.get("schema") == "rule-artifact.v2" for rule in ctx.rules)
+    use_v2 = any(
+        rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3"}
+        for rule in ctx.rules
+    )
     start_run(
         stream,
         record_id=start_record_id,

@@ -248,15 +248,16 @@ def walk_npe(
             blocked_rows = [row for row in non_pub_rows if row["disposition"] == "blocked"]
             if blocked_rows:
                 # Blocked node
-                unmet = set()
+                unmet: list[str] = []
                 for r in blocked_rows:
                     missing_deps = r.get("missing", [])
                     if not missing_deps:
                         blocked_entry = next((b for b in record_blocked if b["artifact_id"] == r["artifact_id"]), None)
                         if blocked_entry:
                             missing_deps = blocked_entry.get("missing", [])
-                    unmet.update(missing_deps)
-                unmet_list = sorted(list(unmet))
+                    for dependency in missing_deps:
+                        if dependency not in unmet:
+                            unmet.append(dependency)
 
                 code = "DEPENDENCY_ABSENT"
                 for r in blocked_rows:
@@ -286,7 +287,7 @@ def walk_npe(
                     "symbol": s,
                     "rule_references": rule_refs,
                     "code": code,
-                    "unmet_references": unmet_list,
+                    "unmet_references": unmet,
                 }
                 if children_nodes:
                     node["children"] = children_nodes

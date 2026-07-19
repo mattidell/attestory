@@ -46,10 +46,16 @@ against git, trust git and say so.
   then six coordinator-from-facts goldens, pin/currency mutations, and full
   verification. It explicitly excludes D2 tax content, D1/D3 reopening, and
   real data.
-- **➡️ NEXT ACTION: owner direction on executing ADR-0037 Track 0a.** The
-  plan is not implementation authorization and does not authorize any
-  sub-agent dispatch. The track must be implemented, independently reviewed,
-  and merged before D2 adoption.
+- **ADR-0037 implementation:** Track 0a is implemented on
+  `codex/dsbs-t0a-cmdn-production`. It adds `rule-artifact.v3` and the mechanical
+  `artifact-package.v3` admission surface, the shared evaluator node, ordered
+  durable NPE behavior, package reachability for nested refs, and fully
+  synthetic authoritative-fact coordinator coverage. Focused tests, full
+  suite, mypy, governance lint, and envelope verification passed.
+- **➡️ NEXT ACTION: independent review disposition for ADR-0037 Track 0a.**
+  The owner prohibited agent dispatch during implementation, so no reviewer
+  was launched. The branch must receive the required independent review and
+  merge before D2 adoption; no D2 or subsequent content track has started.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 

@@ -199,7 +199,7 @@ economics are reported to the owner before charters are cut; if breadth is
 as cheap as the matrix predicts, the owner may at that point direct a
 hardening rider as a separate track (not assumed here).
 
-### Track 0a — ADR-0037 conditional multi-dependency prerequisite — planned
+### Track 0a — ADR-0037 conditional multi-dependency prerequisite — implementation complete, pending independent review
 
 **Goal.** Reimplement ADR-0037's generic
 `conditional_dependency_set` evaluator-node contract in the production rule

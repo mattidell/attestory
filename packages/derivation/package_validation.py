@@ -29,6 +29,7 @@ from packages.kernel.schema_registry import SchemaValidationError
 from packages.derivation.loader import DerivationSchemas, PACKAGE_SCHEMA
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
+_RULE_ARTIFACT_SCHEMAS = frozenset({"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3"})
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
 # E14.2 (extended by ADR-0032): record-kind and contribution citizens are never
@@ -196,6 +197,18 @@ def _iter_collect_source_sets(expr: Any) -> Iterable[str]:
             yield from _iter_collect_source_sets(item)
 
 
+def _iter_ref_names(expr: Any) -> Iterable[str]:
+    """Yield declared ref names, including conditional dependency members."""
+    if isinstance(expr, dict):
+        if expr.get("op") == "ref" and isinstance(expr.get("name"), str):
+            yield expr["name"]
+        for value in expr.values():
+            yield from _iter_ref_names(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_ref_names(item)
+
+
 def validate_package(
     package: dict[str, Any],
     corpus: dict[tuple[str, str], dict[str, Any]],
@@ -297,7 +310,7 @@ def validate_package(
                 f"(records and contributions are not rule inputs)",
             ))
 
-        if citizen["schema"] in {"rule-artifact.v1", "rule-artifact.v2"}:
+        if citizen["schema"] in _RULE_ARTIFACT_SCHEMAS:
             if pin_role != citizen["role"]:
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"package role {pin_role!r} != rule role {citizen['role']!r}"))
@@ -344,7 +357,7 @@ def validate_package(
                 issues.append(MemberIssue(pin["id"], pin["version"], "SCOPE_MISMATCH",
                                           f"member scope {member_scope} != package scope {package_scope}"))
 
-        if citizen["schema"] in {"rule-artifact.v1", "rule-artifact.v2"}:
+        if citizen["schema"] in _RULE_ARTIFACT_SCHEMAS:
             produced.setdefault(citizen["publishes"], []).append(pin["id"])
             for ref in set(_iter_parameter_and_table_refs(citizen["when"])) | set(
                 _iter_parameter_and_table_refs(citizen["value"])
@@ -469,7 +482,7 @@ def validate_package(
 
     # 6. Force-declare same-quantity source aggregation (ADR-0028 decision 8)
     for pin, citizen in resolved:
-        if citizen["schema"] in {"rule-artifact.v1", "rule-artifact.v2"}:
+        if citizen["schema"] in _RULE_ARTIFACT_SCHEMAS:
             inputs = citizen.get("requires", [])
             input_qs = []
             for inp in inputs:
@@ -501,7 +514,7 @@ def validate_package(
             comp_pin, comp_citizen = comp_member
             prod_rule = None
             for pin, citizen in resolved:
-                if citizen["schema"] in {"rule-artifact.v1", "rule-artifact.v2"} and citizen["publishes"] == S:
+                if citizen["schema"] in _RULE_ARTIFACT_SCHEMAS and citizen["publishes"] == S:
                     prod_rule = (pin, citizen)
                     break
             if prod_rule is None:
@@ -551,8 +564,11 @@ def validate_package(
             # decorative co-located document.
             if closed_v2_surface and citizen["schema"] != "role-canon.v1":
                 adj[m_id].update(role_canons)
-            if citizen["schema"] in {"rule-artifact.v1", "rule-artifact.v2"}:
-                for req in citizen.get("requires", []):
+            if citizen["schema"] in _RULE_ARTIFACT_SCHEMAS:
+                declared_refs = set(citizen.get("requires", []))
+                declared_refs.update(_iter_ref_names(citizen["when"]))
+                declared_refs.update(_iter_ref_names(citizen["value"]))
+                for req in declared_refs:
                     for p_id in produced.get(req, []):
                         adj[m_id].add(p_id)
                     if closed_v2_surface:
