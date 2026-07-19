@@ -17,7 +17,7 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-19; Track 1 build complete, review dispatched)
+## Current state (updated 2026-07-19; Track 1 reviewed ready, PR #31 open)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
@@ -41,20 +41,24 @@ against git, trust git and say so.
   `str | None` syntax; rebuild pattern: `rm -f .venv/bin/python3
   .venv/bin/python && /opt/homebrew/bin/python3.13 -m venv --clear .venv &&
   .venv/bin/python3 -m pip install -r requirements.txt`).
-- **➡️ IN FLIGHT: Track 1 independent pre-merge review**, dispatched as a
-  background sub-agent (author-independent, isolated worktree) under fresh
-  charter `docs/reviews/charter-2026-07-19-dsbs-t1-schema-citizens-review.md`
-  (`c6d62f6`). Verdict lands at
-  `docs/reviews/2026-07-19-dsbs-t1-schema-citizens-review.md`, committed and
-  pushed to `track/dsbs-t1-schema-citizens` by the reviewer. **Reconcile
-  against `git log`/`git status` on that branch first — the review may have
-  landed past this note — trust git.**
-- **After the review returns:** if `ready`, per-track PR and owner merge; if
-  `not ready`, foreman triages findings and charters a repair (Track 0a
-  pattern: not-ready → repair → independent delta re-review). Then Track 2
-  (composition and conditional machinery) — its charter must name the
-  authoritative-surface (coordinator-from-facts) golden class, and owes
-  ADR-0035's same-batch admission-ordering kill-test.
+- **Track 1 independent pre-merge review returned READY** (`5bfbf52`,
+  `docs/reviews/2026-07-19-dsbs-t1-schema-citizens-review.md`, dispatched as
+  a background sub-agent under
+  `docs/reviews/charter-2026-07-19-dsbs-t1-schema-citizens-review.md`). All
+  eight charter checks hold; six findings (F1–F6), all non-blocking/
+  observational with file/line evidence (notably F3: the runtime universe
+  guard's v1/v2 exemption covers only the `COLLECT_TARGET_NOT_FAMILY` half,
+  by design and tested — `RECORDED_NON_COMPOSABLE_INPUT` is unconditional).
+  Foreman triage: no repair needed. Full battery re-run fresh by the
+  reviewer in its own worktree: 477 tests OK, mypy clean, governance lint
+  conformant, envelope scan clean.
+- **➡️ NEXT ACTION: owner merges PR #31**
+  (https://github.com/mattidell/attestory/pull/31,
+  `track/dsbs-t1-schema-citizens` → `main`). Foreman does not merge
+  autonomously (ADR-0030). After merge: Track 2 (composition and
+  conditional machinery) — its charter must name the authoritative-surface
+  (coordinator-from-facts) golden class, and owes ADR-0035's same-batch
+  admission-ordering kill-test.
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
