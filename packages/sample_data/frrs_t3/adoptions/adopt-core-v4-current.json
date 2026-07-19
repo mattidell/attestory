@@ -1,6 +1,6 @@
 {
-  "act_id": "act.adopt.automation",
-  "actor": "automation.bot",
+  "act_id": "act.adopt.core.v4",
+  "actor": "demo.user.filer-1",
   "at": "2026-07-18T00:00:00Z",
   "committed_against": 1,
   "kind": "package-adoption",
@@ -9,19 +9,19 @@
       "note": "synthetic adoption; non-authoritative"
     },
     "package": {
-      "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d",
-      "id": "tax.us.2025.package.interest-slice",
-      "version": "v1"
+      "checksum": "9aefcb0cb6707ed642c59c6cc2796fdd12660b54c4c2647aa1b9a6612b3d0f26",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v4"
     },
     "release": {
       "checksum": "79f632bdcc9981a83260ea12b73d1cf9802d4c6bbcf369f40d4cdf200b2c3569",
       "id": "demo.release.2025",
       "version": "v1"
     },
-    "revision": 9,
+    "revision": 4,
     "scope": {
       "jurisdiction": "us",
-      "year": "2025"
+      "year": "2053"
     }
   },
   "schema": "act.v1"

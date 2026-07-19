@@ -145,6 +145,14 @@ def render_fixture_files() -> dict[str, bytes]:
             package_id=core, package_version="v3", release_checksum=release_checksum,
             scope={"jurisdiction": "us", "year": "2052"},
         ),
+        # DSBS Track 2's core-calculations v4: adds 1099-DIV lines 3a/3b and
+        # the line-9 dividend fold-in. Distinct synthetic scope so v3 stays
+        # independently exercisable.
+        "adoptions/adopt-core-v4-current.json": _adoption_act(
+            "act.adopt.core.v4", actor=SCOPE_USER, revision=4,
+            package_id=core, package_version="v4", release_checksum=release_checksum,
+            scope={"jurisdiction": "us", "year": "2053"},
+        ),
     }
 
     rendered: dict[str, bytes] = {

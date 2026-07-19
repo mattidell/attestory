@@ -1,0 +1,36 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-line9",
+  "version": "v2",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.wages.total-w2-box1",
+    "tax.us.2025.interest.taxable-total",
+    "tax.us.2025.dividends.ordinary-total"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.wages.total-w2-box1", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.interest.taxable-total", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.dividends.ordinary-total", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      { "op": "ref", "name": "tax.us.2025.wages.total-w2-box1" },
+      { "op": "ref", "name": "tax.us.2025.interest.taxable-total" },
+      { "op": "ref", "name": "tax.us.2025.dividends.ordinary-total" }
+    ]
+  },
+  "publishes": "tax.us.2025.income.total-income",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.wages.total-w2-box1",
+      "tax.us.2025.interest.taxable-total",
+      "tax.us.2025.dividends.ordinary-total"
+    ]
+  },
+  "notes": "Form 1040 Line 9: total income from wages, taxable interest, and ordinary dividends. v2 folds in line 3b (ordinary dividends) under the existing line-9 rule contract (Tier 1 content extension); v1 remains historical. Qualified dividends (line 3a) is a subset already counted within line 3b's ordinary total and is never separately added."
+}

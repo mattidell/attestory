@@ -1,0 +1,30 @@
+{
+  "schema": "rule-artifact.v2",
+  "id": "tax.us.2025.rule.form1040-line3a",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "role": "computation",
+  "requires": ["tax.us.2025.dividends.1b-subtotal"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.dividends.1b-subtotal", "version": "v1", "origin": "assertion" }
+  ],
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.f1099div.1b"
+  },
+  "value": {
+    "op": "ref",
+    "name": "tax.us.2025.dividends.1b-subtotal"
+  },
+  "publishes": "tax.us.2025.dividends.qualified-total",
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": ["tax.us.2025.dividends.1b-subtotal"]
+  },
+  "notes": "Form 1040 Line 3a: qualified dividends. Composes from box 1b over the closed tax.us.2025.f1099div.1b family only (ADR-0035 decisions 1-2, per-box closure independence): closed-empty publishes an honest zero, undeclared or open blocks this line independently of line 3b's box-1a family. The line-level relation 3a <= 3b holds by construction of the admission-checked 1b <= 1a pair (ADR-0035 decision 4); this rule performs no separate re-check."
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.form1040.line-3a",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "3a",
+  "label": "Qualified dividends",
+  "description": "Form 1040 (2025), line 3a: qualified dividends. Composes from Form 1099-DIV box 1b over the closed tax.us.2025.f1099div.1b family, gated on that family's closure only (ADR-0035 decisions 1-2, per-box closure independence).",
+  "binds_symbol": "tax.us.2025.dividends.qualified-total",
+  "citation": { "id": "tax.us.2025.citation.form1040.line-3a", "version": "v1" },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "A current derived finding publishes this qualified-dividend amount; its lineage pins the box-1b subtotal."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a computed zero from present box-1b findings that sum to zero. The box-1b family is closed."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a zero because the box-1b family is attested closed on its current horizon with no recorded members."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Qualified dividends is blocked because the box-1b family is unclosed or its dependencies are missing.",
+      "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "No value exists because the rule guard is false."
+    }
+  }
+}
