@@ -17,7 +17,7 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-19; Track 2 build in flight, deliverables 1-4 landed)
+## Current state (updated 2026-07-19; Track 2 build COMPLETE, deliverables 1-8 all landed, pre-merge review not yet chartered)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
@@ -91,22 +91,119 @@ against git, trust git and say so.
     composing line carries the closure code directly; check the committed
     goldens before asserting a block code. 493 tests green at this commit,
     mypy clean, governance lint conformant, envelope scan clean.
-- **➡️ NEXT ACTION: continue the build — deliverables 5–8 remain** (the
-  complete Schedule B attachment): 5 existence conditional (>$1,500 over
-  2b+3b, `guard_inapplicable`-family not-required disposition), 6
-  `collect_members` itemization mechanism for Part I/II rows tying to
-  2b/3b, 7 the `ITEMIZATION_TIE_OUT_VIOLATION` derivation-time check with
-  both named kill-tests (stale row set, stale line — vocabulary already
-  landed in Track 1, do not add a new code), 8 Part III completeness over
-  two new taxpayer-assertion fact types (foreign account, foreign trust)
-  with presence-semantics and the foreign-account yes-branch's 7b-country
-  requirement + named-not-produced FinCEN-114 obligation. All six named
-  golden classes in the charter's Verification section must be satisfied
-  before this track is done; three remain unbuilt (attachment
-  not-required, required-and-complete whole-form, required-and-incomplete
-  honest block). **Reconcile against `git log`/`git status` on
-  `track/dsbs-t2-composition-conditional-machinery` first — trust git over
-  this note.**
+- **Deliverables 5–8 (the complete Schedule B attachment) LANDED** —
+  `2a10f60`, all in one commit because one execution mechanism serves
+  every deliverable: `attachment-rule.v1` citizens carry no `when`/`value`
+  expression tree (ADR-0036), so they can't run through the ordinary
+  saturation `attempt()` path at all. `packages/derivation/runner.py`
+  gains `_Run.attempt_attachment`, a dedicated interpreter for the
+  citizen's declarative `requirement`/`itemizations`/`completeness`
+  structure, dispatched from the same saturation loop every rule-artifact
+  schema already uses (`is_eligible`/`_execute`/`finalize_unreached` all
+  branch on `rule.get("schema") == "attachment-rule.v1"`).
+  - **5 (existence conditional):** any-of-subtotals strictly-greater-than
+    the cited $1,500 threshold, per-trigger outcome computed (walkable via
+    pins — the disposition record schema is closed, `additionalProperties:
+    false`, so "per-trigger outcome" is reconstructible by walking the
+    pinned subtotal findings against the pinned threshold parameter, not
+    embedded as a free field). Not-required reuses the ordinary
+    `inapplicable`/`guard_result: false` disposition every rule already
+    emits — no new disposition shape needed. New committed test
+    (`AttachmentCannotPropagateToALine`) asserts no sibling line rule
+    (2b/3a/3b/9) names the attachment symbol anywhere in content.
+  - **6 (`collect_members`):** interpreted directly in
+    `attempt_attachment`, not as a new `evaluate()` op — it reads
+    `self.sources`/`self.source_fids` (the same collectible-fact tables
+    `collect` already populates) keyed by `member_fact_type.id`, and pins
+    every row's member finding. Row shape (`finding_id` + `value`) lives
+    only in the runner's internal value construction, never in the closed
+    generic `attachment-rule.v1` schema. **Scope-bounded simplification,
+    stated honestly, not hidden:** Schedule B Part I ties to the box-1
+    (1099-INT) family only — the *only* interest family this milestone's
+    fixtures (both T2's and T1's) ever populate; a full build would need
+    one itemization block per interest source family (b1/b3/oid/non-form)
+    tying to the same composed line. Part II ties 1:1 to box-1a
+    (1099-DIV), no simplification needed there.
+  - **7 (tie-out):** row-sum vs. the named line's *current* value, checked
+    only once completeness holds; mismatch hard-fails the attachment only
+    (`ITEMIZATION_TIE_OUT_VIOLATION`, the exact Track-1 vocabulary, no new
+    code) and never touches the line (the line is a separate rule the
+    attachment only reads). Both named kill-tests
+    (`TieOutInvariant.test_stale_row_set_...`,
+    `test_stale_line_...`) are `RunContext`-level, per the charter's
+    explicit allowance — a correctly-computed live run can never disagree
+    with itself, so the defect isn't expressible through an honest act
+    log.
+  - **8 (Part III completeness):** two new taxpayer-assertion fact types
+    (`tax.us.2025.scheduleb.foreign-account`, `...foreign-trust`) plus the
+    branch-only `...7b-country`, all in a new `scheduleb.bundle.json`
+    (bundle.v2 — a bare top-level `fact-type.v2` member is legal for
+    *package*-level validation but the live *kernel* fact registry only
+    admits fact types reached via bundle-adoption, so a bare member alone
+    would silently reject every live assertion referencing it — caught by
+    a `FindingModelError: finding references unknown fact` failure while
+    building this). Presence is checked independently per required answer
+    before any value is read (three separate goldens: account-absent-
+    alone, trust-absent-alone, both-absent, each naming exactly its own
+    missing symbol(s) — never masking). `foreign-account: yes` adds the
+    7b-country requirement and names `FINCEN_114_NAMED` as a walkable
+    obligation fact (label text only, no form/field/filing key anywhere in
+    the published value — verified by string-absence assertion). ADR-0036
+    ratifies no obligation for `foreign-trust: yes`, so no
+    `branch_requirements` entry names one — documented in the rule
+    citizen's own `title`, not invented.
+  - **Wiring repairs the live path needed** (none of these reopen a
+    ratified decision, all additive): `packages/derivation/live.py`'s rule
+    filter excluded `attachment-rule.v1` from `ctx.rules` entirely (fixed:
+    added to the schema set at line ~53); `packages/derivation/marshal.py`'s
+    legacy single-value input fallback only recognized ordinary
+    rule-artifact `requires` lists to decide whether an unbound current
+    finding should surface as a symbol, so a live Part III answer
+    assertion could never reach a run at all — fixed with a new
+    `_rule_required_symbols` helper that also understands an attachment
+    citizen's own `requirement.subtotals` +
+    `completeness.required_answers`/`branch_requirements` symbol surface.
+  - **Package validation's reachability walker** (`package_validation.py`
+    §8, the `MEMBER_UNREACHABLE` check) has no adjacency case for
+    `attachment-rule.v1`'s structure, so every new v5 citizen (the
+    attachment rule, its citation, its threshold parameter, the new
+    bundle) is listed directly in the package's `entrypoints` — the same
+    sanctioned pattern v4 already used for `dividend-universe.v1`. This is
+    a legitimate, precedented mechanism, not a workaround; extending the
+    walker itself to understand attachment structure natively would be a
+    reasonable cheap follow-up but is not a charter deliverable.
+  - Shipped as `tax.us.2025.package.core-calculations` v5
+    (`tools/generate_dsbs_t2_schedule_b_content.py`) at scope year 2054 —
+    distinct from v4's 2053, v3's 2052, etc., so every prior version stays
+    independently exercisable. Adoption fixture:
+    `packages/sample_data/frrs_t3/adoptions/adopt-core-v5-current.json`.
+  - **16 new tests** in `tests/test_dsbs_t2_schedule_b.py`. All six of the
+    charter's named golden classes now exist and are green: 3a/3b
+    publication and line-9 (already landed at 2ed1c9c, unchanged), Schedule
+    B not-required (`NotRequired`, 3 tests), required-and-complete whole
+    form (`RequiredAndComplete`, 2 tests — Part I/II itemizations tying to
+    2b/3b, Part III both answers present, one `no`/`no` case and one `yes`
+    branch case), required-and-incomplete (`RequiredAndIncomplete`, 4
+    tests — each answer absent alone, both absent together, and the
+    branch-triggered 7b-country absence), and the same-batch ordering +
+    tie-out kill-tests (already landed at 6312cc4 for ordering; tie-out
+    kill-tests new here). Every golden test that is one of the six named
+    classes enters through `live_coordinate_run` from an authoritative act
+    log — confirmed by grep, not assumption: `RunContext(` appears only in
+    the two explicitly-marked supplementary classes (`TieOutInvariant`,
+    `WholeFormValueContent`), both docstring-labeled non-substitutive.
+  - Full battery green at this commit: **509 tests, mypy clean (99
+    files), governance lint conformant, envelope scan clean**
+    (`--range main..HEAD`).
+- **➡️ NEXT ACTION: Track 2 build is COMPLETE (deliverables 1–8, all six
+  named golden classes present and green).** Ready for the author-
+  independent pre-merge review this track's charter's Review gate section
+  calls for — the charter flagged that given this track's size (two ADRs'
+  remaining production conditions in one branch) the foreman should
+  consider a review charter or an interim checkpoint; no such review has
+  been chartered or dispatched yet. **Reconcile against `git log`/`git
+  status` on `track/dsbs-t2-composition-conditional-machinery` first —
+  trust git over this note.**
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
