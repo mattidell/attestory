@@ -17,7 +17,7 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Current state (updated 2026-07-19; Track 2 build COMPLETE, deliverables 1-8 all landed, pre-merge review not yet chartered)
+## Current state (updated 2026-07-19; Track 2 review found F1, repair landed, delta re-review dispatched)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. Track 0 is CLOSED: ADRs 0035/0036/0037 ratified; Track 0a
@@ -195,15 +195,45 @@ against git, trust git and say so.
   - Full battery green at this commit: **509 tests, mypy clean (99
     files), governance lint conformant, envelope scan clean**
     (`--range main..HEAD`).
-- **➡️ NEXT ACTION: Track 2 build is COMPLETE (deliverables 1–8, all six
-  named golden classes present and green).** Ready for the author-
-  independent pre-merge review this track's charter's Review gate section
-  calls for — the charter flagged that given this track's size (two ADRs'
-  remaining production conditions in one branch) the foreman should
-  consider a review charter or an interim checkpoint; no such review has
-  been chartered or dispatched yet. **Reconcile against `git log`/`git
-  status` on `track/dsbs-t2-composition-conditional-machinery` first —
-  trust git over this note.**
+- **Independent pre-merge review returned NOT READY** (`0541875`,
+  `docs/reviews/2026-07-19-dsbs-t2-composition-conditional-machinery-review.md`,
+  dispatched as a background sub-agent under
+  `docs/reviews/charter-2026-07-19-dsbs-t2-composition-conditional-machinery-review.md`).
+  Eight of nine checks passed on direct re-derivation. **F1 (blocking,
+  confirmed independently by the foreman before repair):** Schedule B's
+  Part I itemization `collect_members`s the box-1/1099-INT family only
+  (as documented), but its `tie_out.line_symbol` named
+  `tax.us.2025.interest.taxable-total` — line 2b's *four*-family sum — not
+  `tax.us.2025.interest.b1-subtotal`, the box-1-only figure the itemization
+  rows actually cover. Any filer with concurrent box-1 and box-3/OID/
+  non-form interest would have spuriously hard-failed with
+  `ITEMIZATION_TIE_OUT_VIOLATION` despite correct computation — invisible
+  in the suite because every Track 2 fixture held non-box-1 interest at a
+  closure-backed zero. This was Track 2's own chartered tie-out mechanism
+  (deliverable 7) comparing the wrong two things, not a boundary or
+  documentation gap.
+- **F1 repaired** (`854c71a`): retargeted the tie-out symbol to
+  `tax.us.2025.interest.b1-subtotal`, regenerated the derived registry/
+  release checksums, added a new `live_coordinate_run` regression golden
+  (`PartIInterestTieOutWithConcurrentNonBox1Interest`, concurrent box-1 +
+  box-3 interest publishes cleanly), and fixed two supplementary
+  `RunContext`-level test classes that needed the newly-required
+  `b1-subtotal` input alongside the pre-existing `taxable-total` input. No
+  runner/evaluator code changed — the tie-out mechanism itself was already
+  correct; the content told it to compare the wrong symbol. Full battery
+  re-verified by the foreman: 510 tests, mypy clean, governance lint
+  conformant, envelope scan clean.
+- **➡️ NEXT ACTION: independent delta re-review dispatched, awaiting
+  result.** Following this milestone's own Track 0a precedent (not-ready →
+  repair → independent delta re-review → ready, not foreman self-
+  certification), a fresh reviewer is dispatched under
+  `docs/reviews/charter-2026-07-19-dsbs-t2-delta-rereview.md` (`1d6e34b`)
+  to verify the repair discharges F1 without disturbing the original
+  review's eight passing checks. Verdict lands at
+  `docs/reviews/2026-07-19-dsbs-t2-delta-rereview.md` on the same branch.
+  **Reconcile against `git log`/`git status` on
+  `track/dsbs-t2-composition-conditional-machinery` first — trust git over
+  this note.**
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling
