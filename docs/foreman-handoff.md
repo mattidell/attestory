@@ -52,10 +52,20 @@ against git, trust git and say so.
   durable NPE behavior, package reachability for nested refs, and fully
   synthetic authoritative-fact coordinator coverage. Focused tests, full
   suite, mypy, governance lint, and envelope verification passed.
-- **➡️ NEXT ACTION: independent review disposition for ADR-0037 Track 0a.**
-  The owner prohibited agent dispatch during implementation, so no reviewer
-  was launched. The branch must receive the required independent review and
-  merge before D2 adoption; no D2 or subsequent content track has started.
+- **Track 0a review chain complete (2026-07-19).** Independent pre-merge
+  review returned **not ready** (F1 malformed-shape negatives missing; F2
+  paper cases 5/6 not driven through `live_coordinate_run`; F3 no executed
+  pin-strip mutation test; F4 reachability walk widened to v1/v2 without
+  justification). Foreman repair `595c4e1` discharged all four; independent
+  delta re-review (owner-authorized dispatch) returned **ready** (`61452e5`)
+  with two non-blocking observations: R1 (case-5 displacement leg depends on
+  deterministic act identities across regenerated logs) and R2 (pin-mutation
+  test imports private `_content_id`; migrate if a public identity-verify
+  surface appears). Battery: 448 tests, mypy, lint, envelope — green.
+- **➡️ NEXT ACTION: owner merges `codex/dsbs-t0a-cmdn-production` (PR open).**
+  On merge, Track 0 closes and Track 1 (schema citizens) opens; no content
+  track has started. Charter reminder for Tracks 1–4: behavior charters name
+  their authoritative-surface (coordinator-from-facts) golden class.
 
 ## Historical record — Core Tax Conditions remediation (closed 2026-07-15)
 
