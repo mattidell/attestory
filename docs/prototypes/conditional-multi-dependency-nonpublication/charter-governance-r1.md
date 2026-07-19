@@ -1,10 +1,10 @@
 # Charter: Governance Review R1 — Conditional Multi-Dependency Non-Publication
 
-Status: **prepared, held — no seat assigned or dispatched**
+Status: **complete — external governance review landed**
 
-This exact review charter is prepared for owner approval and release. It is a
-Medium-tier independent governance review over the two completed paper rivals.
-It authorizes no launch by itself.
+This was a Medium-tier independent governance review over the two completed
+paper rivals. The owner supplied the external review artifact; this charter is
+complete.
 
 ## Scope and exclusions
 

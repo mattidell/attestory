@@ -38,3 +38,9 @@
   docs/governance set contained no such restriction and was not revised.
 - Prepared, held Governance and Adversary R1 charters. No reviewer is assigned
   or dispatched; the owner may approve and release either exact charter later.
+- The owner supplied both external review artifacts. Governance R1 found both
+  shapes sufficient at Rung 1 with five non-blocking IT1 precision findings.
+  Adversary R1 found IT1 sufficient and rejected IT2 on its unpinned
+  eligibility-member supersession attack. Gate-5 triage preserves IT2 as rival
+  evidence and recommends IT1 as the converged candidate; no further role is
+  released.
