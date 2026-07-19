@@ -20,7 +20,7 @@ Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-
 
 Milestone: **Dividends and Schedule B Slice — ACTIVE (plan approved by the owner 2026-07-18)**. Plan, owner scope directions, and tracks: `docs/phases/real-return/milestones/dividends-schedule-b-slice.md`. Prior milestone: First Real Return Slice — CLOSED 2026-07-18 (Track 5 merged PR #21, `693b09b`; owner attestation PR #20); its plan, retrospective (`docs/milestone-retrospectives/2026-07-18-first-real-return-slice.md`), and deferral ledger remain the durable record.
 
-**➡️ Next: Conditional Multi-Dependency Non-Publication Iteration 1 incumbent evidence is landed at docs/prototypes/conditional-multi-dependency-nonpublication/it1/. The plan requires a sealed clean-room rival before any committee review; no rival charter, role release, or dispatch is currently authorized. D2 evaluation/ADR work remains blocked on this topic. D1 and D3 are already ratified.**
+**➡️ Next: Conditional Multi-Dependency Non-Publication has a sealed, owner-approved, held clean-room rival charter at docs/prototypes/conditional-multi-dependency-nonpublication/charter-it2.md. No rival seat is assigned or dispatched. Its evidence is required before committee review; D2 evaluation/ADR work remains blocked. D1 and D3 are already ratified.**
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 

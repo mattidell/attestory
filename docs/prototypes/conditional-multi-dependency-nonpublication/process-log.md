@@ -23,3 +23,5 @@
   work as proposed or production-conditioned, not live HEAD behavior. The
   incumbent charter is complete. Clean-room rival evidence remains required
   before committee review or any decision conclusion.
+- Owner authorized the clean-room rival charter. The exact sealed charter is
+  held at charter-it2.md; no rival seat is assigned or dispatched.
