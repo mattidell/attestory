@@ -24,7 +24,22 @@ declarations. See reviews/confirmation-r1.md.
 | C1’s underlying representational gap — conditional collection of more than one absent dependency without making those dependencies unconditional for qualified-zero returns | **separate-decision** | Do not absorb a new evaluator/runner/explanation mechanism into D2 Repair 2. Gate 2 requires a missing production substrate to be routed separately. The owner must decide whether to charter a narrowly scored topic for this generic conditional-dependency/non-publication capability. |
 | Repair 1’s five passing measurements | **production conditions / settled paper evidence** | Preserve them as converged D2 evidence; they need no further prototype iteration unless the separate decision changes their boundary. |
 
-## Owner check-in
+## Owner disposition — Tier 3 amendment, 2026-07-18
+
+The owner explicitly revised the D2 missing-declaration requirement. A
+qualified-positive non-publication walk must name a real currently encountered
+contributable gap; it no longer must enumerate both absent declarations in one
+evaluation. After contribution, re-run must disclose the remaining factual gap.
+The revision preserves factual completeness: no absent declaration is inferred
+as zero, no ordinary tax may publish on the qualified path, and qualified-zero
+returns still do not owe capital-gain declarations.
+
+Accordingly, C1 is **resolved by owner amendment**, not by an unproven claim
+about committed evaluator machinery. The generic multi-dependency reporting
+capability is deferred breadth; it is not a D2 prerequisite and no separate
+topic is opened. The amendment is applied to plan Gate 2 case 3 and Gate 6.
+
+## Owner check-in (superseded by disposition above)
 
 **Evidence status:** D2-P1 and D2-P3 are settled at paper rung; D2-P2’s
 single-successor/reduction/present-yes portions are settled, but its
@@ -37,9 +52,6 @@ owner-directed role-separation exception, recorded in the process log. The
 fresh confirmation reviewer ran all six declared measurements and stayed within
 its charter. No other role was dispatched.
 
-**Recommendation:** do not authorize another D2 repair yet. First direct the
-disposition of the separate-decision gap: either authorize a new, bounded
-decision inventory / Gate-1 score for conditional multi-dependency
-non-publication, or revise the owner-required D2 missing-walk condition. The
-second choice changes the owner-ratified D2 contract and therefore needs an
-explicit Tier-3 direction; it is not an editorial repair.
+**Recommendation (superseded):** do not authorize another D2 repair yet. The
+owner chose the second stated option: an explicit Tier-3 revision of the
+missing-walk requirement.

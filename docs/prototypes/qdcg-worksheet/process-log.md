@@ -41,3 +41,9 @@
   declaration. Gate-5 triage records this as D2-decision-blocking and routes
   the underlying conditional multi-dependency reporting gap as a separate
   decision; no Repair 2 or further role is opened.
+- Owner explicitly revised the D2 missing-walk requirement at Tier 3: a
+  qualified-positive non-publication walk names a currently encountered
+  declaration; progressive contribution and re-run disclose any remaining
+  factual gap. The generic all-missing-in-one-walk capability is deferred
+  breadth, not a new topic. The plan and triage record the amendment; no role
+  is dispatched.
