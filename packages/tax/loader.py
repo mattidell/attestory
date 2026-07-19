@@ -56,6 +56,12 @@ def tax_registry() -> SchemaRegistry:
     families = load_source_families(reg)
     for family in families.values():
         reg.family_member_predicates.add(family["member_predicate"]["fact_type"])
+    # ADR-0035 decision 4: 1099-DIV box 1b (qualified) is a per-statement
+    # subset of box 1a (ordinary) - enforced generically by the kernel via
+    # the declared pair, at admission, before state mutation is observed.
+    reg.subset_invariant_pairs["tax.us.2025.f1099div.box1b-qualified"] = (
+        "tax.us.2025.f1099div.box1a-ordinary"
+    )
     return reg
 
 

@@ -56,6 +56,12 @@ class SchemaRegistry:
         self._schemas: dict[str, dict[str, Any]] = {}
         self._validators: dict[str, jsonschema.Draft202012Validator] = {}
         self.family_member_predicates: set[str] = set()
+        # Domain-declared subset invariants (e.g. ADR-0035 decision 4: 1099-DIV
+        # box 1b <= box 1a per statement). Maps a subordinate fact type id to
+        # the dominant fact type id it must never exceed for the same key
+        # suffix. Empty by default; a tax-layer registry populates pairs. The
+        # kernel enforces the relation generically, never naming a domain.
+        self.subset_invariant_pairs: dict[str, str] = {}
         self._load()
 
     def _load(self) -> None:
