@@ -1,0 +1,32 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.qdcg.vocabulary",
+  "version": "v1",
+  "label": "QDCG Worksheet declared-absence taxpayer-assertion vocabulary for tax year 2025",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.capital-gain-distributions",
+      "version": "v1",
+      "title": "Whether the taxpayer has capital-gain distributions to declare for 2025 (ADR-0038 decision 1: declared-absence taxpayer-assertion pattern, on the existing ADR-0032/ADR-0036 categorical pattern - value domain {yes, no}, never boolean, no default. A 'no' is factual completeness, present and non-maskable, never an assumed zero; it is read only inside the QDCG worksheet's conditional_dependency_set guard, never as an unconditional requires - a qualified-zero return never reads, names, or pins this declaration.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"enum": ["yes", "no"]},
+      "supersession": {"policy": "free"}
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-required",
+      "version": "v1",
+      "title": "Whether Schedule D is required for 2025 (ADR-0038 decision 1: declared-absence taxpayer-assertion pattern, categorical domain {yes, no}, never boolean, no default). A 'yes' yields the QDCG worksheet's committed inapplicable/guard_inapplicable disposition - never Schedule D machinery, which is out of this milestone's scope; this fact type names the declaration only. Read only inside the worksheet's conditional_dependency_set guard, never as an unconditional requires.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {"enum": ["yes", "no"]},
+      "supersession": {"policy": "free"}
+    }
+  ]
+}
