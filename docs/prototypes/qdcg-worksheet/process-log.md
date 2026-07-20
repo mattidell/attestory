@@ -134,3 +134,8 @@
   Tier 3) from the confirmed shape, both landed together at `146887a`. This
   authorizes no implementation; production work is milestone Track 3,
   gated on the owner's ratification decision.
+- **ADR-0038 ratified (owner, 2026-07-19, `2b49ef9`).** D2 is closed as a
+  prototype topic. This milestone's full ADR set (0035 D3, 0036 D1, 0037
+  the CMDN prerequisite, 0038 D2) is now ratified; D1/D2/D3 are all
+  production-eligible. Next: milestone Track 3 charters the line-16
+  production build against ADR-0038's five named production conditions.
