@@ -1,7 +1,6 @@
 # ADR 0040 — The Trusted Advisor Role
 
-- Status: **proposed** (inert until owner ratification; Tier 2 process
-  change, lands by PR on ratification)
+- Status: **accepted** (owner ratification 2026-07-19)
 - Tier: 2
 - Date: 2026-07-19
 
