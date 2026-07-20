@@ -111,3 +111,68 @@ until `main` freezes them.
    (2026-07-16); the remote stays private until the merge gates
    (merge-commit-only, `main` branch protection) are configured. Making it
    public again is a standalone owner decision.*
+
+## Amendment (2026-07-19, **accepted**) — What actually gets a PR
+
+Status: **accepted** (owner ratification 2026-07-19). Motivated by a
+foreman error: mid-milestone, foreman-authored commits (a full D2 prototype
+repair/confirmation arc and an ADR ratification) were pushed directly to
+`main` instead of through a unit PR, on the mistaken belief — drawn from
+`git log` showing single-parent commits reachable from `main` — that some
+historical ADR ratifications had skipped PRs. They had not: every one went
+through a PR (decision 2, item 5); the single-parent commits observed were
+antecedent commits *inside* a merged branch, not evidence the branch skipped
+review. This amendment makes explicit, with concrete examples, a practice
+that decisions 2–4 already implied but never enumerated.
+
+### D. Merge unit, restated with this milestone's actual units
+
+The governing idea remains decision 4: **merge unit = review unit.** A PR is
+cut when something is complete and independently reviewable; everything that
+builds toward it rides as plain commits on the unit's branch and reaches
+`main` only inside that PR.
+
+9. **Units that have gotten a PR this milestone, and will continue to:**
+   the milestone plan (approval + activation — PR #23); each prototype
+   plan's approval (PR #24, #26, #28); each ratified ADR **together with
+   its entire evidence chain** — charters, both sealed builder designs,
+   governance/adversary reviews, evaluation-analysis, any repair and
+   confirmation rounds — as one unit (PR #25 for ADR-0035, #27 for
+   ADR-0036, and their ADR-0037/0038 equivalents); each development track
+   (PR #31 Track 1, #32 Track 2); and, in the First Real Return Slice,
+   records/attestation units (PR #20, #21).
+10. **Units that stay a branch commit and ride inside the unit's PR, never
+    landing on `main` alone:** every intermediate event inside a unit —
+    charters cut, builder outputs landed under custody, individual
+    governance/adversary/confirmation reviews, a foreman synthesis, a
+    NOT-CONFIRMED round, a **proposed** (inert) ADR draft, and routine
+    status flips. A proposed ADR is explicitly not its own PR — only
+    ratification (the status flip to accepted, decision 2) closes the unit
+    and triggers the merge.
+11. **The one confirmed exception: `phase-state.md`/`foreman-handoff.md`
+    pointer advances and other inconsequential phase-state edits do not
+    need a PR.** Direct commits to `main` are fine here — requiring a PR for
+    every re-entry-pointer bump is heavier than the discoverability problem
+    decision 5 was solving for.
+12. **Recommended narrowing (not yet adopted, owner-callable per topic):**
+    the prototype-topic PR is currently the fattest unit — one PR can carry
+    charter → both builder designs → reviews → repair/confirmation rounds
+    → the ratified ADR. Where a topic runs a repair/confirmation cycle, a
+    clean split that preserves merge-unit-equals-review-unit is to land the
+    **round** (charters, builds, reviews, evaluation-analysis) as one PR
+    when the round completes, then land **ratification** as a small second
+    PR that only flips the ADR to accepted and advances phase state. What
+    this amendment does **not** authorize is narrowing below reviewability:
+    a PR of builder designs without their reviews, or a ratified ADR
+    without its evidence chain, cannot be judged standalone — that
+    property (a unit is self-contained evidence, not a fragment) is what
+    makes owner-merge meaningful in the first place. Track PRs (#31, #32)
+    are already at the correct grain and are not affected by this note.
+13. **Known gap, not resolved by this amendment:** item 7 states `main`
+    merges are owner-held, "enforced structurally by branch protection on
+    `main` (require a PR; no direct pushes)." As of this amendment, that
+    branch protection is **not configured** — direct pushes to `main`
+    currently succeed, which is exactly how the triggering error was
+    possible. Configuring it (or confirming it deliberately stays
+    unconfigured) is a standalone owner action this amendment flags but
+    does not itself resolve.
