@@ -118,3 +118,19 @@
   verification pass, or Confirmation R1's reviewer), Rung 1 paper only.
   Output confined to `reviews/confirmation-r2.md`; no other file, no
   production code, schema, or git-config change permitted.
+- **Confirmation R2 returned confirmed (`41d1e29`).** All eight
+  measurements pass on independent re-derivation against committed HEAD
+  source, including a direct-comparison check (not the design's own claim)
+  that D2-P1 and D2-P3 are genuinely untouched. Foreman spot-checked two of
+  the most load-bearing claims independently before committing (the
+  `use_v2` gating in `runner.py` and the schema grep) — both held exactly.
+  One non-blocking note: a path discrepancy between the charter's stated
+  and actual location of the examination files (documents, not artifacts,
+  affected; not a finding against the design).
+- **All three D2 propositions (P1, P2, P3) are now settled at Rung 1**
+  across the full round 1 → repair 1 → confirmation 1 → repair 2 →
+  confirmation 2 arc. Foreman wrote the disposition record
+  (`evaluation-analysis.md`) and drafted candidate **ADR-0038** (proposed,
+  Tier 3) from the confirmed shape, both landed together at `146887a`. This
+  authorizes no implementation; production work is milestone Track 3,
+  gated on the owner's ratification decision.
