@@ -112,3 +112,9 @@
   standing, not re-measured from scratch. Per standing practice, this
   charter is **prepared and inactive**: no reviewer seat is assigned or
   dispatched without a separate, explicit owner release under ADR-0034.
+- **Owner released the confirmation reviewer seat.** Dispatched against the
+  exact `charter-confirmation-r2.md` text, fresh independent context (no
+  access to the Repair 2 builder's session, the foreman's prior
+  verification pass, or Confirmation R1's reviewer), Rung 1 paper only.
+  Output confined to `reviews/confirmation-r2.md`; no other file, no
+  production code, schema, or git-config change permitted.
