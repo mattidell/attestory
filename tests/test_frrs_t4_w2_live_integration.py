@@ -369,7 +369,24 @@ class ResolverCounterProbes(unittest.TestCase):
         with TemporaryDirectory() as tmp:
             content = Path(tmp) / "content"
             shutil.copytree(CONTENT, content)
-            rule = next(content.glob("rule.*.json"))
+            # Tamper an actual "computation" member of the interest-slice
+            # package this scenario adopts (adopt-interest-v2-current.json),
+            # not merely the lexicographically-first rule.*.json -- content
+            # from unrelated slices can sort first and would leave the
+            # tamper outside this package's own member graph, undetected.
+            package = json.loads((content / "package.interest-slice.json").read_text())
+            member_keys = {
+                (m["id"], str(m.get("version", "v1")))
+                for m in package["members"]
+                if m.get("role") == "computation"
+            }
+            rule: Path | None = None
+            for path in sorted(content.glob("rule.*.json")):
+                candidate_body = json.loads(path.read_text())
+                if (candidate_body.get("id"), str(candidate_body.get("version", "v1"))) in member_keys:
+                    rule = path
+                    break
+            assert rule is not None, "no rule file matches an interest-slice computation member"
             body = json.loads(rule.read_text())
             body["_tamper"] = True
             rule.write_text(json.dumps(body, sort_keys=True) + "\n")

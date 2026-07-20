@@ -218,11 +218,28 @@ class ReleaseRegistrySubstitutions(unittest.TestCase):
             members = Path(tmp) / "content"
             shutil.copytree(CONTENT, members)
             # Mutate one member body's bytes (a rule) without touching the registry.
-            for path in members.glob("rule.*.json"):
+            # The target must be an actual "computation" member of the
+            # interest-slice package this scenario adopts (see
+            # adopt-interest-v1/v2-current.json), not merely the
+            # lexicographically-first rule.*.json on disk -- unrelated content
+            # (e.g. other slices' rules) can sort earlier and would leave the
+            # tamper undetected by this package's own member graph.
+            package = json.loads((members / "package.interest-slice.json").read_text())
+            member_keys = {
+                (m["id"], str(m.get("version", "v1")))
+                for m in package["members"]
+                if m.get("role") == "computation"
+            }
+            target: Path | None = None
+            for path in sorted(members.glob("rule.*.json")):
                 body = json.loads(path.read_text())
-                body["_tamper"] = "changed bytes"
-                path.write_text(json.dumps(body, indent=2, sort_keys=True) + "\n")
-                break
+                if (body.get("id"), str(body.get("version", "v1"))) in member_keys:
+                    target = path
+                    break
+            assert target is not None, "no rule file matches an interest-slice computation member"
+            body = json.loads(target.read_text())
+            body["_tamper"] = "changed bytes"
+            target.write_text(json.dumps(body, indent=2, sort_keys=True) + "\n")
             r = self._clean_current(_surface(member_dir=members, registry=members / "published-packages.json"))
         self.assertIsInstance(r, Refusal)
         assert isinstance(r, Refusal)
