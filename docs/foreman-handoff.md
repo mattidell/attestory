@@ -317,17 +317,35 @@ against git, trust git and say so.
     across the full round 1 → repair 1 → confirmation 1 → repair 2 →
     confirmation 2 arc. Foreman wrote the disposition record
     (`docs/prototypes/qdcg-worksheet/evaluation-analysis.md`) and drafted
-    **candidate ADR-0038** (`docs/adr/0038-qdcg-worksheet-and-declared-absence.md`,
-    status **proposed**, Tier 3) from the confirmed shape, both landed
-    together at `146887a`.
-  - **➡️ NEXT ACTION: owner Tier 3 ratification decision on ADR-0038.**
-    This is the owner's actual tax number — no default-window or
-    auto-escalation path applies the way it might at Tier 1/2; the owner
-    decides directly. Only after ratification can the milestone plan's
-    Track 3 be chartered as a production build — the same sequence D3/D1
-    (ADR-0035/0036) already went through this milestone.
-  - **Foreman is not proceeding to charter Track 3 or take any other
-    action on D2 without explicit owner direction.**
+    **candidate ADR-0038** (`docs/adr/0038-qdcg-worksheet-and-declared-absence.md`)
+    from the confirmed shape, both landed together at `146887a`.
+  - **ADR-0038 RATIFIED (owner, 2026-07-19, Tier 3).** All four of this
+    milestone's ADRs are now ratified: ADR-0035 (D3), ADR-0036 (D1),
+    ADR-0037 (the `conditional_dependency_set` prerequisite, merged as
+    Track 0a), ADR-0038 (D2). D1/D2/D3 are all production-eligible.
+  - **➡️ NEXT ACTION: charter Track 3 (line 16 under D2) as a production
+    build.** Its scope is ADR-0038's five named production conditions: the
+    line-16 `rule-artifact.v3` successor rule and its package pin (v1/v2 →
+    v3); the two declared-absence fact-type citizens
+    (`capital-gain-distributions`, `schedule-d-required`) and their
+    package admission (reject non-`{yes, no}` domains); QDCG ladder
+    parameters/intermediates and the six named coordinator-from-facts
+    goldens (qualified-positive both-present publish, qualified-zero
+    reduction, both-absent walk, single-absent walk, present-`"yes"`,
+    supersession displacement); the bidirectional admission-locus
+    contradiction interlock kill-tested in both temporal orders and the
+    same-batch case; and the structural no-reach-around demonstration.
+    Bake in the same mandatory-golden-class discipline the Track 0a review
+    chain established (every named case enters through
+    `live_coordinate_run`, never a `RunContext` shortcut) and the
+    block-code-split lesson from Track 2 (a composing rule's `requires`
+    gate vs. the node's own emitted code — check committed precedent
+    before asserting a block code, don't assume).
+  - **Foreman has not yet chartered Track 3** — next foreman action, not
+    gated on further owner input beyond this ratification (charter
+    drafting is standing foreman work per this milestone's established
+    per-track pattern; builder dispatch remains separately gated on
+    ADR-0034 release as always).
 - **Boundary discipline (standing):** values, dispositions, refusal reasons,
   and the workspace location never enter the repository, a review, or a chat
   session; only the three-fact attestation crossed. Owner-held run tooling

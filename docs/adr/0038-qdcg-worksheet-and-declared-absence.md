@@ -1,6 +1,6 @@
 # ADR 0038 — QDCG Worksheet and Declared Absence
 
-- Status: **proposed** (Tier 3 — owner ratification pending)
+- Status: **accepted** (owner ratification 2026-07-19, Tier 3)
 - Tier: 3
 - Date: 2026-07-19
 
