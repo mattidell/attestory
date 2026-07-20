@@ -54,4 +54,4 @@ are **inert** — never load as authority (ADR-0013 amendment).
 | 0036 | accepted | attachments | Attachment citizen: three atomic states; declared requirement conditional; `collect_members` rows + `ITEMIZATION_TIE_OUT_VIOLATION`; presence-semantics categorical Part III; generic across schedules. |
 | 0037 | accepted | rules, explanation | `conditional_dependency_set`: one walk names every absent member of a conditional dependency set (rule-artifact.v3 only). |
 | 0038 | accepted | worksheet | Line 16: QDCG worksheet as declared v3 successor rule; capital-gain inputs bound to declared-absence facts; bidirectional admission-locus contradiction interlock; qualified-zero reduction grounded in the dependency-set contract. |
-| 0039 | proposed | process | (This index's contract — inert until ratified.) |
+| 0039 | accepted | process | This index is the advisory always-loaded routing surface: charters route by tag, agents read Decision sections by default, role cores apply; all accepted ADRs bind regardless of routing and text governs over digest. |

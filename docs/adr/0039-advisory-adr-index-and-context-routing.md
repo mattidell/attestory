@@ -1,7 +1,6 @@
 # ADR 0039 — Advisory ADR Index and Context Routing
 
-- Status: **proposed** (inert until owner ratification; Tier 2 process
-  change, lands by PR on ratification per the owner's merge-unit rule)
+- Status: **accepted** (owner ratification 2026-07-19)
 - Tier: 2
 - Date: 2026-07-19
 
