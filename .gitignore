@@ -10,3 +10,8 @@ local-data/
 private-archive/
 uploads/
 generated/user/
+
+# Owner-held live-run tooling (ADR-0031): untracked by absolute rule, never
+# committed even accidentally by a future `git add -A`.
+/tools/scaffold_live_acts.py
+/workspace-seed/
