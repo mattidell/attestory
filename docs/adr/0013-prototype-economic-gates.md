@@ -163,6 +163,28 @@ finding. This amendment adds that guard:
    contingent on the owner detecting a problem the owner cannot see. When in
    doubt, the foreman recommends more evaluation, not less.
 
+## Amendment (2026-07-20, owner-directed) — Gate-4 document-length caps removed
+
+The Gate-4 **numeric document-length caps are removed.** This covers both the
+original 800–900 line per-document caps and their 2026-07-16 recalibration
+(design ≤ 300, examination ≤ 120, charter ≤ 100, total topic ≤ 1,800) — the
+latter had lived only in the foreman role template, never in this ADR or
+`PROJECT_PLANNING.md`, and contradicted the process doc, which already bounds
+document length by obligation rather than line count.
+
+A line target measures the wrong thing: thorough evidence is not scope
+pathology, and every real Tier-3 topic exceeded the numbers, so they functioned
+as noise rather than control. Document length is bounded by the pre-declared
+scope, cases, evidence rung, and measurement charter — an author stops when
+those obligations are completely reported, not when a file reaches an economic
+target (`PROJECT_PLANNING.md`, Gate 4).
+
+What Gate 4 keeps: the **structural caps** (iteration / reviewer / repair
+counts) and **session-bounded cost review** with stop-and-decide on genuine
+scope pathology — unchanged. The residual "keep process documents lean"
+guidance is a **craft heuristic, not a gate parameter**
+(`docs/roles/craft-notes.md`); do not reintroduce a numeric cap.
+
 ## Alternatives Considered
 
 - **Keep the v1 gates as retrospective guidance.** Rejected: advisory gates with
@@ -186,4 +208,7 @@ finding. This amendment adds that guard:
 - Proposal and gate-by-gate evaluation: `docs/proposals/prototype-economic-gates.md`
 - Process definition amended: `PROJECT_PLANNING.md`, Prototype-Driven Decisions
   (Prototype Economic Gates)
-- Foreman charter template: `docs/prototypes/_role-templates/foreman.md`
+- Prototype-foreman doctrine: `PROJECT_PLANNING.md`, Prototype-Driven Decisions
+  (the retired role template is tombstoned at
+  `docs/prototypes/_role-templates/foreman.md`; milestone role seeds live in
+  `docs/roles/`)
