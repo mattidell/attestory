@@ -27,7 +27,7 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-20; Track 4 charter drafted, dispatch authorized)
+## Current state (updated 2026-07-21; Track 4 reviewed READY, PR opened)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. All four milestone ADRs ratified: ADR-0035 (D3), ADR-0036 (D1),
@@ -51,26 +51,49 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
   single source (PR #38). Track-by-track detail lives in the review records
   under `docs/reviews/` and git history, no longer restated here.
 - **➡️ Track 4 (1099-DIV closure confirmation and live-run harness
-  extension) — chartered, not yet dispatched.** Charter:
-  `docs/reviews/charter-2026-07-20-dsbs-t4-dividend-live-integration.md`.
-  Scope reconciliation (research pass, 2026-07-20) found the milestone
-  plan's Track 4 line names three things, two of which are **already done**:
-  the 1099-DIV closure-mapping content (`closure-mapping.f1099div-1a/1b
-  .json`, landed `2a08d80`, structurally identical to the interest
-  mappings) and line-9's absorption of 3b (`rule.form1040-line9.v2.json`,
-  already pinned in `package.core-calculations.v6.json` alongside the
-  Track 3 QDCG line-16 successor and the dividend closure mappings). Only
-  the **live-run harness extension** is genuinely open: the owner-held,
-  intentionally-untracked `tools/scaffold_live_acts.py` still pins a v3
-  adoption fixture, has no 1099-DIV bundle/family/template entries, and
-  there is no dividend analog of `tests/test_frrs_t4_w2_live_integration
-  .py` (every prior source family — W-2, interest — has this live-
-  integration precedent; dividends do not yet). Charter scopes exactly
-  that gap: confirming goldens for the two already-done items (not
-  rebuilds), the harness extension, the missing test, and a two-line
-  `.gitignore` safety net for the owner-held paths. **Owner authorized
-  builder + reviewer dispatch for this session, 2026-07-20** (ADR-0034);
-  builder dispatch is the next action.
+  extension) — reviewed READY, PR open, awaiting owner merge.** Build
+  charter: `docs/reviews/charter-2026-07-20-dsbs-t4-dividend-live-integration.md`
+  (`56ae7af` on `track/dsbs-t4-dividend-live-integration`). Scope
+  reconciliation found the milestone plan's Track 4 line names three
+  things, two already done before this track (1099-DIV closure-mapping
+  content, line-9's 3b absorption — both already pinned in
+  `package.core-calculations.v6.json`); only the live-run harness
+  extension was genuinely open. Builder landed `fcbf70b`: confirming
+  goldens for the two already-done items, extended
+  `tools/scaffold_live_acts.py` locally (v6 adoption fixture, dividend
+  bundles/families/templates — including `scheduleb.bundle.json`/
+  `qdcg.bundle.json` beyond the charter's literal text, load-bearing for
+  the Schedule B/QDCG declared-absence citizens, flagged as a review
+  finding), the new `tests/test_dsbs_t4_dividend_live_integration.py`
+  proving Schedule B disposition and QDCG line-16 resolve together in one
+  `live_coordinate_run`, a `.gitignore` safety net for
+  `tools/scaffold_live_acts.py`/`workspace-seed/`, and a closing note.
+  Review charter `54f581d`; author-independent reviewer dispatched 2026-07-20
+  (owner authorization from that session, ADR-0034) re-derived every
+  charter claim from scratch rather than trusting the builder's report —
+  reproduced the "already done" scope-reconciliation claims, reproduced
+  the 546-test/mypy/lint/scan-clean battery independently, and
+  independently confirmed the `BUNDLE_FILES` discrepancy is genuinely
+  load-bearing (not scope creep) by reproducing the kernel
+  `FindingModelError` that occurs without it. **Verdict: READY**, commit
+  `9898c07` (`docs/reviews/2026-07-20-dsbs-t4-dividend-live-integration-review.md`)
+  — one production condition (F1, the bundle-list discrepancy, not
+  blocking) and one non-blocking observation (F2), zero blocking findings.
+  **PR opened 2026-07-21**: NEXT ACTION owner reviews/merges. After Track 4
+  merges: the only remaining live-data action is the owner's quarantined
+  real 1099-DIV run and its permitted three-fact attestation (ADR-0031
+  Decision 7); Track 5 then closes the milestone records.
+  **Process note:** during this track's dispatch, a shared-`.git`-refs race
+  between a foreman foreground command and a concurrently-dispatched
+  agent's worktree setup twice caused the primary checkout's `main` branch
+  pointer to be clobbered onto the track branch's tip (once pushed to
+  `origin/main` before being caught and reverted). No commits were lost
+  (all reflog-recoverable), and the track branch itself was never at risk
+  — only `main`'s pointer. Lesson for future dispatches: avoid running
+  foreground git mutations on the primary checkout while a background
+  agent's worktree isolation is still being set up; prefer a dedicated
+  worktree for foreman-side commits too, not the primary checkout's `main`
+  branch, when other dispatches are in flight.
 - **Lessons a Track 3 builder needed** (record kept for the Track 4
   builder — same package/resolver machinery applies):
   bundle-adoption, not bare `fact-type.v2` members (kernel registry
