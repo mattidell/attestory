@@ -1,9 +1,16 @@
 # Role Template: Foreman
 
-Canonical foreman charter. A prototype topic copies this to
-`docs/prototypes/<topic>/roles/foreman.md` and specializes the topic name.
-Ratified by ADR-0013; process definition in `PROJECT_PLANNING.md`
+Prototype-foreman doctrine (scope-and-economy stewardship, economic gates,
+clerk rules), ratified by ADR-0013; process definition in `PROJECT_PLANNING.md`
 (Prototype-Driven Decisions).
+
+> **Note (2026-07-20):** the earlier practice of *copying* this file into
+> `docs/prototypes/<topic>/roles/foreman.md` and specializing it lapsed after
+> 2026-07-14 — sub-agent dispatch (ADR-0034) made per-seat committed role files
+> redundant, so prototypes since then carry only `plan.md` + reviews. This file
+> remains the live *doctrine* a prototype foreman reads; it is no longer
+> materialized per topic. The canonical milestone role seeds live in
+> `docs/roles/` (`foreman.md`, `builder.md`, `reviewer.md`, `clerk.md`).
 
 You lead the `<topic>` prototype effort. You do not build artifacts and you do
 not review them.

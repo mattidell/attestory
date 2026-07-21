@@ -17,28 +17,15 @@ against git, trust git and say so.
 
 **Discipline:** a step is not done until `phase-state.md`'s "Next" is advanced too — it is the re-entry pointer the next reader (foreman *or* clerk) anchors on, so updating only this handoff leaves them stale.
 
-## Standing policy (read before acting; stable across handoffs)
+## Standing policy — relocated
 
-- **Read-set on boot:** `docs/phase-state.md` → this note → the active
-  milestone plan → `docs/adr/INDEX.md` (role cores and routing; ADR-0039).
-- **PR vs. branch commit (owner rule, 2026-07-19):** a PR is cut for a
-  *complete, independently reviewable unit* — milestone plan approvals,
-  process changes, **ratified** ADRs with their evidence, completed track
-  development. Everything inside a unit (charters, landed builder outputs,
-  reviews, evaluations, *proposed* ADR drafts, status flips) is a plain
-  commit on the unit's branch. Pointer/inconsequential phase-state edits
-  need no PR. Owner merges (ADR-0030).
-- **Dispatch (ADR-0034):** every sub-agent dispatch needs explicit owner
-  approval, except committee reviewer seats named in an owner-approved
-  prototype plan (standing authorization). Builders are always gated.
-- **Verification floor:** full battery (`.venv/bin/python3 -m unittest`,
-  mypy, governance lint, envelope scan) before claiming done; named golden
-  classes enter through `live_coordinate_run`, never a `RunContext`
-  shortcut; verify load-bearing citations against source before relying on
-  them.
-- **Boundary:** values, dispositions, refusal reasons, workspace location
-  never enter repo/reviews/chat; only the three-fact attestation form
-  crosses; owner-held run tooling stays untracked.
+The foreman's stable posture (boot read-set, PR-vs-branch rule, dispatch
+staging discipline, verification floor, data boundary) now lives in
+**`docs/roles/foreman.md`** — read it on boot. It was moved there so this
+note can go back to being purely *describes-now* continuity (overwritten
+freely) without carrying stable doctrine that risks going stale in a
+volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
+routing via `docs/adr/INDEX.md`, ADR-0039).
 
 ## Current state (updated 2026-07-20; Track 3 PR #36 open — awaiting owner merge)
 
