@@ -62,6 +62,16 @@ class SchemaRegistry:
         # suffix. Empty by default; a tax-layer registry populates pairs. The
         # kernel enforces the relation generically, never naming a domain.
         self.subset_invariant_pairs: dict[str, str] = {}
+        # Bidirectional admission-locus contradiction rules (ADR-0038 decision
+        # 5, reusing this same mechanism rather than a new admitted citizen):
+        # a categorical declaration value and a derived signal read from a
+        # *different* recorded fact type's value may never both be current.
+        # Each entry names the declaration fact type and its contradicting
+        # value, plus the recorded fact type and the field within its value
+        # whose presence (non-null on any current instance) raises the
+        # signal. Empty by default; a tax-layer registry populates entries.
+        # The kernel enforces the relation generically, never naming a domain.
+        self.declaration_signal_contradictions: list[dict[str, str]] = []
         self._load()
 
     def _load(self) -> None:

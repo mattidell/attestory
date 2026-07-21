@@ -218,11 +218,32 @@ class ReleaseRegistrySubstitutions(unittest.TestCase):
             members = Path(tmp) / "content"
             shutil.copytree(CONTENT, members)
             # Mutate one member body's bytes (a rule) without touching the registry.
-            for path in members.glob("rule.*.json"):
-                body = json.loads(path.read_text())
-                body["_tamper"] = "changed bytes"
-                path.write_text(json.dumps(body, indent=2, sort_keys=True) + "\n")
-                break
+            # The target is one explicit, named member of the interest-slice
+            # package this scenario adopts (see adopt-interest-v1/v2-current.json):
+            # tax.us.2025.rule.form1040-line2b v1, the package's own terminal
+            # line-output rule -- a fixed, semantically meaningful choice, not
+            # the lexicographically-first rule.*.json on disk (unrelated
+            # content from other slices can sort earlier) and not the first
+            # of several qualifying "computation" candidates.
+            TARGET_ID = "tax.us.2025.rule.form1040-line2b"
+            TARGET_VERSION = "v1"
+            package = json.loads((members / "package.interest-slice.json").read_text())
+            assert any(
+                m.get("id") == TARGET_ID
+                and str(m.get("version", "v1")) == TARGET_VERSION
+                and m.get("role") == "computation"
+                for m in package["members"]
+            ), f"named target {(TARGET_ID, TARGET_VERSION)} is not a computation member of interest-slice"
+            target = members / "rule.form1040-line2b.json"
+            assert target.is_file(), f"named target file missing: {target}"
+            body = json.loads(target.read_text())
+            assert (body.get("id"), str(body.get("version", "v1"))) == (TARGET_ID, TARGET_VERSION), (
+                "named target file's declared (id, version) does not match "
+                f"expected ({TARGET_ID!r}, {TARGET_VERSION!r}); found "
+                f"({body.get('id')!r}, {body.get('version')!r})"
+            )
+            body["_tamper"] = "changed bytes"
+            target.write_text(json.dumps(body, indent=2, sort_keys=True) + "\n")
             r = self._clean_current(_surface(member_dir=members, registry=members / "published-packages.json"))
         self.assertIsInstance(r, Refusal)
         assert isinstance(r, Refusal)

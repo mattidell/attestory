@@ -222,6 +222,44 @@ def _iter_ref_names(expr: Any) -> Iterable[str]:
             yield from _iter_ref_names(item)
 
 
+def _iter_cds_member_names(expr: Any) -> Iterable[str]:
+    """Yield ``ref`` names declared as ``conditional_dependency_set`` members.
+
+    ADR-0037's node names its active dependency set in one closed list; this
+    is a narrower cousin of ``_iter_ref_names`` used only to locate the
+    declared-absence symbols ADR-0038's domain guard must check, never the
+    ordinary reads elsewhere in the expression tree.
+    """
+    if isinstance(expr, dict):
+        if expr.get("op") == "conditional_dependency_set":
+            for member in expr.get("members", []):
+                if isinstance(member, dict) and member.get("op") == "ref" and isinstance(member.get("name"), str):
+                    yield member["name"]
+        for value in expr.values():
+            yield from _iter_cds_member_names(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_cds_member_names(item)
+
+
+def _iter_category_literal_fact_types(expr: Any) -> Iterable[str]:
+    """Yield fact type ids named by ``category_literal`` nodes anywhere in
+    an expression tree - the signal that a symbol is read categorically,
+    not merely present as an ordinary numeric/other conditional_dependency_
+    set member."""
+    if isinstance(expr, dict):
+        if expr.get("op") == "category_literal":
+            fact_type = expr.get("fact_type")
+            fact_type_id = fact_type.get("id") if isinstance(fact_type, dict) else fact_type
+            if isinstance(fact_type_id, str):
+                yield fact_type_id
+        for value in expr.values():
+            yield from _iter_category_literal_fact_types(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_category_literal_fact_types(item)
+
+
 def validate_package(
     package: dict[str, Any],
     corpus: dict[tuple[str, str], dict[str, Any]],
@@ -762,6 +800,61 @@ def validate_package(
                 issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ANSWER_NOT_CATEGORICAL",
                                           f"answer fact type {answer_pin['id']!r} must declare a categorical all-truthy string domain "
                                           f"(e.g. yes/no); boolean or falsy-valued encodings can short-circuit completeness"))
+
+    # 10a. Declared-absence CMDN member domain guard (ADR-0038 production
+    # condition 1): a conditional_dependency_set member fact type that the
+    # *same rule* also reads categorically (a category_literal naming it)
+    # must declare the categorical {yes, no} domain, never boolean or an
+    # open string domain - the same categorical-domain-pin load-bearing
+    # pattern check 10 established for attachment answers, generalized to
+    # CMDN's second declared-absence consumer. Scoped to category_literal-
+    # referenced members only, never every CMDN member unconditionally:
+    # ADR-0037's own generic substrate members are ordinary numeric/other
+    # reads with no categorical shape at all, and must stay domain-agnostic
+    # (this guard is additive to ADR-0038's own instantiation, not a
+    # retroactive constraint on the substrate ADR-0037 already committed
+    # and reviewed). A member's symbol name resolves to its fact type id
+    # through a package input_binding when one is declared, falling back to
+    # the legacy demo-path convention (symbol == fact type id) every other
+    # unbound rule-artifact.v3 ref already relies on (see marshal.py).
+    binding_fact_types_local = {
+        binding["symbol"]: binding["fact_type"]["id"]
+        for binding in package.get("input_bindings", [])
+    }
+    fact_types_by_id: dict[str, dict[str, Any]] = {}
+    for (ft_id, _ft_version), ft in fact_types_by_key.items():
+        fact_types_by_id.setdefault(ft_id, ft)
+    for pin, citizen in resolved:
+        if citizen["schema"] != "rule-artifact.v3":
+            continue
+        member_names = set(_iter_cds_member_names(citizen["when"])) | set(
+            _iter_cds_member_names(citizen["value"])
+        )
+        categorical_fact_types = set(_iter_category_literal_fact_types(citizen["when"])) | set(
+            _iter_category_literal_fact_types(citizen["value"])
+        )
+        for name in sorted(member_names):
+            fact_type_id = binding_fact_types_local.get(name, name)
+            if fact_type_id not in categorical_fact_types:
+                continue
+            fact_type = fact_types_by_id.get(fact_type_id)
+            if fact_type is None:
+                issues.append(MemberIssue(pin["id"], pin["version"], "CONDITIONAL_DEPENDENCY_MEMBER_FACT_TYPE_ABSENT",
+                                          f"conditional_dependency_set member {name!r} names no fact type "
+                                          f"in the package fact surface"))
+                continue
+            value_schema = fact_type.get("value_schema", {})
+            domain = value_schema.get("enum")
+            yes_no = (
+                list(value_schema) == ["enum"]
+                and isinstance(domain, list)
+                and set(domain) == {"yes", "no"}
+            )
+            if not yes_no:
+                issues.append(MemberIssue(pin["id"], pin["version"], "CONDITIONAL_DEPENDENCY_MEMBER_NOT_YES_NO",
+                                          f"conditional_dependency_set member fact type {fact_type_id!r} must "
+                                          f"declare the categorical {{yes, no}} domain, never boolean or an "
+                                          f"open string domain"))
 
     # 11. Unique output ownership (decision 7)
     declared_conflicts = {c["symbol"] for c in package.get("conflict_semantics", [])}

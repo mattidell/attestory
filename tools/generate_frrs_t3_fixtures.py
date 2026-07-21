@@ -162,6 +162,15 @@ def render_fixture_files() -> dict[str, bytes]:
             package_id=core, package_version="v5", release_checksum=release_checksum,
             scope={"jurisdiction": "us", "year": "2054"},
         ),
+        # DSBS Track 3: the line-16 QDCG worksheet production build (ADR-0038)
+        # - the rule-artifact.v3 line-16 successor and the two declared-
+        # absence fact types. Distinct synthetic scope so v5 stays
+        # independently exercisable.
+        "adoptions/adopt-core-v6-current.json": _adoption_act(
+            "act.adopt.core.v6", actor=SCOPE_USER, revision=6,
+            package_id=core, package_version="v6", release_checksum=release_checksum,
+            scope={"jurisdiction": "us", "year": "2055"},
+        ),
     }
 
     rendered: dict[str, bytes] = {

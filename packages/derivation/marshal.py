@@ -12,7 +12,7 @@ finding is indistinguishable from an absent one downstream.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Iterable
 
 from packages.derivation.source_authority import (
     ClosureFindingRecord,
@@ -50,13 +50,40 @@ class MarshalledRunContext:
         return self._seal is _MARSHAL_SEAL
 
 
+def _iter_ref_names(expr: Any) -> Iterable[str]:
+    """Yield declared ``ref`` names anywhere in an expression tree.
+
+    Mirrors ``package_validation._iter_ref_names``: a rule-artifact.v3
+    citizen (ADR-0037/0038) can declare a symbol dependency inside `when` -
+    a ``conditional_dependency_set`` member, or an ordinary read guarded by
+    it - without naming it in `requires` at all (ADR-0038 decision 1: a
+    declared-absence fact is never an unconditional `requires`). Duplicated
+    locally rather than imported to keep this module's dependency on
+    package_validation shallow; both walk the same closed expression shape.
+    """
+    if isinstance(expr, dict):
+        if expr.get("op") == "ref" and isinstance(expr.get("name"), str):
+            yield expr["name"]
+        for value in expr.values():
+            yield from _iter_ref_names(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_ref_names(item)
+
+
 def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     """Every symbol a rule's own eligibility/completeness surface names.
 
     Ordinary rule-artifact schemas declare `requires` directly. An
     attachment-rule.v1 citizen (ADR-0036) has no such field - its analogous
     symbol surface is its requirement conditional's subtotals plus every
-    completeness answer symbol, base and branch-triggered alike.
+    completeness answer symbol, base and branch-triggered alike. A
+    rule-artifact.v3 citizen's `when`/`value` may additionally reference
+    symbols outside `requires` entirely (ADR-0038's declared-absence
+    declarations, read only inside a `conditional_dependency_set` node) - the
+    legacy demo-path marshalling fallback must see those too, or a live
+    declaration assertion could never reach a run at all (the same gap Track
+    2 closed for attachment-rule.v1's completeness answers).
     """
     if rule.get("schema") == "attachment-rule.v1":
         symbols = list(rule["requirement"]["subtotals"])
@@ -66,7 +93,11 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
             symbols.append(branch["when_answer"]["symbol"])
             symbols.extend(a["symbol"] for a in branch.get("adds_required", []))
         return symbols
-    return list(rule.get("requires", []))
+    symbols = list(rule.get("requires", []))
+    if rule.get("schema") == "rule-artifact.v3":
+        symbols.extend(_iter_ref_names(rule.get("when")))
+        symbols.extend(_iter_ref_names(rule.get("value")))
+    return symbols
 
 
 def _fact_keys(fact_id: str) -> dict[str, str]:

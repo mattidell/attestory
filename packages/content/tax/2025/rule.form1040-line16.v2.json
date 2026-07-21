@@ -1,0 +1,314 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.form1040-line16",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.income.taxable-income",
+    "filing_status",
+    "rounding.convention",
+    "tax.us.2025.dividends.qualified-total"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.income.taxable-income",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.filing-status",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "rounding.convention",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "tax.us.2025.dividends.qualified-total",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "compare",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.dividends.qualified-total"
+          },
+          "right": 0,
+          "cmp": "gt"
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.capital-gain-distributions"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d-required"
+          }
+        ]
+      },
+      {
+        "op": "any",
+        "args": [
+          {
+            "op": "compare",
+            "left": {
+              "op": "ref",
+              "name": "tax.us.2025.dividends.qualified-total"
+            },
+            "right": 0,
+            "cmp": "eq"
+          },
+          {
+            "op": "all",
+            "args": [
+              {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.capital-gain-distributions"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.capital-gain-distributions",
+                    "version": "v1"
+                  },
+                  "value": "no"
+                }
+              },
+              {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.schedule-d-required"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.schedule-d-required",
+                    "version": "v1"
+                  },
+                  "value": "no"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.2025.dividends.qualified-total"
+      },
+      "right": 0,
+      "cmp": "eq"
+    },
+    "then": {
+      "op": "round",
+      "value": {
+        "op": "bracket_fold",
+        "table_id": "demo.parameter.tax-brackets.2025",
+        "key": {
+          "op": "ref",
+          "name": "filing_status"
+        },
+        "value": {
+          "op": "ref",
+          "name": "tax.us.2025.income.taxable-income"
+        }
+      },
+      "mode": {
+        "op": "ref",
+        "name": "rounding.convention"
+      }
+    },
+    "else": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "left": {
+          "op": "add",
+          "args": [
+            {
+              "op": "round",
+              "value": {
+                "op": "bracket_fold",
+                "table_id": "demo.parameter.tax-brackets.2025",
+                "key": {
+                  "op": "ref",
+                  "name": "filing_status"
+                },
+                "value": {
+                  "op": "subtract",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.income.taxable-income"
+                  },
+                  "right": {
+                    "op": "ref",
+                    "name": "tax.us.2025.dividends.qualified-total"
+                  }
+                }
+              },
+              "mode": {
+                "op": "ref",
+                "name": "rounding.convention"
+              }
+            },
+            {
+              "op": "round",
+              "value": {
+                "op": "bracket_fold",
+                "table_id": "demo.parameter.qdcg-preferential-brackets.2025",
+                "key": {
+                  "op": "ref",
+                  "name": "filing_status"
+                },
+                "value": {
+                  "op": "ref",
+                  "name": "tax.us.2025.dividends.qualified-total"
+                }
+              },
+              "mode": {
+                "op": "ref",
+                "name": "rounding.convention"
+              }
+            }
+          ]
+        },
+        "right": {
+          "op": "round",
+          "value": {
+            "op": "bracket_fold",
+            "table_id": "demo.parameter.tax-brackets.2025",
+            "key": {
+              "op": "ref",
+              "name": "filing_status"
+            },
+            "value": {
+              "op": "ref",
+              "name": "tax.us.2025.income.taxable-income"
+            }
+          },
+          "mode": {
+            "op": "ref",
+            "name": "rounding.convention"
+          }
+        },
+        "cmp": "lte"
+      },
+      "then": {
+        "op": "add",
+        "args": [
+          {
+            "op": "round",
+            "value": {
+              "op": "bracket_fold",
+              "table_id": "demo.parameter.tax-brackets.2025",
+              "key": {
+                "op": "ref",
+                "name": "filing_status"
+              },
+              "value": {
+                "op": "subtract",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.income.taxable-income"
+                },
+                "right": {
+                  "op": "ref",
+                  "name": "tax.us.2025.dividends.qualified-total"
+                }
+              }
+            },
+            "mode": {
+              "op": "ref",
+              "name": "rounding.convention"
+            }
+          },
+          {
+            "op": "round",
+            "value": {
+              "op": "bracket_fold",
+              "table_id": "demo.parameter.qdcg-preferential-brackets.2025",
+              "key": {
+                "op": "ref",
+                "name": "filing_status"
+              },
+              "value": {
+                "op": "ref",
+                "name": "tax.us.2025.dividends.qualified-total"
+              }
+            },
+            "mode": {
+              "op": "ref",
+              "name": "rounding.convention"
+            }
+          }
+        ]
+      },
+      "else": {
+        "op": "round",
+        "value": {
+          "op": "bracket_fold",
+          "table_id": "demo.parameter.tax-brackets.2025",
+          "key": {
+            "op": "ref",
+            "name": "filing_status"
+          },
+          "value": {
+            "op": "ref",
+            "name": "tax.us.2025.income.taxable-income"
+          }
+        },
+        "mode": {
+          "op": "ref",
+          "name": "rounding.convention"
+        }
+      }
+    }
+  },
+  "publishes": "tax.us.2025.tax.total-tax",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.income.taxable-income",
+      "filing_status",
+      "rounding.convention",
+      "tax.us.2025.dividends.qualified-total"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-16",
+      "version": "v1"
+    }
+  ],
+  "notes": "Form 1040 Line 16 v2 (ADR-0038 D2): the QDCG Worksheet as the single declared rule-artifact.v3 successor to v1. A conditional_dependency_set node (ADR-0037) gates on qualified dividends > 0 and the two declared-absence capital-gain fact types, placed first and unconditionally in the outer `all` so its own false-condition contract - not incidental operand order - grounds the qualified-zero reduction to the unchanged ordinary-bracket result (the confirmed Repair 2 shape, docs/prototypes/qdcg-worksheet/repair2/design.md). When qualified dividends are positive, an absent declaration produces one non-publication walk naming every currently-absent declaration; both declarations present and 'no' publishes the worksheet result (preferential-base binding on qualified dividends, ordinary-portion subtraction, rate-slice comparison via a dedicated flat preferential bracket table, final minimum against the unmodified ordinary-bracket result on total taxable income); either declaration 'yes' yields the committed inapplicable/guard_inapplicable disposition, structurally distinct from the absence path. Expressed entirely in the closed committed expression vocabulary (choose/compare/subtract/max/bracket_fold/round, plus add/categorical_compare/category_literal/ref already in the vocabulary) - no new evaluator operation. v1 remains historical."
+}

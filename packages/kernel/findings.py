@@ -214,6 +214,79 @@ def _enforce_subset_invariants(
             )
 
 
+def _current_values_for_fact_type(
+    state: FindingState, fact_type_id: str
+) -> dict[str, Any]:
+    """Every currently-held finding's value for one fact type, keyed by fact id.
+
+    Mirrors ``_current_value_for_fact``'s last-inserted-wins rule but spans
+    every distinct fact id of the given type (e.g. every 1099-DIV statement's
+    own recorded-boxes finding), not one singular fact - a declaration fact
+    type has exactly one fact id in practice, a per-statement recorded fact
+    type may have several.
+    """
+    prefix = f"{fact_type_id}|"
+    fact_ids = {
+        finding["fact_id"]
+        for finding in state.findings.values()
+        if finding["fact_id"] == fact_type_id or finding["fact_id"].startswith(prefix)
+    }
+    values: dict[str, Any] = {}
+    for fact_id in fact_ids:
+        value = _current_value_for_fact(state, fact_id)
+        if value is not _NO_CURRENT_VALUE:
+            values[fact_id] = value
+    return values
+
+
+def _enforce_declaration_signal_contradictions(
+    state: FindingState, registry: SchemaRegistry, touched_fact_ids: tuple[str, ...]
+) -> None:
+    """Reject an admission making a declared value and a contributed signal
+    both current (ADR-0038 decision 5: the bidirectional admission-locus
+    contradiction interlock).
+
+    Same posture and same fold-based same-batch guarantee as
+    ``_enforce_subset_invariants``: each declared rule
+    (``registry.declaration_signal_contradictions``) names a categorical
+    declaration fact type/value and a recorded fact type whose per-instance
+    value carries a named field that, non-null on any currently-held
+    instance, raises the contradicting signal. Enforcement runs against the
+    fully-updated successor state, so it sees the touched act's own change
+    plus every prior admission in the same fold - including same-batch
+    ordering, for the identical reason ``_enforce_subset_invariants``
+    documents: each act folds sequentially and this check runs on the
+    resulting state, not a stale snapshot. A violating pair is never
+    recorded: this function raises before the caller ever observes the
+    successor state.
+    """
+    rules = getattr(registry, "declaration_signal_contradictions", None)
+    if not rules:
+        return
+    touched_types = {fact_id.split("|", 1)[0] for fact_id in touched_fact_ids}
+    for rule in rules:
+        declaration_type = rule["declaration_fact_type"]
+        signal_type = rule["signal_fact_type"]
+        if declaration_type not in touched_types and signal_type not in touched_types:
+            continue
+        declared_values = _current_values_for_fact_type(state, declaration_type)
+        if rule["declaration_value"] not in declared_values.values():
+            continue
+        signal_field = rule["signal_field"]
+        signal_values = _current_values_for_fact_type(state, signal_type)
+        raised = any(
+            isinstance(value, dict) and value.get(signal_field) is not None
+            for value in signal_values.values()
+        )
+        if raised:
+            raise FindingModelError(
+                f"declaration/signal contradiction: {declaration_type} is "
+                f"currently {rule['declaration_value']!r} but a current "
+                f"{signal_type} finding records {signal_field!r}; "
+                f"rejected, not recorded"
+            )
+
+
 def _validate_finding(
     state: FindingState, finding: dict[str, Any], registry: SchemaRegistry
 ) -> None:
@@ -339,6 +412,7 @@ def apply_assertion(
     findings[finding["id"]] = finding
     new_state = replace(state, findings=findings)
     _enforce_subset_invariants(new_state, registry, (finding["fact_id"],))
+    _enforce_declaration_signal_contradictions(new_state, registry, (finding["fact_id"],))
     return new_state
 
 
@@ -486,6 +560,7 @@ def apply_member_transition(
         fact_state=replace(state.fact_state, entities=entities),
     )
     _enforce_subset_invariants(new_state, registry, tuple(touched_fact_ids))
+    _enforce_declaration_signal_contradictions(new_state, registry, tuple(touched_fact_ids))
     return new_state
 
 

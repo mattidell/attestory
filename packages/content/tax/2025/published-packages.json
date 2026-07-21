@@ -6,6 +6,11 @@
       "version": "v1"
     },
     {
+      "checksum": "40486f3bd365fede2d0dbb7e332c3891ef7137cbfbab7c44af1fbfad13e9fada",
+      "id": "demo.parameter.qdcg-preferential-brackets.2025",
+      "version": "v1"
+    },
+    {
       "checksum": "5e7e52f9cec05adf97e65b62ea8483f96292f4f6a80997079dda1985ec15e6fa",
       "id": "demo.parameter.standard-deduction-base.2025",
       "version": "v1"
@@ -236,6 +241,11 @@
       "version": "v1"
     },
     {
+      "checksum": "1e27dccfd9f8cb94cffe55115dd7d63f0546cc96b3653ae84e354aa6fb5ebbb4",
+      "id": "tax.us.2025.qdcg.vocabulary",
+      "version": "v1"
+    },
+    {
       "checksum": "fde03742eccfe5550b2cd2b86008b71765480993f455291ccf00aaa06b5b2060",
       "id": "tax.us.2025.quantity.ordinary-dividends",
       "version": "v1"
@@ -309,6 +319,11 @@
       "checksum": "dea6a7abe0f68ffd565ee868004488aaec385326c9e2283614eb50ae67336a12",
       "id": "tax.us.2025.rule.form1040-line16",
       "version": "v1"
+    },
+    {
+      "checksum": "b19cdcc783c0329e585d65eba7d5b1e8eb58d1600db9fb49624ba8d85b4d1177",
+      "id": "tax.us.2025.rule.form1040-line16",
+      "version": "v2"
     },
     {
       "checksum": "4cf4c671007c056ab91cce02774a2f3efe12132b781b13fae5c6914c26534c92",
@@ -421,6 +436,11 @@
       "checksum": "d6505ea8a359b0874697dcefee16d66de5d3405dee48a27938cb26cc955be239",
       "id": "tax.us.2025.package.core-calculations",
       "version": "v5"
+    },
+    {
+      "checksum": "e62fd4c1b182859a01d39453bda4585136e3d1fa50a59f356cb276dd3723ae0e",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v6"
     },
     {
       "checksum": "b99406e3e391e30491c09fbd9402f6373eec69a7f6a109dfeac39115e547ef4d",

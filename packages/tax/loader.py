@@ -62,6 +62,18 @@ def tax_registry() -> SchemaRegistry:
     reg.subset_invariant_pairs["tax.us.2025.f1099div.box1b-qualified"] = (
         "tax.us.2025.f1099div.box1a-ordinary"
     )
+    # ADR-0038 decision 5: a current "no" capital-gain-distributions
+    # declaration and the CAPITAL_GAIN_DISTRIBUTION_RECORDED signal (a
+    # contributed 1099-DIV box 2a, ADR-0035) may never both be current -
+    # enforced generically by the kernel via the declared rule, at
+    # admission, before state mutation is observed, reusing the same
+    # mechanism the box 1b <= 1a subset invariant above already extended.
+    reg.declaration_signal_contradictions.append({
+        "declaration_fact_type": "tax.us.2025.capital-gain-distributions",
+        "declaration_value": "no",
+        "signal_fact_type": "tax.us.2025.f1099div.recorded-boxes",
+        "signal_field": "2a",
+    })
     return reg
 
 
