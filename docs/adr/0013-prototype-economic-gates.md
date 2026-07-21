@@ -163,30 +163,27 @@ finding. This amendment adds that guard:
    contingent on the owner detecting a problem the owner cannot see. When in
    doubt, the foreman recommends more evaluation, not less.
 
-## Amendment (2026-07-16 recalibration; recorded 2026-07-20) — Gate-4 Markdown cap calibration
+## Amendment (2026-07-20, owner-directed) — Gate-4 document-length caps removed
 
-Owner recalibration of the Gate-4 fixed caps (decision 1), made 2026-07-16 and
-previously carried in the foreman role template; relocated here to its ratified
-home as part of the role-doctrine consolidation.
+The Gate-4 **numeric document-length caps are removed.** This covers both the
+original 800–900 line per-document caps and their 2026-07-16 recalibration
+(design ≤ 300, examination ≤ 120, charter ≤ 100, total topic ≤ 1,800) — the
+latter had lived only in the foreman role template, never in this ADR or
+`PROJECT_PLANNING.md`, and contradicted the process doc, which already bounds
+document length by obligation rather than line count.
 
-The per-topic Markdown cap bounds *runaway scope* — extra iterations,
-adjacent-defect charter creep, a prototype eating its implementation — **not**
-thorough evidence. The original copy-pasted 800–900 line caps proved
-miscalibrated: every real Tier-3 topic exceeded them (e.g. D1 real-data-residency
-at 1,548 lines through a confirmation round). Recalibrated defaults:
+A line target measures the wrong thing: thorough evidence is not scope
+pathology, and every real Tier-3 topic exceeded the numbers, so they functioned
+as noise rather than control. Document length is bounded by the pre-declared
+scope, cases, evidence rung, and measurement charter — an author stops when
+those obligations are completely reported, not when a file reaches an economic
+target (`PROJECT_PLANNING.md`, Gate 4).
 
-- **design ≤ 300 lines** (previously uncapped — the usual overage driver)
-- **examination ≤ 120 lines**
-- **charter ≤ 100 lines**
-- **reviews** lean but uncapped
-- **total topic Markdown ≤ 1,800 lines** through committee (add ~300 for a
-  confirmation round)
-
-Treat the total as a genuine stop-and-review trigger a topic should normally sit
-under, not a target routinely breached. A crossing is a *signal to check for
-scope pathology*, not an automatic defect: if the overage is thorough evidence
-with no extra iterations and no implementation bleed, record that finding and
-proceed; escalate to the owner only when the overage reflects real scope drift.
+What Gate 4 keeps: the **structural caps** (iteration / reviewer / repair
+counts) and **session-bounded cost review** with stop-and-decide on genuine
+scope pathology — unchanged. The residual "keep process documents lean"
+guidance is a **craft heuristic, not a gate parameter**
+(`docs/roles/craft-notes.md`); do not reintroduce a numeric cap.
 
 ## Alternatives Considered
 

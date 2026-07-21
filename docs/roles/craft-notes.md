@@ -35,6 +35,15 @@ that have hardened into tooling or ratified process.
   lessons well — that is where the work paid off. When it does not, look
   first at what the charter left implicit, not at the builder.
 
+- **Keep process documents lean; don't count their lines.** A design,
+  charter, examination, or review is as long as its declared scope, cases,
+  and evidence rung require — write exactly that and stop when the
+  obligations are reported. There is deliberately *no* numeric length cap
+  (they were tried, miscalibrated on every real topic, and removed —
+  ADR-0013, 2026-07-20 amendment); don't reintroduce one, and don't pad to
+  look thorough. Thorough evidence is not scope pathology; runaway
+  *iterations* are — watch those instead.
+
 ## Builder
 
 - **Verify a "pre-existing" failure against base before you claim it.**

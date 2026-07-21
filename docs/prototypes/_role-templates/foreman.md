@@ -12,9 +12,11 @@ Where the content went:
   stewardship, the optional clerk, external-builder handoff, log hygiene during
   open rounds, foreman succession) → `PROJECT_PLANNING.md`, *Prototype-Driven
   Decisions*.
-- **Economic gates and the Gate-4 Markdown caps** (recalibrated 2026-07-16) →
-  **ADR-0013** (the caps are now the "2026-07-16 recalibration" amendment; the
-  gates are its Decision).
+- **Economic gates** → **ADR-0013** (its Decision). The Gate-4 numeric
+  document-length caps this template carried are **removed**, not relocated:
+  they were already superseded by `PROJECT_PLANNING.md`'s obligation-bounded
+  rule (see ADR-0013's 2026-07-20 amendment). The "keep it lean" spirit is a
+  craft note (`docs/roles/craft-notes.md`).
 - **Milestone role seeds** (the seat you actually boot from for milestone work)
   → `docs/roles/` — `foreman.md`, `builder.md`, `reviewer.md`, `clerk.md`
   (advisor: `docs/roles/advisor.md`, ADR-0040).
