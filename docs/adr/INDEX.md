@@ -8,11 +8,15 @@ digest here and the ADR's text, the text governs. Digests condense the
 Decision, not the Context. Statuses `rejected` / `superseded` / `proposed`
 are **inert** — never load as authority (ADR-0013 amendment).
 
-**Role cores** — always read, regardless of task:
-- **Foreman core:** 0005, 0013, 0030, 0034 (+ `docs/phase-state.md`,
-  `docs/foreman-handoff.md`, the active milestone plan).
-- **Builder/reviewer core:** 0003, 0010 (+ the dispatching charter, which
-  carries the milestone foreclosure principles).
+**Role cores** — each seat boots from its seed file in `docs/roles/`, which
+carries posture and points here for the binding ADRs:
+- **Foreman** (`docs/roles/foreman.md`) — core ADRs 0005, 0013, 0030, 0034
+  (+ `docs/phase-state.md`, `docs/foreman-handoff.md`, the active plan).
+- **Builder** (`docs/roles/builder.md`) / **Reviewer**
+  (`docs/roles/reviewer.md`) — core ADRs 0003, 0010 (+ the dispatching
+  charter, which carries the milestone foreclosure principles).
+- **Clerk** (`docs/roles/clerk.md`) — mechanical helper; **Advisor**
+  (`docs/roles/advisor.md`, ADR-0040) — owner-launched counsel.
 
 | ADR | Status | Tags | Binding digest |
 | --- | --- | --- | --- |
