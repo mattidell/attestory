@@ -27,95 +27,52 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-20; Track 3 PR #36 open — awaiting owner merge)
+## Current state (updated 2026-07-20; Track 4 charter drafted, dispatch authorized)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. All four milestone ADRs ratified: ADR-0035 (D3), ADR-0036 (D1),
   ADR-0037 (`conditional_dependency_set`, merged as Track 0a, PR #30),
-  ADR-0038 (D2, ratified 2026-07-19 after the full Round 1 → Repair 1 →
-  Confirmation R1 → Repair 2 → Confirmation R2 arc; disposition:
-  `docs/prototypes/qdcg-worksheet/evaluation-analysis.md`).
+  ADR-0038 (D2, ratified 2026-07-19).
 - **Merged tracks:** Track 0a (PR #30, `6f303fe`), Track 1 (PR #31,
-  `a870a2f`), Track 2 (PR #32, `c39c6c7` — review found blocking F1, the
-  Part I tie-out targeting line 2b's four-family total instead of
-  `b1-subtotal`; repaired `854c71a`, delta re-review READY). Process:
-  ADR-0030 amendment (PR #33), ADR-0039 (PR #34), ADR-0040 trusted-advisor
-  seat (PR #35). Track-by-track detail lives in the review records under
-  `docs/reviews/` and git history, no longer restated here.
-- **➡️ Track 3 (line 16 under D2) — reviewed NOT READY 2026-07-20, F1 fix
-  in flight** — charter `ebec569`, builder commits `3b3db78`/`a0574a5`/
-  `7732cc5`/`f12e7a1`, review charter `d858172`, review verdict `c0731f4`
-  (`docs/reviews/2026-07-20-dsbs-t3-qdcg-line16-review.md`) on
-  `track/dsbs-t3-qdcg-line16` (worktree `../finances-t3-qdcg`). Review
-  independently confirmed all 9 content/design checks pass — including
-  real scrutiny (not rubber-stamp) of the builder's two self-flagged
-  judgment calls: the domain-guard scoping (deliverable 1, confirmed sound
-  and not under-enforcing) and the `marshal.py` `_rule_required_symbols`
-  collateral extension (confirmed load-bearing and additive-only).
-  **Blocking: F1** — the builder's claim that 2 failing unittest cases
-  pre-date the branch was wrong; the reviewer independently reran the base
-  comparison and found both genuinely regress on this branch.
-  Root cause: two unrelated FRRS-era tests
-  (`test_frrs_t3_resolver_bootstrap.py`,
-  `test_frrs_t4_w2_live_integration.py`) select a rule file to tamper via
-  unfiltered `glob("rule.*.json")[0]`, relying on incidental ordering to
-  land on a file that's actually a member of the package/release each test
-  resolves — Track 3's new `rule.form1040-line16.v2.json` now sorts first
-  and isn't a member of those tests' target packages, so the tamper goes
-  undetected and the expected `Refusal` never fires. Not a Track 3 content
-  defect. Fix charter `c9e8544`
-  (`docs/reviews/charter-2026-07-20-dsbs-t3-f1-remediation.md`): make both
-  tests select their target member deterministically from their own
-  package/release manifest, not directory order; scope is additive-only,
-  does not touch DSBS content or the resolver implementation unless a
-  charter-stop is hit. **Fixed, commit `1247b89`**: both tests now match
-  target files by `(id, version)` membership in
-  `package.interest-slice.json`, mirroring
-  `production_resolver.py`'s own match key — not glob order. Battery
-  confirmed green by the fix builder: 541/541 unittest, mypy clean,
-  governance lint conformant, envelope scan clean; no DSBS/kernel/resolver
-  file touched, only the two test files. No escalation needed. Delta
-  re-review committed `5aa47b5`
-  (`docs/reviews/2026-07-20-dsbs-t3-f1-delta-rereview.md`): **verdict not
-  ready**, but F1 itself confirmed genuinely discharged (reviewer read
-  `production_resolver.py`'s actual match key and confirmed the fix
-  targets it) and zero DSBS/kernel/resolver files touched. Two residual
-  findings: **R2** — the re-review charter's diff range literally
-  included the review-charter commit `c9e8544` alongside the two test
-  files; a charter-drafting artifact on the foreman's part (the
-  reviewer's own Check 3 confirms the real fix commit and
-  `c9e8544..1247b89` are exactly two files) — triaged as resolved, no
-  code involved. **R1** — the fix still breaks on the first sorted match
-  among five qualifying package members rather than naming one explicit
-  target; deterministic today but the same implicit-first-match shape
-  that caused F1, just narrowed. Fix charter committed `1636110`
-  (`docs/reviews/charter-2026-07-20-dsbs-t3-r1-remediation.md`): both
-  tests to select `tax.us.2025.rule.form1040-line2b` v1 explicitly by id,
-  asserting loudly if it's ever missing/renamed rather than silently
-  substituting. **Fixed, commit `c1cd01f`**: both tests now open
-  `rule.form1040-line2b.json` directly by known filename, assert package
-  membership (`role: "computation"`, confirmed at
-  `package.interest-slice.json:37`) and loaded-body identity match before
-  tampering — no scan-and-break-on-first-match left. Battery green per
-  fix builder: 541/541 unittest, mypy clean, governance lint conformant,
-  envelope scan clean; diff is exactly the two test files. Final delta
-  re-review charter committed `cf08e37`
-  (`docs/reviews/charter-2026-07-20-dsbs-t3-r1-delta-rereview.md`) —
-  explicitly scopes the object to commit `c1cd01f` alone (charter commit
-  `1636110` called out as administrative, to avoid repeating R2's
-  charter-range mistake) and folds in confirming R2's resolution.
-  **Final verdict: READY**, commit `ec6d296`
-  (`docs/reviews/2026-07-20-dsbs-t3-r1-delta-rereview.md`) — all 7 checks
-  passed outright, zero findings (S1... series empty). Track 3 as a whole
-  (original build + F1 fix + R1 fix) is confirmed mergeable: five
-  ADR-0038 production conditions, six named golden classes, two rounds of
-  independent re-review with real scrutiny (not rubber-stamped — both
-  prior rounds found genuine issues the builder's own self-report missed
-  or under-specified). Pushed and **PR #36 opened** 2026-07-20:
-  https://github.com/mattidell/attestory/pull/36. **NEXT ACTION: owner
-  reviews/merges PR #36.** After Track 3 merges: Track 4 (1099-DIV
-  closure content and live integration) closes the milestone.
-- **Lessons a Track 3 builder needs** (also baked into the charter):
+  `a870a2f`), Track 2 (PR #32, `c39c6c7` — review found blocking F1,
+  repaired `854c71a`, delta re-review READY), **Track 3 (PR #36, `e25cc11`)**
+  — the QDCG worksheet, both declared-absence citizens, the bidirectional
+  admission-locus interlock (kill-tested all three orders), and the
+  structural no-reach-around demonstration; two independent re-review
+  rounds (F1: two unrelated FRRS-era tests were tampering a rule file
+  selected by unfiltered glob order, not a Track 3 content defect, fixed
+  `1247b89`; R1: narrowed the same fix from first-sorted-match to an
+  explicit named target, fixed `c1cd01f`) both confirmed genuinely
+  discharged before merge — full history in
+  `docs/reviews/2026-07-20-dsbs-t3-*.md`. Process: ADR-0030 amendment
+  (PR #33), ADR-0039 (PR #34), ADR-0040 trusted-advisor seat (PR #35),
+  canonical role seed files under `docs/roles/` (PR #37), retirement of the
+  old foreman role template in favor of `docs/roles/foreman.md` as the
+  single source (PR #38). Track-by-track detail lives in the review records
+  under `docs/reviews/` and git history, no longer restated here.
+- **➡️ Track 4 (1099-DIV closure confirmation and live-run harness
+  extension) — chartered, not yet dispatched.** Charter:
+  `docs/reviews/charter-2026-07-20-dsbs-t4-dividend-live-integration.md`.
+  Scope reconciliation (research pass, 2026-07-20) found the milestone
+  plan's Track 4 line names three things, two of which are **already done**:
+  the 1099-DIV closure-mapping content (`closure-mapping.f1099div-1a/1b
+  .json`, landed `2a08d80`, structurally identical to the interest
+  mappings) and line-9's absorption of 3b (`rule.form1040-line9.v2.json`,
+  already pinned in `package.core-calculations.v6.json` alongside the
+  Track 3 QDCG line-16 successor and the dividend closure mappings). Only
+  the **live-run harness extension** is genuinely open: the owner-held,
+  intentionally-untracked `tools/scaffold_live_acts.py` still pins a v3
+  adoption fixture, has no 1099-DIV bundle/family/template entries, and
+  there is no dividend analog of `tests/test_frrs_t4_w2_live_integration
+  .py` (every prior source family — W-2, interest — has this live-
+  integration precedent; dividends do not yet). Charter scopes exactly
+  that gap: confirming goldens for the two already-done items (not
+  rebuilds), the harness extension, the missing test, and a two-line
+  `.gitignore` safety net for the owner-held paths. **Owner authorized
+  builder + reviewer dispatch for this session, 2026-07-20** (ADR-0034);
+  builder dispatch is the next action.
+- **Lessons a Track 3 builder needed** (record kept for the Track 4
+  builder — same package/resolver machinery applies):
   bundle-adoption, not bare `fact-type.v2` members (kernel registry
   rejects assertions referencing bare members — Track 2 hit this);
   `conditional_dependency_set` is v3-only by schema; the guard node goes
