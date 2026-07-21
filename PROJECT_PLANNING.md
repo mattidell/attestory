@@ -129,6 +129,10 @@ next response contains only the builder prompt. The prompt points through the
 repository entry chain and asks the builder to echo its understood scope, rung
 ceiling, and stop conditions before writing. It does not duplicate the charter.
 
+**Log hygiene during open rounds.** Process-log entries and commit messages for landed same-round reviews are event-only while the round is open; outcome summaries are written only at round close.
+
+**Foreman succession.** If the foreman seat is vacant and an agent takes it, it records a dated succession entry in the topic's `process-log.md` before proceeding.
+
 ## Canonical Meta Documents
 
 Canonical project implementation meta documents live at the repository root and use all-caps filenames.

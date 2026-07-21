@@ -51,5 +51,6 @@ prototype plan in advance.
 
 - Supersedes in part: ADR-0013, "Reviewer sub-agent dispatch" amendment.
 - Process definition: `PROJECT_PLANNING.md` (Prototype-Driven Decisions).
-- Foreman charter: `docs/prototypes/_role-templates/foreman.md`.
+- Prototype-foreman doctrine: `PROJECT_PLANNING.md` (Prototype-Driven
+  Decisions); milestone role seeds in `docs/roles/`.
 - Active-topic correction: `docs/prototypes/production-resolver/process-log.md`.

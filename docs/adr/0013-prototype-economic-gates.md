@@ -163,6 +163,31 @@ finding. This amendment adds that guard:
    contingent on the owner detecting a problem the owner cannot see. When in
    doubt, the foreman recommends more evaluation, not less.
 
+## Amendment (2026-07-16 recalibration; recorded 2026-07-20) — Gate-4 Markdown cap calibration
+
+Owner recalibration of the Gate-4 fixed caps (decision 1), made 2026-07-16 and
+previously carried in the foreman role template; relocated here to its ratified
+home as part of the role-doctrine consolidation.
+
+The per-topic Markdown cap bounds *runaway scope* — extra iterations,
+adjacent-defect charter creep, a prototype eating its implementation — **not**
+thorough evidence. The original copy-pasted 800–900 line caps proved
+miscalibrated: every real Tier-3 topic exceeded them (e.g. D1 real-data-residency
+at 1,548 lines through a confirmation round). Recalibrated defaults:
+
+- **design ≤ 300 lines** (previously uncapped — the usual overage driver)
+- **examination ≤ 120 lines**
+- **charter ≤ 100 lines**
+- **reviews** lean but uncapped
+- **total topic Markdown ≤ 1,800 lines** through committee (add ~300 for a
+  confirmation round)
+
+Treat the total as a genuine stop-and-review trigger a topic should normally sit
+under, not a target routinely breached. A crossing is a *signal to check for
+scope pathology*, not an automatic defect: if the overage is thorough evidence
+with no extra iterations and no implementation bleed, record that finding and
+proceed; escalate to the owner only when the overage reflects real scope drift.
+
 ## Alternatives Considered
 
 - **Keep the v1 gates as retrospective guidance.** Rejected: advisory gates with
@@ -186,4 +211,7 @@ finding. This amendment adds that guard:
 - Proposal and gate-by-gate evaluation: `docs/proposals/prototype-economic-gates.md`
 - Process definition amended: `PROJECT_PLANNING.md`, Prototype-Driven Decisions
   (Prototype Economic Gates)
-- Foreman charter template: `docs/prototypes/_role-templates/foreman.md`
+- Prototype-foreman doctrine: `PROJECT_PLANNING.md`, Prototype-Driven Decisions
+  (the retired role template is tombstoned at
+  `docs/prototypes/_role-templates/foreman.md`; milestone role seeds live in
+  `docs/roles/`)
