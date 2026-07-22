@@ -34,16 +34,18 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
   2026-07-22; phase-state and roadmap now point to it. The prior Dividends and
   Schedule B Slice is complete; its durable record remains in its plan,
   retrospective, deferral ledger, reviews, and git history.
-- **Track 0:** `docs/prototypes/guarded-transport/plan.md` is newly prepared
-  for H1 (credential-confinement topology), with H2/H3 scoped through Gate 0.
-  It is deliberately **draft pending owner approval**, which ADR-0013 requires
-  before any charter. `SEAT.md` and `process-log.md` record that no builder or
-  reviewer has been dispatched. The owner authorized dispatch as needed, but
-  ADR-0034 still requires an exact role plus current charter before launch.
-- **Next action:** obtain owner approval/amendment for the separate prototype
-  plan; then prepare the two sealed clean-room Rung-1/Rung-2 local-Git
-  charters and request charter-specific launch approval. Do not use the
-  similarly named in-progress feature-plan branch as evidence or state.
+- **Track 0:** the owner approved `docs/prototypes/guarded-transport/plan.md`
+  and authorized the plan's builder/reviewer dispatches. Two sealed,
+  clean-room local-Git exhibits were built and two independent reviews landed
+  on the plan branch. Round 1 is **decision-blocked**: the incumbent released
+  its descriptor before the actual envelope scan and its fresh probe hung; the
+  rival's same-UID mode-600 store was readable. H2/H3 evidence is incomplete.
+  Exact records: `round-1-triage.md`, `reviews/round-1-governance.md`, and
+  `reviews/round-1-adversary.md`.
+- **Next action:** owner chooses whether to authorize the plan's one
+  delta-scoped incumbent repair with the four invariants in `round-1-triage.md`,
+  or stop/split H1. No agent is authorized pending that disposition. Do not use
+  the similarly named in-progress feature-plan branch as evidence or state.
 
 ## Prior milestone handoff (historical detail)
 

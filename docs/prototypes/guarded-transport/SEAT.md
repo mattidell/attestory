@@ -2,9 +2,9 @@
 
 ## Current step
 
-**Round 1 review opening** (2026-07-22). The incumbent and clean-room rival
-have each committed their sealed Rung-2 exhibit. The foreman is committing two
-independent review charters; no reviewer has yet been dispatched.
+**Round 1 triage — decision blocked** (2026-07-22). Both independent reviews
+are complete and have decision-blocking findings. No repair or next iteration
+is open; the owner must choose the bounded next move.
 
 ## Seats
 
@@ -13,11 +13,11 @@ independent review charters; no reviewer has yet been dispatched.
 | Prototype foreman | Codex, succeeding into this new topic under owner direction (2026-07-22) | active; scope/economy steward only |
 | Incumbent builder | isolated branch `prototypes/guarded-transport-h1/it1` | completed, exhibit `1255b273` |
 | Rival builder | isolated branch `prototypes/guarded-transport-h1/it2` | completed, exhibit `95b232f` |
-| Governance reviewer | unassigned | launch authorized for `charter-review-governance-r1.md`; pending dispatch |
-| Adversary reviewer | unassigned | launch authorized for `charter-review-adversary-r1.md`; pending dispatch |
+| Governance reviewer | isolated branch `prototypes/guarded-transport-h1/review-governance-r1` | completed, review `56c0df6` |
+| Adversary reviewer | isolated branch `prototypes/guarded-transport-h1/review-adversary-r1` | completed, review `587e605` |
 
 ## Next action
 
-The foreman dispatches the independent Governance and Adversary reviewers in
-separate contexts. Their results will be triaged before any repair, analysis,
-or ADR work opens.
+Owner decides whether to authorize the plan's one delta-scoped repair pass or
+stop/split the topic. See `round-1-triage.md`; no agent is authorized pending
+that disposition.

@@ -22,3 +22,8 @@
   sealed exhibit `95b232f` on `prototypes/guarded-transport-h1/it2`. The
   foreman has not accepted either conclusion. Two independent review charters
   are being issued against these exact commits.
+- Governance review `56c0df6` and adversary review `587e605` completed in
+  independent contexts. Both report decision-blocking evidence; the foreman
+  recorded its Gate-5 classification in `round-1-triage.md` and opened no
+  repair. No role breach, context leak, hollow measurement, charter drift, or
+  wordsmithered dissent was reported in this round.
