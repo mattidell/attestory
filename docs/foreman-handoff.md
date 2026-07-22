@@ -75,7 +75,7 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
   — maturity matrix (Dividends/Schedule-attachments columns L0→L3 across
   all eight aspects, footnotes 9–12 added), roadmap status, milestone plan
   per-exit-criterion closure, new
-  `dividends-schedule-b-slice-deferral-ledger.md` (14 entries: 2 new, 1
+  `dividends-schedule-b-slice-deferral-ledger.md` (14 entries: 3 new, 1
   prior-ledger entry re-affirmed touched-not-retired, 10 carried
   untouched; nothing silently closed), retrospective
   (`docs/milestone-retrospectives/2026-07-21-dividends-and-schedule-b-slice.md`),

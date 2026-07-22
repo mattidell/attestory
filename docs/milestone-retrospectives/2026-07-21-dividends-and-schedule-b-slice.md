@@ -148,9 +148,10 @@ is ratified should mark the reference as provisional, not settled.
 
 Recorded in
 `docs/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md`
-— fourteen entries, none silently closed; two new to this milestone (the
-declared dividend-universe exclusion, and Track 4's scaffold-visibility
-observation), one prior-ledger entry re-affirmed as touched but not retired
+— fourteen entries, none silently closed; three new to this milestone (the
+declared dividend-universe exclusion, Schedule B Part I's single-family
+scope, and Track 4's scaffold-visibility observation), one prior-ledger
+entry re-affirmed as touched but not retired
 (the marshaller binding-route simplification), the rest carried untouched.
 Highest priority, unchanged from the prior ledger: guarded transport /
 credential confinement, which alone holds the data-boundary row at L3 across

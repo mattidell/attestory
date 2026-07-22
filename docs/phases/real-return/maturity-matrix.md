@@ -28,14 +28,14 @@ careful hand-editing.
 
 | Aspect ↓ / Domain → | W-2 wages (1a) | Interest (2b) | Dividends (3a/3b) | Return-level conditions (status, 12, 15, 16) | Schedule attachments |
 | --- | --- | --- | --- | --- | --- |
-| **Admission & identity** (facts enter with declared identity, member transitions) | L3 ⁷ | L3 ⁷ | L3 ⁹ ¹¹ | L3 ⁷ | L3 ¹² |
-| **Source closure & completeness** (families, mappings, horizons, honest blocking) | L3 ¹ ⁷ | L3 ⁷ | L3 ⁹ ¹¹ | L3 ² ⁷ | L3 ¹² |
-| **Computation** (rules, composition, conditionals) | L3 ⁷ | L3 ³ ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹² |
+| **Admission & identity** (facts enter with declared identity, member transitions) | L3 ⁷ | L3 ⁷ | L3 ⁹ ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
+| **Source closure & completeness** (families, mappings, horizons, honest blocking) | L3 ¹ ⁷ | L3 ⁷ | L3 ⁹ ¹¹ | L3 ² ⁷ | L3 ¹¹ ¹² |
+| **Computation** (rules, composition, conditionals) | L3 ⁷ | L3 ³ ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
 | **Adoption & authority** (packages, manifests, byte verification, citations) | L3 ⁴ ⁷ | L3 ⁴ ⁷ | L3 ¹¹ | L3 ⁴ ⁷ | L3 ¹¹ ¹² |
 | **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
-| **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ⁷ | L3 ⁵ ⁷ | L3 ⁵ | L3 ⁵ ⁷ | L3 ⁵ |
-| **Correction & supersession lifecycle** | L3 ⁶ ⁷ | L3 ⁶ ⁷ | L3 ⁶ | L3 ⁶ ⁷ | L3 ⁶ |
-| **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ | L3 ⁷ ⁸ | L3 ⁸ ¹⁰ | L3 ⁷ ⁸ | L3 ⁸ ¹⁰ |
+| **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ⁷ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ |
+| **Correction & supersession lifecycle** | L3 ⁶ ⁷ | L3 ⁶ ⁷ | L3 ⁶ ¹¹ | L3 ⁶ ⁷ | L3 ⁶ ¹¹ |
+| **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ | L3 ⁷ ⁸ | L3 ⁸ ¹⁰ ¹¹ | L3 ⁷ ⁸ | L3 ⁸ ¹⁰ ¹¹ |
 
 Footnotes (honest qualifications; renumbered at milestone close 2026-07-18,
 extended at milestone close 2026-07-21):
