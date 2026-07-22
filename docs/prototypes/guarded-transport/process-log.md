@@ -27,3 +27,8 @@
   recorded its Gate-5 classification in `round-1-triage.md` and opened no
   repair. No role breach, context leak, hollow measurement, charter drift, or
   wordsmithered dissent was reported in this round.
+- Owner authorized repair-builder and reviewer dispatch at foreman discretion.
+  The foreman opened the one Gate-4 repair pass as a delta against the
+  incumbent descriptor-release family. Its charter carries all four triaged
+  invariants and explicitly ends in a separate-decision report if an
+  operating-system, identity, or hosted-service boundary proves necessary.
