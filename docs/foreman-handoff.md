@@ -27,12 +27,13 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-21; real run done, attestation recorded)
+## Current state (updated 2026-07-21; Track 5 built, awaiting review dispatch)
 
-- **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
-  Slice**. All four milestone ADRs ratified: ADR-0035 (D3), ADR-0036 (D1),
-  ADR-0037 (`conditional_dependency_set`, merged as Track 0a, PR #30),
-  ADR-0038 (D2, ratified 2026-07-19).
+- **Seat:** principal foreman. Milestone **Dividends and Schedule B Slice**
+  content-complete; only the Track 5 records remain to close it. All four
+  milestone ADRs ratified: ADR-0035 (D3), ADR-0036 (D1), ADR-0037
+  (`conditional_dependency_set`, merged as Track 0a, PR #30), ADR-0038 (D2,
+  ratified 2026-07-19).
 - **Merged tracks:** Track 0a (PR #30, `6f303fe`), Track 1 (PR #31,
   `a870a2f`), Track 2 (PR #32, `c39c6c7` — review found blocking F1,
   repaired `854c71a`, delta re-review READY), Track 3 (PR #36, `e25cc11`)
@@ -58,19 +59,40 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
   history, no longer restated here.
 - **Real run done (2026-07-21):** the owner attested in the exact
   three-fact form; recorded in the milestone plan's Verification section
-  ("Owner attestation"). The owner's first workspace attempt predated
-  Track 4's harness extension and refused `RELEASE_ABSENT_OR_MISMATCH`
-  (a stale package-adoption pin against a publication surface regenerated
-  several times since); diagnosed structurally from the repo's own
-  fixtures (no live detail crossed) and resolved by rebuilding the
-  workspace fresh from the updated `tools/scaffold_live_acts.py` /
-  `workspace-seed/build.py` — see those files' current state for the v6
-  pin and the full dividend/Schedule-B/QDCG template set. Repo-side checks
-  at recording time: `git status` clean, `envelope_scan.py --verify`
-  reported the envelope gates installed and byte-intact.
-- **➡️ NEXT ACTION: charter Track 5** — the completion records track
-  (maturity-matrix + phase-state updates, retrospective, deferral ledger),
-  itself reviewed and merged per ADR-0030. This closes the milestone.
+  ("Owner attestation") and merged to `main` as PR #40 (`4f0645c` /
+  `c971e30`). The owner's first workspace attempt predated Track 4's
+  harness extension and refused `RELEASE_ABSENT_OR_MISMATCH` (a stale
+  package-adoption pin against a publication surface regenerated several
+  times since); diagnosed structurally from the repo's own fixtures (no
+  live detail crossed) and resolved by rebuilding the workspace fresh from
+  the updated `tools/scaffold_live_acts.py` / `workspace-seed/build.py` —
+  see those files' current state for the v6 pin and the full
+  dividend/Schedule-B/QDCG template set. Repo-side checks at recording
+  time: `git status` clean, `envelope_scan.py --verify` reported the
+  envelope gates installed and byte-intact.
+- **Track 5 built (2026-07-21) on `track/dsbs-t5-completion`:** charter and
+  companion review charter (`ede3849`); all six deliverables now committed
+  — maturity matrix (Dividends/Schedule-attachments columns L0→L3 across
+  all eight aspects, footnotes 9–12 added), roadmap status, milestone plan
+  per-exit-criterion closure, new
+  `dividends-schedule-b-slice-deferral-ledger.md` (14 entries: 2 new, 1
+  prior-ledger entry re-affirmed touched-not-retired, 10 carried
+  untouched; nothing silently closed), retrospective
+  (`docs/milestone-retrospectives/2026-07-21-dividends-and-schedule-b-slice.md`),
+  and this phase-state/handoff rewrite. Records only — no code, schema,
+  content, or test changes on the branch. The owner authorized dispatch
+  for this track in-session ("proceed with each charter, I authorize you
+  to dispatch agents as needed"); the foreman built the records directly
+  rather than dispatching a builder sub-agent, since the charter's own
+  framing treats records authorship as foreman-in-session work — the one
+  seat this track genuinely needs is the independent *reviewer*, who by
+  construction cannot be the records' author.
+- **➡️ NEXT ACTION: run the verification floor on the branch (should be a
+  no-op for a records-only change, but the floor still applies), then
+  dispatch the independent reviewer** per
+  `docs/reviews/charter-2026-07-21-dsbs-t5-completion-review.md`
+  (ADR-0034 — the owner holds this dispatch), then the owner merges. This
+  closes the milestone.
 - **Process note (still relevant for future dispatches):** during Track
   4's dispatch, a shared-`.git`-refs race between a foreman foreground
   command and a concurrently-dispatched agent's worktree setup twice
