@@ -2,11 +2,11 @@
 
 Audience: Agents
 
-Status: **draft — proposed to owner** (prototype foreman, 2026-07-22). Track
-0 of the Guarded Transport and Credential Confinement milestone. The owner has
-approved the parent milestone; this separate plan needs approval under
-ADR-0013 before any charter is issued. It operates under ADR-0030 per-decision
-merges and ADR-0034 per-dispatch approval.
+Status: **approved by owner 2026-07-22.** Track 0 of the Guarded Transport and
+Credential Confinement milestone. The parent milestone and this separate plan
+are approved; the owner also authorized the plan's builder dispatches on
+2026-07-22. It operates under ADR-0030 per-decision merges and ADR-0034
+per-dispatch approval.
 
 Topic: **How the remote credential and the outgoing transport are confined so
 that the guarded path is the only credentialed route.** The required property
