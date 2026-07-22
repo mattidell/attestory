@@ -32,3 +32,7 @@
   incumbent descriptor-release family. Its charter carries all four triaged
   invariants and explicitly ends in a separate-decision report if an
   operating-system, identity, or hosted-service boundary proves necessary.
+- Repair 1 completed on `prototypes/guarded-transport-h1/repair1` as exhibit
+  `00d1550`. The foreman has not accepted its conclusions. Authorized
+  Governance and Adversary delta-review charters are issued against that exact
+  commit; no second repair pass is available.
