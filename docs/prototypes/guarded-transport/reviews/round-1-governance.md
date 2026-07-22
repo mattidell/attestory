@@ -1,7 +1,7 @@
 # H1 Round 1 governance review
 
-Role: Governance reviewer (Medium tier)  
-Status: completed 2026-07-22  
+Role: Governance reviewer (Medium tier)
+Status: completed 2026-07-22
 Charter: `charter-review-governance-r1.md`
 
 ## Scope and method
