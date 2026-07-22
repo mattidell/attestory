@@ -1,7 +1,7 @@
 # H1 Repair 1 governance delta review
 
-Role: Governance reviewer (Medium tier)  
-Status: completed 2026-07-22  
+Role: Governance reviewer (Medium tier)
+Status: completed 2026-07-22
 Charter: `charter-repair1-governance-review.md`
 
 ## Scope and method
