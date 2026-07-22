@@ -27,7 +27,7 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-21; Track 4 reviewed READY, PR opened)
+## Current state (updated 2026-07-21; Track 4 merged — milestone content complete)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. All four milestone ADRs ratified: ADR-0035 (D3), ADR-0036 (D1),
@@ -35,65 +35,43 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
   ADR-0038 (D2, ratified 2026-07-19).
 - **Merged tracks:** Track 0a (PR #30, `6f303fe`), Track 1 (PR #31,
   `a870a2f`), Track 2 (PR #32, `c39c6c7` — review found blocking F1,
-  repaired `854c71a`, delta re-review READY), **Track 3 (PR #36, `e25cc11`)**
+  repaired `854c71a`, delta re-review READY), Track 3 (PR #36, `e25cc11`)
   — the QDCG worksheet, both declared-absence citizens, the bidirectional
   admission-locus interlock (kill-tested all three orders), and the
   structural no-reach-around demonstration; two independent re-review
-  rounds (F1: two unrelated FRRS-era tests were tampering a rule file
-  selected by unfiltered glob order, not a Track 3 content defect, fixed
-  `1247b89`; R1: narrowed the same fix from first-sorted-match to an
-  explicit named target, fixed `c1cd01f`) both confirmed genuinely
-  discharged before merge — full history in
-  `docs/reviews/2026-07-20-dsbs-t3-*.md`. Process: ADR-0030 amendment
-  (PR #33), ADR-0039 (PR #34), ADR-0040 trusted-advisor seat (PR #35),
-  canonical role seed files under `docs/roles/` (PR #37), retirement of the
-  old foreman role template in favor of `docs/roles/foreman.md` as the
-  single source (PR #38). Track-by-track detail lives in the review records
-  under `docs/reviews/` and git history, no longer restated here.
-- **➡️ Track 4 (1099-DIV closure confirmation and live-run harness
-  extension) — reviewed READY, PR open, awaiting owner merge.** Build
-  charter: `docs/reviews/charter-2026-07-20-dsbs-t4-dividend-live-integration.md`
-  (`56ae7af` on `track/dsbs-t4-dividend-live-integration`). Scope
-  reconciliation found the milestone plan's Track 4 line names three
-  things, two already done before this track (1099-DIV closure-mapping
-  content, line-9's 3b absorption — both already pinned in
-  `package.core-calculations.v6.json`); only the live-run harness
-  extension was genuinely open. Builder landed `fcbf70b`: confirming
-  goldens for the two already-done items, extended
-  `tools/scaffold_live_acts.py` locally (v6 adoption fixture, dividend
-  bundles/families/templates — including `scheduleb.bundle.json`/
-  `qdcg.bundle.json` beyond the charter's literal text, load-bearing for
-  the Schedule B/QDCG declared-absence citizens, flagged as a review
-  finding), the new `tests/test_dsbs_t4_dividend_live_integration.py`
-  proving Schedule B disposition and QDCG line-16 resolve together in one
-  `live_coordinate_run`, a `.gitignore` safety net for
-  `tools/scaffold_live_acts.py`/`workspace-seed/`, and a closing note.
-  Review charter `54f581d`; author-independent reviewer dispatched 2026-07-20
-  (owner authorization from that session, ADR-0034) re-derived every
-  charter claim from scratch rather than trusting the builder's report —
-  reproduced the "already done" scope-reconciliation claims, reproduced
-  the 546-test/mypy/lint/scan-clean battery independently, and
-  independently confirmed the `BUNDLE_FILES` discrepancy is genuinely
-  load-bearing (not scope creep) by reproducing the kernel
-  `FindingModelError` that occurs without it. **Verdict: READY**, commit
-  `9898c07` (`docs/reviews/2026-07-20-dsbs-t4-dividend-live-integration-review.md`)
-  — one production condition (F1, the bundle-list discrepancy, not
-  blocking) and one non-blocking observation (F2), zero blocking findings.
-  **PR opened 2026-07-21**: NEXT ACTION owner reviews/merges. After Track 4
-  merges: the only remaining live-data action is the owner's quarantined
-  real 1099-DIV run and its permitted three-fact attestation (ADR-0031
-  Decision 7); Track 5 then closes the milestone records.
-  **Process note:** during this track's dispatch, a shared-`.git`-refs race
-  between a foreman foreground command and a concurrently-dispatched
-  agent's worktree setup twice caused the primary checkout's `main` branch
-  pointer to be clobbered onto the track branch's tip (once pushed to
-  `origin/main` before being caught and reverted). No commits were lost
-  (all reflog-recoverable), and the track branch itself was never at risk
-  — only `main`'s pointer. Lesson for future dispatches: avoid running
-  foreground git mutations on the primary checkout while a background
-  agent's worktree isolation is still being set up; prefer a dedicated
-  worktree for foreman-side commits too, not the primary checkout's `main`
-  branch, when other dispatches are in flight.
+  rounds (F1, R1) both confirmed genuinely discharged before merge — full
+  history in `docs/reviews/2026-07-20-dsbs-t3-*.md`. **Track 4 (PR #39,
+  `e15bd39`)** — closed the milestone plan's remaining Track 4 gap (the
+  live-run harness extension for 1099-DIV; two of its three named items
+  turned out to already be done by Tracks 1–3) with confirming goldens, an
+  extended `tools/scaffold_live_acts.py`, the new
+  `tests/test_dsbs_t4_dividend_live_integration.py` (Schedule B + QDCG
+  resolving together in one `live_coordinate_run`), and a `.gitignore`
+  safety net for the owner-held paths — reviewed READY (`9898c07`, zero
+  blocking findings, full history in
+  `docs/reviews/2026-07-20-dsbs-t4-*.md`) before merge. Process: ADR-0030
+  amendment (PR #33), ADR-0039 (PR #34), ADR-0040 trusted-advisor seat
+  (PR #35), canonical role seed files under `docs/roles/` (PR #37),
+  retirement of the old foreman role template in favor of
+  `docs/roles/foreman.md` as the single source (PR #38). Track-by-track
+  detail lives in the review records under `docs/reviews/` and git
+  history, no longer restated here.
+- **➡️ All milestone content is merged. Next is the owner's real 1099-DIV
+  run and attestation (owner-only, out-of-repo), then Track 5** (records:
+  matrix, phase-state, retrospective, deferral ledger — itself reviewed
+  and merged as a records track, per the milestone plan). No builder or
+  reviewer dispatch is needed until one of those two things happens; this
+  is not a foreman-actionable step right now.
+- **Process note (still relevant for future dispatches):** during Track
+  4's dispatch, a shared-`.git`-refs race between a foreman foreground
+  command and a concurrently-dispatched agent's worktree setup twice
+  clobbered the primary checkout's `main` branch pointer onto the track
+  branch's tip (once briefly reached `origin/main` before being caught and
+  corrected; no commits were lost, all reflog-recoverable). Lesson: avoid
+  foreground git mutations on the primary checkout's `main` while a
+  background agent's worktree isolation is still being set up; prefer a
+  dedicated worktree for foreman-side commits too when other dispatches
+  are in flight.
 - **Lessons a Track 3 builder needed** (record kept for the Track 4
   builder — same package/resolver machinery applies):
   bundle-adoption, not bare `fact-type.v2` members (kernel registry
