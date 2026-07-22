@@ -1,12 +1,10 @@
 # Milestone: Guarded Transport and Credential Confinement
 
-Status: **draft — awaiting owner approval** (drafted 2026-07-22 in the
-trusted-advisor seat at owner request; ADR-0013 requires owner approval of
-this plan before any charter is cut). Third milestone of the Real Return
-phase; operates under ADR-0030 per-ADR / per-track merges and ADR-0034
-owner-approved dispatch. This is the phase's first **hardening (L3→L4)**
-milestone: it discharges a named production condition rather than adding a
-new tax domain.
+Status: **active — owner approved 2026-07-22; Track 0 prototype-plan
+preparation in progress.** Third milestone of the Real Return phase; operates
+under ADR-0030 per-ADR / per-track merges and ADR-0034 owner-approved
+dispatch. This is the phase's first **hardening (L3→L4)** milestone: it
+discharges a named production condition rather than adding a new tax domain.
 
 ## Decision summary (tiered)
 

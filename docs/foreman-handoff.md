@@ -27,7 +27,25 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-21; Track 5 built, awaiting review dispatch)
+## Current state (updated 2026-07-22; Guarded Transport Track 0 setup)
+
+- **Seat:** prototype foreman for **Guarded Transport and Credential
+  Confinement**. The owner selected and approved the milestone plan on
+  2026-07-22; phase-state and roadmap now point to it. The prior Dividends and
+  Schedule B Slice is complete; its durable record remains in its plan,
+  retrospective, deferral ledger, reviews, and git history.
+- **Track 0:** `docs/prototypes/guarded-transport/plan.md` is newly prepared
+  for H1 (credential-confinement topology), with H2/H3 scoped through Gate 0.
+  It is deliberately **draft pending owner approval**, which ADR-0013 requires
+  before any charter. `SEAT.md` and `process-log.md` record that no builder or
+  reviewer has been dispatched. The owner authorized dispatch as needed, but
+  ADR-0034 still requires an exact role plus current charter before launch.
+- **Next action:** obtain owner approval/amendment for the separate prototype
+  plan; then prepare the two sealed clean-room Rung-1/Rung-2 local-Git
+  charters and request charter-specific launch approval. Do not use the
+  similarly named in-progress feature-plan branch as evidence or state.
+
+## Prior milestone handoff (historical detail)
 
 - **Seat:** principal foreman. Milestone **Dividends and Schedule B Slice**
   content-complete; only the Track 5 records remain to close it. All four

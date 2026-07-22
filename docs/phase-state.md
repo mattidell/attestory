@@ -8,9 +8,20 @@ This file is the re-entry point. Alongside the phase pointer below, it carries a
 
 **Shims in place.** Free supersession policy; E8.1 UI coverage deferred (presentation is form-field disposition content, not a human surface); citation *display* formatting a deferred rendering contract; guarded transport / credential confinement **not implemented** (the highest-priority deferral, now holding the data-boundary row at L3 across every domain the matrix covers); ADR-0026's further interest sources and subtractive adjustments deferred; ADR-0028 historical-v1 migration deferred; the declared dividend universe excludes boxes 2a/3/5/7/12; Schedule B is the only implemented schedule attachment (the ADR-0036 ontology is demonstrated generically, but no other schedule has production content). The complete named list with reactivation triggers: `docs/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md` (which also dispositions every First Real Return Slice ledger entry this milestone touched — one, re-affirmed not retired).
 
-**What the next milestone makes it do.** Unselected — an owner decision (Tier 3) from the maturity-matrix frontier: a human presentation surface (E8.1, citation display — the first aspect a real user now touches every run, across every domain the matrix covers), L3→L4 hardening (retire ledger deferrals, guarded transport first), or new domain breadth (dividend boxes outside the declared universe, a second schedule attachment beyond Schedule B, or a domain not yet on the matrix at all). The foreman presents candidates and a recommendation on request.
+**What the next milestone makes it do.** Guarded Transport and Credential
+Confinement hardens the existing real-data capability from L3 toward L4. It
+will make the guarded path the only credentialed route to the remote: raw
+`git push`, including `--no-verify`, must fail closed rather than relying on a
+skippable hook to notice a bad envelope after the fact. The owner selected and
+approved the milestone on 2026-07-22; Track 0 is preparing the required
+prototype plan for the still-open confinement architecture.
 
-**Nature of the pending schema/contract change.** None pending. The next milestone introduces its own; no ratified contract is mid-supersession.
+**Nature of the pending schema/contract change.** H1, the credential-
+confinement architecture, is a pending Tier 3 contract decision. ADR-0031
+already ratified the boundary requirement; Track 0 will determine and prove
+the transport shape before production implementation begins. H2's
+prevention-versus-detection line and H3's audit surface are scoped alongside
+H1 and may resolve at paper level if Gate 0 finds no independent contract.
 
 ## Pointers
 
@@ -18,9 +29,17 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
-Milestone: **Dividends and Schedule B Slice — COMPLETE (2026-07-21)** pending the Track 5 records merge. Plan and per-criterion closure: `docs/phases/real-return/milestones/dividends-schedule-b-slice.md`. Retrospective: `docs/milestone-retrospectives/2026-07-21-dividends-and-schedule-b-slice.md`. Deferral ledger: `milestones/dividends-schedule-b-slice-deferral-ledger.md`. The owner's attestation (the milestone's acceptance evidence) is recorded in the plan's Verification section (PR #40). Prior milestone: First Real Return Slice — CLOSED 2026-07-18 (Track 5 merged PR #21, `693b09b`; owner attestation PR #20); its plan, retrospective, and deferral ledger remain the durable record.
+Milestone: **Guarded Transport and Credential Confinement — ACTIVE (selected
+and plan approved 2026-07-22).** Plan:
+`docs/phases/real-return/milestones/guarded-transport-and-credential-confinement.md`.
+It is the Real Return phase's first L3→L4 hardening milestone. The prior
+Dividends and Schedule B Slice is complete (2026-07-21); its plan,
+retrospective, and deferral ledger remain the durable record.
 
-**➡️ Next: the owner dispatches Track 5's prepared independent review (`docs/reviews/charter-2026-07-21-dsbs-t5-completion-review.md`, ADR-0034) against branch `track/dsbs-t5-completion`, then merges the records PR, then selects the next milestone from the maturity-matrix frontier (Tier 3; foreman presents candidates on request).**
+**➡️ Next: complete and obtain owner approval for
+`docs/prototypes/guarded-transport/plan.md`; then issue the bounded Track 0
+charters and obtain explicit owner approval for each exact dispatch
+(ADR-0034). No production implementation may begin before H1 is ratified.**
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 
