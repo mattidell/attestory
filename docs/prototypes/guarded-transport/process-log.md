@@ -17,3 +17,8 @@
   clean evidence boundary without modifying or reading those refs, this run
   uses the distinct `prototypes/guarded-transport-h1/it<N>` namespace. This is
   a Tier 1 worktree/branch-hygiene choice, not a new decision topic.
+- Incumbent builder completed sealed exhibit `1255b273` on
+  `prototypes/guarded-transport-h1/it1`; clean-room rival builder completed
+  sealed exhibit `95b232f` on `prototypes/guarded-transport-h1/it2`. The
+  foreman has not accepted either conclusion. Two independent review charters
+  are being issued against these exact commits.

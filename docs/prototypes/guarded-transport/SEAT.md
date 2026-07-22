@@ -2,23 +2,22 @@
 
 ## Current step
 
-**Builder round opening** (2026-07-22). The owner approved the parent
-milestone and this prototype plan, and authorized the plan's builder
-dispatches. The foreman is committing the two sealed charters before launch;
-no builder or reviewer has yet been dispatched.
+**Round 1 review opening** (2026-07-22). The incumbent and clean-room rival
+have each committed their sealed Rung-2 exhibit. The foreman is committing two
+independent review charters; no reviewer has yet been dispatched.
 
 ## Seats
 
 | Role | Holder | Status |
 | --- | --- | --- |
 | Prototype foreman | Codex, succeeding into this new topic under owner direction (2026-07-22) | active; scope/economy steward only |
-| Incumbent builder | unassigned | launch authorized for `charter-it1.md`; pending dispatch |
-| Rival builder | unassigned | launch authorized for `charter-it2.md`; pending dispatch |
-| Governance reviewer | unassigned | requires owner approval of its current review charter before dispatch |
-| Adversary reviewer | unassigned | requires owner approval of its current review charter before dispatch |
+| Incumbent builder | isolated branch `prototypes/guarded-transport-h1/it1` | completed, exhibit `1255b273` |
+| Rival builder | isolated branch `prototypes/guarded-transport-h1/it2` | completed, exhibit `95b232f` |
+| Governance reviewer | unassigned | launch authorized for `charter-review-governance-r1.md`; pending dispatch |
+| Adversary reviewer | unassigned | launch authorized for `charter-review-adversary-r1.md`; pending dispatch |
 
 ## Next action
 
-The foreman dispatches the two clean-room Rung-1/Rung-2 builders under their
-committed charters. Reviewers remain unassigned until their current review
-charters are prepared and authorized.
+The foreman dispatches the independent Governance and Adversary reviewers in
+separate contexts. Their results will be triaged before any repair, analysis,
+or ADR work opens.
