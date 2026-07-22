@@ -27,7 +27,7 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-21; Track 4 merged — milestone content complete)
+## Current state (updated 2026-07-21; real run done, attestation recorded)
 
 - **Seat:** principal foreman. Active milestone: **Dividends and Schedule B
   Slice**. All four milestone ADRs ratified: ADR-0035 (D3), ADR-0036 (D1),
@@ -56,12 +56,21 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
   `docs/roles/foreman.md` as the single source (PR #38). Track-by-track
   detail lives in the review records under `docs/reviews/` and git
   history, no longer restated here.
-- **➡️ All milestone content is merged. Next is the owner's real 1099-DIV
-  run and attestation (owner-only, out-of-repo), then Track 5** (records:
-  matrix, phase-state, retrospective, deferral ledger — itself reviewed
-  and merged as a records track, per the milestone plan). No builder or
-  reviewer dispatch is needed until one of those two things happens; this
-  is not a foreman-actionable step right now.
+- **Real run done (2026-07-21):** the owner attested in the exact
+  three-fact form; recorded in the milestone plan's Verification section
+  ("Owner attestation"). The owner's first workspace attempt predated
+  Track 4's harness extension and refused `RELEASE_ABSENT_OR_MISMATCH`
+  (a stale package-adoption pin against a publication surface regenerated
+  several times since); diagnosed structurally from the repo's own
+  fixtures (no live detail crossed) and resolved by rebuilding the
+  workspace fresh from the updated `tools/scaffold_live_acts.py` /
+  `workspace-seed/build.py` — see those files' current state for the v6
+  pin and the full dividend/Schedule-B/QDCG template set. Repo-side checks
+  at recording time: `git status` clean, `envelope_scan.py --verify`
+  reported the envelope gates installed and byte-intact.
+- **➡️ NEXT ACTION: charter Track 5** — the completion records track
+  (maturity-matrix + phase-state updates, retrospective, deferral ledger),
+  itself reviewed and merged per ADR-0030. This closes the milestone.
 - **Process note (still relevant for future dispatches):** during Track
   4's dispatch, a shared-`.git`-refs race between a foreman foreground
   command and a concurrently-dispatched agent's worktree setup twice

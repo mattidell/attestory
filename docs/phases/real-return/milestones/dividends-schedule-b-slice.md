@@ -167,6 +167,31 @@ the synthesis method stated in the introducing track.
   quarantine, no artifact crossed the boundary — never which lines or
   attachments published or blocked.
 
+### Owner attestation (recorded 2026-07-21)
+
+The owner (Matt Idell) attested to the foreman, in the exact non-descriptive
+form this section requires:
+
+> "I ran in quarantined workspace, dispositions were observed there, no
+> artifact crossed the boundary."
+
+This sentence is the milestone's acceptance evidence in the repository. The
+disposition report and all run detail remain in the quarantined workspace per
+ADR-0031; no further description crosses, and reviews cite only this record.
+Repo-side mechanical confirmation at recording time: `git status` carried no
+workspace artifact (only the intentionally untracked, gitignored owner-held
+helpers — `tools/scaffold_live_acts.py`, `workspace-seed/`), and
+`tools/envelope_scan.py --verify` reported the ADR-0031 envelope gates
+installed and byte-intact. The run followed one intervening repair: the
+owner's first workspace attempt predated this session's live-run harness
+extension (Track 4, PR #39) and carried a stale package-adoption release
+pin (`RELEASE_ABSENT_OR_MISMATCH` against the current publication surface,
+which has been regenerated several times since); the owner rebuilt the
+workspace fresh from the updated `tools/scaffold_live_acts.py` /
+`workspace-seed/build.py` (now pinning `core-calculations` v6) before the
+successful run. No live detail crossed during that diagnosis — it was
+reproduced structurally, from the repo's own committed fixtures.
+
 ## Exit criteria
 
 1. D1/D2/D3 ratified with rival-backed evidence; per-ADR merges on `main`.
