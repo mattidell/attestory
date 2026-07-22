@@ -1,10 +1,13 @@
 # Milestone: Guarded Transport and Credential Confinement
 
-Status: **active — owner approved 2026-07-22; Track 0 prototype-plan
-preparation in progress.** Third milestone of the Real Return phase; operates
-under ADR-0030 per-ADR / per-track merges and ADR-0034 owner-approved
-dispatch. This is the phase's first **hardening (L3→L4)** milestone: it
-discharges a named production condition rather than adding a new tax domain.
+Status: **active — Track 0 H1 stopped pending owner disposition**
+(2026-07-22). The owner approved the milestone and authorized the prototype
+builders/reviewers; both rival evidence and the one permitted repair pass have
+been completed. No H1 contract is ratified and no production implementation
+may begin. Third milestone of the Real Return phase; operates under ADR-0030
+per-ADR / per-track merges and ADR-0034 owner-approved dispatch. This is the
+phase's first **hardening (L3→L4)** milestone: it discharges a named production
+condition rather than adding a new tax domain.
 
 ## Decision summary (tiered)
 

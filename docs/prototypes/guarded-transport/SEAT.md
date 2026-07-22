@@ -2,9 +2,9 @@
 
 ## Current step
 
-**Repair 1 delta review opening** (2026-07-22). The incumbent repair exhibit
-is committed. The foreman is issuing the two authorized independent delta
-review charters before any disposition.
+**H1 stopped after Repair 1** (2026-07-22). Both independent delta reviews
+block the repair's actual-Git evidence. The build and repair allowances are
+exhausted; owner disposition is required.
 
 ## Seats
 
@@ -13,11 +13,11 @@ review charters before any disposition.
 | Prototype foreman | Codex, succeeding into this new topic under owner direction (2026-07-22) | active; scope/economy steward only |
 | Incumbent builder | isolated branch `prototypes/guarded-transport-h1/repair1` | completed, exhibit `00d1550` |
 | Rival builder | isolated branch `prototypes/guarded-transport-h1/it2` | completed, exhibit `95b232f` |
-| Governance reviewer | unassigned | delta review authorized; pending dispatch |
-| Adversary reviewer | unassigned | delta review authorized; pending dispatch |
+| Governance reviewer | completed Repair 1 review `34a7508` | actual-Git measurement unrun; blocker |
+| Adversary reviewer | completed Repair 1 review `ddf1905` | actual-Git probe hung; blocker |
 
 ## Next action
 
-The foreman dispatches independent delta reviewers over `00d1550`. Their
-measurements decide whether the repair discharged the named findings; no
-further repair is available in this topic.
+Owner selects one of: a new prototype topic for an OS/identity/hosted
+credential boundary; a narrower milestone rescope; or stopping this
+milestone. No further H1 builder or review dispatch is authorized.

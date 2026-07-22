@@ -34,18 +34,16 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
   2026-07-22; phase-state and roadmap now point to it. The prior Dividends and
   Schedule B Slice is complete; its durable record remains in its plan,
   retrospective, deferral ledger, reviews, and git history.
-- **Track 0:** the owner approved `docs/prototypes/guarded-transport/plan.md`
-  and authorized the plan's builder/reviewer dispatches. Two sealed,
-  clean-room local-Git exhibits were built and two independent reviews landed
-  on the plan branch. Round 1 is **decision-blocked**: the incumbent released
-  its descriptor before the actual envelope scan and its fresh probe hung; the
-  rival's same-UID mode-600 store was readable. H2/H3 evidence is incomplete.
-  Exact records: `round-1-triage.md`, `reviews/round-1-governance.md`, and
-  `reviews/round-1-adversary.md`.
-- **Next action:** owner chooses whether to authorize the plan's one
-  delta-scoped incumbent repair with the four invariants in `round-1-triage.md`,
-  or stop/split H1. No agent is authorized pending that disposition. Do not use
-  the similarly named in-progress feature-plan branch as evidence or state.
+- **Track 0:** H1 is **stopped after its one permitted repair**. Repair 1
+  addressed the Round-1 ordering and inventory findings, but both independent
+  delta reviewers could not reproduce a completing clean actual-Git probe;
+  H1-P1/P2 remain unratified. H2/H3 are conditional forms only, not separate
+  decisions. Exact records: `round-1-triage.md`, `repair1-triage.md`, and the
+  four review records under `docs/prototypes/guarded-transport/reviews/`.
+- **Next action:** owner selects a fresh OS/identity/hosted-boundary topic,
+  an honest rescope that does not claim L4, or stopping this milestone. No H1
+  agent is authorized. Do not use the similarly named in-progress feature-plan
+  branch as evidence or state.
 
 ## Prior milestone handoff (historical detail)
 

@@ -13,8 +13,10 @@ Confinement hardens the existing real-data capability from L3 toward L4. It
 will make the guarded path the only credentialed route to the remote: raw
 `git push`, including `--no-verify`, must fail closed rather than relying on a
 skippable hook to notice a bad envelope after the fact. The owner selected and
-approved the milestone on 2026-07-22; Track 0 is preparing the required
-prototype plan for the still-open confinement architecture.
+approved the milestone on 2026-07-22. Track 0 has now exhausted its two
+clean-room candidates and one permitted repair without a reproducible
+actual-Git transport proof; H1 remains unratified pending an owner decision to
+split, rescope, or stop the topic.
 
 **Nature of the pending schema/contract change.** H1, the credential-
 confinement architecture, is a pending Tier 3 contract decision. ADR-0031
@@ -36,10 +38,10 @@ It is the Real Return phase's first L3→L4 hardening milestone. The prior
 Dividends and Schedule B Slice is complete (2026-07-21); its plan,
 retrospective, and deferral ledger remain the durable record.
 
-**➡️ Next: complete and obtain owner approval for
-`docs/prototypes/guarded-transport/plan.md`; then issue the bounded Track 0
-charters and obtain explicit owner approval for each exact dispatch
-(ADR-0034). No production implementation may begin before H1 is ratified.**
+**➡️ Next: owner chooses a new decision topic for an OS/identity/hosted
+credential boundary, a narrower milestone rescope, or a stop. The current H1
+prototype's build and single repair allowance are exhausted; no production
+implementation may begin before a different ratified contract exists.**
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 

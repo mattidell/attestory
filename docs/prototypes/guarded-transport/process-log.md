@@ -36,3 +36,9 @@
   `00d1550`. The foreman has not accepted its conclusions. Authorized
   Governance and Adversary delta-review charters are issued against that exact
   commit; no second repair pass is available.
+- Delta Governance review `34a7508` and Adversary review `ddf1905` both found
+  the sealed Repair 1 probe failed to complete the clean actual-Git case under
+  independent rerun. The foreman recorded the final Gate-5 disposition in
+  `repair1-triage.md`: H1 is stopped, not repaired again. No role breach,
+  context leak, hollow measurement, charter drift, or wordsmithered dissent
+  was reported.

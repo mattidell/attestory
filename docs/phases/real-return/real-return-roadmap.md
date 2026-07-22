@@ -28,15 +28,14 @@ scan.
 
 ## Status
 
-- Guarded Transport and Credential Confinement — **active, Track 0 preparing
-  the required prototype plan** (owner selected and approved the milestone
-  plan 2026-07-22). This is the L3→L4 hardening frontier: it will retire the
-  highest-priority residency deferral by confining the remote credential and
-  push transport to a guarded path. H1 (the confinement model) is an open
-  Tier 3 decision; H2 (server-side prevention versus residual detection) and
-  H3 (the adversarial audit surface) enter Track 0 only as Gate 0 directs.
-  No contract has been ratified or implementation begun. The remaining
-  presentation and breadth frontiers stay deferred.
+- Guarded Transport and Credential Confinement — **active, Track 0 H1 stopped
+  pending owner disposition** (owner selected and approved the milestone plan
+  2026-07-22). This is the L3→L4 hardening frontier. Two clean-room local-Git
+  topologies and the one allowed repair were independently reviewed; neither
+  produced a reproducible actual-Git proof of scan-before-credential release.
+  H1 remains unratified, and no implementation has begun. The owner may split
+  a new OS/identity/hosted-boundary decision, rescope the milestone, or stop;
+  presentation and breadth frontiers remain deferred.
 
 - Dividends and Schedule B Slice — **content complete, completion records in
   progress** (plan approved 2026-07-18; Track 5 records on
