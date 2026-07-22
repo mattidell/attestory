@@ -28,21 +28,21 @@ scan.
 
 ## Status
 
-Active milestone: **Dividends and Schedule B Slice** — plan approved by the
-owner 2026-07-18 (plan: `milestones/dividends-schedule-b-slice.md`). Raises
-the Dividends and Schedule-attachments matrix columns L0→L3; decision topics
-D1 (attachment ontology, Tier 3), D2 (line 16 under qualified dividends,
-Tier 3, owner-narrowed to the declared-absence worksheet), D3 (1099-DIV
-composition, Tier 2). Track 0's prototype topics are complete: their accepted
-ADRs are on `main`. The next dependency is ADR-0037's planned production
-Track 0a; it precedes D2 adoption and the existing content tracks.
-
-- Dividends and Schedule B Slice — **active** (approved 2026-07-18).
-  ADR-0035 (D3), ADR-0036 (D1), and the D2 prerequisite ADR-0037 are ratified
-  on `main`. ADR-0037's integrated prerequisite production Track 0a is
-  implemented on its dedicated branch with authoritative-surface goldens and
-  awaits independent review; it must merge before D2 adoption. No reviewer was
-  dispatched during implementation by owner direction.
+- Dividends and Schedule B Slice — **content complete, completion records in
+  progress** (plan approved 2026-07-18; Track 5 records on
+  `track/dsbs-t5-completion`, pending independent review and owner merge).
+  Raised the
+  Dividends and Schedule-attachments matrix columns L0→L3 across all eight
+  aspects. D1 (attachment ontology, ADR-0036), D2 (line 16 under qualified
+  dividends, ADR-0038), D3 (1099-DIV composition, ADR-0035) all ratified;
+  ADR-0037 (`conditional_dependency_set` prerequisite substrate) ratified and
+  merged as Track 0a. Tracks 0a/1/2/3/4 merged per-track (ADR-0030; PRs
+  #30/#31/#32/#36/#39). The owner contributed real 1099-DIV facts to the
+  same quarantined out-of-repo workspace and ran the widened slice; the
+  non-descriptive attestation is recorded in the milestone plan (2026-07-21,
+  PR #40). Named deferrals live in
+  `milestones/dividends-schedule-b-slice-deferral-ledger.md`. Next milestone
+  selection is owner-directed from the maturity-matrix frontier.
 
 - First Real Return Slice — **complete** (2026-07-18; Track 5 records merged
   PR #21). D1 residency (ADR-0031), D2 contribution (ADR-0032), and D3

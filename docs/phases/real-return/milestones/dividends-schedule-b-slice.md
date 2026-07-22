@@ -359,3 +359,60 @@ merged as a records track.
 - **Runs consume facts, not inputs; the user controls the context:**
   unchanged and binding on all new machinery.
 - Exceptions auto-escalate to Tier 3 per the standing protocol.
+
+## Closure (2026-07-21, Track 5)
+
+Milestone complete. Per-exit-criterion disposition, each stated in the
+strongest form the ratified data boundary admits:
+
+1. **D1/D2/D3 ratified with rival-backed evidence; per-ADR merges on
+   `main`** — satisfied: ADR-0035 (D3), ADR-0036 (D1), ADR-0037 (D2's
+   `conditional_dependency_set` prerequisite), and ADR-0038 (D2) all
+   ratified, each through the ADR-0013 prototype process with rival
+   evidence; all four on `main`.
+2. **The synthetic battery drives the full widened slice from the
+   authoritative surface, including the named golden classes** —
+   satisfied: 3a/3b publication and line 9 with dividends
+   (`test_dsbs_t2_coordinator.py`), the Schedule B existence conditional
+   over all three outcomes — not-required, required-and-complete,
+   required-and-incomplete (`test_dsbs_t2_schedule_b.py`), line 16 under
+   D2's ratified shape for both qualified-present and qualified-absent
+   paths (`test_dsbs_t3_line16_coordinator.py`), and the composed
+   whole-slice confirmation (`test_dsbs_t4_dividend_live_integration.py`)
+   all enter through `live_coordinate_run` from an authoritative act log —
+   independently re-derived by each track's reviewer, not accepted on
+   report.
+3. **The owner has contributed real 1099-DIV facts and run the widened
+   slice; the non-descriptive attestation is recorded** — satisfied
+   (Verification section above, "Owner attestation", recorded 2026-07-21,
+   PR #40). Per Ontology §8 this record deliberately does not — and never
+   may — state which lines or attachments published or blocked; the
+   attestation plus the in-repo synthetic battery over the identical path
+   is this criterion's complete repo-side evidence.
+4. **The 1099-DIV family closes over the owner's declared set
+   (horizon-keyed; stale closure remains a hard projection error)** —
+   satisfied by mechanism plus attestation: Track 4's confirming goldens
+   prove the closure-admission mechanism (literal-current-true as the only
+   empty-set authority) holds for the dividend families under the v6-pinned
+   package, so any run the attestation covers closed over the declared set
+   by construction.
+5. **The repository contains zero personal data, mechanically checked** —
+   satisfied: track safety scans in every review gate, plus the
+   already-installed byte-verified commit/push envelope gates (carried from
+   the First Real Return Slice), verified byte-intact at attestation
+   recording.
+6. **Maturity matrix updated; phase-state briefing rewritten; retrospective
+   written; deferral ledger recorded; prior-ledger entries touched
+   dispositioned by name** — satisfied by this track: maturity matrix
+   updated (Dividends and Schedule-attachments columns L0→L3 across all
+   eight aspects, each L3 cell carrying the Ontology §8 evidential
+   footnote); phase-state briefing rewritten; retrospective written
+   (`docs/milestone-retrospectives/2026-07-21-dividends-and-schedule-b-slice.md`);
+   deferral ledger recorded
+   (`dividends-schedule-b-slice-deferral-ledger.md`), which also
+   dispositions the First Real Return Slice ledger's marshaller
+   binding-route entry (touched, re-affirmed not retired) and confirms the
+   remaining ten prior entries untouched by this milestone's tracks.
+
+Next milestone selection is owner-directed (Tier 3) from the maturity-matrix
+frontier reading.

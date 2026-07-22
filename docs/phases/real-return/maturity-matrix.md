@@ -24,20 +24,21 @@ careful hand-editing.
 | **L3** | Real — operates on the owner's actual data under the ratified data boundary. |
 | **L4** | Hardened — named production conditions discharged; deferrals retired. |
 
-## Matrix (as of 2026-07-18, post-First-Real-Return-Slice)
+## Matrix (as of 2026-07-21, post-Dividends-and-Schedule-B-Slice)
 
 | Aspect ↓ / Domain → | W-2 wages (1a) | Interest (2b) | Dividends (3a/3b) | Return-level conditions (status, 12, 15, 16) | Schedule attachments |
 | --- | --- | --- | --- | --- | --- |
-| **Admission & identity** (facts enter with declared identity, member transitions) | L3 ⁷ | L3 ⁷ | L0 | L3 ⁷ | L0 |
-| **Source closure & completeness** (families, mappings, horizons, honest blocking) | L3 ¹ ⁷ | L3 ⁷ | L0 | L3 ² ⁷ | L0 |
-| **Computation** (rules, composition, conditionals) | L3 ⁷ | L3 ³ ⁷ | L0 | L3 ⁷ | L0 |
-| **Adoption & authority** (packages, manifests, byte verification, citations) | L3 ⁴ ⁷ | L3 ⁴ ⁷ | L0 | L3 ⁴ ⁷ | L0 |
-| **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L0 | L3 ⁷ | L0 |
-| **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ⁷ | L3 ⁵ ⁷ | L0 | L3 ⁵ ⁷ | L0 |
-| **Correction & supersession lifecycle** | L3 ⁶ ⁷ | L3 ⁶ ⁷ | L0 | L3 ⁶ ⁷ | L0 |
-| **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ | L3 ⁷ ⁸ | L0 | L3 ⁷ ⁸ | L0 |
+| **Admission & identity** (facts enter with declared identity, member transitions) | L3 ⁷ | L3 ⁷ | L3 ⁹ ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
+| **Source closure & completeness** (families, mappings, horizons, honest blocking) | L3 ¹ ⁷ | L3 ⁷ | L3 ⁹ ¹¹ | L3 ² ⁷ | L3 ¹¹ ¹² |
+| **Computation** (rules, composition, conditionals) | L3 ⁷ | L3 ³ ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
+| **Adoption & authority** (packages, manifests, byte verification, citations) | L3 ⁴ ⁷ | L3 ⁴ ⁷ | L3 ¹¹ | L3 ⁴ ⁷ | L3 ¹¹ ¹² |
+| **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
+| **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ⁷ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ |
+| **Correction & supersession lifecycle** | L3 ⁶ ⁷ | L3 ⁶ ⁷ | L3 ⁶ ¹¹ | L3 ⁶ ⁷ | L3 ⁶ ¹¹ |
+| **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ | L3 ⁷ ⁸ | L3 ⁸ ¹⁰ ¹¹ | L3 ⁷ ⁸ | L3 ⁸ ¹⁰ ¹¹ |
 
-Footnotes (honest qualifications; renumbered at milestone close 2026-07-18):
+Footnotes (honest qualifications; renumbered at milestone close 2026-07-18,
+extended at milestone close 2026-07-21):
 
 1. The W-2 family's closure mapping now exists as immutable horizon-keyed v3
    content (Tracks 4/4c, ADR-0014 pattern); a stale closure is a hard
@@ -67,19 +68,55 @@ Footnotes (honest qualifications; renumbered at milestone close 2026-07-18):
    first-class event, fail-closed classification. Guarded transport /
    credential confinement is a named deferral (ledger), which is what holds
    this row (and the matrix) short of L4.
+9. **Declared dividend universe is boxes 1a/1b only** (ADR-0035, D3;
+   milestone plan, owner-ratified at plan stage): boxes 2a, 3, 5, 7, and 12
+   are named honest-block exclusions, not silently dropped — deferral ledger
+   entry 4. Admission-locus 1b ≤ 1a rejection and 3a ≤ 3b hold by
+   construction within the declared universe.
+10. Dividends and Schedule attachments share the same data-boundary infra as
+    W-2/interest (footnote 8) — no new boundary contract was introduced; the
+    owner's real 1099-DIV facts entered the same quarantined workspace and
+    contribution boundary.
+11. **Evidential basis for Dividends/Schedule-attachments L3 claims
+    (Ontology §8):** the DSBS synthetic battery drives the full widened
+    slice from the authoritative surface through the named golden classes
+    (3a/3b publication, line 9 with dividends, Schedule B not-required /
+    required-and-complete / required-and-incomplete, line 16 under D2's
+    ratified shape — `docs/reviews/2026-07-19-dsbs-t2-*`,
+    `docs/reviews/2026-07-20-dsbs-t3-*`, `docs/reviews/2026-07-20-dsbs-t4-*`),
+    and the owner's non-descriptive attestation (milestone plan,
+    Verification, "Owner attestation", 2026-07-21) establishes the slice ran
+    on real 1099-DIV data in quarantine with the boundary intact. Same
+    posture as footnote 7: no L3 claim here rests on, or may ever cite,
+    quarantined run detail — L3 asserts the capability operated, not any
+    particular disposition.
+12. **Schedule B is the only implemented schedule attachment.** The
+    attachment ontology (ADR-0036) is demonstrated generically — a Schedule D
+    stub in the D1 prototype exercised the same citizen/states/completeness
+    shape with zero Schedule-B-specific surface — but no other actual
+    schedule has production content yet. L3 here reflects the capability
+    operating for Schedule B specifically, not universal schedule coverage;
+    the Schedule-attachments column's L3 is scoped to the aspects Schedule B
+    exercises (all eight rows), per the milestone plan's exit criterion 6.
 
 ## Frontier reading
 
-The covered region is now uniformly L3; the matrix is breadth-limited, not
-depth-limited. The live frontiers for the owner's next selection (Tier 3):
+The covered region (all five domains, all eight aspects) is now uniformly
+L3; the matrix is breadth- and hardening-limited, not depth-limited within
+its covered domains. The live frontiers for the owner's next selection
+(Tier 3):
 
-1. **Dividends / Schedule-attachments columns: L0 → L2** — coverage breadth
-   (1099-DIV, lines 3a/3b, the Schedule B $1,500 conditional — the designated
-   first hard trace case). Breadth now pays twice: the data boundary and
-   production resolver are in place, so a new domain reaching L2 is one
-   adoption away from L3.
-2. **Presentation aspect toward a human surface** — E8.1, citation display.
-   The first aspect a real user (the owner) now touches every run.
-3. **L3 → L4 hardening** — retire named deferrals from the milestone ledger
-   (guarded transport first; then supersession policy, ADR-0026 interest
-   scope, ADR-0028 migration).
+1. **Presentation aspect toward a human surface** — E8.1, citation display.
+   The first aspect a real user (the owner) now touches every run, across
+   every domain the matrix covers.
+2. **L3 → L4 hardening** — retire named deferrals from the milestone ledger
+   (`dividends-schedule-b-slice-deferral-ledger.md`): guarded transport
+   still first (holds the data-boundary row at L3 across every domain);
+   then supersession policy, ADR-0026 interest scope, ADR-0028 migration,
+   the marshaller binding-route simplification, and the newer Track 4 F2
+   scaffold-visibility note.
+3. **New domain breadth** — dividend boxes outside the declared universe
+   (2a/3/5/7/12; deferral ledger entry 4), a second schedule attachment
+   beyond Schedule B (the D1 ontology's Schedule D stub is evidence this is
+   now a content question, not a design question), or a second
+   income/return-level domain not yet on the matrix's columns at all.
