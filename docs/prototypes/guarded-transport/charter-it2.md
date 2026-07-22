@@ -2,7 +2,7 @@
 
 Role: **Rival builder** (High tier). This is the exact charter authorized by
 the owner on 2026-07-22 for Track 0 of Guarded Transport and Credential
-Confinement. Work only on branch `prototypes/guarded-transport/it2`.
+Confinement. Work only on branch `prototypes/guarded-transport-h1/it2`.
 
 ## Clean-room boundary and question
 
