@@ -1,6 +1,6 @@
 # Retrospective — Push-Envelope Preflight and Bypass Visibility
 
-Status: **drafted by Track 2; final on records-track review and owner merge.**
+Status: **independently reviewed; final on owner merge.**
 
 ## Milestone
 
@@ -20,8 +20,9 @@ remote with `--no-verify`. Its stable output calls credential confinement
 ## Verification
 
 Track 1 passed 549 tests, mypy, governance lint, and envelope scans; its
-independent review found no blocking finding. Track 2 is records-only and
-requires its own independent review before this retrospective is final.
+independent review found no blocking finding. Track 2's independent records
+review also found no blocking finding; owner-held merge remains required
+before this retrospective is final.
 
 ## Decisions
 

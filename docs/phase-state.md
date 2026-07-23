@@ -28,15 +28,15 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
-Milestone: **Push-Envelope Preflight and Bypass Visibility — TRACK 2 RECORDS
-READY FOR REVIEW.** Plan:
+Milestone: **Push-Envelope Preflight and Bypass Visibility — TRACK 2 REVIEWED,
+AWAITING OWNER-HELD INTEGRATION.** Plan:
 `docs/phases/real-return/milestones/push-envelope-preflight-and-bypass-visibility.md`.
 It is the honest-L3 successor to the stopped credential-confinement scope; the
 original prototype record remains at
 `milestones/guarded-transport-and-credential-confinement.md` and
 `docs/prototypes/guarded-transport/`.
 
-**➡️ Next: independently review and merge Track 2 records. This closes the
+**➡️ Next: owner integrates the reviewed Track 2 records PR. This closes the
 honest-L3 rescope without retiring the guarded-transport or bypass deferrals.**
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
