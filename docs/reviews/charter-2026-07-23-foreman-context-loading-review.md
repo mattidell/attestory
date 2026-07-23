@@ -1,8 +1,8 @@
 # Review Charter — Foreman Context Loading
 
-Status: **prepared; no reviewer is authorized by this charter.** Under
-ADR-0034, the owner must explicitly approve the current reviewer role and this
-charter before any dispatch.
+Status: **launched 2026-07-23.** The owner explicitly approved dispatch of one
+fresh independent reviewer under this current charter. The reviewer examines
+the target range only; this launch-record commit is not part of that object.
 
 ## Object of review
 
