@@ -19,6 +19,7 @@ This is the project's third iteration. The first proved a working return generat
 python3 -m unittest            # test suite
 python3 tools/governance_lint.py   # governance set structural checks
 python3 -m mypy                # type checks (tools)
+python3 tools/audit_push_envelope_posture.py  # local synthetic hook/bypass posture
 python3 -m packages.kernel.runners.inspect_workspace --workspace packages/sample_data/kernel/demo_workspace
 python3 -m packages.derivation.runners.derive --scenario packages/sample_data/derivation/scenarios/first_slice/scenario.json
 python3 -m packages.derivation.runners.derive --scenario packages/sample_data/tax/scenarios/two_w2_same_employer/scenario.json
@@ -26,6 +27,13 @@ python3 -m packages.derivation.runners.derive --scenario packages/sample_data/ta
 ```
 
 The `derive` runner executes a rule package over the operation-semantics canon and prints each derived value with an explanation tree — the rule that produced it, the findings it consumed (recursing into derived inputs), and the parameters, canon, adoption, and governance it stood on. Explanation is a walk of the finding's pins, never a re-evaluation. The `first_slice` scenario is synthetic demo machinery; the `packages/sample_data/tax/scenarios/` scenarios exercise the real tax content — synthetic W-2 box-1 findings deriving 2025 Form 1040 line 1a, and synthetic Form 1099-INT box-1 findings deriving the B1 source subtotal, including the closure-backed empty-family zero that pins its adopted mapping and closure authority.
+
+`python3 tools/audit_push_envelope_posture.py` creates only a fresh temporary
+repository and local bare remote. Its JSON record verifies installed hook bytes
+and a hooked seeded-marker refusal, then honestly reports that a raw
+`git push --no-verify` can reach that synthetic remote. It reports credential
+confinement as `unestablished`; it neither contacts a network remote nor
+inspects credential material.
 
 ## Data safety
 
