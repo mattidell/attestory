@@ -354,6 +354,10 @@ Before implementing a track, identify:
 - Verification: the exact test or command proving the change.
 - Migration risk: whether existing artifact shapes or golden fixtures change.
 - Data safety: whether any local, private, or generated data path is touched.
+- Schema publication: if the track adds a published schema, name the new
+  version file, the existing versions that must remain byte-identical, the
+  manifest-generation method, and the immutability verification. A track may
+  not treat a checksum update as authorization to alter an existing schema.
 - Payload instantiation: if the track commits a schema that carries or references a payload, one hand-written, fully-resolved instance of that payload, committed alongside the schema as its positive example, before the schema is committed. A payload specified only by reference to another citizen is not yet instantiated.
 
 ## Payload Instantiation Gate
