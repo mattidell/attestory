@@ -89,6 +89,12 @@ that have hardened into tooling or ratified process.
 
 ## Builder
 
+- **A schema change is unplanned until its successor number is named.** Any
+  plan that changes a type represented by a published schema must name the
+  exact new version (for example, `fact-type.v3`) and the existing versions
+  that remain untouched. Version selection is a contract commitment to make
+  in planning, not an implementation detail to improvise after bytes change.
+
 - **Verify a "pre-existing" failure against base before you claim it.**
   Never assert a failing test pre-dates your branch without running the
   base to confirm. The check is cheap; a misattribution is not — it can
