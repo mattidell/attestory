@@ -27,7 +27,29 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-21; Track 5 built, awaiting review dispatch)
+## Current state (updated 2026-07-22; Guarded Transport Track 0 setup)
+
+- **Seat:** prototype foreman for **Guarded Transport and Credential
+  Confinement**. The owner selected and approved the milestone plan on
+  2026-07-22; phase-state and roadmap now point to it. The prior Dividends and
+  Schedule B Slice is complete; its durable record remains in its plan,
+  retrospective, deferral ledger, reviews, and git history.
+- **Track 0:** H1 is **stopped after its one permitted repair**. Repair 1
+  addressed the Round-1 ordering and inventory findings, but both independent
+  delta reviewers could not reproduce a completing clean actual-Git probe;
+  H1-P1/P2 remain unratified. H2/H3 are conditional forms only, not separate
+  decisions. Exact records: `round-1-triage.md`, `repair1-triage.md`, and the
+  four review records under `docs/prototypes/guarded-transport/reviews/`.
+- **Rescope:** the owner approved
+  `milestones/push-envelope-preflight-and-bypass-visibility.md`. Track 1 now
+  charters a synthetic hook/bypass audit that reports, rather than hides, raw
+  `--no-verify` reachability. It does not touch credentials, remote setup, or
+  the L3 maturity claim. **Track 1 is ready** on
+  `track/push-envelope-posture-audit` (`7ceb54a`), independently reviewed
+  ready (`344b620`); owner-held integration precedes Track 2 records. Do not
+  use the similarly named in-progress feature-plan branch as evidence or state.
+
+## Prior milestone handoff (historical detail)
 
 - **Seat:** principal foreman. Milestone **Dividends and Schedule B Slice**
   content-complete; only the Track 5 records remain to close it. All four
