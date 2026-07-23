@@ -1,7 +1,8 @@
 # Delta Review Charter — Foreman Context Loading M3
 
-Status: **prepared; no reviewer is authorized by this charter.** The owner must
-explicitly approve the delta reviewer dispatch under ADR-0034.
+Status: **launched 2026-07-23.** The owner explicitly approved this exact M3
+delta-review dispatch and reuse of the original reviewer under ADR-0034. The
+launch record names the resolved object and reviewer lineage.
 
 ## Context Capsule
 
