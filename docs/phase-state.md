@@ -29,14 +29,18 @@ Prior milestone: Push-Envelope Preflight and Bypass Visibility — merged PR #46
 (`9cc6e89`, 2026-07-22); its plan and record remain at
 `milestones/push-envelope-preflight-and-bypass-visibility.md`.
 
-**➡️ Next: Live-Run Trust-Domain Definition is a planning draft selected by the
-owner on 2026-07-23.** Its plan is
+**➡️ Next: Foreman Context Loading is an owner-directed, interstitial process
+milestone selected on 2026-07-23.** Its plan is
+`docs/phases/real-return/milestones/foreman-context-loading.md`. It is scoped
+to the advisory re-entry-routing protocol and does not replace the selected
+Live-Run Trust-Domain Definition topic or authorize its first charter. The
+live-run plan remains
 `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`; its
-prototype decision gate is `docs/prototypes/live-run-trust-domains/plan.md`.
+prototype decision gate remains `docs/prototypes/live-run-trust-domains/plan.md`.
 The owner must approve any first charter and every subsequent dispatch. It uses
 only synthetic evidence: no owner real-data run or attestation is required, and
 the data-boundary maturity row stays L3. Schema-publication controls and
-builder/reviewer scope controls are explicitly tabled.
+builder/reviewer scope controls remain explicitly tabled.
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 

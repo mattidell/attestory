@@ -29,6 +29,14 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
 
 ## Current state (updated 2026-07-23; live-run trust-domain planning prepared)
 
+- **Owner-directed process prerequisite:** Foreman Context Loading now has a
+  separate planning draft at
+  `docs/phases/real-return/milestones/foreman-context-loading.md`. It is an
+  advisory context-routing/process-maintenance milestone that must not be
+  mistaken for a live-run charter or standing seat authority. Live-Run Trust
+  Domains remains planning-only; its first charter and every dispatch still
+  require immediate, explicit owner approval.
+
 - **Planning only:** the owner appointed Codex as foreman and selected the
   Live-Run Trust-Domain Definition topic. The draft milestone plan is
   `docs/phases/real-return/milestones/live-run-trust-domain-definition.md` and
