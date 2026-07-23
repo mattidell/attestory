@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "live-run-trust-domains",
-  "status": "prototype plan prepared; owner approval required before the first current charter and dispatch",
-  "next_permitted": "obtain owner approval of the prototype plan and the exact first charter/seat before dispatch"
+  "status": "approved records-and-ADR milestone; no new prototype or dispatch",
+  "next_permitted": "prepare the evidence-synthesis record; obtain explicit owner approval before any later independent-review dispatch"
 }
 -->
 # Foreman Handoff Note
@@ -33,13 +33,12 @@ authorize a dispatch, change the data boundary, or replace accepted authority.
   authorized delta review returned READY. Durable records are the
   retrospective and review reports under `docs/milestone-retrospectives/` and
   `docs/reviews/`.
-- **Live-Run Trust-Domain Definition:** is now the active planning-only topic.
-  Its plan and prototype records are at
-  `docs/phases/real-return/milestones/live-run-trust-domain-definition.md` and
-  `docs/prototypes/live-run-trust-domains/`. The owner must approve the
-  prototype plan and the exact first current charter/seat before any builder or
-  reviewer dispatch. No real workspace, credential, remote, output, or
-  location may be accessed or recorded.
+- **Live-Run System Definition and Trust Domains:** is the active
+  records-and-ADR milestone. Its plan is at
+  `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
+  It synthesizes existing boundary evidence; no new prototype or seat dispatch
+  is planned. No real workspace, credential, remote, output, or location may
+  be accessed or recorded.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -50,6 +49,6 @@ authorize a dispatch, change the data boundary, or replace accepted authority.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
   ADR-0030, ADR-0034, ADR-0039, and ADR-0042.
 - Active milestone: `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
-- Live-run prototype state: `docs/prototypes/live-run-trust-domains/SEAT.md`
-  and `docs/prototypes/live-run-trust-domains/process-log.md`.
+- Live-run system-definition plan:
+  `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
 - Completed-milestone lessons: `docs/milestone-retrospectives/`.
