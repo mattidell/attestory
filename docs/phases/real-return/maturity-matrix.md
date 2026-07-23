@@ -35,7 +35,7 @@ careful hand-editing.
 | **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
 | **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ⁷ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ |
 | **Correction & supersession lifecycle** | L3 ⁶ ⁷ | L3 ⁶ ⁷ | L3 ⁶ ¹¹ | L3 ⁶ ⁷ | L3 ⁶ ¹¹ |
-| **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ | L3 ⁷ ⁸ | L3 ⁸ ¹⁰ ¹¹ | L3 ⁷ ⁸ | L3 ⁸ ¹⁰ ¹¹ |
+| **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ |
 
 Footnotes (honest qualifications; renumbered at milestone close 2026-07-18,
 extended at milestone close 2026-07-21):
@@ -97,7 +97,14 @@ extended at milestone close 2026-07-21):
     schedule has production content yet. L3 here reflects the capability
     operating for Schedule B specifically, not universal schedule coverage;
     the Schedule-attachments column's L3 is scoped to the aspects Schedule B
-    exercises (all eight rows), per the milestone plan's exit criterion 6.
+   exercises (all eight rows), per the milestone plan's exit criterion 6.
+13. **Push-envelope posture audit (PR #45) is visibility only.** It proves in
+    a disposable local Git fixture that a byte-verified hook refuses a seeded
+    marker when it runs and that raw `--no-verify` remains bypass-reachable.
+    It holds no credential, contacts no owner remote, does not verify a
+    particular operator clone, and reports credential confinement as
+    `unestablished`. It therefore leaves every data-boundary cell at L3 and
+    preserves ledger entries 1 and 2.
 
 ## Frontier reading
 

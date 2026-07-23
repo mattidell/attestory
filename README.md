@@ -28,6 +28,12 @@ python3 -m packages.derivation.runners.derive --scenario packages/sample_data/ta
 
 The `derive` runner executes a rule package over the operation-semantics canon and prints each derived value with an explanation tree — the rule that produced it, the findings it consumed (recursing into derived inputs), and the parameters, canon, adoption, and governance it stood on. Explanation is a walk of the finding's pins, never a re-evaluation. The `first_slice` scenario is synthetic demo machinery; the `packages/sample_data/tax/scenarios/` scenarios exercise the real tax content — synthetic W-2 box-1 findings deriving 2025 Form 1040 line 1a, and synthetic Form 1099-INT box-1 findings deriving the B1 source subtotal, including the closure-backed empty-family zero that pins its adopted mapping and closure authority.
 
+`audit_push_envelope_posture.py` is deliberately not a push guard. It builds a
+disposable local Git fixture to demonstrate two facts: the installed hook
+refuses a seeded marker when Git runs it, and `git push --no-verify` bypasses
+that hook. Its `credential_confinement: "unestablished"` result is the point;
+it neither examines this clone's credentials/hooks nor protects an owner push.
+
 `python3 tools/audit_push_envelope_posture.py` creates only a fresh temporary
 repository and local bare remote. Its JSON record verifies installed hook bytes
 and a hooked seeded-marker refusal, then honestly reports that a raw

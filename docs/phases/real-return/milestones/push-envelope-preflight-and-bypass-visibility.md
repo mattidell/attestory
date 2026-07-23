@@ -1,10 +1,10 @@
 # Milestone Rescope: Push-Envelope Preflight and Bypass Visibility
 
-Status: **active — Track 1 ready for owner-held integration** (2026-07-22).
-The implementation commit `7ceb54a` on `track/push-envelope-posture-audit`
-passed independent review `344b620`; Track 2 records await its integration.
-This is the successor planning surface for the stopped Guarded Transport and
-Credential Confinement H1 topic. It operates under ADR-0030 and ADR-0034.
+Status: **records ready for independent Track 2 review** (2026-07-22). Track
+1 merged to `main` through PR #45 (`8bf2b8d`) after implementation `efba651`
+passed independent review. This is the successor planning surface for the
+stopped Guarded Transport and Credential Confinement H1 topic. It operates
+under ADR-0030 and ADR-0034.
 
 ## Objective
 
@@ -93,3 +93,14 @@ review before merge.
 Add README guidance and the explicit deferral/maturity/phase-state records.
 No owner live run: this rescope does not change real-data transport safety.
 Review and merge records separately after Track 1's review.
+
+## Track 2 closure record (pending review)
+
+- Track 1's audit is merged through PR #45. Its stable report calls credential
+  confinement `unestablished`, and a `--no-verify` bypass is an expected audit
+  observation, not an error it claims to fix.
+- Ledger entries 1 and 2 are re-affirmed as touched, not retired. The maturity
+  matrix remains L3 and now cites this limited synthetic visibility aid.
+- No real-data run, owner attestation, server-control attestation, or maturity
+  change belongs to this rescope. A real transport-safety improvement still
+  needs a separate OS/identity/hosted-boundary topic.
