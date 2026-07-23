@@ -100,6 +100,25 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     return symbols
 
 
+def _fact_type_id(fact_id: str) -> str:
+    """The type portion of a canonical fact id: ``type|name=value,...``.
+
+    Shared by every binding route below so the split convention is defined
+    once rather than reimplemented per route.
+    """
+    return fact_id.split("|", 1)[0]
+
+
+def _fact_id_has_type(fact_id: str, type_id: str) -> bool:
+    """True when ``fact_id`` is keyed under the ``type_id|...`` prefix."""
+    return fact_id.startswith(f"{type_id}|")
+
+
+def _input_role(finding: dict[str, Any]) -> str:
+    """"choice" for an elective-basis finding, else the default "input" role."""
+    return "choice" if finding.get("basis") == "elective" else "input"
+
+
 def _fact_keys(fact_id: str) -> dict[str, str]:
     """Parse the canonical fact id rendering: ``type|name=value,...``."""
     _, _, bound = fact_id.partition("|")
@@ -129,10 +148,9 @@ def marshal_closure_authority(
         fact_type = mapping["closure_fact_type"]
         fact_type_id = fact_type["id"] if isinstance(fact_type, dict) else fact_type
         horizon_key = mapping["closure_horizon_key"]
-        prefix = f"{fact_type_id}|"
         for finding_id in sorted(currency.current_finding_ids):
             finding = state.findings.get(finding_id)
-            if finding is None or not finding["fact_id"].startswith(prefix):
+            if finding is None or not _fact_id_has_type(finding["fact_id"], fact_type_id):
                 continue
             keys = _fact_keys(finding["fact_id"])
             horizon_id = keys.get(horizon_key)
@@ -207,26 +225,25 @@ def marshal_run_context(
     for binding in bindings:
         symbol = binding["symbol"]
         fact_type_id = binding["fact_type"]["id"]
-        mode = binding.get("mode", "required")
-        prefix = f"{fact_type_id}|"
-        matches = [f for f in current_findings if f["fact_id"].startswith(prefix)]
+        matches = [
+            f for f in current_findings if _fact_id_has_type(f["fact_id"], fact_type_id)
+        ]
         if not matches:
-            if mode == "required":
-                # Absent current finding: leave unbound; runner records
-                # DEPENDENCY_ABSENT rather than inventing a value.
-                continue
+            # Absent current finding: leave unbound; runner records
+            # DEPENDENCY_ABSENT rather than inventing a value. (Both binding
+            # modes take this same path here — `mode` only changes runner
+            # dispatch downstream, never marshalling.)
             continue
         # One binding → one current finding for that fact type. If several
         # members exist (collectable families), they feed sources instead.
         if len(matches) == 1 or symbol not in collect_names:
             finding = matches[0]
-            role = "choice" if finding.get("basis") == "elective" else "input"
             inputs.append(
                 InputFinding(
                     symbol=symbol,
                     value=finding["value"],
                     finding_id=finding["id"],
-                    role=role,
+                    role=_input_role(finding),
                 )
             )
             used_finding_ids.add(finding["id"])
@@ -236,8 +253,7 @@ def marshal_run_context(
         for finding in current_findings:
             # Collectable sources match by fact type id prefix or exact type.
             fact_id = finding["fact_id"]
-            type_id = fact_id.split("|", 1)[0]
-            if type_id == name or fact_id.startswith(f"{name}|"):
+            if _fact_type_id(fact_id) == name or _fact_id_has_type(fact_id, name):
                 sources.append(
                     SourceFact(
                         name=name,
@@ -253,7 +269,7 @@ def marshal_run_context(
     for finding in current_findings:
         if finding["id"] in used_finding_ids:
             continue
-        type_id = finding["fact_id"].split("|", 1)[0]
+        type_id = _fact_type_id(finding["fact_id"])
         if type_id in bound_symbols:
             continue
         # Only surface as input when some rule requires this type id as a
@@ -268,13 +284,12 @@ def marshal_run_context(
         )
         if not required_by_rules:
             continue
-        role = "choice" if finding.get("basis") == "elective" else "input"
         inputs.append(
             InputFinding(
                 symbol=type_id,
                 value=finding["value"],
                 finding_id=finding["id"],
-                role=role,
+                role=_input_role(finding),
             )
         )
 
