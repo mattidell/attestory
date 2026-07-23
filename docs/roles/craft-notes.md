@@ -44,6 +44,49 @@ that have hardened into tooling or ratified process.
   look thorough. Thorough evidence is not scope pathology; runaway
   *iterations* are — watch those instead.
 
+- **Escalate the architectural wall; don't charter another repair against
+  it.** When a blocking finding traces to a missing capability, identity, or
+  trust boundary that no bounded repair can move, the choice is the owner's,
+  not another patch cycle's. The tell: a finding recurs after a good-faith
+  fix, or the fix would need a boundary the topology structurally lacks. And
+  when a level proves infeasible, prefer an honest rescope to the *achievable*
+  level over abandoning the work that still holds. *(Guarded Transport H1: a
+  same-UID credential leak was an identity-boundary decision; the effort that
+  drove real evidence escalated it, the one on simulated evidence offered
+  another repair.)*
+
+- **Give the owner a clean menu, and name the decision's tier.** A
+  stop-for-disposition presents mutually-exclusive options, each with its
+  consequence, and says plainly whether you are asking for a tactical call
+  (repair/retry) or a Tier-3 architectural/scope decision. A vague "repair or
+  stop?" hides which kind of decision it is and nudges the owner toward the
+  cheap-looking option. *(Guarded Transport H1: one foreman offered tiered
+  options with a recommendation; the other offered repair-or-terminate and
+  leaned repair, obscuring an unrecognized Tier-3 fork.)*
+
+- **Reuse a seat along its own lineage; spawn fresh across every independence
+  boundary.** Re-task an existing seat with `followup_task` only within its
+  role lineage — a builder repairs its own work, a reviewer re-reviews the
+  target it first examined — for continuity and lower overhead. **Never**
+  reuse a seat across an independence boundary: a clean-room rival, or the
+  first independent review of a build, must be a fresh spawn with no exposure
+  to the other side. Reuse may carry memory of one's *own* work; it must never
+  import knowledge of the counterparty. *(Guarded Transport H1: reuse gave
+  better-informed repairs and self-consistent delta reviews; the rivalry still
+  requires fresh clean-room seats.)*
+
+- **A new rung is a spend decision, not just an execution step.** Before
+  climbing past the authorized rung or opening a round beyond the chartered
+  plan, surface the increment and get a nod — even under a standing "dispatch
+  as needed." Standing authorization covers execution *within* the plan, not
+  escalation *of* it.
+
+- **Match the reasoning tier to the task.** Reserve high effort for design,
+  adversarial review, and judgment; a recheck-that-findings-were-addressed or
+  a formatting normalization can run at a lower tier (ADR-0013 Gate 8). Tier is
+  the cheapest economy lever. *(Guarded Transport H1: both efforts ran every
+  seat at max effort.)*
+
 ## Builder
 
 - **Verify a "pre-existing" failure against base before you claim it.**
@@ -57,6 +100,15 @@ that have hardened into tooling or ratified process.
   unguarded first match), not just the one occurrence that broke. Leaving
   the shape in place invites the next instance.
 
+- **A probe that simulates the surface under test proves nothing.** When a
+  prototype climbs to an executable probe, it must exercise the *actual*
+  mechanism — real transport, the real adversary path — not a mock, a fake
+  upstream, or a printed secret. A simulated probe re-does paper at higher cost
+  and manufactures confidence a reviewer will rightly reject; a fake success
+  that bypasses the real call is a failure. *(Guarded Transport H1: simulated
+  raw-Git probes passed their own assertions, then failed adversary review and
+  hid the very boundary the real path exposed.)*
+
 ## Reviewer
 
 - **Rerun load-bearing claims; don't accept the self-report.** The
@@ -69,3 +121,11 @@ that have hardened into tooling or ratified process.
   actually enter through the authoritative surface (`live_coordinate_run`,
   not a `RunContext` shortcut) and that forbidden bindings are truly
   absent — by direct grep, not by trusting the structure to exclude them.
+
+- **Judge the evidence type, not just the pass/fail.** A green run on a
+  simulated or synthetic probe establishes at most internal coherence, never
+  that the real property holds; a probe that cannot complete is unproven, not
+  disproven — and not proven either. Carry the evidence-type caveat into the
+  verdict so a "pass" never upgrades confidence past what the evidence
+  supports. *(Guarded Transport H1: the load-bearing adversary finding was that
+  the probe simulated the transport rather than exercising it.)*
