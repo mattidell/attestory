@@ -1,6 +1,8 @@
 # Milestone Rescope: Push-Envelope Preflight and Bypass Visibility
 
-Status: **active — owner approved 2026-07-22; Track 1 chartering in progress.**
+Status: **active — Track 1 ready for owner-held integration** (2026-07-22).
+The implementation commit `7ceb54a` on `track/push-envelope-posture-audit`
+passed independent review `344b620`; Track 2 records await its integration.
 This is the successor planning surface for the stopped Guarded Transport and
 Credential Confinement H1 topic. It operates under ADR-0030 and ADR-0034.
 

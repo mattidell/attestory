@@ -44,8 +44,10 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
   `milestones/push-envelope-preflight-and-bypass-visibility.md`. Track 1 now
   charters a synthetic hook/bypass audit that reports, rather than hides, raw
   `--no-verify` reachability. It does not touch credentials, remote setup, or
-  the L3 maturity claim. Do not use the similarly named in-progress
-  feature-plan branch as evidence or state.
+  the L3 maturity claim. **Track 1 is ready** on
+  `track/push-envelope-posture-audit` (`7ceb54a`), independently reviewed
+  ready (`344b620`); owner-held integration precedes Track 2 records. Do not
+  use the similarly named in-progress feature-plan branch as evidence or state.
 
 ## Prior milestone handoff (historical detail)
 

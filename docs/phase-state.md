@@ -36,9 +36,9 @@ original prototype record remains at
 `milestones/guarded-transport-and-credential-confinement.md` and
 `docs/prototypes/guarded-transport/`.
 
-**➡️ Next: Track 1 implements and independently reviews the synthetic audit
-command. It must retain the two guarded-transport deferrals and leave the
-maturity matrix at L3.**
+**➡️ Next: owner integrates reviewed Track 1
+(`track/push-envelope-posture-audit`, implementation `7ceb54a`, review
+`344b620`); then Track 2 records the retained deferrals and L3 matrix posture.**
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 
