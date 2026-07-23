@@ -23,15 +23,17 @@ new authority or weakening the full reads that govern a proposed action.
 - The handoff now describes current state and durable pointers rather than
   duplicating historical accounts already held in retrospectives, reviews, and
   Git.
+- Before review, the owner expanded the scope: builder/reviewer context now
+  lives in compact charter capsules, and clerks receive a bounded mechanical
+  task capsule. The Python renderer remains foreman-only; trusted-advisor
+  context remains unchanged.
 
 ## Verification
 
-The renderer produced a capsule from this branch's committed `HEAD`, naming the
-selected commit and three source blobs for the non-prototype process milestone.
-The focused six-case renderer suite and the full
-`.venv/bin/python3 -m unittest` suite passed; `.venv/bin/python3 -m mypy`,
-`.venv/bin/python3 tools/governance_lint.py`, and
-`.venv/bin/python3 tools/envelope_scan.py --range main..HEAD` also passed.
+The role-capsule revision requires the final documentation verification and full
+verification-floor rerun before review. Earlier renderer verification remains
+evidence for the unchanged Python surface, not a substitute for the revised
+process record.
 
 ## Decisions
 
@@ -50,6 +52,11 @@ milestone, which exposed that false assumption before any records claimed
 success. Track 1 was corrected before review to support an optional seat and
 proves both shapes with synthetic repositories.
 
+The owner then correctly identified that foreman-only optimization leaves the
+other operational roles paying broad context cost. The extension uses charters
+and clerk task records rather than a second Python routing surface, preserving
+role-local authority and avoiding a generic agent-context mechanism.
+
 ## Data safety
 
 All tests construct disposable synthetic Git repositories. The renderer reads
@@ -59,8 +66,8 @@ output, or absolute local path.
 
 ## Follow-ups
 
-- Run the full verification floor and render the capsule from this branch's
-  `HEAD` before requesting review.
+- Run the full verification floor and render the foreman capsule from this
+  branch's `HEAD` before requesting review.
 - Obtain the owner-approved independent review required by the active process,
   then merge the reviewed units before presenting ADR-0042 as a `main` record.
 - On merge, return phase state from this interstitial milestone to the selected

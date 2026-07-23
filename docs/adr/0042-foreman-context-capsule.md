@@ -110,3 +110,37 @@ the approval gate in ADR-0034.
 - Extends: ADR-0039 (advisory routing)
 - Preserves: ADR-0005, ADR-0013, ADR-0030, ADR-0034
 - Implementation: `tools/foreman_context.py` (Track 1)
+
+## Amendment (2026-07-23, accepted) — Charter and clerk task capsules
+
+The original decision optimized only the foreman’s repository re-entry. The
+owner directed an extension before review: all operational dispatch roles need
+their smallest safe context, while the Trusted Advisor remains deliberately out
+of scope because its owner-launched strategic counsel is not an execution
+dispatch.
+
+8. **Builder and reviewer capsules live in their charter, not in the Python
+   renderer.** Every newly staged builder or review charter carries a compact
+   `Context Capsule` section naming the source ref (and the resolved commit at
+   dispatch), exact object/range, role, scope, evidence-rung ceiling where
+   relevant, stop conditions, and the full documents to read before acting.
+   The capsule is a routing section of the charter; the charter and cited
+   authority remain controlling. The foreman prepares it before requesting the
+   owner's dispatch approval, and the dispatch record captures the resolved
+   commit so a self-referential charter need not predict its own final commit.
+
+9. **Clerk work begins from a foreman-prepared Clerk Task Capsule.** It names
+   the selected ref/commit, one mechanical task, allowed input paths, required
+   output shape/paths, verification, and stop rule. A clerk must not infer the
+   active dispatch from phase state or handoff narrative, choose among candidate
+   charters, compose scope, or inspect a workspace. The task capsule is not a
+   general renderer and does not authorize the clerk's dispatch; ADR-0034 still
+   requires contemporaneous, explicit owner approval.
+
+10. **Trusted Advisor remains unchanged.** Its owner-launched, question-led
+    strategic read set is intentionally not routed through operational capsules
+    in this decision. A future advisor optimization is a separate topic.
+
+This amendment preserves decisions 1–7: the Python renderer remains foreman
+only, advisory routing remains non-normative, and the five-retrospective read
+still applies before a new milestone plan.

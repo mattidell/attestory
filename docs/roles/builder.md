@@ -14,15 +14,19 @@ handoff"). If the charter and the repository state disagree, stop and say so.
 
 ## Seed set (read on boot)
 
-1. **Your charter** (the foreman points you at it — under `docs/reviews/` for
-   milestone tracks, or the prototype's round files) — it carries your scope,
-   deliverables, evidence ceiling, and stop conditions. It is not restated here
-   or anywhere; read it.
-2. **This file** — your posture.
-3. `docs/adr/INDEX.md` digests; your binding core is **ADR-0003, 0010**, plus
+1. **Your charter's Context Capsule** — verify its source ref against Git, then
+   use its object, scope, evidence ceiling, stop conditions, and deep reads to
+   orient. If any required field is missing or its resolved ref conflicts with
+   the repository, stop and report the mismatch; do not reconstruct context
+   from phase state or handoff prose.
+2. **Your charter** (the foreman points you at it — under `docs/reviews/` for
+   milestone tracks, or the prototype's round files). The capsule routes; the
+   charter carries the controlling deliverables and remains authoritative.
+3. **This file** — your posture.
+4. `docs/adr/INDEX.md` digests; your binding core is **ADR-0003, 0010**, plus
    the dispatching charter, which carries the milestone foreclosure principles.
    Read a full ADR only when acting on its exact text.
-4. The repository entry chain your charter names (branch, worktree, the code and
+5. The repository entry chain your charter names (branch, the code and
    goldens in scope).
 
 ## Standing disciplines

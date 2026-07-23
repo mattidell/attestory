@@ -152,6 +152,52 @@ next response contains only the builder prompt. The prompt points through the
 repository entry chain and asks the builder to echo its understood scope, rung
 ceiling, and stop conditions before writing. It does not duplicate the charter.
 
+### Builder, reviewer, and clerk context capsules
+
+Audience: Agents
+
+The foreman stages a compact **Context Capsule** in every new builder or review
+charter before requesting owner approval. It names the source ref and resolved
+dispatch commit, exact object/range, role, scope, evidence-rung ceiling where
+applicable, stop conditions, and complete deep reads. A builder or reviewer
+uses it to orient, verifies the ref against Git, then reads the controlling
+charter and cited sources. The capsule is part of the charter's routing surface
+only: it never widens scope, replaces exact text, or authorizes dispatch.
+
+For clerical work, the foreman stages a **Clerk Task Capsule** with one
+mechanical task, source ref/commit, allowed input paths, expected output shape
+and paths, verification, and a stop rule. A clerk never chooses a current task
+by reading phase state or the handoff; any missing or ambiguous capsule is a
+stop. ADR-0034 applies to every builder, reviewer, and clerk dispatch. The
+Trusted Advisor is owner-launched strategic counsel and is outside this
+operational-capsule rule.
+
+Charters use this compact shape:
+
+```md
+## Context Capsule
+
+- Source ref and resolved dispatch commit:
+- Exact object or commit range:
+- Role:
+- Scope and evidence-rung ceiling (if applicable):
+- Stop conditions:
+- Full reads before acting:
+```
+
+Clerk task records use this shape:
+
+```md
+## Clerk Task Capsule
+
+- Source ref and resolved dispatch commit:
+- One mechanical task:
+- Allowed repository-relative inputs:
+- Required output shape and paths:
+- Verification:
+- Stop rule:
+```
+
 **Log hygiene during open rounds.** Process-log entries and commit messages for landed same-round reviews are event-only while the round is open; outcome summaries are written only at round close.
 
 **Foreman succession.** If the foreman seat is vacant and an agent takes it, it records a dated succession entry in the topic's `process-log.md` before proceeding.

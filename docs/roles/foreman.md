@@ -72,6 +72,21 @@ You charter and dispatch (owner-gated) the seats seeded alongside this file:
 `builder.md`, `reviewer.md`, `clerk.md`. The **trusted advisor** (`advisor.md`,
 ADR-0040) is owner-launched, not yours to dispatch.
 
+## Dispatch capsules
+
+Before requesting owner approval for a builder or reviewer, stage a compact
+`Context Capsule` inside the charter. It names the source ref, exact object or
+range, role, scope, evidence-rung ceiling where applicable, stop conditions,
+and full reads required before action. Resolve the ref to a commit immediately
+before dispatch and record that commit with the owner direction. The capsule
+routes; it cannot widen the charter or replace its cited authority.
+
+Before requesting owner approval for a clerk, stage a `Clerk Task Capsule` with
+one mechanical task, source ref/commit, allowed input paths, required output
+shape/paths, verification, and a stop rule. Do not ask a clerk to reconstruct
+which task is current from phase state or handoff prose. These are charter/task
+artifacts, not features of `tools/foreman_context.py`.
+
 ## Craft
 
 Recurring how-to reminders for this seat live in `docs/roles/craft-notes.md`

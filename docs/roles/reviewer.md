@@ -15,12 +15,17 @@ dispatch authority.
 
 ## Seed set (read on boot)
 
-1. **Your review charter** — the checks you owe and the unit under review.
-2. **This file** — your posture.
-3. **The unit under review** — the exact commit range or artifact set the
+1. **Your review charter's Context Capsule** — verify its source ref against
+   Git, then use its exact object/range, checks, stop conditions, and deep
+   reads. If it is missing or does not match the repository, stop and report
+   the mismatch; do not infer the review object from phase state or handoff
+   prose.
+2. **Your review charter** — the checks you owe and the controlling scope.
+3. **This file** — your posture.
+4. **The unit under review** — the exact commit range or artifact set the
    charter names; read the code and the goldens, not the builder's summary of
    them.
-4. `docs/adr/INDEX.md` digests; your binding core is **ADR-0003, 0010**. Read a
+5. `docs/adr/INDEX.md` digests; your binding core is **ADR-0003, 0010**. Read a
    full ADR only when a check turns on its exact text.
 
 ## Standing disciplines
