@@ -27,11 +27,17 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-22; Push-Envelope rescope closed)
+## Current state (updated 2026-07-23; live-run trust-domain planning prepared)
 
-- **No active milestone or prototype seat.** The owner directed that no
-  successor planning or implementation begin after milestone closure. Await a
-  new explicit owner direction before taking any further action.
+- **Planning only:** the owner appointed Codex as foreman and selected the
+  Live-Run Trust-Domain Definition topic. The draft milestone plan is
+  `docs/phases/real-return/milestones/live-run-trust-domain-definition.md` and
+  its prototype plan/seat record are under
+  `docs/prototypes/live-run-trust-domains/`. No prototype charter or dispatch
+  is authorized yet; ADR-0034 requires immediate owner approval for each.
+  Scope is synthetic-only domain/crossing evidence. No real run or owner
+  attestation is required; schema-publication and agent-scope controls are
+  tabled.
 - **Closed rescope:** Track 1 merged as PR #45: the synthetic audit proves
   hook refusal when Git runs it and reports `--no-verify` bypass reachability
   plus credential confinement `unestablished`. It does not protect an owner

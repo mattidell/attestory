@@ -28,6 +28,18 @@ scan.
 
 ## Status
 
+- Live-Run Trust-Domain Definition — **planning draft** (owner-directed
+  2026-07-23). A synthetic-only Tier 3 decision/prototype topic: define the
+  Developer/Supply, Live-Run Data, Publication, and Owner Authorization
+  domains and their permitted crossings before selecting any enforcement
+  substrate. It evaluates whether guarded transport belongs to the live-data
+  boundary or instead to a separate developer-publication posture. No real
+  run, owner attestation, implementation, or maturity lift is in scope; the
+  data-boundary row remains L3. The owner must approve the prototype plan and
+  every seat dispatch. Schema-publication and agent-scope controls are tabled.
+  Plan: `milestones/live-run-trust-domain-definition.md`; decision gate:
+  `docs/prototypes/live-run-trust-domains/plan.md`.
+
 - Correction Authority and Marshaller Simplification — **complete**
   (2026-07-22; plan approved PR #49). ADR-0041 (Track 0, PR #50) closes the
   supersession-policy vocabulary to `free`/`locked`/`closed-on-attestation`,
