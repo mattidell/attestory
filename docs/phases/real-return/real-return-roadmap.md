@@ -28,6 +28,24 @@ scan.
 
 ## Status
 
+- Correction Authority and Marshaller Simplification — **complete**
+  (2026-07-22; plan approved PR #49). ADR-0041 (Track 0, PR #50) closes the
+  supersession-policy vocabulary to `free`/`locked`/`closed-on-attestation`,
+  ratified (PR #52); enforcement (Track 1, PR #53) lives at the existing
+  dispatch site in `findings.py`, shipped as new `fact-type.v3`/`bundle.v3`
+  schema versions (`v1`/`v2` of each untouched); marshaller dedup (Track 2,
+  PR #51) collapsed four routes' duplicated fact-id parsing into shared
+  helpers without merging the routes themselves (distinct multiplicity
+  semantics, correctly left alone). Retires deferral-ledger entries 8 and
+  13; raises the Correction & supersession lifecycle matrix row L3→L4 across
+  every domain — the phase's first aspect-wide L4. Named deferrals live in
+  `milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md`;
+  retrospective at
+  `docs/milestone-retrospectives/2026-07-22-correction-authority-and-marshaller-simplification.md`
+  records a schema-immutability defect caught and corrected in-branch before
+  merge. Next milestone selection is owner-directed from the maturity-matrix
+  frontier.
+
 - Push-Envelope Preflight and Bypass Visibility — **complete** (Track 1
   merged PR #45; Track 2 records merged PR #46, `9cc6e89`, 2026-07-22). This
   is an honest L3

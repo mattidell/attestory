@@ -1,14 +1,18 @@
 # Milestone: Correction Authority and Marshaller Simplification
 
-Status: **draft — awaiting owner approval** (drafted 2026-07-22 in the
-foreman seat at owner request; ADR-0013 requires owner approval of this plan
-before any charter is cut). Fourth milestone of the Real Return phase;
-operates under ADR-0030 per-ADR / per-track merges and ADR-0034
-owner-approved dispatch. This is the phase's second **hardening (L3→L4)**
-milestone: the first, Guarded Transport and Credential Confinement, stopped
-its H1 topic unratified and was succeeded by the honest-L3 rescope
-`push-envelope-preflight-and-bypass-visibility.md`; this milestone does not
-reopen that topic.
+Status: **complete** (2026-07-22). Owner-approved via PR #49; Track 0 (PR
+#50), the ratification record (PR #52), Track 1 (PR #53, including an
+in-branch correction of a schema-immutability defect caught before merge —
+see the retrospective), and Track 2 (PR #51) all merged. Fourth milestone of
+the Real Return phase; operated under ADR-0030 per-ADR / per-track merges and
+ADR-0034 owner-approved dispatch. This is the phase's second **hardening
+(L3→L4)** milestone: the first, Guarded Transport and Credential
+Confinement, stopped its H1 topic unratified and was succeeded by the
+honest-L3 rescope `push-envelope-preflight-and-bypass-visibility.md`; this
+milestone did not reopen that topic. Retrospective:
+`docs/milestone-retrospectives/2026-07-22-correction-authority-and-marshaller-simplification.md`.
+Deferral ledger:
+`milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md`.
 
 ## Decision summary (tiered)
 

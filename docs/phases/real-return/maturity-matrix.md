@@ -24,7 +24,7 @@ careful hand-editing.
 | **L3** | Real — operates on the owner's actual data under the ratified data boundary. |
 | **L4** | Hardened — named production conditions discharged; deferrals retired. |
 
-## Matrix (as of 2026-07-21, post-Dividends-and-Schedule-B-Slice)
+## Matrix (as of 2026-07-22, post-Correction-Authority-and-Marshaller-Simplification)
 
 | Aspect ↓ / Domain → | W-2 wages (1a) | Interest (2b) | Dividends (3a/3b) | Return-level conditions (status, 12, 15, 16) | Schedule attachments |
 | --- | --- | --- | --- | --- | --- |
@@ -34,7 +34,7 @@ careful hand-editing.
 | **Adoption & authority** (packages, manifests, byte verification, citations) | L3 ⁴ ⁷ | L3 ⁴ ⁷ | L3 ¹¹ | L3 ⁴ ⁷ | L3 ¹¹ ¹² |
 | **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
 | **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ⁷ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ |
-| **Correction & supersession lifecycle** | L3 ⁶ ⁷ | L3 ⁶ ⁷ | L3 ⁶ ¹¹ | L3 ⁶ ⁷ | L3 ⁶ ¹¹ |
+| **Correction & supersession lifecycle** | L4 ⁶ ⁷ | L4 ⁶ ⁷ | L4 ⁶ ¹¹ | L4 ⁶ ⁷ | L4 ⁶ ¹¹ |
 | **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ |
 
 Footnotes (honest qualifications; renumbered at milestone close 2026-07-18,
@@ -55,7 +55,21 @@ extended at milestone close 2026-07-21):
 5. E8.1 UI coverage deferred; citation *display* formatting is a deferred
    rendering contract. Presentation today is form-field disposition content,
    not a human surface.
-6. Free supersession policy is a standing shim.
+6. **Correction-authority policy retired 2026-07-22** (Correction Authority
+   and Marshaller Simplification milestone; ADR-0041, Track 1, PR #53): the
+   supersession-policy vocabulary is no longer an unrestricted no-op — it
+   closes to `free`/`locked`/`closed-on-attestation`, enforced at the
+   existing dispatch site in `packages/kernel/findings.py`. Every existing
+   fact type still declares `free`, unaffected — ADR-0041 compels no
+   migration — so this row moves to L4 because the named production
+   condition ("any actor supersedes any finding without restriction") is
+   discharged, not because any existing content's behavior changed. Ships
+   as new `fact-type.v3`/`bundle.v3` schema versions; `v1`/`v2` of each stay
+   byte-for-byte untouched (ADR-0003/Canon Article 9 immutability).
+   `closed-on-attestation` is scoped to fact types sharing identity-key
+   names with their gate/closure fact type (family-level elections); it
+   does not yet reach differently-keyed per-item facts — named as a new
+   deferral, not a defect (see the milestone's deferral ledger).
 7. **Evidential basis for every L3 claim (Ontology §8):** the synthetic
    battery exercises the identical path end-to-end in-repo, and the owner's
    non-descriptive attestation (milestone plan, Verification, 2026-07-18)
@@ -108,20 +122,23 @@ extended at milestone close 2026-07-21):
 
 ## Frontier reading
 
-The covered region (all five domains, all eight aspects) is now uniformly
-L3; the matrix is breadth- and hardening-limited, not depth-limited within
-its covered domains. The live frontiers for the owner's next selection
-(Tier 3):
+The covered region (all five domains, all eight aspects) is uniformly L3 or
+better; one aspect (Correction & supersession lifecycle) is now L4 across
+every domain. The matrix is breadth- and hardening-limited, not
+depth-limited within its covered domains. The live frontiers for the
+owner's next selection (Tier 3):
 
 1. **Presentation aspect toward a human surface** — E8.1, citation display.
    The first aspect a real user (the owner) now touches every run, across
    every domain the matrix covers.
-2. **L3 → L4 hardening** — retire named deferrals from the milestone ledger
-   (`dividends-schedule-b-slice-deferral-ledger.md`): guarded transport
-   still first (holds the data-boundary row at L3 across every domain);
-   then supersession policy, ADR-0026 interest scope, ADR-0028 migration,
-   the marshaller binding-route simplification, and the newer Track 4 F2
-   scaffold-visibility note.
+2. **L3 → L4 hardening** — retire remaining named deferrals from the
+   milestone ledgers (`dividends-schedule-b-slice-deferral-ledger.md`,
+   `correction-authority-and-marshaller-simplification-deferral-ledger.md`):
+   guarded transport still first (holds the data-boundary row at L3 across
+   every domain); then ADR-0026 interest scope, ADR-0028 migration, the
+   `closed-on-attestation` cross-scope projection gap, and the Track 4 F2
+   scaffold-visibility note. Free supersession policy and the marshaller
+   binding-route duplication are retired (this milestone).
 3. **New domain breadth** — dividend boxes outside the declared universe
    (2a/3/5/7/12; deferral ledger entry 4), a second schedule attachment
    beyond Schedule B (the D1 ontology's Schedule D stub is evidence this is
