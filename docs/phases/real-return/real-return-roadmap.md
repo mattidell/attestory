@@ -28,13 +28,12 @@ scan.
 
 ## Status
 
-- Foreman Context Loading — **planning draft** (owner-directed 2026-07-23).
-  An interstitial Tier 2 process-maintenance milestone selected before the
-  first Live-Run Trust-Domain Definition charter. It will add a deterministic,
-  provenance-bearing advisory context capsule, compact metadata for volatile
-  re-entry records, action-specific deep-read routing, and an honest handoff
-  boundary. It changes neither the live-run topic's scope nor its planning-only
-  status; no seat is authorized by this entry. Plan:
+- Foreman Context Loading — **records prepared; review and owner merge
+  required** (owner-directed 2026-07-23). The process milestone adds a
+  deterministic, provenance-bearing advisory context capsule, compact metadata
+  for volatile re-entry records, action-specific deep-read routing, and an
+  honest handoff boundary. It changes neither the live-run topic's scope nor
+  its planning-only status; no seat is authorized by this entry. Plan:
   `milestones/foreman-context-loading.md`.
 
 - Live-Run Trust-Domain Definition — **planning draft** (owner-directed

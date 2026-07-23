@@ -1,7 +1,59 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "topic": "foreman-context-loading",
+  "status": "records prepared; review and owner merge required",
+  "scope": [
+    "advisory provenance-bound foreman context routing",
+    "single-ref metadata validation and deterministic rendering",
+    "action-specific deep reads and compact continuity records"
+  ],
+  "non_goals": [
+    "no change to live-run dispatch authority or maturity",
+    "no real workspace, credential, remote, or personal output access",
+    "no replacement of accepted authority with generated text"
+  ],
+  "deep_reads": {
+    "implementation": [
+      "docs/adr/0042-foreman-context-capsule.md#Decision",
+      "docs/phases/real-return/milestones/foreman-context-loading.md#Tracks"
+    ],
+    "dispatch": [
+      "docs/adr/0005-prototype-evidence-for-consequential-adrs.md#Decision",
+      "docs/adr/0013-prototype-economic-gates.md#Decision",
+      "docs/adr/0034-explicit-owner-approval-for-every-dispatch.md#Decision",
+      "docs/roles/foreman.md#What you are"
+    ],
+    "adr_draft": [
+      "docs/adr/0005-prototype-evidence-for-consequential-adrs.md#Decision",
+      "docs/adr/0013-prototype-economic-gates.md#Decision",
+      "docs/adr/0039-advisory-adr-index-and-context-routing.md#Decision"
+    ],
+    "new_milestone": [
+      "PROJECT_PLANNING.md#Required Milestone Plan Contents",
+      "docs/milestone-retrospectives/2026-07-22-push-envelope-preflight-and-bypass-visibility.md",
+      "docs/milestone-retrospectives/2026-07-22-correction-authority-and-marshaller-simplification.md",
+      "docs/milestone-retrospectives/2026-07-21-dividends-and-schedule-b-slice.md",
+      "docs/milestone-retrospectives/2026-07-18-first-real-return-slice.md",
+      "docs/milestone-retrospectives/2026-07-15-core-tax-conditions-and-presentation-integration.md"
+    ],
+    "schema_or_fixture": [
+      "AGENTS.md#Schema Publication Protocol",
+      "AGENTS.md#Fixture Rules",
+      "AGENTS.md#Data Safety Rules"
+    ],
+    "merge_or_records": [
+      "docs/adr/0030-branch-and-merge-strategy.md#Decision",
+      "docs/roles/foreman.md#Standing disciplines",
+      "PROJECT_PLANNING.md#Milestone Execution Branch Protocol"
+    ]
+  }
+}
+-->
 # Milestone: Foreman Context Loading
 
-Status: **planning draft — owner-directed 2026-07-23.** This is an
-interstitial process-maintenance milestone. It does not replace the selected
+Status: **records prepared on Track 2 — review and owner merge required.**
+This interstitial process-maintenance milestone does not replace the selected
 Live-Run Trust-Domain Definition topic or authorize its first charter.
 
 ## Objective

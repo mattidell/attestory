@@ -14,6 +14,13 @@ Read these before substantial work:
 - `docs/phases/<phase-name>/milestones/*.md`: milestone execution plans with track-level plans.
 - Up to the five most recent files in `docs/milestone-retrospectives/`, newest first, before planning a new milestone.
 
+For a routine foreman re-entry, first render
+`tools/foreman_context.py --ref <explicit-ref>`. Its capsule is advisory and
+must be reconciled against Git; it directs action-specific deep reads but never
+replaces these canonical references, accepted ADR text, or the five-retrospective
+read before planning a new milestone. If the capsule refuses, inspect the named
+committed sources directly and resolve the disagreement before acting.
+
 ## Owner Posture and Collaboration Rules
 
 The owner's development posture is defined in `PROJECT_PLANNING.md` (Development Posture). Operational consequences for agents:

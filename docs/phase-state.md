@@ -1,3 +1,12 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "phase": "Real Return",
+  "topic": "foreman-context-loading",
+  "active_plan": "docs/phases/real-return/milestones/foreman-context-loading.md",
+  "handoff": "docs/foreman-handoff.md"
+}
+-->
 # Phase State
 
 This file is the re-entry point. Alongside the phase pointer below, it carries a **product briefing** in ordinary language, updated at milestone boundaries, answering four questions: what the product does now, what shims are in place, what the next milestone makes it do, and the nature of the pending schema/contract change.
@@ -29,18 +38,15 @@ Prior milestone: Push-Envelope Preflight and Bypass Visibility — merged PR #46
 (`9cc6e89`, 2026-07-22); its plan and record remain at
 `milestones/push-envelope-preflight-and-bypass-visibility.md`.
 
-**➡️ Next: Foreman Context Loading is an owner-directed, interstitial process
-milestone selected on 2026-07-23.** Its plan is
-`docs/phases/real-return/milestones/foreman-context-loading.md`. It is scoped
-to the advisory re-entry-routing protocol and does not replace the selected
-Live-Run Trust-Domain Definition topic or authorize its first charter. The
-live-run plan remains
-`docs/phases/real-return/milestones/live-run-trust-domain-definition.md`; its
-prototype decision gate remains `docs/prototypes/live-run-trust-domains/plan.md`.
-The owner must approve any first charter and every subsequent dispatch. It uses
-only synthetic evidence: no owner real-data run or attestation is required, and
-the data-boundary maturity row stays L3. Schema-publication controls and
-builder/reviewer scope controls remain explicitly tabled.
+**➡️ Next: Foreman Context Loading has its decision and implementation records
+prepared on its Track 2 branch, pending the required review and owner merge.**
+Its plan is `docs/phases/real-return/milestones/foreman-context-loading.md`.
+The selected Live-Run Trust-Domain Definition topic remains planning-only and
+does not gain a charter or dispatch from this process milestone. After the
+Foreman Context Loading merge, phase state returns to the live-run plan and
+prototype gate; the owner must still approve the first charter and every later
+dispatch. The live-run evidence remains synthetic-only, with no owner real-data
+run or attestation and no data-boundary maturity lift.
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 

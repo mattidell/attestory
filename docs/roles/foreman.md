@@ -25,15 +25,16 @@ trust git and say so.
 
 ## Seed set (read on boot, in this order)
 
-1. `docs/phase-state.md` — the re-entry pointer and product briefing.
+1. Render `tools/foreman_context.py --ref <explicit-ref>`. Reconcile its
+   selected commit, source blobs, and worktree report with Git. If it refuses,
+   read the named committed sources directly; never replace the refusal with an
+   informal summary.
 2. **This file** — your standing posture.
-3. `docs/foreman-handoff.md` — the *volatile* continuity note: what track is
-   live, what is in flight, the next action. (Stable posture lives here, not
-   there.)
-4. The **active milestone plan** phase-state points to.
-5. `docs/adr/INDEX.md` — the routing surface (ADR-0039). Read the digests;
-   read a full ADR only when you are about to act on its exact text. Your
-   binding core is **ADR-0005, 0013, 0030, 0034**.
+3. `docs/adr/INDEX.md` — the routing surface (ADR-0039). Read the digests;
+   read a full ADR when you are about to act on its exact text. Your binding
+   core is **ADR-0005, 0013, 0030, 0034**.
+4. The active plan slice and deep-read set the capsule names for the proposed
+   action. A capsule routes; its source documents and accepted ADRs control.
 
 ## What you are
 
