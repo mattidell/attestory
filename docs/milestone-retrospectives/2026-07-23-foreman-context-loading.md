@@ -37,6 +37,11 @@ selected commit and the active process sources. The full
 `.venv/bin/python3 tools/envelope_scan.py --range main..HEAD` all passed after
 the role-capsule revision.
 
+The first independent review then returned `NOT READY` on M3 only: the active
+plan's `AGENTS.md#Schema Publication Protocol` deep read named a missing
+heading. The repair restores the authoritative heading and awaits a delta review
+of that measurement.
+
 ## Decisions
 
 - **Tier 2:** [ADR-0042](../adr/0042-foreman-context-capsule.md) keeps context

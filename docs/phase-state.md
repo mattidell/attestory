@@ -38,8 +38,9 @@ Prior milestone: Push-Envelope Preflight and Bypass Visibility — merged PR #46
 (`9cc6e89`, 2026-07-22); its plan and record remain at
 `milestones/push-envelope-preflight-and-bypass-visibility.md`.
 
-**➡️ Next: Foreman Context Loading's role-capsule records are verified and
-await independent review plus owner merge.** Its plan is
+**➡️ Next: Foreman Context Loading's first independent review returned NOT
+READY on M3, a stale schema-publication deep-read fragment. The narrow repair is
+prepared pending delta review plus owner merge.** Its plan is
 `docs/phases/real-return/milestones/foreman-context-loading.md`. It now adds
 charter capsules for builders/reviewers and mechanical task capsules for clerks;
 the trusted advisor remains out of scope. The selected Live-Run Trust-Domain
