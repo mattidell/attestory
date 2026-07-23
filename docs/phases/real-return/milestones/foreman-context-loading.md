@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "foreman-context-loading",
-  "status": "role-capsule records verified; review and owner merge required",
+  "status": "complete; merged to main 2026-07-23 (PR #56)",
   "scope": [
     "advisory provenance-bound foreman context routing",
     "charter context capsules for builders and reviewers",
@@ -55,9 +55,11 @@
 -->
 # Milestone: Foreman Context Loading
 
-Status: **role-capsule records verified — review and owner merge required.**
-This interstitial process-maintenance milestone does not replace the selected
-Live-Run Trust-Domain Definition topic or authorize its first charter.
+Status: **complete — merged to `main` in PR #56 (`962c1ac`, 2026-07-23).**
+The initial independent review found the M3 deep-read mismatch; the authorized
+delta review discharged it as READY before merge. This interstitial
+process-maintenance milestone did not replace the selected Live-Run
+Trust-Domain Definition topic or authorize its first charter.
 
 ## Objective
 

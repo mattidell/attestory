@@ -1,8 +1,8 @@
 # Retrospective — Foreman Context Loading
 
-Status: **draft — verification passed; independent review and owner merge remain
-required.** This becomes final only when the milestone's reviewed units reach
-`main`.
+Status: **final — merged to `main` in PR #56 (`962c1ac`, 2026-07-23).** The
+initial independent review found M3; the authorized delta review discharged it
+as READY before merge.
 
 ## Milestone
 
@@ -37,10 +37,11 @@ selected commit and the active process sources. The full
 `.venv/bin/python3 tools/envelope_scan.py --range main..HEAD` all passed after
 the role-capsule revision.
 
-The first independent review then returned `NOT READY` on M3 only: the active
+The first independent review returned `NOT READY` on M3 only: the active
 plan's `AGENTS.md#Schema Publication Protocol` deep read named a missing
-heading. The repair restores the authoritative heading and awaits a delta review
-of that measurement.
+heading. The repair restored the authoritative heading. The owner authorized a
+delta review by the original reviewer along its own review lineage; that review
+returned READY. The repair, launch record, and delta report merged in PR #56.
 
 ## Decisions
 
@@ -73,13 +74,10 @@ output, or absolute local path.
 
 ## Follow-ups
 
-- Run the full verification floor and render the foreman capsule from this
-  branch's `HEAD` before requesting review.
-- Obtain the owner-approved independent review required by the active process,
-  then merge the reviewed units before presenting ADR-0042 as a `main` record.
-- On merge, return phase state from this interstitial milestone to the selected
-  Live-Run Trust-Domain Definition pointer; its first charter remains owner
-  gated.
+- On a resumed foreman session, render the capsule from an explicit committed
+  ref and take the action-specific full reads it names.
+- The active Live-Run Trust-Domain Definition topic remains owner-gated: its
+  prototype plan and every later charter/seat dispatch need explicit approval.
 
 ## Planning lessons
 
