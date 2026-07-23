@@ -27,26 +27,24 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-22; Push-Envelope rescope complete)
+## Current state (updated 2026-07-22; Push-Envelope rescope closed)
 
-- **Seat:** prototype foreman for **Guarded Transport and Credential
-  Confinement**. The owner selected and approved the milestone plan on
-  2026-07-22; phase-state and roadmap now point to it. The prior Dividends and
-  Schedule B Slice is complete; its durable record remains in its plan,
-  retrospective, deferral ledger, reviews, and git history.
-- **Track 0:** H1 is **stopped after its one permitted repair**. Repair 1
-  addressed the Round-1 ordering and inventory findings, but both independent
-  delta reviewers could not reproduce a completing clean actual-Git probe;
-  H1-P1/P2 remain unratified. H2/H3 are conditional forms only, not separate
-  decisions. Exact records: `round-1-triage.md`, `repair1-triage.md`, and the
-  four review records under `docs/prototypes/guarded-transport/reviews/`.
-- **Rescope:** Track 1 merged as PR #45: the synthetic audit proves hook
-  refusal when Git runs it and reports `--no-verify` bypass reachability plus
-  credential confinement `unestablished`. It does not protect an owner push.
-  Track 2 records passed independent review with no blocking finding and the
-  owner merged them as PR #46 (`9cc6e89`): they retain deferrals 1/2, retain
-  L3, and add the user-facing limitation. The next milestone remains an
-  owner-directed maturity-frontier choice. Do not use the similarly named
+- **No active milestone or prototype seat.** The owner directed that no
+  successor planning or implementation begin after milestone closure. Await a
+  new explicit owner direction before taking any further action.
+- **Closed rescope:** Track 1 merged as PR #45: the synthetic audit proves
+  hook refusal when Git runs it and reports `--no-verify` bypass reachability
+  plus credential confinement `unestablished`. It does not protect an owner
+  push. Track 2 records passed independent review with no blocking finding and
+  merged as PR #46 (`9cc6e89`); the milestone close and final retrospective
+  merged as PR #47 (`5cad595`). Deferrals 1/2 remain, as does the L3
+  data-boundary posture.
+- **Stopped predecessor:** Guarded Transport H1 stopped after its one
+  permitted repair. Both independent delta reviewers could not reproduce a
+  completing clean actual-Git probe; H1-P1/P2 remain unratified. H2/H3 are
+  conditional forms only, not separate decisions. Exact records:
+  `round-1-triage.md`, `repair1-triage.md`, and the four review records under
+  `docs/prototypes/guarded-transport/reviews/`. Do not use the similarly named
   in-progress feature-plan branch as evidence or state.
 
 ## Prior milestone handoff (historical detail)
