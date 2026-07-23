@@ -1,11 +1,11 @@
 # Milestone Rescope: Push-Envelope Preflight and Bypass Visibility
 
-Status: **Track 2 independently reviewed — awaiting owner-held integration**
-(2026-07-22). Track 1 merged to `main` through PR #45 (`8bf2b8d`) after
-implementation `efba651` passed independent review; Track 2 review
-`fb6f182` found no blocking finding. This is the successor planning surface
-for the stopped Guarded Transport and Credential Confinement H1 topic. It
-operates under ADR-0030 and ADR-0034.
+Status: **complete** (2026-07-22). Track 1 merged to `main` through PR #45
+(`8bf2b8d`) after implementation `efba651` passed independent review; Track
+2 review `fb6f182` found no blocking finding and merged through PR #46
+(`9cc6e89`). This is the completed successor planning surface for the stopped
+Guarded Transport and Credential Confinement H1 topic. It operated under
+ADR-0030 and ADR-0034.
 
 ## Objective
 
@@ -95,7 +95,7 @@ Add README guidance and the explicit deferral/maturity/phase-state records.
 No owner live run: this rescope does not change real-data transport safety.
 Review and merge records separately after Track 1's review.
 
-## Track 2 closure record (reviewed)
+## Track 2 closure record (complete)
 
 - Track 1's audit is merged through PR #45. Its stable report calls credential
   confinement `unestablished`, and a `--no-verify` bypass is an expected audit
@@ -105,5 +105,5 @@ Review and merge records separately after Track 1's review.
 - No real-data run, owner attestation, server-control attestation, or maturity
   change belongs to this rescope. A real transport-safety improvement still
   needs a separate OS/identity/hosted-boundary topic.
-- Independent records review `fb6f182` found no blocking finding. Owner-held
-  integration remains required by ADR-0030.
+- Independent records review `fb6f182` found no blocking finding; the owner
+  integrated its records through PR #46 (`9cc6e89`) under ADR-0030.

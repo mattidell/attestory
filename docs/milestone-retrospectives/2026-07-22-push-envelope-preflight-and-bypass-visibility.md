@@ -1,6 +1,6 @@
 # Retrospective — Push-Envelope Preflight and Bypass Visibility
 
-Status: **independently reviewed; final on owner merge.**
+Status: **final** (owner merged PR #46, `9cc6e89`, 2026-07-22).
 
 ## Milestone
 
@@ -8,6 +8,11 @@ After the Guarded Transport H1 prototype exhausted two rival local topologies
 and its one repair without a reproducible actual-Git confinement proof, the
 owner selected an honest-L3 rescope. The outcome is a synthetic posture audit,
 not a credential-control system.
+
+The milestone's implementation and records landed from
+`track/push-envelope-posture-audit` through Track 1 PR #45 and from
+`track/push-envelope-posture-records` through Track 2 PR #46, with Track 2's
+merge commit `9cc6e89` closing the milestone.
 
 ## Shipped
 
@@ -21,8 +26,8 @@ remote with `--no-verify`. Its stable output calls credential confinement
 
 Track 1 passed 549 tests, mypy, governance lint, and envelope scans; its
 independent review found no blocking finding. Track 2's independent records
-review also found no blocking finding; owner-held merge remains required
-before this retrospective is final.
+review also found no blocking finding; the owner then merged its records
+through PR #46.
 
 ## Decisions
 

@@ -27,7 +27,7 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-22; Push-Envelope rescope Track 2 records)
+## Current state (updated 2026-07-22; Push-Envelope rescope complete)
 
 - **Seat:** prototype foreman for **Guarded Transport and Credential
   Confinement**. The owner selected and approved the milestone plan on
@@ -43,10 +43,11 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
 - **Rescope:** Track 1 merged as PR #45: the synthetic audit proves hook
   refusal when Git runs it and reports `--no-verify` bypass reachability plus
   credential confinement `unestablished`. It does not protect an owner push.
-  Track 2 records passed independent review with no blocking finding and await
-  owner-held integration: they retain deferrals 1/2, retain L3, and add the
-  user-facing limitation. Do not use the similarly named in-progress
-  feature-plan branch as evidence or state.
+  Track 2 records passed independent review with no blocking finding and the
+  owner merged them as PR #46 (`9cc6e89`): they retain deferrals 1/2, retain
+  L3, and add the user-facing limitation. The next milestone remains an
+  owner-directed maturity-frontier choice. Do not use the similarly named
+  in-progress feature-plan branch as evidence or state.
 
 ## Prior milestone handoff (historical detail)
 
