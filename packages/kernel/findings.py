@@ -157,6 +157,63 @@ def _current_value_for_fact(state: FindingState, fact_id: str) -> Any:
 _NO_CURRENT_VALUE = object()
 
 
+def _enforce_closed_on_attestation(
+    state: FindingState,
+    finding: dict[str, Any],
+    fact: facts.Fact,
+    fact_type: dict[str, Any],
+) -> None:
+    """ADR-0041 Decision §4: reject correction once the named gate closure
+    fact is currently attested ``true``; permit otherwise (false, absent,
+    or the gate fact type carrying no current finding at all).
+
+    The gate fact's identity is resolved by projecting the already-answered
+    fact's own key bindings onto the gate fact type's declared identity-key
+    names (the same scope-projection ADR-0016's family-subtotal/closure-claim
+    pattern already performs) - reusing ``_current_value_for_fact``, the
+    existing last-inserted-wins/withdrawal-aware current-value reader, so
+    horizon succession (ADR-0017 decision 5) reopens correction exactly as
+    it already reopens closure-backed derived results: a horizon successor
+    projects a distinct gate fact id with no recorded finding of its own,
+    which reads as absent (permitted) here without any new mechanism.
+
+    ADR-0041 leaves the exact scope-matching algorithm "Not Decided" for
+    cases where key names are not shared; this implements the narrowest
+    case it does settle - the gate fact type's identity-key names must all
+    be present, by name, among the already-answered fact's own keys. A gate
+    fact type naming a key the gated fact type does not carry is a content
+    configuration error, rejected explicitly rather than silently permitted.
+    """
+    gate = fact_type["supersession"]["gate"]
+    gate_fact_type_id = gate["fact_type"]
+    gate_fact_type = state.fact_state.fact_types.get(gate_fact_type_id)
+    if gate_fact_type is None:
+        raise FindingModelError(
+            f"finding {finding['id']}: fact {fact.fact_id} is gated on "
+            f"undeclared fact type {gate_fact_type_id!r}"
+        )
+    own_keys = dict(fact.keys)
+    gate_keys: list[tuple[str, str]] = []
+    for key in gate_fact_type["identity_keys"]:
+        name = key["name"]
+        if name not in own_keys:
+            raise FindingModelError(
+                f"finding {finding['id']}: cannot project fact {fact.fact_id} "
+                f"onto gate fact type {gate_fact_type_id!r}: identity key "
+                f"{name!r} is not among {fact.fact_type_id}'s own identity keys"
+            )
+        gate_keys.append((name, own_keys[name]))
+    gate_fact_id = facts.fact_id_for(gate_fact_type_id, tuple(gate_keys))
+    gate_value = _current_value_for_fact(state, gate_fact_id)
+    if gate_value is True:
+        raise FindingModelError(
+            f"finding {finding['id']}: fact {fact.fact_id} is governed by "
+            f"supersession policy 'closed-on-attestation'; gate "
+            f"{gate_fact_id} is currently attested true, which does not "
+            f"permit correction here"
+        )
+
+
 def _enforce_subset_invariants(
     state: FindingState, registry: SchemaRegistry, touched_fact_ids: tuple[str, ...]
 ) -> None:
@@ -358,16 +415,22 @@ def _validate_finding(
         )
 
     # Correction is governed by the fact type's declared supersession
-    # rules (Ontology §2, Supersession). Only the "free" policy is
-    # published today, but the declaration is consulted, not decorative:
-    # restricted policies arrive with rule artifacts and bind here.
+    # rules (Ontology §2, Supersession; ADR-0041). The vocabulary is
+    # closed to three values, each a state predicate over data the
+    # kernel already tracks - never an identity check.
     already_answered = any(
         existing["fact_id"] == finding["fact_id"]
         for existing in state.findings.values()
     )
     if already_answered:
         policy = fact_type["supersession"]["policy"]
-        if policy != "free":
+        if policy == "closed-on-attestation":
+            _enforce_closed_on_attestation(state, finding, fact, fact_type)
+        elif policy != "free":
+            # "locked" (ADR-0041 Decision §3): correction forbidden
+            # unconditionally once any finding for this fact_id exists -
+            # identical to the already_answered test just computed, so no
+            # further state read is needed.
             raise FindingModelError(
                 f"finding {finding['id']}: fact {fact.fact_id} is governed by "
                 f"supersession policy '{policy}', which does not permit correction here"

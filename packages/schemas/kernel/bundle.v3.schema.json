@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/bundle.v3",
+  "title": "Fact-type bundle",
+  "description": "A declared body of fact types taken up wholesale by an adoption act (Ontology §4, Adoption; milestone-scoped minimal form). Nested fact types name their own schema version and are validated against it. Widens bundle.v1's nested-fact-type schema acceptance to also permit fact-type.v3 (ADR-0041); bundle.v1 is untouched and remains correct for bundles carrying only fact-type.v1 content. (bundle.v2 is unrelated pre-existing content — ADR-0028's versioned-identity surface — not a predecessor of this file.)",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "bundle.v3" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "label": { "type": "string", "minLength": 1 },
+    "fact_types": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": { "schema": { "enum": ["fact-type.v1", "fact-type.v3"] } },
+        "required": ["schema"]
+      }
+    }
+  },
+  "required": ["schema", "id", "label", "fact_types"],
+  "additionalProperties": false
+}

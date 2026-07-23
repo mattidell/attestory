@@ -83,14 +83,26 @@ policy should be able to gate on without inventing anything new.
 
 1. **The supersession-policy vocabulary is closed to three values:** `free`,
    `locked`, and `closed-on-attestation`. Each is a state predicate over data
-   the kernel already tracks — never an identity check. `fact-type.v1`'s
-   schema enum widens from `["free"]` to `["free", "locked",
-   "closed-on-attestation"]`; that widening, plus the two policies' own
-   predicates below, is Track 1's schema and content work. **The dispatch
-   site in `findings.py` does not change shape** — it still reads
-   `fact_type["supersession"]["policy"]` at the same `already_answered`
-   check and still raises `FindingModelError` on rejection. What changes is
-   what the `if policy != "free"` branch does for each non-`free` value.
+   the kernel already tracks — never an identity check. **Correction to this
+   ADR (post-Track-1-review, 2026-07-22): this vocabulary ships as a new
+   `fact-type.v3` schema version, not an in-place widening of `fact-type.v1`.**
+   ADR-0003/Canon Article 9 makes a published schema version immutable,
+   enforced by the checksum manifest (`packages/kernel/schema_registry.py`);
+   widening `fact-type.v1`'s enum in place — this ADR's original wording —
+   would mutate a published schema, exactly what that registry exists to
+   refuse. (`fact-type.v2` is unrelated pre-existing content — ADR-0025/0028's
+   versioned fact-identity surface — so the next free version is v3, not v2.)
+   `fact-type.v1` is untouched, byte-for-byte; every existing `free`-policy
+   fact type is unaffected and needs no migration; only new fact-type content
+   that wants `locked` or `closed-on-attestation` declares `"schema":
+   "fact-type.v3"`. This is the same historical-coexistence pattern ADR-0028
+   already established for `form-field.v2`/`v3`. The widening itself, plus the
+   two policies' own predicates below, is Track 1's schema and content work.
+   **The dispatch site in `findings.py` does not change shape** — it still
+   reads `fact_type["supersession"]["policy"]` at the same `already_answered`
+   check and still raises `FindingModelError` on rejection, regardless of
+   which schema version the fact type declares. What changes is what the
+   `if policy != "free"` branch does for each non-`free` value.
 
 2. **`free`** — unrestricted, unchanged. A new finding for an already-answered
    `fact_id` is always accepted. This remains the default and stays what
@@ -143,9 +155,16 @@ policy should be able to gate on without inventing anything new.
 
 ## Consequences
 
-- Track 1 (enforcement) must: widen the `fact-type.v1` schema enum; add the
+- Track 1 (enforcement) must: publish `fact-type.v3` with the widened enum
+  (`fact-type.v1` untouched); add the
   `gate` property (required iff `policy == "closed-on-attestation"`,
-  forbidden otherwise — schema-enforced, not just convention); implement the
+  forbidden otherwise — schema-enforced, not just convention); publish
+  `bundle.v3` alongside it, since `bundle.v1`'s own schema pins nested
+  `fact_types[].schema` to `const: "fact-type.v1"` and would otherwise reject
+  any bundle carrying a `fact-type.v3` member before that member's own
+  schema is even consulted (`bundle.v1` stays untouched; a bundle carrying
+  only `fact-type.v1` members still declares `bundle.v1`, unaffected);
+  implement the
   `locked` and `closed-on-attestation` branches in `findings.py`'s dispatch;
   and produce regression goldens proving rejection of an unauthorized
   correction and success of an authorized one across at least two fact
@@ -215,7 +234,7 @@ policy should be able to gate on without inventing anything new.
 
 - Enforcement mechanism: `packages/kernel/findings.py` (`_validate_finding`,
   the `already_answered` / `supersession.policy` dispatch).
-- Schema: `packages/schemas/kernel/fact-type.v1.schema.json`,
+- Schema: `packages/schemas/kernel/fact-type.v3.schema.json` (`fact-type.v1.schema.json` untouched),
   `packages/schemas/kernel/finding.v2.schema.json`.
 - Precedents: ADR-0006 (closed pin-role vocabulary + predicate pattern),
   ADR-0011 §§3–6 (same-fact correction, affirmative-only closure), ADR-0016

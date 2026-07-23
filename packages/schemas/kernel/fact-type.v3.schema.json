@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/fact-type.v3",
+  "title": "Fact type",
+  "description": "A kind of question the workspace can address (Ontology §2). Identity keys reference entity kinds or declared literal values — never a source-flavor citizen (Article 1, E1.1): the key kinds below are the only key kinds, and no source option exists. Widens fact-type.v1's supersession-policy vocabulary per ADR-0041; existing fact-type.v1 content is unaffected and needs no migration. (fact-type.v2 is a distinct, unrelated versioned surface — ADR-0025/0028 — not a predecessor of this file.)",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "fact-type.v3" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "nature": { "enum": ["determinable", "elective"] },
+    "identity_keys": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+              "kind": { "const": "entity" },
+              "entity_kind": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" }
+            },
+            "required": ["name", "kind", "entity_kind"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+              "kind": { "const": "literal" },
+              "values": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 }
+              }
+            },
+            "required": ["name", "kind", "values"],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "value_schema": { "type": "object" },
+    "supersession": {
+      "type": "object",
+      "properties": {
+        "policy": { "enum": ["free", "locked", "closed-on-attestation"] },
+        "gate": {
+          "type": "object",
+          "properties": {
+            "fact_type": { "type": "string", "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$" }
+          },
+          "required": ["fact_type"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["policy"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": { "properties": { "policy": { "const": "closed-on-attestation" } }, "required": ["policy"] },
+          "then": { "required": ["gate"] },
+          "else": { "not": { "required": ["gate"] } }
+        }
+      ]
+    }
+  },
+  "required": ["schema", "id", "title", "nature", "identity_keys", "value_schema", "supersession"],
+  "additionalProperties": false
+}

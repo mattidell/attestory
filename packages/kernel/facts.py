@@ -163,6 +163,17 @@ def _fact_id(fact_type_id: str, keys: tuple[tuple[str, str], ...]) -> str:
     return f"{fact_type_id}|{bound}"
 
 
+def fact_id_for(fact_type_id: str, keys: tuple[tuple[str, str], ...]) -> str:
+    """Public composer for a fact id from a fact type and ordered key bindings.
+
+    Exposed so callers outside this module (e.g. the ``closed-on-attestation``
+    supersession-policy predicate in ``findings.py``) can project an
+    already-answered fact's own key bindings onto another fact type's
+    identity-key names without duplicating the id-rendering rule.
+    """
+    return _fact_id(fact_type_id, keys)
+
+
 def facts_of(state: KernelState, *, include_displaced: bool = False) -> dict[str, Fact]:
     """The derived fact lattice: every question the workspace holds.
 
