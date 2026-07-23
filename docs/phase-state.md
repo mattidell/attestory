@@ -36,9 +36,9 @@ original prototype record remains at
 `milestones/guarded-transport-and-credential-confinement.md` and
 `docs/prototypes/guarded-transport/`.
 
-**➡️ Next: review and approve the bounded L3 rescope plan; then Track 1 may
-implement the synthetic audit command. It must retain the two guarded-
-transport deferrals and leave the maturity matrix at L3.**
+**➡️ Next: Track 1 implements and independently reviews the synthetic audit
+command. It must retain the two guarded-transport deferrals and leave the
+maturity matrix at L3.**
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 

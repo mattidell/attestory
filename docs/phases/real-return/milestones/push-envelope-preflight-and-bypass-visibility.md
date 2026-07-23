@@ -1,9 +1,8 @@
 # Milestone Rescope: Push-Envelope Preflight and Bypass Visibility
 
-Status: **draft — proposed after owner-directed honest-L3 rescope**
-(2026-07-22). This is the successor planning surface for the stopped Guarded
-Transport and Credential Confinement H1 topic. It operates under ADR-0030 and
-ADR-0034. Approval of this plan is required before Track 1 implementation.
+Status: **active — owner approved 2026-07-22; Track 1 chartering in progress.**
+This is the successor planning surface for the stopped Guarded Transport and
+Credential Confinement H1 topic. It operates under ADR-0030 and ADR-0034.
 
 ## Objective
 

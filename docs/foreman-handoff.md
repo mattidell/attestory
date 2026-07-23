@@ -40,13 +40,12 @@ routing via `docs/adr/INDEX.md`, ADR-0039).
   H1-P1/P2 remain unratified. H2/H3 are conditional forms only, not separate
   decisions. Exact records: `round-1-triage.md`, `repair1-triage.md`, and the
   four review records under `docs/prototypes/guarded-transport/reviews/`.
-- **Rescope:** the owner selected the honest-L3 operator-safety rescope. Draft
-  plan `milestones/push-envelope-preflight-and-bypass-visibility.md` proposes
-  a synthetic hook/bypass audit that reports, rather than hides, raw
+- **Rescope:** the owner approved
+  `milestones/push-envelope-preflight-and-bypass-visibility.md`. Track 1 now
+  charters a synthetic hook/bypass audit that reports, rather than hides, raw
   `--no-verify` reachability. It does not touch credentials, remote setup, or
-  the L3 maturity claim. Next action is owner approval of that exact plan;
-  then charter Track 1. Do not use the similarly named in-progress feature-plan
-  branch as evidence or state.
+  the L3 maturity claim. Do not use the similarly named in-progress
+  feature-plan branch as evidence or state.
 
 ## Prior milestone handoff (historical detail)
 
