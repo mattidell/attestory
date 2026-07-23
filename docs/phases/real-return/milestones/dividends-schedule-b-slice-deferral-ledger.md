@@ -13,18 +13,23 @@ disposition note on whether this milestone touched them.
 
 ## Boundary and infrastructure (carried)
 
-1. **Guarded transport / credential confinement** — carried, **untouched**.
+1. **Guarded transport / credential confinement** — carried, **touched and
+   not retired** by Push-Envelope Preflight and Bypass Visibility (PR #45,
+   2026-07-22).
    ADR-0031's "remote credentials reachable only through the guarded push
-   path" remains not implemented. The milestone plan named a possible
-   hardening rider as owner-directed after Track 0 gate economics, "not
-   assumed here" — the owner never directed it this milestone. Still the
-   ledger's highest-priority entry; it alone holds the data-boundary row
-   short of L4. Reactivate: first hardening (L3→L4) milestone.
-2. **Operator-level bypass is detected, not impossible** — carried,
-   **untouched**. `git commit --no-verify` or hook deletion still works; the
-   per-clone byte-verification fails the next gate battery rather than
-   preventing the bypass. Reactivate: owner decision or the hardening
-   milestone.
+   path" remains not implemented. The rescope's synthetic audit makes that
+   absence explicit (`credential_confinement: unestablished`); it does not
+   provide a credential wall or alter the L3 row. Still the ledger's
+   highest-priority entry; it alone holds the data-boundary row short of L4.
+   Reactivate: a separately chartered OS, identity, or hosted-boundary topic.
+2. **Operator-level bypass is detected, not impossible** — carried, **touched
+   and re-affirmed, not retired** by Push-Envelope Preflight and Bypass
+   Visibility (PR #45, 2026-07-22). The new audit drives a synthetic marker
+   through actual local Git commands and reports `git push --no-verify` as
+   bypass-reachable. That is visibility evidence only: raw transport remains
+   possible and the per-clone byte-verification still detects hook deletion or
+   tamper only when the audit/gate runs. Reactivate: owner decision or the
+   credential-confinement hardening topic.
 3. **GitHub remote stays private** — carried, **untouched**. Standalone
    owner decision to change; not a defect.
 

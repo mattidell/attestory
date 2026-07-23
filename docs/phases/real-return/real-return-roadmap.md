@@ -28,15 +28,19 @@ scan.
 
 ## Status
 
-- Push-Envelope Preflight and Bypass Visibility — **rescope planning** (owner
-  direction 2026-07-22). This is an honest L3 operator-safety aid, not the
+- Push-Envelope Preflight and Bypass Visibility — **Track 2 independently
+  reviewed, awaiting owner-held integration** (Track 1 merged PR #45,
+  2026-07-22). This is an honest L3
+  operator-safety aid, not the
   original L3→L4 credential-confinement claim. The stopped H1 prototype
   demonstrated that two clean-room local-Git topologies and one repair did not
   yield reproducible scan-before-credential-release evidence. The rescope will
-  add a synthetic audit that reports hook protection when it runs and reports
+  added a synthetic audit that reports hook protection when it runs and reports
   raw `--no-verify` as still bypass-reachable; it retires neither deferral nor
   raises the matrix. A later OS/identity/hosted-boundary topic is the only path
-  back to credential-confinement scope.
+  back to credential-confinement scope. Track 2 review found no blocking
+  finding in its re-affirmation of ledger entries 1/2 and explicit L3 matrix
+  qualification; it makes no real-run or server-control claim.
 
 - Dividends and Schedule B Slice — **content complete, completion records in
   progress** (plan approved 2026-07-18; Track 5 records on
