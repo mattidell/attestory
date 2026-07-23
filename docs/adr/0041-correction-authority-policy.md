@@ -1,6 +1,6 @@
 # ADR 0041 — Correction-Authority Policy
 
-- Status: **proposed**
+- Status: **accepted** (owner ratification 2026-07-22, PR #50 merge)
 - Tier: 2
 - Date: 2026-07-22
 
