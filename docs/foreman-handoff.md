@@ -1,9 +1,9 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "topic": "foreman-context-loading",
-  "status": "M3 schema-publication deep-read repair prepared; delta review and owner merge required",
-  "next_permitted": "obtain owner approval before dispatching the M3 delta reviewer"
+  "topic": "live-run-trust-domains",
+  "status": "prototype plan prepared; owner approval required before the first current charter and dispatch",
+  "next_permitted": "obtain owner approval of the prototype plan and the exact first charter/seat before dispatch"
 }
 -->
 # Foreman Handoff Note
@@ -27,21 +27,19 @@ authorize a dispatch, change the data boundary, or replace accepted authority.
 
 ## Current state (2026-07-23)
 
-- **Foreman Context Loading:** planning (`742e548`), ADR-0042/paper evidence
-  (`9f115af`), renderer/tests (`1715626`), and the owner-approved
-  builder/reviewer charter and clerk-task-capsule extension are verified on
-  `track/foreman-context-loading-role-capsules`. The milestone is pending the
-  M3 repair's delta review and owner merge; it is not yet a `main` claim. The
-  first independent review returned `NOT READY` only on a stale
-  schema-publication fragment; its report is
-  `docs/reviews/2026-07-23-foreman-context-loading-review.md`. Prepared delta
-  charter:
-  `docs/reviews/charter-2026-07-23-foreman-context-loading-m3-delta-review.md`.
-- **Live-Run Trust-Domain Definition:** remains selected but planning-only.
-  Its plan and prototype records remain at
+- **Foreman Context Loading:** complete in merged PR #56 (`962c1ac`). ADR-0042,
+  the provenance-bound renderer, role charter capsules, and clerk task capsules
+  are now `main` records. The initial independent review found M3 only; the
+  authorized delta review returned READY. Durable records are the
+  retrospective and review reports under `docs/milestone-retrospectives/` and
+  `docs/reviews/`.
+- **Live-Run Trust-Domain Definition:** is now the active planning-only topic.
+  Its plan and prototype records are at
   `docs/phases/real-return/milestones/live-run-trust-domain-definition.md` and
-  `docs/prototypes/live-run-trust-domains/`. No charter, builder, or reviewer
-  dispatch is authorized for that topic.
+  `docs/prototypes/live-run-trust-domains/`. The owner must approve the
+  prototype plan and the exact first current charter/seat before any builder or
+  reviewer dispatch. No real workspace, credential, remote, output, or
+  location may be accessed or recorded.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -51,7 +49,7 @@ authorize a dispatch, change the data boundary, or replace accepted authority.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
   ADR-0030, ADR-0034, ADR-0039, and ADR-0042.
-- Active process milestone: `docs/phases/real-return/milestones/foreman-context-loading.md`.
+- Active milestone: `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
 - Live-run prototype state: `docs/prototypes/live-run-trust-domains/SEAT.md`
   and `docs/prototypes/live-run-trust-domains/process-log.md`.
 - Completed-milestone lessons: `docs/milestone-retrospectives/`.
