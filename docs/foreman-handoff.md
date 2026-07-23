@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "foreman-context-loading",
-  "status": "owner-approved role-capsule revision prepared; review and owner merge required",
+  "status": "role-capsule records verified; review and owner merge required",
   "next_permitted": "reconcile the role-capsule branch and obtain owner approval before dispatching the prepared Foreman Context Loading reviewer"
 }
 -->
@@ -29,8 +29,8 @@ authorize a dispatch, change the data boundary, or replace accepted authority.
 
 - **Foreman Context Loading:** planning (`742e548`), ADR-0042/paper evidence
   (`9f115af`), renderer/tests (`1715626`), and the owner-approved
-  builder/reviewer charter and clerk-task-capsule extension are on
-  `track/foreman-context-loading-role-capsules`. The milestone is pending its
+  builder/reviewer charter and clerk-task-capsule extension are verified on
+  `track/foreman-context-loading-role-capsules`. The milestone is pending the
   required review and owner merge; it is not yet a `main` claim. Prepared
   review charter:
   `docs/reviews/charter-2026-07-23-foreman-context-loading-review.md`.

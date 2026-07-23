@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "foreman-context-loading",
-  "status": "owner-approved scope revision; capsule records require update",
+  "status": "role-capsule records verified; review and owner merge required",
   "scope": [
     "advisory provenance-bound foreman context routing",
     "charter context capsules for builders and reviewers",
@@ -55,9 +55,9 @@
 -->
 # Milestone: Foreman Context Loading
 
-Status: **owner-approved scope revision — capsule records require update before
-review.** This interstitial process-maintenance milestone does not replace the
-selected Live-Run Trust-Domain Definition topic or authorize its first charter.
+Status: **role-capsule records verified — review and owner merge required.**
+This interstitial process-maintenance milestone does not replace the selected
+Live-Run Trust-Domain Definition topic or authorize its first charter.
 
 ## Objective
 

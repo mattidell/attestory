@@ -28,8 +28,8 @@ scan.
 
 ## Status
 
-- Foreman Context Loading — **owner-approved scope revision; records require
-  update before review** (owner-directed 2026-07-23). The process milestone
+- Foreman Context Loading — **role-capsule records verified; review and owner
+  merge required** (owner-directed 2026-07-23). The process milestone
   adds a deterministic, provenance-bearing advisory foreman capsule, compact
   metadata for volatile re-entry records, charter capsules for builders and
   reviewers, mechanical task capsules for clerks, action-specific deep-read

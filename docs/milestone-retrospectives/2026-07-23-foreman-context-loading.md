@@ -30,10 +30,12 @@ new authority or weakening the full reads that govern a proposed action.
 
 ## Verification
 
-The role-capsule revision requires the final documentation verification and full
-verification-floor rerun before review. Earlier renderer verification remains
-evidence for the unchanged Python surface, not a substitute for the revised
-process record.
+The foreman capsule rendered from the branch's committed `HEAD`, naming the
+selected commit and the active process sources. The full
+`.venv/bin/python3 -m unittest` suite, `.venv/bin/python3 -m mypy`,
+`.venv/bin/python3 tools/governance_lint.py`, and
+`.venv/bin/python3 tools/envelope_scan.py --range main..HEAD` all passed after
+the role-capsule revision.
 
 ## Decisions
 
