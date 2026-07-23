@@ -1,13 +1,12 @@
 # Milestone: Guarded Transport and Credential Confinement
 
-Status: **active — Track 0 H1 stopped pending owner disposition**
-(2026-07-22). The owner approved the milestone and authorized the prototype
-builders/reviewers; both rival evidence and the one permitted repair pass have
-been completed. No H1 contract is ratified and no production implementation
-may begin. Third milestone of the Real Return phase; operates under ADR-0030
-per-ADR / per-track merges and ADR-0034 owner-approved dispatch. This is the
-phase's first **hardening (L3→L4)** milestone: it discharges a named production
-condition rather than adding a new tax domain.
+Status: **H1 stopped, scope superseded for planning** (2026-07-22). The owner
+selected the honest-L3 rescope after two rival exhibits and the one permitted
+repair could not produce a reproducible actual-Git confinement proof. H1 is
+unratified and this plan's L3→L4 objective is discontinued; its evidence
+remains the durable record. The approved successor planning surface is
+`push-envelope-preflight-and-bypass-visibility.md`, which explicitly does not
+discharge ADR-0031's guarded-transport condition.
 
 ## Decision summary (tiered)
 

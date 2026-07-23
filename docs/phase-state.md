@@ -8,22 +8,19 @@ This file is the re-entry point. Alongside the phase pointer below, it carries a
 
 **Shims in place.** Free supersession policy; E8.1 UI coverage deferred (presentation is form-field disposition content, not a human surface); citation *display* formatting a deferred rendering contract; guarded transport / credential confinement **not implemented** (the highest-priority deferral, now holding the data-boundary row at L3 across every domain the matrix covers); ADR-0026's further interest sources and subtractive adjustments deferred; ADR-0028 historical-v1 migration deferred; the declared dividend universe excludes boxes 2a/3/5/7/12; Schedule B is the only implemented schedule attachment (the ADR-0036 ontology is demonstrated generically, but no other schedule has production content). The complete named list with reactivation triggers: `docs/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md` (which also dispositions every First Real Return Slice ledger entry this milestone touched — one, re-affirmed not retired).
 
-**What the next milestone makes it do.** Guarded Transport and Credential
-Confinement hardens the existing real-data capability from L3 toward L4. It
-will make the guarded path the only credentialed route to the remote: raw
-`git push`, including `--no-verify`, must fail closed rather than relying on a
-skippable hook to notice a bad envelope after the fact. The owner selected and
-approved the milestone on 2026-07-22. Track 0 has now exhausted its two
-clean-room candidates and one permitted repair without a reproducible
-actual-Git transport proof; H1 remains unratified pending an owner decision to
-split, rescope, or stop the topic.
+**What the active rescope makes it do.** Push-envelope preflight and bypass
+visibility will make the existing boundary's limitation mechanically visible:
+an operator can run a synthetic audit proving that installed pre-push hooks
+block a seeded marker when they execute, while raw `--no-verify` remains an
+explicit, reported bypass. It is an honest L3 operator-safety aid, not a
+credential wall and not an L4 claim. The owner chose this rescope on
+2026-07-22 after the credential-confinement prototype stopped unratified.
 
-**Nature of the pending schema/contract change.** H1, the credential-
-confinement architecture, is a pending Tier 3 contract decision. ADR-0031
-already ratified the boundary requirement; Track 0 will determine and prove
-the transport shape before production implementation begins. H2's
-prevention-versus-detection line and H3's audit surface are scoped alongside
-H1 and may resolve at paper level if Gate 0 finds no independent contract.
+**Nature of the pending schema/contract change.** No new credential or remote
+contract is pending. The rescope adds a bounded local audit command and its
+synthetic fixture contract; it reports the existing bypass rather than
+redefining the ADR-0031 boundary. Any future OS, identity, or hosted credential
+boundary starts as a separate Tier 3 topic.
 
 ## Pointers
 
@@ -31,17 +28,17 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
-Milestone: **Guarded Transport and Credential Confinement — ACTIVE (selected
-and plan approved 2026-07-22).** Plan:
-`docs/phases/real-return/milestones/guarded-transport-and-credential-confinement.md`.
-It is the Real Return phase's first L3→L4 hardening milestone. The prior
-Dividends and Schedule B Slice is complete (2026-07-21); its plan,
-retrospective, and deferral ledger remain the durable record.
+Milestone: **Push-Envelope Preflight and Bypass Visibility — RESCOPE PLANNING
+(owner direction 2026-07-22).** Plan:
+`docs/phases/real-return/milestones/push-envelope-preflight-and-bypass-visibility.md`.
+It is the honest-L3 successor to the stopped credential-confinement scope; the
+original prototype record remains at
+`milestones/guarded-transport-and-credential-confinement.md` and
+`docs/prototypes/guarded-transport/`.
 
-**➡️ Next: owner chooses a new decision topic for an OS/identity/hosted
-credential boundary, a narrower milestone rescope, or a stop. The current H1
-prototype's build and single repair allowance are exhausted; no production
-implementation may begin before a different ratified contract exists.**
+**➡️ Next: review and approve the bounded L3 rescope plan; then Track 1 may
+implement the synthetic audit command. It must retain the two guarded-
+transport deferrals and leave the maturity matrix at L3.**
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 
