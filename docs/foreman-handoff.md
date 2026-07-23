@@ -34,9 +34,9 @@ authorize a dispatch, change the data boundary, or replace accepted authority.
   M3 repair's delta review and owner merge; it is not yet a `main` claim. The
   first independent review returned `NOT READY` only on a stale
   schema-publication fragment; its report is
-  `docs/reviews/2026-07-23-foreman-context-loading-review.md`. Prepared review
+  `docs/reviews/2026-07-23-foreman-context-loading-review.md`. Prepared delta
   charter:
-  `docs/reviews/charter-2026-07-23-foreman-context-loading-review.md`.
+  `docs/reviews/charter-2026-07-23-foreman-context-loading-m3-delta-review.md`.
 - **Live-Run Trust-Domain Definition:** remains selected but planning-only.
   Its plan and prototype records remain at
   `docs/phases/real-return/milestones/live-run-trust-domain-definition.md` and
