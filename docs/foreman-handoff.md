@@ -27,11 +27,15 @@ freely) without carrying stable doctrine that risks going stale in a
 volatile file. The binding ADRs are unchanged (0005, 0013, 0030, 0034;
 routing via `docs/adr/INDEX.md`, ADR-0039).
 
-## Current state (updated 2026-07-22; Push-Envelope rescope closed)
+## Current state (updated 2026-07-23; live-run system-definition milestone prepared)
 
-- **No active milestone or prototype seat.** The owner directed that no
-  successor planning or implementation begin after milestone closure. Await a
-  new explicit owner direction before taking any further action.
+- **Records-and-ADR milestone:** the owner appointed Codex as foreman and
+  selected Live-Run System Definition and Trust Domains. The approved plan is
+  `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
+  It synthesizes existing Guarded Transport and boundary evidence; no new
+  prototype or seat dispatch is planned. Scope is system definition and threat
+  posture only. No real run or owner attestation is required; schema-publication
+  and agent-scope controls are tabled.
 - **Closed rescope:** Track 1 merged as PR #45: the synthetic audit proves
   hook refusal when Git runs it and reports `--no-verify` bypass reachability
   plus credential confinement `unestablished`. It does not protect an owner

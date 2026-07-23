@@ -28,6 +28,17 @@ scan.
 
 ## Status
 
+- Live-Run System Definition and Trust Domains — **approved records-and-ADR
+  milestone** (owner-directed 2026-07-23). It records the already-supported
+  Tier 3 system definition: Developer/Supply, Live-Run Data, Publication, and
+  Owner Authorization are distinct domains with explicit crossings. Existing
+  Guarded Transport evidence is synthesized to separate same-UID credential
+  confinement from the live-data boundary; a later implementation milestone
+  decides any enforcement substrate. No new prototype, real run, owner
+  attestation, implementation, or maturity lift is in scope; the data-boundary
+  row remains L3. Schema-publication and agent-scope controls are tabled.
+  Plan: `milestones/live-run-trust-domain-definition.md`.
+
 - Correction Authority and Marshaller Simplification — **complete**
   (2026-07-22; plan approved PR #49). ADR-0041 (Track 0, PR #50) closes the
   supersession-policy vocabulary to `free`/`locked`/`closed-on-attestation`,

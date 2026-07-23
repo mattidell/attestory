@@ -10,7 +10,7 @@ This file is the re-entry point. Alongside the phase pointer below, it carries a
 
 **What the completed milestone does.** Retires two long-carried deferrals: the free/unrestricted supersession policy (now a closed, enforced vocabulary, ADR-0041) and the duplicated fact-type-parsing logic across `packages/derivation/marshal.py`'s four binding routes (deduped to shared helpers, behavior unchanged). Maturity matrix: Correction & supersession lifecycle row raised L3 → L4 across every domain — the first aspect-wide L4 in this phase. No new tax content; no change to guarded transport or the push-envelope posture audit.
 
-**Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are now published (widening the supersession-policy vocabulary; `v1`/`v2` of each stay untouched, `v2` of each being unrelated pre-existing ADR-0025/0028 content). Any future correction-authority extension (e.g., actor/role-scoped policies, or cross-scope `closed-on-attestation`) is a separately-chartered topic.
+**Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are now published (widening the supersession-policy vocabulary; `v1`/`v2` of each stay untouched, `v2` of each being unrelated pre-existing ADR-0025/0028 content). Any future correction-authority extension (e.g., actor/role-scoped policies, or cross-scope `closed-on-attestation`) is a separately-chartered topic. The next proposed topic is not a schema change: it defines the trust domains around a live run before selecting any enforcement mechanism.
 
 ## Pointers
 
@@ -29,9 +29,13 @@ Prior milestone: Push-Envelope Preflight and Bypass Visibility — merged PR #46
 (`9cc6e89`, 2026-07-22); its plan and record remain at
 `milestones/push-envelope-preflight-and-bypass-visibility.md`.
 
-**➡️ Next: owner selects the next maturity-frontier milestone. This milestone
-does not retire the guarded-transport or bypass deferrals, nor any domain
-deferral.**
+**➡️ Next: Live-Run System Definition and Trust Domains is an approved,
+records-and-ADR milestone selected by the owner on 2026-07-23.** Its plan is
+`docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
+It synthesizes existing evidence; it has no new prototype or seat dispatch. No
+owner real-data run or attestation is required, and the data-boundary maturity
+row stays L3. Schema-publication controls and builder/reviewer scope controls
+are explicitly tabled.
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 
