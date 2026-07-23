@@ -119,6 +119,29 @@ Default starting guidance: Foreman High/high (judgment-dense, low build volume);
 
 **Foreman helper (optional).** Within the prototype process, the foreman may delegate mechanical, auditable clerical work to an Economy- or Medium-tier helper (a "clerk") under the sub-agent confirmation gate, remaining fully accountable for everything the helper touches. A task is delegable only if it is mechanical, pass/fail-checkable, and produces evidence the foreman can audit at a glance (command output, a diff, an existence check) — never a judgment. Delegable examples: maintaining the `SEAT.md` table; assembling round files for reviewers; tagging exhibits and deleting branch refs; enforcing log-hygiene formatting; mechanically confirming each cited exhibit tag exists (a traceability existence check); running data-safety scans on merged documents; collating the fixed-shape disposition packet; and applying status or wording edits the foreman dictates. The helper never triages findings, recommends or decides a disposition, assigns or revises capability tiers, expands or contracts scope, composes what a status line means, reviews artifact quality, or approves or ratifies anything. This is an optional economy, not a required seat: on light efforts the foreman does the clerical shell itself. The same principle may later be extended to the milestone lifecycle, but is formalized here for the prototype process only.
 
+### Foreman context routing
+
+Audience: Agents
+
+A routine foreman resume begins by rendering
+`tools/foreman_context.py --ref <explicit-ref>`. The output is an advisory,
+provenance-bearing capsule: it reads only one committed ref, names the source
+blobs that supplied its state, reports worktree drift separately, and refuses
+missing, malformed, or contradictory re-entry metadata. It is never a second
+authority. `AGENTS.md`, accepted ADRs, governance, role seeds, milestone plans,
+and charters control on any conflict; a capsule omission never grants an
+exception.
+
+The capsule routes the foreman to the complete documents required for the
+proposed action. Before dispatch, ADR drafting, schema/fixture work,
+merge/records work, or any other mapped action, read those sources in full and
+follow their existing gates. Before **planning a new milestone**, read up to the
+five most recent milestone retrospectives, newest first, even when the capsule
+already names them. That historical read is a planning prerequisite, not a
+wholesale requirement for resuming an already planned or executing milestone.
+If the capsule refuses, read the named committed sources directly, reconcile the
+selected ref, and do not work around the refusal with a prose summary.
+
 **External builder handoff.** When a builder is intentionally resumed in an
 owner-controlled context, the foreman first makes the repository state
 self-describing: `SEAT.md` binds the seat to its role, charter, branch, and
@@ -128,6 +151,52 @@ the completion contract. The foreman's handoff message ends with exactly
 next response contains only the builder prompt. The prompt points through the
 repository entry chain and asks the builder to echo its understood scope, rung
 ceiling, and stop conditions before writing. It does not duplicate the charter.
+
+### Builder, reviewer, and clerk context capsules
+
+Audience: Agents
+
+The foreman stages a compact **Context Capsule** in every new builder or review
+charter before requesting owner approval. It names the source ref and resolved
+dispatch commit, exact object/range, role, scope, evidence-rung ceiling where
+applicable, stop conditions, and complete deep reads. A builder or reviewer
+uses it to orient, verifies the ref against Git, then reads the controlling
+charter and cited sources. The capsule is part of the charter's routing surface
+only: it never widens scope, replaces exact text, or authorizes dispatch.
+
+For clerical work, the foreman stages a **Clerk Task Capsule** with one
+mechanical task, source ref/commit, allowed input paths, expected output shape
+and paths, verification, and a stop rule. A clerk never chooses a current task
+by reading phase state or the handoff; any missing or ambiguous capsule is a
+stop. ADR-0034 applies to every builder, reviewer, and clerk dispatch. The
+Trusted Advisor is owner-launched strategic counsel and is outside this
+operational-capsule rule.
+
+Charters use this compact shape:
+
+```md
+## Context Capsule
+
+- Source ref and resolved dispatch commit:
+- Exact object or commit range:
+- Role:
+- Scope and evidence-rung ceiling (if applicable):
+- Stop conditions:
+- Full reads before acting:
+```
+
+Clerk task records use this shape:
+
+```md
+## Clerk Task Capsule
+
+- Source ref and resolved dispatch commit:
+- One mechanical task:
+- Allowed repository-relative inputs:
+- Required output shape and paths:
+- Verification:
+- Stop rule:
+```
 
 **Log hygiene during open rounds.** Process-log entries and commit messages for landed same-round reviews are event-only while the round is open; outcome summaries are written only at round close.
 

@@ -1,3 +1,56 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "topic": "live-run-trust-domains",
+  "status": "planning only; no charter or dispatch authorized",
+  "seat": "docs/prototypes/live-run-trust-domains/SEAT.md",
+  "scope": [
+    "define Developer/Supply, Live-Run Data, Publication, and Owner Authorization domains",
+    "compare coupled and separate-live-identity postures with synthetic evidence only",
+    "resolve guarded transport's relation to the live-data boundary"
+  ],
+  "non_goals": [
+    "no real workspace, credential, remote, live run, or owner attestation",
+    "no enforcement substrate, credential store, push proxy, or transport implementation",
+    "no L3-to-L4 maturity claim"
+  ],
+  "deep_reads": {
+    "dispatch": [
+      "AGENTS.md#Prototype-process dispatch",
+      "docs/adr/0005-prototype-evidence-for-consequential-adrs.md#Decision",
+      "docs/adr/0013-prototype-economic-gates.md#Decision",
+      "docs/adr/0034-explicit-owner-approval-for-every-dispatch.md#Decision",
+      "docs/prototypes/live-run-trust-domains/plan.md#Gate 8 — seats and authority"
+    ],
+    "adr_draft": [
+      "docs/adr/0031-real-data-residency-boundary.md#Decision",
+      "docs/adr/0032-contribution-boundary.md#Decision",
+      "docs/adr/0033-production-package-resolver.md#Decision",
+      "docs/governance/constitution.md#Article 18 — Quarantine",
+      "docs/governance/engineering-constraints.md#E18.1 (Quarantine) — Structural walls",
+      "docs/governance/engineering-constraints.md#E18.2 (Quarantine) — Egress hygiene"
+    ],
+    "new_milestone": [
+      "PROJECT_PLANNING.md#Required Milestone Plan Contents",
+      "docs/milestone-retrospectives/2026-07-22-push-envelope-preflight-and-bypass-visibility.md",
+      "docs/milestone-retrospectives/2026-07-22-correction-authority-and-marshaller-simplification.md",
+      "docs/milestone-retrospectives/2026-07-21-dividends-and-schedule-b-slice.md",
+      "docs/milestone-retrospectives/2026-07-18-first-real-return-slice.md",
+      "docs/milestone-retrospectives/2026-07-15-core-tax-conditions-and-presentation-integration.md"
+    ],
+    "schema_or_fixture": [
+      "AGENTS.md#Schema Publication Protocol",
+      "AGENTS.md#Fixture Rules",
+      "AGENTS.md#Data Safety Rules"
+    ],
+    "merge_or_records": [
+      "docs/adr/0030-branch-and-merge-strategy.md#Decision",
+      "docs/roles/foreman.md#Standing disciplines",
+      "PROJECT_PLANNING.md#Milestone Execution Branch Protocol"
+    ]
+  }
+}
+-->
 # Milestone: Live-Run Trust-Domain Definition
 
 Status: **draft — owner-selected direction, 2026-07-23.** This plan authorizes

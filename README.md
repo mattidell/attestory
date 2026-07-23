@@ -19,6 +19,7 @@ This is the project's third iteration. The first proved a working return generat
 python3 -m unittest            # test suite
 python3 tools/governance_lint.py   # governance set structural checks
 python3 -m mypy                # type checks (tools)
+python3 tools/foreman_context.py --ref HEAD --format markdown  # advisory foreman re-entry routing
 python3 tools/audit_push_envelope_posture.py  # local synthetic hook/bypass posture
 python3 -m packages.kernel.runners.inspect_workspace --workspace packages/sample_data/kernel/demo_workspace
 python3 -m packages.derivation.runners.derive --scenario packages/sample_data/derivation/scenarios/first_slice/scenario.json

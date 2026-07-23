@@ -14,6 +14,13 @@ Read these before substantial work:
 - `docs/phases/<phase-name>/milestones/*.md`: milestone execution plans with track-level plans.
 - Up to the five most recent files in `docs/milestone-retrospectives/`, newest first, before planning a new milestone.
 
+For a routine foreman re-entry, first render
+`tools/foreman_context.py --ref <explicit-ref>`. Its capsule is advisory and
+must be reconciled against Git; it directs action-specific deep reads but never
+replaces these canonical references, accepted ADR text, or the five-retrospective
+read before planning a new milestone. If the capsule refuses, inspect the named
+committed sources directly and resolve the disagreement before acting.
+
 ## Owner Posture and Collaboration Rules
 
 The owner's development posture is defined in `PROJECT_PLANNING.md` (Development Posture). Operational consequences for agents:
@@ -121,6 +128,28 @@ Guardrails:
 - The `archive/` tree is historical reference only. It holds the pre-governance v2 engine, which predates the Ontology and violates it in places. Use it for tax-domain reference and sanity checks, never as a source of contracts, schemas, or patterns.
 - Do not build on reserved or deferred ontology entries (T1 derived-finding authority construction; T2 stance; redaction). If a milestone appears to need one, stop and surface the resolution as a Tier 3 decision instead of improvising doctrine.
 - Changes to `docs/governance/` require a new version and user ratification; agents may propose governance changes but never adopt them.
+
+### Schema Publication Protocol
+
+Article 9 and ADR-0003 make every published schema version immutable. A
+schema file named in any `packages/schemas/*/published.json` is published
+history, including its exact bytes. A checksum is an integrity witness, never
+permission to revise that history.
+
+- Never edit, reformat, move, delete, or replace an existing published
+  `*.vN.schema.json` file. A semantic or byte-level change requires a new,
+  unused version filename, with matching `$id` and `schema` discriminator;
+  existing instances remain bound to their recorded version unless an explicit
+  migration contract says otherwise.
+- Never hand-edit an existing checksum in `published.json`. After adding a new
+  schema file, use `packages.kernel.schema_registry.write_manifest` for that
+  schema directory to append its checksum. If the generated manifest changes
+  an existing entry or removes one, stop: restore the published file and make
+  the change as a new schema version instead.
+- Before handing off a schema change, inspect the manifest diff to confirm it
+  only adds the new filename and run `python3 -m unittest tests.test_schema_registry`
+  plus the track's schema and consumer tests. The registry test proves that a
+  mutated published schema and a republished checksum are both rejected.
 
 ## Fixture Rules
 

@@ -28,6 +28,16 @@ scan.
 
 ## Status
 
+- Foreman Context Loading — **role-capsule records verified; review and owner
+  merge required** (owner-directed 2026-07-23). The process milestone
+  adds a deterministic, provenance-bearing advisory foreman capsule, compact
+  metadata for volatile re-entry records, charter capsules for builders and
+  reviewers, mechanical task capsules for clerks, action-specific deep-read
+  routing, and an honest handoff boundary. Trusted-advisor context is out of
+  scope. It changes neither the live-run topic's scope nor its planning-only
+  status; no seat is authorized by this entry. Plan:
+  `milestones/foreman-context-loading.md`.
+
 - Live-Run Trust-Domain Definition — **planning draft** (owner-directed
   2026-07-23). A synthetic-only Tier 3 decision/prototype topic: define the
   Developer/Supply, Live-Run Data, Publication, and Owner Authorization
