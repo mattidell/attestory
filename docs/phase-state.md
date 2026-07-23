@@ -38,15 +38,17 @@ Prior milestone: Push-Envelope Preflight and Bypass Visibility — merged PR #46
 (`9cc6e89`, 2026-07-22); its plan and record remain at
 `milestones/push-envelope-preflight-and-bypass-visibility.md`.
 
-**➡️ Next: Foreman Context Loading has its decision and implementation records
-prepared on its Track 2 branch, pending the required review and owner merge.**
-Its plan is `docs/phases/real-return/milestones/foreman-context-loading.md`.
-The selected Live-Run Trust-Domain Definition topic remains planning-only and
-does not gain a charter or dispatch from this process milestone. After the
-Foreman Context Loading merge, phase state returns to the live-run plan and
-prototype gate; the owner must still approve the first charter and every later
-dispatch. The live-run evidence remains synthetic-only, with no owner real-data
-run or attestation and no data-boundary maturity lift.
+**➡️ Next: Foreman Context Loading has an owner-approved scope revision before
+review.** Its plan is
+`docs/phases/real-return/milestones/foreman-context-loading.md`. The revision
+adds charter capsules for builders/reviewers and mechanical task capsules for
+clerks; it leaves the trusted advisor out of scope. The selected Live-Run
+Trust-Domain Definition topic remains planning-only and does not gain a charter
+or dispatch from this process milestone. After the Foreman Context Loading
+merge, phase state returns to the live-run plan and prototype gate; the owner
+must still approve the first charter and every later dispatch. The live-run
+evidence remains synthetic-only, with no owner real-data run or attestation and
+no data-boundary maturity lift.
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 

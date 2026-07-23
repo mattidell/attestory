@@ -2,16 +2,19 @@
 {
   "version": 1,
   "topic": "foreman-context-loading",
-  "status": "records prepared; review and owner merge required",
+  "status": "owner-approved scope revision; capsule records require update",
   "scope": [
     "advisory provenance-bound foreman context routing",
+    "charter context capsules for builders and reviewers",
+    "mechanical task capsules for clerks",
     "single-ref metadata validation and deterministic rendering",
     "action-specific deep reads and compact continuity records"
   ],
   "non_goals": [
     "no change to live-run dispatch authority or maturity",
     "no real workspace, credential, remote, or personal output access",
-    "no replacement of accepted authority with generated text"
+    "no replacement of accepted authority with generated text",
+    "no trusted-advisor context change"
   ],
   "deep_reads": {
     "implementation": [
@@ -52,17 +55,18 @@
 -->
 # Milestone: Foreman Context Loading
 
-Status: **records prepared on Track 2 — review and owner merge required.**
-This interstitial process-maintenance milestone does not replace the selected
-Live-Run Trust-Domain Definition topic or authorize its first charter.
+Status: **owner-approved scope revision — capsule records require update before
+review.** This interstitial process-maintenance milestone does not replace the
+selected Live-Run Trust-Domain Definition topic or authorize its first charter.
 
 ## Objective
 
-Make a resumed foreman's initial context both smaller and more reliable. A
-deterministic, provenance-bearing context capsule will route the foreman from
-one resolved Git revision to the current seat, active plan, hard stops, and
-the exact documents that become load-bearing for a proposed action. The capsule
-is navigation, never a new source of authority.
+Make each operational role's initial context smaller and more reliable. A
+deterministic, provenance-bearing foreman capsule routes the foreman from one
+resolved Git revision to the current seat, active plan, hard stops, and the
+exact documents that become load-bearing for a proposed action. Builder and
+reviewer charters carry their own compact capsules; clerks receive a mechanical
+task capsule. None is a new source of authority.
 
 ## Current state
 
@@ -90,10 +94,17 @@ foreman mechanism before any live-run prototype seat is consumed.
 3. Add the minimal structured front matter to phase state, foreman handoff,
    the active milestone plan, and its prototype seat record. Each field has a
    named owning document; the tool must expose every source path and blob id.
-4. Replace repeated operational prose in the role seed, handoff, phase state,
+4. Require every new builder/reviewer charter to carry a compact Context
+   Capsule: selected ref/commit, exact object or range, role, scope,
+   evidence-rung ceiling, stop conditions, and action-specific full reads.
+   This is charter content, not a Python renderer.
+5. Require every clerk dispatch to carry a compact Clerk Task Capsule: selected
+   ref/commit, mechanical input paths, output shape, and stop rule. A clerk no
+   longer reconstructs a dispatch from phase state and handoff prose.
+6. Replace repeated operational prose in the role seed, handoff, phase state,
    and active plan with pointers to the owning authority where that does not
    remove a reader-facing product statement or a required stop condition.
-5. Amend the planning protocol so a validated capsule and action-specific
+7. Amend the planning protocol so a validated capsule and action-specific
    deep reads satisfy initial re-entry routing, while full authority remains
    mandatory at the point an action relies on it. The five-retrospective rule
    becomes a new-milestone-planning read, not a routine execution-resume load.
@@ -108,7 +119,10 @@ foreman mechanism before any live-run prototype seat is consumed.
   lossy rewrite of canonical text.
 - No claim that an advisory capsule overrides an accepted ADR, `AGENTS.md`,
   a milestone plan, or a required review.
-- No live-run charter, builder/reviewer dispatch, or maturity-matrix change.
+- No live-run charter, builder/reviewer/clerk dispatch, or maturity-matrix
+  change.
+- Trusted-advisor context remains deliberately unchanged; its strategic,
+  owner-launched read set is not an operational dispatch problem in this scope.
 - No deletion of durable planning history; the handoff may be shortened only
   because its durable history remains reachable through its existing pointers.
 
@@ -126,8 +140,10 @@ as standing prototype authority.
 
 The ADR must preserve ADR-0039's advisory-routing posture and ADR-0034's
 dispatch gate. It must make `AGENTS.md` and accepted ADR text controlling,
-name the selected Git ref and source blobs, and require the renderer to fail
-closed on malformed or contradictory volatile state.
+name the selected Git ref and source blobs for the foreman renderer, and require
+the renderer to fail closed on malformed or contradictory volatile state. Its
+amendment must bind charter and clerk-task capsules to their dispatching
+documents without introducing a second renderer or an advisor-context change.
 
 ## Fixtures and verification
 
@@ -140,6 +156,10 @@ Synthetic fixture repositories will cover:
   before a capsule is emitted; and
 - an unavailable ref or missing source document, rejected with no fallback to
   a different revision.
+
+Documentation checks prove that a builder/reviewer charter capsule carries all
+required fields and that a clerk task capsule is enough to perform the stated
+mechanical task without reading phase state or the handoff.
 
 Track verification includes focused unit tests for the renderer, full
 `.venv/bin/python3 -m unittest`, `.venv/bin/python3 -m mypy`,
@@ -167,14 +187,17 @@ blob ids, branch name, and porcelain status.
 3. A contradictory, malformed, missing, or stale selected source is refused
    honestly; the tool never silently reads a different ref or working-tree
    content.
-4. The active re-entry documents expose compact, validated metadata and no
+4. Builder/reviewer charters and clerk tasks have compact role-specific
+   capsules that preserve their existing charter/owner gates without calling
+   the foreman renderer.
+5. The active re-entry documents expose compact, validated metadata and no
    longer duplicate their shared hard stops as independent rules.
-5. The handoff describes current state and pointers rather than a second
+6. The handoff describes current state and pointers rather than a second
    historical archive, while durable historical references remain intact.
-6. The planning protocol distinguishes initial routing, action-specific deep
+7. The planning protocol distinguishes initial routing, action-specific deep
    reads, and the full retrospective read required before planning a new
    milestone.
-7. Full verification passes with synthetic-only committed data.
+8. Full verification passes with synthetic-only committed data.
 
 ## Tracks
 
@@ -218,16 +241,17 @@ fallback. No existing artifact shape changes.
 
 ### Track 2 — Re-entry documents and completion records
 
-**Goal:** install the metadata, remove redundant current-state prose, and
-record the protocol's operational boundary.
+**Goal:** install the metadata, role-specific capsules, remove redundant
+current-state prose, and record the protocol's operational boundary.
 
 **Boundary:** do not alter the live-run prototype's scope, dispatch authority,
 or maturity claim.
 
 **Inputs:** accepted ADR-0042 and Track 1's validated renderer.
 
-**Outputs:** compact metadata in the four volatile sources, planning/role
-updates, a shortened handoff, phase/roadmap pointers, and retrospective.
+**Outputs:** compact metadata in the four volatile sources, a builder/reviewer
+charter-capsule contract, a clerk-task-capsule contract, planning/role updates,
+a shortened handoff, phase/roadmap pointers, and retrospective.
 
 **Verification:** renderer succeeds against `HEAD`; deep-read map is reviewed
 against the cited controlling texts; full verification floor passes.
