@@ -394,6 +394,85 @@ an infrastructure constraint on concurrent multi-agent UI work.
 builders take *deliberate, documented* positions (vs cycle 3's accidental echo).
 Naming a criterion converts silent divergence into an explicit, reviewable choice.
 
+### Cycle 5 — 2026-07-23 — mechanizing the "needs-an-eye" residual (a11y/legibility)
+
+**Purpose.** Builders targeted accessibility & legibility as first-class (carrying
+all prior contracts + the isolated-browser fix); reviewers ran an automated
+a11y/legibility battery **plus live fault injection** to quantify how much of the
+residual prior cycles parked as "human-only" is actually mechanizable.
+
+**Result (both reviewers, closely agreeing): ~65–80% of the "needs-an-eye"
+residual is now mechanized.**
+- **NOW-MECHANIZED** (hard pass/fail, run live): WCAG contrast (recomputed from
+  `getComputedStyle`), ARIA landmarks / `aria-labelledby` / heading order,
+  keyboard reachability + `:focus-visible` (**only via real CDP key events —
+  naive `.focus()` gives false negatives**, so methodology is part of the claim),
+  citation identity under reuse (normalized-DOM diff), reuse backlink
+  existence/resolution, and **fail-loud/blast-containment via live fault
+  injection** — strictly stronger than the static source-reading both DESIGN docs
+  settled for.
+- **PARTIALLY**: affordance discoverability and blocked-state salience — the
+  *structural* half (a persistent cue exists; a measurable border/role delta) is
+  mechanized; the *perceptual* half (does it read as noticeable/alarming) is not.
+- **IRREDUCIBLY-HUMAN**: cognitive load / wording clarity, cross-platform
+  glyph/emoji rendering, holistic "muddy/unbalanced" impression.
+
+**Live injection caught real defects static reading missed:** A's error banner
+interpolates `err.message` (contradicts A's own no-echo claim — latent leak path);
+A wipes a whole section on a fault while **B contains at citation-list level, so B
+can display a published `$1,234` whose citation trail is broken** (neither doc
+flagged this); and **B's blocked-section salience is measurably identical to
+sibling sections**, contradicting B's "distinct at a glance" claim (A escalates at
+section level).
+
+**Isolation held cleanly** — both builders and both reviewers drove their own
+headless Chrome (fresh `--user-data-dir`, the cycle-4 fix); no cross-contamination,
+no parent `ls`. The demonstrated fix works.
+
+**Meta:** the "mechanizable" boundary is not fixed — it moved ~70% this cycle
+purely by adopting stronger *technique* (real key events, live fault injection,
+luminance math), not better prototypes. "Needs an eye" was partly "nobody
+automated it yet."
+
+## Interim findings after five cycles (2026-07-23) — encodable
+
+**Driving question — "can we develop UI/UX under these constraints
+(agent-authored, agent-reviewed, owner rarely looking)?" — answered: yes, with a
+demonstrated loop.** Surface a criterion via adversarial execution-based review →
+write it into the next brief → the following generation satisfies it, and
+satisfaction is mechanically verifiable. Cycle 3 proved the loop; cycles 4–5
+extended it to new properties (reuse identity, sub-section blast, a11y) without
+the loop weakening.
+
+**Emergent criteria set (raw material for a future decision — NOT yet an ADR):**
+zero-authority projection incl. no value *derived* from bad data; honest blocking
+(no fabricated value; show what's-missing + remedy); fail-loud (visible on-page
+signal; rejected values redacted from error text); **blast containment at
+sub-section granularity** — a broken part must not hide correct siblings, but also
+must not silently show a value whose evidence is broken; citation identity under
+reuse (structural: one render path; freeze-prevent or signature-detect); an
+accessibility baseline (contrast / ARIA / keyboard / focus); reuse legibility
+(backlinks). **Open policy questions** a real decision must rule on:
+redact-vs-echo; whether derived/diagnostic values count under zero-authority; a
+blocked-state-salience convention.
+
+**Mechanization result:** ~65–80% of UI quality on this surface is agent-verifiable
+with the right technique; the irreducible remainder is Gestalt/visual-weight,
+wording quality, and cross-platform glyphs. Implication for an owner who won't
+look: roughly two-thirds-plus of UI quality is evaluable without human eyes; the
+rest needs either a brief human glance or is genuinely deferrable.
+
+**Infrastructure / process findings:** the **Playwright MCP browser is a shared
+singleton** — sealed agents must drive their own headless Chrome with a fresh
+`--user-data-dir` (demonstrated), or run sequentially; **exact-paths + no parent
+`ls`** for file isolation; **standardized break-tests + live fault injection**
+belong in every review brief (static reading over-trusts DESIGN.md); the repo's
+own `innerHTML` security hook repeatedly forced safer `createElement`/`textContent`
+builders — a positive externality worth keeping.
+
+**Status:** these are concrete, preservable findings — the plan's PR-preservation
+trigger is met. Awaiting owner direction at regroup.
+
 ## Data safety
 
 All amounts, payers, source identities, citations, workspace references, and
