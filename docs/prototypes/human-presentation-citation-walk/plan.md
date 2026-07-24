@@ -184,7 +184,73 @@ and the first entries in the cycle log. The owner authorizes the four dispatches
 the deliverable; concrete, encodable findings here are what eventually justify a
 preservation PR.)*
 
-- *Cycle 1 — pending owner dispatch authorization.*
+### Cycle 1 — 2026-07-23 — citation walk: one published + one blocked line
+
+**Setup.** Two sealed rival builders + two sealed reviewers, all Sonnet/Medium,
+over a shared synthetic fixture (line 2b published & walkable to two payer facts;
+line 16 honestly blocked). Disposable HTML in `scratchpad/cycle1/`; nothing
+merged. ~6–8 min end to end.
+
+**Built.** Both builders independently chose a **self-contained single-file HTML**
+walk with one inline `Object.freeze`d `FIXTURE` as the sole data source — same
+medium, different enforcement of the hard property.
+
+**Decisive finding (independently replicated by both reviewers → high
+confidence).** Under *valid* input both prototypes hold zero-authority: neither
+renders a value the fixture didn't publish; both show line 16 blocked with no
+fabricated number. They diverge on **failure-mode visibility**, and the
+divergence is real and found only under execution:
+- *Builder A* guards on key **presence** (`hasOwnProperty('value')`), no
+  top-level try/catch. A tampered blocked-line value throws uncaught in the
+  render loop, halting the script **before A's own advertised self-check banner
+  runs** — the blocked line silently vanishes with zero on-page signal. A
+  non-numeric published value renders a literal `$NaN`.
+- *Builder B* guards on **type** (`typeof === "number"`), formats through a
+  `fmtMoney` that throws on non-finite input, builds DOM via
+  `textContent`/`createElement` only (no `innerHTML` — forced by the repo
+  security hook, which strengthened it), and wraps rendering in a try/catch that
+  emits a visible red "render refused" banner. Strictly stronger.
+
+**Findings.**
+1. **Zero-authority is almost entirely mechanically checkable** — correctness
+   under valid input *and* failure under tamper are establishable by headless
+   execution. Core bet validated: agents can evaluate this property with no human
+   looking. (Q b, c)
+2. **"Honest failure / fails loud" is unspecified and untested today.** Neither
+   fixture nor brief said a guard failure must be *visible on-page*; the builders
+   silently invented opposite answers. Static review alone would have scored them
+   equivalent — only tamper execution exposed the gap. → a future decision needs
+   honest failure defined as a **testable property with an automated tamper
+   suite**, not a design-doc assertion. (Q b, d, e)
+3. **Needs-an-eye residual is narrow but real:** whether the blocked state and
+   `$NaN` *read as obviously wrong at a skim*, WCAG contrast, keyboard/screen-
+   reader nav (neither handled focus on clickable pins), trust aesthetic, narrow
+   viewport. Everything else fell to code + headless. (Q c)
+4. **Candidate product criteria surfaced (not settled):** is honest blocking a
+   *prominent first-class state* (A auto-expanded it; B left it collapsed, one
+   un-cued click away — B's own doc flagged this)? Should an *absent* fact id look
+   different from a *present* citation pin (B flagged they look identical)? An
+   accessibility baseline. (Q d)
+
+**Process findings (Q e — where the process breaks).**
+- **Reviewer sealing leaked.** Both agents wrote into the shared `cycle1/` tree;
+  Reviewer 2's hand-built tamper fixtures (`cycle1/tamper/`) were discovered and
+  reused by Reviewer 1, who noted he'd have filed a weaker review without them.
+  → give each sealed agent an **isolated output dir**, and **name break-test
+  fixtures in the brief** rather than letting reviewers invent them.
+- **Review effort varied ~2×** (R1 397s/65 tools; R2 220s/29). Both caught the
+  decisive break, so the finding is robust, but effort is not uniform.
+- **Headless tooling pollutes the repo root** (`.playwright-mcp/` dropped
+  repeatedly; `file://` sandboxed, so agents served locally). Resolved:
+  `.playwright-mcp/` gitignored (owner-approved 2026-07-23).
+
+**Proposed next-cycle questions (owner picks and sizes to the ~5–15 min window):**
+(i) formalize "honest failure" as a small **automated tamper harness** — the
+reusable zero-authority conformance check the reviewers hand-rolled; (ii) probe
+the needs-an-eye gap — does an a11y/contrast tool + a structured "skim
+legibility" rubric close part of it, or is a human glance irreducible here?;
+(iii) tighten method — isolated per-agent dirs + break-fixtures-in-brief — and
+re-run to see if sealing holds.
 
 ## Data safety
 
