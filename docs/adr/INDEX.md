@@ -10,7 +10,7 @@ are **inert** — never load as authority (ADR-0013 amendment).
 
 **Role cores** — each seat boots from its seed file in `docs/roles/`, which
 carries posture and points here for the binding ADRs:
-- **Foreman** (`docs/roles/foreman.md`) — core ADRs 0005, 0013, 0030, 0034
+- **Foreman** (`docs/roles/foreman.md`) — core ADRs 0005, 0013, 0030, 0043
   (+ `docs/phase-state.md`, `docs/foreman-handoff.md`, the active plan).
 - **Builder** (`docs/roles/builder.md`) / **Reviewer**
   (`docs/roles/reviewer.md`) — core ADRs 0003, 0010 (+ the dispatching
@@ -53,7 +53,7 @@ carries posture and points here for the binding ADRs:
 | 0031 | accepted | boundary | Real data lives out-of-repo by rule; fail-closed classifier; envelope gates; nothing personal ever crosses. |
 | 0032 | accepted | boundary | Contribution is a first-class event distinct from a run; runs consume facts, never inputs; batches fail closed. |
 | 0033 | accepted | packages | Production package resolver: user adoption pins a verified release; bytes verified before a strict exclusive graph resolves. |
-| 0034 | accepted | process | Every foreman sub-agent dispatch requires explicit owner approval (reviewer seats pre-authorized by plan approval). |
+| 0034 | superseded | — | Inert (see 0043). |
 | 0035 | accepted | composition | 1099-DIV: two per-box families (1a→3b, 1b→3a); `dividend-universe.v1`; recorded-non-composable boxes; admission-locus 1b ≤ 1a rejection; `CAPITAL_GAIN_DISTRIBUTION_RECORDED` signal. |
 | 0036 | accepted | attachments | Attachment citizen: three atomic states; declared requirement conditional; `collect_members` rows + `ITEMIZATION_TIE_OUT_VIOLATION`; presence-semantics categorical Part III; generic across schedules. |
 | 0037 | accepted | rules, explanation | `conditional_dependency_set`: one walk names every absent member of a conditional dependency set (rule-artifact.v3 only). |
@@ -62,3 +62,4 @@ carries posture and points here for the binding ADRs:
 | 0040 | accepted | process | Trusted Advisor: stateless owner-launched High-tier counsel seat (`docs/roles/advisor.md` seed, ≤30k); invoked at selection/plan-approval/Tier-3-second-read/retrospective/phase-boundary points; zero authority; consequential counsel ends in written promotion candidates. |
 | 0041 | accepted | facts, closure | Closes `supersession.policy` to `free`/`locked`/`closed-on-attestation`; state-gated only, no actor/identity concept. |
 | 0042 | accepted | process, context | Advisory, explicit-ref routing: a deterministic foreman capsule plus charter capsules for builders/reviewers and mechanical task capsules for clerks; all preserve full action-specific reads and fail closed on ambiguity. |
+| 0043 | accepted | process | The Dispatch section of `docs/roles/foreman.md` is the operative instruction: spawning creates a sub-agent; dispatch is an owner-authorized foreman spawn for an approved charter role; other roles may not spawn. |
