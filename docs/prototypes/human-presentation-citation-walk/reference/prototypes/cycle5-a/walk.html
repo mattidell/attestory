@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Citation Walk — Cycle 5 (disposable prototype, synthetic demo-* data only)</title>
+<style>
+  :root{
+    --bg:#ffffff;
+    --text:#1a1a1a;          /* contrast vs white ~ 17.4:1 */
+    --link:#0b3d91;          /* contrast vs white ~ 10.05:1 */
+    --published-bg:#1b5e20;  /* white-text-on-bg contrast ~ 7.87:1 */
+    --blocked-bg:#7a0000;    /* white-text-on-bg contrast ~ 11.49:1 */
+    --border:#555555;
+    --focus:#000000;         /* focus outline vs white = 21:1 */
+    --detail-bg:#f4f4f4;
+    --error-bg:#fff3f3;
+    --error-border:#7a0000;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#121212;
+      --text:#f2f2f2;
+      --link:#8ab4ff;
+      --published-bg:#2e7d32;
+      --blocked-bg:#c62828;
+      --border:#999999;
+      --focus:#ffd54f;
+      --detail-bg:#1e1e1e;
+      --error-bg:#2a1414;
+      --error-border:#ff8a80;
+    }
+  }
+  * { box-sizing: border-box; }
+  html,body{ margin:0; padding:0; background:var(--bg); color:var(--text);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; line-height:1.5; }
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:var(--link); color:#fff;
+    padding:.5rem 1rem; z-index:100;
+  }
+  .skip-link:focus{ left:0.5rem; top:0.5rem; }
+  header[role="banner"]{ padding:1rem 1.25rem; border-bottom:2px solid var(--border); }
+  header h1{ margin:0 0 .25rem; font-size:1.4rem; }
+  header .subtitle{ margin:0; font-size:.9rem; opacity:.85; }
+  nav[aria-label="Sections"]{ padding: .75rem 1.25rem; border-bottom:1px solid var(--border); }
+  nav ul{ list-style:none; display:flex; flex-wrap:wrap; gap:1rem; margin:0; padding:0; }
+  nav a{ color:var(--link); text-decoration: underline; }
+  main{ padding:1.25rem; max-width:56rem; margin:0 auto; }
+  section{ margin-bottom:2rem; border:1px solid var(--border); border-radius:8px; padding:1rem 1.25rem; }
+  section h2{ margin-top:0; font-size:1.15rem; }
+  section h3{ font-size:1rem; margin-bottom:.4rem; }
+  .badge{
+    display:inline-block; font-weight:700; font-size:.78rem; letter-spacing:.03em;
+    padding:.2rem .55rem; border-radius:999px; color:#fff; text-transform:uppercase;
+  }
+  .badge.published{ background:var(--published-bg); }
+  .badge.blocked{ background:var(--blocked-bg); }
+  .line-value{ font-size:1.6rem; font-weight:700; margin:.35rem 0; }
+  .line-value.blocked-value{ font-size:1.05rem; font-weight:600; }
+
+  /* Citation affordance: visible AT ALL TIMES, not only on hover/focus */
+  button.citation{
+    font: inherit; color: var(--link); background: var(--detail-bg);
+    border:2px solid var(--link); border-radius:6px;
+    padding:.3rem .6rem; margin:.15rem .25rem .15rem 0; cursor:pointer;
+    text-decoration: underline dotted; text-underline-offset: 3px;
+    display:inline-flex; align-items:center; gap:.35rem;
+  }
+  button.citation .citation-icon{ font-size:.9em; }
+  button.citation:hover{ background: var(--link); color:#fff; }
+  /* focus-visible: distinct thick outline, keyboard-detectable, not color-only */
+  button.citation:focus-visible,
+  a:focus-visible,
+  .toc-link:focus-visible{
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .citation-detail{ margin:.4rem 0 .75rem 0; padding:.6rem .75rem; background:var(--detail-bg);
+    border-left:4px solid var(--link); border-radius:4px; font-size:.92rem; }
+  .citation-detail[hidden]{ display:none; }
+  .citation-detail dl{ margin:0; display:grid; grid-template-columns:max-content 1fr; gap:.15rem .75rem; }
+  .citation-detail dt{ font-weight:600; }
+  .backlink{ display:inline-block; margin-top:.4rem; font-style:italic; }
+  .backlink::before{ content: "\2194 "; font-style:normal; }
+
+  .subtotal-check{ font-size:.9rem; margin-top:.5rem; }
+  .subtotal-check .tie{ font-weight:700; }
+
+  /* Blocked line: maximally salient */
+  section.blocked-line{ border:3px solid var(--blocked-bg); background: var(--error-bg); }
+  .blocked-banner{ display:flex; align-items:flex-start; gap:.6rem; }
+  .blocked-banner .icon{ font-size:1.4rem; line-height:1; }
+  .remedy-box{ margin-top:.6rem; padding:.6rem .75rem; border:1px dashed var(--blocked-bg); border-radius:6px; }
+
+  .section-error{ border:2px solid var(--error-border); background:var(--error-bg);
+    padding:.6rem .75rem; border-radius:6px; font-weight:600; }
+
+  footer{ padding:1.25rem; text-align:center; font-size:.85rem; opacity:.75; border-top:1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+  <h1>Form 1040 — Citation Walk</h1>
+  <p class="subtitle">Cycle 5 &middot; disposable prototype &middot; synthetic <code>demo-*</code> data only &middot; accessibility &amp; legibility focus</p>
+</header>
+
+<nav aria-label="Sections">
+  <ul>
+    <li><a class="toc-link" href="#line-2b">Line 2b — Taxable interest</a></li>
+    <li><a class="toc-link" href="#line-3b">Line 3b — Ordinary dividends</a></li>
+    <li><a class="toc-link" href="#sched-b">Schedule B</a></li>
+    <li><a class="toc-link" href="#line-16">Line 16 — Tax (blocked)</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <section id="line-2b" aria-labelledby="line-2b-h" data-section="line-2b"></section>
+  <section id="line-3b" aria-labelledby="line-3b-h" data-section="line-3b"></section>
+  <section id="sched-b" aria-labelledby="sched-b-h" data-section="sched-b"></section>
+  <section id="line-16" aria-labelledby="line-16-h" data-section="line-16" class="blocked-line"></section>
+</main>
+
+<footer>
+  Disposable citation-walk prototype (Builder A, Cycle 5). Not for production reuse.
+</footer>
+
+<script>
+"use strict";
+
+/* ============================================================
+   SINGLE SOURCE OF TRUTH — canonical facts.
+   Every citation site reads from here. There is exactly ONE
+   render path (renderCitation, using safe DOM construction —
+   no innerHTML/string concatenation anywhere on this page) so
+   identical facts render identically wherever cited: a
+   structural guarantee, not a convention someone could break
+   by hand-duplicating markup.
+   ============================================================ */
+const FACTS = Object.freeze({
+  "demo-fact-int-001": Object.freeze({
+    id: "demo-fact-int-001", kind: "1099-INT box 1",
+    payer: "demo-First Bank", amount: 1000,
+    contributed: "2026-07-11", sourceDoc: "demo-1099INT-firstbank"
+  }),
+  "demo-fact-int-002": Object.freeze({
+    id: "demo-fact-int-002", kind: "1099-INT box 1",
+    payer: "demo-Second CU", amount: 234,
+    contributed: "2026-07-11", sourceDoc: "demo-1099INT-secondcu"
+  }),
+  "demo-fact-div-001": Object.freeze({
+    id: "demo-fact-div-001", kind: "1099-DIV box 1a",
+    payer: "demo-Third Broker", amount: 500,
+    contributed: "2026-07-12", sourceDoc: "demo-1099DIV-thirdbroker"
+  })
+});
+
+/* Every place a fact is cited on this page. Adding a citation
+   site here is the ONLY way a fact appears anywhere — there is
+   no alternate code path that prints fact data directly. */
+const CITATION_SITES = [
+  { siteId: "cite-2b-int001",   factId: "demo-fact-int-001", context: "Line 2b" },
+  { siteId: "cite-2b-int002",   factId: "demo-fact-int-002", context: "Line 2b" },
+  { siteId: "cite-3b-div001",   factId: "demo-fact-div-001", context: "Line 3b" },
+  { siteId: "cite-schedb1-int001", factId: "demo-fact-int-001", context: "Schedule B — Part I" },
+  { siteId: "cite-schedb1-int002", factId: "demo-fact-int-002", context: "Schedule B — Part I" },
+  { siteId: "cite-schedb2-div001", factId: "demo-fact-div-001", context: "Schedule B — Part II" }
+];
+
+const SITES_BY_FACT = {};
+for (const site of CITATION_SITES) {
+  (SITES_BY_FACT[site.factId] ||= []).push(site);
+}
+
+/* ---------- tiny safe-DOM helper (no innerHTML anywhere) ---------- */
+function el(tag, attrs, children) {
+  const node = document.createElement(tag);
+  if (attrs) {
+    for (const [k, v] of Object.entries(attrs)) {
+      if (v === undefined || v === null) continue;
+      if (k === "className") node.className = v;
+      else node.setAttribute(k, v);
+    }
+  }
+  for (const child of children || []) {
+    if (child === undefined || child === null) continue;
+    node.appendChild(typeof child === "string" ? document.createTextNode(child) : child);
+  }
+  return node;
+}
+
+/* THE single citation render path. Every citation on the page,
+   regardless of which line/section calls it, goes through this
+   exact function and builds identical DOM (element types,
+   attributes, text) for a given factId — only the reciprocal
+   backlink list differs, by construction, since it names the
+   *other* sites for that fact. */
+function renderCitation(siteId, factId) {
+  const fact = FACTS[factId];
+  if (!fact) {
+    // No number is ever fabricated: an unknown fact id is a hard error,
+    // surfaced by the caller's try/catch (per-section containment).
+    throw new Error("citation references unknown fact id");
+  }
+  const detailId = siteId + "-detail";
+  const siblings = SITES_BY_FACT[factId].filter((s) => s.siteId !== siteId);
+
+  const button = el("button", {
+    type: "button", id: siteId, class: "citation",
+    "aria-expanded": "false", "aria-controls": detailId,
+    "data-fact-id": factId
+  }, [
+    el("span", { class: "citation-icon", "aria-hidden": "true" }, ["🔗"]),
+    el("span", { class: "citation-label" }, [`${fact.payer} — ${fact.kind} = ${fact.amount}`])
+  ]);
+
+  const dl = el("dl", null, [
+    el("dt", null, ["Fact ID"]), el("dd", null, [fact.id]),
+    el("dt", null, ["Payer"]), el("dd", null, [fact.payer]),
+    el("dt", null, ["Amount"]), el("dd", null, [String(fact.amount)]),
+    el("dt", null, ["Contributed"]), el("dd", null, [fact.contributed]),
+    el("dt", null, ["Source document"]), el("dd", null, [fact.sourceDoc])
+  ]);
+
+  const backlinkNodes = siblings.map((s) =>
+    el("a", { class: "backlink", href: "#" + s.siteId }, [`also cited in ${s.context}`])
+  );
+
+  const detail = el("div", {
+    id: detailId, class: "citation-detail", hidden: "",
+    role: "group", "aria-label": `Citation detail for ${fact.id}`
+  }, [dl, ...backlinkNodes]);
+
+  const wrapper = el("div", null, [button, detail]);
+  return wrapper;
+}
+
+/* Delegate click/keyboard activation for all citation buttons.
+   Native <button> is already keyboard-operable (Enter/Space, Tab
+   reachable) — this just toggles the disclosure. */
+document.addEventListener("click", (evt) => {
+  const btn = evt.target.closest("button.citation");
+  if (!btn) return;
+  const detail = document.getElementById(btn.getAttribute("aria-controls"));
+  const expanded = btn.getAttribute("aria-expanded") === "true";
+  btn.setAttribute("aria-expanded", String(!expanded));
+  if (detail) detail.hidden = expanded;
+});
+
+/* ---------- per-section renderers, each independently guarded ---------- */
+
+function renderLine2b(container) {
+  container.appendChild(el("h2", { id: "line-2b-h" }, [
+    "Line 2b — Taxable interest ",
+    el("span", { class: "badge published" }, ["Published"])
+  ]));
+  container.appendChild(el("p", { class: "line-value" }, ["1234"]));
+  container.appendChild(renderCitation("cite-2b-int001", "demo-fact-int-001"));
+  container.appendChild(renderCitation("cite-2b-int002", "demo-fact-int-002"));
+  container.appendChild(el("p", { class: "subtotal-check" }, [
+    "Subtotal check: 1000 + 234 = ",
+    el("span", { class: "tie" }, ["1234 ✓ ties to published value"])
+  ]));
+}
+
+function renderLine3b(container) {
+  container.appendChild(el("h2", { id: "line-3b-h" }, [
+    "Line 3b — Ordinary dividends ",
+    el("span", { class: "badge published" }, ["Published"])
+  ]));
+  container.appendChild(el("p", { class: "line-value" }, ["500"]));
+  container.appendChild(renderCitation("cite-3b-div001", "demo-fact-div-001"));
+  container.appendChild(el("p", { class: "subtotal-check" }, [
+    "Subtotal check: 500 = ",
+    el("span", { class: "tie" }, ["500 ✓ ties to published value"])
+  ]));
+}
+
+function renderSchedB(container) {
+  container.appendChild(el("h2", { id: "sched-b-h" }, [
+    "Schedule B — attachment ",
+    el("span", { class: "badge published" }, ["Published · Required"])
+  ]));
+  container.appendChild(el("p", null, [
+    "Required: interest 1234 + ordinary dividends 500 = 1734, over the 1500 threshold."
+  ]));
+
+  container.appendChild(el("h3", { id: "sched-b-p1-h" }, ["Part I — Interest"]));
+  const p1 = el("div", { "aria-labelledby": "sched-b-p1-h" }, [
+    renderCitation("cite-schedb1-int001", "demo-fact-int-001"),
+    renderCitation("cite-schedb1-int002", "demo-fact-int-002"),
+    el("p", { class: "subtotal-check" }, [
+      "Part I subtotal: 1000 + 234 = ",
+      el("span", { class: "tie" }, ["1234 ✓ ties to Line 2b"])
+    ])
+  ]);
+  container.appendChild(p1);
+
+  container.appendChild(el("h3", { id: "sched-b-p2-h" }, ["Part II — Dividends"]));
+  const p2 = el("div", { "aria-labelledby": "sched-b-p2-h" }, [
+    renderCitation("cite-schedb2-div001", "demo-fact-div-001"),
+    el("p", { class: "subtotal-check" }, [
+      "Part II subtotal: 500 = ",
+      el("span", { class: "tie" }, ["500 ✓ ties to Line 3b"])
+    ])
+  ]);
+  container.appendChild(p2);
+}
+
+function renderLine16(container) {
+  container.appendChild(el("h2", { id: "line-16-h" }, [
+    "Line 16 — Tax ",
+    el("span", { class: "badge blocked" }, ["Blocked"])
+  ]));
+
+  const banner = el("div", { class: "blocked-banner", role: "alert" }, [
+    el("span", { class: "icon", "aria-hidden": "true" }, ["⚠️"]),
+    el("div", null, [
+      el("p", { class: "line-value blocked-value" }, ["No value published — cannot compute."]),
+      el("p", null, [el("strong", null, ["Block reason: "]), "required QDCG worksheet input missing."]),
+      el("p", null, [el("strong", null, ["Missing contributable fact: "]), el("code", null, ["demo-fact-qdcg-absence-decl"])])
+    ])
+  ]);
+  container.appendChild(banner);
+
+  container.appendChild(el("div", { class: "remedy-box" }, [
+    el("strong", null, ["Remedy: "]),
+    "contribute ",
+    el("code", null, ["demo-fact-qdcg-absence-decl"]),
+    " to unblock this line."
+  ]));
+}
+
+/* Blast containment: each section renders in total isolation.
+   A thrown error in one renderer is caught right here and turns
+   into a visible, on-page error banner scoped to THAT section's
+   own DOM node only — it cannot blank or touch any other section.
+   No caught error ever echoes raw/tampered input back as content
+   (only a static reason-class string, never the offending value). */
+function renderSectionSafely(elementId, renderFn, label) {
+  const container = document.getElementById(elementId);
+  // Clear any partial DOM from a previous attempt before re-rendering.
+  while (container.firstChild) container.removeChild(container.firstChild);
+  try {
+    renderFn(container);
+  } catch (err) {
+    while (container.firstChild) container.removeChild(container.firstChild);
+    container.appendChild(el("h2", null, [label]));
+    container.appendChild(el("div", { class: "section-error", role: "alert" }, [
+      "This section failed to render safely and has been blocked from " +
+      "showing any value. No other section is affected. (Reason class: " +
+      (err && err.message ? err.message : "unknown error") + ")"
+    ]));
+  }
+}
+
+renderSectionSafely("line-2b", renderLine2b, "Line 2b — Taxable interest");
+renderSectionSafely("line-3b", renderLine3b, "Line 3b — Ordinary dividends");
+renderSectionSafely("sched-b", renderSchedB, "Schedule B — attachment");
+renderSectionSafely("line-16", renderLine16, "Line 16 — Tax");
+</script>
+</body>
+</html>

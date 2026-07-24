@@ -27,21 +27,27 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
-Completed milestone: **Live-Run System Definition and Trust Domains** — owner
-accepted ADR-0044 on 2026-07-23 after the bounded review returned READY with no
-blocking finding; publication PR #61 remains pending owner merge. Plan:
+Most recent milestone: **Presentation Exploratory Milestone** — complete
+2026-07-24, an **exploratory** milestone (ADR-0013 gates set aside; no ADR
+produced; no matrix cell raised). Studied developing/evaluating UI under
+agent-authored, agent-reviewed, owner-light constraints, using a synthetic
+citation-walk surface. Deliverable = seven information-dense evaluation-analysis
+documents: `docs/prototypes/human-presentation-citation-walk/analysis/` (with the
+cycle log in the sibling `plan.md` and reference artifacts under `reference/`).
+
+Prior milestone: **Live-Run System Definition and Trust Domains** — owner
+accepted ADR-0044 on 2026-07-23; closure PR #61 **merged**. Plan:
 `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
 Retrospective:
 `docs/milestone-retrospectives/2026-07-23-live-run-system-definition-and-trust-domains.md`.
-Prior milestone: Foreman Context Loading — merged PR #56 (`962c1ac`,
-2026-07-23); its plan and retrospective remain durable records.
 
-**➡️ Next: owner-directed milestone selection from the maturity-matrix
-frontier.** ADR-0044 does not itself authorize or schedule an isolation
-mechanism. Any move from the current L3 data-boundary posture to L4 requires a
-separately selected implementation milestone and the proof gate named by the
-ADR. Schema-publication controls and builder/reviewer scope controls remain
-explicitly tabled.
+**➡️ Next: the next milestone squarely targets process economy** (owner
+direction, 2026-07-24), grounded on the Presentation Exploratory Milestone's
+economy analysis (`.../analysis/04-economy.md`): mechanize recurring evaluation
+into a reusable harness, reuse fixtures/browser sessions/templates, batch
+criteria per run, tier-match dispatch. Not a maturity-matrix cell — a process
+milestone. (ADR-0044 still does not authorize or schedule any isolation
+mechanism; an L4 data-boundary move remains a separate later selection.)
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0043 adopts the foreman dispatch instruction, including owner authorization before dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 
