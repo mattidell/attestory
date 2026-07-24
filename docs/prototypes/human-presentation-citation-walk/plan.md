@@ -35,6 +35,20 @@ rivals) + two reviewers, per cycle.** Run the cycle, see what happens, record it
 repeat. The owner ends the stage or calls for encodable findings; nothing else
 closes it.
 
+### Pacing (aligns with owner operation)
+
+Each cycle bites off a chunk the owner can **reason about after one iteration in
+a reasonable time** — target **~5–15 minutes** of wall-clock per cycle, adjusted
+by observed results. The owner does not watch minute-by-minute, but should never
+face a long unattended run with no reasonable expectation of progress. So the
+foreman sizes each cycle's scope to that window, dispatches, and returns with a
+reviewable increment rather than open-ended work. If a cycle would exceed the
+window, split it. (Cycle 1 measured ~6–8 min end to end — a good calibration.)
+
+Execution scaffolding may use **dot files / dot directories** where tooling needs
+them (e.g. headless-browser artifacts); keep them out of the committed tree
+(scratchpad or gitignored) so the clean-repo and data-boundary posture holds.
+
 ## What this actually is
 
 Ostensibly this topic is about the citation walk. It isn't. **It is about
