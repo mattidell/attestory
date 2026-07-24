@@ -28,8 +28,9 @@ scan.
 
 ## Status
 
-- Presentation Evaluation Process Economy — **plan owner-approved 2026-07-24;
-  planning unit pending owner merge.** This process milestone follows the
+- Presentation Evaluation Process Economy — **active; owner-approved planning
+  unit merged in PR #65 (`1fd3d4c`) on 2026-07-24; Track 0 charter staged and
+  no role dispatch authorized.** This process milestone follows the
   Presentation Exploratory Milestone's economy analysis. Its durable capability
   is a quality-adjusted learning loop scoped specifically to UI/UX presentation
   iteration, development, and review: versioned presentation workloads,

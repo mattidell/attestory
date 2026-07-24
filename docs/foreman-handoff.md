@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy milestone plan owner-approved 2026-07-24 on plan/presentation-evaluation-process-economy; planning unit pending owner merge; no role dispatch authorized.",
-  "next_permitted": "owner merges the planning unit; after merge the foreman may prepare the Track 0 charter, but must obtain explicit owner approval before dispatching any role"
+  "status": "Presentation Evaluation Process Economy planning unit merged in PR #65 on 2026-07-24; Track 0 builder charter staged on track/presentation-economy-t0-measurement-substrate; no role dispatch authorized.",
+  "next_permitted": "owner explicitly authorizes the Track 0 Builder dispatch; foreman then resolves and records the charter source commit before launching the seat"
 }
 -->
 # Foreman Handoff Note
@@ -43,18 +43,19 @@ authority.
   `docs/milestone-retrospectives/2026-07-24-presentation-exploratory-milestone.md`).
   Raising the Presentation matrix aspect for real remains a well-formed but
   **unselected** ADR-0013 decision prototype.
-- **Presentation Evaluation Process Economy:** draft plan prepared 2026-07-24,
-  then amended on owner direction to make economy learning—not just one
-  optimization—the durable capability, scoped exclusively to UI/UX
+- **Presentation Evaluation Process Economy:** plan prepared and owner-approved
+  2026-07-24, then merged in PR #65 (`1fd3d4c`). It makes economy
+  learning—not just one optimization—the durable capability, scoped
+  exclusively to UI/UX
   presentation iteration, development, and review. It adds
   presentation-specific workload, observation, and comparison data; a
   source-faithful historical baseline; and a quality-adjusted paired pilot. The
   offline batch harness, standing synthetic corpus, reusable examples, and
   tier-matched review allocation are the first measured intervention. It is not
   evaluating non-presentation workflows and makes no economic claim about them.
-  It raises no matrix cell and proposes no ADR. The owner approved the plan on
-  2026-07-24; the planning unit awaits owner merge. Approval does not authorize
-  a role dispatch.
+  It raises no matrix cell and proposes no ADR. The Track 0 builder charter is
+  staged on `track/presentation-economy-t0-measurement-substrate`; explicit
+  owner authorization is still required before dispatch.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
