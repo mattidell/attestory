@@ -41,7 +41,7 @@ scan.
   `../../milestone-retrospectives/2026-07-23-foreman-context-loading.md`.
 
 - Live-Run System Definition and Trust Domains — **complete; publication PR
-  pending owner merge** (owner accepted ADR-0044 on 2026-07-23). ADR-0044 and
+  #61 pending owner merge** (owner accepted ADR-0044 on 2026-07-23). ADR-0044 and
   its plain-language companion define the four authority domains and crossings,
   the unprivileged-developer threat posture, guarded transport as publication
   integrity, and the later enforcement/L4 gate. The owner-directed bounded

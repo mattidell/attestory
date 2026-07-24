@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "live-run-trust-domains",
-  "status": "Live-Run System Definition milestone complete; ADR-0044 accepted; publication PR pending owner merge",
+  "status": "Live-Run System Definition milestone complete; ADR-0044 accepted; publication PR #61 pending owner merge",
   "next_permitted": "owner merges the closure PR or selects the next maturity-matrix frontier milestone"
 }
 -->
@@ -37,7 +37,7 @@ authority.
 - **Live-Run System Definition and Trust Domains:** complete by owner
   disposition on 2026-07-23. ADR-0044 is accepted as a positioning contract;
   the bounded review returned READY with no blocking finding. The closure unit
-  is on `review/live-run-system-trust-domains` pending owner PR merge. It
+  is PR #61 from `review/live-run-system-trust-domains`, pending owner merge. It
   selects and schedules no enforcement mechanism, makes no L4 claim, and
   requires no real run or attestation.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or

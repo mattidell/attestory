@@ -1,14 +1,14 @@
 # Retrospective — Live-Run System Definition and Trust Domains
 
 Status: **final — ADR-0044 accepted by owner direction 2026-07-23;
-publication PR pending owner merge.**
+publication PR #61 pending owner merge.**
 
 ## Milestone
 
 Live-Run System Definition and Trust Domains is a bounded Tier 3 positioning
-milestone. Its publication unit is
-`review/live-run-system-trust-domains`; the PR and merge commit remain
-owner-held until merge.
+milestone. Its publication unit is PR #61 from
+`review/live-run-system-trust-domains`; the merge commit remains owner-held
+until merge.
 
 The milestone distinguishes the application's intended privacy boundary from
 the current developer-workstation convenience arrangement. It closes a

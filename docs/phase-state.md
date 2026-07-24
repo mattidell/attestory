@@ -29,7 +29,7 @@ Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-
 
 Completed milestone: **Live-Run System Definition and Trust Domains** — owner
 accepted ADR-0044 on 2026-07-23 after the bounded review returned READY with no
-blocking finding; its publication PR remains pending owner merge. Plan:
+blocking finding; publication PR #61 remains pending owner merge. Plan:
 `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
 Retrospective:
 `docs/milestone-retrospectives/2026-07-23-live-run-system-definition-and-trust-domains.md`.

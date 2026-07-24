@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "live-run-trust-domains",
-  "status": "complete; ADR-0044 accepted by owner 2026-07-23; publication PR pending owner merge",
+  "status": "complete; ADR-0044 accepted by owner 2026-07-23; publication PR #61 pending owner merge",
   "scope": [
     "draft the specified Tier 3 system-definition ADR and plain-language companion",
     "state Developer/Supply, Live-Run Data, Publication, and Owner Authorization domains",
@@ -39,7 +39,7 @@
 # Milestone: Live-Run System Definition and Trust Domains
 
 Status: **complete — ADR-0044 accepted by owner direction 2026-07-23;
-publication PR pending owner merge.** The bounded review returned READY with
+publication PR #61 pending owner merge.** The bounded review returned READY with
 no blocking finding. The milestone changes no implementation or maturity
 claim.
 
