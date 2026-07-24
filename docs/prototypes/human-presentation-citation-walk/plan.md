@@ -308,6 +308,47 @@ and runtime behavior. Two cycles now agree: for this surface, **mechanical
 tamper-execution is necessary and largely sufficient for the honesty property;
 human judgment is needed only for failure salience and aesthetics.**
 
+### Cycle 3 — 2026-07-23 — fail-loud contract probe (+ isolation fixes)
+
+**Purpose.** Test whether *specifying* the criterion cycle 2 surfaced fixes it:
+builders were handed a written **fail-loud contract** (visible on-page signal on
+any guard failure; a one-line failure must not blank unrelated lines). Isolation
+fixes: exact-paths for builders; reviewers run **sequentially**.
+
+**Result — the loop works.** Given the written contract, **both builders produced
+visibly-failing, blast-contained UIs**, and **both sequential reviewers
+independently confirmed the contract holds on all 3×3 axes** (no fabricated value
+/ visible on-page banner+card / untampered lines survive) across T1–T3. The cycle-2
+defects (silent drop, page-wide blank) are gone. Headline: surface a criterion via
+review → write it into the brief → the next generation satisfies it, and the
+satisfaction is mechanically verifiable. This is the core process result so far.
+
+**New findings.**
+1. **Gray area (both reviewers, independently): rejected values echo in error
+   *text*.** Under T1 the injected `5000` appears inside the guard message
+   ("a value (5000) is present — refusing to display"), never as a styled amount.
+   Mechanically not fabrication (no `.value`/currency node), but a real policy
+   question for an audit surface: must echoed bad input be redacted? (Q d — now
+   decidable.)
+2. **Self-test scaffolding in the shipped surface (Builder B):** B embedded a live
+   adversarial harness (editable JSON textarea) on the same page as the walk — a
+   second input surface muddying demo-vs-production. A future check must rule on
+   whether self-test scaffolding counts against "production surface." (Q e)
+
+**Isolation verdict.**
+- **Sequential reviewers + exact-paths worked** — no live browser-singleton clash;
+  reviewers read only assigned files.
+- Residual: the shared `.playwright-mcp/` dir persists as a *filename*-visibility
+  channel across sequential runs (a reviewer saw a sibling's snapshot filename, not
+  contents); and **parallel builders still collided on a hardcoded self-verify
+  port** (both picked `:8934`; B caught it via a title mismatch). → builders need
+  randomized ports too.
+
+**needs-an-eye boundary — now stable across three cycles.** Fabrication /
+visible-signal / blast-containment = 100% mechanical. Contrast/WCAG,
+interaction-affordance discoverability, "feels trustworthy," theme aesthetics =
+human eye. Confirmed, not hypothesized.
+
 ## Data safety
 
 All amounts, payers, source identities, citations, workspace references, and
