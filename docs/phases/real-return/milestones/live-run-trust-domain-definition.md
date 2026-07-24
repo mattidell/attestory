@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "live-run-trust-domains",
-  "status": "owner-authorized direct-ADR milestone; no new prototype or evidence-synthesis role",
+  "status": "complete; ADR-0044 accepted by owner 2026-07-23; publication PR pending owner merge",
   "scope": [
     "draft the specified Tier 3 system-definition ADR and plain-language companion",
     "state Developer/Supply, Live-Run Data, Publication, and Owner Authorization domains",
@@ -38,7 +38,10 @@
 -->
 # Milestone: Live-Run System Definition and Trust Domains
 
-Status: **approved — owner-directed amendment 2026-07-23.**
+Status: **complete — ADR-0044 accepted by owner direction 2026-07-23;
+publication PR pending owner merge.** The bounded review returned READY with
+no blocking finding. The milestone changes no implementation or maturity
+claim.
 
 ## Objective
 
@@ -156,8 +159,18 @@ synthetic/non-descriptive; real data is neither consulted nor named.
 Draft the ADR and plain-language companion in the required shape. No preceding
 prototype, evidence-synthesis artifact, or review role is required.
 
+Status: **complete.** ADR-0044 and its plain-language companion follow the
+owner-authorized direct path and the seven-section shape above.
+
 ### Track 1 — ADR review and records
 
 Charter and complete the bounded ADR review, then record the owner’s ADR
 disposition and update milestone completion records. The review remains a
 review of the ADR, not a new prototype process.
+
+Status: **complete.** The owner directly took the reviewer seat before
+returning to the foreman seat. The review at
+`docs/reviews/2026-07-23-live-run-system-trust-domains-adr-review.md` returned
+READY with no blocking finding. The owner then accepted ADR-0044 and directed
+milestone closure and publication through a PR; merge remains owner-held under
+ADR-0030.

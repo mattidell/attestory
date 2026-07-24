@@ -10,14 +10,19 @@ retired by naming this ledger in the retiring track's review).
 
 ## Boundary and infrastructure
 
-1. **Guarded transport / credential confinement** — ADR-0031's "remote
-   credentials reachable only through the guarded push path" is **not
-   implemented**. Origin: named residual of Track 4b (its charter re-deferred
-   it explicitly rather than claiming it). Today the envelope gates scan
-   commit/push content, but credentials themselves are not confined to the
-   guarded path. Reactivate: first hardening (L3→L4) milestone; this is the
-   ledger's highest-priority entry because it holds the data-boundary row at
-   L3.
+1. **Live-run authority separation and guarded publication transport** —
+   ADR-0031's "remote credentials reachable only through the guarded push
+   path" is **not implemented**. Origin: named residual of Track 4b (its
+   charter re-deferred it explicitly rather than claiming it). Accepted
+   ADR-0044 clarified on 2026-07-23 that this entry contains two concerns:
+   mechanical Developer/Supply ↔ Live-Run Data separation is the missing
+   privacy enforcement that holds the data-boundary row at L3, while guarded
+   transport / credential confinement is separate Developer/Supply →
+   Publication hardening and cannot raise that row by itself. Today the
+   envelope gates scan commit/push content, but credentials are not confined
+   to the guarded path and the live domains are not mechanically separated.
+   ADR-0044 selects no mechanism, schedule, or priority between future
+   milestones.
 2. **Operator-level bypass is detected, not impossible** — `git commit
    --no-verify` or hook deletion still works; the per-clone byte-verification
    makes the bypass fail the next gate battery rather than preventing it.

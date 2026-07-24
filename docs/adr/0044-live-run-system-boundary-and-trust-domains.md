@@ -1,6 +1,6 @@
 # ADR 0044 — Live-Run System Boundary and Trust Domains
 
-- Status: **proposed**
+- Status: **accepted** (owner direction 2026-07-23)
 - Tier: 3
 - Date: 2026-07-23
 - Plain-language analysis:

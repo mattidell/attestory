@@ -60,11 +60,18 @@ ledger (`dividends-schedule-b-slice-deferral-ledger.md`) are marked
 
 ## Boundary and infrastructure (carried, untouched)
 
-4. **Guarded transport / credential confinement** — carried, **untouched**
-   this milestone. Still the ledger's highest-priority entry; still holds
-   the data-boundary row at L3 across every domain. Reactivate: a
-   separately chartered OS, identity, or hosted-boundary topic (per the
-   stopped H1 prototype's disposition).
+4. **Live-run authority separation and guarded publication transport** —
+   carried and clarified by accepted ADR-0044 on 2026-07-23. These are two
+   distinct unimplemented controls:
+   - mechanical separation between Developer/Supply and Live-Run Data is the
+     missing privacy enforcement that holds the data-boundary row at L3;
+     reactivate only through a separately owner-selected substrate milestone
+     with the proof gate in ADR-0044;
+   - guarded transport / credential confinement remains unimplemented at the
+     Developer/Supply → Publication crossing; it is publication hardening and
+     does not by itself raise the live-data boundary to L4.
+   ADR-0044 selects no mechanism, schedule, or priority between future
+   milestones.
 5. **Operator-level bypass is detected, not impossible** — carried,
    **untouched**. Reactivate: owner decision or the credential-confinement
    hardening topic.
