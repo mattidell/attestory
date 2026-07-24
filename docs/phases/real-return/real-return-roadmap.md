@@ -28,6 +28,32 @@ scan.
 
 ## Status
 
+- Presentation Evaluation Process Economy — **plan owner-approved 2026-07-24;
+  planning unit pending owner merge.** This process milestone follows the
+  Presentation Exploratory Milestone's economy analysis. Its durable capability
+  is a quality-adjusted learning loop scoped specifically to UI/UX presentation
+  iteration, development, and review: versioned presentation workloads,
+  observations, and comparisons; a source-faithful historical baseline; and a
+  bounded same-work pilot for evaluating presentation treatments without
+  calling cheaper-but-worse work an improvement. Its first intervention turns
+  recurring CDP/browser checks into one dependency-free offline batch harness,
+  reuses one isolated browser session across a criteria × fixture × candidate ×
+  tamper matrix, promotes a standing synthetic corpus and example templates,
+  and tier-matches each implementation/review seat. The milestone evaluates
+  presentation work and makes no economic claim about non-presentation
+  workflows. It adds no product UI, ADR, or maturity-matrix lift. Plan:
+  `milestones/presentation-evaluation-process-economy.md`.
+
+- Presentation Exploratory Milestone — **complete** (2026-07-24). Five
+  two-builder/two-reviewer cycles over a synthetic citation-walk surface
+  demonstrated the surface-a-criterion → specify → verify loop and found
+  roughly 65–80% of the exercised UI-quality surface mechanically checkable.
+  Its seven-vector evaluation analysis, reusable final prototypes, synthetic
+  fixtures, and harness seed live under
+  `../../prototypes/human-presentation-citation-walk/`. It was deliberately
+  exploratory: no ADR and no matrix-cell lift. Retrospective:
+  `../../milestone-retrospectives/2026-07-24-presentation-exploratory-milestone.md`.
+
 - Foreman Context Loading — **complete** (merged PR #56, `962c1ac`,
   2026-07-23). The process milestone
   adds a deterministic, provenance-bearing advisory foreman capsule, compact
@@ -41,7 +67,7 @@ scan.
   `../../milestone-retrospectives/2026-07-23-foreman-context-loading.md`.
 
 - Live-Run System Definition and Trust Domains — **complete; publication PR
-  #61 pending owner merge** (owner accepted ADR-0044 on 2026-07-23). ADR-0044 and
+  #61 merged** (owner accepted ADR-0044 on 2026-07-23). ADR-0044 and
   its plain-language companion define the four authority domains and crossings,
   the unprivileged-developer threat posture, guarded transport as publication
   integrity, and the later enforcement/L4 gate. The owner-directed bounded
