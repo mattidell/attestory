@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "live-run-trust-domains",
-  "status": "owner-authorized direct-ADR milestone; no new prototype or evidence-synthesis role",
-  "next_permitted": "draft the bounded ADR and companion in the active plan's required shape"
+  "status": "proposed ADR-0044 drafted; bounded ADR review not dispatched",
+  "next_permitted": "obtain owner authorization before dispatching a reviewer for proposed ADR-0044"
 }
 -->
 # Foreman Handoff Note
@@ -35,11 +35,11 @@ authority.
   retrospective and review reports under `docs/milestone-retrospectives/` and
   `docs/reviews/`.
 - **Live-Run System Definition and Trust Domains:** is the active direct-ADR
-  milestone. Its plan gives the exact ADR shape and records the owner's
-  milestone-specific process deviation: no prototype or evidence-synthesis
-  phase precedes the draft. A later charter may review the finished ADR itself.
-  No real workspace, credential, remote, output, or location may be accessed
-  or recorded.
+  milestone. Proposed ADR-0044 and its plain-language companion now implement
+  the plan's specified shape on branch `adr/live-run-system-trust-domains`.
+  They are inert pending the bounded ADR review and owner disposition. No
+  reviewer has been dispatched. No real workspace, credential, remote, output,
+  or location may be accessed or recorded.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -48,8 +48,9 @@ authority.
 
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
-  ADR-0030, ADR-0034, ADR-0039, and ADR-0042.
+  ADR-0030, ADR-0039, ADR-0042, and ADR-0043.
 - Active milestone: `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
+- Proposed decision: `docs/adr/0044-live-run-system-boundary-and-trust-domains.md`.
 - Live-run system-definition plan:
   `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
 - Completed-milestone lessons: `docs/milestone-retrospectives/`.
