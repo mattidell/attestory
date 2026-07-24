@@ -1,9 +1,9 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "topic": "live-run-trust-domains",
-  "status": "Live-Run System Definition milestone complete; ADR-0044 accepted; publication PR #61 pending owner merge",
-  "next_permitted": "owner merges the closure PR or selects the next maturity-matrix frontier milestone"
+  "topic": "frontier-selection",
+  "status": "Live-Run System Definition complete (ADR-0044, PR #61 merged); Presentation UI/UX process experiment complete and preserved (PR #63, abbe1f3); next milestone unselected",
+  "next_permitted": "owner selects the next maturity-matrix frontier milestone (a Presentation decision prototype is now well-formed) or directs further exploratory cycles"
 }
 -->
 # Foreman Handoff Note
@@ -26,20 +26,24 @@ directly and resolve the disagreement before acting. The capsule does not
 authorize a foreman dispatch, change the data boundary, or replace accepted
 authority.
 
-## Current state (2026-07-23)
+## Current state (2026-07-24)
 
-- **Foreman Context Loading:** complete in merged PR #56 (`962c1ac`). ADR-0042,
-  the provenance-bound renderer, role charter capsules, and clerk task capsules
-  are now `main` records. The initial independent review found M3 only; the
-  authorized delta review returned READY. Durable records are the
-  retrospective and review reports under `docs/milestone-retrospectives/` and
-  `docs/reviews/`.
-- **Live-Run System Definition and Trust Domains:** complete by owner
-  disposition on 2026-07-23. ADR-0044 is accepted as a positioning contract;
-  the bounded review returned READY with no blocking finding. The closure unit
-  is PR #61 from `review/live-run-system-trust-domains`, pending owner merge. It
-  selects and schedules no enforcement mechanism, makes no L4 claim, and
-  requires no real run or attestation.
+- **Live-Run System Definition and Trust Domains:** complete; ADR-0044 accepted
+  as a positioning contract; closure PR #61 **merged**. It selects and schedules
+  no enforcement mechanism, makes no L4 claim.
+- **Presentation UI/UX process experiment:** complete and preserved (PR #63,
+  merged `abbe1f3`). An **exploratory process experiment, not a milestone and not
+  an ADR** — it studied whether UI/UX is developable under this project's
+  constraints (agent-authored, agent-reviewed, owner rarely looking), using the
+  citation-walk surface as substrate. Five 2-builder/2-reviewer cycles. Finding:
+  yes, via a demonstrated loop (surface a criterion via execution-based review →
+  write it into the next brief → the next generation satisfies it, mechanically
+  verifiable); ~65–80% of UI quality is agent-mechanizable. Full record + a
+  reusable method recipe: `docs/prototypes/human-presentation-citation-walk/plan.md`.
+  Raising the Presentation matrix aspect for real is now a well-formed but
+  **unselected** ADR-0013 decision prototype.
+- **Next:** owner-directed milestone selection from the maturity-matrix frontier
+  (Tier 3); no milestone is active.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -58,3 +62,5 @@ authority.
 - Retrospective:
   `docs/milestone-retrospectives/2026-07-23-live-run-system-definition-and-trust-domains.md`.
 - Completed-milestone lessons: `docs/milestone-retrospectives/`.
+- Presentation UI/UX process experiment (preserved findings + reusable
+  agent-driven-UI method recipe): `docs/prototypes/human-presentation-citation-walk/plan.md`.
