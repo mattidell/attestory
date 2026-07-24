@@ -1,9 +1,9 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "topic": "live-run-trust-domains",
-  "status": "Between milestones: Live-Run complete (ADR-0044, PR #61 merged) and Presentation Exploratory Milestone complete 2026-07-24 (analysis at docs/prototypes/human-presentation-citation-walk/analysis/); next milestone targets process economy. Capsule stays anchored to the last structured plan (live-run); the exploratory milestone was deliberately non-capsuled.",
-  "next_permitted": "owner charters the process-economy milestone (grounded on analysis/04-economy.md) or selects another maturity-matrix frontier"
+  "topic": "presentation-evaluation-process-economy",
+  "status": "Presentation Evaluation Process Economy milestone plan owner-approved 2026-07-24 on plan/presentation-evaluation-process-economy; planning unit pending owner merge; no role dispatch authorized.",
+  "next_permitted": "owner merges the planning unit; after merge the foreman may prepare the Track 0 charter, but must obtain explicit owner approval before dispatching any role"
 }
 -->
 # Foreman Handoff Note
@@ -43,9 +43,18 @@ authority.
   `docs/milestone-retrospectives/2026-07-24-presentation-exploratory-milestone.md`).
   Raising the Presentation matrix aspect for real remains a well-formed but
   **unselected** ADR-0013 decision prototype.
-- **Next:** the next milestone **squarely targets process economy** (owner
-  direction 2026-07-24), grounded on `.../analysis/04-economy.md`. No milestone is
-  active yet.
+- **Presentation Evaluation Process Economy:** draft plan prepared 2026-07-24,
+  then amended on owner direction to make economy learning—not just one
+  optimization—the durable capability, scoped exclusively to UI/UX
+  presentation iteration, development, and review. It adds
+  presentation-specific workload, observation, and comparison data; a
+  source-faithful historical baseline; and a quality-adjusted paired pilot. The
+  offline batch harness, standing synthetic corpus, reusable examples, and
+  tier-matched review allocation are the first measured intervention. It is not
+  evaluating non-presentation workflows and makes no economic claim about them.
+  It raises no matrix cell and proposes no ADR. The owner approved the plan on
+  2026-07-24; the planning unit awaits owner merge. Approval does not authorize
+  a role dispatch.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -55,7 +64,10 @@ authority.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
   ADR-0030, ADR-0039, ADR-0042, and ADR-0043.
-- Active milestone: `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
+- Active milestone plan:
+  `docs/phases/real-return/milestones/presentation-evaluation-process-economy.md`.
+- Grounding economy analysis:
+  `docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md`.
 - Accepted decision: `docs/adr/0044-live-run-system-boundary-and-trust-domains.md`.
 - Live-run system-definition plan:
   `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
