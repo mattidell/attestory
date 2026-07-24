@@ -1,8 +1,8 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "topic": "economy-milestone-pending",
-  "status": "Presentation Exploratory Milestone complete 2026-07-24 (analysis at docs/prototypes/human-presentation-citation-walk/analysis/); next milestone targets process economy",
+  "topic": "live-run-trust-domains",
+  "status": "Between milestones: Live-Run complete (ADR-0044, PR #61 merged) and Presentation Exploratory Milestone complete 2026-07-24 (analysis at docs/prototypes/human-presentation-citation-walk/analysis/); next milestone targets process economy. Capsule stays anchored to the last structured plan (live-run); the exploratory milestone was deliberately non-capsuled.",
   "next_permitted": "owner charters the process-economy milestone (grounded on analysis/04-economy.md) or selects another maturity-matrix frontier"
 }
 -->
