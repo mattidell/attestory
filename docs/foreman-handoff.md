@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "live-run-trust-domains",
-  "status": "owner-authorized direct-ADR milestone; no new prototype or evidence-synthesis role",
-  "next_permitted": "draft the bounded ADR and companion in the active plan's required shape"
+  "status": "Live-Run System Definition milestone complete; ADR-0044 accepted; publication PR #61 pending owner merge",
+  "next_permitted": "owner merges the closure PR or selects the next maturity-matrix frontier milestone"
 }
 -->
 # Foreman Handoff Note
@@ -34,12 +34,12 @@ authority.
   authorized delta review returned READY. Durable records are the
   retrospective and review reports under `docs/milestone-retrospectives/` and
   `docs/reviews/`.
-- **Live-Run System Definition and Trust Domains:** is the active direct-ADR
-  milestone. Its plan gives the exact ADR shape and records the owner's
-  milestone-specific process deviation: no prototype or evidence-synthesis
-  phase precedes the draft. A later charter may review the finished ADR itself.
-  No real workspace, credential, remote, output, or location may be accessed
-  or recorded.
+- **Live-Run System Definition and Trust Domains:** complete by owner
+  disposition on 2026-07-23. ADR-0044 is accepted as a positioning contract;
+  the bounded review returned READY with no blocking finding. The closure unit
+  is PR #61 from `review/live-run-system-trust-domains`, pending owner merge. It
+  selects and schedules no enforcement mechanism, makes no L4 claim, and
+  requires no real run or attestation.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -48,8 +48,13 @@ authority.
 
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
-  ADR-0030, ADR-0034, ADR-0039, and ADR-0042.
+  ADR-0030, ADR-0039, ADR-0042, and ADR-0043.
 - Active milestone: `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
+- Accepted decision: `docs/adr/0044-live-run-system-boundary-and-trust-domains.md`.
 - Live-run system-definition plan:
   `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
+- Review:
+  `docs/reviews/2026-07-23-live-run-system-trust-domains-adr-review.md`.
+- Retrospective:
+  `docs/milestone-retrospectives/2026-07-23-live-run-system-definition-and-trust-domains.md`.
 - Completed-milestone lessons: `docs/milestone-retrospectives/`.

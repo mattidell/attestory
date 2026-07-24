@@ -24,7 +24,7 @@ careful hand-editing.
 | **L3** | Real — operates on the owner's actual data under the ratified data boundary. |
 | **L4** | Hardened — named production conditions discharged; deferrals retired. |
 
-## Matrix (as of 2026-07-22, post-Correction-Authority-and-Marshaller-Simplification)
+## Matrix (as of 2026-07-23, post-Live-Run-System-Definition)
 
 | Aspect ↓ / Domain → | W-2 wages (1a) | Interest (2b) | Dividends (3a/3b) | Return-level conditions (status, 12, 15, 16) | Schedule attachments |
 | --- | --- | --- | --- | --- | --- |
@@ -79,9 +79,13 @@ extended at milestone close 2026-07-21):
    disposition.
 8. ADR-0031/0032/0033 ratified and implemented: out-of-repo residency with
    installed byte-verified envelope gates (Track 4b), contribution as a
-   first-class event, fail-closed classification. Guarded transport /
-   credential confinement is a named deferral (ledger), which is what holds
-   this row (and the matrix) short of L4.
+   first-class event, fail-closed classification. ADR-0044 defines the
+   intended Developer/Supply, Publication, Live-Run Data, and Owner
+   Authorization domains but implements no mechanical authority separation;
+   that missing enforcement is what holds this row short of L4. Guarded
+   transport / credential confinement remains a separate, unimplemented
+   publication-integrity deferral and cannot raise the live-data boundary by
+   itself.
 9. **Declared dividend universe is boxes 1a/1b only** (ADR-0035, D3;
    milestone plan, owner-ratified at plan stage): boxes 2a, 3, 5, 7, and 12
    are named honest-block exclusions, not silently dropped — deferral ledger
@@ -133,12 +137,14 @@ owner's next selection (Tier 3):
    every domain the matrix covers.
 2. **L3 → L4 hardening** — retire remaining named deferrals from the
    milestone ledgers (`dividends-schedule-b-slice-deferral-ledger.md`,
-   `correction-authority-and-marshaller-simplification-deferral-ledger.md`):
-   guarded transport still first (holds the data-boundary row at L3 across
-   every domain); then ADR-0026 interest scope, ADR-0028 migration, the
-   `closed-on-attestation` cross-scope projection gap, and the Track 4 F2
-   scaffold-visibility note. Free supersession policy and the marshaller
-   binding-route duplication are retired (this milestone).
+   `correction-authority-and-marshaller-simplification-deferral-ledger.md`).
+   ADR-0044 now separates live-run authority enforcement (required for a
+   data-boundary L4 claim) from guarded publication transport (publication
+   hardening). It selects or schedules neither. Other candidates remain
+   ADR-0026 interest scope, ADR-0028 migration, the `closed-on-attestation`
+   cross-scope projection gap, and the Track 4 F2 scaffold-visibility note.
+   Free supersession policy and the marshaller binding-route duplication are
+   retired.
 3. **New domain breadth** — dividend boxes outside the declared universe
    (2a/3/5/7/12; deferral ledger entry 4), a second schedule attachment
    beyond Schedule B (the D1 ontology's Schedule D stub is evidence this is
