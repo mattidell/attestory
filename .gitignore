@@ -15,3 +15,8 @@ generated/user/
 # committed even accidentally by a future `git add -A`.
 /tools/scaffold_live_acts.py
 /workspace-seed/
+
+# Headless-browser execution artifacts (owner-approved 2026-07-23). Playwright
+# drops this at the repo root during UI-prototype evaluation; ignored, never
+# committed. Synthetic-only, so no data-boundary concern.
+.playwright-mcp/
