@@ -252,6 +252,62 @@ legibility" rubric close part of it, or is a human glance irreducible here?;
 (iii) tighten method — isolated per-agent dirs + break-fixtures-in-brief — and
 re-run to see if sealing holds.
 
+### Cycle 2 — 2026-07-23 — method-tightening re-run (isolation + standardized break-tests)
+
+**Purpose.** Re-run cycle 1's task with two fixes — isolated per-agent dirs and
+break-tests named in the brief — to confirm sealing holds and reduce review
+variance. Same fixture, 2+2, Sonnet/Medium.
+
+**Method verdict.**
+- **Standardized break-tests (T1 inject a value on the blocked line; T2
+  non-numeric published value; T3 unknown status): clear success.** Both
+  reviewers returned uniform, directly-comparable per-tamper results and
+  independently found the same defects — a marked improvement over cycle 1's ~2×
+  effort spread and fixture-hunting. Keep permanently.
+- **File isolation via exact-paths worked for reviewers** — neither listed the
+  parent or read a sibling dir (cycle-1's reviewer leak closed).
+- **Sealing did NOT fully hold; a deeper leak surfaced:**
+  - *Builder name-leak persists:* both builders still `ls`'d the shared parent
+    and saw sibling names (exact-paths was applied to reviewers only; builders
+    need it too).
+  - *NEW — shared Playwright singleton:* the Playwright MCP browser is a **shared
+    instance across concurrent agent sessions**, not process-isolated — a
+    reviewer's first navigate returned the *other* reviewer's already-loaded
+    page, and tab listing exposed its URLs/console. Mitigated (fresh tab,
+    isolated port, re-verified location), but it breaks isolation at the
+    *tooling* level whenever sealed agents run concurrently. → run reviewers
+    **sequentially**, or give each an isolated browser context.
+
+**Substantive findings (replicated by both reviewers).**
+- **T1 holds in both** — "never fabricate the blocked line's tax value" is
+  structural and machine-checkable; both builders got it right and matched their
+  docs.
+- **Neither achieves true "fail loud"** (a visible on-page signal) under T2/T3,
+  and both builders' DESIGN.md **self-certified "fail loud" and both are wrong:**
+  *A* degrades **visibly but ugly** (`$NaN`; an unknown status silently
+  reclassifies a published line into a blank "Remedy: undefined" card);
+  *B* degrades **cleanly but invisibly** (correct per-function throws, but
+  uncaught in the mount loop blank the **whole page** — wiping even the unrelated
+  correct line 16 — with only a devtools console error). Which is worse is a
+  values judgment, not a mechanical one.
+
+**Criteria this surfaces for any future decision (Q d, now well-evidenced).**
+1. An **operational definition of "honest failure / fail loud"** — must a visible
+   banner exist? Is a console-only throw acceptable? Both builders and the review
+   rubric needed this and lacked it.
+2. **Error boundary / blast radius** — a failure in one line must not wipe
+   unrelated correct lines.
+3. A **rubric category for "safely refuses but over-broadly"** — B's page-wide
+   blank fits none of FABRICATED / SILENT-MISRENDER / FAILS-LOUD cleanly.
+4. **Salience** — mechanical "loud" (an exception was thrown) ≠ experiential
+   "loud" (a human notices). The core needs-an-eye residual.
+
+**Meta (Q b, e).** A review reading only DESIGN.md would have over-rated both
+prototypes; adversarial *execution* caught the gap between confident design prose
+and runtime behavior. Two cycles now agree: for this surface, **mechanical
+tamper-execution is necessary and largely sufficient for the honesty property;
+human judgment is needed only for failure salience and aesthetics.**
+
 ## Data safety
 
 All amounts, payers, source identities, citations, workspace references, and
