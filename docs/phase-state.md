@@ -2,8 +2,8 @@
 {
   "version": 1,
   "phase": "Real Return",
-  "topic": "live-run-trust-domains",
-  "active_plan": "docs/phases/real-return/milestones/live-run-trust-domain-definition.md",
+  "topic": "economy-milestone-pending",
+  "active_plan": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md",
   "handoff": "docs/foreman-handoff.md"
 }
 -->
