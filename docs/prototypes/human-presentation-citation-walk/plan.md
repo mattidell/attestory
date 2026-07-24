@@ -473,6 +473,17 @@ builders — a positive externality worth keeping.
 **Status:** these are concrete, preservable findings — the plan's PR-preservation
 trigger is met. Awaiting owner direction at regroup.
 
+## Milestone closeout (2026-07-24)
+
+Wrapped as an **exploratory milestone** (owner direction). Main artifact = seven
+information-dense evaluation-analysis documents under `analysis/` (feature, ADR
+convergence, process roles, economy, technical findings, timeline,
+information-design). Reference artifacts preserved under `reference/`: the two
+final (cycle-5) prototypes, the synthetic fixtures (minimal + rich-reuse), and
+the harness-seed scripts. Prototypes were disposable during the cycles; select
+ones are retained here as reference/regression targets by owner decision. **Next
+milestone squarely targets process economy**, grounded on `analysis/04-economy.md`.
+
 ## Data safety
 
 All amounts, payers, source identities, citations, workspace references, and

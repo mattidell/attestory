@@ -1,9 +1,9 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "topic": "frontier-selection",
-  "status": "Live-Run System Definition complete (ADR-0044, PR #61 merged); Presentation UI/UX process experiment complete and preserved (PR #63, abbe1f3); next milestone unselected",
-  "next_permitted": "owner selects the next maturity-matrix frontier milestone (a Presentation decision prototype is now well-formed) or directs further exploratory cycles"
+  "topic": "economy-milestone-pending",
+  "status": "Presentation Exploratory Milestone complete 2026-07-24 (analysis at docs/prototypes/human-presentation-citation-walk/analysis/); next milestone targets process economy",
+  "next_permitted": "owner charters the process-economy milestone (grounded on analysis/04-economy.md) or selects another maturity-matrix frontier"
 }
 -->
 # Foreman Handoff Note
@@ -31,19 +31,21 @@ authority.
 - **Live-Run System Definition and Trust Domains:** complete; ADR-0044 accepted
   as a positioning contract; closure PR #61 **merged**. It selects and schedules
   no enforcement mechanism, makes no L4 claim.
-- **Presentation UI/UX process experiment:** complete and preserved (PR #63,
-  merged `abbe1f3`). An **exploratory process experiment, not a milestone and not
-  an ADR** — it studied whether UI/UX is developable under this project's
-  constraints (agent-authored, agent-reviewed, owner rarely looking), using the
-  citation-walk surface as substrate. Five 2-builder/2-reviewer cycles. Finding:
-  yes, via a demonstrated loop (surface a criterion via execution-based review →
-  write it into the next brief → the next generation satisfies it, mechanically
-  verifiable); ~65–80% of UI quality is agent-mechanizable. Full record + a
-  reusable method recipe: `docs/prototypes/human-presentation-citation-walk/plan.md`.
-  Raising the Presentation matrix aspect for real is now a well-formed but
+- **Presentation Exploratory Milestone:** complete 2026-07-24. An **exploratory
+  milestone (no ADR, no matrix cell raised)** — studied developing/evaluating UI
+  under agent-authored, agent-reviewed, owner-light constraints, using a synthetic
+  citation-walk surface. Five 2-builder/2-reviewer cycles. Finding: developable
+  via a demonstrated loop; ~65–80% of UI quality is agent-mechanizable. Main
+  artifact = seven evaluation-analysis documents at
+  `docs/prototypes/human-presentation-citation-walk/analysis/` (cycle log +
+  process in the sibling `plan.md`; reference prototypes/fixtures/harness-seed
+  under `reference/`; retrospective pointer
+  `docs/milestone-retrospectives/2026-07-24-presentation-exploratory-milestone.md`).
+  Raising the Presentation matrix aspect for real remains a well-formed but
   **unselected** ADR-0013 decision prototype.
-- **Next:** owner-directed milestone selection from the maturity-matrix frontier
-  (Tier 3); no milestone is active.
+- **Next:** the next milestone **squarely targets process economy** (owner
+  direction 2026-07-24), grounded on `.../analysis/04-economy.md`. No milestone is
+  active yet.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
