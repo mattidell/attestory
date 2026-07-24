@@ -19,7 +19,7 @@ This file is the re-entry point. Alongside the phase pointer below, it carries a
 
 **What the completed milestone does.** Foreman Context Loading adds a deterministic, provenance-bearing advisory capsule for a resumed foreman; charter capsules for builders and reviewers; and mechanical task capsules for clerks (ADR-0042). It does not change the product, data boundary, trusted-advisor posture, maturity matrix, or live-run authority. The preceding Correction Authority and Marshaller Simplification milestone retired the free/unrestricted supersession policy and duplicated fact-type parsing, raising the Correction & supersession lifecycle row L3 → L4 across every domain.
 
-**Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are published; any further correction-authority extension is separately chartered. The active Live-Run System Definition and Trust Domains topic is a records-and-ADR decision milestone, not a schema or enforcement change: it makes the already-supported system boundary and threat posture explicit without selecting an implementation substrate.
+**Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are published; any further correction-authority extension is separately chartered. The active Live-Run System Definition and Trust Domains topic directly drafts a bounded ADR: it makes the already-supported system boundary and threat posture explicit without selecting an implementation substrate.
 
 ## Pointers
 
@@ -36,9 +36,11 @@ Prior milestone: Correction Authority and Marshaller Simplification; its plan,
 retrospective, and deferral ledger remain under `milestones/`.
 
 **➡️ Next: Live-Run System Definition and Trust Domains is an approved,
-records-and-ADR milestone.** It synthesizes existing evidence; it has no new
-prototype or seat dispatch. No owner real-data run or attestation is required,
-and the data-boundary maturity row stays L3. Schema-publication controls and
+direct-ADR milestone.** The plan specifies the ADR shape and carries the
+owner-authorized deviation from a new-prototype/evaluation-analysis/committee
+prerequisite. It may charter review of the finished ADR itself, not a new
+evidence phase. No owner real-data run or attestation is required, and the
+data-boundary maturity row stays L3. Schema-publication controls and
 builder/reviewer scope controls are explicitly tabled.
 
 Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0034 requires owner approval for every sub-agent dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).

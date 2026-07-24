@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "live-run-trust-domains",
-  "status": "approved records-and-ADR milestone; no new prototype or dispatch",
-  "next_permitted": "prepare the evidence-synthesis record; obtain explicit owner approval before any later independent-review dispatch"
+  "status": "owner-authorized direct-ADR milestone; no new prototype or evidence-synthesis role",
+  "next_permitted": "draft the bounded ADR and companion in the active plan's required shape"
 }
 -->
 # Foreman Handoff Note
@@ -23,7 +23,8 @@ Render the advisory capsule from an explicit committed ref:
 Reconcile its source commit and worktree report with Git, then read the
 action-specific sources it names. If it refuses, inspect those committed sources
 directly and resolve the disagreement before acting. The capsule does not
-authorize a dispatch, change the data boundary, or replace accepted authority.
+authorize a foreman dispatch, change the data boundary, or replace accepted
+authority.
 
 ## Current state (2026-07-23)
 
@@ -33,12 +34,12 @@ authorize a dispatch, change the data boundary, or replace accepted authority.
   authorized delta review returned READY. Durable records are the
   retrospective and review reports under `docs/milestone-retrospectives/` and
   `docs/reviews/`.
-- **Live-Run System Definition and Trust Domains:** is the active
-  records-and-ADR milestone. Its plan is at
-  `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`.
-  It synthesizes existing boundary evidence; no new prototype or seat dispatch
-  is planned. No real workspace, credential, remote, output, or location may
-  be accessed or recorded.
+- **Live-Run System Definition and Trust Domains:** is the active direct-ADR
+  milestone. Its plan gives the exact ADR shape and records the owner's
+  milestone-specific process deviation: no prototype or evidence-synthesis
+  phase precedes the draft. A later charter may review the finished ADR itself.
+  No real workspace, credential, remote, output, or location may be accessed
+  or recorded.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
