@@ -2,35 +2,35 @@
 {
   "version": 1,
   "topic": "live-run-trust-domains",
-  "status": "approved records-and-ADR milestone; no new prototype or dispatch",
+  "status": "owner-authorized direct-ADR milestone; no new prototype or evidence-synthesis role",
   "scope": [
-    "define Developer/Supply, Live-Run Data, Publication, and Owner Authorization domains",
-    "synthesize existing residency, adoption, and guarded-transport evidence",
-    "record the threat posture and guarded transport's separate publication-integrity role"
+    "draft the specified Tier 3 system-definition ADR and plain-language companion",
+    "state Developer/Supply, Live-Run Data, Publication, and Owner Authorization domains",
+    "review the drafted ADR against its specified shape and cited existing records"
   ],
   "non_goals": [
-    "no new prototype, feasibility trial, or enforcement-substrate selection",
+    "no prototype, evidence-synthesis artifact, or committee as a prerequisite",
     "no real workspace, credential, remote, live run, or owner attestation",
-    "no L3-to-L4 maturity claim"
+    "no enforcement-substrate selection or L3-to-L4 maturity claim"
   ],
   "deep_reads": {
-    "evidence_synthesis": [
+    "adr_draft": [
       "docs/adr/0031-real-data-residency-boundary.md#Decision",
       "docs/adr/0032-contribution-boundary.md#Decision",
       "docs/adr/0033-production-package-resolver.md#Decision",
       "docs/prototypes/guarded-transport/round-1-triage.md",
-      "docs/prototypes/guarded-transport/repair1-triage.md"
-    ],
-    "adr_draft": [
-      "docs/adr/0005-prototype-evidence-for-consequential-adrs.md#Decision",
-      "docs/adr/0013-prototype-economic-gates.md#Decision",
+      "docs/prototypes/guarded-transport/repair1-triage.md",
+      "docs/phases/real-return/milestones/push-envelope-preflight-and-bypass-visibility.md",
       "docs/governance/constitution.md#Article 18 — Quarantine",
       "docs/governance/engineering-constraints.md#E18.1 (Quarantine) — Structural walls",
       "docs/governance/engineering-constraints.md#E18.2 (Quarantine) — Egress hygiene"
     ],
+    "adr_review": [
+      "docs/roles/reviewer.md",
+      "docs/roles/foreman.md#Standing disciplines"
+    ],
     "merge_or_records": [
       "docs/adr/0030-branch-and-merge-strategy.md#Decision",
-      "docs/roles/foreman.md#Standing disciplines",
       "PROJECT_PLANNING.md#Milestone Execution Branch Protocol"
     ]
   }
@@ -38,119 +38,126 @@
 -->
 # Milestone: Live-Run System Definition and Trust Domains
 
-Status: **approved — amended 2026-07-23.** This is a records-and-ADR
-milestone. It does not authorize a new prototype, feasibility experiment, or
-seat dispatch.
+Status: **approved — owner-directed amendment 2026-07-23.**
 
 ## Objective
 
-Record the system boundary already indicated by the project’s existing
-evidence. The privacy-critical live-run environment is a distinct trust domain:
-it reads real workspace data and consumes an adopted, byte-verified package;
-the developer/supply environment prepares and publishes source but has no
-standing access to that workspace. The milestone makes this system definition,
-its threat posture, and its residual risks explicit in a Tier 3 ADR.
+Write the bounded Tier 3 ADR that makes the project’s existing system boundary
+plain: real data belongs to a Live-Run Data trust domain; Developer/Supply
+prepares publishable source but has no standing authority to read that data;
+the adopted, byte-verified package is the intended supply crossing. This
+milestone defines the system and posture. It does not implement an enforcement
+substrate.
 
-## Why this is records work, not a new prototype
+## Owner-authorized process deviation
 
-The unanswered question is no longer whether a distinct live-run domain is the
-right system definition. ADR-0031's residency posture, ADR-0033's verified
-adoption boundary, and the stopped Guarded Transport H1 prototype already
-establish the relevant reasoning: a determined same-UID process cannot be
-treated as separated from an accessible durable credential, so a developer-host
-wrapper is not the privacy boundary around real data.
+For this milestone only, the owner authorizes a direct ADR-and-companion path
+instead of the default new-prototype/evaluation-analysis/committee sequence in
+`PROJECT_PLANNING.md`. The decision may rely directly on the accepted boundary
+ADRs and completed Guarded Transport and push-envelope records already named
+below. This deviation waives no data-safety, evidence-honesty, ADR,
+plain-language-analysis, or verification requirement; it authorizes no L4
+claim and no implementation work.
 
-The existing prototype's failed positive confinement topology is not re-run or
-repaired here. Its independently reviewed negative finding is assembled as
-cited decision evidence. A later implementation milestone may prototype an
-enforcement substrate (for example, a separate OS user) once there is a need to
-choose one; that prototype would answer workflow and host-capability questions,
-not revisit this system definition.
+This plan is the complete direction for the next foreman: draft the ADR in the
+shape below. Do not create an evidence-synthesis artifact, a new prototype
+topic, or a feasibility experiment as a prerequisite. A review may be chartered
+only after the ADR is drafted, and reviews that ADR against this shape and its
+cited records — not as a prototype committee or a new evidence phase.
+
+## Required ADR shape
+
+The new ADR is Tier 3 and links its required non-normative companion near the
+top. It has these bounded sections:
+
+1. **Context — system versus developer workflow.** Explain that a developer
+   workstation convenience arrangement is not the application’s privacy
+   boundary; distinguish logical trust domains from a later mechanical
+   enforcement choice.
+2. **Decision — four domains.** Define Developer/Supply, Publication,
+   Live-Run Data, and Owner Authorization by their assets and authorities.
+3. **Decision — permitted crossings.** State: Developer/Supply → Publication
+   carries only publication-eligible material; Publication → Live-Run Data
+   carries only a current adopted, byte-verified package; Owner Authorization
+   supplies deliberate residency/contribution/adoption/run authority; no
+   descriptive live artifact crosses back.
+4. **Decision — threat posture and residuals.** The claimed posture concerns
+   an unprivileged Developer/Supply authority once a later implementation
+   enforces the separation. Owner-authorized elevation and administrator/root
+   are explicit residuals, not hidden exclusions.
+5. **Decision — guarded transport.** Reframe guarded transport as a
+   Developer/Supply → Publication integrity control. Preserve ADR-0031’s
+   residency, classification, provenance, and sensitivity rules; state that
+   hook protection is conditional, `--no-verify` bypass remains reachable, and
+   credential confinement is unestablished.
+6. **Consequences — future implementation gate.** Select no OS user,
+   container, VM, credential store, proxy, or hosted mechanism. The data
+   boundary remains L3. A later milestone must select and test one substrate,
+   then perform its required real-run verification before any L4 claim.
+7. **Links and evidence limits.** Cite ADR-0031/0032/0033, the two Guarded
+   Transport triages and their reviews, and Push-Envelope Preflight. State that
+   the stopped same-UID work rejects only its tested shapes; it is not a general
+   impossibility theorem.
+
+## ADR review shape
+
+After the ADR and companion exist, a chartered reviewer checks only whether the
+draft matches the seven required sections, its cited records support the stated
+claims and limits, it introduces no unplanned enforcement claim, and its
+companion accurately explains the decision. The reviewer does not recreate a
+prototype committee, demand a rival design, or require an evidence-synthesis
+artifact. Any dispatch for that role follows the owner/foreman process in force
+at the time; it is not created by this plan.
 
 ## Scope
 
-1. Define Developer/Supply, Live-Run Data, Publication, and Owner
-   Authorization domains: assets, identities, credentials, storage, network
-   authority, allowed crossings, and refusal behavior.
-2. State the threat posture precisely. The live-data boundary protects against
-   an unprivileged developer/supply identity; it does not claim protection from
-   an owner-authorized elevation or administrator/root.
-3. Produce a cited decision-evidence analysis from existing records, including
-   the Guarded Transport H1 reviews/triage, ADR-0031, ADR-0032, ADR-0033, and
-   the current push-envelope audit. The analysis must distinguish evidence for
-   the system definition from evidence that would be needed to select a future
-   enforcement substrate.
-4. Produce a Tier 3 ADR and required plain-language analysis. The ADR must
-   clarify that guarded transport is a developer-publication integrity posture,
-   not the privacy boundary for the live-run data domain, while retaining
-   ADR-0031's residency/classification/provenance controls.
+- Draft the ADR and companion in the required shape.
+- Use existing accepted records as citations; accurately preserve their limits.
+- Charter the bounded ADR review after drafting.
+- Update only the active plan pointers and completion records needed to make
+  the ADR’s relationship to guarded transport unambiguous.
 
 ## Explicit non-goals
 
-- No new prototype iteration, synthetic capability probe, container/VM trial,
-  separate-UID setup, or feasibility measurement.
+- No new prototype, evaluation analysis, committee, evidence-synthesis record,
+  or feasibility measurement.
 - No real workspace, document, credential, remote, live run, or owner
-  attestation is used or recorded.
-- No credential store, Keychain ACL, server-side gate, push proxy, or transport
-  implementation is selected or built.
-- No L3-to-L4 maturity claim is made.
-- Schema-publication controls and builder/reviewer scope controls are tabled
-  by owner direction; this milestone neither designs nor implements them.
-- No governance document changes are proposed.
-
-## Decision and evidence surface
-
-The decision is Tier 3: application system definition and trust-domain
-posture. It is bounded by ADR-0005, ADR-0013, ADR-0030, ADR-0031, ADR-0032,
-ADR-0033, and ADR-0034; Constitution Article 18 and Engineering Constraints
-E18.1/E18.2 remain binding.
-
-The new ADR must cite the existing prototype evidence directly: in particular,
-`docs/prototypes/guarded-transport/round-1-triage.md` and
-`docs/prototypes/guarded-transport/repair1-triage.md`, alongside their
-independently contexted reviews. That evidence supports a narrow conclusion:
-same-UID local credential confinement is not established. It does **not** prove
-that any particular OS, VM, or container configuration is ready to deploy; the
-ADR must say so.
+  attestation.
+- No separate-UID, container, VM, Keychain, server-side gate, push proxy, or
+  credential implementation.
+- No L3-to-L4 maturity lift.
+- Schema-publication controls and builder/reviewer scope controls remain
+  tabled.
+- No general governance change is implied by this milestone-specific deviation.
 
 ## Verification and data safety
 
-Verification is documentary and traceable: every assertion in the ADR's
-evidence analysis maps to a source record, the predecessor ADR text, or the
-current implementation/audit. Review verifies that no claim of operational
-isolation or maturity lift appears without a later implementation milestone and
-real-run verification. The ordinary verification floor remains required for
-records changes: unit suite, mypy, governance lint, and envelope scan.
-
-All work is records-only. Real data is neither consulted nor named. Owner
-attestation belongs only to a later live-run implementation milestone before
-any L4 privacy-boundary claim.
+Verify that the ADR matches the required shape; every cited record exists and
+is not overstated; its companion is linked; and no operational isolation,
+maturity lift, or implementation commitment is implied. The ADR review checks
+the same bounded claims. Run the ordinary records verification floor: unit
+suite, mypy, governance lint, and envelope scan. All work remains
+synthetic/non-descriptive; real data is neither consulted nor named.
 
 ## Exit criteria
 
-1. A reader can identify the systems, assets, authorities, and crossings
-   without inferring them from a convenient developer workflow.
-2. The ADR's evidence analysis cites existing prototype and project records,
-   including their limits, without implying a new feasibility result.
-3. The accepted ADR unambiguously separates live-data privacy posture from
-   developer publication integrity and resolves its relationship to ADR-0031.
-4. Completion records state that the data-boundary maturity row remains L3 and
-   name the later implementation/real-run gate for any L4 claim.
+1. The new ADR and companion have the required shape and direct citations.
+2. A reader can identify systems, authorities, crossings, and residuals without
+   mistaking developer workflow for the privacy boundary.
+3. Guarded transport is accurately placed as publication integrity, not
+   live-data privacy.
+4. The bounded ADR review is complete; it made no prototype-process demand.
+5. The L3 row remains unchanged and the later L4 gate is explicit.
 
 ## Tracks
 
-### Track 0 — Evidence synthesis
+### Track 0 — Direct ADR draft
 
-Write the cited prototype evaluation/decision analysis from existing artifacts.
-No new experiment, configuration, fixture, or prototype branch is created.
+Draft the ADR and plain-language companion in the required shape. No preceding
+prototype, evidence-synthesis artifact, or review role is required.
 
-### Track 1 — Decision record
+### Track 1 — ADR review and records
 
-Draft the Tier 3 ADR and its required plain-language companion after Track 0
-evidence is independently reviewed. It may clarify or supersede only the
-relevant framing in ADR-0031; it does not rewrite accepted history in place.
-
-### Track 2 — Completion records
-
-Update phase state, roadmap, handoff, retrospective, and any necessary
-maturity-matrix rationale. Do not lift the matrix level.
+Charter and complete the bounded ADR review, then record the owner’s ADR
+disposition and update milestone completion records. The review remains a
+review of the ADR, not a new prototype process.

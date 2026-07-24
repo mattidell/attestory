@@ -40,16 +40,17 @@ scan.
   retrospective: `milestones/foreman-context-loading.md` and
   `../../milestone-retrospectives/2026-07-23-foreman-context-loading.md`.
 
-- Live-Run System Definition and Trust Domains — **approved records-and-ADR
-  milestone** (owner-directed 2026-07-23). It records the already-supported
-  Tier 3 system definition: Developer/Supply, Live-Run Data, Publication, and
-  Owner Authorization are distinct domains with explicit crossings. Existing
-  Guarded Transport evidence is synthesized to separate same-UID credential
-  confinement from the live-data boundary; a later implementation milestone
-  decides any enforcement substrate. No new prototype, real run, owner
-  attestation, implementation, or maturity lift is in scope; the data-boundary
-  row remains L3. Schema-publication and agent-scope controls are tabled.
-  Plan: `milestones/live-run-trust-domain-definition.md`.
+- Live-Run System Definition and Trust Domains — **approved direct-ADR
+  milestone** (owner-directed 2026-07-23). Its plan specifies the bounded Tier
+  3 ADR shape: four authority domains and their crossings; the narrow
+  unprivileged-developer threat posture; guarded transport as publication
+  integrity; and an explicit later enforcement/L4 gate. The owner has
+  authorized a milestone-specific deviation from the default new-prototype and
+  committee prerequisite. An ADR review may occur after the ADR exists; it is
+  not a new evidence phase. No real run, owner attestation, implementation, or
+  maturity lift is in scope; the data-boundary row remains L3.
+  Schema-publication and agent-scope controls are tabled. Plan:
+  `milestones/live-run-trust-domain-definition.md`.
 
 - Correction Authority and Marshaller Simplification — **complete**
   (2026-07-22; plan approved PR #49). ADR-0041 (Track 0, PR #50) closes the
