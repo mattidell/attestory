@@ -349,6 +349,51 @@ visible-signal / blast-containment = 100% mechanical. Contrast/WCAG,
 interaction-affordance discoverability, "feels trustworthy," theme aesthetics =
 human eye. Confirmed, not hypothesized.
 
+### Cycle 4 — 2026-07-23 — richer fixture: citation reuse + multi-line blast
+
+**Purpose.** Four-item fixture (lines 2b, 3b, Schedule B with Parts I/II, blocked
+16) where the same facts are cited in two places — to exercise **citation
+identity under reuse** (never before tested) and sub-section blast. Fail-loud
+contract carried; brief added "no embedded test harness" and "randomized
+self-verify ports."
+
+**Both reviewers agree:**
+- **Base render correct; citation identity under reuse holds in both, by two
+  different mechanisms.** **A prevents divergence by construction** (deep
+  `Object.freeze` → a mid-render mutation throws at the language level); **B
+  detects it at runtime** (a signature-cache guard that withholds a citation
+  "rendered with different data on reuse"). Both defensible; different attack
+  models — a real design axis, not a single right answer.
+- **Blast containment has a granularity dimension (new).** Under a non-numeric
+  Part II value, **A blanks the whole Schedule B section, hiding a correct Part
+  I** (one try/catch over both parts); **B contains at part level**. "One bad
+  value must not hide sibling correct sub-sections" is sharper than cycle-3's
+  line-level criterion.
+- **Redact-vs-echo is a real, non-binary policy axis (new).** **A blanket-
+  redacts**; **B splits deliberately** — redacts an authority violation (line 16)
+  but **echoes a malformed published value verbatim**. More debuggable, but the
+  only place a raw tampered string reached the page.
+- **Derived-diagnostic side-channel (Reviewer 2).** B's tie-out arithmetic reads
+  live fact data (bypassing its own signature guard) and displayed a number
+  *derived from tampered data* (marked ✗) while correctly withholding the citation
+  card. A's freeze structurally avoids this. Zero-authority needs an explicit rule
+  for derived/diagnostic values, not just rendered ones.
+- **Legibility gap (B).** Under T2, Part II's tie-out line **silently disappears**
+  rather than saying "could not verify" — a silent-omission miss A avoids by
+  throwing explicitly.
+
+**Isolation — now fully characterized, with a demonstrated fix.** The shared
+**Playwright MCP Chrome is a singleton across sealed agents** — confirmed by
+Builder B (saw a sibling's tab mid-run) and Reviewer 2 (saw the shared
+`--user-data-dir` Chrome via `ps aux`). **Random ports do NOT fix it.** Reviewer 2
+demonstrated the fix: **drive your OWN headless Chrome with a fresh, agent-scoped
+`--user-data-dir`, not the shared MCP browser** — fully isolated that way. This is
+an infrastructure constraint on concurrent multi-agent UI work.
+
+**Loop reaffirmed:** surfacing the redact/echo gray area in the brief made both
+builders take *deliberate, documented* positions (vs cycle 3's accidental echo).
+Naming a criterion converts silent divergence into an explicit, reviewable choice.
+
 ## Data safety
 
 All amounts, payers, source identities, citations, workspace references, and
