@@ -1,6 +1,6 @@
 # ADR 0034 — Explicit Owner Approval for Every Foreman Dispatch
 
-- Status: **accepted** (owner direction 2026-07-16)
+- Status: **superseded** by ADR-0043 (2026-07-23)
 - Tier: 2
 - Date: 2026-07-16
 
