@@ -1,10 +1,11 @@
 # Track 0 Charter — Presentation Economy Measurement Substrate
 
-Status: **builder dispatch authorized 2026-07-24; launch pending.** The owner
-authorized exactly the plan's one Builder and did not authorize a reviewer.
-No rival builder is added. The foreman will divide the one builder's work into
-bounded handoffs targeting less than 4.5 minutes each and will not dispatch a
-reviewer without a later explicit authorization.
+Status: **builder implementation complete 2026-07-24; independent review not
+authorized.** The owner authorized exactly the plan's one Builder and did not
+authorize a reviewer. No rival builder was added. The builder completed the
+implementation on `track/presentation-economy-t0-measurement-substrate` through
+bounded handoffs; reviewer dispatch still requires later explicit
+authorization.
 
 ## Context Capsule
 
@@ -268,9 +269,38 @@ independent review. This operating choice is evidence about task sizing only;
 it is not itself a presentation-economy observation unless a future workload
 legitimately declares comparable UI/UX presentation work.
 
+## Builder execution record
+
+The one Medium / medium Builder ran sequentially in dispatch batch size one,
+because the approved allocation named one Builder. The foreman measured
+dispatch-to-observed-handoff wall time around each packet:
+
+| Packet | Target seconds | Foreman-observed seconds | Cache result | Boundary |
+| --- | ---: | ---: | --- | --- |
+| T0-B1-P1 | 270 | 289 | unknown | validation foundation and C1–C5 baseline |
+| T0-B1-P2 | 255 | 182 | unknown | frozen workload, supersession, valid examples |
+| T0-B1-P3 | 240 | 135 | unknown | complete observation envelope and invalid cases |
+| T0-B1-P4 | 240 | 169 | unknown | comparison, CLI, and deterministic output |
+| T0-B1-P5 | 270 | 480 | unknown | README, full verification, and commit |
+
+These are foreman timestamps around orchestration, not pure agent-runtime
+telemetry; they include queue, tool, and return latency. The orchestration
+surface exposed no prompt-cache hit/miss field, so every cache result remains
+unknown. No elapsed-time threshold was converted into a cache claim. P1 stayed
+below 300 seconds but exceeded its 270-second target; P2–P4 demonstrate that
+coherent implementation packets could land well inside the target. P5 crossed
+both thresholds while running the full verification floor and therefore shows
+that verification needs its own budget or direct foreman-run treatment in a
+future presentation-work experiment; it does not prove a cache miss.
+
 ## Handoff
 
-Commit the completed Track 0 implementation as one conceptual implementation
-commit after the charter commit. Report the commit, exact commands/results,
-the historical source-reconciliation evidence, and any deviation or stop
-finding. Do not review your own work, push, open a PR, or begin Track 1.
+The completed Track 0 implementation is committed as one conceptual
+implementation commit after the charter commits. The Builder reported 588 full
+tests and 26 focused tests passing, mypy over 114 files green, governance lint
+conformant, envelope and diff scans clean, baseline validation successful, and
+two representative comparison runs byte-identical. All 60 historical cost
+cells reconcile, including C3 R2's approximate token value and two explicit
+missing cells; five foreman rows remain explicitly unmeasured. No builder work
+or stop finding remains. Independent artifact-quality review, push, PR, merge,
+and Track 1 remain unauthorized.

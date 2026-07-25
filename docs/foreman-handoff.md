@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy planning unit merged in PR #65 on 2026-07-24; owner authorized exactly one Track 0 Builder on track/presentation-economy-t0-measurement-substrate; no reviewer authorized.",
-  "next_permitted": "foreman resolves and records the Track 0 charter source commit, then launches the one authorized Builder in bounded handoffs; reviewer dispatch remains owner-gated"
+  "status": "Presentation Evaluation Process Economy Track 0 builder implementation complete on track/presentation-economy-t0-measurement-substrate; independent review not authorized.",
+  "next_permitted": "owner explicitly authorizes the Track 0 independent Reviewer; foreman then stages and resolves the reviewer charter before dispatch"
 }
 -->
 # Foreman Handoff Note
@@ -53,13 +53,14 @@ authority.
   offline batch harness, standing synthetic corpus, reusable examples, and
   tier-matched review allocation are the first measured intervention. It is not
   evaluating non-presentation workflows and makes no economic claim about them.
-  It raises no matrix cell and proposes no ADR. The Track 0 builder charter is
-  staged on `track/presentation-economy-t0-measurement-substrate`; the owner
-  authorized its one Builder on 2026-07-24 but no reviewer. Execution uses
-  bounded sub-4.5-minute target handoffs and adds direct task-duration,
-  dispatch-batch, foreman-idle-gap, and cache-status telemetry to the
-  presentation observation contract; unavailable cache state stays missing,
-  never inferred.
+  It raises no matrix cell and proposes no ADR. Track 0 builder implementation
+  is complete on `track/presentation-economy-t0-measurement-substrate`; no
+  independent review is authorized. Its five bounded packets measured
+  foreman-observed dispatch-to-handoff times of 289, 182, 135, 169, and 480
+  seconds. Cache status was never exposed and remains unknown. The resulting
+  presentation observation contract records direct task-duration,
+  dispatch-batch, foreman-idle-gap, and cache-status telemetry while requiring
+  unavailable cache state to stay missing, never inferred.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
