@@ -1,0 +1,257 @@
+{
+  "workloads": [
+    {
+      "version": "presentation-economy-workload.v1",
+      "id": "demo-historical-c1-workload",
+      "subject": "presentation-ui-ux",
+      "workload_kind": "historical-cycle",
+      "cycle": "C1",
+      "description": "Citation walk over one published and one honestly blocked line.",
+      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+    },
+    {
+      "version": "presentation-economy-workload.v1",
+      "id": "demo-historical-c2-workload",
+      "subject": "presentation-ui-ux",
+      "workload_kind": "historical-cycle",
+      "cycle": "C2",
+      "description": "Method-tightening rerun with isolation and standardized break tests.",
+      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+    },
+    {
+      "version": "presentation-economy-workload.v1",
+      "id": "demo-historical-c3-workload",
+      "subject": "presentation-ui-ux",
+      "workload_kind": "historical-cycle",
+      "cycle": "C3",
+      "description": "Fail-loud contract probe with isolation fixes.",
+      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+    },
+    {
+      "version": "presentation-economy-workload.v1",
+      "id": "demo-historical-c4-workload",
+      "subject": "presentation-ui-ux",
+      "workload_kind": "historical-cycle",
+      "cycle": "C4",
+      "description": "Richer citation-reuse fixture and multi-line blast containment.",
+      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+    },
+    {
+      "version": "presentation-economy-workload.v1",
+      "id": "demo-historical-c5-workload",
+      "subject": "presentation-ui-ux",
+      "workload_kind": "historical-cycle",
+      "cycle": "C5",
+      "description": "Mechanization of the accessibility and legibility residual.",
+      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+    }
+  ],
+  "observations": [
+    {
+      "version": "presentation-economy-observation.v1",
+      "id": "demo-historical-c1",
+      "supersedes": null,
+      "supersession_reason": null,
+      "workload_id": "demo-historical-c1-workload",
+      "evidence_class": "historical-observational",
+      "treatment": "exploratory-presentation-cycle",
+      "participants": [
+        {"id": "B-A", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 42600, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 14, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 165, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "B-B", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 46500, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 7, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 170, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R1", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 93100, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 65, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 397, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R2", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 69000, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 29, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 220, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "foreman", "role": "foreman", "tier": "unrecorded", "effort": "unrecorded", "tokens": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "tool_calls": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "wall_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}}
+      ],
+      "resources": {
+        "agent_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Cycle-level agent count was not recorded in the numeric source table."},
+        "browser_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Browser count was not recorded."},
+        "session_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Session count was not recorded."}
+      },
+      "outcome": {
+        "cases_completed": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Completed case count was not recorded in the numeric source table."},
+        "criteria_completed": {"value": null, "missing_reason": "Completed criterion ids were not recorded in the numeric source table."},
+        "seeded_defects_detected": {"value": null, "missing_reason": "Detected seeded-defect ids were not recorded in the numeric source table."},
+        "verdict": {"value": null, "missing_reason": "A normalized verdict was not recorded in the numeric source table."},
+        "quality_floor_met": {"value": null, "missing_reason": "No frozen quality floor applied to this historical cycle."},
+        "rework_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Rework event count was not recorded."},
+        "recheck_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Recheck event count was not recorded."}
+      },
+      "orchestration": {
+        "task_duration_budget_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No per-task duration budget was recorded."},
+        "observed_task_duration_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Only per-participant wall time was recorded."},
+        "dispatch_batch_id": {"value": null, "missing_reason": "No dispatch batch identity was recorded."},
+        "dispatch_batch_size": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No dispatch batch size was recorded."},
+        "execution_mode": {"value": null, "missing_reason": "No cycle-level execution mode was recorded."},
+        "foreman_idle_gap_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman idle gap was not measured."},
+        "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+      },
+      "causal_claim": false,
+      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+    },
+    {
+      "version": "presentation-economy-observation.v1",
+      "id": "demo-historical-c2",
+      "supersedes": null,
+      "supersession_reason": null,
+      "workload_id": "demo-historical-c2-workload",
+      "evidence_class": "historical-observational",
+      "treatment": "exploratory-presentation-cycle",
+      "participants": [
+        {"id": "B-A", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 43800, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 7, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 136, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "B-B", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 45300, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 9, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 149, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R1", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 66900, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 46, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 176, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R2", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 73200, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 54, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 999, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "foreman", "role": "foreman", "tier": "unrecorded", "effort": "unrecorded", "tokens": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "tool_calls": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "wall_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}}
+      ],
+      "resources": {
+        "agent_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Cycle-level agent count was not recorded in the numeric source table."},
+        "browser_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Browser count was not recorded."},
+        "session_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Session count was not recorded."}
+      },
+      "outcome": {
+        "cases_completed": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Completed case count was not recorded in the numeric source table."},
+        "criteria_completed": {"value": null, "missing_reason": "Completed criterion ids were not recorded in the numeric source table."},
+        "seeded_defects_detected": {"value": null, "missing_reason": "Detected seeded-defect ids were not recorded in the numeric source table."},
+        "verdict": {"value": null, "missing_reason": "A normalized verdict was not recorded in the numeric source table."},
+        "quality_floor_met": {"value": null, "missing_reason": "No frozen quality floor applied to this historical cycle."},
+        "rework_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Rework event count was not recorded."},
+        "recheck_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Recheck event count was not recorded."}
+      },
+      "orchestration": {
+        "task_duration_budget_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No per-task duration budget was recorded."},
+        "observed_task_duration_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Only per-participant wall time was recorded."},
+        "dispatch_batch_id": {"value": null, "missing_reason": "No dispatch batch identity was recorded."},
+        "dispatch_batch_size": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No dispatch batch size was recorded."},
+        "execution_mode": {"value": null, "missing_reason": "No cycle-level execution mode was recorded."},
+        "foreman_idle_gap_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman idle gap was not measured."},
+        "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+      },
+      "causal_claim": false,
+      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+    },
+    {
+      "version": "presentation-economy-observation.v1",
+      "id": "demo-historical-c3",
+      "supersedes": null,
+      "supersession_reason": null,
+      "workload_id": "demo-historical-c3-workload",
+      "evidence_class": "historical-observational",
+      "treatment": "exploratory-presentation-cycle",
+      "participants": [
+        {"id": "B-A", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 57400, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 22, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 238, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "B-B", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 63500, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 26, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 312, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R1", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 65300, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 28, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 115, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R2", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 70000, "approximate": true, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "The source table records an em dash."}, "wall_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "The source table records an em dash."}},
+        {"id": "foreman", "role": "foreman", "tier": "unrecorded", "effort": "unrecorded", "tokens": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "tool_calls": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "wall_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}}
+      ],
+      "resources": {
+        "agent_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Cycle-level agent count was not recorded in the numeric source table."},
+        "browser_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Browser count was not recorded."},
+        "session_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Session count was not recorded."}
+      },
+      "outcome": {
+        "cases_completed": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Completed case count was not recorded in the numeric source table."},
+        "criteria_completed": {"value": null, "missing_reason": "Completed criterion ids were not recorded in the numeric source table."},
+        "seeded_defects_detected": {"value": null, "missing_reason": "Detected seeded-defect ids were not recorded in the numeric source table."},
+        "verdict": {"value": null, "missing_reason": "A normalized verdict was not recorded in the numeric source table."},
+        "quality_floor_met": {"value": null, "missing_reason": "No frozen quality floor applied to this historical cycle."},
+        "rework_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Rework event count was not recorded."},
+        "recheck_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Recheck event count was not recorded."}
+      },
+      "orchestration": {
+        "task_duration_budget_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No per-task duration budget was recorded."},
+        "observed_task_duration_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Only per-participant wall time was recorded."},
+        "dispatch_batch_id": {"value": null, "missing_reason": "No dispatch batch identity was recorded."},
+        "dispatch_batch_size": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No dispatch batch size was recorded."},
+        "execution_mode": {"value": null, "missing_reason": "No cycle-level execution mode was recorded."},
+        "foreman_idle_gap_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman idle gap was not measured."},
+        "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+      },
+      "causal_claim": false,
+      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+    },
+    {
+      "version": "presentation-economy-observation.v1",
+      "id": "demo-historical-c4",
+      "supersedes": null,
+      "supersession_reason": null,
+      "workload_id": "demo-historical-c4-workload",
+      "evidence_class": "historical-observational",
+      "treatment": "exploratory-presentation-cycle",
+      "participants": [
+        {"id": "B-A", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 66200, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 29, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 313, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "B-B", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 65100, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 23, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 317, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R1", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 85200, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 57, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 246, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R2", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 127700, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 73, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 999, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "foreman", "role": "foreman", "tier": "unrecorded", "effort": "unrecorded", "tokens": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "tool_calls": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "wall_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}}
+      ],
+      "resources": {
+        "agent_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Cycle-level agent count was not recorded in the numeric source table."},
+        "browser_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Browser count was not recorded."},
+        "session_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Session count was not recorded."}
+      },
+      "outcome": {
+        "cases_completed": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Completed case count was not recorded in the numeric source table."},
+        "criteria_completed": {"value": null, "missing_reason": "Completed criterion ids were not recorded in the numeric source table."},
+        "seeded_defects_detected": {"value": null, "missing_reason": "Detected seeded-defect ids were not recorded in the numeric source table."},
+        "verdict": {"value": null, "missing_reason": "A normalized verdict was not recorded in the numeric source table."},
+        "quality_floor_met": {"value": null, "missing_reason": "No frozen quality floor applied to this historical cycle."},
+        "rework_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Rework event count was not recorded."},
+        "recheck_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Recheck event count was not recorded."}
+      },
+      "orchestration": {
+        "task_duration_budget_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No per-task duration budget was recorded."},
+        "observed_task_duration_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Only per-participant wall time was recorded."},
+        "dispatch_batch_id": {"value": null, "missing_reason": "No dispatch batch identity was recorded."},
+        "dispatch_batch_size": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No dispatch batch size was recorded."},
+        "execution_mode": {"value": null, "missing_reason": "No cycle-level execution mode was recorded."},
+        "foreman_idle_gap_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman idle gap was not measured."},
+        "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+      },
+      "causal_claim": false,
+      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+    },
+    {
+      "version": "presentation-economy-observation.v1",
+      "id": "demo-historical-c5",
+      "supersedes": null,
+      "supersession_reason": null,
+      "workload_id": "demo-historical-c5-workload",
+      "evidence_class": "historical-observational",
+      "treatment": "exploratory-presentation-cycle",
+      "participants": [
+        {"id": "B-A", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 76800, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 15, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 420, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "B-B", "role": "builder", "tier": "Medium", "effort": "medium", "tokens": {"value": 59900, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 13, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 281, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R1", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 111600, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 45, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 424, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "R2", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 81400, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "tool_calls": {"value": 26, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}, "wall_seconds": {"value": 262, "approximate": false, "measurement_basis": "source-reported", "missing_reason": null}},
+        {"id": "foreman", "role": "foreman", "tier": "unrecorded", "effort": "unrecorded", "tokens": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "tool_calls": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}, "wall_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman cost was not measured in the source table."}}
+      ],
+      "resources": {
+        "agent_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Cycle-level agent count was not recorded in the numeric source table."},
+        "browser_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Browser count was not recorded."},
+        "session_count": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Session count was not recorded."}
+      },
+      "outcome": {
+        "cases_completed": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Completed case count was not recorded in the numeric source table."},
+        "criteria_completed": {"value": null, "missing_reason": "Completed criterion ids were not recorded in the numeric source table."},
+        "seeded_defects_detected": {"value": null, "missing_reason": "Detected seeded-defect ids were not recorded in the numeric source table."},
+        "verdict": {"value": null, "missing_reason": "A normalized verdict was not recorded in the numeric source table."},
+        "quality_floor_met": {"value": null, "missing_reason": "No frozen quality floor applied to this historical cycle."},
+        "rework_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Rework event count was not recorded."},
+        "recheck_events": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Recheck event count was not recorded."}
+      },
+      "orchestration": {
+        "task_duration_budget_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No per-task duration budget was recorded."},
+        "observed_task_duration_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Only per-participant wall time was recorded."},
+        "dispatch_batch_id": {"value": null, "missing_reason": "No dispatch batch identity was recorded."},
+        "dispatch_batch_size": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "No dispatch batch size was recorded."},
+        "execution_mode": {"value": null, "missing_reason": "No cycle-level execution mode was recorded."},
+        "foreman_idle_gap_seconds": {"value": null, "approximate": false, "measurement_basis": "missing", "missing_reason": "Foreman idle gap was not measured."},
+        "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+      },
+      "causal_claim": false,
+      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+    }
+  ],
+  "comparisons": []
+}

@@ -1,0 +1,95 @@
+[
+  {
+    "id": "demo-invalid-unknown-key",
+    "mutations": [{"operation": "set", "path": "observations.0.surprise", "value": true}],
+    "expected_error": "unknown"
+  },
+  {
+    "id": "demo-invalid-version",
+    "mutations": [{"operation": "set", "path": "observations.0.version", "value": "presentation-economy-observation.v999"}],
+    "expected_error": "expected presentation-economy-observation.v1"
+  },
+  {
+    "id": "demo-invalid-negative-count",
+    "mutations": [{"operation": "set", "path": "observations.0.resources.agent_count.value", "value": -1}],
+    "expected_error": "non-negative"
+  },
+  {
+    "id": "demo-invalid-null-without-reason",
+    "mutations": [
+      {"operation": "set", "path": "observations.0.participants.0.tokens.value", "value": null},
+      {"operation": "set", "path": "observations.0.participants.0.tokens.measurement_basis", "value": "missing"},
+      {"operation": "set", "path": "observations.0.participants.0.tokens.missing_reason", "value": null}
+    ],
+    "expected_error": "non-empty string"
+  },
+  {
+    "id": "demo-invalid-approximation-flag-absent",
+    "mutations": [{"operation": "remove", "path": "observations.0.participants.0.tokens.approximate"}],
+    "expected_error": "missing"
+  },
+  {
+    "id": "demo-invalid-inferred-cache-hit",
+    "mutations": [
+      {"operation": "set", "path": "observations.0.orchestration.cache_status.value", "value": "hit"},
+      {"operation": "set", "path": "observations.0.orchestration.cache_status.missing_reason", "value": null}
+    ],
+    "expected_error": "must be directly observed"
+  },
+  {
+    "id": "demo-invalid-task-budget",
+    "mutations": [{"operation": "set", "path": "observations.0.orchestration.task_duration_budget_seconds.value", "value": -1}],
+    "expected_error": "non-negative"
+  },
+  {
+    "id": "demo-invalid-batch-size",
+    "mutations": [{"operation": "set", "path": "observations.0.orchestration.dispatch_batch_size.value", "value": -1}],
+    "expected_error": "non-negative"
+  },
+  {
+    "id": "demo-invalid-execution-mode",
+    "mutations": [{"operation": "set", "path": "observations.0.orchestration.execution_mode.value", "value": "speculated-parallel"}],
+    "expected_error": "expected one of"
+  },
+  {
+    "id": "demo-invalid-duplicate-observation",
+    "mutations": [{"operation": "set", "path": "observations.0.id", "value": "demo-paired-manual"}],
+    "expected_error": "duplicate"
+  },
+  {
+    "id": "demo-invalid-dangling-workload",
+    "mutations": [{"operation": "set", "path": "observations.0.workload_id", "value": "demo-missing-workload"}],
+    "expected_error": "dangling reference"
+  },
+  {
+    "id": "demo-invalid-dangling-supersession",
+    "mutations": [
+      {"operation": "set", "path": "observations.0.supersedes", "value": "demo-missing-observation"},
+      {"operation": "set", "path": "observations.0.supersession_reason", "value": "Manufactured invalid correction."}
+    ],
+    "expected_error": "dangling reference"
+  },
+  {
+    "id": "demo-invalid-omitted-role-cost",
+    "mutations": [{"operation": "remove", "path": "observations.0.participants.0.tokens"}],
+    "expected_error": "missing"
+  },
+  {
+    "id": "demo-invalid-unmet-quality-floor",
+    "mutations": [{"operation": "set", "path": "observations.0.outcome.verdict.value", "value": "fail"}],
+    "expected_error": "verdict does not meet floor"
+  },
+  {
+    "id": "demo-invalid-missed-seeded-defect",
+    "mutations": [{"operation": "remove", "path": "observations.0.outcome.seeded_defects_detected.value.2"}],
+    "expected_error": "required seeded defects missed"
+  },
+  {
+    "id": "demo-invalid-historical-causal-claim",
+    "mutations": [
+      {"operation": "set", "path": "observations.0.evidence_class", "value": "historical-observational"},
+      {"operation": "set", "path": "observations.0.causal_claim", "value": true}
+    ],
+    "expected_error": "cannot make a causal claim"
+  }
+]

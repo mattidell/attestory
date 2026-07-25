@@ -1,0 +1,120 @@
+{
+  "version": "presentation-economy-workload.v1",
+  "id": "demo-presentation-review-v1",
+  "subject": "presentation-ui-ux",
+  "workload_kind": "frozen-comparison",
+  "description": "Same-work presentation review used to compare a complete manual review with a harness-assisted review.",
+  "candidate": {
+    "surface": "Human presentation citation walk",
+    "paths": [
+      "docs/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-a/walk.html",
+      "docs/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-b/walk.html"
+    ]
+  },
+  "fixtures": [
+    {
+      "id": "demo-minimal",
+      "path": "docs/prototypes/human-presentation-citation-walk/reference/fixtures/fixture-minimal.md",
+      "synthetic": true
+    },
+    {
+      "id": "demo-rich-reuse",
+      "path": "docs/prototypes/human-presentation-citation-walk/reference/fixtures/fixture-rich-reuse.md",
+      "synthetic": true
+    }
+  ],
+  "criteria": [
+    "rendered-value-authority",
+    "honest-blocking",
+    "visible-fail-loud",
+    "blast-containment",
+    "citation-identity",
+    "reuse-backlink-resolution",
+    "landmarks-and-headings",
+    "keyboard-and-focus-visible",
+    "computed-style-contrast",
+    "residual-information-design"
+  ],
+  "seeded_defects": [
+    {
+      "id": "demo-t1-blocked-value",
+      "tier": "T1",
+      "description": "Inject a value into an honestly blocked line."
+    },
+    {
+      "id": "demo-t2-nonnumeric-published-value",
+      "tier": "T2",
+      "description": "Replace a published numeric value with a nonnumeric value."
+    },
+    {
+      "id": "demo-t3-unknown-status",
+      "tier": "T3",
+      "description": "Inject an unknown presentation status."
+    }
+  ],
+  "required_outputs": [
+    "deterministic mechanical criterion report",
+    "residual information-design review brief"
+  ],
+  "quality_floor": {
+    "required_criteria": [
+      "rendered-value-authority",
+      "honest-blocking",
+      "visible-fail-loud",
+      "blast-containment",
+      "citation-identity",
+      "reuse-backlink-resolution",
+      "landmarks-and-headings",
+      "keyboard-and-focus-visible",
+      "computed-style-contrast",
+      "residual-information-design"
+    ],
+    "required_seeded_defects": [
+      "demo-t1-blocked-value",
+      "demo-t2-nonnumeric-published-value",
+      "demo-t3-unknown-status"
+    ],
+    "accepted_verdicts": [
+      "pass"
+    ]
+  },
+  "role_boundaries": [
+    {
+      "role": "reviewer",
+      "count": 1,
+      "tier": "Medium",
+      "effort": "medium",
+      "responsibility": "Execute the assigned treatment and produce the same residual information-design brief."
+    },
+    {
+      "role": "foreman",
+      "count": 1,
+      "tier": "Medium",
+      "effort": "medium",
+      "responsibility": "Freeze the workload, dispatch independently contexted arms, and record directly exposed orchestration cost."
+    },
+    {
+      "role": "harness",
+      "count": 1,
+      "tier": "Economy",
+      "effort": "low",
+      "responsibility": "Account for committed mechanical apparatus cost without replacing residual judgment."
+    }
+  ],
+  "intervention": {
+    "name": "standing presentation review harness",
+    "treatments": [
+      {
+        "label": "manual",
+        "apparatus": "Perform the complete mechanical battery manually without the new harness.",
+        "residual_brief": "Perform the complete residual information-design review brief independently."
+      },
+      {
+        "label": "harness-assisted",
+        "apparatus": "Consume the committed mechanical report produced by the standing harness.",
+        "residual_brief": "Perform the same complete residual information-design review brief independently."
+      }
+    ]
+  },
+  "provenance": "docs/phases/real-return/milestones/presentation-evaluation-process-economy.md"
+}

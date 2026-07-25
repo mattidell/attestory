@@ -1,0 +1,202 @@
+# Presentation Economy Data
+
+This directory records evidence about the economy of UI/UX presentation
+iteration, development, and review. It preserves measured cost beside outcome
+quality so a faster or cheaper run is never called an improvement after doing
+different work or missing required defects.
+
+The interfaces are strict, dependency-free, tool-local JSON contracts. They are
+not workspace citizens or published JSON Schemas:
+
+- `presentation-economy-workload.v1`
+- `presentation-economy-observation.v1`
+- `presentation-economy-comparison.v1`
+
+Unknown keys or versions, invalid types or enums, negative counts or durations,
+duplicate identities, and dangling references fail validation.
+
+## Commands
+
+Validate a complete dataset:
+
+```sh
+.venv/bin/python3 -m tools.presentation_economy validate \
+  --dataset docs/presentation-economy/datasets/presentation-exploratory-baseline.v1.json
+```
+
+Compare two treatments from a committed observation collection:
+
+```sh
+.venv/bin/python3 -m tools.presentation_economy compare \
+  --workload docs/presentation-economy/workloads/presentation-review.v1.json \
+  --observations docs/presentation-economy/examples/valid-observations.v1.json \
+  --baseline manual \
+  --treatment harness-assisted
+```
+
+Successful validation writes `{"valid":true}`. Comparison writes deterministic
+JSON: stable input ordering plus sorted object keys means identical committed
+inputs produce byte-identical output. Invalid input exits `2` and writes the
+validation reason to standard error.
+
+## Workload contract
+
+A workload has subject `presentation-ui-ux` and one explicit kind:
+
+- `historical-cycle` identifies one C1–C5 source cycle without pretending that
+  its work was frozen in advance.
+- `frozen-comparison` fixes the candidate paths, synthetic fixtures, criteria,
+  T1/T2/T3 seeded defects, required outputs, quality floor, role boundaries,
+  and treatment apparatus before either comparison arm runs.
+
+The frozen
+[`presentation-review.v1.json`](workloads/presentation-review.v1.json) gives
+both arms the same candidates, fixtures, criteria, seeded defects, required
+mechanical report, residual information-design brief, capability tier/effort,
+and quality floor. The manual arm performs the complete mechanical battery
+without the new harness. The harness-assisted arm consumes the committed
+mechanical report. Both perform the same residual brief independently.
+
+Compatibility is intentionally strict. An observation that names another
+workload cannot enter the comparison. Changing a material candidate, fixture,
+criterion, seeded defect, output, role boundary, or quality floor requires a
+new workload identity rather than a favorable comparison against the old work.
+
+## Observation contract
+
+One observation records one historical, paired-pilot, or repeated presentation
+execution. It contains:
+
+- workload identity, evidence class, treatment, and repository-relative
+  provenance;
+- every participating role with abstract tier/effort and tokens, tool calls,
+  and wall seconds;
+- agent, browser, and session counts;
+- completed case count and criterion ids, seeded defects detected, normalized
+  verdict, quality-floor result, and rework/recheck counts; and
+- declared task-duration budget, observed task duration, dispatch batch
+  identity/size, execution mode, foreman idle gap, and cache status.
+
+Numeric measures use one shape:
+
+```json
+{
+  "value": 150,
+  "approximate": false,
+  "measurement_basis": "direct",
+  "missing_reason": null
+}
+```
+
+`measurement_basis` is `direct`, `source-reported`, or `missing`. A null value
+requires a non-empty missing reason and cannot be approximate. A populated
+source value may be marked approximate; a directly observed value may not.
+Nullable text, list, and boolean evidence likewise requires either a populated
+value or an explicit missing reason.
+
+All participating-role costs remain visible. Moving work into the foreman,
+harness, rework, or recheck does not erase it. A comparison refuses a specific
+cost measure if any participating role lacks that measure, while independently
+reported complete measures remain interpretable.
+
+### Task, batch, idle-gap, and cache evidence
+
+Task budgets describe the declared dispatch budget; observed duration describes
+what the orchestration surface actually measured. Dispatch batch identity,
+batch size, and execution mode record how work was assigned. Foreman idle gap
+is a measure in its own right rather than a substitute for agent duration.
+
+Cache status has an additional hard boundary. `hit` or `miss` is valid only
+when the orchestration surface directly exposes that result and the record
+cites repository-relative observation provenance. Cache status is never
+inferred from elapsed time, token count, a five-minute hypothesis, or any other
+proxy. When the surface does not expose it, the value is null with
+`directly_observed:false` and an explicit missing reason.
+
+The historical C1–C5 baseline therefore preserves the published wall times but
+leaves task budget, batch, idle-gap, and cache fields missing where the source
+did not measure them. Missing evidence is a result, not an invitation to
+reconstruct it.
+
+## Append and supersession
+
+Observations are append-only by identity:
+
+1. Do not edit a measured observation to correct it.
+2. Append a new observation with a new `id`.
+3. Set `supersedes` to the retained prior observation id.
+4. Give a non-empty `supersession_reason`.
+5. Keep the same workload identity.
+
+Validation rejects duplicate ids, self-supersession, dangling supersession
+targets, and corrections that cross workload identities. A record with no
+predecessor uses null `supersedes` and null `supersession_reason`.
+
+## Evidence classes
+
+- `historical-observational` preserves the C1–C5 record as context. It is not a
+  same-work experiment.
+- `paired-pilot` records independently executed arms against one frozen
+  workload. A single pair is still not causal evidence.
+- `repeated` records later executions against the same frozen workload and can
+  strengthen the evidence base without rewriting earlier runs.
+
+The comparison contract always emits `causal_claim:false`; it rejects an
+unsupported causal claim regardless of evidence class. The tool reports
+evidence and caveats for later foreman/owner judgment. It never selects a
+process change.
+
+## Quality-first comparison
+
+Comparison proceeds in this order:
+
+1. Validate the frozen workload and every observation.
+2. Require both treatment labels, one shared evidence class, and compatible
+   workload identities.
+3. Check required criterion coverage, every required seeded defect, accepted
+   verdict, and the affirmed quality floor for every selected observation.
+4. Only after quality passes, aggregate all participating-role costs.
+5. Evaluate each cost measure independently.
+
+Every result retains the complete raw observations. Quality equivalence and its
+reasons sit beside, rather than inside, the cost results. Each measure reports
+baseline and treatment totals, delta, ratio when the baseline is nonzero,
+verdict, and refusal reason when evidence is insufficient.
+
+Possible measure verdicts are:
+
+- `economically-promising`
+- `regression`
+- `no-interpretable-difference`
+- `insufficient-evidence`
+
+An incomplete measure or failed quality floor yields `insufficient-evidence`.
+It never becomes zero and never borrows a value from another measure.
+
+## Historical source reconciliation
+
+[`presentation-exploratory-baseline.v1.json`](datasets/presentation-exploratory-baseline.v1.json)
+transcribes every B-A, B-B, R1, and R2 tokens/tool-calls/wall-seconds cell for
+C1–C5 from
+`docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md`.
+Focused tests reconcile all 60 cells. C3 R2 tokens retain the source's
+approximate `~70k`; its tool-call and wall-time em dashes remain null with
+reasons. Each cycle also carries an explicit unmeasured foreman row. The source
+prose remains authoritative and is linked rather than rewritten.
+
+The example ids are deliberately `demo-*`. Invalid fixture catalogs under
+`examples/invalid/` apply manufactured mutations to valid records and prove the
+validator fails for the intended reason.
+
+## Scope and data boundary
+
+These records apply only to presentation UI/UX iteration, development, and
+review. They make no claim about other engineering domains and provide no
+global productivity score, agent ranking, model comparison, or leaderboard.
+
+Committed records may contain abstract role/tier/effort, bounded counts and
+durations, criterion/fixture ids, outcomes, branch or PR names, and
+repository-relative provenance. They must not contain prompts, responses,
+reasoning traces, page content, personal or real-return data, model/account
+identity, absolute machine paths, browser locations, credentials, environment
+variables, remote configuration, or private output.
