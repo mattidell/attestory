@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "browser-evaluation-runner-completion",
   "active_plan": "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md",
-  "status": "Browser runner residual R1/R2 recheck returned READY; Track 1 PR #71 is ready for owner merge after green CI.",
-  "current_role": "Owner merge of Browser Evaluation Runner Track 1",
-  "current_prompt": "docs/reviews/2026-07-25-browser-evaluation-runner-residual-repair-review.md"
+  "status": "Complete. PR #71 merged c329afd 2026-07-25T23:12:23Z, CI verify green on the merge commit; Track 2 completion record filed. Next: owner-directed milestone selection.",
+  "current_role": "Owner milestone selection (Tier 3) for the next Real Return frontier",
+  "current_prompt": "docs/phases/real-return/maturity-matrix.md"
 }
 -->
 # Phase State
@@ -31,22 +31,20 @@ directly and resolve the disagreement before acting. The capsule does not
 authorize a foreman dispatch, change the data boundary, or replace accepted
 authority.
 
-## Product briefing (as of 2026-07-25, browser-runner completion plan prepared)
+## Product briefing (as of 2026-07-25, browser-runner completion merged)
 
 **What it does now.** Attestory computes its user's **actual return slice**: the owner's real W-2, 1099-INT, and 1099-DIV facts, held in a quarantined out-of-repo workspace, flow through a contribution boundary (contribution is a first-class product event, distinct from a run; runs consume facts, structurally), resolve a byte-verified production package (a current user adoption pins a verified release; only the strict `validation.ok == True` exclusive member graph executes), and produce Form 1040 lines **1a, 2b, 3a, 3b, 9, 11, 12, 15, and 16** with full explanations, plus Schedule B (Parts I/II payer itemizations tying to 2b/3b, Part III via two contributed taxpayer-assertion facts) when the $1,500 conditional requires it — publishing, or blocking honestly with a walkable account of what is missing. Line 16 is the QDCG worksheet over contributed declared-absence facts, with a bidirectional interlock against the capital-gain-distribution signal. Taxable interest (2b) remains an OID-inclusive declared coextensive composition; the 1099-DIV declared universe is boxes 1a/1b only (2a/3/5/7/12 are named honest-block exclusions); standard deduction and tax remain declared rule artifacts over a first-class filing-status domain. Every source family — including both dividend box families — closes over a **horizon-keyed declared set**, so a stale closure is a hard projection error, never a quietly wrong line. The repository provably carries zero personal data: out-of-repo residency by ratified rule (ADR-0031), a fail-closed classifier, per-review safety scans, and installed byte-verified commit/push envelope gates in every clone. The only repo-side fact about any real run is a three-fact non-descriptive attestation (Ontology §8). A correction to an already-answered fact is no longer necessarily unrestricted: a fact type may declare `locked` (never correctable again) or `closed-on-attestation` (correctable until a named closure fact attests true), enforced at the existing supersession-policy dispatch (ADR-0041); every fact type shipped today still declares `free`, unaffected, by choice.
 
 **Shims in place.** E8.1 UI coverage deferred (presentation is form-field disposition content, not a human surface); citation *display* formatting a deferred rendering contract; mechanical separation between Developer/Supply and Live-Run Data **not implemented**, which holds the data-boundary row at L3; guarded publication transport / credential confinement also not implemented, as a separate publication-integrity deferral; a synthetic push-envelope posture audit makes the hook/`--no-verify` bypass visible but does not protect an owner push; ADR-0026's further interest sources and subtractive adjustments deferred; ADR-0028 historical-v1 migration deferred; the declared dividend universe excludes boxes 2a/3/5/7/12; Schedule B is the only implemented schedule attachment; `closed-on-attestation` reaches only fact types keyed identically to their gate fact type, not yet differently-keyed per-item facts. The complete named list with reactivation triggers: `docs/phases/real-return/milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md` (which also dispositions the Dividends and Schedule B Slice ledger's entries this milestone touched — two, both retired).
 
-**What the completed milestones establish.** Live-Run System Definition and Trust Domains accepts ADR-0044 as the project's bounded security position: Developer/Supply, Publication, Live-Run Data, and Owner Authorization are separate logical authority domains; the intended live supply crossing is the current owner-adopted, byte-verified package; and guarded transport belongs to publication integrity rather than the live-data privacy wall. It implements no isolation mechanism, schedules none, and leaves the data-boundary row at L3. The Presentation Exploratory Milestone then demonstrated an agent-authored, agent-reviewed UI-development loop on a synthetic citation walk: roughly 65–80% of the exercised quality surface was mechanically checkable, while information-design judgment remained distinct and under-served. Presentation Evaluation Process Economy now adds the Track 0 declare → observe → compare → retain foundation: strict presentation workload/observation/comparison contracts, a source-faithful historical baseline, participating-role completeness, and quality-before-cost enforcement. Its proposed general browser harness failed independent review and was not merged.
+**What the completed milestones establish.** Live-Run System Definition and Trust Domains accepts ADR-0044 as the project's bounded security position: Developer/Supply, Publication, Live-Run Data, and Owner Authorization are separate logical authority domains; the intended live supply crossing is the current owner-adopted, byte-verified package; and guarded transport belongs to publication integrity rather than the live-data privacy wall. It implements no isolation mechanism, schedules none, and leaves the data-boundary row at L3. The Presentation Exploratory Milestone then demonstrated an agent-authored, agent-reviewed UI-development loop on a synthetic citation walk: roughly 65–80% of the exercised quality surface was mechanically checkable, while information-design judgment remained distinct and under-served. Presentation Evaluation Process Economy added the Track 0 declare → observe → compare → retain foundation: strict presentation workload/observation/comparison contracts, a source-faithful historical baseline, participating-role completeness, and quality-before-cost enforcement; its proposed general browser harness failed independent review and was not merged. Browser Evaluation Runner Completion then finished that same runner as trustworthy tooling: it adopted the preserved implementation commit rather than rebuilding it, repaired the review's six blocking correctness classes plus two owner-authorized post-verdict residuals (R1/R2), and completed the transferred lifecycle/output measurements, under one focused delta review and one focused recheck. It added no product UI, ADR, or maturity lift; it removes the "runner not trustworthy" blocker on starting presentation work.
 
-**What the next milestone will do.** Browser Evaluation Runner Completion will
-finish the already-built, independently reviewed general browser-evaluation
-runner as trustworthy tooling. The Builder adopts the preserved implementation
-commit rather than rebuilding it, repairs the review's six blocking
-correctness classes, and completes the transferred lifecycle/output
-measurements. One focused delta review checks only those repairs and adjacent
-invariants. This is not a presentation prototype, an economy experiment, or an
-adversarial-novelty practice run; it adds no product UI, ADR, or maturity lift.
+**What the next milestone will do.** Unselected. The Presentation frontier
+toward a human surface is the owner-selected direction, deliberately deferred
+until the runner was trustworthy — that condition is now met. The foreman
+should present frontier candidates from
+`docs/phases/real-return/maturity-matrix.md`, including Presentation, with a
+recommendation; the owner makes the Tier 3 selection.
 
 **Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are published; any further correction-authority extension is separately chartered. ADR-0044 is accepted positioning, not a mechanism decision: any authority-separation implementation requires a later owner-selected milestone, mechanical proof, and real-run verification before an L4 claim.
 
@@ -82,26 +80,22 @@ adversarial-novelty practice run; it adds no product UI, ADR, or maturity lift.
   promoted foreman discipline: give known adversarial classes to both Builder
   and Reviewer as executable coverage, and spend independent review on an
   explicit novel boundary.
-- **Browser Evaluation Runner Completion:** Track 1 repair has landed on
-  `track/browser-evaluation-runner-completion` (PR #71). It adopted the
-  existing, independently reviewed implementation rather than rebuilding it
-  and made a focused repair for the six known blockers: storage isolation, injection
-  acknowledgement, cancellation-safe cleanup, canonical path/provenance
-  confinement, strict non-vacuous validation, and redacted external failures.
-  The next role is the one focused delta Reviewer, which credits the prior
-  independent review for unchanged ground and checks repaired outcomes, the
-  four transferred measurements, and only touched adjacent invariants. No
-  product prototype, economy experiment, novelty catalog, or broad creative
-  re-review belongs in this milestone. The delta review returned `READY` for
-  F1–F6 and the transferred measurements. Voluntary post-verdict exploration
-  then found residual R1: the repair's injection-acknowledgement wait can
-  bypass the manifest timeout and still return a pass; R2 records the fixed
+- **Browser Evaluation Runner Completion:** complete. PR #71 merged as
+  `c329afd` on 2026-07-25T23:12:23Z with CI `verify` green on the merge
+  commit. It adopted the existing, independently reviewed implementation
+  rather than rebuilding it and repaired the six known blockers: storage
+  isolation, injection acknowledgement, cancellation-safe cleanup, canonical
+  path/provenance confinement, strict non-vacuous validation, and redacted
+  external failures. The focused delta Reviewer returned `READY` for F1–F6
+  and the transferred measurements. Voluntary post-verdict exploration then
+  found residual R1: the repair's injection-acknowledgement wait could
+  bypass the manifest timeout and still return a pass; R2 recorded the fixed
   acknowledgement marker's collision fragility. The owner accepted both
   findings and authorized one narrow R1/R2 repair charter plus its focused
   recheck as an explicit exception to the original cap. The residual repair
   landed, and the focused R1/R2 recheck returned `READY` with no new in-scope
-  finding. Track 1 PR #71 is ready for owner merge after its current-head CI is
-  green. No broader second review cycle is authorized.
+  finding. No broader second review cycle was authorized. Retrospective:
+  `docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
 - **Later direction:** the actual human-surface Presentation frontier remains
   selected but deferred until the runner is trustworthy. The accepted economy
   contracts remain available, but no economical improvement or novelty-review
@@ -116,27 +110,34 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
-Most recent milestone: **Presentation Evaluation Process Economy** — closed
-early by owner direction 2026-07-25. Track 0 merged in PR #66 (`870c8ed`) as
-the accepted economy foundation. Track 1 failed independent review and was not
+Most recent milestone: **Browser Evaluation Runner Completion** — complete
+2026-07-25. PR #71 merged `c329afd` with CI `verify` green on the merge
+commit. Adopted and repaired the existing browser-evaluation runner
+implementation (six blockers plus two owner-authorized residuals, R1/R2); no
+product UI, ADR, or matrix lift. Plan:
+`docs/phases/real-return/milestones/browser-evaluation-runner-completion.md`.
+Retrospective:
+`docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
+
+Prior milestone: **Presentation Evaluation Process Economy** — closed early by
+owner direction 2026-07-25. Track 0 merged in PR #66 (`870c8ed`) as the
+accepted economy foundation. Track 1 failed independent review and was not
 merged; its repair/re-review and Tracks 2–3 were retired. Plan:
 `docs/phases/real-return/milestones/presentation-evaluation-process-economy.md`.
 Retrospective:
 `docs/milestone-retrospectives/2026-07-25-presentation-evaluation-process-economy.md`.
 
-Prior milestone: **Presentation Exploratory Milestone** — complete 2026-07-24;
-no ADR or matrix lift. Its evaluation analysis and reference material live
-under `docs/prototypes/human-presentation-citation-walk/`.
+Earlier milestone: **Presentation Exploratory Milestone** — complete
+2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
+material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ In-progress milestone: Browser Evaluation Runner Completion.** The
-existing-runner repair and focused delta review have landed in PR #71. The
-formal verdict is `READY` for the chartered F1–F6 gate, with prior evidence
-credited rather than repeated. The owner accepted residuals R1/R2 and
-authorized one narrow repair charter plus one focused two-finding recheck as a
-fixed-cap exception. The residual repair has landed, and its focused two-finding
-recheck returned `READY`. Track 1 PR #71 is at the owner-merge boundary; Track
-2 completion records begin only after that merge. Plan:
-`docs/phases/real-return/milestones/browser-evaluation-runner-completion.md`.
+**➡️ Next: owner-directed milestone selection (Tier 3).** The browser
+evaluation runner is now trustworthy tooling, which was the named blocker on
+beginning the deferred Presentation frontier. The foreman should present
+frontier candidates from `docs/phases/real-return/maturity-matrix.md` —
+including the Presentation frontier — and a recommendation; the owner
+decides. `track/browser-evaluation-runner-completion` may be deleted, since
+its content is fully contained in `main` at `c329afd`.
 
 Standing operational notes: `PROJECT_PLANNING.md` ("Branch, PR, and Merge Protocol") governs per-track PRs, owner merges, and `main` as the continuous ratified record; `AGENTS.md` ("Dispatch authorization") governs dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 
