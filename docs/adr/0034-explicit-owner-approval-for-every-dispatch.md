@@ -28,7 +28,7 @@ prototype plan in advance.
 2. **Approval is dispatch-specific.** The owner message identifies the topic or
    current stage and role(s) to launch; it authorizes only that immediate event,
    not later rounds, replacement seats, or a different charter.
-3. **The foreman stages but does not launch by default.** It may prepare plans,
+3. **The foreman prepares but does not launch by default.** It may prepare plans,
    charters, seat records, and review packets without approval. Before dispatch,
    it records the owner direction and exact role/charter in the process log. If
    the direction is ambiguous, it holds or asks; it does not infer.

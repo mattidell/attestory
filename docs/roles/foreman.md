@@ -93,11 +93,11 @@ refresh `docs/foreman-clerk-task.md`. Its one mechanical task is answering
 “what is the current prompt?” from a foreman-composed fixed record. The record
 names the next role, authorization state, prompt/charter path, and next
 permitted action. Once an approved plan is active, the current prompt is always
-staged: before marking a plan or role cycle complete, stage the next sequential
-role's charter/prompt and refresh the clerk capsule to point to it. Prompt
-staging records sequence; it is not dispatch authorization. Preparing and
+available: before marking a plan or role cycle complete, prepare the next
+sequential role's charter/prompt and refresh the clerk capsule to point to it.
+Prompt preparation records sequence; it is not dispatch authorization. Preparing and
 refreshing the capsule is mandatory continuity work even when neither the clerk
-nor the staged role is authorized. The clerk reports the supplied record and
+nor the current role is authorized. The clerk reports the supplied record and
 verifies it against the capsule's exact committed inputs; it never chooses the
 next task.
 

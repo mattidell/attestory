@@ -6,7 +6,7 @@ unit** and nothing more. You do not review your own work.
 
 ## How you are launched
 
-The foreman stages your charter; the owner authorizes the dispatch (**ADR-0034**
+The foreman prepares your charter; the owner authorizes the dispatch (**ADR-0034**
 — plan approval, a named seat, or a charter is never itself dispatch authority).
 Before writing a line, **echo back your understood scope, your evidence-rung
 ceiling, and your stop conditions** (`PROJECT_PLANNING.md`, "External builder

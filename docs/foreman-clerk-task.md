@@ -1,7 +1,7 @@
 # Foreman Clerk Task Capsule — Current Prompt
 
 Status: **refreshed 2026-07-24 at Track 0 builder-cycle completion; independent
-review prompt staged.** This is a mechanical routing record, not dispatch
+review prompt prepared.** This is a mechanical routing record, not dispatch
 authority. It does not authorize the clerk or the next execution role.
 
 ## Clerk Task Capsule
@@ -27,7 +27,7 @@ authority. It does not authorize the clerk or the next execution role.
   this capsule and every allowed input; confirm its handoff `status` and
   `next_permitted` fields agree with the fixed record; and confirm the Track 0
   builder charter says implementation complete while the review charter is
-  staged and reviewer dispatch remains unauthorized.
+  prepared and reviewer dispatch remains unauthorized.
 - **Stop rule:** if the ref cannot be resolved, the resolved commit does not
   contain this capsule or an allowed input, the status fields disagree, or a
   later foreman-cycle record supersedes this capsule, stop and report the exact
@@ -47,6 +47,6 @@ authority. It does not authorize the clerk or the next execution role.
 - **Authorization:** not authorized; explicit owner authorization is required.
 - **Prompt/charter path:**
   `docs/reviews/charter-2026-07-24-presentation-economy-t0-measurement-review.md`.
-- **Next permitted action:** owner authorizes dispatch of the already-staged
-  Track 0 independent Reviewer prompt; the foreman then resolves the source ref
-  and spawns the role.
+- **Next permitted action:** owner authorizes dispatch of the current Track 0
+  independent Reviewer prompt; the foreman then resolves the source ref and
+  spawns the role.

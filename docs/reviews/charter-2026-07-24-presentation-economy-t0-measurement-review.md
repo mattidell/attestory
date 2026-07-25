@@ -1,7 +1,7 @@
 # Track 0 Review Charter — Presentation Economy Measurement Integrity
 
-Status: **staged 2026-07-24; reviewer dispatch not authorized.** This is the
-current prompt under the owner-approved milestone sequence. Staging the prompt
+Status: **prepared 2026-07-24; reviewer dispatch not authorized.** This is the
+current prompt under the owner-approved milestone sequence. Preparing the prompt
 does not authorize spawning the Reviewer.
 
 ## Context Capsule

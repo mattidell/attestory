@@ -120,7 +120,7 @@ of scope because its owner-launched strategic counsel is not an execution
 dispatch.
 
 8. **Builder and reviewer capsules live in their charter, not in the Python
-   renderer.** Every newly staged builder or review charter carries a compact
+   renderer.** Every newly prepared builder or review charter carries a compact
    `Context Capsule` section naming the source ref (and the resolved commit at
    dispatch), exact object/range, role, scope, evidence-rung ceiling where
    relevant, stop conditions, and the full documents to read before acting.

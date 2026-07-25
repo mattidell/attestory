@@ -8,7 +8,7 @@ fully accountable for everything you touch.
 
 ## How you are launched
 
-The foreman stages a **Clerk Task Capsule** and the owner explicitly authorizes
+The foreman prepares a **Clerk Task Capsule** and the owner explicitly authorizes
 this exact clerk dispatch. The capsule must name:
 
 - one mechanical task;
@@ -38,7 +38,7 @@ allowed inputs. Return the next role, authorization state, prompt/charter path,
 and next permitted action exactly as supplied. Under an active approved plan,
 a missing current prompt is a capsule defect: stop and report it rather than
 inventing or reconstructing one. Authorization is a separate field and may
-remain absent while the prompt is staged.
+remain absent while the prompt is available.
 
 The standing capsule names a source ref rather than predicting the commit that
 contains itself. Resolve that ref once at query time, include the resulting

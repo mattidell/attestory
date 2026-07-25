@@ -13,7 +13,7 @@ authorization.
   resolve and record its commit immediately before dispatch.
 - **Object:** implementation of Track 0 on
   `main..track/presentation-economy-t0-measurement-substrate`, excluding this
-  routing-only charter and the foreman-owned status updates that stage it.
+  routing-only charter and the foreman-owned status updates that prepare it.
 - **Role:** one Builder, Medium tier / medium effort.
 - **Scope:** the presentation-specific economy workload, observation, and
   comparison data shapes; faithful C1–C5 baseline; frozen presentation-review

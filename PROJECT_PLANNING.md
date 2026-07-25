@@ -156,7 +156,7 @@ ceiling, and stop conditions before writing. It does not duplicate the charter.
 
 Audience: Agents
 
-The foreman stages a compact **Context Capsule** in every new builder or review
+The foreman prepares a compact **Context Capsule** in every new builder or review
 charter before requesting owner approval. It names the source ref and resolved
 dispatch commit, exact object/range, role, scope, evidence-rung ceiling where
 applicable, stop conditions, and complete deep reads. A builder or reviewer
@@ -164,7 +164,7 @@ uses it to orient, verifies the ref against Git, then reads the controlling
 charter and cited sources. The capsule is part of the charter's routing surface
 only: it never widens scope, replaces exact text, or authorizes dispatch.
 
-For clerical work, the foreman stages a **Clerk Task Capsule** with one
+For clerical work, the foreman prepares a **Clerk Task Capsule** with one
 mechanical task, source ref/commit, allowed input paths, expected output shape
 and paths, verification, and a stop rule. A clerk never chooses a current task
 by reading phase state or the handoff; any missing or ambiguous capsule is a
@@ -177,9 +177,9 @@ The foreman always maintains one current-prompt Clerk Task Capsule at
 and refreshed whenever a plan or execution cycle completes. The foreman—not
 the clerk—supplies the next role, authorization state, prompt/charter path, and
 next permitted action. Once a plan is approved, there is always a current
-prompt: before a plan or role cycle is marked complete, the foreman stages the
-next sequential role's charter/prompt and refreshes the capsule. Prompt staging
-records plan sequence and is distinct from owner authorization to spawn the
+prompt: before a plan or role cycle is marked complete, the foreman prepares the
+next sequential role's charter/prompt and refreshes the capsule. Prompt
+preparation records plan sequence and is distinct from owner authorization to spawn the
 role. This gives a clerk a mechanical answer to “what is the current prompt?”
 without asking it to infer work from phase state or handoff prose. Capsule
 preparation does not authorize a clerk or the named execution role.
