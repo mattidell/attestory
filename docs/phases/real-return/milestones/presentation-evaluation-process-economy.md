@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Track 0 merged in PR #66; Track 1 harness-core Builder implementation complete; technical-adversary review owner-halted with provisional findings and no gate verdict; review completion is the current prompt",
+  "status": "Track 0 merged in PR #66; Track 1 harness-core review completed NOT READY with six blockers; focused repair Builder is the current role",
   "scope": [
     "versioned UI/UX iteration workload observation and comparison data",
     "machine-readable presentation-iteration baseline with explicit missing and estimated values",
@@ -72,9 +72,8 @@
 
 Status: **active; owner-approved planning unit merged in PR #65 (`1fd3d4c`)
 on 2026-07-24; Track 0 merged in PR #66 (`870c8ed`); Track 1 harness-core
-Builder implementation is complete; technical-adversary review was
-owner-halted with provisional findings and no gate verdict; review completion
-is the current prompt.**
+review completed `NOT READY` with six blockers; the focused repair Builder is
+the current role, and the post-repair delta-review plan is prepared.**
 
 ## Objective
 

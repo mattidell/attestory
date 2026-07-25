@@ -1,8 +1,8 @@
 # Track 1 Charter — Instrumented Harness Core and Fail-Closed Lifecycle
 
-Status: **Builder implementation complete 2026-07-24 on
-`track/presentation-economy-t1-harness-core`; independent technical-adversary
-Reviewer is the current role.**
+Status: **Builder implementation complete 2026-07-24; independent review
+completed `NOT READY` 2026-07-25 with six blockers; focused repair Builder is
+the current role.**
 
 ## Context Capsule
 

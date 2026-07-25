@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy Track 0 merged in PR #66; Track 1 harness-core Builder implementation complete; technical-adversary review owner-halted with provisional findings and no gate verdict; review completion is the current prompt.",
-  "current_role": "Track 1 harness lifecycle technical-adversary review completion",
-  "current_prompt": "docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md"
+  "status": "Presentation Evaluation Process Economy Track 0 merged in PR #66; Track 1 harness-core review completed NOT READY with six blockers; focused repair Builder is the current role.",
+  "current_role": "Track 1 harness failure-integrity repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md"
 }
 -->
 # Foreman Handoff Note
@@ -62,12 +62,14 @@ authority.
   repair landed in `4f8a07c` and the independent delta review returned `READY`;
   Track 0 then merged in PR #66 (`870c8ed`). Track 1's harness-core Builder
   implementation is complete on `track/presentation-economy-t1-harness-core`.
-  A fresh independent technical-adversary Reviewer began the Track 1 gate
-  against the rebased branch, reported six provisional blocking directions,
-  and was then halted at owner direction before required verification or a
-  gate record completed. The interrupted progress is preserved in
-  `docs/reviews/2026-07-25-presentation-economy-t1-harness-core-review-progress.md`;
-  it is not a final verdict. Review completion remains the current prompt.
+  The independent technical-adversary review completed `NOT READY` with six
+  blockers: tuple storage leakage, false-pass malformed injection, launch-time
+  signal cleanup leakage, CLI manifest traversal/invalid provenance, incomplete
+  manifest strictness, and rejected-input echo on stderr. The exact Reviewer
+  also reported 42 turns, 41 tool calls, 12 harness invocations, 11 Chrome
+  launches, and unknown token usage; browser execution itself was batched.
+  The focused repair Builder is the current role. A post-repair delta-review
+  charter is already prepared for the owner's independently launched Reviewer.
   Its five bounded packets measured
   foreman-observed dispatch-to-handoff times of 289, 182, 135, 169, and 480
   seconds. Cache status was never exposed and remains unknown. The resulting
@@ -91,8 +93,14 @@ authority.
   `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md`.
 - Track 1 harness-core review charter:
   `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`.
+- Completed Track 1 harness-core review (`NOT READY`):
+  `docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`.
 - Interrupted Track 1 review progress:
   `docs/reviews/2026-07-25-presentation-economy-t1-harness-core-review-progress.md`.
+- Track 1 repair Builder charter:
+  `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md`.
+- Prepared post-repair delta-review charter:
+  `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md`.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
   ADR-0030, ADR-0039, ADR-0042, and ADR-0043.
