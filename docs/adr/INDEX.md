@@ -10,13 +10,16 @@ are **inert** — never load as authority (ADR-0013 amendment).
 
 **Role cores** — each seat boots from its seed file in `docs/roles/`, which
 carries posture and points here for the binding ADRs:
-- **Foreman** (`docs/roles/foreman.md`) — core ADRs 0005, 0013, 0030, 0043
-  (+ `docs/phase-state.md`, `docs/foreman-handoff.md`, the active plan).
+- **Foreman** (`docs/roles/foreman.md`) — core ADRs 0005, 0013, 0030, 0043,
+  0045 (+ `docs/phase-state.md`, `docs/foreman-handoff.md`, the active plan).
 - **Builder** (`docs/roles/builder.md`) / **Reviewer**
   (`docs/roles/reviewer.md`) — core ADRs 0003, 0010 (+ the dispatching
   charter, which carries the milestone foreclosure principles).
-- **Clerk** (`docs/roles/clerk.md`) — mechanical helper; **Advisor**
-  (`docs/roles/advisor.md`, ADR-0040) — owner-launched counsel.
+- **Advisor** (`docs/roles/advisor.md`, ADR-0040 as amended by ADR-0045) —
+  owner-launched counsel; the only seat that reads `docs/governance/`.
+
+There is no clerk seat (ADR-0045). ADR-0034 and ADR-0042 mention one; that
+text is history and inert as to the seat.
 
 | ADR | Status | Tags | Binding digest |
 | --- | --- | --- | --- |
@@ -64,3 +67,4 @@ carries posture and points here for the binding ADRs:
 | 0042 | accepted | process, context | Advisory, explicit-ref routing: a deterministic foreman capsule plus charter capsules for builders/reviewers and mechanical task capsules for clerks; all preserve full action-specific reads and fail closed on ambiguity. |
 | 0043 | accepted | process | The Dispatch section of `docs/roles/foreman.md` is the operative instruction: spawning creates a sub-agent; dispatch is an owner-authorized foreman spawn for an approved charter role; other roles may not spawn. |
 | 0044 | accepted | boundary, security | Defines Developer/Supply, Publication, Live-Run Data, and Owner Authorization as distinct trust domains; guarded transport is publication integrity, while L4 awaits later mechanical separation and verification. |
+| 0045 | accepted | process | `AGENTS.md` is a router; every rule has exactly one normative home. Dispatch requires the owner's literal string `I authorize dispatch`, single-use and charter-bound. Clerk seat retired. Governance reading moves off executing seats to CI plus the advisor. |
