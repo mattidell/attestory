@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "browser-evaluation-runner-completion",
   "active_plan": "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md",
-  "status": "Browser runner residual R1/R2 repair landed in PR #71; focused two-finding recheck is next.",
-  "current_role": "Browser Evaluation Runner Residual Repair Delta Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-25-browser-evaluation-runner-residual-repair-review.md"
+  "status": "Browser runner residual R1/R2 recheck returned READY; Track 1 PR #71 is ready for owner merge after green CI.",
+  "current_role": "Owner merge of Browser Evaluation Runner Track 1",
+  "current_prompt": "docs/reviews/2026-07-25-browser-evaluation-runner-residual-repair-review.md"
 }
 -->
 # Phase State
@@ -99,8 +99,9 @@ adversarial-novelty practice run; it adds no product UI, ADR, or maturity lift.
   acknowledgement marker's collision fragility. The owner accepted both
   findings and authorized one narrow R1/R2 repair charter plus its focused
   recheck as an explicit exception to the original cap. The residual repair
-  has landed; the focused R1/R2 recheck is the current prompt. No broader
-  second review cycle is authorized.
+  landed, and the focused R1/R2 recheck returned `READY` with no new in-scope
+  finding. Track 1 PR #71 is ready for owner merge after its current-head CI is
+  green. No broader second review cycle is authorized.
 - **Later direction:** the actual human-surface Presentation frontier remains
   selected but deferred until the runner is trustworthy. The accepted economy
   contracts remain available, but no economical improvement or novelty-review
@@ -133,7 +134,8 @@ formal verdict is `READY` for the chartered F1–F6 gate, with prior evidence
 credited rather than repeated. The owner accepted residuals R1/R2 and
 authorized one narrow repair charter plus one focused two-finding recheck as a
 fixed-cap exception. The residual repair has landed, and its focused two-finding
-recheck is the current prompt. Plan:
+recheck returned `READY`. Track 1 PR #71 is at the owner-merge boundary; Track
+2 completion records begin only after that merge. Plan:
 `docs/phases/real-return/milestones/browser-evaluation-runner-completion.md`.
 
 Standing operational notes: `PROJECT_PLANNING.md` ("Branch, PR, and Merge Protocol") governs per-track PRs, owner merges, and `main` as the continuous ratified record; `AGENTS.md` ("Dispatch authorization") governs dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).

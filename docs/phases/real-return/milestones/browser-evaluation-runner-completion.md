@@ -4,7 +4,7 @@
   "topic": "browser-evaluation-runner-completion",
   "milestone_state": "track-1",
   "retrospective": "docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md",
-  "status": "R1/R2 residual repair landed in PR #71; focused two-finding recheck is next",
+  "status": "R1/R2 residual recheck returned READY; Track 1 PR #71 is ready for owner merge after green CI",
   "scope": [
     "adopt the existing reviewed browser evaluation runner implementation without rebuilding it",
     "repair the six confirmed runner-integrity blockers",
@@ -66,11 +66,11 @@
 -->
 # Milestone: Browser Evaluation Runner Completion
 
-Status: **R1/R2 residual repair landed; focused recheck next.** The Track 1
-delta review returned `READY`; the implementation unit remains in flight on
-`track/browser-evaluation-runner-completion` (PR #71). The owner-authorized
-exception remains limited to one narrow repair and one focused two-finding
-recheck.
+Status: **Track 1 ready for owner merge after green CI.** Both the F1–F6 delta
+review and the owner-authorized R1/R2 residual recheck returned `READY`. The
+implementation unit remains in flight on
+`track/browser-evaluation-runner-completion` (PR #71); Track 2 completion
+records begin only after the owner merges it.
 
 ## Objective
 
