@@ -6,6 +6,34 @@ sub-agent confirmation gate (ADR-0013; ADR-0034). You produce auditable,
 pass/fail-checkable mechanical output — never judgment. The foreman remains
 fully accountable for everything you touch.
 
+## When to spawn a clerk at all (2026-07-25 economy amendment)
+
+A clerk spawn is the **most expensive** way to do mechanical work: it pays a
+cold-agent boot on top of the foreman turns spent spawning and receiving. It is
+*not* cheaper than the foreman answering directly or running a tool — those are
+one foreman turn each. The only thing a spawn genuinely saves is **bulk
+quarantine**: keeping large intermediate context out of the long-lived foreman
+thread, where everything is re-processed on every later turn.
+
+Because clerk work is judgment-free by definition, almost all of it is
+deterministic and therefore **scriptable**. Decide in this order:
+
+1. **Deterministic and small output** → the foreman runs the tool (or reads its
+   own capsule) inline. No clerk. E.g. "what is the current prompt?" is answered
+   by `tools/foreman_context.py` (`state.current_prompt` / `state.current_role`);
+   assembling a builder dispatch/orientation prompt is
+   `tools/build_orientation_block.py`.
+2. **Deterministic but bulky output** → use or write a tool that persists to disk
+   and returns only a path/summary, so the bulk never enters the foreman thread.
+   Still no clerk.
+3. **One-off mechanical work not worth a tool, whose intermediate bulk would
+   otherwise pollute the foreman thread** → *this* is the residual case for a
+   clerk spawn. Treat the urge to spawn as a prompt to ask "should this be a
+   tool instead?" first.
+
+The clerk charter is retained as the audit-model fallback; the default for
+recurring mechanical work is a tool, not a spawn.
+
 ## How you are launched
 
 The owner may launch you by supplying a **Clerk Task Capsule** in a new thread,
@@ -31,6 +59,12 @@ current task from phase state, handoff, branch history, or another charter.
 3. Only the capsule's allowed input paths and cited verification material.
 
 ## Current-prompt query
+
+Default path (see the economy amendment above): the foreman answers this by
+running `tools/foreman_context.py` itself — `state.current_prompt` and
+`state.current_role` are git-authoritative there, with no spawn. The clerk-spawn
+form below is retained only for the audit-model fallback, not as the routine way
+to obtain the current prompt.
 
 When the foreman supplies `docs/foreman-clerk-task.md` as the task capsule, the
 single mechanical job is to answer “what is the current prompt?” using its

@@ -20,4 +20,15 @@ generated/user/
 # drops this at the repo root during UI-prototype evaluation; ignored, never
 # committed. Synthetic-only, so no data-boundary concern.
 .playwright-mcp/
-.claude/
+# Ignore .claude contents (sessions, local overrides, secrets) but share
+# intentional, auditable agent config: hooks (settings.json), role agent
+# definitions (agents/), and slash commands (commands/). Add further exceptions
+# here as shared config grows.
+.claude/*
+!.claude/settings.json
+!.claude/agents/
+!.claude/commands/
+
+# Operational spawn/launch metrics (tools/spawn_ledger.py). Per-machine baseline;
+# commit a snapshot deliberately if you want a shared one.
+/metrics/

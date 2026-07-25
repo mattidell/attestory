@@ -6,6 +6,22 @@ This file defines how agents should work in this repository. It is a canonical p
 
 Bash starts at repo root and cwd persists; never cd to the root; use absolute paths for other dirs
 
+In Claude Code a `[worktree-state]` line (branch + dirty paths) is injected at session start via a SessionStart hook. On any runner, get branch/dirty from that line or from `python3 tools/foreman_context.py --ref <ref>` rather than running `git status`/`git branch` to orient; use `git status`/`git diff` only to verify your own changes after editing.
+
+**Test economy.** The authoritative gate is **CI**: the `verify` workflow (`pytest -n auto` + `-m mypy` + `governance_lint` + `envelope_scan`) runs on every PR and blocks merge on red (branch protection on `main`). A green `verify` check on a commit is the tamper-proof record — reference it; do not re-run the suite to "confirm" a deterministic result.
+- **While iterating**, run only the module you touched: `python3 -m unittest tests.<module>` (seconds).
+- **Before opening/updating a PR**, optionally run the full gate locally (`pytest`, ~26s) so CI isn't your first signal — but CI is the gate of record, not a self-reported `pytest: N passed` line.
+- **The foreman does not run the suite.** It opens the PR and references the `verify` check; it merges only on green. Reviewers reference the check too, and run `pytest` only to confirm a specific failing claim.
+
+**Cache economy.** Claude Code reuses (caches) the unchanged prefix of each request; a change to the system prompt or tool set forces a full, slow, uncached re-read. The cache TTL is an *inactivity* timer, reset on every hit — continuous work stays warm regardless of how long a task runs; a gap longer than the TTL goes cold. On a Claude subscription the main conversation gets a 1-hour TTL; spawned sub-agents get a 5-minute TTL. Keep the cache warm:
+- **Pick model and effort at session start; don't switch mid-task.** Each `/model` or `/effort` change re-reads the whole history. With `opusplan`, every plan-mode toggle is a model switch — expect a slow turn.
+- **Prefer `/rewind` over `/compact`** when abandoning a path (rewind lands on an already-cached prefix; compact builds a new one). Run `/compact` at task breaks, not mid-task.
+- **Avoid single tool calls that block longer than the TTL.** A >5-minute step (a slow test/build) cold-starts the next turn — this, not task length, is the cache risk. Keep gates fast (the parallel `pytest` gate is ~26s).
+- **Each worktree/directory has its own cache** (the working dir is in the system prompt). Create a new worktree only when you need isolation (e.g. a clean-room rival); otherwise running in the same directory shares the warm cache.
+- **Spawn vs. owner-launch.** For a *one-shot* run, cache barely matters: both agents stay warm while working, and a spawn costs the foreman only ~2 turns (emit + consume) plus the returned result's bulk (measured terse here) — so reserve spawning for short, few, terse-return, one-shot sub-tasks (committee reviews). Prefer owner-launch (`/pickup`) for substantial builder work on grounds of independence (ADR-0034) and keeping the foreman thread lean.
+- **Repair loops lean owner-launch, and here cache *does* matter.** A builder that must repair after review is multi-phase (build → review → repair), with the review as a pause between the builder's two active phases. An owner-launched builder thread stays alive across that pause: it retains its own build reasoning and, if the review turns around within the 1-hour TTL, resumes repair on a warm cache. A spawned builder is one-shot — it already returned, so repair means a fresh cold sub-agent that must re-orient and reverse-engineer its own prior work. Route anything expected to iterate against review through owner-launch.
+- **Record every dispatch/launch** so spawn cost stays measured, not guessed: `python3 tools/spawn_ledger.py record --role <r> --kind <spawn|owner-launch> --event dispatch`, and on completion a `return` event with `--wall-seconds` and the agent's self-reported `--turns`/`--tool-calls`. `python3 tools/spawn_ledger.py summary` aggregates. (Sub-agent internals aren't in the parent transcript; this is the only way to see them.)
+
 ## Canonical References
 
 Read these before substantial work:
@@ -24,6 +40,36 @@ must be reconciled against Git; it directs action-specific deep reads but never
 replaces these canonical references, accepted ADR text, or the five-retrospective
 read before planning a new milestone. If the capsule refuses, inspect the named
 committed sources directly and resolve the disagreement before acting. Then read docs/roles/foreman.md and docs/foreman-handoff.md.
+
+## Picking up the current role task (runner-agnostic)
+
+When the owner opens a fresh thread and says "pick up the current task" (or
+equivalent), self-orient — do not ask the owner to paste context, and do not
+require the foreman. From the repo root run:
+
+```
+python3 tools/build_orientation_block.py --ref main
+```
+
+The role is **auto-detected** from the handoff's `current_role`; you do not need
+to be told it. This prints one Orientation Block at a resolved commit: the current
+charter plus the plan's action-scoped, section-anchored deep reads (only the cited
+sections). Then: (1) verify the printed commit SHA against Git; (2) adopt the seat
+charter for the block's detected role (`docs/roles/<role>.md`); (3) echo back your
+understood scope, evidence ceiling, and stop conditions; (4) act. If the role
+cannot be inferred, pass `--role`/`--action` explicitly.
+
+**Clean-room rival builder:** when the handoff's `current_role` marks a
+clean-room / rival / independent round, the block **auto-switches** to clean-room
+mode — no flag to pass. It emits the charter, scope, and non-goals but lists deep
+reads as a manifest only (not inlined), and instructs the builder to reimplement
+from the spec without reading any other builder's implementation or thread — the
+same independence a reviewer keeps.
+
+This path works from any runner (Claude, Codex, Grok) because it is a plain
+command. Claude users may invoke it via the `/pickup` command, which only wraps
+this same protocol. The block is git blob content, not prose, so it satisfies the
+"verify against Git, do not reconstruct from handoff prose" discipline.
 
 ## Owner Posture and Collaboration Rules
 

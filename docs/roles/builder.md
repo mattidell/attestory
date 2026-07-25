@@ -35,10 +35,14 @@ handoff"). If the charter and the repository state disagree, stop and say so.
   the charter did not authorize — a new evaluator op, a new schema, a touch to
   an out-of-scope file — that is a **charter-stop finding to escalate**, not a
   change to make.
-- **Verification floor before handoff** (never claim done without it):
-  `.venv/bin/python3 -m unittest`, `-m mypy`, `tools/governance_lint.py`,
-  `tools/envelope_scan.py --range main..HEAD` — all green. Named golden classes
-  enter through `live_coordinate_run`, never a `RunContext` shortcut.
+- **Verification floor before handoff** (never claim done without it): the CI
+  `verify` check must be green — `pytest`, `-m mypy`, `tools/governance_lint.py`,
+  `tools/envelope_scan.py`. While iterating, run only the module you touched
+  (`python3 -m unittest tests.<module>`); before you push, optionally run the full
+  gate locally (`pytest`, ~26s) so CI isn't your first signal. CI is the gate of
+  record — no self-reported `pytest: N passed` line needed (AGENTS.md "Test
+  economy"). Named golden classes enter through `live_coordinate_run`, never a
+  `RunContext` shortcut.
 - **Never call a failure "pre-existing" without proving it against base.** Run
   the base comparison; a misattribution costs a full review cycle to unwind.
 - **Fix the shape, not the instance.** When you remediate a fragility, remove

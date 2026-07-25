@@ -16,7 +16,8 @@ This is the project's third iteration. The first proved a working return generat
 ## Verification
 
 ```sh
-python3 -m unittest            # test suite
+pytest                         # full suite, parallel gate run (~26s; pytest.ini sets -n auto)
+python3 -m unittest tests.<module>  # targeted run while iterating (~seconds); e.g. tests.derivation.test_explanation_cli
 python3 tools/governance_lint.py   # governance set structural checks
 python3 -m mypy                # type checks (tools)
 python3 tools/foreman_context.py --ref HEAD --format markdown  # advisory foreman re-entry routing

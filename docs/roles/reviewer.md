@@ -45,6 +45,9 @@ may authorize the foreman to dispatch you (**ADR-0034**). You run in an
 - **Data boundary** is absolute (**ADR-0031**): no real value or workspace path
   enters your review; run the per-review safety scan
   (`tools/envelope_scan.py --range main..HEAD`).
+- **Don't re-run the full suite by default.** Reference the PR's `verify` check
+  (AGENTS.md "Test economy"); run `pytest` yourself only to confirm a specific
+  failing claim, not as routine.
 
 ## Craft
 
