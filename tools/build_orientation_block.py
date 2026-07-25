@@ -10,7 +10,7 @@ and this tool honors that.
 
 Because every byte comes from a named commit's blobs (not prose), it preserves
 the builder/reviewer discipline "verify the capsule against Git, do not
-reconstruct from handoff prose": the block prints the commit SHA to verify.
+reconstruct from prose": the block prints the commit SHA to verify.
 
 Portable: pure standard library; no runner-specific assumptions.
 
@@ -38,14 +38,14 @@ DEFAULT_MAX_BYTES = 24_000  # per-section guard
 
 
 def detect_role(current_role: str) -> str | None:
-    """Infer the role from the handoff's free-text current_role (e.g. 'Track 1
+    """Infer the role from phase state's free-text current_role (e.g. 'Track 1
     ... Builder' -> 'builder'). Returns None if zero or more than one role word
     matches, so the caller can ask for an explicit --role."""
     hits = [role for role in ROLE_ACTIONS if role in current_role.casefold()]
     return hits[0] if len(hits) == 1 else None
 
 
-# Handoff phrasings that mark a clean-room / independent rival round. Detected
+# Phrasings that mark a clean-room / independent rival round. Detected
 # from the current_role so the owner never has to pass a flag.
 CLEAN_ROOM_MARKERS = ("clean-room", "clean room", "rival", "independent")
 
@@ -150,7 +150,7 @@ def build_block(
     state = capsule["state"]
     wt = capsule["worktree"]
 
-    # Auto-detect the role from the handoff when the owner didn't specify one.
+    # Auto-detect the role from phase state when the owner didn't specify one.
     detected = None
     if not role and not action:
         detected = detect_role(state["current_role"])
@@ -160,7 +160,7 @@ def build_block(
                 f"pass --role ({'/'.join(sorted(ROLE_ACTIONS))}) or --action explicitly"
             )
         role = detected
-    # Clean-room is auto-detected from the handoff (no owner-facing flag); the
+    # Clean-room is auto-detected from phase state (no owner-facing flag); the
     # optional CLI override is only for tests and forced runs.
     if clean_room is None:
         clean_room = detect_clean_room(state["current_role"])
@@ -183,7 +183,7 @@ def build_block(
             targets.append(target)
 
     label = f"{role or chosen}" + (" · CLEAN ROOM" if clean_room else "")
-    role_line = f"- Role: `{role or chosen}`" + (" (auto-detected from handoff)" if detected else "")
+    role_line = f"- Role: `{role or chosen}`" + (" (auto-detected from phase state)" if detected else "")
     out: list[str] = [
         f"# ORIENTATION BLOCK — {label}",
         "",
@@ -191,7 +191,7 @@ def build_block(
         f"- Branch: `{wt['branch'] or 'detached'}`; dirty: `{wt['dirty']}`",
         f"- Phase/topic: {state['phase']} / `{state['topic']}` ({state['plan_status']})",
         role_line,
-        f"- Current role (per handoff): {state['current_role']}",
+        f"- Current role (per phase state): {state['current_role']}",
         f"- Deep-reads action selected: `{chosen}` ({len(targets)} sources)",
         f"- Scope: {', '.join(state['scope'])}",
         f"- Non-goals: {', '.join(state['non_goals'])}",
@@ -243,7 +243,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--manifest-only", action="store_true", help="list scoped reads instead of inlining them")
     parser.add_argument(
         "--clean-room", dest="clean_room", action="store_const", const=True, default=None,
-        help="force clean-room mode (normally auto-detected from the handoff role; override for tests/forced runs)",
+        help="force clean-room mode (normally auto-detected from the phase-state role; override for tests/forced runs)",
     )
     args = parser.parse_args(argv)
     try:

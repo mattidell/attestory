@@ -139,17 +139,15 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
     commit = repository.commit_for_ref(ref)
     phase = load_document(repository, commit, PHASE_STATE_PATH)
     active_plan_path = required_path(phase.metadata, "active_plan", phase.path)
-    handoff_path = required_path(phase.metadata, "handoff", phase.path)
     raw_seat_path = phase.metadata.get("seat")
     if raw_seat_path is not None and not isinstance(raw_seat_path, str):
         raise ContextError(f"{phase.path} metadata 'seat' must be a string when present")
     seat_path = require_relative_path(raw_seat_path, f"{phase.path} metadata 'seat'") if raw_seat_path else None
-    handoff = load_document(repository, commit, handoff_path)
     plan = load_document(repository, commit, active_plan_path)
     seat = load_document(repository, commit, seat_path) if seat_path else None
 
     topic = required_string(phase.metadata, "topic", phase.path)
-    documents_to_compare = [handoff, plan]
+    documents_to_compare = [plan]
     if seat is not None:
         documents_to_compare.append(seat)
     for document in documents_to_compare:
@@ -168,9 +166,9 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
         raise ContextError(f"seat mismatch: {plan.path} does not name {seat_path}")
 
     deep_reads = validate_deep_reads(repository, commit, plan.metadata, plan.path)
-    current_prompt = required_path(handoff.metadata, "current_prompt", handoff.path)
+    current_prompt = required_path(phase.metadata, "current_prompt", phase.path)
     current_prompt_blob = repository.blob_for_path(commit, current_prompt)
-    sources = [phase, handoff, plan]
+    sources = [phase, plan]
     if seat is not None:
         sources.append(seat)
     seat_state: dict[str, Any] | None = None
@@ -195,8 +193,8 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
             "phase": required_string(phase.metadata, "phase", phase.path),
             "topic": topic,
             "plan_status": required_string(plan.metadata, "status", plan.path),
-            "handoff_status": required_string(handoff.metadata, "status", handoff.path),
-            "current_role": required_string(handoff.metadata, "current_role", handoff.path),
+            "status": required_string(phase.metadata, "status", phase.path),
+            "current_role": required_string(phase.metadata, "current_role", phase.path),
             "current_prompt": current_prompt,
             "scope": required_strings(plan.metadata, "scope", plan.path),
             "non_goals": required_strings(plan.metadata, "non_goals", plan.path),

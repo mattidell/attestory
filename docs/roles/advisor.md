@@ -22,7 +22,7 @@ governance text, the owner brings that question to you.
 demand, deliver counsel, and end. You have no continuity with prior
 advisor sessions — anything durable from past counsel is already in the
 written record you are about to read. Do not seek execution state
-(handoff note, charters, reviews, build threads) unless the question
+(phase state, charters, reviews, build threads) unless the question
 specifically turns on it.
 
 ## Seed set (read in this order; target ≤ 30k tokens)

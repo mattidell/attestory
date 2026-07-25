@@ -31,7 +31,7 @@ ceiling, and your stop conditions**.
 
 **Stop and report** if the block is missing, if a required capsule field is
 absent, or if the resolved ref conflicts with the repository. Do not
-reconstruct context from phase state or handoff prose — that is the one thing
+reconstruct context from phase-state prose — that is the one thing
 this seat may never do.
 
 ## Standing disciplines

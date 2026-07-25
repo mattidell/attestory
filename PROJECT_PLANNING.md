@@ -35,7 +35,7 @@ This posture coexists with the milestone protocol below: planning discipline gov
 
 Audience: Shared
 
-Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or a Tier 2 ADR that fixes a contract future content or surfaces will be authored against (a *contract-foundational* decision), must cite a **prototype evaluation analysis** as evidence. An ADR whose central design element is a placeholder is not ready to propose. Exceptions (trivially reversible decisions, or decisions forced by an external constraint) must say so in the ADR.
+Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or a Tier 2 ADR that fixes a contract future content or surfaces will be authored against (a *contract-foundational* decision), must **cite its evidence** — the exhibits, review notes, and recorded results the decision rests on. An ADR whose central design element is a placeholder is not ready to propose. Exceptions (trivially reversible decisions, or decisions forced by an external constraint) must say so in the ADR.
 
 **Authorization.** Agents are pre-authorized to build prototypes before proposing such ADRs. Prototyping is the expected first move when a consequential contract is undesigned — do not ask permission to start one.
 
@@ -46,7 +46,22 @@ Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or 
 3. **Examine** — record the contracts that emerged and the implementation results against the charter's questions.
 4. **Committee review** — multiple reviewers with distinct charters (see below).
 5. **Disposition** — enumerate the questions that remain; decide whether to iterate (new charter: more fixtures, edge cases, or a rival design) or to conclude.
-6. Repeat until the reviewers agree the evidence suffices. Then write the **prototype evaluation analysis** — what was built, what questions were asked and answered, what evidence supports each conclusion, what dissent remains — and only then draft the ADR, citing it.
+6. Repeat until the reviewers agree the evidence suffices, then draft the ADR against the evidence.
+
+**The evaluation analysis is conditional.** A separate
+`docs/prototypes/<topic>/evaluation-analysis.md` — what was built, what
+questions were asked and answered, what evidence supports each conclusion, what
+dissent remains — is **required only when the evidence did not converge in one
+clean round**. Write one when any of these holds:
+
+- the topic ran more than one build-and-review round;
+- a rival changed the shape of the answer rather than confirming it;
+- dissent is unresolved at the close.
+
+Otherwise there is nothing for an analysis to reconcile, and writing one only
+restates the round: the ADR cites the charter, the exhibit tag, and the review
+notes directly, and no analysis file exists. The foreman decides this at the
+closing disposition and records which branch applied.
 
 **Committee.** At least two reviewers besides the builder, with distinct review charters — for example: contract fidelity against the governance set; implementation results and expressiveness against the charter's fixtures; fresh-reader legibility (can a reader recover the meaning from the artifact alone?). The owner's disposition closes each round. Dissent is recorded in the round's review notes, never resolved by wordsmithing; unresolved dissent is cited in the ADR.
 
@@ -68,17 +83,9 @@ periodic owner-spawned **Legibility Audit** (`docs/legibility-audits/`).
 
 **Termination.** Every iteration opens with declared questions. An iteration that resolves no new questions forces a stop-and-decide. Default cap: three iterations before an owner check-in. The owner may kill the effort at any disposition point; a killed prototype is snapshotted like any other abandoned work.
 
-**Artifacts.** `docs/prototypes/<topic>/` holds charters, iteration examinations, committee review notes, and the final evaluation analysis — these merge to `main`. Prototype code lives on a branch named `prototypes/<topic>/it<N>` only while its iteration is active; prototype code never merges to `main`. When an iteration concludes, the foreman tags its tip as `exhibits/<topic>/it<N>` and deletes the branch ref: the commits are preserved permanently and cited by tag, and the branch list holds only the actively-building iteration. Exhibit tags are never deleted or moved.
+**Artifacts.** `docs/prototypes/<topic>/` holds charters, iteration examinations, committee review notes, and an evaluation analysis where one is required — these merge to `main`. Prototype code lives on a branch named `prototypes/<topic>/it<N>` only while its iteration is active; prototype code never merges to `main`. When an iteration concludes, the foreman tags its tip as `exhibits/<topic>/it<N>` and deletes the branch ref: the commits are preserved permanently and cited by tag, and the branch list holds only the actively-building iteration. Exhibit tags are never deleted or moved.
 
-**Traceability.** Every conclusion in the evaluation analysis cites a specific exhibit — a drafted artifact at a path on a named prototype branch, a recorded test result, a review note. A conclusion the reader cannot follow to its exhibit is not evidence and does not support an ADR. The same rule flows downstream: the ADR cites the analysis, the analysis cites exhibits, and a break anywhere in that chain is grounds to send the ADR back.
-
-**Plain-language ADR analysis.** Every new or materially revised ADR has a
-separate, non-normative companion at `docs/adr/analyses/<adr-number>-<slug>.md`,
-linked near the top of the ADR. It explains what changes, why it is needed, what
-it enables or protects, and what it does not do, without duplicating the
-normative contract. The ADR governs on any conflict. Historical ADRs are not
-backfilled solely for this protocol; create a companion when one is materially
-revisited.
+**Traceability.** Every conclusion cites a specific exhibit — a drafted artifact at a path on a named prototype branch, a recorded test result, a review note. A conclusion the reader cannot follow to its exhibit is not evidence and does not support an ADR. The chain is the ADR to its evidence, and — where an evaluation analysis exists — through the analysis to the exhibits it cites. A break anywhere in that chain is grounds to send the ADR back.
 
 **Process evaluation.** The process itself is under evaluation while it runs, not only in the retrospective. The foreman maintains a dated **process log** (`docs/prototypes/<topic>/process-log.md`), written as incidents happen — never reconstructed afterward — against declared incident categories: hollow measurements, context leaks, no-progress iterations, charter drift, wordsmithed dissent, role breaches, and foreman errors. The foreman's participant review is **conformance review only** (did the reviewer run its charter's checks; did roles stay separated), never a second judgment on artifact findings — quality belongs to the committee. Owner check-ins at disposition points have a fixed shape: evidence status against the charter, process incidents since the last check-in, and a recommendation; the owner then sample-audits one review. The retrospective treats the process — foreman included — as a subject, and material lessons amend the process by an owner-directed edit to the document that norms it (ADR-0045 decision 5) — not by a new ADR.
 
@@ -100,7 +107,7 @@ The first prototype run (Tax Citizen Families, First Tax Slice Track 0) was cons
   iteration.
 - **Gate 4 — Fixed caps and session-bounded cost review.** There is no cost-ratio trigger; session usage is already bounded, so a session boundary is the natural point to review the shape of cost incurred and still to come. Fixed caps apply and each forces stop-and-decide when crossed, never automatic charter expansion: two builder iterations including one rival; one owner-authorized repair pass; two default reviewers, a third only for a named uncertainty; and context-starved legibility only when recoverability is itself a decision. **Builder and review documents have no line or Markdown-length cap.** Their cost is bounded by the pre-declared scope, cases, evidence rung, and measurement charter; authors stop when those obligations are completely reported, not when a file reaches an economic target. Rival iterations are clean-room. A repair pass is named `repair<N>`, not as another iteration, and defaults to the original incumbent builder for deliberate defect continuity unless the disposition explicitly assigns a different builder.
 - **Gate 5 — Review triage (foreman-owned).** Every finding is classified before another iteration may open: `decision-blocking`, `production-condition`, `separate-decision`, `deferred-breadth`, or `non-blocking defect`. The foreman performs this triage and is accountable for it. Only a `decision-blocking` finding, and only after the owner ratifies the amendment, may enlarge the active charter. Production conditions go to the milestone plan; separate decisions get their own Gate 1 score; breadth and non-blocking defects are logged and deferred. A review measures and may recommend an action, but does not enlarge scope: the foreman rejects or reroutes any proposed action that exceeds the charter and records the disposition in the process log.
-- **Gate 6 — Partial ratification.** An evaluation analysis may accept a coherent converged subset and explicitly defer the rest; ADR scope matches the evidence that actually converged. Do not hold a prototype open until every adjacent boundary is solved.
+- **Gate 6 — Partial ratification.** A closing disposition may accept a coherent converged subset and explicitly defer the rest; ADR scope matches the evidence that actually converged. Do not hold a prototype open until every adjacent boundary is solved.
 - **Gate 7 — Production adoption.** Prototype code never becomes a production candidate by effort or similarity (see Artifacts and Traceability above). Accepted contracts are reimplemented on the milestone branch; prototype code is cited and selectively translated only after each piece maps to an accepted ADR statement and a production test.
 - **Gate 8 — Role capability budget.** Reasoning capability is a priced input, so the plan assigns each role a capability tier and reasoning effort matched to the role's difficulty and the current evidence rung — not defaulted to maximum. A novel-synthesis builder needs a high tier; an imitation or repair build does not. Fresh-reader legibility review is *more faithful* at a lower tier, because a strong model reconstructs the missing meaning the test is meant to expose — there a lower tier is a better measurement, not merely a saving.
 
@@ -170,10 +177,13 @@ operational-capsule rule. There is no clerk seat and no Clerk Task Capsule
 (ADR-0045); mechanical work is one foreman turn, or a tool when it recurs or
 its output is bulky.
 
-The current role and prompt are not a separate document. They live in the
-`foreman-context-v1` block at the top of `docs/foreman-handoff.md`, which
-`tools/foreman_context.py` and `tools/build_orientation_block.py` read from a
-resolved ref. The foreman keeps `current_role` and `current_prompt` accurate:
+**`docs/phase-state.md` is the single re-entry document.** It carries the
+product briefing, the current operational state, the durable pointers, and one
+`foreman-context-v1` block holding the phase, topic, active plan, status,
+`current_role`, and `current_prompt` — which `tools/foreman_context.py` and
+`tools/build_orientation_block.py` read from a resolved ref. There is no
+separate handoff note: two re-entry documents meant two statuses that could
+disagree, and the same milestone advance had to be written twice. The foreman keeps `current_role` and `current_prompt` accurate:
 before a plan or role cycle is marked complete, it prepares the next sequential
 role's charter and updates those fields. Prompt preparation records plan
 sequence; it does not launch or dispatch a role.
@@ -283,7 +293,7 @@ on the unit's branch and reaches `main` only inside that PR. Two units exist:
 
 - **Decision unit = the ADR.** Each decision topic gets a short-lived branch;
   the topic's whole evidence chain — plan, charters, builder designs, reviews,
-  repair and confirmation rounds, evaluation analysis — merges with the ratified
+  repair and confirmation rounds, any evaluation analysis — merges with the ratified
   ADR under one labeled merge.
 - **Development unit = the track.** Each implementation track gets its own
   branch and its own review gate. A track that stubs or defers an owned
@@ -322,8 +332,8 @@ custody, individual reviews, a foreman synthesis, a NOT-CONFIRMED round, a
 *proposed* (inert) ADR draft, routine status flips. A proposed ADR is never its
 own PR; only ratification closes the unit.
 
-**The one exception:** `docs/phase-state.md` and `docs/foreman-handoff.md`
-pointer advances, and other inconsequential phase-state edits, may be committed
+**The one exception:** `docs/phase-state.md` pointer advances, and other
+inconsequential phase-state edits, may be committed
 to `main` directly. Requiring a PR for a re-entry-pointer bump is heavier than
 the problem it solves.
 
@@ -385,6 +395,82 @@ Milestone plans live under the relevant phase's `milestones/` directory. A miles
 Roadmaps are milestone-level product documents. Each roadmap item should explain what capability is delivered, why it matters, and why it is sequenced where it is. Detailed track plans belong in milestone plans, not roadmaps.
 
 Roadmaps should be relatively static. If a roadmap item changes after initial planning, annotate that item with `(updated: YYYY-MM-DD)` and explain the change in the status section.
+
+## Decision Records
+
+Audience: Shared
+
+ADRs record **product and contract decisions only** — the governance set, the
+kernel and act log, schemas and citizen shapes, the rule language, composition
+and closure semantics, data-residency and trust boundaries. Process is the
+owner's operational domain and is changed by direction plus an edit to the
+document that norms it (ADR-0045, decision 5). Do not write a process ADR.
+
+ADRs live under `docs/adr/` with numbered kebab-case filenames, for example
+`0001-rule-artifacts-are-versioned.md`. **Never edit an accepted ADR's decision
+text in place.** A material change is a new ADR that supersedes it.
+
+**Decision tiers.**
+
+- **Tier 1** — reversible internal implementation choices: file layout, helper
+  structure, local typing strategy, fixture organization. Record in the
+  milestone retrospective. Use an ADR only when the choice is likely to be cited
+  later or touches an architectural boundary.
+- **Tier 2** — contract or architecture choices that future surfaces consume:
+  schema shape, artifact identity, runner behavior, persistence boundaries,
+  fixture contract structure. Create or update an ADR.
+- **Tier 3** — product thesis, user-visible concepts, naming, irreversible
+  boundaries, data-safety posture, legal or governance meaning. Create or update
+  an ADR, and state the alternatives considered.
+
+**An ADR entry states:**
+
+- **Status** — `proposed`, `accepted`, `superseded`, `rejected`, or `retired`.
+  Only `accepted` binds; every other status is inert.
+- **Tier** — 1, 2, or 3.
+- **Context** — the milestone and the problem that forced the decision.
+- **Decision** — the commitment made.
+- **Consequences** — what this enables, forecloses, or requires.
+- **Links** — the milestone plan, evidence, schemas, fixtures, superseded or
+  superseding ADRs.
+
+**Write the ADR in plain language.** The record itself must be readable by
+someone who was not in the room: name the thing before using it, prefer a
+sentence to a term of art, and say what a clause costs as well as what it buys.
+An ADR does not get a separate plain-language companion — the five existing
+files under `docs/adr/analyses/` stand as history and are not extended.
+
+## Milestone Retrospectives
+
+Audience: Shared
+
+After each milestone, write one retrospective in
+`docs/milestone-retrospectives/`, named `YYYY-MM-DD-<milestone-slug>.md`.
+
+A retrospective carries **lessons, not a record**. What shipped is in the merge
+commits, what was verified is the green `verify` check, what was decided is the
+ADR index, and data safety is `envelope_scan`. Restating any of those is
+duplication, and the whole document should run to roughly forty lines:
+
+```md
+# Retrospective — <Milestone>
+
+- Merged: PR #NN
+
+## What differed from the plan
+(and why)
+
+## What it cost
+(rounds, repairs, and what drove them)
+
+## Follow-ups
+(concrete, each with the trigger that reactivates it)
+
+## What should change in the next plan
+```
+
+Material lessons take effect by an owner-directed edit to the document that
+norms the practice — not by a new ADR.
 
 ## Required Milestone Plan Contents
 

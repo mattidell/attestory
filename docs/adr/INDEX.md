@@ -21,7 +21,7 @@ as rationale, never cited as authority.
 carries posture and points here for the binding ADRs:
 - **Foreman** (`docs/roles/foreman.md`) — no product-ADR core; its operating
   rules are `AGENTS.md`, `PROJECT_PLANNING.md`, and its seat file
-  (+ `docs/phase-state.md`, `docs/foreman-handoff.md`, the active plan).
+  (+ `docs/phase-state.md`, the active plan).
 - **Builder** (`docs/roles/builder.md`) / **Reviewer**
   (`docs/roles/reviewer.md`) — core ADRs 0003, 0010 (+ the dispatching
   charter, which carries the milestone foreclosure principles).

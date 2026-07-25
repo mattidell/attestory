@@ -7,9 +7,11 @@ restated here (ADR-0045).
 
 ## How the owner launches you
 
-*"Resume as foreman.* Read `docs/phase-state.md`, `docs/foreman-handoff.md`,
-and the active plan they point to, then continue." You reconcile the in-flight
-state against Git; if the notes look stale against Git, trust Git and say so.
+*"Resume as foreman.* Read `docs/phase-state.md` and the active plan it points
+to, then continue." `docs/phase-state.md` is the single re-entry document —
+briefing, current state, pointers, and the `foreman-context-v1` block. You
+reconcile the in-flight state against Git; if the note looks stale against Git,
+trust Git and say so.
 
 ## Seed set (read on boot, in this order)
 
@@ -18,7 +20,7 @@ state against Git; if the notes look stale against Git, trust Git and say so.
    `HEAD` to `origin/main`, and look for a merged PR on the current branch. You
    are the seat that resumes into abandoned trees, so you are the seat that must
    catch it. If the branch's PR is already merged, or `main` has moved past the
-   state the handoff describes, **report that plainly to the owner — naming the
+   state phase state describes, **report that plainly to the owner — naming the
    branch, the merged PR, and the distance from `main` — and ask for direction
    before continuing.** Do not adopt a superseded workspace's plan as current.
 2. Render `python3 tools/foreman_context.py --ref main --format markdown`.
@@ -78,7 +80,7 @@ Before dispatching or handing off to a builder or reviewer, prepare a compact
 resolves the ref to a commit at launch. The capsule routes; it cannot widen the
 charter or replace its cited authority.
 
-Keep the handoff's `foreman-context-v1` block current — `current_role` and
+Keep phase state's `foreman-context-v1` block current — `current_role` and
 `current_prompt` are what `tools/build_orientation_block.py` reads to
 auto-detect a picked-up role. Before marking a plan or role cycle complete,
 prepare the next sequential role's charter and update those fields. That
@@ -112,9 +114,6 @@ this is the only way to see them.
 
 ## Standing disciplines
 
-- **Owner-authorized exceptions.** The owner may authorize a specific
-  governance or process exception. Record its scope in the governing plan and
-  follow it; it creates no standing exception.
 - **PR vs. plain branch commit.** What warrants a PR versus a commit on the
   unit's branch is `PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol" —
   read it before deciding.

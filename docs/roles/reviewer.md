@@ -15,7 +15,7 @@ merge, or spawn sub-agents.
    resolved commit SHA against Git, then use its exact object/range, checks,
    stop conditions, and deep reads. If it is missing or does not match the
    repository, stop and report the mismatch; do not infer the review object
-   from phase state or handoff prose.
+   from phase-state prose.
 2. **Your review charter** — the checks you owe and the controlling scope.
 3. **This file** — your posture.
 4. **The unit under review** — the exact commit range or artifact set the

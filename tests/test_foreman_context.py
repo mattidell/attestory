@@ -15,31 +15,33 @@ TOOL = REPO_ROOT / "tools" / "foreman_context.py"
 
 
 class ForemanContextTests(unittest.TestCase):
-    def make_repository(self, *, handoff_topic: str = "demo-topic", include_seat: bool = True) -> Path:
+    def phase_metadata(self, *, include_seat: bool = True, **overrides: Any) -> dict[str, Any]:
+        """Phase state is the single re-entry document: pointers plus the live
+        status/role/prompt that used to live in the separate handoff note."""
+        phase: dict[str, Any] = {
+            "version": 1,
+            "phase": "Demo Phase",
+            "topic": "demo-topic",
+            "active_plan": "docs/phases/demo/milestones/demo.md",
+            "status": "planning only",
+            "current_role": "demo reviewer",
+            "current_prompt": "docs/reviews/demo-review.md",
+        }
+        if include_seat:
+            phase["seat"] = "docs/prototypes/demo/SEAT.md"
+        phase.update(overrides)
+        return phase
+
+    def make_repository(self, *, plan_topic: str = "demo-topic", include_seat: bool = True) -> Path:
         root = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, root)
         self.git(root, "init", "-q")
         self.git(root, "config", "user.name", "Demo")
         self.git(root, "config", "user.email", "demo@example.test")
-        phase = {
-            "version": 1,
-            "phase": "Demo Phase",
-            "topic": "demo-topic",
-            "active_plan": "docs/phases/demo/milestones/demo.md",
-            "handoff": "docs/foreman-handoff.md",
-        }
-        if include_seat:
-            phase["seat"] = "docs/prototypes/demo/SEAT.md"
-        handoff = {
-            "version": 1,
-            "topic": handoff_topic,
-            "status": "planning only",
-            "current_role": "demo reviewer",
-            "current_prompt": "docs/reviews/demo-review.md",
-        }
+        phase = self.phase_metadata(include_seat=include_seat)
         plan = {
             "version": 1,
-            "topic": "demo-topic",
+            "topic": plan_topic,
             "status": "draft",
             "scope": ["synthetic proof"],
             "non_goals": ["no real workspace"],
@@ -59,7 +61,6 @@ class ForemanContextTests(unittest.TestCase):
             "stop_conditions": ["synthetic evidence only"],
         }
         self.write_document(root, "docs/phase-state.md", phase)
-        self.write_document(root, "docs/foreman-handoff.md", handoff)
         self.write_document(root, "docs/phases/demo/milestones/demo.md", plan)
         self.write_plain(root, "docs/reviews/demo-review.md")
         if include_seat:
@@ -105,29 +106,28 @@ class ForemanContextTests(unittest.TestCase):
         self.assertEqual(capsule["state"]["current_role"], "demo reviewer")
         self.assertEqual(capsule["state"]["current_prompt"], "docs/reviews/demo-review.md")
         self.assertFalse(capsule["worktree"]["dirty"])
-        self.assertEqual(len(capsule["source"]["documents"]), 5)
+        self.assertEqual(len(capsule["source"]["documents"]), 4)
         self.assertTrue(all(document["blob"] for document in capsule["source"]["documents"]))
 
     def test_selected_ref_ignores_newer_commit(self) -> None:
         root = self.make_repository()
-        handoff_path = root / "docs/foreman-handoff.md"
-        metadata = {
-            "version": 1,
-            "topic": "demo-topic",
-            "status": "newer status",
-            "current_role": "newer role",
-            "current_prompt": "docs/reviews/newer-review.md",
-        }
-        self.write_document(root, "docs/foreman-handoff.md", metadata)
+        self.write_document(
+            root,
+            "docs/phase-state.md",
+            self.phase_metadata(
+                status="newer status",
+                current_role="newer role",
+                current_prompt="docs/reviews/newer-review.md",
+            ),
+        )
         self.write_plain(root, "docs/reviews/newer-review.md")
         self.git(root, "add", ".")
         self.git(root, "commit", "-qm", "newer")
         result = self.run_tool(root, "HEAD~1")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(json.loads(result.stdout)["state"]["handoff_status"], "planning only")
+        self.assertEqual(json.loads(result.stdout)["state"]["status"], "planning only")
         self.assertEqual(json.loads(result.stdout)["state"]["current_role"], "demo reviewer")
         self.assertNotIn("newer status", result.stdout)
-        self.assertTrue(handoff_path.exists())
 
     def test_dirty_worktree_is_reported_but_not_read(self) -> None:
         root = self.make_repository()
@@ -142,7 +142,7 @@ class ForemanContextTests(unittest.TestCase):
         self.assertNotIn("private-looking", result.stdout)
 
     def test_rejects_topic_mismatch(self) -> None:
-        root = self.make_repository(handoff_topic="wrong-topic")
+        root = self.make_repository(plan_topic="wrong-topic")
         result = self.run_tool(root)
         self.assertEqual(result.returncode, 2)
         self.assertIn("topic mismatch", result.stderr)
@@ -154,7 +154,7 @@ class ForemanContextTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         capsule = json.loads(result.stdout)
         self.assertIsNone(capsule["state"]["seat"])
-        self.assertEqual(len(capsule["source"]["documents"]), 4)
+        self.assertEqual(len(capsule["source"]["documents"]), 3)
 
     def test_rejects_malformed_metadata_and_missing_ref(self) -> None:
         root = self.make_repository()
@@ -170,14 +170,11 @@ class ForemanContextTests(unittest.TestCase):
 
     def test_rejects_missing_current_prompt(self) -> None:
         root = self.make_repository()
-        metadata = {
-            "version": 1,
-            "topic": "demo-topic",
-            "status": "planning only",
-            "current_role": "demo reviewer",
-            "current_prompt": "docs/reviews/missing.md",
-        }
-        self.write_document(root, "docs/foreman-handoff.md", metadata)
+        self.write_document(
+            root,
+            "docs/phase-state.md",
+            self.phase_metadata(current_prompt="docs/reviews/missing.md"),
+        )
         self.git(root, "add", ".")
         self.git(root, "commit", "-qm", "missing prompt")
         result = self.run_tool(root)

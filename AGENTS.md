@@ -24,7 +24,7 @@ what the work looks like.
 | **Advisor** | Owner says "take the advisor seat" | `docs/roles/advisor.md` |
 
 **Builder and reviewer: you do not need to be told which.** Run the orientation
-command; the role is auto-detected from the handoff's `current_role`:
+command; the role is auto-detected from phase state's `current_role`:
 
 ```sh
 python3 tools/build_orientation_block.py --ref main
@@ -37,7 +37,7 @@ commit SHA against Git; (2) adopt the seat file for the detected role;
 (3) echo back your understood scope, evidence ceiling, and stop conditions;
 (4) act. Pass `--role` / `--action` only if detection fails.
 
-If the handoff marks a **clean-room / rival** round, the block auto-switches —
+If phase state marks a **clean-room / rival** round, the block auto-switches —
 no flag. It emits charter, scope, and non-goals but lists deep reads as a
 manifest only, and instructs you to reimplement from the spec without reading
 any other builder's implementation or thread.
@@ -52,8 +52,8 @@ Both commands take `--ref main` because `main` is the continuously ratified
 record. Pass a different ref only to read the state of an unmerged branch, and
 say which ref you used.
 
-Do not ask the owner to paste context. Do not reconstruct context from handoff
-prose when a command will give it to you from Git.
+Do not ask the owner to paste context. Do not reconstruct context from prose
+when a command will give it to you from Git.
 
 ## How work moves
 
@@ -129,7 +129,7 @@ reference it.
 
 **Nothing lands on `main` except through a PR the owner merges.** `main` is not
 push-blocked; you self-enforce. Pointer edits that only describe now
-(`docs/phase-state.md`, `docs/foreman-handoff.md`) need no PR. The full protocol
+(`docs/phase-state.md`) need no PR. The full protocol
 — what is a unit, what gets a PR, how to cite a commit — is
 `PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol".
 
@@ -238,9 +238,9 @@ be working in the same tree. Trust it for your first turn; re-check with
 
 **Check whether you are stale before you work.** The tree you resume into may
 have been overtaken while you were away: a PR of this branch may already be
-merged, or `main` may have moved past the state your handoff describes. Fetch
-first, then compare — do not infer freshness from the handoff, the plan status,
-or a hook line:
+merged, or `main` may have moved past the state `docs/phase-state.md` describes.
+Fetch first, then compare — do not infer freshness from phase state, the plan
+status, or a hook line:
 
 ```sh
 git fetch origin --prune
