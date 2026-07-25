@@ -18,7 +18,10 @@ export const MANIFEST_REASONS = Object.freeze(new Set([
   "manifest-absolute-path-rejected",
   "manifest-path-traversal-rejected",
   "manifest-non-synthetic-fixture-rejected",
+  "manifest-invalid-injection",
+  "manifest-empty-selection",
   "manifest-empty-matrix-criteria",
+  "manifest-empty-matrix",
   "manifest-duplicate-matrix-case",
 ]));
 
@@ -50,6 +53,20 @@ export const INFRA_REASONS = Object.freeze(new Set([
   "browser-exit",
   "internal-error",
 ]));
+
+const SAFE_INFRA_MESSAGES = Object.freeze({
+  "manifest-not-found": "manifest unavailable",
+  "manifest-invalid": "manifest rejected",
+  "chrome-not-found": "Chrome unavailable",
+  "chrome-launch-failed": "Chrome launch failed",
+  "server-start-failed": "loopback server failed",
+  "browser-exit": "browser exited unexpectedly",
+  "internal-error": "internal harness failure",
+});
+
+export function safeInfraMessage(reasonCode) {
+  return SAFE_INFRA_MESSAGES[reasonCode] || "harness infrastructure failure";
+}
 
 export class ManifestError extends Error {
   constructor(reasonCode, message) {

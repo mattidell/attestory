@@ -77,3 +77,44 @@ test("manifest validation never throws a reason code outside the closed vocabula
     assert.ok(MANIFEST_REASONS.has(error.reasonCode));
   }
 });
+
+test("every named check requires its exact parameter shape", async () => {
+  const base = await loadJson("smoke.v1.json");
+  const mutations = [
+    ["missing required text", (manifest) => { delete manifest.criteria[0].params.expected_text; }],
+    ["unknown parameter", (manifest) => { manifest.criteria[0].params.extra = "demo"; }],
+    ["wrong selector type", (manifest) => { manifest.criteria[0].params.selector = 7; }],
+    ["negative tab count", (manifest) => { manifest.criteria[3].params.tab_presses = -1; }],
+    ["too many tab presses", (manifest) => { manifest.criteria[3].params.tab_presses = 101; }],
+  ];
+  for (const [label, mutate] of mutations) {
+    const candidate = JSON.parse(JSON.stringify(base));
+    mutate(candidate);
+    assert.throws(() => validateManifest(candidate), ManifestError, label);
+  }
+});
+
+test("empty trustworthy selections and syntactically invalid injections are rejected", async () => {
+  const base = await loadJson("smoke.v1.json");
+  for (const [path, expectedReason] of [
+    ["candidates", "manifest-empty-selection"],
+    ["fixtures", "manifest-empty-selection"],
+    ["criteria", "manifest-empty-selection"],
+    ["tamper_cases", "manifest-empty-selection"],
+    ["matrix", "manifest-empty-matrix"],
+  ]) {
+    const candidate = JSON.parse(JSON.stringify(base));
+    candidate[path] = [];
+    assert.throws(
+      () => validateManifest(candidate),
+      (error) => error instanceof ManifestError && error.reasonCode === expectedReason,
+      path,
+    );
+  }
+  const invalidInjection = JSON.parse(JSON.stringify(base));
+  invalidInjection.tamper_cases[0].injection = "function {";
+  assert.throws(
+    () => validateManifest(invalidInjection),
+    (error) => error instanceof ManifestError && error.reasonCode === "manifest-invalid-injection",
+  );
+});

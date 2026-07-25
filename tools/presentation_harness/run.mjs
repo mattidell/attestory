@@ -9,15 +9,15 @@
 // 2 the run could not produce trustworthy results (manifest, target,
 // browser, server, load, injection, or internal failure).
 
-import { readFile, writeFile } from "node:fs/promises";
-import { join, isAbsolute } from "node:path";
+import { readFile, writeFile, realpath } from "node:fs/promises";
+import { isAbsolute, relative, resolve, sep } from "node:path";
 import { validateManifest } from "./lib/manifest.mjs";
 import { startLoopbackServer } from "./lib/server.mjs";
 import { launchChrome } from "./lib/chrome.mjs";
 import { runMatrix } from "./lib/executor.mjs";
 import { buildReport, serializeReport, exitCodeForReport } from "./lib/report.mjs";
 import { buildObservation } from "./lib/observation.mjs";
-import { InfraError, ManifestError } from "./lib/reasons.mjs";
+import { InfraError, ManifestError, safeInfraMessage } from "./lib/reasons.mjs";
 
 function parseArgs(argv) {
   const args = { manifest: null, chrome: null, observationOut: null };
@@ -41,7 +41,7 @@ function parseArgs(argv) {
 
 function writeInfraError(error) {
   process.stderr.write(
-    `${JSON.stringify({ error: true, reason: error.reasonCode, message: error.message }, null, 2)}\n`,
+    `${JSON.stringify({ error: true, reason: error.reasonCode, message: safeInfraMessage(error.reasonCode) }, null, 2)}\n`,
   );
 }
 
@@ -54,25 +54,52 @@ function humanSummary(report) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  const repoRoot = process.cwd();
+  const repoRoot = await realpath(process.cwd());
   const startedAt = Date.now();
 
-  if (isAbsolute(args.manifest)) {
-    throw new InfraError("manifest-invalid", "--manifest must be a repository-relative path");
+  if (typeof args.manifest !== "string" || args.manifest.trim() === "") {
+    throw new InfraError("manifest-invalid", "manifest argument is required");
+  }
+
+  if (isAbsolute(args.manifest) || /^[a-zA-Z]:[\\/]/.test(args.manifest) || /^(?:[a-zA-Z][a-zA-Z0-9+.-]*:\/\/|\\\\)/.test(args.manifest)) {
+    throw new InfraError("manifest-invalid", "manifest must be repository-relative");
+  }
+  const lexicalSegments = args.manifest.split(/[\\/]+/);
+  if (lexicalSegments.some((segment) => segment === "..")) {
+    throw new InfraError("manifest-invalid", "manifest traversal rejected");
+  }
+  const lexicalName = lexicalSegments.filter((segment) => segment !== "." && segment !== "").join("/");
+  if (!lexicalName) throw new InfraError("manifest-invalid", "manifest path is empty");
+
+  let manifestPath;
+  let manifestName;
+  try {
+    manifestPath = await realpath(resolve(repoRoot, lexicalName));
+    const repoRelative = relative(repoRoot, manifestPath);
+    if (repoRelative === "" || repoRelative === ".." || repoRelative.startsWith(`..${sep}`) || isAbsolute(repoRelative)) {
+      throw new Error("manifest escapes repository");
+    }
+    manifestName = repoRelative.split(sep).join("/");
+  } catch (error) {
+    if (error instanceof InfraError) throw error;
+    if (error?.code === "ENOENT" || error?.code === "ENOTDIR") {
+      throw new InfraError("manifest-not-found", "manifest could not be resolved");
+    }
+    throw new InfraError("manifest-invalid", "manifest path is outside the repository");
   }
 
   let manifestRaw;
   try {
-    manifestRaw = await readFile(join(repoRoot, args.manifest), "utf8");
-  } catch (error) {
-    throw new InfraError("manifest-not-found", `cannot read manifest ${args.manifest}: ${error.message}`);
+    manifestRaw = await readFile(manifestPath, "utf8");
+  } catch {
+    throw new InfraError("manifest-not-found", "manifest could not be read");
   }
 
   let manifestJson;
   try {
     manifestJson = JSON.parse(manifestRaw);
-  } catch (error) {
-    throw new InfraError("manifest-invalid", `manifest is not valid JSON: ${error.message}`);
+  } catch {
+    throw new InfraError("manifest-invalid", "manifest JSON is invalid");
   }
 
   let manifest;
@@ -91,11 +118,13 @@ async function main() {
 
   let server;
   let chromeHandle;
+  let launchCleanup;
   let cleanedUp = false;
   const cleanup = async () => {
     if (cleanedUp) return;
     cleanedUp = true;
     if (chromeHandle) await chromeHandle.dispose();
+    else if (launchCleanup) await launchCleanup();
     if (server) await server.close();
   };
 
@@ -107,17 +136,21 @@ async function main() {
 
   try {
     server = await startLoopbackServer(repoRoot, allowedPaths);
-    chromeHandle = await launchChrome(args.chrome);
+    chromeHandle = await launchChrome(args.chrome, {
+      onOwnership(dispose) {
+        launchCleanup = dispose;
+      },
+    });
 
     const results = await runMatrix(chromeHandle, manifest, server.origin);
-    const report = buildReport(args.manifest, manifest, results);
+    const report = buildReport(manifestName, manifest, results);
 
     const wallSeconds = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
     const criteriaCompleted = [...new Set(results.map((result) => result.criterionId))].sort();
     const observation = buildObservation({
       id: `harness-run-${manifest.id}-${startedAt}`,
       manifestId: manifest.id,
-      manifestProvenancePath: args.manifest,
+      manifestProvenancePath: manifestName,
       wallSeconds,
       sessionCount: manifest.matrixEntries.length,
       casesCompleted: results.length,

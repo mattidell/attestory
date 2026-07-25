@@ -4,11 +4,31 @@
 // 127.0.0.1.
 
 import { createServer } from "node:http";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { readFile, realpath } from "node:fs/promises";
+import { join, relative, isAbsolute, sep } from "node:path";
 import { InfraError } from "./reasons.mjs";
 
 const FIXTURE_TOKEN = "__FIXTURE_JSON__";
+
+async function readConfinedFile(repoRoot, relativePath) {
+  let root;
+  let absolutePath;
+  try {
+    root = await realpath(repoRoot);
+    absolutePath = await realpath(join(root, relativePath));
+  } catch {
+    return null;
+  }
+  const repoRelative = relative(root, absolutePath);
+  if (repoRelative === "" || repoRelative === ".." || repoRelative.startsWith(`..${sep}`) || isAbsolute(repoRelative)) {
+    return null;
+  }
+  try {
+    return await readFile(absolutePath, "utf8");
+  } catch {
+    return null;
+  }
+}
 
 /**
  * @param {string} repoRoot absolute repository root
@@ -48,7 +68,12 @@ async function handleRequest(req, res, repoRoot, allowedPaths) {
     res.end();
     return;
   }
-  let body = await readFile(join(repoRoot, pathname), "utf8");
+  let body = await readConfinedFile(repoRoot, pathname);
+  if (body === null) {
+    res.writeHead(404);
+    res.end();
+    return;
+  }
 
   const fixtureParam = url.searchParams.get("fixture");
   if (fixtureParam !== null) {
@@ -57,7 +82,12 @@ async function handleRequest(req, res, repoRoot, allowedPaths) {
       res.end();
       return;
     }
-    const fixtureBody = await readFile(join(repoRoot, fixtureParam), "utf8");
+    const fixtureBody = await readConfinedFile(repoRoot, fixtureParam);
+    if (fixtureBody === null) {
+      res.writeHead(400);
+      res.end();
+      return;
+    }
     body = body.split(FIXTURE_TOKEN).join(fixtureBody);
   }
 

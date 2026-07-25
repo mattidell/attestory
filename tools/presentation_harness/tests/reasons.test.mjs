@@ -7,6 +7,7 @@ import {
   CASE_FAIL_REASONS,
   CASE_ERROR_REASONS,
   INFRA_REASONS,
+  safeInfraMessage,
 } from "../lib/reasons.mjs";
 
 test("ManifestError rejects a reason code outside the closed vocabulary", () => {
@@ -38,4 +39,10 @@ test("every declared reason code constructs successfully", () => {
   for (const code of INFRA_REASONS) {
     assert.equal(new InfraError(code, "x").reasonCode, code);
   }
+});
+
+test("infrastructure messages are fixed and do not echo error details", () => {
+  const message = safeInfraMessage("manifest-invalid");
+  assert.equal(message, "manifest rejected");
+  assert.equal(safeInfraMessage("internal-error"), "internal harness failure");
 });

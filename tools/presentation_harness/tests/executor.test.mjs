@@ -145,3 +145,70 @@ test("a non-loopback request detected during load is reported and never counted 
     assert.equal(result.reason, "non-loopback-request-blocked");
   }
 });
+
+test("each matrix tuple gets and disposes its own browser context", async () => {
+  const manifest = twoEntryManifest();
+  const calls = [];
+  let contextNumber = 0;
+  const client = makeFakeCDPClient({
+    handlers: {
+      "Target.createBrowserContext": () => {
+        const browserContextId = `context-${++contextNumber}`;
+        calls.push(["create-context", browserContextId]);
+        return { browserContextId };
+      },
+      "Target.createTarget": (params) => {
+        calls.push(["create-target", params.browserContextId]);
+        return { targetId: `target-${params.browserContextId}` };
+      },
+      "Target.attachToTarget": () => ({ sessionId: "session" }),
+      "Runtime.evaluate": () => ({ result: { value: { found: true, text: "x" } } }),
+      "Target.closeTarget": (params) => calls.push(["close-target", params.targetId]),
+      "Target.disposeBrowserContext": (params) => calls.push(["dispose-context", params.browserContextId]),
+    },
+  });
+
+  const results = await runMatrix(makeFakeChromeHandle(), manifest, "http://127.0.0.1:0", () => client);
+  assert.equal(results.filter((result) => result.outcome === "pass").length, 2);
+  assert.deepEqual(
+    calls.filter(([kind]) => kind === "create-context").map(([, id]) => id),
+    ["context-1", "context-2"],
+  );
+  assert.deepEqual(
+    calls.filter(([kind]) => kind === "dispose-context").map(([, id]) => id),
+    ["context-1", "context-2"],
+  );
+});
+
+test("a registered injection without an execution acknowledgement is infrastructure error", async () => {
+  const manifest = validateManifest({
+    version: MANIFEST_VERSION,
+    id: "demo-injection-ack",
+    timeout_ms: 50,
+    candidates: [{ id: "cand", path: "tools/presentation_harness/examples/pages/demo-candidate.html" }],
+    fixtures: [{
+      id: "fix",
+      path: "tools/presentation_harness/examples/pages/demo-fixture-published.json",
+      synthetic: true,
+    }],
+    criteria: [{ id: "crit", check: "dom-text-present", params: { selector: "h1", expected_text: "x" } }],
+    tamper_cases: [{ id: "fault", injection: "throw new Error('demo injection fault');" }],
+    matrix: [{ candidate_id: "cand", fixture_id: "fix", tamper_case_id: "fault", criteria: ["crit"] }],
+  });
+  const client = makeFakeCDPClient({
+    handlers: {
+      "Target.createBrowserContext": () => ({ browserContextId: "context" }),
+      "Target.createTarget": () => ({ targetId: "target" }),
+      "Target.attachToTarget": () => ({ sessionId: "session" }),
+      "Page.addScriptToEvaluateOnNewDocument": () => ({}),
+      "Runtime.evaluate": (params) => {
+        if (params.expression.includes("__presentationHarnessInjectionAcknowledged")) {
+          return { result: { value: false } };
+        }
+        return { result: { value: { found: true, text: "x" } } };
+      },
+    },
+  });
+  const results = await runMatrix(makeFakeChromeHandle(), manifest, "http://127.0.0.1:0", () => client);
+  assert.deepEqual(results.map((result) => [result.outcome, result.reason]), [["error", "injection-failed"]]);
+});

@@ -248,28 +248,39 @@ of `{candidate_id, fixture_id, tamper_case_id, criteria}` tuples. Validation
 is purely structural (no filesystem access) and rejects, before Chrome ever
 launches: unknown keys, duplicate ids, unknown candidate/fixture/criterion/
 tamper references, an unknown check name, a remote URL, an absolute path,
-path traversal, a non-synthetic fixture, an empty criteria list, and a
-duplicate `(candidate, fixture, tamper)` tuple. Every rejection carries one
-closed `manifest-*` reason code from `tools/presentation_harness/lib/reasons.mjs`.
+path traversal, a non-synthetic fixture, any empty candidate/fixture/criterion/
+tamper/matrix selection, an empty matrix-criteria list, a duplicate
+`(candidate, fixture, tamper)` tuple, syntactically invalid injection, and any
+check parameter set that is missing a required key, contains an unknown key,
+uses the wrong type, or falls outside its declared range. The existing checks
+have exact parameter shapes: text checks require a non-empty `selector` and
+`expected_text`, style and role checks require only a non-empty `selector`,
+and keyboard checks require a non-empty `selector` plus an integer
+`tab_presses` from 0 through 100. Every rejection carries one closed
+`manifest-*` reason code from `tools/presentation_harness/lib/reasons.mjs`.
 
 ### Execution and lifecycle
 
 One Chrome process is launched per invocation against a fresh temporary
 `--user-data-dir`, headless, with remote debugging on an OS-assigned port
 (read from the profile's `DevToolsActivePort` file — no fixed port is ever
-used). The harness serves only the manifest's declared repository-relative
-files over an ephemeral `127.0.0.1`-only HTTP origin; a candidate page reads
-its fixture via a server-side `__FIXTURE_JSON__` substitution rather than a
-second browser-initiated request. Every matrix tuple gets one fresh CDP
-target attached with the flattened protocol; a tuple's declared tamper
-injection (if any) is registered via
-`Page.addScriptToEvaluateOnNewDocument` before navigation, so it runs before
-the candidate's own script — matching the harness-seed prototypes' fault
-path, never a static source claim. A CDP `Fetch` interceptor fails closed on
-any request whose URL is not the loopback origin. Keyboard/focus checks
-dispatch real `Input.dispatchKeyEvent` Tab presses; contrast recomputes WCAG
-luminance from `getComputedStyle`; no check trusts `.focus()` or an
-unexecuted assertion.
+used). The profile and child become cleanup-owned as soon as they exist, so
+launch-time `SIGINT`/`SIGTERM` cannot leave either behind. The harness serves
+only the manifest's declared repository-relative files over an ephemeral
+`127.0.0.1`-only HTTP origin; repository and symlink escape is refused by the
+server, and a candidate page reads its fixture via a server-side
+`__FIXTURE_JSON__` substitution rather than a second browser-initiated
+request. Every matrix tuple gets a fresh CDP browser context and target
+attached with the flattened protocol; the target and context are disposed on
+success and every error path, while the one Chrome process is reused. A
+tuple's declared tamper injection (if any) is syntax-checked before Chrome
+launch, registered via `Page.addScriptToEvaluateOnNewDocument` before
+navigation, and must set a private execution acknowledgement after its source
+runs. Missing acknowledgement is `injection-failed`, never a criterion pass.
+A CDP `Fetch` interceptor fails closed on any request whose URL is not the
+loopback origin. Keyboard/focus checks dispatch real
+`Input.dispatchKeyEvent` Tab presses; contrast recomputes WCAG luminance from
+`getComputedStyle`; no check trusts `.focus()` or an unexecuted assertion.
 
 A criterion failure never stops the other cases in a manifest — each
 `(candidate, fixture, tamper, criterion)` tuple is independent. A
@@ -284,11 +295,15 @@ infrastructure error, or a `SIGINT`/`SIGTERM`.
 ### Result contract
 
 `presentation-evaluation-report.v1` is deterministic for the same manifest
-and candidate/fixture bytes: manifest order first, then criterion id as the
-stable tie-breaker within a tuple. It records only ids, `pass`/`fail`/`error`
-outcomes, and a closed reason code — never page content, injected/rejected
-values, ports, timestamps, process ids, or browser locations. Two runs over
-the same committed manifest produce byte-identical output; see
+and candidate/fixture bytes: the manifest argument is first canonically
+confined to the repository and published as its normalized repository-relative
+name, then matrix order and criterion id provide the stable case ordering. It
+records only ids, `pass`/`fail`/`error` outcomes, and a closed reason code —
+never page content, injected/rejected values, ports, timestamps, process ids,
+temporary locations, or browser locations. Infrastructure failures use only a
+closed reason and fixed redacted message; raw arguments, paths, browser
+details, and stacks never cross the process boundary. Two runs over the same
+committed manifest produce byte-identical output; see
 [`examples/reports/smoke-expected.v1.json`](../../tools/presentation_harness/examples/reports/smoke-expected.v1.json)
 for the checked-in golden.
 

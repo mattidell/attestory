@@ -49,14 +49,28 @@ function withTimeout(promise, timeoutMs, onTimeout) {
 class TimeoutMarker extends Error {}
 
 async function attachFreshTarget(client, origin) {
-  const { targetId } = await client.send("Target.createTarget", { url: "about:blank" });
-  const { sessionId } = await client.send("Target.attachToTarget", {
-    targetId,
-    flatten: true,
-  });
-  await client.send("Page.enable", {}, sessionId);
-  await client.send("Runtime.enable", {}, sessionId);
-  await client.send("Fetch.enable", { patterns: [{ urlPattern: "*" }] }, sessionId);
+  const { browserContextId } = await client.send("Target.createBrowserContext", {});
+  let targetId;
+  let sessionId;
+  try {
+    ({ targetId } = await client.send("Target.createTarget", {
+      url: "about:blank",
+      browserContextId,
+    }));
+    ({ sessionId } = await client.send("Target.attachToTarget", {
+      targetId,
+      flatten: true,
+    }));
+    await client.send("Page.enable", {}, sessionId);
+    await client.send("Runtime.enable", {}, sessionId);
+    await client.send("Fetch.enable", { patterns: [{ urlPattern: "*" }] }, sessionId);
+  } catch (error) {
+    if (targetId) {
+      try { await client.send("Target.closeTarget", { targetId }); } catch { /* already gone */ }
+    }
+    try { await client.send("Target.disposeBrowserContext", { browserContextId }); } catch { /* already gone */ }
+    throw error;
+  }
 
   let nonLoopbackDetected = false;
   const offRequestPaused = client.on(
@@ -77,6 +91,7 @@ async function attachFreshTarget(client, origin) {
 
   return {
     targetId,
+    browserContextId,
     sessionId,
     page: new Page(client, sessionId),
     isNonLoopbackDetected: () => nonLoopbackDetected,
@@ -84,6 +99,11 @@ async function attachFreshTarget(client, origin) {
       offRequestPaused();
       try {
         await client.send("Target.closeTarget", { targetId });
+      } catch {
+        // target/browser may already be gone
+      }
+      try {
+        await client.send("Target.disposeBrowserContext", { browserContextId });
       } catch {
         // target/browser may already be gone
       }
@@ -140,11 +160,17 @@ export async function runMatrix(chromeHandle, manifest, origin, connect = CDPCli
       try {
         if (tamper.injection !== null) {
           try {
+            const acknowledgementKey = "__presentationHarnessInjectionAcknowledged";
+            const acknowledgement = `globalThis[${JSON.stringify(acknowledgementKey)}] = true;`;
             await client.send(
               "Page.addScriptToEvaluateOnNewDocument",
-              { source: tamper.injection },
+              { source: `${tamper.injection}\n${acknowledgement}` },
               handle.sessionId,
             );
+
+            // Registration alone does not prove that the source parsed and
+            // ran. The marker is appended to the registered source, so a
+            // runtime fault before it leaves the tuple infrastructure-error.
           } catch {
             tupleError = "injection-failed";
           }
@@ -171,6 +197,17 @@ export async function runMatrix(chromeHandle, manifest, origin, connect = CDPCli
             await client.waitFor("Page.loadEventFired", handle.sessionId, manifest.timeoutMs);
           } catch {
             tupleError = "target-load-timeout";
+          }
+        }
+
+        if (!tupleError && tamper.injection !== null) {
+          try {
+            const acknowledged = await handle.page.evaluate(
+              "Boolean(globalThis.__presentationHarnessInjectionAcknowledged)",
+            );
+            if (acknowledged !== true) tupleError = "injection-failed";
+          } catch {
+            tupleError = "injection-failed";
           }
         }
 

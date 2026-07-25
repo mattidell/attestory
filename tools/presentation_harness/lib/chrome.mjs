@@ -72,7 +72,7 @@ async function waitForDevToolsActivePort(profileDir, timeoutMs) {
  * Launch one isolated Chrome process with a fresh temporary profile.
  * Returns a handle with { wsUrl, process, dispose() }.
  */
-export async function launchChrome(explicitPath, { launchTimeoutMs = 10000 } = {}) {
+export async function launchChrome(explicitPath, { launchTimeoutMs = 10000, onOwnership = null } = {}) {
   const executable = await resolveChromeExecutable(explicitPath);
   const profileDir = await mkdtemp(join(tmpdir(), "presentation-harness-profile-"));
 
@@ -94,16 +94,44 @@ export async function launchChrome(explicitPath, { launchTimeoutMs = 10000 } = {
     args.unshift("--no-sandbox");
   }
 
-  let child;
+  let child = null;
+  let exited = false;
+  let exitInfo = null;
+  let disposePromise = null;
+
+  async function dispose() {
+    if (disposePromise) return disposePromise;
+    disposePromise = (async () => {
+      if (child && !exited) {
+        child.kill("SIGTERM");
+        await new Promise((resolve) => {
+          const timer = setTimeout(() => {
+            if (!exited) child.kill("SIGKILL");
+            resolve();
+          }, 3000);
+          child.once("exit", () => {
+            clearTimeout(timer);
+            resolve();
+          });
+        });
+      }
+      await rm(profileDir, { recursive: true, force: true });
+    })();
+    return disposePromise;
+  }
+
+  // The profile is owned before spawn, and the child is covered immediately
+  // after it exists. The runner can therefore clean both while the launch
+  // handshake is still waiting for DevToolsActivePort.
+  if (onOwnership) onOwnership(dispose);
+
   try {
     child = spawn(executable, args, { stdio: "ignore" });
   } catch (error) {
-    await rm(profileDir, { recursive: true, force: true });
+    await dispose();
     throw new InfraError("chrome-launch-failed", `failed to spawn Chrome: ${error.message}`);
   }
 
-  let exited = false;
-  let exitInfo = null;
   child.once("exit", (code, signal) => {
     exited = true;
     exitInfo = { code, signal };
@@ -113,13 +141,12 @@ export async function launchChrome(explicitPath, { launchTimeoutMs = 10000 } = {
   try {
     devtools = await waitForDevToolsActivePort(profileDir, launchTimeoutMs);
   } catch (error) {
-    child.kill("SIGKILL");
-    await rm(profileDir, { recursive: true, force: true });
+    await dispose();
     throw error;
   }
 
-  if (exited) {
-    await rm(profileDir, { recursive: true, force: true });
+  if (exited || disposePromise) {
+    await dispose();
     throw new InfraError(
       "chrome-launch-failed",
       `Chrome exited during launch (code=${exitInfo?.code}, signal=${exitInfo?.signal})`,
@@ -127,23 +154,6 @@ export async function launchChrome(explicitPath, { launchTimeoutMs = 10000 } = {
   }
 
   const wsUrl = `ws://127.0.0.1:${devtools.port}${devtools.browserPath}`;
-
-  async function dispose() {
-    if (!exited) {
-      child.kill("SIGTERM");
-      await new Promise((resolve) => {
-        const timer = setTimeout(() => {
-          if (!exited) child.kill("SIGKILL");
-          resolve();
-        }, 3000);
-        child.once("exit", () => {
-          clearTimeout(timer);
-          resolve();
-        });
-      });
-    }
-    await rm(profileDir, { recursive: true, force: true });
-  }
 
   return {
     wsUrl,
