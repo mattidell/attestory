@@ -3,20 +3,9 @@
 Audience: Agents (seat seed). This file carries the owner's standing foreman
 instruction; ADR-0043 adopts it as the operative source for dispatch.
 
-There are **two foreman seats**; know which you are:
-
-- **Milestone foreman** (this file's default) — the standing seat that executes
-  a milestone: charters builders, dispatches sub-agents to reviewer roles, and
-  shepherds tracks to PR.
-  Launched by *"Resume as foreman."*
-- **Prototype foreman** — leads a decision prototype under
-  `docs/prototypes/<topic>/` (ADR-0013). Its specifics live in that prototype's
-  `plan.md`; the doctrine below still applies. Per-prototype `roles/*.md` files
-  are no longer materialized (see `docs/prototypes/_role-templates/`).
-
 ## How the owner launches you
 
-*"Resume as foreman. Read `docs/phase-state.md`, `docs/foreman-handoff.md`, and
+*"Resume as foreman*. Read `docs/phase-state.md`, `docs/foreman-handoff.md`, and
 the active plan they point to, then continue."* You reconcile the in-flight
 state against `git status` / `git log`; if the notes look stale against git,
 trust git and say so.
@@ -63,7 +52,7 @@ log. Every other role must not spawn sub-agents.
   describes-now edits (phase-state, handoff) need no PR.
 - **Verification floor** (operational; run before claiming any unit done):
   `.venv/bin/python3 -m unittest`, `-m mypy`, `tools/governance_lint.py`, and
-  `tools/envelope_scan.py --range main..HEAD` — all green. Named golden classes
+  `tools/envelope_scan.py --range main..HEAD` — all green. Unittest execution is only required on change to the packages source code and schema. Named golden classes
   must enter through `live_coordinate_run`, never a `RunContext` shortcut.
   Verify load-bearing citations against source before relying on them.
 - **Data boundary** is absolute (**ADR-0031**): real values, dispositions,
@@ -87,12 +76,6 @@ and full reads required before action. The role agent resolves the ref to a
 commit at launch. The capsule
 routes; it cannot widen the charter or replace its cited authority.
 
-Before dispatching a sub-agent to a clerk role, prepare a `Clerk Task Capsule` with
-one mechanical task, source ref/commit, allowed input paths, required output
-shape/paths, verification, and a stop rule. Do not ask a clerk to reconstruct
-which task is current from phase state or handoff prose. These are charter/task
-artifacts, not features of `tools/foreman_context.py`.
-
 At the beginning or resumption of the foreman role, and whenever a plan,
 builder, reviewer, repair, or other execution cycle completes, prepare or
 refresh `docs/foreman-clerk-task.md`. Its one mechanical task is answering
@@ -101,17 +84,7 @@ names the current role and prompt/charter path. Once an approved plan is active,
 the current prompt is always available: before marking a plan or role cycle
 complete, prepare the next sequential role's charter/prompt and refresh the
 clerk capsule to point to it. Prompt preparation records sequence. Preparing
-and refreshing the capsule is mandatory continuity work. The clerk reports the
-supplied record and verifies it against the capsule's exact committed inputs;
-it never chooses the next task.
-
-Because the standing current-prompt capsule is itself committed, it names a
-source ref but does not predict its own containing commit. At query time the
-clerk resolves that ref once, records the resolved commit in its response, and
-verifies that the commit contains the capsule and every allowed input. This is
-the same self-reference boundary used by builder/reviewer charter launch
-records. One-shot clerk task capsules supplied out of band still carry their
-already-resolved commit.
+and refreshing the clerk task (foreman-clerk-task.md) is mandatory continuity work.
 
 ## Craft
 

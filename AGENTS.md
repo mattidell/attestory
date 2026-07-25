@@ -19,7 +19,7 @@ For a routine foreman re-entry, first render
 must be reconciled against Git; it directs action-specific deep reads but never
 replaces these canonical references, accepted ADR text, or the five-retrospective
 read before planning a new milestone. If the capsule refuses, inspect the named
-committed sources directly and resolve the disagreement before acting.
+committed sources directly and resolve the disagreement before acting. Then read docs/roles/foreman.md and docs/foreman-handoff.md.
 
 ## Owner Posture and Collaboration Rules
 
