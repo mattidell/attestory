@@ -47,6 +47,7 @@
     "treatment": "manual",
     "participants": [
       {"id": "demo-reviewer", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 13000, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 12, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 210, "approximate": false, "measurement_basis": "direct", "missing_reason": null}},
+      {"id": "demo-harness", "role": "harness", "tier": "Economy", "effort": "low", "tokens": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}},
       {"id": "demo-foreman", "role": "foreman", "tier": "Medium", "effort": "medium", "tokens": {"value": 2200, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 215, "approximate": false, "measurement_basis": "direct", "missing_reason": null}}
     ],
     "resources": {

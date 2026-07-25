@@ -33,6 +33,15 @@
     "expected_verdict": "insufficient-evidence"
   },
   {
+    "id": "demo-invalid-comparison-omitted-harness-role",
+    "stage": "build-result",
+    "mutations": [
+      {"operation": "remove", "path": "observations.1.participants.1"}
+    ],
+    "expected_measure": "tokens",
+    "expected_verdict": "insufficient-evidence"
+  },
+  {
     "id": "demo-invalid-comparison-causal-claim",
     "stage": "validate-comparison",
     "mutations": [

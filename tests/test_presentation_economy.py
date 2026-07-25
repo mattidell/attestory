@@ -411,6 +411,30 @@ class PresentationEconomyComparisonTest(unittest.TestCase):
         self.assertEqual("insufficient-evidence", measures["tokens"]["verdict"])
         self.assertEqual("economically-promising", measures["tool_calls"]["verdict"])
 
+    def test_omitted_declared_role_cannot_yield_economically_promising(self) -> None:
+        observations = copy.deepcopy(self.observations)
+        harness_treatment = next(
+            item for item in observations if item["treatment"] == "harness-assisted"
+        )
+        harness_treatment["participants"] = [
+            participant
+            for participant in harness_treatment["participants"]
+            if participant["role"] != "harness"
+        ]
+        result = build_comparison(
+            self.workload, observations, "manual", "harness-assisted"
+        )
+        self.assertTrue(result["quality"]["comparable"])
+        measures = {item["name"]: item for item in result["measures"]}
+        for name in ("tokens", "tool_calls", "wall_seconds"):
+            self.assertEqual("insufficient-evidence", measures[name]["verdict"])
+            self.assertIn(harness_treatment["id"], measures[name]["reason"])
+            self.assertIn("harness", measures[name]["reason"])
+        self.assertNotEqual(
+            "economically-promising",
+            measures["tokens"]["verdict"],
+        )
+
     def test_failed_quality_blocks_every_cost_verdict(self) -> None:
         observations = copy.deepcopy(self.observations)
         observations[1]["outcome"]["seeded_defects_detected"]["value"].pop()

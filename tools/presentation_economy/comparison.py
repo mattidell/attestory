@@ -18,14 +18,32 @@ def _measure_value(record: dict[str, Any], path: tuple[str, ...]) -> int | None:
     return result if isinstance(result, int) and not isinstance(result, bool) else None
 
 
-def _participant_total(observation: dict[str, Any], name: str) -> int | None:
+def _required_roles(workload: dict[str, Any]) -> set[str]:
+    return {boundary["role"] for boundary in workload["role_boundaries"]}
+
+
+def _participant_arm_total(
+    observations: list[dict[str, Any]],
+    name: str,
+    required_roles: set[str],
+) -> tuple[int | None, str | None]:
     total = 0
-    for participant in observation["participants"]:
-        value = participant[name]["value"]
-        if isinstance(value, bool) or not isinstance(value, int):
-            return None
-        total += value
-    return total
+    for observation in observations:
+        present_roles = {participant["role"] for participant in observation["participants"]}
+        missing_roles = sorted(required_roles - present_roles)
+        if missing_roles:
+            return None, (
+                f"{observation['id']}: missing required participant role "
+                f"{missing_roles[0]!r} for {name}"
+            )
+        for participant in observation["participants"]:
+            value = participant[name]["value"]
+            if isinstance(value, bool) or not isinstance(value, int):
+                return None, (
+                    "one or more participating-role or observation values are missing"
+                )
+            total += value
+    return total, None
 
 
 def _aggregate(
@@ -90,10 +108,10 @@ def build_comparison(
     quality_reasons.extend(_quality_reasons(workload, treatment, "treatment"))
     quality_comparable = not quality_reasons
 
+    required_roles = _required_roles(workload)
+    participant_measures = ("tokens", "tool_calls", "wall_seconds")
+
     extractors: list[tuple[str, Callable[[dict[str, Any]], int | None]]] = [
-        ("tokens", lambda item: _participant_total(item, "tokens")),
-        ("tool_calls", lambda item: _participant_total(item, "tool_calls")),
-        ("wall_seconds", lambda item: _participant_total(item, "wall_seconds")),
         ("agent_count", lambda item: _measure_value(item, ("resources", "agent_count"))),
         ("browser_count", lambda item: _measure_value(item, ("resources", "browser_count"))),
         ("session_count", lambda item: _measure_value(item, ("resources", "session_count"))),
@@ -122,16 +140,31 @@ def build_comparison(
             ),
         ),
     ]
-    measures: list[dict[str, Any]] = []
+    measure_inputs: list[tuple[str, int | None, int | None, str | None]] = []
+    for name in participant_measures:
+        baseline_value, baseline_reason = _participant_arm_total(baseline, name, required_roles)
+        treatment_value, treatment_reason = _participant_arm_total(
+            treatment, name, required_roles
+        )
+        measure_inputs.append(
+            (name, baseline_value, treatment_value, baseline_reason or treatment_reason)
+        )
     for name, extractor in extractors:
         baseline_value = _aggregate(baseline, extractor)
         treatment_value = _aggregate(treatment, extractor)
+        measure_inputs.append((name, baseline_value, treatment_value, None))
+
+    measures: list[dict[str, Any]] = []
+    for name, baseline_value, treatment_value, missing_reason in measure_inputs:
         reason: str | None = None
         delta: int | None = None
         ratio: float | None = None
         if not quality_comparable:
             verdict = "insufficient-evidence"
             reason = "quality floor failed before cost interpretation"
+        elif missing_reason is not None:
+            verdict = "insufficient-evidence"
+            reason = missing_reason
         elif baseline_value is None or treatment_value is None:
             verdict = "insufficient-evidence"
             reason = "one or more participating-role or observation values are missing"

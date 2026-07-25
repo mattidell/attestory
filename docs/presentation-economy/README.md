@@ -99,6 +99,28 @@ harness, rework, or recheck does not erase it. A comparison refuses a specific
 cost measure if any participating role lacks that measure, while independently
 reported complete measures remain interpretable.
 
+### Participating-role completeness
+
+A comparison derives its required participant roles from the frozen
+workload's `role_boundaries`, never from whichever participant objects happen
+to remain in the selected observations. For each of the `tokens`,
+`tool_calls`, and `wall_seconds` measures, every selected baseline and
+treatment observation must represent every declared role:
+
+- an integer value, including an honest `0`, participates in that measure's
+  total;
+- a `null` value with its required missing reason makes only that measure
+  `insufficient-evidence`; and
+- an **absent** declared role makes only that measure `insufficient-evidence`,
+  with a deterministic reason naming the missing role and observation — it
+  never yields `economically-promising`, even when quality passes and every
+  remaining participant cost is complete.
+
+A role that does no work in a given arm is represented by an explicit zero,
+not by omitting its participant entry. This prevents an undeclared cost shift
+(for example, dropping the harness's cost entirely) from silently improving a
+cost verdict.
+
 ### Task, batch, idle-gap, and cache evidence
 
 Task budgets describe the declared dispatch budget; observed duration describes
