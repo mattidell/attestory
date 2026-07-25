@@ -1,8 +1,8 @@
 # Browser Evaluation Runner Repair Delta-Review Charter
 
-Status: **reactivated 2026-07-25 for the focused review after the existing
-runner repair commits.** It is prepared but is not the current prompt until the
-repair Builder hands off.
+Status: **current prompt after the repair Builder landed on
+`track/browser-evaluation-runner-completion` (PR #71).** This is the one
+focused delta review permitted by the milestone plan.
 
 ## Context Capsule
 
@@ -11,6 +11,8 @@ repair Builder hands off.
 - **Exact object:** the focused repair relative to the pre-repair Track 1
   implementation commit named by subject
   `implement Track 1 instrumented harness core and fail-closed lifecycle`,
+  ending at the branch commit named
+  `repair browser evaluation runner integrity`,
   limited to `tools/presentation_harness/**` and the repaired Track 1 README
   sections. Reconcile it against the six blockers in
   `docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`.
@@ -49,12 +51,36 @@ Before reviewing, echo the resolved repair object, scope, evidence ceiling, and
 stop conditions. Treat Builder claims and committed regression output as
 inputs, not proof.
 
+## Prior evidence credit — do not repeat
+
+The independent review at
+`docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`
+already established the pre-repair baseline and substantial passing behavior.
+It is the evidence for the six historical failures and for unchanged runner
+ground. Do not check out the pre-repair commit merely to reproduce failures
+that review already measured.
+
+In particular, do not reconstruct the harness seed, reopen settled design
+alternatives, reload the presentation exploratory corpus, or repeat the
+original broad 42-turn technical review. Treat F1–F6 as known attack classes,
+not findings to rediscover. Fresh reviewer effort goes to:
+
+1. one independent repaired-outcome witness for each F1–F6 class;
+2. the four measurements explicitly transferred by the prior review; and
+3. only the adjacent invariants touched by the repair.
+
+Use the committed focused battery first and batch live-browser measurements
+where practical. Add an ad hoc probe only when a required delta measurement is
+not already observable from that battery. Existing evidence for unrelated
+runner behavior remains credited.
+
 ## Required delta measurements
 
 1. **Mechanical repair battery:** independently run the committed focused Node
-   and real-Chrome battery. It must reproduce the six pre-repair failures from
-   committed test apparatus and show their repaired outcomes in one compact
-   result packet.
+   and real-Chrome battery. Map its cases to F1–F6 and show the repaired
+   outcomes in one compact result packet. Use the completed review as the
+   pre-fix baseline; rerun the pre-repair commit only if a repaired result
+   conflicts with that recorded baseline.
 2. **Tuple isolation:** verify one Chrome process serves the invocation while
    consecutive tuples cannot observe each other's cookies or `localStorage`.
    Enumerate the live Chrome main process, browser contexts, and targets.
@@ -75,11 +101,12 @@ inputs, not proof.
    server, target/load, injection, timeout, non-loopback, and internal failures
    for raw rejected input, content, paths, ports, PIDs, browser details, and
    stacks.
-8. **Regression boundary:** rerun exits `0`/`1`/`2`, batch continuation,
-   non-loopback blocking, real keyboard/contrast technique, deterministic
-   golden output, honest observation counts/missing measures, and README
-   agreement. Reassess the raw-NUL binary-diff advisory only if the repair
-   touched it.
+8. **Regression boundary:** for the adjacent invariants the repair touched,
+   use the existing committed tests and smoke path to recheck exits `0`/`1`/`2`,
+   batch continuation, non-loopback blocking, real keyboard/contrast technique,
+   deterministic golden output, honest observation counts/missing measures,
+   and README agreement. Do not create a replacement corpus or second review
+   rig. Reassess the raw-NUL binary-diff advisory only if the repair touched it.
 9. **Repository gate:** reference the PR's authoritative `verify` check when
    available. Locally run only focused commands needed for the findings,
    governance lint, envelope scan, and `git diff --check`; do not duplicate the

@@ -4,14 +4,15 @@
   "topic": "browser-evaluation-runner-completion",
   "milestone_state": "track-1",
   "retrospective": "docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md",
-  "status": "plan merged to main 2026-07-25; Track 1 repair Builder is live on track/browser-evaluation-runner-completion",
+  "status": "R1/R2 residual recheck returned READY; Track 1 PR #71 is ready for owner merge after green CI",
   "scope": [
     "adopt the existing reviewed browser evaluation runner implementation without rebuilding it",
     "repair the six confirmed runner-integrity blockers",
     "preserve previously demonstrated runner behavior",
     "complete only the transferred lifecycle and output-integrity measurements",
     "retain Track 0-compatible economy observation output as a compatibility surface",
-    "independent repair-delta review and concise completion record"
+    "independent repair-delta review and concise completion record",
+    "owner-authorized residual repair and recheck limited to R1/R2"
   ],
   "non_goals": [
     "no presentation product prototype, standing corpus, or product finding",
@@ -24,16 +25,17 @@
   "deep_reads": {
     "implementation": [
       "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md#Tracks",
-      "docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md#Blocking findings",
-      "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md",
-      "docs/presentation-economy/README.md#Observation contract",
+      "docs/reviews/2026-07-25-browser-evaluation-runner-repair-review.md#Residual findings (beyond charter scope; non-blocking)",
+      "docs/reviews/charter-2026-07-25-browser-evaluation-runner-residual-repair.md",
+      "docs/presentation-economy/README.md#Execution and lifecycle",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
     ],
     "review": [
       "docs/roles/reviewer.md",
-      "docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md",
-      "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md",
+      "docs/reviews/2026-07-25-browser-evaluation-runner-repair-review.md#Residual findings (beyond charter scope; non-blocking)",
+      "docs/reviews/charter-2026-07-25-browser-evaluation-runner-residual-repair.md",
+      "docs/reviews/charter-2026-07-25-browser-evaluation-runner-residual-repair-review.md",
       "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md#Review gate"
     ],
     "dispatch": [
@@ -64,9 +66,11 @@
 -->
 # Milestone: Browser Evaluation Runner Completion
 
-Status: **owner-directed narrow plan prepared 2026-07-25.** Merge of this
-planning unit activates the existing-runner repair Builder. No implementation
-starts before merge.
+Status: **Track 1 ready for owner merge after green CI.** Both the F1–F6 delta
+review and the owner-authorized R1/R2 residual recheck returned `READY`. The
+implementation unit remains in flight on
+`track/browser-evaluation-runner-completion` (PR #71); Track 2 completion
+records begin only after the owner merges it.
 
 ## Objective
 
@@ -317,6 +321,8 @@ Role allocation:
 | --- | --- | --- | --- |
 | Track 1 repair | Repair Builder | Medium / medium | Adopt existing code; close F1–F6 only |
 | Track 1 delta gate | Original Reviewer along its review lineage when available; otherwise one fresh delta Reviewer | High / medium | Verify repair and adjacent invariants; no full creative re-review |
+| R1/R2 residual repair exception | Residual Repair Builder | Medium / medium | Timeout-bound and collision-resistant acknowledgement only |
+| R1/R2 focused recheck | Same delta Reviewer lineage when available; otherwise one fresh delta Reviewer | High / medium | Verify only the accepted residuals and touched floor |
 | Track 2 completion | Foreman | Judgment and records only | Record accepted capability, residuals, CI, and no economy claim |
 
 The original Reviewer is preferred because it already owns the measurements
@@ -326,6 +332,13 @@ working context.
 
 Fixed cap: one repair and one delta review. Another blocker triggers
 stop-and-decide, not an automatic second cycle.
+
+**Owner-authorized exception, 2026-07-25:** after the delta review returned
+`READY`, the owner accepted residual findings R1 and R2 and authorized one
+narrow repair charter. The exception permits exactly one R1/R2 repair and one
+focused two-finding recheck. It does not reopen F1–F6, authorize another broad
+review, or create a standing exception to the cap. Any further blocker returns
+to stop-and-decide.
 
 ## Review gate
 
@@ -347,6 +360,12 @@ novel product findings.
 `READY` requires all six blockers closed, all transferred measurements
 supported, adjacent invariants preserved, clean synthetic/data-safety evidence,
 and green CI. Otherwise return `NOT READY` with the smallest exact residual.
+
+The owner-authorized residual recheck is narrower: independently reproduce R1
+and R2, verify the acknowledgement path is timeout-bound and collision
+resistant, run the accepted focused F1–F6 battery once, and rely on PR CI for
+the repository-wide floor. It must not repeat the original delta review or
+explore beyond the two accepted findings.
 
 ## Exit criteria
 
@@ -370,27 +389,32 @@ and green CI. Otherwise return `NOT READY` with the smallest exact residual.
 13. Every fixture is synthetic and no forbidden content enters output.
 14. The retrospective records that runner correctness was completed
     independently of any presentation economy or review-novelty experiment.
+15. The owner-authorized residual repair closes R1's timeout bypass and R2's
+    fixed-marker collision without changing public output.
+16. The focused R1/R2 recheck returns `READY`; no further review cycle opens
+    automatically.
 
 ## Tracks
 
 ### Track 1 — Adopt and repair the existing runner
 
-**Goal:** preserve the completed runner implementation and close its six
-confirmed integrity blockers.
+**Goal:** preserve the completed runner implementation, close its six confirmed
+integrity blockers, and complete the owner-authorized R1/R2 residual repair.
 
-**Boundary:** F1–F6 and directly touched adjacent invariants only; no rewrite,
-product work, corpus, economy experiment, novelty protocol, or unrelated
-refactor.
+**Boundary:** F1–F6, the accepted R1/R2 residuals, and directly touched adjacent
+invariants only; no rewrite, product work, corpus, economy experiment, novelty
+protocol, or unrelated refactor.
 
 **Inputs:** owner-merged plan; the implementation commit on
 `track/presentation-economy-t1-harness-core` named
 `implement Track 1 instrumented harness core and fail-closed lifecycle`; the
 completed review; the reactivated repair charter; accepted Track 0 observation
-contract; installed Chrome.
+contract; installed Chrome; and the owner-authorized R1/R2 residual charters.
 
 **Outputs:** one repair branch/commit containing the adopted implementation,
 focused F1–F6 regressions and fixes, compatible documentation, and captured
-observation evidence.
+observation evidence, plus one separately committed R1/R2 residual repair and
+its focused recheck.
 
 **Verification:** focused Node and real-Chrome battery, public observation
 validation, deterministic output, delta review, and CI.

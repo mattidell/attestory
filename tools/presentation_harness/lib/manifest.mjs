@@ -1,0 +1,306 @@
+// Strict validator/normalizer for presentation-evaluation-manifest.v1.
+//
+// Structural only: no filesystem access happens here. Existence/loadability
+// of a declared path is a runtime (target-load) concern, not a manifest
+// concern, so this module never touches disk.
+
+import { ManifestError } from "./reasons.mjs";
+import { KNOWN_CHECK_NAMES } from "./checks.mjs";
+
+export const MANIFEST_VERSION = "presentation-evaluation-manifest.v1";
+
+const TOP_KEYS = new Set([
+  "version",
+  "id",
+  "timeout_ms",
+  "candidates",
+  "fixtures",
+  "criteria",
+  "tamper_cases",
+  "matrix",
+]);
+const CANDIDATE_KEYS = new Set(["id", "path"]);
+const FIXTURE_KEYS = new Set(["id", "path", "synthetic"]);
+const CRITERION_KEYS = new Set(["id", "check", "params"]);
+const TAMPER_KEYS = new Set(["id", "injection"]);
+const MATRIX_ENTRY_KEYS = new Set(["candidate_id", "fixture_id", "tamper_case_id", "criteria"]);
+const PARAMETER_RULES = Object.freeze({
+  "dom-text-present": {
+    keys: new Set(["selector", "expected_text"]),
+    validate(params, label) {
+      requireNonEmptyString(params.selector, `${label}.selector`);
+      requireNonEmptyString(params.expected_text, `${label}.expected_text`);
+    },
+  },
+  "computed-style-contrast": {
+    keys: new Set(["selector"]),
+    validate(params, label) {
+      requireNonEmptyString(params.selector, `${label}.selector`);
+    },
+  },
+  "role-alert-present": {
+    keys: new Set(["selector"]),
+    validate(params, label) {
+      requireNonEmptyString(params.selector, `${label}.selector`);
+    },
+  },
+  "keyboard-focus-reachable": {
+    keys: new Set(["selector", "tab_presses"]),
+    validate(params, label) {
+      requireNonEmptyString(params.selector, `${label}.selector`);
+      if (!Number.isInteger(params.tab_presses) || params.tab_presses < 0 || params.tab_presses > 100) {
+        fail("manifest-invalid-type", `${label}.tab_presses: expected integer from 0 through 100`);
+      }
+    },
+  },
+});
+
+function fail(reasonCode, message) {
+  throw new ManifestError(reasonCode, message);
+}
+
+function requireObject(value, label) {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) {
+    fail("manifest-invalid-type", `${label}: expected object`);
+  }
+  return value;
+}
+
+function requireArray(value, label) {
+  if (!Array.isArray(value)) {
+    fail("manifest-invalid-type", `${label}: expected array`);
+  }
+  return value;
+}
+
+function requireNonEmptyArray(value, label, emptyReason = "manifest-empty-selection") {
+  const array = requireArray(value, label);
+  if (array.length === 0) {
+    fail(emptyReason, `${label}: expected at least one entry`);
+  }
+  return array;
+}
+
+function requireNonEmptyString(value, label) {
+  if (typeof value !== "string" || value.trim() === "") {
+    fail("manifest-invalid-type", `${label}: expected non-empty string`);
+  }
+  return value;
+}
+
+function checkKeys(obj, allowed, label) {
+  const actual = Object.keys(obj);
+  const unknown = actual.filter((key) => !allowed.has(key));
+  if (unknown.length > 0) {
+    fail("manifest-unknown-key", `${label}: unknown key(s) ${unknown.join(", ")}`);
+  }
+  const missing = [...allowed].filter((key) => !(key in obj));
+  if (missing.length > 0) {
+    fail("manifest-missing-key", `${label}: missing key(s) ${missing.join(", ")}`);
+  }
+}
+
+function requireRepoRelativePath(value, label) {
+  const text = requireNonEmptyString(value, label);
+  if (/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(text) || text.startsWith("//")) {
+    fail("manifest-remote-url-rejected", `${label}: remote URL rejected`);
+  }
+  if (text.startsWith("/") || /^[a-zA-Z]:[\\/]/.test(text)) {
+    fail("manifest-absolute-path-rejected", `${label}: absolute path rejected`);
+  }
+  const segments = text.split(/[\\/]/);
+  if (segments.some((segment) => segment === "..")) {
+    fail("manifest-path-traversal-rejected", `${label}: path traversal rejected`);
+  }
+  return text;
+}
+
+function addUniqueId(set, id, label) {
+  if (set.has(id)) {
+    fail("manifest-duplicate-id", `${label}: duplicate id ${id}`);
+  }
+  set.add(id);
+}
+
+function validateInjection(value, label) {
+  if (value === null) return;
+  if (typeof value !== "string") {
+    fail("manifest-invalid-type", `${label}: expected string or null`);
+  }
+  try {
+    // Parse only. Execution happens in the isolated browser context and is
+    // acknowledged separately by the executor.
+    new Function(value); // eslint-disable-line no-new-func
+  } catch {
+    fail("manifest-invalid-injection", `${label}: injection syntax rejected`);
+  }
+}
+
+/**
+ * Validate and normalize a raw parsed-JSON manifest document. Returns a
+ * frozen normalized manifest with an expanded, ordered `cases` list ready
+ * for the executor.
+ */
+export function validateManifest(value) {
+  const manifest = requireObject(value, "$");
+  checkKeys(manifest, TOP_KEYS, "$");
+
+  if (manifest.version !== MANIFEST_VERSION) {
+    fail("manifest-invalid-version", `$.version: expected ${MANIFEST_VERSION}`);
+  }
+  const id = requireNonEmptyString(manifest.id, "$.id");
+
+  if (
+    !Number.isInteger(manifest.timeout_ms) ||
+    manifest.timeout_ms <= 0
+  ) {
+    fail("manifest-invalid-type", "$.timeout_ms: expected positive integer");
+  }
+
+  const candidates = requireNonEmptyArray(manifest.candidates, "$.candidates");
+  const candidateIds = new Set();
+  const candidatesById = new Map();
+  candidates.forEach((raw, index) => {
+    const label = `$.candidates[${index}]`;
+    const candidate = requireObject(raw, label);
+    checkKeys(candidate, CANDIDATE_KEYS, label);
+    const candidateId = requireNonEmptyString(candidate.id, `${label}.id`);
+    addUniqueId(candidateIds, candidateId, label);
+    const path = requireRepoRelativePath(candidate.path, `${label}.path`);
+    candidatesById.set(candidateId, { id: candidateId, path });
+  });
+
+  const fixtures = requireNonEmptyArray(manifest.fixtures, "$.fixtures");
+  const fixtureIds = new Set();
+  const fixturesById = new Map();
+  fixtures.forEach((raw, index) => {
+    const label = `$.fixtures[${index}]`;
+    const fixture = requireObject(raw, label);
+    checkKeys(fixture, FIXTURE_KEYS, label);
+    const fixtureId = requireNonEmptyString(fixture.id, `${label}.id`);
+    addUniqueId(fixtureIds, fixtureId, label);
+    const path = requireRepoRelativePath(fixture.path, `${label}.path`);
+    if (fixture.synthetic !== true) {
+      fail("manifest-non-synthetic-fixture-rejected", `${label}.synthetic: expected true`);
+    }
+    fixturesById.set(fixtureId, { id: fixtureId, path, synthetic: true });
+  });
+
+  const criteria = requireNonEmptyArray(manifest.criteria, "$.criteria");
+  const criterionIds = new Set();
+  const criteriaById = new Map();
+  criteria.forEach((raw, index) => {
+    const label = `$.criteria[${index}]`;
+    const criterion = requireObject(raw, label);
+    checkKeys(criterion, CRITERION_KEYS, label);
+    const criterionId = requireNonEmptyString(criterion.id, `${label}.id`);
+    addUniqueId(criterionIds, criterionId, label);
+    const check = requireNonEmptyString(criterion.check, `${label}.check`);
+    if (!KNOWN_CHECK_NAMES.has(check)) {
+      fail("manifest-unknown-check", `${label}.check: unknown check ${check}`);
+    }
+    const params = requireObject(criterion.params, `${label}.params`);
+    const parameterRule = PARAMETER_RULES[check];
+    checkKeys(params, parameterRule.keys, `${label}.params`);
+    parameterRule.validate(params, `${label}.params`);
+    criteriaById.set(criterionId, { id: criterionId, check, params: Object.freeze({ ...params }) });
+  });
+
+  const tamperCases = requireNonEmptyArray(manifest.tamper_cases, "$.tamper_cases");
+  const tamperIds = new Set();
+  const tamperById = new Map();
+  tamperCases.forEach((raw, index) => {
+    const label = `$.tamper_cases[${index}]`;
+    const tamper = requireObject(raw, label);
+    checkKeys(tamper, TAMPER_KEYS, label);
+    const tamperId = requireNonEmptyString(tamper.id, `${label}.id`);
+    addUniqueId(tamperIds, tamperId, label);
+    validateInjection(tamper.injection, `${label}.injection`);
+    tamperById.set(tamperId, { id: tamperId, injection: tamper.injection });
+  });
+
+  const matrix = requireNonEmptyArray(manifest.matrix, "$.matrix", "manifest-empty-matrix");
+  const seenMatrixTuples = new Set();
+  const normalizedMatrix = matrix.map((raw, index) => {
+    const label = `$.matrix[${index}]`;
+    const entry = requireObject(raw, label);
+    checkKeys(entry, MATRIX_ENTRY_KEYS, label);
+    const candidateId = requireNonEmptyString(entry.candidate_id, `${label}.candidate_id`);
+    if (!candidatesById.has(candidateId)) {
+      fail(
+        "manifest-unknown-candidate-reference",
+        `${label}.candidate_id: unknown candidate ${candidateId}`,
+      );
+    }
+    const fixtureId = requireNonEmptyString(entry.fixture_id, `${label}.fixture_id`);
+    if (!fixturesById.has(fixtureId)) {
+      fail("manifest-unknown-fixture-reference", `${label}.fixture_id: unknown fixture ${fixtureId}`);
+    }
+    const tamperCaseId = requireNonEmptyString(entry.tamper_case_id, `${label}.tamper_case_id`);
+    if (!tamperById.has(tamperCaseId)) {
+      fail(
+        "manifest-unknown-tamper-reference",
+        `${label}.tamper_case_id: unknown tamper case ${tamperCaseId}`,
+      );
+    }
+    const tuple = `${candidateId} ${fixtureId} ${tamperCaseId}`;
+    if (seenMatrixTuples.has(tuple)) {
+      fail("manifest-duplicate-matrix-case", `${label}: duplicate (candidate, fixture, tamper) tuple`);
+    }
+    seenMatrixTuples.add(tuple);
+
+    const criteriaRefs = requireArray(entry.criteria, `${label}.criteria`);
+    if (criteriaRefs.length === 0) {
+      fail("manifest-empty-matrix-criteria", `${label}.criteria: expected at least one criterion`);
+    }
+    const seenCriteria = new Set();
+    const orderedCriteria = criteriaRefs.map((criterionRef, criterionIndex) => {
+      const criterionLabel = `${label}.criteria[${criterionIndex}]`;
+      const criterionId = requireNonEmptyString(criterionRef, criterionLabel);
+      if (!criteriaById.has(criterionId)) {
+        fail(
+          "manifest-unknown-criterion-reference",
+          `${criterionLabel}: unknown criterion ${criterionId}`,
+        );
+      }
+      if (seenCriteria.has(criterionId)) {
+        fail("manifest-duplicate-id", `${criterionLabel}: duplicate criterion reference ${criterionId}`);
+      }
+      seenCriteria.add(criterionId);
+      return criterionId;
+    });
+    // Criterion ids are the stable tie-breaker within one matrix entry.
+    orderedCriteria.sort();
+
+    return {
+      candidateId,
+      fixtureId,
+      tamperCaseId,
+      criteria: orderedCriteria,
+    };
+  });
+
+  const cases = [];
+  normalizedMatrix.forEach((entry) => {
+    entry.criteria.forEach((criterionId) => {
+      cases.push({
+        candidateId: entry.candidateId,
+        fixtureId: entry.fixtureId,
+        tamperCaseId: entry.tamperCaseId,
+        criterionId,
+      });
+    });
+  });
+
+  return Object.freeze({
+    version: MANIFEST_VERSION,
+    id,
+    timeoutMs: manifest.timeout_ms,
+    candidatesById,
+    fixturesById,
+    criteriaById,
+    tamperById,
+    matrixEntries: normalizedMatrix,
+    cases,
+  });
+}

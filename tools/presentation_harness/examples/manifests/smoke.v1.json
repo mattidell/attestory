@@ -1,0 +1,73 @@
+{
+  "version": "presentation-evaluation-manifest.v1",
+  "id": "demo-smoke",
+  "timeout_ms": 5000,
+  "candidates": [
+    { "id": "demo-candidate", "path": "tools/presentation_harness/examples/pages/demo-candidate.html" }
+  ],
+  "fixtures": [
+    {
+      "id": "demo-fixture-published",
+      "path": "tools/presentation_harness/examples/pages/demo-fixture-published.json",
+      "synthetic": true
+    }
+  ],
+  "criteria": [
+    {
+      "id": "demo-heading-present",
+      "check": "dom-text-present",
+      "params": { "selector": "#heading", "expected_text": "Demo Candidate" }
+    },
+    {
+      "id": "demo-contrast-ok",
+      "check": "computed-style-contrast",
+      "params": { "selector": "#heading" }
+    },
+    {
+      "id": "demo-alert-present",
+      "check": "role-alert-present",
+      "params": { "selector": "#blocked" }
+    },
+    {
+      "id": "demo-keyboard-focus",
+      "check": "keyboard-focus-reachable",
+      "params": { "selector": "#fact-link", "tab_presses": 1 }
+    }
+  ],
+  "tamper_cases": [
+    { "id": "baseline", "injection": null },
+    {
+      "id": "demo-tamper-hide-heading",
+      "injection": "document.addEventListener('DOMContentLoaded', function(){ var h = document.getElementById('heading'); if (h) h.textContent = ''; });"
+    },
+    {
+      "id": "demo-tamper-remove-alert-role",
+      "injection": "document.addEventListener('DOMContentLoaded', function(){ var el = document.getElementById('blocked'); if (el) el.removeAttribute('role'); });"
+    }
+  ],
+  "matrix": [
+    {
+      "candidate_id": "demo-candidate",
+      "fixture_id": "demo-fixture-published",
+      "tamper_case_id": "baseline",
+      "criteria": [
+        "demo-heading-present",
+        "demo-contrast-ok",
+        "demo-alert-present",
+        "demo-keyboard-focus"
+      ]
+    },
+    {
+      "candidate_id": "demo-candidate",
+      "fixture_id": "demo-fixture-published",
+      "tamper_case_id": "demo-tamper-hide-heading",
+      "criteria": ["demo-heading-present"]
+    },
+    {
+      "candidate_id": "demo-candidate",
+      "fixture_id": "demo-fixture-published",
+      "tamper_case_id": "demo-tamper-remove-alert-role",
+      "criteria": ["demo-alert-present"]
+    }
+  ]
+}

@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "browser-evaluation-runner-completion",
   "active_plan": "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md",
-  "status": "Presentation Economy closed in merged PR #68; Browser Evaluation Runner Completion plan prepared; existing-runner repair Builder is next after plan merge.",
-  "current_role": "Browser Evaluation Runner repair Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md"
+  "status": "Browser runner residual R1/R2 recheck returned READY; Track 1 PR #71 is ready for owner merge after green CI.",
+  "current_role": "Owner merge of Browser Evaluation Runner Track 1",
+  "current_prompt": "docs/reviews/2026-07-25-browser-evaluation-runner-residual-repair-review.md"
 }
 -->
 # Phase State
@@ -82,19 +82,26 @@ adversarial-novelty practice run; it adds no product UI, ADR, or maturity lift.
   promoted foreman discipline: give known adversarial classes to both Builder
   and Reviewer as executable coverage, and spend independent review on an
   explicit novel boundary.
-- **Browser Evaluation Runner Completion:** owner-directed plan prepared
-  2026-07-25. It resumes the existing, reviewed implementation preserved on
-  `track/presentation-economy-t1-harness-core`; the Builder must transplant the
-  commit whose subject is `implement Track 1 instrumented harness core and
-  fail-closed lifecycle`, verify the adopted files, and repair rather than
-  reconstruct. Scope is the six known blockers (storage isolation, injection
+- **Browser Evaluation Runner Completion:** Track 1 repair has landed on
+  `track/browser-evaluation-runner-completion` (PR #71). It adopted the
+  existing, independently reviewed implementation rather than rebuilding it
+  and made a focused repair for the six known blockers: storage isolation, injection
   acknowledgement, cancellation-safe cleanup, canonical path/provenance
-  confinement, strict non-vacuous validation, and redacted external failures)
-  plus the transferred lifecycle/output measurements. One focused delta review
-  checks those changes and adjacent invariants. No runner rebuild, product
-  prototype, economy experiment, novelty catalog, or broad creative re-review
-  belongs in this milestone. Merge of the planning unit activates the prepared
-  repair Builder charter.
+  confinement, strict non-vacuous validation, and redacted external failures.
+  The next role is the one focused delta Reviewer, which credits the prior
+  independent review for unchanged ground and checks repaired outcomes, the
+  four transferred measurements, and only touched adjacent invariants. No
+  product prototype, economy experiment, novelty catalog, or broad creative
+  re-review belongs in this milestone. The delta review returned `READY` for
+  F1–F6 and the transferred measurements. Voluntary post-verdict exploration
+  then found residual R1: the repair's injection-acknowledgement wait can
+  bypass the manifest timeout and still return a pass; R2 records the fixed
+  acknowledgement marker's collision fragility. The owner accepted both
+  findings and authorized one narrow R1/R2 repair charter plus its focused
+  recheck as an explicit exception to the original cap. The residual repair
+  landed, and the focused R1/R2 recheck returned `READY` with no new in-scope
+  finding. Track 1 PR #71 is ready for owner merge after its current-head CI is
+  green. No broader second review cycle is authorized.
 - **Later direction:** the actual human-surface Presentation frontier remains
   selected but deferred until the runner is trustworthy. The accepted economy
   contracts remain available, but no economical improvement or novelty-review
@@ -121,13 +128,14 @@ Prior milestone: **Presentation Exploratory Milestone** — complete 2026-07-24;
 no ADR or matrix lift. Its evaluation analysis and reference material live
 under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Planned milestone: Browser Evaluation Runner Completion.** The
-owner-directed planning unit is prepared; merge activates the existing-runner
-repair Builder. The plan preserves and adopts the reviewed implementation from
-`track/presentation-economy-t1-harness-core`, repairs its six known blockers,
-and permits one bounded delta review. It expressly forbids rebuilding the
-runner or using this tooling-completion work to claim presentation-economy or
-review-novelty results. Plan:
+**➡️ In-progress milestone: Browser Evaluation Runner Completion.** The
+existing-runner repair and focused delta review have landed in PR #71. The
+formal verdict is `READY` for the chartered F1–F6 gate, with prior evidence
+credited rather than repeated. The owner accepted residuals R1/R2 and
+authorized one narrow repair charter plus one focused two-finding recheck as a
+fixed-cap exception. The residual repair has landed, and its focused two-finding
+recheck returned `READY`. Track 1 PR #71 is at the owner-merge boundary; Track
+2 completion records begin only after that merge. Plan:
 `docs/phases/real-return/milestones/browser-evaluation-runner-completion.md`.
 
 Standing operational notes: `PROJECT_PLANNING.md` ("Branch, PR, and Merge Protocol") governs per-track PRs, owner merges, and `main` as the continuous ratified record; `AGENTS.md` ("Dispatch authorization") governs dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
