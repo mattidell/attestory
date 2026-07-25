@@ -210,6 +210,111 @@ The example ids are deliberately `demo-*`. Invalid fixture catalogs under
 `examples/invalid/` apply manufactured mutations to valid records and prove the
 validator fails for the intended reason.
 
+## Presentation-evaluation harness (Track 1)
+
+`tools/presentation_harness/` is a dependency-free Node command that
+evaluates a matrix of synthetic candidates, fixtures, criteria, and tamper
+cases in one isolated, reused Chrome process:
+
+```sh
+node tools/presentation_harness/run.mjs \
+  --manifest tools/presentation_harness/examples/manifests/smoke.v1.json
+```
+
+An optional `--chrome <path>` names an installed Chrome executable at
+runtime; it is never recorded in output or committed configuration. Node's
+runtime `fetch`/`WebSocket` and the `node:http`/`node:child_process`/`node:fs`
+standard library are the only dependencies — no package manager, browser
+download, or third-party automation framework is used.
+
+Exit status is stable and never conflates a genuine criterion failure with an
+infrastructure problem:
+
+- `0` — every selected criterion case passed;
+- `1` — the run completed and at least one criterion case failed; and
+- `2` — the manifest, a target, the browser, the loopback server, an
+  injection, or internal execution failed, so the run cannot vouch for its
+  criterion results.
+
+### Manifest contract
+
+`presentation-evaluation-manifest.v1` declares only repository-relative
+`candidates` and synthetic `fixtures` (each fixture must set
+`"synthetic": true`), named `criteria` bound to one of a closed check
+registry (`dom-text-present`, `computed-style-contrast`, `role-alert-present`,
+`keyboard-focus-reachable`), `tamper_cases` (an `injection` script or `null`
+for the untampered baseline), a `timeout_ms` ceiling, and an explicit `matrix`
+of `{candidate_id, fixture_id, tamper_case_id, criteria}` tuples. Validation
+is purely structural (no filesystem access) and rejects, before Chrome ever
+launches: unknown keys, duplicate ids, unknown candidate/fixture/criterion/
+tamper references, an unknown check name, a remote URL, an absolute path,
+path traversal, a non-synthetic fixture, an empty criteria list, and a
+duplicate `(candidate, fixture, tamper)` tuple. Every rejection carries one
+closed `manifest-*` reason code from `tools/presentation_harness/lib/reasons.mjs`.
+
+### Execution and lifecycle
+
+One Chrome process is launched per invocation against a fresh temporary
+`--user-data-dir`, headless, with remote debugging on an OS-assigned port
+(read from the profile's `DevToolsActivePort` file — no fixed port is ever
+used). The harness serves only the manifest's declared repository-relative
+files over an ephemeral `127.0.0.1`-only HTTP origin; a candidate page reads
+its fixture via a server-side `__FIXTURE_JSON__` substitution rather than a
+second browser-initiated request. Every matrix tuple gets one fresh CDP
+target attached with the flattened protocol; a tuple's declared tamper
+injection (if any) is registered via
+`Page.addScriptToEvaluateOnNewDocument` before navigation, so it runs before
+the candidate's own script — matching the harness-seed prototypes' fault
+path, never a static source claim. A CDP `Fetch` interceptor fails closed on
+any request whose URL is not the loopback origin. Keyboard/focus checks
+dispatch real `Input.dispatchKeyEvent` Tab presses; contrast recomputes WCAG
+luminance from `getComputedStyle`; no check trusts `.focus()` or an
+unexecuted assertion.
+
+A criterion failure never stops the other cases in a manifest — each
+`(candidate, fixture, tamper, criterion)` tuple is independent. A
+target/browser/load/timeout/injection/non-loopback problem is instead
+recorded as that tuple's cases going to `error` (never `pass`, never
+silently dropped), and if the browser itself exits mid-batch every remaining
+tuple is marked `error` with reason `browser-exit` rather than attempting a
+new target against a dead process. The browser process and its temporary
+profile are always removed — on a clean finish, a criterion failure, an
+infrastructure error, or a `SIGINT`/`SIGTERM`.
+
+### Result contract
+
+`presentation-evaluation-report.v1` is deterministic for the same manifest
+and candidate/fixture bytes: manifest order first, then criterion id as the
+stable tie-breaker within a tuple. It records only ids, `pass`/`fail`/`error`
+outcomes, and a closed reason code — never page content, injected/rejected
+values, ports, timestamps, process ids, or browser locations. Two runs over
+the same committed manifest produce byte-identical output; see
+[`examples/reports/smoke-expected.v1.json`](../../tools/presentation_harness/examples/reports/smoke-expected.v1.json)
+for the checked-in golden.
+
+### Economy observation emission
+
+Each run also builds one `presentation-economy-observation.v1` fragment
+(printed to standard error, and optionally written to a file with
+`--observation-out <path>`) describing the harness's own execution: measured
+wall time, session/target count, cases completed, and criteria executed all
+carry `measurement_basis: "direct"`. The harness cannot observe
+orchestration-level foreman cost for its own invocation, so the fragment
+always includes an explicit `foreman` participant whose `tokens`,
+`tool_calls`, and `wall_seconds` are `null` with a stated `missing_reason`
+rather than an inferred value, and `cache_status` is always the honest
+`directly_observed: false` shape. This fragment is a diagnostic run artifact,
+not a committed dataset row; folding a specific run into the append-only
+dataset under `datasets/` remains a separate, deliberate step.
+
+### Check boundary
+
+The harness reports mechanical evidence only. It never converts an
+unratified information-design or aesthetic heuristic into a pass/fail
+result, and none of its committed Track 1 examples select a citation-walk
+product design — the full settled-criterion corpus and its citation-identity/
+reuse-backlink checks are Track 2 work.
+
 ## Scope and data boundary
 
 These records apply only to presentation UI/UX iteration, development, and

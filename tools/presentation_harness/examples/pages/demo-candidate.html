@@ -1,0 +1,34 @@
+<!doctype html>
+<!--
+  Synthetic Track 1 smoke candidate. Not a citation-walk product surface —
+  a generic, manufactured page used only to exercise the harness's own
+  lifecycle, matrix, and check plumbing. All identities are demo-*.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Demo Candidate</title>
+<style>
+  body { background: #ffffff; color: #1a1a1a; font-family: sans-serif; }
+  h1 { color: #1a1a1a; }
+  a.citation { color: #0645ad; }
+  a.citation:focus-visible { outline: 3px solid #0645ad; outline-offset: 2px; }
+  [role="alert"] { border: 2px solid #b30000; background: #fff3f3; padding: 8px; }
+</style>
+</head>
+<body>
+  <h1 id="heading">Demo Candidate</h1>
+  <p><a class="citation" id="fact-link" href="#fact-detail">demo-fact-001</a></p>
+  <div id="fact-detail">citation detail</div>
+  <div id="blocked" role="alert">demo blocked line</div>
+  <script>
+    const FIXTURE = __FIXTURE_JSON__;
+    if (FIXTURE && FIXTURE.heading) {
+      document.getElementById("heading").textContent = FIXTURE.heading;
+    }
+    if (FIXTURE && FIXTURE.blocked === false) {
+      document.getElementById("blocked").remove();
+    }
+  </script>
+</body>
+</html>

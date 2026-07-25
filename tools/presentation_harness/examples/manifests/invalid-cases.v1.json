@@ -1,0 +1,99 @@
+[
+  {
+    "id": "demo-invalid-unknown-key",
+    "mutations": [{ "operation": "set", "path": "surprise", "value": true }],
+    "expected_reason": "manifest-unknown-key"
+  },
+  {
+    "id": "demo-invalid-missing-key",
+    "mutations": [{ "operation": "remove", "path": "timeout_ms" }],
+    "expected_reason": "manifest-missing-key"
+  },
+  {
+    "id": "demo-invalid-version",
+    "mutations": [{ "operation": "set", "path": "version", "value": "presentation-evaluation-manifest.v0" }],
+    "expected_reason": "manifest-invalid-version"
+  },
+  {
+    "id": "demo-invalid-duplicate-candidate-id",
+    "mutations": [
+      {
+        "operation": "push",
+        "path": "candidates",
+        "value": {
+          "id": "demo-candidate",
+          "path": "tools/presentation_harness/examples/pages/demo-candidate.html"
+        }
+      }
+    ],
+    "expected_reason": "manifest-duplicate-id"
+  },
+  {
+    "id": "demo-invalid-remote-url-candidate",
+    "mutations": [
+      { "operation": "set", "path": "candidates.0.path", "value": "https://example.invalid/candidate.html" }
+    ],
+    "expected_reason": "manifest-remote-url-rejected"
+  },
+  {
+    "id": "demo-invalid-absolute-path-candidate",
+    "mutations": [{ "operation": "set", "path": "candidates.0.path", "value": "/etc/passwd" }],
+    "expected_reason": "manifest-absolute-path-rejected"
+  },
+  {
+    "id": "demo-invalid-path-traversal-fixture",
+    "mutations": [{ "operation": "set", "path": "fixtures.0.path", "value": "../outside-repo/fixture.json" }],
+    "expected_reason": "manifest-path-traversal-rejected"
+  },
+  {
+    "id": "demo-invalid-non-synthetic-fixture",
+    "mutations": [{ "operation": "set", "path": "fixtures.0.synthetic", "value": false }],
+    "expected_reason": "manifest-non-synthetic-fixture-rejected"
+  },
+  {
+    "id": "demo-invalid-unknown-check",
+    "mutations": [{ "operation": "set", "path": "criteria.0.check", "value": "not-a-real-check" }],
+    "expected_reason": "manifest-unknown-check"
+  },
+  {
+    "id": "demo-invalid-unknown-candidate-reference",
+    "mutations": [{ "operation": "set", "path": "matrix.0.candidate_id", "value": "demo-candidate-nope" }],
+    "expected_reason": "manifest-unknown-candidate-reference"
+  },
+  {
+    "id": "demo-invalid-unknown-fixture-reference",
+    "mutations": [{ "operation": "set", "path": "matrix.0.fixture_id", "value": "demo-fixture-nope" }],
+    "expected_reason": "manifest-unknown-fixture-reference"
+  },
+  {
+    "id": "demo-invalid-unknown-tamper-reference",
+    "mutations": [{ "operation": "set", "path": "matrix.0.tamper_case_id", "value": "demo-tamper-nope" }],
+    "expected_reason": "manifest-unknown-tamper-reference"
+  },
+  {
+    "id": "demo-invalid-unknown-criterion-reference",
+    "mutations": [{ "operation": "set", "path": "matrix.0.criteria.0", "value": "demo-criterion-nope" }],
+    "expected_reason": "manifest-unknown-criterion-reference"
+  },
+  {
+    "id": "demo-invalid-empty-matrix-criteria",
+    "mutations": [{ "operation": "set", "path": "matrix.0.criteria", "value": [] }],
+    "expected_reason": "manifest-empty-matrix-criteria"
+  },
+  {
+    "id": "demo-invalid-duplicate-matrix-case",
+    "mutations": [
+      {
+        "operation": "push",
+        "path": "matrix",
+        "value": {
+          "candidate_id": "demo-candidate",
+          "fixture_id": "demo-fixture-published",
+          "tamper_case_id": "baseline",
+          "criteria": ["demo-heading-present"]
+        }
+      }
+    ],
+    "expected_reason": "manifest-duplicate-matrix-case"
+  }
+]
