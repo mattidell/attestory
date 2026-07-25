@@ -2,8 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy Track 0 builder implementation complete on track/presentation-economy-t0-measurement-substrate; independent Reviewer prompt prepared; reviewer dispatch not authorized.",
-  "next_permitted": "owner explicitly authorizes dispatch of the current Track 0 independent Reviewer prompt; foreman then resolves its source ref and spawns the role"
+  "status": "Presentation Evaluation Process Economy Track 0 builder implementation complete on track/presentation-economy-t0-measurement-substrate; independent Reviewer is the current role.",
+  "current_role": "Track 0 independent Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-24-presentation-economy-t0-measurement-review.md"
 }
 -->
 # Foreman Handoff Note
@@ -55,7 +56,7 @@ authority.
   evaluating non-presentation workflows and makes no economic claim about them.
   It raises no matrix cell and proposes no ADR. Track 0 builder implementation
   is complete on `track/presentation-economy-t0-measurement-substrate`; the
-  independent Reviewer prompt is prepared, but its dispatch is not authorized.
+  independent Reviewer is the current role and its prompt is prepared.
   Its five bounded packets measured
   foreman-observed dispatch-to-handoff times of 289, 182, 135, 169, and 480
   seconds. Cache status was never exposed and remains unknown. The resulting

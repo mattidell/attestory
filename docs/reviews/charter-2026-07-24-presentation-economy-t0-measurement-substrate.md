@@ -1,16 +1,15 @@
 # Track 0 Charter — Presentation Economy Measurement Substrate
 
-Status: **builder implementation complete 2026-07-24; independent review not
-authorized.** The owner authorized exactly the plan's one Builder and did not
-authorize a reviewer. No rival builder was added. The builder completed the
+Status: **builder implementation complete 2026-07-24; independent Reviewer is
+the current role.** The approved plan names exactly one Builder, so no rival
+builder was added. The builder completed the
 implementation on `track/presentation-economy-t0-measurement-substrate` through
-bounded handoffs; reviewer dispatch still requires later explicit
-authorization.
+bounded handoffs.
 
 ## Context Capsule
 
 - **Source ref:** `track/presentation-economy-t0-measurement-substrate`;
-  resolve and record its commit immediately before dispatch.
+  resolve and record its commit when this prompt is used to launch the role.
 - **Object:** implementation of Track 0 on
   `main..track/presentation-economy-t0-measurement-substrate`, excluding this
   routing-only charter and the foreman-owned status updates that prepare it.
@@ -23,7 +22,7 @@ authorization.
   presentation work can test dispatch sizing and batching economy.
 - **Evidence-rung ceiling:** production implementation of the already-approved
   Track 0 contract only. No prototype round, architecture decision, published
-  schema, harness implementation, or later-track work is authorized.
+  schema, harness implementation, or later-track work is in scope.
 - **Stop conditions:** stop before writing if the resolved source ref does not
   contain this charter and the owner-merged plan; stop if implementation would
   require a new or changed ADR, published schema, file outside the allowed
@@ -219,7 +218,7 @@ out-of-scope. If a necessary change falls outside the allowed paths, stop.
 - No dependency installation, workspace schema, published JSON Schema, schema
   manifest, ADR, or migration.
 - No reviewer charter, independent review, phase status update, retrospective,
-  push, PR, merge, or dispatch of another role.
+  push, PR, merge, or spawning of another sub-agent.
 
 ## Required verification
 
@@ -303,4 +302,4 @@ two representative comparison runs byte-identical. All 60 historical cost
 cells reconcile, including C3 R2's approximate token value and two explicit
 missing cells; five foreman rows remain explicitly unmeasured. No builder work
 or stop finding remains. Independent artifact-quality review, push, PR, merge,
-and Track 1 remain unauthorized.
+and Track 1 remain outside this completed Builder role.

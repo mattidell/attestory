@@ -34,7 +34,8 @@ class ForemanContextTests(unittest.TestCase):
             "version": 1,
             "topic": handoff_topic,
             "status": "planning only",
-            "next_permitted": "prepare records; do not dispatch",
+            "current_role": "demo reviewer",
+            "current_prompt": "docs/reviews/demo-review.md",
         }
         plan = {
             "version": 1,
@@ -53,13 +54,14 @@ class ForemanContextTests(unittest.TestCase):
             "version": 1,
             "topic": "demo-topic",
             "role": "prototype foreman",
-            "status": "not authorized",
+            "status": "active",
             "rung": "paper",
             "stop_conditions": ["synthetic evidence only"],
         }
         self.write_document(root, "docs/phase-state.md", phase)
         self.write_document(root, "docs/foreman-handoff.md", handoff)
         self.write_document(root, "docs/phases/demo/milestones/demo.md", plan)
+        self.write_plain(root, "docs/reviews/demo-review.md")
         if include_seat:
             self.write_document(root, "docs/prototypes/demo/SEAT.md", seat)
         self.write_plain(root, "docs/adr/0005.md")
@@ -100,8 +102,10 @@ class ForemanContextTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         capsule = json.loads(result.stdout)
         self.assertEqual(capsule["state"]["topic"], "demo-topic")
+        self.assertEqual(capsule["state"]["current_role"], "demo reviewer")
+        self.assertEqual(capsule["state"]["current_prompt"], "docs/reviews/demo-review.md")
         self.assertFalse(capsule["worktree"]["dirty"])
-        self.assertEqual(len(capsule["source"]["documents"]), 4)
+        self.assertEqual(len(capsule["source"]["documents"]), 5)
         self.assertTrue(all(document["blob"] for document in capsule["source"]["documents"]))
 
     def test_selected_ref_ignores_newer_commit(self) -> None:
@@ -111,14 +115,17 @@ class ForemanContextTests(unittest.TestCase):
             "version": 1,
             "topic": "demo-topic",
             "status": "newer status",
-            "next_permitted": "newer action",
+            "current_role": "newer role",
+            "current_prompt": "docs/reviews/newer-review.md",
         }
         self.write_document(root, "docs/foreman-handoff.md", metadata)
+        self.write_plain(root, "docs/reviews/newer-review.md")
         self.git(root, "add", ".")
         self.git(root, "commit", "-qm", "newer")
         result = self.run_tool(root, "HEAD~1")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)["state"]["handoff_status"], "planning only")
+        self.assertEqual(json.loads(result.stdout)["state"]["current_role"], "demo reviewer")
         self.assertNotIn("newer status", result.stdout)
         self.assertTrue(handoff_path.exists())
 
@@ -147,7 +154,7 @@ class ForemanContextTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         capsule = json.loads(result.stdout)
         self.assertIsNone(capsule["state"]["seat"])
-        self.assertEqual(len(capsule["source"]["documents"]), 3)
+        self.assertEqual(len(capsule["source"]["documents"]), 4)
 
     def test_rejects_malformed_metadata_and_missing_ref(self) -> None:
         root = self.make_repository()
@@ -160,6 +167,22 @@ class ForemanContextTests(unittest.TestCase):
         missing = self.run_tool(root, "does-not-exist")
         self.assertEqual(missing.returncode, 2)
         self.assertIn("cannot be resolved", missing.stderr)
+
+    def test_rejects_missing_current_prompt(self) -> None:
+        root = self.make_repository()
+        metadata = {
+            "version": 1,
+            "topic": "demo-topic",
+            "status": "planning only",
+            "current_role": "demo reviewer",
+            "current_prompt": "docs/reviews/missing.md",
+        }
+        self.write_document(root, "docs/foreman-handoff.md", metadata)
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", "missing prompt")
+        result = self.run_tool(root)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("missing required source docs/reviews/missing.md", result.stderr)
 
 
 if __name__ == "__main__":

@@ -6,8 +6,8 @@ unit** and nothing more. You do not review your own work.
 
 ## How you are launched
 
-The foreman prepares your charter; the owner authorizes the dispatch (**ADR-0034**
-— plan approval, a named seat, or a charter is never itself dispatch authority).
+The owner may launch you by supplying the current prompt in a new thread, or
+may authorize the foreman to dispatch you (**ADR-0034**).
 Before writing a line, **echo back your understood scope, your evidence-rung
 ceiling, and your stop conditions** (`PROJECT_PLANNING.md`, "External builder
 handoff"). If the charter and the repository state disagree, stop and say so.

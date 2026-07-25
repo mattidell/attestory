@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "owner-approved and merged in PR #65 on 2026-07-24; Track 0 builder implementation complete; independent Reviewer prompt prepared; reviewer dispatch not authorized",
+  "status": "owner-approved and merged in PR #65 on 2026-07-24; Track 0 builder implementation complete; independent Reviewer is the current role",
   "scope": [
     "versioned UI/UX iteration workload observation and comparison data",
     "machine-readable presentation-iteration baseline with explicit missing and estimated values",
@@ -72,7 +72,7 @@
 
 Status: **active; owner-approved planning unit merged in PR #65
 (`1fd3d4c`) on 2026-07-24; Track 0 builder implementation complete;
-independent Reviewer prompt prepared; reviewer dispatch not authorized.**
+independent Reviewer is the current role.**
 Approval activates the milestone direction but does not authorize any builder,
 reviewer, or clerk dispatch; ADR-0043 still requires explicit approval for each
 role.

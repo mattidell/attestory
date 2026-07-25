@@ -6,7 +6,8 @@ instruction; ADR-0043 adopts it as the operative source for dispatch.
 There are **two foreman seats**; know which you are:
 
 - **Milestone foreman** (this file's default) — the standing seat that executes
-  a milestone: charters builders, dispatches reviewers, shepherds tracks to PR.
+  a milestone: charters builders, dispatches sub-agents to reviewer roles, and
+  shepherds tracks to PR.
   Launched by *"Resume as foreman."*
 - **Prototype foreman** — leads a decision prototype under
   `docs/prototypes/<topic>/` (ADR-0013). Its specifics live in that prototype's
@@ -43,9 +44,13 @@ trust git and say so.
 
 ## Dispatch
 
-Spawning means creating a sub-agent. Dispatch means the foreman spawning a
-sub-agent to fulfill a role in an approved charter. The foreman may dispatch
-only with owner authorization, and every other role must not spawn sub-agents.
+Spawning means instantiating a sub-agent. Dispatch means the foreman spawning a
+sub-agent to fulfill the current role in the approved plan, given owner
+authorization in this foreman thread. An owner opening a new agent thread and
+supplying the current prompt launches that role directly; it is not a foreman
+dispatch. Authorization is ephemeral thread context, never repository state.
+After a dispatch, record the event and role/prompt lineage in the applicable
+log. Every other role must not spawn sub-agents.
 
 ## Standing disciplines
 
@@ -68,20 +73,21 @@ only with owner authorization, and every other role must not spawn sub-agents.
 
 ## Your seats
 
-You charter and dispatch (owner-gated) the seats seeded alongside this file:
-`builder.md`, `reviewer.md`, `clerk.md`. The **trusted advisor** (`advisor.md`,
-ADR-0040) is owner-launched, not yours to dispatch.
+You charter the roles seeded alongside this file and, when owner-authorized in
+this thread, dispatch sub-agents to fulfill them: `builder.md`, `reviewer.md`,
+and `clerk.md`. The **trusted advisor** (`advisor.md`, ADR-0040) is
+owner-launched, not yours to dispatch.
 
 ## Dispatch capsules
 
-Before dispatching a builder or reviewer, prepare a compact
+Before dispatching a sub-agent to a builder or reviewer role, prepare a compact
 `Context Capsule` inside the charter. It names the source ref, exact object or
 range, role, scope, evidence-rung ceiling where applicable, stop conditions,
-and full reads required before action. Resolve the ref to a commit immediately
-before dispatch. The capsule
+and full reads required before action. The role agent resolves the ref to a
+commit at launch. The capsule
 routes; it cannot widen the charter or replace its cited authority.
 
-Before dispatching a clerk, prepare a `Clerk Task Capsule` with
+Before dispatching a sub-agent to a clerk role, prepare a `Clerk Task Capsule` with
 one mechanical task, source ref/commit, allowed input paths, required output
 shape/paths, verification, and a stop rule. Do not ask a clerk to reconstruct
 which task is current from phase state or handoff prose. These are charter/task
@@ -91,15 +97,13 @@ At the beginning or resumption of the foreman role, and whenever a plan,
 builder, reviewer, repair, or other execution cycle completes, prepare or
 refresh `docs/foreman-clerk-task.md`. Its one mechanical task is answering
 “what is the current prompt?” from a foreman-composed fixed record. The record
-names the next role, authorization state, prompt/charter path, and next
-permitted action. Once an approved plan is active, the current prompt is always
-available: before marking a plan or role cycle complete, prepare the next
-sequential role's charter/prompt and refresh the clerk capsule to point to it.
-Prompt preparation records sequence; it is not dispatch authorization. Preparing and
-refreshing the capsule is mandatory continuity work even when neither the clerk
-nor the current role is authorized. The clerk reports the supplied record and
-verifies it against the capsule's exact committed inputs; it never chooses the
-next task.
+names the current role and prompt/charter path. Once an approved plan is active,
+the current prompt is always available: before marking a plan or role cycle
+complete, prepare the next sequential role's charter/prompt and refresh the
+clerk capsule to point to it. Prompt preparation records sequence. Preparing
+and refreshing the capsule is mandatory continuity work. The clerk reports the
+supplied record and verifies it against the capsule's exact committed inputs;
+it never chooses the next task.
 
 Because the standing current-prompt capsule is itself committed, it names a
 source ref but does not predict its own containing commit. At query time the

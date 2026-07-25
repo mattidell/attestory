@@ -10,8 +10,8 @@
 Foreman re-entry currently begins by reading a wide, prose-heavy set of
 canonical documents. The same state is repeated across phase state, handoff,
 role seed, milestone plan, prototype plan, seat record, and process manuals:
-dispatch approval, data-boundary stop conditions, active-topic status, and the
-next step. The repetition makes the first read costly and creates a drift risk
+data-boundary stop conditions, active-topic status, and the current
+role/prompt. The repetition makes the first read costly and creates a drift risk
 despite ADR-0030's requirement that `main` honestly describe current state.
 
 The alternative cannot be a maintained summary that becomes a second source of
@@ -44,11 +44,11 @@ the approval gate in ADR-0034.
 
 3. **Volatile re-entry documents carry compact JSON front matter with named
    ownership.** Phase state owns the active phase/plan pointer; handoff owns
-   current status and next permitted action; the active plan owns scope,
-   non-goals, and action-specific deep-read routing; the prototype seat owns
-   the assigned role, rung, and stop conditions. Shared topic identifiers are
-   repeated only so the renderer can reject disagreement. The metadata is
-   canonical document content, not a fifth maintained summary.
+   current status, current role, and current prompt/charter path; the active
+   plan owns scope, non-goals, and action-specific deep-read routing; the
+   prototype seat owns the assigned role, rung, and stop conditions. Shared
+   topic identifiers are repeated only so the renderer can reject disagreement.
+   The metadata is canonical document content, not a fifth maintained summary.
 
 4. **The renderer fails closed before emitting a capsule.** An unresolvable
    ref, missing source, malformed metadata, unsupported metadata version, or
@@ -71,9 +71,10 @@ the approval gate in ADR-0034.
    mapped action requires their evidence.
 
 7. **The handoff is continuity, not a second archive.** It keeps the current
-   state, next permitted action, and durable pointers. Historical narratives
-   remain in retrospectives, reviews, phase records, and Git. Shortening the
-   handoff under this rule does not delete or supersede that history.
+   state, current role/prompt pointer, and durable pointers. It does not store
+   dispatch authorization or an owner next action. Historical narratives remain
+   in retrospectives, reviews, phase records, and Git. Shortening the handoff
+   under this rule does not delete or supersede that history.
 
 ## Consequences
 
@@ -122,20 +123,20 @@ dispatch.
 8. **Builder and reviewer capsules live in their charter, not in the Python
    renderer.** Every newly prepared builder or review charter carries a compact
    `Context Capsule` section naming the source ref (and the resolved commit at
-   dispatch), exact object/range, role, scope, evidence-rung ceiling where
+   role launch), exact object/range, role, scope, evidence-rung ceiling where
    relevant, stop conditions, and the full documents to read before acting.
    The capsule is a routing section of the charter; the charter and cited
-   authority remain controlling. The foreman prepares it before requesting the
-   owner's dispatch approval, and the dispatch record captures the resolved
+   authority remain controlling. The foreman prepares it as the current prompt,
+   and the launch record captures the resolved
    commit so a self-referential charter need not predict its own final commit.
 
 9. **Clerk work begins from a foreman-prepared Clerk Task Capsule.** It names
    the selected ref/commit, one mechanical task, allowed input paths, required
    output shape/paths, verification, and stop rule. A clerk must not infer the
-   active dispatch from phase state or handoff narrative, choose among candidate
-   charters, compose scope, or inspect a workspace. The task capsule is not a
-   general renderer and does not authorize the clerk's dispatch; ADR-0034 still
-   requires contemporaneous, explicit owner approval.
+   current role/prompt from phase state or handoff narrative, choose among
+   candidate charters, compose scope, or inspect a workspace. The task capsule
+   reports no authorization state or owner next action. It is not a general
+   renderer.
 
 10. **Trusted Advisor remains unchanged.** Its owner-launched, question-led
     strategic read set is intentionally not routed through operational capsules

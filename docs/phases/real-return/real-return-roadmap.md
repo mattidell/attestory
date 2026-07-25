@@ -30,8 +30,8 @@ scan.
 
 - Presentation Evaluation Process Economy — **active; owner-approved planning
   unit merged in PR #65 (`1fd3d4c`) on 2026-07-24; Track 0 builder
-  implementation complete; independent Reviewer prompt prepared; reviewer
-  dispatch not authorized.** This process milestone follows the
+  implementation complete; independent Reviewer is the current role.** This
+  process milestone follows the
   Presentation Exploratory Milestone's economy analysis. Its durable capability
   is a quality-adjusted learning loop scoped specifically to UI/UX presentation
   iteration, development, and review: versioned presentation workloads,

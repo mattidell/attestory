@@ -1,13 +1,12 @@
 # Track 0 Review Charter — Presentation Economy Measurement Integrity
 
-Status: **prepared 2026-07-24; reviewer dispatch not authorized.** This is the
-current prompt under the owner-approved milestone sequence. Preparing the prompt
-does not authorize spawning the Reviewer.
+Status: **current prompt prepared 2026-07-24.** This is the current role under
+the owner-approved milestone sequence.
 
 ## Context Capsule
 
 - **Source ref:** `track/presentation-economy-t0-measurement-substrate`;
-  resolve and record its commit immediately before dispatch.
+  resolve and record its commit when this prompt is used to launch the role.
 - **Exact object:** the Track 0 implementation at the resolved source commit:
   `tools/presentation_economy/**`, `tests/test_presentation_economy.py`, and
   `docs/presentation-economy/**`, evaluated against the Track 0 plan and builder
@@ -144,5 +143,5 @@ Write the review to
 Return `READY` only if every measurement is explicitly supported and no
 blocking finding remains. Otherwise return `NOT READY`, name the failed
 measurement, exact path/behavior, and smallest evidence-backed remediation.
-Do not repair the implementation, dispatch another role, push, open a PR,
-merge, or begin Track 1.
+Do not repair the implementation, spawn a sub-agent, push, open a PR, merge, or
+begin Track 1.

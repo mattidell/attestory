@@ -168,6 +168,8 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
         raise ContextError(f"seat mismatch: {plan.path} does not name {seat_path}")
 
     deep_reads = validate_deep_reads(repository, commit, plan.metadata, plan.path)
+    current_prompt = required_path(handoff.metadata, "current_prompt", handoff.path)
+    current_prompt_blob = repository.blob_for_path(commit, current_prompt)
     sources = [phase, handoff, plan]
     if seat is not None:
         sources.append(seat)
@@ -179,12 +181,14 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
             "rung": required_string(seat.metadata, "rung", seat.path),
             "stop_conditions": required_strings(seat.metadata, "stop_conditions", seat.path),
         }
+    source_documents = [{"path": item.path, "blob": item.blob} for item in sources]
+    source_documents.append({"path": current_prompt, "blob": current_prompt_blob})
     return {
         "version": 1,
         "source": {
             "selected_ref": ref,
             "commit": commit,
-            "documents": [{"path": item.path, "blob": item.blob} for item in sources],
+            "documents": source_documents,
         },
         "worktree": repository.worktree_status(),
         "state": {
@@ -192,7 +196,8 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
             "topic": topic,
             "plan_status": required_string(plan.metadata, "status", plan.path),
             "handoff_status": required_string(handoff.metadata, "status", handoff.path),
-            "next_permitted": required_string(handoff.metadata, "next_permitted", handoff.path),
+            "current_role": required_string(handoff.metadata, "current_role", handoff.path),
+            "current_prompt": current_prompt,
             "scope": required_strings(plan.metadata, "scope", plan.path),
             "non_goals": required_strings(plan.metadata, "non_goals", plan.path),
             "seat": seat_state,
@@ -211,7 +216,8 @@ def markdown_capsule(capsule: dict[str, Any]) -> str:
         f"- Source: `{source['selected_ref']}` → `{source['commit']}`",
         f"- Worktree: branch `{worktree['branch'] or 'detached'}`; dirty: `{worktree['dirty']}`",
         f"- Active: {state['phase']} / `{state['topic']}` ({state['plan_status']})",
-        f"- Next permitted: {state['next_permitted']}",
+        f"- Current role: {state['current_role']}",
+        f"- Current prompt: `{state['current_prompt']}`",
         "",
         "## Read in full before acting",
         "",
