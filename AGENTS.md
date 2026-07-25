@@ -236,6 +236,26 @@ be working in the same tree. Trust it for your first turn; re-check with
 `git status` if the session runs long or you suspect drift. Use `git status` /
 `git diff` to verify your own changes after editing.
 
+**Check whether you are stale before you work.** The tree you resume into may
+have been overtaken while you were away: a PR of this branch may already be
+merged, or `main` may have moved past the state your handoff describes. Fetch
+first, then compare — do not infer freshness from the handoff, the plan status,
+or a hook line:
+
+```sh
+git fetch origin --prune
+git rev-list --left-right --count origin/main...HEAD   # behind<TAB>ahead
+gh pr list --state merged --head "$(git branch --show-current)" --limit 3
+```
+
+Read it as: **ahead 0 and a merged PR for this branch** means your work already
+landed — this workspace is spent, and continuing on it re-does or reverts
+merged history. **Behind > 0** means your base is stale; rebase or re-cut from
+`main` before building, and re-verify that the charter still describes work that
+remains. Either way, **say so explicitly** — name the branch, the merged PR, and
+how far behind you are — and get direction before proceeding. Silently working
+in a superseded tree is the failure this rule exists to prevent.
+
 Keep worktrees to a minimum. Remove worktrees that are clean and no longer
 needed, including stale ones left by other agents. Delete merged branches after
 confirming their commits are reachable from `main`. Do not leave uncommitted
