@@ -13,11 +13,12 @@ A `[worktree-state]` line (branch + dirty paths) is injected at session start vi
 - **At a track gate** (track complete, pre-review, pre-merge), run the full suite once: `pytest`. Record the result in the track/commit message (e.g. `pytest: 590 passed @ <sha>`).
 - **Downstream roles** (reviewer, foreman) reference the recorded gate result rather than re-running the full suite, and re-run `pytest` only if they changed code. A passing suite on a given commit is a recorded fact, not something each role must recompute.
 
-**Cache economy.** Claude Code reuses (caches) the unchanged prefix of each request; a change to the system prompt or tool set forces a full, slow, uncached re-read. On a Claude subscription the main conversation keeps a 1-hour cache; spawned sub-agents get only a 5-minute cache and a cold start. Keep the cache warm:
+**Cache economy.** Claude Code reuses (caches) the unchanged prefix of each request; a change to the system prompt or tool set forces a full, slow, uncached re-read. The cache TTL is an *inactivity* timer, reset on every hit — continuous work stays warm regardless of how long a task runs; a gap longer than the TTL goes cold. On a Claude subscription the main conversation gets a 1-hour TTL; spawned sub-agents get a 5-minute TTL. Keep the cache warm:
 - **Pick model and effort at session start; don't switch mid-task.** Each `/model` or `/effort` change re-reads the whole history. With `opusplan`, every plan-mode toggle is a model switch — expect a slow turn.
 - **Prefer `/rewind` over `/compact`** when abandoning a path (rewind lands on an already-cached prefix; compact builds a new one). Run `/compact` at task breaks, not mid-task.
+- **Avoid single tool calls that block longer than the TTL.** A >5-minute step (a slow test/build) cold-starts the next turn — this, not task length, is the cache risk. Keep gates fast (the parallel `pytest` gate is ~26s).
 - **Each worktree/directory has its own cache** (the working dir is in the system prompt). Create a new worktree only when you need isolation (e.g. a clean-room rival); otherwise running in the same directory shares the warm cache.
-- **Prefer owner-launch (`/pickup`) over foreman spawn for substantial builder work** — the launched thread gets the 1-hour cache and keeps the foreman thread lean. Reserve spawning for short, few-in-number sub-tasks with terse returns (e.g. committee reviews), where the ~2 foreman turns per spawn stay cheap on a warm cache.
+- **Spawn vs. owner-launch is not a cache decision.** Both agents stay warm while working. A spawn costs the foreman ~2 turns (emit + consume) plus the returned result's bulk (measured terse in this project); reserve spawning for short, few, terse-return sub-tasks (committee reviews). Prefer owner-launch (`/pickup`) for substantial builder work on grounds of independence (ADR-0034) and keeping the foreman thread lean — not caching.
 
 ## Canonical References
 
