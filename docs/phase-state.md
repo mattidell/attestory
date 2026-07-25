@@ -5,8 +5,8 @@
   "topic": "presentation-citation-walk",
   "active_plan": "docs/phases/real-return/milestones/presentation-citation-walk.md",
   "status": "Owner selected the Presentation frontier 2026-07-25 and approved ADR-0046 (Presentation Surface Contract) plus this milestone's plan. Ready for a charter; no dispatch has occurred.",
-  "current_role": "Foreman: prepare Track 1 (renderer) charter for owner dispatch authorization",
-  "current_prompt": "docs/phases/real-return/milestones/presentation-citation-walk.md#Tracks"
+  "current_role": "Track 1 Builder (renderer) — prepared, awaiting owner's literal `I authorize dispatch`",
+  "current_prompt": "docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md"
 }
 -->
 # Phase State
