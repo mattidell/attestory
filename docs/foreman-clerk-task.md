@@ -1,7 +1,7 @@
 # Foreman Clerk Task Capsule — Current Prompt
 
-Status: **refreshed 2026-07-24 after the Track 0 participant-cost repair and
-READY delta review completed; Track 1 Builder prompt prepared.** This is a
+Status: **refreshed 2026-07-24 after the Track 1 harness-core Builder
+completed; independent technical-adversary review prompt prepared.** This is a
 mechanical routing record.
 
 ## Clerk Task Capsule
@@ -23,6 +23,7 @@ mechanical routing record.
   `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair.md`,
   `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`,
   `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md`,
+  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`,
   all at the query-resolved source commit.
 - **Required output shape and paths:** chat output only; make no repository
   write. Return the three labeled fields under “Current prompt record” exactly,
@@ -30,8 +31,8 @@ mechanical routing record.
 - **Verification:** resolve the source ref once; confirm that commit contains
   this capsule and every allowed input; confirm its handoff `status`,
   `current_role`, and `current_prompt` fields agree with the fixed record; and
-  confirm the delta-review charter says `READY`, and confirm the Track 1
-  charter is the current prompt.
+  confirm the Track 1 Builder charter says implementation complete, and confirm
+  the Track 1 review charter is the current prompt.
 - **Stop rule:** if the ref cannot be resolved, the resolved commit does not
   contain this capsule or an allowed input, the status fields disagree, or a
   later foreman-cycle record supersedes this capsule, stop and report the exact
@@ -40,12 +41,14 @@ mechanical routing record.
 
 ## Current prompt record
 
-- **Current prompt:** “You are the Medium/medium Track 1 instrumented harness
-  core Builder. Read
-  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md`
+- **Current prompt:** “You are the fresh independent High/high
+  technical-adversary Reviewer for the Presentation Economy Track 1 harness
+  core. Read
+  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`
   and its complete Context Capsule, verify the source ref, echo the exact
-  object/scope/evidence ceiling/stop conditions, then implement the approved
-  Track 1 harness core and return its chartered handoff.”
-- **Current role:** Track 1 instrumented harness core Builder.
+  object/scope/evidence ceiling/stop conditions, then independently exercise
+  the real browser lifecycle, failure semantics, confinement, determinism, and
+  observation honesty, and return the required verdict.”
+- **Current role:** Track 1 harness lifecycle technical-adversary Reviewer.
 - **Prompt/charter path:**
-  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md`.
+  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`.
