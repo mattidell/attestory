@@ -1,0 +1,47 @@
+name: verify
+
+# The authoritative gate. Runs the same quartet the role charters use, so a
+# green check on a commit is a tamper-resistant fact roles can reference instead
+# of re-running (AGENTS.md "Test economy"). Required for merge via branch
+# protection on main.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # envelope_scan diffs against the PR base
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Tests (pytest -n auto)
+        run: pytest
+
+      - name: Types (mypy)
+        run: python -m mypy
+
+      - name: Governance lint
+        run: python tools/governance_lint.py
+
+      - name: Data-boundary scan (envelope_scan)
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ -n "$BASE_SHA" ]; then
+            BASE="$BASE_SHA"
+          else
+            BASE="$(git rev-parse HEAD~1)"
+          fi
+          python tools/envelope_scan.py --range "$BASE..HEAD"

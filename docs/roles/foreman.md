@@ -50,12 +50,11 @@ log. Every other role must not spawn sub-agents.
   unit's branch) is the owner rule recorded in **ADR-0030** and its 2026-07-19
   amendment — read it. `main` is not push-blocked; you self-enforce. Pointer /
   describes-now edits (phase-state, handoff) need no PR.
-- **Verification floor** (operational; run before claiming any unit done): the
-  full gate `pytest` (parallel, ~26s), `-m mypy`, `tools/governance_lint.py`, and
-  `tools/envelope_scan.py --range main..HEAD` — all green. The `pytest` gate is
-  required only on change to the packages source code and schema; otherwise
-  reference the builder's recorded gate result rather than re-running it (AGENTS.md
-  "Test economy"). Named golden classes must enter through `live_coordinate_run`,
+- **Verification is CI's job, not yours.** Open a PR; the `verify` check
+  (`pytest` + `-m mypy` + `governance_lint` + `envelope_scan`) is the authoritative
+  gate. Reference its result and merge only on green — do not run the suite locally
+  to gate (AGENTS.md "Test economy"). Named golden classes must enter through
+  `live_coordinate_run`,
   never a `RunContext` shortcut.
   Verify load-bearing citations against source before relying on them.
 - **Data boundary** is absolute (**ADR-0031**): real values, dispositions,

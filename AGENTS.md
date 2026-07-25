@@ -8,10 +8,10 @@ Bash starts at repo root and cwd persists; never cd to the root; use absolute pa
 
 In Claude Code a `[worktree-state]` line (branch + dirty paths) is injected at session start via a SessionStart hook. On any runner, get branch/dirty from that line or from `python3 tools/foreman_context.py --ref <ref>` rather than running `git status`/`git branch` to orient; use `git status`/`git diff` only to verify your own changes after editing.
 
-**Test economy.** The full suite is deterministic and ~26s parallel (`pytest`), ~129s serial. Do not re-derive it needlessly:
-- **While iterating**, run only the module you touched: `python3 -m unittest tests.<module>` (seconds), not the full suite.
-- **At a track gate** (track complete, pre-review, pre-merge), run the full suite once: `pytest`. Record the result in the track/commit message (e.g. `pytest: 590 passed @ <sha>`).
-- **Downstream roles** (reviewer, foreman) reference the recorded gate result rather than re-running the full suite, and re-run `pytest` only if they changed code. A passing suite on a given commit is a recorded fact, not something each role must recompute.
+**Test economy.** The authoritative gate is **CI**: the `verify` workflow (`pytest -n auto` + `-m mypy` + `governance_lint` + `envelope_scan`) runs on every PR and blocks merge on red (branch protection on `main`). A green `verify` check on a commit is the tamper-proof record — reference it; do not re-run the suite to "confirm" a deterministic result.
+- **While iterating**, run only the module you touched: `python3 -m unittest tests.<module>` (seconds).
+- **Before opening/updating a PR**, optionally run the full gate locally (`pytest`, ~26s) so CI isn't your first signal — but CI is the gate of record, not a self-reported `pytest: N passed` line.
+- **The foreman does not run the suite.** It opens the PR and references the `verify` check; it merges only on green. Reviewers reference the check too, and run `pytest` only to confirm a specific failing claim.
 
 **Cache economy.** Claude Code reuses (caches) the unchanged prefix of each request; a change to the system prompt or tool set forces a full, slow, uncached re-read. The cache TTL is an *inactivity* timer, reset on every hit — continuous work stays warm regardless of how long a task runs; a gap longer than the TTL goes cold. On a Claude subscription the main conversation gets a 1-hour TTL; spawned sub-agents get a 5-minute TTL. Keep the cache warm:
 - **Pick model and effort at session start; don't switch mid-task.** Each `/model` or `/effort` change re-reads the whole history. With `opusplan`, every plan-mode toggle is a model switch — expect a slow turn.

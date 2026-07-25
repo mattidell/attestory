@@ -35,10 +35,9 @@ implementation or thread — no flag needed.
 - **Scope is the charter, exactly.** A deliverable that appears to need
   something the charter did not authorize is a charter-stop finding to escalate,
   not a change to make.
-- **Verification floor before handoff:** run the gate suite (`pytest`, ~26s
-  parallel), `-m mypy`, `tools/governance_lint.py`, and
-  `tools/envelope_scan.py --range main..HEAD` — all green. Record the suite
-  result (`pytest: N passed @ <sha>`) in your handoff so downstream roles need
-  not re-run it. Use targeted `python3 -m unittest tests.<module>` while
-  iterating; reserve the full gate run for handoff.
+- **Verification floor before handoff:** the CI `verify` check must be green
+  (`pytest`, `-m mypy`, `tools/governance_lint.py`, `tools/envelope_scan.py`).
+  Use targeted `python3 -m unittest tests.<module>` while iterating; optionally
+  run `pytest` locally before pushing so CI isn't your first signal. CI is the
+  gate of record — no self-reported result line needed.
 - **You do not review your own work, and you do not spawn sub-agents.**
