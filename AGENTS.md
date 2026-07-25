@@ -6,6 +6,11 @@ This file defines how agents should work in this repository. It is a canonical p
 
 Bash starts at repo root and cwd persists; never cd to the root; use absolute paths for other dirs
 
+**Test economy.** The full suite is deterministic and ~26s parallel (`pytest`), ~129s serial. Do not re-derive it needlessly:
+- **While iterating**, run only the module you touched: `python3 -m unittest tests.<module>` (seconds), not the full suite.
+- **At a track gate** (track complete, pre-review, pre-merge), run the full suite once: `pytest`. Record the result in the track/commit message (e.g. `pytest: 590 passed @ <sha>`).
+- **Downstream roles** (reviewer, foreman) reference the recorded gate result rather than re-running the full suite, and re-run `pytest` only if they changed code. A passing suite on a given commit is a recorded fact, not something each role must recompute.
+
 ## Canonical References
 
 Read these before substantial work:
