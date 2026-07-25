@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Real Return",
-  "topic": "browser-evaluation-runner-completion",
-  "active_plan": "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md",
-  "status": "Complete. PR #71 merged c329afd 2026-07-25T23:12:23Z, CI verify green on the merge commit; Track 2 completion record filed. Next: owner-directed milestone selection.",
-  "current_role": "Owner milestone selection (Tier 3) for the next Real Return frontier",
-  "current_prompt": "docs/phases/real-return/maturity-matrix.md"
+  "topic": "presentation-citation-walk",
+  "active_plan": "docs/phases/real-return/milestones/presentation-citation-walk.md",
+  "status": "Owner selected the Presentation frontier 2026-07-25 and approved ADR-0046 (Presentation Surface Contract) plus this milestone's plan. Ready for a charter; no dispatch has occurred.",
+  "current_role": "Foreman: prepare Track 1 (renderer) charter for owner dispatch authorization",
+  "current_prompt": "docs/phases/real-return/milestones/presentation-citation-walk.md#Tracks"
 }
 -->
 # Phase State
@@ -96,10 +96,15 @@ recommendation; the owner makes the Tier 3 selection.
   landed, and the focused R1/R2 recheck returned `READY` with no new in-scope
   finding. No broader second review cycle was authorized. Retrospective:
   `docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
-- **Later direction:** the actual human-surface Presentation frontier remains
-  selected but deferred until the runner is trustworthy. The accepted economy
-  contracts remain available, but no economical improvement or novelty-review
-  practice has yet been demonstrated.
+- **Presentation — Citation Walk on Real Derivation Output:** owner-selected
+  2026-07-25, now that the runner is trustworthy. ADR-0046 (Presentation
+  Surface Contract) ratifies the Presentation Exploratory Milestone's
+  five-cycle convergence directly from existing evidence, resolving its three
+  open rule-points: derived/diagnostic values are zero-authority; rejected
+  values are blanket-redacted, never echoed; blocked-state salience is
+  section-level. The milestone plan is owner-approved and ready for a
+  charter; no dispatch has occurred. The accepted economy contracts remain
+  available but are not this milestone's subject.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -131,13 +136,18 @@ Earlier milestone: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next: owner-directed milestone selection (Tier 3).** The browser
-evaluation runner is now trustworthy tooling, which was the named blocker on
-beginning the deferred Presentation frontier. The foreman should present
-frontier candidates from `docs/phases/real-return/maturity-matrix.md` —
-including the Presentation frontier — and a recommendation; the owner
-decides. `track/browser-evaluation-runner-completion` may be deleted, since
-its content is fully contained in `main` at `c329afd`.
+**➡️ In-progress milestone: Presentation — Citation Walk on Real Derivation
+Output.** Owner-selected 2026-07-25. ADR-0046 ratifies the Presentation
+Surface Contract directly from the exploratory milestone's existing
+five-cycle evidence; the milestone plan builds the real renderer against
+`form-field.v3`/`act-derived-publication.v1` output and verifies it with the
+completed browser evaluation runner. Plan is owner-approved and ready for a
+charter; no dispatch has occurred — dispatch requires the owner's literal
+string `I authorize dispatch`. Plan:
+`docs/phases/real-return/milestones/presentation-citation-walk.md`. Decision
+record: `docs/adr/0046-presentation-surface-contract.md`.
+`track/browser-evaluation-runner-completion` may be deleted, since its
+content is fully contained in `main` at `c329afd`.
 
 Standing operational notes: `PROJECT_PLANNING.md` ("Branch, PR, and Merge Protocol") governs per-track PRs, owner merges, and `main` as the continuous ratified record; `AGENTS.md` ("Dispatch authorization") governs dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 
