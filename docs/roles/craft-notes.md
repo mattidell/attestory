@@ -103,9 +103,10 @@ that have hardened into tooling or ratified process.
 
 - **A new rung is a spend decision, not just an execution step.** Before
   climbing past the authorized rung or opening a round beyond the chartered
-  plan, surface the increment and get a nod — even under a standing "dispatch
-  as needed." Standing authorization covers execution *within* the plan, not
-  escalation *of* it.
+  plan, surface the increment and get a nod. There is no standing "dispatch as
+  needed" (ADR-0045): each dispatch needs the owner's literal authorization
+  string, bound to that role and charter. Approval of the plan authorizes
+  execution *within* it, never escalation *of* it.
 
 - **Match the reasoning tier to the task.** Reserve high effort for design,
   adversarial review, and judgment; a recheck-that-findings-were-addressed or
