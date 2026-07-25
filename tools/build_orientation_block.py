@@ -23,6 +23,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -54,14 +55,33 @@ def detect_clean_room(current_role: str) -> bool:
     return any(marker in role for marker in CLEAN_ROOM_MARKERS)
 
 
+# The governance set writes its articles and constraints as bold-lead
+# paragraphs (`**Article 18 — Quarantine.** Personal data lives ...`) rather
+# than ATX headings. Plans anchor deep reads to those names, so without this
+# they resolve to nothing and the caller falls back to inlining the whole file
+# — silently turning a 200-word scoped read into a 12 KB one. Treat a bold lead
+# as the deepest possible heading: it never terminates a real `#` section, but
+# it is addressable and it terminates its own.
+_BOLD_LEAD = re.compile(r"^\*\*(?P<text>[^*\n]+?)\*\*(?:\s|$)")
+_BOLD_LEAD_LEVEL = 9
+
+
+def _bold_lead_text(line: str) -> str | None:
+    match = _BOLD_LEAD.match(line.lstrip())
+    return match.group("text").strip().rstrip(".").strip() if match else None
+
+
 def _heading_level(line: str) -> int:
     stripped = line.lstrip()
     if not stripped.startswith("#"):
-        return 0
+        return _BOLD_LEAD_LEVEL if _bold_lead_text(line) else 0
     return len(stripped) - len(stripped.lstrip("#"))
 
 
 def _heading_text(line: str) -> str:
+    bold = _bold_lead_text(line)
+    if bold is not None:
+        return bold
     return line.lstrip().lstrip("#").strip()
 
 
