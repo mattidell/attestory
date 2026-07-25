@@ -16,6 +16,25 @@ that have hardened into tooling or ratified process.
 
 ## Foreman
 
+- **A failed gate rejects readiness, not reusable work.** Preserve the reviewed
+  implementation and passing evidence, isolate the failed claims, and charter
+  repair from that exact artifact. Starting over destroys evidence, context,
+  and learning without buying independence.
+
+- **Separate the instrument from the experiment.** Make an evaluator
+  trustworthy as tooling before asking it to support product, process, or
+  economy conclusions. Tool completion can succeed while an experiment remains
+  unrun.
+
+- **Delta-review the delta.** Reuse unchanged evidence at the scope where it
+  remains valid; independently recheck changed behavior, the finding class, and
+  adjacent invariants. A repair is not a license to buy the entire first review
+  again.
+
+- **Measurement enables a verdict; it does not guarantee savings.** Economy
+  telemetry is successful when it supports an honest comparison, including
+  `insufficient evidence` or `not economical`.
+
 - **Spend review on novelty; make known attacks shared input.** Before
   chartering a build or review, map prior findings into applicable invariants
   and executable checks. Give that map to both seats, require the builder to
@@ -95,6 +114,10 @@ that have hardened into tooling or ratified process.
   seat at max effort.)*
 
 ## Builder
+
+- **Adopt before repairing.** When the plan names a reviewed source artifact,
+  transplant it, verify its file set and identity, and make the repair legible
+  as a delta. Do not reconstruct equivalent-looking work from memory.
 
 - **Verify a "pre-existing" failure against base before you claim it.**
   Never assert a failing test pre-dates your branch without running the

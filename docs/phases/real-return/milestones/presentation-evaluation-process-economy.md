@@ -70,13 +70,13 @@
 -->
 # Milestone: Presentation Evaluation Process Economy
 
-Status: **closed early by owner direction 2026-07-25.** The owner-approved
-planning unit merged in PR #65 (`1fd3d4c`) and Track 0 merged in PR #66
-(`870c8ed`). Track 0 is the accepted presentation-economy foundation. Track
-1's independent review returned `NOT READY`; its implementation was not
-merged, its prepared repair/re-review were retired unexecuted, and Tracks 2–3
-were canceled. This is an honest partial close, not completion of the original
-15 exit criteria.
+Status: **closed early by owner direction 2026-07-25; closeout PR #68 merged
+as `a14e8bf`.** The owner-approved planning unit merged in PR #65 (`1fd3d4c`)
+and Track 0 merged in PR #66 (`870c8ed`). Track 0 is the accepted
+presentation-economy foundation. Track 1's independent review returned
+`NOT READY`; its implementation was not merged, its prepared repair/re-review
+were retired unexecuted, and Tracks 2–3 were canceled. This is an honest
+partial close, not completion of the original 15 exit criteria.
 
 ## Objective
 

@@ -28,15 +28,22 @@ scan.
 
 ## Status
 
-- Presentation frontier toward a human surface — **selected for planning by
-  owner direction 2026-07-25; no milestone plan or implementation is active
-  yet.** The next foreman task is to shape the first actual presentation
-  milestone from the matrix frontier, the citation-walk evidence, and the
-  accepted presentation-economy contracts. It must identify which user-visible
-  meaning requires a Tier 3 decision before implementation, declare its
-  comparable workload and quality floor at plan time, and give Builder and
-  Reviewer the same applicable known-finding map plus a genuinely novel review
-  boundary. Selection raises no matrix cell by itself.
+- Browser Evaluation Runner Completion — **owner-directed plan prepared
+  2026-07-25; merge of the planning unit activates the repair Builder.** This
+  tooling milestone resumes the preserved implementation from
+  `track/presentation-economy-t1-harness-core` rather than rebuilding it. It
+  repairs the independent review's six blockers, completes the transferred
+  lifecycle/output measurements, and receives one focused delta review. It is
+  not a presentation prototype, an economy experiment, or an
+  adversarial-novelty practice run; it adds no product UI, ADR, or matrix lift.
+  Plan: `milestones/browser-evaluation-runner-completion.md`.
+
+- Presentation frontier toward a human surface — **selected direction,
+  deliberately deferred until the browser-evaluation runner is trustworthy.**
+  A later product milestone may use the accepted economy foundation and the
+  completed runner, but neither economical improvement nor a
+  known-versus-novel review protocol has yet been demonstrated. Deferral raises
+  no matrix cell.
 
 - Presentation Evaluation Process Economy — **closed early by owner direction
   2026-07-25; Track 0 merged in PR #66 (`870c8ed`) as the accepted foundation;
@@ -48,10 +55,10 @@ scan.
   observations, and comparisons; a source-faithful historical baseline; and
   quality-before-cost/participating-role enforcement that prevents
   cheaper-but-worse or cost-shifted work from appearing economically promising.
-  The proposed general browser harness failed independent review on six
-  lifecycle/failure-integrity blockers. The owner declined a repair cycle:
-  actual presentation milestones will apply the accepted measurement foundation
-  first and build only the mechanical assistance their real workloads justify.
+  The proposed general browser runner failed independent review on six
+  lifecycle/failure-integrity blockers. Its implementation remains preserved
+  outside `main`; the separately planned Browser Evaluation Runner Completion
+  milestone resumes that work without reopening this closed economy milestone.
   The milestone adds no product UI, ADR, or maturity-matrix lift. Plan:
   `milestones/presentation-evaluation-process-economy.md`; retrospective:
   `../../milestone-retrospectives/2026-07-25-presentation-evaluation-process-economy.md`.

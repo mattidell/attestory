@@ -1,13 +1,15 @@
 # Retrospective — Presentation Evaluation Process Economy
 
-Status: **closed early by owner direction 2026-07-25.** This is a successful
-foundation and an intentionally incomplete execution of the original plan, not
-a claim that all planned tracks or exit criteria passed.
+Status: **final — closed early by owner direction; closeout PR #68 merged as
+`a14e8bf` on 2026-07-25.** This is a successful foundation and an
+intentionally incomplete execution of the original plan, not a claim that all
+planned tracks or exit criteria passed.
 
 ## Milestone
 
 - Planning unit: PR #65, merged to `main`.
 - Accepted implementation: Track 0, PR #66, merge commit `870c8ed`.
+- Closeout records: PR #68, merge commit `a14e8bf`.
 - Rejected implementation: Track 1 on
   `track/presentation-economy-t1-harness-core`; independent review returned
   `NOT READY`, and the branch was not merged.
@@ -57,7 +59,7 @@ The accepted Track 0 record reports:
 
 PR #66 merged as `870c8ed`. The repository's authoritative CI `verify` workflow
 was introduced later in PR #67, so PR #66 has no retrospective `verify` check
-to cite. The closeout PR is governed by the current CI gate.
+to cite. Closeout PR #68 passed `verify` and merged as `a14e8bf`.
 
 Track 1's independent review reran 27 Node tests, the real-Chrome smoke, the
 then-current full Python/mypy/governance/envelope floor, and additional

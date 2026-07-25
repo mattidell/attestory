@@ -1,12 +1,12 @@
-# Track 1 Repair Review Charter — Harness Failure Integrity
+# Browser Evaluation Runner Repair Delta-Review Charter
 
-Status: **retired unexecuted by owner direction 2026-07-25.** No repair was
-performed. This prepared delta-review charter is retained as historical
-evidence and is not a current prompt.
+Status: **reactivated 2026-07-25 for the focused review after the existing
+runner repair commits.** It is prepared but is not the current prompt until the
+repair Builder hands off.
 
 ## Context Capsule
 
-- **Source ref:** `track/presentation-economy-t1-harness-core`; resolve and
+- **Source ref:** `track/browser-evaluation-runner-completion`; resolve and
   record its commit when this prompt is used to launch the role.
 - **Exact object:** the focused repair relative to the pre-repair Track 1
   implementation commit named by subject
@@ -16,17 +16,18 @@ evidence and is not a current prompt.
   `docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`.
   Foreman continuity and charter/review records are outside the
   artifact-quality object.
-- **Role:** one fresh owner-launched independent delta Reviewer, High tier /
-  high effort, technical-adversary lens.
+- **Role:** the original Reviewer resumed along its own review lineage when
+  available; otherwise one fresh independent delta Reviewer. High tier /
+  medium effort, technical-adversary lens.
 - **Scope:** independently verify that the repair closes F1–F6 without
   weakening one-process batching, closed exit/reason semantics, network
   confinement, deterministic content-free reports, or Track 0-compatible
   observations. Complete the four original measurements transferred from the
   interrupted review.
-- **Evidence-rung ceiling:** focused delta review of the approved Track 1
-  repair. Do not redesign contracts, implement another repair, add check
-  families/corpus/pilot work, begin Track 2, or generalize beyond presentation
-  harness execution.
+- **Evidence-rung ceiling:** focused delta review of browser evaluation runner
+  completion. Do not redesign contracts, implement another repair, add product
+  checks/corpus work, run an economy or novelty experiment, or generalize into
+  a browser framework.
 - **Stop conditions:** stop if the source ref or repair object cannot be
   resolved, the completed review/repair charter is absent, Chrome is
   unavailable, the Reviewer has seen Builder working context, a check requires
@@ -34,14 +35,15 @@ evidence and is not a current prompt.
   exceed the Track 1 gate.
 - **Full reads before acting:** this charter; `docs/roles/reviewer.md`;
   `docs/adr/INDEX.md`; the completed Track 1 review and repair charter; the
-  repair diff and changed tests/examples/README; the milestone plan's Command,
-  Manifest, Result, Verification, Data safety, Track 1 gate, and Track 1
-  sections; and the original review charter's seven measurement headings.
+  repair diff and changed tests/examples/README; the Browser Evaluation Runner
+  Completion plan's Contracts, Verification, Data safety, Review gate, and
+  Track 1 sections; and the original review charter's seven measurement
+  headings.
 
-The completed review already records the historical harness-seed and full
-implementation context. Do not reload the entire exploratory corpus unless a
-repair change touches a settled check technique and the relevant source is
-needed to decide that exact point.
+The completed review already records the historical seed and full
+implementation context. Do not reload the exploratory corpus or re-derive the
+review rig unless a repair change touches a settled technique and that exact
+source is necessary.
 
 Before reviewing, echo the resolved repair object, scope, evidence ceiling, and
 stop conditions. Treat Builder claims and committed regression output as
@@ -92,10 +94,10 @@ normal observations fail Track 0 validation.
 ## Output and verdict
 
 Write the review to
-`docs/reviews/2026-07-25-presentation-economy-t1-harness-core-repair-review.md`.
+`docs/reviews/2026-07-25-browser-evaluation-runner-repair-review.md`.
 Return `READY` only if F1–F6 are closed, the four transferred measurements are
 completed, and no regression remains. Otherwise return `NOT READY` with the
 exact failed measurement and smallest evidence-backed remediation.
 
 Do not repair the implementation, spawn a sub-agent, push, open a PR, merge,
-or begin Track 2.
+or begin completion records.
