@@ -26,6 +26,7 @@ async function runHarness(args, { env = {}, timeoutMs = 15000 } = {}) {
   child.stdout.on("data", (chunk) => { stdout += chunk; });
   child.stderr.on("data", (chunk) => { stderr += chunk; });
   const result = await new Promise((resolveResult, reject) => {
+    const started = Date.now();
     const timer = setTimeout(() => {
       child.kill("SIGKILL");
       reject(new Error("repair battery child timed out"));
@@ -36,7 +37,7 @@ async function runHarness(args, { env = {}, timeoutMs = 15000 } = {}) {
     });
     child.once("exit", (code, signal) => {
       clearTimeout(timer);
-      resolveResult({ code, signal, stdout, stderr, child });
+      resolveResult({ code, signal, stdout, stderr, child, elapsedMs: Date.now() - started });
     });
   });
   return result;
@@ -139,6 +140,46 @@ test("real-Chrome repair battery closes F1-F6 twice with deterministic correctne
     assert.equal(report.counts.pass, 5);
     assert.equal(report.counts.error, 0);
     assert.equal(first.stderr.includes(`"provenance": "${manifestName}"`), true);
+    assert.equal(first.stdout.includes("__presentationHarnessInjectionAcknowledged_"), false);
+    assert.equal(first.stderr.includes("__presentationHarnessInjectionAcknowledged_"), false);
+
+    await writeFile(
+      join(root, "busy.html"),
+      "<!doctype html><body><h1>demo</h1><script>window.addEventListener('load', function(){ setTimeout(function(){ const until=Date.now()+8000; while(Date.now()<until) {} }, 0); });</script></body>",
+      "utf8",
+    );
+    const timeoutManifest = structuredClone(manifest);
+    timeoutManifest.id = "demo-residual-r1";
+    timeoutManifest.timeout_ms = 1000;
+    timeoutManifest.candidates[0].path = repoRelative(join(root, "busy.html"));
+    timeoutManifest.criteria = [{ id: "heading", check: "dom-text-present", params: { selector: "h1", expected_text: "demo" } }];
+    timeoutManifest.tamper_cases = [{
+      id: "busy-injection",
+      injection: "document.addEventListener('DOMContentLoaded', function(){ document.body.dataset.injected = 'yes'; });",
+    }];
+    timeoutManifest.matrix = [{ candidate_id: "candidate", fixture_id: "fixture", tamper_case_id: "busy-injection", criteria: ["heading"] }];
+    const timeoutManifestPath = await writeManifest(root, "residual-r1.json", timeoutManifest);
+    const timeoutRun = await runHarness(["--manifest", repoRelative(timeoutManifestPath)]);
+    const timeoutReport = JSON.parse(timeoutRun.stdout);
+    assert.equal(timeoutRun.code, 2);
+    assert.ok(timeoutRun.elapsedMs < 7000, `acknowledgement timeout exceeded bound: ${timeoutRun.elapsedMs}ms`);
+    assert.deepEqual(timeoutReport.cases.map((item) => [item.outcome, item.reason]), [["error", "injection-failed"]]);
+
+    await writeFile(
+      join(root, "collision.html"),
+      "<!doctype html><body><h1>demo</h1><script>globalThis.__presentationHarnessInjectionAcknowledged = true;</script></body>",
+      "utf8",
+    );
+    const collisionManifest = structuredClone(timeoutManifest);
+    collisionManifest.id = "demo-residual-r2";
+    collisionManifest.candidates[0].path = repoRelative(join(root, "collision.html"));
+    collisionManifest.tamper_cases = [{ id: "collision-injection", injection: "throw new Error('demo runtime injection fault');" }];
+    collisionManifest.matrix = [{ candidate_id: "candidate", fixture_id: "fixture", tamper_case_id: "collision-injection", criteria: ["heading"] }];
+    const collisionManifestPath = await writeManifest(root, "residual-r2.json", collisionManifest);
+    const collisionRun = await runHarness(["--manifest", repoRelative(collisionManifestPath)]);
+    const collisionReport = JSON.parse(collisionRun.stdout);
+    assert.equal(collisionRun.code, 2);
+    assert.deepEqual(collisionReport.cases.map((item) => [item.outcome, item.reason]), [["error", "injection-failed"]]);
 
     const invalidInjection = structuredClone(manifest);
     invalidInjection.tamper_cases[2].injection = "function {";

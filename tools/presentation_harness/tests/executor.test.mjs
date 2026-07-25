@@ -212,3 +212,38 @@ test("a registered injection without an execution acknowledgement is infrastruct
   const results = await runMatrix(makeFakeChromeHandle(), manifest, "http://127.0.0.1:0", () => client);
   assert.deepEqual(results.map((result) => [result.outcome, result.reason]), [["error", "injection-failed"]]);
 });
+
+test("a stalled injection acknowledgement is bounded by the manifest timeout", async () => {
+  const manifest = validateManifest({
+    version: MANIFEST_VERSION,
+    id: "demo-injection-ack-timeout",
+    timeout_ms: 20,
+    candidates: [{ id: "cand", path: "tools/presentation_harness/examples/pages/demo-candidate.html" }],
+    fixtures: [{
+      id: "fix",
+      path: "tools/presentation_harness/examples/pages/demo-fixture-published.json",
+      synthetic: true,
+    }],
+    criteria: [{ id: "crit", check: "dom-text-present", params: { selector: "h1", expected_text: "x" } }],
+    tamper_cases: [{ id: "fault", injection: "document.body.dataset.injected = 'yes';" }],
+    matrix: [{ candidate_id: "cand", fixture_id: "fix", tamper_case_id: "fault", criteria: ["crit"] }],
+  });
+  const client = makeFakeCDPClient({
+    handlers: {
+      "Target.createBrowserContext": () => ({ browserContextId: "context" }),
+      "Target.createTarget": () => ({ targetId: "target" }),
+      "Target.attachToTarget": () => ({ sessionId: "session" }),
+      "Page.addScriptToEvaluateOnNewDocument": () => ({}),
+      "Runtime.evaluate": (params) => {
+        if (params.expression.includes("__presentationHarnessInjectionAcknowledged_")) {
+          return new Promise(() => {});
+        }
+        return { result: { value: { found: true, text: "x" } } };
+      },
+    },
+  });
+  const started = Date.now();
+  const results = await runMatrix(makeFakeChromeHandle(), manifest, "http://127.0.0.1:0", () => client);
+  assert.ok(Date.now() - started < 500, "acknowledgement timeout must be bounded");
+  assert.deepEqual(results.map((result) => [result.outcome, result.reason]), [["error", "injection-failed"]]);
+});

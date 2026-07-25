@@ -275,8 +275,10 @@ attached with the flattened protocol; the target and context are disposed on
 success and every error path, while the one Chrome process is reused. A
 tuple's declared tamper injection (if any) is syntax-checked before Chrome
 launch, registered via `Page.addScriptToEvaluateOnNewDocument` before
-navigation, and must set a private execution acknowledgement after its source
-runs. Missing acknowledgement is `injection-failed`, never a criterion pass.
+navigation, and must set a private per-tuple execution acknowledgement after
+its source runs. The acknowledgement read is bounded by the manifest's
+`timeout_ms`; missing, throwing, stalled, or timed-out acknowledgement is
+`injection-failed`, never a criterion pass.
 A CDP `Fetch` interceptor fails closed on any request whose URL is not the
 loopback origin. Keyboard/focus checks dispatch real
 `Input.dispatchKeyEvent` Tab presses; contrast recomputes WCAG luminance from

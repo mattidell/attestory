@@ -7,6 +7,7 @@
 
 import { CDPClient } from "./cdp.mjs";
 import { CHECKS } from "./checks.mjs";
+import { randomUUID } from "node:crypto";
 
 class Page {
   constructor(client, sessionId) {
@@ -157,10 +158,13 @@ export async function runMatrix(chromeHandle, manifest, origin, connect = CDPCli
       }
 
       let tupleError = null;
+      let acknowledgementKey = null;
       try {
         if (tamper.injection !== null) {
           try {
-            const acknowledgementKey = "__presentationHarnessInjectionAcknowledged";
+            // Keep the acknowledgement private to this tuple. It is an
+            // internal browser-global only; it never enters public output.
+            acknowledgementKey = `__presentationHarnessInjectionAcknowledged_${randomUUID()}`;
             const acknowledgement = `globalThis[${JSON.stringify(acknowledgementKey)}] = true;`;
             await client.send(
               "Page.addScriptToEvaluateOnNewDocument",
@@ -202,8 +206,12 @@ export async function runMatrix(chromeHandle, manifest, origin, connect = CDPCli
 
         if (!tupleError && tamper.injection !== null) {
           try {
-            const acknowledged = await handle.page.evaluate(
-              "Boolean(globalThis.__presentationHarnessInjectionAcknowledged)",
+            const acknowledged = await withTimeout(
+              handle.page.evaluate(
+                `Boolean(globalThis[${JSON.stringify(acknowledgementKey)}])`,
+              ),
+              manifest.timeoutMs,
+              () => new TimeoutMarker("injection acknowledgement timed out"),
             );
             if (acknowledged !== true) tupleError = "injection-failed";
           } catch {
