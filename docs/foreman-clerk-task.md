@@ -6,8 +6,8 @@ does not authorize dispatch before merge.
 
 ## Clerk Task Capsule
 
-- **Source ref:** `plan/presentation-adversarial-novelty-practice` until the
-  planning unit merges; use `main` after merge.
+- **Source ref:** `main`; the Browser Evaluation Runner Completion planning
+  unit is owner-merged in PR #69.
 - **Resolution rule:** immediately when answering, resolve the applicable
   source ref once and include that commit in the response. The commit must
   contain this capsule and every allowed input.
