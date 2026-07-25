@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "browser-evaluation-runner-completion",
   "active_plan": "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md",
-  "status": "Browser Evaluation Runner repair landed on track/browser-evaluation-runner-completion (PR #71); focused delta review is next.",
-  "current_role": "Browser Evaluation Runner repair Delta Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md"
+  "status": "Browser Evaluation Runner delta review returned READY in PR #71; residual R1 requires owner disposition before closure.",
+  "current_role": "Foreman stop-and-decide for browser runner residual R1",
+  "current_prompt": "docs/reviews/2026-07-25-browser-evaluation-runner-repair-review.md"
 }
 -->
 # Phase State
@@ -92,7 +92,13 @@ adversarial-novelty practice run; it adds no product UI, ADR, or maturity lift.
   independent review for unchanged ground and checks repaired outcomes, the
   four transferred measurements, and only touched adjacent invariants. No
   product prototype, economy experiment, novelty catalog, or broad creative
-  re-review belongs in this milestone.
+  re-review belongs in this milestone. The delta review returned `READY` for
+  F1–F6 and the transferred measurements. Voluntary post-verdict exploration
+  then found residual R1: the repair's injection-acknowledgement wait can
+  bypass the manifest timeout and still return a pass. The plan permits no
+  automatic second repair/review cycle, so closure is stopped for owner
+  disposition. Residual R2 is recorded as a non-blocking design-fragility
+  footnote.
 - **Later direction:** the actual human-surface Presentation frontier remains
   selected but deferred until the runner is trustworthy. The accepted economy
   contracts remain available, but no economical improvement or novelty-review
@@ -120,12 +126,12 @@ no ADR or matrix lift. Its evaluation analysis and reference material live
 under `docs/prototypes/human-presentation-citation-walk/`.
 
 **➡️ In-progress milestone: Browser Evaluation Runner Completion.** The
-existing-runner repair has landed on its Track 1 branch and the focused delta
-review is next in PR #71. The review reuses prior independent evidence for
-unchanged ground, independently verifies the six repaired blocker classes and
-four transferred measurements, and checks only adjacent invariants touched by
-the repair. It does not repeat the original broad harness review or make
-presentation-economy or review-novelty claims. Plan:
+existing-runner repair and focused delta review have landed in PR #71. The
+formal verdict is `READY` for the chartered F1–F6 gate, with prior evidence
+credited rather than repeated. Closure is paused on residual R1 from
+post-verdict exploration: a repair-introduced acknowledgement wait can ignore
+the declared timeout and still pass. The plan's fixed cap requires owner
+disposition before any extra repair/recheck. Plan:
 `docs/phases/real-return/milestones/browser-evaluation-runner-completion.md`.
 
 Standing operational notes: `PROJECT_PLANNING.md` ("Branch, PR, and Merge Protocol") governs per-track PRs, owner merges, and `main` as the continuous ratified record; `AGENTS.md` ("Dispatch authorization") governs dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).

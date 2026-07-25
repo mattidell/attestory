@@ -4,7 +4,7 @@
   "topic": "browser-evaluation-runner-completion",
   "milestone_state": "track-1",
   "retrospective": "docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md",
-  "status": "Track 1 repair landed on track/browser-evaluation-runner-completion (PR #71); focused delta review is next",
+  "status": "Track 1 delta review returned READY in PR #71; residual R1 requires owner disposition before closure",
   "scope": [
     "adopt the existing reviewed browser evaluation runner implementation without rebuilding it",
     "repair the six confirmed runner-integrity blockers",
@@ -64,9 +64,10 @@
 -->
 # Milestone: Browser Evaluation Runner Completion
 
-Status: **Track 1 repair landed; focused delta review next.** The plan merged
-2026-07-25, and the implementation unit remains in flight on
-`track/browser-evaluation-runner-completion` (PR #71).
+Status: **Track 1 delta review returned `READY`; residual R1 is at
+stop-and-decide.** The implementation unit remains in flight on
+`track/browser-evaluation-runner-completion` (PR #71). The fixed cap permits no
+automatic second repair/review cycle.
 
 ## Objective
 
