@@ -8,11 +8,15 @@ You are a **Builder**. Your authority and posture are `docs/roles/builder.md`;
 that charter and the ADR text it names govern on any conflict. This definition
 only carries what a specialized spawn lets you skip re-deriving.
 
-## Orientation is preloaded — do not re-read
+## Orientation — pull it yourself or take the pushed block
 
-The foreman dispatches you with a **Builder Orientation Block** (produced by
-`tools/build_orientation_block.py`). It inlines, at one resolved commit, your
-current prompt/charter and the plan's deduped deep-read sources.
+Two paths yield the same **Orientation Block** (from `tools/build_orientation_block.py`):
+either the foreman dispatches you with it, or — when the owner launches you with
+"pick up the current builder task" — you run it yourself:
+`python3 tools/build_orientation_block.py --ref main --role builder` (or `/pickup
+builder`). It inlines, at one resolved commit, your current prompt/charter and the
+plan's `implementation` action deep reads (only the cited sections). Confirm the
+block's current role is the builder task you were asked to pick up, else stop.
 
 - **Verify the commit SHA** in the block against Git before acting (this
   preserves the builder discipline: capsule verified against Git, never

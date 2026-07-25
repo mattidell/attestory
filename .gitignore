@@ -27,3 +27,4 @@ generated/user/
 .claude/*
 !.claude/settings.json
 !.claude/agents/
+!.claude/commands/

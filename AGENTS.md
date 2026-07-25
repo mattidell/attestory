@@ -32,6 +32,28 @@ replaces these canonical references, accepted ADR text, or the five-retrospectiv
 read before planning a new milestone. If the capsule refuses, inspect the named
 committed sources directly and resolve the disagreement before acting. Then read docs/roles/foreman.md and docs/foreman-handoff.md.
 
+## Picking up the current role task (runner-agnostic)
+
+When the owner opens a fresh thread and says "pick up the current builder/reviewer
+task" (or equivalent), self-orient — do not ask the owner to paste context, and do
+not require the foreman. From the repo root run:
+
+```
+python3 tools/build_orientation_block.py --ref main --role <builder|reviewer>
+```
+
+This prints one Orientation Block at a resolved commit: the current charter plus
+the plan's action-scoped, section-anchored deep reads (only the cited sections).
+Then: (1) verify the printed commit SHA against Git; (2) confirm `current role`
+in the block matches the role you were asked to pick up — if it does not, stop and
+report the mismatch rather than proceeding; (3) echo back your understood scope,
+evidence ceiling, and stop conditions per your seat charter; (4) act.
+
+This path works from any runner (Claude, Codex, Grok) because it is a plain
+command. Claude users may invoke it via the `/pickup` command, which only wraps
+this same protocol. The block is git blob content, not prose, so it satisfies the
+"verify against Git, do not reconstruct from handoff prose" discipline.
+
 ## Owner Posture and Collaboration Rules
 
 The owner's development posture is defined in `PROJECT_PLANNING.md` (Development Posture). Operational consequences for agents:
