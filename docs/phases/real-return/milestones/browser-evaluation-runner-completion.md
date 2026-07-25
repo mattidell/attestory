@@ -4,7 +4,7 @@
   "topic": "browser-evaluation-runner-completion",
   "milestone_state": "track-1",
   "retrospective": "docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md",
-  "status": "Owner accepted residuals R1/R2 and authorized one narrow residual repair plus focused recheck in PR #71",
+  "status": "R1/R2 residual repair landed in PR #71; focused two-finding recheck is next",
   "scope": [
     "adopt the existing reviewed browser evaluation runner implementation without rebuilding it",
     "repair the six confirmed runner-integrity blockers",
@@ -66,11 +66,11 @@
 -->
 # Milestone: Browser Evaluation Runner Completion
 
-Status: **owner-authorized R1/R2 residual repair prepared.** The Track 1 delta
-review returned `READY`; the implementation unit remains in flight on
-`track/browser-evaluation-runner-completion` (PR #71). The owner accepted both
-post-verdict residual findings and authorized one narrow repair plus one
-focused recheck as an explicit exception to the original fixed cap.
+Status: **R1/R2 residual repair landed; focused recheck next.** The Track 1
+delta review returned `READY`; the implementation unit remains in flight on
+`track/browser-evaluation-runner-completion` (PR #71). The owner-authorized
+exception remains limited to one narrow repair and one focused two-finding
+recheck.
 
 ## Objective
 

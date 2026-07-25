@@ -1,13 +1,14 @@
 # Browser Evaluation Runner Residual Repair Delta-Review Charter
 
-Status: **prepared next prompt.** It becomes current only after the R1/R2
-Residual Repair Builder hands off.
+Status: **current prompt.** The R1/R2 Residual Repair Builder landed the commit
+named `bound and isolate injection acknowledgements`.
 
 ## Context Capsule
 
 - **Source ref:** `track/browser-evaluation-runner-completion`; resolve and
   record its commit at launch.
-- **Exact object:** the R1/R2 residual-repair commit relative to the reviewed
+- **Exact object:** the R1/R2 residual-repair commit named
+  `bound and isolate injection acknowledgements`, relative to the reviewed
   commit named `repair browser evaluation runner integrity`, limited to the
   files allowed by the residual repair charter. Foreman routing and prior
   review records are outside the artifact-quality object.
