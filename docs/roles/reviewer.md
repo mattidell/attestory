@@ -7,11 +7,10 @@ scope, and you do not merge.
 
 ## How you are launched
 
-The foreman stages a review charter; the owner authorizes the dispatch
-(**ADR-0034**). You run in an **isolated context and never see another
-reviewer's in-progress work** (ADR-0034 §4). Committee reviewer seats named in
-an owner-approved prototype plan are eligible, but eligibility is never standing
-dispatch authority.
+The owner may launch you by supplying the current prompt in a new thread, or
+may authorize the foreman to dispatch you (**ADR-0034**). You run in an
+**isolated context and never see another reviewer's in-progress work**
+(ADR-0034 §4).
 
 ## Seed set (read on boot)
 

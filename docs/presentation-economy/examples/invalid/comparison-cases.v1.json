@@ -1,0 +1,53 @@
+[
+  {
+    "id": "demo-invalid-comparison-dangling-reference",
+    "stage": "validate-comparison",
+    "mutations": [{"operation": "set", "path": "comparisons.0.baseline_observation_ids.0", "value": "demo-missing-observation"}],
+    "expected_error": "dangling observation reference"
+  },
+  {
+    "id": "demo-invalid-comparison-incompatible-workload",
+    "stage": "build",
+    "mutations": [{"operation": "set", "path": "observations.1.workload_id", "value": "demo-other-workload"}],
+    "expected_error": "dangling reference"
+  },
+  {
+    "id": "demo-invalid-comparison-incomplete-participant-cost",
+    "stage": "build-result",
+    "mutations": [
+      {"operation": "set", "path": "observations.1.participants.2.tokens.value", "value": null},
+      {"operation": "set", "path": "observations.1.participants.2.tokens.measurement_basis", "value": "missing"},
+      {"operation": "set", "path": "observations.1.participants.2.tokens.missing_reason", "value": "Manufactured missing participant cost."}
+    ],
+    "expected_measure": "tokens",
+    "expected_verdict": "insufficient-evidence"
+  },
+  {
+    "id": "demo-invalid-comparison-failed-quality",
+    "stage": "build-result",
+    "mutations": [
+      {"operation": "remove", "path": "observations.1.outcome.seeded_defects_detected.value.2"},
+      {"operation": "set", "path": "observations.1.outcome.quality_floor_met.value", "value": false}
+    ],
+    "expected_measure": "tokens",
+    "expected_verdict": "insufficient-evidence"
+  },
+  {
+    "id": "demo-invalid-comparison-omitted-harness-role",
+    "stage": "build-result",
+    "mutations": [
+      {"operation": "remove", "path": "observations.1.participants.1"}
+    ],
+    "expected_measure": "tokens",
+    "expected_verdict": "insufficient-evidence"
+  },
+  {
+    "id": "demo-invalid-comparison-causal-claim",
+    "stage": "validate-comparison",
+    "mutations": [
+      {"operation": "set", "path": "comparisons.0.evidence_class", "value": "historical-observational"},
+      {"operation": "set", "path": "comparisons.0.causal_claim", "value": true}
+    ],
+    "expected_error": "unsupported causal claim"
+  }
+]

@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "owner-approved 2026-07-24; planning unit pending owner merge; no role dispatch authorized",
+  "status": "owner-approved and merged in PR #65 on 2026-07-24; Track 0 participant-cost repair and READY delta review complete; Track 1 Builder is the current role",
   "scope": [
     "versioned UI/UX iteration workload observation and comparison data",
     "machine-readable presentation-iteration baseline with explicit missing and estimated values",
@@ -70,10 +70,9 @@
 -->
 # Milestone: Presentation Evaluation Process Economy
 
-Status: **owner-approved 2026-07-24; planning unit pending owner merge.**
-Approval activates the milestone direction but does not authorize any builder,
-reviewer, or clerk dispatch; ADR-0043 still requires explicit approval for each
-role.
+Status: **active; owner-approved planning unit merged in PR #65
+(`1fd3d4c`) on 2026-07-24; Track 0 participant-cost repair and READY delta
+review are complete; Track 1 Builder is the current role.**
 
 ## Objective
 
@@ -246,8 +245,12 @@ review:
   historical/paired/repeated evidence class, treatment label, role and abstract
   tier/effort, agent and browser/session counts, tokens/tool calls/wall seconds
   when actually available, cases/criteria completed, seeded defects detected,
-  verdict, rework/recheck events, and provenance. Every nullable measure carries
-  a missing-reason; approximate measures carry an explicit approximation flag.
+  verdict, rework/recheck events, task-duration budget and observed duration,
+  dispatch-batch identity/size and execution mode, foreman idle gap, directly
+  observed cache status, and provenance. Every nullable measure carries a
+  missing-reason; approximate measures carry an explicit approximation flag.
+  Cache status is never inferred from elapsed time or tokens: when the
+  orchestration surface does not expose it, it remains explicitly missing.
 - `presentation-economy-comparison.v1` references baseline and treatment
   observations, checks workload compatibility, reports per-measure raw deltas
   and ratios, reports coverage/quality equivalence separately, sums cost across
@@ -281,9 +284,11 @@ without rewriting older rows.
 
 Economy is evaluated as two adjacent results, never one blended score:
 
-1. **Cost:** tokens, tool calls, wall time, number/tier of agents, launches,
-   iterations, rechecks, and rework—summed across the execution boundary so
-   moving work from reviewer to foreman or harness is visible.
+1. **Cost:** tokens, tool calls, wall time, task budgets and observed durations,
+   dispatch batch/mode, foreman idle gaps, directly observed cache status,
+   number/tier of agents, launches, iterations, rechecks, and rework—summed
+   across the execution boundary so moving work from reviewer to foreman or
+   harness is visible.
 2. **Outcome:** declared coverage completed, seeded defects detected, false
    pass/error behavior, review verdict, novel findings, and quality-floor
    satisfaction.
@@ -438,8 +443,9 @@ node tools/presentation_harness/run.mjs \
 
 The presentation-economy commands cover strict version validation,
 missing/estimated value honesty, provenance, workload compatibility, cost-shift
-accounting, quality-floor enforcement, evidence-strength labels, and
-deterministic comparison output. The committed historical baseline must
+accounting, task-duration/batching/idle-gap/cache telemetry (including refusal
+to infer cache status), quality-floor enforcement, evidence-strength labels,
+and deterministic comparison output. The committed historical baseline must
 reproduce the published C1–C5 UI/UX iteration table exactly where values exist
 and must not fill its gaps.
 

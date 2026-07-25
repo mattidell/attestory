@@ -156,15 +156,15 @@ ceiling, and stop conditions before writing. It does not duplicate the charter.
 
 Audience: Agents
 
-The foreman stages a compact **Context Capsule** in every new builder or review
-charter before requesting owner approval. It names the source ref and resolved
-dispatch commit, exact object/range, role, scope, evidence-rung ceiling where
-applicable, stop conditions, and complete deep reads. A builder or reviewer
-uses it to orient, verifies the ref against Git, then reads the controlling
-charter and cited sources. The capsule is part of the charter's routing surface
-only: it never widens scope, replaces exact text, or authorizes dispatch.
+The foreman prepares a compact **Context Capsule** in every new builder or
+review charter. It names the source ref and resolved launch commit, exact
+object/range, role, scope, evidence-rung ceiling where applicable, stop
+conditions, and complete deep reads. A builder or reviewer uses it to orient,
+verifies the ref against Git, then reads the controlling charter and cited
+sources. The capsule is part of the charter's routing surface only: it never
+widens scope or replaces exact text.
 
-For clerical work, the foreman stages a **Clerk Task Capsule** with one
+For clerical work, the foreman prepares a **Clerk Task Capsule** with one
 mechanical task, source ref/commit, allowed input paths, expected output shape
 and paths, verification, and a stop rule. A clerk never chooses a current task
 by reading phase state or the handoff; any missing or ambiguous capsule is a
@@ -172,12 +172,40 @@ stop. ADR-0034 applies to every builder, reviewer, and clerk dispatch. The
 Trusted Advisor is owner-launched strategic counsel and is outside this
 operational-capsule rule.
 
+The foreman always maintains one current-prompt Clerk Task Capsule at
+`docs/foreman-clerk-task.md`. It is prepared at foreman beginning or resumption
+and refreshed whenever a plan or execution cycle completes. The foreman—not
+the clerk—supplies the current role and its prompt/charter path. Once a plan is
+approved, there is always a current prompt: before a plan or role cycle is
+marked complete, the foreman prepares the next sequential role's charter/prompt
+and refreshes the capsule. Prompt preparation records plan sequence. This gives
+a clerk a mechanical answer to “what is the current prompt?” without asking it
+to infer work from phase state or handoff prose. Capsule preparation does not
+launch or dispatch a role.
+
+The standing capsule cannot predict the hash of the commit that contains
+itself. It therefore names a source ref; the clerk resolves that ref once when
+the query is made, records the resolved commit in its answer, and verifies that
+the exact commit contains the capsule and all allowed inputs. This query-time
+record is the provenance-bearing commit capture. A one-shot Clerk Task Capsule
+supplied out of band continues to name its already-resolved commit directly.
+
+**Spawn, dispatch, and owner launch.** Spawning means instantiating a
+sub-agent. Dispatch is the foreman spawning a sub-agent to fulfill the current
+role in the approved plan after the owner authorizes that dispatch in the
+foreman's active thread. An owner may instead ask the clerk for the current
+prompt, open a new agent thread, and supply that prompt; this is an owner launch
+of the role, not a foreman dispatch. Authorization is ephemeral thread context,
+not repository state and not a current-prompt field. After a dispatch or owner
+launch occurs, record that event and its role/prompt lineage in the applicable
+process or execution log.
+
 Charters use this compact shape:
 
 ```md
 ## Context Capsule
 
-- Source ref and resolved dispatch commit:
+- Source ref and resolved launch commit:
 - Exact object or commit range:
 - Role:
 - Scope and evidence-rung ceiling (if applicable):
@@ -190,7 +218,7 @@ Clerk task records use this shape:
 ```md
 ## Clerk Task Capsule
 
-- Source ref and resolved dispatch commit:
+- Source ref and resolved launch commit:
 - One mechanical task:
 - Allowed repository-relative inputs:
 - Required output shape and paths:

@@ -8,8 +8,8 @@ normative record.
 Foremen will start from a short, generated briefing instead of repeatedly
 opening every long process document before they know what work is active. The
 briefing identifies one exact committed repository revision, the active seat
-and topic, the hard stops, the next permitted action, and the documents that
-must be read before a particular action.
+and topic, the hard stops, the current role/prompt, and the documents that must
+be read before a particular action.
 
 Builders and reviewers will receive the same economy in a different form: a
 short Context Capsule inside the charter they already must read. Clerks will
@@ -34,13 +34,12 @@ new milestone plan without the required retrospective reading.
 
 Builder/reviewer capsules cannot widen the charter, and clerk task capsules
 cannot turn a clerk into a planner. Each carries only the context the role needs
-to perform the already-authorized task and a stop rule for anything missing or
-ambiguous.
+to perform the current task and a stop rule for anything missing or ambiguous.
 
 ## What it enables
 
-A resumed foreman can quickly see the safe next move and load only the
-authorities needed for that move. This reduces repeated context cost while
+A resumed foreman can quickly see the current role and load only the
+authorities needed for that role. This reduces repeated context cost while
 making stale or mixed repository state more obvious.
 
 Builders and reviewers can orient to one review/build object without loading

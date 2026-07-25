@@ -1,0 +1,194 @@
+[
+  {
+    "version": "presentation-economy-observation.v1",
+    "id": "demo-single-run",
+    "supersedes": null,
+    "supersession_reason": null,
+    "workload_id": "demo-presentation-review-v1",
+    "evidence_class": "paired-pilot",
+    "treatment": "single-manual",
+    "participants": [
+      {"id": "demo-reviewer", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 12000, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 10, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 180, "approximate": false, "measurement_basis": "direct", "missing_reason": null}},
+      {"id": "demo-foreman", "role": "foreman", "tier": "Medium", "effort": "medium", "tokens": {"value": 2000, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 190, "approximate": false, "measurement_basis": "direct", "missing_reason": null}}
+    ],
+    "resources": {
+      "agent_count": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "browser_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "session_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "outcome": {
+      "cases_completed": {"value": 6, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "criteria_completed": {"value": ["rendered-value-authority", "honest-blocking", "visible-fail-loud", "blast-containment", "citation-identity", "reuse-backlink-resolution", "landmarks-and-headings", "keyboard-and-focus-visible", "computed-style-contrast", "residual-information-design"], "missing_reason": null},
+      "seeded_defects_detected": {"value": ["demo-t1-blocked-value", "demo-t2-nonnumeric-published-value", "demo-t3-unknown-status"], "missing_reason": null},
+      "verdict": {"value": "pass", "missing_reason": null},
+      "quality_floor_met": {"value": true, "missing_reason": null},
+      "rework_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "recheck_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "orchestration": {
+      "task_duration_budget_seconds": {"value": 270, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "observed_task_duration_seconds": {"value": 190, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "dispatch_batch_id": {"value": "demo-batch-single", "missing_reason": null},
+      "dispatch_batch_size": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "execution_mode": {"value": "sequential", "missing_reason": null},
+      "foreman_idle_gap_seconds": {"value": 190, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+    },
+    "causal_claim": false,
+    "provenance": "docs/presentation-economy/examples/valid-observations.v1.json"
+  },
+  {
+    "version": "presentation-economy-observation.v1",
+    "id": "demo-paired-manual",
+    "supersedes": null,
+    "supersession_reason": null,
+    "workload_id": "demo-presentation-review-v1",
+    "evidence_class": "paired-pilot",
+    "treatment": "manual",
+    "participants": [
+      {"id": "demo-reviewer", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 13000, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 12, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 210, "approximate": false, "measurement_basis": "direct", "missing_reason": null}},
+      {"id": "demo-harness", "role": "harness", "tier": "Economy", "effort": "low", "tokens": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}},
+      {"id": "demo-foreman", "role": "foreman", "tier": "Medium", "effort": "medium", "tokens": {"value": 2200, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 215, "approximate": false, "measurement_basis": "direct", "missing_reason": null}}
+    ],
+    "resources": {
+      "agent_count": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "browser_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "session_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "outcome": {
+      "cases_completed": {"value": 6, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "criteria_completed": {"value": ["rendered-value-authority", "honest-blocking", "visible-fail-loud", "blast-containment", "citation-identity", "reuse-backlink-resolution", "landmarks-and-headings", "keyboard-and-focus-visible", "computed-style-contrast", "residual-information-design"], "missing_reason": null},
+      "seeded_defects_detected": {"value": ["demo-t1-blocked-value", "demo-t2-nonnumeric-published-value", "demo-t3-unknown-status"], "missing_reason": null},
+      "verdict": {"value": "pass", "missing_reason": null},
+      "quality_floor_met": {"value": true, "missing_reason": null},
+      "rework_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "recheck_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "orchestration": {
+      "task_duration_budget_seconds": {"value": 270, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "observed_task_duration_seconds": {"value": 215, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "dispatch_batch_id": {"value": "demo-batch-paired", "missing_reason": null},
+      "dispatch_batch_size": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "execution_mode": {"value": "parallel", "missing_reason": null},
+      "foreman_idle_gap_seconds": {"value": 215, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+    },
+    "causal_claim": false,
+    "provenance": "docs/presentation-economy/examples/valid-observations.v1.json"
+  },
+  {
+    "version": "presentation-economy-observation.v1",
+    "id": "demo-paired-harness",
+    "supersedes": null,
+    "supersession_reason": null,
+    "workload_id": "demo-presentation-review-v1",
+    "evidence_class": "paired-pilot",
+    "treatment": "harness-assisted",
+    "participants": [
+      {"id": "demo-reviewer", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 9000, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 7, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 150, "approximate": false, "measurement_basis": "direct", "missing_reason": null}},
+      {"id": "demo-harness", "role": "harness", "tier": "Economy", "effort": "low", "tokens": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 8, "approximate": false, "measurement_basis": "direct", "missing_reason": null}},
+      {"id": "demo-foreman", "role": "foreman", "tier": "Medium", "effort": "medium", "tokens": {"value": 2200, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 155, "approximate": false, "measurement_basis": "direct", "missing_reason": null}}
+    ],
+    "resources": {
+      "agent_count": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "browser_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "session_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "outcome": {
+      "cases_completed": {"value": 6, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "criteria_completed": {"value": ["rendered-value-authority", "honest-blocking", "visible-fail-loud", "blast-containment", "citation-identity", "reuse-backlink-resolution", "landmarks-and-headings", "keyboard-and-focus-visible", "computed-style-contrast", "residual-information-design"], "missing_reason": null},
+      "seeded_defects_detected": {"value": ["demo-t1-blocked-value", "demo-t2-nonnumeric-published-value", "demo-t3-unknown-status"], "missing_reason": null},
+      "verdict": {"value": "pass", "missing_reason": null},
+      "quality_floor_met": {"value": true, "missing_reason": null},
+      "rework_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "recheck_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "orchestration": {
+      "task_duration_budget_seconds": {"value": 270, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "observed_task_duration_seconds": {"value": 155, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "dispatch_batch_id": {"value": "demo-batch-paired", "missing_reason": null},
+      "dispatch_batch_size": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "execution_mode": {"value": "parallel", "missing_reason": null},
+      "foreman_idle_gap_seconds": {"value": 155, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+    },
+    "causal_claim": false,
+    "provenance": "docs/presentation-economy/examples/valid-observations.v1.json"
+  },
+  {
+    "version": "presentation-economy-observation.v1",
+    "id": "demo-repeated-1",
+    "supersedes": null,
+    "supersession_reason": null,
+    "workload_id": "demo-presentation-review-v1",
+    "evidence_class": "repeated",
+    "treatment": "repeated-harness-assisted",
+    "participants": [
+      {"id": "demo-reviewer", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 8800, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 7, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 145, "approximate": false, "measurement_basis": "direct", "missing_reason": null}},
+      {"id": "demo-foreman", "role": "foreman", "tier": "Medium", "effort": "medium", "tokens": {"value": 1900, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 150, "approximate": false, "measurement_basis": "direct", "missing_reason": null}}
+    ],
+    "resources": {
+      "agent_count": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "browser_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "session_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "outcome": {
+      "cases_completed": {"value": 6, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "criteria_completed": {"value": ["rendered-value-authority", "honest-blocking", "visible-fail-loud", "blast-containment", "citation-identity", "reuse-backlink-resolution", "landmarks-and-headings", "keyboard-and-focus-visible", "computed-style-contrast", "residual-information-design"], "missing_reason": null},
+      "seeded_defects_detected": {"value": ["demo-t1-blocked-value", "demo-t2-nonnumeric-published-value", "demo-t3-unknown-status"], "missing_reason": null},
+      "verdict": {"value": "pass", "missing_reason": null},
+      "quality_floor_met": {"value": true, "missing_reason": null},
+      "rework_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "recheck_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "orchestration": {
+      "task_duration_budget_seconds": {"value": 270, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "observed_task_duration_seconds": {"value": 150, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "dispatch_batch_id": {"value": "demo-batch-repeat-1", "missing_reason": null},
+      "dispatch_batch_size": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "execution_mode": {"value": "sequential", "missing_reason": null},
+      "foreman_idle_gap_seconds": {"value": 150, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+    },
+    "causal_claim": false,
+    "provenance": "docs/presentation-economy/examples/valid-observations.v1.json"
+  },
+  {
+    "version": "presentation-economy-observation.v1",
+    "id": "demo-repeated-2",
+    "supersedes": null,
+    "supersession_reason": null,
+    "workload_id": "demo-presentation-review-v1",
+    "evidence_class": "repeated",
+    "treatment": "repeated-harness-assisted",
+    "participants": [
+      {"id": "demo-reviewer", "role": "reviewer", "tier": "Medium", "effort": "medium", "tokens": {"value": 9100, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 8, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 152, "approximate": false, "measurement_basis": "direct", "missing_reason": null}},
+      {"id": "demo-foreman", "role": "foreman", "tier": "Medium", "effort": "medium", "tokens": {"value": 2000, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "tool_calls": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null}, "wall_seconds": {"value": 158, "approximate": false, "measurement_basis": "direct", "missing_reason": null}}
+    ],
+    "resources": {
+      "agent_count": {"value": 2, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "browser_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "session_count": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "outcome": {
+      "cases_completed": {"value": 6, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "criteria_completed": {"value": ["rendered-value-authority", "honest-blocking", "visible-fail-loud", "blast-containment", "citation-identity", "reuse-backlink-resolution", "landmarks-and-headings", "keyboard-and-focus-visible", "computed-style-contrast", "residual-information-design"], "missing_reason": null},
+      "seeded_defects_detected": {"value": ["demo-t1-blocked-value", "demo-t2-nonnumeric-published-value", "demo-t3-unknown-status"], "missing_reason": null},
+      "verdict": {"value": "pass", "missing_reason": null},
+      "quality_floor_met": {"value": true, "missing_reason": null},
+      "rework_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "recheck_events": {"value": 0, "approximate": false, "measurement_basis": "direct", "missing_reason": null}
+    },
+    "orchestration": {
+      "task_duration_budget_seconds": {"value": 270, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "observed_task_duration_seconds": {"value": 158, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "dispatch_batch_id": {"value": "demo-batch-repeat-2", "missing_reason": null},
+      "dispatch_batch_size": {"value": 1, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "execution_mode": {"value": "sequential", "missing_reason": null},
+      "foreman_idle_gap_seconds": {"value": 158, "approximate": false, "measurement_basis": "direct", "missing_reason": null},
+      "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
+    },
+    "causal_claim": false,
+    "provenance": "docs/presentation-economy/examples/valid-observations.v1.json"
+  }
+]
