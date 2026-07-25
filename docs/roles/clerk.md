@@ -39,6 +39,13 @@ and next permitted action exactly as supplied. If no prompt is staged, say
 that; do not invent one. If the capsule is stale or inconsistent, stop rather
 than reconstructing current state.
 
+The standing capsule names a source ref rather than predicting the commit that
+contains itself. Resolve that ref once at query time, include the resulting
+commit in the answer, and verify that exact commit contains the capsule and all
+allowed inputs. Do not compare the resolved commit to an older commit written
+inside the capsule, and do not follow a different ref. One-shot task capsules
+remain bound to the exact resolved commit the foreman supplied.
+
 ## Other delegable work
 
 Maintaining a `SEAT.md` table; assembling round files; tagging exhibits and

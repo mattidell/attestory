@@ -97,6 +97,14 @@ the capsule is mandatory continuity work even when no clerk dispatch is
 authorized. The clerk reports the supplied record and verifies it against the
 capsule's exact committed inputs; it never chooses the next task.
 
+Because the standing current-prompt capsule is itself committed, it names a
+source ref but does not predict its own containing commit. At query time the
+clerk resolves that ref once, records the resolved commit in its response, and
+verifies that the commit contains the capsule and every allowed input. This is
+the same self-reference boundary used by builder/reviewer charter launch
+records. One-shot clerk task capsules supplied out of band still carry their
+already-resolved commit.
+
 ## Craft
 
 Recurring how-to reminders for this seat live in `docs/roles/craft-notes.md`

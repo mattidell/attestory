@@ -181,6 +181,13 @@ staged. This gives a clerk a mechanical answer to “what is the current prompt?
 without asking it to infer work from phase state or handoff prose. Capsule
 preparation does not authorize a clerk or the named execution role.
 
+The standing capsule cannot predict the hash of the commit that contains
+itself. It therefore names a source ref; the clerk resolves that ref once when
+the query is made, records the resolved commit in its answer, and verifies that
+the exact commit contains the capsule and all allowed inputs. This query-time
+record is the provenance-bearing commit capture. A one-shot Clerk Task Capsule
+supplied out of band continues to name its already-resolved commit directly.
+
 Charters use this compact shape:
 
 ```md
