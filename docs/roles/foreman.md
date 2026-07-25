@@ -87,6 +87,16 @@ shape/paths, verification, and a stop rule. Do not ask a clerk to reconstruct
 which task is current from phase state or handoff prose. These are charter/task
 artifacts, not features of `tools/foreman_context.py`.
 
+At the beginning or resumption of the foreman role, and whenever a plan,
+builder, reviewer, repair, or other execution cycle completes, prepare or
+refresh `docs/foreman-clerk-task.md`. Its one mechanical task is answering
+“what is the current prompt?” from a foreman-composed fixed record. The record
+names the next role, authorization state, prompt/charter path, and next
+permitted action; when no prompt is staged, it says so explicitly. Preparing
+the capsule is mandatory continuity work even when no clerk dispatch is
+authorized. The clerk reports the supplied record and verifies it against the
+capsule's exact committed inputs; it never chooses the next task.
+
 ## Craft
 
 Recurring how-to reminders for this seat live in `docs/roles/craft-notes.md`

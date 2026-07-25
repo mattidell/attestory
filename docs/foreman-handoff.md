@@ -67,6 +67,7 @@ authority.
 
 ## Durable pointers
 
+- Current-prompt Clerk Task Capsule: `docs/foreman-clerk-task.md`.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
   ADR-0030, ADR-0039, ADR-0042, and ADR-0043.

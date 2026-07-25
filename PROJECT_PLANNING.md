@@ -172,6 +172,15 @@ stop. ADR-0034 applies to every builder, reviewer, and clerk dispatch. The
 Trusted Advisor is owner-launched strategic counsel and is outside this
 operational-capsule rule.
 
+The foreman always maintains one current-prompt Clerk Task Capsule at
+`docs/foreman-clerk-task.md`. It is prepared at foreman beginning or resumption
+and refreshed whenever a plan or execution cycle completes. The foreman—not
+the clerk—supplies the next role, authorization state, prompt/charter path, and
+next permitted action. The capsule explicitly says when no dispatch prompt is
+staged. This gives a clerk a mechanical answer to “what is the current prompt?”
+without asking it to infer work from phase state or handoff prose. Capsule
+preparation does not authorize a clerk or the named execution role.
+
 Charters use this compact shape:
 
 ```md
