@@ -176,8 +176,11 @@ The foreman always maintains one current-prompt Clerk Task Capsule at
 `docs/foreman-clerk-task.md`. It is prepared at foreman beginning or resumption
 and refreshed whenever a plan or execution cycle completes. The foreman—not
 the clerk—supplies the next role, authorization state, prompt/charter path, and
-next permitted action. The capsule explicitly says when no dispatch prompt is
-staged. This gives a clerk a mechanical answer to “what is the current prompt?”
+next permitted action. Once a plan is approved, there is always a current
+prompt: before a plan or role cycle is marked complete, the foreman stages the
+next sequential role's charter/prompt and refreshes the capsule. Prompt staging
+records plan sequence and is distinct from owner authorization to spawn the
+role. This gives a clerk a mechanical answer to “what is the current prompt?”
 without asking it to infer work from phase state or handoff prose. Capsule
 preparation does not authorize a clerk or the named execution role.
 

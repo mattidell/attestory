@@ -35,9 +35,10 @@ When the foreman supplies `docs/foreman-clerk-task.md` as the task capsule, the
 single mechanical job is to answer “what is the current prompt?” using its
 fixed output record. Verify that record against only the selected commit and
 allowed inputs. Return the next role, authorization state, prompt/charter path,
-and next permitted action exactly as supplied. If no prompt is staged, say
-that; do not invent one. If the capsule is stale or inconsistent, stop rather
-than reconstructing current state.
+and next permitted action exactly as supplied. Under an active approved plan,
+a missing current prompt is a capsule defect: stop and report it rather than
+inventing or reconstructing one. Authorization is a separate field and may
+remain absent while the prompt is staged.
 
 The standing capsule names a source ref rather than predicting the commit that
 contains itself. Resolve that ref once at query time, include the resulting

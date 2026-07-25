@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy Track 0 builder implementation complete on track/presentation-economy-t0-measurement-substrate; independent review not authorized.",
-  "next_permitted": "owner explicitly authorizes the Track 0 independent Reviewer; foreman then stages and resolves the reviewer charter before dispatch"
+  "status": "Presentation Evaluation Process Economy Track 0 builder implementation complete on track/presentation-economy-t0-measurement-substrate; independent Reviewer prompt staged; reviewer dispatch not authorized.",
+  "next_permitted": "owner explicitly authorizes dispatch of the staged Track 0 independent Reviewer prompt; foreman then resolves its source ref and spawns the role"
 }
 -->
 # Foreman Handoff Note
@@ -54,8 +54,9 @@ authority.
   tier-matched review allocation are the first measured intervention. It is not
   evaluating non-presentation workflows and makes no economic claim about them.
   It raises no matrix cell and proposes no ADR. Track 0 builder implementation
-  is complete on `track/presentation-economy-t0-measurement-substrate`; no
-  independent review is authorized. Its five bounded packets measured
+  is complete on `track/presentation-economy-t0-measurement-substrate`; the
+  independent Reviewer prompt is staged, but its dispatch is not authorized.
+  Its five bounded packets measured
   foreman-observed dispatch-to-handoff times of 289, 182, 135, 169, and 480
   seconds. Cache status was never exposed and remains unknown. The resulting
   presentation observation contract records direct task-duration,
