@@ -28,15 +28,18 @@ scan.
 
 ## Status
 
-- Browser Evaluation Runner Completion — **owner-directed plan prepared
-  2026-07-25; merge of the planning unit activates the repair Builder.** This
-  tooling milestone resumes the preserved implementation from
+- Browser Evaluation Runner Completion — **complete 2026-07-25; PR #71 merged
+  `c329afd` with CI `verify` green on the merge commit.** This tooling
+  milestone resumed the preserved implementation from
   `track/presentation-economy-t1-harness-core` rather than rebuilding it. It
-  repairs the independent review's six blockers, completes the transferred
-  lifecycle/output measurements, and receives one focused delta review. It is
-  not a presentation prototype, an economy experiment, or an
-  adversarial-novelty practice run; it adds no product UI, ADR, or matrix lift.
-  Plan: `milestones/browser-evaluation-runner-completion.md`.
+  repaired the independent review's six blockers, completed the transferred
+  lifecycle/output measurements, received one focused delta review (`READY`),
+  and closed two owner-authorized post-verdict residuals (R1/R2) under a
+  narrow one-time exception to the plan's fixed cap. It is not a presentation
+  prototype, an economy experiment, or an adversarial-novelty practice run; it
+  added no product UI, ADR, or matrix lift. Plan:
+  `milestones/browser-evaluation-runner-completion.md`; retrospective:
+  `../../milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
 
 - Presentation frontier toward a human surface — **selected direction,
   deliberately deferred until the browser-evaluation runner is trustworthy.**
