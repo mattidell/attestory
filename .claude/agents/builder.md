@@ -12,11 +12,13 @@ only carries what a specialized spawn lets you skip re-deriving.
 
 Two paths yield the same **Orientation Block** (from `tools/build_orientation_block.py`):
 either the foreman dispatches you with it, or — when the owner launches you with
-"pick up the current builder task" — you run it yourself:
-`python3 tools/build_orientation_block.py --ref main --role builder` (or `/pickup
-builder`). It inlines, at one resolved commit, your current prompt/charter and the
-plan's `implementation` action deep reads (only the cited sections). Confirm the
-block's current role is the builder task you were asked to pick up, else stop.
+"pick up the current task" — you run it yourself:
+`python3 tools/build_orientation_block.py --ref main` (or `/pickup`). The role is
+auto-detected from the handoff. It inlines, at one resolved commit, your current
+prompt/charter and the plan's `implementation` action deep reads (only the cited
+sections). As a **clean-room rival builder**, use `--clean-room` (or `/pickup
+clean-room`): reimplement from the charter and scope, deep reads are a manifest
+only, and do not read any other builder's implementation or thread.
 
 - **Verify the commit SHA** in the block against Git before acting (this
   preserves the builder discipline: capsule verified against Git, never

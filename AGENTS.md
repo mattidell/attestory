@@ -34,20 +34,27 @@ committed sources directly and resolve the disagreement before acting. Then read
 
 ## Picking up the current role task (runner-agnostic)
 
-When the owner opens a fresh thread and says "pick up the current builder/reviewer
-task" (or equivalent), self-orient — do not ask the owner to paste context, and do
-not require the foreman. From the repo root run:
+When the owner opens a fresh thread and says "pick up the current task" (or
+equivalent), self-orient — do not ask the owner to paste context, and do not
+require the foreman. From the repo root run:
 
 ```
-python3 tools/build_orientation_block.py --ref main --role <builder|reviewer>
+python3 tools/build_orientation_block.py --ref main
 ```
 
-This prints one Orientation Block at a resolved commit: the current charter plus
-the plan's action-scoped, section-anchored deep reads (only the cited sections).
-Then: (1) verify the printed commit SHA against Git; (2) confirm `current role`
-in the block matches the role you were asked to pick up — if it does not, stop and
-report the mismatch rather than proceeding; (3) echo back your understood scope,
-evidence ceiling, and stop conditions per your seat charter; (4) act.
+The role is **auto-detected** from the handoff's `current_role`; you do not need
+to be told it. This prints one Orientation Block at a resolved commit: the current
+charter plus the plan's action-scoped, section-anchored deep reads (only the cited
+sections). Then: (1) verify the printed commit SHA against Git; (2) adopt the seat
+charter for the block's detected role (`docs/roles/<role>.md`); (3) echo back your
+understood scope, evidence ceiling, and stop conditions; (4) act. If the role
+cannot be inferred, pass `--role`/`--action` explicitly.
+
+**Clean-room rival builder:** add `--clean-room` for an independent rival that
+must reimplement from the spec without the curated reading set. It emits the
+charter, scope, and non-goals but lists deep reads as a manifest only (not
+inlined), and instructs the builder not to read any other builder's
+implementation or thread — the same independence a reviewer keeps.
 
 This path works from any runner (Claude, Codex, Grok) because it is a plain
 command. Claude users may invoke it via the `/pickup` command, which only wraps

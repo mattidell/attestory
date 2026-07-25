@@ -36,6 +36,14 @@ ROLE_ACTIONS = {"builder": "implementation", "reviewer": "review"}
 DEFAULT_MAX_BYTES = 24_000  # per-section guard
 
 
+def detect_role(current_role: str) -> str | None:
+    """Infer the role from the handoff's free-text current_role (e.g. 'Track 1
+    ... Builder' -> 'builder'). Returns None if zero or more than one role word
+    matches, so the caller can ask for an explicit --role."""
+    hits = [role for role in ROLE_ACTIONS if role in current_role.casefold()]
+    return hits[0] if len(hits) == 1 else None
+
+
 def _heading_level(line: str) -> int:
     stripped = line.lstrip()
     if not stripped.startswith("#"):
@@ -105,13 +113,31 @@ def _resolve_action(capsule: dict[str, Any], role: str | None, action: str | Non
 
 def build_block(
     repo: GitRepository, ref: str, role: str | None, action: str | None,
-    max_bytes: int, manifest_only: bool,
+    max_bytes: int, manifest_only: bool, clean_room: bool = False,
 ) -> str:
     capsule = render_context(repo, ref)
     commit = capsule["source"]["commit"]
     state = capsule["state"]
     wt = capsule["worktree"]
+
+    # Auto-detect the role from the handoff when the owner didn't specify one.
+    detected = None
+    if not role and not action:
+        detected = detect_role(state["current_role"])
+        if not detected:
+            raise ContextError(
+                f"could not infer role from current_role {state['current_role']!r}; "
+                f"pass --role ({'/'.join(sorted(ROLE_ACTIONS))}) or --action explicitly"
+            )
+        role = detected
     chosen = _resolve_action(capsule, role, action)
+
+    # Clean-room: a rival builder reimplements from the spec without the curated
+    # reading set that would anchor it to the primary's framing. Give the charter,
+    # scope, and non-goals; list the deep reads as a manifest but do NOT inline
+    # them — the rival decides independently what to consult.
+    if clean_room:
+        manifest_only = True
 
     # dedup by full target (path#anchor): the same file under two anchors is two
     # distinct sections and both are kept; an exact repeat is dropped.
@@ -122,23 +148,34 @@ def build_block(
             seen.add(target)
             targets.append(target)
 
+    label = f"{role or chosen}" + (" · CLEAN ROOM" if clean_room else "")
+    role_line = f"- Role: `{role or chosen}`" + (" (auto-detected from handoff)" if detected else "")
     out: list[str] = [
-        f"# ORIENTATION BLOCK — {role or chosen} (preloaded; do not re-read these)",
+        f"# ORIENTATION BLOCK — {label}",
         "",
         f"- Commit: `{commit}`  (verify this SHA against Git before acting)",
         f"- Branch: `{wt['branch'] or 'detached'}`; dirty: `{wt['dirty']}`",
         f"- Phase/topic: {state['phase']} / `{state['topic']}` ({state['plan_status']})",
+        role_line,
         f"- Current role (per handoff): {state['current_role']}",
         f"- Deep-reads action selected: `{chosen}` ({len(targets)} sources)",
         f"- Scope: {', '.join(state['scope'])}",
         f"- Non-goals: {', '.join(state['non_goals'])}",
         "",
-        "Content below is Git blob content at the commit above — authoritative; "
-        "skip the corresponding boot reads. Echo back your understood scope before acting.",
-        "",
-        "## Current prompt / charter",
-        "",
     ]
+    if clean_room:
+        out.append(
+            "CLEAN ROOM: reimplement from the charter and scope below. Deep reads "
+            "are listed as a manifest only, not inlined — consult them independently "
+            "if needed. Do not read any other builder's implementation, thread, or "
+            "rationale; your value is an independent solution to the same spec.\n"
+        )
+    else:
+        out.append(
+            "Content below is Git blob content at the commit above — authoritative; "
+            "skip the corresponding boot reads. Echo back your understood scope before acting.\n"
+        )
+    out += ["## Current prompt / charter", ""]
     cp = state["current_prompt"]
     cp_blob = repo.blob_for_path(commit, cp)
     charter_body = _cap(repo.content_for_path(commit, cp), max_bytes).rstrip()
@@ -170,12 +207,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--action", help="deep_reads action to load (overrides --role mapping)")
     parser.add_argument("--max-bytes", type=int, default=DEFAULT_MAX_BYTES, help="per-section inline cap")
     parser.add_argument("--manifest-only", action="store_true", help="list scoped reads instead of inlining them")
+    parser.add_argument(
+        "--clean-room", action="store_true",
+        help="minimal block for an independent rival builder: charter + scope, deep reads as a manifest only",
+    )
     args = parser.parse_args(argv)
-    if not args.role and not args.action:
-        parser.error("pass --role or --action")
     try:
         block = build_block(
-            GitRepository(Path.cwd()), args.ref, args.role, args.action, args.max_bytes, args.manifest_only
+            GitRepository(Path.cwd()), args.ref, args.role, args.action,
+            args.max_bytes, args.manifest_only, args.clean_room,
         )
     except ContextError as error:
         print(f"orientation block: {error}", file=sys.stderr)
