@@ -1,8 +1,9 @@
 # Track 1 Repair Charter — Harness Failure Integrity
 
-Status: **current prompt prepared 2026-07-25.** The independent Track 1 review
-completed `NOT READY` with six blockers. This focused repair Builder is the
-current role.
+Status: **retired unexecuted by owner direction 2026-07-25.** The independent
+Track 1 review completed `NOT READY` with six blockers, but the owner closed
+the economy milestone after Track 0 rather than paying for a repair cycle. This
+charter is retained as historical evidence and is not a current prompt.
 
 ## Context Capsule
 

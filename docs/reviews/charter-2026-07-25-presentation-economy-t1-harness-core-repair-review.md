@@ -1,7 +1,8 @@
 # Track 1 Repair Review Charter — Harness Failure Integrity
 
-Status: **prepared 2026-07-25 for owner launch after the repair Builder
-commits.** It is not the current prompt until the repair handoff is complete.
+Status: **retired unexecuted by owner direction 2026-07-25.** No repair was
+performed. This prepared delta-review charter is retained as historical
+evidence and is not a current prompt.
 
 ## Context Capsule
 

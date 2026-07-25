@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Track 0 merged in PR #66; Track 1 harness-core review completed NOT READY with six blockers; focused repair Builder is the current role",
+  "status": "closed early by owner direction 2026-07-25; Track 0 is the accepted economy foundation; Track 1 was rejected and not merged; Tracks 2-3 were retired",
   "scope": [
     "versioned UI/UX iteration workload observation and comparison data",
     "machine-readable presentation-iteration baseline with explicit missing and estimated values",
@@ -70,10 +70,13 @@
 -->
 # Milestone: Presentation Evaluation Process Economy
 
-Status: **active; owner-approved planning unit merged in PR #65 (`1fd3d4c`)
-on 2026-07-24; Track 0 merged in PR #66 (`870c8ed`); Track 1 harness-core
-review completed `NOT READY` with six blockers; the focused repair Builder is
-the current role, and the post-repair delta-review plan is prepared.**
+Status: **closed early by owner direction 2026-07-25.** The owner-approved
+planning unit merged in PR #65 (`1fd3d4c`) and Track 0 merged in PR #66
+(`870c8ed`). Track 0 is the accepted presentation-economy foundation. Track
+1's independent review returned `NOT READY`; its implementation was not
+merged, its prepared repair/re-review were retired unexecuted, and Tracks 2–3
+were canceled. This is an honest partial close, not completion of the original
+15 exit criteria.
 
 ## Objective
 
@@ -97,6 +100,37 @@ The milestone is successful only if it improves the project's ability to
 **learn about economy in UI/UX iteration over time**. A cheaper presentation
 execution that checks less, misses seeded defects, or shifts work invisibly to
 another role is not an economic improvement.
+
+## Owner closeout disposition — 2026-07-25
+
+The owner stopped the milestone after determining that its primary purpose was
+to establish a foundation for monitoring and managing presentation-milestone
+cost, not to perfect a general browser harness before any product presentation
+milestone existed.
+
+- **Accepted foundation:** Track 0's versioned presentation workload,
+  observation, and comparison contracts; the source-faithful historical
+  baseline; strict missing/approximate-value treatment; participating-role
+  completeness; quality-before-cost comparison; and append/supersession path.
+- **Preserved negative evidence:** Track 1's `NOT READY` review and execution
+  trace. The review found six blockers and showed that Chrome execution was
+  batched and relatively compact while context ingestion and adversarial
+  reasoning remained material costs.
+- **Not adopted:** the unrepaired Track 1 harness implementation. It remains on
+  `track/presentation-economy-t1-harness-core` as historical branch evidence
+  and is not an executable project capability.
+- **Retired:** the Track 1 repair and delta-review charters, Track 2 standing
+  corpus/paired pilot, and Track 3 operating-integration gate.
+- **Next use:** actual presentation milestones declare their work and record
+  observations through Track 0. A later workload may justify a smaller
+  workload-specific helper; the failed general harness is not a prerequisite.
+
+The foreman also records the allocation rule established by this run: known
+adversarial classes must be supplied to both Builder and Reviewer as shared
+inputs. The Builder closes applicable known classes; mechanical checks verify
+them; the Reviewer is chartered around the remaining novel boundary. The
+foreman, not the Reviewer, is accountable for avoiding repeated discovery
+spend.
 
 ## Current state
 

@@ -6,6 +6,12 @@ Role: independent High / high technical-adversary Reviewer
 Charter:
 `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`
 
+Owner/foreman disposition, 2026-07-25: the finding stands. The owner declined
+a repair cycle and closed the economy milestone after its accepted Track 0
+foundation. The reviewed Track 1 implementation was not merged; its repair and
+delta-review charters were retired unexecuted. This disposition does not turn
+`NOT READY` into acceptance.
+
 ## Review object
 
 The Reviewer resolved

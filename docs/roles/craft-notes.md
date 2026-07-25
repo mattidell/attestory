@@ -16,6 +16,13 @@ that have hardened into tooling or ratified process.
 
 ## Foreman
 
+- **Spend review on novelty; make known attacks shared input.** Before
+  chartering a build or review, map prior findings into applicable invariants
+  and executable checks. Give that map to both seats, require the builder to
+  close the known classes, and tell the reviewer which novel boundary remains
+  to probe. Re-paying a reviewer to rediscover a documented class is a foreman
+  allocation failure, not reviewer rigor.
+
 - **Charter the invariant, not the symptom.** A remediation charter should
   name the end-state property you want ("select one explicit target; fail
   loudly if it is missing"), not just the outcome ("make the battery
