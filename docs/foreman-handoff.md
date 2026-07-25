@@ -1,10 +1,10 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy closed early after accepted Track 0 foundation; rejected Track 1 was not merged; next direction is first actual Presentation milestone planning.",
-  "current_role": "Foreman planning the first actual Presentation milestone",
-  "current_prompt": "docs/foreman-clerk-task.md"
+  "topic": "browser-evaluation-runner-completion",
+  "status": "Presentation Economy closed in merged PR #68; Browser Evaluation Runner Completion plan prepared; existing-runner repair Builder is next after plan merge.",
+  "current_role": "Browser Evaluation Runner repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md"
 }
 -->
 # Foreman Handoff Note
@@ -59,10 +59,23 @@ authority.
   promoted foreman discipline: give known adversarial classes to both Builder
   and Reviewer as executable coverage, and spend independent review on an
   explicit novel boundary.
-- **Next direction:** the owner selected the Presentation maturity frontier
-  toward a human surface. No milestone plan or implementation is active yet.
-  The current role is the foreman preparing that plan and applying the Track 0
-  economy foundation from the outset.
+- **Browser Evaluation Runner Completion:** owner-directed plan prepared
+  2026-07-25. It resumes the existing, reviewed implementation preserved on
+  `track/presentation-economy-t1-harness-core`; the Builder must transplant the
+  commit whose subject is `implement Track 1 instrumented harness core and
+  fail-closed lifecycle`, verify the adopted files, and repair rather than
+  reconstruct. Scope is the six known blockers (storage isolation, injection
+  acknowledgement, cancellation-safe cleanup, canonical path/provenance
+  confinement, strict non-vacuous validation, and redacted external failures)
+  plus the transferred lifecycle/output measurements. One focused delta review
+  checks those changes and adjacent invariants. No runner rebuild, product
+  prototype, economy experiment, novelty catalog, or broad creative re-review
+  belongs in this milestone. Merge of the planning unit activates the prepared
+  repair Builder charter.
+- **Later direction:** the actual human-surface Presentation frontier remains
+  selected but deferred until the runner is trustworthy. The accepted economy
+  contracts remain available, but no economical improvement or novelty-review
+  practice has yet been demonstrated.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -84,9 +97,9 @@ authority.
   `docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`.
 - Interrupted Track 1 review progress:
   `docs/reviews/2026-07-25-presentation-economy-t1-harness-core-review-progress.md`.
-- Retired, unexecuted Track 1 repair Builder charter:
+- Reactivated existing-runner repair Builder charter:
   `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md`.
-- Retired, unexecuted post-repair delta-review charter:
+- Prepared focused post-repair delta-review charter:
   `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md`.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
@@ -95,6 +108,8 @@ authority.
   `docs/phases/real-return/milestones/presentation-evaluation-process-economy.md`.
 - Milestone retrospective:
   `docs/milestone-retrospectives/2026-07-25-presentation-evaluation-process-economy.md`.
+- Prepared Browser Evaluation Runner Completion plan:
+  `docs/phases/real-return/milestones/browser-evaluation-runner-completion.md`.
 - Grounding economy analysis:
   `docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md`.
 - Accepted decision: `docs/adr/0044-live-run-system-boundary-and-trust-domains.md`.

@@ -1,19 +1,25 @@
-# Track 1 Repair Charter — Harness Failure Integrity
+# Browser Evaluation Runner Repair Charter
 
-Status: **retired unexecuted by owner direction 2026-07-25.** The independent
-Track 1 review completed `NOT READY` with six blockers, but the owner closed
-the economy milestone after Track 0 rather than paying for a repair cycle. This
-charter is retained as historical evidence and is not a current prompt.
+Status: **reactivated 2026-07-25 as the prepared current prompt after owner
+merge of the Browser Evaluation Runner Completion plan.** The earlier economy
+milestone retired this repair; the owner has now separated runner completion
+from economy experimentation and directed that the existing implementation be
+resumed rather than rebuilt.
 
 ## Context Capsule
 
-- **Source ref:** `track/presentation-economy-t1-harness-core`; resolve and
-  record its commit when this prompt is used to launch the role.
-- **Exact object:** the six blocking findings in
-  `docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`,
-  applied only to `tools/presentation_harness/**` and the Track 1 harness
+- **Source ref:** `main`; resolve and record the owner-merged Browser
+  Evaluation Runner Completion planning commit at launch.
+- **Existing implementation source:** resolve
+  `track/presentation-economy-t1-harness-core` and identify its commit named
+  `implement Track 1 instrumented harness core and fail-closed lifecycle`.
+  Adopt that commit only; do not transplant its later foreman/status/review
+  routing commits.
+- **Exact object:** the adopted existing implementation plus the focused
+  F1–F6 repair, limited to `tools/presentation_harness/**` and the runner
   sections of `docs/presentation-economy/README.md`. Foreman continuity,
-  review records, and charters are outside the implementation object.
+  review records, charters, and the old milestone status are outside the
+  implementation object.
 - **Role:** one repair Builder, Medium tier / medium effort.
 - **Scope:** close F1–F6 only: per-tuple browser-state isolation; fail-closed
   injection validation/execution acknowledgement; cancellation-safe Chrome
@@ -21,28 +27,28 @@ charter is retained as historical evidence and is not a current prompt.
   strict per-check parameters and non-empty trustworthy selections; and
   fixed redacted infrastructure output. Add focused automated and real-Chrome
   regressions for every blocker.
-- **Evidence-rung ceiling:** focused production repair of the already-approved
-  Track 1 contract. Do not redesign manifest/report versions, add a dependency,
-  build the standing corpus, add new check families, address aesthetics or
-  information design, begin the paired pilot or Track 2, create an ADR, or
-  change Track 0 contracts.
-- **Stop conditions:** stop before writing if the source ref cannot be
-  resolved or does not contain this charter and the completed review; a
-  blocker cannot be reproduced; the repair needs a file outside the allowed
-  paths, a dependency download, remote access, personal or machine-specific
-  data, another Chrome process per tuple, a fixed port/path, report content
-  expansion, or a new contract decision. Report the mismatch rather than
-  broadening scope.
+- **Evidence-rung ceiling:** focused completion of the existing browser
+  evaluation runner. Do not rebuild it, redesign manifest/report versions, add
+  a dependency, build a standing corpus, add product checks, run an economy or
+  novelty experiment, create an ADR, or change Track 0 contracts.
+- **Stop conditions:** stop before writing if the plan is not owner-merged to
+  `main`; the existing implementation branch/commit cannot be resolved; its
+  adoption would require reconstructing code by hand; a blocker cannot be
+  reproduced; or repair needs a file outside the allowed paths, dependency,
+  remote access, personal/machine-specific data, another Chrome process per
+  tuple, fixed port/path, report content expansion, or a new contract decision.
 - **Full reads before acting:** this charter; `docs/roles/builder.md`;
-  `docs/adr/INDEX.md`; the completed Track 1 review; the milestone plan's
-  Command, Manifest, Result, Verification, Data safety, Track 1 gate, and
-  Track 1 sections; the original Track 1 Builder charter; the changed harness
-  implementation/tests/examples and README sections; and
-  `analysis/05-technical-findings.md`.
+  `docs/adr/INDEX.md`; the Browser Evaluation Runner Completion plan; the
+  completed Track 1 review; the existing implementation diff/files; the
+  original Track 1 Builder charter for its frozen external scope; and the
+  Track 0 observation contract section only.
 
-Before editing, echo the resolved object, scope, evidence ceiling, and stop
-conditions. Reproduce every blocker against the pre-repair implementation
-before changing it.
+Before editing, echo the resolved plan commit, existing implementation commit,
+object, scope, evidence ceiling, and stop conditions. Create
+`track/browser-evaluation-runner-completion` from the owner-merged plan on
+`main`, transplant only the named existing implementation commit, and verify
+its files match that source before changing them. Reproduce every blocker
+against that adopted pre-repair implementation.
 
 ## Required repair
 
@@ -112,9 +118,9 @@ The repair Builder may add or edit only:
 - `tools/presentation_harness/**`
 - the Track 1 harness sections of `docs/presentation-economy/README.md`
 
-The completed review, charters, progress record, milestone plan, phase state,
-roadmap, handoff, clerk capsule, governance, ADRs, Track 0 artifacts, standing
-corpus, and pilot records remain foreman-owned or out of scope.
+The completed review, charters, progress record, milestone plans, phase state,
+roadmap, handoff, clerk capsule, governance, ADRs, Track 0 artifacts, product
+corpus, and economy/novelty experiments remain foreman-owned or out of scope.
 
 ## Required verification
 
@@ -149,4 +155,4 @@ Commit the repair as one conceptual Builder unit and report:
 - any stop finding.
 
 Do not review the repair, spawn a sub-agent, push, open a PR, merge, or begin
-Track 2.
+completion records.
