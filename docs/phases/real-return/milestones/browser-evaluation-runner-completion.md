@@ -4,7 +4,7 @@
   "topic": "browser-evaluation-runner-completion",
   "milestone_state": "track-1",
   "retrospective": "docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md",
-  "status": "Track 1 repair landed on track/browser-evaluation-runner-completion; focused delta review is next",
+  "status": "Track 1 repair landed on track/browser-evaluation-runner-completion (PR #71); focused delta review is next",
   "scope": [
     "adopt the existing reviewed browser evaluation runner implementation without rebuilding it",
     "repair the six confirmed runner-integrity blockers",
@@ -66,7 +66,7 @@
 
 Status: **Track 1 repair landed; focused delta review next.** The plan merged
 2026-07-25, and the implementation unit remains in flight on
-`track/browser-evaluation-runner-completion`.
+`track/browser-evaluation-runner-completion` (PR #71).
 
 ## Objective
 

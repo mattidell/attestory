@@ -4,7 +4,7 @@
   "phase": "Real Return",
   "topic": "browser-evaluation-runner-completion",
   "active_plan": "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md",
-  "status": "Browser Evaluation Runner repair landed on track/browser-evaluation-runner-completion; focused delta review is next.",
+  "status": "Browser Evaluation Runner repair landed on track/browser-evaluation-runner-completion (PR #71); focused delta review is next.",
   "current_role": "Browser Evaluation Runner repair Delta Reviewer",
   "current_prompt": "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md"
 }
@@ -83,9 +83,9 @@ adversarial-novelty practice run; it adds no product UI, ADR, or maturity lift.
   and Reviewer as executable coverage, and spend independent review on an
   explicit novel boundary.
 - **Browser Evaluation Runner Completion:** Track 1 repair has landed on
-  `track/browser-evaluation-runner-completion`. It adopted the existing,
-  independently reviewed implementation rather than rebuilding it and made a
-  focused repair for the six known blockers: storage isolation, injection
+  `track/browser-evaluation-runner-completion` (PR #71). It adopted the
+  existing, independently reviewed implementation rather than rebuilding it
+  and made a focused repair for the six known blockers: storage isolation, injection
   acknowledgement, cancellation-safe cleanup, canonical path/provenance
   confinement, strict non-vacuous validation, and redacted external failures.
   The next role is the one focused delta Reviewer, which credits the prior
@@ -121,10 +121,10 @@ under `docs/prototypes/human-presentation-citation-walk/`.
 
 **➡️ In-progress milestone: Browser Evaluation Runner Completion.** The
 existing-runner repair has landed on its Track 1 branch and the focused delta
-review is next. The review reuses prior independent evidence for unchanged
-ground, independently verifies the six repaired blocker classes and four
-transferred measurements, and checks only adjacent invariants touched by the
-repair. It does not repeat the original broad harness review or make
+review is next in PR #71. The review reuses prior independent evidence for
+unchanged ground, independently verifies the six repaired blocker classes and
+four transferred measurements, and checks only adjacent invariants touched by
+the repair. It does not repeat the original broad harness review or make
 presentation-economy or review-novelty claims. Plan:
 `docs/phases/real-return/milestones/browser-evaluation-runner-completion.md`.
 

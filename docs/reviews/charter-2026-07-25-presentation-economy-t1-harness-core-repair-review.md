@@ -1,8 +1,8 @@
 # Browser Evaluation Runner Repair Delta-Review Charter
 
 Status: **current prompt after the repair Builder landed on
-`track/browser-evaluation-runner-completion`.** This is the one focused delta
-review permitted by the milestone plan.
+`track/browser-evaluation-runner-completion` (PR #71).** This is the one
+focused delta review permitted by the milestone plan.
 
 ## Context Capsule
 
