@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy Track 0 participant-cost repair and READY delta review complete; Track 1 Builder is the current role.",
-  "current_role": "Track 1 instrumented harness core Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md"
+  "status": "Presentation Evaluation Process Economy Track 0 merged in PR #66; Track 1 harness-core Builder implementation complete; independent technical-adversary Reviewer is the current role.",
+  "current_role": "Track 1 harness lifecycle technical-adversary Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md"
 }
 -->
 # Foreman Handoff Note
@@ -59,9 +59,11 @@ authority.
   owner-launched independent measurement-integrity review returned `NOT READY`
   on one blocker: omitting a workload-declared participant can let a partial
   cost total appear economically promising. The focused participant-cost
-  repair landed in `4f8a07c` and the independent delta review returned `READY`.
-  Track 1 Builder is the current role and its prompt is prepared; the Track 1
-  charter stops until the Track 0 source is owner-merged to `main`.
+  repair landed in `4f8a07c` and the independent delta review returned `READY`;
+  Track 0 then merged in PR #66 (`870c8ed`). Track 1's harness-core Builder
+  implementation is complete on `track/presentation-economy-t1-harness-core`.
+  The independent technical-adversary Reviewer is the current role and its
+  prompt is prepared.
   Its five bounded packets measured
   foreman-observed dispatch-to-handoff times of 289, 182, 135, 169, and 480
   seconds. Cache status was never exposed and remains unknown. The resulting
@@ -83,6 +85,8 @@ authority.
   `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`.
 - Track 1 instrumented harness core charter:
   `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md`.
+- Track 1 harness-core review charter:
+  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
   ADR-0030, ADR-0039, ADR-0042, and ADR-0043.

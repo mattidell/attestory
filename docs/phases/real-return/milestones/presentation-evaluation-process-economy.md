@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "owner-approved and merged in PR #65 on 2026-07-24; Track 0 participant-cost repair and READY delta review complete; Track 1 Builder is the current role",
+  "status": "Track 0 merged in PR #66; Track 1 harness-core Builder implementation complete; independent technical-adversary Reviewer is the current role",
   "scope": [
     "versioned UI/UX iteration workload observation and comparison data",
     "machine-readable presentation-iteration baseline with explicit missing and estimated values",
@@ -70,9 +70,10 @@
 -->
 # Milestone: Presentation Evaluation Process Economy
 
-Status: **active; owner-approved planning unit merged in PR #65
-(`1fd3d4c`) on 2026-07-24; Track 0 participant-cost repair and READY delta
-review are complete; Track 1 Builder is the current role.**
+Status: **active; owner-approved planning unit merged in PR #65 (`1fd3d4c`)
+on 2026-07-24; Track 0 merged in PR #66 (`870c8ed`); Track 1 harness-core
+Builder implementation is complete and the independent technical-adversary
+Reviewer is the current role.**
 
 ## Objective
 

@@ -1,8 +1,8 @@
 # Track 1 Charter — Instrumented Harness Core and Fail-Closed Lifecycle
 
-Status: **current prompt prepared 2026-07-24.** Track 0's independent
-participant-cost delta review returned `READY`; this Track 1 Builder is the
-current role under the owner-approved milestone sequence.
+Status: **Builder implementation complete 2026-07-24 on
+`track/presentation-economy-t1-harness-core`; independent technical-adversary
+Reviewer is the current role.**
 
 ## Context Capsule
 
