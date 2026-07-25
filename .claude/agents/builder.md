@@ -16,9 +16,10 @@ either the foreman dispatches you with it, or — when the owner launches you wi
 `python3 tools/build_orientation_block.py --ref main` (or `/pickup`). The role is
 auto-detected from the handoff. It inlines, at one resolved commit, your current
 prompt/charter and the plan's `implementation` action deep reads (only the cited
-sections). As a **clean-room rival builder**, use `--clean-room` (or `/pickup
-clean-room`): reimplement from the charter and scope, deep reads are a manifest
-only, and do not read any other builder's implementation or thread.
+sections). If the handoff marks a **clean-room / rival** round, the block
+auto-switches to clean-room mode (deep reads as a manifest only) and tells you to
+reimplement from the charter and scope without reading any other builder's
+implementation or thread — no flag needed.
 
 - **Verify the commit SHA** in the block against Git before acting (this
   preserves the builder discipline: capsule verified against Git, never

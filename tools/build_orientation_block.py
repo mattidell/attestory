@@ -44,6 +44,16 @@ def detect_role(current_role: str) -> str | None:
     return hits[0] if len(hits) == 1 else None
 
 
+# Handoff phrasings that mark a clean-room / independent rival round. Detected
+# from the current_role so the owner never has to pass a flag.
+CLEAN_ROOM_MARKERS = ("clean-room", "clean room", "rival", "independent")
+
+
+def detect_clean_room(current_role: str) -> bool:
+    role = current_role.casefold()
+    return any(marker in role for marker in CLEAN_ROOM_MARKERS)
+
+
 def _heading_level(line: str) -> int:
     stripped = line.lstrip()
     if not stripped.startswith("#"):
@@ -113,7 +123,7 @@ def _resolve_action(capsule: dict[str, Any], role: str | None, action: str | Non
 
 def build_block(
     repo: GitRepository, ref: str, role: str | None, action: str | None,
-    max_bytes: int, manifest_only: bool, clean_room: bool = False,
+    max_bytes: int, manifest_only: bool, clean_room: bool | None = None,
 ) -> str:
     capsule = render_context(repo, ref)
     commit = capsule["source"]["commit"]
@@ -130,6 +140,10 @@ def build_block(
                 f"pass --role ({'/'.join(sorted(ROLE_ACTIONS))}) or --action explicitly"
             )
         role = detected
+    # Clean-room is auto-detected from the handoff (no owner-facing flag); the
+    # optional CLI override is only for tests and forced runs.
+    if clean_room is None:
+        clean_room = detect_clean_room(state["current_role"])
     chosen = _resolve_action(capsule, role, action)
 
     # Clean-room: a rival builder reimplements from the spec without the curated
@@ -208,8 +222,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-bytes", type=int, default=DEFAULT_MAX_BYTES, help="per-section inline cap")
     parser.add_argument("--manifest-only", action="store_true", help="list scoped reads instead of inlining them")
     parser.add_argument(
-        "--clean-room", action="store_true",
-        help="minimal block for an independent rival builder: charter + scope, deep reads as a manifest only",
+        "--clean-room", dest="clean_room", action="store_const", const=True, default=None,
+        help="force clean-room mode (normally auto-detected from the handoff role; override for tests/forced runs)",
     )
     args = parser.parse_args(argv)
     try:

@@ -13,6 +13,12 @@ A `[worktree-state]` line (branch + dirty paths) is injected at session start vi
 - **At a track gate** (track complete, pre-review, pre-merge), run the full suite once: `pytest`. Record the result in the track/commit message (e.g. `pytest: 590 passed @ <sha>`).
 - **Downstream roles** (reviewer, foreman) reference the recorded gate result rather than re-running the full suite, and re-run `pytest` only if they changed code. A passing suite on a given commit is a recorded fact, not something each role must recompute.
 
+**Cache economy.** Claude Code reuses (caches) the unchanged prefix of each request; a change to the system prompt or tool set forces a full, slow, uncached re-read. On a Claude subscription the main conversation keeps a 1-hour cache; spawned sub-agents get only a 5-minute cache and a cold start. Keep the cache warm:
+- **Pick model and effort at session start; don't switch mid-task.** Each `/model` or `/effort` change re-reads the whole history. With `opusplan`, every plan-mode toggle is a model switch — expect a slow turn.
+- **Prefer `/rewind` over `/compact`** when abandoning a path (rewind lands on an already-cached prefix; compact builds a new one). Run `/compact` at task breaks, not mid-task.
+- **Each worktree/directory has its own cache** (the working dir is in the system prompt). Create a new worktree only when you need isolation (e.g. a clean-room rival); otherwise running in the same directory shares the warm cache.
+- **Prefer owner-launch (`/pickup`) over foreman spawn for substantial builder work** — the launched thread gets the 1-hour cache and keeps the foreman thread lean. Reserve spawning for short, few-in-number sub-tasks with terse returns (e.g. committee reviews), where the ~2 foreman turns per spawn stay cheap on a warm cache.
+
 ## Canonical References
 
 Read these before substantial work:
@@ -50,11 +56,12 @@ charter for the block's detected role (`docs/roles/<role>.md`); (3) echo back yo
 understood scope, evidence ceiling, and stop conditions; (4) act. If the role
 cannot be inferred, pass `--role`/`--action` explicitly.
 
-**Clean-room rival builder:** add `--clean-room` for an independent rival that
-must reimplement from the spec without the curated reading set. It emits the
-charter, scope, and non-goals but lists deep reads as a manifest only (not
-inlined), and instructs the builder not to read any other builder's
-implementation or thread — the same independence a reviewer keeps.
+**Clean-room rival builder:** when the handoff's `current_role` marks a
+clean-room / rival / independent round, the block **auto-switches** to clean-room
+mode — no flag to pass. It emits the charter, scope, and non-goals but lists deep
+reads as a manifest only (not inlined), and instructs the builder to reimplement
+from the spec without reading any other builder's implementation or thread — the
+same independence a reviewer keeps.
 
 This path works from any runner (Claude, Codex, Grok) because it is a plain
 command. Claude users may invoke it via the `/pickup` command, which only wraps
