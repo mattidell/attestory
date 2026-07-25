@@ -1,9 +1,10 @@
 # Track 0 Charter — Presentation Economy Measurement Substrate
 
-Status: **staged 2026-07-24; builder dispatch not authorized.** The owner
-approved and merged the milestone plan in PR #65. That planning approval and
-this charter do not authorize a role dispatch; ADR-0043 still requires explicit
-owner approval before the builder is launched.
+Status: **builder dispatch authorized 2026-07-24; launch pending.** The owner
+authorized exactly the plan's one Builder and did not authorize a reviewer.
+No rival builder is added. The foreman will divide the one builder's work into
+bounded handoffs targeting less than 4.5 minutes each and will not dispatch a
+reviewer without a later explicit authorization.
 
 ## Context Capsule
 
@@ -16,6 +17,9 @@ owner approval before the builder is launched.
 - **Scope:** the presentation-specific economy workload, observation, and
   comparison data shapes; faithful C1–C5 baseline; frozen presentation-review
   workload; strict validation/comparison tooling; examples and focused tests.
+  The observation shape also records directly observed task-duration,
+  dispatch-batch, foreman-idle-gap, and cache-status evidence so later
+  presentation work can test dispatch sizing and batching economy.
 - **Evidence-rung ceiling:** production implementation of the already-approved
   Track 0 contract only. No prototype round, architecture decision, published
   schema, harness implementation, or later-track work is authorized.
@@ -110,13 +114,21 @@ An observation records one historical, paired-pilot, or repeated presentation
 execution. It carries the approved bounded metadata: workload reference,
 treatment, role and abstract tier/effort, available agent/browser/session and
 cost counts, coverage and seeded-defect results, verdict, rework/recheck events,
-and repository-relative provenance.
+repository-relative provenance, declared task-duration budget, observed task
+duration, dispatch-batch identity and size, execution mode, foreman idle gap,
+and cache status when the orchestration surface directly exposes it.
 
 Every nullable measure has a missing reason. Every approximate measure has an
 explicit approximation flag. Observations are append-only by identity:
 corrections add a superseding observation with a reason; they never silently
 rewrite the old measurement. Reject duplicate ids and dangling supersession or
 workload references.
+
+Cache state must never be inferred from elapsed time, token count, or the
+five-minute hypothesis. If the orchestration surface does not expose a cache
+hit/miss result, cache status is null with an explicit missing reason. Task
+duration and foreman idle-gap values likewise distinguish direct measurement
+from approximation or absence.
 
 ### Comparison
 
@@ -166,6 +178,8 @@ for at least:
 - negative counts or durations;
 - null measures without missing reasons;
 - approximate measures without approximation flags;
+- inferred cache status or cache status without direct-observation provenance;
+- invalid task budgets, batch sizes, or execution modes;
 - duplicate ids and dangling workload/supersession/comparison references;
 - incompatible workloads;
 - omitted participating-role cost;
@@ -223,7 +237,8 @@ Focused checks must include:
 The focused suite must exercise strict positive/negative validation,
 source-row reconciliation, missing/approximate honesty, append/supersession,
 workload compatibility, quality-floor and seeded-defect mutations, hidden cost
-shifts, per-measure incompleteness, evidence labels, and deterministic output.
+shifts, task-duration/batch/idle-gap/cache telemetry, refusal of inferred cache
+claims, per-measure incompleteness, evidence labels, and deterministic output.
 
 Before handoff, run the full floor:
 
@@ -236,6 +251,22 @@ git diff --check main..HEAD
 ```
 
 Do not call a failure pre-existing without reproducing it against `main`.
+
+## Execution economy for this seat
+
+This track itself uses one Builder because the approved plan names one. The
+foreman sends that builder bounded, coherent packets targeting at most 270
+seconds each, stopping at a clean committed or handoff-ready boundary rather
+than over-atomizing. No parallel builder batch is created for Track 0. If a
+packet exceeds the target, record the observed duration honestly and use the
+result to resize the next packet; do not call the cache outcome known unless
+the orchestration surface reports it.
+
+Mechanical checks run directly through the committed commands where possible.
+Agent dispatch is reserved for the chartered implementation judgment and later
+independent review. This operating choice is evidence about task sizing only;
+it is not itself a presentation-economy observation unless a future workload
+legitimately declares comparable UI/UX presentation work.
 
 ## Handoff
 

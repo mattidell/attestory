@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy planning unit merged in PR #65 on 2026-07-24; Track 0 builder charter staged on track/presentation-economy-t0-measurement-substrate; no role dispatch authorized.",
-  "next_permitted": "owner explicitly authorizes the Track 0 Builder dispatch; foreman then resolves and records the charter source commit before launching the seat"
+  "status": "Presentation Evaluation Process Economy planning unit merged in PR #65 on 2026-07-24; owner authorized exactly one Track 0 Builder on track/presentation-economy-t0-measurement-substrate; no reviewer authorized.",
+  "next_permitted": "foreman resolves and records the Track 0 charter source commit, then launches the one authorized Builder in bounded handoffs; reviewer dispatch remains owner-gated"
 }
 -->
 # Foreman Handoff Note
@@ -54,8 +54,12 @@ authority.
   tier-matched review allocation are the first measured intervention. It is not
   evaluating non-presentation workflows and makes no economic claim about them.
   It raises no matrix cell and proposes no ADR. The Track 0 builder charter is
-  staged on `track/presentation-economy-t0-measurement-substrate`; explicit
-  owner authorization is still required before dispatch.
+  staged on `track/presentation-economy-t0-measurement-substrate`; the owner
+  authorized its one Builder on 2026-07-24 but no reviewer. Execution uses
+  bounded sub-4.5-minute target handoffs and adds direct task-duration,
+  dispatch-batch, foreman-idle-gap, and cache-status telemetry to the
+  presentation observation contract; unavailable cache state stays missing,
+  never inferred.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
