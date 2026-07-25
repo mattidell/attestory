@@ -1,7 +1,10 @@
 # Track 0 Review Charter — Presentation Economy Measurement Integrity
 
-Status: **current prompt prepared 2026-07-24.** This is the current role under
-the owner-approved milestone sequence.
+Status: **completed 2026-07-24; `NOT READY`.** The owner-launched independent
+review is recorded at
+`docs/reviews/2026-07-24-presentation-economy-t0-measurement-review.md`.
+Measurement 4 produced one blocking finding; the focused repair Builder is the
+current role.
 
 ## Context Capsule
 

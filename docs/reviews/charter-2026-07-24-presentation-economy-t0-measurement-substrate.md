@@ -1,8 +1,9 @@
 # Track 0 Charter — Presentation Economy Measurement Substrate
 
-Status: **builder implementation complete 2026-07-24; independent Reviewer is
-the current role.** The approved plan names exactly one Builder, so no rival
-builder was added. The builder completed the
+Status: **builder implementation complete 2026-07-24; independent review
+returned `NOT READY` on participating-role cost completeness; the focused
+repair Builder is the current role.** The approved plan names exactly one
+Builder, so no rival builder was added. The builder completed the
 implementation on `track/presentation-economy-t0-measurement-substrate` through
 bounded handoffs.
 
