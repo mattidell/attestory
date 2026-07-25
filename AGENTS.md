@@ -6,6 +6,8 @@ This file defines how agents should work in this repository. It is a canonical p
 
 Bash starts at repo root and cwd persists; never cd to the root; use absolute paths for other dirs
 
+A `[worktree-state]` line (branch + dirty paths) is injected at session start via a SessionStart hook; do not run `git status`/`git branch` to orient. Use `git status`/`git diff` only to verify your own changes after editing.
+
 **Test economy.** The full suite is deterministic and ~26s parallel (`pytest`), ~129s serial. Do not re-derive it needlessly:
 - **While iterating**, run only the module you touched: `python3 -m unittest tests.<module>` (seconds), not the full suite.
 - **At a track gate** (track complete, pre-review, pre-merge), run the full suite once: `pytest`. Record the result in the track/commit message (e.g. `pytest: 590 passed @ <sha>`).

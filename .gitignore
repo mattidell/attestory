@@ -20,4 +20,7 @@ generated/user/
 # drops this at the repo root during UI-prototype evaluation; ignored, never
 # committed. Synthetic-only, so no data-boundary concern.
 .playwright-mcp/
-.claude/
+# Ignore .claude contents (sessions, local overrides, secrets) but allow
+# intentionally shared agent config to be re-included below.
+.claude/*
+!.claude/settings.json
