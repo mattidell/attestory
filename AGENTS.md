@@ -2,6 +2,10 @@
 
 This file defines how agents should work in this repository. It is a canonical project meta document. Follow it before making code, fixture, schema, runner, or planning changes.
 
+## Tool Preamble
+
+Bash starts at repo root and cwd persists; never cd to the root; use absolute paths for other dirs
+
 ## Canonical References
 
 Read these before substantial work:
