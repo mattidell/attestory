@@ -4,7 +4,7 @@
   "topic": "browser-evaluation-runner-completion",
   "milestone_state": "track-1",
   "retrospective": "docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md",
-  "status": "plan merged to main 2026-07-25; Track 1 repair Builder is live on track/browser-evaluation-runner-completion",
+  "status": "Track 1 repair landed on track/browser-evaluation-runner-completion; focused delta review is next",
   "scope": [
     "adopt the existing reviewed browser evaluation runner implementation without rebuilding it",
     "repair the six confirmed runner-integrity blockers",
@@ -64,9 +64,9 @@
 -->
 # Milestone: Browser Evaluation Runner Completion
 
-Status: **owner-directed narrow plan prepared 2026-07-25.** Merge of this
-planning unit activates the existing-runner repair Builder. No implementation
-starts before merge.
+Status: **Track 1 repair landed; focused delta review next.** The plan merged
+2026-07-25, and the implementation unit remains in flight on
+`track/browser-evaluation-runner-completion`.
 
 ## Objective
 
