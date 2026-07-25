@@ -82,7 +82,6 @@ authority.
 
 ## Durable pointers
 
-- Current-prompt Clerk Task Capsule: `docs/foreman-clerk-task.md`.
 - Track 0 independent review:
   `docs/reviews/2026-07-24-presentation-economy-t0-measurement-review.md`.
 - Track 0 participant-cost repair charter:

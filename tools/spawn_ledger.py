@@ -86,7 +86,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     rec = sub.add_parser("record", help="append a dispatch or return event")
-    rec.add_argument("--role", required=True, help="role dispatched/launched (builder, reviewer, clerk, …)")
+    rec.add_argument("--role", required=True, help="role dispatched/launched (builder, reviewer, advisor, …)")
     rec.add_argument("--kind", required=True, choices=("spawn", "owner-launch", "dispatch"),
                      help="spawn = foreman sub-agent; owner-launch = fresh thread")
     rec.add_argument("--event", required=True, choices=("dispatch", "return"))

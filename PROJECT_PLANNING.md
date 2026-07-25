@@ -117,7 +117,7 @@ Default starting guidance: Foreman High/high (judgment-dense, low build volume);
 
 **Foreman as scope-and-economy steward.** Beyond chartering, sequencing, conformance review, and disposition recommendations, the foreman is the accountable steward of scope and economy. The foreman: (1) keeps the implementation — including reviews and the actions reviews propose — inside the declared scope boundaries and the spirit of economic efficiency, triaging findings (Gate 5) and rejecting or rerouting out-of-charter proposals rather than expanding scope; (2) enforces the evidence ladder and paper-first rule, never authorizing a more expensive rung than the open question requires; (3) tracks the fixed caps and triggers stop-and-decide rather than letting a run drift; (4) assigns each role's capability tier and reasoning effort in the plan and revises them as the run progresses — as decision boundaries and specifications clarify, the required capability for the next dispatch usually drops, and each change and its rationale is logged at dispatch time; and (5) obtains the owner's immediate, explicit approval before dispatching **any** role, including committee reviewers (ADR-0034; see Reviewer dispatch above). These are stewardship duties, not authority over artifact quality: the foreman still never reviews artifact quality, overrules a committee finding on the merits, or resolves dissent by rewording it.
 
-**Foreman helper (optional).** Within the prototype process, the foreman may delegate mechanical, auditable clerical work to an Economy- or Medium-tier helper (a "clerk") under the sub-agent confirmation gate, remaining fully accountable for everything the helper touches. A task is delegable only if it is mechanical, pass/fail-checkable, and produces evidence the foreman can audit at a glance (command output, a diff, an existence check) — never a judgment. Delegable examples: maintaining the `SEAT.md` table; assembling round files for reviewers; tagging exhibits and deleting branch refs; enforcing log-hygiene formatting; mechanically confirming each cited exhibit tag exists (a traceability existence check); running data-safety scans on merged documents; collating the fixed-shape disposition packet; and applying status or wording edits the foreman dictates. The helper never triages findings, recommends or decides a disposition, assigns or revises capability tiers, expands or contracts scope, composes what a status line means, reviews artifact quality, or approves or ratifies anything. This is an optional economy, not a required seat: on light efforts the foreman does the clerical shell itself. The same principle may later be extended to the milestone lifecycle, but is formalized here for the prototype process only.
+**Mechanical work (no helper seat).** The clerical work of the prototype process — maintaining the `SEAT.md` table, assembling round files, tagging exhibits and deleting branch refs, log-hygiene formatting, confirming each cited exhibit tag exists, running data-safety scans on merged documents, collating the fixed-shape disposition packet, applying status or wording edits — is the foreman's own, and the foreman is accountable for all of it. ADR-0045 retired the clerk seat: a spawned mechanical helper costs a cold-agent boot on top of the foreman turns spent spawning and receiving, which is strictly more expensive than the foreman doing it inline. Do it inline when it is small; write a tool when it recurs or its output is bulky enough to pollute the foreman thread. None of this work may involve judgment — triaging findings, recommending a disposition, assigning capability tiers, changing scope, composing what a status line means, reviewing artifact quality, or ratifying anything remain foreman or committee acts regardless of how they are executed.
 
 ### Foreman context routing
 
@@ -152,7 +152,7 @@ next response contains only the builder prompt. The prompt points through the
 repository entry chain and asks the builder to echo its understood scope, rung
 ceiling, and stop conditions before writing. It does not duplicate the charter.
 
-### Builder, reviewer, and clerk context capsules
+### Builder and reviewer context capsules
 
 Audience: Agents
 
@@ -164,41 +164,21 @@ verifies the ref against Git, then reads the controlling charter and cited
 sources. The capsule is part of the charter's routing surface only: it never
 widens scope or replaces exact text.
 
-For clerical work, the foreman prepares a **Clerk Task Capsule** with one
-mechanical task, source ref/commit, allowed input paths, expected output shape
-and paths, verification, and a stop rule. A clerk never chooses a current task
-by reading phase state or the handoff; any missing or ambiguous capsule is a
-stop. ADR-0034 applies to every builder, reviewer, and clerk dispatch. The
-Trusted Advisor is owner-launched strategic counsel and is outside this
-operational-capsule rule.
+The Trusted Advisor is owner-launched strategic counsel and is outside this
+operational-capsule rule. There is no clerk seat and no Clerk Task Capsule
+(ADR-0045); mechanical work is one foreman turn, or a tool when it recurs or
+its output is bulky.
 
-The foreman always maintains one current-prompt Clerk Task Capsule at
-`docs/foreman-clerk-task.md`. It is prepared at foreman beginning or resumption
-and refreshed whenever a plan or execution cycle completes. The foreman—not
-the clerk—supplies the current role and its prompt/charter path. Once a plan is
-approved, there is always a current prompt: before a plan or role cycle is
-marked complete, the foreman prepares the next sequential role's charter/prompt
-and refreshes the capsule. Prompt preparation records plan sequence. This gives
-a clerk a mechanical answer to “what is the current prompt?” without asking it
-to infer work from phase state or handoff prose. Capsule preparation does not
-launch or dispatch a role.
+The current role and prompt are not a separate document. They live in the
+`foreman-context-v1` block at the top of `docs/foreman-handoff.md`, which
+`tools/foreman_context.py` and `tools/build_orientation_block.py` read from a
+resolved ref. The foreman keeps `current_role` and `current_prompt` accurate:
+before a plan or role cycle is marked complete, it prepares the next sequential
+role's charter and updates those fields. Prompt preparation records plan
+sequence; it does not launch or dispatch a role.
 
-The standing capsule cannot predict the hash of the commit that contains
-itself. It therefore names a source ref; the clerk resolves that ref once when
-the query is made, records the resolved commit in its answer, and verifies that
-the exact commit contains the capsule and all allowed inputs. This query-time
-record is the provenance-bearing commit capture. A one-shot Clerk Task Capsule
-supplied out of band continues to name its already-resolved commit directly.
-
-**Spawn, dispatch, and owner launch.** Spawning means instantiating a
-sub-agent. Dispatch is the foreman spawning a sub-agent to fulfill the current
-role in the approved plan after the owner authorizes that dispatch in the
-foreman's active thread. An owner may instead ask the clerk for the current
-prompt, open a new agent thread, and supply that prompt; this is an owner launch
-of the role, not a foreman dispatch. Authorization is ephemeral thread context,
-not repository state and not a current-prompt field. After a dispatch or owner
-launch occurs, record that event and its role/prompt lineage in the applicable
-process or execution log.
+Dispatch authorization is normed in `AGENTS.md` ("Dispatch authorization") and
+is not restated here.
 
 Charters use this compact shape:
 
@@ -211,19 +191,6 @@ Charters use this compact shape:
 - Scope and evidence-rung ceiling (if applicable):
 - Stop conditions:
 - Full reads before acting:
-```
-
-Clerk task records use this shape:
-
-```md
-## Clerk Task Capsule
-
-- Source ref and resolved launch commit:
-- One mechanical task:
-- Allowed repository-relative inputs:
-- Required output shape and paths:
-- Verification:
-- Stop rule:
 ```
 
 **Log hygiene during open rounds.** Process-log entries and commit messages for landed same-round reviews are event-only while the round is open; outcome summaries are written only at round close.
