@@ -1,12 +1,13 @@
 # Track 1 Harness-Core Review — Interrupted Progress Record
 
-Status: **interrupted at owner direction on 2026-07-25; no gate verdict.**
+Status: **superseded 2026-07-25 by the completed `NOT READY` review at
+`docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`.**
 
-This is a foreman-captured progress record, not the completed independent
-review required by the Track 1 gate. The fresh High/high technical-adversary
-Reviewer was dispatched against
-`ff3a7d6e1c7fa999f21590dacef13a8473093e4d`, completed the chartered reads,
-verified the review object, and reported that no stop condition applied. The
+This is the preserved foreman-captured interruption record, not the completed
+independent review required by the Track 1 gate. The fresh High/high technical-adversary
+Reviewer was dispatched against the then-current
+`track/presentation-economy-t1-harness-core` tip, completed the chartered
+reads, verified the review object, and reported that no stop condition applied. The
 owner then directed the foreman to halt the Reviewer before required
 verification, the review record, or a review commit completed. The worktree
 was clean when the Reviewer stopped.
@@ -31,7 +32,10 @@ real-Chrome checks:
 These are progress observations only. The interrupted Reviewer had not yet
 written exact reproduction commands, source locations, complete command
 results, or smallest remediation boundaries into the required review record.
-No item above is promoted into a final gate finding by this note.
+The exact Reviewer later supplied its existing evidence without running
+additional tools or changing the branch. At owner direction, that evidence was
+loaded into the completed `NOT READY` review linked above. This note remains
+only the interruption history.
 
 ## Incomplete obligations
 

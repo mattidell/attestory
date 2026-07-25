@@ -1,8 +1,9 @@
 # Track 1 Review Charter — Harness Lifecycle and Failure Integrity
 
-Status: **current prompt prepared 2026-07-24.** The Track 1 Builder landed the
-instrumented harness core; this independent technical-adversary Reviewer is the
-current role under the owner-approved milestone sequence.
+Status: **completed `NOT READY` 2026-07-25.** The six blocking findings are
+recorded in
+`docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`;
+the focused repair Builder is the current role.
 
 ## Context Capsule
 

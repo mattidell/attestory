@@ -30,9 +30,9 @@ scan.
 
 - Presentation Evaluation Process Economy — **active; owner-approved planning
   unit merged in PR #65 (`1fd3d4c`); Track 0 merged in PR #66 (`870c8ed`);
-  Track 1 harness-core Builder implementation is complete; technical-adversary
-  review was owner-halted with provisional findings and no gate verdict;
-  review completion is the current prompt.** This
+  Track 1 harness-core review completed `NOT READY` with six blockers; the
+  focused repair Builder is the current role, and the post-repair delta-review
+  plan is prepared for owner launch.** This
   process milestone follows the
   Presentation Exploratory Milestone's economy analysis. Its durable capability
   is a quality-adjusted learning loop scoped specifically to UI/UX presentation
