@@ -192,9 +192,73 @@ it locally.
 
 ## Findings
 
-None blocking. One completed-but-previously-undemonstrated measurement (§5
-above) and one newly-covered adversarial case (§3 above) are recorded as this
-review's contribution beyond the committed evidence.
+None blocking against the chartered F1–F6 scope. One completed-but-previously-
+undemonstrated measurement (§5 above) and one newly-covered adversarial case
+(§3 above) are recorded as this review's contribution beyond the committed
+evidence. The verdict above is unchanged by the residual findings below —
+they were found by voluntary exploration past the charter boundary, at owner
+invitation, not by a required measurement.
+
+## Residual findings (beyond charter scope; non-blocking)
+
+The chartered scope is F1–F6 plus directly touched adjacent invariants. The
+following two findings came from exploring one step past that boundary, after
+the READY verdict above. Neither is a correctness-invalidating regression of
+F1–F6; both are logged for owner disposition rather than repaired here
+(reviewer does not repair; the milestone's cap is one repair, one review).
+
+**Framing.** This harness's actual failure mode of concern is a *silent false
+pass* — the tool's whole value is that `passed: true` means what it claims.
+It is not a defense against an adversary editing the harness's own source
+(that is an ordinary code-diff/supply-chain concern, already covered by
+normal review, and out of scope here).
+
+### R1 — The injection-acknowledgement check bypasses the manifest's own declared timeout
+
+**What it is, concretely:** in `executor.mjs`, every criterion check is
+wrapped in `withTimeout(..., manifest.timeoutMs, ...)`, but the injection-
+acknowledgement read (`handle.page.evaluate("Boolean(globalThis...)")`,
+added by the F2 repair) is a bare, unguarded `await` with no timeout.
+
+**Reproduced:** a candidate page whose script goes render-thread-busy for 8
+seconds immediately after the load event (no tamper injection needed — this
+is an ordinary, non-adversarial page) against a manifest declaring
+`timeout_ms: 1000`. Result: the harness ran **10.2 seconds** and returned
+`passed: true`, exit `0` — the declared budget was silently ignored.
+
+**Control:** the identical busy page with the tamper case's injection field
+set to `null` (skipping the acknowledgement step entirely) correctly produced
+`criterion-timeout`, exit `2`, at ~3.1s — confirming the timeout machinery
+itself works and this gap is specific to the one unguarded call the F2 repair
+introduced.
+
+**Why it matters (per the framing above, not an adversary story):** this is
+an honest correctness bug. A real presentation-review workload with a
+synchronously heavy candidate page — plausible, not exotic — can silently
+consume far more wall time than declared and still report success, which is
+exactly the "report lied and nobody would notice" failure mode the whole
+harness exists to prevent. It is not conditioned on any tamper injection
+being adversarial; an ordinary `injection: null` case is unaffected, but any
+case with a non-null injection (i.e., most tamper cases, since that is the
+point of a tamper case) inherits the gap.
+
+**Smallest fix, if pursued:** wrap the existing acknowledgement `evaluate`
+call in the same `withTimeout` helper already used for criterion checks,
+mapping a timeout there to the existing `injection-failed` reason (already in
+the closed case-error vocabulary — no new reason code needed). Small, scoped
+change; not attempted here since reviewer does not repair.
+
+### R2 — Acknowledgement marker is a fixed name, not per-run (downgraded to a footnote)
+
+The execution-acknowledgement mechanism reads a fixed global variable name
+(`__presentationHarnessInjectionAcknowledged`). A candidate page that
+happens to set that same name would be indistinguishable from a tamper
+injection that actually ran. On reflection this is not a meaningful risk
+under the harness's actual usage model: manifests and candidate fixtures are
+authored by trusted builders working in good faith, not adversarially
+constructed to defeat the tool, and no realistic authoring path collides with
+an internal implementation constant by accident. Recorded only as a minor
+design-fragility note; not recommended for repair.
 
 ## Out of scope (honored)
 
