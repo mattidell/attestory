@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy Track 0 independent review returned NOT READY on participating-role cost completeness; focused repair Builder is the current role.",
-  "current_role": "Track 0 participant-cost repair Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair.md"
+  "status": "Presentation Evaluation Process Economy Track 0 participant-cost repair landed in 4f8a07c; independent delta Reviewer is the current role.",
+  "current_role": "Track 0 participant-cost repair delta Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md"
 }
 -->
 # Foreman Handoff Note
@@ -59,7 +59,8 @@ authority.
   owner-launched independent measurement-integrity review returned `NOT READY`
   on one blocker: omitting a workload-declared participant can let a partial
   cost total appear economically promising. The focused participant-cost
-  repair Builder is the current role and its prompt is prepared.
+  repair landed in `4f8a07c`; an independent delta Reviewer is the current role
+  and its prompt is prepared.
   Its five bounded packets measured
   foreman-observed dispatch-to-handoff times of 289, 182, 135, 169, and 480
   seconds. Cache status was never exposed and remains unknown. The resulting
@@ -77,6 +78,8 @@ authority.
   `docs/reviews/2026-07-24-presentation-economy-t0-measurement-review.md`.
 - Track 0 participant-cost repair charter:
   `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair.md`.
+- Track 0 participant-cost repair delta-review charter:
+  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
   ADR-0030, ADR-0039, ADR-0042, and ADR-0043.

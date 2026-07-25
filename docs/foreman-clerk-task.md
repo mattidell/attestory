@@ -1,8 +1,8 @@
 # Foreman Clerk Task Capsule — Current Prompt
 
-Status: **refreshed 2026-07-24 after the Track 0 independent review returned
-`NOT READY`; focused participant-cost repair prompt prepared.** This is a
-mechanical routing record.
+Status: **refreshed 2026-07-24 after the Track 0 participant-cost repair landed
+in `4f8a07c`; independent delta-review prompt prepared.** This is a mechanical
+routing record.
 
 ## Clerk Task Capsule
 
@@ -21,6 +21,7 @@ mechanical routing record.
   `docs/reviews/2026-07-24-presentation-economy-t0-measurement-review.md`,
   and
   `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair.md`,
+  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`,
   all at the query-resolved source commit.
 - **Required output shape and paths:** chat output only; make no repository
   write. Return the three labeled fields under “Current prompt record” exactly,
@@ -28,8 +29,8 @@ mechanical routing record.
 - **Verification:** resolve the source ref once; confirm that commit contains
   this capsule and every allowed input; confirm its handoff `status`,
   `current_role`, and `current_prompt` fields agree with the fixed record; and
-  confirm the Track 0 review record says `NOT READY`, and confirm the repair
-  charter is the current prompt.
+  confirm the repair charter says the repair landed in `4f8a07c`, and confirm
+  the delta-review charter is the current prompt.
 - **Stop rule:** if the ref cannot be resolved, the resolved commit does not
   contain this capsule or an allowed input, the status fields disagree, or a
   later foreman-cycle record supersedes this capsule, stop and report the exact
@@ -38,13 +39,13 @@ mechanical routing record.
 
 ## Current prompt record
 
-- **Current prompt:** “You are the Medium/medium participant-cost repair
-  Builder for Presentation Economy Track 0. Read
-  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair.md`
+- **Current prompt:** “You are the fresh independent High/high delta Reviewer
+  for Presentation Economy Track 0 participant-cost completeness. Read
+  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`
   and its complete Context Capsule, verify the source ref, echo the exact
-  object/scope/evidence ceiling/stop conditions, then repair only the accepted
-  participating-role completeness blocker, run every required verification,
-  and return the chartered handoff.”
-- **Current role:** Track 0 participant-cost repair Builder.
+  object/scope/evidence ceiling/stop conditions, then independently verify that
+  the repair closes the omitted-participant cost-shift finding without
+  regressing the other Track 0 measurements, and return the required verdict.”
+- **Current role:** Track 0 participant-cost repair delta Reviewer.
 - **Prompt/charter path:**
-  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair.md`.
+  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`.

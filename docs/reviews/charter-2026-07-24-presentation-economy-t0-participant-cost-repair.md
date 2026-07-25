@@ -1,8 +1,8 @@
 # Track 0 Repair Charter — Participant-Cost Completeness
 
-Status: **current prompt prepared 2026-07-24.** The Track 0 measurement review
-returned `NOT READY` on one blocking finding. This repair is the current role
-under the owner-approved milestone sequence.
+Status: **completed 2026-07-24; repair landed in `4f8a07c`.** The focused
+participant-cost repair is complete; the independent delta Reviewer is the
+current role.
 
 ## Context Capsule
 
