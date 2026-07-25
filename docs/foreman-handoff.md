@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
-  "status": "Presentation Evaluation Process Economy Track 0 participant-cost repair and READY delta review complete; Track 1 Builder is the current role.",
-  "current_role": "Track 1 instrumented harness core Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md"
+  "status": "Presentation Evaluation Process Economy closed early after accepted Track 0 foundation; rejected Track 1 was not merged; next direction is first actual Presentation milestone planning.",
+  "current_role": "Foreman planning the first actual Presentation milestone",
+  "current_prompt": "docs/foreman-clerk-task.md"
 }
 -->
 # Foreman Handoff Note
@@ -27,7 +27,7 @@ directly and resolve the disagreement before acting. The capsule does not
 authorize a foreman dispatch, change the data boundary, or replace accepted
 authority.
 
-## Current state (2026-07-24)
+## Current state (2026-07-25)
 
 - **Live-Run System Definition and Trust Domains:** complete; ADR-0044 accepted
   as a positioning contract; closure PR #61 **merged**. It selects and schedules
@@ -44,30 +44,25 @@ authority.
   `docs/milestone-retrospectives/2026-07-24-presentation-exploratory-milestone.md`).
   Raising the Presentation matrix aspect for real remains a well-formed but
   **unselected** ADR-0013 decision prototype.
-- **Presentation Evaluation Process Economy:** plan prepared and owner-approved
-  2026-07-24, then merged in PR #65 (`1fd3d4c`). It makes economy
-  learning—not just one optimization—the durable capability, scoped
-  exclusively to UI/UX
-  presentation iteration, development, and review. It adds
-  presentation-specific workload, observation, and comparison data; a
-  source-faithful historical baseline; and a quality-adjusted paired pilot. The
-  offline batch harness, standing synthetic corpus, reusable examples, and
-  tier-matched review allocation are the first measured intervention. It is not
-  evaluating non-presentation workflows and makes no economic claim about them.
-  It raises no matrix cell and proposes no ADR. Track 0 builder implementation
-  is complete on `track/presentation-economy-t0-measurement-substrate`. The
-  owner-launched independent measurement-integrity review returned `NOT READY`
-  on one blocker: omitting a workload-declared participant can let a partial
-  cost total appear economically promising. The focused participant-cost
-  repair landed in `4f8a07c` and the independent delta review returned `READY`.
-  Track 1 Builder is the current role and its prompt is prepared; the Track 1
-  charter stops until the Track 0 source is owner-merged to `main`.
-  Its five bounded packets measured
-  foreman-observed dispatch-to-handoff times of 289, 182, 135, 169, and 480
-  seconds. Cache status was never exposed and remains unknown. The resulting
-  presentation observation contract records direct task-duration,
-  dispatch-batch, foreman-idle-gap, and cache-status telemetry while requiring
-  unavailable cache state to stay missing, never inferred.
+- **Presentation Evaluation Process Economy:** closed early by owner direction
+  2026-07-25. Track 0 merged in PR #66 (`870c8ed`) and is the accepted
+  foundation: strict presentation workload/observation/comparison contracts,
+  the source-faithful historical baseline, participating-role completeness,
+  and quality-before-cost comparison. Track 1's independent review returned
+  `NOT READY` on tuple storage leakage, false-pass malformed injection,
+  launch-time cleanup leakage, path/provenance traversal, incomplete strict
+  validation, and rejected-input echo. Its implementation was not merged; the
+  prepared repair/re-review and Tracks 2–3 were retired. The review trace
+  reported 42 turns, 41 tool calls, 12 harness invocations, 11 Chrome launches,
+  batched browser execution, several very large context reads, and unknown
+  total token use. The retrospective records the owner disposition and the
+  promoted foreman discipline: give known adversarial classes to both Builder
+  and Reviewer as executable coverage, and spend independent review on an
+  explicit novel boundary.
+- **Next direction:** the owner selected the Presentation maturity frontier
+  toward a human surface. No milestone plan or implementation is active yet.
+  The current role is the foreman preparing that plan and applying the Track 0
+  economy foundation from the outset.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -83,11 +78,23 @@ authority.
   `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`.
 - Track 1 instrumented harness core charter:
   `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md`.
+- Track 1 harness-core review charter:
+  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`.
+- Completed Track 1 harness-core review (`NOT READY`):
+  `docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`.
+- Interrupted Track 1 review progress:
+  `docs/reviews/2026-07-25-presentation-economy-t1-harness-core-review-progress.md`.
+- Retired, unexecuted Track 1 repair Builder charter:
+  `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md`.
+- Retired, unexecuted post-repair delta-review charter:
+  `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md`.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
   ADR-0030, ADR-0039, ADR-0042, and ADR-0043.
-- Active milestone plan:
+- Closed milestone plan:
   `docs/phases/real-return/milestones/presentation-evaluation-process-economy.md`.
+- Milestone retrospective:
+  `docs/milestone-retrospectives/2026-07-25-presentation-evaluation-process-economy.md`.
 - Grounding economy analysis:
   `docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md`.
 - Accepted decision: `docs/adr/0044-live-run-system-boundary-and-trust-domains.md`.

@@ -28,24 +28,33 @@ scan.
 
 ## Status
 
-- Presentation Evaluation Process Economy — **active; owner-approved planning
-  unit merged in PR #65 (`1fd3d4c`) on 2026-07-24; Track 0 participant-cost
-  repair and READY delta review are complete; Track 1 Builder is the current
-  role.** This
-  process milestone follows the
+- Presentation frontier toward a human surface — **selected for planning by
+  owner direction 2026-07-25; no milestone plan or implementation is active
+  yet.** The next foreman task is to shape the first actual presentation
+  milestone from the matrix frontier, the citation-walk evidence, and the
+  accepted presentation-economy contracts. It must identify which user-visible
+  meaning requires a Tier 3 decision before implementation, declare its
+  comparable workload and quality floor at plan time, and give Builder and
+  Reviewer the same applicable known-finding map plus a genuinely novel review
+  boundary. Selection raises no matrix cell by itself.
+
+- Presentation Evaluation Process Economy — **closed early by owner direction
+  2026-07-25; Track 0 merged in PR #66 (`870c8ed`) as the accepted foundation;
+  Track 1 was rejected and not merged; Tracks 2–3 were canceled.** This process
+  milestone follows the
   Presentation Exploratory Milestone's economy analysis. Its durable capability
   is a quality-adjusted learning loop scoped specifically to UI/UX presentation
   iteration, development, and review: versioned presentation workloads,
-  observations, and comparisons; a source-faithful historical baseline; and a
-  bounded same-work pilot for evaluating presentation treatments without
-  calling cheaper-but-worse work an improvement. Its first intervention turns
-  recurring CDP/browser checks into one dependency-free offline batch harness,
-  reuses one isolated browser session across a criteria × fixture × candidate ×
-  tamper matrix, promotes a standing synthetic corpus and example templates,
-  and tier-matches each implementation/review seat. The milestone evaluates
-  presentation work and makes no economic claim about non-presentation
-  workflows. It adds no product UI, ADR, or maturity-matrix lift. Plan:
-  `milestones/presentation-evaluation-process-economy.md`.
+  observations, and comparisons; a source-faithful historical baseline; and
+  quality-before-cost/participating-role enforcement that prevents
+  cheaper-but-worse or cost-shifted work from appearing economically promising.
+  The proposed general browser harness failed independent review on six
+  lifecycle/failure-integrity blockers. The owner declined a repair cycle:
+  actual presentation milestones will apply the accepted measurement foundation
+  first and build only the mechanical assistance their real workloads justify.
+  The milestone adds no product UI, ADR, or maturity-matrix lift. Plan:
+  `milestones/presentation-evaluation-process-economy.md`; retrospective:
+  `../../milestone-retrospectives/2026-07-25-presentation-evaluation-process-economy.md`.
 
 - Presentation Exploratory Milestone — **complete** (2026-07-24). Five
   two-builder/two-reviewer cycles over a synthetic citation-walk surface
