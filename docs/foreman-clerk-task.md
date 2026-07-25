@@ -6,7 +6,7 @@ mechanical routing record.
 
 ## Clerk Task Capsule
 
-- **Source ref:** `track/presentation-economy-t0-measurement-substrate`.
+- **Source ref:** `track/presentation-economy-t1-harness-core`.
 - **Resolution rule:** immediately when answering, resolve the source ref to
   one commit and include that commit in the response. The resolved commit must
   contain this capsule and every allowed input. The committed capsule does not
