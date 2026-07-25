@@ -41,12 +41,13 @@ scan.
   `milestones/browser-evaluation-runner-completion.md`; retrospective:
   `../../milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
 
-- Presentation frontier toward a human surface — **selected direction,
-  deliberately deferred until the browser-evaluation runner is trustworthy.**
-  A later product milestone may use the accepted economy foundation and the
-  completed runner, but neither economical improvement nor a
-  known-versus-novel review protocol has yet been demonstrated. Deferral raises
-  no matrix cell.
+- Presentation — Citation Walk on Real Derivation Output — **owner-approved
+  plan 2026-07-25, ready for a charter; no dispatch yet.** Builds the real
+  citation walk against actual `form-field.v3`/`act-derived-publication.v1`
+  output, satisfying ADR-0046's Presentation Surface Contract (ratified
+  2026-07-25 from the Presentation Exploratory Milestone's five-cycle
+  convergence), verified by the completed browser evaluation runner. Plan:
+  `milestones/presentation-citation-walk.md`. Decision record: ADR-0046.
 
 - Presentation Evaluation Process Economy — **closed early by owner direction
   2026-07-25; Track 0 merged in PR #66 (`870c8ed`) as the accepted foundation;
