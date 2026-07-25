@@ -2,6 +2,8 @@
 {
   "version": 1,
   "topic": "foreman-context-loading",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-07-23-foreman-context-loading.md",
   "status": "complete; merged to main 2026-07-23 (PR #56)",
   "scope": [
     "advisory provenance-bound foreman context routing",

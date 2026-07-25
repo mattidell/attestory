@@ -24,9 +24,14 @@ trust Git and say so.
    branch, the merged PR, and the distance from `main` — and ask for direction
    before continuing.** Do not adopt a superseded workspace's plan as current.
 2. Render `python3 tools/foreman_context.py --ref main --format markdown`.
-   Reconcile its selected commit, source blobs, and worktree report with Git.
-   If it refuses, read the named committed sources directly; never replace the
-   refusal with an informal summary.
+   It fetches `origin` first, then reports the **milestone state** and the next
+   transition — take those as given rather than re-deriving them from status
+   prose. Reconcile its selected commit, source blobs, and worktree report with
+   Git. If it refuses, read the named committed sources directly; never replace
+   the refusal with an informal summary. A refusal naming a state that
+   "contradicts the ratified record" means a boundary PR merged (or did not):
+   fix the plan's `milestone_state` before doing anything else
+   (`PROJECT_PLANNING.md`, "Milestone Lifecycle States").
 3. **This file** — your standing posture.
 4. `docs/adr/INDEX.md` — the routing surface. Read the digests; read a full ADR
    only when you are about to act on its exact text. Process is not in the ADR

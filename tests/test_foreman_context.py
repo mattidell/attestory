@@ -14,7 +14,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 TOOL = REPO_ROOT / "tools" / "foreman_context.py"
 
 
-class ForemanContextTests(unittest.TestCase):
+class ContextFixture(unittest.TestCase):
+    """Shared synthetic repository builder; holds no tests of its own."""
+
     def phase_metadata(self, *, include_seat: bool = True, **overrides: Any) -> dict[str, Any]:
         """Phase state is the single re-entry document: pointers plus the live
         status/role/prompt that used to live in the separate handoff note."""
@@ -32,7 +34,14 @@ class ForemanContextTests(unittest.TestCase):
         phase.update(overrides)
         return phase
 
-    def make_repository(self, *, plan_topic: str = "demo-topic", include_seat: bool = True) -> Path:
+    def make_repository(
+        self,
+        *,
+        plan_topic: str = "demo-topic",
+        include_seat: bool = True,
+        with_origin: bool = True,
+        **plan_overrides: Any,
+    ) -> Path:
         root = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, root)
         self.git(root, "init", "-q")
@@ -42,6 +51,7 @@ class ForemanContextTests(unittest.TestCase):
         plan = {
             "version": 1,
             "topic": plan_topic,
+            "milestone_state": "track-1",
             "status": "draft",
             "scope": ["synthetic proof"],
             "non_goals": ["no real workspace"],
@@ -50,6 +60,7 @@ class ForemanContextTests(unittest.TestCase):
                 "new_milestone": ["docs/milestone-retrospectives/demo.md"],
             },
         }
+        plan.update(plan_overrides)
         if include_seat:
             plan["seat"] = "docs/prototypes/demo/SEAT.md"
         seat = {
@@ -69,7 +80,20 @@ class ForemanContextTests(unittest.TestCase):
         self.write_plain(root, "docs/milestone-retrospectives/demo.md")
         self.git(root, "add", ".")
         self.git(root, "commit", "-qm", "seed")
+        if with_origin:
+            self.publish_to_origin(root)
         return root
+
+    def publish_to_origin(self, root: Path) -> None:
+        """Give the fixture a ratified record. The milestone-state checks ask
+        whether the plan and the retrospective are present on `origin/main`, so
+        a repository with no origin exercises the uncorroborated path instead."""
+        origin = Path(tempfile.mkdtemp()) / "origin.git"
+        self.addCleanup(shutil.rmtree, origin.parent)
+        subprocess.run(["git", "init", "--bare", "-q", str(origin)], check=True)
+        self.git(root, "remote", "add", "origin", str(origin))
+        self.git(root, "push", "-q", "origin", "HEAD:refs/heads/main")
+        self.git(root, "fetch", "-q", "origin")
 
     def git(self, root: Path, *args: str) -> str:
         return subprocess.run(
@@ -97,6 +121,8 @@ class ForemanContextTests(unittest.TestCase):
             text=True,
         )
 
+
+class ForemanContextTests(ContextFixture):
     def test_renders_committed_context_with_source_blobs(self) -> None:
         root = self.make_repository()
         result = self.run_tool(root)
@@ -180,6 +206,82 @@ class ForemanContextTests(unittest.TestCase):
         result = self.run_tool(root)
         self.assertEqual(result.returncode, 2)
         self.assertIn("missing required source docs/reviews/missing.md", result.stderr)
+
+
+class MilestoneStateTests(ContextFixture):
+    """The lifecycle state a foreman resumes into is declared by the plan and
+    corroborated against the ratified record, because the two states that were
+    routinely misread — 'the plan PR merged' and 'the closing PR merged' — are
+    facts about `origin/main`, not about the document doing the declaring."""
+
+    def capsule(self, root: Path, ref: str = "HEAD") -> dict[str, Any]:
+        result = self.run_tool(root, ref)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        capsule: dict[str, Any] = json.loads(result.stdout)
+        return capsule
+
+    def test_reports_a_corroborated_state_and_its_next_transition(self) -> None:
+        milestone = self.capsule(self.make_repository())["milestone"]
+        self.assertEqual(milestone["state"], "track-1")
+        self.assertIn("Track 2 or the closing unit", milestone["next_transition"])
+        self.assertIsNotNone(milestone["ratified_ref"])
+        self.assertTrue(all(check["expected"] == check["actual"] for check in milestone["checks"]))
+
+    def test_refuses_a_state_the_ratified_record_contradicts(self) -> None:
+        # 'planning' claims the plan has not merged, but the fixture published it.
+        root = self.make_repository(milestone_state="planning")
+        result = self.run_tool(root)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("contradicts the ratified record", result.stderr)
+        self.assertIn("absent from origin/main", result.stderr)
+        self.assertEqual(result.stdout, "")
+
+    def test_refuses_closing_once_the_retrospective_has_landed(self) -> None:
+        # A merged retrospective means the closing PR merged: the milestone is
+        # closed, not closing. This is the end-boundary case.
+        root = self.make_repository(
+            milestone_state="closing",
+            retrospective="docs/milestone-retrospectives/demo.md",
+        )
+        result = self.run_tool(root)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("contradicts the ratified record", result.stderr)
+
+    def test_accepts_closed_when_the_retrospective_has_landed(self) -> None:
+        root = self.make_repository(
+            milestone_state="closed",
+            retrospective="docs/milestone-retrospectives/demo.md",
+        )
+        milestone = self.capsule(root)["milestone"]
+        self.assertEqual(milestone["state"], "closed")
+        self.assertIn("selecting a new milestone", milestone["next_transition"])
+
+    def test_closing_and_closed_require_a_retrospective_path(self) -> None:
+        result = self.run_tool(self.make_repository(milestone_state="closed"))
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("requires a 'retrospective' path", result.stderr)
+
+    def test_rejects_an_unknown_state(self) -> None:
+        result = self.run_tool(self.make_repository(milestone_state="mostly done"))
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("is not one of", result.stderr)
+        self.assertIn("track-<n>", result.stderr)
+
+    def test_reports_divergence_from_the_ratified_record(self) -> None:
+        root = self.make_repository()
+        self.write_plain(root, "docs/reviews/later.md")
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", "unpublished work")
+        divergence = self.capsule(root)["worktree"]["divergence"]
+        self.assertEqual(divergence["ref"], "origin/main")
+        self.assertEqual((divergence["behind"], divergence["ahead"]), (0, 1))
+
+    def test_declares_state_uncorroborated_without_a_ratified_record(self) -> None:
+        milestone = self.capsule(self.make_repository(with_origin=False))["milestone"]
+        self.assertEqual(milestone["state"], "track-1")
+        self.assertIsNone(milestone["ratified_ref"])
+        self.assertEqual(milestone["checks"], [])
+        self.assertIn("NOT corroborated", milestone["note"])
 
 
 if __name__ == "__main__":

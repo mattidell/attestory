@@ -472,6 +472,49 @@ duplication, and the whole document should run to roughly forty lines:
 Material lessons take effect by an owner-directed edit to the document that
 norms the practice — not by a new ADR.
 
+## Milestone Lifecycle States
+
+Audience: Agents
+
+A milestone is always in exactly one of five states, declared as
+`milestone_state` in the plan's `foreman-context-v1` block. The foreman does not
+infer the state from prose and does not need to: the capsule reports it and
+**checks it against the ratified record**, refusing when the two disagree.
+
+| State | Meaning | Next transition |
+| --- | --- | --- |
+| `planning` | The plan is drafted on a branch; its PR has not merged | Owner merges the plan PR |
+| `planned` | The plan is on `main`; no track has started | Start the first track |
+| `track-<n>` | Track *n* is in flight | Finish track *n*, then the next track or the closing unit |
+| `closing` | The closing PR is open; merging it closes the milestone | Owner merges the closing PR |
+| `closed` | The milestone is closed | Select the next milestone |
+
+`closed` is also how "no milestone is running" is expressed: `docs/phase-state.md`
+keeps pointing at the just-closed plan, so `active_plan` is never empty and a
+foreman that reads `closed` knows its job is selection, not execution.
+
+**Why the state is checked, not trusted.** The two transitions foremen misread
+are the beginning and the end, and both are facts about `main` rather than about
+the document making the claim. Status prose at those moments is a *conditional
+sentence* — "merge activates the repair Builder", "pending owner merge" — which
+cannot tell a later reader whether the condition has since fired. So the boundary
+artifacts answer it instead:
+
+- The **plan** reaches `main` in the merge that *is* the start boundary.
+  `planning` requires it absent; every later state requires it present.
+- The **retrospective** reaches `main` in the merge that *is* the end boundary.
+  `closing` requires it absent; `closed` requires it present. Both states must
+  name its path in `retrospective`.
+
+`tools/foreman_context.py` fetches `origin` before it reads, so these checks run
+against a current `main` rather than a stale one, and it reports how far the
+working ref has drifted. A contradiction is a hard refusal naming both the
+declared state and the observed fact — reconcile it before acting rather than
+picking whichever source looks more recent.
+
+Advancing `milestone_state` is part of the merge that caused the transition, not
+a later cleanup pass.
+
 ## Required Milestone Plan Contents
 
 Before starting a new milestone, create or update a planning document with:

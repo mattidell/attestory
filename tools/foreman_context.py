@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -68,6 +69,35 @@ class GitRepository:
         paths = [line[3:] for line in raw_status.splitlines() if len(line) >= 4]
         branch = self.run("branch", "--show-current") or None
         return {"branch": branch, "dirty": bool(paths), "dirty_paths": paths}
+
+    def fetch(self) -> bool:
+        """Best-effort refresh of `origin`. A repository with no remote, or a
+        machine with no network, must still render a capsule — the caller
+        degrades to last-known refs and says so."""
+        try:
+            self.run("fetch", "origin", "--prune")
+            return True
+        except ContextError:
+            return False
+
+    def resolve_optional(self, ref: str) -> str | None:
+        try:
+            return self.run("rev-parse", "--verify", f"{ref}^{{commit}}")
+        except ContextError:
+            return None
+
+    def path_exists_at(self, commit: str, path: str) -> bool:
+        try:
+            self.run("rev-parse", "--verify", f"{commit}:{path}")
+            return True
+        except ContextError:
+            return False
+
+    def divergence(self, base: str, head: str) -> tuple[int, int]:
+        """(behind, ahead) of `head` relative to `base`."""
+        raw = self.run("rev-list", "--left-right", "--count", f"{base}...{head}")
+        behind, ahead = raw.split()
+        return int(behind), int(ahead)
 
 
 def require_relative_path(value: str, source: str) -> str:
@@ -135,6 +165,141 @@ def validate_deep_reads(
     return validated
 
 
+RATIFIED_REF = "origin/main"
+TRACK_STATE = re.compile(r"^track-(\d+)$")
+
+# Each lifecycle state implies two facts about the ratified record. Both are
+# file-presence questions, because the two artifacts that mark a milestone's
+# boundaries — its plan and its retrospective — reach `main` in the merges that
+# *are* those boundaries. A declared state that disagrees with the ratified
+# record is the beginning/end confusion this table exists to catch.
+#
+#   state       plan on origin/main   retrospective on origin/main
+#   planning    no                    (not yet named)
+#   planned     yes                   no
+#   track-N     yes                   no
+#   closing     yes                   no
+#   closed      yes                   yes
+STATE_EXPECTATIONS = {
+    "planning": (False, None),
+    "planned": (True, False),
+    "closing": (True, False),
+    "closed": (True, True),
+}
+NEXT_TRANSITION = {
+    "planning": "owner merges the plan PR, which moves this milestone to `planned`",
+    "planned": "start the milestone's first track",
+    "closing": "owner merges the closing PR, which closes this milestone",
+    "closed": "this milestone is closed — the next action is selecting a new milestone",
+}
+
+
+def milestone_state_of(metadata: dict[str, Any], path: str) -> str:
+    state = required_string(metadata, "milestone_state", path)
+    if state not in STATE_EXPECTATIONS and not TRACK_STATE.match(state):
+        allowed = ", ".join(sorted(STATE_EXPECTATIONS)) + ", track-<n>"
+        raise ContextError(f"{path} milestone_state {state!r} is not one of: {allowed}")
+    return state
+
+
+def resolve_milestone_state(
+    repository: GitRepository, plan: LoadedDocument, metadata_path: str
+) -> dict[str, Any]:
+    """Check the plan's declared lifecycle state against the ratified record.
+
+    Returns the state plus the checks that corroborated it. Raises when the
+    declaration and `origin/main` disagree: a foreman resuming into a tree whose
+    plan PR merged (or whose closing PR merged) an hour ago must be told, not
+    left to infer it from a status sentence written before the merge.
+    """
+    state = milestone_state_of(plan.metadata, plan.path)
+    track = TRACK_STATE.match(state)
+    expect_plan, expect_retrospective = (True, False) if track else STATE_EXPECTATIONS[state]
+
+    raw_retrospective = plan.metadata.get("retrospective")
+    if raw_retrospective is None and state in {"closing", "closed"}:
+        # The closing unit is the retrospective's merge, so its path is known as
+        # soon as the milestone starts closing. Requiring it here is what makes
+        # the end-of-milestone transition mechanically checkable.
+        raise ContextError(f"{plan.path} milestone_state {state!r} requires a 'retrospective' path")
+    retrospective = (
+        require_relative_path(str(raw_retrospective), f"{plan.path} metadata 'retrospective'")
+        if raw_retrospective
+        else None
+    )
+
+    ratified = repository.resolve_optional(RATIFIED_REF)
+    if ratified is None:
+        return {
+            "state": state,
+            "next_transition": next_transition(state, track),
+            "ratified_ref": None,
+            "checks": [],
+            "note": f"{RATIFIED_REF} is unavailable — state is declared but NOT corroborated",
+        }
+
+    checks: list[dict[str, Any]] = [
+        corroborate("plan on origin/main", repository, ratified, plan.path, expect_plan, state)
+    ]
+    if retrospective is not None and expect_retrospective is not None:
+        checks.append(
+            corroborate(
+                "retrospective on origin/main",
+                repository,
+                ratified,
+                retrospective,
+                expect_retrospective,
+                state,
+            )
+        )
+    return {
+        "state": state,
+        "next_transition": next_transition(state, track),
+        "ratified_ref": ratified,
+        "checks": checks,
+        "note": None,
+    }
+
+
+def corroborate(
+    label: str,
+    repository: GitRepository,
+    ratified: str,
+    path: str,
+    expected: bool,
+    state: str,
+) -> dict[str, Any]:
+    actual = repository.path_exists_at(ratified, path)
+    if actual != expected:
+        raise ContextError(
+            f"milestone_state {state!r} contradicts the ratified record: it requires "
+            f"{path} to be {'present on' if expected else 'absent from'} {RATIFIED_REF}, "
+            f"but it is {'present' if actual else 'absent'}. Either the state is stale "
+            f"(a boundary PR merged) or the declaration is wrong — reconcile before acting."
+        )
+    return {"check": label, "path": path, "expected": expected, "actual": actual}
+
+
+def divergence_report(repository: GitRepository, ratified: str | None) -> dict[str, Any] | None:
+    """How far the working ref has drifted from the ratified record. This is the
+    other half of the boundary problem: a plan can be honest about its state and
+    still be read in a tree that predates the merge which changed it."""
+    if ratified is None:
+        return None
+    head = repository.resolve_optional("HEAD")
+    if head is None:
+        return None
+    behind, ahead = repository.divergence(ratified, head)
+    return {"ref": RATIFIED_REF, "behind": behind, "ahead": ahead}
+
+
+def next_transition(state: str, track: re.Match[str] | None) -> str:
+    if track is not None:
+        number = int(track.group(1))
+        return f"complete Track {number}, then Track {number + 1} or the closing unit"
+    return NEXT_TRANSITION[state]
+
+
 def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
     commit = repository.commit_for_ref(ref)
     phase = load_document(repository, commit, PHASE_STATE_PATH)
@@ -181,6 +346,9 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
         }
     source_documents = [{"path": item.path, "blob": item.blob} for item in sources]
     source_documents.append({"path": current_prompt, "blob": current_prompt_blob})
+    milestone = resolve_milestone_state(repository, plan, plan.path)
+    worktree = repository.worktree_status()
+    worktree["divergence"] = divergence_report(repository, milestone["ratified_ref"])
     return {
         "version": 1,
         "source": {
@@ -188,7 +356,8 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
             "commit": commit,
             "documents": source_documents,
         },
-        "worktree": repository.worktree_status(),
+        "worktree": worktree,
+        "milestone": milestone,
         "state": {
             "phase": required_string(phase.metadata, "phase", phase.path),
             "topic": topic,
@@ -208,21 +377,37 @@ def markdown_capsule(capsule: dict[str, Any]) -> str:
     source = capsule["source"]
     worktree = capsule["worktree"]
     state = capsule["state"]
+    milestone = capsule["milestone"]
+
+    drift = worktree["divergence"]
+    worktree_line = f"- Worktree: branch `{worktree['branch'] or 'detached'}`; dirty: `{worktree['dirty']}`"
+    if drift is not None:
+        worktree_line += f"; {drift['behind']} behind / {drift['ahead']} ahead of `{drift['ref']}`"
+
+    if milestone["ratified_ref"] is None:
+        corroboration = milestone["note"]
+    else:
+        corroboration = f"corroborated against `{RATIFIED_REF}` @ `{milestone['ratified_ref'][:10]}`"
+
     lines = [
         "# Foreman context capsule (advisory)",
         "",
         f"- Source: `{source['selected_ref']}` → `{source['commit']}`",
-        f"- Worktree: branch `{worktree['branch'] or 'detached'}`; dirty: `{worktree['dirty']}`",
+        worktree_line,
         f"- Active: {state['phase']} / `{state['topic']}` ({state['plan_status']})",
+        f"- Milestone state: **{milestone['state']}** — {corroboration}",
+        f"- Next transition: {milestone['next_transition']}",
+    ]
+    seat = state["seat"]
+    if seat is not None:
+        lines.append(f"- Seat: `{seat['role']}` — {seat['status']}; rung: {seat['rung']}")
+    lines.extend([
         f"- Current role: {state['current_role']}",
         f"- Current prompt: `{state['current_prompt']}`",
         "",
         "## Read in full before acting",
         "",
-    ]
-    seat = state["seat"]
-    if seat is not None:
-        lines.insert(5, f"- Seat: `{seat['role']}` — {seat['status']}; rung: {seat['rung']}")
+    ])
     for action, targets in capsule["deep_reads"].items():
         lines.append(f"- `{action}`: {', '.join(f'`{target}`' for target in targets)}")
     lines.extend(["", "## Source blobs", ""])
@@ -236,13 +421,25 @@ def parse_arguments(argv: Sequence[str]) -> argparse.Namespace:
     parser.add_argument("--ref", required=True, help="explicit Git revision to read")
     parser.add_argument("--repo", default=".", help="repository root (default: current directory)")
     parser.add_argument("--format", choices=("json", "markdown"), default="json")
+    parser.add_argument(
+        "--no-fetch",
+        action="store_true",
+        help="skip the automatic `git fetch origin` (offline runs; corroboration then uses last-known refs)",
+    )
     return parser.parse_args(argv)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     arguments = parse_arguments(sys.argv[1:] if argv is None else argv)
+    repository = GitRepository(Path(arguments.repo).resolve())
+    # Fetch before reading. The capsule's boundary checks compare a declared
+    # milestone state against `origin/main`, and a stale `origin/main` would
+    # confirm exactly the outdated picture those checks exist to catch. A failed
+    # fetch is not fatal — it degrades to last-known refs, which the capsule says.
+    if not arguments.no_fetch:
+        repository.fetch()
     try:
-        capsule = render_context(GitRepository(Path(arguments.repo).resolve()), arguments.ref)
+        capsule = render_context(repository, arguments.ref)
     except ContextError as error:
         print(f"foreman context: {error}", file=sys.stderr)
         return 2

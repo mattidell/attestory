@@ -2,7 +2,9 @@
 {
   "version": 1,
   "topic": "browser-evaluation-runner-completion",
-  "status": "owner-directed narrow plan prepared 2026-07-25; merge activates the existing-runner repair Builder",
+  "milestone_state": "track-1",
+  "retrospective": "docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md",
+  "status": "plan merged to main 2026-07-25; Track 1 repair Builder is live on track/browser-evaluation-runner-completion",
   "scope": [
     "adopt the existing reviewed browser evaluation runner implementation without rebuilding it",
     "repair the six confirmed runner-integrity blockers",

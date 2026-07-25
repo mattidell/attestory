@@ -2,6 +2,8 @@
 {
   "version": 1,
   "topic": "presentation-evaluation-process-economy",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-07-25-presentation-evaluation-process-economy.md",
   "status": "closed early by owner direction 2026-07-25; Track 0 is the accepted economy foundation; Track 1 was rejected and not merged; Tracks 2-3 were retired",
   "scope": [
     "versioned UI/UX iteration workload observation and comparison data",
