@@ -1,8 +1,8 @@
 # Track 0 Delta Review Charter — Participant-Cost Completeness
 
-Status: **current prompt prepared 2026-07-24.** The focused repair Builder
-completed the accepted Track 0 blocker; this independent delta Reviewer is the
-current role under the owner-approved milestone sequence.
+Status: **completed 2026-07-24; `READY`.** The focused repair Builder completed
+the accepted Track 0 blocker and the independent delta review cleared it. Track
+1 Builder is the current role.
 
 ## Context Capsule
 
