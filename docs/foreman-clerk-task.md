@@ -1,8 +1,8 @@
 # Foreman Clerk Task Capsule — Current Prompt
 
-Status: **refreshed 2026-07-24 after the Track 1 harness-core Builder
-completed; independent technical-adversary review prompt prepared.** This is a
-mechanical routing record.
+Status: **refreshed 2026-07-25 after the Track 1 technical-adversary review was
+owner-halted with provisional findings and no gate verdict; review completion
+prompt prepared.** This is a mechanical routing record.
 
 ## Clerk Task Capsule
 
@@ -24,6 +24,7 @@ mechanical routing record.
   `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`,
   `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md`,
   `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`,
+  `docs/reviews/2026-07-25-presentation-economy-t1-harness-core-review-progress.md`,
   all at the query-resolved source commit.
 - **Required output shape and paths:** chat output only; make no repository
   write. Return the three labeled fields under “Current prompt record” exactly,
@@ -31,8 +32,9 @@ mechanical routing record.
 - **Verification:** resolve the source ref once; confirm that commit contains
   this capsule and every allowed input; confirm its handoff `status`,
   `current_role`, and `current_prompt` fields agree with the fixed record; and
-  confirm the Track 1 Builder charter says implementation complete, and confirm
-  the Track 1 review charter is the current prompt.
+  confirm the Track 1 Builder charter says implementation complete, confirm
+  the interrupted progress record has no gate verdict, and confirm the Track 1
+  review charter is the current prompt.
 - **Stop rule:** if the ref cannot be resolved, the resolved commit does not
   contain this capsule or an allowed input, the status fields disagree, or a
   later foreman-cycle record supersedes this capsule, stop and report the exact
@@ -41,14 +43,16 @@ mechanical routing record.
 
 ## Current prompt record
 
-- **Current prompt:** “You are the fresh independent High/high
-  technical-adversary Reviewer for the Presentation Economy Track 1 harness
-  core. Read
+- **Current prompt:** “You are the High/high technical-adversary Reviewer
+  completing the interrupted Presentation Economy Track 1 harness-core review.
+  Read
   `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`
-  and its complete Context Capsule, verify the source ref, echo the exact
-  object/scope/evidence ceiling/stop conditions, then independently exercise
-  the real browser lifecycle, failure semantics, confinement, determinism, and
-  observation honesty, and return the required verdict.”
-- **Current role:** Track 1 harness lifecycle technical-adversary Reviewer.
+  and its complete Context Capsule plus
+  `docs/reviews/2026-07-25-presentation-economy-t1-harness-core-review-progress.md`;
+  verify the source ref, echo the exact object/scope/evidence ceiling/stop
+  conditions, reproduce rather than assume the provisional findings, finish
+  every required measurement, and return the required verdict.”
+- **Current role:** Track 1 harness lifecycle technical-adversary review
+  completion.
 - **Prompt/charter path:**
   `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`.
