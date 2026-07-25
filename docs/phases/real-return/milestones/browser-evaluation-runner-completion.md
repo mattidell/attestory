@@ -25,16 +25,17 @@
   "deep_reads": {
     "implementation": [
       "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md#Tracks",
-      "docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md#Blocking findings",
-      "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md",
-      "docs/presentation-economy/README.md#Observation contract",
+      "docs/reviews/2026-07-25-browser-evaluation-runner-repair-review.md#Residual findings (beyond charter scope; non-blocking)",
+      "docs/reviews/charter-2026-07-25-browser-evaluation-runner-residual-repair.md",
+      "docs/presentation-economy/README.md#Execution and lifecycle",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
     ],
     "review": [
       "docs/roles/reviewer.md",
-      "docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md",
-      "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md",
+      "docs/reviews/2026-07-25-browser-evaluation-runner-repair-review.md#Residual findings (beyond charter scope; non-blocking)",
+      "docs/reviews/charter-2026-07-25-browser-evaluation-runner-residual-repair.md",
+      "docs/reviews/charter-2026-07-25-browser-evaluation-runner-residual-repair-review.md",
       "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md#Review gate"
     ],
     "dispatch": [
