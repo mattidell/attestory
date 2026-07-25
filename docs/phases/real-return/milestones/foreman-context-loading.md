@@ -48,7 +48,7 @@
     "merge_or_records": [
       "docs/adr/0030-branch-and-merge-strategy.md#Decision",
       "docs/roles/foreman.md#Standing disciplines",
-      "PROJECT_PLANNING.md#Milestone Execution Branch Protocol"
+      "PROJECT_PLANNING.md#Branch, PR, and Merge Protocol"
     ]
   }
 }

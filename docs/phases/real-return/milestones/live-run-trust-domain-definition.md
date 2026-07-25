@@ -31,7 +31,7 @@
     ],
     "merge_or_records": [
       "docs/adr/0030-branch-and-merge-strategy.md#Decision",
-      "PROJECT_PLANNING.md#Milestone Execution Branch Protocol"
+      "PROJECT_PLANNING.md#Branch, PR, and Merge Protocol"
     ]
   }
 }

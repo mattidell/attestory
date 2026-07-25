@@ -101,8 +101,8 @@ authority.
 - Prepared focused post-repair delta-review charter:
   `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md`.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
-- Binding process routing: `docs/adr/INDEX.md`; especially ADR-0005, ADR-0013,
-  ADR-0030, ADR-0039, ADR-0042, and ADR-0043.
+- Operating rules: `AGENTS.md` and `PROJECT_PLANNING.md`. Process is not in the
+  ADR corpus (ADR-0045); `docs/adr/INDEX.md` routes product contracts only.
 - Closed milestone plan:
   `docs/phases/real-return/milestones/presentation-evaluation-process-economy.md`.
 - Milestone retrospective:

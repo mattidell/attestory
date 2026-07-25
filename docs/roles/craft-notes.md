@@ -65,8 +65,8 @@ that have hardened into tooling or ratified process.
   charter, examination, or review is as long as its declared scope, cases,
   and evidence rung require — write exactly that and stop when the
   obligations are reported. There is deliberately *no* numeric length cap
-  (they were tried, miscalibrated on every real topic, and removed —
-  ADR-0013, 2026-07-20 amendment); don't reintroduce one, and don't pad to
+  (they were tried, miscalibrated on every real topic, and removed);
+  don't reintroduce one, and don't pad to
   look thorough. Thorough evidence is not scope pathology; runaway
   *iterations* are — watch those instead.
 
@@ -110,7 +110,8 @@ that have hardened into tooling or ratified process.
 
 - **Match the reasoning tier to the task.** Reserve high effort for design,
   adversarial review, and judgment; a recheck-that-findings-were-addressed or
-  a formatting normalization can run at a lower tier (ADR-0013 Gate 8). Tier is
+  a formatting normalization can run at a lower tier (`PROJECT_PLANNING.md`,
+  Gate 8). Tier is
   the cheapest economy lever. *(Guarded Transport H1: both efforts ran every
   seat at max effort.)*
 

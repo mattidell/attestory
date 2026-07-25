@@ -42,7 +42,7 @@ point, not a gap to fill.
   `RunContext` shortcut) and that forbidden bindings are truly absent — by
   direct grep, not by trusting the structure to exclude them.
 - **A finding is a measurement, not a mandate to expand scope.** You report and
-  recommend; the foreman triages each finding (ADR-0013 Gate 5), and the owner
+  recommend; the foreman triages each finding (`PROJECT_PLANNING.md`, Gate 5), and the owner
   dispositions. A review never enlarges the charter.
 - **Scope the object exactly as chartered.** Review the named range; call out an
   administrative commit that rode along, but do not treat it as the object.

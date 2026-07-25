@@ -127,9 +127,25 @@ reference it.
   check, and merges only on green. A reviewer runs `pytest` only to confirm a
   specific failing claim.
 
-**Nothing lands on `main` except through a PR the owner merges (ADR-0030).**
-`main` is not push-blocked; you self-enforce. Pointer edits that only describe
-now (`docs/phase-state.md`, `docs/foreman-handoff.md`) need no PR.
+**Nothing lands on `main` except through a PR the owner merges.** `main` is not
+push-blocked; you self-enforce. Pointer edits that only describe now
+(`docs/phase-state.md`, `docs/foreman-handoff.md`) need no PR. The full protocol
+— what is a unit, what gets a PR, how to cite a commit — is
+`PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol".
+
+**Process is the owner's method; ADRs are product contracts (ADR-0045).** How
+work is organized — seats, the milestone loop, dispatch, chartering, review
+cadence, branch and merge mechanics, context routing, capability tiers — is
+changed by owner direction plus an edit to the document that norms it. It needs
+no ADR, no ratification, and no evidence. ADRs are for decisions later artifacts
+are written against: governance, the kernel, schemas and citizen shapes, the rule
+language, composition and closure, data-residency and trust boundaries.
+
+Consequently: **never cite a process ADR against owner direction.** The seven
+former process ADRs (0005, 0013, 0030, 0039, 0040, 0042, 0043) are `retired` —
+history and rationale, never authority. Where direction and a process document
+disagree, the direction governs and the document is updated to match. If you
+think a change is unwise, say so once, plainly, then comply.
 
 **History is not editable in place.** Never edit an accepted ADR's decision to
 change history — supersede it. Never rewrite `main` without an owner direction
@@ -259,4 +275,4 @@ Read a document when its **When** column applies to you — not before.
 
 Accepted ADRs bind whether or not a charter lists them. On any conflict between
 a digest and an ADR's text, the text governs. `rejected` / `superseded` /
-`proposed` ADRs are inert — never load them as authority.
+`proposed` / `retired` ADRs are inert — never load them as authority.

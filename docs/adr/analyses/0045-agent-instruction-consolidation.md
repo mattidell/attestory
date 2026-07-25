@@ -1,11 +1,11 @@
-# Plain-Language Analysis — Agent Instruction Consolidation
+# Plain-Language Analysis — Agent Instruction Consolidation and the Process Domain
 
 Companion to [ADR-0045](../0045-agent-instruction-consolidation.md). The ADR is
 the normative record.
 
 ## What changes
 
-Four things.
+Six things.
 
 `AGENTS.md` stops being a rulebook and becomes a router. An agent opening it
 finds which seat it holds, how the milestone loop works, when a dispatch is
@@ -28,6 +28,20 @@ Reading the governance set stops being an execution-time duty. The foreman,
 builder, and reviewer no longer read `docs/governance/` as a matter of course.
 Governance is checked by CI on every pull request and reviewed by the trusted
 advisor at the decision points the owner already calls.
+
+Process stops being recorded as ADRs. How the work is organized — who sits in
+which seat, how a milestone runs, how a branch reaches `main`, how much
+reasoning a role is worth — is the owner's own working method. It changes by
+saying so and editing the document that describes it. No ratification, no
+evidence, no supersession chain. ADRs are kept for decisions that later work is
+written against and cannot cheaply be undone: the governance set, schemas, the
+rule language, how tax facts compose, where real data may live.
+
+The seven process ADRs are retired. ADR-0005, 0013, 0030, 0039, 0040, 0042 and
+0043 keep their text — they are the record of why the current practices exist —
+but they are no longer authority, and no agent may cite one back at the owner.
+Each one's live content already sat somewhere else, and where that somewhere
+else had gone stale, this change fixes it.
 
 ## Why it is needed
 
@@ -56,6 +70,15 @@ removes a standing chore and a file that went stale between refreshes.
 Most durably, the single-source rule means the next process decision has to
 pick a home rather than being appended wherever it is convenient. That is what
 stops the problem recurring.
+
+Retiring the process ADRs removes a second cost that was harder to see. An
+accepted ADR binds whether or not anyone routed it, so a seat could cite a stale
+process clause against a direct instruction from the owner — and did. Meanwhile
+the ADRs and the documents that were supposed to implement them drifted apart.
+ADR-0030 replaced milestone-sized merges with per-track ones in July, but the
+planning document still described the milestone-sized model it abolished. Two
+statements of the merge rule disagreed, and the current one was in the file
+nobody boots from.
 
 ## What it does not do
 

@@ -36,14 +36,12 @@
     ],
     "dispatch": [
       "docs/roles/foreman.md#Dispatch",
-      "docs/adr/0043-foreman-dispatch-instruction.md#Decision",
-      "docs/adr/0013-prototype-economic-gates.md#Decision",
+      "AGENTS.md#Dispatch authorization",
       "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md#Economical execution"
     ],
     "merge_or_records": [
-      "docs/adr/0030-branch-and-merge-strategy.md#Decision",
       "docs/roles/foreman.md#Standing disciplines",
-      "PROJECT_PLANNING.md#Milestone Execution Branch Protocol"
+      "PROJECT_PLANNING.md#Branch, PR, and Merge Protocol"
     ],
     "schema_or_fixture": [
       "AGENTS.md#Fixture Rules",
