@@ -2,7 +2,9 @@
 {
   "version": 1,
   "topic": "browser-evaluation-runner-completion",
-  "status": "owner-directed narrow plan prepared 2026-07-25; merge activates the existing-runner repair Builder",
+  "milestone_state": "track-1",
+  "retrospective": "docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md",
+  "status": "plan merged to main 2026-07-25; Track 1 repair Builder is live on track/browser-evaluation-runner-completion",
   "scope": [
     "adopt the existing reviewed browser evaluation runner implementation without rebuilding it",
     "repair the six confirmed runner-integrity blockers",
@@ -36,14 +38,12 @@
     ],
     "dispatch": [
       "docs/roles/foreman.md#Dispatch",
-      "docs/adr/0043-foreman-dispatch-instruction.md#Decision",
-      "docs/adr/0013-prototype-economic-gates.md#Decision",
+      "AGENTS.md#Dispatch authorization",
       "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md#Economical execution"
     ],
     "merge_or_records": [
-      "docs/adr/0030-branch-and-merge-strategy.md#Decision",
       "docs/roles/foreman.md#Standing disciplines",
-      "PROJECT_PLANNING.md#Milestone Execution Branch Protocol"
+      "PROJECT_PLANNING.md#Branch, PR, and Merge Protocol"
     ],
     "schema_or_fixture": [
       "AGENTS.md#Fixture Rules",

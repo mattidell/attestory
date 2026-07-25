@@ -2,6 +2,8 @@
 {
   "version": 1,
   "topic": "foreman-context-loading",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-07-23-foreman-context-loading.md",
   "status": "complete; merged to main 2026-07-23 (PR #56)",
   "scope": [
     "advisory provenance-bound foreman context routing",
@@ -48,7 +50,7 @@
     "merge_or_records": [
       "docs/adr/0030-branch-and-merge-strategy.md#Decision",
       "docs/roles/foreman.md#Standing disciplines",
-      "PROJECT_PLANNING.md#Milestone Execution Branch Protocol"
+      "PROJECT_PLANNING.md#Branch, PR, and Merge Protocol"
     ]
   }
 }

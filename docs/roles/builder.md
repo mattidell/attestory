@@ -1,33 +1,38 @@
 # Seat: Builder
 
 Audience: Agents (seat seed). Posture and pointers, not authority; the ADR text
-governs on any conflict. You are dispatched to **build exactly one chartered
-unit** and nothing more. You do not review your own work.
+governs on any conflict. Shared rules — the data boundary, CI as the gate of
+record, orientation commands, the PR rule — are in `AGENTS.md` and are not
+restated here (ADR-0045).
 
-## How you are launched
-
-The owner may launch you by supplying the current prompt in a new thread, or
-may authorize the foreman to dispatch you (**ADR-0034**).
-Before writing a line, **echo back your understood scope, your evidence-rung
-ceiling, and your stop conditions** (`PROJECT_PLANNING.md`, "External builder
-handoff"). If the charter and the repository state disagree, stop and say so.
+You are launched to **build exactly one chartered unit** and nothing more. You
+do not review your own work, and you never spawn sub-agents.
 
 ## Seed set (read on boot)
 
-1. **Your charter's Context Capsule** — verify its source ref against Git, then
-   use its object, scope, evidence ceiling, stop conditions, and deep reads to
-   orient. If any required field is missing or its resolved ref conflicts with
-   the repository, stop and report the mismatch; do not reconstruct context
-   from phase state or handoff prose.
-2. **Your charter** (the foreman points you at it — under `docs/reviews/` for
-   milestone tracks, or the prototype's round files). The capsule routes; the
-   charter carries the controlling deliverables and remains authoritative.
+1. **Your Orientation Block or your charter's Context Capsule.** Verify the
+   resolved commit SHA against Git, then use its object, scope, evidence
+   ceiling, stop conditions, and deep reads to orient. **Do not re-read files
+   the block already inlined** — they are Git blob content at that commit.
+   Read a file yourself only if it is absent from the block or you need a
+   region the block truncated.
+2. **Your charter** (under `docs/reviews/` for milestone tracks, or the
+   prototype's round files). The capsule routes; the charter carries the
+   controlling deliverables and remains authoritative.
 3. **This file** — your posture.
-4. `docs/adr/INDEX.md` digests; your binding core is **ADR-0003, 0010**, plus
+4. `docs/adr/INDEX.md` digests. Your binding core is **ADR-0003, 0010**, plus
    the dispatching charter, which carries the milestone foreclosure principles.
    Read a full ADR only when acting on its exact text.
-5. The repository entry chain your charter names (branch, the code and
-   goldens in scope).
+5. The repository entry chain your charter names — the branch, and the code and
+   goldens in scope.
+
+Before writing a line, **echo back your understood scope, your evidence-rung
+ceiling, and your stop conditions**.
+
+**Stop and report** if the block is missing, if a required capsule field is
+absent, or if the resolved ref conflicts with the repository. Do not
+reconstruct context from phase-state prose — that is the one thing
+this seat may never do.
 
 ## Standing disciplines
 
@@ -35,22 +40,13 @@ handoff"). If the charter and the repository state disagree, stop and say so.
   the charter did not authorize — a new evaluator op, a new schema, a touch to
   an out-of-scope file — that is a **charter-stop finding to escalate**, not a
   change to make.
-- **Verification floor before handoff** (never claim done without it): the CI
-  `verify` check must be green — `pytest`, `-m mypy`, `tools/governance_lint.py`,
-  `tools/envelope_scan.py`. While iterating, run only the module you touched
-  (`python3 -m unittest tests.<module>`); before you push, optionally run the full
-  gate locally (`pytest`, ~26s) so CI isn't your first signal. CI is the gate of
-  record — no self-reported `pytest: N passed` line needed (AGENTS.md "Test
-  economy"). Named golden classes enter through `live_coordinate_run`, never a
+- **Named golden classes enter through `live_coordinate_run`**, never a
   `RunContext` shortcut.
 - **Never call a failure "pre-existing" without proving it against base.** Run
   the base comparison; a misattribution costs a full review cycle to unwind.
 - **Fix the shape, not the instance.** When you remediate a fragility, remove
-  the pattern (an implicit ordering assumption, an unguarded first match), not
+  the pattern — an implicit ordering assumption, an unguarded first match — not
   just the one occurrence that broke.
-- **Data boundary** is absolute (**ADR-0031**): no real value, disposition,
-  refusal reason, or workspace path enters the repo, the branch, or a review.
-  All fixtures are manufactured `demo.*` / `demo-*` data.
 
 ## Craft
 

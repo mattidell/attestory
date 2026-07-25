@@ -7,6 +7,12 @@ branch/dirty data already exists in `foreman_context.worktree_status()`; this ho
 intentionally compact (one summary line + a capped path list) so it costs fewer
 context tokens than a single `git status` would.
 
+Scope: this reports *state*, never policy. It is a snapshot taken once, at
+session start — another agent may move the branch underneath it, which has
+happened. When and how to re-check, and how to detect a superseded workspace,
+is `AGENTS.md` ("Working rules"); an earlier version of this hook asserted that
+no orientation `git status` was needed, which is false past the first turn.
+
 Robustness: any failure prints nothing and exits 0, so a non-git directory or Git
 error never blocks a session.
 """
@@ -32,18 +38,17 @@ def main() -> int:
     branch = status["branch"] or "detached"
     paths = status["dirty_paths"]
     if not status["dirty"]:
-        print(f"[worktree-state] branch: {branch} | clean")
-        print("No orientation `git status`/`git branch` needed — state is above.")
+        print(f"[worktree-state] branch: {branch} | clean  (snapshot at session start)")
         return 0
 
     shown = paths[:MAX_LISTED_PATHS]
     more = len(paths) - len(shown)
-    print(f"[worktree-state] branch: {branch} | dirty: {len(paths)} path(s)")
+    print(f"[worktree-state] branch: {branch} | dirty: {len(paths)} path(s)"
+          "  (snapshot at session start)")
     for path in shown:
         print(f"  M {path}")
     if more > 0:
         print(f"  … +{more} more")
-    print("No orientation `git status`/`git branch` needed — state is above.")
     return 0
 
 

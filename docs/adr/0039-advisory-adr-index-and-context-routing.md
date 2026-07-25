@@ -1,8 +1,14 @@
 # ADR 0039 — Advisory ADR Index and Context Routing
 
-- Status: **accepted** (owner ratification 2026-07-19)
+- Status: **retired** (ADR-0045, 2026-07-25) — history only, not authority. Previously: **accepted** (owner ratification 2026-07-19)
 - Tier: 2
 - Date: 2026-07-19
+
+> **Retired 2026-07-25 by [ADR-0045](0045-agent-instruction-consolidation.md).**
+> Process is the owner's operational domain and is no longer recorded as ADRs.
+> This record is retained permanently as history and rationale — cite it for
+> *why* a practice exists, never as binding authority. Its still-operative
+> content lives in `docs/adr/INDEX.md` (its own header).
 
 ## Context
 

@@ -1,187 +1,210 @@
 # Agent Operating Guide
 
-This file defines how agents should work in this repository. It is a canonical project meta document. Follow it before making code, fixture, schema, runner, or planning changes.
+Audience: Agents. This is a **router**, not a rulebook. Read it once at boot,
+then read your seat file and stop reading this one.
 
-## Tool Preamble
+It carries only what binds every seat regardless of role. Everything else has a
+home named in "Where authority lives" at the bottom.
 
-Bash starts at repo root and cwd persists; never cd to the root; use absolute paths for other dirs
+**Single-source rule (ADR-0045).** Every rule in this project lives in exactly
+one document. Other documents reference it by name and do not restate it. If
+you find the same rule written twice, that is a defect — say so; do not try to
+reconcile the two wordings.
 
-In Claude Code a `[worktree-state]` line (branch + dirty paths) is injected at session start via a SessionStart hook. On any runner, get branch/dirty from that line or from `python3 tools/foreman_context.py --ref <ref>` rather than running `git status`/`git branch` to orient; use `git status`/`git diff` only to verify your own changes after editing.
+## Which seat are you
 
-**Test economy.** The authoritative gate is **CI**: the `verify` workflow (`pytest -n auto` + `-m mypy` + `governance_lint` + `envelope_scan`) runs on every PR and blocks merge on red (branch protection on `main`). A green `verify` check on a commit is the tamper-proof record — reference it; do not re-run the suite to "confirm" a deterministic result.
-- **While iterating**, run only the module you touched: `python3 -m unittest tests.<module>` (seconds).
-- **Before opening/updating a PR**, optionally run the full gate locally (`pytest`, ~26s) so CI isn't your first signal — but CI is the gate of record, not a self-reported `pytest: N passed` line.
-- **The foreman does not run the suite.** It opens the PR and references the `verify` check; it merges only on green. Reviewers reference the check too, and run `pytest` only to confirm a specific failing claim.
+You hold exactly one seat. It is determined by how you were launched, not by
+what the work looks like.
 
-**Cache economy.** Claude Code reuses (caches) the unchanged prefix of each request; a change to the system prompt or tool set forces a full, slow, uncached re-read. The cache TTL is an *inactivity* timer, reset on every hit — continuous work stays warm regardless of how long a task runs; a gap longer than the TTL goes cold. On a Claude subscription the main conversation gets a 1-hour TTL; spawned sub-agents get a 5-minute TTL. Keep the cache warm:
-- **Pick model and effort at session start; don't switch mid-task.** Each `/model` or `/effort` change re-reads the whole history. With `opusplan`, every plan-mode toggle is a model switch — expect a slow turn.
-- **Prefer `/rewind` over `/compact`** when abandoning a path (rewind lands on an already-cached prefix; compact builds a new one). Run `/compact` at task breaks, not mid-task.
-- **Avoid single tool calls that block longer than the TTL.** A >5-minute step (a slow test/build) cold-starts the next turn — this, not task length, is the cache risk. Keep gates fast (the parallel `pytest` gate is ~26s).
-- **Each worktree/directory has its own cache** (the working dir is in the system prompt). Create a new worktree only when you need isolation (e.g. a clean-room rival); otherwise running in the same directory shares the warm cache.
-- **Spawn vs. owner-launch.** For a *one-shot* run, cache barely matters: both agents stay warm while working, and a spawn costs the foreman only ~2 turns (emit + consume) plus the returned result's bulk (measured terse here) — so reserve spawning for short, few, terse-return, one-shot sub-tasks (committee reviews). Prefer owner-launch (`/pickup`) for substantial builder work on grounds of independence (ADR-0034) and keeping the foreman thread lean.
-- **Repair loops lean owner-launch, and here cache *does* matter.** A builder that must repair after review is multi-phase (build → review → repair), with the review as a pause between the builder's two active phases. An owner-launched builder thread stays alive across that pause: it retains its own build reasoning and, if the review turns around within the 1-hour TTL, resumes repair on a warm cache. A spawned builder is one-shot — it already returned, so repair means a fresh cold sub-agent that must re-orient and reverse-engineer its own prior work. Route anything expected to iterate against review through owner-launch.
-- **Record every dispatch/launch** so spawn cost stays measured, not guessed: `python3 tools/spawn_ledger.py record --role <r> --kind <spawn|owner-launch> --event dispatch`, and on completion a `return` event with `--wall-seconds` and the agent's self-reported `--turns`/`--tool-calls`. `python3 tools/spawn_ledger.py summary` aggregates. (Sub-agent internals aren't in the parent transcript; this is the only way to see them.)
+| Seat | Entry | Seat file |
+| --- | --- | --- |
+| **Foreman** | Owner says "resume as foreman" (or `/foreman`) | `docs/roles/foreman.md` |
+| **Builder** | Owner says "pick up the current task" (or `/pickup`), **or** the foreman dispatches you | `docs/roles/builder.md` |
+| **Reviewer** | Same two paths as builder | `docs/roles/reviewer.md` |
+| **Advisor** | Owner says "take the advisor seat" | `docs/roles/advisor.md` |
 
-## Canonical References
+**Builder and reviewer: you do not need to be told which.** Run the orientation
+command; the role is auto-detected from phase state's `current_role`:
 
-Read these before substantial work:
-- `docs/governance/`: the ratified governance set — Constitution (norms), Ontology (meaning), Engineering Constraints (implementation patterns and detections), Principles (interpretation where the others are silent), Commentary (rationale). This is the sole contract authority; see `docs/governance/README.md` for the authority order.
-- `README.md`: current usage and runner commands.
-- `PROJECT_PLANNING.md`: planning process, milestone rules, parallel work rules, and archival rules.
-- `docs/phase-state.md`: summary pointer to the active phase.
-- `docs/phases/<phase-name>/<phase-name>-overview.md`: phase purpose, scope, and exit criteria.
-- `docs/phases/<phase-name>/<phase-name>-roadmap.md`: phase roadmap, active milestone, milestone status, and implementation notes.
-- `docs/phases/<phase-name>/milestones/*.md`: milestone execution plans with track-level plans.
-- Up to the five most recent files in `docs/milestone-retrospectives/`, newest first, before planning a new milestone.
-
-For a routine foreman re-entry, first render
-`tools/foreman_context.py --ref <explicit-ref>`. Its capsule is advisory and
-must be reconciled against Git; it directs action-specific deep reads but never
-replaces these canonical references, accepted ADR text, or the five-retrospective
-read before planning a new milestone. If the capsule refuses, inspect the named
-committed sources directly and resolve the disagreement before acting. Then read docs/roles/foreman.md and docs/foreman-handoff.md.
-
-## Picking up the current role task (runner-agnostic)
-
-When the owner opens a fresh thread and says "pick up the current task" (or
-equivalent), self-orient — do not ask the owner to paste context, and do not
-require the foreman. From the repo root run:
-
-```
+```sh
 python3 tools/build_orientation_block.py --ref main
 ```
 
-The role is **auto-detected** from the handoff's `current_role`; you do not need
-to be told it. This prints one Orientation Block at a resolved commit: the current
-charter plus the plan's action-scoped, section-anchored deep reads (only the cited
-sections). Then: (1) verify the printed commit SHA against Git; (2) adopt the seat
-charter for the block's detected role (`docs/roles/<role>.md`); (3) echo back your
-understood scope, evidence ceiling, and stop conditions; (4) act. If the role
-cannot be inferred, pass `--role`/`--action` explicitly.
+This prints one Orientation Block at a resolved commit: your current charter
+plus the plan's action-scoped, section-anchored deep reads — only the cited
+sections, as Git blob content rather than prose. Then: (1) verify the printed
+commit SHA against Git; (2) adopt the seat file for the detected role;
+(3) echo back your understood scope, evidence ceiling, and stop conditions;
+(4) act. Pass `--role` / `--action` only if detection fails.
 
-**Clean-room rival builder:** when the handoff's `current_role` marks a
-clean-room / rival / independent round, the block **auto-switches** to clean-room
-mode — no flag to pass. It emits the charter, scope, and non-goals but lists deep
-reads as a manifest only (not inlined), and instructs the builder to reimplement
-from the spec without reading any other builder's implementation or thread — the
-same independence a reviewer keeps.
+If phase state marks a **clean-room / rival** round, the block auto-switches —
+no flag. It emits charter, scope, and non-goals but lists deep reads as a
+manifest only, and instructs you to reimplement from the spec without reading
+any other builder's implementation or thread.
 
-This path works from any runner (Claude, Codex, Grok) because it is a plain
-command. Claude users may invoke it via the `/pickup` command, which only wraps
-this same protocol. The block is git blob content, not prose, so it satisfies the
-"verify against Git, do not reconstruct from handoff prose" discipline.
+**Foreman:** re-enter with `python3 tools/foreman_context.py --ref main
+--format markdown`. Its capsule is **advisory** — reconcile its resolved commit
+and worktree report against Git before acting. If it refuses, read the
+committed sources it names directly; never replace a refusal with a prose
+summary.
 
-## Owner Posture and Collaboration Rules
+Both commands take `--ref main` because `main` is the continuously ratified
+record. Pass a different ref only to read the state of an unmerged branch, and
+say which ref you used.
 
-The owner's development posture is defined in `PROJECT_PLANNING.md` (Development Posture). Operational consequences for agents:
+Do not ask the owner to paste context. Do not reconstruct context from prose
+when a command will give it to you from Git.
 
-- **Apologize rather than ask permission.** For reversible work inside an agreed direction, proceed and disclose plainly — in the commit, the retrospective, or the report — rather than blocking on questions. Reserve questions for irreversible actions (history rewrites, data deletion, publishing) and genuine direction changes.
-- **Snapshot-and-reset protocol.** When the owner directs that merged work be unwound: (1) create `snapshot/<date>-<topic>` at the current `main` tip; (2) verify the snapshot ref exists; (3) reset `main` to the directed commit; (4) record what was unwound and why in `docs/reviews/` or the relevant retrospective. Never reset or rewrite `main` without the snapshot ref, and never on your own initiative.
-- **Worktree and branch hygiene.** Keep open worktrees to a minimum. Remove worktrees that are clean and no longer needed, including stale ones left by other agents. Delete merged milestone and continuation branches after confirming their commits are reachable from `main`. Do not leave uncommitted work in a worktree at hand-off: commit it, snapshot it, or discard it and say so.
-- **Hand-offs.** If you resume another agent's interrupted work, say so in the retrospective, note what you adopted versus reworked, and leave the tree clean for the next agent. Because the foreman is context-rich and can hit a session limit mid-task, it keeps a lightweight living continuity note at `docs/foreman-handoff.md` (not a protocol — update it opportunistically, no required cadence) so the owner can launch a fresh foreman that resumes from it. A resuming foreman reads `docs/phase-state.md`, that note, and the active plan, then reconciles against git before continuing.
-- **Review records.** Critical reviews of merged work live under `docs/reviews/` with dated filenames. A review is advisory: the owner decides whether to act, ignore, or snapshot-and-reset.
-- **Prototype-process dispatch.** If the active milestone (per `docs/phase-state.md`) is a prototype-process milestone, do not start working generally: read the seat file (`docs/prototypes/<topic>/SEAT.md`) and take the seat it assigns, under that seat's role charter. Do not self-assign the foreman seat unless the seat file marks it vacant; record any succession in the process log. Spawning means instantiating a sub-agent. Dispatch means the foreman spawning a sub-agent to fulfill the current role in the approved plan, given owner authorization in that foreman thread. An owner opening a new agent thread and supplying the current prompt is an owner launch, not a foreman dispatch. Authorization is never repository state; record a completed dispatch or owner launch in the applicable event log afterward. Every role other than the foreman must not spawn sub-agents. Once dispatched, reviewers run independently; starved fresh-reader rigor remains in the periodic owner-spawned Legibility Audit (`docs/legibility-audits/`).
+## How work moves
 
-## Development Priorities
+A milestone runs through these stages. The **foreman owns the loop**; builders
+and reviewers execute one chartered unit inside it and nothing more.
 
-Prioritize in this order:
-1. Data safety.
-2. Contract clarity.
-3. Deterministic fixtures and tests.
-4. Small atomic commits.
-5. Documentation that reflects actual behavior.
-6. Product/app work only after stable engine boundaries exist.
+1. **Establish scope** — the foreman drafts the milestone plan against the
+   phase roadmap and maturity matrix. The plan is committed before
+   implementation begins.
+2. **Rival prototypes** — for decisions requiring prototype evidence, rival
+   builders work from independent contexts. One context may not author both
+   competing shapes.
+3. **Review and repair** — an author-independent reviewer measures the unit
+   against its charter and returns findings. The foreman triages; a repair
+   builder addresses them. Reviews are advisory; the owner dispositions.
+4. **Establish the scope contract** — the evidence settles into an ADR, or into
+   the plan's contracts section, and becomes binding.
+5. **Build** — chartered tracks, one commit per completed track.
 
-Do not optimize for UI, persistence, or broad tax coverage before the current engine contracts are stable.
+Not every milestone runs all five. Tooling, exploratory, and process milestones
+skip stages by design; **the milestone plan says which apply.** If the plan is
+silent on a stage, that is a plan defect to raise, not a stage to improvise.
 
-## Planning Rules
+## Dispatch authorization
 
-Follow `PROJECT_PLANNING.md` for the full planning protocol. That document is authoritative for milestone planning, track planning, planning commits, parallel work manifests, roadmap conventions, and archive rules.
+**Spawning** means instantiating a sub-agent. **Dispatch** means the foreman
+spawning a sub-agent to fulfill the current role in the approved plan. An owner
+opening a new thread and supplying the current prompt is an **owner launch**,
+not a dispatch.
 
-High-level requirements:
-- Phase documents live under `docs/phases/<phase-name>/`.
-- Each phase has `<phase-name>-overview.md` and `<phase-name>-roadmap.md`.
-- Milestone plans live under the relevant phase's `milestones/` directory.
-- Track plans sit inside the relevant milestone plan.
-- Initial milestone plan generation must be committed before the milestone execution branch begins implementation.
-- Planning must contain the required milestone-plan contents and be committed before implementation starts.
-- Planning and implementation must be committed separately.
-- Milestone implementation must happen on a dedicated milestone execution branch, not directly on `main`.
-- Each completed track must be committed separately before the next track starts, unless the milestone plan explicitly groups tracks.
-- At the end of milestone implementation, the branch history must contain the expected per-track commits rather than one combined milestone implementation commit.
-- When all milestone tracks are complete, report milestone status, and continue the planning/development loop.
-- Milestone completion uses a non-fast-forward merge from the milestone branch into `main`, with the milestone name in the merge commit message.
-- Parallel work manifests belong only in milestone plans and only when parallel execution is part of the milestone plan.
-- Roadmaps are milestone-level product documents and carry phase status, not detailed execution plans.
-- Follow-up plan clarifications before implementation default to being squashed into the relevant planning commit to keep planning history clean.
-- Before planning a new milestone, read up to the five most recent milestone retrospective files from `docs/milestone-retrospectives/` and carry forward relevant lessons into the milestone plan.
-- Architectural changes made during a milestone must be documented in ADRs under `docs/adr/`, using the decision tier to choose the record shape.
-- After each milestone, write a milestone retrospective under `docs/milestone-retrospectives/` before starting the next milestone plan.
+**Only the foreman may spawn sub-agents. Every other seat: never.**
 
-## Decision Records
+The foreman may dispatch **only when a message from the owner in this live
+thread literally contains the string `I authorize dispatch`.**
 
-Use ADRs for architectural changes, boundary decisions, contract commitments, and decisions that shape future implementation.
+- No paraphrase authorizes a dispatch. Not "go ahead", not "sounds good", not
+  an obviously approving reply, not the owner's prior approval of the plan.
+- Absent that string: prepare the charter, report that the role is **prepared
+  but not launchable**, and stop.
+- Authorization is single-use, bound to the role and charter current when it
+  was granted. It does not carry to the next role, to a re-dispatch after a
+  charter revision, or to another thread.
+- Authorization is ephemeral thread context. It is **never** repository state —
+  no file, field, or plan status can grant it.
 
-Prototype evidence rules (see `PROJECT_PLANNING.md`, Prototype-Driven Decisions):
-- Tier 3 ADRs and contract-foundational Tier 2 ADRs require a prototype evaluation analysis as cited evidence. Do not propose an ADR whose central design element is still a placeholder.
-- You are authorized to build prototypes before proposing such ADRs — do not ask permission. Keep prototype code on `prototypes/<topic>/it<N>` branches and never merge it to `main`; only the documents under `docs/prototypes/<topic>/` merge. When an iteration concludes, the foreman preserves it as tag `exhibits/<topic>/it<N>` and deletes the branch ref; exhibit tags are never deleted or moved.
-- A decision that shapes all future content (for example, the language tax rules are written in) is Tier 3, not a contracts line-item in a milestone plan. It gets the prototype process and its own ratification.
-- Prototype roles are separated: the builder never reviews their own iteration; the foreman never reviews artifacts produced under their own charter. Review notes must report measurements against a pre-declared check, not impressions.
-- Only `accepted`-status ADRs are binding. A `proposed` ADR guides its own prototype topic only and must not be implemented against elsewhere; rejected/superseded ADRs are retained with status marked and ignored as authority (ADR-0013, 2026-07-13 amendment).
-- Every prototype round requires independently contexted rival evidence: clean-room rival builders for build rounds, independent-context reviewers for review rounds. One context authoring both competing shapes does not satisfy a plan's rival requirement (ADR-0013, 2026-07-13 amendment).
+Record every dispatch and owner launch in the applicable process or execution
+log afterward, with its role and prompt lineage.
 
-ADR location and naming:
-- Store ADRs under `docs/adr/`.
-- Use numbered kebab-case filenames, for example `0001-rule-artifacts-are-versioned.md`.
-- Do not edit accepted ADR decisions in place to change history. Add a superseding ADR when a decision changes materially.
+> **Heading stability.** The section headings in this file are referenced by
+> `deep_reads` anchors in milestone plans (`AGENTS.md#Data Safety Rules` and
+> friends). A missing anchor does not fail CI — `build_orientation_block.py`
+> degrades it to a full-file read. **Renaming a heading here is a breaking
+> change**: grep for `AGENTS.md#` and update every plan in the same commit.
 
-Decision tiers:
-- Tier 1: reversible internal implementation choices, such as file layout, helper structure, local typing strategy, or fixture organization. Document in the milestone retrospective unless the choice affects an architectural boundary; use an ADR only when the decision is likely to be reused or cited.
-- Tier 2: contract or architecture choices future surfaces consume, such as schema shape, artifact identity, runner behavior, persistence boundaries, or fixture contract structure. Create or update an ADR in `docs/adr/`.
-- Tier 3: product thesis, user-visible concepts, naming, irreversible boundaries, data safety posture, or legal/governance meaning. Create or update an ADR in `docs/adr/` with context, decision, consequences, and alternatives considered.
+## Shared invariants
 
-ADR entries should state:
-- Status: proposed, accepted, superseded, or retired.
-- Tier: 1, 2, or 3.
-- Context: the milestone and problem that forced the decision.
-- Decision: the commitment made.
-- Consequences: what this enables, forecloses, or requires.
-- Links: related milestone plan, retrospective, schemas, fixtures, or superseding ADRs.
+These bind every seat. Each is normed here and nowhere else.
 
-Every new or materially revised ADR also needs a non-normative plain-language
-analysis under `docs/adr/analyses/`, named after the ADR and linked near the top
-of the ADR. It explains what changes, why it is needed, what it enables or
-protects, and what it does not do. The ADR remains authoritative; historical
-ADRs do not need retroactive companions unless materially revisited.
+**CI is the gate of record.** The `verify` workflow (`pytest -n auto` +
+`-m mypy` + `governance_lint` + `envelope_scan`) runs on every PR and blocks
+merge on red. A green `verify` check on a commit is the tamper-proof record —
+reference it.
 
-## Milestone Retrospectives
+- **While iterating:** run only the module you touched,
+  `python3 -m unittest tests.<module>` (seconds).
+- **Before opening or updating a PR:** optionally run `pytest` locally (~26s)
+  so CI isn't your first signal.
+- **Never re-run the suite to "confirm" a deterministic result**, and never
+  substitute a self-reported `pytest: N passed` line for the check.
+- **The foreman does not run the suite** — it opens the PR, references the
+  check, and merges only on green. A reviewer runs `pytest` only to confirm a
+  specific failing claim.
 
-After each milestone, create a retrospective in `docs/milestone-retrospectives/`.
+**Nothing lands on `main` except through a PR the owner merges.** `main` is not
+push-blocked; you self-enforce. Pointer edits that only describe now
+(`docs/phase-state.md`) need no PR. The full protocol
+— what is a unit, what gets a PR, how to cite a commit — is
+`PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol".
 
-Retrospective filenames should be dated and milestone-specific, for example `2026-07-10-engine-contract-stabilization.md`.
+**Process is the owner's method; ADRs are product contracts (ADR-0045).** How
+work is organized — seats, the milestone loop, dispatch, chartering, review
+cadence, branch and merge mechanics, context routing, capability tiers — is
+changed by owner direction plus an edit to the document that norms it. It needs
+no ADR, no ratification, and no evidence. ADRs are for decisions later artifacts
+are written against: governance, the kernel, schemas and citizen shapes, the rule
+language, composition and closure, data-residency and trust boundaries.
 
-Each retrospective should include:
-- Milestone: name, branch, and merge commit when applicable.
-- Shipped: concise capability summary.
-- Verification: commands run and results.
-- Decisions: Tier 1/2/3 decisions made, with links to ADRs for Tier 2 and Tier 3 items.
-- Deviations: where implementation differed from the plan and why.
-- Data safety: statement of synthetic-only committed data and any relevant checks.
-- Follow-ups: concrete work items for future milestones.
-- Planning lessons: what should change in the next milestone plan.
+Consequently: **never cite a process ADR against owner direction.** The seven
+former process ADRs (0005, 0013, 0030, 0039, 0040, 0042, 0043) are `retired` —
+history and rationale, never authority. Where direction and a process document
+disagree, the direction governs and the document is updated to match. If you
+think a change is unwise, say so once, plainly, then comply.
 
-## Contract-First Development
+**History is not editable in place.** Never edit an accepted ADR's decision to
+change history — supersede it. Never rewrite `main` without an owner direction
+and a `snapshot/<date>-<topic>` ref created and verified first. Published
+schemas have their own protocol below.
 
-Contracts descend from the governance set in `docs/governance/`. Schemas, artifact shapes, runner behavior, and persistence boundaries must conform to the Constitution's articles and the Ontology's definitions; the Engineering Constraints state the foreclosed implementation patterns and the detections that catch violations. When a contract decision is not determined by the governance set, it is a Tier 2 or Tier 3 decision: record an ADR.
+**`archive/` is never authority.** It holds the pre-governance v2 engine, which
+predates the Ontology and violates it in places. Use it for tax-domain
+reference only — never for contracts, schemas, or patterns.
 
-Guardrails:
-- The `archive/` tree is historical reference only. It holds the pre-governance v2 engine, which predates the Ontology and violates it in places. Use it for tax-domain reference and sanity checks, never as a source of contracts, schemas, or patterns.
-- Do not build on reserved or deferred ontology entries (T1 derived-finding authority construction; T2 stance; redaction). If a milestone appears to need one, stop and surface the resolution as a Tier 3 decision instead of improvising doctrine.
-- Changes to `docs/governance/` require a new version and user ratification; agents may propose governance changes but never adopt them.
+**Apologize rather than ask permission.** For reversible work inside an agreed
+direction, proceed and disclose plainly — in the commit, the retrospective, or
+the report. Reserve questions for irreversible actions and genuine direction
+changes. Dispatch is not covered by this; see above.
 
-### Schema Publication Protocol
+**Stop when your unit turns on governance text.** You are not expected to hold
+`docs/governance/` in context (ADR-0045). If your work appears to require
+interpreting the Constitution, Ontology, or Engineering Constraints, stop and
+escalate to the owner, who may call an advisor consultation. Do not improvise
+doctrine, and do not build on reserved or deferred ontology entries.
 
-Article 9 and ADR-0003 make every published schema version immutable. A
+## Data Safety Rules
+
+The data boundary (**ADR-0031**) is absolute. Real values, dispositions,
+refusal reasons, workspace locations, credentials, and private outputs never
+enter the repo, a branch, a review, a chat, or your output. Only the three-fact
+non-descriptive attestation crosses.
+
+Never commit:
+
+- Personal source documents; real uploaded tax documents.
+- Personal current-year fact instances; personal manual entries; prior returns.
+- Generated artifacts derived from personal data.
+- Absolute local machine paths in committed fixtures or manifests.
+
+Personal or ad hoc local work stays under ignored paths: `local-data/`,
+`temp/`, `private-archive/`, `uploads/`, `generated/user/`.
+
+Synthetic committed files use demo labels and obviously synthetic IDs
+(`demo.*` / `demo-*`). Run the data safety tests when changing fixtures,
+manifests, paths, or generated artifacts; a reviewer additionally runs
+`python3 tools/envelope_scan.py --range main..HEAD`.
+
+## Fixture Rules
+
+Fixtures must be synthetic and safe to publish.
+
+Use **committed** fixtures for: stable sample source data; stable workspace
+scenarios; expected golden artifacts; contract-level tests.
+
+Use **ignored local output** for: ad hoc runner output; personal experiments;
+generated scratch files.
+
+Golden fixture changes must be intentional. Regenerate only when the contract
+or the expected behavior changed, then inspect the diff.
+
+## Schema Publication Protocol
+
+Article 9 and **ADR-0003** make every published schema version immutable. A
 schema file named in any `packages/schemas/*/published.json` is published
 history, including its exact bytes. A checksum is an integrity witness, never
 permission to revise that history.
@@ -193,92 +216,83 @@ permission to revise that history.
   migration contract says otherwise.
 - Never hand-edit an existing checksum in `published.json`. After adding a new
   schema file, use `packages.kernel.schema_registry.write_manifest` for that
-  schema directory to append its checksum. If the generated manifest changes
-  an existing entry or removes one, stop: restore the published file and make
+  schema directory to append its checksum. If the generated manifest changes an
+  existing entry or removes one, **stop**: restore the published file and make
   the change as a new schema version instead.
 - Before handing off a schema change, inspect the manifest diff to confirm it
-  only adds the new filename and run `python3 -m unittest tests.test_schema_registry`
-  plus the track's schema and consumer tests. The registry test proves that a
-  mutated published schema and a republished checksum are both rejected.
+  only adds the new filename, and run
+  `python3 -m unittest tests.test_schema_registry` plus the track's schema and
+  consumer tests. The registry test proves that a mutated published schema and
+  a republished checksum are both rejected.
 
-## Fixture Rules
+## Working rules
 
-Fixtures must be synthetic and safe to publish.
+Bash starts at repo root and cwd persists. **Never `cd` to the root**; use
+absolute paths for other directories.
 
-Use committed fixtures for:
-- Stable sample source data.
-- Stable workspace scenarios.
-- Expected golden artifacts.
-- Contract-level tests.
+In Claude Code a `[worktree-state]` line is injected at session start by a
+SessionStart hook. It is accurate **at that moment only** — another agent may
+be working in the same tree. Trust it for your first turn; re-check with
+`git status` if the session runs long or you suspect drift. Use `git status` /
+`git diff` to verify your own changes after editing.
 
-Use ignored local output for:
-- Ad hoc runner output.
-- Personal experiments.
-- Generated scratch files.
+**Check whether you are stale before you work.** The tree you resume into may
+have been overtaken while you were away: a PR of this branch may already be
+merged, or `main` may have moved past the state `docs/phase-state.md` describes.
+Fetch first, then compare — do not infer freshness from phase state, the plan
+status, or a hook line:
 
-Golden fixture changes must be intentional. Regenerate only when the contract or expected behavior changed, then inspect the diff.
+```sh
+git fetch origin --prune
+git rev-list --left-right --count origin/main...HEAD   # behind<TAB>ahead
+gh pr list --state merged --head "$(git branch --show-current)" --limit 3
+```
 
-## Data Safety Rules
+Read it as: **ahead 0 and a merged PR for this branch** means your work already
+landed — this workspace is spent, and continuing on it re-does or reverts
+merged history. **Behind > 0** means your base is stale; rebase or re-cut from
+`main` before building, and re-verify that the charter still describes work that
+remains. Either way, **say so explicitly** — name the branch, the merged PR, and
+how far behind you are — and get direction before proceeding. Silently working
+in a superseded tree is the failure this rule exists to prevent.
 
-Never commit:
-- Personal source documents.
-- Real uploaded tax documents.
-- Personal current-year fact instances.
-- Personal manual entries.
-- Prior returns.
-- Generated artifacts derived from personal data.
-- Absolute local machine paths in committed fixtures or manifests.
+Keep worktrees to a minimum. Remove worktrees that are clean and no longer
+needed, including stale ones left by other agents. Delete merged branches after
+confirming their commits are reachable from `main`. Do not leave uncommitted
+work in a worktree at hand-off — commit it, snapshot it, or discard it and say
+so.
 
-Personal or ad hoc local work must stay under ignored paths such as:
-- `local-data/`
-- `temp/`
-- `private-archive/`
-- `uploads/`
-- `generated/user/`
+If you resume another agent's interrupted work, say so in the retrospective,
+note what you adopted versus reworked, and leave the tree clean.
 
-Synthetic committed files should use demo labels and obviously synthetic IDs.
+## Development priorities
 
-Run data safety tests when changing fixtures, manifests, paths, or generated artifacts.
+In this order: (1) data safety; (2) contract clarity; (3) deterministic
+fixtures and tests; (4) small atomic commits; (5) documentation that reflects
+actual behavior; (6) product/app work only after stable engine boundaries
+exist.
 
-## Commit Rules
+Do not optimize for UI, persistence, or broad tax coverage before the current
+engine contracts are stable.
 
-Prefer one atomic conceptual change per commit.
+## Where authority lives
 
-Good commits:
-- Add one schema and its loader/tests.
-- Add one runner and its subprocess tests.
-- Add one artifact to the workspace runner and golden fixtures.
-- Add one planning update.
+Read a document when its **When** column applies to you — not before.
 
-Avoid commits that mix:
-- Planning rewrites and implementation.
-- Schema shape changes and unrelated refactors.
-- Golden fixture regeneration and broad code cleanup.
-- Data safety changes and feature work.
+| Document | Norms | When you read it |
+| --- | --- | --- |
+| `docs/roles/<seat>.md` | Your posture, seed set, disciplines | On boot, always |
+| Your charter | Scope, deliverables, stop conditions | On boot; it controls over any capsule |
+| `PROJECT_PLANNING.md` | Planning protocol, milestone/track rules, capsule contracts, prototype gates, branch/commit protocol, document layout, ADR and retrospective shapes, archive rules | Foreman, when planning or chartering |
+| `docs/adr/INDEX.md` | ADR routing (advisory) | On boot — digests only. Read a full ADR only when acting on its exact text |
+| `docs/phases/<phase>/` | Phase overview, roadmap, milestone plans | Foreman. **Builders and reviewers orient from their charter and Orientation Block, never from phase state** |
+| `docs/phase-state.md` | Product briefing, active pointer | Foreman and advisor |
+| `docs/milestone-retrospectives/` | Completed-milestone lessons | Foreman — five most recent, before planning a new milestone |
+| `docs/governance/` | The sole contract authority | **Advisor only** (ADR-0045). Enforced for every other seat by CI and by the stop condition above |
+| `docs/roles/craft-notes.md` | Recurring how-to reminders per seat | When your seat file points you there |
+| `README.md` | Current usage and runner commands | When running the product |
+| `docs/runner-economy.md` | Owner-facing runner and cache economy | Not an agent instruction |
 
-Commit messages should describe the capability or contract added.
-
-Planning commits should precede implementation commits and should not be made on the milestone execution branch. If a plan is revised before implementation begins, keep the planning history clean by squashing revisions into the relevant planning commit.
-
-Milestone implementation should be one completed track per commit. A completed milestone branch should show distinct commits for each completed track, unless the milestone plan explicitly specified a grouped track commit before implementation. Do not squash, rebase away, or collapse track commits when completing a milestone unless the milestone plan explicitly requires that history shape.
-
-Milestone branch completion must be done after planned tracks are complete and required verification passes. Merge the milestone branch into `main` with a non-fast-forward merge commit and include the milestone name in the merge commit message.
-
-## Documentation Rules
-
-Update docs when behavior changes.
-
-Use root all-caps documents for canonical meta process:
-- `PROJECT_PLANNING.md`
-- `AGENTS.md`
-- future `CHANGELOG.md`
-
-Use `docs/` lower-case planning documents for phase, milestone, and historical planning:
-- `docs/phase-state.md`
-- `docs/phases/<phase-name>/<phase-name>-overview.md`
-- `docs/phases/<phase-name>/<phase-name>-roadmap.md`
-- `docs/phases/<phase-name>/milestones/*.md`
-
-Do not silently overwrite obsolete plans. Archive superseded plans under `docs/archive/` with a short rationale.
-
-Consumer-facing changelogs should describe capabilities and should not list commit hashes.
+Accepted ADRs bind whether or not a charter lists them. On any conflict between
+a digest and an ADR's text, the text governs. `rejected` / `superseded` /
+`proposed` / `retired` ADRs are inert — never load them as authority.

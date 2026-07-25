@@ -4,12 +4,32 @@
   "phase": "Real Return",
   "topic": "browser-evaluation-runner-completion",
   "active_plan": "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md",
-  "handoff": "docs/foreman-handoff.md"
+  "status": "Presentation Economy closed in merged PR #68; Browser Evaluation Runner Completion plan prepared; existing-runner repair Builder is next after plan merge.",
+  "current_role": "Browser Evaluation Runner repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md"
 }
 -->
 # Phase State
 
-This file is the re-entry point. Alongside the phase pointer below, it carries a **product briefing** in ordinary language, updated at milestone boundaries, answering four questions: what the product does now, what shims are in place, what the next milestone makes it do, and the nature of the pending schema/contract change.
+This is the **single re-entry document.** It carries the machine-readable
+`foreman-context-v1` block above, a **product briefing** in ordinary language,
+the current operational state, and durable pointers. It describes *now*: durable
+history lives in milestone retrospectives, review records, ADRs, and Git, and
+this file links there rather than retelling it.
+
+## Re-entry
+
+Render the advisory capsule from an explicit committed ref:
+
+```sh
+.venv/bin/python3 tools/foreman_context.py --ref HEAD --format markdown
+```
+
+Reconcile its source commit and worktree report with Git, then read the
+action-specific sources it names. If it refuses, inspect those committed sources
+directly and resolve the disagreement before acting. The capsule does not
+authorize a foreman dispatch, change the data boundary, or replace accepted
+authority.
 
 ## Product briefing (as of 2026-07-25, browser-runner completion plan prepared)
 
@@ -29,6 +49,59 @@ invariants. This is not a presentation prototype, an economy experiment, or an
 adversarial-novelty practice run; it adds no product UI, ADR, or maturity lift.
 
 **Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are published; any further correction-authority extension is separately chartered. ADR-0044 is accepted positioning, not a mechanism decision: any authority-separation implementation requires a later owner-selected milestone, mechanical proof, and real-run verification before an L4 claim.
+
+## Current state (2026-07-25)
+
+- **Live-Run System Definition and Trust Domains:** complete; ADR-0044 accepted
+  as a positioning contract; closure PR #61 **merged**. It selects and schedules
+  no enforcement mechanism, makes no L4 claim.
+- **Presentation Exploratory Milestone:** complete 2026-07-24. An **exploratory
+  milestone (no ADR, no matrix cell raised)** — studied developing/evaluating UI
+  under agent-authored, agent-reviewed, owner-light constraints, using a synthetic
+  citation-walk surface. Five 2-builder/2-reviewer cycles. Finding: developable
+  via a demonstrated loop; ~65–80% of UI quality is agent-mechanizable. Main
+  artifact = seven evaluation-analysis documents at
+  `docs/prototypes/human-presentation-citation-walk/analysis/` (cycle log +
+  process in the sibling `plan.md`; reference prototypes/fixtures/harness-seed
+  under `reference/`; retrospective pointer
+  `docs/milestone-retrospectives/2026-07-24-presentation-exploratory-milestone.md`).
+  Raising the Presentation matrix aspect for real remains a well-formed but
+  **unselected** decision prototype.
+- **Presentation Evaluation Process Economy:** closed early by owner direction
+  2026-07-25. Track 0 merged in PR #66 (`870c8ed`) and is the accepted
+  foundation: strict presentation workload/observation/comparison contracts,
+  the source-faithful historical baseline, participating-role completeness,
+  and quality-before-cost comparison. Track 1's independent review returned
+  `NOT READY` on tuple storage leakage, false-pass malformed injection,
+  launch-time cleanup leakage, path/provenance traversal, incomplete strict
+  validation, and rejected-input echo. Its implementation was not merged; the
+  prepared repair/re-review and Tracks 2–3 were retired. The review trace
+  reported 42 turns, 41 tool calls, 12 harness invocations, 11 Chrome launches,
+  batched browser execution, several very large context reads, and unknown
+  total token use. The retrospective records the owner disposition and the
+  promoted foreman discipline: give known adversarial classes to both Builder
+  and Reviewer as executable coverage, and spend independent review on an
+  explicit novel boundary.
+- **Browser Evaluation Runner Completion:** owner-directed plan prepared
+  2026-07-25. It resumes the existing, reviewed implementation preserved on
+  `track/presentation-economy-t1-harness-core`; the Builder must transplant the
+  commit whose subject is `implement Track 1 instrumented harness core and
+  fail-closed lifecycle`, verify the adopted files, and repair rather than
+  reconstruct. Scope is the six known blockers (storage isolation, injection
+  acknowledgement, cancellation-safe cleanup, canonical path/provenance
+  confinement, strict non-vacuous validation, and redacted external failures)
+  plus the transferred lifecycle/output measurements. One focused delta review
+  checks those changes and adjacent invariants. No runner rebuild, product
+  prototype, economy experiment, novelty catalog, or broad creative re-review
+  belongs in this milestone. Merge of the planning unit activates the prepared
+  repair Builder charter.
+- **Later direction:** the actual human-surface Presentation frontier remains
+  selected but deferred until the runner is trustworthy. The accepted economy
+  contracts remain available, but no economical improvement or novelty-review
+  practice has yet been demonstrated.
+- **Data boundary:** all committed evidence remains synthetic. Do not access or
+  record a real workspace, credential, remote, output, or location. The
+  owner-held live-run helpers remain untracked.
 
 ## Pointers
 
@@ -57,6 +130,41 @@ runner or using this tooling-completion work to claim presentation-economy or
 review-novelty results. Plan:
 `docs/phases/real-return/milestones/browser-evaluation-runner-completion.md`.
 
-Standing operational notes: ADR-0030 governs (per-track PRs, owner merges, `main` is the continuous ratified record); ADR-0043 adopts the foreman dispatch instruction, including owner authorization before dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
+Standing operational notes: `PROJECT_PLANNING.md` ("Branch, PR, and Merge Protocol") governs per-track PRs, owner merges, and `main` as the continuous ratified record; `AGENTS.md` ("Dispatch authorization") governs dispatch; the owner-held run tooling (`tools/scaffold_live_acts.py`, `workspace-seed/`) is intentionally untracked; every fresh clone runs `tools/install_envelope_hooks.py` once (the suite enforces it). The GitHub remote stays **private** (standalone owner decision to change).
 
 Durable history — Foundation's record lives in `docs/phases/foundation/foundation-roadmap.md`; the First Real Return Slice's track-by-track history lives in its milestone plan, retrospective, and git history. The Dividends and Schedule B Slice's track-by-track history (D1/D2/D3 ratification, Tracks 0/0a/1–4, reviews, repairs, the real run) lives in its milestone plan, its retrospective, the review records under `docs/reviews/`, and git history — no longer restated here.
+
+## Durable pointers
+
+- Track 0 independent review:
+  `docs/reviews/2026-07-24-presentation-economy-t0-measurement-review.md`.
+- Track 0 participant-cost repair charter:
+  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair.md`.
+- Track 0 participant-cost repair delta-review charter:
+  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`.
+- Track 1 instrumented harness core charter:
+  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md`.
+- Track 1 harness-core review charter:
+  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`.
+- Completed Track 1 harness-core review (`NOT READY`):
+  `docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`.
+- Interrupted Track 1 review progress:
+  `docs/reviews/2026-07-25-presentation-economy-t1-harness-core-review-progress.md`.
+- Reactivated existing-runner repair Builder charter:
+  `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md`.
+- Prepared focused post-repair delta-review charter:
+  `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md`.
+- Foreman posture and verification floor: `docs/roles/foreman.md`.
+- Operating rules: `AGENTS.md` and `PROJECT_PLANNING.md`. Process is not in the
+  ADR corpus (ADR-0045); `docs/adr/INDEX.md` routes product contracts only.
+- Grounding economy analysis:
+  `docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md`.
+- Accepted decision: `docs/adr/0044-live-run-system-boundary-and-trust-domains.md`.
+- Live-run system-definition plan:
+  `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`, with
+  review `docs/reviews/2026-07-23-live-run-system-trust-domains-adr-review.md`
+  and retrospective
+  `docs/milestone-retrospectives/2026-07-23-live-run-system-definition-and-trust-domains.md`.
+- Completed-milestone lessons: `docs/milestone-retrospectives/`.
+- Presentation UI/UX process experiment (preserved findings + reusable
+  agent-driven-UI method recipe): `docs/prototypes/human-presentation-citation-walk/plan.md`.

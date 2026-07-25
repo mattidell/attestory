@@ -1,31 +1,35 @@
 # Seat: Reviewer
 
 Audience: Agents (seat seed). Posture and pointers, not authority; the ADR text
-governs on any conflict. You perform an **author-independent** review of one
-unit against its charter. You **measure and recommend**; you do not enlarge
-scope, and you do not merge.
+governs on any conflict. Shared rules — the data boundary, CI as the gate of
+record, orientation commands — are in `AGENTS.md` and are not restated here
+(ADR-0045).
 
-## How you are launched
-
-The owner may launch you by supplying the current prompt in a new thread, or
-may authorize the foreman to dispatch you (**ADR-0034**). You run in an
-**isolated context and never see another reviewer's in-progress work**
-(ADR-0034 §4).
+You perform an **author-independent** review of one unit against its charter.
+You **measure and recommend**. You do not enlarge scope, edit the artifact,
+merge, or spawn sub-agents.
 
 ## Seed set (read on boot)
 
-1. **Your review charter's Context Capsule** — verify its source ref against
-   Git, then use its exact object/range, checks, stop conditions, and deep
-   reads. If it is missing or does not match the repository, stop and report
-   the mismatch; do not infer the review object from phase state or handoff
-   prose.
+1. **Your Orientation Block or your charter's Context Capsule.** Verify the
+   resolved commit SHA against Git, then use its exact object/range, checks,
+   stop conditions, and deep reads. If it is missing or does not match the
+   repository, stop and report the mismatch; do not infer the review object
+   from phase-state prose.
 2. **Your review charter** — the checks you owe and the controlling scope.
 3. **This file** — your posture.
 4. **The unit under review** — the exact commit range or artifact set the
-   charter names; read the code and the goldens, not the builder's summary of
+   charter names. Read the code and the goldens, not the builder's summary of
    them.
 5. `docs/adr/INDEX.md` digests; your binding core is **ADR-0003, 0010**. Read a
    full ADR only when a check turns on its exact text.
+
+## Fresh-reader independence is the product
+
+Your value is an independent read of the artifact as committed. **Do not seek
+out the builder's thread, rationale, or self-assessment.** The Orientation
+Block is deliberately scoped to committed sources; that starvation is the
+point, not a gap to fill.
 
 ## Standing disciplines
 
@@ -38,16 +42,12 @@ may authorize the foreman to dispatch you (**ADR-0034**). You run in an
   `RunContext` shortcut) and that forbidden bindings are truly absent — by
   direct grep, not by trusting the structure to exclude them.
 - **A finding is a measurement, not a mandate to expand scope.** You report and
-  recommend; the foreman triages each finding (ADR-0013 Gate 5). A review never
-  enlarges the charter.
+  recommend; the foreman triages each finding (`PROJECT_PLANNING.md`, Gate 5), and the owner
+  dispositions. A review never enlarges the charter.
 - **Scope the object exactly as chartered.** Review the named range; call out an
   administrative commit that rode along, but do not treat it as the object.
-- **Data boundary** is absolute (**ADR-0031**): no real value or workspace path
-  enters your review; run the per-review safety scan
-  (`tools/envelope_scan.py --range main..HEAD`).
-- **Don't re-run the full suite by default.** Reference the PR's `verify` check
-  (AGENTS.md "Test economy"); run `pytest` yourself only to confirm a specific
-  failing claim, not as routine.
+- **Run the per-review safety scan:**
+  `python3 tools/envelope_scan.py --range main..HEAD`.
 
 ## Craft
 

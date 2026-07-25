@@ -2,6 +2,8 @@
 {
   "version": 1,
   "topic": "live-run-trust-domains",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-07-23-live-run-system-definition-and-trust-domains.md",
   "status": "complete; ADR-0044 accepted by owner 2026-07-23; publication PR #61 pending owner merge",
   "scope": [
     "draft the specified Tier 3 system-definition ADR and plain-language companion",
@@ -31,7 +33,7 @@
     ],
     "merge_or_records": [
       "docs/adr/0030-branch-and-merge-strategy.md#Decision",
-      "PROJECT_PLANNING.md#Milestone Execution Branch Protocol"
+      "PROJECT_PLANNING.md#Branch, PR, and Merge Protocol"
     ]
   }
 }

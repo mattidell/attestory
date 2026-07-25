@@ -1,9 +1,15 @@
 # ADR 0042 — Foreman Context Capsule and Progressive Disclosure
 
-- Status: **accepted** (owner ratification 2026-07-23)
+- Status: **retired** (ADR-0045, 2026-07-25) — history only, not authority. Previously: **accepted** (owner ratification 2026-07-23)
 - Tier: 2 (process)
 - Date: 2026-07-23
 - Plain-language analysis: [0042-foreman-context-capsule.md](analyses/0042-foreman-context-capsule.md)
+
+> **Retired 2026-07-25 by [ADR-0045](0045-agent-instruction-consolidation.md).**
+> Process is the owner's operational domain and is no longer recorded as ADRs.
+> This record is retained permanently as history and rationale — cite it for
+> *why* a practice exists, never as binding authority. Its still-operative
+> content lives in `PROJECT_PLANNING.md`, "Foreman context routing" and "Builder and reviewer context capsules".
 
 ## Context
 
