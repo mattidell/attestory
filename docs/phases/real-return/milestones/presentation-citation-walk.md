@@ -4,7 +4,7 @@
   "topic": "presentation-citation-walk",
   "milestone_state": "track-1",
   "retrospective": null,
-  "status": "Owner-approved 2026-07-25 on ADR-0046 (ratified same day). Track 1 built (PR #77, verify green, unmerged); Track 1's review gate ran and returned NOT READY on F1 and F2. The fixed one-review cap sends that residual to the owner for disposition. Track 2 not started.",
+  "status": "Owner-approved 2026-07-25 on ADR-0046 (ratified same day). Track 1 built (PR #77, verify green, unmerged); its review gate returned NOT READY on F1 and F2. The Track 1 repair is the live unit, with a focused recheck to follow. Track 2 not started.",
   "scope": [
     "render the real citation walk against actual derivation output (form-field.v3 + act-derived-publication.v1), not a synthetic fixture",
     "satisfy ADR-0046's Presentation Surface Contract end to end",
@@ -58,10 +58,10 @@
 -->
 # Milestone: Presentation — Citation Walk on Real Derivation Output
 
-Status: **in flight — Track 1 at its review gate, verdict `NOT READY`.**
-Execution to date is in "Execution record" below. The next move is an owner
-disposition, not a dispatch; any dispatch still requires the owner's literal
-string `I authorize dispatch` per `AGENTS.md`.
+Status: **in flight — Track 1 repair is the live unit.** The review gate
+returned `NOT READY` on findings F1 and F2. The cap below now carries one
+repair build and its focused recheck. Execution to date is in "Execution
+record" below.
 
 ## Objective
 
@@ -279,25 +279,21 @@ advances; the matrix claim (or decline) is evidenced, not asserted.
 
 ## Execution record
 
-Required by `AGENTS.md` ("Dispatch authorization"): every dispatch and owner
-launch is logged with its role and prompt lineage. This section was
-reconstructed from Git on 2026-07-26 by a later foreman, because the foreman
-that ran these units did not write it. Entries assert only what Git and GitHub
-prove; where the launch mode is not recorded anywhere, it says so rather than
-guessing.
+Prompt lineage for this milestone's units. Reconstructed from Git on
+2026-07-26 by a later foreman, because the foreman that ran these units wrote
+no record. Entries assert only what Git and GitHub prove.
 
-| # | Unit | Role | Prompt (charter) | Outcome | Launch mode |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Track 1 build | Builder | `docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md` (merged, PR #74) | `6ce90e7` on `track/presentation-citation-walk-track1`; PR #77 open, `verify` green, unmerged | **Not recorded.** No log entry was written at the time. |
-| 2 | Track 1 review gate | Reviewer | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md` (merged, PR #78) | `NOT READY` — `docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`; measurements 1–8 pass, findings F1 and F2 block | **Not recorded.** No log entry was written at the time. |
+| # | Unit | Role | Prompt (charter) | Outcome |
+| --- | --- | --- | --- | --- |
+| 1 | Track 1 build | Builder | `docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md` (PR #74) | `6ce90e7` on `track/presentation-citation-walk-track1`; PR #77 open, `verify` green, unmerged |
+| 2 | Track 1 review gate | Reviewer | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md` (PR #78) | `NOT READY` — `docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`; measurements 1–8 pass, findings F1 and F2 block |
+| 3 | Track 1 repair | Builder | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md` | Owner-approved; owner-launch, per `docs/roles/foreman.md` ("Spawn versus owner-launch") — a repair cycle iterates against review |
 
-**Open item for the owner.** Because neither launch was logged, the repository
-cannot show that either unit carried the owner's literal `I authorize
-dispatch`. The work products themselves are sound — the review is
-independent, reproducible, and cites committed evidence — so nothing is
-being discarded on this basis. But the audit trail for these two launches is
-missing and can only be closed by the owner's recollection, not by Git.
-Future units log at dispatch time, not afterward.
+**Cost measurement is missing for units 1 and 2.** Neither was recorded in
+`metrics/spawn-ledger.jsonl`, which the previous milestone populated for all
+five of its launches. Their wall time, turns, and tool calls are therefore
+unrecoverable, and this milestone cannot be compared against the economy
+baseline on the units already run. Unit 3 records at launch and on return.
 
 ## Economical execution
 
@@ -307,20 +303,19 @@ Role allocation, per the same craft rules the last two milestones used:
 | --- | --- | --- | --- |
 | Track 1 build | Builder | Medium / medium | New renderer against real schemas; reuse settled criteria as checklist, not code fork |
 | Track 1 review gate | Reviewer | High / medium | ADR-0046 conformance and fault-injection reproduction; credits the runner's own F1–F6 evidence rather than re-deriving it |
+| Track 1 repair | Builder | Medium / medium | F1 and F2 only, in the renderer and its fixtures/manifest; owner-launch, since a repair cycle iterates against review |
+| Track 1 repair recheck | Reviewer | High / medium | F1 and F2 plus directly touched invariants only — not a second full eight-measurement sweep |
 | Track 2 completion | Foreman | Judgment and records only | Record accepted capability, matrix claim or decline, CI, and cleanup |
 
-Fixed cap: one Track 1 build and one Track 1 review gate. A remaining
-`NOT READY` residual returns to the owner for disposition rather than an
-automatic second cycle, consistent with the last two milestones' discipline.
+Cap: one Track 1 build, one review gate, and — carried by this plan — one
+repair build with one focused recheck. A residual surviving *that* recheck
+returns to the owner for disposition rather than a further cycle, consistent
+with the last two milestones' discipline.
 
 ## Owner approval
 
 The owner selected this milestone (2026-07-25), approved ADR-0046's evidence
 bar and its three resolved rule-points, and confirmed this plan's scope,
-tracks, and exit criteria plus the manifest path above.
-
-That approval has been consumed: Track 1 was built and reviewed (see
-"Execution record"). The open owner decision is now narrower — how to
-disposition Track 1's `NOT READY` residual under this plan's fixed
-one-review cap. Any further dispatch still requires the owner's literal
-string `I authorize dispatch` per `AGENTS.md`.
+tracks, and exit criteria plus the manifest path above. The scope and cap
+carried by the current text of this plan — including the Track 1 repair and
+its focused recheck — are the record.

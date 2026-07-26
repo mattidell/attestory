@@ -4,8 +4,8 @@
   "phase": "Real Return",
   "topic": "presentation-citation-walk",
   "active_plan": "docs/phases/real-return/milestones/presentation-citation-walk.md",
-  "status": "Track 1's review gate returned NOT READY (F1: computed_zero/closure_backed_zero render without a citation; F2: diagnostic eligibility ignores an invalid numeric input). The plan's fixed one-review cap sends this residual to the OWNER for disposition, not to an automatic second cycle. A repair charter is prepared as the foreman's recommendation only.",
-  "current_role": "Track 1 Repair Builder — prepared, blocked on (1) the owner's disposition of the NOT READY residual and (2) the owner's literal `I authorize dispatch`",
+  "status": "Track 1's review gate returned NOT READY (F1: computed_zero/closure_backed_zero render a numeric value with no citation; F2: diagnostic eligibility ignores an invalid numeric input). The Track 1 repair closing F1 and F2 is the live unit, to be owner-launched; a focused recheck follows.",
+  "current_role": "Track 1 Repair Builder",
   "current_prompt": "docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md"
 }
 -->
@@ -112,12 +112,11 @@ recommendation; the owner makes the Tier 3 selection.
   a numeric value with no citation, because the renderer reads only
   `citationSites` and never `field.citation`) and F2 (diagnostic eligibility
   checks disposition kind but not that the resolved value is a finite number)
-  each independently fail ADR-0046's zero-authority foreclosure. Per this
-  milestone's fixed one-review cap, that residual **returns to the owner for
-  disposition** rather than an automatic second cycle; a two-finding repair
-  charter is *prepared as the foreman's recommendation*
+  each independently fail ADR-0046's zero-authority foreclosure. The milestone
+  plan now carries a Track 1 repair closing exactly F1 and F2
   (`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`)
-  and is not dispatched. The accepted economy contracts remain
+  plus one focused recheck; the repair is owner-launched, since a repair cycle
+  iterates against review. The accepted economy contracts remain
   available but are not this milestone's subject.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
@@ -157,9 +156,10 @@ five-cycle evidence. Track 1 (renderer) landed on
 `track/presentation-citation-walk-track1` as PR #77, CI `verify` green,
 mergeable, not merged. Track 1's review gate ran under the charter at
 `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md`
-and returned `NOT READY` on F1 and F2. **The next decision is the owner's**:
-authorize the prepared repair, accept the findings as residual, or close the
-track short. Plan:
+and returned `NOT READY` on F1 and F2. **The live unit is the Track 1
+repair**, charter at
+`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`,
+launched by the owner. Plan:
 `docs/phases/real-return/milestones/presentation-citation-walk.md`. Decision
 record: `docs/adr/0046-presentation-surface-contract.md`.
 `track/browser-evaluation-runner-completion` may be deleted, since its
