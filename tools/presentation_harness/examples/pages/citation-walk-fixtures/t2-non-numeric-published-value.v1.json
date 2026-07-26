@@ -1,0 +1,48 @@
+{
+  "id": "citation-walk-t2-non-numeric-published-value",
+  "runId": "demo-run-2026-07-25-t2",
+  "pinLabels": {},
+  "sections": [
+    {
+      "id": "line-2b",
+      "field": {
+        "schema": "form-field.v3",
+        "id": "demo.tax.us.2025.form1040.line-2b",
+        "version": "v1",
+        "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+        "line": "2b",
+        "label": "Taxable interest",
+        "description": "Fault fixture: a published_value disposition whose value is a non-numeric string, simulating a corrupted or malicious published value (T2).",
+        "binds_symbol": "demo.tax.us.2025.interest.taxable-total",
+        "citation": { "id": "demo.tax.us.2025.citation.form1040.line-2b", "version": "v1" },
+        "dispositions": {
+          "published_value": { "render": "{value}", "explain": "A current derived finding publishes this taxable-interest amount." },
+          "computed_zero": { "render": "0", "explain": "A current derived finding publishes a computed zero." },
+          "closure_backed_zero": { "render": "0", "explain": "A current derived finding publishes a zero because the family is attested closed." },
+          "blocked": { "render": "", "explain": "Taxable interest is blocked.", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"] },
+          "guard_inapplicable": { "render": "", "explain": "No value exists because the rule guard is false." }
+        }
+      },
+      "resolved": {
+        "disposition": "published_value",
+        "value": "1234'); DROP TABLE returns; --",
+        "act": {
+          "run_id": "demo-run-2026-07-25-t2",
+          "finding": {
+            "schema": "derived-finding.v1",
+            "id": "demo-finding-line-2b-t2",
+            "symbol": "demo.tax.us.2025.interest.taxable-total",
+            "value": "1234'); DROP TABLE returns; --",
+            "version": "v1",
+            "pins": [
+              { "role": "input", "id": "demo-fact-int-001", "version": "v1" }
+            ]
+          }
+        }
+      },
+      "citationSites": []
+    }
+  ],
+  "citationGroups": [],
+  "diagnostics": []
+}

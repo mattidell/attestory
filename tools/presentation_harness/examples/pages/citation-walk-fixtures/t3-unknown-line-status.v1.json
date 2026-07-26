@@ -1,0 +1,36 @@
+{
+  "id": "citation-walk-t3-unknown-line-status",
+  "runId": "demo-run-2026-07-25-t3",
+  "pinLabels": {},
+  "sections": [
+    {
+      "id": "line-3b",
+      "field": {
+        "schema": "form-field.v3",
+        "id": "demo.tax.us.2025.form1040.line-3b",
+        "version": "v1",
+        "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+        "line": "3b",
+        "label": "Ordinary dividends",
+        "description": "Fault fixture: a resolved disposition naming an undeclared status not present in the field's dispositions object, simulating an unknown line status (T3).",
+        "binds_symbol": "demo.tax.us.2025.dividends.ordinary-total",
+        "citation": { "id": "demo.tax.us.2025.citation.form1040.line-3b", "version": "v1" },
+        "dispositions": {
+          "published_value": { "render": "{value}", "explain": "A current derived finding publishes this ordinary-dividend amount." },
+          "computed_zero": { "render": "0", "explain": "A current derived finding publishes a computed zero." },
+          "closure_backed_zero": { "render": "0", "explain": "A current derived finding publishes a zero because the family is attested closed." },
+          "blocked": { "render": "", "explain": "Ordinary dividends is blocked.", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"] },
+          "guard_inapplicable": { "render": "", "explain": "No value exists because the rule guard is false." }
+        }
+      },
+      "resolved": {
+        "disposition": "surprise_new_status",
+        "value": 500,
+        "act": null
+      },
+      "citationSites": []
+    }
+  ],
+  "citationGroups": [],
+  "diagnostics": []
+}
