@@ -28,6 +28,16 @@ scan.
 
 ## Status
 
+- Presentation — Live Citation Walk — **planned 2026-07-26.** This is the
+  selected Presentation L2 → L3 frontier. Track 1 connects the reviewed
+  citation walk to authoritative `live_coordinate_run` output, projects the
+  full currently covered Form 1040 and Schedule B presentation slice, and
+  contains the self-contained page plus browser profile/cache below
+  `LiveWorkspace`. Production-shaped synthetic tests and an independent review
+  precede one owner-held quarantined real exercise; only ADR-0031's three-fact
+  attestation crosses. A final records review controls the matrix lift. Plan:
+  `milestones/presentation-live-citation-walk.md`.
+
 - Browser Evaluation Runner Completion — **complete 2026-07-25; PR #71 merged
   `c329afd` with CI `verify` green on the merge commit.** This tooling
   milestone resumed the preserved implementation from
@@ -41,13 +51,16 @@ scan.
   `milestones/browser-evaluation-runner-completion.md`; retrospective:
   `../../milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
 
-- Presentation — Citation Walk on Real Derivation Output — **owner-approved
-  plan 2026-07-25, ready for a charter; no dispatch yet.** Builds the real
-  citation walk against actual `form-field.v3`/`act-derived-publication.v1`
-  output, satisfying ADR-0046's Presentation Surface Contract (ratified
-  2026-07-25 from the Presentation Exploratory Milestone's five-cycle
-  convergence), verified by the completed browser evaluation runner. Plan:
-  `milestones/presentation-citation-walk.md`. Decision record: ADR-0046.
+- Presentation — Citation Walk on Real Derivation Output — **complete
+  2026-07-26; PR #77 merged as `2d4c195` with CI `verify` green.** Shipped the
+  ADR-0046 citation-walk renderer across the complete synthetic disposition
+  matrix and T1–T3 fault suite. Its first independent review returned
+  `NOT READY` on uncited numeric-zero paths and an invalid-input diagnostic;
+  one repair closed both and the focused recheck returned `READY`. The
+  milestone moved Presentation to L2, naming live-run integration as the exact
+  remaining L3 gap. Plan: `milestones/presentation-citation-walk.md`;
+  retrospective:
+  `../../milestone-retrospectives/2026-07-26-presentation-citation-walk.md`.
 
 - Presentation Evaluation Process Economy — **closed early by owner direction
   2026-07-25; Track 0 merged in PR #66 (`870c8ed`) as the accepted foundation;
