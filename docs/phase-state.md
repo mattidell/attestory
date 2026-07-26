@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-l2-integration-grounding",
   "active_plan": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md",
-  "status": "Presentation — L2 Integration Grounding is closing. Feature recheck 4a74ffd and records review 7f6ae79 are READY, but PR #86 failed mypy on three no-any-return errors in two Track 1 files. The owner approved one CI-only repair build; Builder is current. Presentation remains L2.",
-  "current_role": "Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-ci-type-repair.md"
+  "status": "Presentation — L2 Integration Grounding is closing. Track 1 focused recheck 4a74ffd and Track 2 completion review 7f6ae79 are READY. The six-row handoff records the production-shaped synthetic coordinator path and strict renderer input as present, while live browser invocation and real operation remain absent. The single milestone PR and CI check are the remaining owner-held gate.",
+  "current_role": "Foreman",
+  "current_prompt": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md"
 }
 -->
 # Phase State
@@ -30,7 +30,7 @@ action-specific sources it names. If it refuses, inspect those committed sources
 directly and resolve the disagreement before acting. The capsule reports state;
 it does not change the data boundary or replace accepted authority.
 
-## Product briefing (as of 2026-07-26, Presentation L2 grounding CI repair)
+## Product briefing (as of 2026-07-26, Presentation L2 grounding closing)
 
 **What it does now.** Attestory computes its user's **actual return slice**: the owner's real W-2, 1099-INT, and 1099-DIV facts, held in a quarantined out-of-repo workspace, flow through a contribution boundary (contribution is a first-class product event, distinct from a run; runs consume facts, structurally), resolve a byte-verified production package (a current user adoption pins a verified release; only the strict `validation.ok == True` exclusive member graph executes), and produce Form 1040 lines **1a, 2b, 3a, 3b, 9, 11, 12, 15, and 16** with full explanations, plus Schedule B (Parts I/II payer itemizations tying to 2b/3b, Part III via two contributed taxpayer-assertion facts) when the $1,500 conditional requires it — publishing, or blocking honestly with a walkable account of what is missing. Line 16 is the QDCG worksheet over contributed declared-absence facts, with a bidirectional interlock against the capital-gain-distribution signal. Taxable interest (2b) remains an OID-inclusive declared coextensive composition; the 1099-DIV declared universe is boxes 1a/1b only (2a/3/5/7/12 are named honest-block exclusions); standard deduction and tax remain declared rule artifacts over a first-class filing-status domain. Every source family — including both dividend box families — closes over a **horizon-keyed declared set**, so a stale closure is a hard projection error, never a quietly wrong line. The repository provably carries zero personal data: out-of-repo residency by ratified rule (ADR-0031), a fail-closed classifier, per-review safety scans, and installed byte-verified commit/push envelope gates in every clone. The only repo-side fact about any real run is a three-fact non-descriptive attestation (Ontology §8). A correction to an already-answered fact is no longer necessarily unrestricted: a fact type may declare `locked` (never correctable again) or `closed-on-attestation` (correctable until a named closure fact attests true), enforced at the existing supersession-policy dispatch (ADR-0041); every fact type shipped today still declares `free`, unaffected, by choice.
 
@@ -53,9 +53,7 @@ That build landed as `81c5504` on the milestone branch. Independent review
 `e36086a` returned `NOT READY` on one coordinator-level projector-failure path.
 The plan's single repair landed as `759c9fa`; focused recheck `4a74ffd` returned
 `READY`. Track 2 records the resulting six-row capability state in the maturity
-matrix, and completion review `7f6ae79` returned `READY`. Closing PR #86 then
-failed `mypy` on three type-return errors; one owner-approved CI-only repair is
-current.
+matrix, and completion review `7f6ae79` returned `READY`.
 Presentation remains L2; no new tax content, real exercise, live browser path,
 or L3 claim is part of this milestone.
 
@@ -63,8 +61,8 @@ or L3 claim is part of this milestone.
 
 ## Current state (2026-07-26)
 
-- **Presentation — L2 Integration Grounding:** **closing; owner-approved
-  CI-only repair current.** Boundary inspection corrected the prior “no
+- **Presentation — L2 Integration Grounding:** **closing; Track 1 and Track 2
+  reviews `READY`.** Boundary inspection corrected the prior “no
   further building” handoff before PR #82 merged. The first Builder then found
   that the demo manifest's fabricated line 2a and guard-inapplicable line 9
   cannot come from the resolved package and stopped with no code written. Track
@@ -85,11 +83,10 @@ or L3 claim is part of this milestone.
   real operation occurred. A later Presentation L2→L3 milestone must select and
   verify a data-boundary-safe live invocation vehicle before a real exercise;
   this milestone selects neither. Fresh completion review `7f6ae79` returned
-  `READY`. PR #86 then failed `mypy` on three `no-any-return` errors in two
-  Track 1 files. The owner approved one type-only repair and focused recheck;
-  no product or evidence scope reopened.
+  `READY`; the single milestone PR and its CI check are the remaining
+  owner-held gate.
   Plan:
-  `docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-ci-type-repair.md`.
+  `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
   Current prompt:
   `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 
@@ -178,12 +175,13 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
-Active milestone: **Presentation — L2 Integration Grounding** — closing;
-owner-approved CI-only repair current.
-The durable Presentation handoff and both planned reviews remain `READY`; PR
-#86 is red only on the three chartered mypy errors.
+Active milestone: **Presentation — L2 Integration Grounding** — closing; all
+planned work and reviews `READY`.
+The durable Presentation handoff is maturity-matrix footnote 5 in records
+commit `8e29b52`; completion review `7f6ae79` is `READY`. The milestone PR and
+CI are the remaining gate.
 Plan:
-`docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-ci-type-repair.md`.
+`docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 Current prompt:
 `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 
