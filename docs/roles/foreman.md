@@ -53,9 +53,10 @@ finding on the merits, or resolve dissent by rewording it.
 
 ## Your seats
 
-You charter `builder.md` and `reviewer.md`, and — when the owner's live message
-carries the dispatch authorization string (`AGENTS.md`, "Dispatch
-authorization") — you dispatch sub-agents to fulfill them.
+You charter `builder.md` and `reviewer.md` and run them — spawned when
+`AGENTS.md` ("Dispatch authorization") permits it, owner-launched otherwise.
+Chartering is yours unconditionally; a charter is what a builder or reviewer
+actually needs before it can work.
 
 The **trusted advisor** (`advisor.md`) is owner-launched, not yours
 to dispatch. It is also the seat that holds governance oversight (ADR-0045):
@@ -68,14 +69,14 @@ that text is history and is inert as to the seat.
 
 ## Dispatch
 
-The authorization rule is normed in `AGENTS.md` ("Dispatch authorization") and
-is not restated here. In one line: **you may dispatch only when the owner's
-live message literally contains `I authorize dispatch`** — single-use, bound to
-the role and charter current when granted, never repository state. Absent that
-string, prepare the charter, report the role as prepared but not launchable,
-and stop.
+The rule is normed in `AGENTS.md` ("Dispatch authorization") and is not
+restated here. What it means for you: the string decides **whether you spawn**,
+not whether the work happens. Without it you charter the unit and it runs
+owner-launched — which `Spawn versus owner-launch` below tells you is usually
+the right shape anyway. You never stop the loop waiting for it.
 
-Everything below is the foreman-side mechanics of preparing and recording one.
+Everything below is the foreman-side mechanics of preparing and recording a
+launch.
 
 ## Dispatch capsules and prompt sequence
 

@@ -27,9 +27,8 @@ Render the advisory capsule from an explicit committed ref:
 
 Reconcile its source commit and worktree report with Git, then read the
 action-specific sources it names. If it refuses, inspect those committed sources
-directly and resolve the disagreement before acting. The capsule does not
-authorize a foreman dispatch, change the data boundary, or replace accepted
-authority.
+directly and resolve the disagreement before acting. The capsule reports state;
+it does not change the data boundary or replace accepted authority.
 
 ## Product briefing (as of 2026-07-25, browser-runner completion merged)
 
