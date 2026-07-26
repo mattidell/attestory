@@ -44,5 +44,12 @@
     }
   ],
   "citationGroups": [],
-  "diagnostics": []
+  "diagnostics": [
+    {
+      "id": "diag-t2-invalid-input",
+      "label": "Diagnostic tied to an invalid published value",
+      "inputs": ["line-2b"],
+      "renderText": "1234 x 1 = 1234 (diagnostic bracket check)"
+    }
+  ]
 }

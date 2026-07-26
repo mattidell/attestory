@@ -128,6 +128,7 @@ const REASON_TEXT = Object.freeze({
   "unrecognized-disposition": "This line named a disposition this renderer does not recognize. No value can be shown safely.",
   "invalid-numeric-value": "This line's published value failed validation. No value can be shown safely.",
   "missing-instruction": "This line is missing its rendering instruction for the declared disposition.",
+  "missing-field-citation": "This line published a value with no citation attached. No value can be shown safely.",
   "unknown-error": "This section failed to render safely.",
 });
 
@@ -146,10 +147,24 @@ class SectionError extends Error {
    identity is enforced structurally, not by the fixture author
    remembering to repeat matching text (ADR-0046 Requirement 5).
    ============================================================ */
+function fieldCitationSiteId(sectionId) {
+  return sectionId + "-field-citation";
+}
+
 const SITES_BY_PIN = {};
 const ALL_CITATION_SITES = [];
 for (const section of FIXTURE.sections || []) {
   for (const site of section.citationSites || []) ALL_CITATION_SITES.push(site);
+  const disposition = section.resolved && section.resolved.disposition;
+  const citation = section.field && section.field.citation;
+  if (NUMERIC_DISPOSITIONS.has(disposition) && citation && citation.id && citation.version) {
+    ALL_CITATION_SITES.push({
+      siteId: fieldCitationSiteId(section.id),
+      pinId: citation.id,
+      pinVersion: citation.version,
+      context: (section.field && section.field.label) || section.id,
+    });
+  }
 }
 for (const group of FIXTURE.citationGroups || []) {
   for (const part of group.parts || []) {
@@ -196,6 +211,21 @@ function renderCitation(siteId, pinId, pinVersion) {
   return el("div", null, [button, detail]);
 }
 
+/* Every numeric render carries the field's own citation pin, independent of
+   whatever source-fact citationSites the fixture happens to list. A
+   computed_zero or closure_backed_zero line has no source-fact pins to cite
+   (there is nothing to point at, by definition), but it still names a
+   citation on its own field, and ADR-0046 Requirement 1 admits no numeric
+   value onto the page without one (F1: numeric zero lines were reaching the
+   DOM with an empty citationSites array and no fallback to field.citation). */
+function renderFieldCitation(siteId, field) {
+  const citation = field.citation;
+  if (!citation || !citation.id || !citation.version) {
+    throw new SectionError("missing-field-citation");
+  }
+  return renderCitation(siteId, citation.id, citation.version);
+}
+
 document.addEventListener("click", (evt) => {
   const btn = evt.target.closest("button.citation");
   if (!btn) return;
@@ -237,6 +267,7 @@ function renderLine(container, section) {
     for (const site of section.citationSites || []) {
       container.appendChild(renderCitation(site.siteId, site.pinId, site.pinVersion));
     }
+    container.appendChild(renderFieldCitation(fieldCitationSiteId(section.id), field));
     return;
   }
 
@@ -296,7 +327,9 @@ function renderCitationGroup(container, group) {
    to a stale, partial, or fabricated figure. */
 function healthyDisposition(sectionId) {
   const section = (FIXTURE.sections || []).find((s) => s.id === sectionId);
-  return !!section && NUMERIC_DISPOSITIONS.has(section.resolved.disposition);
+  if (!section || !NUMERIC_DISPOSITIONS.has(section.resolved.disposition)) return false;
+  const value = section.resolved.value;
+  return typeof value === "number" && Number.isFinite(value);
 }
 
 function renderDiagnostic(container, diag) {
