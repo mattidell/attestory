@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-citation-walk",
-  "milestone_state": "track-1",
-  "retrospective": null,
-  "status": "Owner-approved 2026-07-25 on ADR-0046 (ratified same day). Track 1 built (PR #77, verify green, unmerged); its review gate returned NOT READY on F1 and F2. The Track 1 repair is the live unit, with a focused recheck to follow. Track 2 not started.",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md",
+  "status": "Closed 2026-07-26. Owner-approved 2026-07-25 on ADR-0046 (ratified same day). Track 1 (renderer) built; its review gate returned NOT READY on F1 and F2; the repair closed both; the focused recheck returned READY. Track 2 filed the retrospective and moved the maturity-matrix Presentation cell to L2 (owner-confirmed) with a named L3 gap: exercise against one real resolved run. The whole milestone rode one PR (#77), merged as 2d4c195 with CI verify green. Next milestone unselected.",
   "scope": [
     "render the real citation walk against actual derivation output (form-field.v3 + act-derived-publication.v1), not a synthetic fixture",
     "satisfy ADR-0046's Presentation Surface Contract end to end",
@@ -58,15 +58,15 @@
 -->
 # Milestone: Presentation — Citation Walk on Real Derivation Output
 
-Status: **Track 1 `READY`; Track 2 (completion record) done; awaiting owner
-merge of PR #77, which closes the milestone.** The review gate returned
-`NOT READY` on findings F1 and F2; the repair closed both, and the focused
-recheck confirmed `READY` with no new violation. CI `verify` is green.
-Track 2 filed the retrospective and moved the maturity-matrix Presentation
-cell to L2 (owner-confirmed), with a named L3 gap (real-data exercise, not
-further building). Merging PR #77 is owner-held, per `PROJECT_PLANNING.md`
-("Branch, PR, and Merge Protocol"). Execution to date is in "Execution
-record" below.
+Status: **Closed 2026-07-26.** The owner merged PR #77 as `2d4c195` with CI
+`verify` green, and that merge closed the milestone. Track 1's review gate
+returned `NOT READY` on findings F1 and F2; the repair closed both, and the
+focused recheck confirmed `READY` with no new violation. Track 2 filed the
+retrospective and moved the maturity-matrix Presentation cell to L2
+(owner-confirmed), with a named L3 gap (real-data exercise, not further
+building). Retrospective:
+`docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md`.
+Execution is in "Execution record" below.
 
 ## Objective
 
@@ -290,11 +290,12 @@ no record. Entries assert only what Git and GitHub prove.
 
 | # | Unit | Role | Prompt (charter) | Outcome |
 | --- | --- | --- | --- | --- |
-| 1 | Track 1 build | Builder | `docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md` (PR #74) | `6ce90e7` on `track/presentation-citation-walk-track1`; PR #77 open, `verify` green, unmerged |
+| 1 | Track 1 build | Builder | `docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md` (PR #74) | `6ce90e7` on `track/presentation-citation-walk-track1`; PR #77 opened, `verify` green |
 | 2 | Track 1 review gate | Reviewer | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md` (PR #78) | `NOT READY` — `docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`; measurements 1–8 pass, findings F1 and F2 block |
 | 3 | Track 1 repair | Builder | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md` | Landed as `8109048` on `track/presentation-citation-walk-track1`; self-verified 26/26 criteria pass (23 original + 3 new for F1/F2), exit 0, `git diff --check` clean |
 | 4 | Track 1 repair recheck | Reviewer | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md` | `READY` — `docs/reviews/2026-07-26-presentation-citation-walk-track1-repair-review.md` (commit `05443d8`); F1/F2 closed, no new violation, directly touched invariants intact |
-| 5 | Track 2 completion record | Foreman | `docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md` | Retrospective filed; maturity-matrix Presentation cell moved L3→L2 (owner-confirmed), footnote 5 rewritten with named L3 gap; docs ride inside PR #77, awaiting owner merge |
+| 5 | Track 2 completion record | Foreman | `docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md` | Retrospective filed; maturity-matrix Presentation cell moved L3→L2 (owner-confirmed), footnote 5 rewritten with named L3 gap; docs ride inside PR #77 |
+| 6 | Milestone close | Owner | — | PR #77 merged as `2d4c195` with CI `verify` green; that merge is the end boundary, so `milestone_state` becomes `closed` |
 
 **Cost measurement is missing for units 1 and 2.** Neither was recorded in
 `metrics/spawn-ledger.jsonl`, which the previous milestone populated for all
