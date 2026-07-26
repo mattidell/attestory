@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-l2-integration-grounding",
-  "milestone_state": "track-1",
-  "retrospective": null,
-  "status": "Track 1 repair 759c9fa landed for the sole finding in review e36086a. Focused recheck is current; Track 2 remains blocked pending READY. The milestone makes no real-data exercise or L3 claim.",
+  "milestone_state": "track-2",
+  "retrospective": "docs/milestone-retrospectives/2026-07-26-presentation-l2-integration-grounding.md",
+  "status": "Track 1 is READY after review e36086a, repair 759c9fa, and focused recheck 4a74ffd. Track 2 capability-state and handoff records are prepared for fresh independent review. Presentation remains L2; no milestone PR is open.",
   "scope": [
     "project one production-shaped synthetic live_coordinate_run into a validated internal presentation model using only the resolved graph, projected record state, publications, and dispositions already available inside the coordinator",
     "write the presentation model only below LiveWorkspace while preserving the existing coordinator result and caller contract",
@@ -20,43 +20,6 @@
     "no repository, remote, review, chat, retrospective, or generated fixture containing real values, identifiers, locations, dispositions, screenshots, or artifacts",
     "no presentation redesign, presentation-economy comparison, or L4 hardening claim"
   ],
-  "initial_briefing_follow_up": {
-    "version": 1,
-    "expires": "milestone-close",
-    "grounding_commit": "b757000ba133dc49679943fe63fa98c95103fe44",
-    "notes": [
-      "The current L2 evidence runs from a hand-shaped synthetic model through the browser, not from the live coordinator through the browser.",
-      "The coordinator persists run_id, stop_reason, and dispositions; the publications and resolved graph needed for presentation exist only in memory.",
-      "The harness is correctly synthetic-only and must not be treated as the vehicle for a later real exercise.",
-      "The existing citation-walk manifest asserts demo-only line 2a and guard-inapplicable line 9 states that the resolved production package cannot produce; preserve it as a renderer regression floor rather than requiring the coordinator golden to satisfy it."
-    ],
-    "sources": [
-      {
-        "path": "packages/derivation/live.py",
-        "blob": "6ce0e31f7d14ccda3d32554022aa1ea758cc3423"
-      },
-      {
-        "path": "tools/presentation_harness/lib/server.mjs",
-        "blob": "35553a2614349aeb20d1fbfc14fa5a1365f57876"
-      },
-      {
-        "path": "tools/presentation_harness/examples/pages/citation-walk.v1.html",
-        "blob": "62f5ee99a48733fcd55807ee5d83e19c4d3c7745"
-      },
-      {
-        "path": "tools/presentation_harness/examples/manifests/citation-walk.v1.json",
-        "blob": "ad7db749f1fe29b8f82c64bfe0a0c7befa58d4e5"
-      },
-      {
-        "path": "docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md",
-        "blob": "cb5eca7f9d1d59bd4b1d7fc51dcbb2e07f1f93e9"
-      },
-      {
-        "path": "docs/phases/real-return/maturity-matrix.md",
-        "blob": "26a173b83f4c3418d37714eade2d1e30edb18f57"
-      }
-    ]
-  },
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
@@ -93,7 +56,12 @@
       "tools/presentation_harness/examples/pages/citation-walk.v1.html",
       "tools/presentation_harness/examples/pages/citation-walk-fixtures/production-shaped.v1.json",
       "docs/reviews/2026-07-26-presentation-l2-integration-grounding-track1-review.md",
+      "docs/reviews/2026-07-26-presentation-l2-integration-grounding-track1-recheck.md",
       "docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md",
+      "docs/phases/real-return/maturity-matrix.md",
+      "docs/phases/real-return/real-return-roadmap.md",
+      "docs/phase-state.md",
+      "docs/milestone-retrospectives/2026-07-26-presentation-l2-integration-grounding.md",
       "AGENTS.md#Data Safety Rules"
     ],
     "dispatch": [
@@ -119,7 +87,7 @@
 -->
 # Milestone: Presentation — L2 Integration Grounding
 
-Status: **Track 1 focused recheck current.** The owner redirected PR #82 on 2026-07-26 from L2→L3
+Status: **Track 2 records prepared; completion review next.** The owner redirected PR #82 on 2026-07-26 from L2→L3
 progression to L2 hardening and a better-grounded next-milestone handoff. The
 plan became active when its planning PR reached `main`. Before implementation,
 the Track 1 Builder returned a clean charter-stop finding: the existing demo
@@ -128,8 +96,8 @@ the resolved production package cannot produce. This amendment separates the
 demo regression suite from production-shaped integration evidence. The amended
 Track 1 build landed as `81c5504` on the milestone branch. Independent review
 `e36086a` returned `NOT READY` on one coordinator-level failure path. Focused
-repair `759c9fa` landed and is now under the plan's single recheck; no milestone
-PR is open.
+repair `759c9fa` closed it, and recheck `4a74ffd` returned `READY`. Track 2 now
+records the exact L2 capability state for fresh review; no milestone PR is open.
 
 ## Objective
 
@@ -345,8 +313,9 @@ completion review run the range envelope scan.
 6. Phase state and roadmap point to the capability-state table rather than
    inferring that a real exercise is immediately executable.
 7. The closing unit removes `initial_briefing_follow_up`, writes a concise
-   retrospective, records exact PR/CI evidence, and receives an independent
-   records review.
+   retrospective, and receives an independent records review. The milestone PR
+   opens only after that review; its green CI check is the external merge gate,
+   not evidence that can exist before completion review.
 
 ## Review gates
 
@@ -371,11 +340,12 @@ plan allows at most one findings-only repair and focused recheck.
 
 ### Completion-record review
 
-One fresh Reviewer checks the six capability-state rows against the accepted
-Track 1 diff, review verdict, merge commit, and green CI. It also confirms that
-the matrix remains L2, live/browser limitations are explicit, phase-state and
-roadmap agree by reference, the temporary briefing capsule is gone, and the
-retrospective does not substitute prose for evidence.
+One fresh Reviewer checks the six capability-state rows against the Track 1
+implementation, review, repair, and `READY` recheck commits. It also confirms
+that the matrix remains L2, live/browser limitations are explicit, phase-state
+and roadmap agree by reference, the temporary briefing capsule is gone, and
+the retrospective carries lessons rather than restating implementation or
+verification evidence. The milestone PR and its CI check follow this review.
 
 ## Tracks
 
@@ -413,17 +383,18 @@ Presentation capability state without advancing the matrix.
 **Boundary:** records only; no implementation repair, real exercise, new
 contract, or next-milestone selection.
 
-**Inputs:** the Track 1 implementation commit, its independent review verdict
-and any accepted focused repair/recheck, the current maturity matrix, roadmap,
-phase state, and this plan's exit criteria. Final milestone PR and CI evidence
-are added at closeout rather than treated as a Track 1 prerequisite.
+**Inputs:** the Track 1 implementation commit, its independent review verdict,
+accepted repair, `READY` focused recheck, the current maturity matrix, roadmap,
+phase state, and this plan's exit criteria. The final milestone PR and CI check
+follow completion review.
 
 **Outputs:** the six-row maturity-matrix capability state, concise phase-state
 and roadmap pointers, retrospective, removal of the temporary briefing capsule,
 and an independent completion review.
 
-**Verification:** evidence-link inspection, range envelope scan,
-`git diff --check`, and CI `verify`.
+**Verification:** evidence-link inspection, range envelope scan, and
+`git diff --check`. CI `verify` gates the final milestone PR after records
+review.
 
 **Migration risk:** documentation only.
 
@@ -455,3 +426,5 @@ it.
 | 4 | Track 1 build | Builder | Amended Track 1 charter | Landed as `81c5504`; seven-file implementation delta committed cleanly; independent review is current |
 | 5 | Track 1 review | Reviewer | Track 1 review charter | `e36086a`: `NOT READY`; eight of nine measurements pass, with one coordinator-level projector-failure cleanup/test residual accepted for the plan's single repair |
 | 6 | Track 1 repair | Builder | Findings-only repair charter | `759c9fa`: construct/validate before output writes, remove both reservations on `PresentationModelError`, and exercise the failure through `live_coordinate_run`; focused recheck current |
+| 7 | Track 1 focused recheck | Same Reviewer | Focused recheck charter | `4a74ffd`: `READY`; all six measurements pass and no new finding |
+| 8 | Track 2 records | Foreman | Plan's L2 capability-state handoff | Six-row matrix handoff, roadmap/phase pointers, temporary-capsule removal, and lessons-only retrospective prepared for fresh review |

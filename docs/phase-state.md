@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-l2-integration-grounding",
   "active_plan": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md",
-  "status": "Presentation — L2 Integration Grounding Track 1 repair 759c9fa landed for the sole finding in review e36086a. Focused recheck is current: confirm the projector failure preserves its exception, removes both reserved artifacts, and leaves successful/refusal paths intact. Track 2 remains blocked pending READY; no milestone PR is open.",
-  "current_role": "Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-track1-recheck.md"
+  "status": "Presentation — L2 Integration Grounding Track 1 is READY after focused recheck 4a74ffd. Track 2 records now ground the six Presentation capability rows: the production-shaped synthetic coordinator path and strict renderer input exist, while live browser invocation and real operation do not. Fresh completion review is next; no milestone PR is open.",
+  "current_role": "Foreman",
+  "current_prompt": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md"
 }
 -->
 # Phase State
@@ -30,7 +30,7 @@ action-specific sources it names. If it refuses, inspect those committed sources
 directly and resolve the disagreement before acting. The capsule reports state;
 it does not change the data boundary or replace accepted authority.
 
-## Product briefing (as of 2026-07-26, Presentation L2 grounding in focused recheck)
+## Product briefing (as of 2026-07-26, Presentation L2 grounding records prepared)
 
 **What it does now.** Attestory computes its user's **actual return slice**: the owner's real W-2, 1099-INT, and 1099-DIV facts, held in a quarantined out-of-repo workspace, flow through a contribution boundary (contribution is a first-class product event, distinct from a run; runs consume facts, structurally), resolve a byte-verified production package (a current user adoption pins a verified release; only the strict `validation.ok == True` exclusive member graph executes), and produce Form 1040 lines **1a, 2b, 3a, 3b, 9, 11, 12, 15, and 16** with full explanations, plus Schedule B (Parts I/II payer itemizations tying to 2b/3b, Part III via two contributed taxpayer-assertion facts) when the $1,500 conditional requires it — publishing, or blocking honestly with a walkable account of what is missing. Line 16 is the QDCG worksheet over contributed declared-absence facts, with a bidirectional interlock against the capital-gain-distribution signal. Taxable interest (2b) remains an OID-inclusive declared coextensive composition; the 1099-DIV declared universe is boxes 1a/1b only (2a/3/5/7/12 are named honest-block exclusions); standard deduction and tax remain declared rule artifacts over a first-class filing-status domain. Every source family — including both dividend box families — closes over a **horizon-keyed declared set**, so a stale closure is a hard projection error, never a quietly wrong line. The repository provably carries zero personal data: out-of-repo residency by ratified rule (ADR-0031), a fail-closed classifier, per-review safety scans, and installed byte-verified commit/push envelope gates in every clone. The only repo-side fact about any real run is a three-fact non-descriptive attestation (Ontology §8). A correction to an already-answered fact is no longer necessarily unrestricted: a fact type may declare `locked` (never correctable again) or `closed-on-attestation` (correctable until a named closure fact attests true), enforced at the existing supersession-policy dispatch (ADR-0041); every fact type shipped today still declares `free`, unaffected, by choice.
 
@@ -51,8 +51,9 @@ The amended charter preserves that manifest as the full renderer regression
 floor and adds a dedicated manifest for the coordinator-generated golden.
 That build landed as `81c5504` on the milestone branch. Independent review
 `e36086a` returned `NOT READY` on one coordinator-level projector-failure path.
-The plan's single repair landed as `759c9fa`; focused recheck is current. Track
-2 records the resulting capability state in the maturity matrix after `READY`.
+The plan's single repair landed as `759c9fa`; focused recheck `4a74ffd` returned
+`READY`. Track 2 records the resulting six-row capability state in the maturity
+matrix for fresh review.
 Presentation remains L2; no new tax content, real exercise, live browser path,
 or L3 claim is part of this milestone.
 
@@ -60,8 +61,8 @@ or L3 claim is part of this milestone.
 
 ## Current state (2026-07-26)
 
-- **Presentation — L2 Integration Grounding:** **Track 1 focused recheck
-  current.** Boundary inspection corrected the prior “no
+- **Presentation — L2 Integration Grounding:** **Track 1 `READY`; Track 2
+  records prepared for fresh review.** Boundary inspection corrected the prior “no
   further building” handoff before PR #82 merged. The first Builder then found
   that the demo manifest's fabricated line 2a and guard-inapplicable line 9
   cannot come from the resolved package and stopped with no code written. Track
@@ -75,13 +76,18 @@ or L3 claim is part of this milestone.
   The plan's one findings-only repair landed as `759c9fa`: projection now
   precedes durable output writes, both reserved artifacts are removed on
   `PresentationModelError`, and a coordinator-level regression exercises the
-  failure. The same Reviewer now performs the one focused recheck before Track
-  2. No milestone PR is open. The row remains L2; new tax content, a real
-  exercise, and live browser design are explicitly deferred.
+  failure. Focused recheck `4a74ffd` returned `READY` with all six measurements
+  passing. Maturity-matrix footnote 5 now records the durable handoff: the
+  surface contract, renderer, coordinator projection, and strict internal input
+  are synthetic-end-to-end; the browser path remains synthetic-only, and no
+  real operation occurred. A later Presentation L2→L3 milestone must select and
+  verify a data-boundary-safe live invocation vehicle before a real exercise;
+  this milestone selects neither. Fresh completion review is next. No milestone
+  PR is open.
   Plan:
   `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
   Current prompt:
-  `docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-track1-recheck.md`.
+  `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 
 - **Live-Run System Definition and Trust Domains:** complete; ADR-0044 accepted
   as a positioning contract; closure PR #61 **merged**. It selects and schedules
@@ -169,13 +175,13 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
 Active milestone: **Presentation — L2 Integration Grounding** — Track 1
-focused recheck current.
-Repair `759c9fa` addresses the sole accepted finding from review `e36086a`; no
-milestone PR is open.
+`READY`; Track 2 records prepared for fresh completion review.
+The durable Presentation handoff is maturity-matrix footnote 5; no milestone
+PR is open.
 Plan:
 `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 Current prompt:
-`docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-track1-recheck.md`.
+`docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 
 Most recent completed milestone: **Presentation — Citation Walk on Real
 Derivation Output** — complete 2026-07-26. PR #77 merged `2d4c195` with CI `verify` green

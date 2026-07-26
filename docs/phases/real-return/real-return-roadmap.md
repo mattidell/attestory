@@ -28,8 +28,8 @@ scan.
 
 ## Status
 
-- Presentation — L2 Integration Grounding — **planned 2026-07-26 (updated:
-  2026-07-26).** Boundary inspection corrected the initial PR #82 plan before
+- Presentation — L2 Integration Grounding — **Track 1 `READY`; Track 2 records
+  prepared for completion review (2026-07-26).** Boundary inspection corrected the initial PR #82 plan before
   merge: the current renderer begins with a hand-shaped synthetic model, the
   coordinator does not persist the inputs needed to construct it, and the
   browser harness is intentionally synthetic-only. Track 1 closes that
@@ -38,9 +38,12 @@ scan.
   satisfy from resolved content: line 2a is not modeled and real line 9 is not
   guard-inapplicable. The amended charter keeps that manifest unchanged as the
   renderer regression floor and adds a dedicated production-shaped manifest
-  for the regenerated golden. Track 2 records an independently checked
-  capability-state handoff. Presentation remains L2; no new tax content, real
-  exercise, or L3 claim is included. Plan:
+  for the regenerated golden. Track 1 build `81c5504` received one independent
+  `NOT READY` review (`e36086a`), one focused repair (`759c9fa`), and a `READY`
+  recheck (`4a74ffd`). Track 2 records the six-row capability-state handoff in
+  maturity-matrix footnote 5. It makes explicit that no live browser invocation
+  vehicle or real operation exists; the synthetic harness is not that vehicle.
+  Presentation remains L2; no next milestone is selected. Plan:
   `milestones/presentation-l2-integration-grounding.md`.
 
 - Browser Evaluation Runner Completion — **complete 2026-07-25; PR #71 merged
