@@ -28,8 +28,8 @@ scan.
 
 ## Status
 
-- Presentation — L2 Integration Grounding — **Track 1 `READY`; Track 2 records
-  prepared for completion review (2026-07-26).** Boundary inspection corrected the initial PR #82 plan before
+- Presentation — L2 Integration Grounding — **closing; Track 1 and Track 2
+  reviews `READY` (2026-07-26).** Boundary inspection corrected the initial PR #82 plan before
   merge: the current renderer begins with a hand-shaped synthetic model, the
   coordinator does not persist the inputs needed to construct it, and the
   browser harness is intentionally synthetic-only. Track 1 closes that
@@ -41,9 +41,11 @@ scan.
   for the regenerated golden. Track 1 build `81c5504` received one independent
   `NOT READY` review (`e36086a`), one focused repair (`759c9fa`), and a `READY`
   recheck (`4a74ffd`). Track 2 records the six-row capability-state handoff in
-  maturity-matrix footnote 5. It makes explicit that no live browser invocation
-  vehicle or real operation exists; the synthetic harness is not that vehicle.
-  Presentation remains L2; no next milestone is selected. Plan:
+  maturity-matrix footnote 5; fresh completion review `7f6ae79` returned
+  `READY`. The handoff makes explicit that no live browser invocation vehicle
+  or real operation exists; the synthetic harness is not that vehicle.
+  Presentation remains L2; no next milestone is selected. The single milestone
+  PR and its CI check are the remaining closing gate. Plan:
   `milestones/presentation-l2-integration-grounding.md`.
 
 - Browser Evaluation Runner Completion — **complete 2026-07-25; PR #71 merged

@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-l2-integration-grounding",
-  "milestone_state": "track-2",
+  "milestone_state": "closing",
   "retrospective": "docs/milestone-retrospectives/2026-07-26-presentation-l2-integration-grounding.md",
-  "status": "Track 1 is READY after review e36086a, repair 759c9fa, and focused recheck 4a74ffd. Track 2 records landed as 8e29b52 and fresh completion review is current. Presentation remains L2; no milestone PR is open.",
+  "status": "Track 1 is READY after review e36086a, repair 759c9fa, and focused recheck 4a74ffd. Track 2 records 8e29b52 received fresh completion review READY at 7f6ae79. All milestone work is complete; the single closing PR is the remaining owner/CI gate. Presentation remains L2.",
   "scope": [
     "project one production-shaped synthetic live_coordinate_run into a validated internal presentation model using only the resolved graph, projected record state, publications, and dispositions already available inside the coordinator",
     "write the presentation model only below LiveWorkspace while preserving the existing coordinator result and caller contract",
@@ -87,7 +87,7 @@
 -->
 # Milestone: Presentation — L2 Integration Grounding
 
-Status: **Track 2 completion review current.** The owner redirected PR #82 on 2026-07-26 from L2→L3
+Status: **Closing; all planned work and reviews `READY`.** The owner redirected PR #82 on 2026-07-26 from L2→L3
 progression to L2 hardening and a better-grounded next-milestone handoff. The
 plan became active when its planning PR reached `main`. Before implementation,
 the Track 1 Builder returned a clean charter-stop finding: the existing demo
@@ -97,8 +97,9 @@ demo regression suite from production-shaped integration evidence. The amended
 Track 1 build landed as `81c5504` on the milestone branch. Independent review
 `e36086a` returned `NOT READY` on one coordinator-level failure path. Focused
 repair `759c9fa` closed it, and recheck `4a74ffd` returned `READY`. Track 2
-records `8e29b52` now carry the exact L2 capability state under fresh review; no
-milestone PR is open.
+records `8e29b52` carry the exact L2 capability state, and fresh completion
+review `7f6ae79` returned `READY`. The single milestone PR is the remaining
+owner/CI gate.
 
 ## Objective
 
@@ -429,4 +430,4 @@ it.
 | 6 | Track 1 repair | Builder | Findings-only repair charter | `759c9fa`: construct/validate before output writes, remove both reservations on `PresentationModelError`, and exercise the failure through `live_coordinate_run`; focused recheck current |
 | 7 | Track 1 focused recheck | Same Reviewer | Focused recheck charter | `4a74ffd`: `READY`; all six measurements pass and no new finding |
 | 8 | Track 2 records | Foreman | Plan's L2 capability-state handoff | Six-row matrix handoff, roadmap/phase pointers, temporary-capsule removal, and lessons-only retrospective prepared for fresh review |
-| 9 | Track 2 completion review | Fresh Reviewer | Completion-record review charter | Current; exact record object is `8e29b52` |
+| 9 | Track 2 completion review | Fresh Reviewer | Completion-record review charter | `7f6ae79`: `READY`; all eight records measurements pass with no finding |
