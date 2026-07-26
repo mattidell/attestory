@@ -28,6 +28,7 @@ Audience: Builder
   - `packages/derivation/runner.py`
   - `tools/presentation_harness/lib/manifest.mjs`
   - `tools/presentation_harness/lib/server.mjs`
+  - `tools/presentation_harness/examples/manifests/citation-walk.v1.json`
   - `tools/presentation_harness/examples/pages/citation-walk.v1.html`
   - `tools/presentation_harness/examples/pages/citation-walk-fixtures/baseline.v1.json`
   - `docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`
@@ -40,7 +41,7 @@ Audience: Builder
 Make the existing citation walk production-shaped end-to-end on synthetic data:
 construct and validate its model inside `live_coordinate_run`, confine the
 artifact below `LiveWorkspace`, and prove a regenerated synthetic golden through
-the unchanged browser harness.
+a dedicated manifest on the unchanged browser harness.
 
 ## Deliverables
 
@@ -52,15 +53,20 @@ the unchanged browser harness.
    artifact below `LiveWorkspace`. Preserve the existing result JSON and all
    existing callers; expose at most the confined artifact path.
 4. Regenerate one committed, obviously synthetic golden byte-for-byte from a
-   canonical production-shaped `live_coordinate_run`. Route that golden
-   through the existing `synthetic: true` browser manifest.
-5. Preserve every currently presented Form 1040 field and Schedule B, all five
-   dispositions, exact-pin lineage, citation reuse, F1/F2 repairs,
-   accessibility, redaction, and section-level blast containment.
-6. Fail closed on missing/ambiguous joins, missing citations, unknown
+   canonical production-shaped `live_coordinate_run`. Add
+   `citation-walk-production-shaped.v1.json` to route that golden through the
+   browser harness as `synthetic: true`.
+5. The production-shaped golden covers every Form 1040 field and attachment in
+   its resolved package and only the dispositions the canonical run actually
+   produces. Do not invent the demo fixture's line 2a, guard-inapplicable line
+   9, identifiers, citations, values, or labels.
+6. Preserve `citation-walk.v1.json` and its existing fixtures unchanged as the
+   full five-disposition/T1–T3/F1–F2 renderer regression floor. Both manifests
+   must pass.
+7. Fail closed on missing/ambiguous joins, missing citations, unknown
    dispositions, invalid numeric publications, resolver refusal, path escape,
    and markup/closing-script serialization attacks.
-7. Add `tests.test_presentation_l2_integration` covering deterministic
+8. Add `tests.test_presentation_l2_integration` covering deterministic
    regeneration, strict validation, coordinator-only construction, result
    compatibility, confinement, and all named attacks.
 
@@ -68,7 +74,8 @@ the unchanged browser harness.
 
 - No real data, owner attestation, live browser, browser profile/cache, local
   viewer, remote URL, L3 claim, or maturity edit.
-- No harness relaxation or non-synthetic fixture mode.
+- No harness relaxation, non-synthetic fixture mode, or change to the existing
+  citation-walk manifest/demo fixtures.
 - No schema, citizen, tax content, rule, field, citation, attachment, domain,
   ADR, UI redesign, or presentation-economy change.
 - No direct `runner.run`, fixture-derived `RunContext`, caller-authored
@@ -82,6 +89,8 @@ Run while iterating:
 python3 -m unittest tests.test_presentation_l2_integration
 node tools/presentation_harness/run.mjs \
   --manifest tools/presentation_harness/examples/manifests/citation-walk.v1.json
+node tools/presentation_harness/run.mjs \
+  --manifest tools/presentation_harness/examples/manifests/citation-walk-production-shaped.v1.json
 python3 -m unittest tests.test_frrs_t4_w2_live_integration
 python3 -m unittest tests.test_dsbs_t4_dividend_live_integration
 python3 tools/envelope_scan.py --range main..HEAD
