@@ -4,7 +4,7 @@
   "topic": "presentation-l2-integration-grounding",
   "milestone_state": "track-1",
   "retrospective": null,
-  "status": "Track 1 build landed as 81c5504 on the milestone branch. Independent review is current. The plan establishes one L2 integration-hardening track, one independent review gate with at most one repair and focused recheck, and one independently reviewed evaluation/handoff unit. It makes no real-data exercise or L3 claim.",
+  "status": "Track 1 review e36086a returned NOT READY on one coordinator-level failure path. The plan's single findings-only repair is current; Track 2 remains blocked pending focused recheck. The milestone makes no real-data exercise or L3 claim.",
   "scope": [
     "project one production-shaped synthetic live_coordinate_run into a validated internal presentation model using only the resolved graph, projected record state, publications, and dispositions already available inside the coordinator",
     "write the presentation model only below LiveWorkspace while preserving the existing coordinator result and caller contract",
@@ -71,6 +71,7 @@
       "tools/presentation_harness/examples/manifests/citation-walk.v1.json",
       "tools/presentation_harness/examples/pages/citation-walk.v1.html",
       "tools/presentation_harness/examples/pages/citation-walk-fixtures/baseline.v1.json",
+      "docs/reviews/2026-07-26-presentation-l2-integration-grounding-track1-review.md",
       "docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md",
       "docs/reviews/2026-07-26-presentation-citation-walk-track1-repair-review.md",
       "AGENTS.md#Data Safety Rules",
@@ -91,6 +92,7 @@
       "tools/presentation_harness/examples/manifests/citation-walk-production-shaped.v1.json",
       "tools/presentation_harness/examples/pages/citation-walk.v1.html",
       "tools/presentation_harness/examples/pages/citation-walk-fixtures/production-shaped.v1.json",
+      "docs/reviews/2026-07-26-presentation-l2-integration-grounding-track1-review.md",
       "docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md",
       "AGENTS.md#Data Safety Rules"
     ],
@@ -117,15 +119,16 @@
 -->
 # Milestone: Presentation — L2 Integration Grounding
 
-Status: **Track 1 review current.** The owner redirected PR #82 on 2026-07-26 from L2→L3
+Status: **Track 1 repair current.** The owner redirected PR #82 on 2026-07-26 from L2→L3
 progression to L2 hardening and a better-grounded next-milestone handoff. The
 plan became active when its planning PR reached `main`. Before implementation,
 the Track 1 Builder returned a clean charter-stop finding: the existing demo
 manifest requires fabricated line 2a and guard-inapplicable line 9 states that
 the resolved production package cannot produce. This amendment separates the
 demo regression suite from production-shaped integration evidence. The amended
-Track 1 build landed as `81c5504` on the milestone branch and is now under
-independent review; no milestone PR is open.
+Track 1 build landed as `81c5504` on the milestone branch. Independent review
+`e36086a` returned `NOT READY` on one coordinator-level failure path, so the
+plan's single findings-only repair is current; no milestone PR is open.
 
 ## Objective
 
@@ -449,3 +452,4 @@ it.
 | 2 | Track 1 charter stop | Builder | Ratified Track 1 charter on `main@112560a` | Clean stop: demo manifest criteria cannot be produced from resolved content; no code written |
 | 3 | Manifest-boundary amendment | Foreman | Owner direction, 2026-07-26: amend and create PR | Separate unchanged demo regression suite from dedicated production-shaped integration suite |
 | 4 | Track 1 build | Builder | Amended Track 1 charter | Landed as `81c5504`; seven-file implementation delta committed cleanly; independent review is current |
+| 5 | Track 1 review | Reviewer | Track 1 review charter | `e36086a`: `NOT READY`; eight of nine measurements pass, with one coordinator-level projector-failure cleanup/test residual accepted for the plan's single repair |
