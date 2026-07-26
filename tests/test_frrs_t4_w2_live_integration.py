@@ -247,6 +247,7 @@ class LiveCoordinator(unittest.TestCase):
                     ".residency-envelope-gates/manifest.json",
                     ".residency-envelope-gates/push.gate",
                     "outputs/demo.json",
+                    "outputs/demo.presentation.json",
                     "records/derivation_records.jsonl",
                 ],
             )

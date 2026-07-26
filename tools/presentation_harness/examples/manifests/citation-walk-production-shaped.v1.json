@@ -1,0 +1,73 @@
+{
+  "version": "presentation-evaluation-manifest.v1",
+  "id": "citation-walk-production-shaped",
+  "timeout_ms": 5000,
+  "candidates": [
+    {
+      "id": "citation-walk",
+      "path": "tools/presentation_harness/examples/pages/citation-walk.v1.html"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "production-shaped",
+      "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/production-shaped.v1.json",
+      "synthetic": true
+    }
+  ],
+  "criteria": [
+    { "id": "heading-present", "check": "dom-text-present", "params": { "selector": "#page-heading", "expected_text": "Citation Walk" } },
+    { "id": "heading-contrast", "check": "computed-style-contrast", "params": { "selector": "#page-heading" } },
+
+    { "id": "line-1a-published", "check": "dom-text-present", "params": { "selector": "#line-1a .line-value", "expected_text": "90000" } },
+    { "id": "line-1a-badge-contrast", "check": "computed-style-contrast", "params": { "selector": "#line-1a .badge" } },
+    { "id": "line-2b-published", "check": "dom-text-present", "params": { "selector": "#line-2b .line-value", "expected_text": "1234" } },
+    { "id": "line-3a-published", "check": "dom-text-present", "params": { "selector": "#line-3a .line-value", "expected_text": "600" } },
+    { "id": "line-3b-published", "check": "dom-text-present", "params": { "selector": "#line-3b .line-value", "expected_text": "2000" } },
+    { "id": "line-9-published", "check": "dom-text-present", "params": { "selector": "#line-9 .line-value", "expected_text": "93234" } },
+    { "id": "line-11-published", "check": "dom-text-present", "params": { "selector": "#line-11 .line-value", "expected_text": "93234" } },
+    { "id": "line-12-published", "check": "dom-text-present", "params": { "selector": "#line-12 .line-value", "expected_text": "15000" } },
+    { "id": "line-15-published", "check": "dom-text-present", "params": { "selector": "#line-15 .line-value", "expected_text": "78234" } },
+    { "id": "line-16-published", "check": "dom-text-present", "params": { "selector": "#line-16 .line-value", "expected_text": "12222" } },
+    { "id": "line-16-badge-contrast", "check": "computed-style-contrast", "params": { "selector": "#line-16 .badge" } },
+
+    { "id": "interest-source-a-label", "check": "dom-text-present", "params": { "selector": "#line-2b-src-0 .citation-label", "expected_text": "1099-INT box 1 — Synthetic First Bank" } },
+    { "id": "interest-source-b-label", "check": "dom-text-present", "params": { "selector": "#line-2b-src-1 .citation-label", "expected_text": "1099-INT box 1 — Synthetic Second Credit Union" } },
+    { "id": "schedule-b-reuse-backlink", "check": "dom-text-present", "params": { "selector": "#line-2b-src-0-detail", "expected_text": "also cited in Part I: Interest (box-1 / 1099-INT family)" } },
+    { "id": "citation-keyboard-focus-reachable", "check": "keyboard-focus-reachable", "params": { "selector": "#line-11-src-0", "tab_presses": 2 } },
+
+    { "id": "schedule-b-part-i-heading", "check": "dom-text-present", "params": { "selector": "#tax\\.us\\.2025\\.rule\\.attachment\\.schedule-b", "expected_text": "Part I: Interest (box-1 / 1099-INT family)" } },
+    { "id": "schedule-b-part-ii-heading", "check": "dom-text-present", "params": { "selector": "#tax\\.us\\.2025\\.rule\\.attachment\\.schedule-b", "expected_text": "Part II: Ordinary Dividends (box-1a / 1099-DIV family)" } }
+  ],
+  "tamper_cases": [
+    { "id": "baseline", "injection": null }
+  ],
+  "matrix": [
+    {
+      "candidate_id": "citation-walk",
+      "fixture_id": "production-shaped",
+      "tamper_case_id": "baseline",
+      "criteria": [
+        "heading-present",
+        "heading-contrast",
+        "line-1a-published",
+        "line-1a-badge-contrast",
+        "line-2b-published",
+        "line-3a-published",
+        "line-3b-published",
+        "line-9-published",
+        "line-11-published",
+        "line-12-published",
+        "line-15-published",
+        "line-16-published",
+        "line-16-badge-contrast",
+        "interest-source-a-label",
+        "interest-source-b-label",
+        "schedule-b-reuse-backlink",
+        "citation-keyboard-focus-reachable",
+        "schedule-b-part-i-heading",
+        "schedule-b-part-ii-heading"
+      ]
+    }
+  ]
+}

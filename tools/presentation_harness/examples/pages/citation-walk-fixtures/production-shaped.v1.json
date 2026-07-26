@@ -1,0 +1,1216 @@
+{
+  "citationGroups": [
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-b",
+      "parts": [
+        {
+          "citationSites": [
+            {
+              "context": "Part I: Interest (box-1 / 1099-INT family)",
+              "pinId": "demo.presentation-l2.finding.int1",
+              "pinVersion": "v1",
+              "siteId": "part-i-interest-src-0"
+            },
+            {
+              "context": "Part I: Interest (box-1 / 1099-INT family)",
+              "pinId": "demo.presentation-l2.finding.int2",
+              "pinVersion": "v1",
+              "siteId": "part-i-interest-src-1"
+            },
+            {
+              "context": "Part I: Interest (box-1 / 1099-INT family)",
+              "pinId": "demo.presentation-l2.finding.rounding",
+              "pinVersion": "v1",
+              "siteId": "part-i-interest-src-2"
+            }
+          ],
+          "heading": "Part I: Interest (box-1 / 1099-INT family)",
+          "tieOutText": "Reported subtotal: 1234"
+        },
+        {
+          "citationSites": [
+            {
+              "context": "Part II: Ordinary Dividends (box-1a / 1099-DIV family)",
+              "pinId": "demo.presentation-l2.finding.box1a",
+              "pinVersion": "v1",
+              "siteId": "part-ii-ordinary-dividends-src-1"
+            },
+            {
+              "context": "Part II: Ordinary Dividends (box-1a / 1099-DIV family)",
+              "pinId": "demo.presentation-l2.finding.rounding",
+              "pinVersion": "v1",
+              "siteId": "part-ii-ordinary-dividends-src-2"
+            }
+          ],
+          "heading": "Part II: Ordinary Dividends (box-1a / 1099-DIV family)",
+          "tieOutText": "Reported subtotal: 2000"
+        }
+      ],
+      "title": "Schedule B (Interest and Ordinary Dividends)"
+    }
+  ],
+  "pinLabels": {
+    "demo.presentation-l2.finding.box1a": "1099-DIV \u2014 Synthetic dividend payer",
+    "demo.presentation-l2.finding.box1b": "1099-DIV \u2014 Synthetic dividend payer",
+    "demo.presentation-l2.finding.int1": "1099-INT box 1 \u2014 Synthetic First Bank",
+    "demo.presentation-l2.finding.int2": "1099-INT box 1 \u2014 Synthetic Second Credit Union",
+    "demo.presentation-l2.finding.wages": "W-2 \u2014 Synthetic employer, box 1"
+  },
+  "runId": "demo.presentation-l2.production-shaped",
+  "schema": "presentation-model.v1",
+  "sections": [
+    {
+      "citationSites": [
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.presentation-l2.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-0"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.presentation-l2.finding.int1",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-1"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.presentation-l2.finding.int2",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-2"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.presentation-l2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-3"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.presentation-l2.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-4"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.income.agi",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-11",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 11 adjusted gross income",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published agi",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-11",
+        "label": "Adjusted gross income",
+        "line": "11",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-11",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:f813a97a4f20733292f08eea",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line11",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:026332edad2a08d96b4b64f7",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.income.agi",
+            "value": "93234",
+            "version": "v2"
+          },
+          "run_id": "demo.presentation-l2.production-shaped"
+        },
+        "disposition": "published_value",
+        "value": 93234
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Standard deduction or itemized deductions",
+          "pinId": "demo.presentation-l2.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-12-src-0"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.deductions.total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-12",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 12 standard deduction or itemized deductions",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published total deductions",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-12",
+        "label": "Standard deduction or itemized deductions",
+        "line": "12",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-12",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:8e73f3967495b28d46c56cac",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line12",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:3ee609f4bfb661f6285c3861",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:879d86e8e8ffc6ea64417956",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.deductions.total",
+            "value": "15000",
+            "version": "v2"
+          },
+          "run_id": "demo.presentation-l2.production-shaped"
+        },
+        "disposition": "published_value",
+        "value": 15000
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Taxable income",
+          "pinId": "demo.presentation-l2.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-0"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.presentation-l2.finding.int1",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-1"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.presentation-l2.finding.int2",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-2"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.presentation-l2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-3"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.presentation-l2.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-4"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.presentation-l2.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-5"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.income.taxable-income",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-15",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 15 taxable income",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published taxable income",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-15",
+        "label": "Taxable income",
+        "line": "15",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-15",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:e954ae73d4b8fcd844612e6e",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line15",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:8e73f3967495b28d46c56cac",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:f813a97a4f20733292f08eea",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "value": "78234",
+            "version": "v2"
+          },
+          "run_id": "demo.presentation-l2.production-shaped"
+        },
+        "disposition": "published_value",
+        "value": 78234
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Tax",
+          "pinId": "demo.presentation-l2.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-0"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.presentation-l2.finding.box1b",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-1"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.presentation-l2.finding.cg-dist",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-2"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.presentation-l2.finding.int1",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-3"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.presentation-l2.finding.int2",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-4"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.presentation-l2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-5"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.presentation-l2.finding.sched-d",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-6"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.presentation-l2.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-7"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.presentation-l2.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-8"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.tax.total-tax",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-16",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 16 tax amount",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published tax",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-16",
+        "label": "Tax",
+        "line": "16",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-16",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:e8e901e2ce825b360931a766",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line16",
+                "role": "computation",
+                "version": "v2"
+              },
+              {
+                "id": "demo.presentation-l2.finding.cg-dist",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.finding.rounding",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.finding.sched-d",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.finding.status",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:6da69f985093c2d8e99a0185",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:e954ae73d4b8fcd844612e6e",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "bracket_fold",
+                "role": "operation-semantics",
+                "version": "v1"
+              },
+              {
+                "id": "round",
+                "role": "operation-semantics",
+                "version": "v1"
+              },
+              {
+                "id": "demo.parameter.qdcg-preferential-brackets.2025",
+                "role": "parameter",
+                "version": "v1"
+              },
+              {
+                "id": "demo.parameter.tax-brackets.2025",
+                "role": "parameter",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "value": "12222",
+            "version": "v2"
+          },
+          "run_id": "demo.presentation-l2.production-shaped"
+        },
+        "disposition": "published_value",
+        "value": 12222
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Total amount from Form(s) W-2, box 1 (see instructions)",
+          "pinId": "demo.presentation-l2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-1a-src-0"
+        },
+        {
+          "context": "Total amount from Form(s) W-2, box 1 (see instructions)",
+          "pinId": "demo.presentation-l2.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-1a-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.wages.total-w2-box1",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-1a",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 1a: the total of box 1 wages, tips, and other compensation across the taxpayer's Forms W-2 for tax year 2025.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "No published value exists because required state is absent.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a numeric zero whose lineage pins a W-2 source-set closure finding.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a numeric zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value exists because the declared rule guard is false.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this nonzero amount.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-1a",
+        "label": "Total amount from Form(s) W-2, box 1 (see instructions)",
+        "line": "1a",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-1a",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:c92cffa052ce81a50223ac32",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.rule.w2-box1-to-line1a",
+                "role": "field-mapping",
+                "version": "v2"
+              },
+              {
+                "id": "demo.presentation-l2.finding.rounding",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.finding.wages",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "round",
+                "role": "operation-semantics",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.wages.total-w2-box1",
+            "value": "90000",
+            "version": "v2"
+          },
+          "run_id": "demo.presentation-l2.production-shaped"
+        },
+        "disposition": "published_value",
+        "value": 90000
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Taxable interest",
+          "pinId": "demo.presentation-l2.finding.int1",
+          "pinVersion": "v1",
+          "siteId": "line-2b-src-0"
+        },
+        {
+          "context": "Taxable interest",
+          "pinId": "demo.presentation-l2.finding.int2",
+          "pinVersion": "v1",
+          "siteId": "line-2b-src-1"
+        },
+        {
+          "context": "Taxable interest",
+          "pinId": "demo.presentation-l2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-2b-src-2"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.interest.taxable-total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-2b",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 2b: total taxable interest income. Sum of positive interest source families (B1, B3, OID, unreported), gated on the closure of all constituents.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_OPEN"
+            ],
+            "explain": "Taxable interest is blocked because one or more constituent interest families are unclosed or their dependencies are missing.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because all constituent families are attested closed on their current horizons with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present subtotals that sum to zero. All constituent families are closed.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value exists because the rule guard is false.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this taxable interest amount; its lineage pins the constituent subtotals.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-2b",
+        "label": "Taxable interest",
+        "line": "2b",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-2b",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:307bfac7229f40f149077e5b",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line2b",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.closure.int-b1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.closure.int-b3",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.closure.nonform",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.closure.oid-b1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:3e40d7a8345650c08ad1fd29",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:829b5d0a91f0da8cd742b403",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:9ac7256c9f102d864dff6ac1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:efe891236105f34408d1d38a",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099int-b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099int-b3",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099oid-b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.non-form-interest",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099int.b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099int.b3",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099oid.b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.non-form-interest",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.interest.taxable-total",
+            "value": "1234",
+            "version": "v2"
+          },
+          "run_id": "demo.presentation-l2.production-shaped"
+        },
+        "disposition": "published_value",
+        "value": 1234
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Qualified dividends",
+          "pinId": "demo.presentation-l2.finding.box1b",
+          "pinVersion": "v1",
+          "siteId": "line-3a-src-0"
+        },
+        {
+          "context": "Qualified dividends",
+          "pinId": "demo.presentation-l2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-3a-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.dividends.qualified-total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-3a",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 3a: qualified dividends. Composes from Form 1099-DIV box 1b over the closed tax.us.2025.f1099div.1b family, gated on that family's closure only (ADR-0035 decisions 1-2, per-box closure independence).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Qualified dividends is blocked because the box-1b family is unclosed or its dependencies are missing.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the box-1b family is attested closed on its current horizon with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present box-1b findings that sum to zero. The box-1b family is closed.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value exists because the rule guard is false.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this qualified-dividend amount; its lineage pins the box-1b subtotal.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-3a",
+        "label": "Qualified dividends",
+        "line": "3a",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-3a",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:6da69f985093c2d8e99a0185",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line3a",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.closure.div1b",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:a991298f08d9f58c1a00c443",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099div-1b",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099div.1b",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.dividends.qualified-total",
+            "value": "600",
+            "version": "v2"
+          },
+          "run_id": "demo.presentation-l2.production-shaped"
+        },
+        "disposition": "published_value",
+        "value": 600
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Ordinary dividends",
+          "pinId": "demo.presentation-l2.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-3b-src-0"
+        },
+        {
+          "context": "Ordinary dividends",
+          "pinId": "demo.presentation-l2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-3b-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.dividends.ordinary-total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-3b",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 3b: total ordinary dividends. Composes from Form 1099-DIV box 1a over the closed tax.us.2025.f1099div.1a family, gated on that family's closure only (ADR-0035 decisions 1-2, per-box closure independence).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Ordinary dividends is blocked because the box-1a family is unclosed or its dependencies are missing.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the box-1a family is attested closed on its current horizon with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present box-1a findings that sum to zero. The box-1a family is closed.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value exists because the rule guard is false.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this ordinary-dividend amount; its lineage pins the box-1a subtotal.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-3b",
+        "label": "Ordinary dividends",
+        "line": "3b",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-3b",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:325d51c74f138e0409e4c2dd",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line3b",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.presentation-l2.closure.div1a",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:4c96870bd90cd2c0bec4df47",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099div-1a",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099div.1a",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.dividends.ordinary-total",
+            "value": "2000",
+            "version": "v2"
+          },
+          "run_id": "demo.presentation-l2.production-shaped"
+        },
+        "disposition": "published_value",
+        "value": 2000
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Total income",
+          "pinId": "demo.presentation-l2.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-0"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.presentation-l2.finding.int1",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-1"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.presentation-l2.finding.int2",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-2"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.presentation-l2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-3"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.presentation-l2.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-4"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.income.total-income",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-9",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 9 total income",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published total income",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-9",
+        "label": "Total income",
+        "line": "9",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-9",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:026332edad2a08d96b4b64f7",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line9",
+                "role": "computation",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:307bfac7229f40f149077e5b",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:325d51c74f138e0409e4c2dd",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:c92cffa052ce81a50223ac32",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.income.total-income",
+            "value": "93234",
+            "version": "v2"
+          },
+          "run_id": "demo.presentation-l2.production-shaped"
+        },
+        "disposition": "published_value",
+        "value": 93234
+      }
+    }
+  ]
+}
