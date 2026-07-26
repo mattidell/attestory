@@ -167,11 +167,6 @@ schemas have their own protocol below.
 predates the Ontology and violates it in places. Use it for tax-domain
 reference only — never for contracts, schemas, or patterns.
 
-**Apologize rather than ask permission.** For reversible work inside an agreed
-direction, proceed and disclose plainly — in the commit, the retrospective, or
-the report. Reserve questions for irreversible actions and genuine direction
-changes. Dispatch is not covered by this; see above.
-
 **Stop when your unit turns on governance text.** You are not expected to hold
 `docs/governance/` in context (ADR-0045). If your work appears to require
 interpreting the Constitution, Ontology, or Engineering Constraints, stop and
@@ -251,7 +246,10 @@ be working in the same tree. Trust it for your first turn; re-check with
 have been overtaken while you were away: a PR of this branch may already be
 merged, or `main` may have moved past the state `docs/phase-state.md` describes.
 Fetch first, then compare — do not infer freshness from phase state, the plan
-status, or a hook line:
+status, or a hook line. The foreman's required
+`tools/foreman_context.py --ref main` call performs this fetch and reports
+divergence plus whether the current non-main branch tip is already contained in
+`origin/main`; that report satisfies the foreman check. Other seats run:
 
 ```sh
 git fetch origin --prune
@@ -261,11 +259,13 @@ gh pr list --state merged --head "$(git branch --show-current)" --limit 3
 
 Read it as: **ahead 0 and a merged PR for this branch** means your work already
 landed — this workspace is spent, and continuing on it re-does or reverts
-merged history. **Behind > 0** means your base is stale; rebase or re-cut from
-`main` before building, and re-verify that the charter still describes work that
-remains. Either way, **say so explicitly** — name the branch, the merged PR, and
-how far behind you are — and get direction before proceeding. Silently working
-in a superseded tree is the failure this rule exists to prevent.
+merged history. For a foreman, `spent: true` is the equivalent reachability
+proof. **Behind > 0** means your base is stale; rebase or re-cut from `main`
+before building, and re-verify that the charter still describes work that
+remains. Either way, **say so explicitly** — name the branch, the merged PR when
+known, and how far behind you are — and get direction before proceeding.
+Silently working in a superseded tree is the failure this rule exists to
+prevent.
 
 Keep worktrees to a minimum. Remove worktrees that are clean and no longer
 needed, including stale ones left by other agents. Delete merged branches after
@@ -298,7 +298,7 @@ Read a document when its **When** column applies to you — not before.
 | `docs/adr/INDEX.md` | ADR routing (advisory) | On boot — digests only. Read a full ADR only when acting on its exact text |
 | `docs/phases/<phase>/` | Phase overview, roadmap, milestone plans | Foreman. **Builders and reviewers orient from their charter and Orientation Block, never from phase state** |
 | `docs/phase-state.md` | Product briefing, active pointer | Foreman and advisor |
-| `docs/milestone-retrospectives/` | Completed-milestone lessons | Foreman — five most recent, before planning a new milestone |
+| `docs/milestone-retrospectives/` | Completed-milestone lessons | Foreman — when the initial milestone briefing names a specific retrospective as useful follow-up context |
 | `docs/governance/` | The sole contract authority | **Advisor only** (ADR-0045). Enforced for every other seat by CI and by the stop condition above |
 | `docs/roles/craft-notes.md` | Recurring how-to reminders per seat | When your seat file points you there |
 | `README.md` | Current usage and runner commands | When running the product |
