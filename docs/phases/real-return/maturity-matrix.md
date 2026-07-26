@@ -52,7 +52,7 @@ extended at milestone close 2026-07-21):
    (ADR-0033, Track 3): current-user adoption pins a verified release; bytes
    are registry-verified before a strict `validation.ok == True` exclusive
    graph resolves. ADR-0028 historical-v1 migration remains deferred.
-5. **Presentation moved from L3 (footnote-qualified) to L2, honestly, at
+5. **Presentation moved from L3 (footnote-qualified) to L2 at
    milestone close 2026-07-26** (Presentation — Citation Walk on Real
    Derivation Output; ADR-0046 Presentation Surface Contract; Track 1, PR
    #77). A real, ADR-0046-conformant citation-walk renderer now exists —
@@ -64,10 +64,20 @@ extended at milestone close 2026-07-21):
    matrix's own ladder (L2 = synthetic end-to-end, L3 = operates on the
    owner's actual data), this is L2, not L3 — the prior L3 mark predated a
    working renderer and was itself a footnote-qualified overstatement ("not a
-   human surface"). The named, narrow gap to L3: exercise this renderer
-   against one real resolved run's real `form-field.v3`/
-   `act-derived-publication.v1` output, under the existing data boundary. No
-   further schema or renderer change is implied.
+   human surface"). A follow-up inspection before PR #82 merged corrected the
+   original claim that only a real exercise remained: the renderer input is
+   hand-shaped, the coordinator does not persist the full projection inputs,
+   and the harness is intentionally synthetic-only. The capability table below
+   is the current handoff.
+
+   | Presentation capability | Current state | Evidence |
+   | --- | --- | --- |
+   | Surface contract | Accepted | ADR-0046 |
+   | Renderer behavior | Verified over the full synthetic disposition/fault matrix | PR #77, independent repair recheck `READY` |
+   | Coordinator projection | Absent; planned for production-shaped synthetic integration | Presentation — L2 Integration Grounding plan |
+   | Renderer input | Hand-shaped fixture object; no internal version or strict projector validator | `citation-walk.v1.html`, baseline fixture |
+   | Browser path | Synthetic repository harness only | `citation-walk.v1.json`, harness manifest validation |
+   | Real operation | Not exercised; no live browser invocation path | Presentation remains L2 |
 6. **Correction-authority policy retired 2026-07-22** (Correction Authority
    and Marshaller Simplification milestone; ADR-0041, Track 1, PR #53): the
    supersession-policy vocabulary is no longer an unrestricted no-op — it
@@ -145,10 +155,13 @@ every domain. The matrix is breadth- and hardening-limited, not
 depth-limited within its covered domains. The live frontiers for the
 owner's next selection (Tier 3):
 
-1. **Presentation L2 → L3** — a real, ADR-0046-conformant citation-walk
-   renderer now exists (footnote 5), verified on synthetic fixtures. The
-   narrow named gap to L3 is exercising it against one real resolved run's
-   actual output under the existing data boundary — no further building.
+1. **Presentation L2 integration grounding — selected** — a real,
+   ADR-0046-conformant citation-walk renderer exists (footnote 5), verified on
+   synthetic fixtures. The selected milestone first makes its model
+   production-shaped on a synthetic coordinator run and replaces the
+   previously ambiguous handoff with an evidence-backed capability state.
+   Presentation remains L2; a later owner briefing will select any real
+   exercise or live-browser work.
 2. **L3 → L4 hardening** — retire remaining named deferrals from the
    milestone ledgers (`dividends-schedule-b-slice-deferral-ledger.md`,
    `correction-authority-and-marshaller-simplification-deferral-ledger.md`).

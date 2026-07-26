@@ -28,15 +28,16 @@ scan.
 
 ## Status
 
-- Presentation — Live Citation Walk — **planned 2026-07-26.** This is the
-  selected Presentation L2 → L3 frontier. Track 1 connects the reviewed
-  citation walk to authoritative `live_coordinate_run` output, projects the
-  full currently covered Form 1040 and Schedule B presentation slice, and
-  contains the self-contained page plus browser profile/cache below
-  `LiveWorkspace`. Production-shaped synthetic tests and an independent review
-  precede one owner-held quarantined real exercise; only ADR-0031's three-fact
-  attestation crosses. A final records review controls the matrix lift. Plan:
-  `milestones/presentation-live-citation-walk.md`.
+- Presentation — L2 Integration Grounding — **planned 2026-07-26 (updated:
+  2026-07-26).** Boundary inspection corrected the initial PR #82 plan before
+  merge: the current renderer begins with a hand-shaped synthetic model, the
+  coordinator does not persist the inputs needed to construct it, and the
+  browser harness is intentionally synthetic-only. Track 1 closes that
+  coordinator-to-model gap on production-shaped synthetic data and verifies a
+  regenerated golden through the unchanged harness. Track 2 records an
+  independently checked capability-state handoff. Presentation remains L2; no
+  real exercise or L3 claim is included. Plan:
+  `milestones/presentation-l2-integration-grounding.md`.
 
 - Browser Evaluation Runner Completion — **complete 2026-07-25; PR #71 merged
   `c329afd` with CI `verify` green on the merge commit.** This tooling
@@ -57,8 +58,10 @@ scan.
   matrix and T1–T3 fault suite. Its first independent review returned
   `NOT READY` on uncited numeric-zero paths and an invalid-input diagnostic;
   one repair closed both and the focused recheck returned `READY`. The
-  milestone moved Presentation to L2, naming live-run integration as the exact
-  remaining L3 gap. Plan: `milestones/presentation-citation-walk.md`;
+  milestone moved Presentation to L2. Its original “exercise one real run”
+  handoff was later corrected by the L2 Integration Grounding plan after the
+  renderer, harness, and coordinator seams were inspected. Plan:
+  `milestones/presentation-citation-walk.md`;
   retrospective:
   `../../milestone-retrospectives/2026-07-26-presentation-citation-walk.md`.
 

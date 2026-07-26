@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Real Return",
-  "topic": "presentation-live-citation-walk",
-  "active_plan": "docs/phases/real-return/milestones/presentation-live-citation-walk.md",
-  "status": "Presentation — Live Citation Walk is PLANNED. Track 1 connects the reviewed citation walk to authoritative live_coordinate_run output with all page and browser state contained below LiveWorkspace; after review and merge, the owner performs one quarantined real exercise and records only ADR-0031's three-fact attestation; Track 3 independently reviews the L2-to-L3 completion record.",
+  "topic": "presentation-l2-integration-grounding",
+  "active_plan": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md",
+  "status": "Presentation — L2 Integration Grounding is PLANNED. Track 1 makes the citation walk production-shaped on synthetic data by constructing and validating its model inside live_coordinate_run and exercising a regenerated golden through the unchanged synthetic-only browser harness; Track 2 independently records the resulting L2 capability state. No real exercise or L3 claim is in scope.",
   "current_role": "Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-citation-walk-track1.md"
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-track1.md"
 }
 -->
 # Phase State
@@ -30,41 +30,40 @@ action-specific sources it names. If it refuses, inspect those committed sources
 directly and resolve the disagreement before acting. The capsule reports state;
 it does not change the data boundary or replace accepted authority.
 
-## Product briefing (as of 2026-07-26, live citation-walk milestone planned)
+## Product briefing (as of 2026-07-26, Presentation L2 grounding planned)
 
 **What it does now.** Attestory computes its user's **actual return slice**: the owner's real W-2, 1099-INT, and 1099-DIV facts, held in a quarantined out-of-repo workspace, flow through a contribution boundary (contribution is a first-class product event, distinct from a run; runs consume facts, structurally), resolve a byte-verified production package (a current user adoption pins a verified release; only the strict `validation.ok == True` exclusive member graph executes), and produce Form 1040 lines **1a, 2b, 3a, 3b, 9, 11, 12, 15, and 16** with full explanations, plus Schedule B (Parts I/II payer itemizations tying to 2b/3b, Part III via two contributed taxpayer-assertion facts) when the $1,500 conditional requires it — publishing, or blocking honestly with a walkable account of what is missing. Line 16 is the QDCG worksheet over contributed declared-absence facts, with a bidirectional interlock against the capital-gain-distribution signal. Taxable interest (2b) remains an OID-inclusive declared coextensive composition; the 1099-DIV declared universe is boxes 1a/1b only (2a/3/5/7/12 are named honest-block exclusions); standard deduction and tax remain declared rule artifacts over a first-class filing-status domain. Every source family — including both dividend box families — closes over a **horizon-keyed declared set**, so a stale closure is a hard projection error, never a quietly wrong line. The repository provably carries zero personal data: out-of-repo residency by ratified rule (ADR-0031), a fail-closed classifier, per-review safety scans, and installed byte-verified commit/push envelope gates in every clone. The only repo-side fact about any real run is a three-fact non-descriptive attestation (Ontology §8). A correction to an already-answered fact is no longer necessarily unrestricted: a fact type may declare `locked` (never correctable again) or `closed-on-attestation` (correctable until a named closure fact attests true), enforced at the existing supersession-policy dispatch (ADR-0041); every fact type shipped today still declares `free`, unaffected, by choice.
 
 **Shims in place.** E8.1 UI coverage partially met — a citation-walk renderer now exists and satisfies ADR-0046 end to end, but only over **synthetic** fixtures (maturity L2); it has never been exercised against a real resolved run, and no other form or schedule has a human surface. Mechanical separation between Developer/Supply and Live-Run Data **not implemented**, which holds the data-boundary row at L3; guarded publication transport / credential confinement also not implemented, as a separate publication-integrity deferral; a synthetic push-envelope posture audit makes the hook/`--no-verify` bypass visible but does not protect an owner push; ADR-0026's further interest sources and subtractive adjustments deferred; ADR-0028 historical-v1 migration deferred; the declared dividend universe excludes boxes 2a/3/5/7/12; Schedule B is the only implemented schedule attachment; `closed-on-attestation` reaches only fact types keyed identically to their gate fact type, not yet differently-keyed per-item facts. The complete named list with reactivation triggers: `docs/phases/real-return/milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md` (which also dispositions the Dividends and Schedule B Slice ledger's entries this milestone touched — two, both retired).
 
-**What the completed milestones establish.** Live-Run System Definition and Trust Domains accepts ADR-0044 as the project's bounded security position: Developer/Supply, Publication, Live-Run Data, and Owner Authorization are separate logical authority domains; the intended live supply crossing is the current owner-adopted, byte-verified package; and guarded transport belongs to publication integrity rather than the live-data privacy wall. It implements no isolation mechanism, schedules none, and leaves the data-boundary row at L3. The Presentation Exploratory Milestone then demonstrated an agent-authored, agent-reviewed UI-development loop on a synthetic citation walk: roughly 65–80% of the exercised quality surface was mechanically checkable, while information-design judgment remained distinct and under-served. Presentation Evaluation Process Economy added the Track 0 declare → observe → compare → retain foundation: strict presentation workload/observation/comparison contracts, a source-faithful historical baseline, participating-role completeness, and quality-before-cost enforcement; its proposed general browser harness failed independent review and was not merged. Browser Evaluation Runner Completion then finished that same runner as trustworthy tooling: it adopted the preserved implementation commit rather than rebuilding it, repaired the review's six blocking correctness classes plus two owner-accepted post-verdict residuals (R1/R2), and completed the transferred lifecycle/output measurements, under one focused delta review and one focused recheck. It added no product UI, ADR, or maturity lift; it removes the "runner not trustworthy" blocker on starting presentation work. Presentation — Citation Walk on Real Derivation Output then spent that unblocked capacity: it ratified ADR-0046 (Presentation Surface Contract) straight from the exploratory milestone's existing five-cycle evidence rather than re-deriving it, and shipped the first conforming human surface. Its lasting result is the contract, not the page — zero-authority foreclosure (nothing renders without a source citation), blanket redaction of rejected values, section-level blocked-state salience — and the demonstration that an independent review gate catches contract violations the builder's own 23-criterion manifest passed clean (F1, F2). It lifts Presentation to L2 and names its own next bar: one real resolved run.
+**What the completed milestones establish.** Live-Run System Definition and Trust Domains accepts ADR-0044 as the project's bounded security position: Developer/Supply, Publication, Live-Run Data, and Owner Authorization are separate logical authority domains; the intended live supply crossing is the current owner-adopted, byte-verified package; and guarded transport belongs to publication integrity rather than the live-data privacy wall. It implements no isolation mechanism, schedules none, and leaves the data-boundary row at L3. The Presentation Exploratory Milestone then demonstrated an agent-authored, agent-reviewed UI-development loop on a synthetic citation walk: roughly 65–80% of the exercised quality surface was mechanically checkable, while information-design judgment remained distinct and under-served. Presentation Evaluation Process Economy added the Track 0 declare → observe → compare → retain foundation: strict presentation workload/observation/comparison contracts, a source-faithful historical baseline, participating-role completeness, and quality-before-cost enforcement; its proposed general browser harness failed independent review and was not merged. Browser Evaluation Runner Completion then finished that same runner as trustworthy tooling: it adopted the preserved implementation commit rather than rebuilding it, repaired the review's six blocking correctness classes plus two owner-accepted post-verdict residuals (R1/R2), and completed the transferred lifecycle/output measurements, under one focused delta review and one focused recheck. It added no product UI, ADR, or maturity lift; it removes the "runner not trustworthy" blocker on starting presentation work. Presentation — Citation Walk on Real Derivation Output then spent that unblocked capacity: it ratified ADR-0046 (Presentation Surface Contract) straight from the exploratory milestone's existing five-cycle evidence rather than re-deriving it, and shipped the first conforming human surface. Its lasting result is the contract, not the page — zero-authority foreclosure (nothing renders without a source citation), blanket redaction of rejected values, section-level blocked-state salience — and the demonstration that an independent review gate catches contract violations the builder's own 23-criterion manifest passed clean (F1, F2). It lifts Presentation to L2. A later boundary inspection corrected its proposed next bar before that proposal merged as a new plan.
 
-**What the next milestone will do.** Presentation — Live Citation Walk closes
-the named L2 → L3 gap. The prior page cannot safely be pointed at a live output
-as-is: its harness rejects non-synthetic fixtures, its input is a hand-shaped
-presentation model rather than `live_coordinate_run` output, and its browser
-profile is not a live-workspace artifact. Track 1 adds the smallest
-authoritative projection from the successful live result and contains the
-self-contained page plus browser state below `LiveWorkspace`; independent
-review then gates one owner-held quarantined exercise and the three-fact
-attestation. A final records review raises Presentation to L3 only if every
-gate passes.
+**What the next milestone will do.** Presentation — L2 Integration Grounding
+corrects the prior closeout's unsupported conclusion that a real exercise
+required no further building. The renderer currently starts from a hand-shaped
+model, the coordinator does not persist the publications and resolved graph
+needed to construct that model, and the browser harness is intentionally
+synthetic-only. Track 1 closes the coordinator-to-model gap on a
+production-shaped synthetic run and proves a regenerated golden through that
+unchanged harness. Track 2 records the resulting capability state in the
+maturity matrix. Presentation remains L2; no real exercise, live browser path,
+or L3 claim is part of this milestone.
 
 **Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are published; any further correction-authority extension is separately chartered. ADR-0044 is accepted positioning, not a mechanism decision: any authority-separation implementation requires a later owner-selected milestone, mechanical proof, and real-run verification before an L4 claim.
 
 ## Current state (2026-07-26)
 
-- **Presentation — Live Citation Walk:** **planned.** The owner selected the
-  Presentation L2 → L3 frontier on 2026-07-26. Track 1 is chartered to connect
-  the reviewed citation walk to the authoritative production live result,
-  project the full currently covered Form 1040 and Schedule B slice, and keep
-  the generated page plus browser profile/cache below `LiveWorkspace`, all
-  proven with production-shaped synthetic tests and an independent review.
-  After Track 1 merges, the owner performs one quarantined real exercise; the
-  repository records only the exact three-fact attestation. A final independent
-  records review controls the matrix lift. Plan:
-  `docs/phases/real-return/milestones/presentation-live-citation-walk.md`.
+- **Presentation — L2 Integration Grounding:** **planned.** Boundary inspection
+  corrected the prior “no further building” handoff before PR #82 merged. Track
+  1 constructs and validates the renderer model inside a production-shaped
+  synthetic `live_coordinate_run`, writes it below `LiveWorkspace`, and proves
+  a deterministic synthetic golden through the unchanged browser harness.
+  Track 2 independently updates the maturity matrix's Presentation
+  capability-state table. The row remains L2; a real exercise and live browser
+  design are explicitly deferred. Plan:
+  `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
   Current prompt:
-  `docs/reviews/charter-2026-07-26-presentation-live-citation-walk-track1.md`.
+  `docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-track1.md`.
 
 - **Live-Run System Definition and Trust Domains:** complete; ADR-0044 accepted
   as a positioning contract; closure PR #61 **merged**. It selects and schedules
@@ -133,9 +132,11 @@ gate passes.
   proving F1/F2 closed). Track 2 filed the retrospective and moved the
   maturity-matrix Presentation cell **L3 → L2** (owner-confirmed): L2 is
   synthetic end-to-end, and Track 1's charter scoped it to synthetic fixtures,
-  so the prior L3 mark was a footnote-qualified overstatement. The named L3
-  gap is narrow — exercise the renderer against **one real resolved run**, not
-  further building. Retrospective:
+  so the prior L3 mark was a footnote-qualified overstatement. Its retrospective
+  then characterized the remaining work as one real exercise with no further
+  building; the current L2 Integration Grounding plan corrects that conclusion
+  after inspecting the renderer, harness, and coordinator boundaries.
+  Retrospective:
   `docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md`.
   The accepted economy contracts remain available but were not this
   milestone's subject.
@@ -149,12 +150,13 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
-Active milestone: **Presentation — Live Citation Walk** — planned 2026-07-26.
+Active milestone: **Presentation — L2 Integration Grounding** — planned
+2026-07-26.
 Track 1 has a prepared Builder charter and begins after the plan is on `main`.
 Plan:
-`docs/phases/real-return/milestones/presentation-live-citation-walk.md`.
+`docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 Current prompt:
-`docs/reviews/charter-2026-07-26-presentation-live-citation-walk-track1.md`.
+`docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-track1.md`.
 
 Most recent completed milestone: **Presentation — Citation Walk on Real
 Derivation Output** — complete 2026-07-26. PR #77 merged `2d4c195` with CI `verify` green
@@ -162,8 +164,9 @@ on the merge commit. Ratified ADR-0046 (Presentation Surface Contract), shipped
 the citation-walk renderer over synthetic `form-field.v3` /
 `act-derived-publication.v1` fixtures through one review gate (`NOT READY` on
 F1/F2), one repair, and one focused recheck (`READY`), and moved the
-maturity-matrix Presentation cell L3 → L2 with a named L3 gap: exercise against
-one real resolved run. Plan:
+maturity-matrix Presentation cell L3 → L2. Its original closeout framed the
+next step as one real exercise; the current milestone corrects that handoff
+without rewriting the completed implementation record. Plan:
 `docs/phases/real-return/milestones/presentation-citation-walk.md`. Decision
 record: `docs/adr/0046-presentation-surface-contract.md`. Retrospective:
 `docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md`.
