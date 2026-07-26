@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-citation-walk",
   "active_plan": "docs/phases/real-return/milestones/presentation-citation-walk.md",
-  "status": "Owner selected the Presentation frontier 2026-07-25 and approved ADR-0046 (Presentation Surface Contract) plus this milestone's plan. Ready for a charter; no dispatch has occurred.",
-  "current_role": "Track 1 Builder (renderer) — prepared, awaiting owner's literal `I authorize dispatch`",
-  "current_prompt": "docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md"
+  "status": "Track 1 (renderer) landed as PR #77, CI verify green, mergeable, not yet merged. Track 1's review gate charter prepared.",
+  "current_role": "Track 1 review gate Reviewer — prepared, awaiting owner's literal `I authorize dispatch`",
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md"
 }
 -->
 # Phase State
@@ -102,8 +102,12 @@ recommendation; the owner makes the Tier 3 selection.
   five-cycle convergence directly from existing evidence, resolving its three
   open rule-points: derived/diagnostic values are zero-authority; rejected
   values are blanket-redacted, never echoed; blocked-state salience is
-  section-level. The milestone plan is owner-approved and ready for a
-  charter; no dispatch has occurred. The accepted economy contracts remain
+  section-level. Track 1 (renderer) landed as PR #77 — CI `verify` green,
+  mergeable, not yet merged — consuming `form-field.v3`/
+  `act-derived-publication.v1` fixtures across all five disposition kinds
+  plus the standardized T1–T3 fault cases, driven by a 23-criterion browser
+  evaluation runner manifest. Track 1's review gate charter is prepared; no
+  dispatch has occurred. The accepted economy contracts remain
   available but are not this milestone's subject.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
@@ -139,11 +143,11 @@ material live under `docs/prototypes/human-presentation-citation-walk/`.
 **➡️ In-progress milestone: Presentation — Citation Walk on Real Derivation
 Output.** Owner-selected 2026-07-25. ADR-0046 ratifies the Presentation
 Surface Contract directly from the exploratory milestone's existing
-five-cycle evidence; the milestone plan builds the real renderer against
-`form-field.v3`/`act-derived-publication.v1` output and verifies it with the
-completed browser evaluation runner. Plan is owner-approved and ready for a
-charter; no dispatch has occurred — dispatch requires the owner's literal
-string `I authorize dispatch`. Plan:
+five-cycle evidence. Track 1 (renderer) landed on
+`track/presentation-citation-walk-track1` as PR #77, CI `verify` green,
+mergeable, not yet merged. Track 1's review gate charter is prepared at
+`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md`;
+no dispatch has occurred. Plan:
 `docs/phases/real-return/milestones/presentation-citation-walk.md`. Decision
 record: `docs/adr/0046-presentation-surface-contract.md`.
 `track/browser-evaluation-runner-completion` may be deleted, since its

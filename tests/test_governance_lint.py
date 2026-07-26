@@ -147,5 +147,40 @@ class TestOwnerAssent(unittest.TestCase):
         self.assertNotIn("browser-evaluation-runner-completion.md", scanned)
 
 
+class TestTrackHeadings(unittest.TestCase):
+    """A track is a development unit and a review is a gate on one
+    (PROJECT_PLANNING.md, 'Development unit = the track')."""
+
+    def names_a_review(self, heading: str) -> bool:
+        match = gl._TRACK_HEADING.match(heading)
+        return bool(match and gl._REVIEW_WORD.search(match.group(1)))
+
+    def test_live_plans_are_clean(self) -> None:
+        findings: list[str] = []
+        gl.check_track_headings(findings)
+        self.assertEqual(findings, [])
+
+    def test_flags_a_review_numbered_as_a_track(self) -> None:
+        # The exact heading this check was written for.
+        self.assertTrue(self.names_a_review("### Track 2 — Focused independent review"))
+        self.assertTrue(self.names_a_review("## Track 3 — Review and acceptance"))
+
+    def test_spares_development_tracks(self) -> None:
+        self.assertFalse(self.names_a_review("### Track 1 — Real citation-walk renderer"))
+        self.assertFalse(self.names_a_review("### Track 2 — Completion record"))
+        # "reviewed ready" is status prose about a track, not a review track.
+        self.assertFalse(
+            self.names_a_review("### Track 0a — ADR-0037 prerequisite — reviewed ready")
+        )
+
+    def test_gate_subheadings_are_not_track_headings(self) -> None:
+        # `### Track 1 gate` is the shape this check wants plans to use.
+        self.assertIsNone(gl._TRACK_HEADING.match("### Track 1 gate"))
+
+    def test_closed_plans_are_history_and_not_scanned(self) -> None:
+        scanned = {path.name for path in gl.live_milestone_plans()}
+        self.assertNotIn("browser-evaluation-runner-completion.md", scanned)
+
+
 if __name__ == "__main__":
     unittest.main()
