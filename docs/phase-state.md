@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-citation-walk",
   "active_plan": "docs/phases/real-return/milestones/presentation-citation-walk.md",
-  "status": "Owner selected the Presentation frontier 2026-07-25 and approved ADR-0046 (Presentation Surface Contract) plus this milestone's plan. Ready for a charter; no dispatch has occurred.",
-  "current_role": "Track 1 Builder (renderer) — prepared, awaiting owner's literal `I authorize dispatch`",
-  "current_prompt": "docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md"
+  "status": "Track 1's review gate returned NOT READY (F1: computed_zero/closure_backed_zero render a numeric value with no citation; F2: diagnostic eligibility ignores an invalid numeric input). The Track 1 repair closing F1 and F2 is the live unit, to be owner-launched; a focused recheck follows.",
+  "current_role": "Track 1 Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md"
 }
 -->
 # Phase State
@@ -27,9 +27,8 @@ Render the advisory capsule from an explicit committed ref:
 
 Reconcile its source commit and worktree report with Git, then read the
 action-specific sources it names. If it refuses, inspect those committed sources
-directly and resolve the disagreement before acting. The capsule does not
-authorize a foreman dispatch, change the data boundary, or replace accepted
-authority.
+directly and resolve the disagreement before acting. The capsule reports state;
+it does not change the data boundary or replace accepted authority.
 
 ## Product briefing (as of 2026-07-25, browser-runner completion merged)
 
@@ -102,8 +101,21 @@ recommendation; the owner makes the Tier 3 selection.
   five-cycle convergence directly from existing evidence, resolving its three
   open rule-points: derived/diagnostic values are zero-authority; rejected
   values are blanket-redacted, never echoed; blocked-state salience is
-  section-level. The milestone plan is owner-approved and ready for a
-  charter; no dispatch has occurred. The accepted economy contracts remain
+  section-level. Track 1 (renderer) landed as PR #77 — CI `verify` green,
+  mergeable, **not merged** — consuming `form-field.v3`/
+  `act-derived-publication.v1` fixtures across all five disposition kinds
+  plus the standardized T1–T3 fault cases, driven by a 23-criterion browser
+  evaluation runner manifest. **Track 1's review gate ran and returned
+  `NOT READY`** (`docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`):
+  measurements 1–8 pass, but F1 (`computed_zero`/`closure_backed_zero` render
+  a numeric value with no citation, because the renderer reads only
+  `citationSites` and never `field.citation`) and F2 (diagnostic eligibility
+  checks disposition kind but not that the resolved value is a finite number)
+  each independently fail ADR-0046's zero-authority foreclosure. The milestone
+  plan now carries a Track 1 repair closing exactly F1 and F2
+  (`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`)
+  plus one focused recheck; the repair is owner-launched, since a repair cycle
+  iterates against review. The accepted economy contracts remain
   available but are not this milestone's subject.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
@@ -139,11 +151,14 @@ material live under `docs/prototypes/human-presentation-citation-walk/`.
 **➡️ In-progress milestone: Presentation — Citation Walk on Real Derivation
 Output.** Owner-selected 2026-07-25. ADR-0046 ratifies the Presentation
 Surface Contract directly from the exploratory milestone's existing
-five-cycle evidence; the milestone plan builds the real renderer against
-`form-field.v3`/`act-derived-publication.v1` output and verifies it with the
-completed browser evaluation runner. Plan is owner-approved and ready for a
-charter; no dispatch has occurred — dispatch requires the owner's literal
-string `I authorize dispatch`. Plan:
+five-cycle evidence. Track 1 (renderer) landed on
+`track/presentation-citation-walk-track1` as PR #77, CI `verify` green,
+mergeable, not merged. Track 1's review gate ran under the charter at
+`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md`
+and returned `NOT READY` on F1 and F2. **The live unit is the Track 1
+repair**, charter at
+`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`,
+launched by the owner. Plan:
 `docs/phases/real-return/milestones/presentation-citation-walk.md`. Decision
 record: `docs/adr/0046-presentation-surface-contract.md`.
 `track/browser-evaluation-runner-completion` may be deleted, since its
@@ -173,6 +188,14 @@ Durable history — Foundation's record lives in `docs/phases/foundation/foundat
   `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md`.
 - Prepared focused post-repair delta-review charter:
   `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md`.
+- Citation-walk Track 1 build charter:
+  `docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md`.
+- Citation-walk Track 1 review-gate charter:
+  `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md`.
+- Completed citation-walk Track 1 review (`NOT READY`, F1/F2):
+  `docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`.
+- Prepared (not approved) citation-walk Track 1 repair charter:
+  `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Operating rules: `AGENTS.md` and `PROJECT_PLANNING.md`. Process is not in the
   ADR corpus (ADR-0045); `docs/adr/INDEX.md` routes product contracts only.

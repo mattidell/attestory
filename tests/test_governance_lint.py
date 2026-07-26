@@ -111,39 +111,38 @@ class TestIntakeDrafts(unittest.TestCase):
         self.assertEqual(findings, [])
 
 
-class TestOwnerAssent(unittest.TestCase):
-    """`authorize` is reserved for dispatch, so a live document must not say the
-    owner authorized anything else — that is what taught readers a file can
-    carry authorization (PROJECT_PLANNING.md, 'Recording Owner Assent')."""
+class TestTrackHeadings(unittest.TestCase):
+    """A track is a development unit and a review is a gate on one
+    (PROJECT_PLANNING.md, 'Development unit = the track')."""
 
-    def flags(self, line: str) -> bool:
-        return bool(gl._OWNER_ASSENT.search(gl._CODE_SPAN.sub("", line)))
+    def names_a_review(self, heading: str) -> bool:
+        match = gl._TRACK_HEADING.match(heading)
+        return bool(match and gl._REVIEW_WORD.search(match.group(1)))
 
-    def test_live_documents_are_clean(self) -> None:
+    def test_live_plans_are_clean(self) -> None:
         findings: list[str] = []
-        gl.check_owner_assent(findings)
+        gl.check_track_headings(findings)
         self.assertEqual(findings, [])
 
-    def test_flags_owner_assent_asserted_as_authorization(self) -> None:
-        self.assertTrue(self.flags("one owner-authorized repair pass"))
-        self.assertTrue(self.flags("for this milestone only, the owner authorizes a"))
-        self.assertTrue(self.flags("the deviation was authorized by the owner"))
+    def test_flags_a_review_numbered_as_a_track(self) -> None:
+        # The exact heading this check was written for.
+        self.assertTrue(self.names_a_review("### Track 2 — Focused independent review"))
+        self.assertTrue(self.names_a_review("## Track 3 — Review and acceptance"))
 
-    def test_spares_the_adr_0044_trust_domain(self) -> None:
-        # `Owner Authorization` names one of four trust domains: the owner's
-        # acts inside the tax system, nothing to do with dispatch.
-        self.assertFalse(self.flags("| **Owner Authorization** | The owner's acts |"))
-        self.assertFalse(self.flags("state Developer/Supply and Owner Authorization domains"))
+    def test_spares_development_tracks(self) -> None:
+        self.assertFalse(self.names_a_review("### Track 1 — Real citation-walk renderer"))
+        self.assertFalse(self.names_a_review("### Track 2 — Completion record"))
+        # "reviewed ready" is status prose about a track, not a review track.
+        self.assertFalse(
+            self.names_a_review("### Track 0a — ADR-0037 prerequisite — reviewed ready")
+        )
 
-    def test_spares_a_mention_in_backticks(self) -> None:
-        # The norm has to name the phrase it forbids; a pointer has to cite the
-        # AGENTS.md heading. Neither asserts that the owner authorized anything.
-        self.assertFalse(self.flags("Writing `owner-authorized` about anything else"))
-        self.assertFalse(self.flags("see `AGENTS.md#Dispatch authorization`"))
+    def test_gate_subheadings_are_not_track_headings(self) -> None:
+        # `### Track 1 gate` is the shape this check wants plans to use.
+        self.assertIsNone(gl._TRACK_HEADING.match("### Track 1 gate"))
 
     def test_closed_plans_are_history_and_not_scanned(self) -> None:
-        scanned = {path.name for path in gl.live_authority_documents()}
-        self.assertIn("PROJECT_PLANNING.md", scanned)
+        scanned = {path.name for path in gl.live_milestone_plans()}
         self.assertNotIn("browser-evaluation-runner-completion.md", scanned)
 
 

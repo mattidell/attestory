@@ -2,15 +2,15 @@
 {
   "version": 1,
   "topic": "presentation-citation-walk",
-  "milestone_state": "planned",
+  "milestone_state": "track-1",
   "retrospective": null,
-  "status": "Owner-approved 2026-07-25 on ADR-0046 (ratified same day). Ready for a charter; no dispatch has occurred.",
+  "status": "Owner-approved 2026-07-25 on ADR-0046 (ratified same day). Track 1 built (PR #77, verify green, unmerged); its review gate returned NOT READY on F1 and F2. The Track 1 repair is the live unit, with a focused recheck to follow. Track 2 not started.",
   "scope": [
     "render the real citation walk against actual derivation output (form-field.v3 + act-derived-publication.v1), not a synthetic fixture",
     "satisfy ADR-0046's Presentation Surface Contract end to end",
     "verify with the completed browser evaluation runner as the review harness",
     "raise the Presentation aspect of the maturity matrix from L3-with-shim toward a real human surface",
-    "one focused independent review against ADR-0046 plus the runner's F1-F6 floor"
+    "Track 1's review gate: one focused independent review against ADR-0046 plus the runner's F1-F6 floor"
   ],
   "non_goals": [
     "no new tax computation, form-field, or citation content",
@@ -58,9 +58,10 @@
 -->
 # Milestone: Presentation — Citation Walk on Real Derivation Output
 
-Status: **owner-approved plan; ready for a charter.** No dispatch has
-occurred — dispatch still requires the owner's literal string
-`I authorize dispatch` per `AGENTS.md`.
+Status: **in flight — Track 1 repair is the live unit.** The review gate
+returned `NOT READY` on findings F1 and F2. The cap below now carries one
+repair build and its focused recheck. Execution to date is in "Execution
+record" below.
 
 ## Objective
 
@@ -111,11 +112,12 @@ three prerequisites this milestone depends on are complete and merged to
    with the standardized tamper/fault cases (T1 inject-on-blocked-line, T2
    non-numeric published value, T3 unknown line status) plus the
    dispositions-coverage cases from item 3.
-6. One focused independent review against ADR-0046 and the runner's F1–F6
-   floor (network confinement, storage isolation, injection integrity,
-   cleanup, deterministic output — all already proven by the runner itself;
-   the review's job is the *content* satisfying the contract, not
-   re-proving the harness).
+6. Take Track 1 through its review gate: one focused independent review
+   against ADR-0046 and the runner's F1–F6 floor (network confinement,
+   storage isolation, injection integrity, cleanup, deterministic output —
+   all already proven by the runner itself; the review's job is the
+   *content* satisfying the contract, not re-proving the harness), with
+   repair if the review returns findings.
 
 ## Non-goals
 
@@ -205,18 +207,35 @@ milestone.
 4. The standardized tamper suite (T1–T3) fails closed against the real
    renderer.
 5. The browser-evaluation-runner manifest passes with exit `0`.
-6. One focused independent review confirms 1–5 and finds no ADR-0046
-   violation.
+6. Track 1's review gate confirms 1–5 and finds no ADR-0046 violation.
 7. The retrospective records the maturity-matrix Presentation cell claim with
    its Ontology §8 evidential basis, or explicitly declines the claim with
    the smallest exact gap if review returns short of readiness.
+
+## Review gate
+
+Before Track 1 closes, the Reviewer must:
+
+1. independently rerun the citation-walk manifest and reproduce its criteria,
+   not trust the Builder's reported pass;
+2. independently reproduce the T1–T3 fault-injection cases against the real
+   renderer;
+3. confirm every ADR-0046 requirement and foreclosure, including the three
+   resolved rule-points, against the actual diff; and
+4. rely on the browser evaluation runner's own F1–F6 floor rather than
+   re-deriving it.
+
+`READY` requires all four confirmed with no ADR-0046 violation found.
+Otherwise return `NOT READY` with the smallest exact residual; a remaining
+blocker returns to the foreman rather than an automatic second review cycle.
 
 ## Tracks
 
 ### Track 1 — Real citation-walk renderer and fixtures
 
-**Goal:** build the renderer against real derivation-output schemas and cover
-the full dispositions-state matrix.
+**Goal:** build the renderer against real derivation-output schemas, cover
+the full dispositions-state matrix, and take it through the review gate
+above (repairing findings if the review returns `NOT READY`).
 
 **Boundary:** presentation-layer consumer only; no derivation/kernel/schema
 change; no new dependency or framework.
@@ -228,35 +247,53 @@ code against real schemas, not a fork of the synthetic prototype).
 
 **Outputs:** renderer module(s), committed synthetic fixtures across the
 dispositions-state matrix, a citation-walk manifest for the browser
-evaluation runner.
+evaluation runner, and a review record with a `READY`/`NOT READY` verdict.
 
 **Verification:** runner manifest passes; each Scope item 3/6 case has an
-executable check, not a doc claim.
+executable check, not a doc claim; independent review reproduces both.
 
 **Migration risk:** none — additive presentation-layer consumer.
 
 **Data safety:** synthetic committed fixtures only.
 
-### Track 2 — Focused independent review
+### Track 2 — Completion record
 
-**Goal:** verify the renderer against ADR-0046 and confirm no violation
-survives adversarial execution.
+**Goal:** record the milestone's accepted capability and the maturity-matrix
+claim (or its explicit decline) without new implementation.
 
-**Boundary:** content/contract correctness only; relies on the runner's own
-F1–F6 floor rather than re-proving harness trustworthiness.
+**Boundary:** records only; no repair, new check family, product comparison,
+or process mandate.
 
-**Inputs:** Track 1 diff, ADR-0046, the runner manifest and its result.
+**Inputs:** Track 1's `READY` review gate, CI result, the renderer's exact
+command/output contract.
 
-**Outputs:** one review record with a `READY`/`NOT READY` verdict and, if
-`NOT READY`, the smallest exact residual.
+**Outputs:** concise retrospective, roadmap/phase-state update, and cleanup
+of merged branches/worktrees.
 
-**Verification:** independent reproduction of the fault-injection/tamper
-suite; inspection against every ADR-0046 clause.
+**Verification:** records agree with Git, PR, review, and CI; current prompt
+advances; the matrix claim (or decline) is evidenced, not asserted.
 
-**Migration risk:** none — review only.
+**Migration risk:** documentation only.
 
-**Data safety:** synthetic fixtures only; no real data ever enters review
-scope.
+**Data safety:** repository-relative process evidence only.
+
+## Execution record
+
+Prompt lineage for this milestone's units. Reconstructed from Git on
+2026-07-26 by a later foreman, because the foreman that ran these units wrote
+no record. Entries assert only what Git and GitHub prove.
+
+| # | Unit | Role | Prompt (charter) | Outcome |
+| --- | --- | --- | --- | --- |
+| 1 | Track 1 build | Builder | `docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md` (PR #74) | `6ce90e7` on `track/presentation-citation-walk-track1`; PR #77 open, `verify` green, unmerged |
+| 2 | Track 1 review gate | Reviewer | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md` (PR #78) | `NOT READY` — `docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`; measurements 1–8 pass, findings F1 and F2 block |
+| 3 | Track 1 repair | Builder | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md` | Owner-approved; owner-launch, per `docs/roles/foreman.md` ("Spawn versus owner-launch") — a repair cycle iterates against review |
+
+**Cost measurement is missing for units 1 and 2.** Neither was recorded in
+`metrics/spawn-ledger.jsonl`, which the previous milestone populated for all
+five of its launches. Their wall time, turns, and tool calls are therefore
+unrecoverable, and this milestone cannot be compared against the economy
+baseline on the units already run. Unit 3 records at launch and on return.
 
 ## Economical execution
 
@@ -264,17 +301,21 @@ Role allocation, per the same craft rules the last two milestones used:
 
 | Unit | Role | Tier / effort | Boundary |
 | --- | --- | --- | --- |
-| Track 1 | Builder | Medium / medium | New renderer against real schemas; reuse settled criteria as checklist, not code fork |
-| Track 2 | Reviewer | High / medium | ADR-0046 conformance and fault-injection reproduction; credits the runner's own F1–F6 evidence rather than re-deriving it |
+| Track 1 build | Builder | Medium / medium | New renderer against real schemas; reuse settled criteria as checklist, not code fork |
+| Track 1 review gate | Reviewer | High / medium | ADR-0046 conformance and fault-injection reproduction; credits the runner's own F1–F6 evidence rather than re-deriving it |
+| Track 1 repair | Builder | Medium / medium | F1 and F2 only, in the renderer and its fixtures/manifest; owner-launch, since a repair cycle iterates against review |
+| Track 1 repair recheck | Reviewer | High / medium | F1 and F2 plus directly touched invariants only — not a second full eight-measurement sweep |
+| Track 2 completion | Foreman | Judgment and records only | Record accepted capability, matrix claim or decline, CI, and cleanup |
 
-Fixed cap: one Track 1 implementation and one Track 2 review. A remaining
-`NOT READY` residual returns to the owner for disposition rather than an
-automatic second cycle, consistent with the last two milestones' discipline.
+Cap: one Track 1 build, one review gate, and — carried by this plan — one
+repair build with one focused recheck. A residual surviving *that* recheck
+returns to the owner for disposition rather than a further cycle, consistent
+with the last two milestones' discipline.
 
 ## Owner approval
 
 The owner selected this milestone (2026-07-25), approved ADR-0046's evidence
 bar and its three resolved rule-points, and confirmed this plan's scope,
-tracks, and exit criteria plus the manifest path above. This plan and ADR-0046
-are ready for a charter; no dispatch has occurred, and dispatch still requires
-the owner's literal string `I authorize dispatch` per `AGENTS.md`.
+tracks, and exit criteria plus the manifest path above. The scope and cap
+carried by the current text of this plan — including the Track 1 repair and
+its focused recheck — are the record.

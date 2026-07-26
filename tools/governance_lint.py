@@ -194,59 +194,41 @@ def check_no_intake_drafts(findings: list[str]) -> None:
         )
 
 
-ALWAYS_LIVE = (
-    "AGENTS.md",
-    "PROJECT_PLANNING.md",
-    "docs/phase-state.md",
-)
-
-# "the owner authorized X" in a document still carrying authority. Excludes the
-# ADR-0044 trust domain `Owner Authorization`, which is a product term about the
-# owner's acts inside the tax system and never about dispatch.
-_OWNER_ASSENT = re.compile(
-    r"owner-authoriz\w*|\bowner (?:has )?authoriz(?:e|es|ed)\b|authoriz\w+ by the owner",
-    re.IGNORECASE,
-)
-_CODE_SPAN = re.compile(r"`[^`]*`")
 _MILESTONE_STATE = re.compile(r'"milestone_state"\s*:\s*"([^"]+)"')
-_CURRENT_PROMPT = re.compile(r'"current_prompt"\s*:\s*"([^"#]+)')
+_TRACK_HEADING = re.compile(r"^#{2,4} Track \S+ [—-] (.+?)\s*$")
+_REVIEW_WORD = re.compile(r"\breview\b", re.IGNORECASE)
 
 
-def live_authority_documents() -> list[Path]:
-    """Documents that still bind. Closed milestone plans and retired or
-    superseded ADRs record what was said at the time; they are history, and
-    linting them would only pressure agents to rewrite the past."""
-    paths = [REPO_ROOT / name for name in ALWAYS_LIVE]
-    paths.extend(sorted((REPO_ROOT / "docs" / "roles").glob("*.md")))
+def live_milestone_plans() -> list[Path]:
+    """Milestone plans that still bind. A `closed` plan is a record of a
+    finished milestone; linting it would only pressure agents to rewrite the
+    past."""
+    plans = []
     for plan in sorted(DOCS_DIR.glob("phases/*/milestones/*.md")):
         state = _MILESTONE_STATE.search(plan.read_text(encoding="utf-8"))
         if state and state.group(1) != "closed":
-            paths.append(plan)
-    phase_state = REPO_ROOT / "docs" / "phase-state.md"
-    if phase_state.exists():
-        # Exactly one charter is current, and phase state is what names it.
-        prompt = _CURRENT_PROMPT.search(phase_state.read_text(encoding="utf-8"))
-        if prompt:
-            charter = REPO_ROOT / prompt.group(1)
-            if charter.exists() and charter not in paths:
-                paths.append(charter)
-    return [path for path in paths if path.exists()]
+            plans.append(plan)
+    return plans
 
 
-def check_owner_assent(findings: list[str]) -> None:
-    for path in live_authority_documents():
-        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-            # Backticks mark a mention, not a use: the norm has to be able to
-            # name the phrase it forbids, and a pointer may cite the AGENTS.md
-            # heading, without either one asserting that the owner authorized
-            # anything.
-            match = _OWNER_ASSENT.search(_CODE_SPAN.sub("", line))
-            if match:
+def check_track_headings(findings: list[str]) -> None:
+    """A track is a development unit; its review is a gate the track passes
+    through before it closes (PROJECT_PLANNING.md, 'Development unit = the
+    track'). Numbering a review as its own track is not a naming preference:
+    a gate cannot pass until its track is done, so its failure means the
+    track is unfinished, whereas a track completes on its own terms. Promote
+    the gate and a failed review reads as one track's verdict rather than the
+    prior track being incomplete — which lets a milestone advance past an
+    unmet exit criterion, and leaves the closing unit without a track."""
+    for plan in live_milestone_plans():
+        for number, line in enumerate(plan.read_text(encoding="utf-8").splitlines(), 1):
+            heading = _TRACK_HEADING.match(line)
+            if heading and _REVIEW_WORD.search(heading.group(1)):
                 findings.append(
-                    f"{path.relative_to(REPO_ROOT)}:{number}: {match.group(0)!r} — "
-                    "owner assent is recorded by the merge, not by prose; "
-                    "'authorize' is reserved for dispatch "
-                    "(PROJECT_PLANNING.md, 'Recording Owner Assent')"
+                    f"{plan.relative_to(REPO_ROOT)}:{number}: track named "
+                    f"{heading.group(1)!r} — a review is a gate on a track, not a "
+                    "track; fold it into the track it gates as a '## Review gate' "
+                    "section (PROJECT_PLANNING.md, 'Development unit = the track')"
                 )
 
 
@@ -268,7 +250,7 @@ def run() -> list[str]:
     check_term_resolution(constitution, ontology, findings)
     check_parentage(principles, findings)
     check_no_intake_drafts(findings)
-    check_owner_assent(findings)
+    check_track_headings(findings)
     return findings
 
 

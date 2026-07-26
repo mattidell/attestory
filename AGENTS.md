@@ -89,18 +89,29 @@ not a dispatch.
 The foreman may dispatch **only when a message from the owner in this live
 thread literally contains the string `I authorize dispatch`.**
 
-- No paraphrase authorizes a dispatch. Not "go ahead", not "sounds good", not
-  an obviously approving reply, not the owner's prior approval of the plan.
-- Absent that string: prepare the charter, report that the role is **prepared
-  but not launchable**, and stop.
-- Authorization is single-use, bound to the role and charter current when it
-  was granted. It does not carry to the next role, to a re-dispatch after a
-  charter revision, or to another thread.
-- Authorization is ephemeral thread context. It is **never** repository state —
-  no file, field, or plan status can grant it.
+- No paraphrase substitutes. Not "go ahead", not "sounds good", not an
+  obviously approving reply, not the owner's approval of the plan.
+- It is single-use, bound to the role and charter current when granted. It
+  does not carry to the next role, to a re-dispatch after a charter revision,
+  or to another thread.
+- It is ephemeral thread context, **never** repository state — no file, field,
+  or plan status can grant it.
 
-Record every dispatch and owner launch in the applicable process or execution
-log afterward, with its role and prompt lineage.
+**This gates one thing: spawning. It does not gate the work.** Absent the
+string, the foreman does its normal job the normal way — charter the unit and
+let it run owner-launched. Milestone progress needs no approval, grant, or
+permission from the owner: build, review, repair, repeat, keeping project
+state such that another foreman can pick up mid-stream. A foreman that
+reports a role "prepared but not launchable" and stops has misread this
+section. The owner says the string in the rare case they would rather not be
+involved in the launch.
+
+**The real precondition on a builder or reviewer is a charter**, committed and
+scoped. No charter, no work — that, and not a permission, is what holds a unit.
+
+Record every dispatch and owner launch in `metrics/spawn-ledger.jsonl` via
+`tools/spawn_ledger.py`, with its role and prompt lineage, so cost stays
+measured rather than guessed.
 
 > **Heading stability.** The section headings in this file are referenced by
 > `deep_reads` anchors in milestone plans (`AGENTS.md#Data Safety Rules` and
