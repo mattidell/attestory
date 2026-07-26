@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-citation-walk",
   "active_plan": "docs/phases/real-return/milestones/presentation-citation-walk.md",
-  "status": "Track 1's review gate returned NOT READY (F1: computed_zero/closure_backed_zero render a numeric value with no citation; F2: diagnostic eligibility ignores an invalid numeric input). The Track 1 repair closing F1 and F2 is the live unit, to be owner-launched; a focused recheck follows.",
-  "current_role": "Track 1 Repair Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md"
+  "status": "Track 1's review gate returned NOT READY (F1: computed_zero/closure_backed_zero render a numeric value with no citation; F2: diagnostic eligibility ignores an invalid numeric input). The Track 1 repair closing F1 and F2 landed on the branch (commit 8109048); self-verified 26/26 criteria pass. The focused recheck is the live unit, prepared, not yet launched.",
+  "current_role": "Track 1 Repair Recheck Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md"
 }
 -->
 # Phase State
@@ -111,11 +111,17 @@ recommendation; the owner makes the Tier 3 selection.
   a numeric value with no citation, because the renderer reads only
   `citationSites` and never `field.citation`) and F2 (diagnostic eligibility
   checks disposition kind but not that the resolved value is a finite number)
-  each independently fail ADR-0046's zero-authority foreclosure. The milestone
-  plan now carries a Track 1 repair closing exactly F1 and F2
+  each independently fail ADR-0046's zero-authority foreclosure. The Track 1
+  repair closing exactly F1 and F2
   (`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`)
-  plus one focused recheck; the repair is owner-launched, since a repair cycle
-  iterates against review. The accepted economy contracts remain
+  has **landed** on the branch as commit `8109048` — bound a citation to
+  every numeric field render including both zero kinds, and required
+  diagnostic eligibility to check for a finite resolved value. Re-run of the
+  manifest confirms 26/26 criteria pass (23 original + 3 new proving F1/F2
+  closed), exit 0, `git diff --check` clean. The milestone plan now carries
+  the focused recheck
+  (`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md`),
+  prepared, not yet launched. The accepted economy contracts remain
   available but are not this milestone's subject.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
@@ -155,10 +161,11 @@ five-cycle evidence. Track 1 (renderer) landed on
 `track/presentation-citation-walk-track1` as PR #77, CI `verify` green,
 mergeable, not merged. Track 1's review gate ran under the charter at
 `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md`
-and returned `NOT READY` on F1 and F2. **The live unit is the Track 1
-repair**, charter at
-`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`,
-launched by the owner. Plan:
+and returned `NOT READY` on F1 and F2. The Track 1 repair landed as commit
+`8109048` (self-verified 26/26 criteria pass). **The live unit is the
+focused recheck**, charter at
+`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md`,
+prepared, not yet launched. Plan:
 `docs/phases/real-return/milestones/presentation-citation-walk.md`. Decision
 record: `docs/adr/0046-presentation-surface-contract.md`.
 `track/browser-evaluation-runner-completion` may be deleted, since its

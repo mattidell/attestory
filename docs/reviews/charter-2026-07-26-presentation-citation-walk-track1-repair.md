@@ -2,8 +2,11 @@
 
 Audience: Builder.
 
-Status: **live.** The milestone plan carries this repair and one focused
-recheck in its cap.
+Status: **landed** as commit `8109048c8da31435463ec7528e44f1398634eb0e` on
+`track/presentation-citation-walk-track1`. Self-verified 26/26 criteria pass
+(23 original + 3 new proving F1/F2 closed), exit 0, `git diff --check`
+clean. The focused recheck is chartered at
+`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md`.
 
 ## Context Capsule
 
