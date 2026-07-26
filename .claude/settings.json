@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 tools/worktree_state_hook.py"
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/tools/worktree_state_hook.py\""
           }
         ]
       }
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 tools/block_cd_to_root.py"
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/tools/block_cd_to_root.py\""
           }
         ]
       }
