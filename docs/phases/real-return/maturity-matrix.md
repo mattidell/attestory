@@ -24,7 +24,7 @@ careful hand-editing.
 | **L3** | Real — operates on the owner's actual data under the ratified data boundary. |
 | **L4** | Hardened — named production conditions discharged; deferrals retired. |
 
-## Matrix (as of 2026-07-23, post-Live-Run-System-Definition)
+## Matrix (as of 2026-07-26, post-Presentation-Citation-Walk Track 1)
 
 | Aspect ↓ / Domain → | W-2 wages (1a) | Interest (2b) | Dividends (3a/3b) | Return-level conditions (status, 12, 15, 16) | Schedule attachments |
 | --- | --- | --- | --- | --- | --- |
@@ -33,7 +33,7 @@ careful hand-editing.
 | **Computation** (rules, composition, conditionals) | L3 ⁷ | L3 ³ ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
 | **Adoption & authority** (packages, manifests, byte verification, citations) | L3 ⁴ ⁷ | L3 ⁴ ⁷ | L3 ¹¹ | L3 ⁴ ⁷ | L3 ¹¹ ¹² |
 | **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
-| **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ⁷ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ | L3 ⁵ ⁷ | L3 ⁵ ¹¹ |
+| **Presentation** (form-field dispositions, rendering; human surface) | L2 ⁵ ⁷ | L2 ⁵ ⁷ | L2 ⁵ ¹¹ | L2 ⁵ ⁷ | L2 ⁵ ¹¹ |
 | **Correction & supersession lifecycle** | L4 ⁶ ⁷ | L4 ⁶ ⁷ | L4 ⁶ ¹¹ | L4 ⁶ ⁷ | L4 ⁶ ¹¹ |
 | **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ |
 
@@ -52,9 +52,22 @@ extended at milestone close 2026-07-21):
    (ADR-0033, Track 3): current-user adoption pins a verified release; bytes
    are registry-verified before a strict `validation.ok == True` exclusive
    graph resolves. ADR-0028 historical-v1 migration remains deferred.
-5. E8.1 UI coverage deferred; citation *display* formatting is a deferred
-   rendering contract. Presentation today is form-field disposition content,
-   not a human surface.
+5. **Presentation moved from L3 (footnote-qualified) to L2, honestly, at
+   milestone close 2026-07-26** (Presentation — Citation Walk on Real
+   Derivation Output; ADR-0046 Presentation Surface Contract; Track 1, PR
+   #77). A real, ADR-0046-conformant citation-walk renderer now exists —
+   line → subtotal → per-source disposition → citation pin → source fact,
+   covering the full `dispositions`-state matrix and the T1–T3 fault suite,
+   independently reviewed `READY`. It is built and verified **on synthetic
+   fixtures only** (`tools/presentation_harness/examples/pages/citation-walk.v1.html`);
+   it has never rendered a real resolved run's actual output. Per the
+   matrix's own ladder (L2 = synthetic end-to-end, L3 = operates on the
+   owner's actual data), this is L2, not L3 — the prior L3 mark predated a
+   working renderer and was itself a footnote-qualified overstatement ("not a
+   human surface"). The named, narrow gap to L3: exercise this renderer
+   against one real resolved run's real `form-field.v3`/
+   `act-derived-publication.v1` output, under the existing data boundary. No
+   further schema or renderer change is implied.
 6. **Correction-authority policy retired 2026-07-22** (Correction Authority
    and Marshaller Simplification milestone; ADR-0041, Track 1, PR #53): the
    supersession-policy vocabulary is no longer an unrestricted no-op — it
@@ -132,9 +145,10 @@ every domain. The matrix is breadth- and hardening-limited, not
 depth-limited within its covered domains. The live frontiers for the
 owner's next selection (Tier 3):
 
-1. **Presentation aspect toward a human surface** — E8.1, citation display.
-   The first aspect a real user (the owner) now touches every run, across
-   every domain the matrix covers.
+1. **Presentation L2 → L3** — a real, ADR-0046-conformant citation-walk
+   renderer now exists (footnote 5), verified on synthetic fixtures. The
+   narrow named gap to L3 is exercising it against one real resolved run's
+   actual output under the existing data boundary — no further building.
 2. **L3 → L4 hardening** — retire remaining named deferrals from the
    milestone ledgers (`dividends-schedule-b-slice-deferral-ledger.md`,
    `correction-authority-and-marshaller-simplification-deferral-ledger.md`).

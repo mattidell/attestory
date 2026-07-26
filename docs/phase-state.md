@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-citation-walk",
   "active_plan": "docs/phases/real-return/milestones/presentation-citation-walk.md",
-  "status": "Track 1's review gate returned NOT READY on F1/F2; the repair (commit 8109048) closed both, and the focused recheck (commit 05443d8) returned READY with no new violation. PR #77 carries the whole track; CI verify is running on the recheck commit. Merge is owner-held. Track 2 (completion record: Foreman, judgment/records only) is next once merged.",
-  "current_role": "Foreman (Track 2 completion record)",
-  "current_prompt": "docs/phases/real-return/milestones/presentation-citation-walk.md#Track 2 — Completion record"
+  "status": "Track 1's review gate returned NOT READY on F1/F2; the repair (commit 8109048) closed both, and the focused recheck (commit 05443d8) returned READY with no new violation; CI verify green. Track 2 (completion record) is done: retrospective filed, maturity-matrix Presentation cell moved to L2 (owner-confirmed) with a named L3 gap (real-data exercise, not further building). Docs ride inside PR #77. Only the owner's merge of PR #77 remains; that merge closes the milestone.",
+  "current_role": "Owner (merge PR #77)",
+  "current_prompt": "docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md"
 }
 -->
 # Phase State
@@ -170,10 +170,14 @@ and returned `NOT READY` on F1 and F2. The Track 1 repair landed as commit
 `8109048` (self-verified 26/26 criteria pass), and the focused recheck
 (commit `05443d8`, charter
 `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md`)
-returned `READY`. CI `verify` is green on the recheck commit (`05443d8`);
-PR #77 is mergeable, not merged — merge is owner-held. **The live unit is Track 2 (completion record)**, once
-merged. Plan: `docs/phases/real-return/milestones/presentation-citation-walk.md`.
-Decision record: `docs/adr/0046-presentation-surface-contract.md`.
+returned `READY`. CI `verify` is green on the recheck commit (`05443d8`).
+Track 2 (completion record) is done: retrospective at
+`docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md`,
+maturity-matrix Presentation cell moved to L2 (owner-confirmed, footnote 5)
+with a named L3 gap (real-data exercise). **The live step is the owner's
+merge of PR #77**, which closes the milestone. Plan:
+`docs/phases/real-return/milestones/presentation-citation-walk.md`. Decision
+record: `docs/adr/0046-presentation-surface-contract.md`.
 `track/browser-evaluation-runner-completion` may be deleted, since its
 content is fully contained in `main` at `c329afd`.
 
