@@ -43,8 +43,8 @@ Status: **prepared.**
   need real workspace, credential, remote, or personal data.
 - **Full reads before acting:** this charter; `docs/roles/reviewer.md`;
   `docs/adr/0046-presentation-surface-contract.md`; the milestone plan's
-  Review gate equivalent — its Scope items 3 and 6, Verification, and Exit
-  criteria
+  `## Review gate` section, plus its Scope items 3 and 6, Verification, and
+  Exit criteria
   (`docs/phases/real-return/milestones/presentation-citation-walk.md`); the
   Track 1 charter
   (`docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md`);
