@@ -1,0 +1,37 @@
+{
+  "id": "citation-walk-t1-inject-on-blocked-line",
+  "runId": "demo-run-2026-07-25-t1",
+  "pinLabels": {},
+  "sections": [
+    {
+      "id": "line-16",
+      "field": {
+        "schema": "form-field.v3",
+        "id": "demo.tax.us.2025.form1040.line-16",
+        "version": "v1",
+        "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+        "line": "16",
+        "label": "Tax",
+        "description": "Fault fixture: a blocked line whose resolved record smuggles a numeric value field alongside the block, simulating an attempt to inject a fabricated value on a blocked line (T1).",
+        "binds_symbol": "demo.tax.us.2025.tax.line-16",
+        "citation": { "id": "demo.tax.us.2025.citation.form1040.line-16", "version": "v1" },
+        "dispositions": {
+          "published_value": { "render": "{value}", "explain": "A current derived finding publishes this tax amount from the QDCG worksheet." },
+          "computed_zero": { "render": "0", "explain": "A current derived finding publishes a computed zero tax." },
+          "closure_backed_zero": { "render": "0", "explain": "A current derived finding publishes a zero tax because the underlying family is attested closed." },
+          "blocked": { "render": "", "explain": "Tax is blocked because the required QDCG worksheet input is missing.", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"] },
+          "guard_inapplicable": { "render": "", "explain": "No value exists because the rule guard is false." }
+        }
+      },
+      "resolved": {
+        "disposition": "blocked",
+        "activeCodes": ["DEPENDENCY_ABSENT"],
+        "value": 999999,
+        "act": null
+      },
+      "citationSites": []
+    }
+  ],
+  "citationGroups": [],
+  "diagnostics": []
+}

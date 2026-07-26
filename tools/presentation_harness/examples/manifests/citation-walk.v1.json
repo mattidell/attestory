@@ -1,0 +1,117 @@
+{
+  "version": "presentation-evaluation-manifest.v1",
+  "id": "citation-walk-track1",
+  "timeout_ms": 5000,
+  "candidates": [
+    {
+      "id": "citation-walk",
+      "path": "tools/presentation_harness/examples/pages/citation-walk.v1.html"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "baseline",
+      "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/baseline.v1.json",
+      "synthetic": true
+    },
+    {
+      "id": "t1-inject-on-blocked-line",
+      "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/t1-inject-on-blocked-line.v1.json",
+      "synthetic": true
+    },
+    {
+      "id": "t2-non-numeric-published-value",
+      "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/t2-non-numeric-published-value.v1.json",
+      "synthetic": true
+    },
+    {
+      "id": "t3-unknown-line-status",
+      "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/t3-unknown-line-status.v1.json",
+      "synthetic": true
+    }
+  ],
+  "criteria": [
+    { "id": "heading-present", "check": "dom-text-present", "params": { "selector": "#page-heading", "expected_text": "Citation Walk" } },
+    { "id": "heading-contrast", "check": "computed-style-contrast", "params": { "selector": "#page-heading" } },
+
+    { "id": "line-2b-published", "check": "dom-text-present", "params": { "selector": "#line-2b .line-value", "expected_text": "1234" } },
+    { "id": "line-2b-badge-contrast", "check": "computed-style-contrast", "params": { "selector": "#line-2b .badge" } },
+    { "id": "line-3b-published", "check": "dom-text-present", "params": { "selector": "#line-3b .line-value", "expected_text": "500" } },
+    { "id": "line-2a-computed-zero", "check": "dom-text-present", "params": { "selector": "#line-2a .line-value", "expected_text": "0" } },
+    { "id": "line-2a-field-citation", "check": "dom-text-present", "params": { "selector": "#line-2a-field-citation .citation-label", "expected_text": "demo.tax.us.2025.citation.form1040.line-2a@v1" } },
+    { "id": "line-3a-closure-backed-zero", "check": "dom-text-present", "params": { "selector": "#line-3a .line-value", "expected_text": "0" } },
+    { "id": "line-3a-field-citation", "check": "dom-text-present", "params": { "selector": "#line-3a-field-citation .citation-label", "expected_text": "demo.tax.us.2025.citation.form1040.line-3a@v1" } },
+    { "id": "line-9-guard-inapplicable", "check": "dom-text-present", "params": { "selector": "#line-9 .line-value", "expected_text": "Not applicable." } },
+
+    { "id": "line-16-blocked-alert", "check": "role-alert-present", "params": { "selector": "#line-16 .blocked-banner" } },
+    { "id": "line-16-blocked-text", "check": "dom-text-present", "params": { "selector": "#line-16 .blocked-banner", "expected_text": "No value published — cannot compute." } },
+    { "id": "line-16-blocked-contrast", "check": "computed-style-contrast", "params": { "selector": "#line-16 .badge" } },
+
+    { "id": "diag-healthy-tieout-shown", "check": "dom-text-present", "params": { "selector": "#diag-2b-tieout", "expected_text": "1000 + 234 = 1234" } },
+    { "id": "diag-blocked-input-suppressed", "check": "dom-text-present", "params": { "selector": "#diag-16-tieout", "expected_text": "Not shown — computed from a blocked or inapplicable input." } },
+
+    { "id": "citation-reuse-site-a-label", "check": "dom-text-present", "params": { "selector": "#cite-2b-int001 .citation-label", "expected_text": "demo-First Bank — 1099-INT box 1 — $1,000" } },
+    { "id": "citation-reuse-site-b-label", "check": "dom-text-present", "params": { "selector": "#cite-schedb1-int001 .citation-label", "expected_text": "demo-First Bank — 1099-INT box 1 — $1,000" } },
+    { "id": "citation-reuse-backlink", "check": "dom-text-present", "params": { "selector": "#cite-2b-int001-detail", "expected_text": "also cited in Schedule B — Part I" } },
+    { "id": "citation-keyboard-focus-reachable", "check": "keyboard-focus-reachable", "params": { "selector": "#cite-2b-int001", "tab_presses": 2 } },
+
+    { "id": "t1-blocked-still-honest", "check": "dom-text-present", "params": { "selector": "#line-16 .blocked-banner", "expected_text": "No value published — cannot compute." } },
+    { "id": "t1-blocked-still-alert", "check": "role-alert-present", "params": { "selector": "#line-16 .blocked-banner" } },
+
+    { "id": "t2-invalid-value-alert", "check": "role-alert-present", "params": { "selector": "#line-2b .section-error" } },
+    { "id": "t2-invalid-value-generic-text", "check": "dom-text-present", "params": { "selector": "#line-2b .section-error", "expected_text": "failed validation" } },
+    { "id": "t2-diagnostic-suppressed-on-invalid-input", "check": "dom-text-present", "params": { "selector": "#diag-t2-invalid-input", "expected_text": "Not shown — computed from a blocked or inapplicable input." } },
+
+    { "id": "t3-unknown-status-alert", "check": "role-alert-present", "params": { "selector": "#line-3b .section-error" } },
+    { "id": "t3-unknown-status-generic-text", "check": "dom-text-present", "params": { "selector": "#line-3b .section-error", "expected_text": "does not recognize" } }
+  ],
+  "tamper_cases": [
+    { "id": "baseline", "injection": null }
+  ],
+  "matrix": [
+    {
+      "candidate_id": "citation-walk",
+      "fixture_id": "baseline",
+      "tamper_case_id": "baseline",
+      "criteria": [
+        "heading-present",
+        "heading-contrast",
+        "line-2b-published",
+        "line-2b-badge-contrast",
+        "line-3b-published",
+        "line-2a-computed-zero",
+        "line-2a-field-citation",
+        "line-3a-closure-backed-zero",
+        "line-3a-field-citation",
+        "line-9-guard-inapplicable",
+        "line-16-blocked-alert",
+        "line-16-blocked-text",
+        "line-16-blocked-contrast",
+        "diag-healthy-tieout-shown",
+        "diag-blocked-input-suppressed",
+        "citation-reuse-site-a-label",
+        "citation-reuse-site-b-label",
+        "citation-reuse-backlink",
+        "citation-keyboard-focus-reachable"
+      ]
+    },
+    {
+      "candidate_id": "citation-walk",
+      "fixture_id": "t1-inject-on-blocked-line",
+      "tamper_case_id": "baseline",
+      "criteria": ["t1-blocked-still-honest", "t1-blocked-still-alert"]
+    },
+    {
+      "candidate_id": "citation-walk",
+      "fixture_id": "t2-non-numeric-published-value",
+      "tamper_case_id": "baseline",
+      "criteria": ["t2-invalid-value-alert", "t2-invalid-value-generic-text", "t2-diagnostic-suppressed-on-invalid-input"]
+    },
+    {
+      "candidate_id": "citation-walk",
+      "fixture_id": "t3-unknown-line-status",
+      "tamper_case_id": "baseline",
+      "criteria": ["t3-unknown-status-alert", "t3-unknown-status-generic-text"]
+    }
+  ]
+}

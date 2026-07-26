@@ -2,13 +2,22 @@
 
 Audience: Builder.
 
-Status: **live.** The milestone plan carries this repair and one focused
-recheck in its cap.
+Status: **landed** as commit `8109048c8da31435463ec7528e44f1398634eb0e` on
+`track/presentation-citation-walk-track1`. Self-verified 26/26 criteria pass
+(23 original + 3 new proving F1/F2 closed), exit 0, `git diff --check`
+clean. The focused recheck is chartered at
+`docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md`.
 
 ## Context Capsule
 
-- **Source ref:** `track/presentation-citation-walk-track1` at
-  `6ce90e75cc20eaaaf93a8166bb1c9fc5bb8a7528` (the reviewed Track 1 commit).
+- **Source ref:** `track/presentation-citation-walk-track1` — the reviewed
+  Track 1 commit `6ce90e75cc20eaaaf93a8166bb1c9fc5bb8a7528`, plus the merge
+  of `main` that brings this charter and the review record onto the branch.
+- **Where this lands:** plain commits on that same branch. Do **not** cut a
+  new branch or open a second PR. Track 1 is one development unit with one
+  review gate and one merge boundary — the open PR #77 — and the repair is
+  an intermediate event inside it (`PROJECT_PLANNING.md`, "Branch, PR, and
+  Merge Protocol"). Push to the branch; PR #77 updates itself.
 - **Exact object:** a repair on top of that commit, limited to
   `tools/presentation_harness/examples/pages/citation-walk.v1.html` and its
   fixtures/manifest under

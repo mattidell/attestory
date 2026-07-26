@@ -1,0 +1,266 @@
+{
+  "id": "citation-walk-baseline",
+  "runId": "demo-run-2026-07-25-001",
+  "pinLabels": {
+    "demo-fact-int-001": "demo-First Bank — 1099-INT box 1 — $1,000",
+    "demo-fact-int-002": "demo-Second CU — 1099-INT box 1 — $234",
+    "demo-fact-div-001": "demo-Third Broker — 1099-DIV box 1a — $500"
+  },
+  "sections": [
+    {
+      "id": "line-2b",
+      "field": {
+        "schema": "form-field.v3",
+        "id": "demo.tax.us.2025.form1040.line-2b",
+        "version": "v1",
+        "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+        "line": "2b",
+        "label": "Taxable interest",
+        "description": "Form 1040 (2025), line 2b: total taxable interest. Synthetic demo content, not repository production content.",
+        "binds_symbol": "demo.tax.us.2025.interest.taxable-total",
+        "citation": { "id": "demo.tax.us.2025.citation.form1040.line-2b", "version": "v1" },
+        "dispositions": {
+          "published_value": { "render": "{value}", "explain": "A current derived finding publishes this taxable-interest amount; its lineage pins the box-1 subtotal." },
+          "computed_zero": { "render": "0", "explain": "A current derived finding publishes a computed zero from present box-1 findings that sum to zero." },
+          "closure_backed_zero": { "render": "0", "explain": "A current derived finding publishes a zero because the box-1 family is attested closed with no recorded members." },
+          "blocked": { "render": "", "explain": "Taxable interest is blocked because the box-1 family is unclosed or its dependencies are missing.", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"] },
+          "guard_inapplicable": { "render": "", "explain": "No value exists because the rule guard is false." }
+        }
+      },
+      "resolved": {
+        "disposition": "published_value",
+        "value": 1234,
+        "act": {
+          "run_id": "demo-run-2026-07-25-001",
+          "finding": {
+            "schema": "derived-finding.v1",
+            "id": "demo-finding-line-2b",
+            "symbol": "demo.tax.us.2025.interest.taxable-total",
+            "value": 1234,
+            "version": "v1",
+            "pins": [
+              { "role": "input", "id": "demo-fact-int-001", "version": "v1" },
+              { "role": "input", "id": "demo-fact-int-002", "version": "v1" },
+              { "role": "computation", "id": "demo.tax.us.2025.rule.interest-total", "version": "v1" }
+            ]
+          }
+        }
+      },
+      "citationSites": [
+        { "siteId": "cite-2b-int001", "pinId": "demo-fact-int-001", "pinVersion": "v1", "context": "Line 2b" },
+        { "siteId": "cite-2b-int002", "pinId": "demo-fact-int-002", "pinVersion": "v1", "context": "Line 2b" }
+      ]
+    },
+    {
+      "id": "line-3b",
+      "field": {
+        "schema": "form-field.v3",
+        "id": "demo.tax.us.2025.form1040.line-3b",
+        "version": "v1",
+        "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+        "line": "3b",
+        "label": "Ordinary dividends",
+        "description": "Form 1040 (2025), line 3b: total ordinary dividends. Synthetic demo content, not repository production content.",
+        "binds_symbol": "demo.tax.us.2025.dividends.ordinary-total",
+        "citation": { "id": "demo.tax.us.2025.citation.form1040.line-3b", "version": "v1" },
+        "dispositions": {
+          "published_value": { "render": "{value}", "explain": "A current derived finding publishes this ordinary-dividend amount; its lineage pins the box-1a subtotal." },
+          "computed_zero": { "render": "0", "explain": "A current derived finding publishes a computed zero from present box-1a findings that sum to zero." },
+          "closure_backed_zero": { "render": "0", "explain": "A current derived finding publishes a zero because the box-1a family is attested closed with no recorded members." },
+          "blocked": { "render": "", "explain": "Ordinary dividends is blocked because the box-1a family is unclosed or its dependencies are missing.", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"] },
+          "guard_inapplicable": { "render": "", "explain": "No value exists because the rule guard is false." }
+        }
+      },
+      "resolved": {
+        "disposition": "published_value",
+        "value": 500,
+        "act": {
+          "run_id": "demo-run-2026-07-25-001",
+          "finding": {
+            "schema": "derived-finding.v1",
+            "id": "demo-finding-line-3b",
+            "symbol": "demo.tax.us.2025.dividends.ordinary-total",
+            "value": 500,
+            "version": "v1",
+            "pins": [
+              { "role": "input", "id": "demo-fact-div-001", "version": "v1" },
+              { "role": "computation", "id": "demo.tax.us.2025.rule.dividends-total", "version": "v1" }
+            ]
+          }
+        }
+      },
+      "citationSites": [
+        { "siteId": "cite-3b-div001", "pinId": "demo-fact-div-001", "pinVersion": "v1", "context": "Line 3b" }
+      ]
+    },
+    {
+      "id": "line-2a",
+      "field": {
+        "schema": "form-field.v3",
+        "id": "demo.tax.us.2025.form1040.line-2a",
+        "version": "v1",
+        "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+        "line": "2a",
+        "label": "Tax-exempt interest",
+        "description": "Form 1040 (2025), line 2a: tax-exempt interest. Synthetic demo content.",
+        "binds_symbol": "demo.tax.us.2025.interest.exempt-total",
+        "citation": { "id": "demo.tax.us.2025.citation.form1040.line-2a", "version": "v1" },
+        "dispositions": {
+          "published_value": { "render": "{value}", "explain": "A current derived finding publishes this tax-exempt interest amount." },
+          "computed_zero": { "render": "0", "explain": "A current derived finding publishes a computed zero: no tax-exempt-interest findings are present on a closed family." },
+          "closure_backed_zero": { "render": "0", "explain": "A current derived finding publishes a zero because the tax-exempt-interest family is attested closed with no recorded members." },
+          "blocked": { "render": "", "explain": "Tax-exempt interest is blocked because its family is unclosed or dependencies are missing.", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"] },
+          "guard_inapplicable": { "render": "", "explain": "No value exists because the rule guard is false." }
+        }
+      },
+      "resolved": {
+        "disposition": "computed_zero",
+        "value": 0,
+        "act": {
+          "run_id": "demo-run-2026-07-25-001",
+          "finding": {
+            "schema": "derived-finding.v1",
+            "id": "demo-finding-line-2a",
+            "symbol": "demo.tax.us.2025.interest.exempt-total",
+            "value": 0,
+            "version": "v1",
+            "pins": [
+              { "role": "computation", "id": "demo.tax.us.2025.rule.exempt-interest-total", "version": "v1" },
+              { "role": "governance", "id": "demo.tax.us.2025.governance.closure-policy", "version": "v1" }
+            ]
+          }
+        }
+      },
+      "citationSites": []
+    },
+    {
+      "id": "line-3a",
+      "field": {
+        "schema": "form-field.v3",
+        "id": "demo.tax.us.2025.form1040.line-3a",
+        "version": "v1",
+        "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+        "line": "3a",
+        "label": "Qualified dividends",
+        "description": "Form 1040 (2025), line 3a: qualified dividends. Synthetic demo content.",
+        "binds_symbol": "demo.tax.us.2025.dividends.qualified-total",
+        "citation": { "id": "demo.tax.us.2025.citation.form1040.line-3a", "version": "v1" },
+        "dispositions": {
+          "published_value": { "render": "{value}", "explain": "A current derived finding publishes this qualified-dividend amount." },
+          "computed_zero": { "render": "0", "explain": "A current derived finding publishes a computed zero from present box-1b findings that sum to zero." },
+          "closure_backed_zero": { "render": "0", "explain": "A current derived finding publishes a zero because the box-1b family is attested closed with no recorded members on its current horizon." },
+          "blocked": { "render": "", "explain": "Qualified dividends is blocked because the box-1b family is unclosed or its dependencies are missing.", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"] },
+          "guard_inapplicable": { "render": "", "explain": "No value exists because the rule guard is false." }
+        }
+      },
+      "resolved": {
+        "disposition": "closure_backed_zero",
+        "value": 0,
+        "act": {
+          "run_id": "demo-run-2026-07-25-001",
+          "finding": {
+            "schema": "derived-finding.v1",
+            "id": "demo-finding-line-3a",
+            "symbol": "demo.tax.us.2025.dividends.qualified-total",
+            "value": 0,
+            "version": "v1",
+            "pins": [
+              { "role": "governance", "id": "demo.tax.us.2025.closure.box-1b-horizon-2025", "version": "v1" }
+            ]
+          }
+        }
+      },
+      "citationSites": []
+    },
+    {
+      "id": "line-9",
+      "field": {
+        "schema": "form-field.v3",
+        "id": "demo.tax.us.2025.form1040.line-9-guard",
+        "version": "v1",
+        "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+        "line": "9",
+        "label": "Additional election adjustment (demo guard-gated line)",
+        "description": "Synthetic demo line exercising the guard_inapplicable disposition: the rule that would populate it does not apply on this synthetic return.",
+        "binds_symbol": "demo.tax.us.2025.election.adjustment",
+        "citation": { "id": "demo.tax.us.2025.citation.form1040.line-9-guard", "version": "v1" },
+        "dispositions": {
+          "published_value": { "render": "{value}", "explain": "A current derived finding publishes this election-adjustment amount." },
+          "computed_zero": { "render": "0", "explain": "A current derived finding publishes a computed zero." },
+          "closure_backed_zero": { "render": "0", "explain": "A current derived finding publishes a zero because the underlying family is attested closed." },
+          "blocked": { "render": "", "explain": "This line is blocked because its dependencies are missing.", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"] },
+          "guard_inapplicable": { "render": "", "explain": "No value exists because the rule guard is false." }
+        }
+      },
+      "resolved": {
+        "disposition": "guard_inapplicable",
+        "act": null
+      },
+      "citationSites": []
+    },
+    {
+      "id": "line-16",
+      "field": {
+        "schema": "form-field.v3",
+        "id": "demo.tax.us.2025.form1040.line-16",
+        "version": "v1",
+        "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+        "line": "16",
+        "label": "Tax",
+        "description": "Form 1040 (2025), line 16: tax. Synthetic demo content — blocked pending the QDCG worksheet's declared-absence input.",
+        "binds_symbol": "demo.tax.us.2025.tax.line-16",
+        "citation": { "id": "demo.tax.us.2025.citation.form1040.line-16", "version": "v1" },
+        "dispositions": {
+          "published_value": { "render": "{value}", "explain": "A current derived finding publishes this tax amount from the QDCG worksheet." },
+          "computed_zero": { "render": "0", "explain": "A current derived finding publishes a computed zero tax." },
+          "closure_backed_zero": { "render": "0", "explain": "A current derived finding publishes a zero tax because the underlying family is attested closed." },
+          "blocked": { "render": "", "explain": "Tax is blocked because the required QDCG worksheet input is missing.", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"] },
+          "guard_inapplicable": { "render": "", "explain": "No value exists because the rule guard is false." }
+        }
+      },
+      "resolved": {
+        "disposition": "blocked",
+        "activeCodes": ["DEPENDENCY_ABSENT"],
+        "act": null
+      },
+      "citationSites": []
+    }
+  ],
+  "citationGroups": [
+    {
+      "id": "sched-b",
+      "title": "Schedule B — attachment",
+      "parts": [
+        {
+          "heading": "Part I — Interest",
+          "tieOutText": "Part I subtotal: 1000 + 234 = 1234 — ties to Line 2b",
+          "citationSites": [
+            { "siteId": "cite-schedb1-int001", "pinId": "demo-fact-int-001", "pinVersion": "v1", "context": "Schedule B — Part I" },
+            { "siteId": "cite-schedb1-int002", "pinId": "demo-fact-int-002", "pinVersion": "v1", "context": "Schedule B — Part I" }
+          ]
+        },
+        {
+          "heading": "Part II — Dividends",
+          "tieOutText": "Part II subtotal: 500 — ties to Line 3b",
+          "citationSites": [
+            { "siteId": "cite-schedb2-div001", "pinId": "demo-fact-div-001", "pinVersion": "v1", "context": "Schedule B — Part II" }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagnostics": [
+    {
+      "id": "diag-2b-tieout",
+      "label": "Line 2b tie-out",
+      "inputs": ["line-2b"],
+      "renderText": "1000 + 234 = 1234 ✓ ties to published value"
+    },
+    {
+      "id": "diag-16-tieout",
+      "label": "Line 16 diagnostic tie-out",
+      "inputs": ["line-16"],
+      "renderText": "0.10 × 1234 = 123.40 (diagnostic bracket check)"
+    }
+  ]
+}
