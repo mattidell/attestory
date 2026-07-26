@@ -19,7 +19,7 @@ what the work looks like.
 | Seat | Entry | Seat file |
 | --- | --- | --- |
 | **Foreman** | Owner says "resume as foreman" (or `/foreman`) | `docs/roles/foreman.md` |
-| **Builder** | Owner says "pick up the current task" (or `/pickup`), **or** the foreman dispatches you | `docs/roles/builder.md` |
+| **Builder** | Owner says "pick up the current task" (or `/pickup`), **or** the foreman spawns you | `docs/roles/builder.md` |
 | **Reviewer** | Same two paths as builder | `docs/roles/reviewer.md` |
 | **Advisor** | Owner says "take the advisor seat" | `docs/roles/advisor.md` |
 
@@ -77,22 +77,22 @@ Not every milestone runs all five. Tooling, exploratory, and process milestones
 skip stages by design; **the milestone plan says which apply.** If the plan is
 silent on a stage, that is a plan defect to raise, not a stage to improvise.
 
-## Dispatch authorization
+## Spawning sub-agents
 
-**Spawning** means instantiating a sub-agent. **Dispatch** means the foreman
-spawning a sub-agent to fulfill the current role in the approved plan. An owner
-opening a new thread and supplying the current prompt is an **owner launch**,
-not a dispatch.
+**Spawning** means the foreman instantiating a sub-agent to fulfill the current
+role in the approved plan. The alternative is an **owner launch**: the owner
+opens a new thread and supplies the current prompt. Both are ordinary ways to
+run a role; they differ only in who instantiates the agent.
 
 **Only the foreman may spawn sub-agents. Every other seat: never.**
 
-The foreman may dispatch **only when a message from the owner in this live
-thread literally contains the string `I authorize dispatch`.**
+The foreman may spawn **only when a message from the owner in this live thread
+literally contains the string `I authorize spawning`.**
 
 - No paraphrase substitutes. Not "go ahead", not "sounds good", not an
   obviously approving reply, not the owner's approval of the plan.
 - It is single-use, bound to the role and charter current when granted. It
-  does not carry to the next role, to a re-dispatch after a charter revision,
+  does not carry to the next role, to a re-spawn after a charter revision,
   or to another thread.
 - It is ephemeral thread context, **never** repository state — no file, field,
   or plan status can grant it.
@@ -109,7 +109,7 @@ involved in the launch.
 **The real precondition on a builder or reviewer is a charter**, committed and
 scoped. No charter, no work — that, and not a permission, is what holds a unit.
 
-Record every dispatch and owner launch in `metrics/spawn-ledger.jsonl` via
+Record every spawn and owner launch in `metrics/spawn-ledger.jsonl` via
 `tools/spawn_ledger.py`, with its role and prompt lineage, so cost stays
 measured rather than guessed.
 
@@ -145,7 +145,7 @@ push-blocked; you self-enforce. Pointer edits that only describe now
 `PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol".
 
 **Process is the owner's method; ADRs are product contracts (ADR-0045).** How
-work is organized — seats, the milestone loop, dispatch, chartering, review
+work is organized — seats, the milestone loop, spawning, chartering, review
 cadence, branch and merge mechanics, context routing, capability tiers — is
 changed by owner direction plus an edit to the document that norms it. It needs
 no ADR, no ratification, and no evidence. ADRs are for decisions later artifacts
@@ -170,7 +170,7 @@ reference only — never for contracts, schemas, or patterns.
 **Apologize rather than ask permission.** For reversible work inside an agreed
 direction, proceed and disclose plainly — in the commit, the retrospective, or
 the report. Reserve questions for irreversible actions and genuine direction
-changes. Dispatch is not covered by this; see above.
+changes. Spawning is not covered by this; see above.
 
 **Stop when your unit turns on governance text.** You are not expected to hold
 `docs/governance/` in context (ADR-0045). If your work appears to require

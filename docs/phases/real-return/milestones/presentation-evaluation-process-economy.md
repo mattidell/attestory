@@ -35,8 +35,8 @@
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
     ],
-    "dispatch": [
-      "docs/roles/foreman.md#Dispatch",
+    "launch": [
+      "docs/roles/foreman.md#Spawning",
       "docs/adr/0043-foreman-dispatch-instruction.md#Decision",
       "docs/adr/0013-prototype-economic-gates.md#Decision",
       "docs/phases/real-return/milestones/presentation-evaluation-process-economy.md#Presentation execution economy and review allocation"

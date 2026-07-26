@@ -103,8 +103,8 @@ that have hardened into tooling or ratified process.
 
 - **A new rung is a spend decision, not just an execution step.** Before
   climbing past the authorized rung or opening a round beyond the chartered
-  plan, surface the increment and get a nod. There is no standing "dispatch as
-  needed" (ADR-0045): each dispatch needs the owner's literal authorization
+  plan, surface the increment and get a nod. There is no standing "spawn as
+  needed" (ADR-0045): each spawn needs the owner's literal authorization
   string, bound to that role and charter. Approval of the plan authorizes
   execution *within* it, never escalation *of* it.
 

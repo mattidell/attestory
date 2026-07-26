@@ -69,7 +69,7 @@ closing disposition and records which branch applied.
 foreman charters them and runs them at the plan-assigned tier in isolated
 contexts, recording the direction before launch, and reviewers do not see each
 other's in-progress work. Whether the foreman spawns them or the owner launches
-them is the spawn question in `AGENTS.md` ("Dispatch authorization"), not a
+them is the spawn question in `AGENTS.md` ("Spawning sub-agents"), not a
 precondition on the review happening. Prototype legibility review
 is a normal reviewer charter, while the starved fresh-reader rigor lives in the
 periodic owner-spawned **Legibility Audit** (`docs/legibility-audits/`).
@@ -122,7 +122,7 @@ The first prototype run (Tax Citizen Families, First Tax Slice Track 0) was cons
 
 Default starting guidance: Foreman High/high (judgment-dense, low build volume); novel-synthesis Builder High/high; imitation or repair Builder Medium/medium; contract-fidelity and adversary Reviewers High/high; expressiveness Reviewer Medium–High/medium; starved legibility Reviewer Economy–Medium/low–medium.
 
-**Foreman as scope-and-economy steward.** Beyond chartering, sequencing, conformance review, and disposition recommendations, the foreman is the accountable steward of scope and economy. The foreman: (1) keeps the implementation — including reviews and the actions reviews propose — inside the declared scope boundaries and the spirit of economic efficiency, triaging findings (Gate 5) and rejecting or rerouting out-of-charter proposals rather than expanding scope; (2) enforces the evidence ladder and paper-first rule, never climbing to a more expensive rung than the open question requires; (3) tracks the fixed caps and triggers stop-and-decide rather than letting a run drift; (4) assigns each role's capability tier and reasoning effort in the plan and revises them as the run progresses — as decision boundaries and specifications clarify, the required capability for the next launch usually drops, and each change and its rationale is logged at launch time; and (5) chooses spawn versus owner-launch for each role on economy and independence grounds (`docs/roles/foreman.md`, "Spawn versus owner-launch"), spawning only where `AGENTS.md` ("Dispatch authorization") permits it. These are stewardship duties, not authority over artifact quality: the foreman still never reviews artifact quality, overrules a committee finding on the merits, or resolves dissent by rewording it.
+**Foreman as scope-and-economy steward.** Beyond chartering, sequencing, conformance review, and disposition recommendations, the foreman is the accountable steward of scope and economy. The foreman: (1) keeps the implementation — including reviews and the actions reviews propose — inside the declared scope boundaries and the spirit of economic efficiency, triaging findings (Gate 5) and rejecting or rerouting out-of-charter proposals rather than expanding scope; (2) enforces the evidence ladder and paper-first rule, never climbing to a more expensive rung than the open question requires; (3) tracks the fixed caps and triggers stop-and-decide rather than letting a run drift; (4) assigns each role's capability tier and reasoning effort in the plan and revises them as the run progresses — as decision boundaries and specifications clarify, the required capability for the next launch usually drops, and each change and its rationale is logged at launch time; and (5) chooses spawn versus owner-launch for each role on economy and independence grounds (`docs/roles/foreman.md`, "Spawn versus owner-launch"), spawning only where `AGENTS.md` ("Spawning sub-agents") permits it. These are stewardship duties, not authority over artifact quality: the foreman still never reviews artifact quality, overrules a committee finding on the merits, or resolves dissent by rewording it.
 
 **Mechanical work (no helper seat).** The clerical work of the prototype process — maintaining the `SEAT.md` table, assembling round files, tagging exhibits and deleting branch refs, log-hygiene formatting, confirming each cited exhibit tag exists, running data-safety scans on merged documents, collating the fixed-shape disposition packet, applying status or wording edits — is the foreman's own, and the foreman is accountable for all of it. ADR-0045 retired the clerk seat: a spawned mechanical helper costs a cold-agent boot on top of the foreman turns spent spawning and receiving, which is strictly more expensive than the foreman doing it inline. Do it inline when it is small; write a tool when it recurs or its output is bulky enough to pollute the foreman thread. None of this work may involve judgment — triaging findings, recommending a disposition, assigning capability tiers, changing scope, composing what a status line means, reviewing artifact quality, or ratifying anything remain foreman or committee acts regardless of how they are executed.
 
@@ -140,7 +140,7 @@ and charters control on any conflict; a capsule omission never grants an
 exception.
 
 The capsule routes the foreman to the complete documents required for the
-proposed action. Before dispatch, ADR drafting, schema/fixture work,
+proposed action. Before launching a role, ADR drafting, schema/fixture work,
 merge/records work, or any other mapped action, read those sources in full and
 follow their existing gates. Before **planning a new milestone**, read up to the
 five most recent milestone retrospectives, newest first, even when the capsule
@@ -185,10 +185,10 @@ separate handoff note: two re-entry documents meant two statuses that could
 disagree, and the same milestone advance had to be written twice. The foreman keeps `current_role` and `current_prompt` accurate:
 before a plan or role cycle is marked complete, it prepares the next sequential
 role's charter and updates those fields. Prompt preparation records plan
-sequence; it does not launch or dispatch a role.
+sequence; it does not launch a role.
 
-Dispatch authorization is normed in `AGENTS.md` ("Dispatch authorization") and
-is not restated here.
+When the foreman may spawn rather than owner-launch is normed in `AGENTS.md`
+("Spawning sub-agents") and is not restated here.
 
 Charters use this compact shape:
 
@@ -526,9 +526,9 @@ restating it is the same defect as prose restating a milestone's lifecycle
 state: a claim standing in for a fact git holds, which can only go stale or
 mislead.
 
-**`authorize` is about dispatch and nothing else.** In agent-process text the
+**`authorize` is about spawning and nothing else.** In agent-process text the
 word means one thing — the owner granting a foreman sub-agent spawns in one
-thread, per `AGENTS.md` ("Dispatch authorization"). The owner *approves* plans,
+thread, per `AGENTS.md` ("Spawning sub-agents"). The owner *approves* plans,
 *accepts* findings, and *directs* work. None of those is an authorization, and
 none of them gates the work: the foreman runs the milestone loop without asking.
 
@@ -539,12 +539,12 @@ fixed at the source, in the `AGENTS.md` section itself.
 
 `Owner Authorization` is separately a ratified product-domain term (ADR-0044):
 one of four trust domains, naming the owner's deliberate acts inside the tax
-system. It has nothing to do with dispatch.
+system. It has nothing to do with spawning.
 
 **Do not restate an `AGENTS.md` rule — including by denying it.** The
 single-source rule already forbids repeating a rule in a second document. A
 *negation* restates it just as surely: a reader told "this record does not
-authorize a dispatch" has been taught that records bear on dispatch, which is
+authorize spawning" has been taught that records bear on it, which is
 the premise the rule exists to deny. If a document needs to disclaim a rule, the
 document is addressed to the wrong reader.
 
@@ -552,7 +552,7 @@ document is addressed to the wrong reader.
 role that executes it, and says so (`Audience: Builder`). Content only the owner
 or the foreman can act on belongs in `docs/phase-state.md`, whose
 `foreman-context-v1` block is the foreman↔owner channel. A charter that reports
-the foreman's own compliance has the wrong reader; a builder cannot dispatch,
+the foreman's own compliance has the wrong reader; a builder cannot spawn,
 and did not launch itself.
 
 None of the rules in this section is machine-checked; they are caught in

@@ -18,7 +18,7 @@ The capsule is advisory — reconcile its resolved commit and worktree report
 against Git. If it refuses, read the committed sources it names directly.
 
 Then report the current phase, milestone, role, and the next action, and
-continue the loop. Remember that you may not dispatch without the owner's
-literal authorization string (`AGENTS.md`, "Dispatch authorization").
+continue the loop. Chartering and running the loop need no permission; only
+**spawning** sub-agents does (`AGENTS.md`, "Spawning sub-agents").
 
 Do not ask the owner to paste context.

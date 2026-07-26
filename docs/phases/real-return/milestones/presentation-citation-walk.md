@@ -35,9 +35,9 @@
       "docs/adr/0046-presentation-surface-contract.md",
       "docs/prototypes/human-presentation-citation-walk/analysis/01-feature-citation-walk.md"
     ],
-    "dispatch": [
-      "docs/roles/foreman.md#Dispatch",
-      "AGENTS.md#Dispatch authorization"
+    "launch": [
+      "docs/roles/foreman.md#Spawning",
+      "AGENTS.md#Spawning sub-agents"
     ],
     "merge_or_records": [
       "docs/roles/foreman.md#Standing disciplines",

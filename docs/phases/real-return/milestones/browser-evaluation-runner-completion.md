@@ -38,9 +38,9 @@
       "docs/reviews/charter-2026-07-25-browser-evaluation-runner-residual-repair-review.md",
       "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md#Review gate"
     ],
-    "dispatch": [
-      "docs/roles/foreman.md#Dispatch",
-      "AGENTS.md#Dispatch authorization",
+    "launch": [
+      "docs/roles/foreman.md#Spawning",
+      "AGENTS.md#Spawning sub-agents",
       "docs/phases/real-return/milestones/browser-evaluation-runner-completion.md#Economical execution"
     ],
     "merge_or_records": [

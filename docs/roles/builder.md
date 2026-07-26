@@ -21,7 +21,7 @@ do not review your own work, and you never spawn sub-agents.
    controlling deliverables and remains authoritative.
 3. **This file** — your posture.
 4. `docs/adr/INDEX.md` digests. Your binding core is **ADR-0003, 0010**, plus
-   the dispatching charter, which carries the milestone foreclosure principles.
+   the charter that launched you, which carries the milestone foreclosure principles.
    Read a full ADR only when acting on its exact text.
 5. The repository entry chain your charter names — the branch, and the code and
    goldens in scope.

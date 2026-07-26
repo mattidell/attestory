@@ -17,6 +17,6 @@ thread:
   `python3 tools/build_orientation_block.py --ref main --role reviewer`.
   Verify the printed commit SHA, and confirm the block's current role is the
   review task you were asked to pick up — else stop and report. Whatever the
-  dispatching thread told you about the builder's reasoning is not evidence.
+  thread that launched you told you about the builder's reasoning is not evidence.
 - **You cannot spawn sub-agents**, and you do not edit the artifact under
   review. You produce findings, not fixes.

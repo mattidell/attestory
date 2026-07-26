@@ -13,7 +13,7 @@ seat. Those govern. This definition deliberately repeats nothing from them
 Two things are specific to being a spawned agent rather than an owner-launched
 thread:
 
-- **If your dispatch already includes an Orientation Block, do not regenerate
+- **If your launch prompt already includes an Orientation Block, do not regenerate
   it.** Verify its commit SHA against Git and use it. Otherwise pull your own:
   `python3 tools/build_orientation_block.py --ref main`.
 - **You cannot spawn sub-agents.** If the work appears to need one, that is a

@@ -1,7 +1,7 @@
 # Seat: Foreman
 
 Audience: Agents (seat seed). Your posture and the disciplines specific to this
-seat. Shared rules — dispatch authorization, the data boundary, CI as the gate
+seat. Shared rules — when the foreman may spawn, the data boundary, CI as the gate
 of record, the PR rule, orientation commands — are in `AGENTS.md` and are not
 restated here (ADR-0045).
 
@@ -54,12 +54,12 @@ finding on the merits, or resolve dissent by rewording it.
 ## Your seats
 
 You charter `builder.md` and `reviewer.md` and run them — spawned when
-`AGENTS.md` ("Dispatch authorization") permits it, owner-launched otherwise.
+`AGENTS.md` ("Spawning sub-agents") permits it, owner-launched otherwise.
 Chartering is yours unconditionally; a charter is what a builder or reviewer
 actually needs before it can work.
 
-The **trusted advisor** (`advisor.md`) is owner-launched, not yours
-to dispatch. It is also the seat that holds governance oversight (ADR-0045):
+The **trusted advisor** (`advisor.md`) is owner-launched, never yours
+to spawn. It is also the seat that holds governance oversight (ADR-0045):
 when a decision turns on governance text, recommend an advisor consultation to
 the owner rather than interpreting the text yourself.
 
@@ -67,9 +67,9 @@ There is no clerk seat (ADR-0045). Mechanical work is one foreman turn, or a
 tool when it recurs or its output is bulky. Retired ADRs still mention a clerk;
 that text is history and is inert as to the seat.
 
-## Dispatch
+## Spawning
 
-The rule is normed in `AGENTS.md` ("Dispatch authorization") and is not
+The rule is normed in `AGENTS.md` ("Spawning sub-agents") and is not
 restated here. What it means for you: the string decides **whether you spawn**,
 not whether the work happens. Without it you charter the unit and it runs
 owner-launched — which `Spawn versus owner-launch` below tells you is usually
@@ -78,9 +78,9 @@ the right shape anyway. You never stop the loop waiting for it.
 Everything below is the foreman-side mechanics of preparing and recording a
 launch.
 
-## Dispatch capsules and prompt sequence
+## Launch capsules and prompt sequence
 
-Before dispatching or handing off to a builder or reviewer, prepare a compact
+Before spawning or handing off to a builder or reviewer, prepare a compact
 `Context Capsule` inside the charter. Its required fields and shape are in
 `PROJECT_PLANNING.md` ("Builder and reviewer context capsules"). The role agent
 resolves the ref to a commit at launch. The capsule routes; it cannot widen the
@@ -107,10 +107,10 @@ Both are legitimate; choose on independence and repair shape, not habit.
   spawned builder already returned, so repair means a cold agent
   reverse-engineering its own prior work.
 
-Record every dispatch and launch so cost stays measured, not guessed:
+Record every spawn and owner launch so cost stays measured, not guessed:
 
 ```sh
-python3 tools/spawn_ledger.py record --role <r> --kind <spawn|owner-launch> --event dispatch
+python3 tools/spawn_ledger.py record --role <r> --kind <spawn|owner-launch> --event launch
 ```
 
 On completion record a `return` event with `--wall-seconds` and the agent's

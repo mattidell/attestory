@@ -23,7 +23,7 @@
       "docs/adr/0042-foreman-context-capsule.md#Decision",
       "docs/phases/real-return/milestones/foreman-context-loading.md#Tracks"
     ],
-    "dispatch": [
+    "launch": [
       "docs/adr/0005-prototype-evidence-for-consequential-adrs.md#Decision",
       "docs/adr/0013-prototype-economic-gates.md#Decision",
       "docs/adr/0034-explicit-owner-approval-for-every-dispatch.md#Decision",
