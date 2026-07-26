@@ -37,7 +37,7 @@ Audience: Shared
 
 Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or a Tier 2 ADR that fixes a contract future content or surfaces will be authored against (a *contract-foundational* decision), must **cite its evidence** — the exhibits, review notes, and recorded results the decision rests on. An ADR whose central design element is a placeholder is not ready to propose. Exceptions (trivially reversible decisions, or decisions forced by an external constraint) must say so in the ADR.
 
-**Authorization.** Agents are pre-authorized to build prototypes before proposing such ADRs. Prototyping is the expected first move when a consequential contract is undesigned — do not ask permission to start one.
+**Standing permission.** Agents need no approval to build prototypes before proposing such ADRs. Prototyping is the expected first move when a consequential contract is undesigned — do not ask permission to start one.
 
 **The loop.** Each prototype iteration runs:
 
@@ -105,7 +105,7 @@ The first prototype run (Tax Citizen Families, First Tax Slice Track 0) was cons
   question. Reviews report proposition-by-proposition sufficiency and dissent;
   they never issue one monolithic pass/fail merely because questions shared an
   iteration.
-- **Gate 4 — Fixed caps and session-bounded cost review.** There is no cost-ratio trigger; session usage is already bounded, so a session boundary is the natural point to review the shape of cost incurred and still to come. Fixed caps apply and each forces stop-and-decide when crossed, never automatic charter expansion: two builder iterations including one rival; one owner-authorized repair pass; two default reviewers, a third only for a named uncertainty; and context-starved legibility only when recoverability is itself a decision. **Builder and review documents have no line or Markdown-length cap.** Their cost is bounded by the pre-declared scope, cases, evidence rung, and measurement charter; authors stop when those obligations are completely reported, not when a file reaches an economic target. Rival iterations are clean-room. A repair pass is named `repair<N>`, not as another iteration, and defaults to the original incumbent builder for deliberate defect continuity unless the disposition explicitly assigns a different builder.
+- **Gate 4 — Fixed caps and session-bounded cost review.** There is no cost-ratio trigger; session usage is already bounded, so a session boundary is the natural point to review the shape of cost incurred and still to come. Fixed caps apply and each forces stop-and-decide when crossed, never automatic charter expansion: two builder iterations including one rival; one owner-directed repair pass; two default reviewers, a third only for a named uncertainty; and context-starved legibility only when recoverability is itself a decision. **Builder and review documents have no line or Markdown-length cap.** Their cost is bounded by the pre-declared scope, cases, evidence rung, and measurement charter; authors stop when those obligations are completely reported, not when a file reaches an economic target. Rival iterations are clean-room. A repair pass is named `repair<N>`, not as another iteration, and defaults to the original incumbent builder for deliberate defect continuity unless the disposition explicitly assigns a different builder.
 - **Gate 5 — Review triage (foreman-owned).** Every finding is classified before another iteration may open: `decision-blocking`, `production-condition`, `separate-decision`, `deferred-breadth`, or `non-blocking defect`. The foreman performs this triage and is accountable for it. Only a `decision-blocking` finding, and only after the owner ratifies the amendment, may enlarge the active charter. Production conditions go to the milestone plan; separate decisions get their own Gate 1 score; breadth and non-blocking defects are logged and deferred. A review measures and may recommend an action, but does not enlarge scope: the foreman rejects or reroutes any proposed action that exceeds the charter and records the disposition in the process log.
 - **Gate 6 — Partial ratification.** A closing disposition may accept a coherent converged subset and explicitly defer the rest; ADR scope matches the evidence that actually converged. Do not hold a prototype open until every adjacent boundary is solved.
 - **Gate 7 — Production adoption.** Prototype code never becomes a production candidate by effort or similarity (see Artifacts and Traceability above). Accepted contracts are reimplemented on the milestone branch; prototype code is cited and selectively translated only after each piece maps to an accepted ADR statement and a production test.
@@ -514,6 +514,51 @@ picking whichever source looks more recent.
 
 Advancing `milestone_state` is part of the merge that caused the transition, not
 a later cleanup pass.
+
+## Recording Owner Assent
+
+Audience: Agents
+
+**The merge is the record.** When the owner approves scope, accepts findings, or
+lifts a cap, that assent is recorded by merging the PR that carries it — not by
+a sentence saying the owner approved it. A plan whose scope list names a repair
+pass, sitting on `main`, already says everything a later reader needs. Prose
+restating it is the same defect as prose restating a milestone's lifecycle
+state: a claim standing in for a fact git holds, which can only go stale or
+mislead.
+
+**`authorize` is reserved for dispatch.** In agent-process text the word means
+one thing — the owner granting a foreman one sub-agent spawn, per `AGENTS.md`
+("Dispatch authorization"). The owner *approves* plans, *accepts* findings, and
+*directs* work, and grants no authorization but a dispatch. Writing
+`owner-authorized` about anything else teaches every later reader that
+authorization is the kind of thing a file can carry, which is exactly what the
+dispatch rule denies.
+
+Two exemptions, both real:
+
+- **`Owner Authorization`** is a ratified product-domain term (ADR-0044): one of
+  four trust domains, naming the owner's deliberate acts inside the tax system.
+  It has nothing to do with dispatch and is not touched by this rule.
+- **Closed milestone plans and superseded or retired ADRs** are history. They
+  record what was said at the time and are inert as to current authority.
+
+**Do not restate an `AGENTS.md` rule — including by denying it.** The
+single-source rule already forbids repeating a rule in a second document. A
+*negation* restates it just as surely: a reader told "this record does not
+authorize a dispatch" has been taught that records bear on dispatch, which is
+the premise the rule exists to deny. If a document needs to disclaim a rule, the
+document is addressed to the wrong reader.
+
+**Charters declare their audience.** A charter is a work order addressed to the
+role that executes it, and says so (`Audience: Builder`). Content only the owner
+or the foreman can act on belongs in `docs/phase-state.md`, whose
+`foreman-context-v1` block is the foreman↔owner channel. A charter that reports
+the foreman's own compliance has the wrong reader; a builder cannot dispatch,
+and did not launch itself.
+
+`tools/governance_lint.py` checks the reservation across live-authority
+documents. It cannot check the merge rule — that one is caught in review.
 
 ## Required Milestone Plan Contents
 

@@ -159,10 +159,18 @@ def validate_deep_reads(
         if not isinstance(targets, list) or not all(isinstance(target, str) and target for target in targets):
             raise ContextError(f"{path} deep-read action {action!r} must name a string list")
         for target in targets:
-            target_path = require_relative_path(target.split("#", 1)[0], f"{path} deep read {target!r}")
+            target_path = require_relative_path(path_of(target), f"{path} deep read {target!r}")
             repository.blob_for_path(commit, target_path)
         validated[action] = list(targets)
     return validated
+
+
+def path_of(target: str) -> str:
+    """Drop a `#Heading` fragment. Pointers name a file and may name a section
+    within it; only the file part addresses a blob. Every pointer in this
+    format is read through here, so `current_prompt` and `deep_reads` cannot
+    disagree about whether an anchor is spellable."""
+    return target.split("#", 1)[0]
 
 
 RATIFIED_REF = "origin/main"
@@ -331,8 +339,11 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
         raise ContextError(f"seat mismatch: {plan.path} does not name {seat_path}")
 
     deep_reads = validate_deep_reads(repository, commit, plan.metadata, plan.path)
-    current_prompt = required_path(phase.metadata, "current_prompt", phase.path)
-    current_prompt_blob = repository.blob_for_path(commit, current_prompt)
+    current_prompt = required_string(phase.metadata, "current_prompt", phase.path)
+    current_prompt_path = require_relative_path(
+        path_of(current_prompt), f"{phase.path} metadata 'current_prompt'"
+    )
+    current_prompt_blob = repository.blob_for_path(commit, current_prompt_path)
     sources = [phase, plan]
     if seat is not None:
         sources.append(seat)
@@ -345,7 +356,7 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
             "stop_conditions": required_strings(seat.metadata, "stop_conditions", seat.path),
         }
     source_documents = [{"path": item.path, "blob": item.blob} for item in sources]
-    source_documents.append({"path": current_prompt, "blob": current_prompt_blob})
+    source_documents.append({"path": current_prompt_path, "blob": current_prompt_blob})
     milestone = resolve_milestone_state(repository, plan, plan.path)
     worktree = repository.worktree_status()
     worktree["divergence"] = divergence_report(repository, milestone["ratified_ref"])

@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "browser-evaluation-runner-completion",
-  "milestone_state": "complete",
+  "milestone_state": "closed",
   "retrospective": "docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md",
   "status": "Complete. PR #71 merged c329afd 2026-07-25T23:12:23Z with CI verify green on the merge commit; Track 2 completion record filed.",
   "scope": [
