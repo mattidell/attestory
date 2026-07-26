@@ -194,6 +194,29 @@ class ForemanContextTests(ContextFixture):
         self.assertEqual(missing.returncode, 2)
         self.assertIn("cannot be resolved", missing.stderr)
 
+    def test_current_prompt_may_name_a_section_of_its_file(self) -> None:
+        # A plan section can be the charter, so `current_prompt` carries the
+        # same `path#Heading` spelling `deep_reads` already accepts. Only the
+        # path addresses a blob; resolving the whole string looks to git like a
+        # missing file, which sends the reader hunting for one.
+        root = self.make_repository()
+        self.write_document(
+            root,
+            "docs/phase-state.md",
+            self.phase_metadata(current_prompt="docs/phases/demo/milestones/demo.md#Tracks"),
+        )
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", "anchored prompt")
+        result = self.run_tool(root)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        capsule = json.loads(result.stdout)
+        self.assertEqual(
+            capsule["state"]["current_prompt"],
+            "docs/phases/demo/milestones/demo.md#Tracks",
+        )
+        paths = [document["path"] for document in capsule["source"]["documents"]]
+        self.assertIn("docs/phases/demo/milestones/demo.md", paths)
+
     def test_rejects_missing_current_prompt(self) -> None:
         root = self.make_repository()
         self.write_document(
