@@ -1,4 +1,4 @@
-# Presentation — Citation Walk Track 2 Charter (Focused Independent Review)
+# Presentation — Citation Walk Track 1 Review Gate Charter
 
 Audience: Reviewer.
 
