@@ -2,7 +2,12 @@
 
 Audience: Builder.
 
-Status: **prepared.**
+Status: **prepared — not an approved route.** This milestone's fixed cap is
+one Track 1 build and one review gate; a remaining `NOT READY` residual
+returns to the owner for disposition rather than an automatic second cycle.
+This charter is therefore the foreman's *recommended* disposition, drafted so
+the option is costed and ready. It becomes live only if the owner chooses
+repair and then supplies the literal `I authorize dispatch`.
 
 ## Context Capsule
 
