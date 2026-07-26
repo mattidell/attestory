@@ -1,9 +1,8 @@
 # Presentation — Citation Walk Track 1 Charter (Renderer and Fixtures)
 
-Status: **prepared, not launchable.** This record authorizes scope; it does
-not authorize a foreman dispatch. Dispatch requires the owner's literal
-string `I authorize dispatch` in a live thread, single-use and bound to this
-charter (`AGENTS.md#Dispatch authorization`).
+Audience: Builder.
+
+Status: **prepared, not launchable.**
 
 ## Context Capsule
 
