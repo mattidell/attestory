@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import re
 from decimal import Decimal, InvalidOperation
-from typing import Any, Mapping, Sequence
+from typing import Any, Mapping, Sequence, cast
 
 from packages.kernel.findings import FindingState
 
@@ -163,7 +163,7 @@ def _evidence_label(finding_id: str, state: FindingState) -> str | None:
     for evidence_id in finding.get("evidence_ids") or ():
         lifecycle = state.evidence.get(evidence_id)
         if lifecycle is not None:
-            return lifecycle.evidence["label"]
+            return cast(str, lifecycle.evidence["label"])
     return None
 
 

@@ -20,7 +20,7 @@ import json
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Any
+from typing import Any, cast
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -45,7 +45,7 @@ def _surface() -> PublicationSurface:
 
 
 def _act(name: str) -> dict[str, object]:
-    return json.loads((T3 / "adoptions" / name).read_text("utf-8"))
+    return cast(dict[str, object], json.loads((T3 / "adoptions" / name).read_text("utf-8")))
 
 
 def _live_act(index: int, kind: str, payload: dict[str, object]) -> dict[str, object]:
@@ -226,7 +226,7 @@ def regenerate() -> dict[str, Any]:
         if result.refusal is not None:
             raise SystemExit(f"canonical run refused: {result.refusal}")
         assert result.presentation_path is not None
-        model = json.loads(result.presentation_path.read_text("utf-8"))
+        model = cast(dict[str, Any], json.loads(result.presentation_path.read_text("utf-8")))
     return model
 
 
