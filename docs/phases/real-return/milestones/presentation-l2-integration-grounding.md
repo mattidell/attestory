@@ -4,7 +4,7 @@
   "topic": "presentation-l2-integration-grounding",
   "milestone_state": "track-1",
   "retrospective": null,
-  "status": "Track 1 review e36086a returned NOT READY on one coordinator-level failure path. The plan's single findings-only repair is current; Track 2 remains blocked pending focused recheck. The milestone makes no real-data exercise or L3 claim.",
+  "status": "Track 1 repair 759c9fa landed for the sole finding in review e36086a. Focused recheck is current; Track 2 remains blocked pending READY. The milestone makes no real-data exercise or L3 claim.",
   "scope": [
     "project one production-shaped synthetic live_coordinate_run into a validated internal presentation model using only the resolved graph, projected record state, publications, and dispositions already available inside the coordinator",
     "write the presentation model only below LiveWorkspace while preserving the existing coordinator result and caller contract",
@@ -119,7 +119,7 @@
 -->
 # Milestone: Presentation — L2 Integration Grounding
 
-Status: **Track 1 repair current.** The owner redirected PR #82 on 2026-07-26 from L2→L3
+Status: **Track 1 focused recheck current.** The owner redirected PR #82 on 2026-07-26 from L2→L3
 progression to L2 hardening and a better-grounded next-milestone handoff. The
 plan became active when its planning PR reached `main`. Before implementation,
 the Track 1 Builder returned a clean charter-stop finding: the existing demo
@@ -127,8 +127,9 @@ manifest requires fabricated line 2a and guard-inapplicable line 9 states that
 the resolved production package cannot produce. This amendment separates the
 demo regression suite from production-shaped integration evidence. The amended
 Track 1 build landed as `81c5504` on the milestone branch. Independent review
-`e36086a` returned `NOT READY` on one coordinator-level failure path, so the
-plan's single findings-only repair is current; no milestone PR is open.
+`e36086a` returned `NOT READY` on one coordinator-level failure path. Focused
+repair `759c9fa` landed and is now under the plan's single recheck; no milestone
+PR is open.
 
 ## Objective
 
@@ -453,3 +454,4 @@ it.
 | 3 | Manifest-boundary amendment | Foreman | Owner direction, 2026-07-26: amend and create PR | Separate unchanged demo regression suite from dedicated production-shaped integration suite |
 | 4 | Track 1 build | Builder | Amended Track 1 charter | Landed as `81c5504`; seven-file implementation delta committed cleanly; independent review is current |
 | 5 | Track 1 review | Reviewer | Track 1 review charter | `e36086a`: `NOT READY`; eight of nine measurements pass, with one coordinator-level projector-failure cleanup/test residual accepted for the plan's single repair |
+| 6 | Track 1 repair | Builder | Findings-only repair charter | `759c9fa`: construct/validate before output writes, remove both reservations on `PresentationModelError`, and exercise the failure through `live_coordinate_run`; focused recheck current |
