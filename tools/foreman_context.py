@@ -99,6 +99,20 @@ class GitRepository:
         behind, ahead = raw.split()
         return int(behind), int(ahead)
 
+    def is_ancestor(self, ancestor: str, descendant: str) -> bool:
+        result = subprocess.run(
+            ["git", "-C", str(self.root), "merge-base", "--is-ancestor", ancestor, descendant],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode == 0:
+            return True
+        if result.returncode == 1:
+            return False
+        detail = result.stderr.strip() or result.stdout.strip() or "unknown Git failure"
+        raise ContextError(detail)
+
 
 def require_relative_path(value: str, source: str) -> str:
     candidate = PurePosixPath(value)
@@ -175,6 +189,7 @@ def path_of(target: str) -> str:
 
 RATIFIED_REF = "origin/main"
 TRACK_STATE = re.compile(r"^track-(\d+)$")
+FULL_OBJECT_ID = re.compile(r"^[0-9a-f]{40}$")
 
 # Each lifecycle state implies two facts about the ratified record. Both are
 # file-presence questions, because the two artifacts that mark a milestone's
@@ -308,6 +323,96 @@ def next_transition(state: str, track: re.Match[str] | None) -> str:
     return NEXT_TRANSITION[state]
 
 
+def validate_initial_briefing_follow_up(
+    repository: GitRepository,
+    plan: LoadedDocument,
+    topic: str,
+    milestone: dict[str, Any],
+) -> dict[str, Any] | None:
+    """Validate the active plan's optional, temporary briefing supplement."""
+    raw = plan.metadata.get("initial_briefing_follow_up")
+    if raw is None:
+        return None
+    if milestone["state"] == "closed":
+        raise ContextError(
+            f"{plan.path} is closed but still carries 'initial_briefing_follow_up'; "
+            "remove the temporary capsule in the closing unit"
+        )
+    if not isinstance(raw, dict):
+        raise ContextError(f"{plan.path} metadata 'initial_briefing_follow_up' must be an object")
+    expected_keys = {"version", "expires", "grounding_commit", "notes", "sources"}
+    actual_keys = set(raw)
+    if actual_keys != expected_keys:
+        missing = sorted(expected_keys - actual_keys)
+        extra = sorted(actual_keys - expected_keys)
+        detail = []
+        if missing:
+            detail.append(f"missing {missing}")
+        if extra:
+            detail.append(f"unknown {extra}")
+        raise ContextError(
+            f"{plan.path} initial briefing follow-up has invalid keys: {', '.join(detail)}"
+        )
+    if raw["version"] != 1:
+        raise ContextError(f"{plan.path} initial briefing follow-up must have version 1")
+    if raw["expires"] != "milestone-close":
+        raise ContextError(
+            f"{plan.path} initial briefing follow-up must expire at 'milestone-close'"
+        )
+    grounding_commit = raw["grounding_commit"]
+    if not isinstance(grounding_commit, str) or not FULL_OBJECT_ID.fullmatch(grounding_commit):
+        raise ContextError(
+            f"{plan.path} initial briefing follow-up requires a full grounding commit SHA"
+        )
+    if repository.commit_for_ref(grounding_commit) != grounding_commit:
+        raise ContextError(
+            f"{plan.path} initial briefing follow-up grounding commit is not canonical"
+        )
+    notes = raw["notes"]
+    if not isinstance(notes, list) or not notes or not all(
+        isinstance(note, str) and note.strip() for note in notes
+    ):
+        raise ContextError(
+            f"{plan.path} initial briefing follow-up requires non-empty string notes"
+        )
+    raw_sources = raw["sources"]
+    if not isinstance(raw_sources, list) or not raw_sources:
+        raise ContextError(
+            f"{plan.path} initial briefing follow-up requires at least one source"
+        )
+    sources: list[dict[str, str]] = []
+    seen_paths: set[str] = set()
+    for index, source in enumerate(raw_sources):
+        label = f"{plan.path} initial briefing follow-up source {index}"
+        if not isinstance(source, dict) or set(source) != {"path", "blob"}:
+            raise ContextError(f"{label} must contain exactly 'path' and 'blob'")
+        raw_path = source.get("path")
+        if not isinstance(raw_path, str):
+            raise ContextError(f"{label} requires a repository-relative path")
+        path = require_relative_path(raw_path, label)
+        blob = source.get("blob")
+        if not isinstance(blob, str) or not FULL_OBJECT_ID.fullmatch(blob):
+            raise ContextError(f"{label} requires a full blob SHA")
+        if path in seen_paths:
+            raise ContextError(f"{label} duplicates {path}")
+        seen_paths.add(path)
+        actual_blob = repository.blob_for_path(grounding_commit, path)
+        if actual_blob != blob:
+            raise ContextError(
+                f"{label} blob mismatch: records {blob}, but "
+                f"{grounding_commit}:{path} is {actual_blob}"
+            )
+        sources.append({"path": path, "blob": blob})
+    return {
+        "version": 1,
+        "topic": topic,
+        "expires": "milestone-close",
+        "grounding_commit": grounding_commit,
+        "notes": list(notes),
+        "sources": sources,
+    }
+
+
 def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
     commit = repository.commit_for_ref(ref)
     phase = load_document(repository, commit, PHASE_STATE_PATH)
@@ -358,8 +463,28 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
     source_documents = [{"path": item.path, "blob": item.blob} for item in sources]
     source_documents.append({"path": current_prompt_path, "blob": current_prompt_blob})
     milestone = resolve_milestone_state(repository, plan, plan.path)
+    briefing_follow_up = validate_initial_briefing_follow_up(
+        repository, plan, topic, milestone
+    )
     worktree = repository.worktree_status()
     worktree["divergence"] = divergence_report(repository, milestone["ratified_ref"])
+    drift = worktree["divergence"]
+    head = repository.resolve_optional("HEAD")
+    ratified = milestone["ratified_ref"]
+    branch_tip_reachable = (
+        repository.is_ancestor(head, ratified)
+        if head is not None and ratified is not None
+        else None
+    )
+    worktree["branch_tip_reachable_from_ratified"] = branch_tip_reachable
+    worktree["spent"] = bool(
+        worktree["branch"]
+        and worktree["branch"] != "main"
+        and drift is not None
+        and drift["behind"] > 0
+        and drift["ahead"] == 0
+        and branch_tip_reachable
+    )
     return {
         "version": 1,
         "source": {
@@ -372,10 +497,12 @@ def render_context(repository: GitRepository, ref: str) -> dict[str, Any]:
         "state": {
             "phase": required_string(phase.metadata, "phase", phase.path),
             "topic": topic,
+            "active_plan": active_plan_path,
             "plan_status": required_string(plan.metadata, "status", plan.path),
             "status": required_string(phase.metadata, "status", phase.path),
             "current_role": required_string(phase.metadata, "current_role", phase.path),
             "current_prompt": current_prompt,
+            "initial_briefing_follow_up": briefing_follow_up is not None,
             "scope": required_strings(plan.metadata, "scope", plan.path),
             "non_goals": required_strings(plan.metadata, "non_goals", plan.path),
             "seat": seat_state,
@@ -394,6 +521,7 @@ def markdown_capsule(capsule: dict[str, Any]) -> str:
     worktree_line = f"- Worktree: branch `{worktree['branch'] or 'detached'}`; dirty: `{worktree['dirty']}`"
     if drift is not None:
         worktree_line += f"; {drift['behind']} behind / {drift['ahead']} ahead of `{drift['ref']}`"
+    worktree_line += f"; spent: `{worktree['spent']}`"
 
     if milestone["ratified_ref"] is None:
         corroboration = milestone["note"]
@@ -415,10 +543,29 @@ def markdown_capsule(capsule: dict[str, Any]) -> str:
     lines.extend([
         f"- Current role: {state['current_role']}",
         f"- Current prompt: `{state['current_prompt']}`",
-        "",
-        "## Read in full before acting",
-        "",
     ])
+    if state["initial_briefing_follow_up"]:
+        lines.append(
+            "- Initial briefing follow-up: **available** — run "
+            "`python3 tools/foreman_context_followup.py --ref "
+            f"{source['selected_ref']} --format markdown`"
+        )
+    else:
+        lines.append("- Initial briefing follow-up: none")
+    if milestone["state"] == "closed":
+        lines.extend([
+            "",
+            "## Initial briefing checkpoint",
+            "",
+            "Before loading follow-up context, briefly tell the owner what in this",
+            "project position may need clarification or grounding, recommend the",
+            "smallest useful retrieval, and stop.",
+            "",
+            "## Candidate follow-up context",
+            "",
+        ])
+    else:
+        lines.extend(["", "## Read in full before acting", ""])
     for action, targets in capsule["deep_reads"].items():
         lines.append(f"- `{action}`: {', '.join(f'`{target}`' for target in targets)}")
     lines.extend(["", "## Source blobs", ""])

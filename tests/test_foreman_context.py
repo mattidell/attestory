@@ -12,6 +12,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TOOL = REPO_ROOT / "tools" / "foreman_context.py"
+FOLLOWUP_TOOL = REPO_ROOT / "tools" / "foreman_context_followup.py"
 
 
 class ContextFixture(unittest.TestCase):
@@ -113,9 +114,72 @@ class ContextFixture(unittest.TestCase):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("# Demo\n", encoding="utf-8")
 
-    def run_tool(self, root: Path, ref: str = "HEAD") -> subprocess.CompletedProcess[str]:
+    def run_tool(
+        self, root: Path, ref: str = "HEAD", *, output_format: str = "json"
+    ) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
-            [sys.executable, str(TOOL), "--repo", str(root), "--ref", ref],
+            [
+                sys.executable,
+                str(TOOL),
+                "--repo",
+                str(root),
+                "--ref",
+                ref,
+                "--format",
+                output_format,
+                "--no-fetch",
+            ],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+    def add_briefing_follow_up(
+        self,
+        root: Path,
+        *,
+        blob_override: str | None = None,
+    ) -> tuple[str, str]:
+        grounding_commit = self.git(root, "rev-parse", "HEAD")
+        source_path = "docs/adr/0005.md"
+        source_blob = self.git(root, "rev-parse", f"{grounding_commit}:{source_path}")
+        plan_path = root / "docs/phases/demo/milestones/demo.md"
+        text = plan_path.read_text(encoding="utf-8")
+        start = text.index("{")
+        end = text.index("\n-->")
+        metadata = json.loads(text[start:end])
+        metadata["initial_briefing_follow_up"] = {
+            "version": 1,
+            "expires": "milestone-close",
+            "grounding_commit": grounding_commit,
+            "notes": ["The initial context needed one targeted contract read."],
+            "sources": [
+                {
+                    "path": source_path,
+                    "blob": blob_override or source_blob,
+                }
+            ],
+        }
+        self.write_document(root, "docs/phases/demo/milestones/demo.md", metadata)
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", "add temporary briefing follow-up")
+        return grounding_commit, source_blob
+
+    def run_followup_tool(
+        self, root: Path, ref: str = "HEAD", *, output_format: str = "json"
+    ) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            [
+                sys.executable,
+                str(FOLLOWUP_TOOL),
+                "--repo",
+                str(root),
+                "--ref",
+                ref,
+                "--format",
+                output_format,
+                "--no-fetch",
+            ],
             check=False,
             capture_output=True,
             text=True,
@@ -299,12 +363,83 @@ class MilestoneStateTests(ContextFixture):
         self.assertEqual(divergence["ref"], "origin/main")
         self.assertEqual((divergence["behind"], divergence["ahead"]), (0, 1))
 
+    def test_reports_spent_when_non_main_branch_tip_is_already_on_main(self) -> None:
+        root = self.make_repository()
+        self.git(root, "switch", "-qc", "topic")
+        self.write_plain(root, "docs/reviews/topic.md")
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", "topic work")
+        self.git(root, "switch", "-q", "main")
+        self.git(root, "merge", "--no-ff", "-qm", "merge topic", "topic")
+        self.git(root, "push", "-q", "origin", "main")
+        self.git(root, "switch", "-q", "topic")
+        result = self.run_tool(root, ref="main")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        worktree = json.loads(result.stdout)["worktree"]
+        self.assertEqual(worktree["divergence"]["ahead"], 0)
+        self.assertGreater(worktree["divergence"]["behind"], 0)
+        self.assertTrue(worktree["branch_tip_reachable_from_ratified"])
+        self.assertTrue(worktree["spent"])
+
     def test_declares_state_uncorroborated_without_a_ratified_record(self) -> None:
         milestone = self.capsule(self.make_repository(with_origin=False))["milestone"]
         self.assertEqual(milestone["state"], "track-1")
         self.assertIsNone(milestone["ratified_ref"])
         self.assertEqual(milestone["checks"], [])
         self.assertIn("NOT corroborated", milestone["note"])
+
+
+class InitialBriefingTests(ContextFixture):
+    def test_closed_milestone_markdown_stops_before_follow_up_reads(self) -> None:
+        root = self.make_repository(
+            milestone_state="closed",
+            retrospective="docs/milestone-retrospectives/demo.md",
+        )
+        result = self.run_tool(root, output_format="markdown")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("## Initial briefing checkpoint", result.stdout)
+        self.assertIn("recommend the", result.stdout)
+        self.assertIn("smallest useful retrieval, and stop", result.stdout)
+        self.assertIn("## Candidate follow-up context", result.stdout)
+        self.assertNotIn("## Read in full before acting", result.stdout)
+
+    def test_active_milestone_advertises_and_renders_follow_up(self) -> None:
+        root = self.make_repository()
+        grounding_commit, source_blob = self.add_briefing_follow_up(root)
+        context_result = self.run_tool(root, output_format="markdown")
+        self.assertEqual(context_result.returncode, 0, context_result.stderr)
+        self.assertIn("Initial briefing follow-up: **available**", context_result.stdout)
+
+        result = self.run_followup_tool(root, output_format="markdown")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("# Initial briefing follow-up (temporary)", result.stdout)
+        self.assertIn("one targeted contract read", result.stdout)
+        self.assertIn(grounding_commit, result.stdout)
+        self.assertIn(source_blob, result.stdout)
+
+    def test_follow_up_requires_exact_grounding_blob(self) -> None:
+        root = self.make_repository()
+        self.add_briefing_follow_up(root, blob_override="0" * 40)
+        result = self.run_tool(root)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("blob mismatch", result.stderr)
+
+    def test_follow_up_loader_refuses_when_no_capsule_is_active(self) -> None:
+        root = self.make_repository()
+        result = self.run_followup_tool(root)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("has no active initial briefing follow-up capsule", result.stderr)
+
+    def test_closed_milestone_must_remove_temporary_follow_up(self) -> None:
+        root = self.make_repository(
+            milestone_state="closed",
+            retrospective="docs/milestone-retrospectives/demo.md",
+        )
+        self.add_briefing_follow_up(root)
+        result = self.run_tool(root)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("closed but still carries", result.stderr)
+        self.assertIn("remove the temporary capsule", result.stderr)
 
 
 if __name__ == "__main__":

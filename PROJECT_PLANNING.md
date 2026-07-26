@@ -142,12 +142,12 @@ exception.
 The capsule routes the foreman to the complete documents required for the
 proposed action. Before dispatch, ADR drafting, schema/fixture work,
 merge/records work, or any other mapped action, read those sources in full and
-follow their existing gates. Before **planning a new milestone**, read up to the
-five most recent milestone retrospectives, newest first, even when the capsule
-already names them. That historical read is a planning prerequisite, not a
-wholesale requirement for resuming an already planned or executing milestone.
-If the capsule refuses, read the named committed sources directly, reconcile the
-selected ref, and do not work around the refusal with a prose summary.
+follow their existing gates. Milestone selection begins with the initial
+briefing and owner checkpoint in `docs/roles/foreman.md`, before the foreman
+loads proposed follow-up context. Retrospectives are targeted follow-up sources,
+not a fixed boot set. If the capsule refuses, read the named committed sources
+directly, reconcile the selected ref, and do not work around the refusal with a
+prose summary.
 
 **External builder handoff.** When a builder is intentionally resumed in an
 owner-controlled context, the foreman first makes the repository state

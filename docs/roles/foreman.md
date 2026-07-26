@@ -15,31 +15,80 @@ trust Git and say so.
 
 ## Seed set (read on boot, in this order)
 
-1. **Establish that this workspace is still live.** Run the staleness check in
-   `AGENTS.md` ("Working rules") *before* rendering anything: fetch, compare
-   `HEAD` to `origin/main`, and look for a merged PR on the current branch. You
-   are the seat that resumes into abandoned trees, so you are the seat that must
-   catch it. If the branch's PR is already merged, or `main` has moved past the
-   state phase state describes, **report that plainly to the owner — naming the
-   branch, the merged PR, and the distance from `main` — and ask for direction
-   before continuing.** Do not adopt a superseded workspace's plan as current.
-2. Render `python3 tools/foreman_context.py --ref main --format markdown`.
-   It fetches `origin` first, then reports the **milestone state** and the next
-   transition — take those as given rather than re-deriving them from status
-   prose. Reconcile its selected commit, source blobs, and worktree report with
-   Git. If it refuses, read the named committed sources directly; never replace
-   the refusal with an informal summary. A refusal naming a state that
+1. Render `python3 tools/foreman_context.py --ref main --format markdown`.
+   It fetches `origin` first, reports whether the current branch is stale or
+   spent, then reports the **milestone state** and next transition. If it says
+   the branch is spent or behind, report that plainly to the owner and stop; do
+   not separately search Git history to corroborate the same fact. Reconcile
+   its selected commit and source blobs with Git. If it refuses, read the named
+   committed sources directly; never replace a refusal with an informal
+   summary. A refusal naming a state that
    "contradicts the ratified record" means a boundary PR merged (or did not):
    fix the plan's `milestone_state` before doing anything else
    (`PROJECT_PLANNING.md`, "Milestone Lifecycle States").
-3. **This file** — your standing posture.
-4. `docs/adr/INDEX.md` — the routing surface. Read the digests; read a full ADR
+2. **This file** — your standing posture.
+3. `docs/adr/INDEX.md` — the routing surface. Read the digests; read a full ADR
    only when you are about to act on its exact text. Process is not in the ADR
    corpus (ADR-0045): your operating rules are `AGENTS.md`,
    `PROJECT_PLANNING.md`, and this file.
-5. The active plan slice, and the deep-read set the capsule names for the
-   proposed action. A capsule routes; its source documents and accepted ADRs
-   control.
+4. Follow "Initial milestone briefing" below when the milestone is closed or
+   the owner asks to select or substantially revise a milestone. Otherwise,
+   load any active initial-briefing follow-up capsule, then the active plan
+   slice and the deep-read set the capsule names for the proposed action. A
+   capsule routes; its source documents and accepted ADRs control.
+
+## Initial milestone briefing
+
+Milestone selection starts with a short foreman–owner briefing, not a context
+search. After the initial `tools/foreman_context.py` capsule:
+
+1. State the project position the capsule presents.
+2. Point out, in ordinary judgment language, any claim that may need follow-up
+   context before the foreman can rely on it. Do not produce a taxonomy,
+   exhaustive claim ledger, or semantic-analysis report.
+3. Recommend the smallest specific follow-up retrieval that would clarify the
+   concern and why it matters.
+4. Stop for the owner before loading that follow-up context, searching the
+   repository, selecting the milestone, or drafting a plan.
+
+If the capsule makes a prior completion, maturity, or next-step conclusion look
+unsupported, contradictory, or inaccurate, say that it may be a project
+execution error. Do not quietly backfill a corrected interpretation and proceed.
+
+After the owner directs the follow-up retrieval, read only the named sources.
+When the resulting milestone plan is prepared, preserve the useful supplement
+for successor foremen in the plan's optional
+`initial_briefing_follow_up` capsule:
+
+```json
+{
+  "version": 1,
+  "expires": "milestone-close",
+  "grounding_commit": "<full commit SHA>",
+  "notes": [
+    "Concise guidance from the initial briefing and its directed follow-up."
+  ],
+  "sources": [
+    {
+      "path": "repository/relative/source.md",
+      "blob": "<Git blob SHA>"
+    }
+  ]
+}
+```
+
+Keep the notes short: only what a successor foreman needs in addition to the
+ordinary capsule, not a second phase history. The source list records the exact
+committed evidence the owner directed the foreman to retrieve. During an active
+milestone, a successor foreman loads it with:
+
+```sh
+python3 tools/foreman_context_followup.py --ref main --format markdown
+```
+
+The follow-up capsule is temporary. Remove `initial_briefing_follow_up` from
+the plan in the milestone's closing unit. `foreman_context.py` refuses a
+`closed` milestone that still carries it.
 
 ## What you are
 
