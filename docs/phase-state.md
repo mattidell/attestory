@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-citation-walk",
   "active_plan": "docs/phases/real-return/milestones/presentation-citation-walk.md",
-  "status": "Track 1 (renderer) landed as PR #77, CI verify green, mergeable, not yet merged. Track 1's review gate charter prepared.",
-  "current_role": "Track 1 review gate Reviewer — prepared, awaiting owner's literal `I authorize dispatch`",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md"
+  "status": "Track 1's review gate returned NOT READY (F1: computed_zero/closure_backed_zero render without a citation; F2: diagnostic eligibility ignores an invalid numeric input). Repair charter prepared for the Builder.",
+  "current_role": "Track 1 Repair Builder — prepared, awaiting owner's literal `I authorize dispatch`",
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md"
 }
 -->
 # Phase State
