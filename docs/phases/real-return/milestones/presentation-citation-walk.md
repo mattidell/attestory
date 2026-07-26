@@ -58,10 +58,13 @@
 -->
 # Milestone: Presentation — Citation Walk on Real Derivation Output
 
-Status: **in flight — Track 1 repair is the live unit.** The review gate
-returned `NOT READY` on findings F1 and F2. The cap below now carries one
-repair build and its focused recheck. Execution to date is in "Execution
-record" below.
+Status: **Track 1 `READY`, awaiting merge; Track 2 (completion record) is
+next.** The review gate returned `NOT READY` on findings F1 and F2; the
+repair closed both, and the focused recheck confirmed `READY` with no new
+violation. PR #77 carries the whole track; CI `verify` is green on the
+recheck commit and PR #77 is mergeable, not merged. Merging PR #77 is
+owner-held, per `PROJECT_PLANNING.md` ("Branch, PR, and Merge Protocol").
+Execution to date is in "Execution record" below.
 
 ## Objective
 
@@ -288,7 +291,7 @@ no record. Entries assert only what Git and GitHub prove.
 | 1 | Track 1 build | Builder | `docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md` (PR #74) | `6ce90e7` on `track/presentation-citation-walk-track1`; PR #77 open, `verify` green, unmerged |
 | 2 | Track 1 review gate | Reviewer | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md` (PR #78) | `NOT READY` — `docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`; measurements 1–8 pass, findings F1 and F2 block |
 | 3 | Track 1 repair | Builder | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md` | Landed as `8109048` on `track/presentation-citation-walk-track1`; self-verified 26/26 criteria pass (23 original + 3 new for F1/F2), exit 0, `git diff --check` clean |
-| 4 | Track 1 repair recheck | Reviewer | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md` | Prepared, not yet launched |
+| 4 | Track 1 repair recheck | Reviewer | `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md` | `READY` — `docs/reviews/2026-07-26-presentation-citation-walk-track1-repair-review.md` (commit `05443d8`); F1/F2 closed, no new violation, directly touched invariants intact |
 
 **Cost measurement is missing for units 1 and 2.** Neither was recorded in
 `metrics/spawn-ledger.jsonl`, which the previous milestone populated for all
