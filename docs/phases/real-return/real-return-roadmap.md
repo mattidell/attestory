@@ -28,6 +28,17 @@ scan.
 
 ## Status
 
+- Presentation — L2 Integration Grounding — **planned 2026-07-26 (updated:
+  2026-07-26).** Boundary inspection corrected the initial PR #82 plan before
+  merge: the current renderer begins with a hand-shaped synthetic model, the
+  coordinator does not persist the inputs needed to construct it, and the
+  browser harness is intentionally synthetic-only. Track 1 closes that
+  coordinator-to-model gap on production-shaped synthetic data and verifies a
+  regenerated golden through the unchanged harness. Track 2 records an
+  independently checked capability-state handoff. Presentation remains L2; no
+  real exercise or L3 claim is included. Plan:
+  `milestones/presentation-l2-integration-grounding.md`.
+
 - Browser Evaluation Runner Completion — **complete 2026-07-25; PR #71 merged
   `c329afd` with CI `verify` green on the merge commit.** This tooling
   milestone resumed the preserved implementation from
@@ -41,13 +52,18 @@ scan.
   `milestones/browser-evaluation-runner-completion.md`; retrospective:
   `../../milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
 
-- Presentation — Citation Walk on Real Derivation Output — **owner-approved
-  plan 2026-07-25, ready for a charter; no dispatch yet.** Builds the real
-  citation walk against actual `form-field.v3`/`act-derived-publication.v1`
-  output, satisfying ADR-0046's Presentation Surface Contract (ratified
-  2026-07-25 from the Presentation Exploratory Milestone's five-cycle
-  convergence), verified by the completed browser evaluation runner. Plan:
-  `milestones/presentation-citation-walk.md`. Decision record: ADR-0046.
+- Presentation — Citation Walk on Real Derivation Output — **complete
+  2026-07-26; PR #77 merged as `2d4c195` with CI `verify` green.** Shipped the
+  ADR-0046 citation-walk renderer across the complete synthetic disposition
+  matrix and T1–T3 fault suite. Its first independent review returned
+  `NOT READY` on uncited numeric-zero paths and an invalid-input diagnostic;
+  one repair closed both and the focused recheck returned `READY`. The
+  milestone moved Presentation to L2. Its original “exercise one real run”
+  handoff was later corrected by the L2 Integration Grounding plan after the
+  renderer, harness, and coordinator seams were inspected. Plan:
+  `milestones/presentation-citation-walk.md`;
+  retrospective:
+  `../../milestone-retrospectives/2026-07-26-presentation-citation-walk.md`.
 
 - Presentation Evaluation Process Economy — **closed early by owner direction
   2026-07-25; Track 0 merged in PR #66 (`870c8ed`) as the accepted foundation;
