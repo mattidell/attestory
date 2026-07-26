@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-l2-integration-grounding",
   "active_plan": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md",
-  "status": "Presentation — L2 Integration Grounding Track 1 is READY after focused recheck 4a74ffd. Track 2 records now ground the six Presentation capability rows: the production-shaped synthetic coordinator path and strict renderer input exist, while live browser invocation and real operation do not. Fresh completion review is next; no milestone PR is open.",
-  "current_role": "Foreman",
-  "current_prompt": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md"
+  "status": "Presentation — L2 Integration Grounding Track 1 is READY after focused recheck 4a74ffd. Track 2 records 8e29b52 ground the six Presentation capability rows: the production-shaped synthetic coordinator path and strict renderer input exist, while live browser invocation and real operation do not. Fresh completion review is current; no milestone PR is open.",
+  "current_role": "Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-completion-review.md"
 }
 -->
 # Phase State
@@ -53,7 +53,7 @@ That build landed as `81c5504` on the milestone branch. Independent review
 `e36086a` returned `NOT READY` on one coordinator-level projector-failure path.
 The plan's single repair landed as `759c9fa`; focused recheck `4a74ffd` returned
 `READY`. Track 2 records the resulting six-row capability state in the maturity
-matrix for fresh review.
+  matrix. Records commit `8e29b52` is under fresh completion review.
 Presentation remains L2; no new tax content, real exercise, live browser path,
 or L3 claim is part of this milestone.
 
@@ -82,10 +82,10 @@ or L3 claim is part of this milestone.
   are synthetic-end-to-end; the browser path remains synthetic-only, and no
   real operation occurred. A later Presentation L2→L3 milestone must select and
   verify a data-boundary-safe live invocation vehicle before a real exercise;
-  this milestone selects neither. Fresh completion review is next. No milestone
-  PR is open.
+  this milestone selects neither. Records commit `8e29b52` is under fresh
+  completion review. No milestone PR is open.
   Plan:
-  `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
+  `docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-completion-review.md`.
   Current prompt:
   `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 
@@ -175,11 +175,11 @@ Active phase: **Real Return** — `docs/phases/real-return/` (Foundation complet
 Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
 
 Active milestone: **Presentation — L2 Integration Grounding** — Track 1
-`READY`; Track 2 records prepared for fresh completion review.
-The durable Presentation handoff is maturity-matrix footnote 5; no milestone
-PR is open.
+`READY`; Track 2 completion review current.
+The durable Presentation handoff is maturity-matrix footnote 5 in records
+commit `8e29b52`; no milestone PR is open.
 Plan:
-`docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
+`docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-completion-review.md`.
 Current prompt:
 `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 
