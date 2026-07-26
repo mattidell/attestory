@@ -65,13 +65,12 @@ closing disposition and records which branch applied.
 
 **Committee.** At least two reviewers besides the builder, with distinct review charters — for example: contract fidelity against the governance set; implementation results and expressiveness against the charter's fixtures; fresh-reader legibility (can a reader recover the meaning from the artifact alone?). The owner's disposition closes each round. Dissent is recorded in the round's review notes, never resolved by wordsmithing; unresolved dissent is cited in the ADR.
 
-**Reviewer dispatch.** Reviewer dispatch is authorized the same way every other
-dispatch is — by the literal string test in `AGENTS.md` ("Dispatch
-authorization"), which is not restated here. Owner approval of a prototype plan
-names eligible seats and tiers only; it is never standing launch authority. Once
-authorized, the foreman launches reviewers at the
-plan-assigned tier in isolated contexts and records the direction before launch;
-reviewers do not see each other's in-progress work. Prototype legibility review
+**Reviewer launch.** Committee reviewers launch like any other role: the
+foreman charters them and runs them at the plan-assigned tier in isolated
+contexts, recording the direction before launch, and reviewers do not see each
+other's in-progress work. Whether the foreman spawns them or the owner launches
+them is the spawn question in `AGENTS.md` ("Dispatch authorization"), not a
+precondition on the review happening. Prototype legibility review
 is a normal reviewer charter, while the starved fresh-reader rigor lives in the
 periodic owner-spawned **Legibility Audit** (`docs/legibility-audits/`).
 
@@ -123,7 +122,7 @@ The first prototype run (Tax Citizen Families, First Tax Slice Track 0) was cons
 
 Default starting guidance: Foreman High/high (judgment-dense, low build volume); novel-synthesis Builder High/high; imitation or repair Builder Medium/medium; contract-fidelity and adversary Reviewers High/high; expressiveness Reviewer Medium–High/medium; starved legibility Reviewer Economy–Medium/low–medium.
 
-**Foreman as scope-and-economy steward.** Beyond chartering, sequencing, conformance review, and disposition recommendations, the foreman is the accountable steward of scope and economy. The foreman: (1) keeps the implementation — including reviews and the actions reviews propose — inside the declared scope boundaries and the spirit of economic efficiency, triaging findings (Gate 5) and rejecting or rerouting out-of-charter proposals rather than expanding scope; (2) enforces the evidence ladder and paper-first rule, never authorizing a more expensive rung than the open question requires; (3) tracks the fixed caps and triggers stop-and-decide rather than letting a run drift; (4) assigns each role's capability tier and reasoning effort in the plan and revises them as the run progresses — as decision boundaries and specifications clarify, the required capability for the next dispatch usually drops, and each change and its rationale is logged at dispatch time; and (5) obtains the owner's authorization before dispatching **any** role, including committee reviewers (`AGENTS.md`, "Dispatch authorization"; see Reviewer dispatch above). These are stewardship duties, not authority over artifact quality: the foreman still never reviews artifact quality, overrules a committee finding on the merits, or resolves dissent by rewording it.
+**Foreman as scope-and-economy steward.** Beyond chartering, sequencing, conformance review, and disposition recommendations, the foreman is the accountable steward of scope and economy. The foreman: (1) keeps the implementation — including reviews and the actions reviews propose — inside the declared scope boundaries and the spirit of economic efficiency, triaging findings (Gate 5) and rejecting or rerouting out-of-charter proposals rather than expanding scope; (2) enforces the evidence ladder and paper-first rule, never climbing to a more expensive rung than the open question requires; (3) tracks the fixed caps and triggers stop-and-decide rather than letting a run drift; (4) assigns each role's capability tier and reasoning effort in the plan and revises them as the run progresses — as decision boundaries and specifications clarify, the required capability for the next launch usually drops, and each change and its rationale is logged at launch time; and (5) chooses spawn versus owner-launch for each role on economy and independence grounds (`docs/roles/foreman.md`, "Spawn versus owner-launch"), spawning only where `AGENTS.md` ("Dispatch authorization") permits it. These are stewardship duties, not authority over artifact quality: the foreman still never reviews artifact quality, overrules a committee finding on the merits, or resolves dissent by rewording it.
 
 **Mechanical work (no helper seat).** The clerical work of the prototype process — maintaining the `SEAT.md` table, assembling round files, tagging exhibits and deleting branch refs, log-hygiene formatting, confirming each cited exhibit tag exists, running data-safety scans on merged documents, collating the fixed-shape disposition packet, applying status or wording edits — is the foreman's own, and the foreman is accountable for all of it. ADR-0045 retired the clerk seat: a spawned mechanical helper costs a cold-agent boot on top of the foreman turns spent spawning and receiving, which is strictly more expensive than the foreman doing it inline. Do it inline when it is small; write a tool when it recurs or its output is bulky enough to pollute the foreman thread. None of this work may involve judgment — triaging findings, recommending a disposition, assigning capability tiers, changing scope, composing what a status line means, reviewing artifact quality, or ratifying anything remain foreman or committee acts regardless of how they are executed.
 
@@ -527,21 +526,20 @@ restating it is the same defect as prose restating a milestone's lifecycle
 state: a claim standing in for a fact git holds, which can only go stale or
 mislead.
 
-**`authorize` is reserved for dispatch.** In agent-process text the word means
-one thing — the owner granting a foreman one sub-agent spawn, per `AGENTS.md`
-("Dispatch authorization"). The owner *approves* plans, *accepts* findings, and
-*directs* work, and grants no authorization but a dispatch. Writing
-`owner-authorized` about anything else teaches every later reader that
-authorization is the kind of thing a file can carry, which is exactly what the
-dispatch rule denies.
+**`authorize` is about dispatch and nothing else.** In agent-process text the
+word means one thing — the owner granting a foreman sub-agent spawns in one
+thread, per `AGENTS.md` ("Dispatch authorization"). The owner *approves* plans,
+*accepts* findings, and *directs* work. None of those is an authorization, and
+none of them gates the work: the foreman runs the milestone loop without asking.
 
-Two exemptions, both real:
+This was linted for a while, because foremen kept reaching for the word and
+then inflating it into a permission gate on progress. The lint is gone — it
+treated a comprehension failure as a spelling problem. The comprehension is
+fixed at the source, in the `AGENTS.md` section itself.
 
-- **`Owner Authorization`** is a ratified product-domain term (ADR-0044): one of
-  four trust domains, naming the owner's deliberate acts inside the tax system.
-  It has nothing to do with dispatch and is not touched by this rule.
-- **Closed milestone plans and superseded or retired ADRs** are history. They
-  record what was said at the time and are inert as to current authority.
+`Owner Authorization` is separately a ratified product-domain term (ADR-0044):
+one of four trust domains, naming the owner's deliberate acts inside the tax
+system. It has nothing to do with dispatch.
 
 **Do not restate an `AGENTS.md` rule — including by denying it.** The
 single-source rule already forbids repeating a rule in a second document. A
@@ -557,8 +555,8 @@ or the foreman can act on belongs in `docs/phase-state.md`, whose
 the foreman's own compliance has the wrong reader; a builder cannot dispatch,
 and did not launch itself.
 
-`tools/governance_lint.py` checks the reservation across live-authority
-documents. It cannot check the merge rule — that one is caught in review.
+None of the rules in this section is machine-checked; they are caught in
+review.
 
 ## Required Milestone Plan Contents
 
