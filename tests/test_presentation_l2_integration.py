@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import unittest
+import unittest.mock
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any
@@ -314,6 +315,35 @@ class CoordinatorIntegration(unittest.TestCase):
             self.assertIsNone(result.output_path)
             self.assertIsNone(result.presentation_path)
             self.assertFalse((root / "L" / "outputs").exists())
+
+    def test_projector_rejection_through_the_coordinator_leaves_no_stray_artifact(self) -> None:
+        """Track 1 repair, Finding 1: a PresentationModelError reached through
+        ``live_coordinate_run`` (not only a direct ``build_presentation_model``
+        call) must propagate unchanged while leaving neither the reserved
+        result nor the reserved presentation artifact behind."""
+        import packages.derivation.live as live_module
+
+        acts = golden.canonical_acts()
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with unittest.mock.patch.object(
+                live_module, "build_presentation_model",
+                side_effect=PresentationModelError("synthetic projector rejection"),
+            ):
+                with self.assertRaises(PresentationModelError):
+                    live_coordinate_run(
+                        WorkspaceCapability(root / "L"), repo_root=REPO, authoritative_acts=acts,
+                        workspace_revision=len(acts), run_scope=golden.SCOPE, scope_user=USER,
+                        request={"schema": "run-request.v1"}, run_id="demo.presentation-l2.rejection",
+                        governance_pins=[], surface=_surface(), output_name="rejected.json",
+                    )
+            self.assertFalse((root / "L" / "outputs" / "rejected.json").exists())
+            self.assertFalse((root / "L" / "outputs" / "rejected.presentation.json").exists())
+            # The derivation record stream may still accurately retain the run
+            # it recorded — only the two reserved output files are this
+            # repair's concern.
+            records = (root / "L" / "records" / "derivation_records.jsonl").read_text().splitlines()
+            self.assertEqual({json.loads(line)["phase"] for line in records}, {"started", "completed"})
 
     def test_declared_output_name_cannot_escape_the_workspace(self) -> None:
         from packages.derivation.live_workspace import ResidencyViolation

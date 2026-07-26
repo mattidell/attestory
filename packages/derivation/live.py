@@ -17,7 +17,7 @@ from typing import TYPE_CHECKING, Any, Mapping, Sequence
 
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.marshal import marshal_live_run_context
-from packages.derivation.presentation_projection import build_presentation_model
+from packages.derivation.presentation_projection import PresentationModelError, build_presentation_model
 from packages.derivation.production_executor import execute_and_record_marshaled, execute_marshaled
 from packages.derivation.production_resolver import PublicationSurface, Refusal, resolve_production_package
 from packages.derivation.records import RecordStream
@@ -131,21 +131,31 @@ def live_coordinate_run(
         adopted_packages={resolved.package["id"]},
         start_record_id=f"record:{run_id}:started", completion_record_id=f"record:{run_id}:completed",
     )
+    # Construct and validate the presentation model before writing any durable
+    # output. A projector rejection (missing/ambiguous join, unknown
+    # disposition, invalid numeric publication, untraceable lineage) must not
+    # leave a completed-looking result file or a stranded empty presentation
+    # artifact behind (Track 1 repair, Finding 1) — the derivation record
+    # stream may still accurately retain the run it recorded; only these two
+    # reserved output files are this repair's concern.
+    try:
+        model = build_presentation_model(
+            run_id=result.run_id,
+            resolved_members=resolved.resolved_members,
+            state=state,
+            publications=result.publications,
+            dispositions=result.dispositions,
+        )
+    except PresentationModelError:
+        output_path.unlink(missing_ok=True)
+        presentation_path.unlink(missing_ok=True)
+        raise
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps({
         "run_id": result.run_id, "stop_reason": result.stop_reason,
         "dispositions": result.dispositions,
     }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    # Constructed only from the resolved graph, projected record state, and
-    # this run's own publications/dispositions (Presentation L2 Integration
-    # Grounding, Track 1) — never from a caller-supplied model or value.
-    model = build_presentation_model(
-        run_id=result.run_id,
-        resolved_members=resolved.resolved_members,
-        state=state,
-        publications=result.publications,
-        dispositions=result.dispositions,
-    )
     presentation_path.write_text(json.dumps(model, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return LiveCoordinatorOutcome(
         refusal=None, output_path=output_path, run_id=run_id, presentation_path=presentation_path
