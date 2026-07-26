@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "presentation-citation-walk",
-  "milestone_state": "plan-approved",
+  "milestone_state": "planned",
   "retrospective": null,
   "status": "Owner-approved 2026-07-25 on ADR-0046 (ratified same day). Ready for a charter; no dispatch has occurred.",
   "scope": [
