@@ -4,7 +4,7 @@
   "phase": "Real Return",
   "topic": "presentation-l2-integration-grounding",
   "active_plan": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md",
-  "status": "Presentation — L2 Integration Grounding is PLANNED. Track 1 makes the citation walk production-shaped on synthetic data by constructing and validating its model inside live_coordinate_run and exercising a regenerated golden through the unchanged synthetic-only browser harness; Track 2 independently records the resulting L2 capability state. No real exercise or L3 claim is in scope.",
+  "status": "Presentation — L2 Integration Grounding is PLANNED. Track 1 resumes under an amended charter: the unchanged demo manifest remains the full renderer regression floor, while a dedicated production-shaped manifest exercises the coordinator-generated golden through the unchanged synthetic-only browser harness. Track 2 independently records the resulting L2 capability state. No new tax content, real exercise, or L3 claim is in scope.",
   "current_role": "Builder",
   "current_prompt": "docs/reviews/charter-2026-07-26-presentation-l2-integration-grounding-track1.md"
 }
@@ -44,22 +44,30 @@ required no further building. The renderer currently starts from a hand-shaped
 model, the coordinator does not persist the publications and resolved graph
 needed to construct that model, and the browser harness is intentionally
 synthetic-only. Track 1 closes the coordinator-to-model gap on a
-production-shaped synthetic run and proves a regenerated golden through that
-unchanged harness. Track 2 records the resulting capability state in the
-maturity matrix. Presentation remains L2; no real exercise, live browser path,
+production-shaped synthetic run. Its first Builder correctly stopped before
+writing code because the existing demo manifest requires line 2a and
+guard-inapplicable line 9 states absent from the resolved production package.
+The amended charter preserves that manifest as the full renderer regression
+floor and adds a dedicated manifest for the coordinator-generated golden.
+Track 2 records the resulting capability state in the maturity matrix.
+Presentation remains L2; no new tax content, real exercise, live browser path,
 or L3 claim is part of this milestone.
 
 **Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are published; any further correction-authority extension is separately chartered. ADR-0044 is accepted positioning, not a mechanism decision: any authority-separation implementation requires a later owner-selected milestone, mechanical proof, and real-run verification before an L4 claim.
 
 ## Current state (2026-07-26)
 
-- **Presentation — L2 Integration Grounding:** **planned.** Boundary inspection
-  corrected the prior “no further building” handoff before PR #82 merged. Track
-  1 constructs and validates the renderer model inside a production-shaped
+- **Presentation — L2 Integration Grounding:** **planned; Track 1 charter
+  amended after a clean stop.** Boundary inspection corrected the prior “no
+  further building” handoff before PR #82 merged. The first Builder then found
+  that the demo manifest's fabricated line 2a and guard-inapplicable line 9
+  cannot come from the resolved package and stopped with no code written. Track
+  1 now constructs and validates the renderer model inside a production-shaped
   synthetic `live_coordinate_run`, writes it below `LiveWorkspace`, and proves
-  a deterministic synthetic golden through the unchanged browser harness.
-  Track 2 independently updates the maturity matrix's Presentation
-  capability-state table. The row remains L2; a real exercise and live browser
+  the golden through a dedicated production-shaped manifest. The unchanged
+  demo manifest remains the full renderer-state regression floor. Track 2
+  independently updates the maturity matrix's Presentation capability-state
+  table. The row remains L2; new tax content, a real exercise, and live browser
   design are explicitly deferred. Plan:
   `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
   Current prompt:
@@ -152,7 +160,7 @@ Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-
 
 Active milestone: **Presentation — L2 Integration Grounding** — planned
 2026-07-26.
-Track 1 has a prepared Builder charter and begins after the plan is on `main`.
+Track 1 has an amended Builder charter and resumes from a clean branch.
 Plan:
 `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
 Current prompt:

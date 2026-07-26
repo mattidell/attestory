@@ -8,7 +8,7 @@
   "scope": [
     "project one production-shaped synthetic live_coordinate_run into a validated internal presentation model using only the resolved graph, projected record state, publications, and dispositions already available inside the coordinator",
     "write the presentation model only below LiveWorkspace while preserving the existing coordinator result and caller contract",
-    "regenerate a committed synthetic golden from that coordinator path and exercise it through the unchanged synthetic-only browser harness",
+    "regenerate a committed synthetic golden from that coordinator path and exercise it through a dedicated production-shaped manifest on the unchanged synthetic-only browser harness",
     "preserve the reviewed citation-walk behavior while proving inert serialization and explicit rejection at the newly connected boundary",
     "replace the ambiguous Presentation handoff with an independently checked L2 capability-state table in the maturity matrix"
   ],
@@ -27,7 +27,8 @@
     "notes": [
       "The current L2 evidence runs from a hand-shaped synthetic model through the browser, not from the live coordinator through the browser.",
       "The coordinator persists run_id, stop_reason, and dispositions; the publications and resolved graph needed for presentation exist only in memory.",
-      "The harness is correctly synthetic-only and must not be treated as the vehicle for a later real exercise."
+      "The harness is correctly synthetic-only and must not be treated as the vehicle for a later real exercise.",
+      "The existing citation-walk manifest asserts demo-only line 2a and guard-inapplicable line 9 states that the resolved production package cannot produce; preserve it as a renderer regression floor rather than requiring the coordinator golden to satisfy it."
     ],
     "sources": [
       {
@@ -41,6 +42,10 @@
       {
         "path": "tools/presentation_harness/examples/pages/citation-walk.v1.html",
         "blob": "62f5ee99a48733fcd55807ee5d83e19c4d3c7745"
+      },
+      {
+        "path": "tools/presentation_harness/examples/manifests/citation-walk.v1.json",
+        "blob": "ad7db749f1fe29b8f82c64bfe0a0c7befa58d4e5"
       },
       {
         "path": "docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md",
@@ -63,6 +68,7 @@
       "packages/derivation/runner.py",
       "tools/presentation_harness/lib/manifest.mjs",
       "tools/presentation_harness/lib/server.mjs",
+      "tools/presentation_harness/examples/manifests/citation-walk.v1.json",
       "tools/presentation_harness/examples/pages/citation-walk.v1.html",
       "tools/presentation_harness/examples/pages/citation-walk-fixtures/baseline.v1.json",
       "docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md",
@@ -77,6 +83,7 @@
       "docs/adr/0046-presentation-surface-contract.md",
       "packages/derivation/live.py",
       "tools/presentation_harness/lib/manifest.mjs",
+      "tools/presentation_harness/examples/manifests/citation-walk.v1.json",
       "tools/presentation_harness/examples/pages/citation-walk.v1.html",
       "docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md",
       "AGENTS.md#Data Safety Rules"
@@ -106,7 +113,11 @@
 
 Status: **Planned.** The owner redirected PR #82 on 2026-07-26 from L2→L3
 progression to L2 hardening and a better-grounded next-milestone handoff. The
-plan becomes active when its planning PR reaches `main`.
+plan became active when its planning PR reached `main`. Before implementation,
+the Track 1 Builder returned a clean charter-stop finding: the existing demo
+manifest requires fabricated line 2a and guard-inapplicable line 9 states that
+the resolved production package cannot produce. This amendment separates the
+demo regression suite from production-shaped integration evidence.
 
 ## Objective
 
@@ -166,11 +177,14 @@ part of that gap and records the rest without claiming L3.
    existing coordinator result JSON and existing callers. Expose at most its
    confined path, never an in-memory live payload.
 4. Generate one deterministic committed golden from a production-shaped
-   synthetic coordinator run. The existing browser harness consumes that
-   golden under its unchanged `synthetic: true` boundary.
-5. Cover every currently presented Form 1040 field and Schedule B attachment,
-   all five dispositions, exact-pin citation lineage, and the prior F1/F2
-   repairs.
+   synthetic coordinator run. A dedicated production-shaped manifest consumes
+   that golden through the existing browser harness under its unchanged
+   `synthetic: true` boundary.
+5. In the production-shaped golden, cover every Form 1040 field and attachment
+   actually present in the resolved package, using only the dispositions that
+   the canonical coordinator run produces. Preserve all five dispositions,
+   exact-pin citation behavior, and the prior F1/F2 repairs in the unchanged
+   demo manifest and fault fixtures.
 6. Reject missing or ambiguous field joins, missing citations, unknown
    dispositions, invalid numeric publications, resolver refusal, path escape,
    and serialization breakout without rendering or echoing a rejected value.
@@ -185,6 +199,8 @@ part of that gap and records the rest without claiming L3.
   or remote publication path for live data.
 - No weakening, bypass, or second mode in the browser harness's synthetic-only
   fixture boundary.
+- No alteration of the existing citation-walk manifest or its hand-authored
+  demo fixtures to masquerade as coordinator output.
 - No caller-authored value, presentation model, `RunContext`, fixture adapter,
   package member, or citation label on the production path.
 - No new tax rule, form field, citation, attachment, domain, published schema,
@@ -220,6 +236,15 @@ part of that gap and records the rest without claiming L3.
 - The harness continues to require repository-relative, manifest-allowlisted,
   explicitly synthetic fixtures. The production-shaped golden is synthetic,
   deterministic, and regeneration-checked.
+- The existing `citation-walk.v1.json` manifest remains the unchanged renderer
+  regression floor: it proves the full five-disposition and T1–T3 behavior
+  over hand-authored demo fixtures. A new
+  `citation-walk-production-shaped.v1.json` manifest proves the
+  coordinator-to-projector-to-browser path over the regenerated golden.
+- The production-shaped manifest asserts only fields, attachments, identifiers,
+  citations, labels, and dispositions present in the resolved package and
+  canonical run. It does not copy demo-only line 2a or guard-inapplicable line
+  9 criteria.
 - Passing the harness proves synthetic browser behavior only. It is not evidence
   of a live browser path or real-data operation.
 
@@ -247,12 +272,17 @@ One canonical production-shaped scenario must:
 
 - enter through `live_coordinate_run`, not `runner.run` or a fixture-authored
   `RunContext`;
-- cover the currently presented Form 1040 and Schedule B slice;
+- cover every Form 1040 field and attachment in its resolved package, with the
+  actual dispositions produced by that run;
 - regenerate the committed presentation golden byte-for-byte; and
-- pass through the existing browser manifest as `synthetic: true`.
+- pass through the dedicated production-shaped browser manifest as
+  `synthetic: true`.
 
 Focused negative cases cover every rejection named in Scope item 6. No fixture
-is selected from, transformed from, or compared with a real run.
+is selected from, transformed from, or compared with a real run. The unchanged
+demo manifest separately remains the complete renderer-state regression floor;
+the canonical production-shaped golden is not required to manufacture all five
+dispositions.
 
 ## Verification
 
@@ -262,6 +292,8 @@ Track 1 creates one focused module and keeps the browser regression floor green:
 python3 -m unittest tests.test_presentation_l2_integration
 node tools/presentation_harness/run.mjs \
   --manifest tools/presentation_harness/examples/manifests/citation-walk.v1.json
+node tools/presentation_harness/run.mjs \
+  --manifest tools/presentation_harness/examples/manifests/citation-walk-production-shaped.v1.json
 python3 -m unittest tests.test_frrs_t4_w2_live_integration
 python3 -m unittest tests.test_dsbs_t4_dividend_live_integration
 python3 tools/envelope_scan.py --range main..HEAD
@@ -287,10 +319,12 @@ completion review run the range envelope scan.
    validated presentation model under `LiveWorkspace` without changing the
    existing result JSON shape.
 2. The committed golden regenerates byte-for-byte from that path and passes the
-   existing citation-walk browser manifest.
-3. Positive and negative tests prove the complete current surface, exact
-   lineage, prior F1/F2 repairs, rejection behavior, inert serialization,
-   resolver refusal, and path confinement.
+   dedicated production-shaped browser manifest, covering every field and
+   attachment in the resolved package without invented content.
+3. The unchanged demo manifest remains green as the full five-disposition,
+   T1–T3, F1/F2 renderer regression floor. Together, the two suites prove the
+   current production-shaped surface, exact lineage, rejection behavior, inert
+   serialization, resolver refusal, and path confinement.
 4. Track 1's independent review returns `READY`; any repair stays within the
    fixed cap and receives a focused recheck.
 5. The Presentation row remains L2. The maturity matrix carries the reviewed
@@ -308,11 +342,12 @@ completion review run the range envelope scan.
 
 One author-independent Reviewer must:
 
-1. rerun the focused module and existing browser manifest;
+1. rerun the focused module, unchanged demo manifest, and dedicated
+   production-shaped manifest;
 2. confirm the golden enters through `live_coordinate_run` and cannot be
    caller-authored;
-3. confirm the existing result contract and harness synthetic boundary are
-   unchanged;
+3. confirm the existing result contract, demo manifest, demo fixtures, and
+   harness synthetic boundary are unchanged;
 4. probe model validation, missing/ambiguous joins, rejected-value echo,
    closing-script/markup injection, resolver refusal, and workspace escape;
 5. recheck prior F1/F2 behavior and directly touched accessibility/blast
@@ -341,12 +376,13 @@ preserving the existing renderer and harness boundaries.
 schema, content, ADR, redesign, or maturity lift.
 
 **Inputs:** `live_coordinate_run`, resolved exclusive graph, projected record
-state, `RunResult`, `LiveWorkspace`, existing renderer/fixtures/manifest, and
-the prior F1/F2 review records.
+state, `RunResult`, `LiveWorkspace`, existing renderer/demo regression suite,
+and the prior F1/F2 review records.
 
 **Outputs:** the internal projector and validator, confined projection output,
-deterministic generation path and golden, focused tests, minimal renderer
-integration changes, and one independent review record.
+deterministic generation path and golden, a dedicated production-shaped
+manifest, focused tests, minimal renderer integration changes, and one
+independent review record.
 
 **Verification:** the commands and implementation review gate above.
 
@@ -400,3 +436,5 @@ it.
 | --- | --- | --- | --- | --- |
 | 0 | Initial plan | Foreman | Owner direction, 2026-07-26: begin another Presentation milestone | Superseded before merge after boundary inspection |
 | 1 | Plan correction | Foreman | Owner direction, 2026-07-26: shore up L2 and improve the next handoff | Planning PR revised |
+| 2 | Track 1 charter stop | Builder | Ratified Track 1 charter on `main@112560a` | Clean stop: demo manifest criteria cannot be produced from resolved content; no code written |
+| 3 | Manifest-boundary amendment | Foreman | Owner direction, 2026-07-26: amend and create PR | Separate unchanged demo regression suite from dedicated production-shaped integration suite |

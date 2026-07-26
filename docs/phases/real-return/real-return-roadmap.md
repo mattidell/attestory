@@ -33,10 +33,14 @@ scan.
   merge: the current renderer begins with a hand-shaped synthetic model, the
   coordinator does not persist the inputs needed to construct it, and the
   browser harness is intentionally synthetic-only. Track 1 closes that
-  coordinator-to-model gap on production-shaped synthetic data and verifies a
-  regenerated golden through the unchanged harness. Track 2 records an
-  independently checked capability-state handoff. Presentation remains L2; no
-  real exercise or L3 claim is included. Plan:
+  coordinator-to-model gap on production-shaped synthetic data. Its first
+  Builder stopped cleanly when the existing demo manifest proved impossible to
+  satisfy from resolved content: line 2a is not modeled and real line 9 is not
+  guard-inapplicable. The amended charter keeps that manifest unchanged as the
+  renderer regression floor and adds a dedicated production-shaped manifest
+  for the regenerated golden. Track 2 records an independently checked
+  capability-state handoff. Presentation remains L2; no new tax content, real
+  exercise, or L3 claim is included. Plan:
   `milestones/presentation-l2-integration-grounding.md`.
 
 - Browser Evaluation Runner Completion — **complete 2026-07-25; PR #71 merged
