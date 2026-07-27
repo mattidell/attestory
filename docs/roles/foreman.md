@@ -142,6 +142,34 @@ prepare the next sequential role's charter and update those fields. That
 sequence record is the continuity obligation; there is no separate
 current-prompt file.
 
+**Filing a charter and advancing the pointer are one step, in one commit.**
+Not two steps that usually happen together. The omission is invisible from
+inside the session that commits it: filing the charter is the last act of a
+turn, the hand-off to the owner immediately follows, and nothing fails loudly
+because the owner supplies continuity out-of-band. The cost lands on a fresh
+Builder or Reviewer who orients onto a superseded charter. If you are about to
+say "ready for review" or "ready for build," the pointer commit is already
+done or you are not ready.
+
+**The pointer's vocabulary is small, and the tool enforces it.**
+`current_role` must contain exactly one of `Builder` or `Reviewer` when a role
+is chartered — `detect_role` matches on those substrings and refuses on zero or
+two matches, so "Track 2 Builder" is fine and "Builder/Reviewer" is not.
+
+Between milestones, or whenever no role is chartered, the resting state is:
+
+```json
+"current_role": "Foreman",
+"current_prompt": null
+```
+
+`build_orientation_block.py` cannot infer a role from that and will say so.
+**That is the correct outcome, not a bug** — there is no builder or reviewer
+work to pick up. The foreman path re-enters through `tools/foreman_context.py`,
+which does not need `current_role`. Do not invent a role value to make the
+orientation tool succeed; a tool that resolves a role when none is chartered
+would be the actual defect.
+
 ## Spawn versus owner-launch
 
 Both are legitimate; choose on independence and repair shape, not habit.

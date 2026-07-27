@@ -155,9 +155,16 @@ def build_block(
     if not role and not action:
         detected = detect_role(state["current_role"])
         if not detected:
+            resting = state["current_role"].strip().casefold() == "foreman"
+            hint = (
+                "no builder or reviewer work is chartered right now — this is the "
+                "resting state between milestones, not an error to route around. "
+                "Re-enter the foreman seat via tools/foreman_context.py instead"
+                if resting
+                else f"pass --role ({'/'.join(sorted(ROLE_ACTIONS))}) or --action explicitly"
+            )
             raise ContextError(
-                f"could not infer role from current_role {state['current_role']!r}; "
-                f"pass --role ({'/'.join(sorted(ROLE_ACTIONS))}) or --action explicitly"
+                f"could not infer role from current_role {state['current_role']!r}; {hint}"
             )
         role = detected
     # Clean-room is auto-detected from phase state (no owner-facing flag); the

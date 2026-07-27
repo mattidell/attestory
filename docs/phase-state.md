@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Real Return",
-  "topic": "presentation-live-viewing-boundary",
-  "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: Track 1 is COMPLETE and merged to main at b37c536 (PR #89); ADR-0047 (Live Viewing Environment) is accepted and its four-class classification is the specification. Track 2 is COMPLETE: built at d8083f9, review 974bbac NOT READY on one clipboard-disposition test gap, Foreman test-only repair fa47e16 verified against the predicted mutation, focused recheck 1ba2634 READY with the mutation independently reproduced. A confined headed invocation vehicle and fail-closed preflight now exist, synthetic-tested only. Track 3 (capability-state records and handoff) is chartered. Presentation remains L2 and the data boundary remains L3.",
-  "current_role": "Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track3.md"
+  "topic": null,
+  "active_plan": null,
+  "status": "At the owner milestone-selection frontier. Presentation — Live Viewing Boundary and Invocation Vehicle is COMPLETE (plan PR #88, Track 1 PR #89, Track 2 PR #90, merged bc0d8dc). ADR-0047 is accepted and a confined headed invocation vehicle with a fail-closed preflight exists, synthetic-tested only. No maturity lift: Presentation remains L2 and the data boundary remains L3. The remaining distance to Presentation L3 is real operation plus the owner's non-descriptive attestation under ADR-0047's five honesty preconditions -- an owner act, not a build. No next milestone is selected; selection is the owner's call from the maturity matrix frontier reading.",
+  "current_role": "Foreman",
+  "current_prompt": null
 }
 -->
 # Phase State
@@ -62,33 +62,42 @@ is unselected.
 
 ## Current state (2026-07-26)
 
-- **Presentation — Live Viewing Boundary and Invocation Vehicle:** **Track 1 in
-  flight, 2026-07-26.** The plan merged to `main` in PR #88. The owner selected
-  the Presentation frontier and the headed viewing shape, then directed a
-  first-principles boundary check before any charter, explicitly to avoid
-  repeating the Guarded Transport milestone. The check rejected the obvious
-  vehicle-first shape: a headed browser confined by Chrome command-line flags is
-  the same same-UID defect as the mode-600 credential store, and ADR-0044
-  already forecloses it — naming directories and wrapping commands does not
-  create a trust boundary. On macOS no per-process network boundary is
-  available without root, so no vehicle this project writes can mechanically
-  prevent same-UID egress. The narrowing that makes the milestone tractable:
-  mechanical authority separation is the **L4** gate, while Presentation **L3**
-  rests, like every existing L3 (footnote 7), on the synthetic battery plus a
+- **Presentation — Live Viewing Boundary and Invocation Vehicle:** **complete
+  2026-07-26; plan PR #88, Track 1 PR #89 (`b37c536`), Track 2 PR #90
+  (`bc0d8dc`).** The owner selected the Presentation frontier and the headed
+  viewing shape, then directed a first-principles boundary check before any
+  charter, explicitly to avoid repeating the Guarded Transport milestone. The
+  check rejected the obvious vehicle-first shape: a headed browser confined by
+  Chrome command-line flags is the same same-UID defect as the mode-600
+  credential store, and ADR-0044 already forecloses it — naming directories and
+  wrapping commands does not create a trust boundary. That is a claim about
+  *flag-configured browsers*, not about the platform: no per-process network
+  confinement has been selected, prototyped, or verified here, and the
+  base-system Seatbelt facility remains an **unevaluated candidate rather than a
+  foreclosed one**. The narrowing that made the milestone tractable: mechanical
+  authority separation is the **L4** gate, while Presentation **L3** rests, like
+  every existing L3 (footnote 7), on the synthetic battery plus a
   non-descriptive owner attestation under an accidental-leakage posture. The
-  open question is therefore what the owner would be attesting to for a *human*
+  real question was therefore what the owner would be attesting to for a *human*
   surface — a case ADR-0044's process-oriented domains never contemplated.
-  Track 1 ratifies that as ADR-0047, drafted at `498c396`, with a four-class
-  channel classification (named residuals such as copy/paste and print;
-  controllable filesystem channels; non-loopback egress as explicitly not
-  mechanically closeable; and workstation preconditions such as residency
-  content indexing and backup inclusion). Its independent decision review
-  charter is filed at `3b96660`
-  (`docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track1-review.md`);
-  the review has not yet run. Track 2 builds only the controllable confinement
-  plus a fail-closed, locator-free preflight, and has not been chartered. Track
-  3 records. Presentation remains L2 and the data boundary remains L3. Plan:
-  `docs/phases/real-return/milestones/presentation-live-viewing-boundary.md`.
+
+  Track 1 ratified that as **ADR-0047 (Live Viewing Environment)**: a viewing
+  session is an activity *within* the Live-Run Data domain, not a fifth domain,
+  and every headed-browser channel falls into one of four classes. Two review
+  cycles (`b1a630a`, `a476c40` `NOT READY`; `63c4102` `READY`) closed an
+  unclassified clipboard-history precondition and the platform-impossibility
+  overclaim noted above. Track 2 built the confined vehicle and fail-closed
+  preflight (`d8083f9`); review `974bbac` returned `NOT READY` on a missing
+  regression guard for the confirmed-absent clipboard case, repair `fa47e16`
+  was verified against the exact mutation it exists to catch, and recheck
+  `1ba2634` reproduced that mutation independently.
+
+  **No maturity lift.** No real workspace was touched, no viewing session
+  performed, no attestation made, and no enforcement substrate selected.
+  Presentation remains L2 and the data boundary remains L3. Plan:
+  `docs/phases/real-return/milestones/presentation-live-viewing-boundary.md`;
+  retrospective:
+  `docs/milestone-retrospectives/2026-07-26-presentation-live-viewing-boundary.md`.
 
 - **Presentation — L2 Integration Grounding:** **complete 2026-07-26; PR #86
   merged as `1f3bb9a` with CI `verify` green.** Boundary inspection corrected the prior “no
@@ -249,12 +258,18 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** merge the planning PR for **Presentation — Live Viewing
-Boundary and Invocation Vehicle**, then charter Track 1 (the live viewing
-environment ADR). Do not treat live browser invocation or real operation as
-implemented, and do not charter a confinement build before the Track 1 decision
-is accepted — the plan's channel classification is what makes Track 2
-reviewable.
+**➡️ Next action:** **select the next milestone.** Presentation — Live Viewing
+Boundary and Invocation Vehicle is complete and nothing is chartered. Read the
+maturity matrix's frontier reading before choosing.
+
+The two live frontiers are materially different in kind. **Presentation L2 → L3**
+no longer needs a build — the vehicle gap is closed, and what remains is a real
+viewing session plus the owner's non-descriptive attestation under ADR-0047's
+five honesty preconditions. That is an owner act. **L3 → L4 hardening** would
+open ADR-0044's future implementation gate, where evaluating Seatbelt
+(`sandbox-exec`) as an enforcement substrate is the named unevaluated candidate.
+
+Do not record Presentation as L3 on the strength of the vehicle existing.
 
 Both `track/presentation-citation-walk-track1` and
 `track/browser-evaluation-runner-completion` may be deleted; their content is

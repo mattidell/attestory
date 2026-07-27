@@ -48,6 +48,15 @@ point, not a gap to fill.
   administrative commit that rode along, but do not treat it as the object.
 - **Run the per-review safety scan:**
   `python3 tools/envelope_scan.py --range main..HEAD`.
+- **You do not own phase state's pointer.** Commit your review record and stop.
+  Do not reset `current_role` or `current_prompt` in
+  `docs/phase-state.md` — advancing them belongs to the foreman, who files the
+  next charter and moves the pointer in the same commit. In particular, do not
+  set `current_role` to `"Foreman"` as a hand-back gesture: that is the
+  *milestone-resting* value, and setting it while a milestone is mid-flight
+  erases which role is chartered. If you find the pointer already stale on
+  pickup, report the mismatch in your record rather than fixing it silently —
+  a silent fix hides a recurring failure.
 
 ## Craft
 

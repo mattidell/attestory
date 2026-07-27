@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-live-viewing-boundary",
-  "milestone_state": "track-3",
-  "retrospective": null,
-  "status": "Tracks 1 and 2 complete as of 2026-07-26. ADR-0047 (Live Viewing Environment) is accepted and merged to main at b37c536 (PR #89). Track 2 built the confined headed invocation vehicle and fail-closed preflight at d8083f9 (packages/derivation/live_viewing.py, tests/test_presentation_live_viewing_vehicle.py); independent review 974bbac returned NOT READY on one test-gap finding (the clipboard-history split disposition's confirmed-absent case was untested for still carrying the owner-responsibility code); Foreman applied the test-only repair fa47e16 and verified the guard fires under the predicted mutation; focused recheck 1ba2634 READY with the mutation independently reproduced. Track 3 (records and handoff) is chartered next. Presentation remains L2 and the data boundary remains L3.",
+  "milestone_state": "complete",
+  "retrospective": "docs/milestone-retrospectives/2026-07-26-presentation-live-viewing-boundary.md",
+  "status": "COMPLETE 2026-07-26. Plan PR #88, Track 1 PR #89 (ADR-0047 accepted, b37c536), Track 2 PR #90 (confined vehicle and fail-closed preflight, bc0d8dc). Track 3 filed the records: maturity-matrix footnote 5 and frontier reading updated, retrospective filed, roadmap and phase-state closed out. No maturity lift -- Presentation remains L2 and the data boundary remains L3; the remaining distance to L3 is real operation plus owner attestation.",
   "scope": [
     "define the live viewing environment as a direct system-definition ADR extending ADR-0044 to an interactive human surface",
     "classify each headed-browser channel as boundary-relevant, named residual, or workstation precondition, and state exactly what the owner would later attest",
@@ -464,3 +464,4 @@ real workspace stops the affected track rather than widening it.
 | 9 | Track 2 implementation review | Reviewer | Track 2 review charter | `974bbac`: `NOT READY`; five of six measurements pass. Finding 1 — the clipboard-history split disposition is implemented correctly but its confirmed-absent case is untested, the one input where a plausible simplification would silently reintroduce the completeness claim ADR-0047 forbids. Two non-blocking observations |
 | 10 | Track 2 repair | Foreman | Findings-only, test-only repair | `fa47e16`: regression guard asserting a confirmed-`ABSENT` probe still carries the owner-responsibility code, plus a `launch()`-level missing-capability refusal closing observation 2. Guard verified to fail under the predicted mutation; production module byte-unchanged |
 | 11 | Track 2 focused recheck | Same Reviewer | Track 2 recheck charter | `1ba2634`: `READY`; all four measurements pass, mutation independently reproduced (exactly one test fails, and it is the new guard); Track 2 review-complete |
+| 12 | Track 3 records | Foreman | Track 3 charter | Maturity-matrix footnote 5 and frontier reading item 1 updated (vehicle gap closed, row held at L2); retrospective filed; roadmap and phase-state closed out; Seatbelt evaluation routed to ADR-0044's future gate. No maturity lift |

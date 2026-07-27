@@ -28,6 +28,36 @@ scan.
 
 ## Status
 
+- Presentation — Live Viewing Boundary and Invocation Vehicle — **complete
+  2026-07-26; plan PR #88, Track 1 PR #89 (`b37c536`), Track 2 PR #90
+  (`bc0d8dc`).** The milestone rejected its own obvious shape before building:
+  a flag-confined browser launcher would have failed on inspection, because
+  Chrome's containment flags are cooperative settings inside a same-UID process
+  and ADR-0044 already forecloses that as a trust boundary — the Guarded
+  Transport failure again. It defined the environment first. Track 1 ratified
+  **ADR-0047 (Live Viewing Environment)**, which treats a viewing session as an
+  activity *within* the Live-Run Data domain rather than a fifth domain,
+  classifies every headed-browser channel into four classes, and states exactly
+  what the owner would attest; it took two review cycles (`b1a630a`, `a476c40`
+  `NOT READY`; `63c4102` `READY`), one of them catching an overclaim in the
+  negative direction — an assertion of macOS platform impossibility where
+  Seatbelt was merely unevaluated. Track 2 built the confined headed invocation
+  vehicle and fail-closed preflight (`d8083f9`): destinations confined to the
+  live workspace and canonicalized against symlink escape, and a preflight that
+  returns reason codes and cannot emit the residency locator on any surface.
+  Review `974bbac` returned `NOT READY` on a missing regression guard for the
+  confirmed-absent clipboard case; repair `fa47e16` was verified against the
+  exact mutation it exists to catch, and recheck `1ba2634` reproduced that
+  mutation independently. **No maturity lift:** no real workspace was touched,
+  no viewing session performed, and no attestation made. Presentation remains
+  L2 and the data boundary remains L3; the remaining distance to Presentation
+  L3 is real operation plus the owner's non-descriptive attestation, which is
+  an owner act rather than a build. No enforcement substrate was selected;
+  Seatbelt remains an unevaluated candidate routed to ADR-0044's future gate.
+  No next milestone is selected. Plan:
+  `milestones/presentation-live-viewing-boundary.md`; retrospective:
+  `../../milestone-retrospectives/2026-07-26-presentation-live-viewing-boundary.md`.
+
 - Presentation — L2 Integration Grounding — **complete 2026-07-26; PR #86
   merged as `1f3bb9a` with CI `verify` green.** Boundary inspection corrected the initial PR #82 plan before
   merge: renderer integration began with a hand-shaped synthetic model, the
