@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-live-viewing-boundary",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: the plan merged to main in PR #88 and Track 1 is in flight as of 2026-07-26. Track 1 ratified ADR-0047 (Live Viewing Environment, extending ADR-0044 to an interactive human surface) at 498c396 and filed its independent decision review charter at 3b96660; the review has not yet run. Track 2 (build only mechanically checkable confinement plus a fail-closed preflight) has not been chartered; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
+  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: the plan merged to main in PR #88 and Track 1 is in flight as of 2026-07-26. Track 1 ratified ADR-0047 at 498c396; independent review b1a630a returned NOT READY on one blocking finding (clipboard-history retention unclassified) plus one non-blocking observation (Class C platform-impossibility overclaim). The plan's single findings-only repair landed at 52ef7b0 and its focused recheck charter is filed at 8255528; the recheck has not yet run. Track 2 (build) has not been chartered; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
   "current_role": "Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track1-review.md"
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track1-repair-review.md"
 }
 -->
 # Phase State
