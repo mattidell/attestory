@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Real Return",
-  "topic": "data-boundary-hardening-bar",
-  "active_plan": "docs/phases/real-return/milestones/data-boundary-hardening-bar.md",
-  "status": "Data Boundary — Hardening Bar selected 2026-07-27, plan drafted and pending owner merge. The owner was briefed on both live frontiers and rejected pursuing an enforcement substrate, choosing instead to fix the bar itself: maturity-matrix footnote 8 converted an ADR-0044 observation (no mechanical authority separation is implemented) into a requirement (that missing enforcement is what holds the row short of L4) that was never ratified, leaving a cell that reads as a task but is an unexamined assumption. Track 1 amends ADR-0044 to name L4 conditions dischargeable by auditing and constraining live-run code rather than by process confinement; Track 2 records. Scope is the data-boundary row only. The milestone raises nothing -- it ends with the row still L3 and every condition undischarged. Prior milestone (Presentation Live Viewing Boundary) is CLOSED at 805225e.",
-  "current_role": "Foreman (milestone selected; plan drafted, awaiting owner merge before Track 1 is chartered)",
-  "current_prompt": "docs/phases/real-return/milestones/data-boundary-hardening-bar.md"
+  "topic": "presentation-live-viewing-boundary",
+  "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
+  "status": "At the owner milestone-selection frontier. Presentation — Live Viewing Boundary is CLOSED at 805225e. A Data Boundary — Hardening Bar plan was merged (PR #91) and then reverted: its premise was false. Footnote 8 does not set an unratified bar -- ADR-0044 line 164 states that only a selected enforcement substrate plus a mechanical showing can support an L4 data-boundary claim, so the footnote faithfully summarises a ratified Tier 3 decision. Footnote 8 now says so explicitly, and the cell reads as a deliberate ceiling rather than an unfinished task. Owner supplied first-principles answers to the Seatbelt questions (helper-process network denial works when the top-level process is confined; sandbox escape is not possible absent a kernel zero-day; sandbox-exec is deprecated and SBPL is unstable across macOS releases) and accepts the deprecation and fragility. Next candidate is a live-run process confinement milestone with no prototype track.",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/real-return/maturity-matrix.md"
 }
 -->
 # Phase State
@@ -258,8 +258,15 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** merge the planning PR for **Data Boundary — Hardening
-Bar**, then charter Track 1 (the ADR-0044 amendment).
+**➡️ Next action:** charter the live-run process confinement milestone once its
+plan is drafted and merged.
+
+Two constraints carried from the owner's direction. **Do not charter a
+prototype** for questions answerable from first principles or documentation —
+the Seatbelt behaviour questions are already answered and recorded. And **do not
+treat `sandbox-exec`'s deprecation as a blocker**: the owner accepts the
+deprecated interface and the SBPL fragility as named, owner-held residuals. Note
+them and proceed.
 
 Hold two things steady while it runs. First, **this milestone raises nothing** —
 it ends with the data-boundary row still L3 and every named condition

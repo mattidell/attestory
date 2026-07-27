@@ -113,7 +113,12 @@ extended at milestone close 2026-07-21):
    first-class event, fail-closed classification. ADR-0044 defines the
    intended Developer/Supply, Publication, Live-Run Data, and Owner
    Authorization domains but implements no mechanical authority separation;
-   that missing enforcement is what holds this row short of L4. Guarded
+   that missing enforcement is what holds this row short of L4. **That bar is
+   ratified, not incidental:** ADR-0044's future implementation gate requires a
+   selected enforcement substrate and a mechanical showing that Developer/Supply
+   cannot reach the live workspace, and states that "only that implementation
+   and verification can support an L4 data-boundary claim." This cell is a
+   deliberate ceiling with a known cost, not an unfinished task. Guarded
    transport / credential confinement remains a separate, unimplemented
    publication-integrity deferral and cannot raise the live-data boundary by
    itself.
