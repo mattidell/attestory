@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-live-viewing-boundary",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: Track 1 is COMPLETE and merged to main at b37c536 (PR #89). ADR-0047 (Live Viewing Environment) is accepted; its four-class channel classification is the specification for the rest of the milestone. Track 2 (confined headed invocation vehicle and fail-closed preflight) built at d8083f9 on track/presentation-live-viewing-boundary-track2: packages/derivation/live_viewing.py plus tests/test_presentation_live_viewing_vehicle.py. The build charter's verification block passes clean and the build is awaiting independent review. Track 3 (records and handoff) is not yet chartered. Presentation remains L2 and the data boundary remains L3.",
-  "current_role": "Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track2-review.md"
+  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: Track 1 is COMPLETE and merged to main at b37c536 (PR #89). ADR-0047 (Live Viewing Environment) is accepted; its four-class channel classification is the specification for the rest of the milestone. Track 2 (confined headed invocation vehicle and fail-closed preflight) built at d8083f9 on track/presentation-live-viewing-boundary-track2. Independent review returned NOT READY on one finding: the clipboard-history split disposition's confirmed-absent case (a scan that finds no known clipboard manager) is untested for still carrying the owner-responsibility code rather than a clearance -- the exact claim-discipline property Track 1 spent two repair cycles establishing. Recommended repair is test-only. Track 3 (records and handoff) is not yet chartered. Presentation remains L2 and the data boundary remains L3.",
+  "current_role": "Foreman",
+  "current_prompt": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md"
 }
 -->
 # Phase State
