@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Real Return",
-  "topic": "presentation-live-viewing-boundary",
-  "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "At the owner milestone-selection frontier. Presentation — Live Viewing Boundary is CLOSED at 805225e. A Data Boundary — Hardening Bar plan was merged (PR #91) and then reverted: its premise was false. Footnote 8 does not set an unratified bar -- ADR-0044 line 164 states that only a selected enforcement substrate plus a mechanical showing can support an L4 data-boundary claim, so the footnote faithfully summarises a ratified Tier 3 decision. Footnote 8 now says so explicitly, and the cell reads as a deliberate ceiling rather than an unfinished task. Owner supplied first-principles answers to the Seatbelt questions (helper-process network denial works when the top-level process is confined; sandbox escape is not possible absent a kernel zero-day; sandbox-exec is deprecated and SBPL is unstable across macOS releases) and accepts the deprecation and fragility. Next candidate is a live-run process confinement milestone with no prototype track.",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
-  "current_prompt": "docs/phases/real-return/maturity-matrix.md"
+  "topic": "presentation-live-session-path",
+  "active_plan": "docs/phases/real-return/milestones/presentation-live-session-path.md",
+  "status": "Planning, 2026-07-27. Presentation — Live Viewing Boundary is CLOSED at 805225e. The owner accepts a permanent L3 ceiling on the data-boundary row: ADR-0044 line 164 states that only a selected enforcement substrate plus a mechanical showing can support an L4 data-boundary claim, footnote 8 faithfully summarises that ratified Tier 3 decision, and the cell is a deliberate ceiling rather than an unfinished task. The owner holds BOTH live-run confinement (sandbox-exec, evaluated from first principles: helper-process network denial works when the top-level process is confined; sandbox escape is not possible absent a kernel zero-day; the interface is deprecated and SBPL is unstable across macOS releases, both accepted as named residuals) AND workstation-precondition observation in their own trust domain, outside the project supply chain. Neither belongs in this repository. The next milestone plan — Presentation — Live Session Path, four tracks — is drafted and awaiting its planning PR merge. It ends with Presentation still at L2 and L3 one owner act away.",
+  "current_role": "Foreman (planning PR open for the Live Session Path milestone; charter Track 1 on merge)",
+  "current_prompt": "docs/phases/real-return/milestones/presentation-live-session-path.md"
 }
 -->
 # Phase State
@@ -258,29 +258,34 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** charter the live-run process confinement milestone once its
-plan is drafted and merged.
+**➡️ Next action:** charter Track 1 of
+`docs/phases/real-return/milestones/presentation-live-session-path.md` once its
+planning PR merges.
 
-Two constraints carried from the owner's direction. **Do not charter a
-prototype** for questions answerable from first principles or documentation —
-the Seatbelt behaviour questions are already answered and recorded. And **do not
-treat `sandbox-exec`'s deprecation as a blocker**: the owner accepts the
-deprecated interface and the SBPL fragility as named, owner-held residuals. Note
-them and proceed.
+Four constraints carry from the owner's direction, and all four are the same
+constraint viewed from different sides: **this repository does not author its own
+boundary enforcement.**
 
-Hold two things steady while it runs. First, **this milestone raises nothing** —
-it ends with the data-boundary row still L3 and every named condition
-undischarged; a plan that sets a bar and clears it in the same breath has not
-set one. Second, it must **foreclose nothing about Seatbelt in either
-direction**: the substrate remains an unevaluated candidate, and the amendment's
-job is to stop treating it as the only route to L4, not to rule it out.
+1. **No confinement code.** The owner holds the `sandbox-exec` profile outside
+   the supply chain. No wrapper, template, profile file, or invocation.
+2. **No probes.** Workstation-precondition observation — backup inclusion,
+   content indexing, clipboard-manager presence — is owner-held for the same
+   reason. `PreflightProbes` stays an injected input that defaults to `UNKNOWN`,
+   and the repository keeps the fail-closed disposition logic without acquiring
+   eyes of its own. This also removes a real hazard: `tmutil isexcluded <path>`
+   would place the residency locator in `argv`, readable from the process table
+   by exactly the Developer/Supply domain ADR-0044 says is not separated.
+3. **Do not charter a prototype** for questions answerable from first principles
+   or documentation — the Seatbelt behaviour questions are already answered.
+4. **Do not treat `sandbox-exec`'s deprecation as a blocker.** The deprecated
+   interface and SBPL fragility are named, owner-accepted residuals.
 
-The two live frontiers are materially different in kind. **Presentation L2 → L3**
-no longer needs a build — the vehicle gap is closed, and what remains is a real
-viewing session plus the owner's non-descriptive attestation under ADR-0047's
-five honesty preconditions. That is an owner act. **L3 → L4 hardening** would
-open ADR-0044's future implementation gate, where evaluating Seatbelt
-(`sandbox-exec`) as an enforcement substrate is the named unevaluated candidate.
+Hold two things steady while it runs. **This milestone raises nothing.** It ends
+with Presentation still L2 and the data-boundary row still L3 — the latter now a
+permanent, owner-accepted ceiling, not an unfinished task. And **Presentation
+L2 → L3 is an owner act**: a real viewing session plus the non-descriptive
+attestation under ADR-0047's five honesty preconditions. This milestone makes
+that act short and rehearsed; it does not perform it.
 
 Do not record Presentation as L3 on the strength of the vehicle existing.
 
