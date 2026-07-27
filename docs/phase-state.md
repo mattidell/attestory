@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-live-viewing-boundary",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: the plan merged to main in PR #88. Track 1 (ADR-0047) is review-complete as of 2026-07-26: ratified at 498c396; first review b1a630a returned NOT READY (clipboard-history retention unclassified, plus a non-blocking Class C platform-impossibility overclaim); repair 52ef7b0 and recheck a476c40 found and closed one residual stale cross-reference; owner authorized an exception to the one-repair cap for that single-line fix; repair 08eecb6 and second recheck (READY) closed it. Track 1's review-and-repair stage is done. Track 2 (build the confined invocation vehicle and fail-closed preflight) has not yet been chartered; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
-  "current_role": "Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track2.md"
+  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: Track 1 is COMPLETE and merged to main at b37c536 (PR #89). ADR-0047 (Live Viewing Environment) is accepted; its four-class channel classification is the specification for the rest of the milestone. Track 2 (confined headed invocation vehicle and fail-closed preflight) built at d8083f9 on track/presentation-live-viewing-boundary-track2: packages/derivation/live_viewing.py plus tests/test_presentation_live_viewing_vehicle.py. The build charter's verification block passes clean and the build is awaiting independent review. Track 3 (records and handoff) is not yet chartered. Presentation remains L2 and the data boundary remains L3.",
+  "current_role": "Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track2-review.md"
 }
 -->
 # Phase State
