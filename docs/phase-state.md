@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Real Return",
-  "topic": null,
-  "active_plan": null,
+  "topic": "presentation-live-viewing-boundary",
+  "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
   "status": "At the owner milestone-selection frontier. Presentation — Live Viewing Boundary and Invocation Vehicle is COMPLETE (plan PR #88, Track 1 PR #89, Track 2 PR #90, merged bc0d8dc). ADR-0047 is accepted and a confined headed invocation vehicle with a fail-closed preflight exists, synthetic-tested only. No maturity lift: Presentation remains L2 and the data boundary remains L3. The remaining distance to Presentation L3 is real operation plus the owner's non-descriptive attestation under ADR-0047's five honesty preconditions -- an owner act, not a build. No next milestone is selected; selection is the owner's call from the maturity matrix frontier reading.",
-  "current_role": "Foreman",
-  "current_prompt": null
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/real-return/maturity-matrix.md"
 }
 -->
 # Phase State

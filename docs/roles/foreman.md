@@ -156,18 +156,24 @@ done or you are not ready.
 is chartered — `detect_role` matches on those substrings and refuses on zero or
 two matches, so "Track 2 Builder" is fine and "Builder/Reviewer" is not.
 
-Between milestones, or whenever no role is chartered, the resting state is:
+Between milestones, when no role is chartered, the resting state keeps `topic`
+and `active_plan` on the **just-closed** milestone and points the prompt at the
+selection instrument:
 
 ```json
-"current_role": "Foreman",
-"current_prompt": null
+"current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+"current_prompt": "docs/phases/real-return/maturity-matrix.md"
 ```
 
-`build_orientation_block.py` cannot infer a role from that and will say so.
-**That is the correct outcome, not a bug** — there is no builder or reviewer
-work to pick up. The foreman path re-enters through `tools/foreman_context.py`,
-which does not need `current_role`. Do not invent a role value to make the
-orientation tool succeed; a tool that resolves a role when none is chartered
+`topic` and `active_plan` must stay non-empty strings — the metadata schema
+rejects `null`, so "clearing the capsule" at close-out means retargeting these
+fields, never emptying them.
+
+`build_orientation_block.py` cannot infer a builder/reviewer role from that
+resting value and will say so. **That is the correct outcome, not a bug** —
+there is no builder or reviewer work to pick up, and the foreman path re-enters
+through `tools/foreman_context.py` instead. Do not invent a role value to make
+the orientation tool succeed; a tool that resolves a role when none is chartered
 would be the actual defect.
 
 ## Spawn versus owner-launch
