@@ -244,16 +244,18 @@ path, and that report would itself be a crossing.
 ## Threat posture and residuals
 
 This ADR does **not** claim that a viewing session is protected against
-malicious same-UID code. Class C is open by construction, and ADR-0044's
-statement stands: until an implementation creates and verifies authority
-separation, same-UID code that can exercise the owner's live-data capabilities
-is inside the same effective trust domain.
+malicious same-UID code. Class C remains open, no substrate having been selected
+or evaluated, and ADR-0044's statement stands: until an implementation creates
+and verifies authority separation, same-UID code that can exercise the owner's
+live-data capabilities is inside the same effective trust domain.
 
 What it does claim is that the accidental-leakage posture is coherent for a
-human surface: the controllable channels are controlled by construction, the
-two silently fatal machine conditions are refused rather than assumed away, the
-irreducible human channels are named as residuals rather than hidden, and the
-attestation enumerates what it rests on.
+human surface: the controllable channels are controlled by construction; of the
+three silently fatal machine conditions, the two the preflight can always decide
+— backup inclusion and content indexing — are refused unconditionally, and
+clipboard-history retention is refused where detectable and named as an owner
+responsibility where it is not; the irreducible human channels are named as
+residuals rather than hidden; and the attestation enumerates what it rests on.
 
 Explicit residuals:
 
