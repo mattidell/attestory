@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-live-viewing-boundary",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: Track 1 is COMPLETE and merged to main at b37c536 (PR #89); ADR-0047 (Live Viewing Environment) is accepted and its four-class classification is the specification. Track 2 (confined headed invocation vehicle and fail-closed preflight) built at d8083f9 on track/presentation-live-viewing-boundary-track2; independent review found one test-coverage gap (clipboard-history confirmed-absent case), a test-only Foreman repair (fa47e16) closed it, and the focused recheck returned READY (regression guard independently reproduced to fire on exactly the predicted mutation). Track 2's review-and-repair stage is done and not yet merged to main. Track 3 (records and handoff) is not yet chartered. Presentation remains L2 and the data boundary remains L3.",
-  "current_role": "Foreman",
-  "current_prompt": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md"
+  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: Track 1 is COMPLETE and merged to main at b37c536 (PR #89); ADR-0047 (Live Viewing Environment) is accepted and its four-class classification is the specification. Track 2 is COMPLETE: built at d8083f9, review 974bbac NOT READY on one clipboard-disposition test gap, Foreman test-only repair fa47e16 verified against the predicted mutation, focused recheck 1ba2634 READY with the mutation independently reproduced. A confined headed invocation vehicle and fail-closed preflight now exist, synthetic-tested only. Track 3 (capability-state records and handoff) is chartered. Presentation remains L2 and the data boundary remains L3.",
+  "current_role": "Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track3.md"
 }
 -->
 # Phase State

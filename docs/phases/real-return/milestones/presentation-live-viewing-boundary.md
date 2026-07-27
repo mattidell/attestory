@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-live-viewing-boundary",
-  "milestone_state": "track-2",
+  "milestone_state": "track-3",
   "retrospective": null,
-  "status": "Track 1 complete as of 2026-07-26. The plan merged to main in PR #88. ADR-0047 (Live Viewing Environment) is accepted: ratified 498c396; review b1a630a NOT READY on clipboard-history retention being unclassified plus a non-blocking Class C platform-impossibility overclaim; repair 52ef7b0; recheck a476c40 NOT READY on one stale threat-posture cross-reference; repair 08eecb6 (owner authorized exceeding the repair cap); second recheck 63c4102 READY. Track 2 (confined headed invocation vehicle and fail-closed preflight) is chartered next; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
+  "status": "Tracks 1 and 2 complete as of 2026-07-26. ADR-0047 (Live Viewing Environment) is accepted and merged to main at b37c536 (PR #89). Track 2 built the confined headed invocation vehicle and fail-closed preflight at d8083f9 (packages/derivation/live_viewing.py, tests/test_presentation_live_viewing_vehicle.py); independent review 974bbac returned NOT READY on one test-gap finding (the clipboard-history split disposition's confirmed-absent case was untested for still carrying the owner-responsibility code); Foreman applied the test-only repair fa47e16 and verified the guard fires under the predicted mutation; focused recheck 1ba2634 READY with the mutation independently reproduced. Track 3 (records and handoff) is chartered next. Presentation remains L2 and the data boundary remains L3.",
   "scope": [
     "define the live viewing environment as a direct system-definition ADR extending ADR-0044 to an interactive human surface",
     "classify each headed-browser channel as boundary-relevant, named residual, or workstation precondition, and state exactly what the owner would later attest",
@@ -460,3 +460,7 @@ real workspace stops the affected track rather than widening it.
 | 5 | Track 1 focused recheck | Same Reviewer | Recheck charter | `a476c40`: `NOT READY`; Finding 1 substance closed, one stale threat-posture cross-reference undercounting the silently-fatal conditions |
 | 6 | Track 1 second repair | Foreman | Owner authorized exceeding the repair cap | `08eecb6`: threat-posture summary corrected to three conditions with clipboard-history's split disposition stated; text only |
 | 7 | Track 1 second recheck | Same Reviewer | Second recheck charter | `63c4102`: `READY`; both measurements pass; Track 1 review-complete |
+| 8 | Track 2 build | Builder | Track 2 build charter | `d8083f9`: `packages/derivation/live_viewing.py` (475 lines) and a focused test module (198 lines). Class B confinement by construction, fail-closed preflight returning reason codes only. `chrome.mjs` and both evaluation manifests byte-unchanged |
+| 9 | Track 2 implementation review | Reviewer | Track 2 review charter | `974bbac`: `NOT READY`; five of six measurements pass. Finding 1 — the clipboard-history split disposition is implemented correctly but its confirmed-absent case is untested, the one input where a plausible simplification would silently reintroduce the completeness claim ADR-0047 forbids. Two non-blocking observations |
+| 10 | Track 2 repair | Foreman | Findings-only, test-only repair | `fa47e16`: regression guard asserting a confirmed-`ABSENT` probe still carries the owner-responsibility code, plus a `launch()`-level missing-capability refusal closing observation 2. Guard verified to fail under the predicted mutation; production module byte-unchanged |
+| 11 | Track 2 focused recheck | Same Reviewer | Track 2 recheck charter | `1ba2634`: `READY`; all four measurements pass, mutation independently reproduced (exactly one test fails, and it is the new guard); Track 2 review-complete |
