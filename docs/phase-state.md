@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-live-viewing-boundary",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: the plan merged to main in PR #88. Track 1 (ADR-0047) is review-complete as of 2026-07-26: ratified at 498c396; first review b1a630a returned NOT READY (clipboard-history retention unclassified, plus a non-blocking Class C platform-impossibility overclaim); repair 52ef7b0 and recheck a476c40 found and closed one residual stale cross-reference; owner authorized an exception to the one-repair cap for that single-line fix; repair 08eecb6 and second recheck (READY) closed it. Track 1's review-and-repair stage is done. Track 2 (build the confined invocation vehicle and fail-closed preflight) has not yet been chartered; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
+  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: Track 1 is COMPLETE and merged to main at b37c536 (PR #89); ADR-0047 (Live Viewing Environment) is accepted and its four-class classification is the specification. Track 2 is COMPLETE: built at d8083f9, review 974bbac NOT READY on one clipboard-disposition test gap, Foreman test-only repair fa47e16 verified against the predicted mutation, focused recheck 1ba2634 READY with the mutation independently reproduced. A confined headed invocation vehicle and fail-closed preflight now exist, synthetic-tested only. Track 3 (capability-state records and handoff) is chartered. Presentation remains L2 and the data boundary remains L3.",
   "current_role": "Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track2.md"
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track3.md"
 }
 -->
 # Phase State
