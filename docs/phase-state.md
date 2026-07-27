@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Real Return",
-  "topic": "presentation-l2-integration-grounding",
-  "active_plan": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md",
-  "status": "Presentation — L2 Integration Grounding completed 2026-07-26. PR #86 merged as 1f3bb9a with CI verify green. The six-row handoff records the production-shaped synthetic coordinator path and strict renderer input as present, while live browser invocation and real operation remain absent. Presentation remains L2; no next milestone is selected.",
+  "topic": "presentation-live-viewing-boundary",
+  "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
+  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle is in planning as of 2026-07-26; the plan becomes active when its planning PR reaches main. The owner selected the Presentation frontier and the headed viewing shape, then directed a first-principles boundary check before chartering. That check rejected the vehicle-first shape as a repeat of the Guarded Transport same-UID defect. Track 1 defines the live viewing environment as an ADR extending ADR-0044 to an interactive human surface; Track 2 builds only mechanically checkable confinement plus a fail-closed preflight; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
   "current_role": "Foreman",
-  "current_prompt": "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md"
+  "current_prompt": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md"
 }
 -->
 # Phase State
@@ -61,6 +61,30 @@ is unselected.
 **Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are published; any further correction-authority extension is separately chartered. ADR-0044 is accepted positioning, not a mechanism decision: any authority-separation implementation requires a later owner-selected milestone, mechanical proof, and real-run verification before an L4 claim.
 
 ## Current state (2026-07-26)
+
+- **Presentation — Live Viewing Boundary and Invocation Vehicle:** **in
+  planning 2026-07-26.** The owner selected the Presentation frontier and the
+  headed viewing shape, then directed a first-principles boundary check before
+  any charter, explicitly to avoid repeating the Guarded Transport milestone.
+  The check rejected the obvious vehicle-first shape: a headed browser confined
+  by Chrome command-line flags is the same same-UID defect as the mode-600
+  credential store, and ADR-0044 already forecloses it — naming directories and
+  wrapping commands does not create a trust boundary. On macOS no per-process
+  network boundary is available without root, so no vehicle this project writes
+  can mechanically prevent same-UID egress. The narrowing that makes the
+  milestone tractable: mechanical authority separation is the **L4** gate, while
+  Presentation **L3** rests, like every existing L3 (footnote 7), on the
+  synthetic battery plus a non-descriptive owner attestation under an
+  accidental-leakage posture. The open question is therefore what the owner
+  would be attesting to for a *human* surface — a case ADR-0044's
+  process-oriented domains never contemplated. Track 1 ratifies that as an ADR
+  with a four-class channel classification (named residuals such as
+  copy/paste and print; controllable filesystem channels; non-loopback egress as
+  explicitly not mechanically closeable; and workstation preconditions such as
+  residency content indexing and backup inclusion). Track 2 builds only the
+  controllable confinement plus a fail-closed, locator-free preflight. Track 3
+  records. Presentation remains L2 and the data boundary remains L3. Plan:
+  `docs/phases/real-return/milestones/presentation-live-viewing-boundary.md`.
 
 - **Presentation — L2 Integration Grounding:** **complete 2026-07-26; PR #86
   merged as `1f3bb9a` with CI `verify` green.** Boundary inspection corrected the prior “no
@@ -221,10 +245,12 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** select the next milestone from the maturity-matrix frontier,
-starting from footnote 5's independently reviewed Presentation capability
-handoff. Do not treat live browser invocation or real operation as already
-implemented.
+**➡️ Next action:** merge the planning PR for **Presentation — Live Viewing
+Boundary and Invocation Vehicle**, then charter Track 1 (the live viewing
+environment ADR). Do not treat live browser invocation or real operation as
+implemented, and do not charter a confinement build before the Track 1 decision
+is accepted — the plan's channel classification is what makes Track 2
+reviewable.
 
 Both `track/presentation-citation-walk-track1` and
 `track/browser-evaluation-runner-completion` may be deleted; their content is
