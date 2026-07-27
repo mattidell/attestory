@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-live-viewing-boundary",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: Track 1 is COMPLETE and merged to main at b37c536 (PR #89). ADR-0047 (Live Viewing Environment) is accepted; its four-class channel classification is the specification for the rest of the milestone. Track 2 (confined headed invocation vehicle and fail-closed preflight) built at d8083f9 on track/presentation-live-viewing-boundary-track2. Independent review returned NOT READY on one finding: the clipboard-history split disposition's confirmed-absent case was untested for still carrying the owner-responsibility code rather than a clearance. The Foreman applied the test-only repair directly (no Builder round), added the regression guard plus a launch-level missing-capability test, and verified the guard bites under the exact mutation the finding predicted. A focused recheck is chartered. Track 3 (records and handoff) is not yet chartered. Presentation remains L2 and the data boundary remains L3.",
-  "current_role": "Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track2-recheck.md"
+  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: Track 1 is COMPLETE and merged to main at b37c536 (PR #89); ADR-0047 (Live Viewing Environment) is accepted and its four-class classification is the specification. Track 2 (confined headed invocation vehicle and fail-closed preflight) built at d8083f9 on track/presentation-live-viewing-boundary-track2; independent review found one test-coverage gap (clipboard-history confirmed-absent case), a test-only Foreman repair (fa47e16) closed it, and the focused recheck returned READY (regression guard independently reproduced to fire on exactly the predicted mutation). Track 2's review-and-repair stage is done and not yet merged to main. Track 3 (records and handoff) is not yet chartered. Presentation remains L2 and the data boundary remains L3.",
+  "current_role": "Foreman",
+  "current_prompt": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md"
 }
 -->
 # Phase State
