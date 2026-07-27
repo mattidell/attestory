@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-live-viewing-boundary",
-  "milestone_state": "planning",
+  "milestone_state": "track-2",
   "retrospective": null,
-  "status": "Planning 2026-07-26. Owner selected the Presentation frontier and the headed live-viewing shape, and directed a first-principles boundary check before chartering any build. That check found the vehicle-first shape would repeat the Guarded Transport failure. This plan therefore defines the live viewing environment first and builds only mechanically checkable confinement. Presentation remains L2 throughout; no real exercise occurs.",
+  "status": "Track 1 complete as of 2026-07-26. The plan merged to main in PR #88. ADR-0047 (Live Viewing Environment) is accepted: ratified 498c396; review b1a630a NOT READY on clipboard-history retention being unclassified plus a non-blocking Class C platform-impossibility overclaim; repair 52ef7b0; recheck a476c40 NOT READY on one stale threat-posture cross-reference; repair 08eecb6 (owner authorized exceeding the repair cap); second recheck 63c4102 READY. Track 2 (confined headed invocation vehicle and fail-closed preflight) is chartered next; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
   "scope": [
     "define the live viewing environment as a direct system-definition ADR extending ADR-0044 to an interactive human surface",
     "classify each headed-browser channel as boundary-relevant, named residual, or workstation precondition, and state exactly what the owner would later attest",
@@ -70,8 +70,10 @@
 -->
 # Milestone: Presentation — Live Viewing Boundary and Invocation Vehicle
 
-Status: **Planning 2026-07-26.** The plan becomes active when its planning PR
-reaches `main`.
+Status: **Track 1 complete, 2026-07-26.** The plan merged to `main` in PR #88.
+ADR-0047 is accepted: ratified at `498c396`, review `b1a630a` `NOT READY`,
+repair `52ef7b0`, recheck `a476c40` `NOT READY`, repair `08eecb6`, second
+recheck `63c4102` `READY`. Track 2 is chartered next.
 
 ## Objective
 
@@ -102,13 +104,19 @@ different clothes. ADR-0044 states it directly: *"Naming directories or wrapping
 commands does not create a trust boundary."* `--disable-background-networking`,
 `--disable-sync`, and `--disable-extensions` are Chrome **choosing** not to act.
 They are cooperative settings inside a process running under the owner's own
-authority. On macOS there is no per-process network boundary available without
-root or a third-party control, so no vehicle this project can write will
-mechanically prevent a same-UID headed browser from reaching the network. A
-track chartered to prove otherwise would fail on inspection.
+authority, and a cooperative same-UID mechanism is not a trust boundary. No
+vehicle built out of browser flags will mechanically prevent a same-UID headed
+browser from reaching the network. A track chartered to prove otherwise would
+fail on inspection.
 
-The impossibility, however, is narrower than it first appears, and the
-distinction is what makes this milestone tractable:
+This is a claim about *flag-configured browsers*, not about the platform.
+Track 1's review corrected an earlier overstatement here: no per-process network
+confinement has been selected, prototyped, or verified for this project, and the
+base-system Seatbelt facility remains an unevaluated candidate rather than a
+foreclosed one. Closing that class stays ADR-0044's separate future gate.
+
+The limit, however, is narrower than it first appears, and the distinction is
+what makes this milestone tractable:
 
 - **Mechanical authority separation is the L4 gate**, and ADR-0044 already
   routes it to a separate future milestone that must select an enforcement
@@ -134,8 +142,8 @@ does not invent them.
 | --- | --- |
 | Copy/paste (including Universal Clipboard), print dialog, save-as, share sheet, screenshot by the owner | **Named residual.** ADR-0044 already lists owner-authorized elevation across domains as an explicit residual. A person who can see the data can transcribe it; this is inherent to a human surface, not a defect the vehicle introduces. |
 | Browser profile, cache, session restore, autofill store, downloads, print-to-file | **Boundary-relevant and controllable.** These resolve to filesystem paths the vehicle chooses. They belong inside the live workspace. |
-| Non-loopback network egress | **Boundary-relevant and _not_ mechanically closeable same-UID.** Flags reduce accidental traffic. They are not a wall, and the records must say so in those words. |
-| Backup of the residency, content indexing of the residency, third-party sync or screen-recording software | **Workstation precondition.** Not code. The vehicle can observe some of these and refuse; it cannot fix them, and it cannot observe all of them. |
+| Non-loopback network egress | **Boundary-relevant and _not_ closeable by the vehicle.** Flags reduce accidental traffic. They are not a wall, and the records must say so in those words — while stating that no confinement substrate has been selected or evaluated, rather than asserting platform impossibility. |
+| Backup of the residency, content indexing of the residency, clipboard-history retention, third-party sync or screen-recording software | **Workstation precondition.** Not code. The vehicle can observe some of these and refuse; it cannot fix them, and it cannot observe all of them. |
 
 The fourth class is the one a vehicle-first milestone would have missed
 entirely, and it is silently fatal: a residency that is content-indexed has
@@ -173,9 +181,9 @@ which ADR-0031 Decision 7 classifies `NEVER_CROSSES` by description.
    destination all resolve inside the live workspace, and which refuses to launch
    if any of them would resolve outside it.
 4. Implement a **fail-closed preflight** that refuses a viewing session on
-   observable workstation preconditions — including residency content indexing
-   and residency backup inclusion — and that reports a verdict and a reason
-   code, never a path.
+   observable workstation preconditions — including residency content indexing,
+   residency backup inclusion, and detectable clipboard-history retention — and
+   that reports a verdict and a reason code, never a path.
 5. Implement **non-loopback navigation refusal** in the vehicle, recorded
    explicitly as accidental-leakage reduction and *not* as an egress wall.
 6. Verify the whole vehicle on synthetic fixtures through a temporary workspace
@@ -248,7 +256,12 @@ which ADR-0031 Decision 7 classifies `NEVER_CROSSES` by description.
 - It runs inside the live-run context and returns a verdict plus reason codes.
   It never emits, logs, or returns the residency locator or any fragment of it.
 - It covers, at minimum, residency content indexing and residency backup
-  inclusion, and refuses when either is present.
+  inclusion, and refuses when either is present. These two must always be
+  decidable; an indeterminate result is a refusal.
+- It additionally refuses on **detectable** clipboard-history retention. Because
+  that check is inherently incomplete, its absence is not a pass claim: the
+  undetectable remainder is a named owner responsibility under the Track 1 ADR's
+  attestation conditions 3 and 4.
 - Preconditions it cannot observe are enumerated in the Track 1 ADR as owner
   responsibilities and named residuals, not silently omitted.
 
@@ -303,7 +316,8 @@ obligation, not a review convention.
    print destination are provably inside a workspace supplied as runtime
    capability, and refuses every enumerated escape.
 3. The preflight refuses fail-closed on residency content indexing and residency
-   backup inclusion, and emits no locator on any path.
+   backup inclusion, refuses on detectable clipboard-history retention without
+   claiming that check is complete, and emits no locator on any path.
 4. No repository, test, review, or record surface contains a residency locator
    or asserts mechanical egress prevention.
 5. The existing demo and production-shaped manifests remain green; the browser
@@ -440,3 +454,9 @@ real workspace stops the affected track rather than widening it.
 | --- | --- | --- | --- | --- |
 | 0 | Milestone selection | Owner | Owner direction, 2026-07-26: continue on the Presentation frontier, headed viewing shape | Presentation L2→L3 frontier selected; vehicle-first shape provisionally assumed |
 | 1 | Boundary check | Foreman | Owner direction, 2026-07-26: do not repeat the Guarded Transport failure | Vehicle-first shape rejected; flag-based confinement identified as the same same-UID defect; plan reshaped to define the viewing environment first |
+| 2 | Track 1 decision | Foreman | Plan Track 1 | ADR-0047 ratified at `498c396`; four-class channel classification, refusal disposition, attestation conditions, locator confinement |
+| 3 | Track 1 decision review | Reviewer | Track 1 review charter | `b1a630a`: `NOT READY`; four of five measurements pass. Finding 1 — clipboard-history retention unclassified and wrongly adjacent to Class A. Observation 1 (non-blocking) — Class C asserted macOS platform impossibility where Seatbelt is merely unevaluated |
+| 4 | Track 1 repair | Foreman | Findings-only repair | `52ef7b0`: clipboard-history moved to Class D as the third silently-fatal precondition with a refuse-where-detectable split; Class C narrowed to "nothing selected or evaluated" |
+| 5 | Track 1 focused recheck | Same Reviewer | Recheck charter | `a476c40`: `NOT READY`; Finding 1 substance closed, one stale threat-posture cross-reference undercounting the silently-fatal conditions |
+| 6 | Track 1 second repair | Foreman | Owner authorized exceeding the repair cap | `08eecb6`: threat-posture summary corrected to three conditions with clipboard-history's split disposition stated; text only |
+| 7 | Track 1 second recheck | Same Reviewer | Second recheck charter | `63c4102`: `READY`; both measurements pass; Track 1 review-complete |

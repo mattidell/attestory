@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-live-viewing-boundary",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle is in planning as of 2026-07-26; the plan becomes active when its planning PR reaches main. The owner selected the Presentation frontier and the headed viewing shape, then directed a first-principles boundary check before chartering. That check rejected the vehicle-first shape as a repeat of the Guarded Transport same-UID defect. Track 1 defines the live viewing environment as an ADR extending ADR-0044 to an interactive human surface; Track 2 builds only mechanically checkable confinement plus a fail-closed preflight; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
-  "current_role": "Foreman",
-  "current_prompt": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md"
+  "status": "Presentation — Live Viewing Boundary and Invocation Vehicle: the plan merged to main in PR #88. Track 1 (ADR-0047) is review-complete as of 2026-07-26: ratified at 498c396; first review b1a630a returned NOT READY (clipboard-history retention unclassified, plus a non-blocking Class C platform-impossibility overclaim); repair 52ef7b0 and recheck a476c40 found and closed one residual stale cross-reference; owner authorized an exception to the one-repair cap for that single-line fix; repair 08eecb6 and second recheck (READY) closed it. Track 1's review-and-repair stage is done. Track 2 (build the confined invocation vehicle and fail-closed preflight) has not yet been chartered; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
+  "current_role": "Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track2.md"
 }
 -->
 # Phase State
@@ -62,28 +62,32 @@ is unselected.
 
 ## Current state (2026-07-26)
 
-- **Presentation — Live Viewing Boundary and Invocation Vehicle:** **in
-  planning 2026-07-26.** The owner selected the Presentation frontier and the
-  headed viewing shape, then directed a first-principles boundary check before
-  any charter, explicitly to avoid repeating the Guarded Transport milestone.
-  The check rejected the obvious vehicle-first shape: a headed browser confined
-  by Chrome command-line flags is the same same-UID defect as the mode-600
-  credential store, and ADR-0044 already forecloses it — naming directories and
-  wrapping commands does not create a trust boundary. On macOS no per-process
-  network boundary is available without root, so no vehicle this project writes
-  can mechanically prevent same-UID egress. The narrowing that makes the
-  milestone tractable: mechanical authority separation is the **L4** gate, while
-  Presentation **L3** rests, like every existing L3 (footnote 7), on the
-  synthetic battery plus a non-descriptive owner attestation under an
-  accidental-leakage posture. The open question is therefore what the owner
-  would be attesting to for a *human* surface — a case ADR-0044's
-  process-oriented domains never contemplated. Track 1 ratifies that as an ADR
-  with a four-class channel classification (named residuals such as
-  copy/paste and print; controllable filesystem channels; non-loopback egress as
-  explicitly not mechanically closeable; and workstation preconditions such as
-  residency content indexing and backup inclusion). Track 2 builds only the
-  controllable confinement plus a fail-closed, locator-free preflight. Track 3
-  records. Presentation remains L2 and the data boundary remains L3. Plan:
+- **Presentation — Live Viewing Boundary and Invocation Vehicle:** **Track 1 in
+  flight, 2026-07-26.** The plan merged to `main` in PR #88. The owner selected
+  the Presentation frontier and the headed viewing shape, then directed a
+  first-principles boundary check before any charter, explicitly to avoid
+  repeating the Guarded Transport milestone. The check rejected the obvious
+  vehicle-first shape: a headed browser confined by Chrome command-line flags is
+  the same same-UID defect as the mode-600 credential store, and ADR-0044
+  already forecloses it — naming directories and wrapping commands does not
+  create a trust boundary. On macOS no per-process network boundary is
+  available without root, so no vehicle this project writes can mechanically
+  prevent same-UID egress. The narrowing that makes the milestone tractable:
+  mechanical authority separation is the **L4** gate, while Presentation **L3**
+  rests, like every existing L3 (footnote 7), on the synthetic battery plus a
+  non-descriptive owner attestation under an accidental-leakage posture. The
+  open question is therefore what the owner would be attesting to for a *human*
+  surface — a case ADR-0044's process-oriented domains never contemplated.
+  Track 1 ratifies that as ADR-0047, drafted at `498c396`, with a four-class
+  channel classification (named residuals such as copy/paste and print;
+  controllable filesystem channels; non-loopback egress as explicitly not
+  mechanically closeable; and workstation preconditions such as residency
+  content indexing and backup inclusion). Its independent decision review
+  charter is filed at `3b96660`
+  (`docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track1-review.md`);
+  the review has not yet run. Track 2 builds only the controllable confinement
+  plus a fail-closed, locator-free preflight, and has not been chartered. Track
+  3 records. Presentation remains L2 and the data boundary remains L3. Plan:
   `docs/phases/real-return/milestones/presentation-live-viewing-boundary.md`.
 
 - **Presentation — L2 Integration Grounding:** **complete 2026-07-26; PR #86
