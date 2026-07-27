@@ -113,6 +113,22 @@ class PreflightTests(unittest.TestCase):
             self.assertFalse(detected.allowed)
             self.assertEqual(detected.reason_codes, (ViewingReason.CLIPBOARD_HISTORY_PRESENT.value,))
 
+    def test_confirmed_absent_clipboard_is_still_not_a_clearance(self) -> None:
+        # A scan that finds no known clipboard manager rules out only the
+        # managers it knows to look for.  ADR-0047 forbids reading that as a
+        # completeness claim, so the owner-responsibility code must survive the
+        # confirmed-absent case exactly as it survives an undecidable one.
+        with tempfile.TemporaryDirectory(prefix="demo-viewing-") as raw:
+            absent = run_viewing_preflight(
+                _capability(Path(raw)),
+                PreflightProbes(False, False, False),
+            )
+            self.assertTrue(absent.allowed)
+            self.assertEqual(
+                absent.owner_responsibilities,
+                (ViewingReason.CLIPBOARD_HISTORY_UNDETECTABLE.value,),
+            )
+
     def test_missing_capability_refuses(self) -> None:
         verdict = run_viewing_preflight(None, PreflightProbes(False, False, False))
         self.assertFalse(verdict.allowed)
@@ -125,6 +141,15 @@ class VehicleTests(unittest.TestCase):
         browser.write_text("#!/bin/sh\n", encoding="utf-8")
         browser.chmod(browser.stat().st_mode | os.X_OK)
         return browser
+
+    def test_launch_refuses_a_missing_capability_and_spawns_nothing(self) -> None:
+        def factory(args: list[str], **kwargs: Any) -> _SyntheticProcess:
+            raise AssertionError("no process may be spawned without a capability")
+
+        vehicle = LiveViewingVehicle(process_factory=factory)
+        with self.assertRaises(LiveViewingError) as caught:
+            vehicle.launch(None, chrome_executable="/nonexistent", launch_timeout_seconds=0.2)
+        self.assertEqual(caught.exception.args, (ViewingReason.CAPABILITY_UNAVAILABLE.value,))
 
     def test_destinations_are_inside_capability_and_browser_is_headed(self) -> None:
         with tempfile.TemporaryDirectory(prefix="demo-viewing-") as raw:
