@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Real Return",
-  "topic": "presentation-live-viewing-boundary",
-  "active_plan": "docs/phases/real-return/milestones/presentation-live-viewing-boundary.md",
-  "status": "At the owner milestone-selection frontier. Presentation — Live Viewing Boundary and Invocation Vehicle is COMPLETE (plan PR #88, Track 1 PR #89, Track 2 PR #90, merged bc0d8dc). ADR-0047 is accepted and a confined headed invocation vehicle with a fail-closed preflight exists, synthetic-tested only. No maturity lift: Presentation remains L2 and the data boundary remains L3. The remaining distance to Presentation L3 is real operation plus the owner's non-descriptive attestation under ADR-0047's five honesty preconditions -- an owner act, not a build. No next milestone is selected; selection is the owner's call from the maturity matrix frontier reading.",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
-  "current_prompt": "docs/phases/real-return/maturity-matrix.md"
+  "topic": "data-boundary-hardening-bar",
+  "active_plan": "docs/phases/real-return/milestones/data-boundary-hardening-bar.md",
+  "status": "Data Boundary — Hardening Bar selected 2026-07-27, plan drafted and pending owner merge. The owner was briefed on both live frontiers and rejected pursuing an enforcement substrate, choosing instead to fix the bar itself: maturity-matrix footnote 8 converted an ADR-0044 observation (no mechanical authority separation is implemented) into a requirement (that missing enforcement is what holds the row short of L4) that was never ratified, leaving a cell that reads as a task but is an unexamined assumption. Track 1 amends ADR-0044 to name L4 conditions dischargeable by auditing and constraining live-run code rather than by process confinement; Track 2 records. Scope is the data-boundary row only. The milestone raises nothing -- it ends with the row still L3 and every condition undischarged. Prior milestone (Presentation Live Viewing Boundary) is CLOSED at 805225e.",
+  "current_role": "Foreman (milestone selected; plan drafted, awaiting owner merge before Track 1 is chartered)",
+  "current_prompt": "docs/phases/real-return/milestones/data-boundary-hardening-bar.md"
 }
 -->
 # Phase State
@@ -258,9 +258,15 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** **select the next milestone.** Presentation — Live Viewing
-Boundary and Invocation Vehicle is complete and nothing is chartered. Read the
-maturity matrix's frontier reading before choosing.
+**➡️ Next action:** merge the planning PR for **Data Boundary — Hardening
+Bar**, then charter Track 1 (the ADR-0044 amendment).
+
+Hold two things steady while it runs. First, **this milestone raises nothing** —
+it ends with the data-boundary row still L3 and every named condition
+undischarged; a plan that sets a bar and clears it in the same breath has not
+set one. Second, it must **foreclose nothing about Seatbelt in either
+direction**: the substrate remains an unevaluated candidate, and the amendment's
+job is to stop treating it as the only route to L4, not to rule it out.
 
 The two live frontiers are materially different in kind. **Presentation L2 → L3**
 no longer needs a build — the vehicle gap is closed, and what remains is a real
