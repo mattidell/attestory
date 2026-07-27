@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-live-viewing-boundary",
-  "milestone_state": "track-1",
+  "milestone_state": "track-2",
   "retrospective": null,
-  "status": "Track 1 in flight as of 2026-07-26. The plan merged to main in PR #88. Track 1 ratified ADR-0047 (Live Viewing Environment) at 498c396 and filed its independent decision review charter at 3b96660 (docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track1-review.md); the review has not yet run. Track 2 (build) has not been chartered. Presentation remains L2 throughout; no real exercise occurs.",
+  "status": "Track 1 complete as of 2026-07-26. The plan merged to main in PR #88. ADR-0047 (Live Viewing Environment) is accepted: ratified 498c396; review b1a630a NOT READY on clipboard-history retention being unclassified plus a non-blocking Class C platform-impossibility overclaim; repair 52ef7b0; recheck a476c40 NOT READY on one stale threat-posture cross-reference; repair 08eecb6 (owner authorized exceeding the repair cap); second recheck 63c4102 READY. Track 2 (confined headed invocation vehicle and fail-closed preflight) is chartered next; Track 3 records. Presentation remains L2 and the data boundary remains L3.",
   "scope": [
     "define the live viewing environment as a direct system-definition ADR extending ADR-0044 to an interactive human surface",
     "classify each headed-browser channel as boundary-relevant, named residual, or workstation precondition, and state exactly what the owner would later attest",
@@ -70,9 +70,10 @@
 -->
 # Milestone: Presentation — Live Viewing Boundary and Invocation Vehicle
 
-Status: **Track 1 in flight, 2026-07-26.** The plan merged to `main` in PR #88.
-ADR-0047 is drafted (`498c396`) and its independent decision review charter is
-filed (`3b96660`); the review has not yet run.
+Status: **Track 1 complete, 2026-07-26.** The plan merged to `main` in PR #88.
+ADR-0047 is accepted: ratified at `498c396`, review `b1a630a` `NOT READY`,
+repair `52ef7b0`, recheck `a476c40` `NOT READY`, repair `08eecb6`, second
+recheck `63c4102` `READY`. Track 2 is chartered next.
 
 ## Objective
 
@@ -103,13 +104,19 @@ different clothes. ADR-0044 states it directly: *"Naming directories or wrapping
 commands does not create a trust boundary."* `--disable-background-networking`,
 `--disable-sync`, and `--disable-extensions` are Chrome **choosing** not to act.
 They are cooperative settings inside a process running under the owner's own
-authority. On macOS there is no per-process network boundary available without
-root or a third-party control, so no vehicle this project can write will
-mechanically prevent a same-UID headed browser from reaching the network. A
-track chartered to prove otherwise would fail on inspection.
+authority, and a cooperative same-UID mechanism is not a trust boundary. No
+vehicle built out of browser flags will mechanically prevent a same-UID headed
+browser from reaching the network. A track chartered to prove otherwise would
+fail on inspection.
 
-The impossibility, however, is narrower than it first appears, and the
-distinction is what makes this milestone tractable:
+This is a claim about *flag-configured browsers*, not about the platform.
+Track 1's review corrected an earlier overstatement here: no per-process network
+confinement has been selected, prototyped, or verified for this project, and the
+base-system Seatbelt facility remains an unevaluated candidate rather than a
+foreclosed one. Closing that class stays ADR-0044's separate future gate.
+
+The limit, however, is narrower than it first appears, and the distinction is
+what makes this milestone tractable:
 
 - **Mechanical authority separation is the L4 gate**, and ADR-0044 already
   routes it to a separate future milestone that must select an enforcement
@@ -447,3 +454,9 @@ real workspace stops the affected track rather than widening it.
 | --- | --- | --- | --- | --- |
 | 0 | Milestone selection | Owner | Owner direction, 2026-07-26: continue on the Presentation frontier, headed viewing shape | Presentation L2→L3 frontier selected; vehicle-first shape provisionally assumed |
 | 1 | Boundary check | Foreman | Owner direction, 2026-07-26: do not repeat the Guarded Transport failure | Vehicle-first shape rejected; flag-based confinement identified as the same same-UID defect; plan reshaped to define the viewing environment first |
+| 2 | Track 1 decision | Foreman | Plan Track 1 | ADR-0047 ratified at `498c396`; four-class channel classification, refusal disposition, attestation conditions, locator confinement |
+| 3 | Track 1 decision review | Reviewer | Track 1 review charter | `b1a630a`: `NOT READY`; four of five measurements pass. Finding 1 — clipboard-history retention unclassified and wrongly adjacent to Class A. Observation 1 (non-blocking) — Class C asserted macOS platform impossibility where Seatbelt is merely unevaluated |
+| 4 | Track 1 repair | Foreman | Findings-only repair | `52ef7b0`: clipboard-history moved to Class D as the third silently-fatal precondition with a refuse-where-detectable split; Class C narrowed to "nothing selected or evaluated" |
+| 5 | Track 1 focused recheck | Same Reviewer | Recheck charter | `a476c40`: `NOT READY`; Finding 1 substance closed, one stale threat-posture cross-reference undercounting the silently-fatal conditions |
+| 6 | Track 1 second repair | Foreman | Owner authorized exceeding the repair cap | `08eecb6`: threat-posture summary corrected to three conditions with clipboard-history's split disposition stated; text only |
+| 7 | Track 1 second recheck | Same Reviewer | Second recheck charter | `63c4102`: `READY`; both measurements pass; Track 1 review-complete |

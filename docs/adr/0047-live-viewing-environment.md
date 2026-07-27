@@ -1,7 +1,13 @@
 # ADR 0047 — Live Viewing Environment
 
-- Status: **proposed** (Track 1 of Presentation — Live Viewing Boundary and
-  Invocation Vehicle; awaiting independent decision review and owner acceptance)
+- Status: **accepted** (Track 1 of Presentation — Live Viewing Boundary and
+  Invocation Vehicle; owner ratification 2026-07-26 by merge of the Track 1 PR).
+  Independent decision review `b1a630a` returned `NOT READY` on one blocking
+  finding (clipboard-history retention unclassified) plus one non-blocking
+  observation (Class C overstated platform impossibility). Repair `52ef7b0`
+  closed both; recheck `a476c40` returned `NOT READY` on one stale
+  cross-reference; repair `08eecb6` closed it and second recheck `63c4102`
+  returned `READY`.
 - Tier: 3
 - Date: 2026-07-26
 - Plain-language analysis:
