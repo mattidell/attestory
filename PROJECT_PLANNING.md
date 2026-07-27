@@ -310,8 +310,10 @@ review happens at PR-open cadence. Do not squash or collapse per-track commits
 unless the plan explicitly requires that history shape.
 
 **Agents push; the owner merges.** Agents may push unit branches and open PRs —
-clerical, auditable, reversible acts. Merging to `main` is owner-held. An agent
-force-pushes only its own unit branch, and only before its review has begun.
+clerical, auditable, reversible acts. Merging review units to `main` is
+owner-held. Direct `main` work is limited to the exceptions named below. An
+agent force-pushes only its own unit branch, and only before its review has
+begun.
 
 **A push is publication, regardless of repository visibility.** The remote hosts
 a copy of the record on a third party and visibility is a mutable setting, so
@@ -323,7 +325,8 @@ repository *or* on any remote.
 **What gets its own PR:** a milestone plan (approval and activation); each
 prototype plan's approval; each ratified ADR together with its entire evidence
 chain; each development track; records and attestation units; a process or
-instruction change.
+instruction change. The mechanical post-merge update in "Milestone Closeout"
+is not a records unit and gets no PR.
 
 **What stays a branch commit and rides inside the unit's PR:** every
 intermediate event inside a unit — charters cut, builder outputs landed under
@@ -331,10 +334,10 @@ custody, individual reviews, a foreman synthesis, a NOT-CONFIRMED round, a
 *proposed* (inert) ADR draft, routine status flips. A proposed ADR is never its
 own PR; only ratification closes the unit.
 
-**The one exception:** `docs/phase-state.md` pointer advances, and other
-inconsequential phase-state edits, may be committed
-to `main` directly. Requiring a PR for a re-entry-pointer bump is heavier than
-the problem it solves.
+**Direct-main exceptions:** `docs/phase-state.md` pointer advances and other
+inconsequential phase-state edits may be committed directly. The post-merge
+bookkeeping commit defined in "Milestone Closeout" is also direct. Requiring a
+PR for either self-description update is heavier than the problem it solves.
 
 **Do not narrow a unit below reviewability.** A PR of builder designs without
 their reviews, or a ratified ADR without its evidence chain, cannot be judged
@@ -485,8 +488,8 @@ infer the state from prose and does not need to: the capsule reports it and
 | `planning` | The plan is drafted on a branch; its PR has not merged | Owner merges the plan PR |
 | `planned` | The plan is on `main`; no track has started | Start the first track |
 | `track-<n>` | Track *n* is in flight | Finish track *n*, then the next track or the closing unit |
-| `closing` | The closing PR is open; merging it closes the milestone | Owner merges the closing PR |
-| `closed` | The milestone is closed | Select the next milestone |
+| `closing` | The closing PR is open; merging it completes the reviewed milestone work | Owner merges the closing PR, then the foreman performs the closeout update |
+| `closed` | The post-merge closeout update is on `main` | Select the next milestone |
 
 `closed` is also how "no milestone is running" is expressed: `docs/phase-state.md`
 keeps pointing at the just-closed plan, so `active_plan` is never empty and a
@@ -511,8 +514,51 @@ working ref has drifted. A contradiction is a hard refusal naming both the
 declared state and the observed fact — reconcile it before acting rather than
 picking whichever source looks more recent.
 
-Advancing `milestone_state` is part of the merge that caused the transition, not
-a later cleanup pass.
+The start transition rides with the planning merge. The end transition cannot:
+the closing record cannot truthfully cite its own merge commit or final CI
+result before they exist. The foreman therefore performs the mechanical
+post-merge update below.
+
+## Milestone Closeout
+
+Audience: Agents
+
+A milestone is not ready for a successor foreman merely because its closing PR
+merged. That merge completes the reviewed work; the foreman immediately makes
+the ratified record self-describing with one small post-merge update.
+
+1. Fetch the remotes and verify the closing PR is merged, record its merge
+   commit, and confirm the `verify` check is green. Do not infer any of these
+   from plan prose.
+2. Update local `main` to the merge commit. Make the closeout changes directly
+   on `main`, without a branch, charter, review, or PR:
+   - set the milestone plan's `milestone_state` to `closed`, replace conditional
+     status prose with the merge commit and CI result, complete its execution
+     record, remove `initial_briefing_follow_up`, and route
+     `deep_reads.new_milestone` through the just-completed retrospective;
+   - update `docs/phase-state.md` so its briefing, current state, pointers, and
+     next action describe the completed milestone and leave the next milestone
+     unselected;
+   - update the phase roadmap's milestone status; and
+   - replace the retrospective's pending merge line and record only a genuinely
+     new closeout lesson, if one occurred.
+3. Treat the update as bookkeeping, not a chance to reinterpret results. If a
+   capability, maturity, or next-step claim needs new judgment or evidence,
+   stop and raise it as a project-execution question instead of quietly
+   backfilling it.
+4. Run `git diff --check` and `python3 tools/governance_lint.py`, then commit the
+   update directly on `main`. Run
+   `python3 tools/envelope_scan.py --range HEAD^..HEAD` over that commit.
+5. Run `python3 tools/foreman_context.py --ref main --format markdown`. It must
+   report `closed`, select-a-new-milestone as the next transition, no temporary
+   follow-up capsule, and the initial briefing checkpoint. Push the commit
+   directly to `main`.
+6. After the pushed commit is visible on `origin/main`, delete the merged
+   milestone branches and remove clean milestone worktrees or temporary
+   workspace aliases. Never remove a worktree still used by a live session.
+
+Only then is the milestone closed for re-entry. `docs/phase-state.md` continues
+to point to the just-closed plan until the next milestone plan is selected.
 
 ## Recording Owner Assent
 

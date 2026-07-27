@@ -76,6 +76,9 @@ and reviewers execute one chartered unit inside it and nothing more.
 Not every milestone runs all five. Tooling, exploratory, and process milestones
 skip stages by design; **the milestone plan says which apply.** If the plan is
 silent on a stage, that is a plan defect to raise, not a stage to improvise.
+After the final applicable stage merges, the foreman performs
+`PROJECT_PLANNING.md`, "Milestone Closeout", before the repository is ready for
+the next foreman.
 
 ## Dispatch authorization
 
@@ -138,11 +141,9 @@ reference it.
   check, and merges only on green. A reviewer runs `pytest` only to confirm a
   specific failing claim.
 
-**Nothing lands on `main` except through a PR the owner merges.** `main` is not
-push-blocked; you self-enforce. Pointer edits that only describe now
-(`docs/phase-state.md`) need no PR. The full protocol
-— what is a unit, what gets a PR, how to cite a commit — is
-`PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol".
+**What reaches `main` is normed in `PROJECT_PLANNING.md`.** Follow "Branch, PR,
+and Merge Protocol" for review units and its two named direct-main exceptions,
+including "Milestone Closeout"; do not invent another exception.
 
 **Process is the owner's method; ADRs are product contracts (ADR-0045).** How
 work is organized — seats, the milestone loop, dispatch, chartering, review

@@ -172,6 +172,9 @@ this is the only way to see them.
 - **PR vs. plain branch commit.** What warrants a PR versus a commit on the
   unit's branch is `PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol" —
   read it before deciding.
+- **Close the milestone after its final merge.** Execute
+  `PROJECT_PLANNING.md`, "Milestone Closeout", before treating the repository
+  as ready for a successor foreman.
 - **Verification is CI's job, not yours.** Open the PR, reference the `verify`
   check, merge only on green. Named golden classes must enter through
   `live_coordinate_run`, never a `RunContext` shortcut. Verify load-bearing
