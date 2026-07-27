@@ -135,8 +135,8 @@ does not invent them.
 | --- | --- |
 | Copy/paste (including Universal Clipboard), print dialog, save-as, share sheet, screenshot by the owner | **Named residual.** ADR-0044 already lists owner-authorized elevation across domains as an explicit residual. A person who can see the data can transcribe it; this is inherent to a human surface, not a defect the vehicle introduces. |
 | Browser profile, cache, session restore, autofill store, downloads, print-to-file | **Boundary-relevant and controllable.** These resolve to filesystem paths the vehicle chooses. They belong inside the live workspace. |
-| Non-loopback network egress | **Boundary-relevant and _not_ mechanically closeable same-UID.** Flags reduce accidental traffic. They are not a wall, and the records must say so in those words. |
-| Backup of the residency, content indexing of the residency, third-party sync or screen-recording software | **Workstation precondition.** Not code. The vehicle can observe some of these and refuse; it cannot fix them, and it cannot observe all of them. |
+| Non-loopback network egress | **Boundary-relevant and _not_ closeable by the vehicle.** Flags reduce accidental traffic. They are not a wall, and the records must say so in those words — while stating that no confinement substrate has been selected or evaluated, rather than asserting platform impossibility. |
+| Backup of the residency, content indexing of the residency, clipboard-history retention, third-party sync or screen-recording software | **Workstation precondition.** Not code. The vehicle can observe some of these and refuse; it cannot fix them, and it cannot observe all of them. |
 
 The fourth class is the one a vehicle-first milestone would have missed
 entirely, and it is silently fatal: a residency that is content-indexed has
@@ -174,9 +174,9 @@ which ADR-0031 Decision 7 classifies `NEVER_CROSSES` by description.
    destination all resolve inside the live workspace, and which refuses to launch
    if any of them would resolve outside it.
 4. Implement a **fail-closed preflight** that refuses a viewing session on
-   observable workstation preconditions — including residency content indexing
-   and residency backup inclusion — and that reports a verdict and a reason
-   code, never a path.
+   observable workstation preconditions — including residency content indexing,
+   residency backup inclusion, and detectable clipboard-history retention — and
+   that reports a verdict and a reason code, never a path.
 5. Implement **non-loopback navigation refusal** in the vehicle, recorded
    explicitly as accidental-leakage reduction and *not* as an egress wall.
 6. Verify the whole vehicle on synthetic fixtures through a temporary workspace
@@ -249,7 +249,12 @@ which ADR-0031 Decision 7 classifies `NEVER_CROSSES` by description.
 - It runs inside the live-run context and returns a verdict plus reason codes.
   It never emits, logs, or returns the residency locator or any fragment of it.
 - It covers, at minimum, residency content indexing and residency backup
-  inclusion, and refuses when either is present.
+  inclusion, and refuses when either is present. These two must always be
+  decidable; an indeterminate result is a refusal.
+- It additionally refuses on **detectable** clipboard-history retention. Because
+  that check is inherently incomplete, its absence is not a pass claim: the
+  undetectable remainder is a named owner responsibility under the Track 1 ADR's
+  attestation conditions 3 and 4.
 - Preconditions it cannot observe are enumerated in the Track 1 ADR as owner
   responsibilities and named residuals, not silently omitted.
 
@@ -304,7 +309,8 @@ obligation, not a review convention.
    print destination are provably inside a workspace supplied as runtime
    capability, and refuses every enumerated escape.
 3. The preflight refuses fail-closed on residency content indexing and residency
-   backup inclusion, and emits no locator on any path.
+   backup inclusion, refuses on detectable clipboard-history retention without
+   claiming that check is complete, and emits no locator on any path.
 4. No repository, test, review, or record surface contains a residency locator
    or asserts mechanical egress prevention.
 5. The existing demo and production-shaped manifests remain green; the browser

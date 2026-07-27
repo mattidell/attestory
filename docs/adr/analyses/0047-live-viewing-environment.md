@@ -58,6 +58,9 @@ can write it down. This is inseparable from having a human surface at all, and
 ADR-0044 already treats deliberate owner action as an accepted residual. The
 project does not pretend to control it.
 
+Class A stops at the deliberate act. It does *not* cover software that quietly
+remembers the act — see Class D.
+
 **Class B — things the vehicle picks.** Where the browser stores its profile,
 cache, autofill data, downloads, and printed files. These are just directories,
 and the vehicle chooses them. They go inside the quarantined workspace, and the
@@ -70,19 +73,34 @@ local machine and turns off background traffic. Helpful against accidents;
 useless against a determined program. The ADR forbids anyone — including future
 code comments and test names — from describing this as prevention.
 
-**Class D — facts about the Mac.** Is the workspace being backed up? Is its text
-being indexed for search? Is sync software covering it? Is screen-recording
-software running?
+The ADR is careful to say this class is open because nothing has been *chosen*,
+not because nothing is *possible*. macOS ships a sandboxing facility that an
+ordinary user can invoke against a program they launched, and Chrome already
+uses the same machinery internally. Nobody on this project has evaluated it. The
+ADR records it as an unevaluated candidate so a future reader doesn't mistake
+"we haven't tried" for "it can't be done."
 
-Class D is the part the original plan would have missed, and two of them are
+**Class D — facts about the Mac.** Is the workspace being backed up? Is its text
+being indexed for search? Is a clipboard manager remembering everything copied?
+Is sync software covering it? Is screen-recording software running?
+
+Class D is the part the original plan would have missed, and three of them are
 quietly fatal. If the workspace is content-indexed, a searchable copy of the
 text already exists outside the workspace. If it is backed up, a durable copy
-already exists outside it — possibly on a network drive. In both cases the leak
-has already happened, before the browser ever opens.
+already exists outside it — possibly on a network drive. And if a clipboard
+manager is running, the owner's next copy is written to a database outside the
+workspace, and in several popular products synced to their other devices — even
+if they only meant to paste it back into the same page. In all three cases the
+leak happens without the owner doing anything they'd recognize as risky.
+
+The clipboard case is the subtle one, and it is why "the owner copied something"
+and "a program remembered that they copied something" have to sit in different
+classes. The first is a choice with a destination. The second removes both the
+choice and the destination.
 
 ## The judgment call
 
-Those two conditions could have been handled two ways: refuse to run, or run
+Backup and indexing could have been handled two ways: refuse to run, or run
 anyway and mention it in the attestation.
 
 The ADR chooses **refuse**. The reasoning is that these are not risks to
@@ -91,6 +109,10 @@ say "no artifact crossed" while a search index describing the run sits outside
 quarantine. The cost of refusing is that the owner excludes the workspace from
 backup and from indexing once, which is a small, one-time chore. The residency
 boundary already treats uncertainty as rejection, and this follows the same rule.
+
+Clipboard history gets a split answer, because it is only partly detectable:
+refuse where the software can be seen running, and rely on the owner where it
+cannot. The ADR says so explicitly rather than pretending the check is complete.
 
 ## What the owner is actually promising
 

@@ -93,6 +93,15 @@ itself.
 
 The project claims no control here and must not imply otherwise.
 
+**Class A is bounded to the deliberate, one-shot act itself.** It covers the
+owner choosing to move a value to a destination they intend. It does **not**
+cover background software that silently retains the act — a clipboard-history
+manager, or an operating-system clipboard-history feature, converts *any* copy
+into a durable record outside the residency without further owner action, even
+a copy the owner intends to paste straight back inside the same session with no
+external destination in mind. That retention is a workstation property, not an
+owner act, and classifies under Class D.
+
 ### Class B — Boundary-relevant and controlled
 
 The browser user-data directory, cache, session-restore state, autofill and
@@ -105,7 +114,7 @@ and refused if they resolve outside it — including through a symlink. This cla
 is where the project's mechanical obligation actually lies, and it is
 discharged by construction rather than by browser cooperation.
 
-### Class C — Boundary-relevant and not mechanically closeable
+### Class C — Boundary-relevant and not closeable by the vehicle
 
 Non-loopback network egress by the browser process.
 
@@ -115,24 +124,47 @@ they do not prevent a same-UID process from reaching the network, and they are
 not a Live-Run Data privacy wall.
 
 No artifact of this project — code, comment, test name, review, record, or
-maturity claim — may describe this class as prevention. Closing it requires the
-enforcement substrate ADR-0044 routes to a separate future milestone. This ADR
-selects none.
+maturity claim — may describe this class as prevention. Closing it requires an
+enforcement substrate, which ADR-0044 routes to a separate future milestone.
+This ADR selects and evaluates none.
+
+**This class is open because nothing is selected, not because nothing exists.**
+No per-process network confinement has been chosen, prototyped, or verified for
+this project, and this ADR asserts no platform impossibility. In particular, the
+base-system Seatbelt facility (`sandbox-exec`, and the sandbox-profile mechanism
+Chrome already uses for its own renderer processes) is invocable by an
+unprivileged user against a process that user owns, and is **unevaluated** here
+— neither foreclosed nor endorsed. A later milestone selecting an enforcement
+substrate should treat it as a live candidate rather than read this ADR as
+having ruled it out. What the Guarded Transport records establish, and all this
+ADR relies on, is narrower: a *cooperative* same-UID mechanism is not a trust
+boundary, so a flag-configured browser cannot be one.
 
 ### Class D — Workstation precondition
 
-Backup of the residency; content indexing of the residency; third-party
-synchronization software covering the residency; and third-party screen-capture
-or screen-recording software holding the relevant system permission.
+Backup of the residency; content indexing of the residency; **clipboard-history
+retention**, whether by a third-party clipboard manager or an operating-system
+clipboard-history feature; third-party synchronization software covering the
+residency; and third-party screen-capture or screen-recording software holding
+the relevant system permission.
 
 These are properties of the owner's machine, not of the vehicle. They are the
-class a vehicle-first milestone would have missed, and the first two are
+class a vehicle-first milestone would have missed, and the first three are
 **silently fatal**: a content-indexed residency has already produced a
-text-bearing description of live data stored outside the residency, and a
-backed-up residency has already produced a durable copy of live data outside it.
-ADR-0031 Decision 7 classifies both `NEVER_CROSSES` by description or by
-provenance. Neither is visible from inside the browser, and no confinement work
-addresses either.
+text-bearing description of live data stored outside the residency; a backed-up
+residency has already produced a durable copy of live data outside it; and a
+running clipboard-history manager converts the owner's next copy — including a
+copy intended only to be pasted back inside the same session — into a retained
+record outside the residency, which several shipping products then synchronize
+to other devices. ADR-0031 Decision 7 classifies all three `NEVER_CROSSES` by
+description or by provenance. None is visible from inside the browser, and no
+confinement work addresses any of them.
+
+Clipboard-history retention is filed here, not under Class A, because the
+crossing is caused by background software rather than by the owner's act. Class
+A's residual is the owner deliberately moving a value to a destination they
+intend; clipboard history removes the "destination they intend" and the
+"deliberately" alike.
 
 The vehicle observes what it can and refuses fail-closed. What it cannot observe
 is recorded below as an owner responsibility.
@@ -153,10 +185,20 @@ the run already exists outside quarantine. The workflow cost is a one-time
 exclusion, which does not justify blurring the boundary (ADR-0044, operational
 consequences).
 
+**Clipboard-history retention is a refusal where detectable and a named owner
+responsibility where not.** Where the preflight can observe it — a running
+process matching a known clipboard-manager set, or the operating system's own
+clipboard-history feature being enabled — it refuses, on the same reasoning as
+indexing and backup. Where it cannot, the owner is responsible for quitting or
+disabling such software before a session, and this is condition 4's business
+rather than mechanism. That partial detectability is why clipboard history is
+listed separately from the two conditions the preflight must always be able to
+decide.
+
 Preconditions the preflight **cannot** reliably observe — third-party sync
-software, screen-recording permission grants, and equivalents — are owner
-responsibilities, enumerated here as named limits rather than silently omitted.
-They do not block the session mechanically.
+software, screen-recording permission grants, undetectable clipboard managers,
+and equivalents — are owner responsibilities, enumerated here as named limits
+rather than silently omitted. They do not block the session mechanically.
 
 ## Decision — the attestation and its preconditions
 
@@ -173,9 +215,12 @@ That attestation is honest only when all of the following hold:
    escape was refused-then-overridden;
 3. the owner performed no Class A elevation whose result left quarantine — no
    paste into a document outside the residency, no print to a networked or
-   external destination, no screenshot retained outside it;
+   external destination, no screenshot retained outside it — **and no copy was
+   performed while clipboard-history retention was in force**, since a retained
+   copy leaves the residency without any subsequent paste;
 4. no Class D condition the preflight cannot observe was in force to the owner's
-   knowledge; and
+   knowledge, including undetectable clipboard-history, synchronization, or
+   screen-recording software; and
 5. no descriptive detail of the session — values, identifiers, dispositions,
    screenshots, or the residency locator — appears in the repository, a review,
    a pull request, chat, or a retrospective.
@@ -213,8 +258,10 @@ attestation enumerates what it rests on.
 Explicit residuals:
 
 - every Class A channel;
-- Class C non-loopback egress by a same-UID process;
-- Class D conditions the preflight cannot observe;
+- Class C non-loopback egress by a same-UID process, no confinement substrate
+  having been selected or evaluated;
+- Class D conditions the preflight cannot observe, including clipboard-history
+  retention by software it cannot enumerate;
 - administrator, root, hypervisor, or physical-device control; and
 - ADR-0044's existing residuals, unchanged.
 
