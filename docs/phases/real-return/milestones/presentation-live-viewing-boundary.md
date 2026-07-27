@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "presentation-live-viewing-boundary",
-  "milestone_state": "complete",
+  "milestone_state": "closed",
   "retrospective": "docs/milestone-retrospectives/2026-07-26-presentation-live-viewing-boundary.md",
   "status": "COMPLETE 2026-07-26. Plan PR #88, Track 1 PR #89 (ADR-0047 accepted, b37c536), Track 2 PR #90 (confined vehicle and fail-closed preflight, bc0d8dc). Track 3 filed the records: maturity-matrix footnote 5 and frontier reading updated, retrospective filed, roadmap and phase-state closed out. No maturity lift -- Presentation remains L2 and the data boundary remains L3; the remaining distance to L3 is real operation plus owner attestation.",
   "scope": [
