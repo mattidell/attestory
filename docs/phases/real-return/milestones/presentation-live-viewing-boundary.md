@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-live-viewing-boundary",
-  "milestone_state": "planning",
+  "milestone_state": "track-1",
   "retrospective": null,
-  "status": "Planning 2026-07-26. Owner selected the Presentation frontier and the headed live-viewing shape, and directed a first-principles boundary check before chartering any build. That check found the vehicle-first shape would repeat the Guarded Transport failure. This plan therefore defines the live viewing environment first and builds only mechanically checkable confinement. Presentation remains L2 throughout; no real exercise occurs.",
+  "status": "Track 1 in flight as of 2026-07-26. The plan merged to main in PR #88. Track 1 ratified ADR-0047 (Live Viewing Environment) at 498c396 and filed its independent decision review charter at 3b96660 (docs/reviews/charter-2026-07-26-presentation-live-viewing-boundary-track1-review.md); the review has not yet run. Track 2 (build) has not been chartered. Presentation remains L2 throughout; no real exercise occurs.",
   "scope": [
     "define the live viewing environment as a direct system-definition ADR extending ADR-0044 to an interactive human surface",
     "classify each headed-browser channel as boundary-relevant, named residual, or workstation precondition, and state exactly what the owner would later attest",
@@ -70,8 +70,9 @@
 -->
 # Milestone: Presentation — Live Viewing Boundary and Invocation Vehicle
 
-Status: **Planning 2026-07-26.** The plan becomes active when its planning PR
-reaches `main`.
+Status: **Track 1 in flight, 2026-07-26.** The plan merged to `main` in PR #88.
+ADR-0047 is drafted (`498c396`) and its independent decision review charter is
+filed (`3b96660`); the review has not yet run.
 
 ## Objective
 
