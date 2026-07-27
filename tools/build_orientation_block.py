@@ -155,7 +155,7 @@ def build_block(
     if not role and not action:
         detected = detect_role(state["current_role"])
         if not detected:
-            resting = state["current_role"].strip().casefold() == "foreman"
+            resting = state["current_role"].strip().casefold().startswith("foreman")
             hint = (
                 "no builder or reviewer work is chartered right now — this is the "
                 "resting state between milestones, not an error to route around. "
