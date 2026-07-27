@@ -28,11 +28,11 @@ scan.
 
 ## Status
 
-- Presentation — L2 Integration Grounding — **closing; Track 1 and Track 2
-  reviews `READY` (2026-07-26).** Boundary inspection corrected the initial PR #82 plan before
-  merge: the current renderer begins with a hand-shaped synthetic model, the
-  coordinator does not persist the inputs needed to construct it, and the
-  browser harness is intentionally synthetic-only. Track 1 closes that
+- Presentation — L2 Integration Grounding — **complete 2026-07-26; PR #86
+  merged as `1f3bb9a` with CI `verify` green.** Boundary inspection corrected the initial PR #82 plan before
+  merge: renderer integration began with a hand-shaped synthetic model, the
+  coordinator discarded the inputs needed to construct it, and the browser
+  harness was intentionally synthetic-only. Track 1 closed that
   coordinator-to-model gap on production-shaped synthetic data. Its first
   Builder stopped cleanly when the existing demo manifest proved impossible to
   satisfy from resolved content: line 2a is not modeled and real line 9 is not
@@ -44,9 +44,9 @@ scan.
   maturity-matrix footnote 5; fresh completion review `7f6ae79` returned
   `READY`. The handoff makes explicit that no live browser invocation vehicle
   or real operation exists; the synthetic harness is not that vehicle.
-  Presentation remains L2; no next milestone is selected. The single milestone
-  PR and its CI check are the remaining closing gate. Plan:
-  `milestones/presentation-l2-integration-grounding.md`.
+  Presentation remains L2; no next milestone is selected. Plan:
+  `milestones/presentation-l2-integration-grounding.md`; retrospective:
+  `../../milestone-retrospectives/2026-07-26-presentation-l2-integration-grounding.md`.
 
 - Browser Evaluation Runner Completion — **complete 2026-07-25; PR #71 merged
   `c329afd` with CI `verify` green on the merge commit.** This tooling

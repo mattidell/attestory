@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-l2-integration-grounding",
-  "milestone_state": "closing",
+  "milestone_state": "closed",
   "retrospective": "docs/milestone-retrospectives/2026-07-26-presentation-l2-integration-grounding.md",
-  "status": "Track 1 is READY after review e36086a, repair 759c9fa, and focused recheck 4a74ffd. Track 2 records 8e29b52 received fresh completion review READY at 7f6ae79. All milestone work is complete; the single closing PR is the remaining owner/CI gate. Presentation remains L2.",
+  "status": "Complete 2026-07-26. PR #86 merged as 1f3bb9a with CI verify green after the Track 1 review/repair/recheck and fresh Track 2 completion review returned READY. Presentation remains L2; no next milestone is selected.",
   "scope": [
     "project one production-shaped synthetic live_coordinate_run into a validated internal presentation model using only the resolved graph, projected record state, publications, and dispositions already available inside the coordinator",
     "write the presentation model only below LiveWorkspace while preserving the existing coordinator result and caller contract",
@@ -80,14 +80,14 @@
     "new_milestone": [
       "docs/phases/real-return/maturity-matrix.md",
       "docs/phases/real-return/milestones/presentation-l2-integration-grounding.md",
-      "docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md"
+      "docs/milestone-retrospectives/2026-07-26-presentation-l2-integration-grounding.md"
     ]
   }
 }
 -->
 # Milestone: Presentation — L2 Integration Grounding
 
-Status: **Closing; all planned work and reviews `READY`.** The owner redirected PR #82 on 2026-07-26 from L2→L3
+Status: **Complete 2026-07-26.** The owner redirected PR #82 on 2026-07-26 from L2→L3
 progression to L2 hardening and a better-grounded next-milestone handoff. The
 plan became active when its planning PR reached `main`. Before implementation,
 the Track 1 Builder returned a clean charter-stop finding: the existing demo
@@ -98,8 +98,8 @@ Track 1 build landed as `81c5504` on the milestone branch. Independent review
 `e36086a` returned `NOT READY` on one coordinator-level failure path. Focused
 repair `759c9fa` closed it, and recheck `4a74ffd` returned `READY`. Track 2
 records `8e29b52` carry the exact L2 capability state, and fresh completion
-review `7f6ae79` returned `READY`. The single milestone PR is the remaining
-owner/CI gate.
+review `7f6ae79` returned `READY`. PR #86 merged as `1f3bb9a` with CI
+`verify` green. Presentation remains L2, and no next milestone is selected.
 
 ## Objective
 
@@ -431,3 +431,5 @@ it.
 | 7 | Track 1 focused recheck | Same Reviewer | Focused recheck charter | `4a74ffd`: `READY`; all six measurements pass and no new finding |
 | 8 | Track 2 records | Foreman | Plan's L2 capability-state handoff | Six-row matrix handoff, roadmap/phase pointers, temporary-capsule removal, and lessons-only retrospective prepared for fresh review |
 | 9 | Track 2 completion review | Fresh Reviewer | Completion-record review charter | `7f6ae79`: `READY`; all eight records measurements pass with no finding |
+| 10 | Closing CI repair | Builder | Owner direction: repair directly without another charter | `cc0dcc9`: precise casts close three repository-wide mypy `no-any-return` failures without changing runtime behavior |
+| 11 | Milestone merge | Owner | PR #86 | Merged as `1f3bb9a`; CI `verify` green; Presentation remains L2 and the next milestone is unselected |

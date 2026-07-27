@@ -1,6 +1,6 @@
 # Retrospective — Presentation L2 Integration Grounding
 
-- Merged: pending final milestone PR
+- Merged: PR #86, merge commit `1f3bb9a`
 
 ## What differed from the plan
 
@@ -23,6 +23,10 @@ Foreman custody added avoidable friction: the initial review charter omitted a
 commit requirement; a merged amendment worktree remained current while the
 build lived elsewhere; and removing the Builder's active worktree stranded its
 Claude session. The temporary path alias restored that session.
+
+Final CI also caught three repository-wide mypy `no-any-return` failures that
+the focused review commands did not exercise. The owner directed a narrow,
+type-only repair (`cc0dcc9`); the milestone then merged with `verify` green.
 
 ## Follow-ups
 
