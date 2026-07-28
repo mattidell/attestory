@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Legible Entry",
-  "topic": "entry-boundary",
+  "topic": "legible-entry-milestone-selection",
   "active_plan": "docs/phases/legible-entry/milestones/entry-boundary.md",
-  "status": "The Legible Entry phase is accepted (PR #100). Milestone 1, The Entry Boundary, is COMPLETE pending its closing PR. ADR-0048 is PROPOSED — merging the closing PR ratifies it. It answers: a browser form is acceptable for typing real tax facts on stated conditions, and an entry surface emits contribution events rather than writing facts directly. The argument rests on confinement and profile disposal, NOT on the probe's per-channel negatives, which were narrowed but never closed on autofill and spellcheck. The widened search established that confinement is NOT total: the vehicle writes a single-instance lock outside the confined tree, surviving a crash, holding no typed content. Residuals in ADR-0048 'Left undecided' — most importantly, NOTHING HAS SEARCHED FOR THE RESIDENCY LOCATOR OUTSIDE CONFINEMENT; every run looked for typed tokens only. Retrospective: docs/milestone-retrospectives/2026-07-28-entry-boundary.md. Next in the phase roadmap: milestone 2, Packaging the Surface. Filing is out of scope for the phase. Process: a milestone gets one PR to open and one to close; tracks keep their review gate but not their own PR. Phase documentation uses plain, product-facing language. Prior phase Real Return closed 2026-07-28, every matrix cell L3 or better; read narrowly, it was breadth- and hardening-limited by construction. The phase-boundary legibility audit is STILL DUE and is owner-spawned — the foreman must not launch it.",
-  "current_role": "Foreman — Entry Boundary complete; closing PR open, awaiting owner merge (which ratifies ADR-0048)",
-  "current_prompt": "docs/phases/legible-entry/milestones/entry-boundary.md"
+  "status": "The Legible Entry phase is accepted (PR #100). MILESTONE 1, THE ENTRY BOUNDARY, IS CLOSED 2026-07-28 — closing PR #102 merged at c451a40, ADR-0048 ACCEPTED. It answers: a browser form is acceptable for typing real tax facts on stated conditions, and an entry surface emits act-contribution.v1 through the existing admission path rather than writing facts directly. The argument rests on the vehicle's confinement and profile disposal, NOT on the retention probe's per-channel negatives, which were narrowed but never closed on autofill and spellcheck. A widened search established that CONFINEMENT IS NOT TOTAL: the vehicle writes a single-instance lock outside the confined tree, surviving a crash, holding no typed content. No product code changed and NO MATURITY CELL MOVED — that milestone was a decision, and the instrument measures capability. Residuals are in ADR-0048 'Left undecided'; the most consequential is that NOTHING HAS SEARCHED FOR THE RESIDENCY LOCATOR OUTSIDE CONFINEMENT — every run looked for typed tokens only. Also open: the singleton lock as a second orphan surface outside the residency, the crash-reporter and GPU-cache paths, and the spellcheck flag's mechanism. Retrospective: docs/milestone-retrospectives/2026-07-28-entry-boundary.md — its subject is an error that recurred three times, a search whose scope presupposed its answer paired with a document claiming more than the search supported. NEXT: milestone 2, Packaging the Surface, UNPLANNED — nothing chartered. Owner has questioned whether it is genuinely a decision or just work with an unknown in it; settle that before chartering an ADR-shaped milestone. Filing is out of scope for the phase. Process: a milestone gets one PR to open and one to close; tracks keep their review gate but not their own PR. Phase documentation uses plain, product-facing language. Prior phase Real Return closed 2026-07-28, every matrix cell L3 or better; read narrowly, it was breadth- and hardening-limited by construction. The phase-boundary legibility audit is STILL DUE and is owner-spawned — the foreman must not launch it.",
+  "current_role": "Foreman — Entry Boundary closed; at the milestone-selection frontier for Legible Entry, nothing chartered",
+  "current_prompt": "docs/phases/legible-entry/legible-entry-roadmap.md"
 }
 -->
 # Phase State
@@ -67,18 +67,41 @@ getting the owner from a pile of tax documents to a computed return without
 opening a text editor. Roadmap:
 `docs/phases/legible-entry/legible-entry-roadmap.md`.
 
-- **Milestone: The Entry Boundary — planning.** Drafted on
-  `plan/entry-boundary`; the plan PR is not yet open and nothing is chartered.
-  It decides two things and builds no product: whether a browser form is an
-  acceptable place for a person to type real tax facts, and whether an entry
-  surface writes facts directly or emits contribution events. Track 1 is a
-  throwaway retention probe against a synthetic workspace; Track 2 is ADR-0048.
-  Plan: `docs/phases/legible-entry/milestones/entry-boundary.md`.
+- **Milestone 1, The Entry Boundary — closed 2026-07-28.** PR #102 merged at
+  `c451a40`; **ADR-0048 accepted**. A browser form is acceptable for typing real
+  tax facts on stated conditions, and an entry surface emits
+  `act-contribution.v1` through the existing admission path rather than writing
+  facts directly. No product code changed and no maturity cell moved — it was a
+  decision, and the instrument measures capability.
+
+  What it means for building the entry surface: the form runs inside the
+  confined vehicle rather than a browser someone opens themselves; entry hands a
+  contribution to the existing boundary; the spellcheck network path must be
+  closed by an explicit flag. It says nothing about what the form asks or how a
+  field explains itself — that design is entirely still ahead.
+
+  It also established that **confinement is not total**: the vehicle writes a
+  single-instance lock outside the confined tree, surviving a crash, holding no
+  typed content. That was believed total before this milestone.
+
+  Retrospective: `docs/milestone-retrospectives/2026-07-28-entry-boundary.md`.
+
+- **Open, and carried in ADR-0048 rather than fixed.** Most consequential:
+  **nothing has searched for the residency locator outside confinement** — every
+  run looked for typed tokens only, and the locator is protected in its own
+  right. Also: the singleton lock is a second orphan surface sitting outside the
+  residency with nothing sweeping it; crash-reporter and GPU-cache paths are
+  narrowed but not closed; the spellcheck flag's mechanism is undesigned.
+
+- **Milestone 2, Packaging the Surface — unplanned.** Nothing chartered. Before
+  chartering it ADR-shaped, settle whether it is genuinely a decision or just
+  work with an unknown in it. The Entry Boundary reached the answer a first guess
+  would have reached, at the cost of six dispatches, and the owner has said so.
 
 - **Filing is out of scope** for this phase (settled 2026-07-28). The phase ends
   at a complete, computed return.
 
-- **Process changes riding with this plan.** A milestone now gets one PR to open
+- **Process changes, now in force.** A milestone gets one PR to open
   it and one to close it; tracks keep their review gate but no longer get their
   own PR. Phase documentation uses plain, product-facing language.
 

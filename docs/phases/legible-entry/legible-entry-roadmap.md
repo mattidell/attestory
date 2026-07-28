@@ -2,8 +2,8 @@
 
 Audience: Product (roadmap); Shared (status)
 
-Status: **accepted 2026-07-28** (PR #100). The first milestone, The Entry
-Boundary, is in planning.
+Status: **accepted 2026-07-28** (PR #100). Milestone 1, The Entry Boundary, is
+closed. Milestone 2, Packaging the Surface, is unplanned.
 
 ## Thesis
 
@@ -97,7 +97,12 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    origin: the write path, the input-surface precondition classes, and
    whether a browser form is admissible at all. An ADR, no product build.
    It's fine to conclude the obvious shape doesn't work.
-   Plan: `docs/phases/legible-entry/milestones/entry-boundary.md`.
+   **Closed 2026-07-28** (PR #102). ADR-0048 accepted: a browser form is
+   acceptable on stated conditions, and an entry surface emits contribution
+   events rather than writing facts directly. It also found that the vehicle's
+   confinement is not total. Plan:
+   `docs/phases/legible-entry/milestones/entry-boundary.md`; retrospective:
+   `docs/milestone-retrospectives/2026-07-28-entry-boundary.md`.
 2. **Packaging the Surface.** Decide and implement how a UI reaches the live
    workspace across the Developer/Supply boundary.
 3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
@@ -177,4 +182,9 @@ Carried over from Real Return's phase close:
 
 ## Status
 
-Nothing completed. The phase definition is not yet accepted.
+Milestone 1 (The Entry Boundary) closed 2026-07-28, ADR-0048 accepted. No
+maturity cell has moved — that milestone was a decision, and the instrument
+measures capability. Milestone 2 (Packaging the Surface) is unplanned.
+
+The phase-boundary legibility audit is still due. It is owner-spawned; the
+foreman must not launch it.

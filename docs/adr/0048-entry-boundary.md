@@ -1,6 +1,7 @@
 # ADR 0048 — The Entry Boundary
 
-- Status: **proposed** (not ratified — ratification is the owner's). Builder
+- Status: **accepted 2026-07-28**, ratified by the owner merging PR #102
+  (`c451a40`). Builder
   draft, Entry Boundary milestone Track 2
   (`docs/reviews/charter-2026-07-28-entry-boundary-track2.md`); repaired per
   the Track 2 review's NOT READY verdict
