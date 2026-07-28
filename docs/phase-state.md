@@ -1,12 +1,12 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Real Return",
-  "topic": "presentation-row-completion",
-  "active_plan": "docs/phases/real-return/milestones/presentation-row-completion.md",
-  "status": "**THE REAL RETURN PHASE IS CLOSED, 2026-07-28, by owner decision.** Its standing test is met and every cell in its closed maturity matrix is L3 or better. **The owner has withdrawn the human-legibility/usability direction and redirected the next phase toward ENGINE BREADTH. The phase is NOT YET DEFINED — no phase definition, selection instrument, milestone, or breadth target is chartered.** Read Real Return's completion accurately: it is breadth- and hardening-limited by construction — five income/return domains, one implemented schedule, one human surface, and ONE real viewing session behind the whole Presentation row. The closed matrix is evidence about that bounded slice, not the selection instrument for what comes next. Phase-close record: docs/phases/real-return/real-return-roadmap.md, 'Phase close — 2026-07-28'. Two gaps carry forward unclosed without setting the breadth sequence: the classified-refusal path has no human confirmation, and the session runbook has an unidentified unclarity. NEXT ACTION: define an engine-breadth phase with the owner — thesis, standing test, selection instrument, and whether the first breadth move deepens an existing declared universe or adds a new tax domain or schedule attachment. Phase definition and milestone selection are Tier 3 owner decisions.",
-  "current_role": "Foreman — Real Return closed; next-phase definition open with the owner; nothing chartered",
-  "current_prompt": "docs/phases/real-return/real-return-roadmap.md"
+  "phase": "Engine Breadth",
+  "topic": "capital-gain-distributions-line7a",
+  "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
+  "status": "**ENGINE BREADTH IS THE ACTIVE PLANNED PHASE.** Its standing test is whether each milestone turns a previously honest-blocked valid-return class into an end-to-end computed result without weakening closure, citation, contribution, or data-boundary guarantees. The selected first milestone is Capital-Gain Distributions and Form 1040 Line 7a. It promotes Form 1099-DIV box 2a into a horizon-closed path for the case where the contributed answer says Schedule D is not required; it does NOT build Schedule D. Official 2025 instructions corrected the initial box-2a-plus-Schedule-D proposal before planning: the bounded direct-reporting class belongs on line 7a, while a true Schedule D milestone needs additional capital-transaction scope. The milestone is PLANNED; no prototype or implementation role is chartered until the planning PR merges. NEXT ACTION after merge: the foreman charters the owner-approved prototype-plan unit for the three paper-first propositions named in the plan.",
+  "current_role": "Foreman — planning unit pending owner merge; no prototype or implementation role chartered",
+  "current_prompt": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md"
 }
 -->
 # Phase State
@@ -58,7 +58,12 @@ matrix, and completion review `7f6ae79` returned `READY`. PR #86 merged as
 invocation vehicle exists and no real operation occurred. The next milestone
 is unselected.
 
-**Nature of the pending schema/contract change.** None pending. `fact-type.v3` and `bundle.v3` are published; any further correction-authority extension is separately chartered. ADR-0044 is accepted positioning, not a mechanism decision: any authority-separation implementation requires a later owner-selected milestone, mechanical proof, and real-run verification before an L4 claim.
+**Nature of the pending schema/contract change.** The first Engine Breadth
+milestone is planned, but its successor contract is intentionally not drafted
+yet. Paper-first rival evidence must settle the direct-line authority,
+box-2a-family promotion, and QDCG handoff before any schema or production
+content is authorized. Existing published schemas and accepted ADRs remain
+immutable history.
 
 ## Current state (2026-07-28)
 
@@ -69,12 +74,13 @@ is unselected.
   carried forward — is in
   `docs/phases/real-return/real-return-roadmap.md`, "Phase close — 2026-07-28".
 
-- **The next phase is not yet defined.** The owner has withdrawn the prior
-  human-legibility/usability direction and redirected it toward **engine
-  breadth**. No phase definition, selection instrument, milestone, or breadth
-  target is chartered. The first owner-held choice is whether breadth means
-  deepening an existing declared universe or adding a new tax domain or schedule
-  attachment.
+- **Engine Breadth is planned as the active phase.** Its overview, roadmap, and
+  coverage-frontier selection instrument are under
+  `docs/phases/engine-breadth/`. The first selected milestone is
+  **Capital-Gain Distributions and Form 1040 Line 7a**. It covers the explicit
+  Schedule-D-not-required route and leaves a true Schedule D slice separately
+  selectable. No prototype or implementation role is chartered before the plan
+  merge.
 
 - **Presentation — Completing the Row:** **complete 2026-07-28.** **The
   Presentation row is L3 across all five columns, and every cell in the maturity
