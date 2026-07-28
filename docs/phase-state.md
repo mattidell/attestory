@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH IS THE ACTIVE PLANNED PHASE.** PR #103 merged as 7554ddf with the Capital-Gain Distributions and Form 1040 Line 7a milestone planned. Its standing test is whether each milestone turns a previously honest-blocked valid-return class into an end-to-end computed result without weakening closure, citation, contribution, or data-boundary guarantees. The milestone promotes Form 1099-DIV box 2a into a horizon-closed path for the case where the contributed answer says Schedule D is not required; it does NOT build Schedule D. Official 2025 instructions corrected the initial box-2a-plus-Schedule-D proposal before planning: the bounded direct-reporting class belongs on line 7a, while a true Schedule D milestone needs additional capital-transaction scope. No prototype or implementation role is chartered. NEXT ACTION: create and obtain owner approval for the paper-first prototype plan required by Track 0; only then charter the incumbent and rival prototype Builders.",
-  "current_role": "Foreman — plan merged; prepare the Track 0 prototype plan before any Builder charter",
-  "current_prompt": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0 ACTIVE.** The owner merge of this prototype-plan unit is its approval record. PR #103 merged as 7554ddf with the milestone planned. One conclusion-level incumbent and one component-backed rival must answer the same paper cases for direct-route authority, box-2a family promotion, and the QDCG handoff. The initially authorized evidence is static paper instantiation; no production code or real-data operation is in scope. No Builder charter is included in this planning unit. NEXT ACTION: the foreman files the incumbent Builder charter and advances this pointer in the same commit.",
+  "current_role": "Foreman — Track 0 prototype plan approved; prepare incumbent Builder charter",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/plan.md"
 }
 -->
 # Phase State
