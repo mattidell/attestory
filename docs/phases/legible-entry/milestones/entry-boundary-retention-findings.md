@@ -333,3 +333,182 @@ window server was present on this machine and a real headed browser window
 was observed to launch and close normally. No channel required touching real
 data. No typed content was observed leaving the machine over the network in
 either vehicle.
+
+## Track 2 repair, Part 1 — widened search, outside the confined directory
+
+Charter: `docs/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`.
+Everything above searched only inside the directory
+`packages/derivation/live_viewing.py` itself manages
+(`.live-view/session-<uuid>/{profile,cache,downloads}` and the print target).
+The Track 2 review found that region insufficient to settle the ADR's central
+claim: it does not say whether the resolved Chrome binary writes anything to
+a fixed, per-user-account location no launch flag redirects. This section
+widens the search to real per-user macOS locations outside that tree, on the
+same machine, against the same unmodified headed vehicle
+(`packages/derivation/live_viewing.py`, driven via the same unmodified
+`headed_launch.py` bridge), exercising the same **crash** path (`SIGKILL`, no
+clean close).
+
+**Result, stated as one of the three possible outcomes named by the charter:
+something was written outside the confined directory, but it holds no typed
+content.** This is not "nothing was found" and it is not "typed content was
+found" — it is the middle outcome, and it is a real, verified fact rather
+than an inference from timing.
+
+### Method
+
+`tools/entry_probe/probe.mjs` gained a `--wide-search` flag (see its README
+for the full method note). Summary: a marker file is touched immediately
+before the headed vehicle launches; after the crash and the existing
+confined-directory grep run, every candidate location is asked which entries
+have a **creation** time (macOS `stat -f %B`, birthtime — not mtime) at or
+after the marker's, via `find <root> -maxdepth 5 -newer <marker>` followed by
+a per-candidate birthtime check. Birthtime, not mtime, is the operative
+filter: this machine's own real, independently-running Chrome install (56
+processes, confirmed via `ps` before this run started — an ordinary,
+unrelated, already-running user session, not anything this probe launched)
+continuously *modifies* pre-existing files in its own profile without
+*creating* new ones most of the time, so an mtime-only diff would have been
+swamped by that unrelated activity. Any new file the scan turns up is grepped
+for the same synthetic tokens the rest of this probe uses (`-rla`, the
+corrected flag).
+
+Candidate locations searched (macOS, per the charter's own list): the
+per-user crash-report directories (`~/Library/Logs/DiagnosticReports`,
+`~/Library/Application Support/CrashReporter`), the per-user caches directory
+(`~/Library/Caches`), `$TMPDIR` and `/tmp`, and the Chrome/Chromium per-user
+application-support directories (`~/Library/Application Support/Google`,
+`~/Library/Application Support/Chromium`). Run twice (clean-ish `SIGTERM` and
+crash `SIGKILL`), both against the headed vehicle only — the vehicle a person
+actually types into, which is what this repair is about.
+
+### What was found, and where it was verified independently of the probe
+
+Both headed runs (clean-ish and crash) turned up the same category of
+finding: a new directory named `com.google.Chrome.<six random characters>`
+created directly under `$TMPDIR` — **a sibling of, not a descendant of,**
+this run's confined `.live-view/session-<uuid>/` tree. This is exactly the
+shape of finding the charter's outcome 2 describes.
+
+This was not accepted on the wide-search scan's word alone. It was
+independently reproduced and checked by hand against the actual OS process:
+launched the headed vehicle directly via `headed_launch.py` against a fresh
+synthetic workspace, found its real Chrome pid by the same external `ps`
+method the rest of this probe uses, then ran `lsof -p <that exact pid>` —
+process-level evidence of what file descriptors *this specific process*
+holds open, not an inference from timestamps or naming. Result: the pid
+matching this run's `--user-data-dir=<our confined workspace>` held an open
+Unix-domain-socket file descriptor at
+`$TMPDIR/com.google.Chrome.<random>/SingletonSocket` — a path entirely
+outside the confined directory this vehicle computes and checks with
+`_within()`. This ties the artifact to this exact vehicle instance, not to
+the machine's independently-running real Chrome, and not to coincidence.
+
+**What is in it, checked directly:** the directory holds exactly two entries,
+in every case observed (four separate launches, including the two full
+`--wide-search` probe runs and two hand-verification runs):
+
+- `SingletonSocket` — an anonymous Unix domain socket (`srwx------`, 0 bytes
+  reported by `ls`/`stat`; a socket has no "content" in the file-bytes sense).
+- `SingletonCookie` — not a regular file. It is a symlink whose **target
+  string itself** is the payload: a random 15-19 digit number
+  (e.g. `5358790730500827854`), used as an authentication token for the
+  single-instance IPC protocol this pair implements. `cat`ing it returns
+  nothing (`file` reports it as "broken symbolic link to <the number>" —
+  the target is never meant to exist as a real path). No form field's typed
+  value, no token planted by this probe, and nothing resembling either
+  appeared in this string in any of the four checked instances.
+
+**Survival across a crash, checked directly:** in the hand-verification run,
+the directory and both entries were confirmed present, unchanged, after
+`SIGKILL` to the browser process — the same orphaning behavior ADR-0048
+already documents for the confined session directory applies here too, and
+nothing in `live_viewing.py`'s `close()`/`_remove_session()` path touches
+this location even on a clean exit, because it is never inside the tree
+`close()` manages.
+
+**Accumulation, observed independently of this run:** while cleaning up
+after this probe's own runs, more than a dozen `com.google.Chrome.<random>`
+directories were found already present under `$TMPDIR`, dated across the
+prior two days — plausibly from this milestone's own earlier Track 1b runs
+and/or other Chrome invocations on this machine, not created or explained by
+this session. Nothing on this machine appears to sweep this location ever;
+it is an orphan-accumulation surface in addition to, not instead of, the one
+ADR-0048 already names for the confined tree.
+
+### What did not turn up anything
+
+- **No token, in either run, in the singleton directory or anywhere else the
+  widened scan checked.** The main grep of the confined directory (unchanged
+  from the rest of this note) also found nothing.
+- **No entry appeared in either OS crash-report location**
+  (`~/Library/Logs/DiagnosticReports`, `~/Library/Application
+  Support/CrashReporter`) in either run. Consistent with how macOS's own
+  crash reporter works: it is invoked for signals a process does not itself
+  handle in a way the OS recognizes as a crash (`SIGSEGV`, `SIGABRT`,
+  `SIGBUS`, etc.), not for `SIGKILL`, which gives the target process no
+  chance to do anything at all, and gives the OS no "crash" to report either.
+  This narrows what `SIGKILL` as this milestone's proxy for "the controlling
+  process dies without warning" can tell us about that specific OS-level
+  channel — it is a real absence, but not evidence that a different kind of
+  crash (one the OS's own reporter would catch) behaves the same way.
+- **No new entry in `~/Library/Caches` attributable to this vehicle.** The
+  crash run's scan did turn up 41 new entries under `~/Library/Caches`, all
+  under `com.apple.helpd/` (Spotlight/Help-system indexing artifacts) — an
+  unrelated OS background process re-indexing help content during the test
+  window, not this vehicle; none held a token, none were Chrome- or
+  Chromium-named, and this vehicle has no plausible mechanism to write there.
+  Named here as a confound ruled out, not a finding.
+- **No new entry under `~/Library/Application Support/Google` attributable
+  to this vehicle.** Both runs showed exactly one changed file,
+  `Chrome/CrashpadMetrics-active.pma`, inside Matt's own, already-running,
+  independent Chrome installation's default profile location (not this
+  vehicle's confined one — the path does not contain this run's workspace at
+  all, and the vehicle never launches against that profile). This is the
+  real browser's own periodic metrics-file churn, unrelated to this test;
+  named here as a confound ruled out, not a finding. No token was present.
+- **`~/Library/Application Support/Chromium` does not exist on this
+  machine** (only Google Chrome is installed; `_resolve_browser()` in
+  `live_viewing.py` picked Google Chrome, confirmed from the actual launched
+  process's binary path). This candidate could not be exercised on this
+  machine.
+
+### What this settles, and what it does not
+
+This is direct, process-level, reproduced evidence that the resolved Chrome
+binary on this machine creates a filesystem artifact **outside** every
+destination `_confined_destinations()` computes and `_within()` checks —
+refuting, as a fact rather than an open question, the claim that the
+vehicle's confinement is "already total." It also, in the same breath,
+supports the ADR's narrower "no typed content escaped" framing for this
+specific artifact: what escapes is an IPC authentication token and an
+unconnected socket, not anything a person typed.
+
+This remains **one observation, on one machine, on one resolved Chrome
+build, for one specific channel (the single-instance-lock mechanism)**. It
+does not settle the crash-reporter/Crashpad-database question the ADR's
+"Weakest point" section raises — no Crashpad-named artifact appeared outside
+the confined directory in either run on this machine, which is itself worth
+recording (see below), but the absence of one specific channel's escape is
+not proof no channel escapes, and this observation should not be read as
+having tested every channel a different Chrome version, OS version, or
+account configuration might exercise.
+
+**On the Crashpad question specifically:** no `Crashpad`-named directory or
+file was observed newly created outside the confined tree in either run on
+this machine — the only Chrome-attributable artifact found outside
+confinement was the singleton-lock pair described above, not a crash-report
+database. This narrows, but does not close, the "Weakest point" section's
+open question about a fixed, un-redirected crash-reporter database location;
+it is evidence of one specific absence on one machine, not a mechanism ruling
+the possibility out in general.
+
+### Charter-stop findings (Part 1)
+
+None triggered. This finding is the charter's outcome 2 ("something was
+written but holds no typed content"), not outcome 3 ("typed content found
+outside the boundary") — the stop-and-report-first condition does not apply.
+It is nonetheless reported first and plainly, as the charter asks for the
+most significant finding of this repair, because it is direct, verified
+evidence against the ADR's strongest wording, not merely an unresolved
+question.

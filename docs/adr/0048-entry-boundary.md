@@ -2,7 +2,14 @@
 
 - Status: **proposed** (not ratified — ratification is the owner's). Builder
   draft, Entry Boundary milestone Track 2
-  (`docs/reviews/charter-2026-07-28-entry-boundary-track2.md`).
+  (`docs/reviews/charter-2026-07-28-entry-boundary-track2.md`); repaired per
+  the Track 2 review's NOT READY verdict
+  (`docs/reviews/2026-07-28-entry-boundary-track2-review.md`) under
+  `docs/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`. The
+  repair added a widened, outside-confinement filesystem search (see "What
+  Part 1's widened search settles, and does not") and narrowed this ADR's
+  own wording to match what that search and the rest of this document's
+  reasoning actually establish.
 - Tier: 3
 - Date: 2026-07-28
 
@@ -84,9 +91,13 @@ check raises `PATH_NOT_CONFINED` before a directory is created or a browser
 process is started. Confinement is established at launch time, not at
 teardown, and does not depend on the session closing cleanly.
 
-**This holds.** Every path the browser can write into is inside the
-residency, checked before use, independent of whatever Chrome itself
-chooses to write, retain, or forget.
+**This holds, for exactly the destinations it names.** Every path
+`_confined_destinations()` computes is inside the residency, checked before
+use, independent of whatever Chrome itself chooses to write, retain, or
+forget into *those* paths. It is not, on its own, a claim that these are the
+only paths Chrome writes to for a given launch — see "What Part 1's widened
+search settles, and does not," below, which found a concrete case where they
+are not.
 
 ### Disposal
 
@@ -122,19 +133,115 @@ on the close path executing, and the probe caught a real instance of it not
 executing.
 
 **Is a surviving profile an escape, or merely untidy? Reasoned through, not
-asserted:** confinement is established once, at destination-computation
-time, before anything is written — it does not depend on `close()` running
-at all. A profile that survives a crash still sits under
+asserted, and bounded by what "confinement" was just shown to cover:**
+confinement is established once, at destination-computation time, before
+anything is written — it does not depend on `close()` running at all. A
+profile that survives a crash still sits under
 `capability.location/.live-view/session-<uuid>/`, inside the residency
-ADR-0031 already treats as the place real data lives. Nothing about a crash
-moves those bytes anywhere else. **This is untidy, not an escape.** The
-practical consequence is an operational one, not a boundary breach: orphaned
-session directories accumulate under `.live-view/` with every crash this
-vehicle does not currently sweep up on a later launch, and they hold
-whatever the browser wrote before the kill — potentially including, per
-above, form-history writes accepted via a save prompt or session-restore
-snapshots, if a future session ever drives those interactions. This ADR
-leaves that sweep undecided; see "Left undecided" below.
+ADR-0031 already treats as the place real data lives, **for everything the
+vehicle actually confines there.** Nothing about a crash moves those bytes
+anywhere else. **For that content, this is untidy, not an escape.** This
+claim is deliberately narrower than the unqualified form this section
+previously stated: it is not a claim that a crash cannot leave anything
+anywhere else, because Part 1's widened search (see below) found a case
+where the vehicle itself writes something outside this tree during a normal
+launch, unrelated to whether the session then crashes. That artifact holds
+no typed content, so it does not change the answer to question 1 — but it
+does mean "untidy, not an escape" is true of the four confined destinations,
+not of everything a launch produces.
+
+The practical consequence for the confined tree is an operational one, not a
+boundary breach: orphaned session directories accumulate under `.live-view/`
+with every crash this vehicle does not currently sweep up on a later launch,
+and they hold whatever the browser wrote before the kill — potentially
+including, per above, form-history writes accepted via a save prompt or
+session-restore snapshots, if a future session ever drives those
+interactions. This ADR leaves that sweep undecided; see "Left undecided"
+below — and see the next subsection for why "undecided" is not the same as
+"inconsequential."
+
+### The orphan-sweep question is not independent of ADR-0047's backup/indexing framing
+
+ADR-0047 classifies whether the residency's *backup inclusion* and *content
+indexing* are excluded as **silently fatal preconditions** — not a boundary
+the viewing vehicle enforces itself, but something that must be true of the
+residency for that vehicle's guarantees to mean what they say. ADR-0048, as
+first drafted, never mentioned this. That silence was a real gap, not a
+stylistic one, worked through here rather than left open:
+
+An orphaned `.live-view/session-<uuid>/` directory is different in kind from
+a normal session's directory, on exactly the dimension ADR-0047's
+precondition cares about: a normal session's directory exists for the length
+of one viewing session and is gone before any backup or indexing cycle is
+likely to run against it. A crash-orphaned directory has no such bound — it
+sits inside the residency for however long elapses until a sweep (if one is
+ever built) or a person notices, which could be longer than the gap between
+two backup or indexing passes. If the residency's backup exclusion or
+indexing exclusion lapses in that window, for a reason that has nothing to
+do with viewing or entry at all, the orphaned profile — which may hold
+form-history or session-restore content this ADR already flags as possible —
+gets swept up along with everything else. That is a materially different
+exposure than ADR-0047's general framing of "the whole residency was
+backed up," because this specific content exists in the residency *only*
+because of a crashed session, and its lifetime there is exactly the
+orphan-sweep question this ADR otherwise treats as a purely operational,
+low-stakes loose end.
+
+**Position:** this changes "untidy, not an escape" from an unconditional
+answer to one that depends on the same silently-fatal preconditions
+ADR-0047 already names — a crash-orphaned profile is untidy-not-an-escape
+only for as long as those preconditions continue to hold over an unbounded
+window, not just the length of a session. This ADR does not resolve the
+orphan-sweep question (see "Left undecided"), but it now names what a
+resolution needs to account for: whichever milestone builds the sweep, a
+preflight check, or an owner attestation for entry sessions must treat a
+crash-orphaned session directory as subject to ADR-0047's backup/indexing
+preconditions for the entire time it survives, not just for the length of a
+normal session — and that milestone should decide the mechanism (sweep,
+preflight, attestation) rather than this ADR designing it in advance.
+
+### What Part 1's widened search settles, and does not
+
+Every search above this point, in this ADR's own source reading and in
+Track 1/1b's probe, looked only inside the four destinations
+`_confined_destinations()` computes. The Track 2 review found that
+insufficient to support "already total," and this ADR's own repair (Part 1,
+`docs/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`) went and
+looked outside that tree, against the same unmodified vehicle, exercising
+the same crash path. Full method and evidence:
+`docs/phases/legible-entry/milestones/entry-boundary-retention-findings.md`,
+"Track 2 repair, Part 1."
+
+**What it found, plainly:** the resolved Chrome binary on the machine this
+was run on creates a directory (`com.google.Chrome.<random>`, holding a
+Unix-domain socket and a symlink-encoded authentication token — Chrome's own
+single-instance-lock mechanism) directly under the OS temp directory, a
+sibling of, not a descendant of, the confined session tree. This was
+verified at the process level — `lsof` against the exact pid this vehicle
+launched, not inferred from file timestamps — so it is tied to this
+vehicle's own launch, not to anything else running on the machine. It
+survives a `SIGKILL` to the browser process, the same way an orphaned
+session directory does, and nothing in `close()`/`_remove_session()` touches
+it, because it was never inside the tree that code manages.
+
+**What it means for this ADR's claim:** "already total" was wrong, not
+merely unverified — this is a real, verified exception, not a hypothetical
+one. **What it does not mean:** the exception holds no typed content. A
+random IPC authentication number and an unconnected socket are not a wage
+figure or a Social Security number; nothing planted by this ADR's own probe
+or by hand-verification appeared in either. The "yes" this ADR reaches does
+not rest on "nothing is ever written outside confinement" — it now can't —
+it rests on the narrower, now-tested claim that no *typed content* escaped,
+across every channel this milestone exercised, including this one.
+
+**What it does not settle:** this is one channel (the single-instance lock),
+on one machine, on one resolved Chrome build. It does not test the
+crash-reporter/Crashpad-database question the "Weakest point" section below
+still names as open — no Crashpad-named artifact appeared outside
+confinement in either run here, which narrows that question without closing
+it. A different Chrome version, a different OS, or a differently configured
+account could behave differently, for this channel or another one this
+milestone has not looked for at all.
 
 ### Spellcheck does not inherit this argument
 
@@ -166,15 +273,32 @@ under the confined, disposing vehicle this project already has, provided the
 spellcheck network path is affirmatively closed rather than left to
 observed default behavior.**
 
-This is a narrower "yes" than "browsers are safe." It is: *this vehicle's
-filesystem confinement holds regardless of clean or crashed exit, and its
-disposal-on-close eliminates the retention question for every filesystem
-channel at once on a normal session, with one closeable gap named above and
-one operational residual (orphaned crash directories) left undecided.* No
-new retention channel this project has not already named would escape
-confinement, because confinement does not depend on knowing which channel
-exists — it depends only on where the browser is allowed to write, which is
-already total.
+This is a narrower "yes" than "browsers are safe," and narrower again than
+this ADR's own first draft stated it. It is: *this vehicle's filesystem
+confinement holds, regardless of clean or crashed exit, for the four
+destinations `_confined_destinations()` computes — profile, cache,
+downloads, print target — and its disposal-on-close eliminates the retention
+question for those destinations at once on a normal session, with one
+closeable gap named above (spellcheck) and one operational residual
+(orphaned crash directories, now understood to interact with ADR-0047's
+backup/indexing preconditions rather than being merely operational) left
+undecided.*
+
+**What this ADR's first draft got wrong, and the correction:** it stated
+that confinement "does not depend on knowing which channel exists — it
+depends only on where the browser is allowed to write, which is already
+total." That is not correct, and Part 1 of this ADR's own repair (see
+"What Part 1's widened search settles, and does not," below) found a
+concrete counterexample: the vehicle's launch produces at least one
+filesystem artifact — a single-instance-lock socket and an authentication
+token, not typed content — outside every destination
+`_confined_destinations()` names or `_within()` checks. Confinement is total
+over the paths this vehicle *directs* Chrome to use; it is not established,
+and is now known not to be true, that those paths are the only ones Chrome
+uses. The "yes" answered here rests on a narrower, verified claim: **no
+typed content was found outside confinement, in any channel this milestone
+tested, including the one now-known filesystem escape** — not on the
+stronger, unverified claim that no escape of any kind exists.
 
 ## Decision 2 — write path: contribution events, not direct facts
 
@@ -221,6 +345,14 @@ need to distinguish from. Adding an origin/channel marker to
 changes nothing about provenance, evidence linkage, or supersession, and
 this ADR does not propose one.
 
+**What would reopen this:** the "no field needed" answer is correct for the
+system as it exists today — one owner, one Owner Authorization domain. It is
+not a standing property of the ontology; it is a fact about the current
+single-actor system. If a second person, or a machine-assisted entry path
+that originates (not merely consumes) a contribution, is ever introduced,
+this reasoning no longer applies and the actor/origin question would need
+to be reopened, not merely extended.
+
 **What must not change:** the evidence-linkage requirement (ADR-0032
 Decision 2) and the supersession-only correction rule (Decision 5) apply to
 a browser-originated contribution exactly as they apply to any other one.
@@ -251,28 +383,49 @@ out of scope here per the charter and belong to the next milestone.
   browser-originated contribution is not distinguished from any other
   contribution.
 - No maturity cell moves. This is a decision, not an implementation.
-- The next milestone (packaging) inherits two open obligations this ADR
-  names but does not discharge: an affirmative spellcheck-disabling flag,
-  and a decision about whether crash-orphaned session directories need a
-  sweep.
+- The next milestone (packaging) inherits three open obligations this ADR
+  names but does not discharge: an affirmative spellcheck-disabling flag; a
+  decision about whether crash-orphaned session directories need a sweep,
+  now understood to interact with ADR-0047's backup/indexing preconditions
+  over an unbounded window rather than being purely operational; and
+  investigating whether the vehicle can redirect (or must otherwise account
+  for) the single-instance-lock artifact Part 1 of this ADR's repair found
+  written outside every confined destination — see "What Part 1's widened
+  search settles, and does not." Recorded here as owed investigation, not
+  designed: a candidate is disabling or redirecting Chrome's crash-reporting
+  subsystem outright (e.g. a `--disable-breakpad`-class flag) for the
+  related, still-open crash-reporter-database question named in "Weakest
+  point," but this ADR does not add any launch flag itself, and neither
+  should the milestone that packages an entry surface without first
+  confirming what such a flag would and would not cover.
 
 ## Left undecided
 
 - **Whether stale `.live-view/session-<uuid>` directories from a crashed
   controlling process need to be swept on a later launch.** Untidy, not an
-  escape, per the reasoning above — but this ADR does not decide whether
+  escape, per the reasoning above — but only for as long as ADR-0047's
+  backup/indexing preconditions hold over however long the orphan survives,
+  which this ADR now names explicitly rather than treating as a purely
+  operational loose end (see "The orphan-sweep question is not independent
+  of ADR-0047's backup/indexing framing"). This ADR does not decide whether
   that untidiness is acceptable indefinitely or needs a cleanup mechanism.
 - **The exact mechanism for closing the spellcheck network path** (a launch
   flag, a Chrome policy, or something else) — named as a requirement, not
   designed here.
 - **Whether Chrome writes anything at all outside the paths
-  `live_viewing.py` explicitly redirects.** Neither this ADR's reading of
-  the module nor the Track 1 probe checked locations outside the confined
-  session directory and the synthetic workspace root — global,
-  per-user-account Chrome state that some Chromium versions place outside
-  `--user-data-dir` regardless of the flag (crash-reporting and GPU-shader
-  disk caches are the known historical candidates) was never inspected by
-  either. See "weakest point" below.
+  `live_viewing.py` explicitly redirects.** This ADR's own repair (Part 1,
+  see "What Part 1's widened search settles, and does not") answered part of
+  this: yes, confirmed, for the single-instance-lock mechanism, which writes
+  a socket and an authentication token outside the confined tree and holds
+  no typed content. The crash-reporting-database and GPU-shader-cache
+  candidates named by the original review remain untested — no
+  Crashpad-named artifact appeared outside confinement in the runs
+  performed, which narrows but does not close that question. See "Weakest
+  point" below.
+- **Whether the single-instance-lock artifact can be redirected or must
+  instead be accounted for explicitly in the residency boundary.** Newly
+  named by Part 1's finding; not investigated further here (out of scope
+  per this repair's own charter — no vehicle change was made).
 - **The entry session's own preflight/attestation shape**, if it differs
   from a viewing session's — explicitly left to the packaging milestone.
 
@@ -280,20 +433,53 @@ out of scope here per the charter and belong to the next milestone.
 
 The confinement argument is strong only to the extent that
 `--user-data-dir` and `--disk-cache-dir` actually capture *everything*
-Chrome writes for a given profile. This ADR's source reading and the Track 1
-probe both operated entirely inside the paths those flags name (plus the
-synthetic workspace root as a whole, for the probe). Neither checked whether
-this or another Chrome build writes anything to a fixed, per-user-account
-location that is not redirected by any flag `live_viewing.py` currently
-passes. If such a location exists, disposal does not touch it (it is never
-inside the session root `close()` deletes) and confinement does not apply to
-it either (it was never checked against the residency root, because nothing
-in `_confined_destinations()` considers it). That would be a genuine gap in
-the confinement claim, not merely an untested channel — and this ADR cannot
-rule it out from what was read. It reads as a plausible, testable next
-question rather than a known hole, but it is the one place this ADR's
-"confinement is total because it's checked before any write" claim could be
-wrong.
+Chrome writes for a given profile. This ADR's source reading and the Track
+1/1b probe operated entirely inside the paths those flags name (plus the
+synthetic workspace root as a whole, for the probe); this ADR's own repair
+(Part 1) then looked outside that tree and **found a real instance of this
+gap**: the single-instance-lock socket and authentication token described
+above, verified by `lsof` against the vehicle's own launched process, not
+merely inferred. That confirms the shape of this weakness is real, not
+hypothetical — disposal does not touch that artifact (it is never inside the
+session root `close()` deletes) and confinement does not apply to it either
+(it was never checked against the residency root, because nothing in
+`_confined_destinations()` considers it) — exactly as this section
+originally speculated, now with a named, verified example rather than a
+guess.
+
+**What remains open after Part 1:** the single-instance-lock channel is
+closed as a question (found, characterized, holds no typed content); the
+crash-reporting-database and GPU-shader-cache channels named by the Track 2
+review are not. No Crashpad-named artifact appeared outside confinement in
+either headed run performed for Part 1, which narrows this question — it is
+evidence of an absence on this machine, in these runs, not a mechanism that
+rules a fixed crash-reporter-database location out on a different Chrome
+build, OS version, or account configuration. This ADR still cannot rule
+that specific gap out from what has been read or observed, and the
+"confinement is total because it's checked before any write" claim remains
+true only of the four named destinations, never of "everything Chrome
+writes," which this ADR no longer asserts.
+
+For the GPU-shader-cache half of this question specifically: `launch()`
+already passes `--disable-gpu`, which is directly relevant — a disabled GPU
+process very plausibly writes little or nothing to a shader cache regardless
+of where that cache would otherwise live. This is named here, not silently
+assumed: it is a real, partial, but unquantified mitigant, not a closed
+question — this ADR's own reading of the source cannot settle whether
+`--disable-gpu` fully suppresses shader-cache writes on every Chrome build
+(some builds still launch a software-fallback GPU process for compositing
+or WebGL), and neither Part 1 nor any earlier probe run specifically tested
+for a GPU shader cache outside the confined tree.
+
+**Recorded as owed investigation, not designed here:** whichever milestone
+next touches `packages/derivation/live_viewing.py` or its successor entry
+vehicle should determine (a) whether Chrome's crash-reporting subsystem can
+be disabled or redirected outright — a `--disable-breakpad`-class flag is
+the obvious candidate, and doing so would make part of this ADR's "yes"
+true by construction rather than by continued observation, which is exactly
+why this repair's own charter kept it out of scope here — and (b) whether
+the single-instance-lock location can be redirected or must instead be
+named as a permanent, accounted-for exception to the residency boundary.
 
 ## Alternatives considered
 
@@ -313,15 +499,28 @@ wrong.
   the confinement and disposal properties, read from the actual vehicle,
   are strong enough to support a conditioned "yes" — the condition being the
   spellcheck flag this ADR names as owed, not built.
+- **Disable Chrome's crash-reporting subsystem now (a `--disable-breakpad`-
+  class flag), to make "no typed content escapes" true regardless of what
+  Part 1's search did or did not find.** Rejected for this repair: it would
+  be a change to `packages/derivation/live_viewing.py`, out of scope for an
+  ADR repair per its own charter, and would make the claim true by
+  construction rather than by continued observation — the same reasoning
+  that already rejects resting this decision on the probe's untested
+  preconditions in Context. Recorded instead as owed investigation in
+  "Weakest point."
 
 ## Links
 
 - Milestone: `docs/phases/legible-entry/milestones/entry-boundary.md`
 - Charter: `docs/reviews/charter-2026-07-28-entry-boundary-track2.md`
-- Probe findings (both vehicles):
+- Repair charter: `docs/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`
+- Probe findings (both vehicles, plus Track 2 repair's widened,
+  outside-confinement search):
   `docs/phases/legible-entry/milestones/entry-boundary-retention-findings.md`
 - Track 1 review (headless-only scope, corrected by Track 1b):
   `docs/reviews/2026-07-28-entry-boundary-track1-review.md`
+- Track 2 review (NOT READY, the review this repair addresses):
+  `docs/reviews/2026-07-28-entry-boundary-track2-review.md`
 - Vehicle: `packages/derivation/live_viewing.py`
 - Residency: `docs/adr/0031-real-data-residency-boundary.md`
 - Contribution: `docs/adr/0032-contribution-boundary.md`
@@ -333,6 +532,13 @@ wrong.
 No real workspace, residency locator, browser profile, or owner attestation
 was consulted for this decision. This ADR's evidence is: the committed
 source of `packages/derivation/live_viewing.py` as read directly for this
-ADR, and the Track 1/1b findings note and its review, cited only for the
+ADR; the Track 1/1b findings note and its review, cited only for the
 confirmatory role described in Context — never as the basis for the
-retention claim itself.
+retention claim itself; and, for the "already total" claim specifically,
+Track 2's repair's own widened filesystem search (Part 1), which is used as
+direct, load-bearing evidence — not merely confirmatory — for the narrower
+claim this ADR now makes about that channel, verified against the actual OS
+process (`lsof`) and not accepted from timing alone. That search remains
+one observation, on one machine, on one resolved Chrome build, on real
+per-user macOS locations (never a real workspace, residency locator, or real
+typed data) — see the findings note's own evidence-ceiling statement.

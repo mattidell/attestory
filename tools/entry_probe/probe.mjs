@@ -27,9 +27,10 @@
 //   node tools/entry_probe/probe.mjs --mode=headed
 
 import { randomBytes } from "node:crypto";
-import { execFileSync, spawn } from "node:child_process";
+import { execFileSync, spawn, spawnSync } from "node:child_process";
 import { mkdtemp, readdir, rm, stat } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { existsSync, statSync, writeFileSync, unlinkSync } from "node:fs";
+import { tmpdir, homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { startLoopbackServer } from "../presentation_harness/lib/server.mjs";
@@ -261,6 +262,140 @@ function grepDirForTokens(dir) {
   return hits;
 }
 
+// --- Track 2 repair: widened, off-vehicle filesystem search -----------------
+//
+// Everything above searches only inside the directory the vehicle itself
+// manages (--user-data-dir / --disk-cache-dir / --download-default-directory
+// and their shared session root). That is exactly the region the Track 2
+// review found undetermined: it does not tell us whether the resolved Chrome
+// binary writes anything to a fixed, per-user-account location no flag
+// redirects. The functions below search real per-user macOS locations
+// outside the confined session directory, using a before/after marker file
+// rather than a full directory enumeration (these directories can be huge and
+// carry pre-existing, unrelated content this run must not read).
+//
+// Method: touch a marker file immediately before launching the browser, then
+// after the crash/close, ask the filesystem which entries under each
+// candidate root have a *creation* time (`stat -f %B`, birthtime — not mtime)
+// at or after the marker's. Birthtime, not mtime, is used deliberately: this
+// machine's own, real Chrome install may be running for unrelated reasons
+// (confirmed true for this run — see the findings note), and a running real
+// browser continuously *modifies* pre-existing files in its own profile
+// (History, Preferences, LevelDB logs) without *creating* new ones most of
+// the time. Filtering on birthtime keeps the signal to "something new
+// appeared here during this exact window" rather than "something in a
+// directory a real, unrelated process also uses got touched."
+//
+// Any file the scan turns up is grepped for the same synthetic tokens the
+// rest of this probe uses (`-rla`, the corrected flag — see the positive
+// control above). A token match here is decisive regardless of anything
+// else. Absence of a token match is not: it means "nothing new held a typed
+// value," not "nothing new appeared" — both are reported.
+
+function wideSearchRoots() {
+  const home = homedir();
+  return [
+    { category: "os-crash-report-directory", path: join(home, "Library", "Logs", "DiagnosticReports") },
+    { category: "os-crash-report-directory", path: join(home, "Library", "Application Support", "CrashReporter") },
+    { category: "per-user-caches-directory", path: join(home, "Library", "Caches") },
+    { category: "temp-directory", path: tmpdir() },
+    { category: "temp-directory", path: "/tmp" },
+    { category: "chrome-or-chromium-application-support", path: join(home, "Library", "Application Support", "Google") },
+    { category: "chrome-or-chromium-application-support", path: join(home, "Library", "Application Support", "Chromium") },
+  ];
+}
+
+/** macOS creation time (birthtime) of `p` in epoch ms, or null if unavailable. */
+function statBirthEpochMs(p) {
+  try {
+    const out = execFileSync("stat", ["-f", "%B", p], { encoding: "utf8" }).trim();
+    const seconds = Number(out);
+    return Number.isFinite(seconds) ? seconds * 1000 : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Scan every wideSearchRoots() location for entries created at or after
+ * `markerPath`'s own creation time, excluding anything under `excludePaths`
+ * (this run's own confined session directory and temp dirs, already covered
+ * by the rest of this probe). Returns a report keyed by location category,
+ * naming only the category and a relative, non-identifying description of
+ * what was found — never a real absolute path under the user's home
+ * directory.
+ */
+function wideFilesystemScan(markerPath, excludePaths) {
+  const markerBirth = statBirthEpochMs(markerPath) ?? Date.now();
+  const results = [];
+  for (const root of wideSearchRoots()) {
+    if (!existsSync(root.path)) {
+      results.push({ category: root.category, rootExisted: false, newEntries: [] });
+      continue;
+    }
+    const findArgs = [root.path, "-maxdepth", "5", "-newer", markerPath];
+    for (const ex of excludePaths.filter(Boolean)) {
+      findArgs.push("-not", "-path", `${ex}*`);
+    }
+    // spawnSync, not execFileSync: several of these roots contain
+    // OS-protected subdirectories (Caches/com.apple.*, TemporaryItems under
+    // sandboxed daemons' TMPDIR entries) this process has no permission to
+    // stat. `find` prints "Operation not permitted" for those to its own
+    // stderr and continues, but still exits non-zero overall — execFileSync
+    // throws on a non-zero exit and discards the good matches it already
+    // printed to stdout before that. spawnSync never throws; its stdout is
+    // used regardless of exit status, and stderr is discarded (not this
+    // run's concern — permission noise about unrelated OS daemon
+    // directories, not a probe finding).
+    const findResult = spawnSync("find", findArgs, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+    const candidates = (findResult.stdout || "").split("\n").filter(Boolean);
+    const newEntries = [];
+    for (const p of candidates) {
+      if (p === markerPath) continue;
+      const birth = statBirthEpochMs(p);
+      // Require birthtime >= marker's own birthtime (with 1s slack for
+      // filesystem timestamp granularity): this is what separates "created
+      // during our window" from "pre-existing, merely modified by something
+      // else while we were running" — the latter is not a finding.
+      if (birth === null || birth < markerBirth - 1000) continue;
+      let isFile = false;
+      try {
+        isFile = statSync(p).isFile();
+      } catch {
+        isFile = false;
+      }
+      let tokenHit = null;
+      if (isFile) {
+        tokenHit = false;
+        for (const token of Object.values(TOKENS)) {
+          try {
+            // Same corrected flag as grepDirForTokens above: -rla, never -I.
+            execFileSync("grep", ["-la", token, p], { encoding: "utf8" });
+            tokenHit = true;
+            break;
+          } catch (error) {
+            if (error.status !== 1) {
+              tokenHit = null;
+              break;
+            }
+          }
+        }
+      }
+      newEntries.push({
+        // Path relative to the category root only, never the real absolute
+        // path under the user's home directory — the category plus this
+        // relative tail is enough to know what appeared without naming the
+        // residency.
+        relativeToRoot: p.slice(root.path.length).replace(/^\//, "") || "(root itself)",
+        isFile,
+        tokenHit,
+      });
+    }
+    results.push({ category: root.category, rootExisted: true, newEntryCount: newEntries.length, newEntries });
+  }
+  return results;
+}
+
 async function runOneSession({ label, killSignal }) {
   log(`\n=== headless session: ${label} ===`);
   const chromeHandle = await launchChrome(null, {});
@@ -447,9 +582,22 @@ async function runOneSession({ label, killSignal }) {
  * before deletion, then the whole synthetic workspace is deleted by this
  * probe itself — not by calling back into live_viewing.py.
  */
-async function runHeadedSession({ label, killSignal }) {
+async function runHeadedSession({ label, killSignal, wideSearch }) {
   log(`\n=== headed session: ${label} ===`);
   const workspaceDir = await mkdtemp(join(tmpdir(), "entry-probe-headed-workspace-"));
+
+  // Track 2 repair: marker file for the widened, off-vehicle filesystem
+  // search (see wideFilesystemScan above). Created before launch, deleted
+  // after the scan runs. A short sleep guards against same-second mtime/
+  // birthtime granularity making a genuinely-new file indistinguishable from
+  // the marker itself.
+  let wideSearchMarker = null;
+  if (wideSearch) {
+    wideSearchMarker = join(tmpdir(), `entry-probe-wide-marker-${randomBytes(4).toString("hex")}`);
+    writeFileSync(wideSearchMarker, "entry-probe wide-search marker\n");
+    await sleep(1100);
+  }
+
   const { launcherProcess, websocketUrl } = await launchHeadedVehicle(workspaceDir);
 
   const { pid, profileDir, cacheDir, downloadsDir } = findChromeProcess(workspaceDir);
@@ -629,6 +777,21 @@ async function runHeadedSession({ label, killSignal }) {
   }
   launcherProcess.kill("SIGTERM");
 
+  // Track 2 repair: run the widened search before deleting the workspace (it
+  // does not need the workspace to still exist, but doing it before deletion
+  // keeps the ordering "capture everything, then clean up" consistent with
+  // the rest of this function), excluding this run's own confined directory
+  // and this probe's own temp-dir droppings from the result.
+  let wideSearchResults = null;
+  if (wideSearch && wideSearchMarker) {
+    wideSearchResults = wideFilesystemScan(wideSearchMarker, [workspaceDir, wideSearchMarker]);
+    try {
+      unlinkSync(wideSearchMarker);
+    } catch {
+      /* already gone */
+    }
+  }
+
   await rm(workspaceDir, { recursive: true, force: true });
 
   return {
@@ -645,6 +808,7 @@ async function runHeadedSession({ label, killSignal }) {
     tokenHits: hits,
     nonLoopbackRequests,
     undoProbe: { valueAfterClear, valueAfterUndo, postNavigationUndoValue: postNavigationValue.result?.value },
+    wideSearchResults,
   };
 }
 
@@ -656,6 +820,12 @@ async function main() {
   if (!["headless", "headed", "both"].includes(mode)) {
     throw new Error(`unknown --mode=${JSON.stringify(mode)}; expected headless, headed, or both`);
   }
+  // Track 2 repair: --wide-search extends the headed vehicle's runs with the
+  // widened, off-vehicle filesystem search (see wideFilesystemScan above).
+  // Headless-only runs never use this — the headed vehicle is the one a
+  // person actually types into, and is what Part 1 of the repair charter
+  // asks about.
+  const wideSearch = process.argv.slice(2).includes("--wide-search");
 
   log("tokens", TOKENS);
   log("mode", mode);
@@ -670,8 +840,12 @@ async function main() {
       results.push(await runOneSession({ label: "headless: unclean (SIGKILL, simulated crash)", killSignal: "SIGKILL" }));
     }
     if (mode === "headed" || mode === "both") {
-      results.push(await runHeadedSession({ label: "headed: clean-ish (SIGTERM by probe, not close())", killSignal: "SIGTERM" }));
-      results.push(await runHeadedSession({ label: "headed: unclean (SIGKILL, simulated crash)", killSignal: "SIGKILL" }));
+      results.push(
+        await runHeadedSession({ label: "headed: clean-ish (SIGTERM by probe, not close())", killSignal: "SIGTERM", wideSearch }),
+      );
+      results.push(
+        await runHeadedSession({ label: "headed: unclean (SIGKILL, simulated crash)", killSignal: "SIGKILL", wideSearch }),
+      );
     }
   } finally {
     await server.close();
@@ -684,6 +858,14 @@ async function main() {
       log(JSON.stringify(r.nonLoopbackRequests, null, 2));
       process.stdout.write(`${JSON.stringify({ stopCondition: "network-egress-of-typed-content", mode, results }, null, 2)}\n`);
       process.exitCode = 3;
+      return;
+    }
+    const wideTokenHit = (r.wideSearchResults || []).some((cat) => cat.newEntries.some((e) => e.tokenHit === true));
+    if (wideTokenHit) {
+      log(`\n!!! STOP CONDITION: typed token found outside the confined session directory in session "${r.label}" !!!`);
+      log(JSON.stringify(r.wideSearchResults, null, 2));
+      process.stdout.write(`${JSON.stringify({ stopCondition: "typed-content-outside-confinement", mode, results }, null, 2)}\n`);
+      process.exitCode = 4;
       return;
     }
   }

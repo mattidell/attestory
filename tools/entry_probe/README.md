@@ -67,7 +67,34 @@ the Node-side probe must (and does) signal the Chrome pid directly.
 node tools/entry_probe/probe.mjs                  # both vehicles (default)
 node tools/entry_probe/probe.mjs --mode=headless  # Track 1's vehicle only
 node tools/entry_probe/probe.mjs --mode=headed    # Track 1b's vehicle only
+node tools/entry_probe/probe.mjs --mode=headed --wide-search  # Track 2 repair, Part 1
 ```
+
+`--wide-search` (Track 2 repair, Part 1) extends the headed vehicle's two runs
+with a search of real per-user macOS locations *outside* the confined session
+directory — the region every earlier run in this milestone left unchecked.
+Method: touch a marker file immediately before launch, then after the
+crash/close, ask each candidate location which entries have a **creation**
+time (`stat -f %B`, not mtime) at or after the marker's, and grep any such
+file for the same synthetic tokens. Creation time, not modification time, is
+used deliberately: this machine's own real Chrome install may be running for
+unrelated reasons (it was, the day this was run — see the findings note), and
+a running real browser continuously modifies pre-existing files in its own
+profile without creating new ones most of the time; filtering on birthtime
+keeps the signal to "something new appeared here in this exact window," not
+"something in a directory a real, unrelated process also uses got touched."
+Candidate locations (see `wideSearchRoots()` in `probe.mjs`): the macOS
+per-user crash-report directories, the per-user caches directory, `$TMPDIR`
+and `/tmp`, and the Chrome/Chromium per-user application-support directories.
+Only meaningful for the headed vehicle (the one a person actually types
+into); has no effect in `--mode=headless`.
+
+**Operational note the ordinary cleanup section above does not cover:** if
+this flag turns anything up outside `$TMPDIR`'s or another candidate
+location's confined subtree, that artifact is *not* something this probe (or
+`live_viewing.py`) created inside a directory either one manages, so neither
+one's cleanup path removes it. Check by hand after a `--wide-search` run
+(nothing is deleted automatically for you outside the confined tree).
 
 Requires a local Chrome/Chromium install discoverable the same way each
 vehicle finds one (or `PRESENTATION_HARNESS_CHROME` set, for the headless
