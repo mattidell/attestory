@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Legible Entry",
   "topic": "entry-boundary",
-  "milestone_state": "planning",
-  "status": "Plan drafted on branch `plan/entry-boundary`, PR not yet open. Nothing chartered. This is the first milestone of the Legible Entry phase.",
+  "milestone_state": "track-1",
+  "status": "Plan merged to `main-ui` in PR #101 (8d41cc2). Track 1 chartered 2026-07-28 — the retention probe, charter `docs/reviews/charter-2026-07-28-entry-boundary-track1.md`, building on branch `milestone/entry-boundary`. Track 2 (ADR-0048) not yet chartered. Per the merge protocol as amended in PR #101, both tracks ride as commits on this one branch and reach `main-ui` in a single closing PR.",
   "scope": [
     "find out what a browser actually keeps when a person types into a form, by running a throwaway probe against a synthetic workspace",
     "decide whether a browser form is an acceptable place for a person to enter real tax facts",
@@ -47,7 +47,8 @@
 -->
 # Milestone: The Entry Boundary
 
-Status: **planning.** Drafted on `plan/entry-boundary`. Nothing chartered.
+Status: **Track 1 in flight.** Plan merged in PR #101. Track 1 (the retention
+probe) chartered 2026-07-28: `docs/reviews/charter-2026-07-28-entry-boundary-track1.md`.
 
 ## What this is for
 
