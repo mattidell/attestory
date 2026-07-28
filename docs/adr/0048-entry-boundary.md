@@ -110,14 +110,23 @@ chance to run, including most launch-time failure paths (`_abandon_launch()`
 is called from every named exception branch of `launch()`, itself
 best-effort and documented as such in the module's own comment).
 
-**This is real, and it is the better foundation than the probe's
-per-channel negatives, exactly as the charter argues.** Whatever a browser
-retains about typed text — proven or not, tested or not — dies with the
-profile directory on a normal close, regardless of which retention channel
-did the retaining. It is a single mechanism covering every channel at once,
-including channels this project has never enumerated and Chrome might add
-tomorrow. That is a materially stronger property than "we checked five
-channels and none fired."
+**This is real, and it is a better foundation than the probe's per-channel
+negatives.** Whatever a browser retains about typed text — proven or not,
+tested or not — dies with the profile directory on a normal close, regardless
+of which retention channel did the retaining. Within that directory it is a
+single mechanism covering every channel at once, including channels this
+project has never enumerated and Chrome might add tomorrow. That is a
+materially stronger property than "we checked five channels and none fired."
+
+**Its reach is the same as confinement's, and no wider.** Disposal removes the
+confined session root. It does not touch anything the browser writes outside
+that root, and Part 1 established that such a thing exists: the single-instance
+lock directory is created outside the session tree, is never passed to
+`_remove_session()`, and survives both a clean close and a crash. So disposal
+is total over what it disposes of, not over everything Chrome writes. Do not
+read the paragraph above as a claim about unenumerated channels in general — it
+holds for unenumerated channels *inside the profile directory*, which is a
+narrower and weaker statement than it first appears.
 
 **Where it fails — verified, not asserted.** `close()` is Python code. A
 `SIGKILL` to the controlling process, a segfault, or a power loss means no
@@ -426,6 +435,20 @@ out of scope here per the charter and belong to the next milestone.
   instead be accounted for explicitly in the residency boundary.** Newly
   named by Part 1's finding; not investigated further here (out of scope
   per this repair's own charter — no vehicle change was made).
+- **Whether anything written outside confinement encodes the residency
+  locator.** Everything searched so far looked for *typed tokens*. The
+  locator is protected in its own right, independently of any fact typed
+  into a form, and no run has searched for it. The single-instance-lock
+  directory is a named place to start, since it is created outside the
+  session tree and its name is derived by the browser rather than by the
+  vehicle. This is a gap in what has been checked, not a finding that
+  anything leaks.
+- **That the single-instance-lock directory is a second orphan surface, and
+  it is outside the residency.** The orphan-sweep question above concerns
+  `.live-view/session-<uuid>` directories, which at least survive *inside*
+  the boundary. This one does not. Nothing sweeps it, and a repeated crash
+  accumulates instances. Recorded here because Part 1 observed it in the
+  findings note and the reasoning above does not otherwise reach it.
 - **The entry session's own preflight/attestation shape**, if it differs
   from a viewing session's — explicitly left to the packaging milestone.
 
@@ -542,3 +565,13 @@ process (`lsof`) and not accepted from timing alone. That search remains
 one observation, on one machine, on one resolved Chrome build, on real
 per-user macOS locations (never a real workspace, residency locator, or real
 typed data) — see the findings note's own evidence-ceiling statement.
+
+**One coverage limit in that search, stated so it is not misread.** The
+widened scan greps only regular files. The two artifacts it found outside
+confinement are a socket and a symlink, so neither was covered by the
+automated token scan. The claim that they hold no typed content rests on two
+other things instead: the symlink target was read by hand across four
+instances, and a Unix domain socket has no persisted bytes to hold anything
+in the first place — a structural property, not an observation. Both are
+adequate. But "the widened scan found no token" must not be read as covering
+these two artifacts, because it did not examine them.
