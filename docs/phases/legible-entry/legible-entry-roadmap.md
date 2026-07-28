@@ -3,7 +3,8 @@
 Audience: Product (roadmap); Shared (status)
 
 Status: **accepted 2026-07-28** (PR #100). Milestone 1, The Entry Boundary, is
-closed. Milestone 2, Packaging the Surface, is unplanned.
+closed. Milestone 2, Packaging the Surface, has a proposed plan awaiting owner
+approval.
 
 ## Thesis
 
@@ -103,8 +104,11 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    confinement is not total. Plan:
    `docs/phases/legible-entry/milestones/entry-boundary.md`; retrospective:
    `docs/milestone-retrospectives/2026-07-28-entry-boundary.md`.
-2. **Packaging the Surface.** Decide and implement how a UI reaches the live
-   workspace across the Developer/Supply boundary.
+2. **Packaging the Surface.** Get UI code across the Developer/Supply
+   boundary into the live workspace: ship one trivial page as verified
+   package members with no build step, then write down the rule.
+   **Proposed 2026-07-28**; plan:
+   `docs/phases/legible-entry/milestones/packaging-the-surface.md`.
 3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
    synthetic workspace, to L2, with no real data and no maturity claim. This
    milestone also works out the usability evaluation criteria for entry, and
@@ -184,7 +188,8 @@ Carried over from Real Return's phase close:
 
 Milestone 1 (The Entry Boundary) closed 2026-07-28, ADR-0048 accepted. No
 maturity cell has moved — that milestone was a decision, and the instrument
-measures capability. Milestone 2 (Packaging the Surface) is unplanned.
+measures capability. Milestone 2 (Packaging the Surface) has a proposed plan
+awaiting owner approval.
 
 The phase-boundary legibility audit is still due. It is owner-spawned; the
 foreman must not launch it.
