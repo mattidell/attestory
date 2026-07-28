@@ -369,9 +369,30 @@ Foreman records: matrix footnote 14 and the single cell move; the retrospective
 at `docs/milestone-retrospectives/2026-07-27-presentation-real-session-attestation.md`;
 `docs/phase-state.md`.
 
-### Post-close repair: one platform-dependent test assertion
+### Post-close repairs: two defects CI caught and the charter's checks could not
 
-CI `verify` failed on PR #96 with **1 failed, 669 passed** —
+PR #96 failed `verify` twice, on two independent defects both introduced by
+Track 1's second repair (`36317be`) and both invisible to everything this
+milestone actually ran.
+
+**The root cause is the charter's verification block, not either defect.** Every
+Track 1 charter listed the same floor: three `unittest` modules, two harness
+manifests, `envelope_scan.py`, and `git diff --check`. CI's `verify` runs
+**`pytest`, `mypy`, `governance_lint.py`, and `envelope_scan.py`**. The charter
+omitted `mypy` entirely, so a `strict = True` type error sat in merged-quality
+code through a build, two repairs, and three independent review passes — one of
+which verified the surrounding logic by running it — without anything looking
+for it. The second defect below could only ever have been caught by CI, but the
+first one was a `mypy` invocation away the whole time.
+
+**Correction for future charters: the verification block must be the CI
+sequence, or a stated subset with the omission justified.** A floor that is
+quietly narrower than the gate is a floor that reports green on work that is
+not.
+
+#### Defect 1 — a platform-dependent test assertion
+
+CI `verify` failed with **1 failed, 669 passed** —
 `test_the_socket_is_released_even_when_shutdown_raises`, added by Track 1's
 second repair (`36317be`) to close the socket-survival residual. It passed on
 macOS every time it was run, locally and by the reviewer, and failed on Linux.
@@ -400,6 +421,29 @@ the contract. Every prior exercise of this path — including the reviewer's, wh
 verified this repair by running it — ran on macOS, so the assumption was
 invisible until CI ran it somewhere else. Same shape as this milestone's main
 lesson at a smaller scale: the exercise covered what it drove.
+
+#### Defect 2 — a strict-mode type error, never once looked for
+
+With the test fixed, `verify` reached the `mypy` step for the first time and
+failed there: `live_session.py`, incompatible assignment of `None` to a
+variable inferred as `PresentationSessionError`. Fixing that surfaced a second,
+deeper one behind it — `_browser` receiving `LiveViewingSession | None` where a
+session is required, because the `viewing = None` hoist (itself a correct fix,
+closing the window where a browser is live and owned by nobody) left the value
+un-narrowed at the constructor.
+
+Repaired by the **foreman** by moving the success path into the `try`'s `else`
+clause, so `viewing` is narrowed on the one path that uses it, and letting
+`raise classified` fall to the end. This **preserves the property the second
+repair existed to establish** — the classified error is still raised after the
+handler has exited, with `sys.exc_info()` clear, so `__context__` cannot be
+re-attached and no `OSError.filename` can carry the locator out. That is the
+locator-confinement claim the reviewer verified independently, and it is
+unchanged; only the control flow around it moved.
+
+Full local reproduction of the CI sequence now passes: `pytest` 670 passed /
+2451 subtests, `mypy` clean over 127 files, `governance_lint.py` conformant,
+`envelope_scan.py` clean over `main..HEAD`.
 
 ### Exit criteria
 

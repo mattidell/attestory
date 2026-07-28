@@ -118,21 +118,38 @@ guarantees — was closed by the **foreman directly** rather than by a third bui
 cycle, and recorded in the review record precisely because no independent reader
 had seen that edit.
 
-## A small echo of the same lesson, found by CI
+## The charter's verification floor was narrower than the gate
 
-The closing PR failed `verify` on one test of the 670 —
-`test_the_socket_is_released_even_when_shutdown_raises`, which asserted
-`URLError` where Linux raises `ConnectionResetError`. It had passed on macOS
-every time anyone ran it, including the reviewer who verified that repair by
-running it.
+The closing PR failed CI twice, on two independent defects, both introduced by
+the same repair commit and both invisible to everything this milestone ran.
 
-The test encoded a platform's errno as if it were the contract. It is a
-one-line fix (widen to `OSError`, which `URLError` subclasses; the property
-under test is unchanged and still fails if a page comes back). What makes it
-worth a paragraph is that it is **the milestone's main lesson in miniature**:
-every exercise of this path ran on one operating system, so the assumption was
-invisible until something ran it somewhere else. The exercise covered what it
-drove. Detail in the milestone plan's execution record.
+The first was a test asserting `URLError` where Linux raises
+`ConnectionResetError` — a platform's errno encoded as if it were the contract.
+Every exercise of that path had run on macOS, including the reviewer's, who
+verified the repair by running it. That one is **the milestone's main lesson in
+miniature**: the exercise covered what it drove.
+
+The second is the more useful finding. With the test fixed, CI reached the
+`mypy` step for the first time and failed there — a `strict = True` type error
+that had sat in the code through a build, two repairs, and three independent
+review passes.
+
+**It was never looked for.** Every Track 1 charter carried the same verification
+block: three `unittest` modules, two harness manifests, `envelope_scan.py`,
+`git diff --check`. CI runs `pytest`, `mypy`, `governance_lint.py`,
+`envelope_scan.py`. The charter simply omitted the type check, so no builder and
+no reviewer ever ran it, and every one of them reported green in good faith.
+
+That is a foreman defect, not a builder or reviewer one, and it is the cheapest
+correction available from this milestone: **a charter's verification block
+should be the CI sequence, or a stated subset with the omission justified.** A
+floor quietly narrower than the gate reports green on work that is not.
+
+The repair itself preserved what mattered: the classified error is still raised
+after its handler exits with `sys.exc_info()` clear, which is the
+locator-confinement property the second repair existed to establish and the
+reviewer verified independently. Only the control flow around it moved. Detail
+in the milestone plan's execution record.
 
 ## Honest gaps at close
 

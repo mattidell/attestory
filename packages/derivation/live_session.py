@@ -370,10 +370,14 @@ def open_presentation_session(
         _release_quietly(viewing, server)
         raise
     else:
-        classified = None
-    if classified is not None:
-        raise classified
-    return LivePresentationSession(_outcome=outcome, url=url, _browser=viewing, _server=server)
+        # The success path returns from here rather than after the block, so
+        # ``viewing`` is known to be a session on the one path that uses it.
+        return LivePresentationSession(
+            _outcome=outcome, url=url, _browser=viewing, _server=server
+        )
+    # Reached only from the ``except Exception`` handler above, and reached
+    # only after it has exited -- which is the whole point of deferring it.
+    raise classified
 
 
 __all__ = [
