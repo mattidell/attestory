@@ -118,6 +118,22 @@ guarantees — was closed by the **foreman directly** rather than by a third bui
 cycle, and recorded in the review record precisely because no independent reader
 had seen that edit.
 
+## A small echo of the same lesson, found by CI
+
+The closing PR failed `verify` on one test of the 670 —
+`test_the_socket_is_released_even_when_shutdown_raises`, which asserted
+`URLError` where Linux raises `ConnectionResetError`. It had passed on macOS
+every time anyone ran it, including the reviewer who verified that repair by
+running it.
+
+The test encoded a platform's errno as if it were the contract. It is a
+one-line fix (widen to `OSError`, which `URLError` subclasses; the property
+under test is unchanged and still fails if a page comes back). What makes it
+worth a paragraph is that it is **the milestone's main lesson in miniature**:
+every exercise of this path ran on one operating system, so the assumption was
+invisible until something ran it somewhere else. The exercise covered what it
+drove. Detail in the milestone plan's execution record.
+
 ## Honest gaps at close
 
 - **The classified-refusal path has no human confirmation.** Track 2's

@@ -374,7 +374,16 @@ class SessionTests(unittest.TestCase):
                 with self.assertRaises(PresentationSessionError) as caught:
                     session.close()
             self.assertEqual(caught.exception.reason, "presentation-session-teardown-failed")
-            with self.assertRaises(URLError):
+            # OSError rather than URLError, unlike the orderly-teardown cases
+            # above. Here shutdown() was made to explode, so the serving thread
+            # is still running when server_close() closes the listening socket
+            # underneath it, and what a client sees is platform-dependent:
+            # ECONNREFUSED wrapped as URLError on macOS, ECONNRESET raised bare
+            # on Linux, because urlopen only wraps failures from the request
+            # phase and not from reading the response. URLError subclasses
+            # OSError, so this still asserts the thing that matters -- no page
+            # comes back -- across both.
+            with self.assertRaises(OSError):
                 urlopen(url, timeout=2)
 
     def test_teardown_failure_is_reported_as_a_classified_refusal(self) -> None:

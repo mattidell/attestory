@@ -369,6 +369,38 @@ Foreman records: matrix footnote 14 and the single cell move; the retrospective
 at `docs/milestone-retrospectives/2026-07-27-presentation-real-session-attestation.md`;
 `docs/phase-state.md`.
 
+### Post-close repair: one platform-dependent test assertion
+
+CI `verify` failed on PR #96 with **1 failed, 669 passed** —
+`test_the_socket_is_released_even_when_shutdown_raises`, added by Track 1's
+second repair (`36317be`) to close the socket-survival residual. It passed on
+macOS every time it was run, locally and by the reviewer, and failed on Linux.
+
+The assertion was `URLError`; Linux raised `ConnectionResetError`. The cause is
+specific to this test rather than to the four sibling assertions that pass:
+`shutdown()` is deliberately made to explode, so the serving thread is still
+running when `server_close()` closes the listening socket underneath it. What a
+client then sees is platform-dependent — ECONNREFUSED wrapped as `URLError` on
+macOS, ECONNRESET raised bare on Linux, because `urlopen` wraps failures from
+the request phase and not from reading the response.
+
+Repaired by the **foreman** by widening that one assertion to `OSError`, which
+`URLError` subclasses. The property under test is unchanged and still has teeth:
+if the socket were still serving, `urlopen` would return a page and no exception
+would be raised at all. The four orderly-teardown sites keep the stricter
+`URLError`, because their serving thread is stopped before the socket closes and
+their behaviour is not platform-dependent.
+
+Recorded here rather than silently, on the same discipline as Track 1's
+post-review runbook correction: it is a change to a reviewed artifact that no
+independent reader has seen. It changes no product code and no vocabulary rule.
+
+**The generalizable point:** the test encoded a platform's errno as if it were
+the contract. Every prior exercise of this path — including the reviewer's, who
+verified this repair by running it — ran on macOS, so the assumption was
+invisible until CI ran it somewhere else. Same shape as this milestone's main
+lesson at a smaller scale: the exercise covered what it drove.
+
 ### Exit criteria
 
 | # | Criterion | Met |
