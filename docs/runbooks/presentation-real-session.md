@@ -173,15 +173,21 @@ assembling several. `REPO` is a path to your own checkout, a public fact about
 your machine layout, not a residency locator, and is fine to fill in literally.
 
 **What this template demonstrates but does not itself guarantee.** Two
-properties matter here, and both live in `open_presentation_session` rather
-than in the text above, so they survive your retyping or adapting it:
+properties matter here. The second lives entirely in
+`open_presentation_session`, so it survives your retyping or adapting the text
+above. The first is split, and the split is the important part:
 
-- **Teardown happens on every exit path**, including Ctrl-C at the prompt.
-  `with` is the natural way to get it, and you should keep it — but even a
-  plain `close()`, and even an interrupt during startup before you ever see a
-  browser, releases the browser process, the session directory, and the
-  loopback socket. You do not need to have copied a `try`/`finally` correctly
-  for that to hold.
+- **Teardown on interrupt is split between the library and `with`, and it
+  matters which covers what.** `open_presentation_session` guarantees teardown
+  for anything that goes wrong *during startup* — an interrupt before you ever
+  see a browser releases the process, the session directory, and the loopback
+  socket, with no `try`/`finally` of yours required. It does **not** cover
+  Ctrl-C at the prompt *after* the session is open: at that point the session
+  is yours, and `with` is the only thing that closes it. Measured, a version of
+  this template with `with` removed leaves both a live browser and a surviving
+  session directory on that path. **Keep the `with`.** And whatever happens,
+  Step 5 tells you to confirm teardown by looking — that instruction holds
+  either way, which is why it is unconditional.
 - **Failures arrive pre-classified.** Every failure this call can produce —
   including ones originating in the browser vehicle, which raise
   `LiveViewingError`, a *sibling* class rather than a subclass — is converted
