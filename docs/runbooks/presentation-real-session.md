@@ -79,8 +79,14 @@ written into any file you did not already have.
 > table exactly as if the script took it as an argument.
 
 The derivation is a property of where the file sits, not of how you invoke it,
-so the safety depends on the invocation form and nothing in the code can check
-this for you. Getting a terminal positioned at `<L>` without typing the path is
+so the safety depends on the invocation form. The Step 3 template *does* detect
+the unsafe form and print a warning — `sys.argv[0]` is bare for the safe form
+and a full path for the hazardous one — but understand what that warning is and
+is not. By the time it prints, the locator is already in your shell history and
+has already been in the process table; the warning tells you it happened, it
+does not prevent it. And it lives in a template you may retype without it, so
+it is a convenience rather than a guarantee. The rule above is the real
+protection. Getting a terminal positioned at `<L>` without typing the path is
 easiest via your file manager's or editor's "open terminal here" on the
 directory you already have open from populating `acts/`. If you must `cd <L>`
 by hand, that single `cd` leaves the path in shell history; that residual is
@@ -107,6 +113,14 @@ sys.path.insert(0, str(REPO))
 from packages.derivation.live_session import open_presentation_session, PresentationSessionError
 from packages.derivation.live_viewing import PreflightProbes
 
+# Step 2's invocation rule, checked. This is a convenience, not a guarantee:
+# by the time it prints, the exposure has already happened and cannot be
+# undone. It exists so you *know* it happened during a session you cannot
+# repeat, not to protect you.
+if Path(sys.argv[0]).name != sys.argv[0]:
+    print("WARNING: invoked with a path argument. The residency locator is now")
+    print("in your shell history and was in the process table. See Step 2.")
+
 L = Path(__file__).resolve().parent
 acts = [json.loads(p.read_text("utf-8")) for p in sorted((L / "acts").glob("*.json"))]
 adoption = next(a for a in acts if a["kind"] == "package-adoption")
@@ -121,7 +135,9 @@ probes = PreflightProbes(
 )
 
 try:
-    session = open_presentation_session(
+    # `with` is the point, not a style choice: it tears the session down on
+    # every exit path out of the block, including Ctrl-C at the prompt below.
+    with open_presentation_session(
         WorkspaceCapability(L),
         probes=probes,
         repo_root=REPO,
@@ -138,17 +154,14 @@ try:
             REPO / "packages/content/tax/2025",
         ),
         output_name="view-session-1.presentation.json",
-    )
-except PresentationSessionError as refusal:
-    print("refused:", refusal.reason, refusal.reason_codes)
-    sys.exit(1)
-
-input("session open — press Enter here when you are done looking, to tear down: ")
-try:
-    session.close()
+    ):
+        input("session open — press Enter here when you are done looking, to tear down: ")
     print("torn down")
 except PresentationSessionError as failed:
-    print("teardown did not complete:", failed.reason, failed.reason_codes)
+    print("refused or teardown did not complete:", failed.reason, failed.reason_codes)
+    sys.exit(1)
+except KeyboardInterrupt:
+    print("interrupted; session torn down")
     sys.exit(1)
 ```
 
@@ -159,13 +172,28 @@ confined browser → teardown), copied here so you type one command instead of
 assembling several. `REPO` is a path to your own checkout, a public fact about
 your machine layout, not a residency locator, and is fine to fill in literally.
 
-**Why catching `PresentationSessionError` is sufficient, and why that is a
-property of the function rather than of this template.** Every failure this
-call can produce — including ones originating in the browser vehicle, which
-raise `LiveViewingError`, a *sibling* class rather than a subclass — is
-classified into a `PresentationSessionError` with a stable reason code before
-it reaches you. That wrapping lives in `open_presentation_session` itself, so
-it survives your retyping or adapting this template. If you adapt the script,
+**What this template demonstrates but does not itself guarantee.** Two
+properties matter here, and both live in `open_presentation_session` rather
+than in the text above, so they survive your retyping or adapting it:
+
+- **Teardown happens on every exit path**, including Ctrl-C at the prompt.
+  `with` is the natural way to get it, and you should keep it — but even a
+  plain `close()`, and even an interrupt during startup before you ever see a
+  browser, releases the browser process, the session directory, and the
+  loopback socket. You do not need to have copied a `try`/`finally` correctly
+  for that to hold.
+- **Failures arrive pre-classified.** Every failure this call can produce —
+  including ones originating in the browser vehicle, which raise
+  `LiveViewingError`, a *sibling* class rather than a subclass — is converted
+  to a `PresentationSessionError` with a stable reason code before it reaches
+  you.
+
+The `sys.argv[0]` warning near the top is the opposite case and is marked as
+such: it is a **template convenience with no structural backing**. If you retype
+the script without it, nothing warns you, and even when present it reports an
+exposure that has already happened rather than preventing one.
+
+If you adapt the script,
 you do not need to widen this catch, and you should not narrow it: an
 unclassified traceback on screen during the real session is exactly the text
 Part 2's vocabulary has no legal way for you to describe.
@@ -198,12 +226,18 @@ browser opens. The reason codes you may see, and what each means:
 
 None of these codes ever carries a path, a value, or a disposition — that is
 ADR-0047's locator-confinement decision, and it is why this table is safe to
-read in full before you sit down. The table is also **closed for this call
-path**: `open_presentation_session` classifies every failure it can produce
-into one of these codes, so you should never see a raw Python traceback from
-it. If you somehow do, that is itself a legal mechanical statement to report
-("the session failed without producing a reason code") and a defect in the
-classification, not something to describe your way around.
+read in full before you sit down.
+
+**The table covers every failure the preflight, derivation, and browser-launch
+steps can produce — but it is not proven exhaustive.** The render and
+server-start step classifies the errors it expects, so an unanticipated error
+type originating there could still reach you as a raw Python traceback. That is
+much narrower than the codes above and may well be unreachable in practice, but
+it has not been demonstrated impossible and this runbook will not claim it is.
+If you do see a traceback, **do not read it and do not quote it** — it is
+unclassified text that may carry anything. "The session failed without
+producing a reason code" is a true, legal, mechanical statement and is the
+whole of what you should report.
 
 ### Step 4 — obligations during the session
 
@@ -231,17 +265,42 @@ any of them.
 
 ### Step 5 — teardown and confirming it completed
 
-The template above tears down when you press Enter at its prompt:
-`session.close()` closes the browser and the loopback server and removes the
-session's temporary directory under `<L>`. If `close()` raises
+The template above tears down when you press Enter at its prompt: leaving the
+`with` block closes the browser and the loopback server and removes the
+session's temporary directory under `<L>`. If that raises
 `PresentationSessionError` with reason `presentation-session-teardown-failed`
 (or a more specific `..._teardown-failed` code from the table above), teardown
 did not complete cleanly — this is itself a legal, mechanical statement to make
 per Part 2 below (`"teardown did not complete"`), and it is enough to report on
-its own. If `close()` returns without raising, teardown completed: the browser
+its own. If the script prints `torn down`, teardown completed: the browser
 process is gone and the session's temporary directory under `<L>` no longer
 exists — check for the latter yourself if you want a second confirmation, since
 it is your own filesystem, not a repository-recorded fact.
+
+**If you interrupt the session with Ctrl-C**, at the prompt or at any earlier
+point, teardown still runs. Ctrl-C is deliberately *not* converted into a
+refusal code — it is your own act, not the session refusing, and calling it a
+refusal would put a false statement inside the failure vocabulary — but the
+browser, the session directory, and the loopback socket are released on that
+path exactly as on the normal one. Two consequences worth knowing before you
+sit down:
+
+- **This is the one case where "teardown confirmed by a clean exit" does not
+  apply.** The script exits via the interrupt, so you will not see `torn down`.
+  The absence of that line after Ctrl-C is expected and is not a teardown
+  failure.
+- **Confirm it yourself.** No headed browser window should remain, and `<L>`
+  should contain no `.live-view` directory. Both are your own filesystem and
+  your own screen; check them directly. If either survives, that is
+  `"teardown did not complete"` in the Part 2 vocabulary, reportable as exactly
+  that.
+
+Why this matters beyond tidiness: a surviving session directory holds the
+browser profile and the disk cache of the render you just looked at. The
+Step 1 preflight refuses on backup inclusion and content indexing **at session
+start**; nothing binds your machine afterwards. Residue that outlives the
+session outlives that guarantee, which is why teardown runs on every exit path
+rather than only the tidy one.
 
 ## Open question: how the locator reaches the script
 
@@ -300,8 +359,14 @@ locator-bearing material is supposed to live.
 
 - **The protection is invocation-dependent, not structural.** `python3
   <L>/view.py` produces exactly the argv and history exposure this whole
-  section exists to avoid, and the script cannot detect or refuse it — by the
-  time it runs, the derivation gives the same answer either way. This is why
+  section exists to avoid, and the derivation gives the same answer either way,
+  so nothing about the resulting session differs. The unsafe form *is*
+  detectable — `sys.argv[0]` distinguishes them, and the Step 3 template warns
+  on it — but detection is not protection here: the exposure is complete before
+  the first line of the script runs, so the warning is after-the-fact
+  notification, and it lives in a template rather than in the library, so it
+  vanishes if you retype the script without it. For a session you cannot
+  repeat, knowing it happened is still worth more than not knowing. This is why
   Step 2 states the "never invoke with a path argument" rule as a rule, in the
   place you will read before running anything. A safety property that holds
   only for one invocation form is only as good as the instruction that names
@@ -469,11 +534,30 @@ everything above.
   about the code rather than about the observation. Nothing in this runbook
   closes that.
 
+## Named residuals of this runbook
+
+Stated here so a future reader does not have to rediscover them:
+
+- **A teardown failure on a failing path is invisible.** When the session is
+  being torn down because something else already went wrong, teardown is
+  best-effort: it must not replace the original failure with one of its own, so
+  if it also fails you are not told. This is why Step 5 asks you to confirm
+  teardown by looking, on the interrupt path.
+- **A genuine programming error during teardown reports as
+  `presentation-session-teardown-failed`** rather than as itself. That is the
+  right trade for this artifact — "teardown did not complete" is the fact you
+  need — but it costs diagnosability.
+- **Invocation discipline and the `cd` history entry** (see the open question
+  above). Neither is closeable by anything this repository can write.
+
 ## Verification note
 
-This runbook's Step 3 guarantee — that every failure arrives pre-classified as
-a stable reason code — is a property of `open_presentation_session`, not of the
-template, and is covered by regression tests in
-`tests/test_presentation_live_session.py`. The commands that verify nothing
-else broke are listed in the milestone charter's Verification section and were
-run for this track and its repair.
+Two Step 3 guarantees — that every failure arrives pre-classified as a stable
+reason code, and that teardown runs on every exit path including an interrupt —
+are properties of `open_presentation_session` and the viewing vehicle, not of
+the template, and are covered by regression tests in
+`tests/test_presentation_live_session.py`. The `sys.argv[0]` warning is
+explicitly *not* in that category and is marked as a template convenience where
+it appears. The commands that verify nothing else broke are listed in the
+milestone charter's Verification section and were run for this track and each
+of its repairs.

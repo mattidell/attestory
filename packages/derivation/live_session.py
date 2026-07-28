@@ -123,8 +123,15 @@ class _PresentationServer:
         if self._closed:
             return
         self._closed = True
-        self._http.shutdown()
-        self._http.server_close()
+        # ``server_close`` releases the listening socket and must run even if
+        # ``shutdown`` raises. Otherwise a failure in the first call leaves a
+        # socket still serving the whole presentation model to any local
+        # process, and leaves it silently, since the caller's teardown is
+        # best-effort on a failing path.
+        try:
+            self._http.shutdown()
+        finally:
+            self._http.server_close()
         self._thread.join(timeout=3)
         if self._thread.is_alive():
             raise PresentationSessionError("presentation-server-teardown-failed")
@@ -167,7 +174,21 @@ def _render_page(repo_root: Path, capability: WorkspaceCapability, model_path: P
     ).encode("utf-8")
 
 
-def _close_quietly(server: "_PresentationServer") -> None:
+def _release_quietly(viewing: LiveViewingSession | None, server: "_PresentationServer") -> None:
+    """Release both owned resources on a failing exit path, best effort.
+
+    Both are attempted regardless of the other failing: a browser left
+    displaying the real return and a socket still serving the model are
+    independent problems, so neither may be skipped because the other raised.
+    This runs while another exception is already in flight and must not replace
+    it, so a teardown failure here is invisible — a named residual.
+    """
+
+    if viewing is not None:
+        try:
+            viewing.close()
+        except Exception:
+            pass
     try:
         server.close()
     except Exception:
@@ -195,13 +216,28 @@ def _classified_viewing_failure(failure: BaseException) -> PresentationSessionEr
     invent one from its message — an arbitrary exception's text is exactly the
     surface ADR-0047's locator-confinement decision keeps closed — so it
     collapses to one stable code and its detail is dropped.
+
+    "Dropped" is meant literally, which takes more than ``raise ... from None``.
+    That sets ``__suppress_context__``, which only stops the default traceback
+    printer; the original exception stays reachable on ``__context__``, and an
+    ``OSError`` there still carries the offending path in ``.filename``, which
+    any debugger or reporting tool walking the chain can surface. Locator
+    confinement is the whole point of this wrapping, so the chain is cleared
+    rather than merely hidden.
     """
 
     if isinstance(failure, PresentationSessionError):
         return failure
     if isinstance(failure, LiveViewingError):
-        return PresentationSessionError("presentation-viewing-refused", reason_codes=(failure.reason.value,))
-    return PresentationSessionError("presentation-viewing-failed")
+        classified = PresentationSessionError(
+            "presentation-viewing-refused", reason_codes=(failure.reason.value,)
+        )
+    else:
+        classified = PresentationSessionError("presentation-viewing-failed")
+    classified.__context__ = None
+    classified.__cause__ = None
+    classified.__suppress_context__ = True
+    return classified
 
 
 @dataclass(repr=False)
@@ -309,6 +345,7 @@ def open_presentation_session(
         raise PresentationSessionError("presentation-server-start-failed") from None
 
     url = server.url
+    viewing: LiveViewingSession | None = None
     try:
         viewing = (vehicle or LiveViewingVehicle()).launch(
             capability,
@@ -317,13 +354,25 @@ def open_presentation_session(
             initial_url=url,
         )
     except Exception as failure:
-        _close_quietly(server)
-        raise _classified_viewing_failure(failure) from None
+        _release_quietly(viewing, server)
+        # Deliberately raised *after* this handler exits, not inside it. A
+        # ``raise ... from None`` here would re-attach the original exception
+        # to ``__context__`` no matter what the wrapper cleared, and an
+        # ``OSError`` there still carries the offending path in ``.filename``.
+        classified = _classified_viewing_failure(failure)
     except BaseException:
-        # An interrupt is the owner's own act, not a session refusal. Release
-        # the socket, then let it travel as itself.
-        _close_quietly(server)
+        # An interrupt is the owner's own act, not a session refusal, so it
+        # travels as itself. It must still not leave a headed browser
+        # displaying the real return, a session directory holding that
+        # render's profile and disk cache, or a loopback socket still serving
+        # the model. ``launch`` tears down its own partial state; this covers
+        # the window between a successful launch and the return below.
+        _release_quietly(viewing, server)
         raise
+    else:
+        classified = None
+    if classified is not None:
+        raise classified
     return LivePresentationSession(_outcome=outcome, url=url, _browser=viewing, _server=server)
 
 

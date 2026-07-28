@@ -342,6 +342,22 @@ def _stop_process(process: Any) -> bool:
         return process.poll() is not None
 
 
+def _abandon_launch(process: Any, destinations: _ConfinedDestinations) -> None:
+    """Release a partially built session on every failing exit path.
+
+    Best-effort by design: this runs while another exception is already in
+    flight, so it must not replace that exception with one of its own. A
+    teardown failure here is invisible, which is a named residual.
+    """
+
+    if process is not None:
+        _stop_process(process)
+    try:
+        _remove_session(destinations)
+    except LiveViewingError:
+        pass
+
+
 class LiveViewingSession:
     """Owned headed-browser session; construction is internal to the vehicle."""
 
@@ -432,21 +448,21 @@ class LiveViewingVehicle:
                 raise LiveViewingError(ViewingReason.BROWSER_EXITED_DURING_LAUNCH)
             return LiveViewingSession(process, destinations, websocket_url)
         except LiveViewingError:
-            if process is not None:
-                _stop_process(process)
-            try:
-                _remove_session(destinations)
-            except LiveViewingError:
-                pass
+            _abandon_launch(process, destinations)
             raise
         except (OSError, subprocess.SubprocessError, TypeError):
-            if process is not None:
-                _stop_process(process)
-            try:
-                _remove_session(destinations)
-            except LiveViewingError:
-                pass
+            _abandon_launch(process, destinations)
             raise LiveViewingError(ViewingReason.BROWSER_LAUNCH_FAILED) from None
+        except BaseException:
+            # An interrupt mid-launch is the owner's own act, so it travels as
+            # itself rather than becoming a refusal code. It must not, however,
+            # leave a headed browser displaying the real return, or a session
+            # directory holding that render's profile and disk cache, behind in
+            # the residency. The preflight refuses on backup inclusion and
+            # content indexing at session *start*; residue that outlives the
+            # session outlives that guarantee, so every exit path tears down.
+            _abandon_launch(process, destinations)
+            raise
 
 
 def validate_loopback_navigation(url: str) -> None:
