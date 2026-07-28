@@ -12,7 +12,9 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from hmac import compare_digest
 from pathlib import Path
+from secrets import token_urlsafe
 from threading import Thread
 from typing import Any, Mapping, Sequence
 from urllib.parse import urlsplit
@@ -31,8 +33,17 @@ from packages.derivation.production_resolver import PublicationSurface
 from packages.derivation.loader import DerivationSchemas
 
 
-PAGE_RELATIVE_PATH = Path("tools/presentation_harness/examples/pages/citation-walk.v1.html")
-_FIXTURE_ASSIGNMENT = "const FIXTURE = Object.freeze(__FIXTURE_JSON__);"
+PAGE_RELATIVE_PATH = Path("packages/presentation/pages/citation-walk.v1.html")
+_MODEL_ASSIGNMENT = "const MODEL = Object.freeze(__MODEL_JSON__);"
+
+# The evaluation fixture page under tools/presentation_harness/examples/ states
+# in its title, its header, and its own comment that it carries synthetic
+# demo-* data and never a real workspace. Serving it during a live session
+# would put those claims on the screen the owner reads while forming the
+# attestation. A page that declares a provenance it cannot verify is not
+# servable here, so this refuses on the declaration rather than trusting
+# PAGE_RELATIVE_PATH to keep pointing somewhere honest.
+_PROVENANCE_CLAIM_MARKERS = ("synthetic demo-*", "synthetic <code>demo-*</code>")
 
 
 class PresentationSessionError(RuntimeError):
@@ -48,8 +59,9 @@ class _PresentationHTTPServer(ThreadingHTTPServer):
     allow_reuse_address = True
     daemon_threads = True
 
-    def __init__(self, page: bytes) -> None:
+    def __init__(self, page: bytes, route: str) -> None:
         self.page = page
+        self.route = route
         super().__init__(("127.0.0.1", 0), _PresentationRequestHandler)
 
 
@@ -67,7 +79,7 @@ class _PresentationRequestHandler(BaseHTTPRequestHandler):
         except ValueError:
             self.send_error(404)
             return
-        if target.path != "/" or target.query or target.fragment:
+        if target.query or target.fragment or not compare_digest(target.path, self.server.route):
             self.send_error(404)
             return
         self.send_response(200)
@@ -84,12 +96,27 @@ class _PresentationRequestHandler(BaseHTTPRequestHandler):
 
 
 class _PresentationServer:
+    """A loopback origin serving exactly one unguessable route.
+
+    The served body carries the whole presentation model inline, so the socket
+    is a live-data channel for as long as the session runs. Loopback binding
+    alone does not confine it: every local account can reach ``127.0.0.1``, and
+    an ephemeral port is not a secret — the whole range is scannable in well
+    under a second. The route below is a 256-bit token, which is what actually
+    keeps the model from being retrievable by an unrelated local process.
+
+    This does not confine a process that can read this program's memory,
+    arguments, or the workspace itself. Those remain the same-UID residuals
+    ADR-0044 and ADR-0047 already name.
+    """
+
     def __init__(self, page: bytes) -> None:
-        self._http = _PresentationHTTPServer(page)
+        route = f"/{token_urlsafe(32)}"
+        self._http = _PresentationHTTPServer(page, route)
         self._thread = Thread(target=self._http.serve_forever, name="presentation-loopback", daemon=True)
         self._thread.start()
         port = self._http.server_address[1]
-        self.origin = f"http://127.0.0.1:{port}"
+        self.url = f"http://127.0.0.1:{port}{route}"
         self._closed = False
 
     def close(self) -> None:
@@ -129,11 +156,13 @@ def _render_page(repo_root: Path, capability: WorkspaceCapability, model_path: P
     except (OSError, UnicodeError, ValueError, TypeError, KeyError, PresentationModelError):
         raise PresentationSessionError("presentation-model-unavailable") from None
 
-    if page.count(_FIXTURE_ASSIGNMENT) != 1:
+    if any(marker in page for marker in _PROVENANCE_CLAIM_MARKERS):
+        raise PresentationSessionError("presentation-page-declares-provenance")
+    if page.count(_MODEL_ASSIGNMENT) != 1:
         raise PresentationSessionError("presentation-page-unavailable")
     return page.replace(
-        _FIXTURE_ASSIGNMENT,
-        f"const FIXTURE = Object.freeze({payload});",
+        _MODEL_ASSIGNMENT,
+        f"const MODEL = Object.freeze({payload});",
         1,
     ).encode("utf-8")
 
@@ -238,7 +267,7 @@ def open_presentation_session(
     except (OSError, RuntimeError):
         raise PresentationSessionError("presentation-server-start-failed") from None
 
-    url = f"{server.origin}/"
+    url = server.url
     try:
         viewing = (vehicle or LiveViewingVehicle()).launch(
             capability,

@@ -455,3 +455,68 @@ unchanged.
 - Evaluation source: owner-supplied first-principles findings, 2026-07-27. No
   prototype was chartered; no real workspace, residency locator, machine
   configuration, or live run was consulted.
+
+## Amendment — 2026-07-27 (2) — the session's own loopback channel is Class B
+
+Status: **accepted** (Track 2 of Presentation — Live Session Path; owner
+ratification by merge of the milestone PR).
+
+The four-class classification above is described as **total**, and it was
+complete for the vehicle as ADR-0047 knew it. Building the session path added a
+channel the vehicle did not have: to show the owner their return, the session
+**opens a listening socket on loopback whose response body carries the entire
+presentation model inline**. That is live data on a socket, and it is neither
+egress (Class C), nor a workstation property (Class D), nor a human act
+(Class A). It was unclassified.
+
+It is now classified **Class B — boundary-relevant and controlled by
+construction**, on these controls:
+
+- the socket binds `127.0.0.1` on an ephemeral port and is never reachable
+  off-host;
+- it serves exactly one route, a 256-bit `secrets.token_urlsafe` path generated
+  per session, compared with `hmac.compare_digest`; every other path, and any
+  query or fragment, is a 404;
+- only `GET` is answered; `HEAD` and `POST` are refused;
+- request logging is suppressed entirely, so no request path, query, or locator
+  reaches a log surface;
+- the socket is closed and its thread joined on every session exit, including
+  browser-launch failure and teardown failure.
+
+**Loopback binding alone would not have been a control.** Every local account
+can reach `127.0.0.1` — the reader is not confined to the same UID — and an
+ephemeral port is not a secret, the full range being scannable on loopback in
+well under a second. Without the route token, any local process could have
+retrieved the owner's complete return for the lifetime of the session. The token
+is what makes this Class B rather than a second open class.
+
+Residuals, unchanged in kind from the ones this ADR already names: a process
+that can read this program's memory or arguments, or the live workspace itself,
+reads the model regardless of the socket. That is the same-UID residual ADR-0044
+accepts, not a new one.
+
+### Also recorded: the surface may not claim a provenance it cannot verify
+
+The session serves a renderer page from the repository. The evaluation fixture
+page states in its title, its visible header, and its own comment that it
+carries synthetic `demo-*` data and never a real workspace. Serving it during a
+live session would put those claims on the screen the owner reads **while
+forming the attestation** — a false statement at the exact moment the ADR-0031
+attestation depends on the owner knowing what they looked at.
+
+The product surface is therefore a separate file from the evaluation fixture,
+and it **asserts nothing about provenance in either direction**. It is served
+with real data during a session and with synthetic data during a rehearsal, and
+a page cannot verify which it holds; a claim either way would be a claim the
+surface cannot support. The session additionally refuses, fail-closed, to serve
+any page carrying a synthetic-provenance marker, so re-pointing the page path at
+the fixture cannot quietly succeed.
+
+### Amendment records
+
+- Milestone plan:
+  `docs/phases/real-return/milestones/presentation-live-session-path.md`
+- Track 2 review that raised both items:
+  `docs/reviews/2026-07-27-presentation-live-session-path-track2-review.md`
+- Implementation: `packages/derivation/live_session.py`; product surface
+  `packages/presentation/pages/citation-walk.v1.html`

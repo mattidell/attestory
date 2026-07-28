@@ -7,10 +7,12 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
-from urllib.error import HTTPError
+from unittest import mock
+from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 from typing import Any
 
+from packages.derivation import live_session
 from packages.derivation.live_session import PresentationSessionError, open_presentation_session
 from packages.derivation.live_viewing import LiveViewingVehicle, PreflightProbes
 from packages.derivation.live_workspace import WorkspaceCapability
@@ -99,6 +101,12 @@ class SessionTests(unittest.TestCase):
                 self.assertIn('"schema":"presentation-model.v1"', body)
                 self.assertIn('"runId":"demo.presentation-live-session"', body)
                 self.assertTrue(session.url.startswith("http://127.0.0.1:"))
+                # The served page must not tell the owner what it is rendering.
+                # Its comment explains why it stays silent; the title and the
+                # visible header carry no provenance claim at all.
+                for marker in live_session._PROVENANCE_CLAIM_MARKERS:
+                    self.assertNotIn(marker, body)
+                self.assertIn("<title>Form 1040 — Citation Walk</title>", body)
                 self.assertNotIn(str(root), body)
                 self.assertNotIn(str(root), repr(session))
                 model_path = root / "L" / "outputs" / "demo.presentation-live-session.presentation.json"
@@ -113,6 +121,66 @@ class SessionTests(unittest.TestCase):
                 else:
                     self.fail("unexpected route returned successfully")
             self.assertFalse((root / "L" / ".live-view").exists())
+
+    def test_the_model_is_not_retrievable_without_the_session_route(self) -> None:
+        # The served body carries the whole presentation model inline, and every
+        # local account can reach 127.0.0.1. An ephemeral port is scannable in
+        # well under a second, so the route token is what actually keeps the
+        # model from an unrelated local process.
+        with tempfile.TemporaryDirectory(prefix="demo-live-session-") as raw:
+            root = Path(raw)
+            vehicle = LiveViewingVehicle(process_factory=_SyntheticProcess)
+            with _open(root, probes=PreflightProbes(False, False, False), vehicle=vehicle) as session:
+                origin = session.url.rsplit("/", 1)[0]
+                route = session.url[len(origin) :]
+                self.assertGreater(len(route), 32)
+                for guess in (f"{origin}/", f"{origin}/index.html", f"{origin}{route}x", f"{origin}{route[:-1]}"):
+                    with self.assertRaises(HTTPError, msg=guess) as refused:
+                        urlopen(guess, timeout=2)
+                    with refused.exception:
+                        self.assertEqual(refused.exception.code, 404)
+
+    def test_a_page_declaring_synthetic_provenance_is_refused(self) -> None:
+        # Serving the evaluation fixture page would put "synthetic demo-* data
+        # only" in the title and header of the screen the owner reads while
+        # forming the attestation. The refusal is on the declaration, so
+        # re-pointing PAGE_RELATIVE_PATH at the fixture cannot quietly succeed.
+        fixture_page = (REPO / "tools/presentation_harness/examples/pages/citation-walk.v1.html").read_text(
+            encoding="utf-8"
+        )
+        self.assertTrue(any(marker in fixture_page for marker in live_session._PROVENANCE_CLAIM_MARKERS))
+        with tempfile.TemporaryDirectory(prefix="demo-live-session-") as raw:
+            root = Path(raw)
+            with mock.patch.object(
+                live_session,
+                "PAGE_RELATIVE_PATH",
+                Path("tools/presentation_harness/examples/pages/citation-walk.v1.html"),
+            ):
+                with self.assertRaises(PresentationSessionError) as caught:
+                    _open(
+                        root,
+                        probes=PreflightProbes(False, False, False),
+                        vehicle=LiveViewingVehicle(process_factory=_SyntheticProcess),
+                    )
+            self.assertEqual(caught.exception.reason, "presentation-page-declares-provenance")
+
+    def test_the_product_page_carries_no_provenance_claim(self) -> None:
+        page = (REPO / live_session.PAGE_RELATIVE_PATH).read_text(encoding="utf-8")
+        self.assertNotIn("synthetic demo-*", page)
+        self.assertNotIn("synthetic <code>demo-*</code>", page)
+        self.assertEqual(page.count(live_session._MODEL_ASSIGNMENT), 1)
+
+    def test_closing_the_session_stops_the_listening_socket(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="demo-live-session-") as raw:
+            root = Path(raw)
+            vehicle = LiveViewingVehicle(process_factory=_SyntheticProcess)
+            session = _open(root, probes=PreflightProbes(False, False, False), vehicle=vehicle)
+            url = session.url
+            with urlopen(url, timeout=2) as response:
+                self.assertEqual(response.status, 200)
+            session.close()
+            with self.assertRaises(URLError):
+                urlopen(url, timeout=2)
 
     def test_browser_launch_failure_closes_server_and_workspace_session(self) -> None:
         with tempfile.TemporaryDirectory(prefix="demo-live-session-") as raw:
