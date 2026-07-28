@@ -5,8 +5,8 @@
   "topic": "entry-boundary",
   "active_plan": "docs/phases/legible-entry/milestones/entry-boundary.md",
   "status": "The Legible Entry phase is accepted (PR #100). Its first milestone, The Entry Boundary, has its plan merged (PR #101) and Track 1 chartered 2026-07-28 — the retention probe, building on branch `milestone/entry-boundary`. The milestone decides two things and builds no product: whether a browser form is an acceptable place for a person to type real tax facts, and whether an entry surface writes facts directly or emits contribution events (ADR-0032). Track 1 is a throwaway retention probe on a synthetic workspace; Track 2 is ADR-0048. Filing is out of scope for the phase (settled 2026-07-28). Two process changes ride with this plan: a milestone now gets one PR to open it and one to close it, with tracks keeping their review gate but not their own PR; and phase documentation uses plain, product-facing language. Prior phase: Real Return closed 2026-07-28 with every cell of its maturity matrix at L3 or better. Read that closure narrowly — it was breadth- and hardening-limited by construction, and the owner still enters facts by hand-editing JSON, which is exactly what this phase exists to fix. The Real Return maturity matrix is closed; Legible Entry replaces it rather than extending it. The legibility audit triggered by the phase boundary is still due, and is owner-spawned — the foreman must not launch it.",
-  "current_role": "Foreman — Entry Boundary, Track 1b built (513ff93); awaiting owner direction on the two residual channels before Track 2",
-  "current_prompt": "docs/phases/legible-entry/milestones/entry-boundary.md"
+  "current_role": "Foreman — Entry Boundary, Track 2 (ADR-0048) chartered and in flight",
+  "current_prompt": "docs/reviews/charter-2026-07-28-entry-boundary-track2.md"
 }
 -->
 # Phase State
