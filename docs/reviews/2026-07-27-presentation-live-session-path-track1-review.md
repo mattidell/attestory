@@ -1,8 +1,8 @@
 # Presentation — Live Session Path Track 1 Review
 
-Status: **READY**  
-Date: 2026-07-27  
-Role: independent Reviewer  
+Status: **READY**
+Date: 2026-07-27
+Role: independent Reviewer
 Charter: `docs/phases/real-return/milestones/presentation-live-session-path.md`, Track 1 review gate
 
 ## Capsule echo (pre-review)
