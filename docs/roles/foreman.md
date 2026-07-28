@@ -151,6 +151,16 @@ Builder or Reviewer who orients onto a superseded charter. If you are about to
 say "ready for review" or "ready for build," the pointer commit is already
 done or you are not ready.
 
+**A PR's committed state is the state after the merge, not before it.**
+When you open a PR, set `milestone_state` — and the capsule's `status` prose —
+to what will be true once the owner merges. A planning PR carries `planned`, not
+`planning`; a closing PR carries `closed`, not `closing`. The branch is a
+proposal for what `main` should say, and `main` only ever sees the post-merge
+world. Writing the pre-merge state means every merge lands `main` in a state
+that was already stale when it arrived, and the next foreman re-enters onto it.
+The same applies to the PR cadence itself: how often a milestone cuts a PR — per
+track, or once at close — is the owner's call, so ask rather than assuming.
+
 **The pointer's vocabulary is small, and the tool enforces it.**
 `current_role` must contain exactly one of `Builder` or `Reviewer` when a role
 is chartered — `detect_role` matches on those substrings and refuses on zero or
