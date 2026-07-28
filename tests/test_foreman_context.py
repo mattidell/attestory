@@ -115,7 +115,12 @@ class ContextFixture(unittest.TestCase):
         path.write_text("# Demo\n", encoding="utf-8")
 
     def run_tool(
-        self, root: Path, ref: str = "HEAD", *, output_format: str = "json"
+        self,
+        root: Path,
+        ref: str = "HEAD",
+        *,
+        output_format: str = "json",
+        extra: tuple[str, ...] = (),
     ) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
             [
@@ -128,6 +133,7 @@ class ContextFixture(unittest.TestCase):
                 "--format",
                 output_format,
                 "--no-fetch",
+                *extra,
             ],
             check=False,
             capture_output=True,
@@ -387,6 +393,59 @@ class MilestoneStateTests(ContextFixture):
         self.assertIsNone(milestone["ratified_ref"])
         self.assertEqual(milestone["checks"], [])
         self.assertIn("NOT corroborated", milestone["note"])
+
+
+class RatifiedLineTests(ContextFixture):
+    """The repository carries more than one ratified line — `main` for the
+    derivation work, `main-ui` for the surface work — and a milestone that closes
+    on one never reaches the other. So the line a capsule corroborates against is
+    derived from the checked-out work rather than fixed at `origin/main`."""
+
+    def commit(self, root: Path, name: str) -> None:
+        self.write_plain(root, f"docs/reviews/{name}.md")
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", name)
+
+    def make_two_line_repository(self) -> Path:
+        """`main` published by the fixture, then `main-ui` branched off it and
+        published with a commit of its own."""
+        root = self.make_repository()
+        self.git(root, "switch", "-qc", "main-ui")
+        self.commit(root, "ui-line")
+        self.git(root, "push", "-q", "origin", "main-ui")
+        self.git(root, "fetch", "-q", "origin")
+        return root
+
+    def test_derives_the_surface_line_for_work_cut_from_it(self) -> None:
+        root = self.make_two_line_repository()
+        self.git(root, "switch", "-qc", "unit")
+        self.commit(root, "unit-work")
+        capsule = self.capsule(root)
+        self.assertEqual(capsule["milestone"]["ratified_line"], "origin/main-ui")
+        self.assertEqual(capsule["worktree"]["divergence"]["ref"], "origin/main-ui")
+
+    def test_derives_the_derivation_line_for_work_cut_from_it(self) -> None:
+        # Same repository, but this unit branched from `main`. Both lines are one
+        # commit away, so the tie falls to the line HEAD is itself closest to.
+        root = self.make_two_line_repository()
+        self.git(root, "switch", "-q", "main")
+        self.git(root, "switch", "-qc", "unit")
+        self.commit(root, "unit-work")
+        capsule = self.capsule(root)
+        self.assertEqual(capsule["milestone"]["ratified_line"], "origin/main")
+
+    def test_an_explicit_ref_overrides_the_derivation(self) -> None:
+        root = self.make_two_line_repository()
+        result = self.run_tool(root, extra=("--ratified-ref", "origin/main"))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        capsule = json.loads(result.stdout)
+        self.assertEqual(capsule["milestone"]["ratified_line"], "origin/main")
+
+    def capsule(self, root: Path, ref: str = "HEAD") -> dict[str, Any]:
+        result = self.run_tool(root, ref)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        capsule: dict[str, Any] = json.loads(result.stdout)
+        return capsule
 
 
 class InitialBriefingTests(ContextFixture):
