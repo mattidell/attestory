@@ -7,7 +7,12 @@
   observation (Class C overstated platform impossibility). Repair `52ef7b0`
   closed both; recheck `a476c40` returned `NOT READY` on one stale
   cross-reference; repair `08eecb6` closed it and second recheck `63c4102`
-  returned `READY`.
+  returned `READY`. **Amended 2026-07-27** (Track 1 of Presentation — Live
+  Session Path): see "Amendment — 2026-07-27 — Class C and Class D are
+  owner-held" at the end of this document. The amendment records a Seatbelt
+  evaluation outcome and places both Class C confinement and Class D
+  precondition observation in the owner's trust domain, outside the project
+  supply chain. It changes no classification and lifts no maturity row.
 - Tier: 3
 - Date: 2026-07-26
 - Plain-language analysis:
@@ -330,3 +335,123 @@ Direct records:
 - Existing launch posture: `tools/presentation_harness/lib/chrome.mjs`
 - Governance: Constitution Article 18; Ontology §8; Engineering Constraints
   E18.1 and E18.2
+
+## Amendment — 2026-07-27 — Class C and Class D are owner-held
+
+Status: **accepted** (Track 1 of Presentation — Live Session Path; owner
+ratification by merge of the Track 1 PR). This amendment adds an evaluation
+outcome and a custody disposition. It changes no classification, discharges no
+condition, and lifts no maturity row.
+
+### What was evaluated
+
+Class C above records Seatbelt (`sandbox-exec`) as a **live but unevaluated**
+candidate. The owner has since evaluated it from first principles and platform
+architecture — deliberately not by prototype, the questions being answerable
+from how the facility works rather than from an experiment. Three findings:
+
+1. **Network denial reaches helper processes — conditionally.** A profile
+   denying network access is inherited by child processes, so a browser's
+   renderer and network helpers are covered. The condition is that the
+   **top-level process must itself be confined**: an unconfined parent can be
+   reached by a confined child over Mach IPC and asked to perform the network
+   operation on its behalf, which defeats the denial. Confining the top of the
+   process tree, or denying `mach-lookup` to the networking daemons, is what
+   makes the finding hold.
+2. **Escape is not available to unprivileged code.** The sandbox is
+   kernel-enforced, applied one-way (a process cannot remove its own
+   confinement), and inherited. Absent a kernel zero-day, a confined same-UID
+   process does not exit its profile.
+3. **The interface is not supported.** `sandbox-exec` is deprecated, SBPL is
+   undocumented, and profile semantics drift across macOS releases.
+
+Findings 1 and 2 are what a Class C substrate would need. Finding 3 is the cost.
+The owner accepts the deprecated interface and the drift as named residuals
+rather than treating either as disqualifying.
+
+### Disposition — both mechanisms are owner-held
+
+Two mechanisms are **held in the owner's own trust domain, outside the project
+supply chain**, and no artifact of this project implements, invokes, templates,
+or ships either:
+
+- **Class C confinement.** The sandbox profile and its invocation.
+- **Class D precondition observation.** Whatever determines residency backup
+  inclusion, residency content indexing, and clipboard-manager presence.
+
+The reasoning is the same in both cases and is the point of the arrangement:
+**boundary enforcement should not be authored by the supply chain it
+constrains.** ADR-0044 holds that Developer/Supply is not mechanically separated
+from Live-Run Data. A confinement profile written, reviewed, and committed by
+that same authority would be a boundary the constrained party defines. Moving
+custody out does not create the separation ADR-0044 describes — but it stops the
+project from asserting a boundary over itself.
+
+The Class D half also removes a concrete disclosure rather than answering it.
+The natural backup-inclusion probe, `tmutil isexcluded <path>`, places the
+residency locator in the process's `argv`, readable from the process table by
+any same-UID process for the lifetime of the call. That is not a committed
+locator under ADR-0031 D4 — nothing reaches Git — but it is a transient
+disclosure to exactly the unseparated domain. Project-authored code no longer
+handles the locator in that form because project-authored code no longer
+performs the observation.
+
+`PreflightProbes` already accommodated this: it takes injected values or
+zero-argument observers and defaults every field to `ProbeState.UNKNOWN`, so the
+preflight refuses until something outside supplies an answer. That something is
+now named. The repository keeps the fail-closed disposition logic and acquires
+no eyes of its own.
+
+### What this does not do
+
+- **Class C remains open, and its core statement is unchanged.** The vehicle
+  cannot close non-loopback egress; its measures are cooperative; no artifact of
+  this project may describe the class as prevention. An owner-held mechanism
+  outside the supply chain is not a project claim about the vehicle.
+- **No maturity row moves.** Presentation remains L2 and the data-boundary row
+  remains L3. ADR-0044's future implementation gate requires a selected
+  enforcement substrate **and** a mechanical showing that Developer/Supply
+  cannot reach the live workspace, and states that only that implementation and
+  verification can support an L4 data-boundary claim. A mechanism the project
+  does not hold, cannot inspect, and does not verify satisfies neither
+  requirement, by construction and by intent. The owner has accepted that L3 is
+  a permanent ceiling on that row rather than a pending task.
+- **No proof is claimed.** Findings 1 and 2 are reasoned from documented
+  platform behaviour, not demonstrated by this project. Nothing here was
+  verified in a run.
+
+### Residuals added by this amendment
+
+- **Deprecated interface.** `sandbox-exec` may be withdrawn or changed without
+  notice. Owner-accepted.
+- **Profile drift.** SBPL is undocumented and its semantics move across macOS
+  releases. Owner-accepted.
+- **Kernel zero-day.** Finding 2 holds only against unprivileged code and an
+  intact kernel.
+- **Fail-open drift.** The sharpest of the four. A profile that has drifted may
+  still compile and apply while no longer denying what it once denied — the
+  failure is silent, and confinement that appears to be in force is worse than
+  none, because it is relied upon. Anything resting on the profile should
+  establish at session start that the denial is actually in force rather than
+  that the profile loaded.
+- **Owner-side probe honesty.** The disposition logic's value is fail-closed
+  refusal. An observation reported as `ABSENT` when it should have been
+  `UNREADABLE` converts a refusal into a pass, silently, on the exact condition
+  the refusal existed to catch. Moving the observation out of this repository
+  moves that obligation with it; it does not retire it. Doubt resolves toward
+  refusal: a missing tool, an unexpected format, a non-zero exit, a timeout, or
+  an answer about a different scope than the one asked is `UNREADABLE` or
+  `UNKNOWN` — never `ABSENT`.
+- **Custody.** The mechanisms are outside this project's review, verification,
+  and change control. That is deliberate, and it is a residual.
+
+Class A residuals, the remaining Class D residuals, and ADR-0044's residuals are
+unchanged.
+
+### Amendment records
+
+- Milestone plan:
+  `docs/phases/real-return/milestones/presentation-live-session-path.md`
+- Evaluation source: owner-supplied first-principles findings, 2026-07-27. No
+  prototype was chartered; no real workspace, residency locator, machine
+  configuration, or live run was consulted.

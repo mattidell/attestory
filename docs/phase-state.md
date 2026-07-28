@@ -5,7 +5,7 @@
   "topic": "presentation-live-session-path",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-session-path.md",
   "status": "Planning, 2026-07-27. Presentation — Live Viewing Boundary is CLOSED at 805225e. The owner accepts a permanent L3 ceiling on the data-boundary row: ADR-0044 line 164 states that only a selected enforcement substrate plus a mechanical showing can support an L4 data-boundary claim, footnote 8 faithfully summarises that ratified Tier 3 decision, and the cell is a deliberate ceiling rather than an unfinished task. The owner holds BOTH live-run confinement (sandbox-exec, evaluated from first principles: helper-process network denial works when the top-level process is confined; sandbox escape is not possible absent a kernel zero-day; the interface is deprecated and SBPL is unstable across macOS releases, both accepted as named residuals) AND workstation-precondition observation in their own trust domain, outside the project supply chain. Neither belongs in this repository. The next milestone plan — Presentation — Live Session Path, four tracks — is drafted and awaiting its planning PR merge. It ends with Presentation still at L2 and L3 one owner act away.",
-  "current_role": "Foreman (planning PR open for the Live Session Path milestone; charter Track 1 on merge)",
+  "current_role": "Track 1 Reviewer — independent decision review of the ADR-0047 Class C/D amendment",
   "current_prompt": "docs/phases/real-return/milestones/presentation-live-session-path.md"
 }
 -->
@@ -258,9 +258,18 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** charter Track 1 of
-`docs/phases/real-return/milestones/presentation-live-session-path.md` once its
-planning PR merges.
+**➡️ Next action:** independent decision review of the Track 1 amendment to
+ADR-0047 ("Amendment — 2026-07-27 — Class C and Class D are owner-held"),
+against the Track 1 review gate in
+`docs/phases/real-return/milestones/presentation-live-session-path.md`.
+
+The gate, restated: the amendment records an **evaluation outcome, not a claim
+of proof**; it does not assert that the project confines or observes anything;
+the owner-held arrangement and its rationale are stated for both confinement and
+precondition observation; the residuals are named including fail-open drift and
+the owner-side `ABSENT`-versus-`UNREADABLE` obligation; and Class C's core
+statement — the vehicle cannot close egress, its measures are cooperative —
+survives unchanged.
 
 Four constraints carry from the owner's direction, and all four are the same
 constraint viewed from different sides: **this repository does not author its own
