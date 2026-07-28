@@ -390,6 +390,7 @@ class LiveViewingVehicle:
         *,
         chrome_executable: str | os.PathLike[str] | None = None,
         launch_timeout_seconds: float = 10.0,
+        initial_url: str | None = None,
     ) -> LiveViewingSession:
         """Launch from capability state only; destination paths have no caller input."""
 
@@ -398,6 +399,8 @@ class LiveViewingVehicle:
         try:
             _make_destinations(destinations)
             executable = _resolve_browser(chrome_executable)
+            if initial_url is not None:
+                _validate_navigation_url(initial_url)
             args = [
                 str(executable),
                 "--no-first-run",
@@ -413,7 +416,7 @@ class LiveViewingVehicle:
                 f"--download-default-directory={destinations.downloads}",
                 f"--print-to-pdf={destinations.print_to_file}",
                 "--remote-debugging-port=0",
-                "about:blank",
+                initial_url or "about:blank",
             ]
             if hasattr(os, "getuid") and os.getuid() == 0:
                 args.insert(1, "--no-sandbox")
