@@ -4,9 +4,9 @@
   "phase": "Real Return",
   "topic": "presentation-live-session-path",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-session-path.md",
-  "status": "Planning, 2026-07-27. Presentation — Live Viewing Boundary is CLOSED at 805225e. The owner accepts a permanent L3 ceiling on the data-boundary row: ADR-0044 line 164 states that only a selected enforcement substrate plus a mechanical showing can support an L4 data-boundary claim, footnote 8 faithfully summarises that ratified Tier 3 decision, and the cell is a deliberate ceiling rather than an unfinished task. The owner holds BOTH live-run confinement (sandbox-exec, evaluated from first principles: helper-process network denial works when the top-level process is confined; sandbox escape is not possible absent a kernel zero-day; the interface is deprecated and SBPL is unstable across macOS releases, both accepted as named residuals) AND workstation-precondition observation in their own trust domain, outside the project supply chain. Neither belongs in this repository. The Presentation — Live Session Path plan (four tracks) merged as PR #92 at b777a10. Track 1 is COMPLETE: the ADR-0047 amendment placing Class C confinement and Class D precondition observation in the owner's trust domain returned READY on independent review at e4fd30f, with one non-blocking administrative observation since fixed. Track 2 (session entry point and model serving) is next. The milestone ends with Presentation still at L2 and L3 one owner act away. PR cadence for this milestone is one PR at close, not one per track (owner direction, 2026-07-27).",
-  "current_role": "Track 2 Builder — session entry point and model serving",
-  "current_prompt": "docs/phases/real-return/milestones/presentation-live-session-path.md"
+  "status": "At the owner milestone-selection frontier, 2026-07-27. Presentation — Live Session Path is CLOSED: all four tracks complete, no maturity row moved, Presentation at L2 and one owner act from L3. Track 2's two findings are the durable lesson — an unauthenticated loopback socket carrying the whole presentation model, and the evaluation fixture page telling the owner their real data was synthetic — both living in the join between correct components rather than inside either one. Two rehearsal gaps stand before the real session: no real browser has ever been launched by this path, and the product page has never been rendered by one. Presentation — Live Viewing Boundary is CLOSED at 805225e. The owner accepts a permanent L3 ceiling on the data-boundary row: ADR-0044 line 164 states that only a selected enforcement substrate plus a mechanical showing can support an L4 data-boundary claim, footnote 8 faithfully summarises that ratified Tier 3 decision, and the cell is a deliberate ceiling rather than an unfinished task. The owner holds BOTH live-run confinement (sandbox-exec, evaluated from first principles: helper-process network denial works when the top-level process is confined; sandbox escape is not possible absent a kernel zero-day; the interface is deprecated and SBPL is unstable across macOS releases, both accepted as named residuals) AND workstation-precondition observation in their own trust domain, outside the project supply chain. Neither belongs in this repository. The Presentation — Live Session Path plan (four tracks) merged as PR #92 at b777a10; all four tracks then completed on one branch and reached main as a single milestone PR. Track 1 (ADR-0047 amendment placing Class C confinement and Class D precondition observation in the owner's trust domain) returned READY on independent review. Track 2 (session entry point and model serving) returned NOT READY on the two findings above and was repaired: a 256-bit per-session route compared with hmac.compare_digest, and a fail-closed refusal to serve any page declaring synthetic provenance, with the citation-walk renderer forked to a product location at packages/presentation/pages/citation-walk.v1.html. Track 3 rehearsed the whole path against synthetic inputs; Track 4 filed the records. Nothing is chartered: the next action is owner milestone selection from docs/phases/real-return/maturity-matrix.md. PR cadence for this milestone was one PR at close, not one per track (owner direction, 2026-07-27), and a PR branch carries its post-merge state.",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/real-return/maturity-matrix.md"
 }
 -->
 # Phase State
@@ -258,55 +258,37 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** build Track 2 of
-`docs/phases/real-return/milestones/presentation-live-session-path.md` — the
-session entry point and the model-serving path — on
-`milestone/presentation-live-session-path`.
+**➡️ Next action:** the **owner milestone-selection frontier**. Presentation —
+Live Session Path is closed; nothing is chartered. The foreman's job is to read
+`docs/phases/real-return/maturity-matrix.md` and present candidates. Selection is
+owner-held.
 
-**One act, or a refusal.** A single entry point runs capability → preflight →
-model → loopback → confined browser → teardown. Preflight inputs are
-**parameters of the entry point**, supplied by its caller: nothing here reads
-backup state, indexing state, or the process table. `PreflightProbes` stays
-injected. Every preflight refusal is a refusal of the session, and teardown
-holds on every exit path.
+**What stands between Presentation L2 and L3 is one owner act, not a build.** A
+real viewing session plus the non-descriptive attestation under ADR-0047's five
+honesty preconditions. The path now exists end to end and has been rehearsed
+against synthetic inputs, so the act is short. Two gaps remain, and both are of
+the same kind — nothing has been exercised by a real browser:
 
-**The serving split is where accidental damage is easiest.** The renderer page is
-repository content, served from the repository; the presentation model is
-live-run content, served from the workspace. The result must not be reachable as
-an evaluation path and must not relax the harness's `synthetic: true` fixture
-boundary. `tools/presentation_harness/lib/server.mjs` and both evaluation
-manifests stay byte-unchanged — if the clean implementation appears to require
-editing `server.mjs`, **stop and report instead of editing it.**
+1. **No real browser has ever been launched by this path.** The rehearsal used a
+   stub; only the loopback-URL validation and the launch-failure path were
+   covered for real.
+2. **The product page has never been rendered by one.**
+   `packages/presentation/pages/citation-walk.v1.html` is backed only by a
+   normalized diff against the evaluation fixture page and a `node --check`.
 
-No locator in any surface: server logs, request paths, subprocess arguments,
-diagnostics, test names.
+Both close on the first real session, which is therefore also the first real
+render. Do not record Presentation as L3 on the strength of the vehicle
+existing.
 
-Four constraints carry from the owner's direction, and all four are the same
-constraint viewed from different sides: **this repository does not author its own
-boundary enforcement.**
-
-1. **No confinement code.** The owner holds the `sandbox-exec` profile outside
-   the supply chain. No wrapper, template, profile file, or invocation.
-2. **No probes.** Workstation-precondition observation — backup inclusion,
-   content indexing, clipboard-manager presence — is owner-held for the same
-   reason. `PreflightProbes` stays an injected input that defaults to `UNKNOWN`,
-   and the repository keeps the fail-closed disposition logic without acquiring
-   eyes of its own. This also removes a real hazard: `tmutil isexcluded <path>`
-   would place the residency locator in `argv`, readable from the process table
-   by exactly the Developer/Supply domain ADR-0044 says is not separated.
-3. **Do not charter a prototype** for questions answerable from first principles
-   or documentation — the Seatbelt behaviour questions are already answered.
-4. **Do not treat `sandbox-exec`'s deprecation as a blocker.** The deprecated
-   interface and SBPL fragility are named, owner-accepted residuals.
-
-Hold two things steady while it runs. **This milestone raises nothing.** It ends
-with Presentation still L2 and the data-boundary row still L3 — the latter now a
-permanent, owner-accepted ceiling, not an unfinished task. And **Presentation
-L2 → L3 is an owner act**: a real viewing session plus the non-descriptive
-attestation under ADR-0047's five honesty preconditions. This milestone makes
-that act short and rehearsed; it does not perform it.
-
-Do not record Presentation as L3 on the strength of the vehicle existing.
+The four owner constraints from that milestone remain in force as a standing
+posture, and all four are the same constraint from different sides: **this
+repository does not author its own boundary enforcement.** No confinement code —
+the `sandbox-exec` profile is owner-held outside the supply chain. No probes —
+`PreflightProbes` stays an injected input defaulting to `UNKNOWN`; nothing here
+reads backup state, indexing state, or the process table. No locator in any
+surface: server logs, request paths, subprocess arguments, diagnostics, test
+names. And `sandbox-exec`'s deprecation is a named, owner-accepted residual, not
+a blocker.
 
 Both `track/presentation-citation-walk-track1` and
 `track/browser-evaluation-runner-completion` may be deleted; their content is

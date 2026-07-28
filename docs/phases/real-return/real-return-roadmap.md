@@ -28,6 +28,35 @@ scan.
 
 ## Status
 
+- Presentation — Live Session Path — **complete 2026-07-27; plan PR #92
+  (`22c9003`), milestone PR at close.** Built and rehearsed everything the
+  Presentation L3 session needs without performing one, because the owner was
+  away from their desk and the run and attestation are theirs alone. Its success
+  condition was explicitly that **no maturity row moves** — a shape that cannot
+  be tempted to claim a lift. The plan lost a track before chartering: preflight
+  probes were cut because workstation-precondition observation is owner-held for
+  the same reason confinement is, which made the repository's posture uniform
+  (it authors none of its own boundary enforcement) and removed the
+  `tmutil isexcluded <path>` `argv` locator disclosure rather than mitigating
+  it. Track 1 amended **ADR-0047** to record the owner's first-principles
+  Seatbelt evaluation and the owner-held custody of Class C confinement and
+  Class D observation (`e4fd30f`, review `READY`). Track 2 built
+  `open_presentation_session` — capability → preflight → model → loopback →
+  browser → teardown as one act (`d166d4b`) — and returned **`NOT READY`** on two
+  findings that were one finding: the loopback socket carried the entire
+  presentation model with no authentication (loopback is not a control; an
+  ephemeral port is not a secret), and the session served the evaluation fixture
+  page, which declares "synthetic `demo-*` data only" in the title of the screen
+  the owner reads while attesting. Both lived in the *join* between correct
+  components. The repair added a 256-bit route token, a separate product surface
+  that asserts no provenance in either direction, and a fail-closed refusal to
+  serve any page declaring itself synthetic; ADR-0047 gained a second amendment
+  classifying the session's own socket as Class B. Track 3 rehearsed the full
+  path end to end against a synthetic workspace and recorded honestly that no
+  real browser was launched and the product page has never been rendered by one.
+  Presentation ends at **L2**, one owner act from L3; the data-boundary row ends
+  at **L3** as a permanent owner-accepted ceiling. Retrospective:
+  `docs/milestone-retrospectives/2026-07-27-presentation-live-session-path.md`.
 - Presentation — Live Viewing Boundary and Invocation Vehicle — **complete
   2026-07-26; plan PR #88, Track 1 PR #89 (`b37c536`), Track 2 PR #90
   (`bc0d8dc`).** The milestone rejected its own obvious shape before building:
