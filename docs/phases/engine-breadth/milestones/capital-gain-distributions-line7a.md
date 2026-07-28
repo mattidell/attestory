@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "planned",
-  "status": "PLANNED. The first Engine Breadth milestone turns the existing Form 1099-DIV box 2a honest block into a bounded direct-to-Form-1040-line-7a path when the contributed Schedule-D-required declaration is 'no'. It does not build Schedule D. Official 2025 instructions corrected the initial selection: eligible box 2a distributions go directly to line 7a when Schedule D is not required, while a true Schedule D slice needs additional capital-transaction scope. Before production work, one paper-first rival prototype topic must settle the direct-route authority/completeness shape, box-2a family promotion, and QDCG handoff. Nothing is chartered until this plan reaches main.",
+  "milestone_state": "track-0",
+  "status": "TRACK 0 ACTIVE. The owner merge of the prototype plan is its approval record. The first Engine Breadth milestone turns the existing Form 1099-DIV box 2a honest block into a bounded direct-to-Form-1040-line-7a path when the contributed Schedule-D-required declaration is 'no'. It does not build Schedule D. Official 2025 instructions corrected the initial selection: eligible box 2a distributions go directly to line 7a when Schedule D is not required, while a true Schedule D slice needs additional capital-transaction scope. The paper-first prototype plan fixes one incumbent and one genuine rival across three propositions: direct-route authority/completeness, box-2a family promotion, and the QDCG handoff. No Builder charter is included in the planning unit; the foreman prepares the incumbent charter next.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
