@@ -26,7 +26,107 @@ evidence (ADR-0005/0013), per-ADR and per-track no-ff merges to a continuous
 `main` (ADR-0030), per-track review gates, retrospectives, and the data-safety
 scan.
 
+## Phase close — 2026-07-28
+
+**Real Return is closed.** The phase set no ladder and one standing test —
+*does the product now do something for its user that it could not do before?* —
+and the test is met. The system holds and computes the owner's real W-2,
+1099-INT and 1099-DIV facts behind a ratified data boundary, produces Form 1040
+lines 1a, 2b, 3a, 3b, 9, 11, 12, 15 and 16 with Schedule B when the conditional
+requires it, explains every published figure by citation, blocks honestly when it
+cannot, and — since 2026-07-27 — shows that result to its owner on a human
+surface that has really operated against the real residency.
+
+**Every cell in the maturity matrix is L3 or better**, so frontier-driven
+selection has no frontier left inside the phase's five columns. The matrix's
+silence is the argument for closing rather than continuing.
+
+**Read the completion accurately.** It is breadth- and hardening-limited by
+construction: five income/return domains, one implemented schedule, one human
+surface, and **one** real viewing session (2026-07-27) behind the entire
+Presentation row. Nothing in this record asserts more sessions than that. It is
+not a claim that the product is finished for its user — the user still cannot
+file anything, and still enters facts by hand-editing JSON. Those gaps are
+invisible to every cell in the grid because no row is named for them.
+
+**Carried into the next phase, unclosed:**
+
+1. The **classified-refusal path has no human confirmation** — that a browser
+   which fails to start arrives as a stable reason code rather than a traceback
+   rests on tests and independent review only. The oldest open item on this path,
+   first named 2026-07-27.
+2. The **session runbook has an unidentified unclarity**, reported by its first
+   human user with the sentence unnamed.
+3. The named deferral ledger
+   (`milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md`)
+   and the shims listed in the phase-state product briefing.
+
+The maturity matrix in this directory is the closed instrument of *this* phase.
+A later phase may adopt, extend, or replace its coordinate system; it should say
+which, rather than inheriting it silently.
+
 ## Status
+
+- Presentation — Completing the Row — **complete 2026-07-28; plan PR #97,
+  milestone PR #98 (`d7628ea`).** A **records milestone**: no session, no
+  browser, no real data, no code. Its one substantive act was asking the owner a
+  question the repository cannot answer — *which columns did you observe during
+  the session you already ran?* — and its one control was that a column the
+  owner did not name would not move, with a three-cell close declared a success
+  rather than a failure. All four were named (Interest 2b, Dividends 3a/3b,
+  return-level conditions, Schedule attachments), so all four moved L2 → L3 on an
+  **amendment** to the 2026-07-27 attestation, and the control never fired. It
+  was still real: ADR-0031 Decision 7's shape includes observing dispositions in
+  quarantine, so naming a column asserts observation, and no amount of rendering
+  establishes that a person looked. **Observing a column is not auditing it** —
+  L3 asserts the capability operated (footnotes 7/11). Most of the milestone's
+  care went into foreclosing one misreading: a row filled in over two days by two
+  milestones invites the inference that several sessions occurred, and there has
+  been exactly one. That is stated in the matrix header, footnote 15, the
+  amendment, the retrospective and the phase-state briefing, because it is free
+  to prevent now and unfalsifiable later — the evidence that would settle it is
+  precisely the quarantined detail nobody may cite. The plan verified directly
+  that the surface covers all five columns rather than inheriting the previous
+  closeout's "no build gap" (that same claim preceded three code defects), and its
+  Verification block was set to the CI `verify` sequence in response to the
+  previous milestone's root-cause finding; CI passed first try. Plan:
+  `milestones/presentation-row-completion.md`; retrospective:
+  `../../milestone-retrospectives/2026-07-28-presentation-row-completion.md`.
+
+- Presentation — Real Session and Attestation — **complete 2026-07-27; plan PR
+  #95, milestone PR #96.** **Presentation L2 → L3 in W-2 wages (1a)** — the
+  first maturity lift for the row and the first time this project's human
+  surface ran on the owner's real data. Track 1 was chartered as a
+  *documentation* track (a session runbook plus a failure vocabulary that is
+  mechanical rather than evaluative, because ADR-0047 precondition 5 forbids the
+  owner from describing a defect they see during the real session) and found
+  **three real code defects** in code the previous milestone had rehearsed
+  clean: `LiveViewingError` was a sibling rather than a subclass of
+  `PresentationSessionError`, so about a third of the reason-code table arrived
+  as an uncaught traceback — the one text the vocabulary cannot describe;
+  teardown's `except` was too narrow for its own promised code to be reachable;
+  and Ctrl-C left an orphaned headed browser displaying the real return plus a
+  `.live-view/session-*` directory holding that render's profile and disk cache,
+  outliving a preflight guarantee that binds only at session *start*. **The
+  durable lesson: a rehearsal's value is bounded by the set of endings it
+  drives.** All three fixes went into the session code rather than the runbook
+  template, because a guarantee living only in a copyable example silently
+  no-ops when adapted — fail-open drift, named for the third time in this
+  project. Five cycles: `748b8e8`, `50a9030` `NOT READY`, `894ff23`, `0f5e5dc`
+  `NOT READY`, `36317be`, `9909cd6` `READY`. Track 2 (owner-operated) launched a
+  real headed browser through the real path against a **synthetic** workspace
+  and rendered the product page: clean pass, no page defects, first human
+  confirmation of the interrupt repair — structural rather than cautious, so
+  that the first real render would not also be the real session. Track 3
+  performed the session and the non-descriptive attestation in the same sitting.
+  **Two post-close repairs CI caught and the charter's checks could not** (a
+  platform-dependent socket assertion, and a mypy strict-mode error), whose root
+  cause was a verification block narrower than the CI gate: **a charter's
+  verification block should be the CI sequence, or a stated subset with the
+  omission justified.** Plan:
+  `milestones/presentation-real-session-attestation.md`; retrospective:
+  `../../milestone-retrospectives/2026-07-27-presentation-real-session-attestation.md`;
+  evidential basis: maturity-matrix footnote 14.
 
 - Presentation — Live Session Path — **complete 2026-07-27; plan PR #92
   (`22c9003`), milestone PR at close.** Built and rehearsed everything the
