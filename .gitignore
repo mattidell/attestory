@@ -32,3 +32,6 @@ generated/user/
 # Operational spawn/launch metrics (tools/spawn_ledger.py). Per-machine baseline;
 # commit a snapshot deliberately if you want a shared one.
 /metrics/
+
+# Owner-supplied session artifacts — never repository content (ADR-0031)
+owner_attestation.txt

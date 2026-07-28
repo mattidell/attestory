@@ -2,8 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-real-session-attestation",
-  "milestone_state": "planned",
-  "status": "PLANNED 2026-07-27. Three tracks. The milestone that finally performs the act every prior Presentation milestone deliberately deferred: one real viewing session against the owner's real residency, and the ADR-0031 Decision 7 non-descriptive attestation that follows it. Track 1 is the only agent-built track — a session runbook and a bounded non-descriptive failure vocabulary, because a session that goes wrong must be reportable without breaching ADR-0047 precondition 5. Tracks 2 and 3 are owner-operated on the owner's machine: Track 2 closes the two rehearsal gaps by launching a real headed browser and rendering the product page against a synthetic workspace, and Track 3 performs the real session. Target is Presentation L2 to L3 in the W-2 wages (1a) column only; the other four Presentation cells stay L2 by design.",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-07-27-presentation-real-session-attestation.md",
+  "status": "CLOSED 2026-07-27. Presentation moves L2 to L3 in the W-2 wages (1a) column ONLY — the first maturity lift for the Presentation row and the first time this project's human surface ran on the owner's real data. Track 1 (agent-built, five cycles) was chartered as documentation and found three real code defects the previous milestone's rehearsal missed, because that rehearsal drove the happy path and three designed refusals and none of these three sit on it: LiveViewingError was a sibling rather than a subclass of PresentationSessionError so a third of the reason-code table arrived as an uncaught traceback; teardown's except was too narrow for its own promised code to be reachable; and Ctrl-C left an orphaned headed browser displaying the real return plus a .live-view/session-* directory holding that render's profile and disk cache, outliving a preflight guarantee that binds only at session start. All three were fixed structurally — in open_presentation_session, in launch, and by making the session a context manager — NOT in the runbook template, because a guarantee living only in a copyable example silently no-ops when adapted; that is this project's fail-open drift class, now named three times. Track 2 (owner-operated) launched a real headed browser through the real path against a SYNTHETIC workspace and rendered the PRODUCT page: clean pass, no page defects, first human confirmation of the interrupt-teardown repair. Its purpose was structural rather than cautious — the owner's attestation is non-descriptive, so a defect seen during the real session arrives unactionable, and Track 2 exists so the first real render is not also the real session. Track 3 (owner-operated) performed the real session and the ADR-0031 Decision 7 attestation with all five ADR-0047 preconditions affirmed individually, conditions 3 and 4 being owner knowledge. Named gaps at close: the classified-refusal path has NO human confirmation (Track 2's browser-start-failure exercise was skipped, charter-permitted); the runbook has an unidentified unclarity reported by its first human user, carried open rather than closed by guesswork; the other four Presentation cells stay L2 because one attestation raises only what it covers, and nothing technical separates them — the record does. PLANNED 2026-07-27. Three tracks. The milestone that finally performs the act every prior Presentation milestone deliberately deferred: one real viewing session against the owner's real residency, and the ADR-0031 Decision 7 non-descriptive attestation that follows it. Track 1 is the only agent-built track — a session runbook and a bounded non-descriptive failure vocabulary, because a session that goes wrong must be reportable without breaching ADR-0047 precondition 5. Tracks 2 and 3 are owner-operated on the owner's machine: Track 2 closes the two rehearsal gaps by launching a real headed browser and rendering the product page against a synthetic workspace, and Track 3 performs the real session. Target is Presentation L2 to L3 in the W-2 wages (1a) column only; the other four Presentation cells stay L2 by design.",
   "scope": [
     "build a session runbook the owner follows in one sitting, and any scriptability repair needed so the session is one command rather than an assembled sequence",
     "define a bounded non-descriptive failure vocabulary that lets the owner report a mechanical session failure without naming a value, identifier, or disposition",
@@ -298,4 +299,166 @@ and reach `main` as a single milestone PR, per the cadence recorded in
 
 ## Execution record
 
-Filled in as tracks complete.
+**Complete 2026-07-27. Presentation moves L2 → L3 in the W-2 wages (1a) column.**
+All six exit criteria met, criterion 2 with one named gap.
+
+### Track 1 — session runbook and failure vocabulary (agent-built)
+
+Five cycles: build, review, repair, recheck, repair, recheck.
+
+- **Build `748b8e8`.** `docs/runbooks/presentation-real-session.md`, 365 lines,
+  no code changed — `open_presentation_session` already ran as one act, so the
+  scriptability repair was declined as out of the plan's bound. The builder
+  recommended an interactive `input()` locator prompt over argv, env, or file,
+  and named it partial closure rather than full.
+- **Review `50a9030` — NOT READY, five findings, two blocking.** Finding 1 was a
+  **code** defect found by a documentation track: `LiveViewingError` is a sibling
+  of `PresentationSessionError`, so roughly a third of the runbook's own
+  reason-code table propagated as an uncaught traceback — the one text the
+  vocabulary cannot describe. Finding 2: the prose promised the `input()` prompt
+  while the script derived the locator from its own position.
+- **Repair `894ff23`.** Finding 1 fixed **at source**, not in the runbook
+  template: `_classified_viewing_failure` forwards only the stable sub-code. The
+  builder went beyond findings twice and flagged both.
+- **Recheck `0f5e5dc` — NOT READY.** All five prior findings closed the failure
+  rather than the sentence. But the deliberate `BaseException` passthrough left
+  its consequence uncovered, and the reviewer **demonstrated it by running it**:
+  Ctrl-C left an orphaned headed browser displaying the real return plus a
+  `.live-view/session-*` directory holding the profile and disk cache of that
+  render — residue outliving a preflight guarantee that binds only at session
+  start.
+- **Repair `36317be`.** Fixed structurally in three places — `_abandon_launch`
+  extraction in `launch`, a `viewing` hoist closing the window where the browser
+  is live and owned by nobody, and the template switched to `with`. Also closed
+  the `__context__` locator-retention residual (`raise X from None` re-attaches
+  `__context__` at raise time) and the socket-survival residual. 670 tests OK.
+- **Recheck `9909cd6` — READY**, four named residuals. The reviewer re-measured
+  against real `launch` rather than a double, and checked the builder's pre-fix
+  test claim instead of accepting it. One residual — an overstated Step 3 bullet
+  — was corrected by the **foreman** directly rather than in a third cycle, and
+  recorded in the review record because no independent reader had seen that edit.
+
+### Track 2 — real-browser rehearsal, synthetic workspace (owner-operated)
+
+**CLEAN PASS.** Record:
+`docs/reviews/2026-07-27-presentation-real-session-attestation-track2-rehearsal.md`.
+
+Both rehearsal gaps from matrix footnote 5 are closed: a real headed browser was
+launched by `open_presentation_session` — the real path, not a double — and it
+rendered the **product** page rather than the evaluation fixture. Happy-path and
+Ctrl-C teardown both confirmed by human observation: no surviving browser, no
+surviving session directory. No page defects.
+
+Two things recorded honestly rather than passed over: the browser-start-failure
+exercise was **skipped** (charter-permitted, so a named gap — the
+classified-refusal path has no human confirmation), and the runbook's first human
+user reported it "not very clear, but fine" **without identifying the sentence**,
+carried open rather than closed by guesswork.
+
+### Track 3 — real session, attestation, records (owner-operated, then foreman)
+
+Performed in the same sitting, after Track 2's gate passed. Attestation:
+`docs/reviews/2026-07-27-presentation-real-session-attestation-track3-attestation.md`.
+
+Non-descriptive per ADR-0031 Decision 7 — session performed, dispositions
+observed in quarantine, no artifact crossed — with each of ADR-0047's five
+honesty preconditions affirmed **individually** rather than summarized,
+conditions 3 and 4 being owner knowledge rather than mechanism.
+
+Foreman records: matrix footnote 14 and the single cell move; the retrospective
+at `docs/milestone-retrospectives/2026-07-27-presentation-real-session-attestation.md`;
+`docs/phase-state.md`.
+
+### Post-close repairs: two defects CI caught and the charter's checks could not
+
+PR #96 failed `verify` twice, on two independent defects both introduced by
+Track 1's second repair (`36317be`) and both invisible to everything this
+milestone actually ran.
+
+**The root cause is the charter's verification block, not either defect.** Every
+Track 1 charter listed the same floor: three `unittest` modules, two harness
+manifests, `envelope_scan.py`, and `git diff --check`. CI's `verify` runs
+**`pytest`, `mypy`, `governance_lint.py`, and `envelope_scan.py`**. The charter
+omitted `mypy` entirely, so a `strict = True` type error sat in merged-quality
+code through a build, two repairs, and three independent review passes — one of
+which verified the surrounding logic by running it — without anything looking
+for it. The second defect below could only ever have been caught by CI, but the
+first one was a `mypy` invocation away the whole time.
+
+**Correction for future charters: the verification block must be the CI
+sequence, or a stated subset with the omission justified.** A floor that is
+quietly narrower than the gate is a floor that reports green on work that is
+not.
+
+#### Defect 1 — a platform-dependent test assertion
+
+CI `verify` failed with **1 failed, 669 passed** —
+`test_the_socket_is_released_even_when_shutdown_raises`, added by Track 1's
+second repair (`36317be`) to close the socket-survival residual. It passed on
+macOS every time it was run, locally and by the reviewer, and failed on Linux.
+
+The assertion was `URLError`; Linux raised `ConnectionResetError`. The cause is
+specific to this test rather than to the four sibling assertions that pass:
+`shutdown()` is deliberately made to explode, so the serving thread is still
+running when `server_close()` closes the listening socket underneath it. What a
+client then sees is platform-dependent — ECONNREFUSED wrapped as `URLError` on
+macOS, ECONNRESET raised bare on Linux, because `urlopen` wraps failures from
+the request phase and not from reading the response.
+
+Repaired by the **foreman** by widening that one assertion to `OSError`, which
+`URLError` subclasses. The property under test is unchanged and still has teeth:
+if the socket were still serving, `urlopen` would return a page and no exception
+would be raised at all. The four orderly-teardown sites keep the stricter
+`URLError`, because their serving thread is stopped before the socket closes and
+their behaviour is not platform-dependent.
+
+Recorded here rather than silently, on the same discipline as Track 1's
+post-review runbook correction: it is a change to a reviewed artifact that no
+independent reader has seen. It changes no product code and no vocabulary rule.
+
+**The generalizable point:** the test encoded a platform's errno as if it were
+the contract. Every prior exercise of this path — including the reviewer's, who
+verified this repair by running it — ran on macOS, so the assumption was
+invisible until CI ran it somewhere else. Same shape as this milestone's main
+lesson at a smaller scale: the exercise covered what it drove.
+
+#### Defect 2 — a strict-mode type error, never once looked for
+
+With the test fixed, `verify` reached the `mypy` step for the first time and
+failed there: `live_session.py`, incompatible assignment of `None` to a
+variable inferred as `PresentationSessionError`. Fixing that surfaced a second,
+deeper one behind it — `_browser` receiving `LiveViewingSession | None` where a
+session is required, because the `viewing = None` hoist (itself a correct fix,
+closing the window where a browser is live and owned by nobody) left the value
+un-narrowed at the constructor.
+
+Repaired by the **foreman** by moving the success path into the `try`'s `else`
+clause, so `viewing` is narrowed on the one path that uses it, and letting
+`raise classified` fall to the end. This **preserves the property the second
+repair existed to establish** — the classified error is still raised after the
+handler has exited, with `sys.exc_info()` clear, so `__context__` cannot be
+re-attached and no `OSError.filename` can carry the locator out. That is the
+locator-confinement claim the reviewer verified independently, and it is
+unchanged; only the control flow around it moved.
+
+Full local reproduction of the CI sequence now passes: `pytest` 670 passed /
+2451 subtests, `mypy` clean over 127 files, `governance_lint.py` conformant,
+`envelope_scan.py` clean over `main..HEAD`.
+
+### Exit criteria
+
+| # | Criterion | Met |
+| --- | --- | --- |
+| 1 | Runbook and mechanical-not-evaluative vocabulary, reviewed as a data-safety artifact | yes |
+| 2 | Real headed browser rendered the product page on a synthetic workspace; both rehearsal gaps closed | yes, with the skipped browser-start-failure exercise named as a gap |
+| 3 | Real session performed; non-descriptive attestation with all five preconditions affirmed | yes |
+| 4 | Matrix shows Presentation / W-2 wages (1a) at L3 with a footnote in the 7/11 pattern; other four cells L2 with the reason stated | yes (footnote 14) |
+| 5 | No descriptive detail anywhere; envelope scan clean over the full range | yes |
+| 6 | Evaluation harness byte-unchanged, both manifests pass | yes |
+
+### Carried forward
+
+The classified-refusal path's missing human confirmation; the runbook's
+unidentified unclarity; Track 1's four residuals; and the owner-held pair —
+invocation discipline and the `cd` history entry — that nothing this repository
+writes can close.

@@ -24,7 +24,7 @@ careful hand-editing.
 | **L3** | Real — operates on the owner's actual data under the ratified data boundary. |
 | **L4** | Hardened — named production conditions discharged; deferrals retired. |
 
-## Matrix (as of 2026-07-27, Presentation Live Session Path records)
+## Matrix (as of 2026-07-27, Presentation Real Session and Attestation records)
 
 | Aspect ↓ / Domain → | W-2 wages (1a) | Interest (2b) | Dividends (3a/3b) | Return-level conditions (status, 12, 15, 16) | Schedule attachments |
 | --- | --- | --- | --- | --- | --- |
@@ -33,7 +33,7 @@ careful hand-editing.
 | **Computation** (rules, composition, conditionals) | L3 ⁷ | L3 ³ ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
 | **Adoption & authority** (packages, manifests, byte verification, citations) | L3 ⁴ ⁷ | L3 ⁴ ⁷ | L3 ¹¹ | L3 ⁴ ⁷ | L3 ¹¹ ¹² |
 | **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
-| **Presentation** (form-field dispositions, rendering; human surface) | L2 ⁵ ⁷ | L2 ⁵ ⁷ | L2 ⁵ ¹¹ | L2 ⁵ ⁷ | L2 ⁵ ¹¹ |
+| **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ¹⁴ | L2 ⁵ ⁷ ¹⁴ | L2 ⁵ ¹¹ ¹⁴ | L2 ⁵ ⁷ ¹⁴ | L2 ⁵ ¹¹ ¹⁴ |
 | **Correction & supersession lifecycle** | L4 ⁶ ⁷ | L4 ⁶ ⁷ | L4 ⁶ ¹¹ | L4 ⁶ ⁷ | L4 ⁶ ¹¹ |
 | **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ |
 
@@ -87,8 +87,8 @@ extended at milestone close 2026-07-21):
    | Live viewing environment | Decided. ADR-0047 classifies every headed-browser channel into four classes, states exactly what the owner would attest, and names the enforcement-substrate residual. Amended twice on 2026-07-27: Class C confinement and Class D precondition observation are owner-held outside the project supply chain; the session's own loopback socket is classified Class B | `docs/adr/0047-live-viewing-environment.md` |
    | Session path | Exists as one act. `open_presentation_session` runs capability → preflight → model → loopback → browser → teardown, refuses on every preflight refusal, and takes preflight answers as parameters rather than observing the machine | `packages/derivation/live_session.py`; `tests/test_presentation_live_session.py` |
    | Product surface | A separate file from the evaluation fixture, asserting no provenance in either direction; the session refuses fail-closed to serve any page declaring itself synthetic | `packages/presentation/pages/citation-walk.v1.html` |
-   | Rehearsal | The full path ran end to end against a synthetic workspace: fail-closed default, all three refusals, the clear path, teardown, and the failure path. A real browser was never launched and the product page has never been rendered by one | `docs/reviews/2026-07-27-presentation-live-session-path-track3-rehearsal.md` |
-   | Real operation | Not exercised; no viewing session performed and no owner attestation made. This — not the vehicle, and not the session path — is the whole remaining distance to L3 | Presentation remains L2 |
+   | Rehearsal | The full path ran end to end against a synthetic workspace: fail-closed default, all three refusals, the clear path, teardown, and the failure path — with a stub in place of a browser. **Both remaining rehearsal gaps closed 2026-07-27** (footnote 14): a real headed browser was launched by the real path, and it rendered the product page | `docs/reviews/2026-07-27-presentation-live-session-path-track3-rehearsal.md`; `docs/reviews/2026-07-27-presentation-real-session-attestation-track2-rehearsal.md` |
+   | Real operation | **Performed 2026-07-27** against the real residency, with the ADR-0031 Decision 7 non-descriptive attestation and all five ADR-0047 preconditions affirmed. This is what moves the W-2 wages (1a) cell to L3 and nothing else (footnote 14) | `docs/reviews/2026-07-27-presentation-real-session-attestation-track3-attestation.md` |
 
    **Live Session Path (2026-07-27)** built and rehearsed everything the L3
    session needs without performing one. Its two findings are the durable
@@ -174,35 +174,86 @@ extended at milestone close 2026-07-21):
     particular operator clone, and reports credential confinement as
     `unestablished`. It therefore leaves every data-boundary cell at L3 and
     preserves ledger entries 1 and 2.
+14. **Evidential basis for the Presentation W-2 wages (1a) L3 claim
+    (Ontology §8), and why the other four Presentation cells stay L2.**
+    Presentation — Real Session and Attestation, 2026-07-27.
+
+    Same pattern as footnotes 7 and 11, and it holds for the same two reasons.
+    First, the synthetic battery exercises the **identical path** in-repo:
+    `tests/test_presentation_live_session.py`,
+    `tests/test_presentation_live_viewing_vehicle.py`, and
+    `tests/test_presentation_l2_integration.py`, plus both evaluation manifests
+    as an unchanged regression floor. Second, the owner's non-descriptive
+    attestation establishes that the capability **operated on real data with the
+    boundary intact** — the session performed, dispositions observed in
+    quarantine, no artifact crossed — with each of ADR-0047's five honesty
+    preconditions affirmed individually rather than in summary, conditions 3 and
+    4 being owner knowledge rather than mechanism
+    (`docs/reviews/2026-07-27-presentation-real-session-attestation-track3-attestation.md`).
+
+    **No L3 claim here rests on, or may ever cite, quarantined run detail.** L3
+    asserts the capability operated. It asserts no disposition was correct, and
+    no reader should infer one from this cell.
+
+    One thing is new relative to footnotes 7 and 11, and it is the reason this
+    milestone had a Track 2 at all. For a *human surface*, the person who would
+    see a defect is the one person forbidden to describe it. So the first real
+    render was deliberately not the real session: a real headed browser was
+    launched by `open_presentation_session` against a **synthetic** workspace
+    and rendered the product page there, where description is safe, before the
+    real residency was touched
+    (`docs/reviews/2026-07-27-presentation-real-session-attestation-track2-rehearsal.md`).
+    That rehearsal closed both gaps this footnote's predecessor named, and found
+    no page defect. It also gave the interrupt-teardown repair its first human
+    confirmation — no surviving browser, no surviving session directory.
+
+    **The other four Presentation cells remain L2, and this is by design rather
+    than by omission.** One attestation raises only what it covers. The owner
+    named the W-2 wages (1a) column at plan stage, and the milestone's non-goals
+    foreclose inferring the rest; nothing about the session mechanically
+    distinguishes the columns, but the *record* distinguishes them, and the
+    record is what a maturity claim rests on. Raising Interest, Dividends,
+    Return-level conditions, or Schedule attachments requires the owner to say
+    so in an attestation — naming a column is not describing content — not an
+    inference drawn here.
+
+    **Named gap.** Track 2's browser-start-failure exercise was skipped, which
+    its charter permitted. The classified-refusal path — a browser that fails to
+    start arriving as a stable reason code rather than as a traceback — is
+    established by tests and by independent review, and **not** by human
+    observation. It is the least-exercised part of the session path.
 
 ## Frontier reading
 
-The covered region (all five domains, all eight aspects) is uniformly L3 or
-better; one aspect (Correction & supersession lifecycle) is now L4 across
-every domain. The matrix is breadth- and hardening-limited, not
-depth-limited within its covered domains. The live frontiers for the
-owner's next selection (Tier 3):
+Seven of the eight aspects are L3 or better across all five domains; one
+(Correction & supersession lifecycle) is L4 everywhere. Presentation is the
+single ragged row: **L3 in W-2 wages (1a) as of 2026-07-27, L2 in the other
+four.** The matrix is breadth- and hardening-limited, not depth-limited within
+its covered domains. The live frontiers for the owner's next selection (Tier 3):
 
-1. **Presentation L2 → L3 — one owner act away.** The projector and renderer are
-   production-shaped and synthetic end-to-end; the live viewing environment is
-   decided (ADR-0047, twice amended); the confined headed invocation vehicle
-   exists; and as of the Live Session Path milestone the whole path exists as a
-   **single act** — `open_presentation_session` — which has been rehearsed end
-   to end against a synthetic workspace (footnote 5). No build gap remains.
+1. **Presentation L2 → L3 in the four remaining columns.** The build question is
+   settled and stays settled: the projector and renderer are production-shaped
+   and synthetic end-to-end, the live viewing environment is decided (ADR-0047,
+   twice amended), the confined headed invocation vehicle exists, the whole path
+   is a **single act**, and that act has now been run by a human against both a
+   synthetic workspace and the real residency (footnote 14). Nothing needs
+   building for Interest, Dividends, Return-level conditions, or Schedule
+   attachments to reach L3.
 
-   What remains is **real operation and the owner's non-descriptive
-   attestation**, which is four things the owner does and the project cannot:
-   supply the three preflight answers from their own trust domain, optionally
-   apply their own confinement, point the capability at the real residency, and
-   look. The five honesty preconditions ADR-0047 names still govern, two of them
-   being owner knowledge rather than mechanism.
+   What is missing is **record, not capability**. One attestation raises only
+   what it covers, and the owner named W-2 wages (1a) at plan stage. Extending
+   the claim means the owner performing a session that covers the other columns
+   and naming them in the attestation — naming a column is not describing
+   content. This is a cheap frontier now that the first one has been paid for,
+   and it is the natural next candidate.
 
-   Two rehearsal gaps are worth knowing before that session rather than during
-   it: **no real browser has ever been launched** by this path, and **the
-   product page has never been rendered by one** — it is a three-text-change
-   copy of a page that has, and only a diff and a syntax check stand behind it.
-   Neither is a blocker; both mean the first real session is still the first
-   real render.
+   Two things to carry into it rather than rediscover. The
+   **classified-refusal path has never been confirmed by a human**: that a
+   browser failing to start arrives as a stable reason code rather than a
+   traceback rests on tests and review only (footnote 14, named gap). And the
+   **runbook has an unidentified unclarity**, reported by its first human user;
+   the next person to use it should note where it reads badly at the moment it
+   reads badly.
 2. **L3 → L4 hardening** — retire remaining named deferrals from the
    milestone ledgers (`dividends-schedule-b-slice-deferral-ledger.md`,
    `correction-authority-and-marshaller-simplification-deferral-ledger.md`).
