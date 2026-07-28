@@ -1,21 +1,35 @@
 #!/usr/bin/env node
-// Throwaway retention probe. Not product code — see README.md. Track 1 of the
-// Entry Boundary milestone (docs/reviews/charter-2026-07-28-entry-boundary-track1.md).
+// Throwaway retention probe. Not product code — see README.md.
 //
-// Drives the *existing* confined invocation vehicle
-// (tools/presentation_harness/lib/chrome.mjs + lib/server.mjs, unmodified),
-// types distinctive synthetic tokens into a throwaway form, exercises a clean
-// close and a crash-simulated close, and greps the resulting Chrome profile
-// directories for those tokens. Prints a JSON report to stdout.
+// Track 1 of the Entry Boundary milestone
+// (docs/reviews/charter-2026-07-28-entry-boundary-track1.md) drove the
+// *headless* synthetic evaluation harness
+// (tools/presentation_harness/lib/chrome.mjs + lib/server.mjs, unmodified).
+// Track 1b (docs/reviews/charter-2026-07-28-entry-boundary-track1b.md) adds a
+// second vehicle: the *headed* one a person actually types into,
+// packages/derivation/live_viewing.py (ADR-0047), driven against a synthetic
+// workspace directory via the throwaway tools/entry_probe/headed_launch.py
+// bridge. Neither packages/derivation/live_viewing.py nor
+// tools/presentation_harness/lib/chrome.mjs or lib/server.mjs is modified by
+// this file.
+//
+// Both modes exercise the same fixture, the same five channels, the same
+// synthetic tokens, the same binary-safe grep, and the same network capture:
+// type distinctive synthetic tokens into a throwaway form, exercise a clean
+// close and a crash-simulated close, and grep the resulting profile
+// directory for those tokens. Prints a JSON report to stdout.
 //
 // Run by hand only. Not wired into CI or verify. Deletes every scratch
-// profile it inspects before exiting.
+// profile/workspace it inspects before exiting.
 //
-//   node tools/entry_probe/probe.mjs
+//   node tools/entry_probe/probe.mjs                  # both modes (default)
+//   node tools/entry_probe/probe.mjs --mode=headless
+//   node tools/entry_probe/probe.mjs --mode=headed
 
 import { randomBytes } from "node:crypto";
-import { execFileSync } from "node:child_process";
-import { readdir, rm, stat } from "node:fs/promises";
+import { execFileSync, spawn } from "node:child_process";
+import { mkdtemp, readdir, rm, stat } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { startLoopbackServer } from "../presentation_harness/lib/server.mjs";
@@ -25,6 +39,7 @@ import { CDPClient } from "../presentation_harness/lib/cdp.mjs";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(HERE, "..", "..");
 const FORM_PATH = "tools/entry_probe/form.html";
+const HEADED_LAUNCHER = join(HERE, "headed_launch.py");
 
 const base = randomBytes(6).toString("hex");
 const TOKENS = {
@@ -45,29 +60,82 @@ function sleep(ms) {
 }
 
 /**
- * Find the OS pid and --user-data-dir of the one Chrome process this probe
- * just launched, by reading `ps` output. This is external process
- * inspection only — it does not require chrome.mjs to expose its internal
- * profile-directory or pid, and it does not modify chrome.mjs.
+ * Find the OS pid and --user-data-dir (plus --disk-cache-dir and
+ * --download-default-directory, if present) of the one Chrome process
+ * matching `marker` somewhere in its command line, by reading `ps` output.
+ * This is external process inspection only — it does not require either
+ * vehicle to expose its internal profile-directory or pid, and it does not
+ * modify chrome.mjs or live_viewing.py.
+ *
+ * For the headless vehicle, `marker` is the "presentation-harness-profile-"
+ * mkdtemp prefix chrome.mjs uses. For the headed vehicle, `marker` is the
+ * synthetic workspace directory this probe created — unique per run — since
+ * live_viewing.py's --user-data-dir, --disk-cache-dir, and
+ * --download-default-directory are all confined somewhere underneath it.
  */
-function findChromeProcess() {
+function findChromeProcess(marker) {
   const out = execFileSync("ps", ["-axww", "-o", "pid,command"], { encoding: "utf8" });
   const lines = out.split("\n").filter(
     (l) =>
       l.includes("--user-data-dir=") &&
-      l.includes("presentation-harness-profile-") &&
+      l.includes(marker) &&
       !l.includes("--type="), // exclude GPU/renderer/utility helper subprocesses; keep only the main browser process
   );
   if (lines.length !== 1) {
     throw new Error(
-      `expected exactly one matching Chrome process, found ${lines.length}: ${JSON.stringify(lines)}`,
+      `expected exactly one matching Chrome process for marker ${JSON.stringify(marker)}, found ${lines.length}: ${JSON.stringify(lines)}`,
     );
   }
   const line = lines[0].trim();
   const pid = Number.parseInt(line.split(/\s+/)[0], 10);
-  const match = line.match(/--user-data-dir=(\S+)/);
-  if (!match) throw new Error("could not parse --user-data-dir from ps output");
-  return { pid, profileDir: match[1] };
+  const profileMatch = line.match(/--user-data-dir=(\S+)/);
+  if (!profileMatch) throw new Error("could not parse --user-data-dir from ps output");
+  const cacheMatch = line.match(/--disk-cache-dir=(\S+)/);
+  const downloadsMatch = line.match(/--download-default-directory=(\S+)/);
+  return {
+    pid,
+    profileDir: profileMatch[1],
+    cacheDir: cacheMatch ? cacheMatch[1] : null,
+    downloadsDir: downloadsMatch ? downloadsMatch[1] : null,
+  };
+}
+
+/** Read one newline-terminated line from a stream, then stop listening. */
+function readFirstLine(stream) {
+  return new Promise((resolve, reject) => {
+    let buf = "";
+    function onData(chunk) {
+      buf += chunk.toString("utf8");
+      const idx = buf.indexOf("\n");
+      if (idx !== -1) {
+        stream.off("data", onData);
+        stream.off("error", onError);
+        resolve(buf.slice(0, idx));
+      }
+    }
+    function onError(err) {
+      stream.off("data", onData);
+      reject(err);
+    }
+    stream.on("data", onData);
+    stream.on("error", onError);
+  });
+}
+
+/**
+ * Launch packages/derivation/live_viewing.py's LiveViewingVehicle against a
+ * synthetic workspace directory, via the throwaway headed_launch.py bridge
+ * (tools/entry_probe/headed_launch.py). Neither live_viewing.py nor
+ * live_workspace.py is modified; the bridge imports them unmodified and
+ * reports only the one public `websocket_url` field.
+ */
+async function launchHeadedVehicle(workspaceDir) {
+  const child = spawn("python3", [HEADED_LAUNCHER, workspaceDir], {
+    stdio: ["pipe", "pipe", "inherit"],
+  });
+  const firstLine = await readFirstLine(child.stdout);
+  const parsed = JSON.parse(firstLine);
+  return { launcherProcess: child, websocketUrl: parsed.websocket_url };
 }
 
 function processAlive(pid) {
@@ -194,9 +262,9 @@ function grepDirForTokens(dir) {
 }
 
 async function runOneSession({ label, killSignal }) {
-  log(`\n=== session: ${label} ===`);
+  log(`\n=== headless session: ${label} ===`);
   const chromeHandle = await launchChrome(null, {});
-  const { pid, profileDir } = findChromeProcess();
+  const { pid, profileDir } = findChromeProcess("presentation-harness-profile-");
   log(`${label}: pid=${pid} profileDir=${profileDir}`);
 
   const client = await CDPClient.connect(chromeHandle.wsUrl);
@@ -351,6 +419,7 @@ async function runOneSession({ label, killSignal }) {
 
   return {
     label,
+    vehicle: "headless (tools/presentation_harness/lib/chrome.mjs)",
     pid,
     profileDirExistedAfterKill: Boolean(profileStat),
     defaultProfileTopLevelEntries: topLevelEntries,
@@ -366,18 +435,244 @@ async function runOneSession({ label, killSignal }) {
   };
 }
 
+/**
+ * Same method as runOneSession, against the headed vehicle
+ * (packages/derivation/live_viewing.py) instead of chrome.mjs. Launched via
+ * the throwaway headed_launch.py bridge against a fresh synthetic workspace
+ * directory (a bare temp directory standing in for a real one — never a
+ * real workspace). Chrome is found and signalled directly by pid (the same
+ * external-`ps`-inspection method runOneSession uses), bypassing
+ * LiveViewingSession.close() (whose own last act deletes the confined
+ * .live-view/session-<uuid> directory) so the profile can be inspected
+ * before deletion, then the whole synthetic workspace is deleted by this
+ * probe itself — not by calling back into live_viewing.py.
+ */
+async function runHeadedSession({ label, killSignal }) {
+  log(`\n=== headed session: ${label} ===`);
+  const workspaceDir = await mkdtemp(join(tmpdir(), "entry-probe-headed-workspace-"));
+  const { launcherProcess, websocketUrl } = await launchHeadedVehicle(workspaceDir);
+
+  const { pid, profileDir, cacheDir, downloadsDir } = findChromeProcess(workspaceDir);
+  log(`${label}: pid=${pid} profileDir=${profileDir} cacheDir=${cacheDir}`);
+
+  const client = await CDPClient.connect(websocketUrl);
+  const target = await attachInstrumentedTarget(client, GLOBAL.serverOrigin);
+
+  await client.send("Page.navigate", { url: `${GLOBAL.serverOrigin}/${FORM_PATH}` }, target.sessionId);
+  await client.waitFor("Page.loadEventFired", target.sessionId, 10000);
+
+  for (const [field, value] of Object.entries(TOKENS)) {
+    await typeInto(client, target.sessionId, field, value);
+  }
+
+  // Sanity readback: confirm the DOM actually holds the intended tokens
+  // verbatim before relying on a grep-for-exact-token search downstream.
+  const readback = await client.send(
+    "Runtime.evaluate",
+    {
+      expression: `Object.fromEntries(${JSON.stringify(Object.keys(TOKENS))}.map((id) => [id, document.getElementById(id).value]))`,
+      returnByValue: true,
+      awaitPromise: true,
+    },
+    target.sessionId,
+  );
+  for (const [field, expected] of Object.entries(TOKENS)) {
+    const actual = readback.result?.value?.[field];
+    if (actual !== expected) {
+      log(`${label}: WARNING readback mismatch for ${field}: expected ${JSON.stringify(expected)} got ${JSON.stringify(actual)}`);
+    }
+  }
+
+  // Undo-buffer probe: clear one field's content, then ask the browser's own
+  // in-page undo manager whether it can restore it, all before any
+  // navigation or close.
+  const clearResult = await client.send(
+    "Runtime.evaluate",
+    {
+      expression: `(() => {
+        const el = document.getElementById('notes');
+        el.focus();
+        el.setSelectionRange(0, el.value.length);
+        document.execCommand('delete');
+        return el.value;
+      })()`,
+      returnByValue: true,
+      awaitPromise: true,
+    },
+    target.sessionId,
+  );
+  const valueAfterClear = clearResult.result?.value;
+  const undoResult = await client.send(
+    "Runtime.evaluate",
+    {
+      expression: `(() => { document.execCommand('undo'); return document.getElementById('notes').value; })()`,
+      returnByValue: true,
+      awaitPromise: true,
+    },
+    target.sessionId,
+  );
+  const valueAfterUndo = undoResult.result?.value;
+
+  // Submit the form (a real GET navigation) — this is the moment autofill /
+  // form-history heuristics in real browsers key off.
+  const submitResult = await client.send(
+    "Runtime.evaluate",
+    { expression: `document.getElementById('probeForm').requestSubmit()`, awaitPromise: true },
+    target.sessionId,
+  );
+  if (submitResult.exceptionDetails) {
+    log(`${label}: submit threw`, submitResult.exceptionDetails);
+  }
+  await client.waitFor("Page.loadEventFired", target.sessionId, 10000).catch((e) => log(`${label}: post-submit load wait: ${e.message}`));
+
+  // Post-navigation undo persistence: does the undo history survive
+  // navigating the same tab away and reloading the original form?
+  await client.send("Page.navigate", { url: `${GLOBAL.serverOrigin}/${FORM_PATH}` }, target.sessionId);
+  await client.waitFor("Page.loadEventFired", target.sessionId, 10000);
+  const postNavigationValue = await client.send(
+    "Runtime.evaluate",
+    {
+      expression: `(() => { document.getElementById('notes').focus(); document.execCommand('undo'); return document.getElementById('notes').value; })()`,
+      returnByValue: true,
+      awaitPromise: true,
+    },
+    target.sessionId,
+  );
+
+  await sleep(1500); // let any async writer (WebData, prefs, session backend) flush.
+
+  const nonLoopbackRequests = target.nonLoopbackRequests.slice();
+  await target.dispose();
+  client.close();
+
+  // Deliberately do NOT let LiveViewingSession.close() run (this probe never
+  // called it — the bridge process only ever printed the websocket_url and
+  // blocked). Signal Chrome directly by pid, the same "bypass the vehicle's
+  // own teardown, inspect, then clean up ourselves" method runOneSession
+  // uses against chrome.mjs's dispose().
+  process.kill(pid, killSignal);
+  const exited = await waitForProcessExit(pid, 5000);
+  if (!exited) {
+    log(`${label}: process ${pid} did not exit after ${killSignal} within 5s; forcing SIGKILL`);
+    try {
+      process.kill(pid, "SIGKILL");
+    } catch {
+      /* already gone */
+    }
+    await waitForProcessExit(pid, 5000);
+  }
+
+  await sleep(300); // let the OS finish releasing file handles before we grep.
+
+  // Sweep any orphaned helper subprocesses (GPU/renderer/utility) left
+  // behind by the main process's death — hygiene only, does not affect the
+  // grep below since evidence was captured from disk, not from these.
+  try {
+    execFileSync("pkill", ["-9", "-f", workspaceDir], { stdio: "ignore" });
+  } catch {
+    /* pkill exits non-zero when nothing matched */
+  }
+
+  let profileStat;
+  try {
+    profileStat = await stat(profileDir);
+  } catch {
+    profileStat = null;
+  }
+
+  // Grep the whole synthetic workspace, not just profileDir: unlike
+  // chrome.mjs (which never sets a separate cache directory, so cache lived
+  // inside the profile dir it grepped), live_viewing.py confines cache and
+  // downloads to sibling directories under the same session root
+  // (--disk-cache-dir, --download-default-directory). Grepping the workspace
+  // root covers profile, cache, downloads, and the print-to-pdf destination
+  // in one pass.
+  const hits = profileStat ? grepDirForTokens(workspaceDir) : [];
+  let topLevelEntries = [];
+  let sessionsEntries = [];
+  let sessionStorageEntries = [];
+  let cacheDirEntries = [];
+  if (profileStat) {
+    try {
+      topLevelEntries = await readdir(join(profileDir, "Default"));
+    } catch {
+      topLevelEntries = [];
+    }
+    try {
+      sessionsEntries = await readdir(join(profileDir, "Default", "Sessions"));
+    } catch {
+      sessionsEntries = [];
+    }
+    try {
+      sessionStorageEntries = await readdir(join(profileDir, "Default", "Session Storage"));
+    } catch {
+      sessionStorageEntries = [];
+    }
+    if (cacheDir) {
+      try {
+        cacheDirEntries = await readdir(cacheDir);
+      } catch {
+        cacheDirEntries = [];
+      }
+    }
+  }
+
+  // Stop the launcher bridge process. It never called session.close() itself
+  // (by design — see headed_launch.py), so this does not touch the
+  // directory; the probe deletes the whole synthetic workspace itself next,
+  // the same way runOneSession deletes profileDir itself rather than calling
+  // chrome.mjs's dispose().
+  try {
+    launcherProcess.stdin.end();
+  } catch {
+    /* already closed */
+  }
+  launcherProcess.kill("SIGTERM");
+
+  await rm(workspaceDir, { recursive: true, force: true });
+
+  return {
+    label,
+    vehicle: "headed (packages/derivation/live_viewing.py)",
+    pid,
+    profileDirExistedAfterKill: Boolean(profileStat),
+    defaultProfileTopLevelEntries: topLevelEntries,
+    sessionsDirEntries: sessionsEntries,
+    sessionStorageDirEntries: sessionStorageEntries,
+    cacheDirIsSeparateFromProfile: Boolean(cacheDir),
+    cacheDirEntries,
+    downloadsDirNoted: Boolean(downloadsDir),
+    tokenHits: hits,
+    nonLoopbackRequests,
+    undoProbe: { valueAfterClear, valueAfterUndo, postNavigationUndoValue: postNavigationValue.result?.value },
+  };
+}
+
 const GLOBAL = {};
 
 async function main() {
+  const modeArg = process.argv.slice(2).find((a) => a.startsWith("--mode="));
+  const mode = modeArg ? modeArg.slice("--mode=".length) : "both";
+  if (!["headless", "headed", "both"].includes(mode)) {
+    throw new Error(`unknown --mode=${JSON.stringify(mode)}; expected headless, headed, or both`);
+  }
+
   log("tokens", TOKENS);
+  log("mode", mode);
   const server = await startLoopbackServer(REPO_ROOT, new Set([FORM_PATH]));
   GLOBAL.serverOrigin = server.origin;
   log("server origin", server.origin);
 
   const results = [];
   try {
-    results.push(await runOneSession({ label: "clean-ish (SIGTERM by probe, not dispose())", killSignal: "SIGTERM" }));
-    results.push(await runOneSession({ label: "unclean (SIGKILL, simulated crash)", killSignal: "SIGKILL" }));
+    if (mode === "headless" || mode === "both") {
+      results.push(await runOneSession({ label: "headless: clean-ish (SIGTERM by probe, not dispose())", killSignal: "SIGTERM" }));
+      results.push(await runOneSession({ label: "headless: unclean (SIGKILL, simulated crash)", killSignal: "SIGKILL" }));
+    }
+    if (mode === "headed" || mode === "both") {
+      results.push(await runHeadedSession({ label: "headed: clean-ish (SIGTERM by probe, not close())", killSignal: "SIGTERM" }));
+      results.push(await runHeadedSession({ label: "headed: unclean (SIGKILL, simulated crash)", killSignal: "SIGKILL" }));
+    }
   } finally {
     await server.close();
   }
@@ -387,13 +682,13 @@ async function main() {
     if (severeEgress) {
       log(`\n!!! STOP CONDITION: typed token observed in a non-loopback network request in session "${r.label}" !!!`);
       log(JSON.stringify(r.nonLoopbackRequests, null, 2));
-      process.stdout.write(`${JSON.stringify({ stopCondition: "network-egress-of-typed-content", results }, null, 2)}\n`);
+      process.stdout.write(`${JSON.stringify({ stopCondition: "network-egress-of-typed-content", mode, results }, null, 2)}\n`);
       process.exitCode = 3;
       return;
     }
   }
 
-  process.stdout.write(`${JSON.stringify({ tokens: TOKENS, results }, null, 2)}\n`);
+  process.stdout.write(`${JSON.stringify({ tokens: TOKENS, mode, results }, null, 2)}\n`);
 }
 
 main().catch((error) => {

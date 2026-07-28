@@ -1,33 +1,45 @@
 This is a throwaway instrument, not product code. It exists to answer one
-question for the Entry Boundary milestone (Track 1) and then goes away.
+question for the Entry Boundary milestone (Tracks 1 and 1b) and then goes
+away.
 
-Charter: `docs/reviews/charter-2026-07-28-entry-boundary-track1.md`.
+Charters: `docs/reviews/charter-2026-07-28-entry-boundary-track1.md` (Track 1,
+headless) and `docs/reviews/charter-2026-07-28-entry-boundary-track1b.md`
+(Track 1b, headed).
 Findings: `docs/phases/legible-entry/milestones/entry-boundary-retention-findings.md`.
 
 ## What it does
 
-Drives the existing confined invocation vehicle
-(`tools/presentation_harness/lib/chrome.mjs` + `lib/server.mjs`, unmodified —
-imported, never touched) to launch headless Chrome against a fresh disposable
-profile, serve `form.html` (a minimal page with realistic tax-form-looking
-text inputs) over the harness's own loopback-only server, type distinctive
-synthetic tokens into those inputs with real CDP-dispatched keystrokes, submit
-the form, and then inspect what ended up on disk under two shutdown paths:
+Drives two different, unmodified vehicles against the same throwaway form
+(`form.html`) and the same five channels, and greps the resulting profile
+directory for synthetic tokens under two shutdown paths — a clean-ish close
+(the probe signals the Chrome process itself with `SIGTERM` and waits) and a
+simulated crash (`SIGKILL`).
 
-1. A clean-ish close — the probe sends `SIGTERM` to the Chrome process itself
-   and waits for exit.
-2. A simulated crash — the probe sends `SIGKILL` directly.
+- **Headless vehicle** (Track 1):
+  `tools/presentation_harness/lib/chrome.mjs` + `lib/server.mjs`, unmodified —
+  imported, never touched. Launches headless Chrome (`--headless=new`,
+  hardcoded by `chrome.mjs`) against a fresh disposable profile.
+- **Headed vehicle** (Track 1b): `packages/derivation/live_viewing.py`,
+  unmodified (ADR-0047's confined headed viewing vehicle — never passes
+  `--headless`). Launched via the throwaway bridge `headed_launch.py`
+  against a synthetic workspace directory (a bare temp directory standing in
+  for a real one).
 
-It deliberately does **not** call `chromeHandle.dispose()` from `chrome.mjs`
-for either of these: `dispose()`'s last act is to delete the whole profile
-directory, which would erase the evidence before this script could inspect
-it. Instead the probe finds the browser's OS pid and `--user-data-dir` by
-reading `ps` output (pure external process inspection — chrome.mjs was not
-changed and does not need to be), signals the process itself, waits for it to
-exit, greps the profile directory for the synthetic tokens, and only then
-deletes the directory itself. `chrome.mjs`'s own `dispose()` already deletes
-this directory unconditionally on every normal harness run; this probe's
-existence is only about seeing what was in it before that deletion, once.
+In both cases the probe serves `form.html` (a minimal page with realistic
+tax-form-looking text inputs) over the harness's own loopback-only server,
+types distinctive synthetic tokens into those inputs with real
+CDP-dispatched keystrokes, submits the form, and inspects what ended up on
+disk.
+
+It deliberately does **not** call the vehicle's own teardown
+(`chromeHandle.dispose()` for the headless vehicle, `LiveViewingSession.close()`
+for the headed one) for either shutdown path: each one's last act is to
+delete the confined directory, which would erase the evidence before this
+script could inspect it. Instead the probe finds the browser's OS pid and
+confined directory by reading `ps` output (pure external process
+inspection — neither vehicle needs to expose anything, and neither is
+changed), signals the process itself, waits for it to exit, greps the
+directory for the synthetic tokens, and only then deletes it itself.
 
 It also captures every non-loopback network request the browser attempts
 during the run (via the CDP `Fetch` domain, blocking each one and recording
@@ -35,27 +47,54 @@ its URL/method/postData) — the same pattern `executor.mjs` already uses for
 its own confinement — so a spellcheck- or telemetry-service call would show
 up as a recorded, blocked attempt rather than silently succeeding.
 
+## `headed_launch.py`
+
+A throwaway Python bridge, not product code. It imports
+`packages/derivation/live_viewing.py` and `live_workspace.py` unmodified,
+launches `LiveViewingVehicle` against a synthetic workspace directory passed
+as its one argument, prints the resulting session's public `websocket_url` as
+one line of JSON, and then blocks reading stdin until killed. It never calls
+`session.close()` itself — the Node-side probe kills the discovered Chrome
+pid directly, for the same evidence-preservation reason described above. The
+launched Chrome process runs in its own session
+(`start_new_session=True`, set by `live_viewing.py`, not by this bridge), so
+killing this bridge script does **not** kill the Chrome process it launched;
+the Node-side probe must (and does) signal the Chrome pid directly.
+
 ## Running it
 
 ```
-node tools/entry_probe/probe.mjs
+node tools/entry_probe/probe.mjs                  # both vehicles (default)
+node tools/entry_probe/probe.mjs --mode=headless  # Track 1's vehicle only
+node tools/entry_probe/probe.mjs --mode=headed    # Track 1b's vehicle only
 ```
 
-Requires a local Chrome/Chromium install discoverable the same way
-`chrome.mjs` finds one (or `PRESENTATION_HARNESS_CHROME` set). Prints
-progress to stderr and a JSON report to stdout. Not wired into `verify`, CI,
-or any test suite — run by hand only.
+Requires a local Chrome/Chromium install discoverable the same way each
+vehicle finds one (or `PRESENTATION_HARNESS_CHROME` set, for the headless
+vehicle), and `python3` on `PATH` for the headed vehicle's bridge. Prints
+progress to stderr and a JSON report (tagged per session with a `vehicle`
+field) to stdout. Not wired into `verify`, CI, or any test suite — run by
+hand only.
+
+The headed vehicle needs a real display / window server to launch a real
+(non-headless) Chrome window. If none is available, this is a stop condition
+per the Track 1b charter — do not fall back to headless for the headed run;
+report it instead.
 
 ## Cleanup
 
-The probe deletes every profile directory it creates before exiting, on both
-the success and the token-found-in-network-egress abort paths. If it is
-killed mid-run, an orphaned `presentation-harness-profile-*` directory may be
-left in `$TMPDIR`; check `ps -axww -o pid,command | grep presentation-harness-profile-`
+The probe deletes every profile directory and synthetic workspace directory
+it creates before exiting, on both the success and the
+token-found-in-network-egress abort paths. If it is killed mid-run, an
+orphaned `presentation-harness-profile-*` directory (headless) or
+`entry-probe-headed-workspace-*` directory (headed, containing a
+`.live-view/session-<uuid>/` subtree) may be left in `$TMPDIR`; check
+`ps -axww -o pid,command | grep -E "presentation-harness-profile-|entry-probe-headed-workspace-"`
 and clean up by hand.
 
 ## Disposal
 
-Per the charter and the milestone plan, this directory is parked here only
+Per the charters and the milestone plan, this directory is parked here only
 long enough to produce the findings note. It is not maintained and should be
-deleted once Track 2 (the ADR) no longer needs to re-run it for verification.
+deleted once Track 2 (the ADR) no longer needs to re-run it for
+verification.

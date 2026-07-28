@@ -1,193 +1,335 @@
-# Entry Boundary — Track 1 retention-probe findings
+# Entry Boundary — retention-probe findings (headless and headed)
 
-Evidence ceiling: **observation on synthetic fixtures only.** Everything below
-is what `tools/entry_probe/probe.mjs`, driving the existing confined
-invocation vehicle (`tools/presentation_harness/lib/chrome.mjs` +
-`lib/server.mjs`, unmodified), observed on one machine in one run. It is not a
-claim about what Chrome does in general, about a non-headless Chrome, about
-any other browser, or about real data. It reports observations; it does not
-recommend a write path or say whether a browser form is acceptable — that is
-Track 2's question to answer, and it may reach a different conclusion than
-what these observations seem to suggest.
+Evidence ceiling: **observation on synthetic fixtures only, on this machine, in
+these runs.** Everything below is what `tools/entry_probe/probe.mjs` observed
+driving two different, unmodified vehicles against the same throwaway form. It
+is not a claim about what Chrome does in general, about any other machine, or
+about real data. It reports observations; it does not recommend a write path
+or say whether a browser form is acceptable — that is Track 2's question to
+answer, and it may reach a different conclusion than what these observations
+seem to suggest.
+
+- **Headless vehicle:** `tools/presentation_harness/lib/chrome.mjs` +
+  `lib/server.mjs`, unmodified, hardcoded `--headless=new`. This is the
+  synthetic evaluation harness, not the vehicle a person actually types into.
+- **Headed vehicle:** `packages/derivation/live_viewing.py`, unmodified
+  (ADR-0047's confined headed viewing vehicle). Never passes `--headless`; its
+  own test suite (`tests/test_presentation_live_viewing_vehicle.py`) asserts
+  the headed property directly. Driven here via the throwaway bridge
+  `tools/entry_probe/headed_launch.py`, against a **synthetic** workspace
+  directory (a bare temp directory standing in for a real one — never a real
+  workspace, never a real fact, never a residency locator).
 
 Probe: `tools/entry_probe/probe.mjs`. Fixture: `tools/entry_probe/form.html`.
-Full method notes: `tools/entry_probe/README.md`.
+Bridge: `tools/entry_probe/headed_launch.py`. Full method notes:
+`tools/entry_probe/README.md`.
 
-## Method summary
+## Method summary (identical across both vehicles)
 
-- Launched headless Chrome (`--headless=new`, plus the other flags already in
-  `chrome.mjs`: `--disable-extensions`, `--disable-background-networking`,
-  `--disable-sync`, `--disable-translate`, `--mute-audio`) against a fresh
-  disposable profile, twice.
 - Served `form.html` — five text inputs with realistic `name`/`id`/`type`/
   `autocomplete` (`fullName` autocomplete=name, `ssn` autocomplete=off,
   `wages` autocomplete=off, `email` autocomplete=email, `notes`
   autocomplete=off, deliberately including a misspelled phrase) — from the
-  harness's own loopback-only server.
+  harness's own loopback-only server, reused for both vehicles.
 - Typed a distinct synthetic token per field via real CDP-dispatched
   keystrokes (`Input.dispatchKeyEvent`, matching the event shape a genuine
   keypress produces), read the DOM back to confirm each field held the
   intended value verbatim, then submitted the form (a real navigation).
-- Ran this once through to a **clean-ish close** (the probe sends the Chrome
-  process `SIGTERM` itself and waits for exit) and once through to a
-  **simulated crash** (`SIGKILL`, no warning).
-- In both cases the probe finds the browser's OS pid and profile directory by
-  reading `ps` output — pure external process inspection, `chrome.mjs` was
-  not modified — signals the process itself rather than calling
-  `chromeHandle.dispose()` (whose own last act is to delete the profile
-  directory, which would destroy the evidence first), waits for exit, then
-  greps the still-on-disk profile recursively and binary-safely
-  (`grep -rla <token> <profileDir>`) before deleting it itself.
+- Exercised a clean-ish close (probe sends `SIGTERM` itself) and a simulated
+  crash (`SIGKILL`, no warning) for each vehicle.
+- Found the browser's OS pid and confined directories by reading `ps` output
+  — pure external process inspection, neither vehicle was modified — signalled
+  the process itself rather than calling the vehicle's own teardown (whose
+  last act deletes the confined directory, destroying the evidence first),
+  waited for exit, then grepped the still-on-disk directory recursively and
+  binary-safely (`grep -rla <token> <dir>`) before deleting it itself.
 - Every non-loopback network request attempted during the whole run was
-  captured via the CDP `Fetch` domain (the same block-and-record pattern
-  `executor.mjs` already uses) and checked for the tokens, in the URL and any
-  POST body.
+  captured via the CDP `Fetch` domain and checked for the tokens, in the URL
+  and any POST body.
 
-**Method correction made during this work, stated because it would otherwise
-look like a silent negative:** the grep step originally used `grep -rlaI`.
-`-I` on this system's `grep` (`ugrep`) means "treat a binary file as
-non-matching" — the opposite of what `-a` ("treat binary as text") is for.
-That combination silently suppressed every match inside a binary store
-(SQLite, LevelDB) for two full runs. It was caught only by a positive-control
-test (planting a known token inside a synthetic binary file and confirming
-`grep -rlaI` failed to find it while `grep -rla` did) before any finding
-below was written down. The flag was removed. Every result below is from the
-corrected `grep -rla` and was independently re-confirmed against a
-positive-control token.
+**Headed-vehicle-specific method note:** `packages/derivation/live_viewing.py`
+confines Chrome's profile, disk cache, and downloads into three *separate*
+sibling directories under one session root
+(`.live-view/session-<uuid>/{profile,cache,downloads}`), unlike `chrome.mjs`,
+which sets only `--user-data-dir` (cache lives inside the profile directory by
+Chrome's own default). The probe greps the whole synthetic workspace directory
+for the headed vehicle, not just the profile subdirectory, so this shape
+difference does not create a blind spot.
 
-**Typing artifact caught and fixed the same way:** an early version of
-`typeInto()` set the `text` property on `keyDown`, `char`, and `keyUp` CDP
-events, which double-inserted every character (confirmed by reading the DOM
-value back: `ENTRYPROBE` came back as `EENNTTRRYYPPRROOBBEE...`). Fixed to
-carry `text` only on the `char` event, matching how a real keypress is
-represented in three CDP events; the DOM readback then matched the intended
-token exactly, and the probe now asserts that readback on every run.
+**Operational difference observed, not a channel finding:** the headed
+vehicle's Chrome process did not exit within 5 seconds of `SIGTERM` in either
+session of either run recorded here; the probe's existing 5-second-then-force
+`SIGKILL` fallback (unchanged from Track 1) engaged both times. The headless
+vehicle's process exited within that window in every run. This may reflect
+real GUI teardown work (window/compositor shutdown) that a headless process
+does not do; this probe did not investigate further, and it does not bear on
+any of the five channels below.
+
+## Grep positive control (re-confirmed this run)
+
+Track 1 found that `grep -rlaI` — the `-I` flag meaning "treat binary files as
+non-matching" — silently suppressed every match inside a binary store
+(SQLite, LevelDB). This run re-confirmed that finding independently, against
+the actual binary `node`'s `execFileSync("grep", ...)` invokes (`/usr/bin/grep`,
+BSD grep 2.6.0-FreeBSD on this machine — not the interactive shell's `ugrep`
+alias, which is a different program only present in the interactive terminal,
+not in a `node`-spawned subprocess), by planting a known token inside a
+synthetic binary file:
+
+```
+$ /usr/bin/grep -rlaI POSITIVECONTROL-TOKEN-abc123 <dir>   # exit 1, no match — silently wrong
+$ /usr/bin/grep -rla  POSITIVECONTROL-TOKEN-abc123 <dir>   # exit 0, file found — correct
+```
+
+`grepDirForTokens()` in `probe.mjs` uses `-rla` (the corrected flag). Every
+result below is from the corrected flag, re-confirmed against a positive
+control on this run, not inherited on trust from Track 1's account.
 
 ## Findings by channel
 
 ### 1. Form history / autofill
 
-**Observed: not fired.** `Default/Web Data` (the SQLite store Chrome's
-autofill/form-history feature writes to) existed in both profiles after
-close and was grepped with the rest of the tree; no token appeared in it or
-anywhere else. This held for the `autocomplete=off` fields (`ssn`, `wages`,
+**Observed: not fired, in both vehicles.** `Default/Web Data` (the SQLite
+store Chrome's autofill/form-history feature writes to) existed in all four
+profiles (headless × 2, headed × 2) after close and was grepped with the rest
+of the tree; no token appeared in it, or anywhere else, in any of the four
+sessions. This held for the `autocomplete=off` fields (`ssn`, `wages`,
 `notes`) and, notably, also for the fields given realistic non-off
 autocomplete hints (`fullName` → `autocomplete="name"`, `email` →
 `autocomplete="email"`) that are exactly the ones a real autofill heuristic
-would be expected to key off. No distinction in outcome was observed between
-the two groups in this headless, single-submission run.
+would be expected to key off.
+
+**Headless vs. headed: no difference observed.** Track 1's review flagged this
+as the channel most plausibly a headless artifact, since headless Chrome
+could in principle suppress the autofill-save subsystem outright. That did not
+happen here in the sense of the subsystem being absent: `Web Data` exists and
+is writable in both vehicles. What this run did **not** exercise, in either
+vehicle, is a real user accepting Chrome's own "Save this info?" prompt — that
+prompt is a UI infobar the form-submission flow surfaces, and no step in this
+probe (headless or headed) drives that acceptance. A "not fired" result here
+is honestly a report of "no token was saved without an explicit save
+confirmation," in both vehicles equally — not evidence that the confirmation
+step itself is unreachable or unreachable-by-a-real-user in the headed
+vehicle. This is the same undetermined status Track 1's review already named,
+now narrowed: it is undetermined because the save-confirmation UI path was
+not driven, in either vehicle, not because headless mode hides the feature
+from the headed one.
 
 Confinement: N/A — nothing was found to contain.
 
 ### 2. Session restore and crash recovery
 
-**Observed: fired (files are written), but did not contain the typed
-values.** `Default/Sessions/` was empty in a bare `about:blank` sanity check
-with no navigation, but after the form-navigation flow it held real files in
-both scenarios — `Session_<id>` and `Tabs_<id>` after the clean-ish close;
-`Session_<id>` only after the simulated `SIGKILL` crash (no `Tabs_` file that
-time, itself a same-vehicle observation, not further interpreted here).
-`Default/Session Storage/` (a separate LevelDB store) also had real content
-(`000003.log`, `CURRENT`, `LOCK`, `LOG`, `MANIFEST-000001`) in both cases.
-The whole-tree grep covered these files along with everything else in the
-profile and found no token in any of them.
+**Observed: fired (files are written) in both vehicles, and did not contain
+the typed values in either.** `Default/Sessions/` held real files in both
+vehicles after the form-navigation flow — `Session_<id>` and `Tabs_<id>` after
+the clean-ish close; `Session_<id>` only after the simulated `SIGKILL` crash
+(no `Tabs_` file that time, in both vehicles, itself a same-shape
+observation not further interpreted here). `Default/Session Storage/` (a
+separate LevelDB store) also had identical-shaped content (`000003.log`,
+`CURRENT`, `LOCK`, `LOG`, `MANIFEST-000001`) across all four sessions. The
+whole-tree grep covered these files along with everything else in each
+profile/workspace and found no token in any of them, in any run.
 
-Untested, and why: whether relaunching Chrome pointed at the **same**
-(crashed) profile would actually surface a "restore pages" prompt — the
-behavioral part of "crash recovery," not just whether bytes get written —
-was not tested. `chrome.mjs`'s `launchChrome()` always creates a fresh
-`mkdtemp` profile per call and has no parameter to reuse an existing one;
-exercising a same-profile relaunch would require adding one, which the
-charter forbids touching. Only "were crash-recovery bytes written, and do
-they contain the typed values" was tested, not "does the browser then offer
-to restore them."
+**Headless vs. headed: no difference observed in the byte-writing half of
+this channel.** The behavioral half — whether relaunching Chrome pointed at
+the same (crashed) profile actually surfaces a "restore pages" prompt — is
+still untested in both vehicles; see below.
 
-Confinement: contained by construction under normal harness operation —
-`chrome.mjs`'s own `dispose()` deletes this whole directory, including these
-files, on every clean run. This probe bypassed only `dispose()` itself (not
-`chrome.mjs`) to see the files before that deletion.
+Untested, and why (unchanged from Track 1, now confirmed to apply to both
+vehicles): whether relaunching Chrome pointed at the **same** (crashed)
+profile would actually surface a "restore pages" prompt was not tested.
+Neither `chrome.mjs`'s `launchChrome()` nor `live_viewing.py`'s
+`LiveViewingVehicle.launch()` has a parameter to reuse an existing (crashed)
+profile/session directory — each computes a fresh one every call
+(`chrome.mjs` via `mkdtemp`; `live_viewing.py` via a fresh
+`.live-view/session-<uuid>`). Adding one to either would be exactly the kind
+of vehicle modification the charter forbids. Only "were crash-recovery bytes
+written, and do they contain the typed values" was tested in either vehicle,
+not "does the browser then offer to restore them."
+
+Confinement: contained by construction under normal operation in both
+vehicles — `chrome.mjs`'s own `dispose()` and `live_viewing.py`'s own
+`LiveViewingSession.close()` both delete their respective confined
+directories, including these files, on every clean run. This probe bypassed
+only that teardown step in each vehicle (not the vehicle itself) to see the
+files before deletion.
 
 ### 3. Undo buffer persistence
 
 **Observed: present in-memory within the page, cleared by navigation, never
-touched disk.** After typing the `notes` token, the field was cleared
-(`execCommand('delete')`) and `execCommand('undo')` was called: the full
-token came back exactly (confirmed byte-for-byte once the typing artifact
-above was fixed). The page was then navigated away and back to the same
-form; calling `undo` again on the now-fresh `notes` field returned an empty
-string — the undo stack did not survive the navigation. No token from this
-sequence appeared anywhere in the profile-directory grep.
+touched disk — identically in both vehicles.** After typing the `notes`
+token, the field was cleared (`execCommand('delete')`) and `execCommand('undo')`
+was called: the full token came back exactly, in all four sessions. The page
+was then navigated away and back to the same form; calling `undo` again on the
+now-fresh `notes` field returned an empty string in all four sessions — the
+undo stack did not survive the navigation, in either vehicle. No token from
+this sequence appeared anywhere in any profile/workspace grep.
+
+**Headless vs. headed: no difference observed.** This matches Track 1's
+review assessment that this channel (Blink's in-page `execCommand` undo
+stack) is unlikely to be gated by `--headless`; this run found the identical
+behavior in the vehicle that does not pass that flag at all.
 
 Confinement: N/A — this channel does not appear to write to disk at all in
-this vehicle; it lives and dies with the renderer's in-page document state.
+either vehicle; it lives and dies with the renderer's in-page document state.
 
 ### 4. Spellcheck
 
-**Observed: not fired, for the default (local) configuration only.** The
-`notes` field's token included a deliberately misspelled phrase
-("wagess recieved teh amoutn") with `spellcheck="true"` set. Across both
-sessions, zero non-loopback network requests were observed at all (see
-below) — not merely zero requests containing the token, zero requests full
-stop.
+**Observed: not fired, for the default (local) configuration, in both
+vehicles.** The `notes` field's token included a deliberately misspelled
+phrase ("wagess recieved teh amoutn") with `spellcheck="true"` set. Across all
+four sessions (headless × 2, headed × 2), zero non-loopback network requests
+were observed at all (see below) — not merely zero requests containing the
+token, zero requests full stop.
 
-Untested, and why: Chrome's *enhanced* ("send text to Google for improved
-spellchecking") mode is opt-in and was not tested. Enabling it requires
-either a signed-in Google account in the profile or a Chrome preference/
-policy that none of `chrome.mjs`'s existing launch flags set; adding one
-would be a change to `chrome.mjs` itself, which the charter forbids. Only
-the vehicle's actual default — local, no network calls attempted for
-spellcheck during this run — was observed. This is not a claim that
-enhanced spellcheck cannot leak typed text; it is untested here.
+**Headless vs. headed: no difference observed in the default configuration.**
+This is the channel Track 1's review was least willing to accept as settled,
+because headless Chrome has historically differed from headed Chrome in
+spellcheck/dictionary code paths, and enhanced ("send text to Google") mode is
+UI-mediated. This run's headed result narrows that specific worry for the
+*default* configuration: the real, headed vehicle a person would actually type
+into also attempted zero non-loopback requests during typing, undo, and
+submission of a misspelled field, in both a clean and a crashed session.
 
-Confinement: contained — no data left the loopback boundary in this mode.
+Untested, and why, in both vehicles (unchanged from Track 1): Chrome's
+*enhanced* spellcheck mode is opt-in and was not tested in either vehicle.
+Enabling it requires either a signed-in Google account in the profile or a
+Chrome preference/policy that neither `chrome.mjs`'s nor `live_viewing.py`'s
+launch flags set; adding one to either would be a change to the vehicle
+itself, which the charter forbids. Only each vehicle's actual default — local,
+no network calls attempted for spellcheck during this run — was observed.
+This is not a claim that enhanced spellcheck cannot leak typed text in either
+vehicle; it is untested in both.
+
+Confinement: contained — no data left the loopback boundary in this mode, in
+either vehicle.
 
 ### 5. Anything else the browser writes on its own
 
-**Observed: the browser wrote many files unprompted by the page; none
-contained a token.** A fresh `Default/` profile directory after this run
-contained roughly 70 top-level entries even though the served page used no
-JavaScript storage APIs at all: `History`, `Cookies`, `Favicons`,
-`Top Sites`, `Network Action Predictor`, `Login Data`, `Web Data`,
-`Extension State`, several Chrome-feature-specific SQLite/LevelDB stores
-unrelated to this page (`chrome_cart_db`, `parcel_tracking_db`,
-`discounts_db`, `optimization_guide_hint_cache_store`,
-`shared_proto_db`, `AutofillStrikeDatabase`, `Segmentation Platform`, and
-more), `GPUCache` and `Code Cache`, and `Preferences`/`Secure Preferences`.
-The whole-tree grep covered every one of these and found no token in any of
-them. No `IndexedDB` directory was created at all in this profile — the
+**Observed: the browser wrote many files unprompted by the page in both
+vehicles; none contained a token in either.** A fresh headless profile
+directory after this run contained roughly 75 top-level entries even though
+the served page used no JavaScript storage APIs at all. The headed vehicle's
+profile directory, after the equivalent run, contained roughly 55 top-level
+entries — most of the same names (`History`, `Cookies`, `Favicons`,
+`Web Data`, `Login Data`, `Segmentation Platform`,
+`Site Characteristics Database`, `chrome_cart_db`, `parcel_tracking_db`,
+`discounts_db`, `shared_proto_db`, and more), but the headed profile did not
+have several entries the headless one did:
+
+**The most important sentence in this section is the negative, not a
+positive:** no channel newly fired in the headed vehicle that had not already
+fired headless — every difference below is an entry present headless and
+*absent* headed, never the reverse, and none of the absent-headed entries
+were found to contain a token in the headless run either. This is reported
+because the difference is itself part of what Track 2 asked for, not because
+it changes any channel's verdict.
+
+Entries present in the headless profile but **not observed** in the headed
+profile in this run: `Cache`, `Code Cache` (plausibly explained by
+`live_viewing.py` setting a separate `--disk-cache-dir`, confirmed present as
+a sibling `cache/Default/` directory instead — see below), `Network Action
+Predictor`, `AutofillStrikeDatabase`, `AutofillAiModelCache`, `DIPS` /
+`DIPS-wal`, `GCM Store`, `BrowsingTopicsSiteData`, `BrowsingTopicsState`,
+`BudgetDatabase`, `Shortcuts`, `Web Applications`, `blob_storage`,
+`heavy_ad_intervention_opt_out.db`, `optimization_guide_hint_cache_store`,
+`PreferredApps`. This probe did not investigate why these specific stores are
+absent headed — plausible causes include headed-vs-headless differences in
+which background feature subsystems Chrome starts, lazier initialization that
+the fixed ~1.8s post-submission wait in this probe did not capture, or
+first-run/foreground-state differences — and does not resolve which. It is
+reported as an observed fact, not explained.
+
+**Confirmed vehicle-shape difference, not merely inferred:** `live_viewing.py`
+passes `--disk-cache-dir=<workspace>/.live-view/session-<uuid>/cache`
+(confirmed from source and from the `ps` command line of the launched
+process). The probe found a `Default/` subdirectory inside that separate
+cache directory in every headed session, consistent with Chrome's on-disk
+cache having moved there rather than living inside the profile directory
+`chrome.mjs`'s single `--user-data-dir` produces. This probe grepped the
+whole workspace, so this relocation did not create a blind spot; no token was
+found in the cache directory contents observed either.
+
+No `IndexedDB` directory was created at all in either vehicle's profile — the
 served page never called an IndexedDB API, and none appeared regardless.
 
-Untested, and why: dictation is not applicable to this vehicle as
-configured — headless Chrome exposes no microphone/dictation surface, and
-`chrome.mjs` already launches with `--mute-audio`; there is no channel here
-to exercise. Not attempted, not "fired" or "not fired."
+Untested, and why (unchanged from Track 1, applies to both vehicles):
+dictation is not applicable to this vehicle as configured in either
+vehicle — headless Chrome exposes no microphone/dictation surface at all, and
+both vehicles' launch flags include `--mute-audio`. Not attempted in either,
+not "fired" or "not fired" in either.
 
-Confinement: contained by construction — same as channel 2, all of this is
-inside the disposable profile directory that `chrome.mjs`'s own `dispose()`
+Confinement: contained by construction in both vehicles — same as channel 2,
+all of this is inside the confined directory each vehicle's own teardown
 deletes on every clean run.
 
 ## Network egress (all channels, combined observation)
 
-Across both sessions, the CDP `Fetch`-domain interception recorded **zero**
-requests to any origin other than the harness's own loopback server. Nothing
-was blocked because nothing outside the loopback origin was ever attempted.
-This is the vehicle's current default with `--disable-background-networking`,
-`--disable-sync`, and `--disable-translate` already set by `chrome.mjs`; it is
-not evidence about a differently configured browser.
+Across all four sessions (headless × 2, headed × 2), the CDP `Fetch`-domain
+interception recorded **zero** requests to any origin other than the
+harness's own loopback server, in every session. Nothing was blocked because
+nothing outside the loopback origin was ever attempted, in either vehicle.
+For the headless vehicle this is the default with
+`--disable-background-networking`, `--disable-sync`, and `--disable-translate`
+already set by `chrome.mjs`. For the headed vehicle, the same three flags are
+set by `live_viewing.py`. Neither vehicle's flags were changed by this probe.
+
+## Which channels differ between headless and headed (plain statement)
+
+**None of the five channels produced a different observed result between the
+headless and headed vehicles in this run.** Specifically:
+
+1. **Form history / autofill:** not fired, both vehicles. Undetermined in
+   both, for the same reason (the save-confirmation UI step was not driven in
+   either), not resolved by the headed run.
+2. **Session restore / crash recovery:** files written, no token, both
+   vehicles. The restore-prompt half remains untested in both, for the same
+   reason (neither vehicle's launch call can reuse an existing profile
+   without modification).
+3. **Undo buffer:** present in-page, cleared by navigation, no disk write —
+   identical in both vehicles.
+4. **Spellcheck (default/local):** zero non-loopback requests, both vehicles.
+   Enhanced/cloud spellcheck remains untested in both, for the same reason
+   (requires a vehicle-flag or account change in either).
+5. **Everything else / network egress:** many unprompted writes in both
+   vehicles, no token in either, zero non-loopback network requests in
+   either. The headed profile's top-level entry list is a strict subset of
+   the headless one in this run (a handful of feature-specific stores present
+   headless, absent headed — see channel 5 above); this is a vehicle-shape
+   difference this probe observed and did not explain, and it did not change
+   any channel's token/network-egress result.
+
+This narrows, but does not fully close, the two channels Track 1's review
+flagged as most likely to be headless artifacts (form history and
+spellcheck): the headed vehicle's *default*, no-cloud, no-explicit-save-
+confirmation behavior matches the headless one exactly, in this run, on this
+machine. It does not settle what a real user's actual save-confirmation
+interaction or an enhanced-spellcheck-enabled profile would do in either
+vehicle, because this probe drove neither in either vehicle.
 
 ## What could not be tested, summarized
 
 - Whether a real "restore session" prompt appears on relaunch against a
-  crashed profile (channel 2) — requires reusing an existing profile
-  directory, which `chrome.mjs` does not support and which the charter
-  forbids adding.
+  crashed profile (channel 2) — requires reusing an existing profile/session
+  directory, which neither vehicle's launch call supports, and which the
+  charter forbids adding to either.
+- Whether accepting Chrome's own "Save this info?" prompt actually populates
+  `Web Data` with the typed tokens (channel 1) — requires driving a UI
+  infobar interaction this probe does not attempt in either vehicle.
 - Enhanced/cloud spellcheck (channel 4) — opt-in, requires a profile
-  configuration this vehicle's launch flags don't set.
-- Dictation — not applicable to this headless, muted-audio vehicle; no
-  channel exists here to exercise.
+  configuration neither vehicle's launch flags set.
+- Dictation — not applicable to either vehicle as configured; no channel
+  exists here to exercise, in either.
+- Why the headed profile's top-level entry list is missing a handful of
+  headless-observed, non-token-bearing feature stores (channel 5) — observed,
+  not explained; see channel 5 above.
 
 ## Charter-stop findings
 
-None. Driving the confined vehicle did not require changing
-`chrome.mjs` or `server.mjs`; no channel required touching real data; no
-typed content was observed leaving the machine over the network.
+None. Driving the headed vehicle did not require changing
+`packages/derivation/live_viewing.py`, `packages/derivation/live_workspace.py`,
+`tools/presentation_harness/lib/chrome.mjs`, or `lib/server.mjs`. A real
+window server was present on this machine and a real headed browser window
+was observed to launch and close normally. No channel required touching real
+data. No typed content was observed leaving the machine over the network in
+either vehicle.
