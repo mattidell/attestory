@@ -42,7 +42,8 @@
     "merge_or_records": [
       "PROJECT_PLANNING.md#Branch, PR, and Merge Protocol"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-07-28-entry-boundary.md"
 }
 -->
 # Milestone: The Entry Boundary
