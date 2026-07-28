@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Legible Entry",
   "topic": "entry-boundary",
-  "milestone_state": "planning",
-  "status": "Plan drafted on branch `plan/entry-boundary`, PR not yet open. Nothing chartered. This is the first milestone of the Legible Entry phase.",
+  "milestone_state": "closing",
+  "status": "COMPLETE, pending the closing PR. ADR-0048 is PROPOSED, not ratified — ratification is the owner's, by merging. Answers: a browser form is acceptable for typing real tax facts on stated conditions, and an entry surface emits contribution events rather than writing facts directly. Evidence chain: Track 1 probe a33458a, review 367de61 (foreman charter named the headless harness), Track 1b headed re-run 513ff93 (no channel differed, review folded in), Track 2 ADR 3e9e6c3, review 17aea58 NOT READY, repair 0df113e (widened search found the vehicle writes a single-instance lock OUTSIDE the confined tree — no typed content, but confinement is not total), recheck 019a50c NOT READY on one measurement, foreman fix 95bd997, confirmation 4d7d02b READY. No product code changed, no maturity cell moved. Retrospective: docs/milestone-retrospectives/2026-07-28-entry-boundary.md. Residuals are in ADR-0048 Left undecided — most notably that nothing has yet searched for the residency locator outside confinement.",
   "scope": [
     "find out what a browser actually keeps when a person types into a form, by running a throwaway probe against a synthetic workspace",
     "decide whether a browser form is an acceptable place for a person to enter real tax facts",
@@ -47,7 +47,8 @@
 -->
 # Milestone: The Entry Boundary
 
-Status: **planning.** Drafted on `plan/entry-boundary`. Nothing chartered.
+Status: **complete, pending the closing PR.** ADR-0048 is proposed; merging the
+closing PR ratifies it.
 
 ## What this is for
 
