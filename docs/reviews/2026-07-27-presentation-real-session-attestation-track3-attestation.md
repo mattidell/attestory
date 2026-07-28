@@ -80,6 +80,68 @@ attestation. That is the footnote-7/11 evidential pattern, unchanged since
 2026-07-18, and it is deliberate: **no L3 claim rests on, or may ever cite,
 quarantined run detail.**
 
+## Amendment, 2026-07-28 — the columns this session covered
+
+Filed under the **Presentation — Completing the Row** milestone
+(`docs/phases/real-return/milestones/presentation-row-completion.md`, Track 1).
+
+**No new session was performed.** This amendment adds nothing to what happened on
+2026-07-27; it names what that one session covered. Naming a column is not
+describing content — the distinction the prior milestone's plan drew when it
+noted the owner may name additional columns at attestation time.
+
+**The five ADR-0047 preconditions are deliberately not re-affirmed.** They were
+affirmed above for the session of 2026-07-27. Restating them here would falsely
+suggest a second act, and there was none.
+
+The owner states, in their own words:
+
+> During the 2026-07-27 session I observed the interest content, this amendment
+> adds no descriptive detail.
+>
+> During the 2026-07-27 session I observed the dividend content; this amendment
+> adds no descriptive detail.
+>
+> During the 2026-07-27 session I observed the return-level content; this
+> amendment adds no descriptive detail.
+>
+> During the 2026-07-27 session I observed the Schedule B content; this
+> amendment adds no descriptive detail.
+
+### What this supports
+
+Observation is the fact the repository cannot verify and the owner alone holds.
+ADR-0031 Decision 7's ratified shape includes that the owner **observed
+dispositions in quarantine**, so naming a column asserts observation of that
+column — which is why the milestone plan required the statement rather than
+inferring it from the render.
+
+All four are affirmed, so all four move:
+
+| Column | Moves |
+| --- | --- |
+| Interest (2b) | L2 → L3 |
+| Dividends (3a/3b) | L2 → L3 |
+| Return-level conditions (status, 12, 15, 16) | L2 → L3 |
+| Schedule attachments | L2 → L3 |
+
+Together with W-2 wages (1a), already raised on the original attestation above,
+**the Presentation row is complete at L3 across all five columns — on one
+session.**
+
+That last clause is the one a later reader must not lose. There was one real
+viewing session, on 2026-07-27. Four of the five columns were recorded a day
+later by this amendment. No part of this record asserts that four sessions
+occurred, and none did.
+
+### What this does not support
+
+Unchanged from the original attestation, and worth restating because an
+amendment is exactly where scope creeps: **L3 asserts the capability operated.**
+It asserts no disposition was correct. Observing a column's content is not
+auditing it, and no reader should infer an audit from either the attestation or
+the amendment.
+
 ## Carried forward
 
 - **The classified-refusal path still has no human confirmation.** Track 2's
