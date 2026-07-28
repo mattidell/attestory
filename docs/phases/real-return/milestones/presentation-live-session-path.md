@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "presentation-live-session-path",
-  "milestone_state": "track-1",
+  "milestone_state": "track-2",
   "retrospective": null,
   "status": "Planning, 2026-07-27. Selected after the owner accepted a permanent L3 ceiling on the data-boundary row and chose to hold live-run confinement — and workstation-precondition observation — in their own trust domain, outside the project supply chain. This milestone builds everything the Presentation L3 session needs and rehearses it end to end against a synthetic workspace, but performs no real session: the owner is away from their desk and the run and attestation are theirs alone. Presentation ends this milestone still at L2, with L3 one short owner act away.",
   "scope": [
@@ -63,8 +63,14 @@
 -->
 # Milestone: Presentation — Live Session Path
 
-Status: **Track 1 in flight, 2026-07-27.** Plan merged as PR #92. The Track 1
-amendment is drafted and awaiting one independent decision review.
+Status: **Track 2 chartered, 2026-07-27.** Plan merged as PR #92. Track 1 is
+complete and returned READY on independent review.
+
+**PR cadence: one PR at milestone close, not one per track** (owner direction,
+2026-07-27). Track work accumulates on `milestone/presentation-live-session-path`
+with each track's build and review committed there. Each track still gets its own
+independent review and its own review record; what changes is only when the
+branch reaches `main`.
 
 ## Objective
 
@@ -288,4 +294,5 @@ Each build track gets one independent review and a one-repair cap.
 | 0 | Milestone selection | Owner | Owner direction, 2026-07-27 | Owner accepted a permanent L3 ceiling on the data-boundary row, elected to hold live-run confinement in their own trust domain outside the project supply chain, and — being away from their desk — directed that Presentation work proceed up to but not including the real session and attestation |
 | 0a | Scope reduction | Owner | Owner direction, 2026-07-27 | Preflight-probe track removed before chartering: workstation-precondition observation is owner-held for the same reason confinement is. `PreflightProbes` stays an injected input; nothing in this repository reads machine configuration |
 | 0b | Plan merged | Owner | PR #92, 2026-07-27 | Four-track plan accepted on `main` at `b777a10` |
-| 1 | Track 1 — ADR-0047 Class C/D amendment | Foreman | Plan Track 1 | Amendment drafted: Seatbelt evaluation outcome recorded, Class C confinement and Class D precondition observation placed in the owner's trust domain, five residuals named including fail-open drift and the owner-side `ABSENT`-vs-`UNREADABLE` obligation. No classification changed, no row moved. Awaiting independent decision review |
+| 1 | Track 1 — ADR-0047 Class C/D amendment | Foreman | Plan Track 1 | Amendment drafted: Seatbelt evaluation outcome recorded, Class C confinement and Class D precondition observation placed in the owner's trust domain, five residuals named including fail-open drift and the owner-side `ABSENT`-vs-`UNREADABLE` obligation. No classification changed, no row moved |
+| 1r | Track 1 decision review | Reviewer | Track 1 review gate | **READY** at `e4fd30f`. All five gate measurements pass. One non-blocking observation — stale planning prose in phase state's capsule `status` — fixed by the foreman rather than chartered. Record: `docs/reviews/2026-07-27-presentation-live-session-path-track1-review.md` |

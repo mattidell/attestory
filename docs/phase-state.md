@@ -4,8 +4,8 @@
   "phase": "Real Return",
   "topic": "presentation-live-session-path",
   "active_plan": "docs/phases/real-return/milestones/presentation-live-session-path.md",
-  "status": "Planning, 2026-07-27. Presentation — Live Viewing Boundary is CLOSED at 805225e. The owner accepts a permanent L3 ceiling on the data-boundary row: ADR-0044 line 164 states that only a selected enforcement substrate plus a mechanical showing can support an L4 data-boundary claim, footnote 8 faithfully summarises that ratified Tier 3 decision, and the cell is a deliberate ceiling rather than an unfinished task. The owner holds BOTH live-run confinement (sandbox-exec, evaluated from first principles: helper-process network denial works when the top-level process is confined; sandbox escape is not possible absent a kernel zero-day; the interface is deprecated and SBPL is unstable across macOS releases, both accepted as named residuals) AND workstation-precondition observation in their own trust domain, outside the project supply chain. Neither belongs in this repository. The next milestone plan — Presentation — Live Session Path, four tracks — is drafted and awaiting its planning PR merge. It ends with Presentation still at L2 and L3 one owner act away.",
-  "current_role": "Track 1 Reviewer — independent decision review of the ADR-0047 Class C/D amendment",
+  "status": "Planning, 2026-07-27. Presentation — Live Viewing Boundary is CLOSED at 805225e. The owner accepts a permanent L3 ceiling on the data-boundary row: ADR-0044 line 164 states that only a selected enforcement substrate plus a mechanical showing can support an L4 data-boundary claim, footnote 8 faithfully summarises that ratified Tier 3 decision, and the cell is a deliberate ceiling rather than an unfinished task. The owner holds BOTH live-run confinement (sandbox-exec, evaluated from first principles: helper-process network denial works when the top-level process is confined; sandbox escape is not possible absent a kernel zero-day; the interface is deprecated and SBPL is unstable across macOS releases, both accepted as named residuals) AND workstation-precondition observation in their own trust domain, outside the project supply chain. Neither belongs in this repository. The Presentation — Live Session Path plan (four tracks) merged as PR #92 at b777a10. Track 1 is COMPLETE: the ADR-0047 amendment placing Class C confinement and Class D precondition observation in the owner's trust domain returned READY on independent review at e4fd30f, with one non-blocking administrative observation since fixed. Track 2 (session entry point and model serving) is next. The milestone ends with Presentation still at L2 and L3 one owner act away. PR cadence for this milestone is one PR at close, not one per track (owner direction, 2026-07-27).",
+  "current_role": "Track 2 Builder — session entry point and model serving",
   "current_prompt": "docs/phases/real-return/milestones/presentation-live-session-path.md"
 }
 -->
@@ -258,18 +258,28 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** independent decision review of the Track 1 amendment to
-ADR-0047 ("Amendment — 2026-07-27 — Class C and Class D are owner-held"),
-against the Track 1 review gate in
-`docs/phases/real-return/milestones/presentation-live-session-path.md`.
+**➡️ Next action:** build Track 2 of
+`docs/phases/real-return/milestones/presentation-live-session-path.md` — the
+session entry point and the model-serving path — on
+`milestone/presentation-live-session-path`.
 
-The gate, restated: the amendment records an **evaluation outcome, not a claim
-of proof**; it does not assert that the project confines or observes anything;
-the owner-held arrangement and its rationale are stated for both confinement and
-precondition observation; the residuals are named including fail-open drift and
-the owner-side `ABSENT`-versus-`UNREADABLE` obligation; and Class C's core
-statement — the vehicle cannot close egress, its measures are cooperative —
-survives unchanged.
+**One act, or a refusal.** A single entry point runs capability → preflight →
+model → loopback → confined browser → teardown. Preflight inputs are
+**parameters of the entry point**, supplied by its caller: nothing here reads
+backup state, indexing state, or the process table. `PreflightProbes` stays
+injected. Every preflight refusal is a refusal of the session, and teardown
+holds on every exit path.
+
+**The serving split is where accidental damage is easiest.** The renderer page is
+repository content, served from the repository; the presentation model is
+live-run content, served from the workspace. The result must not be reachable as
+an evaluation path and must not relax the harness's `synthetic: true` fixture
+boundary. `tools/presentation_harness/lib/server.mjs` and both evaluation
+manifests stay byte-unchanged — if the clean implementation appears to require
+editing `server.mjs`, **stop and report instead of editing it.**
+
+No locator in any surface: server logs, request paths, subprocess arguments,
+diagnostics, test names.
 
 Four constraints carry from the owner's direction, and all four are the same
 constraint viewed from different sides: **this repository does not author its own
