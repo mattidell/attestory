@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-live-session-path",
-  "milestone_state": "planning",
-  "retrospective": null,
-  "status": "Planning, 2026-07-27. Selected after the owner accepted a permanent L3 ceiling on the data-boundary row and chose to hold live-run confinement — and workstation-precondition observation — in their own trust domain, outside the project supply chain. This milestone builds everything the Presentation L3 session needs and rehearses it end to end against a synthetic workspace, but performs no real session: the owner is away from their desk and the run and attestation are theirs alone. Presentation ends this milestone still at L2, with L3 one short owner act away.",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-07-27-presentation-live-session-path.md",
+  "status": "CLOSED 2026-07-27. All four tracks complete. Track 1 amended ADR-0047 (owner-held Class C confinement and Class D observation), READY on independent review. Track 2 built open_presentation_session, returned NOT READY on two join findings — an unauthenticated loopback socket carrying the whole presentation model, and the evaluation fixture page declaring the owner's real data synthetic — and was repaired with a 256-bit route token, a separate product surface asserting no provenance, and a fail-closed refusal to serve any page declaring itself synthetic; ADR-0047 gained a second amendment classifying the session socket as Class B. Track 3 rehearsed the full path end to end against a synthetic workspace and recorded that no real browser was launched and the product page has never been rendered by one. Track 4 filed the records. Presentation ends at L2, one owner act from L3; the data-boundary row ends at L3 as a permanent owner-accepted ceiling. No maturity row moved, as planned.",
   "scope": [
     "amend ADR-0047 Class C to record the Seatbelt evaluation outcome, and that both live-run confinement and workstation-precondition observation are owner-held, outside the project supply chain",
     "implement a session entry point that wires capability, owner-supplied preflight inputs, renderer model, loopback serving, confined browser, and teardown into one act",
@@ -63,7 +63,15 @@
 -->
 # Milestone: Presentation — Live Session Path
 
-Status: **Planning, 2026-07-27.** Not yet chartered.
+Status: **CLOSED 2026-07-27.** All four tracks complete. Presentation ends at
+**L2**, one owner act from L3. No maturity row moved, as planned.
+Retrospective: `docs/milestone-retrospectives/2026-07-27-presentation-live-session-path.md`.
+
+**PR cadence: one PR at milestone close, not one per track** (owner direction,
+2026-07-27). Track work accumulates on `milestone/presentation-live-session-path`
+with each track's build and review committed there. Each track still gets its own
+independent review and its own review record; what changes is only when the
+branch reaches `main`.
 
 ## Objective
 
@@ -286,3 +294,11 @@ Each build track gets one independent review and a one-repair cap.
 | --- | --- | --- | --- | --- |
 | 0 | Milestone selection | Owner | Owner direction, 2026-07-27 | Owner accepted a permanent L3 ceiling on the data-boundary row, elected to hold live-run confinement in their own trust domain outside the project supply chain, and — being away from their desk — directed that Presentation work proceed up to but not including the real session and attestation |
 | 0a | Scope reduction | Owner | Owner direction, 2026-07-27 | Preflight-probe track removed before chartering: workstation-precondition observation is owner-held for the same reason confinement is. `PreflightProbes` stays an injected input; nothing in this repository reads machine configuration |
+| 0b | Plan merged | Owner | PR #92, 2026-07-27 | Four-track plan accepted on `main` at `b777a10` |
+| 1 | Track 1 — ADR-0047 Class C/D amendment | Foreman | Plan Track 1 | Amendment drafted: Seatbelt evaluation outcome recorded, Class C confinement and Class D precondition observation placed in the owner's trust domain, five residuals named including fail-open drift and the owner-side `ABSENT`-vs-`UNREADABLE` obligation. No classification changed, no row moved |
+| 1r | Track 1 decision review | Reviewer | Track 1 review gate | **READY** at `e4fd30f`. All five gate measurements pass. One non-blocking observation — stale planning prose in phase state's capsule `status` — fixed by the foreman rather than chartered. Record: `docs/reviews/2026-07-27-presentation-live-session-path-track1-review.md` |
+| 2 | Track 2 — session entry point and model serving | Builder | Plan Track 2 | `open_presentation_session` at `d166d4b`: capability → preflight → model → loopback → browser → teardown as one act, preflight inputs as parameters, page from the repository and model from the workspace |
+| 2r | Track 2 review | Foreman at owner direction (not independent; stated in the record) | Track 2 review gate | **NOT READY** on two findings, both in the join between correct components: an unauthenticated loopback socket carrying the whole presentation model inline, and the evaluation fixture page's synthetic-provenance claims appearing on the owner's attestation screen. Record: `docs/reviews/2026-07-27-presentation-live-session-path-track2-review.md` |
+| 2f | Track 2 repair | Foreman | Owner disposition on the renderer fork | `702237a`. 256-bit `secrets.token_urlsafe` route compared with `compare_digest`; separate product surface at `packages/presentation/pages/citation-walk.v1.html` asserting no provenance in either direction; fail-closed refusal to serve any page declaring itself synthetic. ADR-0047 second amendment classifies the session socket **Class B**. `tools/` byte-unchanged; 662 passed; both manifests pass |
+| 3 | Track 3 — dress rehearsal | Foreman | Plan Track 3 | Full path executed end to end against a synthetic workspace: fail-closed default, all three individual refusals, the clear path (9 sections, no locator on any surface, 404 on every unguessed route, socket closed on exit), the provenance refusal, and the browser-failure path. Record states that no real browser was launched and the product page has never been rendered by one. Record: `docs/reviews/2026-07-27-presentation-live-session-path-track3-rehearsal.md` |
+| 4 | Track 4 — records and close-out | Foreman | Plan Track 4 | Maturity-matrix footnote 5, frontier item 1, roadmap, retrospective, phase state. Presentation L2 in all five domains; no other cell moved |
