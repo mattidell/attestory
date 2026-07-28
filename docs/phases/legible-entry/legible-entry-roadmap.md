@@ -13,6 +13,10 @@ already make every computed value explain itself with a citation. Applied to
 the interface, that means every form field should explain itself too: what
 it's asking for, why, and what happened when it was filled in.
 
+We'll capture that as a schema: a loosely bound representation of the
+explanation, context, and navigation each point of entry needs. It's a
+working representation, not a fixed one — the shape is still being found.
+
 Real Return proved the product works: it holds and computes the owner's real
 data, cites every published figure, and closed with every cell of its
 maturity matrix at L3 or better. What it left behind is entry. The owner
@@ -26,14 +30,87 @@ is the guide through entry, because a data-entry form paired with a diagnostic
 page the user must reconcile by hand is the legibility failure this phase
 exists to fix.
 
+This phase also addresses the language agents use to describe the project and
+the work in it. We're targeting plain, direct language: problems and
+solutions stated in plain terms, not the indirect phrasing that's crept into
+prior drafts.
+
 ## Standing test
 
 **Can the owner take a pile of tax documents to a complete, computed return
 without opening a text editor?**
 
-One test, falsifiable, and answerable only by the owner performing it. This is
-not a test of whether the UI is polished. It is a test of whether the owner
-can get through entry without dropping into JSON.
+That's the outcome test, answered only by the owner performing it. It's not
+the only measure this phase uses. Granular, qualitative evaluations run
+throughout, described in "How usability is measured in this phase." The
+standing test is the final check that those evaluations added up to
+something real.
+
+## How usability is measured in this phase
+
+**Agents author and evaluate, against usability criteria this phase
+establishes as it goes. Those criteria hold across review cycles, whether the
+schema is still being formed or already complete.**
+
+This doesn't depend on starving an agent of context. It depends on a mix of
+viewpoints and background: different agents bring different experience to
+the same material, and where they agree or disagree is itself useful signal.
+The owner reviews what the agents produce, the criteria used, and the
+evidence behind a result, and decides. Exactly how the criteria get scored is
+worked out inside the phase rather than fixed here.
+
+The unclosed runbook unclarity carried in from Real Return is a first
+candidate for this kind of evaluation.
+
+## How milestones are selected in this phase
+
+This phase replaces Real Return's maturity matrix rather than extending it.
+That matrix's columns are tax-content domains, which are the wrong axis for a
+phase whose variation is what stage of the entry loop a surface serves and
+which fact families it can carry. The Real Return matrix stands as the closed
+instrument of its own phase.
+
+The instrument uses the same L0–L4 levels, read the same way (L2 synthetic
+end-to-end, L3 the capability really operated on real data under owner
+attestation, L4 hardened with mechanical proof):
+
+- **Rows, the entry loop:** know what is missing, enter a fact, see it land,
+  correct an entered fact, know the return is complete.
+- **Columns, the fact families a person actually enters:** W-2, 1099-INT,
+  1099-DIV, taxpayer assertions.
+
+A cell reaches **L2 when its usability evaluation passes**, not on a
+builder's or reviewer's inspection alone. See "How usability is measured in
+this phase." In the Real Return matrix, L2 just meant the synthetic path
+worked. Here it also has to pass that evaluation, a harder bar.
+
+This phase keeps all existing process machinery: owner-approved milestone
+plans before any charter, prototype-driven Tier 2/3 decisions with rival
+evidence, per-track review gates, no-ff merges to a continuous `main-ui`,
+retrospectives, the data-safety scan, and a charter verification block that
+is the CI `verify` sequence or a stated subset with the omission justified.
+
+## Proposed milestone sequence
+
+1. **The Entry Boundary.** Decide what changes when the browser becomes an
+   origin: the write path, the input-surface precondition classes, and
+   whether a browser form is admissible at all. An ADR, no product build.
+   It's fine to conclude the obvious shape doesn't work.
+2. **Packaging the Surface.** Decide and implement how a UI reaches the live
+   workspace across the Developer/Supply boundary.
+3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
+   synthetic workspace, to L2, with no real data and no maturity claim. This
+   milestone also works out the usability evaluation criteria for entry, and
+   its own L2 claim is scored by that evaluation rather than by inspection.
+4. **Real Entry.** The owner enters a real fact through the surface and
+   attests. Owner-operated; the only milestone that can raise a row to L3. By
+   then every usability question has already been answered on synthetic
+   data.
+
+**Due now, outside the sequence.** The legibility-audit README's own cadence
+triggers an audit at each phase boundary, before the transition plan is
+finalized. That trigger is live. It is owner-spawned by design and the
+foreman must not launch it.
 
 ## What changes structurally, and why it is the hard part
 
@@ -65,9 +142,9 @@ mistake here is to build a form and confine it afterward.
    asset. But nothing states that a human-operated surface may originate one
    against the real residency.
 2. **Input-surface preconditions.** Does the preflight grow to cover them, or
-   does typed input disqualify the browser and force a different surface? An
-   answer of "the browser is not a safe input surface" is acceptable and must
-   not be foreclosed by starting from a web form.
+   does typed input disqualify the browser and force a different surface?
+   "The browser is not a safe input surface" is an acceptable answer, and
+   starting from a web form must not rule it out before we check.
 3. **Packaging.** Putting a UI in the workspace is a Developer/Supply →
    Live-Run Data crossing (ADR-0044), whose sanctioned form is the current
    owner-adopted, byte-verified package. That package carries derivation
@@ -81,128 +158,17 @@ mistake here is to build a form and confine it afterward.
    cannot yet occur. But the first UI that lets a person change an answered
    fact is where a refusal to correct becomes a legibility problem rather
    than a mechanism.
-5. **Done.** The standing test says "complete, computed return." It does not
-   say *filed*. Whether filing enters this phase's scope is an owner decision
-   and is left open rather than assumed either way.
-
-## How usability is measured in this phase
-
-**By context-starved agents, not by the owner's taste.** This is an owner
-decision (2026-07-28). It inverts the assumption that a one-user product
-must evaluate its surface by asking that user.
-
-The owner is the worst-positioned reader in the project. Legibility is a
-property of what a person can recover and complete without prior knowledge,
-and the owner cannot stop knowing how the system works. In a prior case, an
-agent given the Real Return session runbook produced alternative instructions
-that worked better than the author's, because it read them without the
-author's context.
-
-This phase extends the existing instrument rather than inventing one.
-`docs/legibility-audits/` already ratifies the method: an owner-spawned,
-deliberately context-starved reader; a declared allowed slice and a forbidden
-answer key; falsifiable tasks scored `recovered` / `partial` / `wrong` /
-`unrecoverable`; a bar of zero `wrong`, because a confident wrong answer means
-the artifacts actively misled a careful reader; and advisory findings that the
-owner dispositions. The foreman does not spawn it, for the reason that
-instrument already gives: the foreman is maximally context-rich and cannot
-construct a starved reader without contaminating it.
-
-What this phase adds is a second task family. The existing audit measures
-**recovery**: what a number means and where it came from. Entry needs
-**completion**: given only the surface and a synthetic document, can a cold
-agent get the fact in correctly, and know that it landed? The scores carry
-over, and `wrong` has a sharper meaning here: the agent confidently entered
-the wrong thing, or believed it had succeeded when it had not. A surface that
-lets a user confidently do the wrong thing is the most serious defect this
-phase can produce, and it is exactly what a starved completion task is built
-to catch.
-
-**The data boundary does not constrain this.** Completion audits run against
-a synthetic workspace, so usability is measured entirely at L2, before real
-data is anywhere near the surface. Findings can be recorded in full, specific
-detail in the repository with no attestation constraint at all. The owner's
-real session then carries the meaning it has always carried, that the
-capability operated, and nothing more is asked of it.
-
-**Where the owner remains ground truth.** Agents generate and test; the owner
-ratifies. The runbook case was validated by the owner judging the result
-good, and the audit instrument already has the owner spot-check one attempt
-for whether its scoring is real. That division moves the owner from author of
-clarity to acceptor of it.
-
-**The honest limit, stated once.** A starved agent proxies a cold reader. It
-does not carry fatigue, divided attention, or a physical document whose boxes
-are laid out confusingly. Findings about comprehension and completability are
-strong. Findings about affect are not claimed. Any milestone in this phase
-that claims a usability result must say how it knows, and "it looked right"
-is not an answer, from the owner either.
-
-The unclosed runbook unclarity carried in from Real Return is the first item
-this method should be pointed at.
-
-## How milestones are selected in this phase
-
-This phase replaces Real Return's maturity matrix rather than extending it.
-That matrix's columns are tax-content domains, which are the wrong axis for a
-phase whose variation is what stage of the entry loop a surface serves and
-which fact families it can carry. The Real Return matrix stands as the closed
-instrument of its own phase.
-
-The instrument uses the same L0–L4 levels, read the same way (L2 synthetic
-end-to-end, L3 the capability really operated on real data under owner
-attestation, L4 hardened with mechanical proof):
-
-- **Rows, the entry loop:** know what is missing, enter a fact, see it land,
-  correct an entered fact, know the return is complete.
-- **Columns, the fact families a person actually enters:** W-2, 1099-INT,
-  1099-DIV, taxpayer assertions.
-
-A cell reaches **L2 on a passing starved completion audit**, not on a
-builder's or reviewer's inspection. See "How usability is measured in this
-phase." That is the substantive difference from the Real Return matrix, where
-L2 meant the synthetic path executed correctly. Here it must also be usable
-by a reader who knows nothing, which is a strictly harder bar and the one
-this phase exists for.
-
-All process machinery is retained unchanged: owner-approved milestone plans
-before any charter, prototype-driven Tier 2/3 decisions with rival evidence,
-per-track review gates, no-ff merges to a continuous `main-ui`, retrospectives,
-the data-safety scan, and a charter verification block that is the CI
-`verify` sequence or a stated subset with the omission justified.
-
-## Proposed milestone sequence
-
-1. **The Entry Boundary.** Decide what changes when the browser becomes an
-   origin: the write path, the input-surface precondition classes, and
-   whether a browser form is admissible at all. An ADR, no product build.
-   Explicitly permitted to conclude that the obvious shape is inadmissible.
-2. **Packaging the Surface.** Decide and implement how a UI reaches the live
-   workspace across the Developer/Supply boundary.
-3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
-   synthetic workspace, to L2, with no real data and no maturity claim. This
-   milestone also extends `docs/legibility-audits/` with the completion task
-   family and its launch prompt, and its own L2 claim is scored by a starved
-   completion audit rather than by inspection. The instrument must exist
-   before the surface it judges is called good.
-4. **Real Entry.** The owner enters a real fact through the surface and
-   attests. Owner-operated; the only milestone that can raise a row to L3. By
-   then every usability question has already been answered on synthetic
-   data.
-
-**Due now, outside the sequence.** The legibility-audit README's own cadence
-triggers an audit at each phase boundary, before the transition plan is
-finalized. That trigger is live. It is owner-spawned by design and the
-foreman must not launch it.
+5. **Done.** The standing test says "complete, computed return," not *filed*.
+   Whether filing is in scope is the owner's call, not decided yet.
 
 ## Inherited open items
 
-Carried from Real Return's phase close and not lost with it:
+Carried over from Real Return's phase close:
 
 - The classified-refusal path has no human confirmation. The oldest open item
   on the presentation path, needing a session to exercise.
-- The session runbook has an unidentified unclarity, reported by its first
-  human user with the sentence unnamed.
+- The session runbook has an unclear passage. The person who first used it
+  flagged the confusion but didn't name which sentence caused it.
 - The named deferral ledger and the shims listed in the phase-state product
   briefing.
 
