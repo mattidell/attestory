@@ -1,12 +1,12 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Real Return",
-  "topic": "real-return-phase-close",
-  "active_plan": "docs/phases/real-return/milestones/presentation-row-completion.md",
-  "status": "**THE REAL RETURN PHASE IS CLOSED, 2026-07-28, by owner decision.** Its standing test — 'does the product now do something for its user that it could not do before?' — is met, and every cell in its maturity matrix is L3 or better, so frontier-driven selection has no frontier left inside its five columns. **The NEXT PHASE is owner-directed toward human legibility and usability: a UI for fact input and for viewing completed facts, moving past hand-editing facts in JSON schema, with packaging that makes the UI available in the workspace under the ratified data boundary. The phase is NOT YET DEFINED — no phase definition, no maturity instrument, no milestone, nothing chartered.** Read the Real Return completion accurately: breadth- and hardening-limited by construction (five income/return domains, one implemented schedule, one human surface, ONE real viewing session behind the whole Presentation row). It is NOT a claim the product is finished for its user, who still cannot file anything and still enters facts by hand-editing JSON — gaps invisible to every cell because no row is named for them. The Real Return maturity matrix is the closed instrument of THAT phase; a later phase may adopt, extend, or replace its coordinate system but should say which rather than inheriting it silently. Phase-close record: docs/phases/real-return/real-return-roadmap.md, 'Phase close — 2026-07-28'. PRIOR MILESTONE CONTEXT FOLLOWS. Presentation — Completing the Row is CLOSED, 2026-07-28. **The Presentation row is L3 across all five columns and EVERY CELL in the maturity matrix is now L3 or better.** The owner named all four remaining columns (Interest 2b, Dividends 3a/3b, Return-level conditions, Schedule attachments) as observed during the 2026-07-27 session; all four moved on an amendment to that session's attestation. CRITICAL for any later reader: there has been exactly ONE real viewing session in this project's history, 2026-07-27. Four of the five Presentation columns were recorded a day later by amendment. Nothing asserts five sessions occurred, or two — foreclosed in the matrix header, footnote 15's opening line, the attestation amendment, and the retrospective, because a row filled in over two days by two milestones invites exactly that misreading. No session was performed by this milestone, no browser launched, no real data touched, no code changed. The plan's control (a column the owner did not name would not move) did not fire but was real: ADR-0031 Decision 7's shape includes observing dispositions in quarantine, so naming a column asserts observation, and no amount of rendering establishes that a person looked. Observing a column is NOT auditing it — L3 asserts the capability operated, per footnotes 7/11 since 2026-07-18. Verified rather than inherited: the surface covers all five columns (production-shaped fixture sections for lines 1a/2b/3a/3b/9/11/12/15/16, Schedule B citation group with Parts I and II, _resolve_attachment projecting attachments). The previous closeout also said 'no build gap' and Track 1 then found three code defects, so it was checked directly. TWO GAPS CARRY FORWARD UNCLOSED, both needing a session this milestone did not perform: the classified-refusal path has NO human confirmation (a browser failing to start arriving as a stable reason code rather than a traceback rests on tests and independent review only) — now the OLDEST OPEN ITEM on this path — and the session runbook has an unidentified unclarity reported by its first human user, sentence unnamed. Both gaps follow the phase forward and are recorded in the Real Return roadmap's phase-close section, not lost with the row that carried them. NEXT ACTION: define the human-legibility/usability phase with the owner — thesis, standing test, selection instrument, and the open questions the data boundary raises for a fact-INPUT (write-path) surface and for packaging it into the live workspace. Phase definition is the owner's decision (Tier 3).",
-  "current_role": "Foreman — Real Return closed; next-phase definition open with the owner; nothing chartered",
-  "current_prompt": "docs/phases/real-return/real-return-roadmap.md"
+  "phase": "Legible Entry",
+  "topic": "entry-boundary",
+  "active_plan": "docs/phases/legible-entry/milestones/entry-boundary.md",
+  "status": "The Legible Entry phase is accepted (PR #100). Its first milestone, The Entry Boundary, is in planning on branch `plan/entry-boundary`; the plan PR is not yet open and nothing is chartered. The milestone decides two things and builds no product: whether a browser form is an acceptable place for a person to type real tax facts, and whether an entry surface writes facts directly or emits contribution events (ADR-0032). Track 1 is a throwaway retention probe on a synthetic workspace; Track 2 is ADR-0048. Filing is out of scope for the phase (settled 2026-07-28). Two process changes ride with this plan: a milestone now gets one PR to open it and one to close it, with tracks keeping their review gate but not their own PR; and phase documentation uses plain, product-facing language. Prior phase: Real Return closed 2026-07-28 with every cell of its maturity matrix at L3 or better. Read that closure narrowly — it was breadth- and hardening-limited by construction, and the owner still enters facts by hand-editing JSON, which is exactly what this phase exists to fix. The Real Return maturity matrix is closed; Legible Entry replaces it rather than extending it. The legibility audit triggered by the phase boundary is still due, and is owner-spawned — the foreman must not launch it.",
+  "current_role": "Foreman — Legible Entry accepted; Entry Boundary milestone in planning, plan PR pending",
+  "current_prompt": "docs/phases/legible-entry/milestones/entry-boundary.md"
 }
 -->
 # Phase State
@@ -62,20 +62,37 @@ is unselected.
 
 ## Current state (2026-07-28)
 
+**Phase: Legible Entry.** Accepted 2026-07-28 in PR #100. The phase is about
+getting the owner from a pile of tax documents to a computed return without
+opening a text editor. Roadmap:
+`docs/phases/legible-entry/legible-entry-roadmap.md`.
+
+- **Milestone: The Entry Boundary — planning.** Drafted on
+  `plan/entry-boundary`; the plan PR is not yet open and nothing is chartered.
+  It decides two things and builds no product: whether a browser form is an
+  acceptable place for a person to type real tax facts, and whether an entry
+  surface writes facts directly or emits contribution events. Track 1 is a
+  throwaway retention probe against a synthetic workspace; Track 2 is ADR-0048.
+  Plan: `docs/phases/legible-entry/milestones/entry-boundary.md`.
+
+- **Filing is out of scope** for this phase (settled 2026-07-28). The phase ends
+  at a complete, computed return.
+
+- **Process changes riding with this plan.** A milestone now gets one PR to open
+  it and one to close it; tracks keep their review gate but no longer get their
+  own PR. Phase documentation uses plain, product-facing language.
+
+- **The phase-boundary legibility audit is still due.** It is owner-spawned by
+  design; the foreman must not launch it.
+
 - **The Real Return phase is closed** (owner decision, 2026-07-28). Its standing
-  test is met and every cell in its maturity matrix is L3 or better, so
-  frontier-driven selection has no frontier left inside its five columns. The
-  phase-close record — what it does and does not claim, and the three items
-  carried forward — is in
+  test is met and every cell of its maturity matrix is L3 or better. Read that
+  narrowly: it was breadth- and hardening-limited by construction, and the owner
+  still enters facts by hand-editing JSON. Legible Entry replaces the Real
+  Return maturity matrix rather than extending it. Phase-close record:
   `docs/phases/real-return/real-return-roadmap.md`, "Phase close — 2026-07-28".
 
-- **The next phase is not yet defined.** The owner has directed it toward
-  **human legibility and usability**: a UI for fact input and for viewing
-  completed facts, replacing hand-edited JSON, with packaging that makes that UI
-  available in the workspace under the ratified data boundary. No phase
-  definition, no selection instrument, no milestone, nothing chartered. The
-  standing structural question is that fact input is a **write path into the
-  residency**, which the read-only viewing session was not.
+### Prior phase detail (Real Return)
 
 - **Presentation — Completing the Row:** **complete 2026-07-28.** **The
   Presentation row is L3 across all five columns, and every cell in the maturity

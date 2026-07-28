@@ -2,7 +2,8 @@
 
 Audience: Product (roadmap); Shared (status)
 
-Status: **draft — not yet accepted.** Nothing in this phase is chartered.
+Status: **accepted 2026-07-28** (PR #100). The first milestone, The Entry
+Boundary, is in planning.
 
 ## Thesis
 
@@ -96,6 +97,7 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    origin: the write path, the input-surface precondition classes, and
    whether a browser form is admissible at all. An ADR, no product build.
    It's fine to conclude the obvious shape doesn't work.
+   Plan: `docs/phases/legible-entry/milestones/entry-boundary.md`.
 2. **Packaging the Surface.** Decide and implement how a UI reaches the live
    workspace across the Developer/Supply boundary.
 3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
@@ -158,8 +160,9 @@ mistake here is to build a form and confine it afterward.
    cannot yet occur. But the first UI that lets a person change an answered
    fact is where a refusal to correct becomes a legibility problem rather
    than a mechanism.
-5. **Done.** The standing test says "complete, computed return," not *filed*.
-   Whether filing is in scope is the owner's call, not decided yet.
+5. ~~**Done.**~~ **Settled 2026-07-28: filing is out of scope for this phase.**
+   The phase ends at a complete, computed return. Filing brings its own
+   boundary questions and belongs to a later phase.
 
 ## Inherited open items
 

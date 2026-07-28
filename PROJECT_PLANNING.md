@@ -258,12 +258,12 @@ Documentation should preserve the distinction between audience and instruction. 
 The default sequence is:
 1. Create or update the relevant planning document.
 2. Commit planning changes separately.
-3. Create or switch to a dedicated branch for the unit from the committed planning state.
+3. Create or switch to the milestone's branch from the committed planning state.
 4. Implement one atomic track.
-5. Run verification for that track.
+5. Run verification for that track, and put it through its review gate.
 6. Commit the completed track before starting the next track.
-7. Open a pull request when the unit is complete and independently reviewable.
-8. Merge the unit to `main` per the branch, PR, and merge protocol below.
+7. Open the closing pull request when the milestone's tracks are done and reviewed.
+8. Merge to `main` per the branch, PR, and merge protocol below.
 9. Update status, roadmap notes, or consumer-facing docs when behavior changes.
 
 If planning changes during implementation, separate the planning update from code changes whenever possible. Follow-up planning clarifications before implementation should usually be squashed into the relevant planning commit to keep planning history clean. Do not squash implementation commits into planning commits.
@@ -286,17 +286,16 @@ state. It is honest running state, not a shippable release line — which is wha
 lets re-entry and orientation tooling read current state from `main`. Never
 implement directly on `main`.
 
-**Merge unit = review unit.** A pull request is cut when something is complete
-and independently reviewable; everything built toward it rides as plain commits
-on the unit's branch and reaches `main` only inside that PR. Two units exist:
+**A milestone gets two pull requests: one to start it, one to finish it.** The
+plan PR is where the owner approves what we are about to do. The closing PR
+carries everything that happened — tracks, charters, builder output, reviews,
+any ratified ADR and its evidence — as commits on one branch, and is where the
+owner approves what we actually did.
 
-- **Decision unit = the ADR.** Each decision topic gets a short-lived branch;
-  the topic's whole evidence chain — plan, charters, builder designs, reviews,
-  repair and confirmation rounds, any evaluation analysis — merges with the ratified
-  ADR under one labeled merge.
-- **Development unit = the track.** Each implementation track gets its own
-  branch and its own review gate. A track that stubs or defers an owned
-  condition fails *its* gate instead of surfacing after a milestone merge.
+Individual tracks do not get their own PRs. **They keep their own review
+gate.** A track that stubs or defers a condition it owns fails that gate on the
+branch, before the closing PR is opened, not after it merges. Reviews happen as
+tracks complete; only the merge is batched.
 
 **Every merge to `main` is non-fast-forward**, giving each unit a labeled,
 revertable boundary. The repository merge method is merge-commit only —
@@ -322,17 +321,14 @@ cached or indexed after deletion. The synthetic-only fixture-safety suite is a
 **pre-push gate**, not a pre-commit courtesy; live data is never in the
 repository *or* on any remote.
 
-**What gets its own PR:** a milestone plan (approval and activation); each
-prototype plan's approval; each ratified ADR together with its entire evidence
-chain; each development track; records and attestation units; a process or
-instruction change. The mechanical post-merge update in "Milestone Closeout"
-is not a records unit and gets no PR.
+**What gets its own PR:** a milestone plan; a milestone close; a prototype
+plan's approval; a process or instruction change made outside a milestone. The
+mechanical post-merge update in "Milestone Closeout" gets no PR.
 
-**What stays a branch commit and rides inside the unit's PR:** every
-intermediate event inside a unit — charters cut, builder outputs landed under
-custody, individual reviews, a foreman synthesis, a NOT-CONFIRMED round, a
-*proposed* (inert) ADR draft, routine status flips. A proposed ADR is never its
-own PR; only ratification closes the unit.
+**What rides inside the closing PR as branch commits:** every event inside the
+milestone — tracks, charters cut, builder outputs landed under custody,
+individual reviews, a foreman synthesis, a NOT-CONFIRMED round, a ratified ADR
+and its evidence chain, records and attestation units, routine status flips.
 
 **Direct-main exceptions:** `docs/phase-state.md` pointer advances and other
 inconsequential phase-state edits may be committed directly. The post-merge
