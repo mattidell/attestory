@@ -167,6 +167,43 @@ def _render_page(repo_root: Path, capability: WorkspaceCapability, model_path: P
     ).encode("utf-8")
 
 
+def _close_quietly(server: "_PresentationServer") -> None:
+    try:
+        server.close()
+    except Exception:
+        pass
+
+
+def _classified_viewing_failure(failure: BaseException) -> PresentationSessionError:
+    """Convert any launch-time failure into a classified, locator-free refusal.
+
+    ``LiveViewingError`` is a *sibling* of ``PresentationSessionError``, not a
+    subclass, so before this wrapping a browser-, confinement-, or
+    workspace-originated refusal escaped this function unchanged and reached the
+    caller as a raw traceback. That matters beyond tidiness: the owner's
+    non-descriptive failure vocabulary (``docs/runbooks/presentation-real-session.md``)
+    rests on every failure arriving pre-classified as a stable reason code the
+    owner may legally report. An unclassified traceback is precisely the text
+    the vocabulary cannot describe, in the one session that cannot be repeated.
+
+    The guarantee belongs here rather than in the runbook's copyable example: a
+    widened ``except`` clause in an example silently no-ops the moment the owner
+    adapts it.
+
+    A ``LiveViewingError`` already carries a stable code, so it is forwarded as
+    a sub-code. Anything else has no classification of its own and must not
+    invent one from its message — an arbitrary exception's text is exactly the
+    surface ADR-0047's locator-confinement decision keeps closed — so it
+    collapses to one stable code and its detail is dropped.
+    """
+
+    if isinstance(failure, PresentationSessionError):
+        return failure
+    if isinstance(failure, LiveViewingError):
+        return PresentationSessionError("presentation-viewing-refused", reason_codes=(failure.reason.value,))
+    return PresentationSessionError("presentation-viewing-failed")
+
+
 @dataclass(repr=False)
 class LivePresentationSession:
     """The owned browser and server resources for one viewing session."""
@@ -189,13 +226,17 @@ class LivePresentationSession:
             return
         self._closed = True
         teardown_failed = False
+        # Same guarantee as the launch path: teardown is a step the owner is
+        # told to confirm, and "teardown did not complete" is a legal statement
+        # only if a failure to complete arrives as this code rather than as
+        # whatever the browser or socket layer happened to raise.
         try:
             self._browser.close()
-        except (LiveViewingError, OSError):
+        except Exception:
             teardown_failed = True
         try:
             self._server.close()
-        except (PresentationSessionError, OSError):
+        except Exception:
             teardown_failed = True
         if teardown_failed:
             raise PresentationSessionError("presentation-session-teardown-failed")
@@ -275,11 +316,13 @@ def open_presentation_session(
             launch_timeout_seconds=launch_timeout_seconds,
             initial_url=url,
         )
-    except Exception:
-        try:
-            server.close()
-        except Exception:
-            pass
+    except Exception as failure:
+        _close_quietly(server)
+        raise _classified_viewing_failure(failure) from None
+    except BaseException:
+        # An interrupt is the owner's own act, not a session refusal. Release
+        # the socket, then let it travel as itself.
+        _close_quietly(server)
         raise
     return LivePresentationSession(_outcome=outcome, url=url, _browser=viewing, _server=server)
 

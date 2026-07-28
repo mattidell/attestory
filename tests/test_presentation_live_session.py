@@ -14,7 +14,12 @@ from typing import Any
 
 from packages.derivation import live_session
 from packages.derivation.live_session import PresentationSessionError, open_presentation_session
-from packages.derivation.live_viewing import LiveViewingVehicle, PreflightProbes
+from packages.derivation.live_viewing import (
+    LiveViewingError,
+    LiveViewingVehicle,
+    PreflightProbes,
+    ViewingReason,
+)
 from packages.derivation.live_workspace import WorkspaceCapability
 from tools import generate_presentation_l2_golden as golden
 
@@ -193,9 +198,93 @@ class SessionTests(unittest.TestCase):
                     (Path(profile_arg.split("=", 1)[1]) / "DevToolsActivePort").unlink()
                     self._running = False
 
-            with self.assertRaises(Exception):
+            with self.assertRaises(PresentationSessionError) as caught:
                 _open(root, probes=PreflightProbes(False, False, False), vehicle=LiveViewingVehicle(process_factory=FailingProcess))
+            self.assertEqual(caught.exception.reason, "presentation-viewing-refused")
+            self.assertEqual(caught.exception.reason_codes, ("viewing-browser-exited-during-launch",))
             self.assertFalse((root / "L" / ".live-view").exists())
+
+    def test_a_viewing_refusal_reaches_the_caller_classified_not_as_a_traceback(self) -> None:
+        # LiveViewingError is a sibling of PresentationSessionError, not a
+        # subclass. The owner's failure vocabulary rests on every failure
+        # arriving as a stable reason code they may legally report, so a
+        # viewing-originated refusal must not escape this function unwrapped.
+        for reason in (
+            ViewingReason.BROWSER_NOT_FOUND,
+            ViewingReason.WORKSPACE_UNREADABLE,
+            ViewingReason.PATH_NOT_CONFINED,
+            ViewingReason.NON_LOOPBACK_NAVIGATION,
+        ):
+            with self.subTest(reason=reason):
+                with tempfile.TemporaryDirectory(prefix="demo-live-session-") as raw:
+                    root = Path(raw)
+
+                    class RefusingVehicle:
+                        def launch(self, *_args: object, **_kwargs: object) -> Any:
+                            raise LiveViewingError(reason)
+
+                    with self.assertRaises(PresentationSessionError) as caught:
+                        _open(root, probes=PreflightProbes(False, False, False), vehicle=RefusingVehicle())
+                    self.assertEqual(caught.exception.reason, "presentation-viewing-refused")
+                    self.assertEqual(caught.exception.reason_codes, (reason.value,))
+                    self.assertNotIn(str(root), str(caught.exception))
+
+    def test_an_unclassified_launch_failure_collapses_to_one_stable_code(self) -> None:
+        # An arbitrary exception carries no stable classification, and its
+        # message is exactly the surface ADR-0047's locator confinement keeps
+        # closed. It must collapse to a fixed code and drop its detail.
+        with tempfile.TemporaryDirectory(prefix="demo-live-session-") as raw:
+            root = Path(raw)
+            secret = "a-string-standing-in-for-locator-bearing-detail"
+
+            class ExplodingVehicle:
+                def launch(self, *_args: object, **_kwargs: object) -> Any:
+                    raise ValueError(secret)
+
+            with self.assertRaises(PresentationSessionError) as caught:
+                _open(root, probes=PreflightProbes(False, False, False), vehicle=ExplodingVehicle())
+            self.assertEqual(caught.exception.reason, "presentation-viewing-failed")
+            self.assertEqual(caught.exception.reason_codes, ())
+            self.assertNotIn(secret, str(caught.exception))
+            self.assertNotIn(str(root), str(caught.exception))
+
+    def test_a_launch_failure_does_not_leave_the_socket_listening(self) -> None:
+        # The classified refusal must not come at the cost of the teardown the
+        # previous re-raise performed.
+        with tempfile.TemporaryDirectory(prefix="demo-live-session-") as raw:
+            root = Path(raw)
+            captured: list[str] = []
+
+            class UrlCapturingVehicle:
+                def launch(self, *_args: object, **kwargs: object) -> Any:
+                    captured.append(str(kwargs["initial_url"]))
+                    raise LiveViewingError(ViewingReason.BROWSER_LAUNCH_FAILED)
+
+            with self.assertRaises(PresentationSessionError):
+                _open(root, probes=PreflightProbes(False, False, False), vehicle=UrlCapturingVehicle())
+            self.assertEqual(len(captured), 1)
+            with self.assertRaises(URLError):
+                urlopen(captured[0], timeout=2)
+
+    def test_teardown_failure_is_reported_as_a_classified_refusal(self) -> None:
+        # "Teardown did not complete" is a legal statement in the owner's
+        # vocabulary only if an incomplete teardown actually arrives as this
+        # code rather than as whatever the browser layer raised.
+        with tempfile.TemporaryDirectory(prefix="demo-live-session-") as raw:
+            root = Path(raw)
+            session = _open(
+                root,
+                probes=PreflightProbes(False, False, False),
+                vehicle=LiveViewingVehicle(process_factory=_SyntheticProcess),
+            )
+
+            def explode() -> None:
+                raise ValueError("an unclassified teardown failure")
+
+            with mock.patch.object(session._browser, "close", explode):
+                with self.assertRaises(PresentationSessionError) as caught:
+                    session.close()
+            self.assertEqual(caught.exception.reason, "presentation-session-teardown-failed")
 
 
 if __name__ == "__main__":

@@ -62,21 +62,30 @@ real live workspace. This is the one part of this runbook that required a
 judgment call rather than an existing decision, so the reasoning is given in
 full below the steps ("Open question: how the locator reaches the script").
 
-**Recommendation actually adopted here:** do not pass the residency path as a
-command-line argument, an `export`ed environment variable, or a path written
-into any file this runbook or its script echoes back. Instead, the script
-below (Step 3) obtains it via an interactive `input()` prompt at run time — the
-value is typed once, directly into the running Python process, and is never
-part of a shell command line, never in `argv`, and never written to disk.
+**The mechanism adopted here: the script never receives the locator at all —
+it derives it from its own position.** You place the Step 3 script *inside*
+`<L>` (alongside the `runner.py` your derivation workflow already put there),
+and it computes `L = Path(__file__).resolve().parent`. The path is therefore
+never typed, never an argument, never an environment variable, and never
+written into any file you did not already have.
 
-Practically: open a terminal *at* or *inside* `<L>` using your file manager's
-or editor's "open terminal here" feature if one is available (you already have
-`<L>` open, from populating its `acts/` log in the derivation runbook) — this
-avoids ever typing the path into a shell command. If no such feature is
-available and you must `cd <L>` by hand, that single `cd` does leave the path
-in your shell history; that residual is discussed below and is yours to accept
-or to manage (e.g. by clearing that history entry) — this runbook does not
-mechanize either.
+**The rule that makes this hold — read it before Step 3:**
+
+> **Never invoke the script with a path argument.** Run it as a bare
+> `python3 view.py` from a terminal already positioned at `<L>`. Running
+> `python3 <L>/view.py`, or any other form that spells the residency path on
+> the command line, still *works* — and silently discards the entire
+> protection, putting the locator in your shell history and in the process
+> table exactly as if the script took it as an argument.
+
+The derivation is a property of where the file sits, not of how you invoke it,
+so the safety depends on the invocation form and nothing in the code can check
+this for you. Getting a terminal positioned at `<L>` without typing the path is
+easiest via your file manager's or editor's "open terminal here" on the
+directory you already have open from populating `acts/`. If you must `cd <L>`
+by hand, that single `cd` leaves the path in shell history; that residual is
+discussed below and is yours to accept or to manage (e.g. by clearing that
+history entry) — this runbook does not mechanize either.
 
 ### Step 3 — running the session
 
@@ -135,17 +144,31 @@ except PresentationSessionError as refusal:
     sys.exit(1)
 
 input("session open — press Enter here when you are done looking, to tear down: ")
-session.close()
-print("torn down")
+try:
+    session.close()
+    print("torn down")
+except PresentationSessionError as failed:
+    print("teardown did not complete:", failed.reason, failed.reason_codes)
+    sys.exit(1)
 ```
 
 Note what this script is and is not: it is a documentation template, not a
-shipped tool. No code in the repository changed to produce it — it is the same
-composition `open_presentation_session` already performs as one call
-(capability → preflight → derivation → loopback render → confined browser →
-teardown), copied here so you type one command instead of assembling several.
-`REPO` is a path to your own checkout, a public fact about your machine
-layout, not a residency locator, and is fine to fill in literally.
+shipped tool. It is the same composition `open_presentation_session` already
+performs as one call (capability → preflight → derivation → loopback render →
+confined browser → teardown), copied here so you type one command instead of
+assembling several. `REPO` is a path to your own checkout, a public fact about
+your machine layout, not a residency locator, and is fine to fill in literally.
+
+**Why catching `PresentationSessionError` is sufficient, and why that is a
+property of the function rather than of this template.** Every failure this
+call can produce — including ones originating in the browser vehicle, which
+raise `LiveViewingError`, a *sibling* class rather than a subclass — is
+classified into a `PresentationSessionError` with a stable reason code before
+it reaches you. That wrapping lives in `open_presentation_session` itself, so
+it survives your retyping or adapting this template. If you adapt the script,
+you do not need to widen this catch, and you should not narrow it: an
+unclassified traceback on screen during the real session is exactly the text
+Part 2's vocabulary has no legal way for you to describe.
 
 If the preflight refuses, the script prints a reason code and exits — no
 browser opens. The reason codes you may see, and what each means:
@@ -165,14 +188,22 @@ browser opens. The reason codes you may see, and what each means:
 | `presentation-page-unavailable` | The repository's product page could not be read, or did not have the expected single model-assignment site. |
 | `presentation-page-declares-provenance` | The page being served declares itself synthetic (this should never happen for the real product page — if it does, stop and report exactly this fact, nothing more). |
 | `presentation-server-start-failed` | The loopback server could not start. |
+| `presentation-viewing-refused` | The browser vehicle refused. One `viewing-*` sub-code from the next four rows accompanies it and says which. |
 | `viewing-browser-not-found` | No Chrome/Chromium executable was found in the standard locations. |
 | `viewing-browser-launch-failed` / `viewing-browser-start-timeout` / `viewing-browser-exited-during-launch` | The browser process did not come up cleanly. |
+| `viewing-workspace-unreadable` | The vehicle could not read or prepare its confined session directory under `<L>`. |
 | `viewing-path-not-confined` / `viewing-navigation-non-loopback` | A Class B destination or a navigation attempt fell outside the confined session — refused by construction. |
+| `presentation-viewing-failed` | The browser vehicle failed in a way that carries no classification of its own. Deliberately the only thing you are told: an arbitrary exception's message is exactly the surface ADR-0047's locator confinement keeps closed, so its detail is dropped rather than shown. Report this code; see Part 2. |
 | `presentation-session-teardown-failed` / `presentation-server-teardown-failed` / `viewing-browser-teardown-failed` | Teardown (Step 5) did not complete cleanly. |
 
 None of these codes ever carries a path, a value, or a disposition — that is
 ADR-0047's locator-confinement decision, and it is why this table is safe to
-read in full before you sit down.
+read in full before you sit down. The table is also **closed for this call
+path**: `open_presentation_session` classifies every failure it can produce
+into one of these codes, so you should never see a raw Python traceback from
+it. If you somehow do, that is itself a legal mechanical statement to report
+("the session failed without producing a reason code") and a defect in the
+classification, not something to describe your way around.
 
 ### Step 4 — obligations during the session
 
@@ -227,7 +258,7 @@ hazard shape that killed the `tmutil isexcluded` probe in the previous
 milestone (ADR-0047 amendment): a transient argv disclosure to the one domain
 the project cannot wall off.
 
-Two alternatives were evaluated, as the charter asked:
+Three alternatives were evaluated, as the charter asked:
 
 1. **Read the locator from a file the runbook never echoes.** This does not
    close the hazard, it relocates it: the file now durably holds the locator
@@ -246,29 +277,48 @@ Two alternatives were evaluated, as the charter asked:
    tool/OS combinations, so it does not obviously close the process-table half
    of the hazard either. A control that silently degrades to "no protection at
    all" when a dotfile is missing is worse than one that is visibly absent.
+3. **Prompt for the locator interactively** (`input()` at run time). Better
+   than an argument — no argv entry, no history entry — but it still requires
+   the value to be *typed*, which puts it in terminal echo and therefore in
+   scrollback, and in a session transcript if terminal logging is on. It also
+   asks you to retype a path correctly at the start of the one session that
+   matters.
 
-**Recommendation: neither alternative is adopted. The runbook instead has the
-script prompt for the locator interactively (`input()` in Step 3), and treats
-what remains as a named residual rather than something closed.** An
-interactively typed value is never a shell command argument (no history entry,
-no argv entry) and is confined to the running process's own memory — the same
-same-UID-debugger residual ADR-0044 and ADR-0047 already accept everywhere
-else in this system, not a new one. This is a real improvement over typing the
-path as an argument, but it is not a closure: getting to a terminal positioned
-at `<L>` in the first place may still require a `cd <L>` typed by hand if no
-GUI "open terminal here" is available, which puts the path in shell history
-exactly as before — the interactive prompt only protects the value handed to
-the *script*, not necessarily every step of getting there. This runbook states
-that limit rather than implying the interactive prompt is a complete fix.
+**Recommendation and adopted mechanism: none of the three. The script derives
+the locator from its own position (`Path(__file__).resolve().parent`, Step 3),
+so the locator is never supplied to the script at all.** This dominates all
+three alternatives on the exposures they were being judged against: no argv
+entry, no shell-history entry, no durable locator-bearing file created for the
+purpose, no environment variable, and — unlike the interactive prompt — no
+terminal echo and no scrollback copy, because nothing is typed. What remains is
+the same same-UID residual ADR-0044 and ADR-0047 already accept everywhere else
+in this system: a process that can read this program's memory can read the
+resolved path, and the script file itself sits inside `<L>`, which is where
+locator-bearing material is supposed to live.
+
+**It is not a closure, and two residuals are named rather than papered over:**
+
+- **The protection is invocation-dependent, not structural.** `python3
+  <L>/view.py` produces exactly the argv and history exposure this whole
+  section exists to avoid, and the script cannot detect or refuse it — by the
+  time it runs, the derivation gives the same answer either way. This is why
+  Step 2 states the "never invoke with a path argument" rule as a rule, in the
+  place you will read before running anything. A safety property that holds
+  only for one invocation form is only as good as the instruction that names
+  that form.
+- **Getting a terminal to `<L>` may still cost a history entry.** If no GUI
+  "open terminal here" is available and you `cd <L>` by hand, the path is in
+  shell history exactly as before. The mechanism protects the value the script
+  receives; it does not protect every step of getting there.
 
 If a future milestone wants to close this fully, the honest options are
-narrower than they look: reading from a file only moves the problem, and a
-shell-configuration-dependent history suppression is fragile by construction.
-The previous milestone's precedent — accepting a hazard as a named residual
-rather than building an imperfect mechanism to paper over it — applies with
-equal force here, and would be a fully legitimate alternative choice to the one
-adopted above if a future reviewer judges the interactive-prompt improvement
-not worth its added step.
+narrower than they look: reading from a file only moves the problem, a
+shell-configuration-dependent history suppression is fragile by construction,
+and a typed prompt trades argv for scrollback. The remaining residuals above
+are invocation discipline and shell behavior, neither of which is closeable by
+anything this repository can write. The previous milestone's precedent —
+accepting a hazard as a named residual rather than building an imperfect
+mechanism to paper over it — is what the two bullets above do deliberately.
 
 ## Part 2 — the non-descriptive failure vocabulary
 
@@ -305,11 +355,6 @@ sentence being neutral). The same test catches quieter smugglers:
   value's disposition).
 - "a section rendered empty" — legal (mechanical; true independent of
   expectation).
-- "nine sections rendered" — illegal. A count that could be compared against an
-  expected count is a disposition claim in numeric clothing, even though no
-  word here is evaluative on its face. Say "a section rendered" (singular,
-  no count) or "not every section rendered" instead — true without needing an
-  expected total.
 - "a citation link resolved to nothing" — legal (mechanical: it either
   resolved or it did not).
 - "a citation link resolved to the wrong target" — illegal ("wrong" requires
@@ -317,25 +362,86 @@ sentence being neutral). The same test catches quieter smugglers:
 - "the browser exited before I could look" — legal (a structural event: exit
   before observation).
 - "teardown did not complete" — legal (mechanical, matches Step 5 above).
-- "a refusal came back with reason code X" — legal, provided `X` is one of the
-  closed stable codes from the Step 3 table (or an equally stable code this
-  runbook has not yet enumerated) and nothing else accompanies it. A refusal
-  reason code is not a value or a disposition — ADR-0047 designed it to be
-  exactly the thing safe to report.
+
+**Counts, and the test that actually governs them.** The question for a count
+is not whether it is a number, and not whether it *could* be compared against
+an expectation — it is **whether the set being counted is already public in
+the repository.**
+
+- "three W-2 slips rendered" — illegal. The number of your W-2s is a
+  cardinality of your real fact set. Nothing public bounds it, so the count is
+  live content stated numerically.
+- "nine sections rendered" — legal but pointless, and best avoided. The page's
+  section set is fixed repository content — the same nine 1040 lines pinned in
+  `tools/presentation_harness/examples/manifests/citation-walk-production-shaped.v1.json`
+  — so this number is already public and reveals nothing about you. It leaks
+  rendering mechanics, not tax values. Saying "not every section rendered"
+  instead is **not** safer: it conveys nearly the same bound against the same
+  public set. Prefer "a section failed to render" because it is the fact you
+  actually want repaired, not because the count was dangerous.
+
+The rule to carry away: **never state a count over a set whose size is not
+already fixed and public in the repository.** Sections, refusal reason codes,
+and form lines are public sets. Slips, payers, statements, entities, and
+anything else that exists because your documents exist are not.
+
+**Refusal reason codes.** "A refusal came back with reason code X" is legal for
+any `X` in the Step 3 table, and for the sub-codes `presentation-live-run-refused`
+carries. The basis, since this is a categorical-sounding claim: the Step 3
+codes are the closed `ViewingReason` enumeration in
+`packages/derivation/live_viewing.py` plus the `presentation-*` literals in
+`packages/derivation/live_session.py`, all of them fixed strings chosen at
+authoring time with no interpolation, and ADR-0047's locator-confinement
+decision is what keeps them that way. The `presentation-live-run-refused`
+sub-codes come from `production_resolver.py`'s `Refusal` codes
+(`ADOPTION_AMBIGUOUS`, `HARD_GATE_REFUSED`, and siblings), which were traced
+forward and describe package and governance validation state — not taxpayer
+values.
+
+That audit covers the codes reachable from this call path as of this writing.
+It is **not** a standing guarantee that any string a future code path calls a
+"reason code" is safe. If you see a code that is not in the Step 3 table and
+not one of the audited sub-codes, report it as *an unenumerated code was
+returned* rather than quoting it — a code no one has audited is exactly the
+kind of thing that could carry interpolated detail, and quoting it first and
+checking afterwards is the wrong order for an unrepeatable session.
 
 ### When nothing in the vocabulary fits
 
-**Report that fact itself.** "What I saw does not match anything in the
+**First, report that fact itself.** "What I saw does not match anything in the
 runbook's vocabulary" is a true, mechanical, legal statement on its own, and it
 is the correct thing to say — not an invitation to improvise a closer-fitting
 description. Improvising is exactly the failure mode this vocabulary exists to
 prevent: the temptation, when nothing fits cleanly, is to reach for "the
 closest true description," and the closest true description of a real defect
 is very often evaluative by the time it is specific enough to be useful. Report
-the gap, not a workaround for it. A repair to the vocabulary itself — adding a
-new legal entry — is then a repository change like any other, made without
-reference to what you actually saw, reviewed on the same mechanical-vs.-
-evaluative line as everything above.
+the gap, not a workaround for it.
+
+**Then reproduce it synthetically, where description is fully legal.** Reporting
+the gap alone would leave a novel failure detectable but not diagnosable — the
+project would know to stop trusting the session and still be unable to repair
+anything. It does not have to end there. The rehearsal path already exists: run
+the same session against a **synthetic** workspace, the way Track 2 of the
+milestone that produced this runbook does, and see whether the same failure
+appears. A failure observed against synthetic facts is not your data, so
+ADR-0047 precondition 5 does not reach it — **describe it in full, without
+restriction**, including values, dispositions, screenshots, and anything else
+that would be forbidden about the real session. That description is an ordinary
+bug report and a repair follows from it normally.
+
+**Be clear about what this does not cover.** Reproduction only helps for
+failures whose cause is in the code, the page, or the shape of the model. A
+failure that manifests *only* against your real content — a fact pattern the
+synthetic set does not produce, a value shape nothing generated hits, an
+interaction between real entities that no fixture models — will not reproduce,
+and for that class the escape hatch genuinely does not open. What remains legal
+there is still only the gap report. This is a real limit; do not treat "try it
+synthetically" as if it always works.
+
+A repair to the vocabulary itself — adding a new legal entry — is then a
+repository change like any other, made without reference to what you actually
+saw in the real session, reviewed on the same mechanical-vs.-evaluative line as
+everything above.
 
 ### What this vocabulary cannot cleanly express, named rather than resolved
 
@@ -353,13 +459,21 @@ evaluative line as everything above.
 - **A structural event with no entry above.** The table in Step 3 and the
   examples here are not claimed to be exhaustive of every possible mechanical
   event a real browser session could produce. The "report the gap" instruction
-  is the vocabulary's designed answer to this, but it is a real limit, not a
-  false confidence that the list is complete.
+  plus synthetic reproduction is the vocabulary's designed answer to this, but
+  reproduction fails for anything that only manifests against real content, so
+  this remains a real limit rather than a closed one.
+- **A defect that only appears against real content.** Named again here because
+  it is the sharpest gap in the whole design: such a defect is legally
+  reportable only as its mechanical shell, cannot be reproduced where
+  description would be free, and therefore may be repairable only by reasoning
+  about the code rather than about the observation. Nothing in this runbook
+  closes that.
 
 ## Verification note
 
-This runbook and its vocabulary are documentation. They do not change, test, or
-depend on any code path beyond what `open_presentation_session` and
-`run_viewing_preflight` already do. The commands that verify nothing broke are
-listed in the milestone charter's Verification section and were run
-unconditionally for this track regardless of whether any code changed.
+This runbook's Step 3 guarantee — that every failure arrives pre-classified as
+a stable reason code — is a property of `open_presentation_session`, not of the
+template, and is covered by regression tests in
+`tests/test_presentation_live_session.py`. The commands that verify nothing
+else broke are listed in the milestone charter's Verification section and were
+run for this track and its repair.
