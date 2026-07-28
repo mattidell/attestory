@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Legible Entry",
   "topic": "entry-boundary",
-  "milestone_state": "track-1",
-  "status": "Plan merged to `main-ui` in PR #101 (8d41cc2). Track 1 chartered 2026-07-28 — the retention probe, charter `docs/reviews/charter-2026-07-28-entry-boundary-track1.md`, building on branch `milestone/entry-boundary`. Track 2 (ADR-0048) not yet chartered. Per the merge protocol as amended in PR #101, both tracks ride as commits on this one branch and reach `main-ui` in a single closing PR.",
+  "milestone_state": "track-1b",
+  "status": "Plan merged to `main-ui` in PR #101 (8d41cc2). Track 1 built the retention probe (a33458a); its review (367de61) found the builder charter named the headless evaluation harness rather than the headed vehicle a person would type into, so the findings stand only for headless mode. That is a foreman charter defect, not a build defect. Track 1b is chartered to re-run the same probe against the headed vehicle (`packages/derivation/live_viewing.py`) on a synthetic workspace: charter `docs/reviews/charter-2026-07-28-entry-boundary-track1b.md`. Track 2 (ADR-0048) waits on it. All tracks ride on branch `milestone/entry-boundary` and reach `main-ui` in one closing PR.",
   "scope": [
     "find out what a browser actually keeps when a person types into a form, by running a throwaway probe against a synthetic workspace",
     "decide whether a browser form is an acceptable place for a person to enter real tax facts",
