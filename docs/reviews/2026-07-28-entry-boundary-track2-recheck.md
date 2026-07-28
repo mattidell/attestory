@@ -254,3 +254,181 @@ surface:
    future widened search should say so up front rather than rediscovering it.
 5. **`--disable-gpu` as a partial, unquantified mitigant** for the
    shader-cache half — correctly named in the ADR now, still untested.
+
+---
+
+# Confirmation round — the Disposal scoping fix (`95bd997`)
+
+- Scope: **Measurement 2 only.** Measurements 1, 3, 4, and 5 are not
+  re-derived; they passed at `0df113e` and the fix's diff does not reach them.
+- Fix applied by the foreman directly (`95bd997`), not by a builder.
+- Boundaries spot-checked anyway, because they are cheap and the fix touched
+  the ADR: `git diff main..95bd997 -- packages/derivation/ tools/presentation_harness/`
+  is still **empty** (0 lines), and the ADR status line still reads
+  **proposed**. Nothing about the fix changed either.
+
+## Does the fix close what I said would close it?
+
+**Yes.** I said the Disposal paragraph needed the same scoping the
+Confinement paragraph immediately above it already had, and that one sentence
+would do it. The fix does more than that and does it better.
+
+The offending sentence is now bounded in place — "**Within that directory** it
+is a single mechanism covering every channel at once" — so the paragraph no
+longer overstates on its own terms. The new paragraph that follows does the
+part I would not have thought to ask for and which is worth more than the
+scoping itself:
+
+> Do not read the paragraph above as a claim about unenumerated channels in
+> general — it holds for unenumerated channels *inside the profile directory*,
+> which is a narrower and weaker statement than it first appears.
+
+That last clause is the useful one. The original defect was not that the
+sentence was technically false; it was that it *read* stronger than it was,
+and a reader had no signal to slow down. Telling the reader explicitly that
+the preceding claim is weaker than it sounds is a stronger repair than
+silently narrowing it would have been, because the narrowed version would
+still have read as impressive to someone skimming. It also names the
+counterexample in place ("the single-instance lock directory is created
+outside the session tree, is never passed to `_remove_session()`, and
+survives both a clean close and a crash"), so the reader does not have to
+reach the Weakest-point section to learn that one exists.
+
+"Its reach is the same as confinement's, and no wider" is also the right
+framing to have chosen: it makes the two load-bearing properties symmetric,
+which is exactly what was missing when Confinement was scoped and Disposal
+was not.
+
+## Has the defect relocated a third time?
+
+I checked the whole document rather than only the edited region, since the
+pattern has now moved once. Method: grep for absolute-strength constructions
+(`every channel`, `all channels`, `everything Chrome`, `any channel`,
+`every path`, `covers every`, `nothing is`, `at once`) and read each hit in
+context against what Part 1 established.
+
+**In the fix's own region and in every section the earlier repair touched:
+no.** Every remaining absolute is either scoped in the same sentence
+("across every channel this milestone exercised," "in any channel this
+milestone tested," "for those destinations at once on a normal session"), or
+is quoting the retracted claim in order to retract it ("never of
+'everything Chrome writes,' which this ADR no longer asserts").
+
+**One pre-existing sentence is now stale, and I want it on the record.** It
+is not in the fixed region and was not introduced by this fix — it is
+original Context text, in "Why this ADR does not rest on the probe's negative
+results":
+
+> The probe's positive findings — files *are* written by session-restore and
+> the browser's own background stores, in both vehicles, and none of them
+> left the confined directory tree — are used only as confirmation of those
+> two properties [...]
+
+"None of them left the confined directory tree" is the same *class* of
+statement Part 1 disproved, and it was never a claim Track 1/1b was in a
+position to make: those runs searched only inside the confined tree, so they
+had no visibility into whether anything left it. Part 1 then showed something
+does.
+
+**I am not calling this blocking, and I want to be explicit about why, since
+I blocked on the last one.** Three things distinguish it:
+
+1. **It is not load-bearing.** The Disposal instance sat inside one of
+   Decision 1's two named architectural properties — the thing the "yes"
+   rests on. This sits in a framing paragraph whose entire purpose is to
+   tell the reader *not* to rely on the probe's results ("This ADR does not
+   use the probe's per-channel 'not fired' results as evidence for question
+   1"). A section that discounts its own evidence in the next clause is a
+   much weaker place for an overclaim to do damage.
+2. **The document now contradicts it loudly and in four places** — the
+   scoped Confinement paragraph, the new Disposal paragraph, the "What Part
+   1's widened search settles" section, and the answer section's explicit
+   "what this ADR's first draft got wrong." A reader is not going to leave
+   this document believing nothing escapes.
+3. **Proportionality.** Blocking a third time on a progressively smaller
+   instance would be the reviewer failure mode, not diligence. I named the
+   Disposal instance as blocking because it was the identical defect in the
+   other pillar; this one is a stale summary clause in a discounting
+   paragraph.
+
+**The foreman's call, stated as a choice rather than a demand:** deleting the
+clause "and none of them left the confined directory tree" — or replacing it
+with "and none of them left the confined directory tree *in the region those
+runs searched*" — is a one-clause edit before the closing PR. If it does not
+happen, this is what ships, and I would rather it be a named residual in this
+record than an unremarked one.
+
+## Are the two new "Left undecided" entries genuinely held open?
+
+**Yes, both.** Neither reads as scheduled work, and neither was investigated,
+which they correctly say.
+
+**The locator entry** is the more careful of the two and closes with exactly
+the right sentence: "This is a gap in what has been checked, not a finding
+that anything leaks." That distinction is the whole point — I raised it as an
+unasked question, not as a suspicion, and the entry preserves that
+distinction rather than upgrading it into an implied problem. Naming the
+single-instance-lock directory as "a named place to start" is a pointer, not
+an assignment: there is no milestone named, no "must," and no mechanism
+proposed.
+
+**The orphan-surface entry** is phrased as a recorded fact rather than an
+open question, which is slightly odd placement under a heading called "Left
+undecided" — the observation is settled (Part 1 saw it); what is undecided is
+what to do about it. But it does not imply scheduled work: it states what was
+observed, states that nothing sweeps it, and says why it is recorded here
+("Part 1 observed it in the findings note and the reasoning above does not
+otherwise reach it"). It proposes no sweep and names no owner. The
+distinction it draws — that the existing orphan question concerns directories
+that "at least survive *inside* the boundary" while "this one does not" — is
+the substantive part and is correct.
+
+Checked separately: the **Consequences** section was not touched by this fix,
+so neither new entry leaked into the list of obligations the next milestone
+"inherits." They are held in "Left undecided," which is where an
+uninvestigated question belongs.
+
+## The coverage limit in Evidence limits
+
+Reads accurately and says the thing I was worried a later reader would miss:
+"'the widened scan found no token' must not be read as covering these two
+artifacts, because it did not examine them." It also correctly separates the
+two supports — the hand-read symlink target and the structural fact that a
+socket has no persisted bytes — and labels the second as "a structural
+property, not an observation," which is the distinction that makes the claim
+hold beyond the four instances actually inspected.
+
+## Verdict
+
+**READY.**
+
+Measurement 2 passes. The Disposal claim is now bounded, its reach is stated
+as equal to confinement's and no wider, the counterexample is named in place,
+and the reader is told explicitly not to read the preceding paragraph as
+general. The two carry-forwards are held open honestly without being dressed
+as plans. Measurements 1, 3, 4, and 5 passed at `0df113e` and are unaffected.
+
+ADR-0048 is `proposed`, not ratified; ratification remains the owner's.
+
+## Residuals I would carry into a later milestone
+
+The five from the previous round stand unchanged (crash-reporter/Crashpad
+still open and untestable by `SIGKILL`; the locator question; the singleton
+orphan surface; regular-files-only scan coverage; `--disable-gpu` as an
+unquantified partial mitigant). Items 2, 3, and 4 are now recorded in the ADR
+itself rather than only in this review record, which is where they belong.
+
+One added:
+
+6. **The stale Context clause** described above ("none of them left the
+   confined directory tree"), if it is not edited before the closing PR.
+
+And one observation about this milestone rather than the artifact, offered
+for the retrospective and not as a finding: the same defect — a headline
+claim stronger than the document's own later sections support — appeared
+three times in one ADR, in three different sections, and each instance was
+caught only by reading the whole document against itself rather than by
+reading any section on its own. That is worth knowing for a phase whose
+stated purpose is documents that are honest to a reader arriving without
+context, because it suggests the failure is structural to how a long ADR gets
+revised, not a lapse by any one author.
