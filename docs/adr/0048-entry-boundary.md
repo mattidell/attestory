@@ -59,9 +59,12 @@ here reads as a green light. This ADR does not use the probe's per-channel
 architectural properties of the vehicle that do not depend on what a browser
 chooses to do: **confinement** and **disposal**. The probe's positive
 findings — files *are* written by session-restore and the browser's own
-background stores, in both vehicles, and none of them left the confined
-directory tree — are used only as confirmation of those two properties, not
-as the basis for a claim about Chrome's retention behavior in general.
+background stores, in both vehicles — are used only as confirmation of those
+two properties, not as the basis for a claim about Chrome's retention
+behavior in general. Those runs searched only inside the confined tree, so
+they could not have established that nothing left it; the widened search that
+addressed that question came later, and found that something does (see "What
+Part 1's widened search settles, and does not").
 
 ## The two questions
 
