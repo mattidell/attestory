@@ -2,8 +2,9 @@
 {
   "version": 1,
   "topic": "presentation-row-completion",
-  "milestone_state": "planned",
-  "status": "PLANNED 2026-07-28. A RECORDS milestone, and deliberately so. It raises the four remaining Presentation cells (Interest 2b, Dividends 3a/3b, Return-level conditions, Schedule attachments) from L2 to L3 on the strength of the session ALREADY PERFORMED on 2026-07-27 — not a new one. That session rendered all nine published lines and Schedule B Parts I and II from real data; the surface was verified to cover all five columns before this plan was written, so there is no build gap and no hidden one. The owner amends the existing attestation to name the four columns; the foreman moves four cells with a footnote that states plainly that ALL FIVE rest on ONE session so no later reader infers four sittings. On close the matrix is uniformly L3 or better in every cell, which is the intended Real Return phase boundary. Two gaps carry forward UNCLOSED and are named rather than dropped: the classified-refusal path still has no human confirmation (it needs a session to exercise, and this milestone performs none), and the runbook's unidentified unclarity stands. Track 1 is owner-operated; Track 2 is foreman records plus a phase-close recommendation.",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-07-28-presentation-row-completion.md",
+  "status": "CLOSED 2026-07-28. The Presentation row is L3 across all five columns and EVERY CELL in the maturity matrix is now L3 or better. The owner named all four remaining columns as observed during the 2026-07-27 session; all four moved. CRITICAL for any later reader: there has been exactly ONE real viewing session in this project's history, 2026-07-27, and four of the five Presentation columns were recorded a day later by amendment. Nothing asserts that five sessions occurred, or two — foreclosed in the matrix header, footnote 15's opening, the attestation amendment, and the retrospective, because a row filled in over two days by two milestones invites exactly that misreading. The control specified by the plan (a column the owner did not name would not move) did not fire but was real. Two gaps carry forward UNCLOSED into the next phase, both needing a session this milestone did not perform: the classified-refusal path has NO human confirmation — now the oldest open item on this path — and the session runbook has an unidentified unclarity. FOREMAN RECOMMENDATION ON THE RECORD: Real Return should CLOSE. Its roadmap sets no ladder and one standing test ('does the product now do something for its user that it could not do before?'), which is met, and frontier-driven selection has no frontier left inside these five columns. Read the completion accurately: it is breadth- and hardening-limited by construction — five income/return domains, one implemented schedule, one human surface, one real session behind the whole Presentation row. It is NOT a claim the product is finished for its user, who still cannot file anything; that gap is invisible to every cell because no row is named for it. Phase close is the owner's decision (Tier 3). PLANNED 2026-07-28. A RECORDS milestone, and deliberately so. It raises the four remaining Presentation cells (Interest 2b, Dividends 3a/3b, Return-level conditions, Schedule attachments) from L2 to L3 on the strength of the session ALREADY PERFORMED on 2026-07-27 — not a new one. That session rendered all nine published lines and Schedule B Parts I and II from real data; the surface was verified to cover all five columns before this plan was written, so there is no build gap and no hidden one. The owner amends the existing attestation to name the four columns; the foreman moves four cells with a footnote that states plainly that ALL FIVE rest on ONE session so no later reader infers four sittings. On close the matrix is uniformly L3 or better in every cell, which is the intended Real Return phase boundary. Two gaps carry forward UNCLOSED and are named rather than dropped: the classified-refusal path still has no human confirmation (it needs a session to exercise, and this milestone performs none), and the runbook's unidentified unclarity stands. Track 1 is owner-operated; Track 2 is foreman records plus a phase-close recommendation.",
   "scope": [
     "the owner amends the 2026-07-27 attestation to name the Interest, Dividends, Return-level conditions, and Schedule attachments columns, stating observation of each explicitly",
     "raise those four Presentation cells from L2 to L3 with a footnote that states all five columns rest on one session",
@@ -225,4 +226,59 @@ foreman records pass, on one branch, reaching `main` as a single PR at close.
 
 ## Execution record
 
-Filled in as tracks complete.
+**Complete 2026-07-28.** All six exit criteria met. The Presentation row is L3
+across all five columns; every cell in the matrix is L3 or better.
+
+### Track 1 — the owner amends the attestation
+
+The owner named **all four** columns, one statement each, affirming observation
+during the 2026-07-27 session and that the amendment adds no descriptive detail.
+Filed as a dated amendment section inside
+`docs/reviews/2026-07-27-presentation-real-session-attestation-track3-attestation.md`,
+so the record and its history stay in one place.
+
+The five ADR-0047 preconditions were deliberately **not** re-affirmed, and the
+amendment says why: they were affirmed for the session of 2026-07-27, and
+restating them would falsely suggest a second act.
+
+**The control did not fire.** The plan specified that a column the owner did not
+name would not move, and that closing with fewer than four cells raised would be
+the control working rather than a failure. All four were named. It was still
+worth asking rather than inferring observation from the render.
+
+### Track 2 — records and phase assessment
+
+Matrix footnote 15 filed and four cells moved. The footnote's first job is
+foreclosing the reading that several sessions occurred; that is stated in the
+matrix header, in the footnote's opening, in the amendment, and in the
+retrospective. There was one session, on 2026-07-27.
+
+Frontier reading rewritten: the matrix has no frontier left inside these five
+columns, and the completion is recorded as breadth- and hardening-limited by
+construction rather than as a claim that the product is finished.
+
+Retrospective:
+`docs/milestone-retrospectives/2026-07-28-presentation-row-completion.md`.
+
+### Exit criteria
+
+| # | Criterion | Met |
+| --- | --- | --- |
+| 1 | Dated amendment naming observed columns, non-descriptive | yes — all four |
+| 2 | Matrix at L3 in every named column, footnote states all five rest on one session | yes (footnote 15) |
+| 3 | Footnote claims capability operation, not disposition correctness, and implies no second session | yes |
+| 4 | Both carried gaps recorded as unclosed, with the reason | yes |
+| 5 | Phase-close recommendation on the record with supporting matrix state | yes — retrospective, "Phase recommendation" |
+| 6 | No descriptive detail; envelope scan clean over the full range | yes |
+
+### Carried forward
+
+The classified-refusal path's missing human confirmation — now **the oldest open
+item on this path** — and the runbook's unidentified unclarity. Both need a
+session; this milestone performed none. Neither is lost with the row that
+carried them: both are named in matrix footnote 15 and in the retrospective.
+
+### Phase recommendation
+
+**Real Return should close.** Recorded in the retrospective with its reasoning
+and its limits. The decision is the owner's (Tier 3).

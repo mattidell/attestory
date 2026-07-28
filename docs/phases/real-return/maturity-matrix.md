@@ -24,7 +24,12 @@ careful hand-editing.
 | **L3** | Real — operates on the owner's actual data under the ratified data boundary. |
 | **L4** | Hardened — named production conditions discharged; deferrals retired. |
 
-## Matrix (as of 2026-07-27, Presentation Real Session and Attestation records)
+## Matrix (as of 2026-07-28, Presentation Row Completion records)
+
+**Every cell is now L3 or better.** Read the Presentation row with footnote 15
+before drawing any conclusion from it: all five of its columns rest on **one**
+real viewing session, performed 2026-07-27. Four were recorded by amendment the
+following day. There were not five sessions, and there were not two.
 
 | Aspect ↓ / Domain → | W-2 wages (1a) | Interest (2b) | Dividends (3a/3b) | Return-level conditions (status, 12, 15, 16) | Schedule attachments |
 | --- | --- | --- | --- | --- | --- |
@@ -33,7 +38,7 @@ careful hand-editing.
 | **Computation** (rules, composition, conditionals) | L3 ⁷ | L3 ³ ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
 | **Adoption & authority** (packages, manifests, byte verification, citations) | L3 ⁴ ⁷ | L3 ⁴ ⁷ | L3 ¹¹ | L3 ⁴ ⁷ | L3 ¹¹ ¹² |
 | **Explanation & audit record** (provenance, disposition ledger, non-publication walk) | L3 ⁷ | L3 ⁷ | L3 ¹¹ | L3 ⁷ | L3 ¹¹ ¹² |
-| **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ¹⁴ | L2 ⁵ ⁷ ¹⁴ | L2 ⁵ ¹¹ ¹⁴ | L2 ⁵ ⁷ ¹⁴ | L2 ⁵ ¹¹ ¹⁴ |
+| **Presentation** (form-field dispositions, rendering; human surface) | L3 ⁵ ¹⁴ | L3 ⁵ ¹⁴ ¹⁵ | L3 ⁵ ¹⁴ ¹⁵ | L3 ⁵ ¹⁴ ¹⁵ | L3 ⁵ ¹⁴ ¹⁵ |
 | **Correction & supersession lifecycle** | L4 ⁶ ⁷ | L4 ⁶ ⁷ | L4 ⁶ ¹¹ | L4 ⁶ ⁷ | L4 ⁶ ¹¹ |
 | **Data boundary** (real-data residency, contribution, privacy) | L3 ⁷ ⁸ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ | L3 ⁷ ⁸ ¹³ | L3 ⁸ ¹⁰ ¹¹ ¹³ |
 
@@ -222,38 +227,92 @@ extended at milestone close 2026-07-21):
     start arriving as a stable reason code rather than as a traceback — is
     established by tests and by independent review, and **not** by human
     observation. It is the least-exercised part of the session path.
+15. **The whole Presentation row rests on one session.** Presentation — Completing
+    the Row, 2026-07-28. **Read this before footnote 14 or the row itself.**
+
+    There has been exactly **one** real viewing session in this project's
+    history: 2026-07-27. It rendered all nine published lines and Schedule B
+    Parts I and II from real data in a single render. Footnote 14 recorded the
+    W-2 wages (1a) column from it. This footnote records the other four, from the
+    **same session**, on an amendment the owner filed the following day naming
+    the columns they observed
+    (`docs/reviews/2026-07-27-presentation-real-session-attestation-track3-attestation.md`,
+    "Amendment, 2026-07-28").
+
+    **No part of this row asserts that five sessions occurred, or two.** A row
+    filled in over two days by two milestones is exactly the shape that invites
+    that misreading, which is why it is foreclosed here rather than left to
+    inference.
+
+    **Why an amendment is sufficient, on the ratified terms.** Three things, and
+    the third is the one that does the work. The surface covers all five columns
+    — verified directly rather than inherited from the prior closeout, which had
+    itself said "no build gap" before three code defects were found: the
+    production-shaped fixture carries sections for lines 1a, 2b, 3a, 3b, 9, 11,
+    12, 15, and 16, plus a Schedule B citation group with Part I (interest,
+    box-1 / 1099-INT family) and Part II (ordinary dividends, box-1a / 1099-DIV
+    family), and `_resolve_attachment` in
+    `packages/derivation/presentation_projection.py` projects attachments into
+    the model. The session rendered that surface from real data. And **L3 asserts
+    the capability operated, not that the owner audited it** — footnotes 7 and 11
+    have said exactly that since 2026-07-18, so extending the claim to columns
+    the same render covered is a statement of the already-ratified kind.
+
+    **What the owner supplied, because the repository cannot.** ADR-0031
+    Decision 7's shape includes that the owner observed dispositions in
+    quarantine, so naming a column asserts observation of it. The milestone
+    required an explicit statement per column rather than inferring observation
+    from the render, and specified that **a column the owner did not name would
+    not move**. All four were named. The control did not fire, but it was real:
+    the row could have closed ragged.
+
+    **No L3 claim here rests on, or may ever cite, quarantined run detail** —
+    same posture as footnotes 7, 11, and 14, unchanged. L3 asserts the capability
+    operated and asserts no disposition was correct.
+
+    **Two gaps stand open and do not close with this row.** Both need a session
+    to exercise, and this milestone performed none. First, the
+    **classified-refusal path still has no human confirmation** — that a browser
+    failing to start arrives as a stable reason code rather than a traceback
+    rests on tests and independent review only (footnote 14). It is the oldest
+    open item on this path. Second, the **session runbook has an unidentified
+    unclarity**, reported by its first human user with the sentence unnamed.
+    Neither concerns the capability that operated; both concern the failure path
+    and the instructions.
 
 ## Frontier reading
 
-Seven of the eight aspects are L3 or better across all five domains; one
-(Correction & supersession lifecycle) is L4 everywhere. Presentation is the
-single ragged row: **L3 in W-2 wages (1a) as of 2026-07-27, L2 in the other
-four.** The matrix is breadth- and hardening-limited, not depth-limited within
-its covered domains. The live frontiers for the owner's next selection (Tier 3):
+**The matrix is complete at L3 or better in every cell**, as of 2026-07-28. One
+aspect (Correction & supersession lifecycle) is L4 everywhere. There is no
+ragged row and no L2 cell left.
 
-1. **Presentation L2 → L3 in the four remaining columns.** The build question is
-   settled and stays settled: the projector and renderer are production-shaped
-   and synthetic end-to-end, the live viewing environment is decided (ADR-0047,
-   twice amended), the confined headed invocation vehicle exists, the whole path
-   is a **single act**, and that act has now been run by a human against both a
-   synthetic workspace and the real residency (footnote 14). Nothing needs
-   building for Interest, Dividends, Return-level conditions, or Schedule
-   attachments to reach L3.
+This is the condition the Real Return phase was aimed at, and it means the
+matrix has stopped being a selection instrument for this phase: **frontier-driven
+selection has no frontier left inside these five columns.** What remains is
+either hardening the covered region, widening the columns, or leaving the
+instrument's coordinate system entirely.
 
-   What is missing is **record, not capability**. One attestation raises only
-   what it covers, and the owner named W-2 wages (1a) at plan stage. Extending
-   the claim means the owner performing a session that covers the other columns
-   and naming them in the attestation — naming a column is not describing
-   content. This is a cheap frontier now that the first one has been paid for,
-   and it is the natural next candidate.
+Read that completion accurately before spending it. It is **breadth-limited and
+hardening-limited by construction**: five income/return domains, one implemented
+schedule, one human surface, one real viewing session behind the entire
+Presentation row (footnote 15). It is not a claim that the product is finished
+for its user.
 
-   Two things to carry into it rather than rediscover. The
-   **classified-refusal path has never been confirmed by a human**: that a
-   browser failing to start arrives as a stable reason code rather than a
-   traceback rests on tests and review only (footnote 14, named gap). And the
-   **runbook has an unidentified unclarity**, reported by its first human user;
-   the next person to use it should note where it reads badly at the moment it
-   reads badly.
+The live candidates (Tier 3, owner-held):
+
+1. **A new phase.** The Real Return roadmap sets no ladder and one standing test:
+   *"does the product now do something for its user that it could not do
+   before?"* That test is met — the system holds and computes the owner's real
+   data, explains it with citations, and now shows it to them on a human surface
+   that has really operated. With every cell at L3 the phase has a legible
+   boundary, and the matrix's own silence is the argument: the next question for
+   this product is not on these axes. **This is the recommended reading.**
+
+   Two items follow into whatever comes next, named so they are not lost with the
+   row that carried them: the **classified-refusal path has never been confirmed
+   by a human** (footnote 14 — the oldest open item on this path, and it needs a
+   session to close), and the **session runbook has an unidentified unclarity**
+   reported by its first human user.
 2. **L3 → L4 hardening** — retire remaining named deferrals from the
    milestone ledgers (`dividends-schedule-b-slice-deferral-ledger.md`,
    `correction-authority-and-marshaller-simplification-deferral-ledger.md`).
