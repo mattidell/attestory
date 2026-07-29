@@ -50,7 +50,8 @@
 -->
 # Milestone: The Entry Loop (synthetic)
 
-Status: **planned 2026-07-28.** Nothing chartered yet.
+Status: **open.** Plan merged 2026-07-28 (PR #109, `506f785`). **Track 0 is
+chartered** — `docs/reviews/charter-2026-07-28-entry-loop-synthetic-track0.md`.
 
 ## What this is for
 

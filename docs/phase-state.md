@@ -4,9 +4,9 @@
   "phase": "Legible Entry",
   "topic": "entry-loop-synthetic",
   "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
-  "status": "Legible Entry accepted (PR #100). AT THE MILESTONE-SELECTION FRONTIER — nothing is chartered. Milestones 1 and 2 are both CLOSED 2026-07-28 and NO MATURITY CELL HAS MOVED; both built decisions and delivery, not the entry loop. MILESTONE 1, THE ENTRY BOUNDARY (PR #102, c451a40, ADR-0048 ACCEPTED): a browser form is acceptable for typing real tax facts on stated conditions, and an entry surface emits act-contribution.v1 through the existing admission path rather than writing facts directly. It also established that CONFINEMENT IS NOT TOTAL — the vehicle writes a single-instance lock outside the confined tree, surviving a crash, holding no typed content. Open from it: NOTHING HAS SEARCHED FOR THE RESIDENCY LOCATOR OUTSIDE CONFINEMENT (every run looked for typed tokens only); the singleton lock as a second orphan surface; crash-reporter and GPU-cache paths narrowed but not closed; the spellcheck flag's mechanism undesigned. MILESTONE 2, PACKAGING THE SURFACE (PR #108, closed at 2fb6761): UI code now crosses Developer/Supply to Live-Run Data in a SECOND, SEPARATE ARTIFACT (surface-artifact.v1) under its own surface-adoption, carrying opaque program bytes verified by digest and never validated for meaning. artifact-package.v4 is byte-for-byte UNTOUCHED and is to stay that way. packages/derivation/surface_resolver.py reuses ADR-0033's release/registry chain and diverges only at member-graph validation. One trivial Svelte page builds at the workspace offline (svelte/compiler plus browser import maps, no bundler) and opens in the live-viewing vehicle on a synthetic workspace; five refusal paths tested. ADR-0049 is PROPOSED, NOT RATIFIED — ratification is the owner's. OWNER DECISION, same day, AFTER the close: THE REPOSITORY DOES NOT STORE THE VENDORED DEPENDENCY TREE. node_modules is gitignored; it ships in the artifact and is reconstructed with `npm ci` in packages/sample_data/surface_t1/content/app followed by tools/generate_surface_t1_fixtures.py. Six surface tests SKIP without it, so the digest and refusal evidence is reproducible on demand rather than continuously checked; the data-safety test was deliberately left unguarded and runs everywhere. Measured tree: 941 entries / 5,065,001 bytes from one direct dependency. CARRIED OPEN: the build's output is never digest-verified (trust is verified inputs plus one fixed command; determinism CHECKED byte-identical on one machine under Node v25.8.0, UNVERIFIED across machines or versions, which is the same gap as the Node precondition seen from the other side); offline enforcement is macOS sandbox-exec only with NO CI COVERAGE; surface_resolver imports three underscore-private names from production_resolver (real reuse, fragile coupling); the sample page uses no TypeScript so that toolchain cost is untested; tools/build_orientation_block.py defaults to --ref main, which is a stale Real-Return-era branch in this repo — the live trunk is main-ui. Retrospectives: docs/milestone-retrospectives/2026-07-28-entry-boundary.md and 2026-07-28-packaging-the-surface.md; the latter's subject is that the milestone plan shipped a FALSE PREMISE — the foreman called the package-member route 'close to forced' without opening the schema, and it survived a plan PR and an owner decision built on top of it. MILESTONE 3, THE ENTRY LOOP SYNTHETIC, IS NOW PLANNED (2026-07-28) and is the first milestone in this phase that builds product and the first that can move a cell. Owner scope decisions: W-2 only across all five loop steps (15 of 20 cells deliberately left for later); usability criteria written in Track 0 BEFORE the surface is built, so the L2 scorer is not shaped by what it scores; the per-field explanation schema emerges from the build and is recorded at close rather than designed up front. Four tracks: 0 criteria, 1 build, 2 evaluate, 3 record and close. Prerequisite Track 1 must confirm against the code before writing any surface: that a synthetic workspace can be seeded so W-2 is the only missing family (otherwise the 'know the return is complete' step needs a different design). Filing is out of scope for the phase. Process: a milestone gets one PR to open and one to close; tracks keep their review gate but not their own PR; PRs target main-ui. Phase documentation uses plain, product-facing language — the habit being corrected is writing every planning document as though defending it to a hostile auditor. Prior phase Real Return closed 2026-07-28 with every matrix cell L3 or better; read narrowly, it was breadth- and hardening-limited by construction. THE PHASE-BOUNDARY LEGIBILITY AUDIT IS STILL DUE and is owner-spawned — the foreman must not launch it.",
-  "current_role": "Foreman — The Entry Loop (synthetic) is planned and awaiting the plan PR; nothing chartered yet",
-  "current_prompt": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md"
+  "status": "Phase Legible Entry, accepted PR #100. Milestone 3, The Entry Loop (synthetic), is OPEN — plan PR #109 merged at 506f785 — and TRACK 0 IS CHARTERED: docs/reviews/charter-2026-07-28-entry-loop-synthetic-track0.md, a Builder writing the entry usability criteria and the procedure that scores a cell against them, with no product code. This is the first milestone in the phase that builds product and the first that can move a cell. Owner scope decisions: W-2 only across all five loop steps, leaving 15 of 20 cells for later; criteria written BEFORE the surface so the L2 scorer is not shaped by what it scores; the per-field explanation schema emerges from the build and is recorded at close. Four tracks: 0 criteria, 1 build, 2 evaluate, 3 record and close. Track 1 must confirm against the code, before writing any surface, that a synthetic workspace can be seeded so W-2 is the only missing family — the 'know the return is complete' step depends on it. NO MATURITY CELL HAS MOVED IN THIS PHASE. Milestone 1, The Entry Boundary (PR #102, c451a40), accepted ADR-0048: a browser form is acceptable for typing real tax facts on stated conditions, and an entry surface emits act-contribution.v1 through the existing admission path rather than writing facts. It also found that confinement is not total — the vehicle writes a single-instance lock outside the confined tree. Open from it: nothing has searched for the residency locator outside confinement (every run looked for typed tokens only); the singleton lock is a second orphan surface; crash-reporter and GPU-cache paths are narrowed, not closed; the spellcheck flag's mechanism is undesigned. Milestone 2, Packaging the Surface (PR #108, 2fb6761), built the delivery route: surface-artifact.v1 carries opaque UI bytes into Live-Run Data under its own adoption, verified by digest and never read for meaning, reusing ADR-0033's release/registry chain; artifact-package.v4 is untouched and stays that way. ADR-0049 is PROPOSED, NOT RATIFIED — ratification is the owner's. The repository does not store the vendored dependency tree (owner decision, 370f8a6): node_modules is gitignored and rebuilt with npm ci in packages/sample_data/surface_t1/content/app plus tools/generate_surface_t1_fixtures.py; six surface tests skip without it. Carried open from it: the build's output is never digest-verified (trust is verified inputs plus one fixed command; determinism checked byte-identical on one machine under Node v25.8.0, unverified across machines or versions); offline enforcement is macOS sandbox-exec only with no CI coverage; surface_resolver imports three underscore-private names from production_resolver; the sample page uses no TypeScript. tools/build_orientation_block.py defaults to --ref main, a stale Real-Return-era branch — the live trunk is main-ui. Process: a milestone gets one PR to open and one to close; tracks keep their review gate but not their own PR; PRs target main-ui. Phase documentation uses plain, product-facing language; the habit being corrected is writing every planning document as though defending it to a hostile auditor. Prior phase Real Return closed 2026-07-28 with every cell L3 or better, read narrowly — it was breadth- and hardening-limited by construction. Its milestone-by-milestone detail was cut from this file 2026-07-28 and lives in its roadmap, plans, retrospectives, and Git. THE PHASE-BOUNDARY LEGIBILITY AUDIT IS STILL DUE and is owner-spawned — the foreman must not launch it.",
+  "current_role": "Builder — The Entry Loop (synthetic), Track 0: usability criteria for entry",
+  "current_prompt": "docs/reviews/charter-2026-07-28-entry-loop-synthetic-track0.md"
 }
 -->
 # Phase State
@@ -137,8 +137,8 @@ opening a text editor. Roadmap:
   coupling. The sample page uses no TypeScript, so that toolchain cost is
   untested and will appear later.
 
-- **Milestone 3, The Entry Loop (synthetic) — planned 2026-07-28.** Nothing
-  chartered yet. Plan:
+- **Milestone 3, The Entry Loop (synthetic) — open.** Plan PR #109 merged at
+  `506f785`. Plan:
   `docs/phases/legible-entry/milestones/entry-loop-synthetic.md`. This is the
   first milestone in the phase that builds product, and the first that can move
   a cell.
@@ -152,6 +152,14 @@ opening a text editor. Roadmap:
   One premise Track 1 must check against the code before writing anything: that
   a synthetic workspace can be seeded so W-2 is the only missing family. The
   "know the return is complete" step depends on it.
+
+  **Track 0 is chartered** —
+  `docs/reviews/charter-2026-07-28-entry-loop-synthetic-track0.md`. A Builder
+  writes the entry usability criteria and the procedure that scores a cell
+  against them, with no product code. Its stop conditions are worth knowing
+  about: if the criteria cannot be written without seeing an implementation, or
+  if the phase's evaluation method cannot produce a defensible L2 verdict, that
+  is a finding and the track reports it rather than writing around it.
 
 - **`tools/build_orientation_block.py` defaults to `--ref main`,** which is a
   stale Real-Return-era branch in this repository. The live trunk is `main-ui`;
@@ -176,232 +184,13 @@ opening a text editor. Roadmap:
 
 ### Prior phase detail (Real Return)
 
-- **Presentation — Completing the Row:** **complete 2026-07-28.** **The
-  Presentation row is L3 across all five columns, and every cell in the maturity
-  matrix is now L3 or better.**
+Cut 2026-07-28. Real Return's milestone-by-milestone history lived here and now
+lives where it belongs: `docs/phases/real-return/real-return-roadmap.md`, the
+milestone plans under `docs/phases/real-return/milestones/`, the retrospectives
+under `docs/milestone-retrospectives/`, the review records under
+`docs/reviews/`, and Git. What still bears on work ahead is kept below rather
+than retold here.
 
-  **There has been exactly one real viewing session in this project's history:
-  2026-07-27.** It rendered all nine published lines and Schedule B Parts I and
-  II in a single render. The W-2 wages (1a) column was recorded from it by the
-  previous milestone; the other four were recorded a day later by an **amendment**
-  in which the owner named the columns they observed. Nothing in the record
-  asserts that five sessions occurred, or two. This is stated here, in the matrix
-  header, in footnote 15, in the amendment, and in the retrospective, because a
-  row filled in over two days by two milestones invites exactly that misreading
-  and it is free to prevent now and impossible to correct later.
-
-  A **records milestone** by design: no session, no browser, no real data, no
-  code. Its one substantive act was asking the owner a question the repository
-  cannot answer — which columns did you observe — and its one control was that a
-  column not named would not move. All four were named, so the control did not
-  fire, but it was real: ADR-0031 Decision 7's shape includes observing
-  dispositions in quarantine, and no amount of rendering establishes that a
-  person looked. **Observing a column is not auditing it**; L3 asserts the
-  capability operated, per footnotes 7/11.
-
-  Verified rather than inherited: the surface covers all five columns — the
-  production-shaped fixture's sections and its Schedule B Parts I/II citation
-  group, and `_resolve_attachment` projecting attachments into the model. The
-  previous closeout also said "no build gap" and Track 1 then found three code
-  defects, so this was checked directly.
-
-  **Two gaps carry forward unclosed**, both needing a session this milestone did
-  not perform: the **classified-refusal path has no human confirmation** — now
-  the oldest open item on this path — and the **session runbook has an
-  unidentified unclarity** reported by its first human user. Named in footnote 15
-  so they are not lost with the row that carried them.
-
-  Plan: `docs/phases/real-return/milestones/presentation-row-completion.md`;
-  retrospective:
-  `docs/milestone-retrospectives/2026-07-28-presentation-row-completion.md`.
-
-- **Presentation — Real Session and Attestation:** **complete 2026-07-27.**
-  **Presentation moves L2 → L3 in the W-2 wages (1a) column** — the first
-  maturity lift for the Presentation row, and the first time this project's
-  human surface has run on the owner's real data. Three tracks on one branch,
-  one PR at close.
-
-  Track 1 was chartered as a *documentation* track — a session runbook plus a
-  failure vocabulary that is mechanical rather than evaluative, because
-  ADR-0047 precondition 5 forbids the owner from describing a defect they see
-  during the real session. It found **three real code defects**, all in code the
-  previous milestone had rehearsed clean: `LiveViewingError` was a sibling
-  rather than a subclass of `PresentationSessionError`, so roughly a third of
-  the reason-code table arrived as an uncaught traceback — the one text the
-  vocabulary cannot describe; teardown's `except` was too narrow for its own
-  promised code to be reachable; and Ctrl-C left an orphaned headed browser
-  displaying the real return plus a `.live-view/session-*` directory holding
-  that render's profile and disk cache, outliving a preflight guarantee that
-  binds only at session *start*. **The durable lesson: a rehearsal's value is
-  bounded by the set of endings it drives**, and the previous rehearsal drove
-  the happy path and three designed refusals. All three fixes went into
-  `open_presentation_session`, `launch`, and a context manager — **not** into
-  the runbook template, because a guarantee living only in a copyable example
-  silently no-ops when adapted. Five cycles: `748b8e8`, `50a9030` `NOT READY`,
-  `894ff23`, `0f5e5dc` `NOT READY`, `36317be`, `9909cd6` `READY`.
-
-  Track 2 (owner-operated) launched a real headed browser through the real path
-  against a **synthetic** workspace and rendered the **product** page: clean
-  pass, no page defects, and the first human confirmation of the interrupt
-  repair. Its purpose was structural rather than cautious — the attestation is
-  non-descriptive, so a defect seen during the real session arrives
-  unactionable, and this track exists so the first real render is not also the
-  real session. Track 3 performed the real session and the attestation in the
-  same sitting.
-
-  **Named gaps at close.** The classified-refusal path has **no human
-  confirmation** — Track 2's browser-start-failure exercise was skipped, which
-  its charter permitted. The runbook has an **unidentified unclarity** reported
-  by its first human user, carried open rather than closed by guesswork. The
-  other four Presentation cells stay **L2**: nothing technical separates them,
-  the *record* does, and one attestation raises only what it covers.
-
-  Plan:
-  `docs/phases/real-return/milestones/presentation-real-session-attestation.md`;
-  retrospective:
-  `docs/milestone-retrospectives/2026-07-27-presentation-real-session-attestation.md`;
-  evidential basis: maturity-matrix footnote 14.
-
-- **Presentation — Live Viewing Boundary and Invocation Vehicle:** **complete
-  2026-07-26; plan PR #88, Track 1 PR #89 (`b37c536`), Track 2 PR #90
-  (`bc0d8dc`).** The owner selected the Presentation frontier and the headed
-  viewing shape, then directed a first-principles boundary check before any
-  charter, explicitly to avoid repeating the Guarded Transport milestone. The
-  check rejected the obvious vehicle-first shape: a headed browser confined by
-  Chrome command-line flags is the same same-UID defect as the mode-600
-  credential store, and ADR-0044 already forecloses it — naming directories and
-  wrapping commands does not create a trust boundary. That is a claim about
-  *flag-configured browsers*, not about the platform: no per-process network
-  confinement has been selected, prototyped, or verified here, and the
-  base-system Seatbelt facility remains an **unevaluated candidate rather than a
-  foreclosed one**. The narrowing that made the milestone tractable: mechanical
-  authority separation is the **L4** gate, while Presentation **L3** rests, like
-  every existing L3 (footnote 7), on the synthetic battery plus a
-  non-descriptive owner attestation under an accidental-leakage posture. The
-  real question was therefore what the owner would be attesting to for a *human*
-  surface — a case ADR-0044's process-oriented domains never contemplated.
-
-  Track 1 ratified that as **ADR-0047 (Live Viewing Environment)**: a viewing
-  session is an activity *within* the Live-Run Data domain, not a fifth domain,
-  and every headed-browser channel falls into one of four classes. Two review
-  cycles (`b1a630a`, `a476c40` `NOT READY`; `63c4102` `READY`) closed an
-  unclassified clipboard-history precondition and the platform-impossibility
-  overclaim noted above. Track 2 built the confined vehicle and fail-closed
-  preflight (`d8083f9`); review `974bbac` returned `NOT READY` on a missing
-  regression guard for the confirmed-absent clipboard case, repair `fa47e16`
-  was verified against the exact mutation it exists to catch, and recheck
-  `1ba2634` reproduced that mutation independently.
-
-  **No maturity lift.** No real workspace was touched, no viewing session
-  performed, no attestation made, and no enforcement substrate selected.
-  Presentation remains L2 and the data boundary remains L3. Plan:
-  `docs/phases/real-return/milestones/presentation-live-viewing-boundary.md`;
-  retrospective:
-  `docs/milestone-retrospectives/2026-07-26-presentation-live-viewing-boundary.md`.
-
-- **Presentation — L2 Integration Grounding:** **complete 2026-07-26; PR #86
-  merged as `1f3bb9a` with CI `verify` green.** Boundary inspection corrected the prior “no
-  further building” handoff before PR #82 merged. The first Builder then found
-  that the demo manifest's fabricated line 2a and guard-inapplicable line 9
-  cannot come from the resolved package and stopped with no code written. Track
-  1 build `81c5504` now constructs and validates the renderer model inside a
-  production-shaped synthetic `live_coordinate_run`, writes it below
-  `LiveWorkspace`, and proves the golden through a dedicated
-  production-shaped manifest. The unchanged demo manifest remains the full
-  renderer-state regression floor. Review `e36086a` passed eight of nine
-  measurements and found one gap: a projector rejection through
-  `live_coordinate_run` can strand reserved result/presentation artifacts.
-  The plan's one findings-only repair landed as `759c9fa`: projection now
-  precedes durable output writes, both reserved artifacts are removed on
-  `PresentationModelError`, and a coordinator-level regression exercises the
-  failure. Focused recheck `4a74ffd` returned `READY` with all six measurements
-  passing. Maturity-matrix footnote 5 now records the durable handoff: the
-  surface contract, renderer, coordinator projection, and strict internal input
-  are synthetic-end-to-end; the browser path remains synthetic-only, and no
-  real operation occurred. A later Presentation L2→L3 milestone must select and
-  verify a data-boundary-safe live invocation vehicle before a real exercise;
-  this milestone selects neither. Fresh completion review `7f6ae79` returned
-  `READY`.
-  Plan:
-  `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
-  Current prompt:
-  `docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
-
-- **Live-Run System Definition and Trust Domains:** complete; ADR-0044 accepted
-  as a positioning contract; closure PR #61 **merged**. It selects and schedules
-  no enforcement mechanism, makes no L4 claim.
-- **Presentation Exploratory Milestone:** complete 2026-07-24. An **exploratory
-  milestone (no ADR, no matrix cell raised)** — studied developing/evaluating UI
-  under agent-authored, agent-reviewed, owner-light constraints, using a synthetic
-  citation-walk surface. Five 2-builder/2-reviewer cycles. Finding: developable
-  via a demonstrated loop; ~65–80% of UI quality is agent-mechanizable. Main
-  artifact = seven evaluation-analysis documents at
-  `docs/prototypes/human-presentation-citation-walk/analysis/` (cycle log +
-  process in the sibling `plan.md`; reference prototypes/fixtures/harness-seed
-  under `reference/`; retrospective pointer
-  `docs/milestone-retrospectives/2026-07-24-presentation-exploratory-milestone.md`).
-  Raising the Presentation matrix aspect for real remains a well-formed but
-  **unselected** decision prototype.
-- **Presentation Evaluation Process Economy:** closed early by owner direction
-  2026-07-25. Track 0 merged in PR #66 (`870c8ed`) and is the accepted
-  foundation: strict presentation workload/observation/comparison contracts,
-  the source-faithful historical baseline, participating-role completeness,
-  and quality-before-cost comparison. Track 1's independent review returned
-  `NOT READY` on tuple storage leakage, false-pass malformed injection,
-  launch-time cleanup leakage, path/provenance traversal, incomplete strict
-  validation, and rejected-input echo. Its implementation was not merged; the
-  prepared repair/re-review and Tracks 2–3 were retired. The review trace
-  reported 42 turns, 41 tool calls, 12 harness invocations, 11 Chrome launches,
-  batched browser execution, several very large context reads, and unknown
-  total token use. The retrospective records the owner disposition and the
-  promoted foreman discipline: give known adversarial classes to both Builder
-  and Reviewer as executable coverage, and spend independent review on an
-  explicit novel boundary.
-- **Browser Evaluation Runner Completion:** complete. PR #71 merged as
-  `c329afd` on 2026-07-25T23:12:23Z with CI `verify` green on the merge
-  commit. It adopted the existing, independently reviewed implementation
-  rather than rebuilding it and repaired the six known blockers: storage
-  isolation, injection acknowledgement, cancellation-safe cleanup, canonical
-  path/provenance confinement, strict non-vacuous validation, and redacted
-  external failures. The focused delta Reviewer returned `READY` for F1–F6
-  and the transferred measurements. Voluntary post-verdict exploration then
-  found residual R1: the repair's injection-acknowledgement wait could
-  bypass the manifest timeout and still return a pass; R2 recorded the fixed
-  acknowledgement marker's collision fragility. The owner accepted both
-  findings and authorized one narrow R1/R2 repair charter plus its focused
-  recheck as an explicit exception to the original cap. The residual repair
-  landed, and the focused R1/R2 recheck returned `READY` with no new in-scope
-  finding. No broader second review cycle was authorized. Retrospective:
-  `docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
-- **Presentation — Citation Walk on Real Derivation Output:** **complete
-  2026-07-26.** PR #77 merged as `2d4c195` with CI `verify` green on the merge
-  commit; that merge is the milestone's end boundary. ADR-0046 (Presentation
-  Surface Contract) ratifies the Presentation Exploratory Milestone's
-  five-cycle convergence directly from existing evidence, resolving its three
-  open rule-points: derived/diagnostic values are zero-authority; rejected
-  values are blanket-redacted, never echoed; blocked-state salience is
-  section-level. Track 1 shipped the renderer over `form-field.v3` /
-  `act-derived-publication.v1` fixtures across all five disposition kinds plus
-  the standardized T1–T3 fault cases, driven by a browser evaluation runner
-  manifest. Its review gate returned **`NOT READY`** on two independent
-  zero-authority failures — F1 (`computed_zero`/`closure_backed_zero` rendered
-  a numeric value with no citation, because the renderer read only
-  `citationSites` and never `field.citation`) and F2 (diagnostic eligibility
-  checked disposition kind but not that the resolved value was a finite
-  number). The repair closed exactly those two, and the focused recheck
-  returned **`READY`** with no new ADR-0046 violation and directly touched
-  invariants intact; the manifest now carries 26 criteria (23 original + 3
-  proving F1/F2 closed). Track 2 filed the retrospective and moved the
-  maturity-matrix Presentation cell **L3 → L2** (owner-confirmed): L2 is
-  synthetic end-to-end, and Track 1's charter scoped it to synthetic fixtures,
-  so the prior L3 mark was a footnote-qualified overstatement. Its retrospective
-  then characterized the remaining work as one real exercise with no further
-  building; the current L2 Integration Grounding plan corrects that conclusion
-  after inspecting the renderer, harness, and coordinator boundaries.
-  Retrospective:
-  `docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md`.
-  The accepted economy contracts remain available but were not this
-  milestone's subject.
 - **Data boundary:** all committed evidence remains synthetic. Do not access or
   record a real workspace, credential, remote, output, or location. The
   owner-held live-run helpers remain untracked.
@@ -435,9 +224,9 @@ Completed in this phase:
   reviews `docs/reviews/2026-07-28-packaging-the-surface-track{1,2}-review.md`,
   both READY.
 
-**➡️ Next action: the owner reviews and merges the milestone-3 plan PR.**
-Nothing is chartered. Once it merges, Track 0 (usability criteria for entry) is
-the first charter.
+**➡️ Next action: run Track 0** — Builder, entry usability criteria,
+`docs/reviews/charter-2026-07-28-entry-loop-synthetic-track0.md`, on branch
+`milestone/entry-loop-synthetic`.
 
 Two things are outstanding and are the owner's, not the foreman's: **ADR-0049 is
 proposed and awaits ratification**, and the **phase-boundary legibility audit is
@@ -471,47 +260,19 @@ Durable history — Foundation's record lives in `docs/phases/foundation/foundat
 
 ## Durable pointers
 
-- Track 0 independent review:
-  `docs/reviews/2026-07-24-presentation-economy-t0-measurement-review.md`.
-- Track 0 participant-cost repair charter:
-  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair.md`.
-- Track 0 participant-cost repair delta-review charter:
-  `docs/reviews/charter-2026-07-24-presentation-economy-t0-participant-cost-repair-review.md`.
-- Track 1 instrumented harness core charter:
-  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core.md`.
-- Track 1 harness-core review charter:
-  `docs/reviews/charter-2026-07-24-presentation-economy-t1-harness-core-review.md`.
-- Completed Track 1 harness-core review (`NOT READY`):
-  `docs/reviews/2026-07-24-presentation-economy-t1-harness-core-review.md`.
-- Interrupted Track 1 review progress:
-  `docs/reviews/2026-07-25-presentation-economy-t1-harness-core-review-progress.md`.
-- Reactivated existing-runner repair Builder charter:
-  `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair.md`.
-- Prepared focused post-repair delta-review charter:
-  `docs/reviews/charter-2026-07-25-presentation-economy-t1-harness-core-repair-review.md`.
-- Citation-walk Track 1 build charter:
-  `docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md`.
-- Citation-walk Track 1 review-gate charter:
-  `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-review.md`.
-- Completed citation-walk Track 1 review (`NOT READY`, F1/F2):
-  `docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`.
-- Citation-walk Track 1 repair charter (executed, F1/F2):
-  `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`.
-- Citation-walk Track 1 repair recheck charter:
-  `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair-review.md`.
-- Completed citation-walk Track 1 repair recheck (`READY`):
-  `docs/reviews/2026-07-26-presentation-citation-walk-track1-repair-review.md`.
 - Foreman posture and verification floor: `docs/roles/foreman.md`.
 - Operating rules: `AGENTS.md` and `PROJECT_PLANNING.md`. Process is not in the
   ADR corpus (ADR-0045); `docs/adr/INDEX.md` routes product contracts only.
-- Grounding economy analysis:
-  `docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md`.
-- Accepted decision: `docs/adr/0044-live-run-system-boundary-and-trust-domains.md`.
-- Live-run system-definition plan:
-  `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`, with
-  review `docs/reviews/2026-07-23-live-run-system-trust-domains-adr-review.md`
-  and retrospective
-  `docs/milestone-retrospectives/2026-07-23-live-run-system-definition-and-trust-domains.md`.
+- Accepted decisions bearing on the work ahead:
+  `docs/adr/0044-live-run-system-boundary-and-trust-domains.md` (trust domains),
+  `docs/adr/0046-presentation-surface-contract.md` (the display-side surface
+  contract, and the nearest prior art for entry criteria),
+  `docs/adr/0048-entry-boundary.md` (entry emits contributions),
+  `docs/adr/0049-surface-artifact.md` (proposed; how UI code arrives).
+- Agent-driven UI method, and the evaluation-analysis documents behind it:
+  `docs/prototypes/human-presentation-citation-walk/plan.md` and its
+  `analysis/` directory.
 - Completed-milestone lessons: `docs/milestone-retrospectives/`.
-- Presentation UI/UX process experiment (preserved findings + reusable
-  agent-driven-UI method recipe): `docs/prototypes/human-presentation-citation-walk/plan.md`.
+- Charters and review records: `docs/reviews/`, named by date and track. The
+  per-charter list that used to be enumerated here was cut 2026-07-28; the
+  directory is the index.
