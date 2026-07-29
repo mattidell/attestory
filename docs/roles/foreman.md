@@ -15,7 +15,7 @@ trust Git and say so.
 
 ## Seed set (read on boot, in this order)
 
-1. Render `python3 tools/foreman_context.py --ref main --format markdown`.
+1. Render `python3 tools/foreman_context.py --ref HEAD --format markdown`.
    It fetches `origin` first, reports whether the current branch is stale or
    spent, then reports the **milestone state** and next transition. If it says
    the branch is spent or behind, report that plainly to the owner and stop; do
@@ -83,7 +83,7 @@ committed evidence the owner directed the foreman to retrieve. During an active
 milestone, a successor foreman loads it with:
 
 ```sh
-python3 tools/foreman_context_followup.py --ref main --format markdown
+python3 tools/foreman_context_followup.py --ref HEAD --format markdown
 ```
 
 The follow-up capsule is temporary. Remove `initial_briefing_follow_up` from

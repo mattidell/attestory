@@ -15,9 +15,9 @@ reconstruct from prose": the block prints the commit SHA to verify.
 Portable: pure standard library; no runner-specific assumptions.
 
 Usage:
-  python3 tools/build_orientation_block.py --ref main --role builder
-  python3 tools/build_orientation_block.py --ref main --action review
-  python3 tools/build_orientation_block.py --ref main --role builder --manifest-only
+  python3 tools/build_orientation_block.py --ref HEAD --role builder
+  python3 tools/build_orientation_block.py --ref HEAD --action review
+  python3 tools/build_orientation_block.py --ref HEAD --role builder --manifest-only
 """
 
 from __future__ import annotations

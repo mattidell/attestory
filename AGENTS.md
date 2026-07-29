@@ -48,15 +48,17 @@ no flag. It emits charter, scope, and non-goals but lists deep reads as a
 manifest only, and instructs you to reimplement from the spec without reading
 any other builder's implementation or thread.
 
-**Foreman:** re-enter with `python3 tools/foreman_context.py --ref main
+**Foreman:** re-enter with `python3 tools/foreman_context.py --ref HEAD
 --format markdown`. Its capsule is **advisory** — reconcile its resolved commit
 and worktree report against Git before acting. If it refuses, read the
 committed sources it names directly; never replace a refusal with a prose
 summary.
 
-Both commands take `--ref main` because `main` is the continuously ratified
-record. Pass a different ref only to read the state of an unmerged branch, and
-say which ref you used.
+Both commands take `--ref HEAD` so they read the committed state of the
+worktree being resumed. The tool separately derives the ratified comparison
+line from history (`resolve_ratified_ref`); do not substitute a literal
+`main` or `main-ui` unless you are intentionally reading that line's tree.
+Say which source ref you used.
 
 Do not ask the owner to paste context. Do not reconstruct context from prose
 when a command will give it to you from Git.
