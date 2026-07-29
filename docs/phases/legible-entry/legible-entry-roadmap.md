@@ -4,7 +4,7 @@ Audience: Product (roadmap); Shared (status)
 
 Status: **accepted 2026-07-28** (PR #100). Milestone 1, The Entry Boundary, is
 closed. Milestone 2, Packaging the Surface, is closed. Milestone 3, The Entry
-Loop synthetic, is unplanned.
+Loop synthetic, is planned.
 
 ## Thesis
 
@@ -113,9 +113,13 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    untouched. No maturity cell moved. Plan:
    `docs/phases/legible-entry/milestones/packaging-the-surface.md`.
 3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
-   synthetic workspace, to L2, with no real data and no maturity claim. This
+   synthetic workspace, to L2, with no real data and no L3 claim. This
    milestone also works out the usability evaluation criteria for entry, and
    its own L2 claim is scored by that evaluation rather than by inspection.
+   **Planned 2026-07-28.** Scoped to W-2 across all five loop steps; criteria
+   written before the surface is built; the per-field explanation shape is
+   recorded at close rather than designed up front. Plan:
+   `docs/phases/legible-entry/milestones/entry-loop-synthetic.md`.
 4. **Real Entry.** The owner enters a real fact through the surface and
    attests. Owner-operated; the only milestone that can raise a row to L3. By
    then every usability question has already been answered on synthetic
@@ -193,7 +197,8 @@ Milestone 1 (The Entry Boundary) closed 2026-07-28, ADR-0048 accepted. No
 maturity cell has moved — that milestone was a decision, and the instrument
 measures capability. Milestone 2 (Packaging the Surface) closed 2026-07-28,
 also without moving a cell — it built the delivery route, not the loop.
-Milestone 3 (The Entry Loop, synthetic) is unplanned.
+Milestone 3 (The Entry Loop, synthetic) is planned and is the first milestone
+in this phase that builds product. It is the first that can move a cell.
 
 The phase-boundary legibility audit is still due. It is owner-spawned; the
 foreman must not launch it.
