@@ -105,8 +105,9 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    `docs/phases/legible-entry/milestones/entry-boundary.md`; retrospective:
    `docs/milestone-retrospectives/2026-07-28-entry-boundary.md`.
 2. **Packaging the Surface.** Get UI code across the Developer/Supply
-   boundary into the live workspace: ship one trivial page as verified
-   package members with no build step, then write down the rule.
+   boundary into the live workspace: ship one trivial Svelte page and its
+   vendored dependency tree as verified package members, build it at the
+   workspace offline, then write down the rule.
    **Proposed 2026-07-28**; plan:
    `docs/phases/legible-entry/milestones/packaging-the-surface.md`.
 3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
