@@ -58,3 +58,11 @@
 - **Event:** the Builder returned the two-file both-zero direct-pin repair.
 - **Disposition:** one final focused recheck is chartered against R1 and
   regressions of the already-passed contract gates.
+
+## 2026-07-29 — ADR-0050 final recheck ready
+
+- **Category:** no incident.
+- **Event:** the final recheck returned `READY FOR OWNER RATIFICATION` with no
+  residuals.
+- **Disposition:** the Reviewer pointer is retired and the owner-ratification
+  packet is current. ADR-0050 remains proposed and production remains blocked.

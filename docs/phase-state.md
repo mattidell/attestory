@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, ADR-0050 FINAL RECHECK CHARTERED.** Repair 2 returned at `4e19c09`, limited to ADR-0050 and the evidence analysis. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: launch the final focused Recheck Reviewer.",
-  "current_role": "Reviewer — final recheck of ADR-0050 direct pins",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-final-recheck-adr0050.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, ADR-0050 AWAITING OWNER RATIFICATION.** The final recheck returned `READY FOR OWNER RATIFICATION` at `4048596` with no residuals. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: owner disposition of the ratification packet.",
+  "current_role": "Foreman (owner ratification decision pending)",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/adr0050-ratification-packet.md"
 }
 -->
 # Phase State

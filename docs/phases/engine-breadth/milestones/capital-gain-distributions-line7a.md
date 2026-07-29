@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. ADR-0050 Repair 2 returned at `4e19c09`, limited to the two chartered files. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: launch the final focused Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-final-recheck-adr0050.md.",
+  "status": "TRACK 0 ACTIVE. The ADR-0050 final recheck returned `READY FOR OWNER RATIFICATION` at `4048596` with no residuals. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: owner disposition of docs/prototypes/capital-gain-distributions-line7a/adr0050-ratification-packet.md.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
