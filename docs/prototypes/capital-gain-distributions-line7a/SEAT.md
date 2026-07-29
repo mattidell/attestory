@@ -2,9 +2,9 @@
 
 ## Current step
 
-Iteration 2 returned at `099882e`. The first independent committee seat,
-contract/adversary review, is chartered. The expressiveness reviewer and repair
-seat are not active.
+The contract/adversary review returned at `7dc6c40`. The second independent
+committee seat, expressiveness review, is chartered and sealed from that first
+review. No repair seat is active.
 
 ## Seats
 
@@ -12,8 +12,8 @@ seat are not active.
 | --- | --- | --- |
 | Foreman | Current foreman thread | Active; scope/economy and custody only |
 | Rival Builder | Owner-launched context on `prototypes/capital-gain-distributions-line7a/it2` | Returned at `099882e` |
-| Contract/adversary Reviewer | Local independent context | Chartered; ready for launch |
-| Expressiveness Reviewer | Unassigned independent context | Not chartered |
+| Contract/adversary Reviewer | Local independent context | Returned at `7dc6c40` |
+| Expressiveness Reviewer | Local independent context | Chartered; ready for launch |
 | Repair Builder | Unassigned | Not chartered; owner direction required after rival round |
 
 ## Binding handoff
@@ -28,6 +28,6 @@ seat are not active.
 
 ## Next action
 
-Launch the local contract/adversary Reviewer against
-`charter-review-contract-adversary.md`. On return, the foreman takes custody
-and charters the isolated expressiveness review.
+Launch the local expressiveness Reviewer against
+`charter-review-expressiveness.md`. On return, the foreman takes custody,
+compares both sealed committee records, and performs Gate-5 triage.

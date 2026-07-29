@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. The clean-room component-backed rival returned at 099882e. The contract/adversary Reviewer is chartered to compare both exact Rung-1 Builder outputs against accepted contracts and all ten shared cases. The reviewer remains isolated from the foreman's early incumbent check and the expressiveness review. No repair is chartered. NEXT ACTION: launch the local contract/adversary Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-review-contract-adversary.md.",
+  "status": "TRACK 0 ACTIVE. The contract/adversary review returned at 7dc6c40. The independent expressiveness Reviewer is chartered to recover both exact Rung-1 designs across all ten shared cases without reading the first review or foreman findings. No repair is chartered. NEXT ACTION: launch the local expressiveness Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-review-expressiveness.md; on return the foreman compares both sealed reviews and performs Gate-5 triage.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

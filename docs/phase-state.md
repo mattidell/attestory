@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, CONTRACT/ADVERSARY REVIEW CHARTERED.** The clean-room component-backed rival returned at 099882e. The first committee reviewer measures both exact Builder outputs against accepted contracts and the same ten Rung-1 cases, independently of the foreman's early incumbent check and the later expressiveness review. No repair is chartered. NEXT ACTION: launch the local contract/adversary Reviewer; on return, the foreman takes custody and charters the isolated expressiveness review.",
-  "current_role": "Contract/adversary Reviewer — compare both Rung 1 authority designs",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-review-contract-adversary.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, EXPRESSIVENESS REVIEW CHARTERED.** The contract/adversary review returned at 7dc6c40. The second committee reviewer independently measures case-by-case recoverability and whether paper distinguishes both Rung-1 authority topologies, without reading the first review or foreman findings. No repair is chartered. NEXT ACTION: launch the local expressiveness Reviewer; on return, the foreman takes custody, compares both sealed reviews, and performs Gate-5 triage.",
+  "current_role": "Expressiveness Reviewer — recover both Rung 1 designs case by case",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-review-expressiveness.md"
 }
 -->
 # Phase State
