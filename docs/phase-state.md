@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, ADR-0050 REVIEW CHARTERED.** The contract-synthesis Builder returned proposed ADR-0050, its advisory index row, and evidence analysis at `6ec26fd`. ADR-0050 remains inert and production remains blocked. NEXT ACTION: launch the High/high author-independent Contract Reviewer.",
-  "current_role": "Reviewer — test proposed ADR-0050 contract",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-review-adr0050.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, ADR-0050 REPAIR CHARTERED.** The ADR-0050 contract review returned `NOT READY` at `4784316` with five bounded drafting findings and no need for new prototype evidence. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: launch the High/high Contract Repair Builder.",
+  "current_role": "Builder — repair proposed ADR-0050 contract",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-repair-adr0050.md"
 }
 -->
 # Phase State

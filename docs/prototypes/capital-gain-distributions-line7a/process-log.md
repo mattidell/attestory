@@ -27,3 +27,11 @@
   index entry, and evidence analysis.
 - **Disposition:** one author-independent contract review is chartered before
   any owner-ratification decision.
+
+## 2026-07-29 — ADR review returned
+
+- **Category:** no process incident.
+- **Event:** the contract review returned `NOT READY` with five bounded
+  drafting findings and no need for new prototype evidence.
+- **Disposition:** charter one bounded ADR-0050 drafting repair against the
+  five findings.
