@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. The final Rung-1 repair returned at `c534f95`, reporting F1–F4 resolved and the regression boundary intact. Contract synthesis remains blocked pending one fresh author-independent confirmation. A `NOT READY` verdict returns to owner disposition because the repair cap is spent. NEXT ACTION: launch the focused Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-repair2-confirmation.md.",
+  "status": "TRACK 0 ACTIVE. Final Repair 2 confirmation returned `READY` at `1e18e64`: F1–F4 and T-F1/T-F2 are confirmed and the regression boundary is intact. Both rival exhibits are preserved and assembled on the decision branch. NEXT ACTION: launch the High/high Builder against docs/prototypes/capital-gain-distributions-line7a/charter-contract-synthesis.md to draft proposed ADR-0048 and its evidence analysis. Production remains blocked.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

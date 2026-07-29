@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, REPAIR 2 CONFIRMATION CHARTERED.** The final Rung-1 repair returned at `c534f95`, reporting F1–F4 resolved and the regression boundary intact. Contract synthesis remains blocked pending one fresh author-independent confirmation. A `NOT READY` verdict returns to owner disposition because the repair cap is spent. NEXT ACTION: launch the local Confirmation Reviewer.",
-  "current_role": "Reviewer — confirm final component-authority and QDCG paper",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-repair2-confirmation.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, CONTRACT SYNTHESIS CHARTERED.** Final Repair 2 confirmation returned `READY` at `1e18e64`: F1–F4 and T-F1/T-F2 are confirmed and the regression boundary is intact. Both rival exhibits are preserved and assembled on the decision branch. NEXT ACTION: launch the High/high Contract Synthesis Builder to draft proposed ADR-0048 and its evidence analysis. Production remains blocked.",
+  "current_role": "Builder — synthesize proposed line-7a scope contract",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-contract-synthesis.md"
 }
 -->
 # Phase State

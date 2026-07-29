@@ -2,9 +2,10 @@
 
 ## Current step
 
-Repair 2 returned at `c534f95` after the owner-authorized final Rung-1 repair
-of F1–F4. One fresh author-independent confirmation is chartered; contract
-synthesis remains blocked on its verdict.
+Final Repair 2 confirmation returned `READY` at `1e18e64`. Both rival
+exhibits are preserved and assembled on the decision branch. Contract
+synthesis is chartered; production remains blocked until the proposed
+successor ADR is independently reviewed, owner-ratified, and merged.
 
 ## Seats
 
@@ -17,7 +18,8 @@ synthesis remains blocked on its verdict.
 | Repair Builder | Selected rival Builder context | Returned at `a60e2d1` |
 | Repair 1 Confirmation Reviewer | Author-independent local context | Returned at `f84b2ba` — `NOT READY` |
 | Repair 2 Builder | Dispatched High/high context | Returned at `c534f95` |
-| Repair 2 Confirmation Reviewer | Fresh author-independent context | Chartered; ready for local owner launch |
+| Repair 2 Confirmation Reviewer | Fresh author-independent context | Returned at `1e18e64` — `READY` |
+| Contract Synthesis Builder | Fresh High/high context | Chartered; ready for local owner launch |
 
 ## Binding handoff
 
@@ -31,6 +33,5 @@ synthesis remains blocked on its verdict.
 
 ## Next action
 
-Launch the local Reviewer against `charter-repair2-confirmation.md`. A `READY`
-verdict permits contract synthesis; `NOT READY` returns to owner disposition
-because the final repair cap is spent.
+Launch the local Builder against `charter-contract-synthesis.md`. On return,
+the foreman takes custody and charters an author-independent ADR review.
