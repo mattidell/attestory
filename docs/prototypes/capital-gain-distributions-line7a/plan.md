@@ -174,7 +174,9 @@ Prototype code never becomes a production candidate.
 ## Gate 4 — Fixed caps and session review
 
 - Two Builder iterations total: one incumbent and one clean-room rival.
-- One owner-directed repair pass maximum after the rival round.
+- Two owner-directed repair passes maximum after the rival round. The owner
+  added the second and final pass on 2026-07-28 after Repair 1 confirmation
+  returned `NOT READY`.
 - Two default committee Reviewers.
 - A third Reviewer only for one named uncertainty outside both default
   measurement charters.
@@ -242,7 +244,7 @@ production merely because it worked.
 | Rival Builder | High | high | Clean-room component-backed shape over the same cases | Owner launch |
 | Contract/adversary Reviewer | High | high | Accepted-contract fidelity, immutability, authority and lifecycle attacks | Independent context |
 | Expressiveness Reviewer | Medium–High | medium | Case-by-case recoverability, distinguishability, and cheapest sufficient evidence | Independent context |
-| Repair Builder, if directed | Medium–High | medium | Only the owner-approved blocking delta | Resume original incumbent by default |
+| Repair Builder, if directed | Medium–High by default; High for final Repair 2 | medium by default; high for final Repair 2 | Only the owner-approved blocking delta | Resume the selected design context when available |
 
 The foreman records the actual launch mode and any capability adjustment when
 each role starts. Iterative Builders are owner-launched. Review contexts remain

@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. The owner merge of the prototype plan is its approval record. The first Engine Breadth milestone turns the existing Form 1099-DIV box 2a honest block into a bounded direct-to-Form-1040-line-7a path when the contributed Schedule-D-required declaration is 'no'. It does not build Schedule D. Official 2025 instructions corrected the initial selection: eligible box 2a distributions go directly to line 7a when Schedule D is not required, while a true Schedule D slice needs additional capital-transaction scope. The paper-first prototype plan fixes one incumbent and one genuine rival across three propositions: direct-route authority/completeness, box-2a family promotion, and the QDCG handoff. No Builder charter is included in the planning unit; the foreman prepares the incumbent charter next.",
+  "status": "TRACK 0 DECISION UNIT, PR #110, AWAITING OWNER MERGE. The owner ratified ADR-0050 on 2026-07-29 after final recheck returned ready with no residuals. The complete evidence chain and accepted ADR are in PR #110. Production remains blocked until the unit reaches `main`. NEXT ACTION: owner merges PR #110 after CI `verify` is green.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -267,7 +267,9 @@ reviewers. Rung 4 is not authorized for contract selection.
 - Two clean-room Builder iterations total, one incumbent and one genuine rival.
 - Two default committee Reviewers: contract/adversary fidelity at High/high and
   implementation expressiveness at Medium–High/medium.
-- At most one owner-directed repair pass after the rival round.
+- At most two owner-directed repair passes after the rival round. The owner
+  authorized the second and final pass on 2026-07-28 after focused
+  confirmation returned `NOT READY`.
 - A third Reviewer only for a named uncertainty neither default charter
   measures.
 - Foreman High/high for triage and disposition; the foreman performs process

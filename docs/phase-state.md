@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0 ACTIVE.** The owner merge of this prototype-plan unit is its approval record. PR #103 merged as 7554ddf with the milestone planned. One conclusion-level incumbent and one component-backed rival must answer the same paper cases for direct-route authority, box-2a family promotion, and the QDCG handoff. The initially authorized evidence is static paper instantiation; no production code or real-data operation is in scope. No Builder charter is included in this planning unit. NEXT ACTION: the foreman files the incumbent Builder charter and advances this pointer in the same commit.",
-  "current_role": "Foreman — Track 0 prototype plan approved; prepare incumbent Builder charter",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/plan.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0 DECISION UNIT, PR #110, AWAITING OWNER MERGE.** The owner ratified ADR-0050 on 2026-07-29 after final recheck returned ready with no residuals. The complete evidence chain and accepted ADR are in PR #110. Production remains blocked until the decision unit reaches `main`. NEXT ACTION: owner merges PR #110 after CI `verify` is green.",
+  "current_role": "Foreman (Track 0 decision-unit merge pending; no production role)",
+  "current_prompt": "docs/adr/0050-capital-gain-distributions-and-line-7a.md"
 }
 -->
 # Phase State
@@ -58,12 +58,11 @@ matrix, and completion review `7f6ae79` returned `READY`. PR #86 merged as
 invocation vehicle exists and no real operation occurred. The next milestone
 is unselected.
 
-**Nature of the pending schema/contract change.** The first Engine Breadth
-milestone is planned, but its successor contract is intentionally not drafted
-yet. Paper-first rival evidence must settle the direct-line authority,
-box-2a-family promotion, and QDCG handoff before any schema or production
-content is authorized. Existing published schemas and accepted ADRs remain
-immutable history.
+**Nature of the pending schema/contract change.** ADR-0050 is the
+owner-ratified successor contract for direct-line authority, box-2a-family
+promotion, and the QDCG handoff. Its complete Track-0 decision unit is awaiting
+merge. No schema or production content is authorized until it reaches `main`;
+existing published schemas and accepted history remain immutable.
 
 ## Current state (2026-07-28)
 
