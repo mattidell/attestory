@@ -2,17 +2,17 @@
 
 ## Current step
 
-Iteration 2 is chartered as the clean-room component-backed eligibility rival.
-This branch contains no incumbent output or review. No reviewer or repair seat
-is active.
+Iteration 2 returned at `099882e`. The first independent committee seat,
+contract/adversary review, is chartered. The expressiveness reviewer and repair
+seat are not active.
 
 ## Seats
 
 | Role | Holder | Status |
 | --- | --- | --- |
 | Foreman | Current foreman thread | Active; scope/economy and custody only |
-| Rival Builder | Owner-launched context on `prototypes/capital-gain-distributions-line7a/it2` | Chartered; ready for launch |
-| Contract/adversary Reviewer | Unassigned independent context | Not chartered |
+| Rival Builder | Owner-launched context on `prototypes/capital-gain-distributions-line7a/it2` | Returned at `099882e` |
+| Contract/adversary Reviewer | Local independent context | Chartered; ready for launch |
 | Expressiveness Reviewer | Unassigned independent context | Not chartered |
 | Repair Builder | Unassigned | Not chartered; owner direction required after rival round |
 
@@ -28,6 +28,6 @@ is active.
 
 ## Next action
 
-Owner launches the clean-room Rival Builder against the exact charter. On
-return, the foreman takes custody and prepares the two independent committee
-review charters without exposing either reviewer to the other's work.
+Launch the local contract/adversary Reviewer against
+`charter-review-contract-adversary.md`. On return, the foreman takes custody
+and charters the isolated expressiveness review.

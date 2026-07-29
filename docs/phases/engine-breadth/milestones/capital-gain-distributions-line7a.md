@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. The owner merged the prototype plan in PR #106 as bdaf780. The component-backed clean-room rival is chartered on prototypes/capital-gain-distributions-line7a/it2 at Rung 1 paper only against the same ten shared cases. Its branch contains no incumbent output or review. No committee reviewer or repair is chartered. NEXT ACTION: owner-launch the rival against docs/prototypes/capital-gain-distributions-line7a/charter-it2.md.",
+  "status": "TRACK 0 ACTIVE. The clean-room component-backed rival returned at 099882e. The contract/adversary Reviewer is chartered to compare both exact Rung-1 Builder outputs against accepted contracts and all ten shared cases. The reviewer remains isolated from the foreman's early incumbent check and the expressiveness review. No repair is chartered. NEXT ACTION: launch the local contract/adversary Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-review-contract-adversary.md.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
