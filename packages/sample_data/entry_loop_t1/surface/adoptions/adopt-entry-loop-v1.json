@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.surface.entry-loop.v1",
+  "actor": "demo.user.filer-1",
+  "at": "2026-07-29T00:00:00Z",
+  "committed_against": 1,
+  "kind": "surface-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic W-2 entry-loop surface; non-authoritative"
+    },
+    "package": {
+      "checksum": "d9ea73467600c403ff4725dd58b230a53b2a450d367a4c304a9a05f9bb967efc",
+      "id": "demo.surface.entry-loop",
+      "version": "v1"
+    },
+    "release": {
+      "checksum": "9e23190ee207899dcfedccc909fe133253cf9f0af555f8c0d67806abc53206ea",
+      "id": "demo.surface-release.entry-loop.2025",
+      "version": "v1"
+    },
+    "revision": 1,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}
