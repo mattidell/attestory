@@ -2,9 +2,9 @@
   "build_command": "node build.mjs",
   "entries": [
     {
-      "bytes": 1901,
+      "bytes": 1960,
       "path": "build.mjs",
-      "sha256": "ff2b4a9c233c6decdbff92f08c19fea5deb23c4b03790cb5e159b9e1e6bbcde0"
+      "sha256": "78b4ef4866b4cd4a80e22a959d406ed087d840ee1085377f3d7f26c55a05f8fe"
     },
     {
       "bytes": 60,
@@ -4697,19 +4697,24 @@
       "sha256": "7d435e13f07a19033fd6164644ecaeaf115b24878f804933ead84362fe696145"
     },
     {
-      "bytes": 16884,
+      "bytes": 17082,
       "path": "src/EntryPage.svelte",
-      "sha256": "edcf28d0ffa4b6be0a39c5d509d6ee37a20c91e302aaee98da65558d82c05e0e"
+      "sha256": "ebfda9d64029981427e11eb35f94ca100c03a56e248d3fa21ca64ee5a9d5eb31"
     },
     {
       "bytes": 135,
       "path": "src/mount.js",
       "sha256": "96327dcb28f0b70f23907696e771074f11a84e0f9e2f45481ee632ec292a0cb2"
+    },
+    {
+      "bytes": 803,
+      "path": "src/w2-box1-format.js",
+      "sha256": "f7a0faba5bb5c293a3ee2a70c14644a34ba28831e57c70bf537d66e467a24a06"
     }
   ],
   "entrypoint_html": "dist/index.html",
   "id": "demo.surface.entry-loop",
-  "package_checksum": "d9ea73467600c403ff4725dd58b230a53b2a450d367a4c304a9a05f9bb967efc",
+  "package_checksum": "a01963281c7695f5a7bbd4e06882e4fb64816c5368bfadf8fe3b97509d54c386",
   "schema": "surface-artifact.v1",
   "version": "v1"
 }

@@ -77,6 +77,9 @@ W2_CLOSURE_FACT_ID = (
 EXPECTED_IMPACT_LINES = ("1a", "9", "11", "15", "16")
 COMPARISON_LINES = ("2b", "3a", "3b", "12")
 EVALUATION_LINES = EXPECTED_IMPACT_LINES + COMPARISON_LINES
+W2_BOX1_FORMAT = (
+    ENTRY_FIXTURE / "surface" / "content" / "app" / "src" / "w2-box1-format.js"
+)
 
 _MAX_REQUEST_BYTES = 16_384
 _LINE_TITLES = {
@@ -101,6 +104,62 @@ def _load_json(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise EntryLoopError("entry-loop-fixture-invalid")
     return value
+
+
+def _load_w2_box1_format(repo_root: Path) -> dict[str, Any]:
+    path = repo_root / W2_BOX1_FORMAT
+    try:
+        text = path.read_text("utf-8")
+    except OSError:
+        raise EntryLoopError("entry-format-unavailable") from None
+    marker = "export const W2_BOX1_FORMAT = "
+    try:
+        start = text.index(marker) + len(marker)
+        end = text.index(";\n", start)
+    except ValueError:
+        raise EntryLoopError("entry-format-unavailable") from None
+    try:
+        spec = json.loads(text[start:end])
+    except json.JSONDecodeError:
+        raise EntryLoopError("entry-format-unavailable") from None
+    if not isinstance(spec, dict):
+        raise EntryLoopError("entry-format-unavailable")
+    return spec
+
+
+def _comma_grouping_text(format_spec: Mapping[str, Any]) -> str:
+    return (
+        "without commas"
+        if format_spec.get("commaGrouping") == "refused"
+        else "with comma grouping"
+    )
+
+
+def _w2_box1_hint(format_spec: Mapping[str, Any]) -> str:
+    examples = format_spec.get("examples")
+    if not isinstance(examples, list) or len(examples) < 2:
+        raise EntryLoopError("entry-format-unavailable")
+    label = format_spec.get("hintLabel")
+    if not isinstance(label, str):
+        raise EntryLoopError("entry-format-unavailable")
+    return (
+        f"Enter {label} {_comma_grouping_text(format_spec)}, "
+        f"for example {examples[0]} or {examples[1]}."
+    )
+
+
+def _w2_box1_error(format_spec: Mapping[str, Any]) -> str:
+    field = format_spec.get("field")
+    error_label = format_spec.get("errorLabel")
+    max_fraction_digits = format_spec.get("maxFractionDigits")
+    if not isinstance(field, str) or not isinstance(error_label, str):
+        raise EntryLoopError("entry-format-unavailable")
+    if not isinstance(max_fraction_digits, int):
+        raise EntryLoopError("entry-format-unavailable")
+    return (
+        f"Enter {field} as a {error_label} {_comma_grouping_text(format_spec)} "
+        f"and with no more than {max_fraction_digits} decimal places."
+    )
 
 
 def load_seed_acts(repo_root: Path) -> list[dict[str, Any]]:
@@ -236,9 +295,15 @@ def _line_values(model: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
     return values
 
 
-def _parse_box1(value: object) -> int | float:
+def _parse_box1_with_format(
+    value: object,
+    format_spec: Mapping[str, Any],
+) -> int | float:
     if isinstance(value, bool) or not isinstance(value, (int, float, str)):
         raise EntryLoopError("entry-value-invalid")
+    if format_spec.get("commaGrouping") == "refused" and isinstance(value, str):
+        if "," in value:
+            raise EntryLoopError("entry-value-invalid")
     try:
         amount = Decimal(str(value))
     except (InvalidOperation, ValueError):
@@ -283,6 +348,7 @@ class SyntheticW2EntryRuntime:
             repo_root / "packages" / "content" / "tax" / "2025" / "published-packages.json",
             repo_root / "packages" / "content" / "tax" / "2025",
         )
+        self._w2_box1_format = _load_w2_box1_format(repo_root)
         self._previous_lines: dict[str, dict[str, Any]] | None = None
         self._last_accepted = False
         self._last_action = ""
@@ -483,7 +549,10 @@ class SyntheticW2EntryRuntime:
             self._validate_template(submitted, expected)
             contribution_act = json.loads(json.dumps(submitted))
             contribution = contribution_act["payload"]["contribution"]
-            amount = _parse_box1(contribution["content"]["w2_box1"])
+            amount = _parse_box1_with_format(
+                contribution["content"]["w2_box1"],
+                self._w2_box1_format,
+            )
             contribution["content"]["w2_box1"] = amount
 
             contents = self._log.read()
@@ -715,10 +784,7 @@ class _EntryRequestHandler(BaseHTTPRequestHandler):
             snapshot = self.server.runtime.contribute(submitted)
         except EntryLoopError as exc:
             if str(exc) == "entry-value-invalid":
-                message = (
-                    "Enter W-2 Box 1 as a positive dollar amount with no more "
-                    "than two decimal places."
-                )
+                message = _w2_box1_error(self.server.runtime._w2_box1_format)
             elif str(exc) == "entry-event-stale":
                 message = "The entry session changed. Reload the current entry."
             else:

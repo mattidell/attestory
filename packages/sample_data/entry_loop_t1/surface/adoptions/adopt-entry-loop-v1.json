@@ -9,12 +9,12 @@
       "note": "synthetic W-2 entry-loop surface; non-authoritative"
     },
     "package": {
-      "checksum": "d9ea73467600c403ff4725dd58b230a53b2a450d367a4c304a9a05f9bb967efc",
+      "checksum": "a01963281c7695f5a7bbd4e06882e4fb64816c5368bfadf8fe3b97509d54c386",
       "id": "demo.surface.entry-loop",
       "version": "v1"
     },
     "release": {
-      "checksum": "9e23190ee207899dcfedccc909fe133253cf9f0af555f8c0d67806abc53206ea",
+      "checksum": "2232a2c9eace9fe6290951bce82d94c9ce1ed067f1c6b511997b0c9c158ccb5a",
       "id": "demo.surface-release.entry-loop.2025",
       "version": "v1"
     },

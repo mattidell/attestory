@@ -246,6 +246,31 @@ class EntryAndCorrection(RuntimeFixture):
         self.assertEqual(self.runtime.snapshot().revision, original_revision)
         self.assertFalse(self.runtime.snapshot().payload["complete"])
 
+    def test_comma_grouping_is_refused_with_format_specific_guidance(self) -> None:
+        initial = self.runtime.snapshot().payload
+        original_revision = initial["revision"]
+        with TemporaryDirectory(prefix="demo-entry-static-") as tmp:
+            static = Path(tmp)
+            (static / "index.html").write_text("<!doctype html>", encoding="utf-8")
+            with EntryLoopServer(self.runtime, static) as server:
+                root = server.url.rsplit("/", 1)[0]
+                request = urllib.request.Request(
+                    f"{root}/api/contributions",
+                    data=json.dumps(_event(initial, "90,000")).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with self.assertRaises(urllib.error.HTTPError) as caught:
+                    urllib.request.urlopen(request, timeout=5)
+                body = caught.exception.read().decode("utf-8")
+                caught.exception.close()
+        status = caught.exception.code
+        self.assertEqual(status, 422)
+        self.assertNotIn("90,000", body)
+        self.assertIn("without commas", body)
+        self.assertEqual(self.runtime.snapshot().revision, original_revision)
+        self.assertFalse(self.runtime.snapshot().payload["complete"])
+
 
 class AdversarialEntryBoundary(RuntimeFixture):
     def setUp(self) -> None:
@@ -433,9 +458,10 @@ class SurfaceCriteria(unittest.TestCase):
             "Form W-2 · Box 1",
             "Wages, tips, other compensation",
             "feeds Form 1040 line 1a",
-            "Enter dollars and cents",
+            "formatW2Box1Hint",
         ):
             self.assertIn(text, self.source)
+        self.assertIn('import { formatW2Box1Hint } from "./w2-box1-format.js";', self.source)
 
     def test_accessibility_and_fail_loud_markers_are_present(self) -> None:
         for marker in (

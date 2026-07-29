@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { formatW2Box1Hint } from "./w2-box1-format.js";
 
   let state = null;
   let amount = "";
@@ -203,7 +204,7 @@
             />
           </div>
           <p id="w2-box1-format" class="format">
-            Enter dollars and cents, for example 90000 or 90000.50.
+            {formatW2Box1Hint()}
           </p>
           <button class="primary" type="submit" disabled={busy}>
             {busy
@@ -305,8 +306,9 @@
   :global(input:focus-visible),
   :global(a:focus-visible),
   :global([tabindex="-1"]:focus-visible) {
-    outline: 3px solid #9b4b00;
-    outline-offset: 3px;
+    outline: 2px solid #fffdf8;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px #17251f;
   }
 
   main {
@@ -554,31 +556,34 @@
 
   .money-input {
     display: flex;
-    align-items: center;
-    border: 2px solid #536159;
-    border-radius: 0.65rem;
+    align-items: stretch;
     background: #fff;
     overflow: hidden;
   }
 
-  .money-input:focus-within {
-    border-color: #075e4f;
-    box-shadow: 0 0 0 3px rgba(7, 94, 79, 0.2);
-  }
-
   .money-input span {
-    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.9rem 0 1rem;
     color: #35463f;
     font-size: 1.4rem;
     font-weight: 700;
+    border: 2px solid #17251f;
+    border-right-width: 0;
+    border-radius: 0.65rem 0 0 0.65rem;
+    background: #f8fbf9;
   }
 
   input {
-    width: 100%;
+    flex: 1;
     min-height: 3.4rem;
     padding: 0.75rem;
-    border: 0;
+    border: 2px solid #17251f;
+    border-left-width: 0;
+    border-radius: 0 0.65rem 0.65rem 0;
+    box-shadow: 0 0 0 2px #fffdf8;
     outline: 0;
+    background: #fff;
     color: #17251f;
     font-size: 1.35rem;
     font-weight: 700;
