@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, ADR-0050 AWAITING OWNER RATIFICATION.** The final recheck returned `READY FOR OWNER RATIFICATION` at `4048596` with no residuals. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: owner disposition of the ratification packet.",
-  "current_role": "Foreman (owner ratification decision pending)",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/adr0050-ratification-packet.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0 DECISION UNIT AWAITING OWNER MERGE.** The owner ratified ADR-0050 on 2026-07-29 after final recheck returned ready with no residuals. The complete evidence chain and accepted ADR are on the decision branch. Production remains blocked until the decision unit reaches `main`. NEXT ACTION: owner merges the decision-unit PR after CI `verify` is green.",
+  "current_role": "Foreman (Track 0 decision-unit merge pending; no production role)",
+  "current_prompt": "docs/adr/0050-capital-gain-distributions-and-line-7a.md"
 }
 -->
 # Phase State
@@ -58,12 +58,11 @@ matrix, and completion review `7f6ae79` returned `READY`. PR #86 merged as
 invocation vehicle exists and no real operation occurred. The next milestone
 is unselected.
 
-**Nature of the pending schema/contract change.** The first Engine Breadth
-milestone is planned, but its successor contract is intentionally not drafted
-yet. Paper-first rival evidence must settle the direct-line authority,
-box-2a-family promotion, and QDCG handoff before any schema or production
-content is authorized. Existing published schemas and accepted ADRs remain
-immutable history.
+**Nature of the pending schema/contract change.** ADR-0050 is the
+owner-ratified successor contract for direct-line authority, box-2a-family
+promotion, and the QDCG handoff. Its complete Track-0 decision unit is awaiting
+merge. No schema or production content is authorized until it reaches `main`;
+existing published schemas and accepted history remain immutable.
 
 ## Current state (2026-07-28)
 

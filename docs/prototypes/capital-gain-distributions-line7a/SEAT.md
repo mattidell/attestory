@@ -2,10 +2,10 @@
 
 ## Current step
 
-The ADR-0050 final recheck returned `READY FOR OWNER RATIFICATION` at
-`4048596` with no residuals. No Builder or Reviewer role is active. ADR-0050
-remains proposed and inert; production remains blocked pending the owner
-decision and decision-unit merge.
+The owner ratified ADR-0050 on 2026-07-29 after the final recheck returned
+`READY FOR OWNER RATIFICATION` with no residuals. No Builder or Reviewer role
+is active. The complete Track-0 decision unit is being prepared for owner
+merge; production remains blocked until it reaches `main`.
 
 ## Seats
 
@@ -38,6 +38,5 @@ decision and decision-unit merge.
 
 ## Next action
 
-Owner disposition of `adr0050-ratification-packet.md`. If ratified, the
-foreman records acceptance and prepares the Track-0 decision unit for merge.
+Owner merge of the complete Track-0 decision unit after CI `verify` is green.
 No production role starts before that merge reaches `main`.

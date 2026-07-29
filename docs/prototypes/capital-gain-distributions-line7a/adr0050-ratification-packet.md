@@ -40,3 +40,9 @@ confirmation before ratification.
 Ratify ADR-0050 as proposed. The selected contract is complete against the
 milestone's eight clauses, and the final review reports no remaining drafting
 or evidence gap.
+
+## Owner disposition
+
+**Ratified 2026-07-29.** The owner accepted ADR-0050 as proposed and directed
+the foreman to prepare the complete Track-0 decision unit for merge. Production
+remains blocked until that unit reaches `main`.

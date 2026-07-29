@@ -1,6 +1,7 @@
 # ADR 0050 — Capital-Gain Distributions and Form 1040 Line 7a
 
-- Status: **proposed** (inert; not ratified; not production authority)
+- Status: **accepted** (owner ratification 2026-07-29; becomes production
+  authority when this complete decision unit reaches `main`)
 - Tier: 2
 - Date: 2026-07-28
 
@@ -25,8 +26,9 @@ bounded Rung-1 repair cycles, and final confirmation `READY`
 (`reviews/repair2-confirmation.md`). Owner disposition and selected surface
 are recorded in `final-disposition.md`. The composite controlling paper is
 `it2/design.md` as amended by `repair2/design.md` (supersession ledger).
-This ADR is proposed only; production remains blocked until independent
-review, owner ratification, and merge.
+The owner ratified this ADR on 2026-07-29 after independent review and final
+recheck. Production remains blocked until this complete decision unit reaches
+`main`.
 
 ## Decision
 

@@ -66,3 +66,12 @@
   residuals.
 - **Disposition:** the Reviewer pointer is retired and the owner-ratification
   packet is current. ADR-0050 remains proposed and production remains blocked.
+
+## 2026-07-29 — ADR-0050 ratified
+
+- **Category:** no incident.
+- **Owner disposition:** ratify ADR-0050 as proposed and prepare the complete
+  Track-0 decision unit for merge.
+- **Disposition:** record ADR/index acceptance and open the evidence-complete
+  decision-unit PR. No production role is chartered before the merge reaches
+  `main`.

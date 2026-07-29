@@ -7,8 +7,9 @@ Foreman disposition record for contract synthesis (Track 0 Gate-7 boundary),
 `reviews/repair2-confirmation.md` (`READY`). Owner topology selection:
 `round-1-triage.md`. Selected surface: `final-disposition.md`. Controlling
 composite paper: `it2/design.md` as amended by `repair2/design.md`. Candidate
-ADR: `docs/adr/0050-capital-gain-distributions-and-line-7a.md` (**proposed**,
-inert). Production remains blocked.
+ADR: `docs/adr/0050-capital-gain-distributions-and-line-7a.md` (**accepted** by
+owner ratification 2026-07-29). Production remains blocked until the complete
+decision unit reaches `main`.
 
 ## Convergence
 
@@ -99,13 +100,12 @@ regression boundary.
 
 P1, P2, and the coherent direct-route portion of P3 are settled at Rung 1 on
 the component-backed successor shape. First-review findings F1–F5 and recheck
-residual R1 (both-zero direct pins) are closed in proposed ADR-0050 and this
-analysis by reproducing R2-Q3's declaration/conclusion-free ordinary set and
-stating all four Q/L branch pin sets. The evidence ceiling remains Rung 1
-committed synthetic paper evidence. They authorize neither production
-implementation, ADR ratification, merge, nor pointer advance. The next
-process step is the separately chartered final recheck, not an advance of this
-proposed/inert contract.
+residual R1 (both-zero direct pins) are closed in ADR-0050 and this analysis by
+reproducing R2-Q3's declaration/conclusion-free ordinary set and stating all
+four Q/L branch pin sets. The evidence ceiling remains Rung 1 committed
+synthetic paper evidence. The owner ratified ADR-0050 on 2026-07-29.
+Production implementation and Track 1 remain blocked until the complete
+decision unit reaches `main`.
 
 ## Stable evidence refs
 
