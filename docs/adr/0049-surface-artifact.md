@@ -119,39 +119,65 @@ ran the build once, on one machine, and read the result; the owner's own run,
 the one that actually serves the page, is trusted by analogy to that run, not
 verified against it. "Verified inputs plus one fixed command" is a claim
 about *provenance* — this came from that, unmodified — not a claim about
-*reproducibility* — that same-inputs-in always yields same-bytes-out. Nothing
-here tests reproducibility, and the two are not the same claim: a
-non-deterministic build could satisfy the entire chain above on every single
-run while producing a different `dist/index.html` each time, and nothing in
-this design would notice.
+*reproducibility* — that same-inputs-in always yields same-bytes-out. The two
+are not the same claim: a non-deterministic build could satisfy the entire
+chain above on every single run while producing a different
+`dist/index.html` each time, and nothing in this design would notice, because
+nothing digests the output.
 
-**What sufficiency would require, stated precisely rather than assumed.** For
-"verified inputs plus one fixed command" to also mean "the served bytes are
-the reviewed bytes," the build has to be a pure function of {source, vendored
-tree, Node's own version} — no wall-clock timestamp embedded in output, no
-random identifier, no branch on locale, hostname, or CPU architecture, and no
+**What sufficiency would require, stated precisely.** For "verified inputs
+plus one fixed command" to also mean "the served bytes are the reviewed
+bytes," the build has to be a pure function of {source, vendored tree, Node's
+own version} — no wall-clock timestamp embedded in output, no random
+identifier, no branch on locale, hostname, or CPU architecture, and no
 dependence on anything outside the vendored tree (an `NODE_PATH`, an
 `.npmrc`, a global npm config) that could vary between the review's machine
-and the owner's. `svelte/compiler`'s `compile()` is a source-to-source
-transform with no obviously random or environment-sensitive step, so this is
-*plausible* — but plausible is exactly the word this project's own reviewer
-craft-notes warn against accepting in place of a checked fact, and nothing in
-Track 1 checked it.
+and the owner's.
 
-**This is not sufficient as stated, and I am not going to write it up as if it
-were.** It is sufficient for the narrower claim this milestone actually
-needed — a page can cross the boundary at all, built from exactly what the
-owner adopted rather than from something else — and it is a materially
-stronger position than "trust the build" with no verified inputs at all. It
-is not sufficient to make the same strength of claim this project makes about
-every other artifact, where the published digest and the served bytes are
-literally the same bytes. Future work, named rather than deferred silently:
-run the fixed build command twice against the same verified inputs — in CI,
-or on two machines — and assert the two `dist/` trees are byte-identical.
-Once that holds once, it should be re-checked periodically rather than
-assumed to hold forever, because a compiler upgrade (a new vendored `svelte`
-version) or an interpreter upgrade could reintroduce non-determinism that a
-one-time check would not catch.
+**Part of that was checked, not assumed.** The content tree was copied to two
+separate directories, `node build.mjs` was run in each with a gap between the
+runs, and the two `dist/` trees were compared. Both runs exited 0 and the
+output is **byte-identical** (`diff -r`, no differences), on Node v25.8.0.
+This was performed twice independently — by the foreman and again for this
+ADR — with the same result.
+
+That observation is narrower than "the build is deterministic," and the
+distinction is the point of recording it rather than the headline:
+
+- **What it rules out.** The common causes of build nondeterminism that would
+  surface immediately — an embedded build timestamp, a randomized ordering, a
+  per-run identifier. Any of those would have differed between two runs
+  separated in time on the same machine, and none did.
+- **What it does not touch.** Same machine, same Node version, same
+  filesystem, minutes apart. Determinism across machines, across Node
+  versions, across operating systems, or over time is untested. Anything that
+  varies with platform or toolchain version could not have shown up in this
+  comparison, by construction.
+
+**The conclusion is unchanged; what changed is what holds it up.** "Verified
+inputs plus one fixed command" is still not sufficient to claim the served
+bytes are bytes anyone reviewed — nothing published a digest for the output,
+and no amount of same-machine determinism supplies one. What this ADR no
+longer does is rest that reasoning on a *reading* of `build.mjs` and
+`svelte/compiler` and the word "plausible," which is exactly the kind of
+unchecked plausibility this project's own reviewer craft-notes warn against
+accepting in place of a checked fact. It now says: determinism holds on one
+machine under one toolchain, checked, and is unverified beyond that.
+
+The chain is sufficient for the narrower claim this milestone actually needed
+— a page can cross the boundary at all, built from exactly what the owner
+adopted rather than from something else — and is materially stronger than
+"trust the build" with no verified inputs at all. It is not the same strength
+of claim this project makes about every other artifact, where the published
+digest and the served bytes are literally the same bytes.
+
+**Future work, sharpened to what is actually left.** The single-machine,
+single-toolchain case is checked. The cross-machine and cross-Node-version
+cases are not: run the fixed build command against the same verified inputs
+on two machines, or under two Node versions, and assert the `dist/` trees are
+byte-identical. Re-run on any toolchain upgrade — a new vendored `svelte`
+version or a new Node major — since a check on one compiler cannot bind a
+compiler nobody has run yet.
 
 ## Decision — Node is a new kind of precondition, and it is the same gap as the one above seen from the other side
 
@@ -183,16 +209,17 @@ consumer of a surface manifest's `build_command` needs to do the same. This
 failure mode is benign: fail-closed by absence.
 
 **If a different Node version is present:** this is not benign, and it is not
-a separate question from the one above — it is the concrete, observable case
-the determinism assumption exists to cover. Nothing pins a Node version
-anywhere in the surface artifact or its schema, and nothing digests the
-output, so a workspace on a different Node major version could produce a
-different `dist/index.html` from the identical verified inputs and nothing in
-this design would detect it. The Node-version question and the build-output
-question above are the same gap, not two: both close together, if the future
-work named above (a reproducibility check across environments) is ever built,
-because a cross-machine byte-identity check is exactly a check across
-whatever Node versions those machines run.
+a separate question from the one above — it is precisely the case the
+two-run check did *not* cover. Nothing pins a Node version anywhere in the
+surface artifact or its schema, and nothing digests the output, so a
+workspace on a different Node major version could produce a different
+`dist/index.html` from the identical verified inputs and nothing in this
+design would detect it. The two-run comparison above holds Node fixed at
+v25.8.0 by construction, so it says nothing here. The Node-version question
+and the residual build-output question are the same gap, not two: both close
+together if the remaining future work (a byte-identity check across machines
+and Node versions) is ever built, because a cross-machine check is exactly a
+check across whatever Node versions those machines run.
 
 **Where this belongs.** Recorded here as a named workspace precondition, not
 filed under ADR-0047. A future milestone that formalizes preconditions this
@@ -217,10 +244,14 @@ profile's text. On any other platform the build still runs offline in fact
 (the vendored tree ships as literal files; the script never invokes a package
 manager), but that enforcement is unverified there, and CI carries none of
 this: CI has no Node, so the build-and-open tests are skipped, not failed,
-and only the resolver's pure-Python guarantees run there. The evidence for
-the offline claim exists and is real, but it is not continuously checked —
-it depends on a human running these tests locally with Node and a browser
-present.
+and only the resolver's pure-Python guarantees run there.
+
+These tests are not unrunnable — on a machine with Node, `sandbox-exec`, and
+a local Chrome present they run and pass, and did so for Track 1's review and
+again for this ADR. The gap is precisely and only that CI does not carry
+them: the evidence for the offline claim is real and reproducible, but it is
+not *continuously* checked, so a regression in it would be caught by whoever
+next runs the suite locally rather than by the gate of record.
 
 ## Known weak points, carried forward rather than smoothed over
 
@@ -269,12 +300,13 @@ review.
   whatever Node is present — not a guarantee that those bytes are the ones
   anyone reviewed.
 - No maturity cell moves. This ADR records a container and its trust
-  argument; it implements no enforcement substrate and closes no open
-  question about determinism or offline enforcement on non-macOS platforms.
-- Future work, named rather than silently owed: a cross-environment
-  byte-identity check for the build output, and a decision about where a
-  "build-toolchain precondition" category is formally recorded once more
-  than one milestone needs it.
+  argument; it implements no enforcement substrate, and it closes the
+  same-machine half of the determinism question by observation while leaving
+  the cross-machine half and offline enforcement on non-macOS platforms open.
+- Future work, named rather than silently owed: a byte-identity check for the
+  build output *across machines and Node versions* (the same-machine case is
+  checked), and a decision about where a "build-toolchain precondition"
+  category is formally recorded once more than one milestone needs it.
 
 ## Alternatives considered
 
@@ -313,9 +345,13 @@ review.
 
 ## Evidence limits
 
-No real workspace, real Node installation beyond the machine this track and
-its review ran on, or real owner adoption was consulted. The determinism
-claim in "the build's output rests on provenance, not on content identity"
-is reasoned from reading `build.mjs` and `svelte/compiler`'s documented
-behavior, not from running the build twice and diffing the output — that
-comparison is named as future work, not performed here.
+No real workspace and no real owner adoption was consulted. The
+same-machine determinism observation is a direct experiment — the content
+tree copied twice, `node build.mjs` run in each copy with a gap, `diff -r`
+over the two `dist/` trees, byte-identical, run independently twice — and is
+used as load-bearing evidence for exactly the claim it supports and no wider.
+It was performed on one machine, on macOS, under Node v25.8.0, against the
+synthetic `surface_t1` fixture tree; no other machine, operating system, or
+Node version was involved, so nothing here speaks to cross-environment
+reproducibility. The offline-enforcement evidence is likewise
+one-machine, macOS-only, and outside CI.
