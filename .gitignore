@@ -35,3 +35,10 @@ generated/user/
 
 # Owner-supplied session artifacts — never repository content (ADR-0031)
 owner_attestation.txt
+
+# Vendored UI dependencies. The surface artifact ships its resolved dependency
+# tree, but the repository does not store it — owner decision 2026-07-28.
+# Regenerate before running the surface tests:
+#   (cd packages/sample_data/surface_t1/content/app && npm ci)
+#   python3 tools/generate_surface_t1_fixtures.py
+node_modules/

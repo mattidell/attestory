@@ -3,8 +3,9 @@
   "version": 1,
   "phase": "Legible Entry",
   "topic": "packaging-the-surface",
-  "milestone_state": "planned",
-  "status": "APPROVED 2026-07-28 (PR #105), AMENDED same day. Get UI code across the Developer/Supply to Live-Run Data boundary. OWNER SETTLED: UI is Svelte + TypeScript, built at the workspace not in the repo, with its pinned dependency tree shipped alongside rather than fetched at build time, so the build runs offline with no install scripts. CORRECTION — the plan as first approved said the UI would ship as members of the adopted artifact package. THAT IS IMPOSSIBLE: a member is {role, schema, id, version} pointing at a typed declarative citizen from a closed enum, with no path and no file, and the package's guarantee is that its whole member graph hard-validates. Owner chose a SECOND, SEPARATE ARTIFACT with its own adoption act, reusing the shared release/registry verification, rather than adding an opaque-member kind to the existing package. THE ARTIFACT PACKAGE MUST BE LEFT UNCHANGED. Track 1 builds that container and ships one trivial Svelte page through it, offline-built, opened in the live-viewing vehicle on a synthetic workspace, with a digest-mismatch refusal. Track 2 records the rule as a short ADR. Still open: what the build's unverified output rests on, the Node toolchain as an undeclared workspace precondition, what serves the page, and how much adoption machinery the second container reuses. No form fields, no contributions, no real data, no maturity claim.",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-07-28-packaging-the-surface.md",
+  "status": "CLOSED 2026-07-28. Both tracks READY; ADR-0049 PROPOSED, not ratified. Track 1 0fd05e7 / review ee50b8f, Track 2 8d8ef76 / review 17338d9. A second sealed container (surface-artifact.v1) now carries UI program bytes into Live-Run Data under a distinct surface-adoption, verified by digest and never validated for meaning; artifact-package.v4 is untouched. One Svelte page built offline at the workspace and opened in the live-viewing vehicle on a synthetic workspace; five refusal paths tested. Vendored tree 941 entries / 5,065,001 bytes. Build determinism CHECKED byte-identical on one machine under Node v25.8.0, UNVERIFIED across machines or versions. NO MATURITY CELL MOVED. Retrospective subject: the plan shipped a FALSE PREMISE — the foreman called the package-member route 'close to forced' without opening the schema, and it survived a plan PR and an owner decision built on top of it. Next: milestone 3, The Entry Loop synthetic, unplanned. Originally: APPROVED 2026-07-28 (PR #105), AMENDED same day. Get UI code across the Developer/Supply to Live-Run Data boundary. OWNER SETTLED: UI is Svelte + TypeScript, built at the workspace not in the repo, with its pinned dependency tree shipped alongside rather than fetched at build time, so the build runs offline with no install scripts. CORRECTION — the plan as first approved said the UI would ship as members of the adopted artifact package. THAT IS IMPOSSIBLE: a member is {role, schema, id, version} pointing at a typed declarative citizen from a closed enum, with no path and no file, and the package's guarantee is that its whole member graph hard-validates. Owner chose a SECOND, SEPARATE ARTIFACT with its own adoption act, reusing the shared release/registry verification, rather than adding an opaque-member kind to the existing package. THE ARTIFACT PACKAGE MUST BE LEFT UNCHANGED. Track 1 builds that container and ships one trivial Svelte page through it, offline-built, opened in the live-viewing vehicle on a synthetic workspace, with a digest-mismatch refusal. Track 2 records the rule as a short ADR. Still open: what the build's unverified output rests on, the Node toolchain as an undeclared workspace precondition, what serves the page, and how much adoption machinery the second container reuses. No form fields, no contributions, no real data, no maturity claim.",
   "scope": [
     "define a second artifact container for UI code, with its own adoption act, hanging off the existing verified release and registry chain",
     "ship a trivial Svelte page, its lockfile, and its vendored dependency tree inside that artifact, each entry digested",
@@ -54,8 +55,9 @@
 -->
 # Milestone: Packaging the Surface
 
-Status: **approved 2026-07-28** (PR #105), amended the same day — see
-"Correction: the UI cannot be a package member."
+Status: **closed 2026-07-28.** Both tracks built and reviewed READY. ADR-0049
+proposed. Retrospective:
+`docs/milestone-retrospectives/2026-07-28-packaging-the-surface.md`.
 
 ## What this is for
 

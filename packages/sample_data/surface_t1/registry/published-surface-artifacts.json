@@ -1,0 +1,9 @@
+{
+  "packages": [
+    {
+      "checksum": "1fe31ded2e2851fa29020dd57838df92f57a0ab775d8cfb5a4f23abd903b61e0",
+      "id": "demo.surface.entry-page",
+      "version": "v1"
+    }
+  ]
+}

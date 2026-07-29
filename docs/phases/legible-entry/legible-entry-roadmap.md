@@ -3,8 +3,8 @@
 Audience: Product (roadmap); Shared (status)
 
 Status: **accepted 2026-07-28** (PR #100). Milestone 1, The Entry Boundary, is
-closed. Milestone 2, Packaging the Surface, is approved and its first track is
-chartered.
+closed. Milestone 2, Packaging the Surface, is closed. Milestone 3, The Entry
+Loop synthetic, is unplanned.
 
 ## Thesis
 
@@ -108,7 +108,9 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    boundary into the live workspace, in a second adopted artifact separate
    from the rule package: ship one trivial Svelte page and its vendored
    dependency tree, build it at the workspace offline, then write down the
-   rule. **Approved 2026-07-28**, Track 1 chartered; plan:
+   rule. **Closed 2026-07-28.** ADR-0049 proposed: the surface ships in its
+   own adopted artifact, built at the workspace offline; the rule package is
+   untouched. No maturity cell moved. Plan:
    `docs/phases/legible-entry/milestones/packaging-the-surface.md`.
 3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
    synthetic workspace, to L2, with no real data and no maturity claim. This
@@ -157,13 +159,13 @@ mistake here is to build a form and confine it afterward.
    does typed input disqualify the browser and force a different surface?
    "The browser is not a safe input surface" is an acceptable answer, and
    starting from a web form must not rule it out before we check.
-3. **Packaging.** Putting a UI in the workspace is a Developer/Supply →
-   Live-Run Data crossing (ADR-0044), whose sanctioned form is the current
-   owner-adopted, byte-verified package. That package carries derivation
-   rules today. Does the UI ship inside it, inheriting byte verification and
-   the supply-chain weight that implies, or as a separate artifact with its
-   own adoption? Is a build step tolerable at all against a byte-verified
-   package?
+3. ~~**Packaging.**~~ **Settled 2026-07-28 by ADR-0049 (proposed).** The UI
+   cannot ship inside the rule package at all — a member of that package is a
+   typed declarative citizen, not a file. It ships in a second adopted
+   artifact carrying opaque program bytes, verified by digest and never
+   validated for meaning, and builds at the workspace offline. A build step is
+   tolerable; what it costs is that the build's output is the one thing in the
+   chain no digest covers.
 4. **Correction has no face.** ADR-0041's supersession policy is the most
    hardened mechanism in the system and is unreachable by any human. Every
    fact type shipped today declares `free`, so its interesting refusals
@@ -189,8 +191,9 @@ Carried over from Real Return's phase close:
 
 Milestone 1 (The Entry Boundary) closed 2026-07-28, ADR-0048 accepted. No
 maturity cell has moved — that milestone was a decision, and the instrument
-measures capability. Milestone 2 (Packaging the Surface) is approved and its
-first track is chartered.
+measures capability. Milestone 2 (Packaging the Surface) closed 2026-07-28,
+also without moving a cell — it built the delivery route, not the loop.
+Milestone 3 (The Entry Loop, synthetic) is unplanned.
 
 The phase-boundary legibility audit is still due. It is owner-spawned; the
 foreman must not launch it.
