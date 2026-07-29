@@ -319,8 +319,12 @@ def _parse_box1_with_format(
 ) -> int | float:
     if isinstance(value, bool) or not isinstance(value, (int, float, str)):
         raise EntryLoopError("entry-value-invalid")
-    normalized = value
-    if isinstance(value, str):
+    # Keep the string-normalising branch on its own name. `value` is a union,
+    # and reusing it here left the comma/prefix handling below typed as
+    # `int | float | str`, which mypy correctly refuses.
+    normalized: str | int | float = value
+    if isinstance(normalized, str):
+        value = normalized
         currency_symbol = format_spec.get("currencySymbol")
         if not isinstance(currency_symbol, str):
             raise EntryLoopError("entry-format-unavailable")
