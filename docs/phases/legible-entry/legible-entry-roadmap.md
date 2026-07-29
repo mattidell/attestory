@@ -3,8 +3,8 @@
 Audience: Product (roadmap); Shared (status)
 
 Status: **accepted 2026-07-28** (PR #100). Milestone 1, The Entry Boundary, is
-closed. Milestone 2, Packaging the Surface, has a proposed plan awaiting owner
-approval.
+closed. Milestone 2, Packaging the Surface, is approved and its first track is
+chartered.
 
 ## Thesis
 
@@ -105,10 +105,10 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    `docs/phases/legible-entry/milestones/entry-boundary.md`; retrospective:
    `docs/milestone-retrospectives/2026-07-28-entry-boundary.md`.
 2. **Packaging the Surface.** Get UI code across the Developer/Supply
-   boundary into the live workspace: ship one trivial Svelte page and its
-   vendored dependency tree as verified package members, build it at the
-   workspace offline, then write down the rule.
-   **Proposed 2026-07-28**; plan:
+   boundary into the live workspace, in a second adopted artifact separate
+   from the rule package: ship one trivial Svelte page and its vendored
+   dependency tree, build it at the workspace offline, then write down the
+   rule. **Approved 2026-07-28**, Track 1 chartered; plan:
    `docs/phases/legible-entry/milestones/packaging-the-surface.md`.
 3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
    synthetic workspace, to L2, with no real data and no maturity claim. This
@@ -189,8 +189,8 @@ Carried over from Real Return's phase close:
 
 Milestone 1 (The Entry Boundary) closed 2026-07-28, ADR-0048 accepted. No
 maturity cell has moved — that milestone was a decision, and the instrument
-measures capability. Milestone 2 (Packaging the Surface) has a proposed plan
-awaiting owner approval.
+measures capability. Milestone 2 (Packaging the Surface) is approved and its
+first track is chartered.
 
 The phase-boundary legibility audit is still due. It is owner-spawned; the
 foreman must not launch it.
