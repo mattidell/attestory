@@ -43,6 +43,12 @@ CONTENT_DIR = SURFACE_T1 / "content" / "app"
 SCOPE_USER = "demo.user.filer-1"
 CLEAN_SCOPE = {"jurisdiction": "us", "year": "2025"}
 
+# The vendored dependency tree ships in the surface artifact but is not stored
+# in this repository (owner decision 2026-07-28, see .gitignore). Restore it with
+# `npm ci` in the content directory before running these.
+_VENDORED = (CONTENT_DIR / "node_modules").is_dir()
+_NEEDS_VENDORED = "vendored dependency tree absent; run `npm ci` in packages/sample_data/surface_t1/content/app"
+
 _NODE = shutil.which("node")
 _SANDBOX_EXEC = shutil.which("sandbox-exec") if platform.system() == "Darwin" else None
 _BROWSER = next(
@@ -89,7 +95,7 @@ def _resolve() -> ResolvedSurface:
     return r
 
 
-@unittest.skipUnless(_NODE, "Node is a workspace precondition, not a repository dependency")
+@unittest.skipUnless(_NODE and _VENDORED, "needs Node (a workspace precondition) and the vendored tree; " + _NEEDS_VENDORED)
 class OfflineBuild(unittest.TestCase):
     def test_verified_content_builds_offline_into_a_served_page(self) -> None:
         resolved = _resolve()
@@ -126,7 +132,7 @@ class OfflineBuild(unittest.TestCase):
             self.assertEqual(result.returncode, 7, result.stdout + result.stderr)
 
 
-@unittest.skipUnless(_NODE and _BROWSER, "requires Node and a local Chrome/Chromium for a real vehicle launch")
+@unittest.skipUnless(_NODE and _BROWSER and _VENDORED, "requires Node, a local Chrome/Chromium, and the vendored tree; " + _NEEDS_VENDORED)
 class OpenInTheViewingVehicle(unittest.TestCase):
     def test_built_page_opens_through_the_viewing_vehicle_on_a_synthetic_workspace(self) -> None:
         resolved = _resolve()

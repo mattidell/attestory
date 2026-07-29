@@ -94,6 +94,12 @@ caught things worth catching.
 - Offline enforcement is proved only under macOS `sandbox-exec` and CI carries
   none of it, because those tests need Node and Chrome present. The evidence
   exists but is not continuously checked.
+- The vendored tree is not stored in the repository (owner decision at close).
+  It ships in the artifact and is reconstructed with `npm ci`. The surface
+  tests now skip without it, so the digest and refusal evidence is
+  reproducible on demand rather than standing guard. The narrower fix is to
+  run those tests against a small synthetic tree built in the test, since the
+  resolver does not care what the bytes are — worth doing, not done here.
 - `surface_resolver.py` reuses three underscore-private names from
   `production_resolver.py`. Real reuse, fragile coupling.
 - The sample page uses no TypeScript, so that toolchain cost is untested and

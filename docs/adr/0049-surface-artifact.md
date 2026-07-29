@@ -290,6 +290,27 @@ trivial page and its transitive build-time dependencies already cost five
 megabytes of opaque, unreadable bytes whose verification is pinning, not
 review.
 
+**The repository does not store that tree** (owner decision 2026-07-28). It
+ships in the artifact and it is checked into nothing. It is reconstructed from
+the lockfile with `npm ci` before the fixtures are regenerated or the surface
+tests are run, and the tests skip with an explicit message when it is absent.
+
+That is a deliberate trade and it costs something. Before, the digest and
+refusal tests ran in any clone, because the bytes were present. Now nothing
+surface-related runs until someone restores the tree, and CI restores nothing.
+The evidence for this container's central claim — that it refuses on a digest
+mismatch — is therefore reproducible on demand rather than continuously
+checked. That is the same shape as the offline-enforcement gap above, and it
+is now the second place where this milestone's evidence exists but is not
+standing guard.
+
+The narrower fix, not taken here: the digest, confinement, and adoption-kind
+tests do not care what the bytes are. They could run against a three-file
+synthetic tree built inside the test, leaving only the real build-and-open
+tests dependent on the vendored dependencies. That would restore continuous
+coverage of the security-relevant surface without storing five megabytes.
+Worth doing; not done in this milestone.
+
 ## Consequences
 
 - UI code has a sanctioned route into the live workspace, separate from and
