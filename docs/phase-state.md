@@ -6,8 +6,8 @@
   "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
   "milestone_state": "track-2",
   "status": "Milestone 3 (The Entry Loop - synthetic) is open. Track 2d is active. The work remains limited to a synthetic W-2 entry loop, with no real data or L3 claim. The standing owner directive is to model entry usability as schema and field contracts.",
-  "current_role": "Builder — The Entry Loop (synthetic), Track 2d: make the format declaration honour itself",
-  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track2d.md"
+  "current_role": "Reviewer — Advisory Track 2d format-contract review",
+  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track2d-advisory-review.md"
 }
 -->
 # Phase State
