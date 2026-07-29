@@ -13,7 +13,7 @@ Line 7a.
 - **Exact object:** synthesize the owner-selected and independently confirmed
   component-backed Rung-1 evidence into one proposed successor contract.
 - **Role:** Contract Synthesis Builder, High capability / high effort.
-- **Scope:** proposed ADR-0048, its advisory index entry, and the evidence
+- **Scope:** proposed ADR-0050, its advisory index entry, and the evidence
   analysis that makes every ADR clause traceable. No production artifacts.
 - **Stop conditions:** any unresolved conflict in the selected evidence;
   governance interpretation; an attempt to edit accepted ADR text or published
@@ -75,7 +75,7 @@ not cite unmerged commits by SHA. Do not claim implementation or acceptance.
 Create or modify exactly:
 
 - `docs/prototypes/capital-gain-distributions-line7a/evaluation-analysis.md`
-- `docs/adr/0048-capital-gain-distributions-and-line-7a.md`
+- `docs/adr/0050-capital-gain-distributions-and-line-7a.md`
 - `docs/adr/INDEX.md`
 
 The ADR status is **proposed** and inert. The index row must likewise say

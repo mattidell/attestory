@@ -18,4 +18,4 @@
   the regression boundary remained intact.
 - **Disposition:** both rival exhibits were preserved and assembled on the
   decision branch. Contract synthesis is chartered as a proposed, inert
-  ADR-0048 unit; production remains blocked.
+  ADR-0050 unit; production remains blocked.
