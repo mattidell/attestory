@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-0",
-  "status": "TRACK 0 DECISION UNIT, PR #110, AWAITING OWNER MERGE. The owner ratified ADR-0050 on 2026-07-29 after final recheck returned ready with no residuals. The complete evidence chain and accepted ADR are in PR #110. Production remains blocked until the unit reaches `main`. NEXT ACTION: owner merges PR #110 after CI `verify` is green.",
+  "milestone_state": "track-1",
+  "status": "TRACK 1 CHARTERED. PR #110 merged as `1cb12d78553479902a91c654510e7f9c88cc1934` with CI `verify` green, so accepted ADR-0050 is now the production contract on `main`. The first production unit is limited to source, authority, universe, form-field, citation, and schema/content citizens; no downstream computation. NEXT ACTION: owner launches the Track 1 Builder from `docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1.md`.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -69,6 +69,7 @@
     "implementation": [
       "docs/roles/builder.md",
       "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
+      "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
       "docs/adr/0031-real-data-residency-boundary.md",
       "docs/adr/0035-dividend-composition-and-lines-3a-3b.md",
       "docs/adr/0036-schedule-attachment-ontology.md",
@@ -86,6 +87,7 @@
     "review": [
       "docs/roles/reviewer.md",
       "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
+      "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
       "docs/adr/0035-dividend-composition-and-lines-3a-3b.md",
       "docs/adr/0036-schedule-attachment-ontology.md",
       "docs/adr/0038-qdcg-worksheet-and-declared-absence.md",
