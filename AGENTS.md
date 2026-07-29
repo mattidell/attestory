@@ -322,7 +322,7 @@ Read a document when its **When** column applies to you — not before.
 | `PROJECT_PLANNING.md` | Planning protocol, milestone/track rules, capsule contracts, prototype gates, branch/commit protocol, document layout, ADR and retrospective shapes, archive rules | Foreman, when planning or chartering |
 | `docs/adr/INDEX.md` | ADR routing (advisory) | On boot — digests only. Read a full ADR only when acting on its exact text |
 | `docs/phases/<phase>/` | Phase overview, roadmap, milestone plans | Foreman. **Builders and reviewers orient from their charter and Orientation Block, never from phase state** |
-| `docs/phase-state.md` | Product briefing, active pointer | Foreman and advisor |
+| `docs/phase-state.md` | High level milestone briefing, active pointer | Foreman and advisor |
 | `docs/milestone-retrospectives/` | Completed-milestone lessons | Foreman — when the initial milestone briefing names a specific retrospective as useful follow-up context |
 | `docs/governance/` | The sole contract authority | **Advisor only** (ADR-0045). Enforced for every other seat by CI and by the stop condition above |
 | `docs/roles/craft-notes.md` | Recurring how-to reminders per seat | When your seat file points you there |

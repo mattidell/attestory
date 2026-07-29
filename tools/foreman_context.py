@@ -276,18 +276,19 @@ def milestone_state_of(metadata: dict[str, Any], path: str) -> str:
 
 def resolve_milestone_state(
     repository: GitRepository,
+    phase: LoadedDocument,
     plan: LoadedDocument,
     metadata_path: str,
     ratified_ref: str = DEFAULT_RATIFIED_REF,
 ) -> dict[str, Any]:
-    """Check the plan's declared lifecycle state against the ratified record.
+    """Check phase-state's declared lifecycle state against the ratified record.
 
     Returns the state plus the checks that corroborated it. Raises when the
     declaration and the ratified line disagree: a foreman resuming into a tree
     whose plan PR merged (or whose closing PR merged) an hour ago must be told,
     not left to infer it from a status sentence written before the merge.
     """
-    state = milestone_state_of(plan.metadata, plan.path)
+    state = milestone_state_of(phase.metadata, phase.path)
     track = TRACK_STATE.match(state)
     expect_plan, expect_retrospective = (True, False) if track else STATE_EXPECTATIONS[state]
 
@@ -296,7 +297,10 @@ def resolve_milestone_state(
         # The closing unit is the retrospective's merge, so its path is known as
         # soon as the milestone starts closing. Requiring it here is what makes
         # the end-of-milestone transition mechanically checkable.
-        raise ContextError(f"{plan.path} milestone_state {state!r} requires a 'retrospective' path")
+        raise ContextError(
+            f"{phase.path} milestone_state {state!r} requires the active plan "
+            "to name a 'retrospective' path"
+        )
     retrospective = (
         require_relative_path(str(raw_retrospective), f"{plan.path} metadata 'retrospective'")
         if raw_retrospective
@@ -538,7 +542,7 @@ def render_context(
         }
     source_documents = [{"path": item.path, "blob": item.blob} for item in sources]
     source_documents.append({"path": current_prompt_path, "blob": current_prompt_blob})
-    milestone = resolve_milestone_state(repository, plan, plan.path, ratified_ref)
+    milestone = resolve_milestone_state(repository, phase, plan, plan.path, ratified_ref)
     briefing_follow_up = validate_initial_briefing_follow_up(
         repository, plan, topic, milestone
     )
@@ -579,6 +583,7 @@ def render_context(
             "phase": required_string(phase.metadata, "phase", phase.path),
             "topic": topic,
             "active_plan": active_plan_path,
+            "milestone_state": milestone["state"],
             "plan_status": required_string(plan.metadata, "status", plan.path),
             "status": required_string(phase.metadata, "status", phase.path),
             "current_role": required_string(phase.metadata, "current_role", phase.path),
