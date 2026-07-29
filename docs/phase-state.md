@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, ADR-0050 RECHECK CHARTERED.** The bounded drafting repair returned at `4a1c643`, limited to ADR-0050, its advisory index row, and the evidence analysis. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: launch the focused author-independent Recheck Reviewer.",
-  "current_role": "Reviewer — recheck repaired proposed ADR-0050",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-recheck-adr0050.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, ADR-0050 REPAIR 2 CHARTERED.** The focused recheck returned `NOT READY` at `fe7a0cd` on one bounded drafting mismatch: the Q=0 / closure-backed-L=0 ordinary branch must directly pin neither declaration nor checked conclusion, matching R2-Q3. No new evidence is required. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: launch the Contract Repair Builder.",
+  "current_role": "Builder — repair ADR-0050 both-zero direct pins",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-repair2-adr0050.md"
 }
 -->
 # Phase State

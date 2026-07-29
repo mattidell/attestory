@@ -43,3 +43,11 @@
   advisory index entry, and the evidence analysis.
 - **Disposition:** one focused author-independent recheck is chartered against
   the five original findings.
+
+## 2026-07-29 — ADR-0050 recheck found one drafting residual
+
+- **Category:** no process incident.
+- **Event:** the recheck confirmed three findings and left one conflicting
+  both-zero direct-pin contract spanning F2/F3.
+- **Disposition:** one two-file drafting repair is chartered from the already
+  confirmed R2-Q3 evidence; no evidence climb or topology change.
