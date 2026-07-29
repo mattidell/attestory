@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. The focused ADR-0050 recheck returned `NOT READY` at `fe7a0cd` on one bounded both-zero direct-pin mismatch already settled by R2-Q3. No new evidence is required. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: launch the Builder against docs/prototypes/capital-gain-distributions-line7a/charter-repair2-adr0050.md.",
+  "status": "TRACK 0 ACTIVE. ADR-0050 Repair 2 returned at `4e19c09`, limited to the two chartered files. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: launch the final focused Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-final-recheck-adr0050.md.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

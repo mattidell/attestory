@@ -51,3 +51,10 @@
   both-zero direct-pin contract spanning F2/F3.
 - **Disposition:** one two-file drafting repair is chartered from the already
   confirmed R2-Q3 evidence; no evidence climb or topology change.
+
+## 2026-07-29 — ADR-0050 Repair 2 returned
+
+- **Category:** no incident.
+- **Event:** the Builder returned the two-file both-zero direct-pin repair.
+- **Disposition:** one final focused recheck is chartered against R1 and
+  regressions of the already-passed contract gates.
