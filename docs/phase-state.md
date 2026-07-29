@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, REPAIR 1 CONFIRMATION CHARTERED.** Repair 1 returned at `a60e2d1` after adding the missing Exception-1 boxes-2b/2c/2d authority component and correcting the QDCG selection/binding claim. The plan's single repair pass is spent. Contract synthesis remains blocked pending one author-independent Rung-1 confirmation of T-F1, T-F2, and the retained P2/P3 boundaries. NEXT ACTION: launch the local Confirmation Reviewer.",
-  "current_role": "Reviewer — confirm Repair 1 component authority and QDCG handoff",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-repair1-confirmation.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, REPAIR 2 CHARTERED.** Repair 1 confirmation returned `NOT READY` at `f84b2ba`: T-F1 and T-F2 were not confirmed, while the regression boundary remained intact. The owner amended the cap and authorized one final Rung-1 repair limited to F1–F4. Contract synthesis remains blocked. NEXT ACTION: dispatch the High/high Repair Builder.",
+  "current_role": "Repair Builder — reconcile final component-authority and QDCG paper",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-repair2.md"
 }
 -->
 # Phase State

@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. Repair 1 returned at `a60e2d1` after addressing the two owner-directed findings on component authority and QDCG selection/binding. The single repair pass is spent. Contract synthesis remains blocked pending one author-independent Rung-1 confirmation of T-F1, T-F2, and the retained P2/P3 boundaries. NEXT ACTION: launch the focused Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-repair1-confirmation.md.",
+  "status": "TRACK 0 ACTIVE. Repair 1 confirmation returned `NOT READY` at `f84b2ba`: T-F1/T-F2 were not confirmed and the regression boundary remained intact. The owner amended the cap to authorize one final Rung-1 repair limited to F1–F4. NEXT ACTION: dispatch the High/high Repair Builder against docs/prototypes/capital-gain-distributions-line7a/charter-repair2.md.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -267,7 +267,9 @@ reviewers. Rung 4 is not authorized for contract selection.
 - Two clean-room Builder iterations total, one incumbent and one genuine rival.
 - Two default committee Reviewers: contract/adversary fidelity at High/high and
   implementation expressiveness at Medium–High/medium.
-- At most one owner-directed repair pass after the rival round.
+- At most two owner-directed repair passes after the rival round. The owner
+  authorized the second and final pass on 2026-07-28 after focused
+  confirmation returned `NOT READY`.
 - A third Reviewer only for a named uncertainty neither default charter
   measures.
 - Foreman High/high for triage and disposition; the foreman performs process
