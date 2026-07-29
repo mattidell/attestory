@@ -125,11 +125,30 @@ def _load_w2_box1_format(repo_root: Path) -> dict[str, Any]:
         raise EntryLoopError("entry-format-unavailable") from None
     if not isinstance(spec, dict):
         raise EntryLoopError("entry-format-unavailable")
-    if not isinstance(spec.get("currencySymbol"), str):
+    currency_symbol = spec.get("currencySymbol")
+    if not isinstance(currency_symbol, str) or not currency_symbol:
         raise EntryLoopError("entry-format-unavailable")
     if spec.get("commaGrouping") not in {"accepted", "refused"}:
         raise EntryLoopError("entry-format-unavailable")
     if spec.get("currencyPrefix") not in {"accepted", "refused"}:
+        raise EntryLoopError("entry-format-unavailable")
+    max_fraction_digits = spec.get("maxFractionDigits")
+    if (
+        not isinstance(max_fraction_digits, int)
+        or isinstance(max_fraction_digits, bool)
+        or max_fraction_digits < 0
+    ):
+        raise EntryLoopError("entry-format-unavailable")
+    if not isinstance(spec.get("requirePositive"), bool):
+        raise EntryLoopError("entry-format-unavailable")
+    max_value = spec.get("maxValue")
+    if not isinstance(max_value, str):
+        raise EntryLoopError("entry-format-unavailable")
+    try:
+        parsed_max_value = Decimal(max_value)
+    except InvalidOperation:
+        raise EntryLoopError("entry-format-unavailable") from None
+    if not parsed_max_value.is_finite() or parsed_max_value <= 0:
         raise EntryLoopError("entry-format-unavailable")
     return spec
 
@@ -324,39 +343,72 @@ def _parse_box1_with_format(
     # `int | float | str`, which mypy correctly refuses.
     normalized: str | int | float = value
     if isinstance(normalized, str):
-        value = normalized
+        negative = normalized.startswith("-")
+        if negative:
+            if format_spec.get("requirePositive") is True:
+                raise EntryLoopError("entry-value-invalid")
+            normalized = normalized[1:]
         currency_symbol = format_spec.get("currencySymbol")
         if not isinstance(currency_symbol, str):
             raise EntryLoopError("entry-format-unavailable")
-        if value.startswith(currency_symbol):
+        if normalized.startswith(currency_symbol):
             if format_spec.get("currencyPrefix") != "accepted":
                 raise EntryLoopError("entry-value-invalid")
-            normalized = value[len(currency_symbol) :]
+            normalized = normalized[len(currency_symbol) :]
             if normalized.startswith(currency_symbol):
                 raise EntryLoopError("entry-value-invalid")
-        elif currency_symbol in value:
+        elif currency_symbol in normalized:
             raise EntryLoopError("entry-value-invalid")
 
+        max_fraction_digits = format_spec.get("maxFractionDigits")
+        if (
+            not isinstance(max_fraction_digits, int)
+            or isinstance(max_fraction_digits, bool)
+            or max_fraction_digits < 0
+        ):
+            raise EntryLoopError("entry-format-unavailable")
+        fraction = (
+            rf"(?:\.\d{{1,{max_fraction_digits}}})?"
+            if max_fraction_digits
+            else ""
+        )
         if format_spec.get("commaGrouping") == "accepted":
-            pattern = r"^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?$"
+            pattern = rf"^(?:\d{{1,3}}(?:,\d{{3}})*|\d+){fraction}$"
         else:
-            pattern = r"^\d+(?:\.\d{1,2})?$"
+            pattern = rf"^\d+{fraction}$"
         if not re.fullmatch(pattern, normalized):
             raise EntryLoopError("entry-value-invalid")
         normalized = normalized.replace(",", "")
+        if negative:
+            normalized = "-" + normalized
     try:
         amount = Decimal(str(normalized))
     except (InvalidOperation, ValueError):
         raise EntryLoopError("entry-value-invalid") from None
-    exponent = amount.as_tuple().exponent
-    if (
-        not amount.is_finite()
-        or amount <= 0
-        or not isinstance(exponent, int)
-        or exponent < -2
-    ):
+    if not amount.is_finite():
         raise EntryLoopError("entry-value-invalid")
-    if amount > Decimal("999999999.99"):
+    require_positive = format_spec.get("requirePositive")
+    if not isinstance(require_positive, bool):
+        raise EntryLoopError("entry-format-unavailable")
+    if require_positive and amount <= 0:
+        raise EntryLoopError("entry-value-invalid")
+    max_fraction_digits = format_spec.get("maxFractionDigits")
+    max_value = format_spec.get("maxValue")
+    if (
+        not isinstance(max_fraction_digits, int)
+        or isinstance(max_fraction_digits, bool)
+        or max_fraction_digits < 0
+        or not isinstance(max_value, str)
+    ):
+        raise EntryLoopError("entry-format-unavailable")
+    exponent = amount.as_tuple().exponent
+    if not isinstance(exponent, int) or exponent < -max_fraction_digits:
+        raise EntryLoopError("entry-value-invalid")
+    try:
+        maximum = Decimal(max_value)
+    except InvalidOperation:
+        raise EntryLoopError("entry-format-unavailable") from None
+    if not maximum.is_finite() or amount > maximum:
         raise EntryLoopError("entry-value-invalid")
     return int(amount) if amount == amount.to_integral_value() else float(amount)
 

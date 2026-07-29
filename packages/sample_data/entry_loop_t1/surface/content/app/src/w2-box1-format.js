@@ -7,7 +7,8 @@ export const W2_BOX1_FORMAT = {
   "currencySymbol": "$",
   "currencyPrefix": "accepted",
   "maxFractionDigits": 2,
-  "requirePositive": true
+  "requirePositive": true,
+  "maxValue": "999999999.99"
 };
 
 function acceptedFormattingText(format) {

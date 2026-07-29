@@ -1,7 +1,7 @@
 {
   "packages": [
     {
-      "checksum": "1d48bfc4b7e42458ba6d20af4c08935c0cb784dfd4d078269dd08824e96671b8",
+      "checksum": "f454f5e3a9a40cd3d015d97318b985cd88384fbb2db7cf261fe5db9540659730",
       "id": "demo.surface.entry-loop",
       "version": "v1"
     }

@@ -15,8 +15,10 @@ from typing import Any, cast
 from packages.derivation.entry_loop import (
     COMPARISON_LINES,
     EXPECTED_IMPACT_LINES,
+    EntryLoopError,
     EntryLoopServer,
     SyntheticW2EntryRuntime,
+    _parse_box1_with_format,
     build_entry_surface,
     load_seed_acts,
     resolve_entry_surface,
@@ -225,6 +227,9 @@ class EntryAndCorrection(RuntimeFixture):
         spec = self.runtime._w2_box1_format
         self.assertEqual(spec["commaGrouping"], "accepted")
         self.assertEqual(spec["currencyPrefix"], "accepted")
+        self.assertEqual(spec["maxFractionDigits"], 2)
+        self.assertTrue(spec["requirePositive"])
+        self.assertEqual(spec["maxValue"], "999999999.99")
 
         entered = self.enter("90,000")
         self.assertTrue(entered["complete"])
@@ -234,6 +239,20 @@ class EntryAndCorrection(RuntimeFixture):
         self.assertTrue(corrected["complete"])
         self.assertEqual(corrected["last_action"], "corrected")
         self.assertEqual(corrected["answered"][0]["value"], 90000.5)
+
+    def test_validator_uses_all_declared_numeric_controls(self) -> None:
+        spec = dict(self.runtime._w2_box1_format)
+        spec["maxFractionDigits"] = 3
+        spec["requirePositive"] = False
+        spec["maxValue"] = "1000.000"
+
+        self.assertEqual(_parse_box1_with_format("1.234", spec), 1.234)
+        self.assertEqual(_parse_box1_with_format("0", spec), 0)
+        self.assertEqual(_parse_box1_with_format("-1.000", spec), -1)
+        with self.assertRaisesRegex(EntryLoopError, "entry-value-invalid"):
+            _parse_box1_with_format("1.2345", spec)
+        with self.assertRaisesRegex(EntryLoopError, "entry-value-invalid"):
+            _parse_box1_with_format("1000.001", spec)
 
     def test_malformed_entry_is_visible_redacted_and_does_not_advance(self) -> None:
         initial = self.runtime.snapshot().payload
