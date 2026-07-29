@@ -2,9 +2,9 @@
 
 ## Current step
 
-The contract/adversary review returned at `7dc6c40`. The second independent
-committee seat, expressiveness review, is chartered and sealed from that first
-review. No repair seat is active.
+Both committee reviews returned. The owner selected the component-backed
+topology and authorized the plan's single bounded repair pass for T-F1/T-F2.
+Repair 1 is chartered; no confirmation reviewer is active.
 
 ## Seats
 
@@ -13,8 +13,8 @@ review. No repair seat is active.
 | Foreman | Current foreman thread | Active; scope/economy and custody only |
 | Rival Builder | Owner-launched context on `prototypes/capital-gain-distributions-line7a/it2` | Returned at `099882e` |
 | Contract/adversary Reviewer | Local independent context | Returned at `7dc6c40` |
-| Expressiveness Reviewer | Local independent context | Chartered; ready for launch |
-| Repair Builder | Unassigned | Not chartered; owner direction required after rival round |
+| Expressiveness Reviewer | Local independent context | Returned at `d73fca2` |
+| Repair Builder | Selected rival Builder context | Chartered; ready for local owner launch |
 
 ## Binding handoff
 
@@ -28,6 +28,5 @@ review. No repair seat is active.
 
 ## Next action
 
-Launch the local expressiveness Reviewer against
-`charter-review-expressiveness.md`. On return, the foreman takes custody,
-compares both sealed committee records, and performs Gate-5 triage.
+Launch the local Repair Builder against `charter-repair1.md`. On return, the
+foreman takes custody and charters one focused confirmation review.

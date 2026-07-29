@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. The contract/adversary review returned at 7dc6c40. The independent expressiveness Reviewer is chartered to recover both exact Rung-1 designs across all ten shared cases without reading the first review or foreman findings. No repair is chartered. NEXT ACTION: launch the local expressiveness Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-review-expressiveness.md; on return the foreman compares both sealed reviews and performs Gate-5 triage.",
+  "status": "TRACK 0 ACTIVE. The owner selected the component-backed authority topology. Round-1 triage found two decision-blocking defects: the selected component inventory omits the Exception-1 boxes-2b/2c/2d absence condition, and its qualified-zero case incorrectly bypasses QDCG despite positive line 7a. The owner authorized the single Rung-1 repair pass, assigned to the selected rival Builder for continuity. NEXT ACTION: launch Repair 1 against docs/prototypes/capital-gain-distributions-line7a/charter-repair1.md; on return the foreman charters focused confirmation.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
