@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0 ACTIVE.** The owner merge of this prototype-plan unit is its approval record. PR #103 merged as 7554ddf with the milestone planned. One conclusion-level incumbent and one component-backed rival must answer the same paper cases for direct-route authority, box-2a family promotion, and the QDCG handoff. The initially authorized evidence is static paper instantiation; no production code or real-data operation is in scope. No Builder charter is included in this planning unit. NEXT ACTION: the foreman files the incumbent Builder charter and advances this pointer in the same commit.",
-  "current_role": "Foreman — Track 0 prototype plan approved; prepare incumbent Builder charter",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/plan.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, INCUMBENT ITERATION CHARTERED.** PR #106 merged as bdaf780, approving the prototype plan. The conclusion-level incumbent must answer P1–P3 against all ten shared paper cases at Rung 1 only. Its branch, charter, outputs, and stop conditions are recorded in the topic SEAT file. No rival or reviewer is chartered. NEXT ACTION: owner-launch the incumbent Builder; on return, the foreman takes custody and charters the clean-room rival without exposing incumbent output.",
+  "current_role": "Incumbent Builder — Rung 1 conclusion-level authority design",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-it1.md"
 }
 -->
 # Phase State
