@@ -2,9 +2,9 @@
 
 ## Current step
 
-The ADR-0050 contract review returned `NOT READY` at `4784316` with five
-bounded drafting findings and no need for new prototype evidence. One contract
-drafting repair is chartered; ADR-0050 remains inert and production remains
+The ADR-0050 drafting repair returned at `4a1c643`, limited to the three
+chartered files. One focused author-independent recheck is chartered against
+the five original findings. ADR-0050 remains inert and production remains
 blocked.
 
 ## Seats
@@ -21,7 +21,8 @@ blocked.
 | Repair 2 Confirmation Reviewer | Fresh author-independent context | Returned at `1e18e64` — `READY` |
 | Contract Synthesis Builder | Fresh High/high context | Returned at `6ec26fd` |
 | ADR-0050 Contract Reviewer | Fresh author-independent High/high context | Returned at `4784316` — `NOT READY` |
-| ADR-0050 Contract Repair Builder | Synthesis context | Chartered; ready for local owner launch |
+| ADR-0050 Contract Repair Builder | Synthesis context | Returned at `4a1c643` |
+| ADR-0050 Recheck Reviewer | Author-independent focused context | Chartered; ready for local owner launch |
 
 ## Binding handoff
 
@@ -35,6 +36,6 @@ blocked.
 
 ## Next action
 
-Launch the local Builder against `charter-repair-adr0050.md`. On return, the
-foreman takes custody and charters a focused recheck; no production role starts
-from a proposed ADR.
+Launch the local Reviewer against `charter-recheck-adr0050.md`. On return, the
+foreman takes custody and routes either owner ratification or the reported
+residual; no production role starts from a proposed ADR.

@@ -35,3 +35,11 @@
   drafting findings and no need for new prototype evidence.
 - **Disposition:** charter one bounded ADR-0050 drafting repair against the
   five findings.
+
+## 2026-07-29 — ADR-0050 drafting repair returned
+
+- **Category:** no incident.
+- **Event:** the repair Builder returned changes limited to ADR-0050, its
+  advisory index entry, and the evidence analysis.
+- **Disposition:** one focused author-independent recheck is chartered against
+  the five original findings.

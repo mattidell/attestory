@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. The ADR-0050 contract review returned `NOT READY` at `4784316` with five bounded drafting findings and no need for new prototype evidence. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: launch the High/high Builder against docs/prototypes/capital-gain-distributions-line7a/charter-repair-adr0050.md.",
+  "status": "TRACK 0 ACTIVE. The bounded ADR-0050 drafting repair returned at `4a1c643`, limited to the three chartered files. ADR-0050 remains proposed and inert; production remains blocked. NEXT ACTION: launch the focused author-independent Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-recheck-adr0050.md.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
