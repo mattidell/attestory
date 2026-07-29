@@ -254,6 +254,22 @@ class EntryAndCorrection(RuntimeFixture):
         with self.assertRaisesRegex(EntryLoopError, "entry-value-invalid"):
             _parse_box1_with_format("1000.001", spec)
 
+    def test_parser_rejects_malformed_max_value_ceilings(self) -> None:
+        """Parser fails closed on non-positive / non-finite maxValue (Track 2d F1)."""
+        base = dict(self.runtime._w2_box1_format)
+        base["requirePositive"] = False
+
+        for bad_ceiling in ("0", "-1", "-0.01", "NaN", "Infinity", "-Infinity"):
+            with self.subTest(maxValue=bad_ceiling):
+                spec = dict(base, maxValue=bad_ceiling)
+                with self.assertRaisesRegex(EntryLoopError, "entry-format-unavailable"):
+                    _parse_box1_with_format("0", spec)
+                with self.assertRaisesRegex(EntryLoopError, "entry-format-unavailable"):
+                    _parse_box1_with_format("-1", spec)
+
+        with self.assertRaisesRegex(EntryLoopError, "entry-format-unavailable"):
+            _parse_box1_with_format("1", dict(base, maxValue="not-a-number"))
+
     def test_malformed_entry_is_visible_redacted_and_does_not_advance(self) -> None:
         initial = self.runtime.snapshot().payload
         original_revision = initial["revision"]

@@ -408,7 +408,11 @@ def _parse_box1_with_format(
         maximum = Decimal(max_value)
     except InvalidOperation:
         raise EntryLoopError("entry-format-unavailable") from None
-    if not maximum.is_finite() or amount > maximum:
+    # Fail closed on a malformed ceiling independently of the loader path:
+    # non-finite or non-positive maxValue is a format defect, not a value defect.
+    if not maximum.is_finite() or maximum <= 0:
+        raise EntryLoopError("entry-format-unavailable")
+    if amount > maximum:
         raise EntryLoopError("entry-value-invalid")
     return int(amount) if amount == amount.to_integral_value() else float(amount)
 
