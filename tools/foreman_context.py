@@ -298,8 +298,8 @@ def resolve_milestone_state(
         # soon as the milestone starts closing. Requiring it here is what makes
         # the end-of-milestone transition mechanically checkable.
         raise ContextError(
-            f"{phase.path} milestone_state {state!r} requires the active plan "
-            "to name a 'retrospective' path"
+            f"{phase.path} milestone_state {state!r} requires a 'retrospective' "
+            "path in the active plan"
         )
     retrospective = (
         require_relative_path(str(raw_retrospective), f"{plan.path} metadata 'retrospective'")
