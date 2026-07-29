@@ -147,16 +147,22 @@ review, owner ratification, and merge.
    numeric publications are closure-backed zero. When QDCG is selected and
    Schedule D is not filed, worksheet line 1 binds to selected taxable
    income, line 2 to qualified dividends, and line 3 to the selected Form
-   1040 line-7a publication only. For every qualified-positive branch, retain
-   the two ADR-0038 declaration dependencies: the current
-   `capital-gain-distributions` declaration and the checked Schedule-D
-   conclusion. On the direct positive-line-7a branch the declaration is
-   current `"yes"`, consistent with the successor non-null box-2a member
-   signal; on the Q-positive, closure-backed-L-zero branch it is current
-   `"no"`, exactly as in R2-Q2, because no box-2a member signal is present.
-   The Q-zero branches do not add a separate declaration read; they use the
-   selected line-7a state and the checked conclusion already required by the
-   direct route. These are the sole declaration/pin sets for their branches.
+   1040 line-7a publication only. Direct declaration/conclusion pins on line
+   16 are branch-specific (reproducing R2-Q1–Q3 and the qualified-positive
+   positive-L path); they are not one set shared by every numeric branch:
+
+   | Qualified dividends Q | Selected line 7a L | Line-16 direct declaration/conclusion pins |
+   | --- | --- | --- |
+   | Q>0 | closure-backed L=0 | current `capital-gain-distributions="no"` plus checked conclusion `"no"` (R2-Q2) |
+   | Q=0 | L>0 | checked conclusion `"no"` only; no separate line-16 read of `capital-gain-distributions` (R2-Q1 / R2-E) |
+   | Q>0 | L>0 | current `capital-gain-distributions="yes"` plus checked conclusion `"no"` (consistent with the non-null successor member signal) |
+   | Q=0 | closure-backed L=0 | **neither** declaration nor checked conclusion; ordinary result only (R2-Q3) |
+
+   On the both-zero ordinary branch, line 16 directly pins taxable income,
+   filing status, rounding, Q=0, the selected closure-backed line-7a-zero
+   publication, ordinary tax parameters, and its citation — exactly R2-Q3.
+   Authority and closure pins already carried by the line-7a-zero publication
+   remain transitive lineage and are not restated as new direct line-16 pins.
    No raw box-2a member collect, no historical recorded-boxes read, and no
    assumed zero from absence, open family, or Schedule-D-required conclusion.
    When the checked conclusion is `"yes"`, the direct-route capital-gain
@@ -176,8 +182,19 @@ review, owner ratification, and merge.
      (`tax.us.2025.citation.form1040.line-7b@v1`);
    - line 9 → its ordinary inputs plus line 7a exactly once;
    - taxable income → the existing declared upstream publications; and
-   - line 16 → its selected taxable-income, Q/L, active declaration/conclusion,
-     parameter, and exact citation inputs for the active branch.
+   - line 16 → branch-specific selected taxable-income, Q/L, declaration/
+     conclusion (only when Decision 7 requires them for that branch),
+     parameter, and exact citation inputs.
+
+   For the Q=0 / closure-backed-L=0 ordinary branch, the exact direct set is
+   taxable income, filing status, rounding, Q=0, selected closure-backed
+   line-7a-zero, ordinary tax parameters, and citation (R2-Q3). That set
+   includes neither `capital-gain-distributions` nor the checked conclusion;
+   component/closure authority stays on the line-7a-zero publication as
+   transitive lineage. The three QDCG branches use Decision 7's table: R2-Q2
+   pins declaration `"no"` and conclusion `"no"`; R2-Q1 / positive L pins
+   conclusion `"no"` without a separate declaration read; Q>0 and L>0 pins
+   declaration `"yes"` and conclusion `"no"`.
 
    A downstream result does not acquire additional direct pins to transitive
    upstream findings; transitive lineage remains transitive. The line-7a and
@@ -191,10 +208,12 @@ review, owner ratification, and merge.
    and same batch; mixed historical/successor box-2a graph rejection; no raw
    downstream box-2a read into line 9 or line 16; line-9 and taxable-income
    blocking through a guard-inapplicable line 7a; QDCG selection for Q=0/L>0,
-   Q>0/L=0, and ordinary-only when both are closure-backed zero; the
-   Q-positive declaration/pin branches; the exact line-7b citation pin; and
-   forward and reverse component correction cascading through line 7a → 9 →
-   taxable income → 16 without reviving displaced history.
+   Q>0/L=0, and ordinary-only when both are closure-backed zero with the
+   R2-Q3 declaration/conclusion-free direct pin set; the three QDCG
+   declaration/conclusion pin branches from Decision 7; the exact line-7b
+   citation pin; and forward and reverse component correction cascading
+   through line 7a → 9 → taxable income → 16 without reviving displaced
+   history.
 
 9. **Relationship to ADR-0035 and ADR-0038.** Accepted ADR text, published
    schemas, manifests, and content remain immutable history. This proposed
@@ -206,7 +225,7 @@ review, owner ratification, and merge.
    | ADR-0035 decision 3: box 2a recorded-non-composable; signal from recorded content | Universe successor makes box 2a a composable family; signal re-homes to current non-null successor members; historical recorded-boxes shape remains published history |
    | ADR-0035 universe completeness claim over {1a, 1b} only | Successor universe claims composable {1a, 1b, 2a}; residual excluded boxes stay non-composable |
    | ADR-0038 decision 1: `capital-gain-distributions` and Schedule-D-required are two contributed declarations read on the qualified-positive path | The historical Schedule-D-required authority is replaced for the successor direct route by C1–C4 plus the checked conclusion; the current `capital-gain-distributions` declaration remains a required/pinned qualified-positive input, with `"yes"` on a positive line-7a member branch and `"no"` on the closure-backed-L-zero branch |
-   | ADR-0038 decision 2/3: historical qualified-zero reduction and no box-2a route | Successor replaces that boundary for the direct route when L>0: QDCG is selected and worksheet line 3 binds to selected line 7a; the ordinary reduction remains only when Q=0 and closure-backed L=0; no raw box-2a route |
+   | ADR-0038 decision 2/3: historical qualified-zero reduction and no box-2a route | Successor replaces that boundary for the direct route when L>0: QDCG is selected and worksheet line 3 binds to selected line 7a. When Q=0 and selected line 7a is also closure-backed zero, ADR-0038's declaration-free ordinary reduction remains declaration/conclusion-free (R2-Q3): line 16 pins selected line-7a-zero among its ordinary inputs and does not add a checked-conclusion or `capital-gain-distributions` direct pin. No raw box-2a route |
    | ADR-0038 decision 5: contradiction vs `CAPITAL_GAIN_DISTRIBUTION_RECORDED` | Preserved with successor signal feed |
 
 ## Production conditions (owed after ratification; never allowlisted)

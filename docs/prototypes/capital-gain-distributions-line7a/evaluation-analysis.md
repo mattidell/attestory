@@ -30,10 +30,16 @@ regression boundary.
 | Finding | Status | Closed contract point |
 | --- | --- | --- |
 | F1 | **CLOSED** | `guard_inapplicable` line 7a fixes line 9 as `blocked(DEPENDENCY_ABSENT)` on selected line 7a and blocks taxable income through line 9; missing-authority blocking and closure-backed zero remain distinct. |
-| F2 | **CLOSED** | The four components plus checked conclusion replace only the successor direct-route Schedule-D-required authority; the ADR-0038 `capital-gain-distributions` declaration remains pinned on qualified-positive branches (`"yes"` for a positive line-7a member path, `"no"` for R2-Q2 closure-backed L=0). |
-| F3 | **CLOSED** | Direct pins are stated hop by hop; transitive lineage is not restated as direct pins. |
+| F2 | **CLOSED** (Repair 2 drafting) | Four explicit Q/L declaration/conclusion pin sets: Q>0/L=0 pins declaration `"no"` + conclusion `"no"`; Q=0/L>0 pins conclusion `"no"` only; Q>0/L>0 pins declaration `"yes"` + conclusion `"no"`; Q=0/L=0 ordinary pins **neither** (R2-Q3). ADR-0038's declaration-free qualified-zero reduction remains declaration/conclusion-free when selected line 7a is also closure-backed zero. |
+| F3 | **CLOSED** (Repair 2 drafting) | Direct pins hop by hop; line-16 both-zero set reproduces R2-Q3 exactly; transitive lineage is not restated as direct pins. |
 | F4 | **CLOSED** | Line 7b pins the exact 2025 Instructions for Form 1040, Line 7b paragraph beginning “If Exception 1 applies, check the ‘Schedule D not required’ box on line 7b.” |
 | F5 | **CLOSED** | ADR-0050 Links and this analysis name `exhibits/capital-gain-distributions-line7a/it1` and `exhibits/capital-gain-distributions-line7a/it2`; status remains proposed/inert. |
+
+| Milestone Contracts 7–8 / history | Status | Result |
+| --- | --- | --- |
+| Contract 7 — Tax | **CLOSED** by Repair 2 drafting | One evidence-backed declaration/conclusion pin set per Q/L branch, including both-zero ordinary (R2-Q3). |
+| Contract 8 — Citation and presentation | **CLOSED** by Repair 2 drafting | Line-7b citation closed earlier; line-16 branch-specific direct-input contract now matches R2-Q1–Q3. |
+| History compatibility (ADR-0038 Q-zero) | **CLOSED** by Repair 2 drafting | Both-zero ordinary remains declaration/conclusion-free; other three branch contracts unchanged. |
 
 ## Clause-to-evidence map (adopted ADR-0050 decisions)
 
@@ -45,9 +51,9 @@ regression boundary.
 | D4 Contradiction interlock | `"no"` declaration vs signal; both orders + same batch; successor signal feed | `it2/design.md` P2 sentence 5; ADR-0038 decision 5 consumed; confirmation §8.2 |
 | D5 Line 7a / 7b dispositions | Distinct fields; blocked vs guard-inapplicable vs zero vs positive | `repair2/design.md` §§3.1, 4–5 (R2-E/M/N); confirmation F1 disposition table |
 | D6 Line 9 once + displacement chain | Line-9 successor adds selected line 7a once; `guard_inapplicable` line 7a blocks line 9 and taxable income through line 9; cascade via ADR-0010 | `it2/design.md` P3; `repair2/design.md` §§4.2, 5 (R2-N), 6 (R2-L); confirmation F2 and N2 |
-| D7 Line-16 partition + QDCG | Typed match on line-7a disposition; QDCG if Q>0 or L>0; ordinary only both closure-backed zero; worksheet line 3 = line 7a; Q-positive declaration pins retained by branch (`"yes"` for positive line 7a, `"no"` for closure-backed L=0); no raw/assumed zero | `repair2/design.md` §7; confirmation F3/F4/T-F2; R2-Q2 exact declaration row; `round-1-triage.md` T-F2 |
-| D8 Pins / citations / kill tests | Direct hop-by-hop pin graph; exact line-7b citation locus and pin; production kill-test inventory | `repair2/design.md` §§4.2, 6–8; confirmation F1–F4; 2025 Form 1040 instructions, Line 7b; plan Gate-7 production boundary |
-| D9 Relation to ADR-0035 / 0038 | Accepted history immutable; four components + checked conclusion replace only the successor direct-route Schedule-D-required authority; the two-declaration qualified-positive path retains `capital-gain-distributions` | `docs/adr/0035-dividend-composition-and-lines-3a-3b.md`; `docs/adr/0038-qdcg-worksheet-and-declared-absence.md` decision 1; `it2/design.md` P3 sentence 4; repair2 §1 ledger + §7 |
+| D7 Line-16 partition + QDCG | Typed match on line-7a disposition; QDCG if Q>0 or L>0; ordinary only both closure-backed zero; worksheet line 3 = line 7a; four branch pin sets (Q>0/L=0: decl `"no"`+concl `"no"`; Q=0/L>0: concl `"no"` only; Q>0/L>0: decl `"yes"`+concl `"no"`; Q=0/L=0: neither); no raw/assumed zero | `repair2/design.md` §7 R2-Q1–Q3; confirmation F3/F4/T-F2; `reviews/adr0050-contract-recheck.md` R1 residual; `adr0050-recheck-disposition.md` |
+| D8 Pins / citations / kill tests | Direct hop-by-hop pin graph; line-16 both-zero direct set = R2-Q3 (no declaration/conclusion); exact line-7b citation; production kill-test inventory | `repair2/design.md` §§4.2, 6–8 and R2-Q3; confirmation F1–F4; 2025 Form 1040 instructions, Line 7b; plan Gate-7 production boundary |
+| D9 Relation to ADR-0035 / 0038 | Accepted history immutable; C1–C4 + checked conclusion replace only successor direct-route Schedule-D-required authority; qualified-positive branches retain `capital-gain-distributions`; ADR-0038 declaration-free Q-zero reduction remains free when L is also closure-backed zero | `docs/adr/0038-qdcg-worksheet-and-declared-absence.md` decisions 1–3; `repair2/design.md` R2-Q3; `it2/design.md` P3 sentence 4; repair2 §1 ledger + §7 |
 
 ## Rejected alternatives
 
@@ -92,12 +98,14 @@ regression boundary.
 ## Outcome
 
 P1, P2, and the coherent direct-route portion of P3 are settled at Rung 1 on
-the component-backed successor shape. The five bounded drafting findings are
-closed in proposed ADR-0050 and this analysis; the evidence ceiling remains
-Rung 1 committed synthetic paper evidence. They authorize neither production
+the component-backed successor shape. First-review findings F1–F5 and recheck
+residual R1 (both-zero direct pins) are closed in proposed ADR-0050 and this
+analysis by reproducing R2-Q3's declaration/conclusion-free ordinary set and
+stating all four Q/L branch pin sets. The evidence ceiling remains Rung 1
+committed synthetic paper evidence. They authorize neither production
 implementation, ADR ratification, merge, nor pointer advance. The next
-process step is the separately chartered author-independent ADR recheck, not
-an advance of this proposed/inert contract.
+process step is the separately chartered final recheck, not an advance of this
+proposed/inert contract.
 
 ## Stable evidence refs
 
