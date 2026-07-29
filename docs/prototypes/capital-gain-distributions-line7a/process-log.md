@@ -19,3 +19,11 @@
 - **Disposition:** both rival exhibits were preserved and assembled on the
   decision branch. Contract synthesis is chartered as a proposed, inert
   ADR-0050 unit; production remains blocked.
+
+## 2026-07-28 — Proposed ADR-0050 drafted
+
+- **Category:** no incident.
+- **Event:** the contract-synthesis Builder returned the proposed ADR, advisory
+  index entry, and evidence analysis.
+- **Disposition:** one author-independent contract review is chartered before
+  any owner-ratification decision.

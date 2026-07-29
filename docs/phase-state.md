@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, CONTRACT SYNTHESIS CHARTERED.** Final Repair 2 confirmation returned `READY` at `1e18e64`: F1–F4 and T-F1/T-F2 are confirmed and the regression boundary is intact. Both rival exhibits are preserved and assembled on the decision branch. NEXT ACTION: launch the High/high Contract Synthesis Builder to draft proposed ADR-0050 and its evidence analysis. Production remains blocked.",
-  "current_role": "Builder — synthesize proposed line-7a scope contract",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-contract-synthesis.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, ADR-0050 REVIEW CHARTERED.** The contract-synthesis Builder returned proposed ADR-0050, its advisory index row, and evidence analysis at `6ec26fd`. ADR-0050 remains inert and production remains blocked. NEXT ACTION: launch the High/high author-independent Contract Reviewer.",
+  "current_role": "Reviewer — test proposed ADR-0050 contract",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-review-adr0050.md"
 }
 -->
 # Phase State

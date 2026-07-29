@@ -2,10 +2,9 @@
 
 ## Current step
 
-Final Repair 2 confirmation returned `READY` at `1e18e64`. Both rival
-exhibits are preserved and assembled on the decision branch. Contract
-synthesis is chartered; production remains blocked until the proposed
-successor ADR is independently reviewed, owner-ratified, and merged.
+Proposed ADR-0050 and its evidence analysis returned at `6ec26fd`. One fresh
+author-independent contract review is chartered. ADR-0050 remains inert and
+production remains blocked.
 
 ## Seats
 
@@ -19,7 +18,8 @@ successor ADR is independently reviewed, owner-ratified, and merged.
 | Repair 1 Confirmation Reviewer | Author-independent local context | Returned at `f84b2ba` — `NOT READY` |
 | Repair 2 Builder | Dispatched High/high context | Returned at `c534f95` |
 | Repair 2 Confirmation Reviewer | Fresh author-independent context | Returned at `1e18e64` — `READY` |
-| Contract Synthesis Builder | Fresh High/high context | Chartered; ready for local owner launch |
+| Contract Synthesis Builder | Fresh High/high context | Returned at `6ec26fd` |
+| ADR-0050 Contract Reviewer | Fresh author-independent High/high context | Chartered; ready for local owner launch |
 
 ## Binding handoff
 
@@ -33,5 +33,6 @@ successor ADR is independently reviewed, owner-ratified, and merged.
 
 ## Next action
 
-Launch the local Builder against `charter-contract-synthesis.md`. On return,
-the foreman takes custody and charters an author-independent ADR review.
+Launch the local Reviewer against `charter-review-adr0050.md`. On return, the
+foreman takes custody and routes either bounded draft repair or owner
+ratification; no production role starts from a proposed ADR.
