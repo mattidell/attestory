@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. Repair 1 confirmation returned `NOT READY` at `f84b2ba`: T-F1/T-F2 were not confirmed and the regression boundary remained intact. The owner amended the cap to authorize one final Rung-1 repair limited to F1–F4. NEXT ACTION: dispatch the High/high Repair Builder against docs/prototypes/capital-gain-distributions-line7a/charter-repair2.md.",
+  "status": "TRACK 0 ACTIVE. The final Rung-1 repair returned at `c534f95`, reporting F1–F4 resolved and the regression boundary intact. Contract synthesis remains blocked pending one fresh author-independent confirmation. A `NOT READY` verdict returns to owner disposition because the repair cap is spent. NEXT ACTION: launch the focused Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-repair2-confirmation.md.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

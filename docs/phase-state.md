@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, REPAIR 2 CHARTERED.** Repair 1 confirmation returned `NOT READY` at `f84b2ba`: T-F1 and T-F2 were not confirmed, while the regression boundary remained intact. The owner amended the cap and authorized one final Rung-1 repair limited to F1–F4. Contract synthesis remains blocked. NEXT ACTION: dispatch the High/high Repair Builder.",
-  "current_role": "Repair Builder — reconcile final component-authority and QDCG paper",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-repair2.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, REPAIR 2 CONFIRMATION CHARTERED.** The final Rung-1 repair returned at `c534f95`, reporting F1–F4 resolved and the regression boundary intact. Contract synthesis remains blocked pending one fresh author-independent confirmation. A `NOT READY` verdict returns to owner disposition because the repair cap is spent. NEXT ACTION: launch the local Confirmation Reviewer.",
+  "current_role": "Reviewer — confirm final component-authority and QDCG paper",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-repair2-confirmation.md"
 }
 -->
 # Phase State
