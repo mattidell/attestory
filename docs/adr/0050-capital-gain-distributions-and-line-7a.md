@@ -119,6 +119,12 @@ review, owner ratification, and merge.
    any pinned component, family member, closure, or conclusion displaces
    dependents through ordinary derivation currency edges (ADR-0010); reverse
    correction adds new current findings and does not revive displaced history.
+   When selected line 7a is `guard_inapplicable` because the checked conclusion
+   is `"yes"`, line 9 is `blocked(DEPENDENCY_ABSENT)` on the selected line-7a
+   publication, and taxable income blocks through line 9. The same blocked
+   through-line-9 disposition applies when line 7a is blocked for missing
+   authority; neither path is a numeric zero or an alternate downstream
+   outcome.
 
 7. **Line-16 successor typed state partition and QDCG binding.** A versioned
    line-16 successor extends ADR-0038 for the contracted direct-route case
@@ -141,31 +147,54 @@ review, owner ratification, and merge.
    numeric publications are closure-backed zero. When QDCG is selected and
    Schedule D is not filed, worksheet line 1 binds to selected taxable
    income, line 2 to qualified dividends, and line 3 to the selected Form
-   1040 line-7a publication only. No raw box-2a member collect, no historical
-   recorded-boxes read, and no assumed zero from absence, open family, or
-   Schedule-D-required conclusion. When the checked conclusion is `"yes"`,
-   the direct-route capital-gain worksheet path remains
-   `guard_inapplicable` — no Schedule D netting and no reach-around.
+   1040 line-7a publication only. For every qualified-positive branch, retain
+   the two ADR-0038 declaration dependencies: the current
+   `capital-gain-distributions` declaration and the checked Schedule-D
+   conclusion. On the direct positive-line-7a branch the declaration is
+   current `"yes"`, consistent with the successor non-null box-2a member
+   signal; on the Q-positive, closure-backed-L-zero branch it is current
+   `"no"`, exactly as in R2-Q2, because no box-2a member signal is present.
+   The Q-zero branches do not add a separate declaration read; they use the
+   selected line-7a state and the checked conclusion already required by the
+   direct route. These are the sole declaration/pin sets for their branches.
+   No raw box-2a member collect, no historical recorded-boxes read, and no
+   assumed zero from absence, open family, or Schedule-D-required conclusion.
+   When the checked conclusion is `"yes"`, the direct-route capital-gain
+   worksheet path remains `guard_inapplicable` — no Schedule D netting and no
+   reach-around.
 
-8. **Pins, citations, presentation, and production kill tests.** Every
-   published line-7a, line-7b, line-9, taxable-income, and line-16 result
-   pins its authoritative producers: the four current Exception-1 component
-   findings (when in E), the checked conclusion, each current box-2a member
-   used (or mapping + closure for closed-empty zero), family declaration,
-   ordinary upstream publications consumed once, worksheet parameters, and
-   the Form 1040 line-7a / line-16 citation loci (ADR-0010 / ADR-0029).
-   Non-publication walks name the exact missing set (ADR-0020 / ADR-0037
-   where multi-absent naming is required). Presentation projects atomic
-   dispositions without rejected-value leakage (ADR-0046). Production must
-   kill-test at least: missing each component and missing-all-four; each
-   current-`"no"` component; closed-empty zero; multi-payer sum; same-member
-   correction without horizon advance; member removal with horizon advance;
-   contradiction in both temporal orders and same batch; mixed
-   historical/successor box-2a graph rejection; no raw downstream box-2a
-   read into line 9 or line 16; QDCG selection for Q=0/L>0, Q>0/L=0, and
-   ordinary-only when both are closure-backed zero; forward and reverse
-   component correction cascading through line 7a → 9 → taxable income → 16
-   without reviving displaced history.
+8. **Pins, citations, presentation, and production kill tests.** `Pin` has
+   the ADR-0010 direct-edge meaning. The measured direct graph is:
+
+   - checked conclusion → C1–C4;
+   - line 7a → selected member/family/closure authority plus C1–C4 as
+     supported by the active branch;
+   - line 7b → checked conclusion and one exact citation pin to the [2025
+     Instructions for Form 1040](https://www.irs.gov/instructions/i1040gi),
+     **Line 7b**, the paragraph beginning “If Exception 1 applies, check the
+     ‘Schedule D not required’ box on line 7b”
+     (`tax.us.2025.citation.form1040.line-7b@v1`);
+   - line 9 → its ordinary inputs plus line 7a exactly once;
+   - taxable income → the existing declared upstream publications; and
+   - line 16 → its selected taxable-income, Q/L, active declaration/conclusion,
+     parameter, and exact citation inputs for the active branch.
+
+   A downstream result does not acquire additional direct pins to transitive
+   upstream findings; transitive lineage remains transitive. The line-7a and
+   line-16 citations are likewise exact ADR-0029 pins. Non-publication walks
+   name the exact missing set (ADR-0020 / ADR-0037 where multi-absent naming is
+   required). Presentation projects atomic dispositions without rejected-value
+   leakage (ADR-0046). Production must kill-test at least: missing each
+   component and missing-all-four; each current-`"no"` component; closed-empty
+   zero; multi-payer sum; same-member correction without horizon advance;
+   member removal with horizon advance; contradiction in both temporal orders
+   and same batch; mixed historical/successor box-2a graph rejection; no raw
+   downstream box-2a read into line 9 or line 16; line-9 and taxable-income
+   blocking through a guard-inapplicable line 7a; QDCG selection for Q=0/L>0,
+   Q>0/L=0, and ordinary-only when both are closure-backed zero; the
+   Q-positive declaration/pin branches; the exact line-7b citation pin; and
+   forward and reverse component correction cascading through line 7a → 9 →
+   taxable income → 16 without reviving displaced history.
 
 9. **Relationship to ADR-0035 and ADR-0038.** Accepted ADR text, published
    schemas, manifests, and content remain immutable history. This proposed
@@ -176,8 +205,8 @@ review, owner ratification, and merge.
    | --- | --- |
    | ADR-0035 decision 3: box 2a recorded-non-composable; signal from recorded content | Universe successor makes box 2a a composable family; signal re-homes to current non-null successor members; historical recorded-boxes shape remains published history |
    | ADR-0035 universe completeness claim over {1a, 1b} only | Successor universe claims composable {1a, 1b, 2a}; residual excluded boxes stay non-composable |
-   | ADR-0038 decision 1: Schedule D required as contributed sole declaration read by line 16 | Direct-route authority becomes four components + checked conclusion; historical contributed sole fact remains history |
-   | ADR-0038 decision 2/3: qualified-zero never reads capital-gain inputs; worksheet has no box-2a route | Successor selects QDCG when Q>0 **or** direct-route L>0; worksheet line 3 binds to selected line 7a when Schedule D is not filed; still no raw box-2a route |
+   | ADR-0038 decision 1: `capital-gain-distributions` and Schedule-D-required are two contributed declarations read on the qualified-positive path | The historical Schedule-D-required authority is replaced for the successor direct route by C1–C4 plus the checked conclusion; the current `capital-gain-distributions` declaration remains a required/pinned qualified-positive input, with `"yes"` on a positive line-7a member branch and `"no"` on the closure-backed-L-zero branch |
+   | ADR-0038 decision 2/3: historical qualified-zero reduction and no box-2a route | Successor replaces that boundary for the direct route when L>0: QDCG is selected and worksheet line 3 binds to selected line 7a; the ordinary reduction remains only when Q=0 and closure-backed L=0; no raw box-2a route |
    | ADR-0038 decision 5: contradiction vs `CAPITAL_GAIN_DISTRIBUTION_RECORDED` | Preserved with successor signal feed |
 
 ## Production conditions (owed after ratification; never allowlisted)
@@ -187,6 +216,11 @@ review, owner ratification, and merge.
   residual recorded-boxes successor, line-7a/7b form fields and citations,
   line-9 successor, and line-16 successor — all as new versions, never in-place
   rewrites of published history.
+- The line-7b form-field citizen must carry exactly one ADR-0029 citation pin
+  to the [2025 Instructions for Form 1040](https://www.irs.gov/instructions/i1040gi),
+  **Line 7b**, the paragraph beginning “If Exception 1 applies, check the
+  ‘Schedule D not required’ box on line 7b”; implementation may not choose
+  another locus.
 - Package validation: reject mixed historical/successor box-2a graphs; reject
   rules that collect historical recorded box-2a or raw members into line 9 or
   QDCG; reject non-`{yes, no}` component domains.
@@ -195,7 +229,8 @@ review, owner ratification, and merge.
 - Explicit missing-component explanation walks and correction-chain tests for
   the accepted topology costs (extra contribution surface; longer displacement
   hop through the checked conclusion; future-source coupling of C1 when later
-  capital-gain sources appear).
+  capital-gain sources appear), including the fixed line-9 block through a
+  guard-inapplicable line 7a.
 - Mechanical mixed-graph rejection remains a production kill test (not a
   Rung-2 prototype climb).
 - Presentation of line 7a/7b atomic dispositions under ADR-0046.
@@ -208,6 +243,9 @@ review, owner ratification, and merge.
   worksheet with line 3 bound to line 7a.
 - Missing or negative Exception-1 authority stays honest: blocked or
   guard-inapplicable, never inferred zero and never a fabricated Schedule D.
+- A guard-inapplicable line 7a blocks line 9 on the selected line-7a
+  publication and blocks taxable income through line 9; it never selects an
+  alternate downstream outcome.
 - Historical ADR-0035/0038 packages and content remain loadable history;
   only packages that adopt the successor graph obtain the direct route.
 - The selected topology costs four contributed categorical facts, a longer
@@ -243,16 +281,20 @@ review, owner ratification, and merge.
 - **N1 (pin formality variance):** some QDCG case rows enumerate pin
   constituents in prose rather than a single alias table; constituents remain
   recoverable at Rung 1 (`reviews/repair2-confirmation.md`).
-- **N2 (line-9 under guard_inapplicable):** when line 7a is
-  `guard_inapplicable`, line 9 is recorded as blocked on selected line 7a.
-  Production may refine how inapplicable upstream symbols surface on line 9;
-  the paper does not coerce either to zero.
+- **N2 (resolved by this repair; line-9 under `guard_inapplicable`):** the
+  final confirmation records line 7a as `guard_inapplicable`, line 9 as
+  `blocked(DEPENDENCY_ABSENT)` on selected line 7a, and taxable income as
+  blocked through line 9. This ADR adopts that exact disposition; production
+  must not substitute an alternate downstream outcome or coerce either state
+  to zero.
 
 ## Links
 
 - Prototype evidence: `docs/prototypes/capital-gain-distributions-line7a/`
   (`plan.md`, `round-1-triage.md`, `it1/`, `it2/`, `repair1/`, `repair2/`,
   `reviews/`, `final-disposition.md`, `evaluation-analysis.md`)
+- Stable exhibit refs: `exhibits/capital-gain-distributions-line7a/it1` and
+  `exhibits/capital-gain-distributions-line7a/it2`
 - Builds on: ADR-0003 (schema immutability), ADR-0010 (currency), ADR-0011
   (closure / no assumed zero), ADR-0012 (form-field dispositions),
   ADR-0014–0017 (mapping, identity, family, horizon), ADR-0020 / ADR-0029
