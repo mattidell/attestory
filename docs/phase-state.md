@@ -4,10 +4,10 @@
   "phase": "Legible Entry",
   "topic": "entry-loop-synthetic",
   "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
-  "milestone_state": "track-2e",
-  "status": "Milestone 3 (The Entry Loop - synthetic) is open. Track 2d is closed with no residuals. Track 2e is the partial re-score: two fresh evaluators, six rows, under the same two briefs. The work remains limited to a synthetic W-2 entry loop, with no real data or L3 claim. The standing owner directive is to model entry usability as schema and field contracts.",
-  "current_role": "Evaluator C and Evaluator D — Track 2e partial re-score (run sequentially, not concurrently)",
-  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track2e-evaluator-c.md"
+  "milestone_state": "track-2",
+  "status": "Milestone 3 (The Entry Loop - synthetic) is open. Track 2e re-scored six rows: five Pass/Pass including criterion 2.3, and the accessibility row Fail/Fail on the amount input's focus indicator, so the cell verdict is FAIL and the W-2 cell stays at L1. Track 3 writes the entry-field contract, scoped by owner decision to the field contract only. A narrow focus-indicator repair is still outstanding. Synthetic W-2 only, no real data, no L3 claim. The standing owner directive is to model entry usability as schema and field contracts.",
+  "current_role": "Builder — Track 3 entry-field contract",
+  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track3.md"
 }
 -->
 # Phase State
@@ -19,16 +19,18 @@ Git, `docs/reviews/`, and `docs/adr/`.
 <!-- brief high level plain language overview of the state of the milestone, exclude result and finding specifics -->
 ## High Level Milestone Briefing
 
-Milestone 3 builds a synthetic W-2 entry loop. The repairs to the entry field
-are done. Track 2e re-scores the rows those repairs could have moved, using two
-fresh evaluators, and its result decides whether the W-2 cell moves. The
+Milestone 3 builds a synthetic W-2 entry loop. Two rounds of independent
+evaluation are done, and the surface substantially works; one accessibility
+defect keeps the cell from moving. Track 3 now writes the entry-field contract,
+which is the durable deliverable this milestone was built to produce. The
 milestone remains synthetic and does not make an L3 claim.
 
 ## Operational State: Legible Entry
 
 * **Active Milestone:** Milestone 3 — The Entry Loop (synthetic)
-* **Current Track:** Track 2e — Partial re-score by two fresh evaluators
-* **Maturity Status:** W-2 cell remains at L1, pending the Track 2e result
+* **Current Track:** Track 3 — The entry-field contract
+* **Maturity Status:** W-2 cell remains at L1 (evaluation returned FAIL)
+* **Outstanding repair:** the amount input needs a focus indicator distinct from its resting boundary
 
 ### Standing Directives
 
