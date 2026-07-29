@@ -480,8 +480,16 @@ def validate_initial_briefing_follow_up(
 
 
 def render_context(
-    repository: GitRepository, ref: str, ratified_ref: str = DEFAULT_RATIFIED_REF
+    repository: GitRepository, ref: str, ratified_ref: str | None = None
 ) -> dict[str, Any]:
+    # Resolve the ratified line here rather than defaulting to `origin/main`.
+    # This used to take a literal default, and a caller that forgot to pass one
+    # got a confident answer against the wrong line: on the surface work, every
+    # milestone looks unratified and the capsule refuses. That refusal reads as
+    # "your branch is stale" when the branch is current, which is the most
+    # expensive kind of wrong. Callers that know the line still pass it.
+    if ratified_ref is None:
+        ratified_ref = resolve_ratified_ref(repository)
     commit = repository.commit_for_ref(ref)
     phase = load_document(repository, commit, PHASE_STATE_PATH)
     active_plan_path = required_path(phase.metadata, "active_plan", phase.path)
