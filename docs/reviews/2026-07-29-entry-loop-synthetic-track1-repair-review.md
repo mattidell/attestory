@@ -17,7 +17,7 @@ charter: "Reviewer — The Entry Loop (synthetic), Track 1 repair review."
 
 ## Verdict: READY for Track 1 as a whole
 
-F1 is disposed correctly — ADR-0050 changed the premise the prior blocking
+F1 is disposed correctly — ADR-0051 changed the premise the prior blocking
 finding rested on, and the repair introduces no false claim of browser or OS
 isolation. F2 and F3 are closed by durable, non-vacuous coverage: five of the
 seven fail-closed tests break cleanly under direct mutation of the exact
@@ -189,9 +189,9 @@ Re-ran the full sequence recorded in `2e62c4a`'s commit message, worked from
 
 All claims hold.
 
-### F1 disposal (ADR-0050)
+### F1 disposal (ADR-0051)
 
-Read `docs/adr/0050-entry-surface-contract.md` before the prior review, per
+Read `docs/adr/0051-entry-surface-contract.md` before the prior review, per
 the charter's instruction. It supersedes ADR-0048 Decision 1 (the
 vehicle-level spellcheck-closure condition) only; Decision 2 (the
 contribution boundary) is untouched and the prior review's PASS findings on
@@ -202,14 +202,14 @@ re-argue F1's merits. I confirmed the premise changed (phase-state records
 grepped the diff and the existing surface source for any presentation of
 `spellcheck="false"` as a security control: the only occurrence is a plain
 HTML attribute on the W-2 input with no adjacent comment or documentation
-claiming it closes any network path. That satisfies ADR-0050's "no false
+claiming it closes any network path. That satisfies ADR-0051's "no false
 claim of isolation" clause. F1 is disposed.
 
 One note for the owner, separate from the verdict, not reopening F1 on its
-merits: ADR-0050 itself is still recorded as `Status: proposed` in both the
+merits: ADR-0051 itself is still recorded as `Status: proposed` in both the
 ADR file and `docs/adr/INDEX.md`. The owner's withdrawal of ADR-0048's
 condition is recorded independently in phase-state and is what F1's
-disposal actually rests on, so this review does not treat ADR-0050's
+disposal actually rests on, so this review does not treat ADR-0051's
 ratification status as blocking — but a future reader comparing the ADR
 file's "proposed" status against phase-state's more definite "the owner
 withdrew..." language should not have to reconcile the two by inference.
@@ -218,7 +218,7 @@ withdrew..." language should not have to reconcile the two by inference.
 
 **Verdict: READY for Track 1 as a whole.**
 
-**F1** (prior blocking finding) is disposed on recheck: ADR-0050 changed the
+**F1** (prior blocking finding) is disposed on recheck: ADR-0051 changed the
 governing rule, and nothing in the repair or the existing surface presents a
 browser setting as a security control.
 

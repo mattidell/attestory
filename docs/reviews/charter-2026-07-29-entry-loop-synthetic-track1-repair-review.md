@@ -16,8 +16,8 @@ review it disposes.
 
 **F1 is withdrawn.** It enforced ADR-0048's requirement that an entry surface
 launch with spellcheck's network path affirmatively closed by a vehicle-level
-flag. The owner withdrew that requirement on 2026-07-29. **ADR-0050**
-(`docs/adr/0050-entry-surface-contract.md`) supersedes ADR-0048 Decision 1:
+flag. The owner withdrew that requirement on 2026-07-29. **ADR-0051**
+(`docs/adr/0051-entry-surface-contract.md`) supersedes ADR-0048 Decision 1:
 browser and workstation behaviour are the owner's trusted environment, not the
 entry surface's contract. ADR-0048 Decision 2 — the contribution boundary — is
 untouched and still binds.
@@ -25,7 +25,7 @@ untouched and still binds.
 The prior review is not rewritten and is not wrong. It applied the rule in
 force. Your job on F1 is to dispose it: confirm the premise changed, and
 confirm nothing in the source or its comments presents `spellcheck="false"` (or
-any other browser setting) as a security control, which ADR-0050 does forbid.
+any other browser setting) as a security control, which ADR-0051 does forbid.
 
 F2 and F3 are what the builder worked on.
 
@@ -77,7 +77,7 @@ omissions and 711 tests passing. Re-run it and say whether the claims hold.
 - Do not score the usability criteria. That is Track 2, under a fixed
   two-evaluator procedure, and doing it here would preempt it.
 - No maturity claim; nothing moves on any matrix.
-- Do not reopen F1 on its merits. If you think ADR-0050 is wrong, say so as a
+- Do not reopen F1 on its merits. If you think ADR-0051 is wrong, say so as a
   note to the owner, separately from the verdict.
 
 ## Verdict

@@ -1,4 +1,4 @@
-# ADR 0050 — The Entry Surface Contract
+# ADR 0051 — The Entry Surface Contract
 
 - Status: **proposed**. Supersedes ADR-0048's entry-vehicle requirements
   (Decision 1 and the spellcheck condition). ADR-0048's contribution boundary

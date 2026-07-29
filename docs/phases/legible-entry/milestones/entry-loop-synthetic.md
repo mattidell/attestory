@@ -4,7 +4,7 @@
   "phase": "Legible Entry",
   "topic": "entry-loop-synthetic",
   "milestone_state": "planned",
-  "status": "Planned 2026-07-28, milestone 3 of Legible Entry. The first milestone in this phase that builds product. Scope settled by the owner: W-2 only, all five loop steps, synthetic workspace, no real data and no L3 claim. Usability criteria are written before the surface is built (Track 0) so the L2 claim has a scorer that was not shaped by the thing it scores. The per-field explanation schema is left to emerge from the build and is written down at close, not designed up front. Four tracks, each one build-and-review cycle. Milestone opens on one PR and closes on another; tracks keep their review gate and land on the milestone branch. Prerequisite to confirm before Track 1 writes code: that a synthetic workspace can be seeded so W-2 facts are the only thing missing, and that the surface can be served and can emit act-contribution.v1 through the existing admission path. Check it against the code, do not assume it. Amended 2026-07-29: the owner withdrew ADR-0048's entry-vehicle condition and ADR-0050 replaced it. Browser and workstation behaviour are the owner's trusted environment, not the entry surface's contract; the surface owes contribution-only entry, validated admission that fails closed, redacted failure, data-boundary behaviour, and no false claim of isolation. Open question 3 (does the viewing preflight cover an entry session) is closed, and Track 1's blocking review finding is disposed by recheck rather than by building a vehicle.",
+  "status": "Planned 2026-07-28, milestone 3 of Legible Entry. The first milestone in this phase that builds product. Scope settled by the owner: W-2 only, all five loop steps, synthetic workspace, no real data and no L3 claim. Usability criteria are written before the surface is built (Track 0) so the L2 claim has a scorer that was not shaped by the thing it scores. The per-field explanation schema is left to emerge from the build and is written down at close, not designed up front. Four tracks, each one build-and-review cycle. Milestone opens on one PR and closes on another; tracks keep their review gate and land on the milestone branch. Prerequisite to confirm before Track 1 writes code: that a synthetic workspace can be seeded so W-2 facts are the only thing missing, and that the surface can be served and can emit act-contribution.v1 through the existing admission path. Check it against the code, do not assume it. Amended 2026-07-29: the owner withdrew ADR-0048's entry-vehicle condition and ADR-0051 replaced it. Browser and workstation behaviour are the owner's trusted environment, not the entry surface's contract; the surface owes contribution-only entry, validated admission that fails closed, redacted failure, data-boundary behaviour, and no false claim of isolation. Open question 3 (does the viewing preflight cover an entry session) is closed, and Track 1's blocking review finding is disposed by recheck rather than by building a vehicle.",
   "scope": [
     "write the usability evaluation criteria for entry, and how a cell is scored against them, before any surface exists",
     "build the guided entry loop for W-2 on a synthetic workspace: know what is missing, enter a fact, see it land, correct an entered fact, know the return is complete",
@@ -22,7 +22,7 @@
     "no change to artifact-package.v4",
     "no new correction-authority mechanism -- every fact type stays free",
     "no separate missing-facts screen",
-    "no entry vehicle, no browser launch flag, no spellcheck control, no entry-session preflight or affirmation -- per ADR-0050"
+    "no entry vehicle, no browser launch flag, no spellcheck control, no entry-session preflight or affirmation -- per ADR-0051"
   ],
   "deep_reads": {
     "implementation": [
@@ -30,7 +30,7 @@
       "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
       "docs/phases/legible-entry/legible-entry-roadmap.md",
       "docs/adr/0048-entry-boundary.md",
-      "docs/adr/0050-entry-surface-contract.md",
+      "docs/adr/0051-entry-surface-contract.md",
       "docs/adr/0049-surface-artifact.md",
       "docs/adr/0046-presentation-surface-contract.md",
       "AGENTS.md#Data Safety Rules",
@@ -40,7 +40,7 @@
       "docs/roles/reviewer.md",
       "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
       "docs/adr/0048-entry-boundary.md",
-      "docs/adr/0050-entry-surface-contract.md",
+      "docs/adr/0051-entry-surface-contract.md",
       "docs/adr/0049-surface-artifact.md",
       "docs/adr/0046-presentation-surface-contract.md",
       "AGENTS.md#Data Safety Rules"
@@ -56,7 +56,7 @@
 Status: **open.** Plan merged 2026-07-28 (PR #109, `506f785`). Track 0 closed;
 Track 1 built and reviewed `NOT READY`. Its blocking finding rested on
 ADR-0048's entry-vehicle condition, which the owner withdrew on 2026-07-29
-(ADR-0050). Track 1 is in a scoped repair covering the two coverage findings,
+(ADR-0051). Track 1 is in a scoped repair covering the two coverage findings,
 plus a recheck that disposes the blocking one.
 
 ## What this is for
@@ -120,7 +120,7 @@ accepts, what it refuses — is not settled and is Track 1's to find out against
 the existing code.
 
 **3. ~~Does the viewing preflight cover an entry session?~~ Closed by
-ADR-0050, 2026-07-29.** This asked what browser confinement an entry session
+ADR-0051, 2026-07-29.** This asked what browser confinement an entry session
 owes, because ADR-0048 made it a condition of entry being acceptable at all.
 The owner withdrew that condition: browser and workstation behaviour are the
 owner's trusted environment, not the entry surface's contract. The entry

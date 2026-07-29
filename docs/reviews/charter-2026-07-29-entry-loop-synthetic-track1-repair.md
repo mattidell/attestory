@@ -24,7 +24,7 @@ that an entry surface launch with spellcheck's network path affirmatively
 closed by a vehicle-level flag. That was a correct reading of the rule in force
 at the time.
 
-The owner has since withdrawn the rule. **ADR-0050** supersedes ADR-0048's
+The owner has since withdrawn the rule. **ADR-0051** supersedes ADR-0048's
 entry-vehicle requirements: browser and workstation behaviour are the owner's
 trusted environment, not the entry surface's contract. The surface owes
 contribution-only entry, validated admission that fails closed, redacted
@@ -37,7 +37,7 @@ under its own premise, and the reviewer disposes it on recheck.
 
 One small thing does carry over. The `spellcheck="false"` attribute may stay,
 but if anything in the source or its comments presents it as a security
-control, correct that wording. ADR-0050 forbids presenting a browser setting as
+control, correct that wording. ADR-0051 forbids presenting a browser setting as
 a protection the product does not provide. If nothing does, say so and change
 nothing.
 
@@ -76,7 +76,7 @@ This is not usability scoring. Do not score the criteria.
 
 - F2 and F3 only, plus the one wording check under F1. If you find something
   else, report it.
-- No preflight extension, no launch vehicle, no confinement code. ADR-0050
+- No preflight extension, no launch vehicle, no confinement code. ADR-0051
   removed the obligation; do not reintroduce it voluntarily.
 - No new criteria, no per-field explanation schema, no matrix movement.
 - W-2 only, synthetic only, no residency locator in any surface including new
