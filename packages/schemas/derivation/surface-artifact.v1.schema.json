@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/surface-artifact.v1",
+  "title": "Surface artifact: opaque UI program bytes, verified by fingerprint",
+  "description": "A container for browser UI code and its resolved dependency tree, crossing the Developer/Supply to Live-Run Data boundary alongside the artifact package but never inside it. This document never validates for meaning: each listed entry is a file path and a SHA-256 digest of its raw bytes, checked before use, and nothing about the file's content is parsed, typed, or interpreted here. That is the whole difference from artifact-package.v4: a package member is an identity pointing at a typed declarative citizen that hard-validates; a surface entry is a path and a fingerprint over bytes nobody reads for meaning. The manifest itself is the only thing this schema shapes.",
+  "type": "object",
+  "properties": {
+    "schema": {"const": "surface-artifact.v1"},
+    "id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^v[0-9]+$"},
+    "build_command": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The one fixed command a workspace runs against this artifact's entries to produce the served output. Recorded so the build is a declared, reviewable fact rather than an assumed convention."
+    },
+    "entrypoint_html": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The build output's relative path to the HTML document a viewing session navigates to. Produced by the build, not itself a shipped entry."
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/entry"}
+    },
+    "package_checksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "required": ["schema", "id", "version", "build_command", "entrypoint_html", "entries", "package_checksum"],
+  "additionalProperties": false,
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!\\.\\.)(?!.*\\.\\.)[^\\x00]+$",
+          "description": "A relative path from the artifact's content root. Never absolute, never a parent-directory reference; the resolver additionally confines every entry to that root before reading its bytes."
+        },
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "bytes": {"type": "integer", "minimum": 0}
+      },
+      "required": ["path", "sha256", "bytes"],
+      "additionalProperties": false
+    }
+  }
+}

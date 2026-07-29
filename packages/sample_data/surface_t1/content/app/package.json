@@ -1,0 +1,10 @@
+{
+  "name": "demo-surface-entry-page",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Synthetic, deliberately boring Svelte page proving the surface artifact's build path (Legible Entry, Packaging the Surface, Track 1). No form fields, no workspace data.",
+  "dependencies": {
+    "svelte": "5.56.8"
+  }
+}
