@@ -2,9 +2,10 @@
 
 ## Current step
 
-Both committee reviews returned. The owner selected the component-backed
-topology and authorized the plan's single bounded repair pass for T-F1/T-F2.
-Repair 1 is chartered; no confirmation reviewer is active.
+Both committee reviews and Repair 1 returned. The owner selected the
+component-backed topology and spent the plan's single bounded repair pass on
+T-F1/T-F2. One focused confirmation review is chartered; contract synthesis
+remains blocked on its verdict.
 
 ## Seats
 
@@ -14,7 +15,8 @@ Repair 1 is chartered; no confirmation reviewer is active.
 | Rival Builder | Owner-launched context on `prototypes/capital-gain-distributions-line7a/it2` | Returned at `099882e` |
 | Contract/adversary Reviewer | Local independent context | Returned at `7dc6c40` |
 | Expressiveness Reviewer | Local independent context | Returned at `d73fca2` |
-| Repair Builder | Selected rival Builder context | Chartered; ready for local owner launch |
+| Repair Builder | Selected rival Builder context | Returned at `a60e2d1` |
+| Repair 1 Confirmation Reviewer | Author-independent local context | Chartered; ready for local owner launch |
 
 ## Binding handoff
 
@@ -28,5 +30,6 @@ Repair 1 is chartered; no confirmation reviewer is active.
 
 ## Next action
 
-Launch the local Repair Builder against `charter-repair1.md`. On return, the
-foreman takes custody and charters one focused confirmation review.
+Launch the local Reviewer against `charter-repair1-confirmation.md`. On return,
+the foreman takes custody and either synthesizes the confirmed contract or
+stops for owner disposition on a `NOT READY` verdict; the repair cap is spent.

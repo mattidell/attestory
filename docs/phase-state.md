@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, REPAIR 1 CHARTERED.** The owner selected the component-backed authority topology. Round-1 triage found two decision-blocking defects before contract synthesis: the selected component inventory omits the Exception-1 boxes-2b/2c/2d absence condition, and its qualified-zero case incorrectly bypasses QDCG despite positive line 7a. The owner authorized the plan's single Rung-1 repair pass, assigned to the selected rival Builder for continuity. NEXT ACTION: launch the local Repair Builder; on return, the foreman takes custody and charters focused confirmation.",
-  "current_role": "Repair Builder — complete component authority and QDCG handoff",
-  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-repair1.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0, REPAIR 1 CONFIRMATION CHARTERED.** Repair 1 returned at `a60e2d1` after adding the missing Exception-1 boxes-2b/2c/2d authority component and correcting the QDCG selection/binding claim. The plan's single repair pass is spent. Contract synthesis remains blocked pending one author-independent Rung-1 confirmation of T-F1, T-F2, and the retained P2/P3 boundaries. NEXT ACTION: launch the local Confirmation Reviewer.",
+  "current_role": "Reviewer — confirm Repair 1 component authority and QDCG handoff",
+  "current_prompt": "docs/prototypes/capital-gain-distributions-line7a/charter-repair1-confirmation.md"
 }
 -->
 # Phase State

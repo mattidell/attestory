@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 ACTIVE. The owner selected the component-backed authority topology. Round-1 triage found two decision-blocking defects: the selected component inventory omits the Exception-1 boxes-2b/2c/2d absence condition, and its qualified-zero case incorrectly bypasses QDCG despite positive line 7a. The owner authorized the single Rung-1 repair pass, assigned to the selected rival Builder for continuity. NEXT ACTION: launch Repair 1 against docs/prototypes/capital-gain-distributions-line7a/charter-repair1.md; on return the foreman charters focused confirmation.",
+  "status": "TRACK 0 ACTIVE. Repair 1 returned at `a60e2d1` after addressing the two owner-directed findings on component authority and QDCG selection/binding. The single repair pass is spent. Contract synthesis remains blocked pending one author-independent Rung-1 confirmation of T-F1, T-F2, and the retained P2/P3 boundaries. NEXT ACTION: launch the focused Reviewer against docs/prototypes/capital-gain-distributions-line7a/charter-repair1-confirmation.md.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
