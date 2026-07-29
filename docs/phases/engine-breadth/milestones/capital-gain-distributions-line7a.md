@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-0",
-  "status": "TRACK 0 DECISION UNIT AWAITING OWNER MERGE. The owner ratified ADR-0050 on 2026-07-29 after final recheck returned ready with no residuals. The complete evidence chain and accepted ADR are on the decision branch. Production remains blocked until the unit reaches `main`. NEXT ACTION: owner merges the decision-unit PR after CI `verify` is green.",
+  "status": "TRACK 0 DECISION UNIT, PR #110, AWAITING OWNER MERGE. The owner ratified ADR-0050 on 2026-07-29 after final recheck returned ready with no residuals. The complete evidence chain and accepted ADR are in PR #110. Production remains blocked until the unit reaches `main`. NEXT ACTION: owner merges PR #110 after CI `verify` is green.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

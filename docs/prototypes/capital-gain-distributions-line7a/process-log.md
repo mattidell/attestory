@@ -75,3 +75,11 @@
 - **Disposition:** record ADR/index acceptance and open the evidence-complete
   decision-unit PR. No production role is chartered before the merge reaches
   `main`.
+
+## 2026-07-29 — Track-0 decision unit opened
+
+- **Category:** no incident.
+- **Event:** the complete evidence chain and accepted ADR-0050 were published
+  as PR #110.
+- **Disposition:** owner merge only after CI `verify` is green. Production
+  remains blocked until the merge reaches `main`.

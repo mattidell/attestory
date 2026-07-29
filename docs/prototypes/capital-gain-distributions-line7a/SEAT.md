@@ -4,8 +4,8 @@
 
 The owner ratified ADR-0050 on 2026-07-29 after the final recheck returned
 `READY FOR OWNER RATIFICATION` with no residuals. No Builder or Reviewer role
-is active. The complete Track-0 decision unit is being prepared for owner
-merge; production remains blocked until it reaches `main`.
+is active. The complete Track-0 decision unit is PR #110; production remains
+blocked until the owner merges it to `main`.
 
 ## Seats
 
@@ -38,5 +38,5 @@ merge; production remains blocked until it reaches `main`.
 
 ## Next action
 
-Owner merge of the complete Track-0 decision unit after CI `verify` is green.
-No production role starts before that merge reaches `main`.
+Owner merge of PR #110 after CI `verify` is green. No production role starts
+before that merge reaches `main`.

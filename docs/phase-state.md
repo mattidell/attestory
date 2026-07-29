@@ -4,7 +4,7 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0 DECISION UNIT AWAITING OWNER MERGE.** The owner ratified ADR-0050 on 2026-07-29 after final recheck returned ready with no residuals. The complete evidence chain and accepted ADR are on the decision branch. Production remains blocked until the decision unit reaches `main`. NEXT ACTION: owner merges the decision-unit PR after CI `verify` is green.",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0 DECISION UNIT, PR #110, AWAITING OWNER MERGE.** The owner ratified ADR-0050 on 2026-07-29 after final recheck returned ready with no residuals. The complete evidence chain and accepted ADR are in PR #110. Production remains blocked until the decision unit reaches `main`. NEXT ACTION: owner merges PR #110 after CI `verify` is green.",
   "current_role": "Foreman (Track 0 decision-unit merge pending; no production role)",
   "current_prompt": "docs/adr/0050-capital-gain-distributions-and-line-7a.md"
 }
