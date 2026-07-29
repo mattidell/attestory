@@ -4,7 +4,7 @@
   "phase": "Legible Entry",
   "topic": "packaging-the-surface",
   "active_plan": "docs/phases/legible-entry/milestones/packaging-the-surface.md",
-  "status": "The Legible Entry phase is accepted (PR #100). MILESTONE 1, THE ENTRY BOUNDARY, IS CLOSED 2026-07-28 — closing PR #102 merged at c451a40, ADR-0048 ACCEPTED. It answers: a browser form is acceptable for typing real tax facts on stated conditions, and an entry surface emits act-contribution.v1 through the existing admission path rather than writing facts directly. The argument rests on the vehicle's confinement and profile disposal, NOT on the retention probe's per-channel negatives, which were narrowed but never closed on autofill and spellcheck. A widened search established that CONFINEMENT IS NOT TOTAL: the vehicle writes a single-instance lock outside the confined tree, surviving a crash, holding no typed content. No product code changed and NO MATURITY CELL MOVED — that milestone was a decision, and the instrument measures capability. Residuals are in ADR-0048 'Left undecided'; the most consequential is that NOTHING HAS SEARCHED FOR THE RESIDENCY LOCATOR OUTSIDE CONFINEMENT — every run looked for typed tokens only. Also open: the singleton lock as a second orphan surface outside the residency, the crash-reporter and GPU-cache paths, and the spellcheck flag's mechanism. Retrospective: docs/milestone-retrospectives/2026-07-28-entry-boundary.md — its subject is an error that recurred three times, a search whose scope presupposed its answer paired with a document claiming more than the search supported. NEXT: milestone 2, Packaging the Surface, APPROVED (PR #105) and amended; TRACK 1 BUILT (0fd05e7) AND REVIEWED READY (ee50b8f): surface-artifact.v1 schema, packages/derivation/surface_resolver.py reusing ADR-0033's release/registry chain and diverging only at member-graph validation, a distinct surface-adoption kind reusing act-package-adoption.v1's payload, five refusal paths tested, a trivial Svelte page built offline and opened in the live-viewing vehicle on a synthetic workspace. artifact-package.v4 byte-for-byte untouched. Vendored tree measured at 941 entries / 5,065,001 bytes from one direct dependency — far cheaper than expected, because the build uses svelte/compiler and browser import maps instead of a bundler. Carried weak points: offline enforcement is macOS sandbox-exec only with NO CI COVERAGE (tests need Node+Chrome present); surface_resolver imports three underscore-private names from production_resolver (real reuse, fragile coupling); the sample page uses no TypeScript so that toolchain cost is untested; and THE BUILD'S OUTPUT IS NEVER DIGEST-VERIFIED — trust is verified inputs plus one fixed command, which is the milestone's open question 1 and still open. TRACK 2 BUILT (8d8ef76) AND REVIEWED READY (17338d9): ADR-0049, PROPOSED not ratified. It decides that the build's trust chain is real for provenance but INSUFFICIENT to claim the served bytes are reviewed bytes, since nothing published a digest for output that did not exist until the workspace made it; determinism was CHECKED byte-identical twice on one machine under Node v25.8.0 and is UNVERIFIED across machines or Node versions, which is also where the Node-precondition risk bites — the two are one gap seen from two sides. Node is named as its own 'build-toolchain precondition' category rather than forced into ADR-0047 Class D, which classifies leakage channels. MILESTONE 2 IS CLOSED 2026-07-28. Retrospective: docs/milestone-retrospectives/2026-07-28-packaging-the-surface.md — its subject is that the plan shipped a FALSE PREMISE, the foreman calling the package-member route 'close to forced' without opening the schema, surviving a plan PR and an owner decision built on it; caught only because chartering forced a look at the code. NO MATURITY CELL MOVED. Open: build output unverifiable by construction, offline enforcement macOS-only with NO CI COVERAGE, surface_resolver's three underscore-private imports from production_resolver, no TypeScript in the sample page, and tools/build_orientation_block.py defaulting to --ref main which is a stale branch here. NEXT: milestone 3, The Entry Loop synthetic, UNPLANNED. It is build-first: ship one trivial page as verified package members, then record the rule in a short ADR. That settles the owner's question about whether it was genuinely a decision — mostly it is not. OWNER SETTLED 2026-07-28: the UI uses a component framework (SVELTE + TYPESCRIPT) and is BUILT AT THE WORKSPACE, not in the repository; its pinned dependency tree SHIPS ALONGSIDE THE SOURCE rather than being fetched from a public registry at build time, so the workspace build runs with the network off and no install-time scripts, and no second unadopted supply chain enters Live-Run Data. CORRECTION, same day: the plan first said the UI would ship as members of the adopted ARTIFACT PACKAGE. That is impossible — a member is {role, schema, id, version} pointing at a typed declarative citizen from a closed enum, no path and no file, and the package's guarantee is that the whole member graph hard-validates. Owner chose a SECOND, SEPARATE ARTIFACT with its own adoption act, reusing the shared release/registry verification, over adding an opaque-member kind to the existing package. THE ARTIFACT PACKAGE IS TO BE LEFT UNCHANGED. Accepted cost: a second thing the owner adopts, its schema and resolver path, and a large vendored tree whose bytes are pinned and digested but not readable. Filing is out of scope for the phase. Process: a milestone gets one PR to open and one to close; tracks keep their review gate but not their own PR. Phase documentation uses plain, product-facing language. Prior phase Real Return closed 2026-07-28, every matrix cell L3 or better; read narrowly, it was breadth- and hardening-limited by construction. The phase-boundary legibility audit is STILL DUE and is owner-spawned — the foreman must not launch it.",
+  "status": "Legible Entry accepted (PR #100). AT THE MILESTONE-SELECTION FRONTIER — nothing is chartered. Milestones 1 and 2 are both CLOSED 2026-07-28 and NO MATURITY CELL HAS MOVED; both built decisions and delivery, not the entry loop. MILESTONE 1, THE ENTRY BOUNDARY (PR #102, c451a40, ADR-0048 ACCEPTED): a browser form is acceptable for typing real tax facts on stated conditions, and an entry surface emits act-contribution.v1 through the existing admission path rather than writing facts directly. It also established that CONFINEMENT IS NOT TOTAL — the vehicle writes a single-instance lock outside the confined tree, surviving a crash, holding no typed content. Open from it: NOTHING HAS SEARCHED FOR THE RESIDENCY LOCATOR OUTSIDE CONFINEMENT (every run looked for typed tokens only); the singleton lock as a second orphan surface; crash-reporter and GPU-cache paths narrowed but not closed; the spellcheck flag's mechanism undesigned. MILESTONE 2, PACKAGING THE SURFACE (PR #108, closed at 2fb6761): UI code now crosses Developer/Supply to Live-Run Data in a SECOND, SEPARATE ARTIFACT (surface-artifact.v1) under its own surface-adoption, carrying opaque program bytes verified by digest and never validated for meaning. artifact-package.v4 is byte-for-byte UNTOUCHED and is to stay that way. packages/derivation/surface_resolver.py reuses ADR-0033's release/registry chain and diverges only at member-graph validation. One trivial Svelte page builds at the workspace offline (svelte/compiler plus browser import maps, no bundler) and opens in the live-viewing vehicle on a synthetic workspace; five refusal paths tested. ADR-0049 is PROPOSED, NOT RATIFIED — ratification is the owner's. OWNER DECISION, same day, AFTER the close: THE REPOSITORY DOES NOT STORE THE VENDORED DEPENDENCY TREE. node_modules is gitignored; it ships in the artifact and is reconstructed with `npm ci` in packages/sample_data/surface_t1/content/app followed by tools/generate_surface_t1_fixtures.py. Six surface tests SKIP without it, so the digest and refusal evidence is reproducible on demand rather than continuously checked; the data-safety test was deliberately left unguarded and runs everywhere. Measured tree: 941 entries / 5,065,001 bytes from one direct dependency. CARRIED OPEN: the build's output is never digest-verified (trust is verified inputs plus one fixed command; determinism CHECKED byte-identical on one machine under Node v25.8.0, UNVERIFIED across machines or versions, which is the same gap as the Node precondition seen from the other side); offline enforcement is macOS sandbox-exec only with NO CI COVERAGE; surface_resolver imports three underscore-private names from production_resolver (real reuse, fragile coupling); the sample page uses no TypeScript so that toolchain cost is untested; tools/build_orientation_block.py defaults to --ref main, which is a stale Real-Return-era branch in this repo — the live trunk is main-ui. Retrospectives: docs/milestone-retrospectives/2026-07-28-entry-boundary.md and 2026-07-28-packaging-the-surface.md; the latter's subject is that the milestone plan shipped a FALSE PREMISE — the foreman called the package-member route 'close to forced' without opening the schema, and it survived a plan PR and an owner decision built on top of it. NEXT: milestone 3, The Entry Loop synthetic, UNPLANNED. It builds the guided loop end to end on synthetic data to L2, and works out the usability evaluation criteria that score its own L2 claim. Filing is out of scope for the phase. Process: a milestone gets one PR to open and one to close; tracks keep their review gate but not their own PR; PRs target main-ui. Phase documentation uses plain, product-facing language — the habit being corrected is writing every planning document as though defending it to a hostile auditor. Prior phase Real Return closed 2026-07-28 with every matrix cell L3 or better; read narrowly, it was breadth- and hardening-limited by construction. THE PHASE-BOUNDARY LEGIBILITY AUDIT IS STILL DUE and is owner-spawned — the foreman must not launch it.",
   "current_role": "Foreman — Packaging the Surface closed; at the milestone-selection frontier for Legible Entry, nothing chartered",
   "current_prompt": "docs/phases/legible-entry/legible-entry-roadmap.md"
 }
@@ -93,10 +93,57 @@ opening a text editor. Roadmap:
   residency with nothing sweeping it; crash-reporter and GPU-cache paths are
   narrowed but not closed; the spellcheck flag's mechanism is undesigned.
 
-- **Milestone 2, Packaging the Surface — unplanned.** Nothing chartered. Before
-  chartering it ADR-shaped, settle whether it is genuinely a decision or just
-  work with an unknown in it. The Entry Boundary reached the answer a first guess
-  would have reached, at the cost of six dispatches, and the owner has said so.
+- **Milestone 2, Packaging the Surface — closed 2026-07-28.** PR #108 merged at
+  `2fb6761`. UI code now has a sanctioned route into the live workspace: a
+  **second, separate artifact** (`surface-artifact.v1`) with its own adoption,
+  carrying program bytes verified by digest and never read for meaning. It hangs
+  off the same release and registry verification the rule package already uses,
+  and **`artifact-package.v4` is untouched** — the package's promise that
+  everything in it validates stays true without a footnote. One trivial Svelte
+  page ships through it, builds at the workspace with the network off, and opens
+  in the live-viewing vehicle on a synthetic workspace. No maturity cell moved:
+  this is the delivery route, not the loop.
+
+  **ADR-0049 is proposed, not ratified.** Ratification is the owner's.
+
+  The plan for this milestone shipped a false premise — it said the UI would
+  ship as members of the adopted package, which is impossible, and that survived
+  a plan PR and an owner decision built on it. Caught only because chartering
+  forced someone to open the schema. Retrospective:
+  `docs/milestone-retrospectives/2026-07-28-packaging-the-surface.md`.
+
+- **The repository does not store the vendored dependency tree** (owner
+  decision 2026-07-28, landed after the close as `370f8a6`). `node_modules/` is
+  gitignored. It ships inside the artifact; it is checked into nothing. Rebuild
+  it before running the surface tests:
+
+  ```sh
+  (cd packages/sample_data/surface_t1/content/app && npm ci)
+  python3 tools/generate_surface_t1_fixtures.py
+  ```
+
+  Six tests skip without it, so the digest and refusal evidence is reproducible
+  on demand rather than continuously checked. The data-safety test is
+  deliberately unguarded and runs everywhere.
+
+- **Open from milestone 2, carried not fixed.** The build's **output is the one
+  thing in the chain no digest covers** — trust is verified inputs plus one fixed
+  command. Determinism was checked byte-identical on one machine under Node
+  v25.8.0 and is unverified across machines or Node versions; that is the same
+  gap as the Node precondition seen from the other side. Offline enforcement is
+  proved only under macOS `sandbox-exec`, with no CI coverage, because the tests
+  need Node and Chrome present. `surface_resolver.py` reuses three
+  underscore-private names from `production_resolver.py` — real reuse, fragile
+  coupling. The sample page uses no TypeScript, so that toolchain cost is
+  untested and will appear later.
+
+- **Milestone 3, The Entry Loop (synthetic) — unplanned.** Nothing chartered. It
+  builds the guided loop end to end on synthetic data to L2, and works out the
+  usability evaluation criteria that score its own L2 claim.
+
+- **`tools/build_orientation_block.py` defaults to `--ref main`,** which is a
+  stale Real-Return-era branch in this repository. The live trunk is `main-ui`;
+  pass it explicitly.
 
 - **Filing is out of scope** for this phase (settled 2026-07-28). The phase ends
   at a complete, computed return.
@@ -349,96 +396,47 @@ opening a text editor. Roadmap:
 
 ## Pointers
 
-Active phase: **Real Return** — `docs/phases/real-return/` (Foundation completed 2026-07-15; its record: `docs/phases/foundation/foundation-roadmap.md`).
+Active phase: **Legible Entry** — `docs/phases/legible-entry/`. Roadmap and
+current prompt: `docs/phases/legible-entry/legible-entry-roadmap.md`. Milestone
+selection in this phase follows the proposed sequence in that roadmap; the
+instrument is the entry-loop matrix described there, which replaces Real
+Return's rather than extending it.
 
-Canonical phase state lives in the phase roadmap: `docs/phases/real-return/real-return-roadmap.md`. Milestone selection in this phase is frontier-driven from `docs/phases/real-return/maturity-matrix.md`.
+Prior phase: **Real Return** — closed 2026-07-28,
+`docs/phases/real-return/real-return-roadmap.md` ("Phase close — 2026-07-28").
+Foundation before it: `docs/phases/foundation/foundation-roadmap.md`. Their
+milestone-by-milestone history lives in those roadmaps, the milestone plans, the
+retrospectives under `docs/milestone-retrospectives/`, and Git — the detail
+below is kept only where it bears on work still ahead.
 
-Most recent completed milestone: **Presentation — Completing the Row** — complete
-2026-07-28. A records milestone: the owner named all four remaining Presentation
-columns as observed during the **one** real session of 2026-07-27, and those
-cells moved on an amendment to that session's attestation. **Every cell in the
-matrix is now L3 or better.** No session, browser, real data, or code. Evidential
-basis: maturity-matrix footnote 15. Phase close is recommended and unselected.
-Plan: `docs/phases/real-return/milestones/presentation-row-completion.md`.
-Current prompt: `docs/phases/real-return/maturity-matrix.md`.
-Retrospective:
-`docs/milestone-retrospectives/2026-07-28-presentation-row-completion.md`.
+Completed in this phase:
 
-Prior completed milestone: **Presentation — Real Session and Attestation**
-— complete 2026-07-27. **The milestone that performed the project's only real
-viewing session**, moving Presentation L2 → L3 in the W-2 wages (1a) column
-against the owner's real residency, with the ADR-0031 Decision 7 non-descriptive
-attestation and all five ADR-0047 preconditions affirmed individually. Three
-tracks, one branch, one PR at close. Evidential basis: maturity-matrix
-footnote 14.
-Plan:
-`docs/phases/real-return/milestones/presentation-real-session-attestation.md`.
-Retrospective:
-`docs/milestone-retrospectives/2026-07-27-presentation-real-session-attestation.md`.
+- **The Entry Boundary** — closed 2026-07-28, PR #102 at `c451a40`. ADR-0048
+  accepted. Plan:
+  `docs/phases/legible-entry/milestones/entry-boundary.md`; retrospective:
+  `docs/milestone-retrospectives/2026-07-28-entry-boundary.md`.
+- **Packaging the Surface** — closed 2026-07-28, PR #108 at `2fb6761`. ADR-0049
+  proposed. Plan:
+  `docs/phases/legible-entry/milestones/packaging-the-surface.md`; retrospective:
+  `docs/milestone-retrospectives/2026-07-28-packaging-the-surface.md`; charters
+  `docs/reviews/charter-2026-07-28-packaging-the-surface-track{1,2}.md` and
+  reviews `docs/reviews/2026-07-28-packaging-the-surface-track{1,2}-review.md`,
+  both READY.
 
-Prior completed milestone: **Presentation — L2 Integration Grounding** —
-complete 2026-07-26. PR #86 merged as `1f3bb9a` with CI `verify` green.
-The durable Presentation handoff is maturity-matrix footnote 5 in records
-commit `8e29b52`; completion review `7f6ae79` is `READY`.
-Plan:
-`docs/phases/real-return/milestones/presentation-l2-integration-grounding.md`.
-Retrospective:
-`docs/milestone-retrospectives/2026-07-26-presentation-l2-integration-grounding.md`.
+**➡️ Next action: the owner selects the next milestone.** Nothing is chartered.
+The roadmap's sequence puts **The Entry Loop, synthetic** next — build the
+guided loop end to end on synthetic data, and work out the usability evaluation
+criteria that score its own L2 claim. That is a proposal, not a commitment.
 
-Prior completed milestone: **Presentation — Citation Walk on Real
-Derivation Output** — complete 2026-07-26. PR #77 merged `2d4c195` with CI `verify` green
-on the merge commit. Ratified ADR-0046 (Presentation Surface Contract), shipped
-the citation-walk renderer over synthetic `form-field.v3` /
-`act-derived-publication.v1` fixtures through one review gate (`NOT READY` on
-F1/F2), one repair, and one focused recheck (`READY`), and moved the
-maturity-matrix Presentation cell L3 → L2. Its original closeout framed the
-next step as one real exercise; the current milestone corrects that handoff
-without rewriting the completed implementation record. Plan:
-`docs/phases/real-return/milestones/presentation-citation-walk.md`. Decision
-record: `docs/adr/0046-presentation-surface-contract.md`. Retrospective:
-`docs/milestone-retrospectives/2026-07-26-presentation-citation-walk.md`.
+Two things are outstanding and are the owner's, not the foreman's: **ADR-0049 is
+proposed and awaits ratification**, and the **phase-boundary legibility audit is
+due** and is owner-spawned by design.
 
-Prior milestone: **Browser Evaluation Runner Completion** — complete
-2026-07-25. PR #71 merged `c329afd` with CI `verify` green on the merge
-commit. Adopted and repaired the existing browser-evaluation runner
-implementation (six blockers plus two owner-accepted residuals, R1/R2); no
-product UI, ADR, or matrix lift. Plan:
-`docs/phases/real-return/milestones/browser-evaluation-runner-completion.md`.
-Retrospective:
-`docs/milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
-
-Earlier milestone: **Presentation Evaluation Process Economy** — closed early by
-owner direction 2026-07-25. Track 0 merged in PR #66 (`870c8ed`) as the
-accepted economy foundation. Track 1 failed independent review and was not
-merged; its repair/re-review and Tracks 2–3 were retired. Plan:
-`docs/phases/real-return/milestones/presentation-evaluation-process-economy.md`.
-Retrospective:
-`docs/milestone-retrospectives/2026-07-25-presentation-evaluation-process-economy.md`.
-
-Earliest of this run: **Presentation Exploratory Milestone** — complete
-2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
-material live under `docs/prototypes/human-presentation-citation-walk/`.
-
-**➡️ Next action:** **owner phase-close and next-phase selection.** Nothing is
-chartered. Both decisions are Tier 3 and owner-held.
-
-**The foreman's recommendation, on the record: Real Return should close.** The
-phase roadmap sets no ladder and one standing test — *"does the product now do
-something for its user that it could not do before?"* — and that test is met.
-Every cell is L3 or better, so frontier-driven selection has no frontier left
-inside these five columns; the matrix's own silence is the argument.
-
-**Read the completion accurately before spending it.** It is breadth- and
-hardening-limited by construction: five income/return domains, one implemented
-schedule, one human surface, one real viewing session behind the entire
-Presentation row. It is **not** a claim that the product is finished for its
-user — who still cannot file anything. That gap is invisible to every cell in
-the matrix, because no row is named for it, and it is the natural subject of
-whatever comes next.
-
-Two items follow into the next phase, named so they are not lost with the row
-that carried them: the **classified-refusal path has never been confirmed by a
-human** (the oldest open item on this path; it needs a session to close), and the
+The Real Return milestone-by-milestone chain that used to be listed here is
+retained in "Prior phase detail (Real Return)" above, in each milestone's plan
+and retrospective, and in Git. Two of its items are still open and follow into
+this phase: the **classified-refusal path has never been confirmed by a human**
+(the oldest open item on this path; it needs a session to close), and the
 **session runbook has an unidentified unclarity** — whoever uses it next should
 note where it reads badly at the moment it reads badly.
 
