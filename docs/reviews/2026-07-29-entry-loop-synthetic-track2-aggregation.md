@@ -85,6 +85,40 @@ the second is the stronger evidence about what a person can state without
 guessing. This is a recommendation, not a resolution — rule 5 makes it the
 owner's.
 
+## Owner resolution of criterion 2.3, 2026-07-29: **Pass**
+
+The owner resolved the escalated judgement criterion for A, on reasoning that
+neither evaluator put forward:
+
+The criterion asks whether a person **can** state the format without guessing.
+It does not ask whether the surface **must** state every accepted and refused
+form exhaustively. The hint gives examples without commas or a currency symbol,
+and commas and currency symbols are conventionally accepted in dollar fields —
+so the hint reads as covering both, and a person has enough knowledge not to
+need to guess. Criterion 2.3 is satisfied.
+
+**What B found is real, and it is not 2.3.** B's evidence stands: `90,000` was
+refused. On the owner's reading, that is a defect in *validation*, not in
+guidance — the hint licensed a format the validator then refused. The
+resolution is therefore not "B was wrong" but "B's finding belongs to a
+criterion the instrument does not currently have."
+
+**Consequence for the product:** both formats should be accepted. The accepted
+set must be at least as wide as what the guidance licenses.
+
+**Finding against the instrument, for Track 3.** The criteria conflate two
+distinct requirements under one "without guessing" bar:
+
+1. **Knowledge sufficiency** — a person has enough information to state a
+   correct answer. This is what 2.3 measures, and it passes.
+2. **Guidance/behaviour congruence** — the system honours what its own guidance
+   licensed. Nothing in the instrument measures this, which is why a real defect
+   surfaced only as a disputed judgement call.
+
+The next version of the instrument should separate them, and (2) is mechanical
+where (1) is judgement. The criteria are **not** amended for this evaluation;
+they are owner-accepted and fixed for it.
+
 ## What this does not do
 
 - No maturity cell moves. The milestone plan says a failed evaluation is a real
