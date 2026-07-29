@@ -4707,14 +4707,14 @@
       "sha256": "96327dcb28f0b70f23907696e771074f11a84e0f9e2f45481ee632ec292a0cb2"
     },
     {
-      "bytes": 803,
+      "bytes": 1115,
       "path": "src/w2-box1-format.js",
-      "sha256": "f7a0faba5bb5c293a3ee2a70c14644a34ba28831e57c70bf537d66e467a24a06"
+      "sha256": "174a590bfd48715189bd5819c7f0d139565467c15fe34bbd4925e0a3287476c3"
     }
   ],
   "entrypoint_html": "dist/index.html",
   "id": "demo.surface.entry-loop",
-  "package_checksum": "a01963281c7695f5a7bbd4e06882e4fb64816c5368bfadf8fe3b97509d54c386",
+  "package_checksum": "1d48bfc4b7e42458ba6d20af4c08935c0cb784dfd4d078269dd08824e96671b8",
   "schema": "surface-artifact.v1",
   "version": "v1"
 }

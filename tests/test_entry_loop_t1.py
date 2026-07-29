@@ -221,6 +221,20 @@ class EntryAndCorrection(RuntimeFixture):
             added[0]["payload"]["contribution"]["id"],
         )
 
+    def test_format_declaration_and_validator_accept_the_same_forms(self) -> None:
+        spec = self.runtime._w2_box1_format
+        self.assertEqual(spec["commaGrouping"], "accepted")
+        self.assertEqual(spec["currencyPrefix"], "accepted")
+
+        entered = self.enter("90,000")
+        self.assertTrue(entered["complete"])
+        self.assertEqual(entered["answered"][0]["value"], 90000)
+
+        corrected = self.runtime.contribute(_event(entered, "$90,000.50")).payload
+        self.assertTrue(corrected["complete"])
+        self.assertEqual(corrected["last_action"], "corrected")
+        self.assertEqual(corrected["answered"][0]["value"], 90000.5)
+
     def test_malformed_entry_is_visible_redacted_and_does_not_advance(self) -> None:
         initial = self.runtime.snapshot().payload
         original_revision = initial["revision"]
@@ -243,31 +257,6 @@ class EntryAndCorrection(RuntimeFixture):
         self.assertEqual(caught.exception.code, 422)
         self.assertNotIn(rejected_value, body)
         self.assertIn("positive dollar amount", body)
-        self.assertEqual(self.runtime.snapshot().revision, original_revision)
-        self.assertFalse(self.runtime.snapshot().payload["complete"])
-
-    def test_comma_grouping_is_refused_with_format_specific_guidance(self) -> None:
-        initial = self.runtime.snapshot().payload
-        original_revision = initial["revision"]
-        with TemporaryDirectory(prefix="demo-entry-static-") as tmp:
-            static = Path(tmp)
-            (static / "index.html").write_text("<!doctype html>", encoding="utf-8")
-            with EntryLoopServer(self.runtime, static) as server:
-                root = server.url.rsplit("/", 1)[0]
-                request = urllib.request.Request(
-                    f"{root}/api/contributions",
-                    data=json.dumps(_event(initial, "90,000")).encode("utf-8"),
-                    headers={"Content-Type": "application/json"},
-                    method="POST",
-                )
-                with self.assertRaises(urllib.error.HTTPError) as caught:
-                    urllib.request.urlopen(request, timeout=5)
-                body = caught.exception.read().decode("utf-8")
-                caught.exception.close()
-        status = caught.exception.code
-        self.assertEqual(status, 422)
-        self.assertNotIn("90,000", body)
-        self.assertIn("without commas", body)
         self.assertEqual(self.runtime.snapshot().revision, original_revision)
         self.assertFalse(self.runtime.snapshot().payload["complete"])
 
@@ -385,6 +374,16 @@ class AdversarialEntryBoundary(RuntimeFixture):
             status=422,
             marker=marker,
         )
+
+    def test_bad_grouping_variants_still_fail_closed(self) -> None:
+        for bad in ("9,0,0", "$$90000", "90,00.5"):
+            with self.subTest(bad=bad):
+                current = self.runtime.snapshot().payload
+                self._assert_fails_closed(
+                    json.dumps(_event(current, bad)).encode("utf-8"),
+                    status=422,
+                    marker=bad.encode("utf-8"),
+                )
 
 
 @unittest.skipUnless(

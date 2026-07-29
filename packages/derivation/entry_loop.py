@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import mimetypes
+import re
 import shutil
 import subprocess
 from contextlib import AbstractContextManager
@@ -124,15 +125,32 @@ def _load_w2_box1_format(repo_root: Path) -> dict[str, Any]:
         raise EntryLoopError("entry-format-unavailable") from None
     if not isinstance(spec, dict):
         raise EntryLoopError("entry-format-unavailable")
+    if not isinstance(spec.get("currencySymbol"), str):
+        raise EntryLoopError("entry-format-unavailable")
+    if spec.get("commaGrouping") not in {"accepted", "refused"}:
+        raise EntryLoopError("entry-format-unavailable")
+    if spec.get("currencyPrefix") not in {"accepted", "refused"}:
+        raise EntryLoopError("entry-format-unavailable")
     return spec
 
 
-def _comma_grouping_text(format_spec: Mapping[str, Any]) -> str:
-    return (
-        "without commas"
-        if format_spec.get("commaGrouping") == "refused"
-        else "with comma grouping"
-    )
+def _accepted_formatting_text(format_spec: Mapping[str, Any]) -> str:
+    currency_symbol = format_spec.get("currencySymbol")
+    if not isinstance(currency_symbol, str):
+        raise EntryLoopError("entry-format-unavailable")
+    parts = [
+        (
+            "with or without comma grouping"
+            if format_spec.get("commaGrouping") == "accepted"
+            else "without commas"
+        ),
+        (
+            f"an optional {currency_symbol} prefix"
+            if format_spec.get("currencyPrefix") == "accepted"
+            else f"no leading {currency_symbol} prefix"
+        ),
+    ]
+    return " and ".join(parts)
 
 
 def _w2_box1_hint(format_spec: Mapping[str, Any]) -> str:
@@ -143,7 +161,7 @@ def _w2_box1_hint(format_spec: Mapping[str, Any]) -> str:
     if not isinstance(label, str):
         raise EntryLoopError("entry-format-unavailable")
     return (
-        f"Enter {label} {_comma_grouping_text(format_spec)}, "
+        f"Enter {label} {_accepted_formatting_text(format_spec)}, "
         f"for example {examples[0]} or {examples[1]}."
     )
 
@@ -157,7 +175,7 @@ def _w2_box1_error(format_spec: Mapping[str, Any]) -> str:
     if not isinstance(max_fraction_digits, int):
         raise EntryLoopError("entry-format-unavailable")
     return (
-        f"Enter {field} as a {error_label} {_comma_grouping_text(format_spec)} "
+        f"Enter {field} as a {error_label} {_accepted_formatting_text(format_spec)} "
         f"and with no more than {max_fraction_digits} decimal places."
     )
 
@@ -301,11 +319,29 @@ def _parse_box1_with_format(
 ) -> int | float:
     if isinstance(value, bool) or not isinstance(value, (int, float, str)):
         raise EntryLoopError("entry-value-invalid")
-    if format_spec.get("commaGrouping") == "refused" and isinstance(value, str):
-        if "," in value:
+    normalized = value
+    if isinstance(value, str):
+        currency_symbol = format_spec.get("currencySymbol")
+        if not isinstance(currency_symbol, str):
+            raise EntryLoopError("entry-format-unavailable")
+        if value.startswith(currency_symbol):
+            if format_spec.get("currencyPrefix") != "accepted":
+                raise EntryLoopError("entry-value-invalid")
+            normalized = value[len(currency_symbol) :]
+            if normalized.startswith(currency_symbol):
+                raise EntryLoopError("entry-value-invalid")
+        elif currency_symbol in value:
             raise EntryLoopError("entry-value-invalid")
+
+        if format_spec.get("commaGrouping") == "accepted":
+            pattern = r"^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?$"
+        else:
+            pattern = r"^\d+(?:\.\d{1,2})?$"
+        if not re.fullmatch(pattern, normalized):
+            raise EntryLoopError("entry-value-invalid")
+        normalized = normalized.replace(",", "")
     try:
-        amount = Decimal(str(value))
+        amount = Decimal(str(normalized))
     except (InvalidOperation, ValueError):
         raise EntryLoopError("entry-value-invalid") from None
     exponent = amount.as_tuple().exponent
