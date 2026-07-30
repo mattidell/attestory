@@ -30,12 +30,15 @@ not seen this surface before. Failing again is an acceptable result.
 ## Operational State: Legible Entry
 
 * **Active Milestone:** Milestone 4 — Re-score the Entry Loop, planned
-* **Current Track:** Track 2a — re-confirm the run dependencies. Charter: `docs/reviews/charter-2026-07-30-entry-loop-rescore-track2a.md`. Track 1 is READY (`8d1d4f9`) and merges first. Build charter: `docs/reviews/charter-2026-07-30-entry-loop-rescore-track1.md`. Review: `docs/reviews/2026-07-30-entry-loop-rescore-track1-review.md`. Repair charter: `docs/reviews/charter-2026-07-30-entry-loop-rescore-track1-repair.md`. Branch `track/entry-loop-rescore-track1`.
+* **Current Track:** Track 2a — re-confirm the run dependencies. Charter: `docs/reviews/charter-2026-07-30-entry-loop-rescore-track2a.md`. Branch it from `main-ui` after Track 1 merges.
+* **Open PRs:** #116 CI `verify` on `main-ui` (green); #117 Track 1 (READY at `8d1d4f9`); #118 merge protocol, a PR per track.
+* **Merge protocol changed 2026-07-30:** each track now gets its own PR, alongside the milestone's opening and closing PRs. The review gate is unchanged. Build charter: `docs/reviews/charter-2026-07-30-entry-loop-rescore-track1.md`. Review: `docs/reviews/2026-07-30-entry-loop-rescore-track1-review.md`. Repair charter: `docs/reviews/charter-2026-07-30-entry-loop-rescore-track1-repair.md`. Branch `track/entry-loop-rescore-track1`.
 * **CI gap, closed by PR #116 (verify green):** `verify` triggered only on `main`, so no check ever ran on `main-ui` -- PRs #112 and #115 merged with zero checks and all three Legible Entry milestones landed ungated. PR #116 adds the trigger. It makes the check report, not block; branch protection must also require `verify` on `main-ui`, which is an owner-held repository setting.
 * **Maturity Status:** W-2 cell at L1. No cell in this phase has reached L2.
 * **Prior close:** Milestone 3 closed 2026-07-29 (PR #112) at L1; ADR-0049 and ADR-0051 ratified there
 * **Owner decisions, 2026-07-29:** close the harness gap before re-scoring; one full twenty-row re-score with two fresh evaluators; **the criteria document may not be amended**
-* **Still due:** the legibility audit, now on two of its own triggers -- the phase boundary, and Milestone 3 introducing a new schema family (`entry-field.v1`). Owner-spawned by design; the foreman must not launch it. Launch prompt: `docs/legibility-audits/audit-prompt.md`.
+* **Phase-boundary legibility audit: DONE, owner-spawned 2026-07-29.** Two starved reads, `docs/legibility-audits/2026-07-28-interest-closure.md` and `-w2-same-employer.md`. **Bar met: 0 `wrong` of 8 tasks.** One `partial` (number provenance, interest-closure) and a catalogue of artifact-grounded gaps. Findings are advisory; no `wrong` means nothing blocks a phase transition. Neither audit covers `entry-field.v1` -- both read the derivation corpus, so the new-schema-family trigger is not yet satisfied.
+* **Audit's convergent finding, unactioned:** two independent readers landed on the same defect class -- normative meaning living in free-text `notes` and ADR references rather than in pins or rule expressions. Named by both: `round` operation-semantics pinned with `value: null` and no content instance; undeclared currency unit and decimal scale; closure/empty-set policy stated only in notes pointing at ADRs a reader may not open.
 * **Branch line:** the UI line continues on `main-ui`. PR #113 was a one-off sync of `main-ui` upstream into `main` and does not move the base; UI PRs still target `main-ui`.
 
 ### Standing Directives
