@@ -76,6 +76,7 @@ ROLE_VOCABULARY = frozenset(
         "fact-type-bundle",
         "dividend-universe",
         "attachment-rule",
+        "checked-conclusion-binding",
     }
 )
 
