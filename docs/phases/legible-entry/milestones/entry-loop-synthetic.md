@@ -236,11 +236,13 @@ presentation surface, and does not draft an ADR (that call is the owner's).
 **The model.** `packages/schemas/entry/entry-field.v1.schema.json` declares
 what an entry field must state about itself: `source` (document, box, and the
 box's own printed label), `destination` (return form and line), `purpose`
-(the completion reason), `format` (Track 2d's accepted-format shape,
-generalised in name only, unchanged in behaviour), and `correction` (an open
-`kind` enum naming how an answered fact is located and changed — one member
-today, `same-field-reuse`, because that is the only shape this milestone
-built or observed). W-2 Box 1 is declared against it in
+(the completion reason), `format` (a discriminated union keyed by `kind`, with
+exactly one member today — `currency-amount`, Track 2d's accepted-format shape,
+unchanged in behaviour — because a money field is the only shape this
+milestone built or evaluated; see the Track 3 repair below), and `correction`
+(a `kind` enum closed to one observed member, `same-field-reuse`, naming how an
+answered fact is located and changed, because that is the only shape this
+milestone built or observed). W-2 Box 1 is declared against it in
 `w2-box1-field.js`, which composes the existing `w2-box1-format.js` rather
 than duplicating it. `EntryPage.svelte` now renders its source label,
 field name, and purpose sentence from that declaration
@@ -347,11 +349,91 @@ W-2 Box 1's correction is trivially `same-field-reuse` because there is
 exactly one field and no navigation is needed to reach it again. A fact
 family with several fields, or one where the missing-facts list and the
 already-answered list interleave, may need a `kind` this milestone never
-built — something closer to "locate in a list, then reopen" — and the schema's
-open enum is there for exactly that, but it is speculation from one example,
-not evidence. The schema's `additionalProperties: false` on `correction`
-combined with the extensible enum is the deliberate hedge: add a member when
-a second family needs one, rather than widening the shape speculatively now.
+built — something closer to "locate in a list, then reopen." The schema keeps
+`correction.kind` closed to the one member this milestone actually observed
+rather than opening it on speculation; add a member (an addition to the enum,
+not a breaking change to existing declarations) the next time a field
+actually needs one.
 
 Whether this model should become a ratified ADR is, per the charter, the
 owner's call and not made here.
+
+### Track 3 repair — an honest contract, schema enforced at load time
+
+Charter:
+`docs/reviews/charter-2026-07-29-entry-loop-synthetic-track3-repair.md`,
+against `docs/reviews/2026-07-29-entry-loop-synthetic-track3-review.md`
+(`NOT READY`). Two blocking findings, closed:
+
+**F1 — the schema now claims only what it covers.** `entry-field.v1`'s
+`format` is a discriminated union (`$defs.format`, keyed by `kind`) with
+exactly one member, `currency_amount_format`. The title and description now
+say plainly that this is a money-field contract with one format variant,
+extracted from W-2 Box 1, and that a checkbox, an identifier, a date, or a
+choice field each need a variant this milestone has no evidence for and does
+not invent. `w2-box1-format.js`'s `W2_BOX1_FORMAT` gained the literal
+`"kind": "currency-amount"` tag — a non-behavioural addition; the hint,
+error, and validator functions read the same named keys as before and Track
+2d's format work is otherwise untouched. `correction.kind` was already a
+closed JSON Schema enum (`{"enum": ["same-field-reuse"]}`); what was wrong
+was the prose calling it open. The prose above and the schema's own
+description now both say the same true thing: closed to the one member this
+milestone observed, extended by evidence rather than spoken of as already
+open. The shared core (`source`, `destination`, `purpose`, `correction`) is
+unchanged, per the charter's instruction not to restructure it on
+speculation from one field.
+
+**F2 — the loader now enforces the schema it publishes.** `_load_w2_box1_field`
+previously hand-rolled its own presence/type checks for `source`,
+`destination`, `purpose`, and `correction`, and never checked `id`,
+`version`, or `additionalProperties` at all. It now parses the declaration
+and calls `jsonschema.Draft202012Validator(...).is_valid(...)` against
+`entry-field.v1` directly, deleting the hand-rolled checks entirely. The
+W-2-specific requirement — that the declared `format` be exactly this
+runtime's own format, not merely *a* valid currency-amount format — is kept,
+but as a separate, explicitly-commented equality check that runs only after
+schema validation passes, rather than folded into it.
+
+*Previously-accepted declarations now refused:* a declaration omitting `id`,
+with `version` set to `not-a-version` (the reviewer's exact repro); the same
+declaration with any unrecognized top-level key; and a `correction.kind`
+value other than `same-field-reuse` (e.g. `modal-reopen`) — all now fail with
+`entry-field-unavailable`, verified directly against the loader and covered
+by `tests.test_entry_loop_t1.FieldContract.test_loader_now_rejects_what_the_schema_rejects`.
+*Still refused, for the reason already recorded, now demonstrably separate
+from schema validity:* a fully schema-valid declaration whose `format` is a
+different (but internally valid) currency-amount object — covered by
+`test_loader_still_refuses_a_schema_valid_but_different_format`. *Confirmed
+unchanged:* the served `field_contract` still validates against the amended
+`entry-field.v1` (`test_field_contract_validates_against_its_schema`), and
+every failure path still raises only a generic `entry-field-unavailable` or
+`entry-format-unavailable` with no rejected declaration or value in the
+message, exactly as before.
+
+**F3 — rendered derivation, proven, not just inspected.** Attempted and
+landed. `tests.test_entry_loop_t1.RenderedFieldDerivation` copies the real
+surface content, mutates `w2-box1-field.js`'s `source.box`, `source.label`,
+`destination.line`, and `purpose` to distinct synthetic strings, builds it
+with the same offline `node build.mjs` the surface actually ships with,
+serves the compiled output through the real running entry-loop server, and
+drives it with a Chrome-based probe
+(`tests/helpers/entry_loop_field_derivation_client.mjs`) that asserts the
+mutated text reached the DOM and the original text did not. This is gated
+the same way `CompiledClientIntegration` already is (needs Node, a local
+Chrome/Chromium, and the vendored dependency tree) and is not a new,
+separately-skipping path — it runs whenever that existing test does, and did
+on the machine of record.
+
+**F4 — the seam was not widened further.** `_load_w2_box1_field` still uses
+the same `export const` marker plus one regex substitution it did before this
+repair; nothing was added to parse `format`'s new `"kind"` key specially (it
+travels through the same substitution as every other format key, since
+`format_spec` is loaded and injected as one dict). The seam recommendation in
+this document stands unchanged and unbuilt, per the charter.
+
+No owner decision was required to close F1 or F2 — both were narrowing moves
+the charter authorized directly (state the true scope; enforce the schema
+that is already published), not widenings that would need one. Nothing here
+draws a maturity conclusion, amends the criteria document, or fixes the
+accessibility defect; the W-2 cell verdict stays FAIL, unchanged from Track
+2.

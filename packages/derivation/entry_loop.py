@@ -29,6 +29,8 @@ from threading import Lock, Thread
 from typing import Any, Mapping, Sequence
 from urllib.parse import urlsplit
 
+import jsonschema
+
 from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import (
     WorkspaceCapability,
@@ -84,6 +86,7 @@ W2_BOX1_FORMAT = (
 W2_BOX1_FIELD = (
     ENTRY_FIXTURE / "surface" / "content" / "app" / "src" / "w2-box1-field.js"
 )
+ENTRY_FIELD_SCHEMA = Path("packages/schemas/entry/entry-field.v1.schema.json")
 
 _MAX_REQUEST_BYTES = 16_384
 _LINE_TITLES = {
@@ -156,6 +159,19 @@ def _load_w2_box1_format(repo_root: Path) -> dict[str, Any]:
     return spec
 
 
+def _entry_field_validator(repo_root: Path) -> jsonschema.Draft202012Validator:
+    path = repo_root / ENTRY_FIELD_SCHEMA
+    try:
+        document = json.loads(path.read_text("utf-8"))
+    except (OSError, json.JSONDecodeError):
+        raise EntryLoopError("entry-field-unavailable") from None
+    try:
+        jsonschema.Draft202012Validator.check_schema(document)
+    except jsonschema.SchemaError:
+        raise EntryLoopError("entry-field-unavailable") from None
+    return jsonschema.Draft202012Validator(document)
+
+
 def _load_w2_box1_field(
     repo_root: Path,
     format_spec: Mapping[str, Any],
@@ -168,7 +184,17 @@ def _load_w2_box1_field(
     already-validated ``format_spec`` there before decoding the rest as JSON,
     which is the same brittle string-marker seam Track 2d used for the format
     declaration alone -- generalised, not made any less brittle. See Track 3's
-    seam recommendation for what should replace it.
+    seam recommendation for what should replace it (still not built here,
+    per the Track 3 repair charter's F4).
+
+    The parsed declaration is validated against ``entry-field.v1`` itself
+    (Track 3 repair, F2) rather than against a hand-rolled restatement of the
+    schema's own rules -- the schema is the loader's contract, not a second,
+    independent one. The W-2-specific requirement that the declared format be
+    exactly the one this runtime's validator uses is a separate, explicit
+    constraint of *this* runtime, kept after schema validation rather than
+    folded into it: a different, schema-valid currency-amount format is not a
+    malformed declaration, it is simply not this field's declaration.
     """
 
     path = repo_root / W2_BOX1_FIELD
@@ -195,31 +221,13 @@ def _load_w2_box1_field(
         raise EntryLoopError("entry-field-unavailable") from None
     if not isinstance(contract, dict):
         raise EntryLoopError("entry-field-unavailable")
-    if contract.get("schema") != "entry-field.v1":
+    validator = _entry_field_validator(repo_root)
+    if not validator.is_valid(contract):
         raise EntryLoopError("entry-field-unavailable")
-    source = contract.get("source")
-    if not isinstance(source, dict) or not all(
-        isinstance(source.get(key), str) and source[key]
-        for key in ("document", "box", "label")
-    ):
-        raise EntryLoopError("entry-field-unavailable")
-    destination = contract.get("destination")
-    if not isinstance(destination, dict) or not all(
-        isinstance(destination.get(key), str) and destination[key]
-        for key in ("form", "line")
-    ):
-        raise EntryLoopError("entry-field-unavailable")
-    if not isinstance(contract.get("purpose"), str) or not contract["purpose"]:
-        raise EntryLoopError("entry-field-unavailable")
-    if contract.get("format") != dict(format_spec):
-        raise EntryLoopError("entry-field-unavailable")
-    correction = contract.get("correction")
-    if (
-        not isinstance(correction, dict)
-        or correction.get("kind") != "same-field-reuse"
-        or not isinstance(correction.get("affordance"), str)
-        or not correction["affordance"]
-    ):
+    # W-2-specific: the declared format must be this runtime's own validator
+    # format, not merely some schema-valid currency-amount format. Separate
+    # from, and in addition to, the generic schema check above.
+    if contract["format"] != dict(format_spec):
         raise EntryLoopError("entry-field-unavailable")
     return contract
 

@@ -1,4 +1,5 @@
 export const W2_BOX1_FORMAT = {
+  "kind": "currency-amount",
   "field": "W-2 Box 1",
   "hintLabel": "dollars and cents",
   "errorLabel": "positive dollar amount",

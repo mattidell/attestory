@@ -364,6 +364,135 @@ class FieldContract(RuntimeFixture):
             with self.assertRaisesRegex(EntryLoopError, "entry-field-unavailable"):
                 _load_w2_box1_field(broken_root, format_spec)
 
+    @staticmethod
+    def _write_field_declaration(
+        root: Path,
+        declaration_without_format: dict[str, Any],
+    ) -> None:
+        # Real files reference the imported W2_BOX1_FORMAT binding rather
+        # than inlining it, and the loader's marker-substitution only fires
+        # on that exact bare-identifier convention -- so these regression
+        # cases use it too, rather than a fully-inlined literal, to exercise
+        # the actual load path.
+        target = (
+            root
+            / "packages"
+            / "sample_data"
+            / "entry_loop_t1"
+            / "surface"
+            / "content"
+            / "app"
+            / "src"
+            / "w2-box1-field.js"
+        )
+        target.parent.mkdir(parents=True, exist_ok=True)
+        body = json.dumps(declaration_without_format)
+        assert body.endswith("}")
+        text = (
+            "export const W2_BOX1_FIELD = "
+            + body[:-1]
+            + ', "format": W2_BOX1_FORMAT};\n'
+        )
+        target.write_text(text, encoding="utf-8")
+
+    def test_loader_now_rejects_what_the_schema_rejects(self) -> None:
+        """Track 3 repair F2: schema validation replaces hand-rolled checks."""
+        from packages.derivation.entry_loop import (
+            EntryLoopError,
+            _load_w2_box1_field,
+            _load_w2_box1_format,
+        )
+
+        format_spec = _load_w2_box1_format(REPO)
+        base = {
+            "schema": "entry-field.v1",
+            "id": "tax.us.2025.w2.box1-wages",
+            "version": "v1",
+            "source": {
+                "document": "Form W-2",
+                "box": "Box 1",
+                "label": "Wages, tips, other compensation",
+            },
+            "destination": {"form": "Form 1040", "line": "1a"},
+            "purpose": "resolves the missing wages needed to compute income",
+            "correction": {"kind": "same-field-reuse", "affordance": "x"},
+        }
+
+        missing_id_bad_version = dict(base, version="not-a-version")
+        del missing_id_bad_version["id"]
+        cases: dict[str, dict[str, Any]] = {
+            "missing_id_bad_version": missing_id_bad_version,
+            "unknown_top_level_key": dict(base, extra_unknown_key=True),
+            "unknown_correction_kind": dict(
+                base,
+                correction={"kind": "modal-reopen", "affordance": "x"},
+            ),
+        }
+        for name, declaration in cases.items():
+            with self.subTest(case=name):
+                with TemporaryDirectory(prefix="demo-entry-field-") as tmp:
+                    root = Path(tmp)
+                    self._write_field_declaration(root, declaration)
+                    with self.assertRaisesRegex(
+                        EntryLoopError, "entry-field-unavailable"
+                    ):
+                        _load_w2_box1_field(root, format_spec)
+
+    def test_loader_still_refuses_a_schema_valid_but_different_format(self) -> None:
+        """Track 3 repair F2: the W-2 format-equality constraint stays, separately."""
+        from packages.derivation.entry_loop import (
+            EntryLoopError,
+            _load_w2_box1_field,
+            _load_w2_box1_format,
+        )
+
+        format_spec = _load_w2_box1_format(REPO)
+        declaration = {
+            "schema": "entry-field.v1",
+            "id": "tax.us.2025.w2.box1-wages",
+            "version": "v1",
+            "source": {
+                "document": "Form W-2",
+                "box": "Box 1",
+                "label": "Wages, tips, other compensation",
+            },
+            "destination": {"form": "Form 1040", "line": "1a"},
+            "purpose": "resolves the missing wages needed to compute income",
+            "correction": {"kind": "same-field-reuse", "affordance": "x"},
+        }
+        with TemporaryDirectory(prefix="demo-entry-field-") as tmp:
+            root = Path(tmp)
+            self._write_field_declaration(root, declaration)
+            # A format lacking the schema's required "kind" discriminator is
+            # itself schema-invalid (F1); this exercises the separate,
+            # W-2-specific equality constraint (F2) with a format that is
+            # otherwise schema-valid but not this runtime's own.
+            different_but_schema_valid = dict(format_spec, maxValue="1.00")
+            with self.assertRaisesRegex(EntryLoopError, "entry-field-unavailable"):
+                _load_w2_box1_field(root, different_but_schema_valid)
+
+    def test_format_schema_rejects_a_currency_object_missing_the_discriminator(
+        self,
+    ) -> None:
+        """Track 3 repair F1: 'kind' is load-bearing, not decorative."""
+        import jsonschema
+
+        schema = json.loads(
+            (
+                REPO
+                / "packages"
+                / "schemas"
+                / "entry"
+                / "entry-field.v1.schema.json"
+            ).read_text("utf-8")
+        )
+        contract = json.loads(
+            json.dumps(self.runtime.snapshot().payload["field_contract"]["w2-box1"])
+        )
+        del contract["format"]["kind"]
+        with self.assertRaises(jsonschema.exceptions.ValidationError):
+            jsonschema.validate(contract, schema)
+
 
 class AdversarialEntryBoundary(RuntimeFixture):
     def setUp(self) -> None:
@@ -542,6 +671,103 @@ class CompiledClientIntegration(RuntimeFixture):
             },
         )
         self.assertTrue(self.runtime.snapshot().payload["complete"])
+
+
+@unittest.skipUnless(
+    _NODE and _BROWSER and _VENDORED,
+    "needs Node, a local Chrome/Chromium, and the surface artifact vendored tree",
+)
+class RenderedFieldDerivation(RuntimeFixture):
+    """Track 3 repair F3: the DOM text changes when the declaration does.
+
+    Builds the real surface from a copy of the fixture whose field
+    declaration carries distinct synthetic text in place of the shipped
+    source label, destination line, and purpose, then asserts the compiled,
+    browser-rendered page shows the new text and not the original -- proving
+    derivation rather than the presence of matching characters somewhere in
+    the source file.
+    """
+
+    def test_dom_text_follows_a_mutated_declaration(self) -> None:
+        assert _NODE is not None
+        original = (
+            CONTENT / "src" / "w2-box1-field.js"
+        ).read_text("utf-8")
+        replacements = {
+            '"box": "Box 1"': '"box": "SYNTH-BOX-77"',
+            '"label": "Wages, tips, other compensation"': (
+                '"label": "Synthetic Track3 Field Label"'
+            ),
+            '"line": "1a"': '"line": "SYNTH-LINE-77"',
+            (
+                '"purpose": "resolves the missing wages needed to '
+                'compute income"'
+            ): '"purpose": "synthetic track3 purpose fragment"',
+        }
+        mutated = original
+        for before, after in replacements.items():
+            self.assertEqual(
+                original.count(before),
+                1,
+                f"expected exactly one occurrence of {before!r} to mutate",
+            )
+            mutated = mutated.replace(before, after)
+
+        with TemporaryDirectory(prefix="demo-entry-derivation-") as tmp:
+            content_copy = Path(tmp) / "app"
+            shutil.copytree(CONTENT, content_copy)
+            (content_copy / "src" / "w2-box1-field.js").write_text(
+                mutated, encoding="utf-8"
+            )
+            build = subprocess.run(
+                [_NODE, "build.mjs"],
+                cwd=content_copy,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=60,
+                check=False,
+            )
+            self.assertEqual(build.returncode, 0, build.stderr)
+            dist = content_copy / "dist"
+
+            with EntryLoopServer(self.runtime, dist) as server:
+                result = subprocess.run(
+                    [
+                        _NODE,
+                        str(
+                            REPO
+                            / "tests"
+                            / "helpers"
+                            / "entry_loop_field_derivation_client.mjs"
+                        ),
+                        server.url,
+                        json.dumps(
+                            [
+                                "SYNTH-BOX-77",
+                                "Synthetic Track3 Field Label",
+                                "SYNTH-LINE-77",
+                                "synthetic track3 purpose fragment",
+                            ]
+                        ),
+                        json.dumps(
+                            [
+                                "Wages, tips, other compensation",
+                                "feeds Form 1040 line 1a",
+                            ]
+                        ),
+                    ],
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    timeout=30,
+                    check=False,
+                )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        observed = json.loads(result.stdout)
+        self.assertEqual(observed, {"present": True, "absent": True})
 
 
 class SurfaceCriteria(unittest.TestCase):
