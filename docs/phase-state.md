@@ -44,5 +44,5 @@ The milestone remains synthetic and makes no L3 claim.
 Render the advisory capsule from an explicit committed ref:
 
 ```sh
-.venv/bin/python3 tools/foreman_context.py --ref HEAD --format markdown
+python3 tools/foreman_context.py --ref HEAD --format markdown
 ```

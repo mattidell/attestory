@@ -53,11 +53,13 @@
 -->
 # Milestone: The Entry Loop (synthetic)
 
-Status: **open.** Plan merged 2026-07-28 (PR #109, `506f785`). Track 0 closed;
-Track 1 built and reviewed `NOT READY`. Its blocking finding rested on
-ADR-0048's entry-vehicle condition, which the owner withdrew on 2026-07-29
-(ADR-0051). Track 1 is in a scoped repair covering the two coverage findings,
-plus a recheck that disposes the blocking one.
+Status: **closed 2026-07-29.** Plan merged 2026-07-28 (PR #109, `506f785`).
+Four tracks and two Track 3 repair rounds landed; see each track's outcome
+section below, the "Close" section at the end of this document, and the
+retrospective at `docs/milestone-retrospectives/2026-07-29-entry-loop-synthetic.md`.
+The W-2 cell stays at **L1**: the second evaluation round returned FAIL on
+the accessibility row, and nothing re-scored the surface after Track 4's
+repair.
 
 ## What this is for
 
@@ -594,3 +596,71 @@ No maturity movement: the W-2 cell verdict stays FAIL and the cell stays at
 L1 — this track repaired the one outstanding defect but did not re-score,
 and the charter directed that repairing the defect after the fact does not
 move the cell. No criteria-document change, no second fact family, no ADR.
+
+## Close
+
+Charter: `docs/reviews/charter-2026-07-29-entry-loop-synthetic-close.md`.
+Last build unit: `146aede` (Track 4), foreman-inspected at
+`docs/reviews/2026-07-29-entry-loop-synthetic-track4-foreman-inspection.md`.
+Retrospective: `docs/milestone-retrospectives/2026-07-29-entry-loop-synthetic.md`.
+
+**What a person can now do.** Open the synthetic entry surface, see the one
+outstanding W-2 fact named against the document and box it comes from, type
+it, watch the return recompute and the accepted fact reflected back, correct
+it in place without restarting the session, and reach an unambiguous
+"nothing left to enter" state — all through `act-contribution.v1` on the
+existing admission path, never by the surface writing a fact directly, and
+without opening a text editor. What a person still cannot do: enter
+anything but a W-2 wages figure, correct a fact that a real refusal rule
+would actually contest (every fact type here declares `free`), or do any of
+this against a real return — this milestone is synthetic throughout, with
+no owner attestation and no L3 claim anywhere in it.
+
+**The evaluation failed, and the cell stays at L1.** Two independent,
+two-evaluator rounds scored the built loop against criteria written and
+owner-accepted before the surface existed. The first round's disputed
+judgement criterion was resolved by the owner without amending the
+document; the second round returned **FAIL** on the accessibility baseline
+— the amount input's focus indicator measured 1.02:1 against a required
+3:1, the same defect surviving an earlier repair aimed at the wrong layer.
+Track 4 subsequently repaired the defect and proved the repair with a
+non-snapshot, live-measured test, but nothing re-scored the surface
+afterward. **The W-2 column of the entry-loop matrix does not move; it
+stays at L1.** Describing the repair as satisfying the criterion would
+misstate what happened: a repair removes the known cause of a recorded
+failure, it does not retroactively pass an evaluation nothing re-ran.
+
+**The durable deliverable is the entry-field contract, not the surface.**
+`packages/schemas/entry/entry-field.v1.schema.json` states what an entry
+field must declare about itself — source document and box, return
+destination, purpose, an accepted-format variant, a correction affordance —
+extracted from the single W-2 Box 1 field this milestone built, and it is
+evidenced by exactly that one field. The surface built to exercise it may
+well be thrown away, the same way this phase has already thrown away one
+exploratory presentation surface after extracting its contract; the schema
+is what this milestone means to survive that.
+
+**Carried findings**, none fixed here, each recorded where it was found:
+the evaluation harness cannot measure keyboard operability (Tab/Shift+Tab,
+Enter/Space) so a mechanical criterion has gone partly unverified twice; the
+accessibility criterion bundles five requirements into one Pass/Fail;
+criterion 2.3 conflates knowledge sufficiency with guidance/behaviour
+congruence; the format-declaration seam's guarantee that the served format
+matches the runtime's own is structural to the current marker-and-regex
+parser and untested in its own right, and expires the moment the recorded
+canonical-JSON migration happens; `entry-field.v1`'s shared core
+(`source`/`destination`/`purpose`/`correction`) is evidenced by one field
+and unproven beyond it, and the schema cannot and does not check that a
+declared format is *correct* for its named source, only that the
+declaration is well-formed; the kernel's `apply_contribution` masks whether
+`entry_loop.py`'s own staleness check does any work; `launchChrome()` leaves
+an orphaned process and a `mkdtemp` leak if killed on timeout.
+
+**ADR-0049 and ADR-0051 go to the owner unchanged**, still `proposed`. Both
+held under everything this milestone exercised against them across five
+tracks; neither needed amendment. Ratification is the owner's act on the
+closing PR, not made here.
+
+No maturity matrix movement beyond what is stated above. No second fact
+family, no real data, no residency locator. The next milestone and the
+phase-boundary legibility audit are the owner's, at this close.
