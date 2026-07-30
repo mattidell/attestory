@@ -2,12 +2,12 @@
 {
   "version": 1,
   "phase": "Legible Entry",
-  "topic": "entry-loop-synthetic",
-  "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
-  "milestone_state": "closed",
-  "status": "**LEGIBLE ENTRY / THE ENTRY LOOP (SYNTHETIC) — CLOSED 2026-07-29 (PR #112).** The W-2 cell stays at L1: the second evaluation returned FAIL on the accessibility row and nothing re-scored the surface after the repair, so the failed evaluation stands as the reported outcome. ADR-0049 and ADR-0051 are ratified by the owner. No track is chartered and no build is in flight. The owner selected the next milestone on 2026-07-29: re-score the repaired W-2 loop against the unchanged criteria to settle the L2 claim. NEXT ACTION: the foreman drafts that milestone plan for owner approval; no charter may be filed before it is approved. The phase-boundary legibility audit is still due and is owner-spawned — the foreman must not launch it.",
-  "current_role": "Foreman — drafting the Milestone 4 plan",
-  "current_prompt": "docs/phases/legible-entry/legible-entry-roadmap.md"
+  "topic": "entry-loop-rescore",
+  "active_plan": "docs/phases/legible-entry/milestones/entry-loop-rescore.md",
+  "milestone_state": "planned",
+  "status": "**LEGIBLE ENTRY / RE-SCORE THE ENTRY LOOP — PLANNED.** Milestone 3 closed 2026-07-29 (PR #112) with the W-2 cell at L1: its evaluation returned FAIL on the accessibility row and nothing re-scored the surface after Track 4's repair. Milestone 4 settles that claim. Owner decisions, 2026-07-29: close the harness gap that left keyboard operability unmeasured in both prior rounds before re-scoring; run one full twenty-row re-score with two fresh evaluators; amending the criteria document is forbidden. A second FAIL is a legitimate outcome. NEXT ACTION: charter the Track 1 Builder to make keyboard reachability and operability mechanically measurable, on a fresh branch from the plan merge. The phase-boundary legibility audit is still due and is owner-spawned — the foreman must not launch it.",
+  "current_role": "Track 1 Builder",
+  "current_prompt": "docs/phases/legible-entry/milestones/entry-loop-rescore.md"
 }
 -->
 # Phase State
@@ -19,21 +19,21 @@ Git, `docs/reviews/`, and `docs/adr/`.
 <!-- brief high level plain language overview of the state of the milestone, exclude result and finding specifics -->
 ## High Level Milestone Briefing
 
-Milestone 3 built a synthetic W-2 entry loop. A person can now type W-2 facts
-into a surface and get a computed return without opening a text editor. Two
-rounds of independent evaluation ran against criteria written before the code;
-the second failed on accessibility, and that failure stands as the reported
-outcome. The durable deliverable is the entry-field contract, not the surface.
-The milestone remains synthetic and makes no L3 claim.
+Milestone 3 built a synthetic W-2 entry loop and then failed its own
+evaluation on accessibility, so the surface scored worse than it probably is:
+the defect was repaired afterwards but nothing re-ran the evaluation, and a
+repair does not retroactively pass a score. Milestone 4 settles that. It first
+fixes the measuring instrument — keyboard operability was never actually
+measurable — and then re-scores the whole sheet with two evaluators who have
+not seen this surface before. Failing again is an acceptable result.
 
 ## Operational State: Legible Entry
 
-* **Active Milestone:** none — Milestone 3, The Entry Loop (synthetic), closed 2026-07-29 (PR #112)
-* **Current Track:** none — no charter is filed and no build is in flight
-* **Maturity Status:** W-2 cell remains at L1 (evaluation returned FAIL, no re-score)
-* **Cut decision:** the milestone closed at L1; the repair landed but nothing re-scored it, so the cell did not move
-* **ADR ratification:** ADR-0049 and ADR-0051 ratified by the owner, 2026-07-29 (PR #112)
-* **Next milestone:** selected by the owner 2026-07-29 — re-score the repaired W-2 loop to settle the L2 claim. The plan is being drafted and must be owner-approved before any charter.
+* **Active Milestone:** Milestone 4 — Re-score the Entry Loop, planned
+* **Current Track:** Track 1 — make keyboard reachability and operability mechanically measurable
+* **Maturity Status:** W-2 cell at L1. No cell in this phase has reached L2.
+* **Prior close:** Milestone 3 closed 2026-07-29 (PR #112) at L1; ADR-0049 and ADR-0051 ratified there
+* **Owner decisions, 2026-07-29:** close the harness gap before re-scoring; one full twenty-row re-score with two fresh evaluators; **the criteria document may not be amended**
 * **Still due:** the phase-boundary legibility audit. Owner-spawned by design; the foreman must not launch it.
 * **Branch line:** the UI line continues on `main-ui`. PR #113 was a one-off sync of `main-ui` upstream into `main` and does not move the base; UI PRs still target `main-ui`.
 
@@ -41,6 +41,7 @@ The milestone remains synthetic and makes no L3 claim.
 
 * **UI Modeling:** Model usability criteria and field contracts as schema rather than accumulating specific HTML/CSS assertions.
 * **Entry-Field Contract:** Define source document, box, destination line, purpose, accepted format, and correction affordance centrally.
+* **Prove the check bites:** any assertion added to an evaluation harness must be demonstrated to fail when the behaviour it guards is removed. Milestone 3 rejected three builds for machinery that asserted something untrue.
 
 ## Re-entry
 

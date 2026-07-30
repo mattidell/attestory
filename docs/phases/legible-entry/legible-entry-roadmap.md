@@ -120,10 +120,23 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    written before the surface is built; the per-field explanation shape is
    recorded at close rather than designed up front. Plan:
    `docs/phases/legible-entry/milestones/entry-loop-synthetic.md`.
-4. **Real Entry.** The owner enters a real fact through the surface and
+   **Closed 2026-07-29** (PR #112). The evaluation returned FAIL on the
+   accessibility row and the W-2 cell stayed at **L1**; a later track repaired
+   the defect but nothing re-scored the surface, so the failure stands as the
+   reported outcome. The durable deliverable is `entry-field.v1`, not the
+   surface. Retrospective:
+   `docs/milestone-retrospectives/2026-07-29-entry-loop-synthetic.md`.
+4. **Re-score the Entry Loop.** Settle the L2 claim Milestone 3 left open:
+   close the harness gap that left keyboard operability unmeasured in both
+   prior rounds, then run one full twenty-row re-score with two fresh
+   evaluators against unchanged criteria. A second FAIL is a legitimate
+   outcome. **Drafted 2026-07-29**, awaiting owner approval. Plan:
+   `docs/phases/legible-entry/milestones/entry-loop-rescore.md`.
+5. **Real Entry.** The owner enters a real fact through the surface and
    attests. Owner-operated; the only milestone that can raise a row to L3. By
    then every usability question has already been answered on synthetic
-   data.
+   data — which is why it follows the re-score rather than preceding it: an
+   L3 claim cannot rest on a row that never earned L2.
 
 **Due now, outside the sequence.** The legibility-audit README's own cadence
 triggers an audit at each phase boundary, before the transition plan is
@@ -197,8 +210,13 @@ Milestone 1 (The Entry Boundary) closed 2026-07-28, ADR-0048 accepted. No
 maturity cell has moved — that milestone was a decision, and the instrument
 measures capability. Milestone 2 (Packaging the Surface) closed 2026-07-28,
 also without moving a cell — it built the delivery route, not the loop.
-Milestone 3 (The Entry Loop, synthetic) is planned and is the first milestone
-in this phase that builds product. It is the first that can move a cell.
+Milestone 3 (The Entry Loop, synthetic) closed 2026-07-29, the first milestone
+in this phase that built product and the first that could move a cell. It did
+not move one: its evaluation returned FAIL and the W-2 cell stays at **L1**.
+ADR-0049 and ADR-0051 were ratified at that close.
+
+**No cell in this phase has yet reached L2.** Milestone 4 exists to settle
+whether the W-2 column does.
 
 The phase-boundary legibility audit is still due. It is owner-spawned; the
 foreman must not launch it.
