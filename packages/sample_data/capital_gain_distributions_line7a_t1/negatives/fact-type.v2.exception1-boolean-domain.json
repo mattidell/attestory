@@ -1,0 +1,22 @@
+{
+  "schema": "fact-type.v2",
+  "id": "demo.exception1.only-box2a-capital-gains",
+  "version": "v1",
+  "title": "Negative: boolean domain instead of yes/no",
+  "nature": "determinable",
+  "identity_keys": [
+    {
+      "name": "tax-year",
+      "kind": "literal",
+      "values": [
+        "2025"
+      ]
+    }
+  ],
+  "value_schema": {
+    "type": "boolean"
+  },
+  "supersession": {
+    "policy": "free"
+  }
+}

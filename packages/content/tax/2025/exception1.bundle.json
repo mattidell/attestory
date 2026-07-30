@@ -1,0 +1,133 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.exception1.vocabulary",
+  "version": "v1",
+  "label": "Form 1040 Exception 1 component assertions and checked Schedule-D conclusion for tax year 2025 (ADR-0050)",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.exception1.only-box2a-capital-gains",
+      "version": "v1",
+      "title": "Exception 1 component C1 (ADR-0050): whether the return's only capital gains are Form 1099-DIV box-2a capital-gain distributions. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Distinct from the checked schedule-d-required.conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.exception1.no-capital-losses",
+      "version": "v1",
+      "title": "Exception 1 component C2 (ADR-0050): whether the return has no capital losses. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Distinct from the checked schedule-d-required.conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.exception1.no-qof-deferral",
+      "version": "v1",
+      "title": "Exception 1 component C3 (ADR-0050): whether no capital gain is being deferred through a qualified opportunity fund. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Distinct from the checked schedule-d-required.conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
+      "version": "v1",
+      "title": "Exception 1 component C4 (ADR-0050): whether no Form 1099-DIV or substitute statement has an amount in box 2b, 2c, or 2d. Return-level contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Not a source-family claim and creates no member, family, closure, mapping, or collection path for boxes 2b/2c/2d. Distinct from box-2a family closure and from the checked schedule-d-required.conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-required.conclusion",
+      "version": "v1",
+      "title": "Checked Schedule-D-required conclusion for the direct line-7a route (ADR-0050 Decision 1): domain {yes, no}. Published only from the accepted binding over C1-C4 (all present and yes -> no; all present and any no -> yes; any missing -> unpublished blocked DEPENDENCY_ABSENT naming every missing component). Not the historical contributed tax.us.2025.schedule-d-required fact type, which remains immutable history and is not direct-route authority in the successor graph.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

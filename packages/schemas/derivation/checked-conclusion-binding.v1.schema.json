@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/checked-conclusion-binding.v1",
+  "title": "Checked conclusion binding over Exception-1 components",
+  "description": "Declarative binding of schedule-d-required.conclusion to four contributed Exception-1 component fact types with the accepted truth table and direct-pin boundary (ADR-0050 Decision 1). This citizen publishes the contract only; it does not execute the derivation.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "checked-conclusion-binding.v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "tax_year": {
+          "type": "integer"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "tax_year",
+        "jurisdiction",
+        "family"
+      ],
+      "additionalProperties": false
+    },
+    "publishes": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conclusion_fact_type": {
+      "$ref": "#/$defs/pin"
+    },
+    "components": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "enum": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ]
+          },
+          "fact_type": {
+            "$ref": "#/$defs/pin"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "alias",
+          "fact_type",
+          "role"
+        ],
+        "additionalProperties": false
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "alias": {
+                "const": "C1"
+              }
+            },
+            "required": [
+              "alias"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "alias": {
+                "const": "C2"
+              }
+            },
+            "required": [
+              "alias"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "alias": {
+                "const": "C3"
+              }
+            },
+            "required": [
+              "alias"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "alias": {
+                "const": "C4"
+              }
+            },
+            "required": [
+              "alias"
+            ]
+          }
+        }
+      ]
+    },
+    "truth_table": {
+      "type": "object",
+      "properties": {
+        "all_present_all_yes": {
+          "type": "object",
+          "properties": {
+            "conclusion": {
+              "const": "no"
+            },
+            "direct_route": {
+              "const": "eligible"
+            }
+          },
+          "required": [
+            "conclusion",
+            "direct_route"
+          ],
+          "additionalProperties": false
+        },
+        "all_present_any_no": {
+          "type": "object",
+          "properties": {
+            "conclusion": {
+              "const": "yes"
+            },
+            "direct_route": {
+              "const": "guard_inapplicable"
+            }
+          },
+          "required": [
+            "conclusion",
+            "direct_route"
+          ],
+          "additionalProperties": false
+        },
+        "any_missing": {
+          "type": "object",
+          "properties": {
+            "conclusion": {
+              "const": "unpublished"
+            },
+            "disposition": {
+              "const": "blocked"
+            },
+            "code": {
+              "const": "DEPENDENCY_ABSENT"
+            },
+            "name_missing": {
+              "const": "every_missing_component"
+            }
+          },
+          "required": [
+            "conclusion",
+            "disposition",
+            "code",
+            "name_missing"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "all_present_all_yes",
+        "all_present_any_no",
+        "any_missing"
+      ],
+      "additionalProperties": false
+    },
+    "direct_pin_boundary": {
+      "type": "object",
+      "properties": {
+        "conclusion_pins": {
+          "const": "exactly_the_current_component_findings"
+        },
+        "components_are_not_amounts": {
+          "const": true
+        },
+        "historical_contributed_schedule_d_required_is_not_direct_route_authority": {
+          "const": true
+        }
+      },
+      "required": [
+        "conclusion_pins",
+        "components_are_not_amounts",
+        "historical_contributed_schedule_d_required_is_not_direct_route_authority"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "title",
+    "scope",
+    "publishes",
+    "conclusion_fact_type",
+    "components",
+    "truth_table",
+    "direct_pin_boundary"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+$"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

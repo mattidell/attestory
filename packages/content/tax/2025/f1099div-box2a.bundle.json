@@ -1,0 +1,137 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099div.box2a.vocabulary",
+  "version": "v1",
+  "label": "Form 1099-DIV box-2a successor member, closure, and residual recorded-boxes vocabulary for tax year 2025 (ADR-0050)",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+      "version": "v1",
+      "title": "Total capital-gain distributions reported in box 2a of one logical Form 1099-DIV statement instance furnished by a payer for 2025; the statement instance is peer to evidence and its identity carries no file, upload, scan, document, or evidence key (ADR-0015, instantiated per ADR-0035/ADR-0050). This is the only composable box-2a member under the successor dividend universe. Multiple originals from one payer are distinct statement instances; a corrected copy of the same logical return answers this same fact and supersedes its prior finding.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.dividend-payer"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099div-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      },
+      "source_amount": true,
+      "quantity": {
+        "id": "tax.us.2025.quantity.capital-gain-distributions",
+        "version": "v1"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099div.2a.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the Form 1099-DIV box-2a source family for 2025, keyed on the family membership horizon current at attestation (ADR-0017): true asserts every furnished 1099-DIV box-2a amount is recorded as of that horizon. This claim covers box 2a only - never boxes 1a/1b, residual recorded boxes, boxes 2b/2c/2d, or Form 1040 line 7a completeness (ADR-0016, ADR-0050 decision 2). A later membership transition displaces this closure through horizon succession; re-attestation on the successor horizon is required.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099div.recorded-boxes",
+      "version": "v2",
+      "title": "Successor residual recorded non-composable 1099-DIV box content for one logical statement instance (ADR-0050 decision 3): boxes 3, 5, 7, and 12 are recorded but never composed into any line. Each box carries either its reported number or explicit null as the declared absence of that box - absence is asserted, never assumed. Box 2a is omitted because the successor graph composes box 2a through the independent family member tax.us.2025.f1099div.box2a-capital-gain-distribution. Historical recorded-boxes v1 (with property 2a) remains immutable history; mixed historical/successor graphs are rejected at package validation (Track 2).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.dividend-payer"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1099div-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "object",
+        "properties": {
+          "3": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "5": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "7": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "12": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "3",
+          "5",
+          "7",
+          "12"
+        ],
+        "additionalProperties": false
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

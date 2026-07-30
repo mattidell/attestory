@@ -1,0 +1,71 @@
+{
+  "schema": "checked-conclusion-binding.v1",
+  "id": "demo.schedule-d-required.conclusion-binding",
+  "version": "v1",
+  "title": "Negative: incomplete component set",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "demo"
+  },
+  "publishes": "demo.schedule-d-required.conclusion",
+  "conclusion_fact_type": {
+    "id": "demo.schedule-d-required.conclusion",
+    "version": "v1"
+  },
+  "components": [
+    {
+      "alias": "C1",
+      "fact_type": {
+        "id": "demo.exception1.only-box2a-capital-gains",
+        "version": "v1"
+      },
+      "role": "only box2a"
+    },
+    {
+      "alias": "C2",
+      "fact_type": {
+        "id": "demo.exception1.no-capital-losses",
+        "version": "v1"
+      },
+      "role": "no losses"
+    },
+    {
+      "alias": "C3",
+      "fact_type": {
+        "id": "demo.exception1.no-qof-deferral",
+        "version": "v1"
+      },
+      "role": "no qof"
+    },
+    {
+      "alias": "C1",
+      "fact_type": {
+        "id": "demo.exception1.no-boxes-2b-2c-2d",
+        "version": "v1"
+      },
+      "role": "dup"
+    }
+  ],
+  "truth_table": {
+    "all_present_all_yes": {
+      "conclusion": "no",
+      "direct_route": "eligible"
+    },
+    "all_present_any_no": {
+      "conclusion": "yes",
+      "direct_route": "guard_inapplicable"
+    },
+    "any_missing": {
+      "conclusion": "unpublished",
+      "disposition": "blocked",
+      "code": "DEPENDENCY_ABSENT",
+      "name_missing": "every_missing_component"
+    }
+  },
+  "direct_pin_boundary": {
+    "conclusion_pins": "exactly_the_current_component_findings",
+    "components_are_not_amounts": true,
+    "historical_contributed_schedule_d_required_is_not_direct_route_authority": true
+  }
+}

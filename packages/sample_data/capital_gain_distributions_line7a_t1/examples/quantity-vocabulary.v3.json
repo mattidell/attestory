@@ -1,0 +1,8 @@
+{
+  "schema": "quantity-vocabulary.v3",
+  "id": "demo.quantity.capital-gain-distributions",
+  "version": "v1",
+  "quantities": [
+    "capital-gain-distributions"
+  ]
+}

@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 0 DECISION UNIT, PR #110, AWAITING OWNER MERGE.** The owner ratified ADR-0050 on 2026-07-29 after final recheck returned ready with no residuals. The complete evidence chain and accepted ADR are in PR #110. Production remains blocked until the decision unit reaches `main`. NEXT ACTION: owner merges PR #110 after CI `verify` is green.",
-  "current_role": "Foreman (Track 0 decision-unit merge pending; no production role)",
-  "current_prompt": "docs/adr/0050-capital-gain-distributions-and-line-7a.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CHARTERED.** Track 1 reached READY after focused repair recheck `6b5321b6639b403476c4b4a1331efcc60261e3bb` closed F1 with no residuals and reached `main` through reviewed development unit PR #111 with CI `verify` green. NEXT ACTION: launch the Track 2 Builder on a fresh branch from the merge commit.",
+  "current_role": "Track 2 Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md"
 }
 -->
 # Phase State
@@ -73,13 +73,17 @@ existing published schemas and accepted history remain immutable.
   carried forward — is in
   `docs/phases/real-return/real-return-roadmap.md`, "Phase close — 2026-07-28".
 
-- **Engine Breadth is planned as the active phase.** Its overview, roadmap, and
+- **Engine Breadth is the active phase.** Its overview, roadmap, and
   coverage-frontier selection instrument are under
   `docs/phases/engine-breadth/`. The first selected milestone is
   **Capital-Gain Distributions and Form 1040 Line 7a**. It covers the explicit
   Schedule-D-not-required route and leaves a true Schedule D slice separately
-  selectable. No prototype or implementation role is chartered before the plan
-  merge.
+  selectable. Its rival-backed Track-0 decision unit merged in PR #110 as
+  `1cb12d78553479902a91c654510e7f9c88cc1934`; accepted ADR-0050 now controls.
+  Track 1's versioned source, authority, universe, form-field, citation, and
+  schema/content citizens reached their independent `READY` gate after one
+  bounded citation-evidence repair and merged through PR #111 with green CI.
+  Track 2 is chartered.
 
 - **Presentation — Completing the Row:** **complete 2026-07-28.** **The
   Presentation row is L3 across all five columns, and every cell in the maturity
@@ -383,8 +387,9 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** **owner phase-close and next-phase selection.** Nothing is
-chartered. Both decisions are Tier 3 and owner-held.
+**➡️ Next action:** owner-launch the **Track 2 Builder** from
+`docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md`
+on a fresh branch from the merge commit.
 
 **The foreman's recommendation, on the record: Real Return should close.** The
 phase roadmap sets no ladder and one standing test — *"does the product now do
