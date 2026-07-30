@@ -81,6 +81,9 @@ EVALUATION_LINES = EXPECTED_IMPACT_LINES + COMPARISON_LINES
 W2_BOX1_FORMAT = (
     ENTRY_FIXTURE / "surface" / "content" / "app" / "src" / "w2-box1-format.js"
 )
+W2_BOX1_FIELD = (
+    ENTRY_FIXTURE / "surface" / "content" / "app" / "src" / "w2-box1-field.js"
+)
 
 _MAX_REQUEST_BYTES = 16_384
 _LINE_TITLES = {
@@ -151,6 +154,74 @@ def _load_w2_box1_format(repo_root: Path) -> dict[str, Any]:
     if not parsed_max_value.is_finite() or parsed_max_value <= 0:
         raise EntryLoopError("entry-format-unavailable")
     return spec
+
+
+def _load_w2_box1_field(
+    repo_root: Path,
+    format_spec: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Load the entry-field.v1 declaration (see the schema of that name).
+
+    The field module's ``format`` property is the imported
+    ``W2_BOX1_FORMAT`` binding rather than a duplicated literal, so it is not
+    itself valid JSON at that key. This substitutes the already-parsed and
+    already-validated ``format_spec`` there before decoding the rest as JSON,
+    which is the same brittle string-marker seam Track 2d used for the format
+    declaration alone -- generalised, not made any less brittle. See Track 3's
+    seam recommendation for what should replace it.
+    """
+
+    path = repo_root / W2_BOX1_FIELD
+    try:
+        text = path.read_text("utf-8")
+    except OSError:
+        raise EntryLoopError("entry-field-unavailable") from None
+    marker = "export const W2_BOX1_FIELD = "
+    try:
+        start = text.index(marker) + len(marker)
+        end = text.index("\n};\n", start) + len("\n}")
+    except ValueError:
+        raise EntryLoopError("entry-field-unavailable") from None
+    body, count = re.subn(
+        r'"format":\s*W2_BOX1_FORMAT',
+        lambda _match: f'"format": {json.dumps(format_spec)}',
+        text[start:end],
+    )
+    if count != 1:
+        raise EntryLoopError("entry-field-unavailable")
+    try:
+        contract = json.loads(body)
+    except json.JSONDecodeError:
+        raise EntryLoopError("entry-field-unavailable") from None
+    if not isinstance(contract, dict):
+        raise EntryLoopError("entry-field-unavailable")
+    if contract.get("schema") != "entry-field.v1":
+        raise EntryLoopError("entry-field-unavailable")
+    source = contract.get("source")
+    if not isinstance(source, dict) or not all(
+        isinstance(source.get(key), str) and source[key]
+        for key in ("document", "box", "label")
+    ):
+        raise EntryLoopError("entry-field-unavailable")
+    destination = contract.get("destination")
+    if not isinstance(destination, dict) or not all(
+        isinstance(destination.get(key), str) and destination[key]
+        for key in ("form", "line")
+    ):
+        raise EntryLoopError("entry-field-unavailable")
+    if not isinstance(contract.get("purpose"), str) or not contract["purpose"]:
+        raise EntryLoopError("entry-field-unavailable")
+    if contract.get("format") != dict(format_spec):
+        raise EntryLoopError("entry-field-unavailable")
+    correction = contract.get("correction")
+    if (
+        not isinstance(correction, dict)
+        or correction.get("kind") != "same-field-reuse"
+        or not isinstance(correction.get("affordance"), str)
+        or not correction["affordance"]
+    ):
+        raise EntryLoopError("entry-field-unavailable")
+    return contract
 
 
 def _accepted_formatting_text(format_spec: Mapping[str, Any]) -> str:
@@ -445,6 +516,7 @@ class SyntheticW2EntryRuntime:
             repo_root / "packages" / "content" / "tax" / "2025",
         )
         self._w2_box1_format = _load_w2_box1_format(repo_root)
+        self._w2_box1_field = _load_w2_box1_field(repo_root, self._w2_box1_format)
         self._previous_lines: dict[str, dict[str, Any]] | None = None
         self._last_accepted = False
         self._last_action = ""
@@ -593,6 +665,7 @@ class SyntheticW2EntryRuntime:
             "last_action": self._last_action,
             "complete": fully_computed,
             "computed": fully_computed,
+            "field_contract": {"w2-box1": self._w2_box1_field},
             "contribution": self._contribution_template(revision),
         }
         self._previous_lines = lines_by_id

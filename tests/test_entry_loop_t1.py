@@ -38,6 +38,9 @@ from tools.generate_entry_loop_t1_fixtures import (
 REPO = Path(__file__).resolve().parent.parent
 FIXTURE = REPO / "packages" / "sample_data" / "entry_loop_t1"
 SOURCE = FIXTURE / "surface" / "content" / "app" / "src" / "EntryPage.svelte"
+FIELD_DECLARATION = (
+    FIXTURE / "surface" / "content" / "app" / "src" / "w2-box1-field.js"
+)
 _VENDORED = (CONTENT / "node_modules").is_dir()
 _NODE = shutil.which("node")
 _BROWSER = next(
@@ -296,6 +299,72 @@ class EntryAndCorrection(RuntimeFixture):
         self.assertFalse(self.runtime.snapshot().payload["complete"])
 
 
+class FieldContract(RuntimeFixture):
+    """Track 3: 2.1 and 2.2 checked against the entry-field.v1 declaration."""
+
+    def test_snapshot_exposes_the_declared_field_contract(self) -> None:
+        contract = self.runtime.snapshot().payload["field_contract"]["w2-box1"]
+        self.assertEqual(contract["schema"], "entry-field.v1")
+        # 2.1 -- source document and exact box, checkable as data.
+        self.assertEqual(contract["source"]["document"], "Form W-2")
+        self.assertEqual(contract["source"]["box"], "Box 1")
+        self.assertEqual(contract["source"]["label"], "Wages, tips, other compensation")
+        # 2.2 -- return destination and completion purpose, checkable as data.
+        self.assertEqual(contract["destination"]["form"], "Form 1040")
+        self.assertEqual(contract["destination"]["line"], "1a")
+        self.assertNotEqual(contract["purpose"].strip().lower(), "required")
+        self.assertIn("wages", contract["purpose"])
+        # Correction affordance: same field, no restart.
+        self.assertEqual(contract["correction"]["kind"], "same-field-reuse")
+        # The format sub-object is Track 2d's declaration, reused rather than
+        # duplicated; the runtime's own validator dict is that same object.
+        self.assertEqual(contract["format"], self.runtime._w2_box1_format)
+
+    def test_field_contract_validates_against_its_schema(self) -> None:
+        import jsonschema
+
+        schema = json.loads(
+            (
+                REPO
+                / "packages"
+                / "schemas"
+                / "entry"
+                / "entry-field.v1.schema.json"
+            ).read_text("utf-8")
+        )
+        contract = self.runtime.snapshot().payload["field_contract"]["w2-box1"]
+        jsonschema.validate(contract, schema)
+
+    def test_malformed_field_declaration_fails_closed(self) -> None:
+        from packages.derivation.entry_loop import (
+            EntryLoopError,
+            _load_w2_box1_field,
+            _load_w2_box1_format,
+        )
+
+        format_spec = _load_w2_box1_format(REPO)
+        with TemporaryDirectory(prefix="demo-entry-field-") as tmp:
+            broken_root = Path(tmp)
+            target = (
+                broken_root
+                / "packages"
+                / "sample_data"
+                / "entry_loop_t1"
+                / "surface"
+                / "content"
+                / "app"
+                / "src"
+                / "w2-box1-field.js"
+            )
+            target.parent.mkdir(parents=True)
+            target.write_text(
+                'export const W2_BOX1_FIELD = {"schema": "entry-field.v1"};\n',
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(EntryLoopError, "entry-field-unavailable"):
+                _load_w2_box1_field(broken_root, format_spec)
+
+
 class AdversarialEntryBoundary(RuntimeFixture):
     def setUp(self) -> None:
         super().setUp()
@@ -477,10 +546,12 @@ class CompiledClientIntegration(RuntimeFixture):
 
 class SurfaceCriteria(unittest.TestCase):
     source: str
+    field_declaration: str
 
     @classmethod
     def setUpClass(cls) -> None:
         cls.source = SOURCE.read_text("utf-8")
+        cls.field_declaration = FIELD_DECLARATION.read_text("utf-8")
 
     def test_missing_item_navigates_directly_to_its_input(self) -> None:
         self.assertIn("Enter this fact", self.source)
@@ -488,14 +559,33 @@ class SurfaceCriteria(unittest.TestCase):
         self.assertIn('id="w2-box1"', self.source)
 
     def test_field_names_source_box_purpose_and_format_before_entry(self) -> None:
+        # Criteria 2.1 and 2.2 are checkable against the entry-field.v1
+        # declaration (Track 3) rather than against rendered template text:
+        # the surface renders {formatSourceLabel()}, {W2_BOX1_FIELD.source.label},
+        # and {formatDestinationPurpose()}, all derived from this declaration.
         for text in (
-            "Form W-2 · Box 1",
-            "Wages, tips, other compensation",
-            "feeds Form 1040 line 1a",
+            '"document": "Form W-2"',
+            '"box": "Box 1"',
+            '"label": "Wages, tips, other compensation"',
+            '"form": "Form 1040"',
+            '"line": "1a"',
+        ):
+            self.assertIn(text, self.field_declaration)
+        for text in (
+            "formatSourceLabel",
+            "formatDestinationPurpose",
+            "W2_BOX1_FIELD.source.label",
             "formatW2Box1Hint",
         ):
             self.assertIn(text, self.source)
-        self.assertIn('import { formatW2Box1Hint } from "./w2-box1-format.js";', self.source)
+        self.assertIn(
+            'import { formatW2Box1Hint } from "./w2-box1-format.js";', self.source
+        )
+        self.assertIn(
+            'import {\n    W2_BOX1_FIELD,\n    formatSourceLabel,\n'
+            "    formatDestinationPurpose\n  } from \"./w2-box1-field.js\";",
+            self.source,
+        )
 
     def test_accessibility_and_fail_loud_markers_are_present(self) -> None:
         for marker in (

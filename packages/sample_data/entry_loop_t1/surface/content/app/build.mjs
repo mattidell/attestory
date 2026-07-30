@@ -18,6 +18,7 @@ writeFileSync("dist/EntryPage.js", js.code);
 writeFileSync("dist/styles.css", css.code);
 cpSync("src/mount.js", "dist/mount.js");
 cpSync("src/w2-box1-format.js", "dist/w2-box1-format.js");
+cpSync("src/w2-box1-field.js", "dist/w2-box1-field.js");
 cpSync("node_modules/svelte", "dist/vendor/svelte", { recursive: true });
 cpSync("node_modules/esm-env", "dist/vendor/esm-env", { recursive: true });
 cpSync("node_modules/clsx", "dist/vendor/clsx", { recursive: true });

@@ -1,6 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import { formatW2Box1Hint } from "./w2-box1-format.js";
+  import {
+    W2_BOX1_FIELD,
+    formatSourceLabel,
+    formatDestinationPurpose
+  } from "./w2-box1-field.js";
 
   let state = null;
   let amount = "";
@@ -182,12 +187,11 @@
 
         <form aria-label="W-2 Box 1 entry" on:submit={submitWages}>
           <label for="w2-box1">
-            <span class="field-label">Form W-2 · Box 1</span>
-            <span class="field-name">Wages, tips, other compensation</span>
+            <span class="field-label">{formatSourceLabel()}</span>
+            <span class="field-name">{W2_BOX1_FIELD.source.label}</span>
           </label>
           <p id="w2-box1-purpose" class="field-purpose">
-            This amount feeds Form 1040 line 1a and resolves the missing wages
-            needed to compute income.
+            {formatDestinationPurpose()}
           </p>
           <div class="money-input">
             <span aria-hidden="true">$</span>
