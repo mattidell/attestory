@@ -83,3 +83,13 @@
   as PR #110.
 - **Disposition:** owner merge only after CI `verify` is green. Production
   remains blocked until the merge reaches `main`.
+
+## 2026-07-29 — Foreman succession and Track 2 recovery
+
+- **Category:** no process incident.
+- **Event:** a successor Foreman reconciled the active state against Git,
+  recovered the interrupted Builder's committed Track 2 implementation from
+  the `grok` remote, and fast-forwarded the existing Track 2 branch without
+  rewriting it.
+- **Disposition:** the recovered implementation is preserved as the exact
+  review object and an author-independent Track 2 review is chartered.
