@@ -2,18 +2,19 @@
 
 Audience: Builder.
 
-Status: **prepared for launch only after Track-1 PR #111 reaches `main` with
-CI `verify` green.**
+Status: **chartered for owner launch.**
 
 ## Context Capsule
 
-- **Source ref and resolved launch commit:** `main`, resolved at launch to the
-  no-fast-forward merge commit for Track-1 PR #111. The Builder must fetch and
-  verify that `6b5321b6639b403476c4b4a1331efcc60261e3bb` is an ancestor of
-  `origin/main`; otherwise stop without creating the implementation branch.
-- **Exact object or commit range:** create
-  `track/capital-gain-distributions-line7a-track2` from that resolved
-  `origin/main` commit. Do not continue building on the spent Track-1 branch.
+- **Source ref and resolved launch commit:** `main` at
+  `51b0987c0607e3c3e5a16c509f1c586d01314c51`, the no-fast-forward merge
+  commit for Track-1 PR #111. CI `verify` completed successfully before the
+  owner merge. Verify that `6b5321b6639b403476c4b4a1331efcc60261e3bb`
+  is an ancestor of this commit before editing.
+- **Exact object or commit range:**
+  `track/capital-gain-distributions-line7a-track2`, created directly from
+  `51b0987c0607e3c3e5a16c509f1c586d01314c51`. Do not continue building on
+  the spent Track-1 branch.
 - **Role:** one Builder, High tier / high effort. This is a contract-dense
   production integration track, not a prototype or review.
 - **Scope and evidence-rung ceiling:** implement ADR-0050's declared rules,

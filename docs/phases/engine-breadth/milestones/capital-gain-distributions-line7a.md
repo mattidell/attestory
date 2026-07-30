@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-2",
-  "status": "TRACK 2 CHARTERED. Track 1 reached its READY gate after repair recheck `6b5321b6639b403476c4b4a1331efcc60261e3bb` closed F1 with no residuals and reached `main` through reviewed development unit PR #111 with CI `verify` green. NEXT ACTION: launch the Track 2 Builder from `docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md` on a fresh Track-2 branch from the merge commit.",
+  "status": "TRACK 2 CHARTERED. Track 1 reached its READY gate after repair recheck `6b5321b6639b403476c4b4a1331efcc60261e3bb` closed F1 with no residuals and reached `main` through reviewed development unit PR #111 at merge commit `51b0987c0607e3c3e5a16c509f1c586d01314c51` with CI `verify` green. NEXT ACTION: launch the Track 2 Builder from `docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md` on the fresh Track-2 branch cut from that merge commit.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
