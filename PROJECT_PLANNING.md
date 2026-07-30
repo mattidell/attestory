@@ -294,10 +294,18 @@ carries everything that happened — tracks, charters, builder output, reviews,
 any ratified ADR and its evidence — as commits on one branch, and is where the
 owner approves what we actually did.
 
-Individual tracks do not get their own PRs. **They keep their own review
-gate.** A track that stubs or defers a condition it owns fails that gate on the
-branch, before the closing PR is opened, not after it merges. Reviews happen as
-tracks complete; only the merge is batched.
+**Each track gets its own PR** (owner decision, 2026-07-30), in addition to the
+milestone's opening and closing PRs. A track still keeps its own review gate:
+the gate is the reviewer's verdict on the branch, and the PR is where the
+reviewed unit reaches `main`/`main-ui`. A track that stubs or defers a condition
+it owns fails that gate before its PR is opened, not after it merges.
+
+This replaces the earlier rule that individual tracks do not get their own PRs
+and that merges are batched into the closing PR. That rule predates CI running
+on the UI line: with `verify` now firing per pull request, a per-track PR is
+what gets each reviewed unit an independent green check and a revertable
+boundary, instead of one batched merge carrying several units under a single
+check.
 
 **Every merge to `main` is non-fast-forward**, giving each unit a labeled,
 revertable boundary. The repository merge method is merge-commit only —
