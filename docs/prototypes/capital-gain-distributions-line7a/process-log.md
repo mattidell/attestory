@@ -93,3 +93,12 @@
   rewriting it.
 - **Disposition:** the recovered implementation is preserved as the exact
   review object and an author-independent Track 2 review is chartered.
+
+## 2026-07-29 — Track 2 review returned
+
+- **Category:** no process incident.
+- **Event:** independent review returned `NOT READY` on F1 typed
+  guard-inapplicable propagation and F2 regression from rewriting an existing
+  release/adoption fixture pair. All other measurements passed.
+- **Disposition:** one findings-only F1/F2 repair is chartered with the passing
+  evidence credited; no evidence climb or scope expansion.

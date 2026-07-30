@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 IN INDEPENDENT REVIEW.** The interrupted Builder's committed implementation was recovered from the `grok` remote and fast-forwarded onto `track/capital-gain-distributions-line7a-track2`; foreman handoff checks found a clean patch, clean data envelope, and append-only published-schema manifest change. NEXT ACTION: owner launches the author-independent Track 2 Reviewer from its committed charter.",
-  "current_role": "Track 2 Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2-review.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 F1/F2 REPAIR CHARTERED.** Independent review returned `NOT READY`: F1 line 16 collapses guard-inapplicable line 7a to blocked instead of preserving the typed disposition partition; F2 rewrites the established v6/v1 release-adoption fixture pair and regresses its coordinator coverage. Every other review measurement is credited. NEXT ACTION: dispatch Luna as the findings-only repair Builder after a charter-bound owner grant.",
+  "current_role": "Track 2 Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2-repair.md"
 }
 -->
 # Phase State
@@ -47,4 +47,3 @@ Render the advisory capsule from an explicit committed ref:
 ```sh
 python3 tools/foreman_context.py --ref HEAD --format markdown
 ```
-
