@@ -83,9 +83,14 @@ Regenerate the existing production-shaped v6 presentation golden through
 `tools/generate_presentation_l2_golden.py` and its authoritative
 `live_coordinate_run` path. Inspect the semantic diff. It may reflect only the
 reviewed generic false-guard finalization's deterministic derivation identity
-and corresponding explanation structure. If values, dispositions, citations,
-redaction behavior, package selection, or unrelated sections change, stop and
-report instead of accepting the golden.
+and corresponding explanation structure, plus the already-reviewed Track-2
+runner behavior that adds the rule's declared
+`tax.us.2025.citation.form1040.line-16@v1` pin to the resolved line-16 finding.
+The latter is required by the original Track-2 charter's exact-citation
+contract and entered the branch in the reviewed Track-2 build; this
+clarification does not authorize a new runner or projection change. If values,
+dispositions, any other citation, redaction behavior, package selection, or
+unrelated sections change, stop and report instead of accepting the golden.
 
 ### C4 — Prove the repair closes the exact full-suite failures
 
