@@ -656,10 +656,9 @@ declaration is well-formed; the kernel's `apply_contribution` masks whether
 `entry_loop.py`'s own staleness check does any work; `launchChrome()` leaves
 an orphaned process and a `mkdtemp` leak if killed on timeout.
 
-**ADR-0049 and ADR-0051 go to the owner unchanged**, still `proposed`. Both
-held under everything this milestone exercised against them across five
-tracks; neither needed amendment. Ratification is the owner's act on the
-closing PR, not made here.
+**ADR-0049 and ADR-0051 went to the owner unchanged** from what this
+milestone exercised against them across five tracks; neither needed
+amendment. **Ratified by the owner 2026-07-29 on PR #112.**
 
 No maturity matrix movement beyond what is stated above. No second fact
 family, no real data, no residency locator. The next milestone and the

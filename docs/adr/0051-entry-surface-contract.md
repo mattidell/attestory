@@ -1,8 +1,11 @@
 # ADR 0051 — The Entry Surface Contract
 
-- Status: **proposed**. Supersedes ADR-0048's entry-vehicle requirements
-  (Decision 1 and the spellcheck condition). ADR-0048's contribution boundary
-  (Decision 2) is untouched and remains in force. Ratification is the owner's.
+- Status: **accepted 2026-07-29**, ratified by the owner on the Entry Loop
+  (synthetic) milestone close (PR #112). Supersedes ADR-0048's entry-vehicle
+  requirements (Decision 1 and the spellcheck condition). ADR-0048's
+  contribution boundary (Decision 2) is untouched and remains in force. Held
+  across two full usability-evaluation rounds and repeated adversarial
+  testing of the entry loop this milestone built.
 - Tier: 3
 - Date: 2026-07-29
 - Supersedes: ADR-0048, Decision 1 only

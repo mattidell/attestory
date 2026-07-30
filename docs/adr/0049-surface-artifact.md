@@ -1,8 +1,11 @@
 # ADR 0049 — Surface Artifact: Packaging UI Program Bytes for the Live Workspace
 
-- Status: **proposed**. Records what Track 1 of Packaging the Surface built
-  and Track 1's review (`ee50b8f`, READY) accepted. Ratification is the
-  owner's.
+- Status: **accepted 2026-07-29**, ratified by the owner on the Entry Loop
+  (synthetic) milestone close (PR #112). Records what Track 1 of Packaging
+  the Surface built and Track 1's review (`ee50b8f`, READY) accepted; held
+  unchanged across five further tracks of dependent work in the Entry Loop
+  (synthetic) milestone, including a real interactive page rebuilt through
+  this container across every content change.
 - Tier: 3
 - Date: 2026-07-28
 
