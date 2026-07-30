@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-2",
-  "status": "TRACK 2 CI REPAIR. The focused F1/F2 recheck returned `READY`, but PR #120 CI `verify` run `30591151422` rejected readiness with four deterministic cross-consumer failures. The original repair Builder is chartered to close only those failures while preserving the reviewed behavior and immutable v1/v6 route. Track 3 remains prepared but gated on a green Track-2 merge.",
+  "status": "TRACK 2 CI REPAIR RECHECK. The original repair Builder closed the four deterministic failures from PR #120 CI `verify` run `30591151422` in a three-file consistency delta. A fresh Reviewer is chartered to remeasure exactly that delta before the branch is repushed. Track 3 remains prepared but gated on a green Track-2 merge.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
