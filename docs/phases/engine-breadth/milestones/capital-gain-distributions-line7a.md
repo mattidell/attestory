@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-2",
-  "status": "TRACK 2 CI REPAIR RECHECK. The original repair Builder closed the four deterministic failures from PR #120 CI `verify` run `30591151422` in a three-file consistency delta. A fresh Reviewer is chartered to remeasure exactly that delta before the branch is repushed. Track 3 remains prepared but gated on a green Track-2 merge.",
+  "milestone_state": "track-3",
+  "status": "TRACK 3 PREPARED AFTER TRACK 2 READY. Track 2's CI consistency repair passed fresh independent recheck with no blocking residuals. PR #120 is ready for a new CI `verify` run and owner merge if green. NEXT ACTION: after that merge, bind `docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md` to the no-fast-forward merge commit and launch it on a fresh branch.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

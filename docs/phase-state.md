@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CI REPAIR RECHECK.** The original repair Builder closed the four deterministic failures from PR #120 CI `verify` run `30591151422` in a three-file consistency delta. A fresh Reviewer is chartered to remeasure exactly that delta before the branch is repushed. Track 3 remains prepared but gated on a green Track-2 merge.",
-  "current_role": "Track 2 CI Repair Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track2-ci-repair-review.md"
+  "milestone_state": "track-3",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 PREPARED AFTER TRACK 2 READY.** Track 2's CI consistency repair passed fresh independent recheck with no blocking residuals. PR #120 is ready for a new CI `verify` run and owner merge if green. NEXT ACTION: after that merge, bind the prepared Track-3 presentation charter to the no-fast-forward merge commit and launch it on a fresh branch.",
+  "current_role": "Track 3 Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md"
 }
 -->
 # Phase State
