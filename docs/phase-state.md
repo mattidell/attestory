@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 1 CHARTERED.** PR #110 merged as `1cb12d78553479902a91c654510e7f9c88cc1934` with CI `verify` green, placing accepted ADR-0050 and its evidence chain on `main`. The first production unit is limited to source, authority, universe, form-field, citation, and schema/content citizens; no downstream tax computation. NEXT ACTION: owner launches the Track 1 Builder from its committed charter.",
-  "current_role": "Track 1 Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 1 IN INDEPENDENT REVIEW.** The Builder landed implementation commit `b8a44e37462c464e5f9989dff24477d17f51930f` within the source/authority/versioned-citizen boundary. NEXT ACTION: owner launches the author-independent Track 1 Reviewer over exact range `b80b5c8..b8a44e3`.",
+  "current_role": "Track 1 Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-review.md"
 }
 -->
 # Phase State
@@ -80,8 +80,8 @@ existing published schemas and accepted history remain immutable.
   Schedule-D-not-required route and leaves a true Schedule D slice separately
   selectable. Its rival-backed Track-0 decision unit merged in PR #110 as
   `1cb12d78553479902a91c654510e7f9c88cc1934`; accepted ADR-0050 now controls.
-  Track 1 is chartered for only the versioned source, authority, universe,
-  form-field, citation, and schema/content citizens.
+  Track 1's versioned source, authority, universe, form-field, citation, and
+  schema/content citizens are built and in author-independent review.
 
 - **Presentation — Completing the Row:** **complete 2026-07-28.** **The
   Presentation row is L3 across all five columns, and every cell in the maturity
@@ -385,9 +385,9 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** owner-launch the **Track 1 Builder** from
-`docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1.md`.
-The unit stops before downstream tax computation.
+**➡️ Next action:** owner-launch the **Track 1 Reviewer** from
+`docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-review.md`
+over exact implementation range `b80b5c8..b8a44e3`.
 
 **The foreman's recommendation, on the record: Real Return should close.** The
 phase roadmap sets no ladder and one standing test — *"does the product now do
