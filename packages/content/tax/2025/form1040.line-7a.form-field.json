@@ -1,0 +1,47 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.form1040.line-7a",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "7a",
+  "label": "Capital gain or (loss)",
+  "description": "Form 1040 (2025), line 7a: capital gain or (loss) for the contracted direct-reporting class of Form 1099-DIV box-2a capital-gain distributions when Schedule D is not required (ADR-0050). Binds the selected closed box-2a family subtotal under Exception-1 eligibility. Does not implement Schedule D, Form 8949, or general capital-gains machinery.",
+  "binds_symbol": "tax.us.2025.capital-gains.line7a-total",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-7a",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero under Exception-1 eligibility."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a zero because the box-2a family is attested closed on its current horizon with no recorded members, under Exception-1 eligibility."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "No direct-route line 7a value exists because the checked Schedule-D-required conclusion is yes (any Exception-1 component is no)."
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "form-field.v3",
+  "id": "demo.form1040.line-7b",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "7b",
+  "label": "Schedule D not required",
+  "description": "Negative: wrong citation identity",
+  "binds_symbol": "demo.schedule-d-required.conclusion",
+  "citation": {
+    "id": "demo.citation.form1040.line-7a",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "checked",
+      "explain": "checked"
+    },
+    "computed_zero": {
+      "render": "",
+      "explain": "n/a"
+    },
+    "closure_backed_zero": {
+      "render": "",
+      "explain": "n/a"
+    },
+    "blocked": {
+      "render": "",
+      "explain": "blocked",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "inapplicable"
+    }
+  }
+}

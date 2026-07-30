@@ -28,5 +28,6 @@
   "finding.v2.schema.json": "4323c1409c06bbebcc294223e3f1b02dca2a679973d255e0905106e93b64605f",
   "quantity-vocabulary.v1.schema.json": "3ec205da3e316a6a485e271f9da63ca1c6372bdc35a035f3639adc204c27a4d1",
   "quantity-vocabulary.v2.schema.json": "83588761674fe3d7b008fea5a00287b555357e0fccac9e728d6b9a23332b4a3a",
+  "quantity-vocabulary.v3.schema.json": "236a4001f236c940013f7d13db6454ab2a2f44eb3a3f10b124548ec9e91100ed",
   "role-canon.v1.schema.json": "136a805cedbd4349a1b68ed5e29088db1f5612c3c1e83fafc5186812b922e885"
 }
