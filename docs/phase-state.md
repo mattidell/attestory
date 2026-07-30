@@ -1,13 +1,13 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Legible Entry",
-  "topic": "entry-loop-synthetic",
-  "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
-  "milestone_state": "closing",
-  "status": "Milestone 3 (The Entry Loop - synthetic) is closing. All build units are done: Track 4 repaired the focus indicator and reproduced on foreman inspection. The W-2 cell stays at L1 -- the second evaluation returned FAIL and nothing re-scored the surface afterwards, so the failed evaluation stands as the reported outcome. The close PR (#112) against main-ui carries the milestone outcome, retrospective, and carried findings. ADR-0049 and ADR-0051 are ratified by the owner, 2026-07-29 (PR #112). The next milestone is the owner's to pick, and a phase-boundary legibility audit is due and is owner-spawned.",
-  "current_role": "Builder — milestone close (PR is the gate)",
-  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-close.md"
+  "phase": "Engine Breadth",
+  "topic": "capital-gain-distributions-line7a",
+  "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md"
+  "milestone_state": "active",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CHARTERED.** Track 1 reached READY after focused repair recheck `6b5321b6639b403476c4b4a1331efcc60261e3bb` closed F1 with no residuals and reached `main` through reviewed development unit PR #111 with CI `verify` green. NEXT ACTION: launch the Track 2 Builder on a fresh branch from the merge commit.",
+  "current_role": "Track 2 Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md"
 }
 -->
 # Phase State
@@ -47,3 +47,4 @@ Render the advisory capsule from an explicit committed ref:
 ```sh
 python3 tools/foreman_context.py --ref HEAD --format markdown
 ```
+

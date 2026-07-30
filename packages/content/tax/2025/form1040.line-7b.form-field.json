@@ -1,0 +1,47 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.form1040.line-7b",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "7b",
+  "label": "Schedule D not required",
+  "description": "Form 1040 (2025), line 7b: the affirmative Schedule-D-not-required disposition for the direct line-7a route (ADR-0050 Decision 5). Publishes only from the current checked conclusion tax.us.2025.schedule-d-required.conclusion equal to no. Exact citation pin is tax.us.2025.citation.form1040.line-7b@v1 to the 2025 Instructions for Form 1040, Line 7b, the paragraph beginning \"If Exception 1 applies, check the 'Schedule D not required' box on line 7b\".",
+  "binds_symbol": "tax.us.2025.schedule-d-required.conclusion",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-7b",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "checked",
+      "explain": "The checked Schedule-D-required conclusion is currently no; Exception 1 applies and the Schedule D not required box on line 7b is affirmative."
+    },
+    "computed_zero": {
+      "render": "",
+      "explain": "Not used for the line-7b Schedule-D-not-required disposition."
+    },
+    "closure_backed_zero": {
+      "render": "",
+      "explain": "Not used for the line-7b Schedule-D-not-required disposition."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Line 7b is blocked because the checked Schedule-D-required conclusion is unpublished (missing Exception-1 component authority).",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "No affirmative Schedule-D-not-required disposition because the checked conclusion is yes (any Exception-1 component is no)."
+    }
+  }
+}

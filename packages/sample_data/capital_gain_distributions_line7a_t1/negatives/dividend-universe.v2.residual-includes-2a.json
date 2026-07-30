@@ -1,0 +1,49 @@
+{
+  "schema": "dividend-universe.v2",
+  "id": "demo.dividend-universe",
+  "version": "v2",
+  "title": "Negative: residual still lists 2a",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "demo"
+  },
+  "composable_boxes": [
+    {
+      "box": "1a",
+      "family": {
+        "id": "demo.family.div-1a",
+        "version": "v1"
+      }
+    },
+    {
+      "box": "1b",
+      "family": {
+        "id": "demo.family.div-1b",
+        "version": "v1"
+      }
+    },
+    {
+      "box": "2a",
+      "family": {
+        "id": "demo.family.div-2a",
+        "version": "v1"
+      }
+    }
+  ],
+  "recorded_non_composable_boxes": [
+    "2a",
+    "3",
+    "5",
+    "7"
+  ],
+  "recorded_boxes_fact_type": {
+    "id": "demo.fact.recorded-boxes",
+    "version": "v2"
+  },
+  "capital_gain_signal": {
+    "box": "2a",
+    "signal": "CAPITAL_GAIN_DISTRIBUTION_RECORDED",
+    "source": "current_successor_family_member"
+  }
+}

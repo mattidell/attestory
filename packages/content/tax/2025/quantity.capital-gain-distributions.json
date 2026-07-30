@@ -1,0 +1,8 @@
+{
+  "schema": "quantity-vocabulary.v3",
+  "id": "tax.us.2025.quantity.capital-gain-distributions",
+  "version": "v1",
+  "quantities": [
+    "capital-gain-distributions"
+  ]
+}
