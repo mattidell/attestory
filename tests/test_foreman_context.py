@@ -26,6 +26,7 @@ class ContextFixture(unittest.TestCase):
             "phase": "Demo Phase",
             "topic": "demo-topic",
             "active_plan": "docs/phases/demo/milestones/demo.md",
+            "milestone_state": "track-1",
             "status": "planning only",
             "current_role": "demo reviewer",
             "current_prompt": "docs/reviews/demo-review.md",
@@ -41,6 +42,7 @@ class ContextFixture(unittest.TestCase):
         plan_topic: str = "demo-topic",
         include_seat: bool = True,
         with_origin: bool = True,
+        milestone_state: str = "track-1",
         **plan_overrides: Any,
     ) -> Path:
         root = Path(tempfile.mkdtemp())
@@ -48,11 +50,13 @@ class ContextFixture(unittest.TestCase):
         self.git(root, "init", "-q")
         self.git(root, "config", "user.name", "Demo")
         self.git(root, "config", "user.email", "demo@example.test")
-        phase = self.phase_metadata(include_seat=include_seat)
+        phase = self.phase_metadata(
+            include_seat=include_seat,
+            milestone_state=milestone_state,
+        )
         plan = {
             "version": 1,
             "topic": plan_topic,
-            "milestone_state": "track-1",
             "status": "draft",
             "scope": ["synthetic proof"],
             "non_goals": ["no real workspace"],
@@ -115,7 +119,12 @@ class ContextFixture(unittest.TestCase):
         path.write_text("# Demo\n", encoding="utf-8")
 
     def run_tool(
-        self, root: Path, ref: str = "HEAD", *, output_format: str = "json"
+        self,
+        root: Path,
+        ref: str = "HEAD",
+        *,
+        output_format: str = "json",
+        extra: tuple[str, ...] = (),
     ) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
             [
@@ -128,6 +137,7 @@ class ContextFixture(unittest.TestCase):
                 "--format",
                 output_format,
                 "--no-fetch",
+                *extra,
             ],
             check=False,
             capture_output=True,
@@ -296,7 +306,7 @@ class ForemanContextTests(ContextFixture):
 
 
 class MilestoneStateTests(ContextFixture):
-    """The lifecycle state a foreman resumes into is declared by the plan and
+    """The lifecycle state a foreman resumes into is declared by phase-state and
     corroborated against the ratified record, because the two states that were
     routinely misread — 'the plan PR merged' and 'the closing PR merged' — are
     facts about `origin/main`, not about the document doing the declaring."""
@@ -387,6 +397,59 @@ class MilestoneStateTests(ContextFixture):
         self.assertIsNone(milestone["ratified_ref"])
         self.assertEqual(milestone["checks"], [])
         self.assertIn("NOT corroborated", milestone["note"])
+
+
+class RatifiedLineTests(ContextFixture):
+    """The repository carries more than one ratified line — `main` for the
+    derivation work, `main-ui` for the surface work — and a milestone that closes
+    on one never reaches the other. So the line a capsule corroborates against is
+    derived from the checked-out work rather than fixed at `origin/main`."""
+
+    def commit(self, root: Path, name: str) -> None:
+        self.write_plain(root, f"docs/reviews/{name}.md")
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", name)
+
+    def make_two_line_repository(self) -> Path:
+        """`main` published by the fixture, then `main-ui` branched off it and
+        published with a commit of its own."""
+        root = self.make_repository()
+        self.git(root, "switch", "-qc", "main-ui")
+        self.commit(root, "ui-line")
+        self.git(root, "push", "-q", "origin", "main-ui")
+        self.git(root, "fetch", "-q", "origin")
+        return root
+
+    def test_derives_the_surface_line_for_work_cut_from_it(self) -> None:
+        root = self.make_two_line_repository()
+        self.git(root, "switch", "-qc", "unit")
+        self.commit(root, "unit-work")
+        capsule = self.capsule(root)
+        self.assertEqual(capsule["milestone"]["ratified_line"], "origin/main-ui")
+        self.assertEqual(capsule["worktree"]["divergence"]["ref"], "origin/main-ui")
+
+    def test_derives_the_derivation_line_for_work_cut_from_it(self) -> None:
+        # Same repository, but this unit branched from `main`. Both lines are one
+        # commit away, so the tie falls to the line HEAD is itself closest to.
+        root = self.make_two_line_repository()
+        self.git(root, "switch", "-q", "main")
+        self.git(root, "switch", "-qc", "unit")
+        self.commit(root, "unit-work")
+        capsule = self.capsule(root)
+        self.assertEqual(capsule["milestone"]["ratified_line"], "origin/main")
+
+    def test_an_explicit_ref_overrides_the_derivation(self) -> None:
+        root = self.make_two_line_repository()
+        result = self.run_tool(root, extra=("--ratified-ref", "origin/main"))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        capsule = json.loads(result.stdout)
+        self.assertEqual(capsule["milestone"]["ratified_line"], "origin/main")
+
+    def capsule(self, root: Path, ref: str = "HEAD") -> dict[str, Any]:
+        result = self.run_tool(root, ref)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        capsule: dict[str, Any] = json.loads(result.stdout)
+        return capsule
 
 
 class InitialBriefingTests(ContextFixture):

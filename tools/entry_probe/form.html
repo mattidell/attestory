@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- Throwaway probe fixture. Not product code. See ../README.md. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Entry Probe Form</title>
+</head>
+<body>
+  <form id="probeForm" method="GET" action="">
+    <label for="fullName">Full name</label>
+    <input id="fullName" name="fullName" type="text" autocomplete="name" />
+
+    <label for="ssn">Social Security Number</label>
+    <input id="ssn" name="ssn" type="text" autocomplete="off" inputmode="numeric" />
+
+    <label for="wages">Wages</label>
+    <input id="wages" name="wages" type="text" autocomplete="off" inputmode="decimal" />
+
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" autocomplete="email" />
+
+    <label for="notes">Notes</label>
+    <input id="notes" name="notes" type="text" autocomplete="off" spellcheck="true" />
+
+    <button id="submitBtn" type="submit">Submit</button>
+  </form>
+</body>
+</html>

@@ -115,8 +115,10 @@ def _json_candidates(directory: Path) -> tuple[dict[str, Any], ...]:
 # --- Decision 1: release-rooted, current-user adoption ----------------------
 
 
-def _well_formed_adoption(act: Mapping[str, Any], schemas: DerivationSchemas) -> bool:
-    if act.get("schema") != "act.v1" or act.get("kind") != "package-adoption":
+def _well_formed_adoption(
+    act: Mapping[str, Any], schemas: DerivationSchemas, *, expected_kind: str = "package-adoption"
+) -> bool:
+    if act.get("schema") != "act.v1" or act.get("kind") != expected_kind:
         return False
     payload = act.get("payload")
     if not isinstance(payload, Mapping):
@@ -136,6 +138,7 @@ def select_current_adoption(
     scope_user: str,
     workspace_revision: int,
     schemas: DerivationSchemas,
+    expected_kind: str = "package-adoption",
 ) -> Mapping[str, Any] | Refusal:
     """Select exactly one current adoption by the sole user in scope (Decision 1).
 
@@ -144,10 +147,16 @@ def select_current_adoption(
     the fixed ``workspace_revision``. Applies supersession, then requires a unique
     maximum ``revision``. Zero candidates or a tie refuses. A non-user act, a
     stale (superseded) act, or a caller argument never selects authority.
+
+    ``expected_kind`` reuses this same selection algorithm and payload schema
+    for a distinct act kind (the Track 1 surface artifact's ``surface-
+    adoption``, see ``surface_resolver.py``) without commingling its
+    candidates, revisions, or supersession chain with ordinary package
+    adoptions that happen to share a scope.
     """
     candidates: dict[str, Mapping[str, Any]] = {}
     for act in adoption_acts:
-        if not _well_formed_adoption(act, schemas):
+        if not _well_formed_adoption(act, schemas, expected_kind=expected_kind):
             continue
         if act.get("actor") != scope_user:
             continue  # a non-user act never selects authority

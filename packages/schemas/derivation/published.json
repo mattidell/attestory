@@ -26,5 +26,6 @@
   "source-closure-mapping.v1.schema.json": "4e9edb40963ca2e315a33cbe3e45981b6c3da105349d30d32ed288b8c85bb2ff",
   "source-closure-mapping.v2.schema.json": "7046dcea09ad5b26850c0697c8ab12afc7231f08d988ff26479a01018733d4ca",
   "source-family.v1.schema.json": "78462f32843d005801c4e50272ee864c340f20966f5e88b894b0a7deb14d8490",
+  "surface-artifact.v1.schema.json": "d5a022e08db53025e58261e4f975f3278980276f392da3a897eb268b47eb0cfd",
   "taxable-interest-composition.v1.schema.json": "c346fce2990a881853005eea38bb9a704f3cb821b40557dda45861c7f7e32dbb"
 }

@@ -1,0 +1,10 @@
+{
+  "name": "demo-entry-loop-surface",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Synthetic W-2 entry loop shipped through the surface artifact route.",
+  "dependencies": {
+    "svelte": "5.56.8"
+  }
+}

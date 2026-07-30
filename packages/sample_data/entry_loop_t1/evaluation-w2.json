@@ -1,0 +1,25 @@
+{
+  "document": "Synthetic Form W-2 from Demo Workshop",
+  "entries": {
+    "correction": {
+      "box1": 91000
+    },
+    "initial": {
+      "box1": 90000
+    }
+  },
+  "expected_impact_lines": [
+    "1a",
+    "9",
+    "11",
+    "15",
+    "16"
+  ],
+  "schema": "demo.entry-loop-evaluation.v1",
+  "untouched_comparison_lines": [
+    "2b",
+    "3a",
+    "3b",
+    "12"
+  ]
+}

@@ -9,13 +9,14 @@ restated here (ADR-0045).
 
 *"Resume as foreman.* Read `docs/phase-state.md` and the active plan it points
 to, then continue." `docs/phase-state.md` is the single re-entry document —
-briefing, current state, pointers, and the `foreman-context-v1` block. You
+high level milestone briefing, current state, pointers, and the
+`foreman-context-v1` block. You
 reconcile the in-flight state against Git; if the note looks stale against Git,
 trust Git and say so.
 
 ## Seed set (read on boot, in this order)
 
-1. Render `python3 tools/foreman_context.py --ref main --format markdown`.
+1. Render `python3 tools/foreman_context.py --ref HEAD --format markdown`.
    It fetches `origin` first, reports whether the current branch is stale or
    spent, then reports the **milestone state** and next transition. If it says
    the branch is spent or behind, report that plainly to the owner and stop; do
@@ -24,7 +25,7 @@ trust Git and say so.
    committed sources directly; never replace a refusal with an informal
    summary. A refusal naming a state that
    "contradicts the ratified record" means a boundary PR merged (or did not):
-   fix the plan's `milestone_state` before doing anything else
+   fix `docs/phase-state.md`'s `milestone_state` before doing anything else
    (`PROJECT_PLANNING.md`, "Milestone Lifecycle States").
 2. **This file** — your standing posture.
 3. `docs/adr/INDEX.md` — the routing surface. Read the digests; read a full ADR
@@ -83,7 +84,7 @@ committed evidence the owner directed the foreman to retrieve. During an active
 milestone, a successor foreman loads it with:
 
 ```sh
-python3 tools/foreman_context_followup.py --ref main --format markdown
+python3 tools/foreman_context_followup.py --ref HEAD --format markdown
 ```
 
 The follow-up capsule is temporary. Remove `initial_briefing_follow_up` from
@@ -152,8 +153,9 @@ say "ready for review" or "ready for build," the pointer commit is already
 done or you are not ready.
 
 **A PR's committed state is the state after the merge, not before it.**
-When you open a PR, set `milestone_state` — and the capsule's `status` prose —
-to what will be true once the owner merges. A planning PR carries `planned`, not
+When you open a PR, set `docs/phase-state.md`'s `milestone_state` — and the
+capsule's `status` prose — to what will be true once the owner merges. A
+planning PR carries `planned`, not
 `planning`; a closing PR carries `closed`, not `closing`. The branch is a
 proposal for what `main` should say, and `main` only ever sees the post-merge
 world. Writing the pre-merge state means every merge lands `main` in a state

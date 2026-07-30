@@ -27,8 +27,14 @@ what the work looks like.
 command; the role is auto-detected from phase state's `current_role`:
 
 ```sh
-python3 tools/build_orientation_block.py --ref main
+python3 tools/build_orientation_block.py --ref HEAD
 ```
+
+Use `HEAD`, not a line name. Your charter usually has not merged yet, so it
+exists only on the branch you are standing on; orienting from `main` loads a
+phase state that has never heard of your track and reports a topic mismatch.
+The ratified line to corroborate against is a separate question and is derived
+for you — see "Check whether you are stale before you work."
 
 This prints one Orientation Block at a resolved commit: your current charter
 plus the plan's action-scoped, section-anchored deep reads — only the cited
@@ -42,15 +48,17 @@ no flag. It emits charter, scope, and non-goals but lists deep reads as a
 manifest only, and instructs you to reimplement from the spec without reading
 any other builder's implementation or thread.
 
-**Foreman:** re-enter with `python3 tools/foreman_context.py --ref main
+**Foreman:** re-enter with `python3 tools/foreman_context.py --ref HEAD
 --format markdown`. Its capsule is **advisory** — reconcile its resolved commit
 and worktree report against Git before acting. If it refuses, read the
 committed sources it names directly; never replace a refusal with a prose
 summary.
 
-Both commands take `--ref main` because `main` is the continuously ratified
-record. Pass a different ref only to read the state of an unmerged branch, and
-say which ref you used.
+Both commands take `--ref HEAD` so they read the committed state of the
+worktree being resumed. The tool separately derives the ratified comparison
+line from history (`resolve_ratified_ref`); do not substitute a literal
+`main` or `main-ui` unless you are intentionally reading that line's tree.
+Say which source ref you used.
 
 Do not ask the owner to paste context. Do not reconstruct context from prose
 when a command will give it to you from Git.
@@ -245,25 +253,41 @@ be working in the same tree. Trust it for your first turn; re-check with
 
 **Check whether you are stale before you work.** The tree you resume into may
 have been overtaken while you were away: a PR of this branch may already be
-merged, or `main` may have moved past the state `docs/phase-state.md` describes.
-Fetch first, then compare — do not infer freshness from phase state, the plan
-status, or a hook line. The foreman's required
-`tools/foreman_context.py --ref main` call performs this fetch and reports
-divergence plus whether the current non-main branch tip is already contained in
-`origin/main`; that report satisfies the foreman check. Other seats run:
+merged, or the ratified line may have moved past the state
+`docs/phase-state.md` describes. Fetch first, then compare — do not infer
+freshness from phase state, the plan status, or a hook line. The foreman's
+required `tools/foreman_context.py --ref HEAD` call performs this fetch and
+reports divergence plus whether the current branch tip is already contained in
+the ratified line; that report satisfies the foreman check.
+
+**Compare against the right line.** This repository carries more than one:
+`main` for the derivation work and `main-ui` for the surface work. They are
+separate continuous records, and a branch cut from one is *expected* to look
+wildly behind the other. Comparing surface work against `origin/main` produces
+a confident "you are 7 behind and 51 ahead" that means nothing. Do not assume
+the line — the tooling derives it from your history
+(`resolve_ratified_ref` in `tools/foreman_context.py`), and the capsule prints
+which one it used. Other seats run:
 
 ```sh
 git fetch origin --prune
-git rev-list --left-right --count origin/main...HEAD   # behind<TAB>ahead
+RATIFIED=$(python3 tools/foreman_context.py --ref HEAD --format json \
+  | python3 -c 'import json,sys; print(json.load(sys.stdin)["milestone"]["ratified_line"])')
+git rev-list --left-right --count "$RATIFIED"...HEAD   # behind<TAB>ahead
 gh pr list --state merged --head "$(git branch --show-current)" --limit 3
 ```
 
 Read it as: **ahead 0 and a merged PR for this branch** means your work already
 landed — this workspace is spent, and continuing on it re-does or reverts
 merged history. For a foreman, `spent: true` is the equivalent reachability
-proof. **Behind > 0** means your base is stale; rebase or re-cut from `main`
-before building, and re-verify that the charter still describes work that
-remains. Either way, **say so explicitly** — name the branch, the merged PR when
+proof. **Behind > 0** means your base is stale; rebase or re-cut from the
+ratified line before building, and re-verify that the charter still describes
+work that remains.
+
+**Both halves of that sentence matter.** A milestone opens with one PR and
+closes with another on the same branch, so from the first merge onward there is
+*always* a merged PR for the branch you are standing on. That alone means
+nothing. It is only a spent workspace when `ahead` is 0 as well. Either way, **say so explicitly** — name the branch, the merged PR when
 known, and how far behind you are — and get direction before proceeding.
 Silently working in a superseded tree is the failure this rule exists to
 prevent.
@@ -298,7 +322,7 @@ Read a document when its **When** column applies to you — not before.
 | `PROJECT_PLANNING.md` | Planning protocol, milestone/track rules, capsule contracts, prototype gates, branch/commit protocol, document layout, ADR and retrospective shapes, archive rules | Foreman, when planning or chartering |
 | `docs/adr/INDEX.md` | ADR routing (advisory) | On boot — digests only. Read a full ADR only when acting on its exact text |
 | `docs/phases/<phase>/` | Phase overview, roadmap, milestone plans | Foreman. **Builders and reviewers orient from their charter and Orientation Block, never from phase state** |
-| `docs/phase-state.md` | Product briefing, active pointer | Foreman and advisor |
+| `docs/phase-state.md` | High level milestone briefing, active pointer | Foreman and advisor |
 | `docs/milestone-retrospectives/` | Completed-milestone lessons | Foreman — when the initial milestone briefing names a specific retrospective as useful follow-up context |
 | `docs/governance/` | The sole contract authority | **Advisor only** (ADR-0045). Enforced for every other seat by CI and by the stop condition above |
 | `docs/roles/craft-notes.md` | Recurring how-to reminders per seat | When your seat file points you there |
