@@ -10,7 +10,12 @@ from typing import Any, ClassVar, cast
 
 import jsonschema
 
-from packages.derivation.loader import DERIVATION_SCHEMA_DIR
+from packages.derivation.loader import DERIVATION_SCHEMA_DIR, DerivationSchemas
+from packages.derivation.package_validation import (
+    PackageValidation,
+    package_instance_checksum,
+    validate_package,
+)
 from packages.kernel.schema_registry import KERNEL_SCHEMA_DIR, SchemaRegistry, SchemaValidationError
 from packages.tax.loader import (
     TAX_CONTENT_DIR,
@@ -19,6 +24,81 @@ from packages.tax.loader import (
     load_form_fields,
     load_source_families,
 )
+
+LINE_7B_CITATION_ID = "tax.us.2025.citation.form1040.line-7b"
+LINE_7B_CITATION_VERSION = "v1"
+_DEMO_SCOPE = {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+}
+
+
+def _line7b_citation_contract_package(
+    form_field: dict[str, Any],
+    citation: dict[str, Any],
+) -> tuple[dict[str, Any], dict[tuple[str, str], dict[str, Any]]]:
+    """Closed package admitting only the required line-7b citation (ADR-0029).
+
+    Package validation rejects a form-field whose citation pin is not an exact
+    package citation member. That is the production boundary for wrong line-7b
+    citation identity — not a test-local identity comparison.
+    """
+    rule = {
+        "schema": "rule-artifact.v2",
+        "id": "demo.rule.line-7b-citation-contract",
+        "version": "v1",
+        "scope": {**_DEMO_SCOPE, "effective_from": "2025-01-01"},
+        "role": "computation",
+        "requires": [],
+        "pins": [],
+        "when": True,
+        "value": "no",
+        "publishes": form_field["binds_symbol"],
+        "blocked": {"code": "DEPENDENCY_ABSENT", "missing": []},
+        "citations": [
+            {"id": citation["id"], "version": citation["version"]},
+        ],
+    }
+    package: dict[str, Any] = {
+        "schema": "artifact-package.v4",
+        "id": "demo.package.line-7b-citation-contract",
+        "version": "v1",
+        "scope": _DEMO_SCOPE,
+        "admitted_schemas": ["form-field.v3", "citation.v1", "rule-artifact.v2"],
+        "members": [
+            {
+                "role": "form-field",
+                "schema": "form-field.v3",
+                "id": form_field["id"],
+                "version": form_field["version"],
+            },
+            {
+                "role": "citation",
+                "schema": "citation.v1",
+                "id": citation["id"],
+                "version": citation["version"],
+            },
+            {
+                "role": "computation",
+                "schema": "rule-artifact.v2",
+                "id": rule["id"],
+                "version": rule["version"],
+            },
+        ],
+        "input_bindings": [],
+        "entrypoints": [{"id": rule["id"], "version": rule["version"]}],
+        "composition_obligations": [],
+        "package_checksum": "0" * 64,
+    }
+    package["package_checksum"] = package_instance_checksum(package)
+    corpus = {
+        (form_field["id"], form_field["version"]): form_field,
+        (citation["id"], citation["version"]): citation,
+        (rule["id"], rule["version"]): rule,
+    }
+    return package, corpus
+
 
 ROOT = Path("packages/sample_data/capital_gain_distributions_line7a_t1")
 EXAMPLES = ROOT / "examples"
@@ -70,6 +150,17 @@ def load(path: Path) -> dict[str, Any]:
 
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _validate_line7b_form_field_citation_contract(
+    form_field: dict[str, Any],
+    citation: dict[str, Any] | None = None,
+) -> PackageValidation:
+    """Run production package validation for a line-7b form-field citation pin."""
+    if citation is None:
+        citation = load(TAX_CONTENT_DIR / "citation.form1040.line-7b.json")
+    package, corpus = _line7b_citation_contract_package(form_field, citation)
+    return validate_package(package, corpus, DerivationSchemas())
 
 
 class TrackOneRegistry(unittest.TestCase):
@@ -332,8 +423,8 @@ class Line7FormAndCitation(TrackOneRegistry):
     def test_line_7b_citation_identity_and_cardinality(self) -> None:
         citation = load(TAX_CONTENT_DIR / "citation.form1040.line-7b.json")
         self.registry.validate_declared(citation)
-        self.assertEqual(citation["id"], "tax.us.2025.citation.form1040.line-7b")
-        self.assertEqual(citation["version"], "v1")
+        self.assertEqual(citation["id"], LINE_7B_CITATION_ID)
+        self.assertEqual(citation["version"], LINE_7B_CITATION_VERSION)
         self.assertEqual(
             citation["authority"],
             {"family": "irs-instructions", "form_id": "1040", "tax_year": 2025},
@@ -343,10 +434,16 @@ class Line7FormAndCitation(TrackOneRegistry):
         self.assertIsInstance(line_7b["citation"], dict)
         self.assertEqual(
             line_7b["citation"],
-            {"id": "tax.us.2025.citation.form1040.line-7b", "version": "v1"},
+            {"id": LINE_7B_CITATION_ID, "version": LINE_7B_CITATION_VERSION},
         )
         self.assertIn("If Exception 1 applies", line_7b["description"])
         self.assertIn("Schedule D not required", line_7b["description"])
+        # Production package validation accepts the committed pin.
+        result = _validate_line7b_form_field_citation_contract(line_7b, citation)
+        self.assertTrue(
+            result.ok,
+            f"committed line-7b form field must package-validate: {result.issues}",
+        )
 
 
 class NamedNegatives(TrackOneRegistry):
@@ -378,14 +475,58 @@ class NamedNegatives(TrackOneRegistry):
             if ft["id"] in COMPONENT_IDS:
                 self.assertEqual(ft["value_schema"], {"enum": ["yes", "no"]})
 
-    def test_line_7b_wrong_citation_identity_is_not_the_committed_pin(self) -> None:
+    def test_line_7b_wrong_citation_identity_rejects_at_package_boundary(self) -> None:
+        """F1 repair: wrong identity fails ADR-0029 package citation membership.
+
+        Multi-citation fails earlier at form-field schema validation (cardinality).
+        Wrong identity is schema-valid as a bare pin shape but is not the required
+        line-7b citation package member, so package validation raises CITATION_ABSENT.
+        """
         negative = load(NEGATIVES / "form-field.v3.line-7b-wrong-citation-id.json")
-        self.registry.validate_declared(negative)
+        multi = load(NEGATIVES / "form-field.v3.line-7b-multi-citation.json")
+        citation = load(TAX_CONTENT_DIR / "citation.form1040.line-7b.json")
         committed = load(TAX_CONTENT_DIR / "form1040.line-7b.form-field.json")
-        self.assertNotEqual(negative["citation"]["id"], committed["citation"]["id"])
+
+        # Preserve committed exact pin and the required locus identity.
         self.assertEqual(
-            committed["citation"]["id"],
-            "tax.us.2025.citation.form1040.line-7b",
+            committed["citation"],
+            {"id": LINE_7B_CITATION_ID, "version": LINE_7B_CITATION_VERSION},
+        )
+        self.assertEqual(citation["id"], LINE_7B_CITATION_ID)
+
+        # Bare form-field schema still admits the pin shape (generic schema).
+        self.registry.validate_declared(negative)
+        wrong_pin = negative["citation"]
+        self.assertIsInstance(wrong_pin, dict)
+        self.assertNotEqual(
+            (wrong_pin["id"], wrong_pin["version"]),
+            (LINE_7B_CITATION_ID, LINE_7B_CITATION_VERSION),
+        )
+
+        # Production package validation rejects wrong identity.
+        result = _validate_line7b_form_field_citation_contract(negative, citation)
+        self.assertFalse(result.ok)
+        citation_issues = [i for i in result.issues if i.code == "CITATION_ABSENT"]
+        self.assertEqual(
+            len(citation_issues),
+            1,
+            f"expected one CITATION_ABSENT for wrong identity, got {result.issues}",
+        )
+        detail = citation_issues[0].detail
+        self.assertIn(wrong_pin["id"], detail)
+        self.assertIn("not an exact citation package member", detail)
+        # Distinguish wrong identity from wrong cardinality (array citation pin).
+        self.assertNotIn("is not of type 'object'", detail)
+        self.assertNotIsInstance(wrong_pin, list)
+
+        # Multi-citation still rejects at schema cardinality, not package identity.
+        with self.assertRaises(SchemaValidationError) as multi_ctx:
+            self.registry.validate_declared(multi)
+        multi_message = str(multi_ctx.exception)
+        self.assertNotIn("CITATION_ABSENT", multi_message)
+        self.assertTrue(
+            "not of type" in multi_message or "citation" in multi_message.lower(),
+            f"multi-citation must fail schema cardinality, got: {multi_message}",
         )
 
 
