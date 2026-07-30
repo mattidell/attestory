@@ -1,0 +1,82 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.wages.total-w2-box1",
+      "tax.us.2025.interest.taxable-total",
+      "tax.us.2025.dividends.ordinary-total",
+      "tax.us.2025.capital-gains.line7a-total"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-9",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line9",
+  "notes": "Form 1040 Line 9 v3 (ADR-0050 Decision 6): total income adds the selected line-7a publication exactly once. Does not read raw box-2a members, historical recorded-boxes, or qualified dividends again. Guard-inapplicable or blocked line 7a yields blocked(DEPENDENCY_ABSENT) on selected line 7a. v1/v2 remain historical.",
+  "pins": [
+    {
+      "id": "tax.us.2025.wages.total-w2-box1",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.taxable-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dividends.ordinary-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.capital-gains.line7a-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.income.total-income",
+  "requires": [
+    "tax.us.2025.wages.total-w2-box1",
+    "tax.us.2025.interest.taxable-total",
+    "tax.us.2025.dividends.ordinary-total",
+    "tax.us.2025.capital-gains.line7a-total"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v2",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "args": [
+      {
+        "name": "tax.us.2025.wages.total-w2-box1",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.taxable-total",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.dividends.ordinary-total",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.capital-gains.line7a-total",
+        "op": "ref"
+      }
+    ],
+    "op": "add"
+  },
+  "version": "v3",
+  "when": true
+}

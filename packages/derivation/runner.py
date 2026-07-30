@@ -304,6 +304,13 @@ class _Run:
             pins.append(pin)
         for op in access.operations:
             pins.append({"role": "operation-semantics", "id": op, "version": self.ctx.canon[op]["version"]})
+        # Declared rule citations (ADR-0029 / ADR-0050 line-7b exact citation pin).
+        for citation in rule.get("citations", []):
+            pins.append({
+                "role": "citation",
+                "id": citation["id"],
+                "version": citation["version"],
+            })
         # Adoption and governance identity come from the run context — versioned
         # inputs, never constants invented here (ADR-0007 decision 4).
         pins.append(self.ctx.adoption_pin)
