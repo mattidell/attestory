@@ -877,6 +877,183 @@ class FocusIndicators(RuntimeFixture):
                 )
 
 
+@unittest.skipUnless(
+    _NODE and _BROWSER and _VENDORED,
+    "needs Node, a local Chrome/Chromium, and the surface artifact vendored tree",
+)
+class KeyboardOperability(RuntimeFixture):
+    """Track 1: the accessibility row's unmeasured half, made mechanical.
+
+    Runs `entry_loop_keyboard_operability_client.mjs` against the real,
+    compiled, browser-rendered page and checks three durable, rule-based
+    properties -- none of them a hard-coded control list -- for both the
+    incomplete and the complete state: (1) the set of controls reachable by
+    Tab forward equals the set reachable by Shift+Tab backward from the
+    last one; (2) every control classified as actionable by its own DOM
+    shape (link, button, submit/button/reset input, role="button")
+    activates with its standard key and produces an observed change in a
+    page-level fingerprint, not merely the absence of an exception; (3) the
+    entire run drives the page exclusively through
+    `Input.dispatchKeyEvent` -- zero `Input.dispatchMouseEvent` calls.
+    """
+
+    def _run(self, defect: str | None = None) -> dict[str, Any]:
+        assert _NODE is not None
+        dist = build_entry_surface(self.capability, repo_root=REPO)
+        args = [
+            _NODE,
+            str(
+                REPO
+                / "tests"
+                / "helpers"
+                / "entry_loop_keyboard_operability_client.mjs"
+            ),
+        ]
+        with EntryLoopServer(self.runtime, dist) as server:
+            args.append(server.url)
+            if defect:
+                args.append(defect)
+            result = subprocess.run(
+                args,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=60,
+                check=False,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        return cast(dict[str, Any], json.loads(result.stdout))
+
+    def test_reverse_traversal_matches_and_activation_bites_by_effect(self) -> None:
+        findings = self._run()
+
+        # Vacuous-pass guard: a broken probe (dead page, broken Tab
+        # traversal) reports empty lists, which would trivially satisfy
+        # "every finding passes." Both phases must actually have run, and
+        # w2-box1's own controls must be among what was found -- the same
+        # shape of guard FocusIndicators uses.
+        self.assertEqual(
+            {entry["phase"] for entry in findings["reverseTraversal"]},
+            {"incomplete", "complete"},
+        )
+        self.assertGreaterEqual(len(findings["activation"]), 5, findings)
+        self.assertTrue(
+            any("w2-box1" in entry["key"] for entry in findings["activation"]),
+            findings,
+        )
+        self.assertTrue(findings["navigation"], findings)
+
+        # Check 1: reverse traversal. No control forward-only or
+        # backward-only, positional order matches forward reversed, and
+        # backward walk terminates by returning to seed in both states.
+        for entry in findings["reverseTraversal"]:
+            with self.subTest(phase=entry["phase"]):
+                self.assertTrue(entry["returnedToSeed"], entry)
+                self.assertEqual(entry["forwardOnly"], [], entry)
+                self.assertEqual(entry["backwardOnly"], [], entry)
+                self.assertTrue(entry["setMatches"], entry)
+                self.assertTrue(entry["orderMatches"], entry)
+                self.assertIsNone(entry["mismatchIndex"], entry)
+                self.assertTrue(entry["matches"], entry)
+
+        # Check 2: activation by observed effect. Every control this run
+        # classified as actionable must have activated with its standard
+        # key; a control the probe found but judged not actionable (a bare
+        # text input) is exempt from this half.
+        for entry in findings["activation"]:
+            with self.subTest(control=entry["key"], phase=entry["phase"]):
+                if not entry["actionable"]:
+                    continue
+                self.assertIsNotNone(entry["activatedWith"], entry)
+
+        # The wordmark link: Enter must actually navigate.
+        for entry in findings["navigation"]:
+            with self.subTest(control=entry["key"], phase=entry["phase"]):
+                self.assertTrue(entry["navigated"], entry)
+
+        # Check 3: no mouse. The entire run -- both phases, every check --
+        # never dispatched a synthetic pointer event.
+        self.assertEqual(findings["mouseEventsDispatched"], 0, findings)
+
+    def test_reverse_traversal_check_bites_when_backward_reachability_breaks(
+        self,
+    ) -> None:
+        """Demonstration: disable backward reachability, confirm the check
+        catches it.
+
+        Injects a capturing Shift+Tab listener on "Enter this fact" that
+        preventDefaults the browser's own focus-move, trapping backward
+        traversal there. Forward Tab still reaches every control normally
+        -- only Shift+Tab breaks -- so the wordmark link (earlier in the
+        order) becomes reachable forward but not backward. Observed:
+        `forwardOnly` for the incomplete phase names the wordmark link and
+        `matches` is False. Restoring the clean run (the test above)
+        confirms the check passes once the trap is gone.
+        """
+        findings = self._run(defect="break-reverse-traversal")
+        incomplete = next(
+            entry
+            for entry in findings["reverseTraversal"]
+            if entry["phase"] == "incomplete"
+        )
+        self.assertFalse(incomplete["matches"], incomplete)
+        self.assertFalse(incomplete["setMatches"], incomplete)
+        self.assertTrue(
+            any("wordmark" in key for key in incomplete["forwardOnly"]),
+            incomplete,
+        )
+
+    def test_reverse_traversal_check_bites_when_order_is_scrambled(
+        self,
+    ) -> None:
+        """Demonstration: scramble backward traversal order while preserving
+        the set of reachable controls, confirming the order check catches it.
+
+        Injects a Shift+Tab handler that visits every control in a scrambled
+        sequence. Observed: `setMatches` is True (`forwardOnly: []`,
+        `backwardOnly: []`), but `orderMatches` is False with a non-null
+        `mismatchIndex`, proving the order check catches an order defect that
+        set membership alone misses.
+        """
+        findings = self._run(defect="scramble-order")
+        incomplete = next(
+            entry
+            for entry in findings["reverseTraversal"]
+            if entry["phase"] == "incomplete"
+        )
+        self.assertTrue(incomplete["setMatches"], incomplete)
+        self.assertEqual(incomplete["forwardOnly"], [], incomplete)
+        self.assertEqual(incomplete["backwardOnly"], [], incomplete)
+        self.assertFalse(incomplete["orderMatches"], incomplete)
+        self.assertFalse(incomplete["matches"], incomplete)
+        self.assertIsNotNone(incomplete["mismatchIndex"], incomplete)
+        # The probe itself still never touched the mouse to compensate.
+        self.assertEqual(findings["mouseEventsDispatched"], 0, findings)
+
+    def test_activation_check_bites_when_a_control_swallows_its_key(self) -> None:
+        """Demonstration: disable a control's Enter/Space handling, confirm
+        the check catches it.
+
+        Injects a capturing keydown listener on "Enter this fact" that
+        preventDefaults and stops propagation for Enter and Space --
+        exactly the charter's named failure shape, a button that silently
+        swallows its activation key with no exception raised. Observed:
+        that control's activation finding has `activatedWith: null` where
+        the clean run above has a real key name. Restoring the clean run
+        confirms the check passes once the swallow is gone.
+        """
+        findings = self._run(defect="swallow-activation")
+        target = next(
+            entry
+            for entry in findings["activation"]
+            if entry["phase"] == "incomplete" and "Enter this fact" in entry["key"]
+        )
+        self.assertIsNone(target["activatedWith"], target)
+        # The probe itself still never touched the mouse to compensate.
+        self.assertEqual(findings["mouseEventsDispatched"], 0, findings)
+
+
 class SurfaceCriteria(unittest.TestCase):
     source: str
     field_declaration: str
