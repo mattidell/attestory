@@ -5,9 +5,9 @@
   "topic": "entry-loop-rescore",
   "active_plan": "docs/phases/legible-entry/milestones/entry-loop-rescore.md",
   "milestone_state": "planned",
-  "status": "**LEGIBLE ENTRY / RE-SCORE THE ENTRY LOOP — PLANNED.** Milestone 3 closed 2026-07-29 (PR #112) with the W-2 cell at L1: its evaluation returned FAIL on the accessibility row and nothing re-scored the surface after Track 4's repair. Milestone 4 settles that claim. Owner decisions, 2026-07-29: close the harness gap that left keyboard operability unmeasured in both prior rounds before re-scoring; run one full twenty-row re-score with two fresh evaluators; amending the criteria document is forbidden. A second FAIL is a legitimate outcome. NEXT ACTION: charter the Track 1 Builder to make keyboard reachability and operability mechanically measurable, on a fresh branch from the plan merge. The phase-boundary legibility audit is still due and is owner-spawned — the foreman must not launch it.",
+  "status": "**LEGIBLE ENTRY / RE-SCORE THE ENTRY LOOP — TRACK 1 CHARTERED.** The plan merged 2026-07-30 through PR #115 at `5add975`. Milestone 3 closed with the W-2 cell at L1: its evaluation returned FAIL on the accessibility row and nothing re-scored the surface after Track 4's repair. Owner decisions, 2026-07-29: close the harness gap that left keyboard operability unmeasured in both prior rounds before re-scoring; run one full twenty-row re-score with two fresh evaluators; amending the criteria document is forbidden. A second FAIL is a legitimate outcome. Track 1 makes Tab/Shift+Tab reachability and Enter/Space operability mechanically measurable, extending the existing CDP focus probe; it has a review gate and lands before any evaluator is briefed. NEXT ACTION: Track 1 Builder is running on `track/entry-loop-rescore-track1`; on its return, review it. The phase-boundary legibility audit is still due and is owner-spawned — the foreman must not launch it.",
   "current_role": "Track 1 Builder",
-  "current_prompt": "docs/phases/legible-entry/milestones/entry-loop-rescore.md"
+  "current_prompt": "docs/reviews/charter-2026-07-30-entry-loop-rescore-track1.md"
 }
 -->
 # Phase State
@@ -30,7 +30,7 @@ not seen this surface before. Failing again is an acceptable result.
 ## Operational State: Legible Entry
 
 * **Active Milestone:** Milestone 4 — Re-score the Entry Loop, planned
-* **Current Track:** Track 1 — make keyboard reachability and operability mechanically measurable
+* **Current Track:** Track 1 — make keyboard reachability and operability mechanically measurable. Chartered 2026-07-30: `docs/reviews/charter-2026-07-30-entry-loop-rescore-track1.md`, branch `track/entry-loop-rescore-track1`, review gate yes.
 * **Maturity Status:** W-2 cell at L1. No cell in this phase has reached L2.
 * **Prior close:** Milestone 3 closed 2026-07-29 (PR #112) at L1; ADR-0049 and ADR-0051 ratified there
 * **Owner decisions, 2026-07-29:** close the harness gap before re-scoring; one full twenty-row re-score with two fresh evaluators; **the criteria document may not be amended**
