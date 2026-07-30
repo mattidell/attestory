@@ -1,13 +1,13 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Engine Breadth",
-  "topic": "capital-gain-distributions-line7a",
-  "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md"
-  "milestone_state": "active",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CHARTERED.** Track 1 reached READY after focused repair recheck `6b5321b6639b403476c4b4a1331efcc60261e3bb` closed F1 with no residuals and reached `main` through reviewed development unit PR #111 with CI `verify` green. NEXT ACTION: launch the Track 2 Builder on a fresh branch from the merge commit.",
-  "current_role": "Track 2 Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md"
+  "phase": "Legible Entry",
+  "topic": "entry-loop-synthetic",
+  "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
+  "milestone_state": "closed",
+  "status": "**LEGIBLE ENTRY / THE ENTRY LOOP (SYNTHETIC) — CLOSED 2026-07-29 (PR #112).** The W-2 cell stays at L1: the second evaluation returned FAIL on the accessibility row and nothing re-scored the surface after the repair, so the failed evaluation stands as the reported outcome. ADR-0049 and ADR-0051 are ratified by the owner. No track is chartered and no build is in flight. The owner selected the next milestone on 2026-07-29: re-score the repaired W-2 loop against the unchanged criteria to settle the L2 claim. NEXT ACTION: the foreman drafts that milestone plan for owner approval; no charter may be filed before it is approved. The phase-boundary legibility audit is still due and is owner-spawned — the foreman must not launch it.",
+  "current_role": "Foreman — drafting the Milestone 4 plan",
+  "current_prompt": "docs/phases/legible-entry/legible-entry-roadmap.md"
 }
 -->
 # Phase State
@@ -28,12 +28,14 @@ The milestone remains synthetic and makes no L3 claim.
 
 ## Operational State: Legible Entry
 
-* **Active Milestone:** Milestone 3 — The Entry Loop (synthetic), closing
-* **Current Track:** none — all build units complete; the close PR is the last unit
+* **Active Milestone:** none — Milestone 3, The Entry Loop (synthetic), closed 2026-07-29 (PR #112)
+* **Current Track:** none — no charter is filed and no build is in flight
 * **Maturity Status:** W-2 cell remains at L1 (evaluation returned FAIL, no re-score)
-* **Cut decision:** milestone closes at L1; the repair landed but nothing re-scored it, so the cell does not move
+* **Cut decision:** the milestone closed at L1; the repair landed but nothing re-scored it, so the cell did not move
 * **ADR ratification:** ADR-0049 and ADR-0051 ratified by the owner, 2026-07-29 (PR #112)
-* **Owner's at the close:** the next milestone and the phase-boundary legibility audit
+* **Next milestone:** selected by the owner 2026-07-29 — re-score the repaired W-2 loop to settle the L2 claim. The plan is being drafted and must be owner-approved before any charter.
+* **Still due:** the phase-boundary legibility audit. Owner-spawned by design; the foreman must not launch it.
+* **Branch line:** the UI line continues on `main-ui`. PR #113 was a one-off sync of `main-ui` upstream into `main` and does not move the base; UI PRs still target `main-ui`.
 
 ### Standing Directives
 
