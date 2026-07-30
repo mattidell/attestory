@@ -244,6 +244,45 @@ async function injectDefect(name) {
         return true;
       })()
     `);
+  } else if (name === "scramble-order") {
+    // Scrambles Shift+Tab traversal order while preserving the set of
+    // reachable controls: re-routes Shift+Tab into a scrambled cycle
+    // (seed -> middle control -> ... -> seed).
+    await evaluate(`
+      (() => {
+        document.addEventListener(
+          "keydown",
+          (e) => {
+            if (e.key === "Tab" && e.shiftKey) {
+              const active = document.activeElement;
+              if (!active) return;
+              const desc = window.__kbProbe.describe(active);
+              if (!desc) return;
+              let targetSelector = null;
+              if (active.classList.contains("primary") || desc.key.includes("Add W-2") || desc.key.includes("Update W-2")) {
+                targetSelector = "button:not(.primary)";
+              } else if (desc.key.includes("Enter this fact")) {
+                targetSelector = "#w2-box1";
+              } else if (desc.key.includes("w2-box1") || active.id === "w2-box1") {
+                targetSelector = "a[href]";
+              } else if (desc.key.includes("wordmark") || active.tagName === "A") {
+                targetSelector = ".primary";
+              }
+              if (targetSelector) {
+                const target = document.querySelector(targetSelector);
+                if (target) {
+                  e.preventDefault();
+                  e.stopImmediatePropagation();
+                  target.focus();
+                }
+              }
+            }
+          },
+          true
+        );
+        return true;
+      })()
+    `);
   }
 }
 
@@ -258,11 +297,11 @@ function standardKeysFor(info) {
   return [];
 }
 
-async function collectOrder(shift, iterations) {
+async function collectForwardOrder(iterations) {
   const order = [];
   const seen = new Set();
   for (let i = 0; i < iterations; i++) {
-    await pressTab(shift);
+    await pressTab(false);
     const focused = await describeActive();
     if (!focused) continue;
     if (seen.has(focused.key)) continue;
@@ -272,30 +311,75 @@ async function collectOrder(shift, iterations) {
   return order;
 }
 
+async function collectBackwardOrder(seedKey, maxIterations) {
+  const order = [];
+  const seen = new Set();
+  let returnedToSeed = false;
+  for (let i = 0; i < maxIterations; i++) {
+    await pressTab(true);
+    const focused = await describeActive();
+    if (!focused) continue;
+    if (focused.key === seedKey) {
+      returnedToSeed = true;
+      break;
+    }
+    if (seen.has(focused.key)) break;
+    seen.add(focused.key);
+    order.push(focused);
+  }
+  return { backward: order, returnedToSeed };
+}
+
 const findings = { reverseTraversal: [], activation: [], navigation: [] };
 const navigationQueue = [];
 
 async function reverseTraversalCheck(phase) {
   await blurActive();
-  const forward = await collectOrder(false, 20);
+  const forward = await collectForwardOrder(20);
   if (!forward.length) {
     throw new Error("no-focusable-controls-in-forward-sweep");
   }
-  await focusByKey(forward[forward.length - 1].key);
-  const backward = await collectOrder(true, 20);
+  const seedControl = forward[forward.length - 1];
+  const seedKey = seedControl.key;
+  await focusByKey(seedKey);
+
+  const { backward, returnedToSeed } = await collectBackwardOrder(seedKey, 20);
+
   const forwardKeys = forward.map((f) => f.key);
-  const backwardKeys = backward.map((f) => f.key);
-  const backwardSet = new Set(backwardKeys);
+  const backwardStepKeys = backward.map((b) => b.key);
+  const actualBackward = [seedKey, ...backwardStepKeys];
+  const expectedBackward = forwardKeys.slice().reverse();
+
+  const backwardSet = new Set(actualBackward);
   const forwardSet = new Set(forwardKeys);
   const forwardOnly = forwardKeys.filter((k) => !backwardSet.has(k));
-  const backwardOnly = backwardKeys.filter((k) => !forwardSet.has(k));
+  const backwardOnly = actualBackward.filter((k) => !forwardSet.has(k));
+  const setMatches = forwardOnly.length === 0 && backwardOnly.length === 0;
+
+  let mismatchIndex = null;
+  const maxLen = Math.max(expectedBackward.length, actualBackward.length);
+  for (let i = 0; i < maxLen; i++) {
+    if (expectedBackward[i] !== actualBackward[i]) {
+      mismatchIndex = i;
+      break;
+    }
+  }
+  const orderMatches = returnedToSeed && mismatchIndex === null;
+
   findings.reverseTraversal.push({
     phase,
+    seedKey,
+    returnedToSeed,
     forward: forwardKeys,
-    backward: backwardKeys,
+    backward: backwardStepKeys,
+    expectedBackward,
+    actualBackward,
     forwardOnly,
     backwardOnly,
-    matches: forwardOnly.length === 0 && backwardOnly.length === 0,
+    setMatches,
+    orderMatches,
+    mismatchIndex,
+    matches: setMatches && orderMatches,
   });
   return forward;
 }

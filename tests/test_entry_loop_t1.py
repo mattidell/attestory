@@ -945,11 +945,16 @@ class KeyboardOperability(RuntimeFixture):
         self.assertTrue(findings["navigation"], findings)
 
         # Check 1: reverse traversal. No control forward-only or
-        # backward-only, in either state of the surface.
+        # backward-only, positional order matches forward reversed, and
+        # backward walk terminates by returning to seed in both states.
         for entry in findings["reverseTraversal"]:
             with self.subTest(phase=entry["phase"]):
+                self.assertTrue(entry["returnedToSeed"], entry)
                 self.assertEqual(entry["forwardOnly"], [], entry)
                 self.assertEqual(entry["backwardOnly"], [], entry)
+                self.assertTrue(entry["setMatches"], entry)
+                self.assertTrue(entry["orderMatches"], entry)
+                self.assertIsNone(entry["mismatchIndex"], entry)
                 self.assertTrue(entry["matches"], entry)
 
         # Check 2: activation by observed effect. Every control this run
@@ -993,10 +998,38 @@ class KeyboardOperability(RuntimeFixture):
             if entry["phase"] == "incomplete"
         )
         self.assertFalse(incomplete["matches"], incomplete)
+        self.assertFalse(incomplete["setMatches"], incomplete)
         self.assertTrue(
             any("wordmark" in key for key in incomplete["forwardOnly"]),
             incomplete,
         )
+
+    def test_reverse_traversal_check_bites_when_order_is_scrambled(
+        self,
+    ) -> None:
+        """Demonstration: scramble backward traversal order while preserving
+        the set of reachable controls, confirming the order check catches it.
+
+        Injects a Shift+Tab handler that visits every control in a scrambled
+        sequence. Observed: `setMatches` is True (`forwardOnly: []`,
+        `backwardOnly: []`), but `orderMatches` is False with a non-null
+        `mismatchIndex`, proving the order check catches an order defect that
+        set membership alone misses.
+        """
+        findings = self._run(defect="scramble-order")
+        incomplete = next(
+            entry
+            for entry in findings["reverseTraversal"]
+            if entry["phase"] == "incomplete"
+        )
+        self.assertTrue(incomplete["setMatches"], incomplete)
+        self.assertEqual(incomplete["forwardOnly"], [], incomplete)
+        self.assertEqual(incomplete["backwardOnly"], [], incomplete)
+        self.assertFalse(incomplete["orderMatches"], incomplete)
+        self.assertFalse(incomplete["matches"], incomplete)
+        self.assertIsNotNone(incomplete["mismatchIndex"], incomplete)
+        # The probe itself still never touched the mouse to compensate.
+        self.assertEqual(findings["mouseEventsDispatched"], 0, findings)
 
     def test_activation_check_bites_when_a_control_swallows_its_key(self) -> None:
         """Demonstration: disable a control's Enter/Space handling, confirm
