@@ -652,6 +652,27 @@ class _Run:
                 self.attempt_attachment(rule)
                 continue
 
+            # A false guard is an atomic inapplicable disposition even when
+            # later numeric dependencies are absent.  Preflight only far
+            # enough to prove false: a true or blocked preflight retains the
+            # established missing-dependency/conflict/fallback precedence
+            # below.  This lets declared guards classify their branch before
+            # numeric work without turning missing inputs into assumed values.
+            guard_access = AccessLog()
+            try:
+                guard_preflight = evaluate(rule["when"], self.env(), guard_access)
+            except EvalBlocked:
+                guard_preflight = None
+            if guard_preflight is False:
+                self.dispositions.append({
+                    "artifact_id": rule["id"],
+                    "disposition": "inapplicable",
+                    "guard_result": False,
+                    "pins": self.ledger_pins_for(rule, guard_access),
+                })
+                self.resolved.add(rule["id"])
+                continue
+
             # 1. If any dependency is absent -> blocked
             missing = [req for req in rule["requires"] if req not in self.symbols]
             if missing:

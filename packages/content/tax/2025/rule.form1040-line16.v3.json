@@ -17,7 +17,7 @@
     }
   ],
   "id": "tax.us.2025.rule.form1040-line16",
-  "notes": "Form 1040 Line 16 v3 (ADR-0050 Decision 7): typed state partition for the direct route. Conclusion yes is guard_inapplicable. Blocked line 7a / TI propagates as DEPENDENCY_ABSENT. For numeric L and Q: QDCG when Q>0 or L>0 with preferential base Q+L bound to selected line 7a; ordinary tax only when both are closure-backed zero. Branch-specific declaration pins: R2-Q2 declaration no; Q>0 L>0 declaration yes; R2-Q1 conclusion only; R2-Q3 neither declaration. v1/v2 remain historical.",
+  "notes": "Form 1040 Line 16 v3 (ADR-0050 Decision 7): typed state partition for the direct route. A first conditional dependency set activates the numeric inputs only for conclusion no, so guard preflight proves conclusion yes guard_inapplicable before numeric missing-dependency fallback while conclusion no retains the declared numeric requirements and blocked line 7a / TI propagates as DEPENDENCY_ABSENT. For numeric L and Q: QDCG when Q>0 or L>0 with preferential base Q+L bound to selected line 7a; ordinary tax only when both are closure-backed zero. Branch-specific declaration pins: R2-Q2 declaration no; Q>0 L>0 declaration yes; R2-Q1 conclusion only; R2-Q3 neither declaration. v1/v2 remain historical.",
   "pins": [
     {
       "id": "tax.us.2025.income.taxable-income",
@@ -301,6 +301,47 @@
   "version": "v3",
   "when": {
     "args": [
+      {
+        "condition": {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.schedule-d-required.conclusion",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.schedule-d-required.conclusion",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "no"
+          }
+        },
+        "members": [
+          {
+            "name": "tax.us.2025.income.taxable-income",
+            "op": "ref"
+          },
+          {
+            "name": "filing_status",
+            "op": "ref"
+          },
+          {
+            "name": "rounding.convention",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.dividends.qualified-total",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.capital-gains.line7a-total",
+            "op": "ref"
+          }
+        ],
+        "op": "conditional_dependency_set"
+      },
       {
         "cmp": "eq",
         "left": {

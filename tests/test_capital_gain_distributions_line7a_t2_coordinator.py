@@ -43,7 +43,7 @@ def _act(name: str) -> dict[str, object]:
 
 def _surface() -> PublicationSurface:
     return PublicationSurface(
-        T3 / "publication_surface" / "releases", CONTENT / "published-packages.json", CONTENT
+        T3 / "publication_surface" / "releases", CONTENT / "published-packages.v2.json", CONTENT
     )
 
 
