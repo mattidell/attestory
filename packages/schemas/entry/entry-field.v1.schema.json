@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "entry/entry-field.v1",
+  "title": "Entry field contract -- money fields (one discriminated format variant)",
+  "description": "What an entry-loop field must declare about itself, extracted from the single W-2 Box 1 field built and evaluated in the entry-loop-synthetic milestone (Track 3, repaired against the Track 3 review's F1, then against the Track 3 repair review's F1). Source and destination make criterion 2.1 checkable against a declaration; purpose makes 2.2 checkable; correction names how an already-answered fact is located and changed. `format` is a discriminated union with exactly one member, `currency-amount` -- the positive-dollar-amount shape Track 2d built and both evaluation rounds exercised. STATED BOUNDARY, precisely: this schema validates that a declaration is well-formed and that its `format` is a *supported* variant. Today the only supported variant is a currency amount, so every schema-valid declaration is shaped like a money field -- but this schema does NOT verify that the declared format is the *correct* format for the named `source`/`destination`. Nothing here relates `format.kind` to `source` or `destination`, so a declaration that names an employer, a checkbox, a date, or a filing-status choice and still claims `currency-amount` is schema-valid: it is a false declaration, not a malformed one, and this schema -- or any schema of this kind -- cannot catch a lie about its own subject. Nothing in this milestone catches that lie either; it would take a person reading the rendered field against the document it claims to be, which is evaluation, not a mechanical check. A checkbox, an identifier, a date, or a choice field each need a format variant this milestone has no evidence for and does not invent; add a variant to the union (keyed by `kind`) only when a field of that shape is built, per the same reasoning the owner already applied to deferring the presentation role/context model until a second surface exists. The `source`/`destination`/`purpose`/`correction` core is offered as shared across fact families, but is itself evidenced by exactly one field -- see the milestone record's residual uncertainty. This schema is not wired into the kernel SchemaRegistry and validates no runtime act, fact, or finding -- it models the shape an entry surface's own field declaration takes, the same way citation.v1 models a citation without itself being a kernel citizen. Whether this should become a ratified ADR and a first-class citizen is an open recommendation, not decided here.",
+  "type": "object",
+  "properties": {
+    "schema": {"const": "entry-field.v1"},
+    "id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^v[0-9]+$"},
+    "source": {"$ref": "#/$defs/source"},
+    "destination": {"$ref": "#/$defs/destination"},
+    "purpose": {"type": "string", "minLength": 1},
+    "format": {"$ref": "#/$defs/format"},
+    "correction": {"$ref": "#/$defs/correction"}
+  },
+  "required": ["schema", "id", "version", "source", "destination", "purpose", "format", "correction"],
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "description": "The document a person is holding and the exact box or line on it (criterion 2.1). 'label' is the box's own printed name, distinct from its identifier, so a field can name both 'Box 1' and 'Wages, tips, other compensation' without concatenating them into one string a renderer must parse back apart.",
+      "properties": {
+        "document": {"type": "string", "minLength": 1},
+        "box": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1}
+      },
+      "required": ["document", "box", "label"],
+      "additionalProperties": false
+    },
+    "destination": {
+      "type": "object",
+      "description": "The return line the value feeds.",
+      "properties": {
+        "form": {"type": "string", "minLength": 1},
+        "line": {"type": "string", "minLength": 1}
+      },
+      "required": ["form", "line"],
+      "additionalProperties": false
+    },
+    "format": {
+      "description": "A discriminated union keyed by 'kind'. Exactly one variant exists today: currency-amount. Adding a second variant (date, boolean, choice, identifier) is an addition to this union, not a breaking change to it -- and is only warranted once a field of that shape is actually built. This union checks that 'kind' names a supported variant, not that the variant is the right one for the field's own source/destination -- a declaration for an employer name or a checkbox that still carries a currency-amount object is schema-valid.",
+      "oneOf": [
+        {"$ref": "#/$defs/currency_amount_format"}
+      ]
+    },
+    "currency_amount_format": {
+      "type": "object",
+      "description": "The Track 2d w2-box1-format.js shape, unchanged in behaviour and tagged with the 'kind' discriminator this repair adds. One declaration governs the hint a person reads, the validator that accepts or refuses, and the refusal message. This is a positive-dollar-amount format specifically; it is not a general numeric or text format.",
+      "properties": {
+        "kind": {"const": "currency-amount"},
+        "field": {"type": "string", "minLength": 1},
+        "hintLabel": {"type": "string", "minLength": 1},
+        "errorLabel": {"type": "string", "minLength": 1},
+        "examples": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+        "commaGrouping": {"enum": ["accepted", "refused"]},
+        "currencySymbol": {"type": "string", "minLength": 1},
+        "currencyPrefix": {"enum": ["accepted", "refused"]},
+        "maxFractionDigits": {"type": "integer", "minimum": 0},
+        "requirePositive": {"type": "boolean"},
+        "maxValue": {"type": "string", "minLength": 1}
+      },
+      "required": [
+        "kind", "field", "hintLabel", "errorLabel", "examples", "commaGrouping",
+        "currencySymbol", "currencyPrefix", "maxFractionDigits",
+        "requirePositive", "maxValue"
+      ],
+      "additionalProperties": false
+    },
+    "correction": {
+      "type": "object",
+      "description": "How an already-answered fact is located and changed without restarting the session. 'kind' is closed to its one observed member: W-2 Box 1's correction reuses the same field and input rather than opening a second view, which is the only correction shape this milestone built or observed. This is a provisional, not a designed-complete, enum -- extend it with a new member (a JSON Schema change, deliberately not a breaking one to existing declarations) the next time a field needs a shape this one doesn't cover, rather than widening it now on speculation.",
+      "properties": {
+        "kind": {"enum": ["same-field-reuse"]},
+        "affordance": {"type": "string", "minLength": 1}
+      },
+      "required": ["kind", "affordance"],
+      "additionalProperties": false
+    }
+  }
+}

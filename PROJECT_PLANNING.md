@@ -177,10 +177,12 @@ operational-capsule rule. There is no clerk seat and no Clerk Task Capsule
 its output is bulky.
 
 **`docs/phase-state.md` is the single re-entry document.** It carries the
-product briefing, the current operational state, the durable pointers, and one
+high level milestone briefing, the current operational state, the durable
+pointers, and one
 `foreman-context-v1` block holding the phase, topic, active plan, status,
-`current_role`, and `current_prompt` — which `tools/foreman_context.py` and
-`tools/build_orientation_block.py` read from a resolved ref. There is no
+`milestone_state`, `current_role`, and `current_prompt` — which
+`tools/foreman_context.py` and `tools/build_orientation_block.py` read from a
+resolved ref. There is no
 separate handoff note: two re-entry documents meant two statuses that could
 disagree, and the same milestone advance had to be written twice. The foreman keeps `current_role` and `current_prompt` accurate:
 before a plan or role cycle is marked complete, it prepares the next sequential
@@ -475,7 +477,9 @@ norms the practice — not by a new ADR.
 Audience: Agents
 
 A milestone is always in exactly one of five states, declared as
-`milestone_state` in the plan's `foreman-context-v1` block. The foreman does not
+`milestone_state` in `docs/phase-state.md`'s `foreman-context-v1` block. The
+active plan remains the source of scope, status prose, and deep reads; it does
+not own lifecycle state. The foreman does not
 infer the state from prose and does not need to: the capsule reports it and
 **checks it against the ratified record**, refusing when the two disagree.
 
@@ -528,7 +532,7 @@ the ratified record self-describing with one small post-merge update.
    from plan prose.
 2. Update local `main` to the merge commit. Make the closeout changes directly
    on `main`, without a branch, charter, review, or PR:
-   - set the milestone plan's `milestone_state` to `closed`, replace conditional
+   - set `docs/phase-state.md`'s `milestone_state` to `closed`, replace conditional
      status prose with the merge commit and CI result, complete its execution
      record, remove `initial_briefing_follow_up`, and route
      `deep_reads.new_milestone` through the just-completed retrospective;
@@ -545,7 +549,7 @@ the ratified record self-describing with one small post-merge update.
 4. Run `git diff --check` and `python3 tools/governance_lint.py`, then commit the
    update directly on `main`. Run
    `python3 tools/envelope_scan.py --range HEAD^..HEAD` over that commit.
-5. Run `python3 tools/foreman_context.py --ref main --format markdown`. It must
+5. Run `python3 tools/foreman_context.py --ref HEAD --format markdown`. It must
    report `closed`, select-a-new-milestone as the next transition, no temporary
    follow-up capsule, and the initial briefing checkpoint. Push the commit
    directly to `main`.

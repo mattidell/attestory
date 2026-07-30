@@ -26,6 +26,7 @@ class ContextFixture(unittest.TestCase):
             "phase": "Demo Phase",
             "topic": "demo-topic",
             "active_plan": "docs/phases/demo/milestones/demo.md",
+            "milestone_state": "track-1",
             "status": "planning only",
             "current_role": "demo reviewer",
             "current_prompt": "docs/reviews/demo-review.md",
@@ -41,6 +42,7 @@ class ContextFixture(unittest.TestCase):
         plan_topic: str = "demo-topic",
         include_seat: bool = True,
         with_origin: bool = True,
+        milestone_state: str = "track-1",
         **plan_overrides: Any,
     ) -> Path:
         root = Path(tempfile.mkdtemp())
@@ -48,11 +50,13 @@ class ContextFixture(unittest.TestCase):
         self.git(root, "init", "-q")
         self.git(root, "config", "user.name", "Demo")
         self.git(root, "config", "user.email", "demo@example.test")
-        phase = self.phase_metadata(include_seat=include_seat)
+        phase = self.phase_metadata(
+            include_seat=include_seat,
+            milestone_state=milestone_state,
+        )
         plan = {
             "version": 1,
             "topic": plan_topic,
-            "milestone_state": "track-1",
             "status": "draft",
             "scope": ["synthetic proof"],
             "non_goals": ["no real workspace"],
@@ -302,7 +306,7 @@ class ForemanContextTests(ContextFixture):
 
 
 class MilestoneStateTests(ContextFixture):
-    """The lifecycle state a foreman resumes into is declared by the plan and
+    """The lifecycle state a foreman resumes into is declared by phase-state and
     corroborated against the ratified record, because the two states that were
     routinely misread — 'the plan PR merged' and 'the closing PR merged' — are
     facts about `origin/main`, not about the document doing the declaring."""
