@@ -4,10 +4,10 @@
   "phase": "Legible Entry",
   "topic": "entry-loop-synthetic",
   "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
-  "milestone_state": "track-2",
-  "status": "Milestone 3 (The Entry Loop - synthetic) is open. Track 2e re-scored six rows: five Pass/Pass including criterion 2.3, and the accessibility row Fail/Fail on the amount input's focus indicator, so the cell verdict is FAIL and the W-2 cell stays at L1. Track 3 writes the entry-field contract, scoped by owner decision to the field contract only. A narrow focus-indicator repair is still outstanding. Synthetic W-2 only, no real data, no L3 claim. The standing owner directive is to model entry usability as schema and field contracts.",
-  "current_role": "Builder — Track 3 entry-field contract",
-  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track3.md"
+  "milestone_state": "track-3",
+  "status": "Milestone 3 (The Entry Loop - synthetic) is open. Track 3's build landed: entry-field.v1 models what an entry field declares about itself, and the surface now renders from that declaration. Its review is the last gate before the close. The cell verdict is FAIL and the W-2 cell stays at L1; a narrow focus-indicator repair is still outstanding. Synthetic W-2 only, no real data, no L3 claim. The standing owner directive is to model entry usability as schema and field contracts.",
+  "current_role": "Reviewer — Track 3 entry-field contract",
+  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track3-review.md"
 }
 -->
 # Phase State
@@ -28,7 +28,7 @@ milestone remains synthetic and does not make an L3 claim.
 ## Operational State: Legible Entry
 
 * **Active Milestone:** Milestone 3 — The Entry Loop (synthetic)
-* **Current Track:** Track 3 — The entry-field contract
+* **Current Track:** Track 3 — The entry-field contract (build landed, under review)
 * **Maturity Status:** W-2 cell remains at L1 (evaluation returned FAIL)
 * **Outstanding repair:** the amount input needs a focus indicator distinct from its resting boundary
 
