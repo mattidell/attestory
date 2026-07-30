@@ -4,10 +4,10 @@
   "phase": "Legible Entry",
   "topic": "entry-loop-synthetic",
   "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
-  "milestone_state": "track-3",
-  "status": "Milestone 3 (The Entry Loop - synthetic) is open. Track 3's second repair landed, subtractively: the schema's stated boundary is corrected to well-formedness only, the vacuous F2 fixtures are fixed and now bite, and the tautological format-equality check is deleted. Its review is the milestone's last build gate, third pass. The cell verdict is FAIL and the W-2 cell stays at L1; a narrow focus-indicator repair is still outstanding and unordered. Synthetic W-2 only, no real data, no L3 claim. The standing owner directive is to model entry usability as schema and field contracts.",
-  "current_role": "Reviewer — Track 3 repair 2 review (last build gate, third pass)",
-  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track3-repair-2-review.md"
+  "milestone_state": "track-4",
+  "status": "Milestone 3 (The Entry Loop - synthetic) is open and being cut. Track 3 is complete and accepted on foreman inspection: its chartered reviewer did not file, and the foreman resolved the open questions with no blocking finding surviving. Track 4 is the last build unit -- one focus indicator, stated per control rather than per context. No re-score is planned, so the cell verdict stays FAIL and the W-2 cell stays at L1; the milestone reports that as a real outcome. Then the close PR, carrying ADR-0049 and ADR-0051 for owner ratification. Synthetic W-2 only, no real data, no L3 claim.",
+  "current_role": "Builder — Track 4 focus indicators (no review gate)",
+  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track4-focus.md"
 }
 -->
 # Phase State
@@ -28,9 +28,9 @@ milestone remains synthetic and does not make an L3 claim.
 ## Operational State: Legible Entry
 
 * **Active Milestone:** Milestone 3 — The Entry Loop (synthetic)
-* **Current Track:** Track 3 repair 2 — under review (last build gate, third pass)
+* **Current Track:** Track 4 — focus indicators, stated per control (last build unit)
 * **Maturity Status:** W-2 cell remains at L1 (evaluation returned FAIL)
-* **Outstanding repair:** the amount input needs a focus indicator distinct from its resting boundary
+* **Cut decision:** milestone closes at L1 after Track 4; no re-score, so the failed evaluation stands as the reported outcome
 
 ### Standing Directives
 
