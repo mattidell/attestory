@@ -4,7 +4,7 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "milestone_state": "active",
+  "milestone_state": "track-2",
   "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 IN INDEPENDENT REVIEW.** The interrupted Builder's committed implementation was recovered from the `grok` remote and fast-forwarded onto `track/capital-gain-distributions-line7a-track2`; foreman handoff checks found a clean patch, clean data envelope, and append-only published-schema manifest change. NEXT ACTION: owner launches the author-independent Track 2 Reviewer from its committed charter.",
   "current_role": "Track 2 Reviewer",
   "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2-review.md"
