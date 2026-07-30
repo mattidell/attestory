@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-3",
-  "status": "TRACK 3 PREPARED AFTER TRACK 2 READY. Track 2 reached its `READY` gate after focused recheck closed F1 and F2 with no residuals. The reviewed Track-2 development unit is ready for owner merge after CI `verify` is green. NEXT ACTION: after that merge, bind `docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md` to the no-fast-forward merge commit and launch it on a fresh branch.",
+  "milestone_state": "track-2",
+  "status": "TRACK 2 CI REPAIR. The focused F1/F2 recheck returned `READY`, but PR #120 CI `verify` run `30591151422` rejected readiness with four deterministic cross-consumer failures. The original repair Builder is chartered to close only those failures while preserving the reviewed behavior and immutable v1/v6 route. Track 3 remains prepared but gated on a green Track-2 merge.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -78,7 +78,12 @@
       "packages/presentation/pages/citation-walk.v1.html",
       "tools/presentation_harness/examples/pages/citation-walk.v1.html",
       "tools/generate_presentation_l2_golden.py",
+      "tools/generate_frrs_t3_fixtures.py",
+      "packages/derivation/loader.py",
       "tools/presentation_harness/examples/manifests/citation-walk-production-shaped.v1.json",
+      "tests/derivation/test_language_schemas.py",
+      "tests/test_frrs_t3_resolver_bootstrap.py",
+      "tests/test_frrs_t4_w2_live_integration.py",
       "tests/test_presentation_l2_integration.py",
       "tests/test_presentation_live_session.py",
       "tests/test_presentation_live_viewing_vehicle.py",

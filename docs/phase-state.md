@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "milestone_state": "track-3",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 PREPARED AFTER TRACK 2 READY.** Track 2 reached its `READY` gate after focused recheck closed F1 and F2 with no residuals. The reviewed Track-2 development unit is ready for owner merge after CI `verify` is green. NEXT ACTION: after that merge, bind the prepared Track-3 presentation charter to the no-fast-forward merge commit and launch it on a fresh branch.",
-  "current_role": "Track 3 Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md"
+  "milestone_state": "track-2",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CI REPAIR.** The focused F1/F2 recheck returned `READY`, but PR #120 CI `verify` run `30591151422` rejected readiness with four deterministic cross-consumer failures. The original repair Builder is chartered to close only those failures while preserving the reviewed behavior and immutable v1/v6 route. Track 3 remains prepared but gated on a green Track-2 merge.",
+  "current_role": "Track 2 CI Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track2-ci-repair.md"
 }
 -->
 # Phase State
