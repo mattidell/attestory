@@ -102,3 +102,11 @@
   release/adoption fixture pair. All other measurements passed.
 - **Disposition:** one findings-only F1/F2 repair is chartered with the passing
   evidence credited; no evidence climb or scope expansion.
+
+## 2026-07-29 — Track 2 F1/F2 repair returned
+
+- **Category:** no process incident.
+- **Event:** Luna returned one repair commit covering the typed line-16
+  disposition partition and the versioned release/adoption fixture route.
+- **Disposition:** the original Reviewer is chartered for a focused F1/F2
+  recheck with all other review measurements credited.

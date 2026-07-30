@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 F1/F2 REPAIR CHARTERED.** Independent review returned `NOT READY`: F1 line 16 collapses guard-inapplicable line 7a to blocked instead of preserving the typed disposition partition; F2 rewrites the established v6/v1 release-adoption fixture pair and regresses its coordinator coverage. Every other review measurement is credited. NEXT ACTION: dispatch Luna as the findings-only repair Builder after a charter-bound owner grant.",
-  "current_role": "Track 2 Repair Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2-repair.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 F1/F2 REPAIR IN FOCUSED RECHECK.** Luna committed one bounded repair: line 16 now preserves a provably false guard before numeric dependency fallback, and the Track-2 v7 adoption uses a separate v2 registry/release chain while the established v1/v6 route is restored. NEXT ACTION: owner launches the original author-independent Reviewer from the focused recheck charter.",
+  "current_role": "Track 2 Repair Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2-repair-recheck.md"
 }
 -->
 # Phase State
