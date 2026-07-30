@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-1",
-  "status": "TRACK 1 F1 REPAIR CHARTERED. Independent review `d5b48865fb82410240160c4d11e34d720dba5ee5` returned NOT READY on one bounded citation-contract evidence defect: the wrong line-7b citation identity negative is accepted. All other measurements passed and are credited. NEXT ACTION: owner launches the original Builder from `docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-repair.md` for the single allowed findings-only repair.",
+  "status": "TRACK 1 F1 REPAIR IN FOCUSED RECHECK. Repair commit `8cbd274aafee6f1f9be2533e1141fff04f135096` routes the wrong line-7b citation identity through the established package citation-membership validator while preserving credited measurements. NEXT ACTION: owner launches the author-independent Reviewer from `docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-repair-recheck.md` to decide whether F1 is genuinely closed.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -87,6 +87,8 @@
     "review": [
       "docs/roles/reviewer.md",
       "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1.md",
+      "docs/reviews/2026-07-29-capital-gain-distributions-line7a-track1-review.md",
+      "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-repair.md",
       "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
       "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
       "docs/adr/0035-dividend-composition-and-lines-3a-3b.md",
