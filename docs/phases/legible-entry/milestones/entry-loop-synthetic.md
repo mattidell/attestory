@@ -522,3 +522,74 @@ false claim the charter had already identified precisely, not by choosing
 among design options. Nothing here draws a maturity conclusion, amends the
 criteria document, fixes the accessibility defect, or widens the seam; the
 W-2 cell verdict stays FAIL, unchanged from Track 2.
+
+## Track 4 — focus indicators, stated per control
+
+Charter: `docs/reviews/charter-2026-07-29-entry-loop-synthetic-track4-focus.md`,
+against `docs/reviews/2026-07-29-entry-loop-synthetic-track2e-aggregation.md`
+(cell FAIL, the accessibility row failing twice on `#w2-box1`'s missing
+focus indicator). **No review gate**; the full record is the commit message.
+This section is a short pointer to it, not a duplicate.
+
+**The rule, stated once and made to hold.** The existing global
+`:global(button:focus-visible), :global(input:focus-visible),
+:global(a:focus-visible), :global([tabindex="-1"]:focus-visible)` rule
+already named every focusable control by element type, not by ID — the model
+was already per-control in that sense. What made it fail on `#w2-box1` was a
+Svelte scoped-style specificity tie: the input's own resting
+`outline: 0; box-shadow: 0 0 0 2px #fffdf8;` rule compiles to the same
+specificity as the `:global(...)` focus rule, and the later rule in the
+stylesheet wins a tie — which was the input's own resting rule, not the
+focus rule. Fixed with `!important` on the focus rule's `outline` and
+`box-shadow`, which wins regardless of a control's own resting declarations
+or where they sit in the file, so a control added later inherits the
+guarantee without anyone needing to notice the ordering risk.
+
+**Six focusable controls found**, confirmed by real Tab traversal through
+the compiled page in both the incomplete and complete states (the sweep
+finds nothing further; wrapping back to the wordmark closes the loop): the
+wordmark link, `Enter this fact`, `#w2-box1`, the submit button (`Add`/
+`Update W-2 Box 1`, same element), `Correct this fact`, and
+`Review W-2 Box 1`. The `tabindex="-1"` status-card live region is not among
+them — it is not part of the Tab order (browsers exclude `tabindex="-1"`
+from sequential navigation) and is reached only programmatically after a
+submission, so it is a live region, not a control.
+
+**Measured, before and after, for `#w2-box1`:** before, resting and focus
+were the same style — `box-shadow: 0 0 0 2px #fffdf8`, computing to
+**1.02:1** against the white field, per the evaluators. After, focus adds
+`box-shadow: 0 0 0 5px #17251f !important`, computing to **15.90:1** against
+the entry-panel card background, live-measured via a real keyboard Tab in a
+built, served page. Every other control's dark ring measured 13.85–15.64:1
+against its own adjacent background (main, the missing section, the
+answered strip); all were already distinct from their (ring-less) resting
+states, unchanged by this fix. `Review W-2 Box 1`'s two-tone ring is
+untouched and unchased, exactly as the charter directed: its light
+component still measures ~7.59:1 against the dark-green review section
+(passing), its dark outer component still ~2.06:1 (the aesthetic edge the
+foreman already resolved as a legitimate treatment, not a missing
+indicator).
+
+**One durable, non-snapshot test.** `tests.test_entry_loop_t1.FocusIndicators`
+enumerates every focusable control from the real, compiled, Tab-driven page
+and asserts one general invariant per control — focus style differs from
+resting style, and some component of the focus indicator measures at least
+3:1 against its live adjacent background — computed from actual rendered
+colours every run, never against a stored value. Verified to fail
+specifically on `#w2-box1` when the `!important` fix is reverted (confirmed
+by hand before committing), and verified to keep passing after a palette
+change that swaps the ring colour for a different, still-dark one (also
+confirmed by hand, not committed). No per-control or per-colour assertion
+was added.
+
+**Surface metadata regenerated:** 943 entries, **5,085,046 bytes** (up from
+5,083,946 before this track — the CSS comment plus three `!important`
+declarations account for the difference). Manifest, registry, release, and
+adoption pins all recomputed and agree. New starting-state fingerprint for
+any future re-score: `sha256:ac7735a5d9ab4e057e193966aec89df7534e478ee329e47e9f7b8b19018b79e8`
+(superseding `sha256:212e525d…`).
+
+No maturity movement: the W-2 cell verdict stays FAIL and the cell stays at
+L1 — this track repaired the one outstanding defect but did not re-score,
+and the charter directed that repairing the defect after the fact does not
+move the cell. No criteria-document change, no second fact family, no ADR.

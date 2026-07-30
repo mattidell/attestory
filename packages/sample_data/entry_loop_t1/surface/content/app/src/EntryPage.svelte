@@ -306,13 +306,28 @@
     font: inherit;
   }
 
+  /* Every focusable control gets one focus indicator, stated once: a light
+     outline plus a dark 5px ring, both !important. The rule is per control
+     (every button/input/a/[tabindex="-1"] in this document), not per
+     background -- a control inherits it automatically by being one of those
+     elements, rather than needing its own focus rule remembered when added.
+     !important is load-bearing, not decorative: Svelte's scoped-style
+     compilation gives an unscoped element rule like `input { outline: 0 }`
+     the same specificity as this :global(...:focus-visible) selector, and
+     whichever rule sits later in the stylesheet wins a tie -- which is
+     exactly how `#w2-box1`'s own resting `outline: 0` and
+     `box-shadow: 0 0 0 2px #fffdf8` silently cancelled this rule twice
+     before. !important makes the focus indicator win regardless of a
+     control's own resting-state declarations or where they sit in the file,
+     so the next control added inherits the same guarantee without anyone
+     needing to notice the ordering risk. */
   :global(button:focus-visible),
   :global(input:focus-visible),
   :global(a:focus-visible),
   :global([tabindex="-1"]:focus-visible) {
-    outline: 2px solid #fffdf8;
-    outline-offset: 2px;
-    box-shadow: 0 0 0 5px #17251f;
+    outline: 2px solid #fffdf8 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 5px #17251f !important;
   }
 
   main {

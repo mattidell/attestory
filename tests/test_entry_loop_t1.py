@@ -812,6 +812,71 @@ class RenderedFieldDerivation(RuntimeFixture):
         self.assertEqual(observed, {"present": True, "absent": True})
 
 
+@unittest.skipUnless(
+    _NODE and _BROWSER and _VENDORED,
+    "needs Node, a local Chrome/Chromium, and the surface artifact vendored tree",
+)
+class FocusIndicators(RuntimeFixture):
+    """Track 4: one durable, per-control focus-indicator invariant.
+
+    Enumerates every focusable control reachable by Tab from the real,
+    compiled, browser-rendered page -- in both the incomplete state and the
+    complete state reached by actually submitting the W-2 Box 1 amount --
+    and asserts the general rule for each one, computed from live rendered
+    colours: the focus style differs from the resting style, and some
+    component of the focus indicator (outline or box-shadow) measures at
+    least 3:1 against the background adjacent to the control. No control is
+    named here; a control added later inherits the same check by simply
+    being reachable by Tab, and the test fails for it the same way it would
+    have failed for `#w2-box1` before this track's CSS fix.
+    """
+
+    def test_every_focusable_control_has_a_distinct_indicator(self) -> None:
+        assert _NODE is not None
+        dist = build_entry_surface(self.capability, repo_root=REPO)
+        with EntryLoopServer(self.runtime, dist) as server:
+            result = subprocess.run(
+                [
+                    _NODE,
+                    str(
+                        REPO
+                        / "tests"
+                        / "helpers"
+                        / "entry_loop_focus_indicator_client.mjs"
+                    ),
+                    server.url,
+                ],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=30,
+                check=False,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        findings = json.loads(result.stdout)
+        # A guard against a vacuous pass: if Tab traversal or the page
+        # itself broke, the probe would report no findings at all rather
+        # than failing findings, and an empty list would trivially satisfy
+        # "every finding passes." The six controls the charter enumerated
+        # (wordmark, Enter this fact, the amount input, the submit button in
+        # both its Add and Update states, Correct this fact, Review W-2
+        # Box 1) must all be found; the probe records the button under
+        # whichever phase it was captured in, so Add and Update need not
+        # both appear in the same run.
+        self.assertGreaterEqual(len(findings), 6, findings)
+        self.assertTrue(
+            any("w2-box1" in finding["key"] for finding in findings), findings
+        )
+        for finding in findings:
+            with self.subTest(control=finding["key"], phase=finding["phase"]):
+                self.assertTrue(finding["differsFromResting"], finding)
+                self.assertTrue(
+                    any(ratio["ratio"] >= 3.0 for ratio in finding["ratios"]),
+                    finding,
+                )
+
+
 class SurfaceCriteria(unittest.TestCase):
     source: str
     field_declaration: str
