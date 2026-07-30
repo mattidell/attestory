@@ -110,3 +110,12 @@
   disposition partition and the versioned release/adoption fixture route.
 - **Disposition:** the original Reviewer is chartered for a focused F1/F2
   recheck with all other review measurements credited.
+
+## 2026-07-30 — Track 2 reached READY
+
+- **Category:** no process incident.
+- **Event:** focused recheck closed F1 and F2 with no residuals; all credited
+  Track-2 measurements remained intact.
+- **Disposition:** prepare the conditional Track-3 presentation charter and
+  publish Track 2 as its reviewed development-unit PR. Track 3 remains blocked
+  until that PR reaches `main` with green CI.
