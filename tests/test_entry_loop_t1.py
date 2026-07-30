@@ -14,6 +14,7 @@ from typing import Any, cast
 
 from packages.derivation.entry_loop import (
     COMPARISON_LINES,
+    ENTRY_FIELD_SCHEMA,
     EXPECTED_IMPACT_LINES,
     EntryLoopError,
     EntryLoopServer,
@@ -374,6 +375,15 @@ class FieldContract(RuntimeFixture):
         # on that exact bare-identifier convention -- so these regression
         # cases use it too, rather than a fully-inlined literal, to exercise
         # the actual load path.
+        #
+        # Track 3 repair 2, F2: the loader's closing-marker search requires
+        # "\n};\n" -- a newline, then the closing brace, then the semicolon,
+        # then a newline. A compact single-line JSON body followed directly
+        # by "};\n" (no newline before the brace) never matches that and
+        # fails at the marker step every time, before schema validation runs
+        # at all -- which is exactly how the prior version of this helper
+        # made every case using it pass for the wrong reason. The object
+        # literal must close on its own line, as the real file does.
         target = (
             root
             / "packages"
@@ -391,9 +401,19 @@ class FieldContract(RuntimeFixture):
         text = (
             "export const W2_BOX1_FIELD = "
             + body[:-1]
-            + ', "format": W2_BOX1_FORMAT};\n'
+            + ', "format": W2_BOX1_FORMAT\n};\n'
         )
         target.write_text(text, encoding="utf-8")
+
+        # Track 3 repair 2, F2: the loader also reads entry-field.v1 from
+        # this same repo_root; a temporary root with no schema file fails
+        # there regardless of the declaration, which was the prior version's
+        # second, independent way to pass for the wrong reason.
+        schema_target = root / ENTRY_FIELD_SCHEMA
+        schema_target.parent.mkdir(parents=True, exist_ok=True)
+        schema_target.write_text(
+            (REPO / ENTRY_FIELD_SCHEMA).read_text("utf-8"), encoding="utf-8"
+        )
 
     def test_loader_now_rejects_what_the_schema_rejects(self) -> None:
         """Track 3 repair F2: schema validation replaces hand-rolled checks."""
@@ -438,38 +458,60 @@ class FieldContract(RuntimeFixture):
                     ):
                         _load_w2_box1_field(root, format_spec)
 
-    def test_loader_still_refuses_a_schema_valid_but_different_format(self) -> None:
-        """Track 3 repair F2: the W-2 format-equality constraint stays, separately."""
-        from packages.derivation.entry_loop import (
-            EntryLoopError,
-            _load_w2_box1_field,
-            _load_w2_box1_format,
-        )
+    def test_schema_does_not_relate_format_to_source_or_destination(self) -> None:
+        """Track 3 repair 2, F1: the schema's actual, narrow boundary.
 
-        format_spec = _load_w2_box1_format(REPO)
-        declaration = {
-            "schema": "entry-field.v1",
-            "id": "tax.us.2025.w2.box1-wages",
-            "version": "v1",
-            "source": {
+        entry-field.v1 checks that a declaration is well-formed and that its
+        format names a *supported* variant -- today, only currency-amount.
+        It does not, and structurally cannot from this shape alone, check
+        that the declared format is the *correct* one for the field's own
+        source/destination: a declaration for a checkbox, an employer name,
+        a date, or a filing-status choice validates unchanged as long as it
+        still carries the ten-key currency-amount object. That is a false
+        declaration, not a malformed one, and nothing in this schema -- or
+        this milestone -- catches it.
+        """
+        import jsonschema
+
+        schema = json.loads(
+            (
+                REPO
+                / "packages"
+                / "schemas"
+                / "entry"
+                / "entry-field.v1.schema.json"
+            ).read_text("utf-8")
+        )
+        base_contract = json.loads(
+            json.dumps(self.runtime.snapshot().payload["field_contract"]["w2-box1"])
+        )
+        non_money_sources = {
+            "W-2 Box 13 checkbox": {
                 "document": "Form W-2",
-                "box": "Box 1",
-                "label": "Wages, tips, other compensation",
+                "box": "Box 13",
+                "label": "Retirement plan",
             },
-            "destination": {"form": "Form 1040", "line": "1a"},
-            "purpose": "resolves the missing wages needed to compute income",
-            "correction": {"kind": "same-field-reuse", "affordance": "x"},
+            "employer name/EIN": {
+                "document": "Form W-2",
+                "box": "c",
+                "label": "Employer identification number",
+            },
+            "date": {
+                "document": "Form W-2",
+                "box": "Box 15",
+                "label": "Date of hire",
+            },
+            "filing-status choice": {
+                "document": "Form 1040",
+                "box": "Filing status",
+                "label": "Single, married filing jointly, ...",
+            },
         }
-        with TemporaryDirectory(prefix="demo-entry-field-") as tmp:
-            root = Path(tmp)
-            self._write_field_declaration(root, declaration)
-            # A format lacking the schema's required "kind" discriminator is
-            # itself schema-invalid (F1); this exercises the separate,
-            # W-2-specific equality constraint (F2) with a format that is
-            # otherwise schema-valid but not this runtime's own.
-            different_but_schema_valid = dict(format_spec, maxValue="1.00")
-            with self.assertRaisesRegex(EntryLoopError, "entry-field-unavailable"):
-                _load_w2_box1_field(root, different_but_schema_valid)
+        for name, source in non_money_sources.items():
+            with self.subTest(field=name):
+                declaration = dict(base_contract, source=source)
+                # Still schema-valid: nothing here relates 'kind' to source.
+                jsonschema.validate(declaration, schema)
 
     def test_format_schema_rejects_a_currency_object_missing_the_discriminator(
         self,

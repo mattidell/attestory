@@ -381,34 +381,24 @@ description now both say the same true thing: closed to the one member this
 milestone observed, extended by evidence rather than spoken of as already
 open. The shared core (`source`, `destination`, `purpose`, `correction`) is
 unchanged, per the charter's instruction not to restructure it on
-speculation from one field.
+speculation from one field. **This did not make the schema refuse a
+declaration for a checkbox, an identifier, a date, or a choice field — see
+the Track 3 repair 2 correction below.**
 
 **F2 — the loader now enforces the schema it publishes.** `_load_w2_box1_field`
 previously hand-rolled its own presence/type checks for `source`,
 `destination`, `purpose`, and `correction`, and never checked `id`,
 `version`, or `additionalProperties` at all. It now parses the declaration
 and calls `jsonschema.Draft202012Validator(...).is_valid(...)` against
-`entry-field.v1` directly, deleting the hand-rolled checks entirely. The
-W-2-specific requirement — that the declared `format` be exactly this
-runtime's own format, not merely *a* valid currency-amount format — is kept,
-but as a separate, explicitly-commented equality check that runs only after
-schema validation passes, rather than folded into it.
+`entry-field.v1` directly, deleting the hand-rolled checks entirely.
 
-*Previously-accepted declarations now refused:* a declaration omitting `id`,
-with `version` set to `not-a-version` (the reviewer's exact repro); the same
-declaration with any unrecognized top-level key; and a `correction.kind`
-value other than `same-field-reuse` (e.g. `modal-reopen`) — all now fail with
-`entry-field-unavailable`, verified directly against the loader and covered
-by `tests.test_entry_loop_t1.FieldContract.test_loader_now_rejects_what_the_schema_rejects`.
-*Still refused, for the reason already recorded, now demonstrably separate
-from schema validity:* a fully schema-valid declaration whose `format` is a
-different (but internally valid) currency-amount object — covered by
-`test_loader_still_refuses_a_schema_valid_but_different_format`. *Confirmed
-unchanged:* the served `field_contract` still validates against the amended
-`entry-field.v1` (`test_field_contract_validates_against_its_schema`), and
-every failure path still raises only a generic `entry-field-unavailable` or
-`entry-format-unavailable` with no rejected declaration or value in the
-message, exactly as before.
+*Confirmed unchanged:* the served `field_contract` still validates against
+the amended `entry-field.v1`, and every failure path still raises only a
+generic `entry-field-unavailable` or `entry-format-unavailable` with no
+rejected declaration or value in the message, exactly as before. **The
+claimed regression coverage for this finding, and the separate
+format-equality claim below it, were both wrong — see the Track 3 repair 2
+correction.**
 
 **F3 — rendered derivation, proven, not just inspected.** Attempted and
 landed. `tests.test_entry_loop_t1.RenderedFieldDerivation` copies the real
@@ -437,3 +427,98 @@ that is already published), not widenings that would need one. Nothing here
 draws a maturity conclusion, amends the criteria document, or fixes the
 accessibility defect; the W-2 cell verdict stays FAIL, unchanged from Track
 2.
+
+### Track 3 repair 2 — delete two false claims, add nothing
+
+Charter:
+`docs/reviews/charter-2026-07-29-entry-loop-synthetic-track3-repair-2.md`,
+against `docs/reviews/2026-07-29-entry-loop-synthetic-track3-repair-review.md`
+(`NOT READY`). Both findings close by deleting something. Confirmed still
+holding from that review and left untouched: the `oneOf` discriminator, the
+load-time schema validation and the deletion of the hand-rolled checks, the
+F3 derivation test, and the Track 2d format regressions.
+
+**F1, corrected — the schema's actual boundary.** The discriminator is real
+(an unknown `kind` is rejected, adding a second variant is additive), but the
+prior repair's record overstated what it does. `entry-field.v1` validates
+that a declaration is **well-formed** and that its `format` names a
+**supported variant**. It does **not** verify that the declared format is
+the *correct* one for the field's own `source`/`destination` — nothing in
+the schema relates `format.kind` to either. A declaration for the W-2 Box 13
+checkbox, an employer name/EIN, a date, or a filing-status choice validates
+unchanged as long as it still carries the ten-key `currency-amount` object;
+that is a **false declaration, not a malformed one**, and no schema of this
+shape can catch a lie about its own subject. Nothing in this milestone
+catches that lie either — it would take a person reading the rendered field
+against the document it claims to describe, which is evaluation, not a
+mechanical check. This is now stated directly in the schema's own
+`description` and in `$defs.format`'s, rather than left for a reader to
+infer, and `tests.test_entry_loop_t1.FieldContract.test_schema_does_not_relate_format_to_source_or_destination`
+reproduces the reviewer's four non-money declarations and confirms all four
+still validate. No semantic discriminator was added; there is no evidence
+for the value-type taxonomy one would need, and inventing it now would be
+the same premature generalisation the owner has already declined twice in
+this milestone.
+
+**F2, corrected — two vacuous tests, and a tautology deleted.**
+
+*The fixtures never reached validation.* `_write_field_declaration` wrote
+`..., "format": W2_BOX1_FORMAT};\n`, but the loader's closing-marker search
+requires `"\n};\n"` — a newline before the brace. A compact single-line JSON
+body followed directly by `};\n` never matches, so every case using that
+helper raised `entry-field-unavailable` at the marker step, before schema
+validation ever ran, and would still have passed with schema validation
+deleted outright. The helper also wrote no schema file at the temporary
+root, a second, independent way to pass for the wrong reason. Both are
+fixed: the helper now closes the object literal on its own line (matching
+the real file's shape) and copies the real `entry-field.v1.schema.json` into
+the temporary root before the loader ever runs.
+
+*Proof each repaired case now bites:* with `_entry_field_validator` patched
+to return an always-valid stub (not committed; a manual check performed for
+this report), all three subcases of
+`test_loader_now_rejects_what_the_schema_rejects` (missing `id` with a bad
+`version`, an unrecognized top-level key, an unrecognized `correction.kind`)
+failed as expected — proving the test now depends on schema validation
+actually running, not on an earlier, unrelated parse failure. With schema
+validation restored, all three pass again.
+
+*The equality check was a tautology, and is deleted.* `_load_w2_box1_field`
+substitutes the caller-supplied `format_spec` into the declaration's only
+accepted `"format": W2_BOX1_FORMAT` expression, then the deleted check
+compared the resulting value to that same `format_spec`. Equality was
+necessarily true on every declaration this function could successfully
+parse — a literally different format failed earlier, at the regex-count
+guard, for a parsing reason, never for the documented runtime reason. No
+non-tautological residue survived inspection: there is no path by which
+`contract["format"]` can come from anywhere other than the substitution
+itself, so there was nothing left to keep or test. The check, its test
+(`test_loader_still_refuses_a_schema_valid_but_different_format`), and the
+milestone record's claim about it are all deleted, per the charter's
+instruction not to contrive a code path that makes the check false.
+
+**Condition attached to the seam recommendation.** The marker-and-regex seam
+*structurally guarantees* the property the deleted check was trying to
+verify — the field's declared format and the runtime's own format cannot
+disagree, because the loader writes the runtime's own format into the only
+place the parser will accept one. That guarantee is a property of this seam
+specifically, and it disappears the moment the seam recommendation's
+canonical-JSON migration happens: once the field's `format` is parsed from
+its own independent JSON rather than substituted in from the side, a real
+equality (or inequality) becomes possible again, and a genuine check belongs
+there. Whoever performs that migration should add one; its absence today is
+not evidence that none is needed later.
+
+**Tempted to add, and did not:** a semantic discriminator relating
+`format.kind` to `source`/`destination` (no evidence for the shape it would
+need); a contrived non-tautological variant of the deleted equality check
+(would have been a code path built to make a check pass, not a real
+guarantee); and a note in the schema enumerating exactly which fields are
+"safe" to declare (that list does not exist independently of the evaluation
+this milestone already runs).
+
+No owner decision was required for either finding: both closed by removing a
+false claim the charter had already identified precisely, not by choosing
+among design options. Nothing here draws a maturity conclusion, amends the
+criteria document, fixes the accessibility defect, or widens the seam; the
+W-2 cell verdict stays FAIL, unchanged from Track 2.

@@ -190,11 +190,20 @@ def _load_w2_box1_field(
     The parsed declaration is validated against ``entry-field.v1`` itself
     (Track 3 repair, F2) rather than against a hand-rolled restatement of the
     schema's own rules -- the schema is the loader's contract, not a second,
-    independent one. The W-2-specific requirement that the declared format be
-    exactly the one this runtime's validator uses is a separate, explicit
-    constraint of *this* runtime, kept after schema validation rather than
-    folded into it: a different, schema-valid currency-amount format is not a
-    malformed declaration, it is simply not this field's declaration.
+    independent one.
+
+    There is no separate check that the declared ``format`` equals this
+    runtime's own ``format_spec`` (Track 3 repair 2, F2). An earlier version
+    of this function had one, and it was a tautology: the ``format`` value in
+    ``contract`` *is* ``format_spec`` -- the substitution below writes
+    ``format_spec`` into the only text this parser accepts at that key, so
+    the two can never disagree on any declaration this function successfully
+    parses. That is a structural guarantee of the marker-and-regex seam
+    itself, not a runtime check earning its keep, and it does not survive the
+    seam recommendation's canonical-JSON migration: once the field's
+    ``format`` is parsed independently from its own JSON rather than
+    substituted in from the side, a real equality (or non-equality) becomes
+    possible again, and a genuine check belongs there.
     """
 
     path = repo_root / W2_BOX1_FIELD
@@ -223,11 +232,6 @@ def _load_w2_box1_field(
         raise EntryLoopError("entry-field-unavailable")
     validator = _entry_field_validator(repo_root)
     if not validator.is_valid(contract):
-        raise EntryLoopError("entry-field-unavailable")
-    # W-2-specific: the declared format must be this runtime's own validator
-    # format, not merely some schema-valid currency-amount format. Separate
-    # from, and in addition to, the generic schema check above.
-    if contract["format"] != dict(format_spec):
         raise EntryLoopError("entry-field-unavailable")
     return contract
 
