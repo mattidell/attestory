@@ -4,10 +4,10 @@
   "phase": "Legible Entry",
   "topic": "entry-loop-synthetic",
   "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
-  "milestone_state": "track-4",
-  "status": "Milestone 3 (The Entry Loop - synthetic) is open and being cut. Track 3 is complete and accepted on foreman inspection: its chartered reviewer did not file, and the foreman resolved the open questions with no blocking finding surviving. Track 4 is the last build unit -- one focus indicator, stated per control rather than per context. No re-score is planned, so the cell verdict stays FAIL and the W-2 cell stays at L1; the milestone reports that as a real outcome. Then the close PR, carrying ADR-0049 and ADR-0051 for owner ratification. Synthetic W-2 only, no real data, no L3 claim.",
-  "current_role": "Builder — Track 4 focus indicators (no review gate)",
-  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track4-focus.md"
+  "milestone_state": "closing",
+  "status": "Milestone 3 (The Entry Loop - synthetic) is closing. All build units are done: Track 4 repaired the focus indicator and reproduced on foreman inspection. The W-2 cell stays at L1 -- the second evaluation returned FAIL and nothing re-scored the surface afterwards, so the failed evaluation stands as the reported outcome. The remaining unit is the close PR against main-ui: milestone outcome, retrospective, carried findings, and ADR-0049 and ADR-0051 brought to the owner for ratification. The next milestone is the owner's to pick, and a phase-boundary legibility audit is due and is owner-spawned.",
+  "current_role": "Builder — milestone close (PR is the gate)",
+  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-close.md"
 }
 -->
 # Phase State
@@ -19,18 +19,20 @@ Git, `docs/reviews/`, and `docs/adr/`.
 <!-- brief high level plain language overview of the state of the milestone, exclude result and finding specifics -->
 ## High Level Milestone Briefing
 
-Milestone 3 builds a synthetic W-2 entry loop. Two rounds of independent
-evaluation are done, and the surface substantially works; one accessibility
-defect keeps the cell from moving. Track 3 now writes the entry-field contract,
-which is the durable deliverable this milestone was built to produce. The
-milestone remains synthetic and does not make an L3 claim.
+Milestone 3 built a synthetic W-2 entry loop. A person can now type W-2 facts
+into a surface and get a computed return without opening a text editor. Two
+rounds of independent evaluation ran against criteria written before the code;
+the second failed on accessibility, and that failure stands as the reported
+outcome. The durable deliverable is the entry-field contract, not the surface.
+The milestone remains synthetic and makes no L3 claim.
 
 ## Operational State: Legible Entry
 
-* **Active Milestone:** Milestone 3 — The Entry Loop (synthetic)
-* **Current Track:** Track 4 — focus indicators, stated per control (last build unit)
-* **Maturity Status:** W-2 cell remains at L1 (evaluation returned FAIL)
-* **Cut decision:** milestone closes at L1 after Track 4; no re-score, so the failed evaluation stands as the reported outcome
+* **Active Milestone:** Milestone 3 — The Entry Loop (synthetic), closing
+* **Current Track:** none — all build units complete; the close PR is the last unit
+* **Maturity Status:** W-2 cell remains at L1 (evaluation returned FAIL, no re-score)
+* **Cut decision:** milestone closes at L1; the repair landed but nothing re-scored it, so the cell does not move
+* **Owner's at the close:** ADR-0049 and ADR-0051 ratification, the next milestone, and the phase-boundary legibility audit
 
 ### Standing Directives
 
