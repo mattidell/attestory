@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 1 IN INDEPENDENT REVIEW.** The Builder landed implementation commit `b8a44e37462c464e5f9989dff24477d17f51930f` within the source/authority/versioned-citizen boundary. NEXT ACTION: owner launches the author-independent Track 1 Reviewer over exact range `b80b5c8..b8a44e3`.",
-  "current_role": "Track 1 Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-review.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 1 F1 REPAIR CHARTERED.** Independent review `d5b48865fb82410240160c4d11e34d720dba5ee5` returned NOT READY on one bounded defect: the wrong line-7b citation identity negative is accepted. All other measurements passed and are credited. NEXT ACTION: owner launches the original Builder for the single allowed findings-only repair.",
+  "current_role": "Track 1 Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-repair.md"
 }
 -->
 # Phase State
@@ -81,7 +81,9 @@ existing published schemas and accepted history remain immutable.
   selectable. Its rival-backed Track-0 decision unit merged in PR #110 as
   `1cb12d78553479902a91c654510e7f9c88cc1934`; accepted ADR-0050 now controls.
   Track 1's versioned source, authority, universe, form-field, citation, and
-  schema/content citizens are built and in author-independent review.
+  schema/content citizens are built. Independent review passed every
+  measurement except the wrong-line-7b-citation negative, and a bounded repair
+  is chartered.
 
 - **Presentation — Completing the Row:** **complete 2026-07-28.** **The
   Presentation row is L3 across all five columns, and every cell in the maturity
@@ -385,9 +387,8 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** owner-launch the **Track 1 Reviewer** from
-`docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-review.md`
-over exact implementation range `b80b5c8..b8a44e3`.
+**➡️ Next action:** owner-launch the **Track 1 Repair Builder** from
+`docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-repair.md`.
 
 **The foreman's recommendation, on the record: Real Return should close.** The
 phase roadmap sets no ladder and one standing test — *"does the product now do

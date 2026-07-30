@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-1",
-  "status": "TRACK 1 IN INDEPENDENT REVIEW. The Builder landed implementation commit `b8a44e37462c464e5f9989dff24477d17f51930f` within the source/authority/versioned-citizen boundary. NEXT ACTION: owner launches the author-independent Reviewer from `docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-review.md` over exact range `b80b5c8..b8a44e3`.",
+  "status": "TRACK 1 F1 REPAIR CHARTERED. Independent review `d5b48865fb82410240160c4d11e34d720dba5ee5` returned NOT READY on one bounded citation-contract evidence defect: the wrong line-7b citation identity negative is accepted. All other measurements passed and are credited. NEXT ACTION: owner launches the original Builder from `docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-repair.md` for the single allowed findings-only repair.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
