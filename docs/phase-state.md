@@ -5,9 +5,9 @@
   "topic": "entry-loop-synthetic",
   "active_plan": "docs/phases/legible-entry/milestones/entry-loop-synthetic.md",
   "milestone_state": "track-3",
-  "status": "Milestone 3 (The Entry Loop - synthetic) is open. Track 3's review returned NOT READY on two findings: entry-field.v1 claims generic coverage but its required format is currency-only, and the runtime loader accepts declarations the schema rejects. The repair narrows the claim rather than widening the schema, following the owner's precedent on deferring the presentation model. The cell verdict is FAIL and the W-2 cell stays at L1; a narrow focus-indicator repair is still outstanding and unordered. Synthetic W-2 only, no real data, no L3 claim. The standing owner directive is to model entry usability as schema and field contracts.",
-  "current_role": "Builder — Track 3 repair (honest contract scope, schema-at-load-time)",
-  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track3-repair.md"
+  "status": "Milestone 3 (The Entry Loop - synthetic) is open. Track 3's repair landed: the field contract's format is now a discriminated union describing money fields only, the loader validates against the schema at load time, and a Chrome-driven test proves the surface text derives from the declaration. Its review is the milestone's last build gate. The cell verdict is FAIL and the W-2 cell stays at L1; a narrow focus-indicator repair is still outstanding and unordered. Synthetic W-2 only, no real data, no L3 claim. The standing owner directive is to model entry usability as schema and field contracts.",
+  "current_role": "Reviewer — Track 3 repair review (last build gate)",
+  "current_prompt": "docs/reviews/charter-2026-07-29-entry-loop-synthetic-track3-repair-review.md"
 }
 -->
 # Phase State
@@ -28,7 +28,7 @@ milestone remains synthetic and does not make an L3 claim.
 ## Operational State: Legible Entry
 
 * **Active Milestone:** Milestone 3 — The Entry Loop (synthetic)
-* **Current Track:** Track 3 repair — narrow the contract's claim, validate it at load time
+* **Current Track:** Track 3 repair — under review (last build gate before the close)
 * **Maturity Status:** W-2 cell remains at L1 (evaluation returned FAIL)
 * **Outstanding repair:** the amount input needs a focus indicator distinct from its resting boundary
 
