@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-1",
-  "status": "TRACK 1 F1 REPAIR IN FOCUSED RECHECK. Repair commit `8cbd274aafee6f1f9be2533e1141fff04f135096` routes the wrong line-7b citation identity through the established package citation-membership validator while preserving credited measurements. NEXT ACTION: owner launches the author-independent Reviewer from `docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-repair-recheck.md` to decide whether F1 is genuinely closed.",
+  "milestone_state": "track-2",
+  "status": "TRACK 2 CHARTERED. Track 1 reached its READY gate after repair recheck `6b5321b6639b403476c4b4a1331efcc60261e3bb` closed F1 with no residuals and reached `main` through reviewed development unit PR #111 with CI `verify` green. NEXT ACTION: launch the Track 2 Builder from `docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md` on a fresh Track-2 branch from the merge commit.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -79,7 +79,15 @@
       "packages/content/tax/2025/qdcg.bundle.json",
       "packages/content/tax/2025/rule.form1040-line9.v2.json",
       "packages/content/tax/2025/rule.form1040-line16.v2.json",
+      "packages/derivation/live.py",
+      "packages/derivation/runner.py",
+      "packages/derivation/marshal.py",
+      "packages/derivation/package_validation.py",
       "packages/tax/loader.py",
+      "tests/test_dsbs_t2_coordinator.py",
+      "tests/test_dsbs_t3_line16_coordinator.py",
+      "tests/test_dsbs_t3_qdcg_declarations.py",
+      "tests/tax/test_dsbs_t3_contradiction_interlock.py",
       "AGENTS.md#Schema Publication Protocol",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"

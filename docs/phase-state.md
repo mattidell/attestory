@@ -4,9 +4,9 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 1 F1 REPAIR IN FOCUSED RECHECK.** Repair commit `8cbd274aafee6f1f9be2533e1141fff04f135096` routes the wrong line-7b citation identity through the established package citation-membership validator while preserving credited measurements. NEXT ACTION: owner launches the author-independent Reviewer to decide whether F1 is genuinely closed.",
-  "current_role": "Track 1 Repair Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-repair-recheck.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CHARTERED.** Track 1 reached READY after focused repair recheck `6b5321b6639b403476c4b4a1331efcc60261e3bb` closed F1 with no residuals and reached `main` through reviewed development unit PR #111 with CI `verify` green. NEXT ACTION: launch the Track 2 Builder on a fresh branch from the merge commit.",
+  "current_role": "Track 2 Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md"
 }
 -->
 # Phase State
@@ -81,9 +81,9 @@ existing published schemas and accepted history remain immutable.
   selectable. Its rival-backed Track-0 decision unit merged in PR #110 as
   `1cb12d78553479902a91c654510e7f9c88cc1934`; accepted ADR-0050 now controls.
   Track 1's versioned source, authority, universe, form-field, citation, and
-  schema/content citizens are built. Independent review passed every
-  measurement except the wrong-line-7b-citation negative; the bounded repair
-  has landed and is in focused recheck.
+  schema/content citizens reached their independent `READY` gate after one
+  bounded citation-evidence repair and merged through PR #111 with green CI.
+  Track 2 is chartered.
 
 - **Presentation — Completing the Row:** **complete 2026-07-28.** **The
   Presentation row is L3 across all five columns, and every cell in the maturity
@@ -387,8 +387,9 @@ Earliest of this run: **Presentation Exploratory Milestone** — complete
 2026-07-24; no ADR or matrix lift. Its evaluation analysis and reference
 material live under `docs/prototypes/human-presentation-citation-walk/`.
 
-**➡️ Next action:** owner-launch the **Track 1 Repair Reviewer** from
-`docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track1-repair-recheck.md`.
+**➡️ Next action:** owner-launch the **Track 2 Builder** from
+`docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md`
+on a fresh branch from the merge commit.
 
 **The foreman's recommendation, on the record: Real Return should close.** The
 phase roadmap sets no ladder and one standing test — *"does the product now do
