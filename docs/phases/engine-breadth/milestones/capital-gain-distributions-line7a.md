@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-3",
-  "status": "TRACK 3 PREPARED AFTER TRACK 2 READY. Track 2's CI consistency repair passed fresh independent recheck with no blocking residuals. PR #120 is ready for a new CI `verify` run and owner merge if green. NEXT ACTION: after that merge, bind `docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md` to the no-fast-forward merge commit and launch it on a fresh branch.",
+  "milestone_state": "track-2",
+  "status": "TRACK 2 CI TYPE REPAIR. PR #120 `verify` run `30592111125` passed the full pytest gate, proving the four consistency failures closed, then exposed two mypy errors in one Track-2 test module. The original Builder lineage is chartered for a mechanical one-file typing repair. Track 3 remains prepared but gated on a fully green Track-2 merge.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

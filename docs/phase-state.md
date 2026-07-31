@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "milestone_state": "track-3",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 PREPARED AFTER TRACK 2 READY.** Track 2's CI consistency repair passed fresh independent recheck with no blocking residuals. PR #120 is ready for a new CI `verify` run and owner merge if green. NEXT ACTION: after that merge, bind the prepared Track-3 presentation charter to the no-fast-forward merge commit and launch it on a fresh branch.",
-  "current_role": "Track 3 Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md"
+  "milestone_state": "track-2",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CI TYPE REPAIR.** PR #120 `verify` run `30592111125` passed the full pytest gate, proving the four consistency failures closed, then exposed two mypy errors in one Track-2 test module. The original Builder lineage is chartered for a mechanical one-file typing repair. Track 3 remains prepared but gated on a fully green Track-2 merge.",
+  "current_role": "Track 2 CI Type Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track2-ci-types-repair.md"
 }
 -->
 # Phase State
