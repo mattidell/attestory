@@ -500,88 +500,70 @@ norms the practice — not by a new ADR.
 
 Audience: Agents
 
-A milestone is always in exactly one of five states, declared as
+A milestone is always in exactly one of three persisted state shapes, declared as
 `milestone_state` in `docs/phase-state.md`'s `foreman-context-v1` block. The
 active plan remains the source of scope, status prose, and deep reads; it does
 not own lifecycle state. The foreman does not
 infer the state from prose and does not need to: the capsule reports it and
-**checks it against the ratified record**, refusing when the two disagree.
+checks that the selected commit contains the artifacts its state requires.
 
 | State | Meaning | Next transition |
 | --- | --- | --- |
-| `planning` | The plan is drafted on a branch; its PR has not merged | Owner merges the plan PR |
 | `planned` | The plan is on `main`; no track has started | Start the first track |
 | `track-<n>` | Track *n* is in flight | Finish track *n*, then the next track or the closing unit |
-| `closing` | The closing PR is open; merging it completes the reviewed milestone work | Owner merges the closing PR, then the foreman performs the closeout update |
-| `closed` | The post-merge closeout update is on `main` | Select the next milestone |
+| `closed` | The milestone is complete | Select the next milestone |
 
 `closed` is also how "no milestone is running" is expressed: `docs/phase-state.md`
 keeps pointing at the just-closed plan, so `active_plan` is never empty and a
 foreman that reads `closed` knows its job is selection, not execution.
 
-**Why the state is checked, not trusted.** The two transitions foremen misread
-are the beginning and the end, and both are facts about `main` rather than about
-the document making the claim. Status prose at those moments is a *conditional
-sentence* — "merge activates the repair Builder", "pending owner merge" — which
-cannot tell a later reader whether the condition has since fired. So the boundary
-artifacts answer it instead:
+**The committed state describes the world after merge.** A branch is a proposal
+for what `main` should say. A plan PR therefore carries `planned`, and a closing
+PR carries `closed`. `planning` and `closing` describe live PR conditions; they
+are inferred from Git and GitHub and are never persisted in phase state. This
+keeps every merge from landing a lifecycle value that became stale at the
+moment of merge.
 
-- The **plan** reaches `main` in the merge that *is* the start boundary.
-  `planning` requires it absent; every later state requires it present.
-- The **retrospective** reaches `main` in the merge that *is* the end boundary.
-  `closing` requires it absent; `closed` requires it present. Both states must
-  name its path in `retrospective`.
+The selected commit must contain its active plan. A `closed` commit must also
+name and contain its retrospective. `tools/foreman_context.py` validates those
+facts in the selected tree. It fetches and reports the ratified line and branch
+divergence separately, so a prospective `planned` or `closed` state is not
+rejected merely because its boundary PR has not merged yet.
 
-`tools/foreman_context.py` fetches `origin` before it reads, so these checks run
-against a current `main` rather than a stale one, and it reports how far the
-working ref has drifted. A contradiction is a hard refusal naming both the
-declared state and the observed fact — reconcile it before acting rather than
-picking whichever source looks more recent.
-
-The start transition rides with the planning merge. The end transition cannot:
-the closing record cannot truthfully cite its own merge commit or final CI
-result before they exist. The foreman therefore performs the mechanical
-post-merge update below.
+The plan and closing transitions both ride with their boundary merges.
 
 ## Milestone Closeout
 
 Audience: Agents
 
-A milestone is not ready for a successor foreman merely because its closing PR
-merged. That merge completes the reviewed work; the foreman immediately makes
-the ratified record self-describing with one small post-merge update.
+A milestone closes in its closing PR. That PR makes the proposed repository
+self-describing before it merges.
 
-1. Fetch the remotes and verify the closing PR is merged, record its merge
-   commit, and confirm the `verify` check is green. Do not infer any of these
-   from plan prose.
-2. Update local `main` to the merge commit. Make the closeout changes directly
-   on `main`, without a branch, charter, review, or PR:
+1. In the closing PR:
    - set `docs/phase-state.md`'s `milestone_state` to `closed`, replace conditional
-     status prose with the merge commit and CI result, complete its execution
-     record, remove `initial_briefing_follow_up`, and route
-     `deep_reads.new_milestone` through the just-completed retrospective;
+     status prose with the completed result, complete its execution record,
+     remove `initial_briefing_follow_up`, and route `deep_reads.new_milestone`
+     through the retrospective;
    - update `docs/phase-state.md` so its briefing, current state, pointers, and
      next action describe the completed milestone and leave the next milestone
      unselected;
    - update the phase roadmap's milestone status; and
-   - replace the retrospective's pending merge line and record only a genuinely
-     new closeout lesson, if one occurred.
-3. Treat the update as bookkeeping, not a chance to reinterpret results. If a
+   - include the retrospective.
+2. Treat closeout as bookkeeping, not a chance to reinterpret results. If a
    capability, maturity, or next-step claim needs new judgment or evidence,
    stop and raise it as a project-execution question instead of quietly
    backfilling it.
-4. Run `git diff --check` and `python3 tools/governance_lint.py`, then commit the
-   update directly on `main`. Run
-   `python3 tools/envelope_scan.py --range HEAD^..HEAD` over that commit.
-5. Run `python3 tools/foreman_context.py --ref HEAD --format markdown`. It must
+3. Run `git diff --check`, `python3 tools/governance_lint.py`, and
+   `python3 tools/envelope_scan.py --range <base>..HEAD` before pushing.
+4. Run `python3 tools/foreman_context.py --ref HEAD --format markdown`. It must
    report `closed`, select-a-new-milestone as the next transition, no temporary
-   follow-up capsule, and the initial briefing checkpoint. Push the commit
-   directly to `main`.
-6. After the pushed commit is visible on `origin/main`, delete the merged
+   follow-up capsule, and the initial briefing checkpoint. Open the closing PR
+   and merge only on the green `verify` gate.
+5. After the merge is visible on the ratified line, delete the merged
    milestone branches and remove clean milestone worktrees or temporary
    workspace aliases. Never remove a worktree still used by a live session.
 
-Only then is the milestone closed for re-entry. `docs/phase-state.md` continues
+The merge leaves the milestone closed for re-entry. `docs/phase-state.md` continues
 to point to the just-closed plan until the next milestone plan is selected.
 
 ## Recording Owner Assent

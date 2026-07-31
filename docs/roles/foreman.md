@@ -23,10 +23,9 @@ trust Git and say so.
    not separately search Git history to corroborate the same fact. Reconcile
    its selected commit and source blobs with Git. If it refuses, read the named
    committed sources directly; never replace a refusal with an informal
-   summary. A refusal naming a state that
-   "contradicts the ratified record" means a boundary PR merged (or did not):
-   fix `docs/phase-state.md`'s `milestone_state` before doing anything else
-   (`PROJECT_PLANNING.md`, "Milestone Lifecycle States").
+   summary. A lifecycle refusal means the selected commit carries an invalid
+   persisted state or lacks a required artifact; follow `PROJECT_PLANNING.md`
+   ("Milestone Lifecycle States") before doing anything else.
 2. **This file** — your standing posture.
 3. `docs/adr/INDEX.md` — the routing surface. Read the digests; read a full ADR
    only when you are about to act on its exact text. Process is not in the ADR
@@ -170,16 +169,9 @@ Builder or Reviewer who orients onto a superseded charter. If you are about to
 say "ready for review" or "ready for build," the pointer commit is already
 done or you are not ready.
 
-**A PR's committed state is the state after the merge, not before it.**
-When you open a PR, set `docs/phase-state.md`'s `milestone_state` — and the
-capsule's `status` prose — to what will be true once the owner merges. A
-planning PR carries `planned`, not
-`planning`; a closing PR carries `closed`, not `closing`. The branch is a
-proposal for what `main` should say, and `main` only ever sees the post-merge
-world. Writing the pre-merge state means every merge lands `main` in a state
-that was already stale when it arrived, and the next foreman re-enters onto it.
-The same applies to the PR cadence itself: how often a milestone cuts a PR — per
-track, or once at close — is the owner's call, so ask rather than assuming.
+For persisted milestone states and boundary PR behavior, follow
+`PROJECT_PLANNING.md` ("Milestone Lifecycle States"). PR cadence — per track or
+once at close — is the owner's call, so ask rather than assuming.
 
 **The pointer's vocabulary is small, and the tool enforces it.**
 `current_role` must contain exactly one of `Builder` or `Reviewer` when a role

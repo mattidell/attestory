@@ -90,9 +90,7 @@ class ContextFixture(unittest.TestCase):
         return root
 
     def publish_to_origin(self, root: Path) -> None:
-        """Give the fixture a ratified record. The milestone-state checks ask
-        whether the plan and the retrospective are present on `origin/main`, so
-        a repository with no origin exercises the uncorroborated path instead."""
+        """Give the fixture a ratified target line for divergence reporting."""
         origin = Path(tempfile.mkdtemp()) / "origin.git"
         self.addCleanup(shutil.rmtree, origin.parent)
         subprocess.run(["git", "init", "--bare", "-q", str(origin)], check=True)
@@ -306,10 +304,8 @@ class ForemanContextTests(ContextFixture):
 
 
 class MilestoneStateTests(ContextFixture):
-    """The lifecycle state a foreman resumes into is declared by phase-state and
-    corroborated against the ratified record, because the two states that were
-    routinely misread — 'the plan PR merged' and 'the closing PR merged' — are
-    facts about `origin/main`, not about the document doing the declaring."""
+    """Phase state describes the selected commit's post-merge world, while the
+    target line is reported separately as current Git state."""
 
     def capsule(self, root: Path, ref: str = "HEAD") -> dict[str, Any]:
         result = self.run_tool(root, ref)
@@ -317,32 +313,28 @@ class MilestoneStateTests(ContextFixture):
         capsule: dict[str, Any] = json.loads(result.stdout)
         return capsule
 
-    def test_reports_a_corroborated_state_and_its_next_transition(self) -> None:
+    def test_reports_a_validated_state_and_its_next_transition(self) -> None:
         milestone = self.capsule(self.make_repository())["milestone"]
         self.assertEqual(milestone["state"], "track-1")
         self.assertIn("Track 2 or the closing unit", milestone["next_transition"])
         self.assertIsNotNone(milestone["ratified_ref"])
         self.assertTrue(all(check["expected"] == check["actual"] for check in milestone["checks"]))
 
-    def test_refuses_a_state_the_ratified_record_contradicts(self) -> None:
-        # 'planning' claims the plan has not merged, but the fixture published it.
+    def test_refuses_planning_as_a_persisted_state(self) -> None:
         root = self.make_repository(milestone_state="planning")
         result = self.run_tool(root)
         self.assertEqual(result.returncode, 2)
-        self.assertIn("contradicts the ratified record", result.stderr)
-        self.assertIn("absent from origin/main", result.stderr)
+        self.assertIn("is not one of", result.stderr)
         self.assertEqual(result.stdout, "")
 
-    def test_refuses_closing_once_the_retrospective_has_landed(self) -> None:
-        # A merged retrospective means the closing PR merged: the milestone is
-        # closed, not closing. This is the end-boundary case.
+    def test_refuses_closing_as_a_persisted_state(self) -> None:
         root = self.make_repository(
             milestone_state="closing",
             retrospective="docs/milestone-retrospectives/demo.md",
         )
         result = self.run_tool(root)
         self.assertEqual(result.returncode, 2)
-        self.assertIn("contradicts the ratified record", result.stderr)
+        self.assertIn("is not one of", result.stderr)
 
     def test_accepts_closed_when_the_retrospective_has_landed(self) -> None:
         root = self.make_repository(
@@ -353,10 +345,70 @@ class MilestoneStateTests(ContextFixture):
         self.assertEqual(milestone["state"], "closed")
         self.assertIn("selecting a new milestone", milestone["next_transition"])
 
-    def test_closing_and_closed_require_a_retrospective_path(self) -> None:
+    def test_closed_requires_a_retrospective_path(self) -> None:
         result = self.run_tool(self.make_repository(milestone_state="closed"))
         self.assertEqual(result.returncode, 2)
         self.assertIn("requires a 'retrospective' path", result.stderr)
+
+    def test_closed_requires_the_retrospective_in_the_selected_commit(self) -> None:
+        result = self.run_tool(
+            self.make_repository(
+                milestone_state="closed",
+                retrospective="docs/milestone-retrospectives/missing.md",
+            )
+        )
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("contradicts the selected commit", result.stderr)
+
+    def test_accepts_prospective_planned_state_ahead_of_target_line(self) -> None:
+        root = self.make_repository()
+        self.git(root, "switch", "-qc", "next-plan")
+        phase = self.phase_metadata(
+            milestone_state="planned",
+            active_plan="docs/phases/demo/milestones/next.md",
+        )
+        plan = {
+            "version": 1,
+            "topic": "demo-topic",
+            "status": "ready after merge",
+            "scope": ["synthetic proof"],
+            "non_goals": ["no real workspace"],
+            "deep_reads": {"dispatch": ["docs/adr/0005.md#Decision"]},
+            "seat": "docs/prototypes/demo/SEAT.md",
+        }
+        self.write_document(root, "docs/phase-state.md", phase)
+        self.write_document(root, "docs/phases/demo/milestones/next.md", plan)
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", "propose next plan")
+
+        milestone = self.capsule(root)["milestone"]
+        self.assertEqual(milestone["state"], "planned")
+        self.assertEqual(milestone["ratified_line"], "origin/main")
+        self.assertEqual(milestone["checks"][0]["path"], "docs/phases/demo/milestones/next.md")
+
+    def test_accepts_prospective_closed_state_ahead_of_target_line(self) -> None:
+        root = self.make_repository()
+        self.git(root, "switch", "-qc", "close-milestone")
+        retrospective = "docs/milestone-retrospectives/prospective.md"
+        self.write_document(
+            root,
+            "docs/phase-state.md",
+            self.phase_metadata(milestone_state="closed"),
+        )
+        plan_path = root / "docs/phases/demo/milestones/demo.md"
+        text = plan_path.read_text(encoding="utf-8")
+        start = text.index("{")
+        end = text.index("\n-->")
+        metadata = json.loads(text[start:end])
+        metadata["retrospective"] = retrospective
+        self.write_document(root, "docs/phases/demo/milestones/demo.md", metadata)
+        self.write_plain(root, retrospective)
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-qm", "propose milestone close")
+
+        milestone = self.capsule(root)["milestone"]
+        self.assertEqual(milestone["state"], "closed")
+        self.assertEqual(milestone["checks"][1]["path"], retrospective)
 
     def test_rejects_an_unknown_state(self) -> None:
         result = self.run_tool(self.make_repository(milestone_state="mostly done"))
@@ -391,12 +443,12 @@ class MilestoneStateTests(ContextFixture):
         self.assertTrue(worktree["branch_tip_reachable_from_ratified"])
         self.assertTrue(worktree["spent"])
 
-    def test_declares_state_uncorroborated_without_a_ratified_record(self) -> None:
+    def test_validates_selected_state_without_a_ratified_record(self) -> None:
         milestone = self.capsule(self.make_repository(with_origin=False))["milestone"]
         self.assertEqual(milestone["state"], "track-1")
         self.assertIsNone(milestone["ratified_ref"])
-        self.assertEqual(milestone["checks"], [])
-        self.assertIn("NOT corroborated", milestone["note"])
+        self.assertTrue(milestone["checks"])
+        self.assertIn("target-line comparison is unavailable", milestone["note"])
 
 
 class RatifiedLineTests(ContextFixture):
