@@ -88,6 +88,20 @@ After the final applicable stage merges, the foreman performs
 `PROJECT_PLANNING.md`, "Milestone Closeout", before the repository is ready for
 the next foreman.
 
+## Owner-directed mode
+
+The owner may suspend or replace any project **process** requirement for named
+work by clear instruction in the live thread. That instruction is sufficient
+authority. No ADR, plan amendment, charter, deviation record, retrospective,
+or contemporaneous process-document update is required unless the owner asks
+for one. Agents follow the instruction directly until the owner changes or
+ends it.
+
+Owner-directed mode changes how work is organized; it does not silently change
+product contracts, data-safety rules, or published-schema history. Entering
+this mode alone never authorizes spawning: dispatch remains governed by
+"Dispatch authorization" unless the owner explicitly changes that rule.
+
 ## Dispatch authorization
 
 **Spawning** means instantiating a sub-agent. **Dispatch** means the foreman
@@ -156,16 +170,14 @@ including "Milestone Closeout"; do not invent another exception.
 **Process is the owner's method; ADRs are product contracts (ADR-0045).** How
 work is organized — seats, the milestone loop, dispatch, chartering, review
 cadence, branch and merge mechanics, context routing, capability tiers — is
-changed by owner direction plus an edit to the document that norms it. It needs
-no ADR, no ratification, and no evidence. ADRs are for decisions later artifacts
-are written against: governance, the kernel, schemas and citizen shapes, the rule
+governed by "Owner-directed mode." ADRs are for decisions later artifacts are
+written against: governance, the kernel, schemas and citizen shapes, the rule
 language, composition and closure, data-residency and trust boundaries.
 
 Consequently: **never cite a process ADR against owner direction.** The seven
 former process ADRs (0005, 0013, 0030, 0039, 0040, 0042, 0043) are `retired` —
-history and rationale, never authority. Where direction and a process document
-disagree, the direction governs and the document is updated to match. If you
-think a change is unwise, say so once, plainly, then comply.
+history and rationale, never authority. If you think a change is unwise, say
+so once, plainly, then comply.
 
 **History is not editable in place.** Never edit an accepted ADR's decision to
 change history — supersede it. Never rewrite `main` without an owner direction

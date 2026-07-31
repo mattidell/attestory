@@ -2,9 +2,8 @@
 
 Audience: Product (roadmap); Shared (status)
 
-Status: **accepted 2026-07-28** (PR #100). Milestone 1, The Entry Boundary, is
-closed. Milestone 2, Packaging the Surface, is closed. Milestone 3, The Entry
-Loop synthetic, is planned.
+Status: **active.** Milestones 1–4 are closed. Milestone 5, the Improvised
+Milestone, is in planning.
 
 ## Thesis
 
@@ -86,11 +85,8 @@ builder's or reviewer's inspection alone. See "How usability is measured in
 this phase." In the Real Return matrix, L2 just meant the synthetic path
 worked. Here it also has to pass that evaluation, a harder bar.
 
-This phase keeps all existing process machinery: owner-approved milestone
-plans before any charter, prototype-driven Tier 2/3 decisions with rival
-evidence, per-track review gates, no-ff merges to a continuous `main-ui`,
-retrospectives, the data-safety scan, and a charter verification block that
-is the CI `verify` sequence or a stated subset with the omission justified.
+This is the phase's default process. A milestone explicitly placed in
+owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
 
 ## Proposed milestone sequence
 
@@ -135,7 +131,14 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    the W-2 column moves to **L2**. Plan:
    `docs/phases/legible-entry/milestones/entry-loop-rescore.md`; aggregation:
    `docs/reviews/2026-07-30-entry-loop-rescore-track2-aggregation.md`.
-5. **Real Entry.** The owner enters a real fact through the surface and
+5. **Improvised Milestone.** Make the entry surface a better place to
+   understand and navigate the record, beginning with a small prototype that
+   preserves the existing presentation model instead of flattening it into
+   disconnected status rows. Work stays flexible and goal-oriented; the owner
+   chooses what to try next and decides what completion means after seeing the
+   result. Plan:
+   `docs/phases/legible-entry/milestones/improvised-milestone.md`.
+6. **Real Entry.** The owner enters a real fact through the surface and
    attests. Owner-operated; the only milestone that can raise a row to L3. By
    then every usability question has already been answered on synthetic
    data — which is why it follows the re-score rather than preceding it: an
@@ -230,5 +233,7 @@ disclosed environmental hazard the evidence was aggregated alongside. L2
 here means synthetic end-to-end and this usability evaluation both passed;
 it does not mean L3, and nothing in this milestone operated on real data.
 
-The phase-boundary legibility audit is still due. It is owner-spawned; the
-foreman must not launch it.
+**Milestone 5 is in planning:** the Improvised Milestone turns from scoring
+the existing loop toward making its record and explanations navigable. It
+starts with an unflattening prototype and stays deliberately flexible under
+owner-directed mode.
