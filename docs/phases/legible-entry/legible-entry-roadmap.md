@@ -2,8 +2,8 @@
 
 Audience: Product (roadmap); Shared (status)
 
-Status: **active.** Milestones 1–5 are closed. The Improvised Prototype is
-open on `main-ui` under owner direction.
+Status: **active.** Milestones 1–5 are closed. No successor milestone has been
+selected.
 
 ## Thesis
 
@@ -140,13 +140,7 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    prototype so `main` and `main-ui` can start their next milestones from a
    clean shared base. Plan:
    `docs/phases/legible-entry/milestones/improvised-milestone.md`.
-6. **Improvised Prototype.** Prototype an unflattened, navigable explanation
-   for one changed return line in the existing synthetic W-2 entry loop. Reuse
-   the presentation model and lineage already supplied to the surface rather
-   than deriving tax meaning again. **Open on `main-ui` 2026-07-31.** The owner
-   directs the work and decides what to try and when it is done. Plan:
-   `docs/phases/legible-entry/milestones/improvised-prototype.md`.
-7. **Real Entry.** The owner enters a real fact through the surface and
+6. **Real Entry.** The owner enters a real fact through the surface and
    attests. Owner-operated; the only milestone that can raise a row to L3. By
    then every usability question has already been answered on synthetic
    data — which is why it follows the re-score rather than preceding it: an
@@ -244,7 +238,3 @@ it does not mean L3, and nothing in this milestone operated on real data.
 **Milestone 5 closed without implementation 2026-07-31.** No product behavior
 changed. The proposed unflattening prototype remains available for later
 selection.
-
-**Milestone 6 opened on `main-ui` 2026-07-31.** The owner selected the
-unflattening question as a fresh, flexible prototype milestone. Its first card
-is a walkable explanation for Form 1040 line 1a in the synthetic W-2 loop.
