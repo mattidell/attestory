@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-2",
-  "status": "LINE 7B PREREQUISITE REVIEW. The versioned field v2/package v8/publication-route repair is committed with production-shaped synthetic proof. An author-independent Reviewer is chartered to measure the exact seven-file delta, immutable history, generic join, checksum chain, and regressions. Track 3 remains paused pending READY, merge, and green CI.",
+  "milestone_state": "track-3",
+  "status": "LINE 7B PREREQUISITE READY. Independent review returned READY on the versioned field v2/package v8/publication route, checksum chain, immutable history, and live disposition proof. NEXT ACTION: merge this prerequisite through green CI, then create a fresh Track-3 branch and rebind the presentation charter to that merge commit.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
