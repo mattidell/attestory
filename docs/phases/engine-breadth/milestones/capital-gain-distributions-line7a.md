@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-3",
-  "status": "TRACK 3 REPAIR RETURNED; FOCUSED RECHECK CHARTERED. One findings-only repair commit is in custody after the clean charter stop. The original author-independent Reviewer now rechecks F1–F3, the amended generic invariant, legacy-path preservation, and valid-output byte identity.",
+  "milestone_state": "track-4",
+  "status": "TRACK 3 READY; TRACK 4 COMPLETION RECORDS CHARTERED. The focused presentation repair recheck closed F1–F3 with valid-output byte identity and credited evidence intact. A records-only Builder now prepares the frontier, roadmap, exit-criterion dispositions, deferral ledger, retrospective, phase briefing, and README for fresh completion review.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

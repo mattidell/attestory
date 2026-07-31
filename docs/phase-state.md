@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "milestone_state": "track-3",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 REPAIR RETURNED; FOCUSED RECHECK CHARTERED.** One findings-only repair commit is in custody after the clean charter stop. The original author-independent Reviewer now rechecks F1–F3, the amended generic invariant, legacy-path preservation, and valid-output byte identity.",
-  "current_role": "Track 3 Presentation Repair Recheck Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-repair-recheck.md"
+  "milestone_state": "track-4",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 READY; TRACK 4 COMPLETION RECORDS CHARTERED.** The focused presentation repair recheck closed F1–F3 with valid-output byte identity and credited evidence intact. A records-only Builder now prepares the frontier, roadmap, exit-criterion dispositions, deferral ledger, retrospective, phase briefing, and README for fresh completion review.",
+  "current_role": "Track 4 Completion Records Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-track4-completion-records.md"
 }
 -->
 # Phase State
@@ -23,17 +23,17 @@ The active Engine Breadth milestone adds one bounded valid-return class:
 Form 1099-DIV box 2a capital-gain distributions reported directly on Form 1040
 line 7a when contributed authority says Schedule D is not required. The
 contract, source family, declared computation, and line-7b prerequisite are on
-`main`. Track 3 now carries the two new fields through the existing synthetic
-presentation surface. Its findings-only repair awaits a focused independent
-recheck before completion records are prepared.
+`main`. Track 3 carries the two new fields through the existing synthetic
+presentation surface and its focused repair recheck is `READY`. Track 4 now
+prepares the completion records for a fresh independent review.
 
 ## Operational State: Capital-Gain Distributions and Line 7a
 
 * **Active Milestone:** Capital-Gain Distributions and Form 1040 Line 7a
-* **Current Track:** Track 3 — focused presentation repair recheck
+* **Current Track:** Track 4 — completion records
 * **Ratified contract:** ADR-0050
 * **Merged prerequisite:** PR #125, with CI `verify` green
-* **Remaining sequence:** focused Track-3 recheck, then Track 4 completion records
+* **Remaining sequence:** records build, fresh completion review, closing PR
 
 ### Standing Directives
 

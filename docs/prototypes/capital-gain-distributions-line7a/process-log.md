@@ -127,3 +127,10 @@
   the ratified line and took custody of the returned findings-only repair.
 - **Disposition:** one focused author-independent F1–F3 recheck is chartered;
   all unchanged Track-3 review evidence remains credited.
+
+## 2026-07-31 — Track 3 reached READY
+
+- **Category:** no process incident.
+- **Event:** the focused repair recheck closed F1–F3 with no residual finding.
+- **Disposition:** Track 4 opens as the records-only completion unit before a
+  fresh completion review and the milestone closing PR.
