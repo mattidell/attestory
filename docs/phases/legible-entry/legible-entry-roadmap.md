@@ -130,8 +130,11 @@ is the CI `verify` sequence or a stated subset with the omission justified.
    close the harness gap that left keyboard operability unmeasured in both
    prior rounds, then run one full twenty-row re-score with two fresh
    evaluators against unchanged criteria. A second FAIL is a legitimate
-   outcome. **Drafted 2026-07-29**, awaiting owner approval. Plan:
-   `docs/phases/legible-entry/milestones/entry-loop-rescore.md`.
+   outcome. **Closed 2026-07-30.** Both evaluators returned Pass on all
+   twenty rows, no splits; the unchanged aggregation rule passes the cell and
+   the W-2 column moves to **L2**. Plan:
+   `docs/phases/legible-entry/milestones/entry-loop-rescore.md`; aggregation:
+   `docs/reviews/2026-07-30-entry-loop-rescore-track2-aggregation.md`.
 5. **Real Entry.** The owner enters a real fact through the surface and
    attests. Owner-operated; the only milestone that can raise a row to L3. By
    then every usability question has already been answered on synthetic
@@ -215,8 +218,17 @@ in this phase that built product and the first that could move a cell. It did
 not move one: its evaluation returned FAIL and the W-2 cell stays at **L1**.
 ADR-0049 and ADR-0051 were ratified at that close.
 
-**No cell in this phase has yet reached L2.** Milestone 4 exists to settle
-whether the W-2 column does.
+**Milestone 4 closed 2026-07-30: the W-2 column reaches L2.** The full
+twenty-row re-score (two fresh evaluators, unchanged criteria, the
+keyboard-operability harness gap closed first) returned Pass/Pass on all
+twenty rows with no splits; the unchanged aggregation rule produces a cell
+pass. See `docs/phases/legible-entry/milestones/entry-loop-rescore.md`'s
+close and
+`docs/reviews/2026-07-30-entry-loop-rescore-track2-aggregation.md` for the
+full matrix, the accessibility row's five sub-requirements, and the
+disclosed environmental hazard the evidence was aggregated alongside. L2
+here means synthetic end-to-end and this usability evaluation both passed;
+it does not mean L3, and nothing in this milestone operated on real data.
 
 The phase-boundary legibility audit is still due. It is owner-spawned; the
 foreman must not launch it.

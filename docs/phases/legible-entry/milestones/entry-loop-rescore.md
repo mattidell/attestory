@@ -46,8 +46,8 @@
 -->
 # Milestone: Re-score the Entry Loop
 
-Status: **drafted 2026-07-29, awaiting owner approval.** No charter may be
-filed against this plan until it is approved and merged.
+Status: **closed 2026-07-30.** Both evaluators returned Pass on all twenty
+criteria; the W-2 cell moves to L2. See "Close, 2026-07-30" below.
 
 ## What this is for
 
@@ -244,3 +244,73 @@ dependencies are re-confirmed. Track 3 is aggregation and close.
 
 Milestone opens on this plan PR and closes on another, both against `main-ui`,
 per `PROJECT_PLANNING.md#Branch, PR, and Merge Protocol`.
+
+## Close, 2026-07-30
+
+**The score.** Both evaluators, re-derived row by row from their own filed
+score sheets rather than assumed from any summary, scored **Pass on all
+twenty criteria**, with no splits anywhere in the matrix. Under the unchanged
+aggregation rule — every mechanical criterion Pass/Pass, no judgement
+criterion Fail/Fail — the cell passes. The full matrix, the accessibility
+row's five sub-requirements measured separately by both evaluators, and the
+environmental hazard recorded as a first-class limitation are all in
+`docs/reviews/2026-07-30-entry-loop-rescore-track2-aggregation.md`. **The
+W-2 column of the entry-loop matrix moves to L2** in
+`docs/phases/legible-entry/legible-entry-roadmap.md`. L2 means synthetic
+end-to-end and this usability evaluation both passed; it is not L3, and
+nothing in this milestone operated on real data.
+
+**What the harness gap turned out to hide, or not hide.** This is the
+substantive question the milestone was chartered to answer. Keyboard
+operability — Tab/Shift+Tab reachability and Enter/Space activation — was
+unmeasurable by the harness in both of the first two rounds; a Pass on the
+accessibility row in either of those rounds silently asserted a requirement
+nobody had actually checked. Track 1 built the missing instrument
+(`tests/helpers/entry_loop_keyboard_operability_client.mjs`, reverse
+traversal by position not just set membership, activation confirmed by
+observed effect, zero mouse events, every assertion proved to bite against
+an injected defect). Track 2 then measured keyboard operability twice, by
+two independently constructed methods: Evaluator E ran that mechanised CDP
+probe directly against the repaired surface and found exact positional
+reverse-traversal agreement in both phases with every actionable control
+activating on its standard key. Evaluator F, whose brief denies it
+implementation-level harness access, walked the same surface by hand via
+`activeElement` reads at every step — a genuinely independent measurement,
+not a re-run of the same tool — and found the identical five-stop order,
+exactly reversed, with every control operable on its standard key both ways.
+
+**The honest answer is that the gap was hiding nothing.** Neither
+instrument, automated or manual, found a keyboard-operability defect on the
+repaired surface. "We built the instrument and it found no defect" is the
+result this milestone returned for that question, and it is a real,
+reportable result — not a failure of the milestone, and not evidence the
+instrument was unnecessary. The gap was real (two prior rounds passed a
+criterion they could not fully check), the instrument that closed it is real
+and proved to bite, and on this surface, this time, it confirmed rather than
+overturned the earlier Pass. The asymmetry the milestone plan named up front
+held exactly as expected: closing the harness gap could only make the row
+harder to pass, and it did not make it fail.
+
+**Environmental hazard.** Track 2 ran under a disclosed environmental fault
+— a contended shared Playwright browser and a shared, non-isolated working
+checkout — that both evaluators independently caught and mitigated mid-run.
+The owner decided 2026-07-30 to aggregate this evidence with the hazard
+recorded rather than re-run. Git timestamps (F's report committed
+2026-07-30 17:06:11 -0700, E's at 17:07:00 -0700, each only inside its own
+worktree) establish that score independence held regardless: what the
+hazard threatened was measurement integrity, not independence. Full detail,
+including F's one unresolved stale-input observation, is in the aggregation
+record and is not adjudicated here. The harness defect itself — evaluator
+isolation that did not isolate — is a known defect, deferred by owner
+decision to a follow-up milestone; it is not fixed in this milestone.
+
+**Accumulated criterion defects, as an input to a later revision.** Both
+evaluators flagged rows that were awkward to score as written, and F filed
+nine explicit inference points. These are collected in full in the
+aggregation record's "Accumulated criterion defects" section — accessibility
+row's undecomposed five sub-requirements, undefined "control boundary" and
+"session restart" scope, criterion 1.3's reliance on unverifiable copy,
+sub-section blast containment's untestable sibling-field half on a one-field
+surface, among others. They are collected *for* a later, deliberate criteria
+revision. This milestone does not perform that revision and did not amend
+`entry-usability-criteria.md`.
