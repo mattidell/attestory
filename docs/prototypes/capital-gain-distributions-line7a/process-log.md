@@ -162,3 +162,11 @@
 - **Event:** the focused F1 recheck closed the sole completion-review finding.
 - **Disposition:** all milestone tracks are independently reviewed; the closing
   PR, its CI gate, owner merge, and mechanical closeout remain.
+
+## 2026-07-31 — Closing PR CI returned a type failure
+
+- **Category:** no process incident.
+- **Event:** PR #128 pytest passed before mypy reported four errors in one
+  Track-3 presentation test; later CI steps were skipped.
+- **Disposition:** one test-only type repair is chartered with the reviewed
+  runtime and records evidence credited.

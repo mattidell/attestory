@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "closing",
-  "status": "ALL TRACKS READY; CLOSING PR IS THE REMAINING UNIT. Track 4 completion review and its focused F1 recheck are READY; all production and records gates are independently reviewed. The branch is ready for its closing PR, whose CI verify, owner merge, and mechanical post-merge closeout remain pending.",
+  "status": "CLOSING PR #128 CI FAILED AT MYPY; ONE-FILE TYPE REPAIR CHARTERED. Pytest passed, then mypy reported four no-any-return errors in the Track-3 presentation test JSON helpers; later CI steps were skipped. A test-only Builder now repairs those annotations without changing runtime behavior or credited review evidence.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

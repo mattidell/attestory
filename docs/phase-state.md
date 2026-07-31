@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "closing",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — ALL TRACKS READY; CLOSING PR IS THE REMAINING UNIT.** Track 4 completion review and its focused F1 recheck are `READY`; all production and records gates are independently reviewed. The branch is ready for its closing PR, whose CI `verify`, owner merge, and mechanical post-merge closeout remain pending.",
-  "current_role": "Foreman (open and monitor the owner-held closing PR)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — CLOSING PR #128 CI FAILED AT MYPY; ONE-FILE TYPE REPAIR CHARTERED.** Pytest passed, then mypy reported four `no-any-return` errors in the Track-3 presentation test JSON helpers; later CI steps were skipped. A test-only Builder now repairs those annotations without changing runtime behavior or credited review evidence.",
+  "current_role": "Closing CI Types Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-closing-ci-types-repair.md"
 }
 -->
 # Phase State
