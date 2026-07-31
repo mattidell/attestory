@@ -329,17 +329,26 @@ def _enforce_declaration_signal_contradictions(
         declared_values = _current_values_for_fact_type(state, declaration_type)
         if rule["declaration_value"] not in declared_values.values():
             continue
-        signal_field = rule["signal_field"]
         signal_values = _current_values_for_fact_type(state, signal_type)
-        raised = any(
-            isinstance(value, dict) and value.get(signal_field) is not None
-            for value in signal_values.values()
-        )
+        signal_field = rule.get("signal_field")
+        if signal_field is None:
+            # ADR-0050 decision 2/4: successor signal is a current non-null
+            # box-2a family member value (numeric amount), not a residual
+            # recorded-boxes field. Historical null/residual content must not
+            # masquerade as the signal.
+            raised = any(value is not None for value in signal_values.values())
+            signal_desc = "non-null amount"
+        else:
+            raised = any(
+                isinstance(value, dict) and value.get(signal_field) is not None
+                for value in signal_values.values()
+            )
+            signal_desc = repr(signal_field)
         if raised:
             raise FindingModelError(
                 f"declaration/signal contradiction: {declaration_type} is "
                 f"currently {rule['declaration_value']!r} but a current "
-                f"{signal_type} finding records {signal_field!r}; "
+                f"{signal_type} finding records {signal_desc}; "
                 f"rejected, not recorded"
             )
 

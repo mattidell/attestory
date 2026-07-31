@@ -495,12 +495,17 @@
       "resolved": {
         "act": {
           "finding": {
-            "id": "finding:derived:e8e901e2ce825b360931a766",
+            "id": "finding:derived:212a14483e9c91b7aa6346f6",
             "pins": [
               {
                 "id": "tax.us.2025.package.core-calculations",
                 "role": "adoption",
                 "version": "v6"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-16",
+                "role": "citation",
+                "version": "v1"
               },
               {
                 "id": "tax.us.2025.rule.form1040-line16",

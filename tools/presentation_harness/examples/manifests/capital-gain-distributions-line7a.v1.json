@@ -1,0 +1,30 @@
+{
+  "version": "presentation-evaluation-manifest.v1",
+  "id": "capital-gain-distributions-line7a-track3",
+  "timeout_ms": 5000,
+  "candidates": [{"id": "citation-walk", "path": "tools/presentation_harness/examples/pages/citation-walk.v1.html"}],
+  "fixtures": [
+    {"id": "eligible", "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/cgd-eligible.v1.json", "synthetic": true},
+    {"id": "blocked-smuggled", "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/cgd-missing-authority-smuggled.v1.json", "synthetic": true},
+    {"id": "inapplicable-smuggled", "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/cgd-schedule-d-smuggled.v1.json", "synthetic": true},
+    {"id": "broken-line7a", "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/cgd-broken-line7a.v1.json", "synthetic": true}
+  ],
+  "criteria": [
+    {"id": "line7a-published", "check": "dom-text-present", "params": {"selector": "#line-7a .line-value", "expected_text": "1500"}},
+    {"id": "line7a-citation", "check": "dom-text-present", "params": {"selector": "#line-7a-field-citation .citation-label", "expected_text": "tax.us.2025.citation.form1040.line-7a@v1"}},
+    {"id": "line7b-checked", "check": "dom-text-present", "params": {"selector": "#line-7b .line-value", "expected_text": "checked"}},
+    {"id": "line7b-citation", "check": "dom-text-present", "params": {"selector": "#line-7b-field-citation .citation-label", "expected_text": "tax.us.2025.citation.form1040.line-7b@v1"}},
+    {"id": "line7b-focus", "check": "keyboard-focus-reachable", "params": {"selector": "#line-7b-field-citation", "tab_presses": 50}},
+    {"id": "blocked-redacts-smuggled", "check": "dom-text-present", "params": {"selector": "#line-7a .blocked-banner", "expected_text": "No value published — cannot compute."}},
+    {"id": "inapplicable-redacts-smuggled", "check": "dom-text-present", "params": {"selector": "#line-7b .line-value", "expected_text": "Not applicable."}},
+    {"id": "broken-line7a-alert", "check": "role-alert-present", "params": {"selector": "#line-7a .section-error"}},
+    {"id": "healthy-line7b-survives", "check": "dom-text-present", "params": {"selector": "#line-7b .line-value", "expected_text": "checked"}}
+  ],
+  "tamper_cases": [{"id": "baseline", "injection": null}],
+  "matrix": [
+    {"candidate_id": "citation-walk", "fixture_id": "eligible", "tamper_case_id": "baseline", "criteria": ["line7a-published", "line7a-citation", "line7b-checked", "line7b-citation", "line7b-focus"]},
+    {"candidate_id": "citation-walk", "fixture_id": "blocked-smuggled", "tamper_case_id": "baseline", "criteria": ["blocked-redacts-smuggled"]},
+    {"candidate_id": "citation-walk", "fixture_id": "inapplicable-smuggled", "tamper_case_id": "baseline", "criteria": ["inapplicable-redacts-smuggled"]},
+    {"candidate_id": "citation-walk", "fixture_id": "broken-line7a", "tamper_case_id": "baseline", "criteria": ["broken-line7a-alert", "healthy-line7b-survives"]}
+  ]
+}

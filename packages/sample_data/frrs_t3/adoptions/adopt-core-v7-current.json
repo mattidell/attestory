@@ -1,0 +1,28 @@
+{
+  "act_id": "act.adopt.core.v7",
+  "actor": "demo.user.filer-1",
+  "at": "2026-07-30T00:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "f63911defdebb6008a873ca1045171722bd9f4281620bb280fc40c9b35314bc3",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v7"
+    },
+    "release": {
+      "checksum": "d90fa47eef4ae8c9a955122716e92857c44ad921c3496424134e56a5f57eb764",
+      "id": "demo.release.2025",
+      "version": "v2"
+    },
+    "revision": 7,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2056"
+    }
+  },
+  "schema": "act.v1"
+}

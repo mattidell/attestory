@@ -1,0 +1,169 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.dividends.2a-subtotal",
+      "tax.us.2025.schedule-d-required.conclusion",
+      "tax.us.2025.exception1.only-box2a-capital-gains",
+      "tax.us.2025.exception1.no-capital-losses",
+      "tax.us.2025.exception1.no-qof-deferral",
+      "tax.us.2025.exception1.no-boxes-2b-2c-2d"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-7a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line7a",
+  "notes": "ADR-0050 Decisions 2/5: direct-route Form 1040 line 7a publishes the selected closed box-2a family subtotal only when the checked conclusion is no (E-yes). Conclusion yes is guard_inapplicable. Missing authority or open family blocks. Never fabricates Schedule D.",
+  "pins": [
+    {
+      "id": "tax.us.2025.dividends.2a-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule-d-required.conclusion",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.exception1.only-box2a-capital-gains",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.exception1.no-capital-losses",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.exception1.no-qof-deferral",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.capital-gains.line7a-total",
+  "requires": [
+    "tax.us.2025.dividends.2a-subtotal",
+    "tax.us.2025.schedule-d-required.conclusion",
+    "tax.us.2025.exception1.only-box2a-capital-gains",
+    "tax.us.2025.exception1.no-capital-losses",
+    "tax.us.2025.exception1.no-qof-deferral",
+    "tax.us.2025.exception1.no-boxes-2b-2c-2d"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.dividends.2a-subtotal",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule-d-required.conclusion",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule-d-required.conclusion",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "no"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.exception1.only-box2a-capital-gains",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.exception1.only-box2a-capital-gains",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.exception1.no-capital-losses",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.exception1.no-capital-losses",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.exception1.no-qof-deferral",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.exception1.no-qof-deferral",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099div.2a"
+      }
+    ],
+    "op": "all"
+  }
+}

@@ -410,7 +410,11 @@ class Line7FormAndCitation(TrackOneRegistry):
         self.assertEqual(line_7a["line"], "7a")
         self.assertEqual(line_7b["line"], "7b")
         self.assertEqual(line_7a["binds_symbol"], "tax.us.2025.capital-gains.line7a-total")
-        self.assertEqual(line_7b["binds_symbol"], "tax.us.2025.schedule-d-required.conclusion")
+        self.assertEqual(line_7b["version"], "v2")
+        self.assertEqual(
+            line_7b["binds_symbol"],
+            "tax.us.2025.form1040.line7b-schedule-d-not-required",
+        )
         self.assertEqual(
             line_7a["citation"],
             {"id": "tax.us.2025.citation.form1040.line-7a", "version": "v1"},
@@ -418,6 +422,15 @@ class Line7FormAndCitation(TrackOneRegistry):
         self.assertEqual(
             line_7b["citation"],
             {"id": "tax.us.2025.citation.form1040.line-7b", "version": "v1"},
+        )
+        historical_line_7b = load(
+            TAX_CONTENT_DIR / "form1040.line-7b.form-field.json"
+        )
+        self.registry.validate_declared(historical_line_7b)
+        self.assertEqual(historical_line_7b["version"], "v1")
+        self.assertEqual(
+            historical_line_7b["binds_symbol"],
+            "tax.us.2025.schedule-d-required.conclusion",
         )
 
     def test_line_7b_citation_identity_and_cardinality(self) -> None:

@@ -304,6 +304,13 @@ class _Run:
             pins.append(pin)
         for op in access.operations:
             pins.append({"role": "operation-semantics", "id": op, "version": self.ctx.canon[op]["version"]})
+        # Declared rule citations (ADR-0029 / ADR-0050 line-7b exact citation pin).
+        for citation in rule.get("citations", []):
+            pins.append({
+                "role": "citation",
+                "id": citation["id"],
+                "version": citation["version"],
+            })
         # Adoption and governance identity come from the run context — versioned
         # inputs, never constants invented here (ADR-0007 decision 4).
         pins.append(self.ctx.adoption_pin)
@@ -643,6 +650,27 @@ class _Run:
 
             if rule.get("schema") == ATTACHMENT_SCHEMA:
                 self.attempt_attachment(rule)
+                continue
+
+            # A false guard is an atomic inapplicable disposition even when
+            # later numeric dependencies are absent.  Preflight only far
+            # enough to prove false: a true or blocked preflight retains the
+            # established missing-dependency/conflict/fallback precedence
+            # below.  This lets declared guards classify their branch before
+            # numeric work without turning missing inputs into assumed values.
+            guard_access = AccessLog()
+            try:
+                guard_preflight = evaluate(rule["when"], self.env(), guard_access)
+            except EvalBlocked:
+                guard_preflight = None
+            if guard_preflight is False:
+                self.dispositions.append({
+                    "artifact_id": rule["id"],
+                    "disposition": "inapplicable",
+                    "guard_result": False,
+                    "pins": self.ledger_pins_for(rule, guard_access),
+                })
+                self.resolved.add(rule["id"])
                 continue
 
             # 1. If any dependency is absent -> blocked

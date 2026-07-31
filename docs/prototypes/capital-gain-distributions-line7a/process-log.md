@@ -83,3 +83,105 @@
   as PR #110.
 - **Disposition:** owner merge only after CI `verify` is green. Production
   remains blocked until the merge reaches `main`.
+
+## 2026-07-29 — Foreman succession and Track 2 recovery
+
+- **Category:** no process incident.
+- **Event:** a successor Foreman reconciled the active state against Git,
+  recovered the interrupted Builder's committed Track 2 implementation from
+  the `grok` remote, and fast-forwarded the existing Track 2 branch without
+  rewriting it.
+- **Disposition:** the recovered implementation is preserved as the exact
+  review object and an author-independent Track 2 review is chartered.
+
+## 2026-07-29 — Track 2 review returned
+
+- **Category:** no process incident.
+- **Event:** independent review returned `NOT READY` on F1 typed
+  guard-inapplicable propagation and F2 regression from rewriting an existing
+  release/adoption fixture pair. All other measurements passed.
+- **Disposition:** one findings-only F1/F2 repair is chartered with the passing
+  evidence credited; no evidence climb or scope expansion.
+
+## 2026-07-29 — Track 2 F1/F2 repair returned
+
+- **Category:** no process incident.
+- **Event:** Luna returned one repair commit covering the typed line-16
+  disposition partition and the versioned release/adoption fixture route.
+- **Disposition:** the original Reviewer is chartered for a focused F1/F2
+  recheck with all other review measurements credited.
+
+## 2026-07-30 — Track 2 reached READY
+
+- **Category:** no process incident.
+- **Event:** focused recheck closed F1 and F2 with no residuals; all credited
+  Track-2 measurements remained intact.
+- **Disposition:** prepare the conditional Track-3 presentation charter and
+  publish Track 2 as its reviewed development-unit PR. Track 3 remains blocked
+  until that PR reaches `main` with green CI.
+
+## 2026-07-30 — Foreman succession and Track 3 repair return
+
+- **Category:** no process incident.
+- **Event:** a successor Foreman reconciled the clean Track-3 branch against
+  the ratified line and took custody of the returned findings-only repair.
+- **Disposition:** one focused author-independent F1–F3 recheck is chartered;
+  all unchanged Track-3 review evidence remains credited.
+
+## 2026-07-31 — Track 3 reached READY
+
+- **Category:** no process incident.
+- **Event:** the focused repair recheck closed F1–F3 with no residual finding.
+- **Disposition:** Track 4 opens as the records-only completion unit before a
+  fresh completion review and the milestone closing PR.
+
+## 2026-07-31 — Track 4 completion records returned
+
+- **Category:** no process incident.
+- **Event:** the records-only Builder returned one seven-file completion unit.
+- **Disposition:** one fresh author-independent completion review is chartered
+  before any closing PR or milestone closeout.
+
+## 2026-07-31 — Track 4 completion review returned
+
+- **Category:** no process incident.
+- **Event:** completion review returned one bounded deferral-ledger finding.
+- **Disposition:** one records-only F1 repair is chartered with every other
+  completion-review measurement credited.
+
+## 2026-07-31 — Track 4 F1 records repair returned
+
+- **Category:** no process incident.
+- **Event:** the records Builder returned one one-file deferral-ledger repair.
+- **Disposition:** the original Completion Reviewer is chartered for a focused
+  F1 recheck with all other measurements credited.
+
+## 2026-07-31 — Track 4 completion records reached READY
+
+- **Category:** no process incident.
+- **Event:** the focused F1 recheck closed the sole completion-review finding.
+- **Disposition:** all milestone tracks are independently reviewed; the closing
+  PR, its CI gate, owner merge, and mechanical closeout remain.
+
+## 2026-07-31 — Closing PR CI returned a type failure
+
+- **Category:** no process incident.
+- **Event:** PR #128 pytest passed before mypy reported four errors in one
+  Track-3 presentation test; later CI steps were skipped.
+- **Disposition:** one test-only type repair is chartered with the reviewed
+  runtime and records evidence credited.
+
+## 2026-07-31 — Closing CI type repair returned
+
+- **Category:** no process incident.
+- **Event:** the Builder returned one test-only type repair with focused tests
+  and repository mypy green.
+- **Disposition:** the original Track-3 Reviewer is chartered for a focused
+  type-closure and runtime-equivalence recheck.
+
+## 2026-07-31 — Closing CI type repair reached READY
+
+- **Category:** no process incident.
+- **Event:** focused recheck closed all four mypy errors with runtime and
+  six-test semantics unchanged.
+- **Disposition:** update PR #128 and rerun the CI gate of record.
