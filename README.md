@@ -8,8 +8,8 @@ This is the project's third iteration. The first proved a working return generat
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
 - **Phase state** (`docs/phase-state.md`): Engine Breadth is active. The first
-  breadth milestone's completion records are prepared for independent review;
-  its closing PR, CI gate, owner merge, and post-merge closeout remain pending.
+  breadth milestone's completion records are independently `READY`; its
+  closing PR, CI gate, owner merge, and post-merge closeout remain pending.
 - **Current bounded capability:** production-shaped synthetic returns in the
   selected Form 1099-DIV box-2a-only direct-reporting class reach Form 1040
   line 7a, line 9, taxable income, line 16, explanation, package resolution,

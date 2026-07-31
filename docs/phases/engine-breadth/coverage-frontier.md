@@ -32,12 +32,12 @@ input boxes. Status is one of:
 ## Completed synthetic frontier
 
 The first milestone, **Capital-Gain Distributions and Form 1040 Line 7a**, has
-completion records prepared for independent review. Its synthetic-complete
+completion records independently reviewed `READY`. Its synthetic-complete
 claim is bounded to the selected box-2a-only direct-reporting class: production-
 shaped synthetic returns reach line 7a, line 9, taxable income, line 16,
 explanation, package resolution, and presentation. This is neither real-data
 evidence nor general capital-gains support, and it remains provisional until
-the closing records unit passes review, CI, and owner merge.
+the closing records unit passes CI and owner merge.
 
 The engine will not create Schedule D merely because box 2a is present.
 Schedule-D-required and missing-authority returns remain outside this direct

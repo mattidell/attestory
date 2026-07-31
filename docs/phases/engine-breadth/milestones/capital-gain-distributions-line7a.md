@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-4",
-  "status": "TRACK 4 ONE-RECORD F1 REPAIR RETURNED; FOCUSED RECHECK CHARTERED. The repair adds the omitted Schedule B Part I multi-family interest obligation and trigger to the new deferral ledger. The original Completion Reviewer now rechecks only F1; all other completion-review measurements remain credited.",
+  "milestone_state": "closing",
+  "status": "ALL TRACKS READY; CLOSING PR IS THE REMAINING UNIT. Track 4 completion review and its focused F1 recheck are READY; all production and records gates are independently reviewed. The branch is ready for its closing PR, whose CI verify, owner merge, and mechanical post-merge closeout remain pending.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -412,7 +412,7 @@ the closing PR.
 
 ## Track 4 execution record
 
-Prepared 2026-07-31 for fresh completion review. This record distinguishes
+Prepared 2026-07-31 and independently reviewed `READY`. This record distinguishes
 evidence already ratified on `main` from reviewed evidence that remains on the
 milestone branch:
 
@@ -425,9 +425,9 @@ milestone branch:
 | 5. Honest excluded routes | **Satisfied on `main`.** The Track 2 recheck and PR #125 prerequisite review measure missing authority and Schedule-D-required blocking/inapplicability without creating Schedule D. |
 | 6. Lifecycle, package, and explanation battery | **Satisfied on `main`.** Track 2's review lineage closed F1/F2 and both CI repair rechecks returned `READY`; PR #120's merge commit has green `verify`. |
 | 7. Presentation guarantees | **Satisfied by reviewed branch evidence, not yet ratified on `main`.** The final focused Track-3 recheck at `ac31998f0d54` is **READY**, closing F1–F3 while preserving valid-output byte identity and credited rendering/redaction evidence. |
-| 8. Independent reviews and merge CI | **Pending closing merge.** Tracks 0–2 and the line-7b prerequisite have independent review plus green merge CI. Track 3 is independently `READY` on this branch but is not yet on a merge commit; the closing PR's `verify` is the remaining gate of record. |
-| 9. Coverage frontier | **Prepared for review in Track 4.** The refreshed frontier records only the selected direct-reporting class as synthetic complete and leaves Schedule D separately selectable; this wording is not yet ratified on `main`. |
-| 10. Completion records and closeout | **Prepared, not closed.** This commit removes the temporary briefing supplement and adds the retrospective, roadmap, frontier, phase prose, README, and deferral ledger. Fresh completion review, the closing PR, green CI, owner merge, and mechanical post-merge closeout remain pending. |
+| 8. Independent reviews and merge CI | **Pending closing merge.** Tracks 0–2 and the line-7b prerequisite have independent review plus green merge CI. Track 3 and the Track-4 completion records are independently `READY` on this branch but are not yet on a merge commit; the closing PR's `verify` is the remaining gate of record. |
+| 9. Coverage frontier | **Independently reviewed and ready for the closing PR.** The refreshed frontier records only the selected direct-reporting class as synthetic complete and leaves Schedule D separately selectable; this wording is not yet ratified on `main`. |
+| 10. Completion records and closeout | **Reviewed `READY`, not closed.** The records unit removes the temporary briefing supplement and adds the retrospective, roadmap, frontier, phase prose, README, and deferral ledger. Completion review found one missing carried deferral; its one-file repair recheck is `READY`. The closing PR, green CI, owner merge, and mechanical post-merge closeout remain pending. |
 
 No row claims real-data exercise, a real browser/workspace session, filing
 readiness, general capital-gains support, or a completed merge of this

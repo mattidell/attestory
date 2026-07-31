@@ -44,9 +44,9 @@ source and completeness boundary is selected.
 ## Status
 
 - **Capital-Gain Distributions and Form 1040 Line 7a — completion records
-  prepared and independently reviewable.** The bounded direct-reporting class
+  independently `READY`.** The bounded direct-reporting class
   is recorded as synthetic complete from accepted and reviewed evidence.
-  Closing review, the closing PR's `verify`, and owner merge remain pending;
+  The closing PR's `verify` and owner merge remain pending;
   the milestone and Engine Breadth phase are not closed. Plan:
   `milestones/capital-gain-distributions-line7a.md`.
 - **Next Engine Breadth milestone — unchosen.** Selection remains owner-held
