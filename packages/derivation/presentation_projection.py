@@ -208,7 +208,7 @@ def _resolve_field_row(
     # categorical instruction is admitted only for the declared affirmative
     # checkbox form; its source value is deliberately not copied to the model.
     if instruction["render"] != "{value}":
-        if instruction["render"] != "checked" or not isinstance(finding.get("value"), str):
+        if not isinstance(finding.get("value"), str) or finding["value"] != instruction["render"]:
             raise PresentationModelError(f"invalid categorical publication for field {field['id']!r}")
         _raw_leaves(finding["pins"], publications_by_id=publications_by_id, state=state, root_id=finding_id)
         return {"disposition": "published_categorical", "act": {"run_id": run_id, "finding": finding}}, []
@@ -236,16 +236,42 @@ def _section_id(field: Mapping[str, Any]) -> str:
     return f"line-{field['line']}"
 
 
-def _require_resolved_field_citation(field: Mapping[str, Any], citations: Mapping[tuple[str, str], Mapping[str, Any]]) -> None:
-    """Require a categorical field's exact declared citation in this graph."""
-    citation = field.get("citation")
+def _citation_identity(citation: Any, *, owner: str) -> tuple[str, str]:
+    """Return one declared citation identity, rejecting malformed references."""
     if not isinstance(citation, Mapping):
-        raise PresentationModelError(f"categorical field {field['id']!r} lacks a field citation")
+        raise PresentationModelError(f"{owner} lacks a well-formed citation")
     citation_id, citation_version = citation.get("id"), citation.get("version")
-    if not isinstance(citation_id, str) or not isinstance(citation_version, str):
-        raise PresentationModelError(f"categorical field {field['id']!r} has an invalid field citation")
-    if (citation_id, citation_version) not in citations:
-        raise PresentationModelError(f"categorical field {field['id']!r} cites an unresolved field citation")
+    if not isinstance(citation_id, str) or not citation_id or not isinstance(citation_version, str) or not citation_version:
+        raise PresentationModelError(f"{owner} has an invalid citation")
+    return citation_id, citation_version
+
+
+def _require_declared_field_citation_chain(
+    field: Mapping[str, Any], row: Mapping[str, Any], rules_by_id: Mapping[str, Mapping[str, Any]],
+    citations: Mapping[tuple[str, str], Mapping[str, Any]],
+) -> None:
+    """Validate a field → owning-rule → graph citation chain when declared.
+
+    Historical rules with no ``citations`` declaration remain on their
+    established presentation path.  Once a rule declares citations, however,
+    the chain is exact and fail-closed for every field without tax-specific
+    identifiers or branches.
+    """
+    artifact_id = row.get("artifact_id")
+    rule = rules_by_id.get(artifact_id) if isinstance(artifact_id, str) else None
+    if rule is None or rule.get("publishes") != field.get("binds_symbol"):
+        raise PresentationModelError(f"field {field['id']!r} lacks a joined owning rule")
+    rule_citations = rule.get("citations")
+    if not rule_citations:
+        return
+    if not isinstance(rule_citations, list):
+        raise PresentationModelError(f"owning rule {rule['id']!r} has invalid citations")
+    identity = _citation_identity(field.get("citation"), owner=f"field {field['id']!r}")
+    exact = sum(_citation_identity(item, owner=f"owning rule {rule['id']!r}") == identity for item in rule_citations)
+    if exact != 1:
+        raise PresentationModelError(f"owning rule {rule['id']!r} must declare the field citation exactly once")
+    if identity not in citations:
+        raise PresentationModelError(f"field {field['id']!r} cites an unresolved field citation")
 
 
 def _resolve_attachment(
@@ -320,11 +346,13 @@ def build_presentation_model(
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
     attachments = [m for m in resolved_members if m.get("schema") == ATTACHMENT_SCHEMA]
     rules_by_id = _rules_by_id(resolved_members)
-    citations = {
-        (member["id"], member["version"]): member
-        for member in resolved_members
-        if member.get("schema") == "citation.v1" and isinstance(member.get("id"), str) and isinstance(member.get("version"), str)
-    }
+    citations: dict[tuple[str, str], Mapping[str, Any]] = {}
+    for member in resolved_members:
+        if member.get("schema") == "citation.v1":
+            identity = _citation_identity(member, owner="resolved citation citizen")
+            if identity in citations:
+                raise PresentationModelError(f"duplicate resolved citation identity {identity!r}")
+            citations[identity] = member
     publications_by_id = {pub.finding["id"]: pub.finding for pub in publications}
     by_symbol = _dispositions_by_symbol(dispositions, rules_by_id)
 
@@ -338,8 +366,8 @@ def build_presentation_model(
             row, field, section_id=section_id, publications_by_id=publications_by_id,
             state=state, run_id=run_id, pin_labels=pin_labels,
         )
-        if resolved["disposition"] == "published_categorical":
-            _require_resolved_field_citation(field, citations)
+        if resolved["disposition"] in _NUMERIC_DISPOSITIONS | _CATEGORICAL_DISPOSITIONS:
+            _require_declared_field_citation_chain(field, row, rules_by_id, citations)
         sections.append({
             "id": section_id,
             "field": dict(field),

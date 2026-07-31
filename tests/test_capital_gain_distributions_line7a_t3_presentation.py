@@ -24,14 +24,34 @@ def _citation() -> dict[str, Any]:
     return json.loads((CONTENT / "citation.form1040.line-7b.json").read_text("utf-8"))
 
 
-def _categorical_model(*, field: dict[str, Any] | None = None, value: Any = "checked", include_citation: bool = True) -> dict[str, Any]:
+def _numeric_field() -> dict[str, Any]:
+    return json.loads((CONTENT / "form1040.line-7a.form-field.json").read_text("utf-8"))
+
+
+def _numeric_citation() -> dict[str, Any]:
+    return json.loads((CONTENT / "citation.form1040.line-7a.json").read_text("utf-8"))
+
+
+def _categorical_model(*, field: dict[str, Any] | None = None, value: Any = "checked", citations: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     field = field or _field()
     raw = {"schema": "finding.v1", "id": "demo.raw", "fact_id": "demo.checked", "value": "no", "basis": "attested", "evidence_ids": []}
     finding = {"schema": "derived-finding.v2", "id": "demo.derived", "symbol": field["binds_symbol"], "value": value, "version": "v2", "pins": [{"role": "input", "id": "demo.raw", "version": "v1"}]}
-    rule = {"schema": "rule-artifact.v2", "id": "demo.rule", "publishes": field["binds_symbol"]}
+    rule = {"schema": "rule-artifact.v2", "id": "demo.rule", "publishes": field["binds_symbol"], "citations": [_field()["citation"]]}
     row = {"artifact_id": "demo.rule", "symbol": field["binds_symbol"], "disposition": "published", "finding_id": "demo.derived", "pins": finding["pins"]}
-    members = [field, rule] + ([_citation()] if include_citation else [])
+    members = [field, rule] + ([_citation()] if citations is None else citations)
     return build_presentation_model(run_id="demo.t3", resolved_members=members, state=FindingState(findings={"demo.raw": raw}, evidence={}), publications=[Publication(act={}, finding=finding)], dispositions=[row])
+
+
+def _numeric_model(*, field: dict[str, Any] | None = None, citations: list[dict[str, Any]] | None = None, declared: bool = True) -> dict[str, Any]:
+    field = field or _numeric_field()
+    raw = {"schema": "finding.v1", "id": "demo.numeric.raw", "fact_id": "demo.numeric", "value": 1500, "basis": "attested", "evidence_ids": []}
+    finding = {"schema": "derived-finding.v2", "id": "demo.numeric.derived", "symbol": field["binds_symbol"], "value": "1500", "version": "v2", "pins": [{"role": "input", "id": "demo.numeric.raw", "version": "v1"}]}
+    rule: dict[str, Any] = {"schema": "rule-artifact.v2", "id": "demo.numeric.rule", "publishes": field["binds_symbol"]}
+    if declared:
+        rule["citations"] = [_numeric_field()["citation"]]
+    row = {"artifact_id": "demo.numeric.rule", "symbol": field["binds_symbol"], "disposition": "published", "finding_id": "demo.numeric.derived", "pins": finding["pins"]}
+    members = [field, rule] + ([_numeric_citation()] if citations is None else citations)
+    return build_presentation_model(run_id="demo.numeric", resolved_members=members, state=FindingState(findings={"demo.numeric.raw": raw}, evidence={}), publications=[Publication(act={}, finding=finding)], dispositions=[row])
 
 
 class CategoricalProjection(unittest.TestCase):
@@ -43,15 +63,31 @@ class CategoricalProjection(unittest.TestCase):
         self.assertEqual(model["sections"][0]["field"]["citation"], _field()["citation"])
         validate_presentation_model(model)
 
-    def test_malformed_categorical_value_and_missing_or_wrong_citation_fail_closed(self) -> None:
+    def test_alternate_categorical_values_and_declared_citation_mutations_fail_closed(self) -> None:
+        for value in ("no", "unchecked", "", 1):
+            with self.assertRaises(PresentationModelError):
+                _categorical_model(value=value)
         with self.assertRaises(PresentationModelError):
-            _categorical_model(value=1)
-        with self.assertRaises(PresentationModelError):
-            _categorical_model(include_citation=False)
+            _categorical_model(citations=[])
         bad_field = _field()
         bad_field["citation"] = {"id": "demo.wrong.citation", "version": "v1"}
         with self.assertRaises(PresentationModelError):
-            _categorical_model(field=bad_field)
+            _categorical_model(field=bad_field, citations=[{"schema": "citation.v1", "id": "demo.wrong.citation", "version": "v1"}])
+        wrong_version = _field()
+        wrong_version["citation"] = {"id": _citation()["id"], "version": "v2"}
+        with self.assertRaises(PresentationModelError):
+            _categorical_model(field=wrong_version, citations=[{"schema": "citation.v1", "id": _citation()["id"], "version": "v2"}])
+        with self.assertRaises(PresentationModelError):
+            _categorical_model(citations=[_citation(), dict(_citation())])
+
+    def test_declared_numeric_chain_rejects_missing_wrong_and_duplicate_citations(self) -> None:
+        self.assertEqual(_numeric_model()["sections"][0]["resolved"]["value"], 1500)
+        for citations in ([], [{"schema": "citation.v1", "id": "demo.wrong.citation", "version": "v1"}], [_numeric_citation(), dict(_numeric_citation())]):
+            with self.assertRaises(PresentationModelError):
+                _numeric_model(citations=citations)
+
+    def test_legacy_rule_without_citations_keeps_its_existing_path(self) -> None:
+        self.assertEqual(_numeric_model(citations=[], declared=False)["sections"][0]["resolved"]["value"], 1500)
 
 
 class ProductionShapedGoldens(unittest.TestCase):
