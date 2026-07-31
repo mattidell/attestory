@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import unittest
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from packages.derivation.presentation_projection import PresentationModelError, build_presentation_model, validate_presentation_model
 from packages.derivation.runner import Publication
@@ -17,19 +17,19 @@ CONTENT = ROOT / "packages" / "content" / "tax" / "2025"
 
 
 def _field() -> dict[str, Any]:
-    return json.loads((CONTENT / "form1040.line-7b.form-field.v2.json").read_text("utf-8"))
+    return cast(dict[str, Any], json.loads((CONTENT / "form1040.line-7b.form-field.v2.json").read_text("utf-8")))
 
 
 def _citation() -> dict[str, Any]:
-    return json.loads((CONTENT / "citation.form1040.line-7b.json").read_text("utf-8"))
+    return cast(dict[str, Any], json.loads((CONTENT / "citation.form1040.line-7b.json").read_text("utf-8")))
 
 
 def _numeric_field() -> dict[str, Any]:
-    return json.loads((CONTENT / "form1040.line-7a.form-field.json").read_text("utf-8"))
+    return cast(dict[str, Any], json.loads((CONTENT / "form1040.line-7a.form-field.json").read_text("utf-8")))
 
 
 def _numeric_citation() -> dict[str, Any]:
-    return json.loads((CONTENT / "citation.form1040.line-7a.json").read_text("utf-8"))
+    return cast(dict[str, Any], json.loads((CONTENT / "citation.form1040.line-7a.json").read_text("utf-8")))
 
 
 def _categorical_model(*, field: dict[str, Any] | None = None, value: Any = "checked", citations: list[dict[str, Any]] | None = None) -> dict[str, Any]:
