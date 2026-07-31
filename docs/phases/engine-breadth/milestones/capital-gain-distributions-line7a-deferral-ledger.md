@@ -53,20 +53,27 @@ evidence.
 9. **Interest subtractive adjustments.** Nominee, accrued, and premium
    adjustments remain without an authority and explanation contract.
    Reactivate through a selected subtractive-adjustment milestone.
+10. **Schedule B Part I multi-family interest tie-out.** Carried from the
+    Dividends and Schedule B deferral ledger, entry 5, **untouched and not
+    retired**. Schedule B Part I ties to the box-1/1099-INT family only; the
+    tie-out was not generalized to a multi-family interest sum. This milestone
+    did not touch or retire that obligation. Reactivate: an interest-breadth
+    milestone that admits a second 1099-INT family, or any milestone that must
+    prove Schedule B Part I against more than one family.
 
 ## Migration and infrastructure carried by reference
 
-10. **Historical-v1 migration.** The ADR-0028 migration entry remains
+11. **Historical-v1 migration.** The ADR-0028 migration entry remains
     untouched. This milestone used additive successor versions; it did not
     migrate historical content. Full history and trigger:
     `correction-authority-and-marshaller-simplification-deferral-ledger.md`
     entry 9.
-11. **Live-run authority separation and guarded publication transport.** Both
+12. **Live-run authority separation and guarded publication transport.** Both
     remain unimplemented and separately selectable; this synthetic breadth
     milestone touched neither control. Full distinction and triggers:
     `correction-authority-and-marshaller-simplification-deferral-ledger.md`
     entry 4.
-12. **Other untouched infrastructure and operating items.** Operator-level
+13. **Other untouched infrastructure and operating items.** Operator-level
     bypass, private-remote posture, `closed-on-attestation` cross-scope
     projection, split-registry/bad-checksum corpus fixtures, failed-batch
     record shape, and scaffold visibility retain their prior dispositions and
@@ -75,7 +82,7 @@ evidence.
 
 ## Presentation compatibility carried
 
-13. **Legacy owning rules without a `citations` declaration.** Track 3's
+14. **Legacy owning rules without a `citations` declaration.** Track 3's
     generic presentation repair validates the exact field → owning rule →
     resolved citation chain when the owning rule declares citations. Existing
     legacy rules with no declaration retain their prior compatibility path.
