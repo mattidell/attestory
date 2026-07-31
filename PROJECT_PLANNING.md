@@ -286,6 +286,61 @@ The default sequence is:
 
 If planning changes during implementation, separate the planning update from code changes whenever possible. Follow-up planning clarifications before implementation should usually be squashed into the relevant planning commit to keep planning history clean. Do not squash implementation commits into planning commits.
 
+### Lean Production Loop
+
+Audience: Agents
+
+Once a product contract is settled, production work defaults to one Builder
+and one independent Reviewer. Rival prototypes and committee review remain for
+genuine design choices; they are not the default way to implement an accepted
+contract.
+
+Before chartering a production track, the Foreman performs a lightweight
+readiness check against the proposed base. Confirm that the real entrypoint can
+resolve every required citizen, symbol, package, release, and binding; identify
+the legacy or compatibility examples that must remain valid; and express the
+work as observable positive, negative, and compatibility cases. Put the result
+in the Builder charter, not in a separate readiness record.
+
+The charter is an executable work packet:
+
+- a compact table of cases, mutations, and expected outcomes;
+- the exact implementation boundary and stop conditions;
+- focused tests plus applicable static checks; and
+- the semantic or boundary questions the independent review must attack.
+
+The Builder turns the case table into tests, demonstrates the important
+negative cases against the base when practical, implements the change, and
+runs the focused tests and applicable static checks before handoff. For typed
+Python work, this includes repository mypy. The Reviewer concentrates on
+semantic correctness, omitted adversarial cases, compatibility, and boundary
+violations rather than repeating routine verification.
+
+The normal sequence is readiness → build → independent review → one recovery
+cycle if needed → CI. Completion records are Foreman work, not a separate
+Builder/Reviewer track, unless closing a disputed product claim requires fresh
+judgment.
+
+**When the first pass misses:** do not automatically defer the work or change
+the milestone's posture.
+
+- A defect against the existing work packet returns to the same Builder. A
+  Reviewer rechecks only when the repair still turns on semantic judgment;
+  mechanical and typing repairs go to the focused checks and CI.
+- A bounded missing prerequisite already implied by the accepted contract is
+  added to the current sequence after the Foreman verifies its boundary. It
+  does not require a new design round merely because it was discovered late.
+- A new product decision, material scope expansion, or unresolved legacy
+  compatibility question stops the loop. The Foreman gives the owner plain
+  choices to continue, rescope, defer, or stop; none is presumed.
+- If the recovery recheck finds another substantive defect, there is no second
+  automatic repair cycle. Return to the owner with what failed and the cost of
+  another attempt.
+
+Additional agent cycles must answer a newly discovered product question or
+close a concrete semantic defect. Moving custody, repairing records prose, or
+confirming a deterministic mechanical edit is not enough by itself.
+
 ### Branch, PR, and Merge Protocol
 
 Audience: Agents
