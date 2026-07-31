@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "closing",
-  "status": "CLOSING PR #128 CI FAILED AT MYPY; ONE-FILE TYPE REPAIR CHARTERED. Pytest passed, then mypy reported four no-any-return errors in the Track-3 presentation test JSON helpers; later CI steps were skipped. A test-only Builder now repairs those annotations without changing runtime behavior or credited review evidence.",
+  "status": "CLOSING CI TYPE REPAIR RETURNED; FOCUSED RECHECK CHARTERED. The one-file repair uses explicit runtime-identity casts for the four JSON helpers; the focused module and repository mypy are green. The original Track-3 Reviewer now rechecks type closure and runtime/test equivalence before PR #128 is updated.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

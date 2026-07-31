@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "closing",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — CLOSING PR #128 CI FAILED AT MYPY; ONE-FILE TYPE REPAIR CHARTERED.** Pytest passed, then mypy reported four `no-any-return` errors in the Track-3 presentation test JSON helpers; later CI steps were skipped. A test-only Builder now repairs those annotations without changing runtime behavior or credited review evidence.",
-  "current_role": "Closing CI Types Repair Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-closing-ci-types-repair.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — CLOSING CI TYPE REPAIR RETURNED; FOCUSED RECHECK CHARTERED.** The one-file repair uses explicit runtime-identity casts for the four JSON helpers; the focused module and repository mypy are green. The original Track-3 Reviewer now rechecks type closure and runtime/test equivalence before PR #128 is updated.",
+  "current_role": "Closing CI Types Recheck Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-closing-ci-types-recheck.md"
 }
 -->
 # Phase State

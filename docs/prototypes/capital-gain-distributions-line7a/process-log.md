@@ -170,3 +170,11 @@
   Track-3 presentation test; later CI steps were skipped.
 - **Disposition:** one test-only type repair is chartered with the reviewed
   runtime and records evidence credited.
+
+## 2026-07-31 — Closing CI type repair returned
+
+- **Category:** no process incident.
+- **Event:** the Builder returned one test-only type repair with focused tests
+  and repository mypy green.
+- **Disposition:** the original Track-3 Reviewer is chartered for a focused
+  type-closure and runtime-equivalence recheck.
