@@ -134,3 +134,10 @@
 - **Event:** the focused repair recheck closed F1–F3 with no residual finding.
 - **Disposition:** Track 4 opens as the records-only completion unit before a
   fresh completion review and the milestone closing PR.
+
+## 2026-07-31 — Track 4 completion records returned
+
+- **Category:** no process incident.
+- **Event:** the records-only Builder returned one seven-file completion unit.
+- **Disposition:** one fresh author-independent completion review is chartered
+  before any closing PR or milestone closeout.

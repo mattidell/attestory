@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-4",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 READY; TRACK 4 COMPLETION RECORDS CHARTERED.** The focused presentation repair recheck closed F1–F3 with valid-output byte identity and credited evidence intact. A records-only Builder now prepares the frontier, roadmap, exit-criterion dispositions, deferral ledger, retrospective, phase briefing, and README for fresh completion review.",
-  "current_role": "Track 4 Completion Records Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-track4-completion-records.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 4 COMPLETION RECORDS PREPARED; FRESH REVIEW CHARTERED.** The seven-file records unit separates merged evidence, reviewed Track-3 branch evidence, pending closing CI/merge, the bounded synthetic-complete frontier claim, and carried deferrals. A fresh author-independent Reviewer now checks the completion record before any closing PR.",
+  "current_role": "Track 4 Completion Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-track4-completion-review.md"
 }
 -->
 # Phase State

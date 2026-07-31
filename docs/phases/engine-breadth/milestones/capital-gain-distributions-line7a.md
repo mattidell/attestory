@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-4",
-  "status": "TRACK 4 COMPLETION RECORDS PREPARED FOR INDEPENDENT REVIEW. The bounded synthetic-complete record is supported by merged Track-0 through Track-2 and line-7b prerequisite evidence plus the reviewed Track-3 branch evidence. The closing PR, CI gate of record, owner merge, and mechanical post-merge closeout remain pending.",
+  "status": "TRACK 4 COMPLETION RECORDS PREPARED; FRESH REVIEW CHARTERED. The seven-file records unit separates merged evidence, reviewed Track-3 branch evidence, pending closing CI/merge, the bounded synthetic-complete frontier claim, and carried deferrals. A fresh author-independent Reviewer now checks the completion record before any closing PR.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
