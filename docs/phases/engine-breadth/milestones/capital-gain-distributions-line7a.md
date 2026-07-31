@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-3",
-  "status": "TRACK 3 CHARTER STOP. The fresh Builder proved the ratified v7 graph omits the line-7b form-field member and that the published field cannot join the atomic line-7b rule disposition through the generic presentation path. No implementation was made. NEXT ACTION: owner disposition among a targeted versioned prerequisite repair (recommended), a line-7a-only rescope, or stopping the milestone incomplete.",
+  "milestone_state": "track-2",
+  "status": "LINE 7B PREREQUISITE REPAIR. The owner selected the targeted repair after the Track-3 clean stop. The Builder is chartered to add only immutable line-7b field/package/registry/release/adoption successors and production-shaped proof, preserving every ratified v1/v7 byte. Track 3 remains paused until this repair is independently reviewed, merged, and green.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

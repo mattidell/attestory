@@ -66,4 +66,8 @@ not an automatic charter expansion.
    as an unresolved production gap and do not claim the milestone's current
    exit criteria.
 
-No option is selected by this record.
+## Owner disposition
+
+On 2026-07-31 the owner selected option 1 and directed the foreman to keep
+working. The prerequisite repair is chartered at
+`docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite.md`.
