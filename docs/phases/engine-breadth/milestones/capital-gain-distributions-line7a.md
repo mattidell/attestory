@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-3",
-  "status": "TRACK 3 BUILD. PR #120 merged Track 2 at `90f12e607cd4ff61770c14859b2a720763361336` with `verify` run `30592473685` green. The fresh Track-3 branch and presentation charter are bound to that ratified commit. NEXT ACTION: execute the chartered presentation and production-shaped synthetic integration build.",
+  "status": "TRACK 3 CHARTER STOP. The fresh Builder proved the ratified v7 graph omits the line-7b form-field member and that the published field cannot join the atomic line-7b rule disposition through the generic presentation path. No implementation was made. NEXT ACTION: owner disposition among a targeted versioned prerequisite repair (recommended), a line-7a-only rescope, or stopping the milestone incomplete.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
