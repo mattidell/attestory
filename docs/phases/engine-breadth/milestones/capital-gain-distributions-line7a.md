@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-3",
-  "status": "TRACK 3 PREPARED AFTER TRACK 2 READY. Track 2's consistency and type repairs both passed fresh independent recheck. The replacement PR #120 CI run must now prove pytest, mypy, governance lint, and the data-boundary scan green. NEXT ACTION: after a green owner merge, bind `docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md` to the no-fast-forward merge commit and launch it on a fresh branch.",
+  "status": "TRACK 3 BUILD. PR #120 merged Track 2 at `90f12e607cd4ff61770c14859b2a720763361336` with `verify` run `30592473685` green. The fresh Track-3 branch and presentation charter are bound to that ratified commit. NEXT ACTION: execute the chartered presentation and production-shaped synthetic integration build.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
