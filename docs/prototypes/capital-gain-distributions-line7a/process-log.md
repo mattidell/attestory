@@ -178,3 +178,10 @@
   and repository mypy green.
 - **Disposition:** the original Track-3 Reviewer is chartered for a focused
   type-closure and runtime-equivalence recheck.
+
+## 2026-07-31 — Closing CI type repair reached READY
+
+- **Category:** no process incident.
+- **Event:** focused recheck closed all four mypy errors with runtime and
+  six-test semantics unchanged.
+- **Disposition:** update PR #128 and rerun the CI gate of record.

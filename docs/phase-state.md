@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "closing",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — CLOSING CI TYPE REPAIR RETURNED; FOCUSED RECHECK CHARTERED.** The one-file repair uses explicit runtime-identity casts for the four JSON helpers; the focused module and repository mypy are green. The original Track-3 Reviewer now rechecks type closure and runtime/test equivalence before PR #128 is updated.",
-  "current_role": "Closing CI Types Recheck Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-closing-ci-types-recheck.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — CLOSING CI TYPE REPAIR RECHECK READY; PR #128 UPDATE PENDING.** The one-file repair closes all four mypy errors through runtime-identity casts with six-test semantics unchanged; focused tests, repository mypy, governance lint, and the envelope scan are green. The Foreman now updates PR #128 and monitors its replacement `verify` run.",
+  "current_role": "Foreman (update and monitor owner-held closing PR #128)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md"
 }
 -->
 # Phase State

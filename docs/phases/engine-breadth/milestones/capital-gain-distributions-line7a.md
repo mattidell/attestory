@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "closing",
-  "status": "CLOSING CI TYPE REPAIR RETURNED; FOCUSED RECHECK CHARTERED. The one-file repair uses explicit runtime-identity casts for the four JSON helpers; the focused module and repository mypy are green. The original Track-3 Reviewer now rechecks type closure and runtime/test equivalence before PR #128 is updated.",
+  "status": "CLOSING CI TYPE REPAIR RECHECK READY; PR #128 UPDATE PENDING. The one-file repair closes all four mypy errors through runtime-identity casts with six-test semantics unchanged; focused tests, repository mypy, governance lint, and the envelope scan are green. The Foreman now updates PR #128 and monitors its replacement verify run.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
