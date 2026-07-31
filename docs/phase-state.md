@@ -2,12 +2,12 @@
 {
   "version": 1,
   "phase": "Legible Entry",
-  "topic": "improvised-milestone",
-  "active_plan": "docs/phases/legible-entry/milestones/improvised-milestone.md",
-  "milestone_state": "closed",
-  "status": "**LEGIBLE ENTRY / IMPROVISED MILESTONE — CLOSED 2026-07-31.** No implementation began and no product behavior changed. The owner closed it so main and main-ui can begin their next milestones from a clean shared base. The unflattening prototype remains parked for later selection.",
-  "current_role": "Foreman (select the next milestone; owner-held)",
-  "current_prompt": "docs/phases/legible-entry/legible-entry-roadmap.md"
+  "topic": "improvised-prototype",
+  "active_plan": "docs/phases/legible-entry/milestones/improvised-prototype.md",
+  "milestone_state": "planned",
+  "status": "**LEGIBLE ENTRY / IMPROVISED PROTOTYPE — OPEN ON MAIN-UI.** Prototype one unflattened, navigable explanation in the existing synthetic W-2 entry surface. The owner directs the work and decides what to try and when the milestone is done.",
+  "current_role": "Foreman (owner-directed prototype; awaiting the owner's next instruction)",
+  "current_prompt": "docs/phases/legible-entry/milestones/improvised-prototype.md"
 }
 -->
 # Phase State
@@ -20,17 +20,18 @@ Git, `docs/reviews/`, and `docs/adr/`.
 ## High Level Milestone Briefing
 
 The entry surface can accept and correct one synthetic W-2 fact, run the
-return, and show which lines changed. The proposed explanation prototype did
-not begin. The owner closed it so `main` and `main-ui` can select separate
-milestones after their histories are reconciled.
+return, and show which lines changed. The new prototype starts from the richer
+presentation and lineage data the UI already receives and asks how to make
+that record understandable and navigable instead of flattening it into status
+rows.
 
 ## Operational State: Legible Entry
 
-* **Active Milestone:** none. The Improvised Milestone **closed without implementation 2026-07-31.**
-* **Product change:** none.
-* **Plan:** `docs/phases/legible-entry/milestones/improvised-milestone.md`.
-* **Parked work:** the unflattening explanation prototype may be selected again later.
-* **Next:** reconcile `main-ui` into `main`, then select separate milestones on the two branch lines.
+* **Active Milestone:** Improvised Prototype.
+* **Starting point:** the existing synthetic W-2 loop accepts and corrects a contribution and reports changed return lines.
+* **Plan:** `docs/phases/legible-entry/milestones/improvised-prototype.md`.
+* **First card:** render a walkable explanation for Form 1040 line 1a without deriving tax meaning again.
+* **Next:** the owner chooses the first implementation move.
 * **Branch line:** UI work continues on `main-ui`.
 
 ## Re-entry
