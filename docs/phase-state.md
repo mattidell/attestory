@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "milestone_state": "track-3",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — LINE 7B PREREQUISITE READY.** Independent review returned READY on the versioned field v2/package v8/publication route, checksum chain, immutable history, and live disposition proof. NEXT ACTION: merge this prerequisite through green CI, then create a fresh Track-3 branch and rebind the presentation charter to that merge commit.",
-  "current_role": "Foreman (merge line 7b prerequisite; then rebind Track 3)",
-  "current_prompt": "docs/reviews/2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-review.md"
+  "milestone_state": "track-2",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — LINE 7B PREREQUISITE CI REPAIR.** PR #125 CI proved 743 tests green and exposed one stale Track-1 loader assertion that still expects historical line-7b v1. The Builder is chartered for a one-file test update asserting both current v2 selection and explicit v1 preservation. Production and publication artifacts are frozen.",
+  "current_role": "Line 7b Prerequisite CI Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-ci-repair.md"
 }
 -->
 # Phase State

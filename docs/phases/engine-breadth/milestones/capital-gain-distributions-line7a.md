@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-3",
-  "status": "LINE 7B PREREQUISITE READY. Independent review returned READY on the versioned field v2/package v8/publication route, checksum chain, immutable history, and live disposition proof. NEXT ACTION: merge this prerequisite through green CI, then create a fresh Track-3 branch and rebind the presentation charter to that merge commit.",
+  "milestone_state": "track-2",
+  "status": "LINE 7B PREREQUISITE CI REPAIR. PR #125 CI proved 743 tests green and exposed one stale Track-1 loader assertion that still expects historical line-7b v1. The Builder is chartered for a one-file test update asserting both current v2 selection and explicit v1 preservation. Production and publication artifacts are frozen.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
