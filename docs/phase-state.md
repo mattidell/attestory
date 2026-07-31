@@ -5,7 +5,7 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-3",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 FINDINGS-ONLY REPAIR CHARTERED.** Independent review commit 22f281e8094fa126a5424949e01478e15504d11c returned NOT READY on three bounded fail-closed projector defects. The single allowed repair is limited to generic categorical-value and exact field-citation validation plus focused tests; valid goldens and browser artifacts remain frozen.",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 FINDINGS-ONLY REPAIR RECHARTERED AFTER CLEAN STOP.** The first repair charter overreached into legacy rules that declare no citations; no implementation landed. The amended generic invariant validates exact field citations when an owning rule declares citations, rejects duplicate resolved identities, and preserves legacy valid outputs.",
   "current_role": "Track 3 Presentation Repair Builder",
   "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-repair.md"
 }

@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-3",
-  "status": "TRACK 3 FINDINGS-ONLY REPAIR CHARTERED. Independent review commit 22f281e8094fa126a5424949e01478e15504d11c returned NOT READY on three bounded fail-closed projector defects. The single allowed repair is limited to generic categorical-value and exact field-citation validation plus focused tests; valid goldens and browser artifacts remain frozen.",
+  "status": "TRACK 3 FINDINGS-ONLY REPAIR RECHARTERED AFTER CLEAN STOP. The first repair charter overreached into legacy rules that declare no citations; no implementation landed. The amended generic invariant validates exact field citations when an owning rule declares citations, rejects duplicate resolved identities, and preserves legacy valid outputs.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -69,6 +69,7 @@
     "implementation": [
       "docs/roles/builder.md",
       "docs/reviews/2026-07-30-capital-gain-distributions-line7a-track3-review.md",
+      "docs/reviews/2026-07-30-capital-gain-distributions-line7a-track3-repair-charter-stop.md",
       "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md",
       "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-review.md",
       "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",

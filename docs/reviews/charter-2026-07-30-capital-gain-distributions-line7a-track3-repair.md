@@ -2,15 +2,17 @@
 
 Audience: Builder.
 
-Status: **chartered from the independent Track 3 `NOT READY` review.**
+Status: **amended after a clean charter stop; ready for the continuing repair
+Builder.**
 
 ## Context Capsule
 
 - **Source ref and resolved launch commit:** branch
-  `track/capital-gain-distributions-line7a-track3-presentation` at review
-  commit `22f281e8094fa126a5424949e01478e15504d11c`. The repair-charter
-  commit must be its direct successor; resolve `HEAD` through the orientation
-  command and verify it against Git before acting.
+  `track/capital-gain-distributions-line7a-track3-presentation` at this amended
+  charter/pointer commit. It descends from review commit
+  `22f281e8094fa126a5424949e01478e15504d11c` through the original repair
+  charter and the clean charter-stop record. Resolve `HEAD` through the
+  orientation command and verify it against Git before acting.
 - **Exact object:** repair only F1–F3 in
   `docs/reviews/2026-07-30-capital-gain-distributions-line7a-track3-review.md`:
   arbitrary categorical source strings are accepted as affirmative checked,
@@ -36,6 +38,7 @@ Status: **chartered from the independent Track 3 `NOT READY` review.**
 - **Full reads before acting:** this charter;
   `docs/roles/builder.md`;
   `docs/reviews/2026-07-30-capital-gain-distributions-line7a-track3-review.md`;
+  `docs/reviews/2026-07-30-capital-gain-distributions-line7a-track3-repair-charter-stop.md`;
   `docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md`;
   `docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-review.md`;
   `docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md`;
@@ -69,24 +72,28 @@ evidence ceiling, and every stop condition.
    only source value `"checked"` is valid. Reject `"no"`, `"unchecked"`, the
    empty string, non-strings, or any other value before constructing a model.
    Keep the categorical value out of the presentation model and renderer.
-2. **One generic field-citation chain.** For every published form field,
-   numeric or categorical, require all of the following through generic
-   identities:
+2. **One generic declared-citation chain.** Reject duplicate resolved
+   `citation.v1` identities globally rather than silently overwriting them.
+   For a published form field whose owning resolved rule declares a non-empty
+   `citations` list, require all of the following through generic identities:
    - the field declares one well-formed citation identity and version;
-   - the disposition's owning resolved rule publishes the joined symbol and
-     declares that exact citation once;
-   - the resolved graph contains exactly one `citation.v1` citizen with that
-     identity and version; and
-   - no duplicate resolved citation identity is silently overwritten.
+   - the owning rule publishes the joined symbol and declares that exact field
+     citation once;
+   - the resolved graph contains exactly one citation citizen with that
+     identity and version.
    Missing, duplicate, wrong-identity, or wrong-version citations fail closed
-   before a presentation artifact is written. Do not encode line IDs or
-   expected citation IDs in projector logic.
+   before a presentation artifact is written. Preserve existing behavior for
+   legacy rules that declare no citations; this repair neither validates nor
+   backfills their field-citation chain. Do not encode line IDs or expected
+   citation IDs in projector logic.
 3. **Focused kill tests.** Add explicit failures for each review mutation:
    alternate and empty categorical strings; duplicate resolved citation
    citizens; a mutated field citation accompanied by the matching wrong
    resolved citizen; wrong citation version; missing categorical citation; and
-   missing, wrong, or duplicate numeric line-7a citations. Tests must also
-   prove the valid line-7a and line-7b paths still succeed and remain atomic.
+   missing, wrong, or duplicate numeric line-7a citations. Include a legacy
+   owning rule without `citations` to prove the existing v1/v6-compatible path
+   remains unchanged. Tests must also prove the valid line-7a and line-7b paths
+   still succeed and remain atomic.
 4. **No valid-output churn.** Regenerate the eligible, missing-authority, and
    Schedule-D-required Track-3 models in memory and prove exact equality with
    committed bytes. Preserve the established v1/v6 presentation golden,
