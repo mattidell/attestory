@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — LINE 7B PREREQUISITE REPAIR.** The owner selected the targeted repair after the Track-3 clean stop. The Builder is chartered to add only immutable line-7b field/package/registry/release/adoption successors and production-shaped proof, preserving every ratified v1/v7 byte. Track 3 remains paused until this repair is independently reviewed, merged, and green.",
-  "current_role": "Line 7b Prerequisite Repair Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — LINE 7B PREREQUISITE REVIEW.** The versioned field v2/package v8/publication-route repair is committed with production-shaped synthetic proof. An author-independent Reviewer is chartered to measure the exact seven-file delta, immutable history, generic join, checksum chain, and regressions. Track 3 remains paused pending READY, merge, and green CI.",
+  "current_role": "Line 7b Prerequisite Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-review.md"
 }
 -->
 # Phase State

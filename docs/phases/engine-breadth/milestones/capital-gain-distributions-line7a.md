@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-2",
-  "status": "LINE 7B PREREQUISITE REPAIR. The owner selected the targeted repair after the Track-3 clean stop. The Builder is chartered to add only immutable line-7b field/package/registry/release/adoption successors and production-shaped proof, preserving every ratified v1/v7 byte. Track 3 remains paused until this repair is independently reviewed, merged, and green.",
+  "status": "LINE 7B PREREQUISITE REVIEW. The versioned field v2/package v8/publication-route repair is committed with production-shaped synthetic proof. An author-independent Reviewer is chartered to measure the exact seven-file delta, immutable history, generic join, checksum chain, and regressions. Track 3 remains paused pending READY, merge, and green CI.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
