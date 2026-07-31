@@ -189,6 +189,22 @@ before a plan or role cycle is marked complete, it prepares the next sequential
 role's charter and updates those fields. Prompt preparation records plan
 sequence; it does not launch or dispatch a role.
 
+### Phase-State Context Firewall
+
+Phase state is a context firewall, not a project diary. It gives a
+returning foreman a curated allowlist: what the product can do now, the current
+product question, the active plan, the immediate next action, and explicitly
+parked work. It does not repeat track history, review narratives, milestone
+scores, retrospective lessons, or a foreman's interpretation of why prior work
+was important. `milestone_state` reports workflow position only; it is never
+evidence of product quality or direction.
+
+A foreman does not search old plans, reviews, retrospectives, branches, or
+other repository history to discover scope or choose work. Follow-up history
+is loaded only when the owner, phase state, or active plan names the specific
+source and the current question it is meant to answer. Unnamed history remains
+available as history, not as boot context.
+
 Dispatch authorization is normed in `AGENTS.md` ("Dispatch authorization") and
 is not restated here.
 
