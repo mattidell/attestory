@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-3",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 PRESENTATION REVIEW CHARTERED.** The one-commit Builder object 53a9ecf86ee6f634c859704e8c068c9de9540476..75c0de90ecd271a8f552657af66206be111b0038 is complete with no stop finding. A fresh author-independent Reviewer is chartered to measure the committed presentation and synthetic-browser evidence.",
-  "current_role": "Track 3 Presentation Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-review.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 FINDINGS-ONLY REPAIR CHARTERED.** Independent review commit 22f281e8094fa126a5424949e01478e15504d11c returned NOT READY on three bounded fail-closed projector defects. The single allowed repair is limited to generic categorical-value and exact field-citation validation plus focused tests; valid goldens and browser artifacts remain frozen.",
+  "current_role": "Track 3 Presentation Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-repair.md"
 }
 -->
 # Phase State
