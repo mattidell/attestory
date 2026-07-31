@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-4",
-  "status": "TRACK 4 COMPLETION REVIEW NOT READY; ONE-RECORD F1 REPAIR CHARTERED. The review credited object containment, PR/CI reality, Track-3 evidence, exit criteria 1–9, frontier/roadmap fidelity, retrospective quality, lifecycle wording, and data safety. F1 requires the new ledger to carry the active Schedule B Part I multi-family interest deferral from its predecessor.",
+  "status": "TRACK 4 ONE-RECORD F1 REPAIR RETURNED; FOCUSED RECHECK CHARTERED. The repair adds the omitted Schedule B Part I multi-family interest obligation and trigger to the new deferral ledger. The original Completion Reviewer now rechecks only F1; all other completion-review measurements remain credited.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

@@ -148,3 +148,10 @@
 - **Event:** completion review returned one bounded deferral-ledger finding.
 - **Disposition:** one records-only F1 repair is chartered with every other
   completion-review measurement credited.
+
+## 2026-07-31 — Track 4 F1 records repair returned
+
+- **Category:** no process incident.
+- **Event:** the records Builder returned one one-file deferral-ledger repair.
+- **Disposition:** the original Completion Reviewer is chartered for a focused
+  F1 recheck with all other measurements credited.
