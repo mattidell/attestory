@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-3",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 FINDINGS-ONLY REPAIR RECHARTERED AFTER CLEAN STOP.** The first repair charter overreached into legacy rules that declare no citations; no implementation landed. The amended generic invariant validates exact field citations when an owning rule declares citations, rejects duplicate resolved identities, and preserves legacy valid outputs.",
-  "current_role": "Track 3 Presentation Repair Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-repair.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 REPAIR RETURNED; FOCUSED RECHECK CHARTERED.** One findings-only repair commit is in custody after the clean charter stop. The original author-independent Reviewer now rechecks F1–F3, the amended generic invariant, legacy-path preservation, and valid-output byte identity.",
+  "current_role": "Track 3 Presentation Repair Recheck Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-repair-recheck.md"
 }
 -->
 # Phase State
@@ -24,15 +24,16 @@ Form 1099-DIV box 2a capital-gain distributions reported directly on Form 1040
 line 7a when contributed authority says Schedule D is not required. The
 contract, source family, declared computation, and line-7b prerequisite are on
 `main`. Track 3 now carries the two new fields through the existing synthetic
-presentation surface before completion records are prepared.
+presentation surface. Its findings-only repair awaits a focused independent
+recheck before completion records are prepared.
 
 ## Operational State: Capital-Gain Distributions and Line 7a
 
 * **Active Milestone:** Capital-Gain Distributions and Form 1040 Line 7a
-* **Current Track:** Track 3 — independent presentation review
+* **Current Track:** Track 3 — focused presentation repair recheck
 * **Ratified contract:** ADR-0050
 * **Merged prerequisite:** PR #125, with CI `verify` green
-* **Remaining sequence:** independent Track-3 review, then Track 4 completion records
+* **Remaining sequence:** focused Track-3 recheck, then Track 4 completion records
 
 ### Standing Directives
 

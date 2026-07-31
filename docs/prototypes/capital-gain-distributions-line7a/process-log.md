@@ -119,3 +119,11 @@
 - **Disposition:** prepare the conditional Track-3 presentation charter and
   publish Track 2 as its reviewed development-unit PR. Track 3 remains blocked
   until that PR reaches `main` with green CI.
+
+## 2026-07-30 — Foreman succession and Track 3 repair return
+
+- **Category:** no process incident.
+- **Event:** a successor Foreman reconciled the clean Track-3 branch against
+  the ratified line and took custody of the returned findings-only repair.
+- **Disposition:** one focused author-independent F1–F3 recheck is chartered;
+  all unchanged Track-3 review evidence remains credited.
