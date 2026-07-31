@@ -43,10 +43,14 @@ source and completeness boundary is selected.
 
 ## Status
 
-- **Capital-Gain Distributions and Form 1040 Line 7a — planned.** The owner
-  selected engine breadth on 2026-07-28 and accepted the corrected direct-line
-  sequence after official 2025 instructions showed that the initial
-  box-2a-plus-Schedule-D proposal was structurally wrong. Plan:
+- **Capital-Gain Distributions and Form 1040 Line 7a — completion records
+  prepared and independently reviewable.** The bounded direct-reporting class
+  is recorded as synthetic complete from accepted and reviewed evidence.
+  Closing review, the closing PR's `verify`, and owner merge remain pending;
+  the milestone and Engine Breadth phase are not closed. Plan:
   `milestones/capital-gain-distributions-line7a.md`.
+- **Next Engine Breadth milestone — unchosen.** Selection remains owner-held
+  after the current milestone closes. Schedule D and positive-interest-source
+  expansion remain candidates; naming them does not preselect either one.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
   historical evidence for the bounded slice Engine Breadth starts from.

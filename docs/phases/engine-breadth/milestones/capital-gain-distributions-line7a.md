@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-4",
-  "status": "TRACK 3 READY; TRACK 4 COMPLETION RECORDS CHARTERED. The focused presentation repair recheck closed F1–F3 with valid-output byte identity and credited evidence intact. A records-only Builder now prepares the frontier, roadmap, exit-criterion dispositions, deferral ledger, retrospective, phase briefing, and README for fresh completion review.",
+  "status": "TRACK 4 COMPLETION RECORDS PREPARED FOR INDEPENDENT REVIEW. The bounded synthetic-complete record is supported by merged Track-0 through Track-2 and line-7b prerequisite evidence plus the reviewed Track-3 branch evidence. The closing PR, CI gate of record, owner merge, and mechanical post-merge closeout remain pending.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -21,50 +21,7 @@
     "no UI redesign, filing, transmission, security hardening, authority-separation substrate, or historical-v1 migration",
     "no personal values, identifiers, dispositions, workspace locations, documents, screenshots, or generated real-data artifacts"
   ],
-  "initial_briefing_follow_up": {
-    "version": 1,
-    "expires": "milestone-close",
-    "grounding_commit": "dd030ee760bfbaa5e4491bf761d262e26ba2130c",
-    "notes": [
-      "The closed Real Return matrix measures maturity inside a bounded slice; Engine Breadth needs a separate vertical-slice coverage frontier.",
-      "Box 2a is already a named honest block with a signal and contradiction interlock, while the generic attachment ontology is not a reason to manufacture Schedule D.",
-      "Official 2025 instructions corrected the initial plan: the bounded box-2a-only path is direct to Form 1040 line 7a when Schedule D is declared not required."
-    ],
-    "sources": [
-      {
-        "path": "docs/phases/real-return/milestones/first-real-return-slice-deferral-ledger.md",
-        "blob": "058f78836cc8bea8d5063a2fa03d20825c9ccf00"
-      },
-      {
-        "path": "docs/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md",
-        "blob": "1a04cd55fd5b9a04c4ba443408b547b644b4fa8a"
-      },
-      {
-        "path": "docs/phases/real-return/milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md",
-        "blob": "af4b7a49b1abb0fe98bdb16b412c5fac40b48681"
-      },
-      {
-        "path": "docs/phases/real-return/real-return-roadmap.md",
-        "blob": "30b3445c3de0bc080b8ae55a20d7583035561144"
-      },
-      {
-        "path": "docs/phases/real-return/maturity-matrix.md",
-        "blob": "db52f2129ea16829a422f70a4edc03b37b1d7725"
-      },
-      {
-        "path": "docs/adr/0035-dividend-composition-and-lines-3a-3b.md",
-        "blob": "51885566fb9065433979e96b2a9f154e951eed2f"
-      },
-      {
-        "path": "docs/adr/0036-schedule-attachment-ontology.md",
-        "blob": "b3fe07239f31d325a4c00c5bbc9ea846aff922c7"
-      },
-      {
-        "path": "docs/adr/0038-qdcg-worksheet-and-declared-absence.md",
-        "blob": "8592826c0c2c2f5cde318dba3388e4014d105bdd"
-      }
-    ]
-  },
+  "retrospective": "docs/milestone-retrospectives/2026-07-31-capital-gain-distributions-line7a.md",
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
@@ -452,6 +409,29 @@ the closing PR.
    true Schedule D slice separately selectable.
 10. The retrospective, roadmap, phase state, deferral ledger, and temporary
     initial-briefing supplement are closed out per project protocol.
+
+## Track 4 execution record
+
+Prepared 2026-07-31 for fresh completion review. This record distinguishes
+evidence already ratified on `main` from reviewed evidence that remains on the
+milestone branch:
+
+| Exit criterion | Disposition and named evidence |
+| --- | --- |
+| 1. Rival-backed accepted contract | **Satisfied on `main`.** ADR-0050 and its incumbent/rival evidence chain merged in PR #110 (`1cb12d785534`) with `verify` green; the rejected conclusion-only alternative remains recorded in the accepted ADR. |
+| 2. Immutable box-2a source path | **Satisfied on `main`.** Track 1's F1 repair recheck is `READY`; the reviewed unit merged in PR #111 (`51b0987c0607`) with `verify` green and additive publication history. |
+| 3. Line 7a and line 7b publication | **Satisfied on `main`.** Track 2 merged in PR #120 (`90f12e607cd4`) and the generic line-7b field/package prerequisite merged in PR #125 (`ea542ece491d`), both with `verify` green. |
+| 4. Declared downstream recomputation | **Satisfied on `main`.** Track 2's F1/F2 repair recheck is `READY`; PR #120 carries reviewed line 9, taxable-income, and line-16 behavior with exact pins and no runner-resident tax arithmetic. |
+| 5. Honest excluded routes | **Satisfied on `main`.** The Track 2 recheck and PR #125 prerequisite review measure missing authority and Schedule-D-required blocking/inapplicability without creating Schedule D. |
+| 6. Lifecycle, package, and explanation battery | **Satisfied on `main`.** Track 2's review lineage closed F1/F2 and both CI repair rechecks returned `READY`; PR #120's merge commit has green `verify`. |
+| 7. Presentation guarantees | **Satisfied by reviewed branch evidence, not yet ratified on `main`.** The final focused Track-3 recheck at `ac31998f0d54` is **READY**, closing F1–F3 while preserving valid-output byte identity and credited rendering/redaction evidence. |
+| 8. Independent reviews and merge CI | **Pending closing merge.** Tracks 0–2 and the line-7b prerequisite have independent review plus green merge CI. Track 3 is independently `READY` on this branch but is not yet on a merge commit; the closing PR's `verify` is the remaining gate of record. |
+| 9. Coverage frontier | **Prepared for review in Track 4.** The refreshed frontier records only the selected direct-reporting class as synthetic complete and leaves Schedule D separately selectable; this wording is not yet ratified on `main`. |
+| 10. Completion records and closeout | **Prepared, not closed.** This commit removes the temporary briefing supplement and adds the retrospective, roadmap, frontier, phase prose, README, and deferral ledger. Fresh completion review, the closing PR, green CI, owner merge, and mechanical post-merge closeout remain pending. |
+
+No row claims real-data exercise, a real browser/workspace session, filing
+readiness, general capital-gains support, or a completed merge of this
+records unit.
 
 ## Tracks
 
