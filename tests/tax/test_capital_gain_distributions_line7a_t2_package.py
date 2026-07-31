@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import unittest
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.package_validation import MemberIssue, validate_package
@@ -16,7 +16,7 @@ SCOPE = {"tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-i
 
 
 def _load(name: str) -> dict[str, Any]:
-    return json.loads((CONTENT / name).read_text())
+    return cast(dict[str, Any], json.loads((CONTENT / name).read_text()))
 
 
 def _corpus(*names: str) -> dict[tuple[str, str], dict[str, Any]]:
@@ -74,7 +74,7 @@ class MixedBox2aGraph(unittest.TestCase):
 
 class RawBox2aDownstreamRead(unittest.TestCase):
     def test_line9_collecting_raw_box2a_is_rejected(self) -> None:
-        bad_line9 = {
+        bad_line9: dict[str, Any] = {
             "schema": "rule-artifact.v2",
             "id": "demo.rule.line9-raw-box2a",
             "version": "v1",
