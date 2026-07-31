@@ -38,7 +38,12 @@ FIELD_SCHEMAS = frozenset({"form-field.v2", "form-field.v3"})
 ATTACHMENT_SCHEMA = "attachment-rule.v1"
 
 _NUMERIC_DISPOSITIONS = frozenset({"published_value", "computed_zero", "closure_backed_zero"})
-_KNOWN_DISPOSITIONS = _NUMERIC_DISPOSITIONS | {"blocked", "guard_inapplicable"}
+# A field may declare one fixed, non-numeric publication instruction.  This is
+# deliberately a presentation disposition rather than a value kind: the
+# renderer receives only the field's declared instruction and never the
+# categorical value which made the rule publish.
+_CATEGORICAL_DISPOSITIONS = frozenset({"published_categorical"})
+_KNOWN_DISPOSITIONS = _NUMERIC_DISPOSITIONS | _CATEGORICAL_DISPOSITIONS | {"blocked", "guard_inapplicable"}
 _DEPENDENCY_ROLES = frozenset({"input", "choice"})
 _CLOSURE_FACT_MARKER = ".source-closure"
 
@@ -196,6 +201,18 @@ def _resolve_field_row(
     finding = publications_by_id.get(finding_id)
     if finding is None:
         raise PresentationModelError(f"published row cites unrecorded finding {finding_id!r}")
+    instruction = field.get("dispositions", {}).get("published_value")
+    if not isinstance(instruction, Mapping) or not isinstance(instruction.get("render"), str):
+        raise PresentationModelError(f"published field {field['id']!r} lacks a declared render instruction")
+    # Numeric fields are the established ``{value}`` form.  A fixed
+    # categorical instruction is admitted only for the declared affirmative
+    # checkbox form; its source value is deliberately not copied to the model.
+    if instruction["render"] != "{value}":
+        if instruction["render"] != "checked" or not isinstance(finding.get("value"), str):
+            raise PresentationModelError(f"invalid categorical publication for field {field['id']!r}")
+        _raw_leaves(finding["pins"], publications_by_id=publications_by_id, state=state, root_id=finding_id)
+        return {"disposition": "published_categorical", "act": {"run_id": run_id, "finding": finding}}, []
+
     value = _numeric_value(finding["value"], symbol=finding["symbol"])
     leaves = _raw_leaves(finding["pins"], publications_by_id=publications_by_id, state=state, root_id=finding_id)
     kind, citation_leaves = _classify_numeric(value, leaves, state)
@@ -217,6 +234,18 @@ def _resolve_field_row(
 
 def _section_id(field: Mapping[str, Any]) -> str:
     return f"line-{field['line']}"
+
+
+def _require_resolved_field_citation(field: Mapping[str, Any], citations: Mapping[tuple[str, str], Mapping[str, Any]]) -> None:
+    """Require a categorical field's exact declared citation in this graph."""
+    citation = field.get("citation")
+    if not isinstance(citation, Mapping):
+        raise PresentationModelError(f"categorical field {field['id']!r} lacks a field citation")
+    citation_id, citation_version = citation.get("id"), citation.get("version")
+    if not isinstance(citation_id, str) or not isinstance(citation_version, str):
+        raise PresentationModelError(f"categorical field {field['id']!r} has an invalid field citation")
+    if (citation_id, citation_version) not in citations:
+        raise PresentationModelError(f"categorical field {field['id']!r} cites an unresolved field citation")
 
 
 def _resolve_attachment(
@@ -291,6 +320,11 @@ def build_presentation_model(
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
     attachments = [m for m in resolved_members if m.get("schema") == ATTACHMENT_SCHEMA]
     rules_by_id = _rules_by_id(resolved_members)
+    citations = {
+        (member["id"], member["version"]): member
+        for member in resolved_members
+        if member.get("schema") == "citation.v1" and isinstance(member.get("id"), str) and isinstance(member.get("version"), str)
+    }
     publications_by_id = {pub.finding["id"]: pub.finding for pub in publications}
     by_symbol = _dispositions_by_symbol(dispositions, rules_by_id)
 
@@ -304,6 +338,8 @@ def build_presentation_model(
             row, field, section_id=section_id, publications_by_id=publications_by_id,
             state=state, run_id=run_id, pin_labels=pin_labels,
         )
+        if resolved["disposition"] == "published_categorical":
+            _require_resolved_field_citation(field, citations)
         sections.append({
             "id": section_id,
             "field": dict(field),
@@ -374,6 +410,10 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
         _require_keys(resolved, frozenset({"disposition", "value", "act"}), frozenset(), path)
         if not isinstance(resolved["value"], (int, float)) or isinstance(resolved["value"], bool):
             raise PresentationModelError(f"{path}.value: expected a number")
+        if not isinstance(resolved["act"], dict):
+            raise PresentationModelError(f"{path}.act: expected an object")
+    elif disposition == "published_categorical":
+        _require_keys(resolved, frozenset({"disposition", "act"}), frozenset(), path)
         if not isinstance(resolved["act"], dict):
             raise PresentationModelError(f"{path}.act: expected an object")
     elif disposition == "blocked":
