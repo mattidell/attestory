@@ -2,8 +2,8 @@
 
 Audience: Product (roadmap); Shared (status)
 
-Status: **active.** Milestones 1–4 are closed. Milestone 5, the Improvised
-Milestone, is in planning.
+Status: **active.** Milestones 1–5 are closed. No successor milestone has been
+selected.
 
 ## Thesis
 
@@ -136,7 +136,9 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    preserves the existing presentation model instead of flattening it into
    disconnected status rows. Work stays flexible and goal-oriented; the owner
    chooses what to try next and decides what completion means after seeing the
-   result. Plan:
+   result. **Closed without implementation 2026-07-31:** the owner deferred the
+   prototype so `main` and `main-ui` can start their next milestones from a
+   clean shared base. Plan:
    `docs/phases/legible-entry/milestones/improvised-milestone.md`.
 6. **Real Entry.** The owner enters a real fact through the surface and
    attests. Owner-operated; the only milestone that can raise a row to L3. By
@@ -233,7 +235,6 @@ disclosed environmental hazard the evidence was aggregated alongside. L2
 here means synthetic end-to-end and this usability evaluation both passed;
 it does not mean L3, and nothing in this milestone operated on real data.
 
-**Milestone 5 is in planning:** the Improvised Milestone turns from scoring
-the existing loop toward making its record and explanations navigable. It
-starts with an unflattening prototype and stays deliberately flexible under
-owner-directed mode.
+**Milestone 5 closed without implementation 2026-07-31.** No product behavior
+changed. The proposed unflattening prototype remains available for later
+selection.

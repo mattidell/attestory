@@ -4,10 +4,10 @@
   "phase": "Legible Entry",
   "topic": "improvised-milestone",
   "active_plan": "docs/phases/legible-entry/milestones/improvised-milestone.md",
-  "milestone_state": "planning",
-  "status": "**LEGIBLE ENTRY / IMPROVISED MILESTONE — PLANNING 2026-07-31.** The owner selected a flexible, goal-oriented milestone under owner-directed mode. It starts with a small prototype that lets the entry surface use existing presentation lineage instead of flattening it into disconnected status rows. There are no fixed tracks, charters, up-front scoring sheet, maturity claim, or predetermined exit criteria. The owner chooses the next useful question as the work develops and decides what completion means after inspecting the result.",
-  "current_role": "foreman — owner-directed mode",
-  "current_prompt": "docs/phases/legible-entry/milestones/improvised-milestone.md"
+  "milestone_state": "closed",
+  "status": "**LEGIBLE ENTRY / IMPROVISED MILESTONE — CLOSED 2026-07-31.** No implementation began and no product behavior changed. The owner closed it so main and main-ui can begin their next milestones from a clean shared base. The unflattening prototype remains parked for later selection.",
+  "current_role": "Foreman (select the next milestone; owner-held)",
+  "current_prompt": "docs/phases/legible-entry/legible-entry-roadmap.md"
 }
 -->
 # Phase State
@@ -20,19 +20,17 @@ Git, `docs/reviews/`, and `docs/adr/`.
 ## High Level Milestone Briefing
 
 The entry surface can accept and correct one synthetic W-2 fact, run the
-return, and show which lines changed. The next milestone turns from proving
-that narrow loop toward making the record behind it understandable and
-navigable. It begins by preserving explanation data the runner already has
-instead of reducing it to entry-specific status rows.
+return, and show which lines changed. The proposed explanation prototype did
+not begin. The owner closed it so `main` and `main-ui` can select separate
+milestones after their histories are reconciled.
 
 ## Operational State: Legible Entry
 
-* **Active Milestone:** Milestone 5 — Improvised Milestone, **planning 2026-07-31.**
-* **Goal:** move the entry surface toward a walkable record, starting with an unflattened explanation for Form 1040 line 1a.
-* **Working mode:** owner-directed. No charters, fixed tracks, up-front scoring sheet, maturity claim, or predetermined definition of done. The owner chooses direction and decides completion from the result.
-* **Starting point:** the synthetic W-2 surface already makes contributions, recomputes the return, and receives the existing presentation model. The prototype should reuse that model and its lineage rather than derive tax meaning again.
+* **Active Milestone:** none. The Improvised Milestone **closed without implementation 2026-07-31.**
+* **Product change:** none.
 * **Plan:** `docs/phases/legible-entry/milestones/improvised-milestone.md`.
-* **Prior milestone:** Re-score the Entry Loop closed 2026-07-30 through PR #126; both evaluators scored all twenty rows Pass.
+* **Parked work:** the unflattening explanation prototype may be selected again later.
+* **Next:** reconcile `main-ui` into `main`, then select separate milestones on the two branch lines.
 * **Branch line:** UI work continues on `main-ui`.
 
 ## Re-entry

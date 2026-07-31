@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Legible Entry",
   "topic": "improvised-milestone",
-  "status": "Selected by the owner 2026-07-31. This is a flexible, goal-oriented milestone operating under AGENTS.md, Owner-directed mode. Work begins with a small prototype that stops flattening the existing presentation model before the entry surface can use it. The owner decides what follows, what evidence is useful, and when the milestone is done.",
+  "status": "Closed by the owner 2026-07-31 before implementation began. No product behavior changed. The proposed unflattening prototype remains available for a later owner-directed milestone after main and main-ui begin from a clean shared base.",
+  "retrospective": "docs/milestone-retrospectives/2026-07-31-improvised-milestone.md",
   "scope": [
     "make the entry surface a better place to understand and navigate the record",
     "begin with a small unflattening prototype using the existing synthetic W-2 entry loop",
@@ -38,7 +39,7 @@
 -->
 # Improvised Milestone
 
-Status: **planning, 2026-07-31.**
+Status: **closed without implementation, 2026-07-31.**
 
 ## Goal
 
@@ -98,3 +99,10 @@ Existing data-safety and published-schema protections remain in force.
 There is no precommitted exit test. At a natural stopping point, the owner
 will inspect what exists, decide what questions it answers, choose any final
 criteria worth keeping, and either close, redirect, or continue the milestone.
+
+## Close
+
+The owner closed this milestone before implementation began so `main` and
+`main-ui` can start their next, separate milestones from a clean shared base.
+No product behavior changed. The unflattening prototype remains a candidate
+for a later owner-directed milestone.
