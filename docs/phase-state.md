@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-4",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 4 COMPLETION RECORDS PREPARED; FRESH REVIEW CHARTERED.** The seven-file records unit separates merged evidence, reviewed Track-3 branch evidence, pending closing CI/merge, the bounded synthetic-complete frontier claim, and carried deferrals. A fresh author-independent Reviewer now checks the completion record before any closing PR.",
-  "current_role": "Track 4 Completion Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-track4-completion-review.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 4 COMPLETION REVIEW NOT READY; ONE-RECORD F1 REPAIR CHARTERED.** The review credited object containment, PR/CI reality, Track-3 evidence, exit criteria 1–9, frontier/roadmap fidelity, retrospective quality, lifecycle wording, and data safety. F1 requires the new ledger to carry the active Schedule B Part I multi-family interest deferral from its predecessor.",
+  "current_role": "Track 4 Completion Records Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-track4-completion-repair.md"
 }
 -->
 # Phase State

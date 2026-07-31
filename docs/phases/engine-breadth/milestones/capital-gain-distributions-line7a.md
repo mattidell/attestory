@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-4",
-  "status": "TRACK 4 COMPLETION RECORDS PREPARED; FRESH REVIEW CHARTERED. The seven-file records unit separates merged evidence, reviewed Track-3 branch evidence, pending closing CI/merge, the bounded synthetic-complete frontier claim, and carried deferrals. A fresh author-independent Reviewer now checks the completion record before any closing PR.",
+  "status": "TRACK 4 COMPLETION REVIEW NOT READY; ONE-RECORD F1 REPAIR CHARTERED. The review credited object containment, PR/CI reality, Track-3 evidence, exit criteria 1–9, frontier/roadmap fidelity, retrospective quality, lifecycle wording, and data safety. F1 requires the new ledger to carry the active Schedule B Part I multi-family interest deferral from its predecessor.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
