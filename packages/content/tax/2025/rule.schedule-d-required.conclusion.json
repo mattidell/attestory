@@ -1,0 +1,120 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.exception1.only-box2a-capital-gains",
+      "tax.us.2025.exception1.no-capital-losses",
+      "tax.us.2025.exception1.no-qof-deferral",
+      "tax.us.2025.exception1.no-boxes-2b-2c-2d"
+    ]
+  },
+  "id": "tax.us.2025.rule.schedule-d-required.conclusion",
+  "notes": "ADR-0050 Decision 1: checked Schedule-D-required conclusion over Exception-1 components C1-C4. All present and yes -> no; all present and any no -> yes; any missing -> blocked(DEPENDENCY_ABSENT) naming every missing component via conditional_dependency_set.",
+  "pins": [],
+  "publishes": "tax.us.2025.schedule-d-required.conclusion",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": "yes",
+    "op": "choose",
+    "then": "no",
+    "when": {
+      "args": [
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.exception1.only-box2a-capital-gains",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.exception1.only-box2a-capital-gains",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          }
+        },
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.exception1.no-capital-losses",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.exception1.no-capital-losses",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          }
+        },
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.exception1.no-qof-deferral",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.exception1.no-qof-deferral",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          }
+        },
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "yes"
+          }
+        }
+      ],
+      "op": "all"
+    }
+  },
+  "version": "v1",
+  "when": {
+    "condition": true,
+    "members": [
+      {
+        "name": "tax.us.2025.exception1.only-box2a-capital-gains",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.exception1.no-capital-losses",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.exception1.no-qof-deferral",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.exception1.no-boxes-2b-2c-2d",
+        "op": "ref"
+      }
+    ],
+    "op": "conditional_dependency_set"
+  }
+}

@@ -1,10 +1,11 @@
-"""Regenerate the synthetic Track 3 publication surface (release + adoption acts).
+"""Regenerate the synthetic Track 3 publication surface (releases + adoption acts).
 
-Wholly synthetic and deterministic. The release attests the *existing* committed
-package registry (`packages/content/tax/2025/published-packages.json`) by its exact
-SHA-256; the adoption acts pin that release and a committed package by checksum. No
-package or member bytes are copied — the member surface is the committed tax content
-the resolver already verifies. No live workspace or personal data is read.
+Wholly synthetic and deterministic. Each release attests its matching committed
+package registry by exact SHA-256: v1 preserves the historical packages through
+core v6, while v2 carries the core-v7 successor. Adoption acts pin the release
+and package checksum from the same route explicitly. No package or member bytes
+are copied — the member surface is the committed tax content the resolver
+already verifies. No live workspace or personal data is read.
 """
 
 from __future__ import annotations
@@ -17,14 +18,16 @@ from typing import Any
 
 _ROOT = Path(__file__).resolve().parent.parent
 CONTENT_DIR = _ROOT / "packages" / "content" / "tax" / "2025"
-PACKAGE_REGISTRY = CONTENT_DIR / "published-packages.json"
+PACKAGE_REGISTRIES = {
+    "v1": CONTENT_DIR / "published-packages.json",
+    "v2": CONTENT_DIR / "published-packages.v2.json",
+}
 OUT = _ROOT / "packages" / "sample_data" / "frrs_t3"
 
 SCOPE_USER = "demo.user.filer-1"
 RUN_SCOPE = {"jurisdiction": "us", "year": "2025"}
 
 RELEASE_ID = "demo.release.2025"
-RELEASE_VERSION = "v1"
 
 
 def _document(value: Any) -> bytes:
@@ -35,20 +38,20 @@ def _sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def _package_checksum(package_id: str, version: str = "v1") -> str:
-    registry = json.loads(PACKAGE_REGISTRY.read_text("utf-8"))
+def _package_checksum(package_id: str, version: str, *, release_version: str) -> str:
+    registry = json.loads(PACKAGE_REGISTRIES[release_version].read_text("utf-8"))
     for entry in registry["packages"]:
         if entry["id"] == package_id and entry["version"] == version:
             return str(entry["checksum"])
-    raise KeyError(package_id)
+    raise KeyError((release_version, package_id, version))
 
 
-def _release_doc() -> dict[str, Any]:
+def _release_doc(version: str) -> dict[str, Any]:
     return {
         "schema": "release-registry.v1",
         "id": RELEASE_ID,
-        "version": RELEASE_VERSION,
-        "package_registry_sha256": _sha256(PACKAGE_REGISTRY.read_bytes()),
+        "version": version,
+        "package_registry_sha256": _sha256(PACKAGE_REGISTRIES[version].read_bytes()),
     }
 
 
@@ -59,20 +62,24 @@ def _adoption_act(
     revision: int,
     package_id: str,
     package_version: str = "v1",
+    release_version: str = "v1",
     release_checksum: str,
     supersedes: str | None = None,
     committed_against: int = 1,
     scope: dict[str, str] | None = None,
+    at: str = "2026-07-18T00:00:00Z",
 ) -> dict[str, Any]:
     payload: dict[str, Any] = {
         "package": {
             "id": package_id,
             "version": package_version,
-            "checksum": _package_checksum(package_id, package_version),
+            "checksum": _package_checksum(
+                package_id, package_version, release_version=release_version
+            ),
         },
         "release": {
             "id": RELEASE_ID,
-            "version": RELEASE_VERSION,
+            "version": release_version,
             "checksum": release_checksum,
         },
         "scope": dict(scope or RUN_SCOPE),
@@ -86,15 +93,19 @@ def _adoption_act(
         "act_id": act_id,
         "kind": "package-adoption",
         "actor": actor,
-        "at": "2026-07-18T00:00:00Z",
+        "at": at,
         "committed_against": committed_against,
         "payload": payload,
     }
 
 
 def render_fixture_files() -> dict[str, bytes]:
-    release = _release_doc()
-    release_checksum = _sha256(_document(release))
+    releases = {version: _release_doc(version) for version in sorted(PACKAGE_REGISTRIES)}
+    release_checksums = {
+        version: _sha256(_document(release))
+        for version, release in releases.items()
+    }
+    release_checksum = release_checksums["v1"]
     interest = "tax.us.2025.package.interest-slice"
     core = "tax.us.2025.package.core-calculations"
 
@@ -171,10 +182,21 @@ def render_fixture_files() -> dict[str, bytes]:
             package_id=core, package_version="v6", release_checksum=release_checksum,
             scope={"jurisdiction": "us", "year": "2055"},
         ),
+        # Engine Breadth Track 2: the direct line-7a successor package has its
+        # own registry/release route. The historical v1 route remains pinned
+        # to the byte-identical registry through core v6.
+        "adoptions/adopt-core-v7-current.json": _adoption_act(
+            "act.adopt.core.v7", actor=SCOPE_USER, revision=7,
+            package_id=core, package_version="v7", release_version="v2",
+            release_checksum=release_checksums["v2"],
+            scope={"jurisdiction": "us", "year": "2056"},
+            at="2026-07-30T00:00:00Z",
+        ),
     }
 
     rendered: dict[str, bytes] = {
-        f"publication_surface/releases/{RELEASE_ID}.{RELEASE_VERSION}.json": _document(release),
+        f"publication_surface/releases/{RELEASE_ID}.{version}.json": _document(release)
+        for version, release in releases.items()
     }
     for path, act in acts.items():
         rendered[path] = _document(act)

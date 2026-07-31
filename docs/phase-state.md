@@ -3,11 +3,11 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
-  "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md"
-  "milestone_state": "active",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CHARTERED.** Track 1 reached READY after focused repair recheck `6b5321b6639b403476c4b4a1331efcc60261e3bb` closed F1 with no residuals and reached `main` through reviewed development unit PR #111 with CI `verify` green. NEXT ACTION: launch the Track 2 Builder on a fresh branch from the merge commit.",
-  "current_role": "Track 2 Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md"
+  "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
+  "milestone_state": "track-3",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 PREPARED AFTER TRACK 2 READY.** Track 2's consistency and type repairs both passed fresh independent recheck. The replacement PR #120 CI run must now prove pytest, mypy, governance lint, and the data-boundary scan green. NEXT ACTION: after a green owner merge, bind the prepared Track-3 presentation charter to the no-fast-forward merge commit and launch it on a fresh branch.",
+  "current_role": "Track 3 Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md"
 }
 -->
 # Phase State
@@ -47,4 +47,3 @@ Render the advisory capsule from an explicit committed ref:
 ```sh
 python3 tools/foreman_context.py --ref HEAD --format markdown
 ```
-

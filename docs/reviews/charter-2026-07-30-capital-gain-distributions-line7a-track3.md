@@ -1,0 +1,154 @@
+# Capital-Gain Distributions / Line 7a — Track 3 Presentation Builder Charter
+
+Audience: Builder.
+
+Status: **prepared for launch only after the Track-2 development-unit PR reaches
+`main` with CI `verify` green.**
+
+## Context Capsule
+
+- **Source ref and resolved launch commit:** `main`, resolved at launch to the
+  no-fast-forward merge commit for
+  `track/capital-gain-distributions-line7a-track2`. The Builder must fetch and
+  verify that the Track-2 `READY` recheck record is an ancestor of
+  `origin/main`; otherwise stop without creating the Track-3 branch.
+- **Exact object or commit range:** create
+  `track/capital-gain-distributions-line7a-track3` from that resolved
+  `origin/main` commit. Do not continue building on the spent Track-2 branch.
+- **Role:** one Builder, High tier / high effort. This is presentation and
+  production-shaped synthetic integration, not a new contract or computation
+  round.
+- **Scope and evidence-rung ceiling:** project the accepted line-7a and line-7b
+  form fields through the existing presentation model and citation-walk product
+  page, add authoritative v7 synthetic presentation goldens and browser-manifest
+  regressions, and preserve ADR-0046. Synthetic coordinator and synthetic
+  browser evidence are the ceiling; no real workspace or real viewing session.
+- **Stop conditions:** stop and report if Track 2 is not merged with green
+  `verify`; if an accepted ADR, published schema, historical content/package,
+  existing golden unrelated to this slice, or Track-1/2 computation would need
+  mutation; if line 7b cannot be represented honestly without a new product
+  contract, new published schema, tax-specific projector doctrine, or a generic
+  substrate beyond the existing internal presentation model; if the product
+  page and frozen harness copy cannot remain source-equivalent where the walk
+  itself changes; if a real browser/workspace, personal material, Schedule D,
+  Form 8949, Form 1099-B, excluded-box computation, filing, or transmission
+  becomes necessary; or if governance interpretation is required.
+- **Full reads before acting:** this charter; `docs/roles/builder.md`;
+  `docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md`;
+  ADR-0050 Decisions 5 and 8 plus Production Conditions;
+  `docs/adr/0046-presentation-surface-contract.md`;
+  `docs/adr/0031-real-data-residency-boundary.md`;
+  all Track-2 line-7a/line-7b field, rule, citation, package, release, adoption,
+  coordinator-test, review, and recheck artifacts;
+  `packages/derivation/presentation_projection.py`;
+  `packages/derivation/live.py`;
+  `packages/derivation/live_session.py`;
+  `packages/presentation/pages/citation-walk.v1.html`;
+  `tools/presentation_harness/examples/pages/citation-walk.v1.html`;
+  `tools/generate_presentation_l2_golden.py`;
+  `tools/presentation_harness/examples/manifests/citation-walk-production-shaped.v1.json`;
+  `tests/test_presentation_l2_integration.py`;
+  `tests/test_presentation_live_session.py`;
+  `tests/test_presentation_live_viewing_vehicle.py`;
+  `AGENTS.md#Fixture Rules`; and `AGENTS.md#Data Safety Rules`.
+
+Before editing, echo the resolved Track-2 merge commit and ancestry proof, the
+Track-3 scope and ceiling, zero-authority and blanket-redaction constraints,
+authoritative golden entrypoint, immutable-history constraint, and every stop
+condition.
+
+## Goal
+
+Make the new direct-route fields legible on the existing citation-walk product
+surface without adding authority: line 7a presents its exact numeric/blocked/
+inapplicable state, line 7b presents its affirmative checked state or honest
+non-publication state, and every visible claim remains grounded in the accepted
+field/citation/finding graph.
+
+## Deliverables
+
+1. **Authoritative v7 presentation fixtures.** Add a deterministic,
+   production-shaped synthetic act log that adopts the Track-2 v7 chain through
+   its v2 registry/release and enters only through `live_coordinate_run`.
+   Commit new slice-specific presentation goldens rather than rewriting the
+   established v6 golden. Cover at least eligible published line 7a/checked
+   line 7b, missing authority, and Schedule-D-required inapplicability.
+2. **Line-7a projection.** Project nonzero and closure-backed-zero line 7a with
+   its exact field citation and source/closure lineage. Project blocked and
+   guard-inapplicable states atomically with no value key or stale act. A
+   malformed, ambiguous, uncited, or nonnumeric published line 7a must fail
+   closed before a presentation artifact is written.
+3. **Line-7b projection.** Represent the accepted affirmative categorical
+   state without numeric coercion or tax-specific IDs in generic projector
+   logic. Render the field's declared fixed `"checked"` instruction only from
+   its current published authority, with the exact line-7b field citation.
+   Missing authority is blocked; a checked conclusion of `"yes"` is
+   guard-inapplicable. Neither state may display the rejected categorical value
+   or fabricate a checkbox state.
+4. **Strict internal model.** Preserve one frozen, strictly validated
+   zero-authority source object. If the internal model shape/version must
+   advance, keep the established v1 fixture valid or migrate only through an
+   explicit compatible internal successor with deterministic validation and
+   session tests. No published schema or citizen is created or changed for this
+   implementation detail.
+5. **Product-page rendering.** Extend the product citation walk with one
+   accessible render path per new presentation disposition. The affirmative
+   line-7b state must be legible to assistive technology; citations remain
+   keyboard reachable with visible focus. Continue using node construction and
+   `textContent` only—never dynamic `innerHTML`.
+6. **ADR-0046 attack set.** Prove section-level blocking, fail-loud local error
+   banners, sibling blast containment, structural citation identity, and
+   blanket rejected-value redaction for line 7a/7b. Specifically kill-test a
+   smuggled value on blocked/inapplicable fields, a malformed categorical
+   publication, a missing/wrong line-7b citation, and a broken line-7a section
+   alongside a healthy line-7b sibling.
+7. **Frozen harness parity.** Apply walk changes to both the product page and
+   the frozen synthetic harness copy, preserving their intentional provenance
+   wording difference. Add a new slice-specific manifest/fixture matrix that
+   measures published, blocked, inapplicable, citation, accessibility, and
+   tamper cases in a synthetic browser. Existing baseline manifests and
+   unrelated golden fixtures remain unchanged.
+8. **Integrated regression.** Add one focused Track-3 module spanning
+   coordinator → presentation artifact → strict validation → page behavior.
+   Preserve every existing line/attachment/citation group, numeric diagnostic
+   suppression, result-file shape, confinement, resolver refusal, unsafe-string
+   rejection, and session teardown guarantee.
+
+## Boundary
+
+No tax computation, contribution/admission, package-validation, family/closure,
+line-9, line-16, or correction-lifecycle redesign. No real session, real
+browser/workspace, screenshot, owner attestation, matrix lift, coverage-frontier
+edit, README claim, Track-4 record, or UI redesign beyond the existing citation
+walk. Do not edit accepted ADRs, historical schemas/content/packages, or reuse
+real/private material.
+
+## Verification before handoff
+
+Run focused modules while iterating, then once:
+
+```text
+python3 -m unittest tests.test_capital_gain_distributions_line7a_t3_presentation
+python3 -m unittest tests.test_presentation_l2_integration
+python3 -m unittest tests.test_presentation_live_session
+python3 -m unittest tests.test_presentation_live_viewing_vehicle
+python3 -m unittest tests.test_capital_gain_distributions_line7a_t2_coordinator
+node --test tools/presentation_harness/tests/*.test.mjs
+node tools/presentation_harness/run.mjs --manifest tools/presentation_harness/examples/manifests/capital-gain-distributions-line7a.v1.json
+git diff --check main..HEAD
+python3 tools/governance_lint.py
+python3 tools/envelope_scan.py --range main..HEAD
+```
+
+Run no real-data session and do not rerun the full suite. Inspect every new
+golden and browser report; commit only stable fixtures, never ad hoc output.
+CI `verify` remains the gate of record.
+
+## Handoff
+
+Commit one Track-3 implementation commit after the charter/base commit. Leave
+the worktree clean and report the SHA, exact files, focused results, golden
+entrypoint and deterministic-regeneration evidence, product/harness parity,
+browser-manifest result, and any stop finding. Do not review, push, open a PR,
+begin Track 4, or edit pointers. The foreman will charter an author-independent
+Track-3 review.

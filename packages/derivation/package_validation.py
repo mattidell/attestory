@@ -368,7 +368,13 @@ def validate_package(
             if pin_role != citizen["role"]:
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"package role {pin_role!r} != rule role {citizen['role']!r}"))
-        elif citizen["schema"] in {"parameter-declaration.v1", "quantity-vocabulary.v1", "quantity-vocabulary.v2", "role-canon.v1"}:
+        elif citizen["schema"] in {
+            "parameter-declaration.v1",
+            "quantity-vocabulary.v1",
+            "quantity-vocabulary.v2",
+            "quantity-vocabulary.v3",
+            "role-canon.v1",
+        }:
             if pin_role != "parameter":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"parameter declared as role {pin_role!r}"))
@@ -404,10 +410,14 @@ def validate_package(
             if pin_role != "operation-semantics":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"operation-semantics declared as role {pin_role!r}"))
-        elif citizen["schema"] == "dividend-universe.v1":
+        elif citizen["schema"] in {"dividend-universe.v1", "dividend-universe.v2"}:
             if pin_role != "dividend-universe":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"dividend-universe declared as role {pin_role!r}"))
+        elif citizen["schema"] == "checked-conclusion-binding.v1":
+            if pin_role != "checked-conclusion-binding":
+                issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
+                                           f"checked-conclusion-binding declared as role {pin_role!r}"))
         elif citizen["schema"] == "attachment-rule.v1":
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
@@ -497,7 +507,11 @@ def validate_package(
     # 5. Quantity validations (ADR-0028 decision 7)
     quantity_vocabularies = {}
     for pin, citizen in resolved:
-        if citizen["schema"] in {"quantity-vocabulary.v1", "quantity-vocabulary.v2"}:
+        if citizen["schema"] in {
+            "quantity-vocabulary.v1",
+            "quantity-vocabulary.v2",
+            "quantity-vocabulary.v3",
+        }:
             quantity_vocabularies[citizen["id"]] = citizen["quantities"]
 
     for ft_id, q_pin in fact_quantities.items():
@@ -732,17 +746,59 @@ def validate_package(
     # package-language generations that postdate ADR-0035 (artifact-package.v3
     # onward); the already-published v1/v2 instances are recorded history, the
     # same posture as the v1 closure-edge exemption above.
-    universe_guard_active = package.get("schema") in {"artifact-package.v3", "artifact-package.v4"}
+    universe_guard_active = package.get("schema") in {
+        "artifact-package.v3",
+        "artifact-package.v4",
+        "artifact-package.v5",
+    }
     source_family_members = {
         citizen["id"]: citizen["member_predicate"]["fact_type"]
         for _, citizen in resolved
         if citizen["schema"] == "source-family.v1"
     }
-    recorded_non_composable = {
-        citizen["recorded_boxes_fact_type"]["id"]
-        for _, citizen in resolved
-        if citizen["schema"] == "dividend-universe.v1"
-    }
+    recorded_non_composable: set[str] = set()
+    composable_box2a_members: set[str] = set()
+    historical_recorded_boxes_v1 = False
+    successor_box2a_member = False
+    for _, citizen in resolved:
+        if citizen["schema"] == "dividend-universe.v1":
+            recorded_non_composable.add(citizen["recorded_boxes_fact_type"]["id"])
+        elif citizen["schema"] == "dividend-universe.v2":
+            recorded_non_composable.add(citizen["recorded_boxes_fact_type"]["id"])
+            for box in citizen.get("composable_boxes", []):
+                if box.get("box") == "2a":
+                    family = box.get("family") or {}
+                    family_id = family.get("id")
+                    member = source_family_members.get(str(family_id))
+                    if member:
+                        composable_box2a_members.add(member)
+        if citizen["schema"] == "fact-type.v2":
+            if (
+                citizen.get("id") == "tax.us.2025.f1099div.recorded-boxes"
+                and citizen.get("version") == "v1"
+            ):
+                historical_recorded_boxes_v1 = True
+            if citizen.get("id") == "tax.us.2025.f1099div.box2a-capital-gain-distribution":
+                successor_box2a_member = True
+                composable_box2a_members.add(citizen["id"])
+        if citizen["schema"] == "bundle.v2":
+            for fact_type in citizen.get("fact_types", []):
+                if (
+                    fact_type.get("id") == "tax.us.2025.f1099div.recorded-boxes"
+                    and fact_type.get("version") == "v1"
+                ):
+                    historical_recorded_boxes_v1 = True
+                if fact_type.get("id") == "tax.us.2025.f1099div.box2a-capital-gain-distribution":
+                    successor_box2a_member = True
+                    composable_box2a_members.add(fact_type["id"])
+    # ADR-0050 decision 3: reject mixed historical recorded box-2a content and
+    # successor family members in one adopted package graph.
+    if historical_recorded_boxes_v1 and successor_box2a_member:
+        issues.append(MemberIssue(
+            package_id, package.get("version", ""), "MIXED_BOX2A_GRAPH",
+            "package admits both historical recorded-boxes v1 (property 2a) and "
+            "successor box-2a family members; exclusive graphs only",
+        ))
     for pin, citizen in resolved:
         if citizen["schema"] not in _RULE_ARTIFACT_SCHEMAS:
             continue
@@ -767,7 +823,21 @@ def validate_package(
         consumed.update(_iter_ref_names(citizen["value"]))
         for forbidden in sorted(consumed & recorded_non_composable):
             issues.append(MemberIssue(pin["id"], pin["version"], "RECORDED_NON_COMPOSABLE_INPUT",
-                                      f"rule consumes recorded-non-composable content {forbidden!r}; the dividend universe composes {{1a, 1b}} only"))
+                                      f"rule consumes recorded-non-composable content {forbidden!r}; the dividend universe does not compose residual recorded boxes"))
+        # ADR-0050 decision 6/7: line 9 and line 16 successors consume selected
+        # publications only — never raw box-2a members via collect/ref.
+        publishes = citizen.get("publishes", "")
+        if publishes in {
+            "tax.us.2025.income.total-income",
+            "tax.us.2025.tax.total-tax",
+        }:
+            raw_box2a = sorted(consumed & composable_box2a_members)
+            if raw_box2a:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "RAW_BOX2A_DOWNSTREAM_READ",
+                    f"rule publishing {publishes!r} consumes raw box-2a members "
+                    f"{raw_box2a}; selected line-7a publication only",
+                ))
 
     # 10. Attachment answer encoding guard (ADR-0036 production condition 2).
     # Completeness is presence-semantics only because every answer value is

@@ -83,3 +83,39 @@
   as PR #110.
 - **Disposition:** owner merge only after CI `verify` is green. Production
   remains blocked until the merge reaches `main`.
+
+## 2026-07-29 — Foreman succession and Track 2 recovery
+
+- **Category:** no process incident.
+- **Event:** a successor Foreman reconciled the active state against Git,
+  recovered the interrupted Builder's committed Track 2 implementation from
+  the `grok` remote, and fast-forwarded the existing Track 2 branch without
+  rewriting it.
+- **Disposition:** the recovered implementation is preserved as the exact
+  review object and an author-independent Track 2 review is chartered.
+
+## 2026-07-29 — Track 2 review returned
+
+- **Category:** no process incident.
+- **Event:** independent review returned `NOT READY` on F1 typed
+  guard-inapplicable propagation and F2 regression from rewriting an existing
+  release/adoption fixture pair. All other measurements passed.
+- **Disposition:** one findings-only F1/F2 repair is chartered with the passing
+  evidence credited; no evidence climb or scope expansion.
+
+## 2026-07-29 — Track 2 F1/F2 repair returned
+
+- **Category:** no process incident.
+- **Event:** Luna returned one repair commit covering the typed line-16
+  disposition partition and the versioned release/adoption fixture route.
+- **Disposition:** the original Reviewer is chartered for a focused F1/F2
+  recheck with all other review measurements credited.
+
+## 2026-07-30 — Track 2 reached READY
+
+- **Category:** no process incident.
+- **Event:** focused recheck closed F1 and F2 with no residuals; all credited
+  Track-2 measurements remained intact.
+- **Disposition:** prepare the conditional Track-3 presentation charter and
+  publish Track 2 as its reviewed development-unit PR. Track 3 remains blocked
+  until that PR reaches `main` with green CI.

@@ -113,7 +113,19 @@ class SchemaRegistry:
                     f"schema document is not valid JSON Schema: {path.name}: {exc.message}"
                 ) from exc
             self._schemas[schema_id] = document
-            self._validators[schema_id] = jsonschema.Draft202012Validator(document)
+            # Draft202012Validator resolves local ``$ref`` against ``$id``.
+            # Relative family-scoped ids like ``kernel/fact-type.v2`` make
+            # jsonschema 4.10 join the fragment into a doubled path
+            # (``kernel/kernel/fact-type.v2``) and fail RefResolution. The
+            # published document bytes stay intact for checksum immutability;
+            # only the in-memory validator drops ``$id`` so ``#/$defs/...``
+            # refs resolve against the document root.
+            validator_document = {
+                key: value for key, value in document.items() if key != "$id"
+            }
+            self._validators[schema_id] = jsonschema.Draft202012Validator(
+                validator_document
+            )
 
     def schema_ids(self) -> list[str]:
         return sorted(self._schemas)
