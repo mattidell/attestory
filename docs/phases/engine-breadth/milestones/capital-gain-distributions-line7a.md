@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-2",
-  "status": "TRACK 2 CI TYPE REPAIR. PR #120 `verify` run `30592111125` passed the full pytest gate, proving the four consistency failures closed, then exposed two mypy errors in one Track-2 test module. The original Builder lineage is chartered for a mechanical one-file typing repair. Track 3 remains prepared but gated on a fully green Track-2 merge.",
+  "status": "TRACK 2 CI TYPE RECHECK. The mechanical one-file type repair closes the two mypy errors locally without changing runtime behavior. The independent CI Reviewer is chartered to recheck the exact annotation-only delta before repush. Track 3 remains prepared but gated on a fully green Track-2 merge.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

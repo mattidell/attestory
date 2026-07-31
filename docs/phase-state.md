@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CI TYPE REPAIR.** PR #120 `verify` run `30592111125` passed the full pytest gate, proving the four consistency failures closed, then exposed two mypy errors in one Track-2 test module. The original Builder lineage is chartered for a mechanical one-file typing repair. Track 3 remains prepared but gated on a fully green Track-2 merge.",
-  "current_role": "Track 2 CI Type Repair Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track2-ci-types-repair.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 2 CI TYPE RECHECK.** The mechanical one-file type repair closes the two mypy errors locally without changing runtime behavior. The independent CI Reviewer is chartered to recheck the exact annotation-only delta before repush. Track 3 remains prepared but gated on a fully green Track-2 merge.",
+  "current_role": "Track 2 CI Type Repair Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track2-ci-types-review.md"
 }
 -->
 # Phase State
