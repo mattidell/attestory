@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-3",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — TRACK 3 PREPARED AFTER TRACK 2 READY.** Track 2's consistency and type repairs both passed fresh independent recheck. The replacement PR #120 CI run must now prove pytest, mypy, governance lint, and the data-boundary scan green. NEXT ACTION: after a green owner merge, bind the prepared Track-3 presentation charter to the no-fast-forward merge commit and launch it on a fresh branch.",
-  "current_role": "Track 3 Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — LINE 7B PREREQUISITE READY.** The prerequisite implementation and both CI repairs have independent READY records. Current v2 selection, explicit v1 preservation, annotation-only typing, focused regressions, and mypy are green. NEXT ACTION: merge PR #125 through green CI, then create a fresh Track-3 branch and rebind the presentation charter.",
+  "current_role": "Foreman (merge line 7b prerequisite; then rebind Track 3)",
+  "current_prompt": "docs/reviews/2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-ci-review.md"
 }
 -->
 # Phase State

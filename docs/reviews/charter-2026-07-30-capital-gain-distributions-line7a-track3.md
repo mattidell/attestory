@@ -2,19 +2,18 @@
 
 Audience: Builder.
 
-Status: **prepared for launch only after the Track-2 development-unit PR reaches
-`main` with CI `verify` green.**
+Status: **bound to the ratified Track-2 merge and ready for Builder launch.**
 
 ## Context Capsule
 
-- **Source ref and resolved launch commit:** `main`, resolved at launch to the
-  no-fast-forward merge commit for
-  `track/capital-gain-distributions-line7a-track2`. The Builder must fetch and
-  verify that the Track-2 `READY` recheck record is an ancestor of
-  `origin/main`; otherwise stop without creating the Track-3 branch.
-- **Exact object or commit range:** create
-  `track/capital-gain-distributions-line7a-track3` from that resolved
-  `origin/main` commit. Do not continue building on the spent Track-2 branch.
+- **Source ref and resolved launch commit:** `origin/main` at
+  `90f12e607cd4ff61770c14859b2a720763361336`, the no-fast-forward merge commit
+  for PR #120. Its `verify` run `30592473685` completed green. The Track-2
+  consistency and type `READY` recheck records are ancestors of this commit.
+- **Exact object or commit range:** branch
+  `track/capital-gain-distributions-line7a-track3`, created from that exact
+  merge commit. This charter-binding commit is the Builder's implementation
+  base. The spent Track-2 branch is not an implementation surface.
 - **Role:** one Builder, High tier / high effort. This is presentation and
   production-shaped synthetic integration, not a new contract or computation
   round.

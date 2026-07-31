@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-3",
-  "status": "TRACK 3 PREPARED AFTER TRACK 2 READY. Track 2's consistency and type repairs both passed fresh independent recheck. The replacement PR #120 CI run must now prove pytest, mypy, governance lint, and the data-boundary scan green. NEXT ACTION: after a green owner merge, bind `docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md` to the no-fast-forward merge commit and launch it on a fresh branch.",
+  "status": "LINE 7B PREREQUISITE READY. The prerequisite implementation and both CI repairs have independent READY records. Current v2 selection, explicit v1 preservation, annotation-only typing, focused regressions, and mypy are green. NEXT ACTION: merge PR #125 through green CI, then create a fresh Track-3 branch and rebind the presentation charter.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

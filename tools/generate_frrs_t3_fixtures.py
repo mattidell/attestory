@@ -1,15 +1,17 @@
-"""Regenerate the synthetic Track 3 publication surface (releases + adoption acts).
+"""Regenerate the synthetic Track 3 publication surface and line-7b successor.
 
 Wholly synthetic and deterministic. Each release attests its matching committed
 package registry by exact SHA-256: v1 preserves the historical packages through
-core v6, while v2 carries the core-v7 successor. Adoption acts pin the release
-and package checksum from the same route explicitly. No package or member bytes
-are copied — the member surface is the committed tax content the resolver
-already verifies. No live workspace or personal data is read.
+core v6, v2 carries the core-v7 successor, and v3 carries the narrowly additive
+core-v8 / line-7b-field-v2 successor. Adoption acts pin the release and package
+checksum from the same route explicitly. Historical v1/v6 and v2/v7 bytes are
+read as immutable generation inputs and are never rewritten. No live workspace
+or personal data is read.
 """
 
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -21,6 +23,7 @@ CONTENT_DIR = _ROOT / "packages" / "content" / "tax" / "2025"
 PACKAGE_REGISTRIES = {
     "v1": CONTENT_DIR / "published-packages.json",
     "v2": CONTENT_DIR / "published-packages.v2.json",
+    "v3": CONTENT_DIR / "published-packages.v3.json",
 }
 OUT = _ROOT / "packages" / "sample_data" / "frrs_t3"
 
@@ -28,6 +31,9 @@ SCOPE_USER = "demo.user.filer-1"
 RUN_SCOPE = {"jurisdiction": "us", "year": "2025"}
 
 RELEASE_ID = "demo.release.2025"
+LINE7B_FIELD_ID = "tax.us.2025.form1040.line-7b"
+LINE7B_SYMBOL = "tax.us.2025.form1040.line7b-schedule-d-not-required"
+CORE_PACKAGE_ID = "tax.us.2025.package.core-calculations"
 
 
 def _document(value: Any) -> bytes:
@@ -36,6 +42,63 @@ def _document(value: Any) -> bytes:
 
 def _sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def _canonical_checksum(value: dict[str, Any]) -> str:
+    return _sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+
+
+def _package_instance_checksum(value: dict[str, Any]) -> str:
+    return _canonical_checksum(
+        {key: item for key, item in value.items() if key != "package_checksum"}
+    )
+
+
+def render_line7b_prerequisite_content_files() -> dict[str, bytes]:
+    """Render the immutable field-v2, core-v8, and registry-v3 successors."""
+    field_v1 = json.loads(
+        (CONTENT_DIR / "form1040.line-7b.form-field.json").read_text("utf-8")
+    )
+    field_v2 = copy.deepcopy(field_v1)
+    field_v2["version"] = "v2"
+    field_v2["binds_symbol"] = LINE7B_SYMBOL
+
+    package_v7 = json.loads(
+        (CONTENT_DIR / "package.core-calculations.v7.json").read_text("utf-8")
+    )
+    package_v8 = copy.deepcopy(package_v7)
+    package_v8["version"] = "v8"
+    package_v8["members"].append({
+        "id": LINE7B_FIELD_ID,
+        "role": "form-field",
+        "schema": "form-field.v3",
+        "version": "v2",
+    })
+    package_v8["members"].sort(key=lambda member: (member["id"], member["version"]))
+    package_v8["package_checksum"] = _package_instance_checksum(package_v8)
+
+    registry_v2 = json.loads(
+        (CONTENT_DIR / "published-packages.v2.json").read_text("utf-8")
+    )
+    registry_v3 = copy.deepcopy(registry_v2)
+    registry_v3["citizens"].append({
+        "id": LINE7B_FIELD_ID,
+        "version": "v2",
+        "checksum": _canonical_checksum(field_v2),
+    })
+    registry_v3["citizens"].sort(key=lambda entry: (entry["id"], entry["version"]))
+    registry_v3["packages"].append({
+        "id": CORE_PACKAGE_ID,
+        "version": "v8",
+        "checksum": package_v8["package_checksum"],
+    })
+    registry_v3["packages"].sort(key=lambda entry: (entry["id"], entry["version"]))
+
+    return {
+        "form1040.line-7b.form-field.v2.json": _document(field_v2),
+        "package.core-calculations.v8.json": _document(package_v8),
+        "published-packages.v3.json": _document(registry_v3),
+    }
 
 
 def _package_checksum(package_id: str, version: str, *, release_version: str) -> str:
@@ -107,7 +170,7 @@ def render_fixture_files() -> dict[str, bytes]:
     }
     release_checksum = release_checksums["v1"]
     interest = "tax.us.2025.package.interest-slice"
-    core = "tax.us.2025.package.core-calculations"
+    core = CORE_PACKAGE_ID
 
     acts: dict[str, dict[str, Any]] = {
         # Current user adoption of the clean interest-slice package: v2 supersedes v1.
@@ -192,6 +255,15 @@ def render_fixture_files() -> dict[str, bytes]:
             scope={"jurisdiction": "us", "year": "2056"},
             at="2026-07-30T00:00:00Z",
         ),
+        # Line-7b prerequisite repair: a package-only successor that adds the
+        # versioned form-field whose symbol joins the unchanged line-7b rule.
+        "adoptions/adopt-core-v8-current.json": _adoption_act(
+            "act.adopt.core.v8", actor=SCOPE_USER, revision=8,
+            package_id=core, package_version="v8", release_version="v3",
+            release_checksum=release_checksums["v3"],
+            scope={"jurisdiction": "us", "year": "2057"},
+            at="2026-07-31T00:00:00Z",
+        ),
     }
 
     rendered: dict[str, bytes] = {
@@ -204,6 +276,10 @@ def render_fixture_files() -> dict[str, bytes]:
 
 
 def main() -> None:
+    for relative, contents in render_line7b_prerequisite_content_files().items():
+        target = CONTENT_DIR / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(contents)
     for relative, contents in render_fixture_files().items():
         target = OUT / relative
         target.parent.mkdir(parents=True, exist_ok=True)
