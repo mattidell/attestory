@@ -189,6 +189,22 @@ before a plan or role cycle is marked complete, it prepares the next sequential
 role's charter and updates those fields. Prompt preparation records plan
 sequence; it does not launch or dispatch a role.
 
+### Phase-State Context Firewall
+
+Phase state is a context firewall, not a project diary. It gives a
+returning foreman a curated allowlist: what the product can do now, the current
+product question, the active plan, the immediate next action, and explicitly
+parked work. It does not repeat track history, review narratives, milestone
+scores, retrospective lessons, or a foreman's interpretation of why prior work
+was important. `milestone_state` reports workflow position only; it is never
+evidence of product quality or direction.
+
+A foreman does not search old plans, reviews, retrospectives, branches, or
+other repository history to discover scope or choose work. Follow-up history
+is loaded only when the owner, phase state, or active plan names the specific
+source and the current question it is meant to answer. Unnamed history remains
+available as history, not as boot context.
+
 Dispatch authorization is normed in `AGENTS.md` ("Dispatch authorization") and
 is not restated here.
 
@@ -294,10 +310,18 @@ carries everything that happened — tracks, charters, builder output, reviews,
 any ratified ADR and its evidence — as commits on one branch, and is where the
 owner approves what we actually did.
 
-Individual tracks do not get their own PRs. **They keep their own review
-gate.** A track that stubs or defers a condition it owns fails that gate on the
-branch, before the closing PR is opened, not after it merges. Reviews happen as
-tracks complete; only the merge is batched.
+**Each track gets its own PR** (owner decision, 2026-07-30), in addition to the
+milestone's opening and closing PRs. A track still keeps its own review gate:
+the gate is the reviewer's verdict on the branch, and the PR is where the
+reviewed unit reaches `main`/`main-ui`. A track that stubs or defers a condition
+it owns fails that gate before its PR is opened, not after it merges.
+
+This replaces the earlier rule that individual tracks do not get their own PRs
+and that merges are batched into the closing PR. That rule predates CI running
+on the UI line: with `verify` now firing per pull request, a per-track PR is
+what gets each reviewed unit an independent green check and a revertable
+boundary, instead of one batched merge carrying several units under a single
+check.
 
 **Every merge to `main` is non-fast-forward**, giving each unit a labeled,
 revertable boundary. The repository merge method is merge-commit only —
