@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-3",
-  "status": "LINE 7B PREREQUISITE READY. The prerequisite implementation and both CI repairs have independent READY records. Current v2 selection, explicit v1 preservation, annotation-only typing, focused regressions, and mypy are green. NEXT ACTION: merge PR #125 through green CI, then create a fresh Track-3 branch and rebind the presentation charter.",
+  "status": "TRACK 3 PRESENTATION BUILDER CHARTERED. Prerequisite PR #125 merged at ea542ece491d286c760a7409b68ab051e29bf2b1 with verify green. The fresh Track-3 branch is bound to the v8/v3 publication route and the existing synthetic-only presentation contract.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
