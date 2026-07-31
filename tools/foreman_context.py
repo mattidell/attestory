@@ -196,11 +196,9 @@ def path_of(target: str) -> str:
 
 # The repository carries more than one ratified line: `main` for the derivation
 # work and `main-ui` for the surface work. They are separate continuous records,
-# and a milestone that closes on one never reaches the other. A capsule that
-# checked a fixed `origin/main` would refuse every closed milestone on the other
-# line — corroboration would be structurally impossible exactly where it matters
-# most, and a foreman would learn to ignore the refusal. So the line is derived
-# from the checked-out work rather than assumed.
+# and a milestone that closes on one never reaches the other. The divergence
+# report therefore derives the target line from the checked-out work rather
+# than assuming `origin/main`.
 RATIFIED_LINE = re.compile(r"^main(-[0-9a-z]+)*$")
 DEFAULT_RATIFIED_REF = "origin/main"
 TRACK_STATE = re.compile(r"^track-(\d+)$")
@@ -240,63 +238,42 @@ def resolve_ratified_ref(repository: GitRepository, override: str | None = None)
         return DEFAULT_RATIFIED_REF
     return min(ranked)[2]
 
-# Each lifecycle state implies two facts about the ratified record. Both are
-# file-presence questions, because the two artifacts that mark a milestone's
-# boundaries — its plan and its retrospective — reach `main` in the merges that
-# *are* those boundaries. A declared state that disagrees with the ratified
-# record is the beginning/end confusion this table exists to catch.
-#
-#   state       plan on origin/main   retrospective on origin/main
-#   planning    no                    (not yet named)
-#   planned     yes                   no
-#   track-N     yes                   no
-#   closing     yes                   no
-#   closed      yes                   yes
-STATE_EXPECTATIONS = {
-    "planning": (False, None),
-    "planned": (True, False),
-    "closing": (True, False),
-    "closed": (True, True),
-}
+# Phase state describes the repository that will exist after the selected
+# commit merges. Planning and closing are PR conditions, not persisted states.
+PERSISTED_STATES = {"planned", "closed"}
 NEXT_TRANSITION = {
-    "planning": "owner merges the plan PR, which moves this milestone to `planned`",
     "planned": "start the milestone's first track",
-    "closing": "owner merges the closing PR, which closes this milestone",
     "closed": "this milestone is closed — the next action is selecting a new milestone",
 }
 
 
 def milestone_state_of(metadata: dict[str, Any], path: str) -> str:
     state = required_string(metadata, "milestone_state", path)
-    if state not in STATE_EXPECTATIONS and not TRACK_STATE.match(state):
-        allowed = ", ".join(sorted(STATE_EXPECTATIONS)) + ", track-<n>"
+    if state not in PERSISTED_STATES and not TRACK_STATE.match(state):
+        allowed = ", ".join(sorted(PERSISTED_STATES)) + ", track-<n>"
         raise ContextError(f"{path} milestone_state {state!r} is not one of: {allowed}")
     return state
 
 
 def resolve_milestone_state(
     repository: GitRepository,
+    selected_commit: str,
     phase: LoadedDocument,
     plan: LoadedDocument,
-    metadata_path: str,
     ratified_ref: str = DEFAULT_RATIFIED_REF,
 ) -> dict[str, Any]:
-    """Check phase-state's declared lifecycle state against the ratified record.
+    """Validate the selected commit's proposed post-merge lifecycle state.
 
-    Returns the state plus the checks that corroborated it. Raises when the
-    declaration and the ratified line disagree: a foreman resuming into a tree
-    whose plan PR merged (or whose closing PR merged) an hour ago must be told,
-    not left to infer it from a status sentence written before the merge.
+    The selected tree is the proposal that will land, so its own artifacts must
+    agree with its declaration. The target line is reported separately through
+    ratified_ref and the worktree divergence report; it cannot veto an honest
+    prospective state merely because the boundary PR has not merged yet.
     """
     state = milestone_state_of(phase.metadata, phase.path)
     track = TRACK_STATE.match(state)
-    expect_plan, expect_retrospective = (True, False) if track else STATE_EXPECTATIONS[state]
 
     raw_retrospective = plan.metadata.get("retrospective")
-    if raw_retrospective is None and state in {"closing", "closed"}:
-        # The closing unit is the retrospective's merge, so its path is known as
-        # soon as the milestone starts closing. Requiring it here is what makes
-        # the end-of-milestone transition mechanically checkable.
+    if raw_retrospective is None and state == "closed":
         raise ContextError(
             f"{phase.path} milestone_state {state!r} requires a 'retrospective' "
             "path in the active plan"
@@ -307,68 +284,47 @@ def resolve_milestone_state(
         else None
     )
 
-    ratified = repository.resolve_optional(ratified_ref)
-    if ratified is None:
-        return {
-            "state": state,
-            "next_transition": next_transition(state, track),
-            "ratified_ref": None,
-            "ratified_line": ratified_ref,
-            "checks": [],
-            "note": f"{ratified_ref} is unavailable — state is declared but NOT corroborated",
-        }
-
     checks: list[dict[str, Any]] = [
-        corroborate(
-            f"plan on {ratified_ref}",
-            repository,
-            ratified,
-            ratified_ref,
-            plan.path,
-            expect_plan,
-            state,
-        )
+        corroborate_selected(repository, selected_commit, plan.path, state)
     ]
-    if retrospective is not None and expect_retrospective is not None:
+    if state == "closed" and retrospective is not None:
         checks.append(
-            corroborate(
-                f"retrospective on {ratified_ref}",
-                repository,
-                ratified,
-                ratified_ref,
-                retrospective,
-                expect_retrospective,
-                state,
-            )
+            corroborate_selected(repository, selected_commit, retrospective, state)
         )
+
+    ratified = repository.resolve_optional(ratified_ref)
     return {
         "state": state,
         "next_transition": next_transition(state, track),
         "ratified_ref": ratified,
         "ratified_line": ratified_ref,
         "checks": checks,
-        "note": None,
+        "note": (
+            None
+            if ratified is not None
+            else f"{ratified_ref} is unavailable — target-line comparison is unavailable"
+        ),
     }
 
 
-def corroborate(
-    label: str,
+def corroborate_selected(
     repository: GitRepository,
-    ratified: str,
-    ratified_ref: str,
+    selected_commit: str,
     path: str,
-    expected: bool,
     state: str,
 ) -> dict[str, Any]:
-    actual = repository.path_exists_at(ratified, path)
-    if actual != expected:
+    actual = repository.path_exists_at(selected_commit, path)
+    if not actual:
         raise ContextError(
-            f"milestone_state {state!r} contradicts the ratified record: it requires "
-            f"{path} to be {'present on' if expected else 'absent from'} {ratified_ref}, "
-            f"but it is {'present' if actual else 'absent'}. Either the state is stale "
-            f"(a boundary PR merged) or the declaration is wrong — reconcile before acting."
+            f"milestone_state {state!r} contradicts the selected commit: it requires "
+            f"{path} to be present, but it is absent"
         )
-    return {"check": label, "path": path, "expected": expected, "actual": actual}
+    return {
+        "check": "artifact in selected commit",
+        "path": path,
+        "expected": True,
+        "actual": actual,
+    }
 
 
 def divergence_report(
@@ -542,7 +498,7 @@ def render_context(
         }
     source_documents = [{"path": item.path, "blob": item.blob} for item in sources]
     source_documents.append({"path": current_prompt_path, "blob": current_prompt_blob})
-    milestone = resolve_milestone_state(repository, phase, plan, plan.path, ratified_ref)
+    milestone = resolve_milestone_state(repository, commit, phase, plan, ratified_ref)
     briefing_follow_up = validate_initial_briefing_follow_up(
         repository, plan, topic, milestone
     )
@@ -609,13 +565,9 @@ def markdown_capsule(capsule: dict[str, Any]) -> str:
         worktree_line += f"; {drift['behind']} behind / {drift['ahead']} ahead of `{drift['ref']}`"
     worktree_line += f"; spent: `{worktree['spent']}`"
 
+    state_validation = "validated in the selected commit"
     if milestone["ratified_ref"] is None:
-        corroboration = milestone["note"]
-    else:
-        corroboration = (
-            f"corroborated against `{milestone['ratified_line']}` "
-            f"@ `{milestone['ratified_ref'][:10]}`"
-        )
+        state_validation += f"; {milestone['note']}"
 
     lines = [
         "# Foreman context capsule (advisory)",
@@ -623,7 +575,7 @@ def markdown_capsule(capsule: dict[str, Any]) -> str:
         f"- Source: `{source['selected_ref']}` → `{source['commit']}`",
         worktree_line,
         f"- Active: {state['phase']} / `{state['topic']}` ({state['plan_status']})",
-        f"- Milestone state: **{milestone['state']}** — {corroboration}",
+        f"- Milestone state: **{milestone['state']}** — {state_validation}",
         f"- Next transition: {milestone['next_transition']}",
     ]
     seat = state["seat"]
@@ -671,12 +623,12 @@ def parse_arguments(argv: Sequence[str]) -> argparse.Namespace:
     parser.add_argument(
         "--no-fetch",
         action="store_true",
-        help="skip the automatic `git fetch origin` (offline runs; corroboration then uses last-known refs)",
+        help="skip the automatic `git fetch origin` (offline runs use last-known target refs)",
     )
     parser.add_argument(
         "--ratified-ref",
         default=None,
-        help="ratified line to corroborate against (default: derived from the checked-out work)",
+        help="target line for divergence reporting (default: derived from the checked-out work)",
     )
     return parser.parse_args(argv)
 
@@ -684,10 +636,8 @@ def parse_arguments(argv: Sequence[str]) -> argparse.Namespace:
 def main(argv: Sequence[str] | None = None) -> int:
     arguments = parse_arguments(sys.argv[1:] if argv is None else argv)
     repository = GitRepository(Path(arguments.repo).resolve())
-    # Fetch before reading. The capsule's boundary checks compare a declared
-    # milestone state against the ratified line, and a stale remote would
-    # confirm exactly the outdated picture those checks exist to catch. A failed
-    # fetch is not fatal — it degrades to last-known refs, which the capsule says.
+    # Fetch before reading so target-line divergence is current. A failed fetch
+    # is not fatal — it degrades to last-known refs, which the capsule says.
     if not arguments.no_fetch:
         repository.fetch()
     try:
