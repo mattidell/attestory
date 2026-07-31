@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
-  "milestone_state": "track-3",
-  "status": "LINE 7B PREREQUISITE READY. The prerequisite implementation and both CI repairs have independent READY records. Current v2 selection, explicit v1 preservation, annotation-only typing, focused regressions, and mypy are green. NEXT ACTION: merge PR #125 through green CI, then create a fresh Track-3 branch and rebind the presentation charter.",
+  "milestone_state": "closing",
+  "status": "CLOSING CI TYPE REPAIR RECHECK READY; PR #128 UPDATE PENDING. The one-file repair closes all four mypy errors through runtime-identity casts with six-test semantics unchanged; focused tests, repository mypy, governance lint, and the envelope scan are green. The Foreman now updates PR #128 and monitors its replacement verify run.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",
@@ -21,99 +21,58 @@
     "no UI redesign, filing, transmission, security hardening, authority-separation substrate, or historical-v1 migration",
     "no personal values, identifiers, dispositions, workspace locations, documents, screenshots, or generated real-data artifacts"
   ],
-  "initial_briefing_follow_up": {
-    "version": 1,
-    "expires": "milestone-close",
-    "grounding_commit": "dd030ee760bfbaa5e4491bf761d262e26ba2130c",
-    "notes": [
-      "The closed Real Return matrix measures maturity inside a bounded slice; Engine Breadth needs a separate vertical-slice coverage frontier.",
-      "Box 2a is already a named honest block with a signal and contradiction interlock, while the generic attachment ontology is not a reason to manufacture Schedule D.",
-      "Official 2025 instructions corrected the initial plan: the bounded box-2a-only path is direct to Form 1040 line 7a when Schedule D is declared not required."
-    ],
-    "sources": [
-      {
-        "path": "docs/phases/real-return/milestones/first-real-return-slice-deferral-ledger.md",
-        "blob": "058f78836cc8bea8d5063a2fa03d20825c9ccf00"
-      },
-      {
-        "path": "docs/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md",
-        "blob": "1a04cd55fd5b9a04c4ba443408b547b644b4fa8a"
-      },
-      {
-        "path": "docs/phases/real-return/milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md",
-        "blob": "af4b7a49b1abb0fe98bdb16b412c5fac40b48681"
-      },
-      {
-        "path": "docs/phases/real-return/real-return-roadmap.md",
-        "blob": "30b3445c3de0bc080b8ae55a20d7583035561144"
-      },
-      {
-        "path": "docs/phases/real-return/maturity-matrix.md",
-        "blob": "db52f2129ea16829a422f70a4edc03b37b1d7725"
-      },
-      {
-        "path": "docs/adr/0035-dividend-composition-and-lines-3a-3b.md",
-        "blob": "51885566fb9065433979e96b2a9f154e951eed2f"
-      },
-      {
-        "path": "docs/adr/0036-schedule-attachment-ontology.md",
-        "blob": "b3fe07239f31d325a4c00c5bbc9ea846aff922c7"
-      },
-      {
-        "path": "docs/adr/0038-qdcg-worksheet-and-declared-absence.md",
-        "blob": "8592826c0c2c2f5cde318dba3388e4014d105bdd"
-      }
-    ]
-  },
+  "retrospective": "docs/milestone-retrospectives/2026-07-31-capital-gain-distributions-line7a.md",
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
+      "docs/reviews/2026-07-30-capital-gain-distributions-line7a-track3-review.md",
+      "docs/reviews/2026-07-30-capital-gain-distributions-line7a-track3-repair-charter-stop.md",
+      "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md",
+      "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-review.md",
       "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
       "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
       "docs/adr/0046-presentation-surface-contract.md",
+      "docs/adr/0012-form-field-citizens-and-rendered-dispositions.md",
       "docs/adr/0031-real-data-residency-boundary.md",
       "packages/derivation/presentation_projection.py",
       "packages/derivation/live.py",
-      "packages/derivation/live_session.py",
-      "packages/presentation/pages/citation-walk.v1.html",
-      "tools/presentation_harness/examples/pages/citation-walk.v1.html",
-      "tools/generate_presentation_l2_golden.py",
-      "tools/generate_frrs_t3_fixtures.py",
-      "packages/derivation/loader.py",
-      "tools/presentation_harness/examples/manifests/citation-walk-production-shaped.v1.json",
-      "tests/derivation/test_language_schemas.py",
-      "tests/test_frrs_t3_resolver_bootstrap.py",
-      "tests/test_frrs_t4_w2_live_integration.py",
+      "packages/content/tax/2025/form1040.line-7a.form-field.json",
+      "packages/content/tax/2025/form1040.line-7b.form-field.v2.json",
+      "packages/content/tax/2025/rule.form1040-line7a.json",
+      "packages/content/tax/2025/rule.form1040-line7b.json",
+      "packages/content/tax/2025/citation.form1040.line-7a.json",
+      "packages/content/tax/2025/citation.form1040.line-7b.json",
+      "tests/test_capital_gain_distributions_line7a_t3_presentation.py",
       "tests/test_presentation_l2_integration.py",
       "tests/test_presentation_live_session.py",
-      "tests/test_presentation_live_viewing_vehicle.py",
+      "tools/generate_capital_gain_distributions_line7a_t3_presentation_goldens.py",
       "tests/test_capital_gain_distributions_line7a_t2_coordinator.py",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
     ],
     "review": [
       "docs/roles/reviewer.md",
-      "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2.md",
-      "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2-review.md",
-      "docs/reviews/2026-07-29-capital-gain-distributions-line7a-track2-review.md",
-      "docs/reviews/charter-2026-07-29-capital-gain-distributions-line7a-track2-repair.md",
+      "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md",
+      "docs/reviews/2026-07-31-capital-gain-distributions-line7a-track3-charter-stop.md",
+      "docs/reviews/2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-review.md",
       "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
       "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
-      "docs/adr/0031-real-data-residency-boundary.md",
+      "docs/adr/0046-presentation-surface-contract.md",
       "docs/adr/0012-form-field-citizens-and-rendered-dispositions.md",
-      "docs/adr/0038-qdcg-worksheet-and-declared-absence.md",
-      "packages/content/tax/2025/rule.form1040-line16.v3.json",
-      "packages/content/tax/2025/published-packages.json",
-      "packages/content/tax/2025/published-packages.v2.json",
-      "packages/derivation/runner.py",
-      "packages/sample_data/frrs_t3/adoptions/adopt-core-v6-current.json",
-      "packages/sample_data/frrs_t3/adoptions/adopt-core-v7-current.json",
-      "packages/sample_data/frrs_t3/publication_surface/releases/demo.release.2025.v1.json",
-      "packages/sample_data/frrs_t3/publication_surface/releases/demo.release.2025.v2.json",
+      "docs/adr/0031-real-data-residency-boundary.md",
+      "packages/derivation/presentation_projection.py",
+      "packages/derivation/live.py",
+      "packages/derivation/live_session.py",
+      "packages/presentation/pages/citation-walk.v1.html",
+      "tools/presentation_harness/examples/pages/citation-walk.v1.html",
+      "tools/generate_capital_gain_distributions_line7a_t3_presentation_goldens.py",
+      "tools/presentation_harness/examples/manifests/capital-gain-distributions-line7a.v1.json",
+      "tests/test_capital_gain_distributions_line7a_t3_presentation.py",
+      "tests/test_presentation_l2_integration.py",
+      "tests/test_presentation_live_session.py",
+      "tests/test_presentation_live_viewing_vehicle.py",
+      "tests/test_capital_gain_distributions_line7a_line7b_prerequisite.py",
       "tests/test_capital_gain_distributions_line7a_t2_coordinator.py",
-      "tests/test_dsbs_t2_coordinator.py",
-      "tests/derivation/test_runner.py",
-      "AGENTS.md#Schema Publication Protocol",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
     ],
@@ -450,6 +409,29 @@ the closing PR.
    true Schedule D slice separately selectable.
 10. The retrospective, roadmap, phase state, deferral ledger, and temporary
     initial-briefing supplement are closed out per project protocol.
+
+## Track 4 execution record
+
+Prepared 2026-07-31 and independently reviewed `READY`. This record distinguishes
+evidence already ratified on `main` from reviewed evidence that remains on the
+milestone branch:
+
+| Exit criterion | Disposition and named evidence |
+| --- | --- |
+| 1. Rival-backed accepted contract | **Satisfied on `main`.** ADR-0050 and its incumbent/rival evidence chain merged in PR #110 (`1cb12d785534`) with `verify` green; the rejected conclusion-only alternative remains recorded in the accepted ADR. |
+| 2. Immutable box-2a source path | **Satisfied on `main`.** Track 1's F1 repair recheck is `READY`; the reviewed unit merged in PR #111 (`51b0987c0607`) with `verify` green and additive publication history. |
+| 3. Line 7a and line 7b publication | **Satisfied on `main`.** Track 2 merged in PR #120 (`90f12e607cd4`) and the generic line-7b field/package prerequisite merged in PR #125 (`ea542ece491d`), both with `verify` green. |
+| 4. Declared downstream recomputation | **Satisfied on `main`.** Track 2's F1/F2 repair recheck is `READY`; PR #120 carries reviewed line 9, taxable-income, and line-16 behavior with exact pins and no runner-resident tax arithmetic. |
+| 5. Honest excluded routes | **Satisfied on `main`.** The Track 2 recheck and PR #125 prerequisite review measure missing authority and Schedule-D-required blocking/inapplicability without creating Schedule D. |
+| 6. Lifecycle, package, and explanation battery | **Satisfied on `main`.** Track 2's review lineage closed F1/F2 and both CI repair rechecks returned `READY`; PR #120's merge commit has green `verify`. |
+| 7. Presentation guarantees | **Satisfied by reviewed branch evidence, not yet ratified on `main`.** The final focused Track-3 recheck at `ac31998f0d54` is **READY**, closing F1–F3 while preserving valid-output byte identity and credited rendering/redaction evidence. |
+| 8. Independent reviews and merge CI | **Pending closing merge.** Tracks 0–2 and the line-7b prerequisite have independent review plus green merge CI. Track 3 and the Track-4 completion records are independently `READY` on this branch but are not yet on a merge commit; the closing PR's `verify` is the remaining gate of record. |
+| 9. Coverage frontier | **Independently reviewed and ready for the closing PR.** The refreshed frontier records only the selected direct-reporting class as synthetic complete and leaves Schedule D separately selectable; this wording is not yet ratified on `main`. |
+| 10. Completion records and closeout | **Reviewed `READY`, not closed.** The records unit removes the temporary briefing supplement and adds the retrospective, roadmap, frontier, phase prose, README, and deferral ledger. Completion review found one missing carried deferral; its one-file repair recheck is `READY`. The closing PR, green CI, owner merge, and mechanical post-merge closeout remain pending. |
+
+No row claims real-data exercise, a real browser/workspace session, filing
+readiness, general capital-gains support, or a completed merge of this
+records unit.
 
 ## Tracks
 

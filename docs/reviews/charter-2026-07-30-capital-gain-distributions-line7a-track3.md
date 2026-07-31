@@ -2,30 +2,34 @@
 
 Audience: Builder.
 
-Status: **bound to the ratified Track-2 merge and ready for Builder launch.**
+Status: **rebound after the line-7b prerequisite merge and ready for Builder
+launch.**
 
 ## Context Capsule
 
 - **Source ref and resolved launch commit:** `origin/main` at
-  `90f12e607cd4ff61770c14859b2a720763361336`, the no-fast-forward merge commit
-  for PR #120. Its `verify` run `30592473685` completed green. The Track-2
-  consistency and type `READY` recheck records are ancestors of this commit.
+  `ea542ece491d286c760a7409b68ab051e29bf2b1`, the no-fast-forward merge commit
+  for prerequisite PR #125. Its `verify` run `30594747785` completed green.
+  The prerequisite implementation review and both CI-repair `READY` records
+  are ancestors of this commit.
 - **Exact object or commit range:** branch
-  `track/capital-gain-distributions-line7a-track3`, created from that exact
-  merge commit. This charter-binding commit is the Builder's implementation
-  base. The spent Track-2 branch is not an implementation surface.
-- **Role:** one Builder, High tier / high effort. This is presentation and
+  `track/capital-gain-distributions-line7a-track3-presentation`, created from
+  that exact merge commit. This charter-binding commit is the Builder's
+  implementation base. The spent Track-2 and prerequisite branches are not
+  implementation surfaces.
+- **Role:** one Builder, Economy tier / medium effort. This is presentation and
   production-shaped synthetic integration, not a new contract or computation
   round.
 - **Scope and evidence-rung ceiling:** project the accepted line-7a and line-7b
   form fields through the existing presentation model and citation-walk product
-  page, add authoritative v7 synthetic presentation goldens and browser-manifest
+  page, add authoritative v8 synthetic presentation goldens and browser-manifest
   regressions, and preserve ADR-0046. Synthetic coordinator and synthetic
   browser evidence are the ceiling; no real workspace or real viewing session.
-- **Stop conditions:** stop and report if Track 2 is not merged with green
-  `verify`; if an accepted ADR, published schema, historical content/package,
-  existing golden unrelated to this slice, or Track-1/2 computation would need
-  mutation; if line 7b cannot be represented honestly without a new product
+- **Stop conditions:** stop and report if prerequisite PR #125 is not merged
+  with green `verify`; if an accepted ADR, published schema, historical
+  content/package, existing golden unrelated to this slice, or Track-1/2
+  computation would need mutation; if line 7b cannot be represented honestly
+  without a new product
   contract, new published schema, tax-specific projector doctrine, or a generic
   substrate beyond the existing internal presentation model; if the product
   page and frozen harness copy cannot remain source-equivalent where the walk
@@ -45,14 +49,29 @@ Status: **bound to the ratified Track-2 merge and ready for Builder launch.**
   `packages/presentation/pages/citation-walk.v1.html`;
   `tools/presentation_harness/examples/pages/citation-walk.v1.html`;
   `tools/generate_presentation_l2_golden.py`;
+  `tools/generate_frrs_t3_fixtures.py`;
+  `packages/derivation/loader.py`;
   `tools/presentation_harness/examples/manifests/citation-walk-production-shaped.v1.json`;
+  `tests/derivation/test_language_schemas.py`;
+  `tests/test_frrs_t3_resolver_bootstrap.py`;
+  `tests/test_frrs_t4_w2_live_integration.py`;
   `tests/test_presentation_l2_integration.py`;
   `tests/test_presentation_live_session.py`;
   `tests/test_presentation_live_viewing_vehicle.py`;
+  `docs/reviews/2026-07-31-capital-gain-distributions-line7a-track3-charter-stop.md`;
+  `docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite.md`;
+  `docs/reviews/2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-review.md`;
+  `docs/reviews/2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-ci-review.md`;
+  `packages/content/tax/2025/form1040.line-7b.form-field.v2.json`;
+  `packages/content/tax/2025/package.core-calculations.v8.json`;
+  `packages/content/tax/2025/published-packages.v3.json`;
+  `packages/sample_data/frrs_t3/adoptions/adopt-core-v8-current.json`;
+  `packages/sample_data/frrs_t3/publication_surface/releases/demo.release.2025.v3.json`;
+  `tests/test_capital_gain_distributions_line7a_line7b_prerequisite.py`;
   `AGENTS.md#Fixture Rules`; and `AGENTS.md#Data Safety Rules`.
 
-Before editing, echo the resolved Track-2 merge commit and ancestry proof, the
-Track-3 scope and ceiling, zero-authority and blanket-redaction constraints,
+Before editing, echo the resolved prerequisite merge commit and ancestry proof,
+the Track-3 scope and ceiling, zero-authority and blanket-redaction constraints,
 authoritative golden entrypoint, immutable-history constraint, and every stop
 condition.
 
@@ -66,9 +85,10 @@ field/citation/finding graph.
 
 ## Deliverables
 
-1. **Authoritative v7 presentation fixtures.** Add a deterministic,
-   production-shaped synthetic act log that adopts the Track-2 v7 chain through
-   its v2 registry/release and enters only through `live_coordinate_run`.
+1. **Authoritative v8 presentation fixtures.** Add a deterministic,
+   production-shaped synthetic act log that adopts the prerequisite v8 chain
+   through its v3 registry/release and enters only through
+   `live_coordinate_run`.
    Commit new slice-specific presentation goldens rather than rewriting the
    established v6 golden. Cover at least eligible published line 7a/checked
    line 7b, missing authority, and Schedule-D-required inapplicability.

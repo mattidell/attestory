@@ -99,8 +99,9 @@
    ============================================================ */
 const FIXTURE = Object.freeze(__FIXTURE_JSON__);
 
-const KNOWN_DISPOSITIONS = Object.freeze(["published_value", "computed_zero", "closure_backed_zero"]);
-const NUMERIC_DISPOSITIONS = new Set(KNOWN_DISPOSITIONS);
+const KNOWN_DISPOSITIONS = Object.freeze(["published_value", "computed_zero", "closure_backed_zero", "published_categorical"]);
+const NUMERIC_DISPOSITIONS = new Set(["published_value", "computed_zero", "closure_backed_zero"]);
+const PRESENTED_DISPOSITIONS = new Set(KNOWN_DISPOSITIONS);
 
 /* Safe DOM construction only — no innerHTML anywhere on this page
    (ADR-0046 foreclosure 5). */
@@ -157,7 +158,7 @@ for (const section of FIXTURE.sections || []) {
   for (const site of section.citationSites || []) ALL_CITATION_SITES.push(site);
   const disposition = section.resolved && section.resolved.disposition;
   const citation = section.field && section.field.citation;
-  if (NUMERIC_DISPOSITIONS.has(disposition) && citation && citation.id && citation.version) {
+  if (PRESENTED_DISPOSITIONS.has(disposition) && citation && citation.id && citation.version) {
     ALL_CITATION_SITES.push({
       siteId: fieldCitationSiteId(section.id),
       pinId: citation.id,
@@ -244,9 +245,10 @@ function renderLine(container, section) {
   const field = section.field;
   const resolved = section.resolved;
   const disposition = resolved.disposition;
-  const instruction = field.dispositions ? field.dispositions[disposition] : undefined;
+  const instructionKey = disposition === "published_categorical" ? "published_value" : disposition;
+  const instruction = field.dispositions ? field.dispositions[instructionKey] : undefined;
 
-  if (!Object.prototype.hasOwnProperty.call(field.dispositions || {}, disposition)) {
+  if (!Object.prototype.hasOwnProperty.call(field.dispositions || {}, instructionKey)) {
     throw new SectionError("unrecognized-disposition");
   }
   if (!instruction) throw new SectionError("missing-instruction");
@@ -267,6 +269,17 @@ function renderLine(container, section) {
     for (const site of section.citationSites || []) {
       container.appendChild(renderCitation(site.siteId, site.pinId, site.pinVersion));
     }
+    container.appendChild(renderFieldCitation(fieldCitationSiteId(section.id), field));
+    return;
+  }
+
+  if (disposition === "published_categorical") {
+    // The declared field instruction is the only affirmative display source.
+    // Never read resolved.act.finding.value: categorical source values remain
+    // redacted even if a malformed model tries to smuggle one alongside it.
+    if (instruction.render !== "checked") throw new SectionError("missing-instruction");
+    container.appendChild(el("p", { class: "line-value", role: "status", "aria-label": field.label + ": checked" }, ["checked"]));
+    container.appendChild(el("p", { class: "explain" }, [instruction.explain]));
     container.appendChild(renderFieldCitation(fieldCitationSiteId(section.id), field));
     return;
   }

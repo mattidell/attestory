@@ -7,7 +7,16 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): the active phase and milestone. Currently the Foundation phase: governance installation, workspace kernel, derivation machinery, and first tax slice are complete; the Source Completeness And Interest Slice milestone is in implementation. Its product is the recorded closure/horizon substrate plus an honest Form 1099-INT box-1 subtotal — deliberately not Form 1040 line 2b, because box-1 closure never authorizes a claim about total taxable interest (ADR-0016).
+- **Phase state** (`docs/phase-state.md`): Engine Breadth is active. The first
+  breadth milestone's completion records are independently `READY`; its
+  closing PR, CI gate, owner merge, and post-merge closeout remain pending.
+- **Current bounded capability:** production-shaped synthetic returns in the
+  selected Form 1099-DIV box-2a-only direct-reporting class reach Form 1040
+  line 7a, line 9, taxable income, line 16, explanation, package resolution,
+  and presentation. The route requires contributed Exception-1 authority that
+  Schedule D is not required. Schedule-D-required and missing-authority cases
+  remain honestly unavailable; this is not real-data exercise, filing
+  readiness, general capital-gains support, or a merged milestone claim.
 - **Planning** (`PROJECT_PLANNING.md`, `docs/phases/`): the planning protocol and phase/milestone/track documents.
 - **Agent guide** (`AGENTS.md`): operating rules for development agents.
 - **Decisions** (`docs/adr/`) and **retrospectives** (`docs/milestone-retrospectives/`).

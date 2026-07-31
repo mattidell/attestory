@@ -18,24 +18,32 @@ input boxes. Status is one of:
 
 “Synthetic complete” is an engine-coverage claim, not a real-data claim.
 
-## Frontier as of 2026-07-28
+## Frontier as of 2026-07-31
 
 | Candidate slice | New computable class | Current blocker | Contract novelty | Evidence target | Status |
 | --- | --- | --- | --- | --- | --- |
-| Form 1099-DIV box 2a → Form 1040 line 7a, Schedule D not required | Returns whose only capital gains are eligible capital-gain distributions and whose contributed declaration says Schedule D is not required | Box 2a is recorded/non-composable; ADR-0038 deliberately has no route from the signal to line 16 | Decide the authority/completeness shape for the direct-line exception, promote box 2a into a closed family, and define the QDCG handoff | Rival-backed contract followed by production-shaped synthetic coordinator, lifecycle, and presentation evidence | **selected** |
+| Form 1099-DIV box 2a → Form 1040 line 7a, Schedule D not required | Returns whose only capital gains are eligible capital-gain distributions and whose contributed component authority establishes that Schedule D is not required | The prior recorded/non-composable box-2a block is retired only for this bounded class; Schedule-D-required and missing-authority cases remain honestly unavailable | ADR-0050 accepts four Exception-1 components, a horizon-closed successor box-2a family, distinct line 7a/7b publications, and the direct-route QDCG handoff | Production-shaped synthetic coordinator, lifecycle, package, explanation, and presentation evidence | **synthetic complete** |
 | Capital transactions → Schedule D | Returns requiring Schedule D because the direct-line exception does not apply | No transaction source family, Form 8949 content, loss/carryover completeness, or Schedule D production content | Larger source-and-attachment contract; must not manufacture a schedule from box 2a alone | Separate milestone after its source scope and completeness boundary are selected | candidate |
 | Further positive interest sources | Returns with K-1 box 5 interest or market discount | ADR-0026 excludes both from line 2b's declared universe | Extend source families and the coextensive composition | Synthetic multi-family closure and line-2b tie-out | candidate |
 | Interest subtractive adjustments | Returns with nominee, accrued, or premium adjustments | No subtractive-adjustment mechanism | New adjustment authority and explanation semantics | Paper-first contract evidence, then positive/negative adjustment goldens | candidate |
 | Other recorded Form 1099-DIV boxes | Returns involving boxes 3, 5, 7, or 12 | Boxes are named recorded/non-composable exclusions with different downstream meanings | Not one coherent slice; each box needs its own downstream and completeness analysis | Split into independently selectable rows before planning | named block |
 | New unrelated income domain | A return class outside the existing W-2/interest/dividend columns | No owner-selected source/form target | Unknown until a concrete source and downstream output are named | Owner selection and a fresh coverage row | candidate |
 
-## Selected frontier
+## Completed synthetic frontier
 
-The first milestone is **Capital-Gain Distributions and Form 1040 Line 7a**.
-Its boundary follows the 2025 Form 1040 direct-reporting exception: the engine
-will not create Schedule D merely because box 2a is present. A later Schedule D
-milestone must bring the additional source and completeness scope that makes
-the attachment genuinely required.
+The first milestone, **Capital-Gain Distributions and Form 1040 Line 7a**, has
+completion records independently reviewed `READY`. Its synthetic-complete
+claim is bounded to the selected box-2a-only direct-reporting class: production-
+shaped synthetic returns reach line 7a, line 9, taxable income, line 16,
+explanation, package resolution, and presentation. This is neither real-data
+evidence nor general capital-gains support, and it remains provisional until
+the closing records unit passes CI and owner merge.
+
+The engine will not create Schedule D merely because box 2a is present.
+Schedule-D-required and missing-authority returns remain outside this direct
+route. A later Schedule D milestone must bring the additional source and
+completeness scope that makes the attachment genuinely required; it remains a
+distinct candidate rather than the automatically selected successor.
 
 Official tax-content grounding:
 
