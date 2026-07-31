@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "capital-gain-distributions-line7a",
   "milestone_state": "track-2",
-  "status": "LINE 7B PREREQUISITE CI REPAIR. PR #125 CI proved 743 tests green and exposed one stale Track-1 loader assertion that still expects historical line-7b v1. The Builder is chartered for a one-file test update asserting both current v2 selection and explicit v1 preservation. Production and publication artifacts are frozen.",
+  "status": "LINE 7B PREREQUISITE CI TYPE REPAIR. The stale loader assertion is repaired with explicit v1 preservation. Its mandated mypy check exposed one invariant-container inference error in the new prerequisite test module, reproduced at the repair base. The Builder is chartered for one annotation-only correction.",
   "scope": [
     "establish a rival-backed contract for the direct line-7a exception using explicit contributed authority rather than assumed absence",
     "promote Form 1099-DIV box 2a from recorded non-composable content into a horizon-closed source family without mutating published history",

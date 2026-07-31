@@ -5,9 +5,9 @@
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
   "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — LINE 7B PREREQUISITE CI REPAIR.** PR #125 CI proved 743 tests green and exposed one stale Track-1 loader assertion that still expects historical line-7b v1. The Builder is chartered for a one-file test update asserting both current v2 selection and explicit v1 preservation. Production and publication artifacts are frozen.",
-  "current_role": "Line 7b Prerequisite CI Repair Builder",
-  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-ci-repair.md"
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — LINE 7B PREREQUISITE CI TYPE REPAIR.** The stale loader assertion is repaired with explicit v1 preservation. Its mandated mypy check exposed one invariant-container inference error in the new prerequisite test module, reproduced at the repair base. The Builder is chartered for one annotation-only correction.",
+  "current_role": "Line 7b Prerequisite CI Type Repair Builder",
+  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-ci-types.md"
 }
 -->
 # Phase State
