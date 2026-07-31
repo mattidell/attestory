@@ -209,7 +209,7 @@ class ResolvedGraphAndDispositions(unittest.TestCase):
         self.assertEqual(rule["publishes"], LINE7B_SYMBOL)
 
     def test_v8_live_run_exposes_all_existing_line7b_dispositions(self) -> None:
-        cases = (
+        cases: tuple[tuple[str, dict[str, str | None], str], ...] = (
             (
                 "eligible",
                 {"C1": "yes", "C2": "yes", "C3": "yes", "C4": "yes"},
