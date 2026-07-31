@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "capital-gain-distributions-line7a",
   "active_plan": "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
-  "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — LINE 7B PREREQUISITE CI RECHECK.** The stale loader assertion and prerequisite-test typing error are repaired in two test-only commits. The independent Reviewer is chartered to verify current v2 selection with explicit v1 preservation, annotation-only typing, focused regressions, and mypy.",
-  "current_role": "Line 7b Prerequisite CI Reviewer",
-  "current_prompt": "docs/reviews/charter-2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-ci-review.md"
+  "milestone_state": "track-3",
+  "status": "**ENGINE BREADTH / CAPITAL-GAIN DISTRIBUTIONS LINE 7A — LINE 7B PREREQUISITE READY.** The prerequisite implementation and both CI repairs have independent READY records. Current v2 selection, explicit v1 preservation, annotation-only typing, focused regressions, and mypy are green. NEXT ACTION: merge PR #125 through green CI, then create a fresh Track-3 branch and rebind the presentation charter.",
+  "current_role": "Foreman (merge line 7b prerequisite; then rebind Track 3)",
+  "current_prompt": "docs/reviews/2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-ci-review.md"
 }
 -->
 # Phase State
