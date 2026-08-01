@@ -1,7 +1,5 @@
 # Retrospective — Schedule K-1 Box-5 Interest Breadth
 
-- Closing PR: #133
-
 ## What differed from the plan
 
 The readiness inventory said package v8 selected line-2b field content v2.

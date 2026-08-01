@@ -534,8 +534,6 @@ duplication, and the whole document should run to roughly forty lines:
 ```md
 # Retrospective — <Milestone>
 
-- Merged: PR #NN
-
 ## What differed from the plan
 (and why)
 
