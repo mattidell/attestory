@@ -2,7 +2,7 @@
 {
   "version": 1,
   "topic": "k1-interest-breadth",
-  "milestone_state": "built-awaiting-review",
+  "milestone_state": "track-1",
   "status": "BUILT, AWAITING REVIEW. The integrated Builder completed K1-C1–C5 at commit 466780685e82ec1f957985ac5bed0a08c2386224. The exact-range independent review is chartered next.",
   "scope": [
     "add an authoritative, horizon-closed source family for 2025 Schedule K-1 (Form 1065) box-5 taxable interest",
