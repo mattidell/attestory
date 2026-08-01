@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "market-discount-interest",
   "milestone_state": "planned",
-  "status": "BUILD LANDED. The bounded 2025 payer-reported current-inclusion market-discount interest implementation is on the milestone branch and is ready for the exact-range independent Reviewer; no completion claim is made before review and CI.",
+  "status": "REVIEW READY. The bounded 2025 payer-reported current-inclusion market-discount interest implementation landed, and the exact-range independent Reviewer returned READY with no repair cycle; Foreman closeout remains pending.",
   "scope": [
     "support nonnegative market-discount amounts reported by a payer in 2025 Form 1099-INT box 10 or Form 1099-OID box 5 when the amount is already currently includible as taxable interest under a section 1278(b) election",
     "preserve separate source-family authority for the Form 1099-INT and Form 1099-OID reporting routes and require closure of both families in the adopted positive-interest composition",
