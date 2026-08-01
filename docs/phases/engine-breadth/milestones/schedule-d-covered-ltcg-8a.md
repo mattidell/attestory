@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "schedule-d-covered-ltcg-8a",
   "milestone_state": "planned",
-  "status": "PLANNED. Milestone and prototype plans committed on `milestone/schedule-d-covered-ltcg-8a`, awaiting owner approval and merge. No track has started.",
+  "status": "PLANNED. Milestone and prototype plans merged to `main` in PR #136 (`a05d637`). Track 0's incumbent iteration (`it1`) returned and settled P1/P2 at Rung 1, with P3's paper spike surfacing one genuine schema gap and two named design forks for committee review. The clean-room rival (`it2`) is chartered and not yet launched.",
   "scope": [
     "establish a transaction source family and logical transaction identity for covered, long-term, gain-only Form 1099-B statement items eligible for Schedule D line 8a",
     "establish the Schedule D completeness boundary through component authority: the eligible long-term family closed, the box-2a family closed empty, and named absent-source claims for short-term transactions, current losses, inbound carryovers, Form 8949, other Schedule D sources (K-1 gains, Forms 2439/4684/4797/6252/6781/8824), lines 18/19 special-rate sources, and Form 1099-DA/QOF flow",
