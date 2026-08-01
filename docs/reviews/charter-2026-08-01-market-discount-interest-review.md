@@ -2,15 +2,18 @@
 
 Audience: Reviewer.
 
-Status: prepared for owner launch after the Builder hands off a clean exact range.
+Status: chartered for owner launch after the Builder handoff.
 
 ## Context Capsule
 
-- **Source ref and resolved launch commit:** the market-discount milestone
-  branch at the Builder handoff commit; verify the resolved SHA against Git.
-- **Exact implementation object:** the Foreman will record the planning-tip to
-  Builder-tip range. Review only that exact range; the planning commit is
-  context, not implementation.
+- **Source ref and resolved launch commit:** branch
+  `milestone/market-discount-interest` at
+  `1226d26ab8e527f6cea85fc41c0f75c990370d70`; verify the resolved SHA against
+  Git before acting.
+- **Exact implementation object:**
+  `70bd8f237584ad7233e78580c22352a3e9829ef5..1226d26ab8e527f6cea85fc41c0f75c990370d70`.
+  The lower commit is the committed planning unit and is context, not
+  implementation; review only the Builder changes in the exact range.
 - **Role and tier:** one author-independent integrated Reviewer, Medium/medium.
   Do not consult the Builder thread, uncommitted ledger, or self-assessment.
 - **Scope and evidence ceiling:** measure MD-C1 through MD-C5 and MD-P1–P10 /
@@ -95,4 +98,3 @@ Findings may recommend one bounded correction but must not implement it or
 expand the milestone. The Reviewer writes and commits its review record, then
 returns custody to the Foreman. A second substantive finding after one repair
 cycle returns to the owner.
-

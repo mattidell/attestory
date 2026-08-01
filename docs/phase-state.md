@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "market-discount-interest",
   "active_plan": "docs/phases/engine-breadth/milestones/market-discount-interest.md",
-  "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / PAYER-REPORTED CURRENT-INCLUSION MARKET-DISCOUNT INTEREST — PLANNED.** The selected bounded 2025 Form 1099-INT box-10 and Form 1099-OID box-5 payer-reported class is paper-grounded for implementation through Form 1040 line 2b, composition-complete Schedule B Part I, downstream results, package resolution, explanation, and one canonical positive presentation golden.",
-  "current_role": "Builder (integrated source-to-presentation build; owner launch pending)",
-  "current_prompt": "docs/reviews/charter-2026-08-01-market-discount-interest-builder.md"
+  "milestone_state": "track-1",
+  "status": "**ENGINE BREADTH / PAYER-REPORTED CURRENT-INCLUSION MARKET-DISCOUNT INTEREST — BUILD LANDED.** The integrated Builder landed the bounded 2025 Form 1099-INT box-10 and Form 1099-OID box-5 payer-reported path on the milestone branch. The exact implementation range is ready for the independent Reviewer; no completion claim is made before review and CI.",
+  "current_role": "Reviewer (integrated independent review; owner launch pending)",
+  "current_prompt": "docs/reviews/charter-2026-08-01-market-discount-interest-review.md"
 }
 -->
 # Phase State
@@ -29,11 +29,11 @@ slice is payer-reported current-inclusion market discount in Form 1099-INT box
 
 * **Completed Milestone:** Schedule K-1 Box-5 Interest Breadth — **closed.**
 * **Product change:** Form-1065 K-1 box-5 taxable interest is a closed fifth positive-interest family, and Schedule B Part I now itemizes the complete adopted interest composition.
-* **Plan:** `docs/phases/engine-breadth/milestones/market-discount-interest.md` — **planned.**
+* **Plan:** `docs/phases/engine-breadth/milestones/market-discount-interest.md` — **Track 1 build landed; review pending.**
 * **Scope:** 2025 payer-reported current-inclusion market discount in Form 1099-INT box 10 or Form 1099-OID box 5; disposition, basis, taxpayer accrual, subtractive adjustments, and broader securities history remain outside it.
-* **Evidence:** IRS paper-grounded source boundary; mechanical v9/v4 selected-version inventory; expected synthetic source/lifecycle, line-2b, Schedule B, package, explanation, and presentation evidence.
-* **Next:** owner review of the committed plan and Builder work packet, then start the integrated Builder track.
-* **Branch line:** planning is prepared on `milestone/market-discount-interest`; implementation has not started.
+* **Evidence:** IRS paper-grounded source boundary and Builder implementation on `milestone/market-discount-interest`; independent review must measure the exact Builder range, selected-version inventory, synthetic source/lifecycle, line-2b, Schedule B, package, explanation, and presentation evidence.
+* **Next:** owner launches the integrated independent Reviewer against the exact range in the Reviewer charter.
+* **Branch line:** engine work continues on `milestone/market-discount-interest`; the Builder handoff is complete and review is pending.
 
 ## Re-entry
 
