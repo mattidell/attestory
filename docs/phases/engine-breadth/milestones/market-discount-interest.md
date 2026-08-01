@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "market-discount-interest",
-  "milestone_state": "track-1",
-  "status": "NOT READY. The independent Reviewer identified one stale current-version assertion and one fixture-economy violation: a copied one-field malformed presentation model. A single bounded findings-only repair is chartered; closeout remains pending fresh independent re-review and green CI.",
+  "milestone_state": "closed",
+  "status": "CLOSED. The bounded 2025 payer-reported current-inclusion market-discount interest implementation is synthetic complete after one bounded findings-only repair; the owner-authorized re-review returned READY and the closing PR verify check is green.",
   "retrospective": "docs/milestone-retrospectives/2026-08-01-market-discount-interest.md",
   "scope": [
     "support nonnegative market-discount amounts reported by a payer in 2025 Form 1099-INT box 10 or Form 1099-OID box 5 when the amount is already currently includible as taxable interest under a section 1278(b) election",
@@ -468,9 +468,9 @@ result.
 | --- | --- | --- |
 | Scope and contracts | Complete | Plan committed in the milestone branch; the paper boundary and MD-C1 through MD-C5 contracts remain binding. |
 | Integrated build | Complete | One Medium/medium Builder on `milestone/market-discount-interest`; implementation and focused evidence landed in the branch. |
-| Independent review | `NOT READY` | `docs/reviews/review-2026-08-01-market-discount-interest.md`; the review should have rejected the stale current-version expectation and copied malformed presentation model. |
-| Repair | Chartered | `docs/reviews/charter-2026-08-01-market-discount-interest-repair.md`; one findings-only Builder cycle, pending owner launch. |
-| Closeout | Reopened and pending | Fresh independent re-review and green CI are required before the bounded synthetic-complete result can be recorded. |
+| Independent review | Initial `NOT READY`; re-review `READY` | `docs/reviews/review-2026-08-01-market-discount-interest.md`; the owner-authorized bounded re-review accepted both repairs and the unchanged product scope. |
+| Repair | Complete | `docs/reviews/charter-2026-08-01-market-discount-interest-repair.md`; one findings-only repair removed the stale expectation and copied malformed model. |
+| Closeout | Complete for closing PR | PR #134's replacement `verify` check is green; owner merge remains the ratification boundary. |
 
 ## Execution sequence
 

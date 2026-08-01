@@ -78,7 +78,24 @@ Verified. Grep search confirmed the complete absence of escapes into `dispositio
 
 ## Repair disposition
 
-One repair cycle is authorized for the two findings above. No new evaluator,
-attachment schema/runtime, or presentation behavior is in scope. A fresh
-independent Reviewer must recheck the changed tests/golden surface and the
-adjacent compatibility and data-safety invariants before closeout resumes.
+One repair cycle was authorized for the two findings above. No new evaluator,
+attachment schema/runtime, or presentation behavior was in scope.
+
+## Owner-authorized repair re-review
+
+**READY**
+
+The owner explicitly directed the Foreman to perform the bounded re-review.
+The repair commit `74f2500`:
+
+- advances the current line-2b citizen expectation to v4 while retaining the
+  `form-field.v3` schema and historical compatibility assertions;
+- removes the copied 1,567-line malformed presentation model and prevents the
+  generator from recreating it; and
+- preserves the one canonical positive golden and the MD-N12 in-memory
+  mutation.
+
+The focused recheck passed 29 schema-citizen tests and 14 market-discount
+integration tests. The replacement PR #134 `verify` check is green across
+pytest, mypy, governance lint, and envelope scan. No new scope, mechanism, or
+data-safety issue was found. Repair count: 1.

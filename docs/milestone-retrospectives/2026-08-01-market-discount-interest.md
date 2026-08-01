@@ -16,8 +16,8 @@
   violated the plan and the review charter; MD-N12 already constructs the
   compact mutation in memory.
 - No new evaluator mechanism, attachment schema/runtime, or presentation
-  behavior was introduced. A single bounded findings-only repair is now
-  chartered; the milestone is not complete.
+  behavior was introduced. One bounded findings-only repair corrected both
+  findings, and the owner-authorized re-review returned READY.
 
 ## What it cost
 
@@ -27,11 +27,13 @@
   review, so they are not inferred here.
 - Authored contract, runtime, and test work was reported separately from
   generated or expanded artifacts: 2,037 authored lines and 4,616
-  generated/expanded lines. The duplicated presentation model is part of the
-  latter volume and must be removed. The first-review verdict is NOT READY;
-  repair count is 0 completed, with one bounded repair pending.
-- The bounded synthetic-complete result remains provisional until repair,
-  fresh independent re-review, and green CI.
+  generated/expanded lines in the initial review. The repair removed the
+  redundant 1,567-line copied model without adding a replacement artifact.
+  Builder-specific repair tool-call and wall-time values were not separately
+  recorded, so they are not inferred here. Repair count: 1.
+- The bounded synthetic-complete result is now supported by the focused
+  re-review and green PR #134 `verify`; it remains a synthetic, not real-data,
+  claim.
 
 ## Follow-ups
 
@@ -43,7 +45,7 @@
 - Retain the selected-version inventory as a readiness requirement for future
   imitation-successor milestones.
 - Treat red CI and a copied one-field presentation model as blocking findings,
-  not as closeout bookkeeping.
+  not as closeout bookkeeping; require a fresh re-review after repair.
 
 ## What should change in the next plan
 
