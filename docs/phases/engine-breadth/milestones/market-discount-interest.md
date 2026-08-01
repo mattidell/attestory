@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "market-discount-interest",
   "milestone_state": "planned",
-  "status": "PLANNED. The bounded 2025 payer-reported current-inclusion market-discount interest path is selected for implementation through Form 1040 line 2b, Schedule B Part I, downstream results, explanation, package resolution, and one canonical positive presentation golden.",
+  "status": "BUILD LANDED. The bounded 2025 payer-reported current-inclusion market-discount interest implementation is on the milestone branch and is ready for the exact-range independent Reviewer; no completion claim is made before review and CI.",
   "scope": [
     "support nonnegative market-discount amounts reported by a payer in 2025 Form 1099-INT box 10 or Form 1099-OID box 5 when the amount is already currently includible as taxable interest under a section 1278(b) election",
     "preserve separate source-family authority for the Form 1099-INT and Form 1099-OID reporting routes and require closure of both families in the adopted positive-interest composition",
@@ -484,4 +484,3 @@ Concrete findings may return to the same Builder for one bounded findings-only
 repair cycle. The Reviewer rechecks changed behavior and adjacent invariants.
 Any second substantive defect, new mechanism, or scope expansion returns to
 the owner. The Foreman then performs milestone closeout records.
-
