@@ -35,7 +35,7 @@ PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 # (SOURCE_SET_UNCLOSED, the code the runner actually emits) and is not a
 # distinct presentation contract. Both are recognized field citizens.
 FIELD_SCHEMAS = frozenset({"form-field.v2", "form-field.v3"})
-ATTACHMENT_SCHEMA = "attachment-rule.v1"
+ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v1", "attachment-rule.v2"})
 
 _NUMERIC_DISPOSITIONS = frozenset({"published_value", "computed_zero", "closure_backed_zero"})
 # A field may declare one fixed, non-numeric publication instruction.  This is
@@ -344,7 +344,7 @@ def build_presentation_model(
     lineage — never on a guess.
     """
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
-    attachments = [m for m in resolved_members if m.get("schema") == ATTACHMENT_SCHEMA]
+    attachments = [m for m in resolved_members if m.get("schema") in ATTACHMENT_SCHEMAS]
     rules_by_id = _rules_by_id(resolved_members)
     citations: dict[tuple[str, str], Mapping[str, Any]] = {}
     for member in resolved_members:

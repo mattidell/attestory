@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+  "closure_claim": "Every taxable-interest amount in box 5 of a 2025 Schedule K-1 (Form 1065) furnished to the return subject is recorded. This excludes other K-1 forms, boxes, attached statements, partnership basis, and total taxable-interest completeness.",
+  "id": "tax.us.2025.form1065-k1.box5",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.form1065-k1.box5-interest"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Schedule K-1 (Form 1065) box-5 taxable-interest items, tax year 2025",
+  "version": "v1"
+}

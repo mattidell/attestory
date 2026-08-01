@@ -1,0 +1,73 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.form1065-k1.box5-interest",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.partnership",
+          "kind": "entity",
+          "name": "partnership"
+        },
+        {
+          "entity_kind": "tax.us.form1065-k1-statement",
+          "kind": "entity",
+          "name": "k1-statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.taxable-interest",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Taxable interest in box 5 of one logical 2025 Schedule K-1 (Form 1065); statement identity is peer to evidence and carries no file, upload, scan, document, or evidence key.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1065-k1.box5.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "User-attested closure of the 2025 Form-1065 Schedule K-1 box-5 taxable-interest family on its current membership horizon.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.form1065-k1.vocabulary",
+  "label": "Schedule K-1 (Form 1065) box-5 taxable-interest vocabulary for tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

@@ -85,7 +85,7 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     declaration assertion could never reach a run at all (the same gap Track
     2 closed for attachment-rule.v1's completeness answers).
     """
-    if rule.get("schema") == "attachment-rule.v1":
+    if rule.get("schema") in {"attachment-rule.v1", "attachment-rule.v2"}:
         symbols = list(rule["requirement"]["subtotals"])
         completeness = rule["completeness"]
         symbols.extend(a["symbol"] for a in completeness["required_answers"])
