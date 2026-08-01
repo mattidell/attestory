@@ -80,6 +80,8 @@ W2_CLOSURE_FACT_ID = (
 EXPECTED_IMPACT_LINES = ("1a", "9", "11", "15", "16")
 COMPARISON_LINES = ("2b", "3a", "3b", "12")
 EVALUATION_LINES = EXPECTED_IMPACT_LINES + COMPARISON_LINES
+EXPLAINED_LINES = EVALUATION_LINES
+ENTRY_LINE = "1a"
 W2_BOX1_FORMAT = (
     ENTRY_FIXTURE / "surface" / "content" / "app" / "src" / "w2-box1-format.js"
 )
@@ -415,6 +417,188 @@ def _line_values(model: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
     return values
 
 
+_RULE_ROLES = frozenset({"field-mapping", "computation"})
+_DEPENDENCY_ROLES = frozenset({"input", "choice"})
+_OPERATION_ROLE = "operation-semantics"
+_PARAMETER_ROLE = "parameter"
+
+
+def _line_index(model: Mapping[str, Any]) -> dict[str, tuple[str, str, Any]]:
+    """Map each evaluation line's own finding id to (line, title, value).
+
+    Lets a dependency pin on one line's finding be recognized as *another
+    evaluation line* rather than raw evidence, without inventing that link --
+    the finding ids are exactly the ids the record itself already assigned.
+    """
+    index: dict[str, tuple[str, str, Any]] = {}
+    for section in model.get("sections") or []:
+        if not isinstance(section, dict):
+            continue
+        field = section.get("field")
+        resolved = section.get("resolved")
+        if not isinstance(field, dict) or not isinstance(resolved, dict):
+            continue
+        line_id = str(field.get("line", ""))
+        if line_id not in EVALUATION_LINES:
+            continue
+        act = resolved.get("act")
+        finding = act.get("finding") if isinstance(act, dict) else None
+        if isinstance(finding, dict) and isinstance(finding.get("id"), str):
+            index[finding["id"]] = (line_id, _LINE_TITLES.get(line_id, line_id), resolved.get("value"))
+    return index
+
+
+def _dependency_graph(
+    model: Mapping[str, Any], line_index: Mapping[str, tuple[str, str, Any]]
+) -> dict[str, set[str]]:
+    """Each evaluation line's own immediate line dependencies, as a graph."""
+    graph: dict[str, set[str]] = {}
+    for section in model.get("sections") or []:
+        if not isinstance(section, dict):
+            continue
+        field = section.get("field")
+        resolved = section.get("resolved")
+        if not isinstance(field, dict) or not isinstance(resolved, dict):
+            continue
+        line_id = str(field.get("line", ""))
+        if line_id not in EVALUATION_LINES:
+            continue
+        act = resolved.get("act")
+        finding = act.get("finding") if isinstance(act, dict) else None
+        pins = finding.get("pins") if isinstance(finding, dict) else None
+        deps: set[str] = set()
+        for pin in pins if isinstance(pins, list) else []:
+            if not isinstance(pin, dict) or pin.get("role") not in _DEPENDENCY_ROLES:
+                continue
+            reference = line_index.get(pin.get("id"))
+            if reference is not None:
+                deps.add(reference[0])
+        graph[line_id] = deps
+    return graph
+
+
+def _reaches(graph: Mapping[str, set[str]], start: str, target: str) -> bool:
+    if start == target:
+        return True
+    seen = {start}
+    stack = [start]
+    while stack:
+        current = stack.pop()
+        for dep in graph.get(current, ()):
+            if dep == target:
+                return True
+            if dep not in seen:
+                seen.add(dep)
+                stack.append(dep)
+    return False
+
+
+def _line_explanation(
+    model: Mapping[str, Any],
+    line_id: str,
+    line_index: Mapping[str, tuple[str, str, Any]],
+    dependency_graph: Mapping[str, set[str]],
+) -> dict[str, Any] | None:
+    """The walkable, dependency-aware explanation for one line.
+
+    A line whose immediate inputs are other evaluation lines (an aggregation
+    or a bracket computation) shows those lines as its dependencies -- a
+    reader walks the chain rather than a flat evidence dump. A line with no
+    such dependency (a directly entered or directly sourced amount) falls
+    back to the presentation model's own recursive citation walk, filtered to
+    leaves that carry a declared evidence label. The governing rule and any
+    declared operation/parameter pins are surfaced verbatim either way.
+    Nothing here is computed, labeled, or invented beyond what the record
+    already declared.
+    """
+    sections = model.get("sections")
+    if not isinstance(sections, list):
+        return None
+    pin_labels = model.get("pinLabels")
+    if not isinstance(pin_labels, dict):
+        pin_labels = {}
+    for section in sections:
+        if not isinstance(section, dict):
+            continue
+        field = section.get("field")
+        resolved = section.get("resolved")
+        if not isinstance(field, dict) or not isinstance(resolved, dict):
+            continue
+        if str(field.get("line", "")) != line_id:
+            continue
+
+        act = resolved.get("act")
+        finding = act.get("finding") if isinstance(act, dict) else None
+        pins = finding.get("pins") if isinstance(finding, dict) else None
+        pins = pins if isinstance(pins, list) else []
+
+        rules = [
+            {"id": pin.get("id"), "role": pin.get("role")}
+            for pin in pins
+            if isinstance(pin, dict) and pin.get("role") in _RULE_ROLES
+        ]
+        operations = [
+            pin.get("id") for pin in pins if isinstance(pin, dict) and pin.get("role") == _OPERATION_ROLE
+        ]
+        parameters = [
+            pin.get("id") for pin in pins if isinstance(pin, dict) and pin.get("role") == _PARAMETER_ROLE
+        ]
+
+        depends_on: list[dict[str, Any]] = []
+        for pin in pins:
+            if not isinstance(pin, dict) or pin.get("role") not in _DEPENDENCY_ROLES:
+                continue
+            reference = line_index.get(pin.get("id"))
+            if reference is not None:
+                dep_line, dep_title, dep_value = reference
+                depends_on.append({
+                    "line": dep_line,
+                    "title": dep_title,
+                    "value": dep_value,
+                    # Same predicate that gates this line's own "jump to
+                    # entry" action, applied to the dependency instead of the
+                    # line itself -- lets a chip say where it leads before
+                    # it's clicked, not just after.
+                    "tracesToEntry": _reaches(dependency_graph, dep_line, ENTRY_LINE),
+                })
+
+        cited_evidence: list[dict[str, Any]] = []
+        if not depends_on:
+            for site in section.get("citationSites") or []:
+                if not isinstance(site, dict):
+                    continue
+                pin_id = site.get("pinId")
+                label = pin_labels.get(pin_id)
+                if label is None:
+                    continue
+                cited_evidence.append({
+                    "siteId": site.get("siteId"),
+                    "pinId": pin_id,
+                    "pinVersion": site.get("pinVersion"),
+                    "context": site.get("context"),
+                    "label": label,
+                })
+
+        return {
+            "label": field.get("label"),
+            "description": field.get("description"),
+            "disposition": resolved.get("disposition"),
+            "value": resolved.get("value"),
+            "rules": rules,
+            "operations": operations,
+            "parameters": parameters,
+            "dependsOn": depends_on,
+            "citedEvidence": cited_evidence,
+            "hasSupport": bool(depends_on or cited_evidence),
+            # Whether this line's own dependency chain actually reaches the
+            # loop's one correctable fact -- scopes the "jump to entry" action
+            # to lines a W-2 correction can actually change, per the record's
+            # own dependency graph rather than a fixed line list.
+            "tracesToEntry": _reaches(dependency_graph, line_id, ENTRY_LINE),
+        }
+    return None
+
+
 def _parse_box1_with_format(
     value: object,
     format_spec: Mapping[str, Any],
@@ -611,6 +795,8 @@ class SyntheticW2EntryRuntime:
             raise EntryLoopError("entry-state-unavailable") from None
 
         lines_by_id = _line_values(model)
+        line_index = _line_index(model)
+        dependency_graph = _dependency_graph(model, line_index)
         current = self._current_w2(contents.acts)
         missing = current is None
         blocked = [
@@ -643,6 +829,8 @@ class SyntheticW2EntryRuntime:
                 line["change"] = "unchanged"
             else:
                 line["change"] = "changed"
+            if line_id in EXPLAINED_LINES and line["computed"]:
+                line["explanation"] = _line_explanation(model, line_id, line_index, dependency_graph)
             lines.append(line)
 
         payload = {

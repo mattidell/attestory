@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import { formatW2Box1Hint } from "./w2-box1-format.js";
   import {
     W2_BOX1_FIELD,
@@ -13,6 +13,28 @@
   let busy = false;
   let wageInput;
   let statusRegion;
+  // The trail of lines opened so far, in the order opened. A dependency
+  // chip appends rather than replaces, so the whole path stays visible --
+  // the reader's own click history becomes the breadcrumb, with real values
+  // at each step rather than just line numbers.
+  let expandedLines = [];
+
+  function toggleExplanation(lineId) {
+    expandedLines = expandedLines.includes(lineId)
+      ? expandedLines.filter((id) => id !== lineId)
+      : [...expandedLines, lineId];
+  }
+
+  async function jumpToLine(lineId) {
+    if (!expandedLines.includes(lineId)) {
+      expandedLines = [...expandedLines, lineId];
+    }
+    await tick();
+    const row = document.getElementById(`line-${lineId}`);
+    row?.scrollIntoView({ behavior: "smooth", block: "center" });
+    row?.focus();
+  }
+
 
   const money = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -238,33 +260,15 @@
 
         <h3>Expected impact</h3>
         <ul class="line-list">
-          {#each state.lines.filter((line) => line.group === "expected-impact") as line}
-            <li>
-              <div>
-                <span class="line-number">1040 · {line.line}</span>
-                <strong>{line.title}</strong>
-              </div>
-              <div class="line-result">
-                <span class:changed={line.change === "changed"}>{line.change}</span>
-                <strong>{line.computed ? money.format(line.value) : "Waiting for W-2"}</strong>
-              </div>
-            </li>
+          {#each state.lines.filter((line) => line.group === "expected-impact") as line (line.line)}
+            {@render lineRow(line)}
           {/each}
         </ul>
 
         <h3 class="comparison-title">Held still for comparison</h3>
         <ul class="line-list comparison">
-          {#each state.lines.filter((line) => line.group === "untouched-comparison") as line}
-            <li>
-              <div>
-                <span class="line-number">1040 · {line.line}</span>
-                <strong>{line.title}</strong>
-              </div>
-              <div class="line-result">
-                <span>{line.change}</span>
-                <strong>{money.format(line.value)}</strong>
-              </div>
-            </li>
+          {#each state.lines.filter((line) => line.group === "untouched-comparison") as line (line.line)}
+            {@render lineRow(line)}
           {/each}
         </ul>
       </section>
@@ -281,6 +285,109 @@
         <button type="button" on:click={goToWages}>Review W-2 Box 1</button>
       </section>
     {/if}
+
+    {#snippet lineRow(line)}
+      <li id={`line-${line.line}`} tabindex="-1">
+        <div class="line-row">
+          <div>
+            <span class="line-number">1040 · {line.line}</span>
+            <strong>{line.title}</strong>
+          </div>
+          <div class="line-result">
+            <span class:changed={line.change === "changed"}>{line.change}</span>
+            <strong>{line.computed ? money.format(line.value) : "Waiting for W-2"}</strong>
+          </div>
+        </div>
+
+        {#if line.explanation}
+          <button
+            type="button"
+            class="explain-toggle"
+            aria-expanded={expandedLines.includes(line.line)}
+            aria-controls={`explain-${line.line}`}
+            on:click={() => toggleExplanation(line.line)}
+          >
+            {expandedLines.includes(line.line)
+              ? `Hide how line ${line.line} was reached`
+              : `How was line ${line.line} reached?`}
+          </button>
+
+          {#if expandedLines.includes(line.line)}
+            <div class="explanation" id={`explain-${line.line}`}>
+              <p class="explanation-description">{line.explanation.description}</p>
+
+              {#if line.explanation.rules.length}
+                <p class="explanation-kicker">Rule identifier</p>
+                <ul class="detail-list">
+                  {#each line.explanation.rules as rule}
+                    <li>{rule.id} <span>({rule.role})</span></li>
+                  {/each}
+                </ul>
+              {/if}
+
+              {#if line.explanation.dependsOn.length}
+                <p class="explanation-kicker">Depends on</p>
+                <ul class="dependency-list">
+                  {#each line.explanation.dependsOn as dep}
+                    <li>
+                      <button
+                        type="button"
+                        class="dependency-chip"
+                        class:traces-to-entry={dep.tracesToEntry}
+                        on:click={() => jumpToLine(dep.line)}
+                      >
+                        1040 · {dep.line} — {dep.title}: {money.format(dep.value)}
+                        {#if dep.tracesToEntry}
+                          <span class="chip-trace">· traces to W-2 entry</span>
+                        {/if}
+                      </button>
+                    </li>
+                  {/each}
+                </ul>
+              {/if}
+
+              {#if line.explanation.citedEvidence.length}
+                <p class="explanation-kicker">Cited evidence</p>
+                <ul class="citation-list">
+                  {#each line.explanation.citedEvidence as site}
+                    <li>
+                      <strong>{site.label}</strong>
+                      <span>{site.context}</span>
+                    </li>
+                  {/each}
+                </ul>
+              {/if}
+
+              {#if line.explanation.operations.length || line.explanation.parameters.length}
+                <p class="explanation-kicker">Operation and parameter identifiers</p>
+                <ul class="detail-list">
+                  {#each line.explanation.operations as operation}
+                    <li>{operation}</li>
+                  {/each}
+                  {#each line.explanation.parameters as parameter}
+                    <li>{parameter}</li>
+                  {/each}
+                </ul>
+              {/if}
+
+              {#if !line.explanation.hasSupport}
+                <p class="explanation-note">
+                  No dependency or evidence is declared for this line beyond its rule.
+                </p>
+              {/if}
+
+              {#if line.explanation.tracesToEntry}
+                <div class="actions">
+                  <button type="button" class="text-button" on:click={goToWages}>
+                    Jump to W-2 entry (from line {line.line})
+                  </button>
+                </div>
+              {/if}
+            </div>
+          {/if}
+        {/if}
+      </li>
+    {/snippet}
   {/if}
 </main>
 
@@ -366,7 +473,6 @@
   .status-kicker,
   .step,
   .eyebrow,
-  .line-number,
   .answered span {
     color: #3f5149;
     font-size: 0.75rem;
@@ -655,18 +761,29 @@
   }
 
   .line-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #d0cfc8;
+  }
+
+  .line-row {
     display: flex;
     gap: 1rem;
     align-items: center;
     justify-content: space-between;
     min-height: 4rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #d0cfc8;
   }
 
-  .line-list li > div {
+  .line-row > div {
     display: grid;
     gap: 0.2rem;
+  }
+
+  .line-number {
+    color: #3f5149;
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
   }
 
   .line-result {
@@ -682,6 +799,124 @@
 
   .line-result span.changed {
     color: #075e4f;
+  }
+
+  .explain-toggle {
+    min-height: 36px;
+    margin-top: 0.35rem;
+    padding: 0.35rem 0;
+    border: 0;
+    background: transparent;
+    color: #075e4f;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .explanation {
+    margin-top: 0.6rem;
+    padding: 1rem;
+    background: #f2f1ec;
+    border-left: 4px solid #075e4f;
+    border-radius: 0.4rem;
+  }
+
+  .explanation-description {
+    margin: 0;
+    color: #17251f;
+    line-height: 1.55;
+  }
+
+  .explanation-kicker {
+    margin: 0.85rem 0 0.4rem;
+    color: #3f5149;
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .explanation-note {
+    margin: 0.85rem 0 0;
+    color: #3f5149;
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  .citation-list,
+  .detail-list,
+  .dependency-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .citation-list li,
+  .detail-list li {
+    display: grid;
+    gap: 0.1rem;
+    padding: 0;
+    border: 0;
+  }
+
+  .citation-list span,
+  .detail-list li span {
+    color: #3f5149;
+    font-size: 0.85rem;
+  }
+
+  .detail-list li {
+    color: #17251f;
+    font-size: 0.9rem;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  .dependency-list li {
+    padding: 0;
+    border: 0;
+  }
+
+  .dependency-chip {
+    min-height: 40px;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid #075e4f;
+    border-radius: 0.5rem;
+    background: #fff;
+    color: #075e4f;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .dependency-chip:hover {
+    background: #e5f3ed;
+  }
+
+  .dependency-chip.traces-to-entry {
+    border-width: 2px;
+  }
+
+  .chip-trace {
+    display: block;
+    margin-top: 0.2rem;
+    color: #3f5149;
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .actions .text-button {
+    padding: 0;
+    min-height: 36px;
   }
 
   .comparison-title {
@@ -758,8 +993,7 @@
       grid-template-columns: 1fr;
     }
 
-    .missing li,
-    .line-list li {
+    .missing li {
       align-items: flex-start;
     }
   }
@@ -771,10 +1005,6 @@
 
     .missing button {
       width: 100%;
-    }
-
-    .line-list li {
-      gap: 0.5rem;
     }
   }
 

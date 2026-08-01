@@ -211,6 +211,90 @@ class PhaseADependencies(RuntimeFixture):
             self.assertEqual(before[line]["value"], after[line]["value"])
 
 
+class ExplanationGraph(RuntimeFixture):
+    """Direct coverage of the dependency-aware explanation graph -- the
+    shape itself, independent of any browser, keyboard probe, or rendered
+    DOM. Complements rather than duplicates the keyboard-operability and
+    rendered-field tests: those check that the graph is reachable and
+    operable in a real page; these check that the graph is correct."""
+
+    def test_explanation_is_absent_before_the_line_is_computed(self) -> None:
+        initial = self.runtime.snapshot().payload
+        lines = _lines(initial)
+        for line in EXPECTED_IMPACT_LINES:
+            self.assertNotIn("explanation", lines[line])
+
+    def test_leaf_lines_cite_evidence_and_have_no_dependencies(self) -> None:
+        lines = _lines(self.enter())
+        for line in ("1a", "2b", "3a", "3b"):
+            explanation = lines[line]["explanation"]
+            self.assertEqual(explanation["dependsOn"], [])
+            self.assertTrue(explanation["citedEvidence"], line)
+            self.assertTrue(all(site["label"] for site in explanation["citedEvidence"]))
+
+    def test_unsupported_line_has_neither_dependency_nor_evidence(self) -> None:
+        explanation = _lines(self.enter())["12"]["explanation"]
+        self.assertEqual(explanation["dependsOn"], [])
+        self.assertEqual(explanation["citedEvidence"], [])
+        self.assertFalse(explanation["hasSupport"])
+
+    def test_composite_lines_depend_on_the_expected_immediate_lines(self) -> None:
+        lines = _lines(self.enter())
+
+        def dep_lines(line: str) -> set[str]:
+            return {dep["line"] for dep in lines[line]["explanation"]["dependsOn"]}
+
+        self.assertEqual(dep_lines("9"), {"1a", "2b", "3b"})
+        self.assertEqual(dep_lines("11"), {"9"})
+        self.assertEqual(dep_lines("15"), {"11", "12"})
+        self.assertEqual(dep_lines("16"), {"15", "3a"})
+
+    def test_traces_to_entry_agrees_between_a_line_and_its_dependency_chips(self) -> None:
+        lines = _lines(self.enter())
+
+        for line in ("1a", "9", "11", "15", "16"):
+            self.assertTrue(lines[line]["explanation"]["tracesToEntry"], line)
+        for line in ("2b", "3a", "3b", "12"):
+            self.assertFalse(lines[line]["explanation"]["tracesToEntry"], line)
+
+        # Same predicate, two call sites (a line's own action, a chip
+        # pointing at another line): they must never disagree.
+        for line in ("9", "16"):
+            for dep in lines[line]["explanation"]["dependsOn"]:
+                self.assertEqual(
+                    dep["tracesToEntry"],
+                    lines[dep["line"]]["explanation"]["tracesToEntry"],
+                    (line, dep["line"]),
+                )
+
+    def test_rule_operation_and_parameter_identifiers_are_reused_verbatim(self) -> None:
+        explanation = _lines(self.enter())["16"]["explanation"]
+        self.assertIn(
+            "tax.us.2025.rule.form1040-line16",
+            {rule["id"] for rule in explanation["rules"]},
+        )
+        self.assertIn("bracket_fold", explanation["operations"])
+        self.assertIn("round", explanation["operations"])
+        self.assertIn("demo.parameter.tax-brackets.2025", explanation["parameters"])
+
+    def test_correction_keeps_every_explanation_consistent_with_its_own_line(self) -> None:
+        # The exact scenario the trail exists for: correct the entry while
+        # a full chain of dependent explanations is logically "open," and
+        # confirm nothing goes stale -- a line's own explanation.value must
+        # match its flat value, and a dependency chip's value must match
+        # the current value of the line it points at, both before and
+        # after the correction.
+        for value in (90000, 91000):
+            lines = _lines(self.enter(value))
+            for line in EXPECTED_IMPACT_LINES + COMPARISON_LINES:
+                explanation = lines[line]["explanation"]
+                self.assertEqual(explanation["value"], lines[line]["value"], line)
+                for dep in explanation["dependsOn"]:
+                    self.assertEqual(
+                        dep["value"], lines[dep["line"]]["value"], (line, dep["line"])
+                    )
+
+
 class EntryAndCorrection(RuntimeFixture):
     def test_correction_is_new_contribution_plus_plain_assertion(self) -> None:
         entered = self.enter()
@@ -919,7 +1003,10 @@ class KeyboardOperability(RuntimeFixture):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
-                timeout=60,
+                # Exhaustively tests Enter/Space on every actionable control;
+                # walkable-explanation lines each add one, so this scales with
+                # the surface's control count, not a fixed budget.
+                timeout=150,
                 check=False,
             )
         self.assertEqual(result.returncode, 0, result.stderr)

@@ -162,7 +162,22 @@ async function focusByKey(key) {
   return evaluate(`window.__kbProbe.focusByKey(${JSON.stringify(key)})`);
 }
 async function blurActive() {
-  await evaluate(`document.activeElement && document.activeElement.blur(); true`);
+  // element.blur() alone does not reset Chrome's internal sequential-focus-
+  // navigation starting point -- the next Tab continues from wherever focus
+  // last was, not from the top of the document. That only surfaces once a
+  // control mid-page is left focused across a sweep boundary (exactly what
+  // an explanatory panel left open from a prior phase does), so it stayed
+  // invisible until the walk could leave state open across phases. Focusing
+  // <body> via a temporary tabindex, not just blurring, actually resets it.
+  await evaluate(`
+    (() => {
+      document.activeElement && document.activeElement.blur();
+      document.body.setAttribute("tabindex", "-1");
+      document.body.focus();
+      document.body.removeAttribute("tabindex");
+      return true;
+    })()
+  `);
 }
 
 async function waitForFingerprintChange(before, timeoutMs = 3000) {
@@ -333,9 +348,15 @@ async function collectBackwardOrder(seedKey, maxIterations) {
 const findings = { reverseTraversal: [], activation: [], navigation: [] };
 const navigationQueue = [];
 
+// Must exceed the total number of focusable controls the page can show at
+// once. The explanatory walk can leave every line's panel open
+// simultaneously (the trail does not collapse on navigation), so this
+// scales with how many lines/dependencies/actions exist, not a fixed count.
+const SWEEP_ITERATIONS = 80;
+
 async function reverseTraversalCheck(phase) {
   await blurActive();
-  const forward = await collectForwardOrder(20);
+  const forward = await collectForwardOrder(SWEEP_ITERATIONS);
   if (!forward.length) {
     throw new Error("no-focusable-controls-in-forward-sweep");
   }
@@ -343,7 +364,7 @@ async function reverseTraversalCheck(phase) {
   const seedKey = seedControl.key;
   await focusByKey(seedKey);
 
-  const { backward, returnedToSeed } = await collectBackwardOrder(seedKey, 20);
+  const { backward, returnedToSeed } = await collectBackwardOrder(seedKey, SWEEP_ITERATIONS);
 
   const forwardKeys = forward.map((f) => f.key);
   const backwardStepKeys = backward.map((b) => b.key);
