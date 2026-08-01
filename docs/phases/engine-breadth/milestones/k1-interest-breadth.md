@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "k1-interest-breadth",
-  "milestone_state": "planned",
-  "status": "PLANNED. The owner selected a bounded 2025 Schedule K-1 (Form 1065) box-5 interest slice and directed a streamlined production loop. The integrated Builder work packet is prepared; implementation has not begun.",
+  "milestone_state": "built-awaiting-review",
+  "status": "BUILT, AWAITING REVIEW. The integrated Builder completed K1-C1–C5 at commit 466780685e82ec1f957985ac5bed0a08c2386224. The exact-range independent review is chartered next.",
   "scope": [
     "add an authoritative, horizon-closed source family for 2025 Schedule K-1 (Form 1065) box-5 taxable interest",
     "publish a successor positive-interest composition and Form 1040 line-2b producer that include the K-1 family without relabeling it as non-form interest",
