@@ -423,10 +423,13 @@ not-required, never a zero-valued fabricated form.
 **P3-S4.** One versioned symbol `P=selected-preferential-base` has exactly one
 current producer in an adopted graph:
 
-- **Direct producer:** the ADR-0050 direct line-7a numeric publication when
-  C1-C4 produce checked conclusion `"no"`; `P` equals the closed box-2a
-  subtotal and pins that selected direct publication and its active
-  route-authority conclusion.
+- **Direct producer:** a successor projection of the same closed box-2a
+  subtotal and C1-C4 authority that ADR-0050 Decision 5 currently gives to
+  direct line 7a. When C1-C4 produce checked conclusion `"no"`, it publishes
+  `P` equal to the box-2a subtotal and pins that subtotal's family/mapping/
+  horizon/closure authority, the checked conclusion, and the direct
+  components required by the active branch. Line 7a is downstream of `P`, so
+  this introduces no line-7a-to-`P` cycle.
 - **Schedule-D producer:** the current required-and-complete Schedule D
   publication when `B1` is closed-nonempty and `B1`-`B9` pass; `P` equals
   positive `LD16` for this bounded gain-only slice and pins `LD16`, `ATT-D`,
@@ -470,7 +473,7 @@ result.
 | ADR-0050 accepted clause | Proposed successor effect; accepted history remains unchanged |
 | --- | --- |
 | Decision 1, C1-C4 checked conclusion | Preserved for the direct producer. Superseded only as Schedule-D-route authority by P2's nine direct reads; no second conclusion is created |
-| Decision 5, line 7a from box-2a subtotal and line 7b from conclusion `"no"` | Direct branch preserved. Successor line 7a consumes `P`, which may instead be produced by `LD16`; that branch never checks line 7b |
+| Decision 5, line 7a from box-2a subtotal and line 7b from conclusion `"no"` | Direct arithmetic and authority are preserved but projected first into direct `P`; successor line 7a consumes `P`, which may instead be produced by `LD16`. The Schedule-D branch never checks line 7b |
 | Decision 6, line 9 consumes selected line 7a exactly once | Shape preserved. The successor selected line-7a publication is sourced from `P`; raw box-2a and Schedule-D inputs remain forbidden |
 | Decision 7, state partition over selected line 7a | Superseded only by symbol substitution `selected_line7a -> selected-preferential-base`; states, QDCG/ordinary branching, and branch-specific declaration pins are unchanged |
 | Decision 7, worksheet line 3 binds to line 7a in the direct case | Direct producer unchanged. Schedule-D producer binds the same preferential-base input position to `P=LD16` for this bounded slice |
