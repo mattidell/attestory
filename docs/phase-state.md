@@ -5,9 +5,9 @@
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
   "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 0, CONTRACT/ADVERSARY REVIEW CHARTERED.** The clean-room independent-family/direct-multi-read rival returned at `bbecd3f` (after self-correcting a P3 line7a-P circularity). The first committee reviewer measures both exact Builder outputs against accepted contracts and the same eleven Rung-1 cases, independently of the foreman's custody notes and the later expressiveness review. No repair is chartered. NEXT ACTION: launch the contract/adversary Reviewer; on return, the foreman takes custody and charters the isolated expressiveness review.",
-  "current_role": "Contract/adversary Reviewer — compare both Rung 1 designs",
-  "current_prompt": "docs/prototypes/schedule-d-covered-ltcg-8a/charter-review-contract-adversary.md"
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 0, EXPRESSIVENESS REVIEW CHARTERED.** The contract/adversary review returned NOT READY at `4fa6c10`: decision-blocking findings CA-01 (incumbent P1 admits a broader eligible class than the source-class charter permits), CA-02 (box-2a closed-nonempty is an unresolved scope contract in both designs; the rival's P2-S5 resolution is sound but needs explicit owner adoption), CA-03 (incumbent P3 omits a required QDCG input and full correction chain), and CA-04 (rival P3's route-neutral selected-base symbol hides route-sensitive ADR-0050 pins with no exact contract for where they live). CA-05/06/07 are separate-decision schema/substrate prerequisites, not blocking this charter. The second committee reviewer independently measures case-by-case recoverability, pinned to the same exact objects, without reading the first review. No repair is chartered. NEXT ACTION: launch the expressiveness Reviewer; on return, the foreman takes custody, compares both sealed reviews, and performs Gate-5 triage before recommending a disposition to the owner.",
+  "current_role": "Expressiveness Reviewer — recover both Rung 1 designs case by case",
+  "current_prompt": "docs/prototypes/schedule-d-covered-ltcg-8a/charter-review-expressiveness.md"
 }
 -->
 # Phase State
@@ -25,8 +25,8 @@ taxable-interest path through line 2b and Schedule B Part I, and the bounded
 2025 payer-reported current-inclusion market-discount class in Form 1099-INT
 box 10 or Form 1099-OID box 5. The next breadth slice, Covered Long-Term
 Gains through Schedule D line 8a, is planned; its prototype Track 0 has both
-rival designs in hand and is entering committee review. No production
-implementation has started.
+rival designs and the first committee review in hand (NOT READY), and the
+second review is entering. No production implementation has started.
 
 ## Operational State: Engine Breadth
 
@@ -44,28 +44,29 @@ implementation has started.
   reported directly on Schedule D line 8a without Form 8949; short-term
   transactions, losses, carryovers, Form 8949, noncovered securities, digital
   assets, and other Schedule D sources remain outside it.
-* **Prototype progress:** both iterations complete.
-  - Incumbent (`it1`, nested-identity/synthesized-conclusion): P1 and P2
-    settled at Rung 1; P3 surfaced a real `attachment-rule.v2`
-    threshold-only requirement-block gap plus two named design forks.
-  - Rival (`it2`, independent-family/direct-multi-read): all three
-    propositions settled at Rung 1; caught and resolved a box-2a-nonzero/
-    Schedule-D-both-gain interaction the plan's completeness wording left
-    ambiguous (P2-S5), and self-corrected a circular dependency in its
-    original P3 selected-preferential-base definition before this review
-    was chartered.
-  - Committee review is entering its first pass: contract/adversary
-    fidelity, chartered now; expressiveness review follows sequentially
-    after it returns.
-* **Next:** owner-launch the contract/adversary Reviewer against
-  `docs/prototypes/schedule-d-covered-ltcg-8a/charter-review-contract-adversary.md`
+* **Prototype progress:** both iterations complete; first committee review
+  complete and **NOT READY**.
+  - Incumbent (`it1`): decision-blocking on all three propositions (CA-01,
+    part of CA-02, CA-03).
+  - Rival (`it2`): P1 sufficient; P2 conditionally sufficient pending owner
+    adoption of its box-2a boundary successor (CA-02); P3 decision-blocking
+    on an unresolved pin contract (CA-04). Two schema/substrate gaps
+    (CA-05, CA-06) are separately scored, not blocking.
+  - Expressiveness review chartered next, pinned to the same exact objects
+    (incumbent `d4e2203`, rival `bbecd3f`), independent of the first
+    review's findings.
+* **Next:** owner-launch the expressiveness Reviewer against
+  `docs/prototypes/schedule-d-covered-ltcg-8a/charter-review-expressiveness.md`
   on branch `prototypes/schedule-d-covered-ltcg-8a/it2` (continuing). On
-  return, the foreman charters the isolated expressiveness review.
+  return, the foreman compares both sealed reviews and performs Gate-5
+  triage before recommending a disposition (repair, partial ratification, or
+  recharter) to the owner.
 * **Branch line:** incumbent on
-  `prototypes/schedule-d-covered-ltcg-8a/it1`; rival and now the review
-  charter continuing on `prototypes/schedule-d-covered-ltcg-8a/it2`.
-  Prototype code never merges to `main`; charters, designs, examinations, and
-  reviews merge with the eventual accepted ADR decision unit.
+  `prototypes/schedule-d-covered-ltcg-8a/it1`; rival, both review charters,
+  and the first review continuing on
+  `prototypes/schedule-d-covered-ltcg-8a/it2`. Prototype code never merges to
+  `main`; charters, designs, examinations, and reviews merge with the
+  eventual accepted ADR decision unit.
 
 ## Re-entry
 
