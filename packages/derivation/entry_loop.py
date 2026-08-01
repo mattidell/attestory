@@ -470,7 +470,8 @@ def _dependency_graph(
         for pin in pins if isinstance(pins, list) else []:
             if not isinstance(pin, dict) or pin.get("role") not in _DEPENDENCY_ROLES:
                 continue
-            reference = line_index.get(pin.get("id"))
+            pin_id = pin.get("id")
+            reference = line_index.get(pin_id) if isinstance(pin_id, str) else None
             if reference is not None:
                 deps.add(reference[0])
         graph[line_id] = deps
@@ -548,7 +549,8 @@ def _line_explanation(
         for pin in pins:
             if not isinstance(pin, dict) or pin.get("role") not in _DEPENDENCY_ROLES:
                 continue
-            reference = line_index.get(pin.get("id"))
+            pin_id = pin.get("id")
+            reference = line_index.get(pin_id) if isinstance(pin_id, str) else None
             if reference is not None:
                 dep_line, dep_title, dep_value = reference
                 depends_on.append({
