@@ -165,8 +165,10 @@ the residual non-form label from silently absorbing it.
 
 The production package is `tax.us.2025.package.core-calculations@v8`, resolved
 through `published-packages.v3` and `demo.release.2025@v3`. Its line-2b rule,
-composition, and Schedule B rule are all historical v1 citizens. The current
-line-2b field is `form-field.v3` content version v2.
+composition, Schedule B rule, and selected line-2b field are all historical v1
+citizens. A newer `form-field.v3` line-2b content version v2 is published but
+is not selected by the v8 graph. The v9 graph must select the new line-2b field
+content version v3 directly; it does not route through v2.
 
 Schedule B's requirement conditional already reads the full taxable-interest
 total, so K-1 interest would affect whether the attachment is required as soon
@@ -416,7 +418,7 @@ load-bearing claims rather than repeat routine CI.
 | K1-N9 | Duplicate or extra Part-I row-set family | Package validation rejects before execution |
 | K1-N10 | Stale row set disagrees with its family subtotal | Schedule B alone blocks with `ITEMIZATION_TIE_OUT_VIOLATION`; line 2b remains published |
 | K1-N11 | Family row sets each tie, but combined Part-I total disagrees with line 2b | Schedule B alone blocks with `ITEMIZATION_TIE_OUT_VIOLATION`; no divergent attachment publishes |
-| K1-N12 | Package v9 mixes composition v2 with line-2b v1, Schedule-B v1, or field v2 | Resolver/package validation refuses the mixed graph |
+| K1-N12 | Package v9 mixes composition v2 with line-2b v1, Schedule-B v1, or line-2b field content v1/v2 | Resolver/package validation refuses the mixed graph |
 | K1-N13 | Presentation receives a rejected/non-numeric K-1-derived value | Value is redacted and failure remains section-contained under the existing presentation contract |
 
 ### Reviewer attack checklist
