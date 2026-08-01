@@ -9,9 +9,11 @@ Inspection showed that v8 selected v1 while v2 was published but unselected.
 The plan was corrected before implementation so package v9 selects the new v3
 successor without mutating or silently promoting either historical version.
 
-No implementation repair was needed. The independent integrated review
-accepted the complete positive, blocking, lifecycle, package, explanation, and
-presentation matrix on its first pass.
+The independent integrated review accepted the complete positive, blocking,
+lifecycle, package, explanation, and presentation matrix on its first pass.
+Closing CI then found one historical Schedule-B test that still expected the
+previous current line-2b field version. A one-file repair advanced that test to
+v3 without changing product behavior or historical content.
 
 ## What it cost
 
@@ -20,9 +22,10 @@ Most of the unusually large diff came from additive schemas, package/release
 citizens, and generated presentation fixtures needed to prove one coherent
 source-to-presentation path.
 
-The streamlined one-Builder, one-Reviewer loop avoided track handoffs and a
-repair round. Its main cost was concentrating schema, runtime, content,
-fixtures, and package-route reasoning in one build packet.
+The streamlined one-Builder, one-Reviewer loop avoided track handoffs. Its main
+cost was concentrating schema, runtime, content, fixtures, and package-route
+reasoning in one build packet. The only repair was the stale regression
+expectation found by the full CI suite.
 
 ## Follow-ups
 

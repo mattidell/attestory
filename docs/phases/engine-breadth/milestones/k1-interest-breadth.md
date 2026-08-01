@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "k1-interest-breadth",
-  "milestone_state": "track-1",
-  "status": "CLOSING CI REPAIR CHARTERED. Independent review returned READY, but PR #133 verify found one stale v2 expectation in the historical Schedule-B schema-citizen test. The one-file test repair is the current unit.",
+  "milestone_state": "closed",
+  "status": "CLOSED. The bounded Form-1065 K-1 box-5 taxable-interest path is synthetic complete through line 2b, composition-complete Schedule B Part I, downstream results, package resolution, explanation, and presentation. Independent review returned READY, and the closing-CI stale v2 test expectation was repaired.",
   "scope": [
     "add an authoritative, horizon-closed source family for 2025 Schedule K-1 (Form 1065) box-5 taxable interest",
     "publish a successor positive-interest composition and Form 1040 line-2b producer that include the K-1 family without relabeling it as non-form interest",
@@ -484,8 +484,8 @@ The milestone is complete when:
 | Scope and contracts | The committed plan defined K1-C1–C5 and the shared K1-P1–P10 / K1-N1–N13 verification matrix. A pre-build inventory correction recorded that package v8 selected line-2b field content v1, not the separately published v2. |
 | Integrated build | The Builder completed the additive source-family, composition, attachment-rule, package/release, runtime, fixture, explanation, and presentation route on `milestone/k1-interest-breadth`. |
 | Independent review | `docs/reviews/2026-07-31-k1-interest-breadth-review.md` returned `READY` for the exact implementation range. It confirmed the full case matrix, publication history, safety envelope, package compatibility, and focused static checks. |
-| Repair | Closing PR #133 exposed one stale current-version assertion in `tests/test_dsbs_t1_schema_citizens.py`; the bounded one-file CI repair charter is active. |
-| Closeout | The roadmap, coverage frontier, deferral ledger, and retrospective are prepared. Closed phase state, a green replacement `verify` check, and owner merge remain. |
+| Repair | Closing PR #133 exposed one stale current-version assertion in `tests/test_dsbs_t1_schema_citizens.py`. The bounded repair advanced only the method name and expected current field version from v2 to v3; product behavior and historical citizens were unchanged. |
+| Closeout | The roadmap, coverage frontier, phase state, deferral ledger, and retrospective record only the bounded synthetic-complete claim. PR #133's replacement green `verify` check and owner merge are the ratification boundary. |
 
 ## Execution sequence
 

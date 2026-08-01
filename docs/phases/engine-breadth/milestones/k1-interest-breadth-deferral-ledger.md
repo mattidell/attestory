@@ -48,4 +48,6 @@ work that remains separately selectable.
 - The base inventory initially described line-2b field content v2 as selected;
   package v8 selected v1 while v2 remained published. The plan was corrected
   before implementation, and package v9 selects the new v3 successor directly.
-- The integrated independent review returned `READY`; no repair cycle was used.
+- The integrated independent review returned `READY`. Closing CI found and the
+  bounded repair corrected one stale current-field version expectation; no
+  product behavior or published citizen changed.
