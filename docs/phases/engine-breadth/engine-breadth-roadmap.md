@@ -38,12 +38,14 @@ roadmap unless a selected breadth slice directly depends on them.
    complete; other K-1 forms and boxes, market discount, and subtractive
    adjustments remain outside it. Plan:
    `milestones/k1-interest-breadth.md`.
-3. **Payer-Reported Current-Inclusion Market-Discount Interest** — selected
+3. **Payer-Reported Current-Inclusion Market-Discount Interest** — closed
    2026-08-01. Add Form 1099-INT box 10 and Form 1099-OID box 5 as separate
    payer-reported current-inclusion source families, route both through the
    positive-interest composition, Form 1040 line 2b, and composition-complete
    Schedule B Part I, and stop at the statement boundary before disposition,
-   basis, or transaction machinery. Plan:
+   basis, or transaction machinery. The bounded class is synthetic complete;
+   disposition-time market discount, partial principal payments, taxpayer-side
+   accrual, basis, and broader transaction situations remain outside it. Plan:
    `milestones/market-discount-interest.md`.
 4. **Next breadth slice — owner-selected from the refreshed frontier.** A true
    Schedule D source slice and subtractive interest adjustments remain distinct
@@ -69,10 +71,12 @@ source and completeness boundary is selected.
   Form-1065 box-5 path is synthetic complete through line 2b, Schedule B,
   downstream results, package resolution, explanation, and presentation.
   Plan: `milestones/k1-interest-breadth.md`.
-- **Payer-Reported Current-Inclusion Market-Discount Interest — selected
-  2026-08-01.** The bounded box-10/box-5 payer-reported class is planned;
-  disposition, basis, taxpayer-side accrual, subtractive adjustments, and
-  broader securities history remain outside it. Plan:
+- **Payer-Reported Current-Inclusion Market-Discount Interest — closed
+  2026-08-01.** The bounded box-10/box-5 payer-reported class is synthetic
+  complete through line 2b, Schedule B, package resolution, explanation, and
+  one canonical positive presentation golden; disposition, basis,
+  taxpayer-side accrual, subtractive adjustments, and broader securities
+  history remain outside it. Plan:
   `milestones/market-discount-interest.md`.
 - Schedule D, subtractive adjustments, and other market-discount situations
   remain separate candidates; this selection does not absorb them.

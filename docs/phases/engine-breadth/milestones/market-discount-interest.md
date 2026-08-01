@@ -2,8 +2,9 @@
 {
   "version": 1,
   "topic": "market-discount-interest",
-  "milestone_state": "planned",
-  "status": "REVIEW READY. The bounded 2025 payer-reported current-inclusion market-discount interest implementation landed, and the exact-range independent Reviewer returned READY with no repair cycle; Foreman closeout remains pending.",
+  "milestone_state": "closed",
+  "status": "CLOSED. The bounded 2025 payer-reported current-inclusion market-discount interest implementation is synthetic complete, and the exact-range independent Reviewer returned READY with no repair cycle.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-01-market-discount-interest.md",
   "scope": [
     "support nonnegative market-discount amounts reported by a payer in 2025 Form 1099-INT box 10 or Form 1099-OID box 5 when the amount is already currently includible as taxable interest under a section 1278(b) election",
     "preserve separate source-family authority for the Form 1099-INT and Form 1099-OID reporting routes and require closure of both families in the adopted positive-interest composition",
@@ -81,12 +82,11 @@
       "AGENTS.md#Data Safety Rules"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-07-31-k1-interest-breadth.md",
+      "docs/milestone-retrospectives/2026-08-01-market-discount-interest.md",
       "docs/phases/engine-breadth/engine-breadth-overview.md",
       "docs/phases/engine-breadth/coverage-frontier.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md",
-      "docs/phases/engine-breadth/milestones/k1-interest-breadth-deferral-ledger.md",
-      "docs/phases/engine-breadth/milestones/k1-interest-breadth.md"
+      "docs/phases/engine-breadth/milestones/market-discount-interest.md"
     ]
   }
 }
@@ -461,6 +461,16 @@ compatible; the Reviewer returns `READY` or one repair pass is independently
 rechecked; the closing PR's `verify` is green and owner-merged; and frontier,
 roadmap, phase state, and retrospective record only the bounded synthetic
 result.
+
+## Execution record
+
+| Unit | Result | Evidence |
+| --- | --- | --- |
+| Scope and contracts | Complete | Plan committed in the milestone branch; the paper boundary and MD-C1 through MD-C5 contracts remain binding. |
+| Integrated build | Complete | One Medium/medium Builder on `milestone/market-discount-interest`; implementation and focused evidence landed in the branch. |
+| Independent review | `READY` | `docs/reviews/review-2026-08-01-market-discount-interest.md`; exact implementation-range review; no findings requiring repair. |
+| Repair | None | No bounded findings-only repair cycle was needed. |
+| Closeout | Pending owner merge | This closing PR updates phase state, roadmap, frontier, and adds the retrospective; CI `verify` remains the merge gate. |
 
 ## Execution sequence
 

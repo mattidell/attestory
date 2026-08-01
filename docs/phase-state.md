@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "market-discount-interest",
   "active_plan": "docs/phases/engine-breadth/milestones/market-discount-interest.md",
-  "milestone_state": "track-1",
-  "status": "**ENGINE BREADTH / PAYER-REPORTED CURRENT-INCLUSION MARKET-DISCOUNT INTEREST — REVIEW READY.** The integrated Builder landed the bounded 2025 Form 1099-INT box-10 and Form 1099-OID box-5 payer-reported path, and the independent Reviewer returned READY with no repair cycle. Foreman closeout and the closing PR remain pending.",
-  "current_role": "Foreman (review READY; prepare milestone closeout)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/market-discount-interest.md#Exit criteria"
+  "milestone_state": "closed",
+  "status": "**ENGINE BREADTH / PAYER-REPORTED CURRENT-INCLUSION MARKET-DISCOUNT INTEREST — CLOSED.** The bounded 2025 Form 1099-INT box-10 and Form 1099-OID box-5 payer-reported current-inclusion class is synthetic complete. The independent Reviewer returned READY with no repair cycle.",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
 # Phase State
@@ -20,20 +20,20 @@ Git, `docs/reviews/`, and `docs/adr/`.
 ## High Level Milestone Briefing
 
 The engine computes the bounded direct-reporting path for Form 1099-DIV box 2a
-through Form 1040 line 7a and the bounded 2025 Schedule K-1 (Form 1065) box-5
-taxable-interest path through line 2b and Schedule B Part I. The next selected
-slice is payer-reported current-inclusion market discount in Form 1099-INT box
-10 or Form 1099-OID box 5.
+through Form 1040 line 7a, the bounded 2025 Schedule K-1 (Form 1065) box-5
+taxable-interest path through line 2b and Schedule B Part I, and the bounded
+2025 payer-reported current-inclusion market-discount class in Form 1099-INT
+box 10 or Form 1099-OID box 5. The next breadth slice is unselected.
 
 ## Operational State: Engine Breadth
 
-* **Completed Milestone:** Schedule K-1 Box-5 Interest Breadth — **closed.**
-* **Product change:** Form-1065 K-1 box-5 taxable interest is a closed fifth positive-interest family, and Schedule B Part I now itemizes the complete adopted interest composition.
-* **Plan:** `docs/phases/engine-breadth/milestones/market-discount-interest.md` — **review READY; closeout pending.**
+* **Completed Milestone:** Payer-Reported Current-Inclusion Market-Discount Interest — **closed.**
+* **Product change:** Form 1099-INT box 10 and Form 1099-OID box 5 payer-reported current-inclusion interest are closed source families in the positive-interest composition, reaching line 2b and composition-complete Schedule B Part I.
+* **Plan:** `docs/phases/engine-breadth/milestones/market-discount-interest.md` — **closed.**
 * **Scope:** 2025 payer-reported current-inclusion market discount in Form 1099-INT box 10 or Form 1099-OID box 5; disposition, basis, taxpayer accrual, subtractive adjustments, and broader securities history remain outside it.
-* **Evidence:** IRS paper-grounded source boundary, Builder implementation range `70bd8f2..1226d26`, and independent review `READY` in `docs/reviews/review-2026-08-01-market-discount-interest.md`.
-* **Next:** Foreman prepares closeout records and the closing PR; no repair cycle is required.
-* **Branch line:** engine work continues on `milestone/market-discount-interest`; implementation and independent review are complete for the declared track.
+* **Evidence:** IRS paper-grounded source boundary, selected-version inventory, Builder implementation, one canonical positive presentation golden, and independent review `READY` in `docs/reviews/review-2026-08-01-market-discount-interest.md`; no repair cycle was required.
+* **Next:** Present the refreshed frontier and select the next bounded Engine Breadth milestone; no next milestone is selected here.
+* **Branch line:** the closing record is proposed on `milestone/market-discount-interest`; owner merge of the closing PR is the remaining repository transition.
 
 ## Re-entry
 
