@@ -1,6 +1,6 @@
 # Retrospective — Capital-Gain Distributions and Form 1040 Line 7a
 
-- Merged: pending closing PR
+- Merged: PR #128
 
 ## What differed from the plan
 

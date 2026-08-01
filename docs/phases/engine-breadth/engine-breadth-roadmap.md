@@ -28,9 +28,17 @@ roadmap unless a selected breadth slice directly depends on them.
    publish line 7a and carry it through total income, taxable income, QDCG tax,
    explanation, packaging, and presentation on production-shaped synthetic
    fixtures.
-2. **Next breadth slice — owner-selected from the refreshed frontier.** The
-   expected comparison is a true Schedule D source slice versus positive
-   interest-source expansion. Neither is preselected by this roadmap.
+   **Closed 2026-07-31** (PR #128). The bounded direct-reporting class is
+   synthetic complete; Schedule-D-required returns remain honestly outside it.
+2. **Schedule K-1 Box-5 Interest Breadth** — add 2025 Schedule K-1 (Form 1065)
+   box-5 taxable interest as its own closed positive-interest family, carry it
+   through Form 1040 line 2b, and replace Schedule B's temporary box-1-only
+   Part-I simplification with a composition-complete multi-family itemization.
+   **Selected 2026-07-31.** Plan:
+   `milestones/k1-interest-breadth.md`.
+3. **Next breadth slice — owner-selected from the refreshed frontier.** A true
+   Schedule D source slice, market-discount interest, and subtractive interest
+   adjustments remain distinct candidates; none is preselected.
 
 ## Why line 7a comes before Schedule D
 
@@ -43,14 +51,14 @@ source and completeness boundary is selected.
 
 ## Status
 
-- **Capital-Gain Distributions and Form 1040 Line 7a — completion records
-  independently `READY`.** The bounded direct-reporting class
-  is recorded as synthetic complete from accepted and reviewed evidence.
-  The closing PR's `verify` and owner merge remain pending;
-  the milestone and Engine Breadth phase are not closed. Plan:
+- **Capital-Gain Distributions and Form 1040 Line 7a — closed 2026-07-31.**
+  The bounded direct-reporting class is synthetic complete on `main` after PR
+  #128. Plan:
   `milestones/capital-gain-distributions-line7a.md`.
-- **Next Engine Breadth milestone — unchosen.** Selection remains owner-held
-  after the current milestone closes. Schedule D and positive-interest-source
-  expansion remain candidates; naming them does not preselect either one.
+- **Schedule K-1 Box-5 Interest Breadth — planned.** The owner selected the
+  Form-1065 box-5 slice with a streamlined integrated build and review. No
+  implementation has begun. Plan: `milestones/k1-interest-breadth.md`.
+- Schedule D, market discount, and subtractive adjustments remain separate
+  candidates; this selection does not preselect or absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
   historical evidence for the bounded slice Engine Breadth starts from.
