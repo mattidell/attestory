@@ -4,9 +4,33 @@
 
 ## Verdict
 
-**READY**
+**NOT READY**
 
-The implementation correctly fulfills the requirements specified in the MD-C1–MD-C5 contract and MD-P1–P10 / MD-N1–N13 matrix.
+The implementation is substantially within the MD-C1–MD-C5 scope, but the
+first review should not have returned READY. Two blocking findings require one
+bounded findings-only repair before the milestone can close.
+
+## Findings
+
+1. **Stale current-version expectation.** Closing PR #134's `verify` run fails
+   `tests.test_dsbs_t1_schema_citizens.ReconciledVocabularies.test_form_field_v3_carries_the_emitted_code_and_line_2b_v3_rides_it` because
+   `load_form_fields()` selects the successor line-2b field citizen `v4`, while
+   the test expects `v3` at `tests/test_dsbs_t1_schema_citizens.py:227`. The
+   package's selected version is authoritative; the test name and expectation
+   must advance while historical v3 compatibility evidence remains intact.
+
+2. **Copied one-field presentation model.** The branch commits both
+   `mixed-market-discount.presentation-model.v1.json` and
+   `malformed-market-discount-line2b.presentation-model.v1.json`, each 1,567
+   lines, differing only in the malformed line-2b value. This violates MD-C4
+   and the review charter's explicit economy rule. MD-N12 already constructs
+   the malformed mutation in memory, so the copied file adds no evidence. The
+   repair must retain one canonical positive golden, remove the copied
+   malformed artifact, and stop the generator from recreating it.
+
+The review measured the failure against the branch's implementation and
+closing records; the CI failure is reproduced in the red `verify` run for PR
+#134 with 809 passed, 20 skipped, and the one assertion failure above.
 
 ## Administrative Ride-Along Note
 The branch tip is currently `f04ed94998453cd040376a3e1bfefee23c2ae504` containing administrative commits recording the handoff and phase advancement by the Foreman, which rode along. The review object was strictly measured against the implementation range `70bd8f237584ad7233e78580c22352a3e9829ef5..1226d26ab8e527f6cea85fc41c0f75c990370d70` as chartered.
@@ -34,7 +58,10 @@ Verified via `test_market_discount_interest_schedule_b.py`. Tested exactly seven
 Verified via `test_frrs_t3_resolver_bootstrap.py` and `test_md_p10_v10_graph_is_valid_and_v9_is_unchanged_input`. The v10/v5 release successfully validates through the real resolver while proving v9/v4 remains valid and unchanged. The registry diff is strictly additive.
 
 ### 7. Explanation/presentation
-Verified via `mixed-market-discount.presentation-model.v1.json` golden run and `malformed-market-discount-line2b.presentation-model.v1.json` failure mutation, which correctly maps the exact citations. The presentation rules explicitly trace the new market discount boxes.
+The canonical positive golden traces the exact citations. The malformed
+containment claim is not accepted as committed fixture evidence because the
+branch also contains a copied one-field presentation model; the existing
+MD-N12 in-memory mutation remains the intended bounded evidence.
 
 ### 8. Economy accounting
 * **Orientation Block**: 12,964 words / 102,179 bytes
@@ -43,8 +70,15 @@ Verified via `mixed-market-discount.presentation-model.v1.json` golden run and `
 * **Authored lines**: 2,037 lines
 * **Generated/expanded lines**: 4,616 lines
 * **Artifact Volume**: 4,616 lines separated from authored contract/runtime/test changes.
-* **First-review verdict**: READY
-* **Repair count**: 0
+* **First-review verdict**: NOT READY
+* **Repair count**: 0 completed at this review; one bounded findings-only repair is chartered.
 
 ### 9. Boundary attack
 Verified. Grep search confirmed the complete absence of escapes into `disposition`, `partial-principal`, `basis`, `taxpayer-accrual`, `subtractive-adjustment`, `Schedule D`, or new evaluators in the target range.
+
+## Repair disposition
+
+One repair cycle is authorized for the two findings above. No new evaluator,
+attachment schema/runtime, or presentation behavior is in scope. A fresh
+independent Reviewer must recheck the changed tests/golden surface and the
+adjacent compatibility and data-safety invariants before closeout resumes.

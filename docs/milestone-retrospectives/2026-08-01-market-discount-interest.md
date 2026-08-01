@@ -8,11 +8,16 @@
 - The mechanical readiness inventory selected the versions actually adopted
   by the current package and release graph, rather than treating merely
   published versions as selected.
-- The build used one integrated Builder and one integrated independent Reviewer;
-  the first review was READY and no repair cycle was needed.
-- One canonical positive presentation golden and a compact malformed mutation
-  followed the plan. No new evaluator mechanism, attachment schema/runtime, or
-  presentation behavior was introduced.
+- The build used one integrated Builder and one integrated independent Reviewer,
+  but the first review should have been NOT READY: the current-version test
+  still expected line-2b field v3 while the selected current citizen is v4.
+- The branch committed one canonical positive presentation golden and an
+  unnecessary copied 1,567-line malformed model differing by one value. This
+  violated the plan and the review charter; MD-N12 already constructs the
+  compact mutation in memory.
+- No new evaluator mechanism, attachment schema/runtime, or presentation
+  behavior was introduced. A single bounded findings-only repair is now
+  chartered; the milestone is not complete.
 
 ## What it cost
 
@@ -22,9 +27,11 @@
   review, so they are not inferred here.
 - Authored contract, runtime, and test work was reported separately from
   generated or expanded artifacts: 2,037 authored lines and 4,616
-  generated/expanded lines. The review reported a first-review verdict of
-  READY and repair count 0.
-- The result is bounded synthetic completion, not a real-data claim.
+  generated/expanded lines. The duplicated presentation model is part of the
+  latter volume and must be removed. The first-review verdict is NOT READY;
+  repair count is 0 completed, with one bounded repair pending.
+- The bounded synthetic-complete result remains provisional until repair,
+  fresh independent re-review, and green CI.
 
 ## Follow-ups
 
@@ -35,6 +42,8 @@
   scope checkpoint.
 - Retain the selected-version inventory as a readiness requirement for future
   imitation-successor milestones.
+- Treat red CI and a copied one-field presentation model as blocking findings,
+  not as closeout bookkeeping.
 
 ## What should change in the next plan
 
@@ -45,5 +54,8 @@
   whole large files by default.
 - Keep one canonical positive golden, reuse generic negative presentation
   evidence, and record authored versus generated/expanded volume separately.
+- Add a focused current-version expectation check to the readiness review and
+  reject any committed negative model that duplicates a positive model by one
+  field.
 - Leave the next frontier row unselected until the owner chooses the next
   bounded class.

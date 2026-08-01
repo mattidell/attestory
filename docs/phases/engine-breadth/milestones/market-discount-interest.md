@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "market-discount-interest",
-  "milestone_state": "closed",
-  "status": "CLOSED. The bounded 2025 payer-reported current-inclusion market-discount interest implementation is synthetic complete, and the exact-range independent Reviewer returned READY with no repair cycle.",
+  "milestone_state": "track-1",
+  "status": "NOT READY. The independent Reviewer identified one stale current-version assertion and one fixture-economy violation: a copied one-field malformed presentation model. A single bounded findings-only repair is chartered; closeout remains pending fresh independent re-review and green CI.",
   "retrospective": "docs/milestone-retrospectives/2026-08-01-market-discount-interest.md",
   "scope": [
     "support nonnegative market-discount amounts reported by a payer in 2025 Form 1099-INT box 10 or Form 1099-OID box 5 when the amount is already currently includible as taxable interest under a section 1278(b) election",
@@ -468,9 +468,9 @@ result.
 | --- | --- | --- |
 | Scope and contracts | Complete | Plan committed in the milestone branch; the paper boundary and MD-C1 through MD-C5 contracts remain binding. |
 | Integrated build | Complete | One Medium/medium Builder on `milestone/market-discount-interest`; implementation and focused evidence landed in the branch. |
-| Independent review | `READY` | `docs/reviews/review-2026-08-01-market-discount-interest.md`; exact implementation-range review; no findings requiring repair. |
-| Repair | None | No bounded findings-only repair cycle was needed. |
-| Closeout | Pending owner merge | This closing PR updates phase state, roadmap, frontier, and adds the retrospective; CI `verify` remains the merge gate. |
+| Independent review | `NOT READY` | `docs/reviews/review-2026-08-01-market-discount-interest.md`; the review should have rejected the stale current-version expectation and copied malformed presentation model. |
+| Repair | Chartered | `docs/reviews/charter-2026-08-01-market-discount-interest-repair.md`; one findings-only Builder cycle, pending owner launch. |
+| Closeout | Reopened and pending | Fresh independent re-review and green CI are required before the bounded synthetic-complete result can be recorded. |
 
 ## Execution sequence
 
