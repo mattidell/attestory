@@ -585,12 +585,18 @@ rejected merely because its boundary PR has not merged yet.
 
 The plan and closing transitions both ride with their boundary merges.
 
+## Milestone Start
+
+After the merge is visible on the ratified line, delete the merged milestone 
+branches and remove clean milestone worktrees or temporary workspace aliases. 
+Never remove a worktree still used by a live session.
+
 ## Milestone Closeout
 
 Audience: Agents
 
 A milestone closes in its closing PR. That PR makes the proposed repository
-self-describing before it merges.
+self-describing before it merges. Treat closeout as bookkeeping, not a chance to reinterpret results. If a capability, maturity, or next-step claim needs new judgment or evidence, stop and raise it as a project-execution question instead of quietly backfilling it.
 
 1. In the closing PR:
    - set `docs/phase-state.md`'s `milestone_state` to `closed`, replace conditional
@@ -602,19 +608,11 @@ self-describing before it merges.
      unselected;
    - update the phase roadmap's milestone status; and
    - include the retrospective.
-2. Treat closeout as bookkeeping, not a chance to reinterpret results. If a
-   capability, maturity, or next-step claim needs new judgment or evidence,
-   stop and raise it as a project-execution question instead of quietly
-   backfilling it.
-3. Run `git diff --check`, `python3 tools/governance_lint.py`, and
-   `python3 tools/envelope_scan.py --range <base>..HEAD` before pushing.
-4. Run `python3 tools/foreman_context.py --ref HEAD --format markdown`. It must
-   report `closed`, select-a-new-milestone as the next transition, no temporary
-   follow-up capsule, and the initial briefing checkpoint. Open the closing PR
-   and merge only on the green `verify` gate.
-5. After the merge is visible on the ratified line, delete the merged
-   milestone branches and remove clean milestone worktrees or temporary
-   workspace aliases. Never remove a worktree still used by a live session.
+   -  Run `git diff --check`, `python3 tools/governance_lint.py`, and
+      `python3 tools/envelope_scan.py --range <base>..HEAD` before pushing.
+   -  Run `python3 tools/foreman_context.py --ref HEAD --format markdown`. 
+      It must report `closed`, select-a-new-milestone as the next transition, 
+      no temporary follow-up capsule, and the initial briefing checkpoint. 
 
 The merge leaves the milestone closed for re-entry. `docs/phase-state.md` continues
 to point to the just-closed plan until the next milestone plan is selected.
