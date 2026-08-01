@@ -1,0 +1,22 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099oid.b5.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "family": {
+    "id": "tax.us.2025.f1099oid.b5",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.f1099oid-b5",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099oid.box5-market-discount",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v2",
+  "version": "v1"
+}

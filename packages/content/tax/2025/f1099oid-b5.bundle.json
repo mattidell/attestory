@@ -1,0 +1,73 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.f1099oid.box5-market-discount",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.interest-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1099oid-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.taxable-interest",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Market discount reported in box 5 of one logical Form 1099-OID statement instance furnished by a payer for 2025 for a covered security acquired with OID, under the recipient's section 1278(b) current-inclusion election; statement identity is peer to evidence and carries no file, upload, scan, document, or evidence key (ADR-0015). This claim covers Form 1099-OID box 5 only, never Form 1099-INT box 10, Form 1099-OID box 1, or disposition-time market discount.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099oid.b5.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "User-attested closure of the 2025 Form 1099-OID box-5 market-discount family on its current membership horizon.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.f1099oid-b5.vocabulary",
+  "label": "Form 1099-OID box-5 market-discount vocabulary for tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}
