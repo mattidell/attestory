@@ -1,0 +1,223 @@
+{
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-B",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "completeness": {
+    "branch_requirements": [
+      {
+        "adds_required": [
+          {
+            "check": "presence",
+            "fact_type": {
+              "id": "tax.us.2025.scheduleb.7b-country",
+              "version": "v1"
+            },
+            "symbol": "tax.us.2025.scheduleb.7b-country"
+          }
+        ],
+        "names_obligations": [
+          {
+            "code": "FINCEN_114_NAMED",
+            "label": "Foreign Bank Account Report (FinCEN Form 114 / FBAR) obligation named; this product never produces FinCEN-114 content or a filing artifact of any kind."
+          }
+        ],
+        "when_answer": {
+          "equals": "yes",
+          "symbol": "tax.us.2025.scheduleb.foreign-account"
+        }
+      }
+    ],
+    "required_answers": [
+      {
+        "check": "presence",
+        "fact_type": {
+          "id": "tax.us.2025.scheduleb.foreign-account",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.scheduleb.foreign-account"
+      },
+      {
+        "check": "presence",
+        "fact_type": {
+          "id": "tax.us.2025.scheduleb.foreign-trust",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.scheduleb.foreign-trust"
+      }
+    ]
+  },
+  "id": "tax.us.2025.rule.attachment.schedule-b",
+  "itemizations": [
+    {
+      "authority": {
+        "composition": {
+          "id": "tax.us.2025.interest-composition",
+          "version": "v3"
+        },
+        "kind": "composition"
+      },
+      "label": "Part I: Taxable Interest",
+      "part_id": "part-i-interest",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099int.box1-interest",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099int.b1",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.interest.b1-subtotal"
+        },
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099int.box3-interest",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099int.b3",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.interest.b3-subtotal"
+        },
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099oid.box1-interest-oid",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099oid.b1",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.interest.oid-subtotal"
+        },
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.non-form-interest.amount",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.non-form-interest",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.interest.non-form-subtotal"
+        },
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.form1065-k1.box5-interest",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.form1065-k1.box5",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.interest.form1065-k1-box5-subtotal"
+        },
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099int.box10-market-discount",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099int.b10",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.interest.b10-market-discount-subtotal"
+        },
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099oid.box5-market-discount",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099oid.b5",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.interest.oid-b5-market-discount-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.interest.taxable-total"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099div.1a",
+          "version": "v1"
+        }
+      },
+      "label": "Part II: Ordinary Dividends (box-1a / 1099-DIV family)",
+      "part_id": "part-ii-ordinary-dividends",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099div.box1a-ordinary",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099div.1a",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.dividends.1a-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.dividends.1a-subtotal"
+      }
+    }
+  ],
+  "publishes": "tax.us.2025.scheduleb.disposition",
+  "requirement": {
+    "citation": {
+      "id": "tax.us.2025.citation.schedule-b",
+      "version": "v1"
+    },
+    "comparison": "strictly_greater_than",
+    "subtotals": [
+      "tax.us.2025.interest.taxable-total",
+      "tax.us.2025.dividends.ordinary-total"
+    ],
+    "threshold_parameter": {
+      "id": "tax.us.2025.parameter.schedule-b-threshold",
+      "version": "v1"
+    }
+  },
+  "schema": "attachment-rule.v2",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Schedule B (Interest and Ordinary Dividends): required when taxable interest or ordinary dividends exceed $1,500. Part I itemizes the exact seven-family taxable-interest composition, including payer-reported current-inclusion market discount; Part II retains single-family ordinary-dividend authority; Part III and the named FinCEN-114 obligation are unchanged.",
+  "version": "v3"
+}

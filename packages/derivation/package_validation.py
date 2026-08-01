@@ -669,22 +669,37 @@ def validate_package(
                             f"composition producer {label} {actual} do not form the exact declared slot surface {expected}",
                         ))
 
-    # K-1 breadth successor coherence: v9 must select one exact successor
-    # graph. Historical packages are deliberately outside this additive gate.
-    if package.get("id") == "tax.us.2025.package.core-calculations" and package.get("version") == "v9":
-        expected_successors = {
+    # Interest-composition successor-graph coherence: each package version below
+    # must select one exact successor graph across composition, line-2b,
+    # form-field, and Schedule B content. Historical packages are deliberately
+    # outside this additive gate. Composition/line-2b/Schedule-B mixing is
+    # already caught by the slot-bijection checks above; the form-field content
+    # successor carries no such structural join, so it needs this explicit
+    # per-version coherence check.
+    _successor_graphs: dict[str, tuple[str, dict[str, tuple[str, str]]]] = {
+        "v9": ("K1_SUCCESSOR_GRAPH_MIXED", {
             "tax.us.2025.interest-composition": ("taxable-interest-composition.v1", "v2"),
             "tax.us.2025.rule.form1040-line2b": ("rule-artifact.v3", "v2"),
             "tax.us.2025.form1040.line-2b": ("form-field.v3", "v3"),
             "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v2", "v2"),
-        }
+        }),
+        "v10": ("MD_SUCCESSOR_GRAPH_MIXED", {
+            "tax.us.2025.interest-composition": ("taxable-interest-composition.v1", "v3"),
+            "tax.us.2025.rule.form1040-line2b": ("rule-artifact.v3", "v3"),
+            "tax.us.2025.form1040.line-2b": ("form-field.v3", "v4"),
+            "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v2", "v3"),
+        }),
+    }
+    if package.get("id") == "tax.us.2025.package.core-calculations" and package.get("version") in _successor_graphs:
+        pkg_version = str(package.get("version"))
+        code, expected_successors = _successor_graphs[pkg_version]
         members_by_id = {pin["id"]: pin for pin in package["members"]}
         for member_id, (schema, version) in expected_successors.items():
             pin = members_by_id.get(member_id)
             if pin is None or pin.get("schema") != schema or pin.get("version") != version:
                 issues.append(MemberIssue(
-                    member_id, str(pin.get("version", "") if pin else ""), "K1_SUCCESSOR_GRAPH_MIXED",
-                    f"v9 requires {member_id}@{version} under {schema}, got {pin!r}",
+                    member_id, str(pin.get("version", "") if pin else ""), code,
+                    f"{pkg_version} requires {member_id}@{version} under {schema}, got {pin!r}",
                 ))
 
     # 8. Inbound Reachability validation (ADR-0027 decision 4)

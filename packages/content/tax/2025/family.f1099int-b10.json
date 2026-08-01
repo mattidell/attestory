@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.interest.b10-market-discount-subtotal",
+  "closure_claim": "Every market-discount amount reported in box 10 of a 2025 Form 1099-INT furnished to the taxpayer under a section 1278(b) current-inclusion election is recorded as a statement item. This claim covers Form 1099-INT box 10 only: it says nothing about Form 1099-OID box 5, other 1099-INT boxes, disposition-time market discount, basis, or total taxable interest.",
+  "id": "tax.us.2025.f1099int.b10",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099int.box10-market-discount"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Form 1099-INT box-10 market-discount statement items, tax year 2025",
+  "version": "v1"
+}
