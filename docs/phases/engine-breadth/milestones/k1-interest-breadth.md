@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "k1-interest-breadth",
-  "milestone_state": "track-1",
-  "status": "BUILT, AWAITING REVIEW. The integrated Builder completed K1-C1–C5 at commit 466780685e82ec1f957985ac5bed0a08c2386224. The exact-range independent review is chartered next.",
+  "milestone_state": "closed",
+  "status": "CLOSED. The bounded Form-1065 K-1 box-5 taxable-interest path is synthetic complete through line 2b, composition-complete Schedule B Part I, downstream results, package resolution, explanation, and presentation. The integrated independent review returned READY without a repair cycle.",
   "scope": [
     "add an authoritative, horizon-closed source family for 2025 Schedule K-1 (Form 1065) box-5 taxable interest",
     "publish a successor positive-interest composition and Form 1040 line-2b producer that include the K-1 family without relabeling it as non-form interest",
@@ -20,42 +20,7 @@
     "no real-data run, owner attestation, entry-surface work, filing, transmission, security hardening, historical migration, or unrelated UI redesign",
     "no personal values, identifiers, dispositions, workspace locations, documents, screenshots, or generated private artifacts"
   ],
-  "initial_briefing_follow_up": {
-    "version": 1,
-    "expires": "milestone-close",
-    "grounding_commit": "7066f26e02467a58ca6cb329666782b32bd7dd12",
-    "notes": [
-      "The owner selected the smallest positive-interest breadth slice: 2025 Schedule K-1 (Form 1065) box 5 only.",
-      "The existing Schedule B rule intentionally itemizes only the Form 1099-INT box-1 family. This milestone must generalize Part I before it can claim end-to-end K-1 coverage.",
-      "The owner directed a streamlined loop: one integrated Builder packet, one independent integrated review, and at most one repair cycle before CI and closeout."
-    ],
-    "sources": [
-      {
-        "path": "docs/phases/engine-breadth/engine-breadth-overview.md",
-        "blob": "0cd6d7df4105c820d85aedecdb61e07175adc720"
-      },
-      {
-        "path": "docs/phases/engine-breadth/coverage-frontier.md",
-        "blob": "afde026c1428c2e8f1fc127ff14f000a0adc4727"
-      },
-      {
-        "path": "docs/phases/engine-breadth/engine-breadth-roadmap.md",
-        "blob": "e14dfd0ba780474bac02b89eb4c8d687101dba17"
-      },
-      {
-        "path": "docs/milestone-retrospectives/2026-07-31-capital-gain-distributions-line7a.md",
-        "blob": "bf05c3ca650625fe9efc6801836b00ec3fcb4d4f"
-      },
-      {
-        "path": "docs/adr/0026-taxable-interest-composition-and-line-2b.md",
-        "blob": "a79a372b69320b46015e53b9ee5eb555027a6b75"
-      },
-      {
-        "path": "docs/adr/0036-schedule-attachment-ontology.md",
-        "blob": "b3fe07239f31d325a4c00c5bbc9ea846aff922c7"
-      }
-    ]
-  },
+  "retrospective": "docs/milestone-retrospectives/2026-07-31-k1-interest-breadth.md",
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
@@ -131,9 +96,11 @@
       "AGENTS.md#Data Safety Rules"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-07-31-k1-interest-breadth.md",
       "docs/phases/engine-breadth/engine-breadth-overview.md",
       "docs/phases/engine-breadth/coverage-frontier.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md",
+      "docs/phases/engine-breadth/milestones/k1-interest-breadth-deferral-ledger.md",
       "docs/phases/engine-breadth/milestones/k1-interest-breadth.md"
     ]
   }
@@ -509,6 +476,16 @@ The milestone is complete when:
 7. the coverage frontier, roadmap, phase state, deferral ledger, and concise
    retrospective accurately record the bounded result without a real-data or
    broader-K-1 claim.
+
+## Execution record
+
+| Unit | Result |
+| --- | --- |
+| Scope and contracts | The committed plan defined K1-C1–C5 and the shared K1-P1–P10 / K1-N1–N13 verification matrix. A pre-build inventory correction recorded that package v8 selected line-2b field content v1, not the separately published v2. |
+| Integrated build | The Builder completed the additive source-family, composition, attachment-rule, package/release, runtime, fixture, explanation, and presentation route on `milestone/k1-interest-breadth`. |
+| Independent review | `docs/reviews/2026-07-31-k1-interest-breadth-review.md` returned `READY` for the exact implementation range. It confirmed the full case matrix, publication history, safety envelope, package compatibility, and focused static checks. |
+| Repair | None. The one available repair cycle was not used. |
+| Closeout | The roadmap, coverage frontier, phase state, deferral ledger, and retrospective record only the bounded synthetic-complete claim. The closing PR's green `verify` check and owner merge are the ratification boundary. |
 
 ## Execution sequence
 

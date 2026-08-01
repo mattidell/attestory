@@ -34,7 +34,9 @@ roadmap unless a selected breadth slice directly depends on them.
    box-5 taxable interest as its own closed positive-interest family, carry it
    through Form 1040 line 2b, and replace Schedule B's temporary box-1-only
    Part-I simplification with a composition-complete multi-family itemization.
-   **Selected 2026-07-31.** Plan:
+   **Closed 2026-07-31.** The bounded Form-1065 box-5 class is synthetic
+   complete; other K-1 forms and boxes, market discount, and subtractive
+   adjustments remain outside it. Plan:
    `milestones/k1-interest-breadth.md`.
 3. **Next breadth slice — owner-selected from the refreshed frontier.** A true
    Schedule D source slice, market-discount interest, and subtractive interest
@@ -55,9 +57,10 @@ source and completeness boundary is selected.
   The bounded direct-reporting class is synthetic complete on `main` after PR
   #128. Plan:
   `milestones/capital-gain-distributions-line7a.md`.
-- **Schedule K-1 Box-5 Interest Breadth — planned.** The owner selected the
-  Form-1065 box-5 slice with a streamlined integrated build and review. No
-  implementation has begun. Plan: `milestones/k1-interest-breadth.md`.
+- **Schedule K-1 Box-5 Interest Breadth — closed 2026-07-31.** The bounded
+  Form-1065 box-5 path is synthetic complete through line 2b, Schedule B,
+  downstream results, package resolution, explanation, and presentation.
+  Plan: `milestones/k1-interest-breadth.md`.
 - Schedule D, market discount, and subtractive adjustments remain separate
   candidates; this selection does not preselect or absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
