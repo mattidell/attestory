@@ -282,18 +282,19 @@ class ClosureAndScheduleBCases(unittest.TestCase):
 
 class PresentationContainment(unittest.TestCase):
     def test_md_n12_non_numeric_market_discount_section_is_redacted_without_sibling_loss(self) -> None:
-        """MD-N12: existing per-section renderer contains malformed numeric data."""
-        from tools.generate_market_discount_interest_goldens import MALFORMED_TARGET
+        """MD-N12: existing per-section renderer contains malformed numeric data.
 
+        The malformed model is a compact in-test mutation of the live result,
+        never a separately committed golden: it differs from the canonical
+        positive golden in exactly one field, so committing it would add no
+        evidence beyond what this mutation already proves.
+        """
         _, model = _run(_md_acts(b10_values=[80], oid5_values=[65]), "demo.md.n12")
         malformed = copy.deepcopy(model)
         _section(malformed, "line-2b")["resolved"]["value"] = "rejected-md-value"
         self.assertIsInstance(_section(malformed, "line-9")["resolved"]["value"], (int, float))
         renderer = (ROOT / "tools" / "presentation_harness" / "examples" / "pages" / "citation-walk.v1.html").read_text("utf-8")
         self.assertIn('throw new SectionError("invalid-numeric-value")', renderer)
-        committed = json.loads(MALFORMED_TARGET.read_text("utf-8"))
-        self.assertEqual(_section(committed, "line-2b")["resolved"]["value"], "rejected-md-value")
-        self.assertIsInstance(_section(committed, "line-9")["resolved"]["value"], (int, float))
 
     def test_md_p10_committed_golden_is_live_deterministic(self) -> None:
         """MD-P10: committed presentation is the coordinator result."""

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import copy
 from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
@@ -19,7 +18,6 @@ from tests.test_market_discount_interest_integration import ROOT, USER, SCOPE, _
 
 
 TARGET = ROOT / "packages" / "sample_data" / "market_discount_interest" / "presentation" / "mixed-market-discount.presentation-model.v1.json"
-MALFORMED_TARGET = ROOT / "packages" / "sample_data" / "market_discount_interest" / "presentation" / "malformed-market-discount-line2b.presentation-model.v1.json"
 
 
 def regenerate() -> dict[str, Any]:
@@ -48,10 +46,6 @@ def main() -> None:
     model = regenerate()
     TARGET.parent.mkdir(parents=True, exist_ok=True)
     TARGET.write_text(json.dumps(model, indent=2, sort_keys=True) + "\n", "utf-8")
-    malformed = copy.deepcopy(model)
-    line2b = next(section for section in malformed["sections"] if section["id"] == "line-2b")
-    line2b["resolved"]["value"] = "rejected-md-value"
-    MALFORMED_TARGET.write_text(json.dumps(malformed, indent=2, sort_keys=True) + "\n", "utf-8")
 
 
 if __name__ == "__main__":
