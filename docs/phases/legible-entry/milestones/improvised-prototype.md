@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Legible Entry",
   "topic": "improvised-prototype",
-  "status": "Open on main-ui. The owner is directing a small prototype of an unflattened, navigable explanation in the existing synthetic W-2 entry surface.",
+  "status": "Closed 2026-08-01 on main-ui. The unflattened, navigable explanation now covers all nine evaluation lines, with dependency-chip prediction and a non-collapsing trail.",
   "scope": [
     "prototype a walkable explanation for a changed return line in the existing synthetic W-2 entry surface",
     "reuse the existing presentation model and lineage rather than derive tax meaning again",
@@ -36,7 +36,7 @@
 -->
 # Improvised Prototype
 
-Status: **open on `main-ui`.**
+Status: **closed 2026-08-01 on `main-ui`.**
 
 ## Goal
 
@@ -66,3 +66,16 @@ synthetic W-2 entry loop. Reuse the current presentation and lineage data. Add
 entry-specific interaction state only where navigation requires it.
 
 The work stays synthetic by default and does not add tax logic.
+
+## Outcome
+
+Closed 2026-08-01. The explanation now covers all nine evaluation lines
+(not just 1a), each honestly classified as leaf, composite, or unsupported.
+Dependency chips carry a reachability predicate so a reader can see which
+branch leads back to the entered fact before clicking it, and the trail
+does not collapse as the reader navigates deeper — every panel opened stays
+open and stays current across a correction. A holistic fresh-eyes review
+confirmed the walk holds together as one coherent object; the same review
+found one unfixed defect (a correction resets scroll position, silently
+relocating the reader) carried forward rather than fixed under this close.
+Full account: `docs/milestone-retrospectives/2026-08-01-improvised-prototype.md`.

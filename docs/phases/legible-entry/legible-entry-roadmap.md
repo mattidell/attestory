@@ -2,8 +2,7 @@
 
 Audience: Product (roadmap); Shared (status)
 
-Status: **active.** Milestones 1–5 are closed. The Improvised Prototype is
-open on `main-ui` under owner direction.
+Status: **active.** Milestones 1–6 are closed.
 
 ## Thesis
 
@@ -146,6 +145,14 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    than deriving tax meaning again. **Open on `main-ui` 2026-07-31.** The owner
    directs the work and decides what to try and when it is done. Plan:
    `docs/phases/legible-entry/milestones/improvised-prototype.md`.
+   **Closed 2026-08-01.** Grew from one line (1a) to all nine evaluation
+   lines, each classified honestly as leaf, composite, or unsupported; a
+   reachability predicate gates the correction action and annotates
+   dependency chips before they're clicked; the explanation trail no longer
+   collapses on navigation. A holistic fresh-eyes review confirmed the walk
+   reads as one coherent object, with one carried-forward defect (a
+   correction resets scroll position). Retrospective:
+   `docs/milestone-retrospectives/2026-08-01-improvised-prototype.md`.
 7. **Real Entry.** The owner enters a real fact through the surface and
    attests. Owner-operated; the only milestone that can raise a row to L3. By
    then every usability question has already been answered on synthetic
@@ -245,6 +252,12 @@ it does not mean L3, and nothing in this milestone operated on real data.
 changed. The proposed unflattening prototype remains available for later
 selection.
 
-**Milestone 6 opened on `main-ui` 2026-07-31.** The owner selected the
-unflattening question as a fresh, flexible prototype milestone. Its first card
-is a walkable explanation for Form 1040 line 1a in the synthetic W-2 loop.
+**Milestone 6 opened on `main-ui` 2026-07-31** and **closed 2026-08-01.** The
+owner selected the unflattening question as a fresh, flexible prototype
+milestone; it grew from its first card (a walkable explanation for line 1a)
+to all nine evaluation lines, a reachability predicate reused across both a
+line's own correction action and its dependency chips, and a non-collapsing
+explanation trail. A holistic fresh-eyes review confirmed the walk holds
+together end to end, with one carried-forward defect (a correction resets
+scroll position, relocating the reader). Retrospective:
+`docs/milestone-retrospectives/2026-08-01-improvised-prototype.md`.
