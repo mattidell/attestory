@@ -47,10 +47,22 @@ roadmap unless a selected breadth slice directly depends on them.
    disposition-time market discount, partial principal payments, taxpayer-side
    accrual, basis, and broader transaction situations remain outside it. Plan:
    `milestones/market-discount-interest.md`.
-4. **Next breadth slice — owner-selected from the refreshed frontier.** A true
-   Schedule D source slice and subtractive interest adjustments remain distinct
-   candidates; other market-discount situations and unrelated income domains
-   remain outside the selected class.
+4. **Covered Long-Term Gains, Schedule D Line 8a** — selected 2026-08-01. Add
+   a transaction source family for covered, long-term, gain-only Form 1099-B
+   transactions, establish the nine-part Schedule D completeness boundary
+   through component authority, instantiate Schedule D (line 8a, Part II
+   line 15, Part III line 16) as content on the accepted attachment ontology
+   (ADR-0036), and supersede the QDCG/line-16 path additively to use the
+   Schedule D result for this class without editing ADR-0050. Short-term
+   transactions, losses, carryovers, Form 8949, noncovered securities,
+   digital assets, and other Schedule D sources remain outside it. Plan:
+   `milestones/schedule-d-covered-ltcg-8a.md`; prototype plan:
+   `docs/prototypes/schedule-d-covered-ltcg-8a/plan.md`.
+5. **Next breadth slice — owner-selected from the refreshed frontier.**
+   Subtractive interest adjustments and the broader capital-transaction
+   sources deferred out of item 4 remain distinct candidates; other
+   market-discount situations and unrelated income domains remain outside
+   the selected class.
 
 ## Why line 7a comes before Schedule D
 
@@ -78,7 +90,10 @@ source and completeness boundary is selected.
   taxpayer-side accrual, subtractive adjustments, and broader securities
   history remain outside it. Plan:
   `milestones/market-discount-interest.md`.
-- Schedule D, subtractive adjustments, and other market-discount situations
-  remain separate candidates; this selection does not absorb them.
+- **Covered Long-Term Gains, Schedule D Line 8a — selected 2026-08-01, planning
+  in progress.** Plan: `milestones/schedule-d-covered-ltcg-8a.md`. Prototype
+  plan awaiting owner approval: `docs/prototypes/schedule-d-covered-ltcg-8a/plan.md`.
+- Subtractive adjustments and other market-discount situations remain
+  separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
   historical evidence for the bounded slice Engine Breadth starts from.
