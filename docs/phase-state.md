@@ -2,12 +2,12 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "k1-interest-breadth",
-  "active_plan": "docs/phases/engine-breadth/milestones/k1-interest-breadth.md",
-  "milestone_state": "closed",
-  "status": "**ENGINE BREADTH / SCHEDULE K-1 BOX-5 INTEREST — CLOSED.** The engine computes the bounded 2025 Form-1065 K-1 box-5 taxable-interest path through Form 1040 line 2b, composition-complete Schedule B Part I, downstream results, package resolution, explanation, and presentation on production-shaped synthetic evidence. Independent review returned READY, and the closing-CI stale test expectation was repaired.",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "topic": "market-discount-interest",
+  "active_plan": "docs/phases/engine-breadth/milestones/market-discount-interest.md",
+  "milestone_state": "planned",
+  "status": "**ENGINE BREADTH / PAYER-REPORTED CURRENT-INCLUSION MARKET-DISCOUNT INTEREST — PLANNED.** The selected bounded 2025 Form 1099-INT box-10 and Form 1099-OID box-5 payer-reported class is paper-grounded for implementation through Form 1040 line 2b, composition-complete Schedule B Part I, downstream results, package resolution, explanation, and one canonical positive presentation golden.",
+  "current_role": "Builder (integrated source-to-presentation build; owner launch pending)",
+  "current_prompt": "docs/reviews/charter-2026-08-01-market-discount-interest-builder.md"
 }
 -->
 # Phase State
@@ -21,18 +21,19 @@ Git, `docs/reviews/`, and `docs/adr/`.
 
 The engine computes the bounded direct-reporting path for Form 1099-DIV box 2a
 through Form 1040 line 7a and the bounded 2025 Schedule K-1 (Form 1065) box-5
-taxable-interest path through line 2b and Schedule B Part I. Both paths are
-synthetic complete; no next breadth slice has been selected.
+taxable-interest path through line 2b and Schedule B Part I. The next selected
+slice is payer-reported current-inclusion market discount in Form 1099-INT box
+10 or Form 1099-OID box 5.
 
 ## Operational State: Engine Breadth
 
 * **Completed Milestone:** Schedule K-1 Box-5 Interest Breadth — **closed.**
 * **Product change:** Form-1065 K-1 box-5 taxable interest is a closed fifth positive-interest family, and Schedule B Part I now itemizes the complete adopted interest composition.
-* **Plan:** `docs/phases/engine-breadth/milestones/k1-interest-breadth.md`.
-* **Scope:** Form 1065 K-1 box 5 only; market discount, adjustments, other K-1s, and Schedule D remain outside it.
-* **Evidence:** production-shaped synthetic coordinator, lifecycle, package, explanation, and presentation cases; independent review `READY`; closing-CI regression expectation repaired.
-* **Next:** select the next bounded engine-breadth slice from `docs/phases/engine-breadth/coverage-frontier.md`.
-* **Branch line:** engine work continues on `main`; no successor milestone branch is selected.
+* **Plan:** `docs/phases/engine-breadth/milestones/market-discount-interest.md` — **planned.**
+* **Scope:** 2025 payer-reported current-inclusion market discount in Form 1099-INT box 10 or Form 1099-OID box 5; disposition, basis, taxpayer accrual, subtractive adjustments, and broader securities history remain outside it.
+* **Evidence:** IRS paper-grounded source boundary; mechanical v9/v4 selected-version inventory; expected synthetic source/lifecycle, line-2b, Schedule B, package, explanation, and presentation evidence.
+* **Next:** owner review of the committed plan and Builder work packet, then start the integrated Builder track.
+* **Branch line:** planning is prepared on `milestone/market-discount-interest`; implementation has not started.
 
 ## Re-entry
 
