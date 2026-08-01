@@ -102,6 +102,22 @@ Transitive authority stays transitive. For example, `TAX16` pins `P`, not
 `T1`; `P` pins `LD16`, not the raw transaction; and `LD16` carries the direct
 boundary pins its contract requires.
 
+### 2.4 Official 2025 grounding
+
+- The [2025 Schedule D instructions](https://www.irs.gov/pub/irs-prior/i1040sd--2025.pdf),
+  “Lines 1a and 8a - Transactions Not Reported on Form 8949,” authorize
+  aggregate line-8a reporting when basis was reported to the IRS and the
+  transaction has none of the named broker, Ordinary, QOF, or taxpayer-side
+  adjustments; columns (d), (e), and (h) are proceeds, basis, and gain/loss.
+- The [2025 Form 1099-B instructions](https://www.irs.gov/pub/irs-prior/i1099b--2025.pdf)
+  require separate transaction reporting, identify Code D as long-term with
+  basis reported to the IRS, and define the covered/noncovered, box 1f, box
+  1g, Ordinary, QOF, and box-12 indicators used by the canonical predicate.
+
+These sources ground source admission and form routing. Repository citation
+citizens remain the production pin authority; a live URL is not substituted
+for a versioned citation.
+
 ## 3. P1 - independent transaction family
 
 ### 3.1 Accepted contracts consumed unchanged
@@ -476,7 +492,7 @@ result.
 | Decision 5, line 7a from box-2a subtotal and line 7b from conclusion `"no"` | Direct arithmetic and authority are preserved but projected first into direct `P`; successor line 7a consumes `P`, which may instead be produced by `LD16`. The Schedule-D branch never checks line 7b |
 | Decision 6, line 9 consumes selected line 7a exactly once | Shape preserved. The successor selected line-7a publication is sourced from `P`; raw box-2a and Schedule-D inputs remain forbidden |
 | Decision 7, state partition over selected line 7a | Superseded only by symbol substitution `selected_line7a -> selected-preferential-base`; states, QDCG/ordinary branching, and branch-specific declaration pins are unchanged |
-| Decision 7, worksheet line 3 binds to line 7a in the direct case | Direct producer unchanged. Schedule-D producer binds the same preferential-base input position to `P=LD16` for this bounded slice |
+| Decision 7, worksheet line 3 binds to line 7a in the direct case | The direct amount and authority are unchanged behind `P`. The Schedule-D producer binds the same preferential-base input position to `P=LD16` for this bounded slice |
 | Decision 8, measured direct graph and kill tests | Extended with `P`'s exactly-one-producer pins, Schedule-D boundary pins, mixed-producer rejection, and raw/reach-around rejection; direct/transitive pin semantics unchanged |
 | Decision 9, relationship to ADR-0035/0038 | Preserved. This is another versioned successor only; no accepted text or historical content is edited |
 
