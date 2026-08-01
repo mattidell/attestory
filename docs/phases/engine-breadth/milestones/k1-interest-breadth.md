@@ -485,7 +485,7 @@ The milestone is complete when:
 | Integrated build | The Builder completed the additive source-family, composition, attachment-rule, package/release, runtime, fixture, explanation, and presentation route on `milestone/k1-interest-breadth`. |
 | Independent review | `docs/reviews/2026-07-31-k1-interest-breadth-review.md` returned `READY` for the exact implementation range. It confirmed the full case matrix, publication history, safety envelope, package compatibility, and focused static checks. |
 | Repair | None. The one available repair cycle was not used. |
-| Closeout | The roadmap, coverage frontier, phase state, deferral ledger, and retrospective record only the bounded synthetic-complete claim. The closing PR's green `verify` check and owner merge are the ratification boundary. |
+| Closeout | The roadmap, coverage frontier, phase state, deferral ledger, and retrospective record only the bounded synthetic-complete claim. Closing PR #133's green `verify` check and owner merge are the ratification boundary. |
 
 ## Execution sequence
 

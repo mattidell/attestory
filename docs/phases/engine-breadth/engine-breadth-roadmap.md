@@ -34,7 +34,7 @@ roadmap unless a selected breadth slice directly depends on them.
    box-5 taxable interest as its own closed positive-interest family, carry it
    through Form 1040 line 2b, and replace Schedule B's temporary box-1-only
    Part-I simplification with a composition-complete multi-family itemization.
-   **Closed 2026-07-31.** The bounded Form-1065 box-5 class is synthetic
+   **Closed 2026-07-31** (PR #133). The bounded Form-1065 box-5 class is synthetic
    complete; other K-1 forms and boxes, market discount, and subtractive
    adjustments remain outside it. Plan:
    `milestones/k1-interest-breadth.md`.
@@ -57,7 +57,7 @@ source and completeness boundary is selected.
   The bounded direct-reporting class is synthetic complete on `main` after PR
   #128. Plan:
   `milestones/capital-gain-distributions-line7a.md`.
-- **Schedule K-1 Box-5 Interest Breadth — closed 2026-07-31.** The bounded
+- **Schedule K-1 Box-5 Interest Breadth — closed 2026-07-31** (PR #133). The bounded
   Form-1065 box-5 path is synthetic complete through line 2b, Schedule B,
   downstream results, package resolution, explanation, and presentation.
   Plan: `milestones/k1-interest-breadth.md`.

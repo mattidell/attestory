@@ -1,6 +1,6 @@
 # Retrospective — Schedule K-1 Box-5 Interest Breadth
 
-- Closing PR: pending
+- Closing PR: #133
 
 ## What differed from the plan
 
