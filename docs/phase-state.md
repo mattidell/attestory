@@ -1,13 +1,13 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Legible Entry",
-  "topic": "improvised-milestone",
-  "active_plan": "docs/phases/legible-entry/milestones/improvised-milestone.md",
+  "phase": "Engine Breadth",
+  "topic": "k1-interest-breadth",
+  "active_plan": "docs/phases/engine-breadth/milestones/k1-interest-breadth.md",
   "milestone_state": "closed",
-  "status": "**LEGIBLE ENTRY / IMPROVISED MILESTONE — CLOSED 2026-07-31.** No implementation began and no product behavior changed. The owner closed it so main and main-ui can begin their next milestones from a clean shared base. The unflattening prototype remains parked for later selection.",
-  "current_role": "Foreman (select the next milestone; owner-held)",
-  "current_prompt": "docs/phases/legible-entry/legible-entry-roadmap.md"
+  "status": "**ENGINE BREADTH / SCHEDULE K-1 BOX-5 INTEREST — CLOSED.** The engine computes the bounded 2025 Form-1065 K-1 box-5 taxable-interest path through Form 1040 line 2b, composition-complete Schedule B Part I, downstream results, package resolution, explanation, and presentation on production-shaped synthetic evidence. Independent review returned READY, and the closing-CI stale test expectation was repaired.",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
 # Phase State
@@ -19,19 +19,20 @@ Git, `docs/reviews/`, and `docs/adr/`.
 <!-- brief high level plain language overview of the state of the milestone, exclude result and finding specifics -->
 ## High Level Milestone Briefing
 
-The entry surface can accept and correct one synthetic W-2 fact, run the
-return, and show which lines changed. The proposed explanation prototype did
-not begin. The owner closed it so `main` and `main-ui` can select separate
-milestones after their histories are reconciled.
+The engine computes the bounded direct-reporting path for Form 1099-DIV box 2a
+through Form 1040 line 7a and the bounded 2025 Schedule K-1 (Form 1065) box-5
+taxable-interest path through line 2b and Schedule B Part I. Both paths are
+synthetic complete; no next breadth slice has been selected.
 
-## Operational State: Legible Entry
+## Operational State: Engine Breadth
 
-* **Active Milestone:** none. The Improvised Milestone **closed without implementation 2026-07-31.**
-* **Product change:** none.
-* **Plan:** `docs/phases/legible-entry/milestones/improvised-milestone.md`.
-* **Parked work:** the unflattening explanation prototype may be selected again later.
-* **Next:** reconcile `main-ui` into `main`, then select separate milestones on the two branch lines.
-* **Branch line:** UI work continues on `main-ui`.
+* **Completed Milestone:** Schedule K-1 Box-5 Interest Breadth — **closed.**
+* **Product change:** Form-1065 K-1 box-5 taxable interest is a closed fifth positive-interest family, and Schedule B Part I now itemizes the complete adopted interest composition.
+* **Plan:** `docs/phases/engine-breadth/milestones/k1-interest-breadth.md`.
+* **Scope:** Form 1065 K-1 box 5 only; market discount, adjustments, other K-1s, and Schedule D remain outside it.
+* **Evidence:** production-shaped synthetic coordinator, lifecycle, package, explanation, and presentation cases; independent review `READY`; closing-CI regression expectation repaired.
+* **Next:** select the next bounded engine-breadth slice from `docs/phases/engine-breadth/coverage-frontier.md`.
+* **Branch line:** engine work continues on `main`; no successor milestone branch is selected.
 
 ## Re-entry
 

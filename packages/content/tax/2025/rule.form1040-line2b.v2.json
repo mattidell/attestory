@@ -1,0 +1,122 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "tax.us.2025.interest.b1-subtotal",
+      "tax.us.2025.interest.b3-subtotal",
+      "tax.us.2025.interest.oid-subtotal",
+      "tax.us.2025.interest.non-form-subtotal",
+      "tax.us.2025.interest.form1065-k1-box5-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-2b",
+      "version": "v1"
+    }
+  ],
+  "composition": {
+    "id": "tax.us.2025.interest-composition",
+    "version": "v2"
+  },
+  "id": "tax.us.2025.rule.form1040-line2b",
+  "notes": "Computes Form 1040 line 2b from the exact five-family positive-interest composition, including only Form-1065 K-1 box 5 within the K-1 boundary.",
+  "pins": [
+    {
+      "id": "tax.us.2025.interest.b1-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.b3-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.oid-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.non-form-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.interest.taxable-total",
+  "requires": [
+    "tax.us.2025.interest.b1-subtotal",
+    "tax.us.2025.interest.b3-subtotal",
+    "tax.us.2025.interest.oid-subtotal",
+    "tax.us.2025.interest.non-form-subtotal",
+    "tax.us.2025.interest.form1065-k1-box5-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "args": [
+      {
+        "name": "tax.us.2025.interest.b1-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.b3-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.oid-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.non-form-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+        "op": "ref"
+      }
+    ],
+    "op": "add"
+  },
+  "version": "v2",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b1"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b3"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099oid.b1"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.non-form-interest"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.form1065-k1.box5"
+      }
+    ],
+    "op": "all"
+  }
+}

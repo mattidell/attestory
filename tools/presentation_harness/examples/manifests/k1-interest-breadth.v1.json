@@ -1,0 +1,20 @@
+{
+  "version": "presentation-evaluation-manifest.v1",
+  "id": "k1-interest-breadth",
+  "timeout_ms": 5000,
+  "candidates": [
+    {"id": "citation-walk", "path": "tools/presentation_harness/examples/pages/citation-walk.v1.html"}
+  ],
+  "fixtures": [
+    {"id": "malformed-k1-line2b", "path": "packages/sample_data/k1_interest_breadth/presentation/malformed-k1-line2b.presentation-model.v1.json", "synthetic": true}
+  ],
+  "criteria": [
+    {"id": "k1-line2b-redacted", "check": "role-alert-present", "params": {"selector": "#line-2b .section-error"}},
+    {"id": "k1-line2b-generic-reason", "check": "dom-text-present", "params": {"selector": "#line-2b .section-error", "expected_text": "failed validation"}},
+    {"id": "healthy-line9-survives", "check": "dom-text-present", "params": {"selector": "#line-9 .line-value", "expected_text": "91600"}}
+  ],
+  "tamper_cases": [{"id": "baseline", "injection": null}],
+  "matrix": [
+    {"candidate_id": "citation-walk", "fixture_id": "malformed-k1-line2b", "tamper_case_id": "baseline", "criteria": ["k1-line2b-redacted", "k1-line2b-generic-reason", "healthy-line9-survives"]}
+  ]
+}

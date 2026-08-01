@@ -210,6 +210,18 @@ def _iter_collect_source_sets(expr: Any) -> Iterable[str]:
             yield from _iter_collect_source_sets(item)
 
 
+def _iter_require_closed_source_sets(expr: Any) -> Iterable[str]:
+    """Yield every family named by a ``require_closed`` node."""
+    if isinstance(expr, dict):
+        if expr.get("op") == "require_closed" and isinstance(expr.get("source_set"), str):
+            yield expr["source_set"]
+        for value in expr.values():
+            yield from _iter_require_closed_source_sets(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_require_closed_source_sets(item)
+
+
 def _iter_ref_names(expr: Any) -> Iterable[str]:
     """Yield declared ref names, including conditional dependency members."""
     if isinstance(expr, dict):
@@ -418,7 +430,7 @@ def validate_package(
             if pin_role != "checked-conclusion-binding":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"checked-conclusion-binding declared as role {pin_role!r}"))
-        elif citizen["schema"] == "attachment-rule.v1":
+        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2"}:
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"attachment-rule declared as role {pin_role!r}"))
@@ -610,6 +622,70 @@ def validate_package(
                 if comp_constituents != rule_requires:
                      issues.append(MemberIssue(comp_pin["id"], comp_pin["version"], "COMPOSITION_SLOT_BIJECTION_MISMATCH",
                                                f"composition constituents {comp_constituents} do not match rule requires {rule_requires}"))
+                family_slots: list[tuple[str, str, str]] = []
+                for constituent in comp_citizen.get("constituents", []):
+                    family_pin = constituent["source_family"]
+                    family = next(
+                        (
+                            c for p, c in resolved
+                            if c.get("schema") == "source-family.v1"
+                            and p["id"] == family_pin["id"]
+                            and p["version"] == family_pin["version"]
+                        ),
+                        None,
+                    )
+                    if family is None:
+                        issues.append(MemberIssue(
+                            comp_pin["id"], comp_pin["version"], "COMPOSITION_FAMILY_ABSENT",
+                            f"composition family {(family_pin['id'], family_pin['version'])} is not an exact package member",
+                        ))
+                        continue
+                    subtotal = constituent["authorizes_subtotal"]
+                    if family["authorizes_subtotal"] != subtotal:
+                        issues.append(MemberIssue(
+                            comp_pin["id"], comp_pin["version"], "COMPOSITION_FAMILY_SUBTOTAL_MISMATCH",
+                            f"composition pairs family {family['id']!r} with {subtotal!r}, not its authorized subtotal {family['authorizes_subtotal']!r}",
+                        ))
+                    family_slots.append((family["id"], family["version"], subtotal))
+                if len(family_slots) != len(set(family_slots)):
+                    issues.append(MemberIssue(
+                        comp_pin["id"], comp_pin["version"], "COMPOSITION_SLOT_DUPLICATE",
+                        "composition repeats a family/subtotal slot",
+                    ))
+
+                expected_subtotals = [slot[2] for slot in family_slots]
+                value_refs = list(_iter_ref_names(rule_citizen.get("value")))
+                closure_reads = list(_iter_require_closed_source_sets(rule_citizen.get("when")))
+                input_pins = [p["id"] for p in rule_citizen.get("pins", []) if p.get("role") == "input"]
+                expected_families = [slot[0] for slot in family_slots]
+                for actual, expected, code, label in (
+                    (value_refs, expected_subtotals, "COMPOSITION_VALUE_REFS_MISMATCH", "value refs"),
+                    (closure_reads, expected_families, "COMPOSITION_CLOSURE_READS_MISMATCH", "closure reads"),
+                    (input_pins, expected_subtotals, "COMPOSITION_INPUT_PINS_MISMATCH", "input pins"),
+                ):
+                    if sorted(actual) != sorted(expected) or len(actual) != len(expected):
+                        issues.append(MemberIssue(
+                            rule_pin["id"], rule_pin["version"], code,
+                            f"composition producer {label} {actual} do not form the exact declared slot surface {expected}",
+                        ))
+
+    # K-1 breadth successor coherence: v9 must select one exact successor
+    # graph. Historical packages are deliberately outside this additive gate.
+    if package.get("id") == "tax.us.2025.package.core-calculations" and package.get("version") == "v9":
+        expected_successors = {
+            "tax.us.2025.interest-composition": ("taxable-interest-composition.v1", "v2"),
+            "tax.us.2025.rule.form1040-line2b": ("rule-artifact.v3", "v2"),
+            "tax.us.2025.form1040.line-2b": ("form-field.v3", "v3"),
+            "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v2", "v2"),
+        }
+        members_by_id = {pin["id"]: pin for pin in package["members"]}
+        for member_id, (schema, version) in expected_successors.items():
+            pin = members_by_id.get(member_id)
+            if pin is None or pin.get("schema") != schema or pin.get("version") != version:
+                issues.append(MemberIssue(
+                    member_id, str(pin.get("version", "") if pin else ""), "K1_SUCCESSOR_GRAPH_MIXED",
+                    f"v9 requires {member_id}@{version} under {schema}, got {pin!r}",
+                ))
 
     # 8. Inbound Reachability validation (ADR-0027 decision 4)
     if "entrypoints" in package:
@@ -750,6 +826,7 @@ def validate_package(
         "artifact-package.v3",
         "artifact-package.v4",
         "artifact-package.v5",
+        "artifact-package.v6",
     }
     source_family_members = {
         citizen["id"]: citizen["member_predicate"]["fact_type"]
@@ -845,7 +922,7 @@ def validate_package(
     # a boolean or otherwise falsy-encodable Part III answer fact type on an
     # attachment is rejected at admission.
     for pin, citizen in resolved:
-        if citizen["schema"] != "attachment-rule.v1":
+        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2"}:
             continue
         answers = list(citizen["completeness"]["required_answers"])
         for branch in citizen["completeness"].get("branch_requirements", []):
@@ -870,6 +947,65 @@ def validate_package(
                 issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ANSWER_NOT_CATEGORICAL",
                                           f"answer fact type {answer_pin['id']!r} must declare a categorical all-truthy string domain "
                                           f"(e.g. yes/no); boolean or falsy-valued encodings can short-circuit completeness"))
+
+    # 10b. attachment-rule.v2 authority and row-set admission. Schema shape
+    # alone cannot prove that a row set belongs to its declared family or that
+    # a composition-backed part is structurally complete.
+    families_by_key = {
+        (citizen["id"], citizen["version"]): citizen
+        for _, citizen in resolved if citizen["schema"] == "source-family.v1"
+    }
+    compositions_by_key = {
+        (citizen["id"], citizen["version"]): citizen
+        for _, citizen in resolved if citizen["schema"] == "taxable-interest-composition.v1"
+    }
+    for pin, citizen in resolved:
+        if citizen["schema"] != "attachment-rule.v2":
+            continue
+        for part in citizen["itemizations"]:
+            actual_slots: list[tuple[str, str, str]] = []
+            for row_set in part["row_sets"]:
+                rows = row_set["rows"]
+                family_pin = rows["source_family"]
+                family = families_by_key.get((family_pin["id"], family_pin["version"]))
+                if family is None:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ROW_FAMILY_ABSENT",
+                                              f"part {part['part_id']!r} names absent family {family_pin}"))
+                    continue
+                if rows["member_fact_type"]["id"] != family["member_predicate"]["fact_type"]:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ROW_MEMBER_MISMATCH",
+                                              f"part {part['part_id']!r} row member does not equal family {family['id']!r} canonical predicate"))
+                if row_set["subtotal_symbol"] != family["authorizes_subtotal"]:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ROW_SUBTOTAL_MISMATCH",
+                                              f"part {part['part_id']!r} row subtotal is not authorized by family {family['id']!r}"))
+                actual_slots.append((family["id"], family["version"], row_set["subtotal_symbol"]))
+            authority = part["authority"]
+            if authority["kind"] == "single_family":
+                family_pin = authority["source_family"]
+                family = families_by_key.get((family_pin["id"], family_pin["version"]))
+                authority_slots: list[tuple[str, str, str]] = [] if family is None else [(family["id"], family["version"], family["authorizes_subtotal"])]
+                if actual_slots != authority_slots:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_SINGLE_FAMILY_BIJECTION_MISMATCH",
+                                              f"part {part['part_id']!r} row sets {actual_slots} do not exactly equal authority {authority_slots}"))
+                if family is not None and part["tie_out"]["line_symbol"] != family["authorizes_subtotal"]:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
+                                              f"part {part['part_id']!r} line symbol does not equal its family subtotal"))
+            else:
+                comp_pin = authority["composition"]
+                comp = compositions_by_key.get((comp_pin["id"], comp_pin["version"]))
+                authority_slots = [] if comp is None else [
+                    (slot["source_family"]["id"], slot["source_family"]["version"], slot["authorizes_subtotal"])
+                    for slot in comp["constituents"]
+                ]
+                if sorted(actual_slots) != sorted(authority_slots) or len(actual_slots) != len(authority_slots):
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_COMPOSITION_BIJECTION_MISMATCH",
+                                              f"part {part['part_id']!r} row sets {actual_slots} do not exactly equal composition slots {authority_slots}"))
+                if comp is None:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_COMPOSITION_ABSENT",
+                                              f"part {part['part_id']!r} names absent composition {comp_pin}"))
+                elif part["tie_out"]["line_symbol"] != comp["publishes"]:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
+                                              f"part {part['part_id']!r} line symbol does not equal composition publication"))
 
     # 10a. Declared-absence CMDN member domain guard (ADR-0038 production
     # condition 1): a conditional_dependency_set member fact type that the

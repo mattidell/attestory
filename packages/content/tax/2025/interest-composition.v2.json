@@ -1,0 +1,47 @@
+{
+  "coextensiveness": "slot-bijection",
+  "constituents": [
+    {
+      "authorizes_subtotal": "tax.us.2025.interest.b1-subtotal",
+      "source_family": {
+        "id": "tax.us.2025.f1099int.b1",
+        "version": "v1"
+      }
+    },
+    {
+      "authorizes_subtotal": "tax.us.2025.interest.b3-subtotal",
+      "source_family": {
+        "id": "tax.us.2025.f1099int.b3",
+        "version": "v1"
+      }
+    },
+    {
+      "authorizes_subtotal": "tax.us.2025.interest.oid-subtotal",
+      "source_family": {
+        "id": "tax.us.2025.f1099oid.b1",
+        "version": "v1"
+      }
+    },
+    {
+      "authorizes_subtotal": "tax.us.2025.interest.non-form-subtotal",
+      "source_family": {
+        "id": "tax.us.2025.non-form-interest",
+        "version": "v1"
+      }
+    },
+    {
+      "authorizes_subtotal": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+      "source_family": {
+        "id": "tax.us.2025.form1065-k1.box5",
+        "version": "v1"
+      }
+    }
+  ],
+  "id": "tax.us.2025.interest-composition",
+  "publishes": "tax.us.2025.interest.taxable-total",
+  "required_universe": {
+    "claim": "Five declared positive taxable-interest families without adjustments, including 2025 Schedule K-1 (Form 1065) box 5."
+  },
+  "schema": "taxable-interest-composition.v1",
+  "version": "v2"
+}
