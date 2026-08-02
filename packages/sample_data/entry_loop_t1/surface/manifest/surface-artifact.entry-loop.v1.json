@@ -4697,9 +4697,9 @@
       "sha256": "7d435e13f07a19033fd6164644ecaeaf115b24878f804933ead84362fe696145"
     },
     {
-      "bytes": 24755,
+      "bytes": 25839,
       "path": "src/EntryPage.svelte",
-      "sha256": "1cceed8792c3fba3726a49a6f4557183c84c44aa1e8da5b3473642cd9b9bc993"
+      "sha256": "752b59a0135bba5ad38a12d691ebbc7dff9a7fe65501d376b61431a6a3fe16ef"
     },
     {
       "bytes": 10879,
@@ -4729,7 +4729,7 @@
   ],
   "entrypoint_html": "dist/index.html",
   "id": "demo.surface.entry-loop",
-  "package_checksum": "9b611400a62f36d46038281e106683c9862b4be0a05c08ba90ccb25f5360a1dd",
+  "package_checksum": "22b9cb096d11f6cfad2666d40b9d035095b293e561e345bf45e5dcc03b70ab4c",
   "schema": "surface-artifact.v1",
   "version": "v1"
 }
