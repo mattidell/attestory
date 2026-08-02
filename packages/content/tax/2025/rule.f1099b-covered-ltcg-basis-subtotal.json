@@ -1,0 +1,31 @@
+{
+  "blocked": {
+    "code": "SOURCE_SET_UNCLOSED",
+    "missing": ["tax.us.2025.f1099b.covered-ltcg-basis"]
+  },
+  "id": "tax.us.2025.rule.f1099b-covered-ltcg-basis-subtotal",
+  "notes": "Aggregates current covered-long-term-gain basis companion findings (ADR-0054 Decision 2) into the family subtotal. Closed-empty publishes zero only through current literal-true closure admitted by the adopted mapping. This is Schedule D line 8a column (e).",
+  "pins": [],
+  "publishes": "tax.us.2025.f1099b.covered-ltcg-basis-subtotal",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v2",
+  "scope": {
+    "effective_from": "2025-01-01",
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "args": [
+      {
+        "name": "tax.us.2025.f1099b.covered-ltcg-txn.basis",
+        "op": "collect",
+        "source_set": "tax.us.2025.f1099b.covered-ltcg-basis"
+      }
+    ],
+    "op": "add"
+  },
+  "version": "v1",
+  "when": true
+}

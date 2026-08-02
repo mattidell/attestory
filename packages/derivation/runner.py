@@ -123,7 +123,7 @@ _LEDGER_EXCLUDED_PIN_ROLES = frozenset(
 # rules carry no `when`/`value` expression tree - they are interpreted
 # directly from their declarative requirement/itemizations/completeness
 # structure by `_Run.attempt_attachment`, not by `evaluate()`.
-ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v1", "attachment-rule.v2"})
+ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3"})
 ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
 
 
@@ -330,8 +330,14 @@ class _Run:
         conditional's subtotal symbols (ADR-0036 decision 2), which are also
         every itemization's tie-out line symbol in this milestone's content."""
         if rule.get("schema") in ATTACHMENT_SCHEMAS:
-            symbols = list(rule["requirement"]["subtotals"])
-            if rule.get("schema") == "attachment-rule.v2":
+            requirement = rule["requirement"]
+            # Threshold requirement: eligibility gates on its subtotal
+            # symbols. Categorical family_nonempty requirement (ADR-0053
+            # Decision 1) gates on nothing upfront - attempt_attachment
+            # reads closure/membership state directly and blocks honestly
+            # if the pinned family is unclosed.
+            symbols = list(requirement.get("subtotals", []))
+            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3"):
                 for part in rule["itemizations"]:
                     symbols.append(part["tie_out"]["line_symbol"])
                     symbols.extend(row_set["subtotal_symbol"] for row_set in part["row_sets"])
@@ -463,6 +469,60 @@ class _Run:
         })
         self.resolved.add(rule_id)
 
+    def _attachment_family_nonempty_trigger(
+        self,
+        rule_id: str,
+        requirement: dict[str, Any],
+        governance_pins: list[dict[str, Any]],
+    ) -> tuple[bool, list[dict[str, Any]], list[dict[str, Any]], str | None]:
+        """ADR-0053 Decision 1: categorical `family_nonempty` requirement.
+
+        Required when the pinned source family is current and closed with
+        at least one member; not required when current and closed-empty;
+        blocked (never a silent default) when unclosed. Reuses the same
+        generic closure-admission and collectible-source state `collect`
+        and `require_closed` already read - no new evaluator operation or
+        generic substrate.
+
+        Returns ``(required, base_pins, triggers, outcome)``. When
+        ``outcome`` is not ``None`` the blocked/inapplicable disposition has
+        already been recorded and the caller must return that outcome
+        immediately.
+        """
+        family_id = requirement["source_family"]["id"]
+        citation = requirement["citation"]
+
+        if family_id not in self.admissions:
+            self._attachment_block(rule_id, BLOCK_ABSENT, [family_id], governance_pins)
+            return False, [], [], "blocked"
+
+        admission = self.admissions[family_id]
+        declaration = next(
+            d for d in self.ctx.family_declarations if d["id"] == family_id
+        )
+        member_fact_type_id = declaration["member_predicate"]["fact_type"]
+        member_values = self.sources.get(member_fact_type_id, [])
+        required = len(member_values) > 0
+
+        base_pins: list[dict[str, Any]] = [
+            {"role": "package", "id": admission.mapping_id, "version": admission.mapping_version},
+            {"role": "package", "id": admission.declaration_id, "version": admission.declaration_version},
+        ]
+        closure_pin = {"role": "input", "id": admission.closure_finding_id, "version": "v1"}
+        if self.use_v2:
+            closure_pin["origin"] = "assertion"
+        base_pins.append(closure_pin)
+        base_pins.append({"role": "citation", "id": citation["id"], "version": citation["version"]})
+        base_pins.append(self.ctx.adoption_pin)
+        base_pins.extend(self.ctx.governance_pins)
+
+        triggers = [{
+            "source_family": family_id,
+            "member_count": len(member_values),
+            "over": required,
+        }]
+        return required, base_pins, triggers, None
+
     def attempt_attachment(self, rule: dict[str, Any]) -> str:
         """Interpret one ADR-0036 attachment citizen directly from its
         declarative requirement/itemizations/completeness structure.
@@ -479,38 +539,46 @@ class _Run:
         """
         rule_id = rule["id"]
         requirement = rule["requirement"]
-        subtotal_symbols: list[str] = requirement["subtotals"]
 
         governance_pins = [self.ctx.adoption_pin] + list(self.ctx.governance_pins)
 
-        missing_subtotals = [s for s in subtotal_symbols if s not in self.symbols]
-        if missing_subtotals:
-            self._attachment_block(rule_id, BLOCK_ABSENT, missing_subtotals, governance_pins)
-            return "blocked"
+        if requirement.get("kind") == "family_nonempty":
+            required, base_pins, triggers, outcome = self._attachment_family_nonempty_trigger(
+                rule_id, requirement, governance_pins
+            )
+            if outcome is not None:
+                return outcome
+        else:
+            subtotal_symbols: list[str] = requirement["subtotals"]
 
-        threshold_pin = requirement["threshold_parameter"]
-        threshold_param = self.ctx.parameters.get(threshold_pin["id"])
-        if threshold_param is None:
-            self._attachment_block(rule_id, BLOCK_ABSENT, [threshold_pin["id"]], governance_pins)
-            return "blocked"
-        threshold = Decimal(str(threshold_param["values"]))
+            missing_subtotals = [s for s in subtotal_symbols if s not in self.symbols]
+            if missing_subtotals:
+                self._attachment_block(rule_id, BLOCK_ABSENT, missing_subtotals, governance_pins)
+                return "blocked"
 
-        base_pins: list[dict[str, Any]] = [self._symbol_pin_entry(s) for s in subtotal_symbols]
-        base_pins.append({"role": "parameter", "id": threshold_pin["id"], "version": threshold_pin["version"]})
-        citation = requirement["citation"]
-        base_pins.append({"role": "citation", "id": citation["id"], "version": citation["version"]})
-        base_pins.append(self.ctx.adoption_pin)
-        base_pins.extend(self.ctx.governance_pins)
+            threshold_pin = requirement["threshold_parameter"]
+            threshold_param = self.ctx.parameters.get(threshold_pin["id"])
+            if threshold_param is None:
+                self._attachment_block(rule_id, BLOCK_ABSENT, [threshold_pin["id"]], governance_pins)
+                return "blocked"
+            threshold = Decimal(str(threshold_param["values"]))
 
-        # The requirement conditional is an "any subtotal over threshold"
-        # test with a per-trigger outcome recorded, never silence about
-        # which subtotal(s) crossed it (deliverable 5).
-        triggers = [
-            {"subtotal": s, "value": _value_str(self.symbols[s]),
-             "over": Decimal(str(self.symbols[s])) > threshold}
-            for s in subtotal_symbols
-        ]
-        required = any(t["over"] for t in triggers)
+            base_pins = [self._symbol_pin_entry(s) for s in subtotal_symbols]
+            base_pins.append({"role": "parameter", "id": threshold_pin["id"], "version": threshold_pin["version"]})
+            citation = requirement["citation"]
+            base_pins.append({"role": "citation", "id": citation["id"], "version": citation["version"]})
+            base_pins.append(self.ctx.adoption_pin)
+            base_pins.extend(self.ctx.governance_pins)
+
+            # The requirement conditional is an "any subtotal over threshold"
+            # test with a per-trigger outcome recorded, never silence about
+            # which subtotal(s) crossed it (deliverable 5).
+            triggers = [
+                {"subtotal": s, "value": _value_str(self.symbols[s]),
+                 "over": Decimal(str(self.symbols[s])) > threshold}
+                for s in subtotal_symbols
+            ]
+            required = any(t["over"] for t in triggers)
 
         if not required:
             self.dispositions.append({
@@ -523,7 +591,7 @@ class _Run:
             return "inapplicable"
 
         itemization_pins: list[dict[str, Any]] = []
-        if rule["schema"] == "attachment-rule.v2":
+        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3"):
             itemization_symbols = sorted({
                 symbol
                 for part in rule["itemizations"]
@@ -639,7 +707,7 @@ class _Run:
         if tie_out_violations:
             self._attachment_block(
                 rule_id, ITEMIZATION_TIE_OUT_VIOLATION, sorted(set(tie_out_violations)),
-                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] == "attachment-rule.v2" else []),
+                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3") else []),
             )
             return "blocked"
 

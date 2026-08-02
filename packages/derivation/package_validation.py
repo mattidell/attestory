@@ -430,7 +430,7 @@ def validate_package(
             if pin_role != "checked-conclusion-binding":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"checked-conclusion-binding declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2"}:
+        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3"}:
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"attachment-rule declared as role {pin_role!r}"))
@@ -937,7 +937,7 @@ def validate_package(
     # a boolean or otherwise falsy-encodable Part III answer fact type on an
     # attachment is rejected at admission.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2"}:
+        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3"}:
             continue
         answers = list(citizen["completeness"]["required_answers"])
         for branch in citizen["completeness"].get("branch_requirements", []):
@@ -975,7 +975,7 @@ def validate_package(
         for _, citizen in resolved if citizen["schema"] == "taxable-interest-composition.v1"
     }
     for pin, citizen in resolved:
-        if citizen["schema"] != "attachment-rule.v2":
+        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3"}:
             continue
         for part in citizen["itemizations"]:
             actual_slots: list[tuple[str, str, str]] = []

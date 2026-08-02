@@ -85,8 +85,11 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     declaration assertion could never reach a run at all (the same gap Track
     2 closed for attachment-rule.v1's completeness answers).
     """
-    if rule.get("schema") in {"attachment-rule.v1", "attachment-rule.v2"}:
-        symbols = list(rule["requirement"]["subtotals"])
+    if rule.get("schema") in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3"}:
+        # ADR-0053 Decision 1: a categorical `family_nonempty` requirement has
+        # no `subtotals` list - its own presence is the pinned source family,
+        # not a symbol, so it contributes no requirement-side symbol here.
+        symbols = list(rule["requirement"].get("subtotals", []))
         completeness = rule["completeness"]
         symbols.extend(a["symbol"] for a in completeness["required_answers"])
         for branch in completeness.get("branch_requirements", []):

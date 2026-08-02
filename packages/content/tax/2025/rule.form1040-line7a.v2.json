@@ -1,0 +1,41 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.capital-gains.selected-preferential-base"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-7a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line7a",
+  "notes": "ADR-0052 Decision 5: Form 1040 line 7a consumes the selected preferential base exactly once, regardless of which producer (direct box-2a or Schedule D) supplied it. No line-7a-to-symbol cycle: the selected preferential base is computed independently of this rule. v1 (the pre-Schedule-D ADR-0050 direct-only rule) remains historical.",
+  "pins": [
+    {
+      "id": "tax.us.2025.capital-gains.selected-preferential-base",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.capital-gains.line7a-total",
+  "requires": [
+    "tax.us.2025.capital-gains.selected-preferential-base"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.capital-gains.selected-preferential-base",
+    "op": "ref"
+  },
+  "version": "v2",
+  "when": true
+}

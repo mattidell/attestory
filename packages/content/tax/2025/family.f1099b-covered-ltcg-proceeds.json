@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099b.covered-ltcg-proceeds",
+  "version": "v1",
+  "title": "Covered-long-term-gain eligible transaction proceeds (scalar collectible companion), tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every proceeds amount of a covered, long-term, gain-only Form 1099-B transaction admitted to tax.us.2025.f1099b.covered-ltcg is recorded as its scalar proceeds companion, at the same identity, as of the keyed horizon (ADR-0054 Decision 2). This claim covers only column (d)'s collectible source; it says nothing about basis, gain, the object family's own closure, or Schedule D completeness.",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.covered-ltcg-txn.proceeds"
+  },
+  "authorizes_subtotal": "tax.us.2025.f1099b.covered-ltcg-proceeds-subtotal"
+}
