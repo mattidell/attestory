@@ -5,9 +5,9 @@
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
   "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 0, CONTRACT SYNTHESIS CHARTERED.** Repair 1 is independently confirmed READY at `b6dabec` (CA-02 and CA-04 both confirmed against the exact repaired sentences, not the self-report; the P1/P2/P3 regression boundary is intact; CA-05/CA-06 correctly left as separately tracked production conditions). Track 0's evidence chain is complete: incumbent it1, rival it2, both committee reviews, repair1, and its confirmation. Contract synthesis is chartered on a fresh `decisions/schedule-d-covered-ltcg-8a` branch to draft proposed ADR-0052 from the full evidence chain. NEXT ACTION: launch the Contract Synthesis Builder; on return, the foreman prepares the ADR for owner review and ratification, then closes Track 0 and hands off to the milestone's production Tracks 1-4.",
-  "current_role": "Contract Synthesis Builder — draft proposed ADR-0052",
-  "current_prompt": "docs/prototypes/schedule-d-covered-ltcg-8a/charter-contract-synthesis.md"
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 0 COMPLETE, AWAITING OWNER RATIFICATION.** Proposed ADR-0052 (independent anchor-keyed transaction family; nine-part direct-read completeness boundary with the adopted box-2a-closed successor; Schedule D content as an ADR-0036 instantiation; a shared selected-preferential-base symbol with an exact confirmed pin contract; named CA-05/CA-06 production conditions carried forward, not resolved) and its full evidence chain are assembled on `decisions/schedule-d-covered-ltcg-8a`. Status is proposed and inert; no production authority. NEXT ACTION: owner reviews and ratifies (merge to `main` is the ratification record, per `PROJECT_PLANNING.md` 'Recording Owner Assent') or directs further repair. Ratification activates the milestone's production Tracks 1-4.",
+  "current_role": "Foreman (ADR-0052 proposed; owner ratification decision pending)",
+  "current_prompt": "docs/adr/0052-covered-long-term-gains-schedule-d-line-8a.md"
 }
 -->
 # Phase State
@@ -24,13 +24,13 @@ through Form 1040 line 7a, the bounded 2025 Schedule K-1 (Form 1065) box-5
 taxable-interest path through line 2b and Schedule B Part I, and the bounded
 2025 payer-reported current-inclusion market-discount class in Form 1099-INT
 box 10 or Form 1099-OID box 5. The next breadth slice, Covered Long-Term
-Gains through Schedule D line 8a, is planned; its prototype evidence chain is
-complete and a proposed successor ADR is being drafted for owner
-ratification. No production implementation has started.
+Gains through Schedule D line 8a, is planned; its full prototype evidence
+chain has converged on a proposed successor contract (ADR-0052), now
+awaiting owner ratification before production begins.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **planned; Track 0 contract synthesis in flight.**
+* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **planned; Track 0 complete, awaiting ratification.**
 * **Product change (target):** covered, long-term, gain-only Form 1099-B
   transactions become a closed source family that reaches Schedule D line 8a,
   Part II line 15, Part III line 16, Form 1040 line 7a, and the correct
@@ -44,25 +44,29 @@ ratification. No production implementation has started.
   reported directly on Schedule D line 8a without Form 8949; short-term
   transactions, losses, carryovers, Form 8949, noncovered securities, digital
   assets, and other Schedule D sources remain outside it.
-* **Prototype evidence chain (complete):** incumbent (`it1`, rejected) →
-  rival (`it2`, selected) → contract/adversary review (`NOT READY`) →
-  expressiveness review (`READY` for rival, one recorded dissent on CA-04) →
-  owner disposition (rival topology, CA-02/P2-S5 adopted, CA-04 repair
-  authorized) → repair 1 → confirmation review (**READY**). Full record:
-  `docs/prototypes/schedule-d-covered-ltcg-8a/round-1-triage.md` and
-  `reviews/repair1-confirmation.md`.
-* **Next:** owner-launch the Contract Synthesis Builder against
-  `docs/prototypes/schedule-d-covered-ltcg-8a/charter-contract-synthesis.md`
-  on branch `decisions/schedule-d-covered-ltcg-8a`. On return, the foreman
-  prepares proposed ADR-0052 for owner review and ratification (merge to
-  `main` is the ratification record), then closes Track 0 and hands off to
-  production Tracks 1-4.
-* **Branch line:** prototype evidence on
-  `prototypes/schedule-d-covered-ltcg-8a/it1` and `.../it2`; contract
-  synthesis on the new `decisions/schedule-d-covered-ltcg-8a` branch, cut
-  from `origin/main`. Prototype code never merges to `main`; the plan,
-  charters, designs, examinations, reviews, the triage record, and the
-  proposed ADR merge together as one decision unit once ratified.
+* **Proposed contract (ADR-0052, not yet ratified):**
+  - independent, anchor-keyed transaction identity one level below the
+    existing statement-identity pattern;
+  - a nine-part completeness boundary read directly (two closures plus
+    seven categorical absence declarations), with box-2a required to be
+    closed (not closed-empty) as an explicit adopted successor;
+  - Schedule D line 8a/13/15/16 as content on the existing attachment
+    ontology (ADR-0036) — no new mechanism;
+  - a shared `selected-preferential-base` symbol with an exact,
+    independently confirmed per-producer pin contract, resolving the one
+    recorded committee dissent (CA-04);
+  - two named production conditions carried forward, not resolved by this
+    ADR: a categorical attachment-requirement schema successor (CA-05) and
+    generic exactly-one-producer enforcement (CA-06).
+* **Next:** owner reviews `docs/adr/0052-covered-long-term-gains-schedule-d-line-8a.md`
+  and its evidence chain on `decisions/schedule-d-covered-ltcg-8a`, then
+  ratifies by merging that branch to `main` (or directs further repair).
+  Ratification activates production Tracks 1-4.
+* **Branch line:** full prototype evidence on
+  `prototypes/schedule-d-covered-ltcg-8a/it1` and `.../it2`; the complete
+  decision unit (evidence chain + proposed ADR-0052 + index row) assembled
+  on `decisions/schedule-d-covered-ltcg-8a` for a standalone ratification
+  PR, matching how ADR-0050 itself was ratified for this milestone family.
 
 ## Re-entry
 
