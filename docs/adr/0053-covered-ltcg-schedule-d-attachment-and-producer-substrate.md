@@ -1,6 +1,7 @@
 # ADR 0053 — Categorical Attachment Requirement and Selected-Producer Substrate
 
-- Status: **proposed** (foreman-run paper spike; awaiting owner ratification)
+- Status: **accepted** (owner ratification recorded by merging PR #143;
+  foreman-run paper spike, Gate 1 scores below the prototype-eligible band)
 - Tier: 2 — narrow, additive schema/representation questions; not a
   product-thesis or rival-topology decision (Gate 1 scores 4 and 5, below
   the prototype-eligible band).
