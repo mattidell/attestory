@@ -1,6 +1,6 @@
 # Retrospective — The Entry Loop (synthetic)
 
-Milestone: `docs/phases/legible-entry/milestones/entry-loop-synthetic.md`
+Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-loop-synthetic.md`
 Phase: Legible Entry. Third milestone of the phase; the first that builds
 product.
 Closed: 2026-07-29.

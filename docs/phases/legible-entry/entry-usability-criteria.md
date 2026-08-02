@@ -1,7 +1,7 @@
 # Entry Loop Usability Criteria
 
 Status: **accepted by the owner, 2026-07-29** —
-`docs/reviews/2026-07-29-entry-loop-synthetic-track0-owner-acceptance.md`. That
+`docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-29-entry-loop-synthetic-track0-owner-acceptance.md`. That
 note records what the acceptance covers and what it does not: the last formal
 review verdict on this document is the `NOT READY` at `319521c`, whose sole
 remaining finding was closed at `1e48443` without a further review cycle.

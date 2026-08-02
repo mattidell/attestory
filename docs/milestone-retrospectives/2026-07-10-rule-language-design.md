@@ -4,7 +4,7 @@
 
 - Phase: Foundation
 - Branch model: declared protocol deviation — documents landed on `main` directly (seat dispatch requires continuous visibility); prototype code lived on iteration branches, concluded as tags `exhibits/rule-language/it0` / `it1` (`362f8a3`) / `it2` (`623957c`), never merged
-- Document set: `docs/prototypes/rule-language/` (charter v2, two examinations, three review rounds plus round 0, two legibility scorings, process log, evaluation analysis)
+- Document set: `docs/archive/2026-08-02-milestone-artifacts/prototypes/rule-language/` (charter v2, two examinations, three review rounds plus round 0, two legibility scorings, process log, evaluation analysis)
 - Decisions: ADR-0006 (rule artifact language, Tier 3), ADR-0007 (derived-publication act kind, Tier 2, amended pre-ratification), ADR-0008 (derivation record placement, Tier 2) — all ratified 2026-07-10
 
 ## Shipped

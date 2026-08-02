@@ -27,10 +27,11 @@ what its numbers mean and where they came from — from the artifacts alone.
 
 **You MUST NOT read (this is the answer key — reading it invalidates the audit):**
 `docs/adr/`, `docs/milestone-retrospectives/`, `docs/reviews/`,
-`docs/proposals/`, `docs/prototypes/`, `docs/phases/`, governance Commentary and
-Principles, `AGENTS.md`, `PROJECT_PLANNING.md`, `CLAUDE.md`, any memory files,
-commit messages, and the legibility-audit docs themselves. Do not grep or search
-across these paths. If you open one by accident, say so in your report.
+`docs/proposals/`, `docs/prototypes/`, `docs/phases/`, `docs/archive/`, governance
+Commentary and Principles, `AGENTS.md`, `PROJECT_PLANNING.md`, `CLAUDE.md`, any
+memory files, commit messages, and the legibility-audit docs themselves. Do not
+grep or search across these paths. If you open one by accident, say so in your
+report.
 
 **Perform these four recovery tasks. For each, first list the exact files you
 read, then attempt the recovery, then score yourself honestly.**

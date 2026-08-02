@@ -31,6 +31,6 @@ get 5 minutes.
 
 ## Measured baseline
 
-See `docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md`
+See `docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/04-economy.md`
 and the spawn ledger summary (`python3 tools/spawn_ledger.py summary`) for the
 current measured numbers rather than estimates.

@@ -1,6 +1,6 @@
 # Retrospective — The Entry Boundary
 
-Milestone: `docs/phases/legible-entry/milestones/entry-boundary.md`
+Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-boundary.md`
 Phase: Legible Entry. First milestone of the phase.
 Closed: 2026-07-28.
 

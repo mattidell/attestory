@@ -1,7 +1,7 @@
 # Retrospective: Presentation — Completing the Row
 
 Phase: Real Return. Completed 2026-07-28.
-Plan: `docs/phases/real-return/milestones/presentation-row-completion.md`.
+Plan: `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-row-completion.md`.
 
 **Result: the Presentation row is L3 across all five columns, and every cell in
 the maturity matrix is now L3 or better.** No session was performed, no browser
@@ -116,7 +116,7 @@ The decision is the owner's (Tier 3).
 ## Pointers
 
 - Attestation and its amendment:
-  `docs/reviews/2026-07-27-presentation-real-session-attestation-track3-attestation.md`.
+  `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-27-presentation-real-session-attestation-track3-attestation.md`.
 - Maturity movement: `docs/phases/real-return/maturity-matrix.md`, footnote 15.
 - Prior milestone (the session itself):
   `docs/milestone-retrospectives/2026-07-27-presentation-real-session-attestation.md`.

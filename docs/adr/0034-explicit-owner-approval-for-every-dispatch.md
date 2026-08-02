@@ -54,4 +54,4 @@ prototype plan in advance.
 - Process definition: `PROJECT_PLANNING.md` (Prototype-Driven Decisions).
 - Prototype-foreman doctrine: `PROJECT_PLANNING.md` (Prototype-Driven
   Decisions); milestone role seeds in `docs/roles/`.
-- Active-topic correction: `docs/prototypes/production-resolver/process-log.md`.
+- Active-topic correction: `docs/archive/2026-08-02-milestone-artifacts/prototypes/production-resolver/process-log.md`.

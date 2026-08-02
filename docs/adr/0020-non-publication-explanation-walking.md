@@ -8,7 +8,7 @@
 
 ADR-0012 defined the non-publication dispositions for form-field citizens: `blocked`, `guard_inapplicable`, and `invalid` (a refinement of blocked, not a peer). To ensure the auditability of the tax engine (Article 15), consumers must be able to walk the derivation cascade to reconstruct the exact lineage and reason why a symbol was not published — without violating workspace act-log purity (Articles 12/13) or causing log bloat.
 
-The prototype (`docs/prototypes/non-publication-explanations/`) produced two independent designs. Iteration 1 walked rule definitions statically, patched in round 1 with a transient runner "Execution Map." The clean-room rival (iteration 2) placed the record durably: a disposition ledger inside the ADR-0008 closing record. Round 2 established that the transient map fails the normal case — a walk requested after the runner process exits has nothing to query (NPE-A4) — and that which guard was false or which symbol was absent is a *run fact*, not recoverable from static rule text. Both reviewers converged on the durable placement. Round 3 reviewed the durable redraft and returned seven decision-blocking findings (see `docs/prototypes/non-publication-explanations/round-3-triage.md`); this round-4 text folds them in. The converged shape is unchanged; the corrections are to its decision text and the `npe-walk.v1` schema.
+The prototype (`docs/archive/2026-08-02-milestone-artifacts/prototypes/non-publication-explanations/`) produced two independent designs. Iteration 1 walked rule definitions statically, patched in round 1 with a transient runner "Execution Map." The clean-room rival (iteration 2) placed the record durably: a disposition ledger inside the ADR-0008 closing record. Round 2 established that the transient map fails the normal case — a walk requested after the runner process exits has nothing to query (NPE-A4) — and that which guard was false or which symbol was absent is a *run fact*, not recoverable from static rule text. Both reviewers converged on the durable placement. Round 3 reviewed the durable redraft and returned seven decision-blocking findings (see `docs/archive/2026-08-02-milestone-artifacts/prototypes/non-publication-explanations/round-3-triage.md`); this round-4 text folds them in. The converged shape is unchanged; the corrections are to its decision text and the `npe-walk.v1` schema.
 
 ## Vocabulary layering (resolves NPE-G9/G11)
 
@@ -79,6 +79,6 @@ Decision 7 defines the mapping between them (ledger `inapplicable` → payload `
 
 ## Links
 
-- Evidence: `docs/prototypes/non-publication-explanations/` — it1 and it2 designs and examinations, round-1/2/3 reviews, `round-1-triage.md`, `round-2-triage.md`, `round-3-triage.md`, `evaluation-analysis.md`.
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/non-publication-explanations/` — it1 and it2 designs and examinations, round-1/2/3 reviews, `round-1-triage.md`, `round-2-triage.md`, `round-3-triage.md`, `evaluation-analysis.md`.
 - Contracts: ADR-0006 (conflict semantics), ADR-0007, ADR-0008 (record placement), ADR-0009, ADR-0012 (dispositions). Governance: Articles 8, 12, 13, 15.
 - Process: ADR-0005, ADR-0013 (and its 2026-07-13 rival-evidence amendment).

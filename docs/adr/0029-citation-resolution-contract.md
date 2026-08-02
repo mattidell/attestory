@@ -8,7 +8,7 @@
 
 ADR-0012 left form-field citation references as inert opaque strings. Phase-state still records citation resolution as Not Decided. The inert ADR-0018 (single-author, no rival/committee/evaluation) is non-binding under ADR-0013.
 
-The `citation-resolution` prototype (Track 0.c) produced two clean-room-separated designs and two independent committee reviews. Both designs make citations versioned package citizens with exact pins. Governance and adversary **reject** the incumbent’s resolver-side display canonicalization and overclaim of “verifiable” depth; both prefer the rival’s structural-and-adoption-only posture. Governance further prefers a **single** form-field citation pin and a four-family discriminated locator taxonomy. Evidence: `docs/prototypes/citation-resolution/evaluation-analysis.md`.
+The `citation-resolution` prototype (Track 0.c) produced two clean-room-separated designs and two independent committee reviews. Both designs make citations versioned package citizens with exact pins. Governance and adversary **reject** the incumbent’s resolver-side display canonicalization and overclaim of “verifiable” depth; both prefer the rival’s structural-and-adoption-only posture. Governance further prefers a **single** form-field citation pin and a four-family discriminated locator taxonomy. Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/citation-resolution/evaluation-analysis.md`.
 
 ## Decision
 
@@ -54,7 +54,7 @@ The `citation-resolution` prototype (Track 0.c) produced two clean-room-separate
 
 ## Links
 
-- Evidence: `docs/prototypes/citation-resolution/evaluation-analysis.md`; `reviews/round-1-governance.md`, `reviews/round-1-adversary.md`; exhibits `it1/design.md` (`3023650`), `it2/design.md` (`6e9a089`).
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/citation-resolution/evaluation-analysis.md`; `reviews/round-1-governance.md`, `reviews/round-1-adversary.md`; exhibits `it1/design.md` (`3023650`), `it2/design.md` (`6e9a089`).
 - Supersedes: ADR-0018 (inert proposed; retained).
 - Contracts: ADR-0003, 0006, 0012, 0027, 0028.
 - Milestone: Core Tax Conditions Track 0.c; implementation Track 5 after acceptance.

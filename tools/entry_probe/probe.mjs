@@ -2,10 +2,10 @@
 // Throwaway retention probe. Not product code — see README.md.
 //
 // Track 1 of the Entry Boundary milestone
-// (docs/reviews/charter-2026-07-28-entry-boundary-track1.md) drove the
+// (docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-entry-boundary-track1.md) drove the
 // *headless* synthetic evaluation harness
 // (tools/presentation_harness/lib/chrome.mjs + lib/server.mjs, unmodified).
-// Track 1b (docs/reviews/charter-2026-07-28-entry-boundary-track1b.md) adds a
+// Track 1b (docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-entry-boundary-track1b.md) adds a
 // second vehicle: the *headed* one a person actually types into,
 // packages/derivation/live_viewing.py (ADR-0047), driven against a synthetic
 // workspace directory via the throwaway tools/entry_probe/headed_launch.py

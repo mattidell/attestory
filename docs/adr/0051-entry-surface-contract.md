@@ -27,7 +27,7 @@ condition. Once it is written down, a reviewer is right to ask: where is the
 entry vehicle, which flag closes spellcheck, is it tested, what happens on a
 crash, what about a hostile local process, how do we know Chrome wrote nothing
 unexpected? The first build to touch entry —
-`docs/reviews/2026-07-29-entry-loop-synthetic-track1-review.md` — hit exactly
+`docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-29-entry-loop-synthetic-track1-review.md` — hit exactly
 that and blocked on it, correctly, under the rule it was asked to enforce.
 
 The problem is not that the build failed to meet the condition. It is that we
@@ -125,5 +125,5 @@ probe, and no preflight owed by this contract.
 - Presentation contract: `docs/adr/0046-presentation-surface-contract.md`
 - Viewing environment and trust classes: `docs/adr/0047-live-viewing-environment.md`
 - Trust domains: `docs/adr/0044-live-run-system-boundary-and-trust-domains.md`
-- Milestone: `docs/phases/legible-entry/milestones/entry-loop-synthetic.md`
-- The review this disposes: `docs/reviews/2026-07-29-entry-loop-synthetic-track1-review.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-loop-synthetic.md`
+- The review this disposes: `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-29-entry-loop-synthetic-track1-review.md`

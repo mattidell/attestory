@@ -23,7 +23,7 @@ sixteen reviews, ~6,100 lines of process documents, and much of implementation
 Tracks 1–5 performed speculatively inside Track 0).
 
 The process retrospective
-(`docs/prototypes/tax-citizen-families/process-retrospective.md`) diagnosed five
+(`docs/archive/2026-08-02-milestone-artifacts/prototypes/tax-citizen-families/process-retrospective.md`) diagnosed five
 cost drivers — too many decisions per gate, prototype/implementation evidence
 conflated, adjacent defects expanding the charter, green-check incentives, and a
 partly-false "finished machinery" premise — and proposed an economic-gates set.
@@ -32,7 +32,7 @@ operational home and no accountable owner, so nothing forced them during a run.
 This ADR ratifies an operationalized version.
 
 Full proposal and rationale, including the gate-by-gate evaluation against the
-recorded cost: `docs/proposals/prototype-economic-gates.md`.
+recorded cost: `docs/archive/2026-08-02-milestone-artifacts/proposals/prototype-economic-gates.md`.
 
 ## Decision
 
@@ -209,9 +209,9 @@ guidance is a **craft heuristic, not a gate parameter**
 ## Links
 
 - Extends: ADR-0005 (consequential ADRs require prototype evidence)
-- Evidence: `docs/prototypes/tax-citizen-families/process-retrospective.md`
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/tax-citizen-families/process-retrospective.md`
   (Cost Record, Why Cost Expanded, Economic Gates v1)
-- Proposal and gate-by-gate evaluation: `docs/proposals/prototype-economic-gates.md`
+- Proposal and gate-by-gate evaluation: `docs/archive/2026-08-02-milestone-artifacts/proposals/prototype-economic-gates.md`
 - Process definition amended: `PROJECT_PLANNING.md`, Prototype-Driven Decisions
   (Prototype Economic Gates)
 - Prototype-foreman doctrine: `PROJECT_PLANNING.md`, Prototype-Driven Decisions

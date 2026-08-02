@@ -2,10 +2,10 @@ This is a throwaway instrument, not product code. It exists to answer one
 question for the Entry Boundary milestone (Tracks 1 and 1b) and then goes
 away.
 
-Charters: `docs/reviews/charter-2026-07-28-entry-boundary-track1.md` (Track 1,
-headless) and `docs/reviews/charter-2026-07-28-entry-boundary-track1b.md`
+Charters: `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-entry-boundary-track1.md` (Track 1,
+headless) and `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-entry-boundary-track1b.md`
 (Track 1b, headed).
-Findings: `docs/phases/legible-entry/milestones/entry-boundary-retention-findings.md`.
+Findings: `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-boundary-retention-findings.md`.
 
 ## What it does
 

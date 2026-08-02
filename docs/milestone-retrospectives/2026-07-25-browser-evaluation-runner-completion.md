@@ -63,14 +63,14 @@ focused recheck returned `READY` with no new in-scope finding.
 
 ## Verification
 
-- Original delta review (`docs/reviews/2026-07-25-browser-evaluation-runner-repair-review.md`):
+- Original delta review (`docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-25-browser-evaluation-runner-repair-review.md`):
   `READY`. Reproduced F1–F6 closed; full focused Node suite 33/33 and Python
   focused suite 27/27 passing; batch continuation and non-loopback blocking
   unmodified and passing; governance lint conformant, envelope scan clean,
   `git diff --check` clean; PR #71 CI `verify` green
   (https://github.com/mattidell/attestory/actions/runs/30175915176).
 - Residual R1/R2 delta review
-  (`docs/reviews/2026-07-25-browser-evaluation-runner-residual-repair-review.md`):
+  (`docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-25-browser-evaluation-runner-residual-repair-review.md`):
   `READY`. Both R1 and R2 independently reproduced closed; accepted F1–F6
   floor intact (34/34 focused tests); scope held to the chartered two
   findings plus directly touched invariants, no re-opening of the original

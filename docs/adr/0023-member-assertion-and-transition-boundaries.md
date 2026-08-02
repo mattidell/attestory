@@ -1,12 +1,12 @@
 # ADR 0023 - Member Assertion and Transition Boundaries
 
-- Status: accepted (ratified by owner 2026-07-13, at merge `bf23517` per `docs/reviews/charter-2026-07-13-source-completeness-patch.md`)
+- Status: accepted (ratified by owner 2026-07-13, at merge `bf23517` per `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-13-source-completeness-patch.md`)
 - Tier: 2
 - Date: 2026-07-13
 
 ## Context
 
-Reconciliation review `docs/reviews/2026-07-13-source-completeness-reconciliation.md` exposed two defects in the admission boundary:
+Reconciliation review `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-13-source-completeness-reconciliation.md` exposed two defects in the admission boundary:
 1. **SC-R1**: A predicate-matching member fact for an adopted family could be asserted directly through a plain `assertion`, bypassing the `member-transition` chain. This allowed the family's closure finding and closure-backed zeros to remain current despite a new member being introduced.
 2. **SC-R2**: A same-member value correction could be submitted as a `member-transition`, advancing the horizon and invalidating current closure authority unnecessarily, when it should have been routed through the ordinary assertion path instead.
 
@@ -32,6 +32,6 @@ These defects violate Constitution Articles 7, 12, and 13. While ADR-0017 decisi
 
 ## Links
 
-- Charter: `docs/reviews/charter-2026-07-13-source-completeness-patch.md`
-- Review: `docs/reviews/2026-07-13-source-completeness-reconciliation.md`
+- Charter: `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-13-source-completeness-patch.md`
+- Review: `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-13-source-completeness-reconciliation.md`
 - Precedents: `docs/adr/0016-source-family-claim-and-composition.md`, `docs/adr/0017-recorded-family-horizons-for-closure-freshness.md`

@@ -22,7 +22,7 @@ facts on record is a hard error (the source-closure precedent extended to
 this new declared-absence pattern).
 
 Prototype evidence spans five documents across two owner-directed repair
-cycles: `docs/prototypes/qdcg-worksheet/` — Round 1 (incumbent it1, rival
+cycles: `docs/archive/2026-08-02-milestone-artifacts/prototypes/qdcg-worksheet/` — Round 1 (incumbent it1, rival
 it2, governance and adversary review, `round-1-triage.md`), Repair 1
 (`repair1/design.md`, `examination-repair1.md`), Confirmation R1
 (`reviews/confirmation-r1.md`, **not confirmed** — one decision-blocking
@@ -169,7 +169,7 @@ resolves the gap without disturbing anything Repair 1 settled.
 
 ## Links
 
-- Prototype evidence: `docs/prototypes/qdcg-worksheet/` (`plan.md`,
+- Prototype evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/qdcg-worksheet/` (`plan.md`,
   `round-1-triage.md`, `repair1/`, `repair2/`, `examination-repair1.md`,
   `examination-repair2.md`, `reviews/`, `evaluation-analysis.md`)
 - Builds on: ADR-0006/0024/0025 (expressions, conditionals), ADR-0010

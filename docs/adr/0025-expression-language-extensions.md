@@ -19,7 +19,7 @@ mechanism. Two independent-context committee reviewers (Governance ELX-G1–G6,
 Adversary ELX-A1–A8) unanimously carried the **rival** design forward for both
 propositions and rejected the incumbent's two distinctive mechanisms on
 concrete governance and counterexample grounds. Evidence:
-`docs/prototypes/expression-language-extensions/evaluation-analysis.md` and the
+`docs/archive/2026-08-02-milestone-artifacts/prototypes/expression-language-extensions/evaluation-analysis.md` and the
 reviews and exhibits it cites.
 
 ## Decision
@@ -122,7 +122,7 @@ reviews and exhibits it cites.
 
 ## Links
 
-- Evidence: `docs/prototypes/expression-language-extensions/evaluation-analysis.md`;
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/expression-language-extensions/evaluation-analysis.md`;
   `reviews/round-1-governance.md`, `reviews/round-1-adversary.md`; exhibits
   `it1/design.md` (`a9e4b9c`), `it2/design.md` (`b2b9022`).
 - Resolves the interim decisions 5–6 delegated by ADR-0024.

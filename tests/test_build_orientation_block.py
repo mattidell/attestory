@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -70,8 +71,16 @@ class RepositoryAnchorTests(unittest.TestCase):
 
     def test_every_committed_deep_read_anchor_resolves(self) -> None:
         unresolved: list[str] = []
-        for path in REPO_ROOT.rglob("*.md"):
-            if "/archive/" in str(path):
+        tracked_markdown = subprocess.run(
+            ["git", "ls-files", "*.md"],
+            cwd=REPO_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.splitlines()
+        for relative in tracked_markdown:
+            path = REPO_ROOT / relative
+            if "archive" in path.relative_to(REPO_ROOT).parts:
                 continue
             for match in ANCHORED_TARGET.finditer(path.read_text(encoding="utf-8")):
                 target = match.group(1)

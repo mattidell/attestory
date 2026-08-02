@@ -326,12 +326,12 @@ Explicit residuals:
 Direct records:
 
 - Milestone plan:
-  `docs/phases/real-return/milestones/presentation-live-viewing-boundary.md`
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-live-viewing-boundary.md`
 - Trust domains: `docs/adr/0044-live-run-system-boundary-and-trust-domains.md`
 - Residency boundary: `docs/adr/0031-real-data-residency-boundary.md`
 - Presentation surface contract: `docs/adr/0046-presentation-surface-contract.md`
-- Guarded Transport triage: `docs/prototypes/guarded-transport/round-1-triage.md`
-  and `docs/prototypes/guarded-transport/repair1-triage.md`
+- Guarded Transport triage: `docs/archive/2026-08-02-milestone-artifacts/prototypes/guarded-transport/round-1-triage.md`
+  and `docs/archive/2026-08-02-milestone-artifacts/prototypes/guarded-transport/repair1-triage.md`
 - Existing launch posture: `tools/presentation_harness/lib/chrome.mjs`
 - Governance: Constitution Article 18; Ontology §8; Engineering Constraints
   E18.1 and E18.2
@@ -451,7 +451,7 @@ unchanged.
 ### Amendment records
 
 - Milestone plan:
-  `docs/phases/real-return/milestones/presentation-live-session-path.md`
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-live-session-path.md`
 - Evaluation source: owner-supplied first-principles findings, 2026-07-27. No
   prototype was chartered; no real workspace, residency locator, machine
   configuration, or live run was consulted.
@@ -515,8 +515,8 @@ the fixture cannot quietly succeed.
 ### Amendment records
 
 - Milestone plan:
-  `docs/phases/real-return/milestones/presentation-live-session-path.md`
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-live-session-path.md`
 - Track 2 review that raised both items:
-  `docs/reviews/2026-07-27-presentation-live-session-path-track2-review.md`
+  `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-27-presentation-live-session-path-track2-review.md`
 - Implementation: `packages/derivation/live_session.py`; product surface
   `packages/presentation/pages/citation-walk.v1.html`

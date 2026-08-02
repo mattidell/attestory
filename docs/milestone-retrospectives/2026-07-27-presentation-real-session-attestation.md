@@ -1,7 +1,7 @@
 # Retrospective: Presentation — Real Session and Attestation
 
 Phase: Real Return. Completed 2026-07-27.
-Plan: `docs/phases/real-return/milestones/presentation-real-session-attestation.md`.
+Plan: `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-real-session-attestation.md`.
 
 **Result: Presentation moves L2 → L3 in the W-2 wages (1a) column.** The first
 maturity lift for the Presentation row since it was created, and the first time
@@ -180,11 +180,11 @@ standard.
 ## Pointers
 
 - Track 1 build: `748b8e8`; repairs `894ff23`, `36317be`.
-- Track 1 reviews: `docs/reviews/2026-07-27-presentation-real-session-attestation-track1-review.md`,
+- Track 1 reviews: `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-27-presentation-real-session-attestation-track1-review.md`,
   `...-track1-recheck.md`, `...-track1-recheck2.md` (READY).
 - Runbook and vocabulary: `docs/runbooks/presentation-real-session.md`.
 - Track 2 rehearsal record:
-  `docs/reviews/2026-07-27-presentation-real-session-attestation-track2-rehearsal.md`.
+  `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-27-presentation-real-session-attestation-track2-rehearsal.md`.
 - Track 3 attestation:
-  `docs/reviews/2026-07-27-presentation-real-session-attestation-track3-attestation.md`.
+  `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-27-presentation-real-session-attestation-track3-attestation.md`.
 - Maturity movement: `docs/phases/real-return/maturity-matrix.md`, footnote 14.

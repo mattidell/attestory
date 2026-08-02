@@ -1,6 +1,6 @@
 # Retrospective — Packaging the Surface
 
-Milestone: `docs/phases/legible-entry/milestones/packaging-the-surface.md`
+Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/packaging-the-surface.md`
 Closed 2026-07-28. Track 1 `0fd05e7` (review `ee50b8f`), Track 2 `8d8ef76`
 (review `17338d9`). ADR-0049 proposed.
 

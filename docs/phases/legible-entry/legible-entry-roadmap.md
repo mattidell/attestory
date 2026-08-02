@@ -98,7 +98,7 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    acceptable on stated conditions, and an entry surface emits contribution
    events rather than writing facts directly. It also found that the vehicle's
    confinement is not total. Plan:
-   `docs/phases/legible-entry/milestones/entry-boundary.md`; retrospective:
+   `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-boundary.md`; retrospective:
    `docs/milestone-retrospectives/2026-07-28-entry-boundary.md`.
 2. **Packaging the Surface.** Get UI code across the Developer/Supply
    boundary into the live workspace, in a second adopted artifact separate
@@ -107,7 +107,7 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    rule. **Closed 2026-07-28.** ADR-0049 proposed: the surface ships in its
    own adopted artifact, built at the workspace offline; the rule package is
    untouched. No maturity cell moved. Plan:
-   `docs/phases/legible-entry/milestones/packaging-the-surface.md`.
+   `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/packaging-the-surface.md`.
 3. **The Entry Loop, synthetic.** Build the guided loop end to end against a
    synthetic workspace, to L2, with no real data and no L3 claim. This
    milestone also works out the usability evaluation criteria for entry, and
@@ -115,7 +115,7 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    **Planned 2026-07-28.** Scoped to W-2 across all five loop steps; criteria
    written before the surface is built; the per-field explanation shape is
    recorded at close rather than designed up front. Plan:
-   `docs/phases/legible-entry/milestones/entry-loop-synthetic.md`.
+   `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-loop-synthetic.md`.
    **Closed 2026-07-29** (PR #112). The evaluation returned FAIL on the
    accessibility row and the W-2 cell stayed at **L1**; a later track repaired
    the defect but nothing re-scored the surface, so the failure stands as the
@@ -129,8 +129,8 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    outcome. **Closed 2026-07-30.** Both evaluators returned Pass on all
    twenty rows, no splits; the unchanged aggregation rule passes the cell and
    the W-2 column moves to **L2**. Plan:
-   `docs/phases/legible-entry/milestones/entry-loop-rescore.md`; aggregation:
-   `docs/reviews/2026-07-30-entry-loop-rescore-track2-aggregation.md`.
+   `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-loop-rescore.md`; aggregation:
+   `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-30-entry-loop-rescore-track2-aggregation.md`.
 5. **Improvised Milestone.** Make the entry surface a better place to
    understand and navigate the record, beginning with a small prototype that
    preserves the existing presentation model instead of flattening it into
@@ -139,7 +139,7 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    result. **Closed without implementation 2026-07-31:** the owner deferred the
    prototype so `main` and `main-ui` can start their next milestones from a
    clean shared base. Plan:
-   `docs/phases/legible-entry/milestones/improvised-milestone.md`.
+   `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/improvised-milestone.md`.
 6. **Real Entry.** The owner enters a real fact through the surface and
    attests. Owner-operated; the only milestone that can raise a row to L3. By
    then every usability question has already been answered on synthetic
@@ -227,9 +227,9 @@ ADR-0049 and ADR-0051 were ratified at that close.
 twenty-row re-score (two fresh evaluators, unchanged criteria, the
 keyboard-operability harness gap closed first) returned Pass/Pass on all
 twenty rows with no splits; the unchanged aggregation rule produces a cell
-pass. See `docs/phases/legible-entry/milestones/entry-loop-rescore.md`'s
+pass. See `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-loop-rescore.md`'s
 close and
-`docs/reviews/2026-07-30-entry-loop-rescore-track2-aggregation.md` for the
+`docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-30-entry-loop-rescore-track2-aggregation.md` for the
 full matrix, the accessibility row's five sub-requirements, and the
 disclosed environmental hazard the evidence was aggregated alongside. L2
 here means synthetic end-to-end and this usability evaluation both passed;

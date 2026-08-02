@@ -6,7 +6,7 @@
 
 ## Context
 
-All tax meaning in this system will live in rule artifacts; ADR-0004 was rejected for carrying this decision as a placeholder. Per ADR-0005, this proposal cites a prototype evaluation analysis (`docs/prototypes/rule-language/evaluation-analysis.md`) built from two clean-room iterations on a committee-reviewed fixture charter of real 2025 federal rules (exhibits `exhibits/rule-language/it1`, `exhibits/rule-language/it2`), three review rounds, and two starved fresh-reader legibility measurements.
+All tax meaning in this system will live in rule artifacts; ADR-0004 was rejected for carrying this decision as a placeholder. Per ADR-0005, this proposal cites a prototype evaluation analysis (`docs/archive/2026-08-02-milestone-artifacts/prototypes/rule-language/evaluation-analysis.md`) built from two clean-room iterations on a committee-reviewed fixture charter of real 2025 federal rules (exhibits `exhibits/rule-language/it1`, `exhibits/rule-language/it2`), three review rounds, and two starved fresh-reader legibility measurements.
 
 ## Decision
 
@@ -30,6 +30,6 @@ The rule artifact language is defined by the following contract, synthesized fro
 
 ## Links
 
-- Evidence: `docs/prototypes/rule-language/evaluation-analysis.md` (conclusions C1–C11, conditions §5)
-- Process: ADR-0005; milestone `docs/phases/foundation/milestones/rule-language-design.md`
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/rule-language/evaluation-analysis.md` (conclusions C1–C11, conditions §5)
+- Process: ADR-0005; milestone `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/rule-language-design.md`
 - Companions: ADR-0007 (publication act kind), ADR-0008 (derivation record placement)

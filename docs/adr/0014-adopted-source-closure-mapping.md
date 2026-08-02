@@ -12,7 +12,7 @@ tested a reusable mapping citizen against an embedded-rule parameter and then
 exercised false, absent, displaced, ambiguous, caller-injected, fabricated, and
 alternate-entry failures through a copied calculation path.
 
-Evidence: `docs/prototypes/source-completeness/evaluation-analysis.md`, C1–C3.
+Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/source-completeness/evaluation-analysis.md`, C1–C3.
 
 ## Decision
 
@@ -57,7 +57,7 @@ Evidence: `docs/prototypes/source-completeness/evaluation-analysis.md`, C1–C3.
 
 ## Links
 
-- Analysis: `docs/prototypes/source-completeness/evaluation-analysis.md`
+- Analysis: `docs/archive/2026-08-02-milestone-artifacts/prototypes/source-completeness/evaluation-analysis.md`
 - Exhibits: `exhibits/source-completeness/it1`, `it2`, `repair1`–`repair4`
-- Milestone: `docs/phases/foundation/milestones/source-completeness-and-interest-slice.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/source-completeness-and-interest-slice.md`
 - Precedents: ADR-0005, ADR-0010, ADR-0011, ADR-0013

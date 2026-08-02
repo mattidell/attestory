@@ -10,7 +10,7 @@ Taxable-interest facts must distinguish multiple information returns from one
 payer, preserve correction history, and remain peer to evidence. Payer/account
 and logical-statement rivals were exercised on the same synthetic cases.
 
-Evidence: `docs/prototypes/source-completeness/evaluation-analysis.md`, C4.
+Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/source-completeness/evaluation-analysis.md`, C4.
 
 ## Decision
 
@@ -50,7 +50,7 @@ Evidence: `docs/prototypes/source-completeness/evaluation-analysis.md`, C4.
 
 ## Links
 
-- Analysis: `docs/prototypes/source-completeness/evaluation-analysis.md`
+- Analysis: `docs/archive/2026-08-02-milestone-artifacts/prototypes/source-completeness/evaluation-analysis.md`
 - Exhibits: `exhibits/source-completeness/it1`, `it2`
-- Milestone: `docs/phases/foundation/milestones/source-completeness-and-interest-slice.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/source-completeness-and-interest-slice.md`
 - Precedents: ADR-0005, ADR-0010, ADR-0011, ADR-0013

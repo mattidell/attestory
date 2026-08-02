@@ -6,7 +6,7 @@
 
 > **Rejection note (2026-07-13, principal foreman).** This draft rested on the
 > tainted conditional-selectors round whose rival requirement was never met.
-> The independent round-1R re-review (`docs/prototypes/conditional-selectors/round-1r-triage.md`)
+> The independent round-1R re-review (`docs/archive/2026-08-02-milestone-artifacts/prototypes/conditional-selectors/round-1r-triage.md`)
 > rejected the selector-citizen shape as specified: policy values embedded in
 > selector logic (CS-G2R), an optional-input contract that matches no committed
 > schema (CS-G3R), an unlicensed native runner pathway with undefined

@@ -16,7 +16,7 @@ incompleteness blocks. Owner directions bind: all of Schedule B in scope
 structurally born-blocked attachment); honest blocking for factual
 incompleteness only.
 
-Prototype evidence: `docs/prototypes/attachment-ontology/` — plan, two
+Prototype evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/attachment-ontology/` — plan, two
 sealed builders, independent governance (Medium) and adversary (High)
 reviews with a split verdict, a foreman synthesis of reviewer-checked
 elements, and — per the ADR-0013 2026-07-15 amendment — an independent
@@ -131,7 +131,7 @@ confirmation pass that returned NOT-CONFIRMED on the first synthesis and
 
 ## Links
 
-- Prototype evidence: `docs/prototypes/attachment-ontology/` (synthesis.md
+- Prototype evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/attachment-ontology/` (synthesis.md
   is the confirmed shape; reviews/ carries the full chain including the
   NOT-CONFIRMED round — retained per governance, never deleted)
 - Builds on: ADR-0012 (form fields), 0019/0024/0025 (conditionals),

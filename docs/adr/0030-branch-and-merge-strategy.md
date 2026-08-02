@@ -52,7 +52,7 @@ Applies to the **next phase**. The current Core Tax Conditions milestone finishe
 ## Links
 
 - Related process: ADR-0005, ADR-0013 (and its 2026-07-15 proposed amendment — foreman-authored fixes default to confirmation).
-- Evidence of the failure this addresses: `docs/reviews/2026-07-15-core-tax-conditions-premerge-review.md` (PMR-1–7).
+- Evidence of the failure this addresses: `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-15-core-tax-conditions-premerge-review.md` (PMR-1–7).
 
 ## Amendment (2026-07-16, **accepted**) — Commit references, pull requests, and agent push
 

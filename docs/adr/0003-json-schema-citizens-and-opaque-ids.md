@@ -25,6 +25,6 @@ Alternatives considered: Python dataclasses as canon (better ergonomics and mypy
 
 ## Links
 
-- Milestone plan: `docs/phases/foundation/milestones/workspace-kernel.md`
+- Milestone plan: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/workspace-kernel.md`
 - Governance: Articles 9–11; Ontology §1 (Citizen, Schema); E9.1
 - Related: ADR-0002 (append-only act log)

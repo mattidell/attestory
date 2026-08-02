@@ -7,7 +7,7 @@
       "workload_kind": "historical-cycle",
       "cycle": "C1",
       "description": "Citation walk over one published and one honestly blocked line.",
-      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/plan.md"
     },
     {
       "version": "presentation-economy-workload.v1",
@@ -16,7 +16,7 @@
       "workload_kind": "historical-cycle",
       "cycle": "C2",
       "description": "Method-tightening rerun with isolation and standardized break tests.",
-      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/plan.md"
     },
     {
       "version": "presentation-economy-workload.v1",
@@ -25,7 +25,7 @@
       "workload_kind": "historical-cycle",
       "cycle": "C3",
       "description": "Fail-loud contract probe with isolation fixes.",
-      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/plan.md"
     },
     {
       "version": "presentation-economy-workload.v1",
@@ -34,7 +34,7 @@
       "workload_kind": "historical-cycle",
       "cycle": "C4",
       "description": "Richer citation-reuse fixture and multi-line blast containment.",
-      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/plan.md"
     },
     {
       "version": "presentation-economy-workload.v1",
@@ -43,7 +43,7 @@
       "workload_kind": "historical-cycle",
       "cycle": "C5",
       "description": "Mechanization of the accessibility and legibility residual.",
-      "provenance": "docs/prototypes/human-presentation-citation-walk/plan.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/plan.md"
     }
   ],
   "observations": [
@@ -86,7 +86,7 @@
         "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
       },
       "causal_claim": false,
-      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
     },
     {
       "version": "presentation-economy-observation.v1",
@@ -127,7 +127,7 @@
         "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
       },
       "causal_claim": false,
-      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
     },
     {
       "version": "presentation-economy-observation.v1",
@@ -168,7 +168,7 @@
         "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
       },
       "causal_claim": false,
-      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
     },
     {
       "version": "presentation-economy-observation.v1",
@@ -209,7 +209,7 @@
         "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
       },
       "causal_claim": false,
-      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
     },
     {
       "version": "presentation-economy-observation.v1",
@@ -250,7 +250,7 @@
         "cache_status": {"value": null, "directly_observed": false, "observation_provenance": null, "missing_reason": "The orchestration surface did not expose cache status."}
       },
       "causal_claim": false,
-      "provenance": "docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
+      "provenance": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/04-economy.md"
     }
   ],
   "comparisons": []

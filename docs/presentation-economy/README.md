@@ -200,7 +200,7 @@ It never becomes zero and never borrows a value from another measure.
 [`presentation-exploratory-baseline.v1.json`](datasets/presentation-exploratory-baseline.v1.json)
 transcribes every B-A, B-B, R1, and R2 tokens/tool-calls/wall-seconds cell for
 C1–C5 from
-`docs/prototypes/human-presentation-citation-walk/analysis/04-economy.md`.
+`docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/04-economy.md`.
 Focused tests reconcile all 60 cells. C3 R2 tokens retain the source's
 approximate `~70k`; its tool-call and wall-time em dashes remain null with
 reasons. Each cycle also carries an explicit unmeasured foreman row. The source

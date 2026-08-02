@@ -14,7 +14,7 @@ statement→family→composition→line pipeline is ratified (ADR-0015/0016/0026
 ADR-0014/0017 closure), but no existing composition couples two lines by a
 subset relation, and JSON Schema (Draft 2020-12) cannot express a
 cross-field numeric comparison, so the enforcement locus was undesigned.
-Prototype evidence: `docs/prototypes/dividend-composition/` (plan, two
+Prototype evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/dividend-composition/` (plan, two
 sealed builders, independent governance and adversary reviews,
 `evaluation-analysis.md`). Both builders independently converged on
 admission-locus enforcement; the clean-room rival's design survived all
@@ -111,7 +111,7 @@ contradiction check; 1b > 1a rejected structurally.
 
 ## Links
 
-- Prototype evidence: `docs/prototypes/dividend-composition/` (it2 design
+- Prototype evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/dividend-composition/` (it2 design
   is the ratified shape; `evaluation-analysis.md` carries triage)
 - Builds on: ADR-0014/0015/0016/0017 (statements, families, closure),
   ADR-0023 (transitions), ADR-0026 (composition precedent), ADR-0032

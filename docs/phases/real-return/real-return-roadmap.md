@@ -58,7 +58,7 @@ invisible to every cell in the grid because no row is named for them.
 2. The **session runbook has an unidentified unclarity**, reported by its first
    human user with the sentence unnamed.
 3. The named deferral ledger
-   (`milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md`)
+   (`docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md`)
    and the shims listed in the phase-state product briefing.
 
 The maturity matrix in this directory is the closed instrument of *this* phase.
@@ -90,7 +90,7 @@ which, rather than inheriting it silently.
   closeout's "no build gap" (that same claim preceded three code defects), and its
   Verification block was set to the CI `verify` sequence in response to the
   previous milestone's root-cause finding; CI passed first try. Plan:
-  `milestones/presentation-row-completion.md`; retrospective:
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-row-completion.md`; retrospective:
   `../../milestone-retrospectives/2026-07-28-presentation-row-completion.md`.
 
 - Presentation — Real Session and Attestation — **complete 2026-07-27; plan PR
@@ -124,7 +124,7 @@ which, rather than inheriting it silently.
   cause was a verification block narrower than the CI gate: **a charter's
   verification block should be the CI sequence, or a stated subset with the
   omission justified.** Plan:
-  `milestones/presentation-real-session-attestation.md`; retrospective:
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-real-session-attestation.md`; retrospective:
   `../../milestone-retrospectives/2026-07-27-presentation-real-session-attestation.md`;
   evidential basis: maturity-matrix footnote 14.
 
@@ -184,7 +184,7 @@ which, rather than inheriting it silently.
   an owner act rather than a build. No enforcement substrate was selected;
   Seatbelt remains an unevaluated candidate routed to ADR-0044's future gate.
   No next milestone is selected. Plan:
-  `milestones/presentation-live-viewing-boundary.md`; retrospective:
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-live-viewing-boundary.md`; retrospective:
   `../../milestone-retrospectives/2026-07-26-presentation-live-viewing-boundary.md`.
 
 - Presentation — L2 Integration Grounding — **complete 2026-07-26; PR #86
@@ -204,7 +204,7 @@ which, rather than inheriting it silently.
   `READY`. The handoff makes explicit that no live browser invocation vehicle
   or real operation exists; the synthetic harness is not that vehicle.
   Presentation remains L2; no next milestone is selected. Plan:
-  `milestones/presentation-l2-integration-grounding.md`; retrospective:
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-l2-integration-grounding.md`; retrospective:
   `../../milestone-retrospectives/2026-07-26-presentation-l2-integration-grounding.md`.
 
 - Browser Evaluation Runner Completion — **complete 2026-07-25; PR #71 merged
@@ -217,7 +217,7 @@ which, rather than inheriting it silently.
   narrow one-time exception to the plan's fixed cap. It is not a presentation
   prototype, an economy experiment, or an adversarial-novelty practice run; it
   added no product UI, ADR, or matrix lift. Plan:
-  `milestones/browser-evaluation-runner-completion.md`; retrospective:
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/browser-evaluation-runner-completion.md`; retrospective:
   `../../milestone-retrospectives/2026-07-25-browser-evaluation-runner-completion.md`.
 
 - Presentation — Citation Walk on Real Derivation Output — **complete
@@ -229,7 +229,7 @@ which, rather than inheriting it silently.
   milestone moved Presentation to L2. Its original “exercise one real run”
   handoff was later corrected by the L2 Integration Grounding plan after the
   renderer, harness, and coordinator seams were inspected. Plan:
-  `milestones/presentation-citation-walk.md`;
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-citation-walk.md`;
   retrospective:
   `../../milestone-retrospectives/2026-07-26-presentation-citation-walk.md`.
 
@@ -248,7 +248,7 @@ which, rather than inheriting it silently.
   outside `main`; the separately planned Browser Evaluation Runner Completion
   milestone resumes that work without reopening this closed economy milestone.
   The milestone adds no product UI, ADR, or maturity-matrix lift. Plan:
-  `milestones/presentation-evaluation-process-economy.md`; retrospective:
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-evaluation-process-economy.md`; retrospective:
   `../../milestone-retrospectives/2026-07-25-presentation-evaluation-process-economy.md`.
 
 - Presentation Exploratory Milestone — **complete** (2026-07-24). Five
@@ -270,7 +270,7 @@ which, rather than inheriting it silently.
   scope. Its initial independent review found M3; the authorized M3 delta
   review returned READY. It changes neither the live-run topic's scope nor its
   planning-only status; no seat was authorized by this entry. Plan and
-  retrospective: `milestones/foreman-context-loading.md` and
+  retrospective: `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/foreman-context-loading.md` and
   `../../milestone-retrospectives/2026-07-23-foreman-context-loading.md`.
 
 - Live-Run System Definition and Trust Domains — **complete; publication PR
@@ -282,7 +282,7 @@ which, rather than inheriting it silently.
   attestation, implementation, mechanism selection, schedule commitment, or
   maturity lift is part of the decision; the data-boundary row remains L3.
   Schema-publication and agent-scope controls remain tabled. Plan:
-  `milestones/live-run-trust-domain-definition.md`; retrospective:
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/live-run-trust-domain-definition.md`; retrospective:
   `../../milestone-retrospectives/2026-07-23-live-run-system-definition-and-trust-domains.md`.
 
 - Correction Authority and Marshaller Simplification — **complete**
@@ -296,7 +296,7 @@ which, rather than inheriting it silently.
   semantics, correctly left alone). Retires deferral-ledger entries 8 and
   13; raises the Correction & supersession lifecycle matrix row L3→L4 across
   every domain — the phase's first aspect-wide L4. Named deferrals live in
-  `milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md`;
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/correction-authority-and-marshaller-simplification-deferral-ledger.md`;
   retrospective at
   `docs/milestone-retrospectives/2026-07-22-correction-authority-and-marshaller-simplification.md`
   records a schema-immutability defect caught and corrected in-branch before
@@ -330,7 +330,7 @@ which, rather than inheriting it silently.
   same quarantined out-of-repo workspace and ran the widened slice; the
   non-descriptive attestation is recorded in the milestone plan (2026-07-21,
   PR #40). Named deferrals live in
-  `milestones/dividends-schedule-b-slice-deferral-ledger.md`. Next milestone
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md`. Next milestone
   selection is owner-directed from the maturity-matrix frontier.
 
 - First Real Return Slice — **complete** (2026-07-18; Track 5 records merged
@@ -342,7 +342,7 @@ which, rather than inheriting it silently.
   artifact crossed the boundary — is recorded in the milestone plan
   (2026-07-18, PR #20). The repository carries no personal data,
   mechanically gated (Track 4b envelope hooks). Named deferrals live in
-  `milestones/first-real-return-slice-deferral-ledger.md`. The phase's
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/first-real-return-slice-deferral-ledger.md`. The phase's
   standing test is met: the product computes its user's actual return
   slice, which it could not do before. Next milestone selection is
   owner-directed from the maturity-matrix frontier.

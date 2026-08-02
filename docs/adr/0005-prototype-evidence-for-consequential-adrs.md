@@ -46,5 +46,5 @@ Minutes after ratification, the branch namespace was corrected from `prototype/<
 
 - Process definition: `PROJECT_PLANNING.md`, Prototype-Driven Decisions; operational rules in `AGENTS.md`, Decision Records
 - Precipitating rejection: `docs/adr/0004-derivation-machinery-contracts.md`
-- First application: `docs/phases/foundation/milestones/rule-language-design.md`
+- First application: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/rule-language-design.md`
 - Amended/extended by: `docs/adr/0013-prototype-economic-gates.md` (economic gates, the prototype plan, role capability budget, and foreman scope-and-economy stewardship)

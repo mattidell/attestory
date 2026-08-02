@@ -54,7 +54,7 @@ Anything that explains the reasoning behind the artifacts, because reading it
 defeats the test:
 
 - `docs/adr/`, `docs/milestone-retrospectives/`, `docs/reviews/`,
-  `docs/proposals/`, `docs/prototypes/`, `docs/phases/`;
+  `docs/proposals/`, `docs/prototypes/`, `docs/phases/`, `docs/archive/`;
 - `docs/governance/` Commentary and Principles (rationale);
 - process/meta docs: `AGENTS.md`, `PROJECT_PLANNING.md`, `CLAUDE.md`;
 - agent memory, commit messages, and this file.
