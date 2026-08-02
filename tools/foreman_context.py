@@ -194,13 +194,13 @@ def path_of(target: str) -> str:
     return target.split("#", 1)[0]
 
 
-# The repository carries more than one ratified line: `main` for the derivation
+# The repository carries more than one ratified line: `main-engine` for the derivation
 # work and `main-ui` for the surface work. They are separate continuous records,
 # and a milestone that closes on one never reaches the other. The divergence
 # report therefore derives the target line from the checked-out work rather
-# than assuming `origin/main`.
+# than assuming `origin/main-engine`.
 RATIFIED_LINE = re.compile(r"^main(-[0-9a-z]+)*$")
-DEFAULT_RATIFIED_REF = "origin/main"
+DEFAULT_RATIFIED_REF = "origin/main-engine"
 TRACK_STATE = re.compile(r"^track-(\d+)$")
 FULL_OBJECT_ID = re.compile(r"^[0-9a-f]{40}$")
 
@@ -215,7 +215,7 @@ def resolve_ratified_ref(repository: GitRepository, override: str | None = None)
     since built on top of — go to the line that is itself closest to HEAD, which
     is the more general of the two rather than the one that moved past it.
 
-    Falls back to `origin/main` when nothing resolves, which keeps the behaviour
+    Falls back to `origin/main-engine` when nothing resolves, which keeps the behaviour
     of a single-line repository and a bare clone unchanged.
     """
     if override is not None:
@@ -442,7 +442,7 @@ def validate_initial_briefing_follow_up(
 def render_context(
     repository: GitRepository, ref: str, ratified_ref: str | None = None
 ) -> dict[str, Any]:
-    # Resolve the ratified line here rather than defaulting to `origin/main`.
+    # Resolve the ratified line here rather than defaulting to `origin/main-engine`.
     # This used to take a literal default, and a caller that forgot to pass one
     # got a confident answer against the wrong line: on the surface work, every
     # milestone looks unratified and the capsule refuses. That refusal reads as
@@ -516,7 +516,7 @@ def render_context(
     )
     worktree["branch_tip_reachable_from_ratified"] = branch_tip_reachable
     # A branch is spent once its work is in the line it was cut from. Comparing
-    # against the derived line, not the literal name "main", is what keeps this
+    # against the derived line, not the literal name "main-engine", is what keeps this
     # from reading every `main-ui` checkout as a spent unit branch.
     worktree["spent"] = bool(
         worktree["branch"]
