@@ -1,0 +1,6 @@
+{
+  "schema": "quantity-vocabulary.v4",
+  "id": "tax.us.2025.quantity.covered-ltcg",
+  "version": "v1",
+  "quantities": ["covered-ltcg-proceeds", "covered-ltcg-basis"]
+}

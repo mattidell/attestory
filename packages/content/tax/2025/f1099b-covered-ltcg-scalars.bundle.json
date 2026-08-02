@@ -1,0 +1,140 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.covered-ltcg-scalars.vocabulary",
+  "version": "v1",
+  "label": "Twin scalar collectible companions for the covered-long-term-gain eligible transaction (ADR-0054): proceeds and basis, each its own additive source family sharing the object member's identity",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-ltcg-txn.proceeds",
+      "version": "v1",
+      "title": "Scalar proceeds companion (ADR-0054 Decision 2) for one eligible covered-long-term-gain transaction, at the same identity as tax.us.2025.f1099b.covered-ltcg-txn. Written together with the object finding and both scalar companions at contribution time; a correction to the transaction's proceeds corrects this finding at the same identity. Exists purely to make column (d) collectible via the ordinary collect_members mechanism, which requires a scalar member value; the object finding remains the audit record of the full contributed predicate and the sole admission gate.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      },
+      "source_amount": true,
+      "quantity": {
+        "id": "tax.us.2025.quantity.covered-ltcg",
+        "version": "v1"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-ltcg-txn.basis",
+      "version": "v1",
+      "title": "Scalar basis companion (ADR-0054 Decision 2) for one eligible covered-long-term-gain transaction, at the same identity as tax.us.2025.f1099b.covered-ltcg-txn. Written together with the object finding and both scalar companions at contribution time; a correction to the transaction's basis corrects this finding at the same identity. Exists purely to make column (e) collectible via the ordinary collect_members mechanism, which requires a scalar member value; the object finding remains the audit record of the full contributed predicate and the sole admission gate.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      },
+      "source_amount": true,
+      "quantity": {
+        "id": "tax.us.2025.quantity.covered-ltcg",
+        "version": "v1"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-ltcg-proceeds.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the proceeds-companion family (ADR-0054 Decision 2), keyed on its own membership horizon. This is an additional required authority for Schedule D line 8a/13/15/16 content specifically; it is not a substitute for the object family's own closure requirement (ADR-0052 Decision 2's first completeness authority).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-ltcg-basis.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the basis-companion family (ADR-0054 Decision 2), keyed on its own membership horizon. This is an additional required authority for Schedule D line 8a/13/15/16 content specifically; it is not a substitute for the object family's own closure requirement (ADR-0052 Decision 2's first completeness authority).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}
