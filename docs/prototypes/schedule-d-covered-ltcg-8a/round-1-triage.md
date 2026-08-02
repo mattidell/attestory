@@ -7,6 +7,17 @@ independent committee reviews. It records where the reviews agree, one
 substantive dissent between them, and the disposition the topic needs from
 the owner before contract synthesis.
 
+## Owner disposition
+
+The owner confirmed on 2026-08-01: (1) the rival topology (independent-family
+P1, direct-multi-read P2, selected-preferential-base P3) is selected; the
+incumbent is not carried forward. (2) CA-02/P2-S5 is adopted as the
+completeness-boundary successor: `B2` (box-2a) must be closed, not
+closed-empty, for the boundary to be satisfied, with a closed-nonempty
+amount contributing once via Schedule D line 13. (3) The CA-04 repair is
+authorized, spending the plan's single fixed repair pass. Repair charter:
+`charter-repair1.md`, assigned to the rival Builder for design continuity.
+
 ## Review agreement
 
 Both reviews independently converge on:
