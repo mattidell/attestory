@@ -178,6 +178,28 @@ Verified directly against a running server: followed the workspace's line-9
 link, landed on the entry page with that line's explanation open and
 focused, hash cleared after. Full suite still green (47 passed).
 
+**Card 3: fixing a boundary violation the guard-rail check found.** A
+holistic look at whether `workspace.html` had drifted toward a dashboard
+(inventing new computed meaning, inviting the reader to stay) found it
+hadn't -- but found something adjacent and worth fixing anyway: two of the
+three Scope-card fields (`Fact families`, and the denominator of `Facts
+entered`) were hardcoded literals (`1`), not values read from `state`. They
+looked like live data next to the one field that was, and there was no
+`state` field they could have pointed back to even if they'd tried -- the
+backend doesn't expose a fact-family count today, only ever having exactly
+one. That's not dashboard drift; it's the same failure in the other
+direction, presenting an assumption as though it were sourced. It would
+have surfaced as a visibly wrong page the moment a second fact family
+existed -- exactly the next experiment on the list -- so it's a
+prerequisite fix, not a separate cleanup. Now reads both fields from
+`state.field_contract` (one entry per fact the workspace can accept, so its
+key count and each entry's `source.document` are already live). Verified
+against a running server: "Fact families" now reads "1 · Form W-2" and
+"Facts entered" reads "0 of 1", both computed, not written. Full suite
+still green (47 passed).
+
+## Completion
+
 There is no precommitted exit test. At a natural stopping point, the owner
 inspects what exists, decides what it teaches, and either closes, redirects,
 or continues the milestone.
