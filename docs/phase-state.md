@@ -5,9 +5,9 @@
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
   "milestone_state": "track-1",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 1 CHARTERED.** ADR-0052 is accepted and on `main`. Track 1 (transaction source family, identity, and the nine-part completeness-boundary citizens, per ADR-0052 Decisions 1-2) is chartered on `track/schedule-d-covered-ltcg-8a-track1`, Medium tier / medium effort. No Schedule D content, QDCG binding, coordinator, or presentation work is in scope for this track. NEXT ACTION: owner-launch the Track 1 Builder; on return, the foreman takes custody and charters an author-independent Track 1 review.",
-  "current_role": "Builder (Track 1 — transaction source, identity, and completeness-boundary citizens)",
-  "current_prompt": "docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track1.md"
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 1 BUILD COMPLETE, REVIEW CHARTERED.** Track 1 (`9cf7c73`) publishes the statement anchor, independent eligible-transaction source family/closure, and the seven completeness absence-declaration citizens, reusing existing generic schemas (no new schema file). 23 focused tests plus test_schema_registry pass; governance lint, diff --check, and envelope scan are clean. An author-independent Track 1 Reviewer is chartered to verify the Builder's own claims rather than trust them. NEXT ACTION: launch the Track 1 Reviewer; on return, the foreman takes custody and either charters Track 2 or a bounded repair.",
+  "current_role": "Reviewer (Track 1 — independent verification)",
+  "current_prompt": "docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track1-review.md"
 }
 -->
 # Phase State
@@ -57,10 +57,10 @@ Gains through Schedule D line 8a, has an owner-ratified successor contract
   - two named production conditions carried forward, not resolved by this
     ADR: a categorical attachment-requirement schema successor (CA-05) and
     generic exactly-one-producer enforcement (CA-06).
-* **Next:** owner-launch the Track 1 Builder against
-  `docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track1.md` on
-  branch `track/schedule-d-covered-ltcg-8a-track1`. On return, the foreman
-  charters an author-independent Track 1 review.
+* **Next:** owner-launch the Track 1 Reviewer against
+  `docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track1-review.md`
+  on branch `track/schedule-d-covered-ltcg-8a-track1`. On return, the
+  foreman takes custody and either charters Track 2 or a bounded repair.
 * **Branch line:** the accepted decision unit (evidence chain, ADR-0052,
   index row) is on `main` via PR #137. Prototype code never merged; the
   ephemeral `prototypes/schedule-d-covered-ltcg-8a/it1` and `.../it2`
