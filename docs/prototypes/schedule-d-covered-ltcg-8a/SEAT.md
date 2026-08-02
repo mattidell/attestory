@@ -2,36 +2,32 @@
 
 ## Current step
 
-The contract/adversary review returned `NOT READY` with four decision-blocking
-findings (CA-01 through CA-04) and three separate-decision prerequisites
-(CA-05 through CA-07). The expressiveness review is now chartered, pinned to
-the same exact objects, independently of the first review's findings.
+Both committee reviews are complete. The foreman's Gate-5 triage
+(`round-1-triage.md`) records reviewer agreement, one unresolved dissent
+(CA-04 on the rival's P3 pin contract), and a recommended repair scope.
+**Owner disposition is required** before any repair is chartered: topology
+selection, CA-02/P2-S5 adoption, and CA-04 repair authorization.
 
 ## Seats
 
 | Role | Holder | Status |
 | --- | --- | --- |
-| Foreman | Current foreman thread | Active; scope/economy and custody only |
-| Incumbent Builder | Returned on `prototypes/schedule-d-covered-ltcg-8a/it1` | Complete; outputs at `it1/design.md`, `it1/examination.md` (commit `d4e2203`) |
-| Rival Builder | Returned on `prototypes/schedule-d-covered-ltcg-8a/it2` | Complete; outputs at `it2/design.md`, `it2/examination.md` (reviewed object `bbecd3f`; a later non-substantive grounding-citation commit `e52710c` sits in the branch but was excluded from both reviews' evidence) |
-| Contract/adversary Reviewer | Returned on `prototypes/schedule-d-covered-ltcg-8a/it2` | Complete; `NOT READY`. `docs/prototypes/schedule-d-covered-ltcg-8a/reviews/contract-adversary.md` (commit `4fa6c10`). Findings CA-01/02/03/04 decision-blocking; CA-05/06/07 separate-decision prerequisites |
-| Expressiveness Reviewer | Owner-launched context on `prototypes/schedule-d-covered-ltcg-8a/it2` (continuing branch) | Chartered; not yet launched |
-| Repair Builder | Unassigned | Not chartered; owner direction required after both reviews and Gate-5 triage |
+| Foreman | Current foreman thread | Active; scope/economy, custody, and Gate-5 triage only |
+| Incumbent Builder | Returned on `prototypes/schedule-d-covered-ltcg-8a/it1` | Complete; not recommended to carry forward (CA-01/CA-03, corroborated case-6 data loss) |
+| Rival Builder | Returned on `prototypes/schedule-d-covered-ltcg-8a/it2` | Complete; recommended topology, pending CA-04 repair and explicit P2-S5 adoption |
+| Contract/adversary Reviewer | Returned | Complete; `NOT READY`. `reviews/contract-adversary.md` (commit `4fa6c10`) |
+| Expressiveness Reviewer | Returned | Complete; `READY` for rival topology, does not address CA-04. `reviews/expressiveness.md` (commit `8d8811f`) |
+| Repair Builder | Unassigned | **Not chartered.** Owner must select topology and authorize repair scope first (Gate 4: one bounded pass, owner-directed) |
 
 ## Binding handoff
 
 - Branch: `prototypes/schedule-d-covered-ltcg-8a/it2` (continuing)
-- Charter:
-  `docs/prototypes/schedule-d-covered-ltcg-8a/charter-review-expressiveness.md`
-- Plan: `docs/prototypes/schedule-d-covered-ltcg-8a/plan.md`
-- Review objects (pinned, same as first review): incumbent `d4e2203`, rival
-  `bbecd3f`
-- Output: `reviews/expressiveness.md`
-- Evidence ceiling: Rung 1 paper only
+- Triage record: `docs/prototypes/schedule-d-covered-ltcg-8a/round-1-triage.md`
+- Both reviews: `reviews/contract-adversary.md`, `reviews/expressiveness.md`
 
 ## Next action
 
-Owner launches the expressiveness Reviewer against the exact charter. On
-return, the foreman takes custody, compares both sealed reviews, and performs
-Gate-5 finding triage before recommending a disposition (repair, partial
-ratification, or recharter) to the owner.
+Owner reviews `round-1-triage.md` and dispositions: (1) confirm the rival
+topology as the selected direction; (2) adopt or reject CA-02/P2-S5 as the
+completeness-boundary successor; (3) authorize the CA-04 repair pass. Only
+after that does the foreman charter the repair.
