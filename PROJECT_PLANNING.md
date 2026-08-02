@@ -25,7 +25,11 @@ Audience: Shared
 The project is early. The owner's stated posture, which planning and execution should assume:
 
 - **Iteration over meticulous upfront planning.** Work is treated as prototype-grade until proven otherwise. Backtracking and repeating work is an acceptable — often preferred — alternative to exhaustive up-front design. The goal of the project is to refine taste, design, and governance iteratively; discarded work that sharpened a decision was not wasted.
-- **Merge does not imply endorsement.** Work lands on `main` that the owner or a later agent may judge undesired, unsatisfactory, or simply pointed in a direction no longer wanted. That is an expected outcome, not a failure. Reviews of merged work are normal and recorded under `docs/reviews/`.
+- **Merge does not imply permanent endorsement.** A completed milestone may
+  later prove undesirable or point in a direction the owner no longer wants.
+  That is an expected outcome, not a process failure. Development remains
+  provisional on the milestone branch; `main` carries the curated milestone
+  state the owner chose to publish.
 - **Snapshot and reset, not open-ended branches.** The owner does not want many worktrees or long-lived branches open at once. When merged work is deemed undesired, the remedy is: snapshot the current state (a `snapshot/<date>-<topic>` branch or tag at the abandoned tip), then reset `main` to an earlier commit and proceed. History is preserved in snapshots; `main` tells the current story. Resets of `main` are owner-directed; agents perform them only on direction, and never without creating the snapshot ref first.
 - **Multiple agents collaborate.** Sessions get interrupted and resumed by different agents. Hand-offs are disclosed in retrospectives; interrupted work is either committed, snapshotted, or cleanly discarded — not left as ambient worktree state.
 
@@ -82,11 +86,28 @@ periodic owner-spawned **Legibility Audit** (`docs/legibility-audits/`).
 
 **Termination.** Every iteration opens with declared questions. An iteration that resolves no new questions forces a stop-and-decide. Default cap: three iterations before an owner check-in. The owner may kill the effort at any disposition point; a killed prototype is snapshotted like any other abandoned work.
 
-**Artifacts.** `docs/prototypes/<topic>/` holds charters, iteration examinations, committee review notes, and an evaluation analysis where one is required — these merge to `main`. Prototype code lives on a branch named `prototypes/<topic>/it<N>` only while its iteration is active; prototype code never merges to `main`. When an iteration concludes, the foreman tags its tip as `exhibits/<topic>/it<N>` and deletes the branch ref: the commits are preserved permanently and cited by tag, and the branch list holds only the actively-building iteration. Exhibit tags are never deleted or moved.
+**Artifacts.** While a topic is active, `docs/prototypes/<topic>/` holds its
+working charter, examinations, committee notes, and any required evaluation
+analysis on the milestone branch. Prototype code lives on a branch named
+`prototypes/<topic>/it<N>` only while its iteration is active; prototype code
+never enters the milestone merge. When an iteration concludes, the foreman
+tags its tip as `exhibits/<topic>/it<N>` and deletes the branch ref. At
+milestone close, the ADR retains the material decision and evidence summary;
+the closed working set moves to the dated archive and does not remain mixed
+with active prototype work. Exhibit tags are landmarks, not active authority.
 
 **Traceability.** Every conclusion cites a specific exhibit — a drafted artifact at a path on a named prototype branch, a recorded test result, a review note. A conclusion the reader cannot follow to its exhibit is not evidence and does not support an ADR. The chain is the ADR to its evidence, and — where an evaluation analysis exists — through the analysis to the exhibits it cites. A break anywhere in that chain is grounds to send the ADR back.
 
-**Process evaluation.** The process itself is under evaluation while it runs, not only in the retrospective. The foreman maintains a dated **process log** (`docs/prototypes/<topic>/process-log.md`), written as incidents happen — never reconstructed afterward — against declared incident categories: hollow measurements, context leaks, no-progress iterations, charter drift, wordsmithed dissent, role breaches, and foreman errors. The foreman's participant review is **conformance review only** (did the reviewer run its charter's checks; did roles stay separated), never a second judgment on artifact findings — quality belongs to the committee. Owner check-ins at disposition points have a fixed shape: evidence status against the charter, process incidents since the last check-in, and a recommendation; the owner then sample-audits one review. The retrospective treats the process — foreman included — as a subject, and material lessons amend the process by an owner-directed edit to the document that norms it (ADR-0045 decision 5) — not by a new ADR.
+**Process evaluation.** The process itself is evaluated while it runs. The
+foreman keeps a working process log on the milestone branch for material
+incidents: hollow measurements, context leaks, no-progress iterations, charter
+drift, wordsmithed dissent, role breaches, and foreman errors. The log is an
+input to closeout, not automatically a permanent artifact. The retrospective
+retains incidents that changed scope, evidence, risk, or reusable practice;
+routine routing and mechanical recovery disappear with the working record.
+The foreman's participant review is conformance-only; artifact quality belongs
+to the committee. Material lessons amend the process document that norms them,
+not an ADR.
 
 ### Prototype Economic Gates
 
@@ -274,17 +295,22 @@ Planning precedes implementation.
 Documentation should preserve the distinction between audience and instruction. Product-facing sections describe product direction and capability; they do not tell the reader how to perform implementation work. Agent-targeted sections carry instructions, constraints, commands, and guardrails. Shared sections may include structured scope and exit criteria when that detail is necessary to align product intent with implementation boundaries.
 
 The default sequence is:
-1. Create or update the relevant planning document.
-2. Commit planning changes separately.
-3. Create or switch to the milestone's branch from the committed planning state.
-4. Implement one atomic track.
-5. Run verification for that track, and put it through its review gate.
-6. Commit the completed track before starting the next track.
-7. Open the closing pull request when the milestone's tracks are done and reviewed.
-8. Merge to `main` per the branch, PR, and merge protocol below.
-9. Update status, roadmap notes, or consumer-facing docs when behavior changes.
+1. Create a milestone branch from the ratified line.
+2. Draft and commit the milestone plan as the branch's first milestone commit.
+3. Open one draft milestone PR; the owner approves the plan without merging it.
+4. Implement, verify, and independently review each atomic track on that branch.
+5. Amend or squash provisional checkpoints and repairs into the track they
+   complete before the milestone's final review.
+6. Distill material decisions and lessons, remove unpromoted working records,
+   and complete closeout on the same branch.
+7. Mark the PR ready, obtain green CI on the final candidate, and merge the
+   whole milestone to the ratified line.
+8. Remove the merged branch and any clean milestone worktree.
 
-If planning changes during implementation, separate the planning update from code changes whenever possible. Follow-up planning clarifications before implementation should usually be squashed into the relevant planning commit to keep planning history clean. Do not squash implementation commits into planning commits.
+The plan remains provisional until the milestone merges. Planning changes stay
+separate from implementation while work is in flight, but clarifications and
+superseded wording are folded into the final planning commit before closeout.
+Implementation is never folded into planning.
 
 ### Lean Production Loop
 
@@ -345,55 +371,57 @@ confirming a deterministic mechanical edit is not enough by itself.
 
 Audience: Agents
 
-This is the normative home for how work reaches `main`. It replaced a
-milestone-granularity protocol whose merge unit — the whole milestone — proved
-far too coarse: an all-or-nothing merge hid a decision-blocking gap and a
-stubbed condition inside one green branch, rollback meant reverting a milestone
-or nothing, and in-flight work was invisible from `main`. The rationale record
-is `docs/adr/0030-branch-and-merge-strategy.md` (retired; history, not
-authority).
+This is the normative home for how work reaches `main` or another ratified
+line. The ratified line is the curated product record. Development is allowed
+to be provisional on a milestone branch; accepted ADRs, published schemas, and
+data-safety rules retain their own immutability boundaries.
 
-**`main` is a continuous ratified record.** Ratified decisions and reviewed
-tracks merge to `main` as they land, so `main` may carry in-flight milestone
-state. It is honest running state, not a shippable release line — which is what
-lets re-entry and orientation tooling read current state from `main`. Never
-implement directly on `main`.
+**One milestone, one PR.** Create the milestone branch from the ratified line,
+commit the plan, and open one draft PR. The owner approves the plan while the
+PR remains open. Prototype decisions, production tracks, review and repair,
+closeout, and the retrospective continue on that branch. The PR becomes ready
+only when the final proposed repository state is complete and independently
+reviewed. Its merge publishes the milestone as one coherent capability.
 
-**A milestone gets two pull requests: one to start it, one to finish it.** The
-plan PR is where the owner approves what we are about to do. The closing PR
-carries everything that happened — tracks, charters, builder output, reviews,
-any ratified ADR and its evidence — as commits on one branch, and is where the
-owner approves what we actually did.
+**Tracks are commits, not PRs.** Each final track is one atomic implementation
+commit inside the milestone PR. A builder may use temporary checkpoint and fix
+commits during development. Before final review, amend or squash those commits
+into the track they complete so the final history presents the working state
+change rather than the debugging transcript. Keep planning and implementation
+as separate commits.
 
-**Each track gets its own PR** (owner decision, 2026-07-30), in addition to the
-milestone's opening and closing PRs. A track still keeps its own review gate:
-the gate is the reviewer's verdict on the branch, and the PR is where the
-reviewed unit reaches `main`/`main-ui`. A track that stubs or defers a condition
-it owns fails that gate before its PR is opened, not after it merges.
+**The working record is rewriteable.** Charters, interim reviews, repair
+instructions, process notes, and checkpoint commits exist to coordinate the
+open milestone. They may be committed so fresh agents can orient, and the
+milestone branch may be force-pushed while it is draft. At closeout, remove
+unpromoted working files and obsolete commits. Preserve material content by
+destination: product contracts in ADRs, behavior in tests and fixtures,
+process lessons in the retrospective, and current direction in phase docs.
 
-This replaces the earlier rule that individual tracks do not get their own PRs
-and that merges are batched into the closing PR. That rule predates CI running
-on the UI line: with `verify` now firing per pull request, a per-track PR is
-what gets each reviewed unit an independent green check and a revertable
-boundary, instead of one batched merge carrying several units under a single
-check.
+**Review binds the curated candidate.** Independent reviews occur at track
+boundaries. Findings return to the same builder when appropriate; repaired
+work is folded into the track commit and rechecked where semantic judgment is
+still involved. Before the PR is marked ready, an independent reviewer checks
+the curated branch range after working-record cleanup. CI then verifies the
+exact final PR head. Intermediate review prose need not survive that final
+measurement unless it is deliberately promoted as material evidence.
 
-**Every merge to `main` is non-fast-forward**, giving each unit a labeled,
-revertable boundary. The repository merge method is merge-commit only —
-squash-merge and rebase-merge are disabled, since either destroys the topology
-this depends on. The merge commit message keeps its `Merge pull request #N`
-line so a bare clone can still resolve PR references.
+**A separate PR is exceptional.** An independently reusable prerequisite may
+merge before the milestone only when the plan names why another consumer needs
+it early, parallel work requires a stable published dependency, or delaying
+publication creates material risk. The exception is a plan decision, not a
+convenience for smaller diffs.
 
-**Unit branches are ephemeral; `main` never is.** A unit branch may be rebased
-freely before merge. Batching *merges* is fine; batching *reviews* is not — the
-review happens at PR-open cadence. Do not squash or collapse per-track commits
-unless the plan explicitly requires that history shape.
+**Every merge to a ratified line is non-fast-forward.** The repository merge
+method remains merge-commit only, and the merge commit keeps its
+`Merge pull request #N` line. The milestone's curated internal commits retain
+track-level legibility and permit targeted reversion when appropriate.
 
-**Agents push; the owner merges.** Agents may push unit branches and open PRs —
-clerical, auditable, reversible acts. Merging review units to `main` is
-owner-held. Direct `main` work is limited to the exceptions named below. An
-agent force-pushes only its own unit branch, and only before its review has
-begun.
+**Agents push; the owner merges.** Agents may push the milestone branch and
+open or update its PR. The owner holds the merge. Direct ratified-line work is
+limited to the exceptions below. Force-push only the open milestone branch,
+never the ratified line, and never after the owner has begun final approval
+without first saying that the candidate changed.
 
 **A push is publication, regardless of repository visibility.** The remote hosts
 a copy of the record on a third party and visibility is a mutable setting, so
@@ -402,31 +430,33 @@ cached or indexed after deletion. The synthetic-only fixture-safety suite is a
 **pre-push gate**, not a pre-commit courtesy; live data is never in the
 repository *or* on any remote.
 
-**What gets its own PR:** a milestone plan; a milestone close; a prototype
-plan's approval; a process or instruction change made outside a milestone. The
-mechanical post-merge update in "Milestone Closeout" gets no PR.
+**What gets its own PR:** one complete milestone; or a process/instruction
+change made outside a milestone. A prototype plan is part of its milestone PR.
+Branch/worktree removal and optional landmark tags are post-merge repository
+maintenance, not commits, so they get no PR.
 
-**What rides inside the closing PR as branch commits:** every event inside the
-milestone — tracks, charters cut, builder outputs landed under custody,
-individual reviews, a foreman synthesis, a NOT-CONFIRMED round, a ratified ADR
-and its evidence chain, records and attestation units, routine status flips.
+**What survives inside the milestone PR:** the final plan, atomic track
+commits, accepted ADRs and material evidence summaries, tests and fixtures,
+the retrospective, and the phase/roadmap/closeout state. Execution ceremony
+survives only when deliberately promoted under the durability test above.
 
-**Direct-main exceptions:** `docs/phase-state.md` pointer advances and other
-inconsequential phase-state edits may be committed directly. The post-merge
-bookkeeping commit defined in "Milestone Closeout" is also direct. Requiring a
-PR for either self-description update is heavier than the problem it solves.
+**Direct-main exception:** an inconsequential correction to
+`docs/phase-state.md` may be committed directly between milestones when it
+changes no plan, capability claim, or next-milestone choice. Normal milestone
+start, progress, and closeout state belongs in the milestone PR. Process and
+instruction changes made between milestones get their own PR.
 
-**Do not narrow a unit below reviewability.** A PR of builder designs without
-their reviews, or a ratified ADR without its evidence chain, cannot be judged
-standalone — and that property is what makes owner-merge meaningful.
+**Do not narrow a PR below reviewability.** The complete milestone PR must show
+the product capability, its contract decisions, executable evidence, material
+dissent, and final review posture without requiring reconstruction from
+deleted working documents.
 
-**Two-phase commit referencing.** A unit's *name* is its identity; commits are
-its transient representation until `main` freezes them.
+**Two-phase commit referencing.** A unit's name is its identity; commits are
+transient until the milestone merge freezes them.
 
-- **Before a unit reaches `main`, cite it by name, never by SHA** — the ADR
-  number, the charter or review filename, the branch name, the PR number.
-  In-flight documents write "R2 landed on `<branch>` (PR #N)", not a SHA, because
-  a rebase before merge orphans it.
+- **Before the milestone merges, cite units by name** — ADR number, track name,
+  branch, or PR number. Do not make a working SHA a durable cross-reference;
+  branch curation may orphan it.
 - **Cite a SHA only once it is reachable from `main`.** Post-merge records
   backfill the unit's no-ff **merge-commit** SHA as the anchor for the whole
   unit.
@@ -434,19 +464,19 @@ its transient representation until `main` freezes them.
   closes — applied on `main` post-merge. Not every track; tag sprawl is its own
   legibility cost.
 
-**Re-entry pointer discipline.** Because `main` is the running record,
-`docs/phase-state.md`'s "Next" is advanced with each merge. A unit is not done
-until the re-entry pointer reflects it.
+**Re-entry pointer discipline.** During development, the milestone branch's
+`docs/phase-state.md` and working charters make that branch self-describing.
+The ratified line continues to describe the last completed milestone until the
+new milestone merges. The final PR must contain a coherent closed pointer.
 
-**Before starting a unit:** commit planning changes separately from
-implementation; confirm the plan has its required contents and is committed;
-branch from that committed state (normally `main`) with a name that identifies
-the unit.
+**Before starting a milestone:** branch from the ratified line, commit the
+complete plan separately, open the draft milestone PR, and obtain owner plan
+approval before implementation.
 
 **While executing:** implement one track at a time unless the plan explicitly
-groups them; run the verification named for the track before committing it; one
-implementation commit per completed track; keep any mid-flight planning changes
-in separate commits.
+groups them; run the track's focused verification; keep temporary checkpoints
+recoverable; and curate each completed track into one implementation commit
+before final review.
 
 ### Document Layout
 
@@ -562,7 +592,7 @@ checks that the selected commit contains the artifacts its state requires.
 
 | State | Meaning | Next transition |
 | --- | --- | --- |
-| `planned` | The plan is on `main`; no track has started | Start the first track |
+| `planned` | The plan is committed on the milestone branch and approved in its draft PR; no track has started | Start the first track |
 | `track-<n>` | Track *n* is in flight | Finish track *n*, then the next track or the closing unit |
 | `closed` | The milestone is complete | Select the next milestone |
 
@@ -570,12 +600,12 @@ checks that the selected commit contains the artifacts its state requires.
 keeps pointing at the just-closed plan, so `active_plan` is never empty and a
 foreman that reads `closed` knows its job is selection, not execution.
 
-**The committed state describes the world after merge.** A branch is a proposal
-for what `main` should say. A plan PR therefore carries `planned`, and a closing
-PR carries `closed`. `planning` and `closing` describe live PR conditions; they
-are inferred from Git and GitHub and are never persisted in phase state. This
-keeps every merge from landing a lifecycle value that became stale at the
-moment of merge.
+**The committed state describes its own branch.** The ratified line remains at
+the last completed milestone while a draft milestone PR is open. On the
+milestone branch, the planning commit carries `planned`, track commits advance
+through `track-<n>`, and the final candidate carries `closed`. The single merge
+therefore publishes a self-consistent completed state rather than exposing
+in-flight lifecycle values on the ratified line.
 
 The selected commit must contain its active plan. A `closed` commit must also
 name and contain its retrospective. `tools/foreman_context.py` validates those
@@ -583,22 +613,35 @@ facts in the selected tree. It fetches and reports the ratified line and branch
 divergence separately, so a prospective `planned` or `closed` state is not
 rejected merely because its boundary PR has not merged yet.
 
-The plan and closing transitions both ride with their boundary merges.
+The plan and closing transitions both occur on the milestone branch; only the
+closed transition reaches the ratified line.
 
 ## Milestone Start
 
-After the merge is visible on the ratified line, delete the merged milestone 
-branches and remove clean milestone worktrees or temporary workspace aliases. 
-Never remove a worktree still used by a live session.
+Create the milestone branch from the ratified line, commit the complete plan,
+set the branch's lifecycle to `planned`, and open the draft milestone PR. The
+owner's approval of that plan starts implementation without merging the PR.
 
 ## Milestone Closeout
 
 Audience: Agents
 
-A milestone closes in its closing PR. That PR makes the proposed repository
-self-describing before it merges. Treat closeout as bookkeeping, not a chance to reinterpret results. If a capability, maturity, or next-step claim needs new judgment or evidence, stop and raise it as a project-execution question instead of quietly backfilling it.
+A milestone closes in its one milestone PR. Closeout makes the proposed
+repository self-describing and curates the branch before the PR is marked
+ready. Treat closeout as bookkeeping and distillation, not a chance to
+reinterpret results. If a capability, maturity, or next-step claim needs new
+judgment or evidence, stop and raise it as a project-execution question.
 
-1. In the closing PR:
+1. Before final review:
+   - fold checkpoint and repair commits into their completed track commits;
+   - remove working charters, interim reviews, repair instructions, and process
+     notes unless a material item is explicitly promoted;
+   - archive a closed prototype working set when its evidence remains useful;
+     and
+   - confirm that ADRs, tests/fixtures, and the retrospective carry every
+     decision, behavioral claim, dissent, and reusable lesson needed after the
+     working record disappears.
+2. In the final milestone candidate:
    - set `docs/phase-state.md`'s `milestone_state` to `closed`, replace conditional
      status prose with the completed result, complete its execution record,
      remove `initial_briefing_follow_up`, and route `deep_reads.new_milestone`
@@ -608,26 +651,30 @@ self-describing before it merges. Treat closeout as bookkeeping, not a chance to
      unselected;
    - update the phase roadmap's milestone status; and
    - include the retrospective.
-   -  Run `git diff --check`, `python3 tools/governance_lint.py`, and
+   - run `git diff --check`, `python3 tools/governance_lint.py`, and
       `python3 tools/envelope_scan.py --range <base>..HEAD` before pushing.
-   -  Run `python3 tools/foreman_context.py --ref HEAD --format markdown`. 
+   - run `python3 tools/foreman_context.py --ref HEAD --format markdown`.
       It must report `closed`, select-a-new-milestone as the next transition, 
       no temporary follow-up capsule, and the initial briefing checkpoint. 
+3. Have an independent reviewer inspect the curated candidate range. Address
+   any finding under the lean production loop, then obtain green CI on the
+   exact final PR head.
 
 The merge leaves the milestone closed for re-entry. `docs/phase-state.md` continues
-to point to the just-closed plan until the next milestone plan is selected.
+to point to the just-closed plan until the next milestone branch is selected.
+After the merge is visible on the ratified line, delete the merged branch and
+remove clean milestone worktrees or temporary aliases. Never remove a worktree
+used by a live session.
 
 ## Recording Owner Assent
 
 Audience: Agents
 
-**The merge is the record.** When the owner approves scope, accepts findings, or
-lifts a cap, that assent is recorded by merging the PR that carries it — not by
-a sentence saying the owner approved it. A plan whose scope list names a repair
-pass, sitting on `main`, already says everything a later reader needs. Prose
-restating it is the same defect as prose restating a milestone's lifecycle
-state: a claim standing in for a fact git holds, which can only go stale or
-mislead.
+**The merge is the durable record.** Owner directions made while the milestone
+is open guide the working branch. The final plan, ADRs, and retrospective
+distill any direction whose effect must survive. Merging the milestone PR
+publishes that curated result; do not preserve redundant assent prose merely
+to reproduce the conversation that produced it.
 
 **`authorize` is about dispatch and nothing else.** In agent-process text the
 word means one thing — the owner granting a foreman sub-agent spawns in one
@@ -675,9 +722,15 @@ Before starting a new milestone, create or update a planning document with:
 - Exit criteria: the exact definition of done.
 - Tracks: the atomic implementation tracks that make up the milestone.
 
-Milestone planning should happen before implementation and before creating the milestone execution branch. If the plan changes during implementation, update the plan in a separate commit or clearly separate the planning change from code changes.
+Milestone planning happens on a new milestone branch before implementation.
+The initial plan is that branch's first milestone commit and opens the draft
+milestone PR. If the plan changes during implementation, keep the change
+separate from code while it is being evaluated; fold obsolete planning edits
+into the final planning commit during closeout.
 
-Planning commits are mandatory. Initial plan generation must be committed before the milestone execution branch begins implementation. A planning document is ready for execution when it contains the required milestone-plan contents and is committed separately from implementation.
+Planning commits are mandatory. A plan is ready for execution when it contains
+the required milestone-plan contents, is committed separately from
+implementation, and the owner has approved it in the still-open draft PR.
 
 ## Track Planning Checklist
 
@@ -713,6 +766,11 @@ Parallel work is allowed, but only when dependencies and constraints are explici
 
 The project is contract-heavy. Parallel tracks are safe when they do not compete over the same schemas, artifact shapes, runner outputs, definitions, or golden fixtures. Parallel tracks are risky when they both change integration surfaces or when one track consumes an artifact contract that another track has not stabilized.
 
+Parallel workstreams may use temporary branches or worktrees, but they do not
+open independent PRs by default. Their reviewed commits integrate into the
+milestone branch in dependency order, and the milestone's one PR remains the
+publication unit.
+
 Parallelization levels:
 - Safe parallel: unrelated docs, tests, isolated fixtures, isolated renderers, or data safety checks.
 - Conditional parallel: producer and consumer work where the producer contract is already stable or a temporary fixture contract is explicitly declared.
@@ -726,13 +784,13 @@ The manifest must include:
 - Milestone: the milestone the parallel work belongs to.
 - Branches or workstreams: each parallel branch or stream and its owner if applicable.
 - Dependencies fulfilled: the contracts, fixtures, or prior tracks already completed.
-- Dependencies pending: any workstream whose implementation or merge depends on another workstream.
+- Dependencies pending: any workstream whose implementation or integration depends on another workstream.
 - Constraints: files, schemas, artifacts, or behavior that must not change in each stream.
 - Conflict hotspots: files or directories likely to conflict.
-- Merge order: the dependency-first order in which work should be merged.
-- Rebase points: when downstream branches must rebase onto producer branches.
+- Integration order: the dependency-first order in which workstreams join the milestone branch.
+- Sync points: when downstream branches must rebase onto or otherwise adopt producer commits.
 - Verification per stream: tests or commands required for each stream.
-- Integration verification: tests or commands required after the streams are merged.
+- Integration verification: tests or commands required after the streams join the milestone branch.
 - Data safety notes: statement that no stream touches personal or private data.
 
 Template:
@@ -752,8 +810,8 @@ Dependencies fulfilled:
 - Field resolution schema and workspace artifact are stable.
 
 Dependencies pending:
-- Track 20 generation depends on the Track 19 schema merge.
-- Golden return fixtures depend on the Track 20 generation merge.
+- Track 20 generation depends on the Track 19 schema integration.
+- Golden return fixtures depend on the Track 20 generation integration.
 
 Constraints:
 - Do not change `field-resolution.json` shape.
@@ -767,12 +825,12 @@ Conflict hotspots:
 - `README.md`
 - active milestone planning docs
 
-Merge order:
-1. Merge return artifact contract.
-2. Rebase generation work on the merged contract.
-3. Merge generation.
+Integration order:
+1. Integrate the return artifact contract into the milestone branch.
+2. Rebase generation work on the integrated contract.
+3. Integrate generation.
 4. Rebase golden fixture and renderer work.
-5. Merge fixtures and renderer.
+5. Integrate fixtures and renderer.
 
 Verification per stream:
 - Run focused unit tests for changed modules.
@@ -787,9 +845,13 @@ Data safety:
 - No local absolute paths may be added to golden fixtures or manifests.
 ```
 
-Parallel work should merge in dependency order, not completion order. A branch finishing first is not a reason to merge first if another unmerged branch defines the contract it consumes.
+Parallel work should integrate in dependency order, not completion order. A
+branch finishing first is not a reason to integrate first if another pending
+workstream defines the contract it consumes.
 
-Golden fixture updates require single-owner coordination. Do not update the same expected artifact from multiple branches unless the manifest explicitly defines the merge order and regeneration authority.
+Golden fixture updates require single-owner coordination. Do not update the
+same expected artifact from multiple branches unless the manifest explicitly
+defines the integration order and regeneration authority.
 
 ## Roadmap Rules
 
@@ -820,15 +882,26 @@ At phase boundaries, and after any milestone that introduces a new citizen famil
 
 ## Archive Rules
 
-Do not silently overwrite planning documents that represent a completed or superseded phase.
+`docs/archive/` preserves useful historical context and is never authority.
+Archive movement changes a document's routing status, not Git history or
+repository size.
 
-When a plan becomes obsolete:
-- Move a copy to `docs/archive/`.
-- Use a dated folder or filename.
-- Add a short note explaining why it was archived.
-- Keep the active replacement plan in the expected active location when appropriate.
+At phase or milestone cleanup:
 
-Archived plans are historical context. Active plans should describe current direction.
+- use a dated archive root with a README explaining the boundary;
+- preserve enough original topology for the evidence to remain navigable;
+- repair concrete inbound references rather than leaving broken links or a
+  directory full of forwarding stubs;
+- keep active replacements at their expected paths; and
+- never archive accepted ADRs, governance, published schemas, current phase
+  direction, or the active milestone plan.
+
+Working charters, interim reviews, repair instructions, checkpoints, and raw
+process logs are not archived by default; remove them after distilling material
+content. Archive them only when they are necessary evidence for a durable ADR,
+material dissent, or a retrospective lesson. Completed prototype evidence and
+closed-phase milestone plans may be archived because their current conclusions
+live in ADRs, retrospectives, and phase summaries.
 
 ## Changelog Rules
 

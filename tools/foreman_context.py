@@ -238,8 +238,8 @@ def resolve_ratified_ref(repository: GitRepository, override: str | None = None)
         return DEFAULT_RATIFIED_REF
     return min(ranked)[2]
 
-# Phase state describes the repository that will exist after the selected
-# commit merges. Planning and closing are PR conditions, not persisted states.
+# Phase state describes the selected branch tree. Planning and closing are
+# working conditions inside the milestone's single PR, not persisted states.
 PERSISTED_STATES = {"planned", "closed"}
 NEXT_TRANSITION = {
     "planned": "start the milestone's first track",
@@ -262,12 +262,12 @@ def resolve_milestone_state(
     plan: LoadedDocument,
     ratified_ref: str = DEFAULT_RATIFIED_REF,
 ) -> dict[str, Any]:
-    """Validate the selected commit's proposed post-merge lifecycle state.
+    """Validate the selected commit's milestone lifecycle state.
 
     The selected tree is the proposal that will land, so its own artifacts must
     agree with its declaration. The target line is reported separately through
     ratified_ref and the worktree divergence report; it cannot veto an honest
-    prospective state merely because the boundary PR has not merged yet.
+    prospective state merely because the milestone PR has not merged yet.
     """
     state = milestone_state_of(phase.metadata, phase.path)
     track = TRACK_STATE.match(state)

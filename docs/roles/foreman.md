@@ -169,9 +169,11 @@ Builder or Reviewer who orients onto a superseded charter. If you are about to
 say "ready for review" or "ready for build," the pointer commit is already
 done or you are not ready.
 
-For persisted milestone states and boundary PR behavior, follow
-`PROJECT_PLANNING.md` ("Milestone Lifecycle States"). PR cadence — per track or
-once at close — is the owner's call, so ask rather than assuming.
+For persisted milestone states and milestone-PR behavior, follow
+`PROJECT_PLANNING.md` ("Milestone Lifecycle States" and "Branch, PR, and Merge
+Protocol"). The default is one draft-to-final PR for the whole milestone; a
+separate prerequisite PR exists only when the approved plan names the
+exception.
 
 **The pointer's vocabulary is small, and the tool enforces it.**
 `current_role` must contain exactly one of `Builder` or `Reviewer` when a role
@@ -225,12 +227,12 @@ this is the only way to see them.
 
 ## Standing disciplines
 
-- **PR vs. plain branch commit.** What warrants a PR versus a commit on the
-  unit's branch is `PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol" —
-  read it before deciding.
-- **Close the milestone after its final merge.** Execute
-  `PROJECT_PLANNING.md`, "Milestone Closeout", before treating the repository
-  as ready for a successor foreman.
+- **Curate before publication.** What survives the milestone PR is governed by
+  `PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol". Remove unpromoted
+  working records and fold fixes into their track commits before final review.
+- **Close before the milestone merge.** Execute `PROJECT_PLANNING.md`,
+  "Milestone Closeout", obtain final independent review and green CI, then
+  present the PR for owner merge.
 - **Verification is CI's job, not yours.** Open the PR, reference the `verify`
   check, merge only on green. Named golden classes must enter through
   `live_coordinate_run`, never a `RunContext` shortcut. Verify load-bearing

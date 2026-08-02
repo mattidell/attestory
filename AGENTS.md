@@ -84,9 +84,10 @@ and reviewers execute one chartered unit inside it and nothing more.
 Not every milestone runs all five. Tooling, exploratory, and process milestones
 skip stages by design; **the milestone plan says which apply.** If the plan is
 silent on a stage, that is a plan defect to raise, not a stage to improvise.
-After the final applicable stage merges, the foreman performs
-`PROJECT_PLANNING.md`, "Milestone Closeout", before the repository is ready for
-the next foreman.
+After the final applicable stage, the foreman performs
+`PROJECT_PLANNING.md`, "Milestone Closeout" on the open milestone branch. The
+curated milestone then merges as one PR before the repository is ready for the
+next foreman.
 
 ## Owner-directed mode
 
@@ -164,8 +165,8 @@ reference it.
   specific failing claim.
 
 **What reaches `main` is normed in `PROJECT_PLANNING.md`.** Follow "Branch, PR,
-and Merge Protocol" for review units and its two named direct-main exceptions,
-including "Milestone Closeout"; do not invent another exception.
+and Merge Protocol" and "Milestone Closeout" for the milestone PR; do not
+invent another direct-main exception.
 
 **Process is the owner's method; ADRs are product contracts (ADR-0045).** How
 work is organized — seats, the milestone loop, dispatch, chartering, review
@@ -184,9 +185,11 @@ change history — supersede it. Never rewrite `main` without an owner direction
 and a `snapshot/<date>-<topic>` ref created and verified first. Published
 schemas have their own protocol below.
 
-**`archive/` is never authority.** It holds the pre-governance v2 engine, which
-predates the Ontology and violates it in places. Use it for tax-domain
-reference only — never for contracts, schemas, or patterns.
+**Archives are never authority.** `archive/` holds the pre-governance v2
+engine, which predates the Ontology and violates it in places.
+`docs/archive/` holds superseded planning and completed execution evidence.
+Use either only as historical reference — never for current contracts,
+schemas, patterns, or role instructions.
 
 **Stop when your unit turns on governance text.** You are not expected to hold
 `docs/governance/` in context (ADR-0045). If your work appears to require
@@ -296,11 +299,11 @@ proof. **Behind > 0** means your base is stale; rebase or re-cut from the
 ratified line before building, and re-verify that the charter still describes
 work that remains.
 
-**Both halves of that sentence matter.** A milestone opens with one PR and
-closes with another on the same branch, so from the first merge onward there is
-*always* a merged PR for the branch you are standing on. That alone means
-nothing. It is only a spent workspace when `ahead` is 0 as well. Either way, **say so explicitly** — name the branch, the merged PR when
-known, and how far behind you are — and get direction before proceeding.
+**Both halves of that sentence matter.** A milestone has one draft-to-final PR,
+so an open PR is expected throughout development and does not make the branch
+spent. A merged PR matters only when `ahead` is also 0. Either way, **say so
+explicitly** — name the branch, the merged PR when known, and how far behind
+you are — and get direction before proceeding.
 Silently working in a superseded tree is the failure this rule exists to
 prevent.
 
@@ -333,7 +336,7 @@ Read a document when its **When** column applies to you — not before.
 | Your charter | Scope, deliverables, stop conditions | On boot; it controls over any capsule |
 | `PROJECT_PLANNING.md` | Planning protocol, milestone/track rules, capsule contracts, prototype gates, branch/commit protocol, document layout, ADR and retrospective shapes, archive rules | Foreman, when planning or chartering |
 | `docs/adr/INDEX.md` | ADR routing (advisory) | On boot — digests only. Read a full ADR only when acting on its exact text |
-| `docs/phases/<phase>/` | Phase overview, roadmap, milestone plans | Foreman. **Builders and reviewers orient from their charter and Orientation Block, never from phase state** |
+| `docs/phases/<phase>/` | Active phase overview, roadmap, milestone plans | Foreman. **Builders and reviewers orient from their charter and Orientation Block, never from phase state** |
 | `docs/phase-state.md` | High level milestone briefing, active pointer | Foreman and advisor |
 | `docs/milestone-retrospectives/` | Completed-milestone lessons | Foreman — when the initial milestone briefing names a specific retrospective as useful follow-up context |
 | `docs/governance/` | The sole contract authority | **Advisor only** (ADR-0045). Enforced for every other seat by CI and by the stop condition above |
