@@ -160,7 +160,23 @@ and found the panel open again with no extra step. Full suite still green
 answered for the entry page's own state; the workspace page itself carries
 no per-visit state yet to lose.
 
-## Completion
+**Card 2: deep-linking from the record map.** Each row in `workspace.html`'s
+record map now links straight to that line's explanation on the entry page,
+instead of just to the entry page generally. The obvious approach -- a URL
+query string like `index.html?w2-box1` -- doesn't work here: the entry
+surface's own request handler (`_target()` in `entry_loop.py`) rejects any
+request carrying a query string outright, a data-safety boundary that
+predates this milestone and isn't this milestone's to relax. A URL
+**fragment** (`index.html#line=9`) sidesteps the question entirely rather
+than needing an exception to it -- a fragment never leaves the browser, so
+the server never sees it and the boundary is untouched. `EntryPage.svelte`
+reads the fragment on mount, after state loads, and reuses the existing
+`jumpToLine` (the same function dependency chips already call) to expand
+and scroll to that line, then clears the fragment via
+`history.replaceState` so a reload or bookmark doesn't re-trigger it.
+Verified directly against a running server: followed the workspace's line-9
+link, landed on the entry page with that line's explanation open and
+focused, hash cleared after. Full suite still green (47 passed).
 
 There is no precommitted exit test. At a natural stopping point, the owner
 inspects what exists, decides what it teaches, and either closes, redirects,
