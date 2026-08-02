@@ -1,0 +1,13 @@
+{
+  "proceeds": 6000,
+  "basis": 2000,
+  "covered_security": "yes",
+  "basis_reported_to_irs": "yes",
+  "long_term": "yes",
+  "box_1f_market_discount": "no",
+  "box_1g_wash_sale_adjustment": "no",
+  "ordinary_indicated": "no",
+  "qof_indicated": "no",
+  "taxpayer_side_adjustment": "no",
+  "collectibles_or_special_rate": "no"
+}

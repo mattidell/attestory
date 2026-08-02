@@ -1,0 +1,132 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.covered-ltcg.vocabulary",
+  "version": "v1",
+  "label": "2025 Form 1099-B covered long-term gain-only statement anchor, eligible-transaction member, and source-closure vocabulary (ADR-0052 Decision 1)",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.statement-anchor",
+      "version": "v1",
+      "title": "2025 Form 1099-B statement anchor (ADR-0052 Decision 1): identity (tax-year, subject, broker-ref, logical-statement-ref). Contributed, peer to evidence; file, upload, scan, document, and evidence ids are forbidden from the identity. Two statements or brokers are distinct anchors; the same broker furnishing a corrected copy of the same logical statement answers this same fact and supersedes its prior finding. The eligible-transaction member fact type (below) pins this anchor by sharing its broker and statement identity entities.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "object",
+        "properties": {
+          "broker_name": { "type": "string", "minLength": 1 }
+        },
+        "required": ["broker_name"],
+        "additionalProperties": false
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-ltcg-txn",
+      "version": "v1",
+      "title": "Eligible covered, long-term, gain-only Form 1099-B transaction for tax year 2025 (ADR-0052 Decision 1): member of its own independent return-level source family, identity (tax-year, subject, statement-anchor-ref, logical-transaction-ref) - it shares its broker and statement identity entities with the statement anchor fact type, pinning the current anchor finding. Two logical sales furnished by one broker statement have distinct transaction identity entities and are distinct members; neither distinction may be collapsed by amount, CUSIP, date, account, or evidence identity. Every source-class field is a contributed/attested assertion (never derived from proceeds minus basis) per the milestone's Supported Source Class and ADR-0011's presence-before-value discipline. A correction to any field at the same transaction identity supersedes only this finding.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "object",
+        "properties": {
+          "proceeds": { "type": "number", "minimum": 0 },
+          "basis": { "type": "number", "minimum": 0 },
+          "covered_security": { "enum": ["yes", "no"] },
+          "basis_reported_to_irs": { "enum": ["yes", "no"] },
+          "long_term": { "enum": ["yes", "no"] },
+          "box_1f_market_discount": { "enum": ["yes", "no"] },
+          "box_1g_wash_sale_adjustment": { "enum": ["yes", "no"] },
+          "ordinary_indicated": { "enum": ["yes", "no"] },
+          "qof_indicated": { "enum": ["yes", "no"] },
+          "taxpayer_side_adjustment": { "enum": ["yes", "no"] },
+          "collectibles_or_special_rate": { "enum": ["yes", "no"] },
+          "gain_only": { "enum": ["yes", "no"] }
+        },
+        "required": [
+          "proceeds",
+          "basis",
+          "covered_security",
+          "basis_reported_to_irs",
+          "long_term",
+          "box_1f_market_discount",
+          "box_1g_wash_sale_adjustment",
+          "ordinary_indicated",
+          "qof_indicated",
+          "taxpayer_side_adjustment",
+          "collectibles_or_special_rate",
+          "gain_only"
+        ],
+        "additionalProperties": false
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-ltcg.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the 2025 covered-long-term-gain eligible-transaction family, keyed on the family membership horizon current at attestation (ADR-0017): true asserts every furnished eligible transaction is recorded as of that horizon, across every broker and statement anchor. This claim covers only this family - it does not assert absence of short-term transactions, current capital losses, inbound carryovers, Form 8949 sources, other Schedule D sources, lines 18/19 sources, 1099-DA/QOF flow, or Schedule D completeness (ADR-0052 Decision 2 reads those as separate direct authorities). A later membership transition displaces this closure through horizon succession; re-attestation on the successor horizon is required.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}
