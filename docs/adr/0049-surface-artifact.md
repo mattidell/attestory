@@ -24,7 +24,7 @@ path, no file, and no way to "validate" a `.svelte` file or a third-party
 npm package for meaning that isn't a validator that always passes.
 
 The owner settled the shape of the answer before this track existed
-(`docs/phases/legible-entry/milestones/packaging-the-surface.md`): a second,
+(`docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/packaging-the-surface.md`): a second,
 separate artifact, its own adoption act, carrying program files verified only
 by fingerprint. Track 1 built it and shipped one page through it. This ADR
 records the rule, and settles the three questions the milestone plan left
@@ -351,11 +351,11 @@ Worth doing; not done in this milestone.
 
 ## Links
 
-- Milestone: `docs/phases/legible-entry/milestones/packaging-the-surface.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/packaging-the-surface.md`
 - Track 1 charter and review:
-  `docs/reviews/charter-2026-07-28-packaging-the-surface-track1.md`,
-  `docs/reviews/2026-07-28-packaging-the-surface-track1-review.md`
-- Track 2 charter: `docs/reviews/charter-2026-07-28-packaging-the-surface-track2.md`
+  `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-packaging-the-surface-track1.md`,
+  `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-28-packaging-the-surface-track1-review.md`
+- Track 2 charter: `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-packaging-the-surface-track2.md`
 - Resolver: `packages/derivation/surface_resolver.py`
 - Schema: `packages/schemas/derivation/surface-artifact.v1.schema.json`
 - Production package resolver (reused decisions): `docs/adr/0033-production-package-resolver.md`

@@ -7,20 +7,21 @@ This is the project's third iteration. The first proved a working return generat
 ## Where things stand
 
 - **Governance** (`docs/governance/`): the ratified v0.1 set — Constitution, Ontology, Engineering Constraints, Principles, Commentary. The sole contract authority for this repository.
-- **Phase state** (`docs/phase-state.md`): Engine Breadth is active. The first
-  breadth milestone's completion records are independently `READY`; its
-  closing PR, CI gate, owner merge, and post-merge closeout remain pending.
-- **Current bounded capability:** production-shaped synthetic returns in the
-  selected Form 1099-DIV box-2a-only direct-reporting class reach Form 1040
-  line 7a, line 9, taxable income, line 16, explanation, package resolution,
-  and presentation. The route requires contributed Exception-1 authority that
-  Schedule D is not required. Schedule-D-required and missing-authority cases
-  remain honestly unavailable; this is not real-data exercise, filing
-  readiness, general capital-gains support, or a merged milestone claim.
+- **Phase state** (`docs/phase-state.md`): Engine Breadth is active; the next
+  breadth milestone is unselected.
+- **Current bounded capability:** production-shaped synthetic returns cover
+  the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
+  box-5 taxable interest, and payer-reported current-inclusion market discount
+  from Form 1099-INT box 10 or Form 1099-OID box 5. Schedule-D-required returns,
+  subtractive interest adjustments, filing, and broader securities history
+  remain outside the supported classes.
 - **Planning** (`PROJECT_PLANNING.md`, `docs/phases/`): the planning protocol and phase/milestone/track documents.
 - **Agent guide** (`AGENTS.md`): operating rules for development agents.
 - **Decisions** (`docs/adr/`) and **retrospectives** (`docs/milestone-retrospectives/`).
-- **Archive** (`archive/`): the pre-governance v2 engine and historical docs. Reference only; not a source of contracts.
+- **Historical documents** (`docs/archive/`): completed execution evidence and
+  superseded planning. Reference only; not a source of contracts.
+- **Legacy engine** (`archive/`): the pre-governance v2 implementation.
+  Reference only; not a source of contracts or current patterns.
 
 ## Verification
 

@@ -17,7 +17,7 @@ depend on them. Three contract questions are foundational for that content:
    determinable fact, or a separate citizen family.
 
 Per ADR-0005, this proposal is supported by
-`docs/prototypes/tax-citizen-families/evaluation-analysis.md`. The analysis
+`docs/archive/2026-08-02-milestone-artifacts/prototypes/tax-citizen-families/evaluation-analysis.md`. The analysis
 synthesizes two rival designs (`exhibits/tax-citizen-families/it1` and `it2`),
 two targeted integration iterations (`it3` and `it4`), and four committee
 rounds. It deliberately narrows the decision after the committee rejected the
@@ -126,10 +126,10 @@ be cited as approval of caller-supplied `closed_sets`.
 
 ## Links
 
-- Evidence: `docs/prototypes/tax-citizen-families/evaluation-analysis.md` C1-C3
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/tax-citizen-families/evaluation-analysis.md` C1-C3
 - Process and exclusions:
-  `docs/prototypes/tax-citizen-families/process-retrospective.md`
-- Milestone: `docs/phases/foundation/milestones/first-tax-slice.md`, Track 0
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/tax-citizen-families/process-retrospective.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/first-tax-slice.md`, Track 0
 - Precedents: ADR-0002 (act log), ADR-0003 (schema citizens and opaque ids),
   ADR-0005 (prototype evidence), ADR-0010 (derived currency)
 - Exhibits: `exhibits/tax-citizen-families/it1` through `it4`

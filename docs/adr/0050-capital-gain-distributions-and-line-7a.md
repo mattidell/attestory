@@ -18,7 +18,7 @@ bounded direct-reporting class without implementing Schedule D, Form 8949,
 Form 1099-B, or general capital-gains machinery.
 
 Prototype evidence is assembled under
-`docs/prototypes/capital-gain-distributions-line7a/`: sealed incumbent it1
+`docs/archive/2026-08-02-milestone-artifacts/prototypes/capital-gain-distributions-line7a/`: sealed incumbent it1
 (conclusion-level authority) and clean-room rival it2 (component-backed
 authority), independent contract/adversary and expressiveness reviews,
 owner selection of the component topology (`round-1-triage.md`), two
@@ -311,7 +311,7 @@ recheck. Production remains blocked until this complete decision unit reaches
 
 ## Links
 
-- Prototype evidence: `docs/prototypes/capital-gain-distributions-line7a/`
+- Prototype evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/capital-gain-distributions-line7a/`
   (`plan.md`, `round-1-triage.md`, `it1/`, `it2/`, `repair1/`, `repair2/`,
   `reviews/`, `final-disposition.md`, `evaluation-analysis.md`)
 - Stable exhibit refs: `exhibits/capital-gain-distributions-line7a/it1` and

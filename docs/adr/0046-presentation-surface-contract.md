@@ -24,7 +24,7 @@ tamper/fault tests (T1 inject-on-blocked-line, T2 non-numeric published value,
 T3 unknown line status) converged on an invariant set independently of any
 up-front design brief — accreted from a criterion-generating loop (surface via
 adversarial execution → specify in next brief → verify), documented in
-`docs/prototypes/human-presentation-citation-walk/analysis/02-adr-convergence.md`.
+`docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/02-adr-convergence.md`.
 That analysis names the requirements, the foreclosures each tamper case
 proved necessary, and three rule-points it deliberately left open for a real
 product decision.
@@ -39,7 +39,7 @@ over.
 milestone's existing five-cycle record — two rival builders converging on the
 same invariants under independent adversarial review, with reference
 implementations satisfying all accumulated criteria
-(`docs/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-{a,b}`).
+(`docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-{a,b}`).
 No new rival-prototype round precedes this ratification; the owner accepted
 that evidence bar explicitly (2026-07-25). A later milestone's real-data
 implementation tracks are the proving ground for correctness against real
@@ -145,11 +145,11 @@ consistent with the inline signal.
 
 ## Links and evidence limits
 
-- Evidence: `docs/prototypes/human-presentation-citation-walk/analysis/` (all
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/` (all
   seven vectors), especially `01-feature-citation-walk.md` (heuristics with
   emergence cycle) and `02-adr-convergence.md` (this ADR's direct source).
 - Reference implementations satisfying the accumulated criteria:
-  `docs/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-{a,b}`.
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-{a,b}`.
 - Retrospective: `docs/milestone-retrospectives/2026-07-24-presentation-exploratory-milestone.md`.
 - This ADR does not itself instantiate a runner, schema, or fixture against
   real derivation output; it ratifies the contract those artifacts must

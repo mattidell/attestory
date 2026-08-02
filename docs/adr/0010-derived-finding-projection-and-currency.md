@@ -8,7 +8,7 @@
 
 Derivation Machinery (merge `e1608bf`) publishes derived values but does not
 close the correction cascade: superseding an input finding does not displace the
-derived findings that depend on it (`docs/reviews/2026-07-11-derivation-cascade-
+derived findings that depend on it (`docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-11-derivation-cascade-
 reconciliation.md`). Two seams are unfinished:
 
 1. **Act-log admission.** ADR-0008 decision 2 places publication acts in the act
@@ -95,7 +95,7 @@ already computed without authority doctrine.
 
 ## Links
 
-- Charter: `docs/reviews/2026-07-11-derivation-cascade-reconciliation.md`
-- Precedent: Workspace Kernel review Finding 1 (`docs/reviews/2026-07-10-workspace-kernel-tracks-4-7.md`) — same class, individuation layer; fixed by `patch-kernel-reconciliation`.
+- Charter: `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-11-derivation-cascade-reconciliation.md`
+- Precedent: Workspace Kernel review Finding 1 (`docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-10-workspace-kernel-tracks-4-7.md`) — same class, individuation layer; fixed by `patch-kernel-reconciliation`.
 - Companions: ADR-0002 (act log), ADR-0007 (publication act), ADR-0008 (record placement), ADR-0009 (derived-finding shape).
 - Affected: `packages/kernel/act_log.py` (registry), `packages/kernel/currency.py` (composed-over), new derivation-currency layer under `packages/derivation/`.

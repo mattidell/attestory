@@ -8,7 +8,7 @@ L2, not L3 (`docs/phases/real-return/maturity-matrix.md`, footnote 5).
 
 ## Milestone
 
-- Planning unit: `docs/phases/real-return/milestones/presentation-citation-walk.md`,
+- Planning unit: `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-citation-walk.md`,
   owner-selected 2026-07-25 on ADR-0046 (Presentation Surface Contract,
   ratified same day).
 - Implementation: `track/presentation-citation-walk-track1`, one track
@@ -48,14 +48,14 @@ closed.
 
 ## Verification
 
-- Track 1 build: `docs/reviews/charter-2026-07-25-presentation-citation-walk-track1.md`;
+- Track 1 build: `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-25-presentation-citation-walk-track1.md`;
   landed `6ce90e7`.
-- Track 1 review gate: `docs/reviews/2026-07-26-presentation-citation-walk-track1-review.md`
+- Track 1 review gate: `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-26-presentation-citation-walk-track1-review.md`
   — `NOT READY`; measurements 1–8 passed, F1 and F2 blocked.
-- Track 1 repair: `docs/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`;
+- Track 1 repair: `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-26-presentation-citation-walk-track1-repair.md`;
   landed `8109048`; self-verified 26/26 criteria, exit 0, `git diff --check`
   clean.
-- Track 1 repair recheck: `docs/reviews/2026-07-26-presentation-citation-walk-track1-repair-review.md`
+- Track 1 repair recheck: `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-26-presentation-citation-walk-track1-repair-review.md`
   — `READY`; F1 and F2 independently confirmed closed, no new ADR-0046
   violation, directly touched invariants (citation reuse, keyboard tab order,
   no new `innerHTML`/dependency) intact; original measurements 2–8

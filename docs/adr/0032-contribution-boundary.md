@@ -12,7 +12,7 @@ values only into the out-of-repo residency `L`, never the repository — and it 
 the invariant the whole computation rests on: **runs consume facts, not inputs**.
 
 The D2 prototype (branch `decision/d2-contribution`, plan
-`docs/prototypes/contribution-boundary/plan.md`) produced two clean-room-separated
+`docs/archive/2026-08-02-milestone-artifacts/prototypes/contribution-boundary/plan.md`) produced two clean-room-separated
 Rung-2 builds — incumbent (`it1/design.md`) and rival (`it2/design.md`) — and two
 isolated committee reviews (`reviews/governance-r1.md` Medium,
 `reviews/adversary-r1.md` High). **Both propositions survive at Rung 2 with no
@@ -130,7 +130,7 @@ registration; and making the marshal-only constructor structural (interlocks D3)
 
 ## Links
 
-- Prototype plan: `docs/prototypes/contribution-boundary/plan.md`
+- Prototype plan: `docs/archive/2026-08-02-milestone-artifacts/prototypes/contribution-boundary/plan.md`
 - Builds: `it1/design.md` + `examination-it1.md` (incumbent); `it2/design.md` + `examination-it2.md` (rival)
 - Charters: `charter-it1.md`, `charter-it2.md`, `charter-review-governance.md`, `charter-review-adversary.md`
 - Committee: `reviews/governance-r1.md`, `reviews/adversary-r1.md`; triage in `process-log.md`

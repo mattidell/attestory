@@ -7,19 +7,19 @@
   "candidate": {
     "surface": "Human presentation citation walk",
     "paths": [
-      "docs/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-a/walk.html",
-      "docs/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-b/walk.html"
+      "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-a/walk.html",
+      "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/reference/prototypes/cycle5-b/walk.html"
     ]
   },
   "fixtures": [
     {
       "id": "demo-minimal",
-      "path": "docs/prototypes/human-presentation-citation-walk/reference/fixtures/fixture-minimal.md",
+      "path": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/reference/fixtures/fixture-minimal.md",
       "synthetic": true
     },
     {
       "id": "demo-rich-reuse",
-      "path": "docs/prototypes/human-presentation-citation-walk/reference/fixtures/fixture-rich-reuse.md",
+      "path": "docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/reference/fixtures/fixture-rich-reuse.md",
       "synthetic": true
     }
   ],
@@ -116,5 +116,5 @@
       }
     ]
   },
-  "provenance": "docs/phases/real-return/milestones/presentation-evaluation-process-economy.md"
+  "provenance": "docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/presentation-evaluation-process-economy.md"
 }

@@ -10,7 +10,7 @@ ADR-0006 decisions 6–7 make each adopted content unit a **closed package**: ex
 
 The inert ADR-0022 and its single-author spike invented a path-based `manifest.json` — a second membership authority. That draft is non-conforming and must not be implemented.
 
-The `adopted-content-manifests` prototype (Track 0.b remediation) produced two clean-room-separated designs (incumbent `8e7c56c`, rival `f9ac671`) and two independent committee reviews. Both designs **extend `artifact-package.v2`** and reject the path manifest. Governance (ACM-G1–G8) conditionally accepted both with a hybrid structural preference; Adversary (ACM-A1–A7) **rejected** the incumbent and conditionally accepted the rival. Owner ratification (2026-07-15): the rival-backed **floor and hybrid mechanism** are accepted; the fact-type membership surface (ACM-G1 / A7) and the declared composition-obligation trigger (ACM-A3) are **not** ratified on this evidence and are deferred to a short paired micro-round. Evidence: `docs/prototypes/adopted-content-manifests/evaluation-analysis.md` and the reviews and exhibits it cites.
+The `adopted-content-manifests` prototype (Track 0.b remediation) produced two clean-room-separated designs (incumbent `8e7c56c`, rival `f9ac671`) and two independent committee reviews. Both designs **extend `artifact-package.v2`** and reject the path manifest. Governance (ACM-G1–G8) conditionally accepted both with a hybrid structural preference; Adversary (ACM-A1–A7) **rejected** the incumbent and conditionally accepted the rival. Owner ratification (2026-07-15): the rival-backed **floor and hybrid mechanism** are accepted; the fact-type membership surface (ACM-G1 / A7) and the declared composition-obligation trigger (ACM-A3) are **not** ratified on this evidence and are deferred to a short paired micro-round. Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/adopted-content-manifests/evaluation-analysis.md` and the reviews and exhibits it cites.
 
 ## Decision
 
@@ -57,7 +57,7 @@ Track 4 may claim complete membership closure under ADR-0027 + ADR-0028. See `do
 - **PC3.** Package-instance checksum at publication/adoption (rewrite → reject); member citizens verified via the publication registry pattern.
 - **PC4.** Issue code strings are implementation detail; behavior and classifications above are normative.
 - Inert ADR-0022 and the spike remain in tree as superseded prior art (retained, not deleted).
-- Residual micro-round plan: `docs/prototypes/adopted-content-manifests/micro-round/plan.md`.
+- Residual micro-round plan: `docs/archive/2026-08-02-milestone-artifacts/prototypes/adopted-content-manifests/micro-round/plan.md`.
 
 ## Alternatives Considered
 
@@ -69,8 +69,8 @@ Track 4 may claim complete membership closure under ADR-0027 + ADR-0028. See `do
 
 ## Links
 
-- Evidence: `docs/prototypes/adopted-content-manifests/evaluation-analysis.md`; `reviews/round-1-governance.md`, `reviews/round-1-adversary.md`; exhibits `it1/design.md` (`8e7c56c`), `it2/design.md` (`f9ac671`).
-- Supersedes: ADR-0022 (status marked superseded; retained) and `docs/prototypes/adopted-content-manifests-spike.md`.
-- Deferred residual: N1/N2 → `docs/prototypes/adopted-content-manifests/micro-round/`; successor ADR TBD.
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/adopted-content-manifests/evaluation-analysis.md`; `reviews/round-1-governance.md`, `reviews/round-1-adversary.md`; exhibits `it1/design.md` (`8e7c56c`), `it2/design.md` (`f9ac671`).
+- Supersedes: ADR-0022 (status marked superseded; retained) and `docs/archive/2026-08-02-milestone-artifacts/prototypes/adopted-content-manifests-spike.md`.
+- Deferred residual: N1/N2 → `docs/archive/2026-08-02-milestone-artifacts/prototypes/adopted-content-manifests/micro-round/`; successor ADR TBD.
 - Contracts: ADR-0003 (publication/checksums), ADR-0006 (package closure), ADR-0010 (edges), ADR-0012 (form-fields), ADR-0014 (mappings), ADR-0016 (families), ADR-0025 (ELX bindings / optional_default), ADR-0026 (composition pin provenance-only).
 - Milestone: Core Tax Conditions Track 0.b (floor accepted; residual micro-round before full membership surface / Track 4 complete).

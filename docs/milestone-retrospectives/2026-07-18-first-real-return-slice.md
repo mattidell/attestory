@@ -117,7 +117,7 @@ authoritative-surface golden class explicitly in verification sections.
 
 ## Deferrals
 
-Recorded in `docs/phases/real-return/milestones/first-real-return-slice-deferral-ledger.md`
+Recorded in `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/first-real-return-slice-deferral-ledger.md`
 — eleven entries, none silently closed. Highest priority: guarded transport /
 credential confinement, which alone holds the data-boundary row at L3.
 

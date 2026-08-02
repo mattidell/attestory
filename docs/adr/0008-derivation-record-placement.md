@@ -22,6 +22,6 @@ Where do run records live relative to the act log (ADR-0002), and when are they 
 
 ## Links
 
-- Evidence: `docs/prototypes/rule-language/evaluation-analysis.md` (C4, C10, §5)
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/rule-language/evaluation-analysis.md` (C4, C10, §5)
 - Prior contract: ADR-0002 (append-only act log)
 - Companions: ADR-0006, ADR-0007

@@ -16,9 +16,10 @@ do not review your own work, and you never spawn sub-agents.
    the block already inlined** — they are Git blob content at that commit.
    Read a file yourself only if it is absent from the block or you need a
    region the block truncated.
-2. **Your charter** (under `docs/reviews/` for milestone tracks, or the
-   prototype's round files). The capsule routes; the charter carries the
-   controlling deliverables and remains authoritative.
+2. **Your charter** (normally under the milestone branch's `docs/reviews/`
+   working area, or the prototype's active round files). The capsule routes;
+   the charter carries the controlling deliverables while the unit is open.
+   It may disappear during closeout after its material content is distilled.
 3. **This file** — your posture.
 4. `docs/adr/INDEX.md` digests. Your binding core is **ADR-0003, 0010**, plus
    the dispatching charter, which carries the milestone foreclosure principles.

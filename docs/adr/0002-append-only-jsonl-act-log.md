@@ -26,6 +26,6 @@ Alternatives considered: SQLite event table (transactional appends and indexed q
 
 ## Links
 
-- Milestone plan: `docs/phases/foundation/milestones/workspace-kernel.md`
+- Milestone plan: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/workspace-kernel.md`
 - Governance: Articles 5–7; Ontology §1 (Act, Record, Pinning, Revision), §7; E5.1, E5.2, E6.1, E7.1
 - Related: ADR-0003 (schema technology and identity)

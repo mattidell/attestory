@@ -11,7 +11,7 @@ universe a source family closes. Paper rivals tested Form 1099-INT box-1 items,
 non-form taxable interest, box 3, late discovery, and narrow-closed/broad-open
 cases.
 
-Evidence: `docs/prototypes/source-family-semantics/evaluation-analysis.md`.
+Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/source-family-semantics/evaluation-analysis.md`.
 
 ## Decision
 
@@ -57,7 +57,7 @@ new standing-affecting edge is authorized here.
 
 ## Links
 
-- Analysis: `docs/prototypes/source-family-semantics/evaluation-analysis.md`
+- Analysis: `docs/archive/2026-08-02-milestone-artifacts/prototypes/source-family-semantics/evaluation-analysis.md`
 - Exhibits: `exhibits/source-family-semantics/it1`, `it2`, `repair1`
-- Milestone: `docs/phases/foundation/milestones/source-completeness-and-interest-slice.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/source-completeness-and-interest-slice.md`
 - Precedents: ADR-0005, ADR-0010, ADR-0011, ADR-0014, ADR-0015

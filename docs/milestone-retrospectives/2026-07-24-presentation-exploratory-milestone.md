@@ -8,11 +8,11 @@ raised). This file is a pointer; the durable record is the analysis set.
 - Method: five 2-builder / 2-reviewer cycles; direct-commit stage (no per-plan PR);
   findings preserved via PR #63 (`abbe1f3`).
 - Main artifact (information-dense evaluation analysis, seven vectors):
-  `docs/prototypes/human-presentation-citation-walk/analysis/`.
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/analysis/`.
 - Cycle log + stage process + method reframing:
-  `docs/prototypes/human-presentation-citation-walk/plan.md`.
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/plan.md`.
 - Reference artifacts (final prototypes, fixtures, harness seed):
-  `docs/prototypes/human-presentation-citation-walk/reference/`.
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/human-presentation-citation-walk/reference/`.
 - Headline outcomes: the surface-a-criterion→specify→verify loop is demonstrated
   and mechanically verifiable; ~65–80% of "needs-an-eye" UI quality is
   agent-mechanizable with the right technique; a distinct information-design

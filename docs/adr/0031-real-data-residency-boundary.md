@@ -19,7 +19,7 @@ The pre-D1 floor was one narrow test
 markers over one directory, no git hooks, no push guard.
 
 The D1 prototype (branch `decision/d1-real-data-residency`, plan
-`docs/prototypes/real-data-residency/plan.md`) produced two clean-room-separated
+`docs/archive/2026-08-02-milestone-artifacts/prototypes/real-data-residency/plan.md`) produced two clean-room-separated
 Rung-2 paper builds — incumbent (`it1/design.md`, `examination-it1.md`) and
 rival (`it2/design.md`, `examination-it2.md`) — and two independent committee
 reviews (`reviews/governance-r1.md` Medium, `reviews/adversary-r1.md` High).
@@ -212,10 +212,10 @@ now ratifiable.
 
 ## Links
 
-- Prototype plan: `docs/prototypes/real-data-residency/plan.md`
+- Prototype plan: `docs/archive/2026-08-02-milestone-artifacts/prototypes/real-data-residency/plan.md`
 - Builds: `it1/design.md` + `examination-it1.md` (incumbent); `it2/design.md` + `examination-it2.md` (rival)
 - Charters: `charter-it1.md`, `charter-it2.md`, `charter-review-governance.md`, `charter-review-adversary.md`
 - Committee: `reviews/governance-r1.md`, `reviews/adversary-r1.md`; triage in `process-log.md`
 - Contracts: Constitution Article 18; Engineering Constraints E18.1/E18.2/E18.3; Ontology §8 (quarantine, sensitivity inheritance, synthetic-by-default); ADR-0030 §C.8
-- Milestone: `docs/phases/real-return/milestones/first-real-return-slice.md` (Verification corrected 2026-07-16)
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/first-real-return-slice.md` (Verification corrected 2026-07-16)
 - Process: extends ADR-0005/0013 (prototype economic gates); interlocks with D2 (contribution) and D3 (production resolver), separate ADRs

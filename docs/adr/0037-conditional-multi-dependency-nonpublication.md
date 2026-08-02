@@ -89,7 +89,7 @@ candidate converged at Rung 1.
 ## Links
 
 - Prototype evidence:
-  docs/prototypes/conditional-multi-dependency-nonpublication/
+  docs/archive/2026-08-02-milestone-artifacts/prototypes/conditional-multi-dependency-nonpublication/
 - Builds on: ADR-0006, ADR-0010, ADR-0020, ADR-0024, ADR-0025, ADR-0034
 - Consumed by: D2 QDCG worksheet; a prerequisite production track before D2
   adoption

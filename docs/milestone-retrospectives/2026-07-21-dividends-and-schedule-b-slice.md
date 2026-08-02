@@ -147,7 +147,7 @@ is ratified should mark the reference as provisional, not settled.
 ## Deferrals
 
 Recorded in
-`docs/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md`
+`docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md`
 — fourteen entries, none silently closed; three new to this milestone (the
 declared dividend-universe exclusion, Schedule B Part I's single-family
 scope, and Track 4's scaffold-visibility observation), one prior-ledger

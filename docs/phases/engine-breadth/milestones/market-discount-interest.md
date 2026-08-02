@@ -24,7 +24,7 @@
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
-      "docs/reviews/charter-2026-07-31-k1-interest-breadth-builder.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-31-k1-interest-breadth-builder.md",
       "docs/phases/engine-breadth/milestones/market-discount-interest.md#Official 2025 paper boundary",
       "docs/phases/engine-breadth/milestones/market-discount-interest.md#Contracts",
       "docs/adr/0015-1099-int-statement-instance-identity.md",
@@ -51,8 +51,8 @@
     ],
     "review": [
       "docs/roles/reviewer.md",
-      "docs/reviews/charter-2026-07-31-k1-interest-breadth-review.md",
-      "docs/reviews/charter-2026-08-01-market-discount-interest-builder.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-31-k1-interest-breadth-review.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-08-01-market-discount-interest-builder.md",
       "docs/phases/engine-breadth/milestones/market-discount-interest.md#Contracts",
       "docs/phases/engine-breadth/milestones/market-discount-interest.md#Builder and reviewer verification package",
       "docs/adr/0015-1099-int-statement-instance-identity.md",
@@ -468,8 +468,8 @@ result.
 | --- | --- | --- |
 | Scope and contracts | Complete | Plan committed in the milestone branch; the paper boundary and MD-C1 through MD-C5 contracts remain binding. |
 | Integrated build | Complete | One Medium/medium Builder on `milestone/market-discount-interest`; implementation and focused evidence landed in the branch. |
-| Independent review | Initial `NOT READY`; re-review `READY` | `docs/reviews/review-2026-08-01-market-discount-interest.md`; the owner-authorized bounded re-review accepted both repairs and the unchanged product scope. |
-| Repair | Complete | `docs/reviews/charter-2026-08-01-market-discount-interest-repair.md`; one findings-only repair removed the stale expectation and copied malformed model. |
+| Independent review | Initial `NOT READY`; re-review `READY` | `docs/archive/2026-08-02-milestone-artifacts/reviews/review-2026-08-01-market-discount-interest.md`; the owner-authorized bounded re-review accepted both repairs and the unchanged product scope. |
+| Repair | Complete | `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-08-01-market-discount-interest-repair.md`; one findings-only repair removed the stale expectation and copied malformed model. |
 | Closeout | Complete for closing PR | PR #134's replacement `verify` check is green; owner merge remains the ratification boundary. |
 
 ## Execution sequence

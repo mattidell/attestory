@@ -3,7 +3,7 @@ invariant (ADR-0035 decision 4) and its same-batch ordering kill-test
 (ADR-0035 adversary-minor production condition).
 
 These are kernel/admission-level tests, not coordinator goldens: the
-charter (docs/reviews/charter-2026-07-19-dsbs-t2-composition-conditional-
+charter (docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-19-dsbs-t2-composition-conditional-
 machinery.md, Verification item 6) names them as tests that "may be
 runner/admission-level ... where the defect is not fact-log-observable,
 but must be executed, not asserted by comment." The mechanism itself

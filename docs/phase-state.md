@@ -13,8 +13,8 @@
 # Phase State
 
 This is the **single re-entry document** pointing to the current state of the
-project. Detailed history, review records, and architectural decisions live in
-Git, `docs/reviews/`, and `docs/adr/`.
+project. Curated history and architectural decisions live in retrospectives
+and `docs/adr/`; historical execution records live under `docs/archive/`.
 
 <!-- brief high level plain language overview of the state of the milestone, exclude result and finding specifics -->
 ## High Level Milestone Briefing
@@ -33,7 +33,7 @@ box 10 or Form 1099-OID box 5. The next breadth slice is unselected.
 * **Scope:** 2025 payer-reported current-inclusion market discount in Form 1099-INT box 10 or Form 1099-OID box 5; disposition, basis, taxpayer accrual, subtractive adjustments, and broader securities history remain outside it.
 * **Evidence:** IRS paper-grounded source boundary, selected-version inventory, Builder implementation, one canonical positive presentation golden, initial review `NOT READY`, one bounded repair, owner-authorized re-review `READY`, and green PR #134 `verify`.
 * **Next:** Present the refreshed frontier and select the next bounded Engine Breadth milestone; no next milestone is selected here.
-* **Branch line:** the closing record is proposed on `milestone/market-discount-interest`; owner merge of PR #134 remains the repository ratification transition.
+* **Branch line:** the closed milestone state is the current `main` baseline.
 
 ## Re-entry
 

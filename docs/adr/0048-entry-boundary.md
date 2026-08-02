@@ -3,10 +3,10 @@
 - Status: **accepted 2026-07-28**, ratified by the owner merging PR #102
   (`c451a40`). Builder
   draft, Entry Boundary milestone Track 2
-  (`docs/reviews/charter-2026-07-28-entry-boundary-track2.md`); repaired per
+  (`docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-entry-boundary-track2.md`); repaired per
   the Track 2 review's NOT READY verdict
-  (`docs/reviews/2026-07-28-entry-boundary-track2-review.md`) under
-  `docs/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`. The
+  (`docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-28-entry-boundary-track2-review.md`) under
+  `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`. The
   repair added a widened, outside-confinement filesystem search (see "What
   Part 1's widened search settles, and does not") and narrowed this ADR's
   own wording to match what that search and the rest of this document's
@@ -32,7 +32,7 @@ throwaway probe and ran it against both the synthetic evaluation harness
 vehicle a person would actually type into
 (`packages/derivation/live_viewing.py`, ADR-0047), on a synthetic workspace.
 Findings:
-`docs/phases/legible-entry/milestones/entry-boundary-retention-findings.md`.
+`docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-boundary-retention-findings.md`.
 
 ### Why this ADR does not rest on the probe's negative results
 
@@ -40,7 +40,7 @@ The probe observed, in both vehicles: no retained token in any on-disk store,
 and zero non-loopback network requests. Read at face value, that looks like
 "browsers don't retain typed text here." It is a weaker result than that,
 for two specific reasons the Track 1 review
-(`docs/reviews/2026-07-28-entry-boundary-track1-review.md`) and the probe's
+(`docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-28-entry-boundary-track1-review.md`) and the probe's
 own findings note name:
 
 - Chrome only writes typed values into its persistent form-history store
@@ -219,10 +219,10 @@ Every search above this point, in this ADR's own source reading and in
 Track 1/1b's probe, looked only inside the four destinations
 `_confined_destinations()` computes. The Track 2 review found that
 insufficient to support "already total," and this ADR's own repair (Part 1,
-`docs/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`) went and
+`docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`) went and
 looked outside that tree, against the same unmodified vehicle, exercising
 the same crash path. Full method and evidence:
-`docs/phases/legible-entry/milestones/entry-boundary-retention-findings.md`,
+`docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-boundary-retention-findings.md`,
 "Track 2 repair, Part 1."
 
 **What it found, plainly:** the resolved Chrome binary on the machine this
@@ -538,16 +538,16 @@ named as a permanent, accounted-for exception to the residency boundary.
 
 ## Links
 
-- Milestone: `docs/phases/legible-entry/milestones/entry-boundary.md`
-- Charter: `docs/reviews/charter-2026-07-28-entry-boundary-track2.md`
-- Repair charter: `docs/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-boundary.md`
+- Charter: `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-entry-boundary-track2.md`
+- Repair charter: `docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-28-entry-boundary-track2-repair.md`
 - Probe findings (both vehicles, plus Track 2 repair's widened,
   outside-confinement search):
-  `docs/phases/legible-entry/milestones/entry-boundary-retention-findings.md`
+  `docs/archive/2026-08-02-milestone-artifacts/phases/legible-entry/milestones/entry-boundary-retention-findings.md`
 - Track 1 review (headless-only scope, corrected by Track 1b):
-  `docs/reviews/2026-07-28-entry-boundary-track1-review.md`
+  `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-28-entry-boundary-track1-review.md`
 - Track 2 review (NOT READY, the review this repair addresses):
-  `docs/reviews/2026-07-28-entry-boundary-track2-review.md`
+  `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-28-entry-boundary-track2-review.md`
 - Vehicle: `packages/derivation/live_viewing.py`
 - Residency: `docs/adr/0031-real-data-residency-boundary.md`
 - Contribution: `docs/adr/0032-contribution-boundary.md`

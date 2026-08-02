@@ -26,7 +26,7 @@ already establishes the acceptable pattern for reducing context cost: a compact
 routing surface that is advisory, while accepted ADR text remains binding.
 
 The owner approved a process-contract change after reviewing the paper evidence
-in `docs/proposals/foreman-context-loading-paper-analysis.md`. Its Gate 1
+in `docs/archive/2026-08-02-milestone-artifacts/proposals/foreman-context-loading-paper-analysis.md`. Its Gate 1
 scores (5/5/3) and positive/negative instances show a paper-sufficient Tier 2
 decision. It does not alter governance, product behavior, data residency, or
 the approval gate in ADR-0034.
@@ -112,8 +112,8 @@ the approval gate in ADR-0034.
 
 ## Links
 
-- Paper evidence: `docs/proposals/foreman-context-loading-paper-analysis.md`
-- Milestone plan: `docs/phases/real-return/milestones/foreman-context-loading.md`
+- Paper evidence: `docs/archive/2026-08-02-milestone-artifacts/proposals/foreman-context-loading-paper-analysis.md`
+- Milestone plan: `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/foreman-context-loading.md`
 - Extends: ADR-0039 (advisory routing)
 - Preserves: ADR-0005, ADR-0013, ADR-0030, ADR-0034
 - Implementation: `tools/foreman_context.py` (Track 1)

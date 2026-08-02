@@ -218,21 +218,21 @@ The cited evidence has these limits:
 The direct records are:
 
 - Milestone plan:
-  `docs/phases/real-return/milestones/live-run-trust-domain-definition.md`
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/live-run-trust-domain-definition.md`
 - Residency boundary: `docs/adr/0031-real-data-residency-boundary.md`
 - Contribution boundary: `docs/adr/0032-contribution-boundary.md`
 - Production package resolver:
   `docs/adr/0033-production-package-resolver.md`
 - Guarded Transport triage:
-  `docs/prototypes/guarded-transport/round-1-triage.md`
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/guarded-transport/round-1-triage.md`
 - Guarded Transport repair triage:
-  `docs/prototypes/guarded-transport/repair1-triage.md`
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/guarded-transport/repair1-triage.md`
 - Independent Guarded Transport reviews:
-  `docs/prototypes/guarded-transport/reviews/round-1-governance.md`,
-  `docs/prototypes/guarded-transport/reviews/round-1-adversary.md`,
-  `docs/prototypes/guarded-transport/reviews/repair1-governance.md`, and
-  `docs/prototypes/guarded-transport/reviews/repair1-adversary.md`
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/guarded-transport/reviews/round-1-governance.md`,
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/guarded-transport/reviews/round-1-adversary.md`,
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/guarded-transport/reviews/repair1-governance.md`, and
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/guarded-transport/reviews/repair1-adversary.md`
 - Push-envelope milestone:
-  `docs/phases/real-return/milestones/push-envelope-preflight-and-bypass-visibility.md`
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/push-envelope-preflight-and-bypass-visibility.md`
 - Governance: Constitution Article 18; Ontology §8; Engineering Constraints
   E18.1 and E18.2

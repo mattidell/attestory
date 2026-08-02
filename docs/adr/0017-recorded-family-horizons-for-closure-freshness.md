@@ -11,7 +11,7 @@ member. Existing ADR-0010 edges therefore cannot make the old result noncurrent
 when a previously unknown relevant member is later recorded. Manual closure
 withdrawal, derived closure, stored staleness, and a third edge are unacceptable.
 
-Evidence: `docs/prototypes/closure-freshness/evaluation-analysis.md`.
+Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/closure-freshness/evaluation-analysis.md`.
 
 ## Decision
 
@@ -64,7 +64,7 @@ Evidence: `docs/prototypes/closure-freshness/evaluation-analysis.md`.
 
 ## Links
 
-- Analysis: `docs/prototypes/closure-freshness/evaluation-analysis.md`
+- Analysis: `docs/archive/2026-08-02-milestone-artifacts/prototypes/closure-freshness/evaluation-analysis.md`
 - Exhibits: `exhibits/closure-freshness/it1`, `it2`, `repair1`
-- Milestone: `docs/phases/foundation/milestones/source-completeness-and-interest-slice.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/source-completeness-and-interest-slice.md`
 - Precedents: ADR-0009, ADR-0010, ADR-0011, ADR-0014, ADR-0016

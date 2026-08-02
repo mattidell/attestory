@@ -240,8 +240,8 @@ policy should be able to gate on without inventing anything new.
   ADR-0011 §§3–6 (same-fact correction, affirmative-only closure), ADR-0016
   (closure claim / family subtotal declaration pattern), ADR-0017 (recorded
   family horizons, closure freshness, horizon succession reopening closure).
-- Milestone: `docs/phases/real-return/milestones/correction-authority-and-marshaller-simplification.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/correction-authority-and-marshaller-simplification.md`
   (Track 0); deferral ledgers:
-  `docs/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md`
-  (entry 13), `docs/phases/real-return/milestones/first-real-return-slice-deferral-ledger.md`
+  `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/dividends-schedule-b-slice-deferral-ledger.md`
+  (entry 13), `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/first-real-return-slice-deferral-ledger.md`
   (entry 10).

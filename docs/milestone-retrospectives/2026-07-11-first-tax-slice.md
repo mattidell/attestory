@@ -74,7 +74,7 @@ prototype process — completed before this branch existed):
 
 ## Deviations
 
-- None from the amended plan (`docs/phases/foundation/milestones/first-tax-slice.md`,
+- None from the amended plan (`docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/first-tax-slice.md`,
   narrowed 2026-07-11 after Track 0). All four tracks landed as scoped, one
   commit each, with no scope creep into 1099-INT, downstream Form 1040
   lines, closure-backed zeros, or citation resolution — all explicitly

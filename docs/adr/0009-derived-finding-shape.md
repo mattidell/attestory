@@ -131,8 +131,8 @@ shape.
 
 ## Links
 
-- Forces: `docs/phases/foundation/milestones/derivation-machinery.md` Track 4;
-  `docs/prototypes/rule-language/reviews/round-2-legibility.md` §E (derived
+- Forces: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/derivation-machinery.md` Track 4;
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/rule-language/reviews/round-2-legibility.md` §E (derived
   finding recovered as symbol/value/pins, no basis).
 - Companions: ADR-0006 (rule language), ADR-0007 (publication act — decision 6
   reserved-entry guardrail), ADR-0008 (record placement).

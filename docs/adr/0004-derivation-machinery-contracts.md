@@ -37,7 +37,7 @@ A second minimal reference runner is implemented for portability tests. It consu
 
 ## Links
 
-- Milestone plan: `docs/phases/foundation/milestones/derivation-machinery.md`
+- Milestone plan: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/derivation-machinery.md`
 - Governance: Articles 4, 11-15; Ontology sections 5-6; E4.1, E11.x, E12.1, E13.x, E14.x, E15.1
 - Related: ADR-0002 (append-only JSONL act log), ADR-0003 (JSON Schema citizens and opaque IDs)
 
@@ -45,4 +45,4 @@ A second minimal reference runner is implemented for portability tests. It consu
 
 Rejected by the owner before acceptance. The central design element — the rule artifact vocabulary and its expression encoding, the single place all tax meaning will live — was a placeholder ("a small pure operation vocabulary"), and the ADR bundled that undesigned Tier 3 decision with genuinely Tier 2 consequences (run records, publication mechanics). Accepting it would have ratified a shape that did not exist yet.
 
-The rejection produced a process change: Tier 3 and contract-foundational Tier 2 ADRs now require a prototype evaluation analysis as evidence (`PROJECT_PLANNING.md`, Prototype-Driven Decisions). The rule language will be designed against real tax content through that process (`docs/phases/foundation/milestones/rule-language-design.md`); the salvageable machinery planning is archived at `docs/archive/2026-07-10-derivation-machinery-plan/` and the full pre-rejection state at branch `snapshot/2026-07-10-derivation-machinery-plan`. A successor ADR (0005+) will carry the evidence-backed decision.
+The rejection produced a process change: Tier 3 and contract-foundational Tier 2 ADRs now require a prototype evaluation analysis as evidence (`PROJECT_PLANNING.md`, Prototype-Driven Decisions). The rule language will be designed against real tax content through that process (`docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/rule-language-design.md`); the salvageable machinery planning is archived at `docs/archive/2026-07-10-derivation-machinery-plan/` and the full pre-rejection state at branch `snapshot/2026-07-10-derivation-machinery-plan`. A successor ADR (0005+) will carry the evidence-backed decision.

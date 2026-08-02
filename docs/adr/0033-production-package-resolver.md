@@ -154,11 +154,11 @@ substitute for this repair.
 
 ## Links
 
-- Evaluation: `docs/prototypes/production-resolver/evaluation-analysis.md`.
+- Evaluation: `docs/archive/2026-08-02-milestone-artifacts/prototypes/production-resolver/evaluation-analysis.md`.
 - Builds: `it5/design.md` + `examination-it5.md`; sealed rival `it6/design.md` +
   `examination-it6.md`.
 - Committee: `reviews/governance-r3.md`, `reviews/adversary-r3.md`.
 - Prior blockers: `reviews/governance-r2.md`, `reviews/adversary-r2.md`.
 - Contracts: ADR-0027, ADR-0028, ADR-0031, ADR-0032; Constitution Articles 4,
   9, 11, 18; Ontology §§1, 4, 8.
-- Milestone: `docs/phases/real-return/milestones/first-real-return-slice.md`.
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/real-return/milestones/first-real-return-slice.md`.

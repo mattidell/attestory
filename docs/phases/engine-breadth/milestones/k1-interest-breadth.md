@@ -24,7 +24,7 @@
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
-      "docs/reviews/charter-2026-07-31-k1-interest-breadth-builder.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-31-k1-interest-breadth-builder.md",
       "docs/phases/engine-breadth/milestones/k1-interest-breadth.md",
       "docs/adr/0015-1099-int-statement-instance-identity.md",
       "docs/adr/0016-source-family-claim-and-composition.md",
@@ -56,7 +56,7 @@
     ],
     "review": [
       "docs/roles/reviewer.md",
-      "docs/reviews/charter-2026-07-31-k1-interest-breadth-builder.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-31-k1-interest-breadth-builder.md",
       "docs/phases/engine-breadth/milestones/k1-interest-breadth.md",
       "docs/adr/0015-1099-int-statement-instance-identity.md",
       "docs/adr/0016-source-family-claim-and-composition.md",
@@ -483,7 +483,7 @@ The milestone is complete when:
 | --- | --- |
 | Scope and contracts | The committed plan defined K1-C1–C5 and the shared K1-P1–P10 / K1-N1–N13 verification matrix. A pre-build inventory correction recorded that package v8 selected line-2b field content v1, not the separately published v2. |
 | Integrated build | The Builder completed the additive source-family, composition, attachment-rule, package/release, runtime, fixture, explanation, and presentation route on `milestone/k1-interest-breadth`. |
-| Independent review | `docs/reviews/2026-07-31-k1-interest-breadth-review.md` returned `READY` for the exact implementation range. It confirmed the full case matrix, publication history, safety envelope, package compatibility, and focused static checks. |
+| Independent review | `docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-31-k1-interest-breadth-review.md` returned `READY` for the exact implementation range. It confirmed the full case matrix, publication history, safety envelope, package compatibility, and focused static checks. |
 | Repair | Closing PR #133 exposed one stale current-version assertion in `tests/test_dsbs_t1_schema_citizens.py`. The bounded repair advanced only the method name and expected current field version from v2 to v3; product behavior and historical citizens were unchanged. |
 | Closeout | The roadmap, coverage frontier, phase state, deferral ledger, and retrospective record only the bounded synthetic-complete claim. PR #133's replacement green `verify` check and owner merge are the ratification boundary. |
 

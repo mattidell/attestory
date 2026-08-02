@@ -11,7 +11,7 @@ ADR-0027 accepted the adopted-content membership **floor** (extend `artifact-pac
 - **N1** — fact-surface versioning ⋂ wholesale-adoption reconciliation (ACM-G1 / A4 / A7 from the main ACM round)
 - **N2** — declared composition-obligation trigger (ACM-A3)
 
-The residual micro-round produced two clean-room-separated designs and two independent committee reviews. Both reviewers **rejected** the rival (it2) on both propositions. The incumbent (it1) supplies the carry-forward mechanisms; the adversary proved two completeness holes (orphan individual pin for mapping; structural force-declare bypass for multi-source bare sums that avoid the family-subtotal shape). This decision settles N1/N2 by carrying it1's dual fact surface and non-circular obligation design **with those holes closed**: A4 inclusion completeness; A7 closed by **same-quantity** force-declare (not any-multi-input). An intermediate any-multi-input draft over-fired on line 9 (`review-feedback-adr0028.md`). A same-quantity retype without mandatory quantity identity failed scoped confirmation (`confirm-decision7-adversary.md` MR-C1/C5). Decisions 7–8 now pin closed quantity vocabulary + pairwise same-quantity force-declare. Evidence: `docs/prototypes/adopted-content-manifests/micro-round/evaluation-analysis.md`.
+The residual micro-round produced two clean-room-separated designs and two independent committee reviews. Both reviewers **rejected** the rival (it2) on both propositions. The incumbent (it1) supplies the carry-forward mechanisms; the adversary proved two completeness holes (orphan individual pin for mapping; structural force-declare bypass for multi-source bare sums that avoid the family-subtotal shape). This decision settles N1/N2 by carrying it1's dual fact surface and non-circular obligation design **with those holes closed**: A4 inclusion completeness; A7 closed by **same-quantity** force-declare (not any-multi-input). An intermediate any-multi-input draft over-fired on line 9 (`review-feedback-adr0028.md`). A same-quantity retype without mandatory quantity identity failed scoped confirmation (`confirm-decision7-adversary.md` MR-C1/C5). Decisions 7–8 now pin closed quantity vocabulary + pairwise same-quantity force-declare. Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/adopted-content-manifests/micro-round/evaluation-analysis.md`.
 
 ## Decision
 
@@ -69,7 +69,7 @@ The residual micro-round produced two clean-room-separated designs and two indep
 
 ## Links
 
-- Evidence: `docs/prototypes/adopted-content-manifests/micro-round/evaluation-analysis.md`; `reviews/round-1-governance.md`, `reviews/round-1-adversary.md`; exhibits `it1/design.md` (`85af87a`), `it2/design.md` (`cd0cdc8`).
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/adopted-content-manifests/micro-round/evaluation-analysis.md`; `reviews/round-1-governance.md`, `reviews/round-1-adversary.md`; exhibits `it1/design.md` (`85af87a`), `it2/design.md` (`cd0cdc8`).
 - Parent: ADR-0027 (accepted floor; N1/N2 were Not Decided).
 - Related: ADR-0003, 0006, 0010, 0012, 0014, 0025, 0026.
 - Milestone: Core Tax Conditions Track 0.b residual; Track 4 full membership closure after acceptance.

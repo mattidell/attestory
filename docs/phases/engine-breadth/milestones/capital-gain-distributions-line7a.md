@@ -25,10 +25,10 @@
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
-      "docs/reviews/2026-07-30-capital-gain-distributions-line7a-track3-review.md",
-      "docs/reviews/2026-07-30-capital-gain-distributions-line7a-track3-repair-charter-stop.md",
-      "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md",
-      "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-review.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-30-capital-gain-distributions-line7a-track3-review.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-30-capital-gain-distributions-line7a-track3-repair-charter-stop.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3-review.md",
       "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
       "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
       "docs/adr/0046-presentation-surface-contract.md",
@@ -52,9 +52,9 @@
     ],
     "review": [
       "docs/roles/reviewer.md",
-      "docs/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md",
-      "docs/reviews/2026-07-31-capital-gain-distributions-line7a-track3-charter-stop.md",
-      "docs/reviews/2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-review.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/charter-2026-07-30-capital-gain-distributions-line7a-track3.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-31-capital-gain-distributions-line7a-track3-charter-stop.md",
+      "docs/archive/2026-08-02-milestone-artifacts/reviews/2026-07-31-capital-gain-distributions-line7a-line7b-prerequisite-review.md",
       "docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a.md",
       "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
       "docs/adr/0046-presentation-surface-contract.md",
@@ -183,7 +183,7 @@ grounding, not a substitute for versioned citation content.
 ## Prototype decision inventory and economic gates
 
 Before a prototype charter, Track 0 creates and owner-approves
-`docs/prototypes/capital-gain-distributions-line7a/plan.md`, discharging every
+`docs/archive/2026-08-02-milestone-artifacts/prototypes/capital-gain-distributions-line7a/plan.md`, discharging every
 prototype economic gate in `PROJECT_PLANNING.md`.
 
 ### P1 — Direct-route authority and completeness (primary)

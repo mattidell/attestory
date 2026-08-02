@@ -12,7 +12,7 @@ A rule output symbol alone does not identify an official field, carry form-year
 lifecycle, bind a citation, or tell a renderer what absence means.
 
 Per ADR-0005, this proposal cites
-`docs/prototypes/tax-citizen-families/evaluation-analysis.md`. Both rival
+`docs/archive/2026-08-02-milestone-artifacts/prototypes/tax-citizen-families/evaluation-analysis.md`. Both rival
 builders independently introduced a form-field companion family, later
 iterations instantiated it across the bounded slice, and fresh-reader reviews
 consistently recovered the field/symbol distinction and rendered-disposition
@@ -132,10 +132,10 @@ already implemented.
 
 ## Links
 
-- Evidence: `docs/prototypes/tax-citizen-families/evaluation-analysis.md` C4-C5
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/tax-citizen-families/evaluation-analysis.md` C4-C5
 - Process and exclusions:
-  `docs/prototypes/tax-citizen-families/process-retrospective.md`
-- Milestone: `docs/phases/foundation/milestones/first-tax-slice.md`, Track 0
+  `docs/archive/2026-08-02-milestone-artifacts/prototypes/tax-citizen-families/process-retrospective.md`
+- Milestone: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/first-tax-slice.md`, Track 0
 - Precedents: ADR-0003 (schema citizens and opaque ids), ADR-0005 (prototype
   evidence), ADR-0006 (rule language), ADR-0008 (record placement)
 - Companion proposal: ADR-0011 (tax fact identity and source-set closure)

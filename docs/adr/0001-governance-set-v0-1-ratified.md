@@ -27,6 +27,6 @@ The ratified artifacts live under `docs/governance/`, each with a version header
 
 ## Links
 
-- Milestone plan: `docs/phases/foundation/milestones/governance-installation.md`
+- Milestone plan: `docs/archive/2026-08-02-milestone-artifacts/phases/foundation/milestones/governance-installation.md`
 - Closure record: `docs/governance/records/2026-07-09-closure-check-v0.1.md`
 - Archived drafts: `docs/archive/2026-07-09-intake/`

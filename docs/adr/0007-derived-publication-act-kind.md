@@ -25,5 +25,5 @@ Derived findings must enter the record through an act whose vocabulary preserves
 
 ## Links
 
-- Evidence: `docs/prototypes/rule-language/evaluation-analysis.md` (C3, C4, §5)
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/rule-language/evaluation-analysis.md` (C3, C4, §5)
 - Companions: ADR-0006 (rule language), ADR-0008 (record placement)

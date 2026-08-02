@@ -8,7 +8,7 @@
 
 Standard-deduction selection and tax-computation-method selection require multidimensional conditional branching (five filing statuses, age/blindness/spousal adjustments, bracket tables, an asserted itemization override). ADR-0019 proposed a first-class selector citizen for this and was rejected on independent round-1R evidence (see its rejection note). The remediated conditional-selectors prototype — clean-room rival iteration 2, reviewed in two independent rounds — settled the question in the opposite direction: the existing rule language suffices for the whole conditional subset, and the one genuine gap it cannot cover is not about selection at all but about optional-input absence.
 
-Evidence: `docs/prototypes/conditional-selectors/evaluation-analysis.md` (rewritten 2026-07-13) and the round-1R/2R reviews and triages it cites. Owner accepted iteration 2 with errata on 2026-07-13.
+Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/conditional-selectors/evaluation-analysis.md` (rewritten 2026-07-13) and the round-1R/2R reviews and triages it cites. Owner accepted iteration 2 with errata on 2026-07-13.
 
 ## Decision
 
@@ -40,7 +40,7 @@ Evidence: `docs/prototypes/conditional-selectors/evaluation-analysis.md` (rewrit
 
 ## Links
 
-- Evidence: `docs/prototypes/conditional-selectors/evaluation-analysis.md`; rounds 1R/2R reviews and triages; `it2/design.md`, `examination-it2.md`.
+- Evidence: `docs/archive/2026-08-02-milestone-artifacts/prototypes/conditional-selectors/evaluation-analysis.md`; rounds 1R/2R reviews and triages; `it2/design.md`, `examination-it2.md`.
 - Supersedes in direction: ADR-0019 (rejected, retained).
-- Delegates to: `docs/prototypes/expression-language-extensions/plan.md` (absence/defaults, categorical comparison).
+- Delegates to: `docs/archive/2026-08-02-milestone-artifacts/prototypes/expression-language-extensions/plan.md` (absence/defaults, categorical comparison).
 - Contracts: ADR-0006 (rule language), ADR-0007–0010, ADR-0012.
