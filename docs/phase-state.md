@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
-  "milestone_state": "track-1",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 1 MERGED. ADR-0053 ACCEPTED.** Track 1 merged in PR #141; ADR-0052's transaction identity and completeness-boundary citizens are on `main`. ADR-0053 (owner ratification recorded by merging PR #143) discharges ADR-0052's two named production conditions (CA-05: categorical attachment-requirement schema successor; CA-06: no new producer-selection substrate needed, one rule with an internal `choose` branch suffices). NEXT ACTION: the foreman charters production Track 2 against both settled contracts.",
-  "current_role": "Foreman (ADR-0053 accepted; production Track 2 not yet chartered)",
-  "current_prompt": "docs/adr/0053-covered-ltcg-schedule-d-attachment-and-producer-substrate.md"
+  "milestone_state": "track-2",
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 2 CHARTERED.** ADR-0052, Track 1, and ADR-0053 are all on `main-engine` (the ratified line as of PR #145). Track 2 (Schedule D content, the `attachment-rule.v3` categorical requirement, the single-rule selected-preferential-base producer, line 7a/9/16 successors, package successor, and synthetic goldens) is chartered on `track/schedule-d-covered-ltcg-8a-track2`, High tier / high effort. NEXT ACTION: owner-launch the Track 2 Builder; on return, the foreman takes custody and charters an author-independent Track 2 review.",
+  "current_role": "Builder (Track 2 — Schedule D content and line 7a/9/16 production path)",
+  "current_prompt": "docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track2.md"
 }
 -->
 # Phase State
@@ -25,13 +25,13 @@ taxable-interest path through line 2b and Schedule B Part I, and the bounded
 2025 payer-reported current-inclusion market-discount class in Form 1099-INT
 box 10 or Form 1099-OID box 5. The next breadth slice, Covered Long-Term
 Gains through Schedule D line 8a, has its transaction identity and
-completeness-boundary citizens on `main` (Track 1) and a ratified addendum
-(ADR-0053) closing two production gaps; Schedule D content and downstream
-computation (Track 2) has not started.
+completeness-boundary citizens on `main-engine` (Track 1) and a ratified
+addendum (ADR-0053) closing two production gaps; Track 2 (Schedule D
+content and downstream computation) is now chartered.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 1 merged; ADR-0053 accepted; Track 2 not chartered.**
+* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 2 in flight.**
 * **Product change (target):** covered, long-term, gain-only Form 1099-B
   transactions become a closed source family that reaches Schedule D line 8a,
   Part II line 15, Part III line 16, Form 1040 line 7a, and the correct
@@ -45,7 +45,7 @@ computation (Track 2) has not started.
   reported directly on Schedule D line 8a without Form 8949; short-term
   transactions, losses, carryovers, Form 8949, noncovered securities, digital
   assets, and other Schedule D sources remain outside it.
-* **Accepted contract (ADR-0052, `main`):**
+* **Accepted contract (ADR-0052, `main-engine`):**
   - independent, anchor-keyed transaction identity one level below the
     existing statement-identity pattern — implemented in Track 1;
   - a nine-part completeness boundary read directly (two closures plus
@@ -67,11 +67,13 @@ computation (Track 2) has not started.
     selected preferential base as one rule citizen with an internal
     `choose` branch, the same pattern already accepted for line 7a and
     line 16, preserving the single-producer-per-symbol invariant.
-* **Next:** the foreman charters production Track 2 (Schedule D content
-  and the line 7a/9/16 production path) against both ADR-0052 and
-  ADR-0053.
-* **Branch line:** ADR-0052, Track 1, and ADR-0053 are on `main`/
-  `main-engine` (PRs #137, #141, #143).
+* **Next:** owner-launch the Track 2 Builder against
+  `docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track2.md`
+  on branch `track/schedule-d-covered-ltcg-8a-track2`. On return, the
+  foreman charters an author-independent Track 2 review.
+* **Branch line:** ADR-0052, Track 1, ADR-0053, and the `main-engine`
+  rename are all on `main-engine` (PRs #137, #141, #143, #145) — the
+  ratified line going forward.
 
 ## Re-entry
 
