@@ -194,19 +194,27 @@ def check_no_intake_drafts(findings: list[str]) -> None:
         )
 
 
-_MILESTONE_STATE = re.compile(r'"milestone_state"\s*:\s*"([^"]+)"')
+_RETROSPECTIVE = re.compile(r'"retrospective"\s*:\s*"([^"]+)"')
+_LEGACY_CLOSED_STATUS = re.compile(r"^Status:\s*\*\*(complete|closed)\*\*", re.MULTILINE)
 _TRACK_HEADING = re.compile(r"^#{2,4} Track \S+ [—-] (.+?)\s*$")
 _REVIEW_WORD = re.compile(r"\breview\b", re.IGNORECASE)
 
 
 def live_milestone_plans() -> list[Path]:
-    """Milestone plans that still bind. A `closed` plan is a record of a
-    finished milestone; linting it would only pressure agents to rewrite the
-    past."""
+    """Milestone plans that still bind. A closed plan carries a
+    `retrospective` path in its own header (required by
+    `tools/foreman_context.py`'s `resolve_milestone_state` before a plan may
+    be `closed`) and is a record of a finished milestone; linting it would
+    only pressure agents to rewrite the past. `milestone_state` itself lives
+    only in `docs/phase-state.md`, not on the plan, so closedness is read
+    from `retrospective` instead of duplicating that field here. A handful
+    of pre-header-convention plans predate the JSON metadata block and mark
+    closure with a prose `Status: **complete**`/`**closed**` line instead;
+    both signals count as closed."""
     plans = []
     for plan in sorted(DOCS_DIR.glob("phases/*/milestones/*.md")):
-        state = _MILESTONE_STATE.search(plan.read_text(encoding="utf-8"))
-        if state and state.group(1) != "closed":
+        text = plan.read_text(encoding="utf-8")
+        if not _RETROSPECTIVE.search(text) and not _LEGACY_CLOSED_STATUS.search(text):
             plans.append(plan)
     return plans
 
