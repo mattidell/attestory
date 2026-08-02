@@ -1,0 +1,22 @@
+{
+  "schema": "source-closure-mapping.v2",
+  "id": "demo.closure-mapping.f1099b-covered-ltcg",
+  "version": "v1",
+  "family": {
+    "id": "demo.f1099b.covered-ltcg",
+    "version": "v1"
+  },
+  "member_fact_type": {
+    "id": "demo.f1099b.covered-ltcg-txn",
+    "version": "v1"
+  },
+  "closure_fact_type": {
+    "id": "demo.f1099b.covered-ltcg.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "admits_symbol": "demo.f1099b.covered-ltcg-subtotal",
+  "admission": {
+    "condition": "always-true"
+  }
+}

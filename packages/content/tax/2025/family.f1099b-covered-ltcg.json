@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099b.covered-ltcg",
+  "version": "v1",
+  "title": "Covered, long-term, gain-only Form 1099-B transactions, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every covered, long-term, gain-only Form 1099-B transaction eligible for Schedule D line 8a aggregate reporting under the milestone's Supported Source Class is recorded as of the keyed horizon, across every broker and statement anchor. This claim covers only the eligible-transaction family itself: it says nothing about short-term transactions, current capital losses, inbound capital-loss carryovers, Form 8949 transactions or adjustments, other Schedule D sources (K-1 gains, Forms 2439/4684/4797/6252/6781/8824), lines 18/19 special-rate sources, Form 1099-DA or QOF flow, the Form 1099-DIV box-2a family, or Schedule D completeness. Closed with members authorizes the multi-anchor, multi-transaction sum of current members; closed-empty authorizes subtotal 0.",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.covered-ltcg-txn"
+  },
+  "authorizes_subtotal": "tax.us.2025.f1099b.covered-ltcg-subtotal"
+}

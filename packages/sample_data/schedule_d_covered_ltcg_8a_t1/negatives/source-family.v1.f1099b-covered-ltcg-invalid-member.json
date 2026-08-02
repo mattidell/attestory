@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "demo.f1099b.covered-ltcg",
+  "version": "v1",
+  "title": "Negative: empty member predicate fact type",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "demo"
+  },
+  "closure_claim": "demo claim",
+  "member_predicate": {
+    "fact_type": ""
+  },
+  "authorizes_subtotal": "demo.f1099b.covered-ltcg-subtotal"
+}

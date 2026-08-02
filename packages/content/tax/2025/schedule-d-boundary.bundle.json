@@ -1,0 +1,148 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.schedule-d-boundary.vocabulary",
+  "version": "v1",
+  "label": "Seven independent completeness absence declarations for the Schedule D covered-long-term-gain boundary, tax year 2025 (ADR-0052 Decision 2)",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.no-short-term-transactions",
+      "version": "v1",
+      "title": "Completeness boundary component (ADR-0052 Decision 2; milestone plan item 3): whether the return has no short-term transactions. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Read directly by the Schedule D route and attachment; not folded into a synthesizing conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.no-current-capital-losses",
+      "version": "v1",
+      "title": "Completeness boundary component (ADR-0052 Decision 2; milestone plan item 4): whether the return has no current capital losses. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Read directly by the Schedule D route and attachment; not folded into a synthesizing conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+      "version": "v1",
+      "title": "Completeness boundary component (ADR-0052 Decision 2; milestone plan item 5): whether the return has no inbound capital-loss carryovers. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Read directly by the Schedule D route and attachment; not folded into a synthesizing conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+      "version": "v1",
+      "title": "Completeness boundary component (ADR-0052 Decision 2; milestone plan item 6): whether the return has no Form 8949 transactions or adjustments. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Read directly by the Schedule D route and attachment; not folded into a synthesizing conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources",
+      "version": "v1",
+      "title": "Completeness boundary component (ADR-0052 Decision 2; milestone plan item 7): whether the return has no other Schedule D sources, including K-1 gains and Forms 2439, 4684, 4797, 6252, 6781, or 8824. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Read directly by the Schedule D route and attachment; not folded into a synthesizing conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources",
+      "version": "v1",
+      "title": "Completeness boundary component (ADR-0052 Decision 2; milestone plan item 8): whether Schedule D lines 18 and 19 special-rate sources are absent. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Read directly by the Schedule D route and attachment; not folded into a synthesizing conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof",
+      "version": "v1",
+      "title": "Completeness boundary component (ADR-0052 Decision 2; milestone plan item 9): whether no Form 1099-DA or qualified-opportunity-fund flow applies. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. Read directly by the Schedule D route and attachment; not folded into a synthesizing conclusion.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

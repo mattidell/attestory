@@ -1,0 +1,30 @@
+{
+  "schema": "fact-type.v2",
+  "id": "demo.f1099b.covered-ltcg-txn",
+  "version": "v1",
+  "title": "Negative: identity omits the logical transaction key, collapsing distinct sales from one statement anchor onto one fact",
+  "nature": "determinable",
+  "identity_keys": [
+    {
+      "name": "broker",
+      "kind": "entity",
+      "entity_kind": "tax.us.f1099b-broker"
+    },
+    {
+      "name": "statement",
+      "kind": "entity",
+      "entity_kind": "tax.us.f1099b-statement"
+    },
+    {
+      "name": "tax-year",
+      "kind": "literal",
+      "values": ["2025"]
+    }
+  ],
+  "value_schema": {
+    "type": "object"
+  },
+  "supersession": {
+    "policy": "free"
+  }
+}
