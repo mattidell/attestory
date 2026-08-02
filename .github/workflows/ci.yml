@@ -3,7 +3,7 @@ name: verify
 # The authoritative gate. Runs the same quartet the role charters use, so a
 # green check on a commit is a tamper-resistant fact roles can reference instead
 # of re-running (AGENTS.md "Test economy"). Required for merge via branch
-# protection on main-engine.
+# protection on main.
 #
 # Both continuous lines are gated. `main-ui` was added 2026-07-30 after the
 # Legible Entry phase ran three milestones on it with no check ever firing:
@@ -13,9 +13,9 @@ name: verify
 # also require the check on `main-ui`, or it reports without blocking.
 on:
   pull_request:
-    branches: [main-engine, main-ui]
+    branches: [main, main-ui]
   push:
-    branches: [main-engine, main-ui]
+    branches: [main, main-ui]
 
 jobs:
   verify:
