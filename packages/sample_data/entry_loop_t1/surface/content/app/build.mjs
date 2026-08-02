@@ -19,6 +19,15 @@ writeFileSync("dist/styles.css", css.code);
 cpSync("src/mount.js", "dist/mount.js");
 cpSync("src/w2-box1-format.js", "dist/w2-box1-format.js");
 cpSync("src/w2-box1-field.js", "dist/w2-box1-field.js");
+
+const workspaceSource = readFileSync("src/WorkspacePage.svelte", "utf-8");
+const workspaceCompiled = compile(workspaceSource, {
+  filename: "WorkspacePage.svelte",
+  generate: "client"
+});
+writeFileSync("dist/WorkspacePage.js", workspaceCompiled.js.code);
+writeFileSync("dist/workspace-styles.css", workspaceCompiled.css.code);
+cpSync("src/mount-workspace.js", "dist/mount-workspace.js");
 cpSync("node_modules/svelte", "dist/vendor/svelte", { recursive: true });
 cpSync("node_modules/esm-env", "dist/vendor/esm-env", { recursive: true });
 cpSync("node_modules/clsx", "dist/vendor/clsx", { recursive: true });
@@ -55,3 +64,21 @@ const html = `<!doctype html>
 </html>
 `;
 writeFileSync("dist/index.html", html);
+
+const workspaceHtml = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Workspace · Attestory</title>
+<link rel="stylesheet" href="./workspace-styles.css">
+<script type="importmap">${JSON.stringify(importMap, null, 2)}</script>
+</head>
+<body>
+<div id="app"></div>
+<script type="module" src="./mount-workspace.js"></script>
+</body>
+</html>
+`;
+writeFileSync("dist/workspace.html", workspaceHtml);

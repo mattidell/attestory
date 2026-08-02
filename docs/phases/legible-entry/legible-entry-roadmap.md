@@ -157,7 +157,17 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    attests. Owner-operated; the only milestone that can raise a row to L3. By
    then every usability question has already been answered on synthetic
    data — which is why it follows the re-score rather than preceding it: an
-   L3 claim cannot rest on a row that never earned L2.
+   L3 claim cannot rest on a row that never earned L2. Not yet started; the
+   owner chose the Workspace Prototype next instead.
+8. **Workspace Prototype.** A separate owner-directed prototype asking a
+   broader question than any single line: what is this workspace, what does
+   it contain, where does the person stand, and what should they do next.
+   The home, map, and inbox for the record, reusing the Improvised
+   Prototype's explanation walk as its drill-down rather than rebuilding it.
+   Scoped narrow on purpose — orientation and navigation only, not a
+   dashboard. **Open on `main-ui` 2026-08-01.** The owner directs the work
+   and decides what to try and when it is done. Plan:
+   `docs/phases/legible-entry/milestones/workspace-prototype.md`.
 
 **Due now, outside the sequence.** The legibility-audit README's own cadence
 triggers an audit at each phase boundary, before the transition plan is
@@ -261,3 +271,9 @@ explanation trail. A holistic fresh-eyes review confirmed the walk holds
 together end to end, with one carried-forward defect (a correction resets
 scroll position, relocating the reader). Retrospective:
 `docs/milestone-retrospectives/2026-08-01-improvised-prototype.md`.
+
+**Milestone 8 opened on `main-ui` 2026-08-01.** The owner chose to prototype
+the workspace next rather than begin Real Entry: a broader orientation
+surface (the home, map, and inbox for the record) that reuses Milestone 6's
+explanation walk as its drill-down. Owner-directed, no fixed tracks. Plan:
+`docs/phases/legible-entry/milestones/workspace-prototype.md`.
