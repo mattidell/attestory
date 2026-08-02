@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "schedule-d-covered-ltcg-8a",
   "milestone_state": "planned",
-  "status": "PLANNED. Milestone and prototype plans committed on `milestone/schedule-d-covered-ltcg-8a`, awaiting owner approval and merge. No track has started.",
+  "status": "PLANNED. Track 0 is complete pending owner ratification: proposed ADR-0052, its evaluation analysis, and the full prototype evidence chain are assembled on `decisions/schedule-d-covered-ltcg-8a`. Ratification (merge to `main`) activates production Tracks 1-4.",
   "scope": [
     "establish a transaction source family and logical transaction identity for covered, long-term, gain-only Form 1099-B statement items eligible for Schedule D line 8a",
     "establish the Schedule D completeness boundary through component authority: the eligible long-term family closed, the box-2a family closed empty, and named absent-source claims for short-term transactions, current losses, inbound carryovers, Form 8949, other Schedule D sources (K-1 gains, Forms 2439/4684/4797/6252/6781/8824), lines 18/19 special-rate sources, and Form 1099-DA/QOF flow",
@@ -51,7 +51,7 @@
     "review": [
       "docs/roles/reviewer.md",
       "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md#Contracts",
-      "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md#Builder and reviewer verification package",
+      "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md#Fixtures",
       "docs/adr/0036-schedule-attachment-ontology.md",
       "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
       "AGENTS.md#Schema Publication Protocol",
