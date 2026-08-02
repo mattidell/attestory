@@ -2,7 +2,6 @@
 {
   "version": 1,
   "topic": "schedule-d-covered-ltcg-8a",
-  "milestone_state": "track-2",
   "status": "TRACK 2 RESUMING. Builder charter-stop on Track 1's object-valued member having no scalar collection path resolved by ADR-0054 (twin scalar collectible companions). Track 2 resumes under its existing charter.",
   "scope": [
     "establish a transaction source family and logical transaction identity for covered, long-term, gain-only Form 1099-B statement items eligible for Schedule D line 8a",
