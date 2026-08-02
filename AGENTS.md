@@ -31,7 +31,7 @@ python3 tools/build_orientation_block.py --ref HEAD
 ```
 
 Use `HEAD`, not a line name. Your charter usually has not merged yet, so it
-exists only on the branch you are standing on; orienting from `main` loads a
+exists only on the branch you are standing on; orienting from `main-engine` loads a
 phase state that has never heard of your track and reports a topic mismatch.
 The ratified line to corroborate against is a separate question and is derived
 for you — see "Check whether you are stale before you work."
@@ -57,7 +57,7 @@ summary.
 Both commands take `--ref HEAD` so they read the committed state of the
 worktree being resumed. The tool separately derives the ratified comparison
 line from history (`resolve_ratified_ref`); do not substitute a literal
-`main` or `main-ui` unless you are intentionally reading that line's tree.
+`main-engine` or `main-ui` unless you are intentionally reading that line's tree.
 Say which source ref you used.
 
 Do not ask the owner to paste context. Do not reconstruct context from prose
@@ -163,8 +163,8 @@ reference it.
   check, and merges only on green. A reviewer runs `pytest` only to confirm a
   specific failing claim.
 
-**What reaches `main` is normed in `PROJECT_PLANNING.md`.** Follow "Branch, PR,
-and Merge Protocol" for review units and its two named direct-main exceptions,
+**What reaches `main-engine` is normed in `PROJECT_PLANNING.md`.** Follow "Branch, PR,
+and Merge Protocol" for review units and its two named direct-main-engine exceptions,
 including "Milestone Closeout"; do not invent another exception.
 
 **Process is the owner's method; ADRs are product contracts (ADR-0045).** How
@@ -180,7 +180,7 @@ history and rationale, never authority. If you think a change is unwise, say
 so once, plainly, then comply.
 
 **History is not editable in place.** Never edit an accepted ADR's decision to
-change history — supersede it. Never rewrite `main` without an owner direction
+change history — supersede it. Never rewrite `main-engine` without an owner direction
 and a `snapshot/<date>-<topic>` ref created and verified first. Published
 schemas have their own protocol below.
 
@@ -214,7 +214,7 @@ Personal or ad hoc local work stays under ignored paths: `local-data/`,
 Synthetic committed files use demo labels and obviously synthetic IDs
 (`demo.*` / `demo-*`). Run the data safety tests when changing fixtures,
 manifests, paths, or generated artifacts; a reviewer additionally runs
-`python3 tools/envelope_scan.py --range main..HEAD`.
+`python3 tools/envelope_scan.py --range main-engine..HEAD`.
 
 ## Fixture Rules
 
@@ -273,9 +273,9 @@ reports divergence plus whether the current branch tip is already contained in
 the ratified line; that report satisfies the foreman check.
 
 **Compare against the right line.** This repository carries more than one:
-`main` for the derivation work and `main-ui` for the surface work. They are
+`main-engine` for the derivation work and `main-ui` for the surface work. They are
 separate continuous records, and a branch cut from one is *expected* to look
-wildly behind the other. Comparing surface work against `origin/main` produces
+wildly behind the other. Comparing surface work against `origin/main-engine` produces
 a confident "you are 7 behind and 51 ahead" that means nothing. Do not assume
 the line — the tooling derives it from your history
 (`resolve_ratified_ref` in `tools/foreman_context.py`), and the capsule prints
@@ -306,7 +306,7 @@ prevent.
 
 Keep worktrees to a minimum. Remove worktrees that are clean and no longer
 needed, including stale ones left by other agents. Delete merged branches after
-confirming their commits are reachable from `main`. Do not leave uncommitted
+confirming their commits are reachable from `main-engine`. Do not leave uncommitted
 work in a worktree at hand-off — commit it, snapshot it, or discard it and say
 so.
 
