@@ -121,27 +121,28 @@ Fetches the same `/api/state` the entry surface already uses, no backend
 change. `index.html` and `EntryPage.svelte` are byte-for-byte untouched; full
 suite green (47 passed). This is the shape to keep building on.
 
-**Card 1c (reverted): a second "back to workspace" link added to
-`EntryPage.svelte`, alongside the existing wordmark.** The harness's dynamic
-control discovery picked it up correctly and the reverse-traversal checks
-passed -- but its `navigationChecks()` phase, which fires every discovered
-href control's Enter key at the very end of a run, isn't written to survive
-a control's activation actually navigating the page away. The existing
-wordmark survives because it links to itself (no real document change from
-the harness's perspective); a second link pointing at a different page
-does leave, and the harness then tries to re-locate the *first* page's
-control on the *new* page and fails (`browser-evaluation-failed`). **The
-entry page can carry at most one real cross-page navigational control under
-the current harness**, unless the harness itself is revised -- and revising
-a ratified measurement instrument is a bigger, separately-considered
-decision, not a quiet side effect of a workspace card.
-
-Consequence for the next card: a "return to workspace" affordance from
-inside the entry page needs either (a) reusing the *existing* wordmark
-control rather than adding a new one, once its target and self-link
-semantics are worked out, or (b) relying on the browser's own back
-navigation plus some state-preservation mechanism (e.g. sessionStorage) that
-doesn't add a new focusable, href-bearing control to the page.
+**Card 1c (kept, harness fixed): a second "back to workspace" link added to
+`EntryPage.svelte`, alongside the existing wordmark.** First attempt broke
+the harness's `navigationChecks()` phase (`browser-evaluation-failed`): that
+phase fires every discovered href control's Enter key at the end of a run,
+but wasn't written to survive a control's activation causing a *real*
+document reload. The wordmark had never previously exposed this -- not
+because it "doesn't navigate" (it does; every successful link activation
+here is a fresh document load, same URL or not), but because with only one
+queued link, nothing needed the page again afterward. A second link exposed
+that the harness would try to keep using the first page's now-gone JS
+globals on whatever page it left. Fixed in
+`tests/helpers/entry_loop_keyboard_operability_client.mjs`: after any real
+navigation, the harness now returns to the original page and reinstalls its
+probe helpers before checking the next queued control, so coverage doesn't
+quietly drop a control instead of erroring. A second, narrower fix was
+needed in the `scramble-order` defect-injection fixture (demonstration-only,
+not the real check): its hand-built redirect cycle had one anchor wired in
+by name; the new anchor needed wiring into the same cycle to keep
+demonstrating what it's meant to demonstrate. Full suite green (47 passed)
+with both fixes and the link. The harness change is a real generalization,
+not a scope carve-out -- any future link on this page is now covered the
+same way.
 
 ## Completion
 

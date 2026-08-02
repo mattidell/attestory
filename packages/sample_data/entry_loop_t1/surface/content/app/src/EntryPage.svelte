@@ -118,7 +118,10 @@
     <a class="wordmark" href="./index.html" aria-label="Attestory entry home">
       attestory
     </a>
-    <span class="synthetic">Synthetic evaluation</span>
+    <div class="masthead-actions">
+      <a class="workspace-link" href="./workspace.html">← Back to workspace</a>
+      <span class="synthetic">Synthetic evaluation</span>
+    </div>
   </header>
 
   <section class="hero" aria-labelledby="page-title">
@@ -467,6 +470,19 @@
     font-size: 1.35rem;
     font-weight: 700;
     text-decoration: none;
+  }
+
+  .masthead-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .workspace-link {
+    color: #075e4f;
+    font-size: 0.85rem;
+    font-weight: 750;
+    text-decoration: underline;
   }
 
   .synthetic,

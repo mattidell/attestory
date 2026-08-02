@@ -280,7 +280,9 @@ async function injectDefect(name) {
                 targetSelector = "#w2-box1";
               } else if (desc.key.includes("w2-box1") || active.id === "w2-box1") {
                 targetSelector = "a[href]";
-              } else if (desc.key.includes("wordmark") || active.tagName === "A") {
+              } else if (desc.key.includes("wordmark")) {
+                targetSelector = ".workspace-link";
+              } else if (desc.key.includes("workspace-link")) {
                 targetSelector = ".primary";
               }
               if (targetSelector) {
@@ -484,6 +486,26 @@ async function navigationChecks() {
       after,
       navigated: loadFired,
     });
+
+    // Any successful activation here is a fresh document load, same URL or
+    // not (the comment above already establishes that) -- and a fresh
+    // document has no window.__kbProbe on it, whether or not its URL text
+    // changed. With one queued control this never mattered: there was no
+    // further iteration to need the probe again. A later queued control
+    // does, so reinstate what "the run just started" already assumes: the
+    // right page loaded, and the probe helpers installed on it. Only
+    // navigate back if activating this control actually left the original
+    // page -- reinstalling on an unrelated document would just as silently
+    // leave the next control unreachable.
+    if (loadFired) {
+      if (after !== pageUrl) {
+        const reloaded = client.waitFor("Page.loadEventFired", sessionId, 10000);
+        await client.send("Page.navigate", { url: pageUrl }, sessionId);
+        await reloaded;
+        await waitUntil(`document.querySelector("#w2-box1") !== null`);
+      }
+      await evaluate(PAGE_HELPERS);
+    }
   }
 }
 
