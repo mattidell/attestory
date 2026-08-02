@@ -5,9 +5,9 @@
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
   "milestone_state": "track-1",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 1 BUILD COMPLETE, REVIEW CHARTERED.** Track 1 (`9cf7c73`) publishes the statement anchor, independent eligible-transaction source family/closure, and the seven completeness absence-declaration citizens, reusing existing generic schemas (no new schema file). 23 focused tests plus test_schema_registry pass; governance lint, diff --check, and envelope scan are clean. An author-independent Track 1 Reviewer is chartered to verify the Builder's own claims rather than trust them. NEXT ACTION: launch the Track 1 Reviewer; on return, the foreman takes custody and either charters Track 2 or a bounded repair.",
-  "current_role": "Reviewer (Track 1 — independent verification)",
-  "current_prompt": "docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track1-review.md"
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 1 READY, AWAITING OWNER MERGE.** The independent review (`a7e8954`) returned READY with no findings, including three kernel-level reproductions beyond the committed test module (evidence-identity smuggling rejected, a distinct missing-predicate field rejected, and an independently-authored sibling-preserving correction). Track 1's PR is open for merge to `main`. NEXT ACTION: owner merges the Track 1 PR after CI `verify` is green; the foreman then charters Track 2.",
+  "current_role": "Foreman (Track 1 PR awaiting owner merge)",
+  "current_prompt": "docs/reviews/2026-08-02-schedule-d-covered-ltcg-8a-track1-review.md"
 }
 -->
 # Phase State
@@ -29,7 +29,7 @@ Gains through Schedule D line 8a, has an owner-ratified successor contract
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 1 in flight.**
+* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 1 READY, PR open.**
 * **Product change (target):** covered, long-term, gain-only Form 1099-B
   transactions become a closed source family that reaches Schedule D line 8a,
   Part II line 15, Part III line 16, Form 1040 line 7a, and the correct
@@ -57,10 +57,10 @@ Gains through Schedule D line 8a, has an owner-ratified successor contract
   - two named production conditions carried forward, not resolved by this
     ADR: a categorical attachment-requirement schema successor (CA-05) and
     generic exactly-one-producer enforcement (CA-06).
-* **Next:** owner-launch the Track 1 Reviewer against
-  `docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track1-review.md`
-  on branch `track/schedule-d-covered-ltcg-8a-track1`. On return, the
-  foreman takes custody and either charters Track 2 or a bounded repair.
+* **Next:** owner merges the Track 1 PR (branch
+  `track/schedule-d-covered-ltcg-8a-track1`) after CI `verify` is green.
+  The foreman then charters production Track 2 (Schedule D content and the
+  line 7a/9/16 production path).
 * **Branch line:** the accepted decision unit (evidence chain, ADR-0052,
   index row) is on `main` via PR #137. Prototype code never merged; the
   ephemeral `prototypes/schedule-d-covered-ltcg-8a/it1` and `.../it2`
