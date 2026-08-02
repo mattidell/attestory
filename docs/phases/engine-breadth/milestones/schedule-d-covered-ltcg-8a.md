@@ -51,7 +51,7 @@
     "review": [
       "docs/roles/reviewer.md",
       "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md#Contracts",
-      "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md#Builder and reviewer verification package",
+      "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md#Fixtures",
       "docs/adr/0036-schedule-attachment-ontology.md",
       "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
       "AGENTS.md#Schema Publication Protocol",
