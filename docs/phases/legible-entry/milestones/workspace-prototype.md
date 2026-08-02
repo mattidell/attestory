@@ -144,6 +144,22 @@ with both fixes and the link. The harness change is a real generalization,
 not a scope carve-out -- any future link on this page is now covered the
 same way.
 
+**Card 1d: preserving the explanation trail across the round trip.** The
+back-to-workspace link is a real page reload, so `expandedLines` -- the
+in-memory record of which lines' explanation panels are open -- reset to
+closed every time, even though the round trip is otherwise fast. Fixed by
+persisting `expandedLines` to `sessionStorage` on every open/close and
+restoring it on mount, in `EntryPage.svelte`. sessionStorage survives a
+same-tab navigation and clears itself when the tab closes, which matches
+the shape of the problem exactly: remember what was open for this visit to
+the record, not forever. Verified directly against a running server (not
+just the test suite): opened line 1a's panel, read `sessionStorage` before
+navigating (`["1a"]`), followed the real link to `workspace.html` and back,
+and found the panel open again with no extra step. Full suite still green
+(47 passed). "Return to the workspace without losing context" is now
+answered for the entry page's own state; the workspace page itself carries
+no per-visit state yet to lose.
+
 ## Completion
 
 There is no precommitted exit test. At a natural stopping point, the owner

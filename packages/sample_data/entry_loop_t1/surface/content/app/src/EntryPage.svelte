@@ -19,15 +19,43 @@
   // at each step rather than just line numbers.
   let expandedLines = [];
 
+  // A trip to the workspace and back is a real page reload, not an
+  // in-memory view swap, so the trail above would otherwise reset to
+  // closed on return. sessionStorage survives that reload (and clears
+  // itself when the tab closes), so restoring from it here is what makes
+  // "back to workspace" not also mean "lost your place."
+  const EXPANDED_LINES_KEY = "attestory-entry-expanded-lines";
+
+  function restoreExpandedLines() {
+    try {
+      const raw = sessionStorage.getItem(EXPANDED_LINES_KEY);
+      if (raw) expandedLines = JSON.parse(raw);
+    } catch {
+      // Storage unavailable (e.g. private browsing) -- start with nothing
+      // expanded rather than failing the page load over it.
+    }
+  }
+
+  function persistExpandedLines() {
+    try {
+      sessionStorage.setItem(EXPANDED_LINES_KEY, JSON.stringify(expandedLines));
+    } catch {
+      // Nothing recoverable to do here; the trail just won't survive the
+      // round trip this time.
+    }
+  }
+
   function toggleExplanation(lineId) {
     expandedLines = expandedLines.includes(lineId)
       ? expandedLines.filter((id) => id !== lineId)
       : [...expandedLines, lineId];
+    persistExpandedLines();
   }
 
   async function jumpToLine(lineId) {
     if (!expandedLines.includes(lineId)) {
       expandedLines = [...expandedLines, lineId];
+      persistExpandedLines();
     }
     await tick();
     const row = document.getElementById(`line-${lineId}`);
@@ -103,7 +131,10 @@
     }
   }
 
-  onMount(loadState);
+  onMount(() => {
+    restoreExpandedLines();
+    loadState();
+  });
 </script>
 
 <svelte:head>
