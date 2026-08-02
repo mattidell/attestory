@@ -1,6 +1,8 @@
 # ADR 0052 — Covered Long-Term Gains, Schedule D Line 8a
 
-- Status: **proposed** (not ratified; no production authority)
+- Status: **accepted** (owner ratification 2026-08-02, recorded by merging
+  PR #137; production authority now that this complete decision unit is on
+  `main`)
 - Tier: 2 — contract-foundational reach (sets the transaction-identity and
   completeness-boundary template every future capital-transaction slice
   builds on, per the milestone plan's Gate-1 blast-radius scores of 2 for
@@ -36,10 +38,10 @@ routing, the recorded dissent and its resolution, and the two production
 conditions carried forward as owed are in
 `docs/prototypes/schedule-d-covered-ltcg-8a/evaluation-analysis.md`.
 
-This ADR is **proposed and inert**. It carries no production claim and no
-owner-ratification claim. Production remains blocked until this complete
-decision unit is ratified and reaches `main`, per the pattern ADR-0050
-established for the same milestone family.
+The owner ratified this decision unit by merging PR #137 on 2026-08-02,
+following the same pattern ADR-0050 established for the same milestone
+family. This ADR carries production authority; the milestone's production
+Tracks 1-4 implement the contracts below.
 
 ## Decision
 
@@ -272,8 +274,8 @@ established for the same milestone family.
    family subtotal, or a raw transaction member directly.
 
 6. **Relationship to ADR-0036 and ADR-0050.** Both remain immutable history;
-   nothing in this ADR edits their accepted text, and this ADR is itself
-   only a proposed, inert successor pending ratification. ADR-0036 is
+   nothing in this ADR edits their accepted text, and this ADR is itself an
+   accepted, additive successor, never an in-place edit. ADR-0036 is
    instantiated with Schedule D content only (Decision 3) — no change to the
    attachment citizen, `collect_members`, the tie-out invariant, or presence
    semantics. For the versioned successor graph only, the following named
