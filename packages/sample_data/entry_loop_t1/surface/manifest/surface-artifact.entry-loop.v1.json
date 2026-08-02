@@ -4702,9 +4702,9 @@
       "sha256": "83c28fb5875a61d7979729ac968b2e1756e2a0767a3eeb247b2b521ca28380bd"
     },
     {
-      "bytes": 11112,
+      "bytes": 11712,
       "path": "src/WorkspacePage.svelte",
-      "sha256": "51cd441ef2b1b76386feb1ba92d2113e963c87dd22ac7a4c6452c3844debacb2"
+      "sha256": "ca337dcce35d96b7e6d5a7105ef3c1d72f60c79fbf14b4bae1115aca0bb5799a"
     },
     {
       "bytes": 147,
@@ -4729,7 +4729,7 @@
   ],
   "entrypoint_html": "dist/index.html",
   "id": "demo.surface.entry-loop",
-  "package_checksum": "84e1bf59cee69e9c06b374114e1a1d7ef0c5748c1241892641a06d7daf81243e",
+  "package_checksum": "5668ee8fae36529da6c6d0b4165ebfe5895b1fe9bc5c6e00d24e56a4d32f3ef8",
   "schema": "surface-artifact.v1",
   "version": "v1"
 }

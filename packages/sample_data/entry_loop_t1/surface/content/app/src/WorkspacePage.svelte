@@ -15,6 +15,17 @@
     return new URL(`./api/${name}`, window.location.href);
   }
 
+  // "Fact families" has no field of its own in /api/state -- field_contract
+  // is keyed one entry per fact the workspace can accept, so its key count
+  // *is* that number today. Reading it here instead of writing "1" keeps
+  // this card honest if a second family is ever added; a literal wouldn't
+  // notice.
+  function factFamilyDocuments(currentState) {
+    return Object.values(currentState.field_contract).map(
+      (field) => field.source.document
+    );
+  }
+
   async function loadState() {
     busy = true;
     error = "";
@@ -81,11 +92,13 @@
       <dl>
         <div>
           <dt>Fact families</dt>
-          <dd>1 · W-2</dd>
+          <dd>
+            {factFamilyDocuments(state).length} · {factFamilyDocuments(state).join(", ")}
+          </dd>
         </div>
         <div>
           <dt>Facts entered</dt>
-          <dd>{state.answered.length} of 1</dd>
+          <dd>{state.answered.length} of {factFamilyDocuments(state).length}</dd>
         </div>
         <div>
           <dt>Evaluation lines computed</dt>
