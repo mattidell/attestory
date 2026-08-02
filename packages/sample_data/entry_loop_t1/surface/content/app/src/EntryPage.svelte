@@ -101,6 +101,18 @@
     wageInput?.focus();
   }
 
+  // The workspace's record map deep-links straight to one line via a URL
+  // fragment, not a query string -- the server's own request handler
+  // rejects any request carrying a query string (`_target()` in
+  // entry_loop.py), a data-safety boundary this page has no business
+  // trying to work around. A fragment never leaves the browser, so it
+  // reaches this page without ever touching the server at all.
+  function consumeLineFromHash() {
+    const match = location.hash.match(/^#line=(.+)$/);
+    if (!match) return null;
+    return decodeURIComponent(match[1]);
+  }
+
   async function submitWages(event) {
     event.preventDefault();
     if (!state?.contribution || busy) return;
@@ -131,9 +143,14 @@
     }
   }
 
-  onMount(() => {
+  onMount(async () => {
     restoreExpandedLines();
-    loadState();
+    await loadState();
+    const targetLine = consumeLineFromHash();
+    if (targetLine) {
+      await jumpToLine(targetLine);
+      history.replaceState(null, "", location.pathname + location.search);
+    }
   });
 </script>
 

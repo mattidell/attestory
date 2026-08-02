@@ -134,20 +134,23 @@
       </div>
       <p class="map-note">
         Each line below is part of the walkable explanation in the entry
-        surface. Opening the record takes you to the full walk; this view
-        does not repeat it.
+        surface. Opening a line takes you straight to its explanation there;
+        this view does not repeat it.
       </p>
       <ul class="line-list map-list">
         {#each state.lines as line (line.line)}
           <li>
-            <div class="map-row">
+            <a
+              class="map-row"
+              href={"./index.html#line=" + encodeURIComponent(line.line)}
+            >
               <span class="line-number">1040 · {line.line}</span>
               <span class="map-row-title">{line.title}</span>
               <span class="map-row-value">
                 <span class:changed={line.change === "changed"}>{line.change}</span>
                 <strong>{line.computed ? money.format(line.value) : "Waiting for W-2"}</strong>
               </span>
-            </div>
+            </a>
           </li>
         {/each}
       </ul>
@@ -394,6 +397,13 @@
     gap: 1rem;
     align-items: center;
     justify-content: space-between;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 0.5rem;
+  }
+
+  .map-row:hover {
+    background: #f2f1ec;
   }
 
   .line-number {
