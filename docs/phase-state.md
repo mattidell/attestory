@@ -2,12 +2,12 @@
 {
   "version": 1,
   "phase": "Legible Entry",
-  "topic": "improvised-prototype",
-  "active_plan": "docs/phases/legible-entry/milestones/improvised-prototype.md",
-  "milestone_state": "closed",
-  "status": "**LEGIBLE ENTRY / IMPROVISED PROTOTYPE — CLOSED 2026-08-01.** All nine evaluation lines now carry a walkable, dependency-aware explanation reusing the presentation model verbatim; a reachability predicate gates the correction action and annotates dependency chips before they're clicked; the trail no longer collapses on navigation. A holistic fresh-eyes review confirmed the walk holds together end to end, with one carried-forward defect (correction resets scroll position).",
-  "current_role": "Foreman (select the next milestone; owner-held)",
-  "current_prompt": "docs/phases/legible-entry/legible-entry-roadmap.md"
+  "topic": "workspace-prototype",
+  "active_plan": "docs/phases/legible-entry/milestones/workspace-prototype.md",
+  "milestone_state": "open",
+  "status": "**LEGIBLE ENTRY / WORKSPACE PROTOTYPE — OPEN on `main-ui` 2026-08-01.** Owner-directed prototype of the workspace: the home, map, and inbox for the record. Broader than the Improvised Prototype's per-line explanation walk -- the question here is orientation (what is this workspace, what does it contain, where do I stand, what should I do next), with the existing explanation walk reused as the drill-down rather than rebuilt.",
+  "current_role": "Foreman (owner-directed prototype; experiments, no fixed tracks)",
+  "current_prompt": "docs/phases/legible-entry/milestones/workspace-prototype.md"
 }
 -->
 # Phase State
@@ -28,19 +28,27 @@ immediate dependencies or its cited evidence, and (for lines that trace back
 to the entered fact) a scoped action returning to it. The explanation trail
 does not collapse as a reader navigates deeper.
 
+The open Workspace Prototype milestone asks a broader question on top of
+that: not what produced one value, but what the workspace is, what it
+contains, where the person stands in it, and what to do next. It is
+orientation and navigation, using the explanation walk above as its
+drill-down rather than duplicating it.
+
 ## Operational State: Legible Entry
 
-* **Active Milestone:** none. The Improvised Prototype **closed 2026-08-01.**
-* **Product change:** the synthetic W-2 entry surface now exposes a
-  dependency-aware, walkable explanation across all nine evaluation lines
-  (see `docs/milestone-retrospectives/2026-08-01-improvised-prototype.md`).
-* **Plan:** `docs/phases/legible-entry/milestones/improvised-prototype.md`.
-* **Carried forward:** a correction resets scroll position, silently
-  relocating the reader away from open explanation panels (panels stay open
-  and update correctly; only the reader's position is lost).
-* **Next:** the owner selects the next milestone. Milestone 7, Real Entry,
-  is the roadmap's standing proposal.
-* **Branch line:** UI work continues on `main-ui`.
+* **Active Milestone:** Workspace Prototype, open on `main-ui` 2026-08-01,
+  owner-directed.
+* **Product change so far:** none yet -- milestone just opened.
+* **Plan:** `docs/phases/legible-entry/milestones/workspace-prototype.md`.
+* **Carried forward from Improvised Prototype:** a correction resets scroll
+  position, silently relocating the reader away from open explanation panels
+  (panels stay open and update correctly; only the reader's position is
+  lost). Not in scope for this milestone unless the workspace view surfaces
+  it again.
+* **Next:** run the first card (a workspace landing view over the synthetic
+  W-2 workspace) and let the result determine the next experiment.
+* **Branch line:** UI work continues on `main-ui`; this milestone opened on
+  `milestone/workspace-prototype`.
 
 ## Re-entry
 
