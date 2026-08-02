@@ -1,0 +1,35 @@
+{
+  "schema": "fact-type.v2",
+  "id": "demo.f1099b.covered-ltcg-txn",
+  "version": "v1",
+  "title": "Negative: evidence-document identity substituted for logical transaction identity",
+  "nature": "determinable",
+  "identity_keys": [
+    {
+      "name": "broker",
+      "kind": "entity",
+      "entity_kind": "tax.us.f1099b-broker"
+    },
+    {
+      "name": "statement",
+      "kind": "entity",
+      "entity_kind": "tax.us.f1099b-statement"
+    },
+    {
+      "name": "evidence-document",
+      "kind": "entity",
+      "entity_kind": "tax.us.f1099b-evidence-document"
+    },
+    {
+      "name": "tax-year",
+      "kind": "literal",
+      "values": ["2025"]
+    }
+  ],
+  "value_schema": {
+    "type": "object"
+  },
+  "supersession": {
+    "policy": "free"
+  }
+}

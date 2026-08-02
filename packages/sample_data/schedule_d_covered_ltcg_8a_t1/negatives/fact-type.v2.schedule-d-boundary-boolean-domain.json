@@ -1,0 +1,20 @@
+{
+  "schema": "fact-type.v2",
+  "id": "demo.schedule-d-boundary.no-short-term-transactions",
+  "version": "v1",
+  "title": "Negative: boolean domain instead of yes/no",
+  "nature": "determinable",
+  "identity_keys": [
+    {
+      "name": "tax-year",
+      "kind": "literal",
+      "values": ["2025"]
+    }
+  ],
+  "value_schema": {
+    "type": "boolean"
+  },
+  "supersession": {
+    "policy": "free"
+  }
+}
