@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "schedule-d-covered-ltcg-8a",
-  "milestone_state": "planned",
-  "status": "PLANNED ON THE MILESTONE BRANCH. This plan is reconstructed from snapshot/2026-08-02-schedule-d-covered-ltcg-pre-curation under the one-milestone-PR process. The accepted contract and completed Track 1 will be restored as separate curated commits before Track 2 resumes.",
+  "milestone_state": "track-2",
+  "status": "TRACK 2 CHARTERED ON THE MILESTONE BRANCH. The accepted contract and completed Track 1 have been restored as separate curated commits. Track 2 now implements Schedule D content and the line 7a/9/16 production route, using the interrupted pre-curation diff only as verified source material.",
   "scope": [
     "establish a transaction source family and logical transaction identity for covered, long-term, gain-only Form 1099-B statement items eligible for Schedule D line 8a",
     "establish the Schedule D completeness boundary through component authority: the eligible long-term family closed, the box-2a family closed empty, and named absent-source claims for short-term transactions, current losses, inbound carryovers, Form 8949, other Schedule D sources (K-1 gains, Forms 2439/4684/4797/6252/6781/8824), lines 18/19 special-rate sources, and Form 1099-DA/QOF flow",
@@ -36,6 +36,9 @@
       "docs/adr/0032-contribution-boundary.md",
       "docs/adr/0033-production-package-resolver.md",
       "docs/adr/0046-presentation-surface-contract.md",
+      "docs/adr/0052-covered-long-term-gains-schedule-d-line-8a.md",
+      "docs/adr/0053-covered-ltcg-schedule-d-attachment-and-producer-substrate.md",
+      "docs/adr/0054-covered-ltcg-twin-scalar-collectible-members.md",
       "packages/content/tax/2025/rule.schedule-d-required.conclusion.json",
       "packages/content/tax/2025/schedule-d-required.conclusion-binding.json",
       "packages/content/tax/2025/rule.form1040-line7a.json",
@@ -54,6 +57,9 @@
       "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md#Fixtures",
       "docs/adr/0036-schedule-attachment-ontology.md",
       "docs/adr/0050-capital-gain-distributions-and-line-7a.md",
+      "docs/adr/0052-covered-long-term-gains-schedule-d-line-8a.md",
+      "docs/adr/0053-covered-ltcg-schedule-d-attachment-and-producer-substrate.md",
+      "docs/adr/0054-covered-ltcg-twin-scalar-collectible-members.md",
       "AGENTS.md#Schema Publication Protocol",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"

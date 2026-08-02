@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
-  "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — PLANNED.** The milestone plan has been reconstructed on one milestone branch from the preserved pre-curation snapshot. Contract evidence and completed Track 1 will be restored as separate commits before Track 2 resumes.",
-  "current_role": "Foreman (curate recovered contract evidence before production resumes)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md"
+  "milestone_state": "track-2",
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 2 CHARTERED.** The accepted contract and completed transaction-source citizens are restored. Track 2 implements Schedule D content and the line 7a/9/16 production route.",
+  "current_role": "Track 2 Builder",
+  "current_prompt": "docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track2.md"
 }
 -->
 # Phase State
@@ -25,12 +25,14 @@ taxable-interest path through line 2b and Schedule B Part I, and the bounded
 2025 payer-reported current-inclusion market-discount class in Form 1099-INT
 box 10 or Form 1099-OID box 5. The selected next slice is covered,
 long-term, gain-only Form 1099-B transactions reported directly on Schedule D
-line 8a without Form 8949; its plan is reconstructed, but none of its product
-changes are yet claimed on this branch state.
+line 8a without Form 8949. Its accepted contract and source-layer citizens are
+now present on the milestone branch; downstream Schedule D computation is not
+yet claimed.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **planned.**
+* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 2
+  chartered.**
 * **Product change (target):** covered, long-term, gain-only Form 1099-B
   transactions become a closed source family that reaches Schedule D line 8a,
   Part II line 15, Part III line 16, Form 1040 line 7a, and the correct QDCG
@@ -44,8 +46,12 @@ changes are yet claimed on this branch state.
 * **Reconstruction source:** the complete discarded state is preserved at
   `snapshot/2026-08-02-schedule-d-covered-ltcg-pre-curation` (`4af36ca`).
   Its old PR, charter, and repair chronology is evidence, not current process.
-* **Next:** commit the accepted Schedule D contract and its bounded evidence
-  archive, then restore the completed Track 1 implementation as one commit.
+* **Completed on this branch:** the bounded evidence archive and accepted
+  ADR-0052/0053/0054 contract; Track 1's transaction identity, family, closure,
+  and completeness-boundary citizens with focused tests.
+* **Next:** owner-launch the Track 2 Builder from the current prompt. The
+  interrupted pre-curation implementation is source material, not accepted
+  state.
 * **Branch line:** `milestone/schedule-d-covered-ltcg-8a-v2`, one draft-to-final
   milestone PR based on the current `main`.
 
