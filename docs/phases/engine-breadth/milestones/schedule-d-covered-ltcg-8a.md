@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "schedule-d-covered-ltcg-8a",
-  "milestone_state": "planned",
-  "status": "PLANNED. Track 0 is complete pending owner ratification: proposed ADR-0052, its evaluation analysis, and the full prototype evidence chain are assembled on `decisions/schedule-d-covered-ltcg-8a`. Ratification (merge to `main`) activates production Tracks 1-4.",
+  "milestone_state": "track-0",
+  "status": "TRACK 0 COMPLETE, RATIFIED. The owner ratified ADR-0052 on 2026-08-02 by merging PR #137. ADR-0052, its evaluation analysis, and the full prototype evidence chain are on `main`. Production Tracks 1-4 are now authorized; none is chartered yet.",
   "scope": [
     "establish a transaction source family and logical transaction identity for covered, long-term, gain-only Form 1099-B statement items eligible for Schedule D line 8a",
     "establish the Schedule D completeness boundary through component authority: the eligible long-term family closed, the box-2a family closed empty, and named absent-source claims for short-term transactions, current losses, inbound carryovers, Form 8949, other Schedule D sources (K-1 gains, Forms 2439/4684/4797/6252/6781/8824), lines 18/19 special-rate sources, and Form 1099-DA/QOF flow",
