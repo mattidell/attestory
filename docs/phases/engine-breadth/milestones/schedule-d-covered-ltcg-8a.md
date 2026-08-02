@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "schedule-d-covered-ltcg-8a",
   "milestone_state": "planned",
-  "status": "PLANNED. Milestone and prototype plans merged to `main` in PR #136 (`a05d637`). Owner disposition (2026-08-01): rival topology selected, CA-02/P2-S5 completeness-boundary successor adopted, CA-04 repair authorized. The bounded repair (P2-S5 explicit successor sentence plus an exact P3 pin contract for the route-neutral selected-preferential-base symbol) is chartered, assigned to the rival Builder.",
+  "status": "PLANNED. Milestone and prototype plans merged to `main` in PR #136 (`a05d637`). Owner disposition (2026-08-01): rival topology selected, CA-02/P2-S5 adopted, CA-04 repair authorized. The repair returned, claiming both CA-02 and CA-04 resolved at Rung 1 with an exact P3 pin contract (P3-S8) requiring no route tag on the shared `P` symbol. A focused, author-independent confirmation reviewer is chartered to attempt to falsify that claim before contract synthesis.",
   "scope": [
     "establish a transaction source family and logical transaction identity for covered, long-term, gain-only Form 1099-B statement items eligible for Schedule D line 8a",
     "establish the Schedule D completeness boundary through component authority: the eligible long-term family closed, the box-2a family closed empty, and named absent-source claims for short-term transactions, current losses, inbound carryovers, Form 8949, other Schedule D sources (K-1 gains, Forms 2439/4684/4797/6252/6781/8824), lines 18/19 special-rate sources, and Form 1099-DA/QOF flow",
