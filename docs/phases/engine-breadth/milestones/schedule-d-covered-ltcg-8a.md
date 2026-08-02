@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "schedule-d-covered-ltcg-8a",
   "milestone_state": "track-1",
-  "status": "TRACK 1 READY, PR OPEN. Independent review returned READY with no findings. Awaiting owner merge; Track 2 not yet chartered.",
+  "status": "TRACK 1 MERGED. ADR-0053 proposed (discharges CA-05/CA-06) and awaiting owner ratification before Track 2 is chartered.",
   "scope": [
     "establish a transaction source family and logical transaction identity for covered, long-term, gain-only Form 1099-B statement items eligible for Schedule D line 8a",
     "establish the Schedule D completeness boundary through component authority: the eligible long-term family closed, the box-2a family closed empty, and named absent-source claims for short-term transactions, current losses, inbound carryovers, Form 8949, other Schedule D sources (K-1 gains, Forms 2439/4684/4797/6252/6781/8824), lines 18/19 special-rate sources, and Form 1099-DA/QOF flow",
