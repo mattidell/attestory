@@ -105,6 +105,44 @@ surface. Add a way back to the workspace that preserves what was open.
 The work stays synthetic by default and does not add tax logic or a second
 account of what a line means.
 
+## Findings so far
+
+**Card 1a (reverted): a client-side view swap inside `EntryPage.svelte`,
+defaulting the root to a workspace landing screen.** Broke the ratified
+keyboard-operability harness -- 12 test failures. The harness's own
+navigation-and-control-discovery design (`tests/helpers/entry_loop_keyboard_operability_client.mjs`)
+hard-depends on `dist/index.html` booting straight into the entry form
+(`#w2-box1` present on load) and on the wordmark being exactly the one `<a>`
+control it already knows how to check. **`index.html`'s default boot state is
+load-bearing for the W-2 column's L2 claim, not just a UI convenience.**
+
+**Card 1b (kept): `workspace.html` as a genuinely separate, additive page.**
+Fetches the same `/api/state` the entry surface already uses, no backend
+change. `index.html` and `EntryPage.svelte` are byte-for-byte untouched; full
+suite green (47 passed). This is the shape to keep building on.
+
+**Card 1c (reverted): a second "back to workspace" link added to
+`EntryPage.svelte`, alongside the existing wordmark.** The harness's dynamic
+control discovery picked it up correctly and the reverse-traversal checks
+passed -- but its `navigationChecks()` phase, which fires every discovered
+href control's Enter key at the very end of a run, isn't written to survive
+a control's activation actually navigating the page away. The existing
+wordmark survives because it links to itself (no real document change from
+the harness's perspective); a second link pointing at a different page
+does leave, and the harness then tries to re-locate the *first* page's
+control on the *new* page and fails (`browser-evaluation-failed`). **The
+entry page can carry at most one real cross-page navigational control under
+the current harness**, unless the harness itself is revised -- and revising
+a ratified measurement instrument is a bigger, separately-considered
+decision, not a quiet side effect of a workspace card.
+
+Consequence for the next card: a "return to workspace" affordance from
+inside the entry page needs either (a) reusing the *existing* wordmark
+control rather than adding a new one, once its target and self-link
+semantics are worked out, or (b) relying on the browser's own back
+navigation plus some state-preservation mechanism (e.g. sessionStorage) that
+doesn't add a new focusable, href-bearing control to the page.
+
 ## Completion
 
 There is no precommitted exit test. At a natural stopping point, the owner
