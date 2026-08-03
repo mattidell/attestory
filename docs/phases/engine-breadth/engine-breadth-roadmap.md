@@ -47,17 +47,26 @@ roadmap unless a selected breadth slice directly depends on them.
    disposition-time market discount, partial principal payments, taxpayer-side
    accrual, basis, and broader transaction situations remain outside it. Plan:
    `milestones/market-discount-interest.md`.
-4. **Covered Long-Term Gains, Schedule D Line 8a** — selected 2026-08-01. Add
-   a transaction source family for covered, long-term, gain-only Form 1099-B
-   transactions, establish the nine-part Schedule D completeness boundary
-   through component authority, instantiate Schedule D (line 8a, Part II
-   line 15, Part III line 16) as content on the accepted attachment ontology
-   (ADR-0036), and supersede the QDCG/line-16 path additively to use the
-   Schedule D result for this class without editing ADR-0050. Short-term
+4. **Covered Long-Term Gains, Schedule D Line 8a** — selected 2026-08-01.
+   **Closed 2026-08-02** (Track 2/3 independently reviewed `READY`). Added
+   a transaction source family for covered, long-term, gain-only Form
+   1099-B transactions, the nine-part Schedule D completeness boundary
+   through component authority, Schedule D (line 8a, Part II line 15, Part
+   III line 16) as content on the accepted attachment ontology (ADR-0036),
+   and superseded the QDCG/line-16 path additively to use the Schedule D
+   result for this class without editing ADR-0050. Two additive
+   architecture repairs surfaced mid-milestone and were ratified in-scope:
+   ADR-0055 (attachment completeness must check declared-answer *value*,
+   not only presence) and ADR-0056 (blocked/not-required attachment
+   dispositions must be visible on the presentation surface, not silently
+   omitted). The bounded class is synthetic complete; short-term
    transactions, losses, carryovers, Form 8949, noncovered securities,
-   digital assets, and other Schedule D sources remain outside it. Plan:
-   `milestones/schedule-d-covered-ltcg-8a.md`; curated contract evidence:
-   `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/`.
+   digital assets, and other Schedule D sources remain honestly outside
+   it. Plan: `milestones/schedule-d-covered-ltcg-8a.md`; curated contract
+   evidence: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/`;
+   retrospective: `docs/milestone-retrospectives/2026-08-02-schedule-d-covered-ltcg-8a.md`;
+   deferral ledger:
+   `milestones/schedule-d-covered-ltcg-8a-deferral-ledger.md`.
 5. **Next breadth slice — owner-selected from the refreshed frontier.**
    Subtractive interest adjustments and the broader capital-transaction
    sources deferred out of item 4 remain distinct candidates; other
@@ -90,11 +99,14 @@ source and completeness boundary is selected.
   taxpayer-side accrual, subtractive adjustments, and broader securities
   history remain outside it. Plan:
   `milestones/market-discount-interest.md`.
-- **Covered Long-Term Gains, Schedule D Line 8a — selected 2026-08-01,
-  reconstructed on one milestone branch 2026-08-02.** Plan:
-  `milestones/schedule-d-covered-ltcg-8a.md`. The accepted contract and
-  completed Track 1 are being restored as separate curated commits before
-  Track 2 resumes.
+- **Covered Long-Term Gains, Schedule D Line 8a — closed 2026-08-02**
+  (independently reviewed `READY`). The bounded covered, long-term,
+  gain-only, no-adjustment Form 1099-B class is synthetic complete through
+  Schedule D (line 8a/13/15/16), Form 1040 line 7a/9, the Schedule
+  D-bound QDCG line-16 path, package resolution, explanation, and
+  presentation, including honest visibility for blocked/not-required
+  attachment states (ADR-0056). Plan:
+  `milestones/schedule-d-covered-ltcg-8a.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
