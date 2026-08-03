@@ -170,14 +170,6 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    explanation, and holds up with a genuinely second fact family. Plan:
    `docs/phases/legible-entry/milestones/workspace-prototype.md`; retrospective:
    `docs/milestone-retrospectives/2026-08-02-workspace-prototype.md`.
-9. **Document-Oriented Entry.** Organize entry from named source contexts:
-   normally documents, and otherwise an explicitly named question, decision,
-   or taxpayer context. Opening a context presents its related fields
-   together, while the existing contribution boundary and explanation walk
-   remain the underlying path. **Planned on `main-ui` 2026-08-02.** This is an
-   owner-directed synthetic prototype; it does not yet establish a document
-   citizen, a universal context taxonomy, or a real-data claim. Plan:
-   `docs/phases/legible-entry/milestones/document-oriented-entry.md`.
 
 **Due now, outside the sequence.** The legibility-audit README's own cadence
 triggers an audit at each phase boundary, before the transition plan is

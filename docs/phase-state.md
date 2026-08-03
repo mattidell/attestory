@@ -2,12 +2,12 @@
 {
   "version": 1,
   "phase": "Legible Entry",
-  "topic": "document-oriented-entry",
-  "active_plan": "docs/phases/legible-entry/milestones/document-oriented-entry.md",
-  "milestone_state": "track-1",
-  "status": "**LEGIBLE ENTRY / DOCUMENT-ORIENTED ENTRY — TRACK 1 CHARTERED on `main-ui` 2026-08-02.** The first experiment tests a source-context map over the synthetic W-2 and 1099-DIV fields plus one explicitly named question context, without adding tax meaning or a new citizen.",
-  "current_role": "Builder (Document-Oriented Entry Card 1)",
-  "current_prompt": "docs/reviews/charter-2026-08-02-document-oriented-entry-card1.md"
+  "topic": "workspace-prototype",
+  "active_plan": "docs/phases/legible-entry/milestones/workspace-prototype.md",
+  "milestone_state": "closed",
+  "status": "**LEGIBLE ENTRY / WORKSPACE PROTOTYPE — CLOSED on `main-ui` 2026-08-02.** The owner-directed prototype established a separate workspace landing surface over the synthetic entry loop, then exercised it with a genuinely second fact family. The workspace is field-keyed and reuses the existing entry and explanation surfaces.",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/legible-entry/legible-entry-roadmap.md"
 }
 -->
 # Phase State
@@ -31,23 +31,18 @@ reasons are sourced from the existing model. Selecting a record item opens
 the existing entry or explanation surface, and the field-keyed UI now holds
 up when a second fact family is present.
 
-The next milestone asks whether the workspace should organize entry around a
-named source context. Usually that context is a document. When it is not, the
-surface must name the applicable question, decision, or taxpayer context.
-Opening a context should present its related fields together.
-
 ## Operational State: Legible Entry
 
-* **Active Milestone:** Document-Oriented Entry, Track 1 chartered on
-  `main-ui` 2026-08-02.
-* **Product change so far:** none in this milestone. The prior workspace is a
-  separate, field-keyed orientation surface over the synthetic entry loop.
-* **Plan:** `docs/phases/legible-entry/milestones/document-oriented-entry.md`.
+* **Active Milestone:** none. Workspace Prototype closed on `main-ui`
+  2026-08-02.
+* **Product change:** the workspace is a separate, field-keyed orientation
+  surface over the synthetic entry loop, with links into the existing entry
+  and explanation surfaces.
+* **Plan:** `docs/phases/legible-entry/milestones/workspace-prototype.md`.
 * **Carried forward:** correction still resets scroll position, silently
   relocating the reader away from open explanation panels. The workspace
   prototype did not change that behavior.
-* **Next:** build the source-context map described in
-  `docs/reviews/charter-2026-08-02-document-oriented-entry-card1.md`.
+* **Next:** select the next Legible Entry milestone from the roadmap.
 * **Branch line:** UI work continues on `main-ui`.
 
 ## Re-entry
