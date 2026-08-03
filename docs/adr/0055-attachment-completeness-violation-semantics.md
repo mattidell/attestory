@@ -35,16 +35,15 @@ each of its seven absence declarations must equal `"yes"` for the bounded
 class to be complete, and a present, current, honestly-declared `"no"` is
 a real violation, not a valid branch.
 
-Paper evidence: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/prototypes/schedule-d-covered-ltcg-8a/attachment-completeness-paper-spike.md`
-— a producer→authority→consumer→failure map, two positive and two negative
-paper instances, one lifecycle trace showing the attachment's disposition
-is invariant across a correction that genuinely flips real-world
-eligibility, and an evaluation of two candidate extensions. Per
-`docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-schedule-d-attachment-completeness-decision.md`
-(Gate 1 score 6, technically prototype-eligible, deliberately scoped by the
-owner to a paper-spike-plus-ADR-draft rung matching the ADR-0053/ADR-0054
-precedent on this same milestone), this ADR is grounded in that paper spike
-alone — no committee review, no incumbent/rival round.
+The paper spike (a producer→authority→consumer→failure map, two positive
+and two negative paper instances, one lifecycle trace showing the
+attachment's disposition is invariant across a correction that genuinely
+flips real-world eligibility, and an evaluation of two candidate
+extensions) is not retained in the repository; its charter (Gate 1 score
+6, technically prototype-eligible, deliberately scoped by the owner to a
+paper-spike-plus-ADR-draft rung matching the ADR-0053/ADR-0054 precedent
+on this same milestone) is likewise not retained. This ADR is grounded in
+that paper spike alone — no committee review, no incumbent/rival round.
 
 ## Decision
 
@@ -180,9 +179,7 @@ alone — no committee review, no incumbent/rival round.
 
 ## Links
 
-- Paper spike: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/prototypes/schedule-d-covered-ltcg-8a/attachment-completeness-paper-spike.md`
-- Charter: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-schedule-d-attachment-completeness-decision.md`
-- Implementation charter: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-attachment-completeness-violation-implementation.md`
+- Paper spike and charter: not retained in the repository.
 - Builds on: ADR-0036 (attachment ontology, the completeness check this ADR
   widens), ADR-0037 (`conditional_dependency_set`, the accumulate-then-report
   discipline Decision 3 reuses), ADR-0038 (declared-absence pattern and the

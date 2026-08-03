@@ -37,18 +37,17 @@ ADR-0055's `COMPLETENESS_VALUE_VIOLATION`: the derivation-record ledger
 already carries the exact violated declaration and its value, and none of
 it can currently reach the page.
 
-Paper evidence:
-`docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/prototypes/schedule-d-covered-ltcg-8a/attachment-disposition-visibility-paper-spike.md`
-— a producer→authority→consumer→failure map, two positive instances (the
-unaffected published-attachment baseline, for both Schedule D and Schedule
-B), two negative instances (not-required renders nothing; required-and-
-incomplete, including the ADR-0055 violation case, renders nothing), and an
-evaluation of two candidate shapes. Per
-`docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md`
-(Gate 1 score 5, paper-spike-plus-ADR-draft rung, matching the ADR-0055
-precedent on this same milestone — lower residual uncertainty than
-ADR-0055 was, since the shape to mirror already exists and is proven in
-production), this ADR is grounded in that paper spike alone.
+The paper spike — a producer→authority→consumer→failure map, two positive
+instances (the unaffected published-attachment baseline, for both
+Schedule D and Schedule B), two negative instances (not-required renders
+nothing; required-and-incomplete, including the ADR-0055 violation case,
+renders nothing), and an evaluation of two candidate shapes — is not
+retained in the repository, nor is its charter (Gate 1 score 5,
+paper-spike-plus-ADR-draft rung, matching the ADR-0055 precedent on this
+same milestone — lower residual uncertainty than ADR-0055 was, since the
+shape to mirror already exists and is proven in production, not newly
+invented). This ADR is grounded in that paper spike alone — no committee
+review, no incumbent/rival round.
 
 ## Decision
 
@@ -213,9 +212,7 @@ production), this ADR is grounded in that paper spike alone.
 
 ## Links
 
-- Paper spike: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/prototypes/schedule-d-covered-ltcg-8a/attachment-disposition-visibility-paper-spike.md`
-- Charter: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md`
-- Implementation charter: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-attachment-disposition-visibility-implementation.md`
+- Paper spike and charter: not retained in the repository.
 - Builds on: ADR-0036 (attachment ontology, the three-state disposition this
   ADR makes fully visible), ADR-0046 (presentation surface contract,
   Requirement 2 honest blocking / Requirement 4 blast containment /
