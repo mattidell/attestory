@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
-  "milestone_state": "track-3-chartered",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 2 (`37b4426`) AND THE ADR-0055 IMPLEMENTATION (`8b26db4`) ARE LANDED; TRACK 3 CHARTERED.** Schedule D content, the line 7a/9/16 production route, and the attachment completeness value-check (`attachment-rule.v4`) are committed; the attachment's disposition now agrees with `selected-preferential-base` on every current fact set. Foreman-run focused suites, full local gate (850 passed), governance lint, and envelope/whitespace scans are clean against `HEAD`. Track 3 (presentation and integrated regression) is chartered for owner launch; it is flagged as genuinely unattempted ground (no attachment/itemization citizen has ever been projected through the presentation surface) with explicit stop conditions if it needs new generic capability.",
-  "current_role": "Track 3 Builder",
-  "current_prompt": "docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track3.md"
+  "milestone_state": "track-3-landed-attachment-visibility-decision-chartered",
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 3 LANDED (`ef921d4`).** Schedule D fields and its attachment project through the presentation surface for the published/eligible path; numeric lines correctly publish/redact in every case (5 new goldens, new browser-manifest 4/4, baselines 26/26 + 19/19 + 34/34 node tests unaffected). Foreman-verified clean (focused suites 72 passed, governance lint conformant, envelope/whitespace clean). Track 3 hit its own named charter-stop: `_resolve_attachment` returns no `citationGroups` entry for the blocked/not-required dispositions, so a blocked or not-required Schedule D (or Schedule B) attachment is completely invisible in the product page — a real, pre-existing ADR-0046 Requirement 2 gap surfaced by Schedule D, not introduced by it. A paper-spike-plus-ADR-draft decision unit is chartered before any further Track 3 rework or milestone closeout.",
+  "current_role": "Attachment Disposition Visibility Decision Unit (paper spike + ADR draft, owner-launched)",
+  "current_prompt": "docs/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md"
 }
 -->
 # Phase State
@@ -31,9 +31,9 @@ yet claimed.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 2
-  and the ADR-0055 implementation landed; Track 3 chartered for owner
-  launch.**
+* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 3
+  landed; an attachment-visibility decision unit is chartered before
+  closeout.**
 * **Product change (target):** covered, long-term, gain-only Form 1099-B
   transactions become a closed source family that reaches Schedule D line 8a,
   Part II line 15, Part III line 16, Form 1040 line 7a, and the correct QDCG
@@ -52,13 +52,15 @@ yet claimed.
   and completeness-boundary citizens with focused tests; Track 2's Schedule D
   content, selected-preferential-base, and line 7a/9/16 production route
   (`37b4426`); the attachment completeness-violation paper spike, ADR-0055
-  (ratified 2026-08-02), and its implementation (`8b26db4`) — no open,
-  not-allowlisted production conditions remain on this branch.
-* **Next:** owner-launch the Track 3 Builder from the current prompt
-  (presentation projection of Schedule D fields and the attachment
-  disposition, synthetic goldens, browser-manifest regression). The charter
-  flags attachment/itemization presentation as unprecedented and names
-  explicit stop conditions if it needs new generic substrate.
+  (ratified 2026-08-02), and its implementation (`8b26db4`); Track 3's
+  presentation projection of Schedule D fields and the attachment through
+  the citation walk (`ef921d4`), with one open, named charter-stop finding
+  on attachment blocked/not-required visibility.
+* **Next:** owner-launch the attachment disposition-visibility decision unit
+  from the current prompt (paper spike plus proposed ADR draft on extending
+  `presentation-model.v1`'s `citationGroups` shape to cover blocked/
+  not-required attachments). Implementation and any Track-3 rework follow
+  once the owner ratifies its outcome; closeout follows that.
 * **Branch line:** `milestone/schedule-d-covered-ltcg-8a-v2`, one draft-to-final
   milestone PR based on the current `main`.
 
