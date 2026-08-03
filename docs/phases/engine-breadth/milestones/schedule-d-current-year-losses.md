@@ -2,8 +2,9 @@
 {
   "version": 1,
   "topic": "schedule-d-current-year-losses",
-  "milestone_state": "planned",
-  "status": "PLANNED, DRAFT. Owner-selected 2026-08-03. Track 0 (paper-first) has not yet run; this plan and its decision inventory are prepared for owner review before the first Builder is chartered.",
+  "milestone_state": "closed",
+  "status": "CLOSED 2026-08-03. The bounded covered, basis-reported, short-term-or-long-term, gain-or-loss 2025 Form 1099-B class is synthetic complete: signed Schedule D lines 1a/7/8a/15/16, the current-year $3,000/$1,500 capital-loss limitation (line 21), Form 1040 line 7a/9, and the Schedule D-bound QDCG line-16 path at any sign of Schedule D's result, with a paper-first Track 0 settling the source, routing, and completeness contracts (ADR-0057, ADR-0058) before implementation. Track 1's independent review found four fixture-coverage/disclosure findings, closed by one findings-only repair (recheck READY); Track 2's independent review found none.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-03-schedule-d-current-year-losses.md",
   "scope": [
     "establish an additive successor long-term source family/fact-type/closure contract admitting gain-or-loss covered transactions, without editing ADR-0052's gain-only family, fact type, or closure predicate in place",
     "establish a new short-term covered-transaction source family/fact-type/closure contract, parallel in shape to the long-term successor",
@@ -75,6 +76,7 @@
       "AGENTS.md#Data Safety Rules"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-03-schedule-d-current-year-losses.md",
       "docs/phases/engine-breadth/engine-breadth-overview.md",
       "docs/phases/engine-breadth/coverage-frontier.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md",
