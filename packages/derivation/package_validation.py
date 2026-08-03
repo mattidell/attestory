@@ -611,6 +611,33 @@ def validate_package(
             if pin["role"] == "composition" and citizen.get("publishes") == S:
                 comp_member = (pin, citizen)
                 break
+        # Schedule B interest-adjustment route: line 2b@v4 publishes taxable-total
+        # after subtracting closed adjustment classes from the positive composition.
+        # The selected composition citizen publishes the positive-total basis, not
+        # taxable-total; resolve composition through the producer pin instead of
+        # requiring a second selected version of the same composition id.
+        if comp_member is None and S == "tax.us.2025.interest.taxable-total":
+            for pin, citizen in resolved:
+                if (
+                    citizen["schema"] in _RULE_ARTIFACT_SCHEMAS
+                    and citizen.get("publishes") == S
+                    and pin["id"] == "tax.us.2025.rule.form1040-line2b"
+                    and pin["version"] == "v4"
+                    and package.get("version") in {"v14", "v15"}
+                ):
+                    r_comp = citizen.get("composition")
+                    if not isinstance(r_comp, dict):
+                        break
+                    for cpin, ccitizen in resolved:
+                        if (
+                            cpin["role"] == "composition"
+                            and cpin["id"] == r_comp.get("id")
+                            and cpin["version"] == r_comp.get("version")
+                            and ccitizen.get("publishes") == "tax.us.2025.interest.positive-total"
+                        ):
+                            comp_member = (cpin, ccitizen)
+                            break
+                    break
         if comp_member is None:
             issues.append(MemberIssue(package_id, "", "COMPOSITION_MEMBER_MISSING",
                                       f"composition member publishing {S!r} is missing from package"))
@@ -636,7 +663,7 @@ def validate_package(
                 comp_constituents = {c["authorizes_subtotal"] for c in comp_citizen.get("constituents", [])}
                 rule_requires = set(rule_citizen.get("requires", []))
                 v11_adjustment_route = (
-                    package.get("version") == "v14"
+                    package.get("version") in {"v14", "v15"}
                     and rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
                     and rule_pin["version"] == "v4"
                 )
@@ -912,6 +939,7 @@ def validate_package(
         "artifact-package.v7",
         "artifact-package.v10",
         "artifact-package.v11",
+        "artifact-package.v12",
     }
     source_family_members = {
         citizen["id"]: citizen["member_predicate"]["fact_type"]
@@ -1097,8 +1125,16 @@ def validate_package(
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_COMPOSITION_ABSENT",
                                               f"part {part['part_id']!r} names absent composition {comp_pin}"))
                 elif part["tie_out"]["line_symbol"] != comp["publishes"]:
-                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
-                                              f"part {part['part_id']!r} line symbol does not equal composition publication"))
+                    subtractive_positive_basis = (
+                        citizen["schema"] == "attachment-rule.v6"
+                        and part["tie_out"].get("operation") == "subtract"
+                        and bool(part.get("adjustment_rows"))
+                        and comp.get("publishes") == "tax.us.2025.interest.positive-total"
+                        and part["tie_out"]["line_symbol"] == "tax.us.2025.interest.taxable-total"
+                    )
+                    if not subtractive_positive_basis:
+                        issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
+                                                  f"part {part['part_id']!r} line symbol does not equal composition publication"))
 
     # 10c. attachment-rule.v6 keeps the v2 positive row contract and adds a
     # closed, typed subtractive surface.  The schema fixes the vocabulary;
@@ -1170,7 +1206,7 @@ def validate_package(
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_SUBTOTAL_MISMATCH",
                                               f"part {part['part_id']!r} adjustment subtotal is not authorized by family {family['id']!r}"))
             if (
-                package.get("version") == "v14"
+                package.get("version") in {"v14", "v15"}
                 and pin["id"] == "tax.us.2025.rule.attachment.schedule-b"
                 and pin["version"] == "v4"
             ):
@@ -1206,8 +1242,16 @@ def validate_package(
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_COMPOSITION_ABSENT",
                                               f"part {part['part_id']!r} names absent composition {comp_pin}"))
                 elif tie_out["line_symbol"] != comp["publishes"]:
-                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
-                                              f"part {part['part_id']!r} line symbol does not equal composition publication"))
+                    subtractive_positive_basis = (
+                        citizen["schema"] == "attachment-rule.v6"
+                        and tie_out.get("operation") == "subtract"
+                        and bool(part.get("adjustment_rows"))
+                        and comp.get("publishes") == "tax.us.2025.interest.positive-total"
+                        and tie_out["line_symbol"] == "tax.us.2025.interest.taxable-total"
+                    )
+                    if not subtractive_positive_basis:
+                        issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
+                                                  f"part {part['part_id']!r} line symbol does not equal composition publication"))
 
     # 10a. Declared-absence CMDN member domain guard (ADR-0038 production
     # condition 1): a conditional_dependency_set member fact type that the
