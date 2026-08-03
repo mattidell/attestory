@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
-  "milestone_state": "adr-0056-ratified-implementation-chartered",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — ADR-0056 RATIFIED.** Track 3 (`ef921d4`) landed a named charter-stop: a blocked or not-required Schedule D (or Schedule B) attachment renders no signal at all. ADR-0056 (accepted 2026-08-02, Decision 3 amended before ratification — attachment blocked/not-required text and the closed three-code known allowlist are renderer-owned declared constants, never tax content) resolves the shape: a new `attachments` presentation-model key, `citationGroups` unaffected. An implementation charter is chartered for owner launch.",
-  "current_role": "Attachment Disposition Visibility Implementation Builder (owner-launched)",
-  "current_prompt": "docs/reviews/charter-2026-08-02-attachment-disposition-visibility-implementation.md"
+  "milestone_state": "production-work-landed-track2-3-review-chartered",
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — ALL PRODUCTION WORK IN TRACKS 2/3 LANDED (`36c7e94..88cb5e1`).** Track 2, the ADR-0055 completeness value-check, Track 3 presentation, and the ADR-0056 attachment-visibility fix are all committed. Foreman-run focused suites, full local gates, governance lint, and envelope/whitespace scans are clean at every step; foreman spot-checked the ADR-0056 golden regenerations as additive-only. Tracks 2 and 3 have not yet had the milestone's own required author-independent review (owed per 'Production track gates'; only Track 1 has one on record) — a combined Track 2/3 review is chartered, doubling as a first Completion-gate pass over the full post-Track-1 range.",
+  "current_role": "Track 2/3 Independent Reviewer (owner-launched)",
+  "current_prompt": "docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track2-3-review.md"
 }
 -->
 # Phase State
@@ -32,7 +32,8 @@ yet claimed.
 ## Operational State: Engine Breadth
 
 * **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a —
-  **ADR-0056 ratified; its implementation is chartered before closeout.**
+  **all Track 2/3 production work landed; independent review chartered
+  before closeout.**
 * **Product change (target):** covered, long-term, gain-only Form 1099-B
   transactions become a closed source family that reaches Schedule D line 8a,
   Part II line 15, Part III line 16, Form 1040 line 7a, and the correct QDCG
@@ -48,17 +49,19 @@ yet claimed.
   Its old PR, charter, and repair chronology is evidence, not current process.
 * **Completed on this branch:** the bounded evidence archive and accepted
   ADR-0052/0053/0054 contract; Track 1's transaction identity, family, closure,
-  and completeness-boundary citizens with focused tests; Track 2's Schedule D
-  content, selected-preferential-base, and line 7a/9/16 production route
-  (`37b4426`); the attachment completeness-violation paper spike, ADR-0055
-  (ratified 2026-08-02), and its implementation (`8b26db4`); Track 3's
+  and completeness-boundary citizens with focused tests (independently
+  reviewed); Track 2's Schedule D content, selected-preferential-base, and
+  line 7a/9/16 production route (`37b4426`); ADR-0055 (attachment
+  completeness value-check) and its implementation (`8b26db4`); Track 3's
   presentation projection of Schedule D fields and the attachment through
-  the citation walk (`ef921d4`); the attachment disposition-visibility paper
-  spike and ADR-0056 (ratified 2026-08-02).
-* **Next:** owner-launch the attachment disposition-visibility implementation
-  builder from the current prompt (`attachments` model key,
-  `_resolve_attachment` widening, renderer addition, goldens). Closeout
-  follows once it lands.
+  the citation walk (`ef921d4`); ADR-0056 (attachment disposition
+  visibility) and its implementation (`88cb5e1`) — Tracks 2/3 not yet
+  independently reviewed.
+* **Next:** owner-launch the Track 2/3 Independent Reviewer from the
+  current prompt. `READY` closes the last gap before the closeout stage
+  (coverage frontier, roadmap, phase state, deferral ledger, retrospective,
+  milestone PR); `NOT READY` returns findings to the foreman for a
+  findings-only repair charter.
 * **Branch line:** `milestone/schedule-d-covered-ltcg-8a-v2`, one draft-to-final
   milestone PR based on the current `main`.
 
