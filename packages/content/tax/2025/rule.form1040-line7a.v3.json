@@ -1,0 +1,90 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule-d.line-16",
+      "tax.us.2025.schedule-d.line-21",
+      "tax.us.2025.capital-gains.selected-preferential-base"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-7a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line7a",
+  "notes": "Form 1040 line 7a v3 (ADR-0058 Decision 3): when Schedule D line 16 >= 0, equals line 16; when line 16 < 0, equals -line 21. Direct-route (no Schedule D activity) still uses selected-preferential-base when both ST and LT proceeds subtotals are 0.",
+  "pins": [],
+  "publishes": "tax.us.2025.capital-gains.line7a-total",
+  "requires": [
+    "tax.us.2025.schedule-d.line-16",
+    "tax.us.2025.schedule-d.line-21",
+    "tax.us.2025.capital-gains.selected-preferential-base",
+    "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "name": "tax.us.2025.capital-gains.selected-preferential-base",
+      "op": "ref"
+    },
+    "op": "choose",
+    "then": {
+      "else": {
+        "left": 0,
+        "op": "subtract",
+        "right": {
+          "name": "tax.us.2025.schedule-d.line-21",
+          "op": "ref"
+        }
+      },
+      "op": "choose",
+      "then": {
+        "name": "tax.us.2025.schedule-d.line-16",
+        "op": "ref"
+      },
+      "when": {
+        "cmp": "gte",
+        "left": {
+          "name": "tax.us.2025.schedule-d.line-16",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": 0
+      }
+    },
+    "when": {
+      "args": [
+        {
+          "cmp": "gt",
+          "left": {
+            "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        },
+        {
+          "cmp": "gt",
+          "left": {
+            "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        }
+      ],
+      "op": "any"
+    }
+  },
+  "version": "v3",
+  "when": true
+}

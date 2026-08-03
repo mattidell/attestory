@@ -67,11 +67,29 @@ roadmap unless a selected breadth slice directly depends on them.
    retrospective: `docs/milestone-retrospectives/2026-08-02-schedule-d-covered-ltcg-8a.md`;
    deferral ledger:
    `milestones/schedule-d-covered-ltcg-8a-deferral-ledger.md`.
-5. **Next breadth slice — owner-selected from the refreshed frontier.**
-   Subtractive interest adjustments and the broader capital-transaction
-   sources deferred out of item 4 remain distinct candidates; other
-   market-discount situations and unrelated income domains remain outside
-   the selected class.
+5. **Current-Year Capital Losses and Schedule D Line 21** — selected
+   2026-08-03. **Closed 2026-08-03** (Track 1 with one findings-only
+   repair, Track 2, both independently reviewed `READY`). Added an
+   additive successor long-term family (gain-or-loss) and a new
+   short-term family (ADR-0057), each preserving the original ADR-0052
+   gain-only family unedited and package-exclusive against it; a
+   `selected-preferential-base` successor with a multi-family
+   discriminator, an exact pin table, and a producer-side floor to
+   nonnegative; signed Schedule D lines 1a/7/8a/15/16 and line 21's
+   §1211 current-year loss cap (ADR-0058); and a completeness successor
+   retiring two of the seven boundary declarations while preserving the
+   rest. The bounded class is synthetic complete; inbound carryovers,
+   Form 8949, noncovered securities, digital assets, and other Schedule D
+   sources remain honestly outside it. Plan:
+   `milestones/schedule-d-current-year-losses.md`; retrospective:
+   `docs/milestone-retrospectives/2026-08-03-schedule-d-current-year-losses.md`;
+   deferral ledger:
+   `milestones/schedule-d-current-year-losses-deferral-ledger.md`.
+6. **Next breadth slice — owner-selected from the refreshed frontier.**
+   Inbound capital-loss carryovers, Form 8949/noncovered securities/
+   adjustments, and other Schedule D sources deferred out of item 5 remain
+   distinct candidates; subtractive interest adjustments and unrelated
+   income domains remain outside the selected class.
 
 ## Why line 7a comes before Schedule D
 
@@ -107,6 +125,16 @@ source and completeness boundary is selected.
   presentation, including honest visibility for blocked/not-required
   attachment states (ADR-0056). Plan:
   `milestones/schedule-d-covered-ltcg-8a.md`.
+- **Current-Year Capital Losses and Schedule D Line 21 — closed
+  2026-08-03** (Track 1 with one findings-only repair, Track 2, both
+  independently reviewed `READY`). The bounded covered, basis-reported,
+  short-term-or-long-term, gain-or-loss Form 1099-B class is synthetic
+  complete through signed Schedule D lines 1a/7/8a/15/16, the §1211
+  current-year loss cap (line 21), Form 1040 line 7a/9, the Schedule
+  D-bound QDCG line-16 path at any sign of Schedule D's result, package
+  resolution, explanation, and presentation, including honest visibility
+  for the new `SOURCE_SET_UNCLOSED` and `COMPLETENESS_VALUE_VIOLATION`
+  states. Plan: `milestones/schedule-d-current-year-losses.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the

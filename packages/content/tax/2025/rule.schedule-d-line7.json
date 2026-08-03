@@ -1,0 +1,34 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule-d.line-1a-gain"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-7",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.schedule-d-line7",
+  "notes": "Schedule D Part I line 7 = line 1a (h) for this bounded class (ADR-0058 Decision 1).",
+  "pins": [],
+  "publishes": "tax.us.2025.schedule-d.line-7",
+  "requires": [
+    "tax.us.2025.schedule-d.line-1a-gain"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.schedule-d.line-1a-gain",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": true
+}

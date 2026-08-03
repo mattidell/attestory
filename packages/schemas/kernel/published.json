@@ -30,5 +30,6 @@
   "quantity-vocabulary.v2.schema.json": "83588761674fe3d7b008fea5a00287b555357e0fccac9e728d6b9a23332b4a3a",
   "quantity-vocabulary.v3.schema.json": "236a4001f236c940013f7d13db6454ab2a2f44eb3a3f10b124548ec9e91100ed",
   "quantity-vocabulary.v4.schema.json": "a384e5fd8683809bc930f4fe9ff2ccb4addb3e4b461e4a228b3494c9df40a834",
-  "role-canon.v1.schema.json": "136a805cedbd4349a1b68ed5e29088db1f5612c3c1e83fafc5186812b922e885"
+  "role-canon.v1.schema.json": "136a805cedbd4349a1b68ed5e29088db1f5612c3c1e83fafc5186812b922e885",
+  "quantity-vocabulary.v5.schema.json": "6e1d8d60ad80fee776dc8aca63aec16d953d9ca90a20ce0d420db6ad47c182e2"
 }

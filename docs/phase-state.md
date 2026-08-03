@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "schedule-d-covered-ltcg-8a",
-  "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
+  "topic": "schedule-d-current-year-losses",
+  "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-current-year-losses.md",
   "milestone_state": "closed",
-  "status": "**ENGINE BREADTH — COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a CLOSED 2026-08-02.** Track 2/3 independent review returned `READY` on the first pass. The bounded covered, long-term, gain-only, no-adjustment Form 1099-B class is synthetic complete: Schedule D line 8a/13/15/16, Form 1040 line 7a/9, and the Schedule D-bound QDCG line-16 path, with two additive architecture repairs ratified in-scope (ADR-0055 completeness value-check, ADR-0056 attachment disposition visibility). Closeout complete: coverage frontier, roadmap, deferral ledger, retrospective, and README are updated; the milestone's own working charters are distilled into the retrospective and this record, not retained. The next breadth milestone is unselected.",
+  "status": "**ENGINE BREADTH — CURRENT-YEAR CAPITAL LOSSES AND SCHEDULE D LINE 21 CLOSED 2026-08-03.** Track 1 (with one findings-only repair) and Track 2 both independently reviewed `READY`. The bounded covered, basis-reported, short-term-or-long-term, gain-or-loss 2025 Form 1099-B class is synthetic complete: signed Schedule D lines 1a/7/8a/15/16, the §1211 current-year loss cap (line 21), Form 1040 line 7a/9, the Schedule D-bound QDCG line-16 path at any sign of Schedule D's result, package resolution, explanation, and presentation, including honest visibility for the new SOURCE_SET_UNCLOSED and COMPLETENESS_VALUE_VIOLATION states. Closeout complete: coverage frontier, roadmap, deferral ledger, retrospective, and README are updated; the milestone's own working charters are distilled into the retrospective and this record, not retained. Entire milestone stayed local (no push, no PR) until this closeout, per explicit owner instruction. The next breadth milestone is unselected.",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -23,38 +23,53 @@ The engine computes the bounded direct-reporting path for Form 1099-DIV box 2a
 through Form 1040 line 7a, the bounded 2025 Schedule K-1 (Form 1065) box-5
 taxable-interest path through line 2b and Schedule B Part I, the bounded 2025
 payer-reported current-inclusion market-discount class in Form 1099-INT box 10
-or Form 1099-OID box 5, and now the bounded covered, long-term, gain-only Form
-1099-B class reported directly on Schedule D line 8a without Form 8949,
-including the Schedule D-bound QDCG line-16 path and an honest attachment
+or Form 1099-OID box 5, and now the bounded covered, basis-reported Form
+1099-B class — short-term or long-term, gain or loss — reported directly on
+Schedule D line 1a/8a without Form 8949, including the current-year
+$3,000/$1,500 capital-loss limitation, the Schedule D-bound QDCG line-16 path
+at any sign of Schedule D's result, and an honest attachment
 disposition/explanation walk. The next breadth slice is owner-selected from
 the refreshed coverage frontier.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none selected. Covered Long-Term Gains, Schedule D
-  Line 8a **closed 2026-08-02**, independently reviewed `READY`.
-* **Result:** the bounded covered, long-term, gain-only, no-adjustment 2025
-  Form 1099-B class is synthetic complete end to end — Schedule D (line
-  8a columns (d)/(e)/(h), Part II line 15, Part III line 16), Form 1040
-  line 7a/9, the Schedule D-bound QDCG line-16 path, package resolution,
-  explanation, and presentation (including honest visibility for
-  blocked/not-required attachment states, ADR-0056). Short-term
-  transactions, capital losses/carryovers, Form 8949, noncovered
+* **Active milestone:** none selected. Current-Year Capital Losses and the
+  Schedule D Line 21 Limitation **closed 2026-08-03**, independently
+  reviewed `READY`.
+* **Result:** the bounded covered, basis-reported, short-term-or-long-term,
+  gain-or-loss 2025 Form 1099-B class is synthetic complete end to end —
+  an additive successor long-term family and a new short-term family
+  (ADR-0057), each preserving the original ADR-0052 gain-only family
+  unedited and package-exclusive against it; a `selected-preferential-base`
+  successor with a multi-family discriminator, an exact pin table, and a
+  producer-side floor to nonnegative; signed Schedule D lines 1a/7/8a/15/16
+  and the §1211 current-year loss cap (line 21, ADR-0058); a completeness
+  successor retiring two of the seven boundary declarations; package
+  resolution, explanation, and presentation, including honest visibility
+  for the new `SOURCE_SET_UNCLOSED` and `COMPLETENESS_VALUE_VIOLATION`
+  states. Inbound capital-loss carryovers, Form 8949, noncovered
   securities, digital assets, other Schedule D sources, and QOF flow
   remain honestly outside it — see the deferral ledger.
-* **Plan:** `docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-02-schedule-d-covered-ltcg-8a.md`.
-* **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a-deferral-ledger.md`.
-* **Contract evidence:** `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/`
-  preserves the P1-P3 prototype evidence behind ADR-0052/0053/0054,
-  unchanged by this milestone's later tracks. ADR-0055 and ADR-0056's
-  paper spikes and working charters were distilled into their accepted
-  ADR text and this retrospective and are not retained in the repository.
-* **Ratified in-scope:** ADR-0055 (attachment completeness value-check)
-  and ADR-0056 (attachment disposition visibility) — both narrow,
-  additive, Tier 2, surfaced by their own builders as named charter-stop
-  findings and resolved via a paper-spike-plus-ADR-draft decision unit
-  each, per the retrospective.
+* **Plan:** `docs/phases/engine-breadth/milestones/schedule-d-current-year-losses.md`.
+* **Retrospective:** `docs/milestone-retrospectives/2026-08-03-schedule-d-current-year-losses.md`.
+* **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-current-year-losses-deferral-ledger.md`.
+* **Ratified in-scope:** ADR-0057 (source families and multi-family route
+  selection) and ADR-0058 (signed downstream, line-21 limitation,
+  completeness successor, 2025-only bound) — both settled by a paper-first
+  Track 0 before any implementation charter, per explicit owner
+  instruction; both ratified as proposed, with no amendment. Track 0's
+  decision record and all working charters were distilled into the two
+  ADRs and this milestone's retrospective and are not retained in the
+  repository.
+* **Review history:** Track 1's independent review verified the
+  arithmetic and routing correct by direct inspection and found four
+  fixture-coverage/disclosure findings, closed by one findings-only
+  repair round with substantive fixtures (recheck `READY`). Track 2's
+  independent review found no findings.
+* **Branch history:** the entire milestone — plan, Track 0, ADR
+  ratification, Track 1, its repair, Track 2, and this closeout — stayed
+  local on `milestone/schedule-d-current-year-losses` with no push and no
+  PR until this closeout, per explicit owner instruction.
 * **Next:** owner-selects the next breadth milestone from
   `docs/phases/engine-breadth/coverage-frontier.md`. No milestone is
   currently active.

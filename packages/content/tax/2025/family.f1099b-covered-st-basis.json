@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099b.covered-st-basis",
+  "version": "v1",
+  "title": "covered short-term gain-or-loss basis scalar family, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every basis amount of a covered short-term gain-or-loss transaction is recorded as of the keyed horizon.",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.covered-st-txn.basis"
+  },
+  "authorizes_subtotal": "tax.us.2025.f1099b.covered-st-basis-subtotal"
+}
