@@ -203,7 +203,9 @@ def _entry_field_validator(repo_root: Path) -> jsonschema.Draft202012Validator:
         jsonschema.Draft202012Validator.check_schema(document)
     except jsonschema.SchemaError:
         raise EntryLoopError("entry-field-unavailable") from None
-    return jsonschema.Draft202012Validator(document)
+    validator_document = {key: value for key, value in document.items() if key != "$id"}
+    return jsonschema.Draft202012Validator(validator_document)
+
 
 
 def _load_entry_field(
@@ -819,6 +821,54 @@ class EntrySnapshot:
     payload: dict[str, Any]
 
 
+def _source_contexts(
+    missing_facts: Sequence[_FactFamily],
+    current_by_key: Mapping[str, Any],
+    fields: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    """Build synthetic source-context map view-model for Document-Oriented Entry Card 1."""
+    missing_keys = {f.key for f in missing_facts}
+    w2_missing = "w2-box1" in missing_keys
+    div_missing = "div1b-qualified" in missing_keys
+
+    w2_field = fields.get("w2-box1", {})
+    div_field = fields.get("div1b-qualified", {})
+
+    w2_doc_label = w2_field.get("source", {}).get("document", "Form W-2")
+    div_doc_label = div_field.get("source", {}).get("document", "Form 1099-DIV")
+
+    contexts = [
+        {
+            "id": "demo.source-context.w2",
+            "kind": "document",
+            "label": w2_doc_label,
+            "field_keys": ["w2-box1"],
+            "status": "missing" if w2_missing else "answered",
+            "answered_count": 0 if w2_missing else 1,
+            "total_count": 1,
+        },
+        {
+            "id": "demo.source-context.div1099",
+            "kind": "document",
+            "label": div_doc_label,
+            "field_keys": ["div1b-qualified"],
+            "status": "missing" if div_missing else "answered",
+            "answered_count": 0 if div_missing else 1,
+            "total_count": 1,
+        },
+        {
+            "id": "demo.source-context.question.unanswered-facts",
+            "kind": "question",
+            "label": "Which 2025 income documents are complete?",
+            "field_keys": ["w2-box1", "div1b-qualified"],
+            "status": "attention" if (w2_missing or div_missing) else "complete",
+            "answered_count": (0 if w2_missing else 1) + (0 if div_missing else 1),
+            "total_count": 2,
+        },
+    ]
+    return contexts
+
+
 class SyntheticW2EntryRuntime:
     """One synthetic workspace, serialized contribution admission, live recompute."""
 
@@ -979,6 +1029,7 @@ class SyntheticW2EntryRuntime:
                 line["explanation"] = _line_explanation(model, line_id, line_index, dependency_graph)
             lines.append(line)
 
+        source_contexts = _source_contexts(missing_facts, current_by_key, self._fields)
         payload = {
             "revision": revision,
             "missing": [
@@ -1001,6 +1052,7 @@ class SyntheticW2EntryRuntime:
                 for fact in self._FAMILIES
                 if (current := current_by_key[fact.key]) is not None
             ],
+            "source_contexts": source_contexts,
             "lines": lines,
             "accepted": self._last_accepted,
             "last_action": self._last_action,

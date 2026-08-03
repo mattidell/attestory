@@ -107,6 +107,47 @@
       </dl>
     </section>
 
+    {#if state.source_contexts}
+      <section class="source-contexts" aria-labelledby="contexts-title">
+        <div class="section-heading">
+          <p class="step">Source Contexts</p>
+          <h2 id="contexts-title">Documents and questions</h2>
+        </div>
+        <ul class="context-list">
+          {#each state.source_contexts as ctx (ctx.id)}
+            <li class="context-card" data-kind={ctx.kind} data-status={ctx.status}>
+              <div class="context-header">
+                <span class="context-kind">{ctx.kind}</span>
+                <h3 class="context-label">{ctx.label}</h3>
+                <span class="context-status">{ctx.status}</span>
+              </div>
+              <div class="context-fields">
+                <span class="fields-label">Related fields:</span>
+                <ul>
+                  {#each ctx.field_keys as key}
+                    <li>
+                      <span>{state.field_contract[key]?.source?.document} {state.field_contract[key]?.source?.box} — {state.field_contract[key]?.source?.label}</span>
+                      {#if state.answered.some((a) => a.id === key)}
+                        <span class="field-badge answered">Answered</span>
+                      {:else}
+                        <a
+                          class="button-link text-button"
+                          href={"./index.html#field=" + encodeURIComponent(key)}
+                          aria-label={"Enter " + (state.field_contract[key]?.source?.document || "") + " " + (state.field_contract[key]?.source?.box || "") + " (" + ctx.label + ")"}
+                        >
+                          Enter fact
+                        </a>
+                      {/if}
+                    </li>
+                  {/each}
+                </ul>
+              </div>
+            </li>
+          {/each}
+        </ul>
+      </section>
+    {/if}
+
     {#if state.missing.length}
       <section class="attention" aria-labelledby="attention-title">
         <div class="section-heading">
@@ -500,6 +541,101 @@
     text-align: center;
     background: #fffdf8;
     border: 1px solid #8d928c;
+  }
+
+  .source-contexts {
+    max-width: 1180px;
+    margin: 1.4rem auto 0;
+    padding: 2rem;
+    background: #fffdf8;
+    border: 1px solid #9da19b;
+    border-radius: 1rem;
+  }
+
+  .context-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .context-card {
+    padding: 1.2rem 1.4rem;
+    background: #f8f6f0;
+    border: 1px solid #c5c4bd;
+    border-radius: 0.8rem;
+  }
+
+  .context-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .context-kind {
+    padding: 0.2rem 0.5rem;
+    background: #e2ded4;
+    border-radius: 0.4rem;
+    color: #35463f;
+    font-size: 0.72rem;
+    font-weight: 750;
+    text-transform: uppercase;
+  }
+
+  .context-label {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    flex: 1;
+  }
+
+  .context-status {
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 750;
+    text-transform: uppercase;
+    background: #fff3d7;
+    color: #8a5a00;
+  }
+
+  .context-card[data-status="answered"],
+  .context-card[data-status="complete"] .context-status {
+    background: #e5f3ed;
+    color: #075e4f;
+  }
+
+  .context-fields ul {
+    margin: 0.4rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .context-fields li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-top: 1px solid #e2ded4;
+  }
+
+  .fields-label {
+    font-size: 0.8rem;
+    color: #555d58;
+    font-weight: 600;
+  }
+
+  .field-badge.answered {
+    padding: 0.25rem 0.5rem;
+    background: #e5f3ed;
+    color: #075e4f;
+    border-radius: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
   }
 
   @media (max-width: 800px) {

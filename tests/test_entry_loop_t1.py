@@ -485,6 +485,7 @@ class FieldContract(RuntimeFixture):
                 / "entry-field.v1.schema.json"
             ).read_text("utf-8")
         )
+        schema.pop("$id", None)
         contract = self.runtime.snapshot().payload["field_contract"]["w2-box1"]
         jsonschema.validate(contract, schema)
 
@@ -642,6 +643,7 @@ class FieldContract(RuntimeFixture):
                 / "entry-field.v1.schema.json"
             ).read_text("utf-8")
         )
+        schema.pop("$id", None)
         base_contract = json.loads(
             json.dumps(self.runtime.snapshot().payload["field_contract"]["w2-box1"])
         )
@@ -688,6 +690,7 @@ class FieldContract(RuntimeFixture):
                 / "entry-field.v1.schema.json"
             ).read_text("utf-8")
         )
+        schema.pop("$id", None)
         contract = json.loads(
             json.dumps(self.runtime.snapshot().payload["field_contract"]["w2-box1"])
         )
@@ -1288,6 +1291,56 @@ class SurfaceCriteria(unittest.TestCase):
         # answered.
         self.assertIn("0 missing facts · fully computed", self.source)
         self.assertIn("Correct {answered.label}", self.source)
+
+
+class SourceContextMapCard1(RuntimeFixture):
+    """Document-Oriented Entry Card 1: Source-Context Map tests."""
+
+    def test_source_contexts_both_missing(self) -> None:
+        snapshot = self.runtime.snapshot()
+        contexts = snapshot.payload.get("source_contexts", [])
+        self.assertEqual(len(contexts), 3)
+
+        by_id = {c["id"]: c for c in contexts}
+        self.assertIn("demo.source-context.w2", by_id)
+        self.assertIn("demo.source-context.div1099", by_id)
+        self.assertIn("demo.source-context.question.unanswered-facts", by_id)
+
+        w2 = by_id["demo.source-context.w2"]
+        self.assertEqual(w2["kind"], "document")
+        self.assertEqual(w2["label"], "Form W-2")
+        self.assertEqual(w2["field_keys"], ["w2-box1"])
+        self.assertEqual(w2["status"], "missing")
+
+        div = by_id["demo.source-context.div1099"]
+        self.assertEqual(div["kind"], "document")
+        self.assertEqual(div["label"], "Form 1099-DIV")
+        self.assertEqual(div["field_keys"], ["div1b-qualified"])
+        self.assertEqual(div["status"], "missing")
+
+        q = by_id["demo.source-context.question.unanswered-facts"]
+        self.assertEqual(q["kind"], "question")
+        self.assertEqual(q["label"], "Which 2025 income documents are complete?")
+        self.assertEqual(q["field_keys"], ["w2-box1", "div1b-qualified"])
+        self.assertEqual(q["status"], "attention")
+
+    def test_source_contexts_one_answered_one_missing(self) -> None:
+        self.enter("65432.10")
+        snapshot = self.runtime.snapshot()
+        by_id = {c["id"]: c for c in snapshot.payload.get("source_contexts", [])}
+
+        self.assertEqual(by_id["demo.source-context.w2"]["status"], "answered")
+        self.assertEqual(by_id["demo.source-context.div1099"]["status"], "missing")
+        self.assertEqual(by_id["demo.source-context.question.unanswered-facts"]["status"], "attention")
+
+    def test_source_contexts_both_answered(self) -> None:
+        self.enter_both("65432.10", "1200.00")
+        snapshot = self.runtime.snapshot()
+        by_id = {c["id"]: c for c in snapshot.payload.get("source_contexts", [])}
+
+        self.assertEqual(by_id["demo.source-context.w2"]["status"], "answered")
+        self.assertEqual(by_id["demo.source-context.div1099"]["status"], "answered")
+        self.assertEqual(by_id["demo.source-context.question.unanswered-facts"]["status"], "complete")
 
 
 class DataSafety(unittest.TestCase):
