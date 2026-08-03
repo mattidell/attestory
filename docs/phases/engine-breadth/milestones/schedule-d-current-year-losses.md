@@ -282,6 +282,8 @@ changed or removed historical entry is a stop condition.
 All committed fixtures use obvious `demo.*`/`demo-*` identities and
 synthetic amounts. The production battery must include, at minimum:
 
+
+**Disclosed limitation (Track 1 review Finding 2).** The demo `tax-brackets` and `qdcg-preferential-brackets` parameter tables cover only `single` and `married_filing_jointly`. A full MFS live_coordinate_run golden for the $1,500 line-21 cap therefore cannot pass without expanding those tables, which is out of this milestone's scope; the MFS cap is covered by a static parameter-value fixture against `demo.parameter.capital-loss-limit.2025` instead.
 1. short-term loss only, below the limitation;
 2. long-term loss only, below the limitation;
 3. net loss exceeding $3,000;

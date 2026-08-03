@@ -1,0 +1,1107 @@
+{
+  "admitted_schemas": [
+    "attachment-rule.v1",
+    "attachment-rule.v2",
+    "attachment-rule.v4",
+    "bundle.v2",
+    "checked-conclusion-binding.v1",
+    "citation.v1",
+    "dividend-universe.v1",
+    "dividend-universe.v2",
+    "fact-type.v2",
+    "form-field.v2",
+    "form-field.v3",
+    "parameter-declaration.v1",
+    "quantity-vocabulary.v1",
+    "quantity-vocabulary.v2",
+    "quantity-vocabulary.v3",
+    "quantity-vocabulary.v4",
+    "quantity-vocabulary.v5",
+    "role-canon.v1",
+    "rule-artifact.v2",
+    "rule-artifact.v3",
+    "source-closure-mapping.v2",
+    "source-family.v1",
+    "taxable-interest-composition.v1"
+  ],
+  "composition_obligations": [
+    "tax.us.2025.interest.taxable-total"
+  ],
+  "entrypoints": [
+    {
+      "id": "tax.us.2025.rule.form1040-line16",
+      "version": "v5"
+    },
+    {
+      "id": "tax.us.2025.role-canon",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dividend-universe",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-b",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule-b",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.parameter.schedule-b-threshold",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.scheduleb.vocabulary",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.qdcg.vocabulary",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.exception1.vocabulary",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.box2a.vocabulary",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-required.conclusion",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule-d-required.conclusion-binding",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line7a",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line7b",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099div-2a-subtotal",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line9",
+      "version": "v4"
+    },
+    {
+      "id": "tax.us.2025.schedule-d-boundary.vocabulary",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-d",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.citation.attachment.schedule-d",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-13",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.selected-preferential-base",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.f1099b.covered-lt.vocabulary",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099b.covered-st.vocabulary",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099b.covered-lt",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099b.covered-st",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-line1a-gain",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-line7",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-line21",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.package.core-calculations",
+  "input_bindings": [
+    {
+      "fact_type": {
+        "id": "rounding.convention",
+        "version": "v1"
+      },
+      "mode": "required",
+      "symbol": "rounding.convention"
+    },
+    {
+      "fact_type": {
+        "id": "tax.us.2025.filing-status",
+        "version": "v1"
+      },
+      "mode": "required",
+      "symbol": "filing_status"
+    },
+    {
+      "fact_type": {
+        "id": "tax.us.2025.taxpayer-over-65",
+        "version": "v1"
+      },
+      "mode": "optional_default",
+      "symbol": "taxpayer_over_65"
+    },
+    {
+      "fact_type": {
+        "id": "tax.us.2025.taxpayer-blind",
+        "version": "v1"
+      },
+      "mode": "optional_default",
+      "symbol": "taxpayer_blind"
+    },
+    {
+      "fact_type": {
+        "id": "tax.us.2025.spouse-over-65",
+        "version": "v1"
+      },
+      "mode": "optional_default",
+      "symbol": "spouse_over_65"
+    },
+    {
+      "fact_type": {
+        "id": "tax.us.2025.spouse-blind",
+        "version": "v1"
+      },
+      "mode": "optional_default",
+      "symbol": "spouse_blind"
+    },
+    {
+      "fact_type": {
+        "id": "tax.us.2025.deductions.itemized",
+        "version": "v1"
+      },
+      "mode": "optional_default",
+      "symbol": "tax.us.2025.deductions.itemized"
+    }
+  ],
+  "members": [
+    {
+      "id": "demo.parameter.additional-deduction-rate.2025",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "demo.parameter.qdcg-preferential-brackets.2025",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "demo.parameter.standard-deduction-base.2025",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "demo.parameter.tax-brackets.2025",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.f1099int.box10",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.f1099oid.box5",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-11",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-12",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-15",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-16",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-1a",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-2b",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-3a",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-3b",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-7a",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-7b",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-9",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1065-k1.box5",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule-b",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099div-1a",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099div-1b",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099div-2a",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099int-b1",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099int-b10",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099int-b3",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099oid-b1",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.f1099oid-b5",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.form1065-k1-box5",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.non-form-interest",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.closure-mapping.w2",
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.core_calculations.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.dividend-universe",
+      "role": "dividend-universe",
+      "schema": "dividend-universe.v2",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.exception1.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.1a",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.1b",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.2a",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.box2a.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.f1099int-b10.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099int.b1",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099int.b10",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099int.b3",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099int.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099oid-b5.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099oid.b1",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099oid.b5",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-11",
+      "role": "form-field",
+      "schema": "form-field.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-12",
+      "role": "form-field",
+      "schema": "form-field.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-15",
+      "role": "form-field",
+      "schema": "form-field.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-16",
+      "role": "form-field",
+      "schema": "form-field.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-1a",
+      "role": "form-field",
+      "schema": "form-field.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-2b",
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "version": "v4"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3a",
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-3b",
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7a",
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-7b",
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.form1040.line-9",
+      "role": "form-field",
+      "schema": "form-field.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1065-k1.box5",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.form1065-k1.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest-composition",
+      "role": "composition",
+      "schema": "taxable-interest-composition.v1",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.interest_composition.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.non-form-interest",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.parameter.default-false",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.parameter.default-zero",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.parameter.schedule-b-threshold",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.qdcg.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.quantity.capital-gain-distributions",
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.quantity.ordinary-dividends",
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.quantity.qualified-dividends",
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.quantity.taxable-interest",
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.quantity.wages",
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.role-canon",
+      "role": "parameter",
+      "schema": "role-canon.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-b",
+      "role": "attachment-rule",
+      "schema": "attachment-rule.v2",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099div-1a-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099div-1b-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099div-2a-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099int-b1-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099int-b10-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099int-b3-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099oid-b5-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.f1099oid-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line11",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line12",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line15",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line16",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v5"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line2b",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line3a",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line3b",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line7a",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line7b",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line9",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v4"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-standard-deduction",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1065-k1-box5-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.non-form-interest-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-required.conclusion",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.w2-box1-to-line1a",
+      "role": "field-mapping",
+      "schema": "rule-artifact.v2",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.schedule-d-required.conclusion-binding",
+      "role": "checked-conclusion-binding",
+      "schema": "checked-conclusion-binding.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.scheduleb.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.w2",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.w2-vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.schedule-d-boundary.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-line15",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.schedule-d-line16",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.selected-preferential-base",
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "version": "v2"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-d",
+      "role": "attachment-rule",
+      "schema": "attachment-rule.v4",
+      "version": "v3"
+    },
+    {
+      "id": "tax.us.2025.citation.attachment.schedule-d",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-8a",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-13",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-15",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-16",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-8a",
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-13",
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-15",
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule-d.line-16",
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "version": "v1"
+    },
+    {
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "id": "tax.us.2025.f1099b.covered-lt.vocabulary",
+      "version": "v1"
+    },
+    {
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "id": "tax.us.2025.f1099b.covered-lt",
+      "version": "v1"
+    },
+    {
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "id": "tax.us.2025.closure-mapping.f1099b-covered-lt",
+      "version": "v1"
+    },
+    {
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v5",
+      "id": "tax.us.2025.quantity.covered-lt-proceeds",
+      "version": "v1"
+    },
+    {
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v5",
+      "id": "tax.us.2025.quantity.covered-lt-basis",
+      "version": "v1"
+    },
+    {
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "id": "tax.us.2025.f1099b.covered-lt-proceeds",
+      "version": "v1"
+    },
+    {
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "id": "tax.us.2025.f1099b.covered-lt-basis",
+      "version": "v1"
+    },
+    {
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "id": "tax.us.2025.closure-mapping.f1099b-covered-lt-proceeds",
+      "version": "v1"
+    },
+    {
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "id": "tax.us.2025.closure-mapping.f1099b-covered-lt-basis",
+      "version": "v1"
+    },
+    {
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "id": "tax.us.2025.f1099b.covered-lt-scalars.vocabulary",
+      "version": "v1"
+    },
+    {
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "id": "tax.us.2025.rule.f1099b-covered-lt-proceeds-subtotal",
+      "version": "v1"
+    },
+    {
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "id": "tax.us.2025.rule.f1099b-covered-lt-basis-subtotal",
+      "version": "v1"
+    },
+    {
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "id": "tax.us.2025.f1099b.covered-st.vocabulary",
+      "version": "v1"
+    },
+    {
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "id": "tax.us.2025.f1099b.covered-st",
+      "version": "v1"
+    },
+    {
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "id": "tax.us.2025.closure-mapping.f1099b-covered-st",
+      "version": "v1"
+    },
+    {
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v5",
+      "id": "tax.us.2025.quantity.covered-st-proceeds",
+      "version": "v1"
+    },
+    {
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v5",
+      "id": "tax.us.2025.quantity.covered-st-basis",
+      "version": "v1"
+    },
+    {
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "id": "tax.us.2025.f1099b.covered-st-proceeds",
+      "version": "v1"
+    },
+    {
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "id": "tax.us.2025.f1099b.covered-st-basis",
+      "version": "v1"
+    },
+    {
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "id": "tax.us.2025.closure-mapping.f1099b-covered-st-proceeds",
+      "version": "v1"
+    },
+    {
+      "role": "source-closure-mapping",
+      "schema": "source-closure-mapping.v2",
+      "id": "tax.us.2025.closure-mapping.f1099b-covered-st-basis",
+      "version": "v1"
+    },
+    {
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "id": "tax.us.2025.f1099b.covered-st-scalars.vocabulary",
+      "version": "v1"
+    },
+    {
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "id": "tax.us.2025.rule.f1099b-covered-st-proceeds-subtotal",
+      "version": "v1"
+    },
+    {
+      "role": "computation",
+      "schema": "rule-artifact.v2",
+      "id": "tax.us.2025.rule.f1099b-covered-st-basis-subtotal",
+      "version": "v1"
+    },
+    {
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "id": "tax.us.2025.rule.schedule-d-line1a-gain",
+      "version": "v1"
+    },
+    {
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "id": "tax.us.2025.rule.schedule-d-line7",
+      "version": "v1"
+    },
+    {
+      "role": "computation",
+      "schema": "rule-artifact.v3",
+      "id": "tax.us.2025.rule.schedule-d-line21",
+      "version": "v1"
+    },
+    {
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "id": "demo.parameter.capital-loss-limit.2025",
+      "version": "v1"
+    },
+    {
+      "role": "citation",
+      "schema": "citation.v1",
+      "id": "tax.us.2025.citation.schedule-d.line-1a",
+      "version": "v1"
+    },
+    {
+      "role": "citation",
+      "schema": "citation.v1",
+      "id": "tax.us.2025.citation.schedule-d.line-7",
+      "version": "v1"
+    },
+    {
+      "role": "citation",
+      "schema": "citation.v1",
+      "id": "tax.us.2025.citation.schedule-d.line-21",
+      "version": "v1"
+    },
+    {
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "id": "tax.us.2025.schedule-d.line-1a",
+      "version": "v1"
+    },
+    {
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "id": "tax.us.2025.schedule-d.line-7",
+      "version": "v1"
+    },
+    {
+      "role": "form-field",
+      "schema": "form-field.v3",
+      "id": "tax.us.2025.schedule-d.line-21",
+      "version": "v1"
+    }
+  ],
+  "package_checksum": "4ce9849de86165ef96fcc1993034b0ff76a46f0a6828df2251bca41e9f34ff8a",
+  "schema": "artifact-package.v9",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "version": "v14"
+}

@@ -1,0 +1,279 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "tax.us.2025.schedule-d.line-16",
+      "tax.us.2025.dividends.2a-subtotal",
+      "tax.us.2025.schedule-d-required.conclusion"
+    ]
+  },
+  "id": "tax.us.2025.rule.selected-preferential-base",
+  "notes": "ADR-0057 Decision 5/6 + ADR-0058 Decision 4: multi-family discriminator; Schedule D branch publishes max(line16, 0); direct branch publishes box-2a subtotal. Five retained boundary declarations value-checked only on Schedule D branch.",
+  "pins": [],
+  "publishes": "tax.us.2025.capital-gains.selected-preferential-base",
+  "requires": [
+    "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+    "tax.us.2025.schedule-d.line-16",
+    "tax.us.2025.dividends.2a-subtotal",
+    "tax.us.2025.schedule-d-required.conclusion"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "name": "tax.us.2025.dividends.2a-subtotal",
+      "op": "ref"
+    },
+    "op": "choose",
+    "then": {
+      "args": [
+        {
+          "name": "tax.us.2025.schedule-d.line-16",
+          "op": "ref"
+        },
+        0
+      ],
+      "op": "max"
+    },
+    "when": {
+      "args": [
+        {
+          "cmp": "gt",
+          "left": {
+            "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        },
+        {
+          "cmp": "gt",
+          "left": {
+            "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        }
+      ],
+      "op": "any"
+    }
+  },
+  "version": "v2",
+  "when": {
+    "args": [
+      {
+        "condition": {
+          "args": [
+            {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            },
+            {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            }
+          ],
+          "op": "any"
+        },
+        "members": [
+          {
+            "name": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources",
+            "op": "ref"
+          },
+          {
+            "name": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof",
+            "op": "ref"
+          }
+        ],
+        "op": "conditional_dependency_set"
+      },
+      {
+        "else": true,
+        "op": "choose",
+        "then": {
+          "args": [
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            },
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "yes"
+              }
+            }
+          ],
+          "op": "all"
+        },
+        "when": {
+          "args": [
+            {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            },
+            {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            }
+          ],
+          "op": "any"
+        }
+      },
+      {
+        "else": {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.schedule-d-required.conclusion",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.schedule-d-required.conclusion",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "no"
+          }
+        },
+        "op": "choose",
+        "then": true,
+        "when": {
+          "args": [
+            {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            },
+            {
+              "cmp": "gt",
+              "left": {
+                "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+                "op": "ref"
+              },
+              "op": "compare",
+              "right": 0
+            }
+          ],
+          "op": "any"
+        }
+      }
+    ],
+    "op": "all"
+  }
+}

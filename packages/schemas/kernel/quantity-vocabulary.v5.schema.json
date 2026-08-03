@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/quantity-vocabulary.v5",
+  "title": "Tax quantity vocabulary, covered gain-or-loss ST/LT proceeds/basis added",
+  "description": "Immutable, versioned closed vocabulary for quantity identities used by residual-closed source amount fact types (ADR-0028 decision 7). v5 adds covered-lt-proceeds, covered-lt-basis, covered-st-proceeds, and covered-st-basis for ADR-0057 twin-scalar companions. v1\u2013v4 remain immutable history.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "quantity-vocabulary.v5"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "quantities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "taxable-interest",
+          "wages",
+          "standard-deduction",
+          "taxable-income",
+          "income-tax",
+          "ordinary-dividends",
+          "qualified-dividends",
+          "capital-gain-distributions",
+          "covered-ltcg-proceeds",
+          "covered-ltcg-basis",
+          "covered-lt-proceeds",
+          "covered-lt-basis",
+          "covered-st-proceeds",
+          "covered-st-basis"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "quantities"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,46 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-lt-basis-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-8a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+  "notes": "Schedule D line 8a (h) over LT gain-or-loss successor scalars (ADR-0057/0058). v1 remains historical gain-only.",
+  "pins": [],
+  "publishes": "tax.us.2025.schedule-d.line-8a-gain",
+  "requires": [
+    "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-lt-basis-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "left": {
+      "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "op": "ref"
+    },
+    "op": "subtract",
+    "right": {
+      "name": "tax.us.2025.f1099b.covered-lt-basis-subtotal",
+      "op": "ref"
+    }
+  },
+  "version": "v2",
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.f1099b.covered-lt"
+  }
+}

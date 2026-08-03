@@ -1,0 +1,8 @@
+{
+  "schema": "quantity-vocabulary.v5",
+  "id": "tax.us.2025.quantity.covered-lt-proceeds",
+  "version": "v1",
+  "quantities": [
+    "covered-lt-proceeds"
+  ]
+}

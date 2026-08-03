@@ -1,0 +1,18 @@
+{
+  "schema": "parameter-declaration.v1",
+  "id": "demo.parameter.capital-loss-limit.2025",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "values": {
+    "single": "3000",
+    "married_filing_jointly": "3000",
+    "married_filing_separately": "1500",
+    "head_of_household": "3000",
+    "qualifying_surviving_spouse": "3000"
+  }
+}

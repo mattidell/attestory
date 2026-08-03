@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099b.covered-lt",
+  "version": "v1",
+  "title": "Covered long-term gain-or-loss Form 1099-B transactions, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every covered long-term gain-or-loss Form 1099-B transaction eligible for this class is recorded as of the keyed horizon (ADR-0057).",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.covered-lt-txn"
+  },
+  "authorizes_subtotal": "tax.us.2025.f1099b.covered-lt-subtotal"
+}
