@@ -2,8 +2,9 @@
 {
   "version": 1,
   "topic": "schedule-b-interest-adjustments",
-  "milestone_state": "track-1",
-  "status": "PLANNED. The bounded 2025 nominee-distribution, accrued-interest, and taxable amortizable-bond-premium adjustment slice is selected independently of Schedule D. Track 0 is the paper boundary and contract checkpoint before implementation.",
+  "milestone_state": "closed",
+  "status": "CLOSED 2026-08-03. The bounded 2025 Schedule B interest-adjustment path is synthetic complete through line 2b, Schedule B Part I, package resolution, explanation, and presentation. Schedule D remains outside scope; the immutable v6 EOF formatting warning is deferred in the retrospective.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-03-schedule-b-interest-adjustments.md",
   "scope": [
     "support the bounded 2025 Schedule B Part I adjustment class for nominee distributions, accrued interest paid to a bond seller, and taxable amortizable-bond-premium adjustments",
     "preserve the existing positive-interest source-family composition and make every new adjustment source explicit, closed, and independently explainable",
@@ -69,27 +70,7 @@
       "AGENTS.md#Data Safety Rules"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-08-01-market-discount-interest.md",
-      "docs/phases/engine-breadth/engine-breadth-overview.md",
-      "docs/phases/engine-breadth/coverage-frontier.md",
-      "docs/phases/engine-breadth/engine-breadth-roadmap.md",
-      "docs/phases/engine-breadth/milestones/schedule-b-interest-adjustments.md"
-    ]
-  },
-  "initial_briefing_follow_up": {
-    "version": 1,
-    "expires": "milestone-close",
-    "grounding_commit": "0a744b5e9cfb5d4fc617e27854011069da88e705",
-    "notes": [
-      "The prior market-discount-interest milestone is closed and synthetic complete. The next breadth choice must remain independent of Schedule D.",
-      "The refreshed frontier names interest subtractive adjustments as a distinct candidate; the prior retrospective requires a new paper-grounded scope checkpoint before reactivating it.",
-      "The first paper pass found three distinguishable 2025 Schedule B Part I adjustment classes suitable for a bounded scope: nominee distribution, accrued interest paid to a seller, and taxable amortizable bond premium."
-    ],
-    "sources": [
-      {"path": "docs/milestone-retrospectives/2026-08-01-market-discount-interest.md", "blob": "eb37ad28e5ba9fc6fc66cbb2e0c011e6bf324fe3"},
-      {"path": "docs/phases/engine-breadth/engine-breadth-overview.md", "blob": "0cd6d7df4105c820d85aedecdb61e07175adc720"},
-      {"path": "docs/phases/engine-breadth/coverage-frontier.md", "blob": "f7fe2d495fe8b628ac8ca553ceffcec6861e06ab"},
-      {"path": "docs/phases/engine-breadth/engine-breadth-roadmap.md", "blob": "83a1baf3e7b4f3096be2485984a3ed68017ba694"}
+      "docs/milestone-retrospectives/2026-08-03-schedule-b-interest-adjustments.md"
     ]
   }
 }
@@ -126,6 +107,22 @@ The current positive-interest composition intentionally has no adjustment
 universe. The next slice therefore needs a separate, explicit adjustment
 authority and explanation boundary rather than silently accepting negative
 members into an existing positive family.
+
+After the branch was rebased onto `origin/main`, the main line's published
+attachment-rule.v3/v4 and artifact-package.v7/v8 histories were preserved, as
+were the branch's already-published attachment-rule.v5 and
+artifact-package.v9/v10/v11. This milestone therefore uses attachment-rule.v6,
+artifact-package.v12, package.core-calculations.v15, published-packages.v10,
+release v8, and adoption v15 as its current successors. The older v10/v5
+route remains a compatibility
+baseline; Schedule D content already present in main remains outside this
+milestone's scope.
+
+The final adopted synthetic graph is `tax.us.2025.package.core-calculations@v15`
+through `published-packages.v10`, `demo.release.2025@v8`, and
+`adopt-core-v15-current`. The bounded result is synthetic-complete; the
+milestone does not claim real-data coverage or support for excluded neighboring
+domains.
 
 ## Official 2025 paper boundary
 
@@ -322,7 +319,7 @@ unchanged unless a named contract test proves otherwise.
 ### SIA-C5 — Package, explanation, and presentation route
 
 Publish one coherent successor package/release/adoption route. Expected
-successor surfaces are package v14, published registry v9, release v9, a
+successor surfaces are package v15, published registry v10, release v8, a
 successor line-2b producer, and the Schedule B/content or schema successor
 settled by Track 0. The v12 graph selects one current version of every
 adjustment family, closure, subtotal, line-2b producer, Schedule B producer,
@@ -349,8 +346,8 @@ versions rather than relying on published files:
 
 | Surface | Selected base | Expected successor |
 | --- | --- | --- |
-| Adoption | rebased main package v13 / registry v8 route | `adopt-core-v14-current`: package v14, release v9 |
-| Release | main's current release → registry SHA for `published-packages.v8` | `demo.release.2025.v9` → registry SHA for `published-packages.v9` |
+| Adoption | rebased main package v14 / registry v9 route | `adopt-core-v15-current`: package v15, release v8 |
+| Release | main's current release → registry SHA for `published-packages.v9` | `demo.release.2025.v8` → registry SHA for `published-packages.v10` |
 | Positive interest | composition v3; line-2b rule v3; line-2b field v4 | same positive composition plus explicit adjustment route |
 | Schedule B | attachment-rule.v2 / content v3 | content successor, or a new attachment schema version if Track 0 requires it |
 | Source families | seven positive families and their closures/subtotals | three bounded adjustment classes with independent authority and closure |
@@ -510,8 +507,8 @@ new adjustment family, evaluator operation, unrelated schema, or golden is
 authorized. Track 1B remains blocked until the repair is independently
 re-reviewed and returns `READY`.
 
-The repair landed in commit `64ea2ee`; an independent re-review of the exact
-repair range is required before Track 1B can begin.
+The package-schema repair was completed and independently re-reviewed before
+the integrated Track 1B build began.
 
 ### Track 1B — Integrated adjustment source-to-content build
 

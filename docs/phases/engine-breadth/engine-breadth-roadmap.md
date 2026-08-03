@@ -67,13 +67,15 @@ roadmap unless a selected breadth slice directly depends on them.
    retrospective: `docs/milestone-retrospectives/2026-08-02-schedule-d-covered-ltcg-8a.md`;
    deferral ledger:
    `milestones/schedule-d-covered-ltcg-8a-deferral-ledger.md`.
-5. **Schedule B Interest Adjustments** — selected 2026-08-02. Add a bounded
-   2025 adjustment path for nominee distributions, accrued interest paid to a
-   bond seller, and taxable amortizable-bond-premium adjustments; subtract only
-   explicit, closed adjustment authority from the existing positive-interest
-   universe and render the named rows on Schedule B Part I. Schedule D remains
-   separate and is not a dependency of this milestone. Plan:
-   `milestones/schedule-b-interest-adjustments.md`.
+5. **Schedule B Interest Adjustments** — selected 2026-08-02. **Closed
+   2026-08-03**. Added a bounded 2025 adjustment path for nominee
+   distributions, accrued interest paid to a bond seller, and taxable
+   amortizable-bond-premium adjustments; subtracts only explicit, closed
+   adjustment authority from the existing positive-interest universe and
+   renders the named rows on Schedule B Part I. Schedule D remains separate
+   and is not a dependency of this milestone. Plan:
+   `milestones/schedule-b-interest-adjustments.md`; retrospective:
+   `docs/milestone-retrospectives/2026-08-03-schedule-b-interest-adjustments.md`.
 6. **Current-Year Capital Losses and Schedule D Line 21** — selected
    2026-08-03. **Closed 2026-08-03** (Track 1 with one findings-only
    repair, Track 2, both independently reviewed `READY`). Added an
@@ -142,11 +144,10 @@ source and completeness boundary is selected.
   resolution, explanation, and presentation, including honest visibility
   for the new `SOURCE_SET_UNCLOSED` and `COMPLETENESS_VALUE_VIOLATION`
   states. Plan: `milestones/schedule-d-current-year-losses.md`.
-- **Schedule B Interest Adjustments — planned 2026-08-02.** The selected scope
-  is independent of Schedule D and begins with a paper boundary checkpoint for
-  nominee distributions, accrued interest paid to a seller, and taxable
-  amortizable-bond-premium adjustments. Plan:
-  `milestones/schedule-b-interest-adjustments.md`.
+- **Schedule B Interest Adjustments — closed 2026-08-03.** The bounded three-
+  class adjustment path is synthetic complete through line 2b, Schedule B Part
+  I, package resolution, explanation, and presentation. Schedule D remains
+  outside scope. Plan: `milestones/schedule-b-interest-adjustments.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
