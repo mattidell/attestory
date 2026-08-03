@@ -1,5 +1,6 @@
 import { CDPClient } from "../../tools/presentation_harness/lib/cdp.mjs";
 import { launchChrome } from "../../tools/presentation_harness/lib/chrome.mjs";
+import { completeJourney } from "./entry_loop_journey.mjs";
 
 // Track 4: the one durable focus-indicator check. Enumerates every
 // focusable control reachable by Tab from the rendered, compiled page (in
@@ -186,7 +187,11 @@ try {
     const restingByKey = await restingStylesByKey();
     await evaluate(`document.activeElement && document.activeElement.blur(); true`);
     const seen = new Set();
-    for (let i = 0; i < 15; i++) {
+    // Two entry fields, each with its own input, submit button, and
+    // missing/correct affordance, plus one explain-toggle per evaluation
+    // line once complete -- comfortably under 30, generous over the
+    // single-field count of 15 this used to be.
+    for (let i = 0; i < 30; i++) {
       await pressTab();
       const focused = await describeActive();
       if (!focused) continue;
@@ -204,18 +209,8 @@ try {
 
   await sweep("incomplete");
 
-  await evaluate(`
-    (() => {
-      const input = document.querySelector("#w2-box1");
-      input.value = "90000";
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-      input.form.requestSubmit();
-      return true;
-    })()
-  `);
-  await waitUntil(
-    `document.body.textContent.includes("0 missing facts") && document.body.textContent.includes("Accepted")`,
-  );
+  await completeJourney(evaluate, waitUntil);
+  await waitUntil(`document.body.textContent.includes("Accepted")`);
   await sweep("complete");
 
   const seenKeys = new Set();

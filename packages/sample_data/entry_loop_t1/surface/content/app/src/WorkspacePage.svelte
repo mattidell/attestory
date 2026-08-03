@@ -120,11 +120,13 @@
                 <strong>{item.label}</strong>
                 <span>{item.document}, {item.box}</span>
                 <span class="why">
-                  {state.lines.filter((line) => line.group === "expected-impact").length}
-                  evaluation line(s) are waiting on this fact.
+                  Feeds {state.field_contract[item.id].destination.form} line
+                  {state.field_contract[item.id].destination.line}.
                 </span>
               </div>
-              <a class="button-link" href="./index.html">Enter this fact</a>
+              <a class="button-link" href={"./index.html#field=" + encodeURIComponent(item.id)}>
+                Enter this fact
+              </a>
             </li>
           {/each}
         </ul>

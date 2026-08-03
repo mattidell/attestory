@@ -19,7 +19,7 @@ from packages.derivation.entry_loop import (
     EntryLoopError,
     EntryLoopServer,
     SyntheticW2EntryRuntime,
-    _parse_box1_with_format,
+    _parse_amount_with_format,
     build_entry_surface,
     load_seed_acts,
     resolve_entry_surface,
@@ -61,9 +61,17 @@ _BROWSER = next(
 )
 
 
-def _event(snapshot: dict[str, Any], value: object) -> dict[str, Any]:
-    event = cast(dict[str, Any], json.loads(json.dumps(snapshot["contribution"])))
-    event["payload"]["contribution"]["content"]["w2_box1"] = value
+def _event(
+    snapshot: dict[str, Any],
+    value: object,
+    *,
+    key: str = "w2-box1",
+    content_field: str = "w2_box1",
+) -> dict[str, Any]:
+    event = cast(
+        dict[str, Any], json.loads(json.dumps(snapshot["contributions"][key]))
+    )
+    event["payload"]["contribution"]["content"][content_field] = value
     return event
 
 
@@ -120,32 +128,58 @@ class RuntimeFixture(unittest.TestCase):
             repo_root=REPO,
         )
 
-    def enter(self, value: object = 90000) -> dict[str, Any]:
+    def enter(
+        self,
+        value: object = 90000,
+        *,
+        key: str = "w2-box1",
+        content_field: str = "w2_box1",
+    ) -> dict[str, Any]:
         initial = self.runtime.snapshot().payload
-        return self.runtime.contribute(_event(initial, value)).payload
+        return self.runtime.contribute(
+            _event(initial, value, key=key, content_field=content_field)
+        ).payload
+
+    def enter_both(
+        self, w2_value: object = 90000, div1b_value: object = 600
+    ) -> dict[str, Any]:
+        """Enter both fact families, in the order the loop's first fact
+        already did -- lets a test that means "reach a complete record"
+        say so directly instead of re-deriving the two-call sequence."""
+        self.enter(w2_value)
+        return self.enter(
+            div1b_value, key="div1b-qualified", content_field="div1b_qualified"
+        )
 
 
 class PhaseADependencies(RuntimeFixture):
-    def test_dependency_1_w2_is_the_only_prompt_and_entry_reaches_complete(self) -> None:
+    def test_dependency_1_w2_is_one_of_two_prompts_and_both_entries_reach_complete(
+        self,
+    ) -> None:
         initial = self.runtime.snapshot().payload
-        self.assertEqual(
+        self.assertIn(
+            {
+                "id": "w2-box1",
+                "label": "W-2 from Demo Workshop — Box 1 wages",
+                "document": "Form W-2",
+                "box": "Box 1",
+                "target": "w2-box1",
+            },
             initial["missing"],
-            [
-                {
-                    "id": "w2-box1",
-                    "label": "W-2 from Demo Workshop — Box 1 wages",
-                    "document": "Form W-2",
-                    "box": "Box 1",
-                    "target": "w2-box1",
-                }
-            ],
         )
+        self.assertEqual(len(initial["missing"]), 2)
         self.assertFalse(initial["complete"])
         entered = self.enter()
-        self.assertEqual(entered["missing"], [])
+        self.assertEqual(len(entered["missing"]), 1)
         self.assertEqual(len(entered["answered"]), 1)
-        self.assertTrue(entered["computed"])
-        self.assertTrue(entered["complete"])
+        self.assertFalse(entered["complete"])
+        both = self.enter(
+            600, key="div1b-qualified", content_field="div1b_qualified"
+        )
+        self.assertEqual(both["missing"], [])
+        self.assertEqual(len(both["answered"]), 2)
+        self.assertTrue(both["computed"])
+        self.assertTrue(both["complete"])
 
     def test_dependency_2_loopback_post_uses_admitted_contribution_acts(self) -> None:
         with TemporaryDirectory(prefix="demo-entry-static-") as tmp:
@@ -168,6 +202,21 @@ class PhaseADependencies(RuntimeFixture):
                 )
                 with urllib.request.urlopen(request, timeout=10) as response:
                     entered = json.load(response)
+                request = urllib.request.Request(
+                    f"{root}/api/contributions",
+                    data=json.dumps(
+                        _event(
+                            entered,
+                            600,
+                            key="div1b-qualified",
+                            content_field="div1b_qualified",
+                        )
+                    ).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urllib.request.urlopen(request, timeout=10) as response:
+                    entered = json.load(response)
         self.assertTrue(entered["complete"])
         log = ActLog(self.capability.location, DerivationSchemas().registry)
         added = list(log.read().acts)[-3:]
@@ -184,12 +233,19 @@ class PhaseADependencies(RuntimeFixture):
     def test_dependency_3_fixed_sets_and_completion_are_observable(self) -> None:
         initial = self.runtime.snapshot().payload
         self.assertEqual(set(_lines(initial)), set(EXPECTED_IMPACT_LINES + COMPARISON_LINES))
-        entered = self.enter()
+        self.enter()
+        entered = self.enter(600, key="div1b-qualified", content_field="div1b_qualified")
         self.assertEqual(entered["missing"], [])
         self.assertTrue(entered["complete"])
         self.assertTrue(all(line["computed"] for line in entered["lines"]))
 
     def test_dependency_4_entry_and_correction_move_exactly_the_fixed_set(self) -> None:
+        # Qualified dividends (3a) is held steady, entered once up front, so
+        # every EXPECTED_IMPACT_LINES line -- including Tax, which composes
+        # over 3a -- is actually computed for the wages entry and correction
+        # below to move. It stays in COMPARISON_LINES precisely because nothing
+        # here touches it again.
+        self.enter(600, key="div1b-qualified", content_field="div1b_qualified")
         initial = self.runtime.snapshot().payload
         entered = self.runtime.contribute(_event(initial, 90000)).payload
         corrected = self.runtime.contribute(_event(entered, 91000)).payload
@@ -225,7 +281,7 @@ class ExplanationGraph(RuntimeFixture):
             self.assertNotIn("explanation", lines[line])
 
     def test_leaf_lines_cite_evidence_and_have_no_dependencies(self) -> None:
-        lines = _lines(self.enter())
+        lines = _lines(self.enter_both())
         for line in ("1a", "2b", "3a", "3b"):
             explanation = lines[line]["explanation"]
             self.assertEqual(explanation["dependsOn"], [])
@@ -239,7 +295,7 @@ class ExplanationGraph(RuntimeFixture):
         self.assertFalse(explanation["hasSupport"])
 
     def test_composite_lines_depend_on_the_expected_immediate_lines(self) -> None:
-        lines = _lines(self.enter())
+        lines = _lines(self.enter_both())
 
         def dep_lines(line: str) -> set[str]:
             return {dep["line"] for dep in lines[line]["explanation"]["dependsOn"]}
@@ -250,25 +306,33 @@ class ExplanationGraph(RuntimeFixture):
         self.assertEqual(dep_lines("16"), {"15", "3a"})
 
     def test_traces_to_entry_agrees_between_a_line_and_its_dependency_chips(self) -> None:
-        lines = _lines(self.enter())
+        # Two correctable facts now, so two lines trace to themselves
+        # trivially (1a to w2-box1, 3a to div1b-qualified) rather than one --
+        # and Tax (16), composing over both 15 and 3a, is the one line that
+        # reaches both entry points at once.
+        lines = _lines(self.enter_both())
 
-        for line in ("1a", "9", "11", "15", "16"):
-            self.assertTrue(lines[line]["explanation"]["tracesToEntry"], line)
-        for line in ("2b", "3a", "3b", "12"):
-            self.assertFalse(lines[line]["explanation"]["tracesToEntry"], line)
+        for line in ("1a", "3a", "9", "11", "15", "16"):
+            self.assertTrue(lines[line]["explanation"]["entryTargets"], line)
+        for line in ("2b", "3b", "12"):
+            self.assertFalse(lines[line]["explanation"]["entryTargets"], line)
+        self.assertEqual(
+            set(lines["16"]["explanation"]["entryTargets"]),
+            {"w2-box1", "div1b-qualified"},
+        )
 
         # Same predicate, two call sites (a line's own action, a chip
         # pointing at another line): they must never disagree.
         for line in ("9", "16"):
             for dep in lines[line]["explanation"]["dependsOn"]:
                 self.assertEqual(
-                    dep["tracesToEntry"],
-                    lines[dep["line"]]["explanation"]["tracesToEntry"],
+                    dep["entryTargets"],
+                    lines[dep["line"]]["explanation"]["entryTargets"],
                     (line, dep["line"]),
                 )
 
     def test_rule_operation_and_parameter_identifiers_are_reused_verbatim(self) -> None:
-        explanation = _lines(self.enter())["16"]["explanation"]
+        explanation = _lines(self.enter_both())["16"]["explanation"]
         self.assertIn(
             "tax.us.2025.rule.form1040-line16",
             {rule["id"] for rule in explanation["rules"]},
@@ -283,7 +347,9 @@ class ExplanationGraph(RuntimeFixture):
         # confirm nothing goes stale -- a line's own explanation.value must
         # match its flat value, and a dependency chip's value must match
         # the current value of the line it points at, both before and
-        # after the correction.
+        # after the correction. Qualified dividends (3a) is entered once up
+        # front so every line stays computed across both wage values below.
+        self.enter(600, key="div1b-qualified", content_field="div1b_qualified")
         for value in (90000, 91000):
             lines = _lines(self.enter(value))
             for line in EXPECTED_IMPACT_LINES + COMPARISON_LINES:
@@ -297,6 +363,7 @@ class ExplanationGraph(RuntimeFixture):
 
 class EntryAndCorrection(RuntimeFixture):
     def test_correction_is_new_contribution_plus_plain_assertion(self) -> None:
+        self.enter(600, key="div1b-qualified", content_field="div1b_qualified")
         entered = self.enter()
         corrected = self.runtime.contribute(_event(entered, 91000)).payload
         self.assertTrue(corrected["complete"])
@@ -312,13 +379,14 @@ class EntryAndCorrection(RuntimeFixture):
         )
 
     def test_format_declaration_and_validator_accept_the_same_forms(self) -> None:
-        spec = self.runtime._w2_box1_format
+        spec = self.runtime._formats["w2-box1"]
         self.assertEqual(spec["commaGrouping"], "accepted")
         self.assertEqual(spec["currencyPrefix"], "accepted")
         self.assertEqual(spec["maxFractionDigits"], 2)
         self.assertTrue(spec["requirePositive"])
         self.assertEqual(spec["maxValue"], "999999999.99")
 
+        self.enter(600, key="div1b-qualified", content_field="div1b_qualified")
         entered = self.enter("90,000")
         self.assertTrue(entered["complete"])
         self.assertEqual(entered["answered"][0]["value"], 90000)
@@ -329,34 +397,34 @@ class EntryAndCorrection(RuntimeFixture):
         self.assertEqual(corrected["answered"][0]["value"], 90000.5)
 
     def test_validator_uses_all_declared_numeric_controls(self) -> None:
-        spec = dict(self.runtime._w2_box1_format)
+        spec = dict(self.runtime._formats["w2-box1"])
         spec["maxFractionDigits"] = 3
         spec["requirePositive"] = False
         spec["maxValue"] = "1000.000"
 
-        self.assertEqual(_parse_box1_with_format("1.234", spec), 1.234)
-        self.assertEqual(_parse_box1_with_format("0", spec), 0)
-        self.assertEqual(_parse_box1_with_format("-1.000", spec), -1)
+        self.assertEqual(_parse_amount_with_format("1.234", spec), 1.234)
+        self.assertEqual(_parse_amount_with_format("0", spec), 0)
+        self.assertEqual(_parse_amount_with_format("-1.000", spec), -1)
         with self.assertRaisesRegex(EntryLoopError, "entry-value-invalid"):
-            _parse_box1_with_format("1.2345", spec)
+            _parse_amount_with_format("1.2345", spec)
         with self.assertRaisesRegex(EntryLoopError, "entry-value-invalid"):
-            _parse_box1_with_format("1000.001", spec)
+            _parse_amount_with_format("1000.001", spec)
 
     def test_parser_rejects_malformed_max_value_ceilings(self) -> None:
         """Parser fails closed on non-positive / non-finite maxValue (Track 2d F1)."""
-        base = dict(self.runtime._w2_box1_format)
+        base = dict(self.runtime._formats["w2-box1"])
         base["requirePositive"] = False
 
         for bad_ceiling in ("0", "-1", "-0.01", "NaN", "Infinity", "-Infinity"):
             with self.subTest(maxValue=bad_ceiling):
                 spec = dict(base, maxValue=bad_ceiling)
                 with self.assertRaisesRegex(EntryLoopError, "entry-format-unavailable"):
-                    _parse_box1_with_format("0", spec)
+                    _parse_amount_with_format("0", spec)
                 with self.assertRaisesRegex(EntryLoopError, "entry-format-unavailable"):
-                    _parse_box1_with_format("-1", spec)
+                    _parse_amount_with_format("-1", spec)
 
         with self.assertRaisesRegex(EntryLoopError, "entry-format-unavailable"):
-            _parse_box1_with_format("1", dict(base, maxValue="not-a-number"))
+            _parse_amount_with_format("1", dict(base, maxValue="not-a-number"))
 
     def test_malformed_entry_is_visible_redacted_and_does_not_advance(self) -> None:
         initial = self.runtime.snapshot().payload
@@ -403,7 +471,7 @@ class FieldContract(RuntimeFixture):
         self.assertEqual(contract["correction"]["kind"], "same-field-reuse")
         # The format sub-object is Track 2d's declaration, reused rather than
         # duplicated; the runtime's own validator dict is that same object.
-        self.assertEqual(contract["format"], self.runtime._w2_box1_format)
+        self.assertEqual(contract["format"], self.runtime._formats["w2-box1"])
 
     def test_field_contract_validates_against_its_schema(self) -> None:
         import jsonschema
@@ -422,12 +490,14 @@ class FieldContract(RuntimeFixture):
 
     def test_malformed_field_declaration_fails_closed(self) -> None:
         from packages.derivation.entry_loop import (
+            W2_BOX1_FIELD,
+            W2_BOX1_FORMAT,
             EntryLoopError,
-            _load_w2_box1_field,
-            _load_w2_box1_format,
+            _load_currency_format,
+            _load_entry_field,
         )
 
-        format_spec = _load_w2_box1_format(REPO)
+        format_spec = _load_currency_format(REPO, W2_BOX1_FORMAT, "W2_BOX1_FORMAT")
         with TemporaryDirectory(prefix="demo-entry-field-") as tmp:
             broken_root = Path(tmp)
             target = (
@@ -447,7 +517,9 @@ class FieldContract(RuntimeFixture):
                 encoding="utf-8",
             )
             with self.assertRaisesRegex(EntryLoopError, "entry-field-unavailable"):
-                _load_w2_box1_field(broken_root, format_spec)
+                _load_entry_field(
+                    broken_root, W2_BOX1_FIELD, "W2_BOX1_FIELD", "W2_BOX1_FORMAT", format_spec
+                )
 
     @staticmethod
     def _write_field_declaration(
@@ -502,12 +574,14 @@ class FieldContract(RuntimeFixture):
     def test_loader_now_rejects_what_the_schema_rejects(self) -> None:
         """Track 3 repair F2: schema validation replaces hand-rolled checks."""
         from packages.derivation.entry_loop import (
+            W2_BOX1_FIELD,
+            W2_BOX1_FORMAT,
             EntryLoopError,
-            _load_w2_box1_field,
-            _load_w2_box1_format,
+            _load_currency_format,
+            _load_entry_field,
         )
 
-        format_spec = _load_w2_box1_format(REPO)
+        format_spec = _load_currency_format(REPO, W2_BOX1_FORMAT, "W2_BOX1_FORMAT")
         base = {
             "schema": "entry-field.v1",
             "id": "tax.us.2025.w2.box1-wages",
@@ -540,7 +614,9 @@ class FieldContract(RuntimeFixture):
                     with self.assertRaisesRegex(
                         EntryLoopError, "entry-field-unavailable"
                     ):
-                        _load_w2_box1_field(root, format_spec)
+                        _load_entry_field(
+                            root, W2_BOX1_FIELD, "W2_BOX1_FIELD", "W2_BOX1_FORMAT", format_spec
+                        )
 
     def test_schema_does_not_relate_format_to_source_or_destination(self) -> None:
         """Track 3 repair 2, F1: the schema's actual, narrow boundary.
@@ -1134,7 +1210,7 @@ class KeyboardOperability(RuntimeFixture):
         target = next(
             entry
             for entry in findings["activation"]
-            if entry["phase"] == "incomplete" and "Enter this fact" in entry["key"]
+            if entry["phase"] == "incomplete" and ":Enter " in entry["key"]
         )
         self.assertIsNone(target["activatedWith"], target)
         # The probe itself still never touched the mouse to compensate.
@@ -1151,15 +1227,23 @@ class SurfaceCriteria(unittest.TestCase):
         cls.field_declaration = FIELD_DECLARATION.read_text("utf-8")
 
     def test_missing_item_navigates_directly_to_its_input(self) -> None:
-        self.assertIn("Enter this fact", self.source)
-        self.assertIn("goToWages", self.source)
-        self.assertIn('id="w2-box1"', self.source)
+        # "Enter this fact" became "Enter {item.document} {item.box}" once a
+        # second fact made the un-labeled button ambiguous to Tab and
+        # screen-reader navigation alike (two identically-named controls on
+        # one page) -- the keyboard-operability harness caught this
+        # directly. goToWages became the field-keyed focusField, called
+        # with the missing item's own target key.
+        self.assertIn("Enter {item.document} {item.box}", self.source)
+        self.assertIn("focusField", self.source)
+        self.assertIn('id={fieldDef.key}', self.source)
+        self.assertIn('key: "w2-box1"', self.source)
+        self.assertIn('key: "div1b-qualified"', self.source)
 
     def test_field_names_source_box_purpose_and_format_before_entry(self) -> None:
         # Criteria 2.1 and 2.2 are checkable against the entry-field.v1
         # declaration (Track 3) rather than against rendered template text:
-        # the surface renders {formatSourceLabel()}, {W2_BOX1_FIELD.source.label},
-        # and {formatDestinationPurpose()}, all derived from this declaration.
+        # the surface renders {fieldDef.sourceLabel}, {fieldDef.field.source.label},
+        # and {fieldDef.destinationPurpose}, all derived from this declaration.
         for text in (
             '"document": "Form W-2"',
             '"box": "Box 1"',
@@ -1169,9 +1253,9 @@ class SurfaceCriteria(unittest.TestCase):
         ):
             self.assertIn(text, self.field_declaration)
         for text in (
-            "formatSourceLabel",
-            "formatDestinationPurpose",
-            "W2_BOX1_FIELD.source.label",
+            "fieldDef.sourceLabel",
+            "fieldDef.destinationPurpose",
+            "fieldDef.field.source.label",
             "formatW2Box1Hint",
         ):
             self.assertIn(text, self.source)
@@ -1179,15 +1263,17 @@ class SurfaceCriteria(unittest.TestCase):
             'import { formatW2Box1Hint } from "./w2-box1-format.js";', self.source
         )
         self.assertIn(
-            'import {\n    W2_BOX1_FIELD,\n    formatSourceLabel,\n'
-            "    formatDestinationPurpose\n  } from \"./w2-box1-field.js\";",
+            'import {\n    W2_BOX1_FIELD,\n'
+            "    formatSourceLabel as formatW2SourceLabel,\n"
+            "    formatDestinationPurpose as formatW2DestinationPurpose\n"
+            '  } from "./w2-box1-field.js";',
             self.source,
         )
 
     def test_accessibility_and_fail_loud_markers_are_present(self) -> None:
         for marker in (
             "<main",
-            'aria-label="W-2 Box 1 entry"',
+            "aria-label={`${fieldDef.field.source.document} ${fieldDef.field.source.box} entry`}",
             'role="alert"',
             ":focus-visible",
             "min-height: 44px",
@@ -1195,9 +1281,13 @@ class SurfaceCriteria(unittest.TestCase):
             self.assertIn(marker, self.source)
 
     def test_completion_and_correction_remain_reachable(self) -> None:
+        # "Review W-2 Box 1" -- a single done-banner button assuming one
+        # correctable fact -- is gone; each field's own answered panel
+        # carries its own always-visible "Correct {label}" affordance
+        # instead, reachable the same way regardless of how many facts are
+        # answered.
         self.assertIn("0 missing facts · fully computed", self.source)
-        self.assertIn("Correct this fact", self.source)
-        self.assertIn("Review W-2 Box 1", self.source)
+        self.assertIn("Correct {answered.label}", self.source)
 
 
 class DataSafety(unittest.TestCase):

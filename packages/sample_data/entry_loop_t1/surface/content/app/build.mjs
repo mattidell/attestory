@@ -19,6 +19,8 @@ writeFileSync("dist/styles.css", css.code);
 cpSync("src/mount.js", "dist/mount.js");
 cpSync("src/w2-box1-format.js", "dist/w2-box1-format.js");
 cpSync("src/w2-box1-field.js", "dist/w2-box1-field.js");
+cpSync("src/div1b-format.js", "dist/div1b-format.js");
+cpSync("src/div1b-field.js", "dist/div1b-field.js");
 
 const workspaceSource = readFileSync("src/WorkspacePage.svelte", "utf-8");
 const workspaceCompiled = compile(workspaceSource, {

@@ -1,5 +1,6 @@
 import { CDPClient } from "../../tools/presentation_harness/lib/cdp.mjs";
 import { launchChrome } from "../../tools/presentation_harness/lib/chrome.mjs";
+import { populateAllFields } from "./entry_loop_journey.mjs";
 
 // Track 1: the accessibility criterion's unmeasured half -- "every action
 // must be reachable with Tab and Shift+Tab and operable with the control's
@@ -214,15 +215,13 @@ async function settle(timeoutMs = 4000) {
 // Demonstration-only injections. Never run against the real evaluation.
 async function injectDefect(name) {
   if (name === "break-reverse-traversal") {
-    // Traps focus on "Enter this fact" against Shift+Tab only: forward Tab
-    // still lands on it normally, but nothing before it in the order can be
-    // reached going backward through it. Reproduces exactly the asymmetry
-    // check 1 exists to catch.
+    // Traps focus on the first missing-fact "Enter" button against
+    // Shift+Tab only: forward Tab still lands on it normally, but nothing
+    // before it in the order can be reached going backward through it.
+    // Reproduces exactly the asymmetry check 1 exists to catch.
     await evaluate(`
       (() => {
-        const target = Array.from(document.querySelectorAll("button")).find(
-          (b) => b.textContent.trim() === "Enter this fact"
-        );
+        const target = document.querySelector(".missing button");
         if (!target) return false;
         target.addEventListener(
           "keydown",
@@ -238,13 +237,12 @@ async function injectDefect(name) {
       })()
     `);
   } else if (name === "swallow-activation") {
-    // Silently swallows Enter and Space on "Enter this fact" -- the exact
-    // failure shape the charter names: no exception, no effect.
+    // Silently swallows Enter and Space on the first missing-fact "Enter"
+    // button -- the exact failure shape the charter names: no exception,
+    // no effect.
     await evaluate(`
       (() => {
-        const target = Array.from(document.querySelectorAll("button")).find(
-          (b) => b.textContent.trim() === "Enter this fact"
-        );
+        const target = document.querySelector(".missing button");
         if (!target) return false;
         target.addEventListener(
           "keydown",
@@ -262,7 +260,11 @@ async function injectDefect(name) {
   } else if (name === "scramble-order") {
     // Scrambles Shift+Tab traversal order while preserving the set of
     // reachable controls: re-routes Shift+Tab into a scrambled cycle
-    // (seed -> middle control -> ... -> seed).
+    // through every control the two fact fields add (two "Enter" buttons,
+    // two inputs, two primaries) plus the wordmark and workspace link,
+    // closing back on itself. Explain-toggle buttons are left unrouted --
+    // Shift+Tab through them falls through to the browser's own, correct
+    // backward order, exactly as before.
     await evaluate(`
       (() => {
         document.addEventListener(
@@ -271,27 +273,30 @@ async function injectDefect(name) {
             if (e.key === "Tab" && e.shiftKey) {
               const active = document.activeElement;
               if (!active) return;
-              const desc = window.__kbProbe.describe(active);
-              if (!desc) return;
-              let targetSelector = null;
-              if (active.classList.contains("primary") || desc.key.includes("Add W-2") || desc.key.includes("Update W-2")) {
-                targetSelector = "button:not(.primary)";
-              } else if (desc.key.includes("Enter this fact")) {
-                targetSelector = "#w2-box1";
-              } else if (desc.key.includes("w2-box1") || active.id === "w2-box1") {
-                targetSelector = "a[href]";
-              } else if (desc.key.includes("wordmark")) {
-                targetSelector = ".workspace-link";
-              } else if (desc.key.includes("workspace-link")) {
-                targetSelector = ".primary";
+              const primaries = Array.from(document.querySelectorAll(".primary"));
+              const missingButtons = Array.from(document.querySelectorAll(".missing button"));
+              let target = null;
+              if (active === primaries[1]) {
+                target = missingButtons[0] || null;
+              } else if (active === missingButtons[0]) {
+                target = missingButtons[1] || null;
+              } else if (active === missingButtons[1]) {
+                target = document.querySelector("#w2-box1");
+              } else if (active.id === "w2-box1") {
+                target = document.querySelector("#div1b-qualified");
+              } else if (active.id === "div1b-qualified") {
+                target = primaries[0] || null;
+              } else if (active === primaries[0]) {
+                target = document.querySelector(".wordmark");
+              } else if (active.classList.contains("wordmark")) {
+                target = document.querySelector(".workspace-link");
+              } else if (active.classList.contains("workspace-link")) {
+                target = primaries[1] || null;
               }
-              if (targetSelector) {
-                const target = document.querySelector(targetSelector);
-                if (target) {
-                  e.preventDefault();
-                  e.stopImmediatePropagation();
-                  target.focus();
-                }
+              if (target) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                target.focus();
               }
             }
           },
@@ -539,15 +544,11 @@ try {
 
   // Data population only -- not part of any claim under test here, exactly
   // as the existing focus-indicator probe already does to reach the
-  // complete state.
-  await evaluate(`
-    (() => {
-      const input = document.querySelector("#w2-box1");
-      input.value = "90000";
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-      return true;
-    })()
-  `);
+  // complete state. Populates every known field's value without
+  // submitting, so the *measured* activation below is what actually
+  // submits each one, through its own real keyboard-driven Enter/Space
+  // press on that field's submit button.
+  await populateAllFields(evaluate, waitUntil);
 
   const forwardIncomplete = await reverseTraversalCheck("incomplete");
   await activationChecks(forwardIncomplete, "incomplete");

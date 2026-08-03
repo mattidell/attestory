@@ -198,6 +198,97 @@ against a running server: "Fact families" now reads "1 · Form W-2" and
 "Facts entered" reads "0 of 1", both computed, not written. Full suite
 still green (47 passed).
 
+**Card 4: the second fact family, done for real.** The scope-card fix
+above was a prerequisite for actually testing whether the workspace's
+design holds up with more than one fact -- this card is that test, done
+against a genuinely second enterable fact rather than a simulated one. Two
+sub-decisions the owner made explicitly shaped how this went:
+
+- *Reopen the real fixture, not an isolated sibling.* The safer-looking
+  option was a parallel fixture that couldn't touch the ratified
+  keyboard-operability suite at all. The owner chose to reopen
+  `entry_loop_t1` itself instead -- accepting that the suite's "exactly one
+  missing fact" assumption would break across roughly 15 tests, on the
+  view that the L2 rating describes what was true of the old shape, not a
+  lock on it, and that avoiding the change to protect a number would be
+  backwards. It did break that many, all fixed in one structural pass (not
+  test-by-test): a `enter_both()`/keyed-`enter()` helper generalization,
+  then updated assertions reflecting genuinely new behavior -- most
+  notably that Tax (line 16) now honestly depends on qualified dividends
+  (3a) as well as wages, a dependency that was always arithmetically true
+  but invisible while dividends was pre-closed.
+- *Expose the minimum multi-fact model first, then build one vertical
+  experiment through it, before touching any UI.* `entry_loop.py`
+  generalized from every W-2-specific constant and method into a small
+  `_FactFamily` dataclass with exactly two instances (W-2 Box 1, 1099-DIV
+  Box 1b -- mirrored, not abstracted to unbounded N): `field_contract`,
+  `missing`, `answered`, and a new `contributions` dict (one submission
+  template per family, replacing the single `contribution`) all now
+  iterate the family list. `entryTargets` generalizes the old single-entry
+  `tracesToEntry` boolean to a list -- and it's genuinely correct, not
+  just renamed: Tax's explanation now reports `["w2-box1",
+  "div1b-qualified"]`, reachable from both entry points at once, verified
+  directly against the real derivation engine. One honest limitation
+  surfaced here: the dependency graph only carries edges for lines that
+  have actually computed, so a *blocked* composite line's `entryTargets`
+  is unreliable (empty) even though an entry line itself can always
+  self-report while blocked. The workspace's "why" copy was redesigned
+  around this rather than working past it -- it states which Form 1040
+  line a missing fact feeds (`field_contract[key].destination.line`,
+  always sourced, never guessed) instead of trying to count blocked lines
+  it can't honestly attribute.
+
+**Both surfaces are now field-keyed, not duplicated.** `EntryPage.svelte`
+was rewritten around a `FIELDS` registry (one entry per fact, still
+importing each field's own declaration module rather than reading labels
+from the API -- that's what keeps `RenderedFieldDerivation`'s
+mutation-to-DOM guarantee true) and a single `{#each FIELDS}` block
+renders one full entry panel per fact, instead of two hand-written copies.
+`amounts`/`inputRefs` became per-key objects; `focusField(key)` replaced
+the single hardcoded `goToWages`. `WorkspacePage.svelte` needed almost no
+structural change -- `factFamilyDocuments`, the attention list, and the
+record map were already iterating `state`'s own collections, so they
+scaled from one fact to two for free; only the "why" line's per-fact
+sourcing (above) needed real work.
+
+**A field-keyed UI surfaced a real accessibility bug the harness caught
+directly, not a UI polish item.** With two missing facts, both "Enter this
+fact" buttons carried identical text -- genuinely ambiguous to Tab and
+screen-reader navigation, not just to the harness's text-based control
+keying. Same collision on "Correct this fact" once both facts were
+answered. Fixed by making both labels state the specific fact ("Enter Form
+W-2 Box 1" / "Enter Form 1099-DIV Box 1b", "Correct W-2 Box 1" / "Correct
+1099-DIV Box 1b") -- the harness's reverse-traversal check is what
+surfaced this, exactly the shape of defect Track 4 built it to catch.
+
+**Exercised deliberately, not just tested.** Both entry orders were driven
+live against a real server and the intermediate state inspected at each
+step, not just the final complete state: entering W-2 first left Tax
+correctly still "Waiting" while Total income correctly computed (proving
+16 needs both facts, 9 needs only wages); entering 1099-DIV first showed
+"1 missing fact" and line 3a's value landing correctly before W-2 was ever
+touched. Both converge on the same complete state regardless of order.
+
+**Browser tests unified through one shared journey driver, not three
+patched scripts.** `tests/helpers/entry_loop_journey.mjs` is new: it knows
+the loop's known fields once (mirroring `_FactFamily` on the JS side) and
+exposes `populateAllFields` (data population without submitting, for the
+keyboard-operability probe's own measured Enter/Space activation to
+submit for real) and `completeJourney` (populate-and-submit, for the two
+scripts that don't care about measuring keyboard activation specifically).
+All three existing browser-driving scripts
+(`entry_loop_browser_client.mjs`, `entry_loop_focus_indicator_client.mjs`,
+`entry_loop_keyboard_operability_client.mjs`) now import it instead of
+each re-typing its own single-field submission sequence. The
+`scramble-order` and `swallow-activation`/`break-reverse-traversal` defect
+fixtures (demonstration-only, not the real check) were rewired from
+brittle exact-text matching to stable selectors, threading a full
+Hamiltonian cycle through all eight of the new controls the second field
+adds.
+
+Full suite green (47 passed, 810 subtests), stable across two consecutive
+runs. mypy clean on every touched Python file.
+
 ## Completion
 
 There is no precommitted exit test. At a natural stopping point, the owner

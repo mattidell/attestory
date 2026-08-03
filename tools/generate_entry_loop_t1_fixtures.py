@@ -38,7 +38,7 @@ def _sha256(data: bytes) -> str:
 
 
 def seed_acts() -> list[dict[str, Any]]:
-    """Return the deterministic seed with W-2 as the only open family."""
+    """Return the deterministic seed with W-2 and 1099-DIV box 1b open."""
 
     result: list[dict[str, Any]] = []
     for raw in canonical_acts():
@@ -67,6 +67,28 @@ def seed_acts() -> list[dict[str, Any]]:
             isinstance(finding, dict)
             and str(finding.get("fact_id", "")).startswith(
                 "tax.us.2025.w2.source-closure|"
+            )
+        ):
+            continue
+        if (
+            isinstance(contribution, dict)
+            and contribution.get("id") == "demo.presentation-l2.contribution.div1b"
+        ):
+            continue
+        if (
+            isinstance(member_finding, dict)
+            and member_finding.get("fact_id")
+            == (
+                "tax.us.2025.f1099div.box1b-qualified|"
+                "payer=demo.presentation-l2.payer,"
+                "statement=demo.presentation-l2.divstmt,tax-year=2025"
+            )
+        ):
+            continue
+        if (
+            isinstance(finding, dict)
+            and str(finding.get("fact_id", "")).startswith(
+                "tax.us.2025.f1099div.1b.source-closure|"
             )
         ):
             continue

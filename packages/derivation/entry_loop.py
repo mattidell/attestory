@@ -6,8 +6,11 @@ successor carriers, appends only acts to the workspace log, and recomputes the
 return through ``live_coordinate_run``.
 
 This first product slice is intentionally narrow: one committed synthetic
-fixture, one W-2 Box 1 fact, and loopback serving.  Nothing here accepts a
-caller-supplied workspace locator through HTTP or exposes one in a response.
+fixture and loopback serving.  It admits contributions for a small, fixed
+set of fact families declared in ``_FACT_FAMILIES`` (currently W-2 Box 1 and
+1099-DIV Box 1b) rather than an arbitrary caller-declared one.  Nothing here
+accepts a caller-supplied workspace locator through HTTP or exposes one in a
+response.
 """
 
 from __future__ import annotations
@@ -77,16 +80,45 @@ W2_CLOSURE_FACT_ID = (
     f"family-horizon={W2_SUCCESSOR},tax-year=2025"
 )
 
+DIV1B_FAMILY = {"id": "tax.us.2025.f1099div.1b", "version": "v1"}
+DIV1B_SCOPE = {"tax-year": "2025", "subject": "demo.primary"}
+DIV1B_PREDECESSOR = "demo.presentation-l2.div1b.h0"
+DIV1B_SUCCESSOR = "demo.entry-loop.div1b.h1"
+# Shared with the 1099-DIV box 1a contribution that stays committed in the
+# seed -- the same physical statement backs both boxes, which is exactly
+# what the original production-shaped fixture already models.
+DIV1B_EVIDENCE_ID = "demo.presentation-l2.evidence.div"
+DIV1B_FACT_ID = (
+    "tax.us.2025.f1099div.box1b-qualified|"
+    "payer=demo.presentation-l2.payer,"
+    "statement=demo.presentation-l2.divstmt,tax-year=2025"
+)
+DIV1B_CLOSURE_FACT_ID = (
+    "tax.us.2025.f1099div.1b.source-closure|"
+    f"family-horizon={DIV1B_SUCCESSOR},tax-year=2025"
+)
+
 EXPECTED_IMPACT_LINES = ("1a", "9", "11", "15", "16")
 COMPARISON_LINES = ("2b", "3a", "3b", "12")
 EVALUATION_LINES = EXPECTED_IMPACT_LINES + COMPARISON_LINES
 EXPLAINED_LINES = EVALUATION_LINES
-ENTRY_LINE = "1a"
+# The record's own correctable entry points -- one per enterable fact
+# family, keyed by the line each one's contribution ultimately answers.
+# A line's explanation traces to whichever of these its dependency chain
+# actually reaches (zero, one, or in principle more than one), not to a
+# single fixed line the way the loop's first fact assumed.
+ENTRY_LINES = {"1a": "w2-box1", "3a": "div1b-qualified"}
 W2_BOX1_FORMAT = (
     ENTRY_FIXTURE / "surface" / "content" / "app" / "src" / "w2-box1-format.js"
 )
 W2_BOX1_FIELD = (
     ENTRY_FIXTURE / "surface" / "content" / "app" / "src" / "w2-box1-field.js"
+)
+DIV1B_FORMAT_PATH = (
+    ENTRY_FIXTURE / "surface" / "content" / "app" / "src" / "div1b-format.js"
+)
+DIV1B_FIELD_PATH = (
+    ENTRY_FIXTURE / "surface" / "content" / "app" / "src" / "div1b-field.js"
 )
 ENTRY_FIELD_SCHEMA = Path("packages/schemas/entry/entry-field.v1.schema.json")
 
@@ -115,13 +147,13 @@ def _load_json(path: Path) -> dict[str, Any]:
     return value
 
 
-def _load_w2_box1_format(repo_root: Path) -> dict[str, Any]:
-    path = repo_root / W2_BOX1_FORMAT
+def _load_currency_format(repo_root: Path, path: Path, marker_name: str) -> dict[str, Any]:
+    full_path = repo_root / path
     try:
-        text = path.read_text("utf-8")
+        text = full_path.read_text("utf-8")
     except OSError:
         raise EntryLoopError("entry-format-unavailable") from None
-    marker = "export const W2_BOX1_FORMAT = "
+    marker = f"export const {marker_name} = "
     try:
         start = text.index(marker) + len(marker)
         end = text.index(";\n", start)
@@ -174,20 +206,28 @@ def _entry_field_validator(repo_root: Path) -> jsonschema.Draft202012Validator:
     return jsonschema.Draft202012Validator(document)
 
 
-def _load_w2_box1_field(
+def _load_entry_field(
     repo_root: Path,
+    path: Path,
+    marker_name: str,
+    format_marker_name: str,
     format_spec: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Load the entry-field.v1 declaration (see the schema of that name).
+    """Load an entry-field.v1 declaration (see the schema of that name).
 
-    The field module's ``format`` property is the imported
-    ``W2_BOX1_FORMAT`` binding rather than a duplicated literal, so it is not
-    itself valid JSON at that key. This substitutes the already-parsed and
-    already-validated ``format_spec`` there before decoding the rest as JSON,
-    which is the same brittle string-marker seam Track 2d used for the format
-    declaration alone -- generalised, not made any less brittle. See Track 3's
-    seam recommendation for what should replace it (still not built here,
-    per the Track 3 repair charter's F4).
+    Generalized from the loop's first field loader, which loaded exactly
+    ``W2_BOX1_FIELD`` from ``w2-box1-field.js`` -- everything below is that
+    same function with the module's own marker names as parameters, not a
+    new design.
+
+    The field module's ``format`` property is the imported format binding
+    rather than a duplicated literal, so it is not itself valid JSON at that
+    key. This substitutes the already-parsed and already-validated
+    ``format_spec`` there before decoding the rest as JSON, which is the
+    same brittle string-marker seam Track 2d used for the format declaration
+    alone -- generalised, not made any less brittle. See Track 3's seam
+    recommendation for what should replace it (still not built here, per the
+    Track 3 repair charter's F4).
 
     The parsed declaration is validated against ``entry-field.v1`` itself
     (Track 3 repair, F2) rather than against a hand-rolled restatement of the
@@ -208,19 +248,19 @@ def _load_w2_box1_field(
     possible again, and a genuine check belongs there.
     """
 
-    path = repo_root / W2_BOX1_FIELD
+    full_path = repo_root / path
     try:
-        text = path.read_text("utf-8")
+        text = full_path.read_text("utf-8")
     except OSError:
         raise EntryLoopError("entry-field-unavailable") from None
-    marker = "export const W2_BOX1_FIELD = "
+    marker = f"export const {marker_name} = "
     try:
         start = text.index(marker) + len(marker)
         end = text.index("\n};\n", start) + len("\n}")
     except ValueError:
         raise EntryLoopError("entry-field-unavailable") from None
     body, count = re.subn(
-        r'"format":\s*W2_BOX1_FORMAT',
+        rf'"format":\s*{format_marker_name}',
         lambda _match: f'"format": {json.dumps(format_spec)}',
         text[start:end],
     )
@@ -257,7 +297,7 @@ def _accepted_formatting_text(format_spec: Mapping[str, Any]) -> str:
     return " and ".join(parts)
 
 
-def _w2_box1_hint(format_spec: Mapping[str, Any]) -> str:
+def _field_hint(format_spec: Mapping[str, Any]) -> str:
     examples = format_spec.get("examples")
     if not isinstance(examples, list) or len(examples) < 2:
         raise EntryLoopError("entry-format-unavailable")
@@ -270,7 +310,7 @@ def _w2_box1_hint(format_spec: Mapping[str, Any]) -> str:
     )
 
 
-def _w2_box1_error(format_spec: Mapping[str, Any]) -> str:
+def _field_error(format_spec: Mapping[str, Any]) -> str:
     field = format_spec.get("field")
     error_label = format_spec.get("errorLabel")
     max_fraction_digits = format_spec.get("maxFractionDigits")
@@ -478,6 +518,20 @@ def _dependency_graph(
     return graph
 
 
+def _entry_targets(graph: Mapping[str, set[str]], line_id: str) -> list[str]:
+    """Which of the record's entry points (see ENTRY_LINES) this line reaches.
+
+    Generalizes the loop's original single-entry-point "tracesToEntry"
+    predicate to however many correctable facts exist. Order follows
+    ENTRY_LINES so the result is deterministic regardless of dict iteration.
+    """
+    return [
+        field_key
+        for entry_line, field_key in ENTRY_LINES.items()
+        if _reaches(graph, line_id, entry_line)
+    ]
+
+
 def _reaches(graph: Mapping[str, set[str]], start: str, target: str) -> bool:
     if start == target:
         return True
@@ -561,7 +615,7 @@ def _line_explanation(
                     # entry" action, applied to the dependency instead of the
                     # line itself -- lets a chip say where it leads before
                     # it's clicked, not just after.
-                    "tracesToEntry": _reaches(dependency_graph, dep_line, ENTRY_LINE),
+                    "entryTargets": _entry_targets(dependency_graph, dep_line),
                 })
 
         cited_evidence: list[dict[str, Any]] = []
@@ -592,16 +646,17 @@ def _line_explanation(
             "dependsOn": depends_on,
             "citedEvidence": cited_evidence,
             "hasSupport": bool(depends_on or cited_evidence),
-            # Whether this line's own dependency chain actually reaches the
-            # loop's one correctable fact -- scopes the "jump to entry" action
-            # to lines a W-2 correction can actually change, per the record's
-            # own dependency graph rather than a fixed line list.
-            "tracesToEntry": _reaches(dependency_graph, line_id, ENTRY_LINE),
+            # Which of the record's correctable facts this line's own
+            # dependency chain actually reaches -- scopes the "jump to
+            # entry" action(s) to facts a correction can actually change,
+            # per the record's own dependency graph rather than a fixed
+            # line list.
+            "entryTargets": _entry_targets(dependency_graph, line_id),
         }
     return None
 
 
-def _parse_box1_with_format(
+def _parse_amount_with_format(
     value: object,
     format_spec: Mapping[str, Any],
 ) -> int | float:
@@ -687,6 +742,78 @@ def _parse_box1_with_format(
 
 
 @dataclass(frozen=True)
+class _FactFamily:
+    """Everything the loop needs to admit contributions for one enterable fact.
+
+    The loop's first fact (W-2 box 1) had every one of these fields inlined
+    as its own constant and its own hand-written block in every method
+    below. This is that same shape, named, so a second fact is one more
+    instance rather than a second copy of every method -- generalized to
+    exactly the two concrete cases this loop has, not to an unbounded N.
+    """
+
+    key: str
+    content_key: str
+    family: Mapping[str, str]
+    scope: Mapping[str, str]
+    predecessor_horizon: str
+    successor_horizon: str
+    fact_id: str
+    closure_fact_id: str
+    evidence_id: str
+    missing_label: str
+    missing_document: str
+    missing_box: str
+    answered_label: str
+    format_path: Path
+    format_marker: str
+    field_path: Path
+    field_marker: str
+
+
+_FACT_FAMILIES: tuple[_FactFamily, ...] = (
+    _FactFamily(
+        key="w2-box1",
+        content_key="w2_box1",
+        family=W2_FAMILY,
+        scope=W2_SCOPE,
+        predecessor_horizon=W2_PREDECESSOR,
+        successor_horizon=W2_SUCCESSOR,
+        fact_id=W2_FACT_ID,
+        closure_fact_id=W2_CLOSURE_FACT_ID,
+        evidence_id=W2_EVIDENCE_ID,
+        missing_label="W-2 from Demo Workshop — Box 1 wages",
+        missing_document="Form W-2",
+        missing_box="Box 1",
+        answered_label="W-2 Box 1",
+        format_path=W2_BOX1_FORMAT,
+        format_marker="W2_BOX1_FORMAT",
+        field_path=W2_BOX1_FIELD,
+        field_marker="W2_BOX1_FIELD",
+    ),
+    _FactFamily(
+        key="div1b-qualified",
+        content_key="div1b_qualified",
+        family=DIV1B_FAMILY,
+        scope=DIV1B_SCOPE,
+        predecessor_horizon=DIV1B_PREDECESSOR,
+        successor_horizon=DIV1B_SUCCESSOR,
+        fact_id=DIV1B_FACT_ID,
+        closure_fact_id=DIV1B_CLOSURE_FACT_ID,
+        evidence_id=DIV1B_EVIDENCE_ID,
+        missing_label="1099-DIV from Synthetic dividend payer — Box 1b qualified dividends",
+        missing_document="Form 1099-DIV",
+        missing_box="Box 1b",
+        answered_label="1099-DIV Box 1b",
+        format_path=DIV1B_FORMAT_PATH,
+        format_marker="DIV1B_FORMAT",
+        field_path=DIV1B_FIELD_PATH,
+        field_marker="DIV1B_FIELD",
+    ),
+)
+
+
+@dataclass(frozen=True)
 class EntrySnapshot:
     revision: int
     payload: dict[str, Any]
@@ -694,6 +821,8 @@ class EntrySnapshot:
 
 class SyntheticW2EntryRuntime:
     """One synthetic workspace, serialized contribution admission, live recompute."""
+
+    _FAMILIES: tuple[_FactFamily, ...] = _FACT_FAMILIES
 
     def __init__(
         self,
@@ -713,8 +842,14 @@ class SyntheticW2EntryRuntime:
             repo_root / "packages" / "content" / "tax" / "2025" / "published-packages.json",
             repo_root / "packages" / "content" / "tax" / "2025",
         )
-        self._w2_box1_format = _load_w2_box1_format(repo_root)
-        self._w2_box1_field = _load_w2_box1_field(repo_root, self._w2_box1_format)
+        self._formats: dict[str, dict[str, Any]] = {}
+        self._fields: dict[str, dict[str, Any]] = {}
+        for fact in self._FAMILIES:
+            format_spec = _load_currency_format(repo_root, fact.format_path, fact.format_marker)
+            self._formats[fact.key] = format_spec
+            self._fields[fact.key] = _load_entry_field(
+                repo_root, fact.field_path, fact.field_marker, fact.format_marker, format_spec
+            )
         self._previous_lines: dict[str, dict[str, Any]] | None = None
         self._last_accepted = False
         self._last_action = ""
@@ -730,27 +865,29 @@ class SyntheticW2EntryRuntime:
                 raise EntryLoopError("entry-loop-fixture-invalid")
             self._log.append(body, expected_revision=expected)
 
-    def _current_w2(self, acts: Sequence[Mapping[str, Any]]) -> dict[str, Any] | None:
+    def _current_fact(
+        self, fact: _FactFamily, acts: Sequence[Mapping[str, Any]]
+    ) -> dict[str, Any] | None:
         state = project(tuple(dict(act) for act in acts), self._schemas.registry)
         currency = compute_currency(state)
         matches = [
             state.findings[finding_id]
             for finding_id in sorted(currency.current_finding_ids)
             if finding_id in state.findings
-            and state.findings[finding_id].get("fact_id") == W2_FACT_ID
+            and state.findings[finding_id].get("fact_id") == fact.fact_id
         ]
         if len(matches) > 1:
             raise EntryLoopError("entry-state-unavailable")
         return matches[0] if matches else None
 
-    def _contribution_template(self, revision: int) -> dict[str, Any]:
+    def _contribution_template(self, fact: _FactFamily, revision: int) -> dict[str, Any]:
         nonce = token_urlsafe(18)
         contribution_id = f"demo.entry-loop.contribution.{nonce}"
         payload = {
             "contribution": {
                 "schema": "contribution.v1",
                 "id": contribution_id,
-                "evidence_id": W2_EVIDENCE_ID,
+                "evidence_id": fact.evidence_id,
                 "content": {
                     "mode": "manual-entry",
                     "synthetic": True,
@@ -799,14 +936,16 @@ class SyntheticW2EntryRuntime:
         lines_by_id = _line_values(model)
         line_index = _line_index(model)
         dependency_graph = _dependency_graph(model, line_index)
-        current = self._current_w2(contents.acts)
-        missing = current is None
+        current_by_key = {
+            fact.key: self._current_fact(fact, contents.acts) for fact in self._FAMILIES
+        }
+        missing_facts = [fact for fact in self._FAMILIES if current_by_key[fact.key] is None]
         blocked = [
             row
             for row in report.get("dispositions", [])
             if isinstance(row, dict) and row.get("disposition") == "blocked"
         ]
-        fully_computed = not missing and not blocked and all(
+        fully_computed = not missing_facts and not blocked and all(
             line["computed"] for line in lines_by_id.values()
         )
         lines: list[dict[str, Any]] = []
@@ -831,44 +970,47 @@ class SyntheticW2EntryRuntime:
                 line["change"] = "unchanged"
             else:
                 line["change"] = "changed"
+            # Graph-structural, unlike the rest of a line's explanation --
+            # computable whether or not the line itself has resolved yet, so
+            # a still-blocked line can still say which missing fact(s) would
+            # unblock it, not only a computed one say which fact corrected it.
+            line["entryTargets"] = _entry_targets(dependency_graph, line_id)
             if line_id in EXPLAINED_LINES and line["computed"]:
                 line["explanation"] = _line_explanation(model, line_id, line_index, dependency_graph)
             lines.append(line)
 
         payload = {
             "revision": revision,
-            "missing": (
-                [
-                    {
-                        "id": "w2-box1",
-                        "label": "W-2 from Demo Workshop — Box 1 wages",
-                        "document": "Form W-2",
-                        "box": "Box 1",
-                        "target": "w2-box1",
-                    }
-                ]
-                if missing
-                else []
-            ),
-            "answered": (
-                []
-                if current is None
-                else [
-                    {
-                        "id": "w2-box1",
-                        "label": "W-2 Box 1",
-                        "value": current["value"],
-                        "target": "w2-box1",
-                    }
-                ]
-            ),
+            "missing": [
+                {
+                    "id": fact.key,
+                    "label": fact.missing_label,
+                    "document": fact.missing_document,
+                    "box": fact.missing_box,
+                    "target": fact.key,
+                }
+                for fact in missing_facts
+            ],
+            "answered": [
+                {
+                    "id": fact.key,
+                    "label": fact.answered_label,
+                    "value": current["value"],
+                    "target": fact.key,
+                }
+                for fact in self._FAMILIES
+                if (current := current_by_key[fact.key]) is not None
+            ],
             "lines": lines,
             "accepted": self._last_accepted,
             "last_action": self._last_action,
             "complete": fully_computed,
             "computed": fully_computed,
-            "field_contract": {"w2-box1": self._w2_box1_field},
-            "contribution": self._contribution_template(revision),
+            "field_contract": dict(self._fields),
+            "contributions": {
+                fact.key: self._contribution_template(fact, revision)
+                for fact in self._FAMILIES
+            },
         }
         self._previous_lines = lines_by_id
         return EntrySnapshot(revision=revision, payload=payload)
@@ -881,6 +1023,7 @@ class SyntheticW2EntryRuntime:
     def _validate_template(
         submitted: Mapping[str, Any],
         expected: Mapping[str, Any],
+        content_key: str,
     ) -> None:
         if set(submitted) != set(expected):
             raise EntryLoopError("entry-event-invalid")
@@ -904,32 +1047,64 @@ class SyntheticW2EntryRuntime:
         if not isinstance(content, dict) or set(content) != {
             "mode",
             "synthetic",
-            "w2_box1",
+            content_key,
         }:
             raise EntryLoopError("entry-event-invalid")
         if content.get("mode") != "manual-entry" or content.get("synthetic") is not True:
             raise EntryLoopError("entry-event-invalid")
 
+    def _fact_for_evidence(self, evidence_id: object) -> _FactFamily:
+        for fact in self._FAMILIES:
+            if fact.evidence_id == evidence_id:
+                return fact
+        raise EntryLoopError("entry-event-invalid")
+
     def contribute(self, submitted: Mapping[str, Any]) -> EntrySnapshot:
-        """Admit one browser-originated contribution and recompute the return."""
+        """Admit one browser-originated contribution and recompute the return.
+
+        Which fact family the submission targets is read from its own
+        ``evidence_id`` -- unique per family -- rather than a caller-supplied
+        discriminator, so a submission can't claim to be one fact while
+        actually carrying another's evidence.
+        """
 
         with self._lock:
-            expected = self._snapshot.payload["contribution"]
+            submitted_payload = (
+                submitted.get("payload") if isinstance(submitted, Mapping) else None
+            )
+            submitted_contribution = (
+                submitted_payload.get("contribution")
+                if isinstance(submitted_payload, Mapping)
+                else None
+            )
+            evidence_id = (
+                submitted_contribution.get("evidence_id")
+                if isinstance(submitted_contribution, Mapping)
+                else None
+            )
+            fact = self._fact_for_evidence(evidence_id)
+
+            expected = self._snapshot.payload["contributions"].get(fact.key)
             if not isinstance(expected, dict):
                 raise EntryLoopError("entry-state-unavailable")
-            self._validate_template(submitted, expected)
+            self._validate_template(submitted, expected, fact.content_key)
             contribution_act = json.loads(json.dumps(submitted))
             contribution = contribution_act["payload"]["contribution"]
-            amount = _parse_box1_with_format(
-                contribution["content"]["w2_box1"],
-                self._w2_box1_format,
-            )
-            contribution["content"]["w2_box1"] = amount
+            try:
+                amount = _parse_amount_with_format(
+                    contribution["content"][fact.content_key],
+                    self._formats[fact.key],
+                )
+            except EntryLoopError as exc:
+                if str(exc) == "entry-value-invalid":
+                    raise EntryLoopError(f"entry-value-invalid:{fact.key}") from None
+                raise
+            contribution["content"][fact.content_key] = amount
 
             contents = self._log.read()
             if contribution_act["committed_against"] != contents.revision:
                 raise EntryLoopError("entry-event-stale")
-            current = self._current_w2(contents.acts)
+            current = self._current_fact(fact, contents.acts)
             contribution_id = contribution["id"]
             finding_body = {
                 "schema": "finding.v2",
@@ -937,10 +1112,10 @@ class SyntheticW2EntryRuntime:
                     "demo.entry-loop.finding.",
                     {"contribution": contribution_id, "value": amount},
                 ),
-                "fact_id": W2_FACT_ID,
+                "fact_id": fact.fact_id,
                 "value": amount,
                 "basis": "documentary",
-                "evidence_ids": [W2_EVIDENCE_ID],
+                "evidence_ids": [fact.evidence_id],
                 "contribution_id": contribution_id,
             }
             successor_index = contents.revision + 1
@@ -953,12 +1128,12 @@ class SyntheticW2EntryRuntime:
             successor_acts: list[dict[str, Any]] = []
             if current is None:
                 payload = {
-                    "family": dict(W2_FAMILY),
-                    "scope": dict(W2_SCOPE),
+                    "family": dict(fact.family),
+                    "scope": dict(fact.scope),
                     "member": {"action": "assert", "finding": finding_body},
                     "successor": {
-                        "id": W2_SUCCESSOR,
-                        "predecessor": W2_PREDECESSOR,
+                        "id": fact.successor_horizon,
+                        "predecessor": fact.predecessor_horizon,
                     },
                 }
                 successor_acts.append(
@@ -975,12 +1150,12 @@ class SyntheticW2EntryRuntime:
                     "schema": "finding.v2",
                     "id": _derived_id(
                         "demo.entry-loop.closure.",
-                        {"contribution": contribution_id, "horizon": W2_SUCCESSOR},
+                        {"contribution": contribution_id, "horizon": fact.successor_horizon},
                     ),
-                    "fact_id": W2_CLOSURE_FACT_ID,
+                    "fact_id": fact.closure_fact_id,
                     "value": True,
                     "basis": "documentary",
-                    "evidence_ids": [W2_EVIDENCE_ID],
+                    "evidence_ids": [fact.evidence_id],
                     "contribution_id": contribution_id,
                 }
                 closure_payload = {"finding": closure_finding}
@@ -1154,9 +1329,17 @@ class _EntryRequestHandler(BaseHTTPRequestHandler):
                 raise ValueError
             snapshot = self.server.runtime.contribute(submitted)
         except EntryLoopError as exc:
-            if str(exc) == "entry-value-invalid":
-                message = _w2_box1_error(self.server.runtime._w2_box1_format)
-            elif str(exc) == "entry-event-stale":
+            reason = str(exc)
+            if reason.startswith("entry-value-invalid"):
+                _, _, key = reason.partition(":")
+                field_contract = self.server.runtime.snapshot().payload["field_contract"]
+                format_spec = field_contract.get(key, {}).get("format") if key else None
+                message = (
+                    _field_error(format_spec)
+                    if format_spec
+                    else "The contribution was not accepted. No entry was changed."
+                )
+            elif reason == "entry-event-stale":
                 message = "The entry session changed. Reload the current entry."
             else:
                 message = "The contribution was not accepted. No entry was changed."

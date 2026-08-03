@@ -51,7 +51,7 @@ def _starting_state_fingerprint(
     visible_state = json.loads(json.dumps(snapshot.payload))
     if not isinstance(visible_state, dict):
         raise ValueError("entry snapshot must be an object")
-    visible_state.pop("contribution", None)
+    visible_state.pop("contributions", None)
 
     digest = hashlib.sha256()
     digest.update(_canonical({"evaluation": evaluation, "state": visible_state}))

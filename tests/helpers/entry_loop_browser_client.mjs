@@ -1,5 +1,6 @@
 import { CDPClient } from "../../tools/presentation_harness/lib/cdp.mjs";
 import { launchChrome } from "../../tools/presentation_harness/lib/chrome.mjs";
+import { completeJourney } from "./entry_loop_journey.mjs";
 
 const pageUrl = process.argv[2];
 if (!pageUrl) {
@@ -62,24 +63,15 @@ try {
   const loaded = client.waitFor("Page.loadEventFired", sessionId, 10_000);
   await client.send("Page.navigate", { url: pageUrl }, sessionId);
   await loaded;
-  await waitUntil(
-    `document.querySelector("#w2-box1") !== null &&
-      document.body.textContent.includes("1 missing fact · W-2 Box 1")`,
-    sessionId,
-  );
-  await evaluate(
-    `(() => {
-      const input = document.querySelector("#w2-box1");
-      input.value = "83456.78";
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-      input.form.requestSubmit();
-      return true;
-    })()`,
-    sessionId,
+  await waitUntil(`document.querySelector("#w2-box1") !== null`, sessionId);
+  await waitUntil(`document.body.textContent.includes("2 missing facts")`, sessionId);
+
+  await completeJourney(
+    (expression) => evaluate(expression, sessionId),
+    (expression) => waitUntil(expression, sessionId),
   );
   await waitUntil(
-    `document.body.textContent.includes("0 missing facts · fully computed") &&
-      document.body.textContent.includes("Accepted. The entry")`,
+    `document.body.textContent.includes("Accepted. The entry")`,
     sessionId,
   );
   stopObserving();
