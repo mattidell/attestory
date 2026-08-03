@@ -1,0 +1,94 @@
+{
+  "attachment": {
+    "authority": "demo.authority.irs",
+    "form_id": "demo-schedule-b",
+    "jurisdiction": "demo-federal",
+    "tax_year": 2025
+  },
+  "completeness": {
+    "required_answers": [
+      {
+        "check": "presence",
+        "fact_type": {"id": "demo.scheduleb.answer", "version": "v1"},
+        "symbol": "demo.scheduleb.answer"
+      }
+    ]
+  },
+  "id": "demo.rule.attachment.schedule-b.v6",
+  "itemizations": [
+    {
+      "adjustment_rows": [
+        {
+          "kind": "nominee_distribution",
+          "label": "Nominee Distribution",
+          "rows": {
+            "member_fact_type": {"id": "demo.interest.nominee", "version": "v1"},
+            "op": "collect_members",
+            "source_family": {"id": "demo.family.nominee", "version": "v1"}
+          },
+          "sign": "negative",
+          "subtotal_symbol": "demo.interest.nominee-subtotal"
+        },
+        {
+          "kind": "accrued_interest",
+          "label": "Accrued Interest",
+          "rows": {
+            "member_fact_type": {"id": "demo.interest.accrued", "version": "v1"},
+            "op": "collect_members",
+            "source_family": {"id": "demo.family.accrued-interest", "version": "v1"}
+          },
+          "sign": "negative",
+          "subtotal_symbol": "demo.interest.accrued-subtotal"
+        },
+        {
+          "kind": "abp_adjustment",
+          "label": "ABP Adjustment",
+          "rows": {
+            "member_fact_type": {"id": "demo.interest.abp", "version": "v1"},
+            "op": "collect_members",
+            "source_family": {"id": "demo.family.abp-adjustment", "version": "v1"}
+          },
+          "sign": "negative",
+          "subtotal_symbol": "demo.interest.abp-subtotal"
+        }
+      ],
+      "authority": {
+        "composition": {"id": "demo.composition.positive", "version": "v1"},
+        "kind": "composition"
+      },
+      "label": "Demo Part I",
+      "part_id": "part-i",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {"id": "demo.interest.positive", "version": "v1"},
+            "op": "collect_members",
+            "source_family": {"id": "demo.family.positive-interest", "version": "v1"}
+          },
+          "subtotal_symbol": "demo.interest.positive-subtotal"
+        }
+      ],
+      "tie_out": {
+        "adjustment_subtotals": [
+          "demo.interest.nominee-subtotal",
+          "demo.interest.accrued-subtotal",
+          "demo.interest.abp-subtotal"
+        ],
+        "line_symbol": "demo.interest.taxable-total",
+        "operation": "subtract",
+        "positive_subtotals": ["demo.interest.positive-subtotal"]
+      }
+    }
+  ],
+  "publishes": "demo.scheduleb.disposition",
+  "requirement": {
+    "citation": {"id": "demo.citation.schedule-b", "version": "v1"},
+    "comparison": "strictly_greater_than",
+    "subtotals": ["demo.interest.taxable-total"],
+    "threshold_parameter": {"id": "demo.parameter.schedule-b-threshold", "version": "v1"}
+  },
+  "schema": "attachment-rule.v6",
+  "scope": {"family": "demo-income", "jurisdiction": "demo-federal", "tax_year": 2025},
+  "title": "Synthetic attachment with one typed subtractive adjustment row",
+  "version": "v1"
+}

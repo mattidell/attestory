@@ -32,6 +32,21 @@ _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross
 _RULE_ARTIFACT_SCHEMAS = frozenset({"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3"})
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
+# attachment-rule.v6 keeps the class authority in the source-family pin.  The
+# terminal family token is the bounded class marker shared by the synthetic
+# gate and the later class-specific families; it is not inferred from labels.
+_V3_ADJUSTMENT_BINDINGS = {
+    "nominee_distribution": ("Nominee Distribution", "nominee"),
+    "accrued_interest": ("Accrued Interest", "accrued-interest"),
+    "abp_adjustment": ("ABP Adjustment", "abp-adjustment"),
+}
+
+_V11_ADJUSTMENT_SLOTS = (
+    ("tax.us.2025.scheduleb.adjustment.nominee", "tax.us.2025.interest.scheduleb-nominee-subtotal"),
+    ("tax.us.2025.scheduleb.adjustment.accrued-interest", "tax.us.2025.interest.scheduleb-accrued-interest-subtotal"),
+    ("tax.us.2025.scheduleb.adjustment.abp-adjustment", "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal"),
+)
+
 # E14.2 (extended by ADR-0032): record-kind and contribution citizens are never
 # permissible rule/package dependencies. Runs consume facts, not process accounts
 # or contribution events.
@@ -431,7 +446,7 @@ def validate_package(
             if pin_role != "checked-conclusion-binding":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"checked-conclusion-binding declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}:
+        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}:
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"attachment-rule declared as role {pin_role!r}"))
@@ -620,9 +635,18 @@ def validate_package(
                                                f"rule {rule_pin['id']} composition pin resolves to {r_comp['id']} {r_comp['version']}, expected {comp_pin['id']} {comp_pin['version']}"))
                 comp_constituents = {c["authorizes_subtotal"] for c in comp_citizen.get("constituents", [])}
                 rule_requires = set(rule_citizen.get("requires", []))
-                if comp_constituents != rule_requires:
-                     issues.append(MemberIssue(comp_pin["id"], comp_pin["version"], "COMPOSITION_SLOT_BIJECTION_MISMATCH",
-                                               f"composition constituents {comp_constituents} do not match rule requires {rule_requires}"))
+                v11_adjustment_route = (
+                    package.get("version") == "v14"
+                    and rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
+                    and rule_pin["version"] == "v4"
+                )
+                expected_adjustment_subtotals = {
+                    subtotal for _family, subtotal in _V11_ADJUSTMENT_SLOTS
+                } if v11_adjustment_route else set()
+                expected_rule_requires = comp_constituents | expected_adjustment_subtotals
+                if expected_rule_requires != rule_requires:
+                    issues.append(MemberIssue(comp_pin["id"], comp_pin["version"], "COMPOSITION_SLOT_BIJECTION_MISMATCH",
+                                               f"composition constituents {expected_rule_requires} do not match rule requires {rule_requires}"))
                 family_slots: list[tuple[str, str, str]] = []
                 for constituent in comp_citizen.get("constituents", []):
                     family_pin = constituent["source_family"]
@@ -655,10 +679,13 @@ def validate_package(
                     ))
 
                 expected_subtotals = [slot[2] for slot in family_slots]
+                expected_families = [slot[0] for slot in family_slots]
+                if v11_adjustment_route:
+                    expected_subtotals.extend(subtotal for _family, subtotal in _V11_ADJUSTMENT_SLOTS)
+                    expected_families.extend(family for family, _subtotal in _V11_ADJUSTMENT_SLOTS)
                 value_refs = list(_iter_ref_names(rule_citizen.get("value")))
                 closure_reads = list(_iter_require_closed_source_sets(rule_citizen.get("when")))
                 input_pins = [p["id"] for p in rule_citizen.get("pins", []) if p.get("role") == "input"]
-                expected_families = [slot[0] for slot in family_slots]
                 for actual, expected, code, label in (
                     (value_refs, expected_subtotals, "COMPOSITION_VALUE_REFS_MISMATCH", "value refs"),
                     (closure_reads, expected_families, "COMPOSITION_CLOSURE_READS_MISMATCH", "closure reads"),
@@ -796,6 +823,43 @@ def validate_package(
                     if c2["schema"] == "source-closure-mapping.v2":
                         if c2.get("member_fact_type", {}).get("id") == ft_id:
                             adj[m_id].add(c2["id"])
+            elif citizen["schema"] == "attachment-rule.v6":
+                for part in citizen.get("itemizations", []):
+                    authority = part.get("authority", {})
+                    if authority.get("kind") == "composition":
+                        composition_pin = authority.get("composition", {})
+                        if composition_pin.get("id") in member_ids:
+                            adj[m_id].add(composition_pin["id"])
+                    for row_set in part.get("row_sets", []):
+                        rows = row_set.get("rows", {})
+                        family_pin = rows.get("source_family", {})
+                        if family_pin.get("id") in member_ids:
+                            adj[m_id].add(family_pin["id"])
+                        member_pin = rows.get("member_fact_type", {})
+                        if member_pin.get("id") in member_ids:
+                            adj[m_id].add(member_pin["id"])
+                    for adjustment in part.get("adjustment_rows", []):
+                        rows = adjustment.get("rows", {})
+                        family_pin = rows.get("source_family", {})
+                        if family_pin.get("id") in member_ids:
+                            adj[m_id].add(family_pin["id"])
+                        member_pin = rows.get("member_fact_type", {})
+                        if member_pin.get("id") in member_ids:
+                            adj[m_id].add(member_pin["id"])
+                for answer in citizen.get("completeness", {}).get("required_answers", []):
+                    fact_pin = answer.get("fact_type", {})
+                    if fact_pin.get("id") in member_ids:
+                        adj[m_id].add(fact_pin["id"])
+                requirement = citizen.get("requirement", {})
+                for subtotal in requirement.get("subtotals", []):
+                    for p_id in produced.get(subtotal, []):
+                        adj[m_id].add(p_id)
+                citation_pin = requirement.get("citation", {})
+                if citation_pin.get("id") in member_ids:
+                    adj[m_id].add(citation_pin["id"])
+                threshold_pin = requirement.get("threshold_parameter", {})
+                if threshold_pin.get("id") in member_ids:
+                    adj[m_id].add(threshold_pin["id"])
             elif citizen["schema"] in {"bundle.v1", "bundle.v2"}:
                 for ft in citizen.get("fact_types", []):
                     if "quantity" in ft:
@@ -843,6 +907,11 @@ def validate_package(
         "artifact-package.v4",
         "artifact-package.v5",
         "artifact-package.v6",
+        "artifact-package.v8",
+        "artifact-package.v9",
+        "artifact-package.v7",
+        "artifact-package.v10",
+        "artifact-package.v11",
     }
     source_family_members = {
         citizen["id"]: citizen["member_predicate"]["fact_type"]
@@ -938,7 +1007,7 @@ def validate_package(
     # a boolean or otherwise falsy-encodable Part III answer fact type on an
     # attachment is rejected at admission.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}:
+        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}:
             continue
         answers = list(citizen["completeness"]["required_answers"])
         for branch in citizen["completeness"].get("branch_requirements", []):
@@ -984,7 +1053,7 @@ def validate_package(
         for _, citizen in resolved if citizen["schema"] == "taxable-interest-composition.v1"
     }
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}:
+        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}:
             continue
         for part in citizen["itemizations"]:
             actual_slots: list[tuple[str, str, str]] = []
@@ -1028,6 +1097,115 @@ def validate_package(
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_COMPOSITION_ABSENT",
                                               f"part {part['part_id']!r} names absent composition {comp_pin}"))
                 elif part["tie_out"]["line_symbol"] != comp["publishes"]:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
+                                              f"part {part['part_id']!r} line symbol does not equal composition publication"))
+
+    # 10c. attachment-rule.v6 keeps the v2 positive row contract and adds a
+    # closed, typed subtractive surface.  The schema fixes the vocabulary;
+    # admission fixes the joins and the signed whole-part surface.
+    for pin, citizen in resolved:
+        if citizen["schema"] != "attachment-rule.v6":
+            continue
+        for part in citizen["itemizations"]:
+            actual_positive = [row_set["subtotal_symbol"] for row_set in part["row_sets"]]
+            actual_adjustments = [row["subtotal_symbol"] for row in part["adjustment_rows"]]
+            tie_out = part["tie_out"]
+            if tie_out["positive_subtotals"] != actual_positive:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "ATTACHMENT_TIE_OUT_SURFACE_MISMATCH",
+                    f"part {part['part_id']!r} positive tie-out surface does not equal row sets",
+                ))
+            if tie_out["adjustment_subtotals"] != actual_adjustments:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "ATTACHMENT_TIE_OUT_SURFACE_MISMATCH",
+                    f"part {part['part_id']!r} adjustment tie-out surface does not equal adjustment rows",
+                ))
+            if tie_out["operation"] != "subtract":
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "ATTACHMENT_TIE_OUT_OPERATION_INVALID",
+                    f"part {part['part_id']!r} must use the existing subtract vocabulary",
+                ))
+            actual_slots = []
+            for row_set in part["row_sets"]:
+                rows = row_set["rows"]
+                family_pin = rows["source_family"]
+                family = families_by_key.get((family_pin["id"], family_pin["version"]))
+                if family is None:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ROW_FAMILY_ABSENT",
+                                              f"part {part['part_id']!r} names absent family {family_pin}"))
+                    continue
+                if rows["member_fact_type"]["id"] != family["member_predicate"]["fact_type"]:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ROW_MEMBER_MISMATCH",
+                                              f"part {part['part_id']!r} row member does not equal family {family['id']!r} canonical predicate"))
+                if row_set["subtotal_symbol"] != family["authorizes_subtotal"]:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ROW_SUBTOTAL_MISMATCH",
+                                              f"part {part['part_id']!r} row subtotal is not authorized by family {family['id']!r}"))
+                actual_slots.append((family["id"], family["version"], row_set["subtotal_symbol"]))
+            for adjustment in part["adjustment_rows"]:
+                expected_binding = _V3_ADJUSTMENT_BINDINGS.get(adjustment["kind"])
+                rows = adjustment["rows"]
+                family_pin = rows["source_family"]
+                if expected_binding is not None:
+                    expected_label, expected_family_token = expected_binding
+                    if adjustment["label"] != expected_label:
+                        issues.append(MemberIssue(
+                            pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_LABEL_MISMATCH",
+                            f"part {part['part_id']!r} kind {adjustment['kind']!r} requires label {expected_label!r}",
+                        ))
+                    actual_family_token = family_pin["id"].rsplit(".", 1)[-1]
+                    if actual_family_token != expected_family_token:
+                        issues.append(MemberIssue(
+                            pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_AUTHORITY_MISMATCH",
+                            f"part {part['part_id']!r} kind {adjustment['kind']!r} requires the {expected_family_token!r} class authority, got {family_pin!r}",
+                        ))
+                family = families_by_key.get((family_pin["id"], family_pin["version"]))
+                if family is None:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_FAMILY_ABSENT",
+                                              f"part {part['part_id']!r} names absent adjustment family {family_pin}"))
+                    continue
+                if rows["member_fact_type"]["id"] != family["member_predicate"]["fact_type"]:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_MEMBER_MISMATCH",
+                                              f"part {part['part_id']!r} adjustment member does not equal family {family['id']!r} canonical predicate"))
+                if adjustment["subtotal_symbol"] != family["authorizes_subtotal"]:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_SUBTOTAL_MISMATCH",
+                                              f"part {part['part_id']!r} adjustment subtotal is not authorized by family {family['id']!r}"))
+            if (
+                package.get("version") == "v14"
+                and pin["id"] == "tax.us.2025.rule.attachment.schedule-b"
+                and pin["version"] == "v4"
+            ):
+                actual_adjustment_slots = [
+                    (adjustment["rows"]["source_family"]["id"], adjustment["subtotal_symbol"])
+                    for adjustment in part["adjustment_rows"]
+                ]
+                expected_adjustment_slots = list(_V11_ADJUSTMENT_SLOTS) if part["part_id"] == "part-i-interest" else []
+                if sorted(actual_adjustment_slots) != sorted(expected_adjustment_slots) or len(actual_adjustment_slots) != len(expected_adjustment_slots):
+                    issues.append(MemberIssue(
+                        pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_CLASS_SURFACE_MISMATCH",
+                        f"v11 Schedule B part {part['part_id']!r} adjustment slots {actual_adjustment_slots} do not equal the exact three-class surface",
+                    ))
+            authority = part["authority"]
+            if authority["kind"] == "single_family":
+                family_pin = authority["source_family"]
+                family = families_by_key.get((family_pin["id"], family_pin["version"]))
+                authority_slots = [] if family is None else [(family["id"], family["version"], family["authorizes_subtotal"])]
+                if actual_slots != authority_slots:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_SINGLE_FAMILY_BIJECTION_MISMATCH",
+                                              f"part {part['part_id']!r} positive row sets do not equal authority"))
+            else:
+                comp_pin = authority["composition"]
+                comp = compositions_by_key.get((comp_pin["id"], comp_pin["version"]))
+                authority_slots = [] if comp is None else [
+                    (slot["source_family"]["id"], slot["source_family"]["version"], slot["authorizes_subtotal"])
+                    for slot in comp["constituents"]
+                ]
+                if sorted(actual_slots) != sorted(authority_slots) or len(actual_slots) != len(authority_slots):
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_COMPOSITION_BIJECTION_MISMATCH",
+                                              f"part {part['part_id']!r} positive row sets do not equal composition slots"))
+                if comp is None:
+                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_COMPOSITION_ABSENT",
+                                              f"part {part['part_id']!r} names absent composition {comp_pin}"))
+                elif tie_out["line_symbol"] != comp["publishes"]:
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_LINE_AUTHORITY_MISMATCH",
                                               f"part {part['part_id']!r} line symbol does not equal composition publication"))
 

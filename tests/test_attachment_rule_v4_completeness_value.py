@@ -86,7 +86,7 @@ class PackageValidationEqualsInDomain(unittest.TestCase):
 
     def setUp(self) -> None:
         self.schemas = DerivationSchemas()
-        self.package = _load("package.core-calculations.v12.json")
+        self.package = _load("package.core-calculations.v14.json")
         corpus: dict[tuple[str, str], dict[str, Any]] = {}
         import glob
         for f in glob.glob(str(CONTENT / "*.json")):
