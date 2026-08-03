@@ -4,10 +4,10 @@
   "phase": "Legible Entry",
   "topic": "document-oriented-entry",
   "active_plan": "docs/phases/legible-entry/milestones/document-oriented-entry.md",
-  "milestone_state": "planned",
-  "status": "**LEGIBLE ENTRY / DOCUMENT-ORIENTED ENTRY — PLANNED on `main-ui` 2026-08-02.** Entry will begin from a named source context: normally a document, and otherwise an explicitly named question, decision, or taxpayer context. Opening a context presents its related fields together over the existing synthetic contribution and presentation models.",
-  "current_role": "Foreman (charter first experiment)",
-  "current_prompt": "docs/phases/legible-entry/milestones/document-oriented-entry.md"
+  "milestone_state": "track-1",
+  "status": "**LEGIBLE ENTRY / DOCUMENT-ORIENTED ENTRY — TRACK 1 CHARTERED on `main-ui` 2026-08-02.** The first experiment tests a source-context map over the synthetic W-2 and 1099-DIV fields plus one explicitly named question context, without adding tax meaning or a new citizen.",
+  "current_role": "Builder (Document-Oriented Entry Card 1)",
+  "current_prompt": "docs/reviews/charter-2026-08-02-document-oriented-entry-card1.md"
 }
 -->
 # Phase State
@@ -38,16 +38,16 @@ Opening a context should present its related fields together.
 
 ## Operational State: Legible Entry
 
-* **Active Milestone:** Document-Oriented Entry, planned on `main-ui`
-  2026-08-02.
+* **Active Milestone:** Document-Oriented Entry, Track 1 chartered on
+  `main-ui` 2026-08-02.
 * **Product change so far:** none in this milestone. The prior workspace is a
   separate, field-keyed orientation surface over the synthetic entry loop.
 * **Plan:** `docs/phases/legible-entry/milestones/document-oriented-entry.md`.
 * **Carried forward:** correction still resets scroll position, silently
   relocating the reader away from open explanation panels. The workspace
   prototype did not change that behavior.
-* **Next:** charter the first source-context experiment over the synthetic
-  workspace.
+* **Next:** build the source-context map described in
+  `docs/reviews/charter-2026-08-02-document-oriented-entry-card1.md`.
 * **Branch line:** UI work continues on `main-ui`.
 
 ## Re-entry
