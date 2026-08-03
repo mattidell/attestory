@@ -14,7 +14,7 @@ import copy
 import json
 import unittest
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.package_validation import validate_package
@@ -23,7 +23,7 @@ CONTENT = Path("packages/content/tax/2025")
 
 
 def _load(name: str) -> dict[str, Any]:
-    return json.loads((CONTENT / name).read_text("utf-8"))
+    return cast(dict[str, Any], json.loads((CONTENT / name).read_text("utf-8")))
 
 
 class AttachmentRuleV4Shape(unittest.TestCase):

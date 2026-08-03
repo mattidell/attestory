@@ -48,9 +48,9 @@ def run_model(name: str, acts: list[dict[str, object]]) -> dict[str, Any]:
 
 
 def regenerate() -> dict[str, dict[str, Any]]:
-    violated = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+    violated: dict[str, str | None] = {name: "yes" for name in BOUNDARY_DECLARATIONS}
     violated["tax.us.2025.schedule-d-boundary.no-current-capital-losses"] = "no"
-    missing = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+    missing: dict[str, str | None] = {name: "yes" for name in BOUNDARY_DECLARATIONS}
     missing["tax.us.2025.schedule-d-boundary.no-form8949-sources"] = None
 
     return {

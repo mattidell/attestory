@@ -387,7 +387,7 @@ class ScheduleDRouteMissingBoundaryDeclaration(unittest.TestCase):
     selected preferential base blocks naming exactly the missing declaration."""
 
     def test_missing_declaration_blocks_naming_it(self) -> None:
-        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary: dict[str, str | None] = {name: "yes" for name in BOUNDARY_DECLARATIONS}
         boundary["tax.us.2025.schedule-d-boundary.no-form8949-sources"] = None
         report = _run_tmp(
             _sdcl_t2_acts(box2a=None, close_2a=True, eligible_txn=True, boundary=boundary),
@@ -415,7 +415,7 @@ class ScheduleDRouteViolatedBoundaryDeclaration(unittest.TestCase):
     declared "no" from a declared "yes" and remains "published" here."""
 
     def test_violated_declaration_is_inapplicable_not_a_fabricated_publish(self) -> None:
-        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary: dict[str, str | None] = {name: "yes" for name in BOUNDARY_DECLARATIONS}
         boundary["tax.us.2025.schedule-d-boundary.no-current-capital-losses"] = "no"
         report = _run_tmp(
             _sdcl_t2_acts(box2a=None, close_2a=True, eligible_txn=True, boundary=boundary),
@@ -458,7 +458,7 @@ class AttachmentCompletenessViolationConverges(unittest.TestCase):
     against package v12 (attachment-rule.v4)."""
 
     def test_violated_declaration_blocks_attachment_naming_it(self) -> None:
-        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary: dict[str, str | None] = {name: "yes" for name in BOUNDARY_DECLARATIONS}
         boundary["tax.us.2025.schedule-d-boundary.no-current-capital-losses"] = "no"
         report = _run_tmp(
             _sdcl_t2_acts(
@@ -485,7 +485,7 @@ class AttachmentAbsenceUnaffected(unittest.TestCase):
     still DEPENDENCY_ABSENT naming the missing symbol, no value read."""
 
     def test_missing_declaration_still_dependency_absent(self) -> None:
-        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary: dict[str, str | None] = {name: "yes" for name in BOUNDARY_DECLARATIONS}
         boundary["tax.us.2025.schedule-d-boundary.no-form8949-sources"] = None
         report = _run_tmp(
             _sdcl_t2_acts(
@@ -528,7 +528,7 @@ class AttachmentLifecycleCorrection(unittest.TestCase):
     staying invariant across it."""
 
     def test_correction_converges_attachment_from_blocked_to_published(self) -> None:
-        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary: dict[str, str | None] = {name: "yes" for name in BOUNDARY_DECLARATIONS}
         boundary["tax.us.2025.schedule-d-boundary.no-current-capital-losses"] = "no"
         report_t0 = _run_tmp(
             _sdcl_t2_acts(

@@ -109,7 +109,7 @@ class ViolatedAndMissingAreNowVisible(unittest.TestCase):
     numeric lines still correctly redact, unaffected by this change."""
 
     def test_violated_declaration_attachment_now_visible(self) -> None:
-        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary: dict[str, str | None] = {name: "yes" for name in BOUNDARY_DECLARATIONS}
         boundary["tax.us.2025.schedule-d-boundary.no-current-capital-losses"] = "no"
         model = _run_model("demo.sdcl.t3.violated", _sdcl_t2_acts(
             box2a=None, close_2a=True, eligible_txn=True, boundary=boundary,
@@ -128,7 +128,7 @@ class ViolatedAndMissingAreNowVisible(unittest.TestCase):
         self.assertEqual(sections["line-7a"]["resolved"]["disposition"], "blocked")
 
     def test_missing_declaration_attachment_now_visible(self) -> None:
-        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary: dict[str, str | None] = {name: "yes" for name in BOUNDARY_DECLARATIONS}
         boundary["tax.us.2025.schedule-d-boundary.no-form8949-sources"] = None
         model = _run_model("demo.sdcl.t3.missing", _sdcl_t2_acts(
             box2a=None, close_2a=True, eligible_txn=True, boundary=boundary,
