@@ -1,0 +1,10 @@
+{
+  "authority": {
+    "family": "irs-instructions",
+    "form_id": "1040-SCH-B",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.citation.scheduleb-adjustment.abp-adjustment",
+  "schema": "citation.v1",
+  "version": "v1"
+}

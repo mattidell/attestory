@@ -1,0 +1,68 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.scheduleb.adjustment.abp-adjustment.amount",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "entity_kind": "tax.us.scheduleb-adjustment-instance",
+          "kind": "entity",
+          "name": "adjustment-instance"
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.taxable-interest",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "A nonnegative contributed abp adjustment amount for a taxable amortizable bond premium adjustment reported for one logical Schedule B interest-adjustment instance where the payer did not already net the amount; identity is exactly the tax year plus logical adjustment instance and never an evidence, file, upload, scan, or document identifier.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.scheduleb.adjustment.abp-adjustment.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic user-attested closure of the 2025 ABP Adjustment adjustment class on its current membership horizon; it makes no claim about other interest, investments, transactions, or Schedule D.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.scheduleb.adjustment.abp-adjustment.vocabulary",
+  "label": "Synthetic 2025 Schedule B ABP Adjustment adjustment vocabulary",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

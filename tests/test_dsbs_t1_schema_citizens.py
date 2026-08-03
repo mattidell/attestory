@@ -221,13 +221,18 @@ class ReconciledVocabularies(TrackOneRegistry):
                 with self.assertRaises(SchemaValidationError):
                     self.registry.validate_declared(load(NEGATIVES / name))
 
-    def test_form_field_v3_carries_the_emitted_code_and_line_2b_v4_rides_it(self) -> None:
+    def test_form_field_v3_carries_the_emitted_code_and_line_2b_v5_rides_it(self) -> None:
         line_2b = load_form_fields()["tax.us.2025.form1040.line-2b"]
         self.assertEqual(line_2b["schema"], "form-field.v3")
-        self.assertEqual(line_2b["version"], "v4")
+        self.assertEqual(line_2b["version"], "v5")
         codes = line_2b["dispositions"]["blocked"]["codes"]
         self.assertIn("SOURCE_SET_UNCLOSED", codes)
         self.assertNotIn("SOURCE_SET_OPEN", codes)
+
+        # Compatibility assertion for pre-Schedule-B v4 form field
+        v4_field = load(EXAMPLES.parent.parent.parent / "content/tax/2025/form1040.line-2b.form-field.v4.json")
+        self.assertEqual(v4_field["schema"], "form-field.v3")
+        self.assertEqual(v4_field["version"], "v4")
 
     def test_the_runner_emission_is_the_reconciled_code(self) -> None:
         from packages.derivation.evaluator import BLOCK_CLOSURE

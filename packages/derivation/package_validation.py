@@ -636,7 +636,7 @@ def validate_package(
                 comp_constituents = {c["authorizes_subtotal"] for c in comp_citizen.get("constituents", [])}
                 rule_requires = set(rule_citizen.get("requires", []))
                 v11_adjustment_route = (
-                    package.get("version") == "v14"
+                    package.get("version") in {"v14", "v15"}
                     and rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
                     and rule_pin["version"] == "v4"
                 )
@@ -912,6 +912,7 @@ def validate_package(
         "artifact-package.v7",
         "artifact-package.v10",
         "artifact-package.v11",
+        "artifact-package.v12",
     }
     source_family_members = {
         citizen["id"]: citizen["member_predicate"]["fact_type"]
@@ -1170,7 +1171,7 @@ def validate_package(
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_SUBTOTAL_MISMATCH",
                                               f"part {part['part_id']!r} adjustment subtotal is not authorized by family {family['id']!r}"))
             if (
-                package.get("version") == "v14"
+                package.get("version") in {"v14", "v15"}
                 and pin["id"] == "tax.us.2025.rule.attachment.schedule-b"
                 and pin["version"] == "v4"
             ):

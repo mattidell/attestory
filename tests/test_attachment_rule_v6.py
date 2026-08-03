@@ -9,11 +9,12 @@ from pathlib import Path
 from typing import Any, cast
 
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.package_validation import package_instance_checksum, validate_package
+from packages.derivation.package_validation import PackageValidation, package_instance_checksum, validate_package
 from packages.derivation.runner import (
     ITEMIZATION_TIE_OUT_VIOLATION,
     InputFinding,
     RunContext,
+    RunResult,
     SourceFact,
     run,
 )
@@ -25,6 +26,7 @@ V6_FIXTURE = ROOT / "packages/sample_data/schedule_b_interest_adjustments/schema
 V2_FIXTURE = ROOT / "packages/sample_data/k1_interest_breadth/schema/examples/attachment-rule.v2.json"
 V6_PACKAGE_FIXTURE = ROOT / "packages/sample_data/k1_interest_breadth/schema/examples/artifact-package.v6.json"
 V11_PACKAGE_FIXTURE = ROOT / "packages/sample_data/schedule_b_interest_adjustments/schema/examples/artifact-package.v11.json"
+V12_PACKAGE_FIXTURE = ROOT / "packages/sample_data/schedule_b_interest_adjustments/schema/examples/artifact-package.v12.json"
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -106,12 +108,12 @@ def _package_corpus(attachment: dict[str, Any]) -> dict[tuple[str, str], dict[st
     return corpus
 
 
-def _package_result(attachment: dict[str, Any]):
+def _package_result(attachment: dict[str, Any]) -> PackageValidation:
     package = _load(V11_PACKAGE_FIXTURE)
     return validate_package(package, _package_corpus(attachment), DerivationSchemas())
 
 
-def _run(attachment: dict[str, Any], *, line_value: str = "60"):
+def _run(attachment: dict[str, Any], *, line_value: str = "60") -> RunResult:
     return run(
         RunContext(
         run_id="demo.attachment-v6",
@@ -151,6 +153,14 @@ class AttachmentRuleV6Schema(unittest.TestCase):
 
     def test_v11_package_admits_v6_fixture(self) -> None:
         package = _load(V11_PACKAGE_FIXTURE)
+        schemas = DerivationSchemas()
+        schemas.validate_declared(package)
+        self.assertEqual(package_instance_checksum(package), package["package_checksum"])
+        result = _package_result(_load(V6_FIXTURE))
+        self.assertTrue(result.ok, result.issues)
+
+    def test_v12_package_admits_v6_fixture(self) -> None:
+        package = _load(V12_PACKAGE_FIXTURE)
         schemas = DerivationSchemas()
         schemas.validate_declared(package)
         self.assertEqual(package_instance_checksum(package), package["package_checksum"])

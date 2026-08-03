@@ -1,0 +1,154 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "tax.us.2025.interest.b1-subtotal",
+      "tax.us.2025.interest.b3-subtotal",
+      "tax.us.2025.interest.oid-subtotal",
+      "tax.us.2025.interest.non-form-subtotal",
+      "tax.us.2025.interest.form1065-k1-box5-subtotal",
+      "tax.us.2025.interest.b10-market-discount-subtotal",
+      "tax.us.2025.interest.oid-b5-market-discount-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-2b",
+      "version": "v1"
+    }
+  ],
+  "composition": {
+    "id": "tax.us.2025.interest-composition",
+    "version": "v4"
+  },
+  "id": "tax.us.2025.rule.interest-positive-total",
+  "notes": "Publishes the exact seven-family positive-interest line-1 basis for Schedule B threshold admission. It is not taxable interest after the three explicit adjustment classes and makes no broader completeness claim.",
+  "pins": [
+    {
+      "id": "tax.us.2025.interest.b1-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.b3-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.oid-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.non-form-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.b10-market-discount-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.interest.positive-total",
+  "requires": [
+    "tax.us.2025.interest.b1-subtotal",
+    "tax.us.2025.interest.b3-subtotal",
+    "tax.us.2025.interest.oid-subtotal",
+    "tax.us.2025.interest.non-form-subtotal",
+    "tax.us.2025.interest.form1065-k1-box5-subtotal",
+    "tax.us.2025.interest.b10-market-discount-subtotal",
+    "tax.us.2025.interest.oid-b5-market-discount-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "args": [
+      {
+        "name": "tax.us.2025.interest.b1-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.b3-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.oid-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.non-form-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.b10-market-discount-subtotal",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+        "op": "ref"
+      }
+    ],
+    "op": "add"
+  },
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b1"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b3"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099oid.b1"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.non-form-interest"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.form1065-k1.box5"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b10"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099oid.b5"
+      }
+    ],
+    "op": "all"
+  }
+}

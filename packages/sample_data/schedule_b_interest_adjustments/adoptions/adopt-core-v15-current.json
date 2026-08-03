@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v15",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-03T12:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic Schedule B interest-adjustment successor adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "3036edf2cde2cb3e74e644bfe0f21fdd8caca5f2378f61a5cff8978cca08d385",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v15"
+    },
+    "release": {
+      "checksum": "f9161807f008f9f17605f1529444ec67c2f43edc84ed7c2f7c706c9ec161b377",
+      "id": "demo.release.2025",
+      "version": "v8"
+    },
+    "revision": 15,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v14"
+  },
+  "schema": "act.v1"
+}
