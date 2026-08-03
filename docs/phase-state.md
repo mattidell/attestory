@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
-  "milestone_state": "track-2-landed-decision-unit-chartered",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 2 LANDED (`37b4426`).** Schedule D content and the line 7a/9/16 production route are committed. A flagged, not-allowlisted production condition (attachment completeness disposition uses presence-only semantics and can diverge from the numeric route on a violated absence declaration) is chartered as a paper-spike-plus-ADR-draft decision unit before Track 3.",
-  "current_role": "Attachment Completeness Decision Unit (paper spike + ADR draft, owner-launched)",
-  "current_prompt": "docs/reviews/charter-2026-08-02-schedule-d-attachment-completeness-decision.md"
+  "milestone_state": "track-2-landed-adr-0055-ratified-implementation-chartered",
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 2 LANDED (`37b4426`); ADR-0055 RATIFIED.** Schedule D content and the line 7a/9/16 production route are committed. The flagged attachment completeness-violation gap (presence-only semantics diverging from selected-preferential-base's value-checked route) has a ratified additive fix (ADR-0055, `attachment-rule.v4` + one bounded `attempt_attachment` branch). An implementation charter is chartered for owner launch; Track 3 follows once it lands.",
+  "current_role": "Attachment Completeness-Violation Implementation Builder (owner-launched)",
+  "current_prompt": "docs/reviews/charter-2026-08-02-attachment-completeness-violation-implementation.md"
 }
 -->
 # Phase State
@@ -32,7 +32,7 @@ yet claimed.
 ## Operational State: Engine Breadth
 
 * **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 2
-  landed; a decision unit is chartered before Track 3.**
+  landed; ADR-0055 ratified; implementation chartered before Track 3.**
 * **Product change (target):** covered, long-term, gain-only Form 1099-B
   transactions become a closed source family that reaches Schedule D line 8a,
   Part II line 15, Part III line 16, Form 1040 line 7a, and the correct QDCG
@@ -50,11 +50,12 @@ yet claimed.
   ADR-0052/0053/0054 contract; Track 1's transaction identity, family, closure,
   and completeness-boundary citizens with focused tests; Track 2's Schedule D
   content, selected-preferential-base, and line 7a/9/16 production route
-  (`37b4426`), with one flagged, not-allowlisted production condition on the
-  attachment's completeness disposition.
-* **Next:** owner-launch the attachment completeness-violation decision unit
-  from the current prompt (paper spike plus proposed ADR draft, not Track 3).
-  Track 3 follows once the owner ratifies its outcome.
+  (`37b4426`); the attachment completeness-violation paper spike and ADR-0055,
+  ratified 2026-08-02.
+* **Next:** owner-launch the attachment completeness-violation implementation
+  builder from the current prompt (`attachment-rule.v4`, the `attempt_attachment`
+  value-check branch, Schedule D content successor, package graph, goldens).
+  Track 3 follows once it lands.
 * **Branch line:** `milestone/schedule-d-covered-ltcg-8a-v2`, one draft-to-final
   milestone PR based on the current `main`.
 

@@ -1,6 +1,6 @@
 # ADR 0055 — Attachment Completeness Violation Semantics
 
-- Status: **proposed** (paper spike only; not implemented, not ratified)
+- Status: **accepted** (owner ratification 2026-08-02, Tier 2)
 - Tier: 2 — narrow, additive schema/representation widening with future
   blast radius (every future schedule with an eligibility-gating
   declared-absence fact inherits the gap), not a product-thesis or

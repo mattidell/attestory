@@ -70,9 +70,9 @@ def _act(name: str) -> dict[str, object]:
     return cast(dict[str, object], json.loads((FIXTURES / "adoptions" / name).read_text("utf-8")))
 
 
-def _surface() -> PublicationSurface:
+def _surface(registry: str = "published-packages.v6.json") -> PublicationSurface:
     return PublicationSurface(
-        FIXTURES / "publication_surface" / "releases", CONTENT / "published-packages.v6.json", CONTENT
+        FIXTURES / "publication_surface" / "releases", CONTENT / registry, CONTENT
     )
 
 
@@ -107,15 +107,20 @@ def _sdcl_t2_acts(
     eligible_txn: bool = False,
     close_eligible: bool = True,
     boundary: dict[str, str | None] | None = None,
+    adoption_file: str = "adopt-core-v11-current.json",
+    correction: dict[str, str] | None = None,
 ) -> list[dict[str, object]]:
-    """Build a minimal act log against package v11.
+    """Build a minimal act log against package v11 (or ``adoption_file``).
 
     ``eligible_txn`` admits one covered-long-term-gain transaction (and its
     twin scalar companions) on one broker statement anchor. ``boundary``
     overrides the seven Schedule D absence declarations (default: all "yes"
     when an eligible transaction is present, omitted entirely otherwise -
     ADR-0053 Decision 1's boundary declarations are never required by the
-    direct-route/closed-empty branch).
+    direct-route/closed-empty branch). ``correction`` supersedes one or more
+    boundary declarations with a new current value after the initial batch
+    (ADR-0055's T0->T1->T2 lifecycle trace), ordinary free supersession at
+    the same fact identity, not a new finding kind.
     """
     if components is None:
         components = {"C1": "yes", "C2": "yes", "C3": "yes", "C4": "yes"}
@@ -282,13 +287,24 @@ def _sdcl_t2_acts(
     for finding_id, fact_type, horizon_id in closures:
         add("assertion", {"finding": _attested(finding_id, f"{fact_type}|family-horizon={horizon_id},tax-year=2025", True)})
 
-    adoption = _act("adopt-core-v11-current.json")
+    if correction:
+        for name, value in correction.items():
+            add("assertion", {"finding": _attested(
+                f"demo.sdcl.t2.finding.{name.split('.')[-1]}.correction",
+                f"{name}|tax-year=2025",
+                value,
+            )})
+
+    adoption = _act(adoption_file)
     adoption["committed_against"] = len(acts)
     acts.append(adoption)
     return acts
 
 
-def _run(acts: list[dict[str, object]], run_id: str, root: Path) -> dict[str, Any]:
+def _run(
+    acts: list[dict[str, object]], run_id: str, root: Path,
+    registry: str = "published-packages.v6.json",
+) -> dict[str, Any]:
     result = live_coordinate_run(
         WorkspaceCapability(root / "L"),
         repo_root=REPO,
@@ -299,7 +315,7 @@ def _run(acts: list[dict[str, object]], run_id: str, root: Path) -> dict[str, An
         request={"schema": "run-request.v1"},
         run_id=run_id,
         governance_pins=[],
-        surface=_surface(),
+        surface=_surface(registry),
         output_name="out.json",
     )
     assert result.refusal is None, result.refusal
@@ -307,9 +323,12 @@ def _run(acts: list[dict[str, object]], run_id: str, root: Path) -> dict[str, An
     return cast(dict[str, Any], json.loads(result.output_path.read_text()))
 
 
-def _run_tmp(acts: list[dict[str, object]], run_id: str) -> dict[str, Any]:
+def _run_tmp(
+    acts: list[dict[str, object]], run_id: str,
+    registry: str = "published-packages.v6.json",
+) -> dict[str, Any]:
     with TemporaryDirectory() as tmp:
-        return _run(acts, run_id, Path(tmp))
+        return _run(acts, run_id, Path(tmp), registry)
 
 
 def _by_artifact(report: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -431,6 +450,110 @@ class BothGainsPreservedExactlyOnce(unittest.TestCase):
         self.assertEqual(rows[SELECTED_BASE_RULE]["disposition"], "published")
         base_pin_ids = {p["id"] for p in rows[SELECTED_BASE_RULE]["pins"]}
         self.assertIn(rows[SD_LINE16]["finding_id"], base_pin_ids)
+
+
+class AttachmentCompletenessViolationConverges(unittest.TestCase):
+    """ADR-0055 N1: a present, current, disqualifying declaration now makes
+    the attachment's own disposition agree with selected-preferential-base,
+    against package v12 (attachment-rule.v4)."""
+
+    def test_violated_declaration_blocks_attachment_naming_it(self) -> None:
+        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary["tax.us.2025.schedule-d-boundary.no-current-capital-losses"] = "no"
+        report = _run_tmp(
+            _sdcl_t2_acts(
+                box2a=None, close_2a=True, eligible_txn=True, boundary=boundary,
+                adoption_file="adopt-core-v12-current.json",
+            ),
+            "demo.sdcl.t2.v12.violated",
+            registry="published-packages.v7.json",
+        )
+        rows = _by_artifact(report)
+        self.assertEqual(rows[SD_ATTACHMENT]["disposition"], "blocked")
+        self.assertEqual(rows[SD_ATTACHMENT]["code"], "COMPLETENESS_VALUE_VIOLATION")
+        self.assertIn(
+            "tax.us.2025.schedule-d-boundary.no-current-capital-losses=no",
+            rows[SD_ATTACHMENT]["missing"],
+        )
+        # Both authorities now agree: the numeric route is inapplicable too.
+        self.assertEqual(rows[SELECTED_BASE_RULE]["disposition"], "inapplicable")
+        self.assertEqual(rows[LINE7A_RULE]["disposition"], "blocked")
+
+
+class AttachmentAbsenceUnaffected(unittest.TestCase):
+    """ADR-0055 N2 (contrast case): an absent declaration is unaffected -
+    still DEPENDENCY_ABSENT naming the missing symbol, no value read."""
+
+    def test_missing_declaration_still_dependency_absent(self) -> None:
+        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary["tax.us.2025.schedule-d-boundary.no-form8949-sources"] = None
+        report = _run_tmp(
+            _sdcl_t2_acts(
+                box2a=None, close_2a=True, eligible_txn=True, boundary=boundary,
+                adoption_file="adopt-core-v12-current.json",
+            ),
+            "demo.sdcl.t2.v12.absent",
+            registry="published-packages.v7.json",
+        )
+        rows = _by_artifact(report)
+        self.assertEqual(rows[SD_ATTACHMENT]["disposition"], "blocked")
+        self.assertEqual(rows[SD_ATTACHMENT]["code"], "DEPENDENCY_ABSENT")
+        self.assertIn(
+            "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+            rows[SD_ATTACHMENT]["missing"],
+        )
+
+
+class AttachmentPositiveUnaffected(unittest.TestCase):
+    """ADR-0055 P1: all seven declarations "yes" - unaffected, still
+    published (required-and-complete), against package v12."""
+
+    def test_all_yes_still_publishes(self) -> None:
+        report = _run_tmp(
+            _sdcl_t2_acts(
+                box2a=None, close_2a=True, eligible_txn=True,
+                adoption_file="adopt-core-v12-current.json",
+            ),
+            "demo.sdcl.t2.v12.positive",
+            registry="published-packages.v7.json",
+        )
+        rows = _by_artifact(report)
+        self.assertEqual(rows[SD_ATTACHMENT]["disposition"], "published")
+        self.assertEqual(rows[SELECTED_BASE_RULE]["disposition"], "published")
+
+
+class AttachmentLifecycleCorrection(unittest.TestCase):
+    """ADR-0055 T0->T1->T2: the attachment's disposition now changes in
+    step with a correction that flips real-world eligibility, instead of
+    staying invariant across it."""
+
+    def test_correction_converges_attachment_from_blocked_to_published(self) -> None:
+        boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
+        boundary["tax.us.2025.schedule-d-boundary.no-current-capital-losses"] = "no"
+        report_t0 = _run_tmp(
+            _sdcl_t2_acts(
+                box2a=None, close_2a=True, eligible_txn=True, boundary=boundary,
+                adoption_file="adopt-core-v12-current.json",
+            ),
+            "demo.sdcl.t2.v12.lifecycle-t0",
+            registry="published-packages.v7.json",
+        )
+        rows_t0 = _by_artifact(report_t0)
+        self.assertEqual(rows_t0[SD_ATTACHMENT]["disposition"], "blocked")
+        self.assertEqual(rows_t0[SD_ATTACHMENT]["code"], "COMPLETENESS_VALUE_VIOLATION")
+
+        report_t2 = _run_tmp(
+            _sdcl_t2_acts(
+                box2a=None, close_2a=True, eligible_txn=True, boundary=boundary,
+                adoption_file="adopt-core-v12-current.json",
+                correction={"tax.us.2025.schedule-d-boundary.no-current-capital-losses": "yes"},
+            ),
+            "demo.sdcl.t2.v12.lifecycle-t2",
+            registry="published-packages.v7.json",
+        )
+        rows_t2 = _by_artifact(report_t2)
+        self.assertEqual(rows_t2[SD_ATTACHMENT]["disposition"], "published")
+        self.assertEqual(rows_t2[SELECTED_BASE_RULE]["disposition"], "published")
 
 
 if __name__ == "__main__":

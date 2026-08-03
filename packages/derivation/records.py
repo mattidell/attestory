@@ -32,8 +32,11 @@ RECORD_STREAM_FILENAME = "derivation_records.jsonl"
 # The current versioned-ledger record schema. v3 carries the reconciled
 # block-code vocabulary (SOURCE_SET_UNCLOSED, the code the runner actually
 # emits; ADR-0036 production condition 3) and the named tie-out invariant.
-CURRENT_RECORD_SCHEMA = "derivation-record.v3"
-_VERSIONED_RECORD_SCHEMAS = frozenset({"derivation-record.v2", "derivation-record.v3"})
+# v4 adds COMPLETENESS_VALUE_VIOLATION (ADR-0055 Decision 2).
+CURRENT_RECORD_SCHEMA = "derivation-record.v4"
+_VERSIONED_RECORD_SCHEMAS = frozenset(
+    {"derivation-record.v2", "derivation-record.v3", "derivation-record.v4"}
+)
 
 _CLOSING_PHASES = frozenset({"completed", "interrupted", "failed"})
 

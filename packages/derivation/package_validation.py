@@ -41,6 +41,7 @@ _NON_INPUT_SCHEMAS = frozenset({
     "derivation-record.v1",
     "derivation-record.v2",
     "derivation-record.v3",
+    "derivation-record.v4",
 })
 
 
@@ -430,7 +431,7 @@ def validate_package(
             if pin_role != "checked-conclusion-binding":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"checked-conclusion-binding declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3"}:
+        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}:
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"attachment-rule declared as role {pin_role!r}"))
@@ -937,7 +938,7 @@ def validate_package(
     # a boolean or otherwise falsy-encodable Part III answer fact type on an
     # attachment is rejected at admission.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3"}:
+        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}:
             continue
         answers = list(citizen["completeness"]["required_answers"])
         for branch in citizen["completeness"].get("branch_requirements", []):
@@ -962,6 +963,14 @@ def validate_package(
                 issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ANSWER_NOT_CATEGORICAL",
                                           f"answer fact type {answer_pin['id']!r} must declare a categorical all-truthy string domain "
                                           f"(e.g. yes/no); boolean or falsy-valued encodings can short-circuit completeness"))
+            # ADR-0055 Decision 1: a "value"-checked answer's `equals` must
+            # itself be a value the fact type's own declared domain admits -
+            # a required equality against an impossible value can never be
+            # satisfied, so completeness could never be reached honestly.
+            elif answer.get("check") == "value" and answer.get("equals") not in domain:
+                issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ANSWER_EQUALS_NOT_IN_DOMAIN",
+                                          f"answer fact type {answer_pin['id']!r} check:value equals "
+                                          f"{answer.get('equals')!r}, not in its own declared domain {domain}"))
 
     # 10b. attachment-rule.v2 authority and row-set admission. Schema shape
     # alone cannot prove that a row set belongs to its declared family or that
@@ -975,7 +984,7 @@ def validate_package(
         for _, citizen in resolved if citizen["schema"] == "taxable-interest-composition.v1"
     }
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3"}:
+        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}:
             continue
         for part in citizen["itemizations"]:
             actual_slots: list[tuple[str, str, str]] = []

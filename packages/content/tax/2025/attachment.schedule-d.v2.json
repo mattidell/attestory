@@ -1,0 +1,188 @@
+{
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "completeness": {
+    "required_answers": [
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-short-term-transactions",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-short-term-transactions"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-current-capital-losses",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-current-capital-losses"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-form8949-sources"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof"
+      }
+    ]
+  },
+  "id": "tax.us.2025.rule.attachment.schedule-d",
+  "itemizations": [
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-ltcg-proceeds",
+          "version": "v1"
+        }
+      },
+      "label": "Line 8a column (d): proceeds",
+      "part_id": "line-8a-proceeds",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-ltcg-txn.proceeds",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-ltcg-proceeds",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-ltcg-proceeds-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-ltcg-proceeds-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-ltcg-basis",
+          "version": "v1"
+        }
+      },
+      "label": "Line 8a column (e): basis",
+      "part_id": "line-8a-basis",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-ltcg-txn.basis",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-ltcg-basis",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-ltcg-basis-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-ltcg-basis-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099div.2a",
+          "version": "v1"
+        }
+      },
+      "label": "Line 13: capital gain distributions (accepted ADR-0050 box-2a family)",
+      "part_id": "line-13-box2a",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099div.2a",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.dividends.2a-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.dividends.2a-subtotal"
+      }
+    }
+  ],
+  "publishes": "tax.us.2025.schedule-d.disposition",
+  "requirement": {
+    "citation": {
+      "id": "tax.us.2025.citation.attachment.schedule-d",
+      "version": "v1"
+    },
+    "kind": "family_nonempty",
+    "source_family": {
+      "id": "tax.us.2025.f1099b.covered-ltcg-proceeds",
+      "version": "v1"
+    }
+  },
+  "schema": "attachment-rule.v4",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Schedule D (Capital Gains and Losses): required for this bounded class when the covered-long-term-gain eligible-transaction family (via its proceeds companion) is closed with at least one member; not required when closed-empty. Line 8a columns (d)/(e) itemize the eligible transactions; line 13 itemizes the accepted box-2a family (ADR-0050) unchanged. Line 8a column (h) and lines 15/16 are published by separate peer rules and are not itemized here (ADR-0052 Decision 3/4). The seven boundary declarations are value-checked (must equal \"yes\"), not merely present (ADR-0055 Decision 1).",
+  "version": "v2"
+}

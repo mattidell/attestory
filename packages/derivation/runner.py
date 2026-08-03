@@ -123,8 +123,14 @@ _LEDGER_EXCLUDED_PIN_ROLES = frozenset(
 # rules carry no `when`/`value` expression tree - they are interpreted
 # directly from their declarative requirement/itemizations/completeness
 # structure by `_Run.attempt_attachment`, not by `evaluate()`.
-ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3"})
+ATTACHMENT_SCHEMAS = frozenset(
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}
+)
 ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
+# ADR-0055 Decision 2: a required answer present as a current finding but
+# valued other than its declared required value - distinct from absence
+# (DEPENDENCY_ABSENT), never folded into it, never silence.
+COMPLETENESS_VALUE_VIOLATION = "COMPLETENESS_VALUE_VIOLATION"
 
 
 def _uses_attachment_machinery(rules: list[dict[str, Any]]) -> bool:
@@ -337,7 +343,7 @@ class _Run:
             # reads closure/membership state directly and blocks honestly
             # if the pinned family is unclosed.
             symbols = list(requirement.get("subtotals", []))
-            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3"):
+            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"):
                 for part in rule["itemizations"]:
                     symbols.append(part["tie_out"]["line_symbol"])
                     symbols.extend(row_set["subtotal_symbol"] for row_set in part["row_sets"])
@@ -591,7 +597,7 @@ class _Run:
             return "inapplicable"
 
         itemization_pins: list[dict[str, Any]] = []
-        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3"):
+        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"):
             itemization_symbols = sorted({
                 symbol
                 for part in rule["itemizations"]
@@ -610,7 +616,8 @@ class _Run:
         # independently before any value is read (ADR-0036 decision 4) - a
         # missing answer never masks, nor is masked by, another's presence.
         completeness = rule["completeness"]
-        required_answers: list[str] = [a["symbol"] for a in completeness["required_answers"]]
+        answer_specs: dict[str, dict[str, Any]] = {a["symbol"]: a for a in completeness["required_answers"]}
+        required_answers: list[str] = list(answer_specs)
         branch_requirements = completeness.get("branch_requirements", [])
 
         missing_answers: list[str] = [s for s in required_answers if s not in self.symbols]
@@ -630,6 +637,7 @@ class _Run:
             for extra in branch.get("adds_required", []):
                 extra_symbol = extra["symbol"]
                 triggered_extra_symbols.append(extra_symbol)
+                answer_specs[extra_symbol] = extra
                 if extra_symbol not in self.symbols:
                     missing_answers.append(extra_symbol)
             for obligation in branch.get("names_obligations", []):
@@ -645,6 +653,27 @@ class _Run:
             return "blocked"
 
         used_answer_symbols = sorted(set(required_answers) | set(triggered_extra_symbols))
+
+        # ADR-0055 Decision 2/3: presence is checked first, independently
+        # per answer, above; a "value"-checked answer already found present
+        # is now compared to its declared required value. A mismatch is a
+        # completeness violation distinct from absence - the current
+        # finding read here is the exact one the presence check already
+        # confirmed exists, never a new lookup. One pass names every
+        # currently violated answer, never only the first.
+        violated_answers = sorted(
+            f"{s}={_value_str(self.symbols[s])}"
+            for s in used_answer_symbols
+            if answer_specs[s].get("check") == "value"
+            and _value_str(self.symbols[s]) != answer_specs[s]["equals"]
+        )
+        if violated_answers:
+            answer_pins = [self._symbol_pin_entry(s) for s in used_answer_symbols]
+            self._attachment_block(
+                rule_id, COMPLETENESS_VALUE_VIOLATION, violated_answers, base_pins + answer_pins
+            )
+            return "blocked"
+
         answers_value = {s: _value_str(self.symbols[s]) for s in used_answer_symbols}
         answer_pins = [self._symbol_pin_entry(s) for s in used_answer_symbols]
 
@@ -707,7 +736,7 @@ class _Run:
         if tie_out_violations:
             self._attachment_block(
                 rule_id, ITEMIZATION_TIE_OUT_VIOLATION, sorted(set(tie_out_violations)),
-                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3") else []),
+                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4") else []),
             )
             return "blocked"
 
