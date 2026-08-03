@@ -1,0 +1,668 @@
+{
+  "$defs": {
+    "exact_pin": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "type": "object"
+    },
+    "member": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "parameter",
+            "computation",
+            "applicability",
+            "field-mapping",
+            "cross-form-bridge",
+            "form-field",
+            "source-family",
+            "source-closure-mapping",
+            "composition",
+            "fact-type",
+            "fact-type-bundle",
+            "citation",
+            "operation-semantics",
+            "dividend-universe",
+            "attachment-rule",
+            "checked-conclusion-binding"
+          ]
+        },
+        "schema": {
+          "enum": [
+            "fact-type.v2",
+            "bundle.v2",
+            "rule-artifact.v2",
+            "rule-artifact.v3",
+            "operation-semantics.v2",
+            "source-closure-mapping.v2",
+            "source-family.v1",
+            "taxable-interest-composition.v1",
+            "citation.v1",
+            "form-field.v2",
+            "form-field.v3",
+            "parameter-declaration.v1",
+            "quantity-vocabulary.v1",
+            "quantity-vocabulary.v2",
+            "role-canon.v1",
+            "dividend-universe.v1",
+            "attachment-rule.v1",
+            "dividend-universe.v2",
+            "quantity-vocabulary.v3",
+            "checked-conclusion-binding.v1",
+            "attachment-rule.v2",
+            "attachment-rule.v3",
+            "quantity-vocabulary.v4",
+            "attachment-rule.v4",
+            "attachment-rule.v5",
+            "attachment-rule.v6"
+          ]
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "schema",
+        "id",
+        "version"
+      ],
+      "type": "object"
+    },
+    "member_ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "type": "object"
+    },
+    "scope": {
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "jurisdiction": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tax_year": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tax_year",
+        "jurisdiction",
+        "family"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "derivation/artifact-package.v11",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "rule-artifact.v2"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "rule-artifact.v2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "rule-artifact.v3"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "rule-artifact.v3"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v2"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v2"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "members": {
+            "items": {
+              "if": {
+                "properties": {
+                  "schema": {
+                    "const": "attachment-rule.v2"
+                  }
+                },
+                "required": [
+                  "schema"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "role": {
+                    "const": "attachment-rule"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v3"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v3"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v3"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "members": {
+            "items": {
+              "if": {
+                "properties": {
+                  "schema": {
+                    "const": "attachment-rule.v3"
+                  }
+                },
+                "required": [
+                  "schema"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "role": {
+                    "const": "attachment-rule"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v4"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v4"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v4"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "members": {
+            "items": {
+              "if": {
+                "properties": {
+                  "schema": {
+                    "const": "attachment-rule.v4"
+                  }
+                },
+                "required": [
+                  "schema"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "role": {
+                    "const": "attachment-rule"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v5"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v5"
+            }
+          },
+          "members": {
+            "items": {
+              "if": {
+                "properties": {
+                  "schema": {
+                    "const": "attachment-rule.v5"
+                  }
+                },
+                "required": [
+                  "schema"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "role": {
+                    "const": "attachment-rule"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v6"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v6"
+            }
+          },
+          "members": {
+            "items": {
+              "if": {
+                "properties": {
+                  "schema": {
+                    "const": "attachment-rule.v6"
+                  }
+                },
+                "required": [
+                  "schema"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "role": {
+                    "const": "attachment-rule"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "description": "artifact-package.v10 with attachment-rule.v6 admitted; every v10 schema and role remains admitted.",
+  "properties": {
+    "admitted_schemas": {
+      "items": {
+        "enum": [
+          "fact-type.v2",
+          "bundle.v2",
+          "rule-artifact.v2",
+          "rule-artifact.v3",
+          "operation-semantics.v2",
+          "source-closure-mapping.v2",
+          "source-family.v1",
+          "taxable-interest-composition.v1",
+          "citation.v1",
+          "form-field.v2",
+          "form-field.v3",
+          "parameter-declaration.v1",
+          "quantity-vocabulary.v1",
+          "quantity-vocabulary.v2",
+          "role-canon.v1",
+          "dividend-universe.v1",
+          "attachment-rule.v1",
+          "dividend-universe.v2",
+          "quantity-vocabulary.v3",
+          "checked-conclusion-binding.v1",
+          "attachment-rule.v2",
+          "attachment-rule.v3",
+          "quantity-vocabulary.v4",
+          "attachment-rule.v4",
+          "attachment-rule.v5",
+          "attachment-rule.v6"
+        ]
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "composition_obligations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "conflict_semantics": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "selected_producer": {
+            "$ref": "#/$defs/member_ref"
+          },
+          "symbol": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "symbol",
+          "selected_producer"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "entrypoints": {
+      "items": {
+        "$ref": "#/$defs/member_ref"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "input_bindings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "fact_type": {
+            "$ref": "#/$defs/exact_pin"
+          },
+          "mode": {
+            "enum": [
+              "required",
+              "optional_default"
+            ]
+          },
+          "symbol": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "symbol",
+          "fact_type",
+          "mode"
+        ],
+        "type": "object"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "members": {
+      "items": {
+        "$ref": "#/$defs/member"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "package_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "artifact-package.v11"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "version": {
+      "pattern": "^v[0-9]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "scope",
+    "admitted_schemas",
+    "members",
+    "input_bindings",
+    "entrypoints",
+    "composition_obligations",
+    "package_checksum"
+  ],
+  "title": "Closed package admitting attachment-rule.v6",
+  "type": "object"
+}

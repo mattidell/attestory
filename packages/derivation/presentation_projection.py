@@ -36,7 +36,7 @@ PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 # distinct presentation contract. Both are recognized field citizens.
 FIELD_SCHEMAS = frozenset({"form-field.v2", "form-field.v3"})
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}
 )
 
 _NUMERIC_DISPOSITIONS = frozenset({"published_value", "computed_zero", "closure_backed_zero"})
@@ -316,6 +316,9 @@ def _resolve_attachment(
     if row["disposition"] != "published":
         raise PresentationModelError(f"unknown disposition {row['disposition']!r} for attachment {attachment['id']!r}")
 
+    attachment_finding = publications_by_id.get(row.get("finding_id", ""))
+    if attachment_finding is None:
+        raise PresentationModelError(f"attachment cites unrecorded finding {row.get('finding_id')!r}")
     parts: list[dict[str, Any]] = []
     for itemization in attachment["itemizations"]:
         tie_symbol = itemization["tie_out"]["line_symbol"]
@@ -326,10 +329,30 @@ def _resolve_attachment(
         if finding is None:
             raise PresentationModelError(f"itemization tie-out cites unrecorded finding {tie_row['finding_id']!r}")
         value = _numeric_value(finding["value"], symbol=tie_symbol)
-        leaves = _raw_leaves(
-            finding["pins"], publications_by_id=publications_by_id, state=state, root_id=finding["id"]
-        )
         part_id = itemization["part_id"]
+        value_itemization = None
+        if isinstance(attachment_finding.get("value"), dict):
+            value_itemization = next(
+                (entry for entry in attachment_finding["value"].get("itemizations", []) if entry.get("part_id") == part_id),
+                None,
+            )
+        if attachment.get("schema") == "attachment-rule.v6":
+            if value_itemization is None:
+                raise PresentationModelError(f"attachment finding omits itemization value for {part_id!r}")
+            assert isinstance(value_itemization, dict)
+            positive_ids = {
+                row["finding_id"]
+                for row_set in value_itemization.get("row_sets", [])
+                for row in row_set.get("rows", [])
+            }
+            leaves = {(finding_id, "v1") for finding_id in positive_ids}
+            for finding_id, _version in leaves:
+                if finding_id not in state.findings:
+                    raise PresentationModelError(f"citation lineage references unrecorded finding {finding_id!r}")
+        else:
+            leaves = _raw_leaves(
+                finding["pins"], publications_by_id=publications_by_id, state=state, root_id=finding["id"]
+            )
         sites: list[dict[str, Any]] = []
         for index, (leaf_id, leaf_version) in enumerate(sorted(leaves)):
             if _is_closure_finding(leaf_id, state):
@@ -345,6 +368,44 @@ def _resolve_attachment(
             "citationSites": sites,
             "tieOutText": f"Reported subtotal: {value}",
         })
+        if attachment.get("schema") == "attachment-rule.v6":
+            assert isinstance(value_itemization, dict)
+            for adjustment in itemization.get("adjustment_rows", []):
+                adjustment_value = next(
+                    (
+                        row
+                        for row in value_itemization.get("adjustment_rows", [])
+                        if row.get("kind") == adjustment["kind"] and row.get("label") == adjustment["label"]
+                    ),
+                    None,
+                )
+                if adjustment_value is None:
+                    raise PresentationModelError(
+                        f"attachment finding omits adjustment row {adjustment['label']!r}"
+                    )
+                adjustment_sites: list[dict[str, Any]] = []
+                for index, row in enumerate(adjustment_value.get("rows", [])):
+                    leaf_id = row["finding_id"]
+                    if leaf_id not in state.findings:
+                        raise PresentationModelError(f"citation lineage references unrecorded finding {leaf_id!r}")
+                    label = _evidence_label(leaf_id, state)
+                    if label is not None:
+                        if leaf_id in pin_labels and pin_labels[leaf_id] != label:
+                            raise PresentationModelError(f"conflicting citation labels for pin {leaf_id!r}")
+                        pin_labels[leaf_id] = label
+                    adjustment_sites.append(
+                        _citation_site(
+                            f"{part_id}-adjustment-{index}",
+                            leaf_id,
+                            "v1",
+                            adjustment["label"],
+                        )
+                    )
+                parts.append({
+                    "heading": adjustment["label"],
+                    "citationSites": adjustment_sites,
+                    "tieOutText": f"Adjustment: -{adjustment_value['row_sum']}",
+                })
 
     group = {"id": attachment_id, "title": title, "parts": parts}
     status = {
