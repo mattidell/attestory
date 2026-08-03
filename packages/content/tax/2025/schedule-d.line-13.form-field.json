@@ -1,0 +1,44 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-13",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "sch-d-13",
+  "label": "Line 13: capital gain distributions",
+  "description": "Schedule D (2025) line 13: capital gain distributions, consuming the accepted ADR-0050 box-2a family subtotal exactly once (ADR-0052 Decision 2's adopted completeness successor).",
+  "binds_symbol": "tax.us.2025.dividends.2a-subtotal",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-13",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "A current derived finding publishes the box-2a capital-gain-distributions subtotal."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a zero because the box-2a family is attested closed on its current horizon with no recorded members."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Line 13 is blocked because the box-2a family is unclosed.",
+      "codes": [
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "No line 13 value exists for this route."
+    }
+  }
+}

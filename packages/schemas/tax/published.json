@@ -1,6 +1,8 @@
 {
   "attachment-rule.v1.schema.json": "1ce9cd6d6ff9c81bcd8fab3519d265762b5ede9b785dc6f02c6ea69c3d0782ba",
   "attachment-rule.v2.schema.json": "bbcb3a679f8ca7bc01bcae681a6c33d51accaba6abe719d996eb01a3fd90e141",
+  "attachment-rule.v3.schema.json": "5b3f219879095db24cab90e7b9bfdcf3b6555a022697299230eec94490099cab",
+  "attachment-rule.v4.schema.json": "560c10c7814e9dba044bbc65a33ff7775da804248a8412f15da1bbc630a539db",
   "form-field.v1.schema.json": "fab47d5e3f7b17605d8d8155f9862cde77ada8cd689deb7d693b66cb42df161b",
   "form-field.v2.schema.json": "c9a3d709233809dbe1e2a4a63c923ced8e44465a264ca5560fed508b8dcd374c",
   "form-field.v3.schema.json": "4308aadbe1019e28b4a34807cf85c85edeb7a171ccacefacf86e0488a6bee71a"

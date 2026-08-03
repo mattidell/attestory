@@ -35,7 +35,9 @@ PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 # (SOURCE_SET_UNCLOSED, the code the runner actually emits) and is not a
 # distinct presentation contract. Both are recognized field citizens.
 FIELD_SCHEMAS = frozenset({"form-field.v2", "form-field.v3"})
-ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v1", "attachment-rule.v2"})
+ATTACHMENT_SCHEMAS = frozenset(
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}
+)
 
 _NUMERIC_DISPOSITIONS = frozenset({"published_value", "computed_zero", "closure_backed_zero"})
 # A field may declare one fixed, non-numeric publication instruction.  This is
@@ -281,15 +283,36 @@ def _resolve_attachment(
     publications_by_id: Mapping[str, Mapping[str, Any]],
     state: FindingState,
     pin_labels: dict[str, str],
-) -> dict[str, Any] | None:
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    """Resolve one attachment citizen to its status entry and, only when
+    published, its itemization detail (ADR-0056).
+
+    Returns ``(status, citation_group)``. ``status`` is always present -
+    one of the three atomic dispositions (ADR-0036 Decision 1), never
+    silence - and feeds the model's ``attachments`` list. ``citation_group``
+    is non-``None`` only for the published case and feeds the unchanged
+    ``citationGroups`` list, exactly as before this ADR.
+    """
     symbol = attachment["publishes"]
     row = _one_row(dispositions_by_symbol.get(symbol, []), symbol=symbol)
+    attachment_id = attachment["id"]
+    title = attachment["title"].split(":", 1)[0].strip()
+
     if row["disposition"] == "inapplicable":
         if row.get("guard_result") is not False:
             raise PresentationModelError(f"unrecognized inapplicable disposition for attachment {attachment['id']!r}")
-        return None
+        status = {
+            "id": attachment_id, "title": title,
+            "resolved": {"disposition": "guard_inapplicable", "activeCodes": [], "act": None},
+        }
+        return status, None
     if row["disposition"] == "blocked":
-        return None
+        codes = [row["code"]] if "code" in row else []
+        status = {
+            "id": attachment_id, "title": title,
+            "resolved": {"disposition": "blocked", "activeCodes": codes, "act": None},
+        }
+        return status, None
     if row["disposition"] != "published":
         raise PresentationModelError(f"unknown disposition {row['disposition']!r} for attachment {attachment['id']!r}")
 
@@ -323,8 +346,12 @@ def _resolve_attachment(
             "tieOutText": f"Reported subtotal: {value}",
         })
 
-    title = attachment["title"].split(":", 1)[0].strip()
-    return {"id": attachment["id"], "title": title, "parts": parts}
+    group = {"id": attachment_id, "title": title, "parts": parts}
+    status = {
+        "id": attachment_id, "title": title,
+        "resolved": {"disposition": "published", "activeCodes": [], "act": None},
+    }
+    return status, group
 
 
 def build_presentation_model(
@@ -376,11 +403,13 @@ def build_presentation_model(
         })
 
     citation_groups: list[dict[str, Any]] = []
+    attachments_out: list[dict[str, Any]] = []
     for attachment in sorted(attachments, key=lambda a: a["id"]):
-        group = _resolve_attachment(
+        status, group = _resolve_attachment(
             attachment, dispositions_by_symbol=by_symbol, publications_by_id=publications_by_id,
             state=state, pin_labels=pin_labels,
         )
+        attachments_out.append(status)
         if group is not None:
             citation_groups.append(group)
 
@@ -390,6 +419,7 @@ def build_presentation_model(
         "pinLabels": pin_labels,
         "sections": sections,
         "citationGroups": citation_groups,
+        "attachments": attachments_out,
     }
     validate_presentation_model(model)
     return model
@@ -456,9 +486,31 @@ def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
             raise PresentationModelError(f"{path}.act: must be null for a guard-inapplicable line")
 
 
+_ATTACHMENT_DISPOSITIONS = frozenset({"published", "blocked", "guard_inapplicable"})
+
+
+def _validate_attachment_resolved(resolved: Mapping[str, Any], path: str) -> None:
+    """An attachment status entry (ADR-0056): always the same three keys,
+    across all three dispositions - unlike a field row, an attachment has no
+    single numeric/categorical value of its own to carry."""
+    _require_keys(resolved, frozenset({"disposition", "activeCodes", "act"}), frozenset(), path)
+    disposition = resolved.get("disposition")
+    if disposition not in _ATTACHMENT_DISPOSITIONS:
+        raise PresentationModelError(f"{path}.disposition: unknown attachment disposition {disposition!r}")
+    if not isinstance(resolved["activeCodes"], list) or not all(isinstance(c, str) for c in resolved["activeCodes"]):
+        raise PresentationModelError(f"{path}.activeCodes: expected a list of strings")
+    if resolved["act"] is not None:
+        raise PresentationModelError(f"{path}.act: must be null for an attachment status entry")
+
+
 def validate_presentation_model(model: Mapping[str, Any]) -> None:
     """Strict structural validation: unknown keys and invalid combinations reject."""
-    _require_keys(model, frozenset({"schema", "runId", "pinLabels", "sections", "citationGroups"}), frozenset(), "$")
+    _require_keys(
+        model,
+        frozenset({"schema", "runId", "pinLabels", "sections", "citationGroups", "attachments"}),
+        frozenset(),
+        "$",
+    )
     if model["schema"] != PRESENTATION_MODEL_VERSION:
         raise PresentationModelError(f"$.schema: expected {PRESENTATION_MODEL_VERSION!r}")
     if not isinstance(model["runId"], str) or not model["runId"]:
@@ -509,6 +561,21 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
                 raise PresentationModelError(f"{part_path}.citationSites: expected a list")
             for site_index, site in enumerate(part["citationSites"]):
                 _validate_citation_site(site, f"{part_path}.citationSites[{site_index}]")
+
+    if not isinstance(model["attachments"], list):
+        raise PresentationModelError("$.attachments: expected a list")
+    seen_attachment_ids: set[str] = set()
+    for index, attachment in enumerate(model["attachments"]):
+        path = f"$.attachments[{index}]"
+        _require_keys(attachment, frozenset({"id", "title", "resolved"}), frozenset(), path)
+        if not isinstance(attachment["id"], str) or not attachment["id"]:
+            raise PresentationModelError(f"{path}.id: expected non-empty string")
+        if attachment["id"] in seen_attachment_ids:
+            raise PresentationModelError(f"{path}.id: duplicate attachment id {attachment['id']!r}")
+        seen_attachment_ids.add(attachment["id"])
+        if not isinstance(attachment["title"], str) or not attachment["title"]:
+            raise PresentationModelError(f"{path}.title: expected non-empty string")
+        _validate_attachment_resolved(attachment["resolved"], f"{path}.resolved")
 
     _check_no_unsafe_strings(model, "$")
 

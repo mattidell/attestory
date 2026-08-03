@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-16",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "sch-d-16",
+  "label": "Line 16: total gain",
+  "description": "Schedule D (2025) Part III line 16: equals line 15 for this bounded gain-only slice (ADR-0052 Decision 3). Pinned directly by the selected-preferential-base rule's Schedule-D branch (ADR-0053 Decision 2).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-16",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-16",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "A current derived finding publishes line 16 equal to line 15."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a computed zero from present inputs that net to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a zero from closure-backed inputs with no recorded members."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Line 16 is blocked because line 15 is unavailable.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "No line 16 value exists for this route."
+    }
+  }
+}

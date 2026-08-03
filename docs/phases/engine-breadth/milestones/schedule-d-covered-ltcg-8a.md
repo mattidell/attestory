@@ -2,8 +2,9 @@
 {
   "version": 1,
   "topic": "schedule-d-covered-ltcg-8a",
-  "milestone_state": "track-2",
-  "status": "TRACK 2 CHARTERED ON THE MILESTONE BRANCH. The accepted contract and completed Track 1 have been restored as separate curated commits. Track 2 now implements Schedule D content and the line 7a/9/16 production route, using the interrupted pre-curation diff only as verified source material.",
+  "milestone_state": "closed",
+  "status": "CLOSED. The bounded covered, long-term, gain-only, no-adjustment 2025 Form 1099-B class is synthetic complete: Schedule D line 8a/13/15/16, Form 1040 line 7a/9, and the Schedule D-bound QDCG line-16 path, with two additive architecture repairs ratified in-scope (ADR-0055 completeness value-check, ADR-0056 attachment disposition visibility). The Track 2/3 independent review returned READY on the first pass.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-02-schedule-d-covered-ltcg-8a.md",
   "scope": [
     "establish a transaction source family and logical transaction identity for covered, long-term, gain-only Form 1099-B statement items eligible for Schedule D line 8a",
     "establish the Schedule D completeness boundary through component authority: the eligible long-term family closed, the box-2a family closed empty, and named absent-source claims for short-term transactions, current losses, inbound carryovers, Form 8949, other Schedule D sources (K-1 gains, Forms 2439/4684/4797/6252/6781/8824), lines 18/19 special-rate sources, and Form 1099-DA/QOF flow",
@@ -79,6 +80,7 @@
       "AGENTS.md#Data Safety Rules"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-02-schedule-d-covered-ltcg-8a.md",
       "docs/phases/engine-breadth/engine-breadth-overview.md",
       "docs/phases/engine-breadth/coverage-frontier.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md",

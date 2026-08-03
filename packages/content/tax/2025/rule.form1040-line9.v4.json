@@ -1,0 +1,82 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.wages.total-w2-box1",
+      "tax.us.2025.interest.taxable-total",
+      "tax.us.2025.dividends.ordinary-total",
+      "tax.us.2025.capital-gains.line7a-total"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-9",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line9",
+  "notes": "Form 1040 Line 9 v4 (ADR-0052 Decision 5): shape preserved from v3 - total income adds the selected line-7a publication exactly once, regardless of which producer (direct box-2a or Schedule D) supplied it through the selected preferential base (ADR-0052 Decision 4). Does not read raw box-2a members, a Schedule D subtotal, or qualified dividends again. A blocked or inapplicable selected preferential base yields blocked(DEPENDENCY_ABSENT) on selected line 7a. v1/v2/v3 remain historical.",
+  "pins": [
+    {
+      "id": "tax.us.2025.wages.total-w2-box1",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.taxable-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dividends.ordinary-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.capital-gains.line7a-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.income.total-income",
+  "requires": [
+    "tax.us.2025.wages.total-w2-box1",
+    "tax.us.2025.interest.taxable-total",
+    "tax.us.2025.dividends.ordinary-total",
+    "tax.us.2025.capital-gains.line7a-total"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v2",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "args": [
+      {
+        "name": "tax.us.2025.wages.total-w2-box1",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.interest.taxable-total",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.dividends.ordinary-total",
+        "op": "ref"
+      },
+      {
+        "name": "tax.us.2025.capital-gains.line7a-total",
+        "op": "ref"
+      }
+    ],
+    "op": "add"
+  },
+  "version": "v4",
+  "when": true
+}

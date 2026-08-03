@@ -98,6 +98,7 @@
 
 <main id="main">
   <div id="sections-root"></div>
+  <div id="attachment-status-root"></div>
   <div id="citation-groups-root"></div>
   <div id="diagnostics-root"></div>
 </main>
@@ -144,6 +145,7 @@ const REASON_TEXT = Object.freeze({
   "invalid-numeric-value": "This line's published value failed validation. No value can be shown safely.",
   "missing-instruction": "This line is missing its rendering instruction for the declared disposition.",
   "missing-field-citation": "This line published a value with no citation attached. No value can be shown safely.",
+  "unrecognized-attachment-code": "This attachment named a condition code this renderer does not recognize. No detail can be shown safely.",
   "unknown-error": "This section failed to render safely.",
 });
 
@@ -333,6 +335,78 @@ function renderLine(container, section) {
   throw new SectionError("unrecognized-disposition");
 }
 
+/* ADR-0056: an attachment's own three-state disposition (published,
+   blocked, not-required), adapted from renderLine's blocked/
+   guard_inapplicable branches - not called directly, since an attachment
+   has no field.dispositions vocabulary to read explain text or a known-code
+   allowlist from. Both live here as renderer-owned declared constants
+   instead (ADR-0056 Decision 3): the attachment ontology has no
+   per-schedule content surface for this text, and this ADR does not add
+   one. resolved.activeCodes is filtered through the closed three-code
+   allowlist before display; any other code is a rendering error, never
+   shown verbatim. */
+const ATTACHMENT_EXPLAIN = Object.freeze({
+  published: "This attachment is required and complete.",
+  blocked: "This attachment is required, but is incomplete: a required condition is missing or violated.",
+  guard_inapplicable: "This attachment is not required for this return.",
+});
+
+const ATTACHMENT_KNOWN_CODES = new Set([
+  "DEPENDENCY_ABSENT",
+  "ITEMIZATION_TIE_OUT_VIOLATION",
+  "COMPLETENESS_VALUE_VIOLATION",
+]);
+
+function renderAttachmentStatus(container, attachment) {
+  const resolved = attachment.resolved;
+  const disposition = resolved.disposition;
+  const explain = ATTACHMENT_EXPLAIN[disposition];
+  if (!explain) throw new SectionError("unrecognized-disposition");
+
+  container.appendChild(el("h2", null, [
+    attachment.title + " ",
+    el("span", { class: "badge " + disposition }, [disposition.replace(/_/g, " ")]),
+  ]));
+
+  if (disposition === "published") {
+    container.appendChild(el("p", { class: "explain" }, [explain]));
+    return;
+  }
+
+  if (disposition === "blocked") {
+    container.classList.add("blocked-line");
+    const codes = Array.isArray(resolved.activeCodes) ? resolved.activeCodes : [];
+    const shownCodes = [];
+    for (const code of codes) {
+      if (!ATTACHMENT_KNOWN_CODES.has(code)) throw new SectionError("unrecognized-attachment-code");
+      shownCodes.push(code);
+    }
+    container.appendChild(el("div", { class: "blocked-banner", role: "alert" }, [
+      el("div", null, [
+        el("p", { class: "line-value blocked-value" }, ["Not shown — required and incomplete."]),
+        el("p", null, [explain]),
+        el("p", null, [
+          el("strong", null, ["Missing or violated condition code(s): "]),
+          shownCodes.length ? shownCodes.join(", ") : "(unspecified)",
+        ]),
+      ]),
+    ]));
+    container.appendChild(el("div", { class: "remedy-box" }, [
+      el("strong", null, ["Remedy: "]),
+      "contribute or correct the missing or violated condition to complete this attachment.",
+    ]));
+    return;
+  }
+
+  if (disposition === "guard_inapplicable") {
+    container.appendChild(el("p", { class: "line-value guard-value" }, ["Not required."]));
+    container.appendChild(el("p", { class: "explain" }, [explain]));
+    return;
+  }
+
+  throw new SectionError("unrecognized-disposition");
+}
+
 function renderCitationGroup(container, group) {
   container.appendChild(el("h2", null, [group.title]));
   for (const part of group.parts || []) {
@@ -392,6 +466,14 @@ for (const section of MODEL.sections || []) {
   const wrap = el("div", { id: section.id }, []);
   sectionsRoot.appendChild(wrap);
   renderSafely(section.id, renderLine, section, (section.field && section.field.label) || section.id);
+}
+
+const attachmentStatusRoot = document.getElementById("attachment-status-root");
+for (const attachment of MODEL.attachments || []) {
+  const statusId = attachment.id + "-status";
+  const wrap = el("div", { id: statusId }, []);
+  attachmentStatusRoot.appendChild(wrap);
+  renderSafely(statusId, renderAttachmentStatus, attachment, attachment.title || attachment.id);
 }
 
 const groupsRoot = document.getElementById("citation-groups-root");

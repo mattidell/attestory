@@ -59,7 +59,7 @@ class TestNpeWalk(unittest.TestCase):
             derived=derived,
         )
 
-        self.assertEqual(walk["schema"], "npe-walk.v2")
+        self.assertEqual(walk["schema"], "npe-walk.v3")
         self.assertEqual(walk["run_id"], "run.1")
         self.assertEqual(walk["workspace_revision"], 10)
         
