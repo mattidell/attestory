@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
-  "milestone_state": "track-2-landed-adr-0055-ratified-implementation-chartered",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 2 LANDED (`37b4426`); ADR-0055 RATIFIED.** Schedule D content and the line 7a/9/16 production route are committed. The flagged attachment completeness-violation gap (presence-only semantics diverging from selected-preferential-base's value-checked route) has a ratified additive fix (ADR-0055, `attachment-rule.v4` + one bounded `attempt_attachment` branch). An implementation charter is chartered for owner launch; Track 3 follows once it lands.",
-  "current_role": "Attachment Completeness-Violation Implementation Builder (owner-launched)",
-  "current_prompt": "docs/reviews/charter-2026-08-02-attachment-completeness-violation-implementation.md"
+  "milestone_state": "track-3-chartered",
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 2 (`37b4426`) AND THE ADR-0055 IMPLEMENTATION (`8b26db4`) ARE LANDED; TRACK 3 CHARTERED.** Schedule D content, the line 7a/9/16 production route, and the attachment completeness value-check (`attachment-rule.v4`) are committed; the attachment's disposition now agrees with `selected-preferential-base` on every current fact set. Foreman-run focused suites, full local gate (850 passed), governance lint, and envelope/whitespace scans are clean against `HEAD`. Track 3 (presentation and integrated regression) is chartered for owner launch; it is flagged as genuinely unattempted ground (no attachment/itemization citizen has ever been projected through the presentation surface) with explicit stop conditions if it needs new generic capability.",
+  "current_role": "Track 3 Builder",
+  "current_prompt": "docs/reviews/charter-2026-08-02-schedule-d-covered-ltcg-8a-track3.md"
 }
 -->
 # Phase State
@@ -32,7 +32,8 @@ yet claimed.
 ## Operational State: Engine Breadth
 
 * **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 2
-  landed; ADR-0055 ratified; implementation chartered before Track 3.**
+  and the ADR-0055 implementation landed; Track 3 chartered for owner
+  launch.**
 * **Product change (target):** covered, long-term, gain-only Form 1099-B
   transactions become a closed source family that reaches Schedule D line 8a,
   Part II line 15, Part III line 16, Form 1040 line 7a, and the correct QDCG
@@ -50,12 +51,14 @@ yet claimed.
   ADR-0052/0053/0054 contract; Track 1's transaction identity, family, closure,
   and completeness-boundary citizens with focused tests; Track 2's Schedule D
   content, selected-preferential-base, and line 7a/9/16 production route
-  (`37b4426`); the attachment completeness-violation paper spike and ADR-0055,
-  ratified 2026-08-02.
-* **Next:** owner-launch the attachment completeness-violation implementation
-  builder from the current prompt (`attachment-rule.v4`, the `attempt_attachment`
-  value-check branch, Schedule D content successor, package graph, goldens).
-  Track 3 follows once it lands.
+  (`37b4426`); the attachment completeness-violation paper spike, ADR-0055
+  (ratified 2026-08-02), and its implementation (`8b26db4`) — no open,
+  not-allowlisted production conditions remain on this branch.
+* **Next:** owner-launch the Track 3 Builder from the current prompt
+  (presentation projection of Schedule D fields and the attachment
+  disposition, synthetic goldens, browser-manifest regression). The charter
+  flags attachment/itemization presentation as unprecedented and names
+  explicit stop conditions if it needs new generic substrate.
 * **Branch line:** `milestone/schedule-d-covered-ltcg-8a-v2`, one draft-to-final
   milestone PR based on the current `main`.
 

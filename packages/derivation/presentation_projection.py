@@ -35,7 +35,9 @@ PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 # (SOURCE_SET_UNCLOSED, the code the runner actually emits) and is not a
 # distinct presentation contract. Both are recognized field citizens.
 FIELD_SCHEMAS = frozenset({"form-field.v2", "form-field.v3"})
-ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v1", "attachment-rule.v2"})
+ATTACHMENT_SCHEMAS = frozenset(
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}
+)
 
 _NUMERIC_DISPOSITIONS = frozenset({"published_value", "computed_zero", "closure_backed_zero"})
 # A field may declare one fixed, non-numeric publication instruction.  This is

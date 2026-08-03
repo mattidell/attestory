@@ -1,0 +1,19 @@
+{
+  "version": "presentation-evaluation-manifest.v1",
+  "id": "schedule-d-covered-ltcg-8a-track3",
+  "timeout_ms": 5000,
+  "candidates": [{"id": "citation-walk", "path": "tools/presentation_harness/examples/pages/citation-walk.v1.html"}],
+  "fixtures": [
+    {"id": "eligible", "path": "tools/presentation_harness/examples/pages/citation-walk-fixtures/sdcl-eligible.v1.json", "synthetic": true}
+  ],
+  "criteria": [
+    {"id": "line8a-h-published", "check": "dom-text-present", "params": {"selector": "#line-8a-h .line-value", "expected_text": "4000"}},
+    {"id": "line8a-h-citation", "check": "dom-text-present", "params": {"selector": "#line-8a-h-field-citation .citation-label", "expected_text": "tax.us.2025.citation.schedule-d.line-8a@v1"}},
+    {"id": "line-sch-d-16-published", "check": "dom-text-present", "params": {"selector": "#line-sch-d-16 .line-value", "expected_text": "4000"}},
+    {"id": "line7a-published", "check": "dom-text-present", "params": {"selector": "#line-7a .line-value", "expected_text": "4000"}}
+  ],
+  "tamper_cases": [{"id": "baseline", "injection": null}],
+  "matrix": [
+    {"candidate_id": "citation-walk", "fixture_id": "eligible", "tamper_case_id": "baseline", "criteria": ["line8a-h-published", "line8a-h-citation", "line-sch-d-16-published", "line7a-published"]}
+  ]
+}

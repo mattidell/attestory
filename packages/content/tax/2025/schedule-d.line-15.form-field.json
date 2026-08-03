@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-15",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "sch-d-15",
+  "label": "Line 15: net long-term capital gain",
+  "description": "Schedule D (2025) Part II line 15: line 8a's gain plus the closed box-2a subtotal once (ADR-0052 Decision 3).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-15",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-15",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "A current derived finding publishes line 15 as line 8a's gain plus the box-2a subtotal."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a computed zero from present inputs that net to zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "A current derived finding publishes a zero from closure-backed inputs with no recorded members."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Line 15 is blocked because line 8a or the box-2a subtotal is unavailable.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "No line 15 value exists for this route."
+    }
+  }
+}
