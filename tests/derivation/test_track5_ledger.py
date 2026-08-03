@@ -80,6 +80,6 @@ class Track5Ledger(unittest.TestCase):
             )
             closing = stream.standings()["demo.track5.run"].closing
             assert closing is not None
-            self.assertEqual(closing["schema"], "derivation-record.v3")
+            self.assertEqual(closing["schema"], "derivation-record.v4")
             self.assertNotIn("blocked", closing)
             self.assertEqual({row["artifact_id"] for row in closing["dispositions"]}, {rule["id"] for rule in self.rules})

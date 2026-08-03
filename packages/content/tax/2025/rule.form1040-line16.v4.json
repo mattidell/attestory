@@ -1,0 +1,448 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.f1099b.covered-ltcg-proceeds-subtotal",
+      "tax.us.2025.income.taxable-income",
+      "filing_status",
+      "rounding.convention",
+      "tax.us.2025.dividends.qualified-total",
+      "tax.us.2025.capital-gains.selected-preferential-base"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-16",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line16",
+  "notes": "Form 1040 Line 16 v4 (ADR-0052 Decision 4/7): identifier substitution selected_line7a -> selected preferential base, per the ledger in ADR-0052 Decision 6. The common set (taxable income, filing status, rounding, qualified dividends, selected preferential base) is required unconditionally; a blocked or inapplicable selected preferential base is DEPENDENCY_ABSENT here exactly as v3 already propagated a blocked/guard_inapplicable line 7a. The branch-specific ADR-0050 Decision 7 declaration/conclusion pins (the four-row table) apply only when the eligible-family proceeds companion is closed-empty (the direct-producer branch, tested the same way rule.selected-preferential-base tests it): closed-nonempty (Schedule-D producer) reads neither the checked conclusion nor capital-gain-distributions at all - the common set alone, per ADR-0052 Decision 4. QDCG-vs-ordinary selection itself (Q>0 or L>0) is unchanged from v3 and is not branch-conditioned. v1/v2/v3 remain historical.",
+  "pins": [
+    {
+      "id": "tax.us.2025.income.taxable-income",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.filing-status",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dividends.qualified-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.capital-gains.selected-preferential-base",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.tax.total-tax",
+  "requires": [
+    "tax.us.2025.f1099b.covered-ltcg-proceeds-subtotal",
+    "tax.us.2025.income.taxable-income",
+    "filing_status",
+    "rounding.convention",
+    "tax.us.2025.dividends.qualified-total",
+    "tax.us.2025.capital-gains.selected-preferential-base"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "else": {
+        "mode": {
+          "name": "rounding.convention",
+          "op": "ref"
+        },
+        "op": "round",
+        "value": {
+          "key": {
+            "name": "filing_status",
+            "op": "ref"
+          },
+          "op": "bracket_fold",
+          "table_id": "demo.parameter.tax-brackets.2025",
+          "value": {
+            "name": "tax.us.2025.income.taxable-income",
+            "op": "ref"
+          }
+        }
+      },
+      "op": "choose",
+      "then": {
+        "args": [
+          {
+            "mode": {
+              "name": "rounding.convention",
+              "op": "ref"
+            },
+            "op": "round",
+            "value": {
+              "key": {
+                "name": "filing_status",
+                "op": "ref"
+              },
+              "op": "bracket_fold",
+              "table_id": "demo.parameter.tax-brackets.2025",
+              "value": {
+                "left": {
+                  "name": "tax.us.2025.income.taxable-income",
+                  "op": "ref"
+                },
+                "op": "subtract",
+                "right": {
+                  "args": [
+                    {
+                      "name": "tax.us.2025.dividends.qualified-total",
+                      "op": "ref"
+                    },
+                    {
+                      "name": "tax.us.2025.capital-gains.selected-preferential-base",
+                      "op": "ref"
+                    }
+                  ],
+                  "op": "add"
+                }
+              }
+            }
+          },
+          {
+            "mode": {
+              "name": "rounding.convention",
+              "op": "ref"
+            },
+            "op": "round",
+            "value": {
+              "key": {
+                "name": "filing_status",
+                "op": "ref"
+              },
+              "op": "bracket_fold",
+              "table_id": "demo.parameter.qdcg-preferential-brackets.2025",
+              "value": {
+                "args": [
+                  {
+                    "name": "tax.us.2025.dividends.qualified-total",
+                    "op": "ref"
+                  },
+                  {
+                    "name": "tax.us.2025.capital-gains.selected-preferential-base",
+                    "op": "ref"
+                  }
+                ],
+                "op": "add"
+              }
+            }
+          }
+        ],
+        "op": "add"
+      },
+      "when": {
+        "cmp": "lte",
+        "left": {
+          "args": [
+            {
+              "mode": {
+                "name": "rounding.convention",
+                "op": "ref"
+              },
+              "op": "round",
+              "value": {
+                "key": {
+                  "name": "filing_status",
+                  "op": "ref"
+                },
+                "op": "bracket_fold",
+                "table_id": "demo.parameter.tax-brackets.2025",
+                "value": {
+                  "left": {
+                    "name": "tax.us.2025.income.taxable-income",
+                    "op": "ref"
+                  },
+                  "op": "subtract",
+                  "right": {
+                    "args": [
+                      {
+                        "name": "tax.us.2025.dividends.qualified-total",
+                        "op": "ref"
+                      },
+                      {
+                        "name": "tax.us.2025.capital-gains.selected-preferential-base",
+                        "op": "ref"
+                      }
+                    ],
+                    "op": "add"
+                  }
+                }
+              }
+            },
+            {
+              "mode": {
+                "name": "rounding.convention",
+                "op": "ref"
+              },
+              "op": "round",
+              "value": {
+                "key": {
+                  "name": "filing_status",
+                  "op": "ref"
+                },
+                "op": "bracket_fold",
+                "table_id": "demo.parameter.qdcg-preferential-brackets.2025",
+                "value": {
+                  "args": [
+                    {
+                      "name": "tax.us.2025.dividends.qualified-total",
+                      "op": "ref"
+                    },
+                    {
+                      "name": "tax.us.2025.capital-gains.selected-preferential-base",
+                      "op": "ref"
+                    }
+                  ],
+                  "op": "add"
+                }
+              }
+            }
+          ],
+          "op": "add"
+        },
+        "op": "compare",
+        "right": {
+          "mode": {
+            "name": "rounding.convention",
+            "op": "ref"
+          },
+          "op": "round",
+          "value": {
+            "key": {
+              "name": "filing_status",
+              "op": "ref"
+            },
+            "op": "bracket_fold",
+            "table_id": "demo.parameter.tax-brackets.2025",
+            "value": {
+              "name": "tax.us.2025.income.taxable-income",
+              "op": "ref"
+            }
+          }
+        }
+      }
+    },
+    "op": "choose",
+    "then": {
+      "mode": {
+        "name": "rounding.convention",
+        "op": "ref"
+      },
+      "op": "round",
+      "value": {
+        "key": {
+          "name": "filing_status",
+          "op": "ref"
+        },
+        "op": "bracket_fold",
+        "table_id": "demo.parameter.tax-brackets.2025",
+        "value": {
+          "name": "tax.us.2025.income.taxable-income",
+          "op": "ref"
+        }
+      }
+    },
+    "when": {
+      "args": [
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.dividends.qualified-total",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        },
+        {
+          "cmp": "eq",
+          "left": {
+            "name": "tax.us.2025.capital-gains.selected-preferential-base",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        }
+      ],
+      "op": "all"
+    }
+  },
+  "version": "v4",
+  "when": {
+    "args": [
+      {
+        "else": {
+          "args": [
+            {
+              "cmp": "eq",
+              "left": {
+                "name": "tax.us.2025.schedule-d-required.conclusion",
+                "op": "ref"
+              },
+              "op": "categorical_compare",
+              "right": {
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-required.conclusion",
+                  "version": "v1"
+                },
+                "op": "category_literal",
+                "value": "no"
+              }
+            },
+            {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "tax.us.2025.dividends.qualified-total",
+                        "op": "ref"
+                      },
+                      "op": "compare",
+                      "right": 0
+                    },
+                    {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "tax.us.2025.capital-gains.selected-preferential-base",
+                        "op": "ref"
+                      },
+                      "op": "compare",
+                      "right": 0
+                    }
+                  ],
+                  "op": "all"
+                },
+                {
+                  "args": [
+                    {
+                      "args": [
+                        {
+                          "cmp": "gt",
+                          "left": {
+                            "name": "tax.us.2025.dividends.qualified-total",
+                            "op": "ref"
+                          },
+                          "op": "compare",
+                          "right": 0
+                        },
+                        {
+                          "cmp": "gt",
+                          "left": {
+                            "name": "tax.us.2025.capital-gains.selected-preferential-base",
+                            "op": "ref"
+                          },
+                          "op": "compare",
+                          "right": 0
+                        }
+                      ],
+                      "op": "any"
+                    },
+                    {
+                      "else": true,
+                      "op": "choose",
+                      "then": {
+                        "else": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "tax.us.2025.capital-gain-distributions",
+                            "op": "ref"
+                          },
+                          "op": "categorical_compare",
+                          "right": {
+                            "fact_type": {
+                              "id": "tax.us.2025.capital-gain-distributions",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "yes"
+                          }
+                        },
+                        "op": "choose",
+                        "then": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "tax.us.2025.capital-gain-distributions",
+                            "op": "ref"
+                          },
+                          "op": "categorical_compare",
+                          "right": {
+                            "fact_type": {
+                              "id": "tax.us.2025.capital-gain-distributions",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "no"
+                          }
+                        },
+                        "when": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "tax.us.2025.capital-gains.selected-preferential-base",
+                            "op": "ref"
+                          },
+                          "op": "compare",
+                          "right": 0
+                        }
+                      },
+                      "when": {
+                        "cmp": "gt",
+                        "left": {
+                          "name": "tax.us.2025.dividends.qualified-total",
+                          "op": "ref"
+                        },
+                        "op": "compare",
+                        "right": 0
+                      }
+                    }
+                  ],
+                  "op": "all"
+                }
+              ],
+              "op": "any"
+            }
+          ],
+          "op": "all"
+        },
+        "op": "choose",
+        "then": true,
+        "when": {
+          "cmp": "gt",
+          "left": {
+            "name": "tax.us.2025.f1099b.covered-ltcg-proceeds-subtotal",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        }
+      }
+    ],
+    "op": "all"
+  }
+}

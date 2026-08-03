@@ -1,0 +1,46 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.f1099b.covered-ltcg-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-ltcg-basis-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-8a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+  "notes": "Schedule D line 8a column (h) = (d)-(e) (ADR-0052 Decision 3; ADR-0054 Decision 3): the tie-out invariant applies to (d) and (e) individually inside the attachment's own itemization row sets; this rule computes the difference from the two already-tied-out subtotals. Also require_closed's the original object-valued eligible-transaction family directly (ADR-0052 Decision 2's first completeness authority; ADR-0054 Decision 4) - the two scalar companions are additional required authorities, not a substitute for it.",
+  "pins": [],
+  "publishes": "tax.us.2025.schedule-d.line-8a-gain",
+  "requires": [
+    "tax.us.2025.f1099b.covered-ltcg-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-ltcg-basis-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "left": {
+      "name": "tax.us.2025.f1099b.covered-ltcg-proceeds-subtotal",
+      "op": "ref"
+    },
+    "op": "subtract",
+    "right": {
+      "name": "tax.us.2025.f1099b.covered-ltcg-basis-subtotal",
+      "op": "ref"
+    }
+  },
+  "version": "v1",
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.f1099b.covered-ltcg"
+  }
+}
