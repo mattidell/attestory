@@ -3,6 +3,7 @@
   "version": 1,
   "phase": "Legible Entry",
   "topic": "workspace-prototype",
+  "retrospective": "docs/milestone-retrospectives/2026-08-02-workspace-prototype.md",
   "status": "Open on main-ui 2026-08-01. The owner directs the work and decides what to try and when it is done.",
   "scope": [
     "prototype a workspace view: the home, map, and inbox for the record",
@@ -41,7 +42,7 @@
 -->
 # Workspace Prototype
 
-Status: **open on `main-ui`, 2026-08-01.**
+Status: **closed on `main-ui`, 2026-08-02.**
 
 ## A note on the name
 
@@ -291,6 +292,11 @@ runs. mypy clean on every touched Python file.
 
 ## Completion
 
-There is no precommitted exit test. At a natural stopping point, the owner
-inspects what exists, decides what it teaches, and either closes, redirects,
-or continues the milestone.
+The owner-directed prototype reached a natural stopping point after the
+workspace had been exercised with two genuinely enterable fact families.
+The delivered shape is a separate landing page that reads the existing
+state model, links into the existing entry and explanation surfaces, and
+keeps the entry UI field-keyed rather than duplicating one panel per fact.
+The synthetic fixture's full suite remained green: 47 tests and 810
+subtests, with mypy clean on the touched Python files. No maturity claim,
+real-data exercise, or new tax logic was part of the close.

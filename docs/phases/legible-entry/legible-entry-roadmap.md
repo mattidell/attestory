@@ -165,9 +165,11 @@ owner-directed mode follows `AGENTS.md#Owner-directed mode` instead.
    The home, map, and inbox for the record, reusing the Improvised
    Prototype's explanation walk as its drill-down rather than rebuilding it.
    Scoped narrow on purpose — orientation and navigation only, not a
-   dashboard. **Open on `main-ui` 2026-08-01.** The owner directs the work
-   and decides what to try and when it is done. Plan:
-   `docs/phases/legible-entry/milestones/workspace-prototype.md`.
+   dashboard. **Closed on `main-ui` 2026-08-02.** The separate workspace
+   landing surface now reads the existing state model, links into entry and
+   explanation, and holds up with a genuinely second fact family. Plan:
+   `docs/phases/legible-entry/milestones/workspace-prototype.md`; retrospective:
+   `docs/milestone-retrospectives/2026-08-02-workspace-prototype.md`.
 
 **Due now, outside the sequence.** The legibility-audit README's own cadence
 triggers an audit at each phase boundary, before the transition plan is
