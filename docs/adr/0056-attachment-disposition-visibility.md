@@ -44,7 +44,7 @@ unaffected published-attachment baseline, for both Schedule D and Schedule
 B), two negative instances (not-required renders nothing; required-and-
 incomplete, including the ADR-0055 violation case, renders nothing), and an
 evaluation of two candidate shapes. Per
-`docs/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md`
+`docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md`
 (Gate 1 score 5, paper-spike-plus-ADR-draft rung, matching the ADR-0055
 precedent on this same milestone — lower residual uncertainty than
 ADR-0055 was, since the shape to mirror already exists and is proven in
@@ -214,7 +214,8 @@ production), this ADR is grounded in that paper spike alone.
 ## Links
 
 - Paper spike: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/prototypes/schedule-d-covered-ltcg-8a/attachment-disposition-visibility-paper-spike.md`
-- Charter: `docs/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md`
+- Charter: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md`
+- Implementation charter: `docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-attachment-disposition-visibility-implementation.md`
 - Builds on: ADR-0036 (attachment ontology, the three-state disposition this
   ADR makes fully visible), ADR-0046 (presentation surface contract,
   Requirement 2 honest blocking / Requirement 4 blast containment /

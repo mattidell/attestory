@@ -3,7 +3,7 @@
 Audience: Owner, Foreman.
 
 Date: 2026-08-02. Builder-run, Rung 1 paper only, per
-`docs/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md`.
+`docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md`.
 No committee review — Gate 1 totals 5 (paper-spike-plus-ADR-draft rung),
 matching the ADR-0055 and CA-05/CA-06 precedent already used twice on this
 milestone, and lower-uncertainty than ADR-0055 was: the shape to mirror

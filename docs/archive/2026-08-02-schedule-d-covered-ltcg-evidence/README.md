@@ -14,3 +14,14 @@ log, and launch or routing records. The complete pre-curation state remains on
 This archive is evidence, not authority. ADR-0052, ADR-0053, and ADR-0054 carry
 the resulting contracts. Paths beneath `prototypes/` preserve the evidence's
 original relative organization.
+
+## `reviews/` — Track 2/3 working charters and the completion review
+
+Added at milestone closeout (2026-08-02) per `PROJECT_PLANNING.md`'s Archive
+Rules: these working charters are necessary evidence for ADR-0055 and
+ADR-0056's Links sections and for the retrospective, so they are archived
+rather than removed outright. Contains the Track 2 and Track 3 builder
+charters, the ADR-0055 and ADR-0056 decision-unit and implementation
+charters, the Track 2/3 independent review charter, and its landed `READY`
+review record. ADR-0052/0053/0054 and ADR-0055/0056 carry the binding
+decisions; this directory is process evidence only.

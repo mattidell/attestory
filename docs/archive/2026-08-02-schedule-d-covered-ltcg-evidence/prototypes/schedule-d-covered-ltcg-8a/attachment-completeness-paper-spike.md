@@ -3,7 +3,7 @@
 Audience: Owner, Foreman.
 
 Date: 2026-08-02. Builder-run, Rung 1 paper only, per
-`docs/reviews/charter-2026-08-02-schedule-d-attachment-completeness-decision.md`.
+`docs/archive/2026-08-02-schedule-d-covered-ltcg-evidence/reviews/charter-2026-08-02-schedule-d-attachment-completeness-decision.md`.
 No committee review; the charter deliberately scopes Gate 1's 6-point,
 technically prototype-eligible score down to a paper-spike-plus-ADR-draft
 rung, matching the CA-05/CA-06 and multi-scalar-member precedent already

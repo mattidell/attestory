@@ -11,10 +11,15 @@ This is the project's third iteration. The first proved a working return generat
   breadth milestone is unselected.
 - **Current bounded capability:** production-shaped synthetic returns cover
   the Form 1099-DIV box-2a direct-reporting route, Schedule K-1 (Form 1065)
-  box-5 taxable interest, and payer-reported current-inclusion market discount
-  from Form 1099-INT box 10 or Form 1099-OID box 5. Schedule-D-required returns,
-  subtractive interest adjustments, filing, and broader securities history
-  remain outside the supported classes.
+  box-5 taxable interest, payer-reported current-inclusion market discount
+  from Form 1099-INT box 10 or Form 1099-OID box 5, and covered, long-term,
+  gain-only Form 1099-B transactions reported directly on Schedule D line 8a
+  without Form 8949 (including the correct Schedule D-bound QDCG line-16
+  path and an honest attachment disposition/explanation walk). Short-term
+  transactions, capital losses and carryovers, Form 8949, noncovered
+  securities, digital assets, other Schedule D sources, subtractive
+  interest adjustments, filing, and broader securities history remain
+  outside the supported classes.
 - **Planning** (`PROJECT_PLANNING.md`, `docs/phases/`): the planning protocol and phase/milestone/track documents.
 - **Agent guide** (`AGENTS.md`): operating rules for development agents.
 - **Decisions** (`docs/adr/`) and **retrospectives** (`docs/milestone-retrospectives/`).
