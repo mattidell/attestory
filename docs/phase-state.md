@@ -2,12 +2,12 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "schedule-d-current-year-losses",
-  "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-current-year-losses.md",
-  "milestone_state": "closed",
-  "status": "**ENGINE BREADTH — CURRENT-YEAR CAPITAL LOSSES AND SCHEDULE D LINE 21 CLOSED 2026-08-03.** Track 1 (with one findings-only repair) and Track 2 both independently reviewed `READY`. The bounded covered, basis-reported, short-term-or-long-term, gain-or-loss 2025 Form 1099-B class is synthetic complete: signed Schedule D lines 1a/7/8a/15/16, the §1211 current-year loss cap (line 21), Form 1040 line 7a/9, the Schedule D-bound QDCG line-16 path at any sign of Schedule D's result, package resolution, explanation, and presentation, including honest visibility for the new SOURCE_SET_UNCLOSED and COMPLETENESS_VALUE_VIOLATION states. Closeout complete: coverage frontier, roadmap, deferral ledger, retrospective, and README are updated; the milestone's own working charters are distilled into the retrospective and this record, not retained. Entire milestone stayed local (no push, no PR) until this closeout, per explicit owner instruction. The next breadth milestone is unselected.",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "topic": "schedule-b-interest-adjustments",
+  "active_plan": "docs/phases/engine-breadth/milestones/schedule-b-interest-adjustments.md",
+  "milestone_state": "planned",
+  "status": "**ENGINE BREADTH / SCHEDULE B INTEREST ADJUSTMENTS — PLANNED.** The bounded 2025 nominee-distribution, accrued-interest, and taxable amortizable-bond-premium adjustment slice is selected independently of Schedule D. Track 0 is the paper boundary and contract checkpoint before implementation.",
+  "current_role": "Foreman (prepare Track 0 paper boundary checkpoint)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/schedule-b-interest-adjustments.md"
 }
 -->
 # Phase State
@@ -28,14 +28,15 @@ or Form 1099-OID box 5, and now the bounded covered, basis-reported Form
 Schedule D line 1a/8a without Form 8949, including the current-year
 $3,000/$1,500 capital-loss limitation, the Schedule D-bound QDCG line-16 path
 at any sign of Schedule D's result, and an honest attachment
-disposition/explanation walk. The next breadth slice is owner-selected from
-the refreshed coverage frontier.
+disposition/explanation walk. The next selected breadth slice is Schedule B
+interest adjustments, independent of Schedule D; Track 0 is its paper
+boundary checkpoint.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none selected. Current-Year Capital Losses and the
-  Schedule D Line 21 Limitation **closed 2026-08-03**, independently
-  reviewed `READY`.
+* **Active milestone:** Schedule B Interest Adjustments — **planned**. The
+  preceding Current-Year Capital Losses and Schedule D Line 21 Limitation
+  **closed 2026-08-03**, independently reviewed `READY`.
 * **Result:** the bounded covered, basis-reported, short-term-or-long-term,
   gain-or-loss 2025 Form 1099-B class is synthetic complete end to end —
   an additive successor long-term family and a new short-term family
@@ -50,9 +51,7 @@ the refreshed coverage frontier.
   states. Inbound capital-loss carryovers, Form 8949, noncovered
   securities, digital assets, other Schedule D sources, and QOF flow
   remain honestly outside it — see the deferral ledger.
-* **Plan:** `docs/phases/engine-breadth/milestones/schedule-d-current-year-losses.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-03-schedule-d-current-year-losses.md`.
-* **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-current-year-losses-deferral-ledger.md`.
+* **Plan:** `docs/phases/engine-breadth/milestones/schedule-b-interest-adjustments.md`.
 * **Ratified in-scope:** ADR-0057 (source families and multi-family route
   selection) and ADR-0058 (signed downstream, line-21 limitation,
   completeness successor, 2025-only bound) — both settled by a paper-first
@@ -70,9 +69,8 @@ the refreshed coverage frontier.
   ratification, Track 1, its repair, Track 2, and this closeout — stayed
   local on `milestone/schedule-d-current-year-losses` with no push and no
   PR until this closeout, per explicit owner instruction.
-* **Next:** owner-selects the next breadth milestone from
-  `docs/phases/engine-breadth/coverage-frontier.md`. No milestone is
-  currently active.
+* **Next:** complete Track 0's paper boundary and contract checkpoint before
+  implementation. Schedule D remains outside this selected slice.
 
 ## Re-entry
 

@@ -67,7 +67,14 @@ roadmap unless a selected breadth slice directly depends on them.
    retrospective: `docs/milestone-retrospectives/2026-08-02-schedule-d-covered-ltcg-8a.md`;
    deferral ledger:
    `milestones/schedule-d-covered-ltcg-8a-deferral-ledger.md`.
-5. **Current-Year Capital Losses and Schedule D Line 21** — selected
+5. **Schedule B Interest Adjustments** — selected 2026-08-02. Add a bounded
+   2025 adjustment path for nominee distributions, accrued interest paid to a
+   bond seller, and taxable amortizable-bond-premium adjustments; subtract only
+   explicit, closed adjustment authority from the existing positive-interest
+   universe and render the named rows on Schedule B Part I. Schedule D remains
+   separate and is not a dependency of this milestone. Plan:
+   `milestones/schedule-b-interest-adjustments.md`.
+6. **Current-Year Capital Losses and Schedule D Line 21** — selected
    2026-08-03. **Closed 2026-08-03** (Track 1 with one findings-only
    repair, Track 2, both independently reviewed `READY`). Added an
    additive successor long-term family (gain-or-loss) and a new
@@ -85,11 +92,11 @@ roadmap unless a selected breadth slice directly depends on them.
    `docs/milestone-retrospectives/2026-08-03-schedule-d-current-year-losses.md`;
    deferral ledger:
    `milestones/schedule-d-current-year-losses-deferral-ledger.md`.
-6. **Next breadth slice — owner-selected from the refreshed frontier.**
+7. **Next breadth slice — owner-selected from the refreshed frontier.**
    Inbound capital-loss carryovers, Form 8949/noncovered securities/
-   adjustments, and other Schedule D sources deferred out of item 5 remain
-   distinct candidates; subtractive interest adjustments and unrelated
-   income domains remain outside the selected class.
+   adjustments, and other Schedule D sources deferred out of item 6 remain
+   distinct candidates; other adjustment classes and unrelated income domains
+   remain outside the selected class.
 
 ## Why line 7a comes before Schedule D
 
@@ -135,6 +142,11 @@ source and completeness boundary is selected.
   resolution, explanation, and presentation, including honest visibility
   for the new `SOURCE_SET_UNCLOSED` and `COMPLETENESS_VALUE_VIOLATION`
   states. Plan: `milestones/schedule-d-current-year-losses.md`.
+- **Schedule B Interest Adjustments — planned 2026-08-02.** The selected scope
+  is independent of Schedule D and begins with a paper boundary checkpoint for
+  nominee distributions, accrued interest paid to a seller, and taxable
+  amortizable-bond-premium adjustments. Plan:
+  `milestones/schedule-b-interest-adjustments.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
