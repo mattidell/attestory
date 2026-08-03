@@ -8,11 +8,22 @@
         "disposition": "guard_inapplicable"
       },
       "title": "Schedule B (Interest and Ordinary Dividends)"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-d",
+      "resolved": {
+        "act": null,
+        "activeCodes": [
+          "COMPLETENESS_VALUE_VIOLATION"
+        ],
+        "disposition": "blocked"
+      },
+      "title": "Schedule D (Capital Gains and Losses)"
     }
   ],
   "citationGroups": [],
   "pinLabels": {},
-  "runId": "demo.cgd.t3.missing-authority",
+  "runId": "demo.sdcl.t3.violated-declaration",
   "schema": "presentation-model.v1",
   "sections": [
     {
@@ -75,7 +86,7 @@
       "citationSites": [
         {
           "context": "Standard deduction or itemized deductions",
-          "pinId": "demo.cgd.t2.finding.status",
+          "pinId": "demo.sdcl.t2.finding.status",
           "pinVersion": "v1",
           "siteId": "line-12-src-0"
         }
@@ -129,12 +140,12 @@
       "resolved": {
         "act": {
           "finding": {
-            "id": "finding:derived:03aaf84a241df222ac6c836a",
+            "id": "finding:derived:7a9d7e783932598018cb9c15",
             "pins": [
               {
                 "id": "tax.us.2025.package.core-calculations",
                 "role": "adoption",
-                "version": "v8"
+                "version": "v13"
               },
               {
                 "id": "tax.us.2025.rule.form1040-line12",
@@ -142,13 +153,13 @@
                 "version": "v1"
               },
               {
-                "id": "finding:derived:0de1059647ed0fab929a28b6",
+                "id": "finding:derived:2f2e0d9f4720677a5b8b5a8f",
                 "origin": "declared_default",
                 "role": "input",
                 "version": "v2"
               },
               {
-                "id": "finding:derived:23db5ed16b4f75f8b0e1ba7e",
+                "id": "finding:derived:fa3f1e4e5f6cd7853696cd4d",
                 "origin": "declared_default",
                 "role": "input",
                 "version": "v2"
@@ -159,7 +170,7 @@
             "value": "15000",
             "version": "v2"
           },
-          "run_id": "demo.cgd.t3.missing-authority"
+          "run_id": "demo.sdcl.t3.violated-declaration"
         },
         "disposition": "published_value",
         "value": 15000
@@ -281,13 +292,13 @@
       "citationSites": [
         {
           "context": "Total amount from Form(s) W-2, box 1 (see instructions)",
-          "pinId": "demo.cgd.t2.finding.rounding",
+          "pinId": "demo.sdcl.t2.finding.rounding",
           "pinVersion": "v1",
           "siteId": "line-1a-src-0"
         },
         {
           "context": "Total amount from Form(s) W-2, box 1 (see instructions)",
-          "pinId": "demo.cgd.t2.finding.wages",
+          "pinId": "demo.sdcl.t2.finding.wages",
           "pinVersion": "v1",
           "siteId": "line-1a-src-1"
         }
@@ -341,12 +352,12 @@
       "resolved": {
         "act": {
           "finding": {
-            "id": "finding:derived:51f72ac0482e61732888fb90",
+            "id": "finding:derived:a396c67272207cf18219b99a",
             "pins": [
               {
                 "id": "tax.us.2025.package.core-calculations",
                 "role": "adoption",
-                "version": "v8"
+                "version": "v13"
               },
               {
                 "id": "tax.us.2025.rule.w2-box1-to-line1a",
@@ -354,13 +365,13 @@
                 "version": "v2"
               },
               {
-                "id": "demo.cgd.t2.finding.rounding",
+                "id": "demo.sdcl.t2.finding.rounding",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v1"
               },
               {
-                "id": "demo.cgd.t2.finding.wages",
+                "id": "demo.sdcl.t2.finding.wages",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v1"
@@ -376,7 +387,7 @@
             "value": "90000",
             "version": "v2"
           },
-          "run_id": "demo.cgd.t3.missing-authority"
+          "run_id": "demo.sdcl.t3.violated-declaration"
         },
         "disposition": "published_value",
         "value": 90000
@@ -386,7 +397,7 @@
       "citationSites": [
         {
           "context": "Taxable interest",
-          "pinId": "demo.cgd.t2.finding.rounding",
+          "pinId": "demo.sdcl.t2.finding.rounding",
           "pinVersion": "v1",
           "siteId": "line-2b-src-0"
         }
@@ -397,14 +408,14 @@
           "id": "tax.us.2025.citation.form1040.line-2b",
           "version": "v1"
         },
-        "description": "Form 1040 (2025), line 2b: total taxable interest income. Sum of positive interest source families (B1, B3, OID, unreported), gated on the closure of all constituents.",
+        "description": "Form 1040 (2025), line 2b: total taxable interest from seven declared positive source families: Form 1099-INT boxes 1 and 3, taxable Form 1099-OID box 1, enumerated non-form interest, Schedule K-1 (Form 1065) box 5, and payer-reported current-inclusion market discount from Form 1099-INT box 10 and Form 1099-OID box 5.",
         "dispositions": {
           "blocked": {
             "codes": [
               "DEPENDENCY_ABSENT",
               "DEPENDENCY_INVALID",
               "CATEGORICAL_DOMAIN_MISMATCH",
-              "SOURCE_SET_OPEN"
+              "SOURCE_SET_UNCLOSED"
             ],
             "explain": "Taxable interest is blocked because one or more constituent interest families are unclosed or their dependencies are missing.",
             "render": ""
@@ -422,7 +433,7 @@
             "render": ""
           },
           "published_value": {
-            "explain": "A current derived finding publishes this taxable interest amount; its lineage pins the constituent subtotals.",
+            "explain": "A current cited derived finding publishes taxable interest from the exact seven-family composition, including any payer-reported current-inclusion market-discount subtotal.",
             "render": "{value}"
           }
         },
@@ -435,75 +446,121 @@
         "id": "tax.us.2025.form1040.line-2b",
         "label": "Taxable interest",
         "line": "2b",
-        "schema": "form-field.v2",
-        "version": "v1"
+        "schema": "form-field.v3",
+        "version": "v4"
       },
       "id": "line-2b",
       "resolved": {
         "act": {
           "finding": {
-            "id": "finding:derived:8f9c0c7b933d67c80f594c25",
+            "id": "finding:derived:9ec8260946636c5b4f9b6c89",
             "pins": [
               {
                 "id": "tax.us.2025.package.core-calculations",
                 "role": "adoption",
-                "version": "v8"
+                "version": "v13"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-2b",
+                "role": "citation",
+                "version": "v1"
               },
               {
                 "id": "tax.us.2025.rule.form1040-line2b",
                 "role": "computation",
-                "version": "v1"
+                "version": "v3"
               },
               {
-                "id": "demo.cgd.t2.closure.int-b1",
+                "id": "demo.sdcl.t2.closure.int-b1",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v1"
               },
               {
-                "id": "demo.cgd.t2.closure.int-b3",
+                "id": "demo.sdcl.t2.closure.int-b10",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v1"
               },
               {
-                "id": "demo.cgd.t2.closure.nonform",
+                "id": "demo.sdcl.t2.closure.int-b3",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v1"
               },
               {
-                "id": "demo.cgd.t2.closure.oid-b1",
+                "id": "demo.sdcl.t2.closure.k1-box5",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v1"
               },
               {
-                "id": "finding:derived:0f816385825542498732bbbc",
+                "id": "demo.sdcl.t2.closure.nonform",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcl.t2.closure.oid-b1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcl.t2.closure.oid-b5",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:137631a063b0c3510645b953",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v2"
               },
               {
-                "id": "finding:derived:10ba733af6b390cb4fae8852",
+                "id": "finding:derived:1a5599143da8b131c21140fc",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v2"
               },
               {
-                "id": "finding:derived:40620ed5a111cba8b2897768",
+                "id": "finding:derived:61582922f6471e608a66b9f7",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v2"
               },
               {
-                "id": "finding:derived:eae5fb5ed24c96dafc17b4e5",
+                "id": "finding:derived:899a5e165df1dab5d183ae2d",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:a2ff62da256e557bee705900",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:cd1faf77768d00678d8b30ab",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:d898e492d89942f8da9e1073",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v2"
               },
               {
                 "id": "tax.us.2025.closure-mapping.f1099int-b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099int-b10",
                 "role": "package",
                 "version": "v1"
               },
@@ -518,12 +575,27 @@
                 "version": "v1"
               },
               {
+                "id": "tax.us.2025.closure-mapping.f1099oid-b5",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.form1065-k1-box5",
+                "role": "package",
+                "version": "v1"
+              },
+              {
                 "id": "tax.us.2025.closure-mapping.non-form-interest",
                 "role": "package",
                 "version": "v1"
               },
               {
                 "id": "tax.us.2025.f1099int.b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099int.b10",
                 "role": "package",
                 "version": "v1"
               },
@@ -538,6 +610,16 @@
                 "version": "v1"
               },
               {
+                "id": "tax.us.2025.f1099oid.b5",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.form1065-k1.box5",
+                "role": "package",
+                "version": "v1"
+              },
+              {
                 "id": "tax.us.2025.non-form-interest",
                 "role": "package",
                 "version": "v1"
@@ -548,7 +630,7 @@
             "value": "0",
             "version": "v2"
           },
-          "run_id": "demo.cgd.t3.missing-authority"
+          "run_id": "demo.sdcl.t3.violated-declaration"
         },
         "disposition": "computed_zero",
         "value": 0
@@ -558,7 +640,7 @@
       "citationSites": [
         {
           "context": "Qualified dividends",
-          "pinId": "demo.cgd.t2.finding.rounding",
+          "pinId": "demo.sdcl.t2.finding.rounding",
           "pinVersion": "v1",
           "siteId": "line-3a-src-0"
         }
@@ -614,12 +696,12 @@
       "resolved": {
         "act": {
           "finding": {
-            "id": "finding:derived:435e9f4b7ea75371146e4ef0",
+            "id": "finding:derived:e4d2b43b136f6c94a736a5e3",
             "pins": [
               {
                 "id": "tax.us.2025.package.core-calculations",
                 "role": "adoption",
-                "version": "v8"
+                "version": "v13"
               },
               {
                 "id": "tax.us.2025.rule.form1040-line3a",
@@ -627,13 +709,13 @@
                 "version": "v1"
               },
               {
-                "id": "demo.cgd.t2.closure.div1b",
+                "id": "demo.sdcl.t2.closure.div1b",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v1"
               },
               {
-                "id": "finding:derived:bf2b3e35fdddaeda55e0bbec",
+                "id": "finding:derived:b45ffbc02680d866eae51fbd",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v2"
@@ -654,7 +736,7 @@
             "value": "0",
             "version": "v2"
           },
-          "run_id": "demo.cgd.t3.missing-authority"
+          "run_id": "demo.sdcl.t3.violated-declaration"
         },
         "disposition": "computed_zero",
         "value": 0
@@ -664,15 +746,9 @@
       "citationSites": [
         {
           "context": "Ordinary dividends",
-          "pinId": "demo.cgd.t2.finding.box1a",
+          "pinId": "demo.sdcl.t2.finding.rounding",
           "pinVersion": "v1",
           "siteId": "line-3b-src-0"
-        },
-        {
-          "context": "Ordinary dividends",
-          "pinId": "demo.cgd.t2.finding.rounding",
-          "pinVersion": "v1",
-          "siteId": "line-3b-src-1"
         }
       ],
       "field": {
@@ -726,12 +802,12 @@
       "resolved": {
         "act": {
           "finding": {
-            "id": "finding:derived:235adefb3303fcaa41f455f3",
+            "id": "finding:derived:d64e8213323ed013978bd4ad",
             "pins": [
               {
                 "id": "tax.us.2025.package.core-calculations",
                 "role": "adoption",
-                "version": "v8"
+                "version": "v13"
               },
               {
                 "id": "tax.us.2025.rule.form1040-line3b",
@@ -739,13 +815,13 @@
                 "version": "v1"
               },
               {
-                "id": "demo.cgd.t2.closure.div1a",
+                "id": "demo.sdcl.t2.closure.div1a",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v1"
               },
               {
-                "id": "finding:derived:17c0a705561ba9e9160c9580",
+                "id": "finding:derived:11f7eaaf69aa96a9ccacf898",
                 "origin": "assertion",
                 "role": "input",
                 "version": "v2"
@@ -763,13 +839,13 @@
             ],
             "schema": "derived-finding.v2",
             "symbol": "tax.us.2025.dividends.ordinary-total",
-            "value": "600",
+            "value": "0",
             "version": "v2"
           },
-          "run_id": "demo.cgd.t3.missing-authority"
+          "run_id": "demo.sdcl.t3.violated-declaration"
         },
-        "disposition": "published_value",
-        "value": 600
+        "disposition": "computed_zero",
+        "value": 0
       }
     },
     {
@@ -881,11 +957,40 @@
       },
       "id": "line-7b",
       "resolved": {
-        "act": null,
-        "activeCodes": [
-          "DEPENDENCY_ABSENT"
-        ],
-        "disposition": "blocked"
+        "act": {
+          "finding": {
+            "id": "finding:derived:160147560beef46ca17abae9",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v13"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-7b",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line7b",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:19c21ea8c6668a8ab1cf60ca",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.form1040.line7b-schedule-d-not-required",
+            "value": "checked",
+            "version": "v2"
+          },
+          "run_id": "demo.sdcl.t3.violated-declaration"
+        },
+        "disposition": "published_categorical"
       }
     },
     {
@@ -942,6 +1047,451 @@
           "DEPENDENCY_ABSENT"
         ],
         "disposition": "blocked"
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 13: capital gain distributions",
+          "pinId": "demo.sdcl.t2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-13-src-0"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.dividends.2a-subtotal",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-13",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) line 13: capital gain distributions, consuming the accepted ADR-0050 box-2a family subtotal exactly once (ADR-0052 Decision 2's adopted completeness successor).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 13 is blocked because the box-2a family is unclosed.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the box-2a family is attested closed on its current horizon with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No line 13 value exists for this route.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes the box-2a capital-gain-distributions subtotal.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-13",
+        "label": "Line 13: capital gain distributions",
+        "line": "sch-d-13",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-sch-d-13",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:8345bdb038da4dbaa6e8a024",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v13"
+              },
+              {
+                "id": "tax.us.2025.rule.f1099div-2a-subtotal",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcl.t2.closure.div2a",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcl.t2.finding.rounding",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "round",
+                "role": "operation-semantics",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099div-2a",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099div.2a",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.dividends.2a-subtotal",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.sdcl.t3.violated-declaration"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 15: net long-term capital gain",
+          "pinId": "demo.sdcl.t2.finding.basis",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-15-src-0"
+        },
+        {
+          "context": "Line 15: net long-term capital gain",
+          "pinId": "demo.sdcl.t2.finding.proceeds",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-15-src-1"
+        },
+        {
+          "context": "Line 15: net long-term capital gain",
+          "pinId": "demo.sdcl.t2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-15-src-2"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-15",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-15",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Part II line 15: line 8a's gain plus the closed box-2a subtotal once (ADR-0052 Decision 3).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 15 is blocked because line 8a or the box-2a subtotal is unavailable.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero from closure-backed inputs with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present inputs that net to zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No line 15 value exists for this route.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes line 15 as line 8a's gain plus the box-2a subtotal.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-15",
+        "label": "Line 15: net long-term capital gain",
+        "line": "sch-d-15",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-sch-d-15",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:d9ad18b5a0874d7416783586",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v13"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-15",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line15",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:7605d847c40c8ab3e03442e9",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:8345bdb038da4dbaa6e8a024",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-15",
+            "value": "4000",
+            "version": "v2"
+          },
+          "run_id": "demo.sdcl.t3.violated-declaration"
+        },
+        "disposition": "published_value",
+        "value": 4000
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 16: total gain",
+          "pinId": "demo.sdcl.t2.finding.basis",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-16-src-0"
+        },
+        {
+          "context": "Line 16: total gain",
+          "pinId": "demo.sdcl.t2.finding.proceeds",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-16-src-1"
+        },
+        {
+          "context": "Line 16: total gain",
+          "pinId": "demo.sdcl.t2.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-16-src-2"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-16",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-16",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Part III line 16: equals line 15 for this bounded gain-only slice (ADR-0052 Decision 3). Pinned directly by the selected-preferential-base rule's Schedule-D branch (ADR-0053 Decision 2).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 16 is blocked because line 15 is unavailable.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero from closure-backed inputs with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present inputs that net to zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No line 16 value exists for this route.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes line 16 equal to line 15.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-16",
+        "label": "Line 16: total gain",
+        "line": "sch-d-16",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-sch-d-16",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:1d18576e9f3d4621381621f0",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v13"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-16",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line16",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:d9ad18b5a0874d7416783586",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-16",
+            "value": "4000",
+            "version": "v2"
+          },
+          "run_id": "demo.sdcl.t3.violated-declaration"
+        },
+        "disposition": "published_value",
+        "value": 4000
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 8a, column (h): gain",
+          "pinId": "demo.sdcl.t2.finding.basis",
+          "pinVersion": "v1",
+          "siteId": "line-8a-h-src-0"
+        },
+        {
+          "context": "Line 8a, column (h): gain",
+          "pinId": "demo.sdcl.t2.finding.proceeds",
+          "pinVersion": "v1",
+          "siteId": "line-8a-h-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-8a",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) line 8a, column (h): totals for transactions not reported on Form 8949, for the bounded covered-long-term-gain class (ADR-0052 Decision 3). Column (h) is column (d) minus column (e); each is itemized separately in the Schedule D attachment's own citation walk.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 8a is blocked because the proceeds or basis subtotal is unavailable, or the eligible-transaction family is unclosed.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the proceeds and basis families are attested closed on their current horizons with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present proceeds and basis findings that net to zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No line 8a value exists for this route.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes column (h) as the tied-out difference of columns (d) and (e).",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "label": "Line 8a, column (h): gain",
+        "line": "8a-h",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-8a-h",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:7605d847c40c8ab3e03442e9",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v13"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-8a",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcl.t2.closure.eligible",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:4b704d906e7a1cf385ebd292",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:8aee1046f8be4e2f05d1d639",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-ltcg",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-ltcg",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+            "value": "4000",
+            "version": "v2"
+          },
+          "run_id": "demo.sdcl.t3.violated-declaration"
+        },
+        "disposition": "published_value",
+        "value": 4000
       }
     }
   ]
