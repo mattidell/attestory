@@ -2,9 +2,9 @@
   "build_command": "node build.mjs",
   "entries": [
     {
-      "bytes": 2937,
+      "bytes": 3045,
       "path": "build.mjs",
-      "sha256": "ccb959ae6463c294d4a02170cce46951567cdce4c3afb1a0cffb2d5f81901d6c"
+      "sha256": "35b786aa71c14bde8a09f7043a2b71c257a83f5a9d6bb9ad79dcc393e2887367"
     },
     {
       "bytes": 60,
@@ -4697,14 +4697,24 @@
       "sha256": "7d435e13f07a19033fd6164644ecaeaf115b24878f804933ead84362fe696145"
     },
     {
-      "bytes": 26615,
+      "bytes": 29907,
       "path": "src/EntryPage.svelte",
-      "sha256": "83c28fb5875a61d7979729ac968b2e1756e2a0767a3eeb247b2b521ca28380bd"
+      "sha256": "f13e50e3147d3ad8b5fb9d92624df2ddcb93e4db503bf0baf597ed13f49c27c2"
     },
     {
-      "bytes": 11712,
+      "bytes": 11776,
       "path": "src/WorkspacePage.svelte",
-      "sha256": "ca337dcce35d96b7e6d5a7105ef3c1d72f60c79fbf14b4bae1115aca0bb5799a"
+      "sha256": "cc3d230aafe1525653d81c505fbecd4650ee3c6675cb149a3a8e0e8b9dcb5cd4"
+    },
+    {
+      "bytes": 1207,
+      "path": "src/div1b-field.js",
+      "sha256": "2c91082948d794f71edc3620e7d7da4c5fb54e87021852f192fc8541e34157fd"
+    },
+    {
+      "bytes": 1168,
+      "path": "src/div1b-format.js",
+      "sha256": "8418504294164c5eeabdef87ca5f94b9ea1e02ab97ff097d95c1c981269aed14"
     },
     {
       "bytes": 147,
@@ -4729,7 +4739,7 @@
   ],
   "entrypoint_html": "dist/index.html",
   "id": "demo.surface.entry-loop",
-  "package_checksum": "5668ee8fae36529da6c6d0b4165ebfe5895b1fe9bc5c6e00d24e56a4d32f3ef8",
+  "package_checksum": "fdefe75775ba3d957de0be9e88cdc1128aea47b7ddf0cb7fc07b270a24e3d3de",
   "schema": "surface-artifact.v1",
   "version": "v1"
 }

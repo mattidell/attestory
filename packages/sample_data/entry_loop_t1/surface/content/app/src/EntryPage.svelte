@@ -3,15 +3,51 @@
   import { formatW2Box1Hint } from "./w2-box1-format.js";
   import {
     W2_BOX1_FIELD,
-    formatSourceLabel,
-    formatDestinationPurpose
+    formatSourceLabel as formatW2SourceLabel,
+    formatDestinationPurpose as formatW2DestinationPurpose
   } from "./w2-box1-field.js";
+  import { formatDiv1bHint } from "./div1b-format.js";
+  import {
+    DIV1B_FIELD,
+    formatSourceLabel as formatDiv1bSourceLabel,
+    formatDestinationPurpose as formatDiv1bDestinationPurpose
+  } from "./div1b-field.js";
+
+  // One entry per fact this workspace can accept, mirroring the backend's
+  // own _FactFamily list (entry_loop.py) -- exactly two concrete fields,
+  // each described once here, rendered by one shared template below rather
+  // than one hand-written block per field. A field's label/purpose/format
+  // text is still compiled in from its own imported declaration module, not
+  // read from the API response -- that's what lets a mutated declaration
+  // file provably reach the rendered DOM (see RenderedFieldDerivation).
+  const FIELDS = [
+    {
+      key: "w2-box1",
+      contentField: "w2_box1",
+      field: W2_BOX1_FIELD,
+      hint: formatW2Box1Hint(),
+      sourceLabel: formatW2SourceLabel(),
+      destinationPurpose: formatW2DestinationPurpose()
+    },
+    {
+      key: "div1b-qualified",
+      contentField: "div1b_qualified",
+      field: DIV1B_FIELD,
+      hint: formatDiv1bHint(),
+      sourceLabel: formatDiv1bSourceLabel(),
+      destinationPurpose: formatDiv1bDestinationPurpose()
+    }
+  ];
+  const FIELDS_BY_KEY = Object.fromEntries(FIELDS.map((f) => [f.key, f]));
 
   let state = null;
-  let amount = "";
   let error = "";
   let busy = false;
-  let wageInput;
+  // One input value and one input ref per fact key, not a single pair --
+  // the loop's original single-field shape assumed there was only ever one
+  // form on the page.
+  let amounts = {};
+  let inputRefs = {};
   let statusRegion;
   // The trail of lines opened so far, in the order opened. A dependency
   // chip appends rather than replaces, so the whole path stays visible --
@@ -63,6 +99,9 @@
     row?.focus();
   }
 
+  function focusField(key) {
+    inputRefs[key]?.focus();
+  }
 
   const money = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -76,9 +115,11 @@
 
   function setState(next) {
     state = next;
-    if (next.answered?.length) {
-      amount = String(next.answered[0].value);
+    const updated = { ...amounts };
+    for (const item of next.answered ?? []) {
+      updated[item.id] = String(item.value);
     }
+    amounts = updated;
   }
 
   async function loadState() {
@@ -97,29 +138,36 @@
     }
   }
 
-  function goToWages() {
-    wageInput?.focus();
-  }
-
   // The workspace's record map deep-links straight to one line via a URL
   // fragment, not a query string -- the server's own request handler
   // rejects any request carrying a query string (`_target()` in
   // entry_loop.py), a data-safety boundary this page has no business
   // trying to work around. A fragment never leaves the browser, so it
-  // reaches this page without ever touching the server at all.
+  // reaches this page without ever touching the server at all. A second,
+  // distinct fragment shape (#field=) does the same for a specific
+  // outstanding fact's input, since a line and a field are different
+  // targets on this page.
   function consumeLineFromHash() {
     const match = location.hash.match(/^#line=(.+)$/);
     if (!match) return null;
     return decodeURIComponent(match[1]);
   }
 
-  async function submitWages(event) {
+  function consumeFieldFromHash() {
+    const match = location.hash.match(/^#field=(.+)$/);
+    if (!match) return null;
+    return decodeURIComponent(match[1]);
+  }
+
+  async function submitField(event, fieldDef) {
     event.preventDefault();
-    if (!state?.contribution || busy) return;
+    const template = state?.contributions?.[fieldDef.key];
+    if (!template || busy) return;
     busy = true;
     error = "";
-    const eventBody = structuredClone(state.contribution);
-    eventBody.payload.contribution.content.w2_box1 = amount;
+    const eventBody = structuredClone(template);
+    eventBody.payload.contribution.content[fieldDef.contentField] =
+      amounts[fieldDef.key];
     try {
       const response = await fetch(stateUrl("contributions"), {
         method: "POST",
@@ -151,13 +199,19 @@
       await jumpToLine(targetLine);
       history.replaceState(null, "", location.pathname + location.search);
     }
+    const targetField = consumeFieldFromHash();
+    if (targetField) {
+      await tick();
+      focusField(targetField);
+      history.replaceState(null, "", location.pathname + location.search);
+    }
   });
 </script>
 
 <svelte:head>
   <meta
     name="description"
-    content="A synthetic guided W-2 entry loop for a demo federal return."
+    content="A synthetic guided entry loop for a demo federal return."
   />
 </svelte:head>
 
@@ -173,17 +227,16 @@
   </header>
 
   <section class="hero" aria-labelledby="page-title">
-    <p class="eyebrow">2025 federal return · W-2</p>
+    <p class="eyebrow">2025 federal return</p>
     <h1 id="page-title">
-      {state?.complete ? "Your entry is complete." : "One document closes the gap."}
+      {state?.complete ? "Your entry is complete." : "A few facts close the gap."}
     </h1>
     <p class="lede">
       {#if state?.complete}
         Every required fact in this evaluation is present and the return is fully
-        computed. You can still review or correct W-2 Box 1 below.
+        computed. You can still review or correct an entered fact below.
       {:else}
-        Your other synthetic facts are already in place. Enter the outstanding
-        W-2 wages to compute the return.
+        Enter the outstanding facts below to compute the return.
       {/if}
     </p>
   </section>
@@ -208,13 +261,15 @@
       tabindex="-1"
       bind:this={statusRegion}
     >
-      <div class="status-mark" aria-hidden="true">{state.complete ? "✓" : "1"}</div>
+      <div class="status-mark" aria-hidden="true">
+        {state.complete ? "✓" : state.missing.length}
+      </div>
       <div>
         <p class="status-kicker">{state.complete ? "Return status" : "Still needed"}</p>
         <h2 id="status-title">
           {state.complete
             ? "0 missing facts · fully computed"
-            : "1 missing fact · W-2 Box 1"}
+            : `${state.missing.length} missing fact${state.missing.length === 1 ? "" : "s"}`}
         </h2>
         {#if state.accepted}
           <p class="accepted">
@@ -228,8 +283,8 @@
     {#if state.missing.length}
       <section class="missing" aria-labelledby="missing-title">
         <div class="section-heading">
-          <p class="step">Step 1 · Know what is missing</p>
-          <h2 id="missing-title">Bring this document to the entry</h2>
+          <p class="step">Know what is missing</p>
+          <h2 id="missing-title">Bring these documents to the entry</h2>
         </div>
         <ul>
           {#each state.missing as item}
@@ -238,75 +293,87 @@
                 <strong>{item.label}</strong>
                 <span>{item.document}, {item.box}</span>
               </div>
-              <button type="button" on:click={goToWages}>Enter this fact</button>
+              <button type="button" on:click={() => focusField(item.target)}>
+                Enter {item.document} {item.box}
+              </button>
             </li>
           {/each}
         </ul>
       </section>
     {/if}
 
-    <div class="workspace">
-      <section class="entry-panel" aria-labelledby="entry-title">
-        <div class="section-heading">
-          <p class="step">
-            {state.answered.length
-              ? "Step 4 · Correct an entered fact"
-              : "Step 2 · Enter the fact"}
-          </p>
-          <h2 id="entry-title">
-            {state.answered.length ? "Review W-2 wages" : "Enter W-2 wages"}
-          </h2>
-        </div>
+    <div class="entry-grid">
+      <div class="entry-panels">
+        {#each FIELDS as fieldDef (fieldDef.key)}
+          {@const answered = state.answered.find((a) => a.id === fieldDef.key)}
+          <section class="entry-panel" aria-labelledby={`entry-title-${fieldDef.key}`}>
+            <div class="section-heading">
+              <p class="step">{answered ? "Correct an entered fact" : "Enter the fact"}</p>
+              <h2 id={`entry-title-${fieldDef.key}`}>
+                {answered
+                  ? `Review ${fieldDef.field.source.label}`
+                  : `Enter ${fieldDef.field.source.label}`}
+              </h2>
+            </div>
 
-        <form aria-label="W-2 Box 1 entry" on:submit={submitWages}>
-          <label for="w2-box1">
-            <span class="field-label">{formatSourceLabel()}</span>
-            <span class="field-name">{W2_BOX1_FIELD.source.label}</span>
-          </label>
-          <p id="w2-box1-purpose" class="field-purpose">
-            {formatDestinationPurpose()}
-          </p>
-          <div class="money-input">
-            <span aria-hidden="true">$</span>
-            <input
-              id="w2-box1"
-              name="w2-box1"
-              bind:this={wageInput}
-              bind:value={amount}
-              inputmode="decimal"
-              autocomplete="off"
-              spellcheck="false"
-              aria-describedby="w2-box1-purpose w2-box1-format"
-              required
-            />
-          </div>
-          <p id="w2-box1-format" class="format">
-            {formatW2Box1Hint()}
-          </p>
-          <button class="primary" type="submit" disabled={busy}>
-            {busy
-              ? "Checking…"
-              : state.answered.length
-                ? "Update W-2 Box 1"
-                : "Add W-2 Box 1"}
-          </button>
-        </form>
+            <form
+              aria-label={`${fieldDef.field.source.document} ${fieldDef.field.source.box} entry`}
+              on:submit={(event) => submitField(event, fieldDef)}
+            >
+              <label for={fieldDef.key}>
+                <span class="field-label">{fieldDef.sourceLabel}</span>
+                <span class="field-name">{fieldDef.field.source.label}</span>
+              </label>
+              <p id={`${fieldDef.key}-purpose`} class="field-purpose">
+                {fieldDef.destinationPurpose}
+              </p>
+              <div class="money-input">
+                <span aria-hidden="true">$</span>
+                <input
+                  id={fieldDef.key}
+                  name={fieldDef.key}
+                  bind:this={inputRefs[fieldDef.key]}
+                  bind:value={amounts[fieldDef.key]}
+                  inputmode="decimal"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-describedby={`${fieldDef.key}-purpose ${fieldDef.key}-format`}
+                  required
+                />
+              </div>
+              <p id={`${fieldDef.key}-format`} class="format">
+                {fieldDef.hint}
+              </p>
+              <button class="primary" type="submit" disabled={busy}>
+                {busy
+                  ? "Checking…"
+                  : answered
+                    ? `Update ${fieldDef.field.source.label}`
+                    : `Add ${fieldDef.field.source.label}`}
+              </button>
+            </form>
 
-        {#if state.answered.length}
-          <div class="answered">
-            <span>Answered fact</span>
-            <strong>{state.answered[0].label}: {money.format(state.answered[0].value)}</strong>
-            <button type="button" class="text-button" on:click={goToWages}>
-              Correct this fact
-            </button>
-          </div>
-        {/if}
-      </section>
+            {#if answered}
+              <div class="answered">
+                <span>Answered fact</span>
+                <strong>{answered.label}: {money.format(answered.value)}</strong>
+                <button
+                  type="button"
+                  class="text-button"
+                  on:click={() => focusField(fieldDef.key)}
+                >
+                  Correct {answered.label}
+                </button>
+              </div>
+            {/if}
+          </section>
+        {/each}
+      </div>
 
       <section class="impact-panel" aria-labelledby="impact-title">
         <div class="section-heading">
-          <p class="step">Step 3 · See it land</p>
-          <h2 id="impact-title">What the accepted fact changed</h2>
+          <p class="step">See it land</p>
+          <h2 id="impact-title">What the accepted facts changed</h2>
         </div>
 
         <h3>Expected impact</h3>
@@ -327,13 +394,12 @@
 
     {#if state.complete}
       <section class="review" aria-labelledby="review-title">
-        <p class="step">Step 5 · Know it is complete</p>
+        <p class="step">Know it is complete</p>
         <h2 id="review-title">Done — no further required entry</h2>
         <p>
           Zero facts are missing and every evaluation line is computed. Review
-          the result above, or return to W-2 Box 1 to make a correction.
+          the result above, or correct any entered fact in its own panel.
         </p>
-        <button type="button" on:click={goToWages}>Review W-2 Box 1</button>
       </section>
     {/if}
 
@@ -346,7 +412,7 @@
           </div>
           <div class="line-result">
             <span class:changed={line.change === "changed"}>{line.change}</span>
-            <strong>{line.computed ? money.format(line.value) : "Waiting for W-2"}</strong>
+            <strong>{line.computed ? money.format(line.value) : "Waiting"}</strong>
           </div>
         </div>
 
@@ -384,12 +450,12 @@
                       <button
                         type="button"
                         class="dependency-chip"
-                        class:traces-to-entry={dep.tracesToEntry}
+                        class:traces-to-entry={dep.entryTargets.length > 0}
                         on:click={() => jumpToLine(dep.line)}
                       >
                         1040 · {dep.line} — {dep.title}: {money.format(dep.value)}
-                        {#if dep.tracesToEntry}
-                          <span class="chip-trace">· traces to W-2 entry</span>
+                        {#if dep.entryTargets.length}
+                          <span class="chip-trace">· traces to entry</span>
                         {/if}
                       </button>
                     </li>
@@ -427,11 +493,17 @@
                 </p>
               {/if}
 
-              {#if line.explanation.tracesToEntry}
+              {#if line.explanation.entryTargets.length}
                 <div class="actions">
-                  <button type="button" class="text-button" on:click={goToWages}>
-                    Jump to W-2 entry (from line {line.line})
-                  </button>
+                  {#each line.explanation.entryTargets as targetKey}
+                    <button
+                      type="button"
+                      class="text-button"
+                      on:click={() => focusField(targetKey)}
+                    >
+                      Jump to {FIELDS_BY_KEY[targetKey].field.source.label} entry (from line {line.line})
+                    </button>
+                  {/each}
                 </div>
               {/if}
             </div>
@@ -587,7 +659,7 @@
 
   .status-card,
   .missing,
-  .workspace,
+  .entry-grid,
   .review,
   .error,
   .loading {
@@ -694,11 +766,17 @@
     opacity: 0.72;
   }
 
-  .workspace {
+  .entry-grid {
     display: grid;
     grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
     gap: 1.4rem;
     margin-top: 1.4rem;
+  }
+
+  .entry-panels {
+    display: grid;
+    gap: 1.4rem;
+    align-content: start;
   }
 
   .entry-panel,
@@ -1053,7 +1131,7 @@
       margin-top: 3.5rem;
     }
 
-    .workspace {
+    .entry-grid {
       grid-template-columns: 1fr;
     }
 
