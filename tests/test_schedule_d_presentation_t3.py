@@ -3,10 +3,10 @@ existing citation-walk presentation model, against package v13/v8.
 
 Covers the ordinary form-field binds_symbol projection (line 8a column (h),
 line 13, line 15, line 16; line 7a/9/16 unchanged from Track 2/ADR-0055) and
-documents current behavior for the attachment's own disposition, which is
-only ever represented when required-and-complete (published) - the not-
-required and required-and-incomplete cases produce an empty citationGroups
-list today, a charter-stop finding reported separately, not fixed here.
+the attachment's own three-state disposition (ADR-0056): published,
+blocked, and not-required are all now visible in the model's ``attachments``
+list, while ``citationGroups`` continues to carry only published itemization
+detail, unchanged.
 """
 
 from __future__ import annotations
@@ -68,6 +68,8 @@ class EligibleScheduleDPublishes(unittest.TestCase):
         self.assertIn(SD_ATTACHMENT_ID, group_ids)
         attachment = next(g for g in model["citationGroups"] if g["id"] == SD_ATTACHMENT_ID)
         self.assertEqual(len(attachment["parts"]), 3)  # (d), (e), line 13
+        attachments_by_id = {a["id"]: a for a in model["attachments"]}
+        self.assertEqual(attachments_by_id[SD_ATTACHMENT_ID]["resolved"]["disposition"], "published")
 
 
 class BothGainsNoDoubleCount(unittest.TestCase):
@@ -81,30 +83,32 @@ class BothGainsNoDoubleCount(unittest.TestCase):
 
 
 class NotRequiredCase(unittest.TestCase):
-    """Eligible family closed-empty: the attachment is not-required. Current
-    behavior: the model renders no signal for it at all (empty
-    citationGroups) - acceptable for not-required (there is nothing to show),
-    unlike required-and-incomplete (see ViolatedAndMissingCurrentBehavior)."""
+    """Eligible family closed-empty: the attachment is not-required. It stays
+    out of citationGroups (no itemization detail to show), and ADR-0056 now
+    shows it as a visible guard_inapplicable status entry rather than
+    silence."""
 
-    def test_no_eligible_transaction_omits_attachment_and_publishes_direct_route(self) -> None:
+    def test_no_eligible_transaction_omits_itemization_and_publishes_direct_route(self) -> None:
         model = _run_model("demo.sdcl.t3.not-required", _sdcl_t2_acts(
             box2a=1500, eligible_txn=False, adoption_file="adopt-core-v13-current.json",
         ))
         group_ids = {g["id"] for g in model["citationGroups"]}
         self.assertNotIn(SD_ATTACHMENT_ID, group_ids)
+        attachments_by_id = {a["id"]: a for a in model["attachments"]}
+        self.assertEqual(attachments_by_id[SD_ATTACHMENT_ID]["resolved"]["disposition"], "guard_inapplicable")
+        self.assertEqual(attachments_by_id[SD_ATTACHMENT_ID]["resolved"]["activeCodes"], [])
         sections = _sections_by_id(model)
         self.assertEqual(sections["line-7a"]["resolved"]["value"], 1500)
 
 
-class ViolatedAndMissingCurrentBehavior(unittest.TestCase):
-    """Documents the charter-stop finding: today, a required-and-incomplete
-    Schedule D attachment (violated or missing boundary declaration) renders
-    no signal at all - the same empty citationGroups as not-required. This is
-    the ADR-0046 Requirement 2 (honest blocking) gap named in the handoff;
-    the numeric lines (which independently re-check completeness) still
-    correctly redact - only the attachment's own disposition is invisible."""
+class ViolatedAndMissingAreNowVisible(unittest.TestCase):
+    """ADR-0056: a required-and-incomplete Schedule D attachment (violated or
+    missing boundary declaration) no longer renders silently. It stays out of
+    citationGroups (no itemization detail to show), but is now visible in the
+    new attachments status list, naming the exact violated/missing code. The
+    numeric lines still correctly redact, unaffected by this change."""
 
-    def test_violated_declaration_attachment_currently_invisible(self) -> None:
+    def test_violated_declaration_attachment_now_visible(self) -> None:
         boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
         boundary["tax.us.2025.schedule-d-boundary.no-current-capital-losses"] = "no"
         model = _run_model("demo.sdcl.t3.violated", _sdcl_t2_acts(
@@ -113,12 +117,17 @@ class ViolatedAndMissingCurrentBehavior(unittest.TestCase):
         ))
         group_ids = {g["id"] for g in model["citationGroups"]}
         self.assertNotIn(SD_ATTACHMENT_ID, group_ids)
+        attachments_by_id = {a["id"]: a for a in model["attachments"]}
+        self.assertEqual(attachments_by_id[SD_ATTACHMENT_ID]["resolved"]["disposition"], "blocked")
+        self.assertEqual(
+            attachments_by_id[SD_ATTACHMENT_ID]["resolved"]["activeCodes"],
+            ["COMPLETENESS_VALUE_VIOLATION"],
+        )
         sections = _sections_by_id(model)
-        # The numeric route still redacts correctly even though the
-        # attachment's own disposition is not separately visible.
+        # The numeric route still redacts correctly, unaffected by this ADR.
         self.assertEqual(sections["line-7a"]["resolved"]["disposition"], "blocked")
 
-    def test_missing_declaration_attachment_currently_invisible(self) -> None:
+    def test_missing_declaration_attachment_now_visible(self) -> None:
         boundary = {name: "yes" for name in BOUNDARY_DECLARATIONS}
         boundary["tax.us.2025.schedule-d-boundary.no-form8949-sources"] = None
         model = _run_model("demo.sdcl.t3.missing", _sdcl_t2_acts(
@@ -127,6 +136,9 @@ class ViolatedAndMissingCurrentBehavior(unittest.TestCase):
         ))
         group_ids = {g["id"] for g in model["citationGroups"]}
         self.assertNotIn(SD_ATTACHMENT_ID, group_ids)
+        attachments_by_id = {a["id"]: a for a in model["attachments"]}
+        self.assertEqual(attachments_by_id[SD_ATTACHMENT_ID]["resolved"]["disposition"], "blocked")
+        self.assertEqual(attachments_by_id[SD_ATTACHMENT_ID]["resolved"]["activeCodes"], ["DEPENDENCY_ABSENT"])
 
 
 if __name__ == "__main__":

@@ -1,4 +1,15 @@
 {
+  "attachments": [
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-b",
+      "resolved": {
+        "act": null,
+        "activeCodes": [],
+        "disposition": "guard_inapplicable"
+      },
+      "title": "Schedule B (Interest and Ordinary Dividends)"
+    }
+  ],
   "citationGroups": [],
   "pinLabels": {},
   "runId": "demo.md.golden.mixed",

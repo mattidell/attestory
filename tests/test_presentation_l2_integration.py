@@ -215,6 +215,7 @@ class ValidatorStrictness(unittest.TestCase):
                 "citationSites": [],
             }],
             "citationGroups": [],
+            "attachments": [],
         }
 
     def test_unknown_top_level_key_rejects(self) -> None:

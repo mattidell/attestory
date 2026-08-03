@@ -82,9 +82,16 @@ def main() -> None:
         target.write_text(json.dumps(model, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     fixture_dir = ROOT / "tools" / "presentation_harness" / "examples" / "pages" / "citation-walk-fixtures"
     fixture_dir.mkdir(parents=True, exist_ok=True)
-    (fixture_dir / "sdcl-eligible.v1.json").write_text(
-        json.dumps(models["eligible"], indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    fixture_names = {
+        "eligible": "sdcl-eligible.v1.json",
+        "violated-declaration": "sdcl-violated-declaration.v1.json",
+        "missing-declaration": "sdcl-missing-declaration.v1.json",
+        "not-required": "sdcl-not-required.v1.json",
+    }
+    for model_name, fixture_name in fixture_names.items():
+        (fixture_dir / fixture_name).write_text(
+            json.dumps(models[model_name], indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
 
 
 if __name__ == "__main__":

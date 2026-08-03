@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "schedule-d-covered-ltcg-8a",
   "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a.md",
-  "milestone_state": "track-3-landed-attachment-visibility-decision-chartered",
-  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — TRACK 3 LANDED (`ef921d4`).** Schedule D fields and its attachment project through the presentation surface for the published/eligible path; numeric lines correctly publish/redact in every case (5 new goldens, new browser-manifest 4/4, baselines 26/26 + 19/19 + 34/34 node tests unaffected). Foreman-verified clean (focused suites 72 passed, governance lint conformant, envelope/whitespace clean). Track 3 hit its own named charter-stop: `_resolve_attachment` returns no `citationGroups` entry for the blocked/not-required dispositions, so a blocked or not-required Schedule D (or Schedule B) attachment is completely invisible in the product page — a real, pre-existing ADR-0046 Requirement 2 gap surfaced by Schedule D, not introduced by it. A paper-spike-plus-ADR-draft decision unit is chartered before any further Track 3 rework or milestone closeout.",
-  "current_role": "Attachment Disposition Visibility Decision Unit (paper spike + ADR draft, owner-launched)",
-  "current_prompt": "docs/reviews/charter-2026-08-02-attachment-disposition-visibility-decision.md"
+  "milestone_state": "adr-0056-ratified-implementation-chartered",
+  "status": "**ENGINE BREADTH / COVERED LONG-TERM GAINS, SCHEDULE D LINE 8a — ADR-0056 RATIFIED.** Track 3 (`ef921d4`) landed a named charter-stop: a blocked or not-required Schedule D (or Schedule B) attachment renders no signal at all. ADR-0056 (accepted 2026-08-02, Decision 3 amended before ratification — attachment blocked/not-required text and the closed three-code known allowlist are renderer-owned declared constants, never tax content) resolves the shape: a new `attachments` presentation-model key, `citationGroups` unaffected. An implementation charter is chartered for owner launch.",
+  "current_role": "Attachment Disposition Visibility Implementation Builder (owner-launched)",
+  "current_prompt": "docs/reviews/charter-2026-08-02-attachment-disposition-visibility-implementation.md"
 }
 -->
 # Phase State
@@ -31,9 +31,8 @@ yet claimed.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a — **Track 3
-  landed; an attachment-visibility decision unit is chartered before
-  closeout.**
+* **Active milestone:** Covered Long-Term Gains, Schedule D Line 8a —
+  **ADR-0056 ratified; its implementation is chartered before closeout.**
 * **Product change (target):** covered, long-term, gain-only Form 1099-B
   transactions become a closed source family that reaches Schedule D line 8a,
   Part II line 15, Part III line 16, Form 1040 line 7a, and the correct QDCG
@@ -54,13 +53,12 @@ yet claimed.
   (`37b4426`); the attachment completeness-violation paper spike, ADR-0055
   (ratified 2026-08-02), and its implementation (`8b26db4`); Track 3's
   presentation projection of Schedule D fields and the attachment through
-  the citation walk (`ef921d4`), with one open, named charter-stop finding
-  on attachment blocked/not-required visibility.
-* **Next:** owner-launch the attachment disposition-visibility decision unit
-  from the current prompt (paper spike plus proposed ADR draft on extending
-  `presentation-model.v1`'s `citationGroups` shape to cover blocked/
-  not-required attachments). Implementation and any Track-3 rework follow
-  once the owner ratifies its outcome; closeout follows that.
+  the citation walk (`ef921d4`); the attachment disposition-visibility paper
+  spike and ADR-0056 (ratified 2026-08-02).
+* **Next:** owner-launch the attachment disposition-visibility implementation
+  builder from the current prompt (`attachments` model key,
+  `_resolve_attachment` widening, renderer addition, goldens). Closeout
+  follows once it lands.
 * **Branch line:** `milestone/schedule-d-covered-ltcg-8a-v2`, one draft-to-final
   milestone PR based on the current `main`.
 

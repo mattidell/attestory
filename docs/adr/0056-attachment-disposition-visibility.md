@@ -1,6 +1,8 @@
 # ADR 0056 — Attachment Disposition Visibility
 
-- Status: **proposed** (paper spike only; not implemented, not ratified)
+- Status: **accepted** (owner ratification 2026-08-02, Tier 2; Decision 3
+  amended before ratification per owner direction to make the renderer-owned
+  declared-constants source and the closed known-code allowlist explicit)
 - Tier: 2 — narrow, additive presentation-shape widening with future blast
   radius (every attachment-bearing schedule inherits the fix or the gap),
   not a product-thesis or rival-topology decision.
@@ -80,18 +82,49 @@ production), this ADR is grounded in that paper spike alone.
    and additionally contributes a `{"disposition": "published", ...}`
    entry to the new `attachments` list.
 
-3. **`citation-walk.v1.html` gains one new render loop, not a new
+3. **`citation-walk.v1.html` gains one new render function, adapted from
+   `renderLine`'s blocked/`guard_inapplicable` branches, not a new
    mechanism.** Parallel to the existing `sections` and `citationGroups`
    loops: `for (const attachment of MODEL.attachments || [])`, each
    wrapped in the existing `renderSafely` blast-containment call (ADR-0046
-   Requirement 4), reusing `renderLine`'s existing `blocked`/
-   `guard_inapplicable` rendering branches (the same `role="alert"` banner,
-   the same code-filtering against a declared known-codes set, the same
-   `section-error` fallback on any thrown `SectionError`) rather than a
-   parallel implementation. No new DOM pattern, no new accessibility
-   surface, no `innerHTML` interpolation — the identical `createElement`/
-   `textContent` construction discipline ADR-0046 Foreclosure 5 already
-   requires.
+   Requirement 4). `renderLine` itself is not reused unmodified — it reads
+   `section.field.dispositions[instructionKey].explain`/`.codes`, and an
+   attachment has no `field` object and no tax-content-declared
+   `dispositions` vocabulary (confirmed: `attachment.schedule-d.v2.json`
+   declares no per-state explain text or code allowlist anywhere in its
+   shape). The new attachment-render function instead sources its
+   `role="alert"` banner text, its `guard_inapplicable` "not required"
+   text, and its known-code allowlist from **renderer-owned declared
+   constants in `citation-walk.v1.html` itself** (and the frozen
+   `tools/presentation_harness` copy) — not a new tax-content field, not a
+   new schema property, not anything read from the derivation record beyond
+   `resolved.activeCodes` and `resolved.disposition`. This mirrors
+   `renderLine`'s existing discipline (declared text, never derived
+   prose) while keeping the declaration site in the renderer, since the
+   attachment ontology (ADR-0036) has no per-schedule blocked-text content
+   surface and this ADR does not add one.
+
+   The renderer-owned known-code allowlist is the complete, closed set of
+   codes `attempt_attachment` can ever emit for a blocked attachment,
+   enumerated here rather than left implicit: `DEPENDENCY_ABSENT` (a
+   required answer, subtotal, itemization symbol, or threshold parameter
+   is absent — `BLOCK_ABSENT` in `packages/derivation/evaluator.py`),
+   `ITEMIZATION_TIE_OUT_VIOLATION` (ADR-0036 Decision 3's row-sum/line
+   mismatch), and `COMPLETENESS_VALUE_VIOLATION` (ADR-0055 Decision 2's
+   value-checked-answer mismatch). A `guard_inapplicable` (not-required)
+   entry carries no code — `attempt_attachment`'s `inapplicable` branch
+   fires on `guard_result: false` alone, never a code. The renderer must
+   filter `resolved.activeCodes` through this exact three-code allowlist
+   before display — the same discipline `renderLine` already applies
+   against a field's declared `dispositions.blocked.codes`, adapted to a
+   renderer-constant set here because the attachment ontology has no
+   per-citizen declared allowlist to filter against instead. A ledger code
+   outside this set is a rendering error (`SectionError`), never displayed
+   verbatim and never silently dropped. No new DOM pattern, no new
+   accessibility surface, no `innerHTML` interpolation — the identical
+   `createElement`/`textContent` construction discipline ADR-0046
+   Foreclosure 5 already requires, and the same `section-error` fallback
+   on any thrown `SectionError`.
 
 4. **`citationGroups` and every existing consumer/golden are unaffected by
    construction.** No existing entry's shape or meaning changes; nothing
@@ -125,6 +158,15 @@ production), this ADR is grounded in that paper spike alone.
   existing field-blocked rendering (contrast, ARIA roles, keyboard
   reachability, `:focus-visible`) — ADR-0046 Requirement 6 is not a later
   pass.
+- The renderer-owned declared constants (Decision 3): blocked/
+  `guard_inapplicable` explanation and remedy text for an attachment, and
+  the closed three-code known allowlist (`DEPENDENCY_ABSENT`,
+  `ITEMIZATION_TIE_OUT_VIOLATION`, `COMPLETENESS_VALUE_VIOLATION`) that
+  `resolved.activeCodes` is filtered through before display. These live in
+  `citation-walk.v1.html`/the frozen harness copy, never in
+  `attachment.schedule-d.v2.json` or any other tax-content citizen. A
+  ledger code outside the allowlist must raise `SectionError`, never
+  render verbatim.
 - Coordinator-from-facts presentation goldens proving: a not-required
   attachment now shows a visible "not required" signal; a required-and-
   incomplete attachment (both the `DEPENDENCY_ABSENT` and

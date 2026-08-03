@@ -1,4 +1,24 @@
 {
+  "attachments": [
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-b",
+      "resolved": {
+        "act": null,
+        "activeCodes": [],
+        "disposition": "guard_inapplicable"
+      },
+      "title": "Schedule B (Interest and Ordinary Dividends)"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-d",
+      "resolved": {
+        "act": null,
+        "activeCodes": [],
+        "disposition": "published"
+      },
+      "title": "Schedule D (Capital Gains and Losses)"
+    }
+  ],
   "citationGroups": [
     {
       "id": "tax.us.2025.rule.attachment.schedule-d",
