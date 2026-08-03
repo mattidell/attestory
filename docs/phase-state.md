@@ -5,9 +5,9 @@
   "topic": "document-oriented-entry",
   "active_plan": "docs/phases/legible-entry/milestones/document-oriented-entry.md",
   "milestone_state": "track-1",
-  "status": "**LEGIBLE ENTRY / DOCUMENT-ORIENTED ENTRY — TRACK 1 CHARTERED on `main-ui` 2026-08-02.** The first experiment tests a source-context map over the synthetic W-2 and 1099-DIV fields plus one explicitly named question context, without adding tax meaning or a new citizen.",
-  "current_role": "Builder (Document-Oriented Entry Card 1)",
-  "current_prompt": "docs/reviews/charter-2026-08-02-document-oriented-entry-card1.md"
+  "status": "**LEGIBLE ENTRY / DOCUMENT-ORIENTED ENTRY — TRACK 1 REVIEW CHARTERED on `milestone/document-oriented-entry` 2026-08-03.** Card 1's source-context map build is committed; an author-independent review now measures its synthetic state, live surface, accessibility, manifest, and data-safety evidence.",
+  "current_role": "Reviewer (Document-Oriented Entry Card 1)",
+  "current_prompt": "docs/reviews/charter-2026-08-03-document-oriented-entry-card1-review.md"
 }
 -->
 # Phase State
@@ -38,16 +38,17 @@ Opening a context should present its related fields together.
 
 ## Operational State: Legible Entry
 
-* **Active Milestone:** Document-Oriented Entry, Track 1 chartered on
-  `main-ui` 2026-08-02.
-* **Product change so far:** none in this milestone. The prior workspace is a
-  separate, field-keyed orientation surface over the synthetic entry loop.
+* **Active Milestone:** Document-Oriented Entry, Track 1 under independent
+  review on `milestone/document-oriented-entry` 2026-08-03.
+* **Product change so far:** Card 1 adds a synthetic source-context map for
+  W-2, 1099-DIV, and one question context; review has not yet measured the
+  result.
 * **Plan:** `docs/phases/legible-entry/milestones/document-oriented-entry.md`.
 * **Carried forward:** correction still resets scroll position, silently
   relocating the reader away from open explanation panels. The workspace
   prototype did not change that behavior.
-* **Next:** build the source-context map described in
-  `docs/reviews/charter-2026-08-02-document-oriented-entry-card1.md`.
+* **Next:** run the independent review described in
+  `docs/reviews/charter-2026-08-03-document-oriented-entry-card1-review.md`.
 * **Branch line:** UI work continues on `main-ui`.
 
 ## Re-entry

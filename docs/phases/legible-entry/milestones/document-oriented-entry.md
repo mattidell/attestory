@@ -4,7 +4,7 @@
   "phase": "Legible Entry",
   "topic": "document-oriented-entry",
   "milestone_state": "track-1",
-  "status": "Track 1 chartered on main-ui 2026-08-02. Card 1 tests the smallest source-context map over the existing synthetic fields.",
+  "status": "Track 1 build committed on milestone/document-oriented-entry 2026-08-03; independent review chartered.",
   "scope": [
     "organize workspace input by named source contexts rather than an undifferentiated fact list",
     "use a document as the normal source context and name a question, decision, or taxpayer context when no document applies",
@@ -46,12 +46,13 @@
 -->
 # Document-Oriented Entry
 
-Status: **Track 1 chartered on `main-ui`, 2026-08-02.** The planning boundary
-is committed directly; Card 1 is ready for owner launch and implementation has
-not started.
+Status: **Track 1 build committed on `milestone/document-oriented-entry`,
+2026-08-03.** Card 1 is now under independent review.
 
 Card 1 is chartered for owner launch in
 `docs/reviews/charter-2026-08-02-document-oriented-entry-card1.md`.
+The review is chartered in
+`docs/reviews/charter-2026-08-03-document-oriented-entry-card1-review.md`.
 
 ## Objective
 
