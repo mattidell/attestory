@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.dividends.12-subtotal",
+  "closure_claim": "Every exempt-interest dividend amount reported in box 12 of a Form 1099-DIV furnished to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon. This claim covers Form 1099-DIV box 12 only: it says nothing about boxes 1a, 1b, or 2a, residual recorded non-composable boxes (3, 5, 7), Form 1099-INT or Form 1099-OID tax-exempt sources, premium adjustments, or Form 1040 line 2a completeness. Closed with members authorizes the multi-payer sum of current members; closed-empty authorizes subtotal 0.",
+  "id": "tax.us.2025.f1099div.12",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099div.box12-exempt-interest-dividends"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Form 1099-DIV box 12 statement items, tax year 2025",
+  "version": "v1"
+}

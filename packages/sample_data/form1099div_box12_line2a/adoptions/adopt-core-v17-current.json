@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v17",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-04T12:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic Form 1099-DIV box-12 line-2a successor adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "4091c5109afbb61d9273795dff6efbb2ee6d5fb03dc4893e8d2bc3f3c9b0d8c4",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v17"
+    },
+    "release": {
+      "checksum": "f66289ae8e700d9d6b2e9b1cc8804bc4c2b4f2d51cef1eab706a94014bc269ad",
+      "id": "demo.release.2025",
+      "version": "v10"
+    },
+    "revision": 16,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v16"
+  },
+  "schema": "act.v1"
+}

@@ -1,0 +1,10 @@
+{
+  "authority": {
+    "family": "irs-publication",
+    "publication": "550",
+    "revision": "2025"
+  },
+  "id": "tax.us.2025.citation.publication-550.tax-exempt-interest",
+  "schema": "citation.v1",
+  "version": "v1"
+}

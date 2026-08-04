@@ -72,6 +72,11 @@ class SchemaRegistry:
         # signal. Empty by default; a tax-layer registry populates entries.
         # The kernel enforces the relation generically, never naming a domain.
         self.declaration_signal_contradictions: list[dict[str, str]] = []
+        # Companion-presence pairs: subordinate member fact type -> companion
+        # authority fact type sharing the same identity-key suffix. Empty by
+        # default; a tax-layer registry populates pairs. The kernel enforces
+        # presence generically and never names a domain.
+        self.companion_presence_pairs: dict[str, str] = {}
         self._load()
 
     def _load(self) -> None:

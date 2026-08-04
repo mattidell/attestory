@@ -940,6 +940,8 @@ def validate_package(
         "artifact-package.v10",
         "artifact-package.v11",
         "artifact-package.v12",
+        "artifact-package.v13",
+        "artifact-package.v14",
     }
     source_family_members = {
         citizen["id"]: citizen["member_predicate"]["fact_type"]
@@ -948,20 +950,27 @@ def validate_package(
     }
     recorded_non_composable: set[str] = set()
     composable_box2a_members: set[str] = set()
+    composable_box12_members: set[str] = set()
     historical_recorded_boxes_v1 = False
     successor_box2a_member = False
+    historical_recorded_box12 = False
+    successor_box12_member = False
     for _, citizen in resolved:
         if citizen["schema"] == "dividend-universe.v1":
             recorded_non_composable.add(citizen["recorded_boxes_fact_type"]["id"])
-        elif citizen["schema"] == "dividend-universe.v2":
+        elif citizen["schema"] in {"dividend-universe.v2", "dividend-universe.v3"}:
             recorded_non_composable.add(citizen["recorded_boxes_fact_type"]["id"])
             for box in citizen.get("composable_boxes", []):
-                if box.get("box") == "2a":
-                    family = box.get("family") or {}
-                    family_id = family.get("id")
-                    member = source_family_members.get(str(family_id))
-                    if member:
-                        composable_box2a_members.add(member)
+                family = box.get("family") or {}
+                family_id = family.get("id")
+                member = source_family_members.get(str(family_id))
+                if member and box.get("box") == "2a":
+                    composable_box2a_members.add(member)
+                if member and box.get("box") == "12":
+                    composable_box12_members.add(member)
+        elif citizen["schema"] == "source-family.v1":
+            if citizen.get("id") == "tax.us.2025.f1099div.12":
+                composable_box12_members.add(citizen["member_predicate"]["fact_type"])
         if citizen["schema"] == "fact-type.v2":
             if (
                 citizen.get("id") == "tax.us.2025.f1099div.recorded-boxes"
@@ -981,6 +990,13 @@ def validate_package(
                 if fact_type.get("id") == "tax.us.2025.f1099div.box2a-capital-gain-distribution":
                     successor_box2a_member = True
                     composable_box2a_members.add(fact_type["id"])
+                if fact_type.get("id") == "tax.us.2025.f1099div.box12-exempt-interest-dividends":
+                    successor_box12_member = True
+                if (
+                    fact_type.get("id") == "tax.us.2025.f1099div.recorded-boxes"
+                    and "12" in fact_type.get("value_schema", {}).get("properties", {})
+                ):
+                    historical_recorded_box12 = True
     # ADR-0050 decision 3: reject mixed historical recorded box-2a content and
     # successor family members in one adopted package graph.
     if historical_recorded_boxes_v1 and successor_box2a_member:
@@ -988,6 +1004,12 @@ def validate_package(
             package_id, package.get("version", ""), "MIXED_BOX2A_GRAPH",
             "package admits both historical recorded-boxes v1 (property 2a) and "
             "successor box-2a family members; exclusive graphs only",
+        ))
+    if historical_recorded_box12 and successor_box12_member:
+        issues.append(MemberIssue(
+            package_id, package.get("version", ""), "MIXED_BOX12_GRAPH",
+            "package admits both historical recorded-boxes content with box 12 "
+            "and successor box-12 family members; exclusive graphs only",
         ))
     for pin, citizen in resolved:
         if citizen["schema"] not in _RULE_ARTIFACT_SCHEMAS:
@@ -1027,6 +1049,13 @@ def validate_package(
                     pin["id"], pin["version"], "RAW_BOX2A_DOWNSTREAM_READ",
                     f"rule publishing {publishes!r} consumes raw box-2a members "
                     f"{raw_box2a}; selected line-7a publication only",
+                ))
+            raw_box12 = sorted(consumed & composable_box12_members)
+            if raw_box12:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "RAW_BOX12_DOWNSTREAM_READ",
+                    f"rule publishing {publishes!r} consumes raw box-12 members "
+                    f"{raw_box12}; exempt-interest dividends remain reported-only",
                 ))
 
     # 10. Attachment answer encoding guard (ADR-0036 production condition 2).

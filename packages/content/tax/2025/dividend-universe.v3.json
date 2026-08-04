@@ -1,0 +1,55 @@
+{
+  "capital_gain_signal": {
+    "box": "2a",
+    "signal": "CAPITAL_GAIN_DISTRIBUTION_RECORDED",
+    "source": "current_successor_family_member"
+  },
+  "composable_boxes": [
+    {
+      "box": "1a",
+      "family": {
+        "id": "tax.us.2025.f1099div.1a",
+        "version": "v1"
+      }
+    },
+    {
+      "box": "1b",
+      "family": {
+        "id": "tax.us.2025.f1099div.1b",
+        "version": "v1"
+      }
+    },
+    {
+      "box": "2a",
+      "family": {
+        "id": "tax.us.2025.f1099div.2a",
+        "version": "v1"
+      }
+    },
+    {
+      "box": "12",
+      "family": {
+        "id": "tax.us.2025.f1099div.12",
+        "version": "v1"
+      }
+    }
+  ],
+  "id": "tax.us.2025.dividend-universe",
+  "recorded_boxes_fact_type": {
+    "id": "tax.us.2025.f1099div.recorded-boxes",
+    "version": "v3"
+  },
+  "recorded_non_composable_boxes": [
+    "3",
+    "5",
+    "7"
+  ],
+  "schema": "dividend-universe.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Successor Form 1099-DIV box universe for tax year 2025 with composable boxes 2a and 12",
+  "version": "v3"
+}

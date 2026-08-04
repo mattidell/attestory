@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/quantity-vocabulary.v6",
+  "title": "Tax quantity vocabulary, exempt-interest dividends added",
+  "description": "Immutable, versioned closed vocabulary for quantity identities used by residual-closed source amount fact types (ADR-0028 decision 7). v6 adds exempt-interest-dividends for the Form 1099-DIV box-12 member on the bounded line-2a route. v1\u2013v5 remain immutable history.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "quantity-vocabulary.v6"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "quantities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "taxable-interest",
+          "wages",
+          "standard-deduction",
+          "taxable-income",
+          "income-tax",
+          "ordinary-dividends",
+          "qualified-dividends",
+          "capital-gain-distributions",
+          "covered-ltcg-proceeds",
+          "covered-ltcg-basis",
+          "covered-lt-proceeds",
+          "covered-lt-basis",
+          "covered-st-proceeds",
+          "covered-st-basis",
+          "exempt-interest-dividends"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "quantities"
+  ],
+  "additionalProperties": false
+}

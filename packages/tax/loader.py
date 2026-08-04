@@ -43,6 +43,33 @@ def _version_rank(version: str) -> int:
     return int(version.removeprefix("v"))
 
 
+def domain_companion_presence_pairs() -> dict[str, str]:
+    """Domain companion-presence pairs enforced at finding admission.
+
+    Production projection (``live_coordinate_run`` → ``project``) must install
+    these on its registry. ``tax_registry()`` installs the same map for domain
+    loaders and direct registry-path tests.
+    """
+    return {
+        # Form 1099-DIV box-12 route (B12-C3): each box-12 statement member
+        # requires an explicit same-statement box-13 absence/zero companion.
+        # Kernel enforces presence generically; nonzero is rejected without
+        # creating Form 6251.
+        "tax.us.2025.f1099div.box12-exempt-interest-dividends": (
+            "tax.us.2025.f1099div.box13-specified-pab-authority"
+        ),
+    }
+
+
+def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistry:
+    """Install domain companion-presence pairs on an existing published registry.
+
+    Idempotent: re-applying the same pairs is a no-op for equal keys.
+    """
+    registry.companion_presence_pairs.update(domain_companion_presence_pairs())
+    return registry
+
+
 def tax_registry() -> SchemaRegistry:
     """A registry spanning the kernel, tax, and derivation schema families.
 
@@ -76,6 +103,7 @@ def tax_registry() -> SchemaRegistry:
         "declaration_value": "no",
         "signal_fact_type": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
     })
+    install_domain_companion_presence(reg)
     return reg
 
 
