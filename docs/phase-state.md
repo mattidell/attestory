@@ -2,12 +2,12 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "schedule-d-inbound-loss-carryovers",
-  "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-inbound-loss-carryovers.md",
-  "milestone_state": "closed",
-  "status": "**ENGINE BREADTH — INBOUND CAPITAL-LOSS CARRYOVERS CLOSED 2026-08-04.** Track 1 (with one findings-only repair) and Track 2 both independently reviewed `READY`. The bounded covered, basis-reported capital-transaction class is synthetic complete with a short-term or long-term capital-loss carryover derived from a bounded five-fact 2024 prior-return authority (ADR-0059, two-path completeness) via the Capital Loss Carryover Worksheet (ADR-0060), included on signed Schedule D lines 6/7/14/15/16/21 and Form 1040 line 7a/9. Rebased onto the merged Schedule B interest-adjustments milestone after an owner-directed unmerge/re-merge resolved a package-version collision on already-merged history; this milestone's own package.core-calculations/published-packages were renumbered to v16/v11 as an additive union, and a latent hardcoded package-version restriction in packages/derivation/package_validation.py was generalized. Closeout complete: coverage frontier, roadmap, deferral ledger, retrospective, and README are updated. The next breadth milestone is unselected.",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "topic": "form1099div-box12-line2a",
+  "active_plan": "docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md",
+  "milestone_state": "track-2",
+  "status": "**ENGINE BREADTH / FORM 1099-DIV BOX 12 TO FORM 1040 LINE 2A — TRACK 2 ACTIVE AFTER BASE SYNCHRONIZATION.** The prior Schedule D inbound-carryover milestone remains closed and intact; this milestone's implementation and independent review are being synchronized onto the latest ratified line.",
+  "current_role": "Track 2 Reviewer",
+  "current_prompt": "docs/reviews/charter-2026-08-04-form1099div-box12-line2a-reviewer.md"
 }
 -->
 # Phase State
@@ -29,14 +29,15 @@ or long-term, gain or loss — reported directly on Schedule D line 1a/8a
 without Form 8949, including the current-year $3,000/$1,500 capital-loss
 limitation and now a short-term or long-term capital-loss carryover derived
 from a bounded 2024 prior-return authority, included on Schedule D lines 6
-and 14. The next breadth slice is owner-selected from the refreshed coverage
-frontier.
+and 14. The selected next slice is the bounded Form 1099-DIV box-12 to Form
+1040 line-2a route, independent of the closed Schedule D carryover milestone.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none selected. Inbound Capital-Loss Carryovers into
-  2025 Schedule D **closed 2026-08-04**, independently reviewed `READY`.
-* **Result:** the bounded covered, basis-reported capital-transaction class
+* **Active milestone:** Form 1099-DIV Box 12 to Form 1040 Line 2a — **under review**.
+  Inbound Capital-Loss Carryovers into 2025 Schedule D **closed 2026-08-04**,
+  independently reviewed `READY`, and remains preserved on the ratified line.
+* **Previous result:** the bounded covered, basis-reported capital-transaction class
   is synthetic complete end to end with a short-term or long-term
   capital-loss carryover — a bounded five-fact 2024 prior-return authority
   (ADR-0059) with a two-path completeness gate (a cheap declared-absence
@@ -48,7 +49,10 @@ frontier.
   parity for the missing-authority state. Form 8949, noncovered
   securities, digital assets, other Schedule D sources, and any amount
   carried into 2026 remain honestly outside it — see the deferral ledger.
-* **Plan:** `docs/phases/engine-breadth/milestones/schedule-d-inbound-loss-carryovers.md`.
+* **Current result:** the box-12 implementation landed before synchronization;
+  the post-rebase package rebuild is selecting unused successors while the
+  author-independent review remains the gate of record.
+* **Plan:** `docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md`.
 * **Retrospective:** `docs/milestone-retrospectives/2026-08-04-schedule-d-inbound-loss-carryovers.md`.
 * **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-inbound-loss-carryovers-deferral-ledger.md`.
 * **Ratified in-scope:** ADR-0059 (prior-return capital-loss authority,
@@ -78,9 +82,9 @@ frontier.
   `packages/derivation/package_validation.py`, folded into this
   milestone's implementation commit and verified not to regress Schedule
   B's own packages. Full account in the retrospective.
-* **Next:** owner-selects the next breadth milestone from
-  `docs/phases/engine-breadth/coverage-frontier.md`. No milestone is
-  currently active.
+* **Next:** complete the independent review of the synchronized implementation,
+  then triage any findings before closeout. The next milestone remains
+  unselected.
 
 ## Re-entry
 
