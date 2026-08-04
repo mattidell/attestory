@@ -5,9 +5,9 @@
   "topic": "document-oriented-entry",
   "active_plan": "docs/phases/legible-entry/milestones/document-oriented-entry.md",
   "milestone_state": "track-1",
-  "status": "**LEGIBLE ENTRY / DOCUMENT-ORIENTED ENTRY — TRACK 1 REVIEW CHARTERED on `milestone/document-oriented-entry` 2026-08-03.** Card 1's source-context map build is committed; an author-independent review now measures its synthetic state, live surface, accessibility, manifest, and data-safety evidence.",
-  "current_role": "Reviewer (Document-Oriented Entry Card 1)",
-  "current_prompt": "docs/reviews/charter-2026-08-03-document-oriented-entry-card1-review.md"
+  "status": "**LEGIBLE ENTRY / DOCUMENT-ORIENTED ENTRY — TRACK 1 LIVE-SURFACE RE-REVIEW CHARTERED on `milestone/document-oriented-entry` 2026-08-04.** Card 1's source-context map build is unchanged; a focused author-independent review will measure the browser-only evidence that prior reviews could not confirm.",
+  "current_role": "Reviewer (Document-Oriented Entry Card 1 live-surface re-review)",
+  "current_prompt": "docs/reviews/charter-2026-08-04-document-oriented-entry-card1-live-surface-review.md"
 }
 -->
 # Phase State
@@ -38,17 +38,18 @@ Opening a context should present its related fields together.
 
 ## Operational State: Legible Entry
 
-* **Active Milestone:** Document-Oriented Entry, Track 1 under independent
-  review on `milestone/document-oriented-entry` 2026-08-03.
+* **Active Milestone:** Document-Oriented Entry, Track 1 under focused live-
+  surface re-review on `milestone/document-oriented-entry` 2026-08-04.
 * **Product change so far:** Card 1 adds a synthetic source-context map for
-  W-2, 1099-DIV, and one question context; review has not yet measured the
-  result.
+  W-2, 1099-DIV, and one question context; prior review found the state,
+  boundary, artifact, and safety evidence ready, while live browser evidence
+  remains open for re-measurement.
 * **Plan:** `docs/phases/legible-entry/milestones/document-oriented-entry.md`.
 * **Carried forward:** correction still resets scroll position, silently
   relocating the reader away from open explanation panels. The workspace
   prototype did not change that behavior.
-* **Next:** run the independent review described in
-  `docs/reviews/charter-2026-08-03-document-oriented-entry-card1-review.md`.
+* **Next:** run the focused live-surface review described in
+  `docs/reviews/charter-2026-08-04-document-oriented-entry-card1-live-surface-review.md`.
 * **Branch line:** UI work continues on `main-ui`.
 
 ## Re-entry
