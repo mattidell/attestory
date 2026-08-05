@@ -105,13 +105,24 @@ roadmap unless a selected breadth slice directly depends on them.
    re-review returned `READY`. Plan:
    `milestones/form1099div-box12-line2a.md`; retrospective:
    `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
-8. **Form 1099-G Box 1 → Schedule 1 Line 7 / Form 1040 Line 8** — closed after rebase onto Form 8949 + box-8 tip. Plan: `milestones/form1099g-box1-schedule1-line7.md`. Retrospective: `docs/milestone-retrospectives/2026-08-05-form1099g-box1-schedule1-line7.md`.
+8. **Form 1099-G Box 1 → Schedule 1 Line 7 / Form 1040 Line 8** — closed after
+   rebase onto Form 8949 + box-8 tip. Plan:
+   `milestones/form1099g-box1-schedule1-line7.md`; retrospective:
+   `docs/milestone-retrospectives/2026-08-05-form1099g-box1-schedule1-line7.md`.
+9. **Form 1099-DIV Box 7 Direct Foreign Tax Credit (No Form 1116)** —
+   selected 2026-08-05 and **closed 2026-08-05** after rebase onto Form 8949,
+   box-8, and Form 1099-G. Final package is the additive union core **v21** /
+   published **v16** / release **v14** / adopt **v21**
+   (`artifact-package.v18`, `quantity-vocabulary.v10`, `dividend-universe.v4`).
+   Independent review READY. Plan:
+   `milestones/form1099div-box7-direct-ftc.md`; retrospective:
+   `docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md`.
 
 **Next breadth slice — owner-selected from the refreshed frontier.**
-   Inbound capital-loss carryovers, Form 8949/noncovered securities/
-   adjustments, and other Schedule D sources deferred out of item 6 remain
-   distinct candidates; other adjustment classes and unrelated income domains
-   remain outside the selected class.
+Inbound capital-loss carryovers, Form 8949/noncovered securities/adjustments,
+and other Schedule D sources deferred out of item 6 remain distinct
+candidates; other adjustment classes and unrelated income domains remain
+outside the selected class.
 
 ## Why line 7a comes before Schedule D
 
