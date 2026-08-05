@@ -105,7 +105,9 @@ roadmap unless a selected breadth slice directly depends on them.
    re-review returned `READY`. Plan:
    `milestones/form1099div-box12-line2a.md`; retrospective:
    `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
-8. **Next breadth slice — owner-selected from the refreshed frontier.**
+8. **Form 1099-G Box 1 → Schedule 1 Line 7 / Form 1040 Line 8** — closed after rebase onto Form 8949 + box-8 tip. Plan: `milestones/form1099g-box1-schedule1-line7.md`. Retrospective: `docs/milestone-retrospectives/2026-08-05-form1099g-box1-schedule1-line7.md`.
+
+**Next breadth slice — owner-selected from the refreshed frontier.**
    Inbound capital-loss carryovers, Form 8949/noncovered securities/
    adjustments, and other Schedule D sources deferred out of item 6 remain
    distinct candidates; other adjustment classes and unrelated income domains
