@@ -1,0 +1,107 @@
+{
+  "admitted_schemas": [
+    "attachment-rule.v6",
+    "citation.v1",
+    "fact-type.v2",
+    "parameter-declaration.v1",
+    "source-family.v1",
+    "taxable-interest-composition.v1"
+  ],
+  "composition_obligations": [],
+  "entrypoints": [
+    {
+      "id": "demo.rule.attachment.schedule-b.v6",
+      "version": "v1"
+    }
+  ],
+  "id": "demo.package.schedule-b-interest-adjustments",
+  "input_bindings": [],
+  "members": [
+    {
+      "id": "demo.rule.attachment.schedule-b.v6",
+      "role": "attachment-rule",
+      "schema": "attachment-rule.v6",
+      "version": "v1"
+    },
+    {
+      "id": "demo.family.positive-interest",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "demo.composition.positive",
+      "role": "composition",
+      "schema": "taxable-interest-composition.v1",
+      "version": "v1"
+    },
+    {
+      "id": "demo.family.nominee",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "demo.family.accrued-interest",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "demo.family.abp-adjustment",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    },
+    {
+      "id": "demo.interest.positive",
+      "role": "fact-type",
+      "schema": "fact-type.v2",
+      "version": "v1"
+    },
+    {
+      "id": "demo.interest.nominee",
+      "role": "fact-type",
+      "schema": "fact-type.v2",
+      "version": "v1"
+    },
+    {
+      "id": "demo.interest.accrued",
+      "role": "fact-type",
+      "schema": "fact-type.v2",
+      "version": "v1"
+    },
+    {
+      "id": "demo.interest.abp",
+      "role": "fact-type",
+      "schema": "fact-type.v2",
+      "version": "v1"
+    },
+    {
+      "id": "demo.scheduleb.answer",
+      "role": "fact-type",
+      "schema": "fact-type.v2",
+      "version": "v1"
+    },
+    {
+      "id": "demo.citation.schedule-b",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "demo.parameter.schedule-b-threshold",
+      "role": "parameter",
+      "schema": "parameter-declaration.v1",
+      "version": "v1"
+    }
+  ],
+  "package_checksum": "9a2dd90e01f5e550545e892f0f70865e257331deb05bc6aeb8e0e0feb231bc2f",
+  "schema": "artifact-package.v11",
+  "scope": {
+    "family": "demo-income",
+    "jurisdiction": "demo-federal",
+    "tax_year": 2025
+  },
+  "version": "v1"
+}

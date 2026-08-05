@@ -30,7 +30,7 @@ input boxes. Status is one of:
 | Other Schedule D sources | K-1 capital gains (box 9/10), Forms 2439/4684/4797/6252/6781/8824, collectibles, unrecaptured section 1250 gain, QOF computation, or lines 18/19 special-rate sources | No source, authority, or downstream contract for any named form; deliberately excluded from the current-year-losses slice | Each named source needs its own scope and completeness analysis; not one coherent slice | Split into independently selectable rows once any is selected | candidate |
 | Schedule K-1 (Form 1065) box-5 interest → Form 1040 line 2b and Schedule B Part I | Returns with taxable partnership interest income reported in box 5 of a 2025 Form-1065 K-1 | Retired for the bounded box-5 class; other K-1 forms and boxes remain outside the declared universe | A distinct horizon-closed source family, five-slot composition successor, and composition-complete multi-family attachment itemization | Production-shaped synthetic identity, correction, late-member, line-2b, Schedule-B, package, explanation, and presentation evidence | **synthetic complete** |
 | Payer-reported current-inclusion market-discount interest | Returns with nonnegative market-discount amounts reported in 2025 Form 1099-INT box 10 or Form 1099-OID box 5, where the payer-reported amount is already currently includible as taxable interest | Retired for the bounded two-box payer-reported class; disposition-time amounts, partial principal payments, taxpayer-side accrual, basis, unreported market discount, and general securities history remain honestly unavailable | Two dedicated statement families and a successor seven-family positive-interest composition; reuses the accepted multi-family Schedule B contract with no new evaluator, attachment schema/runtime, or presentation behavior | Paper-grounded IRS box routing, mechanical selected-version inventory, synthetic identity/closure/lifecycle, line-2b, Schedule-B, package, explanation, and one canonical positive presentation golden | **synthetic complete** |
-| Interest subtractive adjustments | Returns with nominee, accrued, or premium adjustments | No subtractive-adjustment mechanism | New adjustment authority and explanation semantics | Paper-first contract evidence, then positive/negative adjustment goldens | candidate |
+| Schedule B interest adjustments | Returns with nominee distributions, accrued interest paid to a bond seller, or taxable amortizable-bond-premium adjustments | Retired for the bounded three-class adjustment path; other adjustment classes and underlying investment calculations remain honestly outside it | New adjustment authority, closure, explanation, and attachment-row semantics | Paper-first contract evidence, positive/negative adjustment goldens, package compatibility, and production-shaped presentation | **synthetic complete** |
 | Other recorded Form 1099-DIV boxes | Returns involving boxes 3, 5, 7, or 12 | Boxes are named recorded/non-composable exclusions with different downstream meanings | Not one coherent slice; each box needs its own downstream and completeness analysis | Split into independently selectable rows before planning | named block |
 | New unrelated income domain | A return class outside the existing W-2/interest/dividend columns | No owner-selected source/form target | Unknown until a concrete source and downstream output are named | Owner selection and a fresh coverage row | candidate |
 
@@ -76,6 +76,15 @@ Official tax-content grounding:
   those reported through Schedule D.
 - [Form 1099-DIV instructions](https://www.irs.gov/instructions/i1099div)
   define box 2a as total capital-gain distributions.
+
+The fourth milestone, **Schedule B Interest Adjustments**, is synthetic complete
+for a bounded 2025 class covering nominee distributions, accrued interest paid
+to a bond seller, and taxable amortizable-bond-premium adjustments. It is
+separate from Schedule D and accepts explicit adjustment authority; it does not
+calculate nominee ownership, accrued interest, bond-premium amortization, or
+any capital transaction. Plan: `milestones/schedule-b-interest-adjustments.md`;
+retrospective:
+`docs/milestone-retrospectives/2026-08-03-schedule-b-interest-adjustments.md`.
 
 These sources establish the tax routing. They do not decide the project's
 authority, closure, supersession, or explanation contracts; those are the

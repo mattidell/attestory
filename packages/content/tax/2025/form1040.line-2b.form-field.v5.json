@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.interest.taxable-total",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-2b",
+    "version": "v1"
+  },
+  "description": "Form 1040 (2025), line 2b: exact seven-family positive taxable interest less the three separately closed Schedule B adjustment classes: Nominee Distribution, Accrued Interest, and ABP Adjustment.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Taxable interest is blocked because one or more constituent interest families are unclosed or their dependencies are missing.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes a zero because all constituent families are attested closed on their current horizons with no recorded members.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero from present subtotals that sum to zero. All constituent families are closed.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No taxable-interest value is published because the explicit adjustment classes exceed the positive-interest basis.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "A current cited derived finding publishes the seven-family positive interest total less the exact contributed and closed Schedule B adjustment classes.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-2b",
+  "label": "Taxable interest",
+  "line": "2b",
+  "schema": "form-field.v3",
+  "version": "v5"
+}

@@ -1,6 +1,9 @@
 {
   "act-derived-publication.v1.schema.json": "d77a1fd9af946e963f10da3306f165607741906cce8fbc2d9f43a7238ca08dca",
   "artifact-package.v1.schema.json": "5663562271cdb31db6739d5d7b7bc870a120cd178b39cd5bb4c35e72add7bd01",
+  "artifact-package.v10.schema.json": "8c8f7a58af51e4620014512833c66242e751a408c49d7cbafbab4569438a5655",
+  "artifact-package.v11.schema.json": "ba707f6f925bcdc664d020d079c40ba1fed2910e6e501040c3c1aa466d6d7541",
+  "artifact-package.v12.schema.json": "6d5f5fe8a6ae6e0ec336c076f186a39c1dfa4ab658c4fdb30991d79b26fcf27f",
   "artifact-package.v2.schema.json": "0eb24ed3105f2a3a33ae4a8960762367ac25eaa8a96b5b7143b047af255b0439",
   "artifact-package.v3.schema.json": "74ba8b11fe05278ce352ede39899202b27c9759f06546549383126a2cae12b41",
   "artifact-package.v4.schema.json": "7b820d4d1d3bd19e8f37f2c69a9d74f809304c07c126b1ad572f95f1549aad54",
@@ -8,6 +11,7 @@
   "artifact-package.v6.schema.json": "1012e48f9800d224b05d6f7dbef81a95beb79bc64f68695b20cd3bee097e7d4a",
   "artifact-package.v7.schema.json": "6d140ef0293ef604abc5008bcf0bc92b44bb1791795e814b6d4a7b7ab0f6f43f",
   "artifact-package.v8.schema.json": "2d39b063c6d6c70b0e8f95b613078d33b3b6a82d96a61e595e9d59143312e5b7",
+  "artifact-package.v9.schema.json": "f96d048a6a7b71aa1977b93c440c5cd0924bfe9f40e4d9f46bf2d4c769b0b053",
   "checked-conclusion-binding.v1.schema.json": "722c8cd4ada667a1481aff098a4f29a4d9e157ae12f0cc6ea7aa7d964ee3863f",
   "citation.v1.schema.json": "9d68ac294ce99dfee40c5e2f9cc5ea574fc7375a1e0857706aa3e690bdce25ec",
   "derivation-record.v1.schema.json": "acb0b5a891ca084343394fea055071c79cc83ff90be32db00225c20bc90756bf",
@@ -33,6 +37,5 @@
   "source-closure-mapping.v2.schema.json": "7046dcea09ad5b26850c0697c8ab12afc7231f08d988ff26479a01018733d4ca",
   "source-family.v1.schema.json": "78462f32843d005801c4e50272ee864c340f20966f5e88b894b0a7deb14d8490",
   "surface-artifact.v1.schema.json": "d5a022e08db53025e58261e4f975f3278980276f392da3a897eb268b47eb0cfd",
-  "taxable-interest-composition.v1.schema.json": "c346fce2990a881853005eea38bb9a704f3cb821b40557dda45861c7f7e32dbb",
-  "artifact-package.v9.schema.json": "f96d048a6a7b71aa1977b93c440c5cd0924bfe9f40e4d9f46bf2d4c769b0b053"
+  "taxable-interest-composition.v1.schema.json": "c346fce2990a881853005eea38bb9a704f3cb821b40557dda45861c7f7e32dbb"
 }

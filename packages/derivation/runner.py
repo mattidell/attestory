@@ -124,7 +124,7 @@ _LEDGER_EXCLUDED_PIN_ROLES = frozenset(
 # directly from their declarative requirement/itemizations/completeness
 # structure by `_Run.attempt_attachment`, not by `evaluate()`.
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}
 )
 ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
 # ADR-0055 Decision 2: a required answer present as a current finding but
@@ -343,10 +343,16 @@ class _Run:
             # reads closure/membership state directly and blocks honestly
             # if the pinned family is unclosed.
             symbols = list(requirement.get("subtotals", []))
-            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"):
+            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"):
                 for part in rule["itemizations"]:
                     symbols.append(part["tie_out"]["line_symbol"])
                     symbols.extend(row_set["subtotal_symbol"] for row_set in part["row_sets"])
+                    if rule.get("schema") == "attachment-rule.v6":
+                        symbols.extend(
+                            row["subtotal_symbol"] for row in part["adjustment_rows"]
+                        )
+                        symbols.extend(part["tie_out"]["positive_subtotals"])
+                        symbols.extend(part["tie_out"]["adjustment_subtotals"])
             return sorted(set(symbols))
         return list(rule["requires"])
 
@@ -597,7 +603,7 @@ class _Run:
             return "inapplicable"
 
         itemization_pins: list[dict[str, Any]] = []
-        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4"):
+        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"):
             itemization_symbols = sorted({
                 symbol
                 for part in rule["itemizations"]
@@ -606,6 +612,16 @@ class _Run:
                     *(row_set["subtotal_symbol"] for row_set in part["row_sets"]),
                 )
             })
+            if rule["schema"] == "attachment-rule.v6":
+                itemization_symbols = sorted(set(itemization_symbols) | {
+                    symbol
+                    for part in rule["itemizations"]
+                    for symbol in (
+                        *(row["subtotal_symbol"] for row in part["adjustment_rows"]),
+                        *part["tie_out"]["positive_subtotals"],
+                        *part["tie_out"]["adjustment_subtotals"],
+                    )
+                })
             missing_itemization = [symbol for symbol in itemization_symbols if symbol not in self.symbols]
             if missing_itemization:
                 self._attachment_block(rule_id, BLOCK_ABSENT, missing_itemization, base_pins)
@@ -713,6 +729,47 @@ class _Run:
                 row_pins.extend({"role": "input", "id": fid, "version": "v1",
                                   **({"origin": "assertion"} if self.use_v2 else {})}
                                  for fid in fids)
+            adjustment_rows_value: list[dict[str, Any]] = []
+            if rule["schema"] == "attachment-rule.v6":
+                positive_subtotals = [
+                    row_set["subtotal_symbol"] for row_set in part["row_sets"]
+                ]
+                adjustment_subtotals = [
+                    row["subtotal_symbol"] for row in part["adjustment_rows"]
+                ]
+                tie_out = part["tie_out"]
+                if (
+                    tie_out["positive_subtotals"] != positive_subtotals
+                    or tie_out["adjustment_subtotals"] != adjustment_subtotals
+                ):
+                    tie_out_violations.append(f"{part['part_id']}:tie_out_declaration")
+                for adjustment in part["adjustment_rows"]:
+                    rows_spec = adjustment["rows"]
+                    fact_name = rows_spec["member_fact_type"]["id"]
+                    values = self.sources.get(fact_name, [])
+                    fids = self.source_fids.get(fact_name, [])
+                    rows = [{"finding_id": fid, "value": val} for val, fid in zip(values, fids)]
+                    row_sum = sum((Decimal(v) for v in values), Decimal(0))
+                    subtotal_symbol = adjustment["subtotal_symbol"]
+                    subtotal_value = Decimal(str(self.symbols[subtotal_symbol]))
+                    adjustment_rows_value.append({
+                        "kind": adjustment["kind"],
+                        "label": adjustment["label"],
+                        "sign": adjustment["sign"],
+                        "source_family": rows_spec["source_family"],
+                        "rows": rows,
+                        "row_sum": _value_str(row_sum),
+                        "signed_sum": _value_str(-row_sum),
+                        "subtotal": {"symbol": subtotal_symbol, "value": _value_str(subtotal_value)},
+                    })
+                    if any(Decimal(v) < 0 for v in values) or row_sum != subtotal_value:
+                        tie_out_violations.append(
+                            f"{part['part_id']}:{rows_spec['source_family']['id']}:{subtotal_symbol}"
+                        )
+                    part_sum -= row_sum
+                    row_pins.extend({"role": "input", "id": fid, "version": "v1",
+                                      **({"origin": "assertion"} if self.use_v2 else {})}
+                                     for fid in fids)
             tie_symbol = part["tie_out"]["line_symbol"]
             line_value = Decimal(str(self.symbols[tie_symbol]))
             if rule["schema"] == "attachment-rule.v1":
@@ -727,6 +784,7 @@ class _Run:
                 itemizations_value.append({
                     "part_id": part["part_id"],
                     "row_sets": row_sets_value,
+                    **({"adjustment_rows": adjustment_rows_value} if rule["schema"] == "attachment-rule.v6" else {}),
                     "part_sum": _value_str(part_sum),
                     "tie_out": {"line_symbol": tie_symbol, "line_value": _value_str(line_value)},
                 })
@@ -736,7 +794,7 @@ class _Run:
         if tie_out_violations:
             self._attachment_block(
                 rule_id, ITEMIZATION_TIE_OUT_VIOLATION, sorted(set(tie_out_violations)),
-                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4") else []),
+                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6") else []),
             )
             return "blocked"
 

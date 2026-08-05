@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.interest.scheduleb-nominee-subtotal",
+  "closure_claim": "Every contributed nominee distribution amount within the bounded Schedule B interest-adjustment surface is recorded as a logical adjustment instance for 2025. This claim covers a nominee distribution adjustment reported for one logical Schedule B interest-adjustment instance only; it says nothing about other adjustment classes, total interest, investment calculations, tax-exempt interest, frozen deposits, savings bonds, transactions, or Schedule D.",
+  "id": "tax.us.2025.scheduleb.adjustment.nominee",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.scheduleb.adjustment.nominee.amount"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Synthetic Nominee Distribution adjustment instances, tax year 2025",
+  "version": "v1"
+}

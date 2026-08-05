@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.interest.scheduleb-accrued-interest-subtotal",
+  "closure_claim": "Every contributed accrued interest amount within the bounded Schedule B interest-adjustment surface is recorded as a logical adjustment instance for 2025. This claim covers an accrued-interest-paid-to-seller adjustment reported for one logical Schedule B interest-adjustment instance only; it says nothing about other adjustment classes, total interest, investment calculations, tax-exempt interest, frozen deposits, savings bonds, transactions, or Schedule D.",
+  "id": "tax.us.2025.scheduleb.adjustment.accrued-interest",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.scheduleb.adjustment.accrued-interest.amount"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Synthetic Accrued Interest adjustment instances, tax year 2025",
+  "version": "v1"
+}
