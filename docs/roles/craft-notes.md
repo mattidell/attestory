@@ -143,21 +143,6 @@ that have hardened into tooling or ratified process.
 
 ## Reviewer
 
-- **Rerun load-bearing claims; don't accept the self-report.** The
-  builder's own account of what the battery shows, or what pre-dates the
-  branch, is input — not evidence. Independently rerun the base
-  comparison, the live case, the failing test. *(Track 3: the reviewer
-  disproved the builder's "pre-existing" claim by rerunning base.)*
-
-- **Grep for the shortcut and the forbidden symbol.** Confirm goldens
-  actually enter through the authoritative surface (`live_coordinate_run`,
-  not a `RunContext` shortcut) and that forbidden bindings are truly
-  absent — by direct grep, not by trusting the structure to exclude them.
-
-- **Judge the evidence type, not just the pass/fail.** A green run on a
-  simulated or synthetic probe establishes at most internal coherence, never
-  that the real property holds; a probe that cannot complete is unproven, not
-  disproven — and not proven either. Carry the evidence-type caveat into the
-  verdict so a "pass" never upgrades confidence past what the evidence
-  supports. *(Guarded Transport H1: the load-bearing adversary finding was that
-  the probe simulated the transport rather than exercising it.)*
+Reviewer-specific qualitative lessons now live in
+`docs/roles/qualitative-review.md`, their automatically loaded standing home.
+Do not add a second copy here.
