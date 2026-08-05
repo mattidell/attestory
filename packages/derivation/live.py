@@ -24,7 +24,11 @@ from packages.derivation.records import RecordStream
 from packages.kernel.currency import CurrencyView
 from packages.kernel.currency import compute_currency
 from packages.kernel.findings import FindingState, project
-from packages.tax.loader import install_domain_companion_presence
+from packages.tax.loader import (
+    domain_companion_presence_pairs,
+    install_domain_companion_presence,
+    install_domain_declaration_signal_contradictions,
+)
 from packages.derivation.live_workspace import LiveWorkspace, WorkspaceCapability, bootstrap_workspace
 
 if TYPE_CHECKING:
@@ -69,6 +73,22 @@ def _resolved_run_material(graph: Any) -> tuple[
     mappings = [member for member in members if member.get("schema") == "source-closure-mapping.v2"]
     fact_types = [fact for member in members if member.get("schema") in {"bundle.v1", "bundle.v2"} for fact in member.get("fact_types", [])]
     collect_names = [family["member_predicate"]["fact_type"] for family in families]
+    # Companion authorities for collected members must be marshaled as sources
+    # so derivation pins can form ADR-0010 displacement edges (box-13 / box-9).
+    # Fail closed: a loader or pair-map failure must not silently drop companions
+    # and leave dependent derivations unpinned (box-9 / box-13 displacement).
+    from packages.tax.loader import domain_companion_presence_pairs
+    pairs = domain_companion_presence_pairs()
+    if not isinstance(pairs, dict):
+        raise LiveRunError(
+            f"domain companion-presence pairs must be a mapping; got {type(pairs)!r}"
+        )
+    extra = [
+        comp
+        for sub, comp in pairs.items()
+        if sub in collect_names and comp not in collect_names
+    ]
+    collect_names = list(collect_names) + extra
     return rules, parameters, families, mappings, fact_types, list(graph.package["input_bindings"]), collect_names
 
 
@@ -115,10 +135,12 @@ def live_coordinate_run(
     presentation_path = workspace.reserve_live_output_path(
         Path("outputs") / f"{Path(output_name).stem}.presentation.json"
     )
-    # Domain companion-presence pairs (B12-C3) live on tax_registry(); production
-    # projection must install the same map so missing box-13 authority is not
-    # treated as absent on the live path.
+    # Domain companion-presence pairs (B12-C3 box-13; B8-C2 box-9) and
+    # declaration/signal contradictions (including Path A no-f1099int vs box-8)
+    # live on tax_registry(); production projection must install the same maps
+    # so live-path admission matches the domain registry.
     install_domain_companion_presence(schemas.registry)
+    install_domain_declaration_signal_contradictions(schemas.registry)
     state = project(tuple(dict(act) for act in authoritative_acts), schemas.registry)
     currency = compute_currency(state)
     rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)
@@ -129,6 +151,7 @@ def live_coordinate_run(
         governance_pins=[dict(pin) for pin in governance_pins],
         family_declarations=families, closure_mappings=mappings, fact_types=fact_types,
         input_bindings=bindings, collect_source_names=collect_names,
+        companion_presence_pairs=domain_companion_presence_pairs(),
     )
     stream = RecordStream(workspace.live_output_path(Path("records")), schemas)
     result = execute_and_record_marshaled(
@@ -189,6 +212,7 @@ def live_run(
     fact_types: Sequence[dict[str, Any]] | None = None,
     input_bindings: Sequence[Mapping[str, Any]] | None = None,
     collect_source_names: Sequence[str] | None = None,
+    companion_presence_pairs: Mapping[str, str] | None = None,
 ) -> RunResult:
     """Execute one live run from record state only.
 
@@ -212,6 +236,7 @@ def live_run(
         fact_types=list(fact_types or ()),
         input_bindings=[dict(b) for b in (input_bindings or ())],
         collect_source_names=list(collect_source_names or ()),
+        companion_presence_pairs=dict(companion_presence_pairs or {}),
     )
     return execute_marshaled(ctx, schemas)
 

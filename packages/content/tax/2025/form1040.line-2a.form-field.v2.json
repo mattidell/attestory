@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.tax-exempt-interest.line2a-total",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-2a",
+    "version": "v1"
+  },
+  "description": "Form 1040 (2025), line 2a: tax-exempt interest for the contracted direct-reporting class of closed Form 1099-DIV box-12 exempt-interest dividends and/or closed Form 1099-INT box-8 tax-exempt interest under Path A (no Form 1099-INT tax-exempt source) or Path B (closed box-8 family), when every remaining excluded source, premium adjustment, and excluded downstream dependency is explicitly declared absent. Reported-but-not-directly-taxable; does not enter line 9 or taxable income. Does not implement Form 1099-OID tax-exempt sources, premium calculations, Form 6251, or general tax-exempt-interest support.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Line 2a is blocked because scope-completeness authority is incomplete, an excluded source or dependency is present, the box-12 family is unclosed, or Path B lacks a closed box-8 family.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes a zero because the supported tax-exempt-interest families are attested closed on their current horizons with no recorded members (or Path A contributes zero from the INT slot), under explicit scope-completeness authority.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero from present box-12 and/or box-8 findings that sum to zero under explicit scope authority.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No bounded line-2a value is published because a residual scope-completeness component is not yes (an excluded source or downstream dependency is present).",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "A current derived finding publishes this tax-exempt interest amount on line 2a from the closed box-12 and/or closed box-8 families under explicit scope-completeness authority. The amount is reported but not directly taxable on this return graph.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-2a",
+  "label": "Tax-exempt interest",
+  "line": "2a",
+  "schema": "form-field.v3",
+  "version": "v2"
+}

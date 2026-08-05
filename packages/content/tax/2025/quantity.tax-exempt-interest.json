@@ -1,0 +1,8 @@
+{
+  "id": "tax.us.2025.quantity.tax-exempt-interest",
+  "quantities": [
+    "tax-exempt-interest"
+  ],
+  "schema": "quantity-vocabulary.v8",
+  "version": "v1"
+}

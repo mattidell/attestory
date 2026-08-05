@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v19",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-05T12:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic Form 1099-INT box-8 line-2a succession adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "e61479933fae228e85d1d8d91376a279e0cfc5d482a6d7e2e1b5076d90847a6a",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v19"
+    },
+    "release": {
+      "checksum": "c63817af0fbfeda467e70a7bccf93d2899815947b6db47a16bf50cafd5c8adab",
+      "id": "demo.release.2025",
+      "version": "v12"
+    },
+    "revision": 18,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v18"
+  },
+  "schema": "act.v1"
+}

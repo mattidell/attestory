@@ -1047,6 +1047,8 @@ def validate_package(
         "artifact-package.v12",
         "artifact-package.v13",
         "artifact-package.v14",
+        "artifact-package.v15",
+        "artifact-package.v16",
     }
     source_family_members = {
         citizen["id"]: citizen["member_predicate"]["fact_type"]
@@ -1056,10 +1058,13 @@ def validate_package(
     recorded_non_composable: set[str] = set()
     composable_box2a_members: set[str] = set()
     composable_box12_members: set[str] = set()
+    composable_box8_members: set[str] = set()
     historical_recorded_boxes_v1 = False
     successor_box2a_member = False
     historical_recorded_box12 = False
     successor_box12_member = False
+    historical_line2a_v1 = False
+    successor_box8_member = False
     for _, citizen in resolved:
         if citizen["schema"] == "dividend-universe.v1":
             recorded_non_composable.add(citizen["recorded_boxes_fact_type"]["id"])
@@ -1076,6 +1081,9 @@ def validate_package(
         elif citizen["schema"] == "source-family.v1":
             if citizen.get("id") == "tax.us.2025.f1099div.12":
                 composable_box12_members.add(citizen["member_predicate"]["fact_type"])
+            if citizen.get("id") == "tax.us.2025.f1099int.b8":
+                composable_box8_members.add(citizen["member_predicate"]["fact_type"])
+                successor_box8_member = True
         if citizen["schema"] == "fact-type.v2":
             if (
                 citizen.get("id") == "tax.us.2025.f1099div.recorded-boxes"
@@ -1085,6 +1093,12 @@ def validate_package(
             if citizen.get("id") == "tax.us.2025.f1099div.box2a-capital-gain-distribution":
                 successor_box2a_member = True
                 composable_box2a_members.add(citizen["id"])
+        if citizen["schema"] in _RULE_ARTIFACT_SCHEMAS:
+            if (
+                citizen.get("id") == "tax.us.2025.rule.form1040-line2a"
+                and citizen.get("version") == "v1"
+            ):
+                historical_line2a_v1 = True
         if citizen["schema"] == "bundle.v2":
             for fact_type in citizen.get("fact_types", []):
                 if (
@@ -1097,6 +1111,9 @@ def validate_package(
                     composable_box2a_members.add(fact_type["id"])
                 if fact_type.get("id") == "tax.us.2025.f1099div.box12-exempt-interest-dividends":
                     successor_box12_member = True
+                if fact_type.get("id") == "tax.us.2025.f1099int.box8-tax-exempt-interest":
+                    successor_box8_member = True
+                    composable_box8_members.add(fact_type["id"])
                 if (
                     fact_type.get("id") == "tax.us.2025.f1099div.recorded-boxes"
                     and "12" in fact_type.get("value_schema", {}).get("properties", {})
@@ -1115,6 +1132,14 @@ def validate_package(
             package_id, package.get("version", ""), "MIXED_BOX12_GRAPH",
             "package admits both historical recorded-boxes content with box 12 "
             "and successor box-12 family members; exclusive graphs only",
+        ))
+    # B8-C3: historical box-12-only line-2a@v1 is exclusive against the box-8
+    # multi-family successor graph.
+    if historical_line2a_v1 and successor_box8_member:
+        issues.append(MemberIssue(
+            package_id, package.get("version", ""), "MIXED_LINE2A_GRAPH",
+            "package admits both historical rule.form1040-line2a@v1 and successor "
+            "box-8 family members; exclusive graphs only",
         ))
     for pin, citizen in resolved:
         if citizen["schema"] not in _RULE_ARTIFACT_SCHEMAS:
@@ -1161,6 +1186,13 @@ def validate_package(
                     pin["id"], pin["version"], "RAW_BOX12_DOWNSTREAM_READ",
                     f"rule publishing {publishes!r} consumes raw box-12 members "
                     f"{raw_box12}; exempt-interest dividends remain reported-only",
+                ))
+            raw_box8 = sorted(consumed & composable_box8_members)
+            if raw_box8:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "RAW_BOX8_DOWNSTREAM_READ",
+                    f"rule publishing {publishes!r} consumes raw box-8 members "
+                    f"{raw_box8}; tax-exempt interest remains reported-only",
                 ))
 
     # 10. Attachment answer encoding guard (ADR-0036 production condition 2).
