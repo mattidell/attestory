@@ -1,0 +1,136 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.form1040-line7a",
+  "version": "v5",
+  "notes": "Form 1040 line 7a v5 (ADR-0062): when any(st>0, lt>0, W8>0, W13>0, line1b!=0, line8b!=0), Schedule D path (line16 >= 0 \u2192 line16; else \u2212line21). Else selected-preferential-base. v1-v4 remain historical.",
+  "role": "computation",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "publishes": "tax.us.2025.capital-gains.line7a-total",
+  "requires": [
+    "tax.us.2025.schedule-d.line-16",
+    "tax.us.2025.schedule-d.line-21",
+    "tax.us.2025.capital-gains.selected-preferential-base",
+    "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+    "tax.us.2025.capital-loss-carryover.short-term",
+    "tax.us.2025.capital-loss-carryover.long-term",
+    "tax.us.2025.schedule-d.line-1b",
+    "tax.us.2025.schedule-d.line-8b"
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule-d.line-16",
+      "tax.us.2025.schedule-d.line-21",
+      "tax.us.2025.capital-gains.selected-preferential-base",
+      "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "tax.us.2025.capital-loss-carryover.short-term",
+      "tax.us.2025.capital-loss-carryover.long-term",
+      "tax.us.2025.schedule-d.line-1b",
+      "tax.us.2025.schedule-d.line-8b"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-7a",
+      "version": "v1"
+    }
+  ],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.capital-loss-carryover.short-term"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.capital-loss-carryover.long-term"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "ne",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d.line-1b"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "ne",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d.line-8b"
+          },
+          "right": 0
+        }
+      ]
+    },
+    "then": {
+      "op": "choose",
+      "when": {
+        "op": "compare",
+        "cmp": "gte",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.schedule-d.line-16"
+        },
+        "right": 0
+      },
+      "then": {
+        "op": "ref",
+        "name": "tax.us.2025.schedule-d.line-16"
+      },
+      "else": {
+        "op": "subtract",
+        "left": 0,
+        "right": {
+          "op": "ref",
+          "name": "tax.us.2025.schedule-d.line-21"
+        }
+      }
+    },
+    "else": {
+      "op": "ref",
+      "name": "tax.us.2025.capital-gains.selected-preferential-base"
+    }
+  }
+}

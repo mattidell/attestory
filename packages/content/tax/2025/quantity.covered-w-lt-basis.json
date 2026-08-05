@@ -1,0 +1,8 @@
+{
+  "schema": "quantity-vocabulary.v7",
+  "id": "tax.us.2025.quantity.covered-w-lt-basis",
+  "version": "v1",
+  "quantities": [
+    "covered-w-lt-basis"
+  ]
+}

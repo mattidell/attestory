@@ -32,6 +32,34 @@ _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross
 _RULE_ARTIFACT_SCHEMAS = frozenset({"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3"})
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
+# ADR-0061 Decision 5 non-confusion invariant (Finding 4 repair): Schedule D's
+# own line 1a/8a producers may read only the direct `covered-st`/`covered-lt`
+# symbols, never a `covered-w-*` (Form 8949 wash-sale) symbol - mirroring
+# ADR-0059 Decision 7's non-confusion invariant for inbound carryovers. This
+# is a structural package-validation kill-test, not an ad hoc string test on
+# one file's raw text.
+_LINE_1A_8A_NON_CONFUSION_IDS = frozenset({
+    "tax.us.2025.rule.schedule-d-line1a-gain",
+    "tax.us.2025.rule.schedule-d-line8a-gain",
+})
+
+# ADR-0061 Decision 2 amended 2026-08-05 (Track 1 continuation repair):
+# because `covered-w-st-txn`/`covered-w-lt-txn` are wholly separate fact
+# types from `covered-st-txn`/`covered-lt-txn` (Decision 1), rather than a
+# version successor of the same id, package-exclusivity between the direct-
+# reporting families and their wash-sale counterparts is not structurally
+# guaranteed by family topology alone. This pairing names the exact fact
+# types a real transaction could otherwise be double-adopted into.
+_COVERED_W_IDENTITY_COLLISION_PAIRS: tuple[tuple[str, str], ...] = (
+    ("tax.us.2025.f1099b.covered-st-txn", "tax.us.2025.f1099b.covered-w-st-txn"),
+    ("tax.us.2025.f1099b.covered-lt-txn", "tax.us.2025.f1099b.covered-w-lt-txn"),
+)
+# The identity-key names ADR-0061 Decision 2 amended names explicitly:
+# broker, statement, transaction, and tax-year - the same four keys both
+# fact-type pairs declare identically (ADR-0011: identity rides in the fact
+# id's bound key=value suffix, never in the id prefix).
+_COVERED_W_IDENTITY_KEY_NAMES = frozenset({"broker", "statement", "transaction", "tax-year"})
+
 # attachment-rule.v6 keeps the class authority in the source-family pin.  The
 # terminal family token is the bounded class marker shared by the synthetic
 # gate and the later class-specific families; it is not inferred from labels.
@@ -288,17 +316,75 @@ def _iter_category_literal_fact_types(expr: Any) -> Iterable[str]:
             yield from _iter_category_literal_fact_types(item)
 
 
+def _identity_key_fields(fact_id: str) -> tuple[tuple[str, str], ...]:
+    """The (broker, statement, transaction, tax-year) identity of one fact id.
+
+    Deliberately excludes the fact-type prefix: the real-world transaction a
+    fact id names is the same regardless of which fact type asserts it -
+    exactly the collision ADR-0061 Decision 2's amended kill-test must catch.
+    Any other bound key on the fact id (irrelevant to this identity) is
+    ignored rather than tripping a false collision.
+    """
+    _, _, bound = fact_id.partition("|")
+    keys: dict[str, str] = {}
+    for pair in bound.split(","):
+        name, _, value = pair.partition("=")
+        if name in _COVERED_W_IDENTITY_KEY_NAMES:
+            keys[name] = value
+    return tuple(sorted(keys.items()))
+
+
+def find_covered_w_identity_key_collisions(
+    asserted_fact_ids: Mapping[str, Iterable[str]],
+) -> tuple[MemberIssue, ...]:
+    """ADR-0061 Decision 2 amended kill-test: no real transaction may be
+    adopted into both a direct-reporting family (`covered-st`/`covered-lt`)
+    and its wash-sale counterpart (`covered-w-st`/`covered-w-lt`) at once.
+
+    ``asserted_fact_ids`` maps a fact-type id to the raw fact ids currently
+    asserted under it (the identity-bearing rendering ADR-0011 already
+    defines: ``type|broker=...,statement=...,transaction=...,tax-year=...``).
+    Returns one ``COVERED_W_IDENTITY_KEY_COLLISION`` issue per colliding
+    identity, checked directly against contributed identity - never inferred
+    from version supersession, per the amendment's own framing.
+    """
+    issues: list[MemberIssue] = []
+    for direct_type, w_type in _COVERED_W_IDENTITY_COLLISION_PAIRS:
+        direct_identities: dict[tuple[tuple[str, str], ...], str] = {}
+        for fid in asserted_fact_ids.get(direct_type, ()):
+            direct_identities[_identity_key_fields(fid)] = fid
+        for fid in asserted_fact_ids.get(w_type, ()):
+            identity = _identity_key_fields(fid)
+            direct_fid = direct_identities.get(identity)
+            if direct_fid is not None:
+                issues.append(MemberIssue(
+                    fid, "", "COVERED_W_IDENTITY_KEY_COLLISION",
+                    f"identity {dict(identity)} asserted into both {direct_type!r} "
+                    f"(fact id {direct_fid!r}) and {w_type!r} (fact id {fid!r})",
+                ))
+    return tuple(issues)
+
+
 def validate_package(
     package: dict[str, Any],
     corpus: dict[tuple[str, str], dict[str, Any]],
     schemas: DerivationSchemas,
     published_citizen_checksums: Mapping[tuple[str, str], str] | None = None,
+    asserted_fact_ids: Mapping[str, Iterable[str]] | None = None,
 ) -> PackageValidation:
     """Validate a package against a corpus of (id, version) -> citizen.
 
     Never raises for citizen-level defects: each becomes a MemberIssue and
     validation continues, so the caller can record every problem at once and
     let unaffected members proceed.
+
+    ``asserted_fact_ids`` is optional and orthogonal to the rest of this
+    static, content-only validation: when a caller supplies the raw fact ids
+    currently asserted under the ADR-0061 covered-w and direct-reporting
+    transaction fact types (e.g. from a run's marshalled sources or a
+    fixture's act log), this also runs the Decision 2 amended identity-key
+    collision kill-test (``find_covered_w_identity_key_collisions``). Every
+    existing caller that omits it keeps the prior, purely-static behavior.
     """
     package_id = str(package.get("id", "<unidentified>"))
 
@@ -396,6 +482,25 @@ def validate_package(
             if pin_role != citizen["role"]:
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"package role {pin_role!r} != rule role {citizen['role']!r}"))
+            if citizen["id"] in _LINE_1A_8A_NON_CONFUSION_IDS:
+                confused_symbols = sorted({
+                    name for name in (
+                        set(citizen.get("requires", []))
+                        | set(_iter_ref_names(citizen.get("when")))
+                        | set(_iter_ref_names(citizen.get("value")))
+                        | set(_iter_collect_source_sets(citizen.get("when")))
+                        | set(_iter_collect_source_sets(citizen.get("value")))
+                        | set(_iter_require_closed_source_sets(citizen.get("when")))
+                        | set(_iter_require_closed_source_sets(citizen.get("value")))
+                    )
+                    if "covered-w" in name
+                })
+                if confused_symbols:
+                    issues.append(MemberIssue(
+                        pin["id"], pin["version"], "LINE_1A_8A_PINS_COVERED_W",
+                        f"line 1a/8a producer reads wash-sale (covered-w-*) symbol(s): "
+                        f"{', '.join(confused_symbols)}",
+                    ))
         elif citizen["schema"] in {
             "parameter-declaration.v1",
             "quantity-vocabulary.v1",
@@ -1344,6 +1449,13 @@ def validate_package(
             issues.append(MemberIssue(owners[1], "", "OUTPUT_OWNERSHIP_CONFLICT",
                                       f"symbol {symbol!r} published by {sorted(owners)}"))
         output_owners[symbol] = owners[0]
+
+    # 12. Covered-W identity-key collision guard (ADR-0061 Decision 2
+    # amended). Static content alone cannot prove this - it depends on which
+    # real fact ids are actually asserted - so this only runs when a caller
+    # supplies that data; every existing caller is unaffected.
+    if asserted_fact_ids is not None:
+        issues.extend(find_covered_w_identity_key_collisions(asserted_fact_ids))
 
     return PackageValidation(
         package_id=package_id,

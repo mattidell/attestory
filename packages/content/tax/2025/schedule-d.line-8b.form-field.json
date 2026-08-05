@@ -1,0 +1,45 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.schedule-d.line-8b",
+  "version": "v1",
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "line": "8b-h",
+  "label": "Line 8b column (h)",
+  "description": "Schedule D (2025) Line 8b column (h) (ADR-0062).",
+  "binds_symbol": "tax.us.2025.schedule-d.line-8b",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule-d.line-8b",
+    "version": "v1"
+  },
+  "dispositions": {
+    "published_value": {
+      "render": "{value}",
+      "explain": "Current derived finding publishes this line."
+    },
+    "computed_zero": {
+      "render": "0",
+      "explain": "Computed zero."
+    },
+    "closure_backed_zero": {
+      "render": "0",
+      "explain": "Closure-backed zero."
+    },
+    "blocked": {
+      "render": "",
+      "explain": "Blocked.",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "SOURCE_SET_UNCLOSED"
+      ]
+    },
+    "guard_inapplicable": {
+      "render": "",
+      "explain": "Inapplicable."
+    }
+  }
+}

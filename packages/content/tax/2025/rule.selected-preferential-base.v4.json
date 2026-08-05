@@ -1,0 +1,524 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.selected-preferential-base",
+  "version": "v4",
+  "notes": "ADR-0062 Decision 5: multi-family discriminator any(st>0, lt>0, W8>0, W13>0, line1b!=0, line8b!=0); Schedule D branch publishes max(line16, 0). Path A/B on no-form8949-sources: Path A value-checks yes; Path B value-checks no-other-form8949-adjustments=yes. v1-v3 remain historical.",
+  "role": "computation",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "publishes": "tax.us.2025.capital-gains.selected-preferential-base",
+  "requires": [
+    "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+    "tax.us.2025.capital-loss-carryover.short-term",
+    "tax.us.2025.capital-loss-carryover.long-term",
+    "tax.us.2025.schedule-d.line-1b",
+    "tax.us.2025.schedule-d.line-8b",
+    "tax.us.2025.schedule-d.line-16",
+    "tax.us.2025.dividends.2a-subtotal",
+    "tax.us.2025.schedule-d-required.conclusion"
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "tax.us.2025.capital-loss-carryover.short-term",
+      "tax.us.2025.capital-loss-carryover.long-term",
+      "tax.us.2025.schedule-d.line-1b",
+      "tax.us.2025.schedule-d.line-8b",
+      "tax.us.2025.schedule-d.line-16",
+      "tax.us.2025.dividends.2a-subtotal",
+      "tax.us.2025.schedule-d-required.conclusion"
+    ]
+  },
+  "pins": [],
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "any",
+          "args": [
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.capital-loss-carryover.short-term"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.capital-loss-carryover.long-term"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "ne",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d.line-1b"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "ne",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d.line-8b"
+              },
+              "right": 0
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d-boundary.no-form8949-sources"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources"
+          },
+          {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof"
+          }
+        ]
+      },
+      {
+        "op": "conditional_dependency_set",
+        "condition": {
+          "op": "all",
+          "args": [
+            {
+              "op": "any",
+              "args": [
+                {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+                  },
+                  "right": 0
+                },
+                {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+                  },
+                  "right": 0
+                },
+                {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.capital-loss-carryover.short-term"
+                  },
+                  "right": 0
+                },
+                {
+                  "op": "compare",
+                  "cmp": "gt",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.capital-loss-carryover.long-term"
+                  },
+                  "right": 0
+                },
+                {
+                  "op": "compare",
+                  "cmp": "ne",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.schedule-d.line-1b"
+                  },
+                  "right": 0
+                },
+                {
+                  "op": "compare",
+                  "cmp": "ne",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.schedule-d.line-8b"
+                  },
+                  "right": 0
+                }
+              ]
+            },
+            {
+              "op": "not",
+              "value": {
+                "op": "categorical_compare",
+                "cmp": "eq",
+                "left": {
+                  "op": "ref",
+                  "name": "tax.us.2025.schedule-d-boundary.no-form8949-sources"
+                },
+                "right": {
+                  "op": "category_literal",
+                  "fact_type": {
+                    "id": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+                    "version": "v1"
+                  },
+                  "value": "yes"
+                }
+              }
+            }
+          ]
+        },
+        "members": [
+          {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments"
+          }
+        ]
+      },
+      {
+        "op": "choose",
+        "when": {
+          "op": "any",
+          "args": [
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.capital-loss-carryover.short-term"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.capital-loss-carryover.long-term"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "ne",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d.line-1b"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "ne",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d.line-8b"
+              },
+              "right": 0
+            }
+          ]
+        },
+        "then": {
+          "op": "all",
+          "args": [
+            {
+              "op": "any",
+              "args": [
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.schedule-d-boundary.no-form8949-sources"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                },
+                {
+                  "op": "categorical_compare",
+                  "cmp": "eq",
+                  "left": {
+                    "op": "ref",
+                    "name": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments"
+                  },
+                  "right": {
+                    "op": "category_literal",
+                    "fact_type": {
+                      "id": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments",
+                      "version": "v1"
+                    },
+                    "value": "yes"
+                  }
+                }
+              ]
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            },
+            {
+              "op": "categorical_compare",
+              "cmp": "eq",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof"
+              },
+              "right": {
+                "op": "category_literal",
+                "fact_type": {
+                  "id": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof",
+                  "version": "v1"
+                },
+                "value": "yes"
+              }
+            }
+          ]
+        },
+        "else": true
+      },
+      {
+        "op": "choose",
+        "when": {
+          "op": "any",
+          "args": [
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.capital-loss-carryover.short-term"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "gt",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.capital-loss-carryover.long-term"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "ne",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d.line-1b"
+              },
+              "right": 0
+            },
+            {
+              "op": "compare",
+              "cmp": "ne",
+              "left": {
+                "op": "ref",
+                "name": "tax.us.2025.schedule-d.line-8b"
+              },
+              "right": 0
+            }
+          ]
+        },
+        "then": true,
+        "else": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d-required.conclusion"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.schedule-d-required.conclusion",
+              "version": "v1"
+            },
+            "value": "no"
+          }
+        }
+      }
+    ]
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "any",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.capital-loss-carryover.short-term"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "gt",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.capital-loss-carryover.long-term"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "ne",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d.line-1b"
+          },
+          "right": 0
+        },
+        {
+          "op": "compare",
+          "cmp": "ne",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.schedule-d.line-8b"
+          },
+          "right": 0
+        }
+      ]
+    },
+    "then": {
+      "op": "max",
+      "args": [
+        {
+          "op": "ref",
+          "name": "tax.us.2025.schedule-d.line-16"
+        },
+        0
+      ]
+    },
+    "else": {
+      "op": "ref",
+      "name": "tax.us.2025.dividends.2a-subtotal"
+    }
+  }
+}
