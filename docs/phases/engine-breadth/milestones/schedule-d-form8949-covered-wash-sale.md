@@ -3,10 +3,11 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "schedule-d-form8949-covered-wash-sale",
-  "milestone_state": "in-progress",
-  "status": "Plan approved; ADR-0061/ADR-0062 ratified 2026-08-04; Track 1 chartered at docs/reviews/track1-charter.md.",
-  "current_role": "Builder",
-  "current_prompt": "docs/reviews/track1-charter.md",
+  "milestone_state": "closed",
+  "status": "CLOSED 2026-08-05. Track 1 (three repair/re-review rounds) and Track 2 both independently reviewed READY. The bounded covered, basis-reported capital-transaction class admits code-W wash-sale adjustments through Form 8949 into Schedule D lines 1b/8b, with ADR-0061 amended pre-merge (transaction-identity mechanism, identity-key collision enforcement) and a second package/schema version collision resolved as an additive union (v18/v13) before either milestone's PR merged.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-05-schedule-d-form8949-covered-wash-sale.md",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md",
   "scope": [
     "admit a contributed box-1g wash-sale disallowed amount accompanying the existing yes/no flag on covered short-term/long-term transactions",
     "publish two new package-exclusive families, covered-w-st and covered-w-lt, with twin/triple scalar companions (proceeds, basis, adjustment)",
@@ -34,7 +35,7 @@
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
-      "docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale.md#Track 0 decision inventory",
+      "docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale.md#Track 0: paper-first decision inventory",
       "docs/adr/0036-schedule-attachment-ontology.md",
       "docs/adr/0046-presentation-surface-contract.md",
       "docs/adr/0052-covered-long-term-gains-schedule-d-line-8a.md",

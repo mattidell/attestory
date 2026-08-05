@@ -187,6 +187,27 @@ source and completeness boundary is selected.
   excluded downstream consumers remain honestly outside the claim. Plan:
   `milestones/form1099div-box12-line2a.md`; retrospective:
   `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
+- **Covered Form 1099-B Wash-Sale Adjustments through Form 8949 and
+  Schedule D Lines 1b/8b — closed 2026-08-05** (Track 1 across three
+  repair/re-review rounds, Track 2, both independently reviewed `READY`).
+  A covered, basis-reported Form 1099-B transaction routed to Form 8949
+  solely by a broker-reported box-1g wash-sale loss (code W) is synthetic
+  complete through Form 8949 columns (a)-(h), per-transaction validation
+  guards, successor Schedule D lines 1b/7/8b/15/16/21, Form 1040 line 7a/9,
+  package resolution, explanation, and presentation. ADR-0061 was amended
+  pre-merge after review found the originally-proposed transaction-identity
+  mechanism unsafe given a real `source-family.v1` schema constraint;
+  resolved with a separate wash-sale fact type and an identity-key
+  collision kill-test, wired into the live run path. Rebased onto the
+  merged Form 1099-DIV Box 12 milestone; a second package/schema version
+  collision (independently-minted `v17`/`v12` and colliding schema
+  successors) was caught before either PR merged and resolved as an
+  additive union (`v18`/`v13`, `quantity-vocabulary.v7`,
+  `artifact-package.v15`). Every other Form 8949 adjustment code,
+  noncovered securities, and taxpayer-side wash-sale determination remain
+  honestly outside the claim. Plan:
+  `milestones/schedule-d-form8949-covered-wash-sale.md`; retrospective:
+  `docs/milestone-retrospectives/2026-08-05-schedule-d-form8949-covered-wash-sale.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the

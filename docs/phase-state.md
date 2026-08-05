@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "form1099div-box12-line2a",
-  "active_plan": "docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md",
+  "topic": "schedule-d-form8949-covered-wash-sale",
+  "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale.md",
   "milestone_state": "closed",
-  "status": "**ENGINE BREADTH / FORM 1099-DIV BOX 12 TO FORM 1040 LINE 2A — CLOSED.** The bounded 2025 box-12 route is synthetic complete and independently reviewed READY; the next milestone remains owner-unselected.",
-  "current_role": "Foreman",
+  "status": "**ENGINE BREADTH — COVERED CODE-W WASH-SALE / FORM 8949 CLOSED 2026-08-05.** Track 1 (three repair/re-review rounds) and Track 2 both independently reviewed READY. The bounded covered, basis-reported capital-transaction class admits a Form 1099-B transaction routed to Form 8949 solely by a broker-reported box-1g wash-sale loss (code W), through Schedule D lines 1b/8b. ADR-0061 was amended pre-merge after review found the originally-proposed transaction-identity mechanism unsafe given a real source-family.v1 schema constraint; resolved with a separate wash-sale fact type and an identity-key collision kill-test wired into the live run path. Rebased onto the merged Form 1099-DIV Box 12 milestone; a second package/schema version collision was caught before either PR merged and resolved as an additive union (package v18, registry v13, quantity-vocabulary v7, artifact-package v15). Closeout complete: coverage frontier, roadmap, deferral ledger, retrospective, and README are updated. The next breadth milestone is unselected.",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
@@ -24,72 +24,82 @@ through Form 1040 line 7a, the bounded 2025 Schedule K-1 (Form 1065) box-5
 taxable-interest path through line 2b and Schedule B Part I, the bounded 2025
 payer-reported current-inclusion market-discount class in Form 1099-INT box 10
 or Form 1099-OID box 5, the bounded three-class Schedule B interest-adjustment
-path, and the bounded covered, basis-reported Form 1099-B class — short-term
+path, the bounded covered, basis-reported Form 1099-B class — short-term
 or long-term, gain or loss — reported directly on Schedule D line 1a/8a
-without Form 8949, including the current-year $3,000/$1,500 capital-loss
-limitation and now a short-term or long-term capital-loss carryover derived
+without Form 8949, a short-term or long-term capital-loss carryover derived
 from a bounded 2024 prior-return authority, included on Schedule D lines 6
-and 14. It also computes the bounded 2025 Form 1099-DIV box-12 to Form 1040
-line-2a route, independent of the closed Schedule D carryover milestone.
+and 14, and the bounded 2025 Form 1099-DIV box-12 to Form 1040 line-2a
+route. A covered Form 1099-B transaction routed to Form 8949 solely by a
+broker-reported box-1g wash-sale loss (code W) is now also computed,
+through Schedule D lines 1b/8b. The next breadth slice is owner-selected
+from the refreshed coverage frontier.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none. Form 1099-DIV Box 12 to Form 1040 Line 2a **closed 2026-08-04**.
-  Inbound Capital-Loss Carryovers into 2025 Schedule D **closed 2026-08-04**,
-  independently reviewed `READY`, and remains preserved on the ratified line.
-* **Previous result:** the bounded covered, basis-reported capital-transaction class
-  is synthetic complete end to end with a short-term or long-term
-  capital-loss carryover — a bounded five-fact 2024 prior-return authority
-  (ADR-0059) with a two-path completeness gate (a cheap declared-absence
-  path preserving the existing `no-inbound-capital-loss-carryovers`
-  declaration, alongside the full authority path); the Capital Loss
-  Carryover Worksheet as an auditable derived rule citizen and signed
-  successor Schedule D lines 6/7/14/15/16/21 and Form 1040 line 7a/9
-  (ADR-0060); a carryover-only routing case; and disposition-visibility
-  parity for the missing-authority state. Form 8949, noncovered
-  securities, digital assets, other Schedule D sources, and any amount
-  carried into 2026 remain honestly outside it — see the deferral ledger.
-* **Current result:** the bounded box-12 family, residual successor, explicit
-  line-2a completeness boundary, reported-only downstream semantics,
-  explanation, presentation, package/release/adoption successors, and
-  box-13 production-path companion enforcement are synthetic complete. The
-  independent re-review returned `READY`. Other tax-exempt sources, nonzero
-  box 13, excluded downstream consumers, and general tax-exempt-interest
-  support remain outside the claim.
-* **Plan:** `docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
-* **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-inbound-loss-carryovers-deferral-ledger.md`.
-* **Ratified in-scope:** ADR-0059 (prior-return capital-loss authority,
-  two-path completeness) and ADR-0060 (worksheet arithmetic, sign,
-  routing, 2026 bound) — both settled by a paper-first Track 0 before any
-  implementation charter; ADR-0059 amended once before ratification (owner
-  direction) to reinstate the declared-absence path rather than requiring
-  the five-fact authority unconditionally. Both ratified as amended, with
-  no further dissent.
-* **Review history:** Track 1's independent review verified the arithmetic
-  and routing correct by direct inspection and found four fixture-coverage
-  findings, closed by one findings-only repair round (recheck `READY`,
-  which also caught and fixed a real mypy defect). Track 2's independent
-  review found no findings.
-* **Cross-milestone incident:** the parallel Schedule B interest-
-  adjustments milestone merged to `origin/main` with a
-  `package.core-calculations` `v15` that silently dropped 45 members from
-  the prior milestone's package within its own commits. The owner
-  force-pushed `origin/main` back to the pre-collision merge point,
-  confirmed the prior milestone needed no repair, and had Schedule B
-  regenerated correctly on a separate branch before re-merging. This
-  carryover milestone rebased onto the repaired result and renumbered its own
-  package to `v16`/`v11` as a validated additive union, keeping both
-  already-merged files byte-immutable. The current box-12 milestone then
-  advanced its own additive package graph to v17/registry v12. A dry-run
-  semantic-ledger check
-  (temporary, never committed) preceded the real rebase and surfaced a
-  generalized fix to a latent hardcoded-package-version defect in
-  `packages/derivation/package_validation.py`, folded into this
-  milestone's implementation commit and verified not to regress Schedule
-  B's own packages. Full account is in the current retrospective.
-* **Next:** select a new milestone from the refreshed coverage frontier. The
-  next milestone remains unselected.
+* **Active milestone:** none selected. Covered Form 1099-B Wash-Sale
+  Adjustments through Form 8949 and Schedule D Lines 1b/8b **closed
+  2026-08-05**, independently reviewed `READY`.
+* **Result:** the bounded covered, basis-reported capital-transaction class
+  admits a Form 1099-B transaction routed to Form 8949 solely by a
+  broker-reported box-1g wash-sale loss (code W) — short-term through
+  Form 8949 Part I/box A/Schedule D line 1b, long-term through Part
+  II/box D/line 8b. Form 8949 columns (a)-(h), code W in column (f), and
+  row arithmetic `h = d − e + g` are production-shaped with per-transaction
+  validation guards for code W on a gain and an adjustment exceeding the
+  otherwise-deductible loss. Successor Schedule D lines 1b/7/8b/15/16/21
+  and Form 1040 line 7a/9 recompute over the new lines alongside the
+  existing 1a/8a, box-2a, and carryover lines. Every other Form 8949
+  adjustment code, noncovered securities, and taxpayer-side wash-sale
+  determination remain honestly outside it — see the deferral ledger.
+* **Plan:** `docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale.md`.
+* **Retrospective:** `docs/milestone-retrospectives/2026-08-05-schedule-d-form8949-covered-wash-sale.md`.
+* **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale-deferral-ledger.md`.
+* **Ratified in-scope:** ADR-0061 (transaction authority, family topology,
+  completeness successor) and ADR-0062 (Form 8949 attachment, arithmetic,
+  Schedule D 1b/8b composition) — both settled by a paper-first Track 0
+  before any implementation charter; ADR-0061 amended once, pre-merge,
+  after independent review found the originally-proposed transaction-
+  identity mechanisms structurally unsafe (a `source-family.v1` schema
+  constraint would have forced automatic dual family membership for every
+  direct-reporting transaction). Amended to name the mechanism actually
+  built (a separate `covered-w-st-txn`/`covered-w-lt-txn` fact type) and
+  add an identity-key collision kill-test as the real non-double-count
+  enforcement.
+* **Review history:** Track 1's first independent review returned NOT
+  READY with four findings — a critical arithmetic-masking defect
+  (validation guards checked on aggregated box subtotals instead of per
+  transaction), the transaction-identity deviation above, an unimplemented
+  flag/amount guard plus five missing required fixtures, and one
+  low-severity structural-enforcement gap. A first repair fixed two
+  findings outright and stopped correctly on the identity-mechanism
+  finding per its own charter; a continuation repair (after the ADR
+  amendment) implemented the collision kill-test and the remaining
+  fixtures. A second independent review found that kill-test correct in
+  isolation but never wired into the live run path; a third repair round
+  wired it into `runner.py` alongside the existing per-transaction
+  arithmetic guard. A third independent review returned `READY`. Track 2's
+  independent review found that Track 1's own repair rounds had already
+  substantively delivered the presentation/citation-walk requirements, and
+  confirmed that claim by direct inspection — no findings.
+* **Cross-milestone incident:** the parallel Form 1099-DIV Box 12
+  milestone (PR #158) merged to `origin/main` first. Both milestones
+  independently minted the same next core-package version (`v17`) and
+  registry version (`v12`), and independently minted colliding schema
+  successors (`quantity-vocabulary.v6` for two different additive reasons;
+  `artifact-package.v13` likewise). Caught before either PR merged, via
+  the same disposable dry-run semantic-ledger technique used in the
+  inbound-carryovers milestone, run proactively on explicit owner
+  instruction before the real rebase. Resolved as a validated additive
+  union: `package.core-calculations.v18`, `published-packages.v13`,
+  `quantity-vocabulary.v7`, `artifact-package.v15` — keeping every
+  already-merged file byte-immutable. A separate, unrelated mid-rebase
+  worktree-registry incident (a concurrent session's operation orphaned
+  this session's working directory) was reported, confirmed
+  unintentional, and recreated cleanly with no work lost. Full account in
+  the retrospective.
+* **Next:** owner-selects the next breadth milestone from
+  `docs/phases/engine-breadth/coverage-frontier.md`. No milestone is
+  currently active.
 
 ## Re-entry
 
