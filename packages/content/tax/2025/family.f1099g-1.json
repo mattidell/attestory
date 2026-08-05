@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.unemployment.box1-subtotal",
+  "closure_claim": "Every unemployment compensation amount reported in box 1 of a Form 1099-G furnished to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon. This claim covers Form 1099-G box 1 only: it says nothing about box 2 state/local refunds, boxes 5\u20137 or 9, box 4 withholding, unemployment repayments, other Schedule 1 income classes, or Form 1040 line 8 completeness. Closed with members authorizes the multi-payer sum of current members; closed-empty authorizes subtotal 0.",
+  "id": "tax.us.2025.f1099g.1",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099g.box1-unemployment"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Form 1099-G box 1 unemployment compensation statement items, tax year 2025",
+  "version": "v1"
+}

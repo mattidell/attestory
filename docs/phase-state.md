@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "form1099int-box8-line2a",
-  "active_plan": "docs/phases/engine-breadth/milestones/form1099int-box8-line2a.md",
+  "topic": "form1099g-box1-schedule1-line7",
+  "active_plan": "docs/phases/engine-breadth/milestones/form1099g-box1-schedule1-line7.md",
   "milestone_state": "closed",
-  "status": "**ENGINE BREADTH / FORM 1099-INT BOX 8 TO FORM 1040 LINE 2A — CLOSED.** The bounded 2025 box-8 succession of the closed box-12 line-2a route is synthetic complete and independently reviewed READY; rebased onto the merged Form 8949 wash-sale line. The next milestone remains owner-unselected.",
+  "status": "**ENGINE BREADTH / FORM 1099-G BOX 1 → SCHEDULE 1 LINE 7 / FORM 1040 LINE 8 — CLOSED.** Rebased onto origin/main after Form 8949 and Form 1099-INT box-8 merges. Bounded unemployment route synthetic complete on package v20 (union of ratified v19). Next milestone owner-unselected.",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -16,91 +16,30 @@ This is the **single re-entry document** pointing to the current state of the
 project. Curated history and architectural decisions live in retrospectives
 and `docs/adr/`; historical execution records live under `docs/archive/`.
 
-<!-- brief high level plain language overview of the state of the milestone, exclude result and finding specifics -->
 ## High Level Milestone Briefing
 
-The engine computes the bounded direct-reporting path for Form 1099-DIV box 2a
-through Form 1040 line 7a, the bounded 2025 Schedule K-1 (Form 1065) box-5
-taxable-interest path through line 2b and Schedule B Part I, the bounded 2025
-payer-reported current-inclusion market-discount class in Form 1099-INT box 10
-or Form 1099-OID box 5, the bounded three-class Schedule B interest-adjustment
-path, the bounded covered, basis-reported Form 1099-B class — short-term
-or long-term, gain or loss — reported directly on Schedule D line 1a/8a
-without Form 8949, a short-term or long-term capital-loss carryover derived
-from a bounded 2024 prior-return authority, included on Schedule D lines 6
-and 14, and the bounded 2025 Form 1099-DIV box-12 to Form 1040 line-2a
-route. A covered Form 1099-B transaction routed to Form 8949 solely by a
-broker-reported box-1g wash-sale loss (code W) is now also computed,
-through Schedule D lines 1b/8b. The next breadth slice is owner-selected
-from the refreshed coverage frontier.
+The engine computes the closed Engine Breadth synthetic routes through Form
+1099-DIV box 2a and box 12, Schedule K-1 box-5 interest, market-discount
+interest, Schedule B adjustments, covered Form 1099-B capital paths including
+inbound carryovers and Form 8949 wash-sale (code W) lines 1b/8b, Form 1099-INT
+box 8 tax-exempt interest on line 2a, and now Form 1099-G box-1 unemployment
+compensation through Schedule 1 lines 7 and 10 into Form 1040 line 8 and line
+9. The next Engine Breadth milestone is owner-unselected.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none. Form 1099-INT Box 8 Tax-Exempt Interest to Form 1040 Line 2a **closed 2026-08-05**, independently reviewed `READY`, rebased onto the merged Form 8949 wash-sale line. Covered Form 1099-B Wash-Sale / Form 8949 **closed 2026-08-05**. Form 1099-DIV Box 12 to Form 1040 Line 2a **closed 2026-08-04**.
-* **Result:** the bounded covered, basis-reported capital-transaction class
-  admits a Form 1099-B transaction routed to Form 8949 solely by a
-  broker-reported box-1g wash-sale loss (code W) — short-term through
-  Form 8949 Part I/box A/Schedule D line 1b, long-term through Part
-  II/box D/line 8b. Form 8949 columns (a)-(h), code W in column (f), and
-  row arithmetic `h = d − e + g` are production-shaped with per-transaction
-  validation guards for code W on a gain and an adjustment exceeding the
-  otherwise-deductible loss. Successor Schedule D lines 1b/7/8b/15/16/21
-  and Form 1040 line 7a/9 recompute over the new lines alongside the
-  existing 1a/8a, box-2a, and carryover lines. Every other Form 8949
-  adjustment code, noncovered securities, and taxpayer-side wash-sale
-  determination remain honestly outside it — see the deferral ledger.
-* **Plan:** `docs/phases/engine-breadth/milestones/form1099int-box8-line2a.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-05-form1099int-box8-line2a.md`.
-* **Prior retrospective (Form 8949):** `docs/milestone-retrospectives/2026-08-05-schedule-d-form8949-covered-wash-sale.md`.
-* **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale-deferral-ledger.md`.
-* **Ratified in-scope:** ADR-0061 (transaction authority, family topology,
-  completeness successor) and ADR-0062 (Form 8949 attachment, arithmetic,
-  Schedule D 1b/8b composition) — both settled by a paper-first Track 0
-  before any implementation charter; ADR-0061 amended once, pre-merge,
-  after independent review found the originally-proposed transaction-
-  identity mechanisms structurally unsafe (a `source-family.v1` schema
-  constraint would have forced automatic dual family membership for every
-  direct-reporting transaction). Amended to name the mechanism actually
-  built (a separate `covered-w-st-txn`/`covered-w-lt-txn` fact type) and
-  add an identity-key collision kill-test as the real non-double-count
-  enforcement.
-* **Review history:** Track 1's first independent review returned NOT
-  READY with four findings — a critical arithmetic-masking defect
-  (validation guards checked on aggregated box subtotals instead of per
-  transaction), the transaction-identity deviation above, an unimplemented
-  flag/amount guard plus five missing required fixtures, and one
-  low-severity structural-enforcement gap. A first repair fixed two
-  findings outright and stopped correctly on the identity-mechanism
-  finding per its own charter; a continuation repair (after the ADR
-  amendment) implemented the collision kill-test and the remaining
-  fixtures. A second independent review found that kill-test correct in
-  isolation but never wired into the live run path; a third repair round
-  wired it into `runner.py` alongside the existing per-transaction
-  arithmetic guard. A third independent review returned `READY`. Track 2's
-  independent review found that Track 1's own repair rounds had already
-  substantively delivered the presentation/citation-walk requirements, and
-  confirmed that claim by direct inspection — no findings.
-* **Cross-milestone incident:** the parallel Form 1099-DIV Box 12
-  milestone (PR #158) merged to `origin/main` first. Both milestones
-  independently minted the same next core-package version (`v17`) and
-  registry version (`v12`), and independently minted colliding schema
-  successors (`quantity-vocabulary.v6` for two different additive reasons;
-  `artifact-package.v13` likewise). Caught before either PR merged, via
-  the same disposable dry-run semantic-ledger technique used in the
-  inbound-carryovers milestone, run proactively on explicit owner
-  instruction before the real rebase. Resolved as a validated additive
-  union: `package.core-calculations.v18`, `published-packages.v13`,
-  `quantity-vocabulary.v7`, `artifact-package.v15` — keeping every
-  already-merged file byte-immutable. A separate, unrelated mid-rebase
-  worktree-registry incident (a concurrent session's operation orphaned
-  this session's working directory) was reported, confirmed
-  unintentional, and recreated cleanly with no work lost. Full account in
-  the retrospective.
-* **Next:** owner-selects the next breadth milestone from `docs/phases/engine-breadth/coverage-frontier.md`. No milestone is currently active.
+* **Active milestone:** none. Form 1099-G Box 1 → Schedule 1 Line 7 / Form
+  1040 Line 8 **closed** on this branch after rebase onto the ratified tip
+  that includes Form 8949 (PR #161) and Form 1099-INT box 8 (PR #164).
+* **Current result:** bounded synthetic-complete unemployment path with
+  package **v20** / registry **v15** / release **v13** / adoption **v20**,
+  `artifact-package.v17`, `quantity-vocabulary.v9`, line-9 **v5**. Package is
+  the validated union of ratified **v19** plus this milestone’s members.
+* **Plan:** `docs/phases/engine-breadth/milestones/form1099g-box1-schedule1-line7.md`.
+* **Retrospective:** `docs/milestone-retrospectives/2026-08-05-form1099g-box1-schedule1-line7.md`.
+* **Next:** select a new milestone from the coverage frontier.
 
 ## Re-entry
-
-Render the advisory capsule from an explicit committed ref:
 
 ```sh
 python3 tools/foreman_context.py --ref HEAD --format markdown

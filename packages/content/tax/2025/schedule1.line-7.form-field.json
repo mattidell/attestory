@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.schedule1.line7-unemployment",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule1.line-7",
+    "version": "v1"
+  },
+  "description": "Schedule 1 (Form 1040) 2025, line 7: unemployment compensation from the closed Form 1099-G box-1 family for the bounded class. Does not implement repayment checkbox arithmetic or general Schedule 1 income.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Schedule 1 line 7 is blocked because the box-1 family is unclosed or its subtotal is unavailable.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero because the supporting source family is attested closed-empty under complete authority.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero under complete authority.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a completeness or guard condition is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "A current derived finding publishes this unemployment compensation amount on Schedule 1 line 7 from the closed Form 1099-G box-1 family.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-1",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.schedule1.line-7",
+  "label": "Unemployment compensation",
+  "line": "sch1-7",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

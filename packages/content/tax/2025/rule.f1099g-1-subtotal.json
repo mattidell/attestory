@@ -1,0 +1,54 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.f1099g.box1",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.f1099g-1-subtotal",
+  "notes": "Aggregates current Form 1099-G box-1 unemployment findings into the family subtotal. Closed-empty publishes zero only through current literal-true closure admitted by the adopted mapping. Never reads box 4, residual boxes, or Schedule 1 absence authorities.",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.unemployment.box1-subtotal",
+  "requires": [
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "name": "tax.us.2025.f1099g.box1-unemployment",
+          "op": "collect",
+          "source_set": "tax.us.2025.f1099g.1"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v1",
+  "when": true
+}

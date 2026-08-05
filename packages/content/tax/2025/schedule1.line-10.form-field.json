@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.schedule1.line10-additional-income",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule1.line-10",
+    "version": "v1"
+  },
+  "description": "Schedule 1 (Form 1040) 2025, line 10 for the bounded class: equals line 7 when every unsupported Part I income class, repayment, and residual Form 1099-G payment class is explicitly declared absent. Not a general Schedule 1 completeness claim.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Schedule 1 line 10 is blocked because absence authority is incomplete, an excluded class is present, or unemployment is unclosed.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero because the supporting source family is attested closed-empty under complete authority.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero under complete authority.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a completeness or guard condition is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "A current derived finding publishes complete Schedule 1 line 10 additional income from closed unemployment under explicit Part I absence authority.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-1",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.schedule1.line-10",
+  "label": "Additional income",
+  "line": "sch1-10",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

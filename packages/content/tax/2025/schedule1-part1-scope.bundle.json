@@ -1,0 +1,258 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No Schedule 1 line 1 taxable refunds, credits, or offsets of state and local income taxes are present for the bounded additional-income claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No Schedule 1 line 2a alimony received is present for the bounded additional-income claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No Schedule 1 line 3 business income or loss is present for the bounded additional-income claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No Schedule 1 line 4 other gains or losses are present for the bounded additional-income claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No Schedule 1 line 5 rental real estate, royalties, partnerships, S corporations, trusts, etc. income is present for the bounded additional-income claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No Schedule 1 line 6 farm income or loss is present for the bounded additional-income claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No Schedule 1 other income (lines 8a\u20138z / line 9 aggregate) is present for the bounded additional-income claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No unemployment compensation repayment of prior- or current-year overpayment is present for the bounded unemployment claim. Correction of a statement uses free supersession; repayment is unsupported and blocks. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No Form 1099-G box 2 state or local income tax refund, credit, or offset is present for the bounded unemployment claim. Box-1 family closure never proves box 2 absent. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 / Form 1099-G residual scope completeness component: No Form 1099-G boxes 5\u20137 or 9 (RTAA, taxable grants, agriculture payments, market gain) or other co-occurring unsupported 1099-G payment classes are present for the bounded unemployment claim. Box-1 closure never proves other boxes absent. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or dependency is absent; no asserts it is present and blocks the bounded additional-income claim. Absence is not a manufactured zero amount for an unimplemented producer.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.schedule1-part1-scope.vocabulary",
+  "label": "Schedule 1 Part I absence authorities, unemployment repayment block, and Form 1099-G residual absence authorities for the bounded 2025 additional-income (line 8) claim",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.income.additional-income",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-8",
+    "version": "v1"
+  },
+  "description": "Form 1040 (2025), line 8: additional income from complete Schedule 1 line 10 for the bounded unemployment class. Published exactly once into line-9 v5. Explicit zero when closed-empty unemployment meets complete absences; never a silent omission.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Form 1040 line 8 is blocked because Schedule 1 line 10 is incomplete or unavailable.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero because the supporting source family is attested closed-empty under complete authority.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero under complete authority.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a completeness or guard condition is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "A current derived finding publishes Form 1040 line 8 from complete Schedule 1 line 10. This amount is added exactly once to total income on line 9.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-8",
+  "label": "Additional income from Schedule 1",
+  "line": "8",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

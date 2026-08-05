@@ -1,0 +1,45 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule1.line10-additional-income"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-8",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule1.line-10",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line8",
+  "notes": "Form 1040 line 8 for the bounded 2025 class: equals complete Schedule 1 line 10 additional income. Published once into line-9 v5. Closed-empty with complete absences yields explicit zero rather than silent omission.",
+  "pins": [
+    {
+      "id": "tax.us.2025.schedule1.line10-additional-income",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.income.additional-income",
+  "requires": [
+    "tax.us.2025.schedule1.line10-additional-income"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.schedule1.line10-additional-income",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": true
+}

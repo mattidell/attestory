@@ -1,0 +1,8 @@
+{
+  "id": "tax.us.2025.quantity.unemployment-compensation",
+  "quantities": [
+    "unemployment-compensation"
+  ],
+  "schema": "quantity-vocabulary.v9",
+  "version": "v1"
+}
