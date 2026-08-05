@@ -2,12 +2,12 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "form1099div-box7-direct-ftc",
-  "active_plan": "docs/phases/engine-breadth/milestones/form1099div-box7-direct-ftc.md",
-  "milestone_state": "closed",
-  "status": "**ENGINE BREADTH / FORM 1099-DIV BOX 7 DIRECT FOREIGN TAX CREDIT (NO FORM 1116) — CLOSED.** An owner-commissioned external independent review (2026-08-05) found the original in-branch READY verdict was made in error; one bounded findings-only repair cycle fixed all five findings (destructive/non-reproducible generator, crashing MFS claim narrowed rather than backfilled, stale presentation golden, thin lifecycle evidence, red mypy gate) and a fresh independent re-review confirmed READY. Package graph unchanged by the repair: core v21 / published v16 / release v14 / adopt v21. Next milestone owner-unselected.",
+  "topic": "form1099r-ira-distributions-line4b",
+  "active_plan": "docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md",
+  "milestone_state": "planned",
+  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — PLANNED.** The owner-selected bounded class starts from the ratified Form 1099-DIV box-7 tip: core v21 / published v16 / release v14 / adopt v21. No IRA successor package, schema, registry, or rule version is allocated yet.",
   "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_role": "Foreman (charter and base-reconciliation work)",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
@@ -26,30 +26,34 @@ inbound carryovers and Form 8949 wash-sale (code W) lines 1b/8b, Form 1099-INT
 box 8 tax-exempt interest on line 2a, Form 1099-G box-1 unemployment
 compensation through Schedule 1 into Form 1040 line 8, and the bounded Form
 1099-DIV box-7 direct foreign tax credit without Form 1116 through Schedule 3
-line 1/8 and Form 1040 line 20. The next Engine Breadth milestone is
-owner-unselected.
+line 1/8 and Form 1040 line 20. The selected next milestone is the bounded
+fully taxable IRA-family distribution route from Form 1099-R to Form 1040 line
+4b; line 4a remains blank/absent for this class and basis, rollovers, and
+special distribution treatment remain outside the claim.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none. Form 1099-DIV Box 7 Direct Foreign Tax Credit
-  (No Form 1116) **closed 2026-08-05** after one findings-only repair cycle
-  and a fresh independent re-review confirmed READY, following an external
-  review that found the original in-branch READY verdict was made in error.
-  Prior state: rebased onto the ratified tip that includes Form 8949 (PR
-  #161), Form 1099-INT box 8 (PR #164), and Form 1099-G (PR #166).
-* **Current result:** bounded synthetic-complete direct-election box-7 path
-  with independent family, residual succession (boxes 3 and 5 only), box-8
-  companion, creditability and election authorities, threshold gate, regular-tax
-  cap against line 16, Schedule 3 line 1/8, Form 1040 line 20, and
-  tax-after-credit. Package graph is the validated additive union of the
-  ratified tip plus this milestone’s members: core **v21**, published **v16**,
-  release **v14**, adoption **v21** (see retrospective).
-* **Plan:** `docs/phases/engine-breadth/milestones/form1099div-box7-direct-ftc.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md`.
+* **Active milestone:** Fully Taxable IRA Distributions from Form 1099-R to
+  Form 1040 Line 4b — planned from the ratified tip that includes Form 8949
+  (PR #161), Form 1099-INT box 8 (PR #164), Form 1099-G (PR #166), and Form
+  1099-DIV box 7 (PR #167).
+  Concurrent work remains isolated: the wash-sale work is merged as PR #161,
+  and the owner-launched SSA/Form 1040 line-6 work remains on its separate
+  branch and draft PR #163; neither is part of this milestone.
+* **Current result:** plan and committed builder/reviewer/repair charters;
+  implementation has not started. The package graph remains the ratified core
+  **v21**, published **v16**, release **v14**, adoption **v21**; future IRA
+  versions are intentionally unassigned.
+* **Plan:** `docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md`.
+* **Owner-launch charters:** `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track1.md`,
+  `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track2.md`,
+  `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-review.md`, and
+  `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-repair.md`.
 * **Prior closed (selected pointers):** Form 1099-G plan/retrospective remain
   on the ratified line; this phase-state points at the just-closed box-7 plan.
 * **Contracts:** plan B7-C1–C10; no new ADR.
-* **Next:** select a new milestone from the coverage frontier.
+* **Next:** reconcile the schema ledger on the rebased milestone branch, then
+  proceed only through the committed Track 1/Track 2 charters.
 
 ## Re-entry
 
