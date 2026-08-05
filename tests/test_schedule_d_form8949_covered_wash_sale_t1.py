@@ -1393,6 +1393,50 @@ class PresentationGolden(unittest.TestCase):
         self.assertEqual(attachments[F8949]["resolved"]["disposition"], "blocked")
         self.assertEqual(attachments[SD_ATT]["resolved"]["disposition"], "blocked")
 
+    def test_form8949_row_explanation_and_line_1b_8b_citation_walk(self) -> None:
+        """Fixture #17 (columns (d)/(e)/(g)/(h) tie-out) at the presentation-
+        model level: box A (short-term) and box D (long-term) both carry
+        walkable row-explanation parts, and Schedule D lines 1b/8b cite the
+        exact underlying transaction facts, not merely a subtotal-level pin
+        - the same citation-walk pattern lines 1a/8a and 6/14 already use
+        (ADR-0062 Decision 7, ADR-0046 zero-authority/citation identity)."""
+        model = self._model(
+            _build_acts(w_st=[(1000, 4000, 500)], w_lt=[(2000, 7000, 2000)]),
+            "demo.sdw.t1.pres-row-walk",
+        )
+        sections = {s["id"]: s for s in model["sections"]}
+        groups = {g["id"]: g for g in model["citationGroups"]}
+
+        # Each box total cites its own three contributing transaction facts
+        # (proceeds/basis/adjustment), never a bare subtotal-level pin.
+        self.assertEqual(len(sections["line-1b-h"]["citationSites"]), 3)
+        self.assertEqual(len(sections["line-8b-h"]["citationSites"]), 3)
+
+        # The Form 8949 attachment publishes one walkable row-explanation
+        # part per box/column; each ties its reported subtotal to the exact
+        # transaction fact(s) that produced it - this is the row
+        # explanation itself, not a summary.
+        f8949_group = groups[F8949]
+        parts_by_heading = {p["heading"]: p for p in f8949_group["parts"]}
+        expected = {
+            "Part I box A column (d): short-term wash-sale proceeds": 1000,
+            "Part I box A column (e): short-term wash-sale basis": 4000,
+            "Part I box A column (g): short-term wash-sale adjustment": 500,
+            "Part II box D column (d): long-term wash-sale proceeds": 2000,
+            "Part II box D column (e): long-term wash-sale basis": 7000,
+            "Part II box D column (g): long-term wash-sale adjustment": 2000,
+        }
+        self.assertEqual(set(parts_by_heading), set(expected))
+        for heading, subtotal in expected.items():
+            part = parts_by_heading[heading]
+            self.assertEqual(part["tieOutText"], f"Reported subtotal: {subtotal}")
+            self.assertEqual(len(part["citationSites"]), 1)
+
+        # Column (h) per box reproduces d - e + g exactly, from the same
+        # cited transaction facts the row-explanation parts above publish.
+        self.assertEqual(float(sections["line-1b-h"]["resolved"]["act"]["finding"]["value"]), 1000 - 4000 + 500)
+        self.assertEqual(float(sections["line-8b-h"]["resolved"]["act"]["finding"]["value"]), 2000 - 7000 + 2000)
+
 
 if __name__ == "__main__":
     unittest.main()
