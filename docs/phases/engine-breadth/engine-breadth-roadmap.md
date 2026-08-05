@@ -208,6 +208,17 @@ source and completeness boundary is selected.
   honestly outside the claim. Plan:
   `milestones/schedule-d-form8949-covered-wash-sale.md`; retrospective:
   `docs/milestone-retrospectives/2026-08-05-schedule-d-form8949-covered-wash-sale.md`.
+- **Form 1099-INT Box 8 Tax-Exempt Interest to Form 1040 Line 2a — closed
+  2026-08-05.** The bounded box-8 succession of the closed box-12 line-2a
+  route is synthetic complete through Path A/B completeness, live-path box-9
+  companion, reported-only explanation and presentation, and packaging
+  v18/v13/v11/adopt-v18. Independent review returned `READY` with no findings.
+  Plan: `milestones/form1099int-box8-line2a.md`; retrospective:
+  `docs/milestone-retrospectives/2026-08-05-form1099int-box8-line2a.md`.
+- Subtractive adjustments and other market-discount situations remain
+  separate candidates; this selection does not absorb them.
+- Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
+  historical evidence for the bounded slice Engine Breadth starts from.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
