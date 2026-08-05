@@ -622,49 +622,270 @@ Create the milestone branch from the ratified line, commit the complete plan,
 set the branch's lifecycle to `planned`, and open the draft milestone PR. The
 owner's approval of that plan starts implementation without merging the PR.
 
+## Milestone Publication Curation
+
+Audience: Foreman
+
+When the owner asks the Foreman to prepare the current milestone PR for
+publication, this is the controlling procedure. Publication curation is
+repository housekeeping and milestone distillation. It does not authorize the
+Foreman to reinterpret a product contract, expand scope, or implement a
+semantic repair. If cleanup exposes a product defect or a schema/version
+collision requiring semantic judgment, stop and charter the appropriate
+Builder.
+
+### 1. Orient and establish safety
+
+Run, in order:
+
+```sh
+python3 tools/foreman_context.py --ref HEAD --format markdown
+git status --short --branch
+git fetch origin --prune
+```
+
+Reconcile the capsule with Git and report the current milestone branch, the
+tool-derived ratified line, the milestone PR if one exists, behind/ahead counts,
+spent status, and worktree cleanliness. Do not proceed on a spent branch. Do
+not rebase or rewrite with uncommitted work present; preserve legitimate work
+first.
+
+Before substantially rewriting a published milestone branch, create and
+verify the temporary local safety ref
+`snapshot/<date>-<topic>-pre-pr-curation`. Record its commit and tree hashes in
+the owner report. This is not a permanent tag; delete it only after the merged
+result is verified on the ratified line. If the milestone PR already exists,
+return it to draft before changing candidate history. If final owner approval
+has begun, report that the candidate is changing before any force-push.
+
+### Owner-directed semantic ledger during final base synchronization
+
+Apply this subsection only when the owner explicitly directs the
+milestone-local semantic-ledger experiment and supplies its temporary checker.
+That live direction is sufficient to proceed when the branch is merely behind
+its ratified line; it does not override spent-branch, dirty-tree, data-safety,
+or publication-history protections.
+
+The ledger measures the selected core-package surface across three states:
+old base → old milestone head, old base → new ratified base, and new base →
+rebuilt milestone head. It is diagnostic evidence, not a contract or committed
+deliverable.
+
+Before rebasing:
+
+1. Derive the milestone branch, pre-rebase `HEAD`, ratified line, merge base,
+   and fetched ratified head mechanically.
+2. Confirm that the current branch is a live milestone branch, the tree is
+   clean, the merge base differs from the current ratified head, and both the
+   merge base and milestone head contain resolvable core packages. If the
+   milestone publishes no core-package successor, report the check as
+   inapplicable and stop. If no preserved ref identifies the pre-rebase state,
+   stop rather than reconstructing it from prose.
+3. Materialize the owner-supplied checker at
+   `local-data/milestone-ledgers/<sanitized-branch-name>.checker.py`. <!-- envelope-scan: allow --> Neither
+   the checker nor its output may be committed. The experiment itself does not
+   edit phase state, plans, ADRs, or retrospectives. Store the ledger beside the
+   checker as `<sanitized-branch-name>.json`.
+4. Capture the intended delta:
+
+   ```sh
+   python3 <checker> capture \
+     --base <pre-rebase-base> \
+     --head <pre-rebase-head> \
+     --output local-data/milestone-ledgers/<sanitized-branch-name>.json # envelope-scan: allow
+   ```
+
+5. Record predecessor/successor package versions and schemas plus changed
+   member identities, entrypoints, admitted schemas, input bindings, and
+   composition obligations.
+
+Perform the ordinary rebase and contract-preserving rebuild without using the
+ledger as an allowlist. Mechanical renumbering and deterministic regeneration
+remain ordinary curation; a collision that asks which product meaning should
+survive is a semantic stop.
+
+Before any push, PR update, or semantic repair, run:
+
+```sh
+python3 <checker> verify \
+  --new-base <fetched-ratified-line> \
+  --new-head HEAD \
+  --ledger local-data/milestone-ledgers/<sanitized-branch-name>.json # envelope-scan: allow
+```
+
+Interpret exit `0` as preservation of the measured milestone delta and
+non-overlapping upstream changes; exit `1` as semantic drift or overlap that
+stops publication; and exit `2` as an experiment failure to diagnose without
+turning it into a product finding. Run the negative control using the ledger's
+original base and head as the new comparison pair; it must return `0`:
+
+```sh
+python3 <checker> verify \
+  --new-base <pre-rebase-base> \
+  --new-head <pre-rebase-head> \
+  --ledger local-data/milestone-ledgers/<sanitized-branch-name>.json # envelope-scan: allow
+```
+
+Test generator reproducibility separately. Registry, release, or adoption byte
+differences are not semantic-ledger findings by themselves: identify the first
+differing generated artifact and classify downstream checksum changes as its
+cascade.
+
+Report refs, package versions, the capture summary, exit code, up to five
+representative findings, and totals grouped as stale predecessor, upstream
+additions lost, upstream selections altered, upstream retirements reversed,
+milestone delta lost, and semantic overlap. Also report the negative control,
+generator result and first differing artifact, and whether publication must
+stop. Retain the ignored ledger through any repair and re-verification. Before
+closeout, remove the checker and ledger, require
+`git status --short --ignored local-data/milestone-ledgers/` <!-- envelope-scan: allow --> to show neither,
+and confirm that no experimental branch or worktree remains.
+
+### 2. Rebase onto the latest ratified line
+
+Rebase the milestone branch onto the fetched ratified line derived by the
+context tooling. Never rebase or force-push the ratified line. Apply
+`AGENTS.md`, "Shared invariants" and "Schema Publication Protocol" during
+conflict resolution. A same-version, different-bytes collision is not resolved
+by choosing a side; stop and route an additive version repair.
+
+Preserve the ratified line's intervening work and the milestone's intended
+capability. Do not discard tests, fixtures, citations, package entries, or
+newer process state merely to make conflicts disappear. After the rebase,
+inspect the complete diff against the remote ratified line and compare it with
+the safety snapshot. Account explicitly for every product-file difference
+introduced during curation.
+
+### 3. Curate durable history
+
+Rewrite only the open milestone branch. Its normal durable history is:
+
+1. the final milestone plan as its own commit;
+2. each accepted product contract or ADR as a legible decision commit;
+3. one atomic post-repair implementation commit per completed track;
+4. only prototype evidence required by a durable decision; and
+5. milestone closeout and retrospective.
+
+Fold checkpoints, fixups, reviewer-directed repairs, generated-golden
+corrections, and standalone formatting, typing, lint, or test fixes into the
+implementation commit that owns them. Construct final commits without
+introducing temporary files merely to delete them later. Keep planning,
+accepted contracts, implementation tracks, and closeout distinct; do not
+squash the milestone into one commit.
+
+Commit messages name the durable unit. Remove transient SHAs, agent-session
+URLs, generated-by footers, and debugging narration. Before merge, durable
+documents cite ADR numbers, track names, the PR, or artifact paths rather than
+working milestone commit hashes.
+
+### 4. Remove or promote working artifacts
+
+Remove Builder/Reviewer charters, interim reviews, repair instructions,
+checkpoint and handoff records, raw process logs, temporary spikes and tables,
+provisional status reports, redundant amendments, follow-up capsules,
+generated local output, absolute paths, session transcripts, agent URLs, and
+archives that preserve only development ceremony unless a specific item passes
+the durability test in "Branch, PR, and Merge Protocol".
+
+Distill before removal: product decisions go to accepted ADRs, observable
+behavior to tests and fixtures, material dissent to an ADR or retrospective,
+reusable process lessons to the retrospective or the process document they
+change, and current direction to phase documents.
+
+Never remove accepted ADRs, published schemas or manifest history, the final
+plan, intentional tests and synthetic fixtures, durable citations, current
+phase direction, the retrospective, required roadmap/frontier/deferral updates,
+or prototype evidence needed to recover an accepted decision. Archive only
+necessary evidence under one dated root with a boundary README, navigable
+topology, and repaired inbound references.
+
+### 5. Close and verify the repository state
+
+Complete "Milestone Closeout" below, then run only the Foreman's closeout
+checks. Do not run the full test suite to duplicate CI.
+
+### 6. Audit the final PR
+
+Inspect the complete final diff and PR body together. The PR must let a fresh
+reviewer understand the bounded capability, exclusions, accepted decisions,
+durable commit units, executable evidence and fixture classes, material dissent
+or its absence, closeout status, and independent-review/CI posture without
+reconstructing deleted working records.
+
+Remove false archive claims, stale paths, transient SHAs, session footers, and
+descriptions of intermediate states no longer present in the curated branch.
+
+### 7. Bind review and CI to the candidate
+
+After all rebasing, history rewriting, cleanup, and closeout edits, have an
+author-independent Reviewer inspect the exact final range
+`<ratified-line>..HEAD`. The final-review charter includes commit boundaries,
+contract preservation, published-schema integrity, working-artifact removal,
+closeout state, data safety, product behavior, and
+`docs/roles/qualitative-review.md`.
+
+Address findings through the lean production loop. If a semantic repair
+changes the candidate, fold it into its owning track and re-review the affected
+semantic surface. Publish rewritten history with `--force-with-lease`, obtain a
+fresh green `verify` check on the exact pushed head, and mark the PR ready only
+when both review and CI bind that head.
+
+Report the final commit list, removed or archived working artifacts, rebase
+result, closeout checks, independent-review verdict, and CI URL. The owner
+performs the merge.
+
+### 8. Post-merge housekeeping
+
+After the owner reports the merge, fetch and prune. Verify that the merge and
+milestone commits are reachable from the ratified line and that the ratified
+line contains the expected closed phase state. Apply `AGENTS.md`, "Working
+rules" for merged-branch, worktree, and live-session cleanup. Delete the
+pre-curation snapshot after confirming it is no longer needed.
+
 ## Milestone Closeout
 
-Audience: Agents
+Audience: Foreman
 
-A milestone closes in its one milestone PR. Closeout makes the proposed
-repository self-describing and curates the branch before the PR is marked
-ready. Treat closeout as bookkeeping and distillation, not a chance to
-reinterpret results. If a capability, maturity, or next-step claim needs new
-judgment or evidence, stop and raise it as a project-execution question.
+A milestone closes in its one milestone PR. Closeout makes the proposed tree
+self-describing; publication-history curation, final review, CI, and post-merge
+cleanup are governed by "Milestone Publication Curation" above. Treat closeout
+as bookkeeping and distillation, not a chance to reinterpret results. If a
+capability, maturity, or next-step claim requires new judgment or evidence,
+stop and raise it as a project-execution question.
 
-1. Before final review:
-   - fold checkpoint and repair commits into their completed track commits;
-   - remove working charters, interim reviews, repair instructions, and process
-     notes unless a material item is explicitly promoted;
-   - archive a closed prototype working set when its evidence remains useful;
-     and
-   - confirm that ADRs, tests/fixtures, and the retrospective carry every
-     decision, behavioral claim, dissent, and reusable lesson needed after the
-     working record disappears.
-2. In the final milestone candidate:
-   - set `docs/phase-state.md`'s `milestone_state` to `closed`, replace conditional
-     status prose with the completed result, complete its execution record,
-     remove `initial_briefing_follow_up`, and route `deep_reads.new_milestone`
-     through the retrospective;
-   - update `docs/phase-state.md` so its briefing, current state, pointers, and
-     next action describe the completed milestone and leave the next milestone
-     unselected;
-   - update the phase roadmap's milestone status; and
-   - include the retrospective.
-   - run `git diff --check`, `python3 tools/governance_lint.py`, and
-      `python3 tools/envelope_scan.py --range <base>..HEAD` before pushing.
-   - run `python3 tools/foreman_context.py --ref HEAD --format markdown`.
-      It must report `closed`, select-a-new-milestone as the next transition, 
-      no temporary follow-up capsule, and the initial briefing checkpoint. 
-3. Have an independent reviewer inspect the curated candidate range. Address
-   any finding under the lean production loop, then obtain green CI on the
-   exact final PR head.
+Confirm all of the following in the final candidate:
 
-The merge leaves the milestone closed for re-entry. `docs/phase-state.md` continues
-to point to the just-closed plan until the next milestone branch is selected.
-After the merge is visible on the ratified line, delete the merged branch and
-remove clean milestone worktrees or temporary aliases. Never remove a worktree
-used by a live session.
+- `docs/phase-state.md` has `milestone_state: closed`;
+- `topic` and nonempty `active_plan` still identify the just-closed milestone;
+- the retrospective pointer is nonempty and resolves;
+- status and briefing describe the actual completed result without conditional
+  or in-progress language;
+- the next milestone remains unselected;
+- `current_role` is the Foreman's between-milestones selection posture and
+  `current_prompt` routes to the applicable selection instrument;
+- `initial_briefing_follow_up` and temporary capsules are absent;
+- `deep_reads.new_milestone` routes through the retrospective;
+- the plan's execution record and status are complete;
+- the phase roadmap reflects closure;
+- the coverage frontier claims only the bounded delivered capability;
+- exclusions and remaining work remain in the deferral ledger;
+- README claims match changed production behavior; and
+- the retrospective is present and carries material dissent and reusable
+  lessons not already normed elsewhere.
+
+Run:
+
+```sh
+git diff --check
+python3 tools/governance_lint.py
+python3 tools/envelope_scan.py --range <ratified-line>..HEAD
+python3 tools/foreman_context.py --ref HEAD --format markdown
+```
+
+The context command must report lifecycle `closed`, the just-closed plan and
+retrospective, select-a-new-milestone as the next transition, no temporary
+follow-up capsule, and a valid initial briefing checkpoint. The Foreman does
+not run the full suite; CI remains the complete verification gate.
 
 ## Recording Owner Assent
 

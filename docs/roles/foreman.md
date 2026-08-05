@@ -14,6 +14,12 @@ high level milestone briefing, current state, pointers, and the
 reconcile the in-flight state against Git; if the note looks stale against Git,
 trust Git and say so.
 
+*"Resume as foreman and prepare the current milestone PR for publication"*
+selects the publication-curation action after ordinary orientation. Read and
+execute `PROJECT_PLANNING.md`, "Milestone Publication Curation" and "Milestone
+Closeout". If the owner also directs the milestone-local semantic-ledger check,
+apply that named subsection before rewriting or publishing the candidate.
+
 ## Seed set (read on boot, in this order)
 
 1. Render `python3 tools/foreman_context.py --ref HEAD --format markdown`.
@@ -228,8 +234,9 @@ this is the only way to see them.
 ## Standing disciplines
 
 - **Curate before publication.** What survives the milestone PR is governed by
-  `PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol". Remove unpromoted
-  working records and fold fixes into their track commits before final review.
+  `PROJECT_PLANNING.md`, "Branch, PR, and Merge Protocol" and "Milestone
+  Publication Curation". Remove unpromoted working records and fold fixes into
+  their track commits before final review.
 - **Close before the milestone merge.** Execute `PROJECT_PLANNING.md`,
   "Milestone Closeout", obtain final independent review and green CI, then
   present the PR for owner merge.

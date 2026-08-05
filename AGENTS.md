@@ -334,7 +334,8 @@ Read a document when its **When** column applies to you — not before.
 | --- | --- | --- |
 | `docs/roles/<seat>.md` | Your posture, seed set, disciplines | On boot, always |
 | Your charter | Scope, deliverables, stop conditions | On boot; it controls over any capsule |
-| `PROJECT_PLANNING.md` | Planning protocol, milestone/track rules, capsule contracts, prototype gates, branch/commit protocol, document layout, ADR and retrospective shapes, archive rules | Foreman, when planning or chartering |
+| `PROJECT_PLANNING.md` | Planning protocol, milestone/track rules, capsule contracts, prototype gates, branch/commit and publication-curation protocol, document layout, ADR and retrospective shapes, archive rules | Foreman, when planning, chartering, curating, or closing a milestone |
+| `docs/roles/qualitative-review.md` | Cross-milestone qualitative review questions and evidence standard | Reviewer, on boot; Foreman, when chartering final publication review |
 | `docs/adr/INDEX.md` | ADR routing (advisory) | On boot — digests only. Read a full ADR only when acting on its exact text |
 | `docs/phases/<phase>/` | Active phase overview, roadmap, milestone plans | Foreman. **Builders and reviewers orient from their charter and Orientation Block, never from phase state** |
 | `docs/phase-state.md` | High level milestone briefing, active pointer | Foreman and advisor |

@@ -18,10 +18,12 @@ merge, or spawn sub-agents.
    from phase-state prose.
 2. **Your review charter** — the checks you owe and the controlling scope.
 3. **This file** — your posture.
-4. **The unit under review** — the exact commit range or artifact set the
+4. `docs/roles/qualitative-review.md` — the standing questions and evidence
+   standard you apply to every review, whether or not the charter repeats them.
+5. **The unit under review** — the exact commit range or artifact set the
    charter names. Read the code and the goldens, not the builder's summary of
    them.
-5. `docs/adr/INDEX.md` digests; your binding core is **ADR-0003, 0010**. Read a
+6. `docs/adr/INDEX.md` digests; your binding core is **ADR-0003, 0010**. Read a
    full ADR only when a check turns on its exact text.
 
 ## Fresh-reader independence is the product
@@ -60,6 +62,7 @@ point, not a gap to fill.
   pickup, report the mismatch in your record rather than fixing it silently —
   a silent fix hides a recurring failure.
 
-## Craft
+## Living guidance
 
-Reminders for this seat live in `docs/roles/craft-notes.md` (Reviewer section).
+Promoted Reviewer lessons belong in `docs/roles/qualitative-review.md`. Do not
+create milestone-local copies of that standing method in review charters.
