@@ -288,6 +288,8 @@ synthetic amounts. The production battery must include, at minimum:
 14. every existing current-year-losses regression fixture from the prior
     milestone, run as a regression, unmodified.
 
+> **Disclosure (Excluded Cases Representation):** The five-fact prior-return authority (ADR-0059) admits only scalar 2024 line-result assertions (`P1`–`P5`) and has no fact-type vocabulary or schema representation for prior joint-return allocation or canceled-debt interactions (Pub. 4681). Consequently, these situations cannot be represented as input facts in workspace data to trigger specialized blocking rules; taxpayers in these situations remain out of scope and cannot populate the five-fact authority without prior manual resolution outside this engine class.
+
 The authoritative goldens enter through `live_coordinate_run` from an act
 log, never a hand-built `RunContext`.
 

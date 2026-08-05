@@ -1,0 +1,261 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers"
+    ]
+  },
+  "id": "tax.us.2025.rule.capital-loss-carryover.short-term",
+  "notes": "IRS Capital Loss Carryover Worksheet - Lines 6 and 14 (2025 Instructions for Schedule D), lines 1-8 / result line 8. Path A (no-inbound-capital-loss-carryovers=yes) publishes 0 citing the declaration only. Path B runs eligibility (worksheet preamble) then body arithmetic W1-W8 with floors (if zero or less, enter -0-). Publishes nonnegative W8.",
+  "pins": [],
+  "publishes": "tax.us.2025.capital-loss-carryover.short-term",
+  "requires": [
+    "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "else": {
+      "else": 0,
+      "op": "choose",
+      "then": {
+        "else": 0,
+        "op": "choose",
+        "then": {
+          "args": [
+            {
+              "left": {
+                "left": 0,
+                "op": "subtract",
+                "right": {
+                  "name": "tax.us.2025.prior-return.schedule-d.line-7",
+                  "op": "ref"
+                }
+              },
+              "op": "subtract",
+              "right": {
+                "args": [
+                  {
+                    "else": {
+                      "args": [
+                        {
+                          "args": [
+                            {
+                              "name": "tax.us.2025.prior-return.form1040.line-15",
+                              "op": "ref"
+                            },
+                            {
+                              "left": 0,
+                              "op": "subtract",
+                              "right": {
+                                "name": "tax.us.2025.prior-return.schedule-d.line-21",
+                                "op": "ref"
+                              }
+                            }
+                          ],
+                          "op": "add"
+                        },
+                        0
+                      ],
+                      "op": "max"
+                    },
+                    "op": "choose",
+                    "then": {
+                      "left": 0,
+                      "op": "subtract",
+                      "right": {
+                        "name": "tax.us.2025.prior-return.schedule-d.line-21",
+                        "op": "ref"
+                      }
+                    },
+                    "when": {
+                      "cmp": "lt",
+                      "left": {
+                        "left": 0,
+                        "op": "subtract",
+                        "right": {
+                          "name": "tax.us.2025.prior-return.schedule-d.line-21",
+                          "op": "ref"
+                        }
+                      },
+                      "op": "compare",
+                      "right": {
+                        "args": [
+                          {
+                            "args": [
+                              {
+                                "name": "tax.us.2025.prior-return.form1040.line-15",
+                                "op": "ref"
+                              },
+                              {
+                                "left": 0,
+                                "op": "subtract",
+                                "right": {
+                                  "name": "tax.us.2025.prior-return.schedule-d.line-21",
+                                  "op": "ref"
+                                }
+                              }
+                            ],
+                            "op": "add"
+                          },
+                          0
+                        ],
+                        "op": "max"
+                      }
+                    }
+                  },
+                  {
+                    "args": [
+                      {
+                        "name": "tax.us.2025.prior-return.schedule-d.line-15",
+                        "op": "ref"
+                      },
+                      0
+                    ],
+                    "op": "max"
+                  }
+                ],
+                "op": "add"
+              }
+            },
+            0
+          ],
+          "op": "max"
+        },
+        "when": {
+          "cmp": "lt",
+          "left": {
+            "name": "tax.us.2025.prior-return.schedule-d.line-7",
+            "op": "ref"
+          },
+          "op": "compare",
+          "right": 0
+        }
+      },
+      "when": {
+        "args": [
+          {
+            "cmp": "lt",
+            "left": {
+              "name": "tax.us.2025.prior-return.schedule-d.line-21",
+              "op": "ref"
+            },
+            "op": "compare",
+            "right": 0
+          },
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "cmp": "lt",
+                    "left": {
+                      "name": "tax.us.2025.prior-return.schedule-d.line-16",
+                      "op": "ref"
+                    },
+                    "op": "compare",
+                    "right": 0
+                  },
+                  {
+                    "cmp": "gt",
+                    "left": {
+                      "name": "tax.us.2025.prior-return.schedule-d.line-21",
+                      "op": "ref"
+                    },
+                    "op": "compare",
+                    "right": {
+                      "name": "tax.us.2025.prior-return.schedule-d.line-16",
+                      "op": "ref"
+                    }
+                  }
+                ],
+                "op": "all"
+              },
+              {
+                "cmp": "lt",
+                "left": {
+                  "name": "tax.us.2025.prior-return.form1040.line-15",
+                  "op": "ref"
+                },
+                "op": "compare",
+                "right": 0
+              }
+            ],
+            "op": "any"
+          }
+        ],
+        "op": "all"
+      }
+    },
+    "op": "choose",
+    "then": 0,
+    "when": {
+      "cmp": "eq",
+      "left": {
+        "name": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+        "op": "ref"
+      },
+      "op": "categorical_compare",
+      "right": {
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+          "version": "v1"
+        },
+        "op": "category_literal",
+        "value": "yes"
+      }
+    }
+  },
+  "version": "v1",
+  "when": {
+    "else": {
+      "condition": true,
+      "members": [
+        {
+          "name": "tax.us.2025.prior-return.form1040.line-15",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.prior-return.schedule-d.line-21",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.prior-return.schedule-d.line-7",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.prior-return.schedule-d.line-15",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.prior-return.schedule-d.line-16",
+          "op": "ref"
+        }
+      ],
+      "op": "conditional_dependency_set"
+    },
+    "op": "choose",
+    "then": true,
+    "when": {
+      "cmp": "eq",
+      "left": {
+        "name": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+        "op": "ref"
+      },
+      "op": "categorical_compare",
+      "right": {
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+          "version": "v1"
+        },
+        "op": "category_literal",
+        "value": "yes"
+      }
+    }
+  }
+}

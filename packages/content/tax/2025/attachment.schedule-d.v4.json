@@ -1,0 +1,235 @@
+{
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-D",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "completeness": {
+    "required_answers": [
+      {
+        "check": "presence",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-form8949-sources",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-form8949-sources"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-other-schedule-d-sources"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-lines-18-19-sources"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-1099da-or-qof"
+      }
+    ]
+  },
+  "id": "tax.us.2025.rule.attachment.schedule-d",
+  "itemizations": [
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-st-proceeds",
+          "version": "v1"
+        }
+      },
+      "label": "Line 1a column (d): short-term proceeds",
+      "part_id": "line-1a-proceeds",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-st-txn.proceeds",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-st-proceeds",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-st-proceeds-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-st-basis",
+          "version": "v1"
+        }
+      },
+      "label": "Line 1a column (e): short-term basis",
+      "part_id": "line-1a-basis",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-st-txn.basis",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-st-basis",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-st-basis-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-st-basis-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-lt-proceeds",
+          "version": "v1"
+        }
+      },
+      "label": "Line 8a column (d): long-term proceeds",
+      "part_id": "line-8a-proceeds",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-lt-txn.proceeds",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-lt-proceeds",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-lt-proceeds-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-lt-basis",
+          "version": "v1"
+        }
+      },
+      "label": "Line 8a column (e): long-term basis",
+      "part_id": "line-8a-basis",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-lt-txn.basis",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-lt-basis",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-lt-basis-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-lt-basis-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099div.2a",
+          "version": "v1"
+        }
+      },
+      "label": "Line 13: capital gain distributions",
+      "part_id": "line-13-box2a",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099div.2a",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.dividends.2a-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.dividends.2a-subtotal"
+      }
+    }
+  ],
+  "publishes": "tax.us.2025.schedule-d.disposition",
+  "requirement": {
+    "citation": {
+      "id": "tax.us.2025.citation.attachment.schedule-d",
+      "version": "v1"
+    },
+    "comparison": "strictly_greater_than",
+    "subtotals": [
+      "tax.us.2025.f1099b.covered-st-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-lt-proceeds-subtotal",
+      "tax.us.2025.capital-loss-carryover.short-term",
+      "tax.us.2025.capital-loss-carryover.long-term"
+    ],
+    "threshold_parameter": {
+      "id": "tax.us.2025.parameter.default-zero",
+      "version": "v1"
+    }
+  },
+  "schema": "attachment-rule.v4",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Schedule D attachment v4 (ADR-0059/0060): threshold any-over on ST/LT proceeds and W8/W13 carryovers; Path A/B completeness on no-inbound declaration; four retained boundary declarations value-checked yes.",
+  "version": "v4"
+}
