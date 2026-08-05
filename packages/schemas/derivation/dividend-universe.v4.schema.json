@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/dividend-universe.v4",
+  "title": "Successor declared dividend universe with composable boxes 2a, 12, and 7",
+  "description": "Successor Form 1099-DIV box universe: composable boxes {1a, 1b, 2a, 12, 7}, each bound to exactly one source family, and residual recorded-non-composable boxes {3, 5} without boxes 2a, 12, or 7. The capital-gain signal remains CAPITAL_GAIN_DISTRIBUTION_RECORDED from a current successor box-2a family member. dividend-universe.v1 through v3 remain immutable history.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "dividend-universe.v4"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "tax_year": {
+          "type": "integer"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "tax_year",
+        "jurisdiction",
+        "family"
+      ],
+      "additionalProperties": false
+    },
+    "composable_boxes": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "properties": {
+          "box": {
+            "enum": [
+              "1a",
+              "1b",
+              "2a",
+              "12",
+              "7"
+            ]
+          },
+          "family": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "required": [
+          "box",
+          "family"
+        ],
+        "additionalProperties": false
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "box": {
+                "const": "1a"
+              }
+            },
+            "required": [
+              "box"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "box": {
+                "const": "1b"
+              }
+            },
+            "required": [
+              "box"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "box": {
+                "const": "2a"
+              }
+            },
+            "required": [
+              "box"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "box": {
+                "const": "12"
+              }
+            },
+            "required": [
+              "box"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "box": {
+                "const": "7"
+              }
+            },
+            "required": [
+              "box"
+            ]
+          }
+        }
+      ]
+    },
+    "recorded_non_composable_boxes": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "3",
+          "5"
+        ]
+      }
+    },
+    "recorded_boxes_fact_type": {
+      "$ref": "#/$defs/pin"
+    },
+    "capital_gain_signal": {
+      "type": "object",
+      "properties": {
+        "box": {
+          "const": "2a"
+        },
+        "signal": {
+          "const": "CAPITAL_GAIN_DISTRIBUTION_RECORDED"
+        },
+        "source": {
+          "const": "current_successor_family_member"
+        }
+      },
+      "required": [
+        "box",
+        "signal",
+        "source"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "title",
+    "scope",
+    "composable_boxes",
+    "recorded_non_composable_boxes",
+    "recorded_boxes_fact_type",
+    "capital_gain_signal"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+$"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

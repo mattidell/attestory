@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.schedule3.line1-direct-ftc",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule3.line1",
+    "version": "v1"
+  },
+  "description": "Schedule 3 (Form 1040) Part I line 1: foreign tax credit under the direct election without Form 1116 for the bounded 2025 Form 1099-DIV box-7 class. Equals min(creditable box-7 subtotal, Form 1040 line 16) when election, creditability, associated-income, and threshold authorities hold. Does not complete Form 1116.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Schedule 3 line 1 is blocked because election, creditability, associated-income, threshold, closure, or regular-tax scope authority is incomplete or failed.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero through honest closed-empty or zero-credit authority on the direct-election path.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a scope, election, threshold, or creditability component is not satisfied for the bounded class.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "Direct foreign tax credit without Form 1116: published from closed box-7 foreign tax paid, under named creditability and election authority, capped at regular tax (Form 1040 line 16).",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-Schedule-3",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.schedule3.line-1",
+  "label": "Foreign tax credit",
+  "line": "Sch3-1",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

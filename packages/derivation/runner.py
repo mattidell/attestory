@@ -101,7 +101,7 @@ class RunContext:
     current_horizons: dict[str, str] = field(default_factory=dict)
     fact_types: list[dict[str, Any]] = field(default_factory=list)
     input_bindings: list[dict[str, Any]] = field(default_factory=list)
-    companion_presence_pairs: dict[str, str] = field(default_factory=dict)
+    companion_presence_pairs: dict[str, str | list[str]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -371,9 +371,14 @@ class _Run:
                 # a declared companion that cannot be matched must stop the
                 # run rather than publish an unpinned dependent derivation.
                 pairs = getattr(self.ctx, "companion_presence_pairs", None) or {}
-                companion_type = pairs.get(name)
-                if not companion_type:
+                companion_raw = pairs.get(name)
+                if not companion_raw:
                     continue
+                companion_types = (
+                    [companion_raw]
+                    if isinstance(companion_raw, str)
+                    else [c for c in companion_raw if isinstance(c, str) and c]
+                )
                 raw_fact_id = fact_ids[index] if index < len(fact_ids) else None
                 if not isinstance(raw_fact_id, str) or "|" not in raw_fact_id:
                     raise SourceAuthorityError(
@@ -381,32 +386,33 @@ class _Run:
                         f"but fact id is not identity-bearing: {raw_fact_id!r}"
                     )
                 suffix = raw_fact_id.split("|", 1)[1]
-                companion_fids = self.source_fids.get(companion_type, [])
-                companion_fact_ids = self.source_fact_ids.get(companion_type, [])
-                matched = False
-                for c_index, c_fact_id in enumerate(companion_fact_ids):
-                    if not isinstance(c_fact_id, str) or "|" not in c_fact_id:
-                        continue
-                    if c_fact_id.split("|", 1)[1] != suffix:
-                        continue
-                    if c_index >= len(companion_fids):
-                        continue
-                    c_pin = {
-                        "role": "input",
-                        "id": companion_fids[c_index],
-                        "version": "v1",
-                    }
-                    if self.use_v2:
-                        c_pin["origin"] = "assertion"
-                    pins.append(c_pin)
-                    matched = True
-                    break
-                if not matched:
-                    raise SourceAuthorityError(
-                        f"companion provenance missing for {raw_fact_id}: "
-                        f"no same-statement {companion_type} source to pin "
-                        f"(ADR-0010 displacement edge required)"
-                    )
+                for companion_type in companion_types:
+                    companion_fids = self.source_fids.get(companion_type, [])
+                    companion_fact_ids = self.source_fact_ids.get(companion_type, [])
+                    matched = False
+                    for c_index, c_fact_id in enumerate(companion_fact_ids):
+                        if not isinstance(c_fact_id, str) or "|" not in c_fact_id:
+                            continue
+                        if c_fact_id.split("|", 1)[1] != suffix:
+                            continue
+                        if c_index >= len(companion_fids):
+                            continue
+                        c_pin = {
+                            "role": "input",
+                            "id": companion_fids[c_index],
+                            "version": "v1",
+                        }
+                        if self.use_v2:
+                            c_pin["origin"] = "assertion"
+                        pins.append(c_pin)
+                        matched = True
+                        break
+                    if not matched:
+                        raise SourceAuthorityError(
+                            f"companion provenance missing for {raw_fact_id}: "
+                            f"no same-statement {companion_type} source to pin "
+                            f"(ADR-0010 displacement edge required)"
+                        )
         for pid in access.parameters | access.tables:
             pins.append({"role": "parameter", "id": pid, "version": self.ctx.parameters[pid]["version"]})
         # A closure-backed zero pins the exact adopted mapping and

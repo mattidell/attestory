@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.credits.form1040-line20",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-20",
+    "version": "v1"
+  },
+  "description": "Form 1040 line 20: nonrefundable credits from Schedule 3 line 8 for the bounded direct foreign-tax-credit class.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Form 1040 line 20 is blocked because Schedule 3 line 8 is blocked.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero through honest closed-empty or zero-credit authority on the direct-election path.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a scope, election, threshold, or creditability component is not satisfied for the bounded class.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "Form 1040 line 20 equals Schedule 3 line 8 (direct foreign tax credit without Form 1116 for the bounded class).",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-20",
+  "label": "Other nonrefundable credits from Schedule 3",
+  "line": "20",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

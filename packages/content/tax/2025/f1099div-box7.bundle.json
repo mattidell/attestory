@@ -1,0 +1,182 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.f1099div.box7-foreign-tax-paid",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.dividend-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1099div-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.foreign-tax-paid",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Foreign tax paid reported in box 7 of one logical Form 1099-DIV statement instance furnished by a payer for 2025, in U.S. dollars. The statement instance is peer to evidence and its identity carries no file, upload, scan, document, or evidence key (ADR-0015). Multiple originals from one payer are distinct statement instances; a corrected copy of the same logical return answers this same fact and supersedes its prior finding. Nonnegative source amount only. Box 7 is a credit source and never reduces dividend income.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.7.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "User-attested closure of the Form 1099-DIV box-7 source family for 2025, keyed on the family membership horizon current at attestation (ADR-0017): true asserts every furnished 1099-DIV box-7 amount is recorded as of that horizon. This claim covers box 7 only \u2014 never boxes 1a/1b/2a/12, residual recorded boxes 3 and 5, or Schedule 3 / Form 1040 credit completeness. A later membership transition displaces this closure through horizon succession; re-attestation on the successor horizon is required.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.box8-country-companion",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.dividend-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1099div-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Explicit companion authority for Form 1099-DIV box 8 (foreign country or U.S. possession) on the same logical statement as a box-7 member. Admissible states: a non-empty country/possession name string, or the explicit RIC sentinel not_applicable (Form 1099-DIV instructions: RICs do not complete box 8). Missing companion fails closed. Multi-country supplemental allocation of one box-7 amount is excluded. This is an authority witness, not a composed credit amount.",
+      "value_schema": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc.election",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "elective",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Taxpayer election to claim the foreign tax credit without filing Form 1116 for tax year 2025 under the Schedule 3 / Form 1116 instructions direct-election procedure. Elective; domain {yes, no}; no default; presence-before-value; free supersession. yes elects the bounded route; no declines it and blocks the direct credit.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.recorded-boxes",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.dividend-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1099div-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Successor residual recorded non-composable 1099-DIV box content for one logical statement instance: boxes 3 and 5 only are recorded but never composed into any line. Each box carries either its reported number or explicit null as the declared absence of that box \u2014 absence is asserted, never assumed. Boxes 2a, 7, and 12 are omitted because the successor graph composes them through independent families. Historical residual v1/v2/v3 remain immutable history; mixed residual/family graphs are rejected at package validation.",
+      "value_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "3": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "5": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "3",
+          "5"
+        ],
+        "type": "object"
+      },
+      "version": "v4"
+    }
+  ],
+  "id": "tax.us.2025.f1099div.box7.vocabulary",
+  "label": "Form 1099-DIV box-7 foreign tax paid, box-8 country companion, residual recorded-boxes v4 (3 and 5 only), and direct-election election fact for tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

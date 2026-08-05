@@ -272,25 +272,51 @@ def _enforce_subset_invariants(
 
 
 
+def _companion_list(pairs: dict[str, Any], subordinate_type: str) -> list[str]:
+    """Normalize one subordinate's companion entry to a list of fact-type ids.
+
+    Domain maps may declare a single companion string or a list of companions
+    (box-7 requires both box-8 and same-statement box-1a). Empty entries are
+    ignored.
+    """
+    raw = pairs.get(subordinate_type)
+    if raw is None:
+        return []
+    if isinstance(raw, str):
+        return [raw]
+    if isinstance(raw, (list, tuple)):
+        return [item for item in raw if isinstance(item, str) and item]
+    return []
+
+
 def _enforce_companion_presence(
     state: FindingState, registry: SchemaRegistry, touched_fact_ids: tuple[str, ...]
 ) -> None:
     """Enforce every domain-declared companion-presence pair a touched fact reaches.
 
-    A companion-presence pair maps a subordinate member fact type to a
-    companion authority fact type (``registry.companion_presence_pairs``).
-    Both share every identity-key binding but the fact type id, so the fact
-    id's key suffix names the same logical statement without domain knowledge
-    here. A current subordinate without a current companion is rejected; a
-    companion value outside the admitted absence/zero domain is rejected.
-    Enforcement runs against the fully-updated successor state so same-batch
-    ordering is visible, matching ``_enforce_subset_invariants``.
+    A companion-presence pair maps a subordinate member fact type to one or
+    more companion fact types (``registry.companion_presence_pairs``). Both
+    share every identity-key binding but the fact type id, so the fact id's
+    key suffix names the same logical statement without domain knowledge
+    here. A current subordinate without a current companion is rejected.
+    Optional ``registry.companion_value_domains`` may restrict companion
+    values (e.g. box-13 absence/zero); otherwise value domains are left to
+    the companion fact type's ``value_schema``. Enforcement runs against the
+    fully-updated successor state so same-batch ordering is visible, matching
+    ``_enforce_subset_invariants``.
     """
     pairs = getattr(registry, "companion_presence_pairs", None)
     if not pairs:
         return
-    reverse_pairs = {companion: subordinate for subordinate, companion in pairs.items()}
-    checked: set[tuple[str, str]] = set()
+    value_domains = getattr(registry, "companion_value_domains", None) or {}
+    reverse_pairs: dict[str, str] = {}
+    for subordinate, companions in pairs.items():
+        for companion in _companion_list(pairs, subordinate):
+            # Last subordinate wins for reverse touch of a multi-used companion
+            # type; enforcement still re-derives the full companion list from
+            # the subordinate when the subordinate is current.
+            reverse_pairs[companion] = subordinate
+    checked: set[tuple[str, str, str]] = set()
     for fact_id in touched_fact_ids:
         if "|" not in fact_id:
             continue
@@ -300,30 +326,34 @@ def _enforce_companion_presence(
         )
         if subordinate_type is None:
             continue
-        companion_type = pairs[subordinate_type]
-        key = (subordinate_type, suffix)
-        if key in checked:
+        companions = _companion_list(pairs, subordinate_type)
+        if not companions:
             continue
-        checked.add(key)
         subordinate_id = f"{subordinate_type}|{suffix}"
-        companion_id = f"{companion_type}|{suffix}"
         subordinate_value = _current_value_for_fact(state, subordinate_id)
         if subordinate_value is _NO_CURRENT_VALUE:
             # Companion alone may stand; the bounded consumer requires both.
             continue
-        companion_value = _current_value_for_fact(state, companion_id)
-        if companion_value is _NO_CURRENT_VALUE:
-            raise FindingModelError(
-                f"companion presence violated: {subordinate_id} is current "
-                f"({subordinate_value!r}) but {companion_id} has no current value; "
-                f"rejected, not recorded"
-            )
-        if companion_value not in (None, 0, 0.0):
-            raise FindingModelError(
-                f"companion presence violated: {companion_id} is current with "
-                f"nonzero value {companion_value!r}; the bounded route admits only "
-                f"explicit absence or zero and never Form 6251; rejected, not recorded"
-            )
+        for companion_type in companions:
+            key = (subordinate_type, companion_type, suffix)
+            if key in checked:
+                continue
+            checked.add(key)
+            companion_id = f"{companion_type}|{suffix}"
+            companion_value = _current_value_for_fact(state, companion_id)
+            if companion_value is _NO_CURRENT_VALUE:
+                raise FindingModelError(
+                    f"companion presence violated: {subordinate_id} is current "
+                    f"({subordinate_value!r}) but {companion_id} has no current value; "
+                    f"rejected, not recorded"
+                )
+            allowed = value_domains.get(companion_type)
+            if allowed is not None and companion_value not in allowed:
+                raise FindingModelError(
+                    f"companion presence violated: {companion_id} is current with "
+                    f"value {companion_value!r}; admitted domain is {sorted(allowed, key=repr)}; "
+                    f"rejected, not recorded"
+                )
 
 
 def _current_values_for_fact_type(

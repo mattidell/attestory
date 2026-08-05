@@ -1,0 +1,608 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.direct-ftc-scope.all-foreign-income-passive",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: All foreign-source gross income in the bounded class is passive-category income. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.all-foreign-income-on-1099div",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: All foreign-source gross income and foreign taxes in the class are reported on qualified Form 1099-DIV payee statements only. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-f1099int-foreign-tax",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: No foreign tax from Form 1099-INT is present on this return for the bounded direct-election claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-k1-k3-foreign-tax",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: No foreign tax from Schedule K-1 or Schedule K-3 is present on this return for the bounded direct-election claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-other-foreign-tax-source",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: No foreign tax from any source outside the selected Form 1099-DIV class is present for the bounded direct-election claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.tax-type-creditable",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Selected foreign taxes are income, war profits, or excess profits taxes, or taxes in lieu of such taxes. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.legal-liability-and-paid",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Taxpayer is legally liable for and has paid (cash method) the selected foreign taxes. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-refund-rebate-subsidy",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Selected foreign taxes are not refundable, rebated, subsidized, or reimbursed. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-excluded-income-association",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Selected foreign taxes are not associated with excluded income. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.holding-period-16-day-met",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Dividend holding-period requirement met (at least 16 days; Pub. 514 / Schedule 3 exception). Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-short-sale-obligation",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: No disqualifying short-sale or related obligation to pay the dividend. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.country-recognized-non-terrorism",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Taxes paid to countries recognized by the United States that do not support terrorism, as required by the Schedule 3 exception path. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-carryback-carryforward",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: No foreign-tax carryback or carryforward applies for the election year. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-schedule-a-deduction-election",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: No Schedule A foreign-tax deduction election is present. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-form-1116-required",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: No Form-1116-required condition is present; the direct-election route applies without Form 1116. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line2",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Schedule 3 Part I line 2 credit is absent for the bounded class. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line3",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Schedule 3 Part I line 3 credit is absent for the bounded class. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line4",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Schedule 3 Part I line 4 credit is absent for the bounded class. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line5",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Schedule 3 Part I line 5 credit is absent for the bounded class. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line6",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Schedule 3 Part I line 6 credit is absent for the bounded class. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Form 1040 line 17 / Schedule 2 additional tax affecting line 18 is absent for the bounded class. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-line19-ctc-odc",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Form 1040 line 19 child tax credit / other dependent credit is absent for the bounded class. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-schedule2-regular-tax-add",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Schedule 2 line 1a/1z amounts that would change regular tax for the credit cap are absent for the bounded class. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-form-4972-on-line16",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Direct foreign-tax-credit scope component: Form 4972 tax included on Form 1040 line 16 is absent for the bounded class. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named condition for the bounded class; no asserts the blocking condition is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.direct-ftc-scope.vocabulary",
+  "label": "Direct foreign-tax-credit (no Form 1116) scope, creditability, election completeness, and Schedule 3 / Form 1040 absence authorities for 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

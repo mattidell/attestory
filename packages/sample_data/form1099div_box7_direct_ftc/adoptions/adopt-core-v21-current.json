@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v21",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-05T12:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic Form 1099-DIV box-7 direct FTC; package v21 union of v20; non-authoritative"
+    },
+    "package": {
+      "checksum": "27b678cd775c900378e5ec556c9052b0b6ee5b69a72daef748482c80584fca9d",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v21"
+    },
+    "release": {
+      "checksum": "7e76bfd9fa36576e8381452bde510911cb3c9ff7be9681fdb4bd378cd561c533",
+      "id": "demo.release.2025",
+      "version": "v14"
+    },
+    "revision": 21,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v20"
+  },
+  "schema": "act.v1"
+}

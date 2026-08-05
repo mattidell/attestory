@@ -1,0 +1,112 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.f1099div.box12-exempt-interest-dividends",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.dividend-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1099div-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.exempt-interest-dividends",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Exempt-interest dividends reported in box 12 of one logical Form 1099-DIV statement instance furnished by a payer for 2025; the statement instance is peer to evidence and its identity carries no file, upload, scan, document, or evidence key (ADR-0015). Multiple originals from one payer are distinct statement instances; a corrected copy of the same logical return answers this same fact and supersedes its prior finding. Nonnegative source amount only.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.12.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "User-attested closure of the Form 1099-DIV box-12 source family for 2025, keyed on the family membership horizon current at attestation (ADR-0017): true asserts every furnished 1099-DIV box-12 amount is recorded as of that horizon. This claim covers box 12 only \u2014 never boxes 1a/1b/2a, residual recorded boxes, or Form 1040 line 2a completeness. A later membership transition displaces this closure through horizon succession; re-attestation on the successor horizon is required.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.box13-specified-pab-authority",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.dividend-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1099div-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Explicit companion authority for Form 1099-DIV box 13 (specified private activity bond interest dividends) on the same logical statement as a box-12 member. Only explicit null (absent) or numeric zero is admissible on the bounded line-2a route. A nonzero value is a hard admission block and never creates Form 6251 or AMT input. This is an authority witness, not a composed amount.",
+      "value_schema": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "const": 0
+          }
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.f1099div.box12.vocabulary",
+  "label": "Form 1099-DIV box-12 exempt-interest dividends and box-13 absence/zero authority for tax year 2025 without residual recorded-boxes (box-7 residual succession)",
+  "schema": "bundle.v2",
+  "version": "v2"
+}
