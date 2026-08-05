@@ -2,10 +2,10 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "schedule-d-form8949-covered-wash-sale",
-  "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale.md",
+  "topic": "form1099int-box8-line2a",
+  "active_plan": "docs/phases/engine-breadth/milestones/form1099int-box8-line2a.md",
   "milestone_state": "closed",
-  "status": "**ENGINE BREADTH — COVERED CODE-W WASH-SALE / FORM 8949 CLOSED 2026-08-05.** Track 1 (three repair/re-review rounds) and Track 2 both independently reviewed READY. The bounded covered, basis-reported capital-transaction class admits a Form 1099-B transaction routed to Form 8949 solely by a broker-reported box-1g wash-sale loss (code W), through Schedule D lines 1b/8b. ADR-0061 was amended pre-merge after review found the originally-proposed transaction-identity mechanism unsafe given a real source-family.v1 schema constraint; resolved with a separate wash-sale fact type and an identity-key collision kill-test wired into the live run path. Rebased onto the merged Form 1099-DIV Box 12 milestone; a second package/schema version collision was caught before either PR merged and resolved as an additive union (package v18, registry v13, quantity-vocabulary v7, artifact-package v15). Closeout complete: coverage frontier, roadmap, deferral ledger, retrospective, and README are updated. The next breadth milestone is unselected.",
+  "status": "**ENGINE BREADTH / FORM 1099-INT BOX 8 TO FORM 1040 LINE 2A — CLOSED.** The bounded 2025 box-8 succession of the closed box-12 line-2a route is synthetic complete and independently reviewed READY; rebased onto the merged Form 8949 wash-sale line. The next milestone remains owner-unselected.",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -36,9 +36,7 @@ from the refreshed coverage frontier.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none selected. Covered Form 1099-B Wash-Sale
-  Adjustments through Form 8949 and Schedule D Lines 1b/8b **closed
-  2026-08-05**, independently reviewed `READY`.
+* **Active milestone:** none. Form 1099-INT Box 8 Tax-Exempt Interest to Form 1040 Line 2a **closed 2026-08-05**, independently reviewed `READY`, rebased onto the merged Form 8949 wash-sale line. Covered Form 1099-B Wash-Sale / Form 8949 **closed 2026-08-05**. Form 1099-DIV Box 12 to Form 1040 Line 2a **closed 2026-08-04**.
 * **Result:** the bounded covered, basis-reported capital-transaction class
   admits a Form 1099-B transaction routed to Form 8949 solely by a
   broker-reported box-1g wash-sale loss (code W) — short-term through
@@ -51,8 +49,9 @@ from the refreshed coverage frontier.
   existing 1a/8a, box-2a, and carryover lines. Every other Form 8949
   adjustment code, noncovered securities, and taxpayer-side wash-sale
   determination remain honestly outside it — see the deferral ledger.
-* **Plan:** `docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-05-schedule-d-form8949-covered-wash-sale.md`.
+* **Plan:** `docs/phases/engine-breadth/milestones/form1099int-box8-line2a.md`.
+* **Retrospective:** `docs/milestone-retrospectives/2026-08-05-form1099int-box8-line2a.md`.
+* **Prior retrospective (Form 8949):** `docs/milestone-retrospectives/2026-08-05-schedule-d-form8949-covered-wash-sale.md`.
 * **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale-deferral-ledger.md`.
 * **Ratified in-scope:** ADR-0061 (transaction authority, family topology,
   completeness successor) and ADR-0062 (Form 8949 attachment, arithmetic,
@@ -97,9 +96,7 @@ from the refreshed coverage frontier.
   this session's working directory) was reported, confirmed
   unintentional, and recreated cleanly with no work lost. Full account in
   the retrospective.
-* **Next:** owner-selects the next breadth milestone from
-  `docs/phases/engine-breadth/coverage-frontier.md`. No milestone is
-  currently active.
+* **Next:** owner-selects the next breadth milestone from `docs/phases/engine-breadth/coverage-frontier.md`. No milestone is currently active.
 
 ## Re-entry
 

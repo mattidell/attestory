@@ -58,6 +58,13 @@ def domain_companion_presence_pairs() -> dict[str, str]:
         "tax.us.2025.f1099div.box12-exempt-interest-dividends": (
             "tax.us.2025.f1099div.box13-specified-pab-authority"
         ),
+        # Form 1099-INT box-8 route (B8-C2): each box-8 statement member
+        # requires an explicit same-statement box-9 absence/zero companion.
+        # Live production projection must install this pair (box-12 review
+        # lesson). Nonzero is rejected without creating Form 6251.
+        "tax.us.2025.f1099int.box8-tax-exempt-interest": (
+            "tax.us.2025.f1099int.box9-specified-pab-authority"
+        ),
     }
 
 
@@ -67,6 +74,62 @@ def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistr
     Idempotent: re-applying the same pairs is a no-op for equal keys.
     """
     registry.companion_presence_pairs.update(domain_companion_presence_pairs())
+    return registry
+
+
+def domain_declaration_signal_contradictions() -> list[dict[str, str]]:
+    """Domain declaration/signal contradictions enforced at finding admission.
+
+    Production projection (``live_coordinate_run`` → ``project``) must install
+    these on its registry. ``tax_registry()`` installs the same list for domain
+    loaders and direct registry-path tests.
+    """
+    return [
+        # ADR-0038 decision 5 / ADR-0050 decisions 2 and 4: a current "no"
+        # capital-gain-distributions declaration and the
+        # CAPITAL_GAIN_DISTRIBUTION_RECORDED signal may never both be current.
+        {
+            "declaration_fact_type": "tax.us.2025.capital-gain-distributions",
+            "declaration_value": "no",
+            "signal_fact_type": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+        },
+        # Path A (no-f1099int-tax-exempt = yes) contradicts any current non-null
+        # box-8 tax-exempt interest member. Path B uses declaration = no with a
+        # closed box-8 family instead of silently ignoring box-8 amounts.
+        {
+            "declaration_fact_type": "tax.us.2025.line2a-scope.no-f1099int-tax-exempt",
+            "declaration_value": "yes",
+            "signal_fact_type": "tax.us.2025.f1099int.box8-tax-exempt-interest",
+        },
+    ]
+
+
+def install_domain_declaration_signal_contradictions(
+    registry: SchemaRegistry,
+) -> SchemaRegistry:
+    """Install domain declaration/signal contradictions on a published registry.
+
+    Idempotent for equal rule dicts: skips rules already present.
+    """
+    existing = {
+        (
+            rule.get("declaration_fact_type"),
+            rule.get("declaration_value"),
+            rule.get("signal_fact_type"),
+            rule.get("signal_field"),
+        )
+        for rule in registry.declaration_signal_contradictions
+    }
+    for rule in domain_declaration_signal_contradictions():
+        key = (
+            rule.get("declaration_fact_type"),
+            rule.get("declaration_value"),
+            rule.get("signal_fact_type"),
+            rule.get("signal_field"),
+        )
+        if key not in existing:
+            registry.declaration_signal_contradictions.append(dict(rule))
+            existing.add(key)
     return registry
 
 
@@ -89,20 +152,7 @@ def tax_registry() -> SchemaRegistry:
     reg.subset_invariant_pairs["tax.us.2025.f1099div.box1b-qualified"] = (
         "tax.us.2025.f1099div.box1a-ordinary"
     )
-    # ADR-0038 decision 5 / ADR-0050 decisions 2 and 4: a current "no"
-    # capital-gain-distributions declaration and the
-    # CAPITAL_GAIN_DISTRIBUTION_RECORDED signal may never both be current.
-    # Track 2 re-homes the signal from historical recorded-boxes field "2a"
-    # to a current non-null successor box-2a family member (the only
-    # composable box-2a representation). Residual historical recorded
-    # content must not raise the signal. Enforced generically at admission
-    # before state mutation is observed, same mechanism as the box 1b <= 1a
-    # subset invariant above.
-    reg.declaration_signal_contradictions.append({
-        "declaration_fact_type": "tax.us.2025.capital-gain-distributions",
-        "declaration_value": "no",
-        "signal_fact_type": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
-    })
+    install_domain_declaration_signal_contradictions(reg)
     install_domain_companion_presence(reg)
     return reg
 

@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.interest.b8-tax-exempt-subtotal",
+  "closure_claim": "Every tax-exempt interest amount reported in box 8 of a Form 1099-INT furnished to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon. This claim covers Form 1099-INT box 8 only: it says nothing about boxes 1, 3, or 10, Form 1099-DIV box 12, Form 1099-OID tax-exempt sources, premium adjustments, or Form 1040 line 2a completeness. Closed with members authorizes the multi-payer sum of current members; closed-empty authorizes subtotal 0.",
+  "id": "tax.us.2025.f1099int.b8",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099int.box8-tax-exempt-interest"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Form 1099-INT box 8 statement items, tax year 2025",
+  "version": "v1"
+}

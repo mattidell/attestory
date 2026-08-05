@@ -200,6 +200,7 @@ def marshal_run_context(
     fact_types: list[dict[str, Any]] | None = None,
     input_bindings: list[dict[str, Any]] | None = None,
     collect_source_names: list[str] | None = None,
+    companion_presence_pairs: dict[str, str] | None = None,
 ) -> RunContext:
     """Build a RunContext from current record state only (ADR-0032 MUST).
 
@@ -324,6 +325,7 @@ def marshal_run_context(
         current_horizons=dict(current_horizons),
         fact_types=ftypes,
         input_bindings=bindings,
+        companion_presence_pairs=dict(companion_presence_pairs or {}),
     )
 
 
@@ -342,6 +344,7 @@ def marshal_live_run_context(
     fact_types: list[dict[str, Any]] | None = None,
     input_bindings: list[dict[str, Any]] | None = None,
     collect_source_names: list[str] | None = None,
+    companion_presence_pairs: dict[str, str] | None = None,
 ) -> MarshalledRunContext:
     """Create the opaque marshalling result accepted by the production executor."""
     return MarshalledRunContext(
@@ -359,6 +362,7 @@ def marshal_live_run_context(
             fact_types=fact_types,
             input_bindings=input_bindings,
             collect_source_names=collect_source_names,
+            companion_presence_pairs=companion_presence_pairs,
         ),
         _MARSHAL_SEAL,
     )
