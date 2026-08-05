@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "schedule-d-inbound-loss-carryovers",
-  "milestone_state": "planned",
-  "status": "PLANNED 2026-08-03. Selected by the owner as the narrowest coherent continuation of the loss vertical: derive a 2025 short-term and/or long-term capital-loss carryover from authoritative 2024 return-line facts via the IRS Capital Loss Carryover Worksheet, and include it on 2025 Schedule D lines 6 and 14, recomputing lines 7/15/16/21 and Form 1040 line 7a/9. No Track 0 work has started yet.",
-  "retrospective": "",
+  "milestone_state": "closed",
+  "status": "CLOSED 2026-08-04. Track 1 (with one findings-only repair) and Track 2 both independently reviewed READY. The bounded covered, basis-reported capital-transaction class is synthetic complete with a short-term or long-term capital-loss carryover derived from a bounded five-fact 2024 prior-return authority (ADR-0059, two-path completeness: a cheap declared-absence path alongside the full authority) via the Capital Loss Carryover Worksheet (ADR-0060), included on signed Schedule D lines 6/7/14/15/16/21 and Form 1040 line 7a/9. Rebased onto the merged Schedule B interest-adjustments milestone; the resulting package.core-calculations v15/published-packages v10 version collision was resolved as an additive v16/v11 union, and a latent hardcoded package-version restriction in packages/derivation/package_validation.py was generalized. No amount carried into 2026 is derived or published.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-04-schedule-d-inbound-loss-carryovers.md",
   "scope": [
     "establish a bounded prior-return authority for the necessary 2024 Form 1040 and Schedule D line values (at minimum: 2024 Schedule D lines 7, 15, 16, 21, and the applicable Form 1040 line-15-worksheet taxable-income input)",
     "implement the 2024-to-2025 Capital Loss Carryover Worksheet as an auditable derived worksheet citizen, producing separate short-term and long-term carryover results",
@@ -81,7 +81,7 @@
       "AGENTS.md#Data Safety Rules"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-08-03-schedule-d-current-year-losses.md",
+      "docs/milestone-retrospectives/2026-08-04-schedule-d-inbound-loss-carryovers.md",
       "docs/phases/engine-breadth/engine-breadth-overview.md",
       "docs/phases/engine-breadth/coverage-frontier.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md",

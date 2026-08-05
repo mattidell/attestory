@@ -18,7 +18,11 @@ This is the project's third iteration. The first proved a working return generat
   including the signed Schedule D line 16, the current-year $3,000/$1,500
   capital-loss limitation (line 21), the correct Schedule D-bound QDCG
   line-16 path at any sign of Schedule D's result, and an honest attachment
-  disposition/explanation walk. Inbound capital-loss carryovers, Form 8949,
+  disposition/explanation walk. A short-term or long-term capital-loss
+  carryover derived from a bounded 2024 prior-return authority via the
+  IRS Capital Loss Carryover Worksheet is included on Schedule D lines 6
+  and 14, with lines 7/15/16/21 and Form 1040 line 7a/9 recomputed
+  accordingly. Any amount carried forward into 2026, Form 8949,
   noncovered securities, digital assets, other Schedule D sources,
   subtractive interest adjustments, filing, and broader securities history
   remain outside the supported classes.
