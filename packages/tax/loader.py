@@ -58,6 +58,12 @@ def domain_companion_presence_pairs() -> dict[str, str]:
         "tax.us.2025.f1099div.box12-exempt-interest-dividends": (
             "tax.us.2025.f1099div.box13-specified-pab-authority"
         ),
+        # Form 1099-G box-1 route (UG-C2): each box-1 statement member requires
+        # an explicit same-statement box-4 absence/zero companion. Nonzero is
+        # rejected without creating Form 1040 line 25b.
+        "tax.us.2025.f1099g.box1-unemployment": (
+            "tax.us.2025.f1099g.box4-federal-withholding-authority"
+        ),
         # Form 1099-INT box-8 route (B8-C2): each box-8 statement member
         # requires an explicit same-statement box-9 absence/zero companion.
         # Live production projection must install this pair (box-12 review

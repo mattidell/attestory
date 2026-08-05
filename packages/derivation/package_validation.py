@@ -1049,6 +1049,7 @@ def validate_package(
         "artifact-package.v14",
         "artifact-package.v15",
         "artifact-package.v16",
+        "artifact-package.v17",
     }
     source_family_members = {
         citizen["id"]: citizen["member_predicate"]["fact_type"]

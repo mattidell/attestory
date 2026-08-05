@@ -1,0 +1,48 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.unemployment.box1-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule1.line-7",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.f1099g.box1",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.schedule1-line7",
+  "notes": "Schedule 1 (Form 1040) line 7 for the bounded 2025 class: equals the closed Form 1099-G box-1 family subtotal. Box-1 family closure alone never asserts general Schedule 1 completeness. Box-4 companion is enforced at admission. Does not implement repayment arithmetic.",
+  "pins": [
+    {
+      "id": "tax.us.2025.unemployment.box1-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.schedule1.line7-unemployment",
+  "requires": [
+    "tax.us.2025.unemployment.box1-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.unemployment.box1-subtotal",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.f1099g.1"
+  }
+}

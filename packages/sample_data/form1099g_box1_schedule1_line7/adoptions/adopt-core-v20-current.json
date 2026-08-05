@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v20",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-05T12:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic Form 1099-G box-1 Schedule 1 line 7 / Form 1040 line 8 successor adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "9618ec357a24b3a3a6763fea877c9935e8b01f6c780a27711aa4e50ec599451e",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v20"
+    },
+    "release": {
+      "checksum": "2b8331c228299e72a44e6abd685229cfdfe39ba89df9c4ed81a52557dc1d43fa",
+      "id": "demo.release.2025",
+      "version": "v13"
+    },
+    "revision": 20,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v19"
+  },
+  "schema": "act.v1"
+}
