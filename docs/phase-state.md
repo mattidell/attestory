@@ -2,12 +2,14 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "form1099div-box12-line2a",
-  "active_plan": "docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md",
-  "milestone_state": "closed",
-  "status": "**ENGINE BREADTH / FORM 1099-DIV BOX 12 TO FORM 1040 LINE 2A — CLOSED.** The bounded 2025 box-12 route is synthetic complete and independently reviewed READY; the next milestone remains owner-unselected.",
-  "current_role": "Foreman",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "topic": "ssa1099-benefits-line6",
+  "active_plan": "docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md",
+  "milestone_state": "planned",
+  "status": "**ENGINE BREADTH / 2025 SSA-1099 BENEFITS THROUGH THE SOCIAL SECURITY BENEFITS WORKSHEET AND FORM 1040 LINES 6A/6B — PLAN COMMITTED.** Track 0 is a foreman-owned paper-first scope checkpoint; Track 1 and Track 2 owner-launch charters are prepared.",
+  "source_ref": "origin/main",
+  "source_commit": "b0480bc2178ba7d2fd8baa59b1a6823e5aa5c4a0",
+  "current_role": "Foreman (Track 0 paper-first scope contract; implementation charters prepared)",
+  "current_prompt": "docs/reviews/charter-2026-08-04-ssa1099-line6-track1.md"
 }
 -->
 # Phase State
@@ -34,7 +36,8 @@ line-2a route, independent of the closed Schedule D carryover milestone.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none. Form 1099-DIV Box 12 to Form 1040 Line 2a **closed 2026-08-04**.
+* **Active milestone:** 2025 SSA-1099 Benefits through the Social Security Benefits Worksheet and Form 1040 Lines 6a/6b — plan committed 2026-08-04; Track 0 is foreman-owned and Track 1/2 are prepared for owner launch.
+  Form 1099-DIV Box 12 to Form 1040 Line 2a **closed 2026-08-04**.
   Inbound Capital-Loss Carryovers into 2025 Schedule D **closed 2026-08-04**,
   independently reviewed `READY`, and remains preserved on the ratified line.
 * **Previous result:** the bounded covered, basis-reported capital-transaction class
@@ -56,7 +59,12 @@ line-2a route, independent of the closed Schedule D carryover milestone.
   independent re-review returned `READY`. Other tax-exempt sources, nonzero
   box 13, excluded downstream consumers, and general tax-exempt-interest
   support remain outside the claim.
-* **Plan:** `docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md`.
+* **Current planning state:** the SSA-1099 milestone starts from `origin/main`
+  at `b0480bc`. The base has no Form 1040 line-6a/6b citizens, no line-1z,
+  line-4b, line-5b, or Form 1040 line-8 citizens, and no Schedule 1 adjustment
+  families. Track 0 must close those worksheet inputs component by component;
+  it must not use line 9 as a shortcut.
+* **Plan:** `docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md`.
 * **Retrospective:** `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
 * **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-inbound-loss-carryovers-deferral-ledger.md`.
 * **Ratified in-scope:** ADR-0059 (prior-return capital-loss authority,
@@ -88,8 +96,8 @@ line-2a route, independent of the closed Schedule D carryover milestone.
   `packages/derivation/package_validation.py`, folded into this
   milestone's implementation commit and verified not to regress Schedule
   B's own packages. Full account is in the current retrospective.
-* **Next:** select a new milestone from the refreshed coverage frontier. The
-  next milestone remains unselected.
+* **Next:** complete the paper-first Track 0 scope contract, then owner-launch
+  Track 1 only after Track 0 is ratified.
 
 ## Re-entry
 

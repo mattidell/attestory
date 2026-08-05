@@ -105,11 +105,19 @@ roadmap unless a selected breadth slice directly depends on them.
    re-review returned `READY`. Plan:
    `milestones/form1099div-box12-line2a.md`; retrospective:
    `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
-8. **Next breadth slice — owner-selected from the refreshed frontier.**
-   Inbound capital-loss carryovers, Form 8949/noncovered securities/
-   adjustments, and other Schedule D sources deferred out of item 6 remain
-   distinct candidates; other adjustment classes and unrelated income domains
-   remain outside the selected class.
+8. **2025 SSA-1099 Benefits through the Social Security Benefits Worksheet and
+   Form 1040 Lines 6a/6b** — selected 2026-08-04. A paper-first Track 0 must
+   settle ordinary SSA-1099 identity, box reconciliation, worksheet
+   eligibility, filing status/lived-apart semantics, component-level closure,
+   and the no-line-9-cycle graph before implementation. The planned class
+   excludes RRB, lump-sum election, Publication 915 exception paths, excess
+   repayments, foreign/nonresident benefits, new IRA/pension/unemployment/
+   Schedule 1 support, and withholding/payment paths. Plan:
+   `milestones/ssa1099-benefits-line6.md`.
+9. **Next breadth slice — owner-selected from the refreshed frontier.**
+   Form 8949/noncovered securities/adjustments and other Schedule D sources
+   deferred out of item 6 remain distinct candidates; other adjustment classes
+   and unrelated income domains remain outside the selected class.
 
 ## Why line 7a comes before Schedule D
 
@@ -187,6 +195,14 @@ source and completeness boundary is selected.
   excluded downstream consumers remain honestly outside the claim. Plan:
   `milestones/form1099div-box12-line2a.md`; retrospective:
   `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
+- **2025 SSA-1099 Benefits through the Social Security Benefits Worksheet and
+  Form 1040 Lines 6a/6b — planned 2026-08-04.** The proposed class is one or
+  more ordinary SSA-1099 statements with reconciled nonnegative box-5 benefits,
+  standard worksheet eligibility, component-level closure for every worksheet
+  input, exact line-6 indicators, and additive line-9 succession. IRA line 4b
+  and any later line-8/line-7a successors must be integrated before the final
+  worksheet consumer. Plan:
+  `milestones/ssa1099-benefits-line6.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
