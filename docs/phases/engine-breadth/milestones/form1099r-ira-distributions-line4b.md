@@ -94,7 +94,9 @@ No agent has been dispatched; all prepared seats are owner-launched.
 - Dedicated clean worktree, separate from the concurrent WIP checkout.
 - Concurrent work at planning time: draft PR #161,
   `milestone/schedule-d-form8949-covered-wash-sale`, with a dirty WIP
-  worktree and 13 commits ahead of `origin/main`. That worktree is untouched.
+  worktree and 13 commits ahead of `origin/main`; and an owner-launched
+  foreman worktree on `milestone/form1040-ssa1099-line6`, clean at the
+  ratified base and not yet represented by an open PR. Both are untouched.
 - The branch currently observes package core `v17` and published registry
   `v12`; these are inventory facts, not reservations. No new schema, rule,
   package, registry, release, adoption, or ADR number is allocated by this
