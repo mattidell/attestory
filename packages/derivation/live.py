@@ -24,6 +24,7 @@ from packages.derivation.records import RecordStream
 from packages.kernel.currency import CurrencyView
 from packages.kernel.currency import compute_currency
 from packages.kernel.findings import FindingState, project
+from packages.tax.loader import install_domain_companion_presence
 from packages.derivation.live_workspace import LiveWorkspace, WorkspaceCapability, bootstrap_workspace
 
 if TYPE_CHECKING:
@@ -114,6 +115,10 @@ def live_coordinate_run(
     presentation_path = workspace.reserve_live_output_path(
         Path("outputs") / f"{Path(output_name).stem}.presentation.json"
     )
+    # Domain companion-presence pairs (B12-C3) live on tax_registry(); production
+    # projection must install the same map so missing box-13 authority is not
+    # treated as absent on the live path.
+    install_domain_companion_presence(schemas.registry)
     state = project(tuple(dict(act) for act in authoritative_acts), schemas.registry)
     currency = compute_currency(state)
     rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)

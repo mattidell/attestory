@@ -1,0 +1,72 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.f1099div.box2a-capital-gain-distribution",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.dividend-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1099div-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.capital-gain-distributions",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Total capital-gain distributions reported in box 2a of one logical Form 1099-DIV statement instance furnished by a payer for 2025; the statement instance is peer to evidence and its identity carries no file, upload, scan, document, or evidence key (ADR-0015, instantiated per ADR-0035/ADR-0050). This is the only composable box-2a member under the successor dividend universe. Multiple originals from one payer are distinct statement instances; a corrected copy of the same logical return answers this same fact and supersedes its prior finding.",
+      "value_schema": {
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099div.2a.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "User-attested closure of the Form 1099-DIV box-2a source family for 2025, keyed on the family membership horizon current at attestation (ADR-0017): true asserts every furnished 1099-DIV box-2a amount is recorded as of that horizon. This claim covers box 2a only - never boxes 1a/1b, residual recorded boxes, boxes 2b/2c/2d, or Form 1040 line 7a completeness (ADR-0016, ADR-0050 decision 2). A later membership transition displaces this closure through horizon succession; re-attestation on the successor horizon is required.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.f1099div.box2a.vocabulary",
+  "label": "Form 1099-DIV box-2a successor member and closure vocabulary for tax year 2025 without residual recorded-boxes (box-12 residual succession)",
+  "schema": "bundle.v2",
+  "version": "v2"
+}

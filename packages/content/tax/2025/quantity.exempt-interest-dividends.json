@@ -1,0 +1,8 @@
+{
+  "id": "tax.us.2025.quantity.exempt-interest-dividends",
+  "quantities": [
+    "exempt-interest-dividends"
+  ],
+  "schema": "quantity-vocabulary.v6",
+  "version": "v1"
+}

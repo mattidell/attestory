@@ -18,7 +18,7 @@ input boxes. Status is one of:
 
 “Synthetic complete” is an engine-coverage claim, not a real-data claim.
 
-## Frontier as of 2026-08-01
+## Frontier as of 2026-08-04
 
 | Candidate slice | New computable class | Current blocker | Contract novelty | Evidence target | Status |
 | --- | --- | --- | --- | --- | --- |
@@ -31,7 +31,10 @@ input boxes. Status is one of:
 | Schedule K-1 (Form 1065) box-5 interest → Form 1040 line 2b and Schedule B Part I | Returns with taxable partnership interest income reported in box 5 of a 2025 Form-1065 K-1 | Retired for the bounded box-5 class; other K-1 forms and boxes remain outside the declared universe | A distinct horizon-closed source family, five-slot composition successor, and composition-complete multi-family attachment itemization | Production-shaped synthetic identity, correction, late-member, line-2b, Schedule-B, package, explanation, and presentation evidence | **synthetic complete** |
 | Payer-reported current-inclusion market-discount interest | Returns with nonnegative market-discount amounts reported in 2025 Form 1099-INT box 10 or Form 1099-OID box 5, where the payer-reported amount is already currently includible as taxable interest | Retired for the bounded two-box payer-reported class; disposition-time amounts, partial principal payments, taxpayer-side accrual, basis, unreported market discount, and general securities history remain honestly unavailable | Two dedicated statement families and a successor seven-family positive-interest composition; reuses the accepted multi-family Schedule B contract with no new evaluator, attachment schema/runtime, or presentation behavior | Paper-grounded IRS box routing, mechanical selected-version inventory, synthetic identity/closure/lifecycle, line-2b, Schedule-B, package, explanation, and one canonical positive presentation golden | **synthetic complete** |
 | Schedule B interest adjustments | Returns with nominee distributions, accrued interest paid to a bond seller, or taxable amortizable-bond-premium adjustments | Retired for the bounded three-class adjustment path; other adjustment classes and underlying investment calculations remain honestly outside it | New adjustment authority, closure, explanation, and attachment-row semantics | Paper-first contract evidence, positive/negative adjustment goldens, package compatibility, and production-shaped presentation | **synthetic complete** |
-| Other recorded Form 1099-DIV boxes | Returns involving boxes 3, 5, 7, or 12 | Boxes are named recorded/non-composable exclusions with different downstream meanings | Not one coherent slice; each box needs its own downstream and completeness analysis | Split into independently selectable rows before planning | named block |
+| Form 1099-DIV box 3 nondividend distributions | Returns involving Form 1099-DIV box 3 | Recorded/non-composable; generally not reported on Form 1040, with basis/recovery implications outside the current graph | Requires its own basis/recovery and reporting boundary | Paper-first source and downstream contract when selected | named block |
+| Form 1099-DIV box 5 section 199A dividends | Returns involving Form 1099-DIV box 5 | Recorded/non-composable; qualified business income deduction treatment is not in the current graph | Requires its own Form 8995/8995-A and QBI boundary | Paper-first source and downstream contract when selected | named block |
+| Form 1099-DIV box 7 foreign tax paid | Returns involving Form 1099-DIV box 7 | Recorded/non-composable; foreign tax credit or deduction treatment is not in the current graph | Requires its own credit/deduction and Form 1116 boundary | Paper-first source and downstream contract when selected | named block |
+| Form 1099-DIV box 12 exempt-interest dividends | Returns whose only tax-exempt-interest source is one or more 2025 Form 1099-DIV box-12 amounts, with box 13 absent/zero and all excluded source/dependency declarations closed | Retired for the bounded box-12-only class; other tax-exempt sources, nonzero box 13, premium adjustments, and excluded downstream consumers remain honestly blocked | Independent box-12 family, residual succession, explicit line-2a completeness authority, reported-only downstream semantics, and production-path box-13 companion enforcement | Production-shaped source, lifecycle, completeness, package, explanation, and presentation evidence, independently reviewed `READY` | **synthetic complete** |
 | New unrelated income domain | A return class outside the existing W-2/interest/dividend columns | No owner-selected source/form target | Unknown until a concrete source and downstream output are named | Owner selection and a fresh coverage row | candidate |
 
 ## Completed synthetic frontier
@@ -89,3 +92,12 @@ retrospective:
 These sources establish the tax routing. They do not decide the project's
 authority, closure, supersession, or explanation contracts; those are the
 milestone's prototype questions.
+
+The **Form 1099-DIV Box 12 to Form 1040 Line 2a** milestone is synthetic
+complete for the bounded 2025 box-12-only tax-exempt-interest class. Its
+independent family, residual succession, explicit completeness boundary,
+box-13 companion guard, reported-only line-2a semantics, package graph,
+explanation, and presentation are covered by the milestone plan and its
+retrospective. Form 1099-INT/OID tax-exempt sources, unreported interest,
+premium adjustments, and excluded downstream consumers remain separate
+frontier work.

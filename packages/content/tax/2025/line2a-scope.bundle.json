@@ -1,0 +1,233 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.line2a-scope.no-f1099int-tax-exempt",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Line-2a scope completeness component: No Form 1099-INT tax-exempt interest source is present on this return for the bounded line-2a claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or downstream dependency is absent; no asserts it is present and blocks the bounded line-2a claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-f1099oid-tax-exempt",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Line-2a scope completeness component: No Form 1099-OID tax-exempt interest or OID source is present on this return for the bounded line-2a claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or downstream dependency is absent; no asserts it is present and blocks the bounded line-2a claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-unreported-tax-exempt",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Line-2a scope completeness component: No unreported or non-form tax-exempt interest is present on this return for the bounded line-2a claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or downstream dependency is absent; no asserts it is present and blocks the bounded line-2a claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-premium-adjustment",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Line-2a scope completeness component: No tax-exempt bond or acquisition premium adjustment is present on this return for the bounded line-2a claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or downstream dependency is absent; no asserts it is present and blocks the bounded line-2a claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-child-income-election",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Line-2a scope completeness component: No child-income election that consumes tax-exempt interest is present for the bounded line-2a claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or downstream dependency is absent; no asserts it is present and blocks the bounded line-2a claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-taxable-social-security",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Line-2a scope completeness component: No taxable Social Security computation that consumes tax-exempt interest is present for the bounded line-2a claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or downstream dependency is absent; no asserts it is present and blocks the bounded line-2a claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-amt-form-6251",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Line-2a scope completeness component: No Form 6251 / AMT consumer of tax-exempt interest is present for the bounded line-2a claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or downstream dependency is absent; no asserts it is present and blocks the bounded line-2a claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-credit-using-tax-exempt",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Line-2a scope completeness component: No credit that consumes tax-exempt interest is present for the bounded line-2a claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or downstream dependency is absent; no asserts it is present and blocks the bounded line-2a claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-deduction-using-tax-exempt",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Line-2a scope completeness component: No deduction that consumes tax-exempt interest is present for the bounded line-2a claim. Contributed categorical assertion, domain {yes, no}, no default, presence-before-value, free supersession. yes asserts the named excluded source or downstream dependency is absent; no asserts it is present and blocks the bounded line-2a claim.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.line2a-scope.vocabulary",
+  "label": "Form 1040 line-2a scope/completeness absence authorities for the bounded 2025 tax-exempt-interest claim",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

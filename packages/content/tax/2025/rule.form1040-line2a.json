@@ -1,0 +1,273 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.dividends.12-subtotal",
+      "tax.us.2025.line2a-scope.no-f1099int-tax-exempt",
+      "tax.us.2025.line2a-scope.no-f1099oid-tax-exempt",
+      "tax.us.2025.line2a-scope.no-unreported-tax-exempt",
+      "tax.us.2025.line2a-scope.no-premium-adjustment",
+      "tax.us.2025.line2a-scope.no-child-income-election",
+      "tax.us.2025.line2a-scope.no-taxable-social-security",
+      "tax.us.2025.line2a-scope.no-amt-form-6251",
+      "tax.us.2025.line2a-scope.no-credit-using-tax-exempt",
+      "tax.us.2025.line2a-scope.no-deduction-using-tax-exempt"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-2a",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.f1099div.box12",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.publication-550.tax-exempt-interest",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line2a",
+  "notes": "Form 1040 line 2a for the bounded 2025 class: equals the closed box-12 family subtotal only when every excluded tax-exempt source, premium adjustment, and excluded downstream dependency is explicitly declared absent (yes). Box-13 absence/zero is enforced at admission on each statement companion. Line 2a is reported-but-not-directly-taxable and is never an input to line 9 or taxable-income arithmetic.",
+  "pins": [
+    {
+      "id": "tax.us.2025.dividends.12-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-f1099int-tax-exempt",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-f1099oid-tax-exempt",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-unreported-tax-exempt",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-premium-adjustment",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-child-income-election",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-taxable-social-security",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-amt-form-6251",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-credit-using-tax-exempt",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.line2a-scope.no-deduction-using-tax-exempt",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.tax-exempt-interest.line2a-total",
+  "requires": [
+    "tax.us.2025.dividends.12-subtotal",
+    "tax.us.2025.line2a-scope.no-f1099int-tax-exempt",
+    "tax.us.2025.line2a-scope.no-f1099oid-tax-exempt",
+    "tax.us.2025.line2a-scope.no-unreported-tax-exempt",
+    "tax.us.2025.line2a-scope.no-premium-adjustment",
+    "tax.us.2025.line2a-scope.no-child-income-election",
+    "tax.us.2025.line2a-scope.no-taxable-social-security",
+    "tax.us.2025.line2a-scope.no-amt-form-6251",
+    "tax.us.2025.line2a-scope.no-credit-using-tax-exempt",
+    "tax.us.2025.line2a-scope.no-deduction-using-tax-exempt"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.dividends.12-subtotal",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099div.12"
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.line2a-scope.no-f1099int-tax-exempt",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.line2a-scope.no-f1099int-tax-exempt",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.line2a-scope.no-f1099oid-tax-exempt",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.line2a-scope.no-f1099oid-tax-exempt",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.line2a-scope.no-unreported-tax-exempt",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.line2a-scope.no-unreported-tax-exempt",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.line2a-scope.no-premium-adjustment",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.line2a-scope.no-premium-adjustment",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.line2a-scope.no-child-income-election",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.line2a-scope.no-child-income-election",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.line2a-scope.no-taxable-social-security",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.line2a-scope.no-taxable-social-security",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.line2a-scope.no-amt-form-6251",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.line2a-scope.no-amt-form-6251",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.line2a-scope.no-credit-using-tax-exempt",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.line2a-scope.no-credit-using-tax-exempt",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.line2a-scope.no-deduction-using-tax-exempt",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.line2a-scope.no-deduction-using-tax-exempt",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      }
+    ],
+    "op": "all"
+  }
+}

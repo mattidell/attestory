@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "schedule-d-inbound-loss-carryovers",
-  "active_plan": "docs/phases/engine-breadth/milestones/schedule-d-inbound-loss-carryovers.md",
+  "topic": "form1099div-box12-line2a",
+  "active_plan": "docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md",
   "milestone_state": "closed",
-  "status": "**ENGINE BREADTH — INBOUND CAPITAL-LOSS CARRYOVERS CLOSED 2026-08-04.** Track 1 (with one findings-only repair) and Track 2 both independently reviewed `READY`. The bounded covered, basis-reported capital-transaction class is synthetic complete with a short-term or long-term capital-loss carryover derived from a bounded five-fact 2024 prior-return authority (ADR-0059, two-path completeness) via the Capital Loss Carryover Worksheet (ADR-0060), included on signed Schedule D lines 6/7/14/15/16/21 and Form 1040 line 7a/9. Rebased onto the merged Schedule B interest-adjustments milestone after an owner-directed unmerge/re-merge resolved a package-version collision on already-merged history; this milestone's own package.core-calculations/published-packages were renumbered to v16/v11 as an additive union, and a latent hardcoded package-version restriction in packages/derivation/package_validation.py was generalized. Closeout complete: coverage frontier, roadmap, deferral ledger, retrospective, and README are updated. The next breadth milestone is unselected.",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "status": "**ENGINE BREADTH / FORM 1099-DIV BOX 12 TO FORM 1040 LINE 2A — CLOSED.** The bounded 2025 box-12 route is synthetic complete and independently reviewed READY; the next milestone remains owner-unselected.",
+  "current_role": "Foreman",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
@@ -29,14 +29,15 @@ or long-term, gain or loss — reported directly on Schedule D line 1a/8a
 without Form 8949, including the current-year $3,000/$1,500 capital-loss
 limitation and now a short-term or long-term capital-loss carryover derived
 from a bounded 2024 prior-return authority, included on Schedule D lines 6
-and 14. The next breadth slice is owner-selected from the refreshed coverage
-frontier.
+and 14. It also computes the bounded 2025 Form 1099-DIV box-12 to Form 1040
+line-2a route, independent of the closed Schedule D carryover milestone.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none selected. Inbound Capital-Loss Carryovers into
-  2025 Schedule D **closed 2026-08-04**, independently reviewed `READY`.
-* **Result:** the bounded covered, basis-reported capital-transaction class
+* **Active milestone:** none. Form 1099-DIV Box 12 to Form 1040 Line 2a **closed 2026-08-04**.
+  Inbound Capital-Loss Carryovers into 2025 Schedule D **closed 2026-08-04**,
+  independently reviewed `READY`, and remains preserved on the ratified line.
+* **Previous result:** the bounded covered, basis-reported capital-transaction class
   is synthetic complete end to end with a short-term or long-term
   capital-loss carryover — a bounded five-fact 2024 prior-return authority
   (ADR-0059) with a two-path completeness gate (a cheap declared-absence
@@ -48,8 +49,15 @@ frontier.
   parity for the missing-authority state. Form 8949, noncovered
   securities, digital assets, other Schedule D sources, and any amount
   carried into 2026 remain honestly outside it — see the deferral ledger.
-* **Plan:** `docs/phases/engine-breadth/milestones/schedule-d-inbound-loss-carryovers.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-04-schedule-d-inbound-loss-carryovers.md`.
+* **Current result:** the bounded box-12 family, residual successor, explicit
+  line-2a completeness boundary, reported-only downstream semantics,
+  explanation, presentation, package/release/adoption successors, and
+  box-13 production-path companion enforcement are synthetic complete. The
+  independent re-review returned `READY`. Other tax-exempt sources, nonzero
+  box 13, excluded downstream consumers, and general tax-exempt-interest
+  support remain outside the claim.
+* **Plan:** `docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md`.
+* **Retrospective:** `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
 * **Deferral ledger:** `docs/phases/engine-breadth/milestones/schedule-d-inbound-loss-carryovers-deferral-ledger.md`.
 * **Ratified in-scope:** ADR-0059 (prior-return capital-loss authority,
   two-path completeness) and ADR-0060 (worksheet arithmetic, sign,
@@ -70,17 +78,18 @@ frontier.
   force-pushed `origin/main` back to the pre-collision merge point,
   confirmed the prior milestone needed no repair, and had Schedule B
   regenerated correctly on a separate branch before re-merging. This
-  milestone rebased onto the repaired result and renumbered its own
+  carryover milestone rebased onto the repaired result and renumbered its own
   package to `v16`/`v11` as a validated additive union, keeping both
-  already-merged files byte-immutable. A dry-run semantic-ledger check
+  already-merged files byte-immutable. The current box-12 milestone then
+  advanced its own additive package graph to v17/registry v12. A dry-run
+  semantic-ledger check
   (temporary, never committed) preceded the real rebase and surfaced a
   generalized fix to a latent hardcoded-package-version defect in
   `packages/derivation/package_validation.py`, folded into this
   milestone's implementation commit and verified not to regress Schedule
-  B's own packages. Full account in the retrospective.
-* **Next:** owner-selects the next breadth milestone from
-  `docs/phases/engine-breadth/coverage-frontier.md`. No milestone is
-  currently active.
+  B's own packages. Full account is in the current retrospective.
+* **Next:** select a new milestone from the refreshed coverage frontier. The
+  next milestone remains unselected.
 
 ## Re-entry
 
