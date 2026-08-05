@@ -1,0 +1,5410 @@
+{
+  "attachments": [
+    {
+      "id": "tax.us.2025.rule.attachment.f8949",
+      "resolved": {
+        "act": null,
+        "activeCodes": [],
+        "disposition": "guard_inapplicable"
+      },
+      "title": "Form 8949 attachment (ADR-0062 Decision 1)"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-1",
+      "resolved": {
+        "act": null,
+        "activeCodes": [],
+        "disposition": "guard_inapplicable"
+      },
+      "title": "Schedule 1 (Additional Income and Adjustments to Income)"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-b",
+      "resolved": {
+        "act": null,
+        "activeCodes": [],
+        "disposition": "guard_inapplicable"
+      },
+      "title": "Schedule B (Interest and Ordinary Dividends)"
+    },
+    {
+      "id": "tax.us.2025.rule.attachment.schedule-d",
+      "resolved": {
+        "act": null,
+        "activeCodes": [],
+        "disposition": "guard_inapplicable"
+      },
+      "title": "Schedule D attachment v5 (ADR-0061/0062)"
+    }
+  ],
+  "citationGroups": [],
+  "pinLabels": {},
+  "runId": "demo.b7.p17",
+  "schema": "presentation-model.v1",
+  "sections": [
+    {
+      "citationSites": [
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-0"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-1"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-2"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-3"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-4"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-5"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-6"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-7"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-8"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-9"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.sdcyl.t1.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-10"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.sdcyl.t1.finding.c1",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-11"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.sdcyl.t1.finding.c2",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-12"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.sdcyl.t1.finding.c3",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-13"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.sdcyl.t1.finding.c4",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-14"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-15"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-16"
+        },
+        {
+          "context": "Adjusted gross income",
+          "pinId": "demo.sdcyl.t1.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-11-src-17"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.income.agi",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-11",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 11 adjusted gross income",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published agi",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-11",
+        "label": "Adjusted gross income",
+        "line": "11",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-11",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:a7fc1867ea02b1e721275bf1",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line11",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:11475f2e9ea98f80a22a963b",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.income.agi",
+            "value": "90500",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 90500
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Standard deduction or itemized deductions",
+          "pinId": "demo.sdcyl.t1.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-12-src-0"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.deductions.total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-12",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 12 standard deduction or itemized deductions",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published total deductions",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-12",
+        "label": "Standard deduction or itemized deductions",
+        "line": "12",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-12",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:1983f5799b752cf73f6dabc1",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line12",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:887f4a5e1ca4e238a2e78b6a",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:e92da5471fc85e15e011b1dd",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.deductions.total",
+            "value": "15000",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 15000
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-0"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-1"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-2"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-3"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-4"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-5"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-6"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-7"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-8"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-9"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.sdcyl.t1.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-10"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.sdcyl.t1.finding.c1",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-11"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.sdcyl.t1.finding.c2",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-12"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.sdcyl.t1.finding.c3",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-13"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.sdcyl.t1.finding.c4",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-14"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-15"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-16"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.sdcyl.t1.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-17"
+        },
+        {
+          "context": "Taxable income",
+          "pinId": "demo.sdcyl.t1.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-15-src-18"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.income.taxable-income",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-15",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 15 taxable income",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published taxable income",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-15",
+        "label": "Taxable income",
+        "line": "15",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-15",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:5c4d3e05e447c845722b4cf9",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line15",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:1983f5799b752cf73f6dabc1",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:a7fc1867ea02b1e721275bf1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.income.taxable-income",
+            "value": "75500",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 75500
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.cg-dist",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-0"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-1"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-2"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-3"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-4"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-5"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-6"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-7"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-8"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-9"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-10"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-11"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.box1b",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-12"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.c1",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-13"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.c2",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-14"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.c3",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-15"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.c4",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-16"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-17"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-18"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-19"
+        },
+        {
+          "context": "Tax",
+          "pinId": "demo.sdcyl.t1.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-16-src-20"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.tax.total-tax",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-16",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 16 tax amount",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published tax",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-16",
+        "label": "Tax",
+        "line": "16",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-16",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:267187d17afe8d0e110c031d",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-16",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line16",
+                "role": "computation",
+                "version": "v5"
+              },
+              {
+                "id": "demo.b7.cg-dist",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.finding.rounding",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.finding.status",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:5c4d3e05e447c845722b4cf9",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:6d93ddc4ab6d297962e58098",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:79402f9c1caa87d007016698",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:9f6ecba28da3836a01d5b6ff",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:a90ab389a5cd7387be015a1a",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:b674553b10bc1015783886a6",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "bracket_fold",
+                "role": "operation-semantics",
+                "version": "v1"
+              },
+              {
+                "id": "round",
+                "role": "operation-semantics",
+                "version": "v1"
+              },
+              {
+                "id": "demo.parameter.qdcg-preferential-brackets.2025",
+                "role": "parameter",
+                "version": "v1"
+              },
+              {
+                "id": "demo.parameter.tax-brackets.2025",
+                "role": "parameter",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.tax.total-tax",
+            "value": "11656",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 11656
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Total amount from Form(s) W-2, box 1 (see instructions)",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-1a-src-0"
+        },
+        {
+          "context": "Total amount from Form(s) W-2, box 1 (see instructions)",
+          "pinId": "demo.sdcyl.t1.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-1a-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.wages.total-w2-box1",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-1a",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 1a: the total of box 1 wages, tips, and other compensation across the taxpayer's Forms W-2 for tax year 2025.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "No published value exists because required state is absent.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a numeric zero whose lineage pins a W-2 source-set closure finding.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a numeric zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value exists because the declared rule guard is false.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this nonzero amount.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-1a",
+        "label": "Total amount from Form(s) W-2, box 1 (see instructions)",
+        "line": "1a",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-1a",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:31c661104bebc5b826dffc6d",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.rule.w2-box1-to-line1a",
+                "role": "field-mapping",
+                "version": "v2"
+              },
+              {
+                "id": "demo.sdcyl.t1.finding.rounding",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.finding.wages",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "round",
+                "role": "operation-semantics",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.wages.total-w2-box1",
+            "value": "90000",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 90000
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.cg-dist",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-0"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.election",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-1"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.finding.box7.0",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-2"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.finding.box8.0",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-3"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-4"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-5"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-6"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-7"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-8"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-9"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-10"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-11"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-12"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-13"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.all-foreign-income-on-1099div",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-14"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.all-foreign-income-passive",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-15"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.country-recognized-non-terrorism",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-16"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.holding-period-16-day-met",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-17"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.legal-liability-and-paid",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-18"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-carryback-carryforward",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-19"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-excluded-income-association",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-20"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-f1099int-foreign-tax",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-21"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-form-1116-required",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-22"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-form-4972-on-line16",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-23"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-k1-k3-foreign-tax",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-24"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-other-foreign-tax-source",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-25"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-refund-rebate-subsidy",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-26"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-sch3-line2",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-27"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-sch3-line3",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-28"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-sch3-line4",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-29"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-sch3-line5",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-30"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-sch3-line6",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-31"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-schedule-a-deduction-election",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-32"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-schedule2-regular-tax-add",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-33"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.no-short-sale-obligation",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-34"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.b7.scope.tax-type-creditable",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-35"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-36"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.box1b",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-37"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.c1",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-38"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.c2",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-39"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.c3",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-40"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.c4",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-41"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-42"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-43"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-44"
+        },
+        {
+          "context": "Other nonrefundable credits from Schedule 3",
+          "pinId": "demo.sdcyl.t1.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-20-src-45"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.credits.form1040-line20",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-20",
+          "version": "v1"
+        },
+        "description": "Form 1040 line 20: nonrefundable credits from Schedule 3 line 8 for the bounded direct foreign-tax-credit class.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 20 is blocked because Schedule 3 line 8 is blocked.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes zero through honest closed-empty or zero-credit authority on the direct-election path.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value is published because a scope, election, threshold, or creditability component is not satisfied for the bounded class.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Form 1040 line 20 equals Schedule 3 line 8 (direct foreign tax credit without Form 1116 for the bounded class).",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-20",
+        "label": "Other nonrefundable credits from Schedule 3",
+        "line": "20",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-20",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:232cdc3e28f4cc39bbde5cc8",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-20",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line20",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:24a5f1f48a9d37dd2f8ae254",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.credits.form1040-line20",
+            "value": "100",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 100
+      }
+    },
+    {
+      "citationSites": [],
+      "field": {
+        "binds_symbol": "tax.us.2025.tax-exempt-interest.line2a-total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-2a",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 2a: tax-exempt interest for the contracted direct-reporting class of closed Form 1099-DIV box-12 exempt-interest dividends and/or closed Form 1099-INT box-8 tax-exempt interest under Path A (no Form 1099-INT tax-exempt source) or Path B (closed box-8 family), when every remaining excluded source, premium adjustment, and excluded downstream dependency is explicitly declared absent. Reported-but-not-directly-taxable; does not enter line 9 or taxable income. Does not implement Form 1099-OID tax-exempt sources, premium calculations, Form 6251, or general tax-exempt-interest support.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 2a is blocked because scope-completeness authority is incomplete, an excluded source or dependency is present, the box-12 family is unclosed, or Path B lacks a closed box-8 family.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the supported tax-exempt-interest families are attested closed on their current horizons with no recorded members (or Path A contributes zero from the INT slot), under explicit scope-completeness authority.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present box-12 and/or box-8 findings that sum to zero under explicit scope authority.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No bounded line-2a value is published because a residual scope-completeness component is not yes (an excluded source or downstream dependency is present).",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this tax-exempt interest amount on line 2a from the closed box-12 and/or closed box-8 families under explicit scope-completeness authority. The amount is reported but not directly taxable on this return graph.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-2a",
+        "label": "Tax-exempt interest",
+        "line": "2a",
+        "schema": "form-field.v3",
+        "version": "v2"
+      },
+      "id": "line-2a",
+      "resolved": {
+        "act": null,
+        "activeCodes": [
+          "DEPENDENCY_ABSENT"
+        ],
+        "disposition": "blocked"
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Taxable interest",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-2b-src-0"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.interest.taxable-total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-2b",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 2b: exact seven-family positive taxable interest less the three separately closed Schedule B adjustment classes: Nominee Distribution, Accrued Interest, and ABP Adjustment.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Taxable interest is blocked because one or more constituent interest families are unclosed or their dependencies are missing.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because all constituent families are attested closed on their current horizons with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present subtotals that sum to zero. All constituent families are closed.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No taxable-interest value is published because the explicit adjustment classes exceed the positive-interest basis.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current cited derived finding publishes the seven-family positive interest total less the exact contributed and closed Schedule B adjustment classes.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-2b",
+        "label": "Taxable interest",
+        "line": "2b",
+        "schema": "form-field.v3",
+        "version": "v5"
+      },
+      "id": "line-2b",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:914b06553b4580f55277a50c",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-2b",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line2b",
+                "role": "computation",
+                "version": "v4"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.sb-abp.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.sb-accrued.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.sb-nominee.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.int-b1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.int-b10",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.int-b3",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.k1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.nonform",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.oid-b1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.oid-b5",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:03d16001d3705cbff33b89d1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:09b2b31a92bc93d0a9ab2103",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:1b8439abe6cf2b78094f4d67",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:69afa12f3e07cf8d0ad92d18",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:6cc7ff0c431e3bfbd5f400d7",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:80a2220d6867f125587492f8",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:bd6e1f2d77acecfdac35122c",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:d9bb9b294df5df3ab494315f",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:da36e50f0f7f4d3e8234dfd4",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:ee4d1e2466cb8de1c6b91e5b",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099int-b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099int-b10",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099int-b3",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099oid-b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099oid-b5",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.form1065-k1-box5",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.non-form-interest",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.scheduleb-adjustment.abp-adjustment",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.scheduleb-adjustment.accrued-interest",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.scheduleb-adjustment.nominee",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099int.b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099int.b10",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099int.b3",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099oid.b1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099oid.b5",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.form1065-k1.box5",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.non-form-interest",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.scheduleb.adjustment.abp-adjustment",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.scheduleb.adjustment.accrued-interest",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.scheduleb.adjustment.nominee",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.interest.taxable-total",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Qualified dividends",
+          "pinId": "demo.sdcyl.t1.finding.box1b",
+          "pinVersion": "v1",
+          "siteId": "line-3a-src-0"
+        },
+        {
+          "context": "Qualified dividends",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-3a-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.dividends.qualified-total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-3a",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 3a: qualified dividends. Composes from Form 1099-DIV box 1b over the closed tax.us.2025.f1099div.1b family, gated on that family's closure only (ADR-0035 decisions 1-2, per-box closure independence).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Qualified dividends is blocked because the box-1b family is unclosed or its dependencies are missing.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the box-1b family is attested closed on its current horizon with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present box-1b findings that sum to zero. The box-1b family is closed.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value exists because the rule guard is false.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this qualified-dividend amount; its lineage pins the box-1b subtotal.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-3a",
+        "label": "Qualified dividends",
+        "line": "3a",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-3a",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:b674553b10bc1015783886a6",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line3a",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.div1b",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:8e3ea5547f0350e25026f00a",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099div-1b",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099div.1b",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.dividends.qualified-total",
+            "value": "100",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 100
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Ordinary dividends",
+          "pinId": "demo.sdcyl.t1.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-3b-src-0"
+        },
+        {
+          "context": "Ordinary dividends",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-3b-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.dividends.ordinary-total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-3b",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 3b: total ordinary dividends. Composes from Form 1099-DIV box 1a over the closed tax.us.2025.f1099div.1a family, gated on that family's closure only (ADR-0035 decisions 1-2, per-box closure independence).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Ordinary dividends is blocked because the box-1a family is unclosed or its dependencies are missing.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the box-1a family is attested closed on its current horizon with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present box-1a findings that sum to zero. The box-1a family is closed.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value exists because the rule guard is false.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this ordinary-dividend amount; its lineage pins the box-1a subtotal.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-3b",
+        "label": "Ordinary dividends",
+        "line": "3b",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-3b",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:8dfaf563012b937947a5ff17",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line3b",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.div1a",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:37f03acdff2464fb71eba188",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099div-1a",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099div.1a",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.dividends.ordinary-total",
+            "value": "500",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 500
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Capital gain or (loss)",
+          "pinId": "demo.sdcyl.t1.finding.c1",
+          "pinVersion": "v1",
+          "siteId": "line-7a-src-0"
+        },
+        {
+          "context": "Capital gain or (loss)",
+          "pinId": "demo.sdcyl.t1.finding.c2",
+          "pinVersion": "v1",
+          "siteId": "line-7a-src-1"
+        },
+        {
+          "context": "Capital gain or (loss)",
+          "pinId": "demo.sdcyl.t1.finding.c3",
+          "pinVersion": "v1",
+          "siteId": "line-7a-src-2"
+        },
+        {
+          "context": "Capital gain or (loss)",
+          "pinId": "demo.sdcyl.t1.finding.c4",
+          "pinVersion": "v1",
+          "siteId": "line-7a-src-3"
+        },
+        {
+          "context": "Capital gain or (loss)",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-7a-src-4"
+        },
+        {
+          "context": "Capital gain or (loss)",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-7a-src-5"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.capital-gains.line7a-total",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-7a",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 7a: capital gain or (loss) for the contracted direct-reporting class of Form 1099-DIV box-2a capital-gain distributions when Schedule D is not required (ADR-0050). Binds the selected closed box-2a family subtotal under Exception-1 eligibility. Does not implement Schedule D, Form 8949, or general capital-gains machinery.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 7a is blocked because Exception-1 authority is incomplete or the box-2a family is unclosed.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the box-2a family is attested closed on its current horizon with no recorded members, under Exception-1 eligibility.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero under Exception-1 eligibility.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No direct-route line 7a value exists because the checked Schedule-D-required conclusion is yes (any Exception-1 component is no).",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this capital-gain distributions amount on the direct line-7a route.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-7a",
+        "label": "Capital gain or (loss)",
+        "line": "7a",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-7a",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:b2535e322e4c3e70b261b4bd",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-7a",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line7a",
+                "role": "computation",
+                "version": "v5"
+              },
+              {
+                "id": "finding:derived:15a6ba56d6b8a49a1c3f71ae",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:79402f9c1caa87d007016698",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:839e5bab5150089a8658b8d7",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:9f6ecba28da3836a01d5b6ff",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:a50ecdb5b1fcaef543820593",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:a6469985b60ff9bf60dfc49c",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:a90ab389a5cd7387be015a1a",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.capital-gains.line7a-total",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [],
+      "field": {
+        "binds_symbol": "tax.us.2025.form1040.line7b-schedule-d-not-required",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-7b",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 7b: the affirmative Schedule-D-not-required disposition for the direct line-7a route (ADR-0050 Decision 5). Publishes only from the current checked conclusion tax.us.2025.schedule-d-required.conclusion equal to no. Exact citation pin is tax.us.2025.citation.form1040.line-7b@v1 to the 2025 Instructions for Form 1040, Line 7b, the paragraph beginning \"If Exception 1 applies, check the 'Schedule D not required' box on line 7b\".",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 7b is blocked because the checked Schedule-D-required conclusion is unpublished (missing Exception-1 component authority).",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "Not used for the line-7b Schedule-D-not-required disposition.",
+            "render": ""
+          },
+          "computed_zero": {
+            "explain": "Not used for the line-7b Schedule-D-not-required disposition.",
+            "render": ""
+          },
+          "guard_inapplicable": {
+            "explain": "No affirmative Schedule-D-not-required disposition because the checked conclusion is yes (any Exception-1 component is no).",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "The checked Schedule-D-required conclusion is currently no; Exception 1 applies and the Schedule D not required box on line 7b is affirmative.",
+            "render": "checked"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-7b",
+        "label": "Schedule D not required",
+        "line": "7b",
+        "schema": "form-field.v3",
+        "version": "v2"
+      },
+      "id": "line-7b",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:40a4ec5175f52d7e6a355af7",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-7b",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line7b",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:6d93ddc4ab6d297962e58098",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.form1040.line7b-schedule-d-not-required",
+            "value": "checked",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_categorical"
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-0"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-1"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-2"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-3"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-4"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-5"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-6"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-7"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-8"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-9"
+        },
+        {
+          "context": "Additional income from Schedule 1",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-8-src-10"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.income.additional-income",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-8",
+          "version": "v1"
+        },
+        "description": "Form 1040 (2025), line 8: additional income from complete Schedule 1 line 10 for the bounded unemployment class. Published exactly once into line-9 v5. Explicit zero when closed-empty unemployment meets complete absences; never a silent omission.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Form 1040 line 8 is blocked because Schedule 1 line 10 is incomplete or unavailable.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes zero because the supporting source family is attested closed-empty under complete authority.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero under complete authority.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value is published because a completeness or guard condition is not satisfied.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes Form 1040 line 8 from complete Schedule 1 line 10. This amount is added exactly once to total income on line 9.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-8",
+        "label": "Additional income from Schedule 1",
+        "line": "8",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-8",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:4fe04f439873fef0df68e65e",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-8",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule1.line-10",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line8",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:24462c9223a2cf7a3a0aaa08",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.income.additional-income",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-0"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-1"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-2"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-3"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-4"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-5"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-6"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-7"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-8"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-9"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.sdcyl.t1.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-10"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.sdcyl.t1.finding.c1",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-11"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.sdcyl.t1.finding.c2",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-12"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.sdcyl.t1.finding.c3",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-13"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.sdcyl.t1.finding.c4",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-14"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-15"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-16"
+        },
+        {
+          "context": "Total income",
+          "pinId": "demo.sdcyl.t1.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-9-src-17"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.income.total-income",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-9",
+          "version": "v1"
+        },
+        "description": "Form 1040 Line 9 total income",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID"
+            ],
+            "explain": "blocked",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "closure zero",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "computed zero",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "guard false",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "published total income",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.line-9",
+        "label": "Total income",
+        "line": "9",
+        "schema": "form-field.v2",
+        "version": "v1"
+      },
+      "id": "line-9",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:11475f2e9ea98f80a22a963b",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-9",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-line9",
+                "role": "computation",
+                "version": "v5"
+              },
+              {
+                "id": "finding:derived:31c661104bebc5b826dffc6d",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:4fe04f439873fef0df68e65e",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:8dfaf563012b937947a5ff17",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:914b06553b4580f55277a50c",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:b2535e322e4c3e70b261b4bd",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.income.total-income",
+            "value": "90500",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 90500
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.cg-dist",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-0"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.election",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-1"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.finding.box7.0",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-2"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.finding.box8.0",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-3"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-4"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-5"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-6"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-7"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-8"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-9"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-10"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-11"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-12"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-13"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.all-foreign-income-on-1099div",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-14"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.all-foreign-income-passive",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-15"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.country-recognized-non-terrorism",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-16"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.holding-period-16-day-met",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-17"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.legal-liability-and-paid",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-18"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-carryback-carryforward",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-19"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-excluded-income-association",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-20"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-f1099int-foreign-tax",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-21"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-form-1116-required",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-22"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-form-4972-on-line16",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-23"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-k1-k3-foreign-tax",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-24"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-line17-schedule2-additional",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-25"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-line19-ctc-odc",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-26"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-other-foreign-tax-source",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-27"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-refund-rebate-subsidy",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-28"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line2",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-29"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line3",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-30"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line4",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-31"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line5",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-32"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line6",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-33"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-schedule-a-deduction-election",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-34"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-schedule2-regular-tax-add",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-35"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.no-short-sale-obligation",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-36"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.b7.scope.tax-type-creditable",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-37"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-38"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.box1b",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-39"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.c1",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-40"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.c2",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-41"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.c3",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-42"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.c4",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-43"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-44"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-45"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-46"
+        },
+        {
+          "context": "Tax after nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-22-src-47"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.tax.after-nonrefundable-credits",
+        "citation": {
+          "id": "tax.us.2025.citation.form1040.line-22",
+          "version": "v1"
+        },
+        "description": "Form 1040 bounded tax after nonrefundable credits: max(line 16 \u2212 line 20, 0) when line 17 and line 19 are explicitly absent. Distinct from tax.us.2025.tax.total-tax (line 16 regular tax).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Tax after credits is blocked because line 16, line 20, or line 17/19 absence authority is incomplete.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes zero through honest closed-empty or zero-credit authority on the direct-election path.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value is published because a scope, election, threshold, or creditability component is not satisfied for the bounded class.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Tax after nonrefundable credits floors at zero: line 16 regular tax minus line 20 credits under line 17/19 absence. Line 16 meaning is preserved.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.form1040.tax-after-credits",
+        "label": "Tax after nonrefundable credits",
+        "line": "22",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-22",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:7367f48f96128a4f8406d77a",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.form1040.line-22",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.form1040-tax-after-credits",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-line17-schedule2-additional",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-line19-ctc-odc",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.finding.rounding",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:232cdc3e28f4cc39bbde5cc8",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:267187d17afe8d0e110c031d",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "round",
+                "role": "operation-semantics",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.tax.after-nonrefundable-credits",
+            "value": "11556",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 11556
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 13: capital gain distributions",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-13-src-0"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.dividends.2a-subtotal",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-13",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) line 13: capital gain distributions, consuming the accepted ADR-0050 box-2a family subtotal exactly once (ADR-0052 Decision 2's adopted completeness successor).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 13 is blocked because the box-2a family is unclosed.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the box-2a family is attested closed on its current horizon with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present box-2a findings that sum to zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No line 13 value exists for this route.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes the box-2a capital-gain-distributions subtotal.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-13",
+        "label": "Line 13: capital gain distributions",
+        "line": "sch-d-13",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-sch-d-13",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:f334031ba93a16afbb21ba5f",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.rule.f1099div-2a-subtotal",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.div2a",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.finding.rounding",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "round",
+                "role": "operation-semantics",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099div-2a",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099div.2a",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.dividends.2a-subtotal",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 14 long-term capital loss carryover",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-14-src-0"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-14",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-14",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Line 14 long-term capital loss carryover (ADR-0060).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Blocked.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "Closure-backed zero.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "Computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "Inapplicable.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Current derived finding publishes this line.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-14",
+        "label": "Line 14 long-term capital loss carryover",
+        "line": "14",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-14",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:563a6594205b14552805656c",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-14",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line14",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:a50ecdb5b1fcaef543820593",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-14",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 15: net long-term capital gain",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-15-src-0"
+        },
+        {
+          "context": "Line 15: net long-term capital gain",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-15-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-15",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-15",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Part II line 15: line 8a's gain plus the closed box-2a subtotal once (ADR-0052 Decision 3).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 15 is blocked because line 8a or the box-2a subtotal is unavailable.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero from closure-backed inputs with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present inputs that net to zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No line 15 value exists for this route.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes line 15 as line 8a's gain plus the box-2a subtotal.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-15",
+        "label": "Line 15: net long-term capital gain",
+        "line": "sch-d-15",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-sch-d-15",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:7d37f3fc84a8fe8f36806560",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-15",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line15",
+                "role": "computation",
+                "version": "v4"
+              },
+              {
+                "id": "finding:derived:563a6594205b14552805656c",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:58a0fcf2e9f90441a224693f",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:839e5bab5150089a8658b8d7",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:f334031ba93a16afbb21ba5f",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-15",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 16: total gain",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-16-src-0"
+        },
+        {
+          "context": "Line 16: total gain",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-sch-d-16-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-16",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-16",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Part III line 16: equals line 15 for this bounded gain-only slice (ADR-0052 Decision 3). Pinned directly by the selected-preferential-base rule's Schedule-D branch (ADR-0053 Decision 2).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 16 is blocked because line 15 is unavailable.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero from closure-backed inputs with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present inputs that net to zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No line 16 value exists for this route.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes line 16 equal to line 15.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-16",
+        "label": "Line 16: total gain",
+        "line": "sch-d-16",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-sch-d-16",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:2594dc27202436fe5b0dcf9c",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-16",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line16",
+                "role": "computation",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:7d37f3fc84a8fe8f36806560",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:e6f9d5a8f7db1b32df42afa3",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-16",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-1a-gain",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-1a",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Line 1a column (h) (ADR-0058).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Blocked.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "Closure-backed zero.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "Computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "Inapplicable.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Current derived finding publishes this line.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-1a",
+        "label": "Line 1a column (h)",
+        "line": "1a-h",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-1a-h",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:382bca85894b90e54988ae8d",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-1a",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line1a-gain",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.st",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:7d6f76819e6c3632cdc67c2e",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:a90ab389a5cd7387be015a1a",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-st",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-st",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-1a-gain",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "closure_backed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-1b",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-1b",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Line 1b column (h) (ADR-0062).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Blocked.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "Closure-backed zero.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "Computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "Inapplicable.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Current derived finding publishes this line.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-1b",
+        "label": "Line 1b column (h)",
+        "line": "1b-h",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-1b-h",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:a6469985b60ff9bf60dfc49c",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-1b",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line1b",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.wst-a.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.wst-b.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.wst-p.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.wst.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:358aeb2302a7dc7797224711",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:5f9ad09c6890df433f142952",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:97666913d1f13cba02a90507",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-basis",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-w-st",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-w-st-adjustment",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-w-st-basis",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-w-st-proceeds",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-1b",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "closure_backed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 21 limited loss",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-21-src-0"
+        },
+        {
+          "context": "Line 21 limited loss",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-21-src-1"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-21",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-21",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Line 21 limited loss (ADR-0058).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Blocked.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "Closure-backed zero.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "Computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "Inapplicable.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Current derived finding publishes this line.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-21",
+        "label": "Line 21 limited loss",
+        "line": "21",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-21",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:630b9bdaa639ab99c7b820da",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-21",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line21",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:2594dc27202436fe5b0dcf9c",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-21",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 6 short-term capital loss carryover",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-6-src-0"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-6",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-6",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Line 6 short-term capital loss carryover (ADR-0060).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Blocked.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "Closure-backed zero.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "Computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "Inapplicable.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Current derived finding publishes this line.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-6",
+        "label": "Line 6 short-term capital loss carryover",
+        "line": "6",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-6",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:058c394b4e2a188b5a8e313b",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-6",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line6",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:15a6ba56d6b8a49a1c3f71ae",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-6",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Line 7 net short-term",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-7-src-0"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-7",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-7",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Line 7 net short-term (ADR-0058).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Blocked.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "Closure-backed zero.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "Computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "Inapplicable.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Current derived finding publishes this line.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-7",
+        "label": "Line 7 net short-term",
+        "line": "7",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-7",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:e6f9d5a8f7db1b32df42afa3",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-7",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line7",
+                "role": "computation",
+                "version": "v3"
+              },
+              {
+                "id": "finding:derived:058c394b4e2a188b5a8e313b",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:382bca85894b90e54988ae8d",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:a6469985b60ff9bf60dfc49c",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-7",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-8a-gain",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-8a",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) line 8a, column (h): totals for transactions not reported on Form 8949, for the bounded covered-long-term-gain class (ADR-0052 Decision 3). Column (h) is column (d) minus column (e); each is itemized separately in the Schedule D attachment's own citation walk.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Line 8a is blocked because the proceeds or basis subtotal is unavailable, or the eligible-transaction family is unclosed.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes a zero because the proceeds and basis families are attested closed on their current horizons with no recorded members.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero from present proceeds and basis findings that net to zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No line 8a value exists for this route.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes column (h) as the tied-out difference of columns (d) and (e).",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-8a",
+        "label": "Line 8a, column (h): gain",
+        "line": "8a-h",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-8a-h",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:58a0fcf2e9f90441a224693f",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-8a",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line8a-gain",
+                "role": "computation",
+                "version": "v2"
+              },
+              {
+                "id": "demo.sdcyl.t1.closure.lt",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:9f6ecba28da3836a01d5b6ff",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:be5099f1b5e33b41f6955547",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-lt",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-lt",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-8a-gain",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "closure_backed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule-d.line-8b",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule-d.line-8b",
+          "version": "v1"
+        },
+        "description": "Schedule D (2025) Line 8b column (h) (ADR-0062).",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Blocked.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "Closure-backed zero.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "Computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "Inapplicable.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Current derived finding publishes this line.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-D",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule-d.line-8b",
+        "label": "Line 8b column (h)",
+        "line": "8b-h",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-8b-h",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:839e5bab5150089a8658b8d7",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule-d.line-8b",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule-d-line8b",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.wlt-a.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.wlt-b.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.wlt-p.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.wlt.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:3b67425fdf3b3e5f121a3935",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:608acef9bf8179aa58c93760",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:e846e6201139918ef2dc9786",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-w-lt",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-w-lt-adjustment",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-w-lt-basis",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099b.covered-w-lt-proceeds",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule-d.line-8b",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "closure_backed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-0"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-1"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-2"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-3"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-4"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-5"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-6"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-7"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-8"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-9"
+        },
+        {
+          "context": "Additional income",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-10-src-10"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule1.line10-additional-income",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule1.line-10",
+          "version": "v1"
+        },
+        "description": "Schedule 1 (Form 1040) 2025, line 10 for the bounded class: equals line 7 when every unsupported Part I income class, repayment, and residual Form 1099-G payment class is explicitly declared absent. Not a general Schedule 1 completeness claim.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Schedule 1 line 10 is blocked because absence authority is incomplete, an excluded class is present, or unemployment is unclosed.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes zero because the supporting source family is attested closed-empty under complete authority.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero under complete authority.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value is published because a completeness or guard condition is not satisfied.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes complete Schedule 1 line 10 additional income from closed unemployment under explicit Part I absence authority.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-1",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule1.line-10",
+        "label": "Additional income",
+        "line": "sch1-10",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-sch1-10",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:24462c9223a2cf7a3a0aaa08",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule1.line-10",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule1.line-7",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule1-line10",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.g1.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-sch1-line3-business",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-sch1-line5-rental",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-sch1-line6-farm",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-sch1-other-income",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.sch1-scope.no-unemployment-repayment",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:c6a811774be4f22aea1511e1",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099g-1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099g.1",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule1.line10-additional-income",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Unemployment compensation",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-sch1-7-src-0"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule1.line7-unemployment",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule1.line-7",
+          "version": "v1"
+        },
+        "description": "Schedule 1 (Form 1040) 2025, line 7: unemployment compensation from the closed Form 1099-G box-1 family for the bounded class. Does not implement repayment checkbox arithmetic or general Schedule 1 income.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Schedule 1 line 7 is blocked because the box-1 family is unclosed or its subtotal is unavailable.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes zero because the supporting source family is attested closed-empty under complete authority.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero under complete authority.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value is published because a completeness or guard condition is not satisfied.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "A current derived finding publishes this unemployment compensation amount on Schedule 1 line 7 from the closed Form 1099-G box-1 family.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-SCH-1",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule1.line-7",
+        "label": "Unemployment compensation",
+        "line": "sch1-7",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-sch1-7",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:c6a811774be4f22aea1511e1",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.f1099g.box1",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule1.line-7",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule1-line7",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.demo.b7.g1.h0",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:90b3fbe705fb1649bfe31053",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099g-1",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099g.1",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule1.line7-unemployment",
+            "value": "0",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "computed_zero",
+        "value": 0
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.cg-dist",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-0"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.election",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-1"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.finding.box7.0",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-2"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.finding.box8.0",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-3"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-4"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-5"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-6"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-7"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-8"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-9"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-10"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-11"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-12"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-13"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.all-foreign-income-on-1099div",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-14"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.all-foreign-income-passive",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-15"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.country-recognized-non-terrorism",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-16"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.holding-period-16-day-met",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-17"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.legal-liability-and-paid",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-18"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-carryback-carryforward",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-19"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-excluded-income-association",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-20"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-f1099int-foreign-tax",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-21"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-form-1116-required",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-22"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-form-4972-on-line16",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-23"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-k1-k3-foreign-tax",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-24"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-other-foreign-tax-source",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-25"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-refund-rebate-subsidy",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-26"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-schedule-a-deduction-election",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-27"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-schedule2-regular-tax-add",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-28"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.no-short-sale-obligation",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-29"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.b7.scope.tax-type-creditable",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-30"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-31"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.box1b",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-32"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.c1",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-33"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.c2",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-34"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.c3",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-35"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.c4",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-36"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-37"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-38"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-39"
+        },
+        {
+          "context": "Foreign tax credit",
+          "pinId": "demo.sdcyl.t1.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-1-src-40"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule3.line1-direct-ftc",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule3.line1",
+          "version": "v1"
+        },
+        "description": "Schedule 3 (Form 1040) Part I line 1: foreign tax credit under the direct election without Form 1116 for the bounded 2025 Form 1099-DIV box-7 class. Equals min(creditable box-7 subtotal, Form 1040 line 16) when election, creditability, associated-income, and threshold authorities hold. Does not complete Form 1116.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Schedule 3 line 1 is blocked because election, creditability, associated-income, threshold, closure, or regular-tax scope authority is incomplete or failed.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes zero through honest closed-empty or zero-credit authority on the direct-election path.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value is published because a scope, election, threshold, or creditability component is not satisfied for the bounded class.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Direct foreign tax credit without Form 1116: published from closed box-7 foreign tax paid, under named creditability and election authority, capped at regular tax (Form 1040 line 16).",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-Schedule-3",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule3.line-1",
+        "label": "Foreign tax credit",
+        "line": "Sch3-1",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-Sch3-1",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:e2aa94517af1570297e60cd5",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "demo.b7.election",
+                "role": "choice",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.citation.f1099div.box7",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.citation.form1116.direct-election",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.citation.publication-514.ftc",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule3.line1",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule3-line1-direct-ftc",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.closure.box7",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.all-foreign-income-on-1099div",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.all-foreign-income-passive",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.country-recognized-non-terrorism",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.holding-period-16-day-met",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.legal-liability-and-paid",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-carryback-carryforward",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-excluded-income-association",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-f1099int-foreign-tax",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-form-1116-required",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-form-4972-on-line16",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-k1-k3-foreign-tax",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-other-foreign-tax-source",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-refund-rebate-subsidy",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-schedule-a-deduction-election",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-schedule2-regular-tax-add",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-short-sale-obligation",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.tax-type-creditable",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.finding.rounding",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.sdcyl.t1.finding.status",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:267187d17afe8d0e110c031d",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "finding:derived:af0e21328df46867972d8ab8",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v2"
+              },
+              {
+                "id": "round",
+                "role": "operation-semantics",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.closure-mapping.f1099div-7",
+                "role": "package",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.f1099div.7",
+                "role": "package",
+                "version": "v1"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule3.line1-direct-ftc",
+            "value": "100",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 100
+      }
+    },
+    {
+      "citationSites": [
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.cg-dist",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-0"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.election",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-1"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.finding.box7.0",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-2"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.finding.box8.0",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-3"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-box2-state-refund",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-4"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-f1099g-other-payment-classes",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-5"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line1-taxable-refunds",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-6"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line2a-alimony",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-7"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line3-business",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-8"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line4-other-gains",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-9"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line5-rental",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-10"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-line6-farm",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-11"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-sch1-other-income",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-12"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.sch1-scope.no-unemployment-repayment",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-13"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.all-foreign-income-on-1099div",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-14"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.all-foreign-income-passive",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-15"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.country-recognized-non-terrorism",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-16"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.holding-period-16-day-met",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-17"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.legal-liability-and-paid",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-18"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-carryback-carryforward",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-19"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-excluded-income-association",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-20"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-f1099int-foreign-tax",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-21"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-form-1116-required",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-22"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-form-4972-on-line16",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-23"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-k1-k3-foreign-tax",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-24"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-other-foreign-tax-source",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-25"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-refund-rebate-subsidy",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-26"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line2",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-27"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line3",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-28"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line4",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-29"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line5",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-30"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-sch3-line6",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-31"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-schedule-a-deduction-election",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-32"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-schedule2-regular-tax-add",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-33"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.no-short-sale-obligation",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-34"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.b7.scope.tax-type-creditable",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-35"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.box1a",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-36"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.box1b",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-37"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.c1",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-38"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.c2",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-39"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.c3",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-40"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.c4",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-41"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.no-inbound-capital-loss-carryovers",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-42"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.rounding",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-43"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.status",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-44"
+        },
+        {
+          "context": "Total other nonrefundable credits",
+          "pinId": "demo.sdcyl.t1.finding.wages",
+          "pinVersion": "v1",
+          "siteId": "line-Sch3-8-src-45"
+        }
+      ],
+      "field": {
+        "binds_symbol": "tax.us.2025.schedule3.line8-total",
+        "citation": {
+          "id": "tax.us.2025.citation.schedule3.line8",
+          "version": "v1"
+        },
+        "description": "Schedule 3 (Form 1040) line 8: total of Part I for the bounded class equals line 1 when every other Part I credit is explicitly absent.",
+        "dispositions": {
+          "blocked": {
+            "codes": [
+              "DEPENDENCY_ABSENT",
+              "DEPENDENCY_INVALID",
+              "CATEGORICAL_DOMAIN_MISMATCH",
+              "SOURCE_SET_UNCLOSED"
+            ],
+            "explain": "Schedule 3 line 8 is blocked because line 1 is blocked or another Part I credit absence authority is incomplete.",
+            "render": ""
+          },
+          "closure_backed_zero": {
+            "explain": "A current derived finding publishes zero through honest closed-empty or zero-credit authority on the direct-election path.",
+            "render": "0"
+          },
+          "computed_zero": {
+            "explain": "A current derived finding publishes a computed zero.",
+            "render": "0"
+          },
+          "guard_inapplicable": {
+            "explain": "No value is published because a scope, election, threshold, or creditability component is not satisfied for the bounded class.",
+            "render": ""
+          },
+          "published_value": {
+            "explain": "Schedule 3 line 8 equals line 1 under explicit absence of other Part I credits; carries to Form 1040 line 20.",
+            "render": "{value}"
+          }
+        },
+        "form": {
+          "authority": "IRS",
+          "form_id": "1040-Schedule-3",
+          "jurisdiction": "US-federal",
+          "tax_year": 2025
+        },
+        "id": "tax.us.2025.schedule3.line-8",
+        "label": "Total other nonrefundable credits",
+        "line": "Sch3-8",
+        "schema": "form-field.v3",
+        "version": "v1"
+      },
+      "id": "line-Sch3-8",
+      "resolved": {
+        "act": {
+          "finding": {
+            "id": "finding:derived:24a5f1f48a9d37dd2f8ae254",
+            "pins": [
+              {
+                "id": "tax.us.2025.package.core-calculations",
+                "role": "adoption",
+                "version": "v21"
+              },
+              {
+                "id": "tax.us.2025.citation.schedule3.line8",
+                "role": "citation",
+                "version": "v1"
+              },
+              {
+                "id": "tax.us.2025.rule.schedule3-line8",
+                "role": "computation",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-sch3-line2",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-sch3-line3",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-sch3-line4",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-sch3-line5",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "demo.b7.scope.no-sch3-line6",
+                "origin": "assertion",
+                "role": "input",
+                "version": "v1"
+              },
+              {
+                "id": "finding:derived:e2aa94517af1570297e60cd5",
+                "origin": "declared_default",
+                "role": "input",
+                "version": "v2"
+              }
+            ],
+            "schema": "derived-finding.v2",
+            "symbol": "tax.us.2025.schedule3.line8-total",
+            "value": "100",
+            "version": "v2"
+          },
+          "run_id": "demo.b7.p17"
+        },
+        "disposition": "published_value",
+        "value": 100
+      }
+    }
+  ]
+}

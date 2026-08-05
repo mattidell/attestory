@@ -543,7 +543,7 @@ def validate_package(
             if pin_role != "operation-semantics":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"operation-semantics declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"dividend-universe.v1", "dividend-universe.v2"}:
+        elif citizen["schema"] in {"dividend-universe.v1", "dividend-universe.v2", "dividend-universe.v3", "dividend-universe.v4"}:
             if pin_role != "dividend-universe":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"dividend-universe declared as role {pin_role!r}"))
@@ -1060,16 +1060,19 @@ def validate_package(
     composable_box2a_members: set[str] = set()
     composable_box12_members: set[str] = set()
     composable_box8_members: set[str] = set()
+    composable_box7_members: set[str] = set()
     historical_recorded_boxes_v1 = False
     successor_box2a_member = False
     historical_recorded_box12 = False
     successor_box12_member = False
+    historical_recorded_box7 = False
+    successor_box7_member = False
     historical_line2a_v1 = False
     successor_box8_member = False
     for _, citizen in resolved:
         if citizen["schema"] == "dividend-universe.v1":
             recorded_non_composable.add(citizen["recorded_boxes_fact_type"]["id"])
-        elif citizen["schema"] in {"dividend-universe.v2", "dividend-universe.v3"}:
+        elif citizen["schema"] in {"dividend-universe.v2", "dividend-universe.v3", "dividend-universe.v4"}:
             recorded_non_composable.add(citizen["recorded_boxes_fact_type"]["id"])
             for box in citizen.get("composable_boxes", []):
                 family = box.get("family") or {}
@@ -1079,12 +1082,17 @@ def validate_package(
                     composable_box2a_members.add(member)
                 if member and box.get("box") == "12":
                     composable_box12_members.add(member)
+                if member and box.get("box") == "7":
+                    composable_box7_members.add(member)
         elif citizen["schema"] == "source-family.v1":
             if citizen.get("id") == "tax.us.2025.f1099div.12":
                 composable_box12_members.add(citizen["member_predicate"]["fact_type"])
             if citizen.get("id") == "tax.us.2025.f1099int.b8":
                 composable_box8_members.add(citizen["member_predicate"]["fact_type"])
                 successor_box8_member = True
+            if citizen.get("id") == "tax.us.2025.f1099div.7":
+                composable_box7_members.add(citizen["member_predicate"]["fact_type"])
+                successor_box7_member = True
         if citizen["schema"] == "fact-type.v2":
             if (
                 citizen.get("id") == "tax.us.2025.f1099div.recorded-boxes"
@@ -1115,11 +1123,19 @@ def validate_package(
                 if fact_type.get("id") == "tax.us.2025.f1099int.box8-tax-exempt-interest":
                     successor_box8_member = True
                     composable_box8_members.add(fact_type["id"])
+                if fact_type.get("id") == "tax.us.2025.f1099div.box7-foreign-tax-paid":
+                    successor_box7_member = True
+                    composable_box7_members.add(fact_type["id"])
                 if (
                     fact_type.get("id") == "tax.us.2025.f1099div.recorded-boxes"
                     and "12" in fact_type.get("value_schema", {}).get("properties", {})
                 ):
                     historical_recorded_box12 = True
+                if (
+                    fact_type.get("id") == "tax.us.2025.f1099div.recorded-boxes"
+                    and "7" in fact_type.get("value_schema", {}).get("properties", {})
+                ):
+                    historical_recorded_box7 = True
     # ADR-0050 decision 3: reject mixed historical recorded box-2a content and
     # successor family members in one adopted package graph.
     if historical_recorded_boxes_v1 and successor_box2a_member:
@@ -1133,6 +1149,12 @@ def validate_package(
             package_id, package.get("version", ""), "MIXED_BOX12_GRAPH",
             "package admits both historical recorded-boxes content with box 12 "
             "and successor box-12 family members; exclusive graphs only",
+        ))
+    if historical_recorded_box7 and successor_box7_member:
+        issues.append(MemberIssue(
+            package_id, package.get("version", ""), "MIXED_BOX7_GRAPH",
+            "package admits both historical recorded-boxes content with box 7 "
+            "and successor box-7 family members; exclusive graphs only",
         ))
     # B8-C3: historical box-12-only line-2a@v1 is exclusive against the box-8
     # multi-family successor graph.
@@ -1194,6 +1216,13 @@ def validate_package(
                     pin["id"], pin["version"], "RAW_BOX8_DOWNSTREAM_READ",
                     f"rule publishing {publishes!r} consumes raw box-8 members "
                     f"{raw_box8}; tax-exempt interest remains reported-only",
+                ))
+            raw_box7 = sorted(consumed & composable_box7_members)
+            if raw_box7:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "RAW_BOX7_DOWNSTREAM_READ",
+                    f"rule publishing {publishes!r} consumes raw box-7 members "
+                    f"{raw_box7}; foreign tax paid is a credit source, never income",
                 ))
 
     # 10. Attachment answer encoding guard (ADR-0036 production condition 2).

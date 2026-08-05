@@ -1,0 +1,53 @@
+{
+  "$id": "kernel/quantity-vocabulary.v10",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Immutable, versioned closed vocabulary for quantity identities used by residual-closed source amount fact types (ADR-0028 decision 7). v10 adds foreign-tax-paid for Form 1099-DIV box 7 on the bounded direct FTC route. v1\u2013v9 remain immutable history.",
+  "properties": {
+    "id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "quantities": {
+      "items": {
+        "enum": [
+          "capital-gain-distributions",
+          "covered-lt-basis",
+          "covered-lt-proceeds",
+          "covered-ltcg-basis",
+          "covered-ltcg-proceeds",
+          "covered-st-basis",
+          "covered-st-proceeds",
+          "exempt-interest-dividends",
+          "foreign-tax-paid",
+          "income-tax",
+          "ordinary-dividends",
+          "qualified-dividends",
+          "standard-deduction",
+          "taxable-income",
+          "taxable-interest",
+          "unemployment-compensation",
+          "wages"
+        ]
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "schema": {
+      "const": "quantity-vocabulary.v10"
+    },
+    "version": {
+      "pattern": "^v[0-9]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "quantities"
+  ],
+  "title": "Tax quantity vocabulary, foreign tax paid (direct FTC) added",
+  "type": "object"
+}

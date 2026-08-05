@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.foreign-tax.box7-subtotal",
+  "closure_claim": "Every foreign-tax-paid amount reported in box 7 of a Form 1099-DIV furnished to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon. This claim covers Form 1099-DIV box 7 only: it says nothing about boxes 1a, 1b, 2a, or 12, residual recorded non-composable boxes (3, 5), Form 1099-INT foreign tax, Schedule K-1/K-3 foreign tax, Schedule 3 completeness, or Form 1040 credit lines. Closed with members authorizes the multi-payer sum of current members; closed-empty authorizes subtotal 0.",
+  "id": "tax.us.2025.f1099div.7",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099div.box7-foreign-tax-paid"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Form 1099-DIV box 7 statement items, tax year 2025",
+  "version": "v1"
+}

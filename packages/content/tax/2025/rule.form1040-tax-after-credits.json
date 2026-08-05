@@ -1,0 +1,129 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.tax.total-tax",
+      "tax.us.2025.credits.form1040-line20",
+      "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+      "tax.us.2025.direct-ftc-scope.no-line19-ctc-odc",
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-22",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-tax-after-credits",
+  "notes": "Bounded tax after nonrefundable credits: max(line_16 - line_20, 0) when line 17 and line 19 are explicitly absent so line_18 = line_16 and line_21 = line_20. Preserves tax.us.2025.tax.total-tax as line-16 regular tax; never overwrites that symbol. Floors at zero; never negative tax.",
+  "pins": [
+    {
+      "id": "tax.us.2025.rule.form1040-line16",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v5"
+    },
+    {
+      "id": "tax.us.2025.credits.form1040-line20",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-line19-ctc-odc",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.tax.after-nonrefundable-credits",
+  "requires": [
+    "tax.us.2025.tax.total-tax",
+    "tax.us.2025.credits.form1040-line20",
+    "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+    "tax.us.2025.direct-ftc-scope.no-line19-ctc-odc",
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "left": {
+            "name": "tax.us.2025.tax.total-tax",
+            "op": "ref"
+          },
+          "op": "subtract",
+          "right": {
+            "name": "tax.us.2025.credits.form1040-line20",
+            "op": "ref"
+          }
+        },
+        0
+      ],
+      "op": "max"
+    }
+  },
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-line19-ctc-odc",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-line19-ctc-odc",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      }
+    ],
+    "op": "all"
+  }
+}

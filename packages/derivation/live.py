@@ -83,11 +83,19 @@ def _resolved_run_material(graph: Any) -> tuple[
         raise LiveRunError(
             f"domain companion-presence pairs must be a mapping; got {type(pairs)!r}"
         )
-    extra = [
-        comp
-        for sub, comp in pairs.items()
-        if sub in collect_names and comp not in collect_names
-    ]
+    extra: list[str] = []
+    for sub, comp in pairs.items():
+        if sub not in collect_names:
+            continue
+        companions = [comp] if isinstance(comp, str) else list(comp or ())
+        for companion in companions:
+            if (
+                isinstance(companion, str)
+                and companion
+                and companion not in collect_names
+                and companion not in extra
+            ):
+                extra.append(companion)
     collect_names = list(collect_names) + extra
     return rules, parameters, families, mappings, fact_types, list(graph.package["input_bindings"]), collect_names
 

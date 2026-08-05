@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.schedule3.line8-total",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule3.line8",
+    "version": "v1"
+  },
+  "description": "Schedule 3 (Form 1040) line 8: total of Part I for the bounded class equals line 1 when every other Part I credit is explicitly absent.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Schedule 3 line 8 is blocked because line 1 is blocked or another Part I credit absence authority is incomplete.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero through honest closed-empty or zero-credit authority on the direct-election path.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a scope, election, threshold, or creditability component is not satisfied for the bounded class.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "Schedule 3 line 8 equals line 1 under explicit absence of other Part I credits; carries to Form 1040 line 20.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-Schedule-3",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.schedule3.line-8",
+  "label": "Total other nonrefundable credits",
+  "line": "Sch3-8",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

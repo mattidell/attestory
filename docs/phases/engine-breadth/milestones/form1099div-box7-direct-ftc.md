@@ -273,7 +273,13 @@ election**, it does not silently clip to $300/$600.
 ## Supported class
 
 - Tax year **2025**; individual Form 1040 filing status already supported by the
-  engine (single, MFJ, MFS, HOH, QSS as presently modeled).
+  engine (single, MFJ, MFS, HOH, QSS as presently modeled). **MFS** shares the
+  **$300** threshold expression by contract (B7-C7) — the published rule's
+  literal branch is identical to single's — but this milestone does **not**
+  certify or publish a live MFS run: the engine has no MFS tax-bracket table
+  yet, so a live MFS run hits `SchemaValidationError: LOOKUP_MISS` at line 16
+  regular tax before the threshold rule is ever reached. Live MFS end-to-end
+  evidence is deferred to the milestone that adds MFS tax-bracket parameters.
 - One or more Form **1099-DIV box-7** amounts in **U.S. dollars**, nonnegative.
 - Associated dividend income on the **same logical statements** through
   supported box **1a** (required positive association) and, if Track 0 retains

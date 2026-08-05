@@ -43,18 +43,22 @@ def _version_rank(version: str) -> int:
     return int(version.removeprefix("v"))
 
 
-def domain_companion_presence_pairs() -> dict[str, str]:
+def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
     """Domain companion-presence pairs enforced at finding admission.
 
     Production projection (``live_coordinate_run`` → ``project``) must install
     these on its registry. ``tax_registry()`` installs the same map for domain
     loaders and direct registry-path tests.
+
+    Values may be one companion fact-type id or a list of required same-statement
+    companions. Presence is always required; optional value-domain restrictions
+    live in ``domain_companion_value_domains``.
     """
     return {
         # Form 1099-DIV box-12 route (B12-C3): each box-12 statement member
         # requires an explicit same-statement box-13 absence/zero companion.
-        # Kernel enforces presence generically; nonzero is rejected without
-        # creating Form 6251.
+        # Kernel enforces presence generically; value domain rejects nonzero
+        # without creating Form 6251.
         "tax.us.2025.f1099div.box12-exempt-interest-dividends": (
             "tax.us.2025.f1099div.box13-specified-pab-authority"
         ),
@@ -71,6 +75,28 @@ def domain_companion_presence_pairs() -> dict[str, str]:
         "tax.us.2025.f1099int.box8-tax-exempt-interest": (
             "tax.us.2025.f1099int.box9-specified-pab-authority"
         ),
+        # Form 1099-DIV box-7 direct FTC route (B7-C3/C4): each box-7 member
+        # requires an explicit same-statement box-8 companion (country string or
+        # RIC not_applicable) and associated same-statement box-1a ordinary
+        # dividends (presence only; never invent foreign-income amount from tax).
+        "tax.us.2025.f1099div.box7-foreign-tax-paid": [
+            "tax.us.2025.f1099div.box8-country-companion",
+            "tax.us.2025.f1099div.box1a-ordinary",
+        ],
+    }
+
+
+def domain_companion_value_domains() -> dict[str, frozenset[object]]:
+    """Optional admitted companion value domains beyond fact-type value_schema.
+
+    Absence/zero companions for tax-exempt and withholding authority witnesses
+    remain restricted after multi-companion generalization. Box-7 country and
+    box-1a companions rely on their fact-type value_schema alone.
+    """
+    return {
+        "tax.us.2025.f1099div.box13-specified-pab-authority": frozenset({None, 0, 0.0}),
+        "tax.us.2025.f1099g.box4-federal-withholding-authority": frozenset({None, 0, 0.0}),
+        "tax.us.2025.f1099int.box9-specified-pab-authority": frozenset({None, 0, 0.0}),
     }
 
 
@@ -80,6 +106,11 @@ def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistr
     Idempotent: re-applying the same pairs is a no-op for equal keys.
     """
     registry.companion_presence_pairs.update(domain_companion_presence_pairs())
+    domains = getattr(registry, "companion_value_domains", None)
+    if domains is None:
+        registry.companion_value_domains = {}
+        domains = registry.companion_value_domains
+    domains.update(domain_companion_value_domains())
     return registry
 
 

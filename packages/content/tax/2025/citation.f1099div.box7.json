@@ -1,0 +1,10 @@
+{
+  "authority": {
+    "family": "irs-instructions",
+    "form_id": "1099-DIV",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.citation.f1099div.box7",
+  "schema": "citation.v1",
+  "version": "v1"
+}

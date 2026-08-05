@@ -1,0 +1,628 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.foreign-tax.box7-subtotal",
+      "tax.us.2025.tax.total-tax",
+      "tax.us.2025.direct-ftc.election",
+      "filing_status",
+      "rounding.convention",
+      "tax.us.2025.direct-ftc-scope.all-foreign-income-passive",
+      "tax.us.2025.direct-ftc-scope.all-foreign-income-on-1099div",
+      "tax.us.2025.direct-ftc-scope.no-f1099int-foreign-tax",
+      "tax.us.2025.direct-ftc-scope.no-k1-k3-foreign-tax",
+      "tax.us.2025.direct-ftc-scope.no-other-foreign-tax-source",
+      "tax.us.2025.direct-ftc-scope.tax-type-creditable",
+      "tax.us.2025.direct-ftc-scope.legal-liability-and-paid",
+      "tax.us.2025.direct-ftc-scope.no-refund-rebate-subsidy",
+      "tax.us.2025.direct-ftc-scope.no-excluded-income-association",
+      "tax.us.2025.direct-ftc-scope.holding-period-16-day-met",
+      "tax.us.2025.direct-ftc-scope.no-short-sale-obligation",
+      "tax.us.2025.direct-ftc-scope.country-recognized-non-terrorism",
+      "tax.us.2025.direct-ftc-scope.no-carryback-carryforward",
+      "tax.us.2025.direct-ftc-scope.no-schedule-a-deduction-election",
+      "tax.us.2025.direct-ftc-scope.no-form-1116-required",
+      "tax.us.2025.direct-ftc-scope.no-sch3-line2",
+      "tax.us.2025.direct-ftc-scope.no-sch3-line3",
+      "tax.us.2025.direct-ftc-scope.no-sch3-line4",
+      "tax.us.2025.direct-ftc-scope.no-sch3-line5",
+      "tax.us.2025.direct-ftc-scope.no-sch3-line6",
+      "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+      "tax.us.2025.direct-ftc-scope.no-line19-ctc-odc",
+      "tax.us.2025.direct-ftc-scope.no-schedule2-regular-tax-add",
+      "tax.us.2025.direct-ftc-scope.no-form-4972-on-line16"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule3.line1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.f1099div.box7",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1116.direct-election",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.publication-514.ftc",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.schedule3-line1-direct-ftc",
+  "notes": "Schedule 3 line 1 direct foreign tax credit without Form 1116 for the bounded 2025 class: min(closed box-7 subtotal, Form 1040 line 16 regular tax) only when election=yes, creditability components are yes, associated income completeness is yes, threshold gate passes (block not clip), and regular-tax scope absences hold. Threshold is $600 MFJ else $300 including MFS. Does not implement Form 1116, carryovers, or Schedule A deduction.",
+  "pins": [
+    {
+      "id": "tax.us.2025.foreign-tax.box7-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line16",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v5"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc.election",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.filing-status",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.all-foreign-income-passive",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.all-foreign-income-on-1099div",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-f1099int-foreign-tax",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-k1-k3-foreign-tax",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-other-foreign-tax-source",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.tax-type-creditable",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.legal-liability-and-paid",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-refund-rebate-subsidy",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-excluded-income-association",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.holding-period-16-day-met",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-short-sale-obligation",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.country-recognized-non-terrorism",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-carryback-carryforward",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-schedule-a-deduction-election",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-form-1116-required",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line2",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line3",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line4",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line5",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-sch3-line6",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-line19-ctc-odc",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-schedule2-regular-tax-add",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.direct-ftc-scope.no-form-4972-on-line16",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.schedule3.line1-direct-ftc",
+  "requires": [
+    "tax.us.2025.foreign-tax.box7-subtotal",
+    "tax.us.2025.tax.total-tax",
+    "tax.us.2025.direct-ftc.election",
+    "filing_status",
+    "rounding.convention",
+    "tax.us.2025.direct-ftc-scope.all-foreign-income-passive",
+    "tax.us.2025.direct-ftc-scope.all-foreign-income-on-1099div",
+    "tax.us.2025.direct-ftc-scope.no-f1099int-foreign-tax",
+    "tax.us.2025.direct-ftc-scope.no-k1-k3-foreign-tax",
+    "tax.us.2025.direct-ftc-scope.no-other-foreign-tax-source",
+    "tax.us.2025.direct-ftc-scope.tax-type-creditable",
+    "tax.us.2025.direct-ftc-scope.legal-liability-and-paid",
+    "tax.us.2025.direct-ftc-scope.no-refund-rebate-subsidy",
+    "tax.us.2025.direct-ftc-scope.no-excluded-income-association",
+    "tax.us.2025.direct-ftc-scope.holding-period-16-day-met",
+    "tax.us.2025.direct-ftc-scope.no-short-sale-obligation",
+    "tax.us.2025.direct-ftc-scope.country-recognized-non-terrorism",
+    "tax.us.2025.direct-ftc-scope.no-carryback-carryforward",
+    "tax.us.2025.direct-ftc-scope.no-schedule-a-deduction-election",
+    "tax.us.2025.direct-ftc-scope.no-form-1116-required",
+    "tax.us.2025.direct-ftc-scope.no-sch3-line2",
+    "tax.us.2025.direct-ftc-scope.no-sch3-line3",
+    "tax.us.2025.direct-ftc-scope.no-sch3-line4",
+    "tax.us.2025.direct-ftc-scope.no-sch3-line5",
+    "tax.us.2025.direct-ftc-scope.no-sch3-line6",
+    "tax.us.2025.direct-ftc-scope.no-line17-schedule2-additional",
+    "tax.us.2025.direct-ftc-scope.no-line19-ctc-odc",
+    "tax.us.2025.direct-ftc-scope.no-schedule2-regular-tax-add",
+    "tax.us.2025.direct-ftc-scope.no-form-4972-on-line16"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "else": {
+        "name": "tax.us.2025.tax.total-tax",
+        "op": "ref"
+      },
+      "op": "choose",
+      "then": {
+        "name": "tax.us.2025.foreign-tax.box7-subtotal",
+        "op": "ref"
+      },
+      "when": {
+        "cmp": "lte",
+        "left": {
+          "name": "tax.us.2025.foreign-tax.box7-subtotal",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": {
+          "name": "tax.us.2025.tax.total-tax",
+          "op": "ref"
+        }
+      }
+    }
+  },
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099div.7"
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc.election",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc.election",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "lte",
+        "left": {
+          "name": "tax.us.2025.foreign-tax.box7-subtotal",
+          "op": "ref"
+        },
+        "op": "compare",
+        "right": {
+          "else": 300,
+          "op": "choose",
+          "then": 600,
+          "when": {
+            "cmp": "eq",
+            "left": {
+              "name": "filing_status",
+              "op": "ref"
+            },
+            "op": "categorical_compare",
+            "right": {
+              "fact_type": {
+                "id": "tax.us.2025.filing-status",
+                "version": "v1"
+              },
+              "op": "category_literal",
+              "value": "married_filing_jointly"
+            }
+          }
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.all-foreign-income-passive",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.all-foreign-income-passive",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.all-foreign-income-on-1099div",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.all-foreign-income-on-1099div",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-f1099int-foreign-tax",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-f1099int-foreign-tax",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-k1-k3-foreign-tax",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-k1-k3-foreign-tax",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-other-foreign-tax-source",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-other-foreign-tax-source",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.tax-type-creditable",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.tax-type-creditable",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.legal-liability-and-paid",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.legal-liability-and-paid",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-refund-rebate-subsidy",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-refund-rebate-subsidy",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-excluded-income-association",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-excluded-income-association",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.holding-period-16-day-met",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.holding-period-16-day-met",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-short-sale-obligation",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-short-sale-obligation",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.country-recognized-non-terrorism",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.country-recognized-non-terrorism",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-carryback-carryforward",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-carryback-carryforward",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-schedule-a-deduction-election",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-schedule-a-deduction-election",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-form-1116-required",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-form-1116-required",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-schedule2-regular-tax-add",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-schedule2-regular-tax-add",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.direct-ftc-scope.no-form-4972-on-line16",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.direct-ftc-scope.no-form-4972-on-line16",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      }
+    ],
+    "op": "all"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "tax.us.2025.quantity.foreign-tax-paid",
+  "quantities": [
+    "foreign-tax-paid"
+  ],
+  "schema": "quantity-vocabulary.v10",
+  "version": "v1"
+}

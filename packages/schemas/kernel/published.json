@@ -27,6 +27,7 @@
   "finding.v1.schema.json": "24c8a86abc0c87d480c9cd486fce59565920ec36acfc465a153f9281cc48fe46",
   "finding.v2.schema.json": "4323c1409c06bbebcc294223e3f1b02dca2a679973d255e0905106e93b64605f",
   "quantity-vocabulary.v1.schema.json": "3ec205da3e316a6a485e271f9da63ca1c6372bdc35a035f3639adc204c27a4d1",
+  "quantity-vocabulary.v10.schema.json": "bbb434288e0be4740918a533c4f515d0a6c6a6e272dffab430155a388e8b7c52",
   "quantity-vocabulary.v2.schema.json": "83588761674fe3d7b008fea5a00287b555357e0fccac9e728d6b9a23332b4a3a",
   "quantity-vocabulary.v3.schema.json": "236a4001f236c940013f7d13db6454ab2a2f44eb3a3f10b124548ec9e91100ed",
   "quantity-vocabulary.v4.schema.json": "a384e5fd8683809bc930f4fe9ff2ccb4addb3e4b461e4a228b3494c9df40a834",

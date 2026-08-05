@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.tax.after-nonrefundable-credits",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-22",
+    "version": "v1"
+  },
+  "description": "Form 1040 bounded tax after nonrefundable credits: max(line 16 \u2212 line 20, 0) when line 17 and line 19 are explicitly absent. Distinct from tax.us.2025.tax.total-tax (line 16 regular tax).",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Tax after credits is blocked because line 16, line 20, or line 17/19 absence authority is incomplete.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero through honest closed-empty or zero-credit authority on the direct-election path.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a scope, election, threshold, or creditability component is not satisfied for the bounded class.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "Tax after nonrefundable credits floors at zero: line 16 regular tax minus line 20 credits under line 17/19 absence. Line 16 meaning is preserved.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.tax-after-credits",
+  "label": "Tax after nonrefundable credits",
+  "line": "22",
+  "schema": "form-field.v3",
+  "version": "v1"
+}
