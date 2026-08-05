@@ -1,0 +1,153 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.prior-return.vocabulary",
+  "version": "v1",
+  "label": "2024 prior-return capital-loss authority (ADR-0059): five scalar line-result assertions for the 2025 Capital Loss Carryover Worksheet.",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.prior-return.form1040.line-15",
+      "version": "v1",
+      "title": "2024 Form 1040 line 15 taxable income (may be negative); prior-return authority for 2025 Capital Loss Carryover Worksheet (ADR-0059).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "name": "source-tax-year",
+          "kind": "literal",
+          "values": [
+            "2024"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.prior-return.schedule-d.line-21",
+      "version": "v1",
+      "title": "2024 Schedule D line 21 allowed capital-loss deduction (signed); prior-return authority (ADR-0059).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "name": "source-tax-year",
+          "kind": "literal",
+          "values": [
+            "2024"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.prior-return.schedule-d.line-7",
+      "version": "v1",
+      "title": "2024 Schedule D line 7 net short-term capital gain or loss (signed); prior-return authority (ADR-0059).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "name": "source-tax-year",
+          "kind": "literal",
+          "values": [
+            "2024"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.prior-return.schedule-d.line-15",
+      "version": "v1",
+      "title": "2024 Schedule D line 15 net long-term capital gain or loss (signed); prior-return authority (ADR-0059).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "name": "source-tax-year",
+          "kind": "literal",
+          "values": [
+            "2024"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.prior-return.schedule-d.line-16",
+      "version": "v1",
+      "title": "2024 Schedule D line 16 combined net (signed); eligibility precondition for Capital Loss Carryover Worksheet (ADR-0059).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "name": "source-tax-year",
+          "kind": "literal",
+          "values": [
+            "2024"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

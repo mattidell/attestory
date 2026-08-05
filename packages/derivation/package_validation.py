@@ -615,7 +615,9 @@ def validate_package(
         # after subtracting closed adjustment classes from the positive composition.
         # The selected composition citizen publishes the positive-total basis, not
         # taxable-total; resolve composition through the producer pin instead of
-        # requiring a second selected version of the same composition id.
+        # requiring a second selected version of the same composition id. This is a
+        # structural fact about rule.form1040-line2b@v4 itself, not about which
+        # package version adopts it, so no package-version gate is applied here.
         if comp_member is None and S == "tax.us.2025.interest.taxable-total":
             for pin, citizen in resolved:
                 if (
@@ -623,7 +625,6 @@ def validate_package(
                     and citizen.get("publishes") == S
                     and pin["id"] == "tax.us.2025.rule.form1040-line2b"
                     and pin["version"] == "v4"
-                    and package.get("version") in {"v14", "v15"}
                 ):
                     r_comp = citizen.get("composition")
                     if not isinstance(r_comp, dict):
@@ -663,8 +664,7 @@ def validate_package(
                 comp_constituents = {c["authorizes_subtotal"] for c in comp_citizen.get("constituents", [])}
                 rule_requires = set(rule_citizen.get("requires", []))
                 v11_adjustment_route = (
-                    package.get("version") in {"v14", "v15"}
-                    and rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
+                    rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
                     and rule_pin["version"] == "v4"
                 )
                 expected_adjustment_subtotals = {
@@ -1206,8 +1206,7 @@ def validate_package(
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_SUBTOTAL_MISMATCH",
                                               f"part {part['part_id']!r} adjustment subtotal is not authorized by family {family['id']!r}"))
             if (
-                package.get("version") in {"v14", "v15"}
-                and pin["id"] == "tax.us.2025.rule.attachment.schedule-b"
+                pin["id"] == "tax.us.2025.rule.attachment.schedule-b"
                 and pin["version"] == "v4"
             ):
                 actual_adjustment_slots = [

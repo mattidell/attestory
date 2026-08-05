@@ -148,6 +148,25 @@ source and completeness boundary is selected.
   class adjustment path is synthetic complete through line 2b, Schedule B Part
   I, package resolution, explanation, and presentation. Schedule D remains
   outside scope. Plan: `milestones/schedule-b-interest-adjustments.md`.
+- **Inbound Capital-Loss Carryovers into 2025 Schedule D — closed 2026-08-04**
+  (Track 1 with one findings-only repair, Track 2, both independently
+  reviewed `READY`). A bounded five-fact 2024 prior-return authority
+  (ADR-0059) with a two-path completeness gate — a cheap declared-absence
+  path preserving the existing `no-inbound-capital-loss-carryovers`
+  declaration, and a full-authority path running the Capital Loss
+  Carryover Worksheet as an auditable derived rule citizen (ADR-0060) —
+  makes the short-term/long-term carryover synthetic complete through
+  signed Schedule D lines 6/7/14/15/16/21, Form 1040 line 7a/9, package
+  resolution, explanation, and presentation, including a carryover-only
+  routing case and disposition-visibility parity for the missing-
+  authority state. Rebased onto the merged Schedule B interest-
+  adjustments milestone; the resulting package-version collision
+  (`package.core-calculations` `v15` claimed independently by both) was
+  resolved as an additive `v16`/`v11` union, and a latent hardcoded-
+  package-version restriction in `packages/derivation/package_validation.py`
+  (introduced by the Schedule B build) was generalized so it no longer
+  blocks any package version past `v15`. Plan:
+  `milestones/schedule-d-inbound-loss-carryovers.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
