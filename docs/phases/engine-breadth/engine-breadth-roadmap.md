@@ -94,13 +94,17 @@ roadmap unless a selected breadth slice directly depends on them.
    `docs/milestone-retrospectives/2026-08-03-schedule-d-current-year-losses.md`;
    deferral ledger:
    `milestones/schedule-d-current-year-losses-deferral-ledger.md`.
-7. **Form 1099-DIV Box 12 to Form 1040 Line 2a** — selected 2026-08-03 for
-   planning. Promote exempt-interest dividends into an independent closed
-   source family and compute the complete bounded box-12-only tax-exempt
-   interest amount on line 2a. The route preserves historical residual boxes,
-   explicitly blocks other tax-exempt sources, box 13, and excluded downstream
-   dependencies, and does not change line 9, taxable income, Schedule B, or
-   Schedule D. Plan: `milestones/form1099div-box12-line2a.md`.
+7. **Form 1099-DIV Box 12 to Form 1040 Line 2a** — selected 2026-08-03 and
+   **closed 2026-08-04**. Promoted exempt-interest dividends into an
+   independent closed source family and computed the complete bounded
+   box-12-only tax-exempt interest amount on line 2a. The route preserves
+   historical residual boxes, explicitly blocks other tax-exempt sources,
+   box 13, and excluded downstream dependencies, and does not change line 9,
+   taxable income, Schedule B, or Schedule D. The final package is v17 with
+   published registry v12, release v10, and adoption v17; the independent
+   re-review returned `READY`. Plan:
+   `milestones/form1099div-box12-line2a.md`; retrospective:
+   `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
 8. **Next breadth slice — owner-selected from the refreshed frontier.**
    Inbound capital-loss carryovers, Form 8949/noncovered securities/
    adjustments, and other Schedule D sources deferred out of item 6 remain
@@ -174,10 +178,15 @@ source and completeness boundary is selected.
   (introduced by the Schedule B build) was generalized so it no longer
   blocks any package version past `v15`. Plan:
   `milestones/schedule-d-inbound-loss-carryovers.md`.
-- **Form 1099-DIV Box 12 to Form 1040 Line 2a — active after base
-  synchronization.** Track 0 is settled, Track 1 is implemented, and Track 2
-  is the independent review gate. Plan:
-  `milestones/form1099div-box12-line2a.md`.
+- **Form 1099-DIV Box 12 to Form 1040 Line 2a — closed 2026-08-04.** The
+  bounded box-12-only class is synthetic complete through line 2a, explicit
+  completeness and box-13 companion authority, reported-only explanation and
+  presentation, package/release/adoption resolution, and focused regressions
+  for existing dividend, interest, Schedule B, and Schedule D behavior. The
+  independent re-review returned `READY`. Other tax-exempt sources and
+  excluded downstream consumers remain honestly outside the claim. Plan:
+  `milestones/form1099div-box12-line2a.md`; retrospective:
+  `docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the

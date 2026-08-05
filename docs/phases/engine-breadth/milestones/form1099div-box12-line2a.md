@@ -2,8 +2,9 @@
 {
   "version": 1,
   "topic": "form1099div-box12-line2a",
-  "milestone_state": "planned",
-  "status": "PLAN PREPARED FOR OWNER REVIEW. The proposed bounded 2025 Form 1099-DIV box-12 to Form 1040 line-2a route is independent of Schedule D and has no implementation charter yet.",
+  "milestone_state": "closed",
+  "status": "CLOSED. The bounded 2025 Form 1099-DIV box-12 to Form 1040 line-2a route is synthetic complete and independently reviewed READY; the route remains independent of Schedule D.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md",
   "scope": [
     "promote Form 1099-DIV box 12 into an independent closed source family and aggregate it to Form 1040 line 2a",
     "replace the active 1099-DIV residual recording shape additively while preserving historical bundles and package routes byte-for-byte",
@@ -18,22 +19,6 @@
     "no Schedule B or Schedule D changes",
     "no claim that tax-exempt interest has no effect outside the bounded supported graph"
   ],
-  "initial_briefing_follow_up": {
-    "version": 1,
-    "expires": "milestone-close",
-    "grounding_commit": "e2a4687add71688e18f5722e146d35e7b2e878ee",
-    "notes": [
-      "The prior Schedule B Interest Adjustments milestone is closed through PR #156; its one-integrated-Builder/Reviewer economy and final rebase inventory are the relevant execution patterns.",
-      "The frontier names other recorded Form 1099-DIV boxes as a block; this plan splits boxes 3, 5, 7, and 12 before selecting the box-12 slice.",
-      "The new route must preserve the separate Schedule D worktree and survive additive package, registry, release, and adoption collisions at final rebase."
-    ],
-    "sources": [
-      {"path": "docs/milestone-retrospectives/2026-08-03-schedule-b-interest-adjustments.md", "blob": "a2069bf329d8ee8be76381abf5c69de3da3adfff"},
-      {"path": "docs/phases/engine-breadth/coverage-frontier.md", "blob": "2365ae808b16739c2c55b1f1138ff541ba8ae3ba"},
-      {"path": "docs/phases/engine-breadth/engine-breadth-roadmap.md", "blob": "b3585118318c20d17a285619fc0fd080a36f86b8"},
-      {"path": "docs/phases/engine-breadth/milestones/schedule-b-interest-adjustments.md", "blob": "5f5a28f3b97dc3da3c0b37d0ff9a2fe551a19d09"}
-    ]
-  },
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
@@ -89,11 +74,12 @@
       "AGENTS.md#Data Safety Rules"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-08-03-schedule-b-interest-adjustments.md",
+      "docs/milestone-retrospectives/2026-08-04-form1099div-box12-line2a.md",
       "docs/phases/engine-breadth/coverage-frontier.md",
       "docs/phases/engine-breadth/engine-breadth-roadmap.md",
-      "docs/phases/engine-breadth/milestones/schedule-b-interest-adjustments.md",
-      "docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md"
+      "docs/phases/engine-breadth/milestones/form1099div-box12-line2a.md",
+      "docs/milestone-retrospectives/2026-08-03-schedule-b-interest-adjustments.md",
+      "docs/phases/engine-breadth/milestones/schedule-b-interest-adjustments.md"
     ]
   }
 }
@@ -124,13 +110,13 @@ removed box 2a from its residual member. The current residual successor still
 records boxes 3, 5, 7, and 12; the historical v1 residual and its package
 routes are immutable.
 
-The current adopted synthetic route on `origin/main` is the Schedule B
-successor graph: `tax.us.2025.package.core-calculations@v15`,
-`published-packages.v10`, `demo.release.2025@v8`, and
-`adopt-core-v15-current`. Those versions are a readiness baseline only. No
-successor number is reserved by this plan. The branch must inventory the
-latest ratified line immediately before implementation packaging and again
-before PR curation, then choose unused additive successors.
+The adopted synthetic route on the ratified line was the Schedule B successor
+graph. This milestone's additive successors are
+`tax.us.2025.package.core-calculations@v17`, `published-packages.v12`,
+`demo.release.2025@v10`, and `adopt-core-v17-current`; the package uses
+`artifact-package.v14`. The predecessor package and published registry remain
+byte-immutable. The final rebase and semantic-ledger check preserved both the
+milestone delta and intervening Schedule D work.
 
 Existing dividend, taxable-interest, Schedule B, and Schedule D behavior is a
 compatibility boundary. The new line-2a graph is a new consumer path; it does
@@ -210,6 +196,40 @@ does not claim those sources are computed.
 Track 0 records the exact paper instances, negatives, lifecycle trace, maps,
 Gate-1 disposition, citation URLs, and proposed ADR outcome before any
 implementation charter.
+
+### Track 0 record — paper settled 2026-08-04
+
+The paper examples distinguish the selected shape, so no rival prototype is
+created. The values below are synthetic paper values only.
+
+| Proposition | Positive instances | Meaningful negatives | Lifecycle trace | Producer → authority → consumer → failure |
+| --- | --- | --- | --- | --- |
+| P1 residual succession | `demo.payer.alpha` historical residual box-12 `100`; successor box-12 member `100` with residual `{3:null,5:null,7:null}` | historical residual plus successor family in one package; same statement reachable through both shapes | old package remains resolvable; successor package adopts only residual-v3 plus box-12 family | statement member → package exclusivity/residual-v3 → box-12 subtotal → mixed graph or double-count rejection |
+| P2 family identity/closure | one payer/one statement `100`; two payers/statements `100` + `40` | open closure; stale closure after a late statement | corrected `100` to `125` keeps payer/statement/year identity; late second statement advances the family horizon; restoration closes the successor horizon | logical statement fact → box-12 family horizon → subtotal/line 2a → open, stale, or superseded consumer |
+| P3 line-2a boundary | box-12-only return with explicit all-slots-absent scope authority; closed-empty box-12 family with the same authority | Form 1099-INT tax-exempt source, Form 1099-OID tax-exempt source, unreported source, premium adjustment, or excluded downstream dependency present; missing scope authority | scope authority is corrected/superseded as a tax-year declaration; line 2a leaves current state until the successor authority is current | box-12 subtotal + scope authority → line-2a composition → complete value or honest block |
+| P4 box 13 | box 13 explicit null; box 13 explicit `0` | box 13 explicit positive value; missing companion authority | corrected box-13 witness follows the same logical statement identity | box-12 statement + box-13 witness → line-2a guard → publish or block; never Form 6251 |
+| P5 downstream semantics | line 2a `140` with line 9/taxable income unchanged; explanation marks reported-but-not-directly-taxable | child-income/Social Security/credit/deduction consumer present | excluded consumer stays blocked/nonpublished while the bounded full-return claim is unavailable | line-2a field → zero-authority presentation and explanation; excluded consumer → honest nonpublication |
+| P6 pins/lifecycle | subtotal and line 2a carry family, mapping, horizon, closure, completeness, and citation pins | missing pin; raw historical reach-around; restored old closure consumed after successor horizon | correction displaces prior finding; stale closure displaces consumers; restoration recomputes | exact attribution chain → resolver/explanation/presentation → resolved value or pin/closure rejection |
+
+The paper comparison for P3 is settled in favor of one-family composition plus
+one explicit `line-2a-scope-completeness` authority. The alternative additive
+multi-slot composition would require implementing or independently closing
+every unimplemented Form 1099-INT, Form 1099-OID, non-form, and premium slot;
+it costs more while adding no supported source. The selected authority names
+each excluded slot and downstream dependency without pretending to compute it.
+
+P1 and P2 reuse the accepted logical statement, per-family claim, and horizon
+contracts. P4 uses a companion witness tied to the same statement and does not
+create an AMT source. P5 preserves the existing zero-authority presentation
+projection and makes excluded consumers block explicitly. P6 is an exact-pin
+and lifecycle implementation obligation.
+
+**Track 0 disposition:** the plan's B12-C1 through B12-C7 contracts, together
+with accepted ADR-0015, ADR-0016, ADR-0017, ADR-0020, ADR-0027, ADR-0029,
+ADR-0033, ADR-0035, and ADR-0046, are sufficient for this bounded route. No
+new ADR is required by the paper decision. Any implementation discovery that
+requires a new product contract stops and returns to the owner; no accepted
+ADR is edited.
 
 ## Proposed contract and ADR disposition
 
@@ -456,8 +476,10 @@ Reviewer reports a falsifiable `READY` or numbered findings.
 
 At most one bounded findings-only repair cycle is available to the same
 Builder. A second substantive defect, new product decision, or scope expansion
-returns to the owner. Working charters and interim records are removed before
-final curation; the plan/ADR/retrospective preserve durable decisions.
+returns to the owner. One findings-only repair addressed production-path
+box-13 companion enforcement; the independent re-review returned READY.
+Working charters and interim records are removed at final curation; this plan
+and the retrospective preserve durable decisions.
 
 ## Durable commit structure
 
@@ -469,7 +491,8 @@ final curation; the plan/ADR/retrospective preserve durable decisions.
    implementation and focused tests/fixtures.
 4. Provisional review/repair commits, folded into Track 1 before curation.
 5. A closeout commit with retrospective, curated records, final state, and no
-   temporary briefing capsule.
+   temporary briefing capsule. The closed plan remains the re-entry pointer
+   until the owner selects the next milestone.
 
 No schema, package, release, registry, adoption, or ADR number is reserved
 before the rebase checkpoints.
