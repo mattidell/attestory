@@ -1,0 +1,263 @@
+{
+  "schema": "attachment-rule.v6",
+  "id": "tax.us.2025.rule.attachment.f8949",
+  "version": "v1",
+  "title": "Form 8949 attachment (ADR-0062 Decision 1): box A/D single-column itemizations over covered-w proceeds/basis/adjustment; column (h) is downstream rule content.",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "8949",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "publishes": "tax.us.2025.form8949.disposition",
+  "requirement": {
+    "citation": {
+      "id": "tax.us.2025.citation.attachment.f8949",
+      "version": "v1"
+    },
+    "comparison": "strictly_greater_than",
+    "subtotals": [
+      "tax.us.2025.f1099b.covered-w-st-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal"
+    ],
+    "threshold_parameter": {
+      "id": "tax.us.2025.parameter.default-zero",
+      "version": "v1"
+    }
+  },
+  "completeness": {
+    "required_answers": [
+      {
+        "check": "presence",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments"
+      }
+    ]
+  },
+  "itemizations": [
+    {
+      "part_id": "box-a-proceeds",
+      "label": "Part I box A column (d): short-term wash-sale proceeds",
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-w-st-proceeds",
+          "version": "v1"
+        }
+      },
+      "row_sets": [
+        {
+          "rows": {
+            "op": "collect_members",
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-w-st-txn.proceeds",
+              "version": "v1"
+            },
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-w-st-proceeds",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-w-st-proceeds-subtotal"
+        }
+      ],
+      "adjustment_rows": [],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-w-st-proceeds-subtotal",
+        "operation": "subtract",
+        "positive_subtotals": [
+          "tax.us.2025.f1099b.covered-w-st-proceeds-subtotal"
+        ],
+        "adjustment_subtotals": []
+      }
+    },
+    {
+      "part_id": "box-a-basis",
+      "label": "Part I box A column (e): short-term wash-sale basis",
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-w-st-basis",
+          "version": "v1"
+        }
+      },
+      "row_sets": [
+        {
+          "rows": {
+            "op": "collect_members",
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-w-st-txn.basis",
+              "version": "v1"
+            },
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-w-st-basis",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-w-st-basis-subtotal"
+        }
+      ],
+      "adjustment_rows": [],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-w-st-basis-subtotal",
+        "operation": "subtract",
+        "positive_subtotals": [
+          "tax.us.2025.f1099b.covered-w-st-basis-subtotal"
+        ],
+        "adjustment_subtotals": []
+      }
+    },
+    {
+      "part_id": "box-a-adjustment",
+      "label": "Part I box A column (g): short-term wash-sale adjustment",
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-w-st-adjustment",
+          "version": "v1"
+        }
+      },
+      "row_sets": [
+        {
+          "rows": {
+            "op": "collect_members",
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-w-st-txn.adjustment",
+              "version": "v1"
+            },
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-w-st-adjustment",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal"
+        }
+      ],
+      "adjustment_rows": [],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal",
+        "operation": "subtract",
+        "positive_subtotals": [
+          "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal"
+        ],
+        "adjustment_subtotals": []
+      }
+    },
+    {
+      "part_id": "box-d-proceeds",
+      "label": "Part II box D column (d): long-term wash-sale proceeds",
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-w-lt-proceeds",
+          "version": "v1"
+        }
+      },
+      "row_sets": [
+        {
+          "rows": {
+            "op": "collect_members",
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-w-lt-txn.proceeds",
+              "version": "v1"
+            },
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-w-lt-proceeds",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal"
+        }
+      ],
+      "adjustment_rows": [],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal",
+        "operation": "subtract",
+        "positive_subtotals": [
+          "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal"
+        ],
+        "adjustment_subtotals": []
+      }
+    },
+    {
+      "part_id": "box-d-basis",
+      "label": "Part II box D column (e): long-term wash-sale basis",
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-w-lt-basis",
+          "version": "v1"
+        }
+      },
+      "row_sets": [
+        {
+          "rows": {
+            "op": "collect_members",
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-w-lt-txn.basis",
+              "version": "v1"
+            },
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-w-lt-basis",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-w-lt-basis-subtotal"
+        }
+      ],
+      "adjustment_rows": [],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-w-lt-basis-subtotal",
+        "operation": "subtract",
+        "positive_subtotals": [
+          "tax.us.2025.f1099b.covered-w-lt-basis-subtotal"
+        ],
+        "adjustment_subtotals": []
+      }
+    },
+    {
+      "part_id": "box-d-adjustment",
+      "label": "Part II box D column (g): long-term wash-sale adjustment",
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099b.covered-w-lt-adjustment",
+          "version": "v1"
+        }
+      },
+      "row_sets": [
+        {
+          "rows": {
+            "op": "collect_members",
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099b.covered-w-lt-txn.adjustment",
+              "version": "v1"
+            },
+            "source_family": {
+              "id": "tax.us.2025.f1099b.covered-w-lt-adjustment",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal"
+        }
+      ],
+      "adjustment_rows": [],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal",
+        "operation": "subtract",
+        "positive_subtotals": [
+          "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal"
+        ],
+        "adjustment_subtotals": []
+      }
+    }
+  ]
+}

@@ -11,6 +11,7 @@ finding is indistinguishable from an absent one downstream.
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, Iterable
 
@@ -257,11 +258,19 @@ def marshal_run_context(
             # Collectable sources match by fact type id prefix or exact type.
             fact_id = finding["fact_id"]
             if _fact_type_id(fact_id) == name or _fact_id_has_type(fact_id, name):
+                raw_value = finding["value"]
+                # An object-valued member (e.g. a whole-transaction fact
+                # type) is rendered as JSON, not Python repr, so runner-side
+                # per-member reads (e.g. the Form 8949 row guards, Finding 1
+                # repair) can parse it back losslessly; a scalar keeps its
+                # existing decimal string rendering untouched.
+                value = json.dumps(raw_value, sort_keys=True) if isinstance(raw_value, dict) else str(raw_value)
                 sources.append(
                     SourceFact(
                         name=name,
-                        value=str(finding["value"]),
+                        value=value,
                         finding_id=finding["id"],
+                        fact_id=fact_id,
                     )
                 )
                 used_finding_ids.add(finding["id"])

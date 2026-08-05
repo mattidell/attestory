@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099b.covered-w-lt-proceeds",
+  "version": "v1",
+  "title": "covered long-term wash-sale proceeds scalar family, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "covered long-term wash-sale proceeds scalar family, tax year 2025 recorded as of the keyed horizon (ADR-0061).",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.covered-w-lt-txn.proceeds"
+  },
+  "authorizes_subtotal": "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal"
+}

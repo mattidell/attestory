@@ -1,0 +1,56 @@
+{
+  "$id": "kernel/quantity-vocabulary.v7",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Immutable, versioned closed vocabulary for quantity identities used by residual-closed source amount fact types (ADR-0028 decision 7). v7 adds covered-w-st/lt proceeds, basis, and adjustment quantities for ADR-0061 triple-scalar companions. v1–v6 remain immutable history.",
+  "properties": {
+    "id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "quantities": {
+      "items": {
+        "enum": [
+          "taxable-interest",
+          "wages",
+          "standard-deduction",
+          "taxable-income",
+          "income-tax",
+          "ordinary-dividends",
+          "qualified-dividends",
+          "capital-gain-distributions",
+          "covered-ltcg-proceeds",
+          "covered-ltcg-basis",
+          "covered-lt-proceeds",
+          "covered-lt-basis",
+          "covered-st-proceeds",
+          "covered-st-basis",
+          "covered-w-st-proceeds",
+          "covered-w-st-basis",
+          "covered-w-st-adjustment",
+          "covered-w-lt-proceeds",
+          "covered-w-lt-basis",
+          "covered-w-lt-adjustment"
+        ]
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "schema": {
+      "const": "quantity-vocabulary.v7"
+    },
+    "version": {
+      "pattern": "^v[0-9]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "quantities"
+  ],
+  "title": "Tax quantity vocabulary, covered wash-sale ST/LT proceeds/basis/adjustment added",
+  "type": "object"
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.schedule-d-boundary.form8949-w.vocabulary",
+  "version": "v1",
+  "label": "Fifth Schedule D boundary declaration for covered code-W Form 8949 (ADR-0061 Decision 4)",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments",
+      "version": "v1",
+      "title": "Whether the return has no Form 8949 adjustment codes other than W, no multi-code rows, and no noncovered/basis-not-reported Form 8949 sources (ADR-0061 Decision 4). Categorical {yes,no}.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

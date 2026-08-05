@@ -1,0 +1,154 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1099b.covered-w-st.vocabulary",
+  "version": "v1",
+  "label": "2025 Form 1099-B covered short-term wash-sale (code W) vocabulary (ADR-0061)",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-st-txn",
+      "version": "v1",
+      "title": "Eligible covered, short-term, wash-sale-adjusted Form 1099-B transaction for tax year 2025 (ADR-0061). Requires box_1g_wash_sale_adjustment=yes for family membership discipline; optional disallowed amount field.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "broker",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-broker"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-statement"
+        },
+        {
+          "name": "transaction",
+          "kind": "entity",
+          "entity_kind": "tax.us.f1099b-transaction"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "object",
+        "properties": {
+          "proceeds": {
+            "type": "number",
+            "minimum": 0
+          },
+          "basis": {
+            "type": "number",
+            "minimum": 0
+          },
+          "covered_security": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "basis_reported_to_irs": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "long_term": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "box_1f_market_discount": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "box_1g_wash_sale_adjustment": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "box_1g_wash_sale_disallowed_amount": {
+            "type": "number",
+            "minimum": 0
+          },
+          "ordinary_indicated": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "qof_indicated": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "taxpayer_side_adjustment": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "collectibles_or_special_rate": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          }
+        },
+        "required": [
+          "proceeds",
+          "basis",
+          "covered_security",
+          "basis_reported_to_irs",
+          "long_term",
+          "box_1f_market_discount",
+          "box_1g_wash_sale_adjustment",
+          "ordinary_indicated",
+          "qof_indicated",
+          "taxpayer_side_adjustment",
+          "collectibles_or_special_rate"
+        ],
+        "additionalProperties": false
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1099b.covered-w-st.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the 2025 covered-w-st family (ADR-0061).",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

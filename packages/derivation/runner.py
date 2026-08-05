@@ -27,6 +27,7 @@ from typing import Any
 
 from packages.derivation.evaluator import (
     BLOCK_ABSENT,
+    BLOCK_INVALID,
     AccessLog,
     Environment,
     EvalBlocked,
@@ -34,6 +35,7 @@ from packages.derivation.evaluator import (
 )
 from packages.kernel.act_log import ActLog
 from packages.derivation.loader import DerivationSchemas, PUBLICATION_ACT_SCHEMA
+from packages.derivation.package_validation import find_covered_w_identity_key_collisions
 from packages.derivation.records import (
     RecordStream,
     closing_record,
@@ -63,6 +65,15 @@ class SourceFact:
     name: str
     value: str
     finding_id: str
+    # ADR-0061 Decision 2 amended / Track 1 repair round 3: the raw
+    # ADR-0011 identity-bearing fact id (`type|broker=...,statement=...,
+    # transaction=...,tax-year=...`), distinct from `finding_id` (the
+    # human/system-authored finding label used for pins). Optional and
+    # defaulted so every existing fixture scenario JSON that omits it keeps
+    # working unchanged; the identity-key collision guard is the only
+    # consumer and treats an unset value as carrying no identity (never a
+    # false collision).
+    fact_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -131,6 +142,55 @@ ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
 # valued other than its declared required value - distinct from absence
 # (DEPENDENCY_ABSENT), never folded into it, never silence.
 COMPLETENESS_VALUE_VIOLATION = "COMPLETENESS_VALUE_VIOLATION"
+
+# ADR-0062 Decision 2 / Track 1 repair (Finding 1, CRITICAL): the two Form
+# 8949 validation guards - code W applied to an individually non-loss
+# transaction, and a disallowed-adjustment amount exceeding that one
+# transaction's own otherwise-deductible loss - must each be evaluated per
+# contributing transaction, before any amount is trusted downstream. A box
+# subtotal already nets every member's proceeds/basis/adjustment together;
+# testing the guard against that subtotal (the original defect) lets one
+# individually-invalid member hide behind another member's valid loss.
+# Scoped to the exact whole-transaction families ADR-0061 Decision 2
+# introduces - there is exactly one consumer of this shape today, so this is
+# a targeted repair rather than a generic per-attachment mechanism. Each of
+# the three consuming rules (the attachment itself, and each of lines
+# 1b/8b) independently checks its own relevant box(es) the moment it is
+# attempted, so the fix holds regardless of saturation order - no rule
+# trusts another rule's disposition to have already screened this.
+_F8949_ROW_GUARD_BOXES: dict[str, tuple[str, str]] = {
+    "st": ("tax.us.2025.f1099b.covered-w-st", "tax.us.2025.f1099b.covered-w-st-txn"),
+    "lt": ("tax.us.2025.f1099b.covered-w-lt", "tax.us.2025.f1099b.covered-w-lt-txn"),
+}
+GUARD_NONLOSS_ADJUSTMENT = "tax.us.2025.block.f8949.code-w-on-gain"
+GUARD_ADJUSTMENT_EXCEEDS_LOSS = "tax.us.2025.block.f8949.adjustment-exceeds-loss"
+# ADR-0061 Decision 1 / Finding 3 repair: "flag yes, no amount" and "amount
+# present, flag not yes" are each independently representable (the two
+# fields are independently contributable) and must each be independently
+# blockable with a named code - neither combination silently passes through
+# as if it were the other.
+GUARD_FLAG_WITHOUT_AMOUNT = "tax.us.2025.block.f8949.box-1g-flag-without-amount"
+GUARD_AMOUNT_WITHOUT_FLAG = "tax.us.2025.block.f8949.box-1g-amount-without-flag"
+_LINE_GUARD_BOX_KEYS: dict[str, tuple[str, ...]] = {
+    "tax.us.2025.rule.schedule-d-line1b": ("st",),
+    "tax.us.2025.rule.schedule-d-line8b": ("lt",),
+}
+
+# ADR-0061 Decision 2 amended (Track 1 repair round 3): the identity-key
+# collision kill-test (`find_covered_w_identity_key_collisions`) is correct
+# in isolation but was never supplied a run's actually-asserted fact ids -
+# `resolve_production_package` validates the package/citizen graph once,
+# independent of any run, and structurally cannot see per-run collisions.
+# This wires the same, already-tested comparison into the live run path,
+# reusing `_LINE_GUARD_BOX_KEYS`'s box-scoping so each of the three
+# `_f8949_row_guard_violations` call sites (attempt, attempt_attachment,
+# finalize_unreached) checks it too, and no rule trusts another's
+# disposition to have already screened it.
+_COVERED_W_IDENTITY_COLLISION_BOX_TYPES: dict[str, tuple[str, str]] = {
+    "st": ("tax.us.2025.f1099b.covered-st-txn", "tax.us.2025.f1099b.covered-w-st-txn"),
+    "lt": ("tax.us.2025.f1099b.covered-lt-txn", "tax.us.2025.f1099b.covered-w-lt-txn"),
+}
+GUARD_IDENTITY_KEY_COLLISION = "tax.us.2025.block.covered-w.identity-key-collision"
 
 
 def _uses_attachment_machinery(rules: list[dict[str, Any]]) -> bool:
@@ -249,9 +309,19 @@ class _Run:
 
         self.sources: dict[str, list[str]] = {}
         self.source_fids: dict[str, list[str]] = {}
+        # ADR-0061 Decision 2 amended / Track 1 repair round 3: the raw
+        # ADR-0011 fact ids actually asserted this run, keyed the same way
+        # as `self.sources`/`self.source_fids` - the identity-key collision
+        # guard's only consumer. Falls back to `finding_id` (never a real
+        # identity string) when a source carries no `fact_id`, so an absent
+        # value can never manufacture a false collision.
+        self.source_fact_ids: dict[str, list[str]] = {}
         for fact in ctx.sources:
             self.sources.setdefault(fact.name, []).append(fact.value)
             self.source_fids.setdefault(fact.name, []).append(fact.finding_id)
+            self.source_fact_ids.setdefault(fact.name, []).append(
+                fact.fact_id if fact.fact_id is not None else fact.finding_id
+            )
         self.resolved: set[str] = set()
         self.dispositions: list[dict[str, Any]] = []
         self.blocked: list[dict[str, Any]] = []
@@ -370,6 +440,25 @@ class _Run:
         """
         rule_id = rule["id"]
         access = AccessLog()
+
+        # Finding 1 repair (ADR-0062 Decision 2): lines 1b/8b each screen
+        # their own box's contributing transactions independently, the
+        # moment they are attempted - never by trusting the Form 8949
+        # attachment's disposition to have already run first (saturation
+        # order is not guaranteed), and never against the already-netted
+        # subtotal a masking scenario could exploit.
+        line_guard_boxes = _LINE_GUARD_BOX_KEYS.get(rule_id)
+        if line_guard_boxes is not None:
+            violated_codes, violation_pins = self._f8949_row_guard_violations(line_guard_boxes)
+            if violated_codes:
+                self._record_blocked(rule, access, BLOCK_INVALID, violated_codes)
+                return "blocked"
+            collision_codes, collision_pins = self._covered_w_identity_key_collision_violations(
+                line_guard_boxes
+            )
+            if collision_codes:
+                self._record_blocked(rule, access, BLOCK_INVALID, collision_codes)
+                return "blocked"
 
         # 1. If any declared dependency is absent -> blocked
         missing = [req for req in rule["requires"] if req not in self.symbols]
@@ -535,6 +624,92 @@ class _Run:
         }]
         return required, base_pins, triggers, None
 
+    def _f8949_row_guard_violations(
+        self, box_keys: tuple[str, ...] = ("st", "lt")
+    ) -> tuple[list[str], list[dict[str, Any]]]:
+        """Per-transaction ADR-0062 Decision 2 guard evaluation (Finding 1
+        repair): each ``covered-w-st``/``covered-w-lt`` member is read from
+        its own single whole-transaction finding (proceeds/basis/adjustment
+        co-located there), never from a box's already-netted subtotal, so an
+        individually-invalid member can never hide behind another member's
+        valid loss. Returns the sorted, deduplicated violated block codes
+        and the input pins of every transaction actually read.
+        """
+        violated: set[str] = set()
+        pins: list[dict[str, Any]] = []
+        for box_key in box_keys:
+            _family_id, member_fact_type = _F8949_ROW_GUARD_BOXES[box_key]
+            raw_values = self.sources.get(member_fact_type, [])
+            fids = self.source_fids.get(member_fact_type, [])
+            for raw, fid in zip(raw_values, fids):
+                member = json.loads(raw)
+                d = Decimal(str(member["proceeds"]))
+                e = Decimal(str(member["basis"]))
+                flag = member.get("box_1g_wash_sale_adjustment")
+                has_amount = "box_1g_wash_sale_disallowed_amount" in member
+                g = Decimal(str(member.get("box_1g_wash_sale_disallowed_amount", 0)))
+                row_violated = False
+                # Flag/amount independence (Finding 3): each asymmetric
+                # combination is its own named, structurally blockable
+                # state - never folded into the other, never silently
+                # treated as the well-formed case.
+                if flag == "yes" and not has_amount:
+                    violated.add(GUARD_FLAG_WITHOUT_AMOUNT)
+                    row_violated = True
+                if has_amount and flag != "yes":
+                    violated.add(GUARD_AMOUNT_WITHOUT_FLAG)
+                    row_violated = True
+                if g > 0 and d >= e:
+                    violated.add(GUARD_NONLOSS_ADJUSTMENT)
+                    row_violated = True
+                if g > max(e - d, Decimal(0)):
+                    violated.add(GUARD_ADJUSTMENT_EXCEEDS_LOSS)
+                    row_violated = True
+                if row_violated:
+                    pin = {"role": "input", "id": fid, "version": "v1"}
+                    if self.use_v2:
+                        pin["origin"] = "assertion"
+                    pins.append(pin)
+        return sorted(violated), pins
+
+    def _covered_w_identity_key_collision_violations(
+        self, box_keys: tuple[str, ...] = ("st", "lt")
+    ) -> tuple[list[str], list[dict[str, Any]]]:
+        """Per-run ADR-0061 Decision 2 amended identity-key collision guard
+        (Track 1 repair round 3): reuses
+        ``package_validation.find_covered_w_identity_key_collisions`` -
+        never reimplements the identity-key comparison - against this run's
+        own asserted fact ids for the direct-reporting and wash-sale
+        transaction fact types. A collision means the same real transaction
+        (broker/statement/transaction/tax-year) was asserted into both a
+        direct-reporting family and its wash-sale counterpart; that can
+        never be inferred from version supersession, only from contributed
+        identity, so this must read the raw fact ids actually asserted this
+        run - `self.source_fact_ids`, not `self.source_fids` (which holds
+        finding ids, used only for pins, and carries no identity keys).
+        """
+        fact_types: set[str] = set()
+        for box_key in box_keys:
+            direct_type, w_type = _COVERED_W_IDENTITY_COLLISION_BOX_TYPES[box_key]
+            fact_types.add(direct_type)
+            fact_types.add(w_type)
+        asserted_fact_ids = {ft: self.source_fact_ids.get(ft, []) for ft in fact_types}
+        issues = find_covered_w_identity_key_collisions(asserted_fact_ids)
+        if not issues:
+            return [], []
+        pins: list[dict[str, Any]] = []
+        seen_fids: set[str] = set()
+        for ft in sorted(fact_types):
+            for fid in self.source_fids.get(ft, []):
+                if fid in seen_fids:
+                    continue
+                seen_fids.add(fid)
+                pin = {"role": "input", "id": fid, "version": "v1"}
+                if self.use_v2:
+                    pin["origin"] = "assertion"
+                pins.append(pin)
+        return [GUARD_IDENTITY_KEY_COLLISION], pins
+
     def attempt_attachment(self, rule: dict[str, Any]) -> str:
         """Interpret one ADR-0036 attachment citizen directly from its
         declarative requirement/itemizations/completeness structure.
@@ -627,6 +802,27 @@ class _Run:
                 self._attachment_block(rule_id, BLOCK_ABSENT, missing_itemization, base_pins)
                 return "blocked"
             itemization_pins = [self._symbol_pin_entry(symbol) for symbol in itemization_symbols]
+
+        # Finding 1 repair (ADR-0062 Decision 2): per-transaction guards,
+        # checked before completeness/tie-out, on the exact whole-transaction
+        # members this rule's boxes admit - never on the aggregated subtotal
+        # already folded above, which a masking scenario could otherwise net
+        # past undetected.
+        if rule_id == "tax.us.2025.rule.attachment.f8949":
+            violated_codes, violation_pins = self._f8949_row_guard_violations()
+            if violated_codes:
+                self._attachment_block(
+                    rule_id, BLOCK_INVALID, violated_codes,
+                    base_pins + itemization_pins + violation_pins,
+                )
+                return "blocked"
+            collision_codes, collision_pins = self._covered_w_identity_key_collision_violations()
+            if collision_codes:
+                self._attachment_block(
+                    rule_id, BLOCK_INVALID, collision_codes,
+                    base_pins + itemization_pins + collision_pins,
+                )
+                return "blocked"
 
         # Completeness: every required answer's presence is checked
         # independently before any value is read (ADR-0036 decision 4) - a
@@ -856,6 +1052,25 @@ class _Run:
             if rule.get("schema") in ATTACHMENT_SCHEMAS:
                 self.attempt_attachment(rule)
                 continue
+
+            # Finding 1/3 repair: lines 1b/8b screen their own box's
+            # per-transaction guards here too - a rule that never became
+            # eligible (e.g. its adjustment subtotal is blocked on an
+            # unrelated closure gap) must still surface the more specific,
+            # named guard violation when one exists, the same as the main
+            # saturation path already does in `attempt`.
+            line_guard_boxes = _LINE_GUARD_BOX_KEYS.get(rule["id"])
+            if line_guard_boxes is not None:
+                violated_codes, _violation_pins = self._f8949_row_guard_violations(line_guard_boxes)
+                if violated_codes:
+                    self._record_blocked(rule, AccessLog(), BLOCK_INVALID, violated_codes)
+                    continue
+                collision_codes, _collision_pins = self._covered_w_identity_key_collision_violations(
+                    line_guard_boxes
+                )
+                if collision_codes:
+                    self._record_blocked(rule, AccessLog(), BLOCK_INVALID, collision_codes)
+                    continue
 
             # A false guard is an atomic inapplicable disposition even when
             # later numeric dependencies are absent.  Preflight only far
