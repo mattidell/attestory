@@ -5,10 +5,10 @@
   "topic": "f1098-mortgage-interest-line12e",
   "active_plan": "docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md",
   "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / FORM 1098 HOME-MORTGAGE INTEREST THROUGH SCHEDULE A AND FORM 1040 LINE 12E — PLANNED.** Owner-chartered 2026-08-05 on branch milestone/f1098-mortgage-interest-line12e, base core-calculations v21 / published v16 / release v14 / adoption v21 (tip of origin/main, immediately after box-7 direct FTC). Foreman completed paper-first Track 0 in-doc and chartered Track 1 (Form 1098 family + Schedule A line 8a/completeness); Track 2 (selection guard, attachment disposition, line-12e/13a/13b/14 succession, package/explanation/presentation) not yet chartered pending Track 1. No dispatch this session per owner instruction; Track 1 is owner-launch only. Two unrelated concurrent milestones remain open elsewhere and were not touched: PR #162 (Form 1099-R IRA distributions line 4b) and PR #163 (SSA-1099 benefits lines 6a/6b).",
+  "status": "**ENGINE BREADTH / FORM 1098 HOME-MORTGAGE INTEREST THROUGH SCHEDULE A AND FORM 1040 LINE 12E — PLANNED.** Owner-chartered 2026-08-05 on branch milestone/f1098-mortgage-interest-line12e, base core-calculations v21 / published v16 / release v14 / adoption v21 (tip of origin/main, immediately after box-7 direct FTC). Foreman completed paper-first Track 0 in-doc and chartered Track 1 (Form 1098 family + Schedule A line 8a/completeness); Track 2 (selection guard, attachment disposition, line-12e/13a/13b/14 succession, package/explanation/presentation) not yet chartered pending Track 1. A Track 1 builder correctly stopped on stop condition (a) (singleton-cardinality bound needs a new evaluator primitive, not existing closure content); foreman resolved it in-doc under 'Stop condition (a) resolution' (new additive rule-artifact.v4 'count' op; single family with box-2/3/etc as companions, not a per-box family split). No dispatch this session per owner instruction; Track 1 is owner-launch only. Two unrelated concurrent milestones remain open elsewhere and were not touched: PR #162 (Form 1099-R IRA distributions line 4b) and PR #163 (SSA-1099 benefits lines 6a/6b).",
   "retrospective": null,
   "current_role": "Builder (Track 1, owner-launch)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md#Track 1 charter"
+  "current_prompt": "docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md"
 }
 -->
 # Phase State

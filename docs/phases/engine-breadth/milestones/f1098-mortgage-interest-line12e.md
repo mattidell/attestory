@@ -295,7 +295,83 @@ plain assertion fact types under existing schemas.
 
 **Deep reads:** see `deep_reads.implementation` in this doc's header block.
 
-## Owner-launch prompt (Track 1)
+## Stop condition (a) resolution — 2026-08-05
+
+A Track 1 builder correctly stopped rather than inventing a mechanism: the
+existing closed-family/closure machinery (ADR-0016/0017) proves "every
+statement is recorded," not "no more than one statement exists." Statement
+identity must distinguish a *correction* to the same mortgage (same identity
+key → supersession, collapses to one member) from a *second, genuinely
+different* mortgage (different identity key → a second concurrent member) —
+that is the entire purpose of identity keys, so cardinality cannot be
+enforced by identity alone. Checked `packages/schemas/derivation/rule-artifact.v3.schema.json`:
+its `op` vocabulary is explicitly enumerated (`add`, `max`, `collect`,
+`require_closed`, `compare`, …) and has no count/cardinality primitive, and
+`packages/derivation/evaluator.py` has no such op either. This is a genuine,
+narrow interpreter gap, not a paper-only ambiguity — resolved on paper here
+rather than invented mid-build:
+
+- Add one new evaluator op, `"op": "count"`, evaluating to the integer
+  length of a `collect`'s admitted-member list for a given `source_set`
+  (same shape as `collect`: `{"op": "count", "name": ..., "source_set": ...}`),
+  gated by the same `require_closed` semantics `collect` already uses.
+- This is an additive, narrow primitive — not new governance or generic
+  substrate — but it is a schema change: bump `rule-artifact.v3` to
+  `rule-artifact.v4` (additive-only, per the existing v1→v2→v3 precedent in
+  `packages/schemas/derivation/`), admit `rule-artifact.v4` into the
+  successor package alongside `.v3` (both remain valid; existing `.v3`
+  citizens are untouched).
+- `tax.us.2025.rule.schedule-a-line8a` (and any other rule reading the
+  family) guards on `compare(count(...), 1, "eq")` after `require_closed`;
+  a count of 0 means "no Form 1098 statement — out of this milestone,"
+  count of 1 proceeds, count > 1 blocks with a new named code
+  `MULTIPLE_F1098_OUT_OF_SCOPE` (out-of-class, not incompleteness).
+- **Single family, not a per-box split.** `family.f1098.json` (member
+  predicate = box-1 interest, since that is the amount that ultimately
+  flows to line 8a) is the correct shape and should be kept. Box 2
+  (outstanding principal), box 3 (origination date), boxes 4/5/6 (guarded
+  exclusions), boxes 7–9 (property), and box 11 are **companion facts
+  pinned to the same statement identity** — matching this codebase's
+  existing "box-9 companion" / "box-13 companion" pattern used for other
+  multi-box statements (Form 1099-INT box 8/9, Form 1099-DIV box 12/13) —
+  not separate closed families each needing their own closure proof.
+  `family.f1098-b1.json`, `family.f1098-b2.json`,
+  `closure-mapping.f1098-b1.json`, and `closure-mapping.f1098-b2.json`
+  should be discarded; `closure-mapping.f1098.json` (already keyed to the
+  single family) is correct as committed.
+- `rule.schedule-a-line8a.json`'s `when` should read
+  `{"op": "count", ...} == 1` over the single `tax.us.2025.f1098` family
+  (not `require_closed` on a `b1`-only source set), with box 2 consumed as
+  a plain `ref` to the companion fact once closure/count both pass.
+
+Resume Track 1 with this resolution; no other stop condition was reported.
+
+## Owner-launch prompt (Track 1 resume)
+
+```
+Resume as builder on branch milestone/f1098-mortgage-interest-line12e,
+continuing Track 1 of
+docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md
+after the foreman's stop-condition-(a) resolution (see that section, dated
+2026-08-05). Concretely: discard family.f1098-b1.json, family.f1098-b2.json,
+closure-mapping.f1098-b1.json, closure-mapping.f1098-b2.json. Keep
+family.f1098.json, closure-mapping.f1098.json, f1098.bundle.json,
+schedule-a-boundary.bundle.json. Add a new evaluator op "count" to
+packages/derivation/evaluator.py (integer length of a collect's admitted
+members for a source_set, gated by require_closed like collect already is),
+and bump rule-artifact.v3 to a new additive rule-artifact.v4 schema
+(packages/schemas/derivation/) admitting the new op — schema-manifest
+change must be additive only, v3 stays valid and unedited. Rewrite
+rule.schedule-a-line8a.json's `when` to require count(tax.us.2025.f1098) ==
+1 after require_closed, blocking with a new code MULTIPLE_F1098_OUT_OF_SCOPE
+on count > 1, treating count == 0 as out-of-milestone (not this rule's
+concern). Then continue the rest of Track 1 scope unchanged: the seven
+taxpayer-authority fact types, the remaining Schedule A completeness
+boundary, and lifecycle/correction/duplicate evidence. Stop and report again
+if stop condition (b) or (c) is hit.
+```
+
+## Owner-launch prompt (Track 1, cold start)
 
 ```
 Resume as builder on branch milestone/f1098-mortgage-interest-line12e,

@@ -218,8 +218,9 @@ def build_block(
         )
     out += ["## Current prompt / charter", ""]
     cp = state["current_prompt"]
-    cp_blob = repo.blob_for_path(commit, cp)
-    charter_body = _cap(repo.content_for_path(commit, cp), max_bytes).rstrip()
+    cp_path = cp.partition("#")[0]
+    cp_blob = repo.blob_for_path(commit, cp_path)
+    charter_body = _cap(repo.content_for_path(commit, cp_path), max_bytes).rstrip()
     out.append(f"### charter: `{cp}` @ `{cp_blob}`\n\n```\n{charter_body}\n```\n")
 
     out.append(f"## Deep reads for action `{chosen}`\n")
