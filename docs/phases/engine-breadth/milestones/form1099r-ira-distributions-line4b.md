@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "form1099r-ira-distributions-line4b",
   "milestone_state": "track-2",
-  "status": "FINDINGS-ONLY REPAIR IN FLIGHT. Independent review found one blocking live-path admission defect; the pre-chartered repair is wiring existing IRA witnesses into the authoritative route.",
+  "status": "INDEPENDENT RE-REVIEW IN FLIGHT. Findings-only repair `4e7d363` wires the existing IRA witnesses into the authoritative live route; the original Reviewer is rechecking the semantic fix.",
   "source_ref": "origin/main",
   "source_commit": "20a67ce162fe0e41d80dd0132619e24008beccf5",
   "scope": [

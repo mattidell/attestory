@@ -1,6 +1,6 @@
 # Owner-Launch Charter — Findings-Only Repair for Form 1099-R IRA Line 4b
 
-Status: dispatched by owner authorization; findings-only repair in flight.
+Status: completed by original Builder; repair commit `4e7d363`.
 
 ## Context Capsule
 

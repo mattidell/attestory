@@ -1,11 +1,11 @@
 # Owner-Launch Charter — Independent Review of Form 1099-R IRA Line 4b
 
-Status: completed; verdict BLOCKED with one decision-blocking live-path admission finding.
+Status: dispatched for independent re-review of repair commit `4e7d363`.
 
 ## Context Capsule
 
-- Source ref and resolved launch commit: the completed Track 2 candidate on
-  `milestone/form1099r-ira-distributions-line4b`, `3274044de9eefdb3cb6e13de2b92c452b77494c9`.
+- Source ref and resolved launch commit: the findings-only repair candidate on
+  `milestone/form1099r-ira-distributions-line4b`, `4e7d363a34dbf246809e5ff33252d04991569bb1`.
 - Exact object: the Review gate in
   `docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md`.
 - Role: author-independent Reviewer, Luna, Medium/medium.

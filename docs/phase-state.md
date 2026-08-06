@@ -5,10 +5,10 @@
   "topic": "form1099r-ira-distributions-line4b",
   "active_plan": "docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md",
   "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — FINDINGS-ONLY REPAIR IN FLIGHT.** Independent review found one blocking live-path admission defect; the original Builder is wiring the already-declared IRA witnesses into the authoritative route without changing scope or versions.",
+  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — INDEPENDENT RE-REVIEW IN FLIGHT.** The findings-only repair is committed at `4e7d363`; the original Reviewer is rechecking the live-path witness fix against the unchanged v22/v17/v15/v22 graph.",
   "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md",
-  "current_role": "Builder (findings-only repair)",
-  "current_prompt": "docs/reviews/charter-2026-08-04-form1099r-ira-line4b-repair.md"
+  "current_role": "Reviewer (independent repair re-review)",
+  "current_prompt": "docs/reviews/charter-2026-08-04-form1099r-ira-line4b-review.md"
 }
 -->
 # Phase State
@@ -45,6 +45,9 @@ special distribution treatment remain outside the claim.
   line-9/downstream/package/explanation/presentation integration. Independent
   review found one blocking production-path admission defect; the package graph
   remains core **v22**, published **v17**, release **v15**, adoption **v22**.
+  The findings-only repair at `4e7d363` wires box-2a equality, IRA indicator,
+  and code-7 witnesses into the authoritative live route; independent
+  re-review is in flight.
 * **Plan:** `docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md`.
 * **Owner-launch charters:** `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track1.md`,
   `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track2.md`,
@@ -53,8 +56,7 @@ special distribution treatment remain outside the claim.
 * **Prior closed (selected pointers):** Form 1099-G plan/retrospective remain
   on the ratified line; this phase-state points at the just-closed box-7 plan.
 * **Contracts:** plan B7-C1–C10; no new ADR.
-* **Next:** receive the findings-only repair, then obtain independent re-review
-  of the semantic fix before closeout.
+* **Next:** receive the independent re-review verdict before closeout.
 
 ## Re-entry
 
