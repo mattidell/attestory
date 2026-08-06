@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "form1099r-ira-distributions-line4b",
-  "milestone_state": "track-1",
-  "status": "TRACK 1 IN FLIGHT. The source-to-line-4b Builder is dispatched under its committed charter; no Track 2 or review agent has started.",
+  "milestone_state": "track-2",
+  "status": "TRACK 2 IN FLIGHT. Track 1 is committed at `efe0992`; the downstream/package/presentation Builder is dispatched under its committed charter.",
   "source_ref": "origin/main",
   "source_commit": "20a67ce162fe0e41d80dd0132619e24008beccf5",
   "scope": [

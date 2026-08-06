@@ -1,6 +1,6 @@
 # Owner-Launch Charter — Form 1099-R IRA Line 4b Track 1
 
-Status: dispatched by owner authorization; Track 1 Builder in flight.
+Status: completed by dispatched Builder; handoff commit `efe0992`.
 
 ## Context Capsule
 
