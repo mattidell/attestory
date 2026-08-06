@@ -1,0 +1,708 @@
+{
+  "$defs": {
+    "exact_pin": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "type": "object"
+    },
+    "member": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "parameter",
+            "computation",
+            "applicability",
+            "field-mapping",
+            "cross-form-bridge",
+            "form-field",
+            "source-family",
+            "source-closure-mapping",
+            "composition",
+            "fact-type",
+            "fact-type-bundle",
+            "citation",
+            "operation-semantics",
+            "dividend-universe",
+            "attachment-rule",
+            "checked-conclusion-binding"
+          ]
+        },
+        "schema": {
+          "enum": [
+            "attachment-rule.v1",
+            "attachment-rule.v2",
+            "attachment-rule.v3",
+            "attachment-rule.v4",
+            "attachment-rule.v5",
+            "attachment-rule.v6",
+            "bundle.v2",
+            "checked-conclusion-binding.v1",
+            "citation.v1",
+            "dividend-universe.v1",
+            "dividend-universe.v2",
+            "dividend-universe.v3",
+            "dividend-universe.v4",
+            "fact-type.v2",
+            "form-field.v2",
+            "form-field.v3",
+            "operation-semantics.v2",
+            "parameter-declaration.v1",
+            "quantity-vocabulary.v1",
+            "quantity-vocabulary.v10", "quantity-vocabulary.v11",
+            "quantity-vocabulary.v2",
+            "quantity-vocabulary.v3",
+            "quantity-vocabulary.v4",
+            "quantity-vocabulary.v5",
+            "quantity-vocabulary.v6",
+            "quantity-vocabulary.v7",
+            "quantity-vocabulary.v8",
+            "quantity-vocabulary.v9",
+            "role-canon.v1",
+            "rule-artifact.v2",
+            "rule-artifact.v3",
+            "source-closure-mapping.v2",
+            "source-family.v1",
+            "taxable-interest-composition.v1"
+          ]
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "schema",
+        "id",
+        "version"
+      ],
+      "type": "object"
+    },
+    "member_ref": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "type": "object"
+    },
+    "scope": {
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "jurisdiction": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tax_year": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "family",
+        "jurisdiction",
+        "tax_year"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "derivation/artifact-package.v19",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "rule-artifact.v2"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "rule-artifact.v2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "rule-artifact.v3"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "rule-artifact.v3"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v2"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v2"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "role": {
+                  "const": "attachment-rule"
+                },
+                "schema": {
+                  "const": "attachment-rule.v2"
+                }
+              },
+              "required": [
+                "role",
+                "schema"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v3"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v3"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v3"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "role": {
+                  "const": "attachment-rule"
+                },
+                "schema": {
+                  "const": "attachment-rule.v3"
+                }
+              },
+              "required": [
+                "role",
+                "schema"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v4"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v4"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v4"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "role": {
+                  "const": "attachment-rule"
+                },
+                "schema": {
+                  "const": "attachment-rule.v4"
+                }
+              },
+              "required": [
+                "role",
+                "schema"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v5"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v5"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v5"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "role": {
+                  "const": "attachment-rule"
+                },
+                "schema": {
+                  "const": "attachment-rule.v5"
+                }
+              },
+              "required": [
+                "role",
+                "schema"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v6"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "admitted_schemas": {
+            "contains": {
+              "const": "attachment-rule.v6"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "schema": {
+                  "const": "attachment-rule.v6"
+                }
+              },
+              "required": [
+                "schema"
+              ]
+            }
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "then": {
+        "properties": {
+          "members": {
+            "contains": {
+              "properties": {
+                "role": {
+                  "const": "attachment-rule"
+                },
+                "schema": {
+                  "const": "attachment-rule.v6"
+                }
+              },
+              "required": [
+                "role",
+                "schema"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "description": "Artifact package v18: admits quantity-vocabulary.v7\u2013v9 (including unemployment-compensation on v9) for the Form 1099-G box-1 / Schedule 1 line 7 route, preserving v7/v8 admitted by the ratified tip. Prior artifact-package versions remain immutable history. Extended for Form 1099-DIV box-7 direct FTC: admits quantity-vocabulary.v10 and dividend-universe.v4 on the additive core v21 union.",
+  "properties": {
+    "admitted_schemas": {
+      "items": {
+        "enum": [
+          "attachment-rule.v1",
+          "attachment-rule.v2",
+          "attachment-rule.v3",
+          "attachment-rule.v4",
+          "attachment-rule.v5",
+          "attachment-rule.v6",
+          "bundle.v2",
+          "checked-conclusion-binding.v1",
+          "citation.v1",
+          "dividend-universe.v1",
+          "dividend-universe.v2",
+          "dividend-universe.v3",
+          "dividend-universe.v4",
+          "fact-type.v2",
+          "form-field.v2",
+          "form-field.v3",
+          "operation-semantics.v2",
+          "parameter-declaration.v1",
+          "quantity-vocabulary.v1",
+          "quantity-vocabulary.v10", "quantity-vocabulary.v11",
+          "quantity-vocabulary.v2",
+          "quantity-vocabulary.v3",
+          "quantity-vocabulary.v4",
+          "quantity-vocabulary.v5",
+          "quantity-vocabulary.v6",
+          "quantity-vocabulary.v7",
+          "quantity-vocabulary.v8",
+          "quantity-vocabulary.v9",
+          "role-canon.v1",
+          "rule-artifact.v2",
+          "rule-artifact.v3",
+          "source-closure-mapping.v2",
+          "source-family.v1",
+          "taxable-interest-composition.v1"
+        ]
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "composition_obligations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "conflict_semantics": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "selected_producer": {
+            "$ref": "#/$defs/member_ref"
+          },
+          "symbol": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "symbol",
+          "selected_producer"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "entrypoints": {
+      "items": {
+        "$ref": "#/$defs/member_ref"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "input_bindings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "fact_type": {
+            "$ref": "#/$defs/exact_pin"
+          },
+          "mode": {
+            "enum": [
+              "required",
+              "optional_default"
+            ]
+          },
+          "symbol": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "symbol",
+          "fact_type",
+          "mode"
+        ],
+        "type": "object"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "members": {
+      "items": {
+        "$ref": "#/$defs/member"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "package_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "artifact-package.v19"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "version": {
+      "pattern": "^v[0-9]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "scope",
+    "admitted_schemas",
+    "members",
+    "input_bindings",
+    "entrypoints",
+    "composition_obligations",
+    "package_checksum"
+  ],
+  "title": "Closed package admitting quantity-vocabulary.v7\u2013v9 (v18)",
+  "type": "object"
+}

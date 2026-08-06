@@ -1,0 +1,74 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal",
+  "version": "v1",
+  "role": "computation",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "publishes": "tax.us.2025.ira.distributions.line4b",
+  "requires": [
+    "rounding.convention"
+  ],
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "version": "v1",
+      "origin": "assertion",
+      "role": "input"
+    }
+  ],
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.f1099r.box1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.f1099r.box2a",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.f1099r.box2b",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.f1099r.indicator",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.f1099r.distribution-code",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-4b",
+      "version": "v1"
+    }
+  ],
+  "notes": "Aggregates only current members of the adopted fully taxable IRA-family. Source admission, exact box-1/box-2a equality, code-7 witness, IRA indicator, and explicit box-2b-not-determined false state occur before this rule. The result is Form 1040 line 4b; line 4a is intentionally not published. No basis, rollover, Roth, or special-treatment logic is present.",
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "rounding.convention"
+    ]
+  },
+  "when": {"op": "require_closed", "source_set": "tax.us.2025.f1099r.ira-fully-taxable"},
+  "value": {
+    "op": "round",
+    "mode": {
+      "op": "ref",
+      "name": "rounding.convention"
+    },
+    "value": {
+      "op": "add",
+      "args": [
+        {
+          "op": "collect",
+          "name": "tax.us.2025.f1099r.ira-box1-taxable-distribution",
+          "source_set": "tax.us.2025.f1099r.ira-fully-taxable"
+        }
+      ]
+    }
+  }
+}

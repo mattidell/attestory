@@ -83,6 +83,16 @@ def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
             "tax.us.2025.f1099div.box8-country-companion",
             "tax.us.2025.f1099div.box1a-ordinary",
         ],
+        # Form 1099-R IRA-family route: each collected box-1 member requires
+        # an explicit false box-2b-not-determined witness on the same logical
+        # statement. Box-1/box-2a equality is enforced by the companion
+        # equality route; IRA/code-7 values are restricted below.
+        "tax.us.2025.f1099r.ira-box1-taxable-distribution": [
+            "tax.us.2025.f1099r.ira-box2a-taxable-amount",
+            "tax.us.2025.f1099r.ira-indicator",
+            "tax.us.2025.f1099r.distribution-code",
+            "tax.us.2025.f1099r.box2b-not-determined",
+        ],
     }
 
 
@@ -97,6 +107,18 @@ def domain_companion_value_domains() -> dict[str, frozenset[object]]:
         "tax.us.2025.f1099div.box13-specified-pab-authority": frozenset({None, 0, 0.0}),
         "tax.us.2025.f1099g.box4-federal-withholding-authority": frozenset({None, 0, 0.0}),
         "tax.us.2025.f1099int.box9-specified-pab-authority": frozenset({None, 0, 0.0}),
+        "tax.us.2025.f1099r.box2b-not-determined": frozenset({False}),
+        "tax.us.2025.f1099r.ira-indicator": frozenset({"traditional", "sep", "simple"}),
+        "tax.us.2025.f1099r.distribution-code": frozenset({"7"}),
+    }
+
+
+def domain_companion_equality_pairs() -> dict[str, str]:
+    """Same-statement numeric equality witnesses for bounded tax families."""
+    return {
+        "tax.us.2025.f1099r.ira-box1-taxable-distribution": (
+            "tax.us.2025.f1099r.ira-box2a-taxable-amount"
+        ),
     }
 
 

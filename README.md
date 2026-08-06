@@ -28,7 +28,10 @@ This is the project's third iteration. The first proved a working return generat
   forward into 2026, noncovered securities, digital assets, every Form
   8949 adjustment code other than W, other Schedule D sources,
   subtractive interest adjustments, filing, and broader securities history
-  remain outside the supported classes.
+  remain outside the supported classes. Ordinary, fully taxable IRA-family
+  distributions reported on 2025 Form 1099-R are supported through Form 1040
+  line 4b and line 9, with line 4a blank; basis, rollovers, and special
+  distribution treatment remain outside the class.
 - **Planning** (`PROJECT_PLANNING.md`, `docs/phases/`): the planning protocol and phase/milestone/track documents.
 - **Agent guide** (`AGENTS.md`): operating rules for development agents.
 - **Decisions** (`docs/adr/`) and **retrospectives** (`docs/milestone-retrospectives/`).

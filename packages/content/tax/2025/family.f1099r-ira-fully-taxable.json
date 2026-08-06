@@ -1,0 +1,10 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1099r.ira-fully-taxable",
+  "version": "v1",
+  "title": "Form 1099-R traditional, SEP, and SIMPLE IRA code-7 fully taxable statement items, tax year 2025",
+  "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax"},
+  "closure_claim": "Every ordinary distribution reported on a 2025 Form 1099-R with a traditional IRA, SEP IRA, or SIMPLE IRA indicator and normal distribution code 7 is recorded as a logical statement member with nonnegative box 1, explicit nonnegative box 2a equal to box 1, and explicit box-2b-not-determined false at the keyed horizon. This claim covers only this fully taxable IRA-family class; it says nothing about basis, rollovers, Roth distributions, early or other special treatment, non-IRA distributions, or Form 1040 line 4a completeness.",
+  "member_predicate": {"fact_type": "tax.us.2025.f1099r.ira-box1-taxable-distribution"},
+  "authorizes_subtotal": "tax.us.2025.ira.distributions.line4b"
+}

@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v22",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-05T12:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic fully taxable Form 1099-R IRA line 4b / line 9 successor adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "4df6357153caaea73f6aa0807a3ac34c1b765558f322cfc6998ef0539d0a09aa",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v22"
+    },
+    "release": {
+      "checksum": "1b06a084146508c90163660ce856ddc8494a791fca700a47f4b7230834c45d89",
+      "id": "demo.release.2025",
+      "version": "v15"
+    },
+    "revision": 22,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v21"
+  },
+  "schema": "act.v1"
+}
