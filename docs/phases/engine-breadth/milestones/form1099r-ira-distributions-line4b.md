@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "form1099r-ira-distributions-line4b",
   "milestone_state": "track-2",
-  "status": "INDEPENDENT REVIEW IN FLIGHT. Track 1 is committed at `efe0992`, Track 2 at `3274044`, and the full candidate is under review.",
+  "status": "FINDINGS-ONLY REPAIR IN FLIGHT. Independent review found one blocking live-path admission defect; the pre-chartered repair is wiring existing IRA witnesses into the authoritative route.",
   "source_ref": "origin/main",
   "source_commit": "20a67ce162fe0e41d80dd0132619e24008beccf5",
   "scope": [

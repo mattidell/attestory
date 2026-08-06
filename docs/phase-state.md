@@ -5,10 +5,10 @@
   "topic": "form1099r-ira-distributions-line4b",
   "active_plan": "docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md",
   "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — INDEPENDENT REVIEW IN FLIGHT.** Track 1 is committed as `efe0992` and Track 2 as `3274044`; the independent Reviewer is measuring the complete candidate, including package successors core v22 / published v17 / release v15 / adopt v22.",
+  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — FINDINGS-ONLY REPAIR IN FLIGHT.** Independent review found one blocking live-path admission defect; the original Builder is wiring the already-declared IRA witnesses into the authoritative route without changing scope or versions.",
   "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md",
-  "current_role": "Reviewer (independent full-candidate review)",
-  "current_prompt": "docs/reviews/charter-2026-08-04-form1099r-ira-line4b-review.md"
+  "current_role": "Builder (findings-only repair)",
+  "current_prompt": "docs/reviews/charter-2026-08-04-form1099r-ira-line4b-repair.md"
 }
 -->
 # Phase State
@@ -42,9 +42,9 @@ special distribution treatment remain outside the claim.
   branch and draft PR #163; neither is part of this milestone.
 * **Current result:** Track 1 is committed at `efe0992`, adding the bounded
   source-to-line-4b boundary. Track 2 is committed at `3274044`, adding the
-  line-9/downstream/package/explanation/presentation integration. The package
-  graph is now core **v22**, published **v17**, release **v15**, adoption
-  **v22**; the independent review is in flight.
+  line-9/downstream/package/explanation/presentation integration. Independent
+  review found one blocking production-path admission defect; the package graph
+  remains core **v22**, published **v17**, release **v15**, adoption **v22**.
 * **Plan:** `docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md`.
 * **Owner-launch charters:** `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track1.md`,
   `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track2.md`,
@@ -53,8 +53,8 @@ special distribution treatment remain outside the claim.
 * **Prior closed (selected pointers):** Form 1099-G plan/retrospective remain
   on the ratified line; this phase-state points at the just-closed box-7 plan.
 * **Contracts:** plan B7-C1–C10; no new ADR.
-* **Next:** receive the independent review verdict; triage any findings before
-  preparing the bounded repair cycle or milestone closeout.
+* **Next:** receive the findings-only repair, then obtain independent re-review
+  of the semantic fix before closeout.
 
 ## Re-entry
 

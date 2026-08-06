@@ -1,6 +1,6 @@
 # Owner-Launch Charter — Independent Review of Form 1099-R IRA Line 4b
 
-Status: dispatched by owner authorization; independent review in flight.
+Status: completed; verdict BLOCKED with one decision-blocking live-path admission finding.
 
 ## Context Capsule
 

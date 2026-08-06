@@ -1,12 +1,11 @@
 # Owner-Launch Charter — Findings-Only Repair for Form 1099-R IRA Line 4b
 
-Status: prepared for owner launch only if the independent review returns
-findings; no agent dispatched.
+Status: dispatched by owner authorization; findings-only repair in flight.
 
 ## Context Capsule
 
 - Source ref and resolved launch commit: the reviewed candidate on
-  `milestone/form1099r-ira-distributions-line4b`.
+  `milestone/form1099r-ira-distributions-line4b`, `443ac7f3e108f8d9ba271aa724faa878e25497d2`.
 - Exact object: the single bounded repair cycle in the milestone plan.
 - Role: original implementation Builder, Luna, Medium/medium.
 - Evidence ceiling: address only numbered findings against the committed
