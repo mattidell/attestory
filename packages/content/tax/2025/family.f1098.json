@@ -1,0 +1,16 @@
+{
+  "authorizes_subtotal": "tax.us.2025.schedule-a.f1098.subtotal",
+  "closure_claim": "Every mortgage interest amount reported in box 1 of a Form 1098 furnished to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon. Closed with members authorizes the multi-payer sum of current members; closed-empty authorizes subtotal 0.",
+  "id": "tax.us.2025.f1098",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1098.box1-mortgage-interest"
+  },
+  "schema": "source-family.v1",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Form 1098 statement items, tax year 2025",
+  "version": "v1"
+}

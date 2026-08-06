@@ -1,0 +1,580 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1098.vocabulary",
+  "version": "v1",
+  "label": "Form 1098 vocabulary",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.box1-mortgage-interest",
+      "version": "v1",
+      "title": "Form 1098 box1-mortgage-interest",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.box2-outstanding-principal",
+      "version": "v1",
+      "title": "Form 1098 box2-outstanding-principal",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.box3-origination-date",
+      "version": "v1",
+      "title": "Form 1098 box3-origination-date",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "format": "date"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.box4-overpaid-refund",
+      "version": "v1",
+      "title": "Form 1098 box4-overpaid-refund",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.box5-mortgage-insurance",
+      "version": "v1",
+      "title": "Form 1098 box5-mortgage-insurance",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.box6-points",
+      "version": "v1",
+      "title": "Form 1098 box6-points",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.box9-number-of-properties",
+      "version": "v1",
+      "title": "Form 1098 box9-number-of-properties",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.box11-other",
+      "version": "v1",
+      "title": "Form 1098 box11-other",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "number"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.liable-and-paid",
+      "version": "v1",
+      "title": "Taxpayer assertion: liable-and-paid",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.qualified-main-home",
+      "version": "v1",
+      "title": "Taxpayer assertion: qualified-main-home",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.acquisition-debt-use",
+      "version": "v1",
+      "title": "Taxpayer assertion: acquisition-debt-use",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.no-balance-increase",
+      "version": "v1",
+      "title": "Taxpayer assertion: no-balance-increase",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.no-refinance",
+      "version": "v1",
+      "title": "Taxpayer assertion: no-refinance",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.single-mortgage-single-home",
+      "version": "v1",
+      "title": "Taxpayer assertion: single-mortgage-single-home",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.not-shared-except-spouse",
+      "version": "v1",
+      "title": "Taxpayer assertion: not-shared-except-spouse",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.no-mortgage-interest-credit",
+      "version": "v1",
+      "title": "Taxpayer assertion: no-mortgage-interest-credit",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "payer",
+          "kind": "entity",
+          "entity_kind": "tax.us.mortgage-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098.source-closure",
+      "version": "v1",
+      "title": "Closure of Form 1098",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}
