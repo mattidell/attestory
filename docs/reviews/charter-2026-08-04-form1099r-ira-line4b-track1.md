@@ -1,10 +1,10 @@
 # Owner-Launch Charter — Form 1099-R IRA Line 4b Track 1
 
-Status: chartered for owner launch; no agent dispatched.
+Status: dispatched by owner authorization; Track 1 Builder in flight.
 
 ## Context Capsule
 
-- Source ref and resolved launch commit: `origin/main` / `b0480bc2178ba7d2fd8baa59b1a6823e5aa5c4a0`.
+- Source ref and resolved launch commit: `origin/main` / `20a67ce162fe0e41d80dd0132619e24008beccf5`.
 - Exact object: Track 1 of `docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md`.
 - Role: Builder, Luna, Medium/medium after the paper checkpoint.
 - Branch/worktree: `milestone/form1099r-ira-distributions-line4b` /

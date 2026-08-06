@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "form1099r-ira-distributions-line4b",
-  "milestone_state": "planned",
-  "status": "PLAN COMMITTED. Implementation seats are prepared for owner launch and no agent has been dispatched.",
+  "milestone_state": "track-1",
+  "status": "TRACK 1 IN FLIGHT. The source-to-line-4b Builder is dispatched under its committed charter; no Track 2 or review agent has started.",
   "source_ref": "origin/main",
   "source_commit": "20a67ce162fe0e41d80dd0132619e24008beccf5",
   "scope": [
