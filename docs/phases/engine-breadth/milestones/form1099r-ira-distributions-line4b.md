@@ -2,10 +2,11 @@
 {
   "version": 1,
   "topic": "form1099r-ira-distributions-line4b",
-  "milestone_state": "track-2",
-  "status": "INDEPENDENT RE-REVIEW IN FLIGHT. Findings-only repair `4e7d363` wires the existing IRA witnesses into the authoritative live route; the original Reviewer is rechecking the semantic fix.",
+  "milestone_state": "closed",
+  "status": "CLOSED. The bounded 2025 ordinary, fully taxable IRA-family Form 1099-R class is synthetic complete through Form 1040 line 4b, line 9, AGI, taxable income, regular tax, package resolution, explanation, citation pins, and production-shaped presentation; independent re-review returned READY after one findings-only repair.",
   "source_ref": "origin/main",
   "source_commit": "20a67ce162fe0e41d80dd0132619e24008beccf5",
+  "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099r-ira-distributions-line4b.md",
   "scope": [
     "admit the bounded 2025 fully taxable IRA-family Form 1099-R class",
     "publish Form 1040 line 4b, keep line 4a blank for the fully taxable class, and carry line 4b through line 9, AGI, taxable income, and regular tax",
@@ -64,6 +65,12 @@
       "AGENTS.md#Schema Publication Protocol",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-05-form1099r-ira-distributions-line4b.md",
+      "docs/phases/engine-breadth/coverage-frontier.md",
+      "docs/phases/engine-breadth/engine-breadth-roadmap.md",
+      "docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md"
     ]
   }
 }
@@ -84,8 +91,9 @@ through the successor total-income computation on line 9, AGI, taxable income,
 and the existing regular-tax path.
 
 This milestone is independent of the concurrent Schedule D/Form 8949
-milestone. It uses a separate clean worktree and branch from `origin/main`.
-No agent has been dispatched; all prepared seats are owner-launched.
+milestone. It used a separate clean worktree and branch from `origin/main`.
+The delivered result is synthetic-only and remains bounded by the exclusions
+below.
 
 ## Base and concurrency record
 
@@ -117,14 +125,14 @@ The diagnostic is temporary, ignored, and removed before closeout.
 
 The owner-directed pre-rebase capture used merge base `b0480bc`, preserved
 milestone head `66a0cbe`, and recorded package core `v17` at both endpoints
-with zero package-content and published-schema file deltas. After the rebase,
-the fetched ratified tip is `20a67ce`; final-PR verification must compare that
-tip with the rebased milestone head and must also pass the negative control
-against the original pair. Because this branch is still planning-only, the
-expected local semantic delta remains empty; any future implementation
-successor must be allocated only after a fresh inventory and must replace this
-expectation with its captured member, entrypoint, admitted-schema,
-input-binding, and composition-obligation delta.
+with zero package-content and published-schema file deltas. The final
+implementation inventory and three-way diagnostic preserved the fetched
+ratified tip at core `v21` / published `v16` and allocated the additive IRA
+successors core `v22` / published `v17` / release `v15` / adoption `v22`,
+`artifact-package.v19`, and `quantity-vocabulary.v11`. Both the positive
+verification and the original-pair negative control passed; no upstream
+members, selections, schema admissions, bindings, or composition obligations
+were lost.
 
 ## Official 2025 paper boundary
 
@@ -271,32 +279,26 @@ decision, equality boundary, and ADR disposition. No agent launch is needed.
 
 ### Track 1 — Source family and Form 1099-R line 4b
 
-Owner-launch one Builder against `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track1.md`.
-Implement the source facts, statement identity, family/closure/mapping,
-line-4b citizen, citations, lifecycle evidence, and focused tests; line 4a
-remains blank for the admitted fully taxable class.
-The builder does not allocate successor versions until the rebase inventory
-required by this plan is complete.
+Completed. The source facts, statement identity, family/closure/mapping,
+line-4b citizen, citations, lifecycle evidence, and focused tests are
+committed; line 4a remains blank for the admitted fully taxable class.
 
 ### Track 2 — Downstream, package, explanation, and presentation integration
 
-After Track 1, owner-launch one Builder against
-`docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track2.md`.
-Implement the line-9 successor and downstream proof, package/release/adoption
+Completed. The line-9 successor and downstream proof, package/release/adoption
 successors, exact explanation pins, production-shaped presentation, and
-compatibility regressions.
+compatibility regressions are committed.
 
 ### Review, repair, and re-review
 
-Owner-launch the independent Reviewer charter only after both tracks are
-complete. At most one findings-only repair cycle is prepared for the original
-Builder assigned by the owner, followed by a re-review of the semantic delta.
-A new product decision, lost upstream semantic ledger member, or scope
-expansion stops for owner disposition.
+Completed. The first independent review found one blocking live-path witness
+defect. The original Builder completed one findings-only repair, and an
+independent re-review returned READY. No new product decision, lost upstream
+semantic ledger member, or scope expansion occurred.
 
 ## Version and rebase discipline
 
-No future version number appears in this plan or its charters. Before any
+No unallocated future version number appears in this plan. Before any
 implementation packaging, after any rebase, and before final PR preparation,
 inventory all published tax schemas, form/rule/citation/content citizens,
 package, registry, release, adoption, and presentation versions. Choose only
@@ -312,6 +314,32 @@ rows remain immutable.
 4. `track-2:` line 9/downstream/package/explanation/presentation integration.
 5. Provisional review/repair commits folded into the completed track.
 6. Curated closeout commit with retrospective and final phase state.
+
+## Execution record
+
+- Track 1: bounded Form 1099-R source and line-4b boundary, with no version
+  allocation.
+- Track 2: line-9/downstream/package/explanation/presentation integration;
+  additive successors core v22, published v17, release v15, adoption v22,
+  `artifact-package.v19`, and `quantity-vocabulary.v11`.
+- Repair: loader/runner witness enforcement and focused live-path mutation
+  tests only; no package, schema, registry, release, or adoption change.
+- Review: first review BLOCKED on one finding; repair re-review READY. Durable
+  evidence is `docs/reviews/2026-08-05-form1099r-ira-distributions-line4b-final-review.md`.
+- Verification: focused source/downstream/schema-registry/compatibility checks,
+  positive and negative semantic-ledger diagnostics, `git diff --check`, and
+  envelope scan passed. Repository CI remains the final merge gate.
+
+## Deferral ledger
+
+- IRA basis, Form 8606, rollover eligibility, Roth qualification, and all
+  special distribution treatments remain outside this milestone.
+- Non-IRA pension, annuity, qualified-plan, and insurance distributions remain
+  outside the source family.
+- Withholding, Form 5329, Form 5498, Form 1098-Q, state treatment, and filing
+  remain outside the downstream graph.
+- Other Form 1099-R distribution codes and future tax years require separate
+  paper-first contracts and coverage rows.
 
 ## Exit criteria
 

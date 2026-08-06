@@ -4,11 +4,11 @@
   "phase": "Engine Breadth",
   "topic": "form1099r-ira-distributions-line4b",
   "active_plan": "docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md",
-  "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — INDEPENDENT RE-REVIEW IN FLIGHT.** The findings-only repair is committed at `4e7d363`; the original Reviewer is rechecking the live-path witness fix against the unchanged v22/v17/v15/v22 graph.",
-  "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md",
-  "current_role": "Reviewer (independent repair re-review)",
-  "current_prompt": "docs/reviews/charter-2026-08-04-form1099r-ira-line4b-review.md"
+  "milestone_state": "closed",
+  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — CLOSED.** The bounded 2025 ordinary, fully taxable IRA-family Form 1099-R class is synthetic complete through line 4b, line 9, AGI, taxable income, regular tax, package resolution, explanation, citations, and production-shaped presentation; independent re-review returned READY after one findings-only repair. Next milestone owner-unselected.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099r-ira-distributions-line4b.md",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
 # Phase State
@@ -28,35 +28,32 @@ compensation through Schedule 1 into Form 1040 line 8, and the bounded Form
 1099-DIV box-7 direct foreign tax credit without Form 1116 through Schedule 3
 line 1/8 and Form 1040 line 20. The selected next milestone is the bounded
 fully taxable IRA-family distribution route from Form 1099-R to Form 1040 line
-4b; line 4a remains blank/absent for this class and basis, rollovers, and
-special distribution treatment remain outside the claim.
+4b, now closed; line 4a remains blank/absent for this class and basis,
+rollovers, and special distribution treatment remain outside the claim. The
+next Engine Breadth milestone is owner-unselected.
 
 ## Operational State: Engine Breadth
 
 * **Active milestone:** Fully Taxable IRA Distributions from Form 1099-R to
-  Form 1040 Line 4b — Track 2 in flight after the ratified tip that includes Form 8949
+  Form 1040 Line 4b **closed 2026-08-05** after one findings-only repair and
+  independent re-review READY, from the ratified tip that includes Form 8949
   (PR #161), Form 1099-INT box 8 (PR #164), Form 1099-G (PR #166), and Form
   1099-DIV box 7 (PR #167).
   Concurrent work remains isolated: the wash-sale work is merged as PR #161,
   and the owner-launched SSA/Form 1040 line-6 work remains on its separate
   branch and draft PR #163; neither is part of this milestone.
-* **Current result:** Track 1 is committed at `efe0992`, adding the bounded
-  source-to-line-4b boundary. Track 2 is committed at `3274044`, adding the
-  line-9/downstream/package/explanation/presentation integration. Independent
-  review found one blocking production-path admission defect; the package graph
-  remains core **v22**, published **v17**, release **v15**, adoption **v22**.
-  The findings-only repair at `4e7d363` wires box-2a equality, IRA indicator,
-  and code-7 witnesses into the authoritative live route; independent
-  re-review is in flight.
+* **Current result:** bounded ordinary, fully taxable IRA-family distributions
+  publish on line 4b with line 4a blank, enter line 9 exactly once, and use the
+  existing AGI, taxable-income, and regular-tax path. Package graph is core
+  **v22**, published **v17**, release **v15**, adoption **v22**, with
+  `artifact-package.v19` and `quantity-vocabulary.v11`.
 * **Plan:** `docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md`.
-* **Owner-launch charters:** `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track1.md`,
-  `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track2.md`,
-  `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-review.md`, and
-  `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-repair.md`.
-* **Prior closed (selected pointers):** Form 1099-G plan/retrospective remain
-  on the ratified line; this phase-state points at the just-closed box-7 plan.
-* **Contracts:** plan B7-C1–C10; no new ADR.
-* **Next:** receive the independent re-review verdict before closeout.
+* **Retrospective:** `docs/milestone-retrospectives/2026-08-05-form1099r-ira-distributions-line4b.md`.
+* **Final review:** `docs/reviews/2026-08-05-form1099r-ira-distributions-line4b-final-review.md`.
+* **Prior closed (selected pointers):** Form 1099-G and Form 1099-DIV box-7
+  plans/retrospectives remain on the ratified line.
+* **Contracts:** plan IRA-C1–C4; no new ADR.
+* **Next:** select a new milestone from the coverage frontier.
 
 ## Re-entry
 
