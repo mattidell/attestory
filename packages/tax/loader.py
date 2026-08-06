@@ -83,6 +83,13 @@ def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
             "tax.us.2025.f1099div.box8-country-companion",
             "tax.us.2025.f1099div.box1a-ordinary",
         ],
+        # Form 1099-R IRA-family route: each collected box-1 member requires
+        # an explicit false box-2b-not-determined witness on the same logical
+        # statement. Box-1/box-2a equality and IRA/code-7 admission remain in
+        # the bounded source boundary rather than this provenance edge.
+        "tax.us.2025.f1099r.ira-box1-taxable-distribution": (
+            "tax.us.2025.f1099r.box2b-not-determined"
+        ),
     }
 
 
@@ -97,6 +104,7 @@ def domain_companion_value_domains() -> dict[str, frozenset[object]]:
         "tax.us.2025.f1099div.box13-specified-pab-authority": frozenset({None, 0, 0.0}),
         "tax.us.2025.f1099g.box4-federal-withholding-authority": frozenset({None, 0, 0.0}),
         "tax.us.2025.f1099int.box9-specified-pab-authority": frozenset({None, 0, 0.0}),
+        "tax.us.2025.f1099r.box2b-not-determined": frozenset({False}),
     }
 
 

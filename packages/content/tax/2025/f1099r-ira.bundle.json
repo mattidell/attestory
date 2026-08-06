@@ -1,0 +1,95 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.f1099r.ira-box1-taxable-distribution",
+      "identity_keys": [
+        {"entity_kind": "tax.us.ira-payer", "kind": "entity", "name": "payer"},
+        {"entity_kind": "tax.us.1099r-statement", "kind": "entity", "name": "statement"},
+        {"kind": "literal", "name": "tax-year", "values": ["2025"]}
+      ],
+      "nature": "determinable",
+      "quantity": {"id": "tax.us.2025.quantity.us-dollars", "version": "v1"},
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {"policy": "free"},
+      "title": "Box 1 amount from one logical 2025 Form 1099-R traditional, SEP, or SIMPLE IRA statement; identity is payer, statement instance, and year, never evidence; admitted only with code 7, matching box 2a, and explicit box-2b-not-determined false.",
+      "value_schema": {"minimum": 0, "type": "number"},
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099r.ira-box2a-taxable-amount",
+      "identity_keys": [
+        {"entity_kind": "tax.us.ira-payer", "kind": "entity", "name": "payer"},
+        {"entity_kind": "tax.us.1099r-statement", "kind": "entity", "name": "statement"},
+        {"kind": "literal", "name": "tax-year", "values": ["2025"]}
+      ],
+      "nature": "determinable",
+      "quantity": {"id": "tax.us.2025.quantity.us-dollars", "version": "v1"},
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {"policy": "free"},
+      "title": "Box 2a amount on the same logical 2025 Form 1099-R IRA-family statement as box 1; an explicit nonnegative value is required and must equal box 1 exactly.",
+      "value_schema": {"minimum": 0, "type": "number"},
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099r.ira-indicator",
+      "identity_keys": [
+        {"entity_kind": "tax.us.ira-payer", "kind": "entity", "name": "payer"},
+        {"entity_kind": "tax.us.1099r-statement", "kind": "entity", "name": "statement"},
+        {"kind": "literal", "name": "tax-year", "values": ["2025"]}
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {"policy": "free"},
+      "title": "IRA indicator on the same logical 2025 Form 1099-R statement; only traditional, SEP, or SIMPLE is admitted.",
+      "value_schema": {"enum": ["traditional", "sep", "simple"]},
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099r.distribution-code",
+      "identity_keys": [
+        {"entity_kind": "tax.us.ira-payer", "kind": "entity", "name": "payer"},
+        {"entity_kind": "tax.us.1099r-statement", "kind": "entity", "name": "statement"},
+        {"kind": "literal", "name": "tax-year", "values": ["2025"]}
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {"policy": "free"},
+      "title": "Distribution code on the same logical 2025 Form 1099-R IRA-family statement; the bounded class admits exactly normal code 7 with no additional code.",
+      "value_schema": {"const": "7"},
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099r.box2b-not-determined",
+      "identity_keys": [
+        {"entity_kind": "tax.us.ira-payer", "kind": "entity", "name": "payer"},
+        {"entity_kind": "tax.us.1099r-statement", "kind": "entity", "name": "statement"},
+        {"kind": "literal", "name": "tax-year", "values": ["2025"]}
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {"policy": "free"},
+      "title": "Explicit box-2b-not-determined state on the same logical 2025 Form 1099-R IRA-family statement; only false is admitted.",
+      "value_schema": {"const": false},
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.f1099r.ira-fully-taxable.source-closure",
+      "identity_keys": [
+        {"entity_kind": "kernel.family-horizon", "kind": "entity", "name": "family-horizon"},
+        {"kind": "literal", "name": "tax-year", "values": ["2025"]}
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {"policy": "free"},
+      "title": "Affirmative closure of the exact 2025 Form 1099-R IRA-family code-7, box-1-equals-box-2a source family at the current membership horizon.",
+      "value_schema": {"type": "boolean"},
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.f1099r.ira.vocabulary",
+  "label": "Form 1099-R IRA-family fully taxable distribution source vocabulary for tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}
