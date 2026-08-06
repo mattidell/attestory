@@ -2,10 +2,10 @@
 {
   "version": 1,
   "topic": "form1099r-ira-distributions-line4b",
-  "milestone_state": "track-0",
-  "status": "PLAN COMMITTED. Track 0 is foreman-owned; implementation seats are prepared for owner launch and no agent has been dispatched.",
+  "milestone_state": "planned",
+  "status": "PLAN COMMITTED. Implementation seats are prepared for owner launch and no agent has been dispatched.",
   "source_ref": "origin/main",
-  "source_commit": "b0480bc2178ba7d2fd8baa59b1a6823e5aa5c4a0",
+  "source_commit": "20a67ce162fe0e41d80dd0132619e24008beccf5",
   "scope": [
     "admit the bounded 2025 fully taxable IRA-family Form 1099-R class",
     "publish Form 1040 line 4b, keep line 4a blank for the fully taxable class, and carry line 4b through line 9, AGI, taxable income, and regular tax",
@@ -34,8 +34,8 @@
       "packages/content/tax/2025/rule.form1040-line11.json",
       "packages/content/tax/2025/rule.form1040-line15.json",
       "packages/content/tax/2025/rule.form1040-line16.v5.json",
-      "packages/content/tax/2025/package.core-calculations.v17.json",
-      "packages/content/tax/2025/published-packages.v12.json",
+      "packages/content/tax/2025/package.core-calculations.v21.json",
+      "packages/content/tax/2025/published-packages.v16.json",
       "AGENTS.md#Schema Publication Protocol",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
@@ -89,18 +89,19 @@ No agent has been dispatched; all prepared seats are owner-launched.
 
 ## Base and concurrency record
 
-- Source ref: `origin/main` at `b0480bc2178ba7d2fd8baa59b1a6823e5aa5c4a0`.
+- Source ref: `origin/main` at `20a67ce162fe0e41d80dd0132619e24008beccf5`.
 - Milestone branch: `milestone/form1099r-ira-distributions-line4b`.
 - Dedicated clean worktree, separate from the concurrent WIP checkout.
-- Concurrent work at planning time: draft PR #161,
-  `milestone/schedule-d-form8949-covered-wash-sale`, with a dirty WIP
-  worktree and 13 commits ahead of `origin/main`; and an owner-launched
-  foreman worktree on `milestone/form1040-ssa1099-line6`, clean at the
-  ratified base and not yet represented by an open PR. Both are untouched.
-- The branch currently observes package core `v17` and published registry
-  `v12`; these are inventory facts, not reservations. No new schema, rule,
-  package, registry, release, adoption, or ADR number is allocated by this
-  plan.
+- Concurrent work is isolated: the wash-sale work merged as PR #161 and its
+  original dirty WIP checkout remains untouched; the owner-launched SSA/Form
+  1040 line-6 milestone is on `milestone/form1040-ssa1099-line6` with draft PR
+  #163. Neither is part of this milestone.
+- The actual ratified base observes package core `v21`, published registry
+  `v16`, release `v14`, and adoption `v21`; the latest schema inventory also
+  includes `artifact-package.v18`, `dividend-universe.v4`, and
+  `quantity-vocabulary.v10`. These are inventory facts, not reservations. No
+  new schema, rule, package, registry, release, adoption, or ADR number is
+  allocated by this plan.
 
 If concurrent work changes the base, re-fetch and re-identify the ratified
 line. Before the real rebase and again during final PR preparation, run the
@@ -111,6 +112,19 @@ the new ratified tip; and use a negative control. Lost upstream members,
 altered producer selections, lost schema admissions, or lost composition
 obligations are blocking unless this milestone explicitly justifies them.
 The diagnostic is temporary, ignored, and removed before closeout.
+
+### Base synchronization ledger record
+
+The owner-directed pre-rebase capture used merge base `b0480bc`, preserved
+milestone head `66a0cbe`, and recorded package core `v17` at both endpoints
+with zero package-content and published-schema file deltas. After the rebase,
+the fetched ratified tip is `20a67ce`; final-PR verification must compare that
+tip with the rebased milestone head and must also pass the negative control
+against the original pair. Because this branch is still planning-only, the
+expected local semantic delta remains empty; any future implementation
+successor must be allocated only after a fresh inventory and must replace this
+expectation with its captured member, entrypoint, admitted-schema,
+input-binding, and composition-obligation delta.
 
 ## Official 2025 paper boundary
 
