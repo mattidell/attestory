@@ -360,6 +360,33 @@ class _Run:
         for name in access.collects:
             fids = self.source_fids.get(name, [])
             fact_ids = self.source_fact_ids.get(name, [])
+            # The IRA line-4b family declares box 2a as an exact same-statement
+            # witness for collected box 1. Presence/value-domain companions
+            # reject missing and categorical mutations; this equality check
+            # rejects a numeric mismatch before the derived finding is built.
+            from packages.tax.loader import domain_companion_equality_pairs
+
+            equality_companion = domain_companion_equality_pairs().get(name)
+            if equality_companion is not None:
+                source_values = self.sources.get(name, [])
+                companion_values = self.sources.get(equality_companion, [])
+                companion_fact_ids = self.source_fact_ids.get(equality_companion, [])
+                for raw_fact_id, raw_value in zip(fact_ids, source_values):
+                    if not isinstance(raw_fact_id, str) or "|" not in raw_fact_id:
+                        continue
+                    suffix = raw_fact_id.split("|", 1)[1]
+                    matches = [
+                        (companion_fact_id, value)
+                        for companion_fact_id, value in zip(companion_fact_ids, companion_values)
+                        if isinstance(companion_fact_id, str)
+                        and "|" in companion_fact_id
+                        and companion_fact_id.split("|", 1)[1] == suffix
+                    ]
+                    if matches and Decimal(str(raw_value)) != Decimal(str(matches[0][1])):
+                        raise SourceAuthorityError(
+                            f"same-statement equality violated: {name} box 1 "
+                            f"does not equal {equality_companion} box 2a for {suffix}"
+                        )
             for index, fid in enumerate(fids):
                 pin = {"role": "input", "id": fid, "version": "v1"}
                 if self.use_v2:

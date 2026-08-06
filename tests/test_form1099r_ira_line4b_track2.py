@@ -142,6 +142,19 @@ def _run(acts: list[dict[str, object]], run_id: str) -> tuple[dict[str, Any], di
 
 
 class Track2Content(unittest.TestCase):
+    def _renumber(self, acts: list[dict[str, object]]) -> list[dict[str, object]]:
+        for index, act in enumerate(acts):
+            act["committed_against"] = index
+        return acts
+
+    def _finding_for(self, acts: list[dict[str, object]], fact_type: str) -> dict[str, Any]:
+        for act in acts:
+            payload = cast(dict[str, Any], act.get("payload", {}))
+            finding = cast(dict[str, Any], payload.get("finding", {}))
+            if str(finding.get("fact_id", "")).startswith(fact_type + "|"):
+                return finding
+        raise AssertionError(f"missing fixture finding for {fact_type}")
+
     def test_line9_v6_consumes_line4b_once_and_does_not_read_raw_members(self) -> None:
         rule = _load("rule.form1040-line9.v6.json")
         self.assertEqual(rule["version"], "v6")
@@ -195,6 +208,44 @@ class Track2Content(unittest.TestCase):
                 finding["value"] = True
         with self.assertRaisesRegex(Exception, "box2b-not-determined"):
             _run(acts, "demo.ira.n6")
+
+    def test_live_route_rejects_missing_box2a_companion(self) -> None:
+        acts = _ira_acts([1200])
+        acts = [
+            act for act in acts
+            if not str(cast(dict[str, Any], cast(dict[str, Any], act.get("payload", {})).get("finding", {})).get("fact_id", "")).startswith(IRA_BOX2A + "|")
+        ]
+        with self.assertRaisesRegex(Exception, "companion presence violated"):
+            _run(self._renumber(acts), "demo.ira.repair.missing-box2a")
+
+    def test_live_route_rejects_mismatched_box2a(self) -> None:
+        acts = _ira_acts([1200])
+        self._finding_for(acts, IRA_BOX2A)["value"] = 1100
+        with self.assertRaisesRegex(Exception, "same-statement equality violated"):
+            _run(acts, "demo.ira.repair.mismatched-box2a")
+
+    def test_live_route_rejects_missing_ira_indicator_companion(self) -> None:
+        acts = _ira_acts([1200])
+        acts = [
+            act for act in acts
+            if not str(cast(dict[str, Any], cast(dict[str, Any], act.get("payload", {})).get("finding", {})).get("fact_id", "")).startswith(IRA_INDICATOR + "|")
+        ]
+        with self.assertRaisesRegex(Exception, "companion presence violated"):
+            _run(self._renumber(acts), "demo.ira.repair.missing-indicator")
+
+    def test_live_route_rejects_missing_and_invalid_code7_witness(self) -> None:
+        missing = _ira_acts([1200])
+        missing = [
+            act for act in missing
+            if not str(cast(dict[str, Any], cast(dict[str, Any], act.get("payload", {})).get("finding", {})).get("fact_id", "")).startswith(IRA_CODE + "|")
+        ]
+        with self.assertRaisesRegex(Exception, "companion presence violated"):
+            _run(self._renumber(missing), "demo.ira.repair.missing-code7")
+
+        invalid = _ira_acts([1200])
+        self._finding_for(invalid, IRA_CODE)["value"] = "1"
+        with self.assertRaises(Exception):
+            _run(invalid, "demo.ira.repair.invalid-code7")
 
     def test_presentation_model_is_compact_and_redacts_blocked_values(self) -> None:
         _, model = _run(_ira_acts([1200]), "demo.ira.p6-presentation")
