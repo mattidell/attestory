@@ -1,0 +1,258 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.schedule-a.line8a.rule",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "us",
+    "family": "schedule-a"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.f1098.box1-mortgage-interest",
+    "tax.us.2025.f1098.box2-outstanding-principal",
+    "tax.us.2025.f1098.box3-origination-date",
+    "tax.us.2025.f1098.box4-overpaid-refund",
+    "tax.us.2025.f1098.box5-mortgage-insurance",
+    "tax.us.2025.f1098.box6-points",
+    "tax.us.2025.f1098.box9-number-of-properties",
+    "tax.us.2025.f1098.box11-other",
+    "tax.us.2025.f1098.liable-and-paid",
+    "tax.us.2025.f1098.qualified-main-home",
+    "tax.us.2025.f1098.acquisition-debt-use",
+    "tax.us.2025.f1098.no-balance-increase",
+    "tax.us.2025.f1098.no-refinance",
+    "tax.us.2025.f1098.single-mortgage-single-home",
+    "tax.us.2025.f1098.not-shared-except-spouse",
+    "tax.us.2025.f1098.no-mortgage-interest-credit"
+  ],
+  "pins": [
+    {
+      "role": "parameter",
+      "id": "tax.us.2025.f1098.mortgage-interest-limit",
+      "version": "v1"
+    }
+  ],
+  "when": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "gt",
+      "left": {
+        "op": "count",
+        "name": "tax.us.2025.f1098.box1-mortgage-interest",
+        "source_set": "tax.us.2025.f1098"
+      },
+      "right": 1
+    },
+    "then": {
+      "op": "block",
+      "code": "MULTIPLE_F1098_OUT_OF_SCOPE"
+    },
+    "else": {
+      "op": "all",
+      "args": [
+        {
+          "op": "compare",
+          "cmp": "eq",
+          "left": {
+            "op": "count",
+            "name": "tax.us.2025.f1098.box1-mortgage-interest",
+            "source_set": "tax.us.2025.f1098"
+          },
+          "right": 1
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.liable-and-paid"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.liable-and-paid",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.qualified-main-home"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.qualified-main-home",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.acquisition-debt-use"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.acquisition-debt-use",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.no-balance-increase"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.no-balance-increase",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.no-refinance"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.no-refinance",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.single-mortgage-single-home"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.single-mortgage-single-home",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.not-shared-except-spouse"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.not-shared-except-spouse",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        },
+        {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.f1098.no-mortgage-interest-credit"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.f1098.no-mortgage-interest-credit",
+              "version": "v1"
+            },
+            "value": "yes"
+          }
+        }
+      ]
+    }
+  },
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "lte",
+      "left": {
+        "op": "add",
+        "args": [
+          {
+            "op": "collect",
+            "name": "tax.us.2025.f1098.box2-outstanding-principal",
+            "source_set": "tax.us.2025.f1098"
+          }
+        ]
+      },
+      "right": {
+        "op": "choose",
+        "when": {
+          "op": "categorical_compare",
+          "cmp": "eq",
+          "left": {
+            "op": "ref",
+            "name": "tax.us.2025.filing-status"
+          },
+          "right": {
+            "op": "category_literal",
+            "fact_type": {
+              "id": "tax.us.2025.filing-status",
+              "version": "v1"
+            },
+            "value": "married-filing-separately"
+          }
+        },
+        "then": 375e3,
+        "else": 750e3
+      }
+    },
+    "then": {
+      "op": "add",
+      "args": [
+        {
+          "op": "collect",
+          "name": "tax.us.2025.f1098.box1-mortgage-interest",
+          "source_set": "tax.us.2025.f1098"
+        }
+      ]
+    },
+    "else": {
+      "op": "block",
+      "code": "MORTGAGE_DEBT_OVER_LIMIT_OUT_OF_SCOPE"
+    }
+  },
+  "publishes": "tax.us.2025.schedule-a.line8a",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": []
+  },
+  "composition": {
+    "id": "tax.us.2025.schedule-a",
+    "version": "v1"
+  },
+  "citations": []
+}

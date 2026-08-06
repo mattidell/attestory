@@ -130,6 +130,19 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
             return []
         return [_as_decimal(v) for v in rows]
 
+    if op == "count":
+        name = expr["name"]
+        access.collects.add(name)
+        rows = env.sources.get(name, [])
+        source_set = expr["source_set"]
+        if source_set not in env.closed_sets:
+            raise EvalBlocked(BLOCK_CLOSURE, [source_set])
+        access.closure_reads.add(source_set)
+        return len(rows)
+
+    if op == "block":
+        raise EvalBlocked(expr["code"], [])
+
     if op == "parameter":
         access.parameters.add(expr["parameter_id"])
         param = env.parameters.get(expr["parameter_id"])

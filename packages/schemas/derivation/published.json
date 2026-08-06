@@ -40,6 +40,7 @@
   "rule-artifact.v1.schema.json": "9a98d3f4f7e1d1d842291db2f28291c3b61812a64a4ed7069ab23950ca458118",
   "rule-artifact.v2.schema.json": "aa6af201ffc2e52a50d2347b508f94643ffc61e37027b36152a50d0d8fc69230",
   "rule-artifact.v3.schema.json": "affb1fe3780988d438fe84ce36e49c397986d9ade64356a675d554e49d49d1b9",
+  "rule-artifact.v4.schema.json": "5170efb918884acd2deca68986262eba301fbf232a5ea6c0633708e41cc27660",
   "run-request.v1.schema.json": "ef7426c5b1cbcfae5b3d5b8292676b102012dd90bd10f9ded98a59a06c353102",
   "source-closure-mapping.v1.schema.json": "4e9edb40963ca2e315a33cbe3e45981b6c3da105349d30d32ed288b8c85bb2ff",
   "source-closure-mapping.v2.schema.json": "7046dcea09ad5b26850c0697c8ab12afc7231f08d988ff26479a01018733d4ca",

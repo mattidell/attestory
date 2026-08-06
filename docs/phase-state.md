@@ -2,13 +2,13 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "form1099div-box7-direct-ftc",
-  "active_plan": "docs/phases/engine-breadth/milestones/form1099div-box7-direct-ftc.md",
-  "milestone_state": "closed",
-  "status": "**ENGINE BREADTH / FORM 1099-DIV BOX 7 DIRECT FOREIGN TAX CREDIT (NO FORM 1116) — CLOSED.** An owner-commissioned external independent review (2026-08-05) found the original in-branch READY verdict was made in error; one bounded findings-only repair cycle fixed all five findings (destructive/non-reproducible generator, crashing MFS claim narrowed rather than backfilled, stale presentation golden, thin lifecycle evidence, red mypy gate) and a fresh independent re-review confirmed READY. Package graph unchanged by the repair: core v21 / published v16 / release v14 / adopt v21. Next milestone owner-unselected.",
-  "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "topic": "f1098-mortgage-interest-line12e",
+  "active_plan": "docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md",
+  "milestone_state": "planned",
+  "status": "**ENGINE BREADTH / FORM 1098 HOME-MORTGAGE INTEREST THROUGH SCHEDULE A AND FORM 1040 LINE 12E — PLANNED.** Owner-chartered 2026-08-05 on branch milestone/f1098-mortgage-interest-line12e, base core-calculations v21 / published v16 / release v14 / adoption v21 (tip of origin/main, immediately after box-7 direct FTC). Foreman completed paper-first Track 0 in-doc and chartered Track 1 (Form 1098 family + Schedule A line 8a/completeness); Track 2 (selection guard, attachment disposition, line-12e/13a/13b/14 succession, package/explanation/presentation) not yet chartered pending Track 1. A Track 1 builder correctly stopped on stop condition (a) (singleton-cardinality bound needs a new evaluator primitive, not existing closure content); foreman resolved it in-doc under 'Stop condition (a) resolution' (new additive rule-artifact.v4 'count' op; single family with box-2/3/etc as companions, not a per-box family split). No dispatch this session per owner instruction; Track 1 is owner-launch only. Two unrelated concurrent milestones remain open elsewhere and were not touched: PR #162 (Form 1099-R IRA distributions line 4b) and PR #163 (SSA-1099 benefits lines 6a/6b).",
+  "retrospective": null,
+  "current_role": "Builder (Track 1, owner-launch)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md"
 }
 -->
 # Phase State
@@ -26,30 +26,36 @@ inbound carryovers and Form 8949 wash-sale (code W) lines 1b/8b, Form 1099-INT
 box 8 tax-exempt interest on line 2a, Form 1099-G box-1 unemployment
 compensation through Schedule 1 into Form 1040 line 8, and the bounded Form
 1099-DIV box-7 direct foreign tax credit without Form 1116 through Schedule 3
-line 1/8 and Form 1040 line 20. The next Engine Breadth milestone is
-owner-unselected.
+line 1/8 and Form 1040 line 20. The active Engine Breadth milestone is Form
+1098 home-mortgage interest through Schedule A and Form 1040 line 12e,
+planned (Track 0 settled, Track 1 chartered, not yet built).
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none. Form 1099-DIV Box 7 Direct Foreign Tax Credit
-  (No Form 1116) **closed 2026-08-05** after one findings-only repair cycle
-  and a fresh independent re-review confirmed READY, following an external
-  review that found the original in-branch READY verdict was made in error.
-  Prior state: rebased onto the ratified tip that includes Form 8949 (PR
-  #161), Form 1099-INT box 8 (PR #164), and Form 1099-G (PR #166).
-* **Current result:** bounded synthetic-complete direct-election box-7 path
-  with independent family, residual succession (boxes 3 and 5 only), box-8
-  companion, creditability and election authorities, threshold gate, regular-tax
-  cap against line 16, Schedule 3 line 1/8, Form 1040 line 20, and
-  tax-after-credit. Package graph is the validated additive union of the
-  ratified tip plus this milestone’s members: core **v21**, published **v16**,
-  release **v14**, adoption **v21** (see retrospective).
-* **Plan:** `docs/phases/engine-breadth/milestones/form1099div-box7-direct-ftc.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md`.
-* **Prior closed (selected pointers):** Form 1099-G plan/retrospective remain
-  on the ratified line; this phase-state points at the just-closed box-7 plan.
-* **Contracts:** plan B7-C1–C10; no new ADR.
-* **Next:** select a new milestone from the coverage frontier.
+* **Active milestone:** Form 1098 Home-Mortgage Interest through Schedule A
+  and Form 1040 Line 12e, **planned 2026-08-05** on branch
+  `milestone/f1098-mortgage-interest-line12e`, base core-calculations
+  **v21** / published **v16** / release **v14** / adoption **v21** (tip of
+  `origin/main`, immediately after Form 1099-DIV box-7 direct FTC).
+* **Current result:** paper-first Track 0 settled in-doc (supported class,
+  Form 1098 box/authority inventory, mechanical debt-limit proof, Schedule A
+  completeness boundary, generic-itemized-assertion guard, 2025
+  deduction-spine bounded-additive-successor decision, attachment-selection
+  contract). Track 1 (Form 1098 family, taxpayer-authority facts, Schedule A
+  line 8a and completeness) chartered, not yet built. Track 2 (selection
+  guard, attachment disposition, line-12e/13a/13b/14 succession, package,
+  explanation, presentation) not yet chartered.
+* **Plan:** `docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md`.
+* **Retrospective:** none yet (milestone not closed).
+* **Concurrent milestones (untouched, on their own branches/worktrees):**
+  PR #162 `milestone/form1099r-ira-distributions-line4b` (OPEN), PR #163
+  `milestone/form1040-ssa1099-line6` (DRAFT).
+* **Contracts:** no new ADR yet; Track 0 concluded existing ADR-0015/0016/0017
+  (identity/closure), ADR-0036 (attachment ontology), ADR-0020/0027/0029/0033/0046
+  (explanation/package/citation/presentation) are sufficient by content-level
+  reuse — no governance escalation needed.
+* **Next:** owner-launch Track 1 (prompt in the milestone doc), or hand
+  further direction to the foreman.
 
 ## Re-entry
 
