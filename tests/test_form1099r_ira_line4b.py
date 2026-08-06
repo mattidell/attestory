@@ -6,7 +6,7 @@ import json
 import unittest
 from decimal import Decimal
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from packages.derivation.source_authority import audit_collect_authority
 from packages.tax.ira_distributions import (
@@ -57,7 +57,7 @@ def closure(horizon: str = "demo.ira.h0", attested: bool = True) -> FamilyClosur
 
 class ContentContracts(unittest.TestCase):
     def load(self, name: str) -> dict[str, Any]:
-        return json.loads((CONTENT / name).read_text("utf-8"))
+        return cast(dict[str, Any], json.loads((CONTENT / name).read_text("utf-8")))
 
     def test_all_track1_citizens_validate_against_published_schemas(self) -> None:
         registry = tax_registry()
