@@ -3,7 +3,7 @@
   "version": 1,
   "topic": "form1099r-ira-distributions-line4b",
   "milestone_state": "track-2",
-  "status": "TRACK 2 IN FLIGHT. Track 1 is committed at `efe0992`; the downstream/package/presentation Builder is dispatched under its committed charter.",
+  "status": "INDEPENDENT REVIEW IN FLIGHT. Track 1 is committed at `efe0992`, Track 2 at `3274044`, and the full candidate is under review.",
   "source_ref": "origin/main",
   "source_commit": "20a67ce162fe0e41d80dd0132619e24008beccf5",
   "scope": [

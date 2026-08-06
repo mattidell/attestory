@@ -1,11 +1,11 @@
 # Owner-Launch Charter — Independent Review of Form 1099-R IRA Line 4b
 
-Status: chartered for owner launch after Tracks 1–2; no agent dispatched.
+Status: dispatched by owner authorization; independent review in flight.
 
 ## Context Capsule
 
 - Source ref and resolved launch commit: the completed Track 2 candidate on
-  `milestone/form1099r-ira-distributions-line4b`.
+  `milestone/form1099r-ira-distributions-line4b`, `3274044de9eefdb3cb6e13de2b92c452b77494c9`.
 - Exact object: the Review gate in
   `docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md`.
 - Role: author-independent Reviewer, Luna, Medium/medium.

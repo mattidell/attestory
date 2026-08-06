@@ -1,6 +1,6 @@
 # Owner-Launch Charter — Form 1099-R IRA Line 4b Downstream Integration
 
-Status: dispatched by owner authorization; Track 2 Builder in flight.
+Status: completed by dispatched Builder; handoff commit `3274044`.
 
 ## Context Capsule
 
