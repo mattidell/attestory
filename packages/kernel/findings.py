@@ -356,6 +356,51 @@ def _enforce_companion_presence(
                 )
 
 
+def _enforce_companion_equalities(
+    state: FindingState, registry: SchemaRegistry, touched_fact_ids: tuple[str, ...]
+) -> None:
+    """Enforce domain-declared same-statement numeric equality at admission.
+
+    Equality is a source-admission invariant, not a derivation-pin concern.
+    Both fact types share the identity-key suffix; a current subordinate with
+    no current companion is left to the companion-presence rule, while a
+    present unequal companion rejects the whole admission before execution.
+    """
+    pairs = getattr(registry, "companion_equality_pairs", None)
+    if not pairs:
+        return
+    reverse_pairs = {companion: subordinate for subordinate, companion in pairs.items()}
+    checked: set[tuple[str, str]] = set()
+    for fact_id in touched_fact_ids:
+        if "|" not in fact_id:
+            continue
+        fact_type_id, suffix = fact_id.split("|", 1)
+        subordinate_type = fact_type_id if fact_type_id in pairs else reverse_pairs.get(fact_type_id)
+        if subordinate_type is None:
+            continue
+        companion_type = pairs[subordinate_type]
+        key = (subordinate_type, suffix)
+        if key in checked:
+            continue
+        checked.add(key)
+        subordinate_id = f"{subordinate_type}|{suffix}"
+        companion_id = f"{companion_type}|{suffix}"
+        subordinate_value = _current_value_for_fact(state, subordinate_id)
+        companion_value = _current_value_for_fact(state, companion_id)
+        if subordinate_value is _NO_CURRENT_VALUE or companion_value is _NO_CURRENT_VALUE:
+            continue
+        try:
+            equal = subordinate_value == companion_value
+        except Exception:
+            equal = False
+        if not equal:
+            raise FindingModelError(
+                f"companion equality violated: {subordinate_id} current value "
+                f"{subordinate_value!r} does not equal {companion_id} current value "
+                f"{companion_value!r}; rejected, not recorded"
+            )
+
+
 def _current_values_for_fact_type(
     state: FindingState, fact_type_id: str
 ) -> dict[str, Any]:
@@ -571,6 +616,7 @@ def apply_assertion(
     _enforce_subset_invariants(new_state, registry, (finding["fact_id"],))
     _enforce_declaration_signal_contradictions(new_state, registry, (finding["fact_id"],))
     _enforce_companion_presence(new_state, registry, (finding["fact_id"],))
+    _enforce_companion_equalities(new_state, registry, (finding["fact_id"],))
     return new_state
 
 
@@ -720,6 +766,7 @@ def apply_member_transition(
     _enforce_subset_invariants(new_state, registry, tuple(touched_fact_ids))
     _enforce_declaration_signal_contradictions(new_state, registry, tuple(touched_fact_ids))
     _enforce_companion_presence(new_state, registry, tuple(touched_fact_ids))
+    _enforce_companion_equalities(new_state, registry, tuple(touched_fact_ids))
     return new_state
 
 

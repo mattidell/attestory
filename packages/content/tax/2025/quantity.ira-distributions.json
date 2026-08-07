@@ -1,0 +1,6 @@
+{
+  "schema": "quantity-vocabulary.v11",
+  "id": "tax.us.2025.quantity.ira-distributions",
+  "version": "v1",
+  "quantities": ["ira-distributions"]
+}

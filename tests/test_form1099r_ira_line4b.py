@@ -6,7 +6,7 @@ import json
 import unittest
 from decimal import Decimal
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from packages.derivation.source_authority import audit_collect_authority
 from packages.tax.ira_distributions import (
@@ -32,7 +32,7 @@ def statement(
     payer: str = "demo.payer.alpha",
     box1: int | float = 1200,
     box2a: int | float | None = 1200,
-    indicator: str = "traditional",
+    ira_checkbox: bool = True,
     codes: tuple[str, ...] = ("7",),
     box2b_not_determined: bool | None = False,
     corrected: bool = False,
@@ -41,7 +41,7 @@ def statement(
         payer_id=payer,
         tax_year=2025,
         statement_ref=ref,
-        ira_indicator=indicator,
+        ira_checkbox=ira_checkbox,
         distribution_codes=codes,
         box1=box1,
         box2a=box2a,
@@ -52,17 +52,17 @@ def statement(
 
 
 def closure(horizon: str = "demo.ira.h0", attested: bool = True) -> FamilyClosure:
-    return FamilyClosure(IRA_FAMILY_ID, "v1", horizon, attested)
+    return FamilyClosure(IRA_FAMILY_ID, "v2", horizon, attested)
 
 
 class ContentContracts(unittest.TestCase):
     def load(self, name: str) -> dict[str, Any]:
-        return json.loads((CONTENT / name).read_text("utf-8"))
+        return cast(dict[str, Any], json.loads((CONTENT / name).read_text("utf-8")))
 
     def test_all_track1_citizens_validate_against_published_schemas(self) -> None:
         registry = tax_registry()
         for name in (
-            "f1099r-ira.bundle.json",
+            "f1099r-ira.bundle.v2.json",
             "family.f1099r-ira-fully-taxable.json",
             "closure-mapping.f1099r-ira-fully-taxable.json",
             "rule.f1099r-ira-fully-taxable-subtotal.json",
@@ -82,7 +82,7 @@ class ContentContracts(unittest.TestCase):
         mappings = load_closure_mappings()
         family = families[IRA_FAMILY_ID]
         mapping = mappings[IRA_MAPPING_ID]
-        self.assertEqual(mapping["family"], {"id": IRA_FAMILY_ID, "version": "v1"})
+        self.assertEqual(mapping["family"], {"id": IRA_FAMILY_ID, "version": "v2"})
         self.assertEqual(mapping["member_fact_type"], {"id": IRA_MEMBER_FACT_TYPE, "version": "v1"})
         self.assertEqual(mapping["closure_fact_type"], {"id": IRA_CLOSURE_FACT_TYPE, "version": "v1"})
         audit_collect_authority(
@@ -155,7 +155,7 @@ class AdmissionCases(unittest.TestCase):
 
     def test_n2_non_ira_or_non_normal_code_blocks(self) -> None:
         for bad in (
-            statement(indicator="roth"),
+            statement(ira_checkbox=False),
             statement(codes=("7", "B")),
             statement(codes=("1",)),
         ):

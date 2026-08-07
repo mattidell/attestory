@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v25",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-08T12:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic IRA line 4b remediation adoption (rule v3 + exact entrypoints); non-authoritative"
+    },
+    "package": {
+      "checksum": "ed65cb2eb76c1e04340eb3800d89af0204bd445519c3e44111e4855f99d7160c",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v25"
+    },
+    "release": {
+      "checksum": "b32f37d2b2ce8db9ab88c2a9f4c58903992b6e29559845116c9ba15a0c853e04",
+      "id": "demo.release.2025",
+      "version": "v18"
+    },
+    "revision": 25,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v24"
+  },
+  "schema": "act.v1"
+}

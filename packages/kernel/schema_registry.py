@@ -80,6 +80,10 @@ class SchemaRegistry:
         # for selected companion types (e.g. absence/zero).
         self.companion_presence_pairs: dict[str, str | list[str]] = {}
         self.companion_value_domains: dict[str, frozenset[object]] = {}
+        # Same-statement equality witnesses: subordinate member fact type ->
+        # numeric companion fact type.  The kernel enforces the relation
+        # generically at finding admission; domain loaders provide the map.
+        self.companion_equality_pairs: dict[str, str] = {}
         self._load()
 
     def _load(self) -> None:

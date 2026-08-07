@@ -77,7 +77,7 @@
       "version": "v1"
     },
     {
-      "id": "tax.us.2025.f1099r.ira-indicator",
+      "id": "tax.us.2025.f1099r.ira-sep-simple-checkbox",
       "identity_keys": [
         {
           "entity_kind": "tax.us.ira-payer",
@@ -102,13 +102,9 @@
       "supersession": {
         "policy": "free"
       },
-      "title": "IRA indicator on the same logical 2025 Form 1099-R statement; only traditional, SEP, or SIMPLE is admitted.",
+      "title": "Combined IRA/SEP/SIMPLE checkbox on the same logical 2025 Form 1099-R statement; the bounded class requires the checkbox to be checked.",
       "value_schema": {
-        "enum": [
-          "traditional",
-          "sep",
-          "simple"
-        ]
+        "const": true
       },
       "version": "v1"
     },
@@ -207,5 +203,5 @@
   "id": "tax.us.2025.f1099r.ira.vocabulary",
   "label": "Form 1099-R IRA-family fully taxable distribution source vocabulary for tax year 2025",
   "schema": "bundle.v2",
-  "version": "v1"
+  "version": "v2"
 }

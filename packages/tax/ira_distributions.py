@@ -15,13 +15,13 @@ from typing import Iterable
 
 from packages.tax import statements
 
-IRA_FAMILY_INDICATORS = frozenset({"traditional", "sep", "simple"})
+IRA_CHECKBOX_FACT_TYPE = "tax.us.2025.f1099r.ira-sep-simple-checkbox"
 NORMAL_DISTRIBUTION_CODE = "7"
 IRA_MEMBER_FACT_TYPE = "tax.us.2025.f1099r.ira-box1-taxable-distribution"
 IRA_FAMILY_ID = "tax.us.2025.f1099r.ira-fully-taxable"
 IRA_CLOSURE_FACT_TYPE = "tax.us.2025.f1099r.ira-fully-taxable.source-closure"
 IRA_MAPPING_ID = "tax.us.2025.closure-mapping.f1099r-ira-fully-taxable"
-IRA_MAPPING_VERSION = "v1"
+IRA_MAPPING_VERSION = "v2"
 IRA_HORIZON_KEY = "family-horizon"
 LINE4B_SYMBOL = "tax.us.2025.ira.distributions.line4b"
 
@@ -35,7 +35,7 @@ class IraDistributionStatement:
     payer_id: str
     tax_year: int
     statement_ref: str
-    ira_indicator: str
+    ira_checkbox: bool
     distribution_codes: tuple[str, ...]
     box1: Decimal | int | float
     box2a: Decimal | int | float | None
@@ -73,8 +73,10 @@ def validate_statement(statement: IraDistributionStatement) -> None:
     """Validate the exact fully-taxable admission witness."""
     if statement.tax_year != 2025:
         raise IraDistributionError("tax year must be 2025")
-    if statement.ira_indicator not in IRA_FAMILY_INDICATORS:
-        raise IraDistributionError("IRA-family indicator is outside the bounded class")
+    if statement.ira_checkbox is not True:
+        raise IraDistributionError(
+            "combined IRA/SEP/SIMPLE checkbox must be checked"
+        )
     if statement.distribution_codes != (NORMAL_DISTRIBUTION_CODE,):
         raise IraDistributionError("distribution code must be exactly code 7")
     if statement.box2a is None:
@@ -126,7 +128,7 @@ def publish_line4b(
     if not current:
         if closure is None or not closure.attested:
             raise IraDistributionError("empty source family requires affirmative closure")
-        if closure.family_id != IRA_FAMILY_ID or closure.family_version != "v1":
+        if closure.family_id != IRA_FAMILY_ID or closure.family_version != "v2":
             raise IraDistributionError("closure family pin is not the adopted IRA family")
         if current_horizon_id is not None and closure.horizon_id != current_horizon_id:
             raise IraDistributionError("closure is stale for the current family horizon")

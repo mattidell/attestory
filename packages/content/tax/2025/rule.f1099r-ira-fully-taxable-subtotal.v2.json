@@ -1,7 +1,7 @@
 {
   "schema": "rule-artifact.v3",
   "id": "tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal",
-  "version": "v1",
+  "version": "v2",
   "role": "computation",
   "scope": {
     "tax_year": 2025,
@@ -46,14 +46,17 @@
       "version": "v1"
     }
   ],
-  "notes": "Aggregates only current members of the adopted fully taxable IRA-family. Source admission, exact box-1/box-2a equality, code-7 witness, IRA indicator, and explicit box-2b-not-determined false state occur before this rule. The result is Form 1040 line 4b; line 4a is intentionally not published. No basis, rollover, Roth, or special-treatment logic is present.",
+  "notes": "Aggregates only current members of the adopted fully taxable IRA-family. Source admission, exact box-1/box-2a equality, code-7 witness, checked combined IRA/SEP/SIMPLE checkbox, and explicit box-2b-not-determined false state occur before this rule. The result is Form 1040 line 4b; line 4a is intentionally not published. No IRA subtype selection, basis, rollover, Roth, or special-treatment logic is present.",
   "blocked": {
     "code": "OPEN_DEPENDENCY",
     "missing": [
       "rounding.convention"
     ]
   },
-  "when": {"op": "require_closed", "source_set": "tax.us.2025.f1099r.ira-fully-taxable"},
+  "when": {
+    "op": "require_closed",
+    "source_set": "tax.us.2025.f1099r.ira-fully-taxable"
+  },
   "value": {
     "op": "round",
     "mode": {

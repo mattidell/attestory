@@ -134,15 +134,16 @@ The paper boundary is grounded in the 2025 IRS sources:
   lines 4a and 4b: a fully taxable IRA distribution is entered on line 4b,
   with no line-4a entry.
 - [2025 Instructions for Forms 1099-R and 5498](https://www.irs.gov/pub/irs-prior/i1099r--2025.pdf),
-  for box 1, box 2a, box 2b, the IRA indicator, and distribution codes.
+  for box 1, box 2a, box 2b, the combined IRA/SEP/SIMPLE checkbox, and
+  distribution codes.
 - [Publication 590-B (2025)](https://www.irs.gov/publications/p590b),
   for the distinction between fully taxable distributions and distributions
   requiring basis or other treatment.
 
-The supported class is exactly: tax year 2025; an IRA-family indicator for a
-traditional IRA, SEP IRA, or SIMPLE IRA; normal distribution code `7` with no
-additional code; nonnegative box 1; box 2a present and nonnegative; box 2b
-not asserted; and box 2a equal to box 1. The family is closed affirmatively,
+The supported class is exactly: tax year 2025; the combined IRA/SEP/SIMPLE
+checkbox checked; normal distribution code `7` with no additional code;
+nonnegative box 1; box 2a present and nonnegative; box 2b not asserted; and
+box 2a equal to box 1. The family is closed affirmatively,
 and every accepted statement is included exactly once. This is a statement-
 reported fully taxable amount, not an engine calculation of basis or
 eligibility.
@@ -170,7 +171,8 @@ distribution doctrine in an implementation track.
 ## Scope
 
 - Add the 2025 Form 1099-R IRA-family statement facts needed to establish box
-  1, box 2a, box 2b state, IRA-family indicator, and code-7 normal treatment.
+  1, box 2a, box 2b state, the combined IRA/SEP/SIMPLE checkbox, and code-7
+  normal treatment.
 - Add the source family, affirmative closure, horizon, mapping, subtotal, and
   correction/displacement tests. Multiple logical statements aggregate once;
   same-statement corrections supersede rather than double count.
@@ -207,9 +209,9 @@ distribution doctrine in an implementation track.
 
 ### IRA-C1 — Authoritative fully-taxable statement boundary
 
-A current 2025 statement member is admissible only when its IRA-family
-indicator, normal code `7`, box-1 amount, box-2a amount, and explicit box-2b
-negative state are all present and valid; box 2a equals box 1 exactly. Any
+A current 2025 statement member is admissible only when its combined
+IRA/SEP/SIMPLE checkbox, normal code `7`, box-1 amount, box-2a amount, and
+explicit box-2b negative state are all present and valid; box 2a equals box 1 exactly. Any
 missing, unequal, code-combined, non-IRA, or special-treatment witness blocks
 the bounded family. The engine does not calculate or infer taxable amount.
 
@@ -288,11 +290,12 @@ compatibility regressions.
 
 ### Review, repair, and re-review
 
-Owner-launch the independent Reviewer charter only after both tracks are
-complete. At most one findings-only repair cycle is prepared for the original
-Builder assigned by the owner, followed by a re-review of the semantic delta.
-A new product decision, lost upstream semantic ledger member, or scope
-expansion stops for owner disposition.
+The original review/re-review sequence was followed by a bounded semantic
+repair: the source fact now represents the combined checkbox and box-1/box-2a
+equality is enforced during projection. The independent repair review returned
+READY on the semantic result. Final review must cover the curated head; any
+new product decision, lost upstream semantic ledger member, or scope expansion
+stops for owner disposition.
 
 ## Version and rebase discipline
 

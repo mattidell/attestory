@@ -1,0 +1,22 @@
+{
+  "schema": "source-closure-mapping.v2",
+  "id": "tax.us.2025.closure-mapping.f1099r-ira-fully-taxable",
+  "version": "v2",
+  "family": {
+    "id": "tax.us.2025.f1099r.ira-fully-taxable",
+    "version": "v2"
+  },
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099r.ira-box1-taxable-distribution",
+    "version": "v1"
+  },
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099r.ira-fully-taxable.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "admits_symbol": "tax.us.2025.ira.distributions.line4b",
+  "admission": {
+    "condition": "current-literal-true"
+  }
+}

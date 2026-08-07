@@ -26,6 +26,7 @@ from packages.kernel.currency import compute_currency
 from packages.kernel.findings import FindingState, project
 from packages.tax.loader import (
     domain_companion_presence_pairs,
+    install_domain_companion_equalities,
     install_domain_companion_presence,
     install_domain_declaration_signal_contradictions,
 )
@@ -148,6 +149,7 @@ def live_coordinate_run(
     # live on tax_registry(); production projection must install the same maps
     # so live-path admission matches the domain registry.
     install_domain_companion_presence(schemas.registry)
+    install_domain_companion_equalities(schemas.registry)
     install_domain_declaration_signal_contradictions(schemas.registry)
     state = project(tuple(dict(act) for act in authoritative_acts), schemas.registry)
     currency = compute_currency(state)
