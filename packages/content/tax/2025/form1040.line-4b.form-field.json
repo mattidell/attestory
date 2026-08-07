@@ -1,0 +1,18 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.form1040.line-4b",
+  "version": "v1",
+  "form": {"authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal"},
+  "line": "4b",
+  "label": "Taxable IRA distributions",
+  "description": "Fully taxable 2025 traditional, SEP, and SIMPLE IRA distributions from Form 1099-R box 1 and box 2a equality. Form 1040 line 4a is intentionally blank for this bounded class.",
+  "binds_symbol": "tax.us.2025.ira.distributions.line4b",
+  "citation": {"id": "tax.us.2025.citation.form1040.line-4b", "version": "v1"},
+  "dispositions": {
+    "published_value": {"render": "{value}", "explain": "published fully taxable IRA distributions on Form 1040 line 4b"},
+    "computed_zero": {"render": "0", "explain": "computed zero under the admitted family"},
+    "closure_backed_zero": {"render": "0", "explain": "closure-backed zero for the current fully taxable IRA-family horizon"},
+    "blocked": {"render": "", "explain": "line 4b is blocked because the bounded IRA-family source is incomplete or invalid", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID", "CATEGORICAL_DOMAIN_MISMATCH", "SOURCE_SET_UNCLOSED"]},
+    "guard_inapplicable": {"render": "", "explain": "the bounded fully taxable IRA class does not apply"}
+  }
+}
