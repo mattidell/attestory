@@ -117,12 +117,21 @@ roadmap unless a selected breadth slice directly depends on them.
    Independent review READY. Plan:
    `milestones/form1099div-box7-direct-ftc.md`; retrospective:
    `docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md`.
+10. **Fully Taxable IRA Distributions from Form 1099-R to Form 1040 Line 4b**
+    — selected 2026-08-05. Bound the class to ordinary, fully taxable
+    IRA-family distributions reported on 2025 Form 1099-R; publish line 4b,
+    keep line 4a blank/absent, and carry the result through line 9, AGI,
+    taxable income, regular tax, package resolution, explanation, exact
+    citation pins, and production-shaped presentation. Basis, rollover
+    eligibility, and special distribution treatment remain outside the claim.
+    Plan:
+    `milestones/form1099r-ira-distributions-line4b.md`.
 
-**Next breadth slice — owner-selected from the refreshed frontier.**
+**Next breadth slice — the owner-selected IRA-family distribution route.**
 Inbound capital-loss carryovers, Form 8949/noncovered securities/adjustments,
-and other Schedule D sources deferred out of item 6 remain distinct
-candidates; other adjustment classes and unrelated income domains remain
-outside the selected class.
+and other Schedule D sources remain distinct candidates; other Form 1099-R
+distribution treatments and unrelated income domains remain outside the
+selected class.
 
 ## Why line 7a comes before Schedule D
 

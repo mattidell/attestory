@@ -864,6 +864,43 @@ def validate_package(
 
     # 8. Inbound Reachability validation (ADR-0027 decision 4)
     if "entrypoints" in package:
+        # Exact entrypoint pins are a package-schema generation contract starting
+        # at artifact-package.v20. Older published package schemas retain their
+        # historical semantics (version-inexact entrypoint roots remain valid).
+        if package.get("schema") in {"artifact-package.v20"}:
+            members_by_key = {
+                (pin["id"], pin["version"]): pin for pin in package["members"]
+            }
+            members_by_id = {pin["id"]: pin for pin in package["members"]}
+            for entry in package.get("entrypoints", []):
+                entry_id = entry.get("id")
+                entry_version = entry.get("version")
+                if not isinstance(entry_id, str) or not isinstance(entry_version, str):
+                    issues.append(MemberIssue(
+                        str(entry_id or package_id),
+                        str(entry_version or ""),
+                        "ENTRYPOINT_MALFORMED",
+                        f"entrypoint must declare string id and version, got {entry!r}",
+                    ))
+                    continue
+                if (entry_id, entry_version) in members_by_key:
+                    continue
+                if entry_id not in members_by_id:
+                    issues.append(MemberIssue(
+                        entry_id,
+                        entry_version,
+                        "ENTRYPOINT_DANGLING",
+                        f"entrypoint {entry_id}@{entry_version} names no package member",
+                    ))
+                else:
+                    actual = members_by_id[entry_id]["version"]
+                    issues.append(MemberIssue(
+                        entry_id,
+                        entry_version,
+                        "ENTRYPOINT_VERSION_MISMATCH",
+                        f"entrypoint {entry_id}@{entry_version} does not match member version {actual}",
+                    ))
+
         adj: dict[str, set[str]] = {m_id: set() for m_id in member_ids}
         # The historical v1 package remains an intentionally recorded RG-1
         # refusal.  These are the v2 closure edges that its successor adopts;

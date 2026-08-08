@@ -379,13 +379,13 @@ class _Run:
                     if isinstance(companion_raw, str)
                     else [c for c in companion_raw if isinstance(c, str) and c]
                 )
-                raw_fact_id = fact_ids[index] if index < len(fact_ids) else None
-                if not isinstance(raw_fact_id, str) or "|" not in raw_fact_id:
+                collected_fact_id = fact_ids[index] if index < len(fact_ids) else None
+                if not isinstance(collected_fact_id, str) or "|" not in collected_fact_id:
                     raise SourceAuthorityError(
                         f"companion provenance required for collected {name!r} "
-                        f"but fact id is not identity-bearing: {raw_fact_id!r}"
+                        f"but fact id is not identity-bearing: {collected_fact_id!r}"
                     )
-                suffix = raw_fact_id.split("|", 1)[1]
+                suffix = collected_fact_id.split("|", 1)[1]
                 for companion_type in companion_types:
                     companion_fids = self.source_fids.get(companion_type, [])
                     companion_fact_ids = self.source_fact_ids.get(companion_type, [])
@@ -409,7 +409,7 @@ class _Run:
                         break
                     if not matched:
                         raise SourceAuthorityError(
-                            f"companion provenance missing for {raw_fact_id}: "
+                            f"companion provenance missing for {collected_fact_id}: "
                             f"no same-statement {companion_type} source to pin "
                             f"(ADR-0010 displacement edge required)"
                         )

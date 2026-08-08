@@ -1,0 +1,23 @@
+{
+  "schema": "demo.form1099r.ira-line4b.fixtures.v1",
+  "positive": {
+    "id": "demo.ira.fixture.p1",
+    "payer_id": "demo.payer.alpha",
+    "statement_ref": "demo.stmt.1",
+    "ira_sep_simple_checkbox": true,
+    "distribution_codes": ["7"],
+    "box1": 1200,
+    "box2a": 1200,
+    "box2b_not_determined": false
+  },
+  "correction": {
+    "original": {"id": "demo.ira.fixture.p3.original", "statement_ref": "demo.stmt.2", "box1": 1000, "box2a": 1000, "corrected": false},
+    "successor": {"id": "demo.ira.fixture.p3.correction", "statement_ref": "demo.stmt.2", "box1": 1250, "box2a": 1250, "corrected": true}
+  },
+  "blocked": [
+    {"id": "demo.ira.fixture.n1.mismatch", "statement_ref": "demo.stmt.n1", "box1": 1000, "box2a": 900},
+    {"id": "demo.ira.fixture.n2.non-ira", "statement_ref": "demo.stmt.n2", "ira_sep_simple_checkbox": false, "box1": 1000, "box2a": 1000},
+    {"id": "demo.ira.fixture.n3.special-code", "statement_ref": "demo.stmt.n3", "distribution_codes": ["G"], "box1": 1000, "box2a": 1000},
+    {"id": "demo.ira.fixture.n4.open-closure", "statement_ref": "demo.stmt.n4", "box1": 0, "box2a": 0, "closure": "absent"}
+  ]
+}

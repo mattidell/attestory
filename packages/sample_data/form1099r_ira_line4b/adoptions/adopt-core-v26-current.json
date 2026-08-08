@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v26",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-08T18:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic IRA line 4b successor on exact-entrypoint package schema v20; non-authoritative"
+    },
+    "package": {
+      "checksum": "8d7f3469f31e17cc9647c0d38b79a47edca13e4cc56111c788c22c757d906034",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v26"
+    },
+    "release": {
+      "checksum": "a4933bfe3fdadc989694b297db774bed4de39e54f3a09877e9585621ce1a6344",
+      "id": "demo.release.2025",
+      "version": "v19"
+    },
+    "revision": 26,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v25"
+  },
+  "schema": "act.v1"
+}

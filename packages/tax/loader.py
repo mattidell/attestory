@@ -83,6 +83,17 @@ def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
             "tax.us.2025.f1099div.box8-country-companion",
             "tax.us.2025.f1099div.box1a-ordinary",
         ],
+        # Form 1099-R IRA-family route: each collected box-1 member requires
+        # an explicit false box-2b-not-determined witness on the same logical
+        # statement. The combined IRA/SEP/SIMPLE checkbox and code-7 values
+        # are restricted below; box-1/box-2a equality is installed separately
+        # as an admission invariant.
+        "tax.us.2025.f1099r.ira-box1-taxable-distribution": [
+            "tax.us.2025.f1099r.ira-box2a-taxable-amount",
+            "tax.us.2025.f1099r.ira-sep-simple-checkbox",
+            "tax.us.2025.f1099r.distribution-code",
+            "tax.us.2025.f1099r.box2b-not-determined",
+        ],
     }
 
 
@@ -97,7 +108,25 @@ def domain_companion_value_domains() -> dict[str, frozenset[object]]:
         "tax.us.2025.f1099div.box13-specified-pab-authority": frozenset({None, 0, 0.0}),
         "tax.us.2025.f1099g.box4-federal-withholding-authority": frozenset({None, 0, 0.0}),
         "tax.us.2025.f1099int.box9-specified-pab-authority": frozenset({None, 0, 0.0}),
+        "tax.us.2025.f1099r.box2b-not-determined": frozenset({False}),
+        "tax.us.2025.f1099r.ira-sep-simple-checkbox": frozenset({True}),
+        "tax.us.2025.f1099r.distribution-code": frozenset({"7"}),
     }
+
+
+def domain_companion_equality_pairs() -> dict[str, str]:
+    """Same-statement numeric equality witnesses for bounded tax families."""
+    return {
+        "tax.us.2025.f1099r.ira-box1-taxable-distribution": (
+            "tax.us.2025.f1099r.ira-box2a-taxable-amount"
+        ),
+    }
+
+
+def install_domain_companion_equalities(registry: SchemaRegistry) -> SchemaRegistry:
+    """Install same-statement equality admission invariants."""
+    registry.companion_equality_pairs.update(domain_companion_equality_pairs())
+    return registry
 
 
 def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistry:
@@ -191,6 +220,7 @@ def tax_registry() -> SchemaRegistry:
     )
     install_domain_declaration_signal_contradictions(reg)
     install_domain_companion_presence(reg)
+    install_domain_companion_equalities(reg)
     return reg
 
 
@@ -240,11 +270,17 @@ def load_source_families(
                 SOURCE_FAMILY_SCHEMA,
                 [f"{path.name} declares {declared}, not {SOURCE_FAMILY_SCHEMA}"],
             )
-        if citizen["id"] in by_id:
+        existing = by_id.get(citizen["id"])
+        if existing is None:
+            by_id[citizen["id"]] = citizen
+            continue
+        if existing["version"] == citizen["version"]:
             raise SchemaValidationError(
-                SOURCE_FAMILY_SCHEMA, [f"duplicate source-family id: {citizen['id']}"]
+                SOURCE_FAMILY_SCHEMA,
+                [f"duplicate source-family id/version: {citizen['id']}@{citizen['version']}"],
             )
-        by_id[citizen["id"]] = citizen
+        if _version_rank(citizen["version"]) > _version_rank(existing["version"]):
+            by_id[citizen["id"]] = citizen
     return by_id
 
 
@@ -271,6 +307,17 @@ def load_closure_mappings(
                 [f"{path.name} declares {declared}, not source-closure-mapping.v1 or source-closure-mapping.v2"],
             )
         family = families.get(citizen["family"]["id"])
+        if family is not None and family["version"] != citizen["family"]["version"]:
+            # Validate historical mappings against their exact family
+            # successor, while the domain registry exposes the highest
+            # version as the current declaration.
+            family = None
+            for family_path in sorted(TAX_CONTENT_DIR.glob("family.*.json")):
+                candidate = json.loads(family_path.read_text("utf-8"))
+                if candidate.get("id") == citizen["family"]["id"] and candidate.get("version") == citizen["family"]["version"]:
+                    family = candidate
+                    reg.validate_declared(candidate)
+                    break
         if family is None:
             raise SchemaValidationError(
                 "source-closure-mapping.v2",
