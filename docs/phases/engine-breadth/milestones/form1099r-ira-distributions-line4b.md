@@ -2,8 +2,8 @@
 {
   "version": 1,
   "topic": "form1099r-ira-distributions-line4b",
-  "milestone_state": "planned",
-  "status": "PLAN COMMITTED. Implementation seats are prepared for owner launch and no agent has been dispatched.",
+  "milestone_state": "track-2",
+  "status": "CURATED CANDIDATE. Track 1 and Track 2 are complete; the exact curated range awaits final independent review and CI.",
   "source_ref": "origin/main",
   "source_commit": "20a67ce162fe0e41d80dd0132619e24008beccf5",
   "scope": [
@@ -115,16 +115,14 @@ The diagnostic is temporary, ignored, and removed before closeout.
 
 ### Base synchronization ledger record
 
-The owner-directed pre-rebase capture used merge base `b0480bc`, preserved
-milestone head `66a0cbe`, and recorded package core `v17` at both endpoints
-with zero package-content and published-schema file deltas. After the rebase,
-the fetched ratified tip is `20a67ce`; final-PR verification must compare that
-tip with the rebased milestone head and must also pass the negative control
-against the original pair. Because this branch is still planning-only, the
-expected local semantic delta remains empty; any future implementation
-successor must be allocated only after a fresh inventory and must replace this
-expectation with its captured member, entrypoint, admitted-schema,
-input-binding, and composition-obligation delta.
+The owner-directed pre-rebase capture compared the common ancestor, the
+milestone branch, and the ratified tip and recorded zero package-content and
+published-schema file deltas at the planning boundary. Final-PR verification
+must repeat the three-way diagnostic and its negative control against the
+curated candidate. The implementation successor was allocated only after a
+fresh inventory, with its member, entrypoint, admitted-schema, input-binding,
+and composition-obligation delta represented in the package and regression
+tests.
 
 ## Official 2025 paper boundary
 
@@ -273,33 +271,32 @@ decision, equality boundary, and ADR disposition. No agent launch is needed.
 
 ### Track 1 — Source family and Form 1099-R line 4b
 
-Owner-launch one Builder against `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track1.md`.
-Implement the source facts, statement identity, family/closure/mapping,
-line-4b citizen, citations, lifecycle evidence, and focused tests; line 4a
-remains blank for the admitted fully taxable class.
-The builder does not allocate successor versions until the rebase inventory
-required by this plan is complete.
+Complete. The source facts, statement identity, family/closure/mapping,
+line-4b citizen, citations, lifecycle evidence, and focused tests are present;
+line 4a remains blank for the admitted fully taxable class.
 
 ### Track 2 — Downstream, package, explanation, and presentation integration
 
-After Track 1, owner-launch one Builder against
-`docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track2.md`.
-Implement the line-9 successor and downstream proof, package/release/adoption
-successors, exact explanation pins, production-shaped presentation, and
-compatibility regressions.
+Complete. The line-9 successor and downstream proof,
+package/release/adoption successors, exact explanation pins,
+production-shaped presentation, compatibility regressions, and historical
+package resolver evidence are present.
 
 ### Review, repair, and re-review
 
-The original review/re-review sequence was followed by a bounded semantic
-repair: the source fact now represents the combined checkbox and box-1/box-2a
-equality is enforced during projection. The independent repair review returned
-READY on the semantic result. Final review must cover the curated head; any
-new product decision, lost upstream semantic ledger member, or scope expansion
-stops for owner disposition.
+Earlier independent reviews identified bounded source-admission,
+closure-composition, and historical-package compatibility defects. Those
+repairs are folded into the two implementation commits and are preserved by
+the executable source-boundary, package, and production-resolver tests. Exact
+entrypoint semantics are limited to the successor artifact-package schema;
+historical package generations retain their published validation behavior.
+Final review must cover the complete curated range; any new product decision,
+lost upstream semantic-ledger member, or scope expansion stops for owner
+disposition.
 
 ## Version and rebase discipline
 
-No future version number appears in this plan or its charters. Before any
+No future version number appears in this plan. Before any
 implementation packaging, after any rebase, and before final PR preparation,
 inventory all published tax schemas, form/rule/citation/content citizens,
 package, registry, release, adoption, and presentation versions. Choose only
@@ -308,12 +305,13 @@ rows remain immutable.
 
 ## Durable commit structure
 
-1. This planning commit: plan, phase state, roadmap/frontier selection,
-   charters, and owner-launch prompts; no implementation.
+1. This planning commit: plan, phase state, and roadmap/frontier selection;
+   no implementation.
 2. `track-0:` paper boundary and contract checkpoint.
 3. `track-1:` source family and line 4b.
 4. `track-2:` line 9/downstream/package/explanation/presentation integration.
-5. Provisional review/repair commits folded into the completed track.
+5. All provisional review/repair work folded into the completed owning track;
+   no review or repair record is a standalone publication commit.
 6. Curated closeout commit with retrospective and final phase state.
 
 ## Exit criteria

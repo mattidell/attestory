@@ -4,11 +4,11 @@
   "phase": "Engine Breadth",
   "topic": "form1099r-ira-distributions-line4b",
   "active_plan": "docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md",
-  "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — PLANNED.** The owner-selected bounded class starts from the ratified Form 1099-DIV box-7 tip: core v21 / published v16 / release v14 / adopt v21. No IRA successor package, schema, registry, or rule version is allocated yet.",
+  "milestone_state": "track-2",
+  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — CURATED CANDIDATE.** Track 1 and Track 2 are complete; final independent review and CI must bind the exact pushed head.",
   "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md",
-  "current_role": "Foreman (charter and base-reconciliation work)",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "current_role": "Reviewer (curated final range)",
+  "current_prompt": "docs/reviews/2026-08-08-form1099r-ira-line4b-curated-final-review-charter.md"
 }
 -->
 # Phase State
@@ -34,26 +34,24 @@ special distribution treatment remain outside the claim.
 ## Operational State: Engine Breadth
 
 * **Active milestone:** Fully Taxable IRA Distributions from Form 1099-R to
-  Form 1040 Line 4b — planned from the ratified tip that includes Form 8949
-  (PR #161), Form 1099-INT box 8 (PR #164), Form 1099-G (PR #166), and Form
-  1099-DIV box 7 (PR #167).
+  Form 1040 Line 4b — curated candidate after Track 1 and Track 2 completion,
+  awaiting final independent review and CI.
   Concurrent work remains isolated: the wash-sale work is merged as PR #161,
   and the owner-launched SSA/Form 1040 line-6 work remains on its separate
   branch and draft PR #163; neither is part of this milestone.
-* **Current result:** plan and committed builder/reviewer/repair charters;
-  implementation has not started. The package graph remains the ratified core
-  **v21**, published **v16**, release **v14**, adoption **v21**; future IRA
-  versions are intentionally unassigned.
+* **Current result:** the bounded IRA-family route is implemented through line
+  4b, line 9, AGI, taxable income, regular tax, package resolution,
+  explanation, citations, and production-shaped presentation. The current
+  package graph is core **v26**, published **v21**, release **v19**, adoption
+  **v26**, with exact entrypoints gated by artifact-package **v20**.
 * **Plan:** `docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md`.
-* **Owner-launch charters:** `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track1.md`,
-  `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-track2.md`,
-  `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-review.md`, and
-  `docs/reviews/charter-2026-08-04-form1099r-ira-line4b-repair.md`.
+* **Final review charter:**
+  `docs/reviews/2026-08-08-form1099r-ira-line4b-curated-final-review-charter.md`.
 * **Prior closed (selected pointers):** Form 1099-G plan/retrospective remain
   on the ratified line; this phase-state points at the just-closed box-7 plan.
-* **Contracts:** plan B7-C1–C10; no new ADR.
-* **Next:** reconcile the schema ledger on the rebased milestone branch, then
-  proceed only through the committed Track 1/Track 2 charters.
+* **Contracts:** plan IRA-C1–C4; no new ADR.
+* **Next:** obtain an independent verdict on the exact curated head, then run
+  the repository verify check before marking PR #162 ready.
 
 ## Re-entry
 
