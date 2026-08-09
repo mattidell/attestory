@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.ssa1099.family",
+  "version": "v1",
+  "title": "Form SSA-1099 net benefits statements family, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every ordinary Form SSA-1099 statement instance furnished for 2025 (asserting box 3, box 4, box 5, box 6, and recipient) is recorded as a logical statement member at the keyed horizon.",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.ssa1099.box5-net-benefits"
+  },
+  "authorizes_subtotal": "tax.us.2025.ssa1099.net-benefits.subtotal"
+}
