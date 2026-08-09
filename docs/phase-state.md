@@ -4,11 +4,11 @@
   "phase": "Engine Breadth",
   "topic": "f1098e-student-loan-interest-line21",
   "active_plan": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md",
-  "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / 2025 FORM 1098-E STUDENT-LOAN INTEREST THROUGH SCHEDULE 1 LINE 21 AND FORM 1040 AGI — PLANNED.** New bounded, independent milestone chartered 2026-08-09 on a clean worktree (`engine-1098e`) and branch `milestone/f1098e-student-loan-interest-line21`, cut from `b25562f` (tip of `milestone/f1098-mortgage-interest-line12e`) at owner direction so version allocation sees the true highest allocated numbers (core v29 / published v24 / rule-artifact.v4 / attachment-rule.v6 / form-field.v3 / fact-type.v3 / line-9 v7). This base carries two unratified milestones — SSA-1099 (PR #163) and Form 1098 mortgage interest (PR #168) — and this milestone depends on both landing; integration order is merge #163 and #168, rebase, rebuild every successor and generated publication, then verify the rebased semantic delta before implementation review or publication. **No version numbers are allocated by the plan.** Track 0 is a paper-first scope contract settling ten items: Form 1098-E field authority; component-level taxpayer eligibility (no collapsed qualified=yes); the box-1 reported-interest boundary; the ordinary Student Loan Interest Deduction Worksheet; MAGI completeness; Schedule 1 Part II completeness; attachment disposition; Form 1040 line 10/11a/11b succession; SSA non-interaction; and contract novelty. Foreman findings already grounded in the base and in the 2025 forms: Form 1040 line 10 is entirely absent and rule.form1040-line11 publishes AGI as a bare passthrough of total income on a line number ('11') the 2025 form does not have — the printed form has 11a and 11b; the deduction spine (12e/13a/13b/14, line-15 v2) is already correct at the base, so only the income side needs repair; the evaluator has no multiply and no divide, both required by worksheet lines 7 and 8, so an ADR-0025-line expression extension is the one expected new contract; and ss-benefits-scope already carries the twelve Schedule 1 lines 11–20/23/25 absence facts the worksheet's MAGI base needs, making reuse-versus-mint the highest-leverage Track 0 decision. No dispatch authorization given or requested — owner-launch only.",
+  "milestone_state": "track-0",
+  "status": "**ENGINE BREADTH / 2025 FORM 1098-E STUDENT-LOAN INTEREST THROUGH SCHEDULE 1 LINE 21 AND FORM 1040 AGI — TRACK 0 SETTLED.** All ten paper-scope items are settled and committed on `milestone/f1098e-student-loan-interest-line21` (worktree `engine-1098e`), cut from `b25562f`: T0-1/2/3/9/10 as `track-0a` (f05dc6e); T0-4/5/6/7 and T0-8 as `track-0b` (f9228ed, 64f267d, be556af, e6b5d70, 124918d, d22400b). Draft PR #169, based on `milestone/f1098-mortgage-interest-line12e` until #163 and #168 land. Track 1 (implementation) is not yet chartered. Settlement highlights: the evaluator has no `multiply`/`divide` and no categorical or boolean aggregate either (`collect` is numeric-only, `packages/derivation/evaluator.py:118`), so eligibility components are return-scoped rather than per-statement; Form 1098-E account number is not an identity key; the SLID worksheet is i1040gi p.99 not p.98; T0-5 reuses `ss-benefits-scope`'s twelve MAGI absences rather than minting a parallel vocabulary, which is what makes T0-8 cheap — line 26 imposes no requirement on a return that line-9 v7 did not already impose; there is already no `return with no Schedule 1` in this engine, so line 10 yields a computed authorized zero with no new absence authority; no existing fixture or packaged computation changes. Two open items carried out of Track 0: the `attachment-rule.v5` provenance defect (T0-7) and the B1 `not-claimed-as-dependent` coupling (T0-8), where a truthful `no` blocks AGI for a return with no student loans. ADR budget spent — T0-4 claims the single allowed ADR for the multiply/divide extension. Integration order unchanged: merge #163, merge #168, rebase, rebuild every successor and generated publication, run the three-way semantic-ledger diagnostic, verify the delta, only then implementation review or publication. No version numbers allocated.",
   "retrospective": null,
-  "current_role": "Builder (Track 0: paper-first scope contract, owner-launch)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md#Track 0 charter"
+  "current_role": "Foreman (Track 0 settled; Track 1 implementation not yet chartered)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md#Track 0a settlement"
 }
 -->
 # Phase State
@@ -37,8 +37,10 @@ Form 1040 line 10 and makes adjusted gross income differ from total income.
 ## Operational State: Engine Breadth
 
 * **Active milestone (this branch):** 2025 Form 1098-E Student-Loan Interest
-  through Schedule 1 Line 21 and Form 1040 Adjusted Gross Income — **planned**.
-  Track 0 (paper-first scope contract) is chartered and not yet performed.
+  through Schedule 1 Line 21 and Form 1040 Adjusted Gross Income — **in
+  progress**. Track 0 (paper-first scope contract) is **settled**: all ten
+  items T0-1 through T0-10 are committed. Track 1 (implementation) is not yet
+  chartered.
 * **Branch / worktree:** `milestone/f1098e-student-loan-interest-line21` in
   `engine-1098e`, cut clean from `b25562f`.
 * **Base:** `b25562f`, tip of `milestone/f1098-mortgage-interest-line12e`.
@@ -66,8 +68,15 @@ Form 1040 line 10 and makes adjusted gross income differ from total income.
 * **Contracts:** SLI-C1–C10 proposed in the plan; Track 0 owns them. At most
   one new ADR is expected — an ADR-0025-line expression extension adding the
   `multiply` and `divide` operators the worksheet phaseout requires.
-* **Next:** owner-launch the Track 0 paper unit; ratify its settlement before
-  Track 1 begins.
+* **Open items out of Track 0:** the `attachment-rule.v5` provenance defect
+  recorded by T0-7, and the B1 `not-claimed-as-dependent` coupling recorded by
+  T0-8 — unquantified, so a truthful `no` blocks AGI for a return with no
+  student loans.
+* **PR:** #169 (draft), based on `milestone/f1098-mortgage-interest-line12e`;
+  retargets to `main` after #163 and #168 merge.
+* **Next:** ratify the Track 0 settlement, then charter Track 1. The ADR budget
+  is spent — T0-4 claims the milestone's single allowed ADR for the
+  `multiply`/`divide` expression extension.
 
 ## Re-entry
 

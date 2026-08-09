@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "f1098e-student-loan-interest-line21",
-  "milestone_state": "planned",
+  "milestone_state": "track-0",
   "retrospective": null,
-  "status": "PLANNED. Track 0 (paper-first scope contract) is chartered and not yet performed. Base is milestone/f1098-mortgage-interest-line12e @ b25562f, selected by the owner so version allocation sees the true highest allocated numbers. No schema, rule, package, registry, attachment, or form-field version numbers are allocated by this plan. No dispatch: owner-launch only.",
+  "status": "TRACK 0 SETTLED. All ten paper-scope items (T0-1..T0-10) are settled and committed: T0-1/2/3/9/10 as track-0a (f05dc6e), T0-4/5/6/7 and T0-8 as track-0b (f9228ed, 64f267d, be556af, e6b5d70, 124918d, d22400b). Track 1 (implementation) is not chartered. Base is milestone/f1098-mortgage-interest-line12e @ b25562f; this milestone still depends on PR #163 and PR #168 merging, then a rebase, a rebuild of every successor and generated publication, and the three-way semantic-ledger diagnostic before implementation review or publication. No schema, rule, package, registry, attachment, or form-field version numbers are allocated. The milestone ADR budget is spent: T0-4 claims the single allowed ADR for the multiply/divide expression extension. Open items carried out of Track 0: the attachment-rule.v5 provenance defect recorded by T0-7, and the B1 not-claimed-as-dependent coupling recorded by T0-8 (a truthful no blocks AGI for a return with no student loans).",
   "scope": [
     "add a bounded 2025 Form 1098-E student-loan-interest statement family with lender, borrower, account, and tax-year identity, correction, duplicate, and closure behavior",
     "establish component-level taxpayer-side eligibility authority rather than a contributed qualified/deductible conclusion",
