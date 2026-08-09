@@ -2162,3 +2162,225 @@ Content-level reuse is achieved: **no new attachment schema, no new attachment
 ontology, no new mechanism, no new ADR.** Milestone stop conditions 1 and 2 are
 not triggered. No unratified-PR content is edited: `attachment-rule.v5` is
 diagnosed and left exactly as published.
+
+---
+
+### T0-8 — Form 1040 succession: lines 10, 11a, and 11b (settled)
+
+Owner disposition honoured: **the repair is narrow — add lines 10, 11a, and 11b
+and nothing else.** The deduction spine (12e / 13a / 13b / 14 /
+`rule.form1040-line15.v2`) is correct at this base and is not touched.
+
+#### Primary source, re-verified for this item
+
+Extracted from the 2025 Form 1040 PDF and the 2025 Instructions for Form 1040 at
+authoring time, not inherited from the plan header:
+
+| Where | Printed text, verbatim |
+| --- | --- |
+| [F1040] p. 1, line 10 | "Adjustments to income from Schedule 1, line 26" |
+| [F1040] p. 1, line **11a** | "Subtract line 10 from line 9. This is your adjusted gross income" |
+| [F1040] p. 2, line **11b** | "Amount from line 11a (adjusted gross income)" |
+| [F1040] p. 2, line 15 | "Subtract line 14 from line 11b. If zero or less, enter -0-. This is your taxable income" |
+| [I1040GI] printed p. 33 (footer reads `33`), heading "Total Income and Adjusted Gross Income" | "**Line 10.** Enter any adjustments to income from Schedule 1, line 26, on line 10." |
+
+Two things this reading settles that the charter did not state:
+
+1. **The instructions carry no "Line 11a" or "Line 11b" paragraph at all.** The
+   whole "Total Income and Adjusted Gross Income" section of [I1040GI p. 33] is
+   the single Line 10 sentence above. The authority for 11a and 11b is therefore
+   the **printed form face**, not an instruction paragraph. That matters for the
+   citation citizens: their `authority.family` must be the form, and the
+   explanation walk must not imply an instruction passage that does not exist.
+2. **Line 11b's printed text is a bare carry** — "Amount from line 11a" — with no
+   arithmetic, no condition, and no second citation. This is the decisive fact
+   for the one-symbol-versus-two-symbols question below.
+
+---
+
+#### The crux, settled first: what AGI does on a return with no Schedule 1
+
+The previous attempt at this item identified the right question — if line 11a
+subtracts a line 10 that sums Schedule 1 adjustments, does every existing return
+with no Schedule 1 lose its AGI? It is settled here against committed artifacts,
+before anything else, because every other T0-8 decision depends on the answer.
+
+##### The finding that dissolves it: at this base there is no such return
+
+**There is already no "return with no Schedule 1" in this engine, and there has
+not been one since the Form 1099-G milestone.** Verified against committed
+content, not reasoned from the plan:
+
+```
+rule.form1040-line9.v7   requires  tax.us.2025.income.additional-income   (hard requires, no guard)
+rule.form1040-line8      requires  tax.us.2025.schedule1.line10-additional-income
+                         value     ref(tax.us.2025.schedule1.line10-additional-income)
+rule.schedule1-line10    requires  tax.us.2025.schedule1.line7-unemployment
+                                   + the ten schedule1-part1-scope absences
+```
+
+So `tax.us.2025.income.total-income` — the input to today's passthrough AGI —
+**already** cannot publish unless the taxpayer has closed the Form 1099-G family
+and answered all ten Schedule 1 Part I absences. A return "with no Schedule 1"
+is expressed today as a return that closes the family empty and declares the ten
+absences, and it receives a **computed zero** at Schedule 1 line 10, at Form 1040
+line 8, and hence a real number at line 9.
+
+`rule.schedule1-line10`'s own `notes` state the governing posture in terms:
+"Closed-empty unemployment with complete absences publishes explicit zero. **Does
+not manufacture zero amounts for unimplemented producers.**"
+
+Adding line 10 on the adjustment side is therefore **the same move the income
+side already made**, on the same shape, with the same authority discipline. It is
+not a new hazard class.
+
+##### What line 10 evaluates to when the taxpayer has no Schedule 1 adjustments
+
+`0` — a **computed zero**, published, walkable, and backed by declared authority.
+Never an implicit zero and never a default.
+
+The chain, using the already-settled T0-4/T0-5/T0-6 citizens:
+
+```
+F1098-E family closed empty        ⇒ box1-subtotal = 0                (T0-3, Track 0a)
++ the 17 T0-2/T0-3 components yes  ⇒ line 21 = 0                      (T0-4 gate, worksheet L1 = 0 ⇒ L9 = 0)
++ the 12 Part II absences yes      ⇒ line 26 = ref(line 21) = 0       (T0-6)
+                                   ⇒ Form 1040 line 10 = ref(line 26) = 0
+                                   ⇒ line 11a = line 9 − 0 = line 9
+```
+
+At a zero deduction AGI equals total income, so the *number* every existing
+supported return produces is unchanged. What changes is that the number is now
+**derived through a line-10 subtraction whose zero is authorized**, instead of
+asserted by a passthrough that never asked the question.
+
+##### Absence authority, not an implicit zero — and no new authority at line 10
+
+Three shapes were considered for line 10 and only one survives the engine's own
+committed posture.
+
+| Candidate | Verdict |
+| --- | --- |
+| `optional_default` of 0 on the line-26 symbol, or a `choose` in line 11a falling back to 0 when line 10 is absent | **Rejected.** This is exactly "manufacture zero amounts for unimplemented producers", which `rule.schedule1-line10` forbids by name, and it would let a return with *unanswered* Part II authority publish an AGI as if the answer were known. It also contradicts T0-5's settled "absence authority, not optional defaults". |
+| Line 10 carries its own absence vocabulary | **Rejected as redundant.** The Part II completeness question is answered exactly once, at line 26, by the twelve T0-5/T0-6 absences. A second gate at line 10 would re-ask a settled question and create two places for it to disagree. |
+| **Line 10 = `ref(line 26)`, hard `requires`, no gate of its own** | **Settled.** Its authority is entirely upstream, which is precisely the committed shape of `rule.form1040-line8` — itself a bare `ref` of Schedule 1 line 10 with a hard `requires` and no absence checks, because line 10 already carries them. Line 10 is to Part II what line 8 is to Part I. |
+
+So the answer to "does this require absence authority rather than an implicit
+zero" is: **yes, absence authority — and it already exists.** T0-5 and T0-6
+settled it, and T0-8 adds none.
+
+##### How the committed T0-5 and T0-6 settlements bear on it
+
+The load-bearing consequence, verified in content:
+
+**The twelve MAGI absences are already mandatory for every return at this
+milestone's integration base.** `rule.ss-benefits-worksheet.json` (v1) `requires`
+all twenty-three `ss-benefits-scope` fact types, including the twelve
+(`no-sch1-line11-educator` … `no-sch1-line25-other-adjustments`), and publishes
+`tax.us.2025.social-security.line6b`, which `rule.form1040-line9.v7` `requires`.
+Therefore, at the base, **no return can publish `income.total-income` without
+already having answered all twelve.**
+
+That is why T0-5's reuse decision matters here and not merely for naming: because
+line 26 gates on the same twelve, **line 26 imposes no requirement on a return
+that line 9 did not already impose.** Had T0-5 minted a parallel `slid-magi-scope`
+vocabulary, every return reaching AGI would have had to answer the same twelve
+questions a second time, and T0-8 would have doubled the entry burden of every
+return in the engine as a side effect. The reuse decision is what makes this
+repair cheap.
+
+Likewise T0-6's "line 26 = `ref(line 21)` under the twelve-absence gate" means
+line 26 inherits its closure authority transitively through line 21 and carries
+no `require_closed` of its own — so line 10 inherits a single, already-audited
+authority chain rather than a second one.
+
+##### What is genuinely new, stated exactly
+
+One thing, and it is a **fixture-corpus cost, not a semantic break**: a return
+that wants an AGI from the successor package must now also carry the Form 1098-E
+family (bundle adoption, horizon genesis, closure — closed-empty is fine) and
+answer the **seventeen** T0-2/T0-3 components (A1–A10, B1–B5, C1, C2).
+
+Sixteen of the seventeen are **vacuously true** for a taxpayer with no student
+loans, and honestly so, because T0-2 wrote the universal quantifier into each
+fact type's own title ("for every Form 1098-E box-1 amount recorded in the 2025
+Form 1098-E source family"). A1–A10 quantify over recorded statements or their
+loans; B2–B5 quantify over "claimed interest" / "claimed amount"; C1 quantifies
+over furnished statements; C2 asserts the deductible-interest universe equals the
+recorded set, which for a taxpayer with none is true. With zero statements each
+is satisfied without asserting anything false.
+
+**The one exception is B1** (`not-claimed-as-dependent`): "Neither the taxpayer
+nor, on a joint return, the spouse is claimed as a dependent on another
+taxpayer's 2025 return." That is an unquantified proposition about the taxpayer,
+and it is a genuine question a no-student-loan return must now answer. A truthful
+`no` blocks line 21, hence line 26, hence line 10, hence AGI.
+
+This is recorded plainly rather than smoothed over, and two things bound it:
+
+1. **It is the engine's existing convention, not a new one.** A truthful `no` on
+   any of the twenty-three `ss-benefits-scope` answers already makes the SS
+   worksheet's `when` guard false, so `social-security.line6b` does not publish,
+   so `rule.form1040-line9.v7` blocks `DEPENDENCY_ABSENT` — the entire return's
+   total income, today, at this base. "Outside the bounded supported class,
+   block; never guess" is the committed posture, and T0-8 extends it without
+   changing it.
+2. **It is a bounded-class property with a named future exit.** Line 21 is 0
+   whenever the family is closed-empty regardless of B1, so a future milestone
+   could make the gate condition on a non-empty family. That is **not** proposed
+   here: it would re-open T0-4's settled gate, which is out of this unit.
+
+**Finding recorded for review (not a decision, and not a re-settlement):** T0-4's
+gate blocks on a `no` in *all* cases, including the closed-empty case where the
+deduction is 0 no matter what the answer is. Under T0-8 that propagates to AGI
+for every return in the successor package. Track 0b's T0-4 settlement chose
+`block` over guard-inapplicable deliberately and with reasons, and this
+settlement does not disturb it. It is named here only so review sees the coupling
+in one place and can price it as a whole.
+
+##### Which existing fixtures and packaged computations change or break
+
+**None.** Verified against the repository, not assumed.
+
+Published packages are immutable, and every live-integration test pins its own
+package version *and* its own registry:
+
+| Test | Adoption | Registry |
+| --- | --- | --- |
+| `test_f1098_mortgage_interest_line12e_track2.py` | `adopt-core-v29-current.json` | `published-packages.v24.json` |
+| `test_form1099r_ira_line4b_track2.py` | `adopt-core-v26-current.json` | its own |
+| `test_form1099div_box7_direct_ftc.py` | `adopt-core-v21-current.json` | `published-packages.v16.json` |
+| `test_form1099g_box1_schedule1_line7.py` | `adopt-core-v20-current.json` | `published-packages.v15.json` |
+| `test_form1099int_box8_line2a.py` | `adopt-core-v19-current.json` | … |
+| `test_f1098_mortgage_interest_lifecycle.py` | `adopt-core-v19-current.json` | `published-packages.v14.json` |
+| … (every earlier milestone likewise) | its own | its own |
+
+A repository-wide search for consumers of the current tip (`v29` /
+`published-packages.v24`) returns exactly three files, all belonging to the
+mortgage-interest milestone: its Track 2 test, its generator, and its adoption
+fixture. **There is no "current package" pointer that older fixtures follow.**
+
+Consequently:
+
+- **No committed golden, expected report, or presentation model changes.** The
+  static AGI values in `packages/sample_data/tax/scenarios/*/expected/report.json`
+  and in the `tools/presentation_harness` citation-walk fixtures are computed
+  under packages this milestone does not modify.
+- `rule.form1040-line11` v1 and `form1040.line-11` v1 stay byte-identical and
+  stay adopted in every package up to and including the current tip.
+- **The only computations that change are the ones the successor package
+  produces**, i.e. this milestone's own Track 2 fixtures — which must extend the
+  SSA/IRA/mortgage base corpus with the Form 1098-E family and the seventeen
+  components, exactly the additive pattern
+  `test_f1098_mortgage_interest_line12e_track2.py` already documents in its own
+  module docstring for the SSA corpus.
+
+**Binding consequence for Track 2.** Because AGI now depends transitively on the
+Form 1098-E family's closure, the new line-11a/11b form fields **must** declare
+`SOURCE_SET_UNCLOSED` among their blocked codes. The published
+`form1040.line-11` v1 is on `form-field.v2`, whose blocked-code enum does not
+even contain that code (v2 carries the never-emitted `SOURCE_SET_OPEN`; `v3`
+replaced it per ADR-0036 production condition 3). An unclosed Form 1098-E family
+must render as a blocked AGI naming the closure, never as a silent gap. This is a
+second, independent reason the new fields are new citizens on `form-field.v3`
+rather than an edit to the old one.
