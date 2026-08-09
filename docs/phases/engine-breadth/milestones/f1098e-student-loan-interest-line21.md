@@ -2384,3 +2384,217 @@ replaced it per ADR-0036 production condition 3). An unclosed Form 1098-E family
 must render as a blocked AGI naming the closure, never as a silent gap. This is a
 second, independent reason the new fields are new citizens on `form-field.v3`
 rather than an edit to the old one.
+
+---
+
+#### Sub-question 1 — one AGI symbol, two form-field citizens
+
+**Settled: one symbol (`tax.us.2025.income.agi`) bound by two form-field
+citizens, one for line 11a and one for line 11b. No carry rule, no second
+symbol.** The foreman's expectation is confirmed, with reasons rather than by
+deference.
+
+Why not two symbols with a carry rule:
+
+- **A carry rule would publish a derived finding with no authority content.**
+  Printed line 11b is "Amount from line 11a" — no arithmetic, no condition, no
+  separate instruction paragraph ([I1040GI p. 33] has none). A rule citizen whose
+  entire content is `ref(agi)` adds one node to every explanation walk that
+  restates the previous node and answers no question.
+- **It would force a re-pin of published history.** `rule.form1040-line15.v2`
+  `requires` `tax.us.2025.income.agi`. A distinct line-11b symbol would leave
+  line 15 consuming the 11a symbol while the printed form says line 11b, or
+  demand a line-15 v3 whose only change is a name. Neither is an improvement;
+  the second is out of scope under the owner's narrow disposition.
+- **The page break is a presentation fact, and form-field citizens are exactly
+  the presentation layer.** The engine's symbols name *meanings*; the form-field
+  citizens name *boxes on paper*. One meaning printed in two boxes is the
+  canonical case for one symbol and two fields.
+
+**Verified expressible at this base, in code, not assumed.** Three properties of
+the committed projector and validator were checked:
+
+1. **Nothing forbids two fields binding one symbol.**
+   `package_validation.py` §4 ("Form-field binds symbol closure") checks that the
+   symbol is *produced or bound*, and flags `FORM_FIELD_PRODUCER_CONFLICT` only
+   when one symbol has **multiple producers**. Two *consumers* are unconstrained.
+2. **The projector handles it cleanly.** `presentation_projection.py` iterates
+   fields and calls `_one_row(by_symbol.get(symbol, []))` per field; both fields
+   resolve the same single row. Citation-site ids are `f"{section_id}-src-{index}"`,
+   so they stay distinct per section. `pin_labels` is keyed by bare pin id and
+   raises only on *conflicting* labels for one pin; both fields derive identical
+   labels from the same finding, so no conflict arises.
+3. **The section-id duplicate guard is satisfied.** `_section_id(field)` is
+   `f"line-{field['line']}"` and the validator raises on duplicates. `11a` and
+   `11b` yield `line-11a` and `line-11b`. Distinct.
+
+**Implementation constraint Track 2 must honour, verified in code.**
+`_require_declared_field_citation_chain` requires, for every field bound to a
+rule that declares citations, that the field's citation appear **exactly once**
+in the owning rule's `citations`. Because both fields join the same owning rule,
+that rule must declare **both** the line-11a citation and the line-11b citation,
+each exactly once. This is not a workaround: the rule's single publication is
+presented at two printed boxes, so citing both is the honest declaration.
+Precedent exists — `rule.form1040-line8` already declares two citations (its own
+line 8 and Schedule 1 line 10).
+
+#### Sub-question 2 — the existing line-11 artifacts: preserved, superseded by membership
+
+**Settled: `rule.form1040-line11` v1, `form1040.line-11` v1, and
+`citation.form1040.line-11` v1 are left byte-identical and are simply not members
+of the successor package.** Nothing is edited and nothing is deleted.
+
+This is not an invention; it is the **immediately preceding precedent on this
+same spine**, verified by diffing package membership:
+
+```
+package.core-calculations.v28 :  form1040.line-12, citation.form1040.line-12, rule.form1040-line12   present
+                                 form1040.line-12e, form1040.line-14                                  absent
+package.core-calculations.v29 :  form1040.line-12, citation.form1040.line-12, rule.form1040-line12   ABSENT
+                                 form1040.line-12e, citation.form1040.line-12e, form1040.line-14      present
+```
+
+The mortgage-interest milestone corrected the 2025 deduction line by **minting
+new ids** (`form1040.line-12e`, `rule.form1040-line12e`) and **dropping the
+mis-numbered trio from successor membership**, leaving the v1 citizens untouched
+in the corpus and still adopted by every package up to v28. T0-8 does the same
+thing one line higher.
+
+**Therefore: new ids, not version bumps.**
+
+| Citizen | Disposition |
+| --- | --- |
+| `tax.us.2025.rule.form1040-line11a` | **New id**, publishes `tax.us.2025.income.agi` = `subtract(total-income, line-10 symbol)` |
+| `tax.us.2025.form1040.line-11a` | **New id**, `form-field.v3`, binds `income.agi`, `line: "11a"` |
+| `tax.us.2025.form1040.line-11b` | **New id**, `form-field.v3`, binds `income.agi`, `line: "11b"` |
+| `tax.us.2025.rule.form1040-line10` | **New id**, publishes the Form 1040 line-10 symbol = `ref(schedule1.line26-adjustments)` |
+| `tax.us.2025.form1040.line-10` | **New id**, `form-field.v3`, `line: "10"` |
+| `tax.us.2025.citation.form1040.line-10 / .line-11a / .line-11b` | **New ids** |
+| `rule.form1040-line11` v1, `form1040.line-11` v1, `citation.form1040.line-11` v1 | **Untouched published history; not members of the successor package** |
+
+Two reasons the version-bump alternative was rejected, since the corpus contains
+both patterns and the difference is principled:
+
+- The version-successor pattern (`rule.form1040-line9` v2–v7,
+  `rule.form1040-line15` v2) is used when the **printed line number is unchanged**
+  and only the derivation grows. Here the printed line number is the very thing
+  being corrected: there is no line "11" on the 2025 form.
+- Keeping the id `rule.form1040-line11` for a rule that computes printed line 11a
+  would hide the correction inside a version number, where a reader chasing
+  "line 11a" cannot find it. The v29 precedent puts the correction in the id.
+
+**The symbol is deliberately *not* re-minted.** `tax.us.2025.income.agi` stays
+the AGI symbol. The successor package therefore has exactly one producer of it
+(the old rule is not a member), so **no `conflict_semantics` entry is needed** —
+verified against the validator's `FORM_FIELD_PRODUCER_CONFLICT` condition, and
+against v29, whose only `conflict_semantics` entry is for
+`tax.us.2025.schedule-a.total`.
+
+#### Sub-question 3 — `rule.form1040-line15.v2` is not re-pinned and not re-versioned
+
+**Settled: line 15 is untouched.** It keeps `requires`
+`tax.us.2025.income.agi` and `tax.us.2025.deductions.line-14`.
+
+The charter framed this as a provenance question, and the provenance is already
+correct once sub-question 1 is settled: `income.agi` **is** the line-11b amount,
+because line 11b is definitionally the line-11a amount and both are the same
+published finding. The printed "Subtract line 14 from line 11b" is honoured in
+the walk by the `form1040.line-11b` field citizen, which shows the amount at its
+printed box with its own citation.
+
+Re-versioning line 15 to consume a distinct line-11b symbol would be arithmetic
+churn on a rule the mortgage-interest milestone just repaired, would touch the
+deduction spine the owner and the charter's non-goals both put out of scope, and
+would buy provenance the form-field citizen already carries.
+
+#### Sub-question 4 — the `line` attribute convention
+
+The charter reports two rival conventions and asks for one. The corpus, read in
+full (41 form-field citizens), shows the apparent conflict is not a conflict:
+
+| Pattern | Examples |
+| --- | --- |
+| **Bare printed line, for Form 1040 fields** | `9`, `11`, `12`, `12e`, `13a`, `13b`, `15`, `16`, `1a`, `2a`, `2b`, `3a`, `3b`, `4b`, `6a`–`6d`, `7a`, `7b`, `8`, `20`, `22` |
+| **Form-qualified prefix, for non-1040 forms** | `sch1-7`, `sch1-10`, `sch-d-13`, `sch-d-15`, `sch-d-16`, `Sch3-1`, `Sch3-8`, `1a-h`, `8a-h`, `1b-h`, `8b-h` |
+| **One Form 1040 outlier** | `1040-14` |
+
+`1040-14` is not a third convention; it is the documented **collision escape
+hatch**, and the citizen says so in its own `description`: it disambiguates from
+the already-published `tax.us.2025.schedule-d.line-14`, which renders bare `14`
+and "would otherwise collide on the shared `line-{n}` section-id convention once
+both are simultaneously adopted". That collision is real —
+`_section_id(field)` is `f"line-{field['line']}"` and the projector raises
+`duplicate section id` — and it is the whole reason for the prefix.
+
+**Settled rule, which is what the corpus already follows:** a Form 1040 field
+carries the **bare printed line**, unless the resulting `line-{n}` section id
+would collide with another citizen adopted in the same package, in which case it
+carries the `1040-` prefix and says why in its `description`.
+
+Applied here, with the collision check actually run against all 41 citizens:
+
+| New field | `line` | Section id | Collision? |
+| --- | --- | --- | --- |
+| `form1040.line-10` | `10` | `line-10` | **None.** `tax.us.2025.schedule1.line-10` carries `sch1-10`, so it renders `line-sch1-10`. Bare `10` is free. |
+| `form1040.line-11a` | `11a` | `line-11a` | None. |
+| `form1040.line-11b` | `11b` | `line-11b` | None — and free even if `form1040.line-11` (`line-11`) were ever co-adopted, which it is not. |
+
+So all three take the bare printed line. **No third convention is introduced, and
+the `1040-` prefix is not used** — using it here would be cargo-culting the
+escape hatch in the absence of the collision that justifies it.
+
+#### Case dispositions for this item
+
+| Case | Line 10 | Line 11a / 11b | Line 15 |
+| --- | --- | --- | --- |
+| Supported return, positive line-21 deduction | published value | line 9 − line 10 | unchanged mechanics |
+| Supported return, no Schedule 1 adjustments (F1098-E family closed empty, all authority `yes`) | **computed zero** | equals line 9 | unchanged |
+| Deduction phased out to zero at or above the MAGI ceiling | computed zero | equals line 9 | unchanged |
+| Any T0-2/T0-3/T0-5 component answered `no` | **blocked** (line 21 → line 26 → line 10) | blocked, `DEPENDENCY_ABSENT` | blocked |
+| Any such component unanswered | **blocked** `DEPENDENCY_ABSENT` naming it | blocked | blocked |
+| Form 1098-E family not closed | blocked | blocked; the field must declare **`SOURCE_SET_UNCLOSED`** | blocked |
+| Schedule 1 not required (line 26 = 0 and Part I = 0) | still a **published computed zero** on Form 1040 line 10 | equals line 9 | unchanged |
+
+The last row is worth stating explicitly because it is the one place where the
+attachment disposition and the form line diverge: under T0-7 the Schedule 1
+*attachment* is **not required** at a zero line 26, while Form 1040 **line 10
+still publishes a computed zero**. These are consistent, not contradictory —
+ADR-0036 decision 1 makes not-required a walkable inapplicability disposition of
+the *attachment*, whereas line 10 is a form line whose value is 0. Track 2's
+presentation evidence should show both in one walk so the pairing is on the
+record.
+
+#### Charter-stop check for this item
+
+None of the milestone stop conditions is triggered by T0-8:
+
+- **The narrow 10/11a/11b repair does not need broader form-spine work.** Line 15
+  is untouched; line 9 is untouched; the 12e/13a/13b/14 spine is untouched. The
+  only citizens introduced are the three lines the owner authorized, their
+  citations, and their form fields.
+- **No ADR is implied.** No new schema, operator, disposition, error code, or
+  ontology. `form-field.v3`, `rule-artifact.v4`, and `citation.v1` are all
+  already published and already used at this base; every mechanism relied on
+  (two consumers of one symbol, dropping a superseded citizen from successor
+  membership) was verified as existing behaviour of the committed validator,
+  projector, and packages. The milestone's single allowed ADR remains spent on
+  T0-4's multiply/divide extension.
+- **No unratified-PR content is edited.** `ss-benefits-scope`, the SSA line-9
+  successors, the Schedule A citizens, `rule-artifact.v4`, and
+  `rule.form1040-line15.v2` are all read and none is modified.
+- **`tax.us.2025.schedule1.line10-additional-income` is not re-pointed, not
+  re-versioned, not renamed, and not consumed by anything this item introduces.**
+  Form 1040 line 10 consumes `tax.us.2025.schedule1.line26-adjustments` only.
+  The two Schedule 1 parts stay disjoint and Track 0a's no-cycle proof stands.
+- **No version numbers are allocated**, consistent with the plan's rule that
+  allocation waits until PR #163 and PR #168 land and this branch is rebased.
+- No prototype is required or requested, and no sub-agent was used.
+
+#### Open items and escalations from T0-8
+
+**None blocking.** One coupling is recorded above for the foreman and for review,
+without being decided here: T0-4's settled `block`-on-`no` gate means a truthful
+`no` on B1 (`not-claimed-as-dependent`) removes AGI from a return that has no
+student loans at all. That is the engine's existing bounded-class posture rather
+than a new hazard, the alternative sits inside T0-4's settled scope, and this
+unit does not re-open it.
