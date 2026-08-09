@@ -878,3 +878,557 @@ Stop and escalate to the owner — do not improvise — if any of the following 
   review material, local ledgers, or obsolete generated versions retained.
 - Single PR updated; **CI `verify` green on the exact candidate head** as the
   suite gate of record.
+
+## Track 0a settlement — T0-1, T0-2, T0-3, T0-9, T0-10
+
+Author: Track 0a builder (paper), owner-launched, base `eaee81d`.
+Unit: charter items **T0-1, T0-2, T0-3, T0-9, T0-10** and the "Cases requiring
+explicit disposition" entries falling under them. **T0-4 through T0-8 are not
+settled here** and are owned by a separate unit (Track 0b). Where this
+settlement constrains that unit, it says so under "Notes addressed to Track 0b"
+and decides nothing on its behalf.
+
+Every foreman pre-finding relied on below was verified against primary source or
+against repository content at this commit, not inherited.
+
+### Sources used, with exact locations
+
+| Tag | Source | Where |
+| --- | --- | --- |
+| **[F1098E]** | 2025 Form 1098-E, Student Loan Interest Statement (Cat. No. 25088U) | `irs.gov/pub/irs-prior/f1098e--2025.pdf`, Copy A (PDF p. 2), Copy B (PDF p. 3), Instructions for Borrower (PDF p. 4) |
+| **[I1098ET]** | 2025 Instructions for Forms 1098-E and 1098-T (Cat. No. 27990J, Nov 7 2024) | printed pp. 1–2 |
+| **[I1040GI]** | 2025 Instructions for Form 1040 (i1040gi) | printed **p. 98** (Schedule 1 line 21 conditions, Exception, "Qualified student loan" 1) and **p. 99** (qualified student loan 2–3, qualified higher education expenses, line 22 reserved, **Student Loan Interest Deduction Worksheet**) |
+| **[P970]** | 2025 Publication 970, chapter 4 | printed pp. 30, 31, 32, 33, 34, 35 |
+| **[I1099GI]** | 2025 General Instructions for Certain Information Returns | printed p. 11 (part H CORRECTED checkbox / account number on corrections; **part I Void Returns**), printed p. 14 (**part L, Account Number Box**) |
+| **[F1040S1]** | 2025 Schedule 1 (Form 1040) | page 2: line 21, line 22 "Reserved for future use", line 26 "Add lines 11 through 23 and 25 … Enter here and on Form 1040, 1040-SR, or 1040-NR, line 10" |
+
+**Charter erratum (page numbers).** The charter attributes the line-21
+eligibility conditions to i1040gi p. 97 and the worksheet to p. 98. Verified: the
+conditions, the Exception, and the start of "Qualified student loan" are on
+**p. 98**; the **Student Loan Interest Deduction Worksheet is on p. 99**, together
+with the remainder of the qualified-student-loan definition and the "Line 22 has
+been reserved for future use" instruction. Track 0b must pin **p. 99** for the
+worksheet. The verbatim worksheet and condition text quoted in the charter is
+otherwise accurate word for word.
+
+---
+
+### T0-1 — Form 1098-E authority and identity (settled)
+
+#### Field inventory, confirmed and corrected
+
+The charter's inventory is confirmed as to the field list. Copy A [F1098E p. 2]
+carries exactly: VOID, CORRECTED, RECIPIENT'S/LENDER'S name+address+telephone
+(one combined box), RECIPIENT'S TIN, BORROWER'S TIN, BORROWER'S name, borrower
+street address, borrower city/state/country/ZIP, Account number, box 1, box 2.
+There is no other field. Two classifications change.
+
+| Field | Settled classification | Authority and reason |
+| --- | --- | --- |
+| VOID checkbox | **Guarded exclusion — blocks** | Confirmed, but on a narrower and stronger ground than the charter's. VOID is a **Copy-A-only, pre-submission filer control**: [I1099GI p. 11, part I] "If a completed or partially completed Form … is incorrect and you want to void it **before submission to the IRS** … The return will then be disregarded during processing", and "An 'X' in the 'VOID' box … will **not** correct a previously filed return." Decisively, **Copy B — the borrower's copy — has no VOID box at all** [F1098E p. 3, which carries only "CORRECTED (if checked)"]. A voided statement therefore cannot legitimately reach the taxpayer. A contributed statement bearing VOID is an authority anomaly, not a member and not a droppable duplicate: it blocks. |
+| CORRECTED checkbox | **Required authority** | Confirmed. [I1099GI p. 11, part H]: "Enter an 'X' in the 'CORRECTED' checkbox only when correcting a form previously filed with the IRS or furnished to the recipient." Present on Copy B. Drives the ADR-0015 correction/supersession lifecycle. |
+| RECIPIENT'S/LENDER'S name | **Required authority (identity)** | Confirmed. [I1098ET p. 2]: the box carries "the name, address, and telephone number of the **filer**". Note the filer is not necessarily the original lender: "If more than one person has a connection with the loan, only the **first person to receive the interest payment** must file … a loan service or collection agent receiving payments on behalf of the lender must file" [I1098ET p. 2]. The identity is therefore the **filer/servicer**, not the beneficial lender. |
+| RECIPIENT'S TIN | **Required authority (identity)** | Confirmed. "A recipient's/lender's TIN **may not be truncated** on any form" [I1098ET p. 2], so it is a reliable discriminator. |
+| BORROWER'S TIN | **Recorded authority — not an identity key; truncation-tolerant** | **Corrected.** [F1098E p. 4]: "For your protection, this form may show only the last four digits of your TIN". A truncated value cannot serve as an identity key. Its role is admission (see below), not individuation. |
+| BORROWER'S name | **Recorded authority — not an identity key** | Same role as borrower TIN: admission, not individuation. |
+| Lender/borrower street address, city, state, country, ZIP; lender telephone | **Irrelevant** | No federal computational consequence and no individuating role once the filer TIN and the statement instance exist. |
+| **Account number** | **Not required authority; explicitly NOT an identity key** | **Corrected — this is the charter's open question, answered "no".** [I1098ET p. 2] and [I1099GI p. 14, part L]: "The account number is required **if you have multiple accounts for a recipient for whom you are filing more than one** information return of the same type"; otherwise the IRS merely "encourages" it. [F1098E p. 4]: "**May** show an account or other unique number the lender assigned". A lender may lawfully file **one** Form 1098-E covering all of a borrower's loans, or one per loan [I1098ET p. 1]; in the one-statement case the box is routinely blank. Making the account number an identity key would make a fully compliant statement unrecordable. See "Identity" below for what individuates instead. |
+| Box 1 | **Required authority (the sole amount)** | Confirmed. [F1098E p. 4]: "Shows the **interest received by the lender** during the year on **one or more** student loans made to you." |
+| Box 2 | **Guarded exclusion — blocks (via T0-3)** | Confirmed; semantics restated precisely in T0-3. |
+| Form-level tax year 2025 | **Required authority (identity)** | Confirmed. |
+
+#### Identity keys (settled)
+
+Follow ADR-0011 §2–3, ADR-0015 §1–4, and the committed `f1099g-box1.bundle.json`
+shape exactly. **No new identity mechanism.**
+
+The box-1 fact is keyed by:
+
+1. `filer` — entity, the Form 1098-E filer/servicer (a new entity kind in the
+   `tax.us.*` line, peer to `tax.us.unemployment-payer`);
+2. `statement` — entity, **one logical furnished Form 1098-E**, peer to evidence
+   (ADR-0015 §2: file, upload, scan, document, and evidence ids are forbidden
+   from fact identity);
+3. `tax-year` — literal `"2025"`.
+
+Consequences, each grounded:
+
+- **Multiple statements from one filer** are distinct statement-instance
+  citizens and therefore distinct facts (ADR-0015 §3). This is the ordinary
+  case here, because a filer may issue one form per loan [I1098ET p. 1].
+- **Account identity is not mandatory and does not appear in the key.** Two
+  statements from one filer are individuated by their statement citizens, not by
+  an account string. A statement that omits the account number is recorded
+  normally; **nothing happens to it**, because nothing depended on the field.
+  This answers T0-1's explicit question. The account number may be echoed as
+  evidence detail in presentation; it must never be keyed on, required, or used
+  to decide sameness.
+- **A corrected statement** (CORRECTED checked) answers the **same** fact for the
+  same statement citizen and supersedes its prior finding (ADR-0015 §4, ADR-0032
+  §5: correction is supersession, never edit; the family horizon does **not**
+  advance on a same-member value correction, ADR-0017 §4, so closure authority
+  survives a corrected box-1 amount).
+- **Duplicates** — the same physical statement contributed twice — are one
+  statement citizen and one fact; the second contribution is a plain re-assertion
+  that supersedes. A duplicate that the user individuates as a *second* statement
+  citizen is, by construction, a second original and is summed. Deterministic
+  sameness is therefore carried by the user's individuation of the statement
+  citizen, exactly as the committed `f1099g` family already does, and is not
+  inferred from evidence identity (ADR-0015 §5). **No new anti-duplication
+  mechanism is authorized or needed.**
+- **Borrower identity is an admission condition, not a key.** The supported class
+  requires that the taxpayer (or the spouse on a joint return) is the borrower
+  named on the statement; that assertion is carried by eligibility component
+  **A1** (legal obligation) in T0-2, which is the condition tax law actually
+  turns on [P970 p. 33]. Keying on a truncatable borrower TIN would be unsound.
+- **Late members and closure** follow ADR-0016/ADR-0017 unchanged: a family
+  declaration with an exact closure claim and canonical member predicate; a
+  closure fact keyed on the family horizon current at attestation; a membership
+  transition records a successor horizon and displaces the closure and every
+  closure-backed result.
+
+#### Family closure claim (settled wording constraint)
+
+Per ADR-0016 §5, closure of a box-1 statement family may authorize **only** the
+box-1 subtotal. The claim must state, and must not exceed:
+
+> Every amount reported in box 1 of a Form 1098-E furnished to the taxpayer for
+> tax year 2025 is recorded as a statement item as of the keyed horizon. This
+> claim covers Form 1098-E box 1 only: it says nothing about deductible student
+> loan interest not reported in box 1 (including interest below the $600
+> reporting threshold, interest from a person not filing, and pre-September-1-2004
+> loan origination fees or capitalized interest omitted under box 2), nothing
+> about whether any reported amount is deductible by this taxpayer, and nothing
+> about Schedule 1 line 21 or line 26 completeness. Closed with members
+> authorizes the multi-filer sum of current members; closed-empty authorizes
+> subtotal 0.
+
+**Closed-empty is a valid state** and authorizes a box-1 subtotal of 0 — not a
+zero line 21, which additionally requires the T0-2 and T0-3 authority.
+
+---
+
+### T0-2 — Component-level taxpayer eligibility authority (settled)
+
+This is the item the charter singles out. It is settled **without** any collapsed
+`qualified=yes`.
+
+#### The evidence ceiling of Form 1098-E box 1
+
+What box 1 **does** prove, at its highest: that a person, in the course of a
+trade or business, received $600 or more of interest from an individual during
+2025 on something that person treated as a reportable student loan [I1098ET
+pp. 1–2].
+
+What the lender's reportability test actually is [I1098ET p. 2]: the loan must be
+either (a) "Subsidized, guaranteed, financed, or otherwise treated as a student
+loan under a program of the federal, state, or local government, or of a
+postsecondary educational institution", **or** (b) "**Certified by the borrower**
+as a student loan incurred solely to pay qualified higher education expenses."
+
+The decisive sentence, for revolving accounts and by extension for the
+certification branch generally: "**You do not have to verify the borrower's
+actual use of the funds.**" [I1098ET p. 2]
+
+Therefore branch (b) reduces to *the same taxpayer assertion the engine would
+otherwise collect directly*, laundered through a third party. Branch (a) proves a
+program characteristic of the loan, not the taxpayer's §221 qualification. And
+the form itself tells the borrower so: "you may **not** be able to deduct the
+full amount of interest reported on this statement. Do not contact the
+recipient/lender for explanations of the requirements for … any allowable
+deduction" [F1098E p. 4].
+
+**Conclusion: Form 1098-E is authority for an amount and for a statement's
+existence. It is authority for none of the taxpayer-side conditions.** Accepting
+a contributed `qualified=yes` would not merely be opaque; it would be *less*
+informative than the components below, because the taxpayer certifying to a
+lender under [I1098ET p. 2] is certifying to a narrower question (sole use for
+qualified higher education expenses) than §221 asks.
+
+#### Conditions that are CALCULATED, never contributed
+
+Recorded here so no later unit mistakes them for components:
+
+| Condition | Why it is calculated | Authority |
+| --- | --- | --- |
+| Modified AGI below $100,000 / $200,000 | The instruction itself directs computation: "Use **lines 2 through 4 of the worksheet** in these instructions to figure your modified AGI" [I1040GI p. 98]. The engine computes it. | [I1040GI p. 98]; [P970 p. 34] "MAGI is the AGI on **line 11a** of that form figured **without taking into account any amount on Schedule 1 line 21**" |
+| Filing status ≠ married filing separately | Existing `filing_status` fact compared with `categorical_compare` / `category_literal` (ADR-0025 §5). Not a new component. | [I1040GI p. 98]; [P970 p. 33] |
+| Total qualifying interest | The family box-1 subtotal (T0-1/T0-3). | [I1040GI p. 99] worksheet line 1 |
+| $2,500 ceiling and the phaseout | Track 0b. | [I1040GI p. 99]; [P970 pp. 33–35] |
+
+**A structural consequence worth pinning:** at MAGI ≥ $100,000 ($200,000 MFJ)
+the worksheet's line-7 ratio clamps to 1.000 and line 9 is 0. The statutory
+eligibility ceiling and the phaseout endpoint coincide exactly [P970 p. 34,
+Table 4-2]. The engine therefore needs **no separate contributed MAGI-ceiling
+guard** — the arithmetic already produces zero. Track 0b owns whether the rule
+nonetheless states the ceiling explicitly for legibility; Track 0b must not add a
+*contributed* MAGI answer either way.
+
+#### Scope of the components: return-scoped, and why
+
+**Finding (verified in code at this commit, not assumed):** the rule language
+cannot fold a categorical or boolean condition across a variable-length family
+membership. `packages/derivation/evaluator.py` line 118 `collect` returns
+`[_as_decimal(v) for v in rows]` — it is a **numeric** collector only; `count`
+(line 133) returns a length; there is no categorical or boolean aggregate. A
+**per-statement** eligibility component is therefore **not expressible** at this
+base.
+
+Two candidate responses were considered:
+
+- **Rejected — encode a per-statement eligibility flag as 1/0 and test
+  `add(collect(flags)) == count(statements)`.** This re-introduces exactly the
+  numeric-code representation of a categorical that ADR-0025 §5 retired
+  ("Decimal `compare` remains numeric-only and gains no second interpretation");
+  it also mints a second parallel source family whose closure would have to be
+  kept coextensive with the statement family, contrary to ADR-0016 §4.
+- **Rejected — mint a categorical aggregate operator.** That is new generic
+  substrate for the rule language, i.e., milestone **stop condition 2**, and it
+  is not needed: see below.
+
+**Settled: every eligibility component is return-scoped**, keyed by the
+`tax-year` literal `"2025"` alone, exactly like the committed
+`schedule1-part1-scope` and `ss-benefits-scope` vocabularies (verified:
+`schedule1-part1-scope.bundle.json`, `fact-type.v2`, `identity_keys` = a single
+`tax-year` literal). Each component's **title carries the universal
+quantifier explicitly** — "for every Form 1098-E box-1 amount recorded in the
+2025 Form 1098-E source family" — so the collapsed scope is stated in the
+authority itself and appears verbatim in the explanation walk. This is a
+consolidation over statements, **not** over conditions: the thirteen distinct
+legal conditions the charter enumerates remain thirteen separately authorized
+answers. Meaning survives because a "no" on any component names the exact legal
+condition that failed, and because the quantifier is written into the fact
+type's own title rather than assumed by a reader.
+
+#### The components
+
+Shape for all of them (no novelty; matches `schedule1-part1-scope` exactly):
+`fact-type.v2` in a `bundle.v2`, `nature: determinable`, `value_schema`
+`{"enum": ["yes","no"]}`, `supersession: {"policy": "free"}`, **no
+`optional_default`**, `identity_keys` = `[{kind: literal, name: tax-year,
+values: ["2025"]}]`. Package binding `mode: "required"` (ADR-0025 §4) so absence
+blocks `DEPENDENCY_ABSENT`; a declared default is forbidden here — these are
+answers, not conveniences. `yes` asserts the named condition is satisfied for
+every recorded statement; `no` blocks. They are contributed facts entering
+through the ADR-0032 contribution boundary; no run request carries them.
+
+**Group A — loan and student conditions (10 components).**
+
+| # | Component (proposed id suffix) | Legal condition | Authority |
+| --- | --- | --- | --- |
+| A1 | `legally-obligated` | The taxpayer, or the spouse on a joint return, is legally obligated under the loan terms to make the interest payments covered by every recorded statement. | [P970 p. 33] "Can You Claim the Deduction?" bullet 3; [P970 p. 33] "Don't Include as Interest" bullet 1 ("Interest you paid on a loan if, under the terms of the loan, you aren't legally obligated to make interest payments") |
+| A2 | `interest-paid-in-2025` | Every box-1 amount was paid during 2025 by the taxpayer, or on the taxpayer's behalf by another person while the taxpayer was the obligated borrower. | [P970 p. 33] "When Must Interest Be Paid?"; [P970 p. 33] "Interest paid by others" |
+| A3 | `proceeds-solely-qualified-expenses` | Each loan was taken out **solely** to pay qualified education expenses; no proceeds were used for any other purpose; no refinancing or consolidation carries an excess amount used for other purposes. | [P970 p. 30] "Qualified Student Loan"; [P970 p. 32] "Interest on refinanced and consolidated student loans" + CAUTION; [I1040GI p. 99] "a loan isn't a qualified student loan if (a) any of the proceeds were used for other purposes" |
+| A4 | `expenses-within-reasonable-period` | The expenses were paid or incurred within a reasonable period of time before or after the loan was taken out. | [P970 p. 30] second bullet; [P970 p. 31] "Reasonable period of time" |
+| A5 | `student-relationship-when-incurred` | The student was the taxpayer, the taxpayer's spouse, or a person who was the taxpayer's dependent (as defined for this purpose) **when the loan was taken out**. | [P970 p. 30] "Qualified Student Loan" first bullet and "Your dependent"; [P970 p. 31] top (the three-part expanded dependent definition); [I1040GI pp. 98–99] items 1–3 |
+| A6 | `eligible-student` | The student was enrolled **at least half-time** in a program leading to a degree, certificate, or other recognized educational credential. | [P970 p. 31] "Eligible student", "Enrolled at least half-time" |
+| A7 | `eligible-educational-institution` | The education was provided by an eligible educational institution, judged during the academic period(s) for which the loan was incurred. | [P970 p. 31] "Eligible educational institution"; [I1040GI p. 99] |
+| A8 | `lender-not-related-person` | No recorded statement's loan was from a related person. | [P970 p. 31] "Related person"; [I1040GI p. 99]; §221(d)(1) |
+| A9 | `not-qualified-employer-plan-loan` | No recorded statement's loan was made under a qualified employer plan or under a contract purchased under such a plan. | [P970 p. 31] "Qualified employer plan"; [I1040GI p. 99]; §72(p)(4)–(5) via [I1098ET p. 2] |
+| A10 | `expenses-not-reduced-below-loan` | Qualified education expenses, **after** the mandatory reduction for tax-free employer educational assistance, Coverdell distributions, QTP distributions, excluded savings-bond interest, tax-free scholarships and fellowship grants, veterans' educational assistance, and other nontaxable educational assistance, were not less than the loan proceeds. | [P970 p. 32] "Adjustments to Qualified Education Expenses" |
+
+**Group B — taxpayer-status and double-benefit conditions (5 components).**
+
+| # | Component | Legal condition | Authority |
+| --- | --- | --- | --- |
+| B1 | `not-claimed-as-dependent` | Neither the taxpayer nor, on a joint return, the spouse is claimed as a dependent on another taxpayer's 2025 return. | [I1040GI p. 98] fourth bullet; [P970 p. 33] "Claiming you as a dependent" and Example 2 |
+| B2 | `no-qtp-tax-free-earnings-paid-interest` | No claimed interest was paid from a distribution of earnings made from a QTP after 2018 to the extent the earnings are treated as tax free because used to pay student loan interest. | [I1040GI p. 98]; [P970 p. 33] "No Double Benefit Allowed" ¶2 |
+| B3 | `no-employer-educational-assistance-interest` | No claimed interest was paid by the taxpayer's employer after March 27, 2020 under an educational assistance program. | [P970 p. 30] Reminder; [P970 p. 33] "No Double Benefit Allowed" ¶3 |
+| B4 | `no-other-provision-deduction` | No claimed amount is an allowable deduction under any other provision of the tax law, and no claimed amount is included in figuring any other deduction on the return. | [P970 p. 33] "No Double Benefit Allowed" ¶1; [I1040GI p. 99] worksheet line 9 ("Don't include this amount in figuring any other deduction on your return (such as on Schedule A, C, E, etc.)") |
+| B5 | `no-loan-repayment-assistance-payments` | No claimed interest was paid through the taxpayer's participation in the NHSC Loan Repayment Program or a similar loan repayment assistance program. | [P970 p. 33] "Don't Include as Interest" bullet 3 |
+
+#### Consolidations made, and why the meaning survives
+
+The charter requires these be named. Four were made; each is a merge the
+authority itself performs, not an engine convenience.
+
+1. **"Eligible student" + "at-least-half-time enrollment" → A6.** [P970 p. 31]
+   defines them as one thing: "An eligible student is a student who was enrolled
+   at least half-time in a program leading to a degree, certificate, or other
+   recognized educational credential." Splitting would create a fragment with no
+   independent legal content.
+2. **"Student–taxpayer relationship" + "dependent status when the loan was
+   incurred" → A5.** [P970 p. 30] states them as a single conjunctive bullet;
+   the relationship test is meaningless without its "when you took out the loan"
+   timing, and the timing is meaningless without the relationship.
+3. **"Related-party loan exclusion" and "qualified-employer-plan loan exclusion"
+   were deliberately NOT merged** (A8, A9), despite being one sentence in
+   [I1040GI p. 99]. They are distinct §221(d)(1) exclusions with distinct
+   definitions [P970 p. 31] and distinct taxpayer knowledge; a merged "no" could
+   not name which applied.
+4. **"Non-interest loan origination fees" and "capitalized-interest timing" are
+   NOT components.** [P970 p. 33] excludes origination fees that pay for property
+   or services, and [P970 p. 32] makes capitalized interest deductible only as
+   principal payments are made. Both are already discharged **by the lender's
+   own reporting rule**: for loans made on or after September 1, 2004 the filer
+   must include in box 1 only "payments of interest as described in Regulations
+   section **1.221-1(f)** … interest includes capitalized interest and loan
+   origination fees **that represent charges for the use or forbearance of
+   money**" [I1098ET p. 2]; for loans made before that date box 1 contains only
+   stated interest [P970 p. 34]. Box 1 is thus, by construction, amounts actually
+   received in 2025 that are interest in the tax sense. This is the precise reason
+   the box-1 boundary in T0-3 is safe rather than merely convenient, and it holds
+   **only** while box 2 is unchecked.
+
+#### Charter-stop check for this item
+
+Milestone stop condition 4 ("collapsed eligibility") is **not** triggered:
+component-level authority is achievable without any opaque `qualified=yes`. The
+only collapse present is over *statements*, it is forced by a verified property
+of the committed evaluator rather than chosen, it is written into each fact
+type's title, and the alternatives were rejected on governance grounds (ADR-0025
+§5, ADR-0016 §4) rather than on effort.
+
+---
+
+### T0-3 — The reported-interest boundary (settled)
+
+**Settled: the first milestone supports Form 1098-E box-1 interest only.**
+
+Box-2 semantics, restated precisely. Box 2 is checked when "loan origination
+fees and/or capitalized interest are **not** reported in box 1 for loans made
+before September 1, 2004" [I1098ET p. 2; F1098E p. 2 field text]. The borrower
+instruction draws the consequence: "If your loan was made before September 1,
+2004, you **may be able to deduct** loan origination fees and capitalized
+interest not reported in box 1" [F1098E p. 4]; [P970 p. 34] adds "if you pay
+qualifying interest that isn't included on Form 1098-E, you can **also** deduct
+those amounts", pointing at the Pub 970 p. 32 allocation method, which requires
+loan-level amortization data the engine does not have and this milestone does not
+model.
+
+The charter's reading is confirmed and can be stated more sharply: **box 2 is a
+lender assertion that box 1 is knowingly incomplete.** It says nothing about
+eligibility. It must **block**, never silently reduce the deduction to the box-1
+figure.
+
+#### Dispositions
+
+| Case | Disposition | Ground |
+| --- | --- | --- |
+| Box 2 checked on any recorded statement | **Block.** Carried by component **C1** below. | [F1098E p. 4]; [P970 p. 32] allocation method out of scope |
+| Interest paid below the $600 lender reporting threshold | **Deductible in law, unsupported here → must block unless declared absent.** | [I1098ET p. 1] "$600 or more"; [P970 p. 32] Example (a real deductible amount with no Form 1098-E). Carried by **C2**. |
+| Qualifying interest paid to a person who filed no statement (not in a trade or business, or non-compliant) | Same as above → **C2**. | [I1098ET p. 1] "Who must file" is limited to trade-or-business recipients |
+| Pre-September-1-2004 loan origination fees | **Block** via C1 when box 2 is checked; otherwise covered by C2. | [P970 p. 32] "Loan origination fee"; [I1098ET p. 2] |
+| Capitalized interest omitted when box 2 is checked | **Block** via C1. | [P970 p. 32] "Capitalized interest" |
+| Additional qualifying interest not shown in box 1 for any other reason | **Block** unless C2 is `yes`. | [P970 p. 34] |
+| Multiple statements from one filer | **Supported.** Distinct statement citizens; summed by the family subtotal. | [I1098ET p. 1] "you may file a separate Form 1098-E for each student loan … or you may file one Form 1098-E for the interest from all student loans" |
+| Multiple statements from several filers | **Supported.** Multi-filer sum, as the closure claim states. | Same |
+| One statement covering several loans | **Supported**, and it is the reason the eligibility components must quantify over loans, not statements. | [F1098E p. 4] box 1 "on **one or more** student loans made to you" |
+| Non-interest origination fees (commitment/processing) inside box 1 | **Cannot occur**; no guard needed. | [I1098ET p. 2] Reg. §1.221-1(f) limits box 1 to charges "for the use or forbearance of money" |
+
+#### The two boundary components
+
+Same shape and package binding as the T0-2 components (return-scoped,
+`{"enum":["yes","no"]}`, `mode: "required"`, no default).
+
+| # | Component | Assertion | Authority |
+| --- | --- | --- | --- |
+| C1 | `no-box-2-checked` | No 2025 Form 1098-E furnished to the taxpayer has box 2 checked. | [F1098E p. 2] box 2; [F1098E p. 4] Box 2 instruction; [I1098ET p. 2] |
+| C2 | `no-unreported-deductible-interest` | The taxpayer has no deductible 2025 student loan interest other than the amounts reported in box 1 of the recorded Forms 1098-E — including interest below the $600 reporting threshold, interest paid to a person who filed no statement, and pre-September-1-2004 origination fees or capitalized interest. | [I1098ET p. 1]; [P970 pp. 32, 34] |
+
+**C2 is not implied by family closure, and this is a governed consequence rather
+than a preference.** ADR-0016 §5: closure of a box-1 statement family "may
+authorize only the box-1 subtotal … It does not authorize … 'all taxable
+interest complete.'" The same holds here: closure proves the *statement set* is
+complete; C2 asserts the *deductible-interest universe* equals that set. The
+charter's SLI-C3 is confirmed on that basis.
+
+**Why C1 is separate from C2 even though C2 subsumes it.** C1 is a transcription
+of a printed checkbox the taxpayer is holding — cheap, directly auditable, and it
+lets the explanation name a form field. C2 is an attestation about the world.
+Keeping them separate keeps the audit trail honest about which is which.
+
+**Note.** C1 is deliberately a return-scoped attestation rather than a member
+predicate on the family. Excluding box-2-checked statements from family
+membership would let a family close *without* them, silently discarding a real
+statement — the "silently absorbed" failure the charter forbids.
+
+---
+
+### T0-9 — SSA interaction (verified, no cycle)
+
+The foreman's pre-finding is **confirmed on both halves**, by primary source and
+by repository content at `eaee81d`. It was verified, not inherited.
+
+**Half 1 — the paper.** The ordinary Social Security Benefits Worksheet's MAGI
+subtraction is "the total of the amounts from Schedule 1, lines 11 through 20,
+and 23 and 25" — the identical set the Student Loan Interest Deduction Worksheet
+uses at its own line 3 [I1040GI p. 99, worksheet line 3]. Line 21 is in neither
+set. Line 22 is "Reserved for future use" [F1040S1 p. 2; I1040GI p. 99]. Schedule
+1 line 26 is "Add lines 11 through 23 **and 25**" [F1040S1 p. 2] — the same set
+**plus line 21**. Independently corroborated by [P970 p. 34]: "your MAGI is the
+AGI on line 11a of that form figured **without taking into account any amount on
+Schedule 1 (Form 1040), line 21**", which is exactly what worksheet lines 2 − 3
+compute, and which is only true because line 21 is the sole element of line 26
+absent from worksheet line 3.
+
+**Half 2 — the artifact.** `packages/content/tax/2025/rule.ss-benefits-worksheet.json`
+(v1, `rule-artifact.v3`, publishes `tax.us.2025.social-security.line6b`) declares
+31 `requires` entries. Its Schedule 1 adjustment absences are exactly
+`no-sch1-line11-educator`, `-line12-business-expenses`, `-line13-hsa`,
+`-line14-moving`, `-line15-deductible-se`, `-line16-se-retirement`,
+`-line17-se-health`, `-line18-penalty`, `-line19-alimony-paid`,
+`-line20-ira-deduction`, `-line23-archer-msa`, `-line25-other-adjustments` —
+**twelve, with no line-21 and no line-22 entry.** It requires no AGI symbol, no
+Schedule 1 line-26 symbol, and no Form 1040 line-10 symbol; none of those exist
+at this base (verified: no artifact under `packages/content/tax/2025/`
+references Schedule 1 line 21 or line 26; the only `line-21` matches in the tree
+are Schedule D line 21).
+
+**Half 2b — mechanical proof.** The 82 `computation` members of
+`package.core-calculations.v29.json` were loaded, their `publishes`/`requires`
+projected into a symbol graph (174 nodes), the four prospective milestone edges
+added —
+
+```
+slid.line21              ← income.total-income, f1098e box-1 subtotal, filing_status
+schedule1.line26         ← slid.line21
+form1040.line10          ← schedule1.line26
+income.agi(11a)          ← income.total-income, form1040.line10
+```
+
+— and the combined graph was depth-first searched. Results:
+
+- **cycles: none;**
+- the SS worksheet's transitive dependency closure is 93 symbols and contains
+  **none** of `slid.line21`, `schedule1.line26`, `form1040.line10`,
+  `income.agi(11a)`, or `income.agi`;
+- `income.agi(11a)` **does** transitively depend on `social-security.line6b`,
+  confirming the dependency is strictly one-directional
+  (SS → line 9 → line 21 → line 26 → line 10 → line 11a);
+- exactly one publisher per symbol across the selected computation set, with the
+  single pre-existing exception of `tax.us.2025.schedule-a.total`
+  (`rule.schedule-a-total.json` / `rule.schedule-a-total-closed-empty.json`), a
+  guarded closed-empty alternate that predates this milestone and is untouched
+  by it.
+
+**Milestone stop condition 6 is not triggered.** The remaining half of T0-9 —
+that the merged SSA line-9 and downstream successors stay selected and that each
+component appears exactly once — is a *test* obligation on Tracks 1–2, listed in
+the evidence matrix; the paper and structural preconditions for it are settled
+here.
+
+**One caution for the implementing tracks.** The SS worksheet consumes
+`tax.us.2025.income.additional-income`, which `rule.form1040-line8.json` derives
+from `tax.us.2025.schedule1.line10-additional-income` — Schedule 1 **Part I**.
+Any Part II work that renames, re-versions, or re-points that Part I symbol would
+create the cycle this item rules out. Part II must be additive to Part I, never a
+re-pointing of it.
+
+---
+
+### T0-10 — Contract novelty (settled for T0-1, T0-2, T0-3, T0-9)
+
+**No new ADR is required by any item in this unit.** Every settled position is a
+content-level application of an already-ratified contract:
+
+| Settlement | Governing contract | Nature |
+| --- | --- | --- |
+| Kernel fact types for the statement, closure, and every eligibility component | ADR-0011 §1, §4–5 | reuse |
+| Statement-instance identity; corrections supersede; duplicates; evidence peer-hood | ADR-0015 §1–5 | reuse |
+| Family declaration, exact closure claim, canonical member predicate, no broadening | ADR-0016 §1–5 | reuse |
+| Family horizon, closure keyed on horizon, value correction does not advance it | ADR-0017 §1–5 | reuse |
+| Categorical components with `categorical_compare` / `category_literal`; `mode: "required"`, no declared defaults | ADR-0025 §4–6 | reuse |
+| Components arrive as contributed facts, never as run-request values | ADR-0032 §1, §3, §5 | reuse |
+| Artifact shapes: `fact-type.v2` in `bundle.v2`, `source-family.v1`, `source-closure-mapping.v2` | committed `f1099g` / `schedule1-part1-scope` content | reuse |
+
+No new generic substrate is implied: no new attachment ontology, no new closure
+mechanism, no new worksheet mechanism, no new identity or anti-duplication
+mechanism, and — given the return-scoped component decision in T0-2 — **no new
+rule-language operator from this unit.** Milestone stop conditions 1, 2, and 8
+are not triggered; no prototype is required or requested.
+
+**Scope note.** Whether the milestone needs one ADR in the ADR-0025 line for
+`multiply`/`divide` is a **T0-4** question and is neither confirmed nor denied
+here. If Track 0b concludes it does, the milestone's total remains the foreman's
+expected "at most one".
+
+---
+
+### Notes addressed to Track 0b (T0-4 – T0-8) — findings, not decisions
+
+1. **Pin p. 99, not p. 98, for the worksheet** [I1040GI]. See the charter
+   erratum above. The line-21 conditions and the Exception are on p. 98.
+2. **The MAGI ceiling needs no contributed answer.** The $100,000/$200,000
+   eligibility limit and the phaseout endpoint coincide exactly [P970 p. 34,
+   Table 4-2]: at that MAGI the line-7 ratio clamps to 1.000 and line 9 is 0.
+   Track 0b decides whether to state the ceiling explicitly for legibility; it
+   must not introduce a contributed MAGI or a contributed eligibility flag for it.
+3. **Worksheet line 1 receives the box-1 family subtotal, capped.** Under T0-2/T0-3
+   the entire recorded box-1 subtotal is qualifying interest, because A1–A10, C1,
+   and C2 are all `yes` before the rule fires. There is no partial-eligibility
+   arithmetic in this class.
+4. **The Pub 970 worked examples are usable as fixture oracles.** [P970 p. 34]
+   Example 1: MFJ, $800 interest, MAGI $185,000 → $400. [P970 p. 35] Example 2:
+   same facts with $2,750 paid → $2,500 capped, reduced by $1,250 → $1,250. Both
+   exercise the cap-before-phaseout ordering.
+5. **Two `Before you begin` conditions are paper preconditions, not arithmetic**
+   [I1040GI p. 99]: the line-24z write-in must be figured first, and the
+   Exception (Form 2555 / Form 4563 / excluded Puerto Rico income) routes to
+   Pub 970 Worksheet 4-1. The corresponding absences already exist in
+   `ss-benefits-scope` as `no-schedule1-line24z-writein`, `no-form-2555`,
+   `no-form-4563`, `no-puerto-rico-or-samoa-income`; the reuse-versus-mint call
+   on that vocabulary is **T0-5's**, untouched here.
+6. **Pub 970 Worksheet 4-1 confirms the variant boundary** [P970 p. 35]: its
+   lines 5–8 add back the foreign earned income/housing exclusions, the foreign
+   housing deduction, and excluded Puerto Rico and American Samoa income. The
+   ordinary worksheet has no such lines. This corroborates that the four
+   Exception absences are the exact boundary between the two worksheets.
+7. **Pub 970 states the 2025 Form 1040 AGI line as "line 11a"** [P970 p. 34],
+   independently corroborating the T0-8 succession target.
+8. **Part II must be additive to Part I.** See the caution at the end of T0-9:
+   re-pointing `tax.us.2025.schedule1.line10-additional-income` would create the
+   cycle T0-9 rules out.
+9. **Attachment question (T0-7), for information only.** At MAGI ≥ $100,000
+   ($200,000 MFJ) the taxpayer "can't claim the deduction" [P970 p. 30, p. 34],
+   and line 21 is 0. Whether a zero line 21 makes Schedule 1 not-required is
+   T0-7's call under ADR-0036; the paper here says the deduction is *eliminated*,
+   not merely computed to zero.
+10. **Boundary values for the evidence matrix.** [P970 p. 34, Table 4-2]:
+    "not more than $85,000" is unaffected; "more than $85,000 but less than
+    $100,000" is reduced; "$100,000 or more" is eliminated. So MAGI exactly
+    $85,000 → no phaseout; exactly $100,000 → fully eliminated. Same with
+    $170,000/$200,000 for MFJ.
+
+---
+
+### Cases requiring explicit disposition — those falling under this unit
+
+| Case | Disposition | Where settled |
+| --- | --- | --- |
+| Multiple Forms 1098-E | Supported; distinct statement citizens, multi-filer sum | T0-1, T0-3 |
+| Corrected statements | Supported; same fact, supersession; horizon does not advance | T0-1 |
+| Duplicate statements | One statement citizen, one fact; re-assertion supersedes | T0-1 |
+| VOID-checked statement | **Blocks**; Copy B has no VOID box, so it cannot legitimately reach the taxpayer | T0-1 |
+| Statement omitting the account number | **Recorded normally**; the account number is not an identity key and not required | T0-1 |
+| Box 2 checked | **Blocks** (C1) | T0-3 |
+| Interest paid below the $600 reporting threshold | **Blocks** unless C2 is `yes` | T0-3 |
+| Unreported interest generally | **Blocks** unless C2 is `yes` | T0-3 |
+| Capitalized interest | In box 1 for post-9/1/2004 loans by Reg. §1.221-1(f); otherwise blocks via C1/C2 | T0-2 (consolidation 4), T0-3 |
+| Loan origination fees | Same as capitalized interest; non-interest fees cannot appear in box 1 | T0-2 (consolidation 4), T0-3 |
+| Loans from related persons | **Blocks** (A8) — guarded exclusion, not a supported case | T0-2 |
+| Loans from qualified employer plans | **Blocks** (A9) — guarded exclusion | T0-2 |
+| Mixed-use loans | **Blocks** (A3). Note: [I1098ET p. 2] instructs filers "Do not report interest on mixed use loans", so such a statement should not exist; A3 blocks it if one does | T0-2 |
+| Refinancing or consolidation loans | **Supported** when solely refinancing qualified student loans of the same borrower; an excess amount used for other purposes **blocks** (A3) | T0-2; [P970 p. 32] |
+| Interest paid by someone other than the legally obligated borrower | **Supported and deductible by the obligated borrower** — this is *not* a blocker. "If you are the person legally obligated to make interest payments and someone else makes a payment of interest on your behalf, you are treated as receiving the payments from the other person and, in turn, paying the interest" [P970 p. 33], with two worked examples. A1 (obligation) and A2 (payment) carry it | T0-2 |
+| Interest paid by an employer | **Blocks** (B3) when paid after March 27 2020 under an educational assistance program. Note the contrast with the preceding row: [P970 p. 33] Example 1 allows an employer-adjacent payment that was *included in the borrower's W-2 box 1 as compensation*, which is not educational assistance. B3 is written to the educational-assistance program, not to the payer | T0-2 |
+| Interest paid with a tax-free QTP distribution | **Blocks** (B2) | T0-2 |
+| Taxpayer claimable as another person's dependent | **Blocks** (B1). [P970 p. 33] Example 2: in that case neither the student nor the parents may deduct | T0-2 |
+| Student not a qualifying dependent when the loan was incurred | **Blocks** (A5) | T0-2 |
+| Less-than-half-time enrollment | **Blocks** (A6) | T0-2 |
+| Non-degree or non-credential study | **Blocks** (A6) | T0-2 |
+| Ineligible educational institutions | **Blocks** (A7). Note the institution is judged only during the academic period(s) for which the loan was incurred; later loss of eligibility does not affect deductibility [P970 p. 31] | T0-2 |
+| Amount claimed under another deduction or exclusion | **Blocks** (B4); loan-repayment-assistance payments blocked by B5 | T0-2 |
+| Married filing separately | **Blocks** — computed from the existing `filing_status` categorical fact, not a new component | T0-2 |
+| MAGI phaseout boundaries | **Computed**, never contributed; boundary values recorded in note 10 to Track 0b | T0-2 (out of unit for the arithmetic) |
+| Foreign-income or territorial-income modifications | **Out of this unit** — T0-5 owns the Exception vocabulary; note 5/6 to Track 0b records the corroborating paper | — |
+| Every Schedule 1 Part II adjustment other than line 21 | **Out of this unit** — T0-5/T0-6 | — |
+
+---
+
+### Open items and escalations from this unit
+
+**None.** No milestone stop condition is triggered by T0-1, T0-2, T0-3, T0-9, or
+T0-10; no new ADR is implied; no unratified-PR content was read or edited; no
+prototype is requested; no sub-agent was used. T0-4 through T0-8 remain open and
+are Track 0b's.
