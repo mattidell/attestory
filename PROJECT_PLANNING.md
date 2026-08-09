@@ -30,8 +30,17 @@ The project is early. The owner's stated posture, which planning and execution s
   That is an expected outcome, not a process failure. Development remains
   provisional on the milestone branch; `main` carries the curated milestone
   state the owner chose to publish.
-- **Snapshot and reset, not open-ended branches.** The owner does not want many worktrees or long-lived branches open at once. When merged work is deemed undesired, the remedy is: snapshot the current state (a `snapshot/<date>-<topic>` branch or tag at the abandoned tip), then reset `main` to an earlier commit and proceed. History is preserved in snapshots; `main` tells the current story. Resets of `main` are owner-directed; agents perform them only on direction, and never without creating the snapshot ref first.
-- **Multiple agents collaborate.** Sessions get interrupted and resumed by different agents. Hand-offs are disclosed in retrospectives; interrupted work is either committed, snapshotted, or cleanly discarded — not left as ambient worktree state.
+- **Snapshot and reset, not open-ended branches.** The owner does not want many
+  worktrees or long-lived branches open at once. When merged work is deemed
+  undesired, the remedy is: create the safety ref named by
+  `docs/process/concurrent-work.md` at the abandoned tip, then reset `main` to
+  an earlier commit and proceed. History is preserved in snapshots; `main`
+  tells the current story. Resets of `main` are owner-directed; agents perform
+  them only on direction, and never without creating the safety ref first.
+- **Multiple agents collaborate.** Sessions get interrupted, resumed, and run
+  concurrently in the milestone's primary worktree. The standing workspace,
+  branch, and commit-handoff rules live in
+  `docs/process/concurrent-work.md`.
 
 This posture coexists with the milestone protocol below: planning discipline governs how work is built; the posture governs how finished work is judged and, when necessary, unwound.
 
@@ -45,11 +54,16 @@ Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or 
 
 **The loop.** Each prototype iteration runs:
 
-1. **Charter** — declare the questions this iteration must answer and the fixtures or edge cases in scope. Fixture selection is itself reviewed: the charter names the classes of case the design must survive, drawn from real content and prior-iteration lessons.
+1. **Charter** — declare the topic's bounded questions, fixtures or edge cases,
+   evidence ceiling, and stop conditions. The charter persists across rounds;
+   it is revised only when scope changes, not to authorize another iteration.
+   Fixture selection is itself reviewed: the charter names the classes of case
+   the design must survive, drawn from real content and prior-round lessons.
 2. **Build** — implement on a prototype branch.
 3. **Examine** — record the contracts that emerged and the implementation results against the charter's questions.
 4. **Committee review** — multiple reviewers with distinct charters (see below).
-5. **Disposition** — enumerate the questions that remain; decide whether to iterate (new charter: more fixtures, edge cases, or a rival design) or to conclude.
+5. **Disposition** — enumerate the questions that remain; decide whether to
+   iterate within the same charter, revise scope explicitly, or conclude.
 6. Repeat until the reviewers agree the evidence suffices, then draft the ADR against the evidence.
 
 **The evaluation analysis is conditional.** A separate
@@ -88,9 +102,10 @@ periodic owner-spawned **Legibility Audit** (`docs/legibility-audits/`).
 
 **Artifacts.** While a topic is active, `docs/prototypes/<topic>/` holds its
 working charter, examinations, committee notes, and any required evaluation
-analysis on the milestone branch. Prototype code lives on a branch named
-`prototypes/<topic>/it<N>` only while its iteration is active; prototype code
-never enters the milestone merge. When an iteration concludes, the foreman
+analysis on the milestone branch. Prototype code uses the temporary-branch
+form in `docs/process/concurrent-work.md`, with a purpose identifying the topic
+and iteration, only while its iteration is active; prototype code never enters
+the milestone merge. When an iteration concludes, the foreman
 tags its tip as `exhibits/<topic>/it<N>` and deletes the branch ref. At
 milestone close, the ADR retains the material decision and evidence summary;
 the closed working set moves to the dated archive and does not remain mixed
@@ -143,7 +158,19 @@ The first prototype run (Tax Citizen Families, First Tax Slice Track 0) was cons
 
 Default starting guidance: Foreman High/high (judgment-dense, low build volume); novel-synthesis Builder High/high; imitation or repair Builder Medium/medium; contract-fidelity and adversary Reviewers High/high; expressiveness Reviewer Medium–High/medium; starved legibility Reviewer Economy–Medium/low–medium.
 
-**Foreman as scope-and-economy steward.** Beyond chartering, sequencing, conformance review, and disposition recommendations, the foreman is the accountable steward of scope and economy. The foreman: (1) keeps the implementation — including reviews and the actions reviews propose — inside the declared scope boundaries and the spirit of economic efficiency, triaging findings (Gate 5) and rejecting or rerouting out-of-charter proposals rather than expanding scope; (2) enforces the evidence ladder and paper-first rule, never climbing to a more expensive rung than the open question requires; (3) tracks the fixed caps and triggers stop-and-decide rather than letting a run drift; (4) assigns each role's capability tier and reasoning effort in the plan and revises them as the run progresses — as decision boundaries and specifications clarify, the required capability for the next launch usually drops, and each change and its rationale is logged at launch time; and (5) chooses spawn versus owner-launch for each role on economy and independence grounds (`docs/roles/foreman.md`, "Spawn versus owner-launch"), spawning only where `AGENTS.md` ("Dispatch authorization") permits it. These are stewardship duties, not authority over artifact quality: the foreman still never reviews artifact quality, overrules a committee finding on the merits, or resolves dissent by rewording it.
+**Foreman as scope-and-economy steward.** Beyond chartering, sequencing, build
+review, and disposition recommendations, the foreman is the accountable
+steward of scope and economy. The foreman: (1) keeps implementation and review
+actions inside declared scope, triaging findings (Gate 5) and rerouting
+out-of-charter proposals; (2) enforces the evidence ladder and paper-first
+rule; (3) tracks fixed caps and triggers stop-and-decide; (4) assigns each
+role's capability tier and reasoning effort, revising them as the decision
+boundary clarifies; and (5) chooses spawn versus owner-launch on economy and
+independence grounds (`docs/roles/foreman.md`, "Spawn versus owner-launch"),
+spawning only where `AGENTS.md` ("Dispatch authorization") permits it. In an
+explicitly independent committee or final-publication review, the foreman
+does not judge artifact quality, overrule a finding on the merits, or resolve
+dissent by rewording it.
 
 **Mechanical work (no helper seat).** The clerical work of the prototype process — maintaining the `SEAT.md` table, assembling round files, tagging exhibits and deleting branch refs, log-hygiene formatting, confirming each cited exhibit tag exists, running data-safety scans on merged documents, collating the fixed-shape disposition packet, applying status or wording edits — is the foreman's own, and the foreman is accountable for all of it. ADR-0045 retired the clerk seat: a spawned mechanical helper costs a cold-agent boot on top of the foreman turns spent spawning and receiving, which is strictly more expensive than the foreman doing it inline. Do it inline when it is small; write a tool when it recurs or its output is bulky enough to pollute the foreman thread. None of this work may involve judgment — triaging findings, recommending a disposition, assigning capability tiers, changing scope, composing what a status line means, reviewing artifact quality, or ratifying anything remain foreman or committee acts regardless of how they are executed.
 
@@ -186,11 +213,13 @@ Audience: Agents
 
 The foreman prepares a compact **Context Capsule** in every new builder or
 review charter. It names the source ref and resolved launch commit, exact
-object/range, role, scope, evidence-rung ceiling where applicable, stop
-conditions, and complete deep reads. A builder or reviewer uses it to orient,
-verifies the ref against Git, then reads the controlling charter and cited
-sources. The capsule is part of the charter's routing surface only: it never
-widens scope or replaces exact text.
+object/range, milestone key and primary branch, assigned paths, role, scope,
+evidence-rung ceiling where applicable, stop conditions, and complete deep
+reads. The launcher places the agent in the already-established primary
+worktree; the capsule never commits its absolute workstation path. A builder
+or reviewer uses it to orient, verifies the ref and branch against Git, then
+reads the controlling charter and cited sources. The capsule is part of the
+charter's routing surface only: it never widens scope or replaces exact text.
 
 The Trusted Advisor is owner-launched strategic counsel and is outside this
 operational-capsule rule. There is no clerk seat and no Clerk Task Capsule
@@ -236,6 +265,8 @@ Charters use this compact shape:
 
 - Source ref and resolved launch commit:
 - Exact object or commit range:
+- Milestone key and primary branch:
+- Assigned paths:
 - Role:
 - Scope and evidence-rung ceiling (if applicable):
 - Stop conditions:
@@ -295,17 +326,21 @@ Planning precedes implementation.
 Documentation should preserve the distinction between audience and instruction. Product-facing sections describe product direction and capability; they do not tell the reader how to perform implementation work. Agent-targeted sections carry instructions, constraints, commands, and guardrails. Shared sections may include structured scope and exit criteria when that detail is necessary to align product intent with implementation boundaries.
 
 The default sequence is:
-1. Create a milestone branch from the ratified line.
+1. Establish the milestone key and create its conforming branch from the
+   ratified line.
 2. Draft and commit the milestone plan as the branch's first milestone commit.
 3. Open one draft milestone PR; the owner approves the plan without merging it.
-4. Implement, verify, and independently review each atomic track on that branch.
+4. Implement, verify, and have the Foreman review each atomic track on that
+   branch; run independent review only at a stage the plan names.
 5. Amend or squash provisional checkpoints and repairs into the track they
    complete before the milestone's final review.
 6. Distill material decisions and lessons, remove unpromoted working records,
    and complete closeout on the same branch.
 7. Mark the PR ready, obtain green CI on the final candidate, and merge the
    whole milestone to the ratified line.
-8. Remove the merged branch and any clean milestone worktree.
+8. Record post-merge cleanup; only the worktree owner or an explicitly
+   assigned maintenance task removes branches and worktrees under
+   `docs/process/concurrent-work.md`.
 
 The plan remains provisional until the milestone merges. Planning changes stay
 separate from implementation while work is in flight, but clarifications and
@@ -317,9 +352,10 @@ Implementation is never folded into planning.
 Audience: Agents
 
 Once a product contract is settled, production work defaults to one Builder
-and one independent Reviewer. Rival prototypes and committee review remain for
-genuine design choices; they are not the default way to implement an accepted
-contract.
+and Foreman review. An independent Reviewer is used only at a stage the plan
+explicitly marks independent, including the final curated-candidate review.
+Rival prototypes and committee review remain for genuine design choices; they
+are not the default way to implement an accepted contract.
 
 Before chartering a production track, the Foreman performs a lightweight
 readiness check against the proposed base. Confirm that the real entrypoint can
@@ -333,35 +369,42 @@ The charter is an executable work packet:
 - a compact table of cases, mutations, and expected outcomes;
 - the exact implementation boundary and stop conditions;
 - focused tests plus applicable static checks; and
-- the semantic or boundary questions the independent review must attack.
+- the semantic or boundary questions review must attack, including any that an
+  explicitly independent stage reserves for a Reviewer.
 
 The Builder turns the case table into tests, demonstrates the important
 negative cases against the base when practical, implements the change, and
 runs the focused tests and applicable static checks before handoff. For typed
-Python work, this includes repository mypy. The Reviewer concentrates on
-semantic correctness, omitted adversarial cases, compatibility, and boundary
-violations rather than repeating routine verification.
+Python work, this includes repository mypy. The Foreman reviews semantic
+correctness, omitted adversarial cases, compatibility, and boundary violations
+rather than repeating routine verification. An explicitly chartered
+independent Reviewer measures the same surfaces without relying on the
+Foreman's prior judgment.
 
-The normal sequence is readiness → build → independent review → one recovery
-cycle if needed → CI. Completion records are Foreman work, not a separate
-Builder/Reviewer track, unless closing a disputed product claim requires fresh
-judgment.
+The normal sequence is readiness → build → Foreman review → repair and recheck
+as needed within the same scope → CI. When `AGENTS.md` ("Dispatch
+authorization") permits spawning, the Foreman dispatches this loop until the
+charter is complete or a stop condition fires; iterations do not require new
+charters. Completion records are Foreman work, not a separate Builder/Reviewer
+track, unless an explicitly independent stage or disputed product claim
+requires fresh judgment.
 
 **When the first pass misses:** do not automatically defer the work or change
 the milestone's posture.
 
-- A defect against the existing work packet returns to the same Builder. A
-  Reviewer rechecks only when the repair still turns on semantic judgment;
-  mechanical and typing repairs go to the focused checks and CI.
+- A defect against the existing work packet returns to the same Builder. The
+  Foreman rechecks the repair; an independent Reviewer rechecks only when the
+  plan assigned that stage to the Reviewer and semantic judgment remains.
+  Mechanical and typing repairs go to focused checks and CI.
 - A bounded missing prerequisite already implied by the accepted contract is
   added to the current sequence after the Foreman verifies its boundary. It
   does not require a new design round merely because it was discovered late.
 - A new product decision, material scope expansion, or unresolved legacy
   compatibility question stops the loop. The Foreman gives the owner plain
   choices to continue, rescope, defer, or stop; none is presumed.
-- If the recovery recheck finds another substantive defect, there is no second
-  automatic repair cycle. Return to the owner with what failed and the cost of
-  another attempt.
+- A repair/recheck loop stops only when the charter is complete, the work
+  reaches a declared economic cap, or a stop condition exposes a new product
+  decision, material scope expansion, or unresolved compatibility question.
 
 Additional agent cycles must answer a newly discovered product question or
 close a concrete semantic defect. Moving custody, repairing records prose, or
@@ -383,6 +426,10 @@ closeout, and the retrospective continue on that branch. The PR becomes ready
 only when the final proposed repository state is complete and independently
 reviewed. Its merge publishes the milestone as one coherent capability.
 
+The plan establishes the milestone key; the primary branch, shared worktree,
+temporary branch, and handoff rules are in
+`docs/process/concurrent-work.md`.
+
 **Tracks are commits, not PRs.** Each final track is one atomic implementation
 commit inside the milestone PR. A builder may use temporary checkpoint and fix
 commits during development. Before final review, amend or squash those commits
@@ -398,13 +445,14 @@ unpromoted working files and obsolete commits. Preserve material content by
 destination: product contracts in ADRs, behavior in tests and fixtures,
 process lessons in the retrospective, and current direction in phase docs.
 
-**Review binds the curated candidate.** Independent reviews occur at track
+**Review binds the curated candidate.** The Foreman reviews ordinary track
 boundaries. Findings return to the same builder when appropriate; repaired
 work is folded into the track commit and rechecked where semantic judgment is
-still involved. Before the PR is marked ready, an independent reviewer checks
-the curated branch range after working-record cleanup. CI then verifies the
-exact final PR head. Intermediate review prose need not survive that final
-measurement unless it is deliberately promoted as material evidence.
+still involved. Before the PR is marked ready, the explicitly independent
+final-publication stage checks the curated branch range after working-record
+cleanup. CI then verifies the exact final PR head. Intermediate review prose
+need not survive that final measurement unless deliberately promoted as
+material evidence.
 
 **A separate PR is exceptional.** An independently reusable prerequisite may
 merge before the milestone only when the plan names why another consumer needs
@@ -618,9 +666,11 @@ closed transition reaches the ratified line.
 
 ## Milestone Start
 
-Create the milestone branch from the ratified line, commit the complete plan,
-set the branch's lifecycle to `planned`, and open the draft milestone PR. The
-owner's approval of that plan starts implementation without merging the PR.
+Establish the milestone key, create its conforming primary branch from the
+ratified line, commit the complete plan, set the branch's lifecycle to
+`planned`, and open the draft milestone PR. The owner-approved plan starts
+implementation without merging the PR. Workspace and branch mechanics are in
+`docs/process/concurrent-work.md`.
 
 ## Milestone Publication Curation
 
@@ -647,12 +697,14 @@ git fetch origin --prune
 Reconcile the capsule with Git and report the current milestone branch, the
 tool-derived ratified line, the milestone PR if one exists, behind/ahead counts,
 spent status, and worktree cleanliness. Do not proceed on a spent branch. Do
-not rebase or rewrite with uncommitted work present; preserve legitimate work
-first.
+not rebase or rewrite with uncommitted work present. Enter the exclusive
+branch-wide maintenance window in `docs/process/concurrent-work.md`; preserve
+legitimate work and wait for the whole primary worktree to become clean.
 
 Before substantially rewriting a published milestone branch, create and
-verify the temporary local safety ref
-`snapshot/<date>-<topic>-pre-pr-curation`. Record its commit and tree hashes in
+verify a temporary local safety ref using the snapshot form in
+`docs/process/concurrent-work.md` and purpose `<topic>-pre-pr-curation`. Record
+its commit and tree hashes in
 the owner report. This is not a permanent tag; delete it only after the merged
 result is verified on the ratified line. If the milestone PR already exists,
 return it to draft before changing candidate history. If final owner approval
@@ -662,6 +714,9 @@ has begun, report that the candidate is changing before any force-push.
 
 Apply this subsection only when the owner explicitly directs the
 milestone-local semantic-ledger experiment and supplies its temporary checker.
+This verifies an actual package delta during publication; it is distinct from
+the append-only schema-intent visibility stream in
+`docs/process/concurrent-work.md`.
 That live direction is sufficient to proceed when the branch is merely behind
 its ratified line; it does not override spent-branch, dirty-tree, data-safety,
 or publication-history protections.
@@ -838,9 +893,10 @@ performs the merge.
 
 After the owner reports the merge, fetch and prune. Verify that the merge and
 milestone commits are reachable from the ratified line and that the ratified
-line contains the expected closed phase state. Apply `AGENTS.md`, "Working
-rules" for merged-branch, worktree, and live-session cleanup. Delete the
-pre-curation snapshot after confirming it is no longer needed.
+line contains the expected closed phase state. Apply
+`docs/process/concurrent-work.md` for branch and worktree ownership; report
+cleanup outside the current agent's owned subtree rather than performing it.
+Delete the pre-curation snapshot after confirming it is no longer needed.
 
 ## Milestone Closeout
 
@@ -932,6 +988,8 @@ review.
 ## Required Milestone Plan Contents
 
 Before starting a new milestone, create or update a planning document with:
+- Milestone key: the stable lowercase kebab-case identity used by branch and
+  ledger records.
 - Objective: the capability the milestone proves.
 - Current state: what already exists and what assumptions are stable.
 - Scope: what will be implemented.
@@ -987,15 +1045,24 @@ Parallel work is allowed, but only when dependencies and constraints are explici
 
 The project is contract-heavy. Parallel tracks are safe when they do not compete over the same schemas, artifact shapes, runner outputs, definitions, or golden fixtures. Parallel tracks are risky when they both change integration surfaces or when one track consumes an artifact contract that another track has not stabilized.
 
-Parallel workstreams may use temporary branches or worktrees, but they do not
-open independent PRs by default. Their reviewed commits integrate into the
-milestone branch in dependency order, and the milestone's one PR remains the
-publication unit.
+Workspace and branch topology for parallel work is governed by
+`docs/process/concurrent-work.md`: agents in one milestone share its primary
+branch and worktree by default, while concurrent milestones use distinct
+primary worktrees. A temporary branch/worktree is an explicit isolation
+exception and never opens an independent PR. Reviewed commits integrate into
+the milestone branch in dependency order, and the milestone's one PR remains
+the publication unit.
 
 Parallelization levels:
 - Safe parallel: unrelated docs, tests, isolated fixtures, isolated renderers, or data safety checks.
 - Conditional parallel: producer and consumer work where the producer contract is already stable or a temporary fixture contract is explicitly declared.
-- Unsafe parallel: concurrent changes to the same schema, artifact shape, canonical runner output, definition file, or golden fixture directory.
+- Collision-prone parallel: concurrent changes to the same schema, artifact
+  shape, canonical runner output, definition file, or golden fixture
+  directory. Within one milestone, serialize ownership of the exact file.
+  Across milestones, use the schema-intent ledger defined in
+  `docs/process/concurrent-work.md` and reconcile actual candidates at
+  publication; the ledger does not make overlapping edits safe or reserve a
+  version.
 
 Before parallel work begins, create or update the relevant milestone plan with a parallel work manifest. A parallel work manifest belongs only in a milestone planning document under the phase's `milestones/` directory, not in phase overviews or roadmaps.
 
@@ -1003,7 +1070,8 @@ Do not add a parallel work manifest by default. Add it only when parallel execut
 
 The manifest must include:
 - Milestone: the milestone the parallel work belongs to.
-- Branches or workstreams: each parallel branch or stream and its owner if applicable.
+- Workstreams: each stream and its owner; name a temporary branch only when
+  the isolation exception is actually used.
 - Dependencies fulfilled: the contracts, fixtures, or prior tracks already completed.
 - Dependencies pending: any workstream whose implementation or integration depends on another workstream.
 - Constraints: files, schemas, artifacts, or behavior that must not change in each stream.

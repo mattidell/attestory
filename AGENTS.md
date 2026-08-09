@@ -1,7 +1,8 @@
 # Agent Operating Guide
 
 Audience: Agents. This is a **router**, not a rulebook. Read it once at boot,
-then read your seat file and stop reading this one.
+then read your seat file and the always-load concurrent-work protocol named in
+"Where authority lives."
 
 It carries only what binds every seat regardless of role. Everything else has a
 home named in "Where authority lives" at the bottom.
@@ -74,9 +75,9 @@ and reviewers execute one chartered unit inside it and nothing more.
 2. **Rival prototypes** — for decisions requiring prototype evidence, rival
    builders work from independent contexts. One context may not author both
    competing shapes.
-3. **Review and repair** — an author-independent reviewer measures the unit
-   against its charter and returns findings. The foreman triages; a repair
-   builder addresses them. Reviews are advisory; the owner dispositions.
+3. **Review and repair** — follow `PROJECT_PLANNING.md`, "Lean Production
+   Loop," and any explicitly independent review stage in the milestone plan.
+   Reviews are advisory; the owner dispositions consequential questions.
 4. **Establish the scope contract** — the evidence settles into an ADR, or into
    the plan's contracts section, and becomes binding.
 5. **Build** — chartered tracks, one commit per completed track.
@@ -113,13 +114,14 @@ not a dispatch.
 **Only the foreman may spawn sub-agents. Every other seat: never.**
 
 The foreman may dispatch **only when a message from the owner in this live
-thread literally contains the string `I authorize dispatch`.**
+thread literally contains the string `I authorize dispatch`.** Once granted,
+authorization lasts for the life of this thread unless the owner revokes it.
 
 - No paraphrase substitutes. Not "go ahead", not "sounds good", not an
   obviously approving reply, not the owner's approval of the plan.
-- It is single-use, bound to the role and charter current when granted. It
-  does not carry to the next role, to a re-dispatch after a charter revision,
-  or to another thread.
+- It covers the builder/review loop within the thread, including follow-up
+  turns, repairs, new in-scope roles, and charter revisions. It does not carry
+  to another thread.
 - It is ephemeral thread context, **never** repository state — no file, field,
   or plan status can grant it.
 
@@ -133,7 +135,9 @@ section. The owner says the string in the rare case they would rather not be
 involved in the launch.
 
 **The real precondition on a builder or reviewer is a charter**, committed and
-scoped. No charter, no work — that, and not a permission, is what holds a unit.
+scoped. Its lifecycle and iteration semantics are normed in
+`PROJECT_PLANNING.md`. No charter, no work — that, and not a permission, is
+what holds a unit.
 
 Record every dispatch and owner launch in `metrics/spawn-ledger.jsonl` via
 `tools/spawn_ledger.py`, with its role and prompt lineage, so cost stays
@@ -182,8 +186,8 @@ so once, plainly, then comply.
 
 **History is not editable in place.** Never edit an accepted ADR's decision to
 change history — supersede it. Never rewrite `main` without an owner direction
-and a `snapshot/<date>-<topic>` ref created and verified first. Published
-schemas have their own protocol below.
+and a safety ref, named under `docs/process/concurrent-work.md`, created and
+verified first. Published schemas have their own protocol below.
 
 **Archives are never authority.** `archive/` holds the pre-governance v2
 engine, which predates the Ontology and violates it in places.
@@ -307,14 +311,13 @@ you are — and get direction before proceeding.
 Silently working in a superseded tree is the failure this rule exists to
 prevent.
 
-Keep worktrees to a minimum. Remove worktrees that are clean and no longer
-needed, including stale ones left by other agents. Delete merged branches after
-confirming their commits are reachable from `main`. Do not leave uncommitted
-work in a worktree at hand-off — commit it, snapshot it, or discard it and say
-so.
+Workspace sharing, branch names, commit handoff, temporary-worktree ownership,
+and cleanup are governed by `docs/process/concurrent-work.md`. In particular,
+never clean up another agent's worktree merely because it appears stale.
 
 If you resume another agent's interrupted work, say so in the retrospective,
-note what you adopted versus reworked, and leave the tree clean.
+note what you adopted versus reworked, and satisfy the assignment-handoff rule
+in `docs/process/concurrent-work.md` without touching collaborator-owned paths.
 
 ## Development priorities
 
@@ -333,6 +336,7 @@ Read a document when its **When** column applies to you — not before.
 | Document | Norms | When you read it |
 | --- | --- | --- |
 | `docs/roles/<seat>.md` | Your posture, seed set, disciplines | On boot, always |
+| `docs/process/concurrent-work.md` | Milestone keys, branch names, shared worktree/index discipline, assignment handoff, temporary worktrees, cross-milestone schema-intent ledger | On boot, always |
 | Your charter | Scope, deliverables, stop conditions | On boot; it controls over any capsule |
 | `PROJECT_PLANNING.md` | Planning protocol, milestone/track rules, capsule contracts, prototype gates, branch/commit and publication-curation protocol, document layout, ADR and retrospective shapes, archive rules | Foreman, when planning, chartering, curating, or closing a milestone |
 | `docs/roles/qualitative-review.md` | Cross-milestone qualitative review questions and evidence standard | Reviewer, on boot; Foreman, when chartering final publication review |

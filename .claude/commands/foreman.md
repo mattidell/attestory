@@ -7,12 +7,12 @@ you") and your seat file `docs/roles/foreman.md`. Those govern; this command
 only invokes them.
 
 ```sh
-python3 tools/foreman_context.py --ref main --format markdown
+python3 tools/foreman_context.py --ref HEAD --format markdown
 ```
 
-First run the staleness check in `AGENTS.md` ("Working rules") — fetch, compare
-against `origin/main`, and look for a merged PR on this branch. Report a stale
-or superseded workspace before doing anything else.
+Use the tool-derived ratified line for the staleness check in `AGENTS.md`
+("Working rules"). Report a stale or superseded workspace before doing
+anything else.
 
 The capsule is advisory — reconcile its resolved commit and worktree report
 against Git. If it refuses, read the committed sources it names directly.
