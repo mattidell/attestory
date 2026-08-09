@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.social-security.line6b",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-6b",
+    "version": "v1"
+  },
+  "description": "Taxable Social Security benefits from the standard Social Security Benefits Worksheet.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "line 6b is blocked because a worksheet or source dependency is incomplete",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "closure-backed zero for Form 1040 line 6b",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "computed zero for Form 1040 line 6b",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "line 6b disposition is inapplicable for the current class",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "published Taxable Social Security benefits on Form 1040 line 6b",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-6b",
+  "label": "Taxable Social Security benefits",
+  "line": "6b",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

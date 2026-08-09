@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.social-security.line6a",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-6a",
+    "version": "v1"
+  },
+  "description": "Total Social Security benefits from ordinary Form SSA-1099 box 5.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "line 6a is blocked because a worksheet or source dependency is incomplete",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "closure-backed zero for Form 1040 line 6a",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "computed zero for Form 1040 line 6a",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "line 6a disposition is inapplicable for the current class",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "published Social Security benefits on Form 1040 line 6a",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-6a",
+  "label": "Social Security benefits",
+  "line": "6a",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

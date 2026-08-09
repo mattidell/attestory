@@ -23,7 +23,7 @@ from packages.tax.loader import tax_registry
 class TestSSA1099Track1(unittest.TestCase):
     registry: SchemaRegistry
     bundle: dict[str, Any]
-    
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.registry = tax_registry()
@@ -44,10 +44,10 @@ class TestSSA1099Track1(unittest.TestCase):
     def test_box6_withholding_is_restricted_to_zero(self) -> None:
         fact_types = {ft["id"]: ft for ft in self.bundle["fact_types"]}
         box6 = fact_types["tax.us.2025.ssa1099.box6-withholding"]
-        
+
         # Test 0 is valid against the value_schema
         jsonschema.validate(0, box6["value_schema"])
-        
+
         # Test any other value is rejected
         with self.assertRaises(jsonschema.ValidationError):
             jsonschema.validate(100, box6["value_schema"])
@@ -55,20 +55,20 @@ class TestSSA1099Track1(unittest.TestCase):
     def test_box5_net_benefits_is_nonnegative(self) -> None:
         fact_types = {ft["id"]: ft for ft in self.bundle["fact_types"]}
         box5 = fact_types["tax.us.2025.ssa1099.box5-net-benefits"]
-        
+
         jsonschema.validate(0, box5["value_schema"])
         jsonschema.validate(100, box5["value_schema"])
-        
+
         with self.assertRaises(jsonschema.ValidationError):
             jsonschema.validate(-10, box5["value_schema"])
 
     def test_recipient_identity_is_enum(self) -> None:
         fact_types = {ft["id"]: ft for ft in self.bundle["fact_types"]}
         recipient = fact_types["tax.us.2025.ssa1099.recipient"]
-        
+
         jsonschema.validate("taxpayer", recipient["value_schema"])
         jsonschema.validate("spouse", recipient["value_schema"])
-        
+
         with self.assertRaises(jsonschema.ValidationError):
             jsonschema.validate("dependent", recipient["value_schema"])
 
@@ -80,4 +80,3 @@ class TestSSA1099Track1(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

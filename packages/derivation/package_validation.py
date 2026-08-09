@@ -867,7 +867,7 @@ def validate_package(
         # Exact entrypoint pins are a package-schema generation contract starting
         # at artifact-package.v20. Older published package schemas retain their
         # historical semantics (version-inexact entrypoint roots remain valid).
-        if package.get("schema") in {"artifact-package.v20"}:
+        if package.get("schema") in {"artifact-package.v20", "artifact-package.v21"}:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
             }

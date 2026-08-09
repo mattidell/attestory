@@ -1,0 +1,22 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.ssa1099.benefits.box5-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.ssa1099.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "family": {
+    "id": "tax.us.2025.ssa1099.benefits",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.ssa1099-benefits",
+  "member_fact_type": {
+    "id": "tax.us.2025.ssa1099.box5-net-benefits",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v2",
+  "version": "v1"
+}

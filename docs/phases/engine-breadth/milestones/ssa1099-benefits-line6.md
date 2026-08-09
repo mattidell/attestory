@@ -3,8 +3,8 @@
   "version": 1,
   "topic": "ssa1099-benefits-line6",
   "active_plan": "docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md",
-  "milestone_state": "planned",
-  "status": "PLAN COMMITTED. Track 0 is a paper-first scope checkpoint; Track 1 and Track 2 owner-launch charters are prepared.",
+  "milestone_state": "track-2",
+  "status": "CURATED CANDIDATE. Track 1, Track 2, and the findings-only verification repair are complete; final independent review and CI must bind the exact curated head.",
   "source_ref": "origin/main",
   "source_commit": "9cecf30ea7eca62aefe2462620ea063345e72cae",
   "scope": [
@@ -104,7 +104,8 @@ Publication 915, or full Form 1040 support.
   `9cecf30ea7eca62aefe2462620ea063345e72cae` after the rebase. The base now
   includes the merged IRA line-4b milestone and its successor package graph;
   that upstream route is an integration prerequisite, not SSA scope.
-- Milestone branch: `milestone/form1040-ssa1099-line6`.
+- Milestone branch: `milestone/form1040-ssa1099-line6-local` (curated
+  candidate; the original milestone branch remains the planning lineage).
 - Dedicated clean worktree separate from every active milestone worktree.
 - The prior Form 1099-DIV box-12 milestone is closed on the base. Draft PR
   #161, `milestone/schedule-d-form8949-covered-wash-sale`, is active in a
@@ -313,15 +314,20 @@ not “all Social Security” or “all equivalent benefits.” Its mapping, sub
 closure, horizon, explanation, and worksheet consumer must pin the same family
 declaration. A closed-empty family may publish line 6a zero only with current
 closure on the current family horizon and the complete exception/absence
-authority. A late member advances the horizon and displaces prior closure and
-downstream findings. A same-statement correction preserves logical identity and
+authority. A late member advances the horizon and invalidates a prior
+closure-backed empty result and its downstream findings. Present-source
+aggregation of current members remains valid without reclosure; a new closure
+is required only to publish a new closed-empty zero (and any closure-dependent
+downstream result). A same-statement correction preserves logical identity and
 supersedes the old value; a distinct statement remains a distinct member.
 
 Joint-return aggregation is over the authoritative taxpayer and spouse
 subjects, including a negative/positive interaction only if Track 0 elects to
 support it; the starting proposed class rejects negative box 5. A statement
-for another person, a duplicate identity, a stale correction, or a late member
-without a new closure blocks rather than disappearing.
+for another person, a duplicate identity, or a stale correction blocks rather
+than disappearing. A late present member is aggregated on the current source
+path without a new closure; the closed-empty path remains blocked until
+reclosure.
 
 ## Scope and non-goals
 
@@ -396,19 +402,18 @@ All committed values use synthetic labels and ids only.
    integration order, and ADR disposition. No prototype unless a genuine
    architecture choice remains.
 2. `Track 1: SSA-1099 source family and closure` — one atomic implementation
-   commit after Track 0 ratification. The committed owner-launch charter is
-   `docs/reviews/charter-2026-08-04-ssa1099-line6-track1.md`.
+   commit after Track 0 ratification; implementation commit `11e9cda`.
 3. `Track 2: worksheet, line 6a/6b, downstream and presentation` — one atomic
-   implementation commit after Track 1 and upstream income integration. The
-   committed owner-launch charter is
-   `docs/reviews/charter-2026-08-04-ssa1099-line6-track2.md`.
+   implementation commit after Track 1 and upstream income integration;
+   implementation commit `15a18e6`.
 4. Independent final review, one findings-only repair cycle if needed, and
    curated closeout are folded into the owning track and milestone PR; no
    track, review, repair, or cleanup gets its own PR.
 
-The planning commit contains this plan, the phase/roadmap/frontier selection,
-and the owner-launch charters. It contains no implementation and no future
-version allocations. The milestone has one branch and one draft-to-final PR.
+The planning commit contained this plan, the phase/roadmap/frontier selection,
+and the owner-launch charters. Those working charters and interim review
+records are removed during final curation. The milestone has one branch and
+one draft-to-final PR.
 
 ## Stop conditions
 
