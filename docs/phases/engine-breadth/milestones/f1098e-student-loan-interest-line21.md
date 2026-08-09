@@ -1987,3 +1987,178 @@ triggered and the escalation this unit was warned about does not fire.
 No new generic substrate: line 26 is one more rule citizen of the shape already
 committed for line 10, using operators that already exist. No new ADR. Stop
 conditions 1, 2, and 6 are not triggered.
+
+---
+
+### T0-7 — Schedule 1 attachment disposition (settled)
+
+#### The schema question, answered — and a provenance defect found on the way
+
+The charter asks whether `attachment-rule.v6`, "already available at the base",
+accommodates a two-part attachment. **It does not, and the reason is not the one
+the charter supposed.** The finding below is stated in full because it changes
+the answer.
+
+`attachment-rule.v6` is **not a successor to `attachment-rule.v4`.** The two are
+parallel, incompatible successors of `v3`, added by two different milestones on
+the same day and neither reachable from the other:
+
+| Added by | Schemas | What it adds to v3 |
+| --- | --- | --- |
+| `12770bd` "Implement Schedule B attachment and package schema gate" | v5, v6 | typed subtractive `adjustment_rows`; a tie-out declaring `operation`, `positive_subtotals`, `adjustment_subtotals`. Both are **required** on every itemization |
+| `a62a9af` "Implement the final Track 2 Schedule D production route" | v4 | `required_answer` widened to a `oneOf` adding `check: "value"` with `equals` (ADR-0055); a `family_nonempty` requirement variant (ADR-0053) |
+
+Neither contains the other. v6 **drops** both of v4's additions.
+
+Proved mechanically rather than argued: the committed
+`rule.attachment.schedule-1.json`, with nothing changed but its `schema`
+discriminator, validates against `attachment-rule.v6` with **24 errors**, twenty
+of which are its ten completeness answers being rejected —
+`'presence' was expected` and `Additional properties are not allowed ('equals'
+was unexpected)`. Moving Schedule 1 to v6 would silently discard the
+value-checked completeness that the Part I attachment depends on, and would
+additionally demand `adjustment_rows` that Schedule 1 has no use for.
+
+**The provenance defect.** `packages/schemas/tax/attachment-rule.v5.schema.json`
+is published (`packages/schemas/tax/published.json`, checksum `aecd3bf5…`) but
+its `$id` is `tax/attachment-rule.v3` and its `properties.schema.const` is
+`attachment-rule.v3`. `AGENTS.md#Schema Publication Protocol` requires a new
+schema version to carry a "matching `$id` and `schema` discriminator"; v5 does
+not. `attachment-rule.v6` is byte-for-byte that same document with only the
+`$id` and the const corrected to v6 — that is, v5 looks like a mislabeled draft
+that was superseded by v6 in the same commit and left published.
+
+Its runtime effect is nil, and that was checked rather than assumed: the schema
+registry keys documents by **filename** (`packages/kernel/schema_registry.py:117`)
+and strips `$id` before building the validator (line 136), so there is no `$id`
+collision with the real v3. But no citizen can ever lawfully use v5 — declaring
+`"schema": "attachment-rule.v5"` fails the const — and no committed content does.
+`packages/derivation/runner.py:833` lists `"attachment-rule.v5"` among accepted
+attachment schemas; that branch is unreachable.
+
+**Disposition: report, do not repair.** v5 is published history and immutable;
+editing it is forbidden, and it belongs to the Schedule B milestone's records,
+not this one. It is inert. This milestone must simply never select it. Recorded
+here for the foreman as a records item, not as work.
+
+#### The settled shape: content-level reuse on `attachment-rule.v4`
+
+**No new attachment schema is needed.** A successor
+`rule.attachment.schedule-1` **v2**, on the unchanged `attachment-rule.v4`,
+carries both parts. Three properties of v4 were verified against the committed
+schema and the committed runner:
+
+1. **Two requirement contributors are already expressible.**
+   `requirement.subtotals` is an array with `minItems: 1`, and the runner
+   evaluates it as an **"any subtotal over threshold"** test that records a
+   per-trigger outcome for each — never silence about which one crossed
+   (`packages/derivation/runner.py:812–820`). The charter's "a Part II
+   itemization changes the requirement predicate" turns out to need no predicate
+   change at all: it needs a second entry in an array.
+2. **Value-checked completeness is v4's own addition**, so the ten Part I
+   answers stay exactly as committed and the twelve Part II answers (T0-5/T0-6)
+   join them as ten-plus-twelve `check: "value"` entries — twenty-two in total.
+3. **`itemizations` has no `minItems`**, so a Part II that contributes no
+   itemization row is schema-valid and the runner's loop simply does not iterate
+   over it.
+
+The existing `line-7-unemployment` itemization is carried forward unchanged,
+satisfying the charter's "without losing the existing Part I unemployment
+itemization". The v1 title's claim "Part II adjustments are out of scope" is
+corrected in the v2 title; v1 remains untouched published history.
+
+#### Line 21 carries no itemization — and why that is correct, not a shortcut
+
+Under v4 an itemization's rows must be `collect_members` over a source family,
+and the tie-out invariant requires the row sum to equal the line's published
+value (ADR-0036 decision 3; `ITEMIZATION_TIE_OUT_VIOLATION`).
+
+Itemizing line 21 over the Form 1098-E family would therefore raise
+`ITEMIZATION_TIE_OUT_VIOLATION` on **exactly the cases this milestone exists to
+compute**: the box-1 members sum to the box-1 subtotal, which differs from line
+21 whenever the $2,500 cap or the phaseout bites. It is also wrong on the paper:
+printed Schedule 1 line 21 is a single entry box with no per-lender detail
+[F1040S1 p. 2], so there is nothing on the form to itemize.
+
+Settled: **Part II contributes no itemization row set.** Per-statement
+provenance lives where it belongs — in the line-21 rule's own pins and
+explanation walk, which pin every Form 1098-E box-1 member finding.
+
+#### The requirement contributor must be the line-21 symbol, not the box-1 subtotal
+
+This is a load-bearing implementation constraint, and it is what makes the
+charter's "incomplete authority ⇒ blocked, never not-required" true by
+construction rather than by luck.
+
+The runner evaluates the requirement **before** completeness, and a
+not-required outcome returns immediately without reading the completeness
+answers (`runner.py:822–830`, completeness at line 883). A missing requirement
+subtotal, by contrast, blocks `DEPENDENCY_ABSENT` naming it
+(`runner.py:793–796`).
+
+`tax.us.2025.schedule1.line21-student-loan-interest` exists **only** when every
+eligibility component and all twelve Part II absences answer `yes` — that is the
+T0-4 gate. So any incomplete or denied Part II authority makes the line-21
+symbol absent, which makes the attachment **block**. Had the trigger instead read
+`tax.us.2025.f1098e.box1-subtotal` — which the family publishes regardless of the
+answers — a return with a denied component and no unemployment would have
+reached the not-required path and reported "Schedule 1 not required" about a
+return the engine cannot actually compute.
+
+**Track 2 must use the gated line-21 symbol.** The two requirement subtotals are:
+
+```
+tax.us.2025.unemployment.box1-subtotal                 (Part I, unchanged)
+tax.us.2025.schedule1.line21-student-loan-interest     (Part II, new)
+```
+
+with the existing `strictly_greater_than` comparison against the existing
+`tax.us.2025.parameter.default-zero`, unchanged.
+
+**Observation for review, on the Part I side.** The same ordering makes the
+*committed* Part I trigger weaker than the Part II one: `unemployment.box1-subtotal`
+is published by the closed Form 1099-G family independently of the
+`schedule1-part1-scope` answers, so a return with zero unemployment and a `no` on
+a Part I absence reaches the not-required path without its completeness being
+read. That is **pre-existing at this base, is not introduced by this milestone,
+and is not repaired by it** — repairing it would change committed Part I trigger
+semantics, which is beyond this milestone's scope. It is named so that review
+does not attribute it to the Part II extension, and so that a future Part I
+milestone has it on record.
+
+#### The six required case dispositions
+
+| Case | Disposition | Mechanism |
+| --- | --- | --- |
+| Positive line-21 deduction, no Part I income | **Required** | line-21 subtotal > 0; the unemployment trigger records `over: false`, so the walk shows both outcomes |
+| Positive line-21 alongside supported Part I unemployment | **One** composition-complete Schedule 1 carrying both parts | one attachment citizen, two requirement contributors, the Part I itemization retained, twenty-two completeness answers |
+| Deduction reduced to zero by the phaseout | **Not required** (when Part I is also zero) | see the justification below |
+| Incomplete eligibility or adjustment authority | **Blocked**, never not-required | the line-21 symbol is absent ⇒ `DEPENDENCY_ABSENT` on the requirement, which precedes and preempts the not-required path |
+| Closed-empty Form 1098-E family | Line 21 = 0 ⇒ same as the phased-out case | Track 0a: closed-empty authorizes a box-1 subtotal of 0; the T0-2/T0-3 authority is still required, so this is a computed zero, not silence |
+| Other Schedule 1 source or adjustment present but unsupported | **Blocked** | a `no` answer blocks the line-21 and line-26 gates, hence the attachment |
+
+**Justification for "not required" at a zero deduction.** [I1040GI p. 88],
+General Instructions for Schedule 1: "Use Schedule 1 to report income or
+adjustments to income that can't be entered directly on Form 1040, 1040-SR, or
+1040-NR… Adjustments to income are entered on Schedule 1, Part II. The amount on
+line 26 is entered on Form 1040, 1040-SR, or 1040-NR, line 10." With line 26 = 0
+and Part I = 0 there is nothing to report and nothing to enter on Form 1040
+line 10. Under ADR-0036 decision 2 the boundary is strictly-greater-than the
+cited threshold, which is the same rule the committed Part I trigger already
+applies at zero. Under ADR-0036 decision 1 this is **not silence**: not-required
+publishes a walkable inapplicability disposition carrying the inputs, the
+threshold, the citation, and the per-trigger outcome.
+
+Track 0a's note 9 observed that above the MAGI ceiling the deduction is
+*eliminated*, not merely computed to zero. That distinction is real and it is
+preserved — but it is carried by the **line-21 rule's** explanation walk, which
+shows worksheet lines 4 through 8 and the 1.000 clamp, not by the attachment.
+The attachment's own question is only "is there an amount to report", and the
+answer at zero is no. Both facts are on the record, each where it belongs.
+
+#### Charter-stop check for this item
+
+Content-level reuse is achieved: **no new attachment schema, no new attachment
+ontology, no new mechanism, no new ADR.** Milestone stop conditions 1 and 2 are
+not triggered. No unratified-PR content is edited: `attachment-rule.v5` is
+diagnosed and left exactly as published.
