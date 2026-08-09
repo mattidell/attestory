@@ -1718,3 +1718,178 @@ new generic substrate: it adds no new dependency, closure, worksheet,
 attachment, or identity mechanism. No prototype is required or requested — the
 question the foreman flagged ("what must `multiply` and `divide` mean") was
 answerable on paper against committed code, and it was.
+
+---
+
+### T0-5 — MAGI completeness, and line 21 excluded from its own base (settled)
+
+#### The exact component boundary
+
+Worksheet line 3 is "the total of the amounts from **Schedule 1, lines 11
+through 20, and 23 and 25**" [I1040GI p. 99]. Read off the printed Schedule 1
+Part II [F1040S1 p. 2], that set is exactly **twelve** amount lines:
+
+| Line | Printed label |
+| --- | --- |
+| 11 | Educator expenses |
+| 12 | Certain business expenses of reservists, performing artists, and fee-basis government officials |
+| 13 | Health savings account deduction |
+| 14 | Moving expenses for members of the Armed Forces |
+| 15 | Deductible part of self-employment tax |
+| 16 | Self-employed SEP, SIMPLE, and qualified plans |
+| 17 | Self-employed health insurance deduction |
+| 18 | Penalty on early withdrawal of savings |
+| 19a | Alimony paid (19b and 19c are the recipient's SSN and the agreement date — identifiers, not amounts) |
+| 20 | IRA deduction |
+| 23 | Archer MSA deduction |
+| 25 | Total other adjustments (itself the sum of lines 24a through 24z) |
+
+Plus the boundary conditions that select which worksheet applies at all:
+
+| Condition | Effect | Authority |
+| --- | --- | --- |
+| Form 2555 filed | Exception — Pub. 970 Worksheet 4-1, not this worksheet | [I1040GI p. 98]; [P970 p. 35] |
+| Form 4563 filed | Exception | same |
+| Income excluded from sources within Puerto Rico | Exception | same |
+| Schedule 1 line 24z write-in adjustment | Sequencing precondition — must be figured **before** this worksheet | [I1040GI p. 99] "Before you begin" |
+
+Two precise points the charter's list invites and the paper resolves:
+
+- **The foreign housing deduction is not a separate component.** It is Schedule 1
+  **line 24j** ("Housing deduction from Form 2555") [F1040S1 p. 2], which feeds
+  line 25. It is therefore already inside `line 25`, and separately excluded by
+  the Form 2555 Exception. Minting a component for it would double-count the
+  question.
+- **The 24z write-in condition is a sequencing precondition, not an Exception.**
+  It does not route to Pub. 970; it orders the computation. It is also *entailed*
+  by an absent line 25 (24z is one of 24a–24z). It is kept as a separate required
+  answer anyway, because the printed worksheet names it as its own "Before you
+  begin" condition and an explanation walk should show that precondition
+  discharged rather than inferred. This redundancy is deliberate and is recorded
+  so review does not read it as duplication.
+
+#### Line 21 is excluded from its own MAGI base — the structural proof
+
+Worksheet line 3 is lines 11–20, 23, 25. Schedule 1 line 26 is "Add lines 11
+through 23 **and 25**" [F1040S1 p. 2] — the same twelve **plus line 21** (line 22
+is "Reserved for future use" and is never an addend). Therefore, writing L*n* for
+the worksheet lines:
+
+```
+MAGI  = L2 − L3 = line 9 − (11..20, 23, 25)
+AGI   = line 9 − line 26 = line 9 − (11..20, 21, 23, 25)      [F1040 line 11a]
+⇒  MAGI = AGI + line 21
+```
+
+which is exactly what [P970 p. 34] states independently: "your MAGI is the AGI
+on line 11a of that form figured **without taking into account any amount on
+Schedule 1 (Form 1040), line 21**". The two derivations agree, and they agree
+*only* because line 21 is the single element of line 26 absent from worksheet
+line 3.
+
+**Consequence, binding on Tracks 1 and 2.** The worksheet's line 3 must be built
+from the twelve-line set and **must never** be built from Schedule 1 line 26 or
+from `tax.us.2025.income.agi`. The identity `MAGI = AGI + line 21` is a cheap
+and decisive test and belongs in the evidence matrix under "Structural".
+
+#### The encoding of worksheet line 3
+
+Worksheet line 3 evaluates to the literal `0`, under the `all(...)` gate that
+requires each of the twelve absences to answer `yes`.
+
+This is the committed pattern, not an invention: `rule.schedule1-line10.json`
+does the same thing for Part I, and its own notes state the reason —
+"**Does not manufacture zero amounts for unimplemented producers.**" Summing
+twelve declared-absent components is not expressible and should not be faked;
+`collect` is numeric-only (Track 0a's verified finding at
+`packages/derivation/evaluator.py:118`), and there is no producer publishing a
+zero for "educator expenses" to collect.
+
+Neither alternative Track 0a rejected is re-proposed here: this encoding uses no
+numeric-coded categorical and no categorical aggregate operator. The components
+are return-scoped contributed categoricals compared with
+`categorical_compare` / `category_literal`, which is the ADR-0025 §4–6 shape
+already in use.
+
+#### Reuse versus mint — the decision, priced
+
+The charter calls this the highest-leverage decision in Track 0. All three
+options were priced against repository content read at this commit.
+
+**Option 3 — rename or generalize into a shared `sch1-adjustment-scope` — is
+foreclosed, and is not the recommendation.** `ss-benefits-scope.bundle.json` is
+content contributed by the SSA-1099 milestone, whose review is open on PR #163.
+Editing it on this branch would modify content inside an unratified PR. That is
+this unit's stop condition and it is also milestone stop condition 5. It is
+named here only to record that it was considered and why it cannot be taken.
+Whether the vocabulary should eventually be generalized is an **owner
+sequencing question for after both PRs are ratified**, not a conclusion of this
+settlement.
+
+**Option 2 — mint a parallel `slid-magi-scope` vocabulary — is rejected on
+correctness, not on effort.** Verified: each of these fact types is keyed by a
+single `tax-year` literal, so it is a return-scoped assertion with exactly one
+true answer per return. Two vocabularies asking the same return-scoped question
+can hold **contradictory** current findings, and nothing at this base detects it:
+there is no cross-vocabulary consistency mechanism, and adding one would be new
+generic substrate. A return carrying both Social Security benefits and student
+loan interest could then publish a line 6b computed on "no HSA deduction" and a
+line 21 computed on "HSA deduction present". That is a silent wrong answer, which
+is strictly worse than a badly-titled right one.
+
+**Option 1 — reuse `ss-benefits-scope` in place — is the recommendation.**
+
+What it costs, stated exactly:
+
+1. **The titles are SSA-framed and will appear verbatim in a student-loan
+   explanation walk.** Verified by reading the bundle; every relevant title
+   begins "Social Security Benefits Worksheet completeness component:" and ends
+   "… for the bounded worksheet claim". For example:
+
+   > Social Security Benefits Worksheet completeness component: No Schedule 1
+   > line 11 educator expenses adjustment is present for the bounded worksheet
+   > claim. Contributed categorical assertion, domain {yes, no}, no default. yes
+   > asserts the named excluded class is absent; no asserts it is present and
+   > blocks.
+
+   The *proposition* is correct and return-scoped; only its framing names the
+   wrong consumer.
+
+2. **It couples this milestone to `tax.us.2025.ss-benefits-scope.vocabulary` v1.**
+   That coupling is not new: "Dependencies and integration order" already makes
+   this milestone depend on PR #163 landing, and lists the `ss-benefits-scope`
+   vocabulary by name as the reason. Reuse consumes a dependency the plan has
+   already accepted rather than creating one. If PR #163 renames or re-versions
+   any of these sixteen fact types before merging, milestone stop condition 9
+   ("Base moved") fires and version allocation is redone — which is already the
+   declared procedure.
+
+Why it wins: the divergence hazard in option 2 is a correctness hazard with no
+mechanical guard, while the cost of option 1 is a legibility blemish with a
+named mitigation. Reuse also keeps the eventual generalization cheap — one
+rename across one owner-sequenced change — instead of a three-way
+reconciliation between two vocabularies and a successor.
+
+**Mitigation, owed to Track 2.** The line-21 rule's `notes` and its citation must
+state which printed worksheet line each reused component discharges
+([I1040GI p. 99] worksheet line 3, and p. 98 for the Exception), so the walk
+carries the student-loan authority even where the fact-type title carries the
+SSA framing. Track 2's presentation evidence must include a student-loan
+explanation walk showing this.
+
+#### Absence authority, not optional defaults
+
+All sixteen are contributed answers with `mode: "required"` package binding and
+**no `optional_default`** — verified present in the committed bundle
+(`supersession: {"policy": "free"}`, `value_schema` `{"enum": ["yes","no"]}`, no
+default field). An absent answer blocks `DEPENDENCY_ABSENT` naming it; a `no`
+blocks through the T0-4 gate. The charter's requirement that unsupported
+components carry explicit absence authority rather than optional defaults is
+satisfied by the vocabulary as committed, with nothing added.
+
+#### Charter-stop check for this item
+
+Milestone stop condition 5 is **not** triggered: this settlement does not
+conclude that `ss-benefits-scope` should be renamed or generalized, and it edits
+no content owned by another milestone. No new fact type, bundle, or vocabulary is
+minted by T0-5.
