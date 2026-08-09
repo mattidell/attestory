@@ -1432,3 +1432,289 @@ expected "at most one".
 T0-10; no new ADR is implied; no unratified-PR content was read or edited; no
 prototype is requested; no sub-agent was used. T0-4 through T0-8 remain open and
 are Track 0b's.
+
+---
+
+## Track 0b settlement — T0-4, T0-5, T0-6, T0-7, T0-8
+
+Author: Track 0b builder (paper), owner-launched, base `f05dc6e`.
+Unit: charter items **T0-4, T0-5, T0-6, T0-7, T0-8** and the "Cases requiring
+explicit disposition" entries falling under them. **T0-1, T0-2, T0-3, T0-9, and
+T0-10 are not re-settled here**; the Track 0a settlement above governs them and
+is untouched.
+
+Every carry-forward from Track 0a and every foreman pre-finding relied on below
+was re-verified against primary source or against repository content at this
+commit. Where verification changed the answer, it says so.
+
+### Sources used, with exact locations
+
+| Tag | Source | Where |
+| --- | --- | --- |
+| **[F1040]** | 2025 Form 1040 | page 1: line 9, line 10, line 11a; page 2: line 11b, line 15 |
+| **[F1040S1]** | 2025 Schedule 1 (Form 1040) | page 2: Part II lines 11–25, line 26 |
+| **[I1040GI]** | 2025 Instructions for Form 1040 | printed **p. 33** ("Total Income and Adjusted Gross Income", Line 10); printed **p. 88** (Instructions for Schedule 1, General Instructions); printed **p. 98** (line 21 conditions, Exception); printed **p. 99** (**Student Loan Interest Deduction Worksheet**) |
+| **[P970]** | 2025 Publication 970, chapter 4 | printed **p. 34** (phaseout range, Table 4-2, MAGI definition, Example 1); printed **p. 35** (Example 2, Which Worksheet To Use, Worksheet 4-1) |
+
+**Charter erratum re-verified independently.** The Student Loan Interest
+Deduction Worksheet is on i1040gi **printed p. 99** (PDF page 99; the page
+footer on that page reads `99`). Printed p. 98 carries the line-21 conditions
+and the Exception. Track 0a's erratum is confirmed; the charter's p. 98 is
+wrong for the worksheet. The charter's verbatim worksheet text was compared
+word for word against the extracted page and is accurate, with one omission:
+worksheet line 9's closing parenthetical is "**(such as on Schedule A, C, E,
+etc.)**".
+
+---
+
+### T0-4 — The ordinary Student Loan Interest Deduction Worksheet (settled)
+
+#### One rule citizen, on the accepted worksheet pattern
+
+Worksheet lines 1–9 fold into **one** `computation` rule publishing
+`tax.us.2025.schedule1.line21-student-loan-interest`, on the
+`rule.ss-benefits-worksheet.json` pattern (ADR-0038 / ADR-0060 govern
+"printed worksheet as declared rule content"). No new worksheet substrate.
+
+#### The line-by-line mapping
+
+Declared parameters, never literals, for every printed money constant:
+
+| Parameter (proposed id) | Shape | Values | Authority |
+| --- | --- | --- | --- |
+| `…parameter.student-loan-interest-max` | scalar | `2500` | [I1040GI p. 99] worksheet line 1; [P970 p. 30] |
+| `…parameter.student-loan-phaseout-start` | keyed by `filing_status` | `single`/`head_of_household`/`qualifying_surviving_spouse` → `85000`; `married_filing_jointly` → `170000` | [I1040GI p. 99] worksheet line 5 |
+| `…parameter.student-loan-phaseout-range` | keyed by `filing_status` | same four keys → `15000`; `married_filing_jointly` → `30000` | [I1040GI p. 99] worksheet line 7 |
+
+Both keyed tables **must omit `married_filing_separately`**. MFS is already
+blocked by the T0-2 filing-status test; omitting the key means that even if that
+test were removed, an MFS return cannot silently compute — the keyed `parameter`
+op raises `LOOKUP_MISS` (verified: `packages/derivation/evaluator.py:152–155`).
+That is a structural backstop, not a substitute for the explicit test.
+
+The expression, worksheet line by worksheet line:
+
+| Worksheet line | Expression at this base |
+| --- | --- |
+| 1 — capped qualifying interest | `choose(when: compare(f1098e box-1 subtotal, param(max), "gt"), then: param(max), else: subtotal)` |
+| 2 — Form 1040 line 9 | `ref(tax.us.2025.income.total-income)` |
+| 3 — Sch 1 lines 11–20, 23, 25 | literal `0`, gated (see T0-5) |
+| 4 — MAGI | `subtract(L2, L3)` |
+| 5 — threshold | `parameter(phaseout-start, key: ref(filing_status))` |
+| 6 — excess over threshold | `choose(when: compare(L4, L5, "gt"), then: subtract(L4, L5), else: 0)` |
+| 7 — phaseout ratio | `choose(when: compare(divide(L6, param(range, key: filing_status)), 1, "gte"), then: 1, else: divide(...))` |
+| 8 — phased-out portion | `multiply(L1, L7)` |
+| 9 — the deduction | `round(subtract(L1, L8), mode: ref("rounding.convention"))` |
+
+Three notes on the mapping:
+
+1. **Worksheet line 6's "No" branch is expressed as `0`, not as a skip.** The
+   printed instruction says to skip lines 6 and 7 and enter -0- on line 8;
+   setting L6 to 0 yields L7 = 0 and L8 = 0, which is the identical result and
+   avoids a negative L6 producing a negative ratio. This is an arithmetic
+   identity, not an interpretation.
+2. **The 1.000 clamp is written with the existing `choose`/`compare` pair** and
+   its constant is the literal `1`. JSON cannot carry the printed `1.000`
+   trailing zeros, and it does not need to: the clamp value is exactly one and
+   its precision cannot affect the product.
+3. **Final rounding reuses the project convention.** `round` with
+   `mode: ref("rounding.convention")`, exactly as `rule.ss-benefits-worksheet`
+   already does. The `round` canon's `unit` is `"1"` (verified:
+   `packages/canon/derivation/round.v1.json`), so line 21 rounds to whole
+   dollars — the correct form-level treatment.
+
+#### The three structural facts the foreman flagged, verified
+
+**(a) The $2,500 cap applies at worksheet line 1, before the phaseout.**
+Confirmed. [I1040GI p. 99] line 1: "Enter the total interest you paid in 2025 on
+qualified student loans. **Don't enter more than $2,500**"; line 8 multiplies
+**line 1** by line 7. Independently corroborated by [P970 p. 35] Example 2,
+whose printed formula multiplies **$2,500** — not the $2,750 actually paid — by
+the phaseout fraction. Capping after the phaseout would produce $2,750 − $1,375
+= $1,375 instead of the published $1,250. The ordering is load-bearing.
+
+**(b) "Rounded to at least three places" is a precision floor on the decimal.**
+Confirmed: the instruction sits on worksheet line 7, the ratio, and nothing in
+the worksheet rounds line 8 or line 9 before the final form-level rounding.
+Rounding the *product* is a defect. Settled convention:
+
+> Worksheet line 7 is computed as an exact quotient **quantized to exactly
+> three decimal places, half-up**, then clamped to 1.
+
+"At least three" permits more, and exact `Decimal` division would satisfy it.
+Exactly three is chosen anyway, for one reason: it is the number a taxpayer
+gets from the printed worksheet by hand, so the engine's line 21 is reproducible
+against the paper form. Reproducibility-by-hand is the auditability property
+this product optimizes for; a silently more precise engine answer that a filer
+cannot reproduce is the wrong trade. This convention is declared in content
+(the operator's `scale` and `mode`), not hidden, and is pinned.
+
+**(c) `round` does not suffice, and this is the reason a new operator is
+needed.** Verified in code, not assumed: `_round`
+(`packages/derivation/evaluator.py:267–274`) takes its `unit` from
+`env.canon["round"]["spec"]["unit"]`, and the published canon citizen
+`packages/canon/derivation/round.v1.json` fixes that unit at `"1"`. The `round`
+operator can therefore only round to whole dollars; it cannot express a
+three-decimal-place quotient. `round` is **not** re-versionable either:
+`load_canon` (`packages/derivation/loader.py:144–154`) keys canon citizens by
+their `operation` field and raises on a duplicate, so a `round.v2.json` naming
+operation `round` is rejected outright. `round` stays exactly as it is, and it
+remains the right operator for worksheet line 9.
+
+#### The minimal additive expression extension
+
+Two operators, one canon citizen, one schema successor.
+
+**`multiply`** — n-ary, exact, no canon.
+
+```
+{"op": "multiply", "args": [<expr>, <expr>, ...]}
+```
+
+It joins the existing `add`/`max`/`all`/`any` `args` branch shape in the
+expression schema. Semantics: fold `Decimal.__mul__` over the coerced operands,
+identity `1`. It gets **no** canon citizen and **no** `access.operations` entry,
+matching `add`, `subtract`, and `max` — there is no convention to pin, because
+multiplication of two exact decimals has no free parameter. It inherits exactly
+the same ambient-`Decimal`-context property that `add` and `subtract` already
+have and introduces no new one; with a money left operand and a three-place
+right operand the product is exact well inside the default 28-digit context.
+
+**`divide`** — binary, scaled, canon-governed.
+
+```
+{"op": "divide", "left": <expr>, "right": <expr>, "scale": 3, "mode": "half_up"}
+```
+
+Semantics: coerce both operands; if the divisor is zero, raise
+`DEPENDENCY_INVALID` (never a Python `DivisionByZero`, never a NaN, never
+silence); otherwise quantize the quotient to `scale` decimal places using
+`mode`. `scale` and `mode` live in the **expression** so they are visible in the
+rule and in the explanation walk; the permitted mode set, the tie-break, the
+maximum admissible scale, and the zero-divisor disposition live in a new
+**`packages/canon/derivation/divide.v1.json`** operation-semantics citizen,
+mirroring `round.v1.json`. `divide` **does** add to `access.operations`, so
+every derivation that uses it carries a `role: "operation-semantics"` pin at the
+canon citizen's version (verified: `packages/derivation/runner.py:433–434`).
+That is the correct treatment precisely because division here has a declared
+convention that an auditor must be able to pin. `CANON_OPERATIONS`
+(`packages/derivation/loader.py:103`) gains `"divide"`; this is a global loader
+change, so Track 1 must confirm every existing canon-loading test still passes.
+
+**Schema successor.** The expression definition is a closed `oneOf` with
+`additionalProperties: false` on every branch (verified in
+`packages/schemas/derivation/rule-artifact.v4.schema.json`, `$defs.expr`), so
+the two operators require a new **`rule-artifact.v5`** with `$id`
+`derivation/rule-artifact.v5` and discriminator const `rule-artifact.v5`. v4 is
+untouched published history. Only the new line-21 rule needs v5; nothing else
+migrates.
+
+**No `min` operator.** Confirmed: the $2,500 ceiling and the 1.000 clamp are
+both expressible with the existing `choose`/`compare` pair, which also reads
+closer to the printed instructions ("Don't enter more than $2,500"; "If the
+result is 1.000 or more, enter 1.000") than a `min` call would. This matches the
+committed precedent — `rule.ss-benefits-worksheet.json`'s own notes record
+"min uses choose".
+
+**ADR.** This warrants **one** ADR in the ADR-0025 line
+("Expression Language Extensions: Multiplication and Scaled Division"), because
+it introduces two operators, a `Decimal` semantic decision with free parameters,
+a new operation-semantics canon citizen, an addition to `CANON_OPERATIONS`, and
+a schema successor. That is the milestone's **only** new ADR, and it is the one
+the foreman anticipated. Together with Track 0a's zero, the milestone total is
+one. **The ADR budget is not exceeded and no escalation is triggered.**
+
+#### Eligibility and completeness gating: block, not guard-inapplicable
+
+Track 0a settled that a component answering `no` **blocks**. The two nearest
+precedents (`rule.ss-benefits-worksheet`, `rule.schedule1-line10`) put their
+absence checks in `when: all(...)`, where a `no` makes the guard false and
+yields a *guard-inapplicable* disposition rather than a block. That is the wrong
+disposition here: a `no` on, say, the box-2 or related-person exclusion does not
+mean the deduction is inapplicable, it means the engine cannot honestly compute
+this return. Settled shape:
+
+```
+"when": true,
+"value": {"op": "choose",
+          "when": {"op": "all", "args": [<every component> eq yes]},
+          "then": <worksheet lines 1-9>,
+          "else": {"op": "block", "code": <an already-published code>}}
+```
+
+with **every** component named in `requires` and `pins`, so a *missing* answer
+blocks `DEPENDENCY_ABSENT` naming it. The `block` op is committed and has a
+committed precedent (`rule.schedule-a-line8a.json` uses
+`{"op": "block", "code": "VALUE_INVALID"}` in a `choose` `else`). **Track 1 must
+use an already-published block code; no new error vocabulary is authorized by
+this settlement.**
+
+**Known limitation, recorded rather than engineered around.** `block` carries no
+`missing` list — `evaluator.py:143–144` raises `EvalBlocked(expr["code"], [])`.
+The block therefore names the rule and the code, not *which* component answered
+`no`. Distinguishing them is not expressible at this base without new error
+vocabulary or a new operator, and neither is authorized. The diagnosis path is
+the rule's pins: every component finding is pinned unconditionally whatever its
+value, so a walker reads the answers directly. This limitation is stated here so
+review does not mistake it for an oversight.
+
+#### Zero and boundary behavior
+
+| Case | Line 21 | Why |
+| --- | --- | --- |
+| Closed-empty Form 1098-E family | `0` | L1 = 0 ⇒ L9 = 0. Track 0a: closed-empty authorizes a box-1 subtotal of 0; the T0-2/T0-3 authority is still required |
+| Interest below $2,500 | uncapped | L1 = subtotal |
+| Interest exactly $2,500 | `2500` | "Don't enter **more than** $2,500" — exactly $2,500 is not more |
+| Interest above $2,500 | capped at `2500` | before the phaseout |
+| MAGI exactly $85,000 / $170,000 | no phaseout | [P970 p. 34, Table 4-2] "**not more than** $85,000 … not affected"; worksheet line 6 tests "**more than**" |
+| MAGI strictly between the endpoints | reduced | phaseout applies |
+| MAGI exactly $100,000 / $200,000 | `0` | L6 = the full range ⇒ L7 = 1.000 ⇒ L8 = L1 ⇒ L9 = 0. [P970 p. 34] "$100,000 or more … eliminated" |
+| MAGI above $100,000 / $200,000 | `0` | ratio > 1 clamps to 1.000 |
+| Married filing separately | blocked | T0-2, plus the omitted parameter key |
+
+**The eligibility ceiling needs no separate test.** Track 0a's note 2 is
+verified: [I1040GI p. 98] states the ceiling as "modified AGI is less than
+$100,000 … $200,000", and [P970 p. 34] states the phaseout as ending at exactly
+those figures. $85,000 + $15,000 = $100,000 and $170,000 + $30,000 = $200,000,
+so the arithmetic already returns 0 at and above the ceiling for every filing
+status. Adding a contributed eligibility flag would introduce a second, weaker
+authority for a fact the computation already establishes. **No contributed MAGI
+and no contributed eligibility ceiling.**
+
+#### Fixture oracles from primary source
+
+Both Pub 970 examples were read in full and are reproduced here from the source,
+not inherited:
+
+- [P970 p. 34] Example 1 — MFJ, $800 paid, MAGI $185,000. Printed formula:
+  `$800 × ($185,000 − $170,000) / $30,000 = $400`; "reduced student loan
+  interest deduction is $400". Engine: L1 = 800, L6 = 15,000, L7 = 0.500,
+  L8 = 400, **L9 = 400**.
+- [P970 p. 35] Example 2 — same facts, $2,750 paid. Printed formula:
+  `$2,500 × ($185,000 − $170,000) / $30,000 = $1,250`; "reduced … deduction is
+  $1,250". Engine: L1 = 2,500 (capped), L8 = 1,250, **L9 = 1,250**.
+
+Example 2 is the cap-before-phaseout kill-test and belongs in the evidence
+matrix as such.
+
+#### Pin table for the line-21 rule
+
+| Role | Pinned | Count |
+| --- | --- | --- |
+| `input` | `tax.us.2025.f1098e.box1-subtotal`; `tax.us.2025.income.total-income`; `filing_status`; every T0-2 eligibility component (A1–A10, B1–B5); every T0-3 boundary component (C1, C2); every T0-5 MAGI component | 1 + 1 + 1 + 15 + 2 + (T0-5) |
+| `parameter` | the max, the phaseout start, the phaseout range | 3 |
+| `operation-semantics` | `round` (canon `v1`), `divide` (canon `v1`) | 2 |
+| `citation` | the worksheet at [I1040GI p. 99]; Schedule 1 line 21 at [F1040S1 p. 2] | 2 |
+| `package`, `adoption`, `governance` | as the runner supplies | — |
+
+`multiply` is deliberately absent from the operation-semantics pins; it has no
+canon citizen, exactly like `add` and `subtract`.
+
+#### Charter-stop check for this item
+
+Milestone stop conditions 1, 2, and 8 are **not** triggered. The operator
+extension is an additive instance of the ratified ADR-0025 contract line, not
+new generic substrate: it adds no new dependency, closure, worksheet,
+attachment, or identity mechanism. No prototype is required or requested — the
+question the foreman flagged ("what must `multiply` and `divide` mean") was
+answerable on paper against committed code, and it was.
