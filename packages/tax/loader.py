@@ -94,6 +94,19 @@ def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
             "tax.us.2025.f1099r.distribution-code",
             "tax.us.2025.f1099r.box2b-not-determined",
         ],
+        # Form SSA-1099 ordinary-benefits route: each box-5 net-benefit member
+        # requires explicit same-statement box-3/box-4 reconciliation inputs,
+        # an authoritative beneficiary subject, an ordinary statement-kind
+        # witness, an explicit false lump-sum-election witness, and an
+        # explicit box-6 withholding absence/zero companion.
+        "tax.us.2025.ssa1099.box5-net-benefits": [
+            "tax.us.2025.ssa1099.box3-benefits-paid",
+            "tax.us.2025.ssa1099.box4-benefits-repaid",
+            "tax.us.2025.ssa1099.beneficiary-subject",
+            "tax.us.2025.ssa1099.statement-kind",
+            "tax.us.2025.ssa1099.lump-sum-election",
+            "tax.us.2025.ssa1099.box6-withholding-authority",
+        ],
     }
 
 
@@ -111,6 +124,9 @@ def domain_companion_value_domains() -> dict[str, frozenset[object]]:
         "tax.us.2025.f1099r.box2b-not-determined": frozenset({False}),
         "tax.us.2025.f1099r.ira-sep-simple-checkbox": frozenset({True}),
         "tax.us.2025.f1099r.distribution-code": frozenset({"7"}),
+        "tax.us.2025.ssa1099.statement-kind": frozenset({"ssa-1099"}),
+        "tax.us.2025.ssa1099.lump-sum-election": frozenset({False}),
+        "tax.us.2025.ssa1099.box6-withholding-authority": frozenset({None, 0, 0.0}),
     }
 
 

@@ -1,0 +1,25 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.ssa1099-benefits-subtotal",
+  "version": "v1",
+  "role": "computation",
+  "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax"},
+  "publishes": "tax.us.2025.ssa1099.benefits.box5-subtotal",
+  "requires": ["rounding.convention"],
+  "pins": [
+    {"id": "rounding.convention", "version": "v1", "origin": "assertion", "role": "input"}
+  ],
+  "citations": [
+    {"id": "tax.us.2025.citation.ssa1099.box3", "version": "v1"},
+    {"id": "tax.us.2025.citation.ssa1099.box4", "version": "v1"},
+    {"id": "tax.us.2025.citation.ssa1099.box5", "version": "v1"}
+  ],
+  "notes": "Aggregates only current members of the adopted ordinary SSA-1099 benefits family: box 5 net benefits, admitted after box-3/box-4/box-5 reconciliation, statement-kind, beneficiary-subject, lump-sum-election, and box-6 withholding guards occur before this rule. The result is the closed source-family subtotal that Form 1040 line 6a consumes; it is not itself line 6a, line 6b, or any worksheet output. No RRB, foreign, lump-sum, excess-repayment, or withholding computation is present.",
+  "blocked": {"code": "OPEN_DEPENDENCY", "missing": ["rounding.convention"]},
+  "when": true,
+  "value": {
+    "op": "round",
+    "mode": {"op": "ref", "name": "rounding.convention"},
+    "value": {"op": "add", "args": [{"op": "collect", "name": "tax.us.2025.ssa1099.box5-net-benefits", "source_set": "tax.us.2025.ssa1099.benefits"}]}
+  }
+}

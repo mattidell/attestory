@@ -1,0 +1,10 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.ssa1099.benefits",
+  "version": "v1",
+  "title": "Form SSA-1099 ordinary Social Security benefits statement items, tax year 2025",
+  "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax"},
+  "closure_claim": "Every ordinary Form SSA-1099 statement for tax year 2025 furnished to the return's taxpayer or, on a joint return, the taxpayer's spouse is recorded as a logical statement member with reconciled nonnegative box 3, box 4, and box 5 (box 5 exactly equal to box 3 minus box 4), an explicit ordinary statement-kind witness, an explicit false lump-sum-election witness, and box-6 withholding absent or zero. This claim covers only this bounded ordinary class; it says nothing about RRB-1099 tier-1/SSEB benefits, SSA-1042S or other foreign social-benefit statements, benefits belonging to another taxpayer, the lump-sum election method, excess-repayment treatment, the Social Security Benefits Worksheet, or Form 1040 line 6a/6b completeness.",
+  "member_predicate": {"fact_type": "tax.us.2025.ssa1099.box5-net-benefits"},
+  "authorizes_subtotal": "tax.us.2025.ssa1099.benefits.box5-subtotal"
+}

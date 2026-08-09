@@ -1,0 +1,54 @@
+{
+  "schema": "demo.ssa1099.benefits-line6.fixtures.v1",
+  "positive": {
+    "id": "demo.ssa.fixture.p1",
+    "payer_id": "demo.payer.ssa",
+    "statement_ref": "demo.claim.taxpayer.1",
+    "subject": "taxpayer",
+    "statement_kind": "ssa-1099",
+    "box3": 12000,
+    "box4": 0,
+    "box5": 12000,
+    "box6": null,
+    "lump_sum_election": false
+  },
+  "spouse": {
+    "id": "demo.ssa.fixture.p2.spouse",
+    "payer_id": "demo.payer.ssa",
+    "statement_ref": "demo.claim.spouse.1",
+    "subject": "spouse",
+    "statement_kind": "ssa-1099",
+    "box3": 9000,
+    "box4": 0,
+    "box5": 9000,
+    "box6": 0,
+    "lump_sum_election": false
+  },
+  "correction": {
+    "original": {
+      "id": "demo.ssa.fixture.p3.original",
+      "statement_ref": "demo.claim.taxpayer.1",
+      "box3": 10000,
+      "box4": 0,
+      "box5": 10000,
+      "corrected": false
+    },
+    "successor": {
+      "id": "demo.ssa.fixture.p3.correction",
+      "statement_ref": "demo.claim.taxpayer.1",
+      "box3": 10500,
+      "box4": 0,
+      "box5": 10500,
+      "corrected": true
+    }
+  },
+  "blocked": [
+    {"id": "demo.ssa.fixture.n1.mismatch", "statement_ref": "demo.claim.n1", "box3": 1000, "box4": 100, "box5": 950},
+    {"id": "demo.ssa.fixture.n2.repayment-exceeds-benefit", "statement_ref": "demo.claim.n2", "box3": 500, "box4": 700, "box5": -200},
+    {"id": "demo.ssa.fixture.n3.rrb-statement", "statement_ref": "demo.claim.n3", "statement_kind": "rrb-1099", "box3": 1000, "box4": 0, "box5": 1000},
+    {"id": "demo.ssa.fixture.n4.other-taxpayer", "statement_ref": "demo.claim.n4", "subject": "dependent", "box3": 1000, "box4": 0, "box5": 1000},
+    {"id": "demo.ssa.fixture.n5.lump-sum-election", "statement_ref": "demo.claim.n5", "lump_sum_election": true, "box3": 1000, "box4": 0, "box5": 1000},
+    {"id": "demo.ssa.fixture.n6.positive-withholding", "statement_ref": "demo.claim.n6", "box6": 150, "box3": 1000, "box4": 0, "box5": 1000},
+    {"id": "demo.ssa.fixture.n7.open-closure", "statement_ref": "demo.claim.n7", "box3": 0, "box4": 0, "box5": 0, "closure": "absent"}
+  ]
+}
