@@ -1893,3 +1893,97 @@ Milestone stop condition 5 is **not** triggered: this settlement does not
 conclude that `ss-benefits-scope` should be renamed or generalized, and it edits
 no content owned by another milestone. No new fact type, bundle, or vocabulary is
 minted by T0-5.
+
+---
+
+### T0-6 — Schedule 1 Part II completeness and line 26 (settled)
+
+#### The finding that shapes this item: one vocabulary, not two
+
+The charter treats T0-5 (the MAGI base) and T0-6 (Part II completeness) as two
+boundaries. Read against the printed form they are almost the same boundary, and
+saying so exactly is what keeps this milestone small.
+
+```
+worksheet line 3  =  Schedule 1 lines 11–20, 23, 25          (twelve amount lines)
+Schedule 1 line 26 =  Schedule 1 lines 11–23 and 25
+                   =  those same twelve  +  line 21  +  line 22 (reserved, never an addend)
+```
+
+So Part II completeness requires **exactly the twelve absences T0-5 already
+requires**, plus the computed line 21, plus a disposition for line 22. There is
+**no second absence vocabulary to mint.** The T0-5 reuse decision therefore
+settles T0-6's vocabulary too, and the charter's "a Part II completeness
+vocabulary distinct from Part I" is satisfied by the twelve Part II absences
+being disjoint from `schedule1-part1-scope`'s ten Part I absences — which they
+are, by inspection of the two id sets.
+
+#### Line 26 as a citizen
+
+A new `computation` rule publishing `tax.us.2025.schedule1.line26-adjustments`:
+
+- `requires` — `tax.us.2025.schedule1.line21-student-loan-interest` **and** all
+  twelve Part II absences;
+- gate — `all(...)` over the twelve absences answering `yes`;
+- value — `ref(tax.us.2025.schedule1.line21-student-loan-interest)`;
+- citation — [F1040S1 p. 2] line 26, "Add lines 11 through 23 and 25. These are
+  your adjustments to income."
+
+This mirrors `rule.schedule1-line10.json` exactly, which likewise publishes a
+`ref` to its single supported contributor under an absence gate.
+
+**Why line 26 exists at all, given that it equals line 21 numerically.** Because
+Form 1040 line 10 is defined as "Adjustments to income from **Schedule 1,
+line 26**" [I1040GI p. 33; F1040 p. 1]. Publishing Form 1040 line 10 directly
+from line 21 would produce the right number through a citation chain the printed
+form does not have. The line-26 citizen is what makes the walk match the form.
+
+#### Line 22 — dispositioned as reserved, never as an absence
+
+[F1040S1 p. 2] prints line 22 as "Reserved for future use", and [I1040GI p. 99]
+states "Line 22 has been reserved for future use."
+
+Settled: **line 22 gets no fact type, no absence answer, and no addend.** A
+reserved line is not a line the taxpayer can have an amount on, so there is no
+question to ask; asking one would manufacture authority for a proposition with
+no content. Its disposition is recorded in the line-26 rule's `notes` and is
+visible in the citation, which is where a reader looking for "what happened to
+line 22" will look. This is the charter's requirement ("must be dispositioned as
+such, not as an absence answer") taken literally.
+
+#### Completeness is contributed, never inferred from closure
+
+The charter's warning is correct and is restated as a binding constraint.
+Track 0a fixed the Form 1098-E family's closure claim to cover **box 1 only**,
+in wording that says in terms that it says "nothing about Schedule 1 line 21 or
+line 26 completeness". Closure of the statement family proves the statement set
+is complete; it proves nothing about educator expenses or the HSA deduction.
+
+Concretely: none of the twelve Part II absences may be derived from
+`require_closed` on the Form 1098-E family, and the line-26 rule must not carry a
+`require_closed` on that family as a stand-in for Part II completeness. It gets
+its closure authority transitively through line 21, which is where the box-1
+family belongs.
+
+#### Part II is additive to Part I — verified, not assumed
+
+Track 0a's caution (its note 8 and the tail of T0-9) is honoured and the check
+was run rather than inherited. The two parts are structurally disjoint at this
+base:
+
+| | Part I | Part II |
+| --- | --- | --- |
+| Total symbol | `tax.us.2025.schedule1.line10-additional-income` | `tax.us.2025.schedule1.line26-adjustments` (new) |
+| Consumed by | `rule.form1040-line8` → `income.additional-income` → the SS worksheet | Form 1040 line 10 (new, T0-8) |
+| Absence vocabulary | `schedule1-part1-scope` (ten) | `ss-benefits-scope`, twelve of its members (T0-5) |
+
+**Nothing in this settlement renames, re-versions, re-points, or republishes
+`tax.us.2025.schedule1.line10-additional-income`, and nothing consumes it.** The
+cycle Track 0a ruled out stays ruled out. Milestone stop condition 6 is not
+triggered and the escalation this unit was warned about does not fire.
+
+#### Charter-stop check for this item
+
+No new generic substrate: line 26 is one more rule citizen of the shape already
+committed for line 10, using operators that already exist. No new ADR. Stop
+conditions 1, 2, and 6 are not triggered.
