@@ -472,10 +472,9 @@ All committed values use synthetic labels and ids only.
    integration order, and ADR disposition. No prototype unless a genuine
    architecture choice remains.
 2. `Track 1: SSA-1099 source family and closure` — one atomic implementation
-   commit after Track 0 ratification; implementation commit `11e9cda`.
+   commit after Track 0 ratification.
 3. `Track 2: worksheet, line 6a/6b, downstream and presentation` — one atomic
-   implementation commit after Track 1 and upstream income integration;
-   implementation commit `15a18e6`.
+   implementation commit after Track 1 and upstream income integration.
 4. Independent final review, one findings-only repair cycle if needed, and
    curated closeout are folded into the owning track and milestone PR; no
    track, review, repair, or cleanup gets its own PR.
