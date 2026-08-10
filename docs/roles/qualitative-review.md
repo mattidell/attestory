@@ -1,12 +1,15 @@
 # Qualitative Review Standard
 
-Audience: Reviewers and Foremen chartering review.
+Audience: Reviewers and Foremen applying the qualitative standard.
 
 This is the project's living method for qualitative review. It complements a
 review charter: the charter defines the object, scope, and required checks;
 this document defines the questions a Reviewer brings to every object. Reviewer
 posture and execution disciplines remain in `docs/roles/reviewer.md`; short
 earned heuristics remain in `docs/roles/craft-notes.md`.
+
+`PROJECT_PLANNING.md`, "Track 0 Adversarial Closure Gate," turns the applicable
+questions below into mandatory in-plan evidence before implementation.
 
 ## How this document changes
 

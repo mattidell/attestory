@@ -14,7 +14,7 @@ Two things are specific to being a spawned agent rather than an owner-launched
 thread:
 
 - **Orient from committed sources only:**
-  `python3 tools/build_orientation_block.py --ref main --role reviewer`.
+  `python3 tools/build_orientation_block.py --ref HEAD --role reviewer`.
   Verify the printed commit SHA, and confirm the block's current role is the
   review task you were asked to pick up — else stop and report. Whatever the
   dispatching thread told you about the builder's reasoning is not evidence.

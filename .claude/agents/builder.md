@@ -15,6 +15,6 @@ thread:
 
 - **If your dispatch already includes an Orientation Block, do not regenerate
   it.** Verify its commit SHA against Git and use it. Otherwise pull your own:
-  `python3 tools/build_orientation_block.py --ref main`.
+  `python3 tools/build_orientation_block.py --ref HEAD`.
 - **You cannot spawn sub-agents.** If the work appears to need one, that is a
   charter-stop finding to escalate.
