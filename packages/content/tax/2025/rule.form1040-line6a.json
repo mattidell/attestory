@@ -1,0 +1,41 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ssa1099.benefits.box5-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-6a",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line6a",
+  "notes": "Form 1040 line 6a equals the closed ordinary SSA-1099 box-5 family subtotal (W1).",
+  "pins": [
+    {
+      "id": "tax.us.2025.ssa1099.benefits.box5-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.social-security.line6a",
+  "requires": [
+    "tax.us.2025.ssa1099.benefits.box5-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.ssa1099.benefits.box5-subtotal",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": true
+}

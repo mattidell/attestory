@@ -1,0 +1,606 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No unsupported Form 1040 line 1 entries beyond closed W-2 wages (line 1a) are present for the bounded Social Security worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Form 1040 line 5b taxable pensions and annuities are present for the bounded Social Security worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No traditional IRA contribution deduction coordinated with workplace-plan coverage is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-form-2555",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Form 2555 foreign earned income is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-form-4563",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Form 4563 exclusion of income for bona fide residents of American Samoa is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-form-8815",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Form 8815 exclusion of interest from series EE and I U.S. savings bonds is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No employer-provided adoption benefits excluded from income are present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No income of bona fide residents of Puerto Rico or American Samoa is present for the bounded standard Social Security Benefits Worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-schedule1-line24z-writein",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 24z write-in adjustment that must be figured before the Social Security Benefits Worksheet is present. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line11-educator",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 11 educator expenses adjustment is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line12-business-expenses",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 12 certain business expenses of reservists, performing artists, and fee-basis government officials is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line13-hsa",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 13 health savings account deduction is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line14-moving",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 14 moving expenses for members of the Armed Forces is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line15-deductible-se",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 15 deductible part of self-employment tax is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line16-se-retirement",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 16 self-employed SEP, SIMPLE, and qualified plans is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line17-se-health",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 17 self-employed health insurance deduction is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line18-penalty",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 18 penalty on early withdrawal of savings is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line19-alimony-paid",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 19 alimony paid is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line20-ira-deduction",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 20 IRA deduction is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line23-archer-msa",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 23 Archer MSA deduction is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line25-other-adjustments",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No Schedule 1 line 25 other adjustments is present for the bounded worksheet claim. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No prior-year lump-sum Social Security election method is used for the bounded ordinary benefits class. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Social Security Benefits Worksheet completeness component: No RRB-1099, SSA-1042S, or foreign social-benefit statement is present for the bounded ordinary SSA-1099 class. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.ss-benefits-scope.vocabulary",
+  "label": "SSA benefits worksheet eligibility and Schedule 1 adjustment absence authorities for 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/quantity-vocabulary.v12",
+  "title": "Tax quantity vocabulary, social-security benefits added",
+  "description": "Immutable, versioned closed vocabulary for quantity identities used by the bounded 2025 SSA-1099 benefits route. v1-v11 remain immutable history.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "quantity-vocabulary.v12"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "quantities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "capital-gain-distributions",
+          "covered-lt-basis",
+          "covered-lt-proceeds",
+          "covered-ltcg-basis",
+          "covered-ltcg-proceeds",
+          "covered-st-basis",
+          "covered-st-proceeds",
+          "exempt-interest-dividends",
+          "foreign-tax-paid",
+          "income-tax",
+          "ira-distributions",
+          "ordinary-dividends",
+          "qualified-dividends",
+          "social-security-benefits",
+          "standard-deduction",
+          "tax-exempt-interest",
+          "taxable-income",
+          "taxable-interest",
+          "unemployment-compensation",
+          "wages"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "quantities"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,48 @@
+{
+  "id": "demo.parameter.ss-benefits-half-rate.2025",
+  "schema": "parameter-declaration.v1",
+  "scope": {
+    "effective_from": "2025-01-01",
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "values": {
+    "head_of_household": [
+      {
+        "lower": "0",
+        "rate": "0.5",
+        "upper": null
+      }
+    ],
+    "married_filing_jointly": [
+      {
+        "lower": "0",
+        "rate": "0.5",
+        "upper": null
+      }
+    ],
+    "married_filing_separately": [
+      {
+        "lower": "0",
+        "rate": "0.5",
+        "upper": null
+      }
+    ],
+    "qualifying_surviving_spouse": [
+      {
+        "lower": "0",
+        "rate": "0.5",
+        "upper": null
+      }
+    ],
+    "single": [
+      {
+        "lower": "0",
+        "rate": "0.5",
+        "upper": null
+      }
+    ]
+  },
+  "version": "v1"
+}

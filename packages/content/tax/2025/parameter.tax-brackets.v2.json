@@ -1,0 +1,98 @@
+{
+  "id": "demo.parameter.tax-brackets.2025",
+  "schema": "parameter-declaration.v1",
+  "scope": {
+    "effective_from": "2025-01-01",
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "values": {
+    "head_of_household": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "16550"
+      },
+      {
+        "lower": "16550",
+        "rate": "0.12",
+        "upper": "63100"
+      },
+      {
+        "lower": "63100",
+        "rate": "0.22",
+        "upper": null
+      }
+    ],
+    "married_filing_jointly": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "23200"
+      },
+      {
+        "lower": "23200",
+        "rate": "0.12",
+        "upper": "94300"
+      },
+      {
+        "lower": "94300",
+        "rate": "0.22",
+        "upper": null
+      }
+    ],
+    "married_filing_separately": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "11600"
+      },
+      {
+        "lower": "11600",
+        "rate": "0.12",
+        "upper": "47150"
+      },
+      {
+        "lower": "47150",
+        "rate": "0.22",
+        "upper": null
+      }
+    ],
+    "qualifying_surviving_spouse": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "23200"
+      },
+      {
+        "lower": "23200",
+        "rate": "0.12",
+        "upper": "94300"
+      },
+      {
+        "lower": "94300",
+        "rate": "0.22",
+        "upper": null
+      }
+    ],
+    "single": [
+      {
+        "lower": "0",
+        "rate": "0.10",
+        "upper": "11600"
+      },
+      {
+        "lower": "11600",
+        "rate": "0.12",
+        "upper": "47150"
+      },
+      {
+        "lower": "47150",
+        "rate": "0.22",
+        "upper": null
+      }
+    ]
+  },
+  "version": "v2"
+}

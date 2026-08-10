@@ -3,8 +3,8 @@
   "version": 1,
   "topic": "ssa1099-benefits-line6",
   "active_plan": "docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md",
-  "milestone_state": "planned",
-  "status": "PLAN COMMITTED. Track 0 is a paper-first scope checkpoint; Track 1 and Track 2 owner-launch charters are prepared.",
+  "milestone_state": "track-2",
+  "status": "CURATED CANDIDATE. Track 1, Track 2, and the findings-only verification repair are complete; final independent review and CI must bind the exact curated head.",
   "source_ref": "origin/main",
   "source_commit": "9cecf30ea7eca62aefe2462620ea063345e72cae",
   "scope": [
@@ -104,7 +104,8 @@ Publication 915, or full Form 1040 support.
   `9cecf30ea7eca62aefe2462620ea063345e72cae` after the rebase. The base now
   includes the merged IRA line-4b milestone and its successor package graph;
   that upstream route is an integration prerequisite, not SSA scope.
-- Milestone branch: `milestone/form1040-ssa1099-line6`.
+- Milestone branch: `milestone/form1040-ssa1099-line6-local` (curated
+  candidate; the original milestone branch remains the planning lineage).
 - Dedicated clean worktree separate from every active milestone worktree.
 - The prior Form 1099-DIV box-12 milestone is closed on the base. Draft PR
   #161, `milestone/schedule-d-form8949-covered-wash-sale`, is active in a
@@ -194,9 +195,24 @@ Track 0 must classify the whole ordinary SSA-1099 statement surface:
 | Box 4, benefits repaid to SSA in 2025 | Required authority | Reconcile to box 5; decide whether any statement-level excess blocks before aggregation. |
 | Box 5, net benefits | Required authority and line-6a source | Publish only when box 3 minus box 4 matches exactly and the accepted nonnegative boundary holds. |
 | Box 6, voluntary federal income tax withheld | Guarded exclusion by default | Require absent/zero unless an already complete withholding path is deliberately adopted. |
-| Box 8, claim number | Required identity authority | Use it as a logical statement discriminator only through the accepted statement-instance contract; never use evidence identity. |
+| Box 8, claim number | Required identity authority in production; deferred (not implemented) in this synthetic-only milestone | Use it as a logical statement discriminator only through the accepted statement-instance contract; never use evidence identity. |
 | Box 3/4 descriptions and adjustment rows | Required guards where they alter eligibility; otherwise irrelevant to the bounded calculation | Explicitly disposition Medicare premiums, workers' compensation, disability, paid-to-another-family-member, attorney fees, work/overpayment adjustments, offsets, pre-1983 payments, lump-sum death payments, refunds, and other nontaxable payments. Box 5 remains the authoritative net amount, but unsupported descriptions cannot be silently ignored when they change who owns or how much of the benefit is taxable. |
 | Missing/reserved box numbers, layout, scan, or upload metadata | Irrelevant to this computation | Never enter fact identity or authority. |
+
+**Deferred obligation — box 8 claim-based statement identity (owner ruling,
+2026-08-09).** This milestone is synthetic-only: no furnished statement exists
+to derive a claim number from, so implementing box-8-keyed identity now would
+itself be synthetic. Deterministic claim-based statement-identity minting is
+**not implemented**. Statement sameness is delegated to whatever mints entity
+ids (test fixtures mint `f"demo.ssa.statement.{index}"` by list position; no
+artifact in this milestone specifies a production minting policy). This is
+carried forward, not silently dropped: it is a named, findable obligation for
+the first real-entry milestone that furnishes actual SSA-1099 statements. Note
+that sameness is nonetheless *enforced* today — the kernel's duplicate guard
+(`packages/kernel/facts.py:109-110`, `entity already exists`) rejects a repeat
+entity id unconditionally over all ids ever introduced, not only ids currently
+standing. What remains open is the *derivation* of a production entity id from
+a claim number, not the enforcement of its uniqueness once minted.
 
 The minimum proposed source authority is tax year, logical statement/claim
 identity, beneficiary identity, correction state, boxes 3/4/5, box-6
@@ -306,6 +322,61 @@ Current-base component inventory:
 | line 2a | Merged tax-exempt-interest successors, including the selected Form 1099-INT box-8 route | Include in W4 and keep excluded from line 9; consume the final selected line-2a result once. |
 | Schedule 1 adjustments | Schedule 1 income routes exist, but no worksheet-named adjustment families are supported | Use precise absence authorities for lines 11–20, 23, 25 and line 24z eligibility; do not treat Schedule 1 income or line 9 as an adjustment shortcut. |
 
+## Ratified decision — statement identity (owner, 2026-08-09)
+
+The SSA-1099 fact-identity key is **logical statement + tax year**. Payer is
+not part of the key, and the alternative payer-bearing shape considered on a
+comparative branch is rejected.
+
+Rationale, in the owner's terms: the `statement` entity represents one
+logical furnished SSA-1099 and is peer to evidence; it must be
+deterministically claim/statement-based and never upload- or file-based. SSA
+is the single issuer for this admitted ordinary SSA-1099 class, so payer
+would be degenerate and would not distinguish any two admissible facts.
+Return/workspace scope supplies taxpayer context. Recipient is a correctable
+companion fact and eligibility authority, not a statement individuator:
+correcting the recipient does not turn the same furnished statement into a
+different statement.
+
+This is milestone-specific. It does **not** generalize ADR-0015 (which keys
+Form 1099-INT statement identity on payer, tax year, and payer's own
+statement reference, because 1099-INT has many issuers and multiple returns
+per payer/account must not collide) beyond Form 1099-INT, and this milestone
+does not edit ADR-0015.
+
+At the production admission boundary, this decision is already how the
+vocabulary is shaped: every SSA-1099 fact type in
+`packages/content/tax/2025/ssa1099.bundle.v2.json` declares identity keys
+`{entity_kind: tax.us.ssa1099-statement}` plus the `tax-year` literal — no
+payer key. The admitted `tax.us.ssa1099-statement` entity is itself the
+logical-statement individuator (`packages/kernel/facts.py` renders one fact
+id per current entity of that kind, per the fact type's declared identity
+keys), so a distinct entity is a distinct statement, a repeat assertion
+against the same entity's fact id is a correction (the fact types' `free`
+supersession policy makes the last-inserted finding for a fact id current),
+and re-introducing an entity id is rejected by the kernel's `entity already
+exists` check (`packages/kernel/facts.py:109-110`) — a duplicate-identity
+guard grounded in entity individuation rather than a payer/reference
+comparison. This guard is stronger than "already-current": it rejects a
+repeat id unconditionally over every entity id ever introduced in the
+workspace, current or superseded, not only ids presently standing.
+
+### Citation coverage record
+
+`rule.ssa1099-benefits-subtotal.json` cites the four SSA-1099 amount boxes it
+consumes (box 3, box 4, box 5, box 6). Under ADR-0029 decision 3, a rule
+artifact's citation pins are an **optional**, explanatory array that must not
+alter `when`, `value`, `publishes`, blocking, or form-field dispositions —
+never a mandatory per-fact requirement. Statement-kind and lump-sum-election
+are eligibility/guard witnesses, not consumed amounts, and — consistent with
+every other guard fact in this milestone (recipient, the MFS living-arrangement
+fact, and all twenty-three `SCOPE_TOKENS` absence declarations) — carry no
+citation pin of their own. Adding citations for only these two guard facts
+while leaving the others uncited would be an inconsistent, speculative
+addition, which this milestone's evidence bar forbids. No new citation
+artifact is added; existing box 3/4/5/6 coverage is unchanged and sufficient
+under the accepted contract.
+
 ## Source-family closure and lifecycle contract
 
 The source family must claim exactly the admitted ordinary SSA-1099 universe,
@@ -313,15 +384,20 @@ not “all Social Security” or “all equivalent benefits.” Its mapping, sub
 closure, horizon, explanation, and worksheet consumer must pin the same family
 declaration. A closed-empty family may publish line 6a zero only with current
 closure on the current family horizon and the complete exception/absence
-authority. A late member advances the horizon and displaces prior closure and
-downstream findings. A same-statement correction preserves logical identity and
+authority. A late member advances the horizon and invalidates a prior
+closure-backed empty result and its downstream findings. Present-source
+aggregation of current members remains valid without reclosure; a new closure
+is required only to publish a new closed-empty zero (and any closure-dependent
+downstream result). A same-statement correction preserves logical identity and
 supersedes the old value; a distinct statement remains a distinct member.
 
 Joint-return aggregation is over the authoritative taxpayer and spouse
 subjects, including a negative/positive interaction only if Track 0 elects to
 support it; the starting proposed class rejects negative box 5. A statement
-for another person, a duplicate identity, a stale correction, or a late member
-without a new closure blocks rather than disappearing.
+for another person, a duplicate identity, or a stale correction blocks rather
+than disappearing. A late present member is aggregated on the current source
+path without a new closure; the closed-empty path remains blocked until
+reclosure.
 
 ## Scope and non-goals
 
@@ -396,19 +472,18 @@ All committed values use synthetic labels and ids only.
    integration order, and ADR disposition. No prototype unless a genuine
    architecture choice remains.
 2. `Track 1: SSA-1099 source family and closure` — one atomic implementation
-   commit after Track 0 ratification. The committed owner-launch charter is
-   `docs/reviews/charter-2026-08-04-ssa1099-line6-track1.md`.
+   commit after Track 0 ratification; implementation commit `11e9cda`.
 3. `Track 2: worksheet, line 6a/6b, downstream and presentation` — one atomic
-   implementation commit after Track 1 and upstream income integration. The
-   committed owner-launch charter is
-   `docs/reviews/charter-2026-08-04-ssa1099-line6-track2.md`.
+   implementation commit after Track 1 and upstream income integration;
+   implementation commit `15a18e6`.
 4. Independent final review, one findings-only repair cycle if needed, and
    curated closeout are folded into the owning track and milestone PR; no
    track, review, repair, or cleanup gets its own PR.
 
-The planning commit contains this plan, the phase/roadmap/frontier selection,
-and the owner-launch charters. It contains no implementation and no future
-version allocations. The milestone has one branch and one draft-to-final PR.
+The planning commit contained this plan, the phase/roadmap/frontier selection,
+and the owner-launch charters. Those working charters and interim review
+records are removed during final curation. The milestone has one branch and
+one draft-to-final PR.
 
 ## Stop conditions
 
