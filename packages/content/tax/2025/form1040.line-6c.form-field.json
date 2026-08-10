@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.social-security.line6c-indicator",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-6c",
+    "version": "v1"
+  },
+  "description": "Lump-sum election checkbox disposition for the ordinary supported class.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "line 6c is blocked because a worksheet or source dependency is incomplete",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "closure-backed zero for Form 1040 line 6c",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "computed zero for Form 1040 line 6c",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "line 6c disposition is inapplicable for the current class",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "Ordinary supported class: lump-sum election is explicitly not elected / inapplicable.",
+      "render": "not_elected"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-6c",
+  "label": "Lump-sum election",
+  "line": "6c",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

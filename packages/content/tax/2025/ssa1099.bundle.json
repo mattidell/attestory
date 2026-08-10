@@ -1,0 +1,192 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.ssa1099.box3-workers-comp",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.ssa1099-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.social-security-benefits",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Box 3 (Benefits for 2025) on one logical 2025 Form SSA-1099 statement; identity is statement instance and year.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ssa1099.box4-repayment",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.ssa1099-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.social-security-benefits",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Box 4 (Benefits repaid to SSA in 2025) on the same logical 2025 Form SSA-1099 statement.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ssa1099.box5-net-benefits",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.ssa1099-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.social-security-benefits",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Box 5 (Net benefits for 2025) on the same logical 2025 Form SSA-1099 statement; must exactly equal box 3 minus box 4, and be nonnegative.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ssa1099.box6-withholding",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.ssa1099-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Box 6 (Voluntary federal income tax withheld) on the same logical 2025 Form SSA-1099 statement; restricted to exactly 0 (withholding not supported).",
+      "value_schema": {
+        "const": 0
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ssa1099.recipient",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.ssa1099-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Recipient identity (taxpayer or spouse) for the logical 2025 Form SSA-1099 statement.",
+      "value_schema": {
+        "enum": [
+          "taxpayer",
+          "spouse"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ssa1099.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Affirmative closure of the exact 2025 Form SSA-1099 source family at the current membership horizon.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.ssa1099.vocabulary",
+  "label": "Form SSA-1099 benefits source vocabulary for tax year 2025",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

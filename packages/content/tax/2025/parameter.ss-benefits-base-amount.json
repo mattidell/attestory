@@ -1,0 +1,18 @@
+{
+  "id": "demo.parameter.ss-benefits-base-amount.2025",
+  "schema": "parameter-declaration.v1",
+  "scope": {
+    "effective_from": "2025-01-01",
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "values": {
+    "head_of_household": "25000",
+    "married_filing_jointly": "32000",
+    "married_filing_separately": "25000",
+    "qualifying_surviving_spouse": "25000",
+    "single": "25000"
+  },
+  "version": "v1"
+}

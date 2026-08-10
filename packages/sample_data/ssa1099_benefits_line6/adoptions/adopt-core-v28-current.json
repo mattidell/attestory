@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v28",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-09T18:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic SSA-1099 Track 2 repair: full filing-status tax brackets and line 6d not-checked presentation binding; non-authoritative"
+    },
+    "package": {
+      "checksum": "6242a1b212bfbe85ab13f2f6d83bcb7697e2c629ecfbfb9f27c2c03fe63ec98b",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v28"
+    },
+    "release": {
+      "checksum": "d245556544f95e507904ea9c1abe30b4da7a5714c8e721833bd2b9ca2515bee2",
+      "id": "demo.release.2025",
+      "version": "v21"
+    },
+    "revision": 28,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v27"
+  },
+  "schema": "act.v1"
+}

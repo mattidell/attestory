@@ -2,13 +2,13 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "form1099r-ira-distributions-line4b",
-  "active_plan": "docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md",
+  "topic": "ssa1099-benefits-line6",
+  "active_plan": "docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md",
   "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / FULLY TAXABLE IRA DISTRIBUTIONS TO FORM 1040 LINE 4b — CURATED CANDIDATE.** Track 1 and Track 2 are complete; final independent review and CI must bind the exact pushed head.",
+  "status": "**ENGINE BREADTH / 2025 SSA-1099 BENEFITS TO FORM 1040 LINES 6a/6b — CLOSED OUT, PR OPEN.** The bounded SSA-1099 route is implemented through lines 6a/6b, line 9, AGI, taxable income, regular tax, package resolution, explanation, citations, and production-shaped presentation. Box 8 claim-based identity minting is deferred by owner ruling and recorded in the plan as a named obligation for the first real-entry milestone.",
   "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md",
-  "current_role": "Reviewer (curated final range)",
-  "current_prompt": "docs/reviews/2026-08-08-form1099r-ira-line4b-curated-final-review-charter.md"
+  "current_role": "Foreman (milestone closed out, PR open)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md"
 }
 -->
 # Phase State
@@ -23,35 +23,38 @@ The engine computes the closed Engine Breadth synthetic routes through Form
 1099-DIV box 2a and box 12, Schedule K-1 box-5 interest, market-discount
 interest, Schedule B adjustments, covered Form 1099-B capital paths including
 inbound carryovers and Form 8949 wash-sale (code W) lines 1b/8b, Form 1099-INT
-box 8 tax-exempt interest on line 2a, Form 1099-G box-1 unemployment
-compensation through Schedule 1 into Form 1040 line 8, and the bounded Form
-1099-DIV box-7 direct foreign tax credit without Form 1116 through Schedule 3
-line 1/8 and Form 1040 line 20. The selected next milestone is the bounded
-fully taxable IRA-family distribution route from Form 1099-R to Form 1040 line
-4b; line 4a remains blank/absent for this class and basis, rollovers, and
-special distribution treatment remain outside the claim.
+box 8 tax-exempt interest on line 2a, Form 1099-G box-1 unemployment through
+Schedule 1 into Form 1040 line 8, the bounded Form 1099-DIV box-7 direct
+foreign tax credit, the merged IRA line-4b route, and the bounded SSA-1099
+Benefits Worksheet route through Form 1040 lines 6a/6b.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** Fully Taxable IRA Distributions from Form 1099-R to
-  Form 1040 Line 4b — curated candidate after Track 1 and Track 2 completion,
-  awaiting final independent review and CI.
-  Concurrent work remains isolated: the wash-sale work is merged as PR #161,
-  and the owner-launched SSA/Form 1040 line-6 work remains on its separate
-  branch and draft PR #163; neither is part of this milestone.
-* **Current result:** the bounded IRA-family route is implemented through line
-  4b, line 9, AGI, taxable income, regular tax, package resolution,
+* **Active milestone:** 2025 SSA-1099 Benefits through the Social Security
+  Benefits Worksheet and Form 1040 lines 6a/6b — complete and closed out to
+  three durable commits plus closeout, open as a PR.
+* **Current result:** the bounded SSA-1099 route is implemented through lines
+  6a/6b, line 9, AGI, taxable income, regular tax, package resolution,
   explanation, citations, and production-shaped presentation. The current
-  package graph is core **v26**, published **v21**, release **v19**, adoption
-  **v26**, with exact entrypoints gated by artifact-package **v20**.
-* **Plan:** `docs/phases/engine-breadth/milestones/form1099r-ira-distributions-line4b.md`.
-* **Final review charter:**
-  `docs/reviews/2026-08-08-form1099r-ira-line4b-curated-final-review-charter.md`.
-* **Prior closed (selected pointers):** Form 1099-G plan/retrospective remain
-  on the ratified line; this phase-state points at the just-closed box-7 plan.
-* **Contracts:** plan IRA-C1–C4; no new ADR.
-* **Next:** obtain an independent verdict on the exact curated head, then run
-  the repository verify check before marking PR #162 ready.
+  package graph is core **v28**, published **v23**, release **v21**, adoption
+  **v28**, with the artifact-package successor and quantity-vocabulary schema
+  admitted additively.
+* **Plan:** `docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md`.
+* **Prior closed (selected pointers):** the merged IRA line-4b route is an
+  integration prerequisite for this SSA candidate; unrelated active work stays
+  isolated on its own branch.
+* **Contracts:** SSA Track 0 paper boundary and the reused source-family,
+  closure, composition, resolver, citation, explanation, and presentation
+  contracts; no new ADR. Statement identity is **logical statement + tax year**
+  by owner decision of 2026-08-09 — milestone-scoped, and explicitly not a
+  generalization of ADR-0015 beyond Form 1099-INT.
+* **Next:** merge the PR, then select the next Engine Breadth milestone.
+* **Deferred obligation:** deterministic claim-based statement-identity minting
+  is not implemented. Statement sameness is enforced by the kernel's
+  duplicate-entity guard but its derivation is delegated to whatever mints
+  entity ids, and no artifact specifies that policy. Owner deferred Box 8
+  claim-number authority on 2026-08-09; carry to the first real-entry
+  milestone.
 
 ## Re-entry
 

@@ -1,0 +1,29 @@
+{
+  "act_id": "demo.act.adopt.core.v27",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-09T12:00:00Z",
+  "committed_against": 1,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic SSA-1099 benefits line 6a/6b worksheet successor adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "97f70629cf05307b7ba754d178cdd37d071d3f258e6a890a535b17f077e8092a",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v27"
+    },
+    "release": {
+      "checksum": "7fefe9324e4428c235e6dd86ecbfccdf2804dcb32a494c6152926f12cce0842b",
+      "id": "demo.release.2025",
+      "version": "v20"
+    },
+    "revision": 27,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    },
+    "supersedes": "demo.act.adopt.core.v26"
+  },
+  "schema": "act.v1"
+}

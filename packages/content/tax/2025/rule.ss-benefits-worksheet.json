@@ -1,0 +1,2578 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+      "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+      "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+      "tax.us.2025.ss-benefits-scope.no-form-2555",
+      "tax.us.2025.ss-benefits-scope.no-form-4563",
+      "tax.us.2025.ss-benefits-scope.no-form-8815",
+      "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+      "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+      "tax.us.2025.ss-benefits-scope.no-schedule1-line24z-writein",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line11-educator",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line12-business-expenses",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line13-hsa",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line14-moving",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line15-deductible-se",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line16-se-retirement",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line17-se-health",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line18-penalty",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line19-alimony-paid",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line20-ira-deduction",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line23-archer-msa",
+      "tax.us.2025.ss-benefits-scope.no-sch1-line25-other-adjustments",
+      "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+      "tax.us.2025.ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+      "tax.us.2025.wages.total-w2-box1",
+      "tax.us.2025.interest.taxable-total",
+      "tax.us.2025.dividends.ordinary-total",
+      "tax.us.2025.ira.distributions.line4b",
+      "tax.us.2025.capital-gains.line7a-total",
+      "tax.us.2025.income.additional-income",
+      "tax.us.2025.tax-exempt-interest.line2a-total",
+      "tax.us.2025.social-security.line6a",
+      "filing_status",
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.ss-benefits-worksheet",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-6b",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.ss-benefits-worksheet",
+  "notes": "2025 Form 1040 Social Security Benefits Worksheet (keep for your records), lines W1\u2013W18. Component-level pins for lines 1z (bounded wages), 2b, 3b, 4b, 5b (absent), 7a, 8, 2a, and named Schedule 1 adjustments (all absent). Never reads line 9, AGI, taxable income, or a result containing line 6b. MFS living arrangement is required only for married filing separately and is never inferred from filing status. Half and 85% rates use bracket_fold over rate parameters; min uses choose. Rounding uses the project convention.",
+  "pins": [
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-form-2555",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-form-4563",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-form-8815",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-schedule1-line24z-writein",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line11-educator",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line12-business-expenses",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line13-hsa",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line14-moving",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line15-deductible-se",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line16-se-retirement",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line17-se-health",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line18-penalty",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line19-alimony-paid",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line20-ira-deduction",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line23-archer-msa",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-sch1-line25-other-adjustments",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.wages.total-w2-box1",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.taxable-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.dividends.ordinary-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.ira.distributions.line4b",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.capital-gains.line7a-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.income.additional-income",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.tax-exempt-interest.line2a-total",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.social-security.line6a",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.filing-status",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "demo.parameter.ss-benefits-half-rate.2025",
+      "role": "parameter",
+      "version": "v1"
+    },
+    {
+      "id": "demo.parameter.ss-benefits-85-rate.2025",
+      "role": "parameter",
+      "version": "v1"
+    },
+    {
+      "id": "demo.parameter.ss-benefits-base-amount.2025",
+      "role": "parameter",
+      "version": "v1"
+    },
+    {
+      "id": "demo.parameter.ss-benefits-second-tier.2025",
+      "role": "parameter",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.social-security.line6b",
+  "requires": [
+    "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+    "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+    "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+    "tax.us.2025.ss-benefits-scope.no-form-2555",
+    "tax.us.2025.ss-benefits-scope.no-form-4563",
+    "tax.us.2025.ss-benefits-scope.no-form-8815",
+    "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+    "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+    "tax.us.2025.ss-benefits-scope.no-schedule1-line24z-writein",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line11-educator",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line12-business-expenses",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line13-hsa",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line14-moving",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line15-deductible-se",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line16-se-retirement",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line17-se-health",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line18-penalty",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line19-alimony-paid",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line20-ira-deduction",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line23-archer-msa",
+    "tax.us.2025.ss-benefits-scope.no-sch1-line25-other-adjustments",
+    "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+    "tax.us.2025.ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+    "tax.us.2025.wages.total-w2-box1",
+    "tax.us.2025.interest.taxable-total",
+    "tax.us.2025.dividends.ordinary-total",
+    "tax.us.2025.ira.distributions.line4b",
+    "tax.us.2025.capital-gains.line7a-total",
+    "tax.us.2025.income.additional-income",
+    "tax.us.2025.tax-exempt-interest.line2a-total",
+    "tax.us.2025.social-security.line6a",
+    "filing_status",
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "else": {
+        "key": {
+          "name": "filing_status",
+          "op": "ref"
+        },
+        "op": "bracket_fold",
+        "table_id": "demo.parameter.ss-benefits-85-rate.2025",
+        "value": {
+          "name": "tax.us.2025.social-security.line6a",
+          "op": "ref"
+        }
+      },
+      "op": "choose",
+      "then": {
+        "args": [
+          {
+            "else": {
+              "key": {
+                "name": "filing_status",
+                "op": "ref"
+              },
+              "op": "bracket_fold",
+              "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+              "value": {
+                "else": {
+                  "else": {
+                    "key": {
+                      "name": "filing_status",
+                      "op": "ref"
+                    },
+                    "op": "parameter",
+                    "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                  },
+                  "op": "choose",
+                  "then": {
+                    "else": 0,
+                    "op": "choose",
+                    "then": 9000,
+                    "when": {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "tax.us.2025.mfs-lived-apart-all-year",
+                        "op": "ref"
+                      },
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.mfs-lived-apart-all-year",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "yes"
+                      }
+                    }
+                  },
+                  "when": {
+                    "cmp": "eq",
+                    "left": {
+                      "name": "filing_status",
+                      "op": "ref"
+                    },
+                    "op": "categorical_compare",
+                    "right": {
+                      "fact_type": {
+                        "id": "tax.us.2025.filing-status",
+                        "version": "v1"
+                      },
+                      "op": "category_literal",
+                      "value": "married_filing_separately"
+                    }
+                  }
+                },
+                "op": "choose",
+                "then": {
+                  "args": [
+                    {
+                      "left": {
+                        "args": [
+                          {
+                            "left": {
+                              "args": [
+                                {
+                                  "key": {
+                                    "name": "filing_status",
+                                    "op": "ref"
+                                  },
+                                  "op": "bracket_fold",
+                                  "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                  "value": {
+                                    "name": "tax.us.2025.social-security.line6a",
+                                    "op": "ref"
+                                  }
+                                },
+                                {
+                                  "args": [
+                                    {
+                                      "name": "tax.us.2025.wages.total-w2-box1",
+                                      "op": "ref"
+                                    },
+                                    {
+                                      "name": "tax.us.2025.interest.taxable-total",
+                                      "op": "ref"
+                                    },
+                                    {
+                                      "name": "tax.us.2025.dividends.ordinary-total",
+                                      "op": "ref"
+                                    },
+                                    {
+                                      "name": "tax.us.2025.ira.distributions.line4b",
+                                      "op": "ref"
+                                    },
+                                    0,
+                                    {
+                                      "name": "tax.us.2025.capital-gains.line7a-total",
+                                      "op": "ref"
+                                    },
+                                    {
+                                      "name": "tax.us.2025.income.additional-income",
+                                      "op": "ref"
+                                    }
+                                  ],
+                                  "op": "add"
+                                },
+                                {
+                                  "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                  "op": "ref"
+                                }
+                              ],
+                              "op": "add"
+                            },
+                            "op": "subtract",
+                            "right": 0
+                          },
+                          0
+                        ],
+                        "op": "max"
+                      },
+                      "op": "subtract",
+                      "right": {
+                        "else": {
+                          "key": {
+                            "name": "filing_status",
+                            "op": "ref"
+                          },
+                          "op": "parameter",
+                          "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                        },
+                        "op": "choose",
+                        "then": {
+                          "else": 0,
+                          "op": "choose",
+                          "then": 25000,
+                          "when": {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.mfs-lived-apart-all-year",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          }
+                        },
+                        "when": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "filing_status",
+                            "op": "ref"
+                          },
+                          "op": "categorical_compare",
+                          "right": {
+                            "fact_type": {
+                              "id": "tax.us.2025.filing-status",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "married_filing_separately"
+                          }
+                        }
+                      }
+                    },
+                    0
+                  ],
+                  "op": "max"
+                },
+                "when": {
+                  "cmp": "lte",
+                  "left": {
+                    "args": [
+                      {
+                        "left": {
+                          "args": [
+                            {
+                              "left": {
+                                "args": [
+                                  {
+                                    "key": {
+                                      "name": "filing_status",
+                                      "op": "ref"
+                                    },
+                                    "op": "bracket_fold",
+                                    "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                    "value": {
+                                      "name": "tax.us.2025.social-security.line6a",
+                                      "op": "ref"
+                                    }
+                                  },
+                                  {
+                                    "args": [
+                                      {
+                                        "name": "tax.us.2025.wages.total-w2-box1",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.interest.taxable-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.dividends.ordinary-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.ira.distributions.line4b",
+                                        "op": "ref"
+                                      },
+                                      0,
+                                      {
+                                        "name": "tax.us.2025.capital-gains.line7a-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.income.additional-income",
+                                        "op": "ref"
+                                      }
+                                    ],
+                                    "op": "add"
+                                  },
+                                  {
+                                    "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                    "op": "ref"
+                                  }
+                                ],
+                                "op": "add"
+                              },
+                              "op": "subtract",
+                              "right": 0
+                            },
+                            0
+                          ],
+                          "op": "max"
+                        },
+                        "op": "subtract",
+                        "right": {
+                          "else": {
+                            "key": {
+                              "name": "filing_status",
+                              "op": "ref"
+                            },
+                            "op": "parameter",
+                            "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                          },
+                          "op": "choose",
+                          "then": {
+                            "else": 0,
+                            "op": "choose",
+                            "then": 25000,
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "tax.us.2025.mfs-lived-apart-all-year",
+                                "op": "ref"
+                              },
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "yes"
+                              }
+                            }
+                          },
+                          "when": {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "filing_status",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.filing-status",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "married_filing_separately"
+                            }
+                          }
+                        }
+                      },
+                      0
+                    ],
+                    "op": "max"
+                  },
+                  "op": "compare",
+                  "right": {
+                    "else": {
+                      "key": {
+                        "name": "filing_status",
+                        "op": "ref"
+                      },
+                      "op": "parameter",
+                      "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                    },
+                    "op": "choose",
+                    "then": {
+                      "else": 0,
+                      "op": "choose",
+                      "then": 9000,
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.mfs-lived-apart-all-year",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.mfs-lived-apart-all-year",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      }
+                    },
+                    "when": {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "filing_status",
+                        "op": "ref"
+                      },
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.filing-status",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "married_filing_separately"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "op": "choose",
+            "then": {
+              "key": {
+                "name": "filing_status",
+                "op": "ref"
+              },
+              "op": "bracket_fold",
+              "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+              "value": {
+                "name": "tax.us.2025.social-security.line6a",
+                "op": "ref"
+              }
+            },
+            "when": {
+              "cmp": "lte",
+              "left": {
+                "key": {
+                  "name": "filing_status",
+                  "op": "ref"
+                },
+                "op": "bracket_fold",
+                "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                "value": {
+                  "name": "tax.us.2025.social-security.line6a",
+                  "op": "ref"
+                }
+              },
+              "op": "compare",
+              "right": {
+                "key": {
+                  "name": "filing_status",
+                  "op": "ref"
+                },
+                "op": "bracket_fold",
+                "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                "value": {
+                  "else": {
+                    "else": {
+                      "key": {
+                        "name": "filing_status",
+                        "op": "ref"
+                      },
+                      "op": "parameter",
+                      "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                    },
+                    "op": "choose",
+                    "then": {
+                      "else": 0,
+                      "op": "choose",
+                      "then": 9000,
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.mfs-lived-apart-all-year",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.mfs-lived-apart-all-year",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      }
+                    },
+                    "when": {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "filing_status",
+                        "op": "ref"
+                      },
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.filing-status",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "married_filing_separately"
+                      }
+                    }
+                  },
+                  "op": "choose",
+                  "then": {
+                    "args": [
+                      {
+                        "left": {
+                          "args": [
+                            {
+                              "left": {
+                                "args": [
+                                  {
+                                    "key": {
+                                      "name": "filing_status",
+                                      "op": "ref"
+                                    },
+                                    "op": "bracket_fold",
+                                    "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                    "value": {
+                                      "name": "tax.us.2025.social-security.line6a",
+                                      "op": "ref"
+                                    }
+                                  },
+                                  {
+                                    "args": [
+                                      {
+                                        "name": "tax.us.2025.wages.total-w2-box1",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.interest.taxable-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.dividends.ordinary-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.ira.distributions.line4b",
+                                        "op": "ref"
+                                      },
+                                      0,
+                                      {
+                                        "name": "tax.us.2025.capital-gains.line7a-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.income.additional-income",
+                                        "op": "ref"
+                                      }
+                                    ],
+                                    "op": "add"
+                                  },
+                                  {
+                                    "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                    "op": "ref"
+                                  }
+                                ],
+                                "op": "add"
+                              },
+                              "op": "subtract",
+                              "right": 0
+                            },
+                            0
+                          ],
+                          "op": "max"
+                        },
+                        "op": "subtract",
+                        "right": {
+                          "else": {
+                            "key": {
+                              "name": "filing_status",
+                              "op": "ref"
+                            },
+                            "op": "parameter",
+                            "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                          },
+                          "op": "choose",
+                          "then": {
+                            "else": 0,
+                            "op": "choose",
+                            "then": 25000,
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "tax.us.2025.mfs-lived-apart-all-year",
+                                "op": "ref"
+                              },
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "yes"
+                              }
+                            }
+                          },
+                          "when": {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "filing_status",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.filing-status",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "married_filing_separately"
+                            }
+                          }
+                        }
+                      },
+                      0
+                    ],
+                    "op": "max"
+                  },
+                  "when": {
+                    "cmp": "lte",
+                    "left": {
+                      "args": [
+                        {
+                          "left": {
+                            "args": [
+                              {
+                                "left": {
+                                  "args": [
+                                    {
+                                      "key": {
+                                        "name": "filing_status",
+                                        "op": "ref"
+                                      },
+                                      "op": "bracket_fold",
+                                      "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                      "value": {
+                                        "name": "tax.us.2025.social-security.line6a",
+                                        "op": "ref"
+                                      }
+                                    },
+                                    {
+                                      "args": [
+                                        {
+                                          "name": "tax.us.2025.wages.total-w2-box1",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.interest.taxable-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.dividends.ordinary-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.ira.distributions.line4b",
+                                          "op": "ref"
+                                        },
+                                        0,
+                                        {
+                                          "name": "tax.us.2025.capital-gains.line7a-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.income.additional-income",
+                                          "op": "ref"
+                                        }
+                                      ],
+                                      "op": "add"
+                                    },
+                                    {
+                                      "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                      "op": "ref"
+                                    }
+                                  ],
+                                  "op": "add"
+                                },
+                                "op": "subtract",
+                                "right": 0
+                              },
+                              0
+                            ],
+                            "op": "max"
+                          },
+                          "op": "subtract",
+                          "right": {
+                            "else": {
+                              "key": {
+                                "name": "filing_status",
+                                "op": "ref"
+                              },
+                              "op": "parameter",
+                              "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                            },
+                            "op": "choose",
+                            "then": {
+                              "else": 0,
+                              "op": "choose",
+                              "then": 25000,
+                              "when": {
+                                "cmp": "eq",
+                                "left": {
+                                  "name": "tax.us.2025.mfs-lived-apart-all-year",
+                                  "op": "ref"
+                                },
+                                "op": "categorical_compare",
+                                "right": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                    "version": "v1"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "yes"
+                                }
+                              }
+                            },
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "filing_status",
+                                "op": "ref"
+                              },
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.filing-status",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "married_filing_separately"
+                              }
+                            }
+                          }
+                        },
+                        0
+                      ],
+                      "op": "max"
+                    },
+                    "op": "compare",
+                    "right": {
+                      "else": {
+                        "key": {
+                          "name": "filing_status",
+                          "op": "ref"
+                        },
+                        "op": "parameter",
+                        "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                      },
+                      "op": "choose",
+                      "then": {
+                        "else": 0,
+                        "op": "choose",
+                        "then": 9000,
+                        "when": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "tax.us.2025.mfs-lived-apart-all-year",
+                            "op": "ref"
+                          },
+                          "op": "categorical_compare",
+                          "right": {
+                            "fact_type": {
+                              "id": "tax.us.2025.mfs-lived-apart-all-year",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "yes"
+                          }
+                        }
+                      },
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "filing_status",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.filing-status",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "married_filing_separately"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "key": {
+              "name": "filing_status",
+              "op": "ref"
+            },
+            "op": "bracket_fold",
+            "table_id": "demo.parameter.ss-benefits-85-rate.2025",
+            "value": {
+              "args": [
+                {
+                  "left": {
+                    "args": [
+                      {
+                        "left": {
+                          "args": [
+                            {
+                              "left": {
+                                "args": [
+                                  {
+                                    "key": {
+                                      "name": "filing_status",
+                                      "op": "ref"
+                                    },
+                                    "op": "bracket_fold",
+                                    "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                    "value": {
+                                      "name": "tax.us.2025.social-security.line6a",
+                                      "op": "ref"
+                                    }
+                                  },
+                                  {
+                                    "args": [
+                                      {
+                                        "name": "tax.us.2025.wages.total-w2-box1",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.interest.taxable-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.dividends.ordinary-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.ira.distributions.line4b",
+                                        "op": "ref"
+                                      },
+                                      0,
+                                      {
+                                        "name": "tax.us.2025.capital-gains.line7a-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.income.additional-income",
+                                        "op": "ref"
+                                      }
+                                    ],
+                                    "op": "add"
+                                  },
+                                  {
+                                    "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                    "op": "ref"
+                                  }
+                                ],
+                                "op": "add"
+                              },
+                              "op": "subtract",
+                              "right": 0
+                            },
+                            0
+                          ],
+                          "op": "max"
+                        },
+                        "op": "subtract",
+                        "right": {
+                          "else": {
+                            "key": {
+                              "name": "filing_status",
+                              "op": "ref"
+                            },
+                            "op": "parameter",
+                            "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                          },
+                          "op": "choose",
+                          "then": {
+                            "else": 0,
+                            "op": "choose",
+                            "then": 25000,
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "tax.us.2025.mfs-lived-apart-all-year",
+                                "op": "ref"
+                              },
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "yes"
+                              }
+                            }
+                          },
+                          "when": {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "filing_status",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.filing-status",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "married_filing_separately"
+                            }
+                          }
+                        }
+                      },
+                      0
+                    ],
+                    "op": "max"
+                  },
+                  "op": "subtract",
+                  "right": {
+                    "else": {
+                      "key": {
+                        "name": "filing_status",
+                        "op": "ref"
+                      },
+                      "op": "parameter",
+                      "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                    },
+                    "op": "choose",
+                    "then": {
+                      "else": 0,
+                      "op": "choose",
+                      "then": 9000,
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.mfs-lived-apart-all-year",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.mfs-lived-apart-all-year",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      }
+                    },
+                    "when": {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "filing_status",
+                        "op": "ref"
+                      },
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.filing-status",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "married_filing_separately"
+                      }
+                    }
+                  }
+                },
+                0
+              ],
+              "op": "max"
+            }
+          }
+        ],
+        "op": "add"
+      },
+      "when": {
+        "cmp": "lte",
+        "left": {
+          "args": [
+            {
+              "else": {
+                "key": {
+                  "name": "filing_status",
+                  "op": "ref"
+                },
+                "op": "bracket_fold",
+                "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                "value": {
+                  "else": {
+                    "else": {
+                      "key": {
+                        "name": "filing_status",
+                        "op": "ref"
+                      },
+                      "op": "parameter",
+                      "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                    },
+                    "op": "choose",
+                    "then": {
+                      "else": 0,
+                      "op": "choose",
+                      "then": 9000,
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "tax.us.2025.mfs-lived-apart-all-year",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.mfs-lived-apart-all-year",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "yes"
+                        }
+                      }
+                    },
+                    "when": {
+                      "cmp": "eq",
+                      "left": {
+                        "name": "filing_status",
+                        "op": "ref"
+                      },
+                      "op": "categorical_compare",
+                      "right": {
+                        "fact_type": {
+                          "id": "tax.us.2025.filing-status",
+                          "version": "v1"
+                        },
+                        "op": "category_literal",
+                        "value": "married_filing_separately"
+                      }
+                    }
+                  },
+                  "op": "choose",
+                  "then": {
+                    "args": [
+                      {
+                        "left": {
+                          "args": [
+                            {
+                              "left": {
+                                "args": [
+                                  {
+                                    "key": {
+                                      "name": "filing_status",
+                                      "op": "ref"
+                                    },
+                                    "op": "bracket_fold",
+                                    "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                    "value": {
+                                      "name": "tax.us.2025.social-security.line6a",
+                                      "op": "ref"
+                                    }
+                                  },
+                                  {
+                                    "args": [
+                                      {
+                                        "name": "tax.us.2025.wages.total-w2-box1",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.interest.taxable-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.dividends.ordinary-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.ira.distributions.line4b",
+                                        "op": "ref"
+                                      },
+                                      0,
+                                      {
+                                        "name": "tax.us.2025.capital-gains.line7a-total",
+                                        "op": "ref"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.income.additional-income",
+                                        "op": "ref"
+                                      }
+                                    ],
+                                    "op": "add"
+                                  },
+                                  {
+                                    "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                    "op": "ref"
+                                  }
+                                ],
+                                "op": "add"
+                              },
+                              "op": "subtract",
+                              "right": 0
+                            },
+                            0
+                          ],
+                          "op": "max"
+                        },
+                        "op": "subtract",
+                        "right": {
+                          "else": {
+                            "key": {
+                              "name": "filing_status",
+                              "op": "ref"
+                            },
+                            "op": "parameter",
+                            "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                          },
+                          "op": "choose",
+                          "then": {
+                            "else": 0,
+                            "op": "choose",
+                            "then": 25000,
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "tax.us.2025.mfs-lived-apart-all-year",
+                                "op": "ref"
+                              },
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "yes"
+                              }
+                            }
+                          },
+                          "when": {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "filing_status",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.filing-status",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "married_filing_separately"
+                            }
+                          }
+                        }
+                      },
+                      0
+                    ],
+                    "op": "max"
+                  },
+                  "when": {
+                    "cmp": "lte",
+                    "left": {
+                      "args": [
+                        {
+                          "left": {
+                            "args": [
+                              {
+                                "left": {
+                                  "args": [
+                                    {
+                                      "key": {
+                                        "name": "filing_status",
+                                        "op": "ref"
+                                      },
+                                      "op": "bracket_fold",
+                                      "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                      "value": {
+                                        "name": "tax.us.2025.social-security.line6a",
+                                        "op": "ref"
+                                      }
+                                    },
+                                    {
+                                      "args": [
+                                        {
+                                          "name": "tax.us.2025.wages.total-w2-box1",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.interest.taxable-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.dividends.ordinary-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.ira.distributions.line4b",
+                                          "op": "ref"
+                                        },
+                                        0,
+                                        {
+                                          "name": "tax.us.2025.capital-gains.line7a-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.income.additional-income",
+                                          "op": "ref"
+                                        }
+                                      ],
+                                      "op": "add"
+                                    },
+                                    {
+                                      "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                      "op": "ref"
+                                    }
+                                  ],
+                                  "op": "add"
+                                },
+                                "op": "subtract",
+                                "right": 0
+                              },
+                              0
+                            ],
+                            "op": "max"
+                          },
+                          "op": "subtract",
+                          "right": {
+                            "else": {
+                              "key": {
+                                "name": "filing_status",
+                                "op": "ref"
+                              },
+                              "op": "parameter",
+                              "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                            },
+                            "op": "choose",
+                            "then": {
+                              "else": 0,
+                              "op": "choose",
+                              "then": 25000,
+                              "when": {
+                                "cmp": "eq",
+                                "left": {
+                                  "name": "tax.us.2025.mfs-lived-apart-all-year",
+                                  "op": "ref"
+                                },
+                                "op": "categorical_compare",
+                                "right": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                    "version": "v1"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "yes"
+                                }
+                              }
+                            },
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "filing_status",
+                                "op": "ref"
+                              },
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.filing-status",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "married_filing_separately"
+                              }
+                            }
+                          }
+                        },
+                        0
+                      ],
+                      "op": "max"
+                    },
+                    "op": "compare",
+                    "right": {
+                      "else": {
+                        "key": {
+                          "name": "filing_status",
+                          "op": "ref"
+                        },
+                        "op": "parameter",
+                        "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                      },
+                      "op": "choose",
+                      "then": {
+                        "else": 0,
+                        "op": "choose",
+                        "then": 9000,
+                        "when": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "tax.us.2025.mfs-lived-apart-all-year",
+                            "op": "ref"
+                          },
+                          "op": "categorical_compare",
+                          "right": {
+                            "fact_type": {
+                              "id": "tax.us.2025.mfs-lived-apart-all-year",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "yes"
+                          }
+                        }
+                      },
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "filing_status",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.filing-status",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "married_filing_separately"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "op": "choose",
+              "then": {
+                "key": {
+                  "name": "filing_status",
+                  "op": "ref"
+                },
+                "op": "bracket_fold",
+                "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                "value": {
+                  "name": "tax.us.2025.social-security.line6a",
+                  "op": "ref"
+                }
+              },
+              "when": {
+                "cmp": "lte",
+                "left": {
+                  "key": {
+                    "name": "filing_status",
+                    "op": "ref"
+                  },
+                  "op": "bracket_fold",
+                  "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                  "value": {
+                    "name": "tax.us.2025.social-security.line6a",
+                    "op": "ref"
+                  }
+                },
+                "op": "compare",
+                "right": {
+                  "key": {
+                    "name": "filing_status",
+                    "op": "ref"
+                  },
+                  "op": "bracket_fold",
+                  "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                  "value": {
+                    "else": {
+                      "else": {
+                        "key": {
+                          "name": "filing_status",
+                          "op": "ref"
+                        },
+                        "op": "parameter",
+                        "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                      },
+                      "op": "choose",
+                      "then": {
+                        "else": 0,
+                        "op": "choose",
+                        "then": 9000,
+                        "when": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "tax.us.2025.mfs-lived-apart-all-year",
+                            "op": "ref"
+                          },
+                          "op": "categorical_compare",
+                          "right": {
+                            "fact_type": {
+                              "id": "tax.us.2025.mfs-lived-apart-all-year",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "yes"
+                          }
+                        }
+                      },
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "filing_status",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.filing-status",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "married_filing_separately"
+                        }
+                      }
+                    },
+                    "op": "choose",
+                    "then": {
+                      "args": [
+                        {
+                          "left": {
+                            "args": [
+                              {
+                                "left": {
+                                  "args": [
+                                    {
+                                      "key": {
+                                        "name": "filing_status",
+                                        "op": "ref"
+                                      },
+                                      "op": "bracket_fold",
+                                      "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                      "value": {
+                                        "name": "tax.us.2025.social-security.line6a",
+                                        "op": "ref"
+                                      }
+                                    },
+                                    {
+                                      "args": [
+                                        {
+                                          "name": "tax.us.2025.wages.total-w2-box1",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.interest.taxable-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.dividends.ordinary-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.ira.distributions.line4b",
+                                          "op": "ref"
+                                        },
+                                        0,
+                                        {
+                                          "name": "tax.us.2025.capital-gains.line7a-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.income.additional-income",
+                                          "op": "ref"
+                                        }
+                                      ],
+                                      "op": "add"
+                                    },
+                                    {
+                                      "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                      "op": "ref"
+                                    }
+                                  ],
+                                  "op": "add"
+                                },
+                                "op": "subtract",
+                                "right": 0
+                              },
+                              0
+                            ],
+                            "op": "max"
+                          },
+                          "op": "subtract",
+                          "right": {
+                            "else": {
+                              "key": {
+                                "name": "filing_status",
+                                "op": "ref"
+                              },
+                              "op": "parameter",
+                              "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                            },
+                            "op": "choose",
+                            "then": {
+                              "else": 0,
+                              "op": "choose",
+                              "then": 25000,
+                              "when": {
+                                "cmp": "eq",
+                                "left": {
+                                  "name": "tax.us.2025.mfs-lived-apart-all-year",
+                                  "op": "ref"
+                                },
+                                "op": "categorical_compare",
+                                "right": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                    "version": "v1"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "yes"
+                                }
+                              }
+                            },
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "filing_status",
+                                "op": "ref"
+                              },
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.filing-status",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "married_filing_separately"
+                              }
+                            }
+                          }
+                        },
+                        0
+                      ],
+                      "op": "max"
+                    },
+                    "when": {
+                      "cmp": "lte",
+                      "left": {
+                        "args": [
+                          {
+                            "left": {
+                              "args": [
+                                {
+                                  "left": {
+                                    "args": [
+                                      {
+                                        "key": {
+                                          "name": "filing_status",
+                                          "op": "ref"
+                                        },
+                                        "op": "bracket_fold",
+                                        "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                        "value": {
+                                          "name": "tax.us.2025.social-security.line6a",
+                                          "op": "ref"
+                                        }
+                                      },
+                                      {
+                                        "args": [
+                                          {
+                                            "name": "tax.us.2025.wages.total-w2-box1",
+                                            "op": "ref"
+                                          },
+                                          {
+                                            "name": "tax.us.2025.interest.taxable-total",
+                                            "op": "ref"
+                                          },
+                                          {
+                                            "name": "tax.us.2025.dividends.ordinary-total",
+                                            "op": "ref"
+                                          },
+                                          {
+                                            "name": "tax.us.2025.ira.distributions.line4b",
+                                            "op": "ref"
+                                          },
+                                          0,
+                                          {
+                                            "name": "tax.us.2025.capital-gains.line7a-total",
+                                            "op": "ref"
+                                          },
+                                          {
+                                            "name": "tax.us.2025.income.additional-income",
+                                            "op": "ref"
+                                          }
+                                        ],
+                                        "op": "add"
+                                      },
+                                      {
+                                        "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                        "op": "ref"
+                                      }
+                                    ],
+                                    "op": "add"
+                                  },
+                                  "op": "subtract",
+                                  "right": 0
+                                },
+                                0
+                              ],
+                              "op": "max"
+                            },
+                            "op": "subtract",
+                            "right": {
+                              "else": {
+                                "key": {
+                                  "name": "filing_status",
+                                  "op": "ref"
+                                },
+                                "op": "parameter",
+                                "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                              },
+                              "op": "choose",
+                              "then": {
+                                "else": 0,
+                                "op": "choose",
+                                "then": 25000,
+                                "when": {
+                                  "cmp": "eq",
+                                  "left": {
+                                    "name": "tax.us.2025.mfs-lived-apart-all-year",
+                                    "op": "ref"
+                                  },
+                                  "op": "categorical_compare",
+                                  "right": {
+                                    "fact_type": {
+                                      "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                      "version": "v1"
+                                    },
+                                    "op": "category_literal",
+                                    "value": "yes"
+                                  }
+                                }
+                              },
+                              "when": {
+                                "cmp": "eq",
+                                "left": {
+                                  "name": "filing_status",
+                                  "op": "ref"
+                                },
+                                "op": "categorical_compare",
+                                "right": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.filing-status",
+                                    "version": "v1"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "married_filing_separately"
+                                }
+                              }
+                            }
+                          },
+                          0
+                        ],
+                        "op": "max"
+                      },
+                      "op": "compare",
+                      "right": {
+                        "else": {
+                          "key": {
+                            "name": "filing_status",
+                            "op": "ref"
+                          },
+                          "op": "parameter",
+                          "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                        },
+                        "op": "choose",
+                        "then": {
+                          "else": 0,
+                          "op": "choose",
+                          "then": 9000,
+                          "when": {
+                            "cmp": "eq",
+                            "left": {
+                              "name": "tax.us.2025.mfs-lived-apart-all-year",
+                              "op": "ref"
+                            },
+                            "op": "categorical_compare",
+                            "right": {
+                              "fact_type": {
+                                "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                "version": "v1"
+                              },
+                              "op": "category_literal",
+                              "value": "yes"
+                            }
+                          }
+                        },
+                        "when": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "filing_status",
+                            "op": "ref"
+                          },
+                          "op": "categorical_compare",
+                          "right": {
+                            "fact_type": {
+                              "id": "tax.us.2025.filing-status",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "married_filing_separately"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "key": {
+                "name": "filing_status",
+                "op": "ref"
+              },
+              "op": "bracket_fold",
+              "table_id": "demo.parameter.ss-benefits-85-rate.2025",
+              "value": {
+                "args": [
+                  {
+                    "left": {
+                      "args": [
+                        {
+                          "left": {
+                            "args": [
+                              {
+                                "left": {
+                                  "args": [
+                                    {
+                                      "key": {
+                                        "name": "filing_status",
+                                        "op": "ref"
+                                      },
+                                      "op": "bracket_fold",
+                                      "table_id": "demo.parameter.ss-benefits-half-rate.2025",
+                                      "value": {
+                                        "name": "tax.us.2025.social-security.line6a",
+                                        "op": "ref"
+                                      }
+                                    },
+                                    {
+                                      "args": [
+                                        {
+                                          "name": "tax.us.2025.wages.total-w2-box1",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.interest.taxable-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.dividends.ordinary-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.ira.distributions.line4b",
+                                          "op": "ref"
+                                        },
+                                        0,
+                                        {
+                                          "name": "tax.us.2025.capital-gains.line7a-total",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "name": "tax.us.2025.income.additional-income",
+                                          "op": "ref"
+                                        }
+                                      ],
+                                      "op": "add"
+                                    },
+                                    {
+                                      "name": "tax.us.2025.tax-exempt-interest.line2a-total",
+                                      "op": "ref"
+                                    }
+                                  ],
+                                  "op": "add"
+                                },
+                                "op": "subtract",
+                                "right": 0
+                              },
+                              0
+                            ],
+                            "op": "max"
+                          },
+                          "op": "subtract",
+                          "right": {
+                            "else": {
+                              "key": {
+                                "name": "filing_status",
+                                "op": "ref"
+                              },
+                              "op": "parameter",
+                              "parameter_id": "demo.parameter.ss-benefits-base-amount.2025"
+                            },
+                            "op": "choose",
+                            "then": {
+                              "else": 0,
+                              "op": "choose",
+                              "then": 25000,
+                              "when": {
+                                "cmp": "eq",
+                                "left": {
+                                  "name": "tax.us.2025.mfs-lived-apart-all-year",
+                                  "op": "ref"
+                                },
+                                "op": "categorical_compare",
+                                "right": {
+                                  "fact_type": {
+                                    "id": "tax.us.2025.mfs-lived-apart-all-year",
+                                    "version": "v1"
+                                  },
+                                  "op": "category_literal",
+                                  "value": "yes"
+                                }
+                              }
+                            },
+                            "when": {
+                              "cmp": "eq",
+                              "left": {
+                                "name": "filing_status",
+                                "op": "ref"
+                              },
+                              "op": "categorical_compare",
+                              "right": {
+                                "fact_type": {
+                                  "id": "tax.us.2025.filing-status",
+                                  "version": "v1"
+                                },
+                                "op": "category_literal",
+                                "value": "married_filing_separately"
+                              }
+                            }
+                          }
+                        },
+                        0
+                      ],
+                      "op": "max"
+                    },
+                    "op": "subtract",
+                    "right": {
+                      "else": {
+                        "key": {
+                          "name": "filing_status",
+                          "op": "ref"
+                        },
+                        "op": "parameter",
+                        "parameter_id": "demo.parameter.ss-benefits-second-tier.2025"
+                      },
+                      "op": "choose",
+                      "then": {
+                        "else": 0,
+                        "op": "choose",
+                        "then": 9000,
+                        "when": {
+                          "cmp": "eq",
+                          "left": {
+                            "name": "tax.us.2025.mfs-lived-apart-all-year",
+                            "op": "ref"
+                          },
+                          "op": "categorical_compare",
+                          "right": {
+                            "fact_type": {
+                              "id": "tax.us.2025.mfs-lived-apart-all-year",
+                              "version": "v1"
+                            },
+                            "op": "category_literal",
+                            "value": "yes"
+                          }
+                        }
+                      },
+                      "when": {
+                        "cmp": "eq",
+                        "left": {
+                          "name": "filing_status",
+                          "op": "ref"
+                        },
+                        "op": "categorical_compare",
+                        "right": {
+                          "fact_type": {
+                            "id": "tax.us.2025.filing-status",
+                            "version": "v1"
+                          },
+                          "op": "category_literal",
+                          "value": "married_filing_separately"
+                        }
+                      }
+                    }
+                  },
+                  0
+                ],
+                "op": "max"
+              }
+            }
+          ],
+          "op": "add"
+        },
+        "op": "compare",
+        "right": {
+          "key": {
+            "name": "filing_status",
+            "op": "ref"
+          },
+          "op": "bracket_fold",
+          "table_id": "demo.parameter.ss-benefits-85-rate.2025",
+          "value": {
+            "name": "tax.us.2025.social-security.line6a",
+            "op": "ref"
+          }
+        }
+      }
+    }
+  },
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-unsupported-line1-entries",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-pension-annuity-line5b",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-traditional-ira-deduction",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-form-2555",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-form-2555",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-form-4563",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-form-4563",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-form-8815",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-form-8815",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-excluded-adoption-benefits",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-schedule1-line24z-writein",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-schedule1-line24z-writein",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line11-educator",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line11-educator",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line12-business-expenses",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line12-business-expenses",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line13-hsa",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line13-hsa",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line14-moving",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line14-moving",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line15-deductible-se",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line15-deductible-se",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line16-se-retirement",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line16-se-retirement",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line17-se-health",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line17-se-health",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line18-penalty",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line18-penalty",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line19-alimony-paid",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line19-alimony-paid",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line20-ira-deduction",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line20-ira-deduction",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line23-archer-msa",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line23-archer-msa",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-sch1-line25-other-adjustments",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-sch1-line25-other-adjustments",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-lump-sum-election",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "condition": {
+          "cmp": "eq",
+          "left": {
+            "name": "filing_status",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.filing-status",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "married_filing_separately"
+          }
+        },
+        "members": [
+          {
+            "name": "tax.us.2025.mfs-lived-apart-all-year",
+            "op": "ref"
+          }
+        ],
+        "op": "conditional_dependency_set"
+      }
+    ],
+    "op": "all"
+  }
+}

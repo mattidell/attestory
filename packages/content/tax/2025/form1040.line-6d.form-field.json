@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.social-security.line6d-indicator",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-6d",
+    "version": "v1"
+  },
+  "description": "Married filing separately lived-apart-all-year checkbox disposition.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "line 6d is blocked because a worksheet or source dependency is incomplete",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "closure-backed zero for Form 1040 line 6d",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "computed zero for Form 1040 line 6d",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "line 6d disposition is inapplicable for the current class",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "MFS lived apart all year: line 6d checkbox is checked.",
+      "render": "checked"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-6d",
+  "label": "MFS lived apart all year",
+  "line": "6d",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

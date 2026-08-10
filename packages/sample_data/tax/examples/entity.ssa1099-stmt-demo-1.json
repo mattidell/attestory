@@ -1,0 +1,6 @@
+{
+  "schema": "entity.v1",
+  "id": "stmt.demo-ssa1099-alpha.2025.1",
+  "kind": "tax.us.ssa1099-statement",
+  "label": "Demo SSA-1099 statement instance 1 for 2025 (synthetic)"
+}

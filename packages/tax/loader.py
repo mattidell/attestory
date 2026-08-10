@@ -94,6 +94,18 @@ def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
             "tax.us.2025.f1099r.distribution-code",
             "tax.us.2025.f1099r.box2b-not-determined",
         ],
+        # Form SSA-1099 ordinary benefits route: each box-5 member requires
+        # same-statement box-3, box-4, box-6, recipient, statement-kind, and
+        # lump-sum-election companions. Box 3/4/5 equality is enforced in
+        # domain equality admission separately from presence.
+        "tax.us.2025.ssa1099.box5-net-benefits": [
+            "tax.us.2025.ssa1099.box3-benefits-paid",
+            "tax.us.2025.ssa1099.box4-repayment",
+            "tax.us.2025.ssa1099.box6-withholding",
+            "tax.us.2025.ssa1099.recipient",
+            "tax.us.2025.ssa1099.statement-kind",
+            "tax.us.2025.ssa1099.lump-sum-election",
+        ],
     }
 
 
@@ -111,6 +123,10 @@ def domain_companion_value_domains() -> dict[str, frozenset[object]]:
         "tax.us.2025.f1099r.box2b-not-determined": frozenset({False}),
         "tax.us.2025.f1099r.ira-sep-simple-checkbox": frozenset({True}),
         "tax.us.2025.f1099r.distribution-code": frozenset({"7"}),
+        "tax.us.2025.ssa1099.box6-withholding": frozenset({None, 0, 0.0}),
+        "tax.us.2025.ssa1099.statement-kind": frozenset({"ssa-1099"}),
+        "tax.us.2025.ssa1099.lump-sum-election": frozenset({False}),
+        "tax.us.2025.ssa1099.recipient": frozenset({"taxpayer", "spouse"}),
     }
 
 

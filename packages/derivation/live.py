@@ -30,6 +30,7 @@ from packages.tax.loader import (
     install_domain_companion_presence,
     install_domain_declaration_signal_contradictions,
 )
+from packages.tax.ssa_benefits import validate_projected_source_boundary
 from packages.derivation.live_workspace import LiveWorkspace, WorkspaceCapability, bootstrap_workspace
 
 if TYPE_CHECKING:
@@ -152,6 +153,7 @@ def live_coordinate_run(
     install_domain_companion_equalities(schemas.registry)
     install_domain_declaration_signal_contradictions(schemas.registry)
     state = project(tuple(dict(act) for act in authoritative_acts), schemas.registry)
+    validate_projected_source_boundary(state.findings.values(), state.withdrawn_fact_ids)
     currency = compute_currency(state)
     rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)
     context = marshal_live_run_context(

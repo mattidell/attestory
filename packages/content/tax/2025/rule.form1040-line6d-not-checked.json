@@ -1,0 +1,100 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "filing_status",
+      "tax.us.2025.mfs-lived-apart-all-year"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-6d",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line6d-not-checked",
+  "notes": "Line 6d explicit not-checked disposition for MFS lived-with-spouse (lived-apart=no). Publishes a separate symbol so presentation can bind a fixed categorical render.",
+  "pins": [
+    {
+      "id": "tax.us.2025.filing-status",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.social-security.line6d-not-checked",
+  "requires": [
+    "filing_status"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": "not_checked",
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "condition": {
+          "cmp": "eq",
+          "left": {
+            "name": "filing_status",
+            "op": "ref"
+          },
+          "op": "categorical_compare",
+          "right": {
+            "fact_type": {
+              "id": "tax.us.2025.filing-status",
+              "version": "v1"
+            },
+            "op": "category_literal",
+            "value": "married_filing_separately"
+          }
+        },
+        "members": [
+          {
+            "name": "tax.us.2025.mfs-lived-apart-all-year",
+            "op": "ref"
+          }
+        ],
+        "op": "conditional_dependency_set"
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "filing_status",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.filing-status",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "married_filing_separately"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.mfs-lived-apart-all-year",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.mfs-lived-apart-all-year",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "no"
+        }
+      }
+    ],
+    "op": "all"
+  }
+}

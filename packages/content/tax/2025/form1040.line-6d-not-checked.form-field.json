@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.social-security.line6d-not-checked",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-6d",
+    "version": "v1"
+  },
+  "description": "Form 1040 line 6d honest not-checked disposition when married filing separately and the taxpayer lived with their spouse at any time during the year. Binds the not-checked symbol so presentation never false-blanks the lived-with branch.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "line 6d not-checked is blocked because MFS living-arrangement authority is incomplete",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "Not used for the line-6d not-checked categorical disposition.",
+      "render": ""
+    },
+    "computed_zero": {
+      "explain": "Not used for the line-6d not-checked categorical disposition.",
+      "render": ""
+    },
+    "guard_inapplicable": {
+      "explain": "Line 6d not-checked disposition does not apply (not MFS lived-with).",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "MFS lived with spouse at any time: line 6d is explicitly not checked.",
+      "render": "not_checked"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-6d-not-checked",
+  "label": "MFS lived with spouse (line 6d not checked)",
+  "line": "6d-not-checked",
+  "schema": "form-field.v3",
+  "version": "v1"
+}
