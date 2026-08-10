@@ -232,7 +232,7 @@ class _Run:
         )
         
         self.use_v2 = any(
-            rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3"}
+            rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4"}
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
         self.symbol_fact_types: dict[str, str] = {}
@@ -1325,7 +1325,7 @@ def run_and_record(
     published/blocked surface and per-rule dispositions.
     """
     use_v2 = any(
-        rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3"}
+        rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4"}
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)
     start_run(

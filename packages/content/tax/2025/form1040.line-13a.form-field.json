@@ -1,0 +1,18 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.form1040.line-13a",
+  "version": "v1",
+  "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+  "line": "13a",
+  "label": "Qualified business income deduction",
+  "description": "Form 1040 Line 13a qualified business income deduction; explicitly closed-absent for this milestone's bounded supported class.",
+  "binds_symbol": "tax.us.2025.deductions.qbi",
+  "citation": { "id": "tax.us.2025.citation.form1040.line-13a", "version": "v1" },
+  "dispositions": {
+    "published_value": { "render": "{value}", "explain": "published QBI deduction (closed-absent, always 0 for this bounded class)" },
+    "computed_zero": { "render": "0", "explain": "computed zero" },
+    "closure_backed_zero": { "render": "0", "explain": "closure zero" },
+    "blocked": { "render": "", "explain": "blocked", "codes": ["DEPENDENCY_ABSENT", "DEPENDENCY_INVALID"] },
+    "guard_inapplicable": { "render": "", "explain": "guard false" }
+  }
+}

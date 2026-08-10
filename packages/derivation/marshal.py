@@ -98,7 +98,7 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
             symbols.extend(a["symbol"] for a in branch.get("adds_required", []))
         return symbols
     symbols = list(rule.get("requires", []))
-    if rule.get("schema") == "rule-artifact.v3":
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
     return symbols

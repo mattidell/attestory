@@ -1,0 +1,27 @@
+{
+  "schema": "form-field.v3",
+  "id": "tax.us.2025.form1040.line-14",
+  "version": "v1",
+  "form": { "authority": "IRS", "form_id": "1040", "tax_year": 2025, "jurisdiction": "US-federal" },
+  "line": "1040-14",
+  "label": "Add lines 12e, 13a, and 13b",
+  "description": "Form 1040 Line 14 sum of lines 12e, 13a, and 13b. The presentation section id disambiguates from the already-published tax.us.2025.schedule-d.line-14 form-field (Schedule D's own worksheet line 14, unrelated, historical, untouched), which also renders bare line \"14\" and would otherwise collide on the shared line-{n} section-id convention once both are simultaneously adopted in v29.",
+  "binds_symbol": "tax.us.2025.deductions.line-14",
+  "citation": { "id": "tax.us.2025.citation.form1040.line-14", "version": "v1" },
+  "dispositions": {
+    "published_value": { "render": "{value}", "explain": "published line 14 total" },
+    "computed_zero": { "render": "0", "explain": "computed zero" },
+    "closure_backed_zero": { "render": "0", "explain": "closure zero" },
+    "blocked": {
+      "render": "",
+      "explain": "blocked",
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "SOURCE_SET_UNCLOSED",
+        "CATEGORICAL_DOMAIN_MISMATCH"
+      ]
+    },
+    "guard_inapplicable": { "render": "", "explain": "guard false" }
+  }
+}

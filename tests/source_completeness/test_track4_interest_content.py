@@ -283,11 +283,23 @@ class ScenarioRuns(unittest.TestCase):
 
 
 class DataSafety(unittest.TestCase):
+    # Track 2 review finding 3 repair: the digit-run exemption is scoped to
+    # this one statutory-constant parameter citizen (the $750,000/$375,000
+    # Form 1098 mortgage acquisition-debt limits), never to the whole
+    # parameter-declaration.v1 class. Every other parameter file - including
+    # any future one - stays subject to the ordinary digit-run gate.
+    _EXEMPT_PARAMETER_IDS = frozenset({"tax.us.2025.f1098.mortgage-interest-limit"})
+
     def test_no_private_markers_or_account_identifiers(self) -> None:
         # Interest fixtures are a natural leak surface for real-looking
         # account numbers: forbid long digit runs alongside path markers.
         # Hex lookarounds exempt content-addressed hash ids, whose digit
-        # runs sit inside longer hexadecimal strings.
+        # runs sit inside longer hexadecimal strings. The one parameter
+        # citizen named in _EXEMPT_PARAMETER_IDS is exempt from the
+        # digit-run check only: it holds a statutory constant (the mortgage
+        # acquisition-debt limit), never taxpayer/account data, and needs a
+        # 6+ digit dollar amount. The path-marker check still applies to
+        # every file, this one included.
         forbidden = ("/Users/", "/private/", "local-data/", "uploads/")
         digit_run = re.compile(r"(?<![0-9a-f])\d{6,}(?![0-9a-f])")
         roots = [TAX_CONTENT_DIR, EXAMPLES, SCENARIOS]
@@ -298,7 +310,16 @@ class DataSafety(unittest.TestCase):
                 text = path.read_text("utf-8")
                 with self.subTest(path=str(path)):
                     self.assertFalse(any(marker in text for marker in forbidden))
-                    self.assertIsNone(digit_run.search(text.replace("2025", "")))
+                    is_exempt_parameter = False
+                    if path.suffix == ".json":
+                        try:
+                            parsed = json.loads(text)
+                        except json.JSONDecodeError:
+                            parsed = None
+                        if isinstance(parsed, dict) and parsed.get("schema") == "parameter-declaration.v1":
+                            is_exempt_parameter = parsed.get("id") in self._EXEMPT_PARAMETER_IDS
+                    if not is_exempt_parameter:
+                        self.assertIsNone(digit_run.search(text.replace("2025", "")))
 
 
 if __name__ == "__main__":

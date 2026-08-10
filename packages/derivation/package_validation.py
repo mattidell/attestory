@@ -29,7 +29,7 @@ from packages.kernel.schema_registry import SchemaValidationError
 from packages.derivation.loader import DerivationSchemas, PACKAGE_SCHEMA
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
-_RULE_ARTIFACT_SCHEMAS = frozenset({"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3"})
+_RULE_ARTIFACT_SCHEMAS = frozenset({"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4"})
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
 # ADR-0061 Decision 5 non-confusion invariant (Finding 4 repair): Schedule D's
@@ -85,6 +85,8 @@ _NON_INPUT_SCHEMAS = frozenset({
     "derivation-record.v2",
     "derivation-record.v3",
     "derivation-record.v4",
+    "derivation-record.v5",
+    "derivation-record.v6",
 })
 
 
@@ -867,7 +869,11 @@ def validate_package(
         # Exact entrypoint pins are a package-schema generation contract starting
         # at artifact-package.v20. Older published package schemas retain their
         # historical semantics (version-inexact entrypoint roots remain valid).
-        if package.get("schema") in {"artifact-package.v20", "artifact-package.v21"}:
+        # artifact-package.v22 (Track 1's additive successor) is v21's own
+        # entrypoint-pin contract unchanged (repair round 3 finding 3: v22 was
+        # missing from this set, so a stale or dangling entrypoint in a
+        # v22-schema package passed validation silently).
+        if package.get("schema") in {"artifact-package.v20", "artifact-package.v21", "artifact-package.v22"}:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
             }
@@ -930,10 +936,12 @@ def validate_package(
                 adj[m_id].update(role_canons)
             if citizen["schema"] in _RULE_ARTIFACT_SCHEMAS:
                 declared_refs = set(citizen.get("requires", []))
-                # Only v3 can declare refs outside `requires`: conditional
+                # Only v3/v4 can declare refs outside `requires`: conditional
                 # dependency members are nested `ref` expressions in `when`.
                 # v1/v2 keep their requires-only edge computation unchanged.
-                if citizen["schema"] == "rule-artifact.v3":
+                # v4 is v3's expression grammar plus `count`/`block`, so it
+                # carries the same declared-refs-outside-requires capability.
+                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4"}:
                     declared_refs.update(_iter_ref_names(citizen["when"]))
                     declared_refs.update(_iter_ref_names(citizen["value"]))
                 for req in declared_refs:
@@ -1509,7 +1517,7 @@ def validate_package(
     for (ft_id, _ft_version), ft in fact_types_by_key.items():
         fact_types_by_id.setdefault(ft_id, ft)
     for pin, citizen in resolved:
-        if citizen["schema"] != "rule-artifact.v3":
+        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4"}:
             continue
         member_names = set(_iter_cds_member_names(citizen["when"])) | set(
             _iter_cds_member_names(citizen["value"])

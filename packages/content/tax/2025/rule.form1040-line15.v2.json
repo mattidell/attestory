@@ -1,0 +1,37 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.form1040-line15",
+  "version": "v2",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": ["tax.us.2025.income.agi", "tax.us.2025.deductions.line-14"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.income.agi", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.deductions.line-14", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "max",
+    "args": [
+      0,
+      {
+        "op": "subtract",
+        "left": { "op": "ref", "name": "tax.us.2025.income.agi" },
+        "right": { "op": "ref", "name": "tax.us.2025.deductions.line-14" }
+      }
+    ]
+  },
+  "publishes": "tax.us.2025.income.taxable-income",
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-15", "version": "v1" }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.income.agi", "tax.us.2025.deductions.line-14"]
+  },
+  "notes": "Form 1040 Line 15 v2 (Track 0 Sec 7): taxable income clamped at zero, now subtracting tax.us.2025.deductions.line-14 (the real line-12e+13a+13b combine) instead of the legacy tax.us.2025.deductions.total symbol. Publishes the same tax.us.2025.income.taxable-income symbol as v1, so line-16 and everything downstream of taxable income is unchanged. v1 remains historical, untouched, and reachable through prior package versions."
+}

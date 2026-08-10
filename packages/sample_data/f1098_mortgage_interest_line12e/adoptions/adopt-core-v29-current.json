@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v29",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-08T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic Form 1098 mortgage-interest line-12e Track 2 adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "8194a3670741314c4d13e2c83a500f70c09934f3a5c0c3a406059e89066cef8a",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v29"
+    },
+    "release": {
+      "checksum": "7f6c0b670f9e516bc922939f7c41a87f0dcf475c3e58504328f21ef2199f11be",
+      "id": "demo.release.2025",
+      "version": "v22"
+    },
+    "revision": 29,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

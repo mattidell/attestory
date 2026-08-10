@@ -1,0 +1,139 @@
+{
+  "schema": "attachment-rule.v4",
+  "id": "tax.us.2025.rule.attachment.schedule-a",
+  "version": "v1",
+  "title": "Schedule A (Itemized Deductions): required when the computed Schedule A total (line 8a Form 1098 home-mortgage interest, the only populated category for this bounded class) strictly exceeds the standard deduction (ADR-0036, Track 0 Sec 8). Deterministic tie favors the standard deduction, matching the tax.us.2025.rule.form1040-line12e max() semantics and the milestone's exclusion of voluntary itemization. Reuses the subtotal-over-threshold-parameter(default-zero) shape already proven by attachment.f8949.json / attachment.schedule-d.v3.json, expressing the dynamic standard-deduction comparison as the single tax.us.2025.schedule-a.excess-over-standard signed-difference subtotal so no new attachment ontology is required. Repair round 3 finding 2: bumped from attachment-rule.v1 to attachment-rule.v4 (ADR-0055 Decision 1) to admit value-checked completeness.required_answers (check: \"value\", equals: \"yes\") for the seven schedule-a-boundary -declared facts, so the whole attachment - and therefore the whole Schedule A computation - is required-and-incomplete unless every category's absence is genuinely declared \"yes\", not merely present with any value. The single itemization part is migrated to attachment-rule.v2+'s authority/row_sets shape (single_family authority over tax.us.2025.f1098, one row_set whose subtotal_symbol is tax.us.2025.schedule-a.line8a itself), reproducing the runner's own legacy rows/tie_out default (subtotal_symbol = tie_out.line_symbol) exactly - no behavior change, only the schema-required shape.",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-A",
+    "tax_year": 2025,
+    "jurisdiction": "US-federal"
+  },
+  "publishes": "tax.us.2025.scheduleA.disposition",
+  "requirement": {
+    "subtotals": [
+      "tax.us.2025.schedule-a.excess-over-standard"
+    ],
+    "threshold_parameter": {
+      "id": "tax.us.2025.parameter.default-zero",
+      "version": "v1"
+    },
+    "comparison": "strictly_greater_than",
+    "citation": {
+      "id": "tax.us.2025.citation.attachment.schedule-a",
+      "version": "v1"
+    }
+  },
+  "itemizations": [
+    {
+      "part_id": "line-8a-home-mortgage-interest",
+      "label": "Line 8a: home mortgage interest reported on Form 1098 (the only populated Schedule A category for this bounded class)",
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1098",
+          "version": "v1"
+        }
+      },
+      "row_sets": [
+        {
+          "rows": {
+            "op": "collect_members",
+            "member_fact_type": {
+              "id": "tax.us.2025.f1098.box1-mortgage-interest",
+              "version": "v1"
+            },
+            "source_family": {
+              "id": "tax.us.2025.f1098",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.schedule-a.line8a"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.schedule-a.line8a"
+      }
+    }
+  ],
+  "completeness": {
+    "required_answers": [
+      {
+        "symbol": "tax.us.2025.f1098.liable-and-paid",
+        "fact_type": {
+          "id": "tax.us.2025.f1098.liable-and-paid",
+          "version": "v1"
+        },
+        "check": "presence"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-medical-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-medical-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-salt-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-salt-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-other-interest-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-other-interest-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-investment-interest-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-investment-interest-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-charitable-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-charitable-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-casualty-theft-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-casualty-theft-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      },
+      {
+        "symbol": "tax.us.2025.schedule-a-boundary.no-gambling-other-declared",
+        "fact_type": {
+          "id": "tax.us.2025.schedule-a-boundary.no-gambling-other-declared",
+          "version": "v1"
+        },
+        "check": "value",
+        "equals": "yes"
+      }
+    ]
+  }
+}

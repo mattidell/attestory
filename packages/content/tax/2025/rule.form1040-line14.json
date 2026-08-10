@@ -1,0 +1,43 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.form1040-line14",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.deductions.line-12e",
+    "tax.us.2025.deductions.qbi",
+    "tax.us.2025.deductions.schedule-1a"
+  ],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.deductions.line-12e", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.deductions.qbi", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.deductions.schedule-1a", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      { "op": "ref", "name": "tax.us.2025.deductions.line-12e" },
+      { "op": "ref", "name": "tax.us.2025.deductions.qbi" },
+      { "op": "ref", "name": "tax.us.2025.deductions.schedule-1a" }
+    ]
+  },
+  "publishes": "tax.us.2025.deductions.line-14",
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-14", "version": "v1" }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.deductions.line-12e",
+      "tax.us.2025.deductions.qbi",
+      "tax.us.2025.deductions.schedule-1a"
+    ]
+  },
+  "notes": "Form 1040 Line 14: adds lines 12e, 13a, and 13b. For this milestone's bounded class, 13a and 13b are guaranteed absent (published 0 via a real citizen), so the arithmetic is mechanically line-12e + 0 + 0, expressed here as a real combine rule rather than hardcoded (Track 0 Sec 7)."
+}

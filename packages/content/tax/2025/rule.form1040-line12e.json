@@ -1,0 +1,87 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.form1040-line12e",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": ["demo.form1040.standard_deduction", "tax.us.2025.f1098-scope.no-mortgage-statement"],
+  "pins": [
+    { "role": "input", "id": "demo.form1040.standard_deduction", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.f1098-scope.no-mortgage-statement", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "max",
+    "args": [
+      { "op": "ref", "name": "demo.form1040.standard_deduction" },
+      {
+        "op": "choose",
+        "when": {
+          "op": "all",
+          "args": [
+            { "op": "ref", "name": "tax.us.2025.f1098-scope.no-mortgage-statement" },
+            {
+              "op": "compare",
+              "cmp": "eq",
+              "left": {
+                "op": "count",
+                "name": "tax.us.2025.f1098.box1-mortgage-interest",
+                "source_set": "tax.us.2025.f1098"
+              },
+              "right": 0
+            }
+          ]
+        },
+        "then": { "op": "ref", "name": "tax.us.2025.deductions.itemized" },
+        "else": {
+          "op": "choose",
+          "when": {
+            "op": "all",
+            "args": [
+              { "op": "ref", "name": "tax.us.2025.f1098-scope.no-mortgage-statement" },
+              {
+                "op": "compare",
+                "cmp": "ne",
+                "left": {
+                  "op": "count",
+                  "name": "tax.us.2025.f1098.box1-mortgage-interest",
+                  "source_set": "tax.us.2025.f1098"
+                },
+                "right": 0
+              }
+            ]
+          },
+          "then": { "op": "block", "code": "F1098_SCOPE_CONTRADICTION" },
+          "else": {
+            "op": "choose",
+            "when": {
+              "op": "compare",
+              "cmp": "eq",
+              "left": {
+                "op": "count",
+                "name": "tax.us.2025.f1098.box1-mortgage-interest",
+                "source_set": "tax.us.2025.f1098"
+              },
+              "right": 0
+            },
+            "then": { "op": "ref", "name": "tax.us.2025.deductions.itemized" },
+            "else": { "op": "ref", "name": "tax.us.2025.schedule-a.line8a" }
+          }
+        }
+      }
+    ]
+  },
+  "publishes": "tax.us.2025.deductions.line-12e",
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-12e", "version": "v1" }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["demo.form1040.standard_deduction", "tax.us.2025.f1098-scope.no-mortgage-statement"]
+  },
+  "notes": "Form 1040 Line 12e successor to line-12 (Track 0 Sec 6/7): selects standard deduction or itemized, whichever is larger. The itemized side is never the raw tax.us.2025.deductions.itemized assertion when a tax.us.2025.f1098 closed family member is admitted on the return - it must come from the derived tax.us.2025.schedule-a.line8a composition instead, guarding the historical assertion bypass off for the supported class. A count greater than 1 routes into tax.us.2025.schedule-a.line8a, which blocks MULTIPLE_F1098_OUT_OF_SCOPE itself - never a silent bypass back to the raw assertion. Track 2 review finding 1 repair round 1 tried an optional_default, default-true tax.us.2025.f1098-scope.no-mortgage-statement flag so an unengaged return still had a producer here; the foreman independently verified this let a return with a fully-authorized, real Form 1098 statement on record silently publish an unrelated, unverified tax.us.2025.deductions.itemized figure whenever the preparer simply never asserted the new flag - a worse bypass than the original defect. Round 2 repair: the guard stays unconditional (when: true, matching the historical rule.form1040-line12.json's own guard exactly), but tax.us.2025.f1098-scope.no-mortgage-statement is now a mandatory pin in requires/pins, exactly like demo.form1040.standard_deduction - its absence is DEPENDENCY_ABSENT, never a silent default. This mirrors every genuine Path A/B scope-declaration precedent in this corpus (Form 1099-INT box 8/9, ss-benefits-scope/line2a-scope, this milestone's own schedule-a-boundary no-X tokens): a boolean completeness declaration with no optional_default in its bundle blocks on absence. A return declares Path A by asserting the flag true (no Form 1098 statement; the legacy max(standard, itemized) path, exactly as rule.form1040-line12 took under v28) or Path B by asserting it false alongside a real, closed tax.us.2025.f1098 family (the derived tax.us.2025.schedule-a.line8a composition), avoiding the original finding-1 defect (an unconditional require_closed on that family) while also avoiding round 1's silent-bypass defect. Repair round 3 finding 1 (see below) means asserting Path A now also requires the tax.us.2025.f1098 family to be genuinely closed (even closed-empty, count == 0) rather than merely undeclared - the flag is checked together with the observed family, not trusted alone; a return that truly has no Form 1098 statement declares Path A over a closed-empty family, exactly like the closed-empty case already proven for Path B (interest=None). This is a single-producer design: a genuine second rule-artifact citizen publishing the same tax.us.2025.deductions.line-12e symbol was tried first and rejected - packages/derivation/presentation_projection.py's _one_row join requires exactly one disposition row per symbol for any form-field-bound symbol (verified empirically), which is why the two-disjoint-producer pattern already proven this milestone for tax.us.2025.schedule-a.total (never form-field-bound) does not generalize to a form-field-bound symbol like this one. Repair round 3 finding 1: round 2's guard branched on the no-mortgage-statement flag alone, so asserting it true never consulted the observed tax.us.2025.f1098 family at all - a return could assert Path A (no statement) while a real, fully-authorized Form 1098 family was on record, and line-12e would silently publish the raw tax.us.2025.deductions.itemized assertion even though tax.us.2025.schedule-a.line8a derived a real figure from that same family and Schedule A was marked required. The flag and the count are now always checked together: Path A is legitimately taken only when the flag is asserted true AND the family is genuinely empty (count == 0); asserting the flag true while count != 0 is a self-contradictory declaration and blocks F1098_SCOPE_CONTRADICTION rather than silently routing to either path. The not-flag branch (count-based routing to itemized-when-empty or schedule-a.line8a-when-present) is unchanged from round 2."
+}

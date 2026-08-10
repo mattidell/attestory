@@ -1,0 +1,41 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.schedule-a-total-closed-empty",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": {
+    "op": "all",
+    "args": [
+      { "op": "require_closed", "source_set": "tax.us.2025.f1098" },
+      {
+        "op": "compare",
+        "cmp": "eq",
+        "left": {
+          "op": "count",
+          "name": "tax.us.2025.f1098.box1-mortgage-interest",
+          "source_set": "tax.us.2025.f1098"
+        },
+        "right": 0
+      }
+    ]
+  },
+  "value": 0,
+  "publishes": "tax.us.2025.schedule-a.total",
+  "citations": [],
+  "blocked": {
+    "code": "SOURCE_SET_UNCLOSED",
+    "missing": ["tax.us.2025.f1098"]
+  },
+  "composition": {
+    "id": "tax.us.2025.schedule-a",
+    "version": "v1"
+  },
+  "notes": "Track 0 Sec 8/9: the count == 0 producer of tax.us.2025.schedule-a.total (no Form 1098 statement on record - out of this milestone, the legacy itemized-assertion path). rule.schedule-a-total.json is the count > 0 producer of the same symbol. Splitting into two mutually-exclusive-guard rules (rather than one rule with a value-level choose over a conditionally-available ref) avoids a same-pass evaluation-order dependency on rule.schedule-a-line8a.json: this rule has no requires at all and is always immediately eligible, evaluating require_closed/count directly from committed facts/closure state, never from another rule's published output."
+}
