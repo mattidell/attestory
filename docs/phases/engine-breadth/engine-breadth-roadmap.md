@@ -137,8 +137,23 @@ roadmap unless a selected breadth slice directly depends on them.
     benefits, new IRA/pension/unemployment/Schedule 1 support, and
     withholding/payment paths. Plan:
     `milestones/ssa1099-benefits-line6.md`.
+12. **Form 1098 Home-Mortgage Interest through Schedule A and Form 1040 Line
+    12e** — owner-chartered 2026-08-05 and **closed 2026-08-10** (PR #168).
+    Bounded singleton-closed Form 1098 statement class: deductible interest
+    derived through Schedule A line 8a from taxpayer-authority component
+    facts, a composition-complete Schedule A for this class, deterministic
+    standard-vs-itemized selection at line 12e (guarding the generic
+    itemized assertion off whenever a Form 1098 statement is genuinely on
+    record, including the contradictory-declaration case), and the correct
+    2025 line-13a/13b/14 deduction-spine succession into taxable income.
+    Final package is the additive union core **v29** / published **v24** /
+    release **v22** / adopt **v29** over the merged SSA-1099 base. Multiple
+    mortgages, refinancing, points, PMI, the mortgage-interest credit, and
+    general Schedule A support remain outside it. Plan:
+    `milestones/f1098-mortgage-interest-line12e.md`; retrospective:
+    `docs/milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md`.
 
-**Next breadth slice — the owner-selected IRA-family distribution route.**
+**Next breadth slice — owner-unselected.**
 Inbound capital-loss carryovers, Form 8949/noncovered securities/adjustments,
 and other Schedule D sources remain distinct candidates; other Form 1099-R
 distribution treatments and unrelated income domains remain outside the

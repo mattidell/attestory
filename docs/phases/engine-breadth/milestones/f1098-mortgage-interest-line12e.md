@@ -3,10 +3,11 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1098-mortgage-interest-line12e",
-  "milestone_state": "track-2",
-  "status": "Track 0, Track 1, and Track 2 built and curated. Base: core-calculations v29 / published v24 / release v22, built additively on origin/main's SSA-1099 merge (48d46f9, core v28 / published v23 / release v21). Curated to atomic Plan/Track-1/Track-2 commits for the milestone PR; interim review and repair-round records are distilled into the retrospective, not carried in this doc. Awaiting a fresh independent review of the exact curated head and a green CI run before the owner can merge (PROJECT_PLANNING.md, \"Milestone Publication Curation\" step 7).",
-  "current_role": "Reviewer (final curated range, owner-launch)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md#Contracts",
+  "milestone_state": "closed",
+  "status": "Closed 2026-08-10 (PR #168). Track 0, Track 1, and Track 2 built, curated to atomic Plan/Track-1/Track-2 commits, independently reviewed READY, and CI-green on the exact pushed head. Base: core-calculations v29 / published v24 / release v22, built additively on origin/main's SSA-1099 merge (48d46f9). Interim review and repair-round records are distilled into the retrospective, not carried in this doc.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md",
   "scope": [
     "admit a bounded, singleton-closed Form 1098 mortgage-interest statement family with correction/duplicate/late-member lifecycle",
     "derive deductible home-mortgage interest for Schedule A line 8a from accepted component authority, never from a contributed conclusion",
@@ -75,11 +76,11 @@
 # Milestone: Form 1098 Home-Mortgage Interest through Schedule A and Form 1040 Line 12e
 
 - Phase: Engine Breadth
-- Status: **curated, awaiting final independent review and CI** — Track 0
-  (paper-first scope contract), Track 1 (Form 1098 family, Schedule A line
-  8a), and Track 2 (line-12e succession, Schedule A attachment, package
-  build) are all built. Interim review/repair-round detail is distilled
-  into the retrospective at close, not carried here.
+- Status: **closed 2026-08-10** (PR #168) — Track 0 (paper-first scope
+  contract), Track 1 (Form 1098 family, Schedule A line 8a), and Track 2
+  (line-12e succession, Schedule A attachment, package build) are all built,
+  independently reviewed READY, and CI-green. Interim review/repair-round
+  detail is distilled into the retrospective, not carried here.
 - Base: `tax.us.2025.package.core-calculations` v29 / published v24 /
   release v22 / adoption v29 (built additively on `origin/main` at `48d46f9`,
   the merged SSA-1099 milestone).
