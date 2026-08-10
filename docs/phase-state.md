@@ -5,10 +5,10 @@
   "topic": "f1098e-student-loan-interest-line21",
   "active_plan": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md",
   "milestone_state": "track-0",
-  "status": "**ENGINE BREADTH / 2025 FORM 1098-E STUDENT-LOAN INTEREST THROUGH SCHEDULE 1 LINE 21 AND FORM 1040 AGI — TRACK 0 SETTLED.** All ten paper-scope items are settled and committed on `milestone/f1098e-student-loan-interest-line21` (worktree `engine-1098e`), cut from `b25562f`: T0-1/2/3/9/10 as `track-0a` (f05dc6e); T0-4/5/6/7 and T0-8 as `track-0b` (f9228ed, 64f267d, be556af, e6b5d70, 124918d, d22400b). Draft PR #169, based on `milestone/f1098-mortgage-interest-line12e` until #163 and #168 land. Track 1 (implementation) is not yet chartered. Settlement highlights: the evaluator has no `multiply`/`divide` and no categorical or boolean aggregate either (`collect` is numeric-only, `packages/derivation/evaluator.py:118`), so eligibility components are return-scoped rather than per-statement; Form 1098-E account number is not an identity key; the SLID worksheet is i1040gi p.99 not p.98; T0-5 reuses `ss-benefits-scope`'s twelve MAGI absences rather than minting a parallel vocabulary, which is what makes T0-8 cheap — line 26 imposes no requirement on a return that line-9 v7 did not already impose; there is already no `return with no Schedule 1` in this engine, so line 10 yields a computed authorized zero with no new absence authority; no existing fixture or packaged computation changes. Two open items carried out of Track 0: the `attachment-rule.v5` provenance defect (T0-7) and the B1 `not-claimed-as-dependent` coupling (T0-8), where a truthful `no` blocks AGI for a return with no student loans. ADR budget spent — T0-4 claims the single allowed ADR for the multiply/divide extension. Integration order unchanged: merge #163, merge #168, rebase, rebuild every successor and generated publication, run the three-way semantic-ledger diagnostic, verify the delta, only then implementation review or publication. No version numbers allocated.",
+  "status": "**ENGINE BREADTH / 2025 FORM 1098-E STUDENT-LOAN INTEREST THROUGH SCHEDULE 1 LINE 21 AND FORM 1040 AGI \u2014 TRACK 0 REOPENED.** The Track 0 settled declaration is WITHDRAWN. Owner review returned three findings, all accepted: (F1, P1) sixteen of the seventeen eligibility components are statement-set-dependent but keyed by tax-year alone, so a late statement is silently authorized by an attestation never made about it; (F2, P1) a closed-empty 1098-E family lets B1 not-claimed-as-dependent block line 21, line 26, line 10 and therefore AGI, which is semantically wrong; (F3, P2) the T0-5 reuse of the twelve ss-benefits-scope Schedule 1 absences was priced against an unratified PR #163 that has now merged, and the reused facts declare Social Security Benefits Worksheet scope in their own titles, so reuse fails the claim-reuse proof on declared authority scope. Pricing: F1 does NOT fire the stop condition \u2014 the identity-key vocabulary already admits {kind: entity, name: family-horizon} and the ratified line uses it 37 times on every *.source-closure fact type, so horizon-binding substantive declarations is content-level reuse needing no evaluator change and no ADR; the alternative (per-statement authority plus a real aggregate) WOULD need new substrate, since the evaluator has no categorical or boolean aggregate at all. F2 resolves to a closed-empty canonical-zero branch carrying closure and C2 provenance, and exposes a second correction: B1=no is a legal zero, not an unsupported block, so every component must be decided individually. F3 blast radius is three files (ss-benefits-scope.bundle.json, rule.ss-benefits-worksheet.json, tests/test_ssa1099_benefits_line6_track2.py); disposition is a shared return-level successor with the SSA-scoped originals superseded, a bridging rule being rejected as repairing upstream scope with a downstream note. Track 0c is chartered with five work items T0c-1..T0c-5 and five now-mandatory Track 0 outputs (authority-lifecycle table, empty/nonempty authority matrix, late-authority counterexample walk, claim-reuse proof, neighboring-capability dependency diff) plus a required Track 0 adversarial-closure declaration, currently four FAILs. Standing rule adopted: Track 0 may not be marked settled while it contains a known semantic coupling unless the plan carries a counterexample showing the coupling is correct. INTEGRATION DONE: PR #163 and PR #168 both merged; this branch rebased --onto origin/main from b25562f (the old base was not an ancestor, the mortgage milestone having been curated before merge), nine commits replayed, one docs/phase-state.md conflict resolved; PR #169 retargeted to main. Delta verified: evaluator operator set unchanged, rule.form1040-line11 still a bare AGI passthrough, the twelve absences present and unchanged; but CURRENT_RECORD_SCHEMA advanced to derivation-record.v6 and packages/tax/ssa_benefits.py was substantially reduced. Track 1 is not chartered. No version numbers allocated. The attachment-rule.v5 provenance defect from T0-7 remains open and untouched.",
   "retrospective": null,
-  "current_role": "Foreman (Track 0 settled; Track 1 implementation not yet chartered)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md#Track 0a settlement"
+  "current_role": "Foreman (Track 0 reopened; Track 0c chartered, not yet performed)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md#Track 0c work items"
 }
 -->
 # Phase State
@@ -27,7 +27,7 @@ box 8 tax-exempt interest on line 2a, Form 1099-G box-1 unemployment through
 Schedule 1 into Form 1040 line 8, the bounded Form 1099-DIV box-7 direct
 foreign tax credit, the merged IRA line-4b route, the bounded SSA-1099 Benefits
 Worksheet route through Form 1040 lines 6a/6b, and Form 1098 home-mortgage
-interest through Schedule A and Form 1040 line 12e.
+interest through Schedule A and Form 1040 line 12e. All are on the ratified line.
 
 Every one of those is an **income** or **deduction** route. This branch opens
 the first **adjustment to income**: Form 1098-E student-loan interest through
@@ -38,45 +38,50 @@ Form 1040 line 10 and makes adjusted gross income differ from total income.
 
 * **Active milestone (this branch):** 2025 Form 1098-E Student-Loan Interest
   through Schedule 1 Line 21 and Form 1040 Adjusted Gross Income — **in
-  progress**. Track 0 (paper-first scope contract) is **settled**: all ten
-  items T0-1 through T0-10 are committed. Track 1 (implementation) is not yet
-  chartered.
+  progress**. Track 0's settled declaration is **withdrawn**; owner review
+  returned three findings (two P1), all accepted. **Track 0c** is chartered to
+  re-settle. Track 1 (implementation) is not chartered.
 * **Branch / worktree:** `milestone/f1098e-student-loan-interest-line21` in
-  `engine-1098e`, cut clean from `b25562f`.
-* **Base:** `b25562f`, tip of `milestone/f1098-mortgage-interest-line12e`.
-  Selected by the owner so version allocation sees the true highest allocated
-  numbers: core-calculations **v29**, published **v24**, `rule-artifact.v4`,
-  `attachment-rule.v6`, `form-field.v3`, `fact-type.v3`, line-9 rule **v7**.
-* **Dependencies:** this base carries two unratified milestones. **PR #163**
-  (SSA-1099 lines 6a/6b) supplies the Social Security Benefits Worksheet, the
-  `ss-benefits-scope` vocabulary, and line-9 v5–v7. **PR #168** (Form 1098
-  mortgage interest) supplies `form1040.line-12e`, lines 13a/13b/14, line-15
-  v2, the Schedule A attachment, `rule-artifact.v4`, and the `count`/`block`
-  operators. Both must merge before this milestone rebases and allocates
-  version numbers.
-* **Integration order:** merge #163 → merge #168 → rebase this branch onto the
-  resulting ratified line → rebuild every successor and generated publication
-  from that base → run the ephemeral three-way semantic-ledger diagnostic and
-  verify the rebased semantic delta → only then implementation review or
-  publication.
+  `engine-1098e`.
+* **Base:** `origin/main` (`ff25d42`). Rebased `--onto origin/main` from the
+  original base `b25562f`, which was **not** an ancestor of `main` because the
+  mortgage milestone was curated before merge. Nine commits replayed; one
+  `docs/phase-state.md` conflict resolved. Version tips on this base:
+  core-calculations **v29**, published **v24**, release **v22**,
+  `rule-artifact.v4`, `attachment-rule.v6`, `form-field.v3`, line-9 rule
+  **v7**; highest *allocated* fact-type schema is `fact-type.v3`, though all
+  content still declares `fact-type.v2`.
+* **Dependencies:** discharged. **PR #163** (SSA-1099 lines 6a/6b) merged
+  2026-08-10; **PR #168** (Form 1098 mortgage interest) merged 2026-08-10. Both
+  are on the ratified line.
+* **Rebase delta (verified):** the evaluator operator set is unchanged — still
+  no `multiply`, `divide`, or `min`, and still no categorical or boolean
+  aggregate; `rule.form1040-line11.json` is unchanged and still publishes AGI
+  as a bare `ref` passthrough of total income; the twelve `ss-benefits-scope`
+  Schedule 1 absences are present and unchanged. Two post-settlement changes
+  Track 1 must respect: `CURRENT_RECORD_SCHEMA` advanced to
+  **`derivation-record.v6`** (was v5), and `packages/tax/ssa_benefits.py` was
+  substantially reduced, its test-only enforcement surface removed.
 * **Plan:** `docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md`.
 * **Retrospective:** none yet (milestone not closed).
-* **Concurrent milestones (untouched, on their own branches/worktrees):**
-  PR #163 `milestone/form1040-ssa1099-line6` and PR #168
-  `milestone/f1098-mortgage-interest-line12e`. Neither worktree was altered,
-  cleaned, staged, switched, or reused by this milestone's planning.
-* **Contracts:** SLI-C1–C10 proposed in the plan; Track 0 owns them. At most
-  one new ADR is expected — an ADR-0025-line expression extension adding the
-  `multiply` and `divide` operators the worksheet phaseout requires.
-* **Open items out of Track 0:** the `attachment-rule.v5` provenance defect
-  recorded by T0-7, and the B1 `not-claimed-as-dependent` coupling recorded by
-  T0-8 — unquantified, so a truthful `no` blocks AGI for a return with no
-  student loans.
-* **PR:** #169 (draft), based on `milestone/f1098-mortgage-interest-line12e`;
-  retargets to `main` after #163 and #168 merge.
-* **Next:** ratify the Track 0 settlement, then charter Track 1. The ADR budget
-  is spent — T0-4 claims the milestone's single allowed ADR for the
-  `multiply`/`divide` expression extension.
+* **Contracts:** SLI-C1–C10; Track 0c must restate C2, C5, C6, and C8. The
+  `multiply`/`divide` expression extension still claims the milestone's single
+  expected ADR. F1 and F2 are priced as needing **no** ADR; F3 may need one.
+* **Open findings (Track 0c):** F1 statement-set-dependent authority keyed only
+  by tax year — disposition is `['family-horizon', 'tax-year']` re-keying, which
+  is content-level reuse of substrate the ratified line already uses 37 times,
+  so the stop condition does **not** fire. F2 closed-empty family lets B1
+  suppress AGI — disposition is a closed-empty canonical-zero branch with
+  closure and C2 provenance, plus a per-component legal-zero-vs-block decision.
+  F3 the SSA-scoped absence reuse fails the claim-reuse proof on declared
+  authority scope — disposition is a shared return-level successor; blast radius
+  is three files.
+* **Open item, unchanged:** the `attachment-rule.v5` provenance defect recorded
+  by T0-7.
+* **PR:** #169 (draft), based on `main`.
+* **Next:** perform Track 0c, discharge the five mandatory Track 0 outputs and
+  the adversarial-closure declaration (currently four FAILs), then re-settle
+  Track 0 before Track 1 is chartered.
 
 ## Re-entry
 

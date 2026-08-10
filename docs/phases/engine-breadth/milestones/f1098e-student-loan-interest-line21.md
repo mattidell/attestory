@@ -4,7 +4,7 @@
   "topic": "f1098e-student-loan-interest-line21",
   "milestone_state": "track-0",
   "retrospective": null,
-  "status": "TRACK 0 SETTLED. All ten paper-scope items (T0-1..T0-10) are settled and committed: T0-1/2/3/9/10 as track-0a (f05dc6e), T0-4/5/6/7 and T0-8 as track-0b (f9228ed, 64f267d, be556af, e6b5d70, 124918d, d22400b). Track 1 (implementation) is not chartered. Base is milestone/f1098-mortgage-interest-line12e @ b25562f; this milestone still depends on PR #163 and PR #168 merging, then a rebase, a rebuild of every successor and generated publication, and the three-way semantic-ledger diagnostic before implementation review or publication. No schema, rule, package, registry, attachment, or form-field version numbers are allocated. The milestone ADR budget is spent: T0-4 claims the single allowed ADR for the multiply/divide expression extension. Open items carried out of Track 0: the attachment-rule.v5 provenance defect recorded by T0-7, and the B1 not-claimed-as-dependent coupling recorded by T0-8 (a truthful no blocks AGI for a return with no student loans).",
+  "status": "**ENGINE BREADTH / 2025 FORM 1098-E STUDENT-LOAN INTEREST THROUGH SCHEDULE 1 LINE 21 AND FORM 1040 AGI \u2014 TRACK 0 REOPENED.** The Track 0 settled declaration is WITHDRAWN. Owner review returned three findings, all accepted: (F1, P1) sixteen of the seventeen eligibility components are statement-set-dependent but keyed by tax-year alone, so a late statement is silently authorized by an attestation never made about it; (F2, P1) a closed-empty 1098-E family lets B1 not-claimed-as-dependent block line 21, line 26, line 10 and therefore AGI, which is semantically wrong; (F3, P2) the T0-5 reuse of the twelve ss-benefits-scope Schedule 1 absences was priced against an unratified PR #163 that has now merged, and the reused facts declare Social Security Benefits Worksheet scope in their own titles, so reuse fails the claim-reuse proof on declared authority scope. Pricing: F1 does NOT fire the stop condition \u2014 the identity-key vocabulary already admits {kind: entity, name: family-horizon} and the ratified line uses it 37 times on every *.source-closure fact type, so horizon-binding substantive declarations is content-level reuse needing no evaluator change and no ADR; the alternative (per-statement authority plus a real aggregate) WOULD need new substrate, since the evaluator has no categorical or boolean aggregate at all. F2 resolves to a closed-empty canonical-zero branch carrying closure and C2 provenance, and exposes a second correction: B1=no is a legal zero, not an unsupported block, so every component must be decided individually. F3 blast radius is three files (ss-benefits-scope.bundle.json, rule.ss-benefits-worksheet.json, tests/test_ssa1099_benefits_line6_track2.py); disposition is a shared return-level successor with the SSA-scoped originals superseded, a bridging rule being rejected as repairing upstream scope with a downstream note. Track 0c is chartered with five work items T0c-1..T0c-5 and five now-mandatory Track 0 outputs (authority-lifecycle table, empty/nonempty authority matrix, late-authority counterexample walk, claim-reuse proof, neighboring-capability dependency diff) plus a required Track 0 adversarial-closure declaration, currently four FAILs. Standing rule adopted: Track 0 may not be marked settled while it contains a known semantic coupling unless the plan carries a counterexample showing the coupling is correct. INTEGRATION DONE: PR #163 and PR #168 both merged; this branch rebased --onto origin/main from b25562f (the old base was not an ancestor, the mortgage milestone having been curated before merge), nine commits replayed, one docs/phase-state.md conflict resolved; PR #169 retargeted to main. Delta verified: evaluator operator set unchanged, rule.form1040-line11 still a bare AGI passthrough, the twelve absences present and unchanged; but CURRENT_RECORD_SCHEMA advanced to derivation-record.v6 and packages/tax/ssa_benefits.py was substantially reduced. Track 1 is not chartered. No version numbers allocated. The attachment-rule.v5 provenance defect from T0-7 remains open and untouched.",
   "scope": [
     "add a bounded 2025 Form 1098-E student-loan-interest statement family with lender, borrower, account, and tax-year identity, correction, duplicate, and closure behavior",
     "establish component-level taxpayer-side eligibility authority rather than a contributed qualified/deductible conclusion",
@@ -109,7 +109,9 @@
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
     ]
-  }
+  },
+  "current_role": "Foreman (Track 0 reopened; Track 0c chartered, not yet performed)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md#Track 0c work items"
 }
 -->
 # Milestone: 2025 Form 1098-E Student-Loan Interest → Schedule 1 Line 21 → Form 1040 Adjusted Gross Income
@@ -2598,3 +2600,242 @@ without being decided here: T0-4's settled `block`-on-`no` gate means a truthful
 student loans at all. That is the engine's existing bounded-class posture rather
 than a new hazard, the alternative sits inside T0-4's settled scope, and this
 unit does not re-open it.
+
+## Track 0 reopened — owner review findings and dispositions (Track 0c charter)
+
+**The Track 0 "settled" declaration recorded above is withdrawn.** Owner review
+returned three findings, two at P1. All three are accepted as correct. This
+section records the findings, the foreman's pricing of each against the
+**rebased** base (`origin/main` after PR #163 and PR #168 merged), the required
+dispositions, and the five mandatory Track 0 outputs that must exist before
+Track 0 may be declared settled again.
+
+Nothing in this section allocates a schema, rule, package, registry, attachment,
+or form-field version number.
+
+### Why this was missed — foreman process correction
+
+The three findings were all predictable from the standing guidance in
+`docs/roles/qualitative-review.md`. The failure was not intuition; it was that
+the guidance was never forced into a concrete Track 0 *output*. The tell is in
+the settlement's own prose: the phrases "known limitation, recorded rather than
+engineered around", "existing bounded-class posture", and "none blocking" each
+mark a place where a counterexample was owed and not demanded. Two of the three
+findings were, in fact, already written down by the foreman as "open items
+carried out of Track 0" — and a coupling recorded as an open item is a coupling
+that has not been settled.
+
+**Standing rule, adopted now:** Track 0 may not be marked settled while it
+contains a known semantic coupling, unless the plan carries a counterexample
+demonstrating that the coupling is correct. "Recorded" is not "settled".
+
+### F1 (P1) — Statement-set-dependent authority is not bound to the statement set
+
+**Finding.** The A/B/C eligibility facts are keyed by tax year alone while
+asserting something about *every recorded statement*. Adding a Form 1098-E
+invalidates family closure and the box-1 subtotal, but leaves the prior
+eligibility answers current, so after re-closing they silently authorize a
+statement they were never asserted about.
+
+**Counterexample (accepted, and it does reproduce under the settled design).**
+Attest A8 `lender-not-related-person` = `yes`; close a one-member horizon H1;
+compute. Add a second statement whose lender *is* a related person; close H2.
+The A8 fact is keyed `{tax-year: 2025}`, is unaffected by the horizon change,
+remains current, and now covers a loan it was never asserted about.
+
+**Required property.** Statement-set-dependent authority must be displaced, or
+become unusable, whenever family membership changes.
+
+**Pricing — the stop condition does not fire.** The charter's stop condition
+asks whether this requires new substrate. It does not. The identity-key
+vocabulary already admits `{"kind": "entity", "name": "family-horizon"}`, and
+the ratified line already uses it **37 times** — every `*.source-closure` fact
+type in the corpus is keyed `['family-horizon', 'tax-year']` (`f1098.bundle.json`,
+`ssa1099.bundle.json`, the ten `f1099b-covered-*` bundles, and the rest). What is
+novel here is only the *application*: horizon-binding has so far been used
+exclusively for the closure attestation itself, never for a substantive
+declaration. Extending it to substantive declarations is content-level reuse of
+ratified substrate, needs no evaluator change, and needs no ADR. This matters,
+because the alternative the finding names — per-statement authority plus a
+genuine aggregate mechanism — *would* require new substrate: the evaluator has
+no categorical or boolean aggregate at all (`collect` decimal-coerces every row,
+`packages/derivation/evaluator.py:118`; `count` returns only a length).
+
+**Disposition.** Re-key the statement-set-dependent components to
+`['family-horizon', 'tax-year']`. The old attestation is then simply not current
+for the new horizon, by exactly the mechanism that already invalidates closure,
+and the counterexample resolves: A8@H1 does not answer for H2.
+
+**Which components are statement-set-dependent — sixteen of seventeen.**
+Track 0c must confirm this classification component by component, but the
+foreman's reading of the settled roster is:
+
+* **A1–A10 — statement-set-dependent.** Every one quantifies over the recorded
+  set, explicitly or by construction (A1: "…covered by every recorded
+  statement").
+* **B2–B5 — statement-set-dependent.** Each quantifies over *claimed* interest
+  ("No claimed interest was paid from…"), and the claimed interest is exactly
+  the recorded box-1 set.
+* **C1 — statement-set-dependent.** Quantifies over furnished Forms 1098-E.
+* **C2 — statement-set-dependent, and most sharply so.** It names the recorded
+  set in its own text: no deductible interest "other than the amounts reported
+  in box 1 of the recorded Forms 1098-E".
+* **B1 `not-claimed-as-dependent` — the sole exception.** It is a fact about the
+  taxpayer's status on someone else's return. It is genuinely return-scoped and
+  correctly keyed by tax year alone. It is invalidated only by correction.
+
+That B1 is the one component that is *not* statement-set-dependent is not a
+coincidence — it is the same fact that F2 shows must not gate the closed-empty
+route. The two findings meet at the same component from opposite directions.
+
+### F2 (P1) — A closed-empty family must not let eligibility control AGI
+
+**Finding.** Under the settled design, `B1 = no` blocks line 21, line 26,
+line 10, and therefore AGI, even when the Form 1098-E family is closed empty.
+Calling that an existing bounded-class posture does not make it semantically
+correct: with no deductible interest anywhere, dependent status cannot change
+line 21 from zero. The prior settlement recorded this as an "open coupling"
+rather than a defect — precisely the failure named above.
+
+**Disposition — a real authority branch, with provenance.** A closed-empty
+Form 1098-E family, together with C2 authority that there is no unreported
+deductible interest, must produce a **canonical line 21 zero** without consulting
+any loan-eligibility answer. The zero must carry closure and C2 provenance; it is
+an authorized zero, not a manufactured one, and not a default.
+
+Note what horizon-binding from F1 buys here for free: C2 keyed to the *empty*
+horizon reads "the taxpayer has no deductible 2025 student loan interest other
+than the amounts reported in box 1 of the recorded Forms 1098-E", of which there
+are none — i.e. exactly "no deductible student loan interest at all". The empty
+horizon makes C2 say the strongest true thing on its own. The two dispositions
+compose rather than compete.
+
+**A second correction this exposes, which Track 0c must settle.** `B1 = no` is
+not an "unsupported, therefore block" condition even on a **non-empty** family.
+Being claimed as another taxpayer's dependent makes the deduction zero as a
+matter of law, not merely uncomputable by this engine. So B1 should never block:
+it should *select* zero. That is a stronger and simpler result than the minimal
+fix, and it distinguishes B1 from B3/B4/B5, which reduce the includible amount
+and therefore genuinely do block. Track 0c must decide, for every component,
+whether a `no` means **legal zero** or **unsupported → block**, and say why.
+The prior settlement decided this uniformly and therefore decided it wrongly.
+
+### F3 (P2) — Reopen the shared Schedule 1 absence decision
+
+**Finding.** T0-5 chose to reuse `ss-benefits-scope`'s twelve Schedule 1
+absences over minting a parallel vocabulary. That choice was priced against a
+world in which the SSA content sat in an unratified PR #163. **PR #163 merged
+2026-08-10.** Both dependencies are now ratified, so the constraint that drove
+the decision no longer exists and the decision must be re-priced.
+
+**The authority mismatch is confirmed in the rebased content, not merely
+suspected.** The twelve fact types are named
+`tax.us.2025.ss-benefits-scope.no-sch1-line11-educator` … `no-sch1-line25-other-adjustments`,
+and each carries the declared title *"Social Security Benefits Worksheet
+completeness component: … for the bounded Social Security worksheet claim."*
+A tax-year-only identity key does not broaden that declared meaning; storage
+shape cannot redefine meaning; and a note added by a downstream student-loan
+consumer cannot retroactively widen an upstream declaration. Reuse as settled
+fails the claim-reuse proof at the third leg — same proposition, same lifecycle,
+but **not** the same declared authority scope.
+
+**Pricing — the blast radius is three files.** Every reference to the twelve
+lives in `packages/content/tax/2025/ss-benefits-scope.bundle.json` (12
+declarations), `packages/content/tax/2025/rule.ss-benefits-worksheet.json` (60
+references), and `tests/test_ssa1099_benefits_line6_track2.py`. Nothing else in
+the corpus touches them.
+
+**Disposition.** Adopt a **shared return-level successor**: neutral fact types
+whose declared title states the proposition without naming a consuming
+worksheet, required by both the Social Security worksheet and the student-loan
+MAGI base. The SSA-scoped originals are superseded. A bridging rule that
+republishes the SSA-scoped facts under a neutral symbol is **rejected** — it
+leaves the mismatched declaration one hop upstream and repairs scope with a
+downstream note, which the finding forbids by name. Track 0c must confirm this
+against the supersession policy actually declared on the twelve (`free`) and
+must price the resulting version churn, which now legitimately reaches ratified
+SSA content.
+
+### Mandatory Track 0 outputs — standing, and required before re-settlement
+
+Track 0 is not settled until all five exist in this plan.
+
+1. **Authority-lifecycle table.** For every contributed fact: meaning, scope,
+   what it depends on, and *what invalidates it*. This is the output that would
+   have exposed F1 — sixteen components depend on a changing statement set while
+   keyed only by tax year.
+2. **Empty/nonempty authority matrix.** At minimum the four rows: closed-empty
+   with C2 present; closed-empty with C2 absent; non-empty and eligible;
+   non-empty and ineligible. The first row is what makes F2 unmissable; the last
+   row must be explicitly decided per component rather than uniformly.
+3. **Late-authority counterexample.** Every aggregate declaration walked on paper
+   through **attest → close → compute → add member → reclose → recompute**,
+   naming exactly which prior facts become unusable at each transition. If any
+   answer is "it remains current", Track 0 cannot close.
+4. **Claim-reuse proof.** Reuse requires three independent matches: same
+   real-world proposition, same identity and lifecycle, **and** same declared
+   authority scope and explanation. The prior settlement checked the first two
+   and treated the SSA-specific title as cosmetic.
+5. **Neighboring-capability dependency diff.** What AGI requires on a return with
+   *no* student-loan activity, before and after this design. The diff as settled
+   reads: *before*, AGI does not depend on student-loan eligibility; *after*, AGI
+   requires 1098-E closure plus seventeen student-loan answers including B1. Any
+   new feature-specific prerequisite on a neighboring capability requires
+   justification and triggers a blast-radius review.
+
+### Track 0 adversarial closure — required declaration
+
+This block must appear, fully discharged, in the re-settlement. Current status:
+
+```
+## Track 0 adversarial closure
+- Late-member lifecycle:                    FAIL — F1, counterexample reproduces
+- Closed-empty route:                       FAIL — F2, B1 suppresses AGI
+- Neighboring capability dependency diff:   FAIL — F5 diff unjustified
+- Reused-claim semantic/lifecycle equiv.:   FAIL — F3, declared scope mismatch
+- Known limitations affecting correctness:  owner-disposition required
+```
+
+### Track 0c work items
+
+* **T0c-1** — Authority-lifecycle table for all seventeen components plus
+  closure and the subtotal; confirm or correct the sixteen-of-seventeen
+  classification; re-key the statement-set-dependent components to
+  `['family-horizon', 'tax-year']`; discharge output 3 on A8 and C2 explicitly.
+* **T0c-2** — Empty/nonempty authority matrix; specify the closed-empty
+  canonical-zero branch with closure and C2 provenance; decide **per component**
+  whether `no` means legal zero or unsupported-block, and settle B1 as legal
+  zero if the law supports it.
+* **T0c-3** — Re-price the shared absence decision; specify the return-level
+  successor, the supersession of the twelve SSA-scoped originals, and the
+  version churn reaching ratified SSA content; discharge output 4.
+* **T0c-4** — Neighboring-capability dependency diff, before and after, with the
+  post-disposition figure; justify every remaining prerequisite AGI gains on a
+  return with no student-loan activity.
+* **T0c-5** — Restate the affected T0-2/T0-5/T0-8 settlements and the affected
+  SLI-C2/C5/C6/C8 contracts; re-run the adversarial-closure declaration; confirm
+  whether the ADR budget is still sufficient (F1 and F2 are expected to need no
+  ADR; F3 may).
+
+### Carried forward unchanged
+
+The `attachment-rule.v5` provenance defect recorded by T0-7 remains open and is
+untouched by these findings.
+
+### Rebase record
+
+Rebased `--onto origin/main` from `b25562f`; nine commits replayed, one conflict
+in `docs/phase-state.md` resolved in favour of this milestone. The prior base was
+**not** an ancestor of `origin/main` because the mortgage milestone was curated
+before merge. Delta verified against the rebased base: the evaluator operator set
+is unchanged (still no `multiply`, `divide`, or `min`, and still no categorical
+or boolean aggregate); `rule.form1040-line11.json` is unchanged and still
+publishes AGI as a bare `ref` passthrough of total income; the twelve
+`ss-benefits-scope` absences are present and unchanged. Two changes on the
+ratified line that Track 1 must respect and that post-date the settlement:
+`CURRENT_RECORD_SCHEMA` advanced to **`derivation-record.v6`** (was v5), and
+`packages/tax/ssa_benefits.py` was substantially reduced, its test-only
+enforcement surface removed. Version tips on the rebased base: core-calculations
+**v29**, published **v24**, release **v22**, `rule-artifact.v4`,
+`attachment-rule.v6`, `form-field.v3`; highest **allocated** fact-type schema is
+`fact-type.v3`, though all content still declares `fact-type.v2`.
