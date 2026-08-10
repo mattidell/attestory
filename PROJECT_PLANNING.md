@@ -1000,6 +1000,10 @@ Before starting a new milestone, create or update a planning document with:
 - Data safety: how personal documents and personal data remain excluded.
 - Exit criteria: the exact definition of done.
 - Tracks: the atomic implementation tracks that make up the milestone.
+- Track 0 adversarial closure: when Track 0 settles authority, lifecycle,
+  claim reuse, or neighboring integration, include the gate below. It may be
+  `PENDING` in the initial plan but must be completed before the first
+  implementation charter.
 
 Milestone planning happens on a new milestone branch before implementation.
 The initial plan is that branch's first milestone commit and opens the draft
@@ -1022,6 +1026,98 @@ Before implementing a track, identify:
 - Migration risk: whether existing artifact shapes or golden fixtures change.
 - Data safety: whether any local, private, or generated data path is touched.
 - Payload instantiation: if the track commits a schema that carries or references a payload, one hand-written, fully-resolved instance of that payload, committed alongside the schema as its positive example, before the schema is committed. A payload specified only by reference to another citizen is not yet instantiated.
+- Track 0 closure: when the implementation relies on a paper-first Track 0,
+  confirm its committed adversarial-closure declaration is complete and has no
+  unresolved `FAIL`.
+
+## Track 0 Adversarial Closure Gate
+
+When Track 0 settles contributed authority, aggregate or absence declarations,
+claim reuse, or a feature's relationship to neighboring capability, the
+Foreman applies `docs/roles/qualitative-review.md` before calling the design
+settled. The output is concrete evidence in the milestone plan under the exact
+heading `## Track 0 adversarial closure`, not another review-guidance document.
+
+Qualifiers such as “known limitation, recorded rather than engineered around,”
+“existing bounded-class posture,” and “none blocking” are not dispositions. If
+the limitation can affect correctness, lifecycle, or a neighboring capability,
+it triggers the counterexample and dependency work below.
+
+Track 0 must produce all five artifacts:
+
+1. **Authority-lifecycle table.** Include every contributed fact, reused
+   declaration, aggregate declaration, and absence authority on which the
+   proposed design relies.
+
+   | Fact or claim | Meaning | Authority scope | Depends on | What invalidates it? |
+   | --- | --- | --- | --- | --- |
+   | `<identifier>` | `<real-world proposition>` | `<subject, return, family, statement set, or horizon>` | `<exact authorities>` | `<correction, supersession, member transition, reclassification, or other event>` |
+
+   Storage identity is not authority scope. A tax-year key does not establish
+   tax-year-only lifecycle when the proposition depends on a changing family,
+   statement set, or recorded horizon.
+
+2. **Empty/nonempty authority matrix.** Exercise at least these four states for
+   every family whose emptiness or membership can affect the feature or a
+   downstream neighbor:
+
+   | Family state | Universe / absence authority | Eligibility or applicability | Expected feature result | Expected neighboring result |
+   | --- | --- | --- | --- | --- |
+   | Closed empty | Complete authority establishes no members elsewhere | Negative or inapplicable | Explicit zero or inapplicable, as the contract states | Available without feature-specific facts unless the contract proves otherwise |
+   | Closed empty | Required universe / absence authority missing | Any | Blocked | Blocked only along the dependency the design justifies |
+   | Nonempty | Complete and eligible | Positive | Computed | Available |
+   | Nonempty | Ineligible | Negative | Zero, blocked, or unsupported — Track 0 must choose explicitly | Availability decided explicitly; never inherited from a convenient guard |
+
+3. **Late-authority counterexample.** Run every aggregate declaration through
+   this paper trace:
+
+   ```text
+   attest → close → compute → add member → reclose → recompute
+   ```
+
+   At every transition, name which prior facts, findings, closures, and
+   publications become unusable and why. A declaration that remains current
+   after the authority it summarizes changes is a `FAIL`, unless Track 0 proves
+   that the real-world proposition and its declared scope truly did not change.
+
+4. **Claim-reuse proof.** A reused claim passes only when Track 0 demonstrates
+   all three independently:
+
+   - the same real-world proposition;
+   - the same identity and lifecycle; and
+   - the same declared authority scope and explanation.
+
+   A matching storage shape, a downstream annotation, or an apparently narrow
+   title cannot redefine or broaden the source declaration.
+
+5. **Neighboring-capability dependency diff.** List the prerequisites of each
+   neighboring capability before and after the design, including the return
+   state in which the new feature has no activity. Every new feature-specific
+   prerequisite imposed on an existing neighbor triggers a blast-radius review
+   and must be justified by the neighbor's own meaning, not by implementation
+   convenience.
+
+The plan closes with this declaration:
+
+```md
+## Track 0 adversarial closure
+
+- Authority-lifecycle table: PASS/FAIL — evidence
+- Empty/nonempty authority matrix: PASS/FAIL — authority and results
+- Late-member lifecycle: PASS/FAIL — evidence
+- Neighboring capability dependency diff: PASS/FAIL — evidence
+- Reused-claim semantic/lifecycle equivalence: PASS/FAIL — evidence
+- Known limitations affecting correctness: none, or owner disposition required
+```
+
+`PASS` cites the table row, paper trace, counterexample, or committed contract
+that would fail if the design were wrong; prose confidence is not evidence.
+Track 0 cannot be marked settled, and the first implementation charter cannot
+be filed, while an artifact is missing, a row is `FAIL`, a neighboring
+dependency is unexplained, or a known semantic coupling lacks a counterexample
+showing that the coupling is correct. Such a result returns to paper design or
+to the owner for disposition; it is never downgraded to “nonblocking” by the
+Foreman.
 
 ## Payload Instantiation Gate
 
