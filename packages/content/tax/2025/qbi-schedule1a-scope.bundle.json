@@ -1,0 +1,58 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.qbi-schedule1a-scope.vocabulary",
+  "version": "v1",
+  "label": "QBI (line 13a) and Schedule 1-A (line 13b) absence-declaration scope vocabulary",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.qbi.no-qbi-deduction-declared",
+      "version": "v1",
+      "title": "Taxpayer assertion: no-qbi-deduction-declared",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.schedule1a.no-additional-deductions-declared",
+      "version": "v1",
+      "title": "Taxpayer assertion: no-additional-deductions-declared",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

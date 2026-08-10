@@ -1,0 +1,29 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.schedule-a-excess-over-standard",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": ["tax.us.2025.schedule-a.total", "demo.form1040.standard_deduction"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.schedule-a.total", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "demo.form1040.standard_deduction", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "subtract",
+    "left": { "op": "ref", "name": "tax.us.2025.schedule-a.total" },
+    "right": { "op": "ref", "name": "demo.form1040.standard_deduction" }
+  },
+  "publishes": "tax.us.2025.schedule-a.excess-over-standard",
+  "citations": [],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.schedule-a.total", "demo.form1040.standard_deduction"]
+  },
+  "notes": "Track 0 Sec 8: the Schedule A attachment-selection contract is computed Schedule A total strictly greater than the standard deduction -> required, less-than-or-equal -> not-required (deterministic tie favors standard). The attachment machinery's requirement shape compares a subtotal symbol to a static threshold_parameter, never to another dynamic symbol; this rule expresses the dynamic standard-deduction comparison as a single signed difference so the attachment can reuse the existing subtotal-over-threshold-parameter(default-zero) shape verbatim (matching attachment.f8949.json / attachment.schedule-d.v3.json precedent), with no new attachment ontology. tax.us.2025.schedule-a.total always publishes (0 when no Form 1098 statement is on record, per rule.schedule-a-total-closed-empty.json's producer route), so this rule's own unconditional requires+ref is always eventually satisfiable via ordinary multi-pass saturation - no count-based guard duplication needed here."
+}

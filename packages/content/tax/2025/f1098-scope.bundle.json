@@ -1,0 +1,30 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1098-scope.vocabulary",
+  "version": "v1",
+  "label": "Form 1098 line-12e producer-selection scope vocabulary",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098-scope.no-mortgage-statement",
+      "version": "v1",
+      "title": "Form 1098 scope: no mortgage statement on record",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

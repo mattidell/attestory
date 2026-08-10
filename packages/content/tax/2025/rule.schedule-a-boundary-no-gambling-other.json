@@ -1,0 +1,57 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.schedule-a-boundary-no-gambling-other",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [
+    "tax.us.2025.schedule-a-boundary.no-gambling-other-declared"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "tax.us.2025.schedule-a-boundary.no-gambling-other-declared",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": {
+    "op": "categorical_compare",
+    "cmp": "eq",
+    "left": {
+      "op": "ref",
+      "name": "tax.us.2025.schedule-a-boundary.no-gambling-other-declared"
+    },
+    "right": {
+      "op": "category_literal",
+      "fact_type": {
+        "id": "tax.us.2025.schedule-a-boundary.no-gambling-other-declared",
+        "version": "v1"
+      },
+      "value": "yes"
+    }
+  },
+  "value": true,
+  "publishes": "tax.us.2025.schedule-a-boundary.no-gambling-other",
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule-a-boundary.no-gambling-other-declared"
+    ]
+  },
+  "composition": {
+    "id": "tax.us.2025.schedule-a",
+    "version": "v1"
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule-a-boundary",
+      "version": "v1"
+    }
+  ],
+  "notes": "Part V gambling/other (line 16) absent. Repair round 3 finding 2: this rule previously published true unconditionally (when: true, no taxpayer declaration behind it), with its symbol consumed by nothing downstream - a citation trail wrapped around a hardcoded true. It now gates on a mandatory (never optional_default) taxpayer assertion, tax.us.2025.schedule-a-boundary.no-gambling-other-declared == \"yes\", mirroring the f1098 taxpayer-authority-fact pattern (tax.us.2025.f1098.liable-and-paid); its absence blocks DEPENDENCY_ABSENT rather than silently publishing true. The Schedule A attachment's own completeness.required_answers now also requires this fact directly, so the whole Schedule A computation is required-and-incomplete unless every category's absence is genuinely declared."
+}

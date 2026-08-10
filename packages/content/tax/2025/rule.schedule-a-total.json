@@ -1,0 +1,43 @@
+{
+  "schema": "rule-artifact.v4",
+  "id": "tax.us.2025.rule.schedule-a-total",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": ["tax.us.2025.schedule-a.line8a"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.schedule-a.line8a", "version": "v1", "origin": "assertion" }
+  ],
+  "when": {
+    "op": "all",
+    "args": [
+      { "op": "require_closed", "source_set": "tax.us.2025.f1098" },
+      {
+        "op": "compare",
+        "cmp": "ne",
+        "left": {
+          "op": "count",
+          "name": "tax.us.2025.f1098.box1-mortgage-interest",
+          "source_set": "tax.us.2025.f1098"
+        },
+        "right": 0
+      }
+    ]
+  },
+  "value": { "op": "ref", "name": "tax.us.2025.schedule-a.line8a" },
+  "publishes": "tax.us.2025.schedule-a.total",
+  "citations": [],
+  "blocked": {
+    "code": "SOURCE_SET_UNCLOSED",
+    "missing": ["tax.us.2025.f1098"]
+  },
+  "composition": {
+    "id": "tax.us.2025.schedule-a",
+    "version": "v1"
+  },
+  "notes": "Track 0 Sec 8/9: the Schedule A composition total is computed whenever a Form 1098 statement is on record (needed for the attachment's required-vs-not-required comparison itself, independent of whether it wins the line-12e max()). Line 8a is the only populated category for this bounded class, so this rule's own value is exactly tax.us.2025.schedule-a.line8a. This is the count > 0 producer of tax.us.2025.schedule-a.total; rule.schedule-a-total-closed-empty.json is the count == 0 producer of the same symbol (mutually exclusive guards, so exactly one of the two ever publishes for a given return - the runner's ordinary same-symbol multi-producer handling, not a conflict). requires makes tax.us.2025.schedule-a.line8a a true saturation-order dependency (not just a value-level ref) so this rule is correctly deferred to a later saturation pass rather than attempted eagerly before line8a.rule has published in the same pass."
+}

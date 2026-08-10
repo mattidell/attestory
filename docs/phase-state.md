@@ -2,13 +2,13 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "ssa1099-benefits-line6",
-  "active_plan": "docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md",
-  "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / 2025 SSA-1099 BENEFITS TO FORM 1040 LINES 6a/6b — CLOSED OUT, PR OPEN.** The bounded SSA-1099 route is implemented through lines 6a/6b, line 9, AGI, taxable income, regular tax, package resolution, explanation, citations, and production-shaped presentation. Box 8 claim-based identity minting is deferred by owner ruling and recorded in the plan as a named obligation for the first real-entry milestone.",
-  "retrospective": "docs/milestone-retrospectives/2026-08-05-form1099div-box7-direct-ftc.md",
-  "current_role": "Foreman (milestone closed out, PR open)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md"
+  "topic": "f1098-mortgage-interest-line12e",
+  "active_plan": "docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md",
+  "milestone_state": "closed",
+  "status": "**ENGINE BREADTH / FORM 1098 HOME-MORTGAGE INTEREST THROUGH SCHEDULE A AND FORM 1040 LINE 12E — CLOSED.** Bounded singleton-closed Form 1098 statement class: deductible interest derived through Schedule A line 8a from taxpayer-authority component facts (never an unexplained contributed conclusion), a composition-complete Schedule A for this class with every unimplemented category genuinely taxpayer-declared absent, deterministic standard-vs-itemized selection at Form 1040 line 12e (guarding the generic itemized assertion off whenever a Form 1098 statement is genuinely on record, including the contradictory-declaration case), and the correct 2025 line-13a/13b/14 deduction-spine succession into taxable income. Rebased onto the merged SSA-1099 milestone (origin/main 48d46f9, PR #163); final package is the additive union core **v29** / published **v24** / release **v22** / adopt **v29**. Independent review passed; CI green on the exact pushed head (PR #168). Next milestone owner-unselected.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
 # Phase State
@@ -25,36 +25,35 @@ interest, Schedule B adjustments, covered Form 1099-B capital paths including
 inbound carryovers and Form 8949 wash-sale (code W) lines 1b/8b, Form 1099-INT
 box 8 tax-exempt interest on line 2a, Form 1099-G box-1 unemployment through
 Schedule 1 into Form 1040 line 8, the bounded Form 1099-DIV box-7 direct
-foreign tax credit, the merged IRA line-4b route, and the bounded SSA-1099
-Benefits Worksheet route through Form 1040 lines 6a/6b.
+foreign tax credit, the merged IRA line-4b route, the bounded SSA-1099
+Benefits Worksheet route through Form 1040 lines 6a/6b, and the bounded Form
+1098 home-mortgage interest route through Schedule A and Form 1040 line 12e.
+The next Engine Breadth milestone is owner-unselected.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** 2025 SSA-1099 Benefits through the Social Security
-  Benefits Worksheet and Form 1040 lines 6a/6b — complete and closed out to
-  three durable commits plus closeout, open as a PR.
-* **Current result:** the bounded SSA-1099 route is implemented through lines
-  6a/6b, line 9, AGI, taxable income, regular tax, package resolution,
-  explanation, citations, and production-shaped presentation. The current
-  package graph is core **v28**, published **v23**, release **v21**, adoption
-  **v28**, with the artifact-package successor and quantity-vocabulary schema
-  admitted additively.
-* **Plan:** `docs/phases/engine-breadth/milestones/ssa1099-benefits-line6.md`.
-* **Prior closed (selected pointers):** the merged IRA line-4b route is an
-  integration prerequisite for this SSA candidate; unrelated active work stays
-  isolated on its own branch.
-* **Contracts:** SSA Track 0 paper boundary and the reused source-family,
-  closure, composition, resolver, citation, explanation, and presentation
-  contracts; no new ADR. Statement identity is **logical statement + tax year**
-  by owner decision of 2026-08-09 — milestone-scoped, and explicitly not a
-  generalization of ADR-0015 beyond Form 1099-INT.
-* **Next:** merge the PR, then select the next Engine Breadth milestone.
-* **Deferred obligation:** deterministic claim-based statement-identity minting
-  is not implemented. Statement sameness is enforced by the kernel's
-  duplicate-entity guard but its derivation is delegated to whatever mints
-  entity ids, and no artifact specifies that policy. Owner deferred Box 8
-  claim-number authority on 2026-08-09; carry to the first real-entry
-  milestone.
+* **Active milestone:** none. Form 1098 Home-Mortgage Interest through
+  Schedule A and Form 1040 Line 12e **closed 2026-08-10** after independent
+  review returned READY and CI bound the exact curated head.
+* **Current result:** bounded synthetic-complete route from a singleton
+  Form 1098 statement through Schedule A line 8a, the full Schedule A
+  completeness boundary (nine mandatory taxpayer-declaration facts wired
+  into the ADR-0036 attachment completeness gate), Form 1040 line 12e (with
+  a guard against both the omitted-declaration and contradictory-declaration
+  bypass shapes), line-13a/13b/14 deduction-spine succession, and taxable
+  income. Package graph is the additive union of the ratified tip plus this
+  milestone's members: core **v29**, published **v24**, release **v22**,
+  adoption **v29** (see retrospective).
+* **Plan:** `docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md`.
+* **Retrospective:** `docs/milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md`.
+* **Prior closed (selected pointers):** SSA-1099 and IRA line-4b plans/
+  retrospectives remain on the ratified line; this phase-state points at the
+  just-closed Form 1098 plan.
+* **Contracts:** Track 0 paper-first scope contract; no new ADR — existing
+  identity/closure (ADR-0015/0016/0017), attachment ontology (ADR-0036), and
+  explanation/package/citation/presentation (ADR-0020/0027/0029/0033/0046)
+  contracts were sufficient by content-level reuse.
+* **Next:** select a new milestone from the coverage frontier.
 
 ## Re-entry
 

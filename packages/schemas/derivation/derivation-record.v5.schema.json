@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/derivation-record.v5",
+  "title": "Derivation record with completeness-value-violation code",
+  "description": "Additive successor to derivation-record.v3 (ADR-0055 Decision 2). Widens the disposition block-code vocabulary with COMPLETENESS_VALUE_VIOLATION - an attachment required answer present as a current finding but valued other than its declared required value (a completeness violation distinct from absence, never folded into DEPENDENCY_ABSENT). derivation-record.v1/v2/v3 remain immutable history; every other block is unchanged from v3. derivation-record.v5 adds MULTIPLE_F1098_OUT_OF_SCOPE for the Form 1098 singleton-class cardinality guard (out-of-class multi-statement block). v1\u2013v4 remain immutable history.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "derivation-record.v5"
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "phase": {
+      "enum": [
+        "started",
+        "completed",
+        "interrupted",
+        "failed"
+      ]
+    },
+    "workspace_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "governance_pins": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pin"
+      }
+    },
+    "adoption_pin": {
+      "$ref": "#/$defs/pin"
+    },
+    "stop_reason": {
+      "enum": [
+        "saturated",
+        "interrupted",
+        "validation-failed",
+        "execution-failed"
+      ]
+    },
+    "dispositions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/disposition"
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "record_id",
+    "run_id",
+    "phase",
+    "workspace_revision",
+    "governance_pins",
+    "adoption_pin"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "phase": {
+            "const": "started"
+          }
+        },
+        "required": [
+          "phase"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "stop_reason"
+              ]
+            },
+            {
+              "required": [
+                "dispositions"
+              ]
+            }
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "stop_reason",
+          "dispositions"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "enum": [
+            "adoption",
+            "governance",
+            "parameter",
+            "input",
+            "choice",
+            "default",
+            "composition",
+            "citation",
+            "package",
+            "operation-semantics"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+$"
+        },
+        "origin": {
+          "enum": [
+            "assertion",
+            "declared_default"
+          ]
+        }
+      },
+      "required": [
+        "role",
+        "id",
+        "version"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "const": "input"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "then": {
+            "required": [
+              "origin"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "origin"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "disposition": {
+      "type": "object",
+      "properties": {
+        "artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disposition": {
+          "enum": [
+            "published",
+            "blocked",
+            "inapplicable"
+          ]
+        },
+        "pins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "finding_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "act_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code": {
+          "enum": [
+            "DEPENDENCY_ABSENT",
+            "DEPENDENCY_INVALID",
+            "CATEGORICAL_DOMAIN_MISMATCH",
+            "SOURCE_SET_UNCLOSED",
+            "VALUE_INVALID",
+            "ITEMIZATION_TIE_OUT_VIOLATION",
+            "COMPLETENESS_VALUE_VIOLATION",
+            "MULTIPLE_F1098_OUT_OF_SCOPE"
+          ]
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "guard_result": {
+          "const": false
+        },
+        "superseded_by": {
+          "$ref": "#/$defs/pin"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "disposition",
+        "pins"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "published"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "required": [
+              "finding_id",
+              "act_id",
+              "symbol"
+            ],
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "code"
+                  ]
+                },
+                {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                {
+                  "required": [
+                    "superseded_by"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "blocked"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "required": [
+              "code",
+              "missing"
+            ],
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                {
+                  "required": [
+                    "superseded_by"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "inapplicable"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "oneOf": [
+              {
+                "required": [
+                  "guard_result"
+                ],
+                "not": {
+                  "required": [
+                    "superseded_by"
+                  ]
+                }
+              },
+              {
+                "required": [
+                  "superseded_by"
+                ],
+                "not": {
+                  "required": [
+                    "guard_result"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
