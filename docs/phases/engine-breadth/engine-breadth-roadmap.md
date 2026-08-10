@@ -126,6 +126,17 @@ roadmap unless a selected breadth slice directly depends on them.
     eligibility, and special distribution treatment remain outside the claim.
     Plan:
     `milestones/form1099r-ira-distributions-line4b.md`.
+11. **2025 SSA-1099 Benefits through the Social Security Benefits Worksheet and
+    Form 1040 Lines 6a/6b** — selected 2026-08-04 and retained as a separate
+    planned milestone while the IRA line-4b route is the current active
+    milestone. Track 0 must settle ordinary SSA-1099 identity, box
+    reconciliation, worksheet eligibility, filing-status/lived-apart
+    semantics, component-level closure, and the no-line-9-cycle graph before
+    implementation. The planned class excludes RRB, lump-sum election,
+    Publication 915 exception paths, excess repayments, foreign/nonresident
+    benefits, new IRA/pension/unemployment/Schedule 1 support, and
+    withholding/payment paths. Plan:
+    `milestones/ssa1099-benefits-line6.md`.
 
 **Next breadth slice — the owner-selected IRA-family distribution route.**
 Inbound capital-loss carryovers, Form 8949/noncovered securities/adjustments,
