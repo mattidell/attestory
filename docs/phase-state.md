@@ -5,10 +5,10 @@
   "topic": "f8949-noncovered-basis",
   "active_plan": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md",
   "milestone_state": "track-0",
-  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item in favour of the recommendation: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap inside this milestone. **Track 0 stopped before drafting either ADR**: the plan's Topic 6 mechanism (a `no-other-form8949-adjustments` v2 successor pinned per completeness path) is not expressible — the runtime binds findings to symbols by fact-type id only and never reads the version pin, so v1 and v2 are one symbol with one answer. The foreman verified this against `marshal.py` and `runner.py`. A chained-discriminator replacement is recommended; the disposition is with the owner. See the plan's "Track 0 stop (2026-08-10)" section. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. Concurrent milestone `f1098e-student-loan-interest-line21` (PR #169) competes for the same version numbers; the plan carries a Parallel Work Manifest and an additive-union-at-publication rule.",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item in favour of the recommendation: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap inside this milestone. Track 0 stopped on 2026-08-10 because the plan's Topic 6 completeness mechanism was not expressible (a fact id carries no version, so a v1/v2 successor is one symbol with one answer). **The owner ruled on 2026-08-11** and rejected the foreman's chained-discriminator recommendation as duplicated authority: instead, v1 stays published and historical-only, the successor package selects a newly identified wider boundary declaration in its place, and closed-empty families carry the wash-sale-versus-noncovered discrimination with no taxpayer discriminator. **Track 0 is reopened** and must verify expressibility against the existing attachment contract and redo all five adversarial-closure artifacts before drafting either ADR; the prior closure section is superseded and does not pass. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. Concurrent milestone `f1098e-student-loan-interest-line21` (PR #169) competes for the same version numbers; the plan carries a Parallel Work Manifest and an additive-union-at-publication rule.",
   "retrospective": null,
   "current_role": "Track 0 Builder",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter (2026-08-10)"
+  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened (2026-08-11)"
 }
 -->
 # Phase State
@@ -39,23 +39,36 @@ lines 2 and 9.
   Boxes B/E and Schedule D Lines 2/9 — **track-0**. Owner approved the plan
   and authorized dispatch on 2026-08-10.
 * **Plan:** `docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md`.
-  The paper-rung decision inventory and the adversarial-closure declaration
-  are settled inside it; no closure item remains open.
-* **In flight — stopped, awaiting owner disposition:** Track 0 was chartered
-  to draft ADR-0063 and ADR-0064 at the paper rung and stopped before drafting
-  either. The plan's Topic 6 completeness mechanism is not expressible: the
-  runtime binds findings to symbols by fact-type **id** only and never reads
-  the version pin, so a `no-other-form8949-adjustments` v1/v2 pair is one
-  symbol carrying one answer, and a Path C return would satisfy Path B's value
-  check. Verified against `packages/derivation/marshal.py` and
-  `packages/derivation/runner.py`. Recommended replacement is a chained
-  discriminator declaration; see the plan's "Track 0 stop (2026-08-10)"
-  section, which also records five plan corrections independent of that
-  decision.
-* **Owner disposition on record:** the identity-collision kill-test covers all
-  fifteen pairs across all six Form 1099-B transaction fact types, closing the
-  pre-existing cross-term gap in this milestone. The cross-term kill-test
-  fixture is mandatory in Track 1.
+  **The plan's adversarial-closure section is superseded and does not pass** —
+  it was written against the withdrawn Path C shape and must be rewritten
+  before any implementation charter is filed.
+* **In flight:** Track 0, reopened 2026-08-11 against the owner's chosen
+  completeness shape. It must (1) verify that shape is expressible with the
+  existing attachment contract, (2) redo all five adversarial-closure
+  artifacts, and only then (3) draft ADR-0063 and ADR-0064. Charter: the plan's
+  "Track 0 charter, reopened (2026-08-11)".
+* **Owner dispositions on record:**
+  - *2026-08-10* — the identity-collision kill-test covers all fifteen pairs
+    across all six Form 1099-B transaction fact types, closing the pre-existing
+    cross-term gap. The cross-term kill-test fixture is mandatory in Track 1.
+  - *2026-08-11* — completeness shape. `no-other-form8949-adjustments` v1 stays
+    published, unchanged, and selected only by historical packages. The
+    successor package selects a newly identified wider declaration in its
+    place. Discrimination between wash-sale and noncovered activity comes from
+    the contributed transaction fact type and its family closure, not from a
+    new taxpayer answer; closed-empty families establish which supported
+    classes are absent. The no-Form-8949 path is unchanged with a contradiction
+    guard whenever a supported Form 8949 family is genuinely nonempty. The
+    accepted neighbouring change: a code-W-only return adopting the successor
+    package answers the replacement boundary question instead of v1 — a
+    substitution, not an extra checkbox — justified by the widened supported
+    universe.
+* **Superseded record:** the foreman's chained-discriminator recommendation
+  was rejected as duplicated authority; the Track 0 stop of 2026-08-10 and its
+  five plan corrections stand (guard uses `BLOCK_INVALID`, not a new
+  `derivation-record` enum value; the fifteen-pair kill-test needs run-path
+  wiring; `attachment-rule` v4 is the only version admitting value-checked
+  answers).
 * **Base:** origin/main `f60e7d1`; core-calculations **v29**, published
   **v24**, release **v22**, adoption **v29**. No successor version is
   reserved — `milestone/f1098e-student-loan-interest-line21` (PR #169) is
@@ -73,8 +86,8 @@ lines 2 and 9.
   committed source in this milestone's planning commit; the missing
   retrospectives are recorded here rather than backfilled, because writing
   them is not this milestone's work.
-* **Next:** owner disposition of the Topic 6 completeness mechanism, then
-  relaunch Track 0 against the revised plan.
+* **Next:** Track 0 expressibility verification and closure-gate redo, then the
+  two ADRs, then the Track 1 implementation charter.
 
 ## Re-entry
 

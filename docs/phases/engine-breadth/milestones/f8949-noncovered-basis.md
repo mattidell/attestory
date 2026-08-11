@@ -4,16 +4,16 @@
   "topic": "f8949-noncovered-basis",
   "milestone_state": "track-0",
   "retrospective": null,
-  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap here. **Track 0 stopped before drafting either ADR**: the plan's Topic 6 mechanism (a `no-other-form8949-adjustments` v2 successor pinned per completeness path) is not expressible — the runtime binds findings to symbols by fact-type id only and never reads the version pin, so v1 and v2 are one symbol with one answer. The foreman verified this. A chained-discriminator replacement is recommended and the disposition is with the owner. See the plan's "Track 0 stop (2026-08-10)" section, which also records five plan corrections independent of that decision. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29.",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap here. Track 0 stopped on 2026-08-10 because the plan's Topic 6 completeness mechanism was not expressible (a fact id carries no version, so a v1/v2 successor is one symbol with one answer). **The owner ruled on 2026-08-11** and rejected the foreman's chained-discriminator recommendation as duplicated authority: instead, v1 stays published and historical-only, the successor package selects a newly identified wider boundary declaration in its place, and closed-empty families carry the wash-sale-versus-noncovered discrimination with no taxpayer discriminator. **Track 0 is reopened** and must verify expressibility against the existing attachment contract and redo all five adversarial-closure artifacts before drafting either ADR; the prior closure section is superseded and does not pass. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29.",
   "current_role": "Track 0 Builder",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter (2026-08-10)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened (2026-08-11)",
   "scope": [
     "publish two new transaction fact types and two new package-exclusive families for Form 1099-B transactions whose basis is shown to the recipient but not reported to the IRS, short-term and long-term",
     "extend the Form 8949 attachment citizen with Part I box B and Part II box E, two single-column itemization parts per box (columns d and e), with column (g) contractually zero",
     "publish Schedule D lines 2 and 9 as downstream column-(h) rules over the box-B/box-E subtotals",
     "publish successor Schedule D lines 7 and 15 that add lines 2 and 9 to every existing addend",
     "extend selected-preferential-base and the Schedule D attachment requirement threshold to the new families",
-    "add a Path C completeness branch and a successor no-other-form8949-adjustments declaration admitting exactly the noncovered basis-furnished class, with a contradictory-declaration guard",
+    "retire no-other-form8949-adjustments v1 from the successor package by non-selection (leaving v1 published and historical-only) and select in its place a newly identified wider boundary declaration covering the widened supported universe, with the two-path completeness shape carrying no taxpayer discriminator and a contradiction guard on the no-Form-8949 path (owner direction 2026-08-11)",
     "generalize the ADR-0061 identity-key collision kill-test from two pairs to all fifteen pairs across all six Form 1099-B transaction fact types, in-term and cross-term (owner disposition 2026-08-10)",
     "add production-shaped synthetic identity, correction, closure, completeness, attachment, package, explanation, and presentation evidence driven through live_coordinate_run",
     "reconcile the stale IRA and SSA coverage-frontier status rows and mark the noncovered row selected"
@@ -33,7 +33,8 @@
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
-      "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter (2026-08-10)",
+      "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened (2026-08-11)",
+      "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 stop (2026-08-10)",
       "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0: paper-first decision inventory",
       "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#The completeness decision (Topic 6)",
       "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 adversarial closure",
@@ -86,9 +87,9 @@
 - Milestone key: `f8949-noncovered-basis`
 - Primary branch: `milestone/f8949-noncovered-basis-lines2-9`
 - Phase: Engine Breadth
-- Status: **track-0, stopped** — plan approved and dispatch authorized
-  2026-08-10; Track 0 stopped on the Topic 6 mechanism (see "Track 0 stop
-  (2026-08-10)"), which is with the owner
+- Status: **track-0, reopened 2026-08-11** — plan approved and dispatch
+  authorized 2026-08-10; Track 0 stopped on the Topic 6 mechanism; the owner
+  ruled on 2026-08-11 and Track 0 restarts against the chosen shape
 - Date: 2026-08-10
 - Base: `origin/main` @ `f60e7d1`; core-calculations **v29** / published **v24** /
   release **v22** / adoption **v29**
@@ -235,58 +236,105 @@ multi-code rows, and **no noncovered/basis-not-reported Form 8949 sources**".
 A return in this milestone's supported class makes that declaration false.
 The declaration cannot be reused, and its published v1 text cannot be edited.
 
-Three shapes were considered on paper:
+Four shapes have been considered. **The owner ruled on 2026-08-11; the fourth
+is the decision.** The first three are retained as the rejected record.
 
-- **Replace v1 with a v2 of broader meaning in the existing Path B.**
-  Rejected. It imposes a new, feature-specific prerequisite on the code-W
-  neighbour: a W-only return that today answers v1 would have to answer a
-  different declaration. The neighbouring-capability dependency diff fails on
-  the gate's own terms — the change is justified by implementation convenience,
-  not by the code-W route's meaning.
-- **Add a sixth parallel declaration alongside v1.**
-  Rejected. Two overlapping declarations about the same subject can be answered
-  inconsistently, and nothing in the contract says which wins.
-- **Add a Path C and publish a v2 successor used only by Path C.** **Chosen.**
-  Paths A and B keep their exact current meaning and their exact current
-  answers; a return with no noncovered activity is unaffected and needs no new
-  fact. Only a return that actually has noncovered members takes Path C.
+- **Replace v1 with a v2 of the same id and broader meaning.** Rejected as
+  inert, then as unsafe. A fact id carries no version: `marshal.py` binds
+  findings to symbols by fact-type **id** only and `runner.py` completeness
+  reads only `symbol` / `check` / `equals`, never the `fact_type` version pin.
+  v1 and v2 of one id are one symbol carrying one answer, so a widened answer
+  would also satisfy the narrow v1 check and reinstate v1's false claim. This
+  is what stopped the first Track 0 (see "Track 0 stop (2026-08-10)").
+- **Add a sixth parallel declaration alongside v1.** Rejected. Two overlapping
+  declarations about the same subject can be answered inconsistently and
+  nothing says which wins.
+- **Chain a taxpayer discriminator ("are any of your Form 8949 sources
+  noncovered?") and branch to v1 or to a new declaration.** Rejected by the
+  owner on 2026-08-11. The wash-sale-versus-noncovered distinction is already
+  established by the contributed transaction fact type and its family. Asking
+  the taxpayer to assert it again duplicates authority and manufactures a new
+  contradiction case — a return could declare "no noncovered sources" while
+  carrying a noncovered member.
+- **Replace v1's *role* in the successor package with a newly identified,
+  wider declaration, and let closed-empty families carry the discrimination.**
+  **Chosen (owner direction, 2026-08-11).**
 
-Successor Schedule D completeness item `form8949` is satisfied by exactly one of:
+### The chosen shape
+
+`tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments` **v1 stays
+published, unchanged, and selected only by historical packages.** It is not
+edited, not superseded in place, and not given a v2.
+
+The successor package selects a **new, differently identified** declaration in
+its place — working id
+`tax.us.2025.schedule-d-boundary.no-unsupported-form8949-sources`, final id to
+be fixed in ADR-0063. It declares: *this return has no Form 8949 source outside
+the supported covered code-W class and the supported broker-basis-furnished
+noncovered class, no unsupported adjustment code, and no multi-code row.*
+
+Successor Schedule D completeness item `form8949` is satisfied by exactly one
+of two paths — there is no Path C and no taxpayer discriminator:
 
 ```text
-Path A: no-form8949-sources == "yes"                          (unchanged)
+Path A: no-form8949-sources == "yes"                            (unchanged)
+        AND no supported Form 8949 family is genuinely nonempty (guard)
 
 Path B: no-form8949-sources == "no"
         AND covered-w-st CLOSED AND covered-w-lt CLOSED
-        AND no-other-form8949-adjustments@v1 == "yes"         (unchanged)
-
-Path C: no-form8949-sources == "no"
-        AND covered-w-st CLOSED AND covered-w-lt CLOSED
         AND noncovered-st CLOSED AND noncovered-lt CLOSED
-        AND no-other-form8949-adjustments@v2 == "yes"         (new)
+        AND no-unsupported-form8949-sources == "yes"            (new id)
 ```
 
-`no-other-form8949-adjustments` **v2** declares: *no Form 8949 adjustment code
-of any kind, no multi-code row, and no Form 8949 source other than the
-supported covered code-W class and the supported noncovered basis-furnished
-class.* Every non-W code, every code-B basis correction, every Form 1099-DA and
-digital-asset flow, and every noncovered transaction whose basis the broker did
-**not** furnish stays honestly blocked.
+Closure of all four supported families is what tells the return which supported
+classes are present and which are absent. A W-only return closes the two
+noncovered families **empty**; a noncovered-only return closes the two code-W
+families empty. That is the same closed-empty pattern every prior family
+milestone uses, and it is contributed authority rather than a re-asserted
+taxpayer opinion.
 
-**Contradictory-declaration guard.** Path A and Path B must not satisfy
-completeness when a noncovered member is genuinely on record. This is the same
-bypass shape the Form 1098 milestone had to guard on Schedule A (the
-contradictory-declaration case), and the guard reuses that precedent: when any
-`noncovered-st-txn` / `noncovered-lt-txn` fact is asserted, Paths A and B are
-unavailable regardless of the declared answers. Without this guard, a taxpayer
-who both records a noncovered transaction and answers "no Form 8949 sources"
-gets a silently wrong, silently complete return — the single worst failure
-available in this milestone.
+**Contradictory-declaration guard.** Path A must not satisfy completeness when
+any supported Form 8949 family is genuinely nonempty. Without it, a taxpayer
+who records a noncovered or code-W transaction and also answers "no Form 8949
+sources" gets a silently wrong, silently complete return — the single worst
+failure available in this milestone. Per the Track 0 stop record, the guard
+uses `BLOCK_INVALID` plus a named `tax.us.2025.block.*` symbol (the
+`GUARD_IDENTITY_KEY_COLLISION` mechanism), **not** a new `derivation-record`
+enum value, which would be a non-goal stop condition.
+
+### The neighbouring change this accepts, and why
+
+A code-W-only return that adopts the successor package answers
+`no-unsupported-form8949-sources` **instead of**
+`no-other-form8949-adjustments` v1. That is a replacement question, not an
+additional one, and the return's answer count is unchanged. Returns bound to a
+historical package keep v1 and are untouched.
+
+This is a real change to a neighbouring capability and it is recorded as such.
+It is justified by product meaning, not implementation convenience: the
+supported universe genuinely widened, so the boundary question a return must
+answer genuinely widened with it. A W-only return under the successor package
+is asserting something different from what it asserted before — that its Form
+8949 sources fall outside *both* supported classes' complements — and that is
+the true statement for that package.
+
+Every non-W code, every code-B basis correction, every multi-code row, every
+Form 1099-DA and digital-asset flow, and every noncovered transaction whose
+basis the broker did **not** furnish stays honestly blocked.
 
 ## Track 0 adversarial closure
 
-Applied per `PROJECT_PLANNING.md`, "Track 0 Adversarial Closure Gate," using
-`docs/roles/qualitative-review.md`.
+> **SUPERSEDED 2026-08-11 — REDO REQUIRED. This section is not a passing gate.**
+> Everything below was written against the withdrawn Path A / Path B / Path C
+> shape with a `no-other-form8949-adjustments` v2 successor. The owner's
+> 2026-08-11 direction replaces that with a two-path shape, a newly identified
+> wider declaration, and closed-empty families carrying the discrimination.
+> All five artifacts and the declaration must be rewritten against the chosen
+> shape; §4 (claim-reuse proof) and §5 (neighbouring-capability dependency
+> diff) change materially, because the successor package now replaces the
+> code-W route's boundary question rather than leaving it untouched. No
+> implementation charter may be filed until the rewritten declaration reads
+> PASS. Retained below only as the rejected record.
 
 ### 1. Authority-lifecycle table
 
@@ -480,7 +528,79 @@ Default production shape per the owner's direction:
   line-2/line-9 walks reuse the ADR-0046 citation-walk and ADR-0056 disposition
   models with no new mechanism, so the default is **no Track 2**.
 
-## Track 0 charter (2026-08-10)
+## Track 0 charter, reopened (2026-08-11)
+
+**This supersedes the 2026-08-10 charter below.** That charter's scope and
+capsule still apply except where this one changes them.
+
+**Why reopened.** The first Track 0 correctly stopped: the plan's Topic 6
+mechanism was not expressible. The owner ruled on 2026-08-11, rejected the
+chained-discriminator replacement the foreman recommended, and directed the
+shape now recorded in "The completeness decision (Topic 6)". Track 0 restarts
+against that shape.
+
+**Do these in order. Do not draft either ADR until step 1 and step 2 pass.**
+
+**Step 1 — verify expressibility against the existing attachment contract.**
+Prove, against committed source, that the chosen shape is expressible with
+`attachment-rule` as published — no new schema version, no new attachment
+mechanism. Specifically resolve:
+
+- Can the `no-form8949-sources == "no"` branch require **closure of four
+  families** plus one declaration? Establish whether family closure is carried
+  by the attachment's itemization/`collect_members` parts (which already exist
+  for boxes A and D and would be added for B and E), by `require_closed` in the
+  line-2/line-9 rules, or both — and state which is load-bearing for
+  completeness as opposed to for the arithmetic.
+- Does replacing v1's role work as a plain selected-version substitution in the
+  successor package — a different citizen id in `required_answers` /
+  `adds_required` — with no residual reference to v1 anywhere in the successor
+  graph, and with v1 still resolving for historical adoptions?
+- Confirm the value-check constraint from the stop record: `attachment-rule`
+  **v4** is the only published version whose `required_answer` admits
+  `check: "value"`, `attachment.schedule-d` v5 is on v4, and the v6 successor
+  must stay on v4. `attachment.f8949` is on v6 and cannot carry a value-checked
+  answer.
+- Confirm the Path A guard is expressible as `BLOCK_INVALID` plus a named
+  `tax.us.2025.block.*` symbol, on the `GUARD_IDENTITY_KEY_COLLISION`
+  precedent, without touching the `derivation-record` enum.
+
+**Step 2 — redo the adversarial-closure gate.** Rewrite all five artifacts and
+the declaration against the chosen shape, replacing the superseded section:
+authority-lifecycle table, empty/nonempty authority matrix, late-authority
+counterexample, claim-reuse proof, neighbouring-capability dependency diff.
+Two of these change materially and must not be copied forward:
+
+- **Claim-reuse proof** — v1 is no longer reused *or* succeeded by same-id
+  version. It is retired from the successor package and replaced by a
+  differently identified claim. Prove the new claim's meaning and lifecycle
+  against the widened supported universe on its own terms.
+- **Neighbouring-capability dependency diff** — the successor package now
+  changes the **code-W route's** boundary question. That is a real neighbouring
+  change, not a null one. It must be argued from product meaning (the supported
+  universe widened) and its blast radius bounded — including the fact that
+  historical adoptions keep v1, and which existing fixtures, if any, are
+  affected.
+
+Also fold the empty/nonempty matrix around the closed-empty discrimination:
+W-only returns close both noncovered families empty and vice versa, and the
+matrix must show that each combination reaches the right completeness verdict.
+
+**Step 3 — draft ADR-0063 and ADR-0064** per the 2026-08-10 charter, with
+ADR-0063 additionally fixing the final citizen id for the new declaration
+(working id `tax.us.2025.schedule-d-boundary.no-unsupported-form8949-sources`)
+and recording v1's retirement-by-non-selection.
+
+**Assigned paths** are extended to include the plan file's Topic 6 and
+adversarial-closure sections, which you rewrite in place.
+
+**Return to the foreman only if** step 1 or step 2 exposes another substrate or
+governance decision — a new schema kind or version, a new evaluator operator,
+`source-family.v2`, a schema-ledger event, a document-child identity component,
+an edit to a published schema or accepted ADR, or a closure artifact that
+cannot be made to read PASS. Ordinary drafting friction is not a stop.
+
+## Track 0 charter (2026-08-10, superseded)
 
 **Context Capsule**
 
