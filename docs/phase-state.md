@@ -5,10 +5,10 @@
   "topic": "f8949-noncovered-basis",
   "active_plan": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md",
   "milestone_state": "track-0",
-  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item in favour of the recommendation: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap inside this milestone. Track 0 stopped on 2026-08-10 because the plan's Topic 6 completeness mechanism was not expressible (a fact id carries no version, so a v1/v2 successor is one symbol with one answer). **The owner ruled on 2026-08-11** and rejected the foreman's chained-discriminator recommendation as duplicated authority: instead, v1 stays published and historical-only, the successor package selects a newly identified wider boundary declaration in its place, and closed-empty families carry the wash-sale-versus-noncovered discrimination with no taxpayer discriminator. **Track 0 is reopened** and must verify expressibility against the existing attachment contract and redo all five adversarial-closure artifacts before drafting either ADR; the prior closure section is superseded and does not pass. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. Concurrent milestone `f1098e-student-loan-interest-line21` (PR #169) competes for the same version numbers; the plan carries a Parallel Work Manifest and an additive-union-at-publication rule.",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 \u2014 TRACK 0 REOPENED A SECOND TIME.** The owner reviewed ADR-0063 and ADR-0064 on 2026-08-11 and did **not** ratify. The new-id / non-selection completeness shape is approved in principle, and the family topology, fifteen-pair collision rule, boxes B/E, and lines 2/9 direction are preserved. Five contract-level blockers must be settled first: (B1) an ordinary same-member value correction must not advance the family horizon or displace closures \u2014 only a membership or identity transition does; (B2) Form 8949 may not stay presence-only on attachment-rule.v6, so an **additive published schema successor is now authorized** (combining v6's row model with v4's value-checked answers) and a schema-intent ledger event becomes mandatory; (B3) whole-transaction-family closure must be declaratively load-bearing on Schedule D completeness, not inferred from the scalar companions; (B4) the proceeds>0 attachment-requirement proxy is replaced by a true family-occupancy mechanism, with zero-proceeds/positive-basis and zero/zero boundary fixtures; (B5) the Path A contradiction must be declared in versioned content or schema, not a rule-id-keyed runner guard. The adversarial-closure section and much of the expressibility subsection are superseded and do not pass. Track 0 must settle B2 first, revise the plan and both proposed ADRs in place, rerun the five-artifact gate, and return evidence that attachment applicability, attachment completeness, and line calculation cannot disagree. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. Concurrent milestone `f1098e-student-loan-interest-line21` (PR #169) also proposes schema work and competes for the same package version numbers; the plan carries a Parallel Work Manifest and an additive-union-at-publication rule.",
   "retrospective": null,
   "current_role": "Track 0 Builder",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened (2026-08-11)"
+  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened again (2026-08-11)"
 }
 -->
 # Phase State
@@ -39,18 +39,33 @@ lines 2 and 9.
   Boxes B/E and Schedule D Lines 2/9 — **track-0**. Owner approved the plan
   and authorized dispatch on 2026-08-10.
 * **Plan:** `docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md`.
-  **The plan's adversarial-closure section is superseded and does not pass** —
-  it was written against the withdrawn Path C shape and must be rewritten
-  before any implementation charter is filed.
-* **In flight:** Track 0, reopened 2026-08-11 against the owner's chosen
-  completeness shape. It must (1) verify that shape is expressible with the
-  existing attachment contract, (2) redo all five adversarial-closure
-  artifacts, and only then (3) draft ADR-0063 and ADR-0064. Charter: the plan's
-  "Track 0 charter, reopened (2026-08-11)".
+  **The plan's adversarial-closure section is superseded and does not pass**,
+  and the expressibility subsection is partly superseded. Both must be
+  rewritten before any implementation charter is filed.
+* **In flight:** Track 0, reopened a second time on 2026-08-11. ADR-0063 and
+  ADR-0064 are drafted, `proposed`, and **not ratified** — the owner returned
+  five contract-level blockers (B1–B5). Charter: the plan's "Track 0 charter,
+  reopened again (2026-08-11)". Settle B2 (the attachment-substrate decision)
+  first; B3, B4, and B5 depend on what the successor schema can express.
+* **Standing non-goal lifted:** an additive published `attachment-rule`
+  successor version is now authorized (blocker B2). It remains additive — no
+  published version is edited — and it makes a schema-intent ledger event
+  mandatory before the schema edit. A new schema *kind*, a new evaluator
+  operator, and `source-family.v2` remain non-goals and stop conditions.
 * **Owner dispositions on record:**
   - *2026-08-10* — the identity-collision kill-test covers all fifteen pairs
     across all six Form 1099-B transaction fact types, closing the pre-existing
     cross-term gap. The cross-term kill-test fixture is mandatory in Track 1.
+  - *2026-08-11 (second ruling)* — ADR-0063/0064 not ratified. The new-id /
+    non-selection shape is approved **in principle**, and the family topology,
+    fifteen-pair collision rule, boxes B/E, and lines 2/9 direction are
+    preserved. Five contract-level blockers: correction lifecycle must not
+    displace closures on an ordinary same-member value correction (only a
+    membership or identity transition does); Form 8949 may not stay
+    presence-only; whole-family closure must be declaratively load-bearing on
+    Schedule D completeness; the `proceeds > 0` requirement proxy is replaced
+    by true family occupancy; and the Path A contradiction must live in
+    versioned content or schema, not a rule-id-keyed runner guard.
   - *2026-08-11* — completeness shape. `no-other-form8949-adjustments` v1 stays
     published, unchanged, and selected only by historical packages. The
     successor package selects a newly identified wider declaration in its
@@ -86,8 +101,11 @@ lines 2 and 9.
   committed source in this milestone's planning commit; the missing
   retrospectives are recorded here rather than backfilled, because writing
   them is not this milestone's work.
-* **Next:** Track 0 expressibility verification and closure-gate redo, then the
-  two ADRs, then the Track 1 implementation charter.
+* **Next:** Track 0 settles the attachment-substrate decision, revises the plan
+  and both ADRs in place, reruns the five-artifact closure gate, and returns
+  evidence that attachment applicability, attachment completeness, and line
+  calculation cannot disagree. Then owner ratification, then the Track 1
+  implementation charter.
 
 ## Re-entry
 

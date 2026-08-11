@@ -4,9 +4,9 @@
   "topic": "f8949-noncovered-basis",
   "milestone_state": "track-0",
   "retrospective": null,
-  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap here. Track 0 stopped on 2026-08-10 because the plan's Topic 6 completeness mechanism was not expressible (a fact id carries no version, so a v1/v2 successor is one symbol with one answer). **The owner ruled on 2026-08-11** and rejected the foreman's chained-discriminator recommendation as duplicated authority: instead, v1 stays published and historical-only, the successor package selects a newly identified wider boundary declaration in its place, and closed-empty families carry the wash-sale-versus-noncovered discrimination with no taxpayer discriminator. **Track 0 reopened and completed its paper work on 2026-08-11**: expressibility was verified against the published `attachment-rule` contract (no new schema version, no new attachment mechanism, no new evaluator operator), all five adversarial-closure artifacts were rewritten against the chosen shape and read PASS, and ADR-0063 and ADR-0064 are drafted and registered as **proposed**, awaiting owner ratification before any implementation charter is filed. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29.",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 \u2014 TRACK 0 REOPENED A SECOND TIME.** The owner reviewed ADR-0063 and ADR-0064 on 2026-08-11 and did **not** ratify. The new-id / non-selection completeness shape is approved in principle, and the family topology, fifteen-pair collision rule, boxes B/E, and lines 2/9 direction are preserved. Five contract-level blockers must be settled first: (B1) an ordinary same-member value correction must not advance the family horizon or displace closures \u2014 only a membership or identity transition does; (B2) Form 8949 may not stay presence-only on attachment-rule.v6, so an **additive published schema successor is now authorized** (combining v6's row model with v4's value-checked answers) and a schema-intent ledger event becomes mandatory; (B3) whole-transaction-family closure must be declaratively load-bearing on Schedule D completeness, not inferred from the scalar companions; (B4) the proceeds>0 attachment-requirement proxy is replaced by a true family-occupancy mechanism, with zero-proceeds/positive-basis and zero/zero boundary fixtures; (B5) the Path A contradiction must be declared in versioned content or schema, not a rule-id-keyed runner guard. The adversarial-closure section and much of the expressibility subsection are superseded and do not pass. Track 0 must settle B2 first, revise the plan and both proposed ADRs in place, rerun the five-artifact gate, and return evidence that attachment applicability, attachment completeness, and line calculation cannot disagree. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29.",
   "current_role": "Track 0 Builder",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened (2026-08-11)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened again (2026-08-11)",
   "scope": [
     "publish two new transaction fact types and two new package-exclusive families for Form 1099-B transactions whose basis is shown to the recipient but not reported to the IRS, short-term and long-term",
     "extend the Form 8949 attachment citizen with Part I box B and Part II box E, two single-column itemization parts per box (columns d and e), with column (g) contractually zero",
@@ -16,7 +16,9 @@
     "retire no-other-form8949-adjustments v1 from the successor package by non-selection (leaving v1 published and historical-only) and select in its place a newly identified wider boundary declaration covering the widened supported universe, with the two-path completeness shape carrying no taxpayer discriminator and a contradiction guard on the no-Form-8949 path (owner direction 2026-08-11)",
     "generalize the ADR-0061 identity-key collision kill-test from two pairs to all fifteen pairs across all six Form 1099-B transaction fact types, in-term and cross-term (owner disposition 2026-08-10)",
     "add production-shaped synthetic identity, correction, closure, completeness, attachment, package, explanation, and presentation evidence driven through live_coordinate_run",
-    "reconcile the stale IRA and SSA coverage-frontier status rows and mark the noncovered row selected"
+    "reconcile the stale IRA and SSA coverage-frontier status rows and mark the noncovered row selected",
+    "publish an additive attachment-rule successor version combining the v6 row model with v4-style value-checked answers, and move the successor Form 8949 attachment onto it so attachment applicability, attachment completeness, and line calculation cannot disagree (owner ruling 2026-08-11, blocker B2); append the schema-intent ledger event before the schema edit",
+    "replace the proceeds>0 attachment-requirement proxy with a true supported-family occupancy mechanism, and declare the Path A contradiction in versioned content or schema rather than a rule-id-keyed runner guard (blockers B4, B5)"
   ],
   "non_goals": [
     "no transaction whose basis is absent from the broker statement",
@@ -26,14 +28,14 @@
     "no Form 1099-DA, digital assets, aggregate reporting under Exception 2, or non-1099-B transaction",
     "no Schedule D lines 3, 10, 18, or 19, no collectibles, no unrecaptured section 1250 gain, no QOF",
     "no generic securities-history or basis engine",
-    "no source-family.v2 or any other new schema kind unless Track 0's substrate finding is returned to the owner and the owner rules otherwise",
+    "no new schema kind, no new evaluator operator, no source-family.v2, and no document-child or evidence-file identity component \u2014 but an additive published attachment-rule successor version IS authorized (owner ruling 2026-08-11, blocker B2)",
     "no edit, reformat, move, deletion, or checksum rewrite of a published schema, historical content citizen, or accepted ADR",
     "no real or personal data"
   ],
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
-      "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened (2026-08-11)",
+      "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened again (2026-08-11)",
       "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 stop (2026-08-10)",
       "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0: paper-first decision inventory",
       "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#The completeness decision (Topic 6)",
@@ -87,11 +89,12 @@
 - Milestone key: `f8949-noncovered-basis`
 - Primary branch: `milestone/f8949-noncovered-basis-lines2-9`
 - Phase: Engine Breadth
-- Status: **track-0, reopened 2026-08-11, paper work complete** — plan approved
-  and dispatch authorized 2026-08-10; Track 0 stopped on the Topic 6 mechanism;
-  the owner ruled on 2026-08-11; expressibility is verified, the adversarial
-  closure is rewritten and passing, and ADR-0063/ADR-0064 are drafted as
-  **proposed** and await ratification
+- Status: **track-0, reopened a second time 2026-08-11** — ADR-0063 and
+  ADR-0064 are drafted but **not ratified**; the owner returned five
+  contract-level blockers (B1–B5), one of which authorizes an additive
+  published `attachment-rule` successor. The adversarial-closure gate is
+  superseded and does not pass. Controlling charter: "Track 0 charter, reopened
+  again (2026-08-11)"
 - Date: 2026-08-10
 - Base: `origin/main` @ `f60e7d1`; core-calculations **v29** / published **v24** /
   release **v22** / adoption **v29**
@@ -326,6 +329,17 @@ basis the broker did **not** furnish stays honestly blocked.
 
 ### Expressibility of the chosen shape (verified 2026-08-11, reopened Track 0 step 1)
 
+> **PARTLY SUPERSEDED 2026-08-11 (owner's second ruling).** Its conclusions on
+> Q1 and Q3 are overtaken by blockers **B2** and **B3**: Form 8949 may not stay
+> presence-only, so a new published `attachment-rule` version **is** required
+> and **is** authorized; and whole-transaction-family closure must be
+> declaratively load-bearing on Schedule D completeness rather than inferred
+> from the scalar companions. Q2 (retirement by non-selection) and Q4's
+> rejection of a `derivation-record` enum change stand, but Q4's positive
+> conclusion — a runner guard keyed on `rule_id` — is rejected by **B5**. The
+> mechanical file-and-line findings below remain accurate as observations of
+> the pre-existing substrate; the design conclusions drawn from them do not.
+
 Verified against committed source at `7870c84`. **No new schema version, no new
 attachment mechanism, no new evaluator operator, no schema-ledger event.**
 
@@ -445,6 +459,16 @@ is an asymmetry between what the attachment citizen says and what the runner
 enforces, and ADR-0063 records it as such.
 
 ## Track 0 adversarial closure
+
+> **SUPERSEDED 2026-08-11 (owner's second ruling) — REDO REQUIRED. This is not
+> a passing gate.** The five artifacts below were written before blockers
+> B1–B5. B1 invalidates the authority-lifecycle table and both late-authority
+> traces (an ordinary same-member value correction does not advance the horizon
+> or displace closures). B2, B3, and B4 change the empty/nonempty matrix and
+> the completeness mechanics it rests on. B5 rejects the guard mechanism the
+> declaration accepted as limitation 3. All five artifacts and the declaration
+> must be rewritten. No implementation charter may be filed until the rewritten
+> declaration reads PASS.
 
 Rewritten 2026-08-11 against the owner's chosen shape (reopened Track 0, step
 2). The superseded Path A / Path B / Path C text and its
@@ -768,10 +792,20 @@ completeness versus attachment, arithmetic, and routing):
 Both ADRs are drafted against real committed source and ratified before any
 implementation charter is filed.
 
-Explicitly **not** required: no new schema kind, no new published schema
-version, no new evaluator operator, no `source-family.v2`, no schema-intent
-ledger event. If Track 0's ADR drafting discovers that any of these is
-necessary after all, that is a stop condition and returns to the owner.
+**Schema posture, amended by owner direction 2026-08-11 (second ruling).** A
+new published `attachment-rule` version is now **authorized and expected** —
+likely one combining v6's row model with v4's value-checked answers — because
+`attachment.f8949` cannot remain presence-only without allowing the Form 8949
+attachment to report complete while Schedule D blocks. Selecting that version
+makes a **schema-intent ledger event mandatory** under
+`docs/process/concurrent-work.md` before the schema edit is made; the
+concurrent `f1098e-student-loan-interest-line21` milestone also proposes schema
+work, so the ledger is load-bearing here, not ceremonial.
+
+Still explicitly **not** required and still stop conditions: no new schema
+*kind*, no new evaluator operator, no `source-family.v2`, no document-child or
+evidence-file identity component, and no edit to an already-published schema,
+historical content citizen, or accepted ADR.
 
 ## Track and review structure
 
@@ -793,7 +827,95 @@ Default production shape per the owner's direction:
   line-2/line-9 walks reuse the ADR-0046 citation-walk and ADR-0056 disposition
   models with no new mechanism, so the default is **no Track 2**.
 
-## Track 0 charter, reopened (2026-08-11)
+## Track 0 charter, reopened again (2026-08-11)
+
+**This is the controlling charter.** It supersedes both charters below. Their
+capsule, assigned paths, and non-goals still apply except where this one
+changes them.
+
+**Why reopened.** The owner reviewed ADR-0063 and ADR-0064 and **did not
+ratify**. The new-id / non-selection shape is approved **in principle**, and
+the family topology, the fifteen-pair collision rule, boxes B/E, and the lines
+2/9 direction are to be **preserved** — do not redesign them. Five
+contract-level blockers must be settled first.
+
+### The five blockers
+
+**B1 — ADR-0063's correction lifecycle is wrong.** An ordinary same-member
+value correction does **not** advance the family horizon and does **not**
+displace current family or scalar closures. Only a **membership or identity
+transition** does. Revise the decision text, the authority-lifecycle table, and
+the late-authority traces accordingly, and state the boundary between the two
+cases explicitly rather than by example.
+
+**B2 — Form 8949 cannot stay presence-only on `attachment-rule.v6`.** As
+drafted, the Form 8949 attachment can report **complete** while
+`no-unsupported-form8949-sources` is answered `"no"` and Schedule D correctly
+blocks. Two attachments disagreeing about the same return is the defect.
+Settle an **additive schema successor** — likely one combining v6's row model
+with v4's value-checked answers — and make the successor Form 8949 attachment
+use it. **This lifts the standing non-goal: a new published `attachment-rule`
+version is authorized.** It remains additive; no published version is edited.
+Because a schema family and version are now being chosen, append a
+schema-intent ledger event per `docs/process/concurrent-work.md` recording the
+proposal — the concurrent `f1098e-student-loan-interest-line21` milestone is
+also proposing schema work.
+
+**B3 — whole-transaction-family closure must be declaratively load-bearing on
+Schedule D completeness.** Step 1 of the prior Track 0 concluded that scalar
+companion closure carries completeness while whole-family closure carries only
+the arithmetic. That is insufficient: lines 2 and 9 separately require
+whole-family closure, so Schedule D can read complete while those lines block.
+Make whole-family closure load-bearing **in declared content**, not by
+inference from the scalar totals.
+
+**B4 — the `proceeds > 0` attachment-requirement proxy must go.** Replace it
+with a true **supported-family occupancy / nonempty** mechanism. A family with
+members is occupied whatever its amounts are. Required boundary fixtures: a
+member with **zero proceeds and positive basis**, and a **zero/zero** member.
+Both must make Schedule D and Form 8949 required.
+
+**B5 — the Path A contradiction must not be a rule-id-keyed runner guard.**
+Declare the relationship in **versioned content or schema** so that deleting
+the artifact removes the behaviour. The `GUARD_IDENTITY_KEY_COLLISION`
+precedent is explicitly not to be followed here; the prior closure declaration
+itself flagged this asymmetry, and the owner has now ruled it unacceptable.
+
+### What to do
+
+1. Settle **B2 first** — the attachment-substrate decision. B3, B4, and B5 all
+   depend on what the successor schema can express, so decide its shape before
+   revising anything downstream of it. B2, B3, B4, and B5 may be satisfiable by
+   one coherent successor rather than four separate mechanisms; prefer that if
+   the source supports it, but do not force it.
+2. Revise the plan: the Topic 6 section, the "Expressibility of the chosen
+   shape" subsection (much of which B2 and B3 invalidate), the Contracts
+   section, the fixture matrix (add the B4 boundary fixtures and any B2/B5
+   cases), and the package checkpoints.
+3. Revise ADR-0063 and ADR-0064 in place. Both are `proposed` and unratified,
+   so they are edited, not superseded. If the attachment-substrate decision is
+   large enough to deserve its own contract, propose a third ADR rather than
+   overloading ADR-0064 — say so in your report either way.
+4. **Rerun the five-artifact closure gate from scratch** against the revised
+   shape. The current gate is superseded and does not pass.
+
+### Required evidence to return
+
+Beyond the closure gate, return explicit evidence — cited to committed source —
+that **attachment applicability, attachment completeness, and line calculation
+cannot disagree**. That is the owner's stated bar and it is what B2, B3, and B4
+exist to secure. Show the states where they could previously disagree and what
+now makes each state impossible.
+
+### Stop conditions
+
+Unchanged except that a new published `attachment-rule` version is now
+authorized. Still stop and return: a new schema **kind**, a new evaluator
+operator, `source-family.v2`, a document-child or evidence-file identity
+component, an edit to an already-published schema or accepted ADR, or a closure
+artifact that cannot be made to read PASS.
+
+## Track 0 charter, reopened (2026-08-11, superseded)
 
 **This supersedes the 2026-08-10 charter below.** That charter's scope and
 capsule still apply except where this one changes them.
@@ -1203,3 +1325,16 @@ retrospective under `docs/milestone-retrospectives/` although
   kill-test covers **all fifteen pairs across all six** Form 1099-B transaction
   fact types, closing the pre-existing cross-term gap inside this milestone.
   The cross-term kill-test fixture is therefore **mandatory**, not conditional.
+- **2026-08-11 — completeness shape.** The chained-discriminator recommendation
+  is rejected as duplicated authority. `no-other-form8949-adjustments` v1 stays
+  published and historical-only; the successor package selects a newly
+  identified wider declaration in its place; two paths, no taxpayer
+  discriminator; closed-empty families carry the class discrimination. Recorded
+  in "The completeness decision (Topic 6)".
+- **2026-08-11 (second ruling) — ADR-0063 and ADR-0064 not ratified; five
+  contract-level blockers.** The new-id / non-selection shape is approved **in
+  principle**, and the family topology, fifteen-pair collision rule, boxes B/E,
+  and lines 2/9 direction are to be **preserved**. The five blockers are
+  recorded in "Track 0 charter, reopened again (2026-08-11)". The most
+  consequential of them **lifts a standing non-goal**: a new published
+  `attachment-rule` version is authorized.
