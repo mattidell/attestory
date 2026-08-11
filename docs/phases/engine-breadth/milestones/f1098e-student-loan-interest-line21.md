@@ -3517,3 +3517,97 @@ closure. Matrix row 3 is the remaining cost for T0c-4 to justify.
 T0c-3 (the shared Schedule 1 absence renormalization) modifies content ratified
 by PR #163 and is **held pending owner decision**. It is the only Track 0c item
 that expands the milestone past its original charter.
+
+## Owner dispositions — Track 0c (governing)
+
+The owner disposed of the three findings as follows. These govern over any
+foreman or builder wording above.
+
+### D1 — Horizon re-keying: approved, bounded
+
+Re-key the sixteen statement-set-dependent declarations to the **current Form
+1098-E family horizon plus tax year**. Re-attestation after family membership
+changes is **accepted for this milestone**. **Do not expand into per-loan
+boolean aggregation.**
+
+Required evidence, explicitly, for each of: **add**, **remove**, **reclose**,
+**same-member correction**, and **rejection or non-use of an answer keyed to the
+wrong family's horizon**. That last one converts the residual risk T0c-1
+recorded into a discharged obligation rather than a Track 1 note.
+
+### D2 — Legal zero: approved, and branch ordering is reopened
+
+A closed-empty Form 1098-E family plus C2 may produce a canonical zero without
+reading loan-eligibility declarations.
+
+**Branch ordering must be settled explicitly, not inherited.** Where B1 or
+filing status establishes an *unconditional* legal zero, determine whether that
+zero must publish **before** requiring Form 1098-E closure or C2. A legally
+unconditional zero must not be left dependent on irrelevant student-loan
+authority merely because of expression ordering. This supersedes T0c-2's
+acceptance of the ordering cost, and it subsumes the open MFS disposition.
+
+### D3 — Shared vocabulary: approved in principle, bounded by an inventory
+
+A neutral, shared **return-level successor vocabulary** for the twelve Schedule 1
+absence propositions is approved **in principle**. Three shapes are ruled out by
+name:
+
+* **Do not rewrite ratified SSA citizens in place.**
+* **Do not duplicate the twelve declarations.**
+* **Do not bridge SSA-scoped claims into broader claims.**
+
+The permitted shape is succession: the SSA-scoped facts **may be superseded by
+new neutral citizens**, and both the Social Security worksheet and the
+student-loan route may consume the successors. This is additive content
+succession, not editing.
+
+**Item 3 is not bounded within this milestone until T0c-3 delivers a full
+semantic and publication impact inventory — not a count of direct reference
+files.** The foreman's earlier "three files" pricing is withdrawn as
+category-inadequate. The inventory must enumerate:
+
+* every new or successor fact and rule citizen;
+* every package, published-package, release, registry, fixture, and golden
+  version affected;
+* all existing consumers and user attestations displaced;
+* the exact SSA compatibility tests and live-route evidence;
+* whether any generic evaluator, contribution, schema, or migration mechanism
+  must change.
+
+**Keep the repair in this milestone** if it remains additive content succession,
+package publication, and bounded SSA regression proof. **Stop and propose a
+separate prerequisite milestone** if the inventory reveals generic substrate,
+migration machinery, additional consumers, or broader changes to SSA semantics.
+
+### D4 — ADR budget
+
+**Do not create a second ADR merely to satisfy an allowance.** Use another ADR
+only if Track 0c identifies a **new durable product contract** not already
+governed by the existing fact-meaning, lifecycle, succession, and claim-reuse
+contracts.
+
+### D5 — Track 1 gate
+
+Complete T0c-4 and T0c-5, including the newly discovered **pin-completeness
+repair**, the **wrong-family-horizon negative fixture obligation**, the
+**no-activity dependency diff**, and all remaining PASS/FAIL entries.
+
+**Track 1 may not be chartered until the adversarial-closure declaration carries
+no unresolved FAIL and the final implementation boundary is stated as an
+explicit allowed-impact envelope.**
+
+### Standing consequence — milestone entry gate
+
+The allowed-impact envelope required by D5 is the same instrument this milestone
+lacked at entry. Reach was bounded in tax-domain language, which cannot express
+it. Five entry questions are to be answered before a future charter is written,
+and their answers carried in it: (1) what existing artifacts will be created,
+versioned, or **modified in place while already merged** — the third bucket
+empty by default and an explicit owner decision to fill; (2) what already works
+that could change behaviour, stated as before/after for a return that does not
+use the new feature; (3) which needed facts already exist and whether their
+**declared meaning** is neutral or owner-scoped; (4) for every new fact, whether
+staleness is caused by correction or by the paperwork changing; (5) what
+substrate the engine lacks. Question 5 is the one this charter did ask, and it
+is the one thing that never surprised the milestone.
