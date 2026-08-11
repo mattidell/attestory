@@ -1,17 +1,21 @@
 # ADR 0064 — Form 8949 Boxes B/E and Schedule D Lines 2/9 Composition
 
-- Status: **proposed** (drafted 2026-08-11; awaiting owner ratification)
+- Status: **proposed** (drafted 2026-08-11; revised 2026-08-11 against the
+  owner's second ruling, blockers B2–B4; awaiting owner ratification)
 - Tier: 2 — additive attachment, arithmetic, and Schedule D composition
   successor for one breadth slice; reuses the existing itemization,
-  `collect_members`, and evaluator-op vocabulary with no new schema kind, no
-  new published schema version, and no new evaluator operator.
+  `collect_members`, and evaluator-op vocabulary with no new schema kind and no
+  new evaluator operator. Both successor attachments move to
+  `attachment-rule.v7`, whose contract is **ADR-0065**.
 - Date: 2026-08-11
 
 ## Context
 
 ADR-0063 establishes the `noncovered-st` / `noncovered-lt` families, their
 twin-scalar companions, the generalized identity-key collision kill-test, and
-the completeness successor by re-identification. This ADR settles how those
+the completeness successor by re-identification. ADR-0065 publishes
+`attachment-rule.v7`, the substrate both successor attachments below sit on.
+This ADR settles how those
 families' proceeds/basis scalars become Form 8949 **box B** and **box E**
 content, how column (h) arithmetic is expressed, and how the box totals compose
 into successor Schedule D lines 2/7/9/15 and reach Form 1040 line 7a/9.
@@ -25,14 +29,27 @@ Inspected commitments that force explicit decisions:
   `adjustment_subtotals: []`. New single-column parts are therefore **byte-shape
   identical to parts that already exist**, and no new attachment mechanism is
   needed for boxes B and E.
-- **`attachment-rule.v6` cannot carry a value-checked answer.** `check:
-  "value"` exists only at `attachment-rule.v4`
+- **No single published `attachment-rule` version can carry both the box row
+  model and a value-checked answer.** `check: "value"` exists only at
+  `attachment-rule.v4`
   (`packages/schemas/tax/attachment-rule.v4.schema.json:100–125`); the v5 and v6
-  schema files contain no `"value"` const. ADR-0062's context claim that v3–v6
-  are shape-identical is **inaccurate for v4** and is corrected here rather than
-  by editing an accepted ADR. Consequences: `attachment.f8949`'s boundary answer
-  stays **presence**-checked, and `attachment.schedule-d` v6 must stay on
-  `attachment-rule.v4` (`attachment.schedule-d.v5.json:264`).
+  schema files contain no `"value"` const, and v4 has no `adjustment_rows` and
+  no subtractive `tie_out`. ADR-0062's context claim that v3–v6 are
+  shape-identical is **inaccurate for v4** and is corrected here rather than by
+  editing an accepted ADR. Under the published versions alone,
+  `attachment.f8949` would keep a **presence**-only boundary answer while
+  `attachment.schedule-d.v5.json:77–88` value-checks the same symbol — the two
+  attachments could reach opposite verdicts on one return. The owner ruled that
+  unacceptable on 2026-08-11 (blocker B2) and authorized the additive successor
+  ADR-0065 publishes; both successors below move to `attachment-rule.v7`.
+- **The published requirement shapes cannot express "this family has
+  members".** The threshold shape compares subtotal amounts
+  (`runner.py:815–820`), and the categorical `family_nonempty` shape names one
+  family. Both Form 8949 and Schedule D therefore use **proceeds** subtotals as
+  a proxy for occupancy (`attachment.f8949.json:24–27`,
+  `attachment.schedule-d.v5.json:251–258`), which a zero-proceeds transaction
+  defeats. ADR-0065 Decision 2's occupancy trigger replaces the proxy (blocker
+  B4).
 - **`runner.py`'s `attempt_attachment` produces exactly one subtotal per
   `row_set`** via `collect_members` over a single source family, and blocks
   `DEPENDENCY_ABSENT` on any missing requirement subtotal (`runner.py:791–796`)
@@ -51,8 +68,8 @@ Inspected commitments that force explicit decisions:
 ## Decision
 
 1. **Four new single-column itemization parts on `attachment.f8949` v2.**
-   Publish `tax.us.2025.rule.attachment.f8949` **v2**, staying on
-   `attachment-rule.v6`, adding to the six existing parts:
+   Publish `tax.us.2025.rule.attachment.f8949` **v2** on
+   `attachment-rule.v7`, adding to the six existing parts:
 
    - **Part I, box B** (short-term, basis not reported to the IRS):
      `box-b-proceeds` over `noncovered-st-proceeds`, and `box-b-basis` over
@@ -70,13 +87,27 @@ Inspected commitments that force explicit decisions:
    (ADR-0063 Decision 3); publishing an always-zero part would fabricate an
    authority nobody attests. Column (f) is empty for every box-B/box-E row.
 
-   The v2 requirement `subtotals` list gains
-   `tax.us.2025.f1099b.noncovered-st-proceeds-subtotal` and
-   `noncovered-lt-proceeds-subtotal`, so a noncovered-only return requires Form
-   8949 on its own. The single completeness answer is re-pointed from
-   `no-other-form8949-adjustments` v1 to the ADR-0063 declaration
-   `no-unsupported-form8949-sources`, still **presence**-checked because v6
-   admits no value check.
+   **Requirement.** The v1 proceeds-threshold requirement is replaced outright
+   by an ADR-0065 Decision 2 `any_of` requirement with an `occupancy` list only
+   — no threshold half — over the four Form-8949-routed **whole-transaction**
+   families `f1099b.covered-w-st`, `covered-w-lt`, `noncovered-st`,
+   `noncovered-lt`. Form 8949 is required exactly when one of them has a member,
+   whatever its amounts, and blocks `DEPENDENCY_ABSENT` when one of them is
+   unclosed. The requirement citation is unchanged.
+
+   **Completeness.** Three changes:
+
+   - `required_closures` (ADR-0065 Decision 3) names those four families plus
+     their ten scalar companions — the exact set the box (d)/(e) subtotals and
+     the line-1b/8b/2/9 `require_closed` clauses read;
+   - the boundary answer is re-pointed from `no-other-form8949-adjustments` v1
+     to the ADR-0063 declaration `no-unsupported-form8949-sources` and is now
+     **value**-checked at `"yes"`, which v7 admits and v6 did not;
+   - a second required answer is added: `no-form8949-sources` value-checked at
+     `"no"`. If the occupancy requirement made Form 8949 applicable, the return
+     has Form 8949 sources; a return declaring otherwise is contradicting its
+     own record, and Form 8949 says so on its own account rather than relying on
+     Schedule D to say it (ADR-0063 Decision 8).
 
 2. **Column (h) as a downstream rule, per box.** Publish
    `tax.us.2025.rule.schedule-d-line2` and `rule.schedule-d-line9`
@@ -120,15 +151,28 @@ Inspected commitments that force explicit decisions:
    now name the ADR-0063 declaration. Nothing else in the rule changes; the
    Schedule D branch still publishes `max(line-16, 0)`.
 
-6. **`attachment.schedule-d` v6.** Stays on `attachment-rule.v4` (the only
-   version admitting `check: "value"`). Three changes and no others: the
-   requirement threshold `subtotals` list gains the two noncovered proceeds
-   subtotals; the Path B `adds_required` names the ADR-0063 declaration instead
-   of `no-other-form8949-adjustments` v1; and two new itemization parts are
-   **not** added — Schedule D itemizes lines 1a/8a/13, while boxes B and E are
-   Form 8949's own content, exactly as boxes A and D already are. Adding the
-   proceeds subtotals to the threshold is what makes the noncovered scalar
-   closures load-bearing for Schedule D's completeness (ADR-0063 Decision 9).
+6. **`attachment.schedule-d` v6.** Moves from `attachment-rule.v4` to
+   `attachment-rule.v7`. Four changes and no others:
+
+   - **Requirement** becomes an ADR-0065 Decision 2 `any_of`: an `occupancy`
+     list over the six 1099-B whole-transaction families (`covered-st`,
+     `covered-lt`, `covered-w-st`, `covered-w-lt`, `noncovered-st`,
+     `noncovered-lt`) — replacing the four proceeds-subtotal threshold terms
+     one for one and adding the two new families — plus a `threshold` half
+     retaining only `tax.us.2025.capital-loss-carryover.short-term` and
+     `.long-term`, which are rule output with no family to occupy. The citation
+     and the `default-zero` parameter are unchanged.
+   - **`completeness.required_closures`** names the six whole-transaction
+     families, their scalar companions, and `f1099div.2a` (ADR-0063
+     Decision 9).
+   - **Path A** gains `asserts_families_empty` over the four Form-8949-routed
+     whole-transaction families (ADR-0063 Decision 8).
+   - **Path B**'s `adds_required` names the ADR-0063 declaration instead of
+     `no-other-form8949-adjustments` v1, still value-checked at `"yes"`.
+
+   Two new itemization parts are **not** added: Schedule D itemizes lines
+   1a/8a/13, while boxes B and E are Form 8949's own content, exactly as boxes A
+   and D already are.
 
 7. **Closed-empty behaviour is an explicit zero, not an absence.** With the
    noncovered families closed empty, line 2 = 0 and line 9 = 0 with closure and
@@ -137,7 +181,11 @@ Inspected commitments that force explicit decisions:
    line 2 or line 9 blocks `DEPENDENCY_ABSENT` and lines 7/15/16/21,
    `selected-preferential-base`, and Form 1040 line 7a/9 block along the
    declared chain and nothing else — the established hard-dependency shape
-   already used for lines 1b/8b.
+   already used for lines 1b/8b — **and both attachments block on the same
+   state**, because each names that family in `required_closures` and Form 8949
+   additionally names it in its occupancy list. Under the first draft the
+   attachments would have reported complete on that state; that divergence is
+   what blocker B3 named.
 
 8. **Explanation and presentation reuse existing models.** Box-B/box-E rows and
    the line-2/line-9 walks reuse the ADR-0046 citation-walk and ADR-0056
@@ -152,20 +200,36 @@ Inspected commitments that force explicit decisions:
 2. Exact Form 8949 box-B/box-E and Schedule D line-2/line-9 citations and
    complete explanation walks, not paraphrase.
 3. Closed-empty goldens (line 2 = 0, line 9 = 0, pins present) and
-   missing-closure blocks, each observed with its exact code and missing list.
-4. Downstream net gain, under-cap loss, and over-cap loss (line 21 interaction)
+   missing-closure blocks, each observed with its exact code and missing list,
+   **including the attachment dispositions on the same run** — the point being
+   that line 2 and both attachments block together, never one without the other.
+4. The two blocker-B4 boundary fixtures: a noncovered member with zero proceeds
+   and positive basis, and a zero/zero noncovered member. Both make Schedule D
+   and Form 8949 **required**, and the first produces a real line-2 or line-9
+   loss under a required form.
+5. Downstream net gain, under-cap loss, and over-cap loss (line 21 interaction)
    with the QDCG / `selected-preferential-base` branch exercised on both sides.
-5. Structural proof that the ADR-0062 row guards never read a box-B/box-E
+6. Structural proof that the ADR-0062 row guards never read a box-B/box-E
    member, and a mixed-class fixture in which a valid code-W row and a
    noncovered row coexist without either guard firing.
-6. Every prior Schedule D and Form 8949 regression fixture passing
+7. A W-only return rebuilt at the successor package: `attachment.schedule-d` v6
+   and `attachment.f8949` v2 on `attachment-rule.v7` produce line 1b/8b/7/15/16
+   arithmetic identical to the v18-pinned regression case.
+8. Every prior Schedule D and Form 8949 regression fixture passing
    **unmodified** at its own pinned adoption.
 
 ## Consequences
 
-- Form 8949 gains two boxes and Schedule D gains two lines with no new schema,
-  no new attachment mechanism, and no new evaluator operator — the fourth
-  consecutive Schedule D slice to land purely as content.
+- Form 8949 gains two boxes and Schedule D gains two lines with no new schema
+  **kind** and no new evaluator operator. Unlike the three Schedule D slices
+  before it, this one does not land purely as content: it carries the additive
+  `attachment-rule.v7` successor ADR-0065 publishes, because the substrate
+  could not express applicability, completeness, and calculation consistently
+  without it.
+- Both successor attachments now decide applicability by counting members and
+  vouch, by name, for the closure of every family their lines read. Form 8949
+  required and Schedule D not required is no longer reachable, since the Form
+  8949 occupancy list is a subset of Schedule D's.
 - Lines 7 and 15 acquire a new addend each, so a return with no noncovered
   activity must close two more families and four more scalar companions empty
   to compute them. That is justified by line 7's own arithmetic meaning: a
@@ -188,6 +252,11 @@ Inspected commitments that force explicit decisions:
 - **A single combined line-2/line-9 rule.** Rejected: boxes B and E are
   independent Schedule D lines with independent citations, and one rule
   publishing two symbols violates the single-producer-per-symbol invariant.
+- **A Form 8949 `asserts_families_empty` list mirroring Schedule D's.**
+  Rejected as redundant: Form 8949's own applicability is family occupancy, so
+  on the contradictory return it is required and its `no-form8949-sources`
+  value check at `"no"` already blocks it. A second mechanism saying the same
+  thing would add a second place to keep in step.
 - **Successor rules for lines 16, 21, and Form 1040 7a/9.** Rejected as
   unnecessary: they read the `line-7` / `line-15` symbols, which the successors
   republish; a successor would restate unchanged arithmetic and enlarge the
@@ -195,16 +264,30 @@ Inspected commitments that force explicit decisions:
 - **Moving `attachment.schedule-d` v6 to `attachment-rule.v6`** to align it with
   the Form 8949 citizen. Rejected: v6 has no value check, so the move would
   silently downgrade the ADR-0055 completeness-value semantics the Schedule D
-  boundary answers depend on.
+  boundary answers depend on. The symmetric move — Form 8949 down to v4 — loses
+  the box row model. Aligning them required the additive `v7` union ADR-0065
+  publishes; that is why the schema decision could not be avoided.
+- **Keeping `attachment.f8949` v2 on `attachment-rule.v6` with a presence-only
+  boundary answer**, as this ADR's first draft did. Rejected by the owner
+  2026-08-11 (blocker B2): the Form 8949 attachment would read complete on a
+  return that answers the boundary declaration `"no"`, while Schedule D
+  correctly blocks.
+- **Adding the two noncovered proceeds subtotals to the existing threshold** and
+  leaving the requirement amount-shaped, as this ADR's first draft did. Rejected
+  by the owner 2026-08-11 (blocker B4): a member with zero proceeds and positive
+  basis leaves every proceeds subtotal at zero, so both forms would report
+  themselves not required while line 2 published a real loss.
 
 ## Links
 
 - Plan:
   `docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md`
-  (Topics 5 and 9; "Expressibility of the chosen shape")
+  (Topics 5 and 9; "Attachment substrate decision (B2)")
 - IRS authority: 2025 Instructions for Form 8949; 2025 Instructions for
   Schedule D (Form 1040); 2025 Form 8949
 - Builds on: ADR-0036, ADR-0046, ADR-0053, ADR-0054, ADR-0055, ADR-0056,
   ADR-0057, ADR-0058, ADR-0060, ADR-0061, **ADR-0062**
-- Companion: **ADR-0063** (noncovered basis authority, family topology,
-  collision generalization, completeness successor)
+- Companions: **ADR-0063** (noncovered basis authority, family topology,
+  collision generalization, completeness successor), **ADR-0065**
+  (`attachment-rule.v7`)
+- Owner decision: 2026-08-11 second ruling (blockers B2 and B4)

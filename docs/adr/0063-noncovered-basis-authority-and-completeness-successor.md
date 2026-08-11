@@ -1,10 +1,13 @@
 # ADR 0063 — Broker-Furnished Noncovered Basis: Transaction Authority, Family Topology, Collision Generalization, and the Completeness Successor by Re-identification
 
-- Status: **proposed** (drafted 2026-08-11; awaiting owner ratification)
+- Status: **proposed** (drafted 2026-08-11; revised 2026-08-11 against the
+  owner's second ruling, blockers B1–B5; awaiting owner ratification)
 - Tier: 2 — additive transaction-authority and completeness-successor contract
-  for one breadth slice; reuses existing fact-type, family, supersession, and
-  attachment substrate with no new schema kind, no new published schema
-  version, and no new evaluator operator.
+  for one breadth slice; reuses existing fact-type, family, and supersession
+  substrate with no new schema kind, no new evaluator operator, and no
+  `source-family.v2`. The attachment-substrate successor this ADR's
+  completeness shape now rests on is **ADR-0065**
+  (`attachment-rule.v7`), decided separately rather than folded in here.
 - Date: 2026-08-11
 
 ## Context
@@ -18,8 +21,9 @@ IRS**, present on the statement and accepted as correct, with no adjustment
 code and column (g) contractually zero.
 
 Companion attachment, arithmetic, and Schedule D line-2/line-9 composition are
-**ADR-0064**. This ADR settles authority, identity, family topology,
-non-double-counting, and completeness.
+**ADR-0064**; the attachment substrate both of them stand on is **ADR-0065**.
+This ADR settles authority, identity, family topology, non-double-counting,
+and completeness.
 
 Inspected commitments that force explicit decisions:
 
@@ -44,22 +48,36 @@ Inspected commitments that force explicit decisions:
   **no noncovered/basis-not-reported Form 8949 sources**". A return in this
   milestone's supported class makes it false, and its published text cannot be
   edited.
-- **`attachment-rule` completeness can require only declared answers.**
-  `packages/schemas/tax/attachment-rule.v4.schema.json:77–127` defines
-  `required_answer` as a `oneOf` over presence and value checks keyed on a
-  symbol; `branch_requirements[].adds_required` `$ref`s the same definition
-  (lines 197–203). There is no family or closure predicate available to
-  completeness.
-- **`check: "value"` exists only at `attachment-rule.v4`.** The v5 and v6
-  schema files contain no `"value"` const. `attachment.schedule-d.v5.json:264`
-  is correctly on v4; `attachment.f8949.json` is on v6 and can carry only
-  presence-checked answers. ADR-0062's context statement that v3–v6 are
-  shape-identical is **inaccurate for v4** and is corrected here rather than by
-  editing an accepted ADR.
+- **No *published* `attachment-rule` version can express this milestone's
+  completeness honestly.** Completeness at v1–v6 reads only declared answers
+  (`packages/schemas/tax/attachment-rule.v4.schema.json:77–127`;
+  `runner.py:881–937`), applicability at v5/v6 is an amount threshold, and
+  `check: "value"` exists at **v4 only** — the v5 and v6 files contain no
+  `"value"` const. `attachment.schedule-d.v5.json:264` is on v4;
+  `attachment.f8949.json` is on v6 and can carry only presence-checked answers.
+  ADR-0062's context statement that v3–v6 are shape-identical is **inaccurate
+  for v4** and is corrected here rather than by editing an accepted ADR.
+
+  The owner's 2026-08-11 second ruling lifted the standing non-goal and
+  authorized an additive published successor. **ADR-0065 publishes
+  `attachment-rule.v7`**, which adds family-occupancy applicability,
+  `completeness.required_closures`, and
+  `branch_requirements[].asserts_families_empty` on top of v6's row model and
+  v4's value check. Decisions 7, 8, and 9 below are written against v7 and are
+  not expressible without it; the earlier draft of this ADR, which tried to
+  carry them on v4/v6 plus a runner guard, is what the owner rejected.
 - **The `derivation-record` block-code enum is closed at v6**
-  (`packages/derivation/records.py:38–47`), and a new published schema version
-  is an explicit milestone non-goal. The ADR-0061 Form 1098 precedent of adding
-  an enum value (`F1098_SCOPE_CONTRADICTION`) is therefore **not** available.
+  (`packages/derivation/records.py:38–47`). The ADR-0061 Form 1098 precedent of
+  adding an enum value (`F1098_SCOPE_CONTRADICTION`) is **not** followed:
+  ADR-0065's constructs reuse `DEPENDENCY_ABSENT` and `BLOCK_INVALID`
+  (`packages/derivation/evaluator.py:25`), so no enum value is added anywhere in
+  this milestone.
+- **Closure admission reads member identities, never member values.**
+  `resolve_closure_admissions`
+  (`packages/derivation/source_authority.py:99–166`) admits a family when
+  exactly one closure finding exists at the family's **current** horizon and is
+  boolean `true`; nothing in it reads a member's amounts. This is the
+  mechanical basis of Decision 4.
 
 Track 0's paper-first decision record settled these contracts against real
 committed source and the 2025 Form 8949 / Schedule D instructions before this
@@ -108,15 +126,54 @@ ADR was drafted; it is distilled here and in the milestone plan
    code-W families is **not structural** — `source-family.v1` cannot
    value-filter — so it is enforced by Decision 5.
 
-4. **Correction versus member transition.** Correcting proceeds or basis at the
-   same identity is ordinary ADR-0010 supersession and displaces, at minimum:
-   that transaction's Form 8949 row, its box subtotal, Schedule D line 2 or 9,
-   line 7 or 15, line 16, line 21, `selected-preferential-base`, and Form 1040
-   line 7a/9, plus the family and scalar closures at the superseded horizon. A
-   transaction that moves *between* families — a corrected statement now
-   reporting basis to the IRS — is a **member transition**, not a correction:
-   the noncovered fact is retracted and the covered fact asserted. Decision 5
-   is what makes the half-done state fail closed rather than double-count.
+4. **Correction versus membership transition — the boundary, stated as a rule
+   rather than by example.** A `source-closure` finding claims *the member set
+   of this family is complete as of this recorded horizon*. Its subject is the
+   set of member **identities**. Therefore:
+
+   > **A closure is displaced by a change to a family's set of member
+   > identities, and never by a change to a member's values.**
+
+   - **Value correction.** A supersession at the *same* fact identity inside
+     the *same* fact type — corrected proceeds, corrected basis — leaves every
+     family's member-identity set unchanged. The recorded horizon does **not**
+     advance, no `source-closure` finding is displaced, and the family and
+     scalar closures keep their exact finding ids and pins. This is mechanical,
+     not conventional: `resolve_closure_admissions` selects the closure finding
+     by fact type and current horizon only
+     (`packages/derivation/source_authority.py:139–152`) and reads no member
+     value, so a value correction cannot reach it.
+
+     What *is* displaced, by ordinary ADR-0010 dependency edges, is every
+     derived finding that read the corrected value: that transaction's Form
+     8949 row, its box (d)/(e) subtotals, Schedule D line 2 or line 9, line 7
+     or 15, line 16, line 21, `selected-preferential-base`, Form 1040 line 7a
+     and line 9, taxable income, regular tax, and both attachment dispositions
+     — whose pins name the superseded input finding. The recomputation runs at
+     the **unchanged** horizon against the **same** current closures.
+
+   - **Membership or identity transition.** Any change to the set of member
+     identities: a new member asserted, a member retracted, a member's *identity
+     keys* corrected (which is a retraction plus an assertion, not a value
+     correction), or a member moved between families — a corrected statement
+     now reporting basis to the IRS retracts the noncovered fact and asserts the
+     covered one. Here the closure claim's subject genuinely changed. The
+     recorded horizon advances, and the closure keyed to the prior horizon stops
+     being current, so the family drops out of the admitted set
+     (`source_authority.py:141–153`) and every `collect` / `require_closed` over
+     it blocks rather than zeroing, until the family is reclosed at the new
+     horizon.
+
+     Only the families whose member-identity set changed are affected. A
+     cross-family transition changes **two** families and requires reclosure of
+     both; a return that reclosed only one is exactly the half-done state
+     Decision 5's kill-test makes fail closed rather than double-count.
+
+   The engine does not infer the transition: the horizon is a contributed
+   entity (ADR-0017). What the engine guarantees is that a closure keyed to a
+   superseded horizon is indistinguishable from an absent one on the dispatch
+   path, so a return whose members moved and whose horizon did not is blocked,
+   never quietly stale.
 
 5. **Generalized identity-key collision kill-test.**
    `_COVERED_W_IDENTITY_COLLISION_PAIRS` in
@@ -165,23 +222,35 @@ ADR was drafted; it is distilled here and in the milestone plan
    remains resolvable for v29 and every earlier package.
 
 7. **Two completeness paths; no third path and no taxpayer discriminator.**
-   `attachment.schedule-d` v6 (staying on `attachment-rule.v4`, per the
-   value-check constraint) keeps the existing branch shape:
+   `attachment.schedule-d` v6 moves to `attachment-rule.v7` (ADR-0065) and
+   keeps the existing two-branch shape:
 
    ```text
+   required_closures (unconditional, Decision 9):
+           every 1099-B whole-transaction family AND every scalar companion
+           AND f1099div.2a
+
    Path A: no-form8949-sources == "yes"
-           AND no supported Form 8949 family is genuinely nonempty  (Decision 8)
+           AND asserts_families_empty over the four Form-8949-routed
+               whole-transaction families                           (Decision 8)
 
    Path B: no-form8949-sources == "no"
            AND no-unsupported-form8949-sources == "yes"             (new id)
-           AND all four supported families closed                   (Decision 9)
    ```
 
-   Which supported classes a return actually contains is read from **which
+   The "all four supported families closed" condition is no longer a Path B
+   clause: it is unconditional under `required_closures`, because a return
+   cannot know which path it is on until those families are closed. Which
+   supported classes a return actually contains is then read from **which
    families close nonempty**, never from a declared answer. A W-only return
    closes both noncovered families empty; a noncovered-only return closes both
    code-W families empty. That is contributed authority, and it is the same
    closed-empty pattern every prior family milestone uses.
+
+   The direct `covered-st` / `covered-lt` families are deliberately **not** in
+   the Path A emptiness list: a basis-reported transaction with no adjustment
+   may be reported directly on Schedule D line 1a/8a, so `no-form8949-sources
+   = "yes"` is a true statement about a return that holds them.
 
    A chained taxpayer discriminator ("are any of your Form 8949 sources
    noncovered?") was rejected by the owner on 2026-08-11: the distinction is
@@ -189,53 +258,78 @@ ADR was drafted; it is distilled here and in the milestone plan
    again duplicates authority and manufactures a contradiction case — a return
    could declare "no noncovered sources" while carrying a noncovered member.
 
-8. **Path A contradiction guard.** Path A must not satisfy completeness when
-   any supported Form 8949 family is genuinely nonempty. Without it a taxpayer
-   who records a supported transaction and also answers "no Form 8949 sources"
-   gets a silently wrong, silently complete return — the worst failure
-   available in this milestone. The guard emits `BLOCK_INVALID`
-   (`DEPENDENCY_INVALID`, `packages/derivation/evaluator.py:25`) with a named
-   `tax.us.2025.block.*` symbol in `missing`, exactly as
-   `GUARD_IDENTITY_KEY_COLLISION` does (`runner.py:195`, emitted at
-   `runner.py:871–877`). **No `derivation-record` enum value is added.** Both
-   inputs are already in scope at the guard site: the declaration's value from
-   `self.symbols` (`runner.py:887`) and per-family member counts from
-   `self.sources` (`runner.py:657`, `694`).
+8. **The Path A contradiction is declared, not guarded.** Path A must not
+   satisfy completeness when any Form-8949-routed family is genuinely nonempty.
+   Without that, a taxpayer who records a supported transaction and also
+   answers "no Form 8949 sources" gets a silently wrong, silently complete
+   return — the worst failure available in this milestone.
 
-   The guard covers **all four** supported families, so it closes a
-   pre-existing hole for the code-W class as well: today the Path A branch of
+   The `attachment.schedule-d` v6 Path A branch therefore carries an
+   `asserts_families_empty` list (ADR-0065 Decision 4) naming
+   `f1099b.covered-w-st`, `covered-w-lt`, `noncovered-st`, and `noncovered-lt`.
+   An unadmitted family there blocks `DEPENDENCY_ABSENT` (emptiness unknown is
+   not emptiness); an admitted family with members blocks `BLOCK_INVALID`
+   naming the occupied family ids. **No `derivation-record` enum value is
+   added**, and — the point of the owner's B5 ruling — **the behaviour lives in
+   the citizen**: delete `attachment.schedule-d` v6 and it is gone. The
+   `GUARD_IDENTITY_KEY_COLLISION` pattern of a `rule_id`-keyed runner branch
+   (`runner.py:863`, `195`) is explicitly **not** followed. The earlier draft of
+   this ADR proposed exactly that and recorded the citizen/runner asymmetry as
+   an accepted cost; the owner ruled the cost unacceptable.
+
+   Because the list is declared, the same check covers the code-W class and so
+   closes a **pre-existing** hole: today the Path A branch of
    `attachment.schedule-d.v5.json` (lines 54–71) adds only a value check on
    `no-form8949-sources` itself and nothing consults membership, so a return
    with covered-w members and `no-form8949-sources = "yes"` reads *complete* on
-   Schedule D. No committed test exercises that state
+   Schedule D and computes line 1b from real members. No committed test
+   exercises that state
    (`tests/test_schedule_d_form8949_covered_wash_sale_t1.py:164` selects
-   `BOUNDARY_PATH_A` only when there are no W members). The guard is added in
+   `BOUNDARY_PATH_A` only when there are no W members). The list is added in
    the successor package only; no historical adoption's disposition changes.
 
-   Recorded asymmetry, deliberately accepted: like the collision guard, this
-   guard is runner code keyed on `rule_id` (`runner.py:863`) rather than
-   declarative attachment content. It introduces no new mechanism, but the
-   attachment citizen does not state it, and a future substrate milestone
-   should find this note.
+   Form 8949 needs no separate contradiction list: under Decision 9 its own
+   applicability is family occupancy, so on the contradictory return it is
+   **required**, and its completeness value-checks `no-form8949-sources` at
+   `"no"`. It blocks `COMPLETENESS_VALUE_VIOLATION` on the same facts that
+   block Schedule D. The two attachments cannot split.
 
-9. **How family closure becomes load-bearing, since completeness cannot
-   express it.** Completeness can require only declared answers (see Context),
-   so Decision 7's "all four supported families closed" is **not** written into
-   `adds_required`. It is carried by two already-published mechanisms:
+9. **Family closure is load-bearing on completeness declaratively, for the
+   whole transaction family and not merely its scalar projections.** This is
+   the owner's B3 blocker, and the earlier draft's answer — scalar companions
+   carry completeness, whole families carry only arithmetic — was insufficient
+   exactly because lines 2 and 9 require whole-family closure that no
+   completeness surface named. The correction:
 
-   - **Completeness** — the four scalar companion closures, through
-     `attachment.schedule-d` v6's `requirement.subtotals` (which gains the two
-     noncovered proceeds subtotals; `runner.py:791–796` blocks
-     `DEPENDENCY_ABSENT` on any absent subtotal symbol, unconditionally and
-     before the threshold comparison) and through the new box-B/box-E
-     itemization parts (`runner.py:834–855`). A subtotal symbol exists only if
-     its family is closed: the subtotal rules are `collect` with
-     `blocked.code = SOURCE_SET_UNCLOSED`
-     (`rule.f1099b-covered-w-st-proceeds-subtotal.json:17–32`).
-   - **Arithmetic** — the two whole-transaction family closures, through
-     `require_closed` in the ADR-0064 line-2/line-9 rules, exactly as
-     `rule.schedule-d-line1b.json`'s `when.all` requires `covered-w-st` plus
-     its three scalar families.
+   - **`completeness.required_closures`** (ADR-0065 Decision 3) on
+     `attachment.schedule-d` v6 names every family the schedule's lines depend
+     on: the six 1099-B whole-transaction families
+     (`covered-st`, `covered-lt`, `covered-w-st`, `covered-w-lt`,
+     `noncovered-st`, `noncovered-lt`), their scalar companions (two each for
+     the direct and noncovered families, three each for the code-W families),
+     and `f1099div.2a` for line 13. On `attachment.f8949` v2 it names the four
+     Form-8949-routed whole-transaction families and their ten scalar
+     companions.
+   - **The set is the union of what the lines require**, per ADR-0065
+     Decision 3's content obligation: every `source_set` named by a
+     `require_closed` in a composed line's `when` (as
+     `rule.schedule-d-line1b.json` does over `covered-w-st` plus its three
+     scalar companions) and every `source_set` named by a `collect` in the
+     subtotal rules those lines read (as
+     `rule.f1099b-covered-w-st-proceeds-subtotal.json:17–32` does, blocking
+     `SOURCE_SET_UNCLOSED`).
+   - **Therefore "Schedule D is complete" entails "no Schedule D line blocks
+     for closure"**, because both sides read the same admitted set: the runner
+     passes `closed_sets=frozenset(self.admissions)` to the evaluator at
+     `runner.py:336`. That entailment is the whole content of B3, and it did
+     not hold before — for lines 1a, 1b, 8a, or 8b either.
+
+   Applicability is likewise family-shaped rather than amount-shaped
+   (ADR-0065 Decision 2, this milestone's B4): the Schedule D and Form 8949
+   requirements count members, so a member with zero proceeds and positive
+   basis, or a zero/zero member, makes both forms required. The residual
+   threshold terms are the two capital-loss-carryover symbols, which are rule
+   output with no family to occupy.
 
    A closed-**empty** family publishes an explicit zero rather than nothing;
    verified in committed output, on a return with no capital activity at all,
@@ -271,9 +365,21 @@ ADR was drafted; it is distilled here and in the milestone plan
    successor package producing line 1b/8b arithmetic identical to the
    v18-pinned regression case, and a noncovered-only return with both code-W
    families closed empty.
-5. The Decision 8 guard is exercised in **both** classes — a noncovered member
-   under Path A and a code-W member under Path A.
-6. Every prior-milestone regression fixture passes unmodified at its own
+5. The Decision 8 `asserts_families_empty` list is exercised in **both**
+   classes — a noncovered member under Path A and a code-W member under Path A —
+   and in the unadmitted-family case, where emptiness is unknown and the block
+   must be `DEPENDENCY_ABSENT`, not `BLOCK_INVALID`.
+6. Decision 4's boundary is exercised in **both** directions at the production
+   boundary: a same-member value correction that leaves every closure finding id
+   unchanged while every dependent derived finding is displaced, and a
+   membership transition that advances the horizon and makes the prior closure
+   non-current. A fixture that merely observes a changed number does not
+   discharge this; the closure finding ids and the currentness of each closure
+   are what is asserted.
+7. Decision 9's `required_closures` set is proved to equal the union of the
+   composed lines' `require_closed` and `collect` source sets by the mechanical
+   check ADR-0065 production condition 5 owes, not by inspection.
+8. Every prior-milestone regression fixture passes unmodified at its own
    pinned adoption.
 
 ## Consequences
@@ -292,6 +398,16 @@ ADR was drafted; it is distilled here and in the milestone plan
 - A pre-existing correctness hole — Path A declared while supported Form 8949
   members are on record — is closed for both supported classes, and cross-term
   identity collisions become detectable for the first time.
+- Three further pre-existing disagreements are closed as a side effect of
+  standing on `attachment-rule.v7`: Schedule D can no longer read complete
+  while a whole-transaction family is unclosed and its line blocks (true today
+  for lines 1a/1b/8a/8b); a zero-proceeds transaction can no longer leave a
+  required form reporting itself unnecessary; and the Form 8949 and Schedule D
+  attachments can no longer reach opposite verdicts on the same boundary
+  declaration.
+- The milestone now publishes a schema version, which the plan originally
+  forbade. That is the owner's 2026-08-11 ruling, and the cost is recorded in
+  ADR-0065 rather than minimized here.
 - The engine still computes no basis, reconstructs none, validates none, and
   determines no security's covered status.
 
@@ -321,11 +437,28 @@ ADR was drafted; it is distilled here and in the milestone plan
 - **Guarding the class constraint in rule content instead of the value
   schema.** Rejected: a rule guard admits the false statement and then blocks a
   computation; a narrowed value schema means it is never representable.
-- **A new `derivation-record` enum value for the Decision 8 guard**, copying
+- **A new `derivation-record` enum value for the Decision 8 check**, copying
   the Form 1098 `F1098_SCOPE_CONTRADICTION` precedent. Rejected: the enum is
-  closed at v6 and a new published schema version is an explicit non-goal and
-  stop condition; the named-block-symbol mechanism carries the same
-  information.
+  closed at v6, and `BLOCK_INVALID` plus the occupied family ids in `missing`
+  carries the same information without one.
+- **A `rule_id`-keyed runner guard for the Decision 8 check**, on the
+  `GUARD_IDENTITY_KEY_COLLISION` precedent. This was the earlier draft's
+  decision, with the citizen/runner asymmetry recorded as an accepted cost.
+  Rejected by the owner 2026-08-11 (blocker B5): deleting the artifact would
+  not remove the behaviour, so the citizen would not be the account of the form
+  it claims to be.
+- **Leaving whole-transaction-family closure to `require_closed` in the line
+  rules alone**, with scalar-companion closure carrying completeness. This was
+  the earlier draft's Decision 9. Rejected by the owner 2026-08-11 (blocker
+  B3): lines 2 and 9 separately require whole-family closure, so Schedule D
+  could read complete while those lines block — and, on inspection, that state
+  is already reachable today for lines 1a/1b/8a/8b.
+- **Keeping the `proceeds > 0` requirement threshold** and treating the
+  zero-proceeds transaction as a curiosity. Rejected by the owner 2026-08-11
+  (blocker B4): a broker-furnished basis with zero proceeds is an ordinary
+  worthless-security disposition, and a form that reports itself unnecessary
+  while its own arithmetic produces a real loss is the same defect class as
+  every other item here.
 - **An `-adjustment` scalar companion holding a contractual zero.** Rejected:
   it would publish an authority nobody attests.
 
@@ -333,13 +466,15 @@ ADR was drafted; it is distilled here and in the milestone plan
 
 - Plan:
   `docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md`
-  (Topic 6, "The chosen shape", "Expressibility of the chosen shape",
+  (Topic 6, "The chosen shape", "Attachment substrate decision (B2)",
   "Track 0 adversarial closure")
 - IRS authority: 2025 Instructions for Form 8949; 2025 Instructions for
   Schedule D (Form 1040); 2025 Form 8949
 - Builds on: ADR-0010, ADR-0011, ADR-0017, ADR-0032, ADR-0036, ADR-0052,
   ADR-0054, ADR-0055, ADR-0057, ADR-0059, **ADR-0061**
-- Companion: **ADR-0064** (Form 8949 boxes B/E, Schedule D lines 2/9
-  composition)
+- Companions: **ADR-0064** (Form 8949 boxes B/E, Schedule D lines 2/9
+  composition), **ADR-0065** (`attachment-rule.v7`, the substrate Decisions 7–9
+  stand on)
 - Owner decisions: plan approval and collision-kill-test scope 2026-08-10;
-  completeness shape 2026-08-11
+  completeness shape 2026-08-11; second ruling 2026-08-11 (blockers B1–B5,
+  lifting the schema-version non-goal)
