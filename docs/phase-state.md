@@ -44,6 +44,16 @@ lines 2 and 9.
   closure gate's declaration is **retracted to FAIL**; earlier expressibility
   and closure sections are retained with SUPERSEDED banners and are not
   authority.
+* **C1 and C2 are closed in the ADRs** at `aa2db5e`. C1: ADR-0065 Decision 3
+  now states a normative evaluation order — the closure check runs between
+  `runner.py:820` and `runner.py:822`, whatever `required` evaluates to, so it
+  gates the `inapplicable` disposition too; inert for v1–v6 citizens. C2: new
+  ADR-0065 Decision 8 adds an optional `accounts_for` surface and defines the
+  `producers`/`closes`/`reach`/`families` traversal, validated against
+  `package.core-calculations.v29.json` before being written. **Still
+  outstanding under the same charter:** ADR INDEX rows, the plan's substrate /
+  chosen-shape / fixture-matrix sections, the second closure-gate rerun, and
+  the plan capsule. The builder run was cut off by an account session limit.
 * **In flight:** Track 0, reopened a third time after an external review of head
   `88b4628` returned NOT READY. That review accepted the tax routing, the
   transaction model, ADR-0063's authority and correction/membership boundary,
