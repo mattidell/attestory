@@ -4,11 +4,11 @@
   "phase": "Engine Breadth",
   "topic": "f1098e-student-loan-interest-line21",
   "active_plan": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md",
-  "milestone_state": "track-0",
-  "status": "**ENGINE BREADTH / 2025 FORM 1098-E STUDENT-LOAN INTEREST THROUGH SCHEDULE 1 LINE 21 AND FORM 1040 AGI \u2014 TRACK 0 REOPENED.** The Track 0 settled declaration is WITHDRAWN. Owner review returned three findings, all accepted: (F1, P1) sixteen of the seventeen eligibility components are statement-set-dependent but keyed by tax-year alone, so a late statement is silently authorized by an attestation never made about it; (F2, P1) a closed-empty 1098-E family lets B1 not-claimed-as-dependent block line 21, line 26, line 10 and therefore AGI, which is semantically wrong; (F3, P2) the T0-5 reuse of the twelve ss-benefits-scope Schedule 1 absences was priced against an unratified PR #163 that has now merged, and the reused facts declare Social Security Benefits Worksheet scope in their own titles, so reuse fails the claim-reuse proof on declared authority scope. Pricing: F1 does NOT fire the stop condition \u2014 the identity-key vocabulary already admits {kind: entity, name: family-horizon} and the ratified line uses it 37 times on every *.source-closure fact type, so horizon-binding substantive declarations is content-level reuse needing no evaluator change and no ADR; the alternative (per-statement authority plus a real aggregate) WOULD need new substrate, since the evaluator has no categorical or boolean aggregate at all. F2 resolves to a closed-empty canonical-zero branch carrying closure and C2 provenance, and exposes a second correction: B1=no is a legal zero, not an unsupported block, so every component must be decided individually. F3 blast radius is three files (ss-benefits-scope.bundle.json, rule.ss-benefits-worksheet.json, tests/test_ssa1099_benefits_line6_track2.py); disposition is a shared return-level successor with the SSA-scoped originals superseded, a bridging rule being rejected as repairing upstream scope with a downstream note. Track 0c is chartered with five work items T0c-1..T0c-5 and five now-mandatory Track 0 outputs (authority-lifecycle table, empty/nonempty authority matrix, late-authority counterexample walk, claim-reuse proof, neighboring-capability dependency diff) plus a required Track 0 adversarial-closure declaration, currently four FAILs. Standing rule adopted: Track 0 may not be marked settled while it contains a known semantic coupling unless the plan carries a counterexample showing the coupling is correct. INTEGRATION DONE: PR #163 and PR #168 both merged; this branch rebased --onto origin/main from b25562f (the old base was not an ancestor, the mortgage milestone having been curated before merge), nine commits replayed, one docs/phase-state.md conflict resolved; PR #169 retargeted to main. Delta verified: evaluator operator set unchanged, rule.form1040-line11 still a bare AGI passthrough, the twelve absences present and unchanged; but CURRENT_RECORD_SCHEMA advanced to derivation-record.v6 and packages/tax/ssa_benefits.py was substantially reduced. Track 1 is not chartered. No version numbers allocated. The attachment-rule.v5 provenance defect from T0-7 remains open and untouched.",
+  "milestone_state": "closed",
+  "status": "**ENGINE BREADTH / 2025 FORM 1098-E \u2014 STOPPED AT DESIGN. STOP CONDITION FIRED; TREAT AS COMPLETED DESIGN EXPLORATION.** Owner ruled 2026-08-10 that the shared Schedule 1 absence vocabulary may NOT be repaired inside this milestone. Both remaining shapes were rejected: parallel neutral vocabulary with dormant predecessors (twelve permanent orphans in open_fact_ids with no retirement mechanism \u2014 a one-way door), and a successor bundle re-declaring the same twelve ids with neutral titles (would cause existing findings to answer a BROADER question than the user asserted; the kernel mechanically permitting re-adoption is not semantic licence; the w2/1099-div precedents are inapposite because those successions preserved meaning). Root cause: there is NO cross-fact-type succession in the kernel \u2014 apply_bundle_adoption (facts.py:84-101) has no deletion path, compute_currency (currency.py:137-174) admits only same-fact correction, member withdrawal and superseded entities as displacement roots, and supersession policy 'free' (findings.py:556-576) fires only on the same fact_id. The foreman had asserted succession as available without verifying it. PREREQUISITE MILESTONE REQUIRED, framed as fact-type succession and optional-route applicability, NOT deletion or retirement \u2014 history must remain: (1) minimal declared migration/succession mechanism that displaces old fact questions, instantiates new neutral ones, and leaves them OPEN for re-attestation without copying or reinterpreting old answers; (2) mint honestly named neutral identifiers including the thirteenth proposition no-schedule1-line24z-writein, and repoint the nonempty SSA worksheet route; (3) repair the SSA no-activity route so a return with no Social Security source publishes its legal zero without the 33 worksheet-scope declarations \u2014 rule.form1040-line9.v7 unconditionally requires social-security.line6b and the SSA worksheet is its only producer, but that existing burden is NOT a precedent; (4) prove fresh adoption and upgrade behaviour separately; (5) inventory implementation and governance cost BEFORE chartering the build, and if generic substrate is needed treat it openly as the prerequisite's architectural decision. The schedule1-part1-scope.bundle.json vocabulary defect stays a recorded deferral unless the mechanism necessarily touches it. THIS BRANCH: T0c-4 and T0c-5 held; 1098-E implementation NOT chartered; no version numbers allocated; no code written. Settled design survives in the plan's non-chronological Durable findings register. After the prerequisite merges, prepare a concise handoff and RE-CUT 1098-E from current main on the first dependency-safe Schedule 1 Part II to Form 1040 AGI vertical slice; the Track 0a/0b/0c narrative is NOT carried forward. Branch rebased onto origin/main; PR #169 is docs-only and open.",
   "retrospective": null,
-  "current_role": "Foreman (Track 0 reopened; Track 0c chartered, not yet performed)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md#Track 0c work items"
+  "current_role": "Foreman (1098-E stopped at design; prerequisite milestone unplanned, owner-selection pending)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md#Owner ruling \u2014 stop condition fires; this branch is completed design exploration"
 }
 -->
 # Phase State
@@ -37,10 +37,31 @@ Form 1040 line 10 and makes adjusted gross income differ from total income.
 ## Operational State: Engine Breadth
 
 * **Active milestone (this branch):** 2025 Form 1098-E Student-Loan Interest
-  through Schedule 1 Line 21 and Form 1040 Adjusted Gross Income — **in
-  progress**. Track 0's settled declaration is **withdrawn**; owner review
-  returned three findings (two P1), all accepted. **Track 0c** is chartered to
-  re-settle. Track 1 (implementation) is not chartered.
+  through Schedule 1 Line 21 and Form 1040 AGI — **stopped at design**. The stop
+  condition fired on the shared Schedule 1 absence vocabulary. The owner ruled
+  this branch **completed design exploration**: T0c-4 and T0c-5 are held,
+  implementation is **not** chartered, and no code was ever written.
+* **Blocking prerequisite (unplanned):** a **fact-type succession and
+  optional-route applicability** milestone. Framed as succession, **not**
+  deletion or retirement — history must remain. Five items are stated in the
+  plan under "The prerequisite is succession, not deletion"; item 5 requires an
+  implementation-and-governance cost inventory **before** the build is
+  chartered, and any generic substrate must be owned openly as that milestone's
+  architectural decision.
+* **Why it stopped:** the kernel has **no cross-fact-type succession**
+  (`facts.py:84-101` has no deletion path; `currency.py:137-174` admits only
+  same-fact correction, member withdrawal, and superseded entities;
+  `findings.py:556-576` fires only on the same `fact_id`). Both remaining
+  shapes were rejected — dormant predecessors leave twelve permanent orphans,
+  and re-declaring the same ids with neutral wording would make existing
+  findings answer a **broader question than the taxpayer asserted**.
+* **What survives:** the plan's non-chronological **Durable findings register** —
+  substrate facts, tax-domain results, standing defects on the ratified line,
+  and method results. The replacement plan inherits that register and **not**
+  the Track 0a/0b/0c narrative.
+* **Re-cut instruction:** after the prerequisite merges, prepare a concise
+  handoff and re-cut 1098-E **from current `main`**, scoped to the first
+  dependency-safe Schedule 1 Part II → Form 1040 AGI vertical slice.
 * **Branch / worktree:** `milestone/f1098e-student-loan-interest-line21` in
   `engine-1098e`.
 * **Base:** `origin/main` (`ff25d42`). Rebased `--onto origin/main` from the
@@ -64,24 +85,15 @@ Form 1040 line 10 and makes adjusted gross income differ from total income.
   substantially reduced, its test-only enforcement surface removed.
 * **Plan:** `docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md`.
 * **Retrospective:** none yet (milestone not closed).
-* **Contracts:** SLI-C1–C10; Track 0c must restate C2, C5, C6, and C8. The
-  `multiply`/`divide` expression extension still claims the milestone's single
-  expected ADR. F1 and F2 are priced as needing **no** ADR; F3 may need one.
-* **Open findings (Track 0c):** F1 statement-set-dependent authority keyed only
-  by tax year — disposition is `['family-horizon', 'tax-year']` re-keying, which
-  is content-level reuse of substrate the ratified line already uses 37 times,
-  so the stop condition does **not** fire. F2 closed-empty family lets B1
-  suppress AGI — disposition is a closed-empty canonical-zero branch with
-  closure and C2 provenance, plus a per-component legal-zero-vs-block decision.
-  F3 the SSA-scoped absence reuse fails the claim-reuse proof on declared
-  authority scope — disposition is a shared return-level successor; blast radius
-  is three files.
-* **Open item, unchanged:** the `attachment-rule.v5` provenance defect recorded
-  by T0-7.
-* **PR:** #169 (draft), based on `main`.
-* **Next:** perform Track 0c, discharge the five mandatory Track 0 outputs and
-  the adversarial-closure declaration (currently four FAILs), then re-settle
-  Track 0 before Track 1 is chartered.
+* **Open items on the ratified line:** the `attachment-rule.v5` provenance
+  defect (T0-7); the `schedule1-part1-scope.bundle.json` consumer-scoped-title
+  defect (recorded deferral); and cited federal sources absent from the repo
+  (five load-bearing citations spot-checked and all verified — an availability
+  defect, not an evidence-integrity one).
+* **PR:** #169 (draft, docs-only), based on `main`. Carries the design
+  exploration; owner to decide whether it merges as the record.
+* **Next:** owner selects the prerequisite milestone. Nothing proceeds on
+  1098-E until it is settled and merged.
 
 ## Re-entry
 

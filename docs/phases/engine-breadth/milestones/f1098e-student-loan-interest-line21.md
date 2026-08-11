@@ -2,9 +2,9 @@
 {
   "version": 1,
   "topic": "f1098e-student-loan-interest-line21",
-  "milestone_state": "track-0",
+  "milestone_state": "closed",
   "retrospective": null,
-  "status": "**ENGINE BREADTH / 2025 FORM 1098-E STUDENT-LOAN INTEREST THROUGH SCHEDULE 1 LINE 21 AND FORM 1040 AGI \u2014 TRACK 0 REOPENED.** The Track 0 settled declaration is WITHDRAWN. Owner review returned three findings, all accepted: (F1, P1) sixteen of the seventeen eligibility components are statement-set-dependent but keyed by tax-year alone, so a late statement is silently authorized by an attestation never made about it; (F2, P1) a closed-empty 1098-E family lets B1 not-claimed-as-dependent block line 21, line 26, line 10 and therefore AGI, which is semantically wrong; (F3, P2) the T0-5 reuse of the twelve ss-benefits-scope Schedule 1 absences was priced against an unratified PR #163 that has now merged, and the reused facts declare Social Security Benefits Worksheet scope in their own titles, so reuse fails the claim-reuse proof on declared authority scope. Pricing: F1 does NOT fire the stop condition \u2014 the identity-key vocabulary already admits {kind: entity, name: family-horizon} and the ratified line uses it 37 times on every *.source-closure fact type, so horizon-binding substantive declarations is content-level reuse needing no evaluator change and no ADR; the alternative (per-statement authority plus a real aggregate) WOULD need new substrate, since the evaluator has no categorical or boolean aggregate at all. F2 resolves to a closed-empty canonical-zero branch carrying closure and C2 provenance, and exposes a second correction: B1=no is a legal zero, not an unsupported block, so every component must be decided individually. F3 blast radius is three files (ss-benefits-scope.bundle.json, rule.ss-benefits-worksheet.json, tests/test_ssa1099_benefits_line6_track2.py); disposition is a shared return-level successor with the SSA-scoped originals superseded, a bridging rule being rejected as repairing upstream scope with a downstream note. Track 0c is chartered with five work items T0c-1..T0c-5 and five now-mandatory Track 0 outputs (authority-lifecycle table, empty/nonempty authority matrix, late-authority counterexample walk, claim-reuse proof, neighboring-capability dependency diff) plus a required Track 0 adversarial-closure declaration, currently four FAILs. Standing rule adopted: Track 0 may not be marked settled while it contains a known semantic coupling unless the plan carries a counterexample showing the coupling is correct. INTEGRATION DONE: PR #163 and PR #168 both merged; this branch rebased --onto origin/main from b25562f (the old base was not an ancestor, the mortgage milestone having been curated before merge), nine commits replayed, one docs/phase-state.md conflict resolved; PR #169 retargeted to main. Delta verified: evaluator operator set unchanged, rule.form1040-line11 still a bare AGI passthrough, the twelve absences present and unchanged; but CURRENT_RECORD_SCHEMA advanced to derivation-record.v6 and packages/tax/ssa_benefits.py was substantially reduced. Track 1 is not chartered. No version numbers allocated. The attachment-rule.v5 provenance defect from T0-7 remains open and untouched.",
+  "status": "**ENGINE BREADTH / 2025 FORM 1098-E \u2014 STOPPED AT DESIGN. STOP CONDITION FIRED; TREAT AS COMPLETED DESIGN EXPLORATION.** Owner ruled 2026-08-10 that the shared Schedule 1 absence vocabulary may NOT be repaired inside this milestone. Both remaining shapes were rejected: parallel neutral vocabulary with dormant predecessors (twelve permanent orphans in open_fact_ids with no retirement mechanism \u2014 a one-way door), and a successor bundle re-declaring the same twelve ids with neutral titles (would cause existing findings to answer a BROADER question than the user asserted; the kernel mechanically permitting re-adoption is not semantic licence; the w2/1099-div precedents are inapposite because those successions preserved meaning). Root cause: there is NO cross-fact-type succession in the kernel \u2014 apply_bundle_adoption (facts.py:84-101) has no deletion path, compute_currency (currency.py:137-174) admits only same-fact correction, member withdrawal and superseded entities as displacement roots, and supersession policy 'free' (findings.py:556-576) fires only on the same fact_id. The foreman had asserted succession as available without verifying it. PREREQUISITE MILESTONE REQUIRED, framed as fact-type succession and optional-route applicability, NOT deletion or retirement \u2014 history must remain: (1) minimal declared migration/succession mechanism that displaces old fact questions, instantiates new neutral ones, and leaves them OPEN for re-attestation without copying or reinterpreting old answers; (2) mint honestly named neutral identifiers including the thirteenth proposition no-schedule1-line24z-writein, and repoint the nonempty SSA worksheet route; (3) repair the SSA no-activity route so a return with no Social Security source publishes its legal zero without the 33 worksheet-scope declarations \u2014 rule.form1040-line9.v7 unconditionally requires social-security.line6b and the SSA worksheet is its only producer, but that existing burden is NOT a precedent; (4) prove fresh adoption and upgrade behaviour separately; (5) inventory implementation and governance cost BEFORE chartering the build, and if generic substrate is needed treat it openly as the prerequisite's architectural decision. The schedule1-part1-scope.bundle.json vocabulary defect stays a recorded deferral unless the mechanism necessarily touches it. THIS BRANCH: T0c-4 and T0c-5 held; 1098-E implementation NOT chartered; no version numbers allocated; no code written. Settled design survives in the plan's non-chronological Durable findings register. After the prerequisite merges, prepare a concise handoff and RE-CUT 1098-E from current main on the first dependency-safe Schedule 1 Part II to Form 1040 AGI vertical slice; the Track 0a/0b/0c narrative is NOT carried forward. Branch rebased onto origin/main; PR #169 is docs-only and open.",
   "scope": [
     "add a bounded 2025 Form 1098-E student-loan-interest statement family with lender, borrower, account, and tax-year identity, correction, duplicate, and closure behavior",
     "establish component-level taxpayer-side eligibility authority rather than a contributed qualified/deductible conclusion",
@@ -110,8 +110,8 @@
       "AGENTS.md#Data Safety Rules"
     ]
   },
-  "current_role": "Foreman (Track 0 reopened; Track 0c chartered, not yet performed)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md#Track 0c work items"
+  "current_role": "Foreman (1098-E stopped at design; prerequisite milestone unplanned, owner-selection pending)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-line21.md#Owner ruling \u2014 stop condition fires; this branch is completed design exploration"
 }
 -->
 # Milestone: 2025 Form 1098-E Student-Loan Interest → Schedule 1 Line 21 → Form 1040 Adjusted Gross Income
@@ -4160,3 +4160,201 @@ deviation is behaving correctly.
   earlier phase-state wording were both wrong.
 * A new bundle must declare `bundle.v2`. `bundle.v3` exists but is not in v29's
   `admitted_schemas`.
+
+## Owner ruling — stop condition fires; this branch is completed design exploration
+
+### The ruling
+
+**The successor-bundle option is rejected.** Do not use a successor bundle to
+broaden the meaning of the same twelve fact identifiers.
+
+The reasoning governs, and it is not the reasoning the foreman offered against
+itself. The claim-reuse finding established that the SSA-scoped declarations and
+the proposed return-level declarations **do not have the same declared authority
+scope**. Re-adopting the same identifiers with broader wording would cause
+existing findings to be treated as answers to a **broader question than the user
+actually asserted**. That the kernel mechanically permits the re-adoption is not
+evidence that it is semantically valid. The W-2 and 1099-DIV precedents are
+**inapposite**: those successive declarations preserved the same meaning.
+
+The option therefore falls within D3's prohibition on rewriting or retroactively
+widening ratified SSA citizens. **Existing SSA-scoped answers must not
+automatically satisfy the neutral return-level facts.**
+
+**The stop condition fires.** T0c-4 and T0c-5 are held. **1098-E implementation
+is not chartered.**
+
+Foreman note: the rejected option was the same error as F3 committed by a second
+route — treating a mechanism's permission as authority over meaning. The foreman
+verified the *mechanism* before proposing it, having been burned on exactly that,
+and still failed to ask the prior question of whether widening a declaration is
+semantically admissible at all. Verifying the mechanism is necessary and not
+sufficient.
+
+### The prerequisite is succession, not deletion
+
+**History must remain.** The prerequisite is **not** framed as deletion or fact
+retirement. It is framed as **fact-type succession and optional-route
+applicability**:
+
+1. **Determine the minimal declared migration/succession mechanism** by which an
+   adopted successor can displace old fact questions, instantiate new neutral
+   fact questions, and leave those new questions **open for re-attestation**. It
+   **must not copy or reinterpret the old answers.**
+2. **Mint honestly named neutral identifiers** for the required shared
+   return-level propositions, **including the thirteenth proposition now known to
+   be required** (`no-schedule1-line24z-writein`). Update the **nonempty** Social
+   Security worksheet route to consume them.
+3. **Repair the Social Security no-activity route** so a return with no
+   applicable Social Security source can publish its legally authorized zero
+   without requiring the thirty-three worksheet-scope declarations. **Do not
+   treat the existing unconditional burden as a precedent justifying another
+   one.**
+4. **Prove fresh adoption and upgrade behaviour separately:** which fact types
+   are current, which old facts remain historical, which questions are open, what
+   requires re-attestation, and which previously published SSA results are
+   displaced.
+5. **Inventory the implementation and governance cost before chartering the
+   prerequisite build.** If migration/succession requires new generic substrate,
+   treat that openly as the **prerequisite milestone's architectural decision**
+   rather than hiding it inside 1098-E.
+
+The similar vocabulary defect in `schedule1-part1-scope.bundle.json` remains a
+**recorded deferral** unless the prerequisite mechanism necessarily touches it.
+
+### Disposition of this branch
+
+**Completed design exploration.** Once the prerequisite is settled and merged,
+prepare a concise handoff and **re-cut the 1098-E milestone from current `main`**,
+focused on the **first dependency-safe Schedule 1 Part II to Form 1040 AGI
+vertical slice**. **The chronological Track 0a/0b/0c narrative is not carried
+into the replacement plan.**
+
+## Durable findings register — seed of the replacement plan's inputs
+
+Non-chronological. This is what a re-cut 1098-E milestone should inherit; the
+track narrative above is not part of it. Nothing here allocates a version number,
+and every claim names where it was verified.
+
+### Substrate facts about the engine
+
+* **No cross-fact-type succession exists.** `apply_bundle_adoption`
+  (`packages/kernel/facts.py:84-101`) adds or overwrites by id with no deletion
+  path. `compute_currency` (`packages/kernel/currency.py:137-174`) admits three
+  displacement roots only — same-fact correction (`:79-94`), member withdrawal
+  (`:97-114`), superseded entities (`:151`) — and walks two Article-7 edges. A new
+  fact type is not an edge.
+* **`supersession: {"policy": "free"}` does not mean cross-fact succession.**
+  `packages/kernel/findings.py:556-576` is its only consumer and fires only on a
+  later finding naming the **same** `fact_id`.
+* **Horizon displacement is generic, not closure-specific.** Verified at
+  `facts.py:190-216`, `findings.py:745-757`, `currency.py:127,151`,
+  `marshal.py:222-226`. Any fact keyed on `kernel.family-horizon` is displaced
+  when membership changes.
+* **Nothing validates which family's horizon a contributed fact keys on.**
+  `packages/kernel/contribution.py` has no horizon check; individuation binds
+  against every `kernel.family-horizon` entity in the workspace. A mis-keyed
+  component is admissible and never displaced.
+* **`superseded_horizon_ids` (`packages/kernel/horizons.py:71`) has no caller.**
+  Displacement does not run through it.
+* **No categorical or boolean aggregate.** `collect` decimal-coerces every row
+  (`packages/derivation/evaluator.py:118`); `count` returns a length. Per-statement
+  categorical authority is not expressible.
+* **No `multiply`, `divide`, or `min`.** The worksheet phaseout needs the first
+  two.
+* **`all` short-circuits** (`evaluator.py:173-174`) and pins derive from
+  `AccessLog.refs` (`runner.py:343-359`), so components after the first `no` are
+  never pinned. `conditional_dependency_set` (`evaluator.py:217-236`) evaluates
+  every member and accumulates a complete absence list — the ADR-0038 shape — and
+  is the repair.
+* **`requires` is checked before evaluation** (`runner.py:482`), so a hard
+  `requires` cannot be guarded by a `when`. Any optional route must use path
+  dependencies.
+* **Fact-type ids may be declared in multiple bundles** (29 cases; `w2.bundle`
+  v1/v2/v3). **This is not licence to change a declaration's meaning** — see the
+  ruling.
+* **`bundle.v3` exists but is not in v29's `admitted_schemas`;** a new bundle
+  declares `bundle.v2`.
+* **Adoption manifests live at `packages/sample_data/<topic>/adoptions/`**, not
+  `packages/registry/adoptions/`.
+
+### Tax-domain results that survive intact
+
+* **Form 1098-E account number is not an identity key** — a filer may lawfully
+  issue one form covering all a borrower's loans. Borrower TIN/name are recorded
+  authority, not identity keys. VOID blocks: Copy B has no VOID box, so a voided
+  statement cannot legitimately reach the taxpayer.
+* **Seventeen independently-authorized eligibility components, no collapsed
+  `qualified=yes`.** The lender's reportability test can be satisfied by borrower
+  certification, and "You do not have to verify the borrower's actual use of the
+  funds" [I1098ET p. 2], so a contributed conclusion would be *less* informative
+  than the components.
+* **Sixteen of seventeen are statement-set-dependent; B1 alone is return-scoped.**
+  A1–A10 quantify over the recorded set; B2–B5 over claimed interest; C2 names the
+  recorded set in its own text. **C1's dependence is contingent on the closure
+  claim's wording**, not textual — if that wording weakens, C1 must be
+  re-examined.
+* **B1 `not-claimed-as-dependent` is a legal zero, not an unsupported block**
+  [I1040GI p. 98 "only if"; P970 p. 33 Example 2]. **A1–A10 are universals**, so a
+  `no` is an existential failure leaving an unknown remainder — those block.
+  **C1/C2 block because the honest answer is larger than box 1**, the opposite
+  direction from B2–B5.
+* **No cardinality shortcut is sound.** [F1098E p. 4] box 1 covers "one or more
+  student loans", so even a singleton family can hide a multi-loan split.
+* **Box 1 only; box 2 blocks.** `no-unreported-deductible-interest` is required as
+  a governed consequence of ADR-0016 §5: closure proves the statement set
+  complete, never that the deductible-interest universe equals it.
+* **Worksheet is i1040gi p. 99, not p. 98.** Cap before phaseout; three-place
+  ratio.
+* **No cycle**: line 21 is not in its own MAGI base. Proved on paper, against
+  `rule.ss-benefits-worksheet.json`, and by DFS over a 174-node symbol graph.
+  Holds **only if Part II is purely additive** — `schedule1.line10-additional-income`
+  must not be re-pointed or re-versioned.
+* **There is already no "return with no Schedule 1"** — `rule.form1040-line9.v7`
+  hard-requires `additional-income`. Line 10 yields a computed authorized zero
+  needing no new absence authority.
+* **`rule.form1040-line11.json` publishes AGI as a bare `ref` passthrough of total
+  income**, on a line number the printed 2025 form does not have (it has 11a and
+  11b).
+
+### Standing defects on the ratified line, independent of this milestone
+
+* **`rule.form1040-line9.v7` unconditionally requires
+  `tax.us.2025.social-security.line6b`** (`"when": true`), and
+  `rule.ss-benefits-worksheet.json` is its only producer corpus-wide. Every return
+  reaching line 9 must satisfy all **33** SSA scope declarations whether or not it
+  has any Social Security source. **Prerequisite item 3 repairs this.** It is not
+  a precedent.
+* **`attachment-rule.v5` provenance defect**, recorded by T0-7.
+* **`schedule1-part1-scope.bundle.json` carries the consumer-scoped-title
+  defect** one milestone earlier — recorded deferral.
+* **Cited federal sources are not in the repository.** `p970-2025.pdf` and
+  `i1040gi-2025.pdf` are untracked and absent; every unit re-obtained them
+  ephemerally. Five load-bearing citations were spot-checked against fresh 2025
+  editions and **all five verify at the cited page**, so this is an availability
+  and reproducibility defect, not an evidence-integrity one. Any milestone whose
+  argument rests on federal text must settle durable availability against
+  ADR-0031's residency boundary.
+
+### Method results
+
+* **Five milestone entry questions**, to be answered before a charter is written
+  and carried in it: (1) what existing artifacts are created, versioned, or
+  modified in place while already merged — the third bucket empty by default;
+  (2) what already works that could change behaviour, as before/after for a return
+  that does not use the new feature; (3) which needed facts already exist and
+  whether their **declared meaning** is neutral or consumer-scoped; (4) for every
+  new fact, whether staleness comes from correction or from the paperwork
+  changing; (5) what substrate the engine lacks. **Question 5 is the one the
+  1098-E charter did ask, and the only reach question that never surprised the
+  milestone.**
+* **"Recorded" is not "settled."** Track 0 may not be marked settled while it
+  contains a known semantic coupling unless the plan carries a counterexample
+  showing the coupling is correct. Two of the three review findings were already
+  written down as "open items carried out of Track 0".
+* **Verifying a mechanism is necessary and not sufficient.** Ask whether the
+  operation is semantically admissible before asking whether the engine permits
+  it.
+* **Commit per work item.** Of three units that exhausted context mid-work, the
+  one committing incrementally preserved four of five items; the others lost
+  everything.
