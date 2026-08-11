@@ -4,11 +4,11 @@
   "phase": "Engine Breadth",
   "topic": "f8949-noncovered-basis",
   "active_plan": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md",
-  "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — PLANNED.** Owner selected the milestone; the complete plan is committed as this branch's first milestone commit and awaits owner approval in the draft PR. Track 0 runs at the paper rung and is settled inside the plan, including the mandatory adversarial-closure declaration; one closure item (cross-term identity collisions) is returned to the owner for disposition with plan approval. No implementation charter is filed and no package version numbers are allocated or reserved. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. Concurrent milestone `f1098e-student-loan-interest-line21` (PR #169) competes for the same version numbers; the plan carries a Parallel Work Manifest and an additive-union-at-publication rule.",
+  "milestone_state": "track-0",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item in favour of the recommendation: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap inside this milestone. Track 0 is chartered at the paper rung and drafts ADR-0063 and ADR-0064; it touches no content, schema, test, fixture, or package file and allocates no version number. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. Concurrent milestone `f1098e-student-loan-interest-line21` (PR #169) competes for the same version numbers; the plan carries a Parallel Work Manifest and an additive-union-at-publication rule.",
   "retrospective": null,
-  "current_role": "Foreman (milestone plan awaiting owner approval)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md"
+  "current_role": "Track 0 Builder",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter (2026-08-10)"
 }
 -->
 # Phase State
@@ -36,21 +36,20 @@ lines 2 and 9.
 ## Operational State: Engine Breadth
 
 * **Active milestone:** Broker-Furnished Noncovered Basis through Form 8949
-  Boxes B/E and Schedule D Lines 2/9 — **planned**, awaiting owner approval of
-  this branch's committed plan and draft PR. No implementation charter is
-  filed.
+  Boxes B/E and Schedule D Lines 2/9 — **track-0**. Owner approved the plan
+  and authorized dispatch on 2026-08-10.
 * **Plan:** `docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md`.
-  Track 0 is settled at the paper rung inside the plan, including the
-  adversarial-closure declaration.
-* **Proposed contracts:** ADR-0063 (noncovered transaction authority, family
-  topology, generalized identity-collision kill-test, Path C completeness
-  successor) and ADR-0064 (Form 8949 boxes B/E, Schedule D lines 2/9
-  composition). Neither is drafted yet; both are Track 0 outputs pending
-  approval.
-* **Open owner decision:** whether the generalized identity-collision
-  kill-test also covers cross-term pairs (the same transaction identity
-  asserted into both a short-term and a long-term family). Not detected today
-  and not detected after this milestone unless the owner extends it.
+  The paper-rung decision inventory and the adversarial-closure declaration
+  are settled inside it; no closure item remains open.
+* **In flight:** Track 0 drafts ADR-0063 (noncovered transaction authority,
+  family topology, generalized identity-collision kill-test, Path C
+  completeness successor) and ADR-0064 (Form 8949 boxes B/E, Schedule D
+  lines 2/9 composition). Paper only — no content, schema, test, fixture, or
+  package file is in scope.
+* **Owner disposition on record:** the identity-collision kill-test covers all
+  fifteen pairs across all six Form 1099-B transaction fact types, closing the
+  pre-existing cross-term gap in this milestone. The cross-term kill-test
+  fixture is mandatory in Track 1.
 * **Base:** origin/main `f60e7d1`; core-calculations **v29**, published
   **v24**, release **v22**, adoption **v29**. No successor version is
   reserved — `milestone/f1098e-student-loan-interest-line21` (PR #169) is

@@ -2,11 +2,11 @@
 {
   "version": 1,
   "topic": "f8949-noncovered-basis",
-  "milestone_state": "planned",
+  "milestone_state": "track-0",
   "retrospective": null,
-  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — PLANNED.** Plan committed as this branch's first milestone commit; owner approval pending in the draft PR. Track 0 runs at the paper rung and is settled in this document, including the mandatory adversarial-closure declaration. No implementation charter is filed and no version numbers are allocated. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29.",
-  "current_role": "Foreman (milestone plan awaiting owner approval)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap here. Track 0 is chartered at the paper rung and drafts ADR-0063 (noncovered transaction authority, family topology, collision generalization, Path C completeness) and ADR-0064 (Form 8949 boxes B/E, Schedule D lines 2/9 composition). No content, schema, test, fixture, or package file is touched, and no version number is allocated. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29.",
+  "current_role": "Track 0 Builder",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter (2026-08-10)",
   "scope": [
     "publish two new transaction fact types and two new package-exclusive families for Form 1099-B transactions whose basis is shown to the recipient but not reported to the IRS, short-term and long-term",
     "extend the Form 8949 attachment citizen with Part I box B and Part II box E, two single-column itemization parts per box (columns d and e), with column (g) contractually zero",
@@ -14,7 +14,7 @@
     "publish successor Schedule D lines 7 and 15 that add lines 2 and 9 to every existing addend",
     "extend selected-preferential-base and the Schedule D attachment requirement threshold to the new families",
     "add a Path C completeness branch and a successor no-other-form8949-adjustments declaration admitting exactly the noncovered basis-furnished class, with a contradictory-declaration guard",
-    "generalize the ADR-0061 identity-key collision kill-test from one covered/covered-w pair per term to all pairs across the three transaction fact types per term",
+    "generalize the ADR-0061 identity-key collision kill-test from two pairs to all fifteen pairs across all six Form 1099-B transaction fact types, in-term and cross-term (owner disposition 2026-08-10)",
     "add production-shaped synthetic identity, correction, closure, completeness, attachment, package, explanation, and presentation evidence driven through live_coordinate_run",
     "reconcile the stale IRA and SSA coverage-frontier status rows and mark the noncovered row selected"
   ],
@@ -33,7 +33,9 @@
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
+      "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter (2026-08-10)",
       "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0: paper-first decision inventory",
+      "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#The completeness decision (Topic 6)",
       "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 adversarial closure",
       "docs/adr/0036-schedule-attachment-ontology.md",
       "docs/adr/0046-presentation-surface-contract.md",
@@ -208,12 +210,12 @@ inability to test cheaply during implementation (T) — out of 8.
 | --- | --- | --- | --- | --- |
 | 1 | Transaction identity and contributed authority | 1/1/0/0 | **2** | **Settles on paper.** Reuse the four ADR-0052 identity keys verbatim (broker, statement, transaction, tax-year); no document, file, or evidence identity. New fact types `tax.us.2025.f1099b.noncovered-st-txn` / `noncovered-lt-txn` (own bundle, own `member_predicate`), value schema mirroring `covered-w-*-txn` minus the box-1g amount, with two structural bindings: `basis_reported_to_irs` narrowed to `enum: ["no"]` and `basis` **required**. A statement marked basis-reported-to-IRS therefore cannot be asserted into this fact type at all, and a transaction with no basis cannot be asserted at all — both are schema-level refusals, not rule guards. |
 | 2 | Meaning and lifecycle of "basis shown but not reported to the IRS" | 2/1/1/1 | **5** | **Settles on paper; ADR sentence required.** The proposition is *the broker furnished this basis on the recipient statement and did not report it to the IRS*. Its authority scope is the single transaction, not the return, the statement, or the tax year. It is invalidated by supersession of the transaction fact at the same identity and by nothing else — it is not a family-scoped or horizon-scoped claim. Recorded explicitly because the wrong scoping here is exactly the defect the concurrent Form 1098-E Track 0 found in its own component authority. |
-| 3 | Family topology and non-double-counting | 2/2/1/2 | **7** | **Settles on paper but is the milestone's load-bearing decision.** Two new whole-transaction families `f1099b.noncovered-st` / `noncovered-lt` with ADR-0054-style twin-scalar `-proceeds` / `-basis` companions. No `-adjustment` companion: column (g) is zero by contract, and publishing an always-zero family would fabricate an authority nobody attests. Because `source-family.v1` cannot value-filter, exclusivity is **not** structural: it must be enforced by extending the ADR-0061 identity-key collision kill-test from two pairs to **all six pairs** across the three fact types per term (see Topic 8). |
+| 3 | Family topology and non-double-counting | 2/2/1/2 | **7** | **Settles on paper but is the milestone's load-bearing decision.** Two new whole-transaction families `f1099b.noncovered-st` / `noncovered-lt` with ADR-0054-style twin-scalar `-proceeds` / `-basis` companions. No `-adjustment` companion: column (g) is zero by contract, and publishing an always-zero family would fabricate an authority nobody attests. Because `source-family.v1` cannot value-filter, exclusivity is **not** structural: it must be enforced by extending the ADR-0061 identity-key collision kill-test from two pairs to **all fifteen pairs across all six** transaction fact types, in-term and cross-term (see Topic 8). |
 | 4 | Correction versus member transition | 1/1/0/1 | **3** | **Settles on paper.** Correcting proceeds or basis at the same identity is ordinary ADR-0010 supersession and displaces, at minimum: that transaction's Form 8949 row, the box subtotal, Schedule D line 2 or 9, line 7 or 15, line 16, line 21, `selected-preferential-base`, and Form 1040 line 7a/9. A transaction that moves *between* families (for example, a corrected statement now reporting basis to the IRS) is a **member transition**, not a correction: the noncovered fact must be retracted and the covered fact asserted, and the collision kill-test is what makes the half-done state fail closed rather than double-count. |
 | 5 | Form 8949 box-B/box-E representation and Schedule D line-2/line-9 composition | 1/1/0/1 | **3** | **Settles on paper.** Extend `rule.attachment.f8949` to **v2** with four new single-column itemization parts — `box-b-proceeds`, `box-b-basis`, `box-e-proceeds`, `box-e-basis` — each `collect_members`-tying to its own subtotal, exactly the existing box-A/box-D pattern minus the (g) part. New `rule.schedule-d-line2` / `rule.schedule-d-line9` publish `d − e` per box as downstream rule content, mirroring `rule.schedule-d-line1b` / `line8b` with the `add(g)` term omitted. New `citation.schedule-d.line-2` / `line-9` and `schedule-d.line-2` / `line-9` form-fields. Successor `rule.schedule-d-line7` **v4** = 1a + 1b + **2** + 6 and `rule.schedule-d-line15` **v5** = 8a + 8b + **9** + 13 + 14, every existing addend keeping its exact pin. Lines 16/21 and Form 1040 line 7a/9 need **no** successor: they read the published `line-7` / `line-15` symbols, which the successors republish. |
 | 6 | Completeness succession | 2/2/2/2 | **8** | **Settles on paper, but it is the milestone's genuine shape choice — see "The completeness decision" below and the owner question at the end.** The chosen shape adds a **Path C** to the existing Path A / Path B branch and publishes a **successor declaration** `no-other-form8949-adjustments` **v2**, leaving v1 and its meaning untouched. |
 | 7 | Coexistence of code-W and noncovered transactions in one return | 1/1/1/1 | **4** | **Settles on paper: coexistence is admitted.** The Path C branch below expresses it cleanly with existing `conditional_dependency_set` machinery and no new mechanism, so the honest-block alternative is not warranted. Independent Form 8949 boxes A/D and B/E, independent families, independent Schedule D lines 1b/8b and 2/9: there is no arithmetic or authority interaction between the two classes. |
-| 8 | Identity-key collision kill-test generalization | 2/1/0/1 | **4** | **Settles on paper.** `_COVERED_W_IDENTITY_COLLISION_PAIRS` becomes all pairs within each term: `{covered-st-txn, covered-w-st-txn, noncovered-st-txn}` and `{covered-lt-txn, covered-w-lt-txn, noncovered-lt-txn}` — six pairs, not two. The issue code generalizes from `COVERED_W_IDENTITY_KEY_COLLISION` to `F1099B_TRANSACTION_IDENTITY_COLLISION`; the one existing test asserting the old code is updated (a test change, not a fixture change). Track 0 additionally records a **pre-existing gap**: cross-term collisions (the same identity asserted as both short-term and long-term) were never checked and still are not. Disposition below. |
+| 8 | Identity-key collision kill-test generalization | 2/1/0/1 | **4** | **Settles on paper.** `_COVERED_W_IDENTITY_COLLISION_PAIRS` becomes **all fifteen unordered pairs across all six** transaction fact types — `{covered-st-txn, covered-w-st-txn, noncovered-st-txn, covered-lt-txn, covered-w-lt-txn, noncovered-lt-txn}` — not the two pairs today and not merely the six in-term pairs this milestone strictly needs. This is the owner's 2026-08-10 disposition and it closes the pre-existing **cross-term** gap: the same identity asserted as both short-term and long-term was never checked and would double-count the gain silently. The issue code generalizes from `COVERED_W_IDENTITY_KEY_COLLISION` to `F1099B_TRANSACTION_IDENTITY_COLLISION`; the one existing test asserting the old code is updated (a test change, not a fixture change). |
 | 9 | Downstream pins, explanation, and neighbouring behaviour when the new families are closed empty | 1/1/1/1 | **4** | **Settles on paper.** Closed-empty noncovered families produce zero subtotals, line 2 = 0 and line 9 = 0 with closure and package pins present, and every existing route computes unchanged. Missing closure blocks line 2/9 and therefore lines 7/15/16 — the established hard-dependency shape already used for lines 1b/8b, verified in the committed `form1099g_box1_schedule1_line7` presentation model, which closes the covered-w families empty on a return with no capital activity at all. |
 
 **No topic scores prototype-eligible on residual uncertainty.** Topics 3 and 6
@@ -406,10 +408,6 @@ return with no noncovered activity still computes.
 
 ### Declaration
 
-```md
-## Track 0 adversarial closure
-```
-
 - Authority-lifecycle table: **PASS** — §1; the transaction claim is
   transaction-scoped and the closure claims horizon-scoped, which is what makes
   the §3 trace force reclosure.
@@ -422,18 +420,14 @@ return with no noncovered activity still computes.
   version pinning.
 - Reused-claim semantic/lifecycle equivalence: **PASS** — §4; one reuse
   explicitly refused and replaced with a successor declaration.
-- Known limitations affecting correctness: **one, owner disposition
-  requested.** Cross-term identity collisions — the same transaction identity
-  asserted into both a short-term and a long-term family — are not detected
-  today and are not detected after this milestone either. The kill-test
-  generalizes within each term (six pairs) but not across terms (which would be
-  fifteen pairs). This is a pre-existing gap that this milestone widens from
-  two colliding fact types per term to three. Recommended disposition: extend
-  the kill-test to **all pairs across all six transaction fact types** inside
-  this milestone. It is a one-line change to the pair table and one additional
-  kill-test fixture, and closing it here is materially cheaper than carrying it
-  forward another milestone. **This is the only closure item that is not
-  self-dispositioning; the owner's answer is requested with plan approval.**
+- Known limitations affecting correctness: **none remaining.** One item was
+  returned to the owner and is now disposed. Cross-term identity collisions —
+  the same transaction identity asserted into both a short-term and a
+  long-term family — were never detected and would double-count the gain
+  silently. **Owner disposition 2026-08-10: close it here.** The kill-test
+  therefore covers **all fifteen pairs across all six** transaction fact types,
+  not the six in-term pairs this milestone strictly needs, and the cross-term
+  kill-test fixture is mandatory.
 
 ## Contracts
 
@@ -484,6 +478,71 @@ Default production shape per the owner's direction:
   line-2/line-9 walks reuse the ADR-0046 citation-walk and ADR-0056 disposition
   models with no new mechanism, so the default is **no Track 2**.
 
+## Track 0 charter (2026-08-10)
+
+**Context Capsule**
+
+- Source ref: `HEAD` on `milestone/f8949-noncovered-basis-lines2-9`; resolve it
+  to a commit at launch and verify with `git rev-parse HEAD`,
+  `git branch --show-current`, and `git rev-parse --show-toplevel`.
+- Milestone key: `f8949-noncovered-basis`. Primary branch:
+  `milestone/f8949-noncovered-basis-lines2-9`. Primary worktree: the one you
+  are launched into; do not create another and do not switch branches.
+- Role: Builder, under `docs/roles/builder.md`.
+- Assigned paths: `docs/adr/0063-*.md`, `docs/adr/0064-*.md`,
+  `docs/adr/INDEX.md`, and this plan file. **No other path.** In particular no
+  file under `packages/`, `tests/`, or `tools/`.
+- Evidence rung: paper. No implementation, no fixture, no package edit.
+- Deep reads: `deep_reads.implementation` in this document's header block,
+  plus this charter, "Track 0: paper-first decision inventory", "The
+  completeness decision (Topic 6)", and "Track 0 adversarial closure".
+
+**Scope.** Draft the two scope contracts this milestone's implementation
+depends on, each against real committed source, each in the house ADR form and
+registered in `docs/adr/INDEX.md`:
+
+- **ADR-0063 — Noncovered basis-furnished transaction authority, family
+  topology, collision generalization, and the Path C completeness successor.**
+  Covers Topics 1, 2, 3, 4, 6, 7, 8. Must state: the two new fact types and why
+  `basis_reported_to_irs` is narrowed to `"no"` and `basis` made required at the
+  schema boundary rather than guarded by a rule; the two new package-exclusive
+  families and their twin-scalar `-proceeds` / `-basis` companions and why there
+  is no `-adjustment` companion; the generalization of the ADR-0061 identity-key
+  collision kill-test to **all fifteen pairs across all six** transaction fact
+  types, in-term and cross-term, per the owner's 2026-08-10 disposition, and the
+  rename of the issue code to `F1099B_TRANSACTION_IDENTITY_COLLISION`; the
+  refusal to reuse `no-other-form8949-adjustments` v1 and the v2 successor
+  declaration; the Path C branch; and the contradictory-declaration guard, with
+  the Form 1098 / Schedule A guard cited as precedent.
+- **ADR-0064 — Form 8949 boxes B/E and Schedule D lines 2/9 composition.**
+  Covers Topics 5 and 9. Must state: the `attachment.f8949` v2 successor and its
+  four new single-column itemization parts; the contractually-zero column (g)
+  and the demonstration that the existing per-transaction row guards do not
+  misfire on box-B/box-E rows; the new Schedule D line 2 and line 9 rules,
+  citations, and form-fields; the successor lines 7 (v4) and 15 (v5); the
+  `selected-preferential-base` v5 extension; and the `attachment.schedule-d` v6
+  requirement-threshold and completeness successor.
+
+Both ADRs cite exact committed file paths and citizen ids, not paraphrase. Both
+record the alternatives already rejected in this plan's decision inventory
+rather than re-deriving them.
+
+**Non-goals.** Identical to the milestone non-goals. Additionally: Track 0
+writes no content citizen, no schema, no test, no fixture, and no package file,
+and does not renumber or reserve any package version.
+
+**Stop conditions.** Stop and return to the foreman if drafting shows that any
+of the following is actually required: a new schema kind; a new published schema
+version; a new evaluator operator; `source-family.v2`; a schema-intent ledger
+event; a document-child or evidence-file identity component; or any edit to a
+published schema, historical content citizen, or accepted ADR. Each of these is
+an explicit milestone non-goal and is the owner's call, not the builder's.
+
+**Done when.** ADR-0063 and ADR-0064 exist, are internally consistent with this
+plan, are registered in `docs/adr/INDEX.md`, `governance_lint` is conformant,
+and the work is in named commits on the milestone branch with
+`git status --short` clean over the assigned paths.
+
 ## Fixture matrix (minimum)
 
 Every case is driven end to end through `live_coordinate_run`; none may enter
@@ -520,10 +579,10 @@ and carry no absolute workstation paths.
     finding identity, currentness, and exact pins;
 18. late member after closure, closure non-currency, reclosure, and recompute
     (the §3 trace);
-19. identity-collision kill-tests across all six in-term pairs (direct↔W,
-    direct↔noncovered, W↔noncovered, short- and long-term), exercised through
-    the real production path, plus the cross-term case if the owner takes the
-    recommended disposition;
+19. identity-collision kill-tests across the six in-term pairs (direct↔W,
+    direct↔noncovered, W↔noncovered, short- and long-term) **and** the
+    cross-term pairs (owner disposition 2026-08-10 — all fifteen pairs across
+    the six fact types), exercised through the real production path;
 20. exact Form 8949 box-B/box-E and Schedule D line-2/line-9 citations and
     complete explanation walks;
 21. Form 8949 box totals tying out to Schedule D columns (d), (e), (h);
@@ -665,10 +724,12 @@ retrospective under `docs/milestone-retrospectives/` although
    working records curated per `PROJECT_PLANNING.md`, "Milestone Publication
    Curation."
 
-## Open question for the owner
+## Owner decisions on record
 
-**One**, from the adversarial-closure declaration: should the identity-key
-collision kill-test be extended to **all pairs across all six** Form 1099-B
-transaction fact types (closing the pre-existing cross-term gap), or only to
-the six in-term pairs this milestone strictly needs? The recommendation is to
-close it here; the cost is one line in the pair table and one fixture.
+- **2026-08-10 — plan approved.** The owner approved this plan and authorized
+  dispatch to build.
+- **2026-08-10 — collision kill-test scope.** The one open closure item is
+  resolved in favour of the recommendation: the identity-key collision
+  kill-test covers **all fifteen pairs across all six** Form 1099-B transaction
+  fact types, closing the pre-existing cross-term gap inside this milestone.
+  The cross-term kill-test fixture is therefore **mandatory**, not conditional.
