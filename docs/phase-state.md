@@ -2,13 +2,13 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "f1098-mortgage-interest-line12e",
-  "active_plan": "docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md",
-  "milestone_state": "closed",
-  "status": "**ENGINE BREADTH / FORM 1098 HOME-MORTGAGE INTEREST THROUGH SCHEDULE A AND FORM 1040 LINE 12E — CLOSED.** Bounded singleton-closed Form 1098 statement class: deductible interest derived through Schedule A line 8a from taxpayer-authority component facts (never an unexplained contributed conclusion), a composition-complete Schedule A for this class with every unimplemented category genuinely taxpayer-declared absent, deterministic standard-vs-itemized selection at Form 1040 line 12e (guarding the generic itemized assertion off whenever a Form 1098 statement is genuinely on record, including the contradictory-declaration case), and the correct 2025 line-13a/13b/14 deduction-spine succession into taxable income. Rebased onto the merged SSA-1099 milestone (origin/main 48d46f9, PR #163); final package is the additive union core **v29** / published **v24** / release **v22** / adopt **v29**. Independent review passed; CI green on the exact pushed head (PR #168). Next milestone owner-unselected.",
-  "retrospective": "docs/milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "topic": "f8949-noncovered-basis",
+  "active_plan": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md",
+  "milestone_state": "planned",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — PLANNED.** Owner selected the milestone; the complete plan is committed as this branch's first milestone commit and awaits owner approval in the draft PR. Track 0 runs at the paper rung and is settled inside the plan, including the mandatory adversarial-closure declaration; one closure item (cross-term identity collisions) is returned to the owner for disposition with plan approval. No implementation charter is filed and no package version numbers are allocated or reserved. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. Concurrent milestone `f1098e-student-loan-interest-line21` (PR #169) competes for the same version numbers; the plan carries a Parallel Work Manifest and an additive-union-at-publication rule.",
+  "retrospective": null,
+  "current_role": "Foreman (milestone plan awaiting owner approval)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md"
 }
 -->
 # Phase State
@@ -28,32 +28,48 @@ Schedule 1 into Form 1040 line 8, the bounded Form 1099-DIV box-7 direct
 foreign tax credit, the merged IRA line-4b route, the bounded SSA-1099
 Benefits Worksheet route through Form 1040 lines 6a/6b, and the bounded Form
 1098 home-mortgage interest route through Schedule A and Form 1040 line 12e.
-The next Engine Breadth milestone is owner-unselected.
+The selected next milestone extends the Form 1099-B capital path to
+transactions whose basis the broker shows to the recipient but does not report
+to the IRS, routing them through Form 8949 boxes B and E into Schedule D
+lines 2 and 9.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none. Form 1098 Home-Mortgage Interest through
-  Schedule A and Form 1040 Line 12e **closed 2026-08-10** after independent
-  review returned READY and CI bound the exact curated head.
-* **Current result:** bounded synthetic-complete route from a singleton
-  Form 1098 statement through Schedule A line 8a, the full Schedule A
-  completeness boundary (nine mandatory taxpayer-declaration facts wired
-  into the ADR-0036 attachment completeness gate), Form 1040 line 12e (with
-  a guard against both the omitted-declaration and contradictory-declaration
-  bypass shapes), line-13a/13b/14 deduction-spine succession, and taxable
-  income. Package graph is the additive union of the ratified tip plus this
-  milestone's members: core **v29**, published **v24**, release **v22**,
-  adoption **v29** (see retrospective).
-* **Plan:** `docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md`.
-* **Prior closed (selected pointers):** SSA-1099 and IRA line-4b plans/
-  retrospectives remain on the ratified line; this phase-state points at the
-  just-closed Form 1098 plan.
-* **Contracts:** Track 0 paper-first scope contract; no new ADR — existing
-  identity/closure (ADR-0015/0016/0017), attachment ontology (ADR-0036), and
-  explanation/package/citation/presentation (ADR-0020/0027/0029/0033/0046)
-  contracts were sufficient by content-level reuse.
-* **Next:** select a new milestone from the coverage frontier.
+* **Active milestone:** Broker-Furnished Noncovered Basis through Form 8949
+  Boxes B/E and Schedule D Lines 2/9 — **planned**, awaiting owner approval of
+  this branch's committed plan and draft PR. No implementation charter is
+  filed.
+* **Plan:** `docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md`.
+  Track 0 is settled at the paper rung inside the plan, including the
+  adversarial-closure declaration.
+* **Proposed contracts:** ADR-0063 (noncovered transaction authority, family
+  topology, generalized identity-collision kill-test, Path C completeness
+  successor) and ADR-0064 (Form 8949 boxes B/E, Schedule D lines 2/9
+  composition). Neither is drafted yet; both are Track 0 outputs pending
+  approval.
+* **Open owner decision:** whether the generalized identity-collision
+  kill-test also covers cross-term pairs (the same transaction identity
+  asserted into both a short-term and a long-term family). Not detected today
+  and not detected after this milestone unless the owner extends it.
+* **Base:** origin/main `f60e7d1`; core-calculations **v29**, published
+  **v24**, release **v22**, adoption **v29**. No successor version is
+  reserved — `milestone/f1098e-student-loan-interest-line21` (PR #169) is
+  concurrent and competes for the same numbers.
+* **Just closed:** Form 1098 Home-Mortgage Interest through Schedule A and
+  Form 1040 Line 12e, closed 2026-08-10. Plan:
+  `docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md`;
+  retrospective:
+  `docs/milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md`.
+* **Prior closed (record defect, not repaired here):** the SSA-1099 and IRA
+  line-4b routes are merged on the ratified line (PR #163 `48d46f9`, PR #162
+  `9cecf30`) and their plans remain committed, but neither has a file under
+  `docs/milestone-retrospectives/` and both plan capsules still read
+  `track-2`. The coverage frontier's status rows were reconciled to the
+  committed source in this milestone's planning commit; the missing
+  retrospectives are recorded here rather than backfilled, because writing
+  them is not this milestone's work.
+* **Next:** owner approval of the plan and draft PR, then the Track 0
+  contract charters.
 
 ## Re-entry
 
