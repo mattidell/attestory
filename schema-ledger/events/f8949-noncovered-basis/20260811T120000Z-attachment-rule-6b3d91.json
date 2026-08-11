@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260811T120000Z-attachment-rule-6b3d91",
+  "recorded_at": "2026-08-11T12:00:00Z",
+  "milestone_key": "f8949-noncovered-basis",
+  "milestone_branch": "milestone/f8949-noncovered-basis-lines2-9",
+  "milestone_commit": "93f8041262b37ce62e022a1cb558d25f063bf31f",
+  "schema_family": "attachment-rule",
+  "schema_path": "packages/schemas/tax/attachment-rule.v7.schema.json",
+  "schema_version": "v7",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Additive attachment-rule successor combining the v6 row model (adjustment_rows, subtractive tie_out) with the v4 value-checked required_answer, plus three additive completeness/applicability constructs: a family-occupancy applicability trigger generalizing v3/v4 family_nonempty to a set of families alongside an optional threshold trigger; completeness.required_closures naming source families whose closure the attachment vouches for; and branch_requirements[].asserts_families_empty declaring that a branch's answer implies named families are empty. No published version is edited. Proposed on paper by Track 0; the schema file is written in Track 1."
+}
