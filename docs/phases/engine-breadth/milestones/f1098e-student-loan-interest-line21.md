@@ -3133,3 +3133,288 @@ carried forward without a fresh assertion.
 * **To T0c-3.** The twelve reused `ss-benefits-scope` absences are return-scoped
   in the same sense B1 is — they are not statement-set-dependent — so F1's
   re-keying does not touch them and does not change F3's pricing either way.
+
+---
+
+## Track 0c settlement — T0c-2 (empty/nonempty authority matrix and the closed-empty route)
+
+This unit settles mandatory Track 0 output 2 (empty/nonempty authority matrix),
+the F2 closed-empty canonical-zero branch, and the per-component
+legal-zero-versus-block decision F2 exposes. It allocates no version numbers and
+writes no content. Expression skeletons below are illustrative of *shape* only;
+Track 1 owns the JSON.
+
+Primary source re-read for this unit, not inherited:
+
+* **[I1040GI p. 98], Schedule 1 line 21 instructions** — "You can take this
+  deduction **only if** all of the following apply. • You paid interest in 2025
+  on a qualified student loan… • Your filing status is any status except married
+  filing separately. • Your modified adjusted gross income (AGI) is less than
+  $100,000 … $200,000 … • You, or your spouse if filing jointly, **aren't
+  claimed as a dependent** on someone else's (such as your parent's) 2025 tax
+  return."
+* **[P970 p. 33], "Can You Claim the Deduction?"** — the same four requirements,
+  and **Example 2**: "During 2025, you paid $1,100 interest on your qualified
+  student loan. Only you are legally obligated to make the payments. Your
+  parents claimed you as a dependent on their 2025 tax return. **In this case,
+  neither you nor your parents may deduct the student loan interest you paid in
+  2025.**"
+* **[P970 p. 33], "No Double Benefit Allowed"** — "You can't deduct as interest
+  on a student loan **any amount** that is an allowable deduction under any
+  other provision"; the QTP-earnings sentence; the post-2020-03-27
+  employer-educational-assistance sentence.
+* **[P970 p. 33], "Don't Include as Interest"** — the legal-obligation,
+  origination-fee, and NHSC/LRAP bullets.
+* **[P970 p. 34], "Form 1098-E"** — "if you pay qualifying interest that **isn't
+  included** on Form 1098-E, you can **also** deduct those amounts."
+
+### T0c-2.1 — The test that decides zero versus block
+
+A `no` on a component is a **legal zero** when the law makes the *entire*
+deduction zero on that fact alone, with no amount entering the determination.
+A `no` is **unsupported → block** when the true line 21 is some amount the
+engine cannot determine — either because the `no` removes an unknown *part* of
+the claimed interest, or because it reveals an unknown *addition* outside box 1.
+
+Two consequences of the test, both of which matter below:
+
+* A component whose settled text is a **universal over the recorded set** can
+  almost never yield a legal zero, because `no` on a universal is an existential
+  failure: some loan fails, the others may still qualify, and the engine cannot
+  split box 1 between them. This is not a limitation of the law but of the
+  consolidation T0-2 was forced into.
+* A block is warranted in **both** directions of error. The foreman's framing
+  ("B3–B5 reduce the includible amount and therefore genuinely block") is correct
+  as to outcome but incomplete as to ground: C1 and C2 block because the honest
+  answer is *larger* than the box-1 subtotal, not smaller. Publishing the box-1
+  figure there would understate the taxpayer's deduction, which is a real harm
+  and exactly what T0-3 forbade ("It must block, never silently reduce the
+  deduction to the box-1 figure").
+
+### T0c-2.2 — Per-component decision (settled)
+
+| # | `no` means | Disposition | Authority and reason |
+| --- | --- | --- | --- |
+| A1 `legally-obligated` | At least one recorded statement covers interest the taxpayer is not obligated to pay | **Block** | [P970 p. 33] "Don't Include as Interest" bullet 1 excludes *that interest*, not the deduction. The component is a universal over the recorded set, so `no` leaves an unknown obligated remainder. See the single-statement note below — even a one-statement family cannot collapse this to zero |
+| A2 `interest-paid-in-2025` | Some box-1 amount was not paid in 2025 by or for the taxpayer | **Block** | Same structure; the timing failure is per-amount |
+| A3 `proceeds-solely-qualified-expenses` | At least one loan is not a qualified student loan | **Block** | [I1040GI p. 99] "a loan isn't a qualified student loan if (a) any of the proceeds were used for other purposes" — disqualifies *that loan*. Other loans in box 1 remain deductible; split unknown |
+| A4 `expenses-within-reasonable-period` | Same, for at least one loan | **Block** | [P970 p. 31] "Reasonable period of time"; per-loan |
+| A5 `student-relationship-when-incurred` | Same, for at least one loan | **Block** | [P970 p. 30]; per-loan |
+| A6 `eligible-student` | Same, for at least one loan | **Block** | [P970 p. 31]; per-loan |
+| A7 `eligible-educational-institution` | Same, for at least one loan | **Block** | [P970 p. 31]; per-loan |
+| A8 `lender-not-related-person` | At least one loan is from a related person | **Block** | [P970 p. 31]; §221(d)(1) excludes *that loan* from the definition of a qualified student loan |
+| A9 `not-qualified-employer-plan-loan` | Same, for at least one loan | **Block** | [P970 p. 31]; §72(p)(4)–(5); per-loan |
+| A10 `expenses-not-reduced-below-loan` | For at least one loan, adjusted expenses fell below the proceeds | **Block** | [P970 p. 32] "Adjustments to Qualified Education Expenses" — the excess disqualifies part of the loan; the allocation is the Pub 970 method the engine does not model |
+| **B1** `not-claimed-as-dependent` | The taxpayer (or spouse on a joint return) is claimed as a dependent on another taxpayer's 2025 return | **Legal zero** | [I1040GI p. 98] "You can take this deduction **only if** … you … aren't claimed as a dependent". [P970 p. 33] Example 2 is decisive and quantifies nothing: a taxpayer who paid $1,100 of interest on a loan they alone are obligated on gets **no** deduction. The law returns a determinate answer — zero — and the engine can honestly publish it |
+| B2 `no-qtp-tax-free-earnings-paid-interest` | Some claimed interest came from tax-free QTP earnings | **Block** | [P970 p. 33] ¶2 disallows *that amount*; the remainder is deductible; split unknown |
+| B3 `no-employer-educational-assistance-interest` | Some claimed interest was paid by the employer under an educational assistance program | **Block** | [P970 p. 33] ¶3; per-amount |
+| B4 `no-other-provision-deduction` | Some claimed amount is deductible under another provision, or is used in another deduction | **Block** | [P970 p. 33] ¶1 "any amount that is an allowable deduction under any other provision"; per-amount. [I1040GI p. 99] worksheet line 9 also forbids double-counting the *result*, which the engine cannot police |
+| B5 `no-loan-repayment-assistance-payments` | Some claimed interest was paid through NHSC or a similar LRAP | **Block** | [P970 p. 33] "Don't Include as Interest" bullet 3; per-amount |
+| C1 `no-box-2-checked` | A furnished statement asserts box 1 is knowingly incomplete | **Block — understatement direction** | [F1098E p. 4]; [P970 p. 34] "if you pay qualifying interest that isn't included on Form 1098-E, you can **also** deduct those amounts". The true deduction is ≥ the subtotal by an unknown amount requiring the [P970 p. 32] allocation method, which is out of scope |
+| C2 `no-unreported-deductible-interest` | Deductible interest exists outside box 1 | **Block — understatement direction** | [I1098ET p. 1] ($600 threshold); [P970 pp. 32, 34]. Same reason as C1 |
+
+**Settled: exactly one component — B1 — yields a legal zero. The other sixteen
+block.** The prior settlement's uniform "a `no` blocks" was wrong at exactly one
+place, and it is the place F2 named.
+
+**Why no per-count special case is sound.** It is tempting to say that on a
+one-statement family, `A3 = no` disqualifies the only loan and therefore yields a
+legal zero. It does not: [F1098E p. 4] states box 1 shows interest "on **one or
+more** student loans made to you", and [I1098ET p. 1] permits a filer to file one
+Form 1098-E covering all of a borrower's loans. The engine cannot tell a
+one-loan statement from a several-loan statement, so even a singleton family
+leaves an unknown split. Block is correct at every cardinality, and Track 1 must
+not add a cardinality shortcut.
+
+**A consequence for a non-component condition, recorded not decided.** Filing
+status *married filing separately* has the same structure as B1: [I1040GI p. 98]
+denies the deduction outright, no amount enters. T0-4 settled MFS as **blocked**,
+partly on the ground that the phaseout parameter has no MFS key. Under the test
+settled here that is the wrong disposition — MFS should select zero and never
+reach the parameter at all. This is a finding for T0c-5's restatement of T0-4,
+not a decision of this unit; T0c-5 must dispose of it explicitly.
+
+### T0c-2.3 — The closed-empty canonical-zero branch (settled)
+
+**The guard is stated on the subtotal, not on membership, because that is what
+the rule can see.** The rule has no membership-count symbol; what reaches it is
+the closure-admitted box-1 subtotal. Settled guard:
+
+> the closure-admitted box-1 subtotal equals 0 **and** C2 = `yes`.
+
+Closed-empty is the case that motivates the guard and is its ordinary instance.
+A closed non-empty family whose members all report box 1 = $0 takes the same
+route, and that is correct for the same reason and not a loophole: with zero
+claimed interest and C2 asserting no deductible interest outside box 1, the
+deduction is zero whatever the answers to the other fifteen are.
+
+**Why C1 is not in the guard, and why that is safe.** The worry is a furnished
+statement with box 2 checked and no box-1 amount — a family that closes empty
+while a real, deductible, unreported amount exists. C2 forecloses it by its own
+enumerated text: the taxpayer has no deductible 2025 student loan interest other
+than box-1 amounts of the recorded statements, "**including** interest below the
+$600 reporting threshold, interest paid to a person who filed no statement, and
+**pre-September-1-2004 origination fees or capitalized interest**". That last
+clause is precisely the box-2 case. C2 = `yes` on an empty family is therefore
+the strongest true statement available — "no deductible student loan interest at
+all" — and C1 adds nothing to it.
+
+**What it publishes.** Line 21 = `0`. This is an **authorized** zero. It is not a
+default, not an `optional_default`, and not a fallback: it is selected by a guard
+over two contributed authorities, and it is unavailable if either is missing.
+It stands squarely inside the posture `rule.schedule1-line10` states in its own
+notes — "Closed-empty unemployment with complete absences publishes explicit
+zero. **Does not manufacture zero amounts for unimplemented producers**" — and
+inside ADR-0038's declared-absence principle that "zero is never assumed, only
+declared".
+
+**Provenance, and where it lives.** On this route the rule reads exactly two
+symbols, so its `pins` carry exactly two input authorities: the C2 finding and
+the box-1 subtotal publication. **Closure provenance arrives transitively**,
+through the subtotal: a closure-backed zero subtotal pins the family whose
+closure authority the empty `collect` stood on (`AccessLog.closure_reads`,
+ADR-0014 §5), so the walk from line 21 reaches the closure finding in one further
+hop. Line 21 must **not** re-pin closure directly. That is the same reasoning
+T0-8 used to reject a second absence gate at Form 1040 line 10: the authority
+lives in one place, and duplicating it creates two places for it to disagree.
+The resulting explanation walk reads: *line 21 is zero because the recorded
+Form 1098-E family is closed with no box-1 amounts, and because the taxpayer
+declared there is no deductible student loan interest outside box 1.*
+
+**What must change in the T0-4 rule shape for this to be reachable.** T0-4 settled
+"with **every** component named in `requires`". That cannot stand: the runner
+checks `requires` before evaluating anything (`runner.py:482`), so seventeen hard
+requirements would block a closed-empty return before the guard is ever reached —
+which is F2's defect restated. Settled correction:
+
+* `requires` carries the box-1 subtotal and **C2 only**.
+* The other sixteen become **path dependencies**, in exactly the shape ADR-0038
+  ratified for the QDCG worksheet's two declarations: "not unconditional
+  `requires` on line 16; they are expression dependencies of the
+  qualified-positive path only. A qualified-zero return never reads, names, or
+  pins either declaration."
+
+Illustrative shape (nesting only; not normative JSON):
+
+```
+when: true
+value: choose(
+  when: all( compare(box1-subtotal eq 0), categorical_compare(C2 eq yes) ),
+  then: 0,                                     # canonical zero, closure + C2 provenance
+  else: choose(
+    when: all( conditional_dependency_set(condition: true, members: [ref B1]),
+               categorical_compare(B1 eq no) ),
+    then: 0,                                   # legal zero, B1 provenance
+    else: choose(
+      when: all( conditional_dependency_set(condition: true,
+                                            members: [refs of A1-A10, B2-B5, C1]),
+                 <all sixteen non-B1 components eq yes> ),
+      then: <worksheet lines 1-9, T0-4>,
+      else: block(<an already-published code>) )))
+```
+
+**Two verified properties of that shape, both load-bearing.**
+
+1. *Absence is still named, and named completely.* `conditional_dependency_set`
+   with a true condition evaluates **every** member, accumulates the
+   `DEPENDENCY_ABSENT` misses, and raises once with the complete list
+   (`evaluator.py:217–236`). So a return missing three components is told about
+   all three, which is strictly better than the seventeen-hard-`requires` shape
+   it replaces.
+2. *It repairs a defect in T0-4's stated diagnosis path.* T0-4 recorded, as its
+   mitigation for `block` carrying no `missing` list, that "every component
+   finding is pinned unconditionally whatever its value, so a walker reads the
+   answers directly." **That was not true at this base.** `all` is
+   `all(bool(evaluate(a, ...)) for a in expr["args"])` (`evaluator.py:173–174`)
+   over a Python generator, so it short-circuits at the first `no`; pins are
+   built from `AccessLog.refs` (`runner.py:343–359`); therefore components after
+   the first `no` were never read and never pinned. Placing the
+   `conditional_dependency_set` node **first** in the guard fixes this as a side
+   effect: it evaluates every member `ref`, each of which does
+   `access.refs.add(...)` (`evaluator.py:108–110`), so all fifteen are pinned
+   before the short-circuiting `all` runs. T0-4's claim becomes true only under
+   this shape. T0c-5 must restate T0-4 accordingly.
+
+**One cost, stated plainly.** Because the empty route is tested first, the B1
+legal zero is reachable only after the subtotal and C2 are present. A taxpayer
+claimed as someone else's dependent must therefore still close a Form 1098-E
+family and answer C2 before receiving a zero the law grants unconditionally.
+The alternative ordering — B1 first — would remove that cost but would make the
+closed-empty route consult a loan-eligibility answer, which F2's disposition
+forbids in terms ("without consulting any loan-eligibility answer"). This unit
+takes F2 literally and accepts the cost. T0c-4 owns the dependency-diff argument
+and may reopen the ordering; if it does, it must dispose of F2's wording.
+
+### T0c-2.4 — Empty/nonempty authority matrix (mandatory output 2)
+
+AGI here means Form 1040 line 11a via the T0-8 chain
+(line 21 → Schedule 1 line 26 → Form 1040 line 10 → line 11a = line 9 − line 10).
+"Not published" means the run records a disposition and no AGI exists — never a
+zero.
+
+| # | Family state | Interest universe | Eligibility answer | Expected line 21 | Expected AGI |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Closed **empty** | none | C2 = `yes`; **B1 = `no`** | **`0`**, canonical zero. B1 is never read and never pinned | **Published**, = line 9. *This row is F2 discharged: dependent status no longer suppresses AGI* |
+| 2 | Closed **empty** | none | C2 = `yes`; B1 = `yes`, or B1 absent | **`0`**, same route, same provenance | Published, = line 9 |
+| 3 | Closed **empty** | none | **C2 absent** (any other answers) | **Not published** — `DEPENDENCY_ABSENT` naming C2, from the hard `requires` | **Not published.** Justified: without C2 the engine does not know whether deductible interest exists outside box 1, and a zero here would be manufactured. See the note to T0c-4 |
+| 4 | Closed **empty** | none | C2 = `no`; B1 = `no` | **`0`**, legal zero on B1 (the empty guard fails on C2) | Published. Correct even though unreported interest exists: a claimed dependent may deduct none of it |
+| 5 | Closed **empty** | none | C2 = `no`; B1 = `yes` | **Blocked** | Not published. Correct: real deductible interest exists that this milestone cannot quantify |
+| 6 | Closed **non-empty** | box-1 subtotal > 0 | All seventeen `yes` | Worksheet L9 (T0-4): capped at $2,500, then phased out | Published, = line 9 − line 26 |
+| 7 | Closed **non-empty**, all members box 1 = $0 | subtotal = 0 | C2 = `yes`, others any | **`0`**, same canonical-zero route as row 1 (guard is on the subtotal, not on emptiness) | Published |
+| 8 | Closed **non-empty** | subtotal > 0 | **B1 = `no`** (any other answers) | **`0`**, legal zero | **Published.** The other sixteen are read for pinning but do not change the result |
+| 9 | Closed **non-empty** | subtotal > 0 | any of **A1–A10** = `no`, B1 = `yes` | **Blocked** | Not published |
+| 10 | Closed **non-empty** | subtotal > 0 | any of **B2–B5** = `no`, B1 = `yes` | **Blocked** | Not published |
+| 11 | Closed **non-empty** | subtotal > 0 | **C1 = `no`**, B1 = `yes` | **Blocked** (understatement direction) | Not published |
+| 12 | Closed **non-empty** | subtotal > 0 | **C2 = `no`**, B1 = `yes` | **Blocked** (understatement direction) | Not published |
+| 13 | Closed **non-empty** | subtotal > 0 | one or more of the sixteen **absent**, B1 = `yes` | **Not published** — `DEPENDENCY_ABSENT` naming **every** absent component, via the `conditional_dependency_set` node | Not published |
+| 14 | **Not closed** (no closure finding at the current horizon) | unknown | any | **Not published** — the subtotal cannot publish; `SOURCE_SET_UNCLOSED` | Not published |
+| 15 | Closed at H1, then a member added (H2), not yet re-answered | subtotal recomputed over {S1, S2} | the sixteen displaced by T0c-1's re-keying; B1 survives | **Not published** — `DEPENDENCY_ABSENT` naming C2 (hard `requires`) and, on the non-empty path, the other fifteen | Not published. *This row is F1 discharged* |
+
+Row 8 is the sharpest reading of the second correction F2 exposed: a taxpayer
+with $1,100 of genuinely paid interest, claimed as a dependent, gets a published
+zero and a published AGI — [P970 p. 33] Example 2 exactly — where the withdrawn
+settlement gave them no AGI at all.
+
+### T0c-2.5 — What this does and does not close
+
+* **F2 is discharged** for the closed-empty route (rows 1–5) and, more broadly
+  than the finding asked, for every family state, because B1 never blocks
+  (rows 8 and 4).
+* **The adversarial-closure line "Closed-empty route: FAIL — B1 suppresses AGI"
+  can be re-declared PASS** once T0c-5 restates T0-4 and SLI-C2 to match. This
+  unit does not itself re-run the declaration.
+* **No stop condition fires.** Every operator this settlement relies on is
+  committed: `choose`, `all`, `compare`, `categorical_compare`,
+  `category_literal`, `block`, and `conditional_dependency_set`. The last is the
+  only one T0-4 did not already name, and it is ratified content-level substrate
+  (ADR-0037/ADR-0038, in production at `rule.form1040-line16`). No new error
+  vocabulary, no new operator, no ADR.
+
+### Notes addressed to T0c-3/4/5 — findings, not decisions
+
+* **To T0c-4.** The post-disposition dependency figure for AGI on a return with
+  no student-loan activity is now **two** contributed prerequisites plus one
+  closure — the 1098-E family closed (empty), C2 = `yes`, and nothing else —
+  down from seventeen components plus closure. Row 3 of the matrix is the
+  remaining cost and the one T0c-4 must justify: a taxpayer who has never had a
+  student loan must still close an empty 1098-E family and answer C2 before AGI
+  exists. That is the same shape of prerequisite the income side already imposes
+  through `rule.schedule1-line10` (closed-empty 1099-G plus ten declared
+  absences), which is the strongest available justification and is offered here
+  as evidence, not as a decision.
+* **To T0c-5.** Three restatements are forced by this unit: (a) T0-4's
+  "every component named in `requires`" becomes "the subtotal and C2 in
+  `requires`; the other sixteen as `conditional_dependency_set` path
+  dependencies"; (b) T0-4's "Known limitation" paragraph must be corrected — its
+  claim that every component is pinned unconditionally was false at this base and
+  becomes true only under the corrected shape; (c) T0-4's zero-and-boundary table
+  row "Married filing separately | blocked" must be re-decided against T0c-2.2's
+  test.
+* **To T0c-5.** SLI-C2 must state that a `no` blocks for sixteen components and
+  selects zero for B1; SLI-C6 and SLI-C8 are unaffected in substance but their
+  "line 21 is required" wording should be read against rows 3 and 14.
+* **To T0c-3.** Nothing in this unit changes the pricing of the twelve shared
+  Schedule 1 absences. It does, however, supply a precedent T0c-3 may want: the
+  `conditional_dependency_set` shape is a ratified way to make declared absences
+  path-conditional rather than unconditional, should the return-level successor
+  need it.
