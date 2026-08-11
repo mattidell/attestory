@@ -5,9 +5,9 @@
   "topic": "fact-type-succession-ssa-applicability",
   "active_plan": "docs/phases/engine-breadth/milestones/fact-type-succession-ssa-applicability.md",
   "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / FACT-TYPE SUCCESSION AND SOCIAL SECURITY APPLICABILITY \u2014 TRACK 0 (PAPER), NO IMPLEMENTATION CHARTERED.** Prerequisite engine milestone opened because the 2025 Form 1098-E milestone stopped at design: the thirteen shared Schedule 1 absence propositions its MAGI base needs exist only as Social Security Benefits Worksheet-scoped declarations, and the engine has no mechanism by which a fact question can be succeeded by a differently identified fact question. Verified at this base: all 23 ss-benefits-scope fact types are keyed on a single LITERAL {name: tax-year, values: ['2025']} \u2014 no entity citizen in any key \u2014 and are contributed, so they carry no derivation pins either; therefore NO existing displacement edge can reach them. fact-type.v3 is allocated, unused by content, and declares no succession field; no migration schema family exists. The Ontology already names the migration artifact (INTAKE_ONTOLOGY.md:128, 'a fact type re-keyed... migration may instantiate successor facts... closer to adoption than to arithmetic'), the two-edge invariant ('there is no third edge', :154), and correction-vs-succession (:156); ADR-0025's successor-claim migration is precedent for the ethic at FINDING level, not proof of a FACT-TYPE mechanism. Leading hypothesis to test first, explicitly unverified: currency already treats ADOPTIONS as displaceable, so deriving fact-type currency from its adopting bundle's adoption may give succession without a third citizen-to-citizen edge \u2014 apply_bundle_adoption keeps no bundle provenance today, so this is kernel work. Track 0 settles T0-1 succession semantics, T0-2 mechanism inventory (dormant predecessors and same-identifier redeclaration are owner-rejected, admissible only as negative controls), T0-3 fresh-adoption vs upgrade, T0-4 neutral vocabulary, T0-5 SSA applicability repair, T0-6 impact envelope; then the split decision, the adversarial-closure gate, and the cost inventory BEFORE any build charter. Foreman's entering recommendation for Track 0 to confirm or overturn: the owner's A/B seam may be miscut \u2014 vocabulary is inseparable from substrate, while the no-activity applicability repair looks independent of succession entirely and should go FIRST to shrink the migration surface. AUTHORITY BOUNDARY: no seat reads tax-instruction PDFs; an inadequate authority packet triggers a bounded authority review, never a source read. No schema/rule/package/registry/version number is allocated until the split decision and allowed-impact envelope are settled.",
-  "current_role": "Foreman (Track 0 charters prepared for owner launch; dispatch not authorized)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/fact-type-succession-ssa-applicability.md#Track 0 \u2014 mandatory questions"
+  "status": "SPLIT RECORD. The owner approved splitting the prerequisite into two milestones, applicability repair first: (1) ssa-no-activity-applicability, chartered on its own branch and PR; (2) fact-type-succession-neutral-schedule1, chartered only after (1) merges. They do not share a PR. This document charters nothing; it is the split record and Milestone 2's inherited Track 0 input. Two owner corrections govern: docs/archive/ is NEVER product authority, so the governing text is the ratified docs/governance/ontology.md (fact types and facts at §2, migration artifact at §5, two-edge invariant and correction-versus-succession at §7), and INTAKE_ONTOLOGY.md is historical corroboration only, cited nowhere; and the applicability repair does NOT reduce how many literal-keyed facts a workspace instantiates (§2: such facts 'arrive with the territory, instantiated when a body of fact types is adopted'), it reduces unnecessary questions users must answer and prospectively the number of predecessor findings created, so Milestone 2 must still handle predecessor facts that are OPEN as well as answered and preserve the full upgrade matrix. Verified substrate carried forward: all 23 ss-benefits-scope fact types keyed on a single literal {tax-year: 2025} with no entity citizen, contributed so no derivation pins — nothing reaches them under §7's two edges; thirteen are the shared Schedule 1 absences and no-schedule1-line24z-writein already exists in the predecessor bundle; fact-type.v3 allocated but unused and carries no succession field; no migration schema family exists. Owner governance reading for Milestone 2: superseding an adoption MAY authorize the transition but adoption currency may NOT become an undeclared third displacement channel — the contract must expose the predecessor fact type or its adoption as an explicit individuation root, or map every displacement through one of the two recognized edges; reject any design that merely removes types from a flat runtime dictionary or filters by current adoption without declaring the dependency responsible for their standing. Presume Milestone 2 needs an ADR that narrows and instantiates the Ontology rather than amending it. Adoption-currency is a HYPOTHESIS TO TEST, not an accepted design; prototype only after the paper rung identifies the smallest remaining empirical question.",
+  "current_role": "Foreman (split record complete; Milestone 1 chartered on its own branch)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/fact-type-succession-ssa-applicability.md#Mechanism inventory (preserved for Milestone 2's Track 0)"
 }
 -->
 # Phase State
@@ -36,47 +36,50 @@ question can be succeeded by a differently identified fact question.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone (this branch):** Fact-type succession and Social Security
-  applicability — a **prerequisite engine milestone**, at **Track 0 (paper)**.
-  No implementation is chartered and no version numbers are allocated.
-* **Why it exists:** the 2025 Form 1098-E milestone stopped at design. Its MAGI
-  base needs thirteen shared Schedule 1 absence propositions that exist only as
-  **Social Security Benefits Worksheet-scoped** declarations, and the engine has
-  no mechanism by which a fact question can be succeeded by a differently
-  identified fact question.
-* **The hard finding:** all 23 `ss-benefits-scope` fact types are keyed on a
-  single **literal** `{name: tax-year, values: ["2025"]}` — no entity citizen in
-  any key — and are **contributed**, so they carry no derivation pins. Neither
-  of the two displacement edges can reach them as those edges are currently
-  rooted. `fact-type.v3` is allocated, unused by content, and declares no
-  succession field; no migration schema family exists.
-* **Governing prior art:** the Ontology already names the **migration artifact**
-  (`INTAKE_ONTOLOGY.md:128`), the **two-edge invariant** (`:154`, "there is no
-  third edge"), and **correction versus succession** (`:156`). ADR-0025's
-  successor-claim migration is precedent for the ethic at the **finding** level,
-  not proof of a **fact-type** mechanism.
-* **Leading hypothesis (unverified, to test first):** currency already treats
-  **adoptions** as displaceable, so deriving a fact type's currency from its
-  adopting bundle may yield succession without a third citizen-to-citizen edge.
-  `apply_bundle_adoption` keeps no bundle provenance today, so this is kernel
-  work, not free.
-* **Split decision is open.** The foreman's entering recommendation — for Track 0
-  to confirm or overturn — is that the owner's A/B seam may be miscut: the
-  neutral vocabulary is inseparable from the substrate, while the no-activity
-  applicability repair looks independent of succession entirely and should go
-  **first**, shrinking the migration surface.
-* **Authority boundary:** no seat reads tax-instruction PDFs. An inadequate
-  authority packet triggers a **bounded authority review**, never a source read.
+* **This branch is a split record.** The owner approved splitting the
+  prerequisite into two ordered milestones that **do not share a PR**:
+  1. **`ssa-no-activity-applicability`** — the SSA no-activity applicability
+     repair, chartered on its own branch and PR.
+  2. **`fact-type-succession-neutral-schedule1`** — fact-type succession with the
+     thirteen neutral Schedule 1 propositions as its proving case, chartered
+     only **after** Milestone 1 merges.
+
+  The fresh Form 1098-E implementation milestone begins after both merge. This
+  branch charters nothing; it carries the split record and Milestone 2's
+  inherited Track 0 input.
+* **Governing text is `docs/governance/ontology.md`** — fact types and facts at
+  **§2**, the migration artifact at **§5**, the two-edge invariant and
+  correction-versus-succession at **§7**. `docs/archive/` is **never** product
+  authority; `INTAKE_ONTOLOGY.md` is historical corroboration only and is cited
+  nowhere.
+* **Ordering rationale, corrected.** The repair does **not** reduce how many
+  literal-keyed facts a workspace instantiates — §2 states such facts "arrive
+  with the territory, instantiated when a body of fact types is adopted." It
+  reduces the **questions a user must answer** and, prospectively, the
+  **predecessor findings users create**. Milestone 2 must still handle
+  predecessor facts that are **open** as well as answered, and preserve the full
+  upgrade matrix.
+* **Verified substrate:** all 23 `ss-benefits-scope` fact types are keyed on a
+  single **literal** `{tax-year: 2025}` with no entity citizen, and are
+  contributed, so they carry no derivation pins — under §7's two edges **nothing
+  reaches them**. Thirteen are the shared Schedule 1 absences;
+  `no-schedule1-line24z-writein` **already exists** in the predecessor bundle.
+  `fact-type.v3` is allocated, unused, and declares no succession field. No
+  migration schema family exists.
+* **Milestone 2 posture:** adoption-currency is a **hypothesis to test**, not an
+  accepted design. The contract must expose the predecessor fact type or its
+  adoption as an explicit **individuation root**, or map every displacement
+  through one of the two recognized edges; a design that merely filters a flat
+  runtime dictionary by current adoption **without declaring the dependency
+  responsible for standing** is an undeclared third edge and is rejected.
+  Presume an ADR that **narrows and instantiates** the Ontology, never amends it.
+* **Authority boundary:** no seat reads tax-instruction PDFs. Inadequate
+  authority is a **stop** requiring a bounded authority review.
 * **Branch / worktree:** `milestone/fact-type-succession-ssa-applicability-design`
-  in the `engine-succession` worktree, cut fresh from `origin/main` (`f60e7d1`).
-* **Plan:** `docs/phases/engine-breadth/milestones/fact-type-succession-ssa-applicability.md`.
-* **Inherited inputs:** the stopped 1098-E milestone's Durable findings
-  register, owner ruling, retrospective, verified authority packets, and kernel
-  observations. Its Track 0a/0b/0c narrative is **not** carried forward.
-* **Blocked behind this:** a fresh Form 1098-E milestone, to be re-cut from
-  `main` on the first dependency-safe Schedule 1 Part II → Form 1040 AGI
-  vertical slice once this settles and merges.
-* **Next:** owner launches the Track 0 charters; dispatch is not authorized.
+  in `engine-succession`, cut from `origin/main` (`f60e7d1`). **PR #172.**
+* **Split record:** `docs/phases/engine-breadth/milestones/fact-type-succession-ssa-applicability.md`.
+* **Next:** Milestone 1 Track 0 on its own branch. Dispatch is not authorized;
+  charters are prepared for owner launch.
 
 ## Re-entry
 
