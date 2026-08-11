@@ -3611,3 +3611,436 @@ use the new feature; (3) which needed facts already exist and whether their
 staleness is caused by correction or by the paperwork changing; (5) what
 substrate the engine lacks. Question 5 is the one this charter did ask, and it
 is the one thing that never surprised the milestone.
+
+---
+
+## Track 0c settlement — T0c-3 (shared Schedule 1 absence vocabulary: impact inventory)
+
+This unit prices owner disposition **D3** and nothing else. It allocates no
+version numbers, writes no content, and performs no repair. Everything below was
+read off the repository at `3100ca1` on branch
+`milestone/f1098e-student-loan-interest-line21`.
+
+The permitted shape being priced is the only one D3 allows: **new neutral
+return-level fact citizens, the SSA-scoped originals superseded, and both the
+Social Security worksheet and the student-loan route consuming the successors.**
+Rewriting the ratified SSA citizens in place, duplicating the twelve, and
+bridging SSA-scoped claims into broader claims are ruled out by name and are not
+priced.
+
+### T0c-3.1 — Inventory item 1: new and successor fact and rule citizens
+
+#### The twelve neutral fact types (new)
+
+A new bundle `tax.us.2025.sch1-adjustment-scope.vocabulary` v1, schema
+`bundle.v2` (`bundle.v2` is the only bundle schema in
+`package.core-calculations.v29.json`'s `admitted_schemas`; `bundle.v3` exists at
+`packages/schemas/kernel/bundle.v3.schema.json` but is **not** admitted, so
+choosing it would additionally require growing `admitted_schemas`).
+
+Each member is `schema: fact-type.v2`, `nature: determinable`,
+`identity_keys: [{kind: literal, name: tax-year, values: ["2025"]}]`,
+`value_schema: {"enum": ["yes","no"]}`, `supersession: {"policy": "free"}` —
+i.e. structurally identical to the originals; **only the title changes.**
+
+| # | Proposed successor id | Predecessor id |
+| --- | --- | --- |
+| 1 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line11-educator` | `tax.us.2025.ss-benefits-scope.no-sch1-line11-educator` |
+| 2 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line12-business-expenses` | `…ss-benefits-scope.no-sch1-line12-business-expenses` |
+| 3 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line13-hsa` | `…ss-benefits-scope.no-sch1-line13-hsa` |
+| 4 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line14-moving` | `…ss-benefits-scope.no-sch1-line14-moving` |
+| 5 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line15-deductible-se` | `…ss-benefits-scope.no-sch1-line15-deductible-se` |
+| 6 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line16-se-retirement` | `…ss-benefits-scope.no-sch1-line16-se-retirement` |
+| 7 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line17-se-health` | `…ss-benefits-scope.no-sch1-line17-se-health` |
+| 8 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line18-penalty` | `…ss-benefits-scope.no-sch1-line18-penalty` |
+| 9 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line19-alimony-paid` | `…ss-benefits-scope.no-sch1-line19-alimony-paid` |
+| 10 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line20-ira-deduction` | `…ss-benefits-scope.no-sch1-line20-ira-deduction` |
+| 11 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line23-archer-msa` | `…ss-benefits-scope.no-sch1-line23-archer-msa` |
+| 12 | `tax.us.2025.sch1-adjustment-scope.no-sch1-line25-other-adjustments` | `…ss-benefits-scope.no-sch1-line25-other-adjustments` |
+
+Neutral title form (worked example for #1), naming no consuming worksheet:
+
+> Schedule 1 Part II adjustment-absence component: No Schedule 1 line 11
+> educator expenses adjustment is present on this return for tax year 2025.
+> Contributed categorical assertion, domain {yes, no}, no default,
+> presence-before-value, free supersession. `yes` asserts the named adjustment
+> is absent; `no` asserts it is present. Absence is not a manufactured zero
+> amount for an unimplemented producer.
+
+Compare the existing predecessor title, which is the defect F3 named:
+
+> Social Security Benefits Worksheet completeness component: No Schedule 1 line
+> 11 educator expenses adjustment is present for the bounded worksheet claim. …
+
+#### The thirteenth candidate, deliberately excluded
+
+`tax.us.2025.ss-benefits-scope.no-schedule1-line24z-writein` is **also** needed
+by the student-loan route — T0-5 settled the 24z write-in as a required
+"Before you begin" precondition of the Student Loan Interest Deduction
+Worksheet [I1040GI p. 99]. Its declared title is *"…that must be figured before
+the Social Security Benefits Worksheet…"*, which is the same declared-scope
+defect. **It is not in the twelve** and the owner's D3 wording says twelve.
+Recorded as an inventory finding: either the neutral vocabulary is thirteen
+tokens, or the student-loan route re-declares 24z under its own scope and the
+mismatch survives in a thirteenth place. **This is a disposition T0c-5 owes.**
+
+#### Successor rule citizens
+
+* `tax.us.2025.rule.ss-benefits-worksheet` **v2** (from v1,
+  `packages/content/tax/2025/rule.ss-benefits-worksheet.json`). Twelve of its
+  33 `requires`, twelve of its 37 `pins`, twelve of its 33 `blocked.missing`
+  entries, and twenty-four of the forty-six `ss-benefits-scope` references
+  inside `when` are re-pointed. Verified reference count: **exactly five per
+  token** (`requires` 1, `pins` 1, `blocked.missing` 1, `when` 2 — the `ref`
+  and the `category_literal` fact-type name), so **60 edits** in one file. The
+  rule keeps `publishes: tax.us.2025.social-security.line6b` and keeps schema
+  `rule-artifact.v3`; nothing about its arithmetic, `value`, `scope`,
+  `citations`, or the twenty-one non-Schedule-1 tokens changes.
+* **No other rule successor is caused by this repair.** `grep` for
+  `ss-benefits-scope.no-sch1` across the corpus returns exactly two content
+  files: the bundle (12 hits) and this rule (60 hits). `rule.form1040-line6c.json`
+  references `tax.us.2025.ss-benefits-scope.no-lump-sum-election`, which is
+  genuinely Social-Security-scoped and is **out of scope** for this repair.
+* The student-loan line-21 worksheet rule that consumes the successors is Track 1
+  work this milestone already owns; it is not a marginal cost of D3.
+
+#### Citizens that must *not* change
+
+`tax.us.2025.ss-benefits-scope.vocabulary` v1 stays byte-identical and stays a
+package member. `tax.us.2025.citation.form1040.ss-benefits-worksheet` v1,
+`tax.us.2025.form1040.line-6b` v1 (`form-field.v3`), the four
+`demo.parameter.ss-benefits-*` parameters, `family.ssa1099-benefits.json`,
+`closure-mapping.ssa1099-benefits.json`, and `rule.form1040-line9` v7 are all
+untouched: the successor publishes the same symbol at the same value.
+
+### T0c-3.2 — Inventory item 2: package, registry, release, fixture, golden
+
+**Correction to the charter's file list.** There is no `packages/registry/`
+directory in this repository. Adoption manifests live under
+`packages/sample_data/<topic>/adoptions/`, one per topic, and the release
+registries under `packages/sample_data/<topic>/publication_surface/releases/`.
+
+| Artifact | Current | Effect of the repair |
+| --- | --- | --- |
+| `packages/content/tax/2025/package.core-calculations.v29.json` | v29, `artifact-package.v22`, 342 members, 126 entrypoints, 7 input_bindings | **new v30**: `+1` member (the new bundle, role `fact-type-bundle`), `tax.us.2025.rule.ss-benefits-worksheet` member version v1→v2, new `package_checksum`. Member **ids** are preserved, satisfying the additive-only convention asserted at `tests/test_ssa1099_benefits_line6_track2.py:920`. |
+| `packages/content/tax/2025/published-packages.v24.json` | v24 | **new v25**: `+1` citizen entry (bundle v1 + checksum), `+1` citizen entry (rule v2 + checksum), `+1` package entry (core-calculations v30). Strictly a superset, satisfying `test_manifest_only_adds` (line 965). |
+| `packages/sample_data/f1098_mortgage_interest_line12e/publication_surface/releases/demo.release.2025.v22.json` | v22, `release-registry.v1`, four fields | **new v23** under this milestone's own sample-data topic, with a new `package_registry_sha256`. |
+| `packages/sample_data/f1098_mortgage_interest_line12e/adoptions/adopt-core-v29-current.json` | act `demo.act.adopt.core.v29` | **new** `adopt-core-v30-current.json` under this milestone's topic dir, pinning package v30 + release v23 checksums. |
+| `packages/sample_data/ssa1099_benefits_line6/adoptions/*` | `adopt-core-v27-current.json`, `adopt-core-v28-current.json` | **unchanged** — historical adoptions are immutable and the SSA test resolves v28 by name (`test_package_resolves_v28`, line 735). |
+| `packages/sample_data/ssa1099_benefits_line6/publication_surface/releases/demo.release.2025.v20.json`, `v21.json` | | **unchanged**, same reason. |
+
+**Fixtures and goldens carrying the twelve fact ids: zero.**
+`grep -rl "no-sch1-line11-educator" packages/sample_data/` returns nothing. The
+twelve are constructed programmatically in the SSA test only
+(`tests/test_ssa1099_benefits_line6_track2.py:67-78` token list,
+`:88` `_scope_id()` composing `f"tax.us.2025.ss-benefits-scope.{token}"`).
+
+**Goldens carrying the worksheet's output: zero outside the SSA test.**
+`grep -rl "social-security.line6b" packages/sample_data/` returns nothing;
+corpus-wide the symbol appears in only four files —
+`rule.ss-benefits-worksheet.json`, `rule.form1040-line9.v7.json`,
+`form1040.line-6b.form-field.json`, and the SSA test. The two presentation
+models that mention `ss-benefits-scope`
+(`packages/sample_data/form1099div_box7_direct_ftc/presentation/box7-direct-ftc.presentation-model.v1.json`,
+`packages/sample_data/form1099g_box1_schedule1_line7/presentation/form1099g-box1-line8.presentation-model.v1.json`)
+match only on the substring `no-sch1-line…` from their **own**
+`schedule1-part1-scope` tokens, not on the twelve. Verified by exact-prefix grep.
+
+**Marginal publication cost is near zero.** This milestone already allocates
+package v30, published-packages v25, release v23, and an adoption manifest for
+its own Track 1 content. D3 rides that chain; it does not open a second one.
+
+### T0c-3.3 — Inventory item 3: displaced consumers and user attestations
+
+This is where the "three files" pricing was most wrong, and the finding is
+**negative**: succession as D3 describes it does not exist as a mechanism.
+
+#### There is no fact-type retirement, anywhere in the kernel
+
+`packages/kernel/facts.py:84-101` (`apply_bundle_adoption`) copies existing
+`state.fact_types` and then writes each fact type in the adopted bundle. Its own
+comment — *"Re-adoption under a revised bundle supersedes the fact type"* — is
+about **the same id under a revised bundle**. There is **no deletion path**:
+removing a declaration from a bundle and re-adopting does not remove it from
+workspace state, and a successor under a *different* id does not touch the
+predecessor at all. The three kernel act kinds that model succession are
+`bundle-adoption`, `entity-introduced`, and `entity-superseded`
+(`packages/kernel/facts.py:221-225`); `entity-superseded`
+(`packages/kernel/facts.py:116-150`) supersedes an **entity**, and the twelve are
+keyed on a `literal` `tax-year`, not on an entity, so they have no entity to
+supersede. `packages/kernel/horizons.py:71` `superseded_horizon_ids` has no
+caller in `packages/` (already recorded at T0c-1).
+
+**Consequence.** After the repair, every workspace under package v30 holds
+**twenty-four** live fact types where it held twelve. The predecessors remain
+answerable questions in `facts_of` (`packages/kernel/facts.py:177-218` projects
+one fact per adopted fact type per key binding, with no consulted retirement
+flag) and therefore remain in the `open_fact_ids` read view
+(`packages/kernel/read_models.py:120-127`) forever.
+
+#### The declared `supersession: {"policy": "free"}` does not mean what the
+#### disposition assumes
+
+`packages/kernel/findings.py:556-576` is the only consumer of that policy. It
+fires **only** when `already_answered` — i.e. when a later finding names the
+**same `fact_id`**. `free` means "a correction to this same fact is admissible".
+It says nothing about one fact type succeeding another. F3's instruction to
+"confirm this against the supersession policy actually declared on the twelve
+(`free`)" is therefore discharged with a **negative** answer: the policy is
+irrelevant to cross-fact-type succession.
+
+#### Does supersession displace a *contributed* fact cleanly? No — it does not
+#### displace it at all
+
+`packages/kernel/currency.py:137-174` (`compute_currency`) admits exactly three
+classes of displacement root:
+
+1. **correction** — a later finding for the **same** `fact_id`
+   (`currency.py:79-94`);
+2. **member withdrawal** — `fact_id in state.withdrawn_fact_ids`
+   (`currency.py:97-114`), populated only by `apply_member_transition`
+   (`packages/kernel/findings.py:703-770`), which requires a source-family
+   member fact and a horizon successor; the twelve are neither;
+3. **superseded entities** — `superseded_entity_ids(state.fact_state)`
+   (`currency.py:151`), inapplicable for a literal-keyed fact.
+
+Closure then walks only the two Article-7 edges, `derivation` and
+`individuation` (`currency.py:16`, `:117-134`). **A new fact type is not an edge.**
+
+So a workspace that already carries
+`tax.us.2025.ss-benefits-scope.no-sch1-line13-hsa|tax-year=2025 = yes` as a
+contributed finding keeps that finding **current, indefinitely**, while the
+neutral successor is a separate, **unanswered** fact. The taxpayer must answer
+the same twelve questions a second time; the old answers are not displaced, not
+marked stale, and not visibly connected to the new ones.
+
+#### And no migration mechanism exists
+
+`packages/kernel/contribution.py` (whole file, 209 lines) is a batch coordinator:
+`apply_contribution_batch` (`:99-208`) applies a `contribution` act and then
+plain `assertion` / `member-transition` carriers, validating that each finding's
+`contribution_id` matches the batch (`:158-163`) and that no contribution pin
+leaks into `pins` (`:164-168`). There is no re-pointing, no fact-type mapping,
+no vocabulary-migration concept anywhere in it — nor in `findings.py`,
+`facts.py`, or `currency.py`.
+
+#### In-repo blast radius versus product blast radius
+
+* **In-repo, the migration cost is literally zero**: no fixture, golden, sample
+  workspace, or adoption manifest carries any of the twelve. Only the SSA test
+  constructs them, and it constructs them fresh on every run.
+* **As a product contract, the cost is not zero**: any real workspace that ever
+  answered the twelve is left with twelve orphan current findings and twelve new
+  unanswered questions, and the Social Security worksheet stops publishing
+  `line6b` until all twelve are re-answered. Because
+  `rule.form1040-line9` v7 **requires** `tax.us.2025.social-security.line6b`
+  unconditionally (`packages/content/tax/2025/rule.form1040-line9.v7.json`,
+  `requires`/`blocked.missing`), and the SSA worksheet is the symbol's **only**
+  producer corpus-wide, that outage propagates to total income, AGI, taxable
+  income, and line 16 for any workspace that had been computing them.
+
+### T0c-3.4 — Inventory item 4: SSA compatibility tests and live-route evidence
+
+`tests/test_ssa1099_benefits_line6_track2.py` (2,280 lines) is the **only** test
+file in the corpus that references the SSA worksheet, the twelve, or
+`social-security.line6b`. Verified: `grep -rln "ss-benefits-worksheet\|ss_benefits"`
+over `tests/ tools/ packages/` excluding `packages/content` returns that one
+file. It contains ~50 test methods, all of which build acts through
+`_ssa_acts()` (`:100`), which contributes all thirty-three scope tokens via
+`_scope_id()` (`:88`). Re-pointing twelve tokens therefore re-runs the whole
+file as the regression proof. The following must pass **unchanged in expected
+values**, and the named ones must additionally be updated to the successor ids:
+
+**Structural / wiring — must be updated and must pass:**
+
+* `test_live_scope_guards_schedule1_part_a_batch` (`:1988`, tokens listed
+  `:1991-1996`) and `test_live_scope_guards_schedule1_part_b_batch` (`:2001`,
+  tokens `:2004-2009`) — these two are exactly the twelve, split six and six.
+* `test_worksheet_when_names_every_scope_token` (`:2014`) — the decisive
+  structural proof that the successor rule's `when` names all thirty-three, with
+  twelve now under the neutral prefix.
+* `test_worksheet_pin_table_excludes_line9_cycle` (`:883`) — proves the pin
+  table still carries no line-9/AGI cycle after re-pointing.
+* `test_live_scope_guards_eligibility_batch` (`:1963`) and
+  `test_live_scope_guards_foreign_adoption_batch` (`:1976`) — the twenty-one
+  tokens that stay SSA-scoped; must be proven **unchanged**.
+* The `no`-answer blocking case at `:2134`
+  (`scope={"no-sch1-line11-educator": "no"}`) — proves a present adjustment
+  still blocks through the successor.
+
+**Value-equality (the actual "same answers" proof) — expected values must not
+move by a cent:**
+
+* `test_below_threshold_zero_taxable` (`:776`), `test_taxable_region_publishes_line6b_into_line9` (`:867`),
+  `test_line9_v7_includes_line6b_once` (`:903`),
+  `test_all_filing_statuses_close_line16` (`:982`, six filing-status subtests),
+  `test_joint_taxpayer_and_spouse_aggregate_once` (`:1062`),
+  `test_tax_exempt_interest_raises_6b_not_line9` (`:1090`),
+  `test_downstream_agi_ti_line16_recompute` (`:1119`),
+  `TestSsaArithmeticReference.test_regions` (`:1185`),
+  `test_live_worksheet_regions_and_85_cap` (`:1215`),
+  `test_exact_once_components_and_tax_exempt_outside_line9` (`:1275`),
+  `test_production_shaped_exact_downstream_values` (`:2074`),
+  `test_joint_aggregation_not_double_counted` (`:2026`).
+
+**Live-route evidence** (these are the live/production-shaped cases; there is no
+separate live-run fixture directory for SSA):
+
+* `TestSsaWorksheetLive` (`:588`) in full, in particular
+  `test_production_rejects_unreconciled_boxes` (`:589`),
+  `test_production_recipient_correction_displaces_both_directions` (`:639`),
+  `test_live_late_member_stale_closure_and_reclosure` (`:1717`),
+  `test_production_correction_preserves_identity_and_displaces` (`:1407`),
+  `test_production_stale_correction_blocks` (`:1547`),
+  `test_production_evidence_replacement_does_not_rekey_fact` (`:1644`).
+* `test_citations_explanations_and_presentation` (`:2095`) — the explanation
+  walk. **This is the test that should show the repair's benefit**: the walk
+  currently renders the SSA-framed titles.
+* `test_package_and_registry_semantic_integrity` (`:2164`).
+
+**Publication-shape tests that gate the new versions:**
+
+* `test_package_additive_only` (`:920`) — currently pins v26→v27→v28. A v30 that
+  bumps the rule's member **version** while preserving its **id** stays inside
+  the asserted convention; T0c-5 should extend the pairs to include v29→v30.
+* `test_manifest_only_adds` (`:965`) — same, for published-packages v24→v25.
+* `test_package_resolves_v28` (`:735`) and
+  `test_v21_exact_entrypoints_hard_refuse_authenticated_mutations` (`:753`) —
+  pinned to the historical v28/v21 surface and must keep passing untouched,
+  which they will, because no already-published byte changes.
+
+**Nothing outside this file needs to change to prove SSA compatibility.** The
+mortgage-interest Track 2 test
+(`tests/test_f1098_mortgage_interest_line12e_track2.py:364`, `:628`) mentions
+`ss-benefits-scope` only in prose comparing declaration conventions.
+
+### T0c-3.5 — Inventory item 5: does generic substrate have to change?
+
+**For the repair as scoped, no. For the word "superseded" in D3, yes.**
+
+Nothing in the repair requires an evaluator, schema, or package-validation
+change:
+
+* No new operator. The successor rule uses the same `categorical_compare` /
+  `category_literal` shape (ADR-0025 §4-6) on the same `all(...)` gate.
+* No schema change. `bundle.v2`, `fact-type.v2`, and `rule-artifact.v3` are all
+  already in `package.core-calculations.v29.json`'s `admitted_schemas`, and the
+  successor uses the same ones.
+* No package-validation change. `packages/derivation/package_validation.py:916-951`
+  builds `bundles_for_fact` from every adopted bundle and adds a dependency edge
+  only where a rule's declared refs reach a bundle's fact type. A bundle whose
+  fact types nobody consumes is admissible; **there is no orphan-fact-type
+  check** anywhere in `packages/derivation/` or `tools/governance_lint.py`.
+* No contribution-boundary change. The twelve are not in the package's seven
+  `input_bindings`; the rule names the fact-type ids directly in `requires`, and
+  the evaluator resolves an unbound ref name as its own fact-type id
+  (`packages/derivation/evaluator.py:325`,
+  `env.symbol_fact_types.get(name, name)`).
+
+**But the mechanism D3 names does not exist, and building it would be generic
+substrate.** To actually retire the SSA-scoped twelve — so that a workspace has
+twelve questions rather than twenty-four, and so that an already-given answer is
+carried or visibly displaced — the kernel would need a new act kind
+(`fact-type-superseded`, or a successor pointer honoured by `facts_of` and by
+`compute_currency`'s root set). That is a change to `packages/kernel/facts.py`,
+`packages/kernel/currency.py`, the act-schema corpus, and Article 7's edge
+vocabulary. It is a **P0 substrate change and a new product contract**, and it is
+firmly outside this milestone.
+
+### T0c-3.6 — Recommendation on the stop condition
+
+**The stop condition does NOT fire, on the strict reading of what D3 permits —
+but only because the repair must be re-described honestly as *parallel neutral
+vocabulary with the predecessors left dormant*, not as *supersession*.**
+
+Tested against the four named triggers:
+
+| Trigger | Fires? | Evidence |
+| --- | --- | --- |
+| Generic substrate change | **No**, as scoped | No operator, schema, evaluator, validation, or contribution change is required (T0c-3.5). |
+| Migration machinery | **No**, as scoped | Zero in-repo workspaces, fixtures, or goldens carry the twelve; nothing needs migrating. |
+| Additional consumers | **No** | Corpus-wide, the twelve are referenced by exactly two content files and one test. The only consumers are the Social Security worksheet and the student-loan route, exactly as D3 assumed. |
+| Broader change to SSA semantics | **No** | The successor rule keeps its symbol, arithmetic, parameters, citation, form field, and twenty-one other tokens. Only twelve dependency names move. |
+
+**Therefore: keep the repair in this milestone.** Total cost: one new bundle
+(12 declarations), one rule successor (60 mechanical edits in one file), one
+package version, one published-packages version, one release, one adoption
+manifest — all four publication artifacts already being minted by this milestone
+anyway — and one test file updated in twelve token names and re-run whole.
+
+**Two things must be corrected in the disposition's own language before Track 1
+is chartered, and they are T0c-5's to record:**
+
+1. **"The SSA-scoped originals are superseded" is not implementable and must not
+   be written into the plan as if it were.** There is no fact-type supersession
+   in the kernel (`packages/kernel/facts.py:84-101`, `:116-150`;
+   `packages/kernel/currency.py:137-174`). What is actually being bought is
+   *twelve neutral successors adopted alongside twelve dormant predecessors that
+   no rule consumes*. That is admissible and cheap, but it must be named
+   correctly, because a reviewer told "superseded" will look for a displacement
+   that never happens.
+2. **The dormant predecessors are a standing legibility liability**, not a
+   correctness one: they remain in `open_fact_ids` forever, and any answer
+   already given to them stays `current` forever. Retiring them is a future
+   substrate milestone (`fact-type-superseded` act kind), and the plan should say
+   so rather than leave it implied.
+
+Had D3 required the predecessors to be *actually* retired, the stop condition
+**would** fire on "generic substrate change", and the honest answer would be a
+prerequisite milestone. The recommendation to proceed rests entirely on the
+predecessors being left in place.
+
+### T0c-3.7 — ADR recommendation: none
+
+**Propose no ADR.** Per D4, an ADR is warranted only for a genuinely new durable
+product contract. Everything here is governed already:
+
+* **Fact meaning and declared scope** — ADR-0011 (tax fact identity) and the
+  claim-reuse proof obligation the milestone already carries. The repair is an
+  application of the existing rule that declared meaning governs, not a new rule.
+* **Lifecycle and succession** — ADR-0041 (correction authority) plus the
+  kernel's existing three-value supersession vocabulary. Note this is the ADR
+  that would need *amending*, not supplementing, if fact-type retirement were
+  ever built.
+* **Versioned publication** — the existing package / published-package / release
+  / adoption chain, unchanged in shape.
+* **Absence declarations as contributed categoricals** — ADR-0025 §4-6 and
+  ADR-0038 (declared absence), both already in force; the neutral twelve are the
+  same shape as `schedule1-part1-scope`, `line2a-scope`, `f1098-scope`, and
+  `direct-ftc-scope`.
+
+Minting neutral tokens instead of consumer-framed ones is compliance with the
+existing contracts, not a new one. **If** a future milestone builds fact-type
+retirement, *that* is an ADR — it adds an act kind and a displacement root, which
+touches Article 7. It is not this one.
+
+### Notes addressed to T0c-4/5 — findings, not decisions
+
+1. **The thirteenth token.** `no-schedule1-line24z-writein` has the same declared-
+   scope defect and is needed by the student-loan route (T0-5, "Before you begin"
+   precondition). D3's "twelve" does not cover it. T0c-5 must decide: thirteen
+   neutral tokens, or an explicitly accepted thirteenth mismatch.
+2. **`schedule1-part1-scope` has the same defect, one milestone earlier.** Its
+   titles read "…for the bounded additional-income claim"
+   (`packages/content/tax/2025/schedule1-part1-scope.bundle.json`). If the F3
+   principle is general, that vocabulary fails it too. It is **not** consumed by
+   the student-loan route, so nothing in this milestone forces the question —
+   but the F3 finding is a corpus-wide convention defect, not a one-off, and the
+   entry gate in "Standing consequence" is the right place to catch it next time.
+3. **`rule.form1040-line9` v7 is a single point of failure for the whole return.**
+   It `requires` `tax.us.2025.social-security.line6b` unconditionally, and the
+   SSA worksheet is that symbol's only producer corpus-wide. Any return reaching
+   line 9 must satisfy all thirty-three SSA scope declarations. T0c-4's
+   no-activity dependency diff should count these thirty-three, because they are
+   already-existing prerequisites on a return with no student-loan activity and
+   they dominate the seventeen this milestone is being judged on.
+4. **`test_package_additive_only` and `test_manifest_only_adds` are pinned to
+   v26-v28 and v21-v23.** They do not currently cover v29→v30 / v24→v25. Track 1
+   should extend the pairs, or the additive-only convention silently stops being
+   tested at the version this milestone adds.
+5. **The charter's `packages/registry/adoptions/` path does not exist.** Adoption
+   manifests are at `packages/sample_data/<topic>/adoptions/`. Worth fixing in
+   the charter template so the next agent does not go looking.
+6. **`bundle.v3` exists but is not admitted** by `package.core-calculations.v29`.
+   Any new bundle must be `bundle.v2` unless `admitted_schemas` is grown, which
+   would be a separate, wider change.
