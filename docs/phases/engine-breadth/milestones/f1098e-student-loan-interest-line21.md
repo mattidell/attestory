@@ -3418,3 +3418,102 @@ settlement gave them no AGI at all.
   `conditional_dependency_set` shape is a ratified way to make declared absences
   path-conditional rather than unconditional, should the return-level successor
   need it.
+
+## Foreman record — T0c-1/T0c-2 acceptance, source availability, and open dispositions
+
+### Source availability defect (process, not correctness)
+
+`p970-2025.pdf` and `i1040gi-2025.pdf` are **not present in this worktree and not
+tracked anywhere on this branch**. Every Track 0 unit that cited them re-obtained
+them into an ephemeral scratchpad. The milestone's page citations are therefore
+not reproducible from the repository alone.
+
+The foreman spot-checked five load-bearing Track 0a/0b citations against freshly
+obtained 2025 editions. **All five verify at the cited page**: P970 p. 32
+"Adjustments to Qualified Education Expenses"; P970 p. 33 "Can You Claim the
+Deduction?"; P970 p. 33 "Don't Include as Interest" including the A1 obligation
+bullet (a literal search fails only because the source hyphenates "pay-ments"
+across a line break); I1040GI p. 98 "aren't claimed as a dependent" and "You can
+take this deduction only if"; and I1040GI p. 99 for the Student Loan Interest
+Deduction Worksheet, independently reconfirming the p. 98 → p. 99 erratum. This
+is an availability and reproducibility defect, not an evidence-integrity one.
+
+Track 1 obligation: settle how cited federal sources are made durably available
+to a reviewer, without violating ADR-0031's real-data residency boundary.
+
+### T0c-1 and T0c-2 accepted, with three corrections to foreman pricing
+
+Accepted at `46583f2` (T0c-1) and `6506125` (T0c-2). The sixteen-of-seventeen
+classification and the B1-alone-is-a-legal-zero result are confirmed. Three
+places where the builder corrected the foreman's stated grounds while reaching
+the same outcome, all of which govern over the foreman's wording above:
+
+* **C1's dependence is contingent, not textual.** The foreman said C1 quantifies
+  over *furnished* forms; read literally that would make C1 return-scoped, since
+  the furnished universe does not move when the recorded set moves. C1 is
+  statement-set-dependent only because the closure claim asserts furnished and
+  recorded are coextensive at the keyed horizon. If a later unit weakens that
+  wording, **C1 must be re-examined**.
+* **C1/C2 block for the opposite reason from B2–B5.** The foreman's ground
+  ("reduce the includible amount") is right for B2–B5 and wrong for C1/C2, which
+  block because the honest answer is *larger* than box 1.
+* **A1–A10 are not legal zeros.** Each is a universal over the recorded set, so
+  a `no` is an existential failure leaving an unknown obligated remainder — it
+  blocks. No cardinality shortcut rescues a legal zero even for a singleton
+  family, because [F1098E p. 4] box 1 covers "one or more student loans".
+
+The substrate claim underpinning F1's pricing is **verified in the kernel, not
+assumed**: horizon displacement is generic, not closure-specific
+(`packages/kernel/facts.py:190-216`, `findings.py:745-757`, `currency.py:127,151`,
+`marshal.py:222-226`). The counterexample fully resolves after re-keying; no
+fact remains current that should not.
+
+### Defect found in the already-settled T0-4 text
+
+T0-4 recorded, as its mitigation for `block` carrying no `missing` list, that
+"every component finding is pinned unconditionally whatever its value." **That
+was false at this base.** `all` short-circuits (`evaluator.py:173-174`) and pins
+derive from `AccessLog.refs` (`runner.py:343-359`), so components after the first
+`no` were never read and never pinned. The repair falls out of the change F2
+already forces: seventeen hard `requires` cannot stand, because `runner.py:482`
+checks `requires` before evaluating anything and a closed-empty return would
+block before reaching the guard. The sixteen become `conditional_dependency_set`
+path dependencies — the shape ADR-0038 already ratified for the QDCG
+declarations — which evaluates every member, accumulates a complete absence
+list, and restores the pin completeness T0-4 claimed. No new operator, no new
+error code, no ADR.
+
+### Open dispositions carried to T0c-5
+
+* **MFS.** T0-4 settled married-filing-separately as "blocked". Under the test
+  settled in T0c-2 it has B1's structure and should **select zero**. T0c-5 must
+  dispose of this.
+* **Branch ordering.** Because the empty route is tested first, a taxpayer
+  claimed as a dependent must still close a 1098-E family and answer C2 before
+  receiving a zero the law grants unconditionally. T0c-2 took F2's "without
+  consulting any loan-eligibility answer" literally and accepted the cost.
+  T0c-4 may reopen the ordering, but must then dispose of F2's wording.
+
+### New residual risk — recorded, does not reopen F1
+
+Nothing validates *which family's* horizon a contributed fact keys on.
+`packages/kernel/contribution.py` has no horizon check, and individuation binds
+against every `kernel.family-horizon` entity in the workspace, so a component
+mis-keyed to (say) the W-2 horizon would be admissible and never displaced by
+1098-E changes. Track 1 obligation plus a negative fixture; no new substrate.
+
+Separately, `superseded_horizon_ids` (`packages/kernel/horizons.py:71`) has **no
+caller anywhere in `packages/`**. Displacement does not run through it. Harmless,
+but a reviewer who assumes it is the mechanism would be wrong.
+
+### T0c-4 input, already established
+
+The post-disposition AGI prerequisite on a return with no student-loan activity
+is **closure (empty) plus C2 alone**, down from seventeen components plus
+closure. Matrix row 3 is the remaining cost for T0c-4 to justify.
+
+### T0c-3 is held
+
+T0c-3 (the shared Schedule 1 absence renormalization) modifies content ratified
+by PR #163 and is **held pending owner decision**. It is the only Track 0c item
+that expands the milestone past its original charter.
