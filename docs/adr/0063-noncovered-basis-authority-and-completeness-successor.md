@@ -226,7 +226,11 @@ ADR was drafted; it is distilled here and in the milestone plan
    keeps the existing two-branch shape:
 
    ```text
-   required_closures (unconditional, Decision 9):
+   accounts_for (Decision 9, ADR-0065 Decision 8):
+           form 1040-SCH-D and every Schedule D line symbol in the package
+
+   required_closures (unconditional, and evaluated before applicability
+   resolves, so it gates "inapplicable" too — Decision 9):
            every 1099-B whole-transaction family AND every scalar companion
            AND f1099div.2a
 
@@ -317,11 +321,30 @@ ADR was drafted; it is distilled here and in the milestone plan
      scalar companions) and every `source_set` named by a `collect` in the
      subtotal rules those lines read (as
      `rule.f1099b-covered-w-st-proceeds-subtotal.json:17–32` does, blocking
-     `SOURCE_SET_UNCLOSED`).
-   - **Therefore "Schedule D is complete" entails "no Schedule D line blocks
-     for closure"**, because both sides read the same admitted set: the runner
-     passes `closed_sets=frozenset(self.admissions)` to the evaluator at
-     `runner.py:336`. That entailment is the whole content of B3, and it did
+     `SOURCE_SET_UNCLOSED`). Which lines those are is **declared**, not
+     inferred: both successors carry ADR-0065 Decision 8's `accounts_for`, and
+     the set above is exactly `families(accounts_for.line_symbols)` under that
+     decision's traversal. `attachment.schedule-d` v6 declares
+     `form_id: "1040-SCH-D"` and every Schedule D line symbol the package
+     publishes; `attachment.f8949` v2 declares Form 8949 and the four line
+     symbols `schedule-d.line-1b`, `line-2`, `line-8b`, `line-9` — which
+     ADR-0065 Decision 8's obligation O4 forces on it independently, since each
+     of those lines' rules `require_closed`s one of Form 8949's occupancy
+     families.
+   - **The check is evaluated before applicability resolves** (ADR-0065
+     Decision 3's normative ordering, at the `runner.py:820`/`822` boundary), so
+     it gates the `inapplicable` disposition as well as the complete one. Under
+     the first draft it ran only after the attachment was required, and
+     `runner.py:822–830` returns `inapplicable` before completeness is read at
+     `runner.py:882` — leaving the state B3 names alive: all six whole-
+     transaction families closed **empty**, one scalar companion unclosed,
+     Schedule D `inapplicable`, line 2 blocked `SOURCE_SET_UNCLOSED`. Scalar
+     companions are the exposed case because they appear only in
+     `required_closures` and never in the occupancy list.
+   - **Therefore "Schedule D is complete or inapplicable" entails "no Schedule D
+     line blocks for closure"**, because both sides read the same admitted set:
+     the runner passes `closed_sets=frozenset(self.admissions)` to the evaluator
+     at `runner.py:336`. That entailment is the whole content of B3, and it did
      not hold before — for lines 1a, 1b, 8a, or 8b either.
 
    Applicability is likewise family-shaped rather than amount-shaped
@@ -376,9 +399,15 @@ ADR was drafted; it is distilled here and in the milestone plan
    non-current. A fixture that merely observes a changed number does not
    discharge this; the closure finding ids and the currentness of each closure
    are what is asserted.
-7. Decision 9's `required_closures` set is proved to equal the union of the
-   composed lines' `require_closed` and `collect` source sets by the mechanical
-   check ADR-0065 production condition 5 owes, not by inspection.
+7. Decision 9's `required_closures` set is proved to equal
+   `families(accounts_for.line_symbols)` by the mechanical check ADR-0065
+   production conditions 5, 5a, and 5b owe, not by inspection — and the checker
+   contains no `tax.us.2025.` string.
+7a. Decision 9's ordering is exercised at the production boundary by ADR-0065
+   production condition 3a: all six whole-transaction families closed empty,
+   one scalar companion unclosed, both attachments `blocked` with the companion
+   named and neither `inapplicable`, and line 2 blocked
+   `SOURCE_SET_UNCLOSED` in the same run.
 8. Every prior-milestone regression fixture passes unmodified at its own
    pinned adoption.
 

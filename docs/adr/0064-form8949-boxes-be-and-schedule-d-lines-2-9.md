@@ -97,9 +97,18 @@ Inspected commitments that force explicit decisions:
 
    **Completeness.** Three changes:
 
+   - `accounts_for` (ADR-0065 Decision 8) declares Form 8949 and the four line
+     symbols it is the account of — `schedule-d.line-1b`, `line-2`, `line-8b`,
+     `line-9`. These are Schedule D lines even though Form 8949 is a different
+     form: they are the lines Form 8949 supplies. Obligation O4 forces exactly
+     this list and no shorter one, because each of those four rules
+     `require_closed`s one of the occupancy families above;
    - `required_closures` (ADR-0065 Decision 3) names those four families plus
      their ten scalar companions — the exact set the box (d)/(e) subtotals and
-     the line-1b/8b/2/9 `require_closed` clauses read;
+     the line-1b/8b/2/9 `require_closed` clauses read, and equal by construction
+     to `families(accounts_for.line_symbols)`. It is evaluated **before**
+     applicability resolves, so an unclosed scalar companion blocks Form 8949
+     even on a return where every occupancy family closed empty;
    - the boundary answer is re-pointed from `no-other-form8949-adjustments` v1
      to the ADR-0063 declaration `no-unsupported-form8949-sources` and is now
      **value**-checked at `"yes"`, which v7 admits and v6 did not;
@@ -152,7 +161,7 @@ Inspected commitments that force explicit decisions:
    Schedule D branch still publishes `max(line-16, 0)`.
 
 6. **`attachment.schedule-d` v6.** Moves from `attachment-rule.v4` to
-   `attachment-rule.v7`. Four changes and no others:
+   `attachment-rule.v7`. Five changes and no others:
 
    - **Requirement** becomes an ADR-0065 Decision 2 `any_of`: an `occupancy`
      list over the six 1099-B whole-transaction families (`covered-st`,
@@ -162,9 +171,19 @@ Inspected commitments that force explicit decisions:
      retaining only `tax.us.2025.capital-loss-carryover.short-term` and
      `.long-term`, which are rule output with no family to occupy. The citation
      and the `default-zero` parameter are unchanged.
+   - **`accounts_for`** (ADR-0065 Decision 8) declares
+     `form_id: "1040-SCH-D"` and every Schedule D line symbol the successor
+     package publishes — the eleven `form-field`-bound symbols that exist at
+     `package.core-calculations.v29.json` plus `schedule-d.line-2` and
+     `line-9`. Obligation O2 makes that list non-optional: an attachment
+     claiming to be the account of Schedule D must name every Schedule D line
+     the package publishes.
    - **`completeness.required_closures`** names the six whole-transaction
      families, their scalar companions, and `f1099div.2a` (ADR-0063
-     Decision 9).
+     Decision 9) — which is exactly what the Decision 8 traversal returns from
+     the `accounts_for` list above, and is checked to be, not asserted. It is
+     evaluated before applicability resolves, so it gates Schedule D's
+     `inapplicable` disposition as well as its complete one.
    - **Path A** gains `asserts_families_empty` over the four Form-8949-routed
      whole-transaction families (ADR-0063 Decision 8).
    - **Path B**'s `adds_required` names the ADR-0063 declaration instead of
@@ -187,6 +206,16 @@ Inspected commitments that force explicit decisions:
    explicit zeros. That is the correct outcome — a taxpayer with no Form 8949
    transactions files no Form 8949 — but the earlier text implied the boxes
    render unconditionally, which occupancy-based applicability makes false.
+
+   **Also corrected 2026-08-11 (external review, blocker C1):** the
+   `inapplicable` outcome above is only correct because ADR-0065 Decision 3's
+   closure check runs *before* applicability resolves. On a return where every
+   Form-8949-routed family closes empty but a scalar companion — say
+   `noncovered-st-basis` — is unclosed, Form 8949 and Schedule D are both
+   `blocked` naming that companion, **not** `inapplicable`, and line 2 blocks
+   `SOURCE_SET_UNCLOSED` on it. Without the ordering the attachments would have
+   reported `inapplicable` while the line blocked: the same B3 divergence one
+   level down, on the companion families that no occupancy list names.
 
    With any of the four closures missing,
    line 2 or line 9 blocks `DEPENDENCY_ABSENT` and lines 7/15/16/21,
