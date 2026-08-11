@@ -301,6 +301,24 @@ generically, and disappears with the artifact that declares it.
   box-B/box-E member), and closing it needs a row-constraint vocabulary with a
   real instance to validate against. Recorded here as the next attachment
   substrate candidate.
+- **Named residual, second — and it widens under this milestone.** The
+  identity-key collision kill-test has the same shape as the row guards:
+  `_covered_w_identity_key_collision_violations` is dispatched on `rule_id` at
+  `runner.py:871–877` (line rules, via `_LINE_GUARD_BOX_KEYS`,
+  `runner.py:176–179`) and at `runner.py:508–513` and `runner.py:1114–1125`
+  (the Form 8949 attachment), and **never** for
+  `tax.us.2025.rule.attachment.schedule-d`. So on a return carrying a collision,
+  Form 8949 blocks `BLOCK_INVALID` and lines 1b/8b block while
+  `attachment.schedule-d` v6 reports **complete**. Neither v7 construct catches
+  it: a collision does not unadmit a family, so `required_closures` is
+  satisfied, and Schedule D's own itemization symbols are the line 1a/8a/13
+  subtotals, which a collision does not disturb. ADR-0063 Decision 5 **widens**
+  this guard from two pairs to fifteen across all six transaction fact types, so
+  it fires in strictly more states without changing where it is dispatched from.
+  No wrong number escapes — line 1b blocks, so lines 7/15/16 block — but
+  Schedule D's disposition is optimistic in that state. Same cause and same fix
+  as the first residual: a declared row- and identity-constraint vocabulary.
+  Both are recorded as the next attachment-substrate candidate.
 - One more published `attachment-rule` version exists. The cost is real: the
   runner now carries seven version strings in five tuples. Decision 5 keeps that
   cost to string membership rather than branching, and no version is retired.
