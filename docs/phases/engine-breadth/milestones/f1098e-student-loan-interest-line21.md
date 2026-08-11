@@ -4044,3 +4044,119 @@ touches Article 7. It is not this one.
 6. **`bundle.v3` exists but is not admitted** by `package.core-calculations.v29`.
    Any new bundle must be `bundle.v2` unless `admitted_schemas` is grown, which
    would be a separate, wider change.
+
+## Foreman record — T0c-3 acceptance, and a third option D3 did not contemplate
+
+T0c-3 accepted at `e6269db`. The inventory is sound and its central finding is
+independently verified by the foreman.
+
+### The verified finding: D3's premise was false
+
+**There is no cross-fact-type succession in the kernel.**
+`packages/kernel/facts.py:84-101` (`apply_bundle_adoption`) adds or overwrites by
+id and has no deletion path. `compute_currency`
+(`packages/kernel/currency.py:137-174`) admits only three displacement roots —
+same-fact correction, member withdrawal, and superseded entities — and a new
+fact type is none of them. The twelve are keyed on a `literal` `tax-year`, so
+the entity path cannot reach them. F3's instruction to check the declared
+`supersession: {"policy": "free"}` discharges with a negative:
+`packages/kernel/findings.py:556-576` is that policy's only consumer and fires
+only when a later finding names the **same** `fact_id`.
+
+So D3's permitted shape — "the SSA-scoped facts **may be superseded by** new
+neutral citizens" — **names a capability the engine does not have.** That premise
+came from the foreman, and it was supplied without verifying the mechanism. It is
+the same error as the original F1 pricing, which happened to survive only because
+a builder checked it. Recorded as a foreman defect, not a builder finding.
+
+### Consequence, and why the stop condition is a live question
+
+Under D3 as written and read literally, the repair requires a new
+`fact-type-superseded` act kind touching `facts.py`, `currency.py`, the act
+schemas, and Article 7's edge vocabulary. **That is generic substrate, and the
+stop condition fires.**
+
+T0c-3 avoided the stop only by re-describing the repair as **parallel neutral
+vocabulary with the predecessors left dormant**. Under that shape the inventory
+is genuinely small — 12 new fact types in one new bundle
+(`bundle.v2`; note `bundle.v3` exists but is not in v29's `admitted_schemas`),
+one successor `rule.ss-benefits-worksheet` v2 with exactly 60 mechanical token
+edits, four package/registry/release/adoption files this milestone already mints
+for its own Track 1 content, **zero** fixtures or goldens carrying the twelve,
+**zero** displaced user attestations in repo, and one test file. But the cost it
+correctly identifies is not a file count: **the twelve dormant predecessors are
+permanent.** Every workspace then holds 24 live fact types where it held 12, with
+the 12 orphans in `open_fact_ids` (`packages/kernel/read_models.py:120-127`)
+forever and no retirement mechanism. That is a one-way door.
+
+### The third option — bundle succession re-declaring the same ids
+
+Neither D3 nor T0c-3 contemplated it, and the foreman verified the mechanism
+**before** proposing it this time.
+
+Mint `ss-benefits-scope.bundle.v2.json` re-declaring **the same twelve fact-type
+ids** at fact-type version `v2` with neutral, return-level titles.
+`apply_bundle_adoption` overwrites by id, and its own comment states the intent:
+"Re-adoption under a revised bundle supersedes the fact type; the earlier
+declaration remains in the act history." This is the kernel's real supersession
+path.
+
+The pattern is established and exercised: **29 fact-type ids are already declared
+in more than one bundle**, including `tax.us.2025.w2.box1-wages` across
+`w2.bundle.json`, `w2.bundle.v2.json`, and `w2.bundle.v3.json`, and the whole
+`f1099div-box2a` / `box12` v1→v2 succession. What is novel is only that no prior
+succession has **revised a declaration's meaning** — every existing one carries
+the title forward unchanged.
+
+Properties: no orphans; no duplicate declarations; no double-answering; existing
+contributed findings stay valid, since the `fact_id` and the identity keys are
+unchanged and the proposition is the same one with surplus narrowing removed; no
+new substrate; no ADR. It does not edit any ratified file — it adds a successor
+artifact, and the superseded declaration is preserved in the act history rather
+than lost.
+
+**Its one cost is cosmetic and permanent:** the ids keep the `ss-benefits-scope.`
+prefix forever, so the *name* still says Social Security even once the *declared
+meaning* does not.
+
+**The trade is therefore a permanent semantic orphan (T0c-3's shape) against a
+permanent cosmetic misnomer (this shape).** It is also reversible: if a later
+milestone builds fact-type retirement, the ids can be renamed then. The foreman
+recommends this shape, but it turns on whether re-declaring under the same ids
+falls inside D3's prohibition on rewriting ratified SSA citizens in place —
+which is the owner's reading to give, not the foreman's.
+
+### Two further items T0c-5 must dispose of
+
+* **A thirteenth token has the same defect and the student-loan route needs it:**
+  `no-schedule1-line24z-writein`, T0-5's "Before you begin" precondition. D3 says
+  twelve.
+* **`schedule1-part1-scope.bundle.json` carries the identical
+  consumer-scoped-title defect** one milestone earlier. Not forced by this
+  milestone; recorded as a corpus-wide convention defect.
+
+### A finding that reframes T0c-4 before it starts
+
+`rule.form1040-line9.v7.json` **unconditionally** requires
+`tax.us.2025.social-security.line6b` (`"when": true`, verified), and
+`rule.ss-benefits-worksheet.json` is that symbol's only producer corpus-wide.
+Every return reaching line 9 must therefore already satisfy all **33** SSA scope
+declarations. The 17 components this milestone is being judged on are a minority
+of a burden the ratified line already imposes. T0c-4's dependency diff must be
+stated against that real baseline, not against an imagined unencumbered return —
+otherwise it will overstate this milestone's marginal cost.
+
+### Process note
+
+T0c-3 was instructed to commit the inventory before writing the recommendation
+and instead committed once. Nothing was lost. Recorded because the two-commit
+discipline exists to survive context exhaustion, and a unit that reports its own
+deviation is behaving correctly.
+
+### Corrections to the charter's own references
+
+* `packages/registry/adoptions/` **does not exist**; adoption manifests live at
+  `packages/sample_data/<topic>/adoptions/`. The charter and the foreman's
+  earlier phase-state wording were both wrong.
+* A new bundle must declare `bundle.v2`. `bundle.v3` exists but is not in v29's
+  `admitted_schemas`.
