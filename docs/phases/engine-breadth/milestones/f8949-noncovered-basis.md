@@ -4,9 +4,9 @@
   "topic": "f8949-noncovered-basis",
   "milestone_state": "track-0",
   "retrospective": null,
-  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 \u2014 TRACK 0 REOPENED A SECOND TIME.** The owner reviewed ADR-0063 and ADR-0064 on 2026-08-11 and did **not** ratify. The new-id / non-selection completeness shape is approved in principle, and the family topology, fifteen-pair collision rule, boxes B/E, and lines 2/9 direction are preserved. Five contract-level blockers must be settled first: (B1) an ordinary same-member value correction must not advance the family horizon or displace closures \u2014 only a membership or identity transition does; (B2) Form 8949 may not stay presence-only on attachment-rule.v6, so an **additive published schema successor is now authorized** (combining v6's row model with v4's value-checked answers) and a schema-intent ledger event becomes mandatory; (B3) whole-transaction-family closure must be declaratively load-bearing on Schedule D completeness, not inferred from the scalar companions; (B4) the proceeds>0 attachment-requirement proxy is replaced by a true family-occupancy mechanism, with zero-proceeds/positive-basis and zero/zero boundary fixtures; (B5) the Path A contradiction must be declared in versioned content or schema, not a rule-id-keyed runner guard. The adversarial-closure section and much of the expressibility subsection are superseded and do not pass. Track 0 must settle B2 first, revise the plan and both proposed ADRs in place, rerun the five-artifact gate, and return evidence that attachment applicability, attachment completeness, and line calculation cannot disagree. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29.",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 \u2014 TRACK 0 REOPENED A THIRD TIME.** The owner's five blockers of 2026-08-11 (B1\u2013B5) are answered: ADR-0065 publishes `attachment-rule.v7` (additive union of v6's row model and v4's value-checked answers, plus family-occupancy applicability, `completeness.required_closures`, and `branch_requirements[].asserts_families_empty`), and ADR-0063 Decision 4 restates the correction/membership boundary as a rule. An external review of head `88b4628` then returned **NOT READY** and the closure-gate declaration is **retracted to FAIL**. Three blockers remain: (C1) `required_closures` is specified to run only once the attachment is required, but `runner.py:822\u2013830` returns `inapplicable` before completeness runs, so all-empty transaction families plus one unclosed scalar companion still yields Schedule D inapplicable while line 2/9 blocks \u2014 the exact B3 disagreement; (C2) ADR-0065's exact-equality validator cannot be implemented generically because no attachment citizen declares which line symbols it accounts for, so Track 1 would have to key it on Schedule D's rule id \u2014 the mechanism B5 rejected; (C3) the gate cannot self-declare PASS while documenting two residuals that are counterexamples to its own bar \u2014 **narrowing the bar is an owner decision and is with the owner now**. Mechanical repairs R1\u2013R4 are already made by the foreman. Three ADRs remain `proposed`; **no implementation charter may be filed**. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. `f1098e-student-loan-interest-line21` (PR #169) contends for the package numbers but **not** for the `attachment-rule.v7` filename \u2014 it proposes `rule-artifact.v5`; the earlier collision claim is withdrawn.",
   "current_role": "Track 0 Builder",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened again (2026-08-11)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter, reopened a third time (2026-08-11)",
   "scope": [
     "publish two new transaction fact types and two new package-exclusive families for Form 1099-B transactions whose basis is shown to the recipient but not reported to the IRS, short-term and long-term",
     "extend the Form 8949 attachment citizen with Part I box B and Part II box E, two single-column itemization parts per box (columns d and e), with column (g) contractually zero",
@@ -988,8 +988,13 @@ either, and neither is reachable from this milestone's supported class.
   identifies as a second instance not previously named). Neither is reachable
   from this milestone's supported class; both are recorded as the next
   attachment-substrate candidate.
-- Known limitations affecting correctness: **none.** Four items are recorded and
-  each is disposed rather than qualified:
+- Known limitations affecting correctness: **two — Residuals 1 and 2 below.**
+  (Corrected 2026-08-11 by external review. This line previously read "none",
+  which was false on its own face: the same declaration names two states in
+  which attachment disposition and line calculation disagree. A residual that
+  is bounded is still a limitation; "no wrong number escapes" is a statement
+  about the taxpayer's numbers, not about whether the attachment's disposition
+  is correct.) Four items are recorded:
   1. **Cross-term and cross-family identity collisions** — owner disposition
      2026-08-10, closed here by the fifteen-pair kill-test, with a cross-term
      fixture mandatory.
@@ -1002,11 +1007,38 @@ either, and neither is reachable from this milestone's supported class.
      number escapes, and this milestone widens what it detects without widening
      where it is dispatched from.
 
-**GATE VERDICT: PASS.** All five artifacts pass, and the owner's cannot-disagree
-bar is met for applicability, completeness, and line calculation with two
-explicitly named residuals, both outside this milestone's supported class and
-both recorded for the next attachment-substrate milestone. An implementation
-charter may be filed once ADR-0063, ADR-0064, and ADR-0065 are ratified.
+**GATE VERDICT: FAIL — retracted 2026-08-11 by external review.** This
+declaration originally read PASS. It was wrong on two counts, and the second is
+the more serious:
+
+1. **The gate cannot pass while it documents counterexamples to its own bar.**
+   The owner's bar is that attachment applicability, attachment completeness,
+   and line calculation cannot disagree. Residuals 1 and 2 are two states in
+   which they do. Recording them honestly is necessary but not sufficient;
+   disposing of them as "bounded" and then declaring the bar met is the
+   declaration marking its own homework. Whether the bar is narrowed to this
+   milestone's supported class is an **owner decision**, not a foreman or
+   builder disposition — see "Track 0 charter, reopened a third time
+   (2026-08-11)" below.
+
+2. **`required_closures` as drafted cannot prevent the disagreement it was
+   introduced to prevent.** ADR-0065 Decision 3 evaluates it "once the
+   attachment is required", but `runner.py:822–830` appends the `inapplicable`
+   disposition and returns *before* any completeness evaluation runs. So a
+   return whose whole-transaction families all close empty while a scalar
+   companion is unclosed gets Schedule D `inapplicable` and a blocked line
+   calculation — a third disagreement, on the exact axis B3 named, invisible to
+   the artifact that was supposed to close it. §§1–5 of this rerun are not
+   invalidated, but the conclusion they support is.
+
+A further contract gap, not itself a disagreement: ADR-0065's exact-equality
+content obligation cannot be implemented generically, because an attachment
+citizen nowhere declares which line symbols it accounts for. Track 1 would have
+had to key the validator on Schedule D's rule id — the mechanism blocker B5
+rejected.
+
+**No implementation charter may be filed.** The gate is rerun a second time
+after ADR-0065 is revised.
 
 ## Track 0 adversarial closure (superseded 2026-08-11)
 
@@ -1367,9 +1399,10 @@ attachment to report complete while Schedule D blocks. The
 `docs/process/concurrent-work.md` before the schema edit is made — branch
 `milestone-schema-ledger`, commit `e80fdd7`,
 `schema-ledger/events/f8949-noncovered-basis/20260811T120000Z-attachment-rule-6b3d91.json`
-(`propose`, `additive`); the concurrent `f1098e-student-loan-interest-line21`
-milestone also proposes schema work, so the ledger is load-bearing here, not
-ceremonial.
+(`propose`, `additive`). The concurrent `f1098e-student-loan-interest-line21`
+milestone also proposes schema work, but in a different family
+(`rule-artifact.v5`), so the two do not contend for a filename; the ledger is
+appended because it is the standing rule for a published-schema proposal.
 
 Still explicitly **not** required and still stop conditions: no new schema
 *kind*, no new evaluator operator, no `source-family.v2`, no document-child or
@@ -1397,7 +1430,107 @@ Default production shape per the owner's direction:
   line-2/line-9 walks reuse the ADR-0046 citation-walk and ADR-0056 disposition
   models with no new mechanism, so the default is **no Track 2**.
 
-## Track 0 charter, reopened again (2026-08-11)
+## Track 0 charter, reopened a third time (2026-08-11)
+
+**Controlling.** Filed after an external review of branch head `88b4628`
+returned NOT READY. That review accepted the tax routing, the transaction
+model, ADR-0063's authority and correction/membership boundary, and occupancy
+as the right applicability concept. It found three blocking contract problems.
+The foreman verified all three against committed source before filing this
+charter, and has already made the mechanical repairs (R1–R4 below) so this
+charter is contract work only.
+
+### The three blockers
+
+**C1 — `required_closures` runs too late to do its job.** ADR-0065 Decision 3
+evaluates `required_closures` "once the attachment is required".
+`runner.py:822–830` appends the `inapplicable` disposition and returns before
+completeness is evaluated at all. So the not-required path never sees a closure
+check. Concretely: every Form-8949-routed whole-transaction family closes
+empty, one scalar companion is unclosed, occupancy makes Schedule D
+`inapplicable`, and line 2 or line 9 blocks on that companion's
+`require_closed`. That is the B3 disagreement, surviving the artifact
+introduced to close it.
+
+Revise ADR-0065 so calculation-relevant closure gates the **not-required**
+disposition as well — either by evaluating `required_closures` before
+applicability resolves, or by making every closure an applicability input, or
+by another shape that has the same effect. State which, and cite the runner
+line the revised order corresponds to. Add a fixture: all whole-transaction
+families closed empty, one scalar companion unclosed.
+
+**C2 — the exact-equality validator is not implementable from declared
+information.** ADR-0065 production condition 5 requires a mechanical check that
+a citizen's `required_closures` equals the union of the `require_closed` and
+`collect` source sets of "the rules publishing the lines the attachment
+itemizes or accounts for". No attachment citizen declares which line symbols it
+accounts for. Itemization tie-outs cover only the itemized parts, not every
+Schedule D line the schedule is responsible for. So Track 1 would have to key
+the validator on Schedule D's rule id — the mechanism blocker B5 rejected.
+
+Add the missing declarative surface to `attachment-rule.v7` — an
+`accounted_line_symbols` list or equivalent — and define the traversal from
+those symbols to source families precisely enough that the validator is a
+graph walk over declared content with no artifact-specific branch. Settle this
+**before** ratification rather than leaving Track 1 to discover whether the
+contract is implementable. If no fully declarative relation exists, stop and
+return rather than shipping production condition 5 as prose.
+
+**C3 — the gate's scope is an owner decision, not yours.** The rerun
+declaration is retracted to FAIL. Two residuals (the ADR-0062 row guards and
+the identity-collision guard) are states in which attachment disposition and
+line calculation disagree, and this milestone widens the second one's reach.
+Do **not** re-declare PASS by disposing of them again.
+
+Note for the record, verified by the foreman: the residuals cannot be closed by
+extending the existing guards' dispatch to `attachment.schedule-d`, because
+`_LINE_GUARD_BOX_KEYS` (`runner.py:176–179`) and the `rule_id` equality at
+`runner.py:863` are **not** version-gated — widening them changes dispositions
+for already-published adoptions. Declaring the constraint in versioned content
+is the only route that leaves history alone.
+
+C3 is returned to the owner. Proceed with C1 and C2; leave the gate declaration
+at FAIL and write the closure-gate rerun so that the C3 disposition is a single
+paragraph the owner's answer fills in.
+
+### Mechanical repairs already made by the foreman (do not redo)
+
+- **R1** — exit criterion 1 now requires ADR-0065 alongside ADR-0063/0064.
+- **R2** — the claim that `f1098e-student-loan-interest-line21` contends for
+  the `attachment-rule.v7` filename is withdrawn; that milestone proposes
+  `rule-artifact.v5`, a different family. Package-number contention is real and
+  still recorded.
+- **R3** — ADR-0064 Decision 7's "boxes B/E render present-and-empty" is
+  qualified: under occupancy, an all-empty return makes Form 8949 inapplicable
+  and renders nothing, while Schedule D still publishes lines 2 and 9 as zeros.
+- **R4** — the "known limitations affecting correctness: none" line is
+  corrected to name both residuals, and the gate verdict is retracted to FAIL.
+
+### What to do
+
+1. Revise **ADR-0065** for C1 and C2, in place (it is `proposed`). Add the
+   fixtures each implies to its production conditions.
+2. Propagate to **ADR-0063** Decision 9 and **ADR-0064** Decision 6 wherever
+   they describe `required_closures` ordering or the validator.
+3. Update the plan's "Attachment substrate decision (B2)", "The chosen shape",
+   and fixture matrix.
+4. Rerun the five-artifact gate. Its declaration stays **FAIL** on C3 until the
+   owner rules; C1 and C2 must be shown closed on their own terms.
+5. Update the plan capsule `status` and this plan's charter pointer.
+
+### Stop conditions
+
+Unchanged, plus: stop and return if closing C1 requires a new evaluator
+operator, a new schema *kind*, or a change to an already-published schema; and
+stop and return if C2 has no fully declarative solution.
+
+## Track 0 charter, reopened again (2026-08-11, superseded)
+
+> **SUPERSEDED 2026-08-11** by "Track 0 charter, reopened a third time
+> (2026-08-11)" above. Blockers B1–B5 below are settled — see ADR-0063
+> Decision 4 and ADR-0065 — but the settlement of B3 and B5 was incomplete,
+> which is what the third charter addresses. Retained as the record of what was
+> asked and answered.
 
 **This is the controlling charter.** It supersedes both charters below. Their
 capsule, assigned paths, and non-goals still apply except where this one
@@ -1836,12 +1969,17 @@ committed. The data-safety suite is a pre-push gate.
 - **One new schema file is in Track 1's scope**, added by the 2026-08-11
   substrate decision: `packages/schemas/tax/attachment-rule.v7.schema.json`.
   It is a schema-registry artifact, not a package member, so it does **not**
-  consume a core/registry/release/adoption number — but it is the collision
-  surface with `f1098e-student-loan-interest-line21`, which is why the
-  schema-intent ledger event on `milestone-schema-ledger` (`e80fdd7`) is
-  appended before the file is written. If that milestone lands an
-  `attachment-rule` proposal first, re-read the ledger and reconcile before
-  writing; a second, independently numbered v7 is the failure to avoid.
+  consume a core/registry/release/adoption number. **It does not collide with
+  `f1098e-student-loan-interest-line21`:** that milestone's current design
+  proposes `rule-artifact.v5`, a different schema family, and proposes no
+  `attachment-rule` successor. The earlier claim of an `attachment-rule.v7`
+  filename collision was wrong and is withdrawn (external review,
+  2026-08-11). The schema-intent ledger event on `milestone-schema-ledger`
+  (`e80fdd7`) is still appended before the file is written, because that is the
+  standing rule for any published-schema proposal, not because a specific
+  collision is expected. Re-read the ledger before writing regardless; a
+  second, independently numbered `attachment-rule` successor is the failure to
+  avoid.
 - No byte of `attachment-rule.v1`–`v6` changes. Two content citizens change
   their `schema` string to `attachment-rule.v7` — `attachment.f8949` v2 and
   `attachment.schedule-d` v6 — and both are new selected versions, not edits to
@@ -1930,7 +2068,10 @@ retrospective under `docs/milestone-retrospectives/` although
 
 ## Exit criteria
 
-1. ADR-0063 and ADR-0064 accepted, drafted against committed source.
+1. ADR-0063, ADR-0064, **and ADR-0065** accepted, drafted against committed
+   source. ADR-0065 is load-bearing for the other two: Decisions 7–9 of
+   ADR-0063 and the successor attachments of ADR-0064 are not expressible
+   without `attachment-rule.v7`, so accepting either without it is incoherent.
 2. Every fixture in the matrix above green through `live_coordinate_run`.
 3. Every prior-milestone regression fixture passing unmodified at its own
    pinned adoption.

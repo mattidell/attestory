@@ -176,8 +176,19 @@ Inspected commitments that force explicit decisions:
 
 7. **Closed-empty behaviour is an explicit zero, not an absence.** With the
    noncovered families closed empty, line 2 = 0 and line 9 = 0 with closure and
-   package pins present, Form 8949 boxes B/E render present-and-empty, and every
-   existing route computes unchanged. With any of the four closures missing,
+   package pins present, and every existing route computes unchanged.
+
+   **Corrected 2026-08-11 (external review):** the boxes B/E itemization parts
+   render present-and-empty only when Form 8949 is required for some *other*
+   reason — another Form-8949-routed family is occupied. If **every**
+   Form-8949-routed family closes empty, ADR-0065 Decision 2's occupancy
+   requirement makes the whole attachment `inapplicable`, so no part of Form
+   8949 renders at all, while Schedule D still publishes lines 2 and 9 as
+   explicit zeros. That is the correct outcome — a taxpayer with no Form 8949
+   transactions files no Form 8949 — but the earlier text implied the boxes
+   render unconditionally, which occupancy-based applicability makes false.
+
+   With any of the four closures missing,
    line 2 or line 9 blocks `DEPENDENCY_ABSENT` and lines 7/15/16/21,
    `selected-preferential-base`, and Form 1040 line 7a/9 block along the
    declared chain and nothing else — the established hard-dependency shape
