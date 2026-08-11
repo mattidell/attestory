@@ -76,7 +76,7 @@ question can be succeeded by a differently identified fact question.
 * **Authority boundary:** no seat reads tax-instruction PDFs. Inadequate
   authority is a **stop** requiring a bounded authority review.
 * **Branch / worktree:** `milestone/fact-type-succession-ssa-applicability-design`
-  in `engine-succession`, cut from `origin/main` (`f60e7d1`). **PR #172.**
+  in `engine-worktree-3`, cut from `origin/main` (`f60e7d1`). **PR #172.**
 * **Split record:** `docs/phases/engine-breadth/milestones/fact-type-succession-ssa-applicability.md`.
 * **Next:** Milestone 1 Track 0 on its own branch. Dispatch is not authorized;
   charters are prepared for owner launch.
