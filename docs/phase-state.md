@@ -5,7 +5,7 @@
   "topic": "f8949-noncovered-basis",
   "active_plan": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md",
   "milestone_state": "track-0",
-  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item in favour of the recommendation: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap inside this milestone. Track 0 is chartered at the paper rung and drafts ADR-0063 and ADR-0064; it touches no content, schema, test, fixture, or package file and allocates no version number. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. Concurrent milestone `f1098e-student-loan-interest-line21` (PR #169) competes for the same version numbers; the plan carries a Parallel Work Manifest and an additive-union-at-publication rule.",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item in favour of the recommendation: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap inside this milestone. **Track 0 stopped before drafting either ADR**: the plan's Topic 6 mechanism (a `no-other-form8949-adjustments` v2 successor pinned per completeness path) is not expressible — the runtime binds findings to symbols by fact-type id only and never reads the version pin, so v1 and v2 are one symbol with one answer. The foreman verified this against `marshal.py` and `runner.py`. A chained-discriminator replacement is recommended; the disposition is with the owner. See the plan's "Track 0 stop (2026-08-10)" section. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29. Concurrent milestone `f1098e-student-loan-interest-line21` (PR #169) competes for the same version numbers; the plan carries a Parallel Work Manifest and an additive-union-at-publication rule.",
   "retrospective": null,
   "current_role": "Track 0 Builder",
   "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter (2026-08-10)"
@@ -41,11 +41,17 @@ lines 2 and 9.
 * **Plan:** `docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md`.
   The paper-rung decision inventory and the adversarial-closure declaration
   are settled inside it; no closure item remains open.
-* **In flight:** Track 0 drafts ADR-0063 (noncovered transaction authority,
-  family topology, generalized identity-collision kill-test, Path C
-  completeness successor) and ADR-0064 (Form 8949 boxes B/E, Schedule D
-  lines 2/9 composition). Paper only — no content, schema, test, fixture, or
-  package file is in scope.
+* **In flight — stopped, awaiting owner disposition:** Track 0 was chartered
+  to draft ADR-0063 and ADR-0064 at the paper rung and stopped before drafting
+  either. The plan's Topic 6 completeness mechanism is not expressible: the
+  runtime binds findings to symbols by fact-type **id** only and never reads
+  the version pin, so a `no-other-form8949-adjustments` v1/v2 pair is one
+  symbol carrying one answer, and a Path C return would satisfy Path B's value
+  check. Verified against `packages/derivation/marshal.py` and
+  `packages/derivation/runner.py`. Recommended replacement is a chained
+  discriminator declaration; see the plan's "Track 0 stop (2026-08-10)"
+  section, which also records five plan corrections independent of that
+  decision.
 * **Owner disposition on record:** the identity-collision kill-test covers all
   fifteen pairs across all six Form 1099-B transaction fact types, closing the
   pre-existing cross-term gap in this milestone. The cross-term kill-test
@@ -67,8 +73,8 @@ lines 2 and 9.
   committed source in this milestone's planning commit; the missing
   retrospectives are recorded here rather than backfilled, because writing
   them is not this milestone's work.
-* **Next:** owner approval of the plan and draft PR, then the Track 0
-  contract charters.
+* **Next:** owner disposition of the Topic 6 completeness mechanism, then
+  relaunch Track 0 against the revised plan.
 
 ## Re-entry
 

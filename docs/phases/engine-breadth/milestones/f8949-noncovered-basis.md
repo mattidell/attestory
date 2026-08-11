@@ -4,7 +4,7 @@
   "topic": "f8949-noncovered-basis",
   "milestone_state": "track-0",
   "retrospective": null,
-  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap here. Track 0 is chartered at the paper rung and drafts ADR-0063 (noncovered transaction authority, family topology, collision generalization, Path C completeness) and ADR-0064 (Form 8949 boxes B/E, Schedule D lines 2/9 composition). No content, schema, test, fixture, or package file is touched, and no version number is allocated. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29.",
+  "status": "**ENGINE BREADTH / BROKER-FURNISHED NONCOVERED BASIS THROUGH FORM 8949 BOXES B/E AND SCHEDULE D LINES 2/9 — TRACK 0 IN FLIGHT.** Owner approved the plan and authorized dispatch on 2026-08-10, and disposed the one open closure item: the identity-key collision kill-test covers all fifteen pairs across all six Form 1099-B transaction fact types, closing the pre-existing cross-term gap here. **Track 0 stopped before drafting either ADR**: the plan's Topic 6 mechanism (a `no-other-form8949-adjustments` v2 successor pinned per completeness path) is not expressible — the runtime binds findings to symbols by fact-type id only and never reads the version pin, so v1 and v2 are one symbol with one answer. The foreman verified this. A chained-discriminator replacement is recommended and the disposition is with the owner. See the plan's "Track 0 stop (2026-08-10)" section, which also records five plan corrections independent of that decision. Base: origin/main f60e7d1, core-calculations v29 / published v24 / release v22 / adopt v29.",
   "current_role": "Track 0 Builder",
   "current_prompt": "docs/phases/engine-breadth/milestones/f8949-noncovered-basis.md#Track 0 charter (2026-08-10)",
   "scope": [
@@ -86,7 +86,9 @@
 - Milestone key: `f8949-noncovered-basis`
 - Primary branch: `milestone/f8949-noncovered-basis-lines2-9`
 - Phase: Engine Breadth
-- Status: **planned** (owner review requested; no implementation charter issued)
+- Status: **track-0, stopped** — plan approved and dispatch authorized
+  2026-08-10; Track 0 stopped on the Topic 6 mechanism (see "Track 0 stop
+  (2026-08-10)"), which is with the owner
 - Date: 2026-08-10
 - Base: `origin/main` @ `f60e7d1`; core-calculations **v29** / published **v24** /
   release **v22** / adoption **v29**
@@ -542,6 +544,74 @@ an explicit milestone non-goal and is the owner's call, not the builder's.
 plan, are registered in `docs/adr/INDEX.md`, `governance_lint` is conformant,
 and the work is in named commits on the milestone branch with
 `git status --short` clean over the assigned paths.
+
+## Track 0 stop (2026-08-10) — Topic 6 mechanism is not expressible
+
+Track 0 stopped before drafting either ADR. The Topic 6 decision in this plan —
+"publish a successor `no-other-form8949-adjustments` **v2** and pin Path B at
+`@v1`, Path C at `@v2`" — does not work against committed source. Verified by
+the foreman:
+
+- **A fact id carries no version.** `packages/derivation/marshal.py` binds
+  findings to symbols by fact-type **id** only (`_fact_type_id`,
+  `_fact_id_has_type`). Two versions of one id are one symbol carrying one
+  answer.
+- **The attachment never reads the version pin.** `packages/derivation/runner.py`
+  completeness uses only `symbol`, `check`, and `equals`; the `fact_type` pin is
+  carried but never matched. `answer_specs[extra_symbol] = extra` silently
+  overwrites when two branches add the same symbol.
+- **Consequence:** a Path C return's answer would also satisfy Path B's
+  value check, reinstating the exact false claim v1's committed title makes.
+  The v1/v2 distinction does no work.
+- No precedent exists: zero fact-type ids appear at two versions across the
+  216 selected in `package.core-calculations.v29.json`.
+
+**Recommended replacement (owner disposition requested):** a chained
+**discriminator** declaration. On the existing `no-form8949-sources == "no"`
+branch, require one new declaration — "are any Form 8949 sources noncovered
+with basis not reported to the IRS?" — then branch on it: `"no"` requires the
+existing `no-other-form8949-adjustments` **v1** unchanged; `"yes"` requires a
+new, differently-identified broad declaration covering the noncovered class.
+Verified expressible: `branch_requirements` triggers read `self.symbols`, so a
+branch may hang off a symbol added by an earlier branch. Every published
+declaration keeps exactly the meaning it was published with. Cost: one
+additional declared answer on every Form 8949 return, including the existing
+code-W-only class. Existing fixtures are unaffected — each pins its own
+historical adoption.
+
+Rejected alternatives: broadening v1's meaning in place (mutation of a
+published citizen's meaning); moving Path B/C discrimination into rule content
+(regresses ADR-0055 — the attachment would read complete while consumers
+correctly block).
+
+### Corrections to this plan, independent of the Topic 6 disposition
+
+1. **Guard mechanism.** The contradictory-declaration guard cannot copy the
+   Form 1098 precedent literally: that used a new `derivation-record` block
+   code, and the enum is closed at `derivation-record.v6`. A new published
+   schema version is an explicit non-goal and stop condition. Use the
+   ADR-0061/0062 mechanism instead: `BLOCK_INVALID` plus a named
+   `tax.us.2025.block.*` symbol, as `GUARD_IDENTITY_KEY_COLLISION` does.
+2. **Kill-test wiring.** `_COVERED_W_IDENTITY_COLLISION_BOX_TYPES` in
+   `runner.py` maps each box key to a **2-tuple** and `_LINE_GUARD_BOX_KEYS`
+   scopes line 1b to `("st",)` and line 8b to `("lt",)`. Cross-term collisions
+   are structurally invisible at those call sites whatever the pair table
+   contains. The owner's fifteen-pair disposition requires the run-path wiring
+   to pass the full six-fact-type set independent of box key.
+3. **`attachment-rule` versions are not interchangeable.** v4 is the only
+   published version whose `required_answer` admits `check: "value"`; v5 and v6
+   are presence-only. `attachment.schedule-d` v5 is correctly on v4 and its v6
+   successor must stay on v4. ADR-0062's claim that v3–v6 are shape-identical
+   is false for v4 against v5/v6. `attachment.f8949` is on v6 and therefore
+   cannot carry a value-checked answer.
+4. **`basis` is already required** on the mirrored covered fact types. Only the
+   `basis_reported_to_irs` enum narrowing is novel.
+5. **Row-guard non-misfire is structural, not a fixture obligation.**
+   `_f8949_row_guard_violations` iterates `_F8949_ROW_GUARD_BOXES`, which names
+   only the code-W fact types, so box-B/box-E rows are never read.
+
+Topics 1, 2, 3, 4, 5, 8, and 9 are grounded and drafting-ready; only the
+Topic 6 mechanism blocks both ADRs.
 
 ## Fixture matrix (minimum)
 
