@@ -2839,3 +2839,297 @@ enforcement surface removed. Version tips on the rebased base: core-calculations
 **v29**, published **v24**, release **v22**, `rule-artifact.v4`,
 `attachment-rule.v6`, `form-field.v3`; highest **allocated** fact-type schema is
 `fact-type.v3`, though all content still declares `fact-type.v2`.
+
+---
+
+## Track 0c settlement — T0c-1 (authority lifecycle and horizon re-keying)
+
+This unit settles mandatory Track 0 output 1 (authority-lifecycle table) and
+output 3 (late-authority counterexample), and settles the re-keying disposition
+F1 requires. It allocates no version numbers and writes no content.
+
+Everything below was verified against the worktree at `0ce6187`; file and line
+references are to that commit.
+
+### T0c-1.1 — Classification: confirmed sixteen of seventeen, with one ground corrected
+
+The foreman's classification is **confirmed as to outcome for all seventeen
+components**. One component (C1) is confirmed on a **different ground** than the
+one offered; the offered ground, taken literally, would have made C1
+return-scoped.
+
+The controlling text is not only each component's legal condition but the T0-2
+settlement's own scope constraint: *"Each component's title carries the
+universal quantifier explicitly — 'for every Form 1098-E box-1 amount recorded
+in the 2025 Form 1098-E source family'"*. A fact whose declared title names the
+recorded family is, by its own declaration, an assertion about that family's
+current membership. That declaration is the primary evidence for sixteen of the
+rows below; the per-component text is the confirming evidence.
+
+| # | What the settled definition text actually quantifies over | Class |
+| --- | --- | --- |
+| A1 | Explicit: "the interest payments covered by **every recorded statement**". | statement-set-dependent |
+| A2 | Explicit: "**Every box-1 amount** was paid during 2025…". | statement-set-dependent |
+| A3 | "**Each loan** was taken out solely…". The loans are reachable only through the recorded statements; the set of loans is a function of the recorded set. | statement-set-dependent |
+| A4 | "**The expenses** were paid or incurred within a reasonable period…" — no quantifier in the sentence itself; "the expenses" are A3's expenses, i.e. those of the loans behind the recorded set. Dependent **by construction**, and made explicit by the mandated title. | statement-set-dependent |
+| A5 | "**The student** was the taxpayer…" — per loan, therefore per recorded statement's loans, by the same construction as A4. | statement-set-dependent |
+| A6 | Same construction as A5: a property of the student of each loan behind the recorded set. | statement-set-dependent |
+| A7 | Same: a property of the institution for each loan behind the recorded set. | statement-set-dependent |
+| A8 | Explicit: "**No recorded statement's** loan was from a related person". | statement-set-dependent |
+| A9 | Explicit: "**No recorded statement's** loan was made under a qualified employer plan…". | statement-set-dependent |
+| A10 | Per loan ("…were not less than **the loan proceeds**"), therefore per recorded statement's loans. | statement-set-dependent |
+| B1 | "Neither the taxpayer nor, on a joint return, the spouse **is claimed as a dependent on another taxpayer's 2025 return**." The sentence names no loan, no statement, no interest, and no family. Its truth-maker is a *different return*. | **return-scoped — the sole exception** |
+| B2 | "**No claimed interest** was paid from…" — the claimed interest is exactly the recorded box-1 set (T0-3: box 1 is the whole reported-interest boundary). | statement-set-dependent |
+| B3 | "No **claimed interest** was paid by the taxpayer's employer…". Same. | statement-set-dependent |
+| B4 | "**No claimed amount** is an allowable deduction under any other provision…". Same. | statement-set-dependent |
+| B5 | "**No claimed interest** was paid through … the NHSC Loan Repayment Program…". Same. | statement-set-dependent |
+| C1 | **Ground corrected.** C1's own text quantifies over forms *furnished* — "No 2025 Form 1098-E **furnished to the taxpayer** has box 2 checked" — not over forms *recorded*. Read on its face that universe does not move when the recorded set moves, and C1 would be return-scoped. It is nevertheless statement-set-dependent, for a stronger reason: the family closure claim asserts that the furnished set and the recorded set are coextensive as of the keyed horizon ("Every amount reported in box 1 of a Form 1098-E furnished to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon"). A membership addition is therefore precisely the event that says the taxpayer held a furnished form they had not accounted for when they answered C1. C1 is dependent **through closure**, not through its own quantifier. | statement-set-dependent |
+| C2 | Explicit, and most sharply: "…other than the amounts reported in box 1 of **the recorded Forms 1098-E**". | statement-set-dependent |
+
+**Settled: sixteen statement-set-dependent, B1 alone return-scoped.** No
+component is reclassified. The C1 correction matters because it is the one row
+whose dependence survives only as long as the closure claim's coextension
+wording survives; if a later unit weakens that wording, C1 must be re-examined.
+
+### T0c-1.2 — The re-keying, and the substrate it stands on
+
+**Settled.** The sixteen statement-set-dependent components take identity keys
+
+```
+[ {kind: entity, name: family-horizon, entity_kind: kernel.family-horizon},
+  {kind: literal, name: tax-year, values: ["2025"]} ]
+```
+
+B1 keeps `[{kind: literal, name: tax-year, values: ["2025"]}]` unchanged.
+
+Verified as existing substrate, not proposed substrate:
+
+* **The shape is in the ratified corpus.** `packages/content/tax/2025/f1098.bundle.json`
+  declares `tax.us.2025.f1098.source-closure` with exactly
+  `[{name: family-horizon, kind: entity, entity_kind: kernel.family-horizon},
+  {name: tax-year, kind: literal, values: ["2025"]}]`, and
+  `ssa1099.bundle.json` declares `tax.us.2025.ssa1099.source-closure` with the
+  identical pair. `kernel.family-horizon` appears 44 times across
+  `packages/content`.
+* **The schema admits it, on both allocated surfaces.** `fact-type.v2`
+  (`packages/schemas/kernel/fact-type.v2.schema.json`) types an entity key as
+  `{name, kind: "entity", entity_kind: string minLength 1}` with no restriction
+  on which entity kinds may appear and no coupling to `nature` or
+  `value_schema`. A `determinable` component with `value_schema
+  {"enum":["yes","no"]}` keyed on `kernel.family-horizon` is admissible.
+  `fact-type.v3` narrows `entity_kind` to the dotted-id pattern
+  `^[a-z][a-z0-9]*(\.[a-z0-9-]+)+$`, which `kernel.family-horizon` matches, so
+  the re-keying does not become inadmissible if content later migrates. (Track 1
+  should note that `fact-type.v3` is a *distinct, unrelated* surface — its own
+  description says so — and drops `version`, `optional_default`, and
+  `source_amount`; this settlement stays on `fact-type.v2`, as all content does.)
+* **The displacement mechanism is generic in the kernel, not closure-specific.**
+  This is the load-bearing verification and it was the open question. Fact
+  individuation (`packages/kernel/facts.py:190–216`) walks *every* identity key
+  of *every* fact type and, for entity keys, binds one fact per entity of that
+  kind, recording `individuated_by`. Nothing there is aware of closure.
+  `packages/kernel/findings.py:745–757` marks the predecessor horizon entity
+  `status="superseded"` on every member transition.
+  `packages/kernel/currency.py:151` adds every superseded entity id to the
+  displacement roots, and `currency.py:117–134` builds individuation edges from
+  the **full historical lattice** (`include_displaced=True`) so the edge from a
+  now-superseded entity to the findings answering facts it individuates still
+  exists. Therefore **any** fact keyed on `kernel.family-horizon` is displaced
+  when that horizon is superseded — the closure fact has no privilege here, it
+  is simply the only fact type that has so far used the key.
+* **Marshalling honours it with no change.** `packages/derivation/marshal.py:222–226`
+  builds the run context's inputs from `currency.current_finding_ids` alone; a
+  displaced finding is never offered to a binding, and `marshal.py:236–241`
+  leaves the binding unbound so the runner records `DEPENDENCY_ABSENT` rather
+  than inventing a value. The legacy fallback path (`marshal.py:282–307`) also
+  iterates `current_findings` and is likewise safe.
+
+No evaluator change, no kernel change, no schema change, no ADR. The foreman's
+pricing is confirmed: this is content-level reuse of ratified substrate.
+
+**One substrate observation, recorded because it bounds the claim.**
+`superseded_horizon_ids` (`packages/kernel/horizons.py:71`) is defined and has
+**no caller anywhere in `packages/`**. Displacement does not run through it; it
+runs through the entity lattice as traced above. The horizon-currency filter in
+`packages/derivation/source_authority.py:141–163` (`record.horizon_id == current`)
+is a *second*, closure-only mechanism reached through a
+`source-closure-mapping.v2` citizen's `closure_horizon_key`. The sixteen
+components get no such mapping and need none — they are protected by
+displacement, which is the stronger of the two, because a displaced finding never
+reaches the run at all.
+
+### T0c-1.3 — Authority-lifecycle table (mandatory output 1)
+
+Nineteen rows: the seventeen components, the family closure attestation, and the
+box-1 subtotal. The member box-1 fact is included as a twentieth row because it
+is contributed and its lifecycle is what the other rows react to. Scope is stated
+as the settled identity key.
+
+| Fact | Meaning | Scope (identity key) | Depends on | What invalidates it |
+| --- | --- | --- | --- | --- |
+| `f1098e.box1-interest` (member) | Box-1 interest on one furnished statement from one filer | `filer`, `statement`, `tax-year` | The statement citizen the taxpayer individuated | A later finding for the same fact (a CORRECTED statement, or a re-assertion); a member-transition `remove` withdrawing the fact. **Not** invalidated by other statements arriving |
+| `f1098e.source-closure` | Every furnished 2025 Form 1098-E box-1 amount is recorded as of this horizon | `family-horizon`, `tax-year` | The membership of the 1098-E family at the keyed horizon | Any member transition on the family (add, remove, reclassify): the predecessor horizon entity is superseded and this finding is displaced |
+| `f1098e.box1-subtotal` (derived, not contributed) | Multi-filer sum of current members, admitted only against current closure | derived publication over the family | Closure at the current horizon plus every current member finding | Displacement of the closure finding; displacement or correction of any member finding; any member transition |
+| A1 `legally-obligated` | Taxpayer (or spouse, joint) is legally obligated for the interest covered by every recorded statement | `family-horizon`, `tax-year` | The recorded statement set | Member transition (horizon supersession); correction of the answer |
+| A2 `interest-paid-in-2025` | Every box-1 amount was paid in 2025 by or for the taxpayer | `family-horizon`, `tax-year` | The recorded statement set | Member transition; correction |
+| A3 `proceeds-solely-qualified-expenses` | Each loan behind the recorded set was taken out solely for qualified education expenses | `family-horizon`, `tax-year` | The recorded statement set (through its loans) | Member transition; correction |
+| A4 `expenses-within-reasonable-period` | Those expenses fall within a reasonable period of each loan | `family-horizon`, `tax-year` | The recorded statement set (through its loans) | Member transition; correction |
+| A5 `student-relationship-when-incurred` | For each loan, the student was the taxpayer, spouse, or dependent when the loan was taken out | `family-horizon`, `tax-year` | The recorded statement set (through its loans) | Member transition; correction |
+| A6 `eligible-student` | For each loan, the student was an eligible student enrolled at least half-time | `family-horizon`, `tax-year` | The recorded statement set (through its loans) | Member transition; correction |
+| A7 `eligible-educational-institution` | For each loan, the education was provided by an eligible educational institution | `family-horizon`, `tax-year` | The recorded statement set (through its loans) | Member transition; correction |
+| A8 `lender-not-related-person` | No recorded statement's loan was from a related person | `family-horizon`, `tax-year` | The recorded statement set (through its lenders) | Member transition; correction |
+| A9 `not-qualified-employer-plan-loan` | No recorded statement's loan was under a qualified employer plan | `family-horizon`, `tax-year` | The recorded statement set (through its loans) | Member transition; correction |
+| A10 `expenses-not-reduced-below-loan` | For each loan, adjusted qualified expenses were not less than the proceeds | `family-horizon`, `tax-year` | The recorded statement set (through its loans) and the taxpayer's tax-free assistance | Member transition; correction |
+| B1 `not-claimed-as-dependent` | Neither taxpayer nor spouse is claimed as a dependent on another taxpayer's 2025 return | `tax-year` **only** | Another taxpayer's return; nothing in this workspace | **Correction alone.** No 1098-E event invalidates it, and that is correct |
+| B2 `no-qtp-tax-free-earnings-paid-interest` | No claimed interest came from tax-free QTP earnings | `family-horizon`, `tax-year` | The recorded box-1 set (what "claimed" denotes) | Member transition; correction |
+| B3 `no-employer-educational-assistance-interest` | No claimed interest was paid by the employer under an educational assistance program after 2020-03-27 | `family-horizon`, `tax-year` | The recorded box-1 set | Member transition; correction |
+| B4 `no-other-provision-deduction` | No claimed amount is deductible under another provision or used in another deduction | `family-horizon`, `tax-year` | The recorded box-1 set and the rest of the return | Member transition; correction |
+| B5 `no-loan-repayment-assistance-payments` | No claimed interest was paid through NHSC or a similar LRAP | `family-horizon`, `tax-year` | The recorded box-1 set | Member transition; correction |
+| C1 `no-box-2-checked` | No furnished 2025 Form 1098-E has box 2 checked | `family-horizon`, `tax-year` | The furnished set, held coextensive with the recorded set by the closure claim | Member transition; correction |
+| C2 `no-unreported-deductible-interest` | No deductible 2025 student loan interest exists outside box 1 of the recorded statements | `family-horizon`, `tax-year` | The recorded statement set | Member transition; correction |
+
+Two lifecycle facts the table makes visible and that later units must not undo:
+
+1. **A same-member value correction does not advance the horizon** (ADR-0017 §4,
+   already relied on by T0-1 for closure). A CORRECTED Form 1098-E that changes
+   only an amount therefore does **not** invalidate any of the sixteen. This is
+   semantically right: the loans and lenders the sixteen speak about are
+   unchanged.
+2. **A member `remove` does advance the horizon** and therefore does invalidate
+   the sixteen, even though shrinking the recorded set can only make a universal
+   assertion *weaker*, so the old answers would still be true. This settlement
+   accepts the over-strictness rather than introducing a second, direction-aware
+   invalidation rule. It is one rule, it never authorizes an unasserted
+   statement, and it fails safe.
+
+### T0c-1.4 — Late-authority counterexample (mandatory output 3), walked
+
+Walked as **attest → close → compute → add member → reclose → recompute**, twice:
+once under the withdrawn tax-year-only keying, once under the settled keying.
+A8 and C2 are walked explicitly, as the charter requires; the paragraph after
+states why the walk generalizes to the other fourteen without repetition.
+
+Setup common to both walks: statement S1 from filer F1, box 1 = $900; horizon
+genesis H1 on the 1098-E family; the second statement S2 from filer F2 is from a
+**related person**, so the true A8 answer over {S1, S2} is `no`, and S2 also
+carries $300 of interest the taxpayer never told the engine about, so the true
+C2 answer over {S1} was false in retrospect.
+
+**Walk 1 — tax-year-only keying (the withdrawn design).**
+
+| Step | A8 | C2 | Other authority |
+| --- | --- | --- | --- |
+| attest | `A8|tax-year=2025` = yes, current | `C2|tax-year=2025` = yes, current | box-1 S1 current |
+| close | unchanged | unchanged | `source-closure|family-horizon=H1,tax-year=2025` = true, current |
+| compute | read, pinned | read, pinned | line 21 published over subtotal 900 |
+| add member (S2) | **still current** — no individuation edge to H1, no later finding for the same fact | **still current** | H1 entity superseded ⇒ closure@H1 displaced ⇒ subtotal and the line-21 publication displaced along derivation edges |
+| reclose | still current | still current | `source-closure|family-horizon=H2` = true |
+| recompute | bound from the H1-era finding | bound from the H1-era finding | line 21 recomputed over subtotal 1200 |
+
+Facts unusable at each transition, before the fix: **at "add member", exactly
+three things** — the H1 closure finding, the box-1 subtotal, and the prior
+line-21 publication. Nothing else. **A8 and C2 remain current**, and the
+recomputation authorizes $1,200 of interest on attestations made about $900 of
+it. The finding is confirmed: the counterexample reproduces exactly as stated,
+and it reproduces for all sixteen, not only A8.
+
+**Walk 2 — settled keying (`family-horizon`, `tax-year`).**
+
+| Step | A8 | C2 | Other authority |
+| --- | --- | --- | --- |
+| attest | `A8|family-horizon=H1,tax-year=2025` = yes, current | `C2|family-horizon=H1,tax-year=2025` = yes, current | box-1 S1 current. **Ordering constraint:** horizon genesis must precede the attestation, since the key names H1 |
+| close | unchanged | unchanged | closure@H1 = true |
+| compute | read, pinned | read, pinned | line 21 published over subtotal 900 |
+| add member (S2) | **displaced.** H1 entity → `status="superseded"` (`findings.py:745–757`); `currency.py:151` roots it; the individuation edge H1 → this finding exists because `facts.py:190–216` individuates A8 by its `family-horizon` entity key exactly as it individuates closure | **displaced**, by the same edge | closure@H1 displaced; subtotal and line-21 publication displaced |
+| reclose | absent at H2 | absent at H2 | closure@H2 = true |
+| recompute | binding finds no current finding (`marshal.py:233–241`) ⇒ **`DEPENDENCY_ABSENT` naming A8** | same ⇒ `DEPENDENCY_ABSENT` naming C2 | no line 21; the taxpayer is asked the sixteen questions again about {S1, S2} |
+
+Facts unusable at "add member", after the fix: the H1 closure finding, the
+subtotal, the line-21 publication, **and all sixteen statement-set-dependent
+components**. B1 survives, correctly and by design.
+
+**Nothing remains current that should not.** There is no residual "it remains
+current" answer for any of the sixteen, so this output does not block Track 0
+closure. The generalization to the other fourteen is not an argument by analogy:
+displacement is driven by the identity key alone, and all sixteen carry the same
+`family-horizon` key, so the walk is literally the same walk with a different
+fact-type id. B1 is the only row with a different key and therefore the only row
+with a different answer.
+
+**One residual, recorded as a risk rather than a defect.** Nothing in the kernel
+checks *which family's* horizon chain a contributed fact keys on.
+`packages/kernel/contribution.py` performs no horizon validation, and fact
+individuation binds a `family-horizon` key against every entity of kind
+`kernel.family-horizon` in the workspace regardless of family. A component
+mis-keyed to, say, the W-2 family's current horizon would be admissible and
+would then never be displaced by 1098-E membership changes. The protection is
+therefore only as good as the contribution boundary's choice of horizon. This is
+a Track 1 obligation (the contribution path must key the sixteen to the 1098-E
+family's current horizon) and a fixture obligation (a negative fixture asserting
+a component against the wrong chain). It needs no new substrate and does not
+reopen F1.
+
+### T0c-1.5 — What the re-keying costs, and whether the burden is right
+
+**The burden.** Every member transition on the 1098-E family — adding a
+statement, removing one, reclassifying one — obliges the taxpayer to re-answer
+**sixteen** questions before line 21, Schedule 1 line 26, Form 1040 line 10, and
+AGI can be computed again. Before this settlement the same transition obliged
+them to re-attest **one** thing (closure). The re-keying multiplies the
+membership-change cost by sixteen, and it does so at the worst moment: the
+taxpayer has just discovered a form they had forgotten.
+
+**What softens it, factually.** A CORRECTED statement that changes only an amount
+is not a member transition (ADR-0017 §4) and costs nothing. The burden falls only
+on genuine membership change, which is the event that actually invalidates the
+answers.
+
+**Whether it is the right burden — settled: yes, at this base.** Three grounds.
+
+1. *The answers really are about the new set.* Fourteen of the sixteen are
+   universals over the recorded loans; adding a loan makes the previous answer
+   an assertion about a different set. Re-asking is not friction, it is the
+   question.
+2. *The alternative is not cheaper, it is unavailable.* Per-statement authority
+   would let the sixteen be asked once per new statement rather than sixteen
+   times per transition — but it requires a categorical or boolean aggregate to
+   fold per-statement answers across a variable-length family, and the evaluator
+   has none (`evaluator.py:118` `collect` decimal-coerces every row;
+   `count` returns only a length). That is milestone stop condition 2. The cost
+   comparison is therefore against a design this milestone cannot build, not
+   against a design it declined to build.
+3. *The engine's existing posture already prices correctness above convenience
+   here.* Closure itself imposes exactly this shape of burden and is ratified 44
+   times over. The re-keying makes the sixteen behave like the one fact in the
+   family that already behaved correctly.
+
+**What is honestly wrong with it, stated rather than smoothed.** The burden is
+blunt: a second statement from the *same* servicer for the *same* loans, which
+changes nothing any of the sixteen assert, still costs sixteen re-attestations.
+A future milestone with per-statement authority and a real aggregate would charge
+one. This settlement records that as a known, correct-but-coarse cost, not as a
+design virtue. Presentation should mitigate it by re-offering the previous
+answers as defaults *to the taxpayer* — never as engine defaults, and never
+carried forward without a fresh assertion.
+
+### Notes addressed to T0c-3/4/5 — findings, not decisions
+
+* **To T0c-4 (dependency diff).** B1's return scope is now load-bearing in a
+  second way: since it is not displaced by 1098-E events, it is a *standing*
+  return-level prerequisite once anything requires it. Whether AGI should acquire
+  a standing dependent-status prerequisite is T0c-4's question; T0c-2 removes the
+  worst version of it by making `B1 = no` a legal zero rather than a block, but
+  it does not remove the requirement that B1 be *answered*.
+* **To T0c-5 (restatement).** T0-2 must be restated: its heading *"Scope of the
+  components: return-scoped, and why"* and its settled sentence *"every
+  eligibility component is return-scoped, keyed by the `tax-year` literal
+  `'2025'` alone"* are now wrong for sixteen of seventeen. The reasoning under
+  that heading survives intact — the *collapse over statements* is still forced
+  by the evaluator's missing aggregate, and the mandated universal quantifier in
+  each title still stands. Only the identity key changes. T0-1's identity-key
+  section needs no change.
+* **To T0c-5.** SLI-C2's wording must gain the horizon binding. SLI-C1 is
+  unaffected.
+* **To T0c-3.** The twelve reused `ss-benefits-scope` absences are return-scoped
+  in the same sense B1 is — they are not statement-set-dependent — so F1's
+  re-keying does not touch them and does not change F3's pricing either way.
