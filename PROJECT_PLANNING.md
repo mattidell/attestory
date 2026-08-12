@@ -1043,7 +1043,7 @@ Qualifiers such as “known limitation, recorded rather than engineered around,�
 the limitation can affect correctness, lifecycle, or a neighboring capability,
 it triggers the counterexample and dependency work below.
 
-Track 0 must produce all five artifacts:
+Track 0 must produce all six artifacts:
 
 1. **Authority-lifecycle table.** Include every contributed fact, reused
    declaration, aggregate declaration, and absence authority on which the
@@ -1097,6 +1097,32 @@ Track 0 must produce all five artifacts:
    and must be justified by the neighbor's own meaning, not by implementation
    convenience.
 
+6. **Integration-surface artifact.** Required whenever Track 0 plans a producer
+   or a successor producer of an **externally bound symbol** — any symbol a
+   consumer outside the derivation graph binds or joins on. Track 0 must:
+
+   - **Enumerate every binding of the published symbol** — form fields,
+     attachments, package entrypoints, and presentation joins among them.
+
+     | Consumer | Binding artifact or join | Cardinality it expects | Satisfied by the design? |
+     | --- | --- | --- | --- |
+     | `<consumer>` | `<artifact id or code path>` | `<exactly one, at least one, any>` | `<yes, with evidence>` |
+
+   - **State the cardinality each consumer expects.** A consumer that admits
+     exactly one row per symbol constrains how many rule citizens may publish or
+     record a disposition for it, on every path — including losing, blocked,
+     false-guard, and never-eligible paths, not only the publishing path.
+   - **Produce one synthetic end-to-end model for every materially distinct
+     disposition path**, exercised through the real consumer. A model that is
+     argued rather than built is not evidence.
+   - **Verify that any cited precedent shares the properties the consumers care
+     about**, not merely the local rule shape. A precedent is silent about the
+     properties it never had to satisfy, and that silence is not permission.
+
+   For a form-field-bound symbol, a **valid presentation-model probe** is part
+   of Track 0 closure. The implementation charter cannot be called ready without
+   it.
+
 The plan closes with this declaration:
 
 ```md
@@ -1107,6 +1133,7 @@ The plan closes with this declaration:
 - Late-member lifecycle: PASS/FAIL — evidence
 - Neighboring capability dependency diff: PASS/FAIL — evidence
 - Reused-claim semantic/lifecycle equivalence: PASS/FAIL — evidence
+- Integration surface: PASS/FAIL/N-A — bindings, cardinalities, and the models built
 - Known limitations affecting correctness: none, or owner disposition required
 ```
 
@@ -1114,8 +1141,9 @@ The plan closes with this declaration:
 that would fail if the design were wrong; prose confidence is not evidence.
 Track 0 cannot be marked settled, and the first implementation charter cannot
 be filed, while an artifact is missing, a row is `FAIL`, a neighboring
-dependency is unexplained, or a known semantic coupling lacks a counterexample
-showing that the coupling is correct. Such a result returns to paper design or
+dependency is unexplained, an externally bound symbol lacks a built end-to-end
+model for each of its distinct disposition paths, or a known semantic coupling
+lacks a counterexample showing that the coupling is correct. Such a result returns to paper design or
 to the owner for disposition; it is never downgraded to “nonblocking” by the
 Foreman.
 
