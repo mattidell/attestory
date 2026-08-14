@@ -176,6 +176,43 @@ class DeclaredAbsenceDomainAdmissionGuard(unittest.TestCase):
         self.assertTrue(result.ok, msg=str(result.issues))
         self.assertNotIn("CONDITIONAL_DEPENDENCY_MEMBER_NOT_YES_NO", self._codes(result))
 
+    def test_equivalent_typed_string_spelling_is_also_admitted(self) -> None:
+        """{"type": "string", "enum": ["yes", "no"]} is the same closed
+        domain as {"enum": ["yes", "no"]}, just spelled with an explicit
+        (and redundant) type key - the two are recognized as equivalent
+        rather than forcing every fact type using the typed spelling into an
+        unnecessary successor version."""
+        fact_type = _demo_fact_type(
+            "demo.fact.declared-absence", {"type": "string", "enum": ["yes", "no"]}
+        )
+        bundle = _demo_bundle([fact_type])
+        rule = _demo_cds_rule(["demo.fact.declared-absence"])
+        result = self._validate([bundle, rule])
+        self.assertTrue(result.ok, msg=str(result.issues))
+        self.assertNotIn("CONDITIONAL_DEPENDENCY_MEMBER_NOT_YES_NO", self._codes(result))
+
+    def test_typed_spelling_with_extra_value_is_rejected(self) -> None:
+        """The two-spelling equivalence is bounded: adding a third value
+        must still fail, even under the accepted typed spelling."""
+        fact_type = _demo_fact_type(
+            "demo.fact.declared-absence", {"type": "string", "enum": ["yes", "no", "unknown"]}
+        )
+        bundle = _demo_bundle([fact_type])
+        rule = _demo_cds_rule(["demo.fact.declared-absence"])
+        result = self._validate([bundle, rule])
+        self.assertIn("CONDITIONAL_DEPENDENCY_MEMBER_NOT_YES_NO", self._codes(result))
+
+    def test_typed_spelling_with_incompatible_type_is_rejected(self) -> None:
+        """A materially different schema - the enum plus a non-string type -
+        is not one of the two recognized equivalent spellings."""
+        fact_type = _demo_fact_type(
+            "demo.fact.declared-absence", {"type": "integer", "enum": ["yes", "no"]}
+        )
+        bundle = _demo_bundle([fact_type])
+        rule = _demo_cds_rule(["demo.fact.declared-absence"])
+        result = self._validate([bundle, rule])
+        self.assertIn("CONDITIONAL_DEPENDENCY_MEMBER_NOT_YES_NO", self._codes(result))
+
     def test_boolean_domain_is_rejected(self) -> None:
         fact_type = _demo_fact_type("demo.fact.declared-absence", {"type": "boolean"})
         bundle = _demo_bundle([fact_type])
@@ -209,6 +246,74 @@ class DeclaredAbsenceDomainAdmissionGuard(unittest.TestCase):
         rule = _demo_cds_rule([CG_DIST, SCHED_D])
         result = self._validate([bundle, rule])
         self.assertTrue(result.ok, msg=str(result.issues))
+
+
+class CategoryLiteralPinFidelityGuard(unittest.TestCase):
+    """Check 10b: a category_literal's (id, version) exact pin must resolve
+    to that exact fact-type version in the package's own fact surface - not
+    merely to the same id at some other version the package happens to
+    select instead."""
+
+    def setUp(self) -> None:
+        self.schemas = DerivationSchemas()
+
+    def _package(self, members: list[dict[str, Any]]) -> dict[str, Any]:
+        member_pins = [
+            {
+                "role": "fact-type-bundle" if m["schema"] == "bundle.v2" else "computation",
+                "schema": m["schema"],
+                "id": m["id"],
+                "version": m["version"],
+            }
+            for m in members
+        ]
+        return {
+            "schema": "artifact-package.v4",
+            "id": "demo.package.category-literal-pin",
+            "version": "v1",
+            "scope": {"tax_year": 2025, "jurisdiction": "US-federal", "family": "demo"},
+            "admitted_schemas": sorted({m["schema"] for m in members}),
+            "members": member_pins,
+            "input_bindings": [],
+            "entrypoints": [{"id": m["id"], "version": m["version"]} for m in members],
+            "composition_obligations": [],
+            "package_checksum": "0" * 64,
+        }
+
+    def _validate(self, corpus_members: list[dict[str, Any]], package_members: list[dict[str, Any]]) -> Any:
+        corpus = {(m["id"], m["version"]): m for m in corpus_members}
+        return validate_package(self._package(package_members), corpus, self.schemas)
+
+    def _codes(self, result: Any) -> set[str]:
+        return {issue.code for issue in result.issues}
+
+    def test_matching_pin_and_selected_version_is_admitted(self) -> None:
+        fact_type = _demo_fact_type("demo.fact.declared-absence", {"enum": ["yes", "no"]})
+        bundle = _demo_bundle([fact_type])
+        rule = _demo_cds_rule(["demo.fact.declared-absence"])
+        result = self._validate([bundle, rule], [bundle, rule])
+        self.assertTrue(result.ok, msg=str(result.issues))
+        self.assertNotIn("CATEGORY_LITERAL_PIN_STALE", self._codes(result))
+
+    def test_stale_version_pin_is_rejected(self) -> None:
+        """The rule's category_literal names the fact type at v1; the
+        package instead selects v2 of the same id, as a bundle succession
+        (e.g. a value_schema-spelling bump) would. v1 is not a member of
+        this package's fact surface, so the rule's own declared bytes are
+        validating against a version that is not actually there."""
+        fact_type_v1 = _demo_fact_type("demo.fact.declared-absence", {"enum": ["yes", "no"]})
+        fact_type_v2 = dict(fact_type_v1, version="v2")
+        bundle_v2 = _demo_bundle([fact_type_v2])
+        rule = _demo_cds_rule(["demo.fact.declared-absence"])  # category_literal pins v1
+        result = self._validate([bundle_v2, rule], [bundle_v2, rule])
+        self.assertIn("CATEGORY_LITERAL_PIN_STALE", self._codes(result))
+
+    def test_missing_fact_type_pin_is_rejected(self) -> None:
+        """The rule's category_literal names a fact type id that is not in
+        the package's fact surface at any version."""
+        rule = _demo_cds_rule(["demo.fact.declared-absence"])
+        result = self._validate([rule], [rule])
+        self.assertIn("CATEGORY_LITERAL_PIN_STALE", self._codes(result))
 
 
 if __name__ == "__main__":

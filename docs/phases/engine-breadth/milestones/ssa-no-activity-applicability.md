@@ -3,10 +3,10 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "ssa-no-activity-applicability",
-  "milestone_state": "track-0",
-  "status": "Track 0 (paper). Milestone 1 of the owner-approved two-milestone split; Milestone 2 (fact-type-succession-neutral-schedule1) is chartered only after this merges, on its own branch and PR. OBJECTIVE: a return with no applicable Social Security source publishes the legally authorized line-6 zero and proceeds through line 9 without satisfying worksheet-only scope declarations. THE DEFECT: rule.ss-benefits-worksheet.json is the ONLY producer of social-security.line6b corpus-wide and carries 33 requires; rule.form1040-line9.v7 requires line6b unconditionally; so every return in the engine must satisfy 33 Social Security declarations to reach total income. That existing burden is NOT a precedent. Line 6a is already correct on an empty family. THE NO-ACTIVITY AUTHORITY is not a default and not mere emptiness: it is current tax.us.2025.ssa1099.source-closure v1 (the closure claim declared verbatim in family.ssa1099-benefits.json) TAKEN WITH zero current box5-net-benefits members; both must appear in the zero's provenance. SHARPEST OPEN QUESTION (T0-1): the closure claim's own text disclaims RRB-1099, SSA-1042S and foreign systems, and ss-benefits-scope.no-rrb-or-foreign-social-benefit asserts exactly that absence -- a source-existence proposition wearing worksheet-completeness wording. So the honest reduction may be 33->0 or only 33->1; Track 0 must decide and say why, because a zero that silently ignores a disclaimed neighbouring class is a default wearing the clothes of an authority. If that declaration is load-bearing it is a FOURTEENTH migration candidate for Milestone 2, not a thirteenth Schedule 1 absence -- Milestone 1 records it and does not act on it. ENTERING CONTRACT (Track 0 confirms): copy the ratified rule.schedule-a-total-closed-empty shape -- a new closed-empty producer of line6b with requires:[] pins:[] value:0 guarded on all(require_closed, count==0), plus a successor worksheet version gaining the mutually exclusive count>0 conjunct. requires is checked BEFORE evaluation (runner.py:482), so a single rule carrying the 33 could never skip them by guard however written. Expected content-level, no new schema family, NO ADR unless Track 0 finds a new reusable mechanism (itself a stop). AUTHORITY BOUNDARY: no seat reads tax-instruction PDFs; inadequate authority is a stop requiring a bounded authority review. Stop and re-price the split if generic substrate turns out to be required.",
-  "current_role": "Foreman (Track 0 closed by owner disposition; Track 1 charter to be filed)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md#Owner disposition (binding on Track 1)",
+  "milestone_state": "track-1",
+  "status": "NOT YET CLOSED: a targeted independent re-review of this repair and a green exact-head CI run are still required. SHIPPED CONTRACT: rule.ss-benefits-worksheet v2 (rule-artifact.v4) is the SOLE producer of tax.us.2025.social-security.line6b. 11 unconditional requires = no-rrb-or-foreign-social-benefit, the seven derived numeric inputs, social-security.line6a, filing_status, rounding.convention. Guard = all[require_closed(ssa1099.benefits) BOTH routes; conditional_dependency_set of the 22 worksheet-only declarations gated on count>0; categorical_compare(no-rrb == yes) BOTH routes; any[count==0, all[22 conjuncts, MFS set]]]. Value = choose(count==0 -> 0, else -> the UNCHANGED v1 worksheet expression). Stated in full and ONCE at the plan's '## Track 0 settlement - final contract'. T0-1 ANSWERED 33 -> 1: no-rrb-or-foreign-social-benefit is load-bearing, retained on both routes, and recorded as a FOURTEENTH migration candidate for Milestone 2, not acted on here. A CHARTERED TWO-PRODUCER DESIGN WAS TRIED AND WITHDRAWN BEFORE ANY VERSION OF IT SHIPPED: line6b is form-field-bound, presentation_projection._one_row admits exactly one disposition row, and the runner records a row for every rule on every path. schedule-a.total is never form-field-bound, so the precedent never transferred. PR #175 generalizes the lesson as a sixth Track 0 adversarial-closure artifact (see the plan's '### 6. Integration-surface artifact'), satisfied by evidence already committed. PUBLICATION GENERATION IS v30: package.core-calculations.v30 / published-packages.v25 / demo.release.2025.v23 / adopt-core-v30-current - the LOWEST versions free on the ratified line (origin/main tops out at package v29 / published-packages v24 / release v22). ss-benefits-scope STAYS AT ITS BASE v1 - no vocabulary successor exists. A NOT-READY REVIEW FOUND A REAL DEFECT AND IT IS NOW REPAIRED AT THE ROOT: the withdrawn ss-benefits-scope.bundle.v2 existed only because package_validation check 10a required an exact value_schema shape {\"enum\": [...]} for the ADR-0038 {yes,no} domain guard, rejecting the corpus's equally-valid {\"type\": \"string\", \"enum\": [...]} spelling; the worksheet's 23 category_literal pins (plus rule.form1040-line6c's one) were never repointed to v2, so the shipped citizen validated against a fact-type version the package no longer selected - serialized property order/presence mistaken for semantic domain identity. Repaired by changing check 10a to recognize both spellings as the same closed domain (rejecting extra enum values, open string domains, booleans, and incompatible types) and by withdrawing the bundle succession entirely - ss-benefits-scope reverts to v1 everywhere, worksheet v2's pins are unchanged and now correct. A NEW package-validation check (CATEGORY_LITERAL_PIN_STALE) rejects any category_literal exact pin whose (id, version) is not an actual package member, with mutation tests for a stale version and a missing fact type; the real package.core-calculations.v30 now validates with zero issues. COORDINATION ITEM FOR MILESTONE 2 IS RETRACTED: its predecessor population is ss-benefits-scope v1, as it always was on the ratified line - not v2. THE STALE TARGETED-REVIEW RECORD AND THE DUPLICATIVE PROTOTYPE SUITE ARE BOTH REMOVED: docs/reviews/2026-08-13-ssa-no-activity-v4-targeted-rereview.md and tests/test_ssa_no_activity_prototype.py no longer exist; their durable findings (the six-of-seven dependency-cost claim; the numeric-inputs-unconditional guard) live entirely in the permanent 28-test tests/test_ssa_no_activity_line6b_track1.py, which is the sole executable evidence for this contract. THE MOST LOAD-BEARING FACT, and the one a future edit is most likely to break: the seven derived numeric inputs are NOT conditional-set members. requires is the engine's only sequencing gate, conditional-set membership is invisible to eligibility, and a blocked rule resolves permanently - so conditionalizing them makes the rule eligible before its inputs publish and permanently blocks the nonempty route. Held by test_conditionalizing_the_numeric_inputs_breaks_the_nonempty_route on the PUBLISHED citizen. NO ADR IS OWED for the worksheet content; the check-10a/10b package_validation repair is an engine-level fix, owner-directed, not milestone content. STANDING CONSTRAINTS: no seat reads tax-instruction PDFs; do not broaden presentation_projection._one_row; do not widen audit_collect_authority (durable deferral, deliberately left open); closure is required on both routes for the SEMANTIC reason (line 6b must not publish until the current SSA family is confirmed complete), never justified by the count limitation; this is an SSA worksheet contract decision, not a change to collect semantics and not a precedent that every nonempty family requires closure. HISTORY REWRITTEN AGAIN for this repair: commits carry no generated co-author trailers or session material; only the open milestone branch was rewritten; force-pushed with lease. OPEN FOR OWNER: PR #173 (this milestone, NOT ready - awaiting fresh independent re-review and green exact-head CI on the rewritten head), PR #175 (integration-surface gate, merged), PR #172 (split record), PR #169 (stopped 1098-E design exploration).",
+  "current_role": "Foreman (validator repair applied; awaiting fresh independent re-review and green exact-head CI before closeout)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md#Track 0 settlement — final contract",
   "scope": [
     "identify the exact source-family closure or absence authority establishing that no applicable Social Security benefits exist",
     "produce a canonical line-6b zero carrying that authority and its provenance",
@@ -68,10 +68,19 @@
 
 **Milestone key:** `ssa-no-activity-applicability`
 **Primary branch:** `milestone/ssa-no-activity-applicability-repair`
-**Base:** `origin/main` @ `f60e7d1`
-**State:** Track 0 complete (paper). No implementation chartered — the
-adversarial-closure gate does not close and two stop conditions are reported;
-see `## Track 0 stop report`.
+**Base:** the current ratified line (`origin/main`), including PR #175's
+integration-surface gate.
+**State:** Track 0 complete (paper) and dispositioned. Track 1's first
+attempt — the chartered two-producer contract — **stopped**: it is not
+implementable at the presentation boundary, because
+`tax.us.2025.social-security.line6b` is form-field-bound, and a
+form-field-bound symbol admits exactly one disposition row while a
+two-producer split always yields two. See `## Track 1 stop report`. Track 1
+was then rechartered around a single-producer contract, built, reviewed, and
+shipped as `rule.ss-benefits-worksheet` v2 (`## Track 0 settlement — final
+contract`). **Not yet closed:** a package-validation defect this repair
+fixes, an independent re-review of the fix, and a green exact-head CI run
+must all land before closeout.
 
 Milestone 1 of the two-milestone split recorded in
 `fact-type-succession-ssa-applicability.md`. Milestone 2 (fact-type succession
@@ -314,7 +323,36 @@ only path to line 6b is through `A`, and `A` is unreachable at `line6a = 0`. The
 
 ### T0-2 — the contract: confirmed, with two refinements and one consequence
 
+> ## ⚠ WITHDRAWN — superseded by the corrected settlement
+>
+> **This settlement selected a two-producer contract. That contract is not
+> implementable and the decision is withdrawn.** It is retained unaltered below
+> as the record of a decision whose factual premise was later disproved by
+> measurement; it is **not** authority for anything.
+>
+> - **Refuted by:** the presentation measurement in `## Track 1 stop report` —
+>   `line6b` is form-field-bound, `presentation_projection._one_row` admits
+>   exactly one disposition row for it, and the runner records a row for every
+>   rule on every path. No matrix row survives.
+> - **False premise:** T0-2's live-scheduler reasoning (see the correction
+>   below).
+> - **Superseded by:** `## Corrected Track 0 settlement — single producer`.
+>
+> Owner instruction governing this supersession: *do not preserve a decision
+> after its factual premise has been disproved; preserve history by recording
+> and superseding the decision, and do not treat precedent as authority against
+> measured evidence.*
+
 The entering contract survives in shape. It does not survive unchanged.
+
+> **Correction, entered by the foreman after Track 1 (see the Track 1 stop
+> report).** The claim below that `requires` is tested before the guard "in both
+> schedulers" is **false for the live marshalled scheduler**, which preflights
+> the guard first and treats a provably false guard as an atomic `inapplicable`
+> "even when later numeric dependencies are absent" (`runner.py:1126-1145`).
+> Verified directly. The **conclusion** stands — a rule still cannot publish
+> while skipping its `requires` — but the reasoning as written must not be
+> relied on or reused.
 
 **Confirmed — the second producer is necessary, not convenient.** `requires` is
 tested before the guard is ever evaluated, in both schedulers:
@@ -530,7 +568,9 @@ dispositioned.
 | Track | Content | State |
 | --- | --- | --- |
 | 0 | T0-1 authority sufficiency (rows 1, 2, 6, 9); T0-2 contract confirmation and the two-producer split; T0-3 the full compatibility matrix; T0-4 impact envelope and regression surface; adversarial closure | **Complete — both stops dispositioned by the owner; gate closed** |
-| 1 | Implement the closed-empty producer and the successor worksheet guard, with fixtures and regressions, under the two binding owner dispositions | **Chartered** |
+| 1 | ~~Implement the closed-empty producer and the successor worksheet guard~~ | **Stopped — superseded; see `## Track 1 stop report`** |
+| 0′ | Reopened Track 0: withdraw the two-producer settlement, select the single-producer contract, prove it | **Complete — ten obligations measured; see `## Reopened Track 0 prototype evidence`** |
+| 1′ | Implement the **single-producer** successor under the corrected settlement | **Chartered — see `## Amended Track 1 charter`** |
 
 ## Contracts
 
@@ -566,6 +606,63 @@ and would assert a zero with no source-existence authority behind it.
    reproduces derived results and provenance.
 6. Schema registry, data-safety, governance, typing, and CI gates pass.
 
+### Verification results — Track 1
+
+Track 1 stopped before the verification programme could be run to completion.
+What was measured, and what was not:
+
+| # | Item | Result |
+| --- | --- | --- |
+| 1 | Every matrix row | **Not verifiable under the confirmed contract.** The guards behave exactly as T0-3 predicted on every probed row (see the measurement table in the stop report), but **no** row produces a presentation model, because every reachable state yields two `line6b` disposition rows. Rows 1, 2, 3, 4 and 9 measured; rows 5, 6, 7a/7b and 8a/8b not reached |
+| 2 | Existing income routes unchanged | **Not measured.** No package version was committed, so no existing route was re-run against a successor package |
+| 3 | Closed-empty zero's provenance | **Measured and correct.** The row-1 zero published with 7 pins: the adoption, both citations, the current closure finding (`input`), the closure mapping (`package`), the family declaration (`package`). No `ss-benefits-scope` declaration other than `no-rrb-or-foreign-social-benefit`, no member pin, no worksheet symbol |
+| 4 | Exactly one producer fires | **True of publication, false of disposition.** Exactly one producer ever reached `published`. Both producers always recorded a disposition row, which is the defect |
+| 5 | Correction and replay | Not reached |
+| 6 | Registry, data-safety, governance, typing, CI gates | Ran against the committed tree; results in the stop report. No content, package, registry, release or adoption artifact was committed |
+
+### Verification results — Track 1′ (the published single-producer contract)
+
+Measured against the real published surface: `rule.ss-benefits-worksheet` **v2**
+(`rule-artifact.v4`), `package.core-calculations` v30, `published-packages`
+v25, release v23, `adopt-core-v30-current`. Permanent suite:
+`tests/test_ssa_no_activity_line6b_track1.py` (promoted from the reopened
+Track 0 prototype's harness), now **28 tests**: the seventh mutation kill-test
+was added when independent review found the numeric-inputs guard existed only
+on the prototype's synthetic surface; four more (`TestDependencyCostWitness`)
+were added when a targeted re-review found the six-of-seven /
+`tax-exempt-interest.line2a-total` relationship existed only as prose, with no
+committed regression that would fail if it became false.
+
+| # | Item | Result |
+| --- | --- | --- |
+| 1 | Every matrix row | **Met.** All nine rows of `## Compatibility matrix` — closed empty (declarations absent and present), unclosed empty, unclosed nonempty, closed nonempty (complete and 4 declarations absent), `R = no` closed empty and closed nonempty, `R` absent closed empty — each yields exactly one `line6b` disposition row and a valid `presentation-model.v1` |
+| 2 | Existing income routes unchanged | **Met.** `tests/test_ssa1099_benefits_line6_track2.py` (48 passed, 37 subtests) and `tests/test_f1098_mortgage_interest_line12e_track2.py` (26 passed, 2 subtests) both pass unmodified against the v30 chain; the four `test_live_scope_guards_*` batches and `test_worksheet_when_names_every_scope_token` pass against the untouched v1 rule, which remains reachable through the package versions that admit it |
+| 3 | Closed-empty zero's provenance | **Met, unchanged from the prototype's measurement.** The zero pins the closure finding and the retained declaration's finding (`input`), the closure mapping and family declaration (`package`), both citations, and the adoption — no other `ss-benefits-scope` declaration, no worksheet symbol |
+| 4 | Exactly one producer fires | **Met.** One rule, `rule.ss-benefits-worksheet` v2, is the package's sole `tax.us.2025.social-security.line6b` producer; no `conflict_semantics` entry names the symbol; every matrix row yields exactly one `line6b` disposition row |
+| 5 | Correction and replay | **Met for the lifecycle obligation this milestone owns** (ADR-0017 decision 7, obligation 8): a late member displaces the closed-empty zero, the source family blocks on `SOURCE_SET_UNCLOSED` rather than substituting a stale authority, and fresh closure recomputes — first the complete missing-declarations list, then a real nonzero worksheet value once they are answered. General delete-and-rerun replay was not separately re-measured beyond the existing suite's coverage |
+| 6 | Registry, data-safety, governance, typing, CI gates | **Met.** `mypy` success on 191 source files; `governance_lint` conformant; `tools/envelope_scan.py --verify` and `--range <base>..HEAD` clean; full suite green (see below) |
+
+The four-part replacement evidence for the stopped Track 1's never-written
+`test_member_present_no_closure_publishes` is in
+`TestUnclosedNonemptyReplacesTheSupersededPrototype`: nonempty-unclosed
+blocks (`test_part_1_nonempty_unclosed_blocks`); closed-nonempty publishes the
+same value with the closure provenance
+(`test_part_2_closed_nonempty_publishes_the_same_value_with_closure_provenance`);
+a late member invalidates (`test_part_3_a_late_member_invalidates`); fresh
+closure republishes (`test_part_4_fresh_closure_republishes`).
+
+All six obligation-10 mutation kill-tests are present and pass:
+`test_changing_the_zero_branch_changes_the_published_zero`,
+`test_dropping_the_retained_declaration_lets_R_absent_publish_a_zero`,
+`test_inverting_the_conditional_condition_activates_members_when_empty`,
+`test_mutating_the_family_id_strips_the_zeros_closure_authority`,
+`test_mutating_the_member_predicate_changes_the_nonempty_value`,
+`test_the_closure_relation_is_carried_by_count_not_by_require_closed`.
+
+No schema-intent ledger entry was made: `rule-artifact.v4`,
+`artifact-package.v22`, `bundle.v2` and `release-registry.v1` all already
+exist in the corpus, so nothing new was proposed.
+
 ## Data safety
 
 Synthetic fixtures only. No personal document, statement, or real return value
@@ -589,6 +686,39 @@ staged, or committed** by any seat. No absolute workstation path is committed.
 - Allowed-impact envelope stated before the Track 1 charter.
 - Every matrix row and verification item passes.
 - No ADR needed, or the discovery that one is needed recorded as a stop.
+
+### Exit-criteria status — Track 1
+
+| Criterion | Status |
+| --- | --- |
+| Track 0 adversarial closure with no unresolved `FAIL` | **Met** at Track 0 close, by owner disposition |
+| T0-1 answered (33 → 1, with reasons) | **Met.** Track 1 found nothing that disturbs it; the retained declaration behaved exactly as T0-1 predicted, gating row 9 `guard_inapplicable` and pinning into the row-1 zero |
+| Allowed-impact envelope stated before the Track 1 charter | **Met** |
+| Every matrix row and verification item passes | **Not met.** See the Verification results table |
+| No ADR needed, **or the discovery that one is needed recorded as a stop** | **Met, by the second limb.** An ADR is needed and the discovery is recorded as a stop rather than resolved by silent adoption |
+
+The milestone does not exit. It returns to the owner with a design question
+Track 0 could not have closed on paper, because the obstruction is in the
+presentation join and not in the derivation contract.
+
+### Exit-criteria status — Track 1′ (published)
+
+| Criterion | Status |
+| --- | --- |
+| Track 0 adversarial closure with no unresolved `FAIL` | **Met** at Track 0 close, unchanged |
+| T0-1 answered (33 → 1, with reasons) | **Met**, unchanged from Track 1 |
+| Allowed-impact envelope stated before the Track 1 charter | **Met** |
+| Every matrix row and verification item passes | **Met.** See `### Verification results — Track 1′` above |
+| No ADR needed, or the discovery that one is needed recorded as a stop | **Met, by the first limb this time.** The published contract is a content instantiation of `rule-artifact.v4`, `conditional_dependency_set`, `choose`, `count` and `require_closed`, all already ratified; no new reusable engine mechanism was needed |
+
+The milestone's build slice exits on this track. No stop condition was hit:
+the single rule expresses every required branch-specific pin and explanation,
+the established nonempty worksheet value is unchanged (measured equal to the
+ratified route, by value and by disposition, across seven value cases), and
+no engine or schema behaviour beyond existing contracts was required.
+Independent review of derivation behaviour and presentation projection, per
+the owner's instruction, returned **APPROVE WITH FINDINGS**; both findings are
+closed. See `## Independent review` below.
 
 ## ADR posture
 
@@ -711,24 +841,54 @@ only at 33 → 1.**
 
 ### 6. Integration-surface artifact
 
-Required whenever Track 0 plans a producer or successor producer of an
-externally bound symbol (`PROJECT_PLANNING.md`, "Track 0 Adversarial Closure
-Gate", artifact 6). `tax.us.2025.social-security.line6b` is form-field-bound,
-so this artifact applies.
+Added retroactively, 2026-08-13. `PROJECT_PLANNING.md`'s Track 0 gate gained a
+sixth required artifact (PR #175, merged after this milestone's Track 0 first
+closed) generalizing the exact lesson this milestone's own Track 1 learned the
+hard way: the chartered two-producer design copied `rule.schedule-a-total-
+closed-empty`'s shape, but `tax.us.2025.schedule-a.total` is never
+form-field-bound, so the precedent never had to satisfy the one-row
+cardinality it silently assumed. That failure is the artifact's origin case;
+this section restates the evidence this milestone already committed under
+`## Reopened Track 0 prototype evidence` in the artifact's required shape,
+rather than re-deriving it.
 
-Binding enumeration and cardinality are stateable on paper:
-`presentation_projection._one_row` admits exactly one disposition row per
-form-field-bound symbol; the runner records a row for every rule on every
-path (published, conflict-loser, false-guard, blocked, never-eligible). But
-the artifact also requires "one synthetic end-to-end model for every
-materially distinct disposition path, exercised through the real consumer" —
-built evidence, not argued evidence, which this paper-first Track 0 does not
-yet have.
+**Binding table** — `tax.us.2025.social-security.line6b` is form-field-bound:
 
-**PENDING.** Discharged in Track 1 once the contract is implemented and run
-through `live_coordinate_run` for every compatibility-matrix row. Track 0
-does not close this artifact on paper; it only establishes that the design
-must be checked against it before the implementation charter is trusted.
+| Consumer | Binding artifact or join | Cardinality it expects | Satisfied by the design? |
+| --- | --- | --- | --- |
+| `presentation_projection._one_row` | `tax.us.2025.form1040.line-6b.form-field.json` | exactly one disposition row | **Yes** — one producer only; `test_the_package_declares_exactly_one_producer_of_line6b` |
+| `package.core-calculations` entrypoints | `tax.us.2025.rule.ss-benefits-worksheet` | exactly one entrypoint version | **Yes** — package v30 admits exactly one worksheet member and one matching entrypoint |
+| `rule.form1040-line9.v7` (`requires`, unconditional) | `tax.us.2025.social-security.line6b` | one published-or-blocked disposition, every path | **Yes** — every compatibility-matrix row yields exactly one worksheet row |
+
+**Cardinality stated explicitly.** `presentation_projection._one_row` admits
+exactly one disposition row per form-field-bound symbol; the runner records a
+row for **every** rule on **every** path — published, conflict-loser,
+false-guard, blocked, and never-eligible. Two producers always yield two rows
+in every reachable state; there is no state in which they collapse to one.
+
+**Synthetic end-to-end models, one per materially distinct disposition path.**
+The nine rows of `## Compatibility matrix` above, each run through the real
+consumer (`live_coordinate_run`) and checked for exactly one worksheet row,
+one line-6b row, and a valid `presentation-model.v1` —
+`test_every_matrix_row_yields_one_line6b_row_and_a_valid_model`. These are
+built models, not argued ones.
+
+**Precedent-sharing check.** The withdrawn two-producer design shared
+`rule.schedule-a-total-closed-empty`'s rule shape but not its properties:
+`schedule-a.total` is never bound to a form field, so it was never tested
+against `_one_row`, and its silence on that property was never permission to
+assume the property held for a symbol that *is* form-field-bound.
+
+**Presentation-model probe.** `test_every_matrix_row_yields_one_line6b_row_and_a_valid_model`
+builds a real, validated `presentation-model.v1` for every row, satisfying the
+requirement that a valid presentation-model probe is part of closure for a
+form-field-bound symbol.
+
+**PASS, retroactively** — by evidence already committed under `## Reopened
+Track 0 prototype evidence` before this artifact existed, and promoted onto
+the published citizen by `tests/test_ssa_no_activity_line6b_track1.py`
+(`TestObligation9OneRowAndAValidModel`). No new evidence was required; this
+section only restates the existing evidence in the artifact's required shape.
 
 ### Declaration
 
@@ -757,16 +917,18 @@ must be checked against it before the implementation charter is trusted.
   ratified Schedule A precedent; and `rule.form1040-line6a.json` carries the same
   narrow-family-to-Form-1040-line equation with nothing declaring the
   coextensivity. Both recorded, neither repaired here.
-- Integration surface: **PENDING** — see artifact 6 above; requires Track 1's
-  built end-to-end models, not yet available on paper.
+- Integration surface: **PASS, retroactively** — artifact 6 above; bindings,
+  cardinality, and the nine built end-to-end models. Added 2026-08-13 when
+  `PROJECT_PLANNING.md` gained this artifact (PR #175), generalizing this
+  milestone's own Track 1 finding; satisfied entirely by evidence already
+  committed under `## Reopened Track 0 prototype evidence` before the artifact
+  existed — no new evidence was required.
 
-**Gate status: closed by owner disposition, with no unresolved `FAIL`; one
-artifact `PENDING` on built evidence.** The one `FAIL` artifact and the one
-known limitation were both put to the owner and both were dispositioned;
-neither was downgraded, waived, or reasoned around. The integration-surface
-artifact cannot close on paper and is carried into Track 1 as a binding
-obligation, not a waiver. The Track 1 charter may be filed. The dispositions
-are recorded below and are binding on Track 1.
+**Gate status: closed by owner disposition, with no unresolved `FAIL`.** The one
+`FAIL` artifact and the one known limitation were both put to the owner and both
+were dispositioned; neither was downgraded, waived, or reasoned around. The
+Track 1 charter may be filed. The dispositions are recorded below and are
+binding on Track 1.
 
 ## Owner disposition (binding on Track 1)
 
@@ -881,3 +1043,510 @@ the design is a content instantiation of the ratified
 `rule.schedule-a-total-closed-empty` shape. **The committed authority was
 sufficient** for every question asked; no bounded authority review is needed and
 no PDF was opened.
+
+## Track 1 stop report
+
+Three stop conditions fired. None was worked around. No tax-instruction PDF was
+opened, quoted, summarized, staged, or committed.
+
+### The finding, in one sentence
+
+`tax.us.2025.social-security.line6b` is **form-field-bound**, and the
+presentation model admits **exactly one disposition row per form-field-bound
+symbol** — while a two-producer split produces **two rows in every reachable
+state**, because the runner records a disposition for every rule whether it
+publishes, is inapplicable, or blocks. The contract Track 0 confirmed therefore
+cannot produce a presentation model at all, on any matrix row.
+
+### The mechanism, proved against committed code
+
+1. `packages/derivation/presentation_projection.py:84-89` — `_one_row` raises
+   `PresentationModelError` when a symbol's disposition-row count is not
+   exactly `1`.
+2. `presentation_projection.py:449-451` — it is called for **every** form field,
+   keyed on `field["binds_symbol"]`.
+   `form1040.line-6b.form-field.json` declares
+   `"binds_symbol": "tax.us.2025.social-security.line6b"`.
+3. `presentation_projection.py:69-81` — `_dispositions_by_symbol` groups rows by
+   the producing rule's `publishes`, so two producers of one symbol always land
+   in the same bucket.
+4. Every rule always contributes exactly one row, on every path:
+   published (`runner.py:1240`), conflict-loser inapplicable
+   (`runner.py:522-533` and `1162-1175`), false-guard inapplicable
+   (`runner.py:542-550`, `1133-1145`, `1184-1194`), blocked
+   (`_record_blocked`, `runner.py:1084-1096`), and — for a rule that never
+   became eligible — forced by `finalize_unreached` (`runner.py:1098-1106`).
+   **There is no reachable state in which the losing producer is silent.**
+
+### The measurement
+
+The chartered contract was implemented in full and run. Both artifacts are
+reproducible byte-for-byte from `tools/generate_ssa_no_activity_content.py`
+(committed): a closed-empty producer of `line6b`
+(`rule-artifact.v4`, `requires: []`, `pins: []`, `value: 0`, guard
+`all[require_closed(ssa1099.benefits), count(box5-net-benefits) == 0,
+no-rrb-or-foreign-social-benefit == "yes"]`) and a
+`rule.ss-benefits-worksheet` `v2` successor differing from `v1` **only** in the
+schema line (`rule-artifact.v3 → v4`) and a leading `count > 0` conjunct, plus
+`package.core-calculations` `v30`, `published-packages` `v25`,
+`demo.release.2025.v23` and `adopt-core-v30-current.json`.
+
+Run against a live coordinate run on the SSA Track 2 synthetic corpus:
+
+```text
+row1 closed-empty, 22 open
+PresentationModelError: missing or ambiguous disposition join for symbol
+'tax.us.2025.social-security.line6b': 2 row(s)
+row1 all 23 present
+PresentationModelError: missing or ambiguous disposition join for symbol
+'tax.us.2025.social-security.line6b': 2 row(s)
+```
+
+The failure is **not** about the 22 open declarations: it is identical with all
+23 present.
+
+With `_one_row` relaxed in a throwaway measurement harness — a harness only,
+never a proposal — the guards themselves behave exactly as T0-3 predicted:
+
+| Row | closed-empty producer | worksheet `v2` | line 6b presented |
+| --- | --- | --- | --- |
+| 1 — closed empty, 22 open | `published`, 7 pins | `inapplicable`, `guard_result: false` | `0` |
+| 2 — unclosed, empty | `blocked` `SOURCE_SET_UNCLOSED` | `blocked` `DEPENDENCY_ABSENT` (line 6a) | blocked |
+| 3 — unclosed, nonempty | `blocked` `SOURCE_SET_UNCLOSED` | `blocked` `SOURCE_SET_UNCLOSED` | blocked |
+| 4 — closed nonempty | `inapplicable`, `guard_result: false` | `published`, 52 pins | worksheet result |
+| 9 — closed empty, `R` = `no` | `inapplicable`, `guard_result: false` | `inapplicable`, `guard_result: false` | `guard_inapplicable` |
+
+Mutual exclusivity of **publication** holds on every row — no row has two
+`published`. Mutual exclusivity of **disposition** does not, and cannot: that is
+the defect. Row 1's zero pinned exactly the adoption, both citations, the
+current closure finding (`input`), the closure mapping and the family
+declaration — and no `ss-benefits-scope` declaration other than
+`no-rrb-or-foreign-social-benefit`, no member pin, and no worksheet symbol,
+which is what verification item 3 asks for.
+
+### Why Track 0 could not see this on paper
+
+Two reasons, both worth recording so the next paper track checks them.
+
+**The ratified precedent does not carry the property that matters.**
+`rule.schedule-a-total-closed-empty` is the shape T0-2 confirmed, and it is
+sound — but `tax.us.2025.schedule-a.total` has **no form field**, so `_one_row`
+is never called for it. The same pattern was already tried and rejected for a
+form-field-bound symbol on the ratified line: the Form 1098 Track 2 generator
+records that a second producer for `tax.us.2025.deductions.line-12e` "was tried
+and rejected: presentation_projection's `_one_row` join requires exactly one
+disposition row per symbol for a form-field-bound symbol, which the
+two-disjoint-producer pattern used above for `tax.us.2025.schedule-a.total` —
+never form-field-bound — does not have to satisfy"
+(`tools/generate_f1098_line12e_t2_content.py`). T0-3 did examine the
+presentation layer, but only `_classify_numeric`'s label; it did not examine the
+join.
+
+**One T0-2 claim is wrong for the live path, and should be corrected in place.**
+T0-2 states that `requires` is tested before the guard "in both schedulers".
+That is true of `attempt` (`runner.py:515-539`) but **false of the live
+marshalled scheduler**, which preflights the guard first and treats a provably
+false guard as an atomic `inapplicable` "even when later numeric dependencies
+are absent" (`runner.py:1126-1160`). This does not rescue a single-rule design —
+a rule still cannot *publish* while skipping its `requires` — so T0-2's
+conclusion that two producers are necessary survives. But the reasoning behind
+it should not be relied on as written.
+
+### Stop conditions fired
+
+**Stop 1 — "any matrix row cannot be satisfied by the confirmed contract."**
+Fired, in its strongest form: **no** row can be satisfied. Not a row-specific
+gap, a whole-contract obstruction.
+
+**Stop 2 — "generic substrate turns out to be required."** Fired. Making the
+contract work requires a change to `packages/derivation/presentation_projection.py`
+so a form-field-bound symbol with several mutually exclusive producers joins to
+one row. The allowed-impact envelope (T0-4) forbids exactly this: "every
+evaluator, runner, currency, and projection module … **No kernel or engine code
+changes at all.**"
+
+**Stop 3 — "a new reusable mechanism appears."** Fired. Either candidate
+resolution is a reusable mechanism needing an ADR, not silent adoption:
+
+- *Multi-producer form-field-bound symbols.* A presentation-layer contract
+  saying which of several rows is the field's row, and on what authority the
+  others are suppressed. This is a governance question, not a tidy-up: today the
+  one-row rule is what guarantees a form line has exactly one explanation, and
+  the corpus already has a same-symbol multi-producer allowlist
+  (`conflict_semantics`) that the presentation layer does not consult.
+- *A single-producer conditional-dependency design.* One rule whose `requires`
+  no longer names the 23 declarations, with them moved into a
+  `conditional_dependency_set` (ADR-0037) conditioned on `count > 0` and a
+  value-level `choose` between `0` and the worksheet expression. It is
+  expressible in committed content and `rule-artifact.v4` grammar, and it
+  sidesteps the join entirely — but it changes what `requires` means for this
+  corpus's canonical-zero pattern, it **changes the worksheet's value
+  expression** (which the Track 1 charter forbids), and Track 0 explicitly
+  rejected the value-level `choose` shape. **Sketched here for the owner's
+  disposition; deliberately not implemented.**
+
+### Stop conditions that did **not** fire
+
+- **Row 1 did not require any of the 22.** The row-1 fixture was built with the
+  22 worksheet-only declarations genuinely absent, and the closed-empty producer
+  published `0` without reading or pinning any of them. The repair's central
+  claim is sound; only its packaging is not.
+- **No income route's value changed.** No successor package was committed, and
+  on the measured rows the worksheet's own value was unchanged.
+- **No new schema family and no new evaluator operator was needed.** Every
+  operator the contract uses is committed, and `rule-artifact.v4` already
+  carries `count`.
+- **The committed authority was sufficient.** No bounded authority review is
+  needed.
+
+### What is committed, and what is deliberately not
+
+**Committed:** `tools/generate_ssa_no_activity_content.py` — the chartered
+contract implemented in full and deterministically reproducible — and this
+report.
+
+**Deliberately not committed:** `rule.ss-benefits-line6b-closed-empty.json`,
+`rule.ss-benefits-worksheet.v2.json`, `package.core-calculations.v30.json`,
+`published-packages.v25.json`, `demo.release.2025.v23.json` and
+`adopt-core-v30-current.json`. Committing them would burn a published package
+version, a published registry version and a release version on a package that
+cannot produce a presentation model, and would leave a permanently red artifact
+set on the branch. `python3 tools/generate_ssa_no_activity_content.py`
+regenerates all six byte-for-byte for anyone who wants to re-run the
+measurement.
+
+## Track 0 settlement — final contract
+
+The contract Track 1 built and shipped. Stated once, in its final form. The
+superseded two-producer settlement and the refuted dependency table are
+preserved in `## Track 1 stop report` below, as genuine design history — a
+real alternative was chartered, built, and empirically shown unbuildable
+against the one-row invariant, and that evidence remains load-bearing for why
+this contract has one producer. They are deliberately not restated here,
+because a contract a reader has to reconstruct from a sequence of design
+attempts is not a contract.
+
+This branch was curated before closeout: an earlier iteration produced this
+same content through a chain of documentation-only successor versions
+(worksheet `v2` with a miscounted dependency-set comment, corrected as `v3`,
+which itself then misdescribed a downstream rule's `requires` and was
+corrected again as `v4`), none of which was ever merged or ratified. Since
+Article 9 immutability binds published history on the ratified line and not
+commits on an open draft branch, that chain was collapsed: the worksheet
+ships directly as `v2` — the lowest version free on the ratified line — with
+the final, correct notes from the start. No `v3` or `v4` of this citizen
+exists on this branch.
+
+**One rule, one producer.** `tax.us.2025.rule.ss-benefits-worksheet` v2 under
+`rule-artifact.v4` is the sole producer of
+`tax.us.2025.social-security.line6b` corpus-wide. There is no second citizen for
+this symbol on any path, because the symbol is form-field-bound and
+`presentation_projection._one_row` admits exactly one disposition row.
+
+### `requires` — 11 symbols, unconditional
+
+```json
+["tax.us.2025.ss-benefits-scope.no-rrb-or-foreign-social-benefit",
+ "tax.us.2025.wages.total-w2-box1",
+ "tax.us.2025.interest.taxable-total",
+ "tax.us.2025.dividends.ordinary-total",
+ "tax.us.2025.ira.distributions.line4b",
+ "tax.us.2025.capital-gains.line7a-total",
+ "tax.us.2025.income.additional-income",
+ "tax.us.2025.tax-exempt-interest.line2a-total",
+ "tax.us.2025.social-security.line6a",
+ "filing_status",
+ "rounding.convention"]
+```
+
+Down from **33**. The reduction is 33 → 1 in the scope vocabulary: exactly one
+`ss-benefits-scope` declaration remains unconditional.
+
+Three groups, each unconditional for a distinct reason:
+
+* **`no-rrb-or-foreign-social-benefit`** — the source-universe authority. The
+  SSA family's closure claim disclaims RRB-1099, SSA-1042S and foreign systems,
+  so this is the return's only committed statement that Form 1040 line 6's
+  universe and this narrow family coincide. Without it the zero would
+  substitute a narrow family's closure for a broader line's authority.
+* **The seven derived numeric inputs** — a *sequencing* requirement, not a claim
+  the empty route reads them. `requires` is the engine's only sequencing gate;
+  conditional-set membership is invisible to eligibility and a blocked rule
+  resolves permanently, so conditionalizing them makes the rule eligible before
+  its inputs publish. It costs a wageless return almost nothing: each is itself
+  an unconditional total rule publishing zero over an empty closed family, and
+  six of the seven are already required unconditionally by `rule.form1040-line9`
+  to reach total income. The seventh, `tax-exempt-interest.line2a-total`, is
+  not — line 2a is informational, not part of total income — so requiring it
+  here does pull in `rule.form1040-line2a`'s eight `line2a-scope.*`
+  declarations for a return that would otherwise skip them (measured: dropping
+  those eight facts from a closed-empty run blocks this rule on
+  `DEPENDENCY_ABSENT` naming `tax-exempt-interest.line2a-total`). That cost is
+  pre-existing, not introduced by this rule: v1 of this worksheet already
+  required `tax-exempt-interest.line2a-total` among its 33 `requires`.
+* **`filing_status`** — a contract requirement. ADR-0038 production condition 1,
+  enforced by `package_validation` check 10a, forbids a conditional member whose
+  fact type the same rule names in a `category_literal` unless that fact type
+  declares the `{yes, no}` domain; `tax.us.2025.filing-status` declares five.
+  `rounding.convention` and `social-security.line6a` are ordinary v1 carry-overs.
+
+### Guard — `all` of four conjuncts
+
+| # | Conjunct | Active on |
+| --- | --- | --- |
+| 1 | `require_closed(tax.us.2025.ssa1099.benefits)` | **both routes** |
+| 2 | `conditional_dependency_set`, condition `count(box5-net-benefits) > 0`, **22 members** | nonempty only |
+| 3 | `categorical_compare(no-rrb-or-foreign-social-benefit == "yes")` | **both routes** |
+| 4 | `any[ count == 0, all[22 conjuncts, MFS set] ]` | short-circuits when empty |
+
+Conjunct 1 is unconditional for a **semantic** reason: the worksheet computes
+the taxable portion of the benefits actually recorded, so a return whose benefit
+set is not yet closed has no line 6b answer to give, empty or otherwise. The
+`count` implementation's closure read explains why this shape is available; it
+is **not** the justification. This is a decision about what this worksheet
+means, scoped to this route — not a change to `collect` semantics, and not a
+statement that any other nonempty family requires closure.
+
+### Conditional dependency set — 22 members, and only 22
+
+The 22 `ss-benefits-scope` declarations other than
+`no-rrb-or-foreign-social-benefit`. They are worksheet-internal: at line 6a = 0
+the worksheet's value reduces to zero for every filing status and every income
+vector, so they cannot change the answer and must not gate it. Under ADR-0037
+the set both activates them when `count > 0` and reports the complete missing
+list in one walk.
+
+The seven numeric inputs are **not** members. That is the single most
+load-bearing fact about this contract and the one a future edit is most likely
+to get wrong; it is held by
+`test_conditionalizing_the_numeric_inputs_breaks_the_nonempty_route` on the
+published citizen.
+
+### Value branch
+
+```json
+{"op": "choose",
+ "when": {"op": "compare", "cmp": "eq", "right": 0,
+          "left": {"op": "count",
+                   "name": "tax.us.2025.ssa1099.box5-net-benefits",
+                   "source_set": "tax.us.2025.ssa1099.benefits"}},
+ "then": 0,
+ "else": "<the v1 worksheet expression, byte-identical>"}
+```
+
+`choose` is lazy in the committed evaluator, so the closed-empty route never
+reads an income symbol, a parameter, or `round`. On the nonempty route the
+expression, pin table, citations and 22 conjuncts are exactly v1's, so the
+published worksheet **value is unchanged**; its provenance additionally pins the
+closure mapping, the family declaration and the current closure finding.
+
+On the empty route the zero's authority is the closure attestation taken
+together with zero current members — never mere emptiness — plus the retained
+declaration. The zero-member component has no finding of its own; it is carried
+by the absence of any member pin together with the pinned version of this rule,
+whose value branch demands `count == 0`.
+
+### ADR posture
+
+**No ADR is owed.** `rule-artifact.v4`, `conditional_dependency_set`, `choose`,
+`count` and `require_closed` are all ratified; this is a new content composition
+of them, not a new reusable engine mechanism.
+
+## Reopened Track 0 evidence, promoted directly onto the published citizen
+
+The corrected single-producer settlement — the seven derived numeric inputs
+stay unconditional — was proven against ten obligations before being built as
+the published contract: closed-empty publishes zero with the 22 genuinely
+absent; the zero pins exactly closure, family, mapping, adoption, citations,
+and the retained declaration; closed-nonempty equals the ratified numeric
+result on both routes, neither expression inspected; nonempty pins every
+active worksheet dependency and the closure triple; missing nonempty
+dependencies produce the complete ADR-0037 list in one walk; unclosed empty
+and unclosed nonempty each block honestly; the retained declaration's
+negative cannot take the zero branch; late membership displaces and reclosure
+recomputes; every matrix row yields exactly one line-6b disposition row and a
+valid `presentation-model.v1`; and mutating the family, member predicate,
+closure relation, retained declaration, conditional condition, or value
+branch each fails a focused test.
+
+There is no separate prototype harness: all ten obligations, the nine
+compatibility-matrix rows, and the six mutation kill-tests are the permanent
+suite itself, `tests/test_ssa_no_activity_line6b_track1.py`, run against the
+real published surface — see `### Verification results — Track 1′` below for
+measured numbers. A temporary-surface prototype existed earlier in
+development and was removed once its evidence was fully subsumed by the
+permanent suite; no ADR depends on it, so it did not meet this project's
+durability bar for prototype evidence.
+
+`test_the_closure_relation_is_carried_by_count_not_by_require_closed` records
+that the closure relation travels via `count`, not `require_closed` — the
+relationship the final contract's guard ordering depends on.
+
+**No ADR is owed.** The proof succeeded on existing `rule-artifact.v4`,
+`conditional_dependency_set`, `choose`, `count`, and `require_closed`
+semantics; this is a content composition of ratified mechanisms, not a new
+reusable engine mechanism.
+
+## Amended Track 1 charter
+
+Supersedes the stopped Track 1. Written against measured evidence, not paper:
+the contract is the one proved in `## Reopened Track 0 prototype evidence`, as
+corrected there.
+
+### What to build
+
+**One successor rule, the sole producer of
+`tax.us.2025.social-security.line6b`**, plus the additive package, registry, and
+release successors and the adoption fixture.
+
+| Class | Members |
+| --- | --- |
+| **Unconditional `requires`** | SSA family closure; `social-security.line6a`; `rounding.convention`; `ss-benefits-scope.no-rrb-or-foreign-social-benefit`; **the seven derived numeric inputs** |
+| **`conditional_dependency_set` (ADR-0037), active on `count > 0`** | the **22** worksheet-only `ss-benefits-scope` declarations — and nothing else |
+
+The numeric inputs are unconditional **because it is measured that they must
+be**: `requires` alone sequences them, so a conditional numeric input makes the
+worksheet fire before its inputs publish. Do not re-litigate this; it is
+measured, and `test_conditionalizing_the_numeric_inputs_breaks_the_nonempty_route`
+keeps it honest.
+
+A declared value-level `choose` selects canonical `0` or the **unchanged**
+worksheet expression. The nonempty arithmetic is preserved exactly.
+
+### Binding constraints
+
+- **The presentation join is not to be touched.** Do not broaden
+  `presentation_projection._one_row` or relax the one-disposition-row invariant
+  by any route.
+- **Do not widen `audit_collect_authority`** (standing owner Disposition 2 — the
+  enforcement gap is a recorded durable deferral).
+- **Do not edit published citizens in place.** Additive successors only.
+- The closure relation travels via **`count`**, not `require_closed`. Preserve
+  that and keep its kill-test.
+- Closure is required on **both** routes for the semantic reason — line 6b must
+  not publish until the current SSA source family is confirmed complete. The
+  `count` limitation is **not** the justification and must not be written as one.
+- Scope discipline: this is an **SSA worksheet contract decision**, not a change
+  to `collect` semantics and not a precedent that every nonempty family requires
+  closure.
+
+### Carry forward from the prototype
+
+Promote the prototype's coverage into the permanent suite, against the real
+published surface rather than a temporary one: all ten obligations, the nine
+matrix rows with their one-row/valid-model assertions, and **all six mutation
+kill-tests**. Add the four-part replacement evidence for
+`test_member_present_no_closure_publishes` that the stopped Track 1 never wrote:
+nonempty-unclosed blocks; closed-nonempty publishes the same value with the
+closure provenance; a late member invalidates; fresh closure republishes.
+
+### Now permitted
+
+Publishing the package, registry, and release successor versions — the
+candidate has produced a valid derivation **and** presentation model across the
+matrix, which was the standing condition.
+
+### Verification
+
+Full suite, mypy, governance lint, envelope scan. Then **independent review of
+both derivation behaviour and presentation projection**, per the owner's
+instruction.
+
+### Stop conditions
+
+Unchanged and narrow: stop only if the single rule cannot express the required
+branch-specific pins or explanations, changes the established nonempty worksheet
+**value**, or requires engine or schema behaviour beyond existing contracts.
+
+## Independent review
+
+Dispatched as a reviewer seat against the shipped single-producer worksheet
+citizen, its publication chain (package, registry, release, adoption), and
+the permanent Track 1 suite, with derivation behaviour and presentation
+projection reviewed separately as the owner required.
+
+**Verdict: APPROVE WITH FINDINGS.** Derivation behaviour **PASS**, presentation
+projection **PASS**, all six owner constraints **PASS**. Measured: 1261 passed,
+20 skipped, 3933 subtests (341.18s); `mypy` clean over 191 source files;
+governance lint conformant; envelope scan clean. The reviewer independently
+recomputed the whole checksum chain — package instance, release bytes, registry
+bytes, adoption fixture — rather than assuming it, and read the `MutantSurface`
+harness to confirm the kill tests re-seal and re-execute against the real
+resolver rather than stubbing it.
+
+Two findings, both low severity, both now closed.
+
+### Finding 1 — the bundle bump's scope was verified nowhere durable
+
+The publish commit message names `ss-benefits-scope.bundle.v2` only inside the
+"no new schema family" sentence, and never states what changed. A later reader
+had to redo a 23-way JSON diff to confirm the bump is not fact-type succession.
+Recorded here so the claim is checkable without repeating that work.
+
+Verified field-by-field across **all 23** `tax.us.2025.ss-benefits-scope.*` fact
+types, twice and independently (foreman, then reviewer):
+
+| Field | v1 → v2 |
+| --- | --- |
+| `version` | `1` → `2` — the only intended change |
+| `value_schema` | `{enum: [yes, no], type: string}` → `{enum: [yes, no]}` |
+| `identity_keys` | **unchanged** |
+| `nature` | **unchanged** |
+| `supersession` | **unchanged** |
+| `title`, `schema` | **unchanged** |
+
+Because `identity_keys`, `nature` and `supersession` are untouched, this was a
+version bump and **not** fact-type succession — the milestone's non-goal held.
+
+**Superseded.** A later architectural review found check 10a's exact-shape
+requirement was itself the defect: it mistook one spelling of the {yes, no}
+domain for the domain's identity, forcing a needless successor and — because
+the worksheet's own `category_literal` pins were never repointed to it —
+leaving 24 exact pins across the corpus (this worksheet's 23, plus
+`rule.form1040-line6c`) silently validating against a version the package no
+longer selected. `package_validation` check 10a now recognizes
+`{"type": "string", "enum": ["yes", "no"]}` as equivalent to
+`{"enum": ["yes", "no"]}`, and `ss-benefits-scope.bundle` was withdrawn back
+to its base `v1` — no successor exists. **Coordination item for Milestone 2
+is retracted**: its predecessor population is `ss-benefits-scope` **v1**, as
+it always was on the ratified line.
+
+### Finding 2 — the numeric-inputs guard did not reach the shipped citizen
+
+The rule that the seven derived numeric inputs must stay in the unconditional
+`requires` was proved on a synthetic surface during earlier development. That
+was enough to correct the design, but nothing on the real published artifact
+would have caught a later edit repeating the mistake — `TestObligation10Mutations`
+had six kill tests and none covered it.
+
+Closed by a **seventh** kill test,
+`test_conditionalizing_the_numeric_inputs_breaks_the_nonempty_route`, which
+moves the seven out of `requires` and into the `conditional_dependency_set` on
+the real citizen through `MutantSurface`. Measured outcome, asserted positively
+rather than under an `if refusal is None` guard so it cannot pass vacuously:
+
+* disposition `blocked`, code `DEPENDENCY_ABSENT`, against an unmutated run
+  measured in the same test as publishing `10200`;
+* `missing` names **only two** of the seven —
+  `capital-gains.line7a-total` and `income.additional-income` — because the
+  other five had already published by the pass on which the worksheet first
+  became eligible.
+
+That partial missing list is the substantive discovery. The defect presents as a
+**scheduling race**, not as all seven disappearing at once, so in the field it
+would read like an unrelated fixture gap rather than a dependency-declaration
+error. `_Run.is_eligible` consults `rule["requires"]` alone —
+`conditional_dependency_set` membership is invisible to eligibility sequencing —
+and `_record_blocked` resolves the rule permanently, so the worksheet never gets
+a second pass.
+
+### Residual gap raised by the reviewer, closed by the foreman
+
+The reviewer could not confirm that `rule-artifact.v3` → `v4` is a strictly
+additive grammar extension, having inferred it only indirectly. Verified
+directly: a normalised diff of the two schema files removes exactly **two**
+lines, `$id` and the `schema` `const`, and adds the `count` and `block` operator
+branches. Nothing is removed or narrowed. Both schema files predate this
+milestone and are untouched by it (`packages/schemas/` carries no diff
+against the ratified line), so the milestone consumes a ratified grammar
+rather than extending one.

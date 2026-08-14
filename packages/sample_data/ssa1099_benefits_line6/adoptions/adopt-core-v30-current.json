@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v30",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-10T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic SSA no-activity applicability adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "18f759115a85d7ce8afe82ed59a58dcdb6587a6de980152179366d9f7e307bf4",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v30"
+    },
+    "release": {
+      "checksum": "b4ba41bf71b014f52fd818b70785ebbce32a8cd1b468f0d7c0021412e244d474",
+      "id": "demo.release.2025",
+      "version": "v23"
+    },
+    "revision": 30,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

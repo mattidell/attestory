@@ -318,6 +318,56 @@ def _iter_category_literal_fact_types(expr: Any) -> Iterable[str]:
             yield from _iter_category_literal_fact_types(item)
 
 
+def _iter_category_literal_fact_type_pins(expr: Any) -> Iterable[tuple[str, str]]:
+    """Yield ``(id, version)`` exact pins named by ``category_literal`` nodes.
+
+    Unlike ``_iter_category_literal_fact_types``, which discards the version
+    for check 10a's domain guard, this keeps it: an exact pin declares a
+    specific fact-type version, and a package that no longer admits that
+    exact version as a member has silently changed what the citizen actually
+    validates against without changing the citizen's own declared bytes.
+    """
+    if isinstance(expr, dict):
+        if expr.get("op") == "category_literal":
+            fact_type = expr.get("fact_type")
+            if isinstance(fact_type, dict):
+                fact_type_id = fact_type.get("id")
+                fact_type_version = fact_type.get("version")
+                if isinstance(fact_type_id, str) and isinstance(fact_type_version, str):
+                    yield (fact_type_id, fact_type_version)
+        for value in expr.values():
+            yield from _iter_category_literal_fact_type_pins(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_category_literal_fact_type_pins(item)
+
+
+def _is_yes_no_domain(value_schema: dict[str, Any]) -> bool:
+    """Whether ``value_schema`` declares the closed {yes, no} categorical domain.
+
+    ADR-0038 production condition 1 requires the *domain*, not one specific
+    JSON serialization of it. Two spellings are accepted as equivalent,
+    because the corpus uses both for the identical closed {yes, no} domain:
+
+    - ``{"enum": ["yes", "no"]}``
+    - ``{"type": "string", "enum": ["yes", "no"]}``
+
+    Both require the enum to be *exactly* ``{"yes", "no"}`` (no additional
+    values), and when ``type`` is present it must be ``"string"`` (rejecting
+    booleans and any other incompatible type). No other key is tolerated:
+    this is a bounded recognition of two equivalent spellings, not general
+    JSON-Schema equivalence, so a materially different schema (extra
+    constraints, a different structure) still fails.
+    """
+    keys = set(value_schema)
+    if keys not in ({"enum"}, {"type", "enum"}):
+        return False
+    if "type" in value_schema and value_schema["type"] != "string":
+        return False
+    domain = value_schema.get("enum")
+    return isinstance(domain, list) and set(domain) == {"yes", "no"} and len(domain) == 2
+
+
 def _identity_key_fields(fact_id: str) -> tuple[tuple[str, str], ...]:
     """The (broker, statement, transaction, tax-year) identity of one fact id.
 
@@ -1535,18 +1585,33 @@ def validate_package(
                                           f"conditional_dependency_set member {name!r} names no fact type "
                                           f"in the package fact surface"))
                 continue
-            value_schema = fact_type.get("value_schema", {})
-            domain = value_schema.get("enum")
-            yes_no = (
-                list(value_schema) == ["enum"]
-                and isinstance(domain, list)
-                and set(domain) == {"yes", "no"}
-            )
-            if not yes_no:
+            if not _is_yes_no_domain(fact_type.get("value_schema", {})):
                 issues.append(MemberIssue(pin["id"], pin["version"], "CONDITIONAL_DEPENDENCY_MEMBER_NOT_YES_NO",
                                           f"conditional_dependency_set member fact type {fact_type_id!r} must "
                                           f"declare the categorical {{yes, no}} domain, never boolean or an "
                                           f"open string domain"))
+
+    # 10b. category_literal exact-pin fidelity: a category_literal node names
+    # a fact type by (id, version) - an exact pin, the same as any other pin
+    # in this corpus. If the package's selected fact surface does not
+    # actually contain that exact (id, version) as a member, the citizen's
+    # own declared bytes claim a dependency the package silently replaced -
+    # execution then validates against whatever version the package *does*
+    # select, while the artifact still says it depends on the one that is no
+    # longer there. This is a version-fidelity check independent of 10a's
+    # domain-shape guard: a fact type can satisfy 10a's {yes, no} domain
+    # while still not being the exact version the citizen's category_literal
+    # names.
+    for pin, citizen in resolved:
+        pinned = set(_iter_category_literal_fact_type_pins(citizen.get("when"))) | set(
+            _iter_category_literal_fact_type_pins(citizen.get("value"))
+        )
+        for fact_type_id, fact_type_version in sorted(pinned):
+            if (fact_type_id, fact_type_version) not in fact_types_by_key:
+                issues.append(MemberIssue(pin["id"], pin["version"], "CATEGORY_LITERAL_PIN_STALE",
+                                          f"category_literal names {fact_type_id!r} version "
+                                          f"{fact_type_version!r}, which is not a member of this "
+                                          f"package's fact surface"))
 
     # 11. Unique output ownership (decision 7)
     declared_conflicts = {c["symbol"] for c in package.get("conflict_semantics", [])}
