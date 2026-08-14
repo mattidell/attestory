@@ -152,6 +152,18 @@ roadmap unless a selected breadth slice directly depends on them.
     general Schedule A support remain outside it. Plan:
     `milestones/f1098-mortgage-interest-line12e.md`; retrospective:
     `docs/milestone-retrospectives/2026-08-09-f1098-mortgage-interest-line12e.md`.
+13. **SSA No-Activity Applicability Repair** — owner-approved as Milestone 1
+    of a two-milestone prerequisite to Form 1098-E, and **closed 2026-08-14**
+    (PR #173). A return with no applicable Social Security source now
+    publishes the legally authorized line-6 zero and reaches total income
+    without satisfying 33 Social Security worksheet-scope declarations.
+    `rule.ss-benefits-worksheet` v2 is the sole producer of line 6b;
+    `no-rrb-or-foreign-social-benefit` stays load-bearing on both routes and
+    is recorded as a fourteenth migration candidate for Milestone 2. Final
+    package is the additive union core **v30** / published **v25** / release
+    **v23** / adopt **v30** over the merged Form 1098 base. Plan:
+    `milestones/ssa-no-activity-applicability.md`; retrospective:
+    `docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md`.
 
 **Next breadth slice — owner-unselected.**
 Inbound capital-loss carryovers, Form 8949/noncovered securities/adjustments,
