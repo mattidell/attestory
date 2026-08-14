@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260814T183002Z-artifact-package-b17d3c",
+  "recorded_at": "2026-08-14T18:30:02Z",
+  "milestone_key": "fact-type-succession-neutral-schedule1",
+  "milestone_branch": "milestone/fact-type-succession-neutral-schedule1",
+  "milestone_commit": "16bad32f0336b4783b810398040a2da71e7f62a8",
+  "schema_family": "artifact-package",
+  "schema_path": "packages/schemas/derivation/artifact-package.v23.schema.json",
+  "schema_version": "v23",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Additive artifact-package successor admitting migration-artifact.v1 in admitted_schemas and adding the migration-artifact member role so a package can pin the migration citizen. No published version is edited."
+}

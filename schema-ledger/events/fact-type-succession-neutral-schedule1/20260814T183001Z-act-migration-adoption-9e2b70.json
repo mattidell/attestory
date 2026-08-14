@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260814T183001Z-act-migration-adoption-9e2b70",
+  "recorded_at": "2026-08-14T18:30:01Z",
+  "milestone_key": "fact-type-succession-neutral-schedule1",
+  "milestone_branch": "milestone/fact-type-succession-neutral-schedule1",
+  "milestone_commit": "16bad32f0336b4783b810398040a2da71e7f62a8",
+  "schema_family": "act-migration-adoption",
+  "schema_path": "packages/schemas/kernel/act-migration-adoption.v1.schema.json",
+  "schema_version": "v1",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Authorizing recorded act that takes up a migration-artifact.v1 citizen. The act captures the full artifact body (not a pin-only adoption). Kernel execution of this act retires the named predecessor types and contributes the supersession root."
+}

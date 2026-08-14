@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260814T183000Z-migration-artifact-c4f81a",
+  "recorded_at": "2026-08-14T18:30:00Z",
+  "milestone_key": "fact-type-succession-neutral-schedule1",
+  "milestone_branch": "milestone/fact-type-succession-neutral-schedule1",
+  "milestone_commit": "16bad32f0336b4783b810398040a2da71e7f62a8",
+  "schema_family": "migration-artifact",
+  "schema_path": "packages/schemas/kernel/migration-artifact.v1.schema.json",
+  "schema_version": "v1",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "First published migration-artifact family. The citizen names predecessor and successor fact types and a presented-claim finding mapping. Adoption of this artifact is a direct supersession root (fourth named root alongside correction findings, _member_withdrawals, and superseded-entity ids), not an individuation edge and not a new cascade edge."
+}
