@@ -3,10 +3,11 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "ssa-no-activity-applicability",
-  "milestone_state": "track-1",
-  "status": "NOT YET CLOSED: a targeted independent re-review of this repair and a green exact-head CI run are still required. SHIPPED CONTRACT: rule.ss-benefits-worksheet v2 (rule-artifact.v4) is the SOLE producer of tax.us.2025.social-security.line6b. 11 unconditional requires = no-rrb-or-foreign-social-benefit, the seven derived numeric inputs, social-security.line6a, filing_status, rounding.convention. Guard = all[require_closed(ssa1099.benefits) BOTH routes; conditional_dependency_set of the 22 worksheet-only declarations gated on count>0; categorical_compare(no-rrb == yes) BOTH routes; any[count==0, all[22 conjuncts, MFS set]]]. Value = choose(count==0 -> 0, else -> the UNCHANGED v1 worksheet expression). Stated in full and ONCE at the plan's '## Track 0 settlement - final contract'. T0-1 ANSWERED 33 -> 1: no-rrb-or-foreign-social-benefit is load-bearing, retained on both routes, and recorded as a FOURTEENTH migration candidate for Milestone 2, not acted on here. A CHARTERED TWO-PRODUCER DESIGN WAS TRIED AND WITHDRAWN BEFORE ANY VERSION OF IT SHIPPED: line6b is form-field-bound, presentation_projection._one_row admits exactly one disposition row, and the runner records a row for every rule on every path. schedule-a.total is never form-field-bound, so the precedent never transferred. PR #175 generalizes the lesson as a sixth Track 0 adversarial-closure artifact (see the plan's '### 6. Integration-surface artifact'), satisfied by evidence already committed. PUBLICATION GENERATION IS v30: package.core-calculations.v30 / published-packages.v25 / demo.release.2025.v23 / adopt-core-v30-current - the LOWEST versions free on the ratified line (origin/main tops out at package v29 / published-packages v24 / release v22). ss-benefits-scope STAYS AT ITS BASE v1 - no vocabulary successor exists. A NOT-READY REVIEW FOUND A REAL DEFECT AND IT IS NOW REPAIRED AT THE ROOT: the withdrawn ss-benefits-scope.bundle.v2 existed only because package_validation check 10a required an exact value_schema shape {\"enum\": [...]} for the ADR-0038 {yes,no} domain guard, rejecting the corpus's equally-valid {\"type\": \"string\", \"enum\": [...]} spelling; the worksheet's 23 category_literal pins (plus rule.form1040-line6c's one) were never repointed to v2, so the shipped citizen validated against a fact-type version the package no longer selected - serialized property order/presence mistaken for semantic domain identity. Repaired by changing check 10a to recognize both spellings as the same closed domain (rejecting extra enum values, open string domains, booleans, and incompatible types) and by withdrawing the bundle succession entirely - ss-benefits-scope reverts to v1 everywhere, worksheet v2's pins are unchanged and now correct. A NEW package-validation check (CATEGORY_LITERAL_PIN_STALE) rejects any category_literal exact pin whose (id, version) is not an actual package member, with mutation tests for a stale version and a missing fact type; the real package.core-calculations.v30 now validates with zero issues. COORDINATION ITEM FOR MILESTONE 2 IS RETRACTED: its predecessor population is ss-benefits-scope v1, as it always was on the ratified line - not v2. THE STALE TARGETED-REVIEW RECORD AND THE DUPLICATIVE PROTOTYPE SUITE ARE BOTH REMOVED: docs/reviews/2026-08-13-ssa-no-activity-v4-targeted-rereview.md and tests/test_ssa_no_activity_prototype.py no longer exist; their durable findings (the six-of-seven dependency-cost claim; the numeric-inputs-unconditional guard) live entirely in the permanent 28-test tests/test_ssa_no_activity_line6b_track1.py, which is the sole executable evidence for this contract. THE MOST LOAD-BEARING FACT, and the one a future edit is most likely to break: the seven derived numeric inputs are NOT conditional-set members. requires is the engine's only sequencing gate, conditional-set membership is invisible to eligibility, and a blocked rule resolves permanently - so conditionalizing them makes the rule eligible before its inputs publish and permanently blocks the nonempty route. Held by test_conditionalizing_the_numeric_inputs_breaks_the_nonempty_route on the PUBLISHED citizen. NO ADR IS OWED for the worksheet content; the check-10a/10b package_validation repair is an engine-level fix, owner-directed, not milestone content. STANDING CONSTRAINTS: no seat reads tax-instruction PDFs; do not broaden presentation_projection._one_row; do not widen audit_collect_authority (durable deferral, deliberately left open); closure is required on both routes for the SEMANTIC reason (line 6b must not publish until the current SSA family is confirmed complete), never justified by the count limitation; this is an SSA worksheet contract decision, not a change to collect semantics and not a precedent that every nonempty family requires closure. HISTORY REWRITTEN AGAIN for this repair: commits carry no generated co-author trailers or session material; only the open milestone branch was rewritten; force-pushed with lease. OPEN FOR OWNER: PR #173 (this milestone, NOT ready - awaiting fresh independent re-review and green exact-head CI on the rewritten head), PR #175 (integration-surface gate, merged), PR #172 (split record), PR #169 (stopped 1098-E design exploration).",
-  "current_role": "Foreman (validator repair applied; awaiting fresh independent re-review and green exact-head CI before closeout)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md#Track 0 settlement — final contract",
+  "milestone_state": "closed",
+  "status": "Closed 2026-08-14 (PR #173, merged 2026-08-14 at 05ddd777). SHIPPED CONTRACT: rule.ss-benefits-worksheet v2 (rule-artifact.v4) is the SOLE producer of tax.us.2025.social-security.line6b. 11 unconditional requires = no-rrb-or-foreign-social-benefit, the seven derived numeric inputs, social-security.line6a, filing_status, rounding.convention. Guard = all[require_closed(ssa1099.benefits) BOTH routes; conditional_dependency_set of the 22 worksheet-only declarations gated on count>0; categorical_compare(no-rrb == yes) BOTH routes; any[count==0, all[22 conjuncts, MFS set]]]. Value = choose(count==0 -> 0, else -> the UNCHANGED v1 worksheet expression). Independent review returned APPROVE WITH FINDINGS (both findings closed) and CI (verify) is green on the exact merged head. T0-1 ANSWERED 33 -> 1: no-rrb-or-foreign-social-benefit is load-bearing, retained on both routes, and recorded as a FOURTEENTH migration candidate for Milestone 2, not acted on here. Publication generation: package.core-calculations.v30 / published-packages.v25 / demo.release.2025.v23 / adopt-core-v30-current. ss-benefits-scope stays at its base v1 - no vocabulary successor exists; the withdrawn ss-benefits-scope.bundle.v2 and its package_validation check-10a root cause are fully distilled into the retrospective. Coordination item for Milestone 2 is retracted: its predecessor population is ss-benefits-scope v1, as it always was on the ratified line. Full arc distilled in the retrospective, not carried here.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md",
   "scope": [
     "identify the exact source-family closure or absence authority establishing that no applicable Social Security benefits exist",
     "produce a canonical line-6b zero carrying that authority and its provenance",
@@ -70,23 +71,24 @@
 **Primary branch:** `milestone/ssa-no-activity-applicability-repair`
 **Base:** the current ratified line (`origin/main`), including PR #175's
 integration-surface gate.
-**State:** Track 0 complete (paper) and dispositioned. Track 1's first
-attempt — the chartered two-producer contract — **stopped**: it is not
-implementable at the presentation boundary, because
-`tax.us.2025.social-security.line6b` is form-field-bound, and a
-form-field-bound symbol admits exactly one disposition row while a
-two-producer split always yields two. See `## Track 1 stop report`. Track 1
-was then rechartered around a single-producer contract, built, reviewed, and
-shipped as `rule.ss-benefits-worksheet` v2 (`## Track 0 settlement — final
-contract`). **Not yet closed:** a package-validation defect this repair
-fixes, an independent re-review of the fix, and a green exact-head CI run
-must all land before closeout.
+**State:** **Closed 2026-08-14** (PR #173, merged at `05ddd777`). Track 0
+complete (paper) and dispositioned. Track 1's first attempt — the chartered
+two-producer contract — **stopped**: it is not implementable at the
+presentation boundary, because `tax.us.2025.social-security.line6b` is
+form-field-bound, and a form-field-bound symbol admits exactly one
+disposition row while a two-producer split always yields two. See `## Track
+1 stop report`. Track 1 was then rechartered around a single-producer
+contract, built, independently reviewed (APPROVE WITH FINDINGS, both closed),
+and shipped as `rule.ss-benefits-worksheet` v2 (`## Track 0 settlement —
+final contract`), CI-green on the exact merged head. Retrospective:
+`docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md`.
 
 Milestone 1 of the two-milestone split recorded in
 `fact-type-succession-ssa-applicability.md`. Milestone 2 (fact-type succession
-with the thirteen neutral Schedule 1 propositions) is chartered only after this
-merges, on its own branch and PR. **This milestone does not share a PR with
-Milestone 2 and does not wait on its prototype and ADR cycle.**
+with the thirteen neutral Schedule 1 propositions) is now chartered on its own
+branch and PR as `fact-type-succession-neutral-schedule1`. **This milestone
+did not share a PR with Milestone 2 and did not wait on its prototype and ADR
+cycle.**
 
 ## Objective
 
