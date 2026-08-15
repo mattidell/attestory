@@ -1,0 +1,63 @@
+{
+  "finding_mapping": {
+    "policy": "presented-claim"
+  },
+  "id": "tax.us.2025.schedule1-adjustments-scope.succession",
+  "pairs": [
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-schedule1-line24z-writein",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line11-educator",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line12-business-expenses",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line13-hsa",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line14-moving",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line15-deductible-se",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line16-se-retirement",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line17-se-health",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line18-penalty",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line19-alimony-paid",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line20-ira-deduction",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line23-archer-msa",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa"
+    },
+    {
+      "predecessor": "tax.us.2025.ss-benefits-scope.no-sch1-line25-other-adjustments",
+      "successor": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments"
+    }
+  ],
+  "schema": "migration-artifact.v1",
+  "title": "Succeed the thirteen Schedule 1 Part II absence facts from the Social Security worksheet vocabulary onto Schedule-1-native ids. Adoption is a direct supersession root. Finding half is a presented successor claim.",
+  "version": "v1"
+}

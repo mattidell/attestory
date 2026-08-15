@@ -1,0 +1,346 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line24z-writein",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 24z write-in adjustment is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 11 educator expenses adjustment is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 12 certain business expenses of reservists, performing artists, and fee-basis government officials is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 13 health savings account deduction is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 14 moving expenses for members of the Armed Forces is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 15 deductible part of self-employment tax is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 16 self-employed SEP, SIMPLE, and qualified plans is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 17 self-employed health insurance deduction is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 18 penalty on early withdrawal of savings is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 19 alimony paid is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 20 IRA deduction is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 23 Archer MSA deduction is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Schedule 1 line 25 other adjustments is not present for tax year 2025. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named class is absent; no asserts it is present.",
+      "value_schema": {
+        "enum": [
+          "yes",
+          "no"
+        ],
+        "type": "string"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.schedule1-adjustments-scope.vocabulary",
+  "label": "Schedule 1 Part II adjustment-absence vocabulary for tax year 2025. Thirteen Schedule-1-native {yes, no} declarations; not a successor version of ss-benefits-scope.vocabulary.",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

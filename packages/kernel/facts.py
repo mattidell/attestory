@@ -59,6 +59,12 @@ class KernelState:
 
     fact_types: dict[str, dict[str, Any]] = field(default_factory=dict)
     entities: dict[str, EntityLifecycle] = field(default_factory=dict)
+    # Type ids retired by an adopted migration artifact. A later bundle
+    # adoption that still lists one of these ids does not re-admit it.
+    retired_fact_type_ids: frozenset[str] = field(default_factory=frozenset)
+    # (fact_type_id, migration_artifact_id) for each retirement.
+    retired_by: tuple[tuple[str, str], ...] = ()
+    adopted_migrations: tuple[dict[str, Any], ...] = ()
 
 
 def initial_state() -> KernelState:
@@ -95,6 +101,12 @@ def apply_bundle_adoption(
                 f"bundle {bundle['id']}: duplicate fact type {fact_type['id']}"
             )
         seen.add(fact_type["id"])
+        if fact_type["id"] in state.retired_fact_type_ids:
+            # Retired by an adopted migration artifact. The bundle may
+            # still list the id (a shared vocabulary that also carries
+            # types this migration does not name); re-admission would
+            # undo the supersession root.
+            continue
         # Re-adoption under a revised bundle supersedes the fact type;
         # the earlier declaration remains in the act history.
         fact_types[fact_type["id"]] = fact_type
@@ -148,6 +160,68 @@ def apply_entity_superseded(
         successor_id=successor_id,
     )
     return replace(state, entities=entities)
+
+
+def apply_migration_adoption(
+    state: KernelState, payload: dict[str, Any], registry: SchemaRegistry
+) -> KernelState:
+    """Take up a migration artifact as a direct supersession root.
+
+    The named predecessor types leave current ``fact_types`` and are
+    recorded as retired. Successor types must already be current —
+    ordinary bundle adoption admits them; this act does not copy type
+    bodies. Findings of the retired types become supersession roots in
+    currency; this function does not walk edges and does not touch
+    ``Fact.individuated_by``.
+    """
+    migration = payload["migration"]
+    registry.validate_declared(migration)
+    migration_id = migration["id"]
+    if any(existing["id"] == migration_id for existing in state.adopted_migrations):
+        raise FactModelError(f"migration already adopted: {migration_id}")
+    pairs = migration["pairs"]
+    predecessors = [pair["predecessor"] for pair in pairs]
+    successors = [pair["successor"] for pair in pairs]
+    if len(predecessors) != len(set(predecessors)):
+        raise FactModelError(
+            f"migration {migration_id}: predecessor list names an id more than once"
+        )
+    if len(successors) != len(set(successors)):
+        raise FactModelError(
+            f"migration {migration_id}: successor list names an id more than once"
+        )
+    overlap = set(predecessors) & set(successors)
+    if overlap:
+        raise FactModelError(
+            f"migration {migration_id}: predecessor and successor sets overlap: "
+            f"{sorted(overlap)}"
+        )
+    for successor_id in successors:
+        if successor_id in state.retired_fact_type_ids:
+            raise FactModelError(
+                f"migration {migration_id}: successor type is retired: {successor_id}"
+            )
+        if successor_id not in state.fact_types:
+            raise FactModelError(
+                f"migration {migration_id}: successor type is not current: {successor_id}"
+            )
+    for predecessor_id in predecessors:
+        if predecessor_id in state.retired_fact_type_ids:
+            raise FactModelError(
+                f"migration {migration_id}: predecessor type is already retired: "
+                f"{predecessor_id}"
+            )
+    fact_types = dict(state.fact_types)
+    for predecessor_id in predecessors:
+        fact_types.pop(predecessor_id, None)
+    return replace(
+        state,
+        fact_types=fact_types,
+        retired_fact_type_ids=state.retired_fact_type_ids | frozenset(predecessors),
+        retired_by=state.retired_by
+        + tuple((predecessor_id, migration_id) for predecessor_id in predecessors),
+        adopted_migrations=state.adopted_migrations + (migration,),
+    )
 
 
 def superseded_entity_ids(state: KernelState) -> frozenset[str]:
@@ -222,6 +296,7 @@ _APPLIERS = {
     "bundle-adoption": apply_bundle_adoption,
     "entity-introduced": apply_entity_introduced,
     "entity-superseded": apply_entity_superseded,
+    "migration-adoption": apply_migration_adoption,
 }
 
 

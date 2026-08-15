@@ -156,6 +156,9 @@ def live_coordinate_run(
     validate_projected_source_boundary(state.findings.values(), state.withdrawn_fact_ids)
     currency = compute_currency(state)
     rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)
+    retired = state.fact_state.retired_fact_type_ids
+    if retired:
+        fact_types = [ft for ft in fact_types if ft.get("id") not in retired]
     context = marshal_live_run_context(
         run_id=run_id, state=state, currency=currency, rules=rules, parameters=parameters,
         canon=load_canon(schemas),

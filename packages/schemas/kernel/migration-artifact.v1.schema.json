@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/migration-artifact.v1",
+  "title": "Migration artifact",
+  "description": "A recorded lattice-reshape citizen. Adoption of this artifact is a direct supersession root: it names the predecessor fact types it retires and the successor fact types it requires to be current, and it presents successor claims for then-current predecessor findings. It is not an individuation edge and not a new cascade edge. The finding half is a presented successor claim (ADR-0025 decision 7 as finding-half precedent only).",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "migration-artifact.v1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finding_mapping": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "const": "presented-claim"
+        }
+      },
+      "required": [
+        "policy"
+      ],
+      "additionalProperties": false
+    },
+    "pairs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "predecessor": {
+            "type": "string",
+            "minLength": 1
+          },
+          "successor": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "predecessor",
+          "successor"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "title",
+    "finding_mapping",
+    "pairs"
+  ],
+  "additionalProperties": false
+}
