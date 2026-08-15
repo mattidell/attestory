@@ -288,7 +288,13 @@ class DataSafety(unittest.TestCase):
     # Form 1098 mortgage acquisition-debt limits), never to the whole
     # parameter-declaration.v1 class. Every other parameter file - including
     # any future one - stays subject to the ordinary digit-run gate.
-    _EXEMPT_PARAMETER_IDS = frozenset({"tax.us.2025.f1098.mortgage-interest-limit"})
+    _EXEMPT_PARAMETER_IDS = frozenset({
+        "tax.us.2025.f1098.mortgage-interest-limit",
+        # Student Loan Interest Deduction Worksheet MAGI phaseout threshold
+        # (i1040gi.pdf p.99, T0-4): a statutory constant ($170,000 MFJ),
+        # never taxpayer/account data.
+        "tax.us.2025.parameter.sli-magi-threshold",
+    })
 
     def test_no_private_markers_or_account_identifiers(self) -> None:
         # Interest fixtures are a natural leak surface for real-looking

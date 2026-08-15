@@ -3,9 +3,9 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1098e-student-loan-interest-agi",
-  "milestone_state": "track-3",
-  "status": "Re-cut of milestone/f1098e-student-loan-interest-line21 (PR #169, owner-ruled completed design exploration). Cut from origin/main at 85b6a0f1. Track 0 settled: ten settlement questions answered, five of six adversarial closure artifacts PASS; integration surface PENDING by design (closes retroactively when Track 1-6 build the nine synthetic disposition-path models, matching the ssa-no-activity-applicability precedent). Foreman review corrected one version collision (rule-artifact v5 -> v6) and a substrate bug in build_orientation_block.py (current_prompt's #anchor was ignored). Version claims on the local-only milestone-schema-ledger branch: attachment-rule v9, artifact-package v25, rule-artifact v6. Track 1 and Track 2 built, foreman-reviewed, full suite green. Commits f91fb600, 3f201845. Track 3 dispatched.",
-  "current_role": "Builder (Track 3 — Student Loan Interest Deduction Worksheet rule citizen)",
+  "milestone_state": "track-4",
+  "status": "Re-cut of milestone/f1098e-student-loan-interest-line21 (PR #169, owner-ruled completed design exploration). Cut from origin/main at 85b6a0f1. Track 0 settled: ten settlement questions answered, five of six adversarial closure artifacts PASS; integration surface PENDING by design (closes retroactively when Track 1-6 build the nine synthetic disposition-path models, matching the ssa-no-activity-applicability precedent). Foreman review corrected one version collision (rule-artifact v5 -> v6), a substrate bug in build_orientation_block.py (current_prompt's #anchor was ignored), and a missing SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE block test. Version claims on the local-only milestone-schema-ledger branch: attachment-rule v9, artifact-package v25, rule-artifact v6. Tracks 1-3 built and foreman-reviewed, full suite green. Known limitation carried to Track 6: multi-statement per-statement-witness disagreement is unmarshalled first-wins, untested. Track 4 dispatched.",
+  "current_role": "Builder (Track 4 — Schedule 1 line-26 composition and attachment succession)",
   "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Tracks",
   "scope": [
     "settle Form 1098-E authority and identity (T0-1)",
@@ -1072,7 +1072,16 @@ Atomic, one commit each, in the T0-9 substrate order:
   `form1040.line-10`/`-11a`/`-11b` form-field citizens.
 * **Track 6 — the nine synthetic end-to-end disposition-path models
   (integration-surface artifact 6) and presentation-model probes**, run
-  through `live_coordinate_run`, closing Track 0's `PENDING` row.
+  through `live_coordinate_run`, closing Track 0's `PENDING` row. **Carries
+  a known limitation from Track 3**: the five per-statement universal
+  eligibility witnesses are read via a single unkeyed `ref` per fact-type-id,
+  so `packages/derivation/marshal.py` binds only the first current finding
+  per symbol on a multi-statement family with *disagreeing* per-statement
+  answers, silently dropping the rest. Track 3's fixtures are single-
+  statement only and do not exercise this. This is a pre-existing
+  marshalling property, not something Track 3 introduced, but Track 6's
+  nine models must include a multi-statement-disagreement case to prove
+  the route's actual behavior (block, or first-wins) rather than assume it.
 * **Track 7 — the two ADRs** (expression-language extension;
   Schedule 1 Part II completeness/line-26 composition), citing the evidence
   Tracks 1–6 produced.
