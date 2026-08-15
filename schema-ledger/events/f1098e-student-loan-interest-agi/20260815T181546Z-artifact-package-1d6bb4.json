@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260815T181546Z-artifact-package-1d6bb4",
+  "recorded_at": "2026-08-15T18:15:46Z",
+  "milestone_key": "f1098e-student-loan-interest-agi",
+  "milestone_branch": "milestone/f1098e-student-loan-interest-agi",
+  "milestone_commit": "f5e314c3",
+  "schema_family": "artifact-package",
+  "schema_path": "packages/schemas/derivation/artifact-package.v25.schema.json",
+  "schema_version": "v25",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Reserved for whatever new member role or admitted schema the Form 1098-E route needs (Track 0 T0-8/T0-9, not yet settled). v23 published, v24 claimed by declarative-validation-substrate-f8949; this claim avoids collision. No schema file written yet -- Track 0 has not started."
+}

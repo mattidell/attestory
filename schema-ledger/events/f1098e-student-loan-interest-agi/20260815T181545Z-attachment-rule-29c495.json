@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260815T181545Z-attachment-rule-29c495",
+  "recorded_at": "2026-08-15T18:15:45Z",
+  "milestone_key": "f1098e-student-loan-interest-agi",
+  "milestone_branch": "milestone/f1098e-student-loan-interest-agi",
+  "milestone_commit": "f5e314c3",
+  "schema_family": "attachment-rule",
+  "schema_path": "packages/schemas/tax/attachment-rule.v9.schema.json",
+  "schema_version": "v9",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Reserved for Schedule 1 line-21 attachment disposition (Track 0 T0-7, not yet settled). v7 (f8949-noncovered-basis) and v8 (declarative-validation-substrate-f8949) are both already claimed; this claim avoids collision. No schema file written yet -- Track 0 has not started."
+}
