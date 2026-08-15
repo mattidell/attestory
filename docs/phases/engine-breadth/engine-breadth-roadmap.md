@@ -164,8 +164,23 @@ roadmap unless a selected breadth slice directly depends on them.
     **v23** / adopt **v30** over the merged Form 1098 base. Plan:
     `milestones/ssa-no-activity-applicability.md`; retrospective:
     `docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md`.
+14. **Fact-type succession with neutral Schedule 1 vocabulary** —
+    owner-approved as Milestone 2 of the same Form 1098-E prerequisite,
+    and **closed on this branch (PR #177)**. No new tax route. The
+    thirteen shared Schedule 1 absence declarations succeed onto
+    Schedule-1-native ids via an adopted `migration-artifact.v1`
+    (ADR-0063), a fourth named supersession root. Worksheet v3
+    retargets the nonempty conditional set; the Milestone 1 empty-route
+    contract is unchanged. Publication is the additive union core
+    **v31** / published **v26** / release **v24**. Form 1098-E,
+    Schedule 1 line 21, Form 1040 line 10, and AGI remain Part 3.
+    Plan: `milestones/fact-type-succession-neutral-schedule1.md`;
+    retrospective:
+    `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
 
 **Next breadth slice — owner-unselected.**
+The fresh Form 1098-E vertical slice (Schedule 1 lines 21/26, Form 1040
+line 10, AGI 11a/11b) remains unselected.
 Inbound capital-loss carryovers, Form 8949/noncovered securities/adjustments,
 and other Schedule D sources remain distinct candidates; other Form 1099-R
 distribution treatments and unrelated income domains remain outside the
@@ -275,6 +290,13 @@ source and completeness boundary is selected.
   v18/v13/v11/adopt-v18. Independent review returned `READY` with no findings.
   Plan: `milestones/form1099int-box8-line2a.md`; retrospective:
   `docs/milestone-retrospectives/2026-08-05-form1099int-box8-line2a.md`.
+- **Fact-type succession with neutral Schedule 1 vocabulary — closed
+  on this branch (PR #177).** No new tax route. Thirteen Schedule 1
+  absence facts succeed onto Schedule-1-native ids (ADR-0063). Empty-route
+  SSA contract unchanged except the nonempty CDS retarget. Form 1098-E
+  remains unselected. Plan:
+  `milestones/fact-type-succession-neutral-schedule1.md`; retrospective:
+  `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the

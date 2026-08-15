@@ -134,13 +134,45 @@ def _declared_edges(state: FindingState) -> dict[str, dict[str, set[str]]]:
     return edges
 
 
+def _migration_supersessions(
+    state: FindingState,
+) -> tuple[set[str], dict[str, list[DisplacementReason]]]:
+    """Findings answering a fact type retired by a migration are roots.
+
+    Parallel to ``_member_withdrawals``: the recorded act contributes
+    displacement roots, never a new edge kind. The reason kind is
+    ``supersession``; ``by`` is the migration artifact id. Downstream
+    consumers cascade through the existing derivation edge.
+    """
+    retired = state.fact_state.retired_fact_type_ids
+    if not retired:
+        return set(), {}
+    retired_by = dict(state.fact_state.retired_by)
+    displaced: set[str] = set()
+    reasons: dict[str, list[DisplacementReason]] = {}
+    for finding_id, finding in state.findings.items():
+        fact_id = finding["fact_id"]
+        type_id = fact_id.split("|", 1)[0] if "|" in fact_id else ""
+        if type_id not in retired:
+            continue
+        displaced.add(finding_id)
+        reasons.setdefault(finding_id, []).append(
+            DisplacementReason(
+                kind="supersession",
+                by=retired_by.get(type_id, type_id),
+            )
+        )
+    return displaced, reasons
+
+
 def compute_currency(state: FindingState) -> CurrencyView:
     """Compute currency from a projection, never from stored flags.
 
     Displacement roots come from the record alone: corrections (a later
-    finding for the same fact) and superseded entities. There is no
-    caller-supplied displacement — displacement is a consequence of the
-    record, not an argument (Article 7).
+    finding for the same fact), member withdrawals, superseded entities,
+    and migration-artifact supersession. There is no caller-supplied
+    displacement — displacement is a consequence of the record, not an
+    argument (Article 7).
     """
     correction_roots, reason_lists = _finding_corrections(state)
     roots = set(correction_roots)
@@ -148,6 +180,10 @@ def compute_currency(state: FindingState) -> CurrencyView:
     roots.update(withdrawal_roots)
     for withdrawn_id, withdrawn_reasons in withdrawal_reasons.items():
         reason_lists.setdefault(withdrawn_id, []).extend(withdrawn_reasons)
+    migration_roots, migration_reasons = _migration_supersessions(state)
+    roots.update(migration_roots)
+    for migrated_id, migrated_reasons in migration_reasons.items():
+        reason_lists.setdefault(migrated_id, []).extend(migrated_reasons)
     roots.update(superseded_entity_ids(state.fact_state))
 
     closure, closure_reasons = displacement_closure(roots, _declared_edges(state))

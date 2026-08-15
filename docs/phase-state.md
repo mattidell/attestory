@@ -2,11 +2,11 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "ssa-no-activity-applicability",
-  "active_plan": "docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md",
+  "topic": "fact-type-succession-neutral-schedule1",
+  "active_plan": "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md",
   "milestone_state": "closed",
-  "status": "Closed 2026-08-14 (PR #173, merged at 05ddd777). Independent review returned APPROVE WITH FINDINGS (both findings closed) and CI (verify) is green on the exact merged head. Shipped: rule.ss-benefits-worksheet v2, the sole producer of tax.us.2025.social-security.line6b, publishing the canonical zero on a closed-empty SSA source family without reading or pinning the 22 worksheet-only scope declarations. no-rrb-or-foreign-social-benefit is retained (load-bearing, T0-1 answered 33 -> 1) and recorded as a fourteenth migration candidate for Milestone 2. Publication generation: package.core-calculations.v30 / published-packages.v25 / demo.release.2025.v23 / adopt-core-v30-current. Full arc distilled in the retrospective, not carried here.",
-  "retrospective": "docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md",
+  "status": "Closed on this branch (PR #177). Milestone 2 of the Form 1098-E prerequisite. No new tax route. Thirteen Schedule 1 absence facts succeed onto Schedule-1-native ids via an adopted migration-artifact.v1 (ADR-0063). Worksheet v3 retargets the nonempty CDS; Milestone 1 empty-route contract unchanged. Publication: core v31 / published-packages v26 / release v24. Track 0 STOP FOR ADVISOR on F1; owner disposition; Track 1 APPROVE. Next milestone unselected.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
@@ -28,51 +28,44 @@ Schedule 1 into Form 1040 line 8, the bounded Form 1099-DIV box-7 direct
 foreign tax credit, the merged IRA line-4b route, the bounded SSA-1099
 Benefits Worksheet route through Form 1040 lines 6a/6b, and the bounded Form
 1098 home-mortgage interest route through Schedule A and Form 1040 line 12e.
-The SSA no-activity applicability repair closes a defect on that last SSA
+The SSA no-activity applicability repair closed a defect on that last SSA
 route: a return with no Social Security source can now reach total income
-without answering 33 Social Security declarations.
+without answering 33 Social Security declarations. The thirteen shared
+Schedule 1 absence declarations that used to live on that worksheet
+vocabulary now have Schedule-1-native successor ids and an adopted
+migration artifact that retires the old ones. **This milestone adds no
+new tax route.**
 
 ## Operational State: Engine Breadth
 
-* **Just-closed milestone:** SSA no-activity applicability repair — **closed
-  2026-08-14** (PR #173, `05ddd777`). Milestone 1 of the owner-approved
-  two-milestone prerequisite standing between the engine and Form 1098-E
-  student-loan interest.
-* **Objective, met:** a return with no applicable Social Security source
-  publishes the legally authorized line-6 zero and proceeds through line 9
-  without satisfying worksheet-only scope declarations.
-* **The defect, repaired:** `rule.ss-benefits-worksheet` was the **only**
-  producer of `tax.us.2025.social-security.line6b` corpus-wide and carried
-  **33** `requires`, while `rule.form1040-line9.v7` requires line 6b
-  **unconditionally** — so every return in the engine had to satisfy 33
-  Social Security declarations to reach total income.
-* **The shipped contract:** `rule.ss-benefits-worksheet` **v2** under
-  `rule-artifact.v4`, the **sole** producer of line 6b. Eleven unconditional
-  `requires` (the retained declaration, the seven derived numeric inputs,
-  `social-security.line6a`, `filing_status`, `rounding.convention`); an
-  ADR-0037 `conditional_dependency_set` of **22** worksheet-only declarations
-  gated on `count > 0`; unconditional `require_closed` on **both** routes; a
-  value-level `choose` selecting canonical `0` or the **unchanged** v1
-  worksheet expression.
-* **T0-1 answered 33 → 1:** `no-rrb-or-foreign-social-benefit` is load-bearing
-  and is retained, active on both routes. It is recorded as a **fourteenth**
-  migration candidate for Milestone 2 and was **not acted on** in Milestone 1.
-* **Publication generation:** `package.core-calculations.v30` /
-  `published-packages.v25` / `demo.release.2025.v23` / `adopt-core-v30-current`.
-  `ss-benefits-scope` stays at its base **v1** everywhere: no vocabulary
-  successor exists. A withdrawn `bundle.v2` and the `package_validation`
-  check-10a root cause it exposed are repaired and fully distilled into the
-  retrospective.
-* **Coordination item for Milestone 2 is retracted.** Its predecessor
-  population is `ss-benefits-scope` **v1**, as it always was on the ratified
-  line — not v2.
-* **Posture:** content-level for the worksheet contract itself. No new schema
-  family, no ledger entry, **no ADR owed**.
-* **Independent review:** APPROVE WITH FINDINGS, both findings closed. CI
-  `verify` green on the exact merged head.
-* **Plan:** `docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md`.
-* **Split record:** `docs/phases/engine-breadth/milestones/fact-type-succession-ssa-applicability.md` (PR #172, closed — historical input, not authority).
+* **Just-closed milestone (this branch):** Fact-type succession with
+  neutral Schedule 1 vocabulary — **closed on this branch (PR #177)**.
+  Milestone 2 of the owner-approved two-milestone prerequisite between
+  the engine and Form 1098-E. They do not share a PR.
+* **Objective, met:** the thirteen shared Schedule 1 absence
+  declarations have a declared lifecycle relationship to their
+  successors. Old answers do not stand silently. A no-Schedule-1
+  return is not asked additional questions. Displacement is a named
+  migration-artifact supersession root (ADR-0063), not an
+  individuation edge and not a package filter.
+* **What shipped:** ADR-0063; `migration-artifact.v1` /
+  `act-migration-adoption.v1` / `artifact-package.v23`; thirteen
+  `schedule1-adjustments-scope` successors; one succession citizen;
+  worksheet v3 CDS retarget; package **v31** / published-packages
+  **v26** / release **v24**.
+* **What did not ship:** Form 1098-E; Schedule 1 line 21 as a real
+  form; Form 1040 line 10; AGI 11a/11b; any change to
+  `no-rrb-or-foreign-social-benefit`. Those remain Part 3,
+  **unselected**.
+* **Independent review:** Track 0 STOP FOR ADVISOR on F1 only; Track 1
+  APPROVE, no findings. Material dissent (F1) is decided by ADR-0063.
+* **Plan:** `docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md`.
+* **Retrospective:** `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
+* **Prior milestone:** SSA no-activity applicability repair — closed
+  2026-08-14 (PR #173). Plan:
+  `docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md`;
+  retrospective:
+  `docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md`.
 
 ## Re-entry
 

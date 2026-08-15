@@ -77,6 +77,7 @@ ROLE_VOCABULARY = frozenset(
         "dividend-universe",
         "attachment-rule",
         "checked-conclusion-binding",
+        "migration-artifact",
     }
 )
 

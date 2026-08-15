@@ -27,6 +27,14 @@ from typing import Any, Iterable, Mapping
 
 from packages.kernel.schema_registry import SchemaValidationError
 from packages.derivation.loader import DerivationSchemas, PACKAGE_SCHEMA
+from packages.tax.schedule1_adjustments_succession import (
+    MIGRATION_ID,
+    NO_RRB_ID,
+    NON_SCHEDULE1_SCOPE_IDS,
+    PREDECESSOR_IDS,
+    SUCCESSOR_BUNDLE_ID,
+    SUCCESSOR_IDS,
+)
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
 _RULE_ARTIFACT_SCHEMAS = frozenset({"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4"})
@@ -514,6 +522,83 @@ def validate_package(
             if "optional_default" in citizen:
                 fact_defaults[citizen["id"]] = citizen["optional_default"]["parameter"]
 
+    # 1b. An adopted migration artifact retires named predecessors from
+    # F(P) (admission and binding). This is not a currency root; findings
+    # already in a lattice displace only when the migration act is taken
+    # up. Successors named by the artifact must remain in the surface.
+    migrations = [
+        (pin, citizen)
+        for pin, citizen in resolved
+        if citizen.get("schema") == "migration-artifact.v1"
+    ]
+    retired_predecessor_ids: set[str] = set()
+    for pin, citizen in migrations:
+        pairs = citizen.get("pairs") or []
+        predecessors = [pair.get("predecessor") for pair in pairs]
+        successors = [pair.get("successor") for pair in pairs]
+        if citizen.get("id") == MIGRATION_ID:
+            if tuple(predecessors) != PREDECESSOR_IDS or tuple(successors) != SUCCESSOR_IDS:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "MIGRATION_PREDECESSOR_SET_INVALID",
+                    "this succession must name exactly the T0-1 thirteen "
+                    "predecessors and their thirteen successors; "
+                    "no-rrb-or-foreign-social-benefit and the other nine "
+                    "ss-benefits-scope members are not this migration",
+                ))
+            forbidden_predecessors = set(predecessors) & set(NON_SCHEDULE1_SCOPE_IDS)
+            if NO_RRB_ID in predecessors or forbidden_predecessors:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "MIGRATION_FORBIDDEN_PREDECESSOR",
+                    "migration predecessor list names a type this succession "
+                    "must not retire",
+                ))
+        for pair in pairs:
+            predecessor_id = pair.get("predecessor")
+            successor_id = pair.get("successor")
+            if predecessor_id:
+                retired_predecessor_ids.add(str(predecessor_id))
+            if successor_id and not any(ft_id == successor_id for ft_id, _ver in fact_surface):
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "MIGRATION_SUCCESSOR_NOT_ADMITTED",
+                    f"migration successor {successor_id!r} is not in the "
+                    f"package fact surface",
+                ))
+    if retired_predecessor_ids:
+        fact_surface = {
+            (ft_id, ver) for ft_id, ver in fact_surface
+            if ft_id not in retired_predecessor_ids
+        }
+        fact_types_by_key = {
+            key: value for key, value in fact_types_by_key.items()
+            if key[0] not in retired_predecessor_ids
+        }
+
+    member_ids_for_succession = {pin["id"] for pin, _citizen in resolved}
+    claims_succession = (
+        any(citizen.get("id") == MIGRATION_ID for _pin, citizen in resolved)
+        or SUCCESSOR_BUNDLE_ID in member_ids_for_succession
+        or any(
+            citizen.get("schema", "").startswith("rule-artifact.")
+            and citizen.get("id") == "tax.us.2025.rule.ss-benefits-worksheet"
+            and citizen.get("version") == "v3"
+            for _pin, citizen in resolved
+        )
+    )
+    if claims_succession:
+        has_migration = any(citizen.get("id") == MIGRATION_ID for _pin, citizen in resolved)
+        has_successor_bundle = SUCCESSOR_BUNDLE_ID in member_ids_for_succession
+        has_worksheet_v3 = any(
+            pin["id"] == "tax.us.2025.rule.ss-benefits-worksheet" and pin["version"] == "v3"
+            for pin, _citizen in resolved
+        )
+        if not (has_migration and has_successor_bundle and has_worksheet_v3):
+            issues.append(MemberIssue(
+                package_id, str(package.get("version", "")),
+                "SUCCESSION_PACKAGE_INCOMPLETE",
+                "a package that claims this succession must pin the migration "
+                "citizen, the successor vocabulary bundle, and worksheet v3",
+            ))
+
     # 2. Member level checks
     for pin, citizen in resolved:
         pin_role = pin["role"]
@@ -607,6 +692,10 @@ def validate_package(
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"attachment-rule declared as role {pin_role!r}"))
+        elif citizen["schema"] == "migration-artifact.v1":
+            if pin_role != "migration-artifact":
+                issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
+                                           f"migration-artifact declared as role {pin_role!r}"))
 
         if "scope" in citizen:
             member_scope = {key: citizen.get("scope", {}).get(key) for key in _SCOPE_KEYS}
@@ -923,7 +1012,7 @@ def validate_package(
         # entrypoint-pin contract unchanged (repair round 3 finding 3: v22 was
         # missing from this set, so a stale or dangling entrypoint in a
         # v22-schema package passed validation silently).
-        if package.get("schema") in {"artifact-package.v20", "artifact-package.v21", "artifact-package.v22"}:
+        if package.get("schema") in {"artifact-package.v20", "artifact-package.v21", "artifact-package.v22", "artifact-package.v23"}:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
             }

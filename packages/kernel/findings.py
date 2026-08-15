@@ -67,6 +67,10 @@ class FindingState:
     # remove/reclassify. Withdrawal is a displacement *root* over the
     # fact's findings (like correction), never a new edge kind.
     withdrawn_fact_ids: frozenset[str] = frozenset()
+    # Presented successor claims produced by a migration-adoption act.
+    # Each is an input to a later user assertion; nothing here writes a
+    # successor finding (ADR-0025 decision 7, finding half only).
+    presented_successor_claims: tuple[dict[str, Any], ...] = ()
 
 
 def initial_state() -> FindingState:
@@ -770,6 +774,63 @@ def apply_member_transition(
     return new_state
 
 
+def _present_successor_claims(
+    state: FindingState, migration: dict[str, Any]
+) -> tuple[dict[str, Any], ...]:
+    """Build presented successor claims from then-current predecessor findings.
+
+    Only the last current finding on each predecessor fact is an input.
+    Open predecessor facts produce no claim. The user asserts the
+    presented value; this function does not write a successor finding.
+    """
+    lattice = facts.facts_of(state.fact_state)
+    claims: list[dict[str, Any]] = []
+    last_by_fact: dict[str, dict[str, Any]] = {}
+    for finding in state.findings.values():
+        fact_id = finding["fact_id"]
+        if fact_id in state.withdrawn_fact_ids:
+            continue
+        last_by_fact[fact_id] = finding
+    successor_by_predecessor = {
+        pair["predecessor"]: pair["successor"] for pair in migration["pairs"]
+    }
+    for fact in lattice.values():
+        successor_id = successor_by_predecessor.get(fact.fact_type_id)
+        if successor_id is None:
+            continue
+        current_finding = last_by_fact.get(fact.fact_id)
+        if current_finding is None:
+            continue
+        claims.append(
+            {
+                "predecessor_finding_id": current_finding["id"],
+                "predecessor_fact_id": fact.fact_id,
+                "successor_fact_type_id": successor_id,
+                "successor_fact_id": facts.fact_id_for(successor_id, fact.keys),
+                "proposed_value": current_finding["value"],
+                "migration_id": migration["id"],
+            }
+        )
+    return tuple(claims)
+
+
+def apply_migration_adoption(
+    state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
+) -> FindingState:
+    """Adopt a migration artifact: retire named types, present claims."""
+    migration = payload["migration"]
+    registry.validate_declared(migration)
+    claims = _present_successor_claims(state, migration)
+    new_fact_state = facts.apply_migration_adoption(
+        state.fact_state, payload, registry
+    )
+    return replace(
+        state,
+        fact_state=new_fact_state,
+        presented_successor_claims=state.presented_successor_claims + claims,
+    )
+
+
 _APPLIERS = {
     "evidence-submitted": apply_evidence_submitted,
     "evidence-replaced": apply_evidence_replaced,
@@ -777,6 +838,7 @@ _APPLIERS = {
     "horizon-genesis": apply_horizon_genesis,
     "member-transition": apply_member_transition,
     "contribution": apply_contribution,
+    "migration-adoption": apply_migration_adoption,
 }
 
 _FACT_ACT_KINDS = frozenset({"bundle-adoption", "entity-introduced", "entity-superseded"})

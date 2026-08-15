@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-migration-adoption.v1",
+  "title": "Migration-artifact adoption act payload",
+  "description": "Takes up a migration-artifact.v1 citizen. The payload captures the full artifact body; a pin-only adoption is not accepted. The recorded act is the supersession root that retires the named predecessor types and presents successor claims for then-current predecessor findings.",
+  "type": "object",
+  "properties": {
+    "migration": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "migration-artifact.v1"
+        }
+      },
+      "required": [
+        "schema"
+      ],
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "migration"
+  ],
+  "additionalProperties": false
+}
