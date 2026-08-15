@@ -3,10 +3,10 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "fact-type-succession-neutral-schedule1",
-  "milestone_state": "track-0",
-  "status": "CHARTERED, NOT YET BUILT. Milestone 2 of the owner-approved two-milestone Form 1098-E prerequisite. Milestone 1 (ssa-no-activity-applicability) closed 2026-08-14 (PR #173). This document charters Track 0 only: settle the fact-type succession design on paper (rival prototypes only if the paper rung leaves more than one viable lifecycle shape) before any implementation. Predecessor population verified directly against origin/main at 05ddd777: thirteen tax.us.2025.ss-benefits-scope fact types (v1, bundle.v2, all keyed on a single {tax-year: 2025} literal, contributed, no derivation pins) are the shared Schedule 1 absence declarations. tax.us.2025.ss-benefits-scope.no-rrb-or-foreign-social-benefit is explicitly NOT part of that population -- Milestone 1 found it a source-existence proposition, a separate fourteenth migration candidate, and this document must disposition it on its own terms, not by analogy to the thirteen. Do not implement Form 1098-E, Schedule 1 line 21, Form 1040 line 10, or AGI lines 11a/11b in this milestone -- those are Part 3, immediately after this milestone closes. Stop for an Advisor/owner decision if the design turns on docs/governance/ontology.md rather than composing its existing mechanisms.",
-  "current_role": "Foreman (present the Track 0 charter for owner-launch; no dispatch without literal authorization)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Track 0 charter — seven settlement questions",
+  "milestone_state": "track-1",
+  "status": "TRACK 0 COMPLETE AND DISPOSITIONED. Track 0 paper settlement (all seven questions) landed, independently reviewed (docs/reviews/2026-08-14-fact-type-succession-track0-review.md, verdict STOP FOR ADVISOR on finding F1 only -- T0-1, T0-2, T0-3, T0-6, T0-7, and all four rejected mechanism alternatives held independently). F1 asked whether treating the predecessor fact type as an individuation root instantiates or broadens Ontology §7. Owner disposition (verbatim in the plan's '## Owner disposition (binding on Track 1)'): adoption of an explicit migration artifact is a direct supersession root -- not an individuation edge, not a new third cascade edge. This corrects, not just approves, the paper's T0-5 framing: displacement runs through a new named root (parallel to _member_withdrawals), never through a claim that the predecessor fact type is 'keyed on'. '## Amended Track 1 charter' supersedes the paper's original Track 1 proposal with this correction; T0-1..T0-4/T0-6/T0-7 and the required-evidence list are unaffected and not reopened. Predecessor population: thirteen tax.us.2025.ss-benefits-scope fact types (v1), verified against packages/content/tax/2025/rule.ss-benefits-worksheet.v2.json's conditional_dependency_set, not merely against the bundle. no-rrb-or-foreign-social-benefit stays excluded, in requires, untouched. Two non-blocking hygiene items from review (F2, and a stale parent-SHA citation in the settlement's own header) do not block Track 1. Do not implement Form 1098-E, Schedule 1 line 21 as a real form, Form 1040 line 10, or AGI lines 11a/11b in this milestone -- those are Part 3.",
+  "current_role": "Foreman (present the Track 1 charter for owner-launch; no dispatch without literal authorization)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Amended Track 1 charter",
   "scope": [
     "identify the exact predecessor population and disposition no-rrb-or-foreign-social-benefit separately",
     "determine what a successor changes: identity, applicability, authority, lifecycle, or representation",
@@ -29,8 +29,8 @@
       "docs/governance/ontology.md#§2 — Claims, facts, findings",
       "docs/governance/ontology.md#§5 — Derivation machinery",
       "docs/governance/ontology.md#§7 — Supersession and lifecycle",
-      "docs/adr/0025-expression-language-extensions.md#7. ADR-0024's interim numeric codes migrate by governed successor claim.",
-      "docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md#T0-1 — authority sufficiency. Verdict: 33 → 1",
+      "docs/adr/0025-expression-language-extensions.md#Decision",
+      "docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md#T0-1 — authority sufficiency. Verdict: **33 → 1**",
       "docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md",
       "packages/content/tax/2025/ss-benefits-scope.bundle.json",
       "packages/schemas/kernel/fact-type.v2.schema.json",
@@ -39,8 +39,12 @@
     ],
     "implementation": [
       "docs/roles/builder.md",
-      "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Track 0 charter — seven settlement questions",
+      "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Owner disposition (binding on Track 1)",
+      "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Amended Track 1 charter",
       "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Required evidence",
+      "docs/reviews/2026-08-14-fact-type-succession-track0-review.md",
+      "packages/kernel/facts.py",
+      "packages/kernel/currency.py",
       "docs/process/concurrent-work.md",
       "AGENTS.md#Schema Publication Protocol",
       "AGENTS.md#Fixture Rules",
@@ -49,8 +53,9 @@
     "review": [
       "docs/roles/reviewer.md",
       "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Objective",
+      "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Owner disposition (binding on Track 1)",
+      "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Amended Track 1 charter",
       "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Required evidence",
-      "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Stop conditions",
       "AGENTS.md#Data Safety Rules"
     ]
   }
@@ -61,11 +66,13 @@
 
 **Milestone key:** `fact-type-succession-neutral-schedule1`
 **Primary branch:** `milestone/fact-type-succession-neutral-schedule1`
-**Base:** `origin/main` at `05ddd777` (includes PR #173, the merged SSA
-no-activity applicability repair).
-**State:** Track 0 chartered, not yet built. Milestone 2 of the two-milestone
-Form 1098-E prerequisite. **Does not share a PR with Milestone 1 and did not
-wait on Milestone 1's own review cycle beyond Milestone 1 actually merging.**
+**Base:** `origin/main` at `5ad67f5e` (includes PR #173, the merged SSA
+no-activity applicability repair, and PR #176, its administrative closeout).
+**State:** Track 0 complete and dispositioned; Track 1 chartered
+(`## Amended Track 1 charter`), not yet built. Milestone 2 of the
+two-milestone Form 1098-E prerequisite. **Does not share a PR with Milestone
+1 and did not wait on Milestone 1's own review cycle beyond Milestone 1
+actually merging.**
 
 ## Objective
 
@@ -500,9 +507,22 @@ and the same currency; it does not resurrect retired types. Upgrade
 runs the migration once as an adopted act, not as a runner-resident
 filter of the current package dictionary.
 
-### T0-5 — the displacing edge. Verdict: individuation, from the predecessor fact type
+### T0-5 — the displacing edge. Verdict: individuation, from the predecessor fact type (superseded — see `## Owner disposition (binding on Track 1)`)
 
-**Named edge.** Individuation. The predecessor fact type is the
+**This verdict is corrected below, not affirmed as written.** Independent
+review (finding F1) held that the individuation-edge framing argued in
+this section was a live but non-unique reading of the Ontology, not a
+settled composition, and returned STOP FOR ADVISOR. The owner's
+disposition resolves it differently: displacement runs through a
+**direct supersession root** created by adoption of the migration
+artifact, not through an individuation-edge claim about the
+predecessor fact type. The paper argument below is kept verbatim as
+the historical record of what Track 0 argued and why review did not
+accept it unexamined; `## Owner disposition (binding on Track 1)` and
+`## Amended Track 1 charter` govern what Track 1 actually builds.
+
+**Named edge (as originally argued — see correction above).**
+Individuation. The predecessor fact type is the
 citizen that individuates its facts. The act that supersedes that
 citizen is adoption of the migration artifact. Findings answering
 those facts displace along the individuation edge; consumers of those
@@ -678,36 +698,98 @@ reproduces the row.
 
 | Inventory item (from Inherited Track 0 input) | Re-test | Disposition |
 | --- | --- | --- |
-| Declared migration artifact / adopted-succession citizen (§5) | Composes §5 + §7 succession + charter's fact-type individuation root; kernel has no such family yet | **Selected** |
+| Declared migration artifact / adopted-succession citizen (§5) | Composes §5 + §7 succession; kernel has no such family yet. *(As originally argued here, composed via a fact-type individuation root — corrected by the owner disposition below to a direct supersession root instead; the shape selected does not change, only which existing mechanism it composes.)* | **Selected** |
 | Adoption-level replacement of the existing bundle/package | Shared bundle with `no-rrb` and nine other types; package adoption is not a lattice act | **Rejected** (too coarse, and would be an undeclared channel if used as a filter) |
 | New neutral facts, predecessors left dormant | `apply_bundle_adoption` cannot retire omitted ids | **Rejected** |
 | Same-identifier redeclaration | `fact_id` ignores version; findings stay attached | **Rejected** |
 
 One shape remains. The single-Builder stop does not fire.
 
-### Stop/continue recommendation
+### Stop/continue recommendation (superseded)
 
-**Continue.** Charter Track 1 against this settlement. Do not open
-rival prototypes. Do not implement Form 1098-E or the Form 1040 /
-AGI lines. If review holds that fact-type-as-individuation-root
-broadens §7 rather than instantiating the charter's offered
-composition, stop for Advisor/owner *then* — that disagreement is
-the named residual, not a reason to hold Track 0 open.
+The paper's original recommendation — continue, with the
+individuation-root reading unexamined — was independently reviewed
+and held not honestly earned (`docs/reviews/2026-08-14-fact-type-succession-track0-review.md`,
+finding F1, verdict STOP FOR ADVISOR). See `## Owner disposition
+(binding on Track 1)` immediately below for the resolution. That
+disposition, not this subsection, governs Track 1.
 
-## Proposed Track 1 charter
+## Owner disposition (binding on Track 1)
 
-Paper settlement above is binding. Track 1 builds exactly this shape
-and the evidence the milestone's `## Required evidence` already lists.
-It does not reopen T0-1…T0-7.
+**T0-5 is dispositioned.** The owner's ruling, verbatim:
+
+> A fact type's replacement or package omission does not, by itself,
+> retire facts or findings. Adoption of an explicit migration artifact
+> is the succession act that names and retires the predecessor facts
+> and creates their successors. This is a direct supersession root,
+> not an individuation edge and not a new third cascade edge.
+
+**What this settles, precisely.** The mechanism is **not** "the
+predecessor fact type is the citizen the thirteen facts are keyed
+on" — that framing is what the review's finding F1 correctly refused
+to bless, because these facts' only identity key is the
+`{tax-year: 2025}` literal, `individuated_by` is empty for all
+thirteen by construction, and calling the *type* a "keyed-on citizen"
+would have collapsed §2's two existence paths into each other. The
+disposition does not read that way. It names the adoption of the
+migration artifact itself — the recorded act — as a **direct
+supersession root**: a fourth named root alongside correction
+findings, `_member_withdrawals`, and superseded-entity ids, in
+exactly the pattern `_member_withdrawals` already establishes (an act
+may contribute a displacement root without adding a third *edge
+kind*). The root retires the predecessor facts and findings it names
+directly; downstream consumers of those findings then cascade through
+the **existing, unmodified derivation edge**. No individuation-edge
+claim about the predecessor type is needed or made. §5's "migration
+may instantiate successor facts, not just findings" and §7's
+succession list ("a migration reshapes the lattice — old facts
+displaced, successor facts instantiated, findings following by
+derivation") already named this shape; the disposition confirms it is
+read as written, not extended.
+
+**Consequence for T0-5's verdict line.** Read "Verdict: individuation,
+from the predecessor fact type" (above) as superseded by this
+disposition. The displacing mechanism is **direct supersession by a
+named migration-artifact root**, not the individuation edge. T0-1
+through T0-4, T0-6, and T0-7 are unaffected — none of them depended on
+the individuation-edge framing specifically, only on *some* declared
+edge/root existing, which this disposition supplies.
+
+**Why this closes the Ontology-turn stop.** The disposition does not
+amend `docs/governance/ontology.md` and does not require an Advisor
+reading of "keyed on" one way or the other — it sidesteps that
+question entirely by not routing displacement through individuation
+at all. No governance version change is indicated. The ADR presumption
+from T0-6 stands: this is the first migration schema family, artifact
+shape, and root kind in the corpus, and still narrows/instantiates the
+Ontology rather than amending it.
+
+**Scope discipline.** This disposition authorizes exactly one new root
+kind, scoped to citizens an adopted migration artifact explicitly
+names. It is not a precedent for retiring fact types by any other
+means, and does not touch `no-rrb-or-foreign-social-benefit` or the
+other nine non-Schedule-1 `ss-benefits-scope` members, which no
+migration artifact in this milestone names.
+
+## Amended Track 1 charter
+
+Supersedes the paper's original Track 1 proposal, corrected against
+the owner disposition above. Track 1 builds exactly this shape and the
+evidence the milestone's `## Required evidence` already lists. It does
+not reopen T0-1…T0-7.
 
 ### Object
 
-1. **ADR** instantiating this settlement: migration artifact as the
-   lattice-reshape citizen; predecessor fact type as individuation
-   root; presented successor claim for attested findings (ADR-0025
-   decision 7 as the finding-half precedent, not as the lattice
-   mechanism); package admission and rejection rules; no Ontology
-   amendment.
+1. **ADR** instantiating this settlement: the adopted migration
+   artifact as a **direct supersession root** — a fourth named root
+   alongside correction findings, `_member_withdrawals`, and
+   superseded-entity ids — that retires exactly the predecessor facts
+   and findings it names and instantiates their successors; **not**
+   an individuation-edge claim about the predecessor fact type, and
+   not a new edge kind; presented successor claim for attested
+   findings (ADR-0025 decision 7 as the finding-half precedent, not as
+   the lattice mechanism); package admission and rejection rules; no
+   Ontology amendment.
 2. **Schema-intent ledger event** on `milestone-schema-ledger` before
    any schema file is added. Then the unused versioned schema
    filename(s) for the migration artifact and, if Track 1 introduces
@@ -724,9 +806,14 @@ It does not reopen T0-1…T0-7.
    finding-half mapping (predecessor current finding → presented
    successor claim). It must not name `no-rrb-or-foreign-social-benefit`
    or the other nine `ss-benefits-scope` members.
-5. **Kernel execution** of that adoption: retire named types from
-   current `state.fact_types`; project successor facts; individuation
-   roots for findings of retired types; derivation cascade unchanged.
+5. **Kernel execution** of that adoption: the migration artifact's
+   adoption is registered as a new **supersession root** (parallel to
+   `_member_withdrawals`, not a replacement for it); that root directly
+   retires the named predecessor facts and their current findings and
+   instantiates the successor facts; consumers of the retired findings
+   then cascade through the **existing, unmodified derivation edge**.
+   No change to `Fact.individuated_by` or to how individuation edges
+   are built.
 6. **Worksheet retarget** — a successor of `rule.ss-benefits-worksheet`
    whose nonempty `conditional_dependency_set` names the thirteen
    *successors* and still names the other nine non-Schedule-1
@@ -757,13 +844,16 @@ tax-instruction PDF; widening `audit_collect_authority`; broadening
 
 The milestone's four stops still bind. Additionally stop if:
 
-- displacement cannot be expressed as the named individuation root
-  plus existing derivation cascade, and would require a third edge
-  kind or a runner-resident filter;
+- displacement cannot be expressed as the named migration-artifact
+  supersession root plus the existing derivation cascade, and would
+  require a new edge kind, a runner-resident filter, or an
+  individuation-edge claim about the predecessor fact type;
 - the nonempty worksheet cannot retarget without changing the
-  published empty-route zero or its `no-rrb` premise;
-- review fires the residual Advisor question on "keyed on" and the
-  owner has not dispositioned it.
+  published empty-route zero or its `no-rrb` premise.
+
+The individuation-edge residual that previously required an Advisor
+call is dispositioned (`## Owner disposition (binding on Track 1)`
+above) and is not a Track 1 stop condition.
 
 ### Exit for Track 1
 
