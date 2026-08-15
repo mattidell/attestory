@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.income.agi",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-11b",
+    "version": "v1"
+  },
+  "description": "Form 1040 (2025), line 11b: amount from line 11a (adjusted gross income). A carried-forward value, not an independent computation; binds the same symbol as line 11a per Track 0 T0-8's settlement.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Form 1040 line 11b is blocked because line 11a's adjusted gross income is incomplete or unavailable.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero because the supporting source family is attested closed-empty under complete authority.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero under complete authority.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a completeness or guard condition is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "A current derived finding publishes Form 1040 line 11b, carried forward from line 11a's adjusted gross income.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-11b",
+  "label": "Amount from line 11a (adjusted gross income)",
+  "line": "11b",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

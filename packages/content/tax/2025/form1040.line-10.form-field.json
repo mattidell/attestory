@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.income.line10-adjustments",
+  "citation": {
+    "id": "tax.us.2025.citation.form1040.line-10",
+    "version": "v1"
+  },
+  "description": "Form 1040 (2025), line 10: adjustments to income from complete Schedule 1 line 26. Subtracted from line 9 on line 11a to compute adjusted gross income.",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Form 1040 line 10 is blocked because Schedule 1 line 26 is incomplete or unavailable.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero because the supporting source family is attested closed-empty under complete authority.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero under complete authority.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a completeness or guard condition is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "A current derived finding publishes Form 1040 line 10 from complete Schedule 1 line 26. This amount is subtracted from line 9 on line 11a.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.form1040.line-10",
+  "label": "Adjustments to income from Schedule 1",
+  "line": "10",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

@@ -1,0 +1,45 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule1.line26-total-adjustments"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-10",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule1.line-26",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.form1040-line10",
+  "notes": "Form 1040 line 10 for the bounded 2025 class: equals complete Schedule 1 line 26 total adjustments. Mirrors rule.form1040-line8.json's exact shape: a thin Form-1040-scoped passthrough that mints its own symbol, tax.us.2025.income.line10-adjustments, from the Schedule 1 aggregate rather than binding the line-10 form-field directly to the Schedule 1 symbol. Track 0 T0-8 (docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md) settles the AGI producer (rule.form1040-line11.v2) to require tax.us.2025.income.total-income and tax.us.2025.schedule1.line26-total-adjustments directly, not through this symbol -- this rule exists so the line-10 form-field has a Form-1040-scoped citizen to bind to, exactly as line 8 does for line 9, but AGI's own computation bypasses it per T0-8's explicit settlement text and the authority-lifecycle table's dependency list for tax.us.2025.income.agi.",
+  "pins": [
+    {
+      "id": "tax.us.2025.schedule1.line26-total-adjustments",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.income.line10-adjustments",
+  "requires": [
+    "tax.us.2025.schedule1.line26-total-adjustments"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.schedule1.line26-total-adjustments",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": true
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "rule-artifact.v3",
+  "id": "tax.us.2025.rule.form1040-line11",
+  "version": "v2",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["tax.us.2025.income.total-income", "tax.us.2025.schedule1.line26-total-adjustments"],
+  "pins": [
+    { "role": "input", "id": "tax.us.2025.income.total-income", "version": "v1", "origin": "assertion" },
+    { "role": "input", "id": "tax.us.2025.schedule1.line26-total-adjustments", "version": "v1", "origin": "assertion" }
+  ],
+  "when": true,
+  "value": {
+    "op": "subtract",
+    "left": { "op": "ref", "name": "tax.us.2025.income.total-income" },
+    "right": { "op": "ref", "name": "tax.us.2025.schedule1.line26-total-adjustments" }
+  },
+  "publishes": "tax.us.2025.income.agi",
+  "citations": [
+    { "id": "tax.us.2025.citation.form1040.line-11a", "version": "v1" },
+    { "id": "tax.us.2025.citation.schedule1.line-26", "version": "v1" }
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": ["tax.us.2025.income.total-income", "tax.us.2025.schedule1.line26-total-adjustments"]
+  },
+  "notes": "Form 1040 line 11a v2 (Track 0 T0-8, docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md): adjusted gross income, corrected from v1's bare passthrough of total income to the printed form's real formula, 'Subtract line 10 from line 9' -- total income minus Schedule 1 line 26 total adjustments. Requires tax.us.2025.income.total-income and tax.us.2025.schedule1.line26-total-adjustments DIRECTLY, not through the new tax.us.2025.income.line10-adjustments symbol minted by rule.form1040-line10.json for the line-10 form-field's own use. This deliberately departs from the line-8/line-9 precedent shape (where line 9 reads line 8's minted symbol, not Schedule 1's own) because T0-8's settlement text and the Track 0 authority-lifecycle table both name total-income and schedule1.line26-total-adjustments explicitly as tax.us.2025.income.agi's two dependencies; routing AGI through line10-adjustments would be an unforced extra derivation hop this milestone's own settlement did not specify. Publishes the same tax.us.2025.income.agi symbol as v1 (unchanged meaning), so rule.form1040-line15.v2 and everything downstream of AGI is preserved unchanged, unpinned, and unretouched per SLI-C8. v1 remains historical, untouched, and reachable through prior package versions -- ordinary rule succession within a package version bump (Ontology Sec 7 derivation-edge displacement), never the migration-artifact machinery of ADR-0063, because income.agi is a derived symbol with no standing findings of its own to retire."
+}
