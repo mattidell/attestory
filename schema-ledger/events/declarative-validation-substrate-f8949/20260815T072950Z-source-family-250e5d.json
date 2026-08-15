@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260815T072950Z-source-family-250e5d",
+  "recorded_at": "2026-08-15T07:29:50Z",
+  "milestone_key": "declarative-validation-substrate-f8949",
+  "milestone_branch": "milestone/declarative-validation-substrate-f8949",
+  "milestone_commit": "69d4c3a63138e0884e2484e7a14c75a24a8a7373",
+  "schema_family": "source-family",
+  "schema_path": "packages/schemas/derivation/source-family.v2.schema.json",
+  "schema_version": "v2",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Add optional structured member constraints, explicit identity exclusivity bindings, and declared projection relationships as the ADR-0066 family contract. Published source-family.v1 remains byte-identical."
+}

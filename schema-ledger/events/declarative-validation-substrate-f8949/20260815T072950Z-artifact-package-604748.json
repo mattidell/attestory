@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260815T072950Z-artifact-package-604748",
+  "recorded_at": "2026-08-15T07:29:50Z",
+  "milestone_key": "declarative-validation-substrate-f8949",
+  "milestone_branch": "milestone/declarative-validation-substrate-f8949",
+  "milestone_commit": "69d4c3a63138e0884e2484e7a14c75a24a8a7373",
+  "schema_family": "artifact-package",
+  "schema_path": "packages/schemas/derivation/artifact-package.v24.schema.json",
+  "schema_version": "v24",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Admit the inseparable source-family.v2, rule-artifact.v5, and attachment-rule.v8 ADR-0066 surfaces while preserving artifact-package.v23 and all earlier published bytes."
+}

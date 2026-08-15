@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260815T072950Z-rule-artifact-d47efc",
+  "recorded_at": "2026-08-15T07:29:50Z",
+  "milestone_key": "declarative-validation-substrate-f8949",
+  "milestone_branch": "milestone/declarative-validation-substrate-f8949",
+  "milestone_commit": "69d4c3a63138e0884e2484e7a14c75a24a8a7373",
+  "schema_family": "rule-artifact",
+  "schema_path": "packages/schemas/derivation/rule-artifact.v5.schema.json",
+  "schema_version": "v5",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Add the closed ADR-0066 accounts_for author-intent vocabulary to the rule consumer surface. Published rule-artifact.v4 remains byte-identical."
+}

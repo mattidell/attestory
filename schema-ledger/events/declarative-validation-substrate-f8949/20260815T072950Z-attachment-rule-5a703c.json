@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "event_id": "20260815T072950Z-attachment-rule-5a703c",
+  "recorded_at": "2026-08-15T07:29:50Z",
+  "milestone_key": "declarative-validation-substrate-f8949",
+  "milestone_branch": "milestone/declarative-validation-substrate-f8949",
+  "milestone_commit": "69d4c3a63138e0884e2484e7a14c75a24a8a7373",
+  "schema_family": "attachment-rule",
+  "schema_path": "packages/schemas/tax/attachment-rule.v8.schema.json",
+  "schema_version": "v8",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "summary": "Add only the closed ADR-0066 accounts_for author-intent vocabulary to the v6 attachment surface. Version v8 avoids collision with another milestone's distinct inert v7 proposal; this event neither replaces nor withdraws that proposal."
+}
