@@ -171,6 +171,42 @@ def _yes_inputs(components: list[str], *, offset: int = 0, answers: dict[str, st
     return findings
 
 
+def _split_witness_inputs(inputs: list[InputFinding]) -> tuple[list[InputFinding], list[SourceFact]]:
+    """Route the five per-statement universal witnesses to ``sources``.
+
+    Track 6b repair: ``rule.sli-worksheet.json`` now reads these five
+    (``UNIVERSAL_STATEMENT``) via the new ``collect_categorical_all_equal``
+    op over ``env.sources``, never a single unkeyed ``ref`` over
+    ``env.symbols`` (mirrors ``tests/test_sli_worksheet_line21_track3.py``'s
+    own helper of the same name -- see that file for the full rationale).
+    This harness still builds every test scenario the same way it always
+    has, via ``InputFinding`` lists keyed by component id; this helper is
+    the one place that translates a witness ``InputFinding`` into the
+    ``SourceFact`` the rule now actually reads, so every existing call
+    site and test method is unchanged and computed dollar values stay
+    byte-identical for every single-statement input.
+    """
+    kept: list[InputFinding] = []
+    witness_sources: list[SourceFact] = []
+    for finding in inputs:
+        if finding.symbol in UNIVERSAL_STATEMENT:
+            fact_id = (
+                f"{finding.symbol}|lender=demo.sch1.lender.0,"
+                f"statement=demo.sch1.stmt.0,tax-year=2025"
+            )
+            witness_sources.append(
+                SourceFact(
+                    name=finding.symbol,
+                    value=finding.value,
+                    finding_id=finding.finding_id,
+                    fact_id=fact_id,
+                )
+            )
+        else:
+            kept.append(finding)
+    return kept, witness_sources
+
+
 class Fixture(unittest.TestCase):
     def setUp(self) -> None:
         self.schemas = DerivationSchemas()
@@ -244,13 +280,14 @@ class Line26CompositionCases(Fixture):
     """(d): line 26 sums correctly; (e): line 26 propagates line 21's block."""
 
     def _context(self, *, sources: list[SourceFact], inputs: list[InputFinding], closures: dict[str, Any]) -> RunContext:
+        kept_inputs, witness_sources = _split_witness_inputs(inputs)
         return RunContext(
             run_id="run.sch1.line26",
             rules=[self.sli_rule, self.sli_subtotal_rule, self.line26_rule],
             parameters=self.parameters,
             canon=self.canon,
-            inputs=inputs,
-            sources=sources,
+            inputs=kept_inputs,
+            sources=sources + witness_sources,
             adoption_pin=ADOPTION_PIN,
             governance_pins=GOV_PINS,
             input_bindings=self.input_bindings(),
@@ -376,6 +413,9 @@ class AttachmentTriggerCases(Fixture):
             _f1098e_closure(closed=f1098e_closed),
             _f1099g_closure(closed=f1099g_closed),
         )
+        kept_inputs, witness_sources = _split_witness_inputs(
+            self.base_inputs(total_income=total_income) + sli_answers + scope_answers
+        )
         return RunContext(
             run_id="run.sch1.attachment",
             rules=[
@@ -386,8 +426,8 @@ class AttachmentTriggerCases(Fixture):
             ],
             parameters=self.parameters,
             canon=self.canon,
-            inputs=self.base_inputs(total_income=total_income) + sli_answers + scope_answers,
-            sources=sli_sources + ug_sources,
+            inputs=kept_inputs,
+            sources=sli_sources + ug_sources + witness_sources,
             adoption_pin=ADOPTION_PIN,
             governance_pins=GOV_PINS,
             input_bindings=self.input_bindings(),

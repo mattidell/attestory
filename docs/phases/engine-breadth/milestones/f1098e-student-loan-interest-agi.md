@@ -3,9 +3,9 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1098e-student-loan-interest-agi",
-  "milestone_state": "track-4",
-  "status": "Re-cut of milestone/f1098e-student-loan-interest-line21 (PR #169, owner-ruled completed design exploration). Cut from origin/main at 85b6a0f1. Track 0 settled: ten settlement questions answered, five of six adversarial closure artifacts PASS; integration surface PENDING by design (closes retroactively when Track 1-6 build the nine synthetic disposition-path models, matching the ssa-no-activity-applicability precedent). Foreman review corrected one version collision (rule-artifact v5 -> v6), a substrate bug in build_orientation_block.py (current_prompt's #anchor was ignored), and a missing SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE block test. Version claims on the local-only milestone-schema-ledger branch: attachment-rule v9, artifact-package v25, rule-artifact v6. Tracks 1-3 built and foreman-reviewed, full suite green. Known limitation carried to Track 6: multi-statement per-statement-witness disagreement is unmarshalled first-wins, untested. Track 4 dispatched.",
-  "current_role": "Builder (Track 4 — Schedule 1 line-26 composition and attachment succession)",
+  "milestone_state": "track-7",
+  "status": "Re-cut of milestone/f1098e-student-loan-interest-line21 (PR #169, owner-ruled completed design exploration). Cut from origin/main at 85b6a0f1. Track 0 settled. Tracks 1-6b built and foreman-reviewed, full suite green (1369 passed). Track 6b repaired the marshal.py order-dependence defect per owner disposition (see '## Tracks', Track 6b); path (j) re-verified both orderings block correctly; Form 1098's cardinality test unchanged. Track 0 integration-surface artifact PASS, no known limitations remain. Only Tracks 7-8 remain.",
+  "current_role": "Foreman (present Track 7/8 charter or dispatch next, owner has not yet requested either)",
   "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Tracks",
   "scope": [
     "settle Form 1098-E authority and identity (T0-1)",
@@ -341,14 +341,28 @@ Re-verified against `origin/milestone-schema-ledger` at the point of filing
   the closed ADR-0066 `accounts_for` vocabulary — an unrelated, incompatible
   shape). v5 would have collided the moment that milestone merges. Corrected
   to v6 throughout this document and reserved on the local ledger.
+* `derivation-record` **v7** for the three new SLI block codes
+  (`SLI_MFS_INELIGIBLE`, `SLI_UNIVERSAL_COMPONENT_VIOLATION`,
+  `SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE`) — a genuinely new family this
+  milestone is the first to claim. v6 is the current highest on `main`;
+  unclaimed by any concurrent milestone as of filing. Reserved on the
+  local ledger.
+* **Foreman correction on review (Track 6):** the generated
+  `package.core-calculations.v32` initially used `artifact-package.v24`,
+  colliding with `declarative-validation-substrate-f8949`'s own
+  already-claimed reservation for that exact version (an unrelated,
+  incompatible shape) — despite this section already having claimed v25
+  since Track 0. Corrected the schema file, its manifest checksum, both
+  source references (`package_validation.py`,
+  `tools/generate_f1098e_track6_content.py`), and regenerated the package
+  content deterministically. `artifact-package` v25 is now actually
+  exercised (published/wired), not merely reserved.
 * Publication counters (core package, published-packages, release) are
-  **not** covered by the ledger's tracked event kinds today. Current
-  published state is core **v31** / published-packages **v26** / release
-  **v24** (confirmed from `docs/phase-state.md` at `85b6a0f1`). This
-  milestone must claim its own event kind on the ledger branch for these
-  counters before a builder writes them, per the standing instruction — no
-  event filed yet because Track 0 has not started and the counters this
-  milestone will need are not yet known.
+  **not** covered by the ledger's tracked event kinds today. Track 6 wired
+  core **v32** / published-packages **v27** / release **v25** (previously
+  core v31 / published-packages v26 / release v24). This milestone's own
+  event kind for these counters is still unfiled on the ledger branch —
+  outstanding as of this writing; file before merge.
 
 Track 0 must file its schema-ledger events as soon as it knows what it
 needs, not at build time, per the standing instruction.
@@ -973,6 +987,85 @@ about which subtotal crossed) genuinely extend to two subtotals without
 new runner code — confirmed by reading the implementation, not assumed
 from the shape of the JSON alone.
 
+**Built evidence (Track 6, 2026-08-15).** The nine disposition-path models
+named above, plus a tenth the foreman chartered on review of Track 3, are
+built as committed, runnable tests exercised through the real coordinator
+(`live_coordinate_run`), matching the `ssa-no-activity-applicability`
+precedent's own evidentiary bar (its "### 6. Integration-surface artifact"
+section) exactly. Test file:
+`tests/test_f1098e_student_loan_interest_agi_track6.py` (11 test methods
+across `TestPathAClosedEmpty` … `TestPathJMultiStatementDisagreement`).
+
+Running the routes live required wiring Tracks 1-5's already-committed
+citizens into a real production package for the first time — none had ever
+been admitted into `package.core-calculations` before this track. Built by
+`tools/generate_f1098e_track6_content.py`: `package.core-calculations.v32`
+(schema `artifact-package.v25`, an additive successor admitting
+`rule-artifact.v6` — Track 1's multiply/divide schema had never been wired
+into the package's own admitted-schema chain — **corrected on foreman
+review from an initial `artifact-package.v24`**, which collided with
+`declarative-validation-substrate-f8949`'s own already-claimed schema
+ledger reservation for an unrelated shape; this milestone's own
+pre-filed reservation is v25, exactly as the "Version claims" section
+above always said), `published-packages.v27`,
+release `demo.release.2025.v25`, and the `adopt-core-v32-current` fixture.
+Because this wiring did not previously exist, Track 6 also found and fixed
+four additive substrate gaps that blocked `rule-artifact.v6` citizens from
+running through the live path at all (rules gathering in
+`packages/derivation/live.py`, unkeyed-ref marshalling and the
+`conditional_dependency_set` domain check in `packages/derivation/
+marshal.py` and `package_validation.py`), a missing `derivation-record.v7`
+schema successor admitting the three SLI block codes
+(`SLI_MFS_INELIGIBLE`, `SLI_UNIVERSAL_COMPONENT_VIOLATION`,
+`SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE`) Track 3 minted but never exercised
+against the real record schema, and a missing `citation.form1040.line-11b`
+entry in `rule.form1040-line11.v2.json`'s own `citations` list (both
+line-11a and line-11b form-fields bind this rule's published symbol; the
+presentation citation-chain check requires the owning rule to declare
+both — additive, no computed value changed). Two new mints were required
+for the presentation-model probes themselves:
+`closure-mapping.f1098e.1.json` and `schedule1.line-21.form-field.json`.
+This is recorded here as package/registry/release wiring Track 8 no longer
+needs to do from scratch — Track 8's remaining scope is explanation and
+presentation polish, not the base wiring itself.
+
+**Cardinality, confirmed.** Every one of the ten paths' presentation model
+publishes exactly one section per form-field-bound symbol
+(`form1040.line-10`, `-11a`, `-11b`, `schedule1.line-21` — sections
+`line-10`, `line-11a`, `line-11b`, `line-sch1-21`), asserted directly by
+`_assert_valid_model_and_cardinality` on every path and never zero, never
+two.
+
+**Path (j), the tenth case — a genuine correctness defect, not repaired.**
+The foreman chartered a tenth model on review of Track 3: two Form 1098-E
+statements from different lenders disagreeing on a per-statement universal
+eligibility witness (`no-related-person-interest`, one "yes", one "no").
+Track 3 had flagged that `marshal.py` binds only one current finding per
+unkeyed fact-type-id symbol on a multi-statement family, so this case's
+actual behavior had never been observed running. **Observed, not
+assumed** (`TestPathJMultiStatementDisagreement`, both statement orderings
+run): the real behavior is *last-current-finding-wins*, not first-wins as
+the Track 3 note guessed. This is order-dependent and is a genuine
+correctness defect, not merely a documented modeling limitation — when the
+*earlier*-asserted statement is the one with the real violation and the
+*later*-asserted statement answers "yes", the whole route silently
+publishes a nonzero deduction that includes the disqualified statement's
+own interest; `SLI_UNIVERSAL_COMPONENT_VIOLATION` never fires. Reordering
+the same two statements (violation asserted last) correctly blocks. This
+contradicts Track 0 adversarial closure artifact 2's own contract for the
+ten universal T0-2 components ("never a silent zero and never a silent
+full-box-1 pass-through") — the disposition is supposed to depend on
+"any statement violates," not on assertion order. **Not repaired in this
+track**: a genuine fix means either changing `packages/derivation/
+marshal.py`'s unkeyed-ref semantics (a substrate change reaching every
+other rule relying on the same "symbol == fact-type-id" fallback, not
+scoped to this milestone) or restructuring `rule.sli-worksheet.json`'s own
+already-reviewed Track 3 eligibility-gathering shape (changing an
+already-reviewed rule's computed values) — both are stop-condition
+territory under this thread's standing authorization, so this is recorded
+as a finding for the foreman rather than silently fixed or silently
+accepted.
+
 ## Track 0 adversarial closure
 
 - Authority-lifecycle table: PASS — artifact 1 above; every contributed,
@@ -1002,31 +1095,54 @@ from the shape of the JSON alone.
   the twelve Schedule-1-native absence facts), and `tax.us.2025.income.agi`
   accepted as a symbol name while its old producing formula is explicitly
   rejected and replaced.
-- Integration surface: **PENDING** — bindings, cardinalities, and every
-  disposition path are enumerated and argued from the runner's actual code
-  (`runner.py:467`, `:812-820`), not from JSON shape alone, in artifact 6
-  above. The nine synthetic end-to-end disposition-path models and the
-  presentation-model probes named there are **not built** — this Track 0
-  session's dispatch was explicitly paper-only ("no schema files, no
-  rule/fact-type JSON, no version numbers written to the repository"),
-  which is in direct tension with `PROJECT_PLANNING.md`'s own text ("Track
-  0 cannot be marked settled... while an externally bound symbol lacks a
-  built end-to-end model for each of its distinct disposition paths...
-  Such a result returns to paper design or to the owner for disposition;
-  it is never downgraded to 'nonblocking' by the Foreman"). This
-  settlement does not resolve that tension unilaterally — flagged
-  explicitly for the foreman/owner rather than silently marked PASS, since
-  declaring built evidence that does not exist would be exactly the kind
-  of unearned PASS the gate exists to prevent. Every other artifact above
-  is genuine paper evidence and is `PASS` on its own terms.
-- Known limitations affecting correctness: none identified in the design
-  itself. The one open item is procedural, not substantive: whether Track
-  0 closes now on five `PASS` artifacts plus a named, reasoned gap in the
-  sixth (owner/foreman disposition), or a short build-evidence pass
-  (Track 0b) is required before the sixth can read `PASS` and the
-  implementation charter can be filed — **owner/foreman disposition
-  required**, named as a finding in the closing report rather than decided
-  here.
+- Integration surface: **PASS** — Track 6 built and ran all ten synthetic
+  disposition-path models (paths (a)-(i) plus the foreman-chartered path
+  (j)) through the real coordinator (`live_coordinate_run`), matching the
+  `ssa-no-activity-applicability` precedent's own evidentiary bar exactly
+  (artifact 6 above, "Built evidence (Track 6, 2026-08-15)"). Nine of the
+  ten paths (a)-(i) were genuine `PASS` evidence from the start: each
+  yields exactly one presentation-model row per form-field-bound symbol on
+  every path, cardinality confirmed directly. **Path (j) initially
+  revealed a real correctness defect** — `packages/derivation/marshal.py`'s
+  unkeyed-ref marshalling made a multi-statement family's
+  universal-component-violation disposition depend on which current
+  finding sorted first by finding id, so a disqualifying statement could
+  be silently outvoted by an agreeing later-sorted one, contradicting
+  Track 0 adversarial closure artifact 2's own "never a silent...
+  full-box-1 pass-through" contract. **Owner-verified and dispositioned
+  (Track 6b, "## Tracks")**: the defect was corpus-scoped to exactly two
+  files (this milestone's `rule.sli-worksheet.json`, and shipped Form
+  1098's `rule.schedule-a-line8a.json` — latent there, never live, because
+  a second statement already blocks on `MULTIPLE_F1098_OUT_OF_SCOPE`
+  cardinality first); K-1/1099 routes are structurally immune (`collect`-
+  based aggregation, a different marshalling path). **Repaired**:
+  `rule.sli-worksheet.json`'s five per-statement universal witnesses now
+  read via the new, additive `collect_categorical_all_equal` evaluator op
+  (`rule-artifact.v6`, its own in-branch schema, not yet published) over
+  every current finding for the witness fact type — a true "no member
+  answers 'no'" universal test, independent of finding-id order — and
+  `packages/derivation/marshal.py` gained a guard that refuses an unkeyed
+  binding when two or more matched current findings genuinely *disagree*
+  (leaves the symbol unbound → an ordinary blocked disposition, never a
+  crash), while agreeing multi-matches (the common, already-correct case,
+  including Form 1098's own latent 14 refs) are left unaffected. Path (j)
+  re-run after the repair: **both statement orderings now correctly
+  block** with `SLI_UNIVERSAL_COMPONENT_VIOLATION`
+  (`test_violation_asserted_last_correctly_blocks`,
+  `test_violation_asserted_first_also_correctly_blocks`), kept as
+  permanent regression fixtures. `tests/test_f1098_mortgage_interest_lifecycle.py::TestF1098Lifecycle::test_multiple_statements_block_line8a_out_of_scope`
+  (the repair's own acceptance criterion for Form 1098) passes unchanged.
+  Track 3's and Track 4's worksheet/line-26 fixtures pass unchanged (byte-
+  identical single-statement arithmetic). No ADR required — refusing
+  ambiguity composes the rule language's existing implications; it does
+  not introduce new cross-cutting semantics (owner disposition D). Every
+  other Track 0 artifact above was already `PASS` and is unaffected by
+  this repair.
+- Known limitations affecting correctness: **none remaining.** Track 6's
+  path (j) found a substantive, order-dependent defect (described in the
+  Integration surface bullet above); Track 6b repaired it under owner
+  disposition and re-proved path (j) live. No known limitation is carried
+  forward from this milestone's own design.
 
 ### Foreman disposition on the integration-surface gap
 
@@ -1064,8 +1180,30 @@ Atomic, one commit each, in the T0-9 substrate order:
   `tax.us.2025.schedule1.line21-sli-deduction`.
 * **Track 4 — Schedule 1 line-26 composition and attachment succession.**
   `tax.us.2025.schedule1.line26-total-adjustments`; the new
-  `rule.attachment.schedule-1` version (`attachment-rule.v9`) with the
-  second `requirement.subtotals` entry.
+  `rule.attachment.schedule-1` version (built as `v2` of the rule content,
+  schema unchanged at `attachment-rule.v4` — Track 4 confirmed T0-7's "no
+  new schema shape needed" directly against the schema file, so the
+  pre-filed `attachment-rule.v9` ledger claim goes unexercised; recorded,
+  not a defect) with the second `requirement.subtotals` entry.
+* **Track 4b — repair, foreman-chartered on review.** Track 4's new
+  itemization ties out to `tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal`,
+  which is the **$2,500-capped** figure (Track 1/3's ADR-0016-authorized
+  collect subtotal). `runner.py`'s itemization tie-out requires the raw
+  row sum to equal that exact symbol
+  (`packages/derivation/runner.py:964-975`), so any filer with total
+  box-1 interest over $2,500 trips `ITEMIZATION_TIE_OUT_VIOLATION` and the
+  Schedule 1 attachment blocks — even though line 21/26 compute correctly.
+  Proven by Track 4's own `test_known_limitation_itemization_blocks_when_cap_binds`.
+  Does not affect AGI (Track 5 reads line 26's value directly, not through
+  the attachment), but is a real, common-case defect in the attachment
+  disposition. Fix: separate the closure-authorized collect subtotal (make
+  it the **raw**, uncapped sum — the true ADR-0016 authority object) from
+  the worksheet's own $2,500-capped line 1 (apply the cap inside
+  `rule.sli-worksheet.json`'s own reads, not in the subtotal rule).
+  Re-verify Track 3's existing fixtures still pass unchanged (the *worksheet
+  arithmetic* result is identical either way — only which rule owns the cap
+  changes) and add a new fixture proving an over-cap filer's attachment no
+  longer false-blocks.
 * **Track 5 — Form 1040 line 10 / 11a / 11b succession.**
   Corrected `rule.form1040-line11` successor producing
   `tax.us.2025.income.agi` via total income minus Schedule 1 line 26; new
@@ -1082,9 +1220,34 @@ Atomic, one commit each, in the T0-9 substrate order:
   marshalling property, not something Track 3 introduced, but Track 6's
   nine models must include a multi-statement-disagreement case to prove
   the route's actual behavior (block, or first-wins) rather than assume it.
+* **Track 6b — owner-dispositioned repair, no ADR needed.** Track 6 found
+  the order-dependence is scoped to exactly two files corpus-wide
+  (`rule.sli-worksheet.json` — this milestone; `rule.schedule-a-line8a.json`
+  — shipped Form 1098, but latent: a second statement blocks on
+  `MULTIPLE_F1098_OUT_OF_SCOPE` cardinality first,
+  `tests/test_f1098_mortgage_interest_lifecycle.py:497`). K-1/1099 routes
+  are structurally immune (they aggregate via `collect`, a different
+  marshal.py path enumerating every member). Owner disposition:
+  **(A) content repair** — restructure `rule.sli-worksheet.json`'s five
+  per-statement universal witnesses off unkeyed `ref` onto the corpus's
+  `collect` pattern with a universal test (no member answers "no");
+  Track 3's single-statement worksheet arithmetic must stay byte-identical.
+  **(B) substrate guard** — in `marshal.py`, an unkeyed binding matching
+  more than one current finding for a symbol not in `collect_names` must
+  refuse (produce a **blocked disposition**, never raise), retiring Form
+  1098's latent 14 refs too; `tests/test_f1098_mortgage_interest_lifecycle.py:497`
+  passing unchanged is B's acceptance criterion. **(C) do NOT** add a
+  `MULTIPLE_F1098E_OUT_OF_SCOPE` cardinality block — multi-lender student
+  loan portfolios are common; narrowing the class the way Form 1098 did
+  would gut this milestone's product value. **(D) do NOT** make unkeyed
+  refs auto-fold universally — that would be new semantics needing an ADR;
+  refusing ambiguity does not. **(E)** re-run path (j) after the repair
+  and flip Track 0's integration-surface artifact from `PENDING` to `PASS`
+  on real evidence; add the two-lender one-violating case (both orderings)
+  as a permanent fixture.
 * **Track 7 — the two ADRs** (expression-language extension;
-  Schedule 1 Part II completeness/line-26 composition), citing the evidence
-  Tracks 1–6 produced.
+  Schedule 1 Part II completeness/line-26 composition), citing Track 6b's
+  repair as evidence — no new ADR for the repair itself.
 * **Track 8 — package, registry, release, explanation, presentation.**
 
 Each track's own charter (goal, boundary, inputs, outputs, verification,

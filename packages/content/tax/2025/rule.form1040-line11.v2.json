@@ -18,6 +18,7 @@
   "publishes": "tax.us.2025.income.agi",
   "citations": [
     { "id": "tax.us.2025.citation.form1040.line-11a", "version": "v1" },
+    { "id": "tax.us.2025.citation.form1040.line-11b", "version": "v1" },
     { "id": "tax.us.2025.citation.schedule1.line-26", "version": "v1" }
   ],
   "blocked": {

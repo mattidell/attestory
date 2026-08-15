@@ -1176,6 +1176,9 @@ class _Run:
                 "COMPLETENESS_VALUE_VIOLATION",
                 "MULTIPLE_F1098_OUT_OF_SCOPE",
                 "F1098_SCOPE_CONTRADICTION",
+                "SLI_MFS_INELIGIBLE",
+                "SLI_UNIVERSAL_COMPONENT_VIOLATION",
+                "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE",
             }
             disposition_row["code"] = code if code in record_codes else "DEPENDENCY_INVALID"
             disposition_row["missing"] = missing

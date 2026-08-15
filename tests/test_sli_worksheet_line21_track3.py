@@ -107,6 +107,42 @@ def _yes_inputs(components: list[str], *, offset: int = 0, answers: dict[str, st
     return findings
 
 
+def _split_witness_inputs(inputs: list[InputFinding]) -> tuple[list[InputFinding], list[SourceFact]]:
+    """Route the five per-statement universal witnesses to ``sources``.
+
+    Track 6b repair: ``rule.sli-worksheet.json`` now reads these five
+    (``UNIVERSAL_STATEMENT``) via the new ``collect_categorical_all_equal``
+    op over ``env.sources``, never a single unkeyed ``ref`` over
+    ``env.symbols`` (production marshals them the same way, registering
+    them as collect source names -- see ``packages/derivation/live.py``).
+    This harness still builds every test scenario the same way it always
+    has, via ``InputFinding`` lists keyed by component id; this helper is
+    the one place that translates a witness ``InputFinding`` into the
+    ``SourceFact`` the rule now actually reads, so every existing call
+    site and test method is unchanged and the computed worksheet dollar
+    values stay byte-identical for every single-statement input.
+    """
+    kept: list[InputFinding] = []
+    witness_sources: list[SourceFact] = []
+    for finding in inputs:
+        if finding.symbol in UNIVERSAL_STATEMENT:
+            fact_id = (
+                f"{finding.symbol}|lender=demo.sli.lender.0,"
+                f"statement=demo.sli.stmt.0,tax-year=2025"
+            )
+            witness_sources.append(
+                SourceFact(
+                    name=finding.symbol,
+                    value=finding.value,
+                    finding_id=finding.finding_id,
+                    fact_id=fact_id,
+                )
+            )
+        else:
+            kept.append(finding)
+    return kept, witness_sources
+
+
 class SliWorksheetRunnerFixture(unittest.TestCase):
     def setUp(self) -> None:
         self.schemas = DerivationSchemas()
@@ -156,6 +192,9 @@ class SliWorksheetRunnerFixture(unittest.TestCase):
             ],
         )
         base.update(overrides)
+        kept_inputs, witness_sources = _split_witness_inputs(list(base["inputs"]))
+        base["inputs"] = kept_inputs
+        base["sources"] = list(base["sources"]) + witness_sources
         return RunContext(**base)
 
     def box1_source(self, amount: str, *, index: int = 0) -> SourceFact:

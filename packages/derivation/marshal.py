@@ -98,7 +98,10 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
             symbols.extend(a["symbol"] for a in branch.get("adds_required", []))
         return symbols
     symbols = list(rule.get("requires", []))
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}:
+    # v6 is v4's grammar plus multiply/divide only (Form 1098-E Student Loan
+    # Interest Deduction milestone Track 1); it carries the same
+    # declared-refs-outside-requires capability as v3/v4/v5.
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
     return symbols
@@ -116,6 +119,24 @@ def _fact_type_id(fact_id: str) -> str:
 def _fact_id_has_type(fact_id: str, type_id: str) -> bool:
     """True when ``fact_id`` is keyed under the ``type_id|...`` prefix."""
     return fact_id.startswith(f"{type_id}|")
+
+
+def _agreeing_values(findings: list[dict[str, Any]]) -> bool:
+    """True when every finding in a multi-match group shares one value.
+
+    Track 6b guard: an unkeyed symbol resolved from two or more current
+    findings for the same fact type is only genuinely ambiguous when those
+    findings actually disagree. A multi-statement family whose members all
+    answer the same way (the common case) has one true, unambiguous value —
+    which finding happens to be picked to carry it is immaterial. Order
+    dependence is a real defect only when the picked finding could change
+    the disposition; that risk exists only on disagreement.
+    """
+    def _key(value: Any) -> str:
+        return json.dumps(value, sort_keys=True) if isinstance(value, dict) else str(value)
+
+    values = {_key(f["value"]) for f in findings}
+    return len(values) <= 1
 
 
 def _input_role(finding: dict[str, Any]) -> str:
@@ -242,6 +263,31 @@ def marshal_run_context(
         # One binding → one current finding for that fact type. If several
         # members exist (collectable families), they feed sources instead.
         if len(matches) == 1 or symbol not in collect_names:
+            if len(matches) > 1 and not _agreeing_values(matches):
+                # Track 6b guard: an unkeyed binding (no per-member key)
+                # that matches two or more current findings for a symbol
+                # the rule never declared as a collect source name is
+                # ambiguous only when those findings actually *disagree* —
+                # picking `matches[0]` unconditionally (this branch's
+                # pre-repair shape) made the resulting disposition depend
+                # on finding-id sort order rather than on the facts
+                # themselves whenever the members disagreed (the
+                # f1098e-student-loan-interest-agi milestone Track 6
+                # path-(j) defect). When every match agrees there is no
+                # real ambiguity to resolve — refusing to bind here would
+                # regress an already-correct disposition that never
+                # depended on which agreeing finding was picked (e.g. Form
+                # 1098's own latent multi-statement witnesses, proven by
+                # `tests/test_f1098_mortgage_interest_lifecycle.py`'s
+                # `test_multiple_statements_block_line8a_out_of_scope`,
+                # which must keep reaching its own
+                # MULTIPLE_F1098_OUT_OF_SCOPE cardinality block unchanged).
+                # Refuse only on genuine disagreement: leave the symbol
+                # unbound, mirroring the `if not matches: continue` shape
+                # above, so the runner's own ordinary DEPENDENCY_ABSENT/
+                # completeness machinery produces a blocked disposition,
+                # never an unguarded pick or a crash.
+                continue
             finding = matches[0]
             inputs.append(
                 InputFinding(
@@ -279,11 +325,31 @@ def marshal_run_context(
     # Also marshal unbound current findings whose fact type equals a rule
     # input symbol (legacy demo path: symbol == fact type id).
     bound_symbols = {i.symbol for i in inputs}
+    # Track 6b guard: this loop's own pre-repair shape appended one
+    # InputFinding per matching current finding, with no de-duplication by
+    # type_id — a second (or later) statement's finding for the same
+    # unkeyed type_id silently produced a second InputFinding of the same
+    # symbol, and the runner's dict-keyed symbol table
+    # (`self.symbols[i.symbol] = i.value`) then let the *last one appended*
+    # win. Appended order here follows `current_findings`' own sort order
+    # (ascending finding id), so this was the actual live mechanism behind
+    # the "last-current-finding-wins" order dependence path (j) observed
+    # (Form 1098-E student-loan witnesses and Form 1098 mortgage witnesses
+    # both reach the run this way — neither has an explicit package-level
+    # `input_bindings` entry). Fixed the same way as the bindings loop
+    # above: gather every eligible fallback match first, then bind when a
+    # type_id's matches agree (one true value, order immaterial); refuse
+    # (leave unbound) only on genuine disagreement — an ordinary
+    # DEPENDENCY_ABSENT/completeness block downstream, never a silent pick
+    # or a crash. A type_id already a collect source name is excluded here
+    # too — it is read via `sources` above (every member), never via this
+    # single-symbol fallback.
+    fallback_matches: dict[str, list[dict[str, Any]]] = {}
     for finding in current_findings:
         if finding["id"] in used_finding_ids:
             continue
         type_id = _fact_type_id(finding["fact_id"])
-        if type_id in bound_symbols:
+        if type_id in bound_symbols or type_id in collect_names:
             continue
         # Only surface as input when some rule requires this type id as a
         # symbol — keeps marshalling from flooding the context with noise.
@@ -297,6 +363,12 @@ def marshal_run_context(
         )
         if not required_by_rules:
             continue
+        fallback_matches.setdefault(type_id, []).append(finding)
+
+    for type_id, type_matches in sorted(fallback_matches.items()):
+        if len(type_matches) > 1 and not _agreeing_values(type_matches):
+            continue
+        finding = type_matches[0]
         inputs.append(
             InputFinding(
                 symbol=type_id,

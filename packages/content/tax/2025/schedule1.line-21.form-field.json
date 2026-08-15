@@ -1,0 +1,47 @@
+{
+  "binds_symbol": "tax.us.2025.schedule1.line21-sli-deduction",
+  "citation": {
+    "id": "tax.us.2025.citation.schedule1.line-21",
+    "version": "v1"
+  },
+  "description": "Schedule 1 (Form 1040) 2025, line 21: Student loan interest deduction, for the bounded class -- the nine-line Student Loan Interest Deduction Worksheet (i1040gi.pdf p.99), capped at $2,500 and phased out by MAGI, over a closed Form 1098-E box-1 family and the twelve T0-2 eligibility components (ten universal, two legal-zero).",
+  "dispositions": {
+    "blocked": {
+      "codes": [
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED"
+      ],
+      "explain": "Schedule 1 line 21 is blocked because eligibility authority is incomplete, an excluded class is present, the filer is married filing separately, or the Form 1098-E box-1 family is unclosed.",
+      "render": ""
+    },
+    "closure_backed_zero": {
+      "explain": "A current derived finding publishes zero because the supporting Form 1098-E box-1 family is attested closed-empty under complete authority.",
+      "render": "0"
+    },
+    "computed_zero": {
+      "explain": "A current derived finding publishes a computed zero: either the worksheet's MAGI phaseout ratio reaches 1.000, or a legal-zero eligibility component is answered against deduction.",
+      "render": "0"
+    },
+    "guard_inapplicable": {
+      "explain": "No value is published because a completeness or guard condition is not satisfied.",
+      "render": ""
+    },
+    "published_value": {
+      "explain": "A current derived finding publishes the computed Student Loan Interest Deduction from the closed Form 1098-E box-1 family under complete eligibility authority.",
+      "render": "{value}"
+    }
+  },
+  "form": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-1",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "id": "tax.us.2025.schedule1.line-21",
+  "label": "Student loan interest deduction",
+  "line": "sch1-21",
+  "schema": "form-field.v3",
+  "version": "v1"
+}

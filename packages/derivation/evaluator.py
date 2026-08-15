@@ -220,6 +220,29 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
     if op == "category_literal":
         return expr["value"]
 
+    if op == "collect_categorical_all_equal":
+        # Additive (Form 1098-E Student Loan Interest Deduction milestone
+        # Track 6b repair): the corpus's `collect` op force-coerces every
+        # row to Decimal (`_as_decimal`), so it cannot read a categorical
+        # "yes"/"no" per-member witness. This op mirrors `collect`'s own
+        # raw-row read of ``env.sources`` (never `env.symbols` -- an
+        # unkeyed multi-member fact type has no single symbol value to
+        # read) but keeps rows as plain strings and tests every row against
+        # one expected category, rather than summing. A universal
+        # per-statement witness (e.g. "no member answers 'no'") is
+        # expressed as one node instead of an unkeyed `ref` that
+        # `packages/derivation/marshal.py` would otherwise have to pick a
+        # single arbitrary current finding for.
+        name = expr["name"]
+        access.collects.add(name)
+        rows = env.sources.get(name, [])
+        if not rows:
+            raise EvalBlocked(BLOCK_ABSENT, [name])
+        expected_fact_type, expected_val = _eval_categorical_operand(expr["value"], env, access)
+        for row in rows:
+            _validate_categorical_value(expected_fact_type, row, env)
+        return all(row == expected_val for row in rows)
+
     if op == "conditional_dependency_set":
         # ADR-0037: the condition is an ordinary evaluated input.  Only a
         # true condition activates members; inactive members are not read and

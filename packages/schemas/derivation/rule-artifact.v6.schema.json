@@ -46,7 +46,8 @@
       {"type": "object", "properties": {"op": {"const": "range_lookup"}, "table_id": {"type": "string", "minLength": 1}, "key": {"$ref": "#/$defs/expr"}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "table_id", "key", "value"], "additionalProperties": false},
       {"type": "object", "properties": {"op": {"const": "bracket_fold"}, "table_id": {"type": "string", "minLength": 1}, "key": {"$ref": "#/$defs/expr"}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "table_id", "key", "value"], "additionalProperties": false},
       {"type": "object", "properties": {"op": {"const": "round"}, "value": {"$ref": "#/$defs/expr"}, "mode": {"$ref": "#/$defs/expr"}}, "required": ["op", "value", "mode"], "additionalProperties": false},
-      {"type": "object", "properties": {"op": {"const": "conditional_dependency_set"}, "condition": {"$ref": "#/$defs/expr"}, "members": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/ref_expr"}}}, "required": ["op", "condition", "members"], "additionalProperties": false}
+      {"type": "object", "properties": {"op": {"const": "conditional_dependency_set"}, "condition": {"$ref": "#/$defs/expr"}, "members": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/ref_expr"}}}, "required": ["op", "condition", "members"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "collect_categorical_all_equal"}, "name": {"type": "string", "minLength": 1}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "name", "value"], "additionalProperties": false}
     ]}
   }
 }
