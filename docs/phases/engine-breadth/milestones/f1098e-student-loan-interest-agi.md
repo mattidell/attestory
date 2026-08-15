@@ -3,10 +3,10 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1098e-student-loan-interest-agi",
-  "milestone_state": "track-0",
-  "status": "Re-cut of milestone/f1098e-student-loan-interest-line21 (PR #169, owner-ruled completed design exploration). Cut from origin/main at 85b6a0f1. Track 0 charter drafted (ten settlement questions), not yet performed. Version claims filed on the local-only milestone-schema-ledger branch: attachment-rule v9, artifact-package v25.",
-  "current_role": "Builder (Track 0 — paper settlement of the ten settlement questions)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Track 0 charter — settlement questions",
+  "milestone_state": "track-3",
+  "status": "Re-cut of milestone/f1098e-student-loan-interest-line21 (PR #169, owner-ruled completed design exploration). Cut from origin/main at 85b6a0f1. Track 0 settled: ten settlement questions answered, five of six adversarial closure artifacts PASS; integration surface PENDING by design (closes retroactively when Track 1-6 build the nine synthetic disposition-path models, matching the ssa-no-activity-applicability precedent). Foreman review corrected one version collision (rule-artifact v5 -> v6) and a substrate bug in build_orientation_block.py (current_prompt's #anchor was ignored). Version claims on the local-only milestone-schema-ledger branch: attachment-rule v9, artifact-package v25, rule-artifact v6. Track 1 and Track 2 built, foreman-reviewed, full suite green. Commits f91fb600, 3f201845. Track 3 dispatched.",
+  "current_role": "Builder (Track 3 — Student Loan Interest Deduction Worksheet rule citizen)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Tracks",
   "scope": [
     "settle Form 1098-E authority and identity (T0-1)",
     "settle component-level eligibility authority and the reported-interest boundary (T0-2, T0-3)",
@@ -47,6 +47,11 @@
     "implementation": [
       "docs/roles/builder.md",
       "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Track 0 charter — settlement questions",
+      "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#T0-4 — Student Loan Interest Deduction Worksheet",
+      "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#T0-9 — Substrate repair sequencing",
+      "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Tracks",
+      "packages/derivation/evaluator.py",
+      "packages/schemas/derivation/rule-artifact.v4.schema.json",
       "docs/process/concurrent-work.md",
       "AGENTS.md#Schema Publication Protocol",
       "AGENTS.md#Fixture Rules",
@@ -229,7 +234,7 @@ Track 0 is paper-first. No implementation, schema, rule, package, registry,
 attachment, or form-field version is written until Track 0 settles and passes
 the adversarial closure gate below.
 
-### T0-1 — Form 1098-E authority and identity
+### T0-1 — Form 1098-E authority and identity (question)
 
 Confirm the field inventory, VOID disposition, and identity keys against the
 2025 Form 1098-E and its instructions, obtained fresh (the register notes the
@@ -239,7 +244,7 @@ the same defect again). Confirm account number is recorded authority, not an
 identity key, and that a lawful single-statement, multi-loan filing is
 representable without a false cardinality assumption.
 
-### T0-2 — Component-level eligibility authority
+### T0-2 — Component-level eligibility authority (question)
 
 Re-derive the eligibility-component inventory (the register found seventeen,
 independently authorized, no collapsed conclusion) against fresh sources.
@@ -248,19 +253,19 @@ a legal zero (an honest `not-claimed-as-dependent` reading that computes a
 zero, not a block) — the register's B1/A1–A10 split is a hypothesis to
 re-verify, not an inherited answer.
 
-### T0-3 — Reported-interest boundary
+### T0-3 — Reported-interest boundary (question)
 
 Settle box 1 vs. box 2 disposition and its closure argument under ADR-0016
 §5, independent of the register's prior wording.
 
-### T0-4 — Student Loan Interest Deduction Worksheet
+### T0-4 — Student Loan Interest Deduction Worksheet (question)
 
 One rule citizen on the accepted worksheet pattern, i1040gi p. 99 line by
 line. Settle the minimal `multiply`/`divide` expression-language addition
 needed (schema shape, rounding-instruction placement — a precision floor on
 the decimal, not the result) and the pin table for absence dispositions.
 
-### T0-5 — MAGI completeness
+### T0-5 — MAGI completeness (question)
 
 Settle the MAGI component boundary and confirm line 21 is provably excluded
 from its own base (the register's DFS-over-symbol-graph argument depended on
@@ -269,7 +274,7 @@ succession that landed since). Settle reuse-vs-mint for the MAGI component
 vocabulary against the claim-reuse proof standard in the adversarial closure
 gate, not against apparent shape similarity.
 
-### T0-6 — Schedule 1 Part II completeness and line 26
+### T0-6 — Schedule 1 Part II completeness and line 26 (question)
 
 This is the item most changed by re-verification (see Current state above).
 Settle: does asserting line-26 completeness require any statement about the
@@ -279,14 +284,14 @@ predecessors jointly cover? Settle whether line 22 (reserved) needs any
 disposition at all. Produce the completeness argument as one of the six
 mandatory adversarial-closure artifacts, not as prose.
 
-### T0-7 — Schedule 1 attachment disposition
+### T0-7 — Schedule 1 attachment disposition (question)
 
 Settle attachment reuse. **Do not assume `attachment-rule.v4`** — two
 concurrent milestones are claiming `attachment-rule.v7` and `v8` on the
 ledger (see Version claims below); confirm which published version this
 route's needs actually match, and claim a new version rather than colliding.
 
-### T0-8 — Form 1040 succession: lines 10, 11a, 11b
+### T0-8 — Form 1040 succession: lines 10, 11a, 11b (question)
 
 Settle the `rule.form1040-line11` → line 10/11a/11b succession: one AGI
 symbol vs. two form-field citizens, whether existing consumers of the
@@ -294,7 +299,7 @@ current line-11 symbol are preserved by membership or require their own
 succession, and confirm no re-pin or re-version of
 `rule.form1040-line15.v2`.
 
-### T0-9 — Substrate repair sequencing
+### T0-9 — Substrate repair sequencing (question)
 
 Name, in commit order, every substrate change this milestone's design
 requires: the `multiply`/`divide` operators (with their own ADR — this is a
@@ -304,7 +309,7 @@ condition); the specific rule sites that must use
 any route in this design that must use a path dependency rather than a
 `when`-guarded `requires` because it is optional at the return level.
 
-### T0-10 — Contract novelty and ADR budget
+### T0-10 — Contract novelty and ADR budget (question)
 
 State how many new ADRs this milestone needs (expect at least two: one for
 the expression-language extension, one for whichever of T0-6/T0-7/T0-8 turns
@@ -475,6 +480,15 @@ scoped to SLI, never reused from `ss-benefits-scope`:**
     person legally obligated may deduct; a `no` here is likewise a
     definite zero for this filer, not a block (someone else, not this
     return, may deduct it — irrelevant to this return's computation).
+    **Scope, settled at Track 2 build time:** filer-level (tax-year-only
+    key), paired with component 11 rather than per-statement. A per-loan
+    reading is textually plausible too (a cosigned loan could have a
+    different obligor per loan), but this route already collapses several
+    Pub. 970 sub-questions the codebase has no per-return signal to
+    distinguish (component 7); filer-level keeps this component at the
+    same granularity as its legal-zero sibling and matches this milestone's
+    bounded-class posture. Revisit if a later milestone needs per-loan
+    obligation to be distinguishable.
 
 This resolves T0-2's re-derivation demand: the register's B1/A1–A10 split
 is confirmed as a real universal/legal-zero distinction in the law, but its
@@ -554,11 +568,13 @@ satisfying stop condition 4 (settled fully under T0-9/T0-10).
 
 **Pin table for absence dispositions:** each of the twelve T0-2 components
 pins as an `input` role exactly like `rule.ss-benefits-worksheet.v2`'s
-twenty-two-conjunct pattern; the seven components that are per-statement
-witnesses (5–10 above) pin against the closed Form 1098-E family
-alongside the box-1 member pins, never against an individual statement in
-isolation — a violation on any admitted statement blocks the whole route,
-consistent with T0-3's box-2 disposition.
+twenty-two-conjunct pattern; the six components that are per-statement
+witnesses (5–10 above, corrected from a miscounted "seven" on first
+settlement — Track 2 built against the exact range, not the prose count)
+pin against the closed Form 1098-E family alongside the box-1 member pins,
+never against an individual statement in isolation — a violation on any
+admitted statement blocks the whole route, consistent with T0-3's box-2
+disposition.
 
 ### T0-5 — MAGI completeness
 
@@ -1011,6 +1027,60 @@ from the shape of the JSON alone.
   implementation charter can be filed — **owner/foreman disposition
   required**, named as a finding in the closing report rather than decided
   here.
+
+### Foreman disposition on the integration-surface gap
+
+**No Track 0b.** The `ssa-no-activity-applicability` precedent (its own
+"Integration surface: PASS, retroactively") establishes that this artifact
+is satisfied by whatever evidence Track 1 commits — a separate paper-only
+pass would just re-argue what building the routes settles directly. Track 1
+below is chartered to build the substrate and the nine synthetic
+disposition-path models (plus the presentation-model probes) as committed,
+runnable tests exercised through the real coordinator
+(`live_coordinate_run`), matching the precedent's evidentiary bar exactly.
+The integration-surface artifact remains **PENDING** — not `FAIL`, not
+downgraded to nonblocking — until that evidence exists, then flips to
+`PASS, retroactively` the same way the precedent's did, with no separate
+closure step. Track 0's other five artifacts are accepted as `PASS` now;
+nothing in Track 1 may weaken them without reopening this document.
+
+## Tracks
+
+Atomic, one commit each, in the T0-9 substrate order:
+
+* **Track 1 — `multiply`/`divide` evaluator operators and `rule-artifact.v6`.**
+  Additive dispatch entries in `packages/derivation/evaluator.py`; additive
+  schema successor to `rule-artifact.v4` (v4's bytes untouched). Unit tests
+  for both operators, including `divide`'s zero-divisor guard and its
+  `min_decimal_places`/`rounding` behavior. No tax content yet — this track
+  is pure substrate, reviewable and testable in isolation.
+* **Track 2 — Form 1098-E family and the twelve T0-2 eligibility components.**
+  New fact types (member family + twelve component facts, ten universal +
+  two legal-zero), synthetic fixtures for VOID exclusion and multi-statement
+  cardinality.
+* **Track 3 — the Student Loan Interest Deduction Worksheet rule citizen.**
+  The nine-line `i1040gi` p.99 worksheet using `conditional_dependency_set`
+  for eligibility gathering and the new `multiply`/`divide` ops; publishes
+  `tax.us.2025.schedule1.line21-sli-deduction`.
+* **Track 4 — Schedule 1 line-26 composition and attachment succession.**
+  `tax.us.2025.schedule1.line26-total-adjustments`; the new
+  `rule.attachment.schedule-1` version (`attachment-rule.v9`) with the
+  second `requirement.subtotals` entry.
+* **Track 5 — Form 1040 line 10 / 11a / 11b succession.**
+  Corrected `rule.form1040-line11` successor producing
+  `tax.us.2025.income.agi` via total income minus Schedule 1 line 26; new
+  `form1040.line-10`/`-11a`/`-11b` form-field citizens.
+* **Track 6 — the nine synthetic end-to-end disposition-path models
+  (integration-surface artifact 6) and presentation-model probes**, run
+  through `live_coordinate_run`, closing Track 0's `PENDING` row.
+* **Track 7 — the two ADRs** (expression-language extension;
+  Schedule 1 Part II completeness/line-26 composition), citing the evidence
+  Tracks 1–6 produced.
+* **Track 8 — package, registry, release, explanation, presentation.**
+
+Each track's own charter (goal, boundary, inputs, outputs, verification,
+migration risk, data safety) is filed as a Context Capsule immediately
+before dispatch, per `PROJECT_PLANNING.md` ("Track Planning Checklist").
 
 ## Exit criteria
 

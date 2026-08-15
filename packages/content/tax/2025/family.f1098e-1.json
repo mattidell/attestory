@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v1",
+  "id": "tax.us.2025.f1098e.1",
+  "version": "v1",
+  "title": "Form 1098-E box 1 student loan interest statement items, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Every student loan interest amount reported in box 1 of a Form 1098-E furnished to the taxpayer for tax year 2025 is recorded as a statement item as of the keyed horizon. This claim covers Form 1098-E box 1 (and its box-2 companion) only: it says nothing about the twelve Student Loan Interest Deduction eligibility components, MAGI completeness, Schedule 1 Part II completeness, or Form 1040 line 10/11a/11b completeness. A VOID-checked copy is never admitted as a member at all -- not a member, not a correction, not evidence of anything. Closed with members authorizes the multi-lender sum of current members; closed-empty authorizes subtotal 0.",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1098e.box1-student-loan-interest"
+  },
+  "authorizes_subtotal": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+}

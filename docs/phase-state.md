@@ -2,12 +2,13 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "declarative-validation-substrate-f8949",
-  "active_plan": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md",
-  "milestone_state": "closed",
-  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — CLOSED 2026-08-17.** Tax policy for the bounded 2025 covered-W Form 8949/Schedule D subsystem moved out of generic Python into versioned content (ADR-0066): a closed predicate grammar for member constraints, declared cross-family identity exclusivity, and reachability-derived consumer prerequisites. runner.py's domain references went from 24 to 0. The superseded hard-coded Form 8949 row guards and Form 1099-B identity-collision matrix are deleted, not bypassed. Both schedulers are proven byte-identical on the migrated content, including attachment-bearing citizens. An independent owner-advisor product review returned ACCEPT after repairing a failing type gate and a stale cross-milestone test; Track 3's independent review is reconfirmed ACCEPTED. Final package is the additive union core v32 / published v27 / release v25 / adopt v32. Retrospective: docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md. Next milestone unselected.",
-  "current_role": "Foreman — between-milestones selection",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "topic": "f1098e-student-loan-interest-agi",
+  "active_plan": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md",
+  "milestone_state": "track-3",
+  "status": "Re-cut of the Form 1098-E design-exploration branch (milestone/f1098e-student-loan-interest-line21, PR #169, ruled completed design exploration at owner stop). Cut fresh from origin/main at 85b6a0f1. Track 0 settled (ten settlement questions; five of six adversarial closure artifacts PASS, integration surface PENDING by design pending Track 1-6 build evidence, per the ssa-no-activity-applicability precedent). Foreman review corrected a version collision (rule-artifact v5 -> v6) and a substrate bug in build_orientation_block.py (current_prompt's #anchor was ignored). Version claims on the local-only milestone-schema-ledger branch: attachment-rule v9, artifact-package v25, rule-artifact v6. Track 1 (multiply/divide) and Track 2 (Form 1098-E family + twelve eligibility facts) built, foreman-reviewed, full suite green. Commits f91fb600, 3f201845. Track 3 dispatched.",
+  "retrospective": null,
+  "current_role": "Builder (Track 3 — Student Loan Interest Deduction Worksheet rule citizen)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Tracks"
 }
 -->
 # Phase State
@@ -32,39 +33,52 @@ route: a return with no Social Security source can now reach total income
 without answering 33 Social Security declarations. The thirteen shared
 Schedule 1 absence declarations that used to live on that worksheet
 vocabulary now have Schedule-1-native successor ids and an adopted
-migration artifact that retires the old ones. The declarative structured
-validation and consumer dependency substrate — the prerequisite that moved
-Form 8949's per-member validation and cross-family identity checks out of
-generic runner code into versioned content — is now closed. **Neither
-prerequisite adds a new tax route.**
+migration artifact that retires the old ones. **The active milestone opens
+the first Engine Breadth route on the income-adjustment side of the
+return** — 2025 Form 1098-E student-loan interest through Schedule 1 lines
+21/26, Form 1040 line 10, and AGI 11a/11b.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** none selected.
-* **Current product behavior:** registry-valid but unsupported semantic
-  package members and unknown presentation-bound successors fail loudly. The
-  declarative-validation substrate (ADR-0066) is production, not prototype:
-  Form 8949's member constraints and identity exclusivity are versioned
-  content, reachability-derived consumer prerequisites are mechanically
-  required, and both schedulers agree on the result. The ratified package is
-  core **v32**, published **v27**, release **v25**, adoption **v32**.
-* **Paused dependency:** `milestone/f8949-noncovered-basis-lines2-9`; its
-  proposed decisions are not authority and no implementation is chartered.
-* **Prior milestone:** Declarative Structured Validation and Consumer
-  Dependency Substrate — closed 2026-08-17; Candidate B P1-P3 ratified into
-  ADR-0066; final package core v32/published v27/release v25/adopt v32.
-  Plan: `docs/phases/engine-breadth/milestones/declarative-validation-substrate.md`;
-  deferral ledger:
-  `docs/phases/engine-breadth/milestones/declarative-validation-substrate-deferral-ledger.md`;
+* **Active milestone:** `f1098e-student-loan-interest-agi` — Track 0
+  charter drafted on branch `milestone/f1098e-student-loan-interest-agi`,
+  cut from `origin/main` at `85b6a0f1`. Not yet performed; no dispatch
+  without literal owner authorization in the live thread. Plan:
+  `docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md`.
+* **Re-cut, not a resumption**, of `milestone/f1098e-student-loan-interest-line21`
+  (PR #169, still open) — the owner ruled that branch **completed design
+  exploration** after its Track 0c found the substrate it depended on
+  (cross-fact-type succession) did not yet exist. This milestone inherits
+  only that branch's Durable findings register, re-verified against current
+  `main`, not its track narrative or prior settlement answers.
+* **What re-verification changed:** cross-fact-type succession now exists
+  (ADR-0063, `migration-artifact.v1`); the thirteen Schedule 1 absence facts
+  have Schedule-1-native ids; but Schedule 1 lines 21/22/26 have **no**
+  completeness declaration today — this milestone is not a fourteenth entry
+  in an existing pattern, it is the first Part II total. The SSA burden is
+  repaired (33 → 1 declaration) but by retaining
+  `no-rrb-or-foreign-social-benefit` as load-bearing, not by migrating it —
+  that remains the deferred fourteenth migration candidate, out of this
+  milestone's scope.
+* **Prior milestone:** Fact-type succession with neutral Schedule 1
+  vocabulary — closed (PR #177, merged `85b6a0f1`). Milestone 2 of the
+  two-milestone Form 1098-E prerequisite; shipped ADR-0063,
+  `migration-artifact.v1` / `act-migration-adoption.v1` /
+  `artifact-package.v23`, package **v31** / published-packages **v26** /
+  release **v24**. Plan:
+  `docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md`;
   retrospective:
-  `docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md`.
-* **Next:** owner selects the next milestone from
-  `docs/phases/engine-breadth/coverage-frontier.md`. The Form 1098-E vertical
-  slice (Schedule 1 lines 21/26, Form 1040 line 10, AGI 11a/11b) remains the
-  next unselected breadth candidate. The scoped-not-built
-  rule-artifact/attachment-rule capability-table consolidation
-  (`milestones/rule-artifact-capability-table-consolidation.md`) is a
-  hardening candidate, not breadth.
+  `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
+* **Earlier prior milestone:** SSA no-activity applicability repair — closed
+  2026-08-14 (PR #173). Plan:
+  `docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md`;
+  retrospective:
+  `docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md`.
+* **Concurrent milestones (separate worktrees, do not collide on schema
+  versions):** `declarative-validation-substrate-f8949` and
+  `f8949-noncovered-basis-lines2-9`. Coordinate through
+  `origin/milestone-schema-ledger` — see
+  `docs/process/concurrent-work.md`.
 
 ## Re-entry
 
