@@ -1,0 +1,24 @@
+{
+  "schema": "rule-artifact.v6",
+  "id": "demo.rule.sli-phaseout-ratio",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "individual-income-tax" },
+  "role": "computation",
+  "requires": ["demo.magi-excess"],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "multiply",
+    "left": { "op": "ref", "name": "demo.interest-paid" },
+    "right": {
+      "op": "divide",
+      "left": { "op": "ref", "name": "demo.magi-excess" },
+      "right": "15000",
+      "min_decimal_places": 3,
+      "rounding": "half_up"
+    }
+  },
+  "publishes": "demo.sli-phaseout-reduction",
+  "blocked": { "code": "OPEN_DEPENDENCY", "missing": ["demo.magi-excess"] },
+  "notes": "Demo Track 1 fixture: proves multiply/divide compose (i1040gi p.99 worksheet lines 7-8 shape), not the worksheet itself."
+}

@@ -218,10 +218,22 @@ def build_block(
         )
     out += ["## Current prompt / charter", ""]
     cp = state["current_prompt"]
-    cp_path = cp.partition("#")[0]
+    cp_path, _, cp_anchor = cp.partition("#")
     cp_blob = repo.blob_for_path(commit, cp_path)
-    charter_body = _cap(repo.content_for_path(commit, cp_path), max_bytes).rstrip()
-    out.append(f"### charter: `{cp}` @ `{cp_blob}`\n\n```\n{charter_body}\n```\n")
+    cp_content = repo.content_for_path(commit, cp_path)
+    if cp_anchor:
+        cp_section, cp_found = extract_section(cp_content, cp_anchor)
+        if not cp_found:
+            out.append(
+                f"### charter: `{cp}` @ `{cp_blob}`\n\n"
+                f"⚠ section not found — read the file for `{cp_anchor}`.\n"
+            )
+        else:
+            charter_body = _cap(cp_section, max_bytes).rstrip()
+            out.append(f"### charter: `{cp}` @ `{cp_blob}`\n\n```\n{charter_body}\n```\n")
+    else:
+        charter_body = _cap(cp_content, max_bytes).rstrip()
+        out.append(f"### charter: `{cp}` @ `{cp_blob}`\n\n```\n{charter_body}\n```\n")
 
     out.append(f"## Deep reads for action `{chosen}`\n")
     for target in targets:

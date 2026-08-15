@@ -162,6 +162,12 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
     if op == "subtract":
         return _as_decimal(evaluate(expr["left"], env, access)) - _as_decimal(evaluate(expr["right"], env, access))
 
+    if op == "multiply":
+        return _as_decimal(evaluate(expr["left"], env, access)) * _as_decimal(evaluate(expr["right"], env, access))
+
+    if op == "divide":
+        return _divide(expr, env, access)
+
     if op == "max":
         return max(_as_decimal(v) for v in _flatten(evaluate_args(expr["args"], env, access)))
 
@@ -272,6 +278,28 @@ def _round(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal
     value = _as_decimal(evaluate(expr["value"], env, access))
     unit = Decimal(canon["unit"])
     return (value / unit).quantize(Decimal(1), rounding=_ROUND_MODES[mode]) * unit
+
+
+def _divide(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:
+    """left / right, floored to at least `min_decimal_places` decimal digits.
+
+    This is a precision floor on the ratio's own decimal representation,
+    evaluated once immediately after division, categorically distinct from
+    the `round` op's whole-dollar `rounding.convention` unit (T0-4/T0-9). A
+    zero divisor blocks rather than raising ZeroDivisionError or producing
+    Infinity, so the op is safe for any future consumer even though this
+    milestone's divisor is always a fixed nonzero parameter.
+    """
+    left = _as_decimal(evaluate(expr["left"], env, access))
+    right = _as_decimal(evaluate(expr["right"], env, access))
+    if right == 0:
+        raise EvalBlocked(BLOCK_INVALID, ["division by zero"])
+    mode = expr["rounding"]
+    if mode not in _ROUND_MODES:
+        raise EvalBlocked(BLOCK_INVALID, [f"unknown rounding mode: {mode!r}"])
+    min_decimal_places = expr["min_decimal_places"]
+    quantum = Decimal(1).scaleb(-min_decimal_places)
+    return (left / right).quantize(quantum, rounding=_ROUND_MODES[mode])
 
 
 def _range_lookup(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:
