@@ -3,10 +3,11 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "fact-type-succession-neutral-schedule1",
-  "milestone_state": "track-1",
-  "status": "TRACK 0 COMPLETE AND DISPOSITIONED. Track 0 paper settlement (all seven questions) landed, independently reviewed (docs/reviews/2026-08-14-fact-type-succession-track0-review.md, verdict STOP FOR ADVISOR on finding F1 only -- T0-1, T0-2, T0-3, T0-6, T0-7, and all four rejected mechanism alternatives held independently). F1 asked whether treating the predecessor fact type as an individuation root instantiates or broadens Ontology §7. Owner disposition (verbatim in the plan's '## Owner disposition (binding on Track 1)'): adoption of an explicit migration artifact is a direct supersession root -- not an individuation edge, not a new third cascade edge. This corrects, not just approves, the paper's T0-5 framing: displacement runs through a new named root (parallel to _member_withdrawals), never through a claim that the predecessor fact type is 'keyed on'. '## Amended Track 1 charter' supersedes the paper's original Track 1 proposal with this correction; T0-1..T0-4/T0-6/T0-7 and the required-evidence list are unaffected and not reopened. Predecessor population: thirteen tax.us.2025.ss-benefits-scope fact types (v1), verified against packages/content/tax/2025/rule.ss-benefits-worksheet.v2.json's conditional_dependency_set, not merely against the bundle. no-rrb-or-foreign-social-benefit stays excluded, in requires, untouched. Two non-blocking hygiene items from review (F2, and a stale parent-SHA citation in the settlement's own header) do not block Track 1. Do not implement Form 1098-E, Schedule 1 line 21 as a real form, Form 1040 line 10, or AGI lines 11a/11b in this milestone -- those are Part 3.",
-  "current_role": "Foreman (present the Track 1 charter for owner-launch; no dispatch without literal authorization)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Amended Track 1 charter",
+  "milestone_state": "closed",
+  "status": "Closed on this branch (PR #177). Milestone 2 of the Form 1098-E prerequisite. No new tax route. Thirteen Schedule 1 absence facts succeed onto Schedule-1-native ids via an adopted migration-artifact.v1 (ADR-0063), a fourth named supersession root. Worksheet v3 retargets the nonempty CDS; the Milestone 1 empty-route contract is unchanged. Publication: core v31 / published-packages v26 / release v24. Track 0 review STOP FOR ADVISOR on F1; owner disposition corrected T0-5; Track 1 independent review APPROVE. Full arc in the retrospective.",
+  "retrospective": "docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md",
   "scope": [
     "identify the exact predecessor population and disposition no-rrb-or-foreign-social-benefit separately",
     "determine what a successor changes: identity, applicability, authority, lifecycle, or representation",
@@ -42,7 +43,6 @@
       "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Owner disposition (binding on Track 1)",
       "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Amended Track 1 charter",
       "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Required evidence",
-      "docs/reviews/2026-08-14-fact-type-succession-track0-review.md",
       "packages/kernel/facts.py",
       "packages/kernel/currency.py",
       "docs/process/concurrent-work.md",
@@ -57,6 +57,9 @@
       "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Amended Track 1 charter",
       "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md#Required evidence",
       "AGENTS.md#Data Safety Rules"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md"
     ]
   }
 }
@@ -68,11 +71,10 @@
 **Primary branch:** `milestone/fact-type-succession-neutral-schedule1`
 **Base:** `origin/main` at `5ad67f5e` (includes PR #173, the merged SSA
 no-activity applicability repair, and PR #176, its administrative closeout).
-**State:** Track 0 complete and dispositioned; Track 1 chartered
-(`## Amended Track 1 charter`), not yet built. Milestone 2 of the
-two-milestone Form 1098-E prerequisite. **Does not share a PR with Milestone
-1 and did not wait on Milestone 1's own review cycle beyond Milestone 1
-actually merging.**
+**State:** closed on this branch (PR #177). Track 1 shipped and
+independently reviewed APPROVE. Milestone 2 of the two-milestone
+Form 1098-E prerequisite. **Adds no new tax route.** Does not share
+a PR with Milestone 1.
 
 ## Objective
 
@@ -317,8 +319,8 @@ milestone closes, on its own branch and PR.
 ## Track 0 findings
 
 Paper only. Every claim below is verified against committed artifacts at
-`f5e9887e483e06a583decdef307974bda736b257` (the Track 0 start commit on
-this branch, whose parent line is `origin/main` at `05ddd777`); no
+the Track 0 start commit on this branch, whose parent line is
+`origin/main` at `5ad67f5e` (PR #176 closeout); no
 tax-instruction PDF was opened.
 Where a claim is established by reading committed code or schemas, the
 read was against those blobs and left nothing in the repository except
@@ -709,8 +711,8 @@ One shape remains. The single-Builder stop does not fire.
 
 The paper's original recommendation — continue, with the
 individuation-root reading unexamined — was independently reviewed
-and held not honestly earned (`docs/reviews/2026-08-14-fact-type-succession-track0-review.md`,
-finding F1, verdict STOP FOR ADVISOR). See `## Owner disposition
+and held not honestly earned (finding F1, verdict STOP FOR ADVISOR).
+See `## Owner disposition
 (binding on Track 1)` immediately below for the resolution. That
 disposition, not this subsection, governs Track 1.
 
@@ -860,3 +862,10 @@ above) and is not a Track 1 stop condition.
 The required-evidence list is the exit. Independent review of
 derivation behaviour *and* of the lattice/currency edge (not only of
 the worksheet value) before this milestone is offered to merge.
+
+## Track 1 result
+
+Track 1 shipped the Amended Track 1 charter. Independent review of
+derivation behaviour and the lattice/currency edge returned **APPROVE**.
+The required-evidence list is the exit and is met. This milestone
+adds no new tax route.

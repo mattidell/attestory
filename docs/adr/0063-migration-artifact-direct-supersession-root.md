@@ -160,8 +160,9 @@ F1 refused to bless, and it is not this decision.
 - Milestone:
   `docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md`,
   `## Owner disposition (binding on Track 1)` and `## Amended Track 1 charter`.
-- Review:
-  `docs/reviews/2026-08-14-fact-type-succession-track0-review.md` (F1).
+- Review finding F1 (STOP FOR ADVISOR on the individuation-root
+  reading) is decided by this ADR and the plan's
+  `## Owner disposition (binding on Track 1)`.
 - Finding-half precedent: ADR-0025 decision 7 (presented successor
   claim; not the lattice mechanism).
 - Currency and derivation: ADR-0010.

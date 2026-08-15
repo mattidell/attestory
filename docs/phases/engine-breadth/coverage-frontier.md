@@ -46,6 +46,7 @@ input boxes. Status is one of:
 | Other Schedule 1 Part I income sources | Business, rental, farm, Form 4797, other income, etc. | Outside unemployment slice | Each class needs its own analysis | Independently selectable | named block |
 | New unrelated income domain | A return class outside the existing W-2/interest/dividend columns | No owner-selected source/form target | Unknown until a concrete source and downstream output are named | Owner selection and a fresh coverage row | candidate |
 | Form 1098 mortgage interest → Schedule A line 8a → Form 1040 line 12e | Returns with exactly one 2025 Form 1098 statement reporting deductible qualified-residence acquisition-debt interest under the applicable debt limit, no refinance/HELOC/points/PMI/refund/credit/second-home/shared-borrower facts, and every other Schedule A category explicitly closed absent | Retired for the bounded singleton-Form-1098 class; second statements, refinancing, points, PMI, mortgage-interest credit, and every other Schedule A category besides line 8a remain honestly outside it | New singleton-closed Form 1098 family and seven-fact taxpayer-authority boundary; first Schedule A instantiation of the ADR-0036 attachment ontology; bounded additive line-12e/13a/13b/14 successor guarding the generic itemized assertion off whenever a Form 1098 statement is on record; a same-symbol multi-producer route (package conflict_semantics, first use in this corpus) for tax.us.2025.schedule-a.total's mutually-exclusive count==0/count>0 producers | Paper-first Track 0 decision record (`docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md`), production-shaped synthetic identity, correction, completeness, attachment, package, explanation, and presentation evidence driven end-to-end through live_coordinate_run against core v29/published v24/release v22 | **synthetic complete** |
+| Fact-type succession of the thirteen shared Schedule 1 absence declarations | **No new tax route.** Successor Schedule-1-native vocabulary and an adopted migration artifact so those thirteen ids can be retired before Form 1098-E introduces real Schedule 1 activity | Retired for this substrate claim; Form 1098-E, Schedule 1 line 21, Form 1040 line 10, and AGI remain Part 3 and unselected | ADR-0063: adopted migration-artifact.v1 is a fourth named supersession root, not an individuation edge and not a package filter | Paper Track 0 (STOP FOR ADVISOR on F1) + owner disposition + Track 1 implementation independently reviewed APPROVE; live goldens through `live_coordinate_run` | **synthetic complete — no new tax route** |
 
 ## Completed synthetic frontier
 
@@ -124,3 +125,12 @@ is synthetic complete for the bounded 2025 direct-election class after rebase
 onto the ratified tip that includes Form 8949, Form 1099-INT box 8, and Form
 1099-G. General Form 1116 calculation and foreign-tax deduction remain separate
 frontier work.
+
+The **Fact-type succession with neutral Schedule 1 vocabulary**
+milestone (PR #177) adds **no new tax route**. It retires the thirteen
+shared Schedule 1 absence facts from the Social Security worksheet
+vocabulary onto Schedule-1-native ids through ADR-0063. Form 1098-E,
+Schedule 1 line 21, Form 1040 line 10, and AGI remain outside the
+frontier claim and unselected. Plan:
+`milestones/fact-type-succession-neutral-schedule1.md`; retrospective:
+`docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
