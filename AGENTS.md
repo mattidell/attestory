@@ -158,15 +158,40 @@ These bind every seat. Each is normed here and nowhere else.
 merge on red. A green `verify` check on a commit is the tamper-proof record —
 reference it.
 
-- **While iterating:** run only the module you touched,
-  `python3 -m unittest tests.<module>` (seconds).
-- **Before opening or updating a PR:** optionally run `pytest` locally (~26s)
-  so CI isn't your first signal.
 - **Never re-run the suite to "confirm" a deterministic result**, and never
   substitute a self-reported `pytest: N passed` line for the check.
 - **The foreman does not run the suite** — it opens the PR, references the
   check, and merges only on green. A reviewer runs `pytest` only to confirm a
   specific failing claim.
+
+### Test lanes
+
+Three tiers, cheapest first. Pick the cheapest one whose premise your change
+satisfies; the full suite is always the gate of record.
+
+| Lane | Command | Cost | What it is for |
+| --- | --- | --- | --- |
+| Inner loop | `pytest tests/test_<module>.py` | ~2s | while iterating on one module |
+| Fast lane | `pytest -m "not live"` | ~4s | before handing a unit off; catches unit regressions |
+| Full | `pytest` | ~61s | before opening or updating a PR; the merge gate |
+
+**The full suite is not optional for substrate work.** Any change under
+`packages/kernel/` or `packages/derivation/` runs the **full** suite, not the
+fast lane. Substrate defects are observable only through the live lane — the
+`marshal.py` order-dependent per-statement binding is the standing example:
+nothing in the fast lane binds a second statement, so nothing in the fast lane
+can see it.
+
+**The fast lane enforces its own premise.** `tests/conftest.py` derives the
+`live` marker by inspecting each module rather than trusting a hand-kept list,
+and fails any unmarked test that runs longer than `FAST_LANE_BUDGET_SECONDS`.
+Raising that budget to make a failure go away defeats the mechanism: the budget
+is the only thing that keeps the fast lane fast, and its absence is how the full
+suite drifted from 26s to over five minutes without anyone noticing. If a test
+trips it, either make the test fast or make it an honest integration test.
+
+`-n auto` is in `addopts`, so every lane above is already parallel — do not
+strip it to "save startup" on a single module; measured, that is 6x slower.
 
 **What reaches `main` is normed in `PROJECT_PLANNING.md`.** Follow "Branch, PR,
 and Merge Protocol" and "Milestone Closeout" for the milestone PR; do not
@@ -255,7 +280,7 @@ permission to revise that history.
   the change as a new schema version instead.
 - Before handing off a schema change, inspect the manifest diff to confirm it
   only adds the new filename, and run
-  `python3 -m unittest tests.test_schema_registry` plus the track's schema and
+  `pytest tests/test_schema_registry.py` plus the track's schema and
   consumer tests. The registry test proves that a mutated published schema and
   a republished checksum are both rejected.
 

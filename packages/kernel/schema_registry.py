@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections import OrderedDict
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -17,6 +18,33 @@ import jsonschema
 
 KERNEL_SCHEMA_DIR = Path(__file__).resolve().parent.parent / "schemas" / "kernel"
 PUBLISHED_MANIFEST_NAME = "published.json"
+
+# Two content-addressed memos. Both exist only because loading and validating
+# are *pure* functions of bytes: a published schema version is immutable
+# (Article 9, ADR-0003) and validation neither coerces nor repairs, so the same
+# (schema bytes, instance) pair can only ever reach the same verdict.
+#
+# Every key is a content digest, never a path or a schema id alone. That is the
+# property that keeps the memo honest: a mutated published file hashes
+# differently, so it *misses* both caches and takes the full uncached path that
+# raises. Keying on paths would let a mutation silently reuse the pre-mutation
+# compile — the exact failure `tests/test_schema_registry.py` exists to catch.
+#
+# `_COMPILED_SCHEMAS` skips re-parsing and re-compiling 113 schema documents on
+# every SchemaRegistry construction. `_VALIDATION_VERDICTS` skips re-validating
+# content documents that the run has already checked; it is bounded because a
+# long-lived process (the coordinator, a test session) would otherwise retain
+# every instance it ever saw.
+_COMPILED_SCHEMAS: dict[tuple[str, str], tuple[dict[str, Any], jsonschema.Draft202012Validator]] = {}
+_VALIDATION_VERDICTS: OrderedDict[tuple[str, str, str], tuple[str, ...] | None] = OrderedDict()
+_VALIDATION_VERDICTS_MAX = 50_000
+
+
+def clear_caches() -> None:
+    """Drop both memos. For tests that need a cold registry; never required
+    for correctness, since every key is content-addressed."""
+    _COMPILED_SCHEMAS.clear()
+    _VALIDATION_VERDICTS.clear()
 
 
 class SchemaRegistryError(Exception):
@@ -55,6 +83,10 @@ class SchemaRegistry:
             self._dirs = list(schema_dir)
         self._schemas: dict[str, dict[str, Any]] = {}
         self._validators: dict[str, jsonschema.Draft202012Validator] = {}
+        # schema id -> sha256 of the published bytes this registry loaded.
+        # Folded into the validation memo key so that two registries publishing
+        # the same schema id from different bytes cannot share a verdict.
+        self._digests: dict[str, str] = {}
         self.family_member_predicates: set[str] = set()
         # Domain-declared subset invariants (e.g. ADR-0035 decision 4: 1099-DIV
         # box 1b <= box 1a per statement). Maps a subordinate fact type id to
@@ -108,6 +140,9 @@ class SchemaRegistry:
             raise SchemaRegistryError(f"published schema file is missing: {missing}")
 
         for path in schema_files:
+            # Every file is still hashed on every load: this is the
+            # immutability check itself, and it is also the cache key below.
+            # Nothing here is skipped by memoization.
             digest = _sha256(path)
             if digest != manifest[path.name]:
                 raise SchemaRegistryError(
@@ -117,27 +152,32 @@ class SchemaRegistry:
             schema_id = path.name.removesuffix(".schema.json")
             if schema_id in self._schemas:
                 raise SchemaRegistryError(f"duplicate schema id across directories: {schema_id}")
-            document: dict[str, Any] = json.loads(path.read_text("utf-8"))
-            try:
-                jsonschema.Draft202012Validator.check_schema(document)
-            except jsonschema.SchemaError as exc:
-                raise SchemaRegistryError(
-                    f"schema document is not valid JSON Schema: {path.name}: {exc.message}"
-                ) from exc
-            self._schemas[schema_id] = document
-            # Draft202012Validator resolves local ``$ref`` against ``$id``.
-            # Relative family-scoped ids like ``kernel/fact-type.v2`` make
-            # jsonschema 4.10 join the fragment into a doubled path
-            # (``kernel/kernel/fact-type.v2``) and fail RefResolution. The
-            # published document bytes stay intact for checksum immutability;
-            # only the in-memory validator drops ``$id`` so ``#/$defs/...``
-            # refs resolve against the document root.
-            validator_document = {
-                key: value for key, value in document.items() if key != "$id"
-            }
-            self._validators[schema_id] = jsonschema.Draft202012Validator(
-                validator_document
-            )
+            self._digests[schema_id] = digest
+            compiled = _COMPILED_SCHEMAS.get((schema_id, digest))
+            if compiled is None:
+                document: dict[str, Any] = json.loads(path.read_text("utf-8"))
+                try:
+                    jsonschema.Draft202012Validator.check_schema(document)
+                except jsonschema.SchemaError as exc:
+                    raise SchemaRegistryError(
+                        f"schema document is not valid JSON Schema: {path.name}: {exc.message}"
+                    ) from exc
+                # Draft202012Validator resolves local ``$ref`` against ``$id``.
+                # Relative family-scoped ids like ``kernel/fact-type.v2`` make
+                # jsonschema 4.10 join the fragment into a doubled path
+                # (``kernel/kernel/fact-type.v2``) and fail RefResolution. The
+                # published document bytes stay intact for checksum immutability;
+                # only the in-memory validator drops ``$id`` so ``#/$defs/...``
+                # refs resolve against the document root.
+                validator_document = {
+                    key: value for key, value in document.items() if key != "$id"
+                }
+                compiled = (document, jsonschema.Draft202012Validator(validator_document))
+                # Keyed on (schema id, digest): two registries may publish the
+                # same id with different bytes and must never share a compile.
+                _COMPILED_SCHEMAS[(schema_id, digest)] = compiled
+            self._schemas[schema_id] = compiled[0]
+            self._validators[schema_id] = compiled[1]
 
     def schema_ids(self) -> list[str]:
         return sorted(self._schemas)
@@ -155,15 +195,41 @@ class SchemaRegistry:
         """
         if schema_id not in self._validators:
             raise SchemaRegistryError(f"no published schema version: {schema_id}")
+
+        # The memo key is (bytes of the schema, canonical bytes of the
+        # instance). An instance that cannot be canonically serialized is not
+        # cached at all rather than keyed on a lossy stand-in — a wrong key is
+        # far worse here than a cache miss.
+        key: tuple[str, str, str] | None
+        try:
+            key = (
+                self._digests[schema_id],
+                schema_id,
+                json.dumps(instance, sort_keys=True, separators=(",", ":"), allow_nan=False),
+            )
+        except (TypeError, ValueError, KeyError):
+            key = None
+
+        if key is not None and key in _VALIDATION_VERDICTS:
+            _VALIDATION_VERDICTS.move_to_end(key)
+            remembered = _VALIDATION_VERDICTS[key]
+            if remembered is not None:
+                raise SchemaValidationError(schema_id, list(remembered))
+            return
+
         errors = sorted(
             self._validators[schema_id].iter_errors(instance),
             key=lambda e: list(e.absolute_path),
         )
-        if errors:
-            raise SchemaValidationError(
-                schema_id,
-                [f"{'/'.join(str(p) for p in e.absolute_path) or '<root>'}: {e.message}" for e in errors],
-            )
+        messages = [
+            f"{'/'.join(str(p) for p in e.absolute_path) or '<root>'}: {e.message}" for e in errors
+        ]
+        if key is not None:
+            _VALIDATION_VERDICTS[key] = tuple(messages) if messages else None
+            if len(_VALIDATION_VERDICTS) > _VALIDATION_VERDICTS_MAX:
+                _VALIDATION_VERDICTS.popitem(last=False)
+        if messages:
+            raise SchemaValidationError(schema_id, messages)
 
     def validate_declared(self, instance: dict[str, Any]) -> str:
         """Validate an instance against the schema version it names.
