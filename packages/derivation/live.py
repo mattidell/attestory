@@ -34,7 +34,7 @@ from packages.tax.ssa_benefits import validate_projected_source_boundary
 from packages.derivation.live_workspace import LiveWorkspace, WorkspaceCapability, bootstrap_workspace
 
 if TYPE_CHECKING:
-    from packages.derivation.runner import RunResult
+    from packages.derivation.runner import Publication, RunResult
 
 RUN_REQUEST_SCHEMA = "run-request.v1"
 
@@ -53,6 +53,15 @@ class LiveCoordinatorOutcome:
     # Additive: the confined presentation-model.v1 artifact path (Presentation
     # L2 Integration Grounding, Track 1). None on refusal, same as output_path.
     presentation_path: Path | None = None
+    # Additive (Form 1098-E / Student Loan Interest milestone, Track 8): the
+    # full in-memory publication list this run already computed, so a caller
+    # can walk a real derived finding's own pin chain (packages/derivation/
+    # explanation.py) without re-deriving anything or resorting to a
+    # RunContext shortcut -- the two durable output files intentionally carry
+    # only summarized dispositions (no `value`), which is enough for the
+    # presentation projector but not for `explain()`'s node values. None on
+    # refusal, same as output_path.
+    publications: "tuple[Publication, ...] | None" = None
 
 
 def _iter_collect_categorical_names(expr: Any) -> Iterable[str]:
@@ -233,7 +242,8 @@ def live_coordinate_run(
     }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     presentation_path.write_text(json.dumps(model, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return LiveCoordinatorOutcome(
-        refusal=None, output_path=output_path, run_id=run_id, presentation_path=presentation_path
+        refusal=None, output_path=output_path, run_id=run_id, presentation_path=presentation_path,
+        publications=tuple(result.publications),
     )
 
 

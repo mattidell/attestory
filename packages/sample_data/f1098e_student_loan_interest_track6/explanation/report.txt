@@ -1,0 +1,780 @@
+Run: demo.f1098e.t8.explain.below-floor
+Target: tax.us.2025.income.agi
+Explanation:
+  [output] tax.us.2025.income.agi = 47500  <- tax.us.2025.rule.form1040-line11
+    [adoption] tax.us.2025.package.core-calculations
+    [citation] tax.us.2025.citation.form1040.line-11a
+    [citation] tax.us.2025.citation.form1040.line-11b
+    [citation] tax.us.2025.citation.schedule1.line-26
+    [input] tax.us.2025.schedule1.line26-total-adjustments = 2500  <- tax.us.2025.rule.schedule1-line26
+      [adoption] tax.us.2025.package.core-calculations
+      [citation] tax.us.2025.citation.schedule1.line-21
+      [citation] tax.us.2025.citation.schedule1.line-26
+      [input] demo.sched1.no-line11-educator
+      [input] demo.sched1.no-line12-business-expenses
+      [input] demo.sched1.no-line13-hsa
+      [input] demo.sched1.no-line14-moving
+      [input] demo.sched1.no-line15-deductible-se
+      [input] demo.sched1.no-line16-se-retirement
+      [input] demo.sched1.no-line17-se-health
+      [input] demo.sched1.no-line18-penalty
+      [input] demo.sched1.no-line19-alimony-paid
+      [input] demo.sched1.no-line20-ira-deduction
+      [input] demo.sched1.no-line23-archer-msa
+      [input] demo.sched1.no-line25-other-adjustments
+      [input] tax.us.2025.schedule1.line21-sli-deduction = 2500  <- tax.us.2025.rule.sli-worksheet
+        [adoption] tax.us.2025.package.core-calculations
+        [citation] tax.us.2025.citation.form1040.sli-worksheet
+        [citation] tax.us.2025.citation.schedule1.line-21
+        [input] demo.cgd.t2.finding.rounding
+        [input] demo.cgd.t2.finding.status
+        [input] demo.f1098e.box1.0
+        [input] demo.f1098e.box2.0
+        [input] demo.f1098e.closure
+        [input] demo.f1098e.no-employer-educational-assistance-interest.0
+        [input] demo.f1098e.no-non-qualified-loan-component.0
+        [input] demo.f1098e.no-qtp-earnings-used.0
+        [input] demo.f1098e.no-qualified-employer-plan-interest.0
+        [input] demo.f1098e.no-related-person-interest.0
+        [input] demo.sched1.no-line11-educator
+        [input] demo.sched1.no-line12-business-expenses
+        [input] demo.sched1.no-line13-hsa
+        [input] demo.sched1.no-line14-moving
+        [input] demo.sched1.no-line15-deductible-se
+        [input] demo.sched1.no-line16-se-retirement
+        [input] demo.sched1.no-line17-se-health
+        [input] demo.sched1.no-line18-penalty
+        [input] demo.sched1.no-line19-alimony-paid
+        [input] demo.sched1.no-line20-ira-deduction
+        [input] demo.sched1.no-line23-archer-msa
+        [input] demo.sched1.no-line25-other-adjustments
+        [input] demo.sli-scope.legally-obligated-for-interest
+        [input] demo.sli-scope.no-form-2555
+        [input] demo.sli-scope.no-form-4563
+        [input] demo.sli-scope.no-puerto-rico-or-samoa-income
+        [input] demo.sli-scope.not-claimed-as-dependent
+        [input] tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal = 3000  <- tax.us.2025.rule.sli-worksheet-line1-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.form1040.sli-worksheet
+          [input] demo.cgd.t2.finding.rounding
+          [input] demo.f1098e.box1.0
+          [input] demo.f1098e.box2.0
+          [operation-semantics] round
+        [input] tax.us.2025.income.total-income = 50000  <- tax.us.2025.rule.form1040-line9
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.form1040.line-9
+          [input] tax.us.2025.interest.taxable-total = 0  <- tax.us.2025.rule.form1040-line2b
+            [adoption] tax.us.2025.package.core-calculations
+            [citation] tax.us.2025.citation.form1040.line-2b
+            [input] demo.cgd.t2.closure.int-b1
+            [input] demo.cgd.t2.closure.int-b3
+            [input] demo.cgd.t2.closure.nonform
+            [input] demo.cgd.t2.closure.oid-b1
+            [input] demo.ug.closure.demo.ug.int-b10.h0
+            [input] demo.ug.closure.demo.ug.k1.h0
+            [input] demo.ug.closure.demo.ug.oid-b5.h0
+            [input] demo.ug.closure.demo.ug.sb-abp.h0
+            [input] demo.ug.closure.demo.ug.sb-acc.h0
+            [input] demo.ug.closure.demo.ug.sb-nom.h0
+            [input] tax.us.2025.interest.scheduleb-abp-adjustment-subtotal = 0  <- tax.us.2025.rule.scheduleb-adjustment.abp-adjustment-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.scheduleb-adjustment.abp-adjustment
+              [input] demo.cgd.t2.finding.rounding
+              [input] demo.ug.closure.demo.ug.sb-abp.h0
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.scheduleb-adjustment.abp-adjustment
+              [package] tax.us.2025.scheduleb.adjustment.abp-adjustment
+            [input] tax.us.2025.interest.b10-market-discount-subtotal = 0  <- tax.us.2025.rule.f1099int-b10-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.f1099int.box10
+              [input] demo.cgd.t2.finding.rounding
+              [input] demo.ug.closure.demo.ug.int-b10.h0
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.f1099int-b10
+              [package] tax.us.2025.f1099int.b10
+            [input] tax.us.2025.interest.b3-subtotal = 0  <- tax.us.2025.rule.f1099int-b3-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.cgd.t2.closure.int-b3
+              [input] demo.cgd.t2.finding.rounding
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.f1099int-b3
+              [package] tax.us.2025.f1099int.b3
+            [input] tax.us.2025.interest.scheduleb-accrued-interest-subtotal = 0  <- tax.us.2025.rule.scheduleb-adjustment.accrued-interest-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.scheduleb-adjustment.accrued-interest
+              [input] demo.cgd.t2.finding.rounding
+              [input] demo.ug.closure.demo.ug.sb-acc.h0
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.scheduleb-adjustment.accrued-interest
+              [package] tax.us.2025.scheduleb.adjustment.accrued-interest
+            [input] tax.us.2025.interest.scheduleb-nominee-subtotal = 0  <- tax.us.2025.rule.scheduleb-adjustment.nominee-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.scheduleb-adjustment.nominee
+              [input] demo.cgd.t2.finding.rounding
+              [input] demo.ug.closure.demo.ug.sb-nom.h0
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.scheduleb-adjustment.nominee
+              [package] tax.us.2025.scheduleb.adjustment.nominee
+            [input] tax.us.2025.interest.non-form-subtotal = 0  <- tax.us.2025.rule.non-form-interest-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.cgd.t2.closure.nonform
+              [input] demo.cgd.t2.finding.rounding
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.non-form-interest
+              [package] tax.us.2025.non-form-interest
+            [input] tax.us.2025.interest.form1065-k1-box5-subtotal = 0  <- tax.us.2025.rule.form1065-k1-box5-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.form1065-k1.box5
+              [input] demo.cgd.t2.finding.rounding
+              [input] demo.ug.closure.demo.ug.k1.h0
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.form1065-k1-box5
+              [package] tax.us.2025.form1065-k1.box5
+            [input] tax.us.2025.interest.oid-subtotal = 0  <- tax.us.2025.rule.f1099oid-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.cgd.t2.closure.oid-b1
+              [input] demo.cgd.t2.finding.rounding
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.f1099oid-b1
+              [package] tax.us.2025.f1099oid.b1
+            [input] tax.us.2025.interest.oid-b5-market-discount-subtotal = 0  <- tax.us.2025.rule.f1099oid-b5-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.f1099oid.box5
+              [input] demo.cgd.t2.finding.rounding
+              [input] demo.ug.closure.demo.ug.oid-b5.h0
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.f1099oid-b5
+              [package] tax.us.2025.f1099oid.b5
+            [input] tax.us.2025.interest.b1-subtotal = 0  <- tax.us.2025.rule.f1099int-b1-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.cgd.t2.closure.int-b1
+              [input] demo.cgd.t2.finding.rounding
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.f1099int-b1
+              [package] tax.us.2025.f1099int.b1
+            [package] tax.us.2025.closure-mapping.f1099int-b1
+            [package] tax.us.2025.closure-mapping.f1099int-b10
+            [package] tax.us.2025.closure-mapping.f1099int-b3
+            [package] tax.us.2025.closure-mapping.f1099oid-b1
+            [package] tax.us.2025.closure-mapping.f1099oid-b5
+            [package] tax.us.2025.closure-mapping.form1065-k1-box5
+            [package] tax.us.2025.closure-mapping.non-form-interest
+            [package] tax.us.2025.closure-mapping.scheduleb-adjustment.abp-adjustment
+            [package] tax.us.2025.closure-mapping.scheduleb-adjustment.accrued-interest
+            [package] tax.us.2025.closure-mapping.scheduleb-adjustment.nominee
+            [package] tax.us.2025.f1099int.b1
+            [package] tax.us.2025.f1099int.b10
+            [package] tax.us.2025.f1099int.b3
+            [package] tax.us.2025.f1099oid.b1
+            [package] tax.us.2025.f1099oid.b5
+            [package] tax.us.2025.form1065-k1.box5
+            [package] tax.us.2025.non-form-interest
+            [package] tax.us.2025.scheduleb.adjustment.abp-adjustment
+            [package] tax.us.2025.scheduleb.adjustment.accrued-interest
+            [package] tax.us.2025.scheduleb.adjustment.nominee
+          [input] tax.us.2025.wages.total-w2-box1 = 50000  <- tax.us.2025.rule.w2-box1-to-line1a
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.cgd.t2.finding.rounding
+            [input] demo.cgd.t2.finding.wages
+            [operation-semantics] round
+          [input] tax.us.2025.dividends.ordinary-total = 0  <- tax.us.2025.rule.form1040-line3b
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.cgd.t2.closure.div1a
+            [input] tax.us.2025.dividends.1a-subtotal = 0  <- tax.us.2025.rule.f1099div-1a-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.cgd.t2.closure.div1a
+              [input] demo.cgd.t2.finding.rounding
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.f1099div-1a
+              [package] tax.us.2025.f1099div.1a
+            [package] tax.us.2025.closure-mapping.f1099div-1a
+            [package] tax.us.2025.f1099div.1a
+          [input] tax.us.2025.capital-gains.line7a-total = 0  <- tax.us.2025.rule.form1040-line7a
+            [adoption] tax.us.2025.package.core-calculations
+            [citation] tax.us.2025.citation.form1040.line-7a
+            [input] tax.us.2025.schedule-d.line-1b = 0  <- tax.us.2025.rule.schedule-d-line1b
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.schedule-d.line-1b
+              [input] demo.ug.closure.demo.ug.wst-a.h0
+              [input] demo.ug.closure.demo.ug.wst-b.h0
+              [input] demo.ug.closure.demo.ug.wst-p.h0
+              [input] demo.ug.closure.demo.ug.wst.h0
+              [input] tax.us.2025.f1099b.covered-w-st-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.closure.demo.ug.wst-p.h0
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds
+                [package] tax.us.2025.f1099b.covered-w-st-proceeds
+              [input] tax.us.2025.f1099b.covered-w-st-adjustment-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.closure.demo.ug.wst-a.h0
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment
+                [package] tax.us.2025.f1099b.covered-w-st-adjustment
+              [input] tax.us.2025.f1099b.covered-w-st-basis-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.closure.demo.ug.wst-b.h0
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-basis
+                [package] tax.us.2025.f1099b.covered-w-st-basis
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-st
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-basis
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds
+              [package] tax.us.2025.f1099b.covered-w-st
+              [package] tax.us.2025.f1099b.covered-w-st-adjustment
+              [package] tax.us.2025.f1099b.covered-w-st-basis
+              [package] tax.us.2025.f1099b.covered-w-st-proceeds
+            [input] tax.us.2025.capital-gains.selected-preferential-base = 0  <- tax.us.2025.rule.selected-preferential-base
+              [adoption] tax.us.2025.package.core-calculations
+              [input] tax.us.2025.schedule-d.line-1b = 0  <- tax.us.2025.rule.schedule-d-line1b
+                [adoption] tax.us.2025.package.core-calculations
+                [citation] tax.us.2025.citation.schedule-d.line-1b
+                [input] demo.ug.closure.demo.ug.wst-a.h0
+                [input] demo.ug.closure.demo.ug.wst-b.h0
+                [input] demo.ug.closure.demo.ug.wst-p.h0
+                [input] demo.ug.closure.demo.ug.wst.h0
+                [input] tax.us.2025.f1099b.covered-w-st-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal
+                  [adoption] tax.us.2025.package.core-calculations
+                  [input] demo.ug.closure.demo.ug.wst-p.h0
+                  [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds
+                  [package] tax.us.2025.f1099b.covered-w-st-proceeds
+                [input] tax.us.2025.f1099b.covered-w-st-adjustment-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal
+                  [adoption] tax.us.2025.package.core-calculations
+                  [input] demo.ug.closure.demo.ug.wst-a.h0
+                  [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment
+                  [package] tax.us.2025.f1099b.covered-w-st-adjustment
+                [input] tax.us.2025.f1099b.covered-w-st-basis-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal
+                  [adoption] tax.us.2025.package.core-calculations
+                  [input] demo.ug.closure.demo.ug.wst-b.h0
+                  [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-basis
+                  [package] tax.us.2025.f1099b.covered-w-st-basis
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-st
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-basis
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds
+                [package] tax.us.2025.f1099b.covered-w-st
+                [package] tax.us.2025.f1099b.covered-w-st-adjustment
+                [package] tax.us.2025.f1099b.covered-w-st-basis
+                [package] tax.us.2025.f1099b.covered-w-st-proceeds
+              [input] tax.us.2025.f1099b.covered-lt-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-lt-proceeds-subtotal
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.closure.demo.ug.lt-p.h0
+                [package] tax.us.2025.closure-mapping.f1099b-covered-lt-proceeds
+                [package] tax.us.2025.f1099b.covered-lt-proceeds
+              [input] tax.us.2025.capital-loss-carryover.short-term = 0  <- tax.us.2025.rule.capital-loss-carryover.short-term
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.sd-boundary.no-inbound-capital-loss-carryovers
+              [input] tax.us.2025.schedule-d.line-8b = 0  <- tax.us.2025.rule.schedule-d-line8b
+                [adoption] tax.us.2025.package.core-calculations
+                [citation] tax.us.2025.citation.schedule-d.line-8b
+                [input] demo.ug.closure.demo.ug.wlt-a.h0
+                [input] demo.ug.closure.demo.ug.wlt-b.h0
+                [input] demo.ug.closure.demo.ug.wlt-p.h0
+                [input] demo.ug.closure.demo.ug.wlt.h0
+                [input] tax.us.2025.f1099b.covered-w-lt-basis-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal
+                  [adoption] tax.us.2025.package.core-calculations
+                  [input] demo.ug.closure.demo.ug.wlt-b.h0
+                  [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis
+                  [package] tax.us.2025.f1099b.covered-w-lt-basis
+                [input] tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal
+                  [adoption] tax.us.2025.package.core-calculations
+                  [input] demo.ug.closure.demo.ug.wlt-a.h0
+                  [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment
+                  [package] tax.us.2025.f1099b.covered-w-lt-adjustment
+                [input] tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal
+                  [adoption] tax.us.2025.package.core-calculations
+                  [input] demo.ug.closure.demo.ug.wlt-p.h0
+                  [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds
+                  [package] tax.us.2025.f1099b.covered-w-lt-proceeds
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds
+                [package] tax.us.2025.f1099b.covered-w-lt
+                [package] tax.us.2025.f1099b.covered-w-lt-adjustment
+                [package] tax.us.2025.f1099b.covered-w-lt-basis
+                [package] tax.us.2025.f1099b.covered-w-lt-proceeds
+              [input] tax.us.2025.schedule-d-required.conclusion = no  <- tax.us.2025.rule.schedule-d-required.conclusion
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.cgd.t2.finding.c1
+                [input] demo.cgd.t2.finding.c2
+                [input] demo.cgd.t2.finding.c3
+                [input] demo.cgd.t2.finding.c4
+              [input] tax.us.2025.capital-loss-carryover.long-term = 0  <- tax.us.2025.rule.capital-loss-carryover.long-term
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.sd-boundary.no-inbound-capital-loss-carryovers
+              [input] tax.us.2025.f1099b.covered-st-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-st-proceeds-subtotal
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.closure.demo.ug.st-p.h0
+                [package] tax.us.2025.closure-mapping.f1099b-covered-st-proceeds
+                [package] tax.us.2025.f1099b.covered-st-proceeds
+              [input] tax.us.2025.dividends.2a-subtotal = 0  <- tax.us.2025.rule.f1099div-2a-subtotal
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.cgd.t2.closure.div2a
+                [input] demo.cgd.t2.finding.rounding
+                [operation-semantics] round
+                [package] tax.us.2025.closure-mapping.f1099div-2a
+                [package] tax.us.2025.f1099div.2a
+            [input] tax.us.2025.f1099b.covered-lt-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-lt-proceeds-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.closure.demo.ug.lt-p.h0
+              [package] tax.us.2025.closure-mapping.f1099b-covered-lt-proceeds
+              [package] tax.us.2025.f1099b.covered-lt-proceeds
+            [input] tax.us.2025.capital-loss-carryover.short-term = 0  <- tax.us.2025.rule.capital-loss-carryover.short-term
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.sd-boundary.no-inbound-capital-loss-carryovers
+            [input] tax.us.2025.schedule-d.line-8b = 0  <- tax.us.2025.rule.schedule-d-line8b
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.schedule-d.line-8b
+              [input] demo.ug.closure.demo.ug.wlt-a.h0
+              [input] demo.ug.closure.demo.ug.wlt-b.h0
+              [input] demo.ug.closure.demo.ug.wlt-p.h0
+              [input] demo.ug.closure.demo.ug.wlt.h0
+              [input] tax.us.2025.f1099b.covered-w-lt-basis-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.closure.demo.ug.wlt-b.h0
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis
+                [package] tax.us.2025.f1099b.covered-w-lt-basis
+              [input] tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.closure.demo.ug.wlt-a.h0
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment
+                [package] tax.us.2025.f1099b.covered-w-lt-adjustment
+              [input] tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal
+                [adoption] tax.us.2025.package.core-calculations
+                [input] demo.ug.closure.demo.ug.wlt-p.h0
+                [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds
+                [package] tax.us.2025.f1099b.covered-w-lt-proceeds
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds
+              [package] tax.us.2025.f1099b.covered-w-lt
+              [package] tax.us.2025.f1099b.covered-w-lt-adjustment
+              [package] tax.us.2025.f1099b.covered-w-lt-basis
+              [package] tax.us.2025.f1099b.covered-w-lt-proceeds
+            [input] tax.us.2025.capital-loss-carryover.long-term = 0  <- tax.us.2025.rule.capital-loss-carryover.long-term
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.sd-boundary.no-inbound-capital-loss-carryovers
+            [input] tax.us.2025.f1099b.covered-st-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-st-proceeds-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.closure.demo.ug.st-p.h0
+              [package] tax.us.2025.closure-mapping.f1099b-covered-st-proceeds
+              [package] tax.us.2025.f1099b.covered-st-proceeds
+          [input] tax.us.2025.social-security.line6b = 0  <- tax.us.2025.rule.ss-benefits-worksheet
+            [adoption] tax.us.2025.package.core-calculations
+            [citation] tax.us.2025.citation.form1040.line-6b
+            [citation] tax.us.2025.citation.form1040.ss-benefits-worksheet
+            [input] demo.ssa.closure
+            [input] demo.ssa.scope.no-rrb-or-foreign-social-benefit
+            [package] tax.us.2025.closure-mapping.ssa1099-benefits
+            [package] tax.us.2025.ssa1099.benefits
+          [input] tax.us.2025.income.additional-income = 0  <- tax.us.2025.rule.form1040-line8
+            [adoption] tax.us.2025.package.core-calculations
+            [citation] tax.us.2025.citation.form1040.line-8
+            [citation] tax.us.2025.citation.schedule1.line-10
+            [input] tax.us.2025.schedule1.line10-additional-income = 0  <- tax.us.2025.rule.schedule1-line10
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.schedule1.line-10
+              [citation] tax.us.2025.citation.schedule1.line-7
+              [input] demo.ug.closure.box1
+              [input] demo.ug.scope.no-f1099g-box2-state-refund
+              [input] demo.ug.scope.no-f1099g-other-payment-classes
+              [input] demo.ug.scope.no-sch1-line1-taxable-refunds
+              [input] demo.ug.scope.no-sch1-line2a-alimony
+              [input] demo.ug.scope.no-sch1-line3-business
+              [input] demo.ug.scope.no-sch1-line4-other-gains
+              [input] demo.ug.scope.no-sch1-line5-rental
+              [input] demo.ug.scope.no-sch1-line6-farm
+              [input] demo.ug.scope.no-sch1-other-income
+              [input] demo.ug.scope.no-unemployment-repayment
+              [input] tax.us.2025.schedule1.line7-unemployment = 0  <- tax.us.2025.rule.schedule1-line7
+                [adoption] tax.us.2025.package.core-calculations
+                [citation] tax.us.2025.citation.f1099g.box1
+                [citation] tax.us.2025.citation.schedule1.line-7
+                [input] demo.ug.closure.box1
+                [input] tax.us.2025.unemployment.box1-subtotal = 0  <- tax.us.2025.rule.f1099g-1-subtotal
+                  [adoption] tax.us.2025.package.core-calculations
+                  [citation] tax.us.2025.citation.f1099g.box1
+                  [input] demo.cgd.t2.finding.rounding
+                  [input] demo.ug.closure.box1
+                  [operation-semantics] round
+                  [package] tax.us.2025.closure-mapping.f1099g-1
+                  [package] tax.us.2025.f1099g.1
+                [package] tax.us.2025.closure-mapping.f1099g-1
+                [package] tax.us.2025.f1099g.1
+              [package] tax.us.2025.closure-mapping.f1099g-1
+              [package] tax.us.2025.f1099g.1
+          [input] tax.us.2025.ira.distributions.line4b = 0  <- tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [citation] tax.us.2025.citation.f1099r.box1
+            [citation] tax.us.2025.citation.f1099r.box2a
+            [citation] tax.us.2025.citation.f1099r.box2b
+            [citation] tax.us.2025.citation.f1099r.distribution-code
+            [citation] tax.us.2025.citation.f1099r.indicator
+            [citation] tax.us.2025.citation.form1040.line-4b
+            [input] demo.cgd.t2.finding.rounding
+            [input] demo.ira.closure
+            [operation-semantics] round
+            [package] tax.us.2025.closure-mapping.f1099r-ira-fully-taxable
+            [package] tax.us.2025.f1099r.ira-fully-taxable
+        [operation-semantics] round
+        [package] tax.us.2025.closure-mapping.f1098e.1
+        [package] tax.us.2025.f1098e.1
+        [parameter] tax.us.2025.parameter.sli-interest-cap
+        [parameter] tax.us.2025.parameter.sli-magi-phase-range
+        [parameter] tax.us.2025.parameter.sli-magi-threshold
+    [input] tax.us.2025.income.total-income = 50000  <- tax.us.2025.rule.form1040-line9
+      [adoption] tax.us.2025.package.core-calculations
+      [citation] tax.us.2025.citation.form1040.line-9
+      [input] tax.us.2025.interest.taxable-total = 0  <- tax.us.2025.rule.form1040-line2b
+        [adoption] tax.us.2025.package.core-calculations
+        [citation] tax.us.2025.citation.form1040.line-2b
+        [input] demo.cgd.t2.closure.int-b1
+        [input] demo.cgd.t2.closure.int-b3
+        [input] demo.cgd.t2.closure.nonform
+        [input] demo.cgd.t2.closure.oid-b1
+        [input] demo.ug.closure.demo.ug.int-b10.h0
+        [input] demo.ug.closure.demo.ug.k1.h0
+        [input] demo.ug.closure.demo.ug.oid-b5.h0
+        [input] demo.ug.closure.demo.ug.sb-abp.h0
+        [input] demo.ug.closure.demo.ug.sb-acc.h0
+        [input] demo.ug.closure.demo.ug.sb-nom.h0
+        [input] tax.us.2025.interest.scheduleb-abp-adjustment-subtotal = 0  <- tax.us.2025.rule.scheduleb-adjustment.abp-adjustment-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.scheduleb-adjustment.abp-adjustment
+          [input] demo.cgd.t2.finding.rounding
+          [input] demo.ug.closure.demo.ug.sb-abp.h0
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.scheduleb-adjustment.abp-adjustment
+          [package] tax.us.2025.scheduleb.adjustment.abp-adjustment
+        [input] tax.us.2025.interest.b10-market-discount-subtotal = 0  <- tax.us.2025.rule.f1099int-b10-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.f1099int.box10
+          [input] demo.cgd.t2.finding.rounding
+          [input] demo.ug.closure.demo.ug.int-b10.h0
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.f1099int-b10
+          [package] tax.us.2025.f1099int.b10
+        [input] tax.us.2025.interest.b3-subtotal = 0  <- tax.us.2025.rule.f1099int-b3-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [input] demo.cgd.t2.closure.int-b3
+          [input] demo.cgd.t2.finding.rounding
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.f1099int-b3
+          [package] tax.us.2025.f1099int.b3
+        [input] tax.us.2025.interest.scheduleb-accrued-interest-subtotal = 0  <- tax.us.2025.rule.scheduleb-adjustment.accrued-interest-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.scheduleb-adjustment.accrued-interest
+          [input] demo.cgd.t2.finding.rounding
+          [input] demo.ug.closure.demo.ug.sb-acc.h0
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.scheduleb-adjustment.accrued-interest
+          [package] tax.us.2025.scheduleb.adjustment.accrued-interest
+        [input] tax.us.2025.interest.scheduleb-nominee-subtotal = 0  <- tax.us.2025.rule.scheduleb-adjustment.nominee-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.scheduleb-adjustment.nominee
+          [input] demo.cgd.t2.finding.rounding
+          [input] demo.ug.closure.demo.ug.sb-nom.h0
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.scheduleb-adjustment.nominee
+          [package] tax.us.2025.scheduleb.adjustment.nominee
+        [input] tax.us.2025.interest.non-form-subtotal = 0  <- tax.us.2025.rule.non-form-interest-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [input] demo.cgd.t2.closure.nonform
+          [input] demo.cgd.t2.finding.rounding
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.non-form-interest
+          [package] tax.us.2025.non-form-interest
+        [input] tax.us.2025.interest.form1065-k1-box5-subtotal = 0  <- tax.us.2025.rule.form1065-k1-box5-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.form1065-k1.box5
+          [input] demo.cgd.t2.finding.rounding
+          [input] demo.ug.closure.demo.ug.k1.h0
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.form1065-k1-box5
+          [package] tax.us.2025.form1065-k1.box5
+        [input] tax.us.2025.interest.oid-subtotal = 0  <- tax.us.2025.rule.f1099oid-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [input] demo.cgd.t2.closure.oid-b1
+          [input] demo.cgd.t2.finding.rounding
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.f1099oid-b1
+          [package] tax.us.2025.f1099oid.b1
+        [input] tax.us.2025.interest.oid-b5-market-discount-subtotal = 0  <- tax.us.2025.rule.f1099oid-b5-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.f1099oid.box5
+          [input] demo.cgd.t2.finding.rounding
+          [input] demo.ug.closure.demo.ug.oid-b5.h0
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.f1099oid-b5
+          [package] tax.us.2025.f1099oid.b5
+        [input] tax.us.2025.interest.b1-subtotal = 0  <- tax.us.2025.rule.f1099int-b1-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [input] demo.cgd.t2.closure.int-b1
+          [input] demo.cgd.t2.finding.rounding
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.f1099int-b1
+          [package] tax.us.2025.f1099int.b1
+        [package] tax.us.2025.closure-mapping.f1099int-b1
+        [package] tax.us.2025.closure-mapping.f1099int-b10
+        [package] tax.us.2025.closure-mapping.f1099int-b3
+        [package] tax.us.2025.closure-mapping.f1099oid-b1
+        [package] tax.us.2025.closure-mapping.f1099oid-b5
+        [package] tax.us.2025.closure-mapping.form1065-k1-box5
+        [package] tax.us.2025.closure-mapping.non-form-interest
+        [package] tax.us.2025.closure-mapping.scheduleb-adjustment.abp-adjustment
+        [package] tax.us.2025.closure-mapping.scheduleb-adjustment.accrued-interest
+        [package] tax.us.2025.closure-mapping.scheduleb-adjustment.nominee
+        [package] tax.us.2025.f1099int.b1
+        [package] tax.us.2025.f1099int.b10
+        [package] tax.us.2025.f1099int.b3
+        [package] tax.us.2025.f1099oid.b1
+        [package] tax.us.2025.f1099oid.b5
+        [package] tax.us.2025.form1065-k1.box5
+        [package] tax.us.2025.non-form-interest
+        [package] tax.us.2025.scheduleb.adjustment.abp-adjustment
+        [package] tax.us.2025.scheduleb.adjustment.accrued-interest
+        [package] tax.us.2025.scheduleb.adjustment.nominee
+      [input] tax.us.2025.wages.total-w2-box1 = 50000  <- tax.us.2025.rule.w2-box1-to-line1a
+        [adoption] tax.us.2025.package.core-calculations
+        [input] demo.cgd.t2.finding.rounding
+        [input] demo.cgd.t2.finding.wages
+        [operation-semantics] round
+      [input] tax.us.2025.dividends.ordinary-total = 0  <- tax.us.2025.rule.form1040-line3b
+        [adoption] tax.us.2025.package.core-calculations
+        [input] demo.cgd.t2.closure.div1a
+        [input] tax.us.2025.dividends.1a-subtotal = 0  <- tax.us.2025.rule.f1099div-1a-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [input] demo.cgd.t2.closure.div1a
+          [input] demo.cgd.t2.finding.rounding
+          [operation-semantics] round
+          [package] tax.us.2025.closure-mapping.f1099div-1a
+          [package] tax.us.2025.f1099div.1a
+        [package] tax.us.2025.closure-mapping.f1099div-1a
+        [package] tax.us.2025.f1099div.1a
+      [input] tax.us.2025.capital-gains.line7a-total = 0  <- tax.us.2025.rule.form1040-line7a
+        [adoption] tax.us.2025.package.core-calculations
+        [citation] tax.us.2025.citation.form1040.line-7a
+        [input] tax.us.2025.schedule-d.line-1b = 0  <- tax.us.2025.rule.schedule-d-line1b
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.schedule-d.line-1b
+          [input] demo.ug.closure.demo.ug.wst-a.h0
+          [input] demo.ug.closure.demo.ug.wst-b.h0
+          [input] demo.ug.closure.demo.ug.wst-p.h0
+          [input] demo.ug.closure.demo.ug.wst.h0
+          [input] tax.us.2025.f1099b.covered-w-st-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.closure.demo.ug.wst-p.h0
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds
+            [package] tax.us.2025.f1099b.covered-w-st-proceeds
+          [input] tax.us.2025.f1099b.covered-w-st-adjustment-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.closure.demo.ug.wst-a.h0
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment
+            [package] tax.us.2025.f1099b.covered-w-st-adjustment
+          [input] tax.us.2025.f1099b.covered-w-st-basis-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.closure.demo.ug.wst-b.h0
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-basis
+            [package] tax.us.2025.f1099b.covered-w-st-basis
+          [package] tax.us.2025.closure-mapping.f1099b-covered-w-st
+          [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment
+          [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-basis
+          [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds
+          [package] tax.us.2025.f1099b.covered-w-st
+          [package] tax.us.2025.f1099b.covered-w-st-adjustment
+          [package] tax.us.2025.f1099b.covered-w-st-basis
+          [package] tax.us.2025.f1099b.covered-w-st-proceeds
+        [input] tax.us.2025.capital-gains.selected-preferential-base = 0  <- tax.us.2025.rule.selected-preferential-base
+          [adoption] tax.us.2025.package.core-calculations
+          [input] tax.us.2025.schedule-d.line-1b = 0  <- tax.us.2025.rule.schedule-d-line1b
+            [adoption] tax.us.2025.package.core-calculations
+            [citation] tax.us.2025.citation.schedule-d.line-1b
+            [input] demo.ug.closure.demo.ug.wst-a.h0
+            [input] demo.ug.closure.demo.ug.wst-b.h0
+            [input] demo.ug.closure.demo.ug.wst-p.h0
+            [input] demo.ug.closure.demo.ug.wst.h0
+            [input] tax.us.2025.f1099b.covered-w-st-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.closure.demo.ug.wst-p.h0
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds
+              [package] tax.us.2025.f1099b.covered-w-st-proceeds
+            [input] tax.us.2025.f1099b.covered-w-st-adjustment-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-adjustment-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.closure.demo.ug.wst-a.h0
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment
+              [package] tax.us.2025.f1099b.covered-w-st-adjustment
+            [input] tax.us.2025.f1099b.covered-w-st-basis-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-st-basis-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.closure.demo.ug.wst-b.h0
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-basis
+              [package] tax.us.2025.f1099b.covered-w-st-basis
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-st
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-basis
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-st-proceeds
+            [package] tax.us.2025.f1099b.covered-w-st
+            [package] tax.us.2025.f1099b.covered-w-st-adjustment
+            [package] tax.us.2025.f1099b.covered-w-st-basis
+            [package] tax.us.2025.f1099b.covered-w-st-proceeds
+          [input] tax.us.2025.f1099b.covered-lt-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-lt-proceeds-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.closure.demo.ug.lt-p.h0
+            [package] tax.us.2025.closure-mapping.f1099b-covered-lt-proceeds
+            [package] tax.us.2025.f1099b.covered-lt-proceeds
+          [input] tax.us.2025.capital-loss-carryover.short-term = 0  <- tax.us.2025.rule.capital-loss-carryover.short-term
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.sd-boundary.no-inbound-capital-loss-carryovers
+          [input] tax.us.2025.schedule-d.line-8b = 0  <- tax.us.2025.rule.schedule-d-line8b
+            [adoption] tax.us.2025.package.core-calculations
+            [citation] tax.us.2025.citation.schedule-d.line-8b
+            [input] demo.ug.closure.demo.ug.wlt-a.h0
+            [input] demo.ug.closure.demo.ug.wlt-b.h0
+            [input] demo.ug.closure.demo.ug.wlt-p.h0
+            [input] demo.ug.closure.demo.ug.wlt.h0
+            [input] tax.us.2025.f1099b.covered-w-lt-basis-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.closure.demo.ug.wlt-b.h0
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis
+              [package] tax.us.2025.f1099b.covered-w-lt-basis
+            [input] tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.closure.demo.ug.wlt-a.h0
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment
+              [package] tax.us.2025.f1099b.covered-w-lt-adjustment
+            [input] tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [input] demo.ug.closure.demo.ug.wlt-p.h0
+              [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds
+              [package] tax.us.2025.f1099b.covered-w-lt-proceeds
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds
+            [package] tax.us.2025.f1099b.covered-w-lt
+            [package] tax.us.2025.f1099b.covered-w-lt-adjustment
+            [package] tax.us.2025.f1099b.covered-w-lt-basis
+            [package] tax.us.2025.f1099b.covered-w-lt-proceeds
+          [input] tax.us.2025.schedule-d-required.conclusion = no  <- tax.us.2025.rule.schedule-d-required.conclusion
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.cgd.t2.finding.c1
+            [input] demo.cgd.t2.finding.c2
+            [input] demo.cgd.t2.finding.c3
+            [input] demo.cgd.t2.finding.c4
+          [input] tax.us.2025.capital-loss-carryover.long-term = 0  <- tax.us.2025.rule.capital-loss-carryover.long-term
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.sd-boundary.no-inbound-capital-loss-carryovers
+          [input] tax.us.2025.f1099b.covered-st-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-st-proceeds-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.closure.demo.ug.st-p.h0
+            [package] tax.us.2025.closure-mapping.f1099b-covered-st-proceeds
+            [package] tax.us.2025.f1099b.covered-st-proceeds
+          [input] tax.us.2025.dividends.2a-subtotal = 0  <- tax.us.2025.rule.f1099div-2a-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.cgd.t2.closure.div2a
+            [input] demo.cgd.t2.finding.rounding
+            [operation-semantics] round
+            [package] tax.us.2025.closure-mapping.f1099div-2a
+            [package] tax.us.2025.f1099div.2a
+        [input] tax.us.2025.f1099b.covered-lt-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-lt-proceeds-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [input] demo.ug.closure.demo.ug.lt-p.h0
+          [package] tax.us.2025.closure-mapping.f1099b-covered-lt-proceeds
+          [package] tax.us.2025.f1099b.covered-lt-proceeds
+        [input] tax.us.2025.capital-loss-carryover.short-term = 0  <- tax.us.2025.rule.capital-loss-carryover.short-term
+          [adoption] tax.us.2025.package.core-calculations
+          [input] demo.ug.sd-boundary.no-inbound-capital-loss-carryovers
+        [input] tax.us.2025.schedule-d.line-8b = 0  <- tax.us.2025.rule.schedule-d-line8b
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.schedule-d.line-8b
+          [input] demo.ug.closure.demo.ug.wlt-a.h0
+          [input] demo.ug.closure.demo.ug.wlt-b.h0
+          [input] demo.ug.closure.demo.ug.wlt-p.h0
+          [input] demo.ug.closure.demo.ug.wlt.h0
+          [input] tax.us.2025.f1099b.covered-w-lt-basis-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-basis-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.closure.demo.ug.wlt-b.h0
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis
+            [package] tax.us.2025.f1099b.covered-w-lt-basis
+          [input] tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.closure.demo.ug.wlt-a.h0
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment
+            [package] tax.us.2025.f1099b.covered-w-lt-adjustment
+          [input] tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-w-lt-proceeds-subtotal
+            [adoption] tax.us.2025.package.core-calculations
+            [input] demo.ug.closure.demo.ug.wlt-p.h0
+            [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds
+            [package] tax.us.2025.f1099b.covered-w-lt-proceeds
+          [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt
+          [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-adjustment
+          [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis
+          [package] tax.us.2025.closure-mapping.f1099b-covered-w-lt-proceeds
+          [package] tax.us.2025.f1099b.covered-w-lt
+          [package] tax.us.2025.f1099b.covered-w-lt-adjustment
+          [package] tax.us.2025.f1099b.covered-w-lt-basis
+          [package] tax.us.2025.f1099b.covered-w-lt-proceeds
+        [input] tax.us.2025.capital-loss-carryover.long-term = 0  <- tax.us.2025.rule.capital-loss-carryover.long-term
+          [adoption] tax.us.2025.package.core-calculations
+          [input] demo.ug.sd-boundary.no-inbound-capital-loss-carryovers
+        [input] tax.us.2025.f1099b.covered-st-proceeds-subtotal = 0  <- tax.us.2025.rule.f1099b-covered-st-proceeds-subtotal
+          [adoption] tax.us.2025.package.core-calculations
+          [input] demo.ug.closure.demo.ug.st-p.h0
+          [package] tax.us.2025.closure-mapping.f1099b-covered-st-proceeds
+          [package] tax.us.2025.f1099b.covered-st-proceeds
+      [input] tax.us.2025.social-security.line6b = 0  <- tax.us.2025.rule.ss-benefits-worksheet
+        [adoption] tax.us.2025.package.core-calculations
+        [citation] tax.us.2025.citation.form1040.line-6b
+        [citation] tax.us.2025.citation.form1040.ss-benefits-worksheet
+        [input] demo.ssa.closure
+        [input] demo.ssa.scope.no-rrb-or-foreign-social-benefit
+        [package] tax.us.2025.closure-mapping.ssa1099-benefits
+        [package] tax.us.2025.ssa1099.benefits
+      [input] tax.us.2025.income.additional-income = 0  <- tax.us.2025.rule.form1040-line8
+        [adoption] tax.us.2025.package.core-calculations
+        [citation] tax.us.2025.citation.form1040.line-8
+        [citation] tax.us.2025.citation.schedule1.line-10
+        [input] tax.us.2025.schedule1.line10-additional-income = 0  <- tax.us.2025.rule.schedule1-line10
+          [adoption] tax.us.2025.package.core-calculations
+          [citation] tax.us.2025.citation.schedule1.line-10
+          [citation] tax.us.2025.citation.schedule1.line-7
+          [input] demo.ug.closure.box1
+          [input] demo.ug.scope.no-f1099g-box2-state-refund
+          [input] demo.ug.scope.no-f1099g-other-payment-classes
+          [input] demo.ug.scope.no-sch1-line1-taxable-refunds
+          [input] demo.ug.scope.no-sch1-line2a-alimony
+          [input] demo.ug.scope.no-sch1-line3-business
+          [input] demo.ug.scope.no-sch1-line4-other-gains
+          [input] demo.ug.scope.no-sch1-line5-rental
+          [input] demo.ug.scope.no-sch1-line6-farm
+          [input] demo.ug.scope.no-sch1-other-income
+          [input] demo.ug.scope.no-unemployment-repayment
+          [input] tax.us.2025.schedule1.line7-unemployment = 0  <- tax.us.2025.rule.schedule1-line7
+            [adoption] tax.us.2025.package.core-calculations
+            [citation] tax.us.2025.citation.f1099g.box1
+            [citation] tax.us.2025.citation.schedule1.line-7
+            [input] demo.ug.closure.box1
+            [input] tax.us.2025.unemployment.box1-subtotal = 0  <- tax.us.2025.rule.f1099g-1-subtotal
+              [adoption] tax.us.2025.package.core-calculations
+              [citation] tax.us.2025.citation.f1099g.box1
+              [input] demo.cgd.t2.finding.rounding
+              [input] demo.ug.closure.box1
+              [operation-semantics] round
+              [package] tax.us.2025.closure-mapping.f1099g-1
+              [package] tax.us.2025.f1099g.1
+            [package] tax.us.2025.closure-mapping.f1099g-1
+            [package] tax.us.2025.f1099g.1
+          [package] tax.us.2025.closure-mapping.f1099g-1
+          [package] tax.us.2025.f1099g.1
+      [input] tax.us.2025.ira.distributions.line4b = 0  <- tax.us.2025.rule.f1099r-ira-fully-taxable-subtotal
+        [adoption] tax.us.2025.package.core-calculations
+        [citation] tax.us.2025.citation.f1099r.box1
+        [citation] tax.us.2025.citation.f1099r.box2a
+        [citation] tax.us.2025.citation.f1099r.box2b
+        [citation] tax.us.2025.citation.f1099r.distribution-code
+        [citation] tax.us.2025.citation.f1099r.indicator
+        [citation] tax.us.2025.citation.form1040.line-4b
+        [input] demo.cgd.t2.finding.rounding
+        [input] demo.ira.closure
+        [operation-semantics] round
+        [package] tax.us.2025.closure-mapping.f1099r-ira-fully-taxable
+        [package] tax.us.2025.f1099r.ira-fully-taxable
