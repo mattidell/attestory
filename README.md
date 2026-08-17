@@ -40,8 +40,9 @@ This is the project's third iteration. The first proved a working return generat
 ## Verification
 
 ```sh
-pytest                         # full suite, parallel gate run (~26s; pytest.ini sets -n auto)
-python3 -m unittest tests.<module>  # targeted run while iterating (~seconds); e.g. tests.derivation.test_explanation_cli
+pytest                         # full suite, parallel gate run (~61s; pytest.ini sets -n auto)
+pytest -m "not live"           # fast lane, units only (~4s); see AGENTS.md "Test lanes"
+pytest tests/test_<module>.py  # targeted run while iterating (~2s)
 python3 tools/governance_lint.py   # governance set structural checks
 python3 -m mypy                # type checks (tools)
 python3 tools/foreman_context.py --ref HEAD --format markdown  # advisory foreman re-entry routing

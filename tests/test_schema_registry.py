@@ -8,6 +8,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from typing import Any
 
 from packages.kernel.schema_registry import (
     SchemaRegistry,
@@ -120,6 +121,87 @@ class TestKernelSchemaDirectory(unittest.TestCase):
         registry = SchemaRegistry()
         # Contents grow by track; loading must always verify cleanly.
         self.assertIsInstance(registry.schema_ids(), list)
+
+
+class TestContentAddressedMemos(unittest.TestCase):
+    """The load and validation memos must be indistinguishable from no memo.
+
+    Both are keyed on content digests rather than on paths or schema ids, so
+    these tests pin the property that makes that safe: the same schema id
+    carrying different published bytes is a different key, never a shared
+    verdict.
+    """
+
+    def _dir_with(self, schema: dict[str, Any]) -> Path:
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        directory = Path(tmp.name)
+        (directory / "demo-citizen.v1.schema.json").write_text(
+            json.dumps(schema, indent=2), "utf-8"
+        )
+        write_manifest(directory)
+        return directory
+
+    def test_same_schema_id_different_bytes_do_not_share_a_verdict(self) -> None:
+        # The defect this guards: keying the memo on (schema_id, instance)
+        # alone would let the permissive registry's PASS stand in for the
+        # strict one, silently disabling validation.
+        strict = SchemaRegistry(self._dir_with(DEMO_SCHEMA))
+        relaxed_schema = json.loads(json.dumps(DEMO_SCHEMA))
+        relaxed_schema["required"] = ["schema", "id"]
+        relaxed = SchemaRegistry(self._dir_with(relaxed_schema))
+
+        no_label = {"schema": "demo-citizen.v1", "id": "demo-1"}
+
+        # Permissive first, then strict: a shared verdict would wrongly pass.
+        self.assertEqual(relaxed.validate_declared(no_label), "demo-citizen.v1")
+        with self.assertRaises(SchemaValidationError):
+            strict.validate_declared(no_label)
+
+        # And the reverse order: a shared verdict would wrongly fail.
+        self.assertEqual(relaxed.validate_declared(no_label), "demo-citizen.v1")
+
+    def test_repeated_validation_is_identical_pass_and_fail(self) -> None:
+        registry = SchemaRegistry(self._dir_with(DEMO_SCHEMA))
+        good = {"schema": "demo-citizen.v1", "id": "demo-1", "label": "Demo"}
+        bad = {"schema": "demo-citizen.v1", "id": "demo-1"}
+
+        for _ in range(3):
+            self.assertEqual(registry.validate_declared(good), "demo-citizen.v1")
+
+        first: list[str] | None = None
+        for _ in range(3):
+            with self.assertRaises(SchemaValidationError) as ctx:
+                registry.validate_declared(bad)
+            if first is None:
+                first = ctx.exception.errors
+            # A memoized failure must reproduce the whole error list, not a
+            # truncated or reordered one.
+            self.assertEqual(ctx.exception.errors, first)
+
+    def test_a_mutated_published_schema_is_still_caught_after_a_clean_load(self) -> None:
+        # The load memo must never let a mutation reuse the pre-mutation
+        # compile: every file is re-hashed on every construction.
+        directory = self._dir_with(DEMO_SCHEMA)
+        SchemaRegistry(directory)
+
+        mutated = json.loads(json.dumps(DEMO_SCHEMA))
+        mutated["required"] = ["schema"]
+        (directory / "demo-citizen.v1.schema.json").write_text(
+            json.dumps(mutated, indent=2), "utf-8"
+        )
+        with self.assertRaises(SchemaRegistryError) as ctx:
+            SchemaRegistry(directory)
+        self.assertIn("mutated", str(ctx.exception))
+
+    def test_unkeyable_instance_still_validates(self) -> None:
+        # Not every instance can be canonically serialized; those must take
+        # the uncached path rather than be keyed on a lossy stand-in.
+        registry = SchemaRegistry(self._dir_with(DEMO_SCHEMA))
+        with self.assertRaises(SchemaValidationError):
+            registry.validate_declared(
+                {"schema": "demo-citizen.v1", "id": "demo-1", "label": {1, 2}}
+            )
 
 
 if __name__ == "__main__":

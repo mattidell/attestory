@@ -23,7 +23,9 @@ get 5 minutes.
   breaks, not mid-task.
 - **Avoid single tool calls that block longer than the TTL.** A >5-minute step
   (a slow test or build) cold-starts the next turn. This, not task length, is
-  the cache risk — which is why the parallel `pytest` gate is kept at ~26s.
+  the cache risk — which is why the parallel `pytest` gate is kept under a
+  minute and a fast lane (`pytest -m "not live"`, ~4s) exists for the loop
+  inside a unit. See AGENTS.md "Test lanes".
 - **Each worktree has its own cache** (the working directory is in the system
   prompt). Create a new worktree only when you need isolation — e.g. a
   clean-room rival, or work that must not disturb another agent's live tree.
