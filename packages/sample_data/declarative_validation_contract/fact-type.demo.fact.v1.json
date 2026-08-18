@@ -1,0 +1,23 @@
+{
+  "schema": "fact-type.v2",
+  "id": "demo.fact",
+  "version": "v1",
+  "title": "Demo Fact",
+  "nature": "determinable",
+  "identity_keys": [
+    {
+      "name": "taxpayer",
+      "kind": "entity",
+      "entity_kind": "person"
+    }
+  ],
+  "value_schema": {
+    "enum": [
+      "yes",
+      "no"
+    ]
+  },
+  "supersession": {
+    "policy": "free"
+  }
+}

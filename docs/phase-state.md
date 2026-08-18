@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
   "active_plan": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md",
-  "milestone_state": "track-1",
-  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 1 CHARTERED.** The owner ratified Candidate B P1-P3 under all five dispositions and contract pins; accepted ADR-0066 is binding. Track 1 implements the fail-loud package and presentation version boundaries before any schema successor is selected or edited.",
-  "current_role": "Track 1 Fail-Loud Version Boundary Builder",
-  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-1-fail-loud-version-boundaries.md"
+  "milestone_state": "track-2",
+  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 2 REPAIR 7 CHARTERED.** Repair 6 closes single-entry self and mutual projection cycles, but independent review found multi-entry convergence on one cycle remains hash-seed-dependent and can silently drop one required origin. Repair 7 is confined to deterministic complete multi-entry cycle closure.",
+  "current_role": "Track 2 Deterministic Multi-Entry Cycle Closure Repair Builder 7",
+  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-2-repair-7.md"
 }
 -->
 # Phase State
@@ -42,9 +42,15 @@ production implementation. **Neither prerequisite adds a new tax route.**
 
 * **Active milestone:** Declarative Structured Validation and Consumer
   Dependency Substrate; Candidate B P1-P3 is owner-ratified and distilled in
-  accepted ADR-0066. Track 1 fail-loud version boundaries are chartered.
-* **Current product behavior:** unchanged by this contract commit. The ratified
-  package is core **v31**, published **v26**, release **v24**, adoption **v31**.
+  accepted ADR-0066. Track 1 is accepted. Track 2 repair 7 is chartered after
+  Repair 6 review found hash-seed-dependent multi-entry convergence on a
+  shared projection cycle; every single-entry and noncycle case passed.
+* **Current product behavior:** registry-valid but unsupported semantic package
+  members and unknown presentation-bound successors fail loudly. The generic
+  declarative-validation substrate is implemented on the milestone branch but
+  projected scalar-family reachability is not yet safe for 2025 adoption. The
+  ratified package remains core **v31**, published **v26**, release **v24**,
+  adoption **v31**.
 * **Defect in scope:** Form 8949 row guards and Form 1099-B identity collision
   policy are hard-coded in generic runner/package-validator paths and repeated
   by known consumers; Schedule D attachment can omit the same validation.
@@ -53,10 +59,10 @@ production implementation. **Neither prerequisite adds a new tax route.**
   proposed decisions are not authority and no implementation is chartered.
 * **Prior milestone:** Fact-type succession with neutral Schedule 1 vocabulary
   — closed 2026-08-14 (PR #177); ADR-0063 and package **v31** shipped.
-* **Next:** owner-controlled launch of the Track 1 Builder from
-  `docs/prototypes/declarative-validation-substrate/charter-track-1-fail-loud-version-boundaries.md`.
-  This unit changes no schemas or content. Numerical iteration caps are
-  suspended by live owner direction; evidence and safety boundaries remain.
+* **Next:** launch the Track 2 Repair Builder 7 from
+  `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-7.md`.
+  Numerical iteration caps are suspended by live owner direction; evidence
+  and safety boundaries remain.
 
 ## Re-entry
 

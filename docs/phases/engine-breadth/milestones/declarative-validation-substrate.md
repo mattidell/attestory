@@ -3,10 +3,10 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
-  "milestone_state": "track-1",
-  "status": "The owner ratified Candidate B P1-P3 under all five dispositions and contract pins. Accepted ADR-0066 is binding. Track 1 implements fail-loud semantic version handling at the package and presentation boundaries before any successor schema is selected or edited.",
-  "current_role": "Track 1 Fail-Loud Version Boundary Builder",
-  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-1-fail-loud-version-boundaries.md",
+  "milestone_state": "track-2",
+  "status": "Repair 6 closes single-entry self and mutual projection cycles, but independent review found two directly reached origins converging on one cycle produce hash-seed-dependent issue sets and silently drop one origin. Repair 7 is confined to deterministic complete multi-entry cycle closure with all schemas, samples, and 2025 surfaces read-only.",
+  "current_role": "Track 2 Deterministic Multi-Entry Cycle Closure Repair Builder 7",
+  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-2-repair-7.md",
   "scope": [
     "replace Form 8949-specific per-member validation in generic runner code with a bounded declarative structured-member constraint substrate",
     "replace the hard-coded Form 1099-B identity-collision matrix with declarative cross-family identity constraints",
@@ -101,7 +101,7 @@
 
 - Phase: Engine Breadth
 - Milestone key: `declarative-validation-substrate-f8949`
-- Status: **Track 1 fail-loud version boundaries chartered**
+- Status: **Track 2 causal runtime and compiled-graph closure repair 4 chartered**
 - Base: `origin/main` at `85b6a0f17767d16f64cd93f1be219e112af76253`
   (core-calculations v31 / published packages v26 / release v24 / adoption v31).
 - Branch: `milestone/declarative-validation-substrate-f8949` in the existing
@@ -387,18 +387,60 @@ accepted ADR-0066. Track 0 is complete. Prototype code remains evidence only.
 Accepted ADR-0066 is the binding P1-P3 contract. Production is reimplemented
 from that contract; prototype helpers are never copied as authority.
 
-1. **Track 1 — fail-loud semantic version boundaries.** In
+1. **Track 1 — fail-loud semantic version boundaries — complete.** In
    `package_validation.py` and `presentation_projection.py`, reject a
    registry-recognized but semantically unsupported package member and reject
    unknown form-field/attachment successors before filtering. Add focused
    causal and compatibility tests. No schemas, content, manifests, packages,
    or version widening.
-2. **Track 2 — generic contract, interpreter, and package closure.** After
-   selecting new unused versions and recording schema intent, publish the
-   inseparable additive source-family, rule/attachment, and package successors;
+2. **Track 2 — generic contract, interpreter, and package closure — in
+   flight.** Publish the ledger-recorded inseparable additive successors
+   `source-family.v2`, `rule-artifact.v5`, `attachment-rule.v8`, and
+   `artifact-package.v24`;
    implement the closed depth-bounded evaluator, explicit identity binding,
    current validation publications, reachability synthesis, exact-one producer
    and edge checks, and `accounts_for` agreement in production validation.
+   The first return at `781bbc90` was rejected because its committed tree named
+   absent schemas, left core files untracked, omitted runtime/evidence paths,
+   and diverged from the accepted grammar and issue contract. It is retained
+   only at
+   `snapshot/2026-08-15-declarative-validation-track2-incomplete-return`;
+   repair 1 is controlled by
+   `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-1.md`.
+   The second partial return at `2552f790` left both schema directories
+   unloadable, omitted runtime/evidence paths, preserved forbidden v7 widening,
+   and did not substantiate its engine-capability claim. It is retained only at
+   `snapshot/2026-08-15-declarative-validation-track2-partial-stop`; repair 2
+   is controlled by
+   `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-2.md`.
+   Repair 2 commit `809c1f4c` published registry-valid addition-only schemas
+   and removed v7 widening, but omitted the sample/tests and contains invalid
+   runtime publication code, incomplete identity/package closure, six direct
+   mypy errors, and twelve diff-check failures. Repair 3 is controlled by
+   `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-3.md`;
+   the new published schemas and manifests are read-only.
+   Repair 3 return `f6da4409` made partial progress but still relies on authored
+   validation requirements, lacks causal compiled-graph mutations, compares
+   identity within one family, omits real finding validation and two required
+   test modules, leaves one mypy error, and duplicates five sample citizens.
+   Repair 4 is controlled by
+   `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-4.md`.
+   Repair 4 return `9a9bb6d0` and review `d2f6564f` close their exercised
+   runtime, identity, publication, and evidence cases, but the Track 3
+   readiness check found that `projects_from` reads a nonexistent nested
+   shape, attachment-edge omission is not checked, and an uncontracted
+   accounting issue remains. Repair 5 is controlled by
+   `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-5.md`.
+   Repair 5 return `65f7b50e` closes those three defects; independent review
+   `89ebc8fb` accepts every Repair 5 obligation except projection cycles, which
+   still terminate to a silent empty closure. Repair 6 is controlled by
+   `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-6.md`
+   and is confined to deterministic fail-closed cycle handling.
+   Repair 6 return `4f2ee082` closes self-cycles and single-entry mutual cycles;
+   independent review `bd3b6b7b` finds multi-entry convergence on one cycle
+   remains hash-seed-dependent and silently drops one required origin. Repair 7
+   is controlled by
+   `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-7.md`.
 3. **Track 3 — bounded 2025 migration and domain-code deletion.** Instantiate
    C1-C5, both W families, every affected consumer, and package successors in
    versioned content. Require all ten one-at-a-time migration mutants to fail.
@@ -446,18 +488,15 @@ private outputs enter a branch, fixture, review, or owner report.
 
 ## Schema-intent ledger posture
 
-The standing ledger currently contains one inert proposal from the paused
-milestone for `attachment-rule.v7`. Track 0 must consult the current ledger and
-return one of:
-
-- a new event revising/replacing that proposal if the winning contract truly
-  belongs to `attachment-rule`;
-- a withdrawal/replacement event plus a proposal in a different schema family;
-  or
-- no event if the accepted existing schemas suffice.
-
-No schema edit begins before that event. The ledger never authorizes mutation
-of v1–v6 or ratifies the paused design.
+Standing ledger commit `73871cab16acf15c20407fe951898bfeff2a9ed2`
+records this milestone's inseparable additive intent for `source-family.v2`,
+`rule-artifact.v5`, `attachment-rule.v8`, and `artifact-package.v24` before
+the first schema edit. The selected package successor follows now-published
+v23. Attachment v8 is the narrow ADR-0066 `accounts_for` successor to v6;
+another milestone's distinct inert v7 completeness/applicability proposal is
+neither replaced nor withdrawn. The ledger authorizes no schema mutation and
+reserves no version; publication immutability and manifest addition-only
+verification remain the gates of record.
 
 ## Exit criteria
 

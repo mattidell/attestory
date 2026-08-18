@@ -16,6 +16,7 @@
   "artifact-package.v21.schema.json": "d370a53010c2b68ae4b297b7739bfecc3de44d4d807e56ae20f19621cb665370",
   "artifact-package.v22.schema.json": "62fab312b8c8b161cf770004932d9fdddad64636b3d660e422ac18cf8bb37178",
   "artifact-package.v23.schema.json": "d4ddc87e7e412b3ac9c29147f99405be0a5b1fea5627541ddc75a0acc264aaeb",
+  "artifact-package.v24.schema.json": "55bf408d2204957a34bd90808638554c2e8e8236a5d984f4b501372c2a6d63ef",
   "artifact-package.v3.schema.json": "74ba8b11fe05278ce352ede39899202b27c9759f06546549383126a2cae12b41",
   "artifact-package.v4.schema.json": "7b820d4d1d3bd19e8f37f2c69a9d74f809304c07c126b1ad572f95f1549aad54",
   "artifact-package.v5.schema.json": "1e857d177f73d0b9614c4bee2c1856e1a7069d54efa2fc8666e4b0f4e9756698",
@@ -48,10 +49,12 @@
   "rule-artifact.v2.schema.json": "aa6af201ffc2e52a50d2347b508f94643ffc61e37027b36152a50d0d8fc69230",
   "rule-artifact.v3.schema.json": "affb1fe3780988d438fe84ce36e49c397986d9ade64356a675d554e49d49d1b9",
   "rule-artifact.v4.schema.json": "5170efb918884acd2deca68986262eba301fbf232a5ea6c0633708e41cc27660",
+  "rule-artifact.v5.schema.json": "377b788120bdc6e4950bc67ad7670d09f961347eeebd2689f01841b9a1afbbb8",
   "run-request.v1.schema.json": "ef7426c5b1cbcfae5b3d5b8292676b102012dd90bd10f9ded98a59a06c353102",
   "source-closure-mapping.v1.schema.json": "4e9edb40963ca2e315a33cbe3e45981b6c3da105349d30d32ed288b8c85bb2ff",
   "source-closure-mapping.v2.schema.json": "7046dcea09ad5b26850c0697c8ab12afc7231f08d988ff26479a01018733d4ca",
   "source-family.v1.schema.json": "78462f32843d005801c4e50272ee864c340f20966f5e88b894b0a7deb14d8490",
+  "source-family.v2.schema.json": "1998c91998c53afe19f4ec74079a21ad8be79bf88572c857e9fd5a30d62f316a",
   "surface-artifact.v1.schema.json": "d5a022e08db53025e58261e4f975f3278980276f392da3a897eb268b47eb0cfd",
   "taxable-interest-composition.v1.schema.json": "c346fce2990a881853005eea38bb9a704f3cb821b40557dda45861c7f7e32dbb"
 }

@@ -1,0 +1,119 @@
+{
+  "schema": "artifact-package.v24",
+  "id": "package.declarativevalidation",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "us",
+    "family": "declarativevalidation.demo-family"
+  },
+  "admitted_schemas": [
+    "rule-artifact.v5",
+    "source-family.v2",
+    "attachment-rule.v8",
+    "fact-type.v2"
+  ],
+  "members": [
+    {
+      "role": "source-family",
+      "id": "declarativevalidation.demo-family",
+      "version": "v1",
+      "schema": "source-family.v2"
+    },
+    {
+      "role": "source-family",
+      "id": "declarativevalidation.demo-family-b",
+      "version": "v1",
+      "schema": "source-family.v2"
+    },
+    {
+      "role": "computation",
+      "id": "declarativevalidation.demo-consumer",
+      "version": "v1",
+      "schema": "rule-artifact.v5"
+    },
+    {
+      "role": "attachment-rule",
+      "id": "declarativevalidation.demo-attachment",
+      "version": "v1",
+      "schema": "attachment-rule.v8"
+    },
+    {
+      "role": "computation",
+      "id": "declarativevalidation.demo-presentation",
+      "version": "v1",
+      "schema": "rule-artifact.v5"
+    },
+    {
+      "role": "computation",
+      "id": "declarativevalidation.demo-unrelated",
+      "version": "v1",
+      "schema": "rule-artifact.v5"
+    },
+    {
+      "role": "fact-type",
+      "id": "demo.fact",
+      "version": "v1",
+      "schema": "fact-type.v2"
+    },
+    {
+      "role": "source-family",
+      "id": "declarativevalidation.demo-family-scalar",
+      "version": "v1",
+      "schema": "source-family.v2"
+    },
+    {
+      "role": "computation",
+      "id": "declarativevalidation.demo-scalar-consumer",
+      "version": "v1",
+      "schema": "rule-artifact.v5"
+    },
+    {
+      "role": "attachment-rule",
+      "id": "declarativevalidation.demo-scalar-attachment",
+      "version": "v1",
+      "schema": "attachment-rule.v8"
+    }
+  ],
+  "input_bindings": [],
+  "entrypoints": [
+    {
+      "id": "declarativevalidation.demo-family",
+      "version": "v1"
+    },
+    {
+      "id": "declarativevalidation.demo-family-b",
+      "version": "v1"
+    },
+    {
+      "id": "declarativevalidation.demo-consumer",
+      "version": "v1"
+    },
+    {
+      "id": "declarativevalidation.demo-presentation",
+      "version": "v1"
+    },
+    {
+      "id": "declarativevalidation.demo-attachment",
+      "version": "v1"
+    },
+    {
+      "id": "declarativevalidation.demo-unrelated",
+      "version": "v1"
+    },
+    {
+      "id": "declarativevalidation.demo-family-scalar",
+      "version": "v1"
+    },
+    {
+      "id": "declarativevalidation.demo-scalar-consumer",
+      "version": "v1"
+    },
+    {
+      "id": "declarativevalidation.demo-scalar-attachment",
+      "version": "v1"
+    }
+  ],
+  "composition_obligations": [],
+  "package_checksum": "0000000000000000000000000000000000000000000000000000000000000000"
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "source-family.v2",
+  "id": "declarativevalidation.demo-family",
+  "version": "v1",
+  "title": "Demo Family",
+  "closure_claim": "All demo family members",
+  "member_predicate": {
+    "fact_type": "declarativevalidation.demo-family.member"
+  },
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "us",
+    "family": "declarativevalidation.demo-family"
+  },
+  "member_constraints": [
+    {
+      "id": "c1",
+      "block_code": "MISSING_ATTACHMENT",
+      "meaning": "Attachment missing",
+      "violated_when": {
+        "op": "field_absent",
+        "field": "some_field"
+      }
+    }
+  ],
+  "identity_exclusivity": [
+    {
+      "id": "declarativevalidation.demo-family.exclusivity.demo-family-b",
+      "incompatible_family": {
+        "id": "declarativevalidation.demo-family-b",
+        "version": "v1"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "taxpayer"
+        },
+        {
+          "member_field": "external_ref"
+        }
+      ]
+    }
+  ],
+  "authorizes_subtotal": "demo.subtotal"
+}

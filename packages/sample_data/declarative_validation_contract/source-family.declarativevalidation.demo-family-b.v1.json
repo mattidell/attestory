@@ -1,0 +1,16 @@
+{
+  "schema": "source-family.v2",
+  "id": "declarativevalidation.demo-family-b",
+  "version": "v1",
+  "title": "Demo Family B",
+  "closure_claim": "All demo family B members",
+  "member_predicate": {
+    "fact_type": "declarativevalidation.demo-family-b.member"
+  },
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "us",
+    "family": "declarativevalidation.demo-family"
+  },
+  "authorizes_subtotal": "demo.subtotal-b"
+}

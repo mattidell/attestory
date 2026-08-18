@@ -1,0 +1,38 @@
+{
+  "schema": "rule-artifact.v5",
+  "id": "declarativevalidation.demo-consumer",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "us",
+    "family": "declarativevalidation.demo-family"
+  },
+  "role": "computation",
+  "publishes": "demo.output",
+  "requires": [
+    "demo.subtotal"
+  ],
+  "pins": [
+    {
+      "role": "input",
+      "id": "declarativevalidation.demo-family",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ],
+  "when": true,
+  "value": 1,
+  "blocked": {
+    "code": "NONE",
+    "missing": []
+  },
+  "accounts_for": [
+    {
+      "family": {
+        "id": "declarativevalidation.demo-family",
+        "version": "v1"
+      },
+      "relationship": "reads_subtotal"
+    }
+  ]
+}

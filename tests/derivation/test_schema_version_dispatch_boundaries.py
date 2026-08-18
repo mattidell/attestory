@@ -224,12 +224,12 @@ class PackageUnsupportedSemanticSchema(unittest.TestCase):
         with TemporaryDirectory() as raw:
             tmp = Path(raw)
             schemas = _extended_schemas(tmp)
-            citizen = {
+            citizen: dict[str, Any] = {
                 "schema": UNSUPPORTED_SCHEMA,
                 "id": "demo.unsupported.semantic-member",
                 "version": "v1",
             }
-            package = {
+            package: dict[str, Any] = {
                 "schema": PROBE_PACKAGE_SCHEMA,
                 "id": "demo.package.unsupported-semantic",
                 "version": "v1",
@@ -258,12 +258,12 @@ class PackageUnsupportedSemanticSchema(unittest.TestCase):
 
     def test_registry_unknown_schema_raises_registry_error(self) -> None:
         schemas = DerivationSchemas()
-        citizen = {
+        citizen: dict[str, Any] = {
             "schema": UNSUPPORTED_SCHEMA,
             "id": "demo.unsupported.unregistered",
             "version": "v1",
         }
-        package = {
+        package: dict[str, Any] = {
             "schema": "artifact-package.v1",
             "id": "demo.package.unregistered-schema",
             "version": "v1",
@@ -285,7 +285,7 @@ class PackageUnsupportedSemanticSchema(unittest.TestCase):
 class RegistryKnownUnhandledVersions(unittest.TestCase):
     def test_fact_type_v1_is_registry_known_and_semantically_unsupported(self) -> None:
         schemas = DerivationSchemas()
-        citizen = {
+        citizen: dict[str, Any] = {
             "schema": "fact-type.v1",
             "id": "demo.fact.unhandled-v1",
             "title": "Demo unhandled fact type v1",
@@ -295,7 +295,7 @@ class RegistryKnownUnhandledVersions(unittest.TestCase):
             "supersession": {"policy": "free"},
         }
         self.assertEqual(schemas.validate_declared(citizen), "fact-type.v1")
-        package = {
+        package: dict[str, Any] = {
             "schema": "artifact-package.v1",
             "id": "demo.package.fact-type-v1",
             "version": "v1",
@@ -314,7 +314,7 @@ class RegistryKnownUnhandledVersions(unittest.TestCase):
 
     def test_source_closure_mapping_v1_is_registry_known_and_semantically_unsupported(self) -> None:
         schemas = DerivationSchemas()
-        citizen = {
+        citizen: dict[str, Any] = {
             "schema": "source-closure-mapping.v1",
             "id": "demo.mapping.unhandled-v1",
             "version": "v1",
@@ -326,7 +326,7 @@ class RegistryKnownUnhandledVersions(unittest.TestCase):
             "admission": {"condition": "current-literal-true"},
         }
         self.assertEqual(schemas.validate_declared(citizen), "source-closure-mapping.v1")
-        package = {
+        package: dict[str, Any] = {
             "schema": "artifact-package.v1",
             "id": "demo.package.mapping-v1",
             "version": "v1",

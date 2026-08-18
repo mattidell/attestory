@@ -68,10 +68,10 @@ def _resolved_run_material(graph: Any) -> tuple[
     # belongs in the same `rules` material the runner saturates over.
     rules = [
         member for member in members
-        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}
+        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
     ]
     parameters = {member["id"]: member for member in members if member.get("schema") == "parameter-declaration.v1"}
-    families = [member for member in members if member.get("schema") == "source-family.v1"]
+    families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
     mappings = [member for member in members if member.get("schema") == "source-closure-mapping.v2"]
     fact_types = [fact for member in members if member.get("schema") in {"bundle.v1", "bundle.v2"} for fact in member.get("fact_types", [])]
     collect_names = [family["member_predicate"]["fact_type"] for family in families]

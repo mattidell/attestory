@@ -137,8 +137,12 @@ _LEDGER_EXCLUDED_PIN_ROLES = frozenset(
 # directly from their declarative requirement/itemizations/completeness
 # structure by `_Run.attempt_attachment`, not by `evaluate()`.
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
 )
+# attachment-rule.v8 is v6's exact inherited shape (Track 2: only the
+# additive optional `accounts_for[]` differs) - every v6-specific branch
+# below applies identically to v8.
+_V6_SHAPE_ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8"})
 ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
 # ADR-0055 Decision 2: a required answer present as a current finding but
 # valued other than its declared required value - distinct from absence
@@ -230,14 +234,14 @@ class _Run:
             ctx.closure_findings,
             ctx.current_horizons,
         )
-        
+
         self.use_v2 = any(
-            rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4"}
+            rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
         self.symbol_fact_types: dict[str, str] = {}
         self.categorical_domains: dict[str, list[str]] = {}
-        
+
         fact_types_by_id = {ft["id"]: ft for ft in ctx.fact_types}
         for ft in ctx.fact_types:
             val_schema = ft.get("value_schema", {})
@@ -247,7 +251,7 @@ class _Run:
         self.symbols: dict[str, Any] = {}
         # symbol -> (finding_id, version, pin-role, provenance)
         self.symbol_pin: dict[str, tuple[str, str, str, str | None]] = {}
-        
+
         for i in ctx.inputs:
             self.symbols[i.symbol] = i.value
             fact_type_id = i.symbol
@@ -260,7 +264,7 @@ class _Run:
             self.symbol_pin[i.symbol] = (i.finding_id, "v1", i.role, provenance)
 
         self.publications: list[Publication] = []
-        
+
         if self.use_v2:
             for binding in ctx.input_bindings:
                 symbol = binding["symbol"]
@@ -465,16 +469,27 @@ class _Run:
             # reads closure/membership state directly and blocks honestly
             # if the pinned family is unclosed.
             symbols = list(requirement.get("subtotals", []))
-            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"):
+            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"):
                 for part in rule["itemizations"]:
                     symbols.append(part["tie_out"]["line_symbol"])
                     symbols.extend(row_set["subtotal_symbol"] for row_set in part["row_sets"])
-                    if rule.get("schema") == "attachment-rule.v6":
+                    if rule.get("schema") in _V6_SHAPE_ATTACHMENT_SCHEMAS:
                         symbols.extend(
                             row["subtotal_symbol"] for row in part["adjustment_rows"]
                         )
                         symbols.extend(part["tie_out"]["positive_subtotals"])
                         symbols.extend(part["tie_out"]["adjustment_subtotals"])
+            # ADR-0066 / Track 2 Repair 4: the package compiler
+            # (`compile_validation_graph`) may have added a synthesized
+            # `<family>.member-validation` prerequisite to this attachment
+            # citizen's compiled `requires` - a field the attachment-rule
+            # schema itself does not declare, so it can only appear here as
+            # a post-compile in-memory addition. It must gate eligibility
+            # the same as any other rule's compiled prerequisite, or the
+            # synthesized edge is not load-bearing for attachment scheduling.
+            symbols.extend(
+                req for req in rule.get("requires", []) if req.endswith(".member-validation")
+            )
             return sorted(set(symbols))
         return list(rule["requires"])
 
@@ -492,6 +507,9 @@ class _Run:
         """
         rule_id = rule["id"]
         access = AccessLog()
+
+        if rule_id.endswith(".member-validation.synthesized"):
+            return self._evaluate_family_validation(rule, access)
 
         # Finding 1 repair (ADR-0062 Decision 2): lines 1b/8b each screen
         # their own box's contributing transactions independently, the
@@ -559,7 +577,7 @@ class _Run:
             return "blocked"
 
         pins = self.pins_for(rule, access)
-        
+
         provenance = "assertion"
         if self.use_v2:
             for pin in pins:
@@ -762,6 +780,224 @@ class _Run:
                 pins.append(pin)
         return [GUARD_IDENTITY_KEY_COLLISION], pins
 
+    def _evaluate_family_validation(self, rule: dict[str, Any], access: AccessLog) -> str:
+        rule_id = rule["id"]
+        family_id = rule_id[:-len(".member-validation.synthesized")]
+
+        if family_id not in self.admissions:
+            self._record_blocked(rule, access, BLOCK_ABSENT, [family_id])
+            return "blocked"
+
+        admission = self.admissions[family_id]
+        declaration = next((d for d in self.ctx.family_declarations if d["id"] == family_id), None)
+        if declaration is None:
+            self._record_blocked(rule, access, "FAMILY_VALIDATION_BLOCKED", ["FAMILY_DECLARATION_ABSENT"])
+            return "blocked"
+
+        declaration_pin = {"role": "package", "id": declaration["id"], "version": declaration["version"]}
+
+        member_fact_type_id = declaration["member_predicate"]["fact_type"]
+        member_values_raw = self.sources.get(member_fact_type_id, [])
+        member_fact_ids = self.source_fact_ids.get(member_fact_type_id, [])
+        member_fids = self.source_fids.get(member_fact_type_id, [])
+
+        if not (len(member_values_raw) == len(member_fact_ids) == len(member_fids)):
+            self._record_blocked(rule, access, "FAMILY_VALIDATION_BLOCKED", ["MEMBER_SOURCE_INDEX_SKEW"])
+            return "blocked"
+
+        from packages.derivation.declarative_validation import (
+            Evaluator,
+            IdentityBindingError,
+            identity_tuple,
+        )
+
+        evaluator = Evaluator()
+        constraints = declaration.get("member_constraints", [])
+        exclusivity = declaration.get("identity_exclusivity", [])
+
+        codes: list[str] = []
+        member_results: list[dict[str, Any]] = []
+        # (fact_id, member_value or None) for every current member, decoded
+        # once and reused by both constraint evaluation and cross-family
+        # identity comparison below.
+        decoded_members: list[tuple[str, dict[str, Any] | None]] = []
+
+        for fact_id, fid, raw in zip(member_fact_ids, member_fids, member_values_raw):
+            malformed = False
+            member_value: dict[str, Any] | None
+            try:
+                decoded = json.loads(raw) if isinstance(raw, str) else raw
+            except (TypeError, ValueError):
+                decoded = None
+                malformed = True
+            if not malformed and not isinstance(decoded, dict):
+                decoded = None
+                malformed = True
+            member_value = decoded
+            decoded_members.append((fact_id, member_value))
+
+            if malformed:
+                violations_value: list[dict[str, Any]] = [{
+                    "constraint_id": "MEMBER_VALUE_MALFORMED",
+                    "block_code": "MEMBER_VALUE_MALFORMED",
+                    "meaning": "canonical member JSON did not decode to an object",
+                }]
+                codes.append("MEMBER_VALUE_MALFORMED")
+            else:
+                violations = evaluator.evaluate_member(constraints, member_value) if constraints else []
+                violations_value = [
+                    {"constraint_id": v.constraint_id, "block_code": v.block_code, "meaning": v.meaning}
+                    for v in violations
+                ]
+                if violations:
+                    codes.extend(sorted({v.block_code for v in violations}))
+
+            member_pin = {"role": "input", "id": fid, "version": "v1"}
+            if self.use_v2:
+                member_pin["origin"] = "assertion"
+            member_pins = _sorted_pins(
+                [member_pin, declaration_pin, self.ctx.adoption_pin] + list(self.ctx.governance_pins)
+            )
+            member_value_out = {"member_fact_id": fact_id, "violations": violations_value}
+            member_body = {
+                "member_fact_id": fact_id,
+                "member_value_pin": {"id": fid, "version": "v1"},
+                "declaration": {"id": declaration["id"], "version": declaration["version"]},
+                "violations": violations_value,
+            }
+            schema_ver = "v2" if self.use_v2 else "v1"
+            member_finding = {
+                "schema": f"derived-finding.{schema_ver}",
+                "id": _content_id(f"derived-finding.{schema_ver}:", member_body),
+                "symbol": f"{rule_id}.{fact_id}",
+                "value": member_value_out,
+                "version": schema_ver,
+                "pins": member_pins,
+            }
+            self.schemas.validate_declared(member_finding)
+            act = {"run_id": self.ctx.run_id, "finding": member_finding}
+            self.publications.append(Publication(act=act, finding=member_finding))
+            member_results.append(member_finding)
+
+        # ADR-0066 cross-family identity exclusivity: an identity collides
+        # only when the same declared components resolve to the same value
+        # across THIS family's current members and the exact declared
+        # `incompatible_family`'s current members - never within one
+        # family's own membership, and never through name inference.
+        for excl in exclusivity:
+            counterpart_id = excl["incompatible_family"]["id"]
+            counterpart = next(
+                (d for d in self.ctx.family_declarations if d["id"] == counterpart_id), None
+            )
+            if counterpart is None:
+                codes.append("IDENTITY_EXCLUSIVITY_FAMILY_ABSENT")
+                codes.append(f"identity_exclusivity:{excl['id']}:{counterpart_id}")
+                continue
+
+            counterpart_member_type = counterpart["member_predicate"]["fact_type"]
+            counterpart_values_raw = self.sources.get(counterpart_member_type, [])
+            counterpart_fact_ids = self.source_fact_ids.get(counterpart_member_type, [])
+            if len(counterpart_values_raw) != len(counterpart_fact_ids):
+                codes.append("MEMBER_SOURCE_INDEX_SKEW")
+                continue
+
+            own_identities: set[tuple[str, ...]] = set()
+            missing_component = False
+            for fact_id, member_value in decoded_members:
+                try:
+                    own_identities.add(identity_tuple(
+                        fact_id=fact_id, member_value=member_value, components=excl["components"]
+                    ))
+                except IdentityBindingError:
+                    missing_component = True
+
+            collision = False
+            for other_fact_id, other_raw in zip(counterpart_fact_ids, counterpart_values_raw):
+                try:
+                    other_decoded = json.loads(other_raw) if isinstance(other_raw, str) else other_raw
+                except (TypeError, ValueError):
+                    other_decoded = None
+                other_value = other_decoded if isinstance(other_decoded, dict) else None
+                try:
+                    other_identity = identity_tuple(
+                        fact_id=other_fact_id, member_value=other_value, components=excl["components"]
+                    )
+                except IdentityBindingError:
+                    missing_component = True
+                    continue
+                if other_identity in own_identities:
+                    collision = True
+
+            if missing_component:
+                codes.append("IDENTITY_COMPONENT_MISSING")
+                codes.append(f"identity_exclusivity:{excl['id']}")
+            if collision:
+                codes.append("IDENTITY_EXCLUSIVITY_COLLISION")
+                codes.append(f"identity_exclusivity:{excl['id']}")
+
+        if codes:
+            self._record_blocked(rule, access, "FAMILY_VALIDATION_BLOCKED", sorted(set(codes)))
+            return "blocked"
+
+        pins = []
+        pins.append({"role": "package", "id": admission.mapping_id, "version": admission.mapping_version})
+        pins.append(declaration_pin)
+
+        cf_pin = {"role": "input", "id": admission.closure_finding_id, "version": "v1"}
+        hz_pin = {"role": "input", "id": admission.horizon_id, "version": "v1"}
+        if self.use_v2:
+            cf_pin["origin"] = "assertion"
+            hz_pin["origin"] = "assertion"
+        pins.append(cf_pin)
+        pins.append(hz_pin)
+
+        # Add result pins for each successful member
+        for res in member_results:
+            pins.append({"role": "composition", "id": str(res["id"]), "version": str(res["version"])})
+
+        pins.append(self.ctx.adoption_pin)
+        pins.extend(self.ctx.governance_pins)
+
+        sorted_pins = _sorted_pins(pins)
+        symbol = rule["publishes"]
+
+        schema_ver = "v2" if self.use_v2 else "v1"
+        finding = {
+            "schema": f"derived-finding.{schema_ver}",
+            "id": _content_id("finding:derived:", {
+                "symbol": symbol,
+                "value": "true",
+                "pins": sorted_pins,
+            }),
+            "symbol": symbol,
+            "value": "true",
+            "version": schema_ver,
+            "pins": sorted_pins,
+        }
+        self.schemas.validate_declared(finding)
+        act = {"run_id": self.ctx.run_id, "finding": finding}
+        self.publications.append(Publication(act=act, finding=finding))
+        self.symbol_publisher[symbol] = rule
+        # The synthesized prerequisite is only load-bearing for a downstream
+        # consumer's eligibility (ordinary `requires` or the attachment
+        # `.member-validation` gate) if the published symbol actually enters
+        # the run's symbol table - the same publish contract `attempt` uses.
+        self.symbols[symbol] = "true"
+        self.symbol_pin[symbol] = (finding["id"], schema_ver, "input", "assertion" if self.use_v2 else None)
+
+        disposition_row = {
+            "artifact_id": rule_id,
+            "disposition": "published",
+            "pins": sorted_pins
+        }
+        if self.use_v2:
+            disposition_row["finding_id"] = finding["id"]
+            disposition_row["act_id"] = _content_id("act:publication:", act)
+        self.dispositions.append(disposition_row)
+        self.resolved.add(rule_id)
+
+        return "published"
+
     def attempt_attachment(self, rule: dict[str, Any]) -> str:
         """Interpret one ADR-0036 attachment citizen directly from its
         declarative requirement/itemizations/completeness structure.
@@ -830,7 +1066,7 @@ class _Run:
             return "inapplicable"
 
         itemization_pins: list[dict[str, Any]] = []
-        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"):
+        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"):
             itemization_symbols = sorted({
                 symbol
                 for part in rule["itemizations"]
@@ -839,7 +1075,7 @@ class _Run:
                     *(row_set["subtotal_symbol"] for row_set in part["row_sets"]),
                 )
             })
-            if rule["schema"] == "attachment-rule.v6":
+            if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS:
                 itemization_symbols = sorted(set(itemization_symbols) | {
                     symbol
                     for part in rule["itemizations"]
@@ -978,7 +1214,7 @@ class _Run:
                                   **({"origin": "assertion"} if self.use_v2 else {})}
                                  for fid in fids)
             adjustment_rows_value: list[dict[str, Any]] = []
-            if rule["schema"] == "attachment-rule.v6":
+            if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS:
                 positive_subtotals = [
                     row_set["subtotal_symbol"] for row_set in part["row_sets"]
                 ]
@@ -1032,7 +1268,7 @@ class _Run:
                 itemizations_value.append({
                     "part_id": part["part_id"],
                     "row_sets": row_sets_value,
-                    **({"adjustment_rows": adjustment_rows_value} if rule["schema"] == "attachment-rule.v6" else {}),
+                    **({"adjustment_rows": adjustment_rows_value} if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS else {}),
                     "part_sum": _value_str(part_sum),
                     "tie_out": {"line_symbol": tie_symbol, "line_value": _value_str(line_value)},
                 })
@@ -1042,7 +1278,7 @@ class _Run:
         if tie_out_violations:
             self._attachment_block(
                 rule_id, ITEMIZATION_TIE_OUT_VIOLATION, sorted(set(tie_out_violations)),
-                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6") else []),
+                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8") else []),
             )
             return "blocked"
 
@@ -1102,6 +1338,20 @@ class _Run:
                 continue
 
             if rule.get("schema") in ATTACHMENT_SCHEMAS:
+                # The compiled `.member-validation` prerequisite must gate
+                # attachment scheduling here too - `attempt_attachment`
+                # itself never reads `requires`, only its own requirement/
+                # itemization symbols, so an unresolved rule that only ever
+                # reaches this fallback path must still honor the compiled
+                # edge instead of silently attempting anyway.
+                missing_prereqs = [
+                    req for req in rule.get("requires", [])
+                    if req.endswith(".member-validation") and req not in self.symbols
+                ]
+                if missing_prereqs:
+                    governance_pins = [self.ctx.adoption_pin] + list(self.ctx.governance_pins)
+                    self._attachment_block(rule["id"], BLOCK_ABSENT, missing_prereqs, governance_pins)
+                    continue
                 self.attempt_attachment(rule)
                 continue
 
@@ -1325,7 +1575,7 @@ def run_and_record(
     published/blocked surface and per-rule dispositions.
     """
     use_v2 = any(
-        rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4"}
+        rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)
     start_run(
