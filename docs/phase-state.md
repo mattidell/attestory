@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
   "active_plan": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md",
-  "milestone_state": "track-4",
-  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 4 REPAIR 2 CHARTERED.** Track 2 is accepted (Repair 7, zero findings). Track 3's migration build landed; its independent review returned CHANGES REQUESTED on a packages/tax/loader.py finding, repaired directly (commit 0604f2fb); the review has not been re-run to confirm ACCEPTED. Track 4's build (f71217f0) and Repair 1 (1eeb0204, reference_runner.py attachment dispatch) landed clean. The owner then reported four independently-verified substrate defects in declarative_validation.py/runner.py/marshal.py (under-registered rule-artifact/attachment-rule version sets in marshal.py; evaluate_member can crash a run instead of blocking it; evaluate_constraints is dead code; field_equals conflates bool and numeric equality); the foreman independently re-verified all four plus one adjacent gap and chartered Repair 2 to fix them.",
-  "current_role": "Track 4 Repair 2 Substrate Defect Hardening Builder",
-  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-4-repair-2-substrate-defect-hardening.md"
+  "milestone_state": "closed",
+  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — CLOSED 2026-08-17.** Tax policy for the bounded 2025 covered-W Form 8949/Schedule D subsystem moved out of generic Python into versioned content (ADR-0066): a closed predicate grammar for member constraints, declared cross-family identity exclusivity, and reachability-derived consumer prerequisites. runner.py's domain references went from 24 to 0. The superseded hard-coded Form 8949 row guards and Form 1099-B identity-collision matrix are deleted, not bypassed. Both schedulers are proven byte-identical on the migrated content, including attachment-bearing citizens. An independent owner-advisor product review returned ACCEPT after repairing a failing type gate and a stale cross-milestone test; Track 3's independent review is reconfirmed ACCEPTED. Final package is the additive union core v32 / published v27 / release v25 / adopt v32. Retrospective: docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md. Next milestone unselected.",
+  "current_role": "Foreman — between-milestones selection",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
 # Phase State
@@ -32,41 +32,39 @@ route: a return with no Social Security source can now reach total income
 without answering 33 Social Security declarations. The thirteen shared
 Schedule 1 absence declarations that used to live on that worksheet
 vocabulary now have Schedule-1-native successor ids and an adopted
-migration artifact that retires the old ones. The active milestone is the
-owner-selected prerequisite that makes structured validation, cross-family
-identity constraints, and their consumer dependencies declarative. It begins
-with a paper/static Track 0 and stops for owner contract ratification before
-production implementation. **Neither prerequisite adds a new tax route.**
+migration artifact that retires the old ones. The declarative structured
+validation and consumer dependency substrate — the prerequisite that moved
+Form 8949's per-member validation and cross-family identity checks out of
+generic runner code into versioned content — is now closed. **Neither
+prerequisite adds a new tax route.**
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** Declarative Structured Validation and Consumer
-  Dependency Substrate; Candidate B P1-P3 is owner-ratified and distilled in
-  accepted ADR-0066. Tracks 1 and 2 are accepted. Track 3's build and loader
-  repair have landed; its independent review has not yet been re-run to
-  confirm ACCEPTED. Track 4 is chartered to close both-scheduler equivalence,
-  presentation/explanation goldens, and compatibility evidence, per
-  `charter-track-4-lifecycle-scheduler-explanation-compatibility.md`. The
-  closing unit (curation and final independent publication review) follows
-  Track 4.
-* **Current product behavior:** registry-valid but unsupported semantic package
-  members and unknown presentation-bound successors fail loudly. The generic
-  declarative-validation substrate is implemented on the milestone branch but
-  projected scalar-family reachability is not yet safe for 2025 adoption. The
-  ratified package remains core **v31**, published **v26**, release **v24**,
-  adoption **v31**.
-* **Defect in scope:** Form 8949 row guards and Form 1099-B identity collision
-  policy are hard-coded in generic runner/package-validator paths and repeated
-  by known consumers; Schedule D attachment can omit the same validation.
-* **Plan:** `docs/phases/engine-breadth/milestones/declarative-validation-substrate.md`.
+* **Active milestone:** none selected.
+* **Current product behavior:** registry-valid but unsupported semantic
+  package members and unknown presentation-bound successors fail loudly. The
+  declarative-validation substrate (ADR-0066) is production, not prototype:
+  Form 8949's member constraints and identity exclusivity are versioned
+  content, reachability-derived consumer prerequisites are mechanically
+  required, and both schedulers agree on the result. The ratified package is
+  core **v32**, published **v27**, release **v25**, adoption **v32**.
 * **Paused dependency:** `milestone/f8949-noncovered-basis-lines2-9`; its
   proposed decisions are not authority and no implementation is chartered.
-* **Prior milestone:** Fact-type succession with neutral Schedule 1 vocabulary
-  — closed 2026-08-14 (PR #177); ADR-0063 and package **v31** shipped.
-* **Next:** dispatch the Track 4 Builder from
-  `docs/prototypes/declarative-validation-substrate/charter-track-4-lifecycle-scheduler-explanation-compatibility.md`.
-  Numerical iteration caps are suspended by live owner direction; evidence
-  and safety boundaries remain.
+* **Prior milestone:** Declarative Structured Validation and Consumer
+  Dependency Substrate — closed 2026-08-17; Candidate B P1-P3 ratified into
+  ADR-0066; final package core v32/published v27/release v25/adopt v32.
+  Plan: `docs/phases/engine-breadth/milestones/declarative-validation-substrate.md`;
+  deferral ledger:
+  `docs/phases/engine-breadth/milestones/declarative-validation-substrate-deferral-ledger.md`;
+  retrospective:
+  `docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md`.
+* **Next:** owner selects the next milestone from
+  `docs/phases/engine-breadth/coverage-frontier.md`. The Form 1098-E vertical
+  slice (Schedule 1 lines 21/26, Form 1040 line 10, AGI 11a/11b) remains the
+  next unselected breadth candidate. The scoped-not-built
+  rule-artifact/attachment-rule capability-table consolidation
+  (`milestones/rule-artifact-capability-table-consolidation.md`) is a
+  hardening candidate, not breadth.
 
 ## Re-entry
 

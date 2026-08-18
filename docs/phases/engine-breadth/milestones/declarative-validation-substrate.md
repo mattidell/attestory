@@ -3,10 +3,11 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
-  "milestone_state": "track-3",
-  "status": "Track 2 is accepted after Repair 7 review returned zero findings across multi-origin, staggered-depth, multi-node-cycle, relationship, and noncycle probes under eight hash seeds. Track 3 is confined to additive 2025 covered-W migration and deletion of the superseded hard-coded row-guard and identity-collision mechanisms.",
-  "current_role": "Track 3 Bounded 2025 Migration and Domain-Code Deletion Builder",
-  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-3-2025-migration-and-deletion.md",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md",
+  "status": "Closed 2026-08-17. All four tracks landed; both schedulers proven byte-identical on the migrated content; an independent owner-advisor product review returned ACCEPT after repairing a failing type gate and a stale cross-milestone test; Track 3's independent review is reconfirmed ACCEPTED. Final package is the additive union core v32 / published v27 / release v25 / adopt v32.",
+  "current_role": "Foreman — between-milestones selection",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md",
   "scope": [
     "replace Form 8949-specific per-member validation in generic runner code with a bounded declarative structured-member constraint substrate",
     "replace the hard-coded Form 1099-B identity-collision matrix with declarative cross-family identity constraints",
@@ -25,7 +26,6 @@
     "implementation": [
       "docs/roles/builder.md",
       "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md#Track 0 collective charter",
-      "docs/prototypes/declarative-validation-substrate/plan.md",
       "docs/adr/0006-rule-artifact-language.md",
       "docs/adr/0010-derived-finding-projection-and-currency.md",
       "docs/adr/0020-non-publication-explanation-walking.md",
@@ -60,7 +60,6 @@
       "docs/roles/reviewer.md",
       "docs/roles/qualitative-review.md",
       "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md#Track 0 acceptance packet",
-      "docs/prototypes/declarative-validation-substrate/plan.md",
       "docs/adr/0006-rule-artifact-language.md",
       "docs/adr/0010-derived-finding-projection-and-currency.md",
       "docs/adr/0020-non-publication-explanation-walking.md",
@@ -75,23 +74,9 @@
       "AGENTS.md#Schema Publication Protocol",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
-    ]
-  },
-  "initial_briefing_follow_up": {
-    "version": 1,
-    "expires": "milestone-close",
-    "grounding_commit": "f60e7d186a68c7f034c792307ce0ac6af5c2f619",
-    "notes": [
-      "The ratified engine repeats Form 8949 row and identity validation in attachment, line-rule, and finalize-unreached paths; this is an architectural prerequisite, not a coverage exception.",
-      "The paused noncovered-basis branch and its proposed decisions remain inert and read-only. Its attachment-rule.v7 ledger event is visibility, not authority or a version reservation. Accepted ADR-0063 now names the migration-artifact contract from the fact-type succession milestone, not any paused-branch proposal.",
-      "Accepted ADR-0061 and ADR-0062 are immutable; Track 0 must identify exact clauses that require an explicit superseding ADR."
     ],
-    "sources": [
-      {"path": "packages/derivation/runner.py", "blob": "dbf68798f9fbc4ce65bcdca98b47e8dcf58953e3"},
-      {"path": "packages/derivation/package_validation.py", "blob": "aa4abb1f0d4092c95df4778817e7ee020b17dd14"},
-      {"path": "docs/adr/0061-covered-wash-sale-authority-and-completeness.md", "blob": "a2504f1b311d431ff43cb8cf90e226fbad804e11"},
-      {"path": "docs/adr/0062-form8949-attachment-arithmetic-and-schedule-d-composition.md", "blob": "805a82e3515597bbbc85ead05989a01c685015b9"},
-      {"path": "docs/phases/engine-breadth/coverage-frontier.md", "blob": "444011d8252776d6d8bebaf048162b76b86b1ca4"}
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md"
     ]
   }
 }
