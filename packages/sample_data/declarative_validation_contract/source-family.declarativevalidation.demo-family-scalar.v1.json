@@ -1,0 +1,20 @@
+{
+  "schema": "source-family.v2",
+  "id": "declarativevalidation.demo-family-scalar",
+  "version": "v1",
+  "title": "Demo Family Scalar Projection",
+  "closure_claim": "A scalar projected view onto the demo family's constrained whole-member closure",
+  "member_predicate": {
+    "fact_type": "declarativevalidation.demo-family-scalar.member"
+  },
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "us",
+    "family": "declarativevalidation.demo-family"
+  },
+  "projects_from": {
+    "id": "declarativevalidation.demo-family",
+    "version": "v1"
+  },
+  "authorizes_subtotal": "demo.subtotal-scalar"
+}

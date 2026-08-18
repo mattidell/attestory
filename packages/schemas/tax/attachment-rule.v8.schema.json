@@ -1,0 +1,461 @@
+{
+  "$defs": {
+    "pin": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "type": "object"
+    },
+    "collect_members": {
+      "additionalProperties": false,
+      "properties": {
+        "member_fact_type": {
+          "$ref": "#/$defs/pin"
+        },
+        "op": {
+          "const": "collect_members"
+        },
+        "source_family": {
+          "$ref": "#/$defs/pin"
+        }
+      },
+      "required": [
+        "op",
+        "member_fact_type",
+        "source_family"
+      ],
+      "type": "object"
+    },
+    "row_set": {
+      "additionalProperties": false,
+      "properties": {
+        "rows": {
+          "$ref": "#/$defs/collect_members"
+        },
+        "subtotal_symbol": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "rows",
+        "subtotal_symbol"
+      ],
+      "type": "object"
+    },
+    "adjustment_row": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "nominee_distribution",
+            "accrued_interest",
+            "abp_adjustment"
+          ]
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rows": {
+          "$ref": "#/$defs/collect_members"
+        },
+        "sign": {
+          "const": "negative"
+        },
+        "subtotal_symbol": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "label",
+        "rows",
+        "sign",
+        "subtotal_symbol"
+      ],
+      "type": "object"
+    },
+    "itemization_authority": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "single_family"
+            },
+            "source_family": {
+              "$ref": "#/$defs/pin"
+            }
+          },
+          "required": [
+            "kind",
+            "source_family"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "composition": {
+              "$ref": "#/$defs/pin"
+            },
+            "kind": {
+              "const": "composition"
+            }
+          },
+          "required": [
+            "kind",
+            "composition"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "required_answer": {
+      "additionalProperties": false,
+      "properties": {
+        "check": {
+          "const": "presence"
+        },
+        "fact_type": {
+          "$ref": "#/$defs/pin"
+        },
+        "symbol": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "symbol",
+        "fact_type",
+        "check"
+      ],
+      "type": "object"
+    },
+    "branch_requirement": {
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "adds_required"
+          ]
+        },
+        {
+          "required": [
+            "names_obligations"
+          ]
+        }
+      ],
+      "properties": {
+        "adds_required": {
+          "items": {
+            "$ref": "#/$defs/required_answer"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "names_obligations": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "label": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "label"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "when_answer": {
+          "additionalProperties": false,
+          "properties": {
+            "equals": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "symbol": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "symbol",
+            "equals"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "when_answer"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "tax/attachment-rule.v8",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Successor to attachment-rule.v2. Positive row sets remain additive; typed adjustment rows are explicitly negative and the whole-part tie-out declares its positive and subtractive subtotal surfaces.",
+  "properties": {
+    "attachment": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "form_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "jurisdiction": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tax_year": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "authority",
+        "form_id",
+        "tax_year",
+        "jurisdiction"
+      ],
+      "type": "object"
+    },
+    "completeness": {
+      "additionalProperties": false,
+      "properties": {
+        "branch_requirements": {
+          "items": {
+            "$ref": "#/$defs/branch_requirement"
+          },
+          "type": "array"
+        },
+        "required_answers": {
+          "items": {
+            "$ref": "#/$defs/required_answer"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "required_answers"
+      ],
+      "type": "object"
+    },
+    "id": {
+      "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$",
+      "type": "string"
+    },
+    "itemizations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "adjustment_rows": {
+            "items": {
+              "$ref": "#/$defs/adjustment_row"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "authority": {
+            "$ref": "#/$defs/itemization_authority"
+          },
+          "label": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "part_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "row_sets": {
+            "items": {
+              "$ref": "#/$defs/row_set"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "tie_out": {
+            "additionalProperties": false,
+            "properties": {
+              "adjustment_subtotals": {
+                "items": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "line_symbol": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "operation": {
+                "const": "subtract"
+              },
+              "positive_subtotals": {
+                "items": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "minItems": 1,
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "line_symbol",
+              "operation",
+              "positive_subtotals",
+              "adjustment_subtotals"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "part_id",
+          "label",
+          "authority",
+          "row_sets",
+          "adjustment_rows",
+          "tie_out"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "publishes": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "requirement": {
+      "additionalProperties": false,
+      "properties": {
+        "citation": {
+          "$ref": "#/$defs/pin"
+        },
+        "comparison": {
+          "const": "strictly_greater_than"
+        },
+        "subtotals": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "threshold_parameter": {
+          "$ref": "#/$defs/pin"
+        }
+      },
+      "required": [
+        "subtotals",
+        "threshold_parameter",
+        "comparison",
+        "citation"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "const": "attachment-rule.v8"
+    },
+    "scope": {
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "jurisdiction": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tax_year": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tax_year",
+        "jurisdiction",
+        "family"
+      ],
+      "type": "object"
+    },
+    "title": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "version": {
+      "pattern": "^v[0-9]+$",
+      "type": "string"
+    },
+    "accounts_for": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "relationship": {
+            "enum": [
+              "composes_line",
+              "itemizes_members",
+              "reads_subtotal"
+            ]
+          },
+          "family": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "required": [
+          "relationship",
+          "family"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "title",
+    "scope",
+    "attachment",
+    "publishes",
+    "requirement",
+    "itemizations",
+    "completeness"
+  ],
+  "title": "Schedule attachment rule with typed subtractive adjustment rows",
+  "type": "object"
+}

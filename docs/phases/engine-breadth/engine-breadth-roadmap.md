@@ -177,6 +177,25 @@ roadmap unless a selected breadth slice directly depends on them.
     Plan: `milestones/fact-type-succession-neutral-schedule1.md`;
     retrospective:
     `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
+15. **Declarative Structured Validation and Consumer Dependency Substrate**
+    — owner-selected 2026-08-12 as a hardening prerequisite, not a new tax
+    route: retires the hard-coded Form 8949/Form 1099-B row-guard and
+    identity-collision mechanisms the closed covered-wash-sale milestone
+    (item 4 below in Status) left in generic runner/package-validator code,
+    replacing them with versioned-content member constraints, declared
+    cross-family identity exclusivity, and reachability-derived consumer
+    prerequisites (ADR-0066). **Closed 2026-08-17.** `runner.py`'s domain
+    references went from 24 to 0. Both schedulers proven byte-identical on
+    the migrated content, including attachment-bearing citizens (a
+    pre-existing `reference_runner.py` gap, repaired in-milestone). An
+    independent owner-advisor product review found and repaired a failing
+    type gate and a stale cross-milestone test before close. Publication is
+    the additive union core **v32** / published **v27** / release **v25** /
+    adopt **v32** over the merged core v31 base. Plan:
+    `milestones/declarative-validation-substrate.md`; deferral ledger:
+    `milestones/declarative-validation-substrate-deferral-ledger.md`;
+    retrospective:
+    `docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md`.
 
 **Next breadth slice — owner-unselected.**
 The fresh Form 1098-E vertical slice (Schedule 1 lines 21/26, Form 1040

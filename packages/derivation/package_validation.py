@@ -36,8 +36,160 @@ from packages.tax.schedule1_adjustments_succession import (
     SUCCESSOR_IDS,
 )
 
+def _iter_source_sets(node: Any) -> Iterable[str]:
+    """Every `source_set` named anywhere in an expression tree."""
+    if isinstance(node, dict):
+        value = node.get("source_set")
+        if isinstance(value, str):
+            yield value
+        elif isinstance(value, dict) and isinstance(value.get("id"), str):
+            yield value["id"]
+        family = node.get("source_family")
+        if isinstance(family, dict) and isinstance(family.get("id"), str):
+            yield family["id"]
+        for child in node.values():
+            yield from _iter_source_sets(child)
+    elif isinstance(node, list):
+        for item in node:
+            yield from _iter_source_sets(item)
+
+
+def _families_reached(
+    citizen: Mapping[str, Any], families_by_subtotal: Mapping[str, str]
+) -> set[tuple[str, str]]:
+    """(family_id, relationship) pairs this citizen structurally touches."""
+    reached: set[tuple[str, str]] = set()
+    schema = citizen.get("schema")
+
+    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}:
+        for symbol in citizen.get("requires", []):
+            if symbol in families_by_subtotal:
+                reached.add((families_by_subtotal[symbol], "reads_subtotal"))
+        for key in ("when", "value"):
+            for family_id in _iter_source_sets(citizen.get(key)):
+                reached.add((family_id, "itemizes_members"))
+
+    elif schema in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        for symbol in citizen.get("requirement", {}).get("subtotals", []):
+            if symbol in families_by_subtotal:
+                reached.add((families_by_subtotal[symbol], "reads_subtotal"))
+        for item in citizen.get("itemizations", []):
+            for family_id in _iter_source_sets(item):
+                reached.add((family_id, "itemizes_members"))
+            for row_set in item.get("row_sets", []):
+                symbol = row_set.get("subtotal_symbol")
+                if symbol in families_by_subtotal:
+                    reached.add((families_by_subtotal[symbol], "reads_subtotal"))
+            tie = item.get("tie_out", {})
+            for symbol in [tie.get("line_symbol")] + list(tie.get("positive_subtotals", [])):
+                if symbol in families_by_subtotal:
+                    reached.add((families_by_subtotal[symbol], "reads_subtotal"))
+
+    return reached
+
+
+def _is_constrained(family: Mapping[str, Any]) -> bool:
+    return bool(
+        family.get("member_constraints")
+        or family.get("identity_exclusivity")
+        or family.get("itemizations")
+        or family.get("completeness")
+    )
+
+
+def _constrained_closure(
+    reached: Iterable[tuple[str, str]], families_by_id: Mapping[str, Mapping[str, Any]]
+) -> set[tuple[str, str, str]]:
+    """Widen along the published direct `projects_from` pin, preserving
+    relationship, then keep only constrained families.
+
+    `projects_from` is the exact `{id, version}` pin `source-family.v2`
+    publishes (never a nested prototype shape). A pin resolves only when both
+    its id and version match a family this closure already knows about;
+    a missing id or a version mismatch does not resolve, and is never
+    silently accepted by id alone. Rather than raising, the projecting
+    (scalar) family itself is kept in the result regardless of its own
+    `_is_constrained` verdict, so a consumer that reached it still declares a
+    `.member-validation` prerequisite - one `check_validation_graph` cannot
+    satisfy with a compiled producer, so `VALIDATION_PRODUCER_MISSING` fails
+    the package deterministically through existing vocabulary instead of
+    silently dropping the requirement.
+
+    A genuine projection cycle - a self-pin, or a chain that loops back onto
+    a family this same originating `reached` pair already walked through -
+    gets the identical fail-closed treatment: the *originating*
+    family/relationship pair, never whichever cycle member happened to close
+    the loop, is added to the unresolved set. Ordinary reconvergence, where a
+    later `reached` pair walks into a family an earlier pair already
+    resolved, is not a cycle and is left untouched - each pair's own walk is
+    tracked in a path local to that pair, distinct from the cross-pair `seen`
+    memo that only prevents reprocessing.
+
+    Traversal order over `reached` is sorted, never the ambient (hash-seed
+    dependent) set order, and cycle membership is itself memoized in `cyclic`
+    - not just each pair's own cycle verdict in `unresolved_projection` - so
+    that a second, independently reached origin whose own chain later walks
+    into a node already known to belong to a detected cycle also fails closed
+    for its own originating pair, rather than exiting through the plain
+    cross-pair `seen` memo hit silently. Without that second memo, which
+    origin gets to complete its own walk and register the cycle - and which
+    instead exits early through the plain `seen` hit - would depend on which
+    pair this function happens to process first, reintroducing the same order
+    dependency one level up.
+    """
+    seen: set[tuple[str, str]] = set()
+    cyclic: set[tuple[str, str]] = set()
+    unresolved_projection: set[str] = set()
+
+    for start_family_id, start_relationship in sorted(reached):
+        path: set[str] = set()
+        family_id = start_family_id
+        while True:
+            node = (family_id, start_relationship)
+            if family_id in path or node in cyclic:
+                unresolved_projection.add(start_family_id)
+                seen.add((start_family_id, start_relationship))
+                cyclic.add(node)
+                cyclic.update((visited, start_relationship) for visited in path)
+                break
+            if node in seen:
+                break
+            path.add(family_id)
+            seen.add(node)
+            family = families_by_id.get(family_id)
+            if family is None:
+                break
+            projects = family.get("projects_from")
+            if not isinstance(projects, dict):
+                break
+            target_id = projects.get("id")
+            target_version = projects.get("version")
+            target = families_by_id.get(target_id) if isinstance(target_id, str) else None
+            if isinstance(target_id, str) and target is not None and target.get("version", "v1") == target_version:
+                family_id = target_id
+                continue
+            unresolved_projection.add(family_id)
+            break
+
+    return {
+        (family_id, families_by_id[family_id].get("version", "v1"), relationship)
+        for family_id, relationship in seen
+        if family_id in families_by_id
+        and (family_id in unresolved_projection or _is_constrained(families_by_id[family_id]))
+    }
+
+
+def _predicate_depth(node: Any) -> int:
+    if not isinstance(node, dict):
+        return 0
+    args = node.get("args")
+    if isinstance(args, list) and args:
+        return 1 + max(_predicate_depth(arg) for arg in args)
+    return 1
+
+
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
-_RULE_ARTIFACT_SCHEMAS = frozenset({"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4"})
+_RULE_ARTIFACT_SCHEMAS = frozenset({"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"})
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
 # ADR-0061 Decision 5 non-confusion invariant (Finding 4 repair): Schedule D's
@@ -50,23 +202,6 @@ _LINE_1A_8A_NON_CONFUSION_IDS = frozenset({
     "tax.us.2025.rule.schedule-d-line1a-gain",
     "tax.us.2025.rule.schedule-d-line8a-gain",
 })
-
-# ADR-0061 Decision 2 amended 2026-08-05 (Track 1 continuation repair):
-# because `covered-w-st-txn`/`covered-w-lt-txn` are wholly separate fact
-# types from `covered-st-txn`/`covered-lt-txn` (Decision 1), rather than a
-# version successor of the same id, package-exclusivity between the direct-
-# reporting families and their wash-sale counterparts is not structurally
-# guaranteed by family topology alone. This pairing names the exact fact
-# types a real transaction could otherwise be double-adopted into.
-_COVERED_W_IDENTITY_COLLISION_PAIRS: tuple[tuple[str, str], ...] = (
-    ("tax.us.2025.f1099b.covered-st-txn", "tax.us.2025.f1099b.covered-w-st-txn"),
-    ("tax.us.2025.f1099b.covered-lt-txn", "tax.us.2025.f1099b.covered-w-lt-txn"),
-)
-# The identity-key names ADR-0061 Decision 2 amended names explicitly:
-# broker, statement, transaction, and tax-year - the same four keys both
-# fact-type pairs declare identically (ADR-0011: identity rides in the fact
-# id's bound key=value suffix, never in the id prefix).
-_COVERED_W_IDENTITY_KEY_NAMES = frozenset({"broker", "statement", "transaction", "tax-year"})
 
 # attachment-rule.v6 keeps the class authority in the source-family pin.  The
 # terminal family token is the bounded class marker shared by the synthetic
@@ -96,6 +231,62 @@ _NON_INPUT_SCHEMAS = frozenset({
     "derivation-record.v5",
     "derivation-record.v6",
 })
+
+# ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
+# member whose schema is absent here is rejected with MEMBER_SCHEMA_UNSUPPORTED
+# rather than becoming an inert graph node. Membership is an explicit constant
+# set, never inferred from artifact ids, tax-name substrings, or numeric
+# version parsing. Includes only schemas the validator currently handles
+# semantically, plus every schema accepted by the ratified package corpus.
+# Registry-known predecessors without a handler (fact-type.v1,
+# source-closure-mapping.v1) are intentionally excluded so they fail loud.
+_SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
+    "attachment-rule.v1",
+    "attachment-rule.v2",
+    "attachment-rule.v3",
+    "attachment-rule.v4",
+    "attachment-rule.v5",
+    "attachment-rule.v6",
+    "attachment-rule.v8",
+    "bundle.v1",
+    "bundle.v2",
+    "checked-conclusion-binding.v1",
+    "citation.v1",
+    "dividend-universe.v1",
+    "dividend-universe.v2",
+    "dividend-universe.v3",
+    "dividend-universe.v4",
+    "fact-type.v2",
+    "form-field.v1",
+    "form-field.v2",
+    "form-field.v3",
+    "migration-artifact.v1",
+    "operation-semantics.v1",
+    "operation-semantics.v2",
+    "parameter-declaration.v1",
+    "quantity-vocabulary.v1",
+    "quantity-vocabulary.v2",
+    "quantity-vocabulary.v3",
+    "quantity-vocabulary.v4",
+    "quantity-vocabulary.v5",
+    "quantity-vocabulary.v6",
+    "quantity-vocabulary.v7",
+    "quantity-vocabulary.v8",
+    "quantity-vocabulary.v9",
+    "quantity-vocabulary.v10",
+    "quantity-vocabulary.v11",
+    "quantity-vocabulary.v12",
+    "role-canon.v1",
+    "rule-artifact.v1",
+    "rule-artifact.v2",
+    "rule-artifact.v3",
+    "rule-artifact.v4",
+    "rule-artifact.v5",
+    "source-closure-mapping.v2",
+    "source-family.v1",
+    "source-family.v2",
+    "taxable-interest-composition.v1",
+}) | _NON_INPUT_SCHEMAS
 
 
 @dataclass(frozen=True)
@@ -376,53 +567,157 @@ def _is_yes_no_domain(value_schema: dict[str, Any]) -> bool:
     return isinstance(domain, list) and set(domain) == {"yes", "no"} and len(domain) == 2
 
 
-def _identity_key_fields(fact_id: str) -> tuple[tuple[str, str], ...]:
-    """The (broker, statement, transaction, tax-year) identity of one fact id.
+def compile_validation_graph(
+    resolved_members: list[dict[str, Any]],
+    families_by_id: dict[str, dict[str, Any]],
+    families_by_subtotal: dict[str, str],
+    schemas: DerivationSchemas | None = None,
+) -> list[dict[str, Any]]:
+    """Compile reachability-derived synthesized producers/edges (ADR-0066).
 
-    Deliberately excludes the fact-type prefix: the real-world transaction a
-    fact id names is the same regardless of which fact type asserts it -
-    exactly the collision ADR-0061 Decision 2's amended kill-test must catch.
-    Any other bound key on the fact id (irrelevant to this identity) is
-    ignored rather than tripping a false collision.
+    Reachability, not authoring, creates the `<family>.member-validation`
+    prerequisite: a consumer's own `requires`/`requirement` is never trusted
+    as the edge source, only mutated here from what it structurally reaches.
+    When ``schemas`` is supplied, every synthesized producer is validated
+    against the real `rule-artifact.v5` shape before it is returned as part
+    of the resolved graph - an internal invariant, so a shape defect here is
+    a loud programming error, never a contained `MemberIssue`.
     """
-    _, _, bound = fact_id.partition("|")
-    keys: dict[str, str] = {}
-    for pair in bound.split(","):
-        name, _, value = pair.partition("=")
-        if name in _COVERED_W_IDENTITY_KEY_NAMES:
-            keys[name] = value
-    return tuple(sorted(keys.items()))
+    compiled: list[dict[str, Any]] = []
+    constrained_families = {f_id for f_id, f in families_by_id.items() if _is_constrained(f)}
 
+    for member in resolved_members:
+        schema_val = member.get("schema")
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+            compiled.append(member)
+            continue
 
-def find_covered_w_identity_key_collisions(
-    asserted_fact_ids: Mapping[str, Iterable[str]],
-) -> tuple[MemberIssue, ...]:
-    """ADR-0061 Decision 2 amended kill-test: no real transaction may be
-    adopted into both a direct-reporting family (`covered-st`/`covered-lt`)
-    and its wash-sale counterpart (`covered-w-st`/`covered-w-lt`) at once.
+        required_tuples = _constrained_closure(
+            _families_reached(member, families_by_subtotal), families_by_id
+        )
+        required_family_ids = {req[0] for req in required_tuples}
 
-    ``asserted_fact_ids`` maps a fact-type id to the raw fact ids currently
-    asserted under it (the identity-bearing rendering ADR-0011 already
-    defines: ``type|broker=...,statement=...,transaction=...,tax-year=...``).
-    Returns one ``COVERED_W_IDENTITY_KEY_COLLISION`` issue per colliding
-    identity, checked directly against contributed identity - never inferred
-    from version supersession, per the amendment's own framing.
-    """
+        if required_family_ids:
+            member = dict(member)
+            requires = list(member.get("requires") or [])
+            for family_id in sorted(required_family_ids):
+                symbol = family_id + ".member-validation"
+                if symbol not in requires:
+                    requires.append(symbol)
+            member["requires"] = requires
+        compiled.append(member)
+
+    for family_id in sorted(constrained_families):
+        symbol = f"{family_id}.member-validation"
+        producer = {
+            "schema": "rule-artifact.v5",
+            "id": f"{family_id}.member-validation.synthesized",
+            "version": families_by_id[family_id].get("version", "v1"),
+            "scope": families_by_id[family_id].get("scope", {
+                "tax_year": 2025,
+                "jurisdiction": "us",
+                "family": family_id
+            }),
+            "role": "computation",
+            "publishes": symbol,
+            "requires": [],
+            "pins": [],
+            "when": True,
+            "value": True,
+            "blocked": {
+                "code": "FAMILY_VALIDATION_BLOCKED",
+                "missing": []
+            }
+        }
+        if schemas is not None:
+            schemas.validate_declared(producer)
+        compiled.append(producer)
+    return compiled
+
+def check_validation_graph(
+    compiled_members: list[dict[str, Any]],
+    families_by_id: dict[str, dict[str, Any]],
+    families_by_subtotal: dict[str, str],
+    package_id: str
+) -> list[MemberIssue]:
     issues: list[MemberIssue] = []
-    for direct_type, w_type in _COVERED_W_IDENTITY_COLLISION_PAIRS:
-        direct_identities: dict[tuple[tuple[str, str], ...], str] = {}
-        for fid in asserted_fact_ids.get(direct_type, ()):
-            direct_identities[_identity_key_fields(fid)] = fid
-        for fid in asserted_fact_ids.get(w_type, ()):
-            identity = _identity_key_fields(fid)
-            direct_fid = direct_identities.get(identity)
-            if direct_fid is not None:
+
+    # Compute produced symbols
+    produced: dict[str, list[str]] = {}
+    for member in compiled_members:
+        pub = member.get("publishes")
+        if isinstance(pub, str) and pub:
+            produced.setdefault(pub, []).append(member["id"])
+
+    # Check VALIDATION_PRODUCER_AMBIGUOUS
+    for symbol, owners in produced.items():
+        if symbol.endswith(".member-validation") and len(owners) > 1:
+            issues.append(MemberIssue(
+                package_id, "", "VALIDATION_PRODUCER_AMBIGUOUS",
+                f"package already publishes validation symbol {symbol!r}, preventing synthesis"
+            ))
+
+    for member in compiled_members:
+        schema_val = member.get("schema")
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+            continue
+
+        artifact_id = member["id"]
+        required_tuples = _constrained_closure(
+            _families_reached(member, families_by_subtotal), families_by_id
+        )
+
+        # Check SYNTHESIZED_PREREQUISITE_OMITTED over every compiled consumer
+        # class that can receive a validation prerequisite - rule and
+        # attachment alike; omitting an edge is causal regardless of which
+        # consumer class removed it.
+        requires = set(member.get("requires", []))
+        for family_id, _, _ in required_tuples:
+            symbol = family_id + ".member-validation"
+            if symbol not in requires:
                 issues.append(MemberIssue(
-                    fid, "", "COVERED_W_IDENTITY_KEY_COLLISION",
-                    f"identity {dict(identity)} asserted into both {direct_type!r} "
-                    f"(fact id {direct_fid!r}) and {w_type!r} (fact id {fid!r})",
+                    artifact_id, member.get("version", ""), "SYNTHESIZED_PREREQUISITE_OMITTED",
+                    f"consumer requires validation for constrained family {family_id!r} but lacks the "
+                    f"synthesized prerequisite {symbol!r} in its requires list"
                 ))
-    return tuple(issues)
+
+        # Check FAMILY_ACCOUNTING_NOT_DECLARED, FAMILY_ACCOUNTING_UNREACHED.
+        # A declared pair this artifact does not structurally reach is extra
+        # intent - `FAMILY_ACCOUNTING_UNREACHED` - whether the named family is
+        # merely unreached, unconstrained, or absent from the package
+        # entirely; there is no separate "unresolved" accounting code.
+        declared = {
+            (entry["family"]["id"], entry["family"]["version"], entry["relationship"])
+            for entry in member.get("accounts_for", [])
+        }
+        for req in sorted(required_tuples - declared):
+            issues.append(MemberIssue(
+                artifact_id, member.get("version", ""), "FAMILY_ACCOUNTING_NOT_DECLARED",
+                f"artifact reaches constrained family {req[0]!r} via {req[2]!r} but does not declare accounting for it"
+            ))
+        for dec in sorted(declared - required_tuples):
+            issues.append(MemberIssue(
+                artifact_id, member.get("version", ""), "FAMILY_ACCOUNTING_UNREACHED",
+                f"accounts_for names family {dec[0]!r} with {dec[2]!r}, which this artifact does not structurally reach"
+            ))
+
+        # Check VALIDATION_PRODUCER_MISSING. A required symbol can lack a
+        # producer because the family is genuinely unconstrained, because its
+        # synthesized producer was authored and then removed, or because a
+        # `projects_from` pin failed to resolve (Repair 5) - this message
+        # names the symptom, not a specific stale cause.
+        for req in member.get("requires", []):
+            if req.endswith(".member-validation"):
+                family_id = req[:-len(".member-validation")]
+                if req not in produced:
+                    issues.append(MemberIssue(
+                        member["id"], member.get("version", ""), "VALIDATION_PRODUCER_MISSING",
+                        f"requires {req!r} but no compiled member produces it (family {family_id!r} "
+                        f"may be unconstrained, its synthesized producer may be missing, or a "
+                        f"projects_from pin naming it may be unresolved)"
+                    ))
+
+    return issues
 
 
 def validate_package(
@@ -430,7 +725,6 @@ def validate_package(
     corpus: dict[tuple[str, str], dict[str, Any]],
     schemas: DerivationSchemas,
     published_citizen_checksums: Mapping[tuple[str, str], str] | None = None,
-    asserted_fact_ids: Mapping[str, Iterable[str]] | None = None,
 ) -> PackageValidation:
     """Validate a package against a corpus of (id, version) -> citizen.
 
@@ -438,14 +732,7 @@ def validate_package(
     validation continues, so the caller can record every problem at once and
     let unaffected members proceed.
 
-    ``asserted_fact_ids`` is optional and orthogonal to the rest of this
-    static, content-only validation: when a caller supplies the raw fact ids
-    currently asserted under the ADR-0061 covered-w and direct-reporting
-    transaction fact types (e.g. from a run's marshalled sources or a
-    fixture's act log), this also runs the Decision 2 amended identity-key
-    collision kill-test (``find_covered_w_identity_key_collisions``). Every
-    existing caller that omits it keeps the prior, purely-static behavior.
-    """
+"""
     package_id = str(package.get("id", "<unidentified>"))
 
     try:
@@ -474,6 +761,16 @@ def validate_package(
             schemas.validate_declared(citizen)
         except SchemaValidationError as exc:
             issues.append(MemberIssue(pin["id"], pin["version"], "MEMBER_SCHEMA_INVALID", str(exc)))
+            continue
+
+        declared_schema = citizen["schema"]
+        if declared_schema not in _SUPPORTED_SEMANTIC_SCHEMAS:
+            issues.append(MemberIssue(
+                pin["id"],
+                pin["version"],
+                "MEMBER_SCHEMA_UNSUPPORTED",
+                f"member {pin['id']!r} declares unsupported semantic schema {declared_schema!r}",
+            ))
             continue
 
         if published_citizen_checksums is not None:
@@ -688,7 +985,7 @@ def validate_package(
             if pin_role != "checked-conclusion-binding":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"checked-conclusion-binding declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}:
+        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"attachment-rule declared as role {pin_role!r}"))
@@ -820,7 +1117,7 @@ def validate_package(
             elif citizen["schema"] == "fact-type.v2" and citizen["id"] == ft_id:
                 ft_citizen = citizen
                 break
-        
+
         if ft_citizen is not None:
             if ft_citizen.get("schema") == "fact-type.v2" and ft_citizen.get("source_amount") is True:
                 if "quantity" not in ft_citizen:
@@ -1012,7 +1309,7 @@ def validate_package(
         # entrypoint-pin contract unchanged (repair round 3 finding 3: v22 was
         # missing from this set, so a stale or dangling entrypoint in a
         # v22-schema package passed validation silently).
-        if package.get("schema") in {"artifact-package.v20", "artifact-package.v21", "artifact-package.v22", "artifact-package.v23"}:
+        if package.get("schema") in {"artifact-package.v20", "artifact-package.v21", "artifact-package.v22", "artifact-package.v23", "artifact-package.v24"}:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
             }
@@ -1078,9 +1375,9 @@ def validate_package(
                 # Only v3/v4 can declare refs outside `requires`: conditional
                 # dependency members are nested `ref` expressions in `when`.
                 # v1/v2 keep their requires-only edge computation unchanged.
-                # v4 is v3's expression grammar plus `count`/`block`, so it
+                # v4/v5 is v3's expression grammar plus `count`/`block`, so it
                 # carries the same declared-refs-outside-requires capability.
-                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4"}:
+                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}:
                     declared_refs.update(_iter_ref_names(citizen["when"]))
                     declared_refs.update(_iter_ref_names(citizen["value"]))
                 for req in declared_refs:
@@ -1139,7 +1436,7 @@ def validate_package(
                     if c2["schema"] == "source-closure-mapping.v2":
                         if c2.get("member_fact_type", {}).get("id") == ft_id:
                             adj[m_id].add(c2["id"])
-            elif citizen["schema"] == "attachment-rule.v6":
+            elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8"}:
                 for part in citizen.get("itemizations", []):
                     authority = part.get("authority", {})
                     if authority.get("kind") == "composition":
@@ -1415,7 +1712,7 @@ def validate_package(
     # a boolean or otherwise falsy-encodable Part III answer fact type on an
     # attachment is rejected at admission.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}:
+        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
             continue
         answers = list(citizen["completeness"]["required_answers"])
         for branch in citizen["completeness"].get("branch_requirements", []):
@@ -1451,17 +1748,16 @@ def validate_package(
 
     # 10b. attachment-rule.v2 authority and row-set admission. Schema shape
     # alone cannot prove that a row set belongs to its declared family or that
-    # a composition-backed part is structurally complete.
     families_by_key = {
         (citizen["id"], citizen["version"]): citizen
-        for _, citizen in resolved if citizen["schema"] == "source-family.v1"
+        for _, citizen in resolved if citizen["schema"] in {"source-family.v1", "source-family.v2"}
     }
     compositions_by_key = {
         (citizen["id"], citizen["version"]): citizen
         for _, citizen in resolved if citizen["schema"] == "taxable-interest-composition.v1"
     }
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}:
+        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
             continue
         for part in citizen["itemizations"]:
             actual_slots: list[tuple[str, str, str]] = []
@@ -1506,7 +1802,7 @@ def validate_package(
                                               f"part {part['part_id']!r} names absent composition {comp_pin}"))
                 elif part["tie_out"]["line_symbol"] != comp["publishes"]:
                     subtractive_positive_basis = (
-                        citizen["schema"] == "attachment-rule.v6"
+                        citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8"}
                         and part["tie_out"].get("operation") == "subtract"
                         and bool(part.get("adjustment_rows"))
                         and comp.get("publishes") == "tax.us.2025.interest.positive-total"
@@ -1520,7 +1816,7 @@ def validate_package(
     # closed, typed subtractive surface.  The schema fixes the vocabulary;
     # admission fixes the joins and the signed whole-part surface.
     for pin, citizen in resolved:
-        if citizen["schema"] != "attachment-rule.v6":
+        if citizen["schema"] not in {"attachment-rule.v6", "attachment-rule.v8"}:
             continue
         for part in citizen["itemizations"]:
             actual_positive = [row_set["subtotal_symbol"] for row_set in part["row_sets"]]
@@ -1656,7 +1952,7 @@ def validate_package(
     for (ft_id, _ft_version), ft in fact_types_by_key.items():
         fact_types_by_id.setdefault(ft_id, ft)
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4"}:
+        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}:
             continue
         member_names = set(_iter_cds_member_names(citizen["when"])) | set(
             _iter_cds_member_names(citizen["value"])
@@ -1711,12 +2007,47 @@ def validate_package(
                                       f"symbol {symbol!r} published by {sorted(owners)}"))
         output_owners[symbol] = owners[0]
 
-    # 12. Covered-W identity-key collision guard (ADR-0061 Decision 2
-    # amended). Static content alone cannot prove this - it depends on which
-    # real fact ids are actually asserted - so this only runs when a caller
-    # supplies that data; every existing caller is unaffected.
-    if asserted_fact_ids is not None:
-        issues.extend(find_covered_w_identity_key_collisions(asserted_fact_ids))
+    # 12. Declarative Constraints (ADR-0066)
+    families_by_id: dict[str, dict[str, Any]] = {}
+    families_by_subtotal: dict[str, str] = {}
+    for _pin, citizen in resolved:
+        if citizen["schema"] in {"source-family.v1", "source-family.v2"}:
+            families_by_id[citizen["id"]] = citizen
+            families_by_subtotal[citizen["authorizes_subtotal"]] = citizen["id"]
+
+    MAX_PREDICATE_DEPTH = 6
+    for family_id, family in sorted(families_by_id.items()):
+        constraints = family.get("member_constraints")
+        constraint_items: list[Any]
+        if isinstance(constraints, dict):
+            constraint_items = list(constraints.get("constraints") or [])
+        elif isinstance(constraints, list):
+            constraint_items = constraints
+        else:
+            constraint_items = []
+        for constraint in constraint_items:
+            if not isinstance(constraint, dict):
+                continue
+            depth = _predicate_depth(constraint.get("violated_when"))
+            if depth > MAX_PREDICATE_DEPTH:
+                issues.append(MemberIssue(
+                    family_id, family.get("version", ""), "MEMBER_CONSTRAINT_TOO_DEEP",
+                    f"constraint {constraint.get('id')!r} nests {depth} levels, over the "
+                    f"declared bound of {MAX_PREDICATE_DEPTH}",
+                ))
+        for rule in family.get("identity_exclusivity", []) or []:
+            counterpart = rule["incompatible_family"]["id"]
+            if counterpart not in families_by_id:
+                issues.append(MemberIssue(
+                    family_id, family.get("version", ""), "EXCLUSIVITY_COUNTERPART_ABSENT",
+                    f"exclusivity rule {rule['id']!r} names family {counterpart!r}, "
+                    f"which is not a member of this package",
+                ))
+
+    final_resolved = compile_validation_graph(
+        [citizen for _, citizen in resolved], families_by_id, families_by_subtotal, schemas
+    )
+    issues.extend(check_validation_graph(final_resolved, families_by_id, families_by_subtotal, package_id))
 
     return PackageValidation(
         package_id=package_id,
@@ -1727,5 +2058,5 @@ def validate_package(
             CitationResolution(citation_id=citation_id, version=version)
             for citation_id, version in sorted(citation_keys)
         ),
-        resolved_members=tuple(citizen for pin, citizen in resolved),
+        resolved_members=tuple(final_resolved),
     )

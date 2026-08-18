@@ -1,0 +1,54 @@
+{
+  "schema": "attachment-rule.v8",
+  "id": "declarativevalidation.demo-scalar-attachment",
+  "version": "v1",
+  "title": "Demo Scalar Attachment",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "us",
+    "family": "declarativevalidation.demo-family"
+  },
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "1040",
+    "jurisdiction": "us",
+    "tax_year": 2025
+  },
+  "publishes": "demo.scalar-attachment",
+  "requirement": {
+    "subtotals": [
+      "demo.subtotal-scalar"
+    ],
+    "threshold_parameter": {
+      "id": "demo.param",
+      "version": "v1"
+    },
+    "comparison": "strictly_greater_than",
+    "citation": {
+      "id": "demo.citation",
+      "version": "v1"
+    }
+  },
+  "itemizations": [],
+  "completeness": {
+    "required_answers": [
+      {
+        "symbol": "demo.answer-scalar",
+        "fact_type": {
+          "id": "demo.fact",
+          "version": "v1"
+        },
+        "check": "presence"
+      }
+    ]
+  },
+  "accounts_for": [
+    {
+      "family": {
+        "id": "declarativevalidation.demo-family",
+        "version": "v1"
+      },
+      "relationship": "reads_subtotal"
+    }
+  ]
+}

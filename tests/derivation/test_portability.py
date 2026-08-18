@@ -130,6 +130,78 @@ class SealedExecution(PortabilityFixture):
                          _findings_blob(run_reference(ctx, self.schemas)))
 
 
+class AttachmentSchedulingPortability(unittest.TestCase):
+    """Track 4 Repair 1: the reference runner must dispatch attachment-rule
+    citizens (ADR-0036) the same way the primary runner's `_execute` does —
+    `_requires` for eligibility, `attempt_attachment` for the step — instead
+    of raising `KeyError: 'when'` on `rule["requires"]` and `state.attempt`.
+    """
+
+    def setUp(self) -> None:
+        self.schemas = DerivationSchemas()
+        self.canon = load_canon(self.schemas)
+        self.attachment = _load("attachment-rule.v1.demo-attachment.json")
+        self.threshold = _load("parameter.attach-threshold.json")
+
+    def context(self, *, subtotal: str | None, sources: list[SourceFact],
+                answer: str | None = "yes") -> RunContext:
+        inputs = [InputFinding("demo.answer.attach-first", answer, "f.answer", "input")] \
+            if answer is not None else []
+        if subtotal is not None:
+            inputs.append(InputFinding("demo.attach.alpha.subtotal", subtotal, "f.subtotal", "input"))
+        return RunContext(
+            run_id="run.attach.1",
+            rules=[self.attachment],
+            parameters={self.threshold["id"]: self.threshold},
+            canon=self.canon,
+            inputs=inputs,
+            sources=sources,
+            adoption_pin=ADOPTION_PIN,
+            governance_pins=GOV_PINS,
+        )
+
+    def _assert_portable(self, ctx: RunContext) -> tuple[RunResult, RunResult]:
+        primary = run(ctx, self.schemas)
+        reference = run_reference(ctx, self.schemas)
+        self.assertEqual(_findings_blob(primary), _findings_blob(reference))
+        self.assertEqual(_blocked_blob(primary), _blocked_blob(reference))
+        return primary, reference
+
+    def test_synthetic_attachment_required_and_complete_is_byte_identical(self) -> None:
+        ctx = self.context(
+            subtotal="900",
+            sources=[
+                SourceFact("demo.fact.attach-item", "600", "f.item-a"),
+                SourceFact("demo.fact.attach-item", "300", "f.item-b"),
+            ],
+        )
+        primary, _reference = self._assert_portable(ctx)
+        dispositions = {d["artifact_id"]: d for d in primary.dispositions}
+        self.assertEqual(dispositions[self.attachment["id"]]["disposition"], "published")
+
+    def test_synthetic_attachment_blocked_itemization_tie_out_is_byte_identical(self) -> None:
+        # Subtotal (900) does not match the itemized row sum (600) — a
+        # tie-out violation, blocked with the same code and pins in both
+        # schedulers.
+        ctx = self.context(
+            subtotal="900",
+            sources=[SourceFact("demo.fact.attach-item", "600", "f.item-a")],
+        )
+        primary, _reference = self._assert_portable(ctx)
+        blocked = {b["artifact_id"]: b for b in primary.blocked}
+        self.assertEqual(blocked[self.attachment["id"]]["code"], "ITEMIZATION_TIE_OUT_VIOLATION")
+
+    def test_synthetic_attachment_missing_threshold_subtotal_is_byte_identical(self) -> None:
+        # No subtotal input at all: the requirement's own dependency is
+        # absent (DEPENDENCY_ABSENT-class), before any itemization or
+        # completeness check runs.
+        ctx = self.context(subtotal=None, sources=[])
+        primary, _reference = self._assert_portable(ctx)
+        blocked = {b["artifact_id"]: b for b in primary.blocked}
+        self.assertEqual(blocked[self.attachment["id"]]["code"], "DEPENDENCY_ABSENT")
+        self.assertIn("demo.attach.alpha.subtotal", blocked[self.attachment["id"]]["missing"])
+
+
 class DeletionAttribution(PortabilityFixture):
     def test_deleting_an_input_makes_the_dependent_absence_attributable(self) -> None:
         # Delete line15: line16's absence is attributable to the missing input,

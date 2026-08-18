@@ -35,7 +35,6 @@ from packages.derivation.evaluator import (
 )
 from packages.kernel.act_log import ActLog
 from packages.derivation.loader import DerivationSchemas, PUBLICATION_ACT_SCHEMA
-from packages.derivation.package_validation import find_covered_w_identity_key_collisions
 from packages.derivation.records import (
     RecordStream,
     closing_record,
@@ -66,14 +65,12 @@ class SourceFact:
     name: str
     value: str
     finding_id: str
-    # ADR-0061 Decision 2 amended / Track 1 repair round 3: the raw
     # ADR-0011 identity-bearing fact id (`type|broker=...,statement=...,
     # transaction=...,tax-year=...`), distinct from `finding_id` (the
     # human/system-authored finding label used for pins). Optional and
-    # defaulted so every existing fixture scenario JSON that omits it keeps
-    # working unchanged; the identity-key collision guard is the only
-    # consumer and treats an unset value as carrying no identity (never a
-    # false collision).
+    # defaulted so existing fixture scenario JSON that omits it keeps
+    # working unchanged. Declared identity exclusivity reads this field;
+    # an unset value carries no identity components.
     fact_id: str | None = None
 
 
@@ -137,63 +134,17 @@ _LEDGER_EXCLUDED_PIN_ROLES = frozenset(
 # directly from their declarative requirement/itemizations/completeness
 # structure by `_Run.attempt_attachment`, not by `evaluate()`.
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
 )
+# attachment-rule.v8 is v6's exact inherited shape (Track 2: only the
+# additive optional `accounts_for[]` differs) - every v6-specific branch
+# below applies identically to v8.
+_V6_SHAPE_ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8"})
 ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
 # ADR-0055 Decision 2: a required answer present as a current finding but
 # valued other than its declared required value - distinct from absence
 # (DEPENDENCY_ABSENT), never folded into it, never silence.
 COMPLETENESS_VALUE_VIOLATION = "COMPLETENESS_VALUE_VIOLATION"
-
-# ADR-0062 Decision 2 / Track 1 repair (Finding 1, CRITICAL): the two Form
-# 8949 validation guards - code W applied to an individually non-loss
-# transaction, and a disallowed-adjustment amount exceeding that one
-# transaction's own otherwise-deductible loss - must each be evaluated per
-# contributing transaction, before any amount is trusted downstream. A box
-# subtotal already nets every member's proceeds/basis/adjustment together;
-# testing the guard against that subtotal (the original defect) lets one
-# individually-invalid member hide behind another member's valid loss.
-# Scoped to the exact whole-transaction families ADR-0061 Decision 2
-# introduces - there is exactly one consumer of this shape today, so this is
-# a targeted repair rather than a generic per-attachment mechanism. Each of
-# the three consuming rules (the attachment itself, and each of lines
-# 1b/8b) independently checks its own relevant box(es) the moment it is
-# attempted, so the fix holds regardless of saturation order - no rule
-# trusts another rule's disposition to have already screened this.
-_F8949_ROW_GUARD_BOXES: dict[str, tuple[str, str]] = {
-    "st": ("tax.us.2025.f1099b.covered-w-st", "tax.us.2025.f1099b.covered-w-st-txn"),
-    "lt": ("tax.us.2025.f1099b.covered-w-lt", "tax.us.2025.f1099b.covered-w-lt-txn"),
-}
-GUARD_NONLOSS_ADJUSTMENT = "tax.us.2025.block.f8949.code-w-on-gain"
-GUARD_ADJUSTMENT_EXCEEDS_LOSS = "tax.us.2025.block.f8949.adjustment-exceeds-loss"
-# ADR-0061 Decision 1 / Finding 3 repair: "flag yes, no amount" and "amount
-# present, flag not yes" are each independently representable (the two
-# fields are independently contributable) and must each be independently
-# blockable with a named code - neither combination silently passes through
-# as if it were the other.
-GUARD_FLAG_WITHOUT_AMOUNT = "tax.us.2025.block.f8949.box-1g-flag-without-amount"
-GUARD_AMOUNT_WITHOUT_FLAG = "tax.us.2025.block.f8949.box-1g-amount-without-flag"
-_LINE_GUARD_BOX_KEYS: dict[str, tuple[str, ...]] = {
-    "tax.us.2025.rule.schedule-d-line1b": ("st",),
-    "tax.us.2025.rule.schedule-d-line8b": ("lt",),
-}
-
-# ADR-0061 Decision 2 amended (Track 1 repair round 3): the identity-key
-# collision kill-test (`find_covered_w_identity_key_collisions`) is correct
-# in isolation but was never supplied a run's actually-asserted fact ids -
-# `resolve_production_package` validates the package/citizen graph once,
-# independent of any run, and structurally cannot see per-run collisions.
-# This wires the same, already-tested comparison into the live run path,
-# reusing `_LINE_GUARD_BOX_KEYS`'s box-scoping so each of the three
-# `_f8949_row_guard_violations` call sites (attempt, attempt_attachment,
-# finalize_unreached) checks it too, and no rule trusts another's
-# disposition to have already screened it.
-_COVERED_W_IDENTITY_COLLISION_BOX_TYPES: dict[str, tuple[str, str]] = {
-    "st": ("tax.us.2025.f1099b.covered-st-txn", "tax.us.2025.f1099b.covered-w-st-txn"),
-    "lt": ("tax.us.2025.f1099b.covered-lt-txn", "tax.us.2025.f1099b.covered-w-lt-txn"),
-}
-GUARD_IDENTITY_KEY_COLLISION = "tax.us.2025.block.covered-w.identity-key-collision"
-
 
 def _uses_attachment_machinery(rules: list[dict[str, Any]]) -> bool:
     return any(rule.get("schema") in ATTACHMENT_SCHEMAS for rule in rules)
@@ -230,14 +181,14 @@ class _Run:
             ctx.closure_findings,
             ctx.current_horizons,
         )
-        
+
         self.use_v2 = any(
-            rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4"}
+            rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
         self.symbol_fact_types: dict[str, str] = {}
         self.categorical_domains: dict[str, list[str]] = {}
-        
+
         fact_types_by_id = {ft["id"]: ft for ft in ctx.fact_types}
         for ft in ctx.fact_types:
             val_schema = ft.get("value_schema", {})
@@ -247,7 +198,7 @@ class _Run:
         self.symbols: dict[str, Any] = {}
         # symbol -> (finding_id, version, pin-role, provenance)
         self.symbol_pin: dict[str, tuple[str, str, str, str | None]] = {}
-        
+
         for i in ctx.inputs:
             self.symbols[i.symbol] = i.value
             fact_type_id = i.symbol
@@ -260,7 +211,7 @@ class _Run:
             self.symbol_pin[i.symbol] = (i.finding_id, "v1", i.role, provenance)
 
         self.publications: list[Publication] = []
-        
+
         if self.use_v2:
             for binding in ctx.input_bindings:
                 symbol = binding["symbol"]
@@ -465,16 +416,27 @@ class _Run:
             # reads closure/membership state directly and blocks honestly
             # if the pinned family is unclosed.
             symbols = list(requirement.get("subtotals", []))
-            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"):
+            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"):
                 for part in rule["itemizations"]:
                     symbols.append(part["tie_out"]["line_symbol"])
                     symbols.extend(row_set["subtotal_symbol"] for row_set in part["row_sets"])
-                    if rule.get("schema") == "attachment-rule.v6":
+                    if rule.get("schema") in _V6_SHAPE_ATTACHMENT_SCHEMAS:
                         symbols.extend(
                             row["subtotal_symbol"] for row in part["adjustment_rows"]
                         )
                         symbols.extend(part["tie_out"]["positive_subtotals"])
                         symbols.extend(part["tie_out"]["adjustment_subtotals"])
+            # ADR-0066 / Track 2 Repair 4: the package compiler
+            # (`compile_validation_graph`) may have added a synthesized
+            # `<family>.member-validation` prerequisite to this attachment
+            # citizen's compiled `requires` - a field the attachment-rule
+            # schema itself does not declare, so it can only appear here as
+            # a post-compile in-memory addition. It must gate eligibility
+            # the same as any other rule's compiled prerequisite, or the
+            # synthesized edge is not load-bearing for attachment scheduling.
+            symbols.extend(
+                req for req in rule.get("requires", []) if req.endswith(".member-validation")
+            )
             return sorted(set(symbols))
         return list(rule["requires"])
 
@@ -493,24 +455,8 @@ class _Run:
         rule_id = rule["id"]
         access = AccessLog()
 
-        # Finding 1 repair (ADR-0062 Decision 2): lines 1b/8b each screen
-        # their own box's contributing transactions independently, the
-        # moment they are attempted - never by trusting the Form 8949
-        # attachment's disposition to have already run first (saturation
-        # order is not guaranteed), and never against the already-netted
-        # subtotal a masking scenario could exploit.
-        line_guard_boxes = _LINE_GUARD_BOX_KEYS.get(rule_id)
-        if line_guard_boxes is not None:
-            violated_codes, violation_pins = self._f8949_row_guard_violations(line_guard_boxes)
-            if violated_codes:
-                self._record_blocked(rule, access, BLOCK_INVALID, violated_codes)
-                return "blocked"
-            collision_codes, collision_pins = self._covered_w_identity_key_collision_violations(
-                line_guard_boxes
-            )
-            if collision_codes:
-                self._record_blocked(rule, access, BLOCK_INVALID, collision_codes)
-                return "blocked"
+        if rule_id.endswith(".member-validation.synthesized"):
+            return self._evaluate_family_validation(rule, access)
 
         # 1. If any declared dependency is absent -> blocked
         missing = [req for req in rule["requires"] if req not in self.symbols]
@@ -559,7 +505,7 @@ class _Run:
             return "blocked"
 
         pins = self.pins_for(rule, access)
-        
+
         provenance = "assertion"
         if self.use_v2:
             for pin in pins:
@@ -676,91 +622,235 @@ class _Run:
         }]
         return required, base_pins, triggers, None
 
-    def _f8949_row_guard_violations(
-        self, box_keys: tuple[str, ...] = ("st", "lt")
-    ) -> tuple[list[str], list[dict[str, Any]]]:
-        """Per-transaction ADR-0062 Decision 2 guard evaluation (Finding 1
-        repair): each ``covered-w-st``/``covered-w-lt`` member is read from
-        its own single whole-transaction finding (proceeds/basis/adjustment
-        co-located there), never from a box's already-netted subtotal, so an
-        individually-invalid member can never hide behind another member's
-        valid loss. Returns the sorted, deduplicated violated block codes
-        and the input pins of every transaction actually read.
-        """
-        violated: set[str] = set()
-        pins: list[dict[str, Any]] = []
-        for box_key in box_keys:
-            _family_id, member_fact_type = _F8949_ROW_GUARD_BOXES[box_key]
-            raw_values = self.sources.get(member_fact_type, [])
-            fids = self.source_fids.get(member_fact_type, [])
-            for raw, fid in zip(raw_values, fids):
-                member = json.loads(raw)
-                d = Decimal(str(member["proceeds"]))
-                e = Decimal(str(member["basis"]))
-                flag = member.get("box_1g_wash_sale_adjustment")
-                has_amount = "box_1g_wash_sale_disallowed_amount" in member
-                g = Decimal(str(member.get("box_1g_wash_sale_disallowed_amount", 0)))
-                row_violated = False
-                # Flag/amount independence (Finding 3): each asymmetric
-                # combination is its own named, structurally blockable
-                # state - never folded into the other, never silently
-                # treated as the well-formed case.
-                if flag == "yes" and not has_amount:
-                    violated.add(GUARD_FLAG_WITHOUT_AMOUNT)
-                    row_violated = True
-                if has_amount and flag != "yes":
-                    violated.add(GUARD_AMOUNT_WITHOUT_FLAG)
-                    row_violated = True
-                if g > 0 and d >= e:
-                    violated.add(GUARD_NONLOSS_ADJUSTMENT)
-                    row_violated = True
-                if g > max(e - d, Decimal(0)):
-                    violated.add(GUARD_ADJUSTMENT_EXCEEDS_LOSS)
-                    row_violated = True
-                if row_violated:
-                    pin = {"role": "input", "id": fid, "version": "v1"}
-                    if self.use_v2:
-                        pin["origin"] = "assertion"
-                    pins.append(pin)
-        return sorted(violated), pins
+    def _evaluate_family_validation(self, rule: dict[str, Any], access: AccessLog) -> str:
+        rule_id = rule["id"]
+        family_id = rule_id[:-len(".member-validation.synthesized")]
 
-    def _covered_w_identity_key_collision_violations(
-        self, box_keys: tuple[str, ...] = ("st", "lt")
-    ) -> tuple[list[str], list[dict[str, Any]]]:
-        """Per-run ADR-0061 Decision 2 amended identity-key collision guard
-        (Track 1 repair round 3): reuses
-        ``package_validation.find_covered_w_identity_key_collisions`` -
-        never reimplements the identity-key comparison - against this run's
-        own asserted fact ids for the direct-reporting and wash-sale
-        transaction fact types. A collision means the same real transaction
-        (broker/statement/transaction/tax-year) was asserted into both a
-        direct-reporting family and its wash-sale counterpart; that can
-        never be inferred from version supersession, only from contributed
-        identity, so this must read the raw fact ids actually asserted this
-        run - `self.source_fact_ids`, not `self.source_fids` (which holds
-        finding ids, used only for pins, and carries no identity keys).
-        """
-        fact_types: set[str] = set()
-        for box_key in box_keys:
-            direct_type, w_type = _COVERED_W_IDENTITY_COLLISION_BOX_TYPES[box_key]
-            fact_types.add(direct_type)
-            fact_types.add(w_type)
-        asserted_fact_ids = {ft: self.source_fact_ids.get(ft, []) for ft in fact_types}
-        issues = find_covered_w_identity_key_collisions(asserted_fact_ids)
-        if not issues:
-            return [], []
-        pins: list[dict[str, Any]] = []
-        seen_fids: set[str] = set()
-        for ft in sorted(fact_types):
-            for fid in self.source_fids.get(ft, []):
-                if fid in seen_fids:
+        if family_id not in self.admissions:
+            self._record_blocked(rule, access, BLOCK_ABSENT, [family_id])
+            return "blocked"
+
+        admission = self.admissions[family_id]
+        declaration = next((d for d in self.ctx.family_declarations if d["id"] == family_id), None)
+        if declaration is None:
+            self._record_blocked(rule, access, "FAMILY_VALIDATION_BLOCKED", ["FAMILY_DECLARATION_ABSENT"])
+            return "blocked"
+
+        declaration_pin = {"role": "package", "id": declaration["id"], "version": declaration["version"]}
+
+        member_fact_type_id = declaration["member_predicate"]["fact_type"]
+        member_values_raw = self.sources.get(member_fact_type_id, [])
+        member_fact_ids = self.source_fact_ids.get(member_fact_type_id, [])
+        member_fids = self.source_fids.get(member_fact_type_id, [])
+
+        if not (len(member_values_raw) == len(member_fact_ids) == len(member_fids)):
+            self._record_blocked(rule, access, "FAMILY_VALIDATION_BLOCKED", ["MEMBER_SOURCE_INDEX_SKEW"])
+            return "blocked"
+
+        from packages.derivation.declarative_validation import (
+            Evaluator,
+            GrammarError,
+            IdentityBindingError,
+            MemberConstraintTooDeep,
+            identity_tuple,
+        )
+
+        evaluator = Evaluator()
+        constraints = declaration.get("member_constraints", [])
+        exclusivity = declaration.get("identity_exclusivity", [])
+
+        codes: list[str] = []
+        member_results: list[dict[str, Any]] = []
+        # (fact_id, member_value or None) for every current member, decoded
+        # once and reused by both constraint evaluation and cross-family
+        # identity comparison below.
+        decoded_members: list[tuple[str, dict[str, Any] | None]] = []
+
+        for fact_id, fid, raw in zip(member_fact_ids, member_fids, member_values_raw):
+            malformed = False
+            member_value: dict[str, Any] | None
+            try:
+                decoded = json.loads(raw) if isinstance(raw, str) else raw
+            except (TypeError, ValueError):
+                decoded = None
+                malformed = True
+            if not malformed and not isinstance(decoded, dict):
+                decoded = None
+                malformed = True
+            member_value = decoded
+            decoded_members.append((fact_id, member_value))
+
+            if malformed:
+                violations_value: list[dict[str, Any]] = [{
+                    "constraint_id": "MEMBER_VALUE_MALFORMED",
+                    "block_code": "MEMBER_VALUE_MALFORMED",
+                    "meaning": "canonical member JSON did not decode to an object",
+                }]
+                codes.append("MEMBER_VALUE_MALFORMED")
+            else:
+                try:
+                    violations = evaluator.evaluate_member(constraints, member_value) if constraints else []
+                except (GrammarError, ArithmeticError, MemberConstraintTooDeep) as exc:
+                    violations_value = [{
+                        "constraint_id": "CONSTRAINT_EVALUATION_FAILED",
+                        "block_code": "CONSTRAINT_EVALUATION_FAILED",
+                        "meaning": f"member constraint evaluation raised: {exc}",
+                    }]
+                    codes.append("CONSTRAINT_EVALUATION_FAILED")
+                else:
+                    violations_value = [
+                        {"constraint_id": v.constraint_id, "block_code": v.block_code, "meaning": v.meaning}
+                        for v in violations
+                    ]
+                    if violations:
+                        codes.extend(sorted({v.block_code for v in violations}))
+
+            member_pin = {"role": "input", "id": fid, "version": "v1"}
+            if self.use_v2:
+                member_pin["origin"] = "assertion"
+            member_pins = _sorted_pins(
+                [member_pin, declaration_pin, self.ctx.adoption_pin] + list(self.ctx.governance_pins)
+            )
+            member_value_out = {"member_fact_id": fact_id, "violations": violations_value}
+            member_body = {
+                "member_fact_id": fact_id,
+                "member_value_pin": {"id": fid, "version": "v1"},
+                "declaration": {"id": declaration["id"], "version": declaration["version"]},
+                "violations": violations_value,
+            }
+            schema_ver = "v2" if self.use_v2 else "v1"
+            member_finding = {
+                "schema": f"derived-finding.{schema_ver}",
+                "id": _content_id(f"derived-finding.{schema_ver}:", member_body),
+                "symbol": f"{rule_id}.{fact_id}",
+                "value": member_value_out,
+                "version": schema_ver,
+                "pins": member_pins,
+            }
+            self.schemas.validate_declared(member_finding)
+            act = {"run_id": self.ctx.run_id, "finding": member_finding}
+            self.publications.append(Publication(act=act, finding=member_finding))
+            member_results.append(member_finding)
+
+        # ADR-0066 cross-family identity exclusivity: an identity collides
+        # only when the same declared components resolve to the same value
+        # across THIS family's current members and the exact declared
+        # `incompatible_family`'s current members - never within one
+        # family's own membership, and never through name inference.
+        for excl in exclusivity:
+            counterpart_id = excl["incompatible_family"]["id"]
+            counterpart = next(
+                (d for d in self.ctx.family_declarations if d["id"] == counterpart_id), None
+            )
+            if counterpart is None:
+                codes.append("IDENTITY_EXCLUSIVITY_FAMILY_ABSENT")
+                codes.append(f"identity_exclusivity:{excl['id']}:{counterpart_id}")
+                continue
+
+            counterpart_member_type = counterpart["member_predicate"]["fact_type"]
+            counterpart_values_raw = self.sources.get(counterpart_member_type, [])
+            counterpart_fact_ids = self.source_fact_ids.get(counterpart_member_type, [])
+            if len(counterpart_values_raw) != len(counterpart_fact_ids):
+                codes.append("MEMBER_SOURCE_INDEX_SKEW")
+                continue
+
+            own_identities: set[tuple[str, ...]] = set()
+            missing_component = False
+            for fact_id, member_value in decoded_members:
+                try:
+                    own_identities.add(identity_tuple(
+                        fact_id=fact_id, member_value=member_value, components=excl["components"]
+                    ))
+                except IdentityBindingError:
+                    missing_component = True
+
+            collision = False
+            for other_fact_id, other_raw in zip(counterpart_fact_ids, counterpart_values_raw):
+                try:
+                    other_decoded = json.loads(other_raw) if isinstance(other_raw, str) else other_raw
+                except (TypeError, ValueError):
+                    other_decoded = None
+                other_value = other_decoded if isinstance(other_decoded, dict) else None
+                try:
+                    other_identity = identity_tuple(
+                        fact_id=other_fact_id, member_value=other_value, components=excl["components"]
+                    )
+                except IdentityBindingError:
+                    missing_component = True
                     continue
-                seen_fids.add(fid)
-                pin = {"role": "input", "id": fid, "version": "v1"}
-                if self.use_v2:
-                    pin["origin"] = "assertion"
-                pins.append(pin)
-        return [GUARD_IDENTITY_KEY_COLLISION], pins
+                if other_identity in own_identities:
+                    collision = True
+
+            if missing_component:
+                codes.append("IDENTITY_COMPONENT_MISSING")
+                codes.append(f"identity_exclusivity:{excl['id']}")
+            if collision:
+                codes.append("IDENTITY_EXCLUSIVITY_COLLISION")
+                codes.append(f"identity_exclusivity:{excl['id']}")
+
+        if codes:
+            self._record_blocked(rule, access, "FAMILY_VALIDATION_BLOCKED", sorted(set(codes)))
+            return "blocked"
+
+        pins = []
+        pins.append({"role": "package", "id": admission.mapping_id, "version": admission.mapping_version})
+        pins.append(declaration_pin)
+
+        cf_pin = {"role": "input", "id": admission.closure_finding_id, "version": "v1"}
+        hz_pin = {"role": "input", "id": admission.horizon_id, "version": "v1"}
+        if self.use_v2:
+            cf_pin["origin"] = "assertion"
+            hz_pin["origin"] = "assertion"
+        pins.append(cf_pin)
+        pins.append(hz_pin)
+
+        # Add result pins for each successful member
+        for res in member_results:
+            pins.append({"role": "composition", "id": str(res["id"]), "version": str(res["version"])})
+
+        pins.append(self.ctx.adoption_pin)
+        pins.extend(self.ctx.governance_pins)
+
+        sorted_pins = _sorted_pins(pins)
+        symbol = rule["publishes"]
+
+        schema_ver = "v2" if self.use_v2 else "v1"
+        finding = {
+            "schema": f"derived-finding.{schema_ver}",
+            "id": _content_id("finding:derived:", {
+                "symbol": symbol,
+                "value": "true",
+                "pins": sorted_pins,
+            }),
+            "symbol": symbol,
+            "value": "true",
+            "version": schema_ver,
+            "pins": sorted_pins,
+        }
+        self.schemas.validate_declared(finding)
+        act = {"run_id": self.ctx.run_id, "finding": finding}
+        self.publications.append(Publication(act=act, finding=finding))
+        self.symbol_publisher[symbol] = rule
+        # The synthesized prerequisite is only load-bearing for a downstream
+        # consumer's eligibility (ordinary `requires` or the attachment
+        # `.member-validation` gate) if the published symbol actually enters
+        # the run's symbol table - the same publish contract `attempt` uses.
+        self.symbols[symbol] = "true"
+        self.symbol_pin[symbol] = (finding["id"], schema_ver, "input", "assertion" if self.use_v2 else None)
+
+        disposition_row = {
+            "artifact_id": rule_id,
+            "disposition": "published",
+            "pins": sorted_pins
+        }
+        if self.use_v2:
+            disposition_row["finding_id"] = finding["id"]
+            disposition_row["act_id"] = _content_id("act:publication:", act)
+            disposition_row["symbol"] = symbol
+        self.dispositions.append(disposition_row)
+        self.resolved.add(rule_id)
+
+        return "published"
 
     def attempt_attachment(self, rule: dict[str, Any]) -> str:
         """Interpret one ADR-0036 attachment citizen directly from its
@@ -830,7 +920,7 @@ class _Run:
             return "inapplicable"
 
         itemization_pins: list[dict[str, Any]] = []
-        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"):
+        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"):
             itemization_symbols = sorted({
                 symbol
                 for part in rule["itemizations"]
@@ -839,7 +929,7 @@ class _Run:
                     *(row_set["subtotal_symbol"] for row_set in part["row_sets"]),
                 )
             })
-            if rule["schema"] == "attachment-rule.v6":
+            if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS:
                 itemization_symbols = sorted(set(itemization_symbols) | {
                     symbol
                     for part in rule["itemizations"]
@@ -854,27 +944,6 @@ class _Run:
                 self._attachment_block(rule_id, BLOCK_ABSENT, missing_itemization, base_pins)
                 return "blocked"
             itemization_pins = [self._symbol_pin_entry(symbol) for symbol in itemization_symbols]
-
-        # Finding 1 repair (ADR-0062 Decision 2): per-transaction guards,
-        # checked before completeness/tie-out, on the exact whole-transaction
-        # members this rule's boxes admit - never on the aggregated subtotal
-        # already folded above, which a masking scenario could otherwise net
-        # past undetected.
-        if rule_id == "tax.us.2025.rule.attachment.f8949":
-            violated_codes, violation_pins = self._f8949_row_guard_violations()
-            if violated_codes:
-                self._attachment_block(
-                    rule_id, BLOCK_INVALID, violated_codes,
-                    base_pins + itemization_pins + violation_pins,
-                )
-                return "blocked"
-            collision_codes, collision_pins = self._covered_w_identity_key_collision_violations()
-            if collision_codes:
-                self._attachment_block(
-                    rule_id, BLOCK_INVALID, collision_codes,
-                    base_pins + itemization_pins + collision_pins,
-                )
-                return "blocked"
 
         # Completeness: every required answer's presence is checked
         # independently before any value is read (ADR-0036 decision 4) - a
@@ -978,7 +1047,7 @@ class _Run:
                                   **({"origin": "assertion"} if self.use_v2 else {})}
                                  for fid in fids)
             adjustment_rows_value: list[dict[str, Any]] = []
-            if rule["schema"] == "attachment-rule.v6":
+            if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS:
                 positive_subtotals = [
                     row_set["subtotal_symbol"] for row_set in part["row_sets"]
                 ]
@@ -1032,7 +1101,7 @@ class _Run:
                 itemizations_value.append({
                     "part_id": part["part_id"],
                     "row_sets": row_sets_value,
-                    **({"adjustment_rows": adjustment_rows_value} if rule["schema"] == "attachment-rule.v6" else {}),
+                    **({"adjustment_rows": adjustment_rows_value} if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS else {}),
                     "part_sum": _value_str(part_sum),
                     "tie_out": {"line_symbol": tie_symbol, "line_value": _value_str(line_value)},
                 })
@@ -1042,7 +1111,7 @@ class _Run:
         if tie_out_violations:
             self._attachment_block(
                 rule_id, ITEMIZATION_TIE_OUT_VIOLATION, sorted(set(tie_out_violations)),
-                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6") else []),
+                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8") else []),
             )
             return "blocked"
 
@@ -1090,7 +1159,22 @@ class _Run:
             "pins": self.ledger_pins_for(rule, access)
         }
         if self.use_v2:
-            disposition_row["code"] = code
+            # derivation-record.v6 enumerates a closed blocked-code set.
+            # Internal family-validation codes stay on `self.blocked`; the
+            # recorded disposition uses the existing invalid-dependency
+            # category and carries the named missing codes unchanged.
+            record_codes = {
+                "DEPENDENCY_ABSENT",
+                "DEPENDENCY_INVALID",
+                "CATEGORICAL_DOMAIN_MISMATCH",
+                "SOURCE_SET_UNCLOSED",
+                "VALUE_INVALID",
+                "ITEMIZATION_TIE_OUT_VIOLATION",
+                "COMPLETENESS_VALUE_VIOLATION",
+                "MULTIPLE_F1098_OUT_OF_SCOPE",
+                "F1098_SCOPE_CONTRADICTION",
+            }
+            disposition_row["code"] = code if code in record_codes else "DEPENDENCY_INVALID"
             disposition_row["missing"] = missing
         self.dispositions.append(disposition_row)
         self.resolved.add(rule_id)
@@ -1102,27 +1186,22 @@ class _Run:
                 continue
 
             if rule.get("schema") in ATTACHMENT_SCHEMAS:
+                # The compiled `.member-validation` prerequisite must gate
+                # attachment scheduling here too - `attempt_attachment`
+                # itself never reads `requires`, only its own requirement/
+                # itemization symbols, so an unresolved rule that only ever
+                # reaches this fallback path must still honor the compiled
+                # edge instead of silently attempting anyway.
+                missing_prereqs = [
+                    req for req in rule.get("requires", [])
+                    if req.endswith(".member-validation") and req not in self.symbols
+                ]
+                if missing_prereqs:
+                    governance_pins = [self.ctx.adoption_pin] + list(self.ctx.governance_pins)
+                    self._attachment_block(rule["id"], BLOCK_ABSENT, missing_prereqs, governance_pins)
+                    continue
                 self.attempt_attachment(rule)
                 continue
-
-            # Finding 1/3 repair: lines 1b/8b screen their own box's
-            # per-transaction guards here too - a rule that never became
-            # eligible (e.g. its adjustment subtotal is blocked on an
-            # unrelated closure gap) must still surface the more specific,
-            # named guard violation when one exists, the same as the main
-            # saturation path already does in `attempt`.
-            line_guard_boxes = _LINE_GUARD_BOX_KEYS.get(rule["id"])
-            if line_guard_boxes is not None:
-                violated_codes, _violation_pins = self._f8949_row_guard_violations(line_guard_boxes)
-                if violated_codes:
-                    self._record_blocked(rule, AccessLog(), BLOCK_INVALID, violated_codes)
-                    continue
-                collision_codes, _collision_pins = self._covered_w_identity_key_collision_violations(
-                    line_guard_boxes
-                )
-                if collision_codes:
-                    self._record_blocked(rule, AccessLog(), BLOCK_INVALID, collision_codes)
-                    continue
 
             # A false guard is an atomic inapplicable disposition even when
             # later numeric dependencies are absent.  Preflight only far
@@ -1325,7 +1404,7 @@ def run_and_record(
     published/blocked surface and per-rule dispositions.
     """
     use_v2 = any(
-        rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4"}
+        rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)
     start_run(

@@ -86,7 +86,7 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     declaration assertion could never reach a run at all (the same gap Track
     2 closed for attachment-rule.v1's completeness answers).
     """
-    if rule.get("schema") in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6"}:
+    if rule.get("schema") in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
         # ADR-0053 Decision 1: a categorical `family_nonempty` requirement has
         # no `subtotals` list - its own presence is the pinned source family,
         # not a symbol, so it contributes no requirement-side symbol here.
@@ -98,7 +98,7 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
             symbols.extend(a["symbol"] for a in branch.get("adds_required", []))
         return symbols
     symbols = list(rule.get("requires", []))
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4"}:
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
     return symbols
@@ -262,9 +262,9 @@ def marshal_run_context(
                 raw_value = finding["value"]
                 # An object-valued member (e.g. a whole-transaction fact
                 # type) is rendered as JSON, not Python repr, so runner-side
-                # per-member reads (e.g. the Form 8949 row guards, Finding 1
-                # repair) can parse it back losslessly; a scalar keeps its
-                # existing decimal string rendering untouched.
+                # per-member reads can parse the object back losslessly; a
+                # scalar keeps its existing decimal string rendering
+                # untouched.
                 value = json.dumps(raw_value, sort_keys=True) if isinstance(raw_value, dict) else str(raw_value)
                 sources.append(
                     SourceFact(

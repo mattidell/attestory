@@ -1,0 +1,41 @@
+{
+  "schema": "rule-artifact.v5",
+  "id": "tax.us.2025.rule.f1099b-covered-w-lt-adjustment-subtotal",
+  "version": "v2",
+  "notes": "Aggregates covered-w-lt adjustment companions (ADR-0061).",
+  "role": "computation",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "publishes": "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "add",
+    "args": [
+      {
+        "op": "collect",
+        "name": "tax.us.2025.f1099b.covered-w-lt-txn.adjustment",
+        "source_set": "tax.us.2025.f1099b.covered-w-lt-adjustment"
+      }
+    ]
+  },
+  "blocked": {
+    "code": "SOURCE_SET_UNCLOSED",
+    "missing": [
+      "tax.us.2025.f1099b.covered-w-lt-adjustment"
+    ]
+  },
+  "accounts_for": [
+    {
+      "relationship": "itemizes_members",
+      "family": {
+        "id": "tax.us.2025.f1099b.covered-w-lt",
+        "version": "v2"
+      }
+    }
+  ]
+}

@@ -2,12 +2,11 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "fact-type-succession-neutral-schedule1",
-  "active_plan": "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md",
+  "topic": "declarative-validation-substrate-f8949",
+  "active_plan": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md",
   "milestone_state": "closed",
-  "status": "Closed on this branch (PR #177). Milestone 2 of the Form 1098-E prerequisite. No new tax route. Thirteen Schedule 1 absence facts succeed onto Schedule-1-native ids via an adopted migration-artifact.v1 (ADR-0063). Worksheet v3 retargets the nonempty CDS; Milestone 1 empty-route contract unchanged. Publication: core v31 / published-packages v26 / release v24. Track 0 STOP FOR ADVISOR on F1; owner disposition; Track 1 APPROVE. Next milestone unselected.",
-  "retrospective": "docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
+  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — CLOSED 2026-08-17.** Tax policy for the bounded 2025 covered-W Form 8949/Schedule D subsystem moved out of generic Python into versioned content (ADR-0066): a closed predicate grammar for member constraints, declared cross-family identity exclusivity, and reachability-derived consumer prerequisites. runner.py's domain references went from 24 to 0. The superseded hard-coded Form 8949 row guards and Form 1099-B identity-collision matrix are deleted, not bypassed. Both schedulers are proven byte-identical on the migrated content, including attachment-bearing citizens. An independent owner-advisor product review returned ACCEPT after repairing a failing type gate and a stale cross-milestone test; Track 3's independent review is reconfirmed ACCEPTED. Final package is the additive union core v32 / published v27 / release v25 / adopt v32. Retrospective: docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md. Next milestone unselected.",
+  "current_role": "Foreman — between-milestones selection",
   "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
@@ -33,39 +32,39 @@ route: a return with no Social Security source can now reach total income
 without answering 33 Social Security declarations. The thirteen shared
 Schedule 1 absence declarations that used to live on that worksheet
 vocabulary now have Schedule-1-native successor ids and an adopted
-migration artifact that retires the old ones. **This milestone adds no
-new tax route.**
+migration artifact that retires the old ones. The declarative structured
+validation and consumer dependency substrate — the prerequisite that moved
+Form 8949's per-member validation and cross-family identity checks out of
+generic runner code into versioned content — is now closed. **Neither
+prerequisite adds a new tax route.**
 
 ## Operational State: Engine Breadth
 
-* **Just-closed milestone (this branch):** Fact-type succession with
-  neutral Schedule 1 vocabulary — **closed on this branch (PR #177)**.
-  Milestone 2 of the owner-approved two-milestone prerequisite between
-  the engine and Form 1098-E. They do not share a PR.
-* **Objective, met:** the thirteen shared Schedule 1 absence
-  declarations have a declared lifecycle relationship to their
-  successors. Old answers do not stand silently. A no-Schedule-1
-  return is not asked additional questions. Displacement is a named
-  migration-artifact supersession root (ADR-0063), not an
-  individuation edge and not a package filter.
-* **What shipped:** ADR-0063; `migration-artifact.v1` /
-  `act-migration-adoption.v1` / `artifact-package.v23`; thirteen
-  `schedule1-adjustments-scope` successors; one succession citizen;
-  worksheet v3 CDS retarget; package **v31** / published-packages
-  **v26** / release **v24**.
-* **What did not ship:** Form 1098-E; Schedule 1 line 21 as a real
-  form; Form 1040 line 10; AGI 11a/11b; any change to
-  `no-rrb-or-foreign-social-benefit`. Those remain Part 3,
-  **unselected**.
-* **Independent review:** Track 0 STOP FOR ADVISOR on F1 only; Track 1
-  APPROVE, no findings. Material dissent (F1) is decided by ADR-0063.
-* **Plan:** `docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
-* **Prior milestone:** SSA no-activity applicability repair — closed
-  2026-08-14 (PR #173). Plan:
-  `docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md`;
+* **Active milestone:** none selected.
+* **Current product behavior:** registry-valid but unsupported semantic
+  package members and unknown presentation-bound successors fail loudly. The
+  declarative-validation substrate (ADR-0066) is production, not prototype:
+  Form 8949's member constraints and identity exclusivity are versioned
+  content, reachability-derived consumer prerequisites are mechanically
+  required, and both schedulers agree on the result. The ratified package is
+  core **v32**, published **v27**, release **v25**, adoption **v32**.
+* **Paused dependency:** `milestone/f8949-noncovered-basis-lines2-9`; its
+  proposed decisions are not authority and no implementation is chartered.
+* **Prior milestone:** Declarative Structured Validation and Consumer
+  Dependency Substrate — closed 2026-08-17; Candidate B P1-P3 ratified into
+  ADR-0066; final package core v32/published v27/release v25/adopt v32.
+  Plan: `docs/phases/engine-breadth/milestones/declarative-validation-substrate.md`;
+  deferral ledger:
+  `docs/phases/engine-breadth/milestones/declarative-validation-substrate-deferral-ledger.md`;
   retrospective:
-  `docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md`.
+  `docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md`.
+* **Next:** owner selects the next milestone from
+  `docs/phases/engine-breadth/coverage-frontier.md`. The Form 1098-E vertical
+  slice (Schedule 1 lines 21/26, Form 1040 line 10, AGI 11a/11b) remains the
+  next unselected breadth candidate. The scoped-not-built
+  rule-artifact/attachment-rule capability-table consolidation
+  (`milestones/rule-artifact-capability-table-consolidation.md`) is a
+  hardening candidate, not breadth.
 
 ## Re-entry
 

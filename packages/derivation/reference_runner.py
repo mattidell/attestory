@@ -21,7 +21,7 @@ from __future__ import annotations
 from typing import Any
 
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.runner import RunContext, RunResult, _Run
+from packages.derivation.runner import ATTACHMENT_SCHEMAS, RunContext, RunResult, _Run
 
 
 def run_reference(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
@@ -42,10 +42,13 @@ def run_reference(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
         for rule in producers.get(symbol, []):
             if rule["id"] in state.resolved:
                 continue
-            for req in rule["requires"]:
+            for req in state._requires(rule):
                 resolve(req)
             if state.is_eligible(rule):
-                state.attempt(rule)
+                if rule.get("schema") in ATTACHMENT_SCHEMAS:
+                    state.attempt_attachment(rule)
+                else:
+                    state.attempt(rule)
                 if symbol in state.symbols:
                     break
         resolving.discard(symbol)

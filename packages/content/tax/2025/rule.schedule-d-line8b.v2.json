@@ -1,0 +1,90 @@
+{
+  "schema": "rule-artifact.v5",
+  "id": "tax.us.2025.rule.schedule-d-line8b",
+  "version": "v2",
+  "notes": "Form 8949 box D column (h) = d - e + g (ADR-0062 Decision 1/3). Per-member validation is the compiled tax.us.2025.f1099b.covered-w-lt.member-validation prerequisite derived from declared source-family.v2 constraints, never a hard-coded runner guard and never the already-netted box subtotal.",
+  "role": "computation",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "publishes": "tax.us.2025.schedule-d.line-8b",
+  "requires": [
+    "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal",
+    "tax.us.2025.f1099b.covered-w-lt-basis-subtotal",
+    "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal"
+  ],
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal",
+      "tax.us.2025.f1099b.covered-w-lt-basis-subtotal",
+      "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule-d.line-8b",
+      "version": "v1"
+    }
+  ],
+  "pins": [],
+  "when": {
+    "op": "all",
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.covered-w-lt"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.covered-w-lt-proceeds"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.covered-w-lt-basis"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099b.covered-w-lt-adjustment"
+      }
+    ]
+  },
+  "value": {
+    "op": "add",
+    "args": [
+      {
+        "op": "subtract",
+        "left": {
+          "op": "ref",
+          "name": "tax.us.2025.f1099b.covered-w-lt-proceeds-subtotal"
+        },
+        "right": {
+          "op": "ref",
+          "name": "tax.us.2025.f1099b.covered-w-lt-basis-subtotal"
+        }
+      },
+      {
+        "op": "ref",
+        "name": "tax.us.2025.f1099b.covered-w-lt-adjustment-subtotal"
+      }
+    ]
+  },
+  "accounts_for": [
+    {
+      "relationship": "itemizes_members",
+      "family": {
+        "id": "tax.us.2025.f1099b.covered-w-lt",
+        "version": "v2"
+      }
+    },
+    {
+      "relationship": "reads_subtotal",
+      "family": {
+        "id": "tax.us.2025.f1099b.covered-w-lt",
+        "version": "v2"
+      }
+    }
+  ]
+}
