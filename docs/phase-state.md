@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
   "active_plan": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md",
-  "milestone_state": "track-3",
-  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 3 CHARTERED.** Track 2 is accepted after Repair 7 review returned zero findings across multi-origin, staggered-depth, multi-node-cycle, relationship, and noncycle probes under eight hash seeds. Track 3 migrates the bounded 2025 covered-W subsystem onto the accepted declarations and deletes only the superseded domain mechanisms.",
-  "current_role": "Track 3 Bounded 2025 Migration and Domain-Code Deletion Builder",
-  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-3-2025-migration-and-deletion.md"
+  "milestone_state": "track-4",
+  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 4 REPAIR 2 CHARTERED.** Track 2 is accepted (Repair 7, zero findings). Track 3's migration build landed; its independent review returned CHANGES REQUESTED on a packages/tax/loader.py finding, repaired directly (commit 0604f2fb); the review has not been re-run to confirm ACCEPTED. Track 4's build (f71217f0) and Repair 1 (1eeb0204, reference_runner.py attachment dispatch) landed clean. The owner then reported four independently-verified substrate defects in declarative_validation.py/runner.py/marshal.py (under-registered rule-artifact/attachment-rule version sets in marshal.py; evaluate_member can crash a run instead of blocking it; evaluate_constraints is dead code; field_equals conflates bool and numeric equality); the foreman independently re-verified all four plus one adjacent gap and chartered Repair 2 to fix them.",
+  "current_role": "Track 4 Repair 2 Substrate Defect Hardening Builder",
+  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-4-repair-2-substrate-defect-hardening.md"
 }
 -->
 # Phase State
@@ -42,9 +42,13 @@ production implementation. **Neither prerequisite adds a new tax route.**
 
 * **Active milestone:** Declarative Structured Validation and Consumer
   Dependency Substrate; Candidate B P1-P3 is owner-ratified and distilled in
-  accepted ADR-0066. Tracks 1 and 2 are accepted. Track 3 is chartered to
-  migrate the bounded 2025 covered-W subsystem and delete the superseded
-  Form-8949/1099-B domain branches.
+  accepted ADR-0066. Tracks 1 and 2 are accepted. Track 3's build and loader
+  repair have landed; its independent review has not yet been re-run to
+  confirm ACCEPTED. Track 4 is chartered to close both-scheduler equivalence,
+  presentation/explanation goldens, and compatibility evidence, per
+  `charter-track-4-lifecycle-scheduler-explanation-compatibility.md`. The
+  closing unit (curation and final independent publication review) follows
+  Track 4.
 * **Current product behavior:** registry-valid but unsupported semantic package
   members and unknown presentation-bound successors fail loudly. The generic
   declarative-validation substrate is implemented on the milestone branch but
@@ -59,8 +63,8 @@ production implementation. **Neither prerequisite adds a new tax route.**
   proposed decisions are not authority and no implementation is chartered.
 * **Prior milestone:** Fact-type succession with neutral Schedule 1 vocabulary
   — closed 2026-08-14 (PR #177); ADR-0063 and package **v31** shipped.
-* **Next:** launch the Track 3 Builder from
-  `docs/prototypes/declarative-validation-substrate/charter-track-3-2025-migration-and-deletion.md`.
+* **Next:** dispatch the Track 4 Builder from
+  `docs/prototypes/declarative-validation-substrate/charter-track-4-lifecycle-scheduler-explanation-compatibility.md`.
   Numerical iteration caps are suspended by live owner direction; evidence
   and safety boundaries remain.
 

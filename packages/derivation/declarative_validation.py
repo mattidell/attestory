@@ -44,6 +44,20 @@ class Evaluator:
             return Decimal(str(value))
         raise GrammarError(f"not a numeric term value: {value!r}")
 
+    def _value_equals(self, a: Any, b: Any) -> bool:
+        """Equality for `field_equals`/`field_not_equals`, bool-discipline matched to `_dec`.
+
+        `_dec` refuses to treat a `bool` as a numeric term specifically to
+        keep Python's `True == 1`/`False == 0` identity from smuggling
+        meaning across types; bare `==` here would let exactly that identity
+        leak into the equality predicates. A bool compares equal only to
+        another bool of the same value; any other type pairing compares
+        unequal without falling back to Python's cross-type `==`.
+        """
+        if isinstance(a, bool) or isinstance(b, bool):
+            return isinstance(a, bool) and isinstance(b, bool) and a == b
+        return bool(a == b)
+
     def evaluate_term(self, term: Mapping[str, Any], member: Mapping[str, Any], depth: int = 1) -> Decimal:
         if depth > MAX_PREDICATE_DEPTH:
             raise MemberConstraintTooDeep("Term depth exceeded")
@@ -80,10 +94,10 @@ class Evaluator:
         if op == "field_absent":
             return pred["field"] not in member
         if op == "field_equals":
-            return bool(member.get(pred["field"], _ABSENT) == pred["arg"])
+            return self._value_equals(member.get(pred["field"], _ABSENT), pred["arg"])
         if op == "field_not_equals":
             value = member.get(pred["field"], _ABSENT)
-            return bool(value is not _ABSENT and value != pred["arg"])
+            return value is not _ABSENT and not self._value_equals(value, pred["arg"])
         if op == "compare":
             comparison = COMPARISONS.get(pred["comparison"])
             if comparison is None:
@@ -157,11 +171,3 @@ def identity_tuple(
         extract_component(fact_id=fact_id, member_value=member_value, component=component)
         for component in components
     )
-def evaluate_constraints(constraints: list[Mapping[str, Any]], members: list[Mapping[str, Any]]) -> list[dict[str, str]]:
-    evaluator = Evaluator()
-    issues = []
-    for member in members:
-        violations = evaluator.evaluate_member(constraints, member)
-        for v in violations:
-            issues.append({"constraint_id": v.constraint_id, "block_code": v.block_code, "meaning": v.meaning})
-    return issues

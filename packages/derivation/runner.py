@@ -649,7 +649,9 @@ class _Run:
 
         from packages.derivation.declarative_validation import (
             Evaluator,
+            GrammarError,
             IdentityBindingError,
+            MemberConstraintTooDeep,
             identity_tuple,
         )
 
@@ -686,13 +688,22 @@ class _Run:
                 }]
                 codes.append("MEMBER_VALUE_MALFORMED")
             else:
-                violations = evaluator.evaluate_member(constraints, member_value) if constraints else []
-                violations_value = [
-                    {"constraint_id": v.constraint_id, "block_code": v.block_code, "meaning": v.meaning}
-                    for v in violations
-                ]
-                if violations:
-                    codes.extend(sorted({v.block_code for v in violations}))
+                try:
+                    violations = evaluator.evaluate_member(constraints, member_value) if constraints else []
+                except (GrammarError, ArithmeticError, MemberConstraintTooDeep) as exc:
+                    violations_value = [{
+                        "constraint_id": "CONSTRAINT_EVALUATION_FAILED",
+                        "block_code": "CONSTRAINT_EVALUATION_FAILED",
+                        "meaning": f"member constraint evaluation raised: {exc}",
+                    }]
+                    codes.append("CONSTRAINT_EVALUATION_FAILED")
+                else:
+                    violations_value = [
+                        {"constraint_id": v.constraint_id, "block_code": v.block_code, "meaning": v.meaning}
+                        for v in violations
+                    ]
+                    if violations:
+                        codes.extend(sorted({v.block_code for v in violations}))
 
             member_pin = {"role": "input", "id": fid, "version": "v1"}
             if self.use_v2:

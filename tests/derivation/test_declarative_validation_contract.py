@@ -14,7 +14,6 @@ from packages.derivation.declarative_validation import (
     IdentityBindingError,
     MemberConstraintTooDeep,
     Violation,
-    evaluate_constraints,
     extract_bound_keys,
     extract_component,
     identity_tuple,
@@ -92,6 +91,19 @@ class PredicateEvaluationTest(unittest.TestCase):
         self.assertTrue(self.ev.evaluate_predicate({"op": "field_equals", "field": "a", "arg": "x"}, {"a": "x"}))
         self.assertFalse(self.ev.evaluate_predicate({"op": "field_equals", "field": "a", "arg": "x"}, {}))
 
+    def test_field_equals_does_not_conflate_bool_and_numeric(self) -> None:
+        # `Evaluator._dec` refuses to treat a bool as a numeric term for the
+        # same reason: Python's `True == 1`/`False == 0` identity must not
+        # smuggle meaning across types through the equality predicates.
+        self.assertFalse(self.ev.evaluate_predicate({"op": "field_equals", "field": "flag", "arg": 1}, {"flag": True}))
+        self.assertFalse(self.ev.evaluate_predicate({"op": "field_equals", "field": "flag", "arg": 0}, {"flag": False}))
+        self.assertTrue(self.ev.evaluate_predicate({"op": "field_not_equals", "field": "flag", "arg": 1}, {"flag": True}))
+        self.assertTrue(self.ev.evaluate_predicate({"op": "field_not_equals", "field": "flag", "arg": 0}, {"flag": False}))
+        # Same-type comparisons are unaffected: bool-to-bool and
+        # number-to-number equality still fire normally.
+        self.assertTrue(self.ev.evaluate_predicate({"op": "field_equals", "field": "flag", "arg": True}, {"flag": True}))
+        self.assertTrue(self.ev.evaluate_predicate({"op": "field_equals", "field": "n", "arg": 1}, {"n": 1}))
+
     def test_field_not_equals_is_false_when_absent(self) -> None:
         # ADR-0066: absent fields are true only for `field_absent`;
         # `field_not_equals` is false when absent, never vacuously true.
@@ -132,14 +144,6 @@ class PredicateEvaluationTest(unittest.TestCase):
         violations = self.ev.evaluate_member(constraints, {})
         self.assertEqual(violations, [Violation("c1", "MISSING_ATTACHMENT", "Attachment missing")])
         self.assertEqual(self.ev.evaluate_member(constraints, {"some_field": 1}), [])
-
-    def test_evaluate_constraints_helper_preserves_constraint_id(self) -> None:
-        constraints = [{
-            "id": "c1", "block_code": "MISSING_ATTACHMENT", "meaning": "Attachment missing",
-            "violated_when": {"op": "field_absent", "field": "some_field"},
-        }]
-        issues = evaluate_constraints(constraints, [{}])
-        self.assertEqual(issues, [{"constraint_id": "c1", "block_code": "MISSING_ATTACHMENT", "meaning": "Attachment missing"}])
 
 
 class IdentityBindingTest(unittest.TestCase):
@@ -263,6 +267,34 @@ class RegisteredSchemaContractTest(unittest.TestCase):
         }]
         with self.assertRaises(SchemaValidationError):
             self.schemas.validate_declared(family)
+
+
+class EvaluateConstraintsDeadCodeRemovedTest(unittest.TestCase):
+    """Defect 3: `evaluate_constraints` was a second, unused API returning
+    `list[dict[str, str]]` for what `evaluate_member` already returns as
+    `list[Violation]` — no caller anywhere but its own now-deleted test."""
+
+    def test_evaluate_constraints_no_longer_exists_on_the_module(self) -> None:
+        import packages.derivation.declarative_validation as declarative_validation
+        self.assertFalse(hasattr(declarative_validation, "evaluate_constraints"))
+
+    def test_evaluate_constraints_not_referenced_anywhere_in_the_repo(self) -> None:
+        import subprocess
+        root = Path(__file__).resolve().parents[2]
+        this_file = Path(__file__).resolve()
+        result = subprocess.run(
+            [
+                "grep", "-rl", "--include=*.py", "evaluate_constraints",
+                str(root / "packages"), str(root / "tools"), str(root / "tests"),
+            ],
+            capture_output=True, text=True,
+        )
+        matches = {Path(line) for line in result.stdout.splitlines()}
+        # Only this test file's own reference to the symbol name is expected;
+        # exclude it from the assertion since the test itself must name the
+        # deleted symbol to check for its absence.
+        matches.discard(this_file)
+        self.assertEqual(matches, set())
 
 
 if __name__ == "__main__":

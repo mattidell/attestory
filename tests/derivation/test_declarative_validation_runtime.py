@@ -190,6 +190,94 @@ class DeclarativeValidationRuntimeTest(unittest.TestCase):
         self.assertEqual(len(result.blocked), 1)
         self.assertIn("MEMBER_VALUE_MALFORMED", result.blocked[0]["missing"])
 
+    # -- constraint evaluation failure: block, never a crashed run -----
+
+    def _family_with_crash_constraint(self) -> dict[str, Any]:
+        """`self.family_a` plus a `compare` constraint over an `amount`
+        field with no declared `default` — reachable-in-principle inputs for
+        that field raise inside `Evaluator` rather than producing a block,
+        unless the call site guards for it (Track 4 Repair 2, defect 2)."""
+        family = copy.deepcopy(self.family_a)
+        family["member_constraints"].append({
+            "id": "c2-crash",
+            "block_code": "AMOUNT_NOT_POSITIVE",
+            "meaning": "amount must be positive",
+            "violated_when": {
+                "op": "compare",
+                "comparison": "gt",
+                "left": {"op": "field", "field": "amount"},
+                "right": {"op": "literal", "arg": 0},
+            },
+        })
+        return family
+
+    def _assert_single_constraint_evaluation_failure(self, result: Any, fact_id: str) -> None:
+        member = self._member_finding(result, fact_id)
+        violations = member["value"]["violations"]
+        self.assertEqual(len(violations), 1, violations)
+        violation = violations[0]
+        self.assertEqual(violation["constraint_id"], "CONSTRAINT_EVALUATION_FAILED")
+        self.assertEqual(violation["block_code"], "CONSTRAINT_EVALUATION_FAILED")
+        self.assertIn("CONSTRAINT_EVALUATION_FAILED", result.blocked[0]["missing"])
+
+    def test_absent_field_without_default_blocks_not_raises(self) -> None:
+        self.family_a = self._family_with_crash_constraint()
+        source = SourceFact(
+            FAMILY_A_MEMBER_TYPE, json.dumps({"some_field": "x"}), "demo.f1",
+            fact_id="demo.f1|taxpayer=alice",
+        )
+        result = run(self._ctx(sources=[source]), self.schemas)  # must not raise
+        self._assert_single_constraint_evaluation_failure(result, "demo.f1|taxpayer=alice")
+
+    def test_non_numeric_string_field_blocks_not_raises(self) -> None:
+        self.family_a = self._family_with_crash_constraint()
+        source = SourceFact(
+            FAMILY_A_MEMBER_TYPE, json.dumps({"some_field": "x", "amount": "not-a-number"}), "demo.f1",
+            fact_id="demo.f1|taxpayer=alice",
+        )
+        result = run(self._ctx(sources=[source]), self.schemas)  # must not raise
+        self._assert_single_constraint_evaluation_failure(result, "demo.f1|taxpayer=alice")
+
+    def test_deeply_nested_term_blocks_not_raises(self) -> None:
+        # MemberConstraintTooDeep reachability finding (defect 2 follow-up):
+        # `package_validation._predicate_depth` only walks predicate `args`
+        # (`all`/`any` nesting) — it does not recurse into a `compare`
+        # predicate's `left`/`right` *term* tree, so an `add`/`subtract`
+        # chain nested past MAX_PREDICATE_DEPTH under a `compare` passes
+        # content validation undetected and only raises at evaluation time.
+        # Not foreclosed by content validation; must be guarded here too.
+        def deep_term(n: int) -> dict[str, Any]:
+            if n == 0:
+                return {"op": "field", "field": "amount"}
+            return {"op": "add", "left": deep_term(n - 1), "right": {"op": "literal", "arg": 0}}
+
+        family = copy.deepcopy(self.family_a)
+        family["member_constraints"].append({
+            "id": "c3-too-deep",
+            "block_code": "AMOUNT_NOT_POSITIVE",
+            "meaning": "amount must be positive",
+            "violated_when": {
+                "op": "compare", "comparison": "gt",
+                "left": deep_term(8), "right": {"op": "literal", "arg": 0},
+            },
+        })
+        self.family_a = family
+        source = SourceFact(
+            FAMILY_A_MEMBER_TYPE, json.dumps({"some_field": "x", "amount": 5}), "demo.f1",
+            fact_id="demo.f1|taxpayer=alice",
+        )
+        result = run(self._ctx(sources=[source]), self.schemas)  # must not raise
+        self._assert_single_constraint_evaluation_failure(result, "demo.f1|taxpayer=alice")
+
+    def test_json_null_field_blocks_not_raises(self) -> None:
+        self.family_a = self._family_with_crash_constraint()
+        source = SourceFact(
+            FAMILY_A_MEMBER_TYPE, json.dumps({"some_field": "x", "amount": None}), "demo.f1",
+            fact_id="demo.f1|taxpayer=alice",
+        )
+        result = run(self._ctx(sources=[source]), self.schemas)  # must not raise
+        self._assert_single_constraint_evaluation_failure(result, "demo.f1|taxpayer=alice")
+
     # -- cross-family identity exclusivity ------------------------------
 
     def test_cross_family_identities_unique_publishes_success(self) -> None:

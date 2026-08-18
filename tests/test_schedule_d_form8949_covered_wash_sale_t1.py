@@ -1,21 +1,62 @@
-"""Track 1 Covered Form 1099-B wash-sale (code W) through Form 8949 (ADR-0061/0062)."""
+"""Track 1 Covered Form 1099-B wash-sale (code W) through Form 8949 (ADR-0061/0062).
+
+Track 4 additions (live lifecycle, scheduler, explanation, and compatibility -
+`docs/prototypes/declarative-validation-substrate/charter-track-4-lifecycle-scheduler-explanation-compatibility.md`):
+presentation/explanation goldens beyond Track 3's own coverage
+(`PresentationGoldenT4`) and dependency-removal proof through the full
+checksum-verified `live_coordinate_run` production boundary, not only through
+`check_validation_graph` in isolation (`DependencyRemovalLiveBoundary`).
+
+Both-scheduler equivalence (the charter's Required end state 1) is now
+represented here (`BothSchedulerEquivalence`), through the same marshalled
+`RunContext` `live_coordinate_run` builds for this file's real covered-W
+content. It was previously blocked: `packages/derivation/reference_runner.py`'s
+backward demand-driven scheduler had no dispatch branch for `ATTACHMENT_SCHEMAS`
+(unlike `runner.py`'s `_execute`, which special-cases `attempt_attachment`) and
+raised `KeyError: 'when'` on any `RunContext` containing an attachment-rule
+citizen - which every fixture in this milestone's content necessarily does
+(Form 8949 and Schedule D attachments are both attachment-rule.v8 citizens in
+every adopted package this content resolves against). That was a pre-existing,
+general `reference_runner.py` defect, not something Track 3 introduced or
+something specific to covered-W content; it was also the same limitation
+Track 0's own adversarial closure had named ("scheduler evidence is correctly
+described as verdict-gated and attachment-free"). Track 4 Repair 1
+(`docs/prototypes/declarative-validation-substrate/charter-track-4-repair-1-reference-runner-attachment-dispatch.md`)
+fixed the dispatch defect in `reference_runner.py` itself (a two-site,
+minimal-diff scheduling fix - no change to `runner.py`, `attempt`,
+`attempt_attachment`, or any evaluation semantics) and closes this gap."""
 
 from __future__ import annotations
 
+import hashlib
 import json
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from collections.abc import Mapping
-from typing import Any, cast
+from typing import Any, Callable, cast
 
-from packages.derivation.live import live_coordinate_run
+from packages.derivation.live import _resolved_run_material, live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
-from packages.derivation.loader import DerivationSchemas
+from packages.derivation.loader import DerivationSchemas, load_canon
+from packages.derivation.marshal import marshal_live_run_context
 from packages.derivation.package_validation import (
+    citizen_checksum,
+    package_instance_checksum,
     validate_package,
 )
-from packages.derivation.production_resolver import PublicationSurface
+from packages.derivation.production_executor import execute_marshaled
+from packages.derivation.production_resolver import PublicationSurface, Refusal, resolve_production_package
+from packages.derivation.reference_runner import run_reference
+from packages.kernel.currency import compute_currency
+from packages.kernel.findings import project
+from packages.tax.loader import (
+    domain_companion_presence_pairs,
+    install_domain_companion_equalities,
+    install_domain_companion_presence,
+    install_domain_declaration_signal_contradictions,
+)
+from packages.tax.ssa_benefits import validate_projected_source_boundary
 
 REPO = Path(__file__).resolve().parent.parent
 CONTENT = REPO / "packages" / "content" / "tax" / "2025"
@@ -726,6 +767,55 @@ def _by_artifact(report: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {row["artifact_id"]: row for row in report["dispositions"]}
 
 
+def _findings_blob(result: Any) -> str:
+    findings = sorted((p.finding for p in result.publications), key=lambda f: f["symbol"])
+    return json.dumps(findings, sort_keys=True, separators=(",", ":"))
+
+
+def _blocked_blob(result: Any) -> str:
+    return json.dumps(sorted(result.blocked, key=lambda b: b["artifact_id"]),
+                      sort_keys=True, separators=(",", ":"))
+
+
+def _dual_run(acts: list[dict[str, object]], run_id: str) -> tuple[Any, Any]:
+    """Track 4 Repair 1: run the exact real, checksum-verified v27/v32 content
+    this file exercises through both schedulers, on the identical marshalled
+    `RunContext` `live_coordinate_run` builds - reproducing its resolve/
+    project/marshal steps up to (not including) the record-stream/output-file
+    side effects, which byte-identity comparison does not need.
+
+    Returns ``(primary_result, reference_result)``, both `RunResult`.
+    """
+    schemas = DerivationSchemas()
+    resolved = resolve_production_package(
+        acts, run_scope=SCOPE, scope_user=USER,
+        workspace_revision=len(acts), surface=_surface(), schemas=schemas,
+    )
+    assert not isinstance(resolved, Refusal), resolved
+    install_domain_companion_presence(schemas.registry)
+    install_domain_companion_equalities(schemas.registry)
+    install_domain_declaration_signal_contradictions(schemas.registry)
+    state = project(tuple(dict(act) for act in acts), schemas.registry)
+    validate_projected_source_boundary(state.findings.values(), state.withdrawn_fact_ids)
+    currency = compute_currency(state)
+    rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)
+    retired = state.fact_state.retired_fact_type_ids
+    if retired:
+        fact_types = [ft for ft in fact_types if ft.get("id") not in retired]
+    context = marshal_live_run_context(
+        run_id=run_id, state=state, currency=currency, rules=rules, parameters=parameters,
+        canon=load_canon(schemas),
+        adoption_pin={"role": "adoption", "id": resolved.package["id"], "version": resolved.package["version"]},
+        governance_pins=[],
+        family_declarations=families, closure_mappings=mappings, fact_types=fact_types,
+        input_bindings=bindings, collect_source_names=collect_names,
+        companion_presence_pairs=domain_companion_presence_pairs(),
+    )
+    primary = execute_marshaled(context, schemas)
+    reference = run_reference(context._context, schemas)
+    return primary, reference
+
+
 def _pub_value(report: dict[str, Any], rule_id: str) -> Any:
     rows = _by_artifact(report)
     row = rows[rule_id]
@@ -1376,6 +1466,399 @@ class PresentationGolden(unittest.TestCase):
         # cited transaction facts the row-explanation parts above publish.
         self.assertEqual(float(sections["line-1b-h"]["resolved"]["act"]["finding"]["value"]), 1000 - 4000 + 500)
         self.assertEqual(float(sections["line-8b-h"]["resolved"]["act"]["finding"]["value"]), 2000 - 7000 + 2000)
+
+
+class PresentationGoldenT4(unittest.TestCase):
+    """Track 4: canonical presentation-model goldens beyond Track 3's coverage
+    (closed-empty W family, unclosed W family, and the Schedule D attachment's
+    own accounts_for dependency on the W family - ADR-0066 Decision 5), each
+    through the real presentation projection consumer, producing a validated
+    `presentation-model.v1` instance."""
+
+    def _model(self, acts: list[dict[str, object]], run_id: str) -> dict[str, Any]:
+        with TemporaryDirectory() as tmp:
+            outcome = live_coordinate_run(
+                WorkspaceCapability(Path(tmp) / "L"),
+                repo_root=REPO,
+                authoritative_acts=acts,
+                workspace_revision=len(acts),
+                run_scope=SCOPE,
+                scope_user=USER,
+                request={"schema": "run-request.v1"},
+                run_id=run_id,
+                governance_pins=[],
+                surface=_surface(),
+                output_name="out.json",
+            )
+            assert outcome.refusal is None, outcome.refusal
+            assert outcome.presentation_path is not None
+            return cast(dict[str, Any], json.loads(outcome.presentation_path.read_text("utf-8")))
+
+    def test_closed_empty_w_family_presentation_golden(self) -> None:
+        # ADR-0061 Production condition 4 (Track 3's `PathBClosedEmpty`
+        # covers the arithmetic level) at the presentation-model level: both
+        # W families closed empty is a zero, not blocked, with an authority
+        # pin naming the exact closure findings - not a bare subtotal pin.
+        model = self._model(
+            _build_acts(w_st=[], w_lt=[], boundary=BOUNDARY_PATH_B),
+            "demo.sdw.t1.t4-pres-closed-empty",
+        )
+        sections = {s["id"]: s for s in model["sections"]}
+        for line_id, close_pin_prefix in (
+            ("line-1b-h", "demo.sdw.t1.close.tax-us-2025-f1099b-covered-w-st"),
+            ("line-8b-h", "demo.sdw.t1.close.tax-us-2025-f1099b-covered-w-lt"),
+        ):
+            resolved = sections[line_id]["resolved"]
+            self.assertEqual(resolved["disposition"], "closure_backed_zero", resolved)
+            self.assertEqual(resolved["value"], 0, resolved)
+            pin_ids = {p["id"] for p in resolved["act"]["finding"]["pins"]}
+            self.assertTrue(
+                any(pid.startswith(close_pin_prefix) for pid in pin_ids),
+                pin_ids,
+            )
+
+    def test_unclosed_w_family_presentation_golden(self) -> None:
+        # Track 3's `ValidationGuards.test_missing_w_family_authority_blocks`
+        # covers this at the report/disposition level; this asserts the
+        # presentation model itself carries the block (no numeric value, the
+        # correct disposition and code), across the field and both
+        # attachments together.
+        model = self._model(
+            _build_acts(w_st=[(1000, 4000, 500)], close_w_st=False),
+            "demo.sdw.t1.t4-pres-unclosed",
+        )
+        sections = {s["id"]: s for s in model["sections"]}
+        attachments = {a["id"]: a for a in model["attachments"]}
+        line1b = sections["line-1b-h"]["resolved"]
+        self.assertEqual(line1b["disposition"], "blocked", line1b)
+        self.assertIn("DEPENDENCY_ABSENT", line1b.get("activeCodes", []))
+        self.assertIsNone(line1b.get("act"))
+        self.assertEqual(attachments[F8949]["resolved"]["disposition"], "blocked")
+        self.assertEqual(attachments[SD_ATT]["resolved"]["disposition"], "blocked")
+
+    def test_schedule_d_attachment_accounts_for_w_family_presentation_golden(self) -> None:
+        # ADR-0066 Decision 5: "Schedule D attachment inherits W validation
+        # when it reaches W proceeds." `attachment.schedule-d.v5`'s own
+        # itemizations only walk lines 1a/8a/13 (verified by inspection - it
+        # never itemizes 1b/8b rows), so its dependency on the W family is a
+        # pure accounts_for/reachability edge, not a row-level citation walk.
+        # Prove the attachment's own disposition tracks the ST family's
+        # closure state directly (not merely because Form 8949's attachment
+        # happens to block in tandem), while its own citation-walk parts
+        # (lines 1a/8a/13) keep resolving correctly alongside.
+        closed_acts = _build_acts(w_st=[(1000, 4000, 500)])
+        closed_model = self._model(closed_acts, "demo.sdw.t1.t4-sdatt-closed")
+        closed_atts = {a["id"]: a for a in closed_model["attachments"]}
+        self.assertEqual(closed_atts[SD_ATT]["resolved"]["disposition"], "published")
+        closed_groups = {g["id"]: g for g in closed_model["citationGroups"]}
+        sd_parts = {p["heading"]: p for p in closed_groups[SD_ATT]["parts"]}
+        self.assertEqual(
+            sd_parts["Line 1a column (d): short-term proceeds"]["tieOutText"],
+            "Reported subtotal: 0",
+        )
+
+        unclosed_acts = _build_acts(w_st=[(1000, 4000, 500)], close_w_st=False)
+        unclosed_model = self._model(unclosed_acts, "demo.sdw.t1.t4-sdatt-unclosed")
+        unclosed_atts = {a["id"]: a for a in unclosed_model["attachments"]}
+        unclosed_sd = unclosed_atts[SD_ATT]["resolved"]
+        self.assertEqual(unclosed_sd["disposition"], "blocked", unclosed_sd)
+        self.assertIn("DEPENDENCY_ABSENT", unclosed_sd.get("activeCodes", []))
+
+
+def _dependency_removal_surface(
+    tmp_root: Path,
+    mutate: tuple[tuple[str, str], Callable[[dict[str, Any]], dict[str, Any]]] | None,
+) -> tuple[PublicationSurface, dict[str, str], dict[str, str]]:
+    """Build a self-consistent, checksum-verified publication surface from the
+    real committed v32 package/citizen corpus (read, never edited), copied
+    into a private `TemporaryDirectory` (never committed) with exactly one
+    citizen body optionally mutated. This drives the real `resolve_production_
+    package` checksum-verified boundary `live_coordinate_run` uses in
+    production - not a bare `validate_package`/`check_validation_graph` call
+    in isolation."""
+    pkg = json.loads((CONTENT / "package.core-calculations.v32.json").read_text("utf-8"))
+    pin_keys = {(m["id"], m["version"]) for m in pkg["members"]}
+    member_dir = tmp_root / "members"
+    member_dir.mkdir()
+    citizen_entries: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for path in sorted(CONTENT.glob("*.json")):
+        try:
+            body = json.loads(path.read_text("utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            continue
+        if not isinstance(body, dict):
+            continue
+        key = (body.get("id"), str(body.get("version", "v1")))
+        if key not in pin_keys or key in seen:
+            continue
+        if mutate is not None and key == mutate[0]:
+            body = mutate[1](dict(body))
+        (member_dir / path.name).write_text(json.dumps(body), encoding="utf-8")
+        citizen_entries.append({"id": key[0], "version": key[1], "checksum": citizen_checksum(body)})
+        seen.add(key)
+    assert seen == pin_keys, ("member corpus incomplete", pin_keys - seen)
+    pkg_checksum = package_instance_checksum(pkg)
+    assert pkg_checksum == pkg["package_checksum"]
+    (member_dir / "package.core-calculations.v32.json").write_text(json.dumps(pkg), encoding="utf-8")
+
+    registry = {
+        "packages": [{"id": pkg["id"], "version": pkg["version"], "checksum": pkg_checksum}],
+        "citizens": citizen_entries,
+    }
+    registry_path = tmp_root / "registry.json"
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+    registry_sha = hashlib.sha256(registry_path.read_bytes()).hexdigest()
+
+    release_dir = tmp_root / "releases"
+    release_dir.mkdir()
+    release = {
+        "id": "demo.release.2025.t4-dependency-removal",
+        "version": "v1",
+        "schema": "release-registry.v1",
+        "package_registry_sha256": registry_sha,
+    }
+    release_path = release_dir / "release.json"
+    release_path.write_text(json.dumps(release), encoding="utf-8")
+    release_sha = hashlib.sha256(release_path.read_bytes()).hexdigest()
+
+    surface = PublicationSurface(release_dir, registry_path, member_dir)
+    adoption_package = {"id": pkg["id"], "version": pkg["version"], "checksum": pkg_checksum}
+    adoption_release = {"id": release["id"], "version": release["version"], "checksum": release_sha}
+    return surface, adoption_package, adoption_release
+
+
+def _strip_accounts_for(body: dict[str, Any]) -> dict[str, Any]:
+    body["accounts_for"] = []
+    return body
+
+
+def _adoption_act(
+    index: int, package: dict[str, str], release: dict[str, str]
+) -> dict[str, object]:
+    """A `package-adoption` act with a fixed, always-valid timestamp - unlike
+    `_live_act`, whose `{index:02d}` seconds field overflows past index 59
+    (`_build_acts`'s act log already exceeds 100 acts before any adoption)."""
+    return {
+        "schema": "act.v1",
+        "act_id": f"demo.sdw.t1.act.adopt.{index:03d}",
+        "kind": "package-adoption",
+        "actor": USER,
+        "at": "2026-08-17T12:00:00Z",
+        "committed_against": index,
+        "payload": {"package": package, "release": release, "revision": 1, "scope": SCOPE},
+    }
+
+
+def _run_with_dependency_removed(
+    mutate_key: tuple[str, str], run_id: str
+) -> Any:
+    """Assert one member (`mutate_key`) with its `accounts_for` declaration
+    emptied, run through the real checksum-verified `live_coordinate_run`
+    boundary, and return the outcome."""
+    with TemporaryDirectory() as tmp_surface, TemporaryDirectory() as tmp_ws:
+        surface, adoption_package, adoption_release = _dependency_removal_surface(
+            Path(tmp_surface), (mutate_key, _strip_accounts_for)
+        )
+        acts = _build_acts(w_st=[(1000, 4000, 500)])[:-1]  # drop the real T3 adoption act
+        acts.append(_adoption_act(len(acts), adoption_package, adoption_release))
+        return live_coordinate_run(
+            WorkspaceCapability(Path(tmp_ws) / "L"),
+            repo_root=REPO,
+            authoritative_acts=acts,
+            workspace_revision=len(acts),
+            run_scope=SCOPE,
+            scope_user=USER,
+            request={"schema": "run-request.v1"},
+            run_id=run_id,
+            governance_pins=[],
+            surface=surface,
+            output_name="out.json",
+        )
+
+
+class DependencyRemovalLiveBoundary(unittest.TestCase):
+    """Track 4 required end state 4 / exit criterion 5: for each affected
+    consumer class, removing its compiled validation dependency (here: its
+    `accounts_for` declaration) fails with the exact generic issue through the
+    real, checksum-verified `live_coordinate_run` production boundary - not
+    only through `check_validation_graph` in isolation (Track 3's review
+    already proved the latter, reconstructing five analogous mutations
+    directly against the compiled graph in
+    `docs/prototypes/declarative-validation-substrate/reviews/track-3-2025-migration-and-deletion.md`
+    Section 3). A positive control (no mutation) proves the harness itself is
+    faithful - the real v32 package/corpus, re-verified from scratch through
+    this test's own private surface, resolves and runs cleanly."""
+
+    def test_positive_control_unmutated_surface_resolves(self) -> None:
+        with TemporaryDirectory() as tmp_surface, TemporaryDirectory() as tmp_ws:
+            surface, adoption_package, adoption_release = _dependency_removal_surface(
+                Path(tmp_surface), None
+            )
+            acts = _build_acts(w_st=[(1000, 4000, 500)])[:-1]
+            acts.append(_adoption_act(len(acts), adoption_package, adoption_release))
+            result = live_coordinate_run(
+                WorkspaceCapability(Path(tmp_ws) / "L"),
+                repo_root=REPO,
+                authoritative_acts=acts,
+                workspace_revision=len(acts),
+                run_scope=SCOPE,
+                scope_user=USER,
+                request={"schema": "run-request.v1"},
+                run_id="demo.sdw.t1.t4-dep-positive-control",
+                governance_pins=[],
+                surface=surface,
+                output_name="out.json",
+            )
+        self.assertIsNone(result.refusal, result.refusal)
+
+    def test_subtotal_rule_dependency_removal_blocks_live_run(self) -> None:
+        outcome = _run_with_dependency_removed(
+            ("tax.us.2025.rule.f1099b-covered-w-st-proceeds-subtotal", "v2"),
+            "demo.sdw.t1.t4-dep-subtotal",
+        )
+        self.assertIsNotNone(outcome.refusal)
+        self.assertEqual(outcome.refusal.reason, "HARD_GATE_REFUSED")
+        codes = {issue["code"] for issue in outcome.refusal.issues}
+        self.assertEqual(codes, {"FAMILY_ACCOUNTING_NOT_DECLARED"})
+
+    def test_schedule_d_line_rule_dependency_removal_blocks_live_run(self) -> None:
+        outcome = _run_with_dependency_removed(
+            ("tax.us.2025.rule.schedule-d-line1b", "v2"),
+            "demo.sdw.t1.t4-dep-line1b",
+        )
+        self.assertIsNotNone(outcome.refusal)
+        self.assertEqual(outcome.refusal.reason, "HARD_GATE_REFUSED")
+        codes = {issue["code"] for issue in outcome.refusal.issues}
+        self.assertEqual(codes, {"FAMILY_ACCOUNTING_NOT_DECLARED"})
+
+    def test_form8949_attachment_dependency_removal_blocks_live_run(self) -> None:
+        outcome = _run_with_dependency_removed(
+            ("tax.us.2025.rule.attachment.f8949", "v2"),
+            "demo.sdw.t1.t4-dep-f8949",
+        )
+        self.assertIsNotNone(outcome.refusal)
+        self.assertEqual(outcome.refusal.reason, "HARD_GATE_REFUSED")
+        codes = {issue["code"] for issue in outcome.refusal.issues}
+        self.assertEqual(codes, {"FAMILY_ACCOUNTING_NOT_DECLARED"})
+
+    def test_schedule_d_attachment_dependency_removal_blocks_live_run(self) -> None:
+        outcome = _run_with_dependency_removed(
+            ("tax.us.2025.rule.attachment.schedule-d", "v6"),
+            "demo.sdw.t1.t4-dep-sdatt",
+        )
+        self.assertIsNotNone(outcome.refusal)
+        self.assertEqual(outcome.refusal.reason, "HARD_GATE_REFUSED")
+        codes = {issue["code"] for issue in outcome.refusal.issues}
+        self.assertEqual(codes, {"FAMILY_ACCOUNTING_NOT_DECLARED"})
+
+
+class BothSchedulerEquivalence(unittest.TestCase):
+    """Track 4 Repair 1: the reference runner's attachment dispatch fix
+    proved against this file's own real covered-W content (not only the
+    synthetic fixture in `tests/derivation/test_portability.py`), through
+    the same marshalled `RunContext` `live_coordinate_run` builds - the
+    Track 4 charter's Required end state 1, previously blocked and
+    documented as NOT represented here (see this module's docstring, now
+    updated)."""
+
+    def _assert_portable(self, acts: list[dict[str, object]], run_id: str) -> tuple[Any, Any]:
+        primary, reference = _dual_run(acts, run_id)
+        self.assertEqual(_findings_blob(primary), _findings_blob(reference))
+        self.assertEqual(_blocked_blob(primary), _blocked_blob(reference))
+        return primary, reference
+
+    def test_valid_st_and_lt_member_is_byte_identical(self) -> None:
+        primary, _reference = self._assert_portable(
+            _build_acts(w_st=[(1000, 4000, 500)], w_lt=[(2000, 7000, 2000)]),
+            "demo.sdw.t1.t4r1-valid-st-lt",
+        )
+        rows = _by_artifact({"dispositions": primary.dispositions})
+        self.assertEqual(rows[LINE1B]["disposition"], "published")
+        self.assertEqual(rows[LINE8B]["disposition"], "published")
+        self.assertEqual(rows[F8949]["disposition"], "published")
+        self.assertEqual(rows[SD_ATT]["disposition"], "published")
+
+    def test_c1_code_w_on_gain_violation_is_byte_identical(self) -> None:
+        primary, _reference = self._assert_portable(
+            _build_acts(w_st=[(5000, 1000, 100)]), "demo.sdw.t1.t4r1-c1-code-w-on-gain",
+        )
+        rows = _by_artifact({"dispositions": primary.dispositions})
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked")
+        self.assertIn("CODE_W_ON_GAIN", rows[ST_VALIDATION]["missing"])
+
+    def test_c2_adjustment_exceeds_loss_violation_is_byte_identical(self) -> None:
+        primary, _reference = self._assert_portable(
+            _build_acts(w_st=[(1000, 2000, 2000)]), "demo.sdw.t1.t4r1-c2-adjustment-exceeds-loss",
+        )
+        rows = _by_artifact({"dispositions": primary.dispositions})
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked")
+        self.assertIn("ADJUSTMENT_EXCEEDS_LOSS", rows[ST_VALIDATION]["missing"])
+
+    def test_c3_box_1g_flag_without_amount_violation_is_byte_identical(self) -> None:
+        primary, _reference = self._assert_portable(
+            _build_acts(w_st=[(1000, 4000, 500)], w_st_omit_amount_scalar=True),
+            "demo.sdw.t1.t4r1-c3-flag-without-amount",
+        )
+        rows = _by_artifact({"dispositions": primary.dispositions})
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked")
+        self.assertIn("BOX_1G_FLAG_WITHOUT_AMOUNT", rows[ST_VALIDATION]["missing"])
+
+    def test_c4_box_1g_amount_without_flag_violation_is_byte_identical(self) -> None:
+        primary, _reference = self._assert_portable(
+            _build_acts(w_st=[(1000, 4000, 500)], w_st_flag="no"),
+            "demo.sdw.t1.t4r1-c4-amount-without-flag",
+        )
+        rows = _by_artifact({"dispositions": primary.dispositions})
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked")
+        self.assertIn("BOX_1G_AMOUNT_WITHOUT_FLAG", rows[ST_VALIDATION]["missing"])
+
+    def test_two_member_masking_case_is_byte_identical(self) -> None:
+        primary, _reference = self._assert_portable(
+            _build_acts(w_st=[(5000, 1000, 100), (100, 10000, 50)]),
+            "demo.sdw.t1.t4r1-masking",
+        )
+        rows = _by_artifact({"dispositions": primary.dispositions})
+        self.assertEqual(rows[LINE1B]["disposition"], "blocked")
+        self.assertEqual(rows[F8949]["disposition"], "blocked")
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked")
+        self.assertIn("CODE_W_ON_GAIN", rows[ST_VALIDATION]["missing"])
+
+    def test_identity_collision_then_its_removal_is_byte_identical(self) -> None:
+        collision_primary, _collision_reference = self._assert_portable(
+            _build_acts(
+                direct_st=[(3000, 4000)],
+                w_st=[(1000, 4000, 500)],
+                w_st_collides_with_direct_st=True,
+            ),
+            "demo.sdw.t1.t4r1-identity-collision",
+        )
+        collision_rows = _by_artifact({"dispositions": collision_primary.dispositions})
+        for rule_id in (LINE1B, F8949):
+            self.assertEqual(collision_rows[rule_id]["disposition"], "blocked")
+        self.assertEqual(collision_rows[ST_VALIDATION]["disposition"], "blocked")
+        self.assertTrue(
+            any(
+                "IDENTITY_EXCLUSIVITY_COLLISION" in str(m)
+                or "identity-key-collision" in str(m)
+                for m in collision_rows[ST_VALIDATION]["missing"]
+            ),
+            collision_rows[ST_VALIDATION],
+        )
+
+        # The same identities, no collision (distinct transactions): the
+        # collision clears and both schedulers still agree, byte-for-byte.
+        cleared_primary, _cleared_reference = self._assert_portable(
+            _build_acts(
+                direct_st=[(3000, 4000)],
+                w_st=[(1000, 4000, 500)],
+                w_st_collides_with_direct_st=False,
+            ),
+            "demo.sdw.t1.t4r1-identity-collision-cleared",
+        )
+        cleared_rows = _by_artifact({"dispositions": cleared_primary.dispositions})
+        for rule_id in (LINE1B, F8949):
+            self.assertEqual(cleared_rows[rule_id]["disposition"], "published")
 
 
 if __name__ == "__main__":

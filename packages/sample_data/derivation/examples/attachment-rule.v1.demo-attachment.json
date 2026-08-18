@@ -1,0 +1,33 @@
+{
+  "schema": "attachment-rule.v1",
+  "id": "demo.rule.attachment.schedule-x",
+  "version": "v1",
+  "title": "Demo minimal attachment: single subtotal threshold, one itemized part, one presence answer",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "demo" },
+  "attachment": { "authority": "DEMO", "form_id": "SCHX", "tax_year": 2025, "jurisdiction": "US-federal" },
+  "publishes": "demo.attachment.schedule-x.disposition",
+  "requirement": {
+    "subtotals": ["demo.attach.alpha.subtotal"],
+    "threshold_parameter": { "id": "demo.parameter.attach-threshold", "version": "v1" },
+    "comparison": "strictly_greater_than",
+    "citation": { "id": "demo.citation.schedule-x", "version": "v1" }
+  },
+  "itemizations": [
+    {
+      "part_id": "part-1",
+      "label": "Demo part 1 itemization",
+      "rows": {
+        "op": "collect_members",
+        "member_fact_type": { "id": "demo.fact.attach-item", "version": "v1" },
+        "source_family": { "id": "demo.family.attach-alpha", "version": "v1" }
+      },
+      "tie_out": { "line_symbol": "demo.attach.alpha.subtotal" }
+    }
+  ],
+  "completeness": {
+    "required_answers": [
+      { "symbol": "demo.answer.attach-first", "fact_type": { "id": "demo.fact.attach-answer-first", "version": "v1" }, "check": "presence" }
+    ],
+    "branch_requirements": []
+  }
+}
