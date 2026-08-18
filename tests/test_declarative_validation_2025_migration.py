@@ -68,7 +68,8 @@ V26_REGISTRY_SHA = "0fd7433e0b8e31d9ea6b3f1ca2f121a173e7a216e1dbd9f9a6013daace56
 
 
 def _load(name: str) -> dict[str, Any]:
-    return json.loads((CONTENT / name).read_text())
+    loaded: dict[str, Any] = json.loads((CONTENT / name).read_text())
+    return loaded
 
 
 def _family_docs() -> dict[str, dict[str, Any]]:

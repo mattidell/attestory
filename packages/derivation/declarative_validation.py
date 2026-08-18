@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from decimal import Decimal
-from typing import Any, Mapping, NamedTuple
+from typing import Any, Mapping, NamedTuple, Sequence
 
 TERM_OPS = frozenset({"field", "literal", "add", "subtract", "floor_zero"})
 PREDICATE_OPS = frozenset({
@@ -112,7 +112,7 @@ class Evaluator:
             return any(self.evaluate_predicate(arg, member, depth + 1) for arg in pred["args"])
         raise GrammarError(f"unhandled predicate op {op!r}")
 
-    def evaluate_member(self, constraints: list[Mapping[str, Any]], member: Mapping[str, Any]) -> list[Violation]:
+    def evaluate_member(self, constraints: Sequence[Mapping[str, Any]], member: Mapping[str, Any]) -> list[Violation]:
         violations: list[Violation] = []
         for constraint in constraints:
             if self.evaluate_predicate(constraint["violated_when"], member):
@@ -165,7 +165,7 @@ def identity_tuple(
     *,
     fact_id: str,
     member_value: Mapping[str, Any] | None,
-    components: list[Mapping[str, Any]],
+    components: Sequence[Mapping[str, Any]],
 ) -> tuple[str, ...]:
     return tuple(
         extract_component(fact_id=fact_id, member_value=member_value, component=component)

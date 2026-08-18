@@ -160,7 +160,7 @@ class AttachmentSchedulingPortability(unittest.TestCase):
             governance_pins=GOV_PINS,
         )
 
-    def _assert_portable(self, ctx: RunContext) -> None:
+    def _assert_portable(self, ctx: RunContext) -> tuple[RunResult, RunResult]:
         primary = run(ctx, self.schemas)
         reference = run_reference(ctx, self.schemas)
         self.assertEqual(_findings_blob(primary), _findings_blob(reference))

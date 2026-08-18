@@ -11,7 +11,7 @@ import copy
 import json
 import unittest
 from pathlib import Path
-from typing import Any, cast
+from typing import Any, ClassVar, cast
 
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.package_validation import compile_validation_graph
@@ -45,6 +45,8 @@ def _mapping(family: dict[str, Any], horizon_key: str) -> dict[str, Any]:
 
 
 class DeclarativeValidationRuntimeTest(unittest.TestCase):
+    schemas: ClassVar[DerivationSchemas]
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.schemas = DerivationSchemas()
@@ -101,7 +103,7 @@ class DeclarativeValidationRuntimeTest(unittest.TestCase):
     def _member_finding(self, result: Any, fact_id: str) -> dict[str, Any]:
         matches = [p.finding for p in result.publications if p.finding["symbol"].endswith(f".{fact_id}")]
         self.assertEqual(len(matches), 1, matches)
-        return matches[0]
+        return cast(dict[str, Any], matches[0])
 
     # -- member constraints: valid / invalid / masking -----------------
 
@@ -374,6 +376,8 @@ class AttachmentVersionDispatchTest(unittest.TestCase):
     """v8 must render the same inherited model as v6; v7/v99 stay unknown
     and fail loud rather than silently mis-dispatching through the generic
     rule path."""
+
+    schemas: ClassVar[DerivationSchemas]
 
     @classmethod
     def setUpClass(cls) -> None:

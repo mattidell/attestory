@@ -783,26 +783,36 @@ class LiveEvidenceCases(unittest.TestCase):
         _, over = _run(_b7_acts(box7_values=[301], filing_status="single"), "demo.b7.p7-over")
         self.assertIn(_disp(over, "line-Sch3-1"), {"blocked", "guard_inapplicable"})
 
-    def test_n_mfs_live_run_currently_raises(self) -> None:
+    def test_n_mfs_live_run_blocks_on_the_missing_bracket_table(self) -> None:
         # Repair Finding 2: MFS is in the contract's threshold expression
         # (B7-C7) but this milestone does not certify a live MFS run — the
         # engine has no MFS tax-bracket table (only single/MFJ are
         # published), so Form 1040 line 16 regular tax cannot resolve for
-        # MFS and the run fails closed with SchemaValidationError before the
-        # box-7 threshold rule is ever reached. This makes the gap visible in
-        # the suite rather than hiding it behind a silent single-filer
-        # substitution. Deferred to the milestone that adds MFS tax-bracket
-        # parameters (see docs/phases/engine-breadth/milestones/
+        # MFS. This makes the gap visible in the suite rather than hiding it
+        # behind a silent single-filer substitution. Deferred to the
+        # milestone that adds MFS tax-bracket parameters (see
+        # docs/phases/engine-breadth/milestones/
         # form1099div-box7-direct-ftc.md, "Supported class").
-        from packages.kernel.schema_registry import SchemaValidationError
-
-        with self.assertRaises(SchemaValidationError) as ctx:
-            _run(
-                _b7_acts(box7_values=[300], filing_status="married_filing_separately"),
-                "demo.b7.p7-mfs-live-gap",
-            )
-        message = str(ctx.exception)
-        self.assertIn("LOOKUP_MISS", message)
+        #
+        # ADR-0066 Track 3 changed *how* this gap surfaces: the lookup miss
+        # was an uncaught SchemaValidationError that aborted the whole run,
+        # and is now a citable blocked disposition on line-16 naming the
+        # missing key. The gap is still fail-closed — nothing downstream
+        # publishes — so this test asserts the block, not the crash.
+        record, model = _run(
+            _b7_acts(box7_values=[300], filing_status="married_filing_separately"),
+            "demo.b7.p7-mfs-live-gap",
+        )
+        line16 = next(
+            d for d in record["dispositions"]
+            if d["artifact_id"] == "tax.us.2025.rule.form1040-line16"
+        )
+        self.assertEqual(line16["disposition"], "blocked")
+        self.assertIn("married_filing_separately", json.dumps(line16["missing"]))
+        # Nothing downstream substitutes a single-filer answer.
+        self.assertEqual(_disp(model, "line-16"), "blocked")
+        self.assertEqual(_disp(model, "line-Sch3-1"), "blocked")
+        self.assertIsNone(_val(model, "line-22"))
 
     def test_n1_missing_election_blocks(self) -> None:
         # N1.

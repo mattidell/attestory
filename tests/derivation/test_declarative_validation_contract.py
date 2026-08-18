@@ -6,7 +6,7 @@ v2/v5/v8/v24 schema/example contract.
 import json
 import unittest
 from pathlib import Path
-from typing import Any, cast
+from typing import Any, ClassVar, cast
 
 from packages.derivation.declarative_validation import (
     Evaluator,
@@ -204,6 +204,8 @@ class IdentityBindingTest(unittest.TestCase):
 class RegisteredSchemaContractTest(unittest.TestCase):
     """Every handwritten v2/v5/v8/v24 synthetic example must validate through
     the real published registry (not a hand-rolled JSON Schema check)."""
+
+    schemas: ClassVar[DerivationSchemas]
 
     @classmethod
     def setUpClass(cls) -> None:
