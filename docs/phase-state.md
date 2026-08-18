@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
   "active_plan": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md",
-  "milestone_state": "track-2",
-  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 2 REPAIR 7 CHARTERED.** Repair 6 closes single-entry self and mutual projection cycles, but independent review found multi-entry convergence on one cycle remains hash-seed-dependent and can silently drop one required origin. Repair 7 is confined to deterministic complete multi-entry cycle closure.",
-  "current_role": "Track 2 Deterministic Multi-Entry Cycle Closure Repair Builder 7",
-  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-2-repair-7.md"
+  "milestone_state": "track-3",
+  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 3 CHARTERED.** Track 2 is accepted after Repair 7 review returned zero findings across multi-origin, staggered-depth, multi-node-cycle, relationship, and noncycle probes under eight hash seeds. Track 3 migrates the bounded 2025 covered-W subsystem onto the accepted declarations and deletes only the superseded domain mechanisms.",
+  "current_role": "Track 3 Bounded 2025 Migration and Domain-Code Deletion Builder",
+  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-3-2025-migration-and-deletion.md"
 }
 -->
 # Phase State
@@ -42,9 +42,9 @@ production implementation. **Neither prerequisite adds a new tax route.**
 
 * **Active milestone:** Declarative Structured Validation and Consumer
   Dependency Substrate; Candidate B P1-P3 is owner-ratified and distilled in
-  accepted ADR-0066. Track 1 is accepted. Track 2 repair 7 is chartered after
-  Repair 6 review found hash-seed-dependent multi-entry convergence on a
-  shared projection cycle; every single-entry and noncycle case passed.
+  accepted ADR-0066. Tracks 1 and 2 are accepted. Track 3 is chartered to
+  migrate the bounded 2025 covered-W subsystem and delete the superseded
+  Form-8949/1099-B domain branches.
 * **Current product behavior:** registry-valid but unsupported semantic package
   members and unknown presentation-bound successors fail loudly. The generic
   declarative-validation substrate is implemented on the milestone branch but
@@ -59,8 +59,8 @@ production implementation. **Neither prerequisite adds a new tax route.**
   proposed decisions are not authority and no implementation is chartered.
 * **Prior milestone:** Fact-type succession with neutral Schedule 1 vocabulary
   — closed 2026-08-14 (PR #177); ADR-0063 and package **v31** shipped.
-* **Next:** launch the Track 2 Repair Builder 7 from
-  `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-7.md`.
+* **Next:** launch the Track 3 Builder from
+  `docs/prototypes/declarative-validation-substrate/charter-track-3-2025-migration-and-deletion.md`.
   Numerical iteration caps are suspended by live owner direction; evidence
   and safety boundaries remain.
 

@@ -203,23 +203,6 @@ _LINE_1A_8A_NON_CONFUSION_IDS = frozenset({
     "tax.us.2025.rule.schedule-d-line8a-gain",
 })
 
-# ADR-0061 Decision 2 amended 2026-08-05 (Track 1 continuation repair):
-# because `covered-w-st-txn`/`covered-w-lt-txn` are wholly separate fact
-# types from `covered-st-txn`/`covered-lt-txn` (Decision 1), rather than a
-# version successor of the same id, package-exclusivity between the direct-
-# reporting families and their wash-sale counterparts is not structurally
-# guaranteed by family topology alone. This pairing names the exact fact
-# types a real transaction could otherwise be double-adopted into.
-_COVERED_W_IDENTITY_COLLISION_PAIRS: tuple[tuple[str, str], ...] = (
-    ("tax.us.2025.f1099b.covered-st-txn", "tax.us.2025.f1099b.covered-w-st-txn"),
-    ("tax.us.2025.f1099b.covered-lt-txn", "tax.us.2025.f1099b.covered-w-lt-txn"),
-)
-# The identity-key names ADR-0061 Decision 2 amended names explicitly:
-# broker, statement, transaction, and tax-year - the same four keys both
-# fact-type pairs declare identically (ADR-0011: identity rides in the fact
-# id's bound key=value suffix, never in the id prefix).
-_COVERED_W_IDENTITY_KEY_NAMES = frozenset({"broker", "statement", "transaction", "tax-year"})
-
 # attachment-rule.v6 keeps the class authority in the source-family pin.  The
 # terminal family token is the bounded class marker shared by the synthetic
 # gate and the later class-specific families; it is not inferred from labels.
@@ -584,55 +567,6 @@ def _is_yes_no_domain(value_schema: dict[str, Any]) -> bool:
     return isinstance(domain, list) and set(domain) == {"yes", "no"} and len(domain) == 2
 
 
-def _identity_key_fields(fact_id: str) -> tuple[tuple[str, str], ...]:
-    """The (broker, statement, transaction, tax-year) identity of one fact id.
-
-    Deliberately excludes the fact-type prefix: the real-world transaction a
-    fact id names is the same regardless of which fact type asserts it -
-    exactly the collision ADR-0061 Decision 2's amended kill-test must catch.
-    Any other bound key on the fact id (irrelevant to this identity) is
-    ignored rather than tripping a false collision.
-    """
-    _, _, bound = fact_id.partition("|")
-    keys: dict[str, str] = {}
-    for pair in bound.split(","):
-        name, _, value = pair.partition("=")
-        if name in _COVERED_W_IDENTITY_KEY_NAMES:
-            keys[name] = value
-    return tuple(sorted(keys.items()))
-
-
-def find_covered_w_identity_key_collisions(
-    asserted_fact_ids: Mapping[str, Iterable[str]],
-) -> tuple[MemberIssue, ...]:
-    """ADR-0061 Decision 2 amended kill-test: no real transaction may be
-    adopted into both a direct-reporting family (`covered-st`/`covered-lt`)
-    and its wash-sale counterpart (`covered-w-st`/`covered-w-lt`) at once.
-
-    ``asserted_fact_ids`` maps a fact-type id to the raw fact ids currently
-    asserted under it (the identity-bearing rendering ADR-0011 already
-    defines: ``type|broker=...,statement=...,transaction=...,tax-year=...``).
-    Returns one ``COVERED_W_IDENTITY_KEY_COLLISION`` issue per colliding
-    identity, checked directly against contributed identity - never inferred
-    from version supersession, per the amendment's own framing.
-    """
-    issues: list[MemberIssue] = []
-    for direct_type, w_type in _COVERED_W_IDENTITY_COLLISION_PAIRS:
-        direct_identities: dict[tuple[tuple[str, str], ...], str] = {}
-        for fid in asserted_fact_ids.get(direct_type, ()):
-            direct_identities[_identity_key_fields(fid)] = fid
-        for fid in asserted_fact_ids.get(w_type, ()):
-            identity = _identity_key_fields(fid)
-            direct_fid = direct_identities.get(identity)
-            if direct_fid is not None:
-                issues.append(MemberIssue(
-                    fid, "", "COVERED_W_IDENTITY_KEY_COLLISION",
-                    f"identity {dict(identity)} asserted into both {direct_type!r} "
-                    f"(fact id {direct_fid!r}) and {w_type!r} (fact id {fid!r})",
-                ))
-    return tuple(issues)
-
-
 def compile_validation_graph(
     resolved_members: list[dict[str, Any]],
     families_by_id: dict[str, dict[str, Any]],
@@ -791,7 +725,6 @@ def validate_package(
     corpus: dict[tuple[str, str], dict[str, Any]],
     schemas: DerivationSchemas,
     published_citizen_checksums: Mapping[tuple[str, str], str] | None = None,
-    asserted_fact_ids: Mapping[str, Iterable[str]] | None = None,
 ) -> PackageValidation:
     """Validate a package against a corpus of (id, version) -> citizen.
 
@@ -799,14 +732,7 @@ def validate_package(
     validation continues, so the caller can record every problem at once and
     let unaffected members proceed.
 
-    ``asserted_fact_ids`` is optional and orthogonal to the rest of this
-    static, content-only validation: when a caller supplies the raw fact ids
-    currently asserted under the ADR-0061 covered-w and direct-reporting
-    transaction fact types (e.g. from a run's marshalled sources or a
-    fixture's act log), this also runs the Decision 2 amended identity-key
-    collision kill-test (``find_covered_w_identity_key_collisions``). Every
-    existing caller that omits it keeps the prior, purely-static behavior.
-    """
+"""
     package_id = str(package.get("id", "<unidentified>"))
 
     try:
@@ -2081,14 +2007,7 @@ def validate_package(
                                       f"symbol {symbol!r} published by {sorted(owners)}"))
         output_owners[symbol] = owners[0]
 
-    # 12. Covered-W identity-key collision guard (ADR-0061 Decision 2
-    # amended). Static content alone cannot prove this - it depends on which
-    # real fact ids are actually asserted - so this only runs when a caller
-    # supplies that data; every existing caller is unaffected.
-    if asserted_fact_ids is not None:
-        issues.extend(find_covered_w_identity_key_collisions(asserted_fact_ids))
-
-    # 13. Declarative Constraints (ADR-0066)
+    # 12. Declarative Constraints (ADR-0066)
     families_by_id: dict[str, dict[str, Any]] = {}
     families_by_subtotal: dict[str, str] = {}
     for _pin, citizen in resolved:
@@ -2099,15 +2018,23 @@ def validate_package(
     MAX_PREDICATE_DEPTH = 6
     for family_id, family in sorted(families_by_id.items()):
         constraints = family.get("member_constraints")
+        constraint_items: list[Any]
         if isinstance(constraints, dict):
-            for constraint in constraints["constraints"]:
-                depth = _predicate_depth(constraint["violated_when"])
-                if depth > MAX_PREDICATE_DEPTH:
-                    issues.append(MemberIssue(
-                        family_id, family.get("version", ""), "MEMBER_CONSTRAINT_TOO_DEEP",
-                        f"constraint {constraint['id']!r} nests {depth} levels, over the "
-                        f"declared bound of {MAX_PREDICATE_DEPTH}",
-                    ))
+            constraint_items = list(constraints.get("constraints") or [])
+        elif isinstance(constraints, list):
+            constraint_items = constraints
+        else:
+            constraint_items = []
+        for constraint in constraint_items:
+            if not isinstance(constraint, dict):
+                continue
+            depth = _predicate_depth(constraint.get("violated_when"))
+            if depth > MAX_PREDICATE_DEPTH:
+                issues.append(MemberIssue(
+                    family_id, family.get("version", ""), "MEMBER_CONSTRAINT_TOO_DEEP",
+                    f"constraint {constraint.get('id')!r} nests {depth} levels, over the "
+                    f"declared bound of {MAX_PREDICATE_DEPTH}",
+                ))
         for rule in family.get("identity_exclusivity", []) or []:
             counterpart = rule["incompatible_family"]["id"]
             if counterpart not in families_by_id:

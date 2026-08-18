@@ -262,9 +262,9 @@ def marshal_run_context(
                 raw_value = finding["value"]
                 # An object-valued member (e.g. a whole-transaction fact
                 # type) is rendered as JSON, not Python repr, so runner-side
-                # per-member reads (e.g. the Form 8949 row guards, Finding 1
-                # repair) can parse it back losslessly; a scalar keeps its
-                # existing decimal string rendering untouched.
+                # per-member reads can parse the object back losslessly; a
+                # scalar keeps its existing decimal string rendering
+                # untouched.
                 value = json.dumps(raw_value, sort_keys=True) if isinstance(raw_value, dict) else str(raw_value)
                 sources.append(
                     SourceFact(

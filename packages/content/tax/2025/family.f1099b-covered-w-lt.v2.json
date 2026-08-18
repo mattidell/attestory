@@ -1,0 +1,142 @@
+{
+  "schema": "source-family.v2",
+  "id": "tax.us.2025.f1099b.covered-w-lt",
+  "version": "v2",
+  "title": "Covered long-term wash-sale Form 1099-B transactions, tax year 2025",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "closure_claim": "Covered long-term wash-sale Form 1099-B transactions, tax year 2025 recorded as of the keyed horizon (ADR-0061).",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.f1099b.covered-w-lt-txn"
+  },
+  "authorizes_subtotal": "tax.us.2025.f1099b.covered-w-lt-subtotal",
+  "member_constraints": [
+    {
+      "id": "tax.us.2025.constraint.f8949.box-1g-flag-without-amount",
+      "block_code": "BOX_1G_FLAG_WITHOUT_AMOUNT",
+      "meaning": "The wash-sale adjustment flag is affirmative but no disallowed amount is contributed. The two fields are independently contributable (ADR-0061 Decision 1), so this state is representable and must be independently blockable. Existing block code: tax.us.2025.block.f8949.box-1g-flag-without-amount.",
+      "violated_when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "field_equals",
+            "field": "box_1g_wash_sale_adjustment",
+            "arg": "yes"
+          },
+          {
+            "op": "field_absent",
+            "field": "box_1g_wash_sale_disallowed_amount"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.f8949.box-1g-amount-without-flag",
+      "block_code": "BOX_1G_AMOUNT_WITHOUT_FLAG",
+      "meaning": "A disallowed amount is contributed without an affirmative wash-sale adjustment flag. Independently blockable. Existing block code: tax.us.2025.block.f8949.box-1g-amount-without-flag.",
+      "violated_when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "field_present",
+            "field": "box_1g_wash_sale_disallowed_amount"
+          },
+          {
+            "op": "field_not_equals",
+            "field": "box_1g_wash_sale_adjustment",
+            "arg": "yes"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.f8949.code-w-on-gain",
+      "block_code": "CODE_W_ON_GAIN",
+      "meaning": "A positive wash-sale disallowed amount is asserted on a transaction whose proceeds are greater than or equal to its basis (code W on an individually non-loss transaction). Evaluated on this member's own proceeds and basis, never on a netted box subtotal. Existing block code: tax.us.2025.block.f8949.code-w-on-gain.",
+      "violated_when": {
+        "op": "all",
+        "args": [
+          {
+            "op": "compare",
+            "comparison": "gt",
+            "left": {
+              "op": "field",
+              "field": "box_1g_wash_sale_disallowed_amount",
+              "default": 0
+            },
+            "right": {
+              "op": "literal",
+              "arg": 0
+            }
+          },
+          {
+            "op": "compare",
+            "comparison": "ge",
+            "left": {
+              "op": "field",
+              "field": "proceeds"
+            },
+            "right": {
+              "op": "field",
+              "field": "basis"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "tax.us.2025.constraint.f8949.adjustment-exceeds-loss",
+      "block_code": "ADJUSTMENT_EXCEEDS_LOSS",
+      "meaning": "The wash-sale disallowed amount exceeds this transaction's own otherwise-deductible loss, floor_zero(basis - proceeds). Existing block code: tax.us.2025.block.f8949.adjustment-exceeds-loss.",
+      "violated_when": {
+        "op": "compare",
+        "comparison": "gt",
+        "left": {
+          "op": "field",
+          "field": "box_1g_wash_sale_disallowed_amount",
+          "default": 0
+        },
+        "right": {
+          "op": "floor_zero",
+          "value": {
+            "op": "subtract",
+            "left": {
+              "op": "field",
+              "field": "basis"
+            },
+            "right": {
+              "op": "field",
+              "field": "proceeds"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "identity_exclusivity": [
+    {
+      "id": "tax.us.2025.block.covered-w.identity-key-collision",
+      "incompatible_family": {
+        "id": "tax.us.2025.f1099b.covered-lt",
+        "version": "v1"
+      },
+      "components": [
+        {
+          "fact_id_bound_key": "broker"
+        },
+        {
+          "fact_id_bound_key": "statement"
+        },
+        {
+          "fact_id_bound_key": "transaction"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ]
+    }
+  ]
+}

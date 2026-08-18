@@ -1,0 +1,22 @@
+{
+  "schema": "source-closure-mapping.v2",
+  "id": "tax.us.2025.closure-mapping.f1099b-covered-w-st-adjustment",
+  "version": "v2",
+  "family": {
+    "id": "tax.us.2025.f1099b.covered-w-st-adjustment",
+    "version": "v2"
+  },
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099b.covered-w-st-txn.adjustment",
+    "version": "v1"
+  },
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099b.covered-w-st-adjustment.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "admits_symbol": "tax.us.2025.f1099b.covered-w-st-adjustment-subtotal",
+  "admission": {
+    "condition": "current-literal-true"
+  }
+}

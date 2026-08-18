@@ -1,0 +1,22 @@
+{
+  "schema": "source-closure-mapping.v2",
+  "id": "tax.us.2025.closure-mapping.f1099b-covered-w-lt-basis",
+  "version": "v2",
+  "family": {
+    "id": "tax.us.2025.f1099b.covered-w-lt-basis",
+    "version": "v2"
+  },
+  "member_fact_type": {
+    "id": "tax.us.2025.f1099b.covered-w-lt-txn.basis",
+    "version": "v1"
+  },
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1099b.covered-w-lt-basis.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "admits_symbol": "tax.us.2025.f1099b.covered-w-lt-basis-subtotal",
+  "admission": {
+    "condition": "current-literal-true"
+  }
+}

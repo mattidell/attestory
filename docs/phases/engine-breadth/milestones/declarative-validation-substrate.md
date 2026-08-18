@@ -3,10 +3,10 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
-  "milestone_state": "track-2",
-  "status": "Repair 6 closes single-entry self and mutual projection cycles, but independent review found two directly reached origins converging on one cycle produce hash-seed-dependent issue sets and silently drop one origin. Repair 7 is confined to deterministic complete multi-entry cycle closure with all schemas, samples, and 2025 surfaces read-only.",
-  "current_role": "Track 2 Deterministic Multi-Entry Cycle Closure Repair Builder 7",
-  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-2-repair-7.md",
+  "milestone_state": "track-3",
+  "status": "Track 2 is accepted after Repair 7 review returned zero findings across multi-origin, staggered-depth, multi-node-cycle, relationship, and noncycle probes under eight hash seeds. Track 3 is confined to additive 2025 covered-W migration and deletion of the superseded hard-coded row-guard and identity-collision mechanisms.",
+  "current_role": "Track 3 Bounded 2025 Migration and Domain-Code Deletion Builder",
+  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-3-2025-migration-and-deletion.md",
   "scope": [
     "replace Form 8949-specific per-member validation in generic runner code with a bounded declarative structured-member constraint substrate",
     "replace the hard-coded Form 1099-B identity-collision matrix with declarative cross-family identity constraints",
@@ -441,12 +441,18 @@ from that contract; prototype helpers are never copied as authority.
    remains hash-seed-dependent and silently drops one required origin. Repair 7
    is controlled by
    `docs/prototypes/declarative-validation-substrate/charter-track-2-repair-7.md`.
+   Repair 7 return `25cfd506` and independent review `e83c969e` close that
+   finding; the review reports zero findings and Track 2 is accepted. Its
+   disclosed pre-existing ordering variation among multiple independent
+   omitted-edge issues does not change issue content or identity and remains a
+   nonblocking hardening residual outside Track 3.
 3. **Track 3 — bounded 2025 migration and domain-code deletion.** Instantiate
    C1-C5, both W families, every affected consumer, and package successors in
    versioned content. Require all ten one-at-a-time migration mutants to fail.
    Delete the migrated Form 8949/1099-B runner and package-validator branches;
    retain ADR-0061 Decision 5's line-1a/8a kill-test and generalize, rather than
-   delete, the marshal comment.
+   delete, the marshal comment. This unit is controlled by
+   `docs/prototypes/declarative-validation-substrate/charter-track-3-2025-migration-and-deletion.md`.
 4. **Track 4 — live lifecycle, scheduler, explanation, and compatibility.** Run
    valid/invalid/repaired, unique/collision/removed, closed-empty/unclosed, and
    late-member cases through `live_coordinate_run` and both schedulers. Prove

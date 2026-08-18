@@ -33,6 +33,7 @@ TAX_CONTENT_DIR = _PACKAGES_DIR / "content" / "tax" / "2025"
 
 FORM_FIELD_SCHEMA = "form-field.v1"
 SOURCE_FAMILY_SCHEMA = "source-family.v1"
+SOURCE_FAMILY_SCHEMAS = {"source-family.v1", "source-family.v2"}
 CLOSURE_MAPPING_SCHEMA = "source-closure-mapping.v1"
 W2_BUNDLE_FILE = "w2.bundle.json"
 F1099INT_BUNDLE_FILE = "f1099int.bundle.json"
@@ -281,10 +282,10 @@ def load_source_families(
     for path in sorted(TAX_CONTENT_DIR.glob("family.*.json")):
         citizen: dict[str, Any] = json.loads(path.read_text("utf-8"))
         declared = reg.validate_declared(citizen)
-        if declared != SOURCE_FAMILY_SCHEMA:
+        if declared not in SOURCE_FAMILY_SCHEMAS:
             raise SchemaValidationError(
                 SOURCE_FAMILY_SCHEMA,
-                [f"{path.name} declares {declared}, not {SOURCE_FAMILY_SCHEMA}"],
+                [f"{path.name} declares {declared}, not one of {sorted(SOURCE_FAMILY_SCHEMAS)}"],
             )
         existing = by_id.get(citizen["id"])
         if existing is None:

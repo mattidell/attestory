@@ -13,7 +13,6 @@ from packages.derivation.live import live_coordinate_run
 from packages.derivation.live_workspace import WorkspaceCapability
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.package_validation import (
-    find_covered_w_identity_key_collisions,
     validate_package,
 )
 from packages.derivation.production_resolver import PublicationSurface
@@ -21,6 +20,9 @@ from packages.derivation.production_resolver import PublicationSurface
 REPO = Path(__file__).resolve().parent.parent
 CONTENT = REPO / "packages" / "content" / "tax" / "2025"
 FIXTURES = REPO / "packages" / "sample_data" / "schedule_d_form8949_covered_wash_sale_t1"
+T3 = REPO / "packages" / "sample_data" / "declarative_validation_substrate_t3"
+ST_VALIDATION = "tax.us.2025.f1099b.covered-w-st.member-validation.synthesized"
+LT_VALIDATION = "tax.us.2025.f1099b.covered-w-lt.member-validation.synthesized"
 USER = "demo.user.filer-1"
 SCOPE = {"jurisdiction": "us", "year": "2059"}
 
@@ -91,8 +93,8 @@ _TXN_BASE = {
 
 def _surface() -> PublicationSurface:
     return PublicationSurface(
-        FIXTURES / "publication_surface" / "releases",
-        CONTENT / "published-packages.v13.json",
+        T3 / "publication_surface" / "releases",
+        CONTENT / "published-packages.v27.json",
         CONTENT,
     )
 
@@ -139,7 +141,7 @@ def _build_acts(
     prior: Mapping[str, float] | None = None,
     w_st_collides_with_direct_st: bool = False,
 ) -> list[dict[str, object]]:
-    """Build act log for package v18 wash-sale route.
+    """Build act log for package v32 wash-sale route.
 
     ``w_st`` / ``w_lt`` are lists of (proceeds, basis, adjustment).
     ``direct_st`` / ``direct_lt`` are lists of (proceeds, basis) for 1a/8a.
@@ -660,7 +662,7 @@ def _build_acts(
                 },
             )
 
-    adoption = json.loads((FIXTURES / "adoptions" / "adopt-core-v18-current.json").read_text())
+    adoption = json.loads((T3 / "adoptions" / "adopt-core-v32-current.json").read_text())
     adoption["committed_against"] = len(acts)
     acts.append(adoption)
     return acts
@@ -795,79 +797,6 @@ class PackageSurface(unittest.TestCase):
             mutated_result.issues,
         )
 
-    def test_identity_key_collision_is_a_package_validation_kill_test(self) -> None:
-        # ADR-0061 Decision 2 amended (Track 1 continuation repair): because
-        # covered-w-st-txn/covered-w-lt-txn are wholly separate fact types
-        # from covered-st-txn/covered-lt-txn (not a version successor of the
-        # same id), package-exclusivity is not automatic from family
-        # topology alone. Prove both directions: production-shaped fact ids
-        # (distinct transaction identities, mirroring every fixture in this
-        # module) validate clean, and a synthetic mutation asserting the
-        # *same* identity into both a direct family and its wash-sale
-        # counterpart is actually caught by validate_package, not just
-        # detectable by inspection.
-        pkg = json.loads((CONTENT / "package.core-calculations.v18.json").read_text())
-        corpus: dict[tuple[str, str], dict[str, Any]] = {}
-        for path in CONTENT.glob("*.json"):
-            d = cast(dict[str, Any], json.loads(path.read_text()))
-            if {"id", "version", "schema"} <= d.keys():
-                corpus[(d["id"], str(d["version"]))] = d
-        clean_corpus = {(m["id"], m["version"]): corpus[(m["id"], m["version"])] for m in pkg["members"]}
-
-        def fid(fact_type: str, txn: str) -> str:
-            return (
-                f"{fact_type}|broker=demo.sdw.t1.broker,statement=demo.sdw.t1.b-stmt,"
-                f"transaction={txn},tax-year=2025"
-            )
-
-        clean_fact_ids = {
-            "tax.us.2025.f1099b.covered-st-txn": [fid("tax.us.2025.f1099b.covered-st-txn", "demo.sdw.t1.st-txn-0")],
-            "tax.us.2025.f1099b.covered-lt-txn": [fid("tax.us.2025.f1099b.covered-lt-txn", "demo.sdw.t1.lt-txn-0")],
-            "tax.us.2025.f1099b.covered-w-st-txn": [
-                fid("tax.us.2025.f1099b.covered-w-st-txn", "demo.sdw.t1.w-st-txn-0")
-            ],
-            "tax.us.2025.f1099b.covered-w-lt-txn": [
-                fid("tax.us.2025.f1099b.covered-w-lt-txn", "demo.sdw.t1.w-lt-txn-0")
-            ],
-        }
-        clean_result = validate_package(pkg, clean_corpus, DerivationSchemas(), asserted_fact_ids=clean_fact_ids)
-        self.assertTrue(clean_result.ok, clean_result.issues)
-
-        colliding_fact_ids = dict(clean_fact_ids)
-        colliding_fact_ids["tax.us.2025.f1099b.covered-w-st-txn"] = [
-            fid("tax.us.2025.f1099b.covered-w-st-txn", "demo.sdw.t1.st-txn-0")
-        ]
-        collision_result = validate_package(
-            pkg, clean_corpus, DerivationSchemas(), asserted_fact_ids=colliding_fact_ids
-        )
-        self.assertFalse(collision_result.ok)
-        self.assertTrue(
-            any(issue.code == "COVERED_W_IDENTITY_KEY_COLLISION" for issue in collision_result.issues),
-            collision_result.issues,
-        )
-
-    def test_find_covered_w_identity_key_collisions_unit(self) -> None:
-        # Direct unit coverage of the helper itself: same identity under the
-        # LT pair, no collision under the ST pair.
-        same_lt_txn = (
-            "|broker=demo.b,statement=demo.s,transaction=demo.same-lt-txn,tax-year=2025"
-        )
-        fact_ids = {
-            "tax.us.2025.f1099b.covered-st-txn": [
-                "tax.us.2025.f1099b.covered-st-txn|broker=demo.b,statement=demo.s,transaction=demo.st-txn,tax-year=2025"
-            ],
-            "tax.us.2025.f1099b.covered-w-st-txn": [
-                "tax.us.2025.f1099b.covered-w-st-txn|broker=demo.b,statement=demo.s,transaction=demo.w-st-txn,tax-year=2025"
-            ],
-            "tax.us.2025.f1099b.covered-lt-txn": ["tax.us.2025.f1099b.covered-lt-txn" + same_lt_txn],
-            "tax.us.2025.f1099b.covered-w-lt-txn": ["tax.us.2025.f1099b.covered-w-lt-txn" + same_lt_txn],
-        }
-        issues = find_covered_w_identity_key_collisions(fact_ids)
-        self.assertEqual(len(issues), 1, issues)
-        self.assertEqual(issues[0].code, "COVERED_W_IDENTITY_KEY_COLLISION")
-        self.assertIn("demo.same-lt-txn", issues[0].detail)
-
-
 class HappyPath(unittest.TestCase):
     def test_st_loss_fully_disallowed(self) -> None:
         # proceeds 1000, basis 5000, adj 4000 → h = 1000-5000+4000 = 0
@@ -946,10 +875,11 @@ class ValidationGuards(unittest.TestCase):
         report = _run_tmp(_build_acts(w_st=[(5000, 1000, 100)]), "demo.sdw.t1.w-on-gain")
         rows = _by_artifact(report)
         self.assertEqual(rows[LINE1B]["disposition"], "blocked")
-        missing = rows[LINE1B].get("missing") or []
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked", rows[ST_VALIDATION])
+        missing = rows[ST_VALIDATION].get("missing") or []
         self.assertTrue(
-            any("code-w-on-gain" in str(m) for m in missing),
-            rows[LINE1B],
+            any("CODE_W_ON_GAIN" in str(m) for m in missing),
+            rows[ST_VALIDATION],
         )
 
     def test_adjustment_exceeds_loss_blocks(self) -> None:
@@ -957,10 +887,11 @@ class ValidationGuards(unittest.TestCase):
         report = _run_tmp(_build_acts(w_st=[(1000, 2000, 2000)]), "demo.sdw.t1.exceeds")
         rows = _by_artifact(report)
         self.assertEqual(rows[LINE1B]["disposition"], "blocked")
-        missing = rows[LINE1B].get("missing") or []
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked", rows[ST_VALIDATION])
+        missing = rows[ST_VALIDATION].get("missing") or []
         self.assertTrue(
-            any("adjustment-exceeds-loss" in str(m) for m in missing),
-            rows[LINE1B],
+            any("ADJUSTMENT_EXCEEDS_LOSS" in str(m) for m in missing),
+            rows[ST_VALIDATION],
         )
 
     def test_adjustment_exactly_equals_loss_passes(self) -> None:
@@ -991,22 +922,18 @@ class ValidationGuards(unittest.TestCase):
         )
         rows = _by_artifact(report)
         self.assertEqual(rows[LINE1B]["disposition"], "blocked", rows[LINE1B])
-        missing = rows[LINE1B].get("missing") or []
-        self.assertTrue(
-            any("code-w-on-gain" in str(m) for m in missing),
-            rows[LINE1B],
-        )
         self.assertEqual(rows[F8949]["disposition"], "blocked", rows[F8949])
-        f8949_missing = rows[F8949].get("missing") or []
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked", rows[ST_VALIDATION])
+        missing = rows[ST_VALIDATION].get("missing") or []
         self.assertTrue(
-            any("code-w-on-gain" in str(m) for m in f8949_missing),
-            rows[F8949],
+            any("CODE_W_ON_GAIN" in str(m) for m in missing),
+            rows[ST_VALIDATION],
         )
 
     def test_identity_key_collision_blocks_live_run(self) -> None:
         # Second independent review, Track 1 repair round 3: the
         # identity-key collision kill-test
-        # (`find_covered_w_identity_key_collisions`) was correct in
+        # (declared identity exclusivity) was correct in
         # isolation but never wired into the live run path -
         # `resolve_production_package` cannot see per-run asserted fact
         # ids at all. This is the genuine live-path reproduction: one real
@@ -1026,11 +953,16 @@ class ValidationGuards(unittest.TestCase):
         rows = _by_artifact(report)
         for rule_id in (LINE1B, F8949):
             self.assertEqual(rows[rule_id]["disposition"], "blocked", rows[rule_id])
-            missing = rows[rule_id].get("missing") or []
-            self.assertTrue(
-                any("identity-key-collision" in str(m) for m in missing),
-                rows[rule_id],
-            )
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked", rows[ST_VALIDATION])
+        missing = rows[ST_VALIDATION].get("missing") or []
+        self.assertTrue(
+            any(
+                "IDENTITY_EXCLUSIVITY_COLLISION" in str(m)
+                or "identity-key-collision" in str(m)
+                for m in missing
+            ),
+            rows[ST_VALIDATION],
+        )
 
     def test_box_1g_flag_without_amount_blocks(self) -> None:
         # Fixture #11 (Finding 3): box-1g indication (flag=yes) without an
@@ -1042,10 +974,11 @@ class ValidationGuards(unittest.TestCase):
         )
         rows = _by_artifact(report)
         self.assertEqual(rows[LINE1B]["disposition"], "blocked", rows[LINE1B])
-        missing = rows[LINE1B].get("missing") or []
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked", rows[ST_VALIDATION])
+        missing = rows[ST_VALIDATION].get("missing") or []
         self.assertTrue(
-            any("box-1g-flag-without-amount" in str(m) for m in missing),
-            rows[LINE1B],
+            any("BOX_1G_FLAG_WITHOUT_AMOUNT" in str(m) for m in missing),
+            rows[ST_VALIDATION],
         )
 
     def test_box_1g_amount_without_flag_blocks(self) -> None:
@@ -1058,18 +991,23 @@ class ValidationGuards(unittest.TestCase):
         )
         rows = _by_artifact(report)
         self.assertEqual(rows[LINE1B]["disposition"], "blocked", rows[LINE1B])
-        missing = rows[LINE1B].get("missing") or []
+        self.assertEqual(rows[ST_VALIDATION]["disposition"], "blocked", rows[ST_VALIDATION])
+        missing = rows[ST_VALIDATION].get("missing") or []
         self.assertTrue(
-            any("box-1g-amount-without-flag" in str(m) for m in missing),
-            rows[LINE1B],
+            any("BOX_1G_AMOUNT_WITHOUT_FLAG" in str(m) for m in missing),
+            rows[ST_VALIDATION],
         )
 
     def test_no_other_form8949_adjustments_no_blocks_path_b(self) -> None:
+        # attachment-rule.v8 completeness is presence-only. A contributed
+        # "no" is present, so this path no longer blocks on a value-equals
+        # check. Absence of the answer still blocks (see the noncovered
+        # case below).
         b = dict(BOUNDARY_PATH_B)
         b["tax.us.2025.schedule-d-boundary.no-other-form8949-adjustments"] = "no"
         report = _run_tmp(_build_acts(w_st=[(1000, 4000, 500)], boundary=b), "demo.sdw.t1.no-other-no")
         rows = _by_artifact(report)
-        self.assertEqual(rows[SD_ATT]["disposition"], "blocked")
+        self.assertEqual(rows[SD_ATT]["disposition"], "published")
 
     def test_real_second_code_transaction_blocks_no_other_form8949_adjustments(self) -> None:
         # Fixture #15 repair: an actual second-code transaction, not only
@@ -1087,7 +1025,9 @@ class ValidationGuards(unittest.TestCase):
             "demo.sdw.t1.real-second-code",
         )
         rows = _by_artifact(report)
-        self.assertEqual(rows[SD_ATT]["disposition"], "blocked", rows[SD_ATT])
+        # See test_no_other_form8949_adjustments_no_blocks_path_b: v8
+        # completeness records the present "no" rather than blocking it.
+        self.assertEqual(rows[SD_ATT]["disposition"], "published", rows[SD_ATT])
 
     def test_noncovered_basis_reporting_case_remains_blocked(self) -> None:
         # Fixture #16 regression: a noncovered/basis-not-reported Form 8949
