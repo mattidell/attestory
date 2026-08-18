@@ -62,6 +62,36 @@ class PresentationModelError(Exception):
     """The presentation model cannot be constructed or fails strict validation."""
 
 
+def _presentation_bound_family(schema: str) -> str | None:
+    """Return the presentation-bound family name, or None if not bound.
+
+    Family membership is the explicit ``form-field.`` / ``attachment-rule.``
+    prefix required by ADR-0066 Decision 7. Support itself is the closed
+    ``FIELD_SCHEMAS`` / ``ATTACHMENT_SCHEMAS`` sets, not numeric version parsing.
+    """
+    if schema.startswith("form-field."):
+        return "form-field"
+    if schema.startswith("attachment-rule."):
+        return "attachment-rule"
+    return None
+
+
+def _reject_unsupported_presentation_schemas(resolved_members: Sequence[Mapping[str, Any]]) -> None:
+    """Fail closed on unknown form-field or attachment-rule successors."""
+    for member in resolved_members:
+        schema = member.get("schema")
+        if not isinstance(schema, str):
+            continue
+        family = _presentation_bound_family(schema)
+        if family is None:
+            continue
+        supported = FIELD_SCHEMAS if family == "form-field" else ATTACHMENT_SCHEMAS
+        if schema not in supported:
+            raise PresentationModelError(
+                f"unsupported {family} schema {schema!r} on {member.get('id')!r}"
+            )
+
+
 def _rules_by_id(members: Sequence[Mapping[str, Any]]) -> dict[str, Mapping[str, Any]]:
     return {member["id"]: member for member in members if "publishes" in member}
 
@@ -431,6 +461,7 @@ def build_presentation_model(
     unknown disposition, invalid numeric publication, or untraceable citation
     lineage — never on a guess.
     """
+    _reject_unsupported_presentation_schemas(resolved_members)
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
     attachments = [m for m in resolved_members if m.get("schema") in ATTACHMENT_SCHEMAS]
     rules_by_id = _rules_by_id(resolved_members)

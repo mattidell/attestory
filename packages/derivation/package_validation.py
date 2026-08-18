@@ -97,6 +97,59 @@ _NON_INPUT_SCHEMAS = frozenset({
     "derivation-record.v6",
 })
 
+# ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
+# member whose schema is absent here is rejected with MEMBER_SCHEMA_UNSUPPORTED
+# rather than becoming an inert graph node. Membership is an explicit constant
+# set, never inferred from artifact ids, tax-name substrings, or numeric
+# version parsing. Includes only schemas the validator currently handles
+# semantically, plus every schema accepted by the ratified package corpus.
+# Registry-known predecessors without a handler (fact-type.v1,
+# source-closure-mapping.v1) are intentionally excluded so they fail loud.
+_SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
+    "attachment-rule.v1",
+    "attachment-rule.v2",
+    "attachment-rule.v3",
+    "attachment-rule.v4",
+    "attachment-rule.v5",
+    "attachment-rule.v6",
+    "bundle.v1",
+    "bundle.v2",
+    "checked-conclusion-binding.v1",
+    "citation.v1",
+    "dividend-universe.v1",
+    "dividend-universe.v2",
+    "dividend-universe.v3",
+    "dividend-universe.v4",
+    "fact-type.v2",
+    "form-field.v1",
+    "form-field.v2",
+    "form-field.v3",
+    "migration-artifact.v1",
+    "operation-semantics.v1",
+    "operation-semantics.v2",
+    "parameter-declaration.v1",
+    "quantity-vocabulary.v1",
+    "quantity-vocabulary.v2",
+    "quantity-vocabulary.v3",
+    "quantity-vocabulary.v4",
+    "quantity-vocabulary.v5",
+    "quantity-vocabulary.v6",
+    "quantity-vocabulary.v7",
+    "quantity-vocabulary.v8",
+    "quantity-vocabulary.v9",
+    "quantity-vocabulary.v10",
+    "quantity-vocabulary.v11",
+    "quantity-vocabulary.v12",
+    "role-canon.v1",
+    "rule-artifact.v1",
+    "rule-artifact.v2",
+    "rule-artifact.v3",
+    "rule-artifact.v4",
+    "source-closure-mapping.v2",
+    "source-family.v1",
+    "taxable-interest-composition.v1",
+}) | _NON_INPUT_SCHEMAS
+
 
 @dataclass(frozen=True)
 class MemberIssue:
@@ -474,6 +527,16 @@ def validate_package(
             schemas.validate_declared(citizen)
         except SchemaValidationError as exc:
             issues.append(MemberIssue(pin["id"], pin["version"], "MEMBER_SCHEMA_INVALID", str(exc)))
+            continue
+
+        declared_schema = citizen["schema"]
+        if declared_schema not in _SUPPORTED_SEMANTIC_SCHEMAS:
+            issues.append(MemberIssue(
+                pin["id"],
+                pin["version"],
+                "MEMBER_SCHEMA_UNSUPPORTED",
+                f"member {pin['id']!r} declares unsupported semantic schema {declared_schema!r}",
+            ))
             continue
 
         if published_citizen_checksums is not None:
