@@ -34,8 +34,10 @@ RECORD_STREAM_FILENAME = "derivation_records.jsonl"
 # emits; ADR-0036 production condition 3) and the named tie-out invariant.
 # v4 adds COMPLETENESS_VALUE_VIOLATION (ADR-0055 Decision 2). v5 adds
 # MULTIPLE_F1098_OUT_OF_SCOPE. v6 adds F1098_SCOPE_CONTRADICTION (Track 2
-# repair round 3 finding 1).
-CURRENT_RECORD_SCHEMA = "derivation-record.v6"
+# repair round 3 finding 1). v7 adds SLI_MFS_INELIGIBLE,
+# SLI_UNIVERSAL_COMPONENT_VIOLATION, and SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE
+# (Form 1098-E Student Loan Interest Deduction milestone, Track 6).
+CURRENT_RECORD_SCHEMA = "derivation-record.v7"
 _VERSIONED_RECORD_SCHEMAS = frozenset(
     {
         "derivation-record.v2",
@@ -43,6 +45,7 @@ _VERSIONED_RECORD_SCHEMAS = frozenset(
         "derivation-record.v4",
         "derivation-record.v5",
         "derivation-record.v6",
+        "derivation-record.v7",
     }
 )
 

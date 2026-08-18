@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v33",
+  "actor": "demo.user.filer-1",
+  "at": "2026-08-15T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic Form 1098-E Student Loan Interest Deduction Track 6 adoption; non-authoritative"
+    },
+    "package": {
+      "checksum": "34903375cd609b2e89cd1ca62119746a6306524922f591722d9eec87de15afeb",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v33"
+    },
+    "release": {
+      "checksum": "bcd6cff71362ea10f0974474d9aff5a5d77e0a608b2543a14811b1d17184a1f2",
+      "id": "demo.release.2025",
+      "version": "v26"
+    },
+    "revision": 33,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

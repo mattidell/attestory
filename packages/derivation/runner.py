@@ -183,7 +183,10 @@ class _Run:
         )
 
         self.use_v2 = any(
-            rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}
+            rule.get("schema") in {
+                "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
+                "rule-artifact.v5", "rule-artifact.v6",
+            }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
         self.symbol_fact_types: dict[str, str] = {}
@@ -1173,6 +1176,9 @@ class _Run:
                 "COMPLETENESS_VALUE_VIOLATION",
                 "MULTIPLE_F1098_OUT_OF_SCOPE",
                 "F1098_SCOPE_CONTRADICTION",
+                "SLI_MFS_INELIGIBLE",
+                "SLI_UNIVERSAL_COMPONENT_VIOLATION",
+                "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE",
             }
             disposition_row["code"] = code if code in record_codes else "DEPENDENCY_INVALID"
             disposition_row["missing"] = missing
@@ -1404,7 +1410,10 @@ def run_and_record(
     published/blocked surface and per-rule dispositions.
     """
     use_v2 = any(
-        rule.get("schema") in {"rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}
+        rule.get("schema") in {
+            "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
+            "rule-artifact.v5", "rule-artifact.v6",
+        }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)
     start_run(

@@ -31,19 +31,42 @@ sets that should include it. That is the failure mode that keeps recurring,
 and it is silent — content validates cleanly, then misbehaves only at
 runtime, only on the specific citizen that exercises the missing capability.
 
-**Confirmed recurrence, three consecutive milestones:**
+**Confirmed recurrence, four consecutive milestones, plus one same-milestone
+re-break:**
 
 1. f1098e milestone: `runner.py:1331` missing a registered version (documented
    in that milestone's own record).
-2. This milestone (declarative-validation-substrate-f8949): `marshal.py:101`
-   missing `rule-artifact.v5`, and `marshal.py:89` missing `attachment-rule.v8`
-   — the same omission, in the same function, found independently twice (once
-   by the owner-advisor review, once more precisely by the foreman during
+2. declarative-validation-substrate-f8949: `marshal.py:101` missing
+   `rule-artifact.v5`, and `marshal.py:89` missing `attachment-rule.v8` — the
+   same omission, in the same function, found independently twice (once by
+   the owner-advisor review, once more precisely by the foreman during
    repair).
 3. A third, earlier instance already lives only as a code comment:
    `artifact-package.v22` (referenced in the owner-advisor review; not
    independently re-verified by this plan — confirm its exact site before
    chartering).
+4. f1098e milestone's own rebase onto the ratified
+   declarative-validation-substrate-f8949 base (2026-08-18): 8 sites across
+   `live.py`/`marshal.py`/`package_validation.py`/`runner.py` needed
+   independent fixes to admit `rule-artifact.v6`. One of the eight,
+   `runner.py`'s disposition `record_codes` closed set, is not even a
+   pre-existing gap this milestone could have caught earlier — it is a
+   mechanism declarative-validation-substrate-f8949 itself introduced,
+   discovered only because f1098e's own new SLI block codes were silently
+   downgraded to generic `DEPENDENCY_INVALID` at runtime. See
+   `docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md`.
+5. The same f1098e milestone's own subsequent bisectable-rebase curation
+   (still 2026-08-18) **re-broke one of the sites item 4 had just fixed**:
+   `runner.py`'s `run_and_record` function has its own separate `use_v2`
+   computation from `_Run.__init__`'s, and the curation dropped
+   `rule-artifact.v6` from one but not the other, reopening the exact
+   divergence item 4 closed. Latent and test-invisible — f1098e's real
+   package also trips `_uses_attachment_machinery`, forcing both paths to
+   `True` regardless of which schema set is checked. Caught only by an
+   independent review of PR #178, not by the 1488-test suite. This is the
+   first confirmed instance of the mechanism being re-broken after a fix,
+   not merely missed on first build — direct evidence that fixing each
+   recurrence by hand does not make the next one less likely.
 
 ## Evidence: the sets are not one set
 

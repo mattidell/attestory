@@ -61,7 +61,7 @@ def _families_reached(
     reached: set[tuple[str, str]] = set()
     schema = citizen.get("schema")
 
-    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}:
+    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
         for symbol in citizen.get("requires", []):
             if symbol in families_by_subtotal:
                 reached.add((families_by_subtotal[symbol], "reads_subtotal"))
@@ -189,7 +189,9 @@ def _predicate_depth(node: Any) -> int:
 
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
-_RULE_ARTIFACT_SCHEMAS = frozenset({"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"})
+_RULE_ARTIFACT_SCHEMAS = frozenset(
+    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}
+)
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
 # ADR-0061 Decision 5 non-confusion invariant (Finding 4 repair): Schedule D's
@@ -230,6 +232,7 @@ _NON_INPUT_SCHEMAS = frozenset({
     "derivation-record.v4",
     "derivation-record.v5",
     "derivation-record.v6",
+    "derivation-record.v7",
 })
 
 # ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
@@ -282,6 +285,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "rule-artifact.v3",
     "rule-artifact.v4",
     "rule-artifact.v5",
+    "rule-artifact.v6",
     "source-closure-mapping.v2",
     "source-family.v1",
     "source-family.v2",
@@ -588,7 +592,7 @@ def compile_validation_graph(
 
     for member in resolved_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
             compiled.append(member)
             continue
 
@@ -659,7 +663,7 @@ def check_validation_graph(
 
     for member in compiled_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
             continue
 
         artifact_id = member["id"]
@@ -1308,8 +1312,14 @@ def validate_package(
         # artifact-package.v22 (Track 1's additive successor) is v21's own
         # entrypoint-pin contract unchanged (repair round 3 finding 3: v22 was
         # missing from this set, so a stale or dangling entrypoint in a
-        # v22-schema package passed validation silently).
-        if package.get("schema") in {"artifact-package.v20", "artifact-package.v21", "artifact-package.v22", "artifact-package.v23", "artifact-package.v24"}:
+        # v22-schema package passed validation silently). v23 (migration-
+        # artifact.v1), v24 (declarative-validation-substrate-f8949's
+        # source-family.v2), and v25 (rule-artifact.v6) are likewise v21's
+        # own entrypoint-pin contract unchanged.
+        if package.get("schema") in {
+            "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
+            "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
+        }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
             }
@@ -1377,7 +1387,12 @@ def validate_package(
                 # v1/v2 keep their requires-only edge computation unchanged.
                 # v4/v5 is v3's expression grammar plus `count`/`block`, so it
                 # carries the same declared-refs-outside-requires capability.
-                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}:
+                # v6 is v4's grammar plus `multiply`/`divide`/
+                # `collect_categorical_all_equal` (Form 1098-E Student Loan
+                # Interest Deduction milestone Tracks 1/6b), an additive
+                # expression-language extension only -- it carries the same
+                # declared-refs-outside-requires capability.
+                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
                     declared_refs.update(_iter_ref_names(citizen["when"]))
                     declared_refs.update(_iter_ref_names(citizen["value"]))
                 for req in declared_refs:
@@ -1952,7 +1967,11 @@ def validate_package(
     for (ft_id, _ft_version), ft in fact_types_by_key.items():
         fact_types_by_id.setdefault(ft_id, ft)
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5"}:
+        # v6 is v4's grammar plus multiply/divide/collect_categorical_all_equal
+        # (Form 1098-E Student Loan Interest Deduction milestone Tracks
+        # 1/6b); the conditional_dependency_set/category_literal domain-match
+        # check applies identically.
+        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
             continue
         member_names = set(_iter_cds_member_names(citizen["when"])) | set(
             _iter_cds_member_names(citizen["value"])

@@ -1,0 +1,113 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.sli-scope.vocabulary",
+  "version": "v1",
+  "label": "Student Loan Interest Deduction eligibility scope: filer-level universal and legal-zero authorities for 2025",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli-scope.no-form-2555",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component: no Form 2555 (foreign earned income exclusion) is filed (i1040gi.pdf p.98, \"Exception. Use Pub. 970 instead...if you file Form 2555\"). Minted new, SLI-scoped -- not a reuse of tax.us.2025.ss-benefits-scope.no-form-2555, whose declared authority scope is the bounded Social Security Benefits Worksheet claim only (ADR-0016 decision 2 forbids cross-worksheet reuse of a scope-declared absence witness). Filer-level, not per-statement. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks the whole route.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli-scope.no-form-4563",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component: no Form 4563 (bona fide resident of American Samoa income exclusion) is filed (i1040gi.pdf p.98, same Exception clause as Form 2555). Minted new, SLI-scoped -- not a reuse of tax.us.2025.ss-benefits-scope.no-form-4563 (scope-mismatch, ADR-0016 decision 2). Filer-level, not per-statement. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks the whole route.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli-scope.no-puerto-rico-or-samoa-income",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component: no income is excluded as a bona fide resident of Puerto Rico or American Samoa (i1040gi.pdf p.98, same Exception clause). Minted new, SLI-scoped -- not a reuse of tax.us.2025.ss-benefits-scope.no-puerto-rico-or-samoa-income (scope-mismatch, ADR-0016 decision 2). Filer-level, not per-statement. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks the whole route.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli-scope.not-claimed-as-dependent",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component (legal zero, not a block): the filer is not claimed as a dependent by another taxpayer (Pub. 970 p.33, Example 2: \"neither you nor your parents may deduct the student loan interest\"). Filer-level. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the filer is not claimed as a dependent and the route proceeds; no asserts the filer IS claimed as a dependent -- the law's own definite $0 for this return, not missing information and not a block.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.sli-scope.legally-obligated-for-interest",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component (legal zero, not a block): the filer is legally obligated to pay interest on the loan(s) claimed (Pub. 970 p.33: only the person legally obligated may deduct). Filer-level. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the filer is legally obligated and the route proceeds; no asserts the filer is not legally obligated -- a definite $0 for this return (someone else, not this return, may deduct it), not a block.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

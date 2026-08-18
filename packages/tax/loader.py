@@ -107,6 +107,14 @@ def domain_companion_presence_pairs() -> dict[str, str | list[str]]:
             "tax.us.2025.ssa1099.statement-kind",
             "tax.us.2025.ssa1099.lump-sum-election",
         ],
+        # Form 1098-E box-1 route (T0-2 component 8 / T0-3): each box-1
+        # statement member requires an explicit same-statement box-2
+        # checked/unchecked companion. A checked box 2 is rejected without
+        # silently narrowing or overstating the worksheet's total-interest
+        # figure (mirrors the f1099g box-1/box-4 pattern).
+        "tax.us.2025.f1098e.box1-student-loan-interest": (
+            "tax.us.2025.f1098e.box2-checked-authority"
+        ),
     }
 
 
@@ -120,6 +128,7 @@ def domain_companion_value_domains() -> dict[str, frozenset[object]]:
     return {
         "tax.us.2025.f1099div.box13-specified-pab-authority": frozenset({None, 0, 0.0}),
         "tax.us.2025.f1099g.box4-federal-withholding-authority": frozenset({None, 0, 0.0}),
+        "tax.us.2025.f1098e.box2-checked-authority": frozenset({None, False}),
         "tax.us.2025.f1099int.box9-specified-pab-authority": frozenset({None, 0, 0.0}),
         "tax.us.2025.f1099r.box2b-not-determined": frozenset({False}),
         "tax.us.2025.f1099r.ira-sep-simple-checkbox": frozenset({True}),

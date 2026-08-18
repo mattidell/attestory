@@ -1,0 +1,54 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "rounding.convention"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.sli-worksheet",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.sli-worksheet-line1-subtotal",
+  "notes": "Track 4b repair (docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md, Track 4b): this rule now publishes the RAW, uncapped sum of the closed Form 1098-E box-1 family -- the family's ADR-0016 closure-authorized collect subtotal (tax.us.2025.f1098e.1's own authorizes_subtotal symbol) -- and nothing else. It previously also applied the Student Loan Interest Deduction Worksheet's own $2,500 line-1 cap here, which conflated a closure-authority claim (what the family attests exists) with a downstream worksheet computation (what the worksheet is legally allowed to deduct), and caused packages/derivation/runner.py's itemization tie-out (row_sum == subtotal_symbol) to falsely block the Schedule 1 attachment for any filer whose true box-1 interest exceeded $2,500, even though tax.us.2025.schedule1.line21-sli-deduction computed correctly. The $2,500 cap now lives entirely in tax.us.2025.rule.sli-worksheet, applied at every point that rule reads worksheet line 1 -- this rule no longer reads tax.us.2025.parameter.sli-interest-cap at all. Satisfies ADR-0016's collect-authority audit (packages/derivation/source_authority.py audit_collect_authority): a rule collecting over a mapped family must publish exactly that family's declared subtotal, never a broader or narrower downstream symbol -- the raw sum, not a capped derivative, is the true closure-authorized figure. Mirrors rule.f1099g-1-subtotal.json's identical shape exactly: unconditional when (a nonempty collect needs no closure justification of its own, ADR-0014 decision 8; closure is enforced downstream, by tax.us.2025.rule.sli-worksheet's own unconditional require_closed, mirroring rule.schedule1-line7.json's own downstream require_closed gate). tax.us.2025.rule.sli-worksheet reads this subtotal by ref, never by a second collect over the same family, and caps it itself before using it as worksheet line 1.",
+  "pins": [
+    {
+      "id": "rounding.convention",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+  "requires": [
+    "rounding.convention"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v6",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "mode": {
+      "name": "rounding.convention",
+      "op": "ref"
+    },
+    "op": "round",
+    "value": {
+      "args": [
+        {
+          "name": "tax.us.2025.f1098e.box1-student-loan-interest",
+          "op": "collect",
+          "source_set": "tax.us.2025.f1098e.1"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v1",
+  "when": true
+}

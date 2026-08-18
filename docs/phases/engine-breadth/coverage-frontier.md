@@ -47,6 +47,7 @@ input boxes. Status is one of:
 | New unrelated income domain | A return class outside the existing W-2/interest/dividend columns | No owner-selected source/form target | Unknown until a concrete source and downstream output are named | Owner selection and a fresh coverage row | candidate |
 | Form 1098 mortgage interest → Schedule A line 8a → Form 1040 line 12e | Returns with exactly one 2025 Form 1098 statement reporting deductible qualified-residence acquisition-debt interest under the applicable debt limit, no refinance/HELOC/points/PMI/refund/credit/second-home/shared-borrower facts, and every other Schedule A category explicitly closed absent | Retired for the bounded singleton-Form-1098 class; second statements, refinancing, points, PMI, mortgage-interest credit, and every other Schedule A category besides line 8a remain honestly outside it | New singleton-closed Form 1098 family and seven-fact taxpayer-authority boundary; first Schedule A instantiation of the ADR-0036 attachment ontology; bounded additive line-12e/13a/13b/14 successor guarding the generic itemized assertion off whenever a Form 1098 statement is on record; a same-symbol multi-producer route (package conflict_semantics, first use in this corpus) for tax.us.2025.schedule-a.total's mutually-exclusive count==0/count>0 producers | Paper-first Track 0 decision record (`docs/phases/engine-breadth/milestones/f1098-mortgage-interest-line12e.md`), production-shaped synthetic identity, correction, completeness, attachment, package, explanation, and presentation evidence driven end-to-end through live_coordinate_run against core v29/published v24/release v22 | **synthetic complete** |
 | Fact-type succession of the thirteen shared Schedule 1 absence declarations | **No new tax route.** Successor Schedule-1-native vocabulary and an adopted migration artifact so those thirteen ids can be retired before Form 1098-E introduces real Schedule 1 activity | Retired for this substrate claim; Form 1098-E, Schedule 1 line 21, Form 1040 line 10, and AGI remain Part 3 and unselected | ADR-0063: adopted migration-artifact.v1 is a fourth named supersession root, not an individuation edge and not a package filter | Paper Track 0 (STOP FOR ADVISOR on F1) + owner disposition + Track 1 implementation independently reviewed APPROVE; live goldens through `live_coordinate_run` | **synthetic complete — no new tax route** |
+| 2025 Form 1098-E student-loan interest → Schedule 1 lines 21/26 → Form 1040 line 10 → AGI | Returns with a single 2025 Form 1098-E statement reporting deductible student-loan interest, subject to the $2,500 cap and MAGI phaseout, with every universal eligibility component, MFS filing status, and every other Schedule 1 Part II adjustment explicitly closed absent | Retired for the bounded single-statement, fully-eligible class; MFS filers, any genuine Schedule 1 Part II adjustment this milestone cannot compute, and disagreeing multi-statement witnesses beyond the tested case remain honestly outside it | First Engine Breadth route on the income-adjustment side of the return; the Student Loan Interest Deduction Worksheet as rule content; the additive `multiply`/`divide`/`collect_categorical_all_equal` expression-language extension (ADR-0064); first application of ADR-0016 decision 4 to a mixed absent/present/structural-zero Schedule 1 Part II total (ADR-0065) | Paper-first Track 0 decision record and two accepted ADRs, production-shaped synthetic coordinator (ten disposition-path models including a multi-statement disagreement case), package, explanation, and presentation evidence driven end-to-end through `live_coordinate_run` against core v33/published v28/release v26 | **synthetic complete** |
 
 ## Completed synthetic frontier
 
@@ -134,3 +135,19 @@ Schedule 1 line 21, Form 1040 line 10, and AGI remain outside the
 frontier claim and unselected. Plan:
 `milestones/fact-type-succession-neutral-schedule1.md`; retrospective:
 `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
+
+The **2025 Form 1098-E Student-Loan Interest through Schedule 1 Lines
+21/26 and AGI** milestone is synthetic complete. It opens the first Engine
+Breadth route on the income-adjustment side of the return: a single 2025
+Form 1098-E statement's deductible interest, capped at $2,500 and reduced
+by the MAGI phaseout, computed on the Student Loan Interest Deduction
+Worksheet as rule content and carried through Schedule 1 lines 21/26 into
+Form 1040 line 10 and AGI (lines 11a/11b). Rebased and rebuilt onto the
+closed declarative-validation-substrate-f8949 base; final package is the
+additive union core **v33** / published **v28** / release **v26** / adopt
+**v33**. MFS filers and any genuine Schedule 1 Part II adjustment this
+milestone cannot compute remain honestly outside it. Plan:
+`milestones/f1098e-student-loan-interest-agi.md`; deferral ledger:
+`milestones/f1098e-student-loan-interest-agi-deferral-ledger.md`;
+retrospective:
+`docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md`.

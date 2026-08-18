@@ -1,0 +1,337 @@
+{
+  "blocked": {
+    "code": "DEPENDENCY_ABSENT",
+    "missing": [
+      "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+      "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+      "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+      "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+      "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+      "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+      "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+      "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+      "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+      "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+      "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+      "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+      "tax.us.2025.schedule1.line21-sli-deduction"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.schedule1.line-26",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.schedule1.line-21",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.schedule1-line26",
+  "notes": "Schedule 1 line 26 for the bounded 2025 class: \"Add lines 11 through 23 and 25\" (f1040s1.pdf p.2). Track 0 T0-6 settlement (docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md) found line 26 completeness needs no new statement about lines 22, 24a-24y, or the write-in: line 22 is a structural zero (reserved, no entry box on the printed form -- i1040gi.pdf p.99), contributing nothing and needing no fact; the twelve existing Schedule-1-native absence facts (schedule1-adjustments-scope.no-line{11,12,13,14,15,16,17,18,19,20,23,25}, the 25 absence already subsuming the 24a-24z detail) already prove lines 11-20/23/25 are each an honest zero when 'yes'; and line 21 (this milestone's own present, computed value) is read by ref from tax.us.2025.schedule1.line21-sli-deduction, published by the sibling rule.sli-worksheet.json -- this rule never re-collects the Form 1098-E family itself, mirroring the rule.schedule1-line7.json / rule.schedule1-line10.json cascade shape (a bare ref to the one nonzero contributor once every other contributor is proven zero by its own gate). The twelve absence facts are gated unconditionally via requires + an all-conjunction when clause exactly like rule.schedule1-line10.json's own eleven-conjunct Part I gate, never conditional_dependency_set: unlike the SLI worksheet's own eligibility gathering (optional at the return level via require_closed on Form 1098-E), Schedule 1 Part II completeness is not optional -- a 'no' on any of the twelve absences means this return has an adjustment this milestone cannot compute, so line 26 must not silently publish (guard_inapplicable), the same posture rule.schedule1-line10.json already takes for its own Part I absences. If tax.us.2025.schedule1.line21-sli-deduction itself blocks (SLI_MFS_INELIGIBLE, SLI_UNIVERSAL_COMPONENT_VIOLATION, or SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE), the bare ref in this rule's value expression raises DEPENDENCY_ABSENT on that symbol the moment it is evaluated (the symbol never becomes current) -- line 26 blocks rather than silently substituting zero, with no special-casing needed.",
+  "pins": [
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.schedule1.line21-sli-deduction",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.schedule1.line26-total-adjustments",
+  "requires": [
+    "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+    "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+    "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+    "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+    "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+    "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+    "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+    "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+    "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+    "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+    "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+    "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+    "tax.us.2025.schedule1.line21-sli-deduction"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v4",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "name": "tax.us.2025.schedule1.line21-sli-deduction",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": {
+    "args": [
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line11-educator",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line12-business-expenses",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line13-hsa",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line14-moving",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line15-deductible-se",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line16-se-retirement",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line17-se-health",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line18-penalty",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line19-alimony-paid",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line20-ira-deduction",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line23-archer-msa",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      },
+      {
+        "cmp": "eq",
+        "left": {
+          "name": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+          "op": "ref"
+        },
+        "op": "categorical_compare",
+        "right": {
+          "fact_type": {
+            "id": "tax.us.2025.schedule1-adjustments-scope.no-line25-other-adjustments",
+            "version": "v1"
+          },
+          "op": "category_literal",
+          "value": "yes"
+        }
+      }
+    ],
+    "op": "all"
+  }
+}

@@ -13,7 +13,7 @@ import inspect
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Mapping, Sequence
+from typing import TYPE_CHECKING, Any, Iterable, Mapping, Sequence
 
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.marshal import marshal_live_run_context
@@ -34,7 +34,7 @@ from packages.tax.ssa_benefits import validate_projected_source_boundary
 from packages.derivation.live_workspace import LiveWorkspace, WorkspaceCapability, bootstrap_workspace
 
 if TYPE_CHECKING:
-    from packages.derivation.runner import RunResult
+    from packages.derivation.runner import Publication, RunResult
 
 RUN_REQUEST_SCHEMA = "run-request.v1"
 
@@ -53,6 +53,36 @@ class LiveCoordinatorOutcome:
     # Additive: the confined presentation-model.v1 artifact path (Presentation
     # L2 Integration Grounding, Track 1). None on refusal, same as output_path.
     presentation_path: Path | None = None
+    # Additive (Form 1098-E / Student Loan Interest milestone, Track 8): the
+    # full in-memory publication list this run already computed, so a caller
+    # can walk a real derived finding's own pin chain (packages/derivation/
+    # explanation.py) without re-deriving anything or resorting to a
+    # RunContext shortcut -- the two durable output files intentionally carry
+    # only summarized dispositions (no `value`), which is enough for the
+    # presentation projector but not for `explain()`'s node values. None on
+    # refusal, same as output_path.
+    publications: "tuple[Publication, ...] | None" = None
+
+
+def _iter_collect_categorical_names(expr: Any) -> Iterable[str]:
+    """Yield ``name`` values from every ``collect_categorical_all_equal`` node.
+
+    Track 6b repair (f1098e-student-loan-interest-agi): a rule reading a
+    per-member categorical witness via this op needs its fact type
+    registered as a collect source name the same way a `source-family.v1`
+    member predicate is, or ``marshal.py`` would never populate
+    ``env.sources`` for it. Unlike a family's member predicate, this is a
+    per-rule declaration inside `when`/`value`, so it is discovered by
+    walking the rule content directly rather than from a family citizen.
+    """
+    if isinstance(expr, dict):
+        if expr.get("op") == "collect_categorical_all_equal" and isinstance(expr.get("name"), str):
+            yield expr["name"]
+        for value in expr.values():
+            yield from _iter_collect_categorical_names(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_collect_categorical_names(item)
 
 
 def _resolved_run_material(graph: Any) -> tuple[
@@ -68,7 +98,7 @@ def _resolved_run_material(graph: Any) -> tuple[
     # belongs in the same `rules` material the runner saturates over.
     rules = [
         member for member in members
-        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
+        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
     ]
     parameters = {member["id"]: member for member in members if member.get("schema") == "parameter-declaration.v1"}
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
@@ -99,6 +129,17 @@ def _resolved_run_material(graph: Any) -> tuple[
             ):
                 extra.append(companion)
     collect_names = list(collect_names) + extra
+    # Track 6b repair: any rule reading a per-member categorical witness via
+    # collect_categorical_all_equal needs its fact type registered as a
+    # collect source name too, or marshal.py would never populate
+    # env.sources for it (see _iter_collect_categorical_names above).
+    for rule in rules:
+        for name in _iter_collect_categorical_names(rule.get("when")):
+            if name not in collect_names:
+                collect_names.append(name)
+        for name in _iter_collect_categorical_names(rule.get("value")):
+            if name not in collect_names:
+                collect_names.append(name)
     return rules, parameters, families, mappings, fact_types, list(graph.package["input_bindings"]), collect_names
 
 
@@ -201,7 +242,8 @@ def live_coordinate_run(
     }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     presentation_path.write_text(json.dumps(model, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return LiveCoordinatorOutcome(
-        refusal=None, output_path=output_path, run_id=run_id, presentation_path=presentation_path
+        refusal=None, output_path=output_path, run_id=run_id, presentation_path=presentation_path,
+        publications=tuple(result.publications),
     )
 
 

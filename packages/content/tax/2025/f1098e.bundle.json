@@ -1,0 +1,252 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.f1098e.vocabulary",
+  "version": "v1",
+  "label": "Form 1098-E student loan interest statement vocabulary and per-statement eligibility witnesses for 2025",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+      "version": "v1",
+      "title": "Student loan interest received by lender, reported in box 1 of one logical Form 1098-E statement instance furnished by a lender for 2025; the statement instance is peer to evidence and its identity carries no file, upload, scan, document, or evidence key (ADR-0015). Multiple originals from one lender are distinct statement instances; a lender may aggregate several qualified student loans on one statement. A corrected copy of the same logical statement answers this same fact and supersedes its prior finding. A VOID-checked copy is never admitted as this fact at all -- it is not a member, not a correction, not evidence of anything (mirrors tax.us.2025.f1099g.box1-unemployment's VOID disposition exactly). Nonnegative source amount only.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "number",
+        "minimum": 0
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098e.box2-checked-authority",
+      "version": "v1",
+      "title": "Explicit companion authority for Form 1098-E box 2 (box 1 does not include loan origination fees and/or capitalized interest for a pre-9/1/2004 loan) on the same logical statement as a box-1 member. Read directly off the statement itself, not a separate taxpayer declaration. Only explicit null (absent, meaning unchecked) or boolean false (explicitly unchecked) is admissible on the bounded Student Loan Interest Deduction route. A true value (box 2 checked) is a hard admission block: box 1 is known-incomplete for that statement and this route's worksheet arithmetic cannot honestly perform Pub. 970's manual fee-allocation computation (ADR-0016 section 5, mirrors tax.us.2025.f1099g.box4-federal-withholding-authority's companion-witness pattern). This is an authority witness, not a composed amount.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "anyOf": [
+          {"type": "null"},
+          {"const": false}
+        ]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098e.no-related-person-interest",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component: no related-person loan interest is included in this statement's box-1 figure (Pub. 970 p.31, \"Related person\"). Per-statement witness on the same logical statement as the box-1 member. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks the whole route.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098e.no-qualified-employer-plan-interest",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component: no qualified-employer-plan loan interest is included in this statement's box-1 figure (Pub. 970 p.31, \"Qualified employer plan\"). Per-statement witness on the same logical statement as the box-1 member. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks the whole route.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098e.no-non-qualified-loan-component",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component: no non-qualified-loan component is included in this statement's box-1 figure -- collapses the student-status, qualified-education-expense, and reasonable-period-of-time sub-questions Pub. 970 (pp.30-31, \"Qualified Student Loan,\" \"Qualified Education Expenses,\" \"Reasonable period of time\") gives no per-return signal to distinguish, folded into one contributed absence witness (mirrors the box-4-style \"authority witness, not a composed amount\" pattern used elsewhere in this codebase, e.g. tax.us.2025.f1099g.box4-federal-withholding-authority). Per-statement witness on the same logical statement as the box-1 member. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks the whole route.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098e.no-employer-educational-assistance-interest",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component: no employer-paid interest under an educational assistance program (post-3/27/2020) is included in this statement's box-1 figure (Pub. 970 p.33, \"No Double Benefit Allowed\"). Per-statement witness on the same logical statement as the box-1 member. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks the whole route.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098e.no-qtp-earnings-used",
+      "version": "v1",
+      "title": "Student Loan Interest Deduction eligibility component: no QTP (qualified tuition program) distribution-earnings amount was used to pay the interest reported on this statement (Pub. 970 p.33, \"No Double Benefit Allowed\"). Per-statement witness on the same logical statement as the box-1 member. Contributed categorical assertion, domain {yes, no}, no default. yes asserts the named excluded class is absent; no asserts it is present and blocks the whole route.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "lender",
+          "kind": "entity",
+          "entity_kind": "tax.us.student-loan-lender"
+        },
+        {
+          "name": "statement",
+          "kind": "entity",
+          "entity_kind": "tax.us.1098e-statement"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "string",
+        "enum": ["yes", "no"]
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    },
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.f1098e.1.source-closure",
+      "version": "v1",
+      "title": "User-attested closure of the Form 1098-E box-1 student-loan-interest source family for 2025, keyed on the family membership horizon current at attestation (ADR-0017): true asserts every furnished 1098-E box-1 interest amount is recorded as of that horizon. This claim covers box 1 (and its box-2 companion) only -- never the eligibility components (universal or legal-zero), MAGI completeness, Schedule 1 Part II completeness, or Form 1040 line 10/11a/11b. A later membership transition displaces this closure through horizon succession; re-attestation on the successor horizon is required.",
+      "nature": "determinable",
+      "identity_keys": [
+        {
+          "name": "family-horizon",
+          "kind": "entity",
+          "entity_kind": "kernel.family-horizon"
+        },
+        {
+          "name": "tax-year",
+          "kind": "literal",
+          "values": ["2025"]
+        }
+      ],
+      "value_schema": {
+        "type": "boolean"
+      },
+      "supersession": {
+        "policy": "free"
+      }
+    }
+  ]
+}

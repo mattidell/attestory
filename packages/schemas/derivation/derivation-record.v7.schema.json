@@ -1,0 +1,345 @@
+{
+  "$defs": {
+    "disposition": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "published"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "code"
+                  ]
+                },
+                {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                {
+                  "required": [
+                    "superseded_by"
+                  ]
+                }
+              ]
+            },
+            "required": [
+              "finding_id",
+              "act_id",
+              "symbol"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "blocked"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                {
+                  "required": [
+                    "superseded_by"
+                  ]
+                }
+              ]
+            },
+            "required": [
+              "code",
+              "missing"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "inapplicable"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "oneOf": [
+              {
+                "not": {
+                  "required": [
+                    "superseded_by"
+                  ]
+                },
+                "required": [
+                  "guard_result"
+                ]
+              },
+              {
+                "not": {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                "required": [
+                  "superseded_by"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "act_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "artifact_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "code": {
+          "enum": [
+            "DEPENDENCY_ABSENT",
+            "DEPENDENCY_INVALID",
+            "CATEGORICAL_DOMAIN_MISMATCH",
+            "SOURCE_SET_UNCLOSED",
+            "VALUE_INVALID",
+            "ITEMIZATION_TIE_OUT_VIOLATION",
+            "COMPLETENESS_VALUE_VIOLATION",
+            "MULTIPLE_F1098_OUT_OF_SCOPE",
+            "F1098_SCOPE_CONTRADICTION",
+            "SLI_MFS_INELIGIBLE",
+            "SLI_UNIVERSAL_COMPONENT_VIOLATION",
+            "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE"
+          ]
+        },
+        "disposition": {
+          "enum": [
+            "published",
+            "blocked",
+            "inapplicable"
+          ]
+        },
+        "finding_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "guard_result": {
+          "const": false
+        },
+        "missing": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "pins": {
+          "items": {
+            "$ref": "#/$defs/pin"
+          },
+          "type": "array"
+        },
+        "superseded_by": {
+          "$ref": "#/$defs/pin"
+        },
+        "symbol": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "disposition",
+        "pins"
+      ],
+      "type": "object"
+    },
+    "pin": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "not": {
+              "required": [
+                "origin"
+              ]
+            }
+          },
+          "if": {
+            "properties": {
+              "role": {
+                "const": "input"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "then": {
+            "required": [
+              "origin"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "assertion",
+            "declared_default"
+          ]
+        },
+        "role": {
+          "enum": [
+            "adoption",
+            "governance",
+            "parameter",
+            "input",
+            "choice",
+            "default",
+            "composition",
+            "citation",
+            "package",
+            "operation-semantics"
+          ]
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "id",
+        "version"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "derivation/derivation-record.v7",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "required": [
+          "stop_reason",
+          "dispositions"
+        ]
+      },
+      "if": {
+        "properties": {
+          "phase": {
+            "const": "started"
+          }
+        },
+        "required": [
+          "phase"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "stop_reason"
+              ]
+            },
+            {
+              "required": [
+                "dispositions"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "description": "Additive successor to derivation-record.v6 (Form 1098-E Student Loan Interest Deduction / AGI milestone, Track 6). Widens the disposition block-code vocabulary with SLI_MFS_INELIGIBLE, SLI_UNIVERSAL_COMPONENT_VIOLATION, and SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE -- the three block codes tax.us.2025.rule.sli-worksheet.json (Track 3) mints for the Student Loan Interest Deduction Worksheet's own hard-block routes (married filing separately; a universal T0-2 eligibility component present; a Schedule 1 Part II adjustment this milestone cannot compute), never observed against the real record schema until Track 6 ran the routes live. v1-v6 remain immutable history; every other block is unchanged from v6.",
+  "properties": {
+    "adoption_pin": {
+      "$ref": "#/$defs/pin"
+    },
+    "dispositions": {
+      "items": {
+        "$ref": "#/$defs/disposition"
+      },
+      "type": "array"
+    },
+    "governance_pins": {
+      "items": {
+        "$ref": "#/$defs/pin"
+      },
+      "type": "array"
+    },
+    "phase": {
+      "enum": [
+        "started",
+        "completed",
+        "interrupted",
+        "failed"
+      ]
+    },
+    "record_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "run_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "derivation-record.v7"
+    },
+    "stop_reason": {
+      "enum": [
+        "saturated",
+        "interrupted",
+        "validation-failed",
+        "execution-failed"
+      ]
+    },
+    "workspace_revision": {
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema",
+    "record_id",
+    "run_id",
+    "phase",
+    "workspace_revision",
+    "governance_pins",
+    "adoption_pin"
+  ],
+  "title": "Derivation record with Student Loan Interest Deduction block codes",
+  "type": "object"
+}

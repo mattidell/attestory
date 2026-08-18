@@ -1,0 +1,22 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.f1098e.1.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "family": {
+    "id": "tax.us.2025.f1098e.1",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.f1098e.1",
+  "member_fact_type": {
+    "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v2",
+  "version": "v1"
+}

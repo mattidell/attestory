@@ -1,0 +1,18 @@
+{
+  "schema": "parameter-declaration.v1",
+  "id": "tax.us.2025.parameter.sli-magi-threshold",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax",
+    "effective_from": "2025-01-01"
+  },
+  "values": {
+    "single": "85000",
+    "married_filing_jointly": "170000",
+    "married_filing_separately": "85000",
+    "head_of_household": "85000",
+    "qualifying_surviving_spouse": "85000"
+  }
+}

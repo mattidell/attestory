@@ -1,0 +1,189 @@
+{
+  "attachment": {
+    "authority": "IRS",
+    "form_id": "1040-SCH-1",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "completeness": {
+    "required_answers": [
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line1-taxable-refunds"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line2a-alimony"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line3-business"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line4-other-gains"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line5-rental"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-line6-farm"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-sch1-other-income"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-unemployment-repayment"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-f1099g-box2-state-refund"
+      },
+      {
+        "check": "value",
+        "equals": "yes",
+        "fact_type": {
+          "id": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes",
+          "version": "v1"
+        },
+        "symbol": "tax.us.2025.schedule1-part1-scope.no-f1099g-other-payment-classes"
+      }
+    ]
+  },
+  "id": "tax.us.2025.rule.attachment.schedule-1",
+  "itemizations": [
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1099g.1",
+          "version": "v1"
+        }
+      },
+      "label": "Line 7: Unemployment compensation",
+      "part_id": "line-7-unemployment",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1099g.box1-unemployment",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1099g.1",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.unemployment.box1-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.unemployment.box1-subtotal"
+      }
+    },
+    {
+      "authority": {
+        "kind": "single_family",
+        "source_family": {
+          "id": "tax.us.2025.f1098e.1",
+          "version": "v1"
+        }
+      },
+      "label": "Line 21: Student Loan Interest Deduction",
+      "part_id": "line-21-student-loan-interest",
+      "row_sets": [
+        {
+          "rows": {
+            "member_fact_type": {
+              "id": "tax.us.2025.f1098e.box1-student-loan-interest",
+              "version": "v1"
+            },
+            "op": "collect_members",
+            "source_family": {
+              "id": "tax.us.2025.f1098e.1",
+              "version": "v1"
+            }
+          },
+          "subtotal_symbol": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+        }
+      ],
+      "tie_out": {
+        "line_symbol": "tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal"
+      }
+    }
+  ],
+  "publishes": "tax.us.2025.schedule1.disposition",
+  "requirement": {
+    "citation": {
+      "id": "tax.us.2025.citation.attachment.schedule-1",
+      "version": "v1"
+    },
+    "comparison": "strictly_greater_than",
+    "subtotals": [
+      "tax.us.2025.unemployment.box1-subtotal",
+      "tax.us.2025.schedule1.line21-sli-deduction"
+    ],
+    "threshold_parameter": {
+      "id": "tax.us.2025.parameter.default-zero",
+      "version": "v1"
+    }
+  },
+  "schema": "attachment-rule.v4",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Schedule 1 (Additional Income and Adjustments to Income): bounded route itemizes line 7 unemployment from the closed Form 1099-G box-1 family and line 21 student loan interest from the closed Form 1098-E box-1 family; required when either closed subtotal is strictly greater than zero; completeness value-checks Alternative A Part I absences, repayment-not-present, and residual Form 1099-G payment-class absences (unchanged from v1 -- Track 0 T0-6/T0-7 settlement adds no new completeness.required_answers entries for Part II). Not a general Schedule 1 claim; Part II adjustments other than line 21 remain out of scope. Track 0 T0-7 settlement (docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md): same rule identity succeeding forward on the existing attachment-rule.v4 grammar (requirement.subtotals and itemizations are already arrays; no new schema shape needed -- the milestone's pre-filed attachment-rule.v9 ledger claim is not exercised, see that rule file's own notes for the reconciliation). Track 4b repair (same milestone document, Track 4b): Track 4 originally tied the line-21 itemization's row_set out to tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal while that symbol was the $2,500-CAPPED worksheet-line-1 figure, which falsely blocked any filer whose true box-1 interest exceeded $2,500 with ITEMIZATION_TIE_OUT_VIOLATION even though line 21 computed correctly. Track 4b fixed this upstream, in rule.sli-worksheet-line1-subtotal.json, not here: that sibling rule now publishes the family's RAW, uncapped closure-authorized sum (the true ADR-0016 authority object, satisfying audit_collect_authority exactly), and the worksheet's own $2,500 cap moved into rule.sli-worksheet.json's own line-1 reads. This file needed no change -- the itemization row_set below still ties out to the same symbol name, tax.us.2025.sli-worksheet.line1-total-interest-paid-subtotal, but that symbol's value is now the raw sum, so it equals the itemization's own raw row-level member sum by construction for every filer, cap-bound or not. Proven, not assumed: tests/test_schedule1_line26_track4.py::test_over_cap_filer_itemization_no_longer_false_blocks exercises the over-cap case and confirms the attachment now publishes.",
+  "version": "v2"
+}

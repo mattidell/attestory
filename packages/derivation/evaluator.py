@@ -162,6 +162,12 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
     if op == "subtract":
         return _as_decimal(evaluate(expr["left"], env, access)) - _as_decimal(evaluate(expr["right"], env, access))
 
+    if op == "multiply":
+        return _as_decimal(evaluate(expr["left"], env, access)) * _as_decimal(evaluate(expr["right"], env, access))
+
+    if op == "divide":
+        return _divide(expr, env, access)
+
     if op == "max":
         return max(_as_decimal(v) for v in _flatten(evaluate_args(expr["args"], env, access)))
 
@@ -213,6 +219,29 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
 
     if op == "category_literal":
         return expr["value"]
+
+    if op == "collect_categorical_all_equal":
+        # Additive (Form 1098-E Student Loan Interest Deduction milestone
+        # Track 6b repair): the corpus's `collect` op force-coerces every
+        # row to Decimal (`_as_decimal`), so it cannot read a categorical
+        # "yes"/"no" per-member witness. This op mirrors `collect`'s own
+        # raw-row read of ``env.sources`` (never `env.symbols` -- an
+        # unkeyed multi-member fact type has no single symbol value to
+        # read) but keeps rows as plain strings and tests every row against
+        # one expected category, rather than summing. A universal
+        # per-statement witness (e.g. "no member answers 'no'") is
+        # expressed as one node instead of an unkeyed `ref` that
+        # `packages/derivation/marshal.py` would otherwise have to pick a
+        # single arbitrary current finding for.
+        name = expr["name"]
+        access.collects.add(name)
+        rows = env.sources.get(name, [])
+        if not rows:
+            raise EvalBlocked(BLOCK_ABSENT, [name])
+        expected_fact_type, expected_val = _eval_categorical_operand(expr["value"], env, access)
+        for row in rows:
+            _validate_categorical_value(expected_fact_type, row, env)
+        return all(row == expected_val for row in rows)
 
     if op == "conditional_dependency_set":
         # ADR-0037: the condition is an ordinary evaluated input.  Only a
@@ -272,6 +301,28 @@ def _round(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal
     value = _as_decimal(evaluate(expr["value"], env, access))
     unit = Decimal(canon["unit"])
     return (value / unit).quantize(Decimal(1), rounding=_ROUND_MODES[mode]) * unit
+
+
+def _divide(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:
+    """left / right, floored to at least `min_decimal_places` decimal digits.
+
+    This is a precision floor on the ratio's own decimal representation,
+    evaluated once immediately after division, categorically distinct from
+    the `round` op's whole-dollar `rounding.convention` unit (T0-4/T0-9). A
+    zero divisor blocks rather than raising ZeroDivisionError or producing
+    Infinity, so the op is safe for any future consumer even though this
+    milestone's divisor is always a fixed nonzero parameter.
+    """
+    left = _as_decimal(evaluate(expr["left"], env, access))
+    right = _as_decimal(evaluate(expr["right"], env, access))
+    if right == 0:
+        raise EvalBlocked(BLOCK_INVALID, ["division by zero"])
+    mode = expr["rounding"]
+    if mode not in _ROUND_MODES:
+        raise EvalBlocked(BLOCK_INVALID, [f"unknown rounding mode: {mode!r}"])
+    min_decimal_places = expr["min_decimal_places"]
+    quantum = Decimal(1).scaleb(-min_decimal_places)
+    return (left / right).quantize(quantum, rounding=_ROUND_MODES[mode])
 
 
 def _range_lookup(expr: dict[str, Any], env: Environment, access: AccessLog) -> Decimal:

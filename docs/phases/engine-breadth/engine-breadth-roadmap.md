@@ -196,10 +196,32 @@ roadmap unless a selected breadth slice directly depends on them.
     `milestones/declarative-validation-substrate-deferral-ledger.md`;
     retrospective:
     `docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md`.
+16. **2025 Form 1098-E Student-Loan Interest through Schedule 1 Lines 21/26
+    and AGI** — re-cut and **closed 2026-08-18**. Opens the first Engine
+    Breadth route on the income-adjustment side of the return: a single
+    2025 Form 1098-E statement's deductible interest, capped at $2,500 and
+    reduced by the MAGI phaseout, computed on the Student Loan Interest
+    Deduction Worksheet as rule content and carried through Schedule 1
+    lines 21/26 into Form 1040 line 10 and AGI (lines 11a/11b). The
+    additive `multiply`/`divide`/`collect_categorical_all_equal` expression-
+    language extension (ADR-0064) and the first application of ADR-0016
+    decision 4 to a mixed absent/present/structural-zero Schedule 1 Part II
+    total (ADR-0065). Rebased and rebuilt onto the closed
+    declarative-validation-substrate-f8949 base after that milestone merged
+    mid-build; the two milestones' packages collided ADD/ADD on the same
+    version number, resolved by rebuilding on top of the ratified content
+    rather than renumbering schemas. Final package is the additive union
+    core **v33** / published **v28** / release **v26** / adopt **v33**,
+    over the merged core v32 base. An independent review of PR #178
+    (curated object `64c540ce`) returned `CHANGES REQUESTED` on two
+    curation-introduced defects; both fixed and the gate re-verified green.
+    Plan:
+    `milestones/f1098e-student-loan-interest-agi.md`; deferral ledger:
+    `milestones/f1098e-student-loan-interest-agi-deferral-ledger.md`;
+    retrospective:
+    `docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md`.
 
 **Next breadth slice — owner-unselected.**
-The fresh Form 1098-E vertical slice (Schedule 1 lines 21/26, Form 1040
-line 10, AGI 11a/11b) remains unselected.
 Inbound capital-loss carryovers, Form 8949/noncovered securities/adjustments,
 and other Schedule D sources remain distinct candidates; other Form 1099-R
 distribution treatments and unrelated income domains remain outside the
@@ -316,6 +338,23 @@ source and completeness boundary is selected.
   remains unselected. Plan:
   `milestones/fact-type-succession-neutral-schedule1.md`; retrospective:
   `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
+- **Declarative Structured Validation and Consumer Dependency Substrate —
+  closed 2026-08-17** (PR #174). No new tax route; hardening prerequisite.
+  Plan: `milestones/declarative-validation-substrate.md`; retrospective:
+  `docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md`.
+- **2025 Form 1098-E Student-Loan Interest through Schedule 1 Lines 21/26
+  and AGI — closed 2026-08-18.** First Engine Breadth route on the
+  income-adjustment side of the return. The bounded single-statement,
+  fully-eligible class is synthetic complete through Schedule 1 lines
+  21/26, Form 1040 line 10, and AGI. Rebased and rebuilt onto the closed
+  declarative-validation-substrate-f8949 base; final package core
+  **v33**/published **v28**/release **v26**/adopt **v33**. Independent
+  review of the curated PR (#178) returned `CHANGES REQUESTED` on two
+  curation-introduced defects; both fixed, gate re-verified green. Plan:
+  `milestones/f1098e-student-loan-interest-agi.md`; deferral ledger:
+  `milestones/f1098e-student-loan-interest-agi-deferral-ledger.md`;
+  retrospective:
+  `docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md`.
 - Subtractive adjustments and other market-discount situations remain
   separate candidates; this selection does not absorb them.
 - Real Return — **closed 2026-07-28.** Its final matrix and roadmap remain the
