@@ -4,11 +4,11 @@
   "phase": "Engine Breadth",
   "topic": "f1098e-student-loan-interest-agi",
   "active_plan": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md",
-  "milestone_state": "track-7",
-  "status": "Re-cut of the Form 1098-E design-exploration branch (milestone/f1098e-student-loan-interest-line21, PR #169, ruled completed design exploration at owner stop). Cut fresh from origin/main at 85b6a0f1. Track 0 settled. Tracks 1-6b built and foreman-reviewed; full suite green (1369 passed, 20 skipped). Track 6b repaired the marshal.py order-dependence defect per owner disposition: rule.sli-worksheet.json's five per-statement witnesses now read via the new additive collect_categorical_all_equal evaluator op (rule-artifact.v6, in-branch, unpublished) instead of an unkeyed ref; marshal.py gained an ambiguity guard (refuses -- blocked disposition, never raises -- only on genuine multi-finding disagreement for a non-collect symbol). Path (j) re-verified: both statement orderings now correctly block. tests/test_f1098_mortgage_interest_lifecycle.py's cardinality test passes unchanged (Form 1098's latent 14 refs retired safely). Track 3/4 arithmetic byte-identical. Track 0 integration-surface artifact flipped PENDING -> PASS; no known limitations remain. No ADR needed for the repair. Only Tracks 7 (two ADRs, citing Track 6b as evidence) and 8 (package/registry/presentation) remain.",
-  "retrospective": null,
-  "current_role": "Foreman (present Track 7/8 charter or dispatch next, owner has not yet requested either)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Tracks"
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md",
+  "status": "Closed 2026-08-18. All eight tracks (plus repairs at Tracks 4b and 6b, and one Track-7 repair round) built and foreman-reviewed. Rebased and rebuilt onto origin/main after the concurrent declarative-validation-substrate-f8949 milestone (PR #174) merged: the package this milestone built collided ADD/ADD with that milestone's own same-numbered package; rebuilt on top of its ratified content as core v33 / published v28 / release v26 / adopt v33, with artifact-package.v25 regenerated as v24's true additive successor rather than v23's, as a genuinely bisectable rebase. An independent review of PR #178 (curated object 64c540ce) returned CHANGES REQUESTED on two curation-introduced defects (runner.py's run_and_record use_v2 set regressing a closed rule-artifact.v6 divergence, and three stale v6-capability comments); both fixed at 29971813, gate re-verified green. Full suite green: 1488 passed, 20 skipped, zero regressions against an independent origin/main baseline run. Deferral ledger: docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi-deferral-ledger.md.",
+  "current_role": "Foreman — between-milestones selection",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
 }
 -->
 # Phase State
@@ -33,50 +33,51 @@ route: a return with no Social Security source can now reach total income
 without answering 33 Social Security declarations. The thirteen shared
 Schedule 1 absence declarations that used to live on that worksheet
 vocabulary now have Schedule-1-native successor ids and an adopted
-migration artifact that retires the old ones. **The active milestone opens
+migration artifact that retires the old ones. The declarative structured
+validation and consumer dependency substrate that moved Form 8949's
+per-member validation and cross-family identity checks out of generic
+runner code into versioned content is closed. **The engine now also covers
 the first Engine Breadth route on the income-adjustment side of the
-return** — 2025 Form 1098-E student-loan interest through Schedule 1 lines
+return**: 2025 Form 1098-E student-loan interest through Schedule 1 lines
 21/26, Form 1040 line 10, and AGI 11a/11b.
 
 ## Operational State: Engine Breadth
 
-* **Active milestone:** `f1098e-student-loan-interest-agi` — Track 0
-  charter drafted on branch `milestone/f1098e-student-loan-interest-agi`,
-  cut from `origin/main` at `85b6a0f1`. Not yet performed; no dispatch
-  without literal owner authorization in the live thread. Plan:
-  `docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md`.
-* **Re-cut, not a resumption**, of `milestone/f1098e-student-loan-interest-line21`
-  (PR #169, still open) — the owner ruled that branch **completed design
-  exploration** after its Track 0c found the substrate it depended on
-  (cross-fact-type succession) did not yet exist. This milestone inherits
-  only that branch's Durable findings register, re-verified against current
-  `main`, not its track narrative or prior settlement answers.
-* **What re-verification changed:** cross-fact-type succession now exists
-  (ADR-0063, `migration-artifact.v1`); the thirteen Schedule 1 absence facts
-  have Schedule-1-native ids; but Schedule 1 lines 21/22/26 have **no**
-  completeness declaration today — this milestone is not a fourteenth entry
-  in an existing pattern, it is the first Part II total. The SSA burden is
-  repaired (33 → 1 declaration) but by retaining
-  `no-rrb-or-foreign-social-benefit` as load-bearing, not by migrating it —
-  that remains the deferred fourteenth migration candidate, out of this
-  milestone's scope.
-* **Prior milestone:** Fact-type succession with neutral Schedule 1
-  vocabulary — closed (PR #177, merged `85b6a0f1`). Milestone 2 of the
-  two-milestone Form 1098-E prerequisite; shipped ADR-0063,
-  `migration-artifact.v1` / `act-migration-adoption.v1` /
-  `artifact-package.v23`, package **v31** / published-packages **v26** /
-  release **v24**. Plan:
-  `docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md`;
+* **Active milestone:** none selected.
+* **Prior milestone:** 2025 Form 1098-E student-loan interest through
+  Schedule 1 lines 21/26, Form 1040 line 10, and AGI — closed 2026-08-18.
+  The bounded class: a single 2025 Form 1098-E statement's deductible
+  interest, capped at $2,500 and reduced by the MAGI phaseout, computed on
+  the Student Loan Interest Deduction Worksheet as rule content and carried
+  through Schedule 1 lines 21/26 into Form 1040 line 10 and AGI (lines
+  11a/11b). Twelve eligibility components gate the route; MFS filing status
+  and any genuine Schedule 1 Part II adjustment this milestone does not
+  compute honestly block rather than silently underweighting MAGI. Final
+  package is the additive union core **v33** / published **v28** / release
+  **v26** / adopt **v33**, over the merged `declarative-validation-substrate-f8949`
+  base. Plan:
+  `docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md`;
+  deferral ledger:
+  `docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi-deferral-ledger.md`;
   retrospective:
-  `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
-* **Earlier prior milestone:** SSA no-activity applicability repair — closed
-  2026-08-14 (PR #173). Plan:
-  `docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md`;
+  `docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md`.
+* **Earlier prior milestone:** Declarative Structured Validation and
+  Consumer Dependency Substrate — closed 2026-08-17 (PR #174); Candidate B
+  P1-P3 ratified into ADR-0066; final package core v32/published v27/release
+  v25/adopt v32. Plan:
+  `docs/phases/engine-breadth/milestones/declarative-validation-substrate.md`;
+  deferral ledger:
+  `docs/phases/engine-breadth/milestones/declarative-validation-substrate-deferral-ledger.md`;
   retrospective:
-  `docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md`.
+  `docs/milestone-retrospectives/2026-08-17-declarative-validation-substrate.md`.
+* **Next:** owner selects the next milestone from
+  `docs/phases/engine-breadth/coverage-frontier.md`. The scoped-not-built
+  rule-artifact/attachment-rule capability-table consolidation
+  (`milestones/rule-artifact-capability-table-consolidation.md`) is a
+  hardening candidate, not breadth — confirmed a fourth time by this
+  milestone's own rebase.
 * **Concurrent milestones (separate worktrees, do not collide on schema
-  versions):** `declarative-validation-substrate-f8949` and
-  `f8949-noncovered-basis-lines2-9`. Coordinate through
+  versions):** `f8949-noncovered-basis-lines2-9`. Coordinate through
   `origin/milestone-schema-ledger` — see
   `docs/process/concurrent-work.md`.
 

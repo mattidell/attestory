@@ -1387,10 +1387,11 @@ def validate_package(
                 # v1/v2 keep their requires-only edge computation unchanged.
                 # v4/v5 is v3's expression grammar plus `count`/`block`, so it
                 # carries the same declared-refs-outside-requires capability.
-                # v6 is v4's grammar plus `multiply`/`divide` (Form 1098-E
-                # Student Loan Interest Deduction milestone Track 1), an
-                # additive expression-language extension only -- it carries
-                # the same declared-refs-outside-requires capability.
+                # v6 is v4's grammar plus `multiply`/`divide`/
+                # `collect_categorical_all_equal` (Form 1098-E Student Loan
+                # Interest Deduction milestone Tracks 1/6b), an additive
+                # expression-language extension only -- it carries the same
+                # declared-refs-outside-requires capability.
                 if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
                     declared_refs.update(_iter_ref_names(citizen["when"]))
                     declared_refs.update(_iter_ref_names(citizen["value"]))
@@ -1966,10 +1967,10 @@ def validate_package(
     for (ft_id, _ft_version), ft in fact_types_by_key.items():
         fact_types_by_id.setdefault(ft_id, ft)
     for pin, citizen in resolved:
-        # v6 is v4's grammar plus multiply/divide only (Form 1098-E Student
-        # Loan Interest Deduction milestone Track 1); the conditional_
-        # dependency_set/category_literal domain-match check applies
-        # identically.
+        # v6 is v4's grammar plus multiply/divide/collect_categorical_all_equal
+        # (Form 1098-E Student Loan Interest Deduction milestone Tracks
+        # 1/6b); the conditional_dependency_set/category_literal domain-match
+        # check applies identically.
         if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
             continue
         member_names = set(_iter_cds_member_names(citizen["when"])) | set(

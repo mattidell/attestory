@@ -98,9 +98,10 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
             symbols.extend(a["symbol"] for a in branch.get("adds_required", []))
         return symbols
     symbols = list(rule.get("requires", []))
-    # v6 is v4's grammar plus multiply/divide only (Form 1098-E Student Loan
-    # Interest Deduction milestone Track 1); it carries the same
-    # declared-refs-outside-requires capability as v3/v4/v5.
+    # v6 is v4's grammar plus multiply/divide/collect_categorical_all_equal
+    # (Form 1098-E Student Loan Interest Deduction milestone Tracks 1/6b);
+    # it carries the same declared-refs-outside-requires capability as
+    # v3/v4/v5.
     if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))

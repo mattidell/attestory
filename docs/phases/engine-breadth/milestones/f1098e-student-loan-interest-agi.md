@@ -3,10 +3,11 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "f1098e-student-loan-interest-agi",
-  "milestone_state": "track-7",
-  "status": "Re-cut of milestone/f1098e-student-loan-interest-line21 (PR #169, owner-ruled completed design exploration). Cut from origin/main at 85b6a0f1. Track 0 settled. Tracks 1-6b built and foreman-reviewed, full suite green (1369 passed). Track 6b repaired the marshal.py order-dependence defect per owner disposition (see '## Tracks', Track 6b); path (j) re-verified both orderings block correctly; Form 1098's cardinality test unchanged. Track 0 integration-surface artifact PASS, no known limitations remain. Only Tracks 7-8 remain.",
-  "current_role": "Foreman (present Track 7/8 charter or dispatch next, owner has not yet requested either)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Tracks",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md",
+  "status": "Closed 2026-08-18. All eight tracks (plus repairs at Tracks 4b and 6b, and one Track-7 repair round) built and foreman-reviewed. Rebased and rebuilt onto origin/main after declarative-validation-substrate-f8949 (PR #174) merged; final package is the additive union core v33 / published v28 / release v26 / adopt v33. An independent review of PR #178 (curated object 64c540ce) returned CHANGES REQUESTED on two curation-introduced defects; both fixed at 29971813, gate re-verified green. Full suite green: 1488 passed, 20 skipped. See the retrospective.",
+  "current_role": "Foreman — between-milestones selection",
+  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md",
   "scope": [
     "settle Form 1098-E authority and identity (T0-1)",
     "settle component-level eligibility authority and the reported-interest boundary (T0-2, T0-3)",
@@ -63,6 +64,9 @@
       "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Track 0 charter — settlement questions",
       "docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi.md#Track 0 adversarial closure",
       "AGENTS.md#Data Safety Rules"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md"
     ]
   }
 }
@@ -1257,13 +1261,27 @@ before dispatch, per `PROJECT_PLANNING.md` ("Track Planning Checklist").
 ## Exit criteria
 
 * Track 0 settled with adversarial closure PASS on all six artifacts (or an
-  owner-accepted ADR disposing of any FAIL).
+  owner-accepted ADR disposing of any FAIL). **Met** — all six artifacts
+  PASS (the integration-surface artifact closed retroactively in Track 6).
 * Production-shaped synthetic coordinator, lifecycle, completeness, package,
   explanation, and presentation evidence for the bounded class Track 0
-  defines.
-* Independent review READY on the curated branch range.
-* Every prior-milestone regression fixture unmodified and passing.
-* Milestone Closeout performed per `PROJECT_PLANNING.md`.
+  defines. **Met** — Tracks 6 and 8.
+* Independent review READY on the curated branch range. **Met, after
+  closeout.** Not met at first closeout (every track had been
+  foreman-reviewed, but no separate reviewing party had covered the branch
+  as a whole); recorded as a deviation rather than silently treated as
+  satisfied. An independent review of PR #178 was then performed against
+  the curated object `64c540ce`, returned `CHANGES REQUESTED` on two
+  curation-introduced defects, both fixed at `29971813` with the gate
+  re-verified green. See the retrospective's "Independent review findings"
+  section
+  (`docs/milestone-retrospectives/2026-08-18-f1098e-student-loan-interest-agi.md`).
+* Every prior-milestone regression fixture unmodified and passing. **Met** —
+  verified by diffing collected test IDs against an independent
+  `origin/main` baseline run during the rebase-and-rebuild: zero tests
+  removed, zero newly failing.
+* Milestone Closeout performed per `PROJECT_PLANNING.md`. **Met** — this
+  closeout.
 
 ## Stop conditions
 
