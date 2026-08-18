@@ -2,13 +2,12 @@
 {
   "version": 1,
   "phase": "Engine Breadth",
-  "topic": "fact-type-succession-neutral-schedule1",
-  "active_plan": "docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md",
-  "milestone_state": "closed",
-  "status": "Closed on this branch (PR #177). Milestone 2 of the Form 1098-E prerequisite. No new tax route. Thirteen Schedule 1 absence facts succeed onto Schedule-1-native ids via an adopted migration-artifact.v1 (ADR-0063). Worksheet v3 retargets the nonempty CDS; Milestone 1 empty-route contract unchanged. Publication: core v31 / published-packages v26 / release v24. Track 0 STOP FOR ADVISOR on F1; owner disposition; Track 1 APPROVE. Next milestone unselected.",
-  "retrospective": "docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md",
-  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
-  "current_prompt": "docs/phases/engine-breadth/coverage-frontier.md"
+  "topic": "declarative-validation-substrate-f8949",
+  "active_plan": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md",
+  "milestone_state": "planned",
+  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — PLANNED.** The owner selected a prerequisite architecture milestone to remove Form 8949 tax policy and consumer routing from generic Python. Track 0 is paper-first, compares clean-room rival substrate shapes, and requires two independent adversarial reviews. No production contract, ADR, schema, package, or behavior change is ratified by the planning commit; owner approval of the draft plan precedes the Track 0 launch. The noncovered-basis milestone remains paused and its proposed decisions remain inert.",
+  "current_role": "Foreman (awaiting owner approval of milestone plan)",
+  "current_prompt": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md#Track 0 charter"
 }
 -->
 # Phase State
@@ -33,39 +32,28 @@ route: a return with no Social Security source can now reach total income
 without answering 33 Social Security declarations. The thirteen shared
 Schedule 1 absence declarations that used to live on that worksheet
 vocabulary now have Schedule-1-native successor ids and an adopted
-migration artifact that retires the old ones. **This milestone adds no
-new tax route.**
+migration artifact that retires the old ones. The active milestone is the
+owner-selected prerequisite that makes structured validation, cross-family
+identity constraints, and their consumer dependencies declarative. It begins
+with a paper/static Track 0 and stops for owner contract ratification before
+production implementation. **Neither prerequisite adds a new tax route.**
 
 ## Operational State: Engine Breadth
 
-* **Just-closed milestone (this branch):** Fact-type succession with
-  neutral Schedule 1 vocabulary — **closed on this branch (PR #177)**.
-  Milestone 2 of the owner-approved two-milestone prerequisite between
-  the engine and Form 1098-E. They do not share a PR.
-* **Objective, met:** the thirteen shared Schedule 1 absence
-  declarations have a declared lifecycle relationship to their
-  successors. Old answers do not stand silently. A no-Schedule-1
-  return is not asked additional questions. Displacement is a named
-  migration-artifact supersession root (ADR-0063), not an
-  individuation edge and not a package filter.
-* **What shipped:** ADR-0063; `migration-artifact.v1` /
-  `act-migration-adoption.v1` / `artifact-package.v23`; thirteen
-  `schedule1-adjustments-scope` successors; one succession citizen;
-  worksheet v3 CDS retarget; package **v31** / published-packages
-  **v26** / release **v24**.
-* **What did not ship:** Form 1098-E; Schedule 1 line 21 as a real
-  form; Form 1040 line 10; AGI 11a/11b; any change to
-  `no-rrb-or-foreign-social-benefit`. Those remain Part 3,
-  **unselected**.
-* **Independent review:** Track 0 STOP FOR ADVISOR on F1 only; Track 1
-  APPROVE, no findings. Material dissent (F1) is decided by ADR-0063.
-* **Plan:** `docs/phases/engine-breadth/milestones/fact-type-succession-neutral-schedule1.md`.
-* **Retrospective:** `docs/milestone-retrospectives/2026-08-14-fact-type-succession-neutral-schedule1.md`.
-* **Prior milestone:** SSA no-activity applicability repair — closed
-  2026-08-14 (PR #173). Plan:
-  `docs/phases/engine-breadth/milestones/ssa-no-activity-applicability.md`;
-  retrospective:
-  `docs/milestone-retrospectives/2026-08-14-ssa-no-activity-applicability.md`.
+* **Active milestone:** Declarative Structured Validation and Consumer
+  Dependency Substrate; planning commit prepared, owner approval pending.
+* **Current product behavior:** unchanged by this planning commit. The ratified
+  package is core **v31**, published **v26**, release **v24**, adoption **v31**.
+* **Defect in scope:** Form 8949 row guards and Form 1099-B identity collision
+  policy are hard-coded in generic runner/package-validator paths and repeated
+  by known consumers; Schedule D attachment can omit the same validation.
+* **Plan:** `docs/phases/engine-breadth/milestones/declarative-validation-substrate.md`.
+* **Paused dependency:** `milestone/f8949-noncovered-basis-lines2-9`; its
+  proposed decisions are not authority and no implementation is chartered.
+* **Prior milestone:** Fact-type succession with neutral Schedule 1 vocabulary
+  — closed 2026-08-14 (PR #177); ADR-0063 and package **v31** shipped.
+* **Next:** owner approval of the milestone and prototype plans, then the first
+  owner-launched Track 0 Builder charter at evidence rungs 1–2.
 
 ## Re-entry
 
