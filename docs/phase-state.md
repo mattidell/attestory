@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
   "active_plan": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md",
-  "milestone_state": "planned",
-  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — PLANNED.** The owner selected a prerequisite architecture milestone to remove Form 8949 tax policy and consumer routing from generic Python. Track 0 is paper-first, compares clean-room rival substrate shapes, and requires two independent adversarial reviews. No production contract, ADR, schema, package, or behavior change is ratified by the planning commit; owner approval of the draft plan precedes the Track 0 launch. The noncovered-basis milestone remains paused and its proposed decisions remain inert.",
-  "current_role": "Foreman (awaiting owner approval of milestone plan)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md#Track 0 charter"
+  "milestone_state": "track-0",
+  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 0 READY FOR OWNER RATIFICATION DECISION.** The independent Synthesis Repair 2 review is READY and its documentation findings F1-F3 are closed by the focused independent closure review. The Foreman recommends Candidate B P1-P3 under the five explicit dispositions in the ratification packet. No candidate is yet ratified and no production change is authorized.",
+  "current_role": "Owner (Track 0 Candidate B ratification decision)",
+  "current_prompt": "docs/prototypes/declarative-validation-substrate/ratification-packet.md"
 }
 -->
 # Phase State
@@ -41,8 +41,11 @@ production implementation. **Neither prerequisite adds a new tax route.**
 ## Operational State: Engine Breadth
 
 * **Active milestone:** Declarative Structured Validation and Consumer
-  Dependency Substrate; planning commit prepared, owner approval pending.
-* **Current product behavior:** unchanged by this planning commit. The ratified
+  Dependency Substrate; the independent Synthesis Repair 2 review is READY and
+  its documentation findings F1-F3 are closed by the focused independent
+  closure review. The Candidate B P1-P3 contract is waiting on the owner's
+  explicit ratification decision.
+* **Current product behavior:** unchanged by this decision packet. The ratified
   package is core **v31**, published **v26**, release **v24**, adoption **v31**.
 * **Defect in scope:** Form 8949 row guards and Form 1099-B identity collision
   policy are hard-coded in generic runner/package-validator paths and repeated
@@ -52,8 +55,11 @@ production implementation. **Neither prerequisite adds a new tax route.**
   proposed decisions are not authority and no implementation is chartered.
 * **Prior milestone:** Fact-type succession with neutral Schedule 1 vocabulary
   — closed 2026-08-14 (PR #177); ADR-0063 and package **v31** shipped.
-* **Next:** owner approval of the milestone and prototype plans, then the first
-  owner-launched Track 0 Builder charter at evidence rungs 1–2.
+* **Next:** owner disposition of
+  `docs/prototypes/declarative-validation-substrate/ratification-packet.md`.
+  Only affirmative ratification advances to scope-contract establishment and
+  implementation chartering. Numerical iteration caps are suspended by live
+  owner direction; evidence and safety boundaries remain.
 
 ## Re-entry
 

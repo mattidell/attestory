@@ -3,10 +3,10 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
-  "milestone_state": "planned",
-  "status": "Planning commit prepared on the prerequisite milestone branch. Track 0 is paper-first and has not started; owner approval of the draft milestone and prototype plans is required before the Track 0 Builder launch. No production contract, ADR, schema, or package change is ratified by this plan.",
-  "current_role": "Foreman (awaiting owner approval of milestone plan)",
-  "current_prompt": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md#Track 0 charter",
+  "milestone_state": "track-0",
+  "status": "The independent Candidate B Synthesis Repair 2 review is READY and its documentation findings F1-F3 are closed by the focused independent closure review. The owner ratification packet proposes P1-P3 with five explicit dispositions. No candidate is yet ratified and no production change is authorized.",
+  "current_role": "Owner (Track 0 Candidate B ratification decision)",
+  "current_prompt": "docs/prototypes/declarative-validation-substrate/ratification-packet.md",
   "scope": [
     "replace Form 8949-specific per-member validation in generic runner code with a bounded declarative structured-member constraint substrate",
     "replace the hard-coded Form 1099-B identity-collision matrix with declarative cross-family identity constraints",
@@ -24,7 +24,7 @@
   "deep_reads": {
     "implementation": [
       "docs/roles/builder.md",
-      "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md#Track 0 charter",
+      "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md#Track 0 collective charter",
       "docs/prototypes/declarative-validation-substrate/plan.md",
       "docs/adr/0006-rule-artifact-language.md",
       "docs/adr/0010-derived-finding-projection-and-currency.md",
@@ -99,11 +99,11 @@
 
 - Phase: Engine Breadth
 - Milestone key: `declarative-validation-substrate-f8949`
-- Status: **planned; owner approval pending**
-- Base: `origin/main` at `f60e7d186a68c7f034c792307ce0ac6af5c2f619`
+- Status: **Track 0 ready for owner ratification decision**
+- Base: `origin/main` at `71ea50ee3e7da905c7de8385c291fccc944dcb03`
   (core-calculations v29 / published packages v24 / release v22 / adoption v29).
 - Branch: `milestone/declarative-validation-substrate-f8949` in the existing
-  `engine-worktree-1`; no new primary worktree.
+  `engine-worktree-4`; no new primary worktree.
 - Paused dependent milestone: `milestone/f8949-noncovered-basis-lines2-9`.
   It is not rebased, edited, ratified, or implemented during this milestone.
 
@@ -240,9 +240,10 @@ The mechanism must name the constraint version, exact current member finding(s),
 and affected consumer relationship without generic engine knowledge of those
 names or fields.
 
-## Track 0 charter
+## Track 0 collective charter
 
-Audience: Builder
+Audience: Builder roles executing separately chartered incumbent and clean-room
+rival assignments.
 
 ### Goal
 
@@ -255,7 +256,11 @@ or accepted ADRs.
 Prototype rungs 1–2 only: fully resolved static schema/content examples plus
 focused resolver/package-validator mutations. A throwaway evaluator (rung 3)
 requires a foreman stop-and-decide after reviewers show a named question that
-rungs 1–2 cannot answer.
+rungs 1–2 cannot answer. The Track 0 integration-surface gate additionally
+requires synthetic presentation models exercised through the existing real
+presentation consumer. That focused probe is authorized evidence at Track 0;
+it does not authorize a candidate evaluator, persisted production integration,
+or edits outside the prototype packet.
 
 ### Required work
 
@@ -277,6 +282,12 @@ rungs 1–2 cannot answer.
   - admission-only analysis against explanation and correction requirements;
   - exact provenance and stale-result displacement mechanics;
   - migration/deletion criteria and residual domain-specific engine inventory.
+- Because lines 1b/8b are form-field-bound externally published symbols and
+  Candidate A plans successor producers for them, enumerate every external
+  binding, state its cardinality, and build a synthetic presentation model
+  through the real presentation consumer for every materially distinct
+  disposition path. Include the Form 8949 attachment disposition join and
+  package entrypoint bindings in the inventory.
 - State exact ADR-0061/0062 clauses to supersede and exact clauses preserved.
 - Produce a proposed implementation track split and schema-intent-ledger action,
   but do not append a ledger event until the owner ratifies a schema family and
@@ -322,7 +333,10 @@ owner:
 10. migration/deletion criteria and any residual domain code;
 11. exact accepted-ADR supersession proposal;
 12. proposed implementation tracks, schema versions, and ledger reconciliation;
-13. dissent and unresolved questions.
+13. dissent and unresolved questions;
+14. integration-surface binding/cardinality inventory plus built end-to-end
+    models for every materially distinct disposition path, including a valid
+    presentation-model probe for lines 1b/8b.
 
 Reviewer A attacks contract fidelity, lifecycle, explanation, and whether the
 design hides tax policy in generic code. Reviewer B attacks expressiveness,
@@ -333,12 +347,19 @@ expand scope.
 
 ## Track 0 adversarial closure
 
-- Authority-lifecycle table: **PENDING Track 0**
-- Empty/nonempty authority matrix: **PENDING Track 0**
-- Late-member lifecycle: **PENDING Track 0**
-- Neighboring capability dependency diff: **PENDING Track 0**
-- Reused-claim semantic/lifecycle equivalence: **PENDING Track 0**
-- Known limitations affecting correctness: **PENDING owner ratification**
+- Authority-lifecycle table: **FAIL — incomplete as a gate table**
+- Empty/nonempty authority matrix: **FAIL — unrun**
+- Late-member lifecycle: **FAIL — unrun on both schedulers**
+- Neighboring capability dependency diff: **FAIL — unresolved Schedule D / subtotal edge**
+- Reused-claim semantic/lifecycle equivalence: **N-A — justified; both candidates introduce new validation results**
+- Integration surface: **FAIL — projector silent-drop and missing models**
+- Known limitations affecting correctness: **OWNER DISPOSITION REQUIRED**
+
+The canonical finding triage and exact evidence needed to change these rows is
+`docs/prototypes/declarative-validation-substrate/evaluation-analysis.md`.
+Both reviews returned `CHANGES REQUESTED`. The owner removed the numerical cap
+and directed continuation until fixed; Candidate B Synthesis Repair 2 is now
+chartered against those exact failures.
 
 No production implementation charter may be filed while any item is pending or
 failed.
@@ -389,6 +410,8 @@ private outputs enter a branch, fixture, review, or owner report.
 - Schema-changing work: `python3 -m unittest tests.test_schema_registry` plus
   the selected schema/consumer modules and manifest-addition-only inspection.
 - Package mutations must invoke the real package validator/resolver.
+- Integration probes must invoke the real presentation projection consumer and
+  validate each resulting `presentation-model.v1` instance.
 - Lifecycle and scheduler evidence must enter through `live_coordinate_run`.
 - `python3 tools/envelope_scan.py --range origin/main..HEAD` for independent
   review and before push; CI `verify` is the gate of record.
