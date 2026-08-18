@@ -4,10 +4,10 @@
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
   "active_plan": "docs/phases/engine-breadth/milestones/declarative-validation-substrate.md",
-  "milestone_state": "track-0",
-  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 0 READY FOR OWNER RATIFICATION DECISION.** The independent Synthesis Repair 2 review is READY and its documentation findings F1-F3 are closed by the focused independent closure review. The Foreman recommends Candidate B P1-P3 under the five explicit dispositions in the ratification packet. No candidate is yet ratified and no production change is authorized.",
-  "current_role": "Owner (Track 0 Candidate B ratification decision)",
-  "current_prompt": "docs/prototypes/declarative-validation-substrate/ratification-packet.md"
+  "milestone_state": "track-1",
+  "status": "**ENGINE BREADTH / DECLARATIVE STRUCTURED VALIDATION AND CONSUMER DEPENDENCIES — TRACK 1 CHARTERED.** The owner ratified Candidate B P1-P3 under all five dispositions and contract pins; accepted ADR-0066 is binding. Track 1 implements the fail-loud package and presentation version boundaries before any schema successor is selected or edited.",
+  "current_role": "Track 1 Fail-Loud Version Boundary Builder",
+  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-1-fail-loud-version-boundaries.md"
 }
 -->
 # Phase State
@@ -41,11 +41,9 @@ production implementation. **Neither prerequisite adds a new tax route.**
 ## Operational State: Engine Breadth
 
 * **Active milestone:** Declarative Structured Validation and Consumer
-  Dependency Substrate; the independent Synthesis Repair 2 review is READY and
-  its documentation findings F1-F3 are closed by the focused independent
-  closure review. The Candidate B P1-P3 contract is waiting on the owner's
-  explicit ratification decision.
-* **Current product behavior:** unchanged by this decision packet. The ratified
+  Dependency Substrate; Candidate B P1-P3 is owner-ratified and distilled in
+  accepted ADR-0066. Track 1 fail-loud version boundaries are chartered.
+* **Current product behavior:** unchanged by this contract commit. The ratified
   package is core **v31**, published **v26**, release **v24**, adoption **v31**.
 * **Defect in scope:** Form 8949 row guards and Form 1099-B identity collision
   policy are hard-coded in generic runner/package-validator paths and repeated
@@ -55,11 +53,10 @@ production implementation. **Neither prerequisite adds a new tax route.**
   proposed decisions are not authority and no implementation is chartered.
 * **Prior milestone:** Fact-type succession with neutral Schedule 1 vocabulary
   — closed 2026-08-14 (PR #177); ADR-0063 and package **v31** shipped.
-* **Next:** owner disposition of
-  `docs/prototypes/declarative-validation-substrate/ratification-packet.md`.
-  Only affirmative ratification advances to scope-contract establishment and
-  implementation chartering. Numerical iteration caps are suspended by live
-  owner direction; evidence and safety boundaries remain.
+* **Next:** owner-controlled launch of the Track 1 Builder from
+  `docs/prototypes/declarative-validation-substrate/charter-track-1-fail-loud-version-boundaries.md`.
+  This unit changes no schemas or content. Numerical iteration caps are
+  suspended by live owner direction; evidence and safety boundaries remain.
 
 ## Re-entry
 

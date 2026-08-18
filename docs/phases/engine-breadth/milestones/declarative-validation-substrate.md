@@ -3,10 +3,10 @@
   "version": 1,
   "phase": "Engine Breadth",
   "topic": "declarative-validation-substrate-f8949",
-  "milestone_state": "track-0",
-  "status": "The independent Candidate B Synthesis Repair 2 review is READY and its documentation findings F1-F3 are closed by the focused independent closure review. The owner ratification packet proposes P1-P3 with five explicit dispositions. No candidate is yet ratified and no production change is authorized.",
-  "current_role": "Owner (Track 0 Candidate B ratification decision)",
-  "current_prompt": "docs/prototypes/declarative-validation-substrate/ratification-packet.md",
+  "milestone_state": "track-1",
+  "status": "The owner ratified Candidate B P1-P3 under all five dispositions and contract pins. Accepted ADR-0066 is binding. Track 1 implements fail-loud semantic version handling at the package and presentation boundaries before any successor schema is selected or edited.",
+  "current_role": "Track 1 Fail-Loud Version Boundary Builder",
+  "current_prompt": "docs/prototypes/declarative-validation-substrate/charter-track-1-fail-loud-version-boundaries.md",
   "scope": [
     "replace Form 8949-specific per-member validation in generic runner code with a bounded declarative structured-member constraint substrate",
     "replace the hard-coded Form 1099-B identity-collision matrix with declarative cross-family identity constraints",
@@ -15,7 +15,7 @@
     "delete the migrated tax-specific runner and package-validator subsystem rather than retaining a fallback"
   ],
   "non_goals": [
-    "no noncovered-basis Form 8949 implementation or ratification of proposed ADR-0063, ADR-0064, or ADR-0065",
+    "no noncovered-basis Form 8949 implementation or ratification of the paused milestone's proposed decisions",
     "no general-purpose programming language, arbitrary lambda, or tax-specific generic-engine dispatch",
     "no broad fact-identity or contribution-semantics change beyond the declared cross-family constraint",
     "no edit to published schema bytes, manifests, historical content citizens, or accepted ADR decisions in place",
@@ -41,6 +41,7 @@
       "docs/adr/0056-attachment-disposition-visibility.md",
       "docs/adr/0061-covered-wash-sale-authority-and-completeness.md",
       "docs/adr/0062-form8949-attachment-arithmetic-and-schedule-d-composition.md",
+      "docs/adr/0066-declarative-structured-validation-and-consumer-closure.md",
       "packages/derivation/runner.py",
       "packages/derivation/package_validation.py",
       "packages/derivation/marshal.py",
@@ -50,7 +51,7 @@
       "packages/content/tax/2025/attachment.schedule-d.v5.json",
       "packages/content/tax/2025/rule.schedule-d-line1b.json",
       "packages/content/tax/2025/rule.schedule-d-line8b.json",
-      "packages/content/tax/2025/package.core-calculations.v29.json",
+      "packages/content/tax/2025/package.core-calculations.v31.json",
       "AGENTS.md#Schema Publication Protocol",
       "AGENTS.md#Fixture Rules",
       "AGENTS.md#Data Safety Rules"
@@ -68,6 +69,7 @@
       "docs/adr/0032-contribution-boundary.md",
       "docs/adr/0061-covered-wash-sale-authority-and-completeness.md",
       "docs/adr/0062-form8949-attachment-arithmetic-and-schedule-d-composition.md",
+      "docs/adr/0066-declarative-structured-validation-and-consumer-closure.md",
       "packages/derivation/runner.py",
       "packages/derivation/package_validation.py",
       "AGENTS.md#Schema Publication Protocol",
@@ -81,7 +83,7 @@
     "grounding_commit": "f60e7d186a68c7f034c792307ce0ac6af5c2f619",
     "notes": [
       "The ratified engine repeats Form 8949 row and identity validation in attachment, line-rule, and finalize-unreached paths; this is an architectural prerequisite, not a coverage exception.",
-      "The paused noncovered-basis branch and proposed ADR-0063/0064/0065 remain inert and read-only. Its attachment-rule.v7 ledger event is visibility, not authority or a version reservation.",
+      "The paused noncovered-basis branch and its proposed decisions remain inert and read-only. Its attachment-rule.v7 ledger event is visibility, not authority or a version reservation. Accepted ADR-0063 now names the migration-artifact contract from the fact-type succession milestone, not any paused-branch proposal.",
       "Accepted ADR-0061 and ADR-0062 are immutable; Track 0 must identify exact clauses that require an explicit superseding ADR."
     ],
     "sources": [
@@ -99,9 +101,9 @@
 
 - Phase: Engine Breadth
 - Milestone key: `declarative-validation-substrate-f8949`
-- Status: **Track 0 ready for owner ratification decision**
-- Base: `origin/main` at `71ea50ee3e7da905c7de8385c291fccc944dcb03`
-  (core-calculations v29 / published packages v24 / release v22 / adoption v29).
+- Status: **Track 1 fail-loud version boundaries chartered**
+- Base: `origin/main` at `85b6a0f17767d16f64cd93f1be219e112af76253`
+  (core-calculations v31 / published packages v26 / release v24 / adoption v31).
 - Branch: `milestone/declarative-validation-substrate-f8949` in the existing
   `engine-worktree-4`; no new primary worktree.
 - Paused dependent milestone: `milestone/f8949-noncovered-basis-lines2-9`.
@@ -176,7 +178,9 @@ cannot satisfy this milestone.
 
 - No noncovered-basis transaction authority, boxes B/E, lines 2/9, or other
   new tax coverage.
-- No ratification or implementation of proposed ADR-0063/0064/0065.
+- No ratification or implementation of the paused noncovered-basis milestone's
+  proposed decisions. Accepted ADR-0063 is the migration-artifact contract and
+  remains binding.
 - No arbitrary lambdas, embedded Python, general programming language, or
   unbounded expression facility.
 - No reinterpretation of `published`: it remains a successful artifact finding
@@ -347,45 +351,69 @@ expand scope.
 
 ## Track 0 adversarial closure
 
-- Authority-lifecycle table: **FAIL — incomplete as a gate table**
-- Empty/nonempty authority matrix: **FAIL — unrun**
-- Late-member lifecycle: **FAIL — unrun on both schedulers**
-- Neighboring capability dependency diff: **FAIL — unresolved Schedule D / subtotal edge**
-- Reused-claim semantic/lifecycle equivalence: **N-A — justified; both candidates introduce new validation results**
-- Integration surface: **FAIL — projector silent-drop and missing models**
-- Known limitations affecting correctness: **OWNER DISPOSITION REQUIRED**
+- Authority-lifecycle table: **PASS** — every required W member, horizon,
+  closure/absence authority, validation result, subtotal, line, and attachment
+  class is explicit in Candidate B `13`.
+- Empty/nonempty authority matrix: **PASS for the bounded ST/1b slice plus the
+  adjacent live Form 8949 path** — the injected-verdict scheduler limitation is
+  explicit and does not stand in for member evaluation.
+- Late-member lifecycle: **PASS** — kernel and both schedulers displace the
+  closed-empty validation publication after horizon succession and recompute
+  from current members.
+- Neighboring capability dependency diff: **PASS** — the owner ratified
+  reachability-derived W validation on Schedule D attachment; lines 1a/8a stay
+  outside W dependencies under ADR-0061 Decision 5.
+- Reused-claim semantic/lifecycle equivalence: **N-A — justified**; the contract
+  introduces new internal validation publications rather than changing an
+  existing claim's meaning.
+- Integration surface: **PASS for Track 0 evidence, with a binding production
+  precondition** — disposition/cardinality models are complete; ADR-0066
+  requires fail-loud package and presentation boundaries before any successor
+  schema ships.
+- Known limitations affecting correctness: **DISPOSITIONED** — production
+  package validation owns pairing/edges/accounting; P3 closes declared
+  validations while migration tests enforce C1-C5 existence; versions and the
+  ledger follow ratification; Decision 5 remains a named residual; scheduler
+  evidence is correctly described as verdict-gated and attachment-free.
 
-The canonical finding triage and exact evidence needed to change these rows is
-`docs/prototypes/declarative-validation-substrate/evaluation-analysis.md`.
-Both reviews returned `CHANGES REQUESTED`. The owner removed the numerical cap
-and directed continuation until fixed; Candidate B Synthesis Repair 2 is now
-chartered against those exact failures.
+The evidence and dissent remain in
+`docs/prototypes/declarative-validation-substrate/evaluation-analysis.md`, the
+Candidate B packet, and the two final review records. The owner's 2026-08-14
+ratification is recorded in `ratification-packet.md` and distilled into
+accepted ADR-0066. Track 0 is complete. Prototype code remains evidence only.
 
-No production implementation charter may be filed while any item is pending or
-failed.
+## Ratified scope contract and implementation tracks
 
-## Provisional implementation tracks after ratification
+Accepted ADR-0066 is the binding P1-P3 contract. Production is reimplemented
+from that contract; prototype helpers are never copied as authority.
 
-Track 0 must replace these provisional boundaries with exact files, versions,
-and tests in the ratification packet.
-
-1. **Track 1 — generic contract and interpreter.** Add only the ratified
-   additive schema/content kinds, committed fully resolved positive examples,
-   generic current-state evaluation, provenance, and mechanical package graph
-   validation. Record the schema-intent event before the first schema edit.
-2. **Track 2 — Form 8949 migration and kludge deletion.** Instantiate the four
-   row constraints, identity exclusivity, affected families/consumers, and
-   package successors in versioned 2025 content; delete every tax-specific
-   generic-engine path and direct helper import.
-3. **Track 3 — production-path lifecycle, scheduler, explanation, and
-   compatibility evidence.** Drive valid/invalid/repaired and
-   unique/collision/removed cases through `live_coordinate_run`, prove exact
-   pins and dispositions under both schedulers, preserve existing valid
-   arithmetic, and add the canonical presentation/explanation goldens.
-4. **Closing unit — curation and independent publication review.** Rebase on
-   the then-ratified engine line, rebuild package numbering as an additive
-   union, curate one Plan/Track-1/Track-2/Track-3 history, independently review
-   the final range, and bind CI to the exact candidate.
+1. **Track 1 — fail-loud semantic version boundaries.** In
+   `package_validation.py` and `presentation_projection.py`, reject a
+   registry-recognized but semantically unsupported package member and reject
+   unknown form-field/attachment successors before filtering. Add focused
+   causal and compatibility tests. No schemas, content, manifests, packages,
+   or version widening.
+2. **Track 2 — generic contract, interpreter, and package closure.** After
+   selecting new unused versions and recording schema intent, publish the
+   inseparable additive source-family, rule/attachment, and package successors;
+   implement the closed depth-bounded evaluator, explicit identity binding,
+   current validation publications, reachability synthesis, exact-one producer
+   and edge checks, and `accounts_for` agreement in production validation.
+3. **Track 3 — bounded 2025 migration and domain-code deletion.** Instantiate
+   C1-C5, both W families, every affected consumer, and package successors in
+   versioned content. Require all ten one-at-a-time migration mutants to fail.
+   Delete the migrated Form 8949/1099-B runner and package-validator branches;
+   retain ADR-0061 Decision 5's line-1a/8a kill-test and generalize, rather than
+   delete, the marshal comment.
+4. **Track 4 — live lifecycle, scheduler, explanation, and compatibility.** Run
+   valid/invalid/repaired, unique/collision/removed, closed-empty/unclosed, and
+   late-member cases through `live_coordinate_run` and both schedulers. Prove
+   exact pins/dispositions, preserve valid arithmetic, and add canonical
+   presentation/explanation goldens for every materially distinct state.
+5. **Closing unit — curation and independent publication review.** Rebase on
+   the then-ratified engine line, reconcile actual schema versions as an
+   additive union, curate one Plan/ADR/Track-1/Track-2/Track-3/Track-4 history,
+   independently review the final range, and bind CI to the exact candidate.
 
 ## Fixtures
 
