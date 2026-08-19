@@ -1,3 +1,25 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "topic": "engine-breadth-phase-close",
+  "status": "closed 2026-08-18; no active milestone and no successor selected or named",
+  "scope": [
+    "record the Engine Breadth phase close and its carried unclosed work"
+  ],
+  "non_goals": [
+    "no active milestone",
+    "no selected or named successor phase",
+    "no implementation or hardening start"
+  ],
+  "retrospective": "docs/milestone-retrospectives/2026-08-18-engine-breadth.md",
+  "deep_reads": {
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-18-engine-breadth.md"
+    ]
+  }
+}
+-->
+
 # Engine Breadth Phase — Roadmap
 
 Audience: Product (roadmap); Shared (status)
@@ -19,6 +41,67 @@ Hardening does not become breadth because a deferral is old or important.
 Security substrate, historical migration, presentation-session follow-ups, and
 operational cleanup stay visible in their existing ledgers but do not enter this
 roadmap unless a selected breadth slice directly depends on them.
+
+## Phase close — 2026-08-18
+
+**Engine Breadth is closed.** Its standing test asked whether a milestone turns
+a previously honest-blocked valid-return class into an end-to-end computed
+result without weakening closure, citation, contribution, or data-boundary
+guarantees. The phase met that test repeatedly. Its four exit criteria are also
+met: previously blocked classes operate end to end; each completed slice has
+synthetic authoritative-surface evidence and keeps unsupported neighbours
+explicit; the repaired frontier separates breadth from hardening and migration;
+and this roadmap records the owner's decision to close with the next move left
+open for owner selection.
+
+**The coverage frontier is not exhausted.** Form 1116, other Schedule D
+sources, other Schedule K-1 boxes, and a re-cut noncovered-basis/Form 8949
+contract remain live candidates. Closing is a judgment, not an exhaustion:
+after roughly twenty completed slices and prerequisite repairs, those rows are
+more instances of a vertical shape the phase has already proved. Continuing
+would buy more coverage, not a new engine capability.
+
+**Read the completion accurately.** The phase widened what the engine
+**computes**. It did not change how the user supplies facts: the user still
+hand-edits JSON. It also did not make any return fileable. Real Return's close
+already named both gaps; Engine Breadth did not touch them, and no row in this
+phase's frontier was named for either one.
+
+**Carried into the next phase, unclosed:**
+
+1. The **noncovered / basis-not-reported Form 8949 milestone must be re-cut**
+   against ADR-0066. Its reusable C1 evaluation-ordering analysis and
+   `accounts_for` traversal-totality proof are archived, but old proposed
+   ADR-0063/0064/0065 were superseded before ratification. Owner blocker C3 is
+   still unanswered: may a closure gate pass while documenting
+   counterexamples to its own bar?
+2. The **P1 rule-artifact/attachment-rule capability-table consolidation**
+   (`docs/phases/engine-breadth/milestones/rule-artifact-capability-table-consolidation.md`)
+   remains filed, scoped, deliberately unselected hardening. Seven-to-nine
+   hand-maintained version allowlists broke four consecutive milestones,
+   including one site fixed by review and then re-broken during curation of
+   the same PR.
+3. The entry and filing gaps remain outside engine breadth: fact entry still
+   requires hand-edited JSON, and the product still cannot file a return.
+4. Live breadth candidates remain recorded without being selected: general
+   Form 1116, other Schedule D sources, other Schedule K-1 boxes, and the
+   re-cut noncovered-basis row.
+5. Every Engine Breadth milestone deferral ledger remains open by its own
+   terms:
+
+   - `docs/phases/engine-breadth/milestones/capital-gain-distributions-line7a-deferral-ledger.md`
+   - `docs/phases/engine-breadth/milestones/declarative-validation-substrate-deferral-ledger.md`
+   - `docs/phases/engine-breadth/milestones/f1098e-student-loan-interest-agi-deferral-ledger.md`
+   - `docs/phases/engine-breadth/milestones/k1-interest-breadth-deferral-ledger.md`
+   - `docs/phases/engine-breadth/milestones/schedule-d-covered-ltcg-8a-deferral-ledger.md`
+   - `docs/phases/engine-breadth/milestones/schedule-d-current-year-losses-deferral-ledger.md`
+   - `docs/phases/engine-breadth/milestones/schedule-d-form8949-covered-wash-sale-deferral-ledger.md`
+   - `docs/phases/engine-breadth/milestones/schedule-d-inbound-loss-carryovers-deferral-ledger.md`
+
+The coverage frontier is now the closed selection instrument of Engine
+Breadth. It remains a historical inventory of delivered and unclosed classes;
+it does not select, name, or scaffold what follows. That choice is open and
+owner-held.
 
 ## Planned roadmap
 
