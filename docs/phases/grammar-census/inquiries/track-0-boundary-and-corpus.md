@@ -4,8 +4,11 @@
 - Milestone: Engine Language Map (`grammar-census`)
 - Track: 0 — Term boundary and bounded corpus
 - Status: complete
-- Produced against: `HEAD` on `milestone/grammar-census-engine-language-map`,
-  resolved at commit `0f8e078e37781a6d2a532b6cc638d0034b248b02`
+- Revision history (this file only):
+  - original (boundary map and bounded corpus): `990888c2`
+  - round 1 (Layer 4 corpus corrections): `ad2bbe27`
+  - round 2 (boundary map re-derivation): `9104aa48`
+  - round 3 (Foreman ruling on 5b-ii; two flagged inconsistencies): this commit
 
 This deliverable does not read
 `docs/phases/claim-boundary-exploration/` (charter constraint). Where this
@@ -31,6 +34,14 @@ external critique's source verification caught — see surface 5b below. That
 is the one classification change in this round that neither the charter nor
 the critique anticipated; it is reported prominently rather than folded
 in silently, per the standard this repair exists to enforce.
+
+**Repair note (round 3, 2026-08-20).** The Foreman ruled 5b-ii
+(`MAX_PREDICATE_DEPTH = 6`) grammar proper; that is the only
+classification change in this round. Representational-gaps item 4 was
+wrong and is replaced with a discoverability point. A new
+tension-catalog candidate records that the depth bound is two
+independent literals plus ADR prose. Round 2's other classifications
+are untouched.
 
 The plan's `#Term boundary` names seven surfaces in the abstract. Below,
 each is named against concrete repository paths, classified against one
@@ -84,7 +95,7 @@ execution is contractually required to leave behind).
 | 4 | Package selection/binding/closure | Yes — `artifact-package.v1..v25` | expressed by the package citizen; presupposed by any one rule-artifact inside it | Yes | No (constraint set, not an expression syntax) | ADR-0006 decisions 6-7, ADR-0027, ADR-0033 | **proper** (module side) |
 | 5a | attachment-rule/form-field family | Yes — `attachment-rule.v1..v8`, `form-field.v1..v3` | expressed | Yes | Yes | ADR-0036/0055/0056/0066 | **proper** |
 | 5b-i | declarative_validation.py term/predicate vocabulary | **Yes — `source-family.v2.schema.json` `$defs/term`, `$defs/predicate`** | expressed (as `member_constraints[].violated_when` / `identity_exclusivity[].components` of a source-family declaration) | Yes | Yes (own bounded op set) | ADR-0066 decision 2 | **proper (reversed)** |
-| 5b-ii | declarative_validation.py depth bound (`MAX_PREDICATE_DEPTH=6`) | No — ADR-0066 itself disclaims schema enforcement | presupposed (a safety valve on evaluating 5b-i's content) | Yes (`MemberConstraintTooDeep` blocks evaluation) | N/A (a limit, not a vocabulary) | ADR-0066 decision 2 (names the number 6 in prose) | **uncertain** |
+| 5b-ii | declarative_validation.py depth bound (`MAX_PREDICATE_DEPTH=6`) | **No — enforced at resolver admission by contract, not by JSON Schema (ADR-0066 decision 2, deliberate)** | presupposed by schema (not a declared field); well-formedness bound on 5b-i at package admission and at evaluation | Yes (admission `MEMBER_CONSTRAINT_TOO_DEEP`; evaluation `MemberConstraintTooDeep`) | N/A (a limit, not a vocabulary) | ADR-0066 decision 2 (names the number 6 in prose) | **proper (Foreman ruling)** |
 | 6i | Domain axioms (`findings.py` invariant pairs) | No | presupposed generically, kernel "never naming a domain" | Yes | No (data pairs, not expression syntax) | none found | **adjacent** |
 | 6ii | Currency/projection displacement-closure | No — `DECLARED_EDGE_KINDS` is a Python frozenset | produced around already-published findings; store-side | Yes | No (two fixed edge kinds) | ADR-0010 decisions 3, 5, 6 | **adjacent** (store side) |
 | 6iii | Rounding-mode dispatch | **Yes — `operation-semantics.v1.schema.json`, same citizen as #3** | presupposed by a rule's `round` op name | Yes | Yes (closed enum) | ADR-0006 decision 4 | **proper (reversed, contradiction fixed)** |
@@ -211,7 +222,9 @@ execution is contractually required to leave behind).
   `field`, `literal`, `add`, `subtract`, `floor_zero` (term) and
   `field_present`, `field_absent`, `field_equals`, `field_not_equals`,
   `compare`, `all`, `any` (predicate) —
-  `packages/schemas/derivation/source-family.v2.schema.json:66,97,178-421`.
+  `packages/schemas/derivation/source-family.v2.schema.json:66,97,171-469`
+  (`member_constraints` at 66, `identity_exclusivity` at 97, `$defs` at
+  171-469 with `term` at 172 and `predicate` at 278).
   ADR-0066 decision 2 confirms this is the intended, closed language: "The
   predicate language is closed and bounded," naming the same term and
   predicate forms verbatim
@@ -224,25 +237,53 @@ execution is contractually required to leave behind).
   it as its own construct family, not as additional `rule-artifact`
   operations, but "structurally distinct" is no longer the reason it is
   adjacent, because it is not adjacent.
-- **One genuinely uncertain sub-component: the depth bound.** ADR-0066
-  decision 2 also states, in the same sentence introducing the closed
-  language: "Resolver admission rejects predicate depth greater than six;
-  JSON Schema is not claimed to enforce recursive depth by itself"
-  (`docs/adr/0066-...md:54-56`), enforced at
-  `packages/derivation/declarative_validation.py`'s `MAX_PREDICATE_DEPTH = 6`
-  and its `MemberConstraintTooDeep` exception. This is **marked uncertain**,
-  not proper and not adjacent: on the schema-typed-citizen axis it is
-  adjacent (the ADR explicitly disclaims schema enforcement); on the
-  ADR-fixed axis it is proper (the number 6 is a named decision in an
-  accepted ADR, not an arbitrary implementation choice). These two axes
-  genuinely disagree, and nothing else in the repository resolves the
-  disagreement — it is not a gap in what was read, it is ADR-0066's own
-  deliberate design choice to contract a depth limit in prose while
-  declining to encode it in schema. **What would settle it:** an owner or
-  Foreman ruling on whether this census's criterion treats "ADR-mandated,
-  deliberately not schema-enforced" as proper or adjacent — a definitional
-  choice this document does not have standing to make unilaterally, since
-  either answer is defensible and the repository does not pick one.
+- **Classification of the depth bound (`MAX_PREDICATE_DEPTH = 6`):
+  grammar proper — Foreman ruling, 2026-08-20; reversed from
+  `uncertain`.** ADR-0066 decision 2 states, in the same sentence
+  introducing the closed language: "Resolver admission rejects predicate
+  depth greater than six; JSON Schema is not claimed to enforce recursive
+  depth by itself"
+  (`docs/adr/0066-declarative-structured-validation-and-consumer-closure.md:54-56`).
+  Round 2 marked this **uncertain**: the schema-typed-citizen axis said
+  adjacent (the ADR disclaims schema enforcement) and the ADR-fixed axis
+  said proper (the number 6 is a named decision). **Foreman ruling:
+  proper.** The reasoning this entry must carry:
+
+  - Clause (a) of the stated primary criterion asks whether the surface
+    constrains what a rule-artifact — or a citizen that composes or
+    extends one, such as a source-family declaration — may accept as
+    well-formed or express as compositional structure. A depth bound of
+    six on `member_constraints[].violated_when` is exactly a constraint
+    on what a `source-family.v2` citizen may express. It meets that
+    clause on its own terms.
+  - The `uncertain` arose from reading the schema-typed-citizen axis as
+    a test of *whether the rule is part of the declared language*, when
+    it is a test of *which mechanism enforces it*. ADR-0066 decision 2
+    states both facts in one sentence (quoted above), which is a
+    deliberate allocation of enforcement, not a disclaimer of contract.
+  - **Round 2 missed an enforcement site.** The bound is enforced at
+    package admission: `packages/derivation/package_validation.py:2037`
+    defines its own `MAX_PREDICATE_DEPTH = 6`, and `:2051-2056` rejects
+    deeper predicates with issue code `MEMBER_CONSTRAINT_TOO_DEEP`. That
+    is the same admission gate that makes surface 4 grammar proper — a
+    package carrying an over-deep predicate is refused before it can
+    execute. The bound is therefore enforced by contract, twice, on the
+    module side of the module/store line: admission
+    (`package_validation.py:2037,2051-2056`) and evaluation
+    (`packages/derivation/declarative_validation.py:20`, raising
+    `MemberConstraintTooDeep` at `:62` and `:87`).
+  - Splitting 5b-i and 5b-ii would place a closed vocabulary and its
+    own well-formedness rule on opposite sides of the boundary, on the
+    strength of a mechanism difference the ADR made on purpose.
+
+  The "Schema-typed citizen?" axis stays **No — enforced at resolver
+  admission by contract, not by JSON Schema (ADR-0066 decision 2,
+  deliberate)**. The label follows clause (a) of the primary criterion,
+  not that axis. **This is a Foreman ruling on a question the axes did
+  not settle by themselves, not a mechanical result.** A reader who
+  rejects the enforcement-versus-declaration distinction would reach
+  `adjacent` instead. Exit criterion 4 requires that disagreement stay
+  visible, not that the ruling erase it.
 
 ### 6. Runtime behaviors that affect the meaning of a rule but may not themselves be grammar
 
@@ -373,36 +414,29 @@ Split here, each classified on its own evidence.
 
 ### Uncertain classifications
 
-One entry among the twelve rows above is marked `uncertain`: **5b-ii, the
-declarative_validation.py depth bound (`MAX_PREDICATE_DEPTH = 6`)**. See
-its row in the axes table and its reasoning under surface 5 above — the
-schema-typed-citizen axis and the ADR-fixed axis genuinely disagree
-(ADR-0066 decision 2 names the depth limit in prose while explicitly
-disclaiming schema enforcement of it), and no further repository evidence
-resolves which axis should govern; it is a definitional choice this
-document does not have standing to make. State it exactly: what would
-settle it is an owner or Foreman ruling on whether "ADR-mandated,
-deliberately not schema-enforced" counts as proper or adjacent for this
-census's purposes.
+**Half one now carries zero `uncertain` entries, by Foreman ruling
+rather than by silence.** Distinguish that from the original map's zero,
+which resolved collisions silently with no axes and no residual
+disagreement. The round-2 revision of this section left exactly one
+entry uncertain — 5b-ii, the depth bound — and resolved every other
+contested pair with a stated tiebreak (module/store for 4-vs-8 and
+6ii-vs-8; produced/presupposed for 7-vs-8; the corrected schema
+citation for rounding; the corrected `source-family.v2` citation for
+5b-i). It did not claim a total of zero; it asked for a Foreman ruling
+on 5b-ii. That ruling landed in round 3: 5b-ii is **grammar proper**.
+The remaining axis disagreement is still visible in the 5b-ii row
+(schema-typed citizen: No; ADR-fixed: Yes) and in the entry's note that
+a reader who rejects the enforcement-versus-declaration distinction
+would reach `adjacent` instead. Exit criterion 4 (`#Exit criteria`
+item 4 of this milestone's plan) requires that disagreement stay
+visible, not that the ruling erase it.
 
-No other entry is marked `uncertain`. Three pairs the round-2 charter
-named as contested — surface 4 vs. 8, surface 7 vs. 8, and surface 6's
-rounding and displacement-closure components — are resolved decisively
-above rather than left uncertain, because each has a principled,
-evidence-grounded tiebreak (the module/store distinction for 4-vs-8 and
-6ii-vs-8; the produced/presupposed distinction for 7-vs-8; the corrected
-schema citation for rounding) and stating a decisive answer with its cost
-made visible serves the plan's exit criterion 4 ("material disagreements
-… stay visible") better than an unreasoned `uncertain` would. Surface 5's
-mini-language, which the charter's own text flagged as likely contested
-("surface 5 as a whole"), turned out to have a citation error underneath
-it rather than a genuine axis disagreement once the correct schema
-(`source-family.v2`) was located; it is resolved decisively, proper, for
-that reason. Track 1 sub-tracks may still encounter individual constructs
-*within* these families whose classification is less clear (for example a
-single field inside a `rule-artifact.v3` citizen that reads like
-presentation metadata) — that is a construct-level judgment for Track 1/2,
-not a boundary-level one for Track 0.
+No entry is now marked `uncertain`. Track 1 sub-tracks may still
+encounter individual constructs *within* these families whose
+classification is less clear (for example a single field inside a
+`rule-artifact.v3` citizen that reads like presentation metadata) —
+that is a construct-level judgment for Track 1/2, not a boundary-level
+one for Track 0.
 
 ## Half two — the bounded corpus
 
@@ -758,15 +792,24 @@ not a boundary-level one for Track 0.
    unversioned filename tracks any particular version; this is a naming
    convention risk for future content, not a defect this track can fix
    (out of scope — no production content change permitted).
-4. **`declarative_validation.py`'s term/predicate vocabulary has no
-   published schema of its own.** It is a closed vocabulary in Python
-   (`TERM_OPS`, `PREDICATE_OPS`), not a JSON Schema citizen the way
-   `rule-artifact`'s operation vocabulary is implicitly bounded by its
-   schema's `enum`/`$defs`. Track 1a (schema reading) should expect to find
-   no schema-level enumeration of this vocabulary and should read the code
-   directly instead, per the boundary-map entry above; recorded here so
-   that absence is not mistaken for an oversight when Track 1a goes
-   looking for it in `packages/schemas/`.
+4. **Discoverability: the term/predicate vocabulary lives in a citizen
+   whose name does not suggest it.** The previous wording of this item
+   was **wrong**. It said `declarative_validation.py`'s term/predicate
+   vocabulary "has no published schema of its own" and instructed Track
+   1a to expect no schema-level enumeration and to read the code instead.
+   Round 2 established the opposite: the vocabulary is schema-typed at
+   `packages/schemas/derivation/source-family.v2.schema.json` `$defs/term`
+   (line 172) and `$defs/predicate` (line 278), referenced from
+   `member_constraints[].violated_when` (lines 83-85,
+   `"$ref": "#/$defs/predicate"`). Track 1a **should** find this
+   vocabulary in `packages/schemas/`, under `source-family.v2` rather
+   than under any `attachment-rule` schema, which is where a reader
+   would naively look. No schema-absence gap survives. What remains is
+   discoverability: the closed expression grammar sits inside
+   `source-family.v2`, a citizen whose name does not suggest a
+   term/predicate language, and it does not appear under
+   `attachment-rule`. Recorded so Track 1a does not miss it by looking
+   in the obvious place.
 5. **No schema-level enumeration was found for the kernel act/fact/entity
    substrate's relationship to rule-artifact `ref`/`collect` targets** —
    i.e., nothing in `packages/schemas/derivation/rule-artifact.vN.schema.json`
@@ -792,6 +835,20 @@ not a boundary-level one for Track 0.
    nothing warns a reader that "v33" names the package axis rather than the
    schema axis. Recorded as a tension-catalog candidate for Track 2; the
    consequence is a wrong construct history if a stream conflates them.
+8. **`MAX_PREDICATE_DEPTH = 6` is declared twice as two unrelated
+   literals, plus a third time in ADR prose.**
+   `packages/derivation/declarative_validation.py:20` defines the
+   evaluator's runtime guard (raising `MemberConstraintTooDeep` at `:62`
+   and `:87`). `packages/derivation/package_validation.py:2037` defines
+   its own `MAX_PREDICATE_DEPTH = 6` at the admission gate (rejection at
+   `:2051-2056`, issue code `MEMBER_CONSTRAINT_TOO_DEEP`). ADR-0066
+   decision 2 names the number a third time in prose
+   (`docs/adr/0066-declarative-structured-validation-and-consumer-closure.md:54-56`:
+   "Resolver admission rejects predicate depth greater than six").
+   Nothing ties the three together — they are not a shared constant —
+   so the admission gate and the evaluator can silently diverge.
+   Track 2 tension-catalog candidate. Not fixed here; this milestone
+   changes no production code.
 
 ## What this track suggests may be wrong, missing, or unworkable for Tracks 1a–1c
 
