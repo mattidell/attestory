@@ -151,3 +151,145 @@ ADR-0066 decision 2 to describe what admission actually does (depth of
 `all`/`any` `args` nesting, not term-tree depth). Do not do either in
 this milestone. A shared constant would still be insufficient by itself —
 that is the methodological point of the Foreman correction.
+
+## T2. Two published schema files claim one `$id` with different bytes (U-089)
+
+**Class:** contract vs enforcement of published identity (ADR-0003 /
+Article 9), not a two-implementation disagreement. The registry's
+filename-keyed dispatch is internally consistent. What is false is the
+implication that the file named `attachment-rule.v5.schema.json` is the
+schema whose `$id` and instance discriminator are `attachment-rule.v5`.
+
+**Intentional?** Not established as intentional. Track 2 V8 and the
+Foreman-verified facts treat this as a finding. No ADR names a
+deliberate `$id` reuse across published files.
+
+**Evidence.**
+
+- `packages/schemas/tax/attachment-rule.v3.schema.json` `$id` is
+  `tax/attachment-rule.v3` (file line 116).
+- `packages/schemas/tax/attachment-rule.v5.schema.json` `$id` is
+  `tax/attachment-rule.v3` (file line 120). Its
+  `properties.schema.const` is `attachment-rule.v3` (line 229).
+- The files are not byte-identical.
+  `packages/schemas/tax/published.json` records distinct checksums:
+  v3 `5b3f219879095db2…`, v5 `aecd3bf51c16fac9…`. This stream hashed
+  both files; they match those prefixes and differ.
+- Registry keys by filename stem (`packages/kernel/schema_registry.py:152`,
+  `path.name.removesuffix(".schema.json")`). `validate_declared`
+  (`:234-244`) dispatches on the instance `schema` string. `$id` is
+  dropped in-memory for `$ref` resolution (`:172-175`) and is not the
+  dispatch key.
+- Consequence of that dispatch, already settled by Track 2 resolved
+  question 6 / V8: an instance naming `attachment-rule.v3` validates
+  against the **v3 file**. An instance naming `attachment-rule.v5`
+  validates against the v5 file, whose const requires `attachment-rule.v3`
+  — a catch-22. The v5 bytes never run. `_SUPPORTED_SEMANTIC_SCHEMAS`
+  still lists `attachment-rule.v5` (U-076).
+- Observed: 15 attachment-rule content files; **no content host v5**
+  (U-088). Hosts are v4×7, v6×2, v8×2, v2×2, v3×1, v1×1. There is no v7
+  (S6). Never classify by filename; parse `schema`.
+
+**Affected layer.** Surface 5a (attachment-rule citizen) and the
+published-schema identity contract. Not a runtime evaluator split.
+
+**Possible user or maintenance consequence.** Anyone authoring
+`"schema": "attachment-rule.v5"` cannot produce a valid instance. Anyone
+reading the v5 file as the v5 contract is reading unreachable bytes. The
+published set contains a file whose constraints are not selectable by
+the instance discriminator the rest of the engine uses. Current 2025
+content does not name v5, so this is not a present-package incident.
+
+**Remaining uncertainty.** How the v5 file was published with a v3 `$id`
+and const is not recoverable from the census. Whether a later unused
+version should carry the v5 *bytes* under a unique `$id`, or whether v5
+should remain unreachable published history, is the owner call. This
+milestone must not edit, move, or replace either published file.
+
+**Plausible next action.** Finding, not a repair. A later unit may
+publish a new unused version filename (with matching `$id` and `schema`
+discriminator) if the v5 bytes are still wanted as a live contract, or
+may document v5 as unreachable published history. Do not mutate
+`attachment-rule.v3.schema.json` or `attachment-rule.v5.schema.json`.
+Do not hand-edit `published.json`.
+
+## T3. Evaluator blocking codes do not survive onto the walk (U-045, U-046, U-047, U-132, U-135, D5, D14)
+
+**Class:** two implementations (evaluator/runner codes vs ledger/walk
+enums) **and** expressiveness (what user explanation cannot say). The
+remap is real policy, not a misread. The walk family stopping at v3
+while the record family runs to v7 is a grammar choice that limits
+provenance.
+
+**Intentional?** Partially. Derivation-record versions are additive
+successors that widen the block-code enum (v7 description at
+`derivation-record.v7.schema.json:285` names the three `SLI_*` codes as
+the reason for that generation). npe-walk.v3
+(`npe-walk.v3.schema.json:2-3`) is the last published walk generation
+and explicitly "mirroring derivation-record.v4" for
+`COMPLETENESS_VALUE_VIOLATION`. The v2 ledger remap of unknown codes to
+`DEPENDENCY_INVALID` (`runner.py:1165-1183`) is implemented with a
+comment that internal family-validation codes stay on `self.blocked`.
+What is **not** established as intentional: that `LOOKUP_MISS` should
+never appear on a ledger or walk (no ADR names the token — Track 2
+surviving question 2); that `SLI_*` kept on the ledger should be
+illegal on the walk.
+
+**Evidence.**
+
+- Evaluator emits `LOOKUP_MISS` (`evaluator.py:27`, alias
+  `BLOCK_LOOKUP_MISS`). Runner emits `FAMILY_VALIDATION_BLOCKED` (U-047).
+  Neither string is in `derivation-record.v7` enum
+  (`derivation-record.v7.schema.json:123-136`, 12 codes) nor in
+  `npe-walk.v3` `code` enum (`npe-walk.v3.schema.json:7`, 7 codes:
+  `DEPENDENCY_ABSENT`, `DEPENDENCY_INVALID`,
+  `CATEGORICAL_DOMAIN_MISMATCH`, `SOURCE_SET_UNCLOSED`, `VALUE_INVALID`,
+  `ITEMIZATION_TIE_OUT_VIOLATION`, `COMPLETENESS_VALUE_VIOLATION`).
+- On `use_v2`, `_record_blocked` keeps `code` only if it is in
+  `record_codes`; otherwise writes `DEPENDENCY_INVALID`
+  (`runner.py:1169-1183`). `self.blocked` keeps the internal code.
+  Track 2 V7 remap, re-confirmed by reading that block in this
+  worktree: `LOOKUP_MISS` → `DEPENDENCY_INVALID`;
+  `FAMILY_VALIDATION_BLOCKED` → `DEPENDENCY_INVALID`;
+  `SLI_MFS_INELIGIBLE` kept.
+- Walker hardcodes `"schema": "npe-walk.v3"` (`explanation.py` per
+  U-133). A v7 record code such as `SLI_MFS_INELIGIBLE` is not a legal
+  walk `code`. Codes remapped to `DEPENDENCY_INVALID` *are* walk-legal.
+- Tests assert `BLOCK_LOOKUP_MISS` (`test_runner.py:133-145` per U-046).
+  Zero content files contain the `BLOCK_*` aliases (V9).
+- ADR-0020 decision 7 (`docs/adr/0020-non-publication-explanation-walking.md:51`):
+  walk-payload dispositions use the ADR-0012 vocabulary exactly, and
+  `invalid` is a refinement of blocked, not a sibling. U-134:
+  `invalid` is **not** an npe-walk `node_kind`. The walk `node_kind`
+  enum is `published, blocked, guard_inapplicable, no_disposition_recorded`.
+
+**Affected layer.** Surface 1/2 blocking (evaluator), surface 7
+(derivation-record, npe-walk, explanation). User-explanation
+consequence is the load-bearing part.
+
+**Possible user or maintenance consequence.** A lookup miss and a
+family-validation block both present as ledger/walk
+`DEPENDENCY_INVALID`. An SLI hard-block that the ledger keeps as
+`SLI_MFS_INELIGIBLE` cannot legally appear on the walk the explanation
+surface publishes. A test that asserts the evaluator alias against a
+v2 disposition row is asserting the pre-remap name. Maintainers adding
+a new `block` op code must widen **both** the record enum and the walk
+enum, or accept silent collapse / walk-illegality; nothing in the
+schema families ties those two series together (D14: the pairing is
+real and undeclared as a pair).
+
+**Remaining uncertainty.** Surviving question 2: should `LOOKUP_MISS`
+be added to derivation-record / npe-walk, or is remap the contract?
+Surviving question 7 is the 5b-ii criterion residue, not this entry.
+This stream did not re-run the walker against an SLI block; Track 2
+resolved question 5 records that the walker emits whatever blocked code
+it finds after remapping and does not `validate_declared` its result.
+
+**Plausible next action.** Owner-selected unit: either publish npe-walk.v4
+(or a named pairing contract) whose `code` enum is the current
+derivation-record.v7 set, and decide whether `LOOKUP_MISS` /
+`FAMILY_VALIDATION_BLOCKED` join that set or stay remapped; or amend
+ADR-0020 to say the walk vocabulary is a *subset* of the ledger and
+name the collapse. A golden that asserts the ledger code, not the
+evaluator alias, would settle the test-side half of surviving
+question 2.
