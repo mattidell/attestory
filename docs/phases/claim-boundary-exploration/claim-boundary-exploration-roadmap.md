@@ -1,14 +1,40 @@
+<!-- foreman-context-v1
+{
+  "version": 1,
+  "topic": "claim-boundary-exploration-phase-close",
+  "status": "closed 2026-08-20; no active milestone and no successor selected or named",
+  "scope": [
+    "record the Claim Boundary Exploration phase close and its carried unclosed work"
+  ],
+  "non_goals": [
+    "no active milestone",
+    "no selected or named successor phase",
+    "no implementation, ADR, or governance start"
+  ],
+  "retrospective": "docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md",
+  "deep_reads": {
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md"
+    ]
+  }
+}
+-->
+
 # Claim Boundary Exploration Phase — Roadmap
 
 Audience: Product (roadmap); Shared (status)
 
-Status: **active phase, opening milestone CLOSED 2026-08-19.** All four tracks
-ran and two bounded repairs were applied; the curated result is at
-`docs/phases/claim-boundary-exploration/inquiries/track-3-curated-inquiry.md`
-and the lessons at
-`docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md`.
-**The next milestone is unselected** and selection runs from
-`actionable-considerations.md`.
+Status: **CLOSED 2026-08-20 by owner judgment.** CQ-1 (Plain Question to
+Claim Boundary Prototype) closed 2026-08-19; CQ-2 (Declaration Request to Claim
+Boundary Inquiry) closed 2026-08-20. Curated results at
+`inquiries/track-3-curated-inquiry.md` and
+`inquiries/cq2-track-3-curated-inquiry.md`; lessons and material dissent at
+`docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md`,
+`docs/milestone-retrospectives/2026-08-20-declaration-request-claim-boundary-inquiry.md`,
+and the phase-level retrospective
+`docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md`.
+**No active milestone and no successor phase is selected or named.** See
+"Phase close — 2026-08-20" below.
 
 ## Thesis
 
@@ -54,11 +80,20 @@ domains, or professional viewpoints.
    Draft plan:
    `milestones/plain-question-claim-boundary-prototype.md`.
 
-2. **Contrasting User Question — unselected.** Choose one materially different
-   question exposed by the first inquiry, likely from relevance (“Why are you
-   asking me this?”), visibility (“Why can't I see a result?”), action readiness
-   (“What can I do next?”), or attestation (“What are you asking me to agree
-   to?”). Its purpose is to test which parts of the first inquiry generalize.
+2. **Contrasting User Question — RUN AND CLOSED 2026-08-20 as Declaration
+   Request to Claim Boundary Inquiry (CQ-2).** The selected question was the
+   relevance/attestation variant, sharpened from the register's “Why are you
+   asking me this?” to the worked “Why are you asking me to say I'm done?”. It
+   held the tax domain constant (Form 1099-INT box 1 closure feeding Form 1040
+   line 2b) and changed the interaction type from a presented result to a
+   system request for a user declaration. Plan:
+   `milestones/declaration-request-claim-boundary-inquiry.md`. Retrospective:
+   `../../milestone-retrospectives/2026-08-20-declaration-request-claim-boundary-inquiry.md`.
+   On its stated purpose — testing which parts of the first inquiry generalize
+   — the answer is partial and is recorded as such: the **method** transferred
+   without redesign; **content-level generality is not confirmed**, because
+   both inquiries share one tax domain, one package version, and one closure
+   mechanism.
 
 3. **Cross-Inquiry Reduction — conditional.** If two inquiries reveal repeated
    structure, compare them and state the smallest product capability worth
@@ -191,3 +226,90 @@ selects it for a concrete user reason.
 - No ADR or implementation track is part of the opening milestone.
 - The phase-boundary Legibility Audit remains owner-held and is not replaced by
   the opening milestone's narrower fresh-reader measurement.
+
+### Second milestone — Declaration Request to Claim Boundary Inquiry (CQ-2)
+
+- **Closed 2026-08-20** by owner direction, carried by one pull request against
+  `main`. Documentation-only; no ADR, governance revision, or implementation.
+- Ran four tracks with **two** justified independent standpoints rather than
+  four lenses, and gave Track 2 explicit authority to disposition the Track 1
+  split.
+- **Headline methodological result.** Two model families on opposite
+  standpoints, no contact, the same Track 0 packet, independently selected the
+  same paragraph as their deepest thread: a block caused by a missing
+  declaration surfaces to the user under a different code naming a different
+  missing symbol, so the declaration that would fix it is named nowhere the
+  user is looking.
+- **Two substantive errors were found by the owner after track completion and
+  repaired in place.** The packets stated horizon succession as the only
+  invalidator of a recorded closure (same-fact correction under
+  `"supersession": {"policy": "free"}` is a second), and Track 2 dispositioned
+  a recorded `false` as structurally indistinguishable from absence
+  throughout the record. The corrected account is four layers — record plus
+  currency, closure-authority projection, admission result, interface — each
+  preserving or collapsing different information: the record and the
+  closure-authority projection distinguish a current `false` from absence,
+  the admission result collapses that distinction into one non-admitted
+  outcome, and no interface exists to record the `false` at all. This says
+  nothing about what a recorded `false` means as a user declaration; that
+  remains unsettled. Neither error was present in every packet and neither
+  was a two-model convergence; the per-packet reconciliation is in
+  `inquiries/cq2-track-3-curated-inquiry.md` §14.1. That reconciliation was
+  itself wrong twice before it was right — first overstating contamination,
+  then clearing the external Grok account of both errors when its own text
+  asserts both — and both supersessions are left visible. Track 0, Track 2,
+  and the Track 1 Grok account are retained with prominent supersession
+  notices.
+- **Exit criteria: four of seven met, three partially met** (criteria 1, 2,
+  and 3). Criterion 1 is partial because Track 0 did not correctly verify every
+  material witness claim and the correction arrived afterward.
+- **Register synchronized.** `SC-13` and `SC-15` consolidated into one
+  declaration-lifecycle entry joined by unsettled semantics rather than by a
+  shared implementation; `SC-14` corrected; `SC-16` retained on the narrower
+  basis that its scenario pair is specified and runnable, not executed;
+  `SC-3`/`SC-8`/`SC-9`/`SC-12`/`OV-1` annotated with second-interaction-type
+  reconfirmation rather than restated as newly derived. Nothing was converted
+  into implementation scope.
+- **Method safeguard adopted.** Every load-bearing artifact claim must name the
+  artifact, the fields read, the sibling fields present and not relied on, and
+  the consumers whose behavior the claim depends on. The evidence-class
+  discipline grades how *strongly* a claim is evidenced and had no category for
+  how *completely* the artifact was read; that is the gap both errors passed
+  through.
+- **Recommendation, not selection:** a bounded build or decision milestone over
+  a third inquiry, because the register now holds more decision-shaped evidence
+  than has been converted into decisions. Recorded as weighed, not dictated — a
+  third inquiry in a materially different tax domain **would test transfer, not
+  settle generality**. Roadmap item 3 (Cross-Inquiry Reduction) remains
+  conditional and unselected; two data points on one tax domain do not meet its
+  trigger. The next selection is owner-held.
+
+## Phase close — 2026-08-20
+
+**Claim Boundary Exploration closed by owner judgment**, not by exhausting
+its question space. The recommendation above was weighed and not adopted as
+a selection; the owner instead closed the phase itself, leaving the next
+phase unselected.
+
+The phase ran exactly the two inquiries recorded above and produced no ADR,
+governance revision, production UI, schema, rule-language, engine, filing, or
+tax-coverage change. Its durable output is the actionable-considerations
+register, the two inquiry packet sets, and the standing method safeguard and
+representability-versus-assigned-meaning posture both retained in
+`docs/phase-state.md`.
+
+**Carried forward, unselected:**
+
+- `OV-1` — a confirmed tax-content correctness gap (one of eight independent
+  Schedule B triggers implemented); an owner decision, no fix shape inferred.
+- The consolidated `SC-13` — the register's largest decision-shaped item,
+  requiring semantic decisions about absence, explicit `false`, correction,
+  and horizon succession before any interface work.
+- `SC-16` — specified and runnable, not executed.
+- A third same-domain inquiry, a materially different-domain inquiry, and a
+  bounded build/decision milestone converting register items into product
+  work, all live and none selected.
+- The phase-boundary Legibility Audit, owner-held and not run.
+
+Phase retrospective:
+`docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md`.
