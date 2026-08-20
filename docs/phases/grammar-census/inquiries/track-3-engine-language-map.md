@@ -475,3 +475,187 @@ primary status. The language is small, closed, and in production
 use on 2025 content. It is also not the language a leftover
 14-name frozenset, an authored `blocked.code`, or a `bracket_fold`
 spec document would lead a reader to picture.
+
+## What the language cannot express
+
+This is the question the phase exists to answer. Catalog entries T8
+and T9 are a starting point, not the list. Four kinds of "cannot"
+are easy to confuse; they are not the same finding.
+
+### 1. No content form exists
+
+**Exclusive-graph axioms are Python literals of tax citizen ids
+(T8, U-085).** `_LINE_1A_8A_NON_CONFUSION_IDS` names two
+`tax.us.2025.rule.*` ids. Mixed historical/successor graphs are
+rejected by issue codes `MIXED_BOX2A_GRAPH`, `MIXED_BOX12_GRAPH`,
+`MIXED_BOX7_GRAPH`, `MIXED_LINE2A_GRAPH`, each testing specific
+fact-type and rule ids (`package_validation.py:197-206,1635-1662`).
+The *invariants* are contractual (comments name ADR-0061 decision 5,
+ADR-0059 decision 7, ADR-0050 decision 3). The *locus* is not a
+versioned citizen. A later tax year or a successor id changes
+Python, not package content. Artifact-package schema has no
+vocabulary for "these two graphs are exclusive." Track 0 put
+generic package rules on surface 4 and domain axioms on 6i; this
+file sits on both. Track 2 surviving question 3 is whether that is
+the accepted locus. This census leaves the kill-tests **active** as
+implemented admission rules with tax-shaped operands.
+
+**`ref` and `collect` names are unconstrained strings (T9, U-153,
+Track 0 gap 5).** Nothing in `rule-artifact.vN` constrains
+`ref.name` to a fact-type id, a publication symbol, or a parameter.
+Binding is settled: `ref` → `env.symbols[name]`; `collect` →
+`env.sources.get(name, [])`. A name that will never be a symbol
+fails as `DEPENDENCY_ABSENT` at evaluation, not as a schema
+rejection. The store keeps fact vs finding vs parameter vs
+publication as distinct kinds; the expression schema collapses them
+to one string. That may be the point of keeping surface 8 adjacent.
+A closed taxonomy of the 216 distinct `ref` names was out of scope
+(surviving question 8).
+
+**There is no runtime override combinator.** ADR-0006 decision 7
+requires unique output ownership unless the package *declares*
+conflict semantics as content. ADR-0027 decision 5 requires
+`selected_producer` to name a member when two publishers exist.
+Admission uses that field to *permit* two publishers (U-072). The
+runner contains zero occurrences of `conflict_semantics` or
+`selected_producer` (re-grepped this stream; T4). Runtime is first
+eligible publisher in `ctx.rules` order (U-044). Current committed
+conflict is guard-partitioned (`count == 0` vs `count != 0` on
+schedule-a.total), so this is not a present-content race. A package
+cannot say, as something the runner evaluates, "this producer
+defeats that one." It can say two mutually exclusive `when` guards,
+which is how the one committed conflict actually works.
+
+**The nested language cannot negate.** Predicate `not` does not
+exist (ADR-0066 decision 2). Rule-artifact `not` (U-016) is a
+different construct on a different host. Authors of
+`violated_when` trees De Morgan through `field_absent` /
+`field_not_equals` / inverted `compare`. That is a closed-grammar
+choice, not a missing implementation.
+
+**A clause cannot say "repeat until."** Saturate-to-fixpoint is a
+scheduler (U-050), not an expression op. Demand-driven cyclic
+demand is a silent return, not a recorded block (U-051). Authors
+compose `choose` and `conditional_dependency_set`; they do not
+write a recursive rule.
+
+**A clause cannot do period or horizon arithmetic.** Horizons are
+store (U-157): one current horizon per `(family id, family version,
+scope)`. The clause language has no horizon operator. A rule can
+`ref` a symbol that a horizon made current; it cannot express the
+horizon.
+
+**Ledger codes and walk codes are not one declared vocabulary.**
+Derivation-record runs to v7; npe-walk stops at v3, "mirroring
+derivation-record.v4" for `COMPLETENESS_VALUE_VIOLATION` (D14,
+U-135). Nothing in the schema families ties the two series
+together. A new `block` op code must widen both, or accept silent
+collapse / walk-illegality.
+
+### 2. A form exists that the running engine does not interpret
+
+These are not "cannot express" in the T8 sense — the author *can
+write the JSON* — but they are things the language cannot *mean*,
+because no consumer reads them as a mechanism.
+
+**The required clause `blocked` field is authored commentary
+(T6, U-035).** Schema requires `{code, missing}` on every
+rule-artifact version. `code` is pattern `^[A-Z][A-Z0-9_]+$`, not
+an enum. `packages/derivation/` contains no `rule["blocked"]` or
+`rule.get("blocked")` read (re-grepped this stream). Missing
+`requires` emits `DEPENDENCY_ABSENT` from the runner. Empty
+unclosed `collect` emits `SOURCE_SET_UNCLOSED` from the evaluator.
+Eighty-one files write `DEPENDENCY_ABSENT` on the envelope;
+thirty-three write `OPEN_DEPENDENCY`. `OPEN_DEPENDENCY` is not an
+evaluator constant and is not in the v7 record enum; on a v2
+ledger it would remap to `DEPENDENCY_INVALID` (U-036). The two
+strings are not two runtime conditions (D6). Authors maintain a
+vocabulary that looks like blocking and is not.
+
+**`bracket_fold` spec fields do not bind (T5, U-019, U-056).**
+ADR-0006 decision 4 says versioned canon is the runtime authority
+for the fold. `operation-semantics.v1` requires `method, boundary,
+open_top, on_miss, row_shape`. `evaluator.py:345-360` assigns
+`canon = env.canon["bracket_fold"]["spec"]` and never reads
+`canon`. The fold is `(min(value, upper) - lower) * rate` over
+`value > lower`. Missing canon *key* is still `KeyError`.
+Ninety-five committed occurrences. Changing `boundary` on the
+canon citizen does not change the fold. By contrast `_round` and
+`_range_lookup` do read their spec.
+
+**`checked-conclusion-binding` `truth_table` is not executed.**
+Track 2 left this open (surviving question 4). The tension catalog
+closed it: no `truth_table` read in `packages/derivation/`. The v1
+schema description already disclaims execution (U-146). One content
+file. Rules duplicate the table. The citizen can *declare* a table;
+the engine does not interpret it.
+
+**`loader.OPERATION_VOCABULARY` cannot be read as the language
+(T7, U-063).** Fourteen names, never called. A reader of
+`loader.py` who treats the frozenset as the closed vocabulary will
+miss nine implemented ops, all but `range_lookup` present in
+primary content.
+
+### 3. One layer draws a distinction another cannot carry
+
+**Evaluator-native block codes do not survive onto the walk
+(T3).** `LOOKUP_MISS` and `FAMILY_VALIDATION_BLOCKED` are real
+evaluator/runner codes (U-046, U-047). Neither is in
+`derivation-record.v7` or `npe-walk.v3`. On `use_v2`, unknown
+disposition codes become `DEPENDENCY_INVALID`; `self.blocked` keeps
+the internal code (`runner.py:1169-1183`). A lookup miss and a
+family-validation block therefore present as the same ledger/walk
+code. `SLI_MFS_INELIGIBLE` *is* in the v7 record enum and is
+**kept** on the ledger (Trace 5); it is **not** a legal
+`npe-walk.v3` `code`. The walk `node_kind` enum is `published,
+blocked, guard_inapplicable, no_disposition_recorded`; ADR-0020
+decision 7's `invalid` refinement is not a `node_kind` (U-134).
+User-facing explanation cannot say the distinctions the evaluator
+drew. That is happening on every v2 ledger path, not waiting for a
+deep tree.
+
+**Authored `OPEN_DEPENDENCY` cannot mean a distinct condition.**
+Covered under T6: a distinction authors write that the ledger
+cannot represent, because the field is unread and the string is
+not in the enum.
+
+### 4. The two expression languages cannot host each other
+
+A rule-artifact tree cannot contain term `floor_zero` or predicate
+`field_present`. A `violated_when` tree cannot `collect`, `choose`,
+or `require_closed`. Shared spellings are not a bridge: term `add`
+and clause `add` have different shapes, different hosts, different
+error types. There is no op that "calls" the other grammar. Wash-
+sale constraints and SLI arithmetic therefore cannot be one tree.
+They meet only at the runner, when a synthesized
+`<family>.member-validation` producer (U-077) blocks a family
+symbol that a clause wanted to `collect`.
+
+The depth bound of six cannot be declared in JSON Schema
+(intentional, ADR-0066 decision 2) and is not what admission
+enforces on term trees (T1, U-124). An author cannot rely on
+package admission to refuse an over-deep arithmetic constraint.
+Committed content max depth is 2, so this is a false contract about
+a gate, not a current-content incident. Whether the two algorithms
+should be unified is an owner call this file does not make.
+
+### What this is not
+
+Unused declared forms are not inabilities. `range_lookup` is
+declared, implemented, unused in the 134 primary rule-artifacts,
+present in sample_data (U-018). Term `add` and predicate `any` are
+reserved slots. Rule-artifact roles `applicability` and
+`cross-form-bridge` live in `role-canon.v1` and are unused on the
+134 files (U-030, U-150); evaluation does not branch on role. JSON
+Schema's refusal to encode recursive predicate depth is the ADR
+allocation, not T1 — T1 is that admission does not do what that
+same decision says admission does.
+
+The published `attachment-rule.v5` identity collision (T2, U-089)
+is not an inexpressiveness of the clause language. It is a
+published-schema identity failure: two files claim one `$id` with
+different bytes, and the v5 file's constraints are unreachable by
+the instance discriminator. This stream hashed both files; prefixes
+`5b3f219879095db2` and `aecd3bf51c16fac9` match `published.json`.
+No content hosts v5. A later unit may publish a new unused version
+filename; this milestone must not edit either published file.
