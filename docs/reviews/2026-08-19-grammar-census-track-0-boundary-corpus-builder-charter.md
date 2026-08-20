@@ -429,3 +429,67 @@ lint before handoff, no push and no PR.
 
 Do not re-open any classification. This round changes the criterion's wording
 and the surrounding narration, not a single label.
+
+---
+
+# Repair round 5 — three inherited citation defects, then close
+
+Filed by the Foreman 2026-08-20. Round 4 is **verified and accepted** at
+`03e38d79`. The Foreman independently confirmed the amended criterion's
+enforcement call sites (`schema_registry.py:234`, `package_validation.py:727`,
+`production_resolver.py:297` and the hard gate at `:363-371`), the
+monotonicity walk, and that no production code has changed since `0f8e078e`,
+so the Layer 3 corpus pin is sound.
+
+Round 4 reported three inherited defects it correctly left alone under the
+"do not re-open round 2" constraint. **The Foreman has verified all three
+against source and they are real.** They are now in scope, and they are the
+last work on this deliverable.
+
+## Fix these three
+
+1. **Axes-table row 5a says `attachment-rule.v1..v8`. There is no v7.** The
+   published series is `v1, v2, v3, v4, v5, v6, v8` — seven files, not eight,
+   with a gap. Layer 2 already records this; the axes row contradicts it.
+   This is the most consequential of the three: Track 1a reads schemas
+   against this corpus and would go looking for a file that does not exist,
+   then have to decide on its own whether the absence is an error, a
+   deletion, or a version that was never written. Write the enumeration so
+   that question does not arise — state the gap explicitly rather than
+   writing a range. Check whether any other range notation in the document
+   has the same problem and fix those too.
+
+2. **Row 6i's "ADR-fixed?" cell says "none found". It is wrong.**
+   `packages/kernel/schema_registry.py:91-92` names ADR-0035 decision 4 and
+   `:97-98` names ADR-0038 decision 5, both in comments on the very
+   registry attributes 6i is about. Correct the cell.
+
+   Then consider, and state, whether this changes 6i's label. The Foreman's
+   reading is that it does **not** — the amended criterion needs a
+   *separately versioned citizen* whose shape is contractually enforced, and
+   registry attributes populated in Python are not that, whatever an ADR says
+   about their meaning. Round 4 already reasoned exactly this way for 6ii and
+   explicitly refused "named in an accepted ADR" as sufficient. Apply the
+   same test and say so. **But do not simply adopt the Foreman's reading** —
+   if applying the criterion honestly moves the label, move it and report
+   that prominently, because it would mean the criterion is not yet stable.
+
+3. **Row 6i cites `schema_registry.py:95,105,109` for "never naming a
+   domain". `:109` is wrong** — the phrase is at `:110`. Fix it; `:95` and
+   `:105` hold.
+
+## Then close
+
+After these three, state at the end of the document that Track 0 is complete
+and the corpus is binding on Tracks 1a–1c as written.
+
+If you find further defects while making these edits, **do not fix them** —
+list them in your report. Five rounds is enough for one deliverable, and the
+Foreman needs to decide whether anything remaining is worth a sixth or is
+better carried into Track 2 as a known limitation.
+
+## Constraints
+
+Unchanged. One assigned path, documentation only, no production change, no
+reading of `docs/phases/claim-boundary-exploration/`, commit-lock protocol,
+governance lint before handoff, no push and no PR.
