@@ -120,3 +120,222 @@ not a ranking of tax importance, and not a recommendation.
 Each dimension is written out below. The `#Superficial or inapplicable`
 section then names the comparisons that would bound a later unit even
 if that unit never opens these seven.
+
+## Dimension 1 — Two expression grammars that share names and do not share meaning
+
+**Why the census pressures this.** The reconciliation's naming table is
+explicit: rule-artifact `add` and source-family term `add` "share an op
+**string** and are **not** the same construct." Same split for
+`subtract`, `compare` (`cmp`/`gte`/`lte` vs `comparison`/`ge`/`le`),
+and `all`/`any` (predicate `all` has no `not` sibling; rule-artifact
+`not` is U-016). Track 0 classified 5b-i grammar proper after finding
+the vocabulary on `source-family.v2.schema.json` `$defs/term` and
+`$defs/predicate`, not on any attachment-rule schema — the Q1 error
+recorded in the 2026-08-19 critique. Trace 6 exists because traces 1–5
+do not exhibit this second grammar: `member_constraints` are evaluated
+by `packages/derivation/declarative_validation.py`, not by
+`evaluator.evaluate`, and raise `GrammarError` /
+`MemberConstraintTooDeep` rather than `EvalBlocked`.
+
+**Engine facts (census).**
+
+- Surface 1 dispatcher is a 23-op if-chain in `evaluator.py`
+  (U-027). This stream re-listed it: `ref, collect, count, block,
+  parameter, add, subtract, multiply, divide, max, compare, all, any,
+  not, choose, round, range_lookup, bracket_fold, require_closed,
+  categorical_compare, category_literal,
+  collect_categorical_all_equal, conditional_dependency_set`.
+- Surface 5b term ops are `{field, literal, add, subtract, floor_zero}`;
+  predicate ops are `{field_present, field_absent, field_equals,
+  field_not_equals, compare, all, any}`
+  (`declarative_validation.py:6-10`; U-112–U-123). Term `add` is binary
+  `left`/`right` and unused in 48 source-family files (U-114). Rule-artifact
+  `add` is n-ary `args` and flattens lists (U-008, Trace 1).
+- Shared op *strings* this stream computed from those two closed sets:
+  `add, all, any, compare, subtract`. Term-only: `field, floor_zero,
+  literal`. Predicate-only: `field_absent, field_equals,
+  field_not_equals, field_present`. Rule-artifact `not` (U-016) has no
+  5b counterpart; ADR-0066 decision 2 says the predicate language has
+  no `not` (catalog: intentional, not a tension).
+- Hosts: term/predicate exist only on `source-family.v2` (U-107: 48
+  files, 40 host v1 / 8 host v2). Primary content that uses the nested
+  grammar is two wash-sale families (Trace 6).
+- The two grammars are not "one language plus helpers." They do not
+  share an evaluator, an error type, an arity convention, or a
+  comparison-field name.
+
+**External systems that appear relevant.** External and unverified.
+
+- **DMN/FEEL.** Publicly described as one expression language (FEEL)
+  sitting next to peer notations (decision tables, boxed expressions,
+  function definitions) rather than as a second closed op-set with
+  colliding names. A comparison would ask whether DMN's split is
+  *notation* (same semantics, several writings) or *language* (this
+  engine's split). I have not verified DMN's semantics against a
+  specification and I am not confident that "boxed expressions" are
+  a second grammar in this engine's sense.
+- **Catala.** Publicly described as a single legislative DSL. I do not
+  know, and I am not asserting, whether Catala embeds a second
+  expression language for membership constraints. The useful question
+  is whether it is *one* grammar. A comparison that opened Catala only
+  to count operators would have missed the dimension.
+- **Datalog / RIF.** Datalog is commonly one rule language over a
+  relational store. I am unsure how RIF dialects (Core / BLD / PRD)
+  sit relative to one another — whether they are peer languages or
+  profile restrictions of one language — and a later unit must not
+  take this sentence as an answer.
+
+**Questions a comparison could answer.**
+
+1. Is a second closed expression grammar, hosted on a different
+   citizen and evaluated by a different module, a common pattern in
+   this class of systems, or is this engine's split unusual?
+2. When two grammars share op strings (`add`, `compare`, `all`), do
+   other systems keep one evaluator and one arity, or do they accept
+   the collision the way this census recorded it?
+3. Does any peer system put a closed constraint language *inside a
+   source-family-like declaration* whose name does not advertise that
+   it contains a grammar (Track 0 gap 4, the surviving discoverability
+   point)? That is a discoverability comparison, not a syntax one.
+
+**Evidence that would change an engine decision.** This brief does not
+pick. A later owner-held grammar unit already faces no "merge the two
+grammars" call in the catalog — T8 and T9 are the expressiveness
+entries; the two-grammar fact is a census *structure* finding, not a
+catalogued defect. Evidence that *would* become relevant:
+
+- If a comparison showed that peer systems with two evaluators and
+  colliding names incur the T1 class of failure (one bound, two
+  tree-walks) as a standing hazard, that would be relevant to
+  surviving question 5 / T1 (whether admission should walk
+  `left`/`right`/`value`, or the evaluator should only count `args`)
+  — not as a reason to merge the grammars, but as a reason the
+  well-formedness rule has to be one algorithm.
+- If a comparison showed a workable pattern for one expression
+  language used both as clause `value`/`when` and as
+  `violated_when`, that would be relevant to a *future* grammar
+  proposal. No such proposal is in scope. The catalog does not ask
+  for one.
+
+**Superficial on this dimension.** Counting operators across languages
+("they have `add` too"). Comparing JSON syntax to FEEL syntax.
+Treating `source-family.v2` `$defs/term` as "just more rule-artifact
+ops" — the reconciliation forbids that collapse. Asking whether
+Catala is "more expressive" without first matching the two-host,
+two-evaluator, colliding-name fact.
+
+## Dimension 2 — Where a construct's meaning is allowed to live
+
+**Why the census pressures this.** The carried-forward "embedded versus
+standalone" question is kept only in this narrowed form. The census
+did not ask whether the language should be a standalone compiler. It
+repeatedly found that a construct's *meaning* is split across a
+published schema, an ADR sentence, a runtime walk, an unread field,
+and a Python literal, and that those can disagree.
+
+**Engine facts (census).**
+
+- **T1 / U-124 / D4.** ADR-0066 decision 2 says resolver admission
+  rejects predicate depth greater than six; JSON Schema is not claimed
+  to encode recursive depth. Admission `_predicate_depth`
+  (`package_validation.py:182-188`) walks `args` only. The evaluator
+  (`declarative_validation.py:20,61-88`) increments on
+  `left`/`right`/`value`. Same integer, two algorithms. Catalog C1 and
+  the Foreman correction's synthetic: `compare(add^n(field,1), 0)` has
+  admission depth 1 for every n; evaluator `MemberConstraintTooDeep`
+  at n≥5. Content max observed depth 2. Meaning of "depth 6" lives in
+  ADR prose, two Python literals, and *not* in the published schema.
+- **T5 / U-019 / U-056.** ADR-0006 decisions 3–4 say versioned canon
+  is the runtime authority for `bracket_fold`. The evaluator binds
+  `canon = env.canon["bracket_fold"]["spec"]` and never reads it
+  (`evaluator.py:345-360`). Presence of the key is required
+  (`KeyError` if missing). 95 committed occurrences. Meaning of the
+  fold lives in hardcoded arithmetic, not in the spec fields the
+  schema requires.
+- **T6 / U-035.** Schema-required clause field `blocked: {code,
+  missing}` is authored on every rule-artifact version. Runner does
+  not read it. Authors write `DEPENDENCY_ABSENT` (81 files) and
+  `OPEN_DEPENDENCY` (33 files); the latter is not an evaluator
+  constant and remaps on the v2 ledger (D6). Meaning of the authored
+  string is commentary unless a later unit says otherwise.
+- **T7 / U-027 / U-063.** `loader.OPERATION_VOCABULARY` is 14 names,
+  never called; the dispatcher is 23 ops. A reader of `loader.py`
+  who treats the frozenset as the language misses nine implemented
+  ops. Meaning of "the closed vocabulary" lives in the schema
+  `oneOf` (ADR-0006 decision 2) and in the dispatcher, not in that
+  constant.
+- **T8 / U-085.** Exclusive-graph / non-confusion axioms live as
+  Python frozensets of tax citizen ids (`package_validation.py:197-206,
+  :1635-1662`). The package language has no content form for them.
+  Meaning of "these two graphs are exclusive" lives in the host
+  language.
+
+The engine is an embedded JSON-citizen language interpreted by Python
+modules. That sentence is a census description (Track 0 surfaces 1–5b
+as declared citizens; Layer 3 as evaluators). It is not yet a
+comparison.
+
+**External systems that appear relevant.** External and unverified.
+
+- **Catala.** Publicly described as a compiled legislative language
+  whose semantics are in the language, not in a host interpreter's
+  unread fields. I have not verified that Catala's published
+  semantics actually bind the way that description implies, and I am
+  unsure how much meaning still lives in its compiler. The comparison
+  worth doing is: when Catala states a well-formedness bound, is that
+  bound one algorithm?
+- **OpenFisca.** Publicly described as Python formulas on named
+  variables — meaning lives in the host language by design. I have
+  not verified the current OpenFisca formula protocol. The comparison
+  worth doing is not "Python versus JSON"; it is whether OpenFisca
+  *intends* host-language meaning for the T8 class of axiom, and
+  whether it has the T5 class of unread spec.
+- **DMN / FEEL.** Publicly described as a specification-defined
+  expression language with a conformance clause. I am not confident
+  about which FEEL constructs are required versus optional in which
+  DMN version, and I will not claim DMN "enforces its spec." The
+  comparison worth doing is whether a published FEEL clause can be
+  unread by an engine the way `bracket_fold` `spec` is unread here.
+
+**Questions a comparison could answer.**
+
+1. In systems that publish a spec citizen *and* an evaluator, is it
+   normal for the evaluator to require the citizen's presence and
+   ignore its fields (T5), or is that an unusual split?
+2. Do peer systems let an ADR-or-spec sentence name a well-formedness
+   bound that admission and evaluation implement with different
+   tree-walks (T1)?
+3. Where do exclusive-graph / non-confusion axioms live — in the
+   rule language, in a package/manifest language, or in the host
+   (T8, which is also dimension 3)?
+4. Is a required unread field (T6) a documented commentary channel
+   in any peer system, or do those systems refuse a field the
+   evaluator does not consume?
+
+**Evidence that would change an engine decision.** Relevant to owner
+calls already named, not to a new one:
+
+- T1 plausible next action: change `_predicate_depth` to walk the
+  evaluator's keys, or amend ADR-0066 decision 2 to describe what
+  admission does. Evidence that peer systems treat "the bound the
+  spec names" as *the evaluator's walk* would be relevant to the
+  first option; evidence that they treat admission as a shallower
+  syntactic check would be relevant to the second.
+- T5: wire `_bracket_fold` to the spec fields, or shrink the
+  published spec to presence-as-a-load-key. Evidence that a
+  published spec unread by the evaluator is treated as a contract
+  break in peer systems would be relevant to wiring; evidence that
+  presence-only load keys are an accepted pattern would be relevant
+  to shrinking.
+- T6: drop the field from a new generation, fail-closed on
+  authored-versus-emitted mismatch, or document as commentary.
+  Evidence that peer systems have an authored-block-code channel
+  the engine does not interpret would be relevant to the commentary
+  option.
+- T8 is dimension 3.
+
+**Superficial on this dimension.** "JSON-embedded versus a standalone
+compiler" as a language-design textbook category. "OpenFisca is
+Python so they are similar." Comparing T7's leftover frozenset to
+another project's dead constants. Any comparison that treats T1 as
+"they also have bugs."
