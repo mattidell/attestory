@@ -4,7 +4,7 @@
 - Milestone: Engine Language Map (`grammar-census`)
 - Track: 2b-i — representative traces
 - Role: Builder
-- Status: in progress
+- Status: complete
 - Source ref verified: `HEAD` `c889f7ca918cd39ed6fa1c5a1303a929979e1592`
   on `milestone/grammar-census-engine-language-map`
 - Assigned path: this file only
@@ -635,5 +635,259 @@ the witness name (executed isolated) rather than treating "no rows" as
 - That CDS is `all` with extra reporting. `all` short-circuits
   (`evaluator.py:179-180`); CDS on a true condition evaluates every
   member and unions `DEPENDENCY_ABSENT` names.
+
+## Trace 6 — Nested term/predicate grammar: wash-sale `member_constraints`
+
+### Why this trace
+
+U-112–U-124 are a second expression language. They are not additional
+rule-artifact ops: they live on `source-family.v2` `$defs/term` and
+`$defs/predicate` (spot-check S1), are evaluated by
+`packages/derivation/declarative_validation.py`, and raise
+`GrammarError` / `MemberConstraintTooDeep` rather than `EvalBlocked`.
+Term `add` is binary `left`/`right`; rule-artifact `add` is n-ary
+`args`. Predicate `compare` uses field `comparison` and tokens
+`ge`/`le`; rule-artifact `compare` uses `cmp` and `gte`/`lte`. No
+earlier trace exhibits this grammar. At least one path here ends in
+family-validation blocking, not a successful subtotal.
+
+### Declared content
+
+`packages/content/tax/2025/family.f1099b-covered-w-st.v2.json`
+
+- `schema`: `source-family.v2` (U-107; term/predicate exist only on v2)
+- `id`: `tax.us.2025.f1099b.covered-w-st`
+- `version`: `v2`
+- `member_predicate`: `{ "fact_type": "tax.us.2025.f1099b.covered-w-st-txn" }`
+  (U-108 — membership, not the nested predicate language)
+- `authorizes_subtotal`: `tax.us.2025.f1099b.covered-w-st-subtotal`
+- `member_constraints`: four objects (U-109), 2 files in the primary
+  corpus (this one and `family.f1099b-covered-w-lt.v2.json`):
+
+| `block_code` | `violated_when` ops |
+| --- | --- |
+| `BOX_1G_FLAG_WITHOUT_AMOUNT` | predicate `all` of `field_equals` + `field_absent` (U-122, U-119, U-118) |
+| `BOX_1G_AMOUNT_WITHOUT_FLAG` | predicate `all` of `field_present` + `field_not_equals` (U-117, U-120) |
+| `CODE_W_ON_GAIN` | predicate `all` of two `compare` (`gt` amount>0, `ge` proceeds≥basis) over term `field` (U-121, U-112) |
+| `ADJUSTMENT_EXCEEDS_LOSS` | predicate `compare` `gt` of amount vs term `floor_zero` of term `subtract` (basis − proceeds) (U-116, U-115) |
+
+`identity_exclusivity` is also on this file (U-110). It is not this
+trace's centre.
+
+### Validation
+
+**Executed.** `validate_declared` accepted the file as `source-family.v2`.
+
+JSON Schema does **not** enforce recursive predicate depth (U-124).
+ADR-0066 d2 names six in prose. Admission
+`package_validation._predicate_depth` (`:182-188`) walks only `args`;
+a `compare` whose nesting is in `left`/`right` has admission depth 1
+for every n. The evaluator increments depth on `left`/`right`/`value`
+as well as `args` (`declarative_validation.py:61-63, 87-88, 20`).
+
+**Executed.** `compare(add^n(field x, literal 1), 0)` against member
+`{x: 1}`:
+
+```
+n_adds  admission _predicate_depth  evaluator
+     0                           1  ok
+     1                           1  ok
+     4                           1  ok
+     5                           1  MemberConstraintTooDeep
+     8                           1  MemberConstraintTooDeep
+```
+
+This is reconciliation V4 / D4, re-run. Admission would accept a tree
+the evaluator then refuses. Observed content max depth is 2 (Track 1c
+C62); the four committed constraints are depth 2. The Foreman
+correction record at
+`docs/reviews/2026-08-20-grammar-census-foreman-correction-5b-ii-ruling-reasoning.md`
+states the same split; this trace executed it rather than citing that
+record as the evidence.
+
+**Executed.** Existing test
+`tests/derivation/test_declarative_validation_runtime.py:243-272`
+(`test_deeply_nested_term_blocks_not_raises`, re-run under
+`-k deeply_nested_term`): a depth-8 term under `compare` does not crash
+the run; the synthesized producer records
+`CONSTRAINT_EVALUATION_FAILED`. Passed.
+
+### Evaluation
+
+Consumer is `declarative_validation.Evaluator.evaluate_member`, not
+`evaluator.evaluate`. `violated_when` true → a `Violation` with the
+constraint's `id`, `block_code`, and `meaning`.
+
+**Executed.** The four committed constraints against synthetic members
+whose *shape* matches the fields those predicates name (no committed
+fixture is required for the op; the constraint trees are the production
+trees):
+
+```
+ok_loss (flag yes, amount 50, proceeds 10, basis 100)
+  -> []
+flag yes, amount absent
+  -> BOX_1G_FLAG_WITHOUT_AMOUNT
+flag absent, amount 50
+  -> []                         # see U-120 below
+flag no, amount 50
+  -> BOX_1G_AMOUNT_WITHOUT_FLAG
+code W on gain (amount 5, proceeds 100, basis 80)
+  -> CODE_W_ON_GAIN and ADJUSTMENT_EXCEEDS_LOSS
+adj exceeds loss (amount 95, proceeds 10, basis 100)
+  -> ADJUSTMENT_EXCEEDS_LOSS
+field_not_equals(flag, yes) on {}  -> False
+field_equals(flag, yes) on {}      -> False
+```
+
+U-120 holds: `field_not_equals` on an absent field is False (does not
+fire). Consequence for this content: `BOX_1G_AMOUNT_WITHOUT_FLAG`'s
+`meaning` string says "without an affirmative wash-sale adjustment
+flag", but the predicate is `field_present(amount)` **and**
+`field_not_equals(flag, "yes")`. A member that omits the flag field
+entirely does **not** violate. A member that writes `"no"` does.
+That is the op as Track 2 described it, applied to the production
+tree.
+
+**Executed.** Runner wrapping, existing test re-run:
+
+```
+pytest tests/derivation/test_declarative_validation_runtime.py -k invalid_member_blocks_family
+```
+
+`test_invalid_member_blocks_family_and_names_constraint` (`:126-138`):
+an invalid member → `result.blocked[0]["code"] == "FAMILY_VALIDATION_BLOCKED"`
+with the constraint `block_code` in `missing`; the family symbol is not
+published; a per-member derived finding carries `violations`. Passed.
+
+`runner.py:628-795` (`_evaluate_family_validation`): synthesized producer
+id `*.member-validation.synthesized` (U-077). Constraint `block_code`s
+are collected into `codes` (`:709`) and, if any, recorded as
+`FAMILY_VALIDATION_BLOCKED` with those codes in `missing` (`:794-796`).
+
+### Consequence
+
+**Inferred.** `FAMILY_VALIDATION_BLOCKED` is not in
+`derivation-record.v7` or `npe-walk.v3` (U-047 / D5). On `use_v2`,
+`_record_blocked` remaps the disposition `code` to `DEPENDENCY_INVALID`
+and **keeps** `missing` (`runner.py:1183-1184`, V7). `self.blocked`
+keeps the internal code. Falsified if a v2 disposition row stored
+`FAMILY_VALIDATION_BLOCKED` as `code`.
+
+Existing live test
+`tests/test_schedule_d_form8949_covered_wash_sale_t1.py` asserts
+`CODE_W_ON_GAIN` and `ADJUSTMENT_EXCEEDS_LOSS` in the synthesized
+producer's `missing` (named around lines 971-983, 1788-1796). **Not
+re-run here** (live lane). Named as the committed end-to-end of these
+four constraints.
+
+A successful family (no violations, identity unique) publishes the
+family symbol; the closed-empty success path is
+`test_closed_empty_family_publishes_success` in the same unit module
+(not re-run in the `-k` set above).
+
+### Nearby inferences this evidence does not support
+
+- That term `add` (U-114) is used in 2025 source-family content. Zero
+  hits; declared and implemented; the depth synthetic used it because
+  that is how a deep *term* tree is spelled.
+- That predicate `any` (U-123) appears in content. Zero hits.
+- That admission and evaluation enforce one bound. They share the
+  integer 6 and not the tree walk (executed table).
+- That `member_predicate` is this nested language. It is
+  `{fact_type}` membership (U-108).
+
+## What this set does not show
+
+Deliberately omitted, each because it would repeat a construct already
+traced or is unused in the primary corpus:
+
+- Attachment completeness (`check: value` / `COMPLETENESS_VALUE_VIOLATION`,
+  U-096) and `family_nonempty` (U-092). Another evaluate-then-block on
+  a different citizen; Trace 6 already ends in a validation block.
+- `range_lookup` (U-018): declared and implemented, 0 primary hits.
+- `bracket_fold` (U-019 / U-056): 95 occurrences; the evaluator loads
+  `env.canon["bracket_fold"]["spec"]` and never reads it. A trace that
+  "ran" a fold would exhibit arithmetic, not the spec the schema
+  describes. Catalog material.
+- `selected_producer` vs first-publisher-wins (D1 / U-044 / U-072):
+  admission vs runtime split, not a path from one declared expression
+  to one finding.
+- `round` as its own trace: it wraps Traces 1, 3, and 5; the dual gate
+  (U-020 / D9) is not the contrast this set is for.
+- `accounts_for` drop v5→v6 (D3): a schema-generation fact, not an
+  evaluation path.
+
+## Source checks against the reconciliation
+
+Anything placed at the centre of a trace was checked against source.
+Reconciled rows treated as leads, not as established fact.
+
+| Claim in Track 2 | How checked | Result |
+| --- | --- | --- |
+| U-004 nonempty unclosed `collect` succeeds; empty unclosed is `SOURCE_SET_UNCLOSED` (S4 / V2) | `evaluate` on the production `collect` tree | **Holds** |
+| U-008 `_flatten` makes arity-1 `add` of a collect a sum (V10) | `add` of `[100, 50]` → `150`; same via collect | **Holds** |
+| U-005 `count` always requires closure | nonempty unclosed `count` → `SOURCE_SET_UNCLOSED` | **Holds** |
+| U-024 `require_closed` unclosed → `SOURCE_SET_UNCLOSED`; sits in `when` so the runner records a block, not inapplicable | `evaluate` + `runner.py:487-491` | **Holds** |
+| U-043 false `when` → `inapplicable` + `guard_result: False` (S3) | `test_false_guard_is_inapplicable_not_blocked` re-run | **Holds** |
+| U-022 / U-023 domain mismatch vs out-of-domain | `evaluate` categorical rows | **Holds** (`CATEGORICAL_DOMAIN_MISMATCH` vs `DEPENDENCY_INVALID`) |
+| U-025 CDS false does not read members | `evaluate` CDS with missing ref | **Holds** (True, empty refs) |
+| U-026 empty categorical-collect → `DEPENDENCY_ABSENT` not closure | `evaluate` | **Holds** |
+| U-006 `block` raises `EvalBlocked(code, [])`; `SLI_MFS_INELIGIBLE` kept on v2 ledger (V3 / V7) | `evaluate` + `record_codes` contains the token | **Holds** |
+| U-120 `field_not_equals` on absent field is False | `evaluate_predicate` on `{}` | **Holds**; and the production `BOX_1G_AMOUNT_WITHOUT_FLAG` tree therefore does not fire on a missing flag |
+| U-124 / V4 / D4 two depth algorithms | `_predicate_depth` vs `evaluate_predicate` on `add^n` | **Holds** (TOO_DEEP at n≥5; admission depth 1) |
+| U-035 runner never reads clause `blocked` | grep already in Track 2 V9; this stream did not re-grep every `*.py` | **Not re-opened**; no `rule["blocked"]` on the paths this file read (`runner.py` attempt / guard / value) |
+| U-047 `FAMILY_VALIDATION_BLOCKED` remaps on v2 | `runner.py:1169-1184` | **Holds** as written |
+
+Nothing at the centre of a trace failed its source check. U-120 applied
+to production content is sharper than the op-level row: see Trace 6.
+
+## CQ-1 lens
+
+Not used. The charter permits merged CQ-1 artifacts as a bounded
+validation lens and, in the same constraints list, forbids reading
+`docs/phases/claim-boundary-exploration/`. The lens is optional and
+must not originate a claim. Traces 1–2's explanation steps cite
+`tests/derivation/test_npe_walk.py` and `npe-walk.v3` from this census's
+own corpus. Unmerged CQ-2 work was not read.
+
+## Charter / plan scope
+
+The plan's `#Representative traces` and this charter agree: roughly
+four to six traces, semantic contrast, executed vs inferred
+distinguished, at least one non-success ending. This file produces
+six. No expansion into the tension catalog.
+
+## Problems this reading suggests
+
+None of these stopped the traces. None is a failed source-check of a
+centred reconciliation row.
+
+1. **`BOX_1G_AMOUNT_WITHOUT_FLAG` meaning vs predicate.** The committed
+   `meaning` string describes a missing affirmative flag. The predicate
+   does not fire when the flag field is absent (U-120, executed). Track 2
+   recorded the op correctly and did not claim the `meaning` field is
+   evaluated. The mismatch is in the content citizen, not in the
+   reconciliation.
+2. **`SLI_MFS_INELIGIBLE` is a kept v2 ledger code and not a legal
+   `npe-walk.v3` `code`.** Track 2 D14 / U-135 already says this. Trace 5
+   is the executed production path that produces that code.
+3. **Authored `blocked` on the IRA and basis-subtotal files names a
+   different string than the evaluator emits for the unclosed path**
+   (`OPEN_DEPENDENCY` / `SOURCE_SET_UNCLOSED`). Track 2 U-035 / U-036
+   already: the field is unread. Traces 1 and 3 are the paths a reader
+   might think that field feeds.
+4. **Track 0 gap 8 / the round-3 5b-ii ruling.** Independently re-ran
+   V4. The two depth algorithms diverge as Track 2 and the Foreman
+   correction record say. No label in this file depends on the struck
+   ruling sentence.
+
+## Verification
+
+- Material semantic claims cite a committed path and version, a `U-###`,
+  or an execution shown above.
+- `python3 tools/governance_lint.py` is run at handoff.
+- Diff of this assignment is this one file.
+
 
 
