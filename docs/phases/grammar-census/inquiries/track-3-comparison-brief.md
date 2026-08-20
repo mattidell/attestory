@@ -518,3 +518,309 @@ does not pick.
 "has variables." Counting unused `ref` names. A per-name taxonomy
 of the 216 distinct `ref` names — that is surviving question 8,
 a different census unit, not a comparison.
+
+## Dimension 5 — What the produced explanation record is allowed to say
+
+**Why the census pressures this.** T3 is ranked third in the catalog
+and is happening on every v2 ledger path, not waiting for a deep tree
+or a v5 instance. The carried-forward "object language versus
+observational theory" candidate is kept only as this: the walk is a
+produced record of evaluation, and it cannot legally carry some of
+the codes evaluation emitted. The philosophical framing (are these
+artifacts the law, or a description of it) is dropped.
+
+**Engine facts (census).**
+
+- Evaluator emits `LOOKUP_MISS` (`evaluator.py:27`, U-045 / U-046).
+  Runner emits `FAMILY_VALIDATION_BLOCKED` (U-047, Trace 6's ending).
+  Neither string is in `derivation-record.v7` enum (12 codes at
+  `derivation-record.v7.schema.json:123-136`) nor in `npe-walk.v3`
+  `code` enum (7 codes).
+- On `use_v2`, `_record_blocked` keeps `code` only if it is in
+  `record_codes`; otherwise writes `DEPENDENCY_INVALID`
+  (`runner.py:1169-1183`). `self.blocked` keeps the internal code.
+  Catalog C7: `LOOKUP_MISS` → `DEPENDENCY_INVALID`;
+  `FAMILY_VALIDATION_BLOCKED` → `DEPENDENCY_INVALID`; `SLI_*` kept
+  on the ledger.
+- Walker hardcodes `"schema": "npe-walk.v3"` (`explanation.py` per
+  U-133). A v7 record code such as `SLI_MFS_INELIGIBLE` is not a
+  legal walk `code`. Codes remapped to `DEPENDENCY_INVALID` *are*
+  walk-legal. D14: the pairing of record family (to v7) and walk
+  family (stopped at v3, "mirroring derivation-record.v4") is real
+  and undeclared as a pair.
+- ADR-0020 decision 7: walk-payload dispositions use the ADR-0012
+  vocabulary exactly. U-134: `invalid` is **not** an npe-walk
+  `node_kind`. The walk `node_kind` enum is `published, blocked,
+  guard_inapplicable, no_disposition_recorded`.
+- User-facing consequence T3 names: a lookup miss and a
+  family-validation block both present as ledger/walk
+  `DEPENDENCY_INVALID`. An SLI hard-block the ledger keeps cannot
+  legally appear on the walk.
+
+**External systems that appear relevant.** External and unverified.
+
+- **W3C PROV.** Publicly described as a generic provenance model
+  (entity / activity / agent, derivation). I have not verified any
+  mapping from this engine's pin roles or walk `node_kind` onto
+  PROV, and I am not confident PROV has a closed blocking-code
+  enum at all. The comparison worth doing is whether a produced
+  provenance record is *allowed* to be a strict subset of the
+  evaluation events, and whether that subset is named as a
+  contract.
+- **Catala explanation traces.** Publicly described as aiming to
+  show which legislative defaults and exceptions fired. I have not
+  read Catala's trace schema and I am unsure whether an internal
+  evaluation code can fail to appear on the published trace.
+- **DMN decision traces / audit.** Publicly described as recording
+  which table rows matched. I am not confident about the trace
+  vocabulary across DMN versions.
+
+**Questions a comparison could answer.**
+
+1. Do peer systems publish an explanation/trace vocabulary that is
+   a *named subset* of the evaluation vocabulary, or do they require
+   the two to be the same set?
+2. When an internal code is remapped (T3's `LOOKUP_MISS` →
+   `DEPENDENCY_INVALID`), is that remap a documented contract, or a
+   silent collapse? No ADR names `LOOKUP_MISS` (surviving question
+   2).
+3. Do peer systems version the evaluation-record family and the
+   walk/trace family as a pair (D14), or independently?
+4. Can a user-facing explanation distinguish "the named source was
+   missing" from "the family rejected the member" from "the
+   dependency was invalid," or do they also collapse those?
+
+**Evidence that would change an engine decision.** T3's plausible
+next action: publish npe-walk.v4 (or a named pairing contract)
+whose `code` enum is the current derivation-record.v7 set, and
+decide whether `LOOKUP_MISS` / `FAMILY_VALIDATION_BLOCKED` join
+that set or stay remapped; *or* amend ADR-0020 to say the walk
+vocabulary is a subset of the ledger and name the collapse. This
+brief does not pick.
+
+- Evidence that peer systems treat a walk/trace as contractually
+  the full evaluation vocabulary would be relevant to publishing
+  npe-walk.v4 with the v7 set *and* adding the evaluator-native
+  codes.
+- Evidence that a documented subset (with named collapse) is the
+  usual pattern would be relevant to amending ADR-0020 rather than
+  widening the walk.
+- Evidence that pairing the two families (one version step of the
+  record requires one version step of the walk) is how peer systems
+  avoid D14 would be relevant to a pairing contract, independent
+  of whether the codes themselves widen.
+
+**Superficial on this dimension.** Name-dropping PROV-O without the
+T3 collapse question. Comparing pin *counts*. Asking whether
+OpenFisca "has explanations." Treating presentation citation-pin
+narrowing (U-129, considered and dropped in the catalog) as this
+dimension — it is adjacent presentation policy, not the walk
+vocabulary.
+
+## Dimension 6 — Conflict: admission permit versus runtime winner; applicability versus override
+
+**Why the census pressures this.** This is the kept residue of the
+carried-forward defeasibility candidate. The census did not find
+rule-yields-to-rule. It found two different things that a
+defeasibility survey would smear together: (a) two publishers of
+one symbol, with an unread selector (T4); (b) a false guard, which
+is inapplicable, not a block and not an override (Trace 2).
+
+**Engine facts (census).**
+
+- ADR-0006 decision 7: unique output ownership unless the package
+  *declares* conflict semantics as content. ADR-0027 decision 5: a
+  form-field's `binds_symbol` has exactly one reachable producer
+  **or** a conflict-semantics rule that **selects** an adopted
+  member producer. Neither sentence says the runner must evaluate
+  `selected_producer` as the runtime winner (T4; surviving
+  question 1).
+- Admission: `package_validation.py:2020-2026` allows two
+  publishers when the symbol is in `declared_conflicts`.
+  Form-field producer integrity requires `selected_producer` to
+  name a member id when multiple producers exist.
+- Runtime: `runner.py:470-484` — if the output symbol is already
+  in `self.symbols`, the later eligible producer is `inapplicable`
+  (with `superseded_by` on the v2 path). Saturate iterates
+  `for rule in ctx.rules` (`runner.py:1347-1356`). First eligible
+  publisher wins. Catalog C4: `runner.py` contains zero
+  occurrences of `conflict_semantics` or `selected_producer`.
+- Observed: five package files (core-calculations v29–v33) write
+  one `conflict_semantics` entry selecting
+  `tax.us.2025.rule.schedule-a-total` for
+  `tax.us.2025.schedule-a.total` (U-072). The two producers are
+  guard-partitioned (`count != 0` vs `count == 0`); T4 does not
+  claim a present-content race.
+- Trace 2: false `when` → ledger `inapplicable` with a real
+  `guard_result` (U-032, U-043). It is not a block, not a missing
+  `requires`, and not a conflict-loser (conflict-losers are
+  `inapplicable` with **no** `guard_result`, U-042). A
+  defeasibility comparison that treated "inapplicable" as
+  "overridden" would describe a different engine.
+- U-017 `choose` evaluates only the taken branch. That is
+  intra-clause selection, not inter-rule override.
+
+**External systems that appear relevant.** External and unverified.
+
+- **DMN hit policies.** Publicly described as named conflict
+  policies on a decision table: UNIQUE, FIRST, PRIORITY, ANY,
+  COLLECT, and related. I have not verified the current DMN
+  catalogue against a specification. FIRST appears, on that
+  recollection, to be the nearest match for first-eligible-wins;
+  PRIORITY / UNIQUE appear nearer to a `selected_producer` that
+  the engine actually consulted. I am not confident those
+  mappings survive contact with DMN's actual definitions
+  (especially ANY, and especially whether "first" is document
+  order). A comparison would have to match T4's *two-rule*
+  fact — admission permit vs runtime winner — not "do they have
+  hit policies."
+- **Catala default/exception.** Publicly described as encoding
+  legislative defaults with later exceptions. I am unsure whether
+  that is a priority lattice, ordered pattern matching, or
+  something else, and I will not call it defeasibility. The
+  comparison worth doing is whether Catala's exception is closer
+  to this engine's false-`when` (applicability) or to two
+  publishers of one symbol (T4). I expect — unverified — that it
+  is closer to neither, which is why the carried-forward
+  defeasibility dimension was dropped as framed.
+- **OpenFisca formula replacement.** Publicly described as
+  replacing a variable's formula by date range. I have not
+  verified that protocol. Date-ranged replacement is not this
+  engine's T4 (same-run two publishers) and is closer to the
+  dropped period dimension. Mentioned only so a later unit does
+  not reach for it as a T4 analogue.
+
+**Questions a comparison could answer.**
+
+1. When two rules may produce the same output, is the selector a
+   runtime input the engine consults, an admission permit, or
+   document order? T4 is admission permit plus document order of
+   `ctx.rules`.
+2. Do peer systems distinguish "guard false → inapplicable"
+   (Trace 2) from "lost a conflict → inapplicable" (U-042) from
+   "blocked" (Trace 3, U-006)? Collapsing those three is the
+   failure mode of a defeasibility survey.
+3. Is there a named hit-policy / override construct whose
+   *meaning* is "the selected producer must win, and if it is
+   inapplicable while another is eligible, fail closed"? That is
+   one of T4's two owner options. The other is "document the pin
+   as an admission permit."
+4. Does any peer system use mutually exclusive guards as the
+   *content* way to have two publishers without a runtime
+   selector — which is what the schedule-a.total pair currently
+   does?
+
+**Evidence that would change an engine decision.** T4's plausible
+next action: make the runner evaluate `selected_producer` (and
+fail closed if the selected producer is inapplicable while
+another is eligible), or amend ADR-0027 decision 5 / the field
+description to say the pin is an admission permit and runtime is
+first-eligible-wins. A test that places the selected producer
+second in `ctx.rules` with both guards true would make the split
+unmissable. This brief does not pick.
+
+- Evidence that peer systems with a named selector consult it at
+  runtime, and fail closed on a selected-but-inapplicable
+  producer, would be relevant to wiring the runner.
+- Evidence that a named selector is commonly an admission-only
+  permit, with document-order runtime, would be relevant to
+  amending the ADR sentence.
+- Evidence that mutually exclusive guards are the usual *instead
+  of* a selector would be relevant to neither of those repairs
+  and to documenting the current schedule-a.total pattern as
+  the content form.
+
+**Superficial on this dimension.** "Does Catala have defeasible
+rules." Any LegalRuleML override/exception tag tour. Treating
+`choose` (U-017) as inter-rule override. Treating first-publisher-
+wins as a bug without the ADR-0006 decision 7 unique-ownership
+context. Comparing tax-table lookup to DMN tables (that is
+`range_lookup`, unused in the primary corpus, U-018 — a status,
+not this dimension).
+
+## Dimension 7 — Empty versus nonempty source-set closure
+
+**Why the census pressures this.** Traces 1 and 3 selected it as a
+semantic contrast. D8 records that `collect`, `count`, and
+`collect_categorical_all_equal` are correctly distinct ops, not a
+disagreement to repair. The load-bearing behaviour is not
+"aggregation": it is that *closure is required to treat empty as
+zero*, and that nonempty unclosed `collect` succeeds. The catalog
+dropped D8 as author-education rather than a grammar action,
+unless someone proposes unification, which the census does not.
+A comparison could still ask whether this split is unusual. That
+is a scoping question, not a repair.
+
+**Engine facts (census).**
+
+- U-004 `collect` (`evaluator.py:118-131`): nonempty → list of
+  Decimals **even if `source_set` is not in `closed_sets`**. Empty
+  + missing-or-unclosed `source_set` → `EvalBlocked(SOURCE_SET_UNCLOSED)`.
+  Empty + closed → `[]` and records `access.closure_reads`. Trace 1
+  executed this: nonempty unclosed collect returns the list;
+  empty unclosed blocks; empty closed add of collect is
+  `Decimal(0)`. "Collect requires closure" is false for a nonempty
+  source.
+- U-005 `count`: always requires closure, even when rows exist.
+  15 occurrences / 7 files. No ADR names this op.
+- U-026 `collect_categorical_all_equal`: empty →
+  `DEPENDENCY_ABSENT`, not closure. 5 occurrences. ADR-0064
+  rejects treating it as a mode of `collect`.
+- U-024 `require_closed`: 71 occurrences, all under `when`;
+  unclosed → `SOURCE_SET_UNCLOSED`. Trace 3's contrast.
+- U-144: 49 source-closure-mapping files, all
+  `admission.condition` `current-literal-true`. Closure admission
+  is boolean-true only (`isinstance(value, bool) and value is True`,
+  U-081).
+
+**External systems that appear relevant.** External and unverified.
+
+- **OpenFisca empty collections.** I recollect that missing
+  inputs often compute as zero or as a default, and I am **not
+  confident** that is true of current OpenFisca, nor that it has
+  a closed-vs-unclosed distinction. A comparison would have to
+  ask the Trace 1 question: does nonempty-but-unclosed succeed?
+- **DMN collect / aggregators.** Publicly described as aggregating
+  lists. I have not verified empty-list behaviour, and I do not
+  know whether DMN has a "this list is asserted complete"
+  construct analogous to `require_closed`.
+- **Catala aggregates.** I am unsure. I will not characterise
+  them.
+
+**Questions a comparison could answer.**
+
+1. Do peer systems distinguish "the source is empty and we have
+   asserted it complete" (closed-empty zero) from "the source is
+   empty and we have not" (`SOURCE_SET_UNCLOSED`) from "the
+   source is nonempty and unclosed" (U-004 success)?
+2. Is a separate `count` that *always* requires closure, even
+   when rows exist, a pattern or an unusual extra op (U-005, no
+   ADR)?
+3. Is empty-of-categorical (`DEPENDENCY_ABSENT`, U-026) treated
+   as a different failure from empty-of-numeric-collect
+   (closure) in any peer system, matching ADR-0064's refusal to
+   collapse them?
+
+**Evidence that would change an engine decision.** No catalog
+entry asks to unify these ops. D8 was dropped for that reason.
+A comparison does not by itself open a grammar unit.
+
+- Evidence that peer systems have *one* aggregation op whose
+  empty behaviour is always "zero if nonempty-missing is
+  impossible, else fail," collapsing U-004/U-005/U-026, would be
+  relevant to a *future* unification proposal. The census does
+  not make that proposal; ADR-0064 currently rejects collapsing
+  the third.
+- Evidence that the closed-empty versus unclosed-empty split is
+  how peer tax-computation systems model "I have no W-2s" versus
+  "I have not finished entering W-2s" would be relevant to
+  *keeping* the split, which is already the implemented
+  behaviour.
+- Evidence that nonempty-unclosed success is treated as a hole
+  in peer systems would be relevant to a later owner call on
+  U-004's nonempty path. No such call is in the catalog.
+
+**Superficial on this dimension.** Comparing `add` of `collect` to
+"sum." Asking whether OpenFisca "has source sets." Tax-form
+coverage of which documents get aggregated. Treating U-018
+`range_lookup` unused-in-primary as this dimension.
