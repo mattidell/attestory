@@ -4,10 +4,10 @@
   "phase": "Grammar Census",
   "topic": "grammar-census",
   "active_plan": "docs/phases/grammar-census/milestones/engine-language-map.md",
-  "milestone_state": "track-1",
-  "status": "Grammar Census opened 2026-08-19 as an owner-selected, independent milestone — not a continuation of Claim Boundary Exploration. Purpose: produce a reconciled, plain-language census of the declarative language the engine actually has (layers, constructs, sources of authority, runtime interpreters, actual committed use, and where schema/runtime/content/observed behavior agree or diverge). Documentation-and-evidence only; no grammar change, ADR, or standards claim. Plan owner-approved 2026-08-19 and repaired before dispatch. Track 0 is complete and accepted at 4f66bc83 after five verified repair rounds; its bounded corpus is binding on Track 1. Tracks 1a, 1b, and 1c are chartered and running in parallel under the plan's Parallel Work Manifest, isolated from one another's drafts until all three commit. The phase stays open after this milestone closes.",
-  "current_role": "Track 1a/1b/1c Builder — three independent parallel readings",
-  "current_prompt": "docs/reviews/2026-08-20-grammar-census-track-1-parallel-readings-charter.md"
+  "milestone_state": "track-2",
+  "status": "Grammar Census opened 2026-08-19 as an owner-selected, independent milestone — not a continuation of Claim Boundary Exploration. Purpose: produce a reconciled, plain-language census of the declarative language the engine actually has (layers, constructs, sources of authority, runtime interpreters, actual committed use, and where schema/runtime/content/observed behavior agree or diverge). Documentation-and-evidence only; no grammar change, ADR, or standards claim. Plan owner-approved 2026-08-19 and repaired before dispatch. Track 0 is complete and accepted at 4f66bc83 after five verified repair rounds; its bounded corpus is binding on Track 1. Tracks 1a, 1b, and 1c are complete and accepted (983b6102, 495adeac, bb5ea26b), carrying 108 declared, 90 implemented, and 84 observed constructs; independence held throughout. Track 2 adversarial reconciliation is chartered and in flight. The phase stays open after this milestone closes.",
+  "current_role": "Track 2 Builder — adversarial reconciliation",
+  "current_prompt": "docs/reviews/2026-08-20-grammar-census-track-2-reconciliation-charter.md"
 }
 -->
 
@@ -45,7 +45,7 @@ request.
 ## Operational State
 
 - **Phase:** Grammar Census — **ACTIVE 2026-08-19**.
-- **Opening milestone:** Engine Language Map — **TRACK 1 IN FLIGHT
+- **Opening milestone:** Engine Language Map — **TRACK 2 IN FLIGHT
   2026-08-20.** Plan approved by the owner and repaired before dispatch.
 - **Track 0 — COMPLETE, accepted at `4f66bc83`.** Term boundary and bounded
   corpus. Charter (with five repair rounds appended):
@@ -55,14 +55,26 @@ request.
   Supporting review record:
   `docs/reviews/2026-08-19-grammar-census-track-0-boundary-map-external-critique.md`.
   Its boundary map and bounded corpus are **binding on Tracks 1a-1c**.
-- **Tracks 1a, 1b, 1c — chartered, running in parallel.** Charter:
+- **Tracks 1a, 1b, 1c — COMPLETE**, accepted at `983b6102` (declared, 108
+  constructs), `495adeac` (implemented, 90), and `bb5ea26b` (observed, 84).
+  Independence held: each stream saw sibling deliverables appear and none
+  opened one. Every record carries `status: pending-reconciliation`.
+  Charter:
   `docs/reviews/2026-08-20-grammar-census-track-1-parallel-readings-charter.md`.
   Deliverables, one per stream, non-overlapping:
   `track-1a-declared-constructs.md`, `track-1b-implemented-constructs.md`,
   `track-1c-observed-usage.md`, all under
   `docs/phases/grammar-census/inquiries/`. The three streams are isolated
   from one another's drafts until the third commits; the Foreman does not
-  relay one stream's findings to another during Track 1.
+  relay one stream's findings to another during Track 1. **Independence has
+  now ended** — Track 2 reads all three.
+- **Track 2 — chartered.** Adversarial reconciliation. Charter:
+  `docs/reviews/2026-08-20-grammar-census-track-2-reconciliation-charter.md`.
+  Deliverable: `docs/phases/grammar-census/inquiries/track-2-reconciliation.md`.
+  It is the **only** track permitted to make declared-versus-implemented-
+  versus-used set-difference claims, and it assigns every construct's final
+  `status`. Representative traces and the tension catalog are chartered
+  separately from its output.
 - **Milestone key:** `grammar-census`.
 - **Active plan:**
   `docs/phases/grammar-census/milestones/engine-language-map.md`.
