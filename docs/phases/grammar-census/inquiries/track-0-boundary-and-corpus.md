@@ -8,7 +8,8 @@
   - original (boundary map and bounded corpus): `990888c2`
   - round 1 (Layer 4 corpus corrections): `ad2bbe27`
   - round 2 (boundary map re-derivation): `9104aa48`
-  - round 3 (Foreman ruling on 5b-ii; two flagged inconsistencies): this commit
+  - round 3 (Foreman ruling on 5b-ii; two flagged inconsistencies): `2d719468`
+  - round 4 (primary-criterion amendment to cover the round-3 ruling): this commit
 
 This deliverable does not read
 `docs/phases/claim-boundary-exploration/` (charter constraint). Where this
@@ -43,40 +44,147 @@ tension-catalog candidate records that the depth bound is two
 independent literals plus ADR prose. Round 2's other classifications
 are untouched.
 
+**Repair note (round 4, 2026-08-20).** Round 3's ruling is accepted and
+untouched; no classification changes in this round. The round-2
+primary criterion opened with a conjunct — "declared in a
+schema-typed, separately versioned citizen" — that 5b-ii does not
+satisfy. The ruling made 5b-ii proper anyway, on the ground that
+package admission is an enforcement mechanism rather than a statement
+about language membership. Both cannot stand as written. This round
+amends the criterion so it tests for a contractually enforced citizen
+rather than specifically a schema-typed one, records the amendment as
+an amendment (fitted after the fact), and shows the check that the
+widening is monotone — every existing label is unchanged. Layer 3's
+`0f8e078e` SHA is left in place and labelled as a corpus pin.
+
 The plan's `#Term boundary` names seven surfaces in the abstract. Below,
 each is named against concrete repository paths, classified against one
 stated criterion, and its axes recorded.
 
 ### The primary criterion
 
-**A surface is grammar proper when it is declared in a schema-typed,
-separately versioned citizen, and that citizen either (a) constrains what a
-rule-artifact — or a citizen that composes or extends rule-artifacts, such
-as a package, an attachment-rule/form-field citizen, or a source-family
-declaration — may accept as well-formed or express as compositional
-structure, or (b) is the schema-typed shape a rule-artifact's execution is
-contractually required to produce as its own record. A surface is
-grammar-adjacent when no schema-typed citizen declares it at all, or when
-the citizen it does have is instead the data substrate — the store: acts,
-facts, entities, horizons — that such content reads or writes without being
-reshaped by it.**
+**This wording is an amendment, not the original derivation.** Round 2
+derived the criterion with the opening conjunct "declared in a
+schema-typed, separately versioned citizen." Round 3's Foreman ruling
+made 5b-ii (`MAX_PREDICATE_DEPTH = 6`) grammar proper even though that
+row has no schema-typed declaration of the bound (ADR-0066 decision 2
+deliberately leaves recursive depth out of JSON Schema). A criterion
+that its own document overrides is worse than a criterion that is
+wrong, because the three Track 1 streams inherit the labels and never
+see the override. The ruling stands. Round 4 widens the opening
+conjunct to cover it. A reader must be able to see that the criterion
+was fitted to a case after the fact; that is a real weakness in the
+method, and Track 2 should weigh it. Do not read the amended wording
+as if it had been the criterion all along.
 
-This is one criterion in two clauses, not two criteria: "schema-typed
-citizen" alone is necessary but not sufficient, because the store side
-(surface 8) can be exactly as rigorously schema-typed and ADR-contracted as
-the language side and still not be part of what the clause language itself
-can express. The module-versus-store distinction the round-2 charter asked
-this document to evaluate explicitly is folded into the criterion itself
-(clause (a) vs. the store exception), rather than bolted on afterward to
-rescue a naive schema-only test. Applied naively (schema-typed citizen,
-full stop, no store exception), the test would call surface 8 proper and
-would leave surfaces 7 and 8 indistinguishable, since both have schema-typed
-citizens; **this document does not adopt that naive form**, for the stated
-reason. The cost of not adopting it: "is there a schema" is not, by itself,
-a sufficient answer, so a reader cannot mechanically classify a new surface
-from a schema listing alone — they must also decide which side of the
-module/store line it sits on, which is a judgment this document makes
-explicitly per surface below rather than leaving implicit.
+**Amended criterion (round 4).** A surface is grammar proper when it
+is the declared content of, or a well-formedness constraint on, a
+separately versioned citizen whose shape is contractually enforced —
+by published JSON Schema (`SchemaRegistry.validate_declared` at
+`packages/kernel/schema_registry.py:234`, which validates an instance
+against the schema version it names), by package admission
+(`validate_package` at `packages/derivation/package_validation.py:727`,
+which `resolve_production_package` at
+`packages/derivation/production_resolver.py:297` requires to return
+`ok` at `:363-371` before a package can execute; ADR-0066's phrase for
+this gate is "resolver admission"), or by both — and that citizen
+either (a) constrains what a rule-artifact — or a citizen that
+composes or extends rule-artifacts, such as a package, an
+attachment-rule/form-field citizen, or a source-family declaration —
+may accept as well-formed or express as compositional structure, or
+(b) is the schema-typed shape a rule-artifact's execution is
+contractually required to produce as its own record. A surface is
+grammar-adjacent when no such enforced citizen exists, or when the
+citizen it does have is instead the data substrate — the store: acts,
+facts, entities, horizons — that such content reads or writes without
+being reshaped by it.
+
+This is still one criterion in two clauses, not two criteria. The
+opening conjunct is necessary but not sufficient: the store side
+(surface 8) can be exactly as rigorously schema-typed, admission-
+gated, and ADR-contracted as the language side and still not be part
+of what the clause language itself can express. The module-versus-
+store distinction the round-2 charter asked this document to evaluate
+explicitly remains folded into the criterion (clause (a) vs. the
+store exception). Applied naively (enforced citizen, full stop, no
+store exception), the test would call surface 8 proper and would leave
+surfaces 7 and 8 indistinguishable; **this document still does not
+adopt that naive form**. The cost is unchanged: a reader cannot
+classify a new surface from a schema listing or an admission-gate
+listing alone — they must also decide which side of the module/store
+line it sits on.
+
+**Widening that is not adopted.** "Contractually enforced" is not a
+synonym for "named in an accepted ADR." Package admission and JSON
+Schema are the two enforcement sites the conjunct names. Kernel
+finding-admission of registry data (`packages/kernel/findings.py`
+reading `SchemaRegistry` attributes) is a different gate; ADR prose
+without a separately versioned citizen is not a citizen at all.
+Reading either as the conjunct would not be a small repair.
+
+### Monotonicity check (round 4)
+
+Widening an enforcement test can only promote, never demote. The risk
+is a silent promotion of a row that should stay adjacent. Walked
+against the amended wording, every existing label is unchanged. If
+this check had produced a changed label, this round would have
+stopped rather than reclassified.
+
+- **1 proper — unchanged.** Declared content of `rule-artifact.v1..v6`,
+  enforced by JSON Schema. Already satisfied the round-2 conjunct.
+- **2 proper — unchanged.** Declared fields of the same citizens, plus
+  blocking-code enums in `derivation-record`/`npe-walk`/
+  `checked-conclusion-binding`. JSON Schema. Already satisfied.
+- **3 proper — unchanged.** Declared content of `operation-semantics.v1`
+  and `.v2`. JSON Schema. Already satisfied.
+- **4 proper — unchanged.** Declared content of `artifact-package.v1..v25`,
+  enforced by JSON Schema and by `validate_package` itself. Already
+  satisfied; the named admission gate is this surface's own gate.
+- **5a proper — unchanged.** Declared content of `attachment-rule.vN` /
+  `form-field.vN`. JSON Schema. Already satisfied.
+- **5b-i proper — unchanged.** Declared content of `source-family.v2`
+  `$defs/term` and `$defs/predicate`. JSON Schema. Already satisfied.
+- **5b-ii proper (Foreman ruling) — unchanged.** This is the row the
+  widening exists to cover, not a promotion: the round-3 ruling
+  already labelled it proper. Under the amended conjunct it now also
+  *fits*: a well-formedness constraint on the separately versioned
+  `source-family.v2` citizen, enforced at package admission
+  (`package_validation.py:2037,2051-2056`) rather than by JSON Schema.
+  The label does not move.
+- **6i adjacent — unchanged.** No separately versioned citizen. The
+  invariant pairs live as `SchemaRegistry` attributes populated by a
+  tax-layer registry (`packages/kernel/schema_registry.py:91-118`;
+  `subset_invariant_pairs` at `:96`, `declaration_signal_contradictions`
+  at `:106`, `companion_presence_pairs` at `:113`,
+  `companion_value_domains` at `:114`, `companion_equality_pairs` at
+  `:118`). Kernel `findings.py` enforces them generically at finding
+  admission, which is not `validate_package`. The store clause would
+  hold even if someone stretched "citizen" to cover finding instances.
+- **6ii adjacent — unchanged. The promotion risk.** ADR-0010
+  decisions 3, 5, and 6 (`docs/adr/0010-derived-finding-projection-and-currency.md:42-48,56-68`)
+  fix the displacement-closure behaviour, so a naive reading of
+  "contractually enforced" as "ADR-fixed" would promote this row.
+  Held adjacent by two independent tests, not by accident: (1) there
+  is no separately versioned citizen — `DECLARED_EDGE_KINDS` is a
+  Python frozenset at `packages/kernel/currency.py:16`, and the fold
+  is `displacement_closure` at `:45`; (2) the store clause — the walk
+  operates over already-published findings' derivation/individuation
+  edges, the same substrate surface 8 reads. ADR-0010 is a contract
+  on kernel currency, not a well-formedness constraint on a
+  module-side citizen.
+- **6iii proper — unchanged.** Declared enum of
+  `operation-semantics.v1`, same citizen as #3. JSON Schema. Already
+  satisfied.
+- **7 proper — unchanged.** Declared content of `npe-walk.v1..v3` and
+  `derivation-record.v1..v7`, satisfying clause (b). JSON Schema.
+  Already satisfied.
+- **8 adjacent — unchanged.** Schema-typed, separately versioned
+  store citizens (`act.v1`, fact/entity/horizon kinds,
+  `act-package-adoption.v1`). The opening conjunct is satisfied; the
+  store exception still decides adjacent. The amendment does not
+  touch that exception.
+
+No row's label changes. This round does not reclassify.
 
 ### Axes table
 
@@ -229,9 +337,10 @@ execution is contractually required to leave behind).
   predicate language is closed and bounded," naming the same term and
   predicate forms verbatim
   (`docs/adr/0066-declarative-structured-validation-and-consumer-closure.md:47-53`).
-  By this document's primary criterion (schema-typed, separately versioned
-  citizen, expressed within a citizen that composes/extends rule-artifact
-  content), this vocabulary is grammar proper. It is a second, smaller
+  By this document's primary criterion (declared content of a separately
+  versioned citizen, enforced by JSON Schema, expressed within a citizen
+  that composes/extends rule-artifact content), this vocabulary is grammar
+  proper. It is a second, smaller
   expression grammar nested inside the source-family citizen rather than
   reusing the core clause language from #1 — Track 1a/1b must still record
   it as its own construct family, not as additional `rule-artifact`
@@ -278,12 +387,21 @@ execution is contractually required to leave behind).
 
   The "Schema-typed citizen?" axis stays **No — enforced at resolver
   admission by contract, not by JSON Schema (ADR-0066 decision 2,
-  deliberate)**. The label follows clause (a) of the primary criterion,
-  not that axis. **This is a Foreman ruling on a question the axes did
-  not settle by themselves, not a mechanical result.** A reader who
-  rejects the enforcement-versus-declaration distinction would reach
-  `adjacent` instead. Exit criterion 4 requires that disagreement stay
-  visible, not that the ruling erase it.
+  deliberate)**. **This remains a Foreman ruling on a question the axes
+  did not settle by themselves, not a mechanical result of the round-2
+  criterion.** Round 2's opening conjunct ("schema-typed") excluded
+  this row; clause (a) included it. The round-3 ruling chose clause (a)
+  over the conjunct. Round 4 then widened the conjunct so the criterion
+  as a whole also yields proper: the bound is a well-formedness
+  constraint on the separately versioned `source-family.v2` citizen,
+  enforced at package admission (`package_validation.py:2037,2051-2056`,
+  called from `production_resolver.py:363`) rather than by JSON Schema.
+  The criterion was fitted to the ruling after the fact; a Track 2
+  reader should weigh that. A reader who rejects the
+  enforcement-versus-declaration distinction — who requires the
+  constraint itself to appear in the published schema — would still
+  reach `adjacent`. Exit criterion 4 requires that disagreement stay
+  visible, not that the ruling or the later amendment erase it.
 
 ### 6. Runtime behaviors that affect the meaning of a rule but may not themselves be grammar
 
@@ -308,18 +426,25 @@ Split here, each classified on its own evidence.
 - **6ii — Currency/projection displacement-closure folding.**
   `packages/derivation/projection.py` / `packages/kernel/currency.py`
   (ADR-0010 decisions 3, 5, 6); `DECLARED_EDGE_KINDS = frozenset({"derivation",
-  "individuation"})` at `packages/kernel/currency.py:15`.
+  "individuation"})` at `packages/kernel/currency.py:16`.
   **Classification: grammar-adjacent (store side).** No schema-typed
   citizen names these two edge kinds or the fold algorithm itself — they
-  are a Python constant and a kernel algorithm, not declared content. Under
-  this document's primary criterion, this is also the same store-side
+  are a Python constant (`DECLARED_EDGE_KINDS` at
+  `packages/kernel/currency.py:16`) and a kernel algorithm
+  (`displacement_closure` at `:45`), not declared content. Under this
+  document's primary criterion, this is also the same store-side
   reasoning that keeps surface 8 adjacent: displacement-closure operates
   generically over the act log's derivation/individuation edges, regardless
   of which rule produced the input, the same way surface 8's substrate is
   read generically by `ref`/`collect` regardless of which rule reads it.
   It changes which findings are current — a strong signal on one axis — but
   it is not itself an expression vocabulary a rule composes; it is kernel
-  machinery applied uniformly to the store.
+  machinery applied uniformly to the store. The round-4 amendment does
+  not promote this row. A naive reading of "contractually enforced" as
+  "ADR-fixed" would, because ADR-0010 decisions 3, 5, and 6 name the
+  behaviour; it is held adjacent by the store clause and by the absence
+  of a separately versioned citizen, not by accident. See the
+  monotonicity check above.
 
 - **6iii — Rounding-mode dispatch.** `packages/derivation/evaluator.py:29-34`
   (`half_up`/`half_even`/`down`/`up` mapped to Python `Decimal` rounding
@@ -398,19 +523,22 @@ Split here, each classified on its own evidence.
   field cannot be answered without it.
 - **What adopting the module/store cut costs, stated explicitly per the
   round-2 charter's instruction.** A fully schema-typed, ADR-contracted
-  citizen family (the acts) is classified adjacent here. "Declared in a
-  schema" is therefore necessary but not sufficient under this document's
+  citizen family (the acts) is classified adjacent here. An enforced
+  citizen is therefore necessary but not sufficient under this document's
   criterion — a reader cannot classify a new surface from a schema listing
-  alone; they must also decide which side of the module/store line it sits
-  on. The alternative (schema-typed citizen, full stop) is simpler and
-  would make surfaces 4, 7, and 8 all proper, but it would also erase the
-  distinction between "content that shapes what a rule may express" and
-  "content a rule merely reads," which is exactly the distinction Track 2's
-  eventual declared-vs-implemented-vs-used reconciliation needs intact.
-  This document judges that cost acceptable and the module/store cut
-  worth adopting; it is a documented judgment call, not a repository fact,
-  and a downstream reader who disagrees can recover the naive-test answer
-  directly from the "schema-typed citizen" column of the axes table above.
+  or an admission-gate listing alone; they must also decide which side of
+  the module/store line it sits on. The alternative (enforced citizen,
+  full stop) is simpler and would make surfaces 4, 7, and 8 all proper,
+  but it would also erase the distinction between "content that shapes
+  what a rule may express" and "content a rule merely reads," which is
+  exactly the distinction Track 2's eventual
+  declared-vs-implemented-vs-used reconciliation needs intact. This
+  document judges that cost acceptable and the module/store cut worth
+  adopting; it is a documented judgment call, not a repository fact, and
+  a downstream reader who disagrees can recover the naive-test answer
+  directly from the "schema-typed citizen" column of the axes table
+  above. The round-4 widening of the opening conjunct does not move this
+  row: the store exception, not the conjunct, is what decides adjacent.
 
 ### Uncertain classifications
 
@@ -609,8 +737,15 @@ one for Track 0.
   "what is on this branch at the resolved commit," which is exactly what
   `git rev-parse HEAD` (`0f8e078e37781a6d2a532b6cc638d0034b248b02`) already
   fixes. There is no separate adoption record needed or expected for code.
+  That SHA is a **corpus pin**, not this document's own revision: it is
+  the commit at which this layer's code-file list was enumerated (the
+  original Track 0 HEAD). No production code has changed on this branch
+  since that pin (verified: `git diff --name-only
+  0f8e078e37781a6d2a532b6cc638d0034b248b02 HEAD -- packages/ tests/
+  tools/` is empty), so the enumeration remains accurate. Do not treat
+  it as a stale header leftover from round 1.
 - **Bounded corpus for the census:** every file listed above, as of the
-  resolved commit. Track 1b should not additionally scope by directory
+  corpus pin. Track 1b should not additionally scope by directory
   wildcard at read time (e.g. "everything under `packages/derivation/`") —
   the presentation layer under `packages/presentation/pages` and the
   `packages/derivation/live*.py` family are runtime consumers of the
