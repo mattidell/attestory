@@ -352,3 +352,80 @@ lint before handoff, no push and no PR.
 
 Do not re-open round 2's other classifications. If you believe one is wrong,
 say so in your handoff report and leave it alone.
+
+---
+
+# Repair round 4 — close the hole the round-3 ruling opened
+
+Filed by the Foreman 2026-08-20. Round 3 is **verified and accepted** at
+`2d719468`. The Foreman checked every claim in its handoff against source and
+all hold, including two corrections to the round-3 charter itself: the
+admission-rejection span is `package_validation.py:2051-2056` (the charter's
+`2037-2055` stopped one line short), and round 2 did **not** claim zero
+`uncertain` "by silence" — it left 5b-ii explicitly uncertain, so the charter
+misdescribed it. Using the source over the charter was correct.
+
+This round exists because the round-3 handoff was right about something the
+charter had not noticed.
+
+## The finding, which is the Foreman's error
+
+The stated primary criterion opens with a conjunct — "declared in a
+**schema-typed**, separately versioned citizen" — that 5b-ii does not
+satisfy. The round-3 ruling made 5b-ii proper anyway, on the ground that
+resolver admission is an enforcement mechanism rather than a statement about
+language membership. Both cannot stand as written. A criterion that its own
+document overrides is worse than a criterion that is wrong, because the
+override is invisible to the three Track 1 streams that inherit the labels
+and never see this reasoning.
+
+The ruling is correct. **The criterion is what needs to change.**
+
+## What to produce
+
+1. **Amend the primary criterion** so it tests for a contractually enforced
+   citizen rather than specifically a schema-typed one. The substance:
+   a surface is grammar proper when it is declared in a **separately
+   versioned citizen whose shape is contractually enforced — by JSON Schema,
+   by resolver admission, or by both** — and that citizen meets clause (a) or
+   clause (b), which are unchanged. The adjacency clause is unchanged: no
+   enforced citizen at all, or the citizen is the data store.
+
+   Word it yourself; do not copy the phrasing above verbatim if you can state
+   it more precisely against what the code actually does.
+
+2. **Verify the amendment is monotone before you adopt it, and show the
+   check.** Widening an enforcement test can only promote, never demote — so
+   the risk is that it silently promotes a row that should stay adjacent. Walk
+   **every** row of the axes table and state, in a short paragraph or a
+   column, why its label is unchanged. Pay particular attention to 6i and 6ii:
+   6ii is ADR-fixed (ADR-0010) and would be promoted by a naive reading of
+   "contractually enforced," and must be held adjacent by the store clause
+   rather than by accident. If any row's label *does* change, stop and report
+   rather than reclassifying — that would mean the amendment is not the small
+   repair it appears to be.
+
+3. **Record the amendment as an amendment.** State that round 2 derived the
+   criterion, round 3's ruling contradicted it, and round 4 widened it to
+   cover the ruling. A reader must be able to see that the criterion was
+   fitted to a case after the fact, because that is a real weakness in the
+   method and Track 2 should be able to weigh it. Do not present the amended
+   criterion as though it had been the criterion all along.
+
+4. **Layer 3's commit pin.** You flagged that Layer 3 still names
+   `0f8e078e` as the resolved HEAD. That one is **not** a stale-header defect
+   — it pins the commit at which the code-file corpus was enumerated, and no
+   production code has changed in any round, so it remains accurate. Leave the
+   SHA. Add one clause making clear it is a corpus pin, not the document's own
+   revision, so the next reader does not re-flag it.
+
+## Constraints
+
+Unchanged. One assigned path
+(`docs/phases/grammar-census/inquiries/track-0-boundary-and-corpus.md`),
+documentation only, no production change, no reading of
+`docs/phases/claim-boundary-exploration/`, commit-lock protocol, governance
+lint before handoff, no push and no PR.
+
+Do not re-open any classification. This round changes the criterion's wording
+and the surrounding narration, not a single label.
