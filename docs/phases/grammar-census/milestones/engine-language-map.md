@@ -40,6 +40,8 @@
       "docs/adr/INDEX.md"
     ],
     "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-20-grammar-census-engine-language-map.md",
+      "docs/phases/grammar-census/final-report.md",
       "docs/phases/grammar-census/grammar-census-overview.md",
       "docs/phases/grammar-census/grammar-census-roadmap.md"
     ]

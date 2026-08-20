@@ -1,9 +1,12 @@
 # Phase Overview: Grammar Census
 
 - Phase key: `grammar-census`
-- Status: **ACTIVE 2026-08-19**, owner-selected explicitly and independently of
-  Claim Boundary Exploration (running in parallel on a different branch and
-  worktree).
+- Status: **ACTIVE, opening milestone (Engine Language Map) CLOSED
+  2026-08-20.** Opened 2026-08-19, owner-selected explicitly and
+  independently of Claim Boundary Exploration, which ran concurrently on a
+  different branch and worktree and has since closed (PR #182). The phase
+  itself remains open; the next milestone is unselected and owner-held. See
+  `docs/phases/grammar-census/final-report.md`.
 
 ## Purpose
 
