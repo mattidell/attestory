@@ -32,14 +32,30 @@ sibling deliverables appear without opening them.
 
 ## 3. Every material semantic claim cites a committed source or a shown synthetic execution
 
-**Substantially met, with one class of exception recorded honestly.** The
-citation discipline held across all seven deliverables and was checked, not
-assumed — I independently reproduced several counts (368 `categorical_compare`
-nodes, the `when.op` distribution, the `attachment-rule.v3`/`v5` hash
-prefixes, `_bracket_fold`'s unread canon binding, `truth_table`'s absence)
-and all matched. The one deliberate exception is Track 3b's external-system
-characterizations, which are explicitly marked unverified per its charter —
-that marking is itself part of meeting this criterion, not a violation of it.
+**Met, on a re-read prompted by advisor review.** My first pass wrote
+"substantially met, with one class of exception" for Track 3b's
+external-system characterizations, then folded that qualifier into an
+unqualified "all eight criteria are met" below — an internal contradiction,
+correctly flagged as not publication-ready. Re-reading `track-3-comparison-
+brief.md` line by line rather than trusting my own earlier summary: every
+external-system sentence is hedged at the point of assertion — "Publicly
+described as," "I have not verified," "I do not know, and I am not
+asserting," "I am not confident \[the\] mappings survive contact with \[the\]
+actual definitions" — and each is followed by the question a comparison
+would need to answer, not a conclusion about our engine. **The criterion asks
+that every claim about this engine's semantics cite a source. It does not
+require external systems go unmentioned; it requires an external mention not
+be dressed as a citable claim.** By that reading the brief was never the
+exception — my earlier assessment mischaracterized its own hedging as a
+gap instead of recognizing the hedging as the mechanism that satisfies the
+criterion.
+
+For the engine-facing deliverables (Tracks 0–3a and the reconciliation,
+traces, and catalog), the citation discipline held across all seven and was
+checked, not assumed — I independently reproduced several counts (368
+`categorical_compare` nodes, the `when.op` distribution, the
+`attachment-rule.v3`/`v5` hash prefixes, `_bracket_fold`'s unread canon
+binding, `truth_table`'s absence) and all matched.
 
 ## 4. Material disagreements and unknowns remain visible, not normalized away
 
@@ -93,14 +109,26 @@ across eleven Builder units and two Foreman-authored records.
 
 ## Overall
 
-**All eight criteria are met.** The milestone is complete. The two process
-deviations from plan — the Foreman correcting his own ruling on evidence the
-milestone itself produced, and the Foreman committing 3b's final section
-after a killed run rather than re-dispatching — are both recorded in the
-commit history and in this assessment rather than smoothed over, which is
-what criterion 4 asks of the whole milestone including its own conduct.
+**All eight criteria are met**, after an advisor review of this closeout
+caught two things not publication-ready and both were repaired rather than
+argued past: an internal contradiction between criterion 3's "substantially
+met" and this section's original "all eight met" (resolved above by
+re-reading Track 3b line by line, not by softening the verdict); and several
+stale status surfaces elsewhere in the closeout (the plan and roadmap still
+read as if Track 0 were in flight) that were corrected without touching any
+finding. The two earlier process deviations — the Foreman correcting his own
+ruling on evidence the milestone itself produced, and committing 3b's final
+section after a killed run rather than re-dispatching — remain recorded as
+before.
+
+**Meeting exit criterion 8 (no grammar change, product contract, ADR, or
+governance interpretation) closes this milestone. It does not close the
+findings.** Four tension-catalog entries — T1, T2, T5, T8 — are governance-
+relevant defects, independently reverified, and their disposition is
+recorded separately at `docs/reviews/2026-08-20-grammar-census-governance-
+disposition-advisor-review.md` specifically so that "the phase may stop
+here" is never read as "these four are resolved." They are not.
 
 Whether the census is **reliable enough to close** and what a **strongest
 case against its conclusions** looks like are answered in the final report,
-alongside the bounded choices for what follows. This document establishes
-only that the eight stated criteria are satisfied.
+alongside the bounded choices for what follows.

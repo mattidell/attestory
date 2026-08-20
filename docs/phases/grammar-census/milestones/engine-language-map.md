@@ -51,9 +51,12 @@
 
 - Phase: Grammar Census
 - Milestone key: `grammar-census`
-- Status: **TRACK 0 IN FLIGHT 2026-08-19.** Owner-approved after a bounded
-  planning repair; Track 0 chartered at
-  `docs/reviews/2026-08-19-grammar-census-track-0-boundary-corpus-builder-charter.md`.
+- Status: **CLOSED 2026-08-20.** Owner-approved after a bounded planning
+  repair; executed through Track 0
+  (`docs/reviews/2026-08-19-grammar-census-track-0-boundary-corpus-builder-charter.md`),
+  Tracks 1a/1b/1c, Track 2/2b, and Track 3; all eight exit criteria met. See
+  `docs/phases/grammar-census/exit-criteria-assessment.md` and
+  `docs/phases/grammar-census/final-report.md`.
 - Base: `origin/main` at `20cf03ab` (merge of PR #181,
   `milestone/claim-boundary-exploration-phase-definition`)
 - Branch: `milestone/grammar-census-engine-language-map`

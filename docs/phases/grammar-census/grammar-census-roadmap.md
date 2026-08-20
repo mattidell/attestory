@@ -2,9 +2,13 @@
 
 Audience: Product (roadmap); Shared (status)
 
-Status: **active phase, opening milestone PLANNED 2026-08-19.** The plan is
-committed and was approved in direction by the owner, then repaired the same
-day. No track has started.
+Status: **active phase, opening milestone CLOSED 2026-08-20.** The plan was
+committed and approved in direction by the owner 2026-08-19, repaired the
+same day, then executed through all three tracks (0, 1a/1b/1c, 2/2b, 3) and
+closed with all eight exit criteria met. See
+`docs/phases/grammar-census/final-report.md` and
+`docs/phases/grammar-census/exit-criteria-assessment.md`. The phase remains
+open; the next milestone is unselected and owner-held.
 
 ## Thesis
 
@@ -36,10 +40,20 @@ verification, or stop.
 
 ### Engine Language Map (`grammar-census`)
 
-- **State:** PLANNED. Branch `milestone/grammar-census-engine-language-map`,
-  primary worktree `engine-worktree-2`, based on `origin/main` at `20cf03ab`.
+- **State:** CLOSED 2026-08-20. Branch
+  `milestone/grammar-census-engine-language-map`, primary worktree
+  `engine-worktree-2`, based on `origin/main` at `20cf03ab`, merged with
+  `origin/main` at `226bf499` (Claim Boundary Exploration close, PR #182)
+  before its own PR.
 - **Plan:** `milestones/engine-language-map.md`.
-- **Implementation notes:** none — no track has started.
+- **Implementation notes:** Track 0 (boundary map and bounded corpus, five
+  repair rounds, `4f66bc83`); Tracks 1a/1b/1c (three isolated construct-set
+  readings, 108/90/84 constructs, `983b6102`/`495adeac`/`bb5ea26b`); Track 2
+  (adversarial reconciliation, 166 constructs, `f276cc5b`) plus Track 2b
+  (representative traces and tension catalog, `3dba1a80`/`5ba385c1`); Track 3
+  (plain-language map and bounded comparison brief, `4dbc23e3`/`3bd1c5bd`).
+  Full deliverable index and per-criterion assessment in
+  `docs/phases/grammar-census/exit-criteria-assessment.md`.
 - **Pivots:** one bounded planning repair on 2026-08-19, before dispatch. It
   added the plan's required metadata status, explicit Scope and Non-goals
   sections, the Parallel Work Manifest for Tracks 1a–1c, and named paths for
@@ -50,7 +64,12 @@ verification, or stop.
   only; removed committed dispatch authorization from phase state; and
   resolved the phase-lifecycle contradiction in favor of leaving the phase
   open. The substantive census objective was not changed.
-- **Lessons learned:** none yet.
+- **Lessons learned:** see
+  `docs/milestone-retrospectives/2026-08-20-grammar-census-engine-language-map.md`
+  — a Foreman ruling's own reasoning was falsified by adversarial evidence
+  the milestone itself produced, corrected on the record rather than
+  absorbed; incremental committing survived two unplanned process kills with
+  minimal loss.
 - **Part of the project impacted:** documentation only. The milestone reads
   schemas, runtime code, packages, and tests as evidence and changes none of
   them. The one possible non-documentation artifact is an optional

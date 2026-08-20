@@ -113,6 +113,20 @@ not mutually exclusive:
   something about itself that isn't true.
 - **Further internal verification**, closing the eight surviving Track 2
   open questions or extending my sampled verification toward exhaustive.
-- **Stop here.** The eight exit criteria are met; nothing requires this
-  milestone to produce a redesign or a recommendation, and it produces
-  neither.
+- **Stop here for the phase.** The eight exit criteria are met; nothing
+  requires this milestone to produce a redesign or a recommendation, and it
+  produces neither.
+
+**"Stop here" closes the milestone. It does not close T1, T2, T5, or T8.**
+These four tension-catalog entries are governance-relevant defects,
+independently reverified against source and dispositioned at
+`docs/reviews/2026-08-20-grammar-census-governance-disposition-advisor-
+review.md`: T1 is an open product-contract implementation defect (ADR-0066's
+admission-depth bound is not enforced as written) unless ADR-0066 is
+superseded; T2 is a Canon/identity conformance defect under ADR-0003 (two
+published schema files claim one `$id`); T5 is an ADR-0006 conformance
+defect and a legibility hazard (`bracket_fold`'s declared canon spec is
+loaded and never read); T8 is a locus-of-meaning conflict awaiting an owner
+call (tax-specific exclusivity axioms live as unversioned Python rather than
+declared package-language content). Choosing "stop here" for the phase
+leaves all four open on the record rather than resolving them by omission.
