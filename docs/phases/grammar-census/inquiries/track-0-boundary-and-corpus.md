@@ -213,7 +213,7 @@ execution is contractually required to leave behind).
 | 4 | Package selection/binding/closure | Yes — `artifact-package.v1..v25` | expressed by the package citizen; presupposed by any one rule-artifact inside it | Yes | No (constraint set, not an expression syntax) | ADR-0006 decisions 6-7, ADR-0027, ADR-0033 | **proper** (module side) |
 | 5a | attachment-rule/form-field family | Yes — `attachment-rule.v1,v2,v3,v4,v5,v6,v8` (no v7; seven published files), `form-field.v1..v3` | expressed | Yes | Yes | ADR-0036/0055/0056/0066 | **proper** |
 | 5b-i | declarative_validation.py term/predicate vocabulary | **Yes — `source-family.v2.schema.json` `$defs/term`, `$defs/predicate`** | expressed (as `member_constraints[].violated_when` / `identity_exclusivity[].components` of a source-family declaration) | Yes | Yes (own bounded op set) | ADR-0066 decision 2 | **proper (reversed)** |
-| 5b-ii | declarative_validation.py depth bound (`MAX_PREDICATE_DEPTH=6`) | **No — enforced at resolver admission by contract, not by JSON Schema (ADR-0066 decision 2, deliberate)** | presupposed by schema (not a declared field); well-formedness bound on 5b-i at package admission and at evaluation | Yes (admission `MEMBER_CONSTRAINT_TOO_DEEP`; evaluation `MemberConstraintTooDeep`) | N/A (a limit, not a vocabulary) | ADR-0066 decision 2 (names the number 6 in prose) | **proper (Foreman ruling)** |
+| 5b-ii | declarative_validation.py depth bound (`MAX_PREDICATE_DEPTH=6`) | **No — enforced at resolver admission by contract, not by JSON Schema (ADR-0066 decision 2, deliberate)** | presupposed by schema (not a declared field); well-formedness bound on 5b-i, **effective at evaluation only** (corrected 2026-08-20) | Yes at evaluation (`MemberConstraintTooDeep`). Admission's `MEMBER_CONSTRAINT_TOO_DEEP` exists but does not fire for `left`/`right`/`value` nesting — see the correction record | N/A (a limit, not a vocabulary) | ADR-0066 decision 2 (names the number 6 in prose) | **proper (Foreman ruling)** |
 | 6i | Domain axioms (`findings.py` invariant pairs) | No | presupposed generically, kernel "never naming a domain" | Yes | No (data pairs, not expression syntax) | ADR-0035 decision 4, ADR-0038 decision 5 | **adjacent** |
 | 6ii | Currency/projection displacement-closure | No — `DECLARED_EDGE_KINDS` is a Python frozenset | produced around already-published findings; store-side | Yes | No (two fixed edge kinds) | ADR-0010 decisions 3, 5, 6 | **adjacent** (store side) |
 | 6iii | Rounding-mode dispatch | **Yes — `operation-semantics.v1.schema.json`, same citizen as #3** | presupposed by a rule's `round` op name | Yes | Yes (closed enum) | ADR-0006 decision 4 | **proper (reversed, contradiction fixed)** |
@@ -389,14 +389,25 @@ execution is contractually required to leave behind).
   - **Round 2 missed an enforcement site.** The bound is enforced at
     package admission: `packages/derivation/package_validation.py:2037`
     defines its own `MAX_PREDICATE_DEPTH = 6`, and `:2051-2056` rejects
-    deeper predicates with issue code `MEMBER_CONSTRAINT_TOO_DEEP`. That
+    deeper predicates with issue code `MEMBER_CONSTRAINT_TOO_DEEP`. ~~That
     is the same admission gate that makes surface 4 grammar proper — a
     package carrying an over-deep predicate is refused before it can
     execute. The bound is therefore enforced by contract, twice, on the
     module side of the module/store line: admission
     (`package_validation.py:2037,2051-2056`) and evaluation
     (`packages/derivation/declarative_validation.py:20`, raising
-    `MemberConstraintTooDeep` at `:62` and `:87`).
+    `MemberConstraintTooDeep` at `:62` and `:87`).~~
+    **WRONG — superseded 2026-08-20.** The struck sentences are false.
+    `_predicate_depth` (`package_validation.py:182-188`) recurses through
+    `args` only, so a tree nesting through `left`/`right`/`value` scores
+    depth 1 at any nesting and is admitted; the evaluator still refuses it.
+    Admission does **not** refuse an over-deep predicate, and the bound is
+    therefore enforced by contract **once**, at evaluation
+    (`declarative_validation.py:20,62,87`), not twice. The 5b-ii label is
+    unaffected — see the round-4 criterion below and
+    `docs/reviews/2026-08-20-grammar-census-foreman-correction-5b-ii-ruling-reasoning.md`,
+    which records the correction, the synthetic that establishes it, and
+    what it implies about ADR-0066 decision 2.
   - Splitting 5b-i and 5b-ii would place a closed vocabulary and its
     own well-formedness rule on opposite sides of the boundary, on the
     strength of a mechanism difference the ADR made on purpose.
@@ -1029,6 +1040,13 @@ one for Track 0.
    so the admission gate and the evaluator can silently diverge.
    Track 2 tension-catalog candidate. Not fixed here; this milestone
    changes no production code.
+   **Updated 2026-08-20: they already do diverge — this is realised, not
+   latent.** The two literals are equal; the two *algorithms* are not.
+   Admission's `_predicate_depth` walks `args` only and scores 1 for a
+   twenty-level `compare(add^n(...))` tree that the evaluator refuses.
+   Carry it into the tension catalog in that stronger form. Evidence:
+   Track 2 S2/V4/D4/U-124 and
+   `docs/reviews/2026-08-20-grammar-census-foreman-correction-5b-ii-ruling-reasoning.md`.
 
 ## What this track suggests may be wrong, missing, or unworkable for Tracks 1a–1c
 
