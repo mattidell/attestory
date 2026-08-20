@@ -3,10 +3,11 @@
   "version": 1,
   "phase": "Claim Boundary Exploration",
   "topic": "claim-boundary-exploration",
-  "milestone_state": "planned",
-  "status": "Owner-approved 2026-08-19. The phase and opening line-2b inquiry are selected; Track 0 is next. No agent round, ADR, or implementation has begun.",
-  "current_role": "Foreman — charter Track 0 inquiry frame and current-system trace",
-  "current_prompt": "docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md",
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md",
+  "status": "Owner-approved 2026-08-19. All four tracks ran; a bounded repair followed an owner-side advisor review and a final bounded documentation repair followed a second one. Seven of eight exit criteria met: criterion 6 met, criterion 3 the remaining limitation at partially met. The blocked-state finding was corrected (an unmet closure means an undeclared source family; the rendering does not identify which family, and the system does not know a document is missing). OV-1 is a confirmed tax-content correctness gap: IRS gives eight independent Schedule B triggers; the committed rule implements only the dollar threshold and omits seven categorical ones. v33 is the highest-numbered package present and this inquiry's comparison target, not a formally current package. Recommended next inquiry if exploration continues is CQ-2, not CQ-3. CLOSED by owner direction 2026-08-19; the next milestone is unselected.",
+  "current_role": "Foreman — between milestones; selecting the next within Claim Boundary Exploration",
+  "current_prompt": "docs/phases/claim-boundary-exploration/actionable-considerations.md",
   "scope": [
     "trace one plain user question through one committed synthetic Form 1040 line-2b example verified against a named comparison package (v33, the highest-numbered core package present)",
     "produce a plain answer, progressive explanation, claim-boundary trace, adversarial accounts, and actionable synthesis",
@@ -18,10 +19,25 @@
     "no personal data, real-run operation, or professional-attestation claim"
   ],
   "deep_reads": {
+    "implementation": [
+      "docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md#Objective",
+      "docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md#Scope",
+      "docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md#Non-goals",
+      "docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md#Contracts and authority posture",
+      "docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md#Synthetic scenarios",
+      "docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md#Tracks",
+      "docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md#Data safety",
+      "docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md#Standing test",
+      "docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md#Inquiry shape",
+      "docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md#Principal risks",
+      "docs/phases/claim-boundary-exploration/actionable-considerations.md",
+      "AGENTS.md#Data Safety Rules"
+    ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-08-18-engine-breadth.md",
+      "docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md",
       "docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md",
-      "docs/phases/claim-boundary-exploration/actionable-considerations.md"
+      "docs/phases/claim-boundary-exploration/actionable-considerations.md",
+      "docs/phases/claim-boundary-exploration/inquiries/track-3-curated-inquiry.md"
     ]
   }
 }
@@ -31,7 +47,11 @@
 
 - Phase: Claim Boundary Exploration
 - Milestone key: `claim-boundary-exploration`
-- Status: **planned; owner-approved 2026-08-19**
+- Status: **CLOSED 2026-08-19 by owner direction.** All tracks run and twice
+  repaired. Seven of eight exit criteria met — criterion 6 met, criterion 3
+  partially met and closed as the remaining limitation. Retrospective:
+  `docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md`.
+  The next milestone is unselected.
 - Base: `origin/main` at `373c0c2f7621c6350db1493df1685f1c141410cb`
 - Branch: `milestone/claim-boundary-exploration-phase-definition`
 - Decision posture: exploratory and non-authoritative; no ADR is produced
@@ -51,8 +71,9 @@ The bounded example is Form 1040 line 2b, “Taxable interest,” using a commit
 synthetic interest-adjustment presentation fixture. That fixture adopted an
 earlier package (v15), but its line-2b rule v4 and form-field v5 are unchanged
 in core package v33 — the highest-numbered core package present and this
-milestone's comparison target. No committed artifact designates a current
-package. Track 0 must verify the rest of the material chain against that
+milestone's comparison target. **Corrected by the final repair:** no committed
+artifact designates a current package, so v33 is not described as current or
+selected. Track 0 must verify the rest of the material chain against that
 comparison target before treating it as evidence. The
 milestone is successful if the example makes a narrower next product question
 possible. It need not prove a general claim model or produce a shippable
@@ -257,13 +278,30 @@ No agent receives personal data. Model-agent accounts remain safe to publish.
 - Permit each account to drill into one consequential angle.
 - Do not ask an explorer to consolidate or disposition its own expansion.
 
-### Track 2 — Adversarial reduction and plain-answer prototype
+### Track 2 — Explanation tree and tension catalog
+
+**Re-aimed by the owner on 2026-08-19.** The track no longer selects a single
+best two-sentence answer. The competing answers are probes; their differences
+are the evidence for what explanatory structure a rich interface would need.
 
 - Compare accounts by user consequence rather than shared terminology.
-- Test competing short answers against domain adequacy, likely over-inference,
-  action clarity, and decompression quality.
-- Preserve material dissent and remove threads without a plausible project
-  action.
+- Build a conceptual explanation tree rooted at the visible value and its
+  shortest plain answer, abstracting the latent questions beneath it: origin,
+  arithmetic, included inputs, missing inputs, modeled scope, tax relevance,
+  speaker and authority, reliance, provenance, action, and filing effect.
+- Catalog the recurring tensions that determine how the tree is organized,
+  bounded by usefulness rather than by count.
+- Map every lens finding to a branch, a qualification, a navigation need, or a
+  separate correctness issue — keeping tax-content defects, fixture-maintenance
+  problems, and governance questions visibly distinct from explanation design.
+- Demonstrate progressive disclosure along one path, with an explicit terminus,
+  reachable without learning project vocabulary first.
+- Preserve material dissent; different users, purposes, and depths may need
+  different explanatory paths. Remove only threads without a plausible action.
+
+Keep five commonly-conflated notions distinct throughout: document
+completeness, source-family closure, product tax-coverage completeness,
+computation readiness, and return/action readiness.
 
 ### Track 3 — Curated inquiry and next selection
 

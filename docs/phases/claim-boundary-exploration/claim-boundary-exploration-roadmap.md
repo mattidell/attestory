@@ -2,8 +2,13 @@
 
 Audience: Product (roadmap); Shared (status)
 
-Status: **active.** The opening milestone was selected and its plan approved by
-the owner on 2026-08-19; Track 0 is next.
+Status: **active phase, opening milestone CLOSED 2026-08-19.** All four tracks
+ran and two bounded repairs were applied; the curated result is at
+`docs/phases/claim-boundary-exploration/inquiries/track-3-curated-inquiry.md`
+and the lessons at
+`docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md`.
+**The next milestone is unselected** and selection runs from
+`actionable-considerations.md`.
 
 ## Thesis
 
@@ -39,8 +44,9 @@ domains, or professional viewpoints.
 1. **Plain Question to Claim Boundary Prototype.** Take the question “Why is
    this amount on my return?” through one committed synthetic Form 1040 line-2b
    example, first verifying its material rule and field versions against a
-   named comparison package (no committed artifact designates a current
-   package, so an inquiry names the version it compared against). Produce a plain answer, progressively deeper explanations, an
+   named comparison package (this milestone used v33, the highest-numbered
+   core package present; no committed artifact designates a current package).
+   Produce a plain answer, progressively deeper explanations, an
    explicit trace of the beliefs and actions the answer invites, and
    adversarial accounts from casual-reader, tax/financial-practice,
    legal/epistemic, and system/provenance perspectives. Reduce the result into
@@ -125,8 +131,63 @@ selects it for a concrete user reason.
   2026-08-19.
 - The phase overview, actionable consideration register, and opening milestone
   plan are the selected prospective state on the phase-definition branch.
-- The opening milestone is planned. Track 0—the inquiry frame and
-  current-system trace—is next; no agent charter or model-agent round has begun.
+- The opening milestone has run all four tracks: the inquiry frame and
+  current-system trace (Track 0), four independent lens accounts (Track 1), the
+  explanation tree and tension catalog (Track 2, re-aimed by the owner away from
+  selecting a single best answer), and the curated inquiry with the register's
+  first consolidation (Track 3).
+- A bounded repair followed an owner-side advisor review: ten corrections to the
+  existing record, with no additional lens round.
+- **Seven of eight exit criteria are met.** **Criterion 6 is met** — the
+  register and this roadmap are both synchronized with the result, and nothing
+  has been converted into automatic implementation scope. **Criterion 3 is the
+  remaining limitation, partially met.** Its 22-row per-node matrix carries
+  speaker, basis, scope, invalidator, unsupported neighboring inference, and
+  available deeper path, with rows marked unfillable from present evidence
+  rather than guessed — a real gain, but a criterion demanding an identified
+  basis and invalidator for every material belief is not satisfied by a table
+  with honest holes in it. The criterion also refers to the beliefs invited by
+  "that answer," singular, while the owner re-aimed this milestone away from
+  selecting any canonical answer.
+- **The milestone's most-cited finding was wrong and is corrected.** An unmet
+  closure does not establish that a particular document is missing; it
+  establishes only that a source family has not been declared complete. The
+  surviving finding is that specificity present in the derivation record is
+  discarded by the presentation. The computation rule carries ten
+  `require_closed` conditions, not seven — the seven positive families plus the
+  three subtractive adjustment classes.
+- **Confirmed tax-content correctness gap.** The 2025 IRS *Instructions for
+  Schedule B (Form 1040)* list eight "Who Must File" conditions applying
+  disjunctively; seven are categorical with no threshold. Accrued interest,
+  amortizable bond premium, and nominee distributions each independently require
+  Schedule B, and all three are modeled by this product. The committed
+  attachment rule implements exactly one of the eight triggers — the dollar
+  threshold — and omits the other seven categorical ones. It tests
+  `interest.positive-total` and `dividends.ordinary-total` independently
+  against the threshold rather than summing them, and the foreign-account and
+  foreign-trust questions are completeness requirements applying after
+  attachment, not triggers. Reported, not fixed; remediation is an owner
+  decision.
+- The chain reaches citation *pointers* — both line-2b citation artifacts carry
+  an authority reference with no quoted instruction text. Claims of full
+  traceability to tax authority were downgraded accordingly.
+- The register was consolidated, then revised: `OV-1` resolved, `SC-3`
+  corrected to source-family language, `GD-1` and `SC-4` reassessed unchanged,
+  `CQ-1` closed with a caveat.
+- A second advisor review produced a final bounded documentation repair: the
+  Schedule B rule description corrected, the exit grading corrected, unsupported
+  "current package" claims removed, the stale blocked-state phrasing replaced,
+  and the next-step recommendation realigned.
+- **Recommended next inquiry, if exploration continues: `CQ-2`, "Why are you
+  asking me this?"** — it tests relevance, purpose, authority, and optionality,
+  which a displayed number cannot. `CQ-3` is **not** recommended; it would
+  deepen an already-established local message defect and organize the inquiry
+  around internal disposition codes. `SC-3` and `OV-1` remain available as
+  narrower build or decision work, not as grounds for another four-lens
+  inquiry.
+- **The opening milestone is closed** by owner direction (2026-08-19) and
+  carried by one pull request against `main`. The next selection remains
+  owner-held and open; nothing above selects a milestone.
 - No ADR or implementation track is part of the opening milestone.
 - The phase-boundary Legibility Audit remains owner-held and is not replaced by
   the opening milestone's narrower fresh-reader measurement.
