@@ -261,3 +261,118 @@ Two disagreements remain visible, as exit criterion 4 requires:
 The rest of the boundary does not rest on that hole. Surfaces 1–5a,
 5b-i, 6, 7, and 8 were classified against source before the ruling,
 and Track 2 did not move them.
+
+## How the layers relate
+
+A run does not evaluate "the language." It walks a stack. Each layer
+has a job the others do not do. Collapsing them is how a reader ends
+up believing `loader.OPERATION_VOCABULARY` is the op set, or that an
+authored `blocked.code` is the ledger code, or that `selected_producer`
+picks a winner.
+
+**The store (surface 8, adjacent).** Facts, entities, horizons, and
+adoption acts. A clause never declares a fact-type's shape. `ref`
+reads `env.symbols[name]` and blocks `DEPENDENCY_ABSENT` if the name
+is missing (U-003, `evaluator.py:108-116`). `collect` reads
+`env.sources.get(name, [])` (U-004). JSON Schema does not constrain
+those names to fact-type ids (Track 0 gap 5; T9; U-153). The store
+is the domain. The language points at it with strings.
+
+**The package (surface 4, proper).** An `artifact-package` citizen
+lists members, admitted schemas, entrypoints, input bindings, and
+optional `conflict_semantics` (U-065–U-072). Production will not
+execute a package until `validate_package` returns `ok`
+(`production_resolver.py:363-371`; U-075). That gate is how a
+well-formed ensemble is defined: unique output ownership unless a
+conflict is declared (U-073), reachability from entrypoints (U-079),
+and eighty-three unversioned `MemberIssue.code` strings in Python
+(U-084). Current core-calculations is instance v33 sitting on schema
+`artifact-package.v25` — two independent version axes (U-164). There
+is no committed adoption that pins `tax.us.2025.package.core-calculations`
+as current (Track 0; U-080). The census used a bounded corpus instead
+of "the package presently in force."
+
+**The clause (surfaces 1–2, proper).** Each member that is a
+rule-artifact is one guarded publication. Evaluation order in
+`runner.py` attempt is: missing `requires` → `DEPENDENCY_ABSENT`
+before the guard; `evaluate(when)` catching `EvalBlocked` → blocked
+with the evaluator code; truthy guard → evaluate `value`; falsy
+guard → `inapplicable` with `guard_result: False` (U-043; Trace 2).
+A later eligible publisher of a symbol already in `self.symbols` is
+also `inapplicable`, but with **no** `guard_result` (U-044; T4).
+Those two inapplicables are different runner steps. The authored
+`blocked` field is required on every rule-artifact version and is
+not read (U-035; T6). The runner emits its own codes.
+
+**The nested term/predicate language (surface 5b, proper).** A
+`source-family.v2` declaration may carry `member_constraints` whose
+`violated_when` trees are the second grammar (U-109). They are
+evaluated by `declarative_validation.py`, not by `evaluator.evaluate`
+(Trace 6). A violation does not publish the family symbol; the
+synthesized producer records `FAMILY_VALIDATION_BLOCKED` internally
+and, on the v2 ledger, remaps that code to `DEPENDENCY_INVALID`
+(U-047, U-045; T3). Identity-exclusivity components are not term
+nodes (U-110). Membership itself is `member_predicate: {fact_type}`
+— a different construct from the nested predicates (U-108).
+
+**Operation-semantics (surface 3, proper).** Three ops — `round`,
+`range_lookup`, `bracket_fold` — are supposed to take their meaning
+from a separately versioned canon citizen (ADR-0006 decision 4;
+U-053). `operation-semantics.v1` and `.v2` have **disjoint**
+operation enums: v1 is `round, range_lookup, bracket_fold`; v2 is
+`categorical_compare, require_closed`. Highest-numbered is not a
+superset. The evaluator loads `env.canon["bracket_fold"]["spec"]`
+and does not read it (U-019, U-056; T5); it does read the spec for
+`round` and `range_lookup`. Multiply, divide, count, block, and the
+categorical ops are not in `CANON_OPERATIONS` and do not pin
+operation-semantics (U-064).
+
+**Attachment-rule and form-field (surface 5a, proper).** Fifteen
+attachment-rule files and fifty form-field files in the corpus
+(U-088, U-101). An attachment decides not-required /
+required-and-complete / required-and-incomplete (U-090). Completeness
+is `presence` or `value` (U-095, U-096). `collect_members` is not a
+rule-artifact op (U-093). Form-fields bind a symbol onto a line with
+five disposition keys (U-102). There is no `attachment-rule.v7`. The
+file named `attachment-rule.v5.schema.json` claims `$id`
+`tax/attachment-rule.v3` and a `schema` const of `attachment-rule.v3`
+(U-089; T2). Naming v5 on an instance is a catch-22; the v5 bytes
+never validate an instance. No committed content hosts v5.
+
+**The produced record (surface 7, proper).** `use_v2` selects
+`derivation-record.v7` despite the flag's name (U-052; V6). The
+walker hardcodes `"schema": "npe-walk.v3"` (`explanation.py:332`;
+U-133). Record v7 enumerates twelve block codes, including `SLI_*`.
+Walk v3 enumerates seven, stopping before `SLI_*`, and including
+neither `LOOKUP_MISS` nor `FAMILY_VALIDATION_BLOCKED` (U-132,
+U-135; T3; D14). The pairing is real and undeclared as a pair.
+Runtime publication pins are not the rule-artifact `pins` field:
+content writes `input` and `parameter`; `pins_for` adds
+operation-semantics, adoption, governance, collected inputs (U-039,
+U-139, U-143).
+
+**Kernel axioms and currency (6i, 6ii, adjacent).** Subset
+invariants and companion pairs live as registry attributes a
+tax-layer loader populates; `findings.py` enforces them generically
+without naming a domain (U-125–U-127). Displacement-closure walks
+`derivation` and `individuation` edges on already-published findings
+(U-128). Neither is an expression vocabulary a rule composes.
+
+**How a finding actually happens.** A production resolver admits a
+package. Marshal fills `env.symbols` and `env.sources` from current
+findings (U-082). The runner saturates: for each rule, attempt the
+guard and value as above. `choose` evaluates only the taken branch
+(U-017). `conditional_dependency_set` does not read members when its
+condition is false (U-025; Trace 5). Empty unclosed `collect` blocks;
+nonempty unclosed `collect` succeeds; `count` always requires
+closure, even when rows exist (U-004, U-005; Traces 1 and 3). A
+published finding carries pins the runner constructed, not only the
+pins the author wrote. A blocked finding carries a ledger code that
+may already have been remapped. A walk of that ledger uses a smaller
+code enum than the ledger does.
+
+Two version axes run through the stack and are easy to conflate.
+Every content citizen parsed has both `schema` (which contract
+validates it) and `version` (the instance generation), except
+fact-type.v1/v3 (U-164). Classify by the instance `schema` field,
+never by filename (Track 0 gap 6; T2).
