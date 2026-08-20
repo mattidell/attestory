@@ -4,10 +4,10 @@
   "phase": "Grammar Census",
   "topic": "grammar-census",
   "active_plan": "docs/phases/grammar-census/milestones/engine-language-map.md",
-  "milestone_state": "planned",
-  "status": "Grammar Census opened 2026-08-19 as an owner-selected, independent milestone — not a continuation of Claim Boundary Exploration. Purpose: produce a reconciled, plain-language census of the declarative language the engine actually has (layers, constructs, sources of authority, runtime interpreters, actual committed use, and where schema/runtime/content/observed behavior agree or diverge). Documentation-and-evidence only; no grammar change, ADR, or standards claim. Plan committed; no track started.",
-  "current_role": "Foreman — planned; no track started",
-  "current_prompt": "docs/phases/grammar-census/milestones/engine-language-map.md#Tracks"
+  "milestone_state": "track-0",
+  "status": "Grammar Census opened 2026-08-19 as an owner-selected, independent milestone — not a continuation of Claim Boundary Exploration. Purpose: produce a reconciled, plain-language census of the declarative language the engine actually has (layers, constructs, sources of authority, runtime interpreters, actual committed use, and where schema/runtime/content/observed behavior agree or diverge). Documentation-and-evidence only; no grammar change, ADR, or standards claim. Plan owner-approved 2026-08-19 and repaired before dispatch. Track 0 (term boundary and bounded corpus) is chartered and in flight. The phase stays open after this milestone closes.",
+  "current_role": "Track 0 Builder — term boundary and bounded corpus",
+  "current_prompt": "docs/reviews/2026-08-19-grammar-census-track-0-boundary-corpus-builder-charter.md"
 }
 -->
 
@@ -45,8 +45,12 @@ request.
 ## Operational State
 
 - **Phase:** Grammar Census — **ACTIVE 2026-08-19**.
-- **Opening milestone:** Engine Language Map — **PLANNED 2026-08-19.** No
-  track started.
+- **Opening milestone:** Engine Language Map — **TRACK 0 IN FLIGHT
+  2026-08-19.** Plan approved by the owner and repaired before dispatch.
+- **Track 0 — chartered.** Term boundary and bounded corpus. Charter:
+  `docs/reviews/2026-08-19-grammar-census-track-0-boundary-corpus-builder-charter.md`.
+  Sole deliverable:
+  `docs/phases/grammar-census/inquiries/track-0-boundary-and-corpus.md`.
 - **Milestone key:** `grammar-census`.
 - **Active plan:**
   `docs/phases/grammar-census/milestones/engine-language-map.md`.

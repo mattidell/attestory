@@ -4,10 +4,10 @@
   "phase": "Grammar Census",
   "topic": "grammar-census",
   "active_plan": "docs/phases/grammar-census/milestones/engine-language-map.md",
-  "milestone_state": "planned",
-  "status": "Plan approved in direction by the owner 2026-08-19 and repaired the same day under a bounded planning repair. Objective unchanged: a reconciled, plain-language census of the declarative language the engine actually has — layers, constructs, sources of authority, runtime interpreters, observed committed use, and where schema, runtime, content, and behavior agree or diverge. Documentation-and-evidence only; no grammar change, ADR, implementation, or external comparative review. Track 0 has not started and dispatch has not occurred.",
-  "current_role": "Foreman — planned; no track started",
-  "current_prompt": "docs/phases/grammar-census/milestones/engine-language-map.md#Tracks",
+  "milestone_state": "track-0",
+  "status": "Plan approved in direction by the owner 2026-08-19 and repaired the same day under a bounded planning repair. Objective unchanged: a reconciled, plain-language census of the declarative language the engine actually has — layers, constructs, sources of authority, runtime interpreters, observed committed use, and where schema, runtime, content, and behavior agree or diverge. Documentation-and-evidence only; no grammar change, ADR, implementation, or external comparative review. Owner approved the repaired plan 2026-08-19; Track 0 is chartered and in flight.",
+  "current_role": "Track 0 Builder — term boundary and bounded corpus",
+  "current_prompt": "docs/reviews/2026-08-19-grammar-census-track-0-boundary-corpus-builder-charter.md",
   "scope": [
     "bound the term 'engine grammar' against the engine's actual layers and record the boundary map as a required deliverable",
     "independently enumerate the declared (schema/contract), implemented (runtime), and observed-in-use (committed content and tests) construct sets",
@@ -50,8 +50,9 @@
 
 - Phase: Grammar Census
 - Milestone key: `grammar-census`
-- Status: **PLANNED 2026-08-19.** Approved in direction by the owner and
-  repaired the same day under a bounded planning repair. No track started.
+- Status: **TRACK 0 IN FLIGHT 2026-08-19.** Owner-approved after a bounded
+  planning repair; Track 0 chartered at
+  `docs/reviews/2026-08-19-grammar-census-track-0-boundary-corpus-builder-charter.md`.
 - Base: `origin/main` at `20cf03ab` (merge of PR #181,
   `milestone/claim-boundary-exploration-phase-definition`)
 - Branch: `milestone/grammar-census-engine-language-map`
