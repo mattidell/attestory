@@ -55,10 +55,13 @@ request.
 - **Decision posture:** documentation-only and non-authoritative. No ADR,
   governance revision, production UI, schema, rule-language, engine, or
   tax-content change belongs to this milestone.
-- **Dispatch:** owner has authorized dispatch of grok agents (`mcp__grok__*`)
-  for this milestone, in addition to ordinary sub-agent dispatch.
+- **Phase lifecycle:** the phase stays **open** after this milestone closes.
+  The next milestone within it is unselected and owner-held.
 - **PR posture:** do not open or push a PR until the owner explicitly directs
   it.
+
+Dispatch authorization is ephemeral live-thread context and is never recorded
+here (`AGENTS.md`, "Dispatch authorization").
 
 ## Opening milestone — Engine Language Map
 

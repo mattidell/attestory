@@ -37,10 +37,14 @@ a later comparative-semantics review rather than performing one.
 
 ## Exit criteria
 
-See the opening milestone plan's exit criteria; this phase currently plans to
-close after that single milestone, then present the owner bounded choices for
-what follows (comparative review, a focused grammar decision/build, further
-internal verification, or stop).
+See the opening milestone plan's exit criteria for that milestone.
+
+**The phase does not close when the opening milestone closes.** Grammar Census
+remains open pending the owner's next selection. The closing milestone
+presents bounded choices for what follows — comparative review, a focused
+grammar decision or build, further internal verification, or stop — and the
+owner selects among them. A decision to stop closes the phase; nothing else
+does, and no milestone closes it automatically.
 
 ## Relationship to other phases
 
