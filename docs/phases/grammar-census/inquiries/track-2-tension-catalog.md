@@ -293,3 +293,217 @@ ADR-0020 to say the walk vocabulary is a *subset* of the ledger and
 name the collapse. A golden that asserts the ledger code, not the
 evaluator alias, would settle the test-side half of surviving
 question 2.
+
+## T4. `selected_producer` permits two publishers; the runner does not select (U-044, U-072, U-073, D1)
+
+**Class:** two implementations (admission vs runner). Whether it is
+also contract vs enforcement depends on how ADR-0027 decision 5's
+"selects" is read; that reading is not settled here.
+
+**Intentional?** Control flow is settled (Track 2 resolved question 11):
+ADR-0006 decision 7 (`docs/adr/0006-rule-artifact-language.md:21`)
+requires unique output ownership unless the package *declares* conflict
+semantics as content. ADR-0027 decision 5
+(`docs/adr/0027-adopted-content-manifests.md:36`) requires that a
+form-field's `binds_symbol` have exactly one reachable producer **or**
+a conflict-semantics rule that **selects** an adopted member producer,
+and rejects a conflict entry that merely names a symbol. Neither
+sentence says the runner must evaluate `selected_producer` as the
+runtime winner. The runner does not (`runner.py` contains zero
+occurrences of `conflict_semantics` or `selected_producer`; this stream
+re-grepped). Whether that silence is a defect is surviving question 1.
+
+**Evidence.**
+
+- Admission unique-ownership: `package_validation.py:2020-2026` allows
+  two publishers of a symbol when that symbol is in
+  `declared_conflicts` (the set of `conflict_semantics[].symbol`).
+  Form-field producer integrity at `:1076-1080` requires
+  `selected_producer` to name a member id when multiple producers
+  exist.
+- Runtime: `runner.py:470-484` — if the output symbol is already in
+  `self.symbols`, the later eligible producer is `inapplicable` (with
+  `superseded_by` on the v2 path). Saturate iterates `for rule in
+  ctx.rules` (`runner.py:1347-1356`). First eligible publisher wins.
+- Observed: five package files (core-calculations v29–v33) write one
+  `conflict_semantics` entry selecting
+  `tax.us.2025.rule.schedule-a-total` for
+  `tax.us.2025.schedule-a.total` (U-072). This stream opened
+  `package.core-calculations.v33.json:47-54` and the two producers:
+  `rule.schedule-a-total.json` `when` is `count != 0`;
+  `rule.schedule-a-total-closed-empty.json` `when` is `count == 0`;
+  both require `require_closed` on `tax.us.2025.f1098`. The closed-empty
+  rule's notes state the split is two mutually-exclusive-guard rules.
+
+**Affected layer.** Surface 4 (package conflict semantics) vs surface 2
+(publication). Not a schema/runtime parse disagreement.
+
+**Possible user or maintenance consequence.** If two producers of the
+same symbol are ever both eligible in one run, member/`ctx.rules` order
+picks the winner and `selected_producer` is not consulted. The field
+is then an admission permit, not a selector. Current committed conflict
+is guard-partitioned (`count == 0` vs `count != 0`), so this stream
+does not claim a present-content race on schedule-a.total. A later
+package that declares a selected producer whose guard is *not*
+exclusive with the other publisher would silently depend on list order.
+
+**Remaining uncertainty.** Surviving question 1 (intent). This stream
+did not trace how production marshal orders `ctx.rules` relative to
+package `members` order; the attempt loop is list order of `ctx.rules`.
+Whether any historical package instance has two simultaneously eligible
+publishers was not exhaustively searched.
+
+**Plausible next action.** Owner-selected grammar decision: either
+make the runner evaluate `selected_producer` (and fail closed if the
+selected producer is inapplicable while another is eligible), or amend
+ADR-0027 decision 5 / the field description to say the pin is an
+admission permit and runtime is first-eligible-wins. A test that
+places the selected producer second in `ctx.rules` with both guards
+true would make the split unmissable.
+
+## T5. `bracket_fold` loads canon `spec` and does not read it (U-019, U-056, D10)
+
+**Class:** contract vs enforcement.
+
+**Intentional?** Not established as intentional. ADR-0006 decision 3
+(`docs/adr/0006-rule-artifact-language.md:17`): "The schema is the
+runtime authority. … A schema document not wired to enforcement does
+not satisfy this ADR." Decision 4 (`:18`): `bracket_fold` (fold
+arithmetic) carries its own versioned semantic specification; an enum
+name alone is not canon. The current fold is an enum name plus a
+hardcoded formula whose spec fields are not consulted.
+
+**Evidence.**
+
+- Schema: `operation-semantics.v1` requires `method, boundary, open_top,
+  on_miss, row_shape` on the `bracket_fold` spec (U-056).
+- Runtime: `evaluator.py:345-360` binds
+  `canon = env.canon["bracket_fold"]["spec"]` and never reads `canon`.
+  The fold is `(min(value, upper) - lower) * rate` over `value > lower`.
+  Missing canon **key** is still `KeyError` (presence required).
+  Track 2 resolved question 18: constrains load, not fold.
+- Observed: 95 occurrences / 8 files (U-019). No `evaluate()` unit test
+  for the fold (schema path-exercise only, per D10).
+- This stream re-read `_bracket_fold`; `canon` is assigned at line 346
+  and not referenced again in that function. By contrast `_round`
+  (`:297`) and `_range_lookup` (`:329`) do read the spec they load.
+
+**Affected layer.** Surface 3 (operation-semantics) vs surface 1
+(evaluator). 6iii rounding is a different dual-gate (D9) and is not
+this entry.
+
+**Possible user or maintenance consequence.** An author who changes
+`boundary` / `on_miss` / `method` on the canon citizen will not change
+the fold. A missing canon citizen still crashes. Reviewers who trust
+ADR-0006 decision 4 will believe the spec fields bind. They do not.
+
+**Remaining uncertainty.** Whether any committed canon `spec` *disagrees*
+with the hardcoded formula was not byte-compared here; the tension is
+that the fields are unwired, not that a known disagreement of values
+was found. No primary-content `range_lookup` exists to analogise
+(U-018).
+
+**Plausible next action.** Owner-selected unit: wire `_bracket_fold` to
+the spec fields it already requires to be present, or shrink the
+published spec to the fields the fold actually uses (presence of the
+citizen as a load key). Either is a code-or-contract change.
+
+## T6. Required clause `blocked` is authored, not consumed (U-035, U-036, D6)
+
+**Class:** two implementations (authored envelope vs emitted ledger
+code). Not contract vs enforcement of an ADR sentence that says the
+runner must read the field — ADR-0006 decision 1 includes `blocked`
+in the clause shape (`docs/adr/0006-rule-artifact-language.md:15`)
+without saying the runner copies it through.
+
+**Intentional?** Absence of a read is settled (Track 2 resolved
+question 27; V9 `clause blocked field reads in derivation/` → 0).
+This stream re-grepped `packages/derivation/` for `rule["blocked"]`
+and `rule.get("blocked")`: no matches. Intent of the required field
+is surviving question 6: documentation, a default the runner used to
+read, or a still-owed input.
+
+**Evidence.**
+
+- Schema: `{code, missing}` required on every rule-artifact version.
+  `code` is pattern `^[A-Z][A-Z0-9_]+$`, not an enum (U-035).
+- Runtime: missing `requires` → `DEPENDENCY_ABSENT` from the runner
+  (`runner.py:465-467`). `require_closed` raises
+  `EvalBlocked(SOURCE_SET_UNCLOSED, …)` (U-024). The envelope field is
+  not the mechanism.
+- Observed: 81 files write `DEPENDENCY_ABSENT`; 33 files write
+  `OPEN_DEPENDENCY` (often `missing: ["rounding.convention"]`) (V9).
+  `OPEN_DEPENDENCY` is not an evaluator constant; on the v2 ledger it
+  would remap to `DEPENDENCY_INVALID` (U-036, V7). The two strings are
+  not two runtime conditions (D6).
+
+**Affected layer.** Surface 2 (clause shape) vs runner. Content authors
+see a required field that looks like the block they will get.
+
+**Possible user or maintenance consequence.** Authors maintain two
+vocabularies that look like blocking conditions and are not. A file
+that writes `OPEN_DEPENDENCY` on the envelope and actually blocks
+`SOURCE_SET_UNCLOSED` (the schedule-a-total pair above writes
+`SOURCE_SET_UNCLOSED` on the envelope, which happens to match
+`require_closed`) can look like a mechanism and be a coincidence of
+vocabulary. Drift between authored `blocked.code` and emitted ledger
+code cannot be caught by schema.
+
+**Remaining uncertainty.** Surviving question 6. Whether some historical
+runner did read the field is not in this corpus.
+
+**Plausible next action.** Owner-selected unit: drop the field from a
+new rule-artifact generation, or have the runner fail closed when the
+emitted code does not match the authored code, or document the field as
+author-facing commentary the engine does not interpret. Do not treat
+`OPEN_DEPENDENCY` vs `DEPENDENCY_ABSENT` as two runtime conditions in
+any later census or repair.
+
+## T7. `loader.OPERATION_VOCABULARY` is a 14-name leftover (U-027, U-063, D2)
+
+**Class:** two implementations (dead constant vs live dispatcher).
+Not contract vs enforcement of ADR-0006 decision 2. That decision's
+"closed schema-enumerated vocabulary"
+(`docs/adr/0006-rule-artifact-language.md:16`) is the schema `oneOf`,
+not this frozenset (Track 2 D2, resolved question 13).
+
+**Intentional?** Track 2 answered 1b Q3: leftover. Defined, never
+called. `role_vocabulary_report` is the sibling that *is* used. This
+stream re-grepped `*.py` for `OPERATION_VOCABULARY`: the definition at
+`packages/derivation/loader.py:86-103` is the only hit. Comment on that
+definition still calls it "The closed operation vocabulary (ADR-0006
+decision 2)".
+
+**Evidence.**
+
+- Dispatcher: 23-op if-chain `evaluator.py:108-267` (U-027). This
+  stream's `inspect.getsource(evaluate)` listed, in order:
+  `ref, collect, count, block, parameter, add, subtract, multiply,
+  divide, max, compare, all, any, not, choose, round, range_lookup,
+  bracket_fold, require_closed, categorical_compare, category_literal,
+  collect_categorical_all_equal, conditional_dependency_set`.
+- Constant: 14 names `{ref, collect, parameter, add, subtract, max,
+  compare, all, any, not, choose, range_lookup, bracket_fold, round}`.
+  Omits `count, block, multiply, divide, require_closed,
+  categorical_compare, category_literal, collect_categorical_all_equal,
+  conditional_dependency_set`.
+- Observed: all 23 ops appear in content except `range_lookup` in the
+  primary corpus (D2 / U-018).
+
+**Affected layer.** Surface 1. A reader of `loader.py`, not a running
+evaluation.
+
+**Possible user or maintenance consequence.** A reader who treats the
+frozenset as the language will miss nine implemented ops, all of which
+appear in committed primary content. No package is admitted or
+rejected by this constant. Ranked last among the three charter-named
+candidates for that reason.
+
+**Remaining uncertainty.** None about control flow. Whether deleting
+the constant would surprise any out-of-tree importer is outside this
+corpus.
+
+**Plausible next action.** Delete the unused frozenset, or regenerate it
+from the dispatcher (and stop citing ADR-0006 decision 2 on it). A
+comment-only fix would still leave a 14-name object that looks like a
+gate. Lowest-cost later unit of the catalog.
