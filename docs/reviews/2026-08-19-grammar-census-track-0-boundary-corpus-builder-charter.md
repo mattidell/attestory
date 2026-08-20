@@ -235,3 +235,120 @@ lint before handoff, no push and no PR.
 Do not weaken a classification to `uncertain` merely to satisfy item 3. An
 entry is uncertain when the axes genuinely disagree, and you must say which
 axes and how. An unreasoned `uncertain` is worse than a reasoned wrong answer.
+
+---
+
+# Repair round 3 — Foreman ruling and two flagged inconsistencies
+
+Filed by the Foreman 2026-08-20. Round 2 is **verified and accepted** at
+`9104aa48`: every source-dependent claim it introduced was checked against
+source by the Foreman and holds, including the reversal of 5b-i, which
+overturned both the external critique and the Foreman's own earlier check.
+Do not revisit round 2's classifications except where this section directs.
+
+This round is three bounded edits to one file, plus one correction to a
+review record.
+
+## 1. Foreman ruling on 5b-ii — `MAX_PREDICATE_DEPTH = 6` is **grammar proper**
+
+The escalation asked whether "ADR-mandated but deliberately not
+schema-enforced" counts as proper or adjacent. Ruling: **proper.** Reverse
+the label and record the ruling and its reasoning in the entry.
+
+The reasoning, which the entry must carry:
+
+- The stated primary criterion asks whether the surface **constrains what a
+  rule-artifact — or a citizen that composes or extends one — may express.**
+  A depth bound of six on `member_constraints[].violated_when` is exactly a
+  constraint on what a `source-family.v2` citizen may express. It meets the
+  criterion on its own terms.
+- The `uncertain` arose from reading the schema-typed-citizen axis as a test
+  of *whether the rule is part of the declared language*, when it is a test
+  of *which mechanism enforces it*. ADR-0066 decision 2 states both facts in
+  one sentence — "Resolver admission rejects predicate depth greater than
+  six; JSON Schema is not claimed to enforce recursive depth by itself" —
+  which is a deliberate allocation of enforcement, not a disclaimer of
+  contract.
+- **The Foreman verified an enforcement site the round-2 reading missed.**
+  The bound is enforced at package admission:
+  `packages/derivation/package_validation.py:2037-2055` defines its own
+  `MAX_PREDICATE_DEPTH = 6` and rejects deeper predicates. That is the same
+  admission gate that makes surface 4 grammar proper — a package carrying an
+  over-deep predicate is refused before it can execute. The bound is
+  therefore enforced by contract, twice, on the module side of the
+  module/store line.
+- Splitting 5b-i and 5b-ii would place a closed vocabulary and its own
+  well-formedness rule on opposite sides of the boundary, on the strength of
+  a mechanism difference the ADR made on purpose.
+
+Update the 5b-ii axes row accordingly. The "Schema-typed citizen?" cell
+should say **No — enforced at resolver admission by contract, not by JSON
+Schema (ADR-0066 decision 2, deliberate)**, so the axis stays honest while
+the label follows the primary criterion.
+
+Then state plainly, in the entry, that this is a **Foreman ruling on a
+question the axes did not settle by themselves**, not a mechanical result —
+and that a reader who rejects the enforcement-versus-declaration distinction
+would reach `adjacent` instead. Exit criterion 4 requires the disagreement
+stay visible, not that it be erased by the ruling.
+
+**Half one then carries zero `uncertain` entries by ruling rather than by
+silence.** Say that explicitly where the previous revision claimed zero by
+silence, so a Track 1 reader can tell the two apart.
+
+## 2. New tension-catalog candidate — the bound is declared twice
+
+Add to "Representational gaps": `MAX_PREDICATE_DEPTH = 6` is defined
+independently in two places, as two unrelated literals with no shared
+constant — `packages/derivation/declarative_validation.py:20` (the
+evaluator's runtime guard, raising `MemberConstraintTooDeep`) and
+`packages/derivation/package_validation.py:2037` (the admission gate). ADR
+prose names the number a third time. Nothing ties them together, so the
+admission gate and the evaluator can silently diverge. Record it as a Track 2
+tension-catalog candidate. Do not fix it — this milestone changes no
+production code.
+
+## 3. Repair the two inconsistencies you correctly flagged
+
+You were right to flag these rather than edit outside your stated scope.
+They are now in scope.
+
+- **"Representational gaps" item 4 is superseded and wrong.** It says
+  `declarative_validation.py`'s term/predicate vocabulary "has no published
+  schema of its own" and instructs Track 1a to expect no schema-level
+  enumeration and read the code instead. Round 2 established the opposite:
+  the vocabulary is schema-typed at
+  `packages/schemas/derivation/source-family.v2.schema.json` `$defs/term`
+  and `$defs/predicate`. Rewrite the item to say what is actually true, and
+  reverse the instruction to Track 1a — it **should** find this vocabulary in
+  `packages/schemas/`, under `source-family.v2` rather than under any
+  `attachment-rule` schema, which is where a reader would naively look. Keep
+  it in the gaps list only if a real gap survives the correction; if none
+  does, replace it with the discoverability point (the vocabulary lives in a
+  citizen whose name does not suggest it) and say the original item was
+  wrong.
+- **The document header is stale.** "Produced against ... `0f8e078e`" names
+  the launch commit of round 1. Change it to record the revision history
+  honestly: original at `990888c2`, round 1 (Layer 4 corpus corrections) at
+  `ad2bbe27`, round 2 (boundary map re-derivation) at `9104aa48`, round 3
+  (this repair) at the commit you are about to make — which you cannot know
+  in advance, so name it "this commit" and leave the SHA to the Foreman's
+  acceptance record.
+
+## Precision note, non-blocking
+
+The 5b-i citation reads `source-family.v2.schema.json:66,97,178-421`. The
+`$defs` block actually spans 171-469 (`term` at 172, `predicate` at 278,
+`identity_component` present too). Tighten the range if convenient. The
+substantive claim is correct and verified; this is precision, not error.
+
+## Constraints
+
+Unchanged. One assigned path
+(`docs/phases/grammar-census/inquiries/track-0-boundary-and-corpus.md`),
+documentation only, no production change, no reading of
+`docs/phases/claim-boundary-exploration/`, commit-lock protocol, governance
+lint before handoff, no push and no PR.
+
+Do not re-open round 2's other classifications. If you believe one is wrong,
+say so in your handoff report and leave it alone.
