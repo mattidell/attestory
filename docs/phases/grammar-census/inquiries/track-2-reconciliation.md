@@ -4,7 +4,7 @@
 - Milestone: Engine Language Map (`grammar-census`)
 - Track: 2 — three-way reconciliation and set differences
 - Role: Builder
-- Status: in progress (partial: method, naming, Surfaces 1–5a)
+- Status: in progress (partial: construct table complete through surface 8)
 - Source ref verified: `HEAD` `c954c4a854b1a8716ce74ed2a40fffa911528d25`
   on `milestone/grammar-census-engine-language-map`
 - Assigned path: this file only
@@ -287,3 +287,103 @@ the 1a/1b/1c columns.
 | U-104 | `binds_symbol` | D-070 | R66 | C48 | active | admission: must be produced or input-bound |
 | U-105 | `FIELD_SCHEMAS` (presentation) | D-067 | R66 | C48 | active (v2/v3); apparently unreachable (v1 in presentation) | `presentation_projection.py:37` is `{form-field.v2, form-field.v3}` only. v1 is admitted by `_SUPPORTED` and ignored by the projector |
 | U-106 | attachment compiled `.member-validation` gate | — | R67 | — | active | post-compile `requires` entries; `attempt_attachment` itself never reads `requires` |
+
+### Surface 5b — source-family term / predicate language
+
+Term and predicate ops are a **second, nested expression grammar**. They are
+not additional rule-artifact operations. Track 0 reversed the adjacent
+classification after finding `$defs/term` and `$defs/predicate` on
+`source-family.v2` (not on any attachment-rule schema).
+
+| Rec | Name (aliases) | 1a | 1b | 1c | Status | Citation |
+| --- | --- | --- | --- | --- | --- | --- |
+| U-107 | source-family declaration | D-071 | — | C49 | active | 48 files: 40 host v1, 8 host v2. Term/predicate exist only on v2 |
+| U-108 | `member_predicate` | D-071 | R56 | C49 | active | `{fact_type}` in all 48 files; no `op` key. This is membership, not the nested predicate language |
+| U-109 | `member_constraints` | D-072 | R47, R69 | C50 | active | 8 constraint objects in 2 files (covered-W families). `block_code` is an open pattern. Evaluated by `declarative_validation.py`; failure contributes to `FAMILY_VALIDATION_BLOCKED` |
+| U-110 | `identity_exclusivity` | D-073 | R71 | C51 | active | 1 object in each of the same 2 files; components are `fact_id_bound_key` / `member_field`, not term nodes |
+| U-111 | `projects_from` | D-074 | — | C83 | active | 6 / 48 files. Schema only; no accepted ADR names the field (1a) |
+| U-112 | term `field` | D-075 | R68 | C52 | active | 12 occurrences (8 bare, 4 with `default: 0`) |
+| U-113 | term `literal` | D-076 | R68 | C53 | active | 2 occurrences (`arg: 0`) |
+| U-114 | term `add` | D-077 | R68 | — | unused | declared and implemented; **0** hits in 48 source-family files. Binary `left`/`right`, not rule-artifact n-ary `add` |
+| U-115 | term `subtract` | D-077 | R68 | C54 | active | 2 occurrences inside `ADJUSTMENT_EXCEEDS_LOSS` |
+| U-116 | term `floor_zero` | D-078 | R68 | C55 | active | 2 occurrences. No rule-artifact counterpart |
+| U-117 | predicate `field_present` | D-079 | R69 | C58–C61 | active | 2 occurrences |
+| U-118 | predicate `field_absent` | D-079 | R69 | C58–C61 | active | 2 occurrences |
+| U-119 | predicate `field_equals` | D-080 | R69 | C58–C61 | active | 2 occurrences. Absent field is not equal |
+| U-120 | predicate `field_not_equals` | D-080 | R69 | C58–C61 | active | 2 occurrences. Absent field is **False** (does not fire) — 1b synthetic and ADR-0066 d2 agree |
+| U-121 | predicate `compare` | D-081 | R69 | C57 | active | field `comparison` enum `gt, ge, lt, le, eq, ne`. Observed `gt` and `ge` only. Distinct from rule-artifact `cmp` |
+| U-122 | predicate `all` | D-082 | R69 | C56 | active | 6 occurrences. Python `all` short-circuit |
+| U-123 | predicate `any` | D-082 | R69 | — | unused | declared and implemented; **0** hits in 48 source-family files |
+| U-124 | predicate depth bound of six | D-083 | R70 | C62 | active (as two independent literals); uncertain (as one bound) | **No JSON Schema max-depth.** ADR-0066 d2 names six in prose. Two Python literals, **two algorithms**: evaluator increments on nested `add`/`subtract`/`floor_zero`/`compare`/`all`/`any` (`declarative_validation.py:20,62,87`); admission `_predicate_depth` walks only `args` (`package_validation.py:182-188,2037-2056`) and does **not** walk `left`/`right`/`value`. Synthetic: `compare(add^n(field,1), 0)` has admission depth 1 for every n; evaluator `TOO_DEEP` at n≥5. Content max observed depth 2. Three-way agreement that "the bound is 6" is true of the literals and **false** of the trees they apply to — see `#Three-way agreement spot-checks` |
+
+### Surface 6 — runtime behaviors adjacent to grammar
+
+Track 0 classified 6i and 6ii grammar-adjacent (no schema-typed citizen /
+store-side). 6iii rounding is proper and is U-059/U-060. These rows stay
+in the census because `#Census unit` asks for runtime consumers that
+assign behavior.
+
+| Rec | Name (aliases) | 1a | 1b | 1c | Status | Citation |
+| --- | --- | --- | --- | --- | --- | --- |
+| U-125 | subset invariants | — | R72 | — | active | `schema_registry.py:91-96`; `findings.py:221-275`. Kernel reject-not-record. Registry populated by a tax-layer loader outside Layer 3 |
+| U-126 | companion presence / value domains / equality | — | R73 | — | active | `findings.py:296-405`; runner fail-closed on missing companion pin (`runner.py:322-369`) |
+| U-127 | declaration/signal contradictions | — | R74 | — | active | `findings.py:433-487`; ADR-0038 decision 5 |
+| U-128 | displacement closure | — | R75 | — | active | `DECLARED_EDGE_KINDS = {derivation, individuation}` (`currency.py:16`). Parameter / operation-semantics / adoption pins are not displacement edges |
+| U-129 | presentation numeric kinds | D-068 | R76 | C48 | active | `published_value` / `computed_zero` / `closure_backed_zero`. Closure-backed zero **drops citation leaves** (`presentation_projection.py:177-188`) |
+| U-130 | `presentation-model.v1` | — | R77 | — | unused (as a published citizen) | Python string, no `*.schema.json` hit. Module docstring: not a published schema. Consumes dispositions; does not evaluate expressions |
+
+### Surface 7 — provenance, disposition, explanation
+
+| Rec | Name (aliases) | 1a | 1b | 1c | Status | Citation |
+| --- | --- | --- | --- | --- | --- | --- |
+| U-131 | derivation-record citizen | D-084 | R79 | C77 | active | `CURRENT_RECORD_SCHEMA = "derivation-record.v7"` (`records.py:40`) is the one committed current-version designation Track 0 accepted. `use_v2=False` writes v1. Not authored in `packages/content/tax/2025` |
+| U-132 | derivation-record block-code vocabulary | D-085 | R35 | C27, C33 | active | v7 enum at `derivation-record.v7.schema.json:124-135` (12 codes). Includes `SLI_*` and `F1098_*` that the evaluator's five constants never assign; those arrive via the `block` op (U-006) |
+| U-133 | npe-walk citizen | D-086 | R78 | C76 | active | walker hardcodes `"schema": "npe-walk.v3"` (`explanation.py:332`). Not authored in production tax content. Tests assert v3 (`test_npe_walk.py`) |
+| U-134 | npe-walk `node_kind` | D-087 | R78 | C76 | active | enum `published, blocked, guard_inapplicable, no_disposition_recorded`. ADR-0020 d7's `invalid` refinement is **not** a `node_kind` |
+| U-135 | npe-walk block-code vocabulary | D-088 | R35, R78 | C76 | active (through `COMPLETENESS_VALUE_VIOLATION`); apparently unreachable (for record-only codes) | v3 enum: `DEPENDENCY_ABSENT, DEPENDENCY_INVALID, CATEGORICAL_DOMAIN_MISMATCH, SOURCE_SET_UNCLOSED, VALUE_INVALID, ITEMIZATION_TIE_OUT_VIOLATION, COMPLETENESS_VALUE_VIOLATION`. No v4–v7 matching later record codes. `SLI_MFS_INELIGIBLE` is not a legal `npe-walk.v3` `code` |
+| U-136 | derived-finding | D-089 | R39 | C80 | active | v1/v2; authority is the attribution chain (ADR-0009 d1) |
+| U-137 | `resolved_input` / declared default | D-090 | R36 | C65 | active | `derived-finding.v2`; `origin: declared_default` vs `assertion` |
+| U-138 | `act-derived-publication` | D-091 | R89 | — | active | ADR-0007; kernel compose-over does not interpret this kind (U-161) |
+| U-139 | pin construction (runtime) | D-010, D-105 | R80 | C80 | active | `runner.py:297-400`. Content `pins` (U-039) are not the complete surviving set |
+| U-140 | content-addressed ids | — | R81 | — | active | `runner.py:157-158`; prefix + sha256[:24] |
+| U-141 | ledger pin exclusion | — | R82 | — | active | v2 disposition pins drop `{computation, applicability, field-mapping, cross-form-bridge}`. Explanation walking uses the **finding's** pins |
+| U-142 | `no_disposition_recorded` | D-107 | R78 | — | active | ADR-0020 d4 step 4; requires `closing_phase` |
+| U-143 | publication pin roles demonstrated by tests | D-010 | R80 | C80 | active | `test_runner.py:148-158` asserts `field-mapping, input, operation-semantics, adoption, governance`. Content `pins` only write `input` and `parameter` |
+
+### Neighboring Layer 2 citizens (Track 0 corpus; not numbered in `#Term boundary`)
+
+| Rec | Name (aliases) | 1a | 1b | 1c | Status | Citation |
+| --- | --- | --- | --- | --- | --- | --- |
+| U-144 | source-closure-mapping | D-092 | R54 | C69 | active | 49 files, all host v2; `admission.condition` is `current-literal-true` in all 49. `_SUPPORTED` excludes v1 |
+| U-145 | parameter-declaration | D-093 | R6 | C70 | active | 18 files, host v1 only. `values` is an unconstrained object (schema-deliberate) |
+| U-146 | checked-conclusion-binding | D-094 | — | C73 | active | 1 file; truth table consts **are** declared evaluation while the description disclaims execution. `direct_route: guard_inapplicable` vs runner `inapplicable` vs form-field `guard_inapplicable` are three surfaces of one ADR-0020 layering, not three mechanisms — see Q11 |
+| U-147 | dividend-universe | D-095 | R48 | C71 | active | v1–v4 of the same id; composable-box list grows 2→3→4→5 |
+| U-148 | taxable-interest-composition | D-096 | R51 | C72 | active | 4 files, host v1; `coextensiveness: slot-bijection` |
+| U-149 | citation | D-097 | R80 | C39 | active | 74 files, host v1. Resolution is structural/adoption-only (ADR-0029) |
+| U-150 | role-canon | D-098 | R37 | C74 | active | 1 file. Lists `applicability` and `cross-form-bridge` as rule roles; the 134 files' `role` field does not use them |
+| U-151 | quantity-vocabulary | D-099 | R59 | — | active | v1–v12, **not monotone**: v7 drops `exempt-interest-dividends` and adds `covered-w-*`; v8 drops those six and restores `exempt-interest-dividends`; v12 does not contain `covered-w-*`. Track 0 did not flag this |
+| U-152 | migration-artifact | D-101 | R88 | C75 | active | 1 file, 13 pairs. Currency treats retired types as supersession roots |
+
+### Surface 8 — kernel store (grammar-adjacent; required for input/output domains)
+
+| Rec | Name (aliases) | 1a | 1b | 1c | Status | Citation |
+| --- | --- | --- | --- | --- | --- | --- |
+| U-153 | fact-type | D-100 | R86 | — | active | v1–v3. `_SUPPORTED` names `fact-type.v2` only. `ref.name` is **not** schema-constrained to a fact-type id (Track 0 gap 5; confirmed) |
+| U-154 | act / fact / entity / horizon substrate | D-101 | R83–R89 | — | active (as the domain `ref`/`collect` read) | Track 0 eighth surface. `act-package-adoption.v1` lives here, not on surface 4 |
+| U-155 | `optional_default` on fact-type.v2 | D-102 | R36 | C65 | active | ADR-0025 d1: determinable scalars only; elective cannot declare a default |
+| U-156 | fact-id rendering | — | R83 | — | active | `{fact_type_id}\|k=v,…` (`facts.py:235-237`); parsed by marshal, declarative_validation, findings |
+| U-157 | family-horizon succession | D-092 | R84 | C69 | active | one current horizon per `(family id, family version, scope)` |
+| U-158 | member-transition vs assertion routing | — | R85 | — | active | SC-R1/SC-R2 in `findings.py:595-615,730-741` |
+| U-159 | supersession policy | D-100 | R86 | — | active | `free` / `locked` / `closed-on-attestation` (ADR-0041, fact-type.v3) |
+| U-160 | `SchemaRegistry.validate_declared` | D-103 | R87 | — | active | instance `schema` selects the validator; no registry-level "current" |
+| U-161 | kernel compose-over of act kinds | — | R89 | — | active | unknown-to-kernel kind is not an error; `derived-publication` is folded by derivation projection |
+| U-162 | surface artifact resolver | — | R90 | — | active (as a non-interpreter) | SHA-256 entries; does not interpret rule-artifact expressions |
+
+### Cross-cutting declared contracts
+
+| Rec | Name (aliases) | 1a | 1b | 1c | Status | Citation |
+| --- | --- | --- | --- | --- | --- | --- |
+| U-163 | schema immutability / instance-named version | D-103 | R87 | C01 | active | ADR-0003. Exception: attachment-rule.v5 file consts v3 (U-089) |
+| U-164 | two independent version axes | D-108 | R49 | C01, C63 | active | every content citizen parsed has both `schema` and `version` except fact-type.v1/v3. Package instance v33 sits on `artifact-package.v25` |
+| U-165 | pin-value origin (no evaluator constants) | D-105 | R80 | C80 | active | ADR-0007 d4. Round modes applied via `_ROUND_MODES` are process constants; the *mode name* comes from a ref or from `divide.rounding` |
+| U-166 | unknown semantic schema versions fail loudly | D-106 | R46 | — | active | ADR-0066 d7; runtime token `MEMBER_SCHEMA_UNSUPPORTED` |
