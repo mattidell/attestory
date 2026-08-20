@@ -339,3 +339,182 @@ compiler" as a language-design textbook category. "OpenFisca is
 Python so they are similar." Comparing T7's leftover frozenset to
 another project's dead constants. Any comparison that treats T1 as
 "they also have bugs."
+
+## Dimension 3 — Exclusive-graph / non-confusion axioms as content or as host-language literals
+
+**Why the census pressures this.** T8 is an expressiveness entry, not a
+schema/runtime disagreement about a shared form. The form does not
+exist as a versioned citizen. T9's plausible next action already
+points Track 3 at a name-domain comparison; T8 is the other
+expressiveness entry and is the stronger "what the package language
+cannot say" fact.
+
+**Engine facts (census).**
+
+- U-085: `package_validation.py:197-206` `_LINE_1A_8A_NON_CONFUSION_IDS`
+  names `tax.us.2025.rule.schedule-d-line1a-gain` and
+  `tax.us.2025.rule.schedule-d-line8a-gain`. `:1635-1662` rejects mixed
+  historical/successor graphs with issue codes `MIXED_BOX2A_GRAPH`,
+  `MIXED_BOX12_GRAPH`, `MIXED_BOX7_GRAPH`, `MIXED_LINE2A_GRAPH`, each
+  testing specific fact-type and rule ids. This stream re-read those
+  two sites; the comments name ADR-0061 decision 5, ADR-0059 decision 7,
+  and ADR-0050 decision 3 as the invariants being preserved.
+- U-084: 83 distinct `MemberIssue.code` strings, unversioned,
+  Python-only. No single schema enum enumerates them.
+- Track 0 put generic package rules on surface 4 and domain axioms on
+  6i; U-085 sits on both. Track 2 surviving question 3 / T8: an owner
+  call on whether those belong in a versioned citizen would settle
+  the locus. The *invariants* are contractual; the *locus* (Python
+  literals vs a package-language form) is the tension.
+- Contrast that is easy to miss: U-110 `identity_exclusivity` *is* a
+  versioned content form on `source-family.v2` (`incompatible_family` +
+  `components`; 1 object in each of the two wash-sale family files).
+  The language can declare that two families' member identities are
+  exclusive. It cannot declare that two *package graphs* of named
+  tax citizens are exclusive. Those are different axioms. Collapsing
+  them would manufacture an expressiveness the census did not find.
+
+**External systems that appear relevant.** External and unverified.
+
+- **Datalog-style integrity constraints.** Publicly described as
+  allowing uniqueness / exclusion constraints over relations as
+  part of the rule corpus rather than as compiler kill-tests. I have
+  not verified any Datalog system's constraint language against an
+  artifact, and I am unsure whether "these two graphs of rules may
+  not coexist in one program" is even a Datalog-shaped sentence.
+- **DMN hit policy UNIQUE.** Publicly described as rejecting
+  overlapping rule matches in a table. I am not confident that UNIQUE
+  is an exclusive-*graph* axiom rather than an exclusive-*match*
+  axiom, and a comparison that treated them as the same thing would
+  have missed T8.
+- **RIF.** I am not confident how RIF dialects express exclusion and
+  I will not characterise them. If a later unit opens RIF, it should
+  start from T8's question, not from a RIF tutorial.
+
+**Questions a comparison could answer.**
+
+1. Do peer systems have a *content* form for "these two named graphs
+   of citizens are exclusive," or do they also encode that class of
+   axiom in the host language / compiler?
+2. Is U-110-style identity exclusivity (two families, shared
+   identity components) the form those systems use for T8-style
+   graph exclusivity, or a different form? A comparison that found
+   they are the same form would be relevant to whether T8 is a
+   missing generalisation of U-110. A comparison that found they
+   are different would be relevant to keeping Python kill-tests
+   as the accepted locus for ADR-named graph invariants.
+3. When a new tax year or a successor citizen id appears, do peer
+   systems change a versioned artifact or a host-language literal?
+
+**Evidence that would change an engine decision.** T8's plausible
+next action is already the owner call: keep them as commented
+ADR-backed Python (and classify them grammar-adjacent, surface 6i),
+or add a versioned package-language form so a new year does not
+require a validator edit. This brief does not pick.
+
+- Evidence that a peer system's content form for exclusive graphs
+  is used in production, versioned, and does not collapse into
+  identity-exclusivity, would be relevant to adding a package-language
+  form.
+- Evidence that peer tax-computation systems keep this class of
+  axiom as compiler/host literals, with the same "too tax-shaped to
+  lift" rationale T8 records as remaining uncertainty, would be
+  relevant to keeping the Python locus.
+- Evidence that U-110 already *is* the form those systems use, and
+  that T8's graphs could be rewritten as family identity
+  exclusivity, would be relevant to a *content* rewrite rather than
+  a new construct. No such rewrite is in scope.
+
+**Superficial on this dimension.** Asking whether OpenFisca "has
+package validation." Counting LegalRuleML constitutive tags.
+Treating `_LINE_1A_8A_NON_CONFUSION_IDS` as evidence that
+artifact-package schema is incomplete against its own declared
+vocabulary — T8 forbids that reading: it has no such vocabulary.
+
+## Dimension 4 — Whether `ref` / `collect` names are typed against a fact schema
+
+**Why the census pressures this.** T9 is the other expressiveness
+entry. Its plausible next action already names this comparison:
+"external systems that type rule names against a fact schema." Track
+0 gap 5 recorded the schema silence; Track 2 surviving question 8
+left a closed taxonomy of 216 `ref.name` store kinds as a different
+census unit.
+
+**Engine facts (census).**
+
+- Track 0 gap 5: nothing in
+  `packages/schemas/derivation/rule-artifact.vN.schema.json`
+  constrains which fact-type ids a `ref` may legally name.
+- Binding, Track 2 resolved question 9 / T9: `ref` →
+  `env.symbols[name]` (marshalled current findings / publications);
+  `collect` → `env.sources.get(name, [])`. `ref` of a missing symbol
+  blocks `DEPENDENCY_ABSENT` naming that symbol (this stream
+  re-read `evaluator.py:108-116`). Neither schema-constrains `name`
+  to a fact-type id.
+- U-153: fact-type v1–v3; `_SUPPORTED` names `fact-type.v2` only.
+  `ref.name` is not schema-constrained to a fact-type id.
+- Surface 8 is grammar-adjacent (store): a rule's `ref`/`collect`
+  reads against it and never declares its shape (Track 0 eighth
+  surface). T9 treats the collapse of fact vs finding vs parameter
+  vs publication symbol to an unconstrained string as consistent
+  with that adjacent label, and does not upgrade the question into
+  a defect.
+- Observed: 1333 `ref` occurrences / 115 files (U-003); 44 `collect`
+  occurrences, all with `source_set` (U-004). The failure mode for a
+  nonsense name is evaluation-time `DEPENDENCY_ABSENT`, not schema
+  rejection.
+
+**External systems that appear relevant.** External and unverified.
+
+- **DMN item definitions / FEEL names.** Publicly described as
+  requiring names to be declared (item definitions, inputs) before
+  an expression may use them. I have not verified whether that
+  check is schema-level, compiler-level, or runtime, and I am
+  unsure whether DMN distinguishes store-kind the way surface 8
+  does.
+- **OpenFisca registered variables.** Publicly described as a
+  registry of named variables that formulas reference. I have not
+  verified whether a formula that names an unregistered variable
+  fails at load or at compute, and I will not claim it types names
+  against a fact schema.
+- **Datalog predicate schemas.** Publicly described as declaring
+  predicate arity and (in some systems) types. I am unsure whether
+  any Datalog in this candidate set types a name as fact-versus-
+  derived the way surviving question 8 would need.
+
+**Questions a comparison could answer.**
+
+1. Do peer systems schema-constrain expression names to a declared
+   fact/variable/item set, or do they also fail at evaluation with
+   a missing-name block?
+2. If they constrain names, do they do it in the *expression*
+   schema (which would pull surface 8 into grammar-proper) or in a
+   *package/manifest* index (which would leave surface 8 adjacent)?
+   That is the question T9's remaining uncertainty actually is.
+3. Does a typed name domain catch the T9 class of error (a `ref`
+   to a string that will never be a symbol) at author time without
+   collapsing fact vs finding vs parameter into one grammar?
+
+**Evidence that would change an engine decision.** T9's plausible
+next action is: only if a later grammar unit wants schema-level
+name-domain closure (a fact-type / publication-symbol enum, or a
+package-level name index); otherwise leave the collapse. This brief
+does not pick.
+
+- Evidence that peer systems type names in the expression schema
+  *and* still keep a store/module cut would be relevant to a
+  schema-level enum that does not reclassify surface 8.
+- Evidence that the only workable typed-name pattern pulls the
+  store into the expression grammar would be relevant to leaving
+  the collapse, which is T9's "that may be the point of keeping
+  surface 8 adjacent."
+- Evidence that a package-level name index (not an expression
+  schema enum) is how peer systems close the domain would be
+  relevant to a package-language form rather than a
+  rule-artifact schema change.
+
+**Superficial on this dimension.** Comparing identifier syntax
+(`tax.us.2025…` versus `qualified.names`). Asking whether Catala
+"has variables." Counting unused `ref` names. A per-name taxonomy
+of the 216 distinct `ref` names — that is surviving question 8,
+a different census unit, not a comparison.
