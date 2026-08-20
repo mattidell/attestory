@@ -4,7 +4,7 @@
 - Milestone: Engine Language Map (`grammar-census`)
 - Track: 2 — three-way reconciliation and set differences
 - Role: Builder
-- Status: in progress (partial: method, naming, Surfaces 1–2)
+- Status: in progress (partial: method, naming, Surfaces 1–5a)
 - Source ref verified: `HEAD` `c954c4a854b1a8716ce74ed2a40fffa911528d25`
   on `milestone/grammar-census-engine-language-map`
 - Assigned path: this file only
@@ -218,3 +218,72 @@ the 1a/1b/1c columns.
 | U-050 | saturate-to-fixpoint scheduler | — | R40 | — | active | `runner.py:1343-1358`. No schema located |
 | U-051 | demand-driven reference runner | — | R41 | — | active | `reference_runner.py:27-66`. Cyclic demand is a silent return, not a recorded block |
 | U-052 | `use_v2` schema switch | D-084 | R39 | — | active | `runner.py:185-191`; `records.py:168-186`. Flag named `use_v2` selects `derivation-record.v7` (`CURRENT_RECORD_SCHEMA` at `records.py:40`). Synthetic: `started_record(use_v2=True)["schema"] == "derivation-record.v7"`; `False` → `derivation-record.v1` |
+
+### Surface 3 — operation-semantics and 6iii rounding
+
+| Rec | Name (aliases) | 1a | 1b | 1c | Status | Citation |
+| --- | --- | --- | --- | --- | --- | --- |
+| U-053 | operation-semantics citizen | D-037 | R42 | — | active | two schema generations with **disjoint** operation enums: v1 `round, range_lookup, bracket_fold`; v2 `categorical_compare, require_closed`. Highest-numbered is not a superset. Loaded from `packages/canon/derivation/` (`loader.py:136-162`), not from a package `admitted_schemas` member. v33 instance list omits both v1 and v2 |
+| U-054 | `round` semantics spec | D-038 | R17 | C21 | active | `operation-semantics.v1.schema.json:17-45`; modes/stages/tie_break/unit. Runtime intersects this with `_ROUND_MODES` |
+| U-055 | `range_lookup` semantics spec | D-039 | R18 | C26 | unused (in primary content) | `on_miss` `block`\|`zero`; boundary enum of two conventions. Primary corpus has 0 `range_lookup` nodes |
+| U-056 | `bracket_fold` semantics spec | D-040 | R19 | C25 | active (citizen required); unused (as consulted spec) | schema requires `method, boundary, open_top, on_miss, row_shape`. Evaluator loads `spec` and ignores every field (`evaluator.py:345-360`). Missing canon **key** is still `KeyError` |
+| U-057 | `categorical_compare` semantics spec | D-041 | R21 | C29 | active | `operation-semantics.v2`; `domain_mismatch` const `block` |
+| U-058 | `require_closed` semantics spec | D-042 | R20 | C28 | active | `spec.admission` const `current-literal-true` |
+| U-059 | rounding-mode tokens | D-043 | R43 | C14, C23, C81 | active | four tokens `half_up, half_even, down, up` on operation-semantics.v1 **and** on `divide.rounding`. Nothing `$ref`s the other. Content `round.mode` never writes those strings (always a `ref`). Content `divide.rounding` writes `half_up` only. Bundle enum lists `half_up` only (`core_calculations.bundle.v2.json:191`) |
+| U-060 | `_ROUND_MODES` Python mapping | D-043 | R43 | — | active | `evaluator.py:30-35`. The process cannot apply any other mode. Divide uses this table alone; round also intersects canon |
+| U-061 | `range_lookup` boundary `else` | — | R44 | — | active (as control flow); unused (no primary `range_lookup`) | `_in_band` (`evaluator.py:95-98`): only `"lower_inclusive_upper_exclusive"` is special-cased; **any other string** is lower-exclusive / upper-inclusive. Unknown boundary is not a block |
+| U-062 | `rounding.convention` | — | R6, R17 | C23, C81 | active | the production `round.mode` is always a `ref` to this symbol. `_SUPPORTED` exempts it from fact-surface membership (`package_validation.py:1055`) |
+| U-063 | `loader.OPERATION_VOCABULARY` | — | R1 | — | unused | 14-name frozenset (`loader.py:86-103`). Defined, never referenced elsewhere in `*.py` (only `role_vocabulary_report` is the sibling helper). Foreman-verified as a 14-element subset of the 23-op dispatcher |
+| U-064 | `CANON_OPERATIONS` | D-037 | R42 | — | active | `round, range_lookup, bracket_fold` (`loader.py:104`). Multiply/divide/count/block/require_closed/categorical ops are **not** in it and do not pin operation-semantics |
+
+### Surface 4 — package selection, binding, closure
+
+| Rec | Name (aliases) | 1a | 1b | 1c | Status | Citation |
+| --- | --- | --- | --- | --- | --- | --- |
+| U-065 | artifact-package citizen | D-046 | R45 | C63 | active | 35 files, three lineages (U-087). Schema family v1–v25 contiguous. Instance `version` is a second axis (v1–v33 for core-calculations). Unversioned `package.core-calculations.json` is instance v1, not current |
+| U-066 | `admitted_schemas` | D-047 | R46 | C64 | active | v25 schema enum has 42 names, includes `rule-artifact.v2..v6` and `operation-semantics.v2`, **omits** `rule-artifact.v1` and `operation-semantics.v1`. v33 instance lists 39, omits `rule-artifact.v1`, `attachment-rule.v3`, `attachment-rule.v5`, `form-field.v1`, both operation-semantics |
+| U-067 | `members` / member pin | D-048 | R45 | C63 | active | v33: 363 members |
+| U-068 | member `role` tokens | D-049 | R37 | C63, C74 | active | v25 enum is larger than rule-artifact `role`. Observed in v33: computation 86, citation 72, …, 1 each of dividend-universe, composition, field-mapping, checked-conclusion-binding, migration-artifact |
+| U-069 | `input_bindings` | D-050 | R52 | C65 | active | `required` blocks on absence (via later `DEPENDENCY_ABSENT`); `optional_default` is U-048. Marshal does not use `mode` (`marshal.py:261-262`) |
+| U-070 | `entrypoints` | D-051 | R49 | C66 | active | v33 has 141. Exact `(id, version)` matching only for `artifact-package.v20`–`v25` |
+| U-071 | `composition_obligations` | D-052 | R51 | C67 | active | v33 names two interest-total symbols. Several admission branches name specific tax ids (U-085) |
+| U-072 | `conflict_semantics` | D-053 | R50 | C68 | active (admission); unused (as runtime selector) | v2+ `{symbol, selected_producer}`. 5 files (core-calculations v29–v33) name `tax.us.2025.rule.schedule-a-total` for `tax.us.2025.schedule-a.total`. Runner never reads the field (U-044) |
+| U-073 | unique output ownership | D-054 | R50, R34 | C68 | active | ADR-0006 d7: no two members publish the same symbol unless the package declares conflict semantics. Admission: `OUTPUT_OWNERSHIP_CONFLICT` unless the symbol is in `declared_conflicts`. Runtime: first eligible producer wins regardless of `selected_producer` |
+| U-074 | `package_checksum` | D-055 | R53 | — | active | ADR-0027 d6; production resolver compares bytes |
+| U-075 | `validate_package` | — | R45 | — | active | `package_validation.py:727-2081`; production hard-gates on `ok` (`production_resolver.py:363-371`) |
+| U-076 | `_SUPPORTED_SEMANTIC_SCHEMAS` | D-106 | R46 | — | active | `package_validation.py:246-293`; includes `rule-artifact.v1..v6`, `attachment-rule.v1..v6,v8` (no v7), `operation-semantics.v1` and `.v2`, `form-field.v1..v3`, `fact-type.v2` (not v1), `source-family.v1` and `.v2`. This is the runtime's accepted-schema set. Unlisted → `MEMBER_SCHEMA_UNSUPPORTED` |
+| U-077 | synthesized `<family>.member-validation` | — | R47 | — | active | `compile_validation_graph` (`package_validation.py:574-639`) emits a compiled `rule-artifact.v5` producer. Reachability, not authoring, creates the edge |
+| U-078 | universe guard (`COLLECT_TARGET_NOT_FAMILY`) | — | R48 | — | active (artifact-package.v3–v17); unused (v18–v25) | `package_validation.py:1533-1549`. Family table is built only from `source-family.v1` (`:1550-1554`). `source-family.v2` — the citizen that holds term/predicate — does not participate |
+| U-079 | inbound reachability | D-051 | R49 | C66 | active | BFS from entrypoints plus form-fields. `closed_v2_surface` is package **instance** `version != "v1"` (`:1361`), not schema generation |
+| U-080 | production resolver | D-101 | R53 | — | active | `production_resolver.py:134-204,297-377`. No committed adoption pins `tax.us.2025.package.core-calculations` (Track 0). Surface 8 act, not a package-shape citizen |
+| U-081 | closure admission | D-092 | R54 | C69 | active | `source_authority.py:100-166`; `env.closed_sets = frozenset(self.admissions)` (`runner.py:290`). Truthy non-bool does not admit (`isinstance(value, bool) and value is True`) |
+| U-082 | marshal from current findings | — | R55 | — | active | `marshal.py:210-402`; only `currency.current_finding_ids` |
+| U-083 | collect source-name assembly | — | R56 | — | active | `live.py:67-143`; evaluator `collect` does not discover names from the expression alone |
+| U-084 | package admission issue-code family | — | R57 | — | active | 83 distinct `MemberIssue.code` strings, unversioned, Python-only. No single schema enum enumerates them |
+| U-085 | tax-hardcoded package kill-tests | — | R58 | — | active | `package_validation.py:197-221,1635-1662` names specific tax citizen ids. Surface-4 shape with surface-6i content. Track 0 put generic package rules on 4 and domain axioms on 6i; this file sits on both |
+| U-086 | quantity-vocabulary check vs supported set | D-099 | R59 | — | active (v1–v3 index); apparently unreachable (v4–v12 as the quantity index) | `_SUPPORTED` lists v1–v12; the **index** is built only from v1–v3 (`package_validation.py:1085-1090`) |
+| U-087 | three named package lineages | — | — | C84 | active | `core-calculations` (33 files), `first-tax-slice` (artifact-package.v1), `interest-slice` (artifact-package.v2) |
+
+### Surface 5a — attachment-rule / form-field
+
+| Rec | Name (aliases) | 1a | 1b | 1c | Status | Citation |
+| --- | --- | --- | --- | --- | --- | --- |
+| U-088 | attachment-rule citizen | D-056 | R60–R65 | C41–C47 | active | seven published files, **no v7**. 15 content files. Host schemas in content: v4×7, v6×2, v8×2, v2×2, v3×1, v1×1. **No content host v5** |
+| U-089 | attachment-rule.v5 `$id` / `schema` const of v3 | D-056 | R46 | — | apparently unreachable (as a named instance discriminator) | Foreman-verified: `$id` `tax/attachment-rule.v3` at `attachment-rule.v5.schema.json:120`; `properties.schema.const` is `attachment-rule.v3` (`:229`); different SHA-256 from the v3 file. Registry keys by **filename** (`schema_registry.py:152`), `validate_declared` by instance `schema` (`:234-244`). Catch-22: name `attachment-rule.v5` → v5 file → const requires v3 → fail; name v3 → v3 file → v5 bytes never run. `_SUPPORTED` still lists `attachment-rule.v5`. Finding, not a repair |
+| U-090 | attachment triad dispositions | D-057 | R60, R61 | — | active | not-required / required-and-complete / required-and-incomplete (ADR-0036 d1). Not-required is `inapplicable` with `guard_result: False` |
+| U-091 | requirement: threshold / `strictly_greater_than` | D-058 | R60 | C41 | active | 13 / 15 files. Test is `>` (`runner.py:883-923`). v3/v4 schema is a oneOf; v5/v6/v8 parsed `requirement` is threshold-only |
+| U-092 | requirement: `family_nonempty` | D-059 | R61 | C42 | active (v3/v4 content and schema); unused (v5/v6/v8 schema) | schema admits it only in v3 and v4. Content: 2 files (`attachment.schedule-d.json` host v3, `.v2.json` host v4). Later schedule-d content versions use the threshold shape. Runtime is schema-agnostic once `kind` matches (`runner.py:574-626`) |
+| U-093 | `collect_members` | D-060 | R64 | C46 | active | 69 occurrences, all 15 files. Not a rule-artifact expr op |
+| U-094 | `itemization_authority` | D-061 | R64 | C46 | active | v2+ `single_family` \| `composition` |
+| U-095 | completeness `check: presence` | D-062 | R62 | C43 | active | 26 answer objects. Presence is checked before value |
+| U-096 | completeness `check: value` | D-063 | R62 | C44 | active (v4 schema and content); unused (v5/v6/v8 schema `required_answer` is const `presence`) | ADR-0055; code `COMPLETENESS_VALUE_VIOLATION`. 46 answer objects, all `equals: "yes"`. Present in e.g. `attachment.schedule-a.json` |
+| U-097 | `adjustment_row` | D-064 | R65 | C46 | active | v5 file / v6 / v8 schemas; `_V6_SHAPE_ATTACHMENT_SCHEMAS = {v6, v8}` (`runner.py:142`). Kind tokens `nominee_distribution, accrued_interest, abp_adjustment` are schema-closed, no ADR language decision found (1a). 10c subtractive exception is v6-only (`package_validation.py:1936`); 10b includes v8 |
+| U-098 | `branch_requirements` | D-065 | R63 | C45 | active | 6 / 15 files. False trigger does not add extras |
+| U-099 | `names_obligations` / `FINCEN_114_NAMED` | D-065 | R63 | C47 | active | four schedule-b attachment-rule files. Published onto the attachment value as `named_obligations` (`runner.py:1121-1127`) |
+| U-100 | `accounts_for` (attachment-rule.v8) | D-066 | — | C82 | active | same relationship enum as U-041. 2 files, both host v8: `attachment.f8949.v2.json`, `attachment.schedule-d.v6.json`. This is **not** a v6 continuation of rule-artifact `accounts_for` |
+| U-101 | form-field citizen | D-067 | R66 | C48 | active | 50 files, host v3×43, v2×7. `form-field.v1` is in `_SUPPORTED` and not in content (sample_data only) |
+| U-102 | form-field disposition classes | D-068 | R66, R76 | C48 | active | five keys `published_value, computed_zero, closure_backed_zero, blocked, guard_inapplicable` |
+| U-103 | form-field blocked-code list | D-069 | R66 | C48 | active | v2 enums `SOURCE_SET_OPEN`; v3 replaces it with `SOURCE_SET_UNCLOSED`. One content file still carries `SOURCE_SET_OPEN`: `form1040.line-2b.form-field.json` (host v2) |
+| U-104 | `binds_symbol` | D-070 | R66 | C48 | active | admission: must be produced or input-bound |
+| U-105 | `FIELD_SCHEMAS` (presentation) | D-067 | R66 | C48 | active (v2/v3); apparently unreachable (v1 in presentation) | `presentation_projection.py:37` is `{form-field.v2, form-field.v3}` only. v1 is admitted by `_SUPPORTED` and ignored by the projector |
+| U-106 | attachment compiled `.member-validation` gate | — | R67 | — | active | post-compile `requires` entries; `attempt_attachment` itself never reads `requires` |
