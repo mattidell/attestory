@@ -9,7 +9,8 @@
   - round 1 (Layer 4 corpus corrections): `ad2bbe27`
   - round 2 (boundary map re-derivation): `9104aa48`
   - round 3 (Foreman ruling on 5b-ii; two flagged inconsistencies): `2d719468`
-  - round 4 (primary-criterion amendment to cover the round-3 ruling): this commit
+  - round 4 (primary-criterion amendment to cover the round-3 ruling): `03e38d79`
+  - round 5 (three inherited citation defects; Track 0 close): this commit
 
 This deliverable does not read
 `docs/phases/claim-boundary-exploration/` (charter constraint). Where this
@@ -56,6 +57,15 @@ rather than specifically a schema-typed one, records the amendment as
 an amendment (fitted after the fact), and shows the check that the
 widening is monotone — every existing label is unchanged. Layer 3's
 `0f8e078e` SHA is left in place and labelled as a corpus pin.
+
+**Repair note (round 5, 2026-08-20).** Three inherited citation defects,
+left alone under earlier "do not re-open round 2" constraints and now
+in scope: (1) axes-table row 5a and surface 5a's concrete path wrote
+`attachment-rule.v1..v8`; there is no v7; (2) row 6i's ADR-fixed cell
+said "none found"; the registry comments name ADR-0035 decision 4 and
+ADR-0038 decision 5; (3) the "never naming a domain" cite used
+`:109`, which is the wrong line — the phrase is at `:110`. No
+classification changes. After these three, Track 0 closes.
 
 The plan's `#Term boundary` names seven surfaces in the abstract. Below,
 each is named against concrete repository paths, classified against one
@@ -201,10 +211,10 @@ execution is contractually required to leave behind).
 | 2 | Dependency/guard/role/blocking | Yes — `rule-artifact.vN` fields; blocking codes in `derivation-record.v2..v7`/`npe-walk.v1..v3`/`checked-conclusion-binding.v1` | expressed | Yes | Yes (closed named set) | ADR-0006/0007/0009/0024/0037 | **proper** |
 | 3 | Operation-semantics | Yes — `operation-semantics.v1`, `.v2` | presupposed by a rule's op name, expressed as its own citizen | Yes | Yes (closed op set) | ADR-0006 decision 4 | **proper** |
 | 4 | Package selection/binding/closure | Yes — `artifact-package.v1..v25` | expressed by the package citizen; presupposed by any one rule-artifact inside it | Yes | No (constraint set, not an expression syntax) | ADR-0006 decisions 6-7, ADR-0027, ADR-0033 | **proper** (module side) |
-| 5a | attachment-rule/form-field family | Yes — `attachment-rule.v1..v8`, `form-field.v1..v3` | expressed | Yes | Yes | ADR-0036/0055/0056/0066 | **proper** |
+| 5a | attachment-rule/form-field family | Yes — `attachment-rule.v1,v2,v3,v4,v5,v6,v8` (no v7; seven published files), `form-field.v1..v3` | expressed | Yes | Yes | ADR-0036/0055/0056/0066 | **proper** |
 | 5b-i | declarative_validation.py term/predicate vocabulary | **Yes — `source-family.v2.schema.json` `$defs/term`, `$defs/predicate`** | expressed (as `member_constraints[].violated_when` / `identity_exclusivity[].components` of a source-family declaration) | Yes | Yes (own bounded op set) | ADR-0066 decision 2 | **proper (reversed)** |
 | 5b-ii | declarative_validation.py depth bound (`MAX_PREDICATE_DEPTH=6`) | **No — enforced at resolver admission by contract, not by JSON Schema (ADR-0066 decision 2, deliberate)** | presupposed by schema (not a declared field); well-formedness bound on 5b-i at package admission and at evaluation | Yes (admission `MEMBER_CONSTRAINT_TOO_DEEP`; evaluation `MemberConstraintTooDeep`) | N/A (a limit, not a vocabulary) | ADR-0066 decision 2 (names the number 6 in prose) | **proper (Foreman ruling)** |
-| 6i | Domain axioms (`findings.py` invariant pairs) | No | presupposed generically, kernel "never naming a domain" | Yes | No (data pairs, not expression syntax) | none found | **adjacent** |
+| 6i | Domain axioms (`findings.py` invariant pairs) | No | presupposed generically, kernel "never naming a domain" | Yes | No (data pairs, not expression syntax) | ADR-0035 decision 4, ADR-0038 decision 5 | **adjacent** |
 | 6ii | Currency/projection displacement-closure | No — `DECLARED_EDGE_KINDS` is a Python frozenset | produced around already-published findings; store-side | Yes | No (two fixed edge kinds) | ADR-0010 decisions 3, 5, 6 | **adjacent** (store side) |
 | 6iii | Rounding-mode dispatch | **Yes — `operation-semantics.v1.schema.json`, same citizen as #3** | presupposed by a rule's `round` op name | Yes | Yes (closed enum) | ADR-0006 decision 4 | **proper (reversed, contradiction fixed)** |
 | 7 | Provenance/disposition/explanation record | Yes — `npe-walk.v1..v3`, `derivation-record.v1..v7` | **produced** — this is the plan's own definition of surface 7 | Yes (walk failure/nonpublication is itself a recorded disposition) | Yes | ADR-0009, ADR-0020 | **proper** |
@@ -296,8 +306,14 @@ execution is contractually required to leave behind).
 ### 5. Adjacent declarative predicate or validation languages
 
 - **Concrete surface — attachment-rule/form-field family:**
-  `packages/schemas/tax/attachment-rule.v1..v8.schema.json` and
-  `packages/schemas/tax/form-field.v1..v3.schema.json`.
+  `packages/schemas/tax/attachment-rule.v1.schema.json`, `.v2`, `.v3`,
+  `.v4`, `.v5`, `.v6`, and `.v8` — seven published files; **v7 does not
+  exist** (directory listing and `packages/schemas/tax/published.json`
+  both name exactly those seven; there is no
+  `attachment-rule.v7.schema.json`). Do not read `v1..v8` as a
+  contiguous series. Also
+  `packages/schemas/tax/form-field.v1..v3.schema.json` (contiguous;
+  three published files).
 - **Classification: grammar proper.**
 - **Reason:** these are declared, schema-typed, separately versioned
   citizens with their own semantic effect
@@ -419,9 +435,38 @@ Split here, each classified on its own evidence.
   pair) that a *tax-layer registry populates as data* but that no
   `rule-artifact` citizen declares anywhere — the kernel enforces them
   generically, "never naming a domain"
-  (`packages/kernel/schema_registry.py:95,105,109`). No schema anywhere
-  carries this vocabulary; this is the one component the previous
-  revision's stated reason actually fits.
+  (`packages/kernel/schema_registry.py:95,105,110`; `:95` and `:105` say
+  "never naming a domain"; `:110` says "never names a domain" and wraps
+  onto `:111`. The previous cite `:109` is the wrong line — `:109` is
+  "identity-key suffix. Empty by default; a tax-layer registry populates").
+  No schema anywhere carries this vocabulary; this is the one component
+  the previous revision's stated reason actually fits.
+  **ADR-fixed axis corrected (round 5); label unchanged.** The axes-table
+  cell previously said "none found." That is false.
+  `packages/kernel/schema_registry.py:91-92` names ADR-0035 decision 4 on
+  `subset_invariant_pairs`; `:97-98` names ADR-0038 decision 5 on
+  `declaration_signal_contradictions`. Those numbered decisions exist in
+  the ADR texts: ADR-0035 decision 4 is "Subset invariant, admission
+  locus" (`docs/adr/0035-dividend-composition-and-lines-3a-3b.md:54-69`);
+  ADR-0038 decision 5 is "Bidirectional contradiction interlock"
+  (`docs/adr/0038-qdcg-worksheet-and-declared-absence.md:96-106`).
+  **Applying the amended criterion honestly does not move the label.**
+  The criterion needs a separately versioned citizen whose shape is
+  contractually enforced by published JSON Schema, by package admission
+  (`validate_package`), or by both. Registry attributes populated in
+  Python are not that, whatever an ADR says about their meaning. Round 4
+  already refused "named in an accepted ADR" as sufficient and held 6ii
+  adjacent on the same test (ADR-0010 is ADR-fixed; no separately
+  versioned citizen; kernel/store-side enforcement is not
+  `validate_package`). 6i is the same shape: ADR-0035/0038 fix the
+  *meaning* of the pairs; `findings.py` enforces them at finding
+  admission (`_enforce_subset_invariants` at
+  `packages/kernel/findings.py:221`, citing ADR-0035 decision 4 at
+  `:227-228`), which is the gate round 4 named and declined to treat as
+  the conjunct. ADR-0038 decision 5 itself prefers "reusing the
+  ADR-0035-style admission-check mechanism rather than a new admitted
+  citizen" (`docs/adr/0038-qdcg-worksheet-and-declared-absence.md:101-103`).
+  Adjacent stands.
 
 - **6ii — Currency/projection displacement-closure folding.**
   `packages/derivation/projection.py` / `packages/kernel/currency.py`
@@ -1033,3 +1078,8 @@ those are corrected above, and the surrounding numbers were re-checked by
 the same method rather than assumed. Where a number is awkward to
 reproduce, the method is stated inline so a cold reader can re-run it
 instead of trusting it.
+
+## Track 0 close
+
+Track 0 is complete. The boundary map and the bounded corpus in this
+file are binding on Tracks 1a–1c as written.
