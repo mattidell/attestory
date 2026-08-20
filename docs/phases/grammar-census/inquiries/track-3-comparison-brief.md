@@ -824,3 +824,112 @@ A comparison does not by itself open a grammar unit.
 "sum." Asking whether OpenFisca "has source sets." Tax-form
 coverage of which documents get aggregated. Treating U-018
 `range_lookup` unused-in-primary as this dimension.
+
+## Superficial or inapplicable comparisons
+
+The plan asks for this list explicitly. A later unit that only reads
+the seven dimensions still needs a bound on what *not* to open. Each
+item names the tempting comparison and why it would not answer a
+census question.
+
+**Inapplicable as a follow-on to this census — they are this
+milestone's non-goals, restated as comparison bounds.**
+
+1. **Standards-conformance.** "Are we DMN-compliant / RIF-compliant /
+   LegalRuleML-compliant." The plan's `#Non-goals` forbids a
+   standards-conformance exercise. A conformance matrix would not
+   tell an owner whether to wire `selected_producer` (T4) or walk
+   `left`/`right` at admission (T1).
+2. **Tax-coverage comparison.** "Does OpenFisca compute Form 1040
+   line X; does Catala encode §1211." The plan forbids an exhaustive
+   tax-coverage census. T8's tax *ids* are in the brief because they
+   are the operands of a host-language axiom, not because a later
+   unit should match tax topics.
+3. **Grammar redesign by analogy.** "Catala uses defaults, so we
+   should add defeasibility." Track 3 selects nothing. Exit
+   criterion 8 forbids a grammar change and an external-standards
+   claim. A comparison that ends in a proposed construct has left
+   this brief's job.
+
+**Superficial — they look like semantic comparison and are not.**
+
+4. **A tour of what Catala, OpenFisca, or DMN *is*.** Exit criterion
+   7 fails if the follow-on can be scoped from a generic survey.
+   Summarising a language's homepage is not a question the census
+   asked.
+5. **Syntax / surface comparison.** JSON citizens versus Catala's
+   ML-like surface versus FEEL text versus Datalog. The census
+   classified by instance `schema` field, never by filename, and
+   never by host-language syntax. A syntax comparison cannot
+   distinguish the two expression grammars (dimension 1).
+6. **Operator-set matching.** "They have `add` and `compare` too."
+   Dimension 1 is that this engine has two `add`s that are not the
+   same construct. An op-list intersection hides that. T7's 14-name
+   leftover is internal hygiene, not a comparison input.
+7. **Defeasibility as a paradigm survey.** Dropped as a carried-
+   forward dimension. LegalRuleML override/exception tags, Catala
+   "has exceptions," default-logic literature. The census found T4
+   and Trace 2, which a paradigm survey would smear together.
+8. **Period / horizon feature checklist against OpenFisca periods.**
+   Dropped. U-157 is store; U-144 is uniformly
+   `current-literal-true`; no catalog entry treats the absence of a
+   period operator as a gap. Opening OpenFisca *first* would reverse
+   the method: external recollection originating an engine need.
+9. **Constitutive versus prescriptive as a LegalRuleML tour.**
+   Dropped. T8 is already dimension 3. Counting constitutive tags
+   does not answer whether exclusive-graph axioms should be content.
+10. **Embedded versus standalone as a textbook category.** "JSON
+    embedded in Python versus a standalone compiler." Dimension 2 is
+    *locus of meaning* (T1, T5, T6, T7, T8), not host-language
+    fashion.
+11. **Object-language versus observational theory as philosophy.**
+    "Are these artifacts the law, or a description of it." Dimension
+    5 is T3's record-fidelity collapse. A philosophy paper does not
+    decide whether `LOOKUP_MISS` joins the walk enum.
+12. **Provenance-standard name-dropping.** Mapping pin roles onto
+    W3C PROV without asking whether the produced record is a named
+    subset of evaluation events.
+13. **Comparing T1, T2, or T5 to other projects' bugs.** T1 is a
+    contract-versus-enforcement finding; T2 is a published-schema
+    `$id` collision (U-089) with no comparison purchase — two files
+    claiming one `$id` is ADR-0003 identity, not a language-
+    semantics dimension; T5 is an unread spec. "They also have
+    bugs" is not a semantic dimension.
+14. **Identifier syntax.** `tax.us.2025…` versus qualified names
+    versus DMN ids. Dimension 4 is whether names are typed against
+    a fact schema, not how they are spelled.
+15. **`range_lookup` / tax tables versus DMN decision tables.**
+    U-018 is unused in the primary corpus (declared, implemented,
+    present in sample_data). Unused is a status, not a comparison
+    dimension, unless a later unit wants to retire the op — which
+    this census does not.
+16. **Presentation citation-pin narrowing (U-129).** Catalog
+    considered and dropped it as adjacent presentation policy.
+    Comparing "how many pins the UI shows" is not dimension 5.
+17. **Rounding-mode lists versus other engines' rounding.** D9 was
+    dropped: all three layer descriptions are true of their layer;
+    production `round.mode` is always a `ref` to
+    `rounding.convention`. A rounding-mode bake-off would not
+    change an owner call in T1–T9.
+18. **Attachment-rule completeness (`presence` / `value`) versus
+    other systems' form-completeness.** Real engine surface (U-088
+    family) and a plausible later unit, but not a tension-catalog
+    expressiveness entry and not a carried-forward candidate. A
+    comparison opened here would be a new census question, not a
+    follow-on to this one.
+
+**Candidate corpora the plan named, attached or not.**
+
+| Corpus | Attached to a kept dimension? | Not a reason to open it |
+| --- | --- | --- |
+| DMN/FEEL | Yes: 1 (peer notations), 2 (spec vs host), 3 (UNIQUE, with a warning), 4 (item definitions), 5 (decision traces), 6 (hit policies), 7 (collect, unverified) | Conformance; syntax; tax tables as decision tables |
+| Catala | Yes: 1 (is it one language), 2 (compiled meaning), 5 (explanation traces, unverified), 6 (default/exception, mapping uncertain) | Defeasibility paradigm; legislative-text fidelity as a product claim |
+| OpenFisca | Yes: 2 (host-language meaning), 4 (registered variables, unverified), 7 (empty collections, unverified) | Period/horizon checklist; tax-coverage; "they are also Python" |
+| Datalog / RIF | Yes: 1 (is it one language), 3 (integrity constraints, RIF uncertain), 4 (predicate schemas, unverified) | RIF-conformance; recursive-query bake-off this census did not pressure |
+| LegalRuleML | **No kept dimension.** Dropped constitutive/prescriptive and defeasibility-as-paradigm | Any LegalRuleML tour |
+| Provenance standards (W3C PROV) | Yes: 5 only | Generic PROV mapping without the collapse question |
+| Other tax-computation systems | Only if they can be attached to dimensions 3 or 7 with the same questions | Form-coverage, product comparison, MeF/e-file comparison |
+
+LegalRuleML is named so a later unit can see it was considered and
+dropped, not forgotten. Opening it without a new census question
+would be item 9 above.
