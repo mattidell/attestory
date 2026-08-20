@@ -199,7 +199,8 @@ Track 0.
 ### Layer 1 — Accepted contracts and ADR decisions (`docs/adr/`)
 
 - **In-scope artifacts:** `docs/adr/0001-*.md` through `docs/adr/0066-*.md`
-  (67 numbered files) plus `docs/adr/INDEX.md` and `docs/adr/analyses/`.
+  (**66** numbered files; method: `ls docs/adr/*.md | grep -v INDEX | wc -l`)
+  plus `docs/adr/INDEX.md` and `docs/adr/analyses/`.
   Per `docs/adr/INDEX.md:7-8,13-18`, only ADRs with `status: accepted` bind;
   `rejected`/`superseded`/`proposed`/`retired` are explicitly inert and
   never load as authority. The index itself flags: `0004` rejected; `0005`,
@@ -212,11 +213,17 @@ Track 0.
   status column in `docs/adr/INDEX.md` *is* the committed adoption record
   for this layer — it names every ADR's current status and, per its own
   text, is the "normative home for its own routing rules." Cite:
-  `docs/adr/INDEX.md` lines 33–101 (the status table).
+  `docs/adr/INDEX.md` lines 35–100 (the 66 status-table rows; line 33 is
+  the table header). Tallied from that table: **53 accepted, 7 retired,
+  3 superseded, 2 rejected, 1 proposed** — 66 total.
 - **Bounded corpus for the census:** every ADR marked `accepted` in
-  `docs/adr/INDEX.md` (currently 0001–0003, 0006–0012, 0014–0017, 0020,
-  0023–0029, 0031–0033, 0035–0038, 0041, 0044, 0046–0066, excluding the
-  rejected/superseded/retired numbers named above). Retired/rejected/
+  `docs/adr/INDEX.md` — currently 0001–0003, 0006–0012, 0014–0017, 0020,
+  0023–0029, 0031–0033, 0035–0038, 0041, **0044–0066** (53 ADRs; note
+  ADR-0045 is `accepted`, not retired: it is the *last* process ADR and it
+  retired the other seven, so it binds while they do not). The complement,
+  never cited as present-tense authority, is exactly: 0004 and 0019
+  (rejected); 0018, 0022, 0034 (superseded); 0021 (proposed); 0005, 0013,
+  0030, 0039, 0040, 0042, 0043 (retired). Retired/rejected/
   superseded ADRs remain readable as history (several are cited by number
   above in the boundary map, e.g. as "ADR-0033" naming the mechanism
   ADR-0066 partially superseded) but are never cited as present-tense
@@ -233,7 +240,24 @@ Track 0.
   (`fact-type.v1..v3`, `quantity-vocabulary.v1..v12`, `act-*.vN`, etc.);
   `packages/schemas/tax/*.schema.json` (`attachment-rule.v1..v6,v8` — note
   v7 does not exist, confirmed by directory listing;
-  `form-field.v1..v3`). Each directory's `published.json` is the
+  `form-field.v1..v3`). Every version enumeration in this paragraph was
+  re-verified by globbing the schema directories and parsing the version
+  integer out of each filename; all are contiguous from v1 except
+  `attachment-rule`, whose gap at v7 is real.
+
+  **Two independent version axes (read this before Track 1a or 1b builds a
+  construct history).** A content citizen carries *both* its own `version`
+  field *and* a `schema` field naming the schema version it validates
+  against, and these move independently. The clearest case is the package
+  family: `package.core-calculations` runs `version` v1→v33 (33 instances,
+  32 successive steps) while its `schema` moves separately
+  `artifact-package.v2`→`v25`, changing at only **19 of those 32 steps**
+  and touching **20 distinct** schema versions (e.g. package v22–v25 all
+  sit on `artifact-package.v19`; package v1, v2 and v3 all sit on
+  `artifact-package.v2`). A census that reads "v33" as "artifact-package
+  version 33" — or that assumes the two counters advance together — will
+  produce a wrong construct history. Always state which axis a version
+  number is on.
   checksum/publication manifest (`packages/kernel/schema_registry.py:68-155`):
   it verifies every `*.schema.json` file present is listed and every listed
   file's bytes are unmutated; a file present-but-unlisted or listed-but-
@@ -284,19 +308,22 @@ Track 0.
     answer rather than an accepted set. Cite exactly:
     `packages/derivation/records.py:40`.
   - **Do not infer the unversioned filename is current, either.** A
-    plausible trap this census must name explicitly: `packages/content/tax/2025/package.core-calculations.json`
-    (no version suffix) is byte-identical to
-    `packages/content/tax/2025/package.core-calculations.v1.json`'s
-    *content* — `diff` against `package.core-calculations.v33.json` shows
-    it is **not** the highest-numbered version; its internal `"version":
-    "v1"` field and `"schema": "artifact-package.v2"` confirm it is the
-    *first*, not the latest, package instance under an unversioned
-    filename. The unversioned filename is therefore not a "current"
-    marker at all; it is an old, differently-named copy of v1. This is
-    exactly the trap the charter's "do not infer highest-numbered is
-    current" instruction warns against, discovered in the opposite
-    direction (an unversioned name that turns out to be the *oldest*, not
-    a stand-in for the newest).
+    plausible trap this census must name explicitly:
+    `packages/content/tax/2025/package.core-calculations.json` (no version
+    suffix) **is package version v1** — not by comparison against a
+    `.v1.json` file, because **no `package.core-calculations.v1.json`
+    exists**. The versioned-filename series begins at v2 and runs
+    contiguously to v33 (32 files), so the unversioned filename *is* the
+    v1 slot: the file declares `"version": "v1"` and
+    `"schema": "artifact-package.v2"` internally. Method: parse the
+    `version` and `schema` fields out of every
+    `package.core-calculations*.json` rather than reading filenames.
+    The unversioned filename is therefore not a "current" marker at all;
+    it is the *oldest* member of the series under a bare name, because the
+    versioning convention started one version late. This is exactly the
+    trap the charter's "do not infer highest-numbered is current"
+    instruction warns against, met in the opposite direction — a name that
+    looks like a "latest" alias and is in fact the earliest instance.
 - **Bounded corpus for the census:** for `rule-artifact` and
   `attachment-rule`, the census's declared/implemented construct sets
   (Tracks 1a/1b) should read **every version currently accepted by runtime
@@ -350,16 +377,31 @@ Track 0.
 
 ### Layer 4 — Actual committed rule content and packages (`packages/`)
 
-- **In-scope artifacts:** `packages/content/tax/2025/*.json` — 197 files
-  whose `"schema"` field starts with `"rule-artifact` (confirmed by direct
-  grep), plus `package.core-calculations.json` and
-  `package.core-calculations.v1..v33.json` (34 files describing the same
-  package family across versions), plus `package.first-tax-slice.json` and
-  `package.interest-slice.json` (two package instances outside the
-  `core-calculations` name entirely — evidence of at least three
-  independently-named package lineages, not one accumulating series).
-  `packages/sample_data/**` (34 top-level scenario directories, e.g.
-  `dsbs_t1`, `frrs_t1`, `core_tax_conditions`,
+- **In-scope artifacts:** `packages/content/tax/2025/*.json` — **538 files
+  total**, of which **134** carry a parsed `schema` field beginning
+  `rule-artifact` and **15** carry one beginning `attachment-rule`.
+  **Method, so Track 1c can re-run it:** load each file as JSON and read
+  its `schema` key; do not classify by filename (see the corpus definition
+  below for why). The remaining files are the other citizen families in the
+  same directory (74 `citation`, 53 `bundle`, 50 `form-field`, 49
+  `source-closure-mapping`, 48 `source-family`, 35 `artifact-package`, 23
+  `quantity-vocabulary`, 18 `parameter-declaration`, 4 `dividend-universe`,
+  4 `taxable-interest-composition`, 1 each `role-canon`,
+  `checked-conclusion-binding`, `migration-artifact`, plus 28 files with no
+  top-level `schema` key at all).
+
+  The package family is `package.core-calculations.json` plus
+  `package.core-calculations.v2..v33.json` — **33 files, not 34**, because
+  the versioned-filename series starts at v2 and the unversioned file
+  occupies the v1 slot (see Layer 2). Also present:
+  `package.first-tax-slice.json` and `package.interest-slice.json`, two
+  package instances outside the `core-calculations` name entirely —
+  evidence of at least three independently-named package lineages, not one
+  accumulating series.
+
+  `packages/sample_data/**` (**32** top-level scenario directories; method:
+  `find packages/sample_data -maxdepth 1 -mindepth 1 -type d | wc -l` —
+  e.g. `dsbs_t1`, `frrs_t1`, `core_tax_conditions`,
   `capital_gain_distributions_line7a_t1`) carries fixture/example content
   distinct from `packages/content/`.
 - **Canonical current designation:** **does not exist**, for the same
@@ -369,12 +411,36 @@ Track 0.
   discovered here) the *oldest* version's content under a bare filename,
   not a "current" stand-in. Say this plainly rather than guessing from the
   highest version number (`v33`) or the unversioned name.
-- **Bounded corpus for the census:** Track 1c should treat
-  `packages/content/tax/2025/rule.*.json` as the primary observed-usage
-  corpus for individual rule constructs (197 files, one rule per file,
-  named by their own `id`/`schema`/`version` fields — no package-level
-  filtering needed for construct-level observation), and should record
-  `package.core-calculations.v33.json` — the highest-numbered version, but
+- **Bounded corpus for the census — define it by parsed `schema` field,
+  never by filename glob.** The obvious shortcut,
+  `packages/content/tax/2025/rule.*.json`, is **wrong for this census**,
+  and wrong in precisely the place the boundary map cares about. That glob
+  returns 140 files, which is exactly 134 `rule-artifact` + 6
+  `attachment-rule` — the six being
+  `rule.attachment.schedule-1.json`, `rule.attachment.schedule-1.v2.json`,
+  `rule.attachment.schedule-b.json`, `.v2.json`, `.v3.json`, and
+  `.v4.json` (schemas `attachment-rule.v4, v4, v1, v2, v2, v6`). Those six
+  belong to the adjacent predicate/validation family that surface 5 of the
+  boundary map insists must stay distinct from the core clause language.
+  Using the glob would silently merge the two families in the one stream
+  that is forbidden to cross-check this packet.
+
+  The filename convention is unreliable in both directions: the
+  `attachment-rule` family is split across *two* naming conventions — 6
+  files named `rule.attachment.*.json` and 9 named `attachment.*.json`
+  (`attachment.f8949.json`, `.v2`, `attachment.schedule-a.json`,
+  `attachment.schedule-d.json`, `.v2`–`.v6`). Neither prefix identifies the
+  family; only the parsed `schema` field does.
+
+  So: **Track 1c's primary observed-usage corpus for core clause-language
+  constructs is the 134 files whose parsed `schema` begins
+  `rule-artifact`.** The 15 files whose parsed `schema` begins
+  `attachment-rule` are a **separate, separately-reported corpus**,
+  recorded under the adjacent-language surface (boundary map #5) and never
+  merged into the `rule-artifact` construct counts. Track 1c should also
+  record `package.core-calculations.v33.json` — the highest-numbered
+  *package* version (its schema is `artifact-package.v25`; see the
+  two-axes note in Layer 2), but
   cited as "highest-numbered, not claimed current" — as the package-shape
   reference for questions about closure/membership *if* a package-level
   reading is needed, with the caveat spelled out above attached wherever it
@@ -386,13 +452,18 @@ Track 0.
 
 ### Layer 5 — Tests and synthetic executions that demonstrate observable behavior
 
-- **In-scope artifacts:** `tests/` in full — 6 top-level subdirectories
-  (`tests/derivation/`, `tests/source_completeness/`, and four more) plus
-  79 top-level `test_*.py` files (e.g. `tests/test_dsbs_t1_schema_citizens.py`,
+- **In-scope artifacts:** `tests/` in full — **5** top-level subdirectories
+  (exactly: `tests/conformance/`, `tests/derivation/`, `tests/helpers/`,
+  `tests/source_completeness/`, `tests/tax/`) plus **76** top-level
+  `test_*.py` files (79 top-level `.py` files in total; the other three are
+  `tests/__init__.py`, `tests/conftest.py`, and `tests/support.py`, which
+  are scaffolding, not tests). **127** `.py` files exist under `tests/`
+  recursively. Examples: (`tests/test_dsbs_t1_schema_citizens.py`,
   `tests/test_core_tax_conditions_track1_contract_schemas.py`,
   `tests/test_schema_registry.py`,
   `tests/test_frrs_t1_boundary_contribution_schemas.py`); the golden/fixture
-  generator scripts under `tools/generate_*.py` (31 files, e.g.
+  generator scripts under `tools/generate_*.py` (**31** files —
+  re-confirmed unchanged, e.g.
   `tools/generate_schedule_d_presentation_t3_goldens.py`,
   `tools/generate_dsbs_t2_content.py`) that produce committed synthetic
   execution output cited by tests.
@@ -417,7 +488,9 @@ Track 0.
 - **In-scope artifacts:** `docs/adr/` (same corpus as Layer 1, read here
   for its *history*, i.e. including retired/superseded/rejected entries,
   rather than for present authority); `docs/milestone-retrospectives/`
-  (46 files); the six phase roadmap files under `docs/phases/*/`:
+  (**46** files — re-confirmed unchanged); the **6** phase roadmap files
+  under `docs/phases/*/` (re-confirmed unchanged), of which **5 are in
+  scope** per the Foreman ruling below:
   `docs/phases/claim-boundary-exploration/claim-boundary-exploration-roadmap.md`,
   `docs/phases/engine-breadth/engine-breadth-roadmap.md`,
   `docs/phases/foundation/foundation-roadmap.md`,
@@ -428,27 +501,32 @@ Track 0.
   explicitly historical by the plan's own framing ("how the present
   language accumulated"); there is no "current retrospective" concept to
   look for.
-- **Bounded corpus for the census:** all of the above. One explicit
-  exclusion, restated from the charter rather than newly discovered here:
-  `docs/phases/claim-boundary-exploration/` is out of bounds for this
-  track by charter instruction, and Track 1 sub-tracks are told by the plan
-  itself (`#Claim-boundary evidence posture`) not to read that phase's
-  inquiry corpus either. Its *roadmap* file
-  (`docs/phases/claim-boundary-exploration/claim-boundary-exploration-roadmap.md`)
-  was not read by this track, consistent with that instruction, even though
-  the plan's Layer 6 language ("roadmap entries") would otherwise include
-  it; Track 2/3, which the plan permits to use merged Claim Boundary
-  artifacts as a bounded validation lens, should decide whether that
-  roadmap file counts as "the inquiry corpus" the posture excludes or as
-  ordinary Layer-6 history — this track takes no position and flags it as
-  an open question rather than resolving it unilaterally, since the plan
-  says Track 0 does not own that call.
+- **Bounded corpus for the census:** all of the above, minus one explicit
+  exclusion.
+
+  **Foreman ruling (2026-08-19), recorded here as the Foreman's decision,
+  not this track's.** Track 0 flagged the status of
+  `docs/phases/claim-boundary-exploration/claim-boundary-exploration-roadmap.md`
+  as an open question and declined to resolve it. The Foreman ruled:
+  that file is **excluded from Layer 6 and from all of Track 1**. The
+  reasoning given: Layer 6 exists to explain how the *grammar* accumulated,
+  and that phase concerned explanation design and says nothing about
+  grammar accumulation, so it earns no Layer 6 place on the merits; the
+  Track 1 independence rule settles the remainder. It becomes available to
+  **Tracks 2 and 3 only**, under the plan's bounded validation lens
+  (`#Claim-boundary evidence posture`).
+
+  Consistent with that ruling and with the charter,
+  `docs/phases/claim-boundary-exploration/` was not read by this track at
+  all. Layer 6's in-scope roadmap set is therefore the **5** remaining
+  files: `engine-breadth`, `foundation`, `grammar-census`, `legible-entry`,
+  and `real-return`.
 
 ## Representational gaps (recorded, not stop conditions)
 
 1. **`artifact-package` version-acceptance ranges are not contiguous with
    the schema-file series.** `package_validation.py`'s universe guard
-   applies only to `artifact-package.v3`–`v17` (17 versions), while other
+   applies only to `artifact-package.v3`–`v17` (**15** versions), while other
    checks in the same file range up to `v25`
    (`package_validation.py:1320-1321`). The corpus as defined (all
    published versions) cannot by itself tell a reader *which* semantic
@@ -463,9 +541,11 @@ Track 0.
    has no artifact to point to; that gap is real and is recorded, not
    invented around.
 3. **The unversioned `package.core-calculations.json` filename is
-   misleading by construction** — it is v1's content under a bare name,
+   misleading by construction** — it declares `"version": "v1"` internally
+   and is the oldest member of the series, because the versioned-filename
+   convention started at v2 and no `.v1.json` file was ever written. It is
    not a "latest" alias. Nothing in the schema or tooling enforces that an
-   unversioned filename tracks the newest version; this is a naming
+   unversioned filename tracks any particular version; this is a naming
    convention risk for future content, not a defect this track can fix
    (out of scope — no production content change permitted).
 4. **`declarative_validation.py`'s term/predicate vocabulary has no
@@ -487,6 +567,21 @@ Track 0.
    surface being marked grammar-adjacent rather than proper, and is
    recorded as a tension-catalog candidate (a declared-vs-implemented
    question) for Track 2, not resolved here.
+6. **Filename prefixes do not identify citizen families in
+   `packages/content/tax/2025/`.** The `attachment-rule` family is split
+   across two naming conventions (`rule.attachment.*.json` and
+   `attachment.*.json`), and the `rule.*.json` prefix spans two distinct
+   families (`rule-artifact` and `attachment-rule`). Any tooling or stream
+   that classifies this content by filename will mis-bin it; only the
+   parsed `schema` field is authoritative. Recorded as a tension-catalog
+   candidate — a plausible next action is the optional census tool the plan
+   permits (`tools/grammar_census.py`), which would make the schema-field
+   classification reproducible rather than re-derived per stream.
+7. **Two independent version axes on every content citizen** (`version` vs
+   `schema`), documented in Layer 2. Nothing mechanically ties them, and
+   nothing warns a reader that "v33" names the package axis rather than the
+   schema axis. Recorded as a tension-catalog candidate for Track 2; the
+   consequence is a wrong construct history if a stream conflates them.
 
 ## What this track suggests may be wrong, missing, or unworkable for Tracks 1a–1c
 
@@ -506,14 +601,33 @@ Track 0.
   *accepted by the runtime's own literal acceptance sets*, not *most
   recent*. Tracks 1a/1b should use that reading explicitly rather than
   re-deriving it, since the plan's phrasing alone would not settle it.
-- The plan's `#Claim-boundary evidence posture` names Track 1 sub-tracks as
-  independent of Claim Boundary Exploration's *conclusions* but does not
-  say whether that phase's *roadmap file* (as opposed to its inquiry
-  corpus under `docs/phases/claim-boundary-exploration/inquiries/` or
-  similar) is in or out of bounds for this milestone's Layer 6. This track
-  declined to read it and flags the ambiguity rather than resolving it
-  (see Layer 6 above); the Foreman or Track 2/3 should settle it
-  explicitly rather than leaving each future stream to guess.
+- The plan's `#Claim-boundary evidence posture` did not say whether that
+  phase's *roadmap file* (as opposed to its inquiry corpus) fell inside
+  this milestone's Layer 6. This track declined to resolve it; **the
+  Foreman has since ruled it excluded** from Layer 6 and all of Track 1,
+  available to Tracks 2–3 only. See the ruling recorded under Layer 6. No
+  further action is needed from Track 1 streams beyond honoring it.
+- The plan's `#Census unit` asks for "representative committed uses
+  (citations, not paraphrase)" per construct, but the content directory
+  offers no reliable way to bin files by family short of parsing each one
+  (gap 6). Tracks 1a and 1c should budget for a parse pass rather than a
+  glob, or propose the optional census tool to the Foreman as the plan's
+  `#Parallel Work Manifest` requires (streams propose it; they do not
+  commit `tools/grammar_census.py` themselves).
 - Nothing else in the plan's read sections appears wrong or unworkable from
   this track's reading; the corpus bounded above is sufficient to produce a
   trustworthy census, with the caveats named above.
+
+## Verification note on this document's counts
+
+Every count in this document was produced by a command stated alongside it
+and re-verified against the tree at the repair commit. Counts of committed
+JSON content are taken from the **parsed `schema` field**, never from
+filenames; counts of files are taken from `ls`/`find` with the exact
+predicate shown. An earlier revision of this document reported three counts
+that did not reproduce (a rule-artifact file count, a package-family file
+count, and a claim of byte-identity against a file that does not exist);
+those are corrected above, and the surrounding numbers were re-checked by
+the same method rather than assumed. Where a number is awkward to
+reproduce, the method is stated inline so a cold reader can re-run it
+instead of trusting it.
