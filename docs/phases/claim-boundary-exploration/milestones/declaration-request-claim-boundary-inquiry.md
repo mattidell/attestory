@@ -4,10 +4,48 @@
   "phase": "Claim Boundary Exploration",
   "topic": "claim-boundary-exploration",
   "active_plan": "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md",
-  "milestone_state": "planned",
-  "status": "Owner selected CQ-2 (\"Why are you asking me to say I'm done?\") 2026-08-19 as the second worked inquiry, per the actionable-considerations register's own recommendation. Plan drafted and verified directly against committed artifacts before chartering. Not yet approved.",
-  "current_role": "Foreman (present milestone plan and proposed agent structure; selection and dispatch approval are owner-held)",
-  "current_prompt": "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md"
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-08-20-declaration-request-claim-boundary-inquiry.md",
+  "status": "Owner selected CQ-2 (\"Why are you asking me to say I'm done?\") 2026-08-19 as the second worked inquiry, per the actionable-considerations register's own recommendation. Plan drafted and verified directly against committed artifacts before chartering, then APPROVED by the owner 2026-08-19 with the PR deliberately deferred. Tracks 0 and 1 are closed. Track 0 independently confirmed all ten verification claims, recorded executed runtime evidence for both states, and decided the Schedule B gate as materially reached (OV-1 admitted as a bounded counterfactual only). Track 1 ran the two standpoint accounts; they converged independently on the State B misattribution paragraph and diverged on whether the packet overstates what a declaration does, recorded without disposition. Track 2 is closed: it dispositioned the Track 1 split (the phrase \"before it can use this piece in your return\" is defective as user-facing copy and defensible as an engineering gloss, the ambiguity between those readings being itself the defect), settled three further tensions, built a request-rooted evidence-classed tree, and produced the four-way CQ-1 delta. Track 3 is closed and ALL FOUR TRACKS ARE COMPLETE. CQ-2 closed, register entries admitted and annotated, one charter-listed candidate declined under the admission rule. OWNER-DIRECTED FACTUAL REPAIR APPLIED 2026-08-19 in two passes after track completion, no new exploration round. Pass 1: the packets conflated recorded state with derivation admission; re-verified in code against the closure fact type, marshal.py, source_authority.py, kernel/currency.py, and kernel/findings.py, confirming the owner on every point. Pass 2 (owner-directed record repair and publication curation): corrected this plan's own body, not only its metadata, and reconciled the errors packet by packet. TWO SUBSTANTIVE ERRORS, NOT COMMON TO ALL PACKETS - Error A (horizon succession stated as the only invalidator; same-fact correction under free supersession is a second) originates in this plan's Verified-concrete-witness section and Track 0 §7, and hardened in Track 2 §4.4. Error B (an explicit 'no' held unrepresentable) is CLOSED AS A SETTLED DISPOSITION in Track 2 §4.3; Track 0 §2 was accurate. REGRADED 2026-08-20 after independent review of the publication candidate: the external Track 1 (Grok) account, previously recorded as asserting neither error, in fact asserts BOTH - Attack 4 states the horizon-only invalidator and Attack 3 states record-layer equivalence - while its own methodology section files the same two questions as termination points. The casual-reader account asserts neither. Neither error was common to all four packets and neither was a convergence of the two standpoint accounts. Register: SC-13 and SC-15 consolidated into one declaration-lifecycle entry, joined by unsettled semantics rather than by a shared implementation; SC-14 corrected (not showing the membership set impairs evaluation and support, it does not change the proposition asserted); SC-16 retained only on the narrower basis that its scenario pair is specified and runnable, not executed, and tests a bounded causal contrast rather than a frequency. ADR-0055 is recorded as evidence the architecture can carry an absence-versus-present distinction elsewhere; no closure-side fix shape, locality, or cost is inferred. The request affordance is labeled proposed and hypothetical. EXIT CRITERIA REGRADED: four of seven met, criteria 1, 2, and 3 partially met. Criteria 1, 2, and 3 texts corrected so a true-but-partial account no longer satisfies them. Generality: the method is reusable across both inquiries; content-level generality is NOT confirmed, and a third tax-domain inquiry would TEST TRANSFER, NOT SETTLE GENERALITY. Method safeguard added: every load-bearing artifact claim must carry a completeness/neighborhood check. Recommends a bounded build or decision milestone over a third inquiry, flagged as weighed rather than dictated; a recommendation is not a selection. CLOSED by owner direction 2026-08-20 after publication curation. No ADR, governance revision, or implementation was produced. The phase remains active and the next milestone is unselected.",
+  "current_role": "Foreman — between milestones; selecting the next within Claim Boundary Exploration",
+  "current_prompt": "docs/phases/claim-boundary-exploration/actionable-considerations.md",
+  "scope": [
+    "trace one plain user question about a system request for a user declaration end to end through the committed Form 1099-INT box 1 source-family closure that feeds Form 1040 line 2b",
+    "account for proposition, speaker, basis, scope, effect, non-effect, invalidator, and unsupported neighboring inference, plus an honest 'not yet' and withdrawal path",
+    "produce an explicit cross-inquiry delta against the closed CQ-1 inquiry: which explanatory branches repeat, change, disappear, and are new",
+    "run two justified independent standpoints rather than four, and assess whether a reusable explanatory structure is emerging"
+  ],
+  "non_goals": [
+    "no OV-1 implementation and no assumption about its eventual schema, rule-language, engine, or content shape",
+    "no ADR, governance revision, production UI, canonical copy, schema, rule-language, engine, filing, or tax-coverage change",
+    "no general definition of claim, completeness, integrity, or correctness, and no total semantic taxonomy",
+    "no automatic selection of a third inquiry or build milestone",
+    "no personal data, real-run operation, or professional-attestation claim"
+  ],
+  "deep_reads": {
+    "implementation": [
+      "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md#Objective",
+      "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md#Experimental design",
+      "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md#Verified concrete witness",
+      "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md#OV-1 posture",
+      "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md#Scope",
+      "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md#Non-goals",
+      "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md#Tracks",
+      "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md#Data safety",
+      "docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md#Standing test",
+      "docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md#Inquiry shape",
+      "docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md#Principal risks",
+      "docs/phases/claim-boundary-exploration/actionable-considerations.md",
+      "AGENTS.md#Data Safety Rules"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-08-20-declaration-request-claim-boundary-inquiry.md",
+      "docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md",
+      "docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md",
+      "docs/phases/claim-boundary-exploration/actionable-considerations.md",
+      "docs/phases/claim-boundary-exploration/inquiries/cq2-track-3-curated-inquiry.md"
+    ]
+  }
 }
 -->
 
@@ -15,7 +53,28 @@
 
 - Phase: Claim Boundary Exploration
 - Milestone key: `declaration-request-claim-boundary-inquiry`
-- Status: **planned, not yet approved**
+- Status: **approved 2026-08-19; all four tracks complete; owner-directed
+  factual repair applied in two passes 2026-08-19/2026-08-20; CLOSED by owner
+  direction 2026-08-20.** Retrospective:
+  `docs/milestone-retrospectives/2026-08-20-declaration-request-claim-boundary-inquiry.md`.
+  The next milestone is unselected. The repair corrected a record/admission layer conflation
+  and established the four-layer closure account (record + currency /
+  closure-authority projection / admission / interface). **Two substantive
+  errors were found, and neither was present in every packet**: the
+  horizon-only-invalidator error originates in this plan's verified-witness
+  section and Track 0 §7 and was hardened in Track 2 §4.4; the
+  no-representable-"no" error is closed as a settled disposition in Track 2
+  §4.3, while Track 0 §2 was accurate. **Regraded 2026-08-20** after
+  independent review of the publication candidate: the external Track 1 (Grok)
+  account asserts both errors in its attacks — previously and wrongly recorded
+  as asserting neither — while filing the same two questions as termination
+  points in its own methodology section. The casual-reader account asserts
+  neither.
+  The repair also consolidated `SC-13` and `SC-15` and **regraded the exit
+  criteria to four of seven met, three partially met** (criteria 1, 2, and 3
+  partially met); no new exploration round was run. See
+  `docs/phases/claim-boundary-exploration/inquiries/cq2-track-3-curated-inquiry.md`
+  §4, §5, §11, §14.
 - Base: `origin/main` at `20cf03abfefef07e28a9b80f8047f5c22d8ccc9b` (PR #181
   merged; this is the current ratified tip)
 - Branch: `milestone/declaration-request-claim-boundary-inquiry-cq2`
@@ -77,11 +136,29 @@ that horizon. This claim covers box 1 only — never other boxes, non-form
 interest, or Form 1040 line 2b (ADR-0016).*" The scope boundary is stated in
 the artifact itself, not inferred.
 
-**Invalidator, verified from the same title text:** "*A later membership
-transition displaces this closure through horizon succession;
-re-attestation on the successor horizon is required.*" This is the
-committed answer to "how can the assertion become stale" — a new horizon,
-not a timeout, not a UI action.
+**Invalidators — corrected 2026-08-19; this plan originally recorded only
+the first and called it the committed answer.** Two committed mechanisms
+invalidate the closure, and reading only the fact type's title prose finds
+one of them:
+
+1. **Horizon succession**, from the title text: "*A later membership
+   transition displaces this closure through horizon succession;
+   re-attestation on the successor horizon is required.*" A new horizon,
+   not a timeout, not a UI action.
+2. **Same-fact correction on the same horizon**, from the *same citizen's*
+   `supersession` field: `{"policy": "free"}`, which
+   `packages/kernel/findings.py` treats as permitting correction
+   unconditionally (`locked` raises; `closed-on-attestation` gates). A
+   later finding for the same `fact_id` displaces the earlier one as a
+   correction root in `packages/kernel/currency.py::_finding_corrections`,
+   so a recorded `true` can be superseded by a recorded `false` without any
+   membership transition.
+
+Neither mechanism is a user-facing action; no committed code path invokes
+either for this family. The original wording of this section is the direct
+source of the milestone's Error A — see
+`docs/phases/claim-boundary-exploration/inquiries/cq2-track-3-curated-inquiry.md`
+§14.1.
 
 **Declaring family:**
 `packages/content/tax/2025/family.f1099int-b1.json` (`source-family.v1`) —
@@ -184,9 +261,15 @@ already-closed source families in the same composition.
    a user who is not ready to assert this, verified against what the engine
    actually does with an absent or false closure finding (blocked
    disposition, not an error).
-7. State withdrawal/staleness precisely from the verified horizon-succession
-   mechanism above — do not invent a UI unattest action that does not exist
-   in committed code.
+7. State withdrawal/staleness precisely from **both** verified invalidator
+   mechanisms above — horizon succession and same-fact correction under
+   `free` supersession — and enumerate where a further mechanism could
+   live before calling the account complete. Do not invent a UI unattest
+   action that does not exist in committed code, and equally do not report
+   the absence of a *user-facing* path as the absence of any invalidator.
+   **Corrected 2026-08-19**: this instruction originally named only the
+   horizon-succession mechanism, which is how the incomplete account was
+   chartered rather than merely tolerated.
 8. Compare explicitly against the closed CQ-1 inquiry
    (`docs/phases/claim-boundary-exploration/inquiries/track-3-curated-inquiry.md`
    and its constituent tracks): which explanation-tree branches repeat
@@ -357,13 +440,23 @@ The milestone is complete when:
 
 1. every claim in "Verified concrete witness" has been independently
    re-verified by Track 0 against committed artifacts and runtime behavior
-   (not merely cited from this plan);
+   (not merely cited from this plan), **each verification naming the exact
+   artifact surface read, the sibling fields present and not relied on, and
+   the consumers of the same artifact** (**criterion text corrected
+   2026-08-19**: a row was graded Confirmed against a narrower surface than
+   its claim's scope, which the original wording permitted);
 2. the declaration request has an explicit account of proposition, speaker,
-   basis, scope, effect, non-effect, invalidator, and at least one
-   unsupported neighboring inference;
+   basis, scope, effect, non-effect, **every** invalidator, and at least one
+   unsupported neighboring inference (**corrected 2026-08-19**: "invalidator"
+   singular was satisfiable by a true-but-partial account);
 3. an honest "not yet" path exists, grounded in the engine's actual
-   `blocked` behavior, and the withdrawal/staleness mechanism is stated
-   from the verified horizon-succession behavior, not invented;
+   `blocked` behavior, and the withdrawal/staleness account states **every**
+   verified invalidator — horizon succession and same-fact correction under
+   `free` supersession — with the places a further mechanism could live
+   named and checked, and nothing invented (**criterion text corrected
+   2026-08-19**: it previously read "stated from the verified
+   horizon-succession behavior," which a true-but-partial account
+   satisfied);
 4. committed behavior and any OV-1 counterfactual are kept explicitly and
    visibly separate throughout, with the counterfactual included only if
    Track 0 finds the trace materially reaches it;
@@ -392,3 +485,51 @@ secrets, no local paths beyond what is already committed and public.
 
 Documentation-only, same posture as CQ-1: `python3 tools/governance_lint.py`,
 CI `verify` as gate of record, final candidate diff entirely under `docs/`.
+
+## Execution record
+
+All four tracks ran and closed, followed by a two-pass owner-directed factual
+repair. The milestone is **closed**; no ADR, governance revision, schema,
+rule-language, engine, or content change was produced.
+
+- **Track 0 — closed.** `inquiries/cq2-track-0-inquiry-frame.md`. Independent
+  re-verification of the plan's witness claims, executed evidence for both
+  runtime states, and the Schedule B gate decided as materially reached, so
+  `OV-1` entered as a bounded counterfactual only. **Superseded in part by the
+  repair:** §7's horizon-only invalidator claim is disproven; §2's admission
+  account stands. Carries a supersession notice.
+- **Track 1 — closed.** `inquiries/cq2-track-1-casual-reader.md` and
+  `inquiries/cq2-track-1-system-provenance-grok.md`. Two independent
+  standpoints, same Track 0 packet as sole evidence boundary, no contact. They
+  converged on the State B misattribution paragraph and split on whether the
+  packet's plain answer overstates what a declaration does; the split was
+  recorded without disposition. **Regraded 2026-08-20** after independent
+  review of the publication candidate: the casual-reader account asserts
+  neither of the errors the repair corrected, but the Grok account asserts
+  **both** — Attack 4 the horizon-only invalidator, Attack 3 record-layer
+  equivalence — while filing the same two questions as termination points in
+  its own §4. The earlier record here said neither account asserted either
+  error; that was wrong, and the Grok packet now carries a supersession notice
+  added later than the other two for that reason.
+- **Track 2 — closed.** `inquiries/cq2-track-2-explanation-tree.md`.
+  Dispositioned the Track 1 split, settled further tensions, built the
+  request-rooted evidence-classed tree, and produced the four-way CQ-1 delta.
+  **Superseded in part by the repair:** §4.3's "not representable" disposition
+  and §4.4's horizon-only invalidator claim are both disproven. Carries a
+  supersession notice.
+- **Track 3 — closed.** `inquiries/cq2-track-3-curated-inquiry.md` and the
+  updated `actionable-considerations.md`. Curated account, register update,
+  exit-criteria assessment, generality assessment, owner options with a
+  recommendation that does not select.
+- **Owner-directed factual repair — complete, two passes.** Corrected the
+  record/admission layer conflation into the four-layer closure account,
+  enumerated both invalidating mechanisms, reconciled the two errors packet by
+  packet (§14.1), consolidated `SC-13`/`SC-15`, corrected `SC-14`, narrowed
+  `SC-16`, bounded what ADR-0055 licenses, added the completeness/neighborhood
+  safeguard, and regraded the exit criteria. No new exploration round was run.
+
+**Exit criteria: four of seven met, three partially met** (criteria 1, 2, and
+3 partially met). Per-criterion evidence is in
+`inquiries/cq2-track-3-curated-inquiry.md` §11; the criterion texts themselves
+were corrected during the repair so that a true-but-partial account no longer
+satisfies them.

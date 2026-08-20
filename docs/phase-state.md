@@ -3,12 +3,11 @@
   "version": 1,
   "phase": "Claim Boundary Exploration",
   "topic": "claim-boundary-exploration",
-  "active_plan": "docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md",
-  "milestone_state": "closed",
-  "retrospective": "docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md",
-  "status": "Claim Boundary Exploration adopted 2026-08-19. The opening documentation-only milestone traced 'Why is this amount on my return?' through a synthetic Form 1040 line-2b example. All four tracks ran, a bounded repair followed an owner-side advisor review, and a final bounded documentation repair followed a second advisor review. Seven of eight exit criteria are met: criterion 6 is met (register and roadmap synchronized) and criterion 3 is the remaining limitation, partially met. The milestone's most-cited finding was wrong and is corrected: an unmet closure means a source family is undeclared; the rendered explanation does not identify which family, and the system does not know a document is missing. OV-1 is a confirmed tax-content correctness gap: the IRS gives eight independent Schedule B triggers and the committed rule implements only the dollar threshold, omitting seven categorical triggers. v33 is the highest-numbered package present and this inquiry's comparison target, not a formally current package. If exploration continues the recommended inquiry is CQ-2, not CQ-3. CLOSED by owner direction 2026-08-19. No ADR, governance revision, or implementation was produced. The phase remains active and the next milestone is unselected.",
-  "current_role": "Foreman — between milestones; selecting the next within Claim Boundary Exploration",
-  "current_prompt": "docs/phases/claim-boundary-exploration/actionable-considerations.md"
+  "active_plan": "docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md",
+  "milestone_state": "track-3",
+  "status": "SECOND MILESTONE IN FLIGHT: Declaration Request to Claim Boundary Inquiry (CQ-2, 'Why are you asking me to say I'm done?'), owner-approved 2026-08-19, PR deliberately deferred. It holds the tax domain constant (Form 1099-INT box 1 closure feeding Form 1040 line 2b) and changes the interaction type from a presented result to a system request for a user declaration. Two independent standpoints, not four: casual invested reader (Claude) and system/provenance adversary (Grok), each justified against CQ-1's own evidence. OV-1 is held out unless Track 0's trace materially reaches Schedule B attachment, and then only as an explicit counterfactual. Track 0 (frame and independent re-verification) is CLOSED — all ten verification claims confirmed against committed artifacts, both runtime states recorded with executed evidence, and the Schedule B gate decided as materially reached, admitting OV-1 as a bounded counterfactual only. Track 1 (two independent standpoint accounts) is CLOSED. Its headline result is methodological: two model families on opposite standpoints, with no contact and the same packet, independently selected the same paragraph of the Track 0 packet's State B as their deepest thread — a block caused by a missing declaration reaches the lines a user looks at under a different code naming a different missing symbol, so the declaration that would fix it is named nowhere the user is looking. They diverged on whether the packet's own plain answer overstates what a declaration does; Track 1 recorded the split without dispositioning it. Track 2 (explanation tree, tension catalog, CQ-1 delta) is CLOSED. It dispositioned that split: the phrase 'before it can use this piece in your return' is defective as user-facing copy and defensible as an engineering gloss, and the ambiguity between those two readings is itself the defect — which is also why the two accounts split on it, having picked different readings by standpoint rather than from different evidence. It settled three further tensions ('mailbox' is true but a partial reason, not a false one; an explicit 'no' is not representable because admission requires literal True; the absent withdrawal path is a product gap rather than an explanation gap), built a request-rooted evidence-classed tree answering the objective's seven questions, and produced the four-way CQ-1 delta. It found nothing substantively wrong in the prior packets. Track 3 (curated inquiry, register update, exit-criteria assessment, owner options) is CLOSED. **ALL FOUR TRACKS ARE COMPLETE AND THE MILESTONE AWAITS OWNER DECISION.** It is not closed — closure, the PR, and the next milestone are all owner-held, and the owner deliberately deferred the PR. Track 3 assessed all seven exit criteria as met, with criterion 3 carrying an explicit scope note it does not let a reader miss: the executed State B run demonstrates the not-yet mechanism on non-form-interest, not on box 1, so the box-1 cascade is inference by analogy rather than a second executed run. It closed CQ-2 while recording that the register's wording ('Why are you asking me this?') is broader than the question actually worked ('Why are you asking me to say I'm done?'), so the broader relevance class is only partly entered. It admitted four new register entries (SC-13 yes/no/silence collapse, SC-14 horizon membership not shown at the ask, SC-15 absent withdrawal path as a product gap, SC-16 the scope-ambiguity copy defect split from SC-9/SC-12), annotated SC-3/SC-8/SC-9/SC-12/OV-1 with second-interaction-type reconfirmation rather than restating them as newly derived, and declined one charter-listed candidate under the admission rule. On generality it found the METHOD reusable across both inquiries without redesign, but content-level generality NOT confirmed, because both inquiries share one tax domain, package version, and closure mechanism — much of the 'repeated' delta is the same artifact read twice. It recommends a bounded build or decision milestone over a third inquiry, on the ground that the register now holds more decision-shaped evidence than has been converted into decisions; it flags this as weighed rather than dictated, since only a third inquiry in a different tax domain could settle the generality question. Recommendation, not selection. PRIOR MILESTONE, for context: Claim Boundary Exploration adopted 2026-08-19. The opening documentation-only milestone traced 'Why is this amount on my return?' through a synthetic Form 1040 line-2b example. All four tracks ran, a bounded repair followed an owner-side advisor review, and a final bounded documentation repair followed a second advisor review. Seven of eight exit criteria are met: criterion 6 is met (register and roadmap synchronized) and criterion 3 is the remaining limitation, partially met. The milestone's most-cited finding was wrong and is corrected: an unmet closure means a source family is undeclared; the rendered explanation does not identify which family, and the system does not know a document is missing. OV-1 is a confirmed tax-content correctness gap: the IRS gives eight independent Schedule B triggers and the committed rule implements only the dollar threshold, omitting seven categorical triggers. v33 is the highest-numbered package present and this inquiry's comparison target, not a formally current package. If exploration continues the recommended inquiry is CQ-2, not CQ-3. CLOSED by owner direction 2026-08-19. No ADR, governance revision, or implementation was produced. The phase remains active and the next milestone is unselected.",
+  "current_role": "Foreman",
+  "current_prompt": "docs/phases/claim-boundary-exploration/inquiries/cq2-track-3-curated-inquiry.md"
 }
 -->
 
@@ -51,11 +50,61 @@ tax-related computation and the legal effect that enters only at filing.
 - **Opening milestone:** Plain Question to Claim Boundary Prototype —
   **CLOSED 2026-08-19** by owner direction. Retrospective:
   `docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md`.
-- **Next milestone: unselected.** The phase stays active. Selection runs from
-  `docs/phases/claim-boundary-exploration/actionable-considerations.md`.
-- **Milestone key:** `claim-boundary-exploration`.
+- **Second milestone: Declaration Request to Claim Boundary Inquiry (CQ-2) —
+  ALL FOUR TRACKS COMPLETE; AWAITING OWNER DECISION 2026-08-19.**
+  Owner-selected. **Not closed** — closure, the PR, and the next milestone are
+  all owner-held, and the owner deliberately deferred the PR. CQ-2 packets are
+  the `cq2-`-prefixed files under
+  `docs/phases/claim-boundary-exploration/inquiries/` — the Track 0 frame; the
+  two Track 1 standpoint accounts (casual reader on Claude, system and
+  provenance adversary on Grok) for which that frame was the sole evidence
+  boundary; the Track 2 explanation tree; and the Track 3 curated inquiry,
+  which is the one to read first. The unprefixed files in the same directory
+  are CQ-1's.
+- **Owner-directed factual repair applied 2026-08-19, after track completion
+  and before closure.** The owner found the curated account conflated recorded
+  state with derivation admission. Re-verification against the closure fact
+  type, `marshal.py`, `source_authority.py`, `kernel/currency.py`, and
+  `kernel/findings.py` confirmed the owner on every point. Two substantive
+  errors were common to all four CQ-2 packets: the invalidator account named
+  horizon succession as the only invalidator (same-fact correction under
+  `"supersession": {"policy": "free"}` is a second), and the "no representable
+  no" claim conflated layers (`false` is schema-valid, recordable, and
+  projectable; only `resolve_closure_admissions`'s key-absence return shape
+  collapses it with silence). Both are repaired in place, `SC-13` and `SC-15`
+  are consolidated into one declaration-lifecycle entry, `SC-14` is reworded,
+  `SC-16`'s admission is upheld on narrower grounds, and **exit criteria 2 and
+  3 are downgraded to partially met** — the milestone now stands at five of
+  seven met, two partial. No new exploration round was run, per owner
+  direction. See `cq2-track-3-curated-inquiry.md` §14 for the method error
+  that let both through: a citation was treated as verification.
+- **What the owner is being asked to decide.** Whether to close the milestone,
+  whether to open the PR, and which of four options follows: cross-inquiry
+  reduction, another contrasting inquiry, a bounded build or decision
+  milestone, or a stop. Track 3 recommends the **bounded build or decision
+  milestone**, and the repair strengthened rather than weakened that
+  recommendation: the corrected layer analysis shows the record model already
+  represents `false` and already supports corrective supersession, so the
+  consolidated `SC-13` lifecycle decision is about surfacing and reporting
+  existing capability rather than building a reversal model from nothing — a
+  smaller, better-specified unit than the pre-repair packets implied. A second
+  independent argument now points the same way: this milestone's most
+  consequential error was not found by an inquiry, but by the owner reading
+  code fields adjacent to the ones the packets cited, which is evidence that
+  the two-account convergence method does not test completeness against the
+  artifact. The recommendation remains weighed, not dictated: a third inquiry
+  in a materially different tax domain would **test transfer, not settle
+  generality**, and would be strengthened by first adding a completeness check
+  to the method. Nothing here selects; the next milestone is the owner's.
+- **Milestone key:** `declaration-request-claim-boundary-inquiry`
+  (the closed opening milestone's key was `claim-boundary-exploration`).
 - **Active plan:**
-  `docs/phases/claim-boundary-exploration/milestones/plain-question-claim-boundary-prototype.md`.
+  `docs/phases/claim-boundary-exploration/milestones/declaration-request-claim-boundary-inquiry.md`.
+- **Active charter:** none — all four tracks are complete. The last unit's
+  charter was
+  `docs/phases/claim-boundary-exploration/charters/track-3-curated-inquiry.md`;
+  its deliverable is
+  `docs/phases/claim-boundary-exploration/inquiries/cq2-track-3-curated-inquiry.md`.
 - **Phase overview:**
   `docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md`.
 - **Phase roadmap:**
