@@ -376,3 +376,102 @@ Every content citizen parsed has both `schema` (which contract
 validates it) and `version` (the instance generation), except
 fact-type.v1/v3 (U-164). Classify by the instance `schema` field,
 never by filename (Track 0 gap 6; T2).
+
+## What the language can express
+
+The six representative traces were chosen for semantic contrast, not
+tax coverage (`track-2-representative-traces.md`). They are the
+load-bearing demonstrations. What follows is what a reader should
+believe after them, not a retelling.
+
+**A clause can sum a family of facts, and empty is not silently
+zero.** Trace 1 evaluates the production tree on
+`packages/content/tax/2025/rule.f1099b-covered-lt-basis-subtotal.json`
+(`schema`: `rule-artifact.v2`): `add` of `collect`. This stream
+re-ran the same ops. Nonempty unclosed `collect` returns the list
+and `add` sums it (`Decimal('150')` from `"100"` and `"50"`). Empty
+unclosed `collect` blocks `SOURCE_SET_UNCLOSED`. Empty closed
+`collect` returns `[]` and `add` yields `Decimal('0')`. Arity-1
+`add` of a collect is a sum because `_flatten` unwraps the list
+(U-008); it is not identity. Closure is required to treat empty as
+zero, not to read a nonempty source. ADR-0006 decision 8 and
+ADR-0011: an absent source is never an asserted zero.
+
+**A false guard is inapplicable, not blocked.** Trace 2 evaluates
+`when` on the committed sample_data tax-table rule. A compare that
+returns false becomes ledger `inapplicable` with `guard_result:
+False`, walked as `node_kind: guard_inapplicable` (U-043, U-134).
+A missing `ref` *inside* `when` is `DEPENDENCY_ABSENT` — a block,
+not inapplicable. A missing `requires` is also a block, and it
+happens before the guard is evaluated. Primary 2025 content has no
+`"when": false` and no numeric `compare` as top-level `when` (Track
+1c C05); production false-guards go through `categorical_compare` or
+`require_closed`. The sample_data rule is the asserting fixture.
+
+**Absence of closure is a first-class block, and three ops do not
+share a rule.** Trace 3. `require_closed` in `when` raises
+`SOURCE_SET_UNCLOSED` on an unclosed set, so the runner records a
+block, not Trace 2's inapplicable (U-024). `count` always requires
+the set in `closed_sets`, even when rows exist (U-005). `collect`
+does not (U-004). This stream re-ran: nonempty unclosed `count` →
+`SOURCE_SET_UNCLOSED`; nonempty unclosed `collect` → the list.
+`SOURCE_SET_UNCLOSED` is in both the v7 record enum and the v3 walk
+enum, so it survives the remap that swallows other codes (U-045,
+U-135). Closed-empty on the SLI worksheet publishes `"0"` rather
+than blocking.
+
+**A clause can test categorical equality against a declared domain.**
+Trace 4. `categorical_compare` plus `category_literal` are the most
+frequent expression ops after `ref` (368 and 373 occurrences;
+U-022, U-023). Every observed compare uses `cmp: eq`; `ne` is
+declared and implemented, not observed. Unequal domains raise
+`CATEGORICAL_DOMAIN_MISMATCH`. An out-of-domain value raises
+`DEPENDENCY_INVALID`. This is not numeric `compare` (field `cmp`,
+tokens `gte`/`lte`). Top-level `category_literal` does not
+domain-check; the operand helper does. Path A of the capital-loss-
+carryover rule publishes literal `0` when a boundary fact is
+`"yes"`, and `choose` does not evaluate the `else` (U-017).
+
+**A worksheet can be declared content rather than a Python
+procedure.** Trace 5 reads
+`packages/content/tax/2025/rule.sli-worksheet.json`
+(`schema`: `rule-artifact.v6`) as one citizen that composes
+`require_closed`, `count`, `conditional_dependency_set`,
+`categorical_compare`, `collect_categorical_all_equal`, `choose`,
+`block` with tax-shaped codes (`SLI_MFS_INELIGIBLE`, …),
+`multiply`, `divide` (`rounding: half_up`, `min_decimal_places: 3`),
+`max`, `subtract`, and `round`. A live test publishes Schedule 1
+line 21 `"1334"` from box-1 `2000` and MAGI `90000`. MFS filing
+status takes the `block` op — a block during `value`, not Trace 2
+inapplicable, because `when` already passed. Empty
+`collect_categorical_all_equal` is `DEPENDENCY_ABSENT`, not a
+closure block (U-026; D8). False CDS does not read members (U-025).
+`multiply` appears in one primary file; `divide` in two. They are
+absent from `OPERATION_VOCABULARY` and present in the dispatcher.
+
+**A family can constrain its members in a second grammar.** Trace 6
+reads `packages/content/tax/2025/family.f1099b-covered-w-st.v2.json`
+(`schema`: `source-family.v2`). Four `member_constraints` use
+predicate `all` / `field_equals` / `field_absent` / `compare` /
+term `field` / `subtract` / `floor_zero`. They are evaluated by
+`declarative_validation.py`. `field_not_equals` on an absent field
+is False and does not fire (U-120); a member that omits the
+wash-sale flag entirely does not violate
+`BOX_1G_AMOUNT_WITHOUT_FLAG`, while a member that writes `"no"`
+does. An invalid member blocks the family as
+`FAMILY_VALIDATION_BLOCKED` internally. Term `add` and predicate
+`any` are declared and implemented and unused in the 48
+source-family files (U-114, U-123) — reserved closed-grammar slots,
+not defects.
+
+**What those six add up to.** The engine can: compute over collected
+facts with explicit closure; distinguish inapplicable from blocked;
+branch without evaluating the untaken arm; emit an author-chosen
+block code from the `block` op (as distinct from the unread clause
+`blocked` field); domain-check categorical values; and constrain
+family members in a nested closed language. One hundred and
+fifty-seven of the 166 reconciled constructs are `active` as their
+primary status. The language is small, closed, and in production
+use on 2025 content. It is also not the language a leftover
+14-name frozenset, an authored `blocked.code`, or a `bracket_fold`
+spec document would lead a reader to picture.
