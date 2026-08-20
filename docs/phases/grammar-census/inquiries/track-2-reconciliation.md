@@ -793,3 +793,348 @@ selected_producer in runner.py       -> 0
 returned `3` (scalar), not `[3]`. 1c C11's open question is answered:
 the production idiom is "sum this family's members."
 
+## Open questions the three streams recorded
+
+Thirty-five questions across 1a (10), 1b (12), 1c (13). Answered from
+source where all three layers plus the check above are enough. Surviving
+questions name what would settle them.
+
+### Resolved
+
+1. **1a Q1 / D15.** Which rule-artifact generations the running validators
+   actually accept, given admitted_schemas omits v1. **Answer:**
+   `_SUPPORTED_SEMANTIC_SCHEMAS` includes v1–v6. Every
+   `artifact-package.v2..v25` enum omits `rule-artifact.v1`. v33 instance
+   omits it. Production members the wages rule as v2.
+
+2. **1a Q2 / D3.** Whether `accounts_for` on v5 is interpreted for v6
+   content via attachment-rule.v8. **Answer:** v6 cannot declare the
+   field (`additionalProperties: false`). attachment-rule.v8 is a
+   parallel site (U-100), not a v6 continuation.
+
+3. **1a Q3 / 1b Q8.** What `count` and expression-op `block` do, and which
+   ledger code `block` emits. **Answer:** `count` is `len(rows)` and
+   **always** requires `source_set in closed_sets`. `block` raises
+   `EvalBlocked(expr["code"], [])`. If that code is in `record_codes`
+   it is the ledger code; otherwise v2 remaps to `DEPENDENCY_INVALID`.
+   SLI/F1098 codes used in content are in `record_codes` and survive.
+
+4. **1a Q4 / 1b Q4 / 1c Q13 / D4.** Predicate depth > 6 at admission vs
+   evaluation; whether the two literals can diverge. **Answer:** they
+   already diverge in *algorithm*, not only in the integer. Admission
+   can accept a tree the evaluator rejects. Settled as control flow;
+   not settled as author intent.
+
+5. **1a Q5 / 1b Q12 / D14.** How `npe-walk.v3` projects a
+   derivation-record.v7 row whose `code` is not in the walk enum.
+   **Answer:** the walker emits whatever blocked code it finds *after*
+   R35 remapping (`explanation.py`). Codes remapped to
+   `DEPENDENCY_INVALID` are walk-legal. `SLI_*` kept on the ledger are
+   **not** walk-legal; the walker does not `validate_declared` its
+   result in the code that was read.
+
+6. **1a Q6 / U-089.** How `"schema": "attachment-rule.v3"` is validated
+   when two published files claim that `$id`. **Answer:** the registry
+   keys by filename, `validate_declared` by the instance `schema`
+   string. An instance naming v3 is validated against the **v3 file**.
+   The v5 bytes are not selected. An instance naming v5 is validated
+   against the v5 file, whose const requires v3 — a catch-22. `$id` is
+   dropped in-memory for `$ref` resolution (`schema_registry.py:172-175`)
+   and is not the dispatch key.
+
+7. **1a Q7.** Whether `collect.source_set` omitted on a v1 rule is
+   accepted by runtime. **Answer:** schema v1 allows omission; v2+
+   requires it. Evaluator uses `expr.get("source_set")` for collect
+   (optional). Empty + missing `source_set` → `SOURCE_SET_UNCLOSED`
+   with `[name]`. **No** primary-content collect omits `source_set`.
+   The one v1 content file is a `round`, not a `collect`.
+
+8. **1a Q8.** Whether `round` without `stage` on v2+ still applies
+   operation-semantics.v1 `spec.stages`. **Answer:** the evaluator
+   `_round` reads `modes` and `unit` from canon, not `stages`. v2+
+   expr has no `stage` field. Stages remain a canon enum the fold
+   does not dispatch on.
+
+9. **1a Q9 / 1c Q12.** What `ref` / `collect` bind to in the store.
+   **Answer:** `ref` → `env.symbols[name]` (marshalled current findings
+   / publications). `collect` → `env.sources.get(name, [])` (marshal
+   fills from current findings of registered collect names). Neither
+   schema-constrains `name` to a fact-type id (Track 0 gap 5).
+
+10. **1a Q10 / 1b Q8.** Whether `divide.rounding` shares runtime dispatch
+    with `round` modes. **Answer:** both index `_ROUND_MODES`. Round
+    *also* requires `canon["modes"]`. Divide does **not** read
+    `env.canon`. They share the Python mapping, not the canon citizen.
+
+11. **1b Q1 / D1.** Does any contract require `selected_producer` to be
+    the runtime winner? **Answer:** ADR-0006 d7 / ADR-0027 d5 require
+    the package to *declare* a selected producer to permit two
+    publishers. They do not say the runner must *evaluate* that pin.
+    The runner does not. Control flow is settled; whether that is a
+    defect is a later grammar decision.
+
+12. **1b Q2 / D5.** Is `LOOKUP_MISS` supposed to appear on
+    derivation-record / npe-walk? **Answer:** it does not appear on
+    either published enum. Remap to `DEPENDENCY_INVALID` is what the
+    v2 ledger path does. Author intent is not in an ADR sentence that
+    names `LOOKUP_MISS`.
+
+13. **1b Q3.** Is `OPERATION_VOCABULARY` a leftover, a schema-report
+    helper, or a missed gate? **Answer:** leftover. Defined, never
+    called. `role_vocabulary_report` is the sibling that *is* used.
+
+14. **1b Q5 / D16.** Is empty `max` supposed to be a contained block?
+    **Answer:** it is not contained today. Schema `minItems: 1` makes
+    it unreachable in a validated package. Observed content is arity 2.
+
+15. **1b Q7 / D11.** Does `source-family.v2` participate in collect-target
+    universe-guard? **Answer:** no. The dict is v1-only. The guard itself
+    is off for artifact-package.v18–v25.
+
+16. **1b Q9 / V6.** Is `use_v2` selecting `derivation-record.v7` a
+    contract or a drifted flag? **Answer:** the constant
+    `CURRENT_RECORD_SCHEMA = "derivation-record.v7"` is the contract
+    Track 0 accepted. The flag name is drifted. Behavior matches the
+    constant, not the name.
+
+17. **1b Q10 / D13.** Form-field.v1 admitted vs `FIELD_SCHEMAS`.
+    **Answer:** v1 is in `_SUPPORTED` and out of presentation.
+    Declared v1 exists; 2025 content does not use it.
+
+18. **1b Q11 / D10.** Does declared canon still constrain `bracket_fold`?
+    **Answer:** presence of the canon citizen is required (missing key
+    → `KeyError`). Spec fields `boundary` / `on_miss` / `method` are
+    not read. Constrains load, not fold.
+
+19. **1c Q1 / D6.** `OPEN_DEPENDENCY` vs `DEPENDENCY_ABSENT`. **Answer:**
+    two authored strings on an unread field. Not two runtime conditions.
+
+20. **1c Q2 / D7.** `SOURCE_SET_OPEN` vs `SOURCE_SET_UNCLOSED`. **Answer:**
+    a rename. Evaluator emits the new name. One v2 form-field still lists
+    the old name.
+
+21. **1c Q3 / V10.** What consumer interprets arity-1 `add` wrapping
+    `collect`? **Answer:** `add` + `_flatten` sums the collected
+    Decimals. Not identity, not a rounding stage.
+
+22. **1c Q4 / D9.** `round.mode` as `ref` vs tests speaking `half_even`.
+    **Answer:** production `round` never writes mode literals. `half_even`
+    is implemented on both round (if canon allows) and divide (table
+    only). Content divide uses `half_up`. Bundle enum is `{half_up}`.
+
+23. **1c Q5.** `range_lookup` in sample_data and schema tests, not in
+    134 primary files. **Answer:** declared + implemented + unused in
+    the primary corpus (U-018). Secondary corpus has the shape.
+
+24. **1c Q6.** Term `add` and predicate `any` named by Track 0, not found
+    in source-family content. **Answer:** declared + implemented + unused
+    (U-114, U-123).
+
+25. **1c Q7.** `attempt_attachment` named by tests, not by the 15
+    attachment-rule files. **Answer:** it is a runner method
+    (`runner.py:attempt_attachment`), not a content construct. Tests
+    naming it are not a usage of an undeclared op.
+
+26. **1c Q8 / U-139 / U-143.** Who adds `operation-semantics` / `adoption`
+    / `governance` / `field-mapping` pins? **Answer:** `runner.pins_for`
+    (`runner.py:297-400`). Content `pins` are not the complete surviving
+    set.
+
+27. **1c Q9 / U-035.** Does `require_closed` write `blocked.code:
+    SOURCE_SET_UNCLOSED` on the citizen? **Answer:** no. The envelope
+    field is independently authored. `require_closed` raises
+    `EvalBlocked(SOURCE_SET_UNCLOSED, …)` at evaluation time. Some
+    files write the same string on the unread envelope field; that is
+    coincidence of vocabulary, not a mechanism.
+
+28. **1c Q10 / U-030 / U-150.** `role-canon` lists `applicability` and
+    `cross-form-bridge`; the 134 files do not. **Answer:** declared and
+    unused on rule-artifact content. Package member roles use a larger
+    enum; those two rule tokens are still unused as rule `role` values.
+
+### Surviving
+
+1. **1b Q1 remainder / D1 intent.** Should `selected_producer` be the
+   runtime winner? Control flow is first-publisher-wins. Settling
+   *intent* needs an owner/grammar decision, not more reading.
+
+2. **1b Q2 remainder.** Should `LOOKUP_MISS` be added to
+   derivation-record / npe-walk, or is remap the contract? No ADR names
+   the token. A later ADR or a golden that asserts the ledger code
+   (not the evaluator alias) would settle it.
+
+3. **1b Q6.** Are the tax-id kill-tests (U-085) package-language or
+   content? Track 0's 4-vs-6i cut does not decide a Python frozenset of
+   tax ids. An owner call on whether those belong in a versioned citizen
+   would settle it. This census leaves them **active** as implemented
+   admission rules with tax-shaped operands.
+
+4. **1c Q11 remainder.** `checked-conclusion-binding`
+   `direct_route: "guard_inapplicable"` vs form-field
+   `guard_inapplicable` vs runner `inapplicable`: this file treats them
+   as ADR-0020 vocabulary-layering (ledger `inapplicable` → payload
+   `guard_inapplicable`) plus a content citizen that *declares* a truth
+   table without executing it (schema description). Whether any runtime
+   path *reads* the truth table (rather than duplicating it in rules)
+   was not closed by a grep of `packages/derivation` for the citizen's
+   `truth_table` field during this track. **What would settle it:** a
+   confirmed call site or a confirmed absence of one.
+
+5. **D4 remainder / U-124.** Should admission `_predicate_depth` walk
+   `left`/`right` the way the evaluator does, or should the evaluator
+   only count `args`? Both exist. Choosing one is a grammar/code change,
+   out of scope.
+
+6. **U-035 remainder.** Is the required clause `blocked` field intended
+   as documentation, as a default the runner used to read, or as a
+   still-owed input? Absence of a read is settled. Intent is not.
+
+7. **Track 0 5b-ii criterion.** A reader who requires the depth bound
+   itself to appear in JSON Schema would still reach `adjacent`. This
+   census does not re-open the Foreman ruling. The construct-level
+   residue is U-124's uncertain-as-one-bound status.
+
+8. **What `ref.name` denotes as a store kind** is answered as a binding
+   (`env.symbols`) but not as a closed taxonomy of fact vs finding vs
+   parameter for every name string in the 216 distinct `ref` names. A
+   per-name classification against surface 8 would be a different
+   census unit.
+
+## CQ-1 lens
+
+Used once. Merged CQ-1 artifacts on this tree under
+`docs/phases/claim-boundary-exploration/` (available to Track 2 per the
+plan's `#Claim-boundary evidence posture` and Track 0's Foreman ruling
+that the claim-boundary *roadmap* is Track 2/3 only).
+
+**Where:** cross-check of U-139 / U-143 (publication pins vs content
+`pins`) against
+`docs/phases/claim-boundary-exploration/inquiries/track-0-inquiry-frame.md`
+Hop 2 (lines 127–141) and
+`docs/phases/claim-boundary-exploration/inquiries/track-1-lens-d-system-provenance.md`
+lines 76–94.
+
+**What those artifacts independently observed:** a derived finding's
+`pins` array enumerates computation, citation, closure-assertion, input,
+and package roles — a different, larger set than the five citation-site
+pins the presentation surface shows; `pinLabels` is empty in that
+fixture.
+
+**What it changed:** nothing. It corroborated C80/R80 that surviving
+provenance pins are not the rule-artifact `pins` field. It did not
+originate a census row, override a status, or supply a construct the
+corpus had not already shown.
+
+Unmerged CQ-2 work was not read.
+
+## Track 0, Track 1, or plan problems this reading suggests
+
+Say plainly. None of these stopped the reconciliation.
+
+1. **Plan Track 2 vs this charter on deliverable count.** Recorded in
+   `#Charter / plan scope`. Not resolved by writing traces or a tension
+   catalog here.
+
+2. **Plan Track 1a paragraph vs Track 0 corpus.** 1a already recorded
+   that the plan names "every relevant rule-artifact and
+   operation-semantics schema version" while Track 0/charter bind a
+   larger corpus. 1a did not shrink the reading. This stream inherits
+   that corpus and does not re-open it.
+
+3. **Plan `#Term boundary` still names seven surfaces.** Track 0 added
+   an eighth (kernel store) and told Track 1 to cite it. This stream
+   followed Track 0. Surface 8 remains necessary for input/output
+   domains.
+
+4. **Track 0 Layer 2 did not flag** (1a already said these; confirmed):
+   attachment-rule.v5 `$id` collision; non-monotone quantity-vocabulary
+   enums; `operation-semantics.v2` is not a superset of v1; no
+   `admitted_schemas` enum lists `rule-artifact.v1` /
+   `operation-semantics.v1`; rule-artifact.v5 `accounts_for` disappearing
+   in v6.
+
+5. **Track 0 citation drift (line numbers), already caught by 1b and
+   Foreman-verified as citation defects not substantive errors:**
+   blocking constants `evaluator.py:24-28` not `:22-27`; `_ROUND_MODES`
+   `:30-35` not `:29-34`; `universe_guard_active` `:1533-1549` not
+   `:1527-1548`; evaluator if-chain including CDS body `:108-265` not
+   `:108-246`.
+
+6. **Track 0 gap 8 is necessary but incomplete.** Dual literals are
+   real. Independently, the depth *algorithms* differ (D4). A census
+   that only records the duplicated `6` misses packages that admit
+   trees the evaluator rejects.
+
+7. **Track 0 did not name `loader.OPERATION_VOCABULARY` as a stale
+   14-op subset.** Surface 1's op list from `evaluate` was correct.
+
+8. **Universe-guard family table is v1-only.** Track 0 said 5b-i lives
+   on `source-family.v2`. The collect-target guard does not obviously
+   apply to that citizen, and is off for current package schema
+   generations (D11).
+
+9. **The required clause `blocked` field is unread by the runner.**
+   Neither Track 0 nor Track 1b recorded the absence of a
+   `rule["blocked"]` read as its own construct. 1c treated C33–C35 as
+   declared objects, correctly, and asked whether they are what the
+   runner emits. The answer is no.
+
+10. **1c numbering.** Records skip from C75 to C76 then later insert
+    C81–C84 out of numeric order (C82 sits under 5a after C48). All 84
+    records are present (`C01`–`C80` plus `C81`–`C84`); the ids are
+    not a dense 1–84 in reading order. Not a missing-construct defect.
+
+11. **1b R39 `use_v2` includes any attachment schema** as well as
+    rule-artifact.v2–v6. A package of only v1 rules plus an attachment
+    still writes derivation-record.v7. 1a could not see this.
+
+12. **Plan `#Census unit` asks 1c for runtime consumer / semantic
+    effect / surviving provenance on every construct.** 1c left those
+    silent on purpose. This file fills them from 1a/1b. Not a plan
+    defect if Track 2 is the intended join; it would be if a reader
+    expected 1c to have populated them.
+
+Nothing in the three construct sets was incommensurable. Correspondence
+was established. Stop condition "cannot be reconciled at all" does not
+apply.
+
+## Status distribution
+
+166 reconciled constructs. **Primary** status is the first token in the
+table's Status cell (before any parenthesis or semicolon). Compound notes
+stay on the row and are not a second count. Tallied by parsing this file's
+`U-NNN` rows.
+
+| Primary status | Count | Rec ids |
+| --- | ---: | --- |
+| active | 157 | every `U-*` not listed below |
+| unused | 7 | U-018 `range_lookup` (primary corpus); U-036 `OPEN_DEPENDENCY` as ledger/evaluator code; U-055 `range_lookup` semantics spec (primary content); U-063 `OPERATION_VOCABULARY`; U-114 term `add`; U-123 predicate `any`; U-130 `presentation-model.v1` as a published citizen |
+| legacy-only | 1 | U-021 `round.stage` |
+| apparently unreachable | 1 | U-089 attachment-rule.v5 as a named instance discriminator |
+| uncertain (leading token) | 0 | U-124 is **active** as two independent literals; the uncertain qualifier is "as one bound" and is not a second row |
+| **total** | **166** | |
+
+Compound qualifiers a reader must not flatten: U-035 unread `blocked`
+field; U-041 v6 drop; U-044/U-072 admission vs runtime; U-045 remap;
+U-046/U-047 ledger-unreachable codes; U-056 unread bracket spec; U-061
+no primary `range_lookup`; U-078 v18–v25 guard off; U-086 v4–v12 index;
+U-092/U-096 later attachment schemas drop shapes; U-105 v1 presentation;
+U-124 two algorithms; U-135 record-only walk codes.
+
+## What this track does not claim
+
+- No grammar change, ADR, or repair. The attachment-rule.v5 `$id`
+  collision is a finding.
+- No exhaustive tax-coverage census. Frequency is context.
+- No traces and no tension catalog (separate Track 2 charters).
+- No claim that `unused` in the primary 2025 corpus means the runtime
+  cannot evaluate the form (see `range_lookup`, term `add`).
+- No claim that three-way agreement is proof. S2 failed.
+
+## Verification
+
+- Material semantic claims cite a committed path and version, or a
+  synthetic execution shown above.
+- `python3 tools/governance_lint.py` is run at handoff.
+- Diff of this assignment is this one file.
+
