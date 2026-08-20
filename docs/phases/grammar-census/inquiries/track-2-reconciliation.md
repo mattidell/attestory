@@ -4,7 +4,7 @@
 - Milestone: Engine Language Map (`grammar-census`)
 - Track: 2 — three-way reconciliation and set differences
 - Role: Builder
-- Status: in progress (partial: construct table complete through surface 8)
+- Status: complete
 - Source ref verified: `HEAD` `c954c4a854b1a8716ce74ed2a40fffa911528d25`
   on `milestone/grammar-census-engine-language-map`
 - Assigned path: this file only
@@ -387,3 +387,409 @@ assign behavior.
 | U-164 | two independent version axes | D-108 | R49 | C01, C63 | active | every content citizen parsed has both `schema` and `version` except fact-type.v1/v3. Package instance v33 sits on `artifact-package.v25` |
 | U-165 | pin-value origin (no evaluator constants) | D-105 | R80 | C80 | active | ADR-0007 d4. Round modes applied via `_ROUND_MODES` are process constants; the *mode name* comes from a ref or from `divide.rounding` |
 | U-166 | unknown semantic schema versions fail loudly | D-106 | R46 | — | active | ADR-0066 d7; runtime token `MEMBER_SCHEMA_UNSUPPORTED` |
+
+**166 reconciled constructs.** Status tally is in `#Status distribution`.
+
+## Explicit disagreements
+
+Do not silently prefer the schema or the runtime. For each: what each
+layer says, which is determinable from source, and what would settle it
+if not.
+
+### D1. `selected_producer` vs first-publisher-wins (U-044 / U-072 / U-073)
+
+- **Declared (1a / ADR-0006 d7 / ADR-0027 d5):** unique output ownership is
+  package-contract-enforced. A conflict entry that merely names a symbol
+  without selecting a producer is rejected. `selected_producer` is a
+  member_ref.
+- **Implemented (1b):** `package_validation.py:1076-1080,2020-2026` uses
+  `selected_producer` at **admission** to allow two publishers.
+  `runner.py` contains **zero** occurrences of `conflict_semantics` or
+  `selected_producer` (Foreman-verified). Once a symbol is in
+  `self.symbols`, a later eligible producer is `inapplicable`.
+- **Observed (1c):** five package files (core-calculations v29–v33) write
+  one `conflict_semantics` entry selecting `tax.us.2025.rule.schedule-a-total`
+  for `tax.us.2025.schedule-a.total`.
+- **Source check:** `runner.py:471-484` is first-eligible-wins in package
+  member order. Admission and evaluation implement **different** rules.
+  If member order happens to fire the selected producer first, they agree
+  accidentally; the field is not the runtime selector.
+- **Which is right:** both are real. The declared contract is an admission
+  gate. The implemented evaluation rule is first-publisher-wins. Neither
+  layer is a misread. A later grammar decision would have to pick one; this
+  census records the split.
+- **Settled by:** reading `runner.py` and `package_validation.py`. Open
+  remaining question is author intent (1b Q1), not the control flow.
+
+### D2. `loader.OPERATION_VOCABULARY` (14) vs evaluator dispatch (23) (U-027 / U-063)
+
+- **Declared (1a):** closed op vocabulary in `$defs/expr`, drifting across
+  rule-artifact v1–v6 (21 oneOf arms in v6 plus the literal arm).
+- **Implemented (1b):** 23-op if-chain. The 14-name frozenset omits
+  `count, block, multiply, divide, require_closed, categorical_compare,
+  category_literal, collect_categorical_all_equal, conditional_dependency_set`.
+- **Observed (1c):** all 23 ops appear in content except `range_lookup`
+  (primary corpus).
+- **Source check:** `inspect.getsource(evaluate)` lists 23 `if op ==`
+  tests, in the order 1b recorded. `OPERATION_VOCABULARY` is defined at
+  `loader.py:86-103` and referenced from **no other** `*.py` file.
+- **Which is right:** the dispatcher is the implemented language. The
+  frozenset is leftover. ADR-0006 d2's "closed schema-enumerated vocabulary"
+  is the schema oneOf, not this constant.
+
+### D3. `accounts_for` on rule-artifact.v5, absent in v6, present on attachment-rule.v8 (U-041 / U-100)
+
+- **Declared:** v5 adds the field; v6 properties have no `accounts_for`
+  (Foreman-verified). attachment-rule.v8 has the same relationship enum.
+  ADR-0066 d5/d6 is about production-package agreement with reachability,
+  not about the field surviving onto v6 rules.
+- **Implemented:** 1b did not treat this as a separate runtime op. Package
+  validation checks `accounts_for` against reachability (ADR-0066); this
+  stream did not re-walk every call site beyond confirming the v5/v6
+  schema split.
+- **Observed:** 8 rule-artifact.v5 files; 2 attachment-rule.v8 files. Zero
+  rule-artifact.v6 files carry the field (v6 `additionalProperties: false`
+  would reject it).
+- **Which is right:** v6 dropped the field; attachment-rule.v8 is a
+  parallel site, not a continuation. 1a's nearby-inference warning stands.
+
+### D4. Predicate depth: one number, two algorithms (U-124)
+
+- **Declared (1a / ADR-0066 d2):** resolver admission rejects depth greater
+  than six; JSON Schema is not claimed to enforce recursive depth. No issue
+  code is named in the ADR.
+- **Implemented (1b):** two `MAX_PREDICATE_DEPTH = 6` literals.
+  Evaluator walks `left`/`right`/`value`/`args` and starts at depth 1.
+  Admission `_predicate_depth` walks only `args`, else returns 1. A
+  `compare(add^n, …)` tree has admission depth 1 for every n and evaluator
+  `MemberConstraintTooDeep` at n≥5.
+- **Observed (1c):** content max depth 2. A test builds a term chain of
+  depth 8 and asserts evaluation failure, commenting that package
+  validation does not recurse into `left`/`right`.
+- **Source check:** synthetic table in `#Synthetic executions`. Track 0
+  gap 8 named the duplicated literal and missed the algorithm split (1b
+  already said this; confirmed).
+- **Which is right:** both implementations exist. The three-way agreement
+  that "the bound is 6" is true of the literals and false of the trees.
+  A package can admit a constraint the evaluator then refuses with
+  `CONSTRAINT_EVALUATION_FAILED`.
+
+### D5. `LOOKUP_MISS` / `FAMILY_VALIDATION_BLOCKED` vs ledger enum (U-045 / U-046 / U-047)
+
+- **Declared (1a):** `derivation-record.v7` enumerates 12 codes, not
+  including `LOOKUP_MISS` or `FAMILY_VALIDATION_BLOCKED`. `npe-walk.v3`
+  enumerates 7 codes, stopping before F1098/SLI.
+- **Implemented (1b):** evaluator emits `LOOKUP_MISS`; runner emits
+  `FAMILY_VALIDATION_BLOCKED`. `_record_blocked` remaps unknown v2
+  disposition codes to `DEPENDENCY_INVALID`. `self.blocked` keeps the
+  original.
+- **Observed (1c):** tests assert `BLOCK_LOOKUP_MISS`. Zero content files
+  contain the `BLOCK_*` aliases.
+- **Source check:** remap table in `#Synthetic executions`.
+- **Which is right:** the evaluator category is real; the v2 ledger
+  token is remapped. A test that asserts the evaluator alias against a
+  v2 disposition row would be asserting the pre-remap name. npe-walk.v3
+  cannot legally carry `SLI_*` or `LOOKUP_MISS`.
+
+### D6. `OPEN_DEPENDENCY` vs `DEPENDENCY_ABSENT` (U-035 / U-036)
+
+- **Declared:** `blocked.code` is a pattern, not an enum. Both strings
+  are schema-legal.
+- **Implemented:** runner never reads the clause `blocked` field. Missing
+  `requires` → `DEPENDENCY_ABSENT`. `OPEN_DEPENDENCY` is not an evaluator
+  constant. On the v2 ledger it would remap to `DEPENDENCY_INVALID`.
+- **Observed:** 81 files `DEPENDENCY_ABSENT`; 33 files `OPEN_DEPENDENCY`
+  (often `missing: ["rounding.convention"]`).
+- **Which is right:** they are not two runtime conditions. They are two
+  authored strings on a field the current runner does not consume. Whether
+  authors meant `OPEN_DEPENDENCY` as an older name for dependency-absence
+  is not recoverable from control flow.
+
+### D7. `SOURCE_SET_OPEN` vs `SOURCE_SET_UNCLOSED` (U-103 / U-132 / U-135)
+
+- **Declared:** npe-walk.v1 / derivation-record.v2 / form-field.v2 use
+  `SOURCE_SET_OPEN`. v2/v3 of those families rename to
+  `SOURCE_SET_UNCLOSED` (ADR-0036 PC3).
+- **Implemented:** evaluator emits `SOURCE_SET_UNCLOSED` only
+  (`BLOCK_CLOSURE` at `evaluator.py:26`).
+- **Observed:** 20 rules and 41 form-fields write `SOURCE_SET_UNCLOSED`.
+  One form-field still lists `SOURCE_SET_OPEN` (`form1040.line-2b.form-field.json`,
+  host v2).
+- **Which is right:** rename, not two conditions. The leftover v2
+  form-field is legacy-only on that one file.
+
+### D8. `collect` vs `count` vs `collect_categorical_all_equal` closure (U-004 / U-005 / U-026)
+
+- **Declared:** 1a silent on evaluation of `count` (no ADR). `collect`
+  `source_set` optional in v1, required v2+. Categorical-collect is v6 /
+  ADR-0064, explicitly not a mode of `collect`.
+- **Implemented:** three different empty/unclosed rules (1b synthetics,
+  re-run below).
+- **Observed:** every primary `collect` has `source_set`. `count` appears
+  in 7 files. Categorical-collect in one v6 file.
+- **Which is right:** the three ops do not share closure semantics.
+  Treating them as variants manufactures agreement.
+
+### D9. `round` dual gate vs `divide` modes vs content refs (U-020 / U-059 / U-062)
+
+- **Declared:** four mode tokens on operation-semantics.v1; v1 expr
+  required `stage`; v2+ dropped `stage`; `divide.rounding` copies the
+  four tokens onto rule-artifact.v6.
+- **Implemented:** round requires membership in **both** `_ROUND_MODES`
+  and `canon["modes"]`. Divide uses `_ROUND_MODES` only. Missing canon
+  key for round is uncontained `KeyError`.
+- **Observed:** 59/59 `round.mode` are a `ref` to `rounding.convention`.
+  Bundle enum is `{half_up}` only. `half_even` appears in divide tests,
+  not in `packages/content/tax/2025`.
+- **Which is right:** all three descriptions are true of their layer.
+  Production `round` does not write mode literals. The four-token
+  vocabulary is declared and implemented; observed `round` use is a
+  one-token subset via a fact.
+
+### D10. `bracket_fold` loads canon and ignores `spec` (U-019 / U-056)
+
+- **Declared (ADR-0006 d4 / operation-semantics.v1):** canon is "the
+  authority for evaluator behavior — the runner conforms to canon, canon
+  does not describe the runner." `bracket_fold` spec requires `method,
+  boundary, open_top, on_miss, row_shape`.
+- **Implemented:** `evaluator.py:345-360` binds `canon = env.canon["bracket_fold"]["spec"]`
+  and never reads it. Fold is `(min(value,upper)-lower)*rate` over
+  `value > lower`. No on-miss path; below every lower → `0`.
+- **Observed:** 95 occurrences; no `evaluate()` unit test for the fold
+  (schema path-exercise only).
+- **Which is right:** the schema describes a spec the current fold does
+  not consult. The citizen must still be present (missing key →
+  `KeyError`). Declared-vs-implemented mismatch on *which fields* bind.
+
+### D11. Universe guard is v1-family and v3–v17-package (U-078)
+
+- **Declared:** Track 0 gap 1: no feature-matrix citizen. 5b-i lives on
+  `source-family.v2`.
+- **Implemented:** guard active for `artifact-package.v3`–`v17` inclusive
+  (15 versions, including v7). `source_family_members` filters
+  `schema == "source-family.v1"` only.
+- **Observed:** 8 content files are `source-family.v2`. Highest package
+  schema in the core-calculations series is v25 (v33 instance), **outside**
+  the guard range.
+- **Which is right:** the collect-target check does not apply to the
+  citizen that holds the term/predicate vocabulary, and does not apply to
+  current artifact-package.v18–v25 instances.
+
+### D12. Quantity-vocabulary supported set vs index (U-086 / U-151)
+
+- **Declared:** 12 published versions, non-monotone enums (1a; Track 0
+  missed the drops).
+- **Implemented:** `_SUPPORTED` lists v1–v12; quantity **index** is v1–v3
+  only (`package_validation.py:1085-1090`).
+- **Which is right:** v4–v12 members can be admitted (role-checked only
+  for v1–v3 at `:942-951`) without joining the quantity index.
+
+### D13. `form-field.v1` admitted, not projected (U-101 / U-105)
+
+- **Declared:** three versions; Track 0: no current designation.
+- **Implemented:** `_SUPPORTED` includes v1; `FIELD_SCHEMAS` is v2 and v3
+  only.
+- **Observed:** 2025 content is v2/v3. v1 appears in sample_data (8 files).
+- **Which is right:** v1 is runtime-admitted and presentation-unreachable.
+
+### D14. `npe-walk.v3` hardcoded vs `derivation-record.v7` (U-131 / U-133 / U-135)
+
+- **Declared:** record family runs to v7; walk family stops at v3. ADR-0020
+  d7 said walk-payload dispositions use the ADR-0012 vocabulary "exactly."
+- **Implemented:** walker hardcodes v3; `use_v2` selects record v7.
+- **Observed:** tests emit `npe-walk.v3`; sample_data has v1/v2 fixtures.
+- **Which is right:** the pairing is real and undeclared as a pair. A v7
+  record code such as `SLI_MFS_INELIGIBLE` is not a legal walk `code`.
+  After remap, a lookup miss on v2 is ledger `DEPENDENCY_INVALID`, which
+  *is* in the walk enum.
+
+### D15. `rule-artifact.v1` runtime-accepted, package-enum-omitted (U-001 / U-066 / U-076)
+
+- **Declared:** six published generations; no `artifact-package.v2..v25`
+  `admitted_schemas` enum contains `rule-artifact.v1`.
+- **Implemented:** `_SUPPORTED` includes v1–v6. `use_v2` is false only if
+  every rule is v1 and no attachment is present — then records write
+  `derivation-record.v1`.
+- **Observed:** 1 content file (`rule.wages-line1a.json`, schema v1).
+  Packages member the same id as **v2** (`tax.us.2025.rule.w2-box1-to-line1a`
+  schema `rule-artifact.v2`). `package.first-tax-slice.json` members that
+  id at instance version v1 without a member `schema` field (host
+  artifact-package.v1).
+- **Which is right:** v1 is executable in isolation and omitted from every
+  later package schema's admission enum. Production core-calculations uses
+  the v2 successor. Status of the v1 *file*: leftover content, not a
+  current package member.
+
+### D16. Empty `max` uncontained vs schema `minItems: 1` (U-009)
+
+- **Declared:** `args` minItems 1.
+- **Implemented:** `max()` over an empty flatten raises `ValueError`, not
+  `EvalBlocked`.
+- **Observed:** all 88 content occurrences are arity 2.
+- **Which is right:** the crash is real in the evaluator and schema-gated
+  for any instance that passed validation. Not a production-content risk
+  given observed arity; still a contained-vs-uncontained split on the
+  evaluator boundary.
+
+### D17. Track 0 primary criterion fitted after the 5b-ii ruling
+
+Recorded because Track 0 asked Track 2 to weigh it. Round 4 widened
+"schema-typed citizen" to "contractually enforced citizen" so
+`MAX_PREDICATE_DEPTH` fits grammar-proper after a Foreman ruling. The
+module/store cut and the 5b-ii axis disagreement (schema-typed: No;
+ADR-fixed: Yes) remain visible. This census does not reclassify Track 0
+surfaces. U-124's status `uncertain (as one bound)` is the construct-level
+residue of that axis split.
+
+## Three-way agreement spot-checks
+
+Charter: where all three layers agree on something load-bearing, spot-check
+it against source anyway. Sample is not all rows. Chosen for load-bearing
+semantic weight, not convenience. A failed agreement is the most valuable
+finding this milestone can produce.
+
+**How the sample was chosen.** Seven agreements that (a) appear in all
+three Track 1 deliverables (or in Track 0 plus two streams, with the
+third silent-but-consistent), (b) would change a census status or a
+set-difference if wrong, and (c) are not the six Foreman-verified facts
+(those are not re-done).
+
+| # | Agreement claimed by the three layers | How checked | Result |
+| --- | --- | --- | --- |
+| S1 | Term/predicate vocabulary is declared in `source-family.v2` `$defs/term` (line 172) and `$defs/predicate` (line 278), not in attachment-rule | Opened `source-family.v2.schema.json`; `$defs.term` at 172, `$defs.predicate` at 278; `field_equals` const at 318. Grep of `packages/schemas/tax` for `family_nonempty` is unrelated; no `$defs/term` on attachment-rule | **Holds.** This is the Track 0 "two readers missed it" case, now three-way and source-true |
+| S2 | `MAX_PREDICATE_DEPTH = 6` is the bound, enforced at admission and evaluation | Ran `compare(add^n(field,1),0)` through `_predicate_depth` and `Evaluator.evaluate_predicate` | **Fails as a uniform bound.** Literals are 6/6. Admission depth stays 1 for every n; evaluator `TOO_DEEP` at n≥5. See D4 |
+| S3 | False `when` yields ledger `inapplicable` with real `guard_result`, not blocked | Read `runner.py:486-501`; 1c asserting test `test_runner.py:106-115` | **Holds** |
+| S4 | Empty unclosed `collect` blocks `SOURCE_SET_UNCLOSED` | Synthetic: `collect` empty unclosed → `SOURCE_SET_UNCLOSED ['x']`; nonempty unclosed succeeds | **Holds**, and the nonempty-unclosed success is the part a casual reading of "collect requires closure" would get wrong |
+| S5 | `ref` of a missing symbol blocks `DEPENDENCY_ABSENT` naming that symbol | `evaluator.py:108-111`; 1333 content occurrences, one keyset `{op, name}` | **Holds** |
+| S6 | attachment-rule published set is v1–v6 and v8, no v7 | Directory + `published.json` + `_SUPPORTED` (Foreman also verified no v7) | **Holds.** Independently, filename v5 claiming `$id` v3 is a *different* fact (U-089), not a v7 gap |
+| S7 | Four rounding-mode tokens `half_up, half_even, down, up` are the round vocabulary | Schema enum at `operation-semantics.v1.schema.json:26`; `_ROUND_MODES` keys; content `round.mode` is always a `ref` | **Holds for declared+implemented tokens. Would fail** if the agreement were "content writes those four literals on `round.mode`" — 1c already did not claim that. Dual-gate still rejects a mode in only one of the two tables |
+
+**Failed three-way agreement:** S2. All three streams name six. Track 0
+recorded two literals plus ADR prose as untied. Track 1a recorded schema
+non-enforcement. Track 1b recorded the algorithm split. Track 1c recorded
+content depth 2. The load-bearing form "a predicate deeper than six cannot
+enter a package" is **false**, because admission does not walk `left`/`right`.
+
+## Source verifications of disagreements that matter
+
+Shown, not paraphrased. Ran 2026-08-20 against this worktree.
+
+### V1. Evaluator dispatch is 23 ops; `OPERATION_VOCABULARY` is 14
+
+`inspect.getsource(evaluate)` if-op chain, in order:
+
+`ref, collect, count, block, parameter, add, subtract, multiply, divide, max, compare, all, any, not, choose, round, range_lookup, bracket_fold, require_closed, categorical_compare, category_literal, collect_categorical_all_equal, conditional_dependency_set`
+
+`loader.OPERATION_VOCABULARY` = `{ref, collect, parameter, add, subtract, max, compare, all, any, not, choose, range_lookup, bracket_fold, round}`.
+
+Grep of `*.py` for `OPERATION_VOCABULARY` returns only the definition.
+
+### V2. Collect vs count vs categorical-collect
+
+```
+collect empty unclosed     -> SOURCE_SET_UNCLOSED missing ['x']
+collect nonempty unclosed  -> [Decimal('1'), Decimal('2')]
+count nonempty unclosed    -> SOURCE_SET_UNCLOSED missing ['fam']
+count nonempty closed      -> 2
+collect_categorical empty  -> (1b/1c) DEPENDENCY_ABSENT
+```
+
+### V3. Divide-by-zero, unknown op, empty add/max, `all` short-circuit, CDS, `block` op
+
+```
+divide 1/0                 -> DEPENDENCY_INVALID ['division by zero']
+{"op":"nope"}              -> DEPENDENCY_INVALID ['unknown op survived schema: nope']
+add of []                  -> Decimal('0')
+max of []                  -> ValueError: max() iterable argument is empty
+all([False, ref missing])  -> False, refs set()
+CDS condition False        -> True, refs set()
+{"op":"block","code":"SLI_MFS_INELIGIBLE"} -> category SLI_MFS_INELIGIBLE, missing []
+```
+
+### V4. Predicate depth admission vs evaluation
+
+`compare(add^n(field, 1), 0)` against member `{x: 1}`:
+
+| n_adds | admission `_predicate_depth` | evaluator |
+| --- | --- | --- |
+| 0–4 | 1 | ok |
+| ≥5 | 1 | `MemberConstraintTooDeep` |
+
+`MAX_PREDICATE_DEPTH` printed from `declarative_validation.py`: `6`.
+
+### V5. Round dual gate and `range_lookup` boundary `else`
+
+```
+round 1.5 half_up, canon modes {half_up}, unit 1 -> Decimal('2')
+round mode down vs that canon                   -> unknown rounding mode: 'down'
+round mode weird in canon only                  -> unknown rounding mode: 'weird'
+_in_band 10 in [10,20) LIE                      -> True
+_in_band 10 in [10,20] anything_else            -> False
+_in_band 20 in [10,20) LIE                      -> False
+_in_band 20 in [10,20] anything_else            -> True
+```
+
+### V6. `use_v2` selects derivation-record.v7
+
+```
+started_record(..., use_v2=False)["schema"] -> derivation-record.v1
+started_record(..., use_v2=True)["schema"]  -> derivation-record.v7
+CURRENT_RECORD_SCHEMA                       -> derivation-record.v7
+```
+
+### V7. Ledger remap
+
+`record_codes` as in `runner.py:1169-1182`:
+
+```
+LOOKUP_MISS                -> DEPENDENCY_INVALID
+FAMILY_VALIDATION_BLOCKED  -> DEPENDENCY_INVALID
+OPEN_DEPENDENCY            -> DEPENDENCY_INVALID
+SOURCE_SET_OPEN            -> DEPENDENCY_INVALID
+SLI_MFS_INELIGIBLE         -> SLI_MFS_INELIGIBLE (kept)
+```
+
+### V8. attachment-rule.v5 identity
+
+```
+attachment-rule.v5.schema.json $id -> tax/attachment-rule.v3
+attachment-rule.v3.schema.json $id -> tax/attachment-rule.v3
+v5 properties.schema.const         -> attachment-rule.v3
+SchemaRegistry keys by filename    -> schema_registry.py:152
+validate_declared uses instance["schema"] as that key -> :234-244
+```
+
+### V9. Content facts that settle set differences
+
+```
+rule-artifact roles in 134 files     -> computation 132, field-mapping 2
+round nodes                          -> 59; mode is always a dict (the ref)
+collect without source_set           -> 0
+range_lookup in primary              -> 0
+OPEN_DEPENDENCY files                -> 33
+DEPENDENCY_ABSENT files              -> 81
+family_nonempty content              -> 2 files, hosts attachment-rule.v3 and .v4
+term ops in source-family            -> field 12, literal 2, floor_zero 2, subtract 2; add 0
+predicate ops in source-family       -> all 6, compare 6, field_* 2 each; any 0
+v33 admitted_schemas                 -> 39 names; omits rule-artifact.v1,
+                                         attachment-rule.v3, .v5, form-field.v1,
+                                         operation-semantics.v1 and .v2
+artifact-package.v25 enum            -> 42 names; rule-artifact.v1 False;
+                                         operation-semantics.v1 False;
+                                         operation-semantics.v2 True;
+                                         attachment-rule.v5 True;
+                                         form-field.v1 False
+wages rule in packages               -> members schema rule-artifact.v2
+                                         (id tax.us.2025.rule.w2-box1-to-line1a)
+SOURCE_SET_OPEN form-fields          -> 1 file, host form-field.v2
+clause blocked field reads in derivation/ -> 0
+selected_producer in runner.py       -> 0
+```
+
+### V10. Arity-1 `add` wrapping `collect` is a sum, not identity
+
+`evaluator.py:159-160` plus `_flatten` `:274-282`. `add` of a nested
+`collect` flattens the list of Decimals and sums them. `add` of `[3]`
+returned `3` (scalar), not `[3]`. 1c C11's open question is answered:
+the production idiom is "sum this family's members."
+
