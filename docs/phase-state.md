@@ -4,10 +4,10 @@
   "phase": "Grammar Census",
   "topic": "grammar-census",
   "active_plan": "docs/phases/grammar-census/milestones/engine-language-map.md",
-  "milestone_state": "track-0",
-  "status": "Grammar Census opened 2026-08-19 as an owner-selected, independent milestone — not a continuation of Claim Boundary Exploration. Purpose: produce a reconciled, plain-language census of the declarative language the engine actually has (layers, constructs, sources of authority, runtime interpreters, actual committed use, and where schema/runtime/content/observed behavior agree or diverge). Documentation-and-evidence only; no grammar change, ADR, or standards claim. Plan owner-approved 2026-08-19 and repaired before dispatch. Track 0 (term boundary and bounded corpus) is chartered and in flight. The phase stays open after this milestone closes.",
-  "current_role": "Track 0 Builder — term boundary and bounded corpus",
-  "current_prompt": "docs/reviews/2026-08-19-grammar-census-track-0-boundary-corpus-builder-charter.md"
+  "milestone_state": "track-1",
+  "status": "Grammar Census opened 2026-08-19 as an owner-selected, independent milestone — not a continuation of Claim Boundary Exploration. Purpose: produce a reconciled, plain-language census of the declarative language the engine actually has (layers, constructs, sources of authority, runtime interpreters, actual committed use, and where schema/runtime/content/observed behavior agree or diverge). Documentation-and-evidence only; no grammar change, ADR, or standards claim. Plan owner-approved 2026-08-19 and repaired before dispatch. Track 0 is complete and accepted at 4f66bc83 after five verified repair rounds; its bounded corpus is binding on Track 1. Tracks 1a, 1b, and 1c are chartered and running in parallel under the plan's Parallel Work Manifest, isolated from one another's drafts until all three commit. The phase stays open after this milestone closes.",
+  "current_role": "Track 1a/1b/1c Builder — three independent parallel readings",
+  "current_prompt": "docs/reviews/2026-08-20-grammar-census-track-1-parallel-readings-charter.md"
 }
 -->
 
@@ -45,12 +45,24 @@ request.
 ## Operational State
 
 - **Phase:** Grammar Census — **ACTIVE 2026-08-19**.
-- **Opening milestone:** Engine Language Map — **TRACK 0 IN FLIGHT
-  2026-08-19.** Plan approved by the owner and repaired before dispatch.
-- **Track 0 — chartered.** Term boundary and bounded corpus. Charter:
+- **Opening milestone:** Engine Language Map — **TRACK 1 IN FLIGHT
+  2026-08-20.** Plan approved by the owner and repaired before dispatch.
+- **Track 0 — COMPLETE, accepted at `4f66bc83`.** Term boundary and bounded
+  corpus. Charter (with five repair rounds appended):
   `docs/reviews/2026-08-19-grammar-census-track-0-boundary-corpus-builder-charter.md`.
-  Sole deliverable:
+  Deliverable:
   `docs/phases/grammar-census/inquiries/track-0-boundary-and-corpus.md`.
+  Supporting review record:
+  `docs/reviews/2026-08-19-grammar-census-track-0-boundary-map-external-critique.md`.
+  Its boundary map and bounded corpus are **binding on Tracks 1a-1c**.
+- **Tracks 1a, 1b, 1c — chartered, running in parallel.** Charter:
+  `docs/reviews/2026-08-20-grammar-census-track-1-parallel-readings-charter.md`.
+  Deliverables, one per stream, non-overlapping:
+  `track-1a-declared-constructs.md`, `track-1b-implemented-constructs.md`,
+  `track-1c-observed-usage.md`, all under
+  `docs/phases/grammar-census/inquiries/`. The three streams are isolated
+  from one another's drafts until the third commits; the Foreman does not
+  relay one stream's findings to another during Track 1.
 - **Milestone key:** `grammar-census`.
 - **Active plan:**
   `docs/phases/grammar-census/milestones/engine-language-map.md`.
