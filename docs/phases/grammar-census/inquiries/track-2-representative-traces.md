@@ -406,3 +406,234 @@ lists `SOURCE_SET_OPEN` (`form1040.line-2b.form-field.json`, host
 - That `require_closed` in `when` yields Trace 2 inapplicable. It yields
   a block, because the op raises rather than returning false.
 
+## Trace 4 — Categorical reasoning: `categorical_compare` and `category_literal`
+
+### Why this trace
+
+U-022 / U-023 are the most frequent expression ops after `ref` (368 and
+373 occurrences). Every observed `categorical_compare` uses `cmp: eq`;
+`ne` is declared and implemented, not observed (U-022). This is not
+numeric `compare` (U-015, field `cmp`, tokens `gte`/`lte`). Domain
+mismatch is `CATEGORICAL_DOMAIN_MISMATCH`; an out-of-domain value is
+`DEPENDENCY_INVALID`. No other trace is about that domain-checked
+equality.
+
+### Declared content
+
+`packages/content/tax/2025/rule.capital-loss-carryover.long-term.json`
+
+- `schema`: `rule-artifact.v3`
+- `id`: `tax.us.2025.rule.capital-loss-carryover.long-term`
+- `publishes`: `tax.us.2025.capital-loss-carryover.long-term`
+- Path A short-circuit in `value` (Track 1c C29 representative citation,
+  around line 233): `choose` whose `when` is
+  `{ "op": "categorical_compare", "cmp": "eq", "left": { "op": "ref", "name": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers" }, "right": { "op": "category_literal", "fact_type": { "id": "tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers", "version": "v1" }, "value": "yes" } }`
+  and whose `then` is literal `0`.
+
+The same pair appears in 39 files. SLI's MFS check (Trace 5) is the
+same op against `filing_status` / `married_filing_separately`.
+
+### Validation
+
+**Executed.** `validate_declared` accepted the file as `rule-artifact.v3`.
+
+**Inferred.** `category_literal.fact_type` is a `{id, version}` pair in
+content. The evaluator's operand helper uses the `id` as the domain key
+(`evaluator.py:367-372`). JSON Schema does not constrain `ref.name` to a
+fact-type id (Track 0 gap 5 / U-153). Falsified if
+`_eval_categorical_operand` required `ref.name == fact_type.id`.
+
+### Evaluation
+
+`categorical_compare` (`evaluator.py:213-218`, U-022): evaluate both
+operands as `(domain, value)`; unequal domains →
+`CATEGORICAL_DOMAIN_MISMATCH`; `eq` is Python `==` on the values.
+Top-level `category_literal` does **not** domain-check
+(`evaluator.py:220-221`, U-023); the operand helper does
+(`:367-372, 382-385`).
+
+**Executed.** Shape of the Path A `when`, consumer `evaluate`:
+
+```
+eq yes vs yes        -> True   (refs the boundary symbol)
+eq no vs yes         -> False
+out of domain maybe  -> DEPENDENCY_INVALID missing ['maybe']
+domain mismatch      -> CATEGORICAL_DOMAIN_MISMATCH
+                       missing ['other.domain != tax.us.2025.schedule-d-boundary.no-inbound-capital-loss-carryovers']
+```
+
+Environment for the first two rows: `symbol_fact_types` maps the ref
+name to that same fact-type id; `categorical_domains` is `{yes, no}`.
+Out-of-domain used `"maybe"` against that set. Domain mismatch bound
+the ref to `other.domain`.
+
+**Inferred.** `choose` then evaluates only the taken branch
+(`evaluator.py:188-190`, U-017). Path A `yes` therefore never reads the
+prior-return refs under the `else`. Falsified if `choose` evaluated both
+branches and unioned their `AccessLog`. (Trace 5 executes `choose`
+directly.)
+
+### Consequence
+
+**Inferred.** Path A `yes` publishes `0` as an ordinary finding, not
+`inapplicable`. The rule's `when` is a `choose` wrapping
+`conditional_dependency_set` (U-025), not this categorical node — the
+categorical node is inside `value`. A `no` on the boundary fact takes
+the `else` (worksheet arithmetic) rather than skipping the citizen.
+Falsified if a `yes` on that fact produced disposition `inapplicable`
+for this rule.
+
+Existing live test `tests/test_schedule_d_inbound_loss_carryovers_t1.py`
+drives Path A (`BOUNDARY_PATH_A` sets the declaration to `"yes"`) through
+`live_coordinate_run`. **Not re-run here** (live lane). Named as the
+committed end-to-end of this content; the evaluator rows above are the
+executed evidence for the op.
+
+**Executed.** Out-of-domain elective on a *parameter* key (different op,
+same invalidity family): `test_out_of_domain_elective_blocks_invalid_without_leaking_exceptions`
+(`test_runner.py:133-145`, re-run under `-k lookup`) asserts
+`BLOCK_LOOKUP_MISS` (`LOOKUP_MISS`) and no traceback in `missing`.
+Passed. On a v2 ledger that code remaps to `DEPENDENCY_INVALID` (V7 /
+U-046), which is walk-legal; `LOOKUP_MISS` itself is not in
+`npe-walk.v3` or `derivation-record.v7`. Categorical out-of-domain
+already emits `DEPENDENCY_INVALID` (`BLOCK_INVALID`), so it does not
+need that remap.
+
+### Nearby inferences this evidence does not support
+
+- That `cmp: ne` is unused because it is unimplemented. It is
+  implemented (`evaluator.py:218`).
+- That top-level `category_literal` domain-checks. It returns
+  `expr["value"]` unchecked.
+- That this is the same construct as predicate `compare` (U-121, field
+  `comparison`, tokens `ge`/`le`). Collapsing them manufactures
+  agreement (reconciliation naming table).
+
+## Trace 5 — Worksheet-like computation: SLI Schedule 1 line 21
+
+### Why this trace
+
+One citizen composes staged arithmetic, branching, a conditional
+dependency set, a categorical universal over a family, and explicit
+`block` ops with tax-shaped codes. That *composition* is the construct:
+a worksheet as declared content, not a Python procedure. Unique in this
+set: U-013 `multiply` (1 primary file), U-014 `divide` (2 occurrences,
+both `rounding: half_up`), U-006 `block` (content codes `SLI_*`),
+U-025 `conditional_dependency_set`, U-026 `collect_categorical_all_equal`
+(5 occurrences, all this file). `choose` (U-017) is the spine.
+
+### Declared content
+
+`packages/content/tax/2025/rule.sli-worksheet.json`
+
+- `schema`: `rule-artifact.v6` (multiply / divide / collect_categorical
+  live here; U-013, U-014, U-026)
+- `id`: `tax.us.2025.rule.sli-worksheet`
+- `publishes`: `tax.us.2025.schedule1.line21-sli-deduction`
+- `when`: `all` of `require_closed` on `tax.us.2025.f1098e.1` and a
+  `conditional_dependency_set` whose condition is `count > 0` and whose
+  members are refs to eligibility facts (U-010, U-024, U-025, U-005)
+- `value` (outer `choose`):
+  - `when` `count == 0` → literal `0` (closed-empty shortcut; Trace 3)
+  - `else` → `choose` MFS `categorical_compare` → `block`
+    `SLI_MFS_INELIGIBLE`
+  - further `choose`s: universal-component `not`/`all` of
+    `categorical_compare` plus five `collect_categorical_all_equal`
+    nodes → `block` `SLI_UNIVERSAL_COMPONENT_VIOLATION`; Part II
+    activity → `block` `SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE`; else the
+    nine-line arithmetic (`divide` with `min_decimal_places: 3` and
+    `rounding: half_up`, `multiply`, `max`, `subtract`, outer `round`
+    of a `ref` to `rounding.convention`)
+
+### Validation
+
+**Executed.** `validate_declared` accepted the file as `rule-artifact.v6`.
+
+**Inferred.** `multiply` / `divide` / `collect_categorical_all_equal` /
+`conditional_dependency_set` are **not** in `loader.OPERATION_VOCABULARY`
+(14 names, U-063, never referenced from another `*.py` file) and **are**
+in the 23-op dispatcher (U-027, V1). Schema v6 `$defs/expr` oneOf
+includes them. Falsified if `evaluate` rejected `"op": "multiply"` as
+`unknown op survived schema`.
+
+### Evaluation
+
+**Executed.** Isolated ops, shapes taken from this file:
+
+```
+multiply 2000 * 0.333                          -> Decimal('666.000')
+divide 5000/15000 half_up 3dp                  -> Decimal('0.333')
+divide 1/0                                     -> DEPENDENCY_INVALID ['division by zero']
+choose then (when true)                        -> 0
+choose else (when false)                       -> 99
+block SLI_MFS_INELIGIBLE                       -> category SLI_MFS_INELIGIBLE missing []
+CDS condition False, member ref missing        -> True  (refs set empty)
+CDS condition True, member ref missing         -> DEPENDENCY_ABSENT ['missing.symbol']
+collect_categorical_all_equal all yes          -> True
+collect_categorical_all_equal one no           -> False
+collect_categorical_all_equal empty            -> DEPENDENCY_ABSENT [the name]
+```
+
+`choose` evaluates only the taken branch: the false-`when` row did not
+need the `then` value to exist as a successful eval. CDS false does not
+read members (U-025; ADR-0037). Empty categorical-collect is
+`DEPENDENCY_ABSENT`, not `SOURCE_SET_UNCLOSED` (D8).
+
+**Executed.** Existing tests, re-run:
+
+```
+pytest tests/derivation/test_multiply_divide.py \
+       tests/derivation/test_collect_categorical_all_equal.py \
+       tests/derivation/test_conditional_multi_dependency.py \
+       tests/test_sli_worksheet_line21_track3.py \
+       -k "multiplies_two or divides_two or zero_divisor or min_decimal_places_worksheet or rounding_mode_half_even or single_member_all_yes or one_member_no or absent_source or inactive_members or active_members_publish or active_multi_and_partial or single_statement_in_phaseout_band or mfs_filing_status or closed_empty_family_computes_zero"
+```
+
+Passed. Load-bearing assertions:
+
+- `test_single_statement_in_phaseout_band_reduces_the_deduction`
+  (`tests/test_sli_worksheet_line21_track3.py:251-265`): box-1 `2000`,
+  MAGI `90000`, single, closed family, eligibility yes → published
+  Schedule 1 line 21 `"1334"`. Comment in the test: line7 = `5000/15000`
+  = `0.333` half_up 3dp; line8 = `2000*0.333` = `666.000`; line9 =
+  `2000 - 666.000` = `1334`. Matches the isolated multiply/divide rows.
+- `test_mfs_filing_status_blocks_the_whole_route` (`:318-329`):
+  `filing_status` `married_filing_separately` → blocked
+  `SLI_MFS_INELIGIBLE`, no published line 21. That is U-006 `block`
+  after U-022, **not** Trace 2 inapplicable: the citizen's `when` passed
+  (`require_closed` + CDS members present); `value` raised.
+- `test_collect_categorical_all_equal.py`: all-yes True; one `no` False
+  order-independently; absent source `DEPENDENCY_ABSENT`.
+- `test_conditional_multi_dependency.py:96-133`: inactive CDS members
+  are not missing; active pins every ref; partial active set is ordered
+  `DEPENDENCY_ABSENT`.
+
+### Consequence
+
+**Executed.** `SLI_MFS_INELIGIBLE` is in `record_codes`
+(`runner.py:1179`), so the v2 ledger **keeps** it (V7). It is **not** in
+`npe-walk.v3`'s code enum (U-135). **Inferred.** A walk of this block
+would emit a `code` the walk schema does not list; the walker does not
+`validate_declared` its result in the code that was read (Track 2
+resolved Q5). Falsified if `walk_npe` called `validate_declared` on the
+walk document for this code.
+
+**Inferred.** Universal-component violation uses the same `block` op with
+`SLI_UNIVERSAL_COMPONENT_VIOLATION` (`test_universal_component_violation_blocks_the_whole_route`,
+not re-run in the `-k` set above; named, not executed this turn). Empty
+categorical-collect on a nonempty-family route would `DEPENDENCY_ABSENT`
+the witness name (executed isolated) rather than treating "no rows" as
+"all equal".
+
+### Nearby inferences this evidence does not support
+
+- That `divide.rounding` reads operation-semantics canon. Divide indexes
+  `_ROUND_MODES` only (U-060 / D9). Round also intersects `canon["modes"]`.
+- That `half_even` appears in 2025 content. Bundle enum is `{half_up}`;
+  content `divide.rounding` is `half_up`; `half_even` is a test-only
+  rounding token on divide.
+- That CDS is `all` with extra reporting. `all` short-circuits
+  (`evaluator.py:179-180`); CDS on a true condition evaluates every
+  member and unions `DEPENDENCY_ABSENT` names.
+
+
