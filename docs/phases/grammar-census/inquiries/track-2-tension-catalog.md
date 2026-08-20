@@ -4,7 +4,7 @@
 - Milestone: Engine Language Map (`grammar-census`)
 - Track: 2b-ii — tension catalog
 - Role: Builder
-- Status: in progress
+- Status: complete
 - Source ref verified: `HEAD` `c889f7ca918cd39ed6fa1c5a1303a929979e1592`
   on `milestone/grammar-census-engine-language-map`
 - Assigned path: this file only
@@ -507,3 +507,371 @@ corpus.
 from the dispatcher (and stop citing ADR-0006 decision 2 on it). A
 comment-only fix would still leave a 14-name object that looks like a
 gate. Lowest-cost later unit of the catalog.
+
+## T8. Exclusive-graph axioms live as Python tax ids (U-085, surviving question 3)
+
+**Class:** expressiveness. Tax-specific encodings that may conceal a
+general language need. Not a disagreement between schema and runtime
+about a shared form — the form does not exist as a versioned citizen.
+
+**Intentional?** Unsettled. Track 0 put generic package rules on
+surface 4 and domain axioms on 6i; this file sits on both (U-085).
+Track 2 left the 4-vs-6i cut unable to decide a Python frozenset of
+tax ids. The comments on the sites name ADRs (0061 decision 5, 0059
+decision 7, 0050 decision 3) as the requirements being preserved, so
+the *invariants* are contractual. The *locus* (Python literals vs a
+package-language form) is the tension.
+
+**Evidence.**
+
+- `package_validation.py:197-206` `_LINE_1A_8A_NON_CONFUSION_IDS`
+  names `tax.us.2025.rule.schedule-d-line1a-gain` and
+  `tax.us.2025.rule.schedule-d-line8a-gain`.
+- `:1635-1662` rejects mixed historical/successor graphs with issue
+  codes `MIXED_BOX2A_GRAPH`, `MIXED_BOX12_GRAPH`, `MIXED_BOX7_GRAPH`,
+  `MIXED_LINE2A_GRAPH`, each testing specific fact-type and rule ids.
+- U-084: 83 distinct `MemberIssue.code` strings, unversioned,
+  Python-only. No single schema enum enumerates them.
+- Track 2 surviving question 3: an owner call on whether those belong
+  in a versioned citizen would settle it. This census leaves them
+  **active** as implemented admission rules with tax-shaped operands.
+
+**Affected layer.** Surface 4 admission with surface-6i operands.
+
+**Possible user or maintenance consequence.** A later tax year or a
+successor citizen id must change Python, not content. The package
+language cannot declare "these two graphs are exclusive" as a
+versioned artifact, so exclusive-graph history accumulates as
+unversioned kill-tests. A reader of artifact-package schema will not
+find them.
+
+**Remaining uncertainty.** Whether a general exclusive-graph /
+non-confusion form is wanted, or whether Python kill-tests are the
+accepted locus for ADR-named invariants that are too tax-shaped to
+lift. Surviving question 3.
+
+**Plausible next action.** Owner call: keep them as commented
+ADR-backed Python (and classify them grammar-adjacent, surface 6i),
+or add a versioned package-language form for exclusive-graph axioms
+so a new year does not require a validator edit. Do not treat the
+frozenset as evidence that the package schema is incomplete against
+its own declared vocabulary — it has no such vocabulary.
+
+## T9. Rule-artifact schema does not constrain `ref`/`collect` names (Track 0 gap 5, U-153, surviving question 8)
+
+**Class:** expressiveness. A distinction the store keeps (fact vs
+finding vs parameter vs publication symbol) that the expression
+schema collapses to an unconstrained string.
+
+**Intentional?** Plausibly. Track 0 recorded the gap as consistent
+with surface 8 being grammar-adjacent rather than proper, and as a
+declared-vs-implemented *question* rather than a defect. ADR-0006
+decision 2 closes the *operation* vocabulary, not the name domain.
+This stream does not upgrade the question into a defect.
+
+**Evidence.**
+
+- Track 0 gap 5: nothing in
+  `packages/schemas/derivation/rule-artifact.vN.schema.json`
+  constrains which fact-type ids a `ref` may legally name.
+- Binding, Track 2 resolved question 9: `ref` → `env.symbols[name]`
+  (marshalled current findings / publications);
+  `collect` → `env.sources.get(name, [])`. This stream re-read
+  `evaluator.py:108-121`; `ref` of a missing symbol blocks
+  `DEPENDENCY_ABSENT` naming that symbol. Neither schema-constrains
+  `name` to a fact-type id.
+- Surviving question 8: what `ref.name` denotes as a store kind is
+  answered as a binding and not as a closed taxonomy of the 216
+  distinct names. A per-name classification against surface 8 would
+  be a different census unit.
+
+**Affected layer.** Surface 1 names vs surface 8 store.
+
+**Possible user or maintenance consequence.** An author can write a
+`ref` to a string that will never be a symbol; the failure is
+`DEPENDENCY_ABSENT` at evaluation, not a schema rejection. Maintainers
+cannot read the rule-artifact schema and know the legal name domain.
+That may be the point of keeping surface 8 adjacent: the store is not
+the expression grammar.
+
+**Remaining uncertainty.** Surviving question 8 (taxonomy). Whether
+runtime validation in `source_authority.py` / `package_validation.py`
+already closes some of the name domain was not re-walked beyond
+Track 2's confirmation that the *schema* does not.
+
+**Plausible next action.** Only if a later grammar unit wants
+schema-level name-domain closure (a fact-type / publication-symbol
+enum, or a package-level name index). Otherwise leave the collapse;
+record it as a comparison dimension for Track 3's brief (external
+systems that type rule names against a fact schema). Not a repair.
+
+## Track 2's eight surviving questions, sorted
+
+Several are tension entries in disguise; several are genuinely just
+unknowns. This stream also closed one that Track 2 left open.
+
+| # | Track 2 surviving question | Kind | Where it went |
+| --- | --- | --- | --- |
+| 1 | Should `selected_producer` be the runtime winner? | tension in disguise | T4. Control flow is first-publisher-wins; intent is the owner call named there. |
+| 2 | Should `LOOKUP_MISS` join derivation-record / npe-walk, or is remap the contract? | tension in disguise | T3. No ADR names the token. |
+| 3 | Are the tax-id kill-tests package-language or content? | tension in disguise | T8. |
+| 4 | Does any runtime path *read* checked-conclusion-binding `truth_table`? | unknown, now answered from source | This stream grepped `packages/derivation/` for `truth_table`: **no matches.** Tests in `tests/test_capital_gain_distributions_line7a_t1_citizens.py` assert the committed citizen's table shape; they do not assert a runner read. The v1 schema description already disclaims execution (U-146). Settled as: no derivation-package call site. Not catalogued — see `#Considered and dropped`. |
+| 5 | Should admission `_predicate_depth` walk `left`/`right`, or should the evaluator only count `args`? | tension in disguise | T1. Choosing one is a grammar/code change. |
+| 6 | Is the required clause `blocked` field documentation, a former default, or a still-owed input? | tension in disguise | T6. Absence of a read is settled; intent is not. |
+| 7 | Track 0 5b-ii criterion: a reader who requires the depth bound itself in JSON Schema still reaches `adjacent`. | genuine unknown (classification axis) | Not a catalog entry. The Foreman correction leaves 5b-ii `proper` and does not re-open the ruling. U-124's "uncertain as one bound" is the construct-level residue. A later owner call on the criterion is process, not a language tension. |
+| 8 | Closed taxonomy of `ref.name` store kinds across 216 names. | genuine unknown (would be a different census) | Points at T9 but is larger than T9. T9 is the schema-unconstrained-name fact. A per-name classification is out of scope. |
+
+## Intentional, not catalogued as tensions
+
+These are census findings that look like gaps and are not admitted,
+because the evidence supports a deliberate contract choice.
+
+- **JSON Schema does not encode recursive predicate depth.** ADR-0066
+  decision 2 says so. The tension is T1 (admission vs that decision),
+  not the schema's silence.
+- **Predicate language has no `not`.** ADR-0066 decision 2. Rule-artifact
+  `not` (U-016) is a different construct. Unused predicate `any`
+  (U-123) is declared and implemented; treating it as dead weight
+  would ignore a reserved closed-grammar slot.
+- **Rule-artifact roles `applicability` and `cross-form-bridge` are
+  unused on the 134 files** (U-030, U-150). They live in `role-canon.v1`.
+  Evaluation does not branch on role. A declared-and-unused role value
+  may be a reserved extension point; nothing shows it is accidental.
+- **Term `add` unused in 48 source-family files** (U-114). Declared and
+  implemented; binary `left`/`right`, not rule-artifact n-ary `add`.
+  Same reserved-slot posture as predicate `any`.
+
+## Considered and dropped
+
+A Track 0 gap or Track 2 disagreement that does not plausibly support
+later action, and why.
+
+- **Track 0 gap 1 / D11 universe guard (v3–v17, source-family.v1 only).**
+  Current core-calculations hosts are artifact-package.v18–v25 with
+  source-family.v2 content (U-078, V9). The collect-target check does
+  not apply to the present engine. A historical feature-matrix citizen
+  would help a reader of old packages; it would not change v25
+  semantics. Dropped as documentation-of-history, not a load-bearing
+  language tension. If a later unit *wants* the check on v2 families,
+  that is a new requirement.
+- **Track 0 gap 2 (no committed adoption record).** Track 0 already
+  defined a bounded corpus instead of "the package presently in force."
+  An adoption-record gap is production-resolver/ops, not a construct
+  disagreement. Dropped.
+- **Track 0 gap 3 (unversioned `package.core-calculations.json` is v1).**
+  Naming-convention risk for future content; Track 0 already warned.
+  No grammar action. Dropped.
+- **Track 0 gap 4 (term/predicate discoverability in source-family.v2).**
+  The schema-absence wording was wrong and was corrected. Remaining
+  discoverability is a naming fact Track 0/1/2 already carried. Dropped.
+- **Track 0 gap 6 (filename prefixes do not identify families).**
+  Standing working rule: parse the `schema` field. The optional census
+  tool was a Track 1 proposal path, not a tension. Dropped.
+- **Track 0 gap 7 / U-164 (two version axes).** Already a census row.
+  Next action would be "do not conflate them," which every later reader
+  of Track 0 already has. Dropped.
+- **D3 `accounts_for` on rule-artifact.v5, absent in v6, present on
+  attachment-rule.v8.** Generation choice plus a parallel site (U-041,
+  U-100). No ADR sentence requires the field on rule-artifact.v6.
+  Dropped.
+- **D7 `SOURCE_SET_OPEN` vs `SOURCE_SET_UNCLOSED`.** A rename
+  (ADR-0036 PC3). One leftover v2 form-field. Not two conditions.
+  Dropped.
+- **D8 `collect` vs `count` vs `collect_categorical_all_equal` closure.**
+  Correctly distinct ops (ADR-0064 rejects collapsing the third).
+  Author-education is not a later grammar action until someone proposes
+  unification, which this census does not. Dropped.
+- **D9 round dual-gate vs `divide` modes vs content refs.** All three
+  layer descriptions are true of their layer (D9). Production `round.mode`
+  is always a `ref` to `rounding.convention`; bundle enum is `{half_up}`.
+  Not a false contract. Dropped.
+- **D12 quantity-vocabulary supported set (v1–v12) vs index (v1–v3);
+  non-monotone enums (U-151).** Real, and Track 0 missed the drops.
+  Present content consequence was not shown to be a user-facing
+  failure. Dropped rather than padded; a later package that members
+  v4–v12 as the quantity index would reopen it.
+- **D13 `form-field.v1` admitted, not in `FIELD_SCHEMAS`.** 2025 content
+  is v2/v3; v1 is sample_data. Historical. Dropped.
+- **D15 `rule-artifact.v1` runtime-accepted, omitted from package enums.**
+  Production members the wages rule as v2. Historical leftover file.
+  Dropped.
+- **D16 empty `max` uncontained.** Schema `minItems: 1`; observed arity 2.
+  Crash is real in the evaluator and gated for validated packages.
+  Dropped as production-content risk; remaining evaluator-boundary
+  hygiene is not load-bearing next to T1–T7.
+- **D17 Track 0 primary criterion fitted after the 5b-ii ruling.**
+  Already visible in Track 2 and the Foreman correction. Not a language
+  tension. See surviving question 7.
+- **U-018 `range_lookup` unused in the primary corpus.** Declared,
+  implemented, present in sample_data. Unused is a status, not a
+  tension, unless a later unit wants to retire the op.
+- **U-146 checked-conclusion-binding `truth_table` unread by
+  `packages/derivation`.** Closed from source in this stream (surviving
+  question 4). The schema description disclaims execution. One content
+  file. Rules duplicate the table. Not a missed interpreter on the
+  evidence; a later unit *could* interpret it, but admitting it here
+  would pad the catalog with a reserved-documentation citizen.
+- **U-129 closure-backed zero drops citation leaves.** Presentation
+  policy (`presentation_projection.py:177-188`), adjacent to grammar.
+  CQ-1 independently observed that presentation citation pins are a
+  narrower set than the finding's `pins` (see `#CQ-1 lens`). Not
+  originated as a catalog entry.
+
+## Source checks this stream ran
+
+Reconciled rows were treated as leads. Anything centred in T1–T9 was
+re-checked in this worktree. Nothing in the reconciliation failed the
+check; one surviving unknown (question 4) was closed.
+
+### C1. Predicate depth admission vs evaluation (T1 / D4 / V4)
+
+Same tree as Track 2 V4 and the Foreman correction: `compare(add^n(field,1), 0)`
+against member `{x: 1}`. Ran `packages.derivation.package_validation._predicate_depth`
+and `Evaluator.evaluate_predicate`.
+
+```
+n_adds  admission  evaluator
+     0          1  ok
+     1          1  ok
+     3          1  ok
+     4          1  ok
+     5          1  MemberConstraintTooDeep
+     8          1  MemberConstraintTooDeep
+    20          1  MemberConstraintTooDeep
+```
+
+`MAX_PREDICATE_DEPTH` from `declarative_validation.py` printed `6`.
+`source-family.v2.schema.json` has no `maxDepth` / `max_depth` keyword.
+
+### C2. attachment-rule.v5 / v3 identity (T2 / V8)
+
+Parsed both published files (never classified by filename).
+
+```
+attachment-rule.v3.schema.json $id -> tax/attachment-rule.v3
+attachment-rule.v5.schema.json $id -> tax/attachment-rule.v3
+v5 properties.schema.const         -> attachment-rule.v3
+v3 properties.schema.const         -> attachment-rule.v3
+same bytes                         -> False
+sha256 v3 prefix                   -> 5b3f219879095db2  (matches published.json)
+sha256 v5 prefix                   -> aecd3bf51c16fac9  (matches published.json)
+```
+
+### C3. Evaluator dispatch 23; `OPERATION_VOCABULARY` 14 (T7 / V1)
+
+`inspect.getsource(evaluate)` if-op chain, 23 names, same order Track 2
+recorded. `len(OPERATION_VOCABULARY) == 14`. Grep of `*.py` for
+`OPERATION_VOCABULARY` returns only `loader.py:86`.
+
+### C4. `selected_producer` absent from the runner (T4 / V9)
+
+Grep of `packages/derivation/runner.py` for `selected_producer` and
+`conflict_semantics`: no matches. Attempt loop is `for rule in
+ctx.rules` at `runner.py:1349`. Opened v33 `conflict_semantics` and
+the two `schedule-a.total` producers; guards are `count != 0` vs
+`count == 0`.
+
+### C5. `_bracket_fold` binds `canon` and does not read it (T5)
+
+Read `evaluator.py:345-360`. Line 346 assigns `canon`; subsequent
+lines use `param`, `key`, `value`, `row`. `_round` and `_range_lookup`
+do read their spec.
+
+### C6. Clause `blocked` unread; `truth_table` unread in derivation (T6; surviving question 4)
+
+Grep of `packages/derivation/` for `rule["blocked"]` / `rule.get("blocked")`:
+no matches. Grep of `packages/derivation/` for `truth_table`: no matches.
+
+### C7. Ledger remap set and walk enum (T3 / V7)
+
+Read `runner.py:1169-1182` `record_codes` (12 names, includes `SLI_*`,
+excludes `LOOKUP_MISS`). Read `npe-walk.v3.schema.json` `code` enum (7
+names, no `SLI_*`, no `LOOKUP_MISS`). Read
+`derivation-record.v7.schema.json:123-136` (12 names, matches
+`record_codes`). Walker emits `"schema": "npe-walk.v3"` at
+`explanation.py:332`.
+
+### C8. ADR sentences cited as contracts (T1, T4, T5, T7)
+
+Opened the ADR files, not the index digests, for the quoted clauses:
+ADR-0066 decision 2 (`:54-56`); ADR-0006 decisions 1–4 and 7
+(`:15-21`); ADR-0027 decision 5 (`:36`); ADR-0020 decision 7 (`:51`);
+ADR-0003 decision (`:13`).
+
+Nothing above falsified a Track 2 control-flow claim. Track 2 S2's
+failed three-way agreement is independently reproduced as C1.
+
+## CQ-1 lens
+
+Used once, as a bounded validation lens, not as authority, on merged
+CQ-1 artifacts already on this tree:
+
+- `docs/phases/claim-boundary-exploration/inquiries/track-0-inquiry-frame.md`
+  Hop 2 (lines 127–141)
+- `docs/phases/claim-boundary-exploration/inquiries/track-1-lens-d-system-provenance.md`
+  lines 76–94
+
+**Where.** Cross-check of T3's claim that explanation surfaces collapse
+evaluator-native and record-native distinctions, against what CQ-1
+independently observed about provenance pins.
+
+**What those artifacts independently observed.** A derived finding's
+`pins` array is a larger set than the citation pins the presentation
+surface shows; `pinLabels` is empty in that fixture.
+
+**What it changed.** Nothing originated. It corroborated U-139 / U-143
+/ Track 2's CQ-1 note that surviving provenance is not the
+rule-artifact `pins` field, and it is why U-129 was considered and
+dropped rather than admitted as a tenth entry. T3 itself is grounded
+in D5/D14 and C7, not in CQ-1.
+
+Unmerged CQ-2 work was not read.
+
+## What this reading suggests is wrong
+
+Say plainly. None of these stopped the catalog.
+
+1. **Track 0 gap 8's original wording** treated duplicated `6` literals
+   as a latent hazard. They already diverge in algorithm. The 2026-08-20
+   annotation on that gap, the Foreman correction, and Track 2 S2/V4/D4
+   all say this. This catalog carries the stronger form as T1. The
+   closed Track 0 text is otherwise left as history.
+2. **The round-3 ruling's emphasised clause** (a package carrying an
+   over-deep predicate is refused before it can execute) is false for
+   term trees. The Foreman correction already struck it. Independently
+   reproduced here as C1.
+3. **Track 2 surviving question 4** can be closed from a grep Track 2
+   did not finish: no `truth_table` read in `packages/derivation/`.
+   That is a completeness gap in the reconciliation, not a false
+   control-flow claim.
+4. **`loader.py:84-85` still attributes `OPERATION_VOCABULARY` to
+   ADR-0006 decision 2.** Track 2 D2 already said the ADR names the
+   schema `oneOf`. The comment is leftover, like the frozenset (T7).
+5. **Plan `#Term boundary` still names seven surfaces.** Track 0 added
+   an eighth. Inherited; not re-opened.
+6. **Plan Track 2 vs the original Track 2 charter on deliverable count.**
+   Already recorded in the reconciliation. This unit is the catalog
+   the plan named; it does not resolve that historical split.
+
+Nothing in the reconciliation was unusable as a primary input. Stop
+condition "the tension classes the plan names have no instances" does
+not apply.
+
+## What this track does not claim
+
+- No grammar change, ADR, or repair. T1 and T2 in particular are
+  findings.
+- No ranking of *tax* importance. Ranking is consequence for a later
+  grammar/code/ADR unit and for what the project believes about itself.
+- No claim that unused declared forms are defects.
+- No traces (sibling stream). This file does not cite that deliverable.
+- No claim that nine entries are the complete set of observations —
+  only that these nine are the load-bearing tensions, with drops
+  recorded.
+
+## Verification
+
+- Material claims cite a committed path and version, a reconciled
+  construct id, or an execution shown above.
+- Diff of this assignment is this one file.
+- `python3 tools/governance_lint.py` is run at handoff.
