@@ -16,8 +16,80 @@ phase's artifacts.
 
 ## Half one — the boundary map
 
+**Repair note (round 2, 2026-08-19/20).** The previous revision of this
+section carried a binary grammar-proper/grammar-adjacent label reasoned from
+at least five different, unstated criteria applied inconsistently across the
+eight entries, and it resolved two source-contradicted entries silently. This
+revision states one primary criterion, applies it evenly, records five
+orthogonal axes per surface in a table so downstream readers inherit the
+axes and not only the label, and splits surface 6 into its three unlike
+components. While re-verifying the citation for surface 5's mini-language
+(required because the previous revision's citation for that surface was
+directly load-bearing for its classification), this revision found that
+citation was itself wrong in a way neither the original map nor the
+external critique's source verification caught — see surface 5b below. That
+is the one classification change in this round that neither the charter nor
+the critique anticipated; it is reported prominently rather than folded
+in silently, per the standard this repair exists to enforce.
+
 The plan's `#Term boundary` names seven surfaces in the abstract. Below,
-each is named against concrete repository paths, classified, and reasoned.
+each is named against concrete repository paths, classified against one
+stated criterion, and its axes recorded.
+
+### The primary criterion
+
+**A surface is grammar proper when it is declared in a schema-typed,
+separately versioned citizen, and that citizen either (a) constrains what a
+rule-artifact — or a citizen that composes or extends rule-artifacts, such
+as a package, an attachment-rule/form-field citizen, or a source-family
+declaration — may accept as well-formed or express as compositional
+structure, or (b) is the schema-typed shape a rule-artifact's execution is
+contractually required to produce as its own record. A surface is
+grammar-adjacent when no schema-typed citizen declares it at all, or when
+the citizen it does have is instead the data substrate — the store: acts,
+facts, entities, horizons — that such content reads or writes without being
+reshaped by it.**
+
+This is one criterion in two clauses, not two criteria: "schema-typed
+citizen" alone is necessary but not sufficient, because the store side
+(surface 8) can be exactly as rigorously schema-typed and ADR-contracted as
+the language side and still not be part of what the clause language itself
+can express. The module-versus-store distinction the round-2 charter asked
+this document to evaluate explicitly is folded into the criterion itself
+(clause (a) vs. the store exception), rather than bolted on afterward to
+rescue a naive schema-only test. Applied naively (schema-typed citizen,
+full stop, no store exception), the test would call surface 8 proper and
+would leave surfaces 7 and 8 indistinguishable, since both have schema-typed
+citizens; **this document does not adopt that naive form**, for the stated
+reason. The cost of not adopting it: "is there a schema" is not, by itself,
+a sufficient answer, so a reader cannot mechanically classify a new surface
+from a schema listing alone — they must also decide which side of the
+module/store line it sits on, which is a judgment this document makes
+explicitly per surface below rather than leaving implicit.
+
+### Axes table
+
+Recorded for every surface and sub-surface, per the round-2 charter's
+minimum axis set. "Rel." is the surface's relationship to a rule-artifact:
+**expressed** (the citizen itself is the expression tree or a declared
+field of one), **presupposed** (a rule reads against it but never declares
+its shape), or **produced** (it is the schema-typed record a rule's
+execution is contractually required to leave behind).
+
+| # | Surface | Schema-typed citizen? | Rel. | Changes value/disposition? | Closed expr. grammar? | ADR-fixed? | Label |
+| - | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Core clause/expression language | Yes — `rule-artifact.v1..v6` | expressed | Yes | Yes | ADR-0006, ADR-0025, ADR-0064 | **proper** |
+| 2 | Dependency/guard/role/blocking | Yes — `rule-artifact.vN` fields; blocking codes in `derivation-record.v2..v7`/`npe-walk.v1..v3`/`checked-conclusion-binding.v1` | expressed | Yes | Yes (closed named set) | ADR-0006/0007/0009/0024/0037 | **proper** |
+| 3 | Operation-semantics | Yes — `operation-semantics.v1`, `.v2` | presupposed by a rule's op name, expressed as its own citizen | Yes | Yes (closed op set) | ADR-0006 decision 4 | **proper** |
+| 4 | Package selection/binding/closure | Yes — `artifact-package.v1..v25` | expressed by the package citizen; presupposed by any one rule-artifact inside it | Yes | No (constraint set, not an expression syntax) | ADR-0006 decisions 6-7, ADR-0027, ADR-0033 | **proper** (module side) |
+| 5a | attachment-rule/form-field family | Yes — `attachment-rule.v1..v8`, `form-field.v1..v3` | expressed | Yes | Yes | ADR-0036/0055/0056/0066 | **proper** |
+| 5b-i | declarative_validation.py term/predicate vocabulary | **Yes — `source-family.v2.schema.json` `$defs/term`, `$defs/predicate`** | expressed (as `member_constraints[].violated_when` / `identity_exclusivity[].components` of a source-family declaration) | Yes | Yes (own bounded op set) | ADR-0066 decision 2 | **proper (reversed)** |
+| 5b-ii | declarative_validation.py depth bound (`MAX_PREDICATE_DEPTH=6`) | No — ADR-0066 itself disclaims schema enforcement | presupposed (a safety valve on evaluating 5b-i's content) | Yes (`MemberConstraintTooDeep` blocks evaluation) | N/A (a limit, not a vocabulary) | ADR-0066 decision 2 (names the number 6 in prose) | **uncertain** |
+| 6i | Domain axioms (`findings.py` invariant pairs) | No | presupposed generically, kernel "never naming a domain" | Yes | No (data pairs, not expression syntax) | none found | **adjacent** |
+| 6ii | Currency/projection displacement-closure | No — `DECLARED_EDGE_KINDS` is a Python frozenset | produced around already-published findings; store-side | Yes | No (two fixed edge kinds) | ADR-0010 decisions 3, 5, 6 | **adjacent** (store side) |
+| 6iii | Rounding-mode dispatch | **Yes — `operation-semantics.v1.schema.json`, same citizen as #3** | presupposed by a rule's `round` op name | Yes | Yes (closed enum) | ADR-0006 decision 4 | **proper (reversed, contradiction fixed)** |
+| 7 | Provenance/disposition/explanation record | Yes — `npe-walk.v1..v3`, `derivation-record.v1..v7` | **produced** — this is the plan's own definition of surface 7 | Yes (walk failure/nonpublication is itself a recorded disposition) | Yes | ADR-0009, ADR-0020 | **proper** |
+| 8 | Kernel act/fact/entity/horizon substrate | Yes — `act.v1`, `act-assertion.vN`, `act-entity-introduced.v1`, `act-member-transition.vN`, `act-horizon-genesis.v1`, `fact-type.v1..v3`, `family-horizon.v1`, **and `act-package-adoption.v1`, corrected below** | presupposed — a rule's `ref`/`collect` reads against it, never declares its shape | No (it is the input domain, not itself a value-changing behavior) | No | ADR-0002, ADR-0011, ADR-0017, ADR-0023, ADR-0033 (for adoption acts) | **adjacent** (store side, despite satisfying the schema clause alone) |
 
 ### 1. The core rule-artifact clause and expression language
 
@@ -80,68 +152,151 @@ each is named against concrete repository paths, classified, and reasoned.
   `packages/derivation/package_validation.py` (closure checks, unique
   output ownership, reachability, universe guard, non-confusion invariants);
   `packages/derivation/production_resolver.py` (`select_current_adoption`,
-  `resolve_production_package`, ADR-0033); `packages/schemas/kernel/act-package-adoption.v1.schema.json`.
-- **Classification: grammar proper.**
+  `resolve_production_package`, ADR-0033) as the runtime consumer of
+  adoption facts.
+- **Classification: grammar proper (module side).**
 - **Reason:** ADR-0006 decisions 6–7 and ADR-0027/ADR-0033 treat package
   membership, closure, and exclusive-execution projection as declared
   contract, not incidental machinery — a package is itself a schema-typed
   citizen (`artifact-package.vN`) whose shape *is* part of what "the
-  language" accepts as well-formed. It sits one layer above individual
-  rules but is still declared, versioned content that the runtime enforces
-  rather than merely executes.
+  language" accepts as well-formed, governing how a set of rule-artifacts
+  compose. It sits one layer above individual rules but is still declared,
+  versioned content that the runtime enforces rather than merely executes.
+- **Corrected citation.** The previous revision cited
+  `packages/schemas/kernel/act-package-adoption.v1.schema.json` as a
+  concrete surface for this entry. That schema's own title is "Package
+  adoption act payload" — it is a member of the act family surface 8
+  classifies grammar-adjacent, not a package-shape citizen. It is removed
+  from this entry and correctly filed under surface 8 below. What remains
+  proper here is the package *schema* (`artifact-package.vN`) and the
+  closure/binding logic that reads it; the *adoption act* recording which
+  package version is currently in force is a store-side fact about the act
+  log, produced at runtime by `production_resolver.py:select_current_adoption`
+  but not itself part of what a package or rule-artifact may express.
 
 ### 5. Adjacent declarative predicate or validation languages
 
-- **Concrete surface:** `packages/derivation/declarative_validation.py` —
-  its own closed vocabularies `TERM_OPS = {field, literal, add, subtract,
+- **Concrete surface — attachment-rule/form-field family:**
+  `packages/schemas/tax/attachment-rule.v1..v8.schema.json` and
+  `packages/schemas/tax/form-field.v1..v3.schema.json`.
+- **Classification: grammar proper.**
+- **Reason:** these are declared, schema-typed, separately versioned
+  citizens with their own semantic effect
+  (`packages/derivation/package_validation.py` role/schema checks;
+  ADR-0036/ADR-0055/ADR-0056) — grammar proper by the same argument as #4.
+
+- **Concrete surface — `declarative_validation.py`'s term/predicate
+  vocabulary:** `packages/derivation/declarative_validation.py` — its own
+  closed vocabularies `TERM_OPS = {field, literal, add, subtract,
   floor_zero}` and `PREDICATE_OPS = {field_present, field_absent,
   field_equals, field_not_equals, compare, all, any}`
-  (`packages/derivation/declarative_validation.py:6-19`), with its own
-  `MAX_PREDICATE_DEPTH` and its own error types (`GrammarError`,
-  `MemberConstraintTooDeep`); used for structured-member constraints inside
-  `attachment-rule.v6`/`v8` per ADR-0066, invoked only from
-  `packages/derivation/runner.py`. Also: `packages/schemas/tax/attachment-rule.v1..v8.schema.json`
-  and `packages/schemas/tax/form-field.v1..v3.schema.json` more broadly.
-- **Classification: grammar proper for the attachment-rule/form-field
-  citizen families themselves; grammar-adjacent for the
-  `declarative_validation.py` term/predicate sub-vocabulary specifically.**
-- **Reason:** attachment-rule and form-field are declared, schema-typed,
-  separately versioned citizens with their own semantic effect
-  (`packages/derivation/package_validation.py` role/schema checks;
-  ADR-0036/ADR-0055/ADR-0056) — they are grammar proper by the same
-  argument as #4. But the *internal* term/predicate mini-language
-  `declarative_validation.py` defines is a second, smaller, independently
-  closed expression grammar (its own op sets, its own depth limit, its own
-  exception hierarchy) layered inside those citizens rather than reusing
-  the core clause language from #1. It is grammar-adjacent because it is
-  declarative and semantically load-bearing but is a structurally distinct
-  vocabulary the census must not silently fold into surface #1's op list —
-  Track 1a/1b must record it as its own construct family, not as
-  additional `rule-artifact` operations.
+  (`packages/derivation/declarative_validation.py:6-19`).
+- **Classification: grammar proper — reversed from the previous revision
+  and from the round-2 charter's own carried-forward finding.**
+- **Reason, and the citation correction that drives it.** The previous
+  revision (and the external critique's source verification, Q1) both
+  stated this vocabulary is used for structured-member constraints inside
+  `attachment-rule.v6`/`v8` and is "Python only," present in no
+  attachment-rule schema. Neither claim survives checking the actual call
+  site. `declarative_validation.py` has exactly one caller,
+  `packages/derivation/runner.py:653-707`, and it evaluates
+  `declaration["member_constraints"]` and `identity_exclusivity`, which
+  come from `self.ctx.family_declarations` — **source-family declarations,
+  not attachment-rule content.** ADR-0066 decision 1 states this in so many
+  words: "Structured-member constraints belong to versioned source-family
+  content" (`docs/adr/0066-declarative-structured-validation-and-consumer-closure.md:35-36`).
+  The vocabulary itself is schema-declared: `source-family.v2.schema.json`'s
+  `member_constraints[].violated_when` field is `$ref: "#/$defs/predicate"`,
+  and `$defs/term`/`$defs/predicate` enumerate, as `const` values, exactly
+  `field`, `literal`, `add`, `subtract`, `floor_zero` (term) and
+  `field_present`, `field_absent`, `field_equals`, `field_not_equals`,
+  `compare`, `all`, `any` (predicate) —
+  `packages/schemas/derivation/source-family.v2.schema.json:66,97,178-421`.
+  ADR-0066 decision 2 confirms this is the intended, closed language: "The
+  predicate language is closed and bounded," naming the same term and
+  predicate forms verbatim
+  (`docs/adr/0066-declarative-structured-validation-and-consumer-closure.md:47-53`).
+  By this document's primary criterion (schema-typed, separately versioned
+  citizen, expressed within a citizen that composes/extends rule-artifact
+  content), this vocabulary is grammar proper. It is a second, smaller
+  expression grammar nested inside the source-family citizen rather than
+  reusing the core clause language from #1 — Track 1a/1b must still record
+  it as its own construct family, not as additional `rule-artifact`
+  operations, but "structurally distinct" is no longer the reason it is
+  adjacent, because it is not adjacent.
+- **One genuinely uncertain sub-component: the depth bound.** ADR-0066
+  decision 2 also states, in the same sentence introducing the closed
+  language: "Resolver admission rejects predicate depth greater than six;
+  JSON Schema is not claimed to enforce recursive depth by itself"
+  (`docs/adr/0066-...md:54-56`), enforced at
+  `packages/derivation/declarative_validation.py`'s `MAX_PREDICATE_DEPTH = 6`
+  and its `MemberConstraintTooDeep` exception. This is **marked uncertain**,
+  not proper and not adjacent: on the schema-typed-citizen axis it is
+  adjacent (the ADR explicitly disclaims schema enforcement); on the
+  ADR-fixed axis it is proper (the number 6 is a named decision in an
+  accepted ADR, not an arbitrary implementation choice). These two axes
+  genuinely disagree, and nothing else in the repository resolves the
+  disagreement — it is not a gap in what was read, it is ADR-0066's own
+  deliberate design choice to contract a depth limit in prose while
+  declining to encode it in schema. **What would settle it:** an owner or
+  Foreman ruling on whether this census's criterion treats "ADR-mandated,
+  deliberately not schema-enforced" as proper or adjacent — a definitional
+  choice this document does not have standing to make unilaterally, since
+  either answer is defensible and the repository does not pick one.
 
 ### 6. Runtime behaviors that affect the meaning of a rule but may not themselves be grammar
 
-- **Concrete surface:** `packages/kernel/findings.py` — `subset_invariant_pairs`,
-  `declaration_signal_contradictions`, `companion_presence_pairs`,
-  `companion_value_domains`, `companion_equality_pairs`
-  (`packages/kernel/schema_registry.py:90-118` shows these as
-  `SchemaRegistry` attributes a tax-layer registry populates and the kernel
-  enforces generically); `packages/derivation/projection.py` /
-  `packages/kernel/currency.py` displacement-closure folding
-  (ADR-0010 decision 3); rounding-mode dispatch in
-  `packages/derivation/evaluator.py:29-34`
-  (`half_up`/`half_even`/`down`/`up`).
-- **Classification: grammar-adjacent.**
-- **Reason:** these are semantic invariants (a box-1b ≤ box-1a subset rule,
-  a companion-presence pair, a currency-displacement fold) that a
-  *tax-layer registry populates as data* but that no `rule-artifact`
-  citizen declares — the kernel enforces them generically "never naming a
-  domain" (`packages/kernel/schema_registry.py:95,105,109`). The meaning of
-  a published finding depends on them, but they are not expressed in the
-  clause language itself; they live in registry-populated Python
-  dictionaries, not in a schema-validated citizen. That is exactly the
-  plan's own phrasing for this surface, and the evidence supports it
-  directly rather than needing to be inferred.
+This surface concatenated three unlike components in the previous revision.
+Split here, each classified on its own evidence.
+
+- **6i — Domain axioms.** `packages/kernel/findings.py` —
+  `subset_invariant_pairs`, `declaration_signal_contradictions`,
+  `companion_presence_pairs`, `companion_value_domains`,
+  `companion_equality_pairs` (`packages/kernel/schema_registry.py:90-118`
+  shows these as `SchemaRegistry` attributes a tax-layer registry populates
+  and the kernel enforces generically).
+  **Classification: grammar-adjacent (stands, confirmed).** These are
+  semantic invariants (a box-1b ≤ box-1a subset rule, a companion-presence
+  pair) that a *tax-layer registry populates as data* but that no
+  `rule-artifact` citizen declares anywhere — the kernel enforces them
+  generically, "never naming a domain"
+  (`packages/kernel/schema_registry.py:95,105,109`). No schema anywhere
+  carries this vocabulary; this is the one component the previous
+  revision's stated reason actually fits.
+
+- **6ii — Currency/projection displacement-closure folding.**
+  `packages/derivation/projection.py` / `packages/kernel/currency.py`
+  (ADR-0010 decisions 3, 5, 6); `DECLARED_EDGE_KINDS = frozenset({"derivation",
+  "individuation"})` at `packages/kernel/currency.py:15`.
+  **Classification: grammar-adjacent (store side).** No schema-typed
+  citizen names these two edge kinds or the fold algorithm itself — they
+  are a Python constant and a kernel algorithm, not declared content. Under
+  this document's primary criterion, this is also the same store-side
+  reasoning that keeps surface 8 adjacent: displacement-closure operates
+  generically over the act log's derivation/individuation edges, regardless
+  of which rule produced the input, the same way surface 8's substrate is
+  read generically by `ref`/`collect` regardless of which rule reads it.
+  It changes which findings are current — a strong signal on one axis — but
+  it is not itself an expression vocabulary a rule composes; it is kernel
+  machinery applied uniformly to the store.
+
+- **6iii — Rounding-mode dispatch.** `packages/derivation/evaluator.py:29-34`
+  (`half_up`/`half_even`/`down`/`up` mapped to Python `Decimal` rounding
+  constants).
+  **Classification: grammar proper — reversed, contradiction fixed.** The
+  previous revision classed this grammar-adjacent on the stated ground that
+  it lives in "registry-populated Python dictionaries, not a
+  schema-validated citizen." That ground is false for this component:
+  `packages/schemas/derivation/operation-semantics.v1.schema.json:26`
+  enumerates exactly `half_up`, `half_even`, `down`, `up` as the `round`
+  operation's mode enum — the identical citizen surface 3 above classifies
+  grammar proper. `evaluator.py:29-34`'s dict is the runtime's mapping from
+  the schema-declared enum name to a Python `Decimal` constant, not an
+  independent, unschematised vocabulary; the previous revision read the
+  runtime mapping and missed the schema it implements. This was one of two
+  contradictions the round-2 charter identified as decided against source;
+  fixed here by moving this component to proper rather than by marking it
+  uncertain, since the schema citation settles it.
 
 ### 7. Provenance, disposition, and explanation consequences produced by execution
 
@@ -157,10 +312,18 @@ each is named against concrete repository paths, classified, and reasoned.
   attribution chain, and ADR-0020 makes every non-publication block a
   walkable ledger entry; both are contract decisions with their own
   schema-typed citizens (`npe-walk.vN`, `derivation-record.vN`), not
-  incidental logging. What survives execution is itself declared, versioned
-  shape — the census's `#Census unit` field "what provenance or explanation
-  information survives its execution" presumes exactly this surface exists
-  as a citable artifact, and it does.
+  incidental logging. Under this document's primary criterion, this surface
+  satisfies clause (b) specifically: it is not content a rule-artifact
+  composes from, it is the schema-typed record shape a rule-artifact's
+  execution is contractually required to produce. The plan's own definition
+  of this surface — "consequences **produced by** execution" — names exactly
+  this relationship, distinct from surface 8's "presupposed by" relationship
+  below. On the schema-typed-citizen axis alone, surfaces 7 and 8 tie (both
+  have schema-typed citizens); the produced/presupposed distinction is what
+  separates them, and it is not incidental phrasing — it is the same
+  distinction the plan's own `#Term boundary` text draws between item 6
+  ("runtime behaviors that affect meaning") and item 7 ("consequences
+  produced by execution").
 
 ### An eighth surface the seven do not name
 
@@ -168,31 +331,78 @@ each is named against concrete repository paths, classified, and reasoned.
   fact/entity/horizon act-kind family (`act-assertion.vN`,
   `act-entity-introduced.v1`, `act-entity-superseded.v1`,
   `act-member-transition.vN`, `act-horizon-genesis.v1`,
-  `fact-type.v1..v3`, `family-horizon.v1`) — the kernel act-log substrate
-  ADR-0002/ADR-0011/ADR-0017/ADR-0023 define, which every rule's `collect`
-  and `ref` read against.
-- **Classification: grammar-adjacent.**
-- **Reason:** none of the seven named surfaces is "how a fact enters
-  currency in the act log at all" — the plan's boundary is written from the
-  rule-artifact side outward. The kernel act/fact/entity/horizon substrate
-  is declared, schema-typed content that a rule-artifact's `ref`/`collect`
-  presupposes but does not itself express (a rule never declares an act
-  shape). It is closer to "the ground the language stands on" than to the
-  language itself, so grammar-adjacent rather than proper — but Track 1a
-  should not ignore it, since `#Census unit`'s "input and output types or
-  domains" field cannot be answered without it.
+  `fact-type.v1..v3`, `family-horizon.v1`), **and
+  `packages/schemas/kernel/act-package-adoption.v1.schema.json`** (moved
+  here from surface 4, see the correction there — its own schema title is
+  "Package adoption act payload," making it a member of this act family,
+  not of the package-schema family) — the kernel act-log substrate
+  ADR-0002/ADR-0011/ADR-0017/ADR-0023 define (ADR-0033 specifically for
+  adoption acts), which every rule's `collect` and `ref` read against.
+- **Classification: grammar-adjacent — decided by the store side of the
+  primary criterion, not by absence of a schema.**
+- **Reason.** This surface is schema-typed, exactly as rigorously as
+  surfaces 4 and 7 — the naive form of a "declared in a schema" test alone
+  would call it proper, which is exactly the collision the round-2 charter
+  asked this document to resolve rather than default into. This document
+  does not adopt that naive form. The reason it stays adjacent: none of the
+  seven named surfaces is "how a fact enters currency in the act log at
+  all" — the plan's boundary is written from the rule-artifact side
+  outward — and the kernel act/fact/entity/horizon substrate is the data
+  domain a rule-artifact's `ref`/`collect` reads against, not content the
+  rule-artifact (or a package, or an attachment-rule/source-family citizen)
+  composes or is contractually required to produce. It is presupposed, in
+  the same sense surface 6ii's displacement-closure fold presupposes the
+  act log without reshaping it. Track 1a should not ignore it on account of
+  the adjacent label — `#Census unit`'s "input and output types or domains"
+  field cannot be answered without it.
+- **What adopting the module/store cut costs, stated explicitly per the
+  round-2 charter's instruction.** A fully schema-typed, ADR-contracted
+  citizen family (the acts) is classified adjacent here. "Declared in a
+  schema" is therefore necessary but not sufficient under this document's
+  criterion — a reader cannot classify a new surface from a schema listing
+  alone; they must also decide which side of the module/store line it sits
+  on. The alternative (schema-typed citizen, full stop) is simpler and
+  would make surfaces 4, 7, and 8 all proper, but it would also erase the
+  distinction between "content that shapes what a rule may express" and
+  "content a rule merely reads," which is exactly the distinction Track 2's
+  eventual declared-vs-implemented-vs-used reconciliation needs intact.
+  This document judges that cost acceptable and the module/store cut
+  worth adopting; it is a documented judgment call, not a repository fact,
+  and a downstream reader who disagrees can recover the naive-test answer
+  directly from the "schema-typed citizen" column of the axes table above.
 
 ### Uncertain classifications
 
-None of the eight entries above is marked `uncertain`. Each had committed,
-citable evidence (a schema family, a closed vocabulary in code, or an
-ADR decision) sufficient to place it on one side of the grammar-proper /
-grammar-adjacent line with a stated reason. Track 1 sub-tracks may
-encounter individual constructs *within* these families whose
-classification is less clear (for example a single field inside a
-`rule-artifact.v3` citizen that reads like presentation metadata) — that is
-a construct-level judgment for Track 1/2, not a boundary-level one for
-Track 0.
+One entry among the twelve rows above is marked `uncertain`: **5b-ii, the
+declarative_validation.py depth bound (`MAX_PREDICATE_DEPTH = 6`)**. See
+its row in the axes table and its reasoning under surface 5 above — the
+schema-typed-citizen axis and the ADR-fixed axis genuinely disagree
+(ADR-0066 decision 2 names the depth limit in prose while explicitly
+disclaiming schema enforcement of it), and no further repository evidence
+resolves which axis should govern; it is a definitional choice this
+document does not have standing to make. State it exactly: what would
+settle it is an owner or Foreman ruling on whether "ADR-mandated,
+deliberately not schema-enforced" counts as proper or adjacent for this
+census's purposes.
+
+No other entry is marked `uncertain`. Three pairs the round-2 charter
+named as contested — surface 4 vs. 8, surface 7 vs. 8, and surface 6's
+rounding and displacement-closure components — are resolved decisively
+above rather than left uncertain, because each has a principled,
+evidence-grounded tiebreak (the module/store distinction for 4-vs-8 and
+6ii-vs-8; the produced/presupposed distinction for 7-vs-8; the corrected
+schema citation for rounding) and stating a decisive answer with its cost
+made visible serves the plan's exit criterion 4 ("material disagreements
+… stay visible") better than an unreasoned `uncertain` would. Surface 5's
+mini-language, which the charter's own text flagged as likely contested
+("surface 5 as a whole"), turned out to have a citation error underneath
+it rather than a genuine axis disagreement once the correct schema
+(`source-family.v2`) was located; it is resolved decisively, proper, for
+that reason. Track 1 sub-tracks may still encounter individual constructs
+*within* these families whose classification is less clear (for example a
+single field inside a `rule-artifact.v3` citizen that reads like
+presentation metadata) — that is a construct-level judgment for Track 1/2,
+not a boundary-level one for Track 0.
 
 ## Half two — the bounded corpus
 
