@@ -1153,6 +1153,24 @@ Both errors are repaired above. The repair also downgraded exit criteria
 - This document does not select a winning two-sentence answer among the
   probes in the prior packets, per the owner's binding re-aim carried from
   CQ-1 and repeated in this track's own charter.
-- The milestone PR is deliberately not opened by this track, per the
-  owner's direction. The milestone is not closed and no retrospective is
-  written here; closure is a separate, owner-called unit.
+- **Lifecycle, stated contemporaneously.** *At the time this track ran*, the
+  milestone PR was deliberately not opened and the milestone was not closed,
+  per the owner's direction; Track 3 wrote no retrospective, because closure
+  was a separate, owner-called unit. **That division of responsibility is
+  preserved as a historical fact and was not later erased.** *As the record
+  now stands*, a subsequent owner-directed factual repair and a publication
+  and closeout unit did open the PR and close the milestone: **the milestone
+  is closed and PR #182 is open.** Neither act was Track 3's, and nothing
+  above should be read as Track 3 having made them.
+- **Where the current lifecycle state lives.** This packet is a
+  point-in-time inquiry record, not a lifecycle record. `docs/phase-state.md`
+  and
+  `docs/milestone-retrospectives/2026-08-20-declaration-request-claim-boundary-inquiry.md`
+  are the current authorities on milestone state, the final exit-criteria
+  grading, and what was and was not settled. Where this packet and those
+  disagree about status, they govern.
+- **This packet was corrected after Track 3 ran.** The four-layer closure
+  account (§4), the two-invalidator account (§5), the §11 regrade, and the
+  §14 reconciliation are repair-time content, not Track 3's original
+  conclusions. §14 records what Track 3 originally concluded and why it was
+  wrong.
