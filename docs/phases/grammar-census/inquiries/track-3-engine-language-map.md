@@ -4,7 +4,7 @@
 - Milestone: Engine Language Map (`grammar-census`)
 - Track: 3a — plain-language engine language map
 - Role: Builder
-- Status: in progress
+- Status: complete, accepted by the Foreman 2026-08-20
 - Source ref verified: `HEAD` `af766540adbc5a1963e0a8f6a6100fc39909bdb8`
   on `milestone/grammar-census-engine-language-map`
 - Assigned path: this file only
