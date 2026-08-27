@@ -1,14 +1,13 @@
 <!-- foreman-context-v1
 {
   "version": 1,
-  "phase": "Claim Boundary Exploration (closed)",
-  "topic": "claim-boundary-exploration-phase-close",
-  "active_plan": "docs/phases/claim-boundary-exploration/claim-boundary-exploration-roadmap.md",
-  "milestone_state": "closed",
-  "retrospective": "docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md",
-  "status": "Claim Boundary Exploration closed 2026-08-20 by owner judgment, not by exhausting its question space. Two documentation-only inquiries ran and closed. CQ-1 (Plain Question to Claim Boundary Prototype, closed 2026-08-19) traced 'Why is this amount on my return?' through a synthetic Form 1040 line-2b example; seven of eight exit criteria met, criterion 3 partial. CQ-2 (Declaration Request to Claim Boundary Inquiry, closed 2026-08-20) held the tax domain constant and changed the interaction type to a system request for a user declaration; four of seven exit criteria met, three partially met, after an owner-directed factual repair and four rounds of author-independent review corrected the record's closure-lifecycle account. The method transferred across both inquiries without redesign; content-level generality is NOT confirmed, since both share one tax domain, package version, and closure mechanism. No ADR, governance revision, production UI, schema, rule-language, engine, filing, or tax-coverage change was produced in this phase. No active milestone and no successor phase selected or named. OV-1 (confirmed tax-content correctness gap) and the consolidated SC-13 (declaration-lifecycle semantics) remain the register's largest carried, unselected items.",
-  "current_role": "none — between phases",
-  "current_prompt": "docs/phase-state.md#None — between phases"
+  "phase": "Tax Concept Derivation",
+  "topic": "tax-concept-derivation",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md",
+  "milestone_state": "planned",
+  "status": "Tax Concept Derivation established 2026-08-27 from origin/main at 9159a13d. The opening milestone is a bounded executable exploration: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, and one end-to-end path from source report through ordinary circumstance and tax classification to tax concept and simulated return projection. It does not attempt full taxable-interest coverage, select a production representation, or reopen source-family closure and provisional-return design.",
+  "current_role": "Foreman — charter the source-and-semantic boundary unit",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md#Tracks"
 }
 -->
 
@@ -20,108 +19,96 @@ and `docs/adr/`; historical execution records live under `docs/archive/`.
 
 ## High Level Briefing
 
-**Claim Boundary Exploration closed on 2026-08-20.** The phase changed the
-product question Engine Breadth had been answering — which additional
-returns the engine can compute — to whether a casual but invested user can
-understand what the system is saying, why it is saying it, where the
-statement stops, and what the user may reasonably do because of it.
+**Tax Concept Derivation opened on 2026-08-27.** The phase restores a path to
+return-engine development by addressing the semantic gap between what source
+documents report and what tax law makes of the taxpayer's facts.
 
-It ran two documentation-only inquiries, both exploratory and
-non-authoritative: worked inquiries, adversarial standpoint accounts,
-actionable synthesis, and narrower candidate objectives, not ADRs or
-implementation contracts. It closes by owner judgment, not because its
-question space is exhausted — the register carries more decision-shaped
-evidence than has been converted into decisions, and a third same-domain
-inquiry would test transfer rather than settle generality.
+The product should preserve evidence and reported facts, ask the user only for
+ordinary facts about their circumstances, use adopted tax rules to classify
+those facts, derive tax-concept results, and then project those results onto a
+simulated return. Citations and explanations make that method inspectable; they
+do not manufacture professional or institutional authority.
+
+The phase begins with one deliberately small taxable-interest slice. It is not
+a project to enumerate or implement the entire taxable-interest universe.
 
 ## Where the phase stands
 
-- **Phase:** Claim Boundary Exploration — **CLOSED 2026-08-20**.
-- **Active milestone:** none.
-- **Named successor phase:** none.
-- **Next move:** open owner selection.
-- **CQ-1 — Plain Question to Claim Boundary Prototype. CLOSED 2026-08-19.**
-  "Why is this amount on my return?", traced through a synthetic Form 1040
-  line-2b example. Seven of eight exit criteria met; criterion 3 partial.
-  Retrospective:
-  `docs/milestone-retrospectives/2026-08-19-plain-question-claim-boundary-prototype.md`.
-- **CQ-2 — Declaration Request to Claim Boundary Inquiry. CLOSED 2026-08-20.**
-  "Why are you asking me to say I'm done?", holding the tax domain constant
-  and changing the interaction type to a system request for a user
-  declaration. Four of seven exit criteria met; criteria 1, 2, and 3 partial.
-  Retrospective:
-  `docs/milestone-retrospectives/2026-08-20-declaration-request-claim-boundary-inquiry.md`.
-- **Phase close record:**
-  `docs/phases/claim-boundary-exploration/claim-boundary-exploration-roadmap.md#Phase close — 2026-08-20`.
-- **Phase retrospective:**
-  `docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md`.
+- **Phase:** Tax Concept Derivation — **ACTIVE**.
+- **Active milestone:** Reported Interest to Tax Concept Vertical Slice —
+  **PLANNED**.
+- **Base:** `origin/main` at
+  `9159a13d261f5005523ad58f8893ffffd735f204`, which includes the completed
+  Taxable Interest Modeling milestone through PR #185.
+- **Branch:** `milestone/tax-concept-derivation-phase-definition`.
+- **Next move:** charter the source-and-semantic boundary unit. It verifies the
+  selected accrued-interest treatment, fixes the synthetic cases, and stops at
+  paper if the existing artifact graph already answers the primary
+  representation question.
+- **Decision posture:** the opening milestone produces executable evidence and
+  bounded production-contract questions. It does not itself select a citizen,
+  schema, ADR, full tax model, or production migration.
 
-All three retrospectives carry the material dissent and the reusable lessons.
-Read them rather than reconstructing results from this file.
+## Standing constraints and postures
 
-## Standing constraints and postures — carried forward, still binding
+- **Separate models.** Evidence, reported facts, ordinary circumstance facts,
+  tax classification, tax concepts, reporting projection, execution coverage,
+  and explanation connect but do not become one model because one amount moves
+  through them.
+- **User/product division.** The user supplies facts about their records and
+  circumstances. Adopted rules supply tax classifications. The user is never
+  asked to certify the product's tax-model coverage.
+- **Workspace convention.** The previously selected convention for treating
+  workspace inputs as the operative universe stands. This phase does not
+  reopen per-family closure, provisional-run, action-scoped confirmation, or
+  scenario design.
+- **Partial coverage.** Partial tax coverage is expected. It must be described
+  separately from the concept's meaning and must not silently redefine that
+  meaning to match what is implemented.
+- **Authority posture.** Sources support propositions in the model. The product
+  aims to help the user reach and inspect a tax result, not to inherit the
+  authority of a tax professional or turn defensibility into an end of its own.
+- **Artifact-reading safeguard.** Every load-bearing claim about committed
+  behavior names the artifact, fields actually read, relevant sibling fields,
+  and consumers. A citation to part of an artifact is not proof that the whole
+  behavior was examined.
+- **Prototype boundary.** Prototype shapes are evidence. They do not become
+  production citizens, schemas, or accepted contracts through effort or
+  similarity.
 
-- **Decision posture.** This phase is exploratory and non-authoritative. No
-  ADR, governance revision, production UI, schema, rule-language, engine,
-  filing, or tax-coverage change was produced by either milestone, and none
-  is implied by their findings.
-- **Model-agent posture.** Standpoint accounts are exploratory evidence, never
-  user research or professional attestation.
-- **Standing distinction** (owner, 2026-08-19). Document completeness,
-  source-family closure, product tax-coverage completeness, computation
-  readiness, and return/action readiness are five different things and must
-  not be collapsed in any explanation.
-- **Standing method safeguard** (adopted from CQ-2). Every load-bearing claim
-  about a committed artifact must name the artifact, the fields actually read,
-  the sibling fields present and not relied on, and the consumers whose
-  behavior the claim depends on. A claim that cannot fill those four slots is
-  a gap, not a confirmation. Both of CQ-2's substantive errors passed a
-  Confirmed grading because the cited read stopped at the field it quoted.
-- **Representability versus assigned meaning** (hardened during CQ-2's
-  four-round repair review). A technically available record value or
-  transition does not by itself establish what any user act means. Whether a
-  recorded `false` constitutes "not done," refusal, withdrawal, or a
-  correction is exactly the kind of question this phase left open rather than
-  answered by inference.
+## Open and owner-held
 
-## Open and owner-held — carried, unselected
+- Whether a derived tax concept needs a new citizen or can be declared through
+  existing artifacts remains open. The opening slice must make the choice
+  concrete before the owner selects a production contract.
+- The identity and lifecycle of item-level tax classifications are open,
+  including the independent effects of source correction, circumstance
+  correction, tax-rule succession, and reporting-artifact succession.
+- The minimum durable shape of a concept-coverage profile is open.
+- The question of subject on a joint return remains outside the opening slice.
+- The first contrasting tax concept is not yet selected.
+- `OV-1`, `SC-13`, and `SC-16` remain carried but unselected. This phase does
+  not absorb them unless a later milestone explicitly selects them.
 
-- `OV-1` is a confirmed tax-content correctness gap (the committed Schedule B
-  rule implements one of eight independent triggers); remediation is an
-  owner decision and no fix shape is inferred.
-- The consolidated `SC-13` declaration-lifecycle question is the register's
-  largest decision-shaped item and requires semantic decisions about absence,
-  explicit `false`, correction, and horizon succession before any interface
-  work.
-- `SC-16` is retained on the narrow basis that its scenario pair is specified
-  and runnable, not executed.
-- A third same-domain inquiry, a materially different-domain inquiry, and a
-  bounded build/decision milestone converting register items into product
-  work are all live candidates. None is selected by this close.
-- The phase-boundary Legibility Audit remains owner-held and was not run.
+## Opening milestone
 
-## None — between phases
+The active plan is
+`docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md`.
 
-There is no Builder or Reviewer charter, no active milestone, and no selected
-successor phase. The next action is an owner phase selection, informed by the
-actionable-considerations register this phase leaves behind
-(`docs/phases/claim-boundary-exploration/actionable-considerations.md`) and
-by the carried items above.
+Its selected cases hold one Form 1099-INT report constant while changing one
+ordinary circumstance. The first work unit verifies the treatment and
+instantiates the cases before any executable prototype. Full taxable-interest
+coverage, production schemas, and return-engine migration are later milestones.
 
 ## Pointers
 
 - **Phase overview:**
-  `docs/phases/claim-boundary-exploration/claim-boundary-exploration-overview.md`.
+  `docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md`.
 - **Phase roadmap:**
-  `docs/phases/claim-boundary-exploration/claim-boundary-exploration-roadmap.md`.
-- **Closed selection instrument:**
-  `docs/phases/claim-boundary-exploration/actionable-considerations.md`.
-- **Milestone plans:** `docs/phases/claim-boundary-exploration/milestones/`.
-- **Inquiry packets:** `docs/phases/claim-boundary-exploration/inquiries/` —
-  `cq2-`-prefixed files are CQ-2's, unprefixed files are CQ-1's. The curated
-  account is the one to read first in each set. Three CQ-2 packets carry
-  supersession notices — Track 0, Track 2, and the Track 1 Grok account; the
-  curated account governs where they disagree.
-- **Active charter:** none. Both milestones and the phase are closed.
+  `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
+- **Active milestone plan:**
+  `docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md`.
+- **Starting modeling evidence:**
+  `docs/milestones/taxable-interest-model-sufficiency/README.md`.
 - **Previous phase close:**
-  `docs/milestone-retrospectives/2026-08-18-engine-breadth.md`.
+  `docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md`.
