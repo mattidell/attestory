@@ -4,9 +4,9 @@
   "phase": "Tax Concept Derivation",
   "topic": "tax-concept-derivation",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md",
-  "milestone_state": "planned",
-  "status": "Tax Concept Derivation established 2026-08-27 from origin/main at 9159a13d. The opening milestone is a bounded executable exploration: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, and one end-to-end path from source report through ordinary circumstance and tax classification to tax concept and simulated return projection. It does not attempt full taxable-interest coverage, select a production representation, or reopen source-family closure and provisional-return design.",
-  "current_role": "Foreman — charter the source-and-semantic boundary unit",
+  "milestone_state": "track-2",
+  "status": "Tax Concept Derivation established 2026-08-27 from origin/main at 9159a13d. The opening milestone is a bounded executable exploration: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, and one end-to-end path from source report through ordinary circumstance and tax classification to tax concept and simulated return projection. It does not attempt full taxable-interest coverage, select a production representation, or reopen source-family closure and provisional-return design. The source-and-semantic boundary unit is complete: the treatment is grounded in Treas. Reg. 1.61-7(c) rather than the Schedule B reporting mechanic, the incumbent artifact graph is read against it, and six synthetic cases are instantiated in docs/milestones/reported-interest-tax-concept/. The executable-probe track is skipped because the paper evidence answers the necessity question; no candidate implementation has been exercised. A missing Treasury Regulation authority family in citation.v1 is recorded as a production condition and a candidate separate substrate milestone, not addressed here.",
+  "current_role": "Independent reviewer — adversarial review of the source-and-semantic boundary findings",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md#Tracks"
 }
 -->

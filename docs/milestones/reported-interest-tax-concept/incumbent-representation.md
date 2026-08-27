@@ -34,8 +34,17 @@ sums the family and publishes
 subtotal, alongside the nominee and ABP subtotals, from the sum of seven
 positive-interest subtotals.
 
-The arithmetic is correct. Everything below concerns what the arithmetic is
-about.
+The arithmetic is correct, and this is demonstrated by committed execution
+rather than assumed. `tests/test_schedule_b_interest_adjustments.py` runs the
+production content against synthetic acts and establishes three results
+directly relevant here: with $2,000 of box-1 interest and a $100
+accrued-interest adjustment, line 2b resolves to $1,900; with the adjustment
+family closed and empty, it resolves to $2,000; and correcting an adjustment
+amount from $100 to $140 moves the line to $1,860. Those are the structural
+analogues of the two principal cases and of a circumstance correction, at
+different amounts, with the correction exercised on the sibling nominee class.
+
+Everything below concerns what the arithmetic is about.
 
 ## Six things the artifacts show
 
@@ -81,7 +90,7 @@ The engine has therefore attached a *where to write it* authority to a *whether
 it happens* question. Read forwards: the artifact that decides a taxpayer's
 income is supported by a document that only explains form layout.
 
-### 4. The engine cannot cite the authority that governs
+### 4. The citation vocabulary has no Treasury Regulation family
 
 `citation.v1` admits exactly four authority families, as a closed `oneOf` with
 `additionalProperties: false`:
@@ -93,16 +102,23 @@ income is supported by a document that only explains form layout.
 | `irs-instructions` | form_id, tax_year |
 | `irs-publication` | publication, revision |
 
-There is no family for a Treasury Regulation. Treas. Reg. § 1.61-7(c) — the
-authority that actually establishes the treatment — is **not expressible** in
-the citation vocabulary. `citation.v1` is a published schema, so this is a
-contract question rather than a content gap.
+Statutory authority is representable: IRC § 61(a)(4) can be cited through
+`us-code`. Regulatory authority is not. Treas. Reg. § 1.61-7(c) — the authority
+that actually establishes the treatment in this case — has no family and no
+locator shape, so it cannot be recorded at all.
 
-The same reading of the content package shows how little of the vocabulary is
-used. Of 74 citation artifacts for 2025: 71 are `irs-instructions`, 2 are
-`irs-publication`, 1 is `irs-form`, and **none** is `us-code`. The engine has
-never cited a statute for anything. Its entire authority record is the
-authority of forms and the documents explaining forms.
+The gap is therefore specific: **a missing regulation authority family and
+locator**, not an inability to cite substantive law in general. `citation.v1`
+is a published schema, so closing it is a contract question rather than a
+content change. It is recorded here as a production condition and is outside
+this milestone's scope.
+
+Separately, and as an observation about content practice rather than about
+capability: of the 74 citation artifacts for 2025, 71 are `irs-instructions`,
+2 are `irs-publication`, 1 is `irs-form`, and none is `us-code`. The existing
+statutory family has gone unused. That count alone does not establish why —
+whether substantive authority was never needed, never sought, or recorded
+elsewhere — and no inference about the engine's history is drawn from it here.
 
 ### 5. The circumstance is typed as a reported amount of the same quantity as the income it reduces
 

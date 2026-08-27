@@ -32,8 +32,8 @@ The consequences follow from that one displacement:
 - it cannot ask the taxpayer the ordinary question, only the Schedule B one;
 - it cannot say which reported item an adjustment reduces, so it cannot detect
   an adjustment larger than its item;
-- it cannot cite the authority that governs, because the citation vocabulary
-  has no Treasury Regulation family; and
+- it cannot record the authority that governs, because the citation vocabulary
+  has a family for the U.S. Code but none for Treasury Regulations; and
 - it carries only half the governing proposition — the income effect — and
   drops the basis effect without trace.
 
@@ -49,6 +49,19 @@ The consequences follow from that one displacement:
 3. [synthetic-case-specification.md](synthetic-case-specification.md) — six
    cases holding the reported amount constant, and which of them actually
    discriminate between the two paths.
+
+## A production condition, recorded and not addressed
+
+Recording the authority behind this treatment requires a Treasury Regulation
+authority family and locator in the citation vocabulary. `citation.v1` has a
+family for the U.S. Code and none for regulations, and it is a published
+schema.
+
+That is a **condition on any production use** of the model described here: the
+determination can be built, but its governing authority cannot yet be attached
+to it. It is a substrate question about the citation citizen rather than a
+taxable-interest question, and it is a candidate for a separate milestone. No
+citation schema is designed, versioned, or proposed here.
 
 ## Scope
 

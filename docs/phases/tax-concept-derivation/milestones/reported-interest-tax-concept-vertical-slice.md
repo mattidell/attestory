@@ -3,9 +3,9 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "tax-concept-derivation",
-  "milestone_state": "planned",
+  "milestone_state": "track-2",
   "status": "Opening milestone planned on 2026-08-27. The work is bounded to one synthetic 2025 Form 1099-INT box-1 item and one accrued-interest-at-purchase contrast. It produces decision evidence and an executable non-production vertical slice; it does not select a production citizen, schema, general tax ontology, or full taxable-interest model.",
-  "current_role": "Foreman — charter the source-and-semantic boundary unit",
+  "current_role": "Independent reviewer — adversarial review of the source-and-semantic boundary findings",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md#Tracks",
   "scope": [
     "establish the official-source treatment for one reported-interest item and one accrued-interest-at-purchase contrast",

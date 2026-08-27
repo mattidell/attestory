@@ -179,6 +179,23 @@ Building the accrued-interest path did not build a way to *notice* TI-A1.
 **Scope boundary.** No implementation of § 135 follows from this case. It is
 here to bound the conclusion, not to extend the work.
 
+## How the two paths are compared
+
+The comparison holds the **semantic fact pattern and its values** constant. It
+does not require the two paths to accept the same representational inputs, and
+it would be circular if it did: the whole question is whether one of them needs
+a representation the other lacks.
+
+So when TI-B2 records that the incumbent cannot be given P2 and can only be
+given the classified figure, that is the finding, not an obstacle to making the
+finding. The incumbent is exercised on the same taxpayer, the same statement,
+the same amounts, and the same real-world circumstance, expressed in the only
+terms it accepts.
+
+The incumbent's behaviour on these fact patterns is established by committed
+execution, not by inspection alone; see
+[incumbent-representation.md](incumbent-representation.md).
+
 ## What the six cases jointly show
 
 | Case | Does it discriminate incumbent from item determination? |
