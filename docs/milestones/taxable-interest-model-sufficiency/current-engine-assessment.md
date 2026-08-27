@@ -1,14 +1,30 @@
-# Tax-Model Sufficiency Assessment: `tax.us.2025.interest.taxable-total`
+# Downstream: Assessment of the Current Engine
+
+## Where this document sits
+
+**This is the last document in the milestone's dependency order, and its
+position is deliberate.** It measures one build against the architecture
+established upstream. It does not define the architecture, and nothing in it
+should be read as constraining what the architecture may require.
+
+The discipline the ordering enforces is this: *the question is never what the
+existing schemas can express.* An assessment written from the implementation
+outward will always conclude that the model covers what it covers. This one
+starts from the intensional concept in
+[taxable-interest-concept.md](taxable-interest-concept.md) and the coverage
+profile in
+[taxable-interest-coverage-profile.md](taxable-interest-coverage-profile.md),
+both of which were written from authority.
+
+The findings below remain valid. They are *downstream* — instances of the
+general requirements, useful as evidence that the requirements bite, not as
+the milestone's subject.
 
 ## The question
 
 May the engine honestly publish `tax.us.2025.interest.taxable-total` as *the*
 US-federal taxable-interest result reported on Form 1040 line 2b, or only as
 the output of the currently declared interest model?
-
-Concept semantics: [taxable-interest-concept.md](taxable-interest-concept.md).
-Authority and category evidence:
-[taxable-interest-authority-and-coverage.md](taxable-interest-authority-and-coverage.md).
 
 ## Verdict
 
@@ -544,7 +560,7 @@ question before the owner is whether to add a second.
    declared universe and the known-unsupported categories must be machine-
    readable and reachable by a consumer, or the same failure recurs. Two
    candidate shapes are compared in
-   [derived-tax-concept-declaration.md](derived-tax-concept-declaration.md).
+   [representation-reconnaissance.md](representation-reconnaissance.md).
 
 3. **Treat E1 as the near-term correctness item, and treat it as a level-4
    defect.** The § 135 exclusion is a gross-income exclusion with no
@@ -577,6 +593,16 @@ question before the owner is whether to add a second.
    into one they cannot.
 
 ## Owner decisions required
+
+These are engine-level decisions, and they sort into the four classes the
+milestone leaves open. **Conceptual architecture:** D3, D4. **Authority
+policy:** D6. **Product sufficiency policy:** D1, D2. **Later
+representation and implementation:** D5, D7.
+
+The ordering constraint applies to the decisions as much as to the documents.
+D1 and D2 are sufficiency-policy questions that must be answered before D3's
+representation question is meaningful — a citizen shape chosen before the
+policy is settled encodes whatever policy it happened to assume.
 
 | # | Decision | Consequence of deferral |
 | --- | --- | --- |

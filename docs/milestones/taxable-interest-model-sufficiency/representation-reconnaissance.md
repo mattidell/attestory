@@ -1,9 +1,23 @@
-# Declaring a Derived Tax Concept: Two Conceptual Shapes
+# Downstream, and Premature: Representation Reconnaissance
 
-## What this document is
+## What this document is, and what it is not
 
-An evaluation of whether the engine's existing structure can declare a
-derived tax concept, tested against one worked concept
+> **This is reconnaissance, not design.** It is the furthest-downstream
+> document in the milestone and the least authoritative. It was written before
+> the architecture upstream of it was settled, and it is retained because the
+> legibility test it applies is durable evidence — not because the shapes it
+> compares are the right shapes.
+
+Read it as a record of what was looked at. Do not read it as a menu.
+
+**No representation may be selected from this milestone.** Choosing a citizen
+kind, a schema, a field shape, or a contract requires the conceptual
+architecture and the authority policy to be settled first, and neither is. A
+representation chosen now would encode whichever open question it happened to
+resolve by accident.
+
+With that stated: an evaluation of whether the engine's existing structure can
+declare a derived tax concept, tested against one worked concept
 (`tax.us.2025.interest.taxable-total`), and a comparison of two conceptual
 alternatives.
 
@@ -14,7 +28,7 @@ questions that would have to be answered before either could be ratified.
 
 Concept semantics: [taxable-interest-concept.md](taxable-interest-concept.md).
 Evidence for the current-state claims:
-[taxable-interest-sufficiency-assessment.md](taxable-interest-sufficiency-assessment.md).
+[current-engine-assessment.md](current-engine-assessment.md).
 
 ## The test
 
@@ -400,4 +414,4 @@ locate.
 The genuine decision is therefore narrower than "A or B": it is whether the
 distributed shape is the destination or the foundation. That question is put
 to the owner as D3 in
-[taxable-interest-sufficiency-assessment.md](taxable-interest-sufficiency-assessment.md).
+[current-engine-assessment.md](current-engine-assessment.md).

@@ -1,11 +1,21 @@
-# Adversarial Cases: Taxable Interest 2025
+# Adversarial Cases: Testing the Modeling Requirements
 
 ## What this document is
 
-Bounded synthetic cases designed to expose specific defects in the engine's
-taxable-interest model. Each names the defect it targets, the result the
-current model would produce, and the artifact or future test that could
-operationalize it.
+Bounded synthetic cases that test the **modeling requirements** proposed in
+[tax-modeling-foundation.md](tax-modeling-foundation.md) and
+[concept-coverage-and-claims.md](concept-coverage-and-claims.md), using the
+taxable-interest specimen as the medium.
+
+This is not a category census. A census of missing features cannot terminate,
+and it cannot tell you what it is missing. These cases are organised by
+**failure class** — the distinct ways a layer collapse produces a wrong or
+overstated result. A case is admitted only if it tests a distinct modeling
+requirement, materially changes the support envelope, or invalidates an
+existing conclusion.
+
+Each case names the defect it targets, the result the current model would
+produce, and the artifact or future test that could operationalize it.
 
 These are **conceptual and traceable scenarios, not production fixtures.**
 Every payer, amount, and circumstance is invented. No case uses or implies
@@ -48,32 +58,61 @@ below name the runner's codes rather than the artifact's.
 
 Supporting evidence: category identifiers `C1`–`C18` refer to the coverage map
 in
-[taxable-interest-authority-and-coverage.md](taxable-interest-authority-and-coverage.md);
+[taxable-interest-coverage-profile.md](taxable-interest-coverage-profile.md);
 findings `E1`–`E5` and decisions `D1`–`D7` refer to
-[taxable-interest-sufficiency-assessment.md](taxable-interest-sufficiency-assessment.md);
+[current-engine-assessment.md](current-engine-assessment.md);
 claim levels 1–6 are defined in
-[taxable-interest-concept.md](taxable-interest-concept.md).
+[concept-coverage-and-claims.md](concept-coverage-and-claims.md) and
+instantiated in [taxable-interest-concept.md](taxable-interest-concept.md);
+failure classes F1–F9 are defined below.
 
-## Index
+## The failure classes
 
-| # | Case | Targets |
+Nine classes. Each is a distinct way the eight layers collapse into one
+another, and each requires something different of the architecture.
+
+| Class | The failure | What the architecture must therefore provide |
 | --- | --- | --- |
-| A1 | Acquisition-premium OID | Reported ≠ includible (C3, E4) |
-| A2 | Cash interest with no information return | Interest without a Form 1099 (C4) |
-| A3 | Nominee distribution below the Schedule B threshold | Reducing adjustment + attachment under-trigger (C7, gap 5) |
-| A4 | Series EE education exclusion | Exclusion blocked from entering the total (C13, E1) |
-| A5 | Seller-financed mortgage | Category absent from the vocabulary (C11, E3) |
-| A6 | Box 1 closed, nothing else | Family closed, concept unsupported (C1) |
-| A7 | All ten slots closed, model still insufficient | Internal closure ≠ external sufficiency (E1–E5) |
-| A8 | Full workspace authorization, unmodelled category present | Workspace support ≠ model support (D1) — conceptual |
-| A9 | Sufficient model, workspace support absent | The converse quadrant |
-| A10 | The overstated line 2b | Official-line binding overstates a bounded model (D1, D2) |
-| A11 | Upward OID adjustment | Structurally inexpressible correction (C10, E2) |
-| A12 | K-1 interest and the residual family | Overlapping predicates, double count (C4, C5) |
-| A13 | Payer-netted bond premium | Double reduction undetectable (C9) |
-| A14 | Two non-form amounts from one payer | Identity collapse (C4) |
-| A15 | Two Form 1099-OID statements, one wholly unrepresentable | Boxes 2 and 8 unrepresented (C16, C17) |
-| A16 | Savings bonds previously reported under § 454 | Subtractive need with no operand slot (C18, D5) |
+| **F1** | The reported amount is not the includible amount | Layers 2 and 4 separately representable |
+| **F2** | A substantive exclusion changes the result | Exclusions belong to the substantive model, not to the form that discloses them |
+| **F3** | Timing moves an amount between periods | The includible event is declared, not assumed to be the reported one |
+| **F4** | Ownership changes whose income it is | The subject of an amount is modelled, not inherited from the payee line |
+| **F5** | An election changes the treatment | Elections are representable circumstantial facts with a declared default |
+| **F6** | A legally material circumstance is absent from every source document | The economic-fact layer can hold facts no document supplies, and can be asked for them |
+| **F7** | An item affects reporting without defining substantive meaning | Reporting mechanics can operate without becoming the concept |
+| **F8** | An unsupported case is undetectable from the represented facts | The boundary is detectable from inside the model, or the claim is bounded |
+| **F9** | A coherent concept has only partial executable coverage | The intensional model and the coverage profile are separately declared |
+
+**F5 has no case below.** The market-discount election (C6) is the obvious
+candidate, and no case was constructed for it. That is recorded as a gap in
+the adversarial set, not as evidence that the class is handled. It is exactly
+the kind of thing consideration 11 of the good-enough framework measures.
+
+## Index by failure class
+
+| # | Case | Classes | Specimen references |
+| --- | --- | --- | --- |
+| A1 | Acquisition-premium OID | F1, F6, F8 | C3, E4 |
+| A2 | Cash interest with no information return | F6, F9 | C4 |
+| A3 | Nominee distribution below the Schedule B threshold | F4, F7 | C7, gap 5 |
+| A4 | Series EE education exclusion | F2, F6 | C13, E1 |
+| A5 | Seller-financed mortgage | F9 | C11, E3 |
+| A6 | Box 1 closed, nothing else | F9 | C1 |
+| A7 | All ten slots closed, model still insufficient | F9 | E1–E5 |
+| A8 | Full workspace authorization, unmodelled category present | F9 | D1 — conceptual |
+| A9 | Sufficient model, workspace support absent | F9 | the converse quadrant |
+| A10 | The overstated line 2b | F9 + claim standing | D1, D2 |
+| A11 | Upward OID adjustment | F1, F9 | C10, E2 |
+| A12 | K-1 interest and the residual family | F8 | C4, C5 |
+| A13 | Payer-netted bond premium | F1, F8 | C9 |
+| A14 | Two non-form amounts from one payer | F8 | C4 |
+| A15 | Two Form 1099-OID statements, one wholly unrepresentable | F8, F9 | C16, C17 |
+| A16 | Savings bonds previously reported under § 454 | F2, F3 | C18, D5 |
+
+The distribution is itself a finding. F8 and F9 dominate, F1 and F2 are well
+covered, F3 and F4 have one case each, F7 has one, and F5 has none. A set
+weighted this way tells you where the architecture has been tested and where
+it has merely been asserted.
 
 ---
 
@@ -323,7 +362,7 @@ it: the required disclosure is personal data about a third party.
 
 **Operationalization.** Not a computation test. This is a specification input
 for whether the model represents circumstances at all (Shape A/B in
-[derived-tax-concept-declaration.md](derived-tax-concept-declaration.md)) and
+[representation-reconnaissance.md](representation-reconnaissance.md)) and
 a data-boundary question for the owner.
 
 ---
@@ -542,7 +581,7 @@ This also shows why the quantity vocabulary matters: because
 operand's position in the rule, where it cannot vary per instance.
 
 **Operationalization.** A specification input for contract question 2 in
-[derived-tax-concept-declaration.md](derived-tax-concept-declaration.md) —
+[representation-reconnaissance.md](representation-reconnaissance.md) —
 whether a composition can express a signed constituent — and for decision D5.
 
 ---
@@ -829,3 +868,31 @@ declares — and that question is orthogonal to whether the declared model
 supports the claim being made. A2, A6, and A9 are included precisely because
 the model handles them correctly; without them the set would read as a
 complaint about the machinery rather than a finding about its scope.
+
+## What the set tests about the architecture
+
+Read as a test of the modeling requirements rather than as a defect list, the
+set establishes four things.
+
+**The layer separation is necessary, not decorative.** Every case above is a
+specific collapse. A1 collapses layer 2 into layer 4. A4 collapses layer 4 into
+layer 5. A7 collapses layer 6 into layer 4. If the layers were an academic
+distinction, these cases would not produce different numbers. They do.
+
+**The intensional/extensional split is what makes the failures nameable.** F9
+is the largest class, and every case in it is the same shape: a concept that
+is perfectly coherent, and a build that covers part of it, with nothing in the
+system that records the difference. Without both declarations the failure has
+no place to be written down, which is why it is invisible in the output.
+
+**Detectability is the axis that decides severity, not size.** A13 and A1
+differ by a few hundred dollars and are both undetectable from the represented
+facts; A6 and A9 are handled correctly and would be safe at any magnitude. The
+cases that matter are the ones the model cannot see itself failing — which is
+consideration 9 of the good-enough framework, arrived at from the other
+direction.
+
+**The gap list is a lower bound, and the set proves it on itself.** F5 has no
+case. That absence is not evidence that elections are handled; it is evidence
+about how much adversarial effort was spent. A set that could certify its own
+completeness would be making exactly the mistake the framework forbids.

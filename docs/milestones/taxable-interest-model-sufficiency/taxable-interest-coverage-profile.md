@@ -1,17 +1,35 @@
-# Taxable Interest 2025: Declared Authority Boundary and Coverage Map
+# Taxable Interest 2025: The Coverage Profile
 
 ## What this document is
 
-A category-by-category map of US-federal taxable interest for tax year 2025,
-against the authority that establishes each category and against what the
-engine's committed content actually represents. It is the evidence base for
-[taxable-interest-sufficiency-assessment.md](taxable-interest-sufficiency-assessment.md).
+The **coverage-profile method** of [authority-model.md](authority-model.md),
+applied to the worked specimen. It declares an authority boundary, enumerates
+the concept's universe from that authority, records the facts each region
+requires, and only then compares against what the engine's committed content
+represents.
 
-Concept semantics are in
-[taxable-interest-concept.md](taxable-interest-concept.md); the layer
-vocabulary used here (evidence / reported fact / economic fact / tax
-classification / composition / derived concept / presentation) is defined
-there.
+It is not a census of missing features, and it must not be read as one. It is
+the instrument that makes the distance between an intensional concept and an
+executable build measurable at all. Each entry earns its place by exercising a
+distinct modeling requirement.
+
+Read first: [tax-modeling-foundation.md](tax-modeling-foundation.md) for the
+eight layers, [concept-coverage-and-claims.md](concept-coverage-and-claims.md)
+for the concept/coverage/claim distinction and the closed status vocabulary
+restated below, and [authority-model.md](authority-model.md) for the
+proposition-level provenance requirements. The concept itself is in
+[taxable-interest-concept.md](taxable-interest-concept.md).
+
+The layer names used in the entries (evidence / reported fact / economic fact /
+tax classification / composition / derived concept / presentation) are the
+specimen-level instantiation of those eight layers.
+
+**On completeness.** The categories below are a lower bound on what this model
+does not cover, never an upper one. The enumeration is bounded by the authority
+actually examined — declared immediately below — and by the adversarial effort
+recorded in
+[taxable-interest-adversarial-cases.md](taxable-interest-adversarial-cases.md).
+Unlisted does not mean covered.
 
 ## Declared authority boundary
 
@@ -37,12 +55,23 @@ Instructions for Schedule B (Form 1040) 2025; Instructions for Form 1040
 **Publications.** Publication 550, *Investment Income and Expenses*;
 Publication 1212, *Guide to Original Issue Discount (OID) Instruments*.
 
-**What was not consulted.** **No Treasury Regulation text was read.** Where a
-rule's operative detail lives in the regulations rather than the statute —
-the nominee information-reporting mechanics being the clearest example — this
-document cites the statutory basis for the *substance* and the instructions
-for the *reporting operation*, and says so at the entry. It does not assert
-regulatory coverage it did not verify.
+**Treasury Regulations.** **One** regulation was read: **Treas. Reg.
+§ 1.1275-4**, the noncontingent bond method for contingent-payment debt
+instruments, cited as controlling at C12. No other regulation text was
+consulted.
+
+**What was not consulted.** No judicial authority, and no Treasury Regulation
+other than the one named above. Where a rule's operative detail lives in the
+regulations rather than the statute — the nominee information-reporting
+mechanics being the clearest example — this document cites the statutory basis
+for the *substance* and the instructions for the *reporting operation*, and
+says so at the entry. It does not assert regulatory coverage it did not
+verify.
+
+That single-regulation depth is itself a bound on this profile. Under
+[authority-model.md](authority-model.md), a proposition whose mechanics the
+statute delegates to regulations is only partially supported until those
+regulations are read. Several entries below are in that position.
 
 Nothing outside the set above was consulted for a tax claim in this document.
 
@@ -51,6 +80,13 @@ Nothing outside the set above was consulted for a tax claim in this document.
 The four classes below are ordered by what they are competent to establish.
 The distinction matters because the engine's own citation vocabulary does not
 make it (see *Limitations of the authority corpus*).
+
+This is a coarsening of the seven-class hierarchy in
+[authority-model.md](authority-model.md), reflecting what was actually
+examined here: statute and regulation share a row because only one regulation
+was read, and judicial authority does not appear because none was consulted.
+The coarsening is a fact about this examination, not a claim that the finer
+distinctions do not matter.
 
 | Class | Can support | Cannot support |
 | --- | --- | --- |
