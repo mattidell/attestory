@@ -123,7 +123,8 @@ and the validator behaviour around them.
 completely silent on legal relevance. A composition perfectly closed over its
 declared slots can be a wholly inadequate model of taxable interest.
 
-**7. Claim and standing.** Which rung of the ladder this build is entitled to.
+**7. Claim and scope.** Which rung of the ladder this build's modeling reaches,
+and what the distance to the next one would cost.
 
 **8. Explanation and presentation.** How the figure, its derivation, its
 bounds, and its residual uncertainty reach a reader.
@@ -133,18 +134,21 @@ bounds, and its residual uncertainty reach a reader.
 The generic ladder is in
 [concept-coverage-and-claims.md](concept-coverage-and-claims.md). Instantiated:
 
-| Rung | For taxable interest | Currently supported? |
+| Rung | For taxable interest | Does the modeling reach it? |
 | --- | --- | --- |
 | 1 — source report | "This 2025 Form 1099-INT from this payer reports $X in box 1" | Yes |
 | 2 — recorded aggregate | "The interest amounts recorded in this workspace sum to $X" | Yes |
 | 3 — declared categories | "Over the categories this model declares, the 2025 total is $X" | Yes, if the declared universe is stated to the reader |
-| 4 — derived tax concept | "US-federal taxable interest for this taxpayer for 2025 is $X" | **No** |
-| 5 — official line | "Form 1040 line 2b is $X" | No, consequent on 4 |
+| 4 — derived tax concept | "US-federal taxable interest for this taxpayer for 2025 is $X" | **Not yet** — see the bill of materials |
+| 5 — official line | "Form 1040 line 2b is $X" | Not yet, consequent on 4 |
 | 6 — filed | "This is what the taxpayer reported" | Out of scope |
 
-**The engine fails at level 4, before the official-line binding is reached.**
-This is the single most important structural fact in the specimen, and it is
-easy to state wrongly.
+The gap between rung 3 and rung 4 is the specimen's modeling agenda, itemised
+in [claim-boundaries-and-modeling.md](claim-boundaries-and-modeling.md).
+
+**The modeling stops short at level 4, before the official-line binding is
+reached.** This is the single most important structural fact in the specimen,
+and it is easy to state wrongly.
 
 § 135(a) provides that "no amount shall be includible in gross income" for
 qualifying redeemed savings bonds. It operates on gross income, not on a form.
@@ -154,13 +158,14 @@ form line the result is later bound to**. The § 454 previously-reported amount
 is substantive for the same reason: it was included in an earlier year and is
 not includible in this one.
 
-The level-5 failure is real but consequent — the value bound to line 2b is
+The level-5 shortfall is real but consequent — the value bound to line 2b is
 wrong because the level-4 concept beneath it is wrong. Reading the defect as a
 form-ordering problem understates it, because it implies a presentation fix
-would suffice.
+would suffice. It also mis-scopes the work: the expansion needed is in the
+substantive and circumstantial layers, not in the reporting layer.
 
-The corresponding good news is that levels 1 through 3 remain fully available
-and fully honest. The product's fallback is not "show nothing."
+Levels 1 through 3 meanwhile remain fully available and fully honest, so the
+interim behaviour is not "show nothing."
 
 ## Two supports, one of which is not the user's to give
 
@@ -230,7 +235,7 @@ of them is a schema question.
 5. **Can a form-field description honestly narrow an official-line claim?** If
    a field bound to line 2b carries prose saying "this covers only these seven
    families," does the narrowing bind the claim, or does occupying the line
-   adopt the line's official meaning regardless? This is a claim-standing
+   adopt the line's official meaning regardless? This is a claim-scope
    question, not a presentation one, which is why it is hard.
 
 6. **What is a "quantity"?** The engine's quantity vocabulary is a list of bare

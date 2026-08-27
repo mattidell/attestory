@@ -22,19 +22,24 @@ the milestone's subject.
 
 ## The question
 
-May the engine honestly publish `tax.us.2025.interest.taxable-total` as *the*
-US-federal taxable-interest result reported on Form 1040 line 2b, or only as
-the output of the currently declared interest model?
+What does the current modeling of `tax.us.2025.interest.taxable-total` actually
+reach, and what modeling would be required for it to reach the US-federal
+taxable-interest concept reported on Form 1040 line 2b?
 
-## Verdict
+This is a measurement, not a ruling. The findings below are read forwards in
+[claim-boundaries-and-modeling.md](claim-boundaries-and-modeling.md), where
+each shortfall becomes a modeling requirement with a known consequence.
 
-**Not sufficient.** The current model may honestly publish a claim at level 3
-of the ladder — *a result over the model's declared categories* — and may not
-publish a level-4 derived tax-concept result or a level-5 official-line
-binding.
+## Where the current modeling reaches
 
-The strongest single piece of evidence is a missing subtraction rather than a
-missing addition, and it is best stated narrowly:
+**Level 3 of the ladder** — a result over the model's declared categories. The
+step to a level-4 derived tax-concept result is a modeling step, not a wording
+one, and the step from there to a level-5 official-line binding is a further
+and much smaller one.
+
+The most informative single finding is a missing subtraction rather than a
+missing addition, because a subtraction that the model cannot see is the shape
+of defect that produces a confidently wrong number. Stated narrowly:
 
 > In the § 135 education-exclusion fact pattern — assuming the modeled
 > positive families and the three modeled adjustment classes otherwise
@@ -63,6 +68,13 @@ such year of any qualified United States savings bond." Schedule B line 3 is
 where that exclusion is reported; it is not what creates it. So this is a
 tax-model defect, and it would remain one even if the product never generated
 a Schedule B.
+
+**What it specifies.** The expansion required is that substantive exclusions
+become operands of the concept rather than rows on a schedule. That single
+change is what moves the § 135 case, the § 454 previously-reported case, and
+the nominee case together, because all three are substantive reductions
+currently expressed as reporting mechanics. It is the largest single item on
+the modeling map.
 
 Everything else below either compounds that or is independent of it.
 
@@ -396,9 +408,15 @@ this is worth stating precisely: adding global authorization is a plausible
 next product step, and it would make the completeness impression *stronger*
 while changing model sufficiency not at all.
 
-## Permitted and prohibited product claims, as the model stands
+## What the current modeling reaches, and what each addition would unlock
 
-### Permitted
+The two lists below measure the current build. They are not a permissions
+regime and they are not a statement about what the product should ultimately
+say — the second list in particular is a list of *targets*, each with its
+modeling requirement named in
+[claim-boundaries-and-modeling.md](claim-boundaries-and-modeling.md).
+
+### Reachable with the current modeling
 
 - "This 2025 Form 1099-INT from *payer* reports $X in box 1."
 - "The interest amounts recorded in this workspace sum to $X."
@@ -407,22 +425,31 @@ while changing model sufficiency not at all.
   the ten categories are named where the reader can see them.
 - "This total does not account for the Series EE/I education exclusion,
   seller-financed mortgage interest, OID adjustments, or acquisition
-  premium." Naming known gaps is always permitted and is the honest
+  premium." Naming known gaps costs no modeling and is the honest
   companion to the bounded claim.
 - Blocking, with a reason, when a constituent family is unclosed.
 
-### Prohibited
+### Out of reach until the modeling expands
 
-- "Your 2025 taxable interest is $X."
-- "Form 1040 line 2b: $X", presented as the form line's value.
+Each of these is a thing the product should be able to say. None is out of
+reach permanently; each names the modeling it is waiting on.
+
+- "Your 2025 taxable interest is $X." — waits on substantive exclusions as
+  operands, circumstantial-fact intake, and boundary detection.
+- "Form 1040 line 2b: $X", as the form line's value — waits on the above, plus
+  form-arrangement fidelity.
 - Any presentation in which the bounded result occupies a position whose
-  meaning is supplied by the official form rather than by the product.
-- Any presentation that treats the user's workspace-completeness
-  authorization as evidence of model coverage.
+  meaning is supplied by the official form rather than by the product. Until
+  the concept beneath it reaches level 4, the position asserts more than the
+  modeling delivers.
+- Any presentation that treats the user's workspace-completeness authorization
+  as evidence of model coverage. This one is not waiting on modeling: the two
+  supports are independent, and no user attestation converts model coverage
+  into existence.
 - A zero presented as an exhaustive total. A closure-backed zero over seven
-  families is a true statement about seven families; as "your taxable
-  interest is zero" it is a level-4 claim and fails for the same reasons a
-  nonzero one does.
+  families is a true statement about seven families; as "your taxable interest
+  is zero" it is a level-4 statement and needs the same expansion a nonzero one
+  does.
 
 ### What the engine currently does
 
@@ -436,14 +463,19 @@ Distribution, Accrued Interest, and ABP Adjustment."
 Its `published_value` disposition renders `{value}`.
 
 So the engine renders a level-3 result in a level-5 position, with the
-narrowing carried in field prose. Whether that is honest is the decision
-below.
+narrowing carried in field prose. What that costs, and what modeling would
+close the distance, is the subject below.
 
-## The central product question
+## The tension worth understanding
 
 > Binding a value to an official form line adopts that line's official
-> meaning. A calculation known to cover only a bounded internal model must not
-> silently occupy that line as though it were the complete tax concept.
+> meaning. A calculation covering only a bounded internal model occupies that
+> line as though it were the complete tax concept.
+
+Both sides of this tension are examined below because both are informative
+about the modeling, not because a permission has to be granted. The
+proposition under examination — call it the rule — is that a bounded result
+should not silently occupy the line.
 
 ### The strongest case for the rule
 
@@ -546,15 +578,19 @@ meaning. The
 project already has one honesty gate implemented as unread prose. The
 question before the owner is whether to add a second.
 
-## Recommendation for owner disposition
+## Recommended modeling priorities
 
-1. **Adopt the rule, with the qualification that it governs the *symbol*, not
-   the rendering.** The defect is not that a bounded number is displayed. It
-   is that a bounded number is published under a symbol named
-   `taxable-total`, bound to an IRS-authority field, and made available to
-   every downstream consumer without its bound. Renaming and re-scoping the
-   published symbol addresses the real hazard; refusing to render addresses
-   the appearance of it.
+These are ordered by what each buys, not by size. Each is a modeling change;
+none is a restriction on what may be displayed.
+
+1. **The hazard is in the symbol, not the rendering.** A bounded number
+   displayed is not the defect. The defect is that a bounded number is
+   published under a symbol named `taxable-total`, bound to an IRS-authority
+   field, and made available to every downstream consumer *without its bound
+   travelling with it*. The modeling fix is to make the bound part of what is
+   published, so a consumer can read it; renaming and re-scoping the symbol is
+   the minimum version of that. Refusing to render addresses only the
+   appearance of the problem and leaves the transportable hazard in place.
 
 2. **Do not leave the narrowing in prose.** Whatever shape is chosen, the
    declared universe and the known-unsupported categories must be machine-

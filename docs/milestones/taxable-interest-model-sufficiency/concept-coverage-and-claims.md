@@ -14,10 +14,10 @@ tempted to treat as one:
 | --- | --- | --- | --- |
 | **Intensional concept model** | What the tax concept *means* and what it ranges over | A statement about the law | The product |
 | **Executable coverage profile** | What *this build* can actually decide, and where it stops | A statement about the artifacts | The product |
-| **Claim sufficiency** | What may be *asserted*, to whom, in what position | A statement about entitlement | The product |
+| **Claim scope** | What a statement actually covers, and in what position it is read | A statement about reach | The product |
 
 A single money amount can be simultaneously produced by a coverage profile,
-correct within it, and not entitled to be asserted as the concept. Nothing
+correct within it, and still not a statement of the concept. Nothing
 about the number reveals which of the three is in play. Only the surrounding
 declarations do.
 
@@ -89,15 +89,16 @@ composition declares. Mechanically checkable. Necessary.
 names. Not mechanically checkable by any amount of slot bookkeeping. Not
 implied by internal coextensiveness at any level of rigour.
 
-## 3. Claim sufficiency
+## 3. Claim scope
 
-Claim sufficiency answers *"given this concept and this coverage, what are we
-entitled to say?"*
+Claim scope answers *"given this concept and this coverage, what does a
+statement of ours actually cover?"*
 
-Claims form a ladder. Each rung fails for a different reason, and — this is the
-useful part — **a lower rung frequently survives when a higher one does not**.
-The labels below are an analytical prototype for exposing where standing
-changes, not a proposed product vocabulary.
+Statements form a ladder. Each rung requires something different of the
+modeling, and — this is the useful part — **a lower rung frequently holds when
+a higher one does not**. The labels below are an analytical prototype for
+exposing where the modeling requirement changes, not a proposed product
+vocabulary.
 
 ### Level 1 — Source-report claim
 
@@ -164,12 +165,19 @@ from calculation authorisation.
 
 ### What the ladder buys
 
-Failure at a higher rung leaves lower rungs intact and honest. The fallback for
-an insufficient model is therefore never "show nothing" — it is *"show the
-strongest supported rung, and name the rung."*
+Failure at a higher rung leaves lower rungs intact. So the immediate fallback
+for a model that does not yet reach a rung is never "show nothing" — it is
+*"show the rung the modeling reaches, and name the rung."*
 
 **The costly mistake is not stopping at level 3. It is rendering a level-3
 result in a level-5 position.**
+
+**Read forwards, the ladder is more useful still.** Each gap between rungs is a
+bill of materials: a specific set of modeling capabilities that, once built,
+moves the product up one rung. That reading is developed in
+[claim-boundaries-and-modeling.md](claim-boundaries-and-modeling.md), and it is
+the reading this milestone uses. A rung the modeling does not reach is a
+specification, not a verdict.
 
 ## Judging whether partial coverage is good enough
 
@@ -191,6 +199,12 @@ These are the things that must be *identified* for a coverage decision to be
 made responsibly. This milestone does not decide them; deciding them is a
 product-policy act, and the point of enumerating them is that the decision
 should be made against a known list rather than an implicit one.
+
+They have a second and more useful reading. Run forwards, the same list
+prioritises **where to spend modeling attention** — what can be silently
+wrong, what is observable, what a question could detect, what it is worth.
+That reading is in
+[claim-boundaries-and-modeling.md](claim-boundaries-and-modeling.md).
 
 1. **The exact claim being supported.** Which rung of the ladder, stated in
    words, for which subject and period.

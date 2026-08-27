@@ -101,7 +101,7 @@ the kind of thing consideration 11 of the good-enough framework measures.
 | A7 | All ten slots closed, model still insufficient | F9 | E1–E5 |
 | A8 | Full workspace authorization, unmodelled category present | F9 | D1 — conceptual |
 | A9 | Sufficient model, workspace support absent | F9 | the converse quadrant |
-| A10 | The overstated line 2b | F9 + claim standing | D1, D2 |
+| A10 | The overstated line 2b | F9 + claim scope | D1, D2 |
 | A11 | Upward OID adjustment | F1, F9 | C10, E2 |
 | A12 | K-1 interest and the residual family | F8 | C4, C5 |
 | A13 | Payer-netted bond premium | F1, F8 | C9 |

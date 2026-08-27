@@ -1,15 +1,26 @@
-# Modeling Substantive Tax Concepts Partially but Defensibly
+# What Good Tax Modeling Would Make Possible
 
 ## The question
 
-**How ought this application model substantive tax concepts partially but
-defensibly, while keeping evidence, economic facts, tax classification, return
-reporting, computation, claims, and presentation distinct?**
+**What could this product say about a tax concept if the domain were modeled
+properly — and what modeling would each thing it might say require?**
 
 US-federal taxable interest for 2025 is the **worked specimen** throughout, not
-the subject. Whether that concept is complete, which categories it omits, and
-whether it may occupy Form 1040 line 2b are answered here — but as downstream
-instances of the question above, not as the milestone's purpose.
+the subject. The supporting question is the one the layer architecture answers:
+how to keep evidence, economic facts, tax classification, return reporting,
+computation, claim scope, and presentation distinct, so that a shortfall can be
+located precisely enough to act on.
+
+**The direction is the whole point.** On finding a deficiency, the question is
+whether the domain modeling must expand or change — not whether the claim must
+weaken, and not whether more evidence is needed. A gap is a specification, not
+a verdict.
+
+Two things this milestone is not doing. It is not modeling claim
+defensibility: claim integrity constrains the exploration the way correctness
+does, but pursuing it is not the goal. And it is not asking what the product
+may say given the engine as built, because that caps the exploration at
+current capability.
 
 ## Reading order
 
@@ -22,8 +33,8 @@ The documents build on one another. Read them in this order.
   catalogue of specific collapses.
 - [concept-coverage-and-claims.md](concept-coverage-and-claims.md) — the
   distinction between the intensional concept model, the executable coverage
-  profile, and claim sufficiency; the claim ladder; and the framework for
-  judging when partial coverage is good enough.
+  profile, and claim scope; the claim ladder; and the considerations that
+  decide where partial coverage is fit for a stated use.
 
 **2 — The worked semantic example**
 
@@ -45,17 +56,24 @@ The documents build on one another. Read them in this order.
   — sixteen bounded synthetic cases organised by failure class, testing the
   architecture rather than inventorying missing features.
 
-**5 — Downstream: the current engine**
+**5 — Synthesis**
 
-- [current-engine-assessment.md](current-engine-assessment.md) — one build
-  measured against the architecture above, with the owner decisions it raises.
+- [claim-boundaries-and-modeling.md](claim-boundaries-and-modeling.md) — reads
+  the ladder, the coverage map, and the failure classes forwards as one
+  instrument: what each capability costs and what it unlocks. **If you read one
+  document, read this one.**
+
+**6 — Downstream: the current engine**
+
+- [current-engine-assessment.md](current-engine-assessment.md) — what one
+  build's modeling reaches today, and the decisions its shortfalls raise.
 - [representation-reconnaissance.md](representation-reconnaissance.md) —
   premature implementation reconnaissance, retained as evidence. No
   representation is selected in this milestone.
 
 ## Two rules that govern everything here
 
-> **"Good enough" must never mean merely that no reviewer has yet discovered
+> **Coverage is never adequate merely because no reviewer has yet discovered
 > another omission.**
 
 > **A list of known gaps must never imply that all unlisted cases are

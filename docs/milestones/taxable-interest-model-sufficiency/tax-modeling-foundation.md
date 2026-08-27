@@ -166,26 +166,31 @@ nowhere near sufficient. **This is the central finding of the milestone.**
 
 ### 7. Claim and standing model
 
-What the application is entitled to assert, to whom, and on what basis.
+What a statement of the application's actually covers, and how far it reaches.
 
-A number computed is not a claim made. The same computed figure can honestly
-support *"the interest amounts recorded here sum to $X"* while dishonestly
-supporting *"your 2025 taxable interest is $X"*, and the difference is not in
-the arithmetic. Standing depends on the coverage profile in layer 6, on the
-authority examined in the coverage method, and on what the user has authorised
-about their own records — three independent supports, none of which
+A number computed is not a statement made. The same computed figure honestly
+supports *"the interest amounts recorded here sum to $X"* and does not support
+*"your 2025 taxable interest is $X"*, and the difference is not in the
+arithmetic. How far a statement reaches depends on the coverage profile in
+layer 6, on the authority examined in the coverage method, and on what the user
+has said about their own records — three independent inputs, none of which
 substitutes for another.
 
-The claim model's job is to make the strongest **supported** claim, and to name
-which one it is making. Its failure mode is not weakness. It is asserting a
-higher claim than the supports underneath it permit.
+This layer's job is to know the scope of what is being said and to say it. Its
+failure mode is not modesty. It is a statement whose apparent reach exceeds
+what the modeling underneath it covers.
+
+This layer is also where the milestone's forward question lands: the distance
+between what a statement reaches and what the product would like it to reach is
+a modeling specification, developed in
+[claim-boundaries-and-modeling.md](claim-boundaries-and-modeling.md).
 
 ### 8. Explanation and presentation model
 
 How the result, its derivation, its authority, its bounds, and its residual
 uncertainty are shown to a human.
 
-Explanation is downstream of standing, not a substitute for it. A prose
+Explanation is downstream of scope, not a substitute for it. A prose
 disclaimer beneath a number does not change what asserting the number means. A
 citation displayed next to a figure does not establish that the cited authority
 governs the proposition the figure asserts.
@@ -199,7 +204,7 @@ The layers connect in one direction:
 
 > evidence → reported and economic facts → substantive tax classifications and
 > derived tax concepts → reporting calculations and form bindings → return
-> representation → explanation and claim standing
+> representation → explanation and claim scope
 
 Three things about this chain matter more than the sequence.
 
@@ -233,7 +238,7 @@ worked specimen.
 | Substantive model into reporting model | A statutory exclusion is modeled as a schedule row | The law's operation is decided by form layout |
 | Reporting model into substantive model | The form line's meaning defines the concept | The concept cannot exist when no form is required |
 | Execution model into substantive model | "The rule ran and validated" is read as "the concept is right" | Internal closure mistaken for legal sufficiency |
-| Execution model into claim model | Publishing a value is treated as being entitled to assert it | Bounded results rendered in unbounded positions |
+| Execution model into claim model | Publishing a value is treated as the value meaning what its name says | Bounded results rendered in unbounded positions |
 | Claim model into presentation | A disclaimer is treated as bounding the claim | The assertion is made anyway, then hedged |
 
 The single most expensive item in that table is the last row of the execution
