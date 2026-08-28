@@ -359,6 +359,8 @@ Canonical project implementation meta documents live at the repository root and 
 
 Examples:
 - `README.md`: project entry point and current usage.
+- `OWNER_MODEL.md`: the owner's current, mutable, non-contractual model of the
+  product, value, agent judgment, and domain modeling.
 - `PROJECT_PLANNING.md`: planning process and document lifecycle.
 - `AGENTS.md`: development conventions, guardrails, and agent operating instructions.
 - `CHANGELOG.md`: consumer-facing capability history, when introduced.
