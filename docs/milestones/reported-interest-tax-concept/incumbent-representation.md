@@ -8,9 +8,10 @@ engine models the accrued-interest circumstance. This document reads the
 artifacts to find out what is actually represented.
 
 The finding is that the subtraction exists and the circumstance does not. The
-engine represents a **row on a return** whose amount happens to be right,
-supported by an authority that does not establish the subtraction is required,
-identified in a namespace that cannot say which item it reduces.
+engine represents a **row on a return**: an amount whose identity is a return
+form instance, cited to the authority for the disclosure rather than to the
+authority for the treatment, and held in a namespace that cannot say which item
+it reduces.
 
 ## The subtraction as it exists
 
@@ -46,7 +47,12 @@ different amounts, with the correction exercised on the sibling nominee class.
 
 Everything below concerns what the arithmetic is about.
 
-## Six things the artifacts show
+## Six readings of the artifacts
+
+Six things were examined. Four are findings, one is a content gap rather than a
+capability gap, and one is a place where an expected finding was looked for and
+not found. They are kept in one list because the null result is as much a part
+of the record as the others.
 
 ### 1. The subject of the fact is a return row, not a purchase
 
@@ -82,13 +88,22 @@ incoherence passes it.
 ### 3. The authority cited is a reporting instruction
 
 `tax.us.2025.citation.scheduleb-adjustment.accrued-interest` records an
-authority of family `irs-instructions`, form `1040-SCH-B`, tax year 2025. That
-is the correct authority for the disclosure mechanics. It is not an authority
-for the substantive proposition that the amount is not the purchaser's income.
+authority of family `irs-instructions`, form `1040-SCH-B`, tax year 2025.
 
-The engine has therefore attached a *where to write it* authority to a *whether
-it happens* question. Read forwards: the artifact that decides a taxpayer's
-income is supported by a document that only explains form layout.
+That is the right authority for the disclosure mechanics, and it carries more
+than mechanics: because line 1 of the same instructions calls for *all* of the
+taxpayer's taxable interest, directing the buyer to subtract this amount from
+that total operationally establishes that the amount is not the buyer's taxable
+interest. The citation is not empty, and calling it mere layout advice would be
+unfair to it.
+
+What it does not reach is the rest of the proposition. The instructions never
+say the payment is a return of capital and never mention basis, and they are not
+the source that explains *why* the subtraction is right. The substantive
+authority — Pub. 550, *Bonds Sold Between Interest Dates*, against
+IRC § 61(a)(4) — is not attached to the artifact, although both could be cited
+in the existing vocabulary. So the gap here is a content gap, not a schema gap:
+one citation is present where the proposition needs a stack.
 
 ### 4. The citation vocabulary has no Treasury Regulation family
 
@@ -103,15 +118,24 @@ income is supported by a document that only explains form layout.
 | `irs-publication` | publication, revision |
 
 Statutory authority is representable: IRC § 61(a)(4) can be cited through
-`us-code`. Regulatory authority is not. Treas. Reg. § 1.61-7(c) — the authority
-that actually establishes the treatment in this case — has no family and no
-locator shape, so it cannot be recorded at all.
+`us-code`. Regulatory authority is not: no Treasury Regulation has a family or
+a locator shape, so § 1.61-7 in any of its paragraphs cannot be recorded at all.
 
-The gap is therefore specific: **a missing regulation authority family and
-locator**, not an inability to cite substantive law in general. `citation.v1`
-is a published schema, so closing it is a contract question rather than a
-content change. It is recorded here as a production condition and is outside
-this milestone's scope.
+**For this slice the gap is real but not blocking.** The authority actually on
+point for the between-interest-dates purchaser is Publication 550, *Bonds Sold
+Between Interest Dates* — and `irs-publication` exists. The full authority stack
+this case needs is IRC § 61(a)(4) via `us-code`, Pub. 550 via `irs-publication`,
+and the Schedule B instructions via `irs-instructions`. All three are citable
+today. What is not citable is the seller-side corroboration in
+Treas. Reg. § 1.61-7(d), and the traded-flat neighbour § 1.61-7(c) that has to
+be distinguished to bound the account.
+
+So the gap is specific and narrower than it first appeared: **a missing
+regulation authority family and locator**, which bites on any tax proposition
+whose best support is regulatory, and which here costs corroboration rather than
+the citation itself. `citation.v1` is a published schema, so closing it is a
+contract question rather than a content change. It is recorded as a production
+condition and is outside this milestone's scope.
 
 Separately, and as an observation about content practice rather than about
 capability: of the 74 citation artifacts for 2025, 71 are `irs-instructions`,
@@ -120,30 +144,55 @@ statutory family has gone unused. That count alone does not establish why —
 whether substantive authority was never needed, never sought, or recorded
 elsewhere — and no inference about the engine's history is drawn from it here.
 
-### 5. The circumstance is typed as a reported amount of the same quantity as the income it reduces
+### 5. The typing fields carry no economic claim, in either direction
 
-The accrued-interest fact type carries `source_amount: true`, which marks it as
-an amount reported by a source. No source reports it; the taxpayer supplies it
-from knowledge of their own transaction.
+It is tempting to read the accrued-interest fact type's `source_amount: true`
+and `quantity: tax.us.2025.quantity.taxable-interest` as economic assertions —
+that the amount is *reported by a source*, and that the purchase-price component
+is *the same kind of thing* as the income it reduces. Neither reading is
+correct, and the correction matters because both would have been evidence.
 
-It also carries `quantity: tax.us.2025.quantity.taxable-interest` — the same
-quantity as the box-1 income it reduces. The purchase-price component and the
-income are declared to be the same kind of quantity. The quantity vocabulary
-being referred to is, in its entirety, the list `["taxable-interest",
-"wages"]`, so the declaration carries no discriminating content in either
-direction.
+`source_amount: true` is the aggregation marker. Under ADR-0028 decision 7 it
+identifies a fact type as a collectible member of a family that a rule sums, and
+it is what makes the `quantity` pin mandatory. It says nothing about who
+supplied the value. The nominee, ABP, and non-form interest fact types all carry
+it, and the taxpayer supplies those too.
 
-### 6. The completeness question asks the user for a tax classification
+The `quantity` pin is likewise the composition force-declare mechanism of
+ADR-0028 decisions 7–8: it makes a rule's summands declare a common unit-bearing
+symbol so that composition can be checked, and 23 quantity citizens exist to
+serve that check. It is not an economic-kind tag, and sharing one between an
+income amount and a subtraction from that income is exactly what a checkable
+subtraction requires.
+
+So this is a place where the artifacts were examined for an implicit economic
+commitment and none was found. The fields do their declared jobs. **What follows
+is only that the fact type does not carry economic kind anywhere** — not that it
+mis-states it. That is consistent with finding 1 rather than additional to it.
+
+### 6. The only question the user is asked is phrased in return vocabulary
 
 Alongside the amount, the family declares
 `tax.us.2025.scheduleb.adjustment.accrued-interest.source-closure`: a
 user-attested closure of "the 2025 Accrued Interest adjustment class."
 
-To answer it, a user must already know what a Schedule B accrued-interest
-adjustment is, and must decide whether they have any. That is the legal
-classification, put to the person least equipped to make it. The ordinary form
-of the same question — *did you buy any bonds partway through an interest
-period?* — is not asked, because the model has no place to put the answer.
+What that fact *asserts* is completeness, not classification. ADR-0011 decision
+4 is explicit: the assertion reports completeness; it does not constitute a
+tax-law choice. Decision 5 makes it affirmative-only, so the absence of a
+closure finding is unknown and blocks rather than defaulting. The semantics are
+sound, and reading this fact as asking the user to decide a point of law would
+be wrong.
+
+The problem is the **name of the class the user must recognise**. To attest
+completeness over "the 2025 Accrued Interest adjustment class," a user must know
+what belongs in that class — which is Schedule B vocabulary, and which is the
+classification. The ordinary form of the same question, *did you buy any bonds
+partway through an interest period and pay the seller for interest that had
+already built up?*, is not asked, because there is no fact type whose subject is
+a purchase.
+
+This is finding 1 seen from the user's side. It is a vocabulary consequence of
+where the fact lives, not a defect in the closure mechanism.
 
 ## The shape underneath all six
 
@@ -158,14 +207,29 @@ issuer of a document, a row within a document, or engine infrastructure:
 > `ira-payer`, `unemployment-payer`, `mortgage-lender`, `student-loan-lender`,
 > `employer`, `partnership`, `family-horizon`
 
-There is no bond, no obligation, no account, no purchase, no disposition — no
-entity that exists in the world rather than on paper. The nearest thing,
-`f1099b-transaction`, is a row on a broker's statement.
+Two qualifications keep this from being said too broadly.
 
-This is why the accrued-interest circumstance has no home. It is a fact about
-an economic object, and the ontology has no economic objects. The circumstance
-was therefore filed where there *was* a home for it: on the return form that
-discloses its effect.
+The payer, lender, employer, and partnership kinds *are* real-world parties.
+They exist independently of any document. But every one of them is declared and
+used in the role of **issuer of a statement**, and the content package gives
+them no other function; none participates in a transaction, holds an
+obligation, or has a counterparty relation to the subject. So the accurate claim
+is not "nothing here is real" but that the only real-world entities are the
+parties on the document, in their document-issuing role.
+
+And there is genuinely no bond, no obligation, no account, no purchase, no
+disposition. The nearest candidate, `f1099b-transaction`, is identified as a row
+of a broker statement rather than as an acquisition or a sale.
+
+This is why the accrued-interest circumstance has no home. It is a fact about an
+economic object, and this content package declares no economic objects. The
+circumstance was therefore filed where there *was* a home for it: on the return
+form that discloses its effect.
+
+The evidence for this is the 2025 US-federal content package. It is not evidence
+about the kernel, which does not fix a domain vocabulary, nor about what the
+engine could declare. What it establishes is that the modelled domain as built
+so far is a domain of documents.
 
 ## What the composition declares, and what it does not
 
@@ -192,9 +256,26 @@ recover what it was trying to compute, because no artifact says.
 
 ## Summary
 
-The engine gets $900 for the right arithmetic and the wrong reasons. It holds
-the reported amount and the includible total, and between them it holds a form
-row rather than a determination. The reason the amounts differ is not recorded
-anywhere, the authority that makes them differ cannot be cited, and the fact
-that produces the difference cannot be asked for in terms the taxpayer would
-recognise.
+The engine gets $900, and it gets it by a route that holds the reported amount
+and the includible total with a form row between them rather than a
+determination.
+
+It is worth being precise about how much of the reason survives in the
+artifacts, because "nothing is recorded" would overstate it. A reader with only
+the committed content can recover the **reporting category**: the fact type's
+title names an "accrued-interest-paid-to-seller adjustment," and the line-2b
+form field describes itself as the seven positive families less the three
+separately closed adjustment classes. Someone who already knows the tax
+treatment can read the artifacts and see which treatment was applied.
+
+What is not recoverable is the **proposition** — that interest accrued before
+purchase is not the purchaser's income because it is a return of their capital,
+that this reduces basis, and on what authority. The title states a category; it
+does not assert anything, nothing depends on it, and nothing checks it. So the
+distinction is preserved as a label on a subtraction, not as a claim the model
+holds.
+
+Alongside that: the substantive authority is citable in the existing vocabulary
+but is not attached, the regulatory corroboration is not citable at all, and the
+ordinary fact that produces the difference cannot be asked for in terms the
+taxpayer would recognise.

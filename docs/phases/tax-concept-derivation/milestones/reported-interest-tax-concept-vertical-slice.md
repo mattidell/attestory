@@ -3,9 +3,9 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "tax-concept-derivation",
-  "milestone_state": "track-2",
-  "status": "Opening milestone planned on 2026-08-27. The work is bounded to one synthetic 2025 Form 1099-INT box-1 item and one accrued-interest-at-purchase contrast. It produces decision evidence and an executable non-production vertical slice; it does not select a production citizen, schema, general tax ontology, or full taxable-interest model.",
-  "current_role": "Independent reviewer — adversarial review of the source-and-semantic boundary findings",
+  "milestone_state": "track-3",
+  "status": "Opening milestone planned on 2026-08-27; in closeout as of 2026-08-27. The work is bounded to one synthetic 2025 Form 1099-INT box-1 item and one accrued-interest-at-purchase contrast. OUTCOME: a completed executable vertical slice. Two rival representation shapes — distributed, and explicit item-level determination — were built and run on all six cases through the real engine evaluator (exhibit exhibits/reported-interest-tax-concept/it1). Both produce every required number, so arithmetic discriminates nothing; the static ten-requirement rubric discriminates nothing either once the distributed shape has authority attached. Two dynamic probes decide it: the distributed shape can go silently incoherent under partial refresh and cannot detect it, and its carried basis consequence cannot state the reported or includible amount it is consistent with in a later year. RECOMMENDATION: the explicit determination shape, on that narrow ground only, conditional on one open product question — must a consequence that outlives the tax year be self-checkable. TWO CLAIMS ARE WITHDRAWN AND MUST NOT BE RE-ASSERTED: that the incumbent produces the correct number in all six cases (it is silently wrong on TI-A1; the package has no section 135 or Form 8815 content), and that a tax-year {yes, no} fact plus a line-2b guard passes the cases (never built or executed, and it does not follow: TI-B2 needs the circumstance, its amount, and item linkage, and TI-N1 must separate yes-with-amount from yes-without). The objective and scope text written at planning time is superseded by docs/milestones/reported-interest-tax-concept/ and docs/prototypes/reported-interest-tax-concept/.",
+  "current_role": "Milestone lead — executable slice complete and durable documents reconciled; awaiting fresh whole-candidate independent review",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md#Tracks",
   "scope": [
     "establish the official-source treatment for one reported-interest item and one accrued-interest-at-purchase contrast",
@@ -44,17 +44,62 @@
 
 # Reported Interest to Tax Concept Vertical Slice
 
+> **Superseded in part. Read this before relying on anything below.**
+>
+> This plan was written before the work. The deliverables in
+> `docs/milestones/reported-interest-tax-concept/` and the executed record in
+> `docs/prototypes/reported-interest-tax-concept/` are the record of what was
+> found; this plan is the record of what was attempted.
+>
+> 1. **The authority is wrong wherever this plan implies Treas. Reg. § 1.61-7(c)
+>    governs.** That paragraph is the traded-flat / defaulted-interest pattern.
+>    The ordinary between-interest-dates purchase is governed by Pub. 550,
+>    *Bonds Sold Between Interest Dates*, against IRC § 61(a)(4);
+>    § 1.61-7(d) reaches only the seller.
+> 2. **The executable slice was built, and it was built late.** For seven review
+>    rounds this plan and its deliverables carried a conclusion reached on paper:
+>    that the necessity proposition was defeated because the incumbent produced
+>    the correct number in all six cases and a `{yes, no}` fact type plus a
+>    line-2b guard passed the discriminating ones. **Both halves of that were
+>    wrong.** The incumbent is silently wrong on TI-A1, and the `{yes, no}`
+>    design was never built or executed and does not follow from the cases. Both
+>    claims are withdrawn and must not be re-asserted anywhere.
+> 3. **The Objective's success criterion was met**, by an executed comparison of
+>    two rival representation shapes rather than by the single slice this plan
+>    imagined. The recommendation is the explicit determination shape, on the
+>    narrow ground of two dynamic probes, conditional on one open product
+>    question. See `docs/prototypes/reported-interest-tax-concept/examination.md`.
+>
+> Where the text below says no candidate implementation was exercised, or that
+> the primary proposition did not survive, it is superseded by point 3.
+
 ## Milestone identity
 
 - Phase: Tax Concept Derivation
 - Milestone key: `tax-concept-derivation`
-- State: planned
+- State: in closeout (planned 2026-08-27; executable slice complete)
 - Base: `origin/main` at `9159a13d261f5005523ad58f8893ffffd735f204`
 - Branch: `milestone/tax-concept-derivation-phase-definition`
 - Decision posture: executable exploration; no production representation is
   selected by the plan
 
 ## Objective
+
+> **Met, with a distinction the criterion did not anticipate.** Its *numeric*
+> half is satisfied by the incumbent too — the same reported box-1 amount
+> produces $1,200 and $900 across the two primary cases — and that is Schedule B
+> arithmetic, which the second paragraph below expressly says is not success.
+> The executed comparison confirms this sharply: **both** candidate shapes
+> produce every required number on all six cases, so arithmetic discriminates
+> nothing.
+>
+> The *item-level and layer-ownership* half is where the slice did its work. The
+> incumbent fails it — the subtraction is a return row that cannot name the item
+> it reduces, the ordinary circumstance cannot be supplied at all, and the
+> substantive proposition is labelled rather than asserted. Both prototype
+> shapes meet it. Choosing between them required two dynamic probes beyond the
+> criterion as written. See
+> `docs/prototypes/reported-interest-tax-concept/examination.md`.
 
 Determine, through one bounded executable slice, what the engine must represent
 to derive a tax-concept result from a source report plus an ordinary factual
@@ -94,6 +139,12 @@ reported item, economic circumstance, substantive classification, and
 reporting operation separately.
 
 ## Scope
+
+> **Superseded in part.** Item 6 presupposes what the milestone was meant to
+> test and was not established: the six cases do not show that an item-level
+> determination preserving both amounts is needed. Items 7 through 9 were
+> exercised against the incumbent only. See
+> `docs/milestones/reported-interest-tax-concept/README.md`.
 
 The milestone covers exactly:
 
@@ -142,6 +193,12 @@ production code.
   scope.
 
 ## Semantic questions
+
+> **Answered, in `docs/milestones/reported-interest-tax-concept/`.** The
+> "executable representation" half was not produced: no slice was built. Where
+> those documents and this list differ, the documents govern. Question 4 in
+> particular was answered as *not established on this evidence*, not as
+> "item-level."
 
 The slice must answer these questions in ordinary language and in its
 executable representation:
@@ -193,6 +250,13 @@ publish it.
 
 ## Synthetic cases
 
+> **The expectations below describe a prototype that was never built.** All
+> six cases were instantiated on paper and run against the incumbent instead.
+> The incumbent produces the correct number in every one of them. Read the
+> outcomes in `docs/milestones/reported-interest-tax-concept/`
+> `synthetic-case-specification.md`, which also corrects TI-B2's authority and
+> TI-L1's amounts.
+
 All amounts and identities are obviously synthetic. Track 0 fixes exact values
 after verifying that the fact pattern is legally coherent.
 
@@ -206,6 +270,22 @@ after verifying that the fact pattern is legally coherent.
 | TI-A1 — outside-slice probe | A synthetic fact pattern from §135, OID, nominee, timing, or election territory | The case is intentionally unsupported | The prototype cannot present success over the opening slice as evidence that this adjacent case is modeled. No implementation of the adjacent case follows. |
 
 ## Prototype evidence boundary
+
+> **The primary proposition below is supported, on a narrow executed ground.**
+> Two rival representation shapes were built and run on all six cases through
+> the engine's real expression evaluator. Both produce every required number, so
+> arithmetic decides nothing; the static requirement set decides nothing either
+> once the distributed shape has authority attached. Two dynamic probes decide
+> it — silent incoherence under partial refresh, and the inability of a carried
+> basis consequence to check itself in a later year. The recommendation is
+> conditional on one open product question. See
+> `docs/prototypes/reported-interest-tax-concept/examination.md`.
+>
+> The stop-before-prototype clause below **was** exercised for most of this
+> milestone, and that was the error the executed round corrects. Two claims made
+> during that period are withdrawn and must not be re-asserted: that the
+> incumbent produces the correct number in all six cases, and that a `{yes, no}`
+> declaration plus a line-2b guard passes the discriminating ones.
 
 The primary proposition is:
 
@@ -287,7 +367,7 @@ ignored paths.
 
 ## Track 0 adversarial closure
 
-**Status: PENDING.** Before any executable-build charter, Track 0 must record a
+**Status: COMPLETE.** The first gate initially recorded a FAIL — the sources did not support the treatment as originally attributed — and the repair to Pub. 550 against IRC § 61(a)(4) was confirmed. The gate outcomes are carried in the deliverables. Two gates were later re-answered by execution: "the incumbent and candidate can be exercised on identical propositions and values" resolves to **no** (the incumbent cannot be given the ordinary circumstance at all), and "the prototype evidence boundary is sufficient to resolve the primary proposition" resolves to **yes, but only with prototype code**, which is why the stop-before-prototype clause should not have fired. The original gate list follows. Before any executable-build charter, Track 0 must record a
 pass, fail, or explicit deferral for each of these gates:
 
 - the official sources support the exact substantive treatment used by TI-B1
@@ -311,6 +391,16 @@ prototype charter. A `FAIL` blocks executable work; it does not authorize a
 broader replacement case.
 
 ## Tracks
+
+> **Execution order differed from the plan.** Track 0 completed and its
+> stop-before-prototype clause fired, so Track 1 was deferred and Track 2 ran
+> first, as adversarial review of paper analysis rather than as a comparison of
+> two executed paths. That ordering produced a conclusion that repeated review
+> could not repair, because the defect was missing evidence rather than
+> imprecise prose. Track 1 was then run under owner direction, with the rival
+> shape supplied by the plan's own primary proposition. The durable output is
+> the four documents in `docs/milestones/reported-interest-tax-concept/` and the
+> executed record in `docs/prototypes/reported-interest-tax-concept/`.
 
 ### Track 0 — Source and semantic boundary
 
@@ -347,6 +437,12 @@ convert a prototype shape into a production contract during curation.
 
 ## Stop conditions
 
+> **Already fired.** The stop-before-new-prototype-code condition in the
+> prototype evidence boundary was exercised: paper analysis plus execution of
+> the incumbent answered the representation question, so Track 1 never ran.
+> The milestone is in closeout awaiting an owner decision, not mid-probe. Do
+> not resume an executable slice from this section alone.
+
 Stop and return to the owner when:
 
 - official-source review shows that the accrued-interest fact pattern cannot be
@@ -366,6 +462,23 @@ At a stop, preserve the verified facts and name the narrow decision. Do not
 fill the gap with an inferred architecture.
 
 ## Exit criteria
+
+> **All eight criteria are met.** Criterion 3 reads differently after execution
+> than it did on paper: the comparison that mattered turned out to be between
+> two *candidate* shapes rather than between the incumbent and one candidate.
+> The incumbent cannot be posed the six cases at all — it has no representation
+> of the ordinary purchase question — so "identical evidence" is satisfied
+> between the two rival shapes, and the incumbent is characterised at three
+> distinct grades of evidence (exact execution of its own tests, a structural
+> analogue at different amounts, and artifact inspection) rather than pretended
+> to have run the cases. Criterion 5 is met by executed lifecycle observations,
+> not by argument. See
+> `docs/prototypes/reported-interest-tax-concept/examination.md`.
+>
+> This is a **completed executable vertical slice**, not an exploratory finding.
+> The distinction matters: an exploratory finding would license carrying the
+> conclusion forward as settled context, whereas the recommendation here is
+> conditional on one named product question and rests on one fixture.
 
 The milestone is complete when:
 

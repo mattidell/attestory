@@ -79,7 +79,7 @@ model must continue to serve computation and return generation.
 
 | Milestone | State | Project impact |
 | --- | --- | --- |
-| Reported Interest to Tax Concept Vertical Slice | **Planned** | Tax-domain model, synthetic fixtures, executable prototype, derivation boundary |
+| Reported Interest to Tax Concept Vertical Slice | **In closeout — executable slice complete** | Tax-domain model, synthetic fixtures, executed two-shape comparison, derivation boundary |
 | Tax Concept Representation Contract | Not selected | Schemas, citizens, lifecycle, adopted artifacts, ADRs if required |
 | Production Interest Slice and Return Projection | Not selected | Record, derivation, tax content, return engine, tests |
 | Detectable Boundary and One Adjacent Expansion | Not selected | Coverage profile, boundary detection, one bounded tax expansion |

@@ -53,9 +53,17 @@ interest was purchased — rather than leaving the coincidence unexplained.
 amounts is a *result*, not an assumption. A model that cannot produce TI-B1 and
 TI-B2 as different determinations is treating this equality as a definition.
 
-**Incumbent behaviour.** Correct number. The equality is unexplained, because
-nothing represents the absent circumstance; the accrued-interest family is
-simply closed with no members.
+**Incumbent behaviour.** Correct number, and better than it first appears. The
+accrued-interest family closed with no members is an affirmative attestation,
+not a silence: because closure is affirmative-only, "closed and empty" is
+distinguishable from "never addressed," which blocks. So the incumbent *does*
+hold established-absence apart from never-asked, and the equality of $1,200 with
+$1,200 is a result rather than an assumption.
+
+What it holds is that attestation in Schedule B terms — the user affirmed they
+have no accrued-interest adjustments — rather than the ordinary answer *no, I
+did not buy any bonds partway through an interest period*. The distinction
+survives; the vocabulary is the return's.
 
 ## TI-B2 — The accrued-interest contrast
 
@@ -65,8 +73,11 @@ simply closed with no members.
 P2: *on 2025-05-15 I bought `orchard-note-2031` and paid the seller $300 for
 interest that had accrued before I bought it.* No payer reports P2.
 
-**Rule and authority.** Treas. Reg. § 1.61-7(c) displaces the § 61(a)(4)
-default for the accrued portion: it is not income, and it reduces basis.
+**Rule and authority.** Pub. 550, *Bonds Sold Between Interest Dates*, together
+with the Schedule B line-1 instructions, displaces the § 61(a)(4) default for
+the accrued portion: it is not income, and it reduces basis. The obligation is
+current, which keeps the case out of the traded-flat pattern of
+Treas. Reg. § 1.61-7(c).
 
 **Determination.** Of the $1,200 reported, $900 is includible; $300 is not
 includible and reduces the taxpayer's basis in `orchard-note-2031`.
@@ -75,8 +86,10 @@ includible and reduces the taxpayer's basis in `orchard-note-2031`.
 "Accrued Interest" $300 subtracted, $900 to line 2. Form 1040 line 2b = $900.
 
 **What the case establishes.** The statement still says $1,200 and the return
-still says $900, and both are true at once. The determination is the thing
-that holds them together, and it is separately recoverable from either.
+still says $900, and both are true at once. Something has to hold them together
+and say why they differ. This case shows that the incumbent holds it as a
+labelled subtraction; it does not show that the thing holding it must be a
+separately recoverable determination.
 
 **Incumbent behaviour.** Correct number, by a different route: a Schedule B
 adjustment instance of $300 exists and is subtracted at the aggregate. The
@@ -103,12 +116,26 @@ before your purchase?* — and continues to report P1 unchanged.
 gap that silently resolves to one branch. Both produce no visible complaint;
 only one produces a wrong answer.
 
-**Incumbent behaviour.** The state is not representable. The incumbent's only
-relevant question is whether the "Accrued Interest adjustment class" is closed,
-which the taxpayer must answer in Schedule B vocabulary. A taxpayer who does
-not recognise the category answers *closed, with no members*, and the model
-silently takes the $1,200 branch with no indication that a branch was taken.
-This is the case the incumbent fails outright.
+**Incumbent behaviour.** The blocking state *is* representable, and this is
+established by committed execution rather than inspection:
+`test_unclosed_and_late_member_block_until_successor_closure` in
+`tests/test_schedule_b_interest_adjustments.py` leaves the accrued-interest
+family unclosed and asserts that line 2b resolves as `blocked`. Closure is
+affirmative-only, so an unanswered class is unknown and stops the line rather
+than defaulting to the no-adjustment branch. The claim that the incumbent falls
+through to $1,200 is wrong, and it was wrong in the strongest of the six cases.
+
+What the incumbent cannot do is distinguish *which* gap it is in. "The taxpayer
+said they bought a bond mid-period and has not yet supplied the amount" and "the
+taxpayer has not addressed the Schedule B accrued-interest class at all" are the
+same state: family not closed. Both block, so no wrong number is produced. But
+the outstanding question the product can state is the Schedule B one, not the
+ordinary one, and the model cannot record that the ordinary question was asked
+and answered *yes*.
+
+So TI-N1 discriminates on **what the product can say and what it can carry**,
+not on correctness of the number. That is a materially weaker claim than the one
+this case was written to make.
 
 ## TI-L1 — The source report is corrected
 
@@ -132,10 +159,23 @@ they are independent by unrelatedness rather than by design. Nothing is marked
 stale, because there is no determination to mark. The engine simply recomputes
 an aggregate.
 
-Note that at $1,000 box 1 with $300 accrued, the numbers remain coherent. Had
-the correction been to $200, the incumbent would subtract $300 from an item
-worth $200 and detect nothing, because its only guard compares total positive
-interest against total adjustments across all families.
+Note that at $1,000 box 1 with $300 accrued, the numbers remain coherent, so
+this case does not probe incoherence at all.
+
+It is worth being exact about what would happen if it did, because the obvious
+guess is wrong. Had the correction been to $200 against the $300 adjustment,
+the incumbent would **not** publish a bad number: with a single statement, its
+aggregate guard *is* an item guard, because the item is the whole aggregate.
+`test_overage_never_publishes_negative_line2b` demonstrates this on the sibling
+nominee class — $1,000 of box-1 interest against a $1,200 adjustment yields
+`guard_inapplicable`, not −$200.
+
+The undetectable case needs a **masking sibling**: statement A corrected to
+$200 carrying the $300 adjustment, plus statement B of $5,000. Total positive
+$5,200 exceeds $300, the aggregate guard passes, and an adjustment larger than
+the item it belongs to goes through unnoticed. That case is **not among the
+six**, and no committed fixture exercises it. It is named here as the shape a
+future case would need, not as something demonstrated.
 
 ## TI-L2 — The circumstance is corrected
 
@@ -192,22 +232,133 @@ finding. The incumbent is exercised on the same taxpayer, the same statement,
 the same amounts, and the same real-world circumstance, expressed in the only
 terms it accepts.
 
-The incumbent's behaviour on these fact patterns is established by committed
-execution, not by inspection alone; see
-[incumbent-representation.md](incumbent-representation.md).
+Evidence about the incumbent comes in three grades and they must not be
+conflated. **None of the six cases was executed against the incumbent** — it has
+no representation of the ordinary purchase question, so TI-B2 and TI-N1 cannot
+be posed to it without first supplying the classification the cases exist to
+withhold. What exists is a **structural analogue** at different amounts
+(`tests/test_schedule_b_interest_adjustments.py` and
+`tests/tax/test_track2_line2b.py`: $2,000 box 1 less a $100 accrued-interest
+adjustment resolving line 2b to $1,900, plus closed-empty behaviour, unclosed
+blocking, and the negative-line-2b guard), and **artifact inspection**, in
+[incumbent-representation.md](incumbent-representation.md). Each claim below
+says which grade it rests on.
 
 ## What the six cases jointly show
 
 | Case | Does it discriminate incumbent from item determination? |
 | --- | --- |
-| TI-B1 | No — same number, but the incumbent cannot say why |
-| TI-B2 | Yes — the incumbent cannot accept the circumstance, only the conclusion |
-| TI-N1 | Yes, decisively — the incumbent cannot represent the unanswered state |
+| TI-B1 | No — same number, and established-absence survives in return vocabulary |
+| TI-B2 | On vocabulary only — the incumbent takes the conclusion, not the circumstance |
+| TI-N1 | On vocabulary only — it blocks correctly but cannot say which gap it is in |
 | TI-L1 | No — independent, but by unrelatedness rather than design |
 | TI-L2 | No — same |
-| TI-A1 | Neither path detects it; it bounds what either result may claim |
+| TI-A1 | The incumbent is silently wrong; both prototype shapes block |
 
-The discriminating cases are TI-B2 and TI-N1, and they discriminate on the same
-axis: whether the model can hold an **ordinary fact about a transaction** as
-distinct from the **tax conclusion drawn from it**. The lifecycle cases, which
-were expected to carry weight, turn out not to.
+Five of the six cases produce the correct number under the incumbent. **TI-A1
+does not**: the 2025 package contains no § 135 or Form 8815 content, so box 1
+flows to line 2b unreduced and the incumbent's ordinary line-2b result is not
+correct for a taxpayer with qualifying savings-bond education expenses. It is
+wrong without saying so.
+
+On the other five, the surviving discriminator is narrower than arithmetic:
+whether the model can hold an **ordinary fact about a transaction** as distinct
+from the **tax conclusion drawn from it**, and therefore what it can ask, what
+it can explain, and what it can carry forward.
+
+### What the cases decide, once executed
+
+These six cases were built and run end to end under two rival representation
+shapes, through the engine's real expression evaluator. The executed record is
+[`docs/prototypes/reported-interest-tax-concept/examination.md`](../../prototypes/reported-interest-tax-concept/examination.md).
+
+**Arithmetic does not discriminate.** Both shapes produce every required number
+on all six cases — 1200, 900, blocked, 700, 950, blocked — including the two
+designed to break the weaker one. Nothing about the choice can be argued from
+the displayed number.
+
+**The static requirement set does not discriminate either**, once the
+distributed shape is repaired. As first built it failed one of the ten
+requirements on four cases: the published symbols were bare amounts, and no
+authority was recoverable from the result for why the reduction was taken.
+Attaching the item, the rule, the authority, and provenance to each symbol
+clears all ten on all six.
+
+**On lifecycle precision the distributed shape is better.** Its basis symbol
+never reads box 1, so correcting the statement does not disturb the basis
+consequence. The determination shape displaces whole-object: a source correction
+displaces the basis field too, though recomputation restores it. This is a real
+cost of the determination shape and it is recorded as such.
+
+Two dynamic probes decide it:
+
+- **Silent incoherence.** After the circumstance correction $300 → $250,
+  refreshing only the includible symbol leaves the distributed shape asserting
+  $950 includible — implying $250 non-includible — while its basis symbol still
+  reads $300. It does not detect the disagreement. Coherence is an external
+  observer's arithmetic, not something the result carries. The determination
+  shape cannot reach the state.
+- **Cross-year self-check.** The distributed shape carries a bare $300 against
+  an item and can state neither the reported nor the includible amount it is
+  consistent with. In the year of disposition there is no re-run to perform,
+  because the producing facts belong to a prior year's workspace. The
+  determination shape carries all four amounts and can check itself.
+
+Both shapes correctly displace the carried value when the source year is
+amended, so the difference is not staleness. It is what a later year can verify.
+
+### A paper claim these cases overturned
+
+An earlier version of this document recorded that the
+`conditional_dependency_set` operator could not make an amount conditional on a
+*yes*, because its `members` must be `ref` expressions naming symbols and a
+source-family collect is not a named ref. The restriction is real and the
+inference was wrong. The ordinary circumstance is a **keyed per-item symbol**,
+not a family collect, so the restriction does not bite. Executed on TI-N1, the
+evaluator distinguished "yes, amount supplied" from "yes, amount missing",
+blocked, and named the missing fact.
+
+### Two claims withdrawn
+
+Neither may be re-asserted.
+
+1. **That the incumbent produces the correct number in all six cases.** TI-A1
+   above.
+2. **That a tax-year `{yes, no}` fact type plus a guard clause in the line-2b
+   rule passes the cases.** That design was never built or executed, and the
+   claim does not follow from these cases. TI-B2 requires the ordinary
+   circumstance, its amount, and item linkage — not merely yes/no. TI-N1 must
+   distinguish "yes, amount supplied" from "yes, amount missing," and a guard
+   reading only a yes/no declaration cannot distinguish those states. A
+   tax-year-keyed declaration also cannot say *which* obligation was bought
+   mid-period, which is the same item-identity gap the second surviving
+   requirement names.
+
+The existing classified Schedule B adjustment cannot stand in for either half.
+It is a tax conclusion supplied to the engine, and the cases exist to withhold
+exactly that.
+
+### The residual observation about re-keying
+
+**Re-keying to the statement identity gives naming, not a guard.** It is
+structurally compatible — the composition's coextensiveness check covers the
+seven positive families, and the three adjustment families are matched by family
+id and subtotal symbol rather than by member identity keys — but that
+compatibility is exactly why it changes no arithmetic. Line 2b still subtracts
+three scalar subtotals, and nothing joins two families on a shared identity.
+Re-keying would let an adjustment *name* the item it reduces; a per-item
+comparison would still have to be built on top. This survives the executed round
+unchanged, and it is question 2 of the README.
+
+### What the six cases now support
+
+They support the recommendation of a separately recoverable item-level
+determination, **on the narrow ground of the two probes and on no other ground**.
+The recommendation is conditional on one product question that no representation
+experiment can answer: whether a consequence that outlives the tax year must be
+self-checkable. If a bare amount keyed to an item suffices in the year of
+disposition, the cross-year probe loses its force and the honest verdict becomes
+"both work; prefer the cheaper."
+
+This is prototype evidence. No schema, citizen kind, field shape, storage
+mechanism, or production contract is selected here.
