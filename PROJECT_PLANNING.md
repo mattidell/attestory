@@ -52,6 +52,76 @@ Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or 
 
 **Standing permission.** Agents need no approval to build prototypes before proposing such ADRs. Prototyping is the expected first move when a consequential contract is undesigned — do not ask permission to start one.
 
+### Frontier Reduction and Direct-Build Routing
+
+Frontier reduction is the deliberate removal of unsupported architectural
+choices before a durable product contract is selected. It is not a stage that
+every use case runs. Routine use cases should build directly against accepted
+contracts; frontier work is reserved for cases where meaning, identity,
+authority, lifecycle, or a costly representation choice remains unsettled.
+
+Use the eligibility score and paper-first evidence rules in **Prototype
+Economic Gates** to choose among three routes:
+
+| Situation | Route |
+| --- | --- |
+| An accepted contract already fixes the proposition, producer, consumer, and correction behavior; the change is additive and reversible | Build directly with the established pattern |
+| The semantics are settled but one technical capability is uncertain | Run one bounded spike at the cheapest evidence rung that can answer that capability question |
+| Two or more materially different representations remain plausible and a wrong choice would create durable identity, schema, migration, or lifecycle cost | Run a frontier-reduction prototype |
+| No concrete consumer would behave differently among the proposed representations | Stay at paper, name the missing discriminator, and defer the representation choice |
+
+A frontier-reduction topic proceeds in this order:
+
+1. **Fix the semantic box.** Name the world event, source report, ordinary
+   facts, tax or product proposition, speaker or authority, consumer, and
+   correction or supersession behavior. Storage fields do not define these
+   meanings.
+2. **State one falsifiable architectural proposition.** For example: “a
+   separately durable item determination is necessary because the named later
+   consumer cannot recover the consequence honestly without it.” Avoid broad
+   questions such as “how should this domain be modeled?”
+3. **Choose the smallest discriminator.** Exercise only the viable rivals that
+   could falsify the proposition, on the same fixtures, consumer task, access
+   assumptions, lifecycle changes, and evidence ceiling. Apply
+   `docs/roles/qualitative-review.md`, **Make evidence load-bearing**: the
+   charter identifies before building which mutation or kill test would fail if
+   each claimed boundary were false.
+4. **Disposition the frontier.** Record which reasons for selecting a shape
+   were disproved, which requirements survived, which alternatives remain
+   viable, and the concrete trigger that would reopen a deferred choice. “Not
+   established as necessary” is not “proved unnecessary.”
+5. **Build only after selection.** Reimplement the selected contract in the
+   production path. Prototype dataclasses, access grants, and storage
+   conveniences are evidence, not an adoption shortcut.
+
+Parallel work is useful only after the semantic box and comparison rubric are
+fixed. Source or artifact reconnaissance may proceed independently, and rival
+prototypes are strong parallel assignments when each receives the same frozen
+fixtures and consumer tests. Follow **Rivals, not refinements** below and
+**Parallel Work Rules** for independence and integration. Do not parallelize
+production changes to shared schemas or lifecycle contracts while the frontier
+disposition is still open; that creates integration cost without evidence.
+
+The intended normalization pattern is: explore the first materially new
+instance, establish a reusable contract, then build later instances directly.
+If every use case reopens the same frontier, the prior work did not establish a
+reusable contract. If an iteration changes no surviving requirement or
+architectural choice, apply **Termination** below rather than polishing the
+probe.
+
+Judge the value of a frontier round by four questions:
+
+- Did it eliminate or materially narrow a costly architectural choice?
+- Did it establish a reusable product or correctness requirement?
+- Did it prevent likely production rework or expose a false evidence ceiling?
+- Was that gain proportionate to the evidence rung, build, and review cost?
+
+A round that changes the contract or removes a costly premise is high-value. A
+round that converts a vague lifecycle or provenance claim into an executable
+invariant is useful but narrower. Once repairs only align labels and prose with
+an already stable result, finish the bounded repair and close; do not call the
+polish another frontier iteration.
+
 **The loop.** Each prototype iteration runs:
 
 1. **Charter** — declare the topic's bounded questions, fixtures or edge cases,
@@ -64,7 +134,11 @@ Consequential decisions are made from evidence, not intention. A Tier 3 ADR, or 
 4. **Committee review** — multiple reviewers with distinct charters (see below).
 5. **Disposition** — enumerate the questions that remain; decide whether to
    iterate within the same charter, revise scope explicitly, or conclude.
-6. Repeat until the reviewers agree the evidence suffices, then draft the ADR against the evidence.
+6. Repeat until the reviewers agree the evidence suffices. Draft an ADR when a
+   durable contract is selected. When the evidence instead defeats the
+   necessity claim or defers selection, preserve that bounded disposition in
+   the milestone's durable product record; do not manufacture an ADR for a
+   decision the evidence did not make.
 
 **The evaluation analysis is conditional.** A separate
 `docs/prototypes/<topic>/evaluation-analysis.md` — what was built, what
@@ -77,11 +151,12 @@ clean round**. Write one when any of these holds:
 - dissent is unresolved at the close.
 
 Otherwise there is nothing for an analysis to reconcile, and writing one only
-restates the round: the ADR cites the charter, the exhibit tag, and the review
-notes directly, and no analysis file exists. The foreman decides this at the
-closing disposition and records which branch applied.
+restates the round: the selected ADR or durable milestone disposition cites the
+charter, exhibit tag, and review notes directly, and no analysis file exists.
+The foreman decides this at the closing disposition and records which branch
+applied.
 
-**Committee.** At least two reviewers besides the builder, with distinct review charters — for example: contract fidelity against the governance set; implementation results and expressiveness against the charter's fixtures; fresh-reader legibility (can a reader recover the meaning from the artifact alone?). The owner's disposition closes each round. Dissent is recorded in the round's review notes, never resolved by wordsmithing; unresolved dissent is cited in the ADR.
+**Committee.** At least two reviewers besides the builder, with distinct review charters — for example: contract fidelity against the governance set; implementation results and expressiveness against the charter's fixtures; fresh-reader legibility (can a reader recover the meaning from the artifact alone?). The owner's disposition closes each round. Dissent is recorded in the round's review notes, never resolved by wordsmithing; unresolved dissent is cited in the selected ADR or durable milestone disposition.
 
 **Reviewer launch.** Committee reviewers launch like any other role: the
 foreman charters them and runs them at the plan-assigned tier in isolated
@@ -107,11 +182,12 @@ form in `docs/process/concurrent-work.md`, with a purpose identifying the topic
 and iteration, only while its iteration is active; prototype code never enters
 the milestone merge. When an iteration concludes, the foreman
 tags its tip as `exhibits/<topic>/it<N>` and deletes the branch ref. At
-milestone close, the ADR retains the material decision and evidence summary;
-the closed working set moves to the dated archive and does not remain mixed
-with active prototype work. Exhibit tags are landmarks, not active authority.
+milestone close, the selected ADR or durable milestone disposition retains the
+material conclusion and evidence summary; the closed working set moves to the
+dated archive and does not remain mixed with active prototype work. Exhibit
+tags are landmarks, not active authority.
 
-**Traceability.** Every conclusion cites a specific exhibit — a drafted artifact at a path on a named prototype branch, a recorded test result, a review note. A conclusion the reader cannot follow to its exhibit is not evidence and does not support an ADR. The chain is the ADR to its evidence, and — where an evaluation analysis exists — through the analysis to the exhibits it cites. A break anywhere in that chain is grounds to send the ADR back.
+**Traceability.** Every conclusion cites a specific exhibit — a drafted artifact at a path on a named prototype branch, a recorded test result, a review note. A conclusion the reader cannot follow to its exhibit is not evidence and does not support an ADR or durable milestone disposition. The chain is the selected record to its evidence, and — where an evaluation analysis exists — through the analysis to the exhibits it cites. A break anywhere in that chain is grounds to send the record back.
 
 **Process evaluation.** The process itself is evaluated while it runs. The
 foreman keeps a working process log on the milestone branch for material
