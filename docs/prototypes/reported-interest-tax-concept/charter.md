@@ -1,8 +1,8 @@
 # Prototype Charter — Reported Interest to Tax Concept
 
 **Topic:** `reported-interest-tax-concept`
-**Current exhibit:** `exhibits/reported-interest-tax-concept/it4`
-**Historical exhibits:** `it1`, `it2`, `it3` (unchanged)
+**Current exhibit:** `exhibits/reported-interest-tax-concept/it5`
+**Historical exhibits:** `it1`, `it2`, `it3`, `it4` (unchanged)
 **Milestone:** Reported Interest to Tax Concept Vertical Slice
 
 ## Question
@@ -39,25 +39,32 @@ reported amount or the payer. Provenance is never relabelled after execution.
 | E | relationship-edge | `{amount, sibling, reported_key}` |
 | B | explicit determination | reported, includible, non-includible, basis on one object |
 
-E's pointers are followed only through an explicitly granted object store.
-A followed target must match the carried item and expected kind. Mutating or
-misdirecting a claimed relationship field, or displacing a followed target,
-must change the relevant consumer task. Copied payload fields on C keep the
-provenance of the evaluation that produced them; a stale copy is a historical
-snapshot, not a current partition.
+A source-report producer identifies and reads the statement value only. It
+does not apply tax-slice coverage. Its support is the identified source fact,
+not a blank form and not substantive tax authority. Tax-treatment artifacts
+carry IRC § 61 / Publication 550. Treatment refusal must leave the source
+report recoverable and unmodified.
+
+E's pointers are followed only through explicitly granted object-store access.
+A followed target must match requested key to self-key, item, kind, and exact
+producing rule id and version, and (when granted) dependency currentness.
+Copied payload fields on C keep the producing evaluation's exact rule identity.
+A copied or referenced partition cannot support a current explanation after a
+producing evaluation is displaced.
 
 ## Later-year access
 
-Named capability grants, not a hidden workspace:
+In-memory Python object grants. Serialization, persistence, and cross-process
+recovery are not executed.
 
-1. artifact bytes only
+1. artifact-object-only
 2. artifact plus a currentness / version-resolution service
-3. artifact plus an identity-addressable retained-object store
-4. full source-year workspace access (artifact, currentness, store, workspace)
+3. object-store access
+4. full-workspace access
 
-Bytes-only receives none of: source workspace, source facts, sibling artifacts,
-undeclared version oracle. Without a currentness service the consumer must not
-claim it detected an amendment.
+Artifact-object-only receives none of: source workspace, source facts, sibling
+artifacts, undeclared version oracle. Without a currentness service the
+consumer must not claim it detected an amendment.
 
 ## Required cases
 
@@ -68,7 +75,7 @@ claim it detected an amendment.
 | TI-N1 | no result; outstanding question named |
 | TI-L1 | prior result displaced where its provenance reads the corrected fact; $700 includible on recompute |
 | TI-L2 | $950 includible on recompute |
-| TI-A1 | explicit coverage refusal. Do not treat the fixture as proof that full inclusion is the wrong number |
+| TI-A1 | tax treatment refuses coverage; the source report remains recoverable and unmodified. Do not treat the fixture as proof that full inclusion is the wrong number |
 
 ## Rubric
 
@@ -78,7 +85,7 @@ claim it detected an amendment.
 4. result identifies the item
 5. declared relation is read, verified against the statement item, and refuses on mismatch
 6. each artifact's provenance matches the expression that ran and accounts for the facts that expression read
-7. substantive authority attached
+7. substantive authority attached to tax-treatment artifacts, not the source report
 8. basis consequence published
 9. reporting projection separate
 10. missing facts and unsupported coverage fail explicitly
@@ -105,8 +112,9 @@ succession as passing if they were not executed.
 - Distinguish a new citizen kind from a recoverable relationship or copied
   amounts. Do not infer citizen-kind, schema compatibility, or production cost
   from prototype dataclasses.
-- State remaining owner decisions as retained capabilities, not as
-  "carry the artifact or reopen the source year" alone.
+- Dependency currentness of a current partition explanation is settled: a
+  displaced producing evaluation cannot support a current explanation. Remaining
+  owner questions concern the product consequence of that split state.
 
 ## Boundary
 

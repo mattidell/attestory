@@ -1,7 +1,7 @@
 # Prototype Examination — Reported Interest to Tax Concept
 
-**Current exhibit:** `exhibits/reported-interest-tax-concept/it4`
-**Historical exhibits, unchanged:** `it1`, `it2`, `it3`
+**Current exhibit:** `exhibits/reported-interest-tax-concept/it5`
+**Historical exhibits, unchanged:** `it1`, `it2`, `it3`, `it4`
 **Charter:** [charter.md](charter.md)
 
 Prototype code is not on the milestone branch.
@@ -31,19 +31,23 @@ determination rule. A rule id in provenance is the expression that ran.
 | **E** relationship-edge | `{amount, sibling, reported_key}` — pointers, no partition amounts |
 | **B** explicit determination | reported, includible, non-includible, and basis amounts on one object |
 
-Later-year access is one of:
+Later-year access is one of these **in-memory Python object grants**. The
+exhibit does not execute serialization, deserialization, persistence,
+cross-process recovery, or a durable storage schema.
 
-1. **bytes-only** — the carried artifact and nothing else
+1. **artifact-object-only** — the carried artifact object and nothing else
 2. **currentness** — the artifact plus a version-resolution service
-3. **object-store** — the artifact plus an identity-addressable store of retained artifacts
-4. **full-workspace** — artifact, currentness, object store, and the source-year workspace
+3. **object-store access** — the artifact plus an in-memory identity-addressable
+   mapping of retained artifact objects
+4. **full-workspace** — artifact, currentness, object-store access, and the
+   source-year workspace
 
-A bytes-only consumer is not given the source workspace, source facts, sibling
-artifacts, or a version oracle. Without a currentness service it does not claim
-to have detected an amendment.
+An artifact-object-only consumer is not given the source workspace, source
+facts, sibling artifacts, or a version oracle. Without a currentness service it
+does not claim to have detected an amendment.
 
 **Test result, from the exhibit tree:**
-`pytest tests/test_reported_interest_prototype.py -n0` → **32 passed, 455
+`pytest tests/test_reported_interest_prototype.py -n0` → **37 passed, 483
 subtests passed in 0.08s**.
 
 ## Case outcomes
@@ -100,22 +104,25 @@ usability.
 
 Unamended TI-B2, tasks passed:
 
-| Packaging | bytes-only | currentness | object-store | full-workspace |
+| Packaging | artifact-object-only | currentness | object-store access | full-workspace |
 | --- | --- | --- | --- | --- |
 | A | 3/6 | 5/6 | 3/6 | 6/6 |
 | C | 4/6 | 6/6 | 4/6 | 6/6 |
 | E | 3/6 | 5/6 | 4/6 | 6/6 |
 | B | 4/6 | 6/6 | 4/6 | 6/6 |
 
-Bytes-only never answers tasks 4 or 6. Task 5 when the source year is unamended:
+Artifact-object-only never answers tasks 4 or 6. Task 5 when the source year is
+unamended:
 
 - **A** recovers the partition only with the full source-year workspace.
-- **C** recovers it from copied amounts, including bytes-only. Each copied
-  field keeps the provenance of the evaluation that produced it.
-- **E** recovers it only by following `sibling` and `reported_key` through an
-  object store, and only when each target matches the carried item and expected
-  kind.
-- **B** recovers it from the carried object, including bytes-only.
+- **C** recovers it from copied amounts, including artifact-object-only. Each
+  copied field keeps the provenance of the evaluation that produced it,
+  including exact producing rule id and version.
+- **E** recovers it only by following `sibling` and `reported_key` through
+  object-store access, and only when each target's self-key, item, kind, and
+  producing rule id/version match, and (when currentness is granted) the target
+  is not displaced.
+- **B** recovers it from the carried object, including artifact-object-only.
 
 After an accrued-amount amendment, every packaging with a currentness service
 reports the carried artifact displaced and `fact_versions_current=False`.
@@ -129,28 +136,35 @@ After a reported-amount correction (1200 → 1000):
 - **B** with currentness: the whole object is displaced
   (`carried_displaced=True`).
 - **E** with full-workspace: followed targets are displaced; task 5 fails;
-  used-dependency currentness is false. Same-valued targets belonging to
-  another item are rejected (`foreign-item`). Wrong-kind targets are rejected.
+  used-dependency currentness is false. Same-valued targets are also rejected
+  for foreign item, wrong kind, wrong producing rule, wrong rule version, or
+  store lookup key differing from the artifact's self-key.
 
-C's copied fields are not current merely because the basis amount is current.
-E's pointers are not current merely because the carried basis artifact is
-current.
+**Settled invariant.** A copied or referenced partition cannot support a
+*current* explanation after an evaluation that produced one of its components
+has been displaced. That is provenance correctness, not an owner-selectable
+policy.
 
 ## Relationship fields
 
-On E, with an object store:
+On E, with object-store access:
 
-- intact same-item, correct-kind pointers → task 5 passes;
-- `sibling` or `reported_key` removed, missing, foreign-item, or wrong-kind →
-  task 5 fails;
+- intact same-item, correct-kind, correct-producer pointers → task 5 passes;
+- `sibling` or `reported_key` removed, missing, foreign-item, wrong-kind,
+  wrong producing rule, wrong rule version, or self-key mismatch → task 5
+  fails;
 - empty store → task 5 fails;
 - displaced target, when currentness is also granted → task 5 fails.
 
 On C, pointer corruption is ignored; removing copied amounts fails task 5;
-stale copied amounts fail task 5 once a currentness service is granted.
+stale copied amounts fail task 5 once a currentness service is granted; a
+mutated component producer fails task 5.
 
-E's reported-interest artifact cites Form 1099-INT as statement support, not
-IRC § 61 / Publication 550.
+The source-report artifact is published independently of tax-slice coverage.
+It is supported by the identified statement facts, not by a blank Form 1099-INT
+and not by IRC § 61 / Publication 550. On TI-A1 the tax treatment returns
+`SLICE_COVERAGE_UNSUPPORTED` and the source report of $840 remains recoverable
+and unmodified.
 
 ## What the evidence supports
 
@@ -201,18 +215,20 @@ purchase question.
 
 ## Remaining owner decision
 
-When a later year needs the basis consequence:
+A copied or referenced partition cannot be treated as a *current* explanation
+once a producing evaluation is displaced. What remains open is the product
+consequence of that split state, for example:
 
-1. which retained capabilities are granted (artifact bytes; fact-version
-   currentness of used dependencies; an object store of validated targets; the
-   source-year workspace);
-2. whether a copied or pointed-to partition may be treated as current only
-   while its producing evaluations remain current — the prototype now
-   distinguishes those cases, and the product still has to choose the rule.
+- recompute a current explanation;
+- retain the old explanation explicitly as historical;
+- withhold a current explanation;
+- decide whether an independently current basis amount supports some
+  specifically named later-year task.
 
-Rule, authority, coverage, and reporting succession remain outside the executed
-currentness service. Selecting a packaging before selecting those grants would
-reverse the dependency.
+The exhibit measured in-memory object grants (artifact-object-only,
+currentness, object-store access, full-workspace), not serialization or
+durable storage. Rule, authority, coverage, and reporting succession remain
+outside the executed currentness service.
 
 ## Open
 

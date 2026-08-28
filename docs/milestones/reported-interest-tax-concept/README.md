@@ -24,7 +24,7 @@ works. It is whether anything in the model holds the reason.
 grounds.** Four packagings were run on the same six cases through the engine's
 real expression evaluator. The comparison is
 [`docs/prototypes/reported-interest-tax-concept/examination.md`](../../prototypes/reported-interest-tax-concept/examination.md),
-exhibit `exhibits/reported-interest-tax-concept/it4`.
+exhibit `exhibits/reported-interest-tax-concept/it5`.
 
 - **A — artifact-alone.** Independent artifacts, payload `{amount}` only.
   Includible and basis are separate evaluator runs.
@@ -41,22 +41,24 @@ exhibit `exhibits/reported-interest-tax-concept/it4`.
 Arithmetic does not discriminate. All four produce every required number, or
 the same explicit refusal, on all six cases.
 
-A later-year consumer performs six recovery tasks under four explicit access
-grants (artifact bytes only; currentness service; object store; full
-source-year workspace). Bytes-only never detects an amendment. Task 6 is
-fact-version currentness of the dependencies actually used; it does not decide
-rule, authority, coverage, or reporting succession.
+A later-year consumer performs six recovery tasks under four in-memory object
+grants (artifact-object-only; currentness; object-store access; full-workspace).
+The exhibit does not execute serialization or persistence. Artifact-object-only
+never detects an amendment. Task 6 is `fact_version_current` of the
+dependencies actually used; it does not decide general usability, nor rule,
+authority, coverage, or reporting succession.
 
-C answers the partition-explanation task from copied amounts only while those
-copies' producing evaluations remain current. After a reported-amount
-correction the basis amount can remain current and the copies are a historical
-snapshot. B is wholly displaced by the same correction. E answers the task only
-with an object store of same-item, correct-kind targets; a displaced or foreign
-target fails. A answers it only with the full source-year workspace.
+A copied or referenced partition cannot support a current explanation after a
+producing evaluation is displaced. That is settled. After a reported-amount
+correction, C's basis amount can remain current while its copies are a
+historical snapshot; B is wholly displaced. E answers the current partition
+task only through object-store access to targets whose self-key, item, kind,
+and producing rule id/version match. A answers it only with the full
+source-year workspace.
 
-Those are different retained-capability and dependency-currentness
-requirements. They do not establish that a new citizen kind is necessary.
-Production cost was not measured.
+Those differences do not establish that a new citizen kind is necessary.
+Production cost was not measured. The source report is independent of tax-slice
+coverage: on TI-A1 the treatment refuses and the reported $840 remains.
 
 ## What else is established
 
@@ -103,7 +105,7 @@ semantic cases were not posed to the incumbent.
 ## What this milestone is and is not
 
 It is a completed executable vertical slice whose current evidence is exhibit
-`it4`. It does not select a production representation, schema, citizen kind,
+`it5`. It does not select a production representation, schema, citizen kind,
 field shape, storage mechanism, ADR, or migration.
 
 ## Reading order
@@ -131,11 +133,13 @@ No committed artifact carries the basis consequence into a later year.
 
 ## What is unresolved
 
-**Decision-blocking.** When a later year needs the basis consequence, which
-retained capabilities are granted, and whether a copied or pointed-to partition
-is current only while its producing evaluations are current. The prototype now
-distinguishes those cases. Rule, authority, coverage, and reporting succession
-remain outside the executed currentness service.
+**Decision-blocking.** A copied or referenced partition cannot support a
+current explanation after a producing evaluation is displaced. Remaining
+product questions concern the split state: recompute, retain as historical,
+withhold, or decide whether an independently current basis amount supports a
+named later-year task. The exhibit measured in-memory object grants, not
+durable storage. Rule, authority, coverage, and reporting succession remain
+outside the executed currentness service.
 
 **Production conditions.** Missing Treasury Regulation family in `citation.v1`.
 No artifact carrying the basis drop into the year of disposition.

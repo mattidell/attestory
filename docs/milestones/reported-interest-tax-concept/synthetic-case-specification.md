@@ -274,7 +274,7 @@ the **tax conclusion drawn from it**.
 
 The six cases ran under four packagings — artifact-alone (A),
 embedded-composite (C), relationship-edge (E), and explicit determination (B)
-— through the real evaluator on exhibit `it4`. Distributed packagings use
+— through the real evaluator on exhibit `it5`. Distributed packagings use
 separate includible and basis evaluations. The record is
 [`examination.md`](../../prototypes/reported-interest-tax-concept/examination.md).
 
@@ -298,8 +298,10 @@ follow from these cases.
 **Re-keying to the statement identity gives naming, not a guard.** Line 2b
 still subtracts three scalar subtotals.
 
-**The cases do not support a representation recommendation.** They support an
-owner decision about which later-year capabilities the product grants:
-artifact bytes, a currentness service, an object store, and/or the source-year
-workspace. Citizen-kind, schema, and production cost are not selected or
-measured here.
+**The cases do not support a representation recommendation.** A copied or
+referenced partition cannot support a current explanation after a producing
+evaluation is displaced. Remaining product questions concern the split state
+(recompute, retain as historical, withhold, or a named later-year task for an
+independently current basis amount). The exhibit measured in-memory object
+grants, not serialized bytes or durable storage. Citizen-kind, schema, and
+production cost are not selected or measured here.

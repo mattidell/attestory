@@ -5,8 +5,8 @@
   "topic": "tax-concept-derivation",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md",
   "milestone_state": "track-3",
-  "status": "Tax Concept Derivation established 2026-08-27 from origin/main at 9159a13d. Opening milestone: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, a distinct box-3 TI-A1 coverage probe. Current exhibit exhibits/reported-interest-tax-concept/it4 (it1, it2, it3 unchanged historical exhibits). Four packagings ran through the real evaluator. Copied C fields keep producing-evaluation provenance; E pointers validate item and kind and respect target currentness. Task 6 is fact-version currentness of used dependencies, not general usability. RECOMMENDATION: none on necessity grounds. Owner decision: which later-year capabilities are granted, and whether a copied or pointed-to partition is current only while its producing evaluations are current. TI-A1 is a coverage probe. Treatment: Pub. 550 Bonds Sold Between Interest Dates against IRC 61(a)(4). Prototype code is not on the milestone branch. Durable record: docs/milestones/reported-interest-tax-concept/ and docs/prototypes/reported-interest-tax-concept/.",
-  "current_role": "Milestone lead — current evidence reconciled on it4; awaiting fresh whole-candidate independent review",
+  "status": "Tax Concept Derivation established 2026-08-27 from origin/main at 9159a13d. Opening milestone: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, a distinct box-3 TI-A1 coverage probe. Current exhibit exhibits/reported-interest-tax-concept/it5 (it1-it4 unchanged historical exhibits). Four packagings ran through the real evaluator. Source-report is independent of tax-slice coverage. Copied C fields and E targets validate producing rule identity; a displaced producing evaluation cannot support a current partition explanation. Later-year grants are in-memory objects (artifact-object-only, currentness, object-store access, full-workspace); serialization was not executed. Task 6 is fact_version_current of used dependencies, not general usability. RECOMMENDATION: none on necessity grounds. Owner decision: product consequence of split state after a current partition explanation is unavailable. TI-A1: treatment refuses; source report of 840 remains. Treatment: Pub. 550 Bonds Sold Between Interest Dates against IRC 61(a)(4). Prototype code is not on the milestone branch. Durable record: docs/milestones/reported-interest-tax-concept/ and docs/prototypes/reported-interest-tax-concept/.",
+  "current_role": "Milestone lead — current evidence reconciled on it5; awaiting fresh whole-candidate independent review",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md#Tracks"
 }
 -->
@@ -37,16 +37,17 @@ a project to enumerate or implement the entire taxable-interest universe.
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
 - **Active milestone:** Reported Interest to Tax Concept Vertical Slice —
   **IN CLOSEOUT, NOT CLOSED**. Current exhibit
-  `exhibits/reported-interest-tax-concept/it4`. Four packagings ran on the six
+  `exhibits/reported-interest-tax-concept/it5`. Four packagings ran on the six
   cases. No representation is recommended on necessity grounds.
 - **Base:** `origin/main` at
   `9159a13d261f5005523ad58f8893ffffd735f204`, which includes the completed
   Taxable Interest Modeling milestone through PR #185.
 - **Branch:** `milestone/tax-concept-derivation-phase-definition`.
 - **Next move:** a fresh whole-candidate independent review, then the owner
-  decision. Remaining owner question: which later-year capabilities are
-  granted, and whether a copied or pointed-to partition is current only while
-  its producing evaluations are current.
+  decision. Remaining owner question: the product consequence of a split
+  state after a current partition explanation is unavailable (recompute,
+  retain as historical, withhold, or a named later-year task for an
+  independently current basis amount).
 - **TI-A1.** Prototype refuses coverage. The incumbent cannot determine whether
   § 135 applies and may publish full inclusion. The fixture does not prove the
   published number wrong.
@@ -85,9 +86,9 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Open and owner-held
 
 - Whether a derived tax concept needs a new citizen is **not established**.
-  Remaining product requirements are which later-year capabilities are granted
-  and whether a copied or pointed-to partition is current only while its
-  producing evaluations are current.
+  A copied or referenced partition cannot support a current explanation after
+  a producing evaluation is displaced. Remaining product questions concern
+  what to do in that split state.
 - The identity and lifecycle of item-level tax classifications are open,
   including the independent effects of source correction, circumstance
   correction, tax-rule succession, and reporting-artifact succession.
@@ -121,6 +122,6 @@ later milestones.
   `docs/milestones/taxable-interest-model-sufficiency/README.md`.
 - **Executed prototype record:**
   `docs/prototypes/reported-interest-tax-concept/examination.md` (charter
-  alongside it; code at tag `exhibits/reported-interest-tax-concept/it4`).
+  alongside it; code at tag `exhibits/reported-interest-tax-concept/it5`).
 - **Previous phase close:**
   `docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md`.
