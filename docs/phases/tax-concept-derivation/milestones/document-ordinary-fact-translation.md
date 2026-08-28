@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "document-ordinary-fact-translation",
-  "milestone_state": "planned",
+  "milestone_state": "track-0",
   "status": "Selected 2026-08-28. Establish the first source-independent canonical fact slice through which a Form 1099-INT report and a structured ordinary purchase account can jointly support an accrued-interest tax treatment. Create the first fluid agent-maintained domain model, compare only consequential canonical shapes, and continue into a bounded production path unless evidence exposes a material owner decision.",
   "current_role": "Foreman — owner-directed milestone lead",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md",

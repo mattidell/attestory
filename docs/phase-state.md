@@ -4,7 +4,7 @@
   "phase": "Tax Concept Derivation",
   "topic": "document-ordinary-fact-translation",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md",
-  "milestone_state": "planned",
+  "milestone_state": "track-0",
   "status": "Tax Concept Derivation remains active. Document and Ordinary-Fact Translation Vertical selected 2026-08-28 from origin/main at 0869f10a. The milestone will create the first fluid taxable-interest translation domain model, establish a source-independent canonical slice joining a Form 1099-INT report to ordinary bond-purchase facts, and proceed into bounded production behavior unless evidence exposes a material owner decision. The later-year basis question is deferred until this current-year translation exists.",
   "current_role": "Foreman — owner-directed milestone lead",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md"
@@ -36,14 +36,21 @@ a project to enumerate or implement the entire taxable-interest universe.
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
 - **Active milestone:** Document and Ordinary-Fact Translation Vertical —
-  **PLANNED 2026-08-28**.
+  **TRACK 0 COMPLETE 2026-08-28**.
 - **Base:** `origin/main` at
   `0869f10a90403f9ed35e27d326ba46dc4da57bba`, including the merged owner model.
 - **Branch:** `milestone/document-ordinary-fact-translation`.
-- **Next move:** the owner-launched foreman/lead executes Track 0: create the
-  fluid domain model, fix the canonical semantic box and synthetic cases,
-  reconstruct current consumers, and decide whether a discriminating
-  prototype is needed before bounded production implementation.
+- **Next move:** Track 2, bounded production translation. Track 1 collapsed:
+  Track 0 left one viable canonical shape, so a discriminating prototype would
+  compare it only against shapes already known non-viable or already decided.
+- **Track 0 result.** The fluid domain model is
+  `docs/domain-models/taxable-interest-translation.md`; the canonical slice,
+  payloads, contract comparison, and adversarial closure are
+  `docs/milestones/document-ordinary-fact-translation/canonical-slice.md`.
+  New entity kinds and object-valued canonical members cost no schema change.
+  The one genuine gap is a **required cross-family association** check, added
+  as an additive `source-family.v3` successor to ADR-0066's existing
+  `identity_exclusivity` machinery.
 - **Just-closed evidence:** Reported Interest to Tax Concept Vertical Slice —
   **CLOSED 2026-08-28**. Exhibit
   `exhibits/reported-interest-tax-concept/it6`. Four packagings ran on six
