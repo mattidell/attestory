@@ -2,13 +2,12 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "tax-concept-derivation",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md",
-  "milestone_state": "closed",
-  "retrospective": "docs/milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md",
-  "status": "Tax Concept Derivation remains active. Opening milestone Reported Interest to Tax Concept Vertical Slice closed 2026-08-28 from origin/main at 9159a13d. Bounded slice: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, a distinct box-3 TI-A1 coverage probe. Exhibit exhibits/reported-interest-tax-concept/it6. No representation is recommended on necessity grounds. Durable record: docs/milestones/reported-interest-tax-concept/. Prototype working set archived under docs/archive/2026-08-28-reported-interest-tax-concept/. Next milestone unselected. Named candidate, if chosen: Later-Year Basis Consequence Frontier.",
-  "current_role": "Foreman — between-milestones selection",
-  "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md"
+  "topic": "document-ordinary-fact-translation",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md",
+  "milestone_state": "planned",
+  "status": "Tax Concept Derivation remains active. Document and Ordinary-Fact Translation Vertical selected 2026-08-28 from origin/main at 0869f10a. The milestone will create the first fluid taxable-interest translation domain model, establish a source-independent canonical slice joining a Form 1099-INT report to ordinary bond-purchase facts, and proceed into bounded production behavior unless evidence exposes a material owner decision. The later-year basis question is deferred until this current-year translation exists.",
+  "current_role": "Foreman — owner-directed milestone lead",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md"
 }
 -->
 
@@ -36,27 +35,28 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
-- **Just-closed milestone:** Reported Interest to Tax Concept Vertical Slice —
-  **CLOSED 2026-08-28**. Exhibit
-  `exhibits/reported-interest-tax-concept/it6`. Four packagings ran on the six
-  cases. No representation is recommended on necessity grounds.
+- **Active milestone:** Document and Ordinary-Fact Translation Vertical —
+  **PLANNED 2026-08-28**.
 - **Base:** `origin/main` at
-  `9159a13d261f5005523ad58f8893ffffd735f204`, which includes the completed
-  Taxable Interest Modeling milestone through PR #185.
-- **Branch:** `milestone/tax-concept-derivation-phase-definition`.
-- **Next move:** select the next milestone. None is selected. The named
-  candidate is Later-Year Basis Consequence Frontier. Carried product
-  question from the closed slice: the product consequence of a split state
-  after a current partition explanation is unavailable (recompute, retain as
-  historical, withhold, or a named later-year task for an independently
-  current basis amount).
+  `0869f10a90403f9ed35e27d326ba46dc4da57bba`, including the merged owner model.
+- **Branch:** `milestone/document-ordinary-fact-translation`.
+- **Next move:** the owner-launched foreman/lead executes Track 0: create the
+  fluid domain model, fix the canonical semantic box and synthetic cases,
+  reconstruct current consumers, and decide whether a discriminating
+  prototype is needed before bounded production implementation.
+- **Just-closed evidence:** Reported Interest to Tax Concept Vertical Slice —
+  **CLOSED 2026-08-28**. Exhibit
+  `exhibits/reported-interest-tax-concept/it6`. Four packagings ran on six
+  cases; no new citizen was established as necessary.
 - **TI-A1.** Prototype refuses coverage. The incumbent cannot determine whether
   § 135 applies and may publish full inclusion. The fixture does not prove the
   published number wrong.
 - **Authority.** Pub. 550 *Bonds Sold Between Interest Dates* against
   IRC § 61(a)(4), not Treas. Reg. § 1.61-7(c).
-- **Decision posture:** executable evidence and bounded production-contract
-  questions. No citizen, schema, ADR, or production migration is selected.
+- **Decision posture:** a source-independent canonical layer is selected
+  product direction. Its exact facts, identities, relationships, and fit with
+  current contracts are to be established through domain modeling and
+  executable evidence, then implemented when no material choice remains.
 
 ## Standing constraints and postures
 
@@ -87,18 +87,26 @@ a project to enumerate or implement the entire taxable-interest universe.
 
 ## Open and owner-held
 
-- Whether a derived tax concept needs a new citizen is **not established**.
-  A copied or referenced partition cannot support a current explanation after
-  a producing evaluation is displaced. Remaining product questions concern
-  what to do in that split state.
-- The identity and lifecycle of item-level tax classifications are open,
+- The minimum canonical facts and relationships joining a documentary interest
+  report to an ordinary acquisition circumstance remain open.
+- The exact identity and lifecycle of the bounded canonical slice remain open,
   including the independent effects of source correction, circumstance
   correction, tax-rule succession, and reporting-artifact succession.
+- Whether any derived tax concept needs separately durable workspace standing
+  is subordinate and unselected until a named consumer makes it material.
 - The minimum durable shape of a concept-coverage profile is open.
 - The question of subject on a joint return remains outside the opening slice.
 - The first contrasting tax concept is not yet selected.
 - `OV-1`, `SC-13`, and `SC-16` remain carried but unselected. This phase does
   not absorb them unless a later milestone explicitly selects them.
+
+## Active milestone
+
+The active plan is
+`docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md`.
+It establishes the first fluid domain model and the first canonical translation
+slice connecting documentary and ordinary inputs. The plan expects bounded
+production implementation after any genuinely discriminating prototype work.
 
 ## Just-closed milestone
 
@@ -112,7 +120,7 @@ ordinary circumstance. The treatment was verified from official sources and the
 cases instantiated before the prototype; the executed comparison is in
 `docs/archive/2026-08-28-reported-interest-tax-concept/prototypes/reported-interest-tax-concept/examination.md`.
 Full taxable-interest coverage, production schemas, and return-engine
-migration remain later work. The next milestone is unselected.
+migration beyond the active bounded translation remain later work.
 
 ## Pointers
 
@@ -120,6 +128,8 @@ migration remain later work. The next milestone is unselected.
   `docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md`.
 - **Phase roadmap:**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
+- **Active milestone plan:**
+  `docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md`.
 - **Just-closed milestone plan:**
   `docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md`.
 - **Retrospective:**

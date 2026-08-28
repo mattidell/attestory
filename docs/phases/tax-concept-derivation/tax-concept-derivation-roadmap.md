@@ -16,67 +16,51 @@ the result to a simulated return without collapsing those layers. It is first
 because every broader milestone otherwise risks encoding the current
 source-box-to-form-line shortcut in a larger vocabulary.
 
-### 2. Later-Year Basis Consequence Frontier (updated: 2026-08-27)
+### 2. Document and Ordinary-Fact Translation Vertical
 
-Use the accrued-interest basis reduction in one concrete later disposition of
-the same synthetic obligation. The primary proposition is whether the existing
-fact, rule, derived-artifact, and provenance model can carry that consequence
-honestly, or whether the consumer demonstrates a need for a separately durable
-item-level determination.
+Create the first fluid, agent-maintained domain model of the taxable-interest
+translation frontier, then establish one source-independent canonical fact
+slice in which a Form 1099-INT report and an ordinary account of a bond purchase
+can jointly support the accrued-interest treatment.
 
-This milestone deliberately applies
-[`PROJECT_PLANNING.md`, **Frontier Reduction and Direct-Build
-Routing**](../../../PROJECT_PLANNING.md#frontier-reduction-and-direct-build-routing).
-It first fixes the later-year consumer, source-year and disposition facts,
-correction trace, and failure test on paper. If the accepted model already
-serves the consumer, build the bounded path directly. If materially different
-representations remain, exercise only the smallest rival prototypes under the
-same consumer and lifecycle rubric. The disposition must state what was
-eliminated, what survived, and whether a production contract is selected or
-still deferred.
+The milestone treats the canonical layer as selected product direction. It
+does not ask whether a document model can serve instead. It maps the broader
+frontier for product comprehension, selects only the canonical facts needed by
+the bounded slice, prototypes materially different identity or relationship
+shapes only when a product behavior discriminates them, and proceeds into the
+production interest and line-2b path when no consequential owner decision
+remains.
 
-It does not design general investment-lot storage, a securities ledger, or a
-universal cross-year tax ontology. Before treating broker-reported basis as a
-reason to carry another artifact, it checks whether the later statement already
-supplies the required value and what product behavior still depends on the
-source-year determination.
+This milestone deliberately tests the cadence of domain map → canonical slice
+→ discriminating evidence → production build → simple abstraction. Its
+retrospective decides what should be repeated or simplified before the roadmap
+is projected farther. Plan:
+[`milestones/document-ordinary-fact-translation.md`](milestones/document-ordinary-fact-translation.md).
 
-### 3. Tax Concept Representation Contract
+### 3. Later-Year Basis Reuse Test
 
-Select the smallest durable production contract only after the later-year
-consumer supplies a discriminator. This milestone decides the representation
-questions the two slices made concrete: concept identity, item-level
-classification, subject and period, rule and authority linkage, coverage,
-lifecycle, and the boundary between substantive determination and reporting
-projection. If the frontier disposition supports direct use of existing
-contracts, narrow this milestone to the missing facts, linkage, or citation
-contract rather than creating a new citizen.
+Use a later disposition of the same synthetic obligation to test whether the
+canonical acquisition and obligation model established by milestone 2 remains
+coherent when its basis consequence matters later. Later documentary evidence
+is an input to reconcile, not a substitute for the canonical history.
 
-### 4. Production Interest Slice and Return Projection
+This milestone is deferred until the current-year translation exists. It may
+expose new lifecycle or persistence requirements, but it does not reopen
+whether documentary and ordinary facts need a shared source-independent model.
 
-Reimplement the accepted contract in the production record, derivation, and
-tax-content paths. Migrate exactly the selected interest slice and bind its
-derived concept result to the simulated Form 1040 line-2b route, with synthetic
-positive, adjusted, correction, and unsupported-boundary cases.
+### 4. Adjacent Translation Case
 
-This milestone is where return-engine development resumes. It is deliberately
-not a general taxable-interest expansion: it proves that the new semantic path
-can operate inside the real engine and coexist with unmigrated interest
-content.
+Apply the established cadence to one materially different taxable-interest
+translation selected for what it tests: ownership and allocation, a substantive
+exclusion, or an election-dependent treatment. Map the wider region, build
+directly where the canonical contract transfers, and use frontier reduction
+only for a genuinely new identity, authority, lifecycle, or interaction
+question.
 
-### 5. Detectable Boundary and One Adjacent Expansion
+This is the first normalization test. It determines whether the accrued-
+interest result is a reusable product method or a case-specific success.
 
-Exercise one materially different taxable-interest case selected for what it
-tests, not for census coverage. The preferred candidates are a substantive
-exclusion, a timing distinction, or an election-dependent treatment. The
-milestone must first show how the build detects or declares the unsupported
-region, then implement at most one adjacent expansion if doing so answers the
-selected architectural question.
-
-This milestone tests whether the concept and coverage models remain honest as
-the domain widens. It does not turn every newly observed category into scope.
-
-### 6. Contrasting Tax Concept
+### 5. Contrasting Tax Concept
 
 Apply the method to a concept with a different structure, chosen after the
 interest work exposes which properties may be accidental. A deduction or
@@ -87,7 +71,7 @@ The purpose is to find which parts of the representation are genuinely common
 and which belong only to interest. Confirmation in a second concept is evidence
 of transfer, not proof of universality.
 
-### 7. Tax-Concept Question and Explanation Projection
+### 6. Tax-Concept Question and Explanation Projection
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
@@ -104,28 +88,27 @@ model must continue to serve computation and return generation.
 | Milestone | State | Project impact |
 | --- | --- | --- |
 | Reported Interest to Tax Concept Vertical Slice | **Closed 2026-08-28 — no representation recommended** | Tax-domain model, synthetic fixtures, four-packaging comparison, derivation boundary |
-| Later-Year Basis Consequence Frontier | **Named, not selected** | Concrete later-year consumer, cross-year consequence, representation discriminator |
-| Tax Concept Representation Contract | Not selected | Schemas, citizens, lifecycle, adopted artifacts, ADRs if required |
-| Production Interest Slice and Return Projection | Not selected | Record, derivation, tax content, return engine, tests |
-| Detectable Boundary and One Adjacent Expansion | Not selected | Coverage profile, boundary detection, one bounded tax expansion |
+| Document and Ordinary-Fact Translation Vertical | **Selected 2026-08-28 — planned** | Fluid domain model, canonical workspace slice, structured ordinary input, tax derivation, line-2b production path |
+| Later-Year Basis Reuse Test | Deferred until milestone 2 | Cross-year reuse, reconciliation, lifecycle and persistence evidence |
+| Adjacent Translation Case | Not selected | Cadence normalization, canonical-model reuse, one bounded tax expansion |
 | Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 
-The just-closed plan is
-[`milestones/reported-interest-tax-concept-vertical-slice.md`](milestones/reported-interest-tax-concept-vertical-slice.md).
-The next milestone is unselected. The named candidate, if chosen, is Later-Year
-Basis Consequence Frontier. The retrospective is
+The active plan is
+[`milestones/document-ordinary-fact-translation.md`](milestones/document-ordinary-fact-translation.md).
+The just-closed milestone remains recorded in
 [`2026-08-28-reported-interest-tax-concept.md`](../../milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md).
 
 ## Starting evidence
 
 The completed Taxable Interest Modeling milestone supplies exploratory
-architecture and adversarial cases, not an accepted representation contract.
-Its durable contribution is the separation among evidence, reported facts,
-economic facts, substantive classification, reporting, execution, claim scope,
-and presentation. The opening milestone deliberately instantiates only the
-minimum part of that separation needed to distinguish two outcomes over the
-same source report.
+architecture and adversarial cases. The reported-interest experiment then
+showed that arithmetic and packaging do not decide the canonical model and
+that the incumbent cannot accept the ordinary purchase circumstance. Together
+they establish the starting distinction among evidence, reported facts,
+ordinary circumstances, tax classification, tax concepts, reporting,
+execution, claim scope, and presentation. They do not supply the missing
+translation layer.
 
 The Claim Boundary Exploration phase remains useful downstream: once a real
 tax-concept derivation exists, its explanation-tree method can test whether a
@@ -134,35 +117,38 @@ content.
 
 ## Scope control
 
-The taxable-interest universe is a context map, not the opening milestone's
-work queue. A candidate enters a milestone only when the plan names:
+The taxable-interest universe is a fluid domain map, not an implementation
+backlog. Agents may broaden that map whenever doing so improves comprehension,
+interaction design, refusal, handoff, or roadmap selection. Canonical and
+production scope remains selected by product value and evidence. A candidate
+enters implementation when the plan names:
 
 - the architectural distinction it exercises;
 - the observable result that would differ;
 - the cheapest evidence capable of resolving the question; and
 - the work that is displaced or deferred if the candidate is admitted.
 
-The following are explicitly outside the opening milestone: original issue
-discount, education exclusions, nominee ownership, bond-premium and
-market-discount elections, frozen-deposit timing, seller-financed mortgage
-interest, K-1 interest, joint-return subject modeling, Schedule B attachment
-triggers, full line-2b coverage, filing, and user-interface implementation.
+The active milestone may locate neighboring interest categories in its domain
+model but does not implement original issue discount, education exclusions,
+nominee ownership, bond-premium and market-discount elections, frozen-deposit
+timing, seller-financed mortgage interest, K-1 interest, joint-return subject
+modeling, general Schedule B triggers, full line-2b coverage, filing, or a
+production graphical interface.
 
 ## Roadmap reassessment points
 
-Reassess after each of the first four milestones.
+Reassess after each of the next three milestones.
 
-- If the opening slice cannot distinguish source report, circumstance, and tax
-  classification without a governance or citizen decision, stop before
-  production and bring that exact decision to the owner.
-- If the later-year basis consumer is served by the current rule-artifact model,
-  narrow milestone 3 to the missing facts, linkage, citation, or production
-  adoption work rather than inventing a parallel citizen.
-- If no concrete later-year behavior distinguishes the representations, defer
-  the citizen decision and preserve the bounded requirements instead of
-  prolonging the prototype.
+- After the active milestone, decide whether the tested cadence delivered a
+  useful domain abstraction and production capability at proportionate cost.
+  Change the cadence before projecting a longer roadmap if it did not.
 - If production integration requires a large migration of existing interest
-  families, keep the selected slice working alongside the legacy path and
-  schedule migration by concept boundary; do not absorb the entire migration.
+  families, keep the selected slice working alongside the legacy path unless a
+  broader migration has a better explicit value case.
+- If the later-year consumer reveals no new product behavior, record the reuse
+  result and stop rather than inventing persistence machinery.
+- If the adjacent case transfers cleanly, build subsequent instances directly.
+  If it exposes a new domain distinction, update the fluid map and reduce only
+  that frontier.
 - If a contrasting concept breaks the purported common model, preserve the
   domain-specific distinction rather than forcing a universal abstraction.
