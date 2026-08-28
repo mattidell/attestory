@@ -274,7 +274,7 @@ the **tax conclusion drawn from it**.
 
 The six cases ran under four packagings — artifact-alone (A),
 embedded-composite (C), relationship-edge (E), and explicit determination (B)
-— through the real evaluator on exhibit `it5`. Distributed packagings use
+— through the real evaluator on exhibit `it6`. Distributed packagings use
 separate includible and basis evaluations. The record is
 [`examination.md`](../../prototypes/reported-interest-tax-concept/examination.md).
 
@@ -283,11 +283,15 @@ Arithmetic does not discriminate: 1200, 900, blocked, 700, 950, blocked.
 Every declared fixture fact was corrected or removed after publication.
 Displacement of each artifact matches that artifact's own provenance.
 Copied fields on C keep the producing evaluation's provenance; after a
-reported-amount correction they are historical snapshots, while the basis
-amount can remain current. E follows pointers only to same-item, correct-kind
-targets; a displaced or foreign target fails. Bytes-only cannot detect an
-amendment. Task 6 is fact-version currentness of used dependencies, not
-general usability.
+reported-amount correction they remain a recoverable recorded partition and
+are historical under task 6, while the basis amount can remain independently
+current. E follows pointers only to targets whose self-key, item, kind, and
+exact producing rule id/version match; a foreign, wrong-kind, wrong-producer,
+or self-key-mismatched target fails reconstruction. Artifact-object-only
+cannot detect an amendment and cannot establish currentness. Task 5 recovers
+the recorded partition explanation. Task 6 is fact-version currentness of used
+dependencies, not general usability. Object-store access is not a currentness
+grant.
 
 On TI-N1 the evaluator distinguished "yes, amount supplied" from "yes, amount
 missing", blocked, and named the missing fact.

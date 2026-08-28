@@ -8,6 +8,9 @@ from typing import Any, Callable, Mapping
 
 from .model import CASES, OBLIGATION_ID, OBLIGATION_ID_THIRD, Workspace, case_ti_b2
 from .shapes import (
+    AUTHORITY,
+    COVERAGE_ID,
+    COVERAGE_VERSION,
     Artifact,
     Blocked,
     CurrentnessService,
@@ -24,6 +27,9 @@ from .shapes import (
     evaluate_includible,
     project_line_2b,
 )
+
+TASK5 = "5 recover the recorded partition explanation"
+TASK6 = "6 decide fact-version currentness of used dependencies"
 
 CLASSIFICATION_WORDS = ("taxable", "includible", "excludable", "adjustment", "schedule b")
 
@@ -127,7 +133,8 @@ def item_relation_verified(run: ShapeRun) -> tuple[bool, str]:
 
 def provenance_matches_evaluated_rule(run: ShapeRun) -> tuple[bool, str]:
     """Each artifact's rule id is the expression that produced it, not a relabel."""
-    if run.is_blocked:
+    arts = run.artifacts()
+    if not arts:
         return True, "blocked; no result to account for"
     expected = {
         "includible-interest": "demo.rule.includible-interest",
@@ -182,36 +189,82 @@ def provenance_completeness(run: ShapeRun) -> tuple[bool, str]:
     """Every fact the artifact's own evaluation read is accounted for.
 
     Completeness is per-rule, not a fixture-wide set stamped onto every artifact.
+    Source-report accounted() must mark tax authority and coverage omitted;
+    treatment accounted() must mark them present.
     """
-    if run.is_blocked:
+    arts = run.artifacts()
+    if not arts:
         return True, "blocked; no result to account for"
     bits = []
-    for art in run.artifacts():
+    for art in arts:
         accounted = art.provenance.accounted()
         missing = set(art.provenance.reads) - accounted
         if missing:
             return False, f"{art.key}: reads absent from accounted(): {sorted(missing)}"
+        authority_tokens = {t for t in accounted if t.startswith("authority:")}
+        coverage_tokens = {t for t in accounted if t.startswith("coverage:")}
+        if art.kind == "source-report":
+            if authority_tokens != {"authority:omitted"}:
+                return False, f"{art.key}: source-report accounted() authority={sorted(authority_tokens)}"
+            if coverage_tokens != {"coverage:omitted"}:
+                return False, f"{art.key}: source-report accounted() coverage={sorted(coverage_tokens)}"
+        else:
+            if "authority:omitted" in authority_tokens or not (authority_tokens - {"authority:omitted"}):
+                return False, f"{art.key}: treatment accounted() has no present authority"
+            if coverage_tokens != {f"coverage:{COVERAGE_ID}.v{COVERAGE_VERSION}"}:
+                return False, f"{art.key}: treatment accounted() coverage={sorted(coverage_tokens)}"
         bits.append(f"{art.kind}: {len(art.provenance.reads)} reads")
     return True, "; ".join(bits)
 
 
 def authority_attached(run: ShapeRun) -> tuple[bool, str]:
-    if run.is_blocked:
-        treatments = [a for a in run.artifacts() if a.kind != "source-report"]
-        if not treatments:
-            return True, "treatment refused; source-report carries no tax authority"
-    tax = [a for a in run.artifacts() if a.kind != "source-report"]
-    if not tax:
-        return True, "no tax-treatment artifact"
-    counts = {a.kind: len(a.provenance.authority) for a in tax}
-    if not all(counts.values()):
-        return False, f"no substantive authority on tax-treatment artifacts: {counts}"
     reports = [a for a in run.artifacts() if a.kind == "source-report"]
+    tax = [a for a in run.artifacts() if a.kind != "source-report"]
     for art in reports:
-        cites = [c["citation"] for c in art.provenance.authority]
-        if "IRC § 61(a)(4)" in cites:
-            return False, "source-report carries tax-treatment authority"
-    return True, f"substantive authority on tax-treatment artifacts only: {counts}"
+        if art.provenance.authority:
+            return False, (
+                "source-report substantive tax-authority collection is not empty: "
+                f"{tuple(a.get('citation') for a in art.provenance.authority)}"
+            )
+        if art.provenance.coverage_id is not None or art.provenance.coverage_version is not None:
+            return False, (
+                "source-report carries tax coverage "
+                f"{art.provenance.coverage_id!r}.v{art.provenance.coverage_version!r}"
+            )
+        accounted = art.provenance.accounted()
+        if "authority:omitted" not in accounted or "coverage:omitted" not in accounted:
+            return False, f"{art.key}: accounted() does not mark omitted authority/coverage"
+        if any(t.startswith("authority:") and t != "authority:omitted" for t in accounted):
+            return False, f"{art.key}: accounted() still lists tax authority"
+        if any(t.startswith("coverage:") and t != "coverage:omitted" for t in accounted):
+            return False, f"{art.key}: accounted() still lists tax coverage"
+    if not tax:
+        if run.is_blocked:
+            return True, "treatment refused; source-report authority omitted and coverage omitted"
+        return True, "no tax-treatment artifact; source-report authority omitted and coverage omitted"
+    expected_cites = {a["citation"] for a in AUTHORITY}
+    for art in tax:
+        cites = {c["citation"] for c in art.provenance.authority}
+        if cites != expected_cites:
+            return False, f"{art.kind} authority {sorted(cites)} != {sorted(expected_cites)}"
+        if art.provenance.coverage_id != COVERAGE_ID or art.provenance.coverage_version != COVERAGE_VERSION:
+            return False, (
+                f"{art.kind} coverage {art.provenance.coverage_id!r}.v{art.provenance.coverage_version!r} "
+                f"!= {COVERAGE_ID}.v{COVERAGE_VERSION}"
+            )
+        accounted = art.provenance.accounted()
+        if "authority:omitted" in accounted or "coverage:omitted" in accounted:
+            return False, f"{art.kind} accounted() marks present authority/coverage as omitted"
+        if f"coverage:{COVERAGE_ID}.v{COVERAGE_VERSION}" not in accounted:
+            return False, f"{art.kind} accounted() missing present coverage token"
+        missing_auth = {f"authority:{c}" for c in expected_cites} - accounted
+        if missing_auth:
+            return False, f"{art.kind} accounted() missing {sorted(missing_auth)}"
+    counts = {a.kind: len(a.provenance.authority) for a in tax}
+    return True, (
+        "source-report omits tax authority and coverage; "
+        f"treatment carries IRC § 61 / Pub. 550 and accrued-interest coverage: {counts}"
+    )
 
 
 def basis_consequence_preserved(run: ShapeRun) -> tuple[bool, str]:
@@ -342,13 +395,14 @@ class LaterYearConsumer:
         reported, includible, sources, used_extra, task5_block = self._recover_partition(carried)
         used.extend(used_extra)
         if task5_block is not None:
-            rep.results["5 explain why the basis reduction exists"] = (False, task5_block)
+            rep.results[TASK5] = (False, task5_block)
         elif reported is not None and includible is not None and amount is not None:
             ok = (Decimal(str(reported)) - Decimal(str(includible))) == Decimal(str(amount))
-            rep.results["5 explain why the basis reduction exists"] = (
+            rep.results[TASK5] = (
                 ok,
-                f"of {reported} reported, {includible} was includible and {amount} was the "
-                f"seller's accrued interest; assembled from {' + '.join(sources)}",
+                f"recorded partition: of {reported} reported, {includible} was includible "
+                f"and {amount} was the seller's accrued interest; assembled from "
+                f"{' + '.join(sources)}. Reconstruction is not a currentness grant.",
             )
         else:
             unavailable = [
@@ -356,25 +410,33 @@ class LaterYearConsumer:
                 for label, value in (("reported", reported), ("includible", includible))
                 if value is None
             ]
-            rep.results["5 explain why the basis reduction exists"] = (
+            rep.results[TASK5] = (
                 False,
                 f"the amount {amount}, its rule, and its authority are recoverable, but "
                 f"{unavailable} are not under access {self.access!r}",
             )
 
         if self.currentness is None:
-            rep.results["6 decide fact-version currentness of used dependencies"] = (
+            rep.results[TASK6] = (
                 False,
-                "no currentness service granted; fact-version currentness is not decidable. "
-                "Does not decide rule, authority, coverage, or reporting succession.",
+                "no currentness service granted; fact-version currentness is unknown. "
+                "A recorded partition (task 5) is not a current explanation. "
+                "Does not decide rule, authority, coverage, or reporting succession. "
+                "An unamended fixture is harness knowledge, not a consumer capability.",
             )
         else:
             stale = [p for p in used if self.currentness.displaced(p)]
             current = not stale
-            rep.results["6 decide fact-version currentness of used dependencies"] = (
+            meaning = (
+                "recorded partition is historical"
+                if not current
+                else "fact versions of used dependencies match under the granted service"
+            )
+            rep.results[TASK6] = (
                 True,
                 f"fact_version_current={current}; "
-                f"stale_components={len(stale)}; "
+                f"stale_components={len(stale)}; {meaning}. "
+                "A current explanation requires task 5 and fact_version_current=True. "
                 "assumed unchanged: rule, authority, coverage declaration, reporting contract. "
                 "Does not decide general later-year usability.",
             )
@@ -408,8 +470,6 @@ class LaterYearConsumer:
             return None, f"wrong-rule:{art.provenance.rule_id}", None
         if art.provenance.rule_version != expected_rule[1]:
             return None, f"wrong-rule-version:{art.provenance.rule_version}", None
-        if self.currentness is not None and self.currentness.displaced(art.provenance):
-            return None, "target-displaced", art
         return art.payload.get("amount"), "ok", art
 
     def _recover_partition(
@@ -419,7 +479,6 @@ class LaterYearConsumer:
         includible = carried.payload.get("includible")
         sources = ["the carried artifact"]
         used: list = []
-        stale_copies = []
         expected_components = {
             "reported": RULE_SOURCE_REPORT,
             "includible": RULE_INCLUDIBLE,
@@ -438,16 +497,6 @@ class LaterYearConsumer:
                     used,
                     f"component {field} wrong producer {prov.rule_id}.v{prov.rule_version}",
                 )
-            if self.currentness is not None and self.currentness.displaced(prov):
-                stale_copies.append(field)
-        if stale_copies:
-            return (
-                None,
-                None,
-                sources,
-                used,
-                f"copied fields {stale_copies} are historical snapshots under the currentness service",
-            )
 
         if self.store is not None:
             sib_key = carried.payload.get("sibling")
@@ -460,10 +509,6 @@ class LaterYearConsumer:
                     sources.append("object store via sibling")
                     if art is not None:
                         used.append(art.provenance)
-                elif reason == "target-displaced":
-                    if art is not None:
-                        used.append(art.provenance)
-                    return None, None, sources, used, "followed sibling is displaced"
                 elif reason != "no-store":
                     return None, None, sources, used, f"sibling {reason}"
             rep_key = carried.payload.get("reported_key")
@@ -476,10 +521,6 @@ class LaterYearConsumer:
                     sources.append("object store via reported_key")
                     if art is not None:
                         used.append(art.provenance)
-                elif reason == "target-displaced":
-                    if art is not None:
-                        used.append(art.provenance)
-                    return None, None, sources, used, "followed reported_key is displaced"
                 elif reason != "no-store":
                     return None, None, sources, used, f"reported_key {reason}"
 
@@ -493,9 +534,6 @@ class LaterYearConsumer:
             if includible is None and self.store is not None:
                 for art in self.store.artifacts.values():
                     if art.kind == "includible-interest" and art.item == carried.item:
-                        if self.currentness is not None and self.currentness.displaced(art.provenance):
-                            used.append(art.provenance)
-                            return None, None, sources, used, "workspace sibling is displaced"
                         includible = art.payload.get("amount")
                         sources.append("source-year sibling in the object store")
                         used.append(art.provenance)
@@ -542,19 +580,13 @@ def later_year_probe() -> dict[str, Any]:
             out[f"{shape}/{access}: after amendment, task 4"] = after.results[
                 "4 detect a corrected or displaced source-year fact"
             ]
-            out[f"{shape}/{access}: after amendment, task 6"] = after.results[
-                "6 decide fact-version currentness of used dependencies"
-            ]
+            out[f"{shape}/{access}: after amendment, task 6"] = after.results[TASK6]
             source = grant(run, access, base.with_correction(base.names.reported_amount, 1000)).run(shape)
             out[f"{shape}/{access}: after source correction, task 4"] = source.results[
                 "4 detect a corrected or displaced source-year fact"
             ]
-            out[f"{shape}/{access}: after source correction, task 5"] = source.results[
-                "5 explain why the basis reduction exists"
-            ]
-            out[f"{shape}/{access}: after source correction, task 6"] = source.results[
-                "6 decide fact-version currentness of used dependencies"
-            ]
+            out[f"{shape}/{access}: after source correction, task 5"] = source.results[TASK5]
+            out[f"{shape}/{access}: after source correction, task 6"] = source.results[TASK6]
     return out
 
 
@@ -637,6 +669,8 @@ __all__ = [
     "OBLIGATION_ID",
     "RUBRIC",
     "ShapeRun",
+    "TASK5",
+    "TASK6",
     "currentness_probe",
     "grant",
     "independent_lifecycle",

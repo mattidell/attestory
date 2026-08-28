@@ -1,7 +1,9 @@
-"""Iteration 5 executed comparison.
+"""Iteration 6 executed comparison.
 
 Prototype evidence. Uses the production expression evaluator. Access modes are
 explicit capability grants. Distributed shapes evaluate separate rules.
+Source-report support is the exact statement reads; tax authority and coverage
+are omitted there. Task 5 recovers the recorded partition explanation.
 """
 
 from __future__ import annotations
@@ -21,6 +23,8 @@ from prototype.reported_interest.model import (
 from prototype.reported_interest.rubric import (
     ACCESS_MODES,
     RUBRIC,
+    TASK5,
+    TASK6,
     LaterYearConsumer,
     ShapeRun,
     grant,
@@ -30,9 +34,11 @@ from prototype.reported_interest.rubric import (
     run_shape,
 )
 from prototype.reported_interest.shapes import (
+    AUTHORITY,
     BLOCK_ITEM_MISMATCH,
     BLOCK_UNSUPPORTED,
-    SOURCE_FACT_SUPPORT,
+    COVERAGE_ID,
+    COVERAGE_VERSION,
     Blocked,
     Displaced,
     ObjectStore,
@@ -45,6 +51,47 @@ from prototype.reported_interest.shapes import (
 )
 
 SHAPES = ("A", "C", "E", "B")
+
+
+def _assert_source_report_provenance(test: unittest.TestCase, art, ws, amount) -> None:
+    """Complete source-report provenance: exact reads, empty tax authority, no coverage."""
+    names = ws.names
+    expected_reads = {
+        names.reported_amount,
+        names.reported_payer,
+        names.reported_obligation,
+    }
+    test.assertEqual(art.kind, "source-report")
+    test.assertEqual(art.payload["amount"], Decimal(amount))
+    test.assertEqual(set(art.provenance.reads), expected_reads)
+    test.assertEqual(dict(art.provenance.versions), {n: ws.facts[n].version for n in expected_reads})
+    test.assertEqual(art.provenance.authority, ())
+    test.assertEqual(tuple(art.provenance.authority), ())
+    test.assertIsNone(art.provenance.coverage_id)
+    test.assertIsNone(art.provenance.coverage_version)
+    accounted = art.provenance.accounted()
+    test.assertEqual(expected_reads, expected_reads & accounted)
+    test.assertTrue(expected_reads <= accounted)
+    authority_tokens = {t for t in accounted if t.startswith("authority:")}
+    coverage_tokens = {t for t in accounted if t.startswith("coverage:")}
+    test.assertEqual(authority_tokens, {"authority:omitted"})
+    test.assertEqual(coverage_tokens, {"coverage:omitted"})
+    test.assertNotIn(f"coverage:{COVERAGE_ID}.v{COVERAGE_VERSION}", accounted)
+    test.assertNotIn(COVERAGE_ID, accounted)
+    test.assertFalse(any("IRC" in t or "Pub. 550" in t for t in accounted))
+
+
+def _assert_treatment_tax_authority(test: unittest.TestCase, art) -> None:
+    expected = {a["citation"] for a in AUTHORITY}
+    cites = {c["citation"] for c in art.provenance.authority}
+    test.assertEqual(cites, expected)
+    test.assertEqual(art.provenance.coverage_id, COVERAGE_ID)
+    test.assertEqual(art.provenance.coverage_version, COVERAGE_VERSION)
+    accounted = art.provenance.accounted()
+    test.assertNotIn("authority:omitted", accounted)
+    test.assertNotIn("coverage:omitted", accounted)
+    test.assertIn(f"coverage:{COVERAGE_ID}.v{COVERAGE_VERSION}", accounted)
+    test.assertTrue({f"authority:{c}" for c in expected} <= accounted)
 
 
 def refusal(run: ShapeRun):
@@ -303,7 +350,7 @@ class Adversarial(unittest.TestCase):
 
 
 class AccessModels(unittest.TestCase):
-    def test_bytes_only_cannot_detect_amendment(self) -> None:
+    def test_artifact_object_only_cannot_detect_amendment(self) -> None:
         probe = later_year_probe()
         for shape in SHAPES:
             with self.subTest(shape=shape):
@@ -348,20 +395,39 @@ class AccessModels(unittest.TestCase):
             failed,
             [
                 "4 detect a corrected or displaced source-year fact",
-                "5 explain why the basis reduction exists",
+                TASK5,
                 "6 decide fact-version currentness of used dependencies",
             ],
         )
-        e_bytes_fail = [
+        e_object_fail = [
             task
             for task, (ok, _) in probe["E/artifact-object-only: source year unamended"].items()
             if not ok
         ]
-        self.assertIn("5 explain why the basis reduction exists", e_bytes_fail)
+        self.assertIn(TASK5, e_object_fail)
         e_store = probe["E/object-store-access: source year unamended"]
-        self.assertTrue(e_store["5 explain why the basis reduction exists"][0])
+        self.assertTrue(e_store[TASK5][0])
         a_store = probe["A/object-store-access: source year unamended"]
-        self.assertFalse(a_store["5 explain why the basis reduction exists"][0])
+        self.assertFalse(a_store[TASK5][0])
+
+    def test_task5_is_recorded_partition_not_a_currentness_grant(self) -> None:
+        probe = later_year_probe()
+        c_obj = probe["C/artifact-object-only: source year unamended"]
+        self.assertTrue(c_obj[TASK5][0], c_obj[TASK5][1])
+        self.assertFalse(c_obj[TASK6][0], c_obj[TASK6][1])
+        self.assertIn("unknown", c_obj[TASK6][1])
+        b_obj = probe["B/artifact-object-only: source year unamended"]
+        self.assertTrue(b_obj[TASK5][0], b_obj[TASK5][1])
+        self.assertFalse(b_obj[TASK6][0], b_obj[TASK6][1])
+        e_store = probe["E/object-store-access: source year unamended"]
+        self.assertTrue(e_store[TASK5][0], e_store[TASK5][1])
+        self.assertFalse(e_store[TASK6][0], e_store[TASK6][1])
+        self.assertIn("unknown", e_store[TASK6][1])
+        c_full = probe["C/full-workspace: source year unamended"]
+        self.assertTrue(c_full[TASK5][0], c_full[TASK5][1])
+        self.assertTrue(c_full[TASK6][0], c_full[TASK6][1])
+        self.assertIn("fact_version_current=True", c_full[TASK6][1])
+        self.assertIn("Reconstruction is not a currentness grant", c_obj[TASK5][1])
 
 
 class EdgeMutations(unittest.TestCase):
@@ -378,24 +444,24 @@ class EdgeMutations(unittest.TestCase):
     def test_e_passes_task_5_with_store_and_intact_pointers(self) -> None:
         run = run_shape("E", case_ti_b2())
         rep = grant(run, "object-store-access", None).run("E")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertTrue(ok, detail)
 
     def test_e_fails_when_sibling_is_removed(self) -> None:
         rep = self._e_consumer({"sibling": None}).run("E")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
         self.assertIn("includible", detail)
 
     def test_e_fails_when_reported_key_is_removed(self) -> None:
         rep = self._e_consumer({"reported_key": None}).run("E")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
         self.assertIn("reported", detail)
 
     def test_e_fails_when_sibling_is_corrupted(self) -> None:
         rep = self._e_consumer({"sibling": "demo.missing"}).run("E")
-        ok, _ = rep.results["5 explain why the basis reduction exists"]
+        ok, _ = rep.results[TASK5]
         self.assertFalse(ok)
 
     def test_e_fails_when_reported_key_is_misdirected(self) -> None:
@@ -406,7 +472,7 @@ class EdgeMutations(unittest.TestCase):
         # Point reported_key at the includible artifact: amount 900, not 1200.
         mutated = mutate_payload(carried, reported_key=f"{OBLIGATION_ID}.includible-interest")
         rep = LaterYearConsumer(mutated, "object-store-access", store=run.store.as_object_store()).run("E")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
 
     def test_e_fails_when_the_store_is_empty(self) -> None:
@@ -415,7 +481,7 @@ class EdgeMutations(unittest.TestCase):
         carried = basis_artifact(run.store, run.item)
         assert carried is not None
         rep = LaterYearConsumer(carried, "object-store-access", store=ObjectStore({})).run("E")
-        ok, _ = rep.results["5 explain why the basis reduction exists"]
+        ok, _ = rep.results[TASK5]
         self.assertFalse(ok)
 
     def test_c_survives_pointer_corruption_because_it_does_not_use_pointers(self) -> None:
@@ -425,7 +491,7 @@ class EdgeMutations(unittest.TestCase):
         assert carried is not None
         mutated = mutate_payload(carried, sibling="demo.missing", reported_key="demo.missing")
         rep = LaterYearConsumer(mutated, "artifact-object-only").run("C")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertTrue(ok, detail)
 
     def test_c_fails_when_copied_amounts_are_removed(self) -> None:
@@ -435,7 +501,7 @@ class EdgeMutations(unittest.TestCase):
         assert carried is not None
         mutated = mutate_payload(carried, reported=None, includible=None)
         rep = LaterYearConsumer(mutated, "artifact-object-only").run("C")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
 
     def test_e_rejects_same_valued_foreign_item_targets(self) -> None:
@@ -453,7 +519,7 @@ class EdgeMutations(unittest.TestCase):
         store.artifacts[foreign_i.key] = foreign_i
         mutated = mutate_payload(carried, sibling=foreign_i.key, reported_key=foreign_r.key)
         rep = LaterYearConsumer(mutated, "object-store-access", store=store).run("E")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
         self.assertIn("foreign-item", detail)
 
@@ -464,7 +530,7 @@ class EdgeMutations(unittest.TestCase):
         assert carried is not None
         mutated = mutate_payload(carried, sibling=f"{OBLIGATION_ID}.source-report")
         rep = LaterYearConsumer(mutated, "object-store-access", store=run.store.as_object_store()).run("E")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
         self.assertIn("wrong-kind", detail)
 
@@ -479,7 +545,7 @@ class EdgeMutations(unittest.TestCase):
         wrong = replace(inc, provenance=replace(inc.provenance, rule_id="demo.rule.basis-reduction"))
         store.artifacts[inc.key] = wrong
         rep = LaterYearConsumer(carried, "object-store-access", store=store).run("E")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
         self.assertIn("wrong-rule", detail)
 
@@ -494,7 +560,7 @@ class EdgeMutations(unittest.TestCase):
         wrong = replace(inc, provenance=replace(inc.provenance, rule_version=99))
         store.artifacts[inc.key] = wrong
         rep = LaterYearConsumer(carried, "object-store-access", store=store).run("E")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
         self.assertIn("wrong-rule-version", detail)
 
@@ -509,7 +575,7 @@ class EdgeMutations(unittest.TestCase):
         assert inc is not None
         store.artifacts[lookup] = replace(inc, key="other-self-key")
         rep = LaterYearConsumer(carried, "object-store-access", store=store).run("E")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
         self.assertIn("self-key-mismatch", detail)
 
@@ -522,7 +588,7 @@ class EdgeMutations(unittest.TestCase):
         comps["reported"] = comps["amount"]
         mutated = mutate_payload(carried, components=comps)
         rep = LaterYearConsumer(mutated, "artifact-object-only").run("C")
-        ok, detail = rep.results["5 explain why the basis reduction exists"]
+        ok, detail = rep.results[TASK5]
         self.assertFalse(ok, detail)
         self.assertIn("wrong producer", detail)
 
@@ -530,17 +596,17 @@ class EdgeMutations(unittest.TestCase):
 class SourceCorrectionThroughConsumer(unittest.TestCase):
     """Reported-amount correction must not leave stale partition fields current."""
 
-    def test_c_identifies_copied_partition_as_stale_snapshot(self) -> None:
+    def test_c_identifies_copied_partition_as_historical(self) -> None:
         ws = case_ti_b2()
         run = run_shape("C", ws)
         corrected = ws.with_correction(ws.names.reported_amount, 1000)
         rep = grant(run, "currentness", corrected).run("C")
-        ok5, detail5 = rep.results["5 explain why the basis reduction exists"]
-        self.assertFalse(ok5, detail5)
-        self.assertIn("historical snapshot", detail5)
-        ok6, detail6 = rep.results["6 decide fact-version currentness of used dependencies"]
+        ok5, detail5 = rep.results[TASK5]
+        self.assertTrue(ok5, detail5)
+        ok6, detail6 = rep.results[TASK6]
         self.assertTrue(ok6)
         self.assertIn("fact_version_current=False", detail6)
+        self.assertIn("historical", detail6)
         ok4, detail4 = rep.results["4 detect a corrected or displaced source-year fact"]
         self.assertTrue(ok4)
         self.assertIn("carried_displaced=False", detail4)
@@ -552,28 +618,75 @@ class SourceCorrectionThroughConsumer(unittest.TestCase):
         rep = grant(run, "currentness", corrected).run("B")
         _, detail4 = rep.results["4 detect a corrected or displaced source-year fact"]
         self.assertIn("carried_displaced=True", detail4)
-        _, detail6 = rep.results["6 decide fact-version currentness of used dependencies"]
+        ok5, detail5 = rep.results[TASK5]
+        self.assertTrue(ok5, detail5)
+        _, detail6 = rep.results[TASK6]
         self.assertIn("fact_version_current=False", detail6)
+        self.assertIn("historical", detail6)
 
-    def test_e_full_workspace_rejects_displaced_targets(self) -> None:
+    def test_e_full_workspace_recovers_recorded_partition_as_historical(self) -> None:
         ws = case_ti_b2()
         run = run_shape("E", ws)
         corrected = ws.with_correction(ws.names.reported_amount, 1000)
         rep = grant(run, "full-workspace", corrected).run("E")
-        ok5, detail5 = rep.results["5 explain why the basis reduction exists"]
-        self.assertFalse(ok5, detail5)
-        self.assertIn("displaced", detail5)
-        _, detail6 = rep.results["6 decide fact-version currentness of used dependencies"]
+        ok5, detail5 = rep.results[TASK5]
+        self.assertTrue(ok5, detail5)
+        _, detail6 = rep.results[TASK6]
         self.assertIn("fact_version_current=False", detail6)
+        self.assertIn("historical", detail6)
 
-    def test_e_source_report_uses_source_fact_not_tax_authority(self) -> None:
-        run = run_shape("E", case_ti_b2())
-        reported = [a for a in run.artifacts() if a.kind == "source-report"]
-        self.assertEqual(len(reported), 1)
-        cites = [a["citation"] for a in reported[0].provenance.authority]
-        self.assertEqual(cites, [SOURCE_FACT_SUPPORT[0]["citation"]])
-        self.assertNotIn("IRC § 61(a)(4)", cites)
-        self.assertNotIn("Form 1099-INT", cites)
+
+class SourceReportIndependence(unittest.TestCase):
+    """Source-report provenance is the exact statement reads, not tax treatment."""
+
+    def test_ti_b2_source_report_provenance_is_untaxed(self) -> None:
+        ws = case_ti_b2()
+        before = ws.facts[ws.names.reported_amount]
+        for shape in SHAPES:
+            with self.subTest(shape=shape):
+                run = run_shape(shape, ws)
+                self.assertFalse(run.is_blocked)
+                reports = [a for a in run.artifacts() if a.kind == "source-report"]
+                self.assertEqual(len(reports), 1)
+                _assert_source_report_provenance(self, reports[0], ws, 1200)
+                treatments = [a for a in run.artifacts() if a.kind != "source-report"]
+                self.assertTrue(treatments)
+                for art in treatments:
+                    _assert_treatment_tax_authority(self, art)
+                self.assertEqual(ws.facts[ws.names.reported_amount], before)
+
+    def test_ti_a1_source_report_survives_with_untaxed_provenance(self) -> None:
+        ws = CASES["TI-A1"]()
+        before = ws.facts[ws.names.reported_amount]
+        self.assertEqual(before.value, 840)
+        for shape in SHAPES:
+            with self.subTest(shape=shape):
+                run = run_shape(shape, ws)
+                self.assertTrue(run.is_blocked)
+                self.assertEqual(refusal(run).code, BLOCK_UNSUPPORTED)
+                reports = [a for a in run.store.artifacts.values() if a.kind == "source-report"]
+                self.assertEqual(len(reports), 1)
+                _assert_source_report_provenance(self, reports[0], ws, 840)
+                treatments = [a for a in run.store.artifacts.values() if a.kind != "source-report"]
+                self.assertEqual(treatments, [])
+                self.assertEqual(ws.facts[ws.names.reported_amount], before)
+                self.assertEqual(reports[0].payload["amount"], Decimal(840))
+
+    def test_evaluate_reported_omits_tax_authority_and_coverage(self) -> None:
+        for case in ("TI-B2", "TI-A1"):
+            with self.subTest(case=case):
+                ws = CASES[case]()
+                outcome = evaluate_reported(ws)
+                self.assertNotIsInstance(outcome, Blocked)
+                expected = Decimal(1200 if case == "TI-B2" else 840)
+                self.assertEqual(outcome.values["reported"], expected)
+                self.assertEqual(outcome.provenance.authority, ())
+                self.assertIsNone(outcome.provenance.coverage_id)
+                self.assertIsNone(outcome.provenance.coverage_version)
+                accounted = outcome.provenance.accounted()
+                self.assertIn("authority:omitted", accounted)
+                self.assertIn("coverage:omitted", accounted)
+                self.assertNotIn(f"coverage:{COVERAGE_ID}.v{COVERAGE_VERSION}", accounted)
 
 
 class LifecycleMatchesProvenance(unittest.TestCase):

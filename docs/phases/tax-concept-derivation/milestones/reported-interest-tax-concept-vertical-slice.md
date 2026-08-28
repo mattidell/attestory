@@ -4,8 +4,8 @@
   "phase": "Tax Concept Derivation",
   "topic": "tax-concept-derivation",
   "milestone_state": "track-3",
-  "status": "Opening milestone planned on 2026-08-27; in closeout, not closed. Bounded to one synthetic 2025 Form 1099-INT box-1 item and one accrued-interest-at-purchase contrast, plus a distinct box-3 TI-A1 coverage probe. OUTCOME: executable vertical slice on exhibit exhibits/reported-interest-tax-concept/it5 (it1-it4 retained unchanged as historical exhibits). Four packagings ran through the real evaluator. Source-report is independent of tax-slice coverage. Copied C fields and E targets validate producing rule identity; a displaced producing evaluation cannot support a current partition explanation. Later-year grants are in-memory objects, not serialized bytes or durable storage. Task 6 is fact_version_current of used dependencies. RECOMMENDATION: none on necessity grounds. Owner decision: product consequence of split state after a current partition explanation is unavailable. TI-A1: treatment refuses; source report of 840 remains. Durable record: docs/milestones/reported-interest-tax-concept/ and docs/prototypes/reported-interest-tax-concept/.",
-  "current_role": "Milestone lead — current evidence reconciled on it5; awaiting fresh whole-candidate independent review",
+  "status": "Opening milestone planned on 2026-08-27; in closeout, not closed. Bounded to one synthetic 2025 Form 1099-INT box-1 item and one accrued-interest-at-purchase contrast, plus a distinct box-3 TI-A1 coverage probe. OUTCOME: executable vertical slice on exhibit exhibits/reported-interest-tax-concept/it6 (it1-it5 retained unchanged as historical exhibits). Four packagings ran through the real evaluator. Source-report support is the exact statement reads; tax authority and accrued-interest coverage are omitted there. Copied C fields and E targets validate producing rule identity; a displaced producing evaluation cannot support a current partition explanation. Task 5 recovers the recorded partition explanation; task 6 is fact_version_current of used dependencies. A current explanation requires both. Later-year grants are in-memory objects, not serialized bytes or durable storage. RECOMMENDATION: none on necessity grounds. Owner decision: product consequence of split state after a current partition explanation is unavailable. TI-A1: treatment refuses; source report of 840 remains. Durable record: docs/milestones/reported-interest-tax-concept/ and docs/prototypes/reported-interest-tax-concept/.",
+  "current_role": "Milestone lead — current evidence reconciled on it6 (it1-it5 unchanged); bounded it5-review repair complete; awaiting independent confirmation",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md#Tracks",
   "scope": [
     "establish the official-source treatment for one reported-interest item and one accrued-interest-at-purchase contrast",
@@ -47,7 +47,7 @@
 > **Current record.** This plan was written before the work. The deliverables in
 > `docs/milestones/reported-interest-tax-concept/` and
 > `docs/prototypes/reported-interest-tax-concept/` are the record of what was
-> found. Current exhibit: `exhibits/reported-interest-tax-concept/it5`.
+> found. Current exhibit: `exhibits/reported-interest-tax-concept/it6`.
 >
 > 1. The ordinary between-interest-dates purchase is governed by Pub. 550,
 >    *Bonds Sold Between Interest Dates*, against IRC § 61(a)(4). Treas. Reg.
@@ -62,7 +62,7 @@
 
 - Phase: Tax Concept Derivation
 - Milestone key: `tax-concept-derivation`
-- State: in closeout (planned 2026-08-27; current exhibit it5; not closed)
+- State: in closeout (planned 2026-08-27; current exhibit it6; not closed)
 - Base: `origin/main` at `9159a13d261f5005523ad58f8893ffffd735f204`
 - Branch: `milestone/tax-concept-derivation-phase-definition`
 - Decision posture: executable exploration; no production representation is
@@ -260,7 +260,7 @@ The primary proposition is:
 > reported-versus-includible distinction through derivation.
 
 **That proposition is not established.** Four packagings ran on exhibit
-`exhibits/reported-interest-tax-concept/it5`. Arithmetic does not discriminate.
+`exhibits/reported-interest-tax-concept/it6`. Arithmetic does not discriminate.
 A later-year consumer under explicit access grants does not establish that a
 new citizen kind is necessary. See
 `docs/prototypes/reported-interest-tax-concept/examination.md`.
@@ -359,7 +359,7 @@ broader replacement case.
 
 ## Tracks
 
-> **Current exhibit:** `exhibits/reported-interest-tax-concept/it5`. Paper plus
+> **Current exhibit:** `exhibits/reported-interest-tax-concept/it6`. Paper plus
 > the incumbent did not answer the representation question. Track 1 ran. No
 > representation is recommended on necessity grounds. Durable output:
 > `docs/milestones/reported-interest-tax-concept/` and
@@ -403,9 +403,9 @@ convert a prototype shape into a production contract during curation.
 ## Stop conditions
 
 > Track 1 ran. The current exhibit is
-> `exhibits/reported-interest-tax-concept/it5`. The milestone is in closeout
-> awaiting a fresh whole-candidate independent review, then an owner decision.
-> It is not closed.
+> `exhibits/reported-interest-tax-concept/it6`. The milestone is in closeout
+> awaiting independent confirmation of the bounded it5-review repair, then an
+> owner decision. It is not closed.
 
 Stop and return to the owner when:
 

@@ -1,7 +1,7 @@
 # Prototype Examination — Reported Interest to Tax Concept
 
-**Current exhibit:** `exhibits/reported-interest-tax-concept/it5`
-**Historical exhibits, unchanged:** `it1`, `it2`, `it3`, `it4`
+**Current exhibit:** `exhibits/reported-interest-tax-concept/it6`
+**Historical exhibits, unchanged:** `it1`, `it2`, `it3`, `it4`, `it5`
 **Charter:** [charter.md](charter.md)
 
 Prototype code is not on the milestone branch.
@@ -47,8 +47,8 @@ facts, sibling artifacts, or a version oracle. Without a currentness service it
 does not claim to have detected an amendment.
 
 **Test result, from the exhibit tree:**
-`pytest tests/test_reported_interest_prototype.py -n0` → **37 passed, 483
-subtests passed in 0.08s**.
+`pytest tests/test_reported_interest_prototype.py -n0` → **40 passed, 493
+subtests passed in 0.09s**.
 
 ## Case outcomes
 
@@ -96,13 +96,22 @@ reporting-artifact succession were **not** executed. They remain open.
 Tasks: (1) identify the obligation; (2) recover the basis reduction with its
 rule and authority; (3) identify the ordinary fact that supplied the amount;
 (4) detect a source-year amendment of the *carried* artifact's own provenance;
-(5) explain why the basis reduction exists as a *current* partition of reported
-interest; (6) decide fact-version currentness of the dependencies actually
-used, under the assumption that rule, authority, coverage declaration, and
-reporting contract are unchanged. Task 6 does not decide general later-year
+(5) recover the recorded partition explanation — reconstruct the source-year
+partition of reported / includible / basis amounts from the carried object or
+followed objects; (6) decide fact-version currentness of the dependencies
+actually used, under the assumption that rule, authority, coverage declaration,
+and reporting contract are unchanged. Task 6 does not decide general later-year
 usability.
 
-Unamended TI-B2, tasks passed:
+Task 5 true and task 6 unknown means a recorded explanation is recoverable but
+currentness is unknown. Task 5 true and task 6 false
+(`fact_version_current=False`) means the recoverable explanation is historical.
+Task 5 true and task 6 true (`fact_version_current=True`) is required before
+this publication may call the result a current explanation under the
+prototype's bounded assumptions. An unamended fixture is harness knowledge, not
+a capability granted to the later-year consumer.
+
+Unamended TI-B2, tasks passed (counts unchanged; meaning restated):
 
 | Packaging | artifact-object-only | currentness | object-store access | full-workspace |
 | --- | --- | --- | --- | --- |
@@ -111,60 +120,74 @@ Unamended TI-B2, tasks passed:
 | E | 3/6 | 5/6 | 4/6 | 6/6 |
 | B | 4/6 | 6/6 | 4/6 | 6/6 |
 
-Artifact-object-only never answers tasks 4 or 6. Task 5 when the source year is
-unamended:
+Artifact-object-only never answers tasks 4 or 6. **C** and **B** with
+artifact-object-only recover the recorded partition but cannot establish
+currentness. **E** with object-store access recovers the recorded partition but
+cannot establish currentness. Object-store access is not a currentness grant. A
+current explanation requires both reconstruction (task 5) and a currentness
+grant whose used dependencies match (task 6).
 
-- **A** recovers the partition only with the full source-year workspace.
+Task 5 when the source year is unamended:
+
+- **A** recovers the recorded partition only with the full source-year
+  workspace.
 - **C** recovers it from copied amounts, including artifact-object-only. Each
   copied field keeps the provenance of the evaluation that produced it,
   including exact producing rule id and version.
 - **E** recovers it only by following `sibling` and `reported_key` through
   object-store access, and only when each target's self-key, item, kind, and
-  producing rule id/version match, and (when currentness is granted) the target
-  is not displaced.
+  producing rule id/version match. Following a retained object reconstructs the
+  recorded partition; it does not establish currentness.
 - **B** recovers it from the carried object, including artifact-object-only.
 
 After an accrued-amount amendment, every packaging with a currentness service
-reports the carried artifact displaced and `fact_versions_current=False`.
+reports the carried artifact displaced and `fact_version_current=False`.
 
 After a reported-amount correction (1200 → 1000):
 
-- **C** with currentness: the basis amount remains current
-  (`carried_displaced=False`); the copied reported and includible fields are
-  identified as historical snapshots; task 5 fails as a current explanation;
-  used-dependency currentness is false.
+- **C** with currentness: the recorded partition remains recoverable from the
+  copies (task 5); the basis amount remains independently current
+  (`carried_displaced=False`); used-dependency currentness is false, so the
+  recoverable explanation is historical.
 - **B** with currentness: the whole object is displaced
-  (`carried_displaced=True`).
-- **E** with full-workspace: followed targets are displaced; task 5 fails;
-  used-dependency currentness is false. Same-valued targets are also rejected
-  for foreign item, wrong kind, wrong producing rule, wrong rule version, or
-  store lookup key differing from the artifact's self-key.
+  (`carried_displaced=True`); the recorded amounts remain on the object
+  (task 5) and used-dependency currentness is false.
+- **E** with full-workspace: retained targets still reconstruct the recorded
+  partition (task 5); used-dependency currentness is false. Same-valued targets
+  are still rejected for foreign item, wrong kind, wrong producing rule, wrong
+  rule version, or store lookup key differing from the artifact's self-key.
 
 **Settled invariant.** A copied or referenced partition cannot support a
 *current* explanation after an evaluation that produced one of its components
 has been displaced. That is provenance correctness, not an owner-selectable
-policy.
+policy. Reconstruction of the recorded partition (task 5) is not that grant.
 
 ## Relationship fields
 
 On E, with object-store access:
 
-- intact same-item, correct-kind, correct-producer pointers → task 5 passes;
+- intact same-item, correct-kind, correct-producer, matching self-key pointers
+  → task 5 recovers the recorded partition;
 - `sibling` or `reported_key` removed, missing, foreign-item, wrong-kind,
   wrong producing rule, wrong rule version, or self-key mismatch → task 5
   fails;
 - empty store → task 5 fails;
-- displaced target, when currentness is also granted → task 5 fails.
+- a displaced retained target, when currentness is also granted → task 5 still
+  recovers the recorded partition; task 6 reports `fact_version_current=False`.
 
-On C, pointer corruption is ignored; removing copied amounts fails task 5;
-stale copied amounts fail task 5 once a currentness service is granted; a
-mutated component producer fails task 5.
+On C, pointer corruption is ignored; removing copied amounts fails task 5; a
+mutated component producer fails task 5; stale copied amounts still reconstruct
+the recorded partition (task 5) and are historical under task 6 once a
+currentness service is granted.
 
-The source-report artifact is published independently of tax-slice coverage.
-It is supported by the identified statement facts, not by a blank Form 1099-INT
-and not by IRC § 61 / Publication 550. On TI-A1 the tax treatment returns
-`SLICE_COVERAGE_UNSUPPORTED` and the source report of $840 remains recoverable
-and unmodified.
+The source-report artifact is published independently of tax-slice coverage
+and of tax authority. Its support is the exact statement reads (reported
+amount, payer, obligation). Its substantive tax-authority collection is empty
+and accrued-interest coverage id/version are absent; `accounted()` marks
+`authority:omitted` and `coverage:omitted`. Treatment artifacts retain
+IRC § 61 / Publication 550 and the accrued-interest coverage declaration. On
+TI-A1 the tax treatment returns `SLICE_COVERAGE_UNSUPPORTED` and the source
+report of $840 remains recoverable and unmodified.
 
 ## What the evidence supports
 
@@ -173,10 +196,11 @@ necessary. No representation is recommended on necessity grounds.**
 
 C and B are not interchangeable under a source correction: B is wholly
 displaced; C's basis amount can remain current while its copied partition is a
-stale snapshot. E is not a self-sufficient edge: it needs an object store, item
-and kind validation, and target currentness. Those are executed differences in
-retained capability and dependency currentness, not a proof that a new citizen
-kind is required.
+historical recorded explanation. E is not a self-sufficient edge: it needs an
+object store and validation of self-key, item, kind, and exact producing rule
+id/version. Object-store access recovers the recorded partition; it does not
+establish currentness. Those are executed differences in retained capability
+and dependency currentness, not a proof that a new citizen kind is required.
 
 Whether a production schema for any packaging would be a new citizen kind
 depends on a declared schema and consumer contract. This milestone does not

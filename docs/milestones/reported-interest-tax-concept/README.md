@@ -24,7 +24,7 @@ works. It is whether anything in the model holds the reason.
 grounds.** Four packagings were run on the same six cases through the engine's
 real expression evaluator. The comparison is
 [`docs/prototypes/reported-interest-tax-concept/examination.md`](../../prototypes/reported-interest-tax-concept/examination.md),
-exhibit `exhibits/reported-interest-tax-concept/it5`.
+exhibit `exhibits/reported-interest-tax-concept/it6`.
 
 - **A — artifact-alone.** Independent artifacts, payload `{amount}` only.
   Includible and basis are separate evaluator runs.
@@ -33,8 +33,9 @@ exhibit `exhibits/reported-interest-tax-concept/it5`.
   provenance of the evaluation that produced it.
 - **E — relationship-edge.** The carried artifact holds `sibling` and
   `reported_key` pointers, not partition amounts. Following them requires an
-  object store whose targets match the item and kind; displaced targets are
-  not current.
+  object store whose targets match self-key, item, kind, and exact producing
+  rule id/version. Object-store access recovers the recorded partition; it
+  does not establish currentness.
 - **B — explicit determination.** One item-level result holding the amounts
   together.
 
@@ -44,21 +45,31 @@ the same explicit refusal, on all six cases.
 A later-year consumer performs six recovery tasks under four in-memory object
 grants (artifact-object-only; currentness; object-store access; full-workspace).
 The exhibit does not execute serialization or persistence. Artifact-object-only
-never detects an amendment. Task 6 is `fact_version_current` of the
-dependencies actually used; it does not decide general usability, nor rule,
-authority, coverage, or reporting succession.
+never detects an amendment. Task 5 recovers the recorded partition explanation.
+Task 6 is `fact_version_current` of the dependencies actually used; it does not
+decide general usability, nor rule, authority, coverage, or reporting
+succession. Task 5 true with task 6 unknown means a recorded explanation is
+recoverable but currentness is unknown. Task 5 true and task 6 false means the
+recoverable explanation is historical. Both are required before this
+publication calls the result a current explanation under the prototype's
+bounded assumptions. An unamended fixture is harness knowledge, not a consumer
+capability.
 
 A copied or referenced partition cannot support a current explanation after a
 producing evaluation is displaced. That is settled. After a reported-amount
 correction, C's basis amount can remain current while its copies are a
-historical snapshot; B is wholly displaced. E answers the current partition
-task only through object-store access to targets whose self-key, item, kind,
-and producing rule id/version match. A answers it only with the full
-source-year workspace.
+historical recorded explanation; B is wholly displaced. C and B with
+artifact-object-only recover the recorded partition but cannot establish
+currentness. E recovers the recorded partition through object-store access to
+targets whose self-key, item, kind, and producing rule id/version match; that
+access does not establish currentness. A recovers the recorded partition only
+with the full source-year workspace.
 
 Those differences do not establish that a new citizen kind is necessary.
-Production cost was not measured. The source report is independent of tax-slice
-coverage: on TI-A1 the treatment refuses and the reported $840 remains.
+Production cost was not measured. The source report is independent of
+tax-slice coverage and of tax authority: its support is the exact statement
+reads; tax authority and accrued-interest coverage are omitted. On TI-A1 the
+treatment refuses and the reported $840 remains.
 
 ## What else is established
 
@@ -105,7 +116,7 @@ semantic cases were not posed to the incumbent.
 ## What this milestone is and is not
 
 It is a completed executable vertical slice whose current evidence is exhibit
-`it5`. It does not select a production representation, schema, citizen kind,
+`it6`. It does not select a production representation, schema, citizen kind,
 field shape, storage mechanism, ADR, or migration.
 
 ## Reading order

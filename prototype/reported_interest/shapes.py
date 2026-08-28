@@ -46,16 +46,6 @@ AUTHORITY = (
     },
 )
 
-# Prototype-only support for a source-report copy: the identified statement
-# fact itself, not a blank form template and not a tax authority.
-SOURCE_FACT_SUPPORT = (
-    {
-        "family": "source-fact",
-        "citation": "identified-statement-fact",
-        "proposition": "The identified source statement reports this identified amount.",
-    },
-)
-
 BLOCK_UNSUPPORTED = "SLICE_COVERAGE_UNSUPPORTED"
 BLOCK_ITEM_MISMATCH = "ITEM_RELATION_MISMATCH"
 COVERAGE_ID = "demo.coverage.accrued-interest-at-purchase"
@@ -202,20 +192,34 @@ class Provenance:
     versions: Mapping[str, int]
     rule_id: str
     rule_version: int
-    authority: tuple[Mapping[str, str], ...]
-    coverage_id: str = COVERAGE_ID
-    coverage_version: int = COVERAGE_VERSION
+    authority: tuple[Mapping[str, str], ...] = ()
+    coverage_id: str | None = None
+    coverage_version: int | None = None
 
     def displaced_by(self, workspace: Workspace) -> bool:
         current = workspace.versions()
         return any(current.get(name) != version for name, version in self.versions.items())
 
     def accounted(self) -> set[str]:
-        return set(self.reads) | {
-            f"rule:{self.rule_id}.v{self.rule_version}",
-            f"coverage:{self.coverage_id}.v{self.coverage_version}",
-            *(f"authority:{a['citation']}" for a in self.authority),
-        }
+        """Distinguish omitted tax authority/coverage from a present treatment declaration.
+
+        Source support is the exact reads. Tax authority lives only in
+        ``authority``. Tax-slice coverage lives only in the coverage fields.
+        Omission is an explicit token, not a missing key.
+        """
+        out: set[str] = set(self.reads)
+        out.add(f"rule:{self.rule_id}.v{self.rule_version}")
+        if self.coverage_id is None and self.coverage_version is None:
+            out.add("coverage:omitted")
+        else:
+            cid = "unspecified" if self.coverage_id is None else self.coverage_id
+            cver = "unspecified" if self.coverage_version is None else self.coverage_version
+            out.add(f"coverage:{cid}.v{cver}")
+        if not self.authority:
+            out.add("authority:omitted")
+        else:
+            out.update(f"authority:{a['citation']}" for a in self.authority)
+        return out
 
 
 @dataclass(frozen=True)
@@ -229,7 +233,10 @@ def _run(
     guard: dict[str, Any],
     values: dict[str, Any],
     rule: tuple[str, int],
+    *,
     authority: tuple[Mapping[str, str], ...] = AUTHORITY,
+    coverage_id: str | None = COVERAGE_ID,
+    coverage_version: int | None = COVERAGE_VERSION,
 ) -> Evaluation | Blocked:
     env = workspace.environment()
     access = AccessLog()
@@ -242,7 +249,15 @@ def _run(
     versions = {n: workspace.facts[n].version for n in reads if n in workspace.facts}
     return Evaluation(
         values=out,
-        provenance=Provenance(reads, versions, rule[0], rule[1], authority),
+        provenance=Provenance(
+            reads,
+            versions,
+            rule[0],
+            rule[1],
+            authority,
+            coverage_id=coverage_id,
+            coverage_version=coverage_version,
+        ),
     )
 
 
@@ -270,13 +285,16 @@ def evaluate_basis(workspace: Workspace) -> Evaluation | Blocked:
 
 
 def evaluate_reported(workspace: Workspace) -> Evaluation | Blocked:
+    """Identify the statement reads. No tax authority and no tax-slice coverage."""
     names = workspace.names
     return _run(
         workspace,
         reported_guard(names),
         {"reported": _ref(names.reported_amount)},
         RULE_SOURCE_REPORT,
-        authority=SOURCE_FACT_SUPPORT,
+        authority=(),
+        coverage_id=None,
+        coverage_version=None,
     )
 
 
@@ -571,10 +589,10 @@ def basis_artifact(store: Store, item: str) -> Artifact | None:
 
 __all__ = [
     "AUTHORITY",
-    "SOURCE_FACT_SUPPORT",
     "BLOCK_ITEM_MISMATCH",
     "BLOCK_UNSUPPORTED",
     "COVERAGE_ID",
+    "COVERAGE_VERSION",
     "Artifact",
     "Blocked",
     "CurrentnessService",

@@ -1,8 +1,8 @@
 # Prototype Charter — Reported Interest to Tax Concept
 
 **Topic:** `reported-interest-tax-concept`
-**Current exhibit:** `exhibits/reported-interest-tax-concept/it5`
-**Historical exhibits:** `it1`, `it2`, `it3`, `it4` (unchanged)
+**Current exhibit:** `exhibits/reported-interest-tax-concept/it6`
+**Historical exhibits:** `it1`, `it2`, `it3`, `it4`, `it5` (unchanged)
 **Milestone:** Reported Interest to Tax Concept Vertical Slice
 
 ## Question
@@ -40,17 +40,23 @@ reported amount or the payer. Provenance is never relabelled after execution.
 | B | explicit determination | reported, includible, non-includible, basis on one object |
 
 A source-report producer identifies and reads the statement value only. It
-does not apply tax-slice coverage. Its support is the identified source fact,
-not a blank form and not substantive tax authority. Tax-treatment artifacts
-carry IRC § 61 / Publication 550. Treatment refusal must leave the source
-report recoverable and unmodified.
+does not apply tax-slice coverage. Its bounded source support is those exact
+reads — reported amount, payer, and obligation — not a blank form and not
+substantive tax authority. The source report's tax-authority collection is
+empty and accrued-interest coverage id/version are absent. Tax-treatment
+artifacts carry IRC § 61 / Publication 550 and the accrued-interest coverage
+declaration. Treatment refusal must leave the source report recoverable and
+unmodified.
 
 E's pointers are followed only through explicitly granted object-store access.
 A followed target must match requested key to self-key, item, kind, and exact
 producing rule id and version, and (when granted) dependency currentness.
 Copied payload fields on C keep the producing evaluation's exact rule identity.
-A copied or referenced partition cannot support a current explanation after a
-producing evaluation is displaced.
+Task 5 recovers the recorded partition explanation. Task 6 is fact-version
+currentness of used dependencies under fixed rule, authority, coverage, and
+reporting assumptions. A current explanation requires both. A copied or
+referenced partition cannot support a current explanation after a producing
+evaluation is displaced.
 
 ## Later-year access
 
@@ -90,9 +96,15 @@ consumer must not claim it detected an amendment.
 9. reporting projection separate
 10. missing facts and unsupported coverage fail explicitly
 
-Task 6 of the later-year consumer is fact-version currentness of the
-dependencies actually used, under fixed rule, authority, coverage, and
-reporting assumptions. It is not general later-year usability.
+Task 5 of the later-year consumer recovers the recorded source-year partition
+explanation. Task 6 is fact-version currentness of the dependencies actually
+used, under fixed rule, authority, coverage, and reporting assumptions. It is
+not general later-year usability. Task 5 true with task 6 unknown means a
+recorded explanation is recoverable but currentness is unknown. Task 5 true
+and task 6 false means the recoverable explanation is historical. Task 5 true
+and task 6 true is required before the result may be called a current
+explanation under the prototype's bounded assumptions. An unamended fixture is
+harness knowledge, not a later-year consumer capability.
 
 Every declared fixture fact is corrected or removed after publication. Observe
 currentness, refusal or recomputation, item attribution, and exact provenance
@@ -114,7 +126,8 @@ succession as passing if they were not executed.
   from prototype dataclasses.
 - Dependency currentness of a current partition explanation is settled: a
   displaced producing evaluation cannot support a current explanation. Remaining
-  owner questions concern the product consequence of that split state.
+  owner question: what product consequence should follow when the basis amount
+  stands but a current partition explanation is unavailable.
 
 ## Boundary
 
