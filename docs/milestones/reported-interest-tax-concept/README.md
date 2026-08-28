@@ -20,42 +20,46 @@ works. It is whether anything in the model holds the reason.
 
 ## The answer, stated plainly
 
-**A separately recoverable item-level determination is warranted, on a narrow
-executed ground.** Two representation shapes were built on the same six cases
-and run through the engine's real expression evaluator: a **distributed** shape,
-in which ordinary facts and a tax rule derive an item-linked result with no
-durable determination object, and an **explicit determination** shape. The
-executed comparison is recorded in
+**Necessity is not established, and no representation is recommended on
+necessity grounds.** Three representation shapes were built on the same six
+cases and run through the engine's real expression evaluator, under one shared
+execution and currentness policy. The executed comparison is recorded in
 [`docs/prototypes/reported-interest-tax-concept/examination.md`](../../prototypes/reported-interest-tax-concept/examination.md).
 
-**Arithmetic does not discriminate.** Both shapes produce every required number
-on all six cases, including the two designed to break the weaker one. Any
-argument from the displayed number is unsupported in either direction.
+- **A — distributed.** Independent artifacts, each carrying its own item, rule
+  identity, substantive authority, and provenance. Nothing durable relates them.
+- **A+ — distributed, with the partition edge.** Identical to A except that the
+  artifact a later year carries also names what it is a part of. Still two
+  artifacts from two rules; **no determination object**.
+- **B — explicit determination.** One item-level result holding the reported,
+  includible, non-includible, and basis amounts together.
 
-The static rubric does not discriminate either, once the distributed shape is
-repaired. As first built it failed one requirement — no authority was
-recoverable from a bare amount. Attaching the item, the rule, the authority, and
-provenance to each symbol clears every one of the ten requirements.
+**Arithmetic does not discriminate.** All three shapes produce every required
+number on all six cases, including the two designed to break the weaker one.
+Any argument from the displayed number is unsupported in either direction.
 
-What discriminates is two dynamic probes:
+**Neither does the rubric, nor lifecycle, nor provenance, nor refusal.** Under a
+rubric scored against every declared fact plus rule identity, authority, and
+coverage declaration — and under six adversarial corrections applied after a
+result exists — all three shapes pass everything except one row.
 
-- **The distributed shape can go silently incoherent.** After the circumstance
-  correction $300 → $250, refreshing only the includible symbol leaves it
-  asserting $950 includible — implying $250 non-includible — while its basis
-  symbol still reads $300. It does not detect the disagreement, because
-  coherence is an external observer's arithmetic rather than something the
-  result carries. The determination shape cannot reach that state.
-- **A carried consequence cannot check itself in a later year.** The
-  distributed shape carries a bare $300 against an item and can state neither
-  the reported nor the includible amount it is consistent with. In the year of
-  disposition there is no re-run to perform: the producing facts belong to a
-  prior year's workspace. The determination shape carries all four amounts and
-  can.
+**One requirement separates them, and only under one product assumption.** When
+a later year holds *only* the basis artifact it carried forward, shape A can
+recover the amount, its rule, its authority, and the ordinary fact that supplied
+it, and can detect that the source year was amended — but it cannot explain the
+reduction as a partition of the reported interest, because nothing carried
+forward states what the amount is a part of. Given access to the source year's
+sibling artifacts and facts, shape A answers that too.
 
-The honest counter-case is recorded with the recommendation: the distributed
-shape's lifecycle displacement is genuinely more precise, and the first probe
-alone would prove nothing if the system always re-ran every symbol from current
-facts. The recommendation rests on the second probe.
+**Shape A+ closes the gap without becoming a determination.** It scores the same
+as shape B under both product assumptions. So if the product requires that
+explanation from a carried artifact alone, what is necessary is **one durable
+relationship edge**, not a new kind of citizen.
+
+The honest counter-case is recorded with the finding: this is one fixture and
+one slice; A+ was designed after the failing task was known; no production cost
+is measured; and requiring an explanation to state the partition rather than
+merely cite the rule is a framing choice.
 
 Two earlier claims are **withdrawn and must not be re-asserted.** First, that
 the incumbent produces the correct number in all six cases — it does not; see
@@ -66,11 +70,25 @@ item linkage, not merely yes/no, and TI-N1 must distinguish "yes, amount
 supplied" from "yes, amount missing," which a guard reading only yes/no cannot
 do.
 
-**The incumbent is silently wrong on TI-A1.** The 2025 package contains no
-§ 135 or Form 8815 content, verified by search. For a taxpayer with qualifying
-savings-bond education expenses, box 1 flows to line 2b unreduced and the
-incumbent's ordinary line-2b result is not correct for that taxpayer. Both
-prototype shapes block explicitly instead.
+**The incumbent is silently wrong on TI-A1.** TI-A1 is box-3 Series EE
+savings-bond interest with qualified education expenses, and it now runs on its
+own fixture. `package.core-calculations.v33` selects
+`tax.us.2025.rule.form1040-line2b` version `v4`.
+`rule.f1099int-b3-subtotal.json` publishes the box-3 subtotal, which is an
+addend in that rule. The rule's `scope` is tax-year / jurisdiction / family,
+and its `when` clause requires family closure plus a non-negative result; it
+does not pin a Form 8815 or § 135 coverage fact, and its only subtractions are
+the nominee, accrued-interest, and amortizable-bond-premium subtotals. No
+committed rule computes the § 135 exclusion or subtracts it from line 2b. So
+box 3 flows to line 2b unreduced and the incumbent's ordinary result is not
+correct for that taxpayer. All three prototype shapes block explicitly instead.
+
+The package does, however, **own the pattern** for declaring such a class out of
+scope: `tax.us.2025.ss-benefits-scope.no-form-8815` is a tax-year-keyed
+`{yes, no}` completeness component that blocks when the excluded class is
+present, consumed by the Social Security Benefits Worksheet rules. It is applied
+to that worksheet and not to line 2b. An earlier version of this document said
+the package contained no Form 8815 content; that was wrong and is withdrawn.
 
 Alongside the comparison, a narrower set of requirements is established.
 
@@ -110,20 +128,23 @@ year it is dropped.
 ## What this milestone is and is not
 
 It is a **completed executable vertical slice**: the six cases were built and
-run end to end, under two rival representation shapes, through the engine's real
-expression evaluator. It establishes semantic and representation requirements
-and produces a recommendation from executed evidence.
+run end to end, under three rival representation shapes, through the engine's
+real expression evaluator. It establishes semantic and representation
+requirements and reports what executed evidence does and does not decide.
 
-It is **not** a production selection. The shapes are prototype evidence. No
-schema, citizen kind, field shape, storage mechanism, ADR, or migration is
-selected here, and none should be inferred from the recommendation. The
-recommendation itself turns on one unresolved product question, named in the
-examination.
+It is **not** a production selection, and it does **not** recommend a
+representation. The shapes are prototype evidence. No schema, citizen kind,
+field shape, storage mechanism, ADR, or migration is selected here. Production
+cost, schema compatibility, and migration size are not measured and may not be
+inferred from prototype dataclasses.
 
-An earlier version of this document recorded that no candidate implementation
-was exercised and that the necessity claim had been defeated on paper. Both are
-superseded. Paper analysis was not sufficient in either direction; the executed
-comparison is.
+The milestone went through two prototype iterations. The first executed, scored,
+and recommended the determination shape; review found that recommendation rested
+on a manufactured discriminator and a hard-coded verdict, and it is **withdrawn**.
+The examination lists every iteration-1 claim that did not survive. Earlier still,
+this document recorded that no candidate implementation was exercised and that
+the necessity claim had been defeated on paper; both of those are also
+superseded. Paper analysis was not sufficient in any direction.
 
 Claims about incumbent behaviour are graded. Some rest on exact execution of a
 committed test, some on a structural analogue at different amounts, and some on
@@ -145,8 +166,10 @@ purchase question.
    cases holding the reported amount constant, and which of them actually
    discriminate between the two paths.
 4. [`docs/prototypes/reported-interest-tax-concept/examination.md`](../../prototypes/reported-interest-tax-concept/examination.md)
-   — the executed comparison of the two shapes: case outcomes, rubric results,
-   the two deciding probes, the recommendation, and the case against it. The
+   — the executed comparison of the three shapes: case outcomes, rubric results,
+   the adversarial suite, the currentness probe, the later-year consumer, what
+   the evidence supports, and the case against treating it as settled. It opens
+   with a table of every iteration-1 claim that was withdrawn. The
    [charter](../../prototypes/reported-interest-tax-concept/charter.md) states
    what the round set out to decide before it ran.
 
@@ -178,14 +201,16 @@ Not everything open here is the same kind of open, and treating it as one list
 would be misleading.
 
 **Decision-blocking — must be settled before a representation is chosen.**
-Whether a consequence that outlives the tax year must be **self-checkable**. If
-a carried basis reduction has to be able to state, in the year of disposition,
-the reported and includible amounts it is consistent with, the determination
-shape is warranted and the distributed shape is out. If a bare amount keyed to
-an item suffices — because the broker reports the reduced basis, or because the
-user reconciles — the distributed shape is cheaper and the deciding probe loses
-its force. This is a product question about what the year-of-disposition
-experience owes the user, and no representation experiment can answer it.
+**When a later year needs the basis consequence, what does it hold?** If it
+carries only the basis artifact — because basis is tracked on the holding, or
+the source year's workspace is not retained — then that artifact must name what
+it is a part of, shape A is out, and shapes A+ and B both qualify. If the later
+year may re-open the source year, reaching sibling artifacts and the facts
+provenance names, then shape A satisfies everything and is the cheapest of the
+three. This is a product question about what the year-of-disposition experience
+owes the user, and no representation experiment can answer it. Note what it is
+*not*: it is not a question about whether a new citizen kind is needed. A+
+settles that a durable edge suffices.
 
 **Production conditions — do not block the decision, do block shipping.** The
 missing Treasury Regulation authority family in `citation.v1`. The absence of
@@ -209,16 +234,17 @@ The Tax Concept Representation Contract milestone should not open with "design
 the determination citizen." The smallest questions that would decide whether one
 is needed are:
 
-0. **Where does a consequence that outlives the tax year live, and must it be
-   self-checkable?** This is now the load-bearing question, and the
-   recommendation depends on it. The basis reduction is the concrete instance.
+0. **Where does a consequence that outlives the tax year live, and what does
+   the later year hold when it gets there?** This is the load-bearing question,
+   and the one row on which the shapes differ depends on it. The basis reduction
+   is the concrete instance.
    Ask it in its smallest form first: the covered-lot 1099-B fact types already
    carry a required `basis` field on a statement row, keyed by broker,
    statement, transaction and tax year, so if the broker reports the reduced
    basis in the year of disposition the engine may not need to carry the drop at
    all. Only one tax year is packaged, so this is an inference from the shape
    rather than an observed cross-year path — but it is cheap to settle, and
-   settling it decides the representation.
+   settling it decides which of the three shapes is warranted.
 1. **What does the product owe the user in the blocked state?** Detection is
    settled: the prototype executed TI-N1 and the evaluator distinguished "yes,
    amount supplied" from "yes, amount missing," blocking and naming the missing
@@ -249,7 +275,8 @@ is needed are:
    question and not the *per-item* half, which is exactly the half this slice
    needs.
 
-Question 0 first: it is cheap, and it is the one the recommendation rests on.
+Question 0 first: it is cheap, and it is the one the remaining difference rests
+on.
 Questions 1 and 3 are product questions rather than representation questions,
 and both were mistaken for representation questions earlier in this milestone.
 None is answerable on paper alone — which is the lesson of this milestone, not
@@ -259,13 +286,17 @@ an aside.
 
 US-federal individual income tax, tax year 2025, one synthetic taxpayer, one
 logical Form 1099-INT, one box-1 amount, one obligation purchased between
-interest payment dates. All identities and amounts are demonstration values.
+interest payment dates. A second synthetic statement carrying a box-3
+savings-bond amount exists solely to run the out-of-slice case. All identities
+and amounts are demonstration values.
 
 This slice establishes nothing about original issue discount, market discount,
-bond premium, the savings-bond education exclusion, nominee ownership,
+bond premium, nominee ownership,
 previously reported interest, tax-exempt interest, elections, joint-return
 subject identity, or any interest not reported in box 1. One case is included
-from outside the slice for the sole purpose of bounding what the others may be
-taken to prove.
+from outside the slice — the box-3 savings-bond education case, which the
+slice must refuse rather than answer — for the sole purpose of bounding what the
+others may be taken to prove. The savings-bond education exclusion itself is
+established nowhere here.
 
 The work selects no schema, citizen kind, field shape, or production contract.

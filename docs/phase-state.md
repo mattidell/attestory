@@ -5,8 +5,8 @@
   "topic": "tax-concept-derivation",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md",
   "milestone_state": "track-3",
-  "status": "Tax Concept Derivation established 2026-08-27 from origin/main at 9159a13d. The opening milestone is a bounded exploration turned completed executable vertical slice: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, and the path from source report through ordinary circumstance and tax classification to tax concept and simulated return projection. It does not attempt full taxable-interest coverage, select a production representation, or reopen source-family closure and provisional-return design. OUTCOME. Two rival representation shapes were built and executed on all six cases through the real engine expression evaluator, on exhibit exhibits/reported-interest-tax-concept/it1: a DISTRIBUTED shape (ordinary facts plus a tax rule derive an item-linked result, no durable determination object) and an EXPLICIT DETERMINATION shape (recoverable item-level result holding reported, includible, non-includible, basis consequence, item identity, rule, authority, source facts). Both produce every required number on all six cases, so arithmetic discriminates nothing. The static ten-requirement rubric discriminates nothing either once the distributed shape has authority attached per symbol. Two dynamic probes decide it: under a partial refresh after the 300-to-250 circumstance correction the distributed shape asserts 950 includible while its basis symbol still reads 300 and CANNOT DETECT the disagreement; and its carried basis consequence cannot state the reported or includible amount it is consistent with in a later year, when the producing facts belong to a prior workspace. RECOMMENDATION: the explicit determination shape, on that narrow ground and no other. The honest counter-case is that the distributed shape's lifecycle displacement is more precise, and that the first probe alone would prove nothing if every symbol were always re-run from current facts. SMALLEST REMAINING OWNER DECISION: must a consequence that outlives the tax year be self-checkable? That is a product question about the year-of-disposition experience and no representation experiment can answer it. TWO CLAIMS ARE WITHDRAWN AND MUST NOT BE RE-ASSERTED. First, that the incumbent produces the correct number in all six cases: it is silently wrong on TI-A1, because the 2025 package contains no section 135 or Form 8815 content and box 1 flows to line 2b unreduced. Second, that a tax-year {yes, no} ordinary-circumstance declaration plus a guard clause in the line-2b rule passes the cases: that design was never built or executed and does not follow, because TI-B2 requires the ordinary circumstance, its amount, and item linkage rather than merely yes/no, and TI-N1 must distinguish yes-with-amount from yes-without, which a guard reading only yes/no cannot do. The existing classified Schedule B adjustment cannot stand in for either half; it is a tax conclusion supplied to the engine, and the cases exist to withhold exactly that. Do not describe the necessity hypothesis as defeated: the earlier defeat rested on an unexecuted counterexample, and 'the engine can subtract an already-classified adjustment' establishes working arithmetic, not derivation from ordinary facts. A PAPER CLAIM OVERTURNED BY EXECUTION: conditional_dependency_set was recorded as unable to make an amount conditional on a yes because its members must be ref expressions. True, but it does not bite here, because the ordinary circumstance is a keyed per-item symbol rather than a family collect; executed on TI-N1 the evaluator blocked with DEPENDENCY_ABSENT and named the missing fact. The treatment is grounded in IRS Publication 550 'Bonds Sold Between Interest Dates' against IRC 61(a)(4), NOT in Treas. Reg. 1.61-7(c), which is the traded-flat pattern; 1.61-7(d) reaches only the seller. A missing Treasury Regulation authority family in citation.v1 is recorded as a production condition and a candidate separate substrate milestone, not addressed here. Prototype code is not on the milestone branch; the durable record is docs/prototypes/reported-interest-tax-concept/charter.md and examination.md.",
-  "current_role": "Milestone lead — executable slice complete, durable documents reconciled; awaiting fresh whole-candidate independent review",
+  "status": "Tax Concept Derivation established 2026-08-27 from origin/main at 9159a13d. The opening milestone is a bounded exploration turned completed executable vertical slice whose deciding evidence was repaired: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, a distinct box-3 TI-A1 fixture, and the path from source report through ordinary circumstance and tax classification to tax concept and simulated return projection. It does not attempt full taxable-interest coverage, select a production representation, or reopen source-family closure and provisional-return design. OUTCOME. Three rival shapes ran on all six cases through the real engine evaluator under one shared execution and currentness policy, on exhibit exhibits/reported-interest-tax-concept/it2 (it1 retained unchanged as historical prototype evidence): distributed (A), distributed with a partition edge (A+), and explicit item-level determination (B). Arithmetic does not discriminate. Partial refresh is deleted as deciding evidence. The hard-coded cross-year verdict is deleted. RECOMMENDATION: none on necessity grounds. A later-year consumer performing six concrete recovery tasks fails one task under shape A only when the later year holds the carried artifact alone; A+ and B both pass. That does not establish that a new citizen kind is necessary. SMALLEST REMAINING OWNER DECISION: when a later year needs the basis consequence, does it hold only the carried artifact, or may it re-open the source year? WITHDRAWN AND MUST NOT BE RE-ASSERTED. (1) That the incumbent produces the correct number in all six cases: it is silently wrong on TI-A1; box 3 flows unreduced into selected line-2b v4, and no committed rule computes the section 135 exclusion. The package does contain Form 8815 content as tax.us.2025.ss-benefits-scope.no-form-8815, consumed by the Social Security Benefits Worksheet, not by line 2b. (2) That a tax-year {yes, no} fact plus a line-2b guard passes the cases: never built or executed, and it does not follow. (3) That two dynamic probes on it1 decide the representation, or that the explicit determination is recommended on that evidence. (4) That the prototype was never built, that Track 1 never ran, or that paper plus the incumbent answered the representation question. Do not describe the necessity hypothesis as defeated on the earlier unexecuted counterexample, and do not describe it as supported by it1's probes. A PAPER CLAIM OVERTURNED BY EXECUTION: conditional_dependency_set was recorded as unable to make an amount conditional on a yes because its members must be ref expressions. True, but it does not bite here; executed on TI-N1 the evaluator blocked with DEPENDENCY_ABSENT and named the missing fact. The treatment is grounded in IRS Publication 550 'Bonds Sold Between Interest Dates' against IRC 61(a)(4), NOT in Treas. Reg. 1.61-7(c). Prototype code is not on the milestone branch; the durable record is docs/prototypes/reported-interest-tax-concept/charter.md and examination.md.",
+  "current_role": "Milestone lead — repaired executable evidence and durable documents reconciled; awaiting fresh whole-candidate independent review",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md#Tracks"
 }
 -->
@@ -36,30 +36,40 @@ a project to enumerate or implement the entire taxable-interest universe.
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
 - **Active milestone:** Reported Interest to Tax Concept Vertical Slice —
-  **IN CLOSEOUT**. A completed executable vertical slice: the six cases ran end
-  to end under two rival representation shapes through the engine's real
-  expression evaluator. The durable documents report the executed comparison.
+  **IN CLOSEOUT, NOT CLOSED**. A completed executable vertical slice whose
+  deciding evidence was repaired: the six cases ran end to end under three
+  rival representation shapes through the engine's real expression evaluator,
+  on exhibit `exhibits/reported-interest-tax-concept/it2`. The durable
+  documents report that comparison. No representation is recommended on
+  necessity grounds.
 - **Base:** `origin/main` at
   `9159a13d261f5005523ad58f8893ffffd735f204`, which includes the completed
   Taxable Interest Modeling milestone through PR #185.
 - **Branch:** `milestone/tax-concept-derivation-phase-definition`.
 - **Next move:** a fresh whole-candidate independent review, then the owner
-  decision. The recommendation is the **explicit determination** shape, on the
-  narrow ground of two dynamic probes, conditional on one product question:
-  must a consequence that outlives the tax year be self-checkable?
+  decision. The remaining owner-held product requirement is: when a later year
+  needs the basis consequence, does it hold only the carried artifact, or may
+  it re-open the source year?
 - **Withdrawn — do not re-assert.** That the incumbent produces the correct
-  number in all six cases: it is **silently wrong on TI-A1**, because the
-  package has no § 135 or Form 8815 content. And that a tax-year `{yes, no}`
-  fact plus a line-2b guard passes the cases: never built or executed, and it
-  does not follow from the cases. Do not describe the necessity hypothesis as
-  defeated — that record rested on an unexecuted counterexample.
+  number in all six cases: it is **silently wrong on TI-A1**. Box 3 flows
+  unreduced into selected line-2b v4; no committed rule computes the § 135
+  exclusion. Form 8815 content exists as
+  `tax.us.2025.ss-benefits-scope.no-form-8815`, consumed by the Social Security
+  Benefits Worksheet, not by line 2b. That a tax-year `{yes, no}` fact plus a
+  line-2b guard passes the cases: never built or executed, and it does not
+  follow from the cases. That two dynamic probes on it1 decide the
+  representation, or that the explicit determination is recommended on that
+  evidence. That the prototype was never built, that Track 1 never ran, or
+  that paper plus the incumbent answered the representation question. Do not
+  describe the necessity hypothesis as defeated on the earlier unexecuted
+  counterexample, and do not describe it as supported by it1's probes.
 - **Recanted authority — do not re-assert.** The treatment is Pub. 550 *Bonds
   Sold Between Interest Dates* against IRC § 61(a)(4), not
   Treas. Reg. § 1.61-7(c), which is the traded-flat pattern.
 - **Decision posture:** the opening milestone produces executable evidence and
   bounded production-contract questions. It does not itself select a citizen,
   schema, ADR, storage mechanism, full tax model, or production migration. The
-  two shapes are prototype evidence and do not become production contracts
+  three shapes are prototype evidence and do not become production contracts
   through effort or similarity.
 
 ## Standing constraints and postures
@@ -92,10 +102,11 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Open and owner-held
 
 - Whether a derived tax concept needs a new citizen or can be declared through
-  existing artifacts is now **recommended, not decided**: the slice recommends a
-  separately recoverable determination, and the owner selects the production
-  contract. The recommendation reduces to one product question — whether a
-  consequence outliving the tax year must be self-checkable.
+  existing artifacts is **not decided and not recommended** on the repaired
+  evidence. The executed difference reduces to an owner-held product
+  requirement: when a later year needs the basis consequence, what does it
+  hold? A durable relationship edge on the carried artifact closes the one
+  failing later-year task; that is not the same claim as a new citizen kind.
 - The identity and lifecycle of item-level tax classifications are open,
   including the independent effects of source correction, circumstance
   correction, tax-rule succession, and reporting-artifact succession.

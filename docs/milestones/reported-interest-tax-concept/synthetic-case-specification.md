@@ -253,13 +253,31 @@ says which grade it rests on.
 | TI-N1 | On vocabulary only — it blocks correctly but cannot say which gap it is in |
 | TI-L1 | No — independent, but by unrelatedness rather than design |
 | TI-L2 | No — same |
-| TI-A1 | The incumbent is silently wrong; both prototype shapes block |
+| TI-A1 | The incumbent is silently wrong; every prototype shape blocks |
 
 Five of the six cases produce the correct number under the incumbent. **TI-A1
-does not**: the 2025 package contains no § 135 or Form 8815 content, so box 1
-flows to line 2b unreduced and the incumbent's ordinary line-2b result is not
-correct for a taxpayer with qualifying savings-bond education expenses. It is
-wrong without saying so.
+does not.** `package.core-calculations.v33` selects
+`tax.us.2025.rule.form1040-line2b` version `v4`.
+`rule.f1099int-b3-subtotal.json` publishes the box-3 subtotal, which is an
+addend in that rule. The rule's `scope` is tax-year / jurisdiction / family,
+and its `when` clause requires family closure plus a non-negative result; it
+does not pin a Form 8815 or § 135 coverage fact, and its only subtractions are
+the nominee, accrued-interest, and amortizable-bond-premium subtotals. No
+committed rule computes the § 135 exclusion or subtracts it from line 2b. So
+box 3 flows to line 2b unreduced and the incumbent's ordinary line-2b result is
+not correct for a taxpayer with qualifying savings-bond education expenses. It
+is wrong without saying so.
+
+An earlier version of this document said the package contained no § 135 or Form
+8815 content. **The Form 8815 half of that was wrong and is withdrawn.**
+`tax.us.2025.ss-benefits-scope.no-form-8815` is a real fact type — a
+tax-year-keyed `{yes, no}` completeness component whose *no* blocks — consumed
+by the Social Security Benefits Worksheet rules. The package therefore already
+owns the pattern for declaring this class out of scope, and applies it to one
+worksheet and not to line 2b. That is a sharper finding than the wrong one it
+replaces: the gap is a pattern applied in one place and not another, not a
+missing idea, and closing it does not depend on which representation this
+milestone selects.
 
 On the other five, the surviving discriminator is narrower than arithmetic:
 whether the model can hold an **ordinary fact about a transaction** as distinct
@@ -268,44 +286,49 @@ it can explain, and what it can carry forward.
 
 ### What the cases decide, once executed
 
-These six cases were built and run end to end under two rival representation
-shapes, through the engine's real expression evaluator. The executed record is
+These six cases were built and run end to end under three rival representation
+shapes — distributed (A), distributed with a partition edge (A+), and explicit
+determination (B) — through the engine's real expression evaluator, under one
+shared execution and currentness policy. TI-A1 runs on its own box-3 fixture.
+The executed record is
 [`docs/prototypes/reported-interest-tax-concept/examination.md`](../../prototypes/reported-interest-tax-concept/examination.md).
 
-**Arithmetic does not discriminate.** Both shapes produce every required number
-on all six cases — 1200, 900, blocked, 700, 950, blocked — including the two
-designed to break the weaker one. Nothing about the choice can be argued from
-the displayed number.
+**Arithmetic does not discriminate.** All three shapes produce every required
+number on all six cases — 1200, 900, blocked, 700, 950, blocked — including the
+two designed to break the weaker one. Nothing about the choice can be argued
+from the displayed number.
 
-**The static requirement set does not discriminate either**, once the
-distributed shape is repaired. As first built it failed one of the ten
-requirements on four cases: the published symbols were bare amounts, and no
-authority was recoverable from the result for why the reduction was taken.
-Attaching the item, the rule, the authority, and provenance to each symbol
-clears all ten on all six.
+**The requirement set very nearly does not discriminate either.** Scored against
+every declared fact of the fixture plus rule identity and version, substantive
+authority, and the coverage declaration — and exercised by six adversarial
+corrections applied after a result exists, each observing currentness, refusal,
+item attribution, and provenance rather than a number — all three shapes pass
+everything but one row.
 
-**On lifecycle precision the distributed shape is better.** Its basis symbol
-never reads box 1, so correcting the statement does not disturb the basis
-consequence. The determination shape displaces whole-object: a source correction
-displaces the basis field too, though recomputation restores it. This is a real
-cost of the determination shape and it is recorded as such.
+**On lifecycle there is no difference.** Every correction displaces every
+artifact of every shape, and a displaced artifact is not servable as current
+under any of them. An earlier version of this document recorded that the
+distributed shape's basis symbol never reads box 1 and so survives a source
+correction, making its displacement more precise. **That is withdrawn.** It was
+an artefact of a prototype that evaluated its coverage guard in a discarded
+access log; the basis artifact is taken under a guard that reads the statement,
+so reissuing the statement displaces it.
 
-Two dynamic probes decide it:
+**The one row that discriminates.** When a later year holds only the basis
+artifact it carried forward, shape A can recover the amount, its rule, its
+authority, and the ordinary fact that supplied it, and can detect that the
+source year was amended — but it cannot explain the reduction as a partition of
+the reported interest, because nothing carried forward states what the amount is
+a part of. Given access to the source year's siblings and facts, it answers that
+too. Shape A+ answers it from the carried artifact alone, **without being a
+determination**.
 
-- **Silent incoherence.** After the circumstance correction $300 → $250,
-  refreshing only the includible symbol leaves the distributed shape asserting
-  $950 includible — implying $250 non-includible — while its basis symbol still
-  reads $300. It does not detect the disagreement. Coherence is an external
-  observer's arithmetic, not something the result carries. The determination
-  shape cannot reach the state.
-- **Cross-year self-check.** The distributed shape carries a bare $300 against
-  an item and can state neither the reported nor the includible amount it is
-  consistent with. In the year of disposition there is no re-run to perform,
-  because the producing facts belong to a prior year's workspace. The
-  determination shape carries all four amounts and can check itself.
-
-Both shapes correctly displace the carried value when the source year is
-amended, so the difference is not staleness. It is what a later year can verify.
+An earlier version of this document recorded two deciding probes — silent
+incoherence under partial refresh, and a cross-year self-check. **Both are
+withdrawn.** The first refreshed one affected output while treating another
+affected output as standing, which measures a decision to retain displaced state
+rather than a property of distributed representation. The second reported
+hard-coded booleans rather than asking the persisted artifacts.
 
 ### A paper claim these cases overturned
 
@@ -352,13 +375,20 @@ unchanged, and it is question 2 of the README.
 
 ### What the six cases now support
 
-They support the recommendation of a separately recoverable item-level
-determination, **on the narrow ground of the two probes and on no other ground**.
-The recommendation is conditional on one product question that no representation
-experiment can answer: whether a consequence that outlives the tax year must be
-self-checkable. If a bare amount keyed to an item suffices in the year of
-disposition, the cross-year probe loses its force and the honest verdict becomes
-"both work; prefer the cheaper."
+**They do not support a recommendation.** On this fixture, under a fair shared
+policy, a distributed representation meets every requirement except one
+explanation task under one product assumption, and a distributed representation
+carrying one additional relationship edge meets that too.
+
+What the cases do support is a sharper statement of what is at stake. The open
+question is a product question no representation experiment can answer: **when a
+later year needs the basis consequence, what does it hold?** If only the carried
+artifact, that artifact must name what it is a part of, and shape A is out. If
+the source year may be re-opened, shape A satisfies everything and is the
+cheapest of the three. Either way, what the failing task needs is a recoverable
+relationship — not a new kind of citizen. Shape A+ is the executed evidence for
+that distinction.
 
 This is prototype evidence. No schema, citizen kind, field shape, storage
-mechanism, or production contract is selected here.
+mechanism, or production contract is selected here, and no production cost,
+schema compatibility, or migration size may be inferred from it.
