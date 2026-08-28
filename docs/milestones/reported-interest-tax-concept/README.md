@@ -23,7 +23,7 @@ works. It is whether anything in the model holds the reason.
 **Necessity is not established. No representation is recommended on necessity
 grounds.** Four packagings were run on the same six cases through the engine's
 real expression evaluator. The comparison is
-[`docs/prototypes/reported-interest-tax-concept/examination.md`](../../prototypes/reported-interest-tax-concept/examination.md),
+[`examination.md`](../../archive/2026-08-28-reported-interest-tax-concept/prototypes/reported-interest-tax-concept/examination.md),
 exhibit `exhibits/reported-interest-tax-concept/it6`.
 
 - **A — artifact-alone.** Independent artifacts, payload `{amount}` only.
@@ -161,10 +161,12 @@ one. The reusable method for making that choice is
    existing artifacts represent.
 3. [synthetic-case-specification.md](synthetic-case-specification.md) — six
    cases holding the reported amount constant.
-4. [`examination.md`](../../prototypes/reported-interest-tax-concept/examination.md)
+4. [`examination.md`](../../archive/2026-08-28-reported-interest-tax-concept/prototypes/reported-interest-tax-concept/examination.md)
    — the executed comparison. The
-   [charter](../../prototypes/reported-interest-tax-concept/charter.md) states
-   what the round set out to decide.
+   [charter](../../archive/2026-08-28-reported-interest-tax-concept/prototypes/reported-interest-tax-concept/charter.md)
+   states what the round set out to decide. Historical prototype working files
+   live under
+   [`docs/archive/2026-08-28-reported-interest-tax-concept/`](../../archive/2026-08-28-reported-interest-tax-concept/README.md).
 
 ## Two production conditions, recorded and not addressed
 

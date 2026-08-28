@@ -103,16 +103,19 @@ model must continue to serve computation and return generation.
 
 | Milestone | State | Project impact |
 | --- | --- | --- |
-| Reported Interest to Tax Concept Vertical Slice | **In closeout — it6; no representation recommended; not closed** | Tax-domain model, synthetic fixtures, four-packaging comparison, derivation boundary |
-| Later-Year Basis Consequence Frontier | **Next — plan after current closeout** | Concrete later-year consumer, cross-year consequence, representation discriminator |
+| Reported Interest to Tax Concept Vertical Slice | **Closed 2026-08-28 — no representation recommended** | Tax-domain model, synthetic fixtures, four-packaging comparison, derivation boundary |
+| Later-Year Basis Consequence Frontier | **Named, not selected** | Concrete later-year consumer, cross-year consequence, representation discriminator |
 | Tax Concept Representation Contract | Not selected | Schemas, citizens, lifecycle, adopted artifacts, ADRs if required |
 | Production Interest Slice and Return Projection | Not selected | Record, derivation, tax content, return engine, tests |
 | Detectable Boundary and One Adjacent Expansion | Not selected | Coverage profile, boundary detection, one bounded tax expansion |
 | Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 
-The active plan is
+The just-closed plan is
 [`milestones/reported-interest-tax-concept-vertical-slice.md`](milestones/reported-interest-tax-concept-vertical-slice.md).
+The next milestone is unselected. The named candidate, if chosen, is Later-Year
+Basis Consequence Frontier. The retrospective is
+[`2026-08-28-reported-interest-tax-concept.md`](../../milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md).
 
 ## Starting evidence
 

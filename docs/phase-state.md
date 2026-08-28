@@ -4,10 +4,11 @@
   "phase": "Tax Concept Derivation",
   "topic": "tax-concept-derivation",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md",
-  "milestone_state": "track-3",
-  "status": "Tax Concept Derivation established 2026-08-27 from origin/main at 9159a13d. Opening milestone: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, a distinct box-3 TI-A1 coverage probe. Current exhibit exhibits/reported-interest-tax-concept/it6 (it1-it5 unchanged historical exhibits). Four packagings ran through the real evaluator. Source-report support is the exact statement reads; tax authority and accrued-interest coverage are omitted there. Copied C fields and E targets validate producing rule identity; a displaced producing evaluation cannot support a current partition explanation. Task 5 recovers the recorded partition explanation; task 6 is fact_version_current of used dependencies. A current explanation requires both. Later-year grants are in-memory objects (artifact-object-only, currentness, object-store access, full-workspace); serialization was not executed. RECOMMENDATION: none on necessity grounds. Owner decision: product consequence of split state after a current partition explanation is unavailable. TI-A1: treatment refuses; source report of 840 remains. Treatment: Pub. 550 Bonds Sold Between Interest Dates against IRC 61(a)(4). Prototype code is not on the milestone branch. Durable record: docs/milestones/reported-interest-tax-concept/ and docs/prototypes/reported-interest-tax-concept/.",
-  "current_role": "Milestone lead — current evidence reconciled on it6 (it1-it5 unchanged); bounded it5-review repair complete; awaiting independent confirmation",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md#Tracks"
+  "milestone_state": "closed",
+  "retrospective": "docs/milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md",
+  "status": "Tax Concept Derivation remains active. Opening milestone Reported Interest to Tax Concept Vertical Slice closed 2026-08-28 from origin/main at 9159a13d. Bounded slice: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, a distinct box-3 TI-A1 coverage probe. Exhibit exhibits/reported-interest-tax-concept/it6. No representation is recommended on necessity grounds. Durable record: docs/milestones/reported-interest-tax-concept/. Prototype working set archived under docs/archive/2026-08-28-reported-interest-tax-concept/. Next milestone unselected. Named candidate, if chosen: Later-Year Basis Consequence Frontier.",
+  "current_role": "Foreman — between-milestones selection",
+  "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md"
 }
 -->
 
@@ -35,19 +36,20 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
-- **Active milestone:** Reported Interest to Tax Concept Vertical Slice —
-  **IN CLOSEOUT, NOT CLOSED**. Current exhibit
+- **Just-closed milestone:** Reported Interest to Tax Concept Vertical Slice —
+  **CLOSED 2026-08-28**. Exhibit
   `exhibits/reported-interest-tax-concept/it6`. Four packagings ran on the six
   cases. No representation is recommended on necessity grounds.
 - **Base:** `origin/main` at
   `9159a13d261f5005523ad58f8893ffffd735f204`, which includes the completed
   Taxable Interest Modeling milestone through PR #185.
 - **Branch:** `milestone/tax-concept-derivation-phase-definition`.
-- **Next move:** independent confirmation of the bounded it5-review repair,
-  then the owner decision. Remaining owner question: the product consequence
-  of a split state after a current partition explanation is unavailable
-  (recompute, retain as historical, withhold, or a named later-year task for
-  an independently current basis amount).
+- **Next move:** select the next milestone. None is selected. The named
+  candidate is Later-Year Basis Consequence Frontier. Carried product
+  question from the closed slice: the product consequence of a split state
+  after a current partition explanation is unavailable (recompute, retain as
+  historical, withhold, or a named later-year task for an independently
+  current basis amount).
 - **TI-A1.** Prototype refuses coverage. The incumbent cannot determine whether
   § 135 applies and may publish full inclusion. The fixture does not prove the
   published number wrong.
@@ -98,17 +100,19 @@ a project to enumerate or implement the entire taxable-interest universe.
 - `OV-1`, `SC-13`, and `SC-16` remain carried but unselected. This phase does
   not absorb them unless a later milestone explicitly selects them.
 
-## Opening milestone
+## Just-closed milestone
 
-The active plan is
+The just-closed plan is
 `docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md`.
+The retrospective is
+`docs/milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md`.
 
 Its selected cases hold one Form 1099-INT report constant while changing one
 ordinary circumstance. The treatment was verified from official sources and the
 cases instantiated before the prototype; the executed comparison is in
-`docs/prototypes/reported-interest-tax-concept/examination.md`. Full
-taxable-interest coverage, production schemas, and return-engine migration are
-later milestones.
+`docs/archive/2026-08-28-reported-interest-tax-concept/prototypes/reported-interest-tax-concept/examination.md`.
+Full taxable-interest coverage, production schemas, and return-engine
+migration remain later work. The next milestone is unselected.
 
 ## Pointers
 
@@ -116,12 +120,14 @@ later milestones.
   `docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md`.
 - **Phase roadmap:**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
-- **Active milestone plan:**
+- **Just-closed milestone plan:**
   `docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md`.
+- **Retrospective:**
+  `docs/milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md`.
 - **Starting modeling evidence:**
   `docs/milestones/taxable-interest-model-sufficiency/README.md`.
 - **Executed prototype record:**
-  `docs/prototypes/reported-interest-tax-concept/examination.md` (charter
-  alongside it; code at tag `exhibits/reported-interest-tax-concept/it6`).
+  `docs/archive/2026-08-28-reported-interest-tax-concept/` (charter and
+  examination; code at tag `exhibits/reported-interest-tax-concept/it6`).
 - **Previous phase close:**
   `docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md`.

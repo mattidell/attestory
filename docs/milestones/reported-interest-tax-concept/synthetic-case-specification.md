@@ -276,7 +276,7 @@ The six cases ran under four packagings — artifact-alone (A),
 embedded-composite (C), relationship-edge (E), and explicit determination (B)
 — through the real evaluator on exhibit `it6`. Distributed packagings use
 separate includible and basis evaluations. The record is
-[`examination.md`](../../prototypes/reported-interest-tax-concept/examination.md).
+[`examination.md`](../../archive/2026-08-28-reported-interest-tax-concept/prototypes/reported-interest-tax-concept/examination.md).
 
 Arithmetic does not discriminate: 1200, 900, blocked, 700, 950, blocked.
 
