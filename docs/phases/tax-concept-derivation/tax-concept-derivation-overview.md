@@ -131,6 +131,21 @@ or the product's ability to detect that it lacks a necessary fact. Coherence
 may require a broader vocabulary than the first fixture exercises, but unused
 abstractions do not enter the model merely for elegance.
 
+### Reduce the frontier before selecting a durable shape
+
+The first use case that raises a materially new identity, lifecycle, authority,
+or cross-year question follows
+[`PROJECT_PLANNING.md`, **Frontier Reduction and Direct-Build
+Routing**](../../../PROJECT_PLANNING.md#frontier-reduction-and-direct-build-routing).
+It fixes one semantic case and concrete consumer, compares only representations
+that could change that consumer's behavior, and records both the choices
+eliminated and the requirements that survive.
+
+This is not the default treatment for every tax category. Once an accepted
+contract carries a later case without changing its meaning or lifecycle, that
+case should build directly. A prototype is warranted only while a costly
+representation choice remains both unsettled and discriminable.
+
 ### Keep concept meaning separate from executable coverage
 
 The tax concept is not defined as the categories currently implemented. The

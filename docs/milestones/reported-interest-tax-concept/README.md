@@ -119,6 +119,39 @@ It is a completed executable vertical slice whose current evidence is exhibit
 `it6`. It does not select a production representation, schema, citizen kind,
 field shape, storage mechanism, ADR, or migration.
 
+## How this narrows the modeling frontier
+
+The comparison removes several insufficient grounds for creating a new
+tax-concept citizen:
+
+- arithmetic does not require one; all four packagings calculate the bounded
+  cases;
+- reported, includible, and basis amounts do not have to share one object to be
+  derived;
+- one combined object is not automatically lifecycle-superior, because a
+  source correction can displace the combined result while an independently
+  derived basis consequence remains current;
+- copied values and relationship pointers are not self-sufficient substitutes:
+  they require component provenance or validated targets and currentness;
+- working with in-memory Python objects establishes no serialization,
+  persistence, or cross-process contract; and
+- recovering a recorded partition does not establish that its dependencies are
+  current.
+
+The work does not remove the need for further tax-domain modeling. The surviving
+requirements are ordinary transaction facts, identity linking the transaction
+to the reported item, separately accountable current-year and basis
+consequences, substantive rule and authority support, detectable coverage, and
+a way for a later disposition to consume the basis consequence.
+
+The next discriminating case is therefore the later disposition of the same
+bond. It should test whether the existing fact, rule, derived-artifact, and
+provenance model can carry the basis reduction into that consumer. A new
+first-class citizen becomes justified only if a concrete consumer loses
+meaning, identity, lifecycle correctness, or a required explanation without
+one. The reusable method for making that choice is
+[`PROJECT_PLANNING.md`, **Frontier Reduction and Direct-Build Routing**](../../../PROJECT_PLANNING.md#frontier-reduction-and-direct-build-routing).
+
 ## Reading order
 
 1. [accrued-interest-item-model.md](accrued-interest-item-model.md) — the five

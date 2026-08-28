@@ -16,19 +16,43 @@ the result to a simulated return without collapsing those layers. It is first
 because every broader milestone otherwise risks encoding the current
 source-box-to-form-line shortcut in a larger vocabulary.
 
-### 2. Tax Concept Representation Contract
+### 2. Later-Year Basis Consequence Frontier (updated: 2026-08-27)
 
-Use the vertical-slice evidence to select the smallest durable production
-contract. This milestone decides only the representation questions the slice
-made concrete: concept identity, item-level classification, subject and period,
-rule and authority linkage, coverage declaration, lifecycle, and the boundary
-between substantive determination and reporting projection.
+Use the accrued-interest basis reduction in one concrete later disposition of
+the same synthetic obligation. The primary proposition is whether the existing
+fact, rule, derived-artifact, and provenance model can carry that consequence
+honestly, or whether the consumer demonstrates a need for a separately durable
+item-level determination.
 
-It follows the slice so the contract is based on exercised examples rather
-than an abstract taxonomy. Prototype conveniences do not become production
-contracts by default.
+This milestone deliberately applies
+[`PROJECT_PLANNING.md`, **Frontier Reduction and Direct-Build
+Routing**](../../../PROJECT_PLANNING.md#frontier-reduction-and-direct-build-routing).
+It first fixes the later-year consumer, source-year and disposition facts,
+correction trace, and failure test on paper. If the accepted model already
+serves the consumer, build the bounded path directly. If materially different
+representations remain, exercise only the smallest rival prototypes under the
+same consumer and lifecycle rubric. The disposition must state what was
+eliminated, what survived, and whether a production contract is selected or
+still deferred.
 
-### 3. Production Interest Slice and Return Projection
+It does not design general investment-lot storage, a securities ledger, or a
+universal cross-year tax ontology. Before treating broker-reported basis as a
+reason to carry another artifact, it checks whether the later statement already
+supplies the required value and what product behavior still depends on the
+source-year determination.
+
+### 3. Tax Concept Representation Contract
+
+Select the smallest durable production contract only after the later-year
+consumer supplies a discriminator. This milestone decides the representation
+questions the two slices made concrete: concept identity, item-level
+classification, subject and period, rule and authority linkage, coverage,
+lifecycle, and the boundary between substantive determination and reporting
+projection. If the frontier disposition supports direct use of existing
+contracts, narrow this milestone to the missing facts, linkage, or citation
+contract rather than creating a new citizen.
+
+### 4. Production Interest Slice and Return Projection
 
 Reimplement the accepted contract in the production record, derivation, and
 tax-content paths. Migrate exactly the selected interest slice and bind its
@@ -40,7 +64,7 @@ not a general taxable-interest expansion: it proves that the new semantic path
 can operate inside the real engine and coexist with unmigrated interest
 content.
 
-### 4. Detectable Boundary and One Adjacent Expansion
+### 5. Detectable Boundary and One Adjacent Expansion
 
 Exercise one materially different taxable-interest case selected for what it
 tests, not for census coverage. The preferred candidates are a substantive
@@ -52,7 +76,7 @@ selected architectural question.
 This milestone tests whether the concept and coverage models remain honest as
 the domain widens. It does not turn every newly observed category into scope.
 
-### 5. Contrasting Tax Concept
+### 6. Contrasting Tax Concept
 
 Apply the method to a concept with a different structure, chosen after the
 interest work exposes which properties may be accidental. A deduction or
@@ -63,7 +87,7 @@ The purpose is to find which parts of the representation are genuinely common
 and which belong only to interest. Confirmation in a second concept is evidence
 of transfer, not proof of universality.
 
-### 6. Tax-Concept Question and Explanation Projection
+### 7. Tax-Concept Question and Explanation Projection
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
@@ -80,6 +104,7 @@ model must continue to serve computation and return generation.
 | Milestone | State | Project impact |
 | --- | --- | --- |
 | Reported Interest to Tax Concept Vertical Slice | **In closeout — it6; no representation recommended; not closed** | Tax-domain model, synthetic fixtures, four-packaging comparison, derivation boundary |
+| Later-Year Basis Consequence Frontier | **Next — plan after current closeout** | Concrete later-year consumer, cross-year consequence, representation discriminator |
 | Tax Concept Representation Contract | Not selected | Schemas, citizens, lifecycle, adopted artifacts, ADRs if required |
 | Production Interest Slice and Return Projection | Not selected | Record, derivation, tax content, return engine, tests |
 | Detectable Boundary and One Adjacent Expansion | Not selected | Coverage profile, boundary detection, one bounded tax expansion |
@@ -122,14 +147,17 @@ triggers, full line-2b coverage, filing, and user-interface implementation.
 
 ## Roadmap reassessment points
 
-Reassess after each of the first three milestones.
+Reassess after each of the first four milestones.
 
 - If the opening slice cannot distinguish source report, circumstance, and tax
   classification without a governance or citizen decision, stop before
   production and bring that exact decision to the owner.
-- If the slice shows that the current rule-artifact model already carries the
-  needed semantics recoverably, narrow milestone 2 to the missing declaration
-  or linkage rather than inventing a parallel model.
+- If the later-year basis consumer is served by the current rule-artifact model,
+  narrow milestone 3 to the missing facts, linkage, citation, or production
+  adoption work rather than inventing a parallel citizen.
+- If no concrete later-year behavior distinguishes the representations, defer
+  the citizen decision and preserve the bounded requirements instead of
+  prolonging the prototype.
 - If production integration requires a large migration of existing interest
   families, keep the selected slice working alongside the legacy path and
   schedule migration by concept boundary; do not absorb the entire migration.
