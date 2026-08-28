@@ -360,7 +360,7 @@ Read a document when its **When** column applies to you — not before.
 
 | Document | Norms | When you read it |
 | --- | --- | --- |
-| `OWNER_MODEL.md` | The owner's current, mutable model of the product, value, agent judgment, and domain modeling; it is an interpretive model, not a contract or checklist | On boot, always; re-read when the owner changes it |
+| `OWNER_MODEL.md` | The owner's current, mutable model of the product, value, and agent judgment, including the standing grant of discretion for agent-maintained domain models; it is not a contract or checklist | On boot, always; re-read when the owner changes it |
 | `docs/roles/<seat>.md` | Your posture, seed set, disciplines | On boot, always |
 | `docs/process/concurrent-work.md` | Milestone keys, branch names, shared worktree/index discipline, assignment handoff, temporary worktrees, cross-milestone schema-intent ledger | On boot, always |
 | Your charter | Scope, deliverables, stop conditions | On boot; it controls over any capsule |

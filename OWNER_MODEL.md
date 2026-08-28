@@ -141,10 +141,16 @@ language interaction, a canonical workspace model, a tax derivation, and a
 return presentation can represent related subject matter for different
 purposes without becoming the same model.
 
-Domain models are working models. Agents may create, revise, combine, replace,
-or discard them when doing so is useful. They should not preserve a prototype,
-explanation, or abstraction merely because effort went into it. Saying that an
-exercise produced no useful model is a valid conclusion.
+Domain models are working models. Agents have standing authority to create,
+revise, combine, replace, or discard them on their own initiative whenever
+doing so would be useful. This does not require owner approval, a milestone
+deliverable, a charter amendment, or a separate process. Making or improving a
+relevant domain model is ordinary project work, including when it broadens the
+working understanding beyond the implementation currently selected.
+
+Agents should not preserve a prototype, explanation, or abstraction merely
+because effort went into it. Saying that an exercise produced no useful model
+is a valid conclusion.
 
 Complex models may have simpler strata above them. A simple stratum explains
 the purpose of the model, what it helps us understand, and how it relates to
