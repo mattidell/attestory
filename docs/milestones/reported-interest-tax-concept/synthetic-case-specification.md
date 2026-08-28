@@ -197,27 +197,29 @@ that was expected to discriminate and does not.
 
 ## TI-A1 — Outside the slice
 
-**Facts entering.** A different synthetic taxpayer redeemed Series EE savings
-bonds in 2025, reported in box 3 of a Form 1099-INT, and paid qualified higher
-education expenses in the same year.
+**Facts entering.** A different synthetic statement reports $840 of Series EE
+savings-bond interest in box 3, and the education-expense answer is `yes`. The
+fixture does not record issuance year, owner age, filing status, modified AGI,
+qualified expenses after reductions, or redemption proceeds. 26 USC § 135 and
+the 2025 Form 8815 instructions turn on those additional facts.
 
 **Why it is here.** IRC § 135(a) provides that no amount is includible in gross
 income for qualifying redeemed savings bonds. That is a substantive exclusion
 of the same structural kind as the accrued-interest rule: an ordinary
 circumstance the payer cannot see, displacing the § 61 default.
 
-**Required behaviour.** The case is not modeled and must not appear to be. A
-model that succeeds on TI-B1 and TI-B2 has established nothing about TI-A1, and
-must not present a computed line 2b as though it had.
+**Required behaviour.** The case is not modeled and must not appear to be. The
+prototype refuses coverage. The fixture is **not** a complete § 135 pattern and
+does not prove that full inclusion is the wrong number for this taxpayer.
 
-**Incumbent behaviour.** The box-3 amount flows through the `b3` family into
-the positive total and is included in full. The result is silently wrong for
-this taxpayer, and it is wrong in exactly the way TI-B2 would have been wrong
-had the accrued-interest adjustment never been built — which is the point.
-Building the accrued-interest path did not build a way to *notice* TI-A1.
+**Incumbent behaviour.** Box 3 flows through `b3-subtotal` into selected
+line-2b v4 as an addend. The rule does not pin Form 8815 or § 135. No committed
+rule computes the exclusion. The incumbent cannot determine whether an
+exclusion applies and may publish full inclusion without representing the
+statutory conditions. `tax.us.2025.ss-benefits-scope.no-form-8815` scopes the
+Social Security Benefits Worksheet, not line 2b.
 
-**Scope boundary.** No implementation of § 135 follows from this case. It is
-here to bound the conclusion, not to extend the work.
+**Scope boundary.** No implementation of § 135 follows from this case.
 
 ## How the two paths are compared
 
@@ -253,142 +255,51 @@ says which grade it rests on.
 | TI-N1 | On vocabulary only — it blocks correctly but cannot say which gap it is in |
 | TI-L1 | No — independent, but by unrelatedness rather than design |
 | TI-L2 | No — same |
-| TI-A1 | The incumbent is silently wrong; every prototype shape blocks |
+| TI-A1 | Prototype refuses coverage; incumbent cannot tell whether § 135 applies |
 
-Five of the six cases produce the correct number under the incumbent. **TI-A1
-does not.** `package.core-calculations.v33` selects
-`tax.us.2025.rule.form1040-line2b` version `v4`.
-`rule.f1099int-b3-subtotal.json` publishes the box-3 subtotal, which is an
-addend in that rule. The rule's `scope` is tax-year / jurisdiction / family,
-and its `when` clause requires family closure plus a non-negative result; it
-does not pin a Form 8815 or § 135 coverage fact, and its only subtractions are
-the nominee, accrued-interest, and amortizable-bond-premium subtotals. No
-committed rule computes the § 135 exclusion or subtracts it from line 2b. So
-box 3 flows to line 2b unreduced and the incumbent's ordinary line-2b result is
-not correct for a taxpayer with qualifying savings-bond education expenses. It
-is wrong without saying so.
+On TI-A1 the prototype blocks. The incumbent takes box 3 into selected line-2b
+v4 with no Form 8815 or § 135 pin. That is a coverage omission: it cannot
+determine whether an exclusion applies and may publish full inclusion. The
+TI-A1 fixture does not establish a positive exclusion, so it does not prove
+the published number wrong for this taxpayer.
 
-An earlier version of this document said the package contained no § 135 or Form
-8815 content. **The Form 8815 half of that was wrong and is withdrawn.**
-`tax.us.2025.ss-benefits-scope.no-form-8815` is a real fact type — a
-tax-year-keyed `{yes, no}` completeness component whose *no* blocks — consumed
-by the Social Security Benefits Worksheet rules. The package therefore already
-owns the pattern for declaring this class out of scope, and applies it to one
-worksheet and not to line 2b. That is a sharper finding than the wrong one it
-replaces: the gap is a pattern applied in one place and not another, not a
-missing idea, and closing it does not depend on which representation this
-milestone selects.
+`tax.us.2025.ss-benefits-scope.no-form-8815` is a real completeness fact
+consumed by the Social Security Benefits Worksheet, not by line 2b.
 
-On the other five, the surviving discriminator is narrower than arithmetic:
-whether the model can hold an **ordinary fact about a transaction** as distinct
-from the **tax conclusion drawn from it**, and therefore what it can ask, what
-it can explain, and what it can carry forward.
+On the other five cases the discriminator is narrower than arithmetic: whether
+the model can hold an **ordinary fact about a transaction** as distinct from
+the **tax conclusion drawn from it**.
 
 ### What the cases decide, once executed
 
-These six cases were built and run end to end under three rival representation
-shapes — distributed (A), distributed with a partition edge (A+), and explicit
-determination (B) — through the engine's real expression evaluator, under one
-shared execution and currentness policy. TI-A1 runs on its own box-3 fixture.
-The executed record is
-[`docs/prototypes/reported-interest-tax-concept/examination.md`](../../prototypes/reported-interest-tax-concept/examination.md).
+The six cases ran under four packagings — artifact-alone (A),
+embedded-composite (C), relationship-edge (E), and explicit determination (B)
+— through the real evaluator on exhibit `it4`. Distributed packagings use
+separate includible and basis evaluations. The record is
+[`examination.md`](../../prototypes/reported-interest-tax-concept/examination.md).
 
-**Arithmetic does not discriminate.** All three shapes produce every required
-number on all six cases — 1200, 900, blocked, 700, 950, blocked — including the
-two designed to break the weaker one. Nothing about the choice can be argued
-from the displayed number.
+Arithmetic does not discriminate: 1200, 900, blocked, 700, 950, blocked.
 
-**The requirement set very nearly does not discriminate either.** Scored against
-every declared fact of the fixture plus rule identity and version, substantive
-authority, and the coverage declaration — and exercised by six adversarial
-corrections applied after a result exists, each observing currentness, refusal,
-item attribution, and provenance rather than a number — all three shapes pass
-everything but one row.
+Every declared fixture fact was corrected or removed after publication.
+Displacement of each artifact matches that artifact's own provenance.
+Copied fields on C keep the producing evaluation's provenance; after a
+reported-amount correction they are historical snapshots, while the basis
+amount can remain current. E follows pointers only to same-item, correct-kind
+targets; a displaced or foreign target fails. Bytes-only cannot detect an
+amendment. Task 6 is fact-version currentness of used dependencies, not
+general usability.
 
-**On lifecycle there is no difference.** Every correction displaces every
-artifact of every shape, and a displaced artifact is not servable as current
-under any of them. An earlier version of this document recorded that the
-distributed shape's basis symbol never reads box 1 and so survives a source
-correction, making its displacement more precise. **That is withdrawn.** It was
-an artefact of a prototype that evaluated its coverage guard in a discarded
-access log; the basis artifact is taken under a guard that reads the statement,
-so reissuing the statement displaces it.
+On TI-N1 the evaluator distinguished "yes, amount supplied" from "yes, amount
+missing", blocked, and named the missing fact.
 
-**The one row that discriminates.** When a later year holds only the basis
-artifact it carried forward, shape A can recover the amount, its rule, its
-authority, and the ordinary fact that supplied it, and can detect that the
-source year was amended — but it cannot explain the reduction as a partition of
-the reported interest, because nothing carried forward states what the amount is
-a part of. Given access to the source year's siblings and facts, it answers that
-too. Shape A+ answers it from the carried artifact alone, **without being a
-determination**.
+A tax-year `{yes, no}` fact plus a line-2b guard was not built and does not
+follow from these cases.
 
-An earlier version of this document recorded two deciding probes — silent
-incoherence under partial refresh, and a cross-year self-check. **Both are
-withdrawn.** The first refreshed one affected output while treating another
-affected output as standing, which measures a decision to retain displaced state
-rather than a property of distributed representation. The second reported
-hard-coded booleans rather than asking the persisted artifacts.
+**Re-keying to the statement identity gives naming, not a guard.** Line 2b
+still subtracts three scalar subtotals.
 
-### A paper claim these cases overturned
-
-An earlier version of this document recorded that the
-`conditional_dependency_set` operator could not make an amount conditional on a
-*yes*, because its `members` must be `ref` expressions naming symbols and a
-source-family collect is not a named ref. The restriction is real and the
-inference was wrong. The ordinary circumstance is a **keyed per-item symbol**,
-not a family collect, so the restriction does not bite. Executed on TI-N1, the
-evaluator distinguished "yes, amount supplied" from "yes, amount missing",
-blocked, and named the missing fact.
-
-### Two claims withdrawn
-
-Neither may be re-asserted.
-
-1. **That the incumbent produces the correct number in all six cases.** TI-A1
-   above.
-2. **That a tax-year `{yes, no}` fact type plus a guard clause in the line-2b
-   rule passes the cases.** That design was never built or executed, and the
-   claim does not follow from these cases. TI-B2 requires the ordinary
-   circumstance, its amount, and item linkage — not merely yes/no. TI-N1 must
-   distinguish "yes, amount supplied" from "yes, amount missing," and a guard
-   reading only a yes/no declaration cannot distinguish those states. A
-   tax-year-keyed declaration also cannot say *which* obligation was bought
-   mid-period, which is the same item-identity gap the second surviving
-   requirement names.
-
-The existing classified Schedule B adjustment cannot stand in for either half.
-It is a tax conclusion supplied to the engine, and the cases exist to withhold
-exactly that.
-
-### The residual observation about re-keying
-
-**Re-keying to the statement identity gives naming, not a guard.** It is
-structurally compatible — the composition's coextensiveness check covers the
-seven positive families, and the three adjustment families are matched by family
-id and subtotal symbol rather than by member identity keys — but that
-compatibility is exactly why it changes no arithmetic. Line 2b still subtracts
-three scalar subtotals, and nothing joins two families on a shared identity.
-Re-keying would let an adjustment *name* the item it reduces; a per-item
-comparison would still have to be built on top. This survives the executed round
-unchanged, and it is question 2 of the README.
-
-### What the six cases now support
-
-**They do not support a recommendation.** On this fixture, under a fair shared
-policy, a distributed representation meets every requirement except one
-explanation task under one product assumption, and a distributed representation
-carrying one additional relationship edge meets that too.
-
-What the cases do support is a sharper statement of what is at stake. The open
-question is a product question no representation experiment can answer: **when a
-later year needs the basis consequence, what does it hold?** If only the carried
-artifact, that artifact must name what it is a part of, and shape A is out. If
-the source year may be re-opened, shape A satisfies everything and is the
-cheapest of the three. Either way, what the failing task needs is a recoverable
-relationship — not a new kind of citizen. Shape A+ is the executed evidence for
-that distinction.
-
-This is prototype evidence. No schema, citizen kind, field shape, storage
-mechanism, or production contract is selected here, and no production cost,
-schema compatibility, or migration size may be inferred from it.
+**The cases do not support a representation recommendation.** They support an
+owner decision about which later-year capabilities the product grants:
+artifact bytes, a currentness service, an object store, and/or the source-year
+workspace. Citizen-kind, schema, and production cost are not selected or
+measured here.

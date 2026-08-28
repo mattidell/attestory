@@ -4,8 +4,8 @@
   "phase": "Tax Concept Derivation",
   "topic": "tax-concept-derivation",
   "milestone_state": "track-3",
-  "status": "Opening milestone planned on 2026-08-27; in closeout as of 2026-08-28. Bounded to one synthetic 2025 Form 1099-INT box-1 item and one accrued-interest-at-purchase contrast, plus a distinct box-3 TI-A1 fixture. OUTCOME: a completed executable vertical slice whose deciding evidence was repaired in a successor iteration. Three shapes — distributed (A), distributed with a partition edge (A+), and explicit item-level determination (B) — ran on all six cases through the real engine evaluator under one shared execution and currentness policy (exhibit exhibits/reported-interest-tax-concept/it2; it1 retained unchanged as historical prototype evidence). Arithmetic does not discriminate. The repaired provenance rubric and a six-task later-year consumer do not establish that a new citizen kind is necessary. Partial refresh is deleted as deciding evidence. The hard-coded cross-year verdict is deleted. RECOMMENDATION: none on necessity grounds. The remaining difference is an owner-held product requirement: when a later year needs the basis consequence, does it hold only the carried artifact, or may it re-open the source year? WITHDRAWN AND MUST NOT BE RE-ASSERTED: (1) that the incumbent produces the correct number in all six cases — it is silently wrong on TI-A1, where box 3 flows unreduced into selected line-2b v4 and no committed rule computes the section 135 exclusion; the package does contain Form 8815 content as tax.us.2025.ss-benefits-scope.no-form-8815, consumed by the Social Security Benefits Worksheet, not by line 2b; (2) that a tax-year {yes, no} fact plus a line-2b guard passes the cases (never built or executed, and it does not follow); (3) that two dynamic probes on it1 decide the representation, or that the explicit determination is recommended on that evidence; (4) that the prototype was never built, that Track 1 never ran, or that paper plus the incumbent answered the representation question. Durable record: docs/milestones/reported-interest-tax-concept/ and docs/prototypes/reported-interest-tax-concept/.",
-  "current_role": "Milestone lead — repaired executable evidence and durable documents reconciled; awaiting fresh whole-candidate independent review",
+  "status": "Opening milestone planned on 2026-08-27; in closeout, not closed. Bounded to one synthetic 2025 Form 1099-INT box-1 item and one accrued-interest-at-purchase contrast, plus a distinct box-3 TI-A1 coverage probe. OUTCOME: executable vertical slice on exhibit exhibits/reported-interest-tax-concept/it4 (it1, it2, it3 retained unchanged as historical exhibits). Four packagings ran through the real evaluator: artifact-alone (A), embedded-composite (C), relationship-edge (E), explicit determination (B). Distributed packagings evaluate separate includible and basis rules. Copied C fields keep producing-evaluation provenance; E pointers validate item and kind and respect target currentness. Arithmetic does not discriminate. Later-year access is an explicit grant. Task 6 is fact-version currentness of used dependencies, not general usability. RECOMMENDATION: none on necessity grounds. Owner decision: which later-year capabilities are granted, and whether a copied or pointed-to partition is current only while its producing evaluations are current. TI-A1 is a coverage probe. Durable record: docs/milestones/reported-interest-tax-concept/ and docs/prototypes/reported-interest-tax-concept/.",
+  "current_role": "Milestone lead — current evidence reconciled on it4; awaiting fresh whole-candidate independent review",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md#Tracks",
   "scope": [
     "establish the official-source treatment for one reported-interest item and one accrued-interest-at-purchase contrast",
@@ -44,42 +44,25 @@
 
 # Reported Interest to Tax Concept Vertical Slice
 
-> **Read this before relying on anything below.** This plan was written before
-> the work. The deliverables in `docs/milestones/reported-interest-tax-concept/`
-> and the executed record in `docs/prototypes/reported-interest-tax-concept/`
-> are the record of what was found. Each named section below is also rewritten
-> locally so that a section loaded on its own does not still carry a withdrawn
-> claim.
+> **Current record.** This plan was written before the work. The deliverables in
+> `docs/milestones/reported-interest-tax-concept/` and
+> `docs/prototypes/reported-interest-tax-concept/` are the record of what was
+> found. Current exhibit: `exhibits/reported-interest-tax-concept/it4`.
 >
-> 1. **The authority is wrong wherever this plan implies Treas. Reg. § 1.61-7(c)
->    governs.** That paragraph is the traded-flat / defaulted-interest pattern.
->    The ordinary between-interest-dates purchase is governed by Pub. 550,
->    *Bonds Sold Between Interest Dates*, against IRC § 61(a)(4);
->    § 1.61-7(d) reaches only the seller.
-> 2. **The executable slice was built.** Iteration 1 is retained as
->    `exhibits/reported-interest-tax-concept/it1`. Iteration 2 repaired its
->    deciding evidence and is the current exhibit,
->    `exhibits/reported-interest-tax-concept/it2`. Do not re-assert that the
->    prototype was never built, that Track 1 never ran, or that paper plus the
->    incumbent answered the representation question.
-> 3. **No representation is recommended on necessity grounds.** Arithmetic
->    does not discriminate. Iteration 1's two probes do not decide the
->    representation: partial refresh was a manufactured discriminator, and the
->    cross-year verdict was hard-coded. See
->    `docs/prototypes/reported-interest-tax-concept/examination.md`.
-> 4. **Two earlier claims remain withdrawn.** The incumbent is silently wrong
->    on TI-A1 (box 3 flows unreduced into selected line-2b v4; no committed
->    rule computes the § 135 exclusion; Form 8815 content exists as
->    `tax.us.2025.ss-benefits-scope.no-form-8815` on the Social Security
->    Benefits Worksheet, not on line 2b). A tax-year `{yes, no}` fact plus a
->    line-2b guard was never built or executed and does not follow from the
->    cases.
+> 1. The ordinary between-interest-dates purchase is governed by Pub. 550,
+>    *Bonds Sold Between Interest Dates*, against IRC § 61(a)(4). Treas. Reg.
+>    § 1.61-7(c) is the traded-flat pattern; § 1.61-7(d) reaches only the seller.
+> 2. No representation is recommended on necessity grounds.
+> 3. TI-A1 is a coverage probe, not a proof that the incumbent's published
+>    number is wrong for that taxpayer. The incumbent cannot determine whether
+>    § 135 applies and may publish full inclusion without representing the
+>    statutory conditions.
 
 ## Milestone identity
 
 - Phase: Tax Concept Derivation
 - Milestone key: `tax-concept-derivation`
-- State: in closeout (planned 2026-08-27; executable evidence repaired 2026-08-28; not closed)
+- State: in closeout (planned 2026-08-27; current exhibit it4; not closed)
 - Base: `origin/main` at `9159a13d261f5005523ad58f8893ffffd735f204`
 - Branch: `milestone/tax-concept-derivation-phase-definition`
 - Decision posture: executable exploration; no production representation is
@@ -91,17 +74,17 @@
 > half is satisfied by the incumbent too on the two primary box-1 cases — the
 > same reported amount produces $1,200 and $900 — and that is Schedule B
 > arithmetic, which the second paragraph below expressly says is not success.
-> The executed comparison confirms this sharply: **all three** candidate shapes
+> The executed comparison confirms this sharply: **all four** packagings
 > produce every required number on all six cases, so arithmetic discriminates
 > nothing.
 >
 > The *item-level and layer-ownership* half is where the slice did its work. The
 > incumbent fails it — the subtraction is a return row that cannot name the item
 > it reduces, the ordinary circumstance cannot be supplied at all, and the
-> substantive proposition is labelled rather than asserted. All three prototype
-> shapes meet it under one shared execution and currentness policy, with one
-> exception that does not establish a new citizen kind. Iteration 1's two
-> probes do not decide the representation. See
+> substantive proposition is labelled rather than asserted. All four prototype
+> packagings meet it under one shared source-year currentness policy. Later-year
+> recovery depends on which access capabilities are granted. No new citizen kind
+> is established as necessary. See
 > `docs/prototypes/reported-interest-tax-concept/examination.md`.
 
 Determine, through one bounded executable slice, what the engine must represent
@@ -253,10 +236,11 @@ publish it.
 
 All amounts and identities are obviously synthetic. Track 0 fixed exact values
 after verifying that the fact pattern is legally coherent. All six cases were
-then executed under three rival shapes through the real engine evaluator;
+then executed under four packagings through the real engine evaluator;
 see `docs/milestones/reported-interest-tax-concept/synthetic-case-specification.md`
-and `docs/prototypes/reported-interest-tax-concept/examination.md`. The
-incumbent is **not** correct in all six: it is silently wrong on TI-A1.
+and `docs/prototypes/reported-interest-tax-concept/examination.md`. TI-A1 is a
+coverage probe: the incumbent cannot determine whether § 135 applies; the
+fixture does not prove the published number wrong.
 
 | Case | Facts held constant | Distinguishing circumstance | Required observation |
 | --- | --- | --- | --- |
@@ -275,36 +259,24 @@ The primary proposition is:
 > report and the return projection, is necessary to preserve a legally material
 > reported-versus-includible distinction through derivation.
 
-**That proposition is not established.** Three rival shapes were built and run
-on all six cases through the engine's real expression evaluator, under one
-shared execution and currentness policy, on exhibit
-`exhibits/reported-interest-tax-concept/it2`. Arithmetic does not discriminate.
-The repaired provenance rubric and a six-task later-year consumer do not
-establish that a new citizen kind is necessary. Iteration 1's two probes —
-partial refresh, and a hard-coded cross-year verdict — do **not** decide the
-representation and are withdrawn as deciding evidence. See
+**That proposition is not established.** Four packagings ran on exhibit
+`exhibits/reported-interest-tax-concept/it4`. Arithmetic does not discriminate.
+A later-year consumer under explicit access grants does not establish that a
+new citizen kind is necessary. See
 `docs/prototypes/reported-interest-tax-concept/examination.md`.
 
 Two dependent questions remain permitted: whether executable coverage needs a
 separate declaration in this slice, and which lifecycle inputs must displace a
-result. All other representation questions are deferred.
+result. Rule, authority, coverage-declaration, and reporting-artifact
+succession remain unexecuted. All other representation questions are deferred.
 
-The current distributed line-2b path is the incumbent. The candidates are a
-distributed representation, the same representation carrying one durable
-partition edge, and an explicit item-level determination. All three are
-exercised against the same cases. No persisted end-to-end production
-integration is authorized.
+The candidates are artifact-alone, embedded-composite, relationship-edge, and
+explicit determination. No persisted end-to-end production integration is
+authorized.
 
-The stop-before-prototype clause below was exercised for most of this
-milestone, and that was an error: paper plus the incumbent did **not** answer
-the representation question. Track 1 ran. Two claims made during the paper
-period remain withdrawn: that the incumbent produces the correct number in all
-six cases, and that a `{yes, no}` declaration plus a line-2b guard passes the
-discriminating ones.
-
-If a separate executable probe is needed, use an isolated prototype whose code
-is not a production candidate. The owner decides whether the evidence warrants
-a contract milestone.
+Paper plus the incumbent did not answer the representation question. A
+`{yes, no}` line-2b guard was not built and does not follow from the cases.
+Prototype code is not a production candidate.
 
 Working review notes and process metadata are not final deliverables. Repairs
 are applied to the durable artifacts; any material unresolved dissent is
@@ -387,19 +359,10 @@ broader replacement case.
 
 ## Tracks
 
-> **Execution order differed from the plan, then the deciding evidence was
-> repaired.** Track 0 completed and its stop-before-prototype clause fired, so
-> Track 1 was deferred and Track 2 ran first as adversarial review of paper
-> analysis. That ordering produced a conclusion that repeated review could not
-> repair, because the defect was missing evidence. Track 1 then ran under owner
-> direction (`exhibits/reported-interest-tax-concept/it1`). Independent review
-> found that iteration's deciding probes and provenance rubric defective.
-> Iteration 2 repaired the executable evidence
-> (`exhibits/reported-interest-tax-concept/it2`) and the durable documents were
-> reconciled to it. Track 1 ran. Paper plus the incumbent did not answer the
-> representation question. No representation is recommended on the repaired
-> evidence. The durable output is the four documents in
-> `docs/milestones/reported-interest-tax-concept/` and the executed record in
+> **Current exhibit:** `exhibits/reported-interest-tax-concept/it4`. Paper plus
+> the incumbent did not answer the representation question. Track 1 ran. No
+> representation is recommended on necessity grounds. Durable output:
+> `docs/milestones/reported-interest-tax-concept/` and
 > `docs/prototypes/reported-interest-tax-concept/`.
 
 ### Track 0 — Source and semantic boundary
@@ -439,13 +402,10 @@ convert a prototype shape into a production contract during curation.
 
 ## Stop conditions
 
-> **The paper-period stop fired, and it was not an answer.** Paper analysis
-> plus execution of the incumbent did **not** answer the representation
-> question. Track 1 ran. The current exhibit is
-> `exhibits/reported-interest-tax-concept/it2`. The milestone is in closeout
+> Track 1 ran. The current exhibit is
+> `exhibits/reported-interest-tax-concept/it4`. The milestone is in closeout
 > awaiting a fresh whole-candidate independent review, then an owner decision.
-> It is not closed. Do not resume a third prototype iteration from this section
-> alone.
+> It is not closed.
 
 Stop and return to the owner when:
 
@@ -487,19 +447,10 @@ The milestone is complete when:
    named additional probe, or stop the phase without needing to reconstruct
    the authoring conversation.
 
-Criteria 1–7 are met by the repaired executable record. Criterion 3 reads:
-the comparison that mattered is among three *candidate* shapes, not between
-the incumbent and one candidate. The incumbent cannot be posed the six cases
-at all — it has no representation of the ordinary purchase question — so
-"identical evidence" is satisfied among the rival shapes, and the incumbent
-is characterised at three distinct grades of evidence (exact execution of its
-own tests, a structural analogue at different amounts, and artifact
-inspection) rather than pretended to have run the cases. Criterion 5 is met
-by executed lifecycle observations under one shared currentness policy, not
-by argument, and not by iteration 1's partial-refresh probe. See
-`docs/prototypes/reported-interest-tax-concept/examination.md`.
-
-This is a **completed executable vertical slice whose deciding evidence was
-repaired**, not an exploratory finding and not a closed milestone. No
-representation is recommended on necessity grounds. Criterion 8 waits on a
-fresh whole-candidate independent review, then the owner.
+Criterion 3: not established. The comparison is among four packagings on
+identical fixtures. The incumbent cannot be posed the six cases; it is
+characterised at three evidence grades (exact tests, structural analogue,
+artifact inspection). Criterion 5 is met by per-artifact displacement matching
+provenance, not by whole-object stamping. Criterion 7 requires the documents
+to stand alone without review-process metadata. Criterion 8 waits on a fresh
+independent review, then the owner. The milestone is not closed.

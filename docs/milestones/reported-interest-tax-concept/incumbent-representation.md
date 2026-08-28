@@ -279,3 +279,11 @@ Alongside that: the substantive authority is citable in the existing vocabulary
 but is not attached, the regulatory corroboration is not citable at all, and the
 ordinary fact that produces the difference cannot be asked for in terms the
 taxpayer would recognise.
+
+Selected line-2b v4 takes `interest.b3-subtotal` as an addend and does not pin
+Form 8815 or § 135. No committed rule computes the § 135 exclusion.
+`tax.us.2025.ss-benefits-scope.no-form-8815` scopes the Social Security
+Benefits Worksheet, not line 2b. The incumbent therefore cannot determine
+whether a § 135 exclusion applies and may publish full inclusion of box 3
+without representing the statutory conditions. That is a coverage omission,
+not a proof that any particular fixture's number is wrong.
