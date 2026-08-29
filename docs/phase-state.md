@@ -2,13 +2,12 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "tax-concept-derivation",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md",
-  "milestone_state": "closed",
-  "retrospective": "docs/milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md",
-  "status": "Tax Concept Derivation remains active. Opening milestone Reported Interest to Tax Concept Vertical Slice closed 2026-08-28 from origin/main at 9159a13d. Bounded slice: one synthetic 2025 Form 1099-INT box-1 item, one accrued-interest-at-purchase contrast, a distinct box-3 TI-A1 coverage probe. Exhibit exhibits/reported-interest-tax-concept/it6. No representation is recommended on necessity grounds. Durable record: docs/milestones/reported-interest-tax-concept/. Prototype working set archived under docs/archive/2026-08-28-reported-interest-tax-concept/. Next milestone unselected. Named candidate, if chosen: Later-Year Basis Consequence Frontier.",
-  "current_role": "Foreman — between-milestones selection",
-  "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md"
+  "topic": "document-ordinary-fact-translation",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md",
+  "milestone_state": "seam-0",
+  "status": "Document and Ordinary-Fact Translation Vertical restarted 2026-08-28 from origin/main at 0869f10a on milestone/document-ordinary-fact-translation-seams. The prior single-track attempt on milestone/document-ordinary-fact-translation built the full canonical slice in one pass and was returned NOT READY by independent adversarial review even after repair; that branch is retained as reference evidence, not as a base. This branch decomposes the same objective into six independently chartered seams (canonical value extraction, identity association, relationship constraints, standing authorization and currentness, rule-owned consequences, ordinary input mapping) plus one integration checkpoint, each seam run under the Prototype Economic Gates with a clean-room rival builder and a clean-room/adversarial/eligibility review committee where a rival is genuinely informative. No seam has been chartered yet.",
+  "current_role": "Foreman — owner-directed milestone lead",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md"
 }
 -->
 
@@ -36,20 +35,28 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
+- **Active milestone:** Document and Ordinary-Fact Translation Vertical —
+  **seam-0, restarted**. No seam chartered yet.
+- **Base:** `origin/main` at
+  `0869f10a90403f9ed35e27d326ba46dc4da57bba`, including the merged owner
+  model.
+- **Branch:** `milestone/document-ordinary-fact-translation-seams`.
+- **Reference-only branch:** `milestone/document-ordinary-fact-translation` —
+  the prior single-track attempt. Its Track 0 domain-model draft and Track 2
+  production translation are citable starting evidence for seam charters, but
+  its independent adversarial rereview returned NOT READY; do not build on
+  it or treat its choices as pre-selected.
+- **Next move:** map or revise
+  `docs/domain-models/taxable-interest-translation.md`, confirm T1–T9, then
+  charter Seam 1 (canonical value extraction) under
+  `docs/prototypes/canonical-value-extraction/plan.md` per the Prototype
+  Economic Gates. Seam 4 (standing authorization) and Seam 6 (ordinary input
+  mapping) may charter in parallel since neither depends on the
+  interest-specific seams.
 - **Just-closed milestone:** Reported Interest to Tax Concept Vertical Slice —
   **CLOSED 2026-08-28**. Exhibit
   `exhibits/reported-interest-tax-concept/it6`. Four packagings ran on the six
   cases. No representation is recommended on necessity grounds.
-- **Base:** `origin/main` at
-  `9159a13d261f5005523ad58f8893ffffd735f204`, which includes the completed
-  Taxable Interest Modeling milestone through PR #185.
-- **Branch:** `milestone/tax-concept-derivation-phase-definition`.
-- **Next move:** select the next milestone. None is selected. The named
-  candidate is Later-Year Basis Consequence Frontier. Carried product
-  question from the closed slice: the product consequence of a split state
-  after a current partition explanation is unavailable (recompute, retain as
-  historical, withhold, or a named later-year task for an independently
-  current basis amount).
 - **TI-A1.** Prototype refuses coverage. The incumbent cannot determine whether
   § 135 applies and may publish full inclusion. The fixture does not prove the
   published number wrong.
@@ -87,6 +94,9 @@ a project to enumerate or implement the entire taxable-interest universe.
 
 ## Open and owner-held
 
+- None of the six seams are chartered or scored for prototype eligibility
+  yet. Seam sequencing (1 -> 2 -> 3 -> 5 dependent; 4 and 6 parallel) is
+  proposed in the plan, not yet executed.
 - Whether a derived tax concept needs a new citizen is **not established**.
   A copied or referenced partition cannot support a current explanation after
   a producing evaluation is displaced. Remaining product questions concern
@@ -100,6 +110,15 @@ a project to enumerate or implement the entire taxable-interest universe.
 - `OV-1`, `SC-13`, and `SC-16` remain carried but unselected. This phase does
   not absorb them unless a later milestone explicitly selects them.
 
+## Active milestone
+
+The active plan is
+`docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md`.
+It decomposes the translation vertical into six independently chartered
+seams plus one integration checkpoint, run under the Prototype Economic
+Gates with rival builders and a clean-room/adversarial/eligibility review
+committee wherever a rival comparison is genuinely informative.
+
 ## Just-closed milestone
 
 The just-closed plan is
@@ -112,7 +131,7 @@ ordinary circumstance. The treatment was verified from official sources and the
 cases instantiated before the prototype; the executed comparison is in
 `docs/archive/2026-08-28-reported-interest-tax-concept/prototypes/reported-interest-tax-concept/examination.md`.
 Full taxable-interest coverage, production schemas, and return-engine
-migration remain later work. The next milestone is unselected.
+migration remain later work.
 
 ## Pointers
 
@@ -120,6 +139,10 @@ migration remain later work. The next milestone is unselected.
   `docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md`.
 - **Phase roadmap:**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
+- **Active milestone plan:**
+  `docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md`.
+- **Reference-only prior attempt:** branch
+  `milestone/document-ordinary-fact-translation` (NOT READY; not a base).
 - **Just-closed milestone plan:**
   `docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md`.
 - **Retrospective:**
