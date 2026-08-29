@@ -5,8 +5,11 @@ Date: 2026-08-28. Foreman-issued.
 Route: `PROJECT_PLANNING.md` **Frontier Reduction and Direct-Build
 Routing** — "an accepted contract already fixes the proposition, producer,
 consumer, and correction behavior; the change is additive and reversible" ->
-build directly. This is a repair of an existing mapper, not an architectural
-contest; no rival builder.
+build directly. **Correction (post eligibility-review R1, 2026-08-28): this
+was a first build, not a repair of a pre-existing mapper** — the named
+target files did not exist on this branch (see `examination.md`, "Starting
+condition"). The routing conclusion (direct-build, no rival) still holds on
+the merits; only the "repair" framing was wrong. No rival builder.
 
 - **Branch:** `prototypes/ordinary-input-mapping/it1` (may graduate straight
   to a production branch once reviewed, per Gate 7 in the sibling seam
@@ -16,12 +19,14 @@ contest; no rival builder.
 
 ## Question
 
-Repair the existing ordinary-language input mapper
+Build the ordinary-language input mapper
 (`packages/tax/obligation_acquisition_mapping.py` and its test,
-`tests/test_obligation_acquisition_translation.py` — read the current
-committed versions, not the uncommitted working-tree edits on
-`milestone/document-ordinary-fact-translation` in the sibling worktree,
-which belong to the NOT-READY attempt) so that:
+`tests/test_obligation_acquisition_translation.py` — this charter was
+originally written expecting these files to already exist and need repair;
+they did not exist on this branch, so this is a first build, not a repair —
+see the correction note above. Read the current committed versions, not the
+uncommitted working-tree edits on `milestone/document-ordinary-fact-translation`
+in the sibling worktree, which belong to the NOT-READY attempt) so that:
 
 - its subject and scope agree;
 - it accepts ordinary-language structured answers;
@@ -31,7 +36,7 @@ which belong to the NOT-READY attempt) so that:
 
 ## Deliverables
 
-- The repaired mapper and its tests, on the charter branch.
+- The mapper and its tests, on the charter branch.
 - `examination.md` (≤ 150 lines): what was wrong before (subject/scope
   mismatch, missing validation, or over-broad emission — whichever applies),
   what changed, and a walk-through showing the mapper now emits only
