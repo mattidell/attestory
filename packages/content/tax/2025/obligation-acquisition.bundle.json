@@ -1,0 +1,182 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.obligation.acquisition",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.filing-subject",
+          "kind": "entity",
+          "name": "subject"
+        },
+        {
+          "entity_kind": "tax.us.obligation",
+          "kind": "entity",
+          "name": "obligation"
+        },
+        {
+          "entity_kind": "tax.us.obligation-acquisition",
+          "kind": "entity",
+          "name": "acquisition"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "One purchase of one debt obligation by the filing subject during 2025, stated as ordinary facts about the purchase. Its identity is the subject, the obligation, and the acquisition - never a document, a form row, a payer aggregate, an evidence artifact, a file, an upload, or a scan. Every field is something the person knows about what they bought and paid; none of them is a tax classification. `concerns_reported_payer` is a recognition answer naming which payer's interest report the obligation's interest appears on, not a legal characterization of the payment.",
+      "value_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "accrued_interest_paid_to_seller": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "accrued_paid_as_separate_component": {
+            "enum": [
+              "yes",
+              "no",
+              "unknown"
+            ]
+          },
+          "acquired_on": {
+            "format": "date",
+            "type": "string"
+          },
+          "concerns_reported_payer": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "obligation_in_default_or_arrears_at_purchase": {
+            "enum": [
+              "yes",
+              "no",
+              "unknown"
+            ]
+          },
+          "obligation_pays_periodically_in_arrears": {
+            "enum": [
+              "yes",
+              "no",
+              "unknown"
+            ]
+          }
+        },
+        "required": [
+          "acquired_on",
+          "concerns_reported_payer"
+        ],
+        "type": "object"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.obligation.acquisition.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic user-attested closure of the 2025 obligation-acquisition circumstance family on its current membership horizon: true asserts that every 2025 purchase of a debt obligation the subject means to account for is recorded as of that horizon. It says nothing about interest reports, other adjustment classes, total taxable interest, or any later-year basis consequence.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.obligation.acquisition.accrued-interest-paid",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.filing-subject",
+          "kind": "entity",
+          "name": "subject"
+        },
+        {
+          "entity_kind": "tax.us.obligation",
+          "kind": "entity",
+          "name": "obligation"
+        },
+        {
+          "entity_kind": "tax.us.obligation-acquisition",
+          "kind": "entity",
+          "name": "acquisition"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.taxable-interest",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Scalar companion projecting the accrued interest the subject paid the seller on one obligation acquisition, so the amount can be aggregated. It shares the acquisition's identity exactly and carries no meaning the canonical acquisition member does not already carry.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.obligation.accrued-interest-paid.source-closure",
+      "identity_keys": [
+        {
+          "entity_kind": "kernel.family-horizon",
+          "kind": "entity",
+          "name": "family-horizon"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Synthetic user-attested closure of the scalar accrued-interest-paid companion family on its current membership horizon.",
+      "value_schema": {
+        "type": "boolean"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.obligation.acquisition.vocabulary",
+  "label": "Synthetic 2025 obligation-acquisition circumstance vocabulary",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

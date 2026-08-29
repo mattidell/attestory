@@ -4,7 +4,7 @@
   "phase": "Tax Concept Derivation",
   "topic": "document-ordinary-fact-translation",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md",
-  "milestone_state": "track-0",
+  "milestone_state": "track-2",
   "status": "Tax Concept Derivation remains active. Document and Ordinary-Fact Translation Vertical selected 2026-08-28 from origin/main at 0869f10a. The milestone will create the first fluid taxable-interest translation domain model, establish a source-independent canonical slice joining a Form 1099-INT report to ordinary bond-purchase facts, and proceed into bounded production behavior unless evidence exposes a material owner decision. The later-year basis question is deferred until this current-year translation exists.",
   "current_role": "Foreman — owner-directed milestone lead",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md"
@@ -36,13 +36,29 @@ a project to enumerate or implement the entire taxable-interest universe.
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
 - **Active milestone:** Document and Ordinary-Fact Translation Vertical —
-  **TRACK 0 COMPLETE 2026-08-28**.
+  **TRACK 2 BUILT 2026-08-28, awaiting independent review**.
 - **Base:** `origin/main` at
   `0869f10a90403f9ed35e27d326ba46dc4da57bba`, including the merged owner model.
-- **Branch:** `milestone/document-ordinary-fact-translation`.
-- **Next move:** Track 2, bounded production translation. Track 1 collapsed:
-  Track 0 left one viable canonical shape, so a discriminating prototype would
-  compare it only against shapes already known non-viable or already decided.
+- **Branch:** `milestone/document-ordinary-fact-translation`, draft PR #188.
+- **Next move:** fresh independent review of the exact Track 2 candidate
+  against the Product Model, the fluid domain model, the plan, T1–T9, and the
+  complete production diff. Track 1 collapsed: Track 0 left one viable
+  canonical shape, so a discriminating prototype would compare it only against
+  shapes already known non-viable or already decided.
+- **Track 2 result.** The canonical slice is implemented and projected onto
+  line 2b and Schedule B; evidence is
+  `docs/milestones/document-ordinary-fact-translation/production-translation.md`.
+  Two schema successors were minted: `source-family.v3` (`identity_association`,
+  designed in Track 0) and `attachment-rule.v9`, which was **not** predicted —
+  the adjustment-row `kind` is a class-authority key, not a display hint, so
+  the fourth adjustment class could not borrow an existing one. T1–T9 run as
+  14 package-level tests. Two items are named future work: statement-level
+  association, and the masking-sibling amount guard, which would need a
+  cross-family value read and therefore a decision about ADR-0066's closed
+  predicate language.
+- **Pre-existing, not this milestone's:** five `fast-lane budget exceeded`
+  failures already present at HEAD `6758be16`, measured in a detached
+  worktree. Budget decay, not logic failure.
 - **Track 0 result.** The fluid domain model is
   `docs/domain-models/taxable-interest-translation.md`; the canonical slice,
   payloads, contract comparison, and adversarial closure are

@@ -323,3 +323,20 @@ Held here rather than pretended away.
 4. **The citation vocabulary still has no Treasury Regulation family.** It
    costs corroboration here, not the citation itself. It will bite on any
    proposition whose best support is regulatory.
+5. **Association is at payer level, not statement level.** Building the slice
+   showed that asking which *statement* a bond purchase concerns asks the
+   person about their paperwork rather than about their bond, so the question
+   was dropped. Payer level discriminates every case this milestone had to
+   answer. The case it cannot yet reach is two statements from one payer
+   covering different obligations.
+6. **A sibling acquisition can still mask another's amount.** Detecting it
+   needs a rule to read a counterpart member's *value* across families, which
+   ADR-0066 decision 2 closes off. Opening that is a decision about the
+   substrate, not about interest. Named and deferred, not overlooked.
+
+Implementation confirmed the Part 3 shape rather than revising it. It did
+revise one thing: the acquisition record's recognition answers had to become
+**optional**. With them required, an unanswered question is not a question the
+product can name — it is a payload the kernel refuses to construct at all. An
+honest "not yet answered" has to be representable, or the model cannot say
+what it is waiting for.

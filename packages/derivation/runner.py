@@ -134,12 +134,15 @@ _LEDGER_EXCLUDED_PIN_ROLES = frozenset(
 # directly from their declarative requirement/itemizations/completeness
 # structure by `_Run.attempt_attachment`, not by `evaluate()`.
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}
 )
 # attachment-rule.v8 is v6's exact inherited shape (Track 2: only the
 # additive optional `accounts_for[]` differs) - every v6-specific branch
-# below applies identically to v8.
-_V6_SHAPE_ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8"})
+# below applies identically to v8. v9 inherits v8's shape in turn, widening
+# only the closed adjustment-row `kind` vocabulary, which no branch here
+# reads: rows are processed by their declared family and subtotal, and the
+# kind is carried through to the published value untouched.
+_V6_SHAPE_ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"})
 ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
 # ADR-0055 Decision 2: a required answer present as a current finding but
 # valued other than its declared required value - distinct from absence
@@ -419,7 +422,7 @@ class _Run:
             # reads closure/membership state directly and blocks honestly
             # if the pinned family is unclosed.
             symbols = list(requirement.get("subtotals", []))
-            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"):
+            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"):
                 for part in rule["itemizations"]:
                     symbols.append(part["tie_out"]["line_symbol"])
                     symbols.extend(row_set["subtotal_symbol"] for row_set in part["row_sets"])
@@ -661,6 +664,7 @@ class _Run:
         evaluator = Evaluator()
         constraints = declaration.get("member_constraints", [])
         exclusivity = declaration.get("identity_exclusivity", [])
+        association = declaration.get("identity_association", [])
 
         codes: list[str] = []
         member_results: list[dict[str, Any]] = []
@@ -790,6 +794,82 @@ class _Run:
             if collision:
                 codes.append("IDENTITY_EXCLUSIVITY_COLLISION")
                 codes.append(f"identity_exclusivity:{excl['id']}")
+
+        # Required cross-family association (source-family.v3). Exclusivity
+        # blocks when two families' declared identities DO match; association
+        # blocks when this family's member does NOT resolve against the named
+        # counterpart's current members exactly once. Zero matches and several
+        # matches are separately named, because they are different facts about
+        # the user's situation: nothing to attach to, versus more than one
+        # plausible thing to attach to.
+        #
+        # The two component lists are compared positionally and may bind
+        # through different routes on each side - typically a member field
+        # here against a fact-id bound key there - because the associated
+        # families are not shaped alike. Only identity is read; a counterpart
+        # member's value is never consulted, so ADR-0066 decision 2's closure
+        # against cross-member value reads is untouched.
+        for assoc in association:
+            counterpart_pin = assoc["associated_family"]
+            counterpart = next(
+                (
+                    d for d in self.ctx.family_declarations
+                    if d["id"] == counterpart_pin["id"]
+                    and d.get("version", "v1") == counterpart_pin["version"]
+                ),
+                None,
+            )
+            if counterpart is None:
+                codes.append("IDENTITY_ASSOCIATION_FAMILY_ABSENT")
+                codes.append(f"identity_association:{assoc['id']}:{counterpart_pin['id']}")
+                continue
+
+            counterpart_member_type = counterpart["member_predicate"]["fact_type"]
+            counterpart_values_raw = self.sources.get(counterpart_member_type, [])
+            counterpart_fact_ids = self.source_fact_ids.get(counterpart_member_type, [])
+            if len(counterpart_values_raw) != len(counterpart_fact_ids):
+                codes.append("MEMBER_SOURCE_INDEX_SKEW")
+                continue
+
+            counterpart_identities: list[tuple[str, ...]] = []
+            counterpart_missing = False
+            for other_fact_id, other_raw in zip(counterpart_fact_ids, counterpart_values_raw):
+                try:
+                    other_decoded = json.loads(other_raw) if isinstance(other_raw, str) else other_raw
+                except (TypeError, ValueError):
+                    other_decoded = None
+                other_value = other_decoded if isinstance(other_decoded, dict) else None
+                try:
+                    counterpart_identities.append(identity_tuple(
+                        fact_id=other_fact_id,
+                        member_value=other_value,
+                        components=assoc["counterpart_components"],
+                    ))
+                except IdentityBindingError:
+                    counterpart_missing = True
+
+            if counterpart_missing:
+                codes.append("IDENTITY_COMPONENT_MISSING")
+                codes.append(f"identity_association:{assoc['id']}:counterpart")
+
+            for fact_id, member_value in decoded_members:
+                try:
+                    own_identity = identity_tuple(
+                        fact_id=fact_id,
+                        member_value=member_value,
+                        components=assoc["components"],
+                    )
+                except IdentityBindingError:
+                    codes.append("IDENTITY_COMPONENT_MISSING")
+                    codes.append(f"identity_association:{assoc['id']}:{fact_id}")
+                    continue
+                matches = counterpart_identities.count(own_identity)
+                if matches == 0:
+                    codes.append("IDENTITY_ASSOCIATION_UNMATCHED")
+                    codes.append(f"identity_association:{assoc['id']}:{fact_id}")
+                elif matches > 1:
+                    codes.append("IDENTITY_ASSOCIATION_AMBIGUOUS")
+                    codes.append(f"identity_association:{assoc['id']}:{fact_id}:{matches}")
 
         if codes:
             self._record_blocked(rule, access, "FAMILY_VALIDATION_BLOCKED", sorted(set(codes)))
@@ -923,7 +1003,7 @@ class _Run:
             return "inapplicable"
 
         itemization_pins: list[dict[str, Any]] = []
-        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"):
+        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"):
             itemization_symbols = sorted({
                 symbol
                 for part in rule["itemizations"]
@@ -1114,7 +1194,7 @@ class _Run:
         if tie_out_violations:
             self._attachment_block(
                 rule_id, ITEMIZATION_TIE_OUT_VIOLATION, sorted(set(tie_out_violations)),
-                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8") else []),
+                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9") else []),
             )
             return "blocked"
 

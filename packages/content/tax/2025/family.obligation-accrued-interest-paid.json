@@ -1,0 +1,20 @@
+{
+  "authorizes_subtotal": "tax.us.2025.interest.obligation-accrued-subtotal",
+  "closure_claim": "Every accrued-interest amount the filing subject paid a seller on a recorded 2025 obligation acquisition is recorded as a scalar companion of that acquisition as of the keyed horizon. This claim adds no meaning to the acquisition it projects from: it says nothing about other adjustment classes, total taxable interest, or any later-year basis consequence.",
+  "id": "tax.us.2025.obligation.accrued-interest-paid",
+  "member_predicate": {
+    "fact_type": "tax.us.2025.obligation.acquisition.accrued-interest-paid"
+  },
+  "projects_from": {
+    "id": "tax.us.2025.obligation.acquisition",
+    "version": "v1"
+  },
+  "schema": "source-family.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Scalar accrued-interest-paid companions of 2025 obligation acquisitions",
+  "version": "v1"
+}

@@ -36,7 +36,7 @@ PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 # distinct presentation contract. Both are recognized field citizens.
 FIELD_SCHEMAS = frozenset({"form-field.v2", "form-field.v3"})
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}
 )
 
 _NUMERIC_DISPOSITIONS = frozenset({"published_value", "computed_zero", "closure_backed_zero"})
@@ -366,7 +366,7 @@ def _resolve_attachment(
                 (entry for entry in attachment_finding["value"].get("itemizations", []) if entry.get("part_id") == part_id),
                 None,
             )
-        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8"):
+        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"):
             if value_itemization is None:
                 raise PresentationModelError(f"attachment finding omits itemization value for {part_id!r}")
             assert isinstance(value_itemization, dict)
@@ -398,7 +398,7 @@ def _resolve_attachment(
             "citationSites": sites,
             "tieOutText": f"Reported subtotal: {value}",
         })
-        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8"):
+        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"):
             assert isinstance(value_itemization, dict)
             for adjustment in itemization.get("adjustment_rows", []):
                 adjustment_value = next(

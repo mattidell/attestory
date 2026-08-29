@@ -33,7 +33,7 @@ TAX_CONTENT_DIR = _PACKAGES_DIR / "content" / "tax" / "2025"
 
 FORM_FIELD_SCHEMA = "form-field.v1"
 SOURCE_FAMILY_SCHEMA = "source-family.v1"
-SOURCE_FAMILY_SCHEMAS = {"source-family.v1", "source-family.v2"}
+SOURCE_FAMILY_SCHEMAS = {"source-family.v1", "source-family.v2", "source-family.v3"}
 CLOSURE_MAPPING_SCHEMA = "source-closure-mapping.v1"
 W2_BUNDLE_FILE = "w2.bundle.json"
 F1099INT_BUNDLE_FILE = "f1099int.bundle.json"

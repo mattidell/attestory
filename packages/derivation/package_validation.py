@@ -69,7 +69,7 @@ def _families_reached(
             for family_id in _iter_source_sets(citizen.get(key)):
                 reached.add((family_id, "itemizes_members"))
 
-    elif schema in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+    elif schema in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}:
         for symbol in citizen.get("requirement", {}).get("subtotals", []):
             if symbol in families_by_subtotal:
                 reached.add((families_by_subtotal[symbol], "reads_subtotal"))
@@ -88,10 +88,21 @@ def _families_reached(
     return reached
 
 
+#: Every published generation of the family declaration. `identity_association`
+#: is a `source-family.v3` field, but every site that asks "is this citizen a
+#: source family?" must admit all three generations, or a v3 family would be
+#: invisible to attachment row-set resolution and to the ADR-0066 constraint
+#: pass while still validating structurally.
+_SOURCE_FAMILY_SCHEMAS = frozenset({
+    "source-family.v1", "source-family.v2", "source-family.v3",
+})
+
+
 def _is_constrained(family: Mapping[str, Any]) -> bool:
     return bool(
         family.get("member_constraints")
         or family.get("identity_exclusivity")
+        or family.get("identity_association")
         or family.get("itemizations")
         or family.get("completeness")
     )
@@ -212,6 +223,15 @@ _V3_ADJUSTMENT_BINDINGS = {
     "nominee_distribution": ("Nominee Distribution", "nominee"),
     "accrued_interest": ("Accrued Interest", "accrued-interest"),
     "abp_adjustment": ("ABP Adjustment", "abp-adjustment"),
+    # attachment-rule.v9's added class. Its authority is the scalar family
+    # projected out of the canonical obligation-acquisition record, never the
+    # statement-transcribed `scheduleb.adjustment.accrued-interest` family, so
+    # the token is pinned here exactly as the other three are. Binding it is
+    # what keeps the new kind from being a free-form display label: a row that
+    # claims this class and names some other family fails admission.
+    "obligation_accrued_interest": (
+        "Accrued Interest (bond acquisition)", "accrued-interest-paid",
+    ),
 }
 
 _V11_ADJUSTMENT_SLOTS = (
@@ -219,6 +239,29 @@ _V11_ADJUSTMENT_SLOTS = (
     ("tax.us.2025.scheduleb.adjustment.accrued-interest", "tax.us.2025.interest.scheduleb-accrued-interest-subtotal"),
     ("tax.us.2025.scheduleb.adjustment.abp-adjustment", "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal"),
 )
+
+# The derived fourth class. Its slot names the *scalar* family, not the
+# canonical acquisition record it projects from, because a slot is a
+# (family, subtotal) join and only the scalar family authorizes a subtotal.
+# Line 2b therefore reads exactly one closure per class, as it does for the
+# other three; the acquisition family's own closure is required inside the
+# subtotal rule, which is the artifact that must not publish without it.
+_OBLIGATION_ADJUSTMENT_SLOT = (
+    "tax.us.2025.obligation.accrued-interest-paid",
+    "tax.us.2025.interest.obligation-accrued-subtotal",
+)
+
+# Each line-2b / Schedule B successor generation selects one exact adjustment
+# class surface, keyed by the *content* version rather than by the schema: the
+# schema fixes the class vocabulary, the version fixes which classes this
+# return actually subtracts. v4 is the ratified three-class surface; v5 adds
+# the derived obligation-acquisition class and nothing else. A version absent
+# from this map declares no adjustment surface at all, so an unrecognized
+# successor fails the bijection checks rather than silently widening them.
+_ADJUSTMENT_SURFACES = {
+    "v4": _V11_ADJUSTMENT_SLOTS,
+    "v5": _V11_ADJUSTMENT_SLOTS + (_OBLIGATION_ADJUSTMENT_SLOT,),
+}
 
 # E14.2 (extended by ADR-0032): record-kind and contribution citizens are never
 # permissible rule/package dependencies. Runs consume facts, not process accounts
@@ -251,6 +294,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "attachment-rule.v5",
     "attachment-rule.v6",
     "attachment-rule.v8",
+    "attachment-rule.v9",
     "bundle.v1",
     "bundle.v2",
     "checked-conclusion-binding.v1",
@@ -289,6 +333,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "source-closure-mapping.v2",
     "source-family.v1",
     "source-family.v2",
+    "source-family.v3",
     "taxable-interest-composition.v1",
 }) | _NON_INPUT_SCHEMAS
 
@@ -592,7 +637,7 @@ def compile_validation_graph(
 
     for member in resolved_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}:
             compiled.append(member)
             continue
 
@@ -663,7 +708,7 @@ def check_validation_graph(
 
     for member in compiled_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}:
             continue
 
         artifact_id = member["id"]
@@ -989,7 +1034,7 @@ def validate_package(
             if pin_role != "checked-conclusion-binding":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"checked-conclusion-binding declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}:
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"attachment-rule declared as role {pin_role!r}"))
@@ -1163,15 +1208,18 @@ def validate_package(
         # The selected composition citizen publishes the positive-total basis, not
         # taxable-total; resolve composition through the producer pin instead of
         # requiring a second selected version of the same composition id. This is a
-        # structural fact about rule.form1040-line2b@v4 itself, not about which
+        # structural fact about rule.form1040-line2b itself, not about which
         # package version adopts it, so no package-version gate is applied here.
+        # v5 adds a fourth adjustment class (the derived obligation-acquisition
+        # accrued interest) and is structurally identical for this purpose: same
+        # composition pin, same published symbol, same positive-total basis.
         if comp_member is None and S == "tax.us.2025.interest.taxable-total":
             for pin, citizen in resolved:
                 if (
                     citizen["schema"] in _RULE_ARTIFACT_SCHEMAS
                     and citizen.get("publishes") == S
                     and pin["id"] == "tax.us.2025.rule.form1040-line2b"
-                    and pin["version"] == "v4"
+                    and pin["version"] in {"v4", "v5"}
                 ):
                     r_comp = citizen.get("composition")
                     if not isinstance(r_comp, dict):
@@ -1210,13 +1258,14 @@ def validate_package(
                                                f"rule {rule_pin['id']} composition pin resolves to {r_comp['id']} {r_comp['version']}, expected {comp_pin['id']} {comp_pin['version']}"))
                 comp_constituents = {c["authorizes_subtotal"] for c in comp_citizen.get("constituents", [])}
                 rule_requires = set(rule_citizen.get("requires", []))
-                v11_adjustment_route = (
-                    rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
-                    and rule_pin["version"] == "v4"
+                adjustment_surface = (
+                    _ADJUSTMENT_SURFACES.get(rule_pin["version"], ())
+                    if rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
+                    else ()
                 )
                 expected_adjustment_subtotals = {
-                    subtotal for _family, subtotal in _V11_ADJUSTMENT_SLOTS
-                } if v11_adjustment_route else set()
+                    subtotal for _family, subtotal in adjustment_surface
+                }
                 expected_rule_requires = comp_constituents | expected_adjustment_subtotals
                 if expected_rule_requires != rule_requires:
                     issues.append(MemberIssue(comp_pin["id"], comp_pin["version"], "COMPOSITION_SLOT_BIJECTION_MISMATCH",
@@ -1254,9 +1303,8 @@ def validate_package(
 
                 expected_subtotals = [slot[2] for slot in family_slots]
                 expected_families = [slot[0] for slot in family_slots]
-                if v11_adjustment_route:
-                    expected_subtotals.extend(subtotal for _family, subtotal in _V11_ADJUSTMENT_SLOTS)
-                    expected_families.extend(family for family, _subtotal in _V11_ADJUSTMENT_SLOTS)
+                expected_subtotals.extend(subtotal for _family, subtotal in adjustment_surface)
+                expected_families.extend(family for family, _subtotal in adjustment_surface)
                 value_refs = list(_iter_ref_names(rule_citizen.get("value")))
                 closure_reads = list(_iter_require_closed_source_sets(rule_citizen.get("when")))
                 input_pins = [p["id"] for p in rule_citizen.get("pins", []) if p.get("role") == "input"]
@@ -1319,6 +1367,7 @@ def validate_package(
         if package.get("schema") in {
             "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
             "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
+            "artifact-package.v26",
         }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
@@ -1451,7 +1500,7 @@ def validate_package(
                     if c2["schema"] == "source-closure-mapping.v2":
                         if c2.get("member_fact_type", {}).get("id") == ft_id:
                             adj[m_id].add(c2["id"])
-            elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8"}:
+            elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}:
                 for part in citizen.get("itemizations", []):
                     authority = part.get("authority", {})
                     if authority.get("kind") == "composition":
@@ -1727,7 +1776,7 @@ def validate_package(
     # a boolean or otherwise falsy-encodable Part III answer fact type on an
     # attachment is rejected at admission.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}:
             continue
         answers = list(citizen["completeness"]["required_answers"])
         for branch in citizen["completeness"].get("branch_requirements", []):
@@ -1765,14 +1814,14 @@ def validate_package(
     # alone cannot prove that a row set belongs to its declared family or that
     families_by_key = {
         (citizen["id"], citizen["version"]): citizen
-        for _, citizen in resolved if citizen["schema"] in {"source-family.v1", "source-family.v2"}
+        for _, citizen in resolved if citizen["schema"] in _SOURCE_FAMILY_SCHEMAS
     }
     compositions_by_key = {
         (citizen["id"], citizen["version"]): citizen
         for _, citizen in resolved if citizen["schema"] == "taxable-interest-composition.v1"
     }
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}:
             continue
         for part in citizen["itemizations"]:
             actual_slots: list[tuple[str, str, str]] = []
@@ -1817,7 +1866,7 @@ def validate_package(
                                               f"part {part['part_id']!r} names absent composition {comp_pin}"))
                 elif part["tie_out"]["line_symbol"] != comp["publishes"]:
                     subtractive_positive_basis = (
-                        citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8"}
+                        citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}
                         and part["tie_out"].get("operation") == "subtract"
                         and bool(part.get("adjustment_rows"))
                         and comp.get("publishes") == "tax.us.2025.interest.positive-total"
@@ -1831,7 +1880,7 @@ def validate_package(
     # closed, typed subtractive surface.  The schema fixes the vocabulary;
     # admission fixes the joins and the signed whole-part surface.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v6", "attachment-rule.v8"}:
+        if citizen["schema"] not in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}:
             continue
         for part in citizen["itemizations"]:
             actual_positive = [row_set["subtotal_symbol"] for row_set in part["row_sets"]]
@@ -1896,19 +1945,28 @@ def validate_package(
                 if adjustment["subtotal_symbol"] != family["authorizes_subtotal"]:
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_SUBTOTAL_MISMATCH",
                                               f"part {part['part_id']!r} adjustment subtotal is not authorized by family {family['id']!r}"))
-            if (
-                pin["id"] == "tax.us.2025.rule.attachment.schedule-b"
-                and pin["version"] == "v4"
-            ):
+            # Schedule B's adjustment surface must equal its line-2b
+            # counterpart's, generation for generation - the same map, keyed by
+            # the same content version. That is what makes the two artifacts a
+            # matched pair rather than two independently drifting declarations,
+            # and it is enforced here structurally instead of by trusting that
+            # whoever mints a successor updates both.
+            if pin["id"] == "tax.us.2025.rule.attachment.schedule-b":
                 actual_adjustment_slots = [
                     (adjustment["rows"]["source_family"]["id"], adjustment["subtotal_symbol"])
                     for adjustment in part["adjustment_rows"]
                 ]
-                expected_adjustment_slots = list(_V11_ADJUSTMENT_SLOTS) if part["part_id"] == "part-i-interest" else []
+                expected_adjustment_slots = (
+                    list(_ADJUSTMENT_SURFACES.get(pin["version"], ()))
+                    if part["part_id"] == "part-i-interest"
+                    else []
+                )
                 if sorted(actual_adjustment_slots) != sorted(expected_adjustment_slots) or len(actual_adjustment_slots) != len(expected_adjustment_slots):
                     issues.append(MemberIssue(
                         pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_CLASS_SURFACE_MISMATCH",
-                        f"v11 Schedule B part {part['part_id']!r} adjustment slots {actual_adjustment_slots} do not equal the exact three-class surface",
+                        f"Schedule B {pin['version']} part {part['part_id']!r} adjustment slots "
+                        f"{actual_adjustment_slots} do not equal its declared class surface "
+                        f"{expected_adjustment_slots}",
                     ))
             authority = part["authority"]
             if authority["kind"] == "single_family":
@@ -1932,8 +1990,12 @@ def validate_package(
                     issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_COMPOSITION_ABSENT",
                                               f"part {part['part_id']!r} names absent composition {comp_pin}"))
                 elif tie_out["line_symbol"] != comp["publishes"]:
+                    # v8 and v9 inherit v6's subtractive shape, so the same
+                    # allowance applies. The equality this replaces was latent
+                    # rather than deliberate: no post-v6 attachment had taken
+                    # the positive-basis route until Schedule B v5 did.
                     subtractive_positive_basis = (
-                        citizen["schema"] == "attachment-rule.v6"
+                        citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v9"}
                         and tie_out.get("operation") == "subtract"
                         and bool(part.get("adjustment_rows"))
                         and comp.get("publishes") == "tax.us.2025.interest.positive-total"
@@ -2030,7 +2092,7 @@ def validate_package(
     families_by_id: dict[str, dict[str, Any]] = {}
     families_by_subtotal: dict[str, str] = {}
     for _pin, citizen in resolved:
-        if citizen["schema"] in {"source-family.v1", "source-family.v2"}:
+        if citizen["schema"] in _SOURCE_FAMILY_SCHEMAS:
             families_by_id[citizen["id"]] = citizen
             families_by_subtotal[citizen["authorizes_subtotal"]] = citizen["id"]
 
@@ -2061,6 +2123,34 @@ def validate_package(
                     family_id, family.get("version", ""), "EXCLUSIVITY_COUNTERPART_ABSENT",
                     f"exclusivity rule {rule['id']!r} names family {counterpart!r}, "
                     f"which is not a member of this package",
+                ))
+        # A required association names a family whose members this family's
+        # own members must resolve against exactly once. The counterpart must
+        # be an exact package member at the declared version - resolution by
+        # id alone would let a package silently associate against a different
+        # generation of the counterpart's closure claim - and the two
+        # component lists are compared positionally, so unequal arity is a
+        # declaration defect rather than a run-time surprise.
+        for rule in family.get("identity_association", []) or []:
+            counterpart_pin = rule["associated_family"]
+            counterpart_citizen = families_by_id.get(counterpart_pin["id"])
+            if counterpart_citizen is None or counterpart_citizen.get(
+                "version", "v1"
+            ) != counterpart_pin["version"]:
+                issues.append(MemberIssue(
+                    family_id, family.get("version", ""), "ASSOCIATION_COUNTERPART_ABSENT",
+                    f"association rule {rule['id']!r} names family "
+                    f"{counterpart_pin['id']!r}@{counterpart_pin['version']}, "
+                    f"which is not an exact member of this package",
+                ))
+            own = rule["components"]
+            other = rule["counterpart_components"]
+            if len(own) != len(other):
+                issues.append(MemberIssue(
+                    family_id, family.get("version", ""), "ASSOCIATION_COMPONENT_ARITY_MISMATCH",
+                    f"association rule {rule['id']!r} declares {len(own)} own components "
+                    f"against {len(other)} counterpart components; the two are compared "
+                    f"positionally and must be the same length",
                 ))
 
     final_resolved = compile_validation_graph(

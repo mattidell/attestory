@@ -1,0 +1,527 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/source-family.v3",
+  "title": "Source-family declaration with constraints and required association",
+  "description": "A versioned declaration of what a source family means (ADR-0016 decisions 1-2): an exact natural-language closure claim plus a canonical member predicate, together the semantic authority. Ids, titles, and rule symbols cannot broaden this meaning; the subtotal symbol named here is the only output closure of this family may authorize (ADR-0016 decision 5). Mapping, subtotal calculation, and coverage all pin one declaration id and version. Additive successor to source-family.v2: adds `identity_association`, a required cross-family association. `identity_exclusivity` blocks when declared identity components DO match a counterpart family; `identity_association` blocks when they do NOT resolve against the counterpart family exactly once. The two are independent and neither can express the other. Association compares this family's `components` against the counterpart family's `counterpart_components` positionally, so the two sides may bind through different routes - a member field on one side, a fact-id bound key on the other. Like exclusivity, association is declared, never inferred from names (ADR-0066 decision 4), and reads identity only: it never reads a counterpart member's value. source-family.v1 and .v2 content is unaffected and needs no migration.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "source-family.v3"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v[0-9]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "tax_year": {
+          "type": "integer"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "tax_year",
+        "jurisdiction",
+        "family"
+      ],
+      "additionalProperties": false
+    },
+    "closure_claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "member_predicate": {
+      "type": "object",
+      "properties": {
+        "fact_type": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$"
+        }
+      },
+      "required": [
+        "fact_type"
+      ],
+      "additionalProperties": false
+    },
+    "authorizes_subtotal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "member_constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "block_code": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]+$"
+          },
+          "meaning": {
+            "type": "string",
+            "minLength": 1
+          },
+          "violated_when": {
+            "$ref": "#/$defs/predicate"
+          }
+        },
+        "required": [
+          "id",
+          "block_code",
+          "meaning",
+          "violated_when"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "identity_exclusivity": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "incompatible_family": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "string",
+                "pattern": "^v[0-9]+$"
+              }
+            },
+            "required": [
+              "id",
+              "version"
+            ],
+            "additionalProperties": false
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/identity_component"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "id",
+          "incompatible_family",
+          "components"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "identity_association": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "meaning": {
+            "type": "string",
+            "minLength": 1
+          },
+          "associated_family": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "string",
+                "pattern": "^v[0-9]+$"
+              }
+            },
+            "required": [
+              "id",
+              "version"
+            ],
+            "additionalProperties": false
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/identity_component"
+            },
+            "minItems": 1
+          },
+          "counterpart_components": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/identity_component"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "id",
+          "meaning",
+          "associated_family",
+          "components",
+          "counterpart_components"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "projects_from": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^v[0-9]+$"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "title",
+    "scope",
+    "closure_claim",
+    "member_predicate",
+    "authorizes_subtotal"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "term": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "field"
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "default": {
+              "type": [
+                "number",
+                "string",
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "literal"
+            },
+            "arg": {
+              "type": [
+                "number",
+                "string",
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "arg"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "add"
+            },
+            "left": {
+              "$ref": "#/$defs/term"
+            },
+            "right": {
+              "$ref": "#/$defs/term"
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "subtract"
+            },
+            "left": {
+              "$ref": "#/$defs/term"
+            },
+            "right": {
+              "$ref": "#/$defs/term"
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "floor_zero"
+            },
+            "value": {
+              "$ref": "#/$defs/term"
+            }
+          },
+          "required": [
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "predicate": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "field_present"
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "field_absent"
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "op",
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "field_equals"
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "arg": {
+              "type": [
+                "number",
+                "string",
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "field",
+            "arg"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "field_not_equals"
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "arg": {
+              "type": [
+                "number",
+                "string",
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "field",
+            "arg"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "compare"
+            },
+            "left": {
+              "$ref": "#/$defs/term"
+            },
+            "right": {
+              "$ref": "#/$defs/term"
+            },
+            "comparison": {
+              "enum": [
+                "gt",
+                "ge",
+                "lt",
+                "le",
+                "eq",
+                "ne"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right",
+            "comparison"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "all"
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/predicate"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "op",
+            "args"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "any"
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/predicate"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "op",
+            "args"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "identity_component": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "fact_id_bound_key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "fact_id_bound_key"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "member_field": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "member_field"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

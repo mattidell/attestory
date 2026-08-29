@@ -1,0 +1,110 @@
+{
+  "authorizes_subtotal": "tax.us.2025.obligation.acquisition-subtotal",
+  "closure_claim": "Every 2025 purchase of a debt obligation that the filing subject means to account for is recorded as an obligation-acquisition circumstance as of the keyed horizon. This claim covers ordinary facts about obligation purchases only: it says nothing about what any payer reported, about other adjustment classes, about total taxable interest, or about the basis consequence of an accrued-interest payment in any later year.",
+  "id": "tax.us.2025.obligation.acquisition",
+  "identity_association": [
+    {
+      "associated_family": {
+        "id": "tax.us.2025.f1099int.b1",
+        "version": "v1"
+      },
+      "components": [
+        {
+          "member_field": "concerns_reported_payer"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ],
+      "counterpart_components": [
+        {
+          "fact_id_bound_key": "payer"
+        },
+        {
+          "fact_id_bound_key": "tax-year"
+        }
+      ],
+      "id": "tax.us.2025.block.obligation-acquisition.reported-item-association",
+      "meaning": "Each recorded obligation acquisition must concern exactly one recorded Form 1099-INT box-1 item. No match means the person has described a purchase whose interest no recorded report accounts for, so nothing may be subtracted from a report that is not there. Several matches means the named payer furnished more than one box-1 item and which one the acquisition concerns has not been established, so attaching the adjustment to any of them would be a guess. Association compares the person's own recognition answer against the payer key the report itself carries; it never reads a reported amount."
+    }
+  ],
+  "member_constraints": [
+    {
+      "block_code": "ACCRUED_AMOUNT_NOT_SUPPLIED",
+      "id": "tax.us.2025.constraint.obligation-acquisition.accrued-amount-not-supplied",
+      "meaning": "The acquisition is recorded but the amount paid to the seller for interest that accrued before the purchase has not been supplied. The product names the missing ordinary question rather than defaulting the amount to zero, because zero and unanswered are different states of the person's records.",
+      "violated_when": {
+        "field": "accrued_interest_paid_to_seller",
+        "op": "field_absent"
+      }
+    },
+    {
+      "block_code": "OBLIGATION_NOT_PERIODIC_IN_ARREARS",
+      "id": "tax.us.2025.constraint.obligation-acquisition.not-periodic-in-arrears",
+      "meaning": "The bounded treatment covers an obligation that pays interest periodically in arrears, so that the interest which accrued before the purchase is paid to the buyer at the next payment date and shows up on the buyer's report. An obligation that does not pay that way is a neighbouring case this product does not translate, and it is refused rather than swallowed.",
+      "violated_when": {
+        "args": [
+          {
+            "field": "obligation_pays_periodically_in_arrears",
+            "op": "field_absent"
+          },
+          {
+            "arg": "yes",
+            "field": "obligation_pays_periodically_in_arrears",
+            "op": "field_not_equals"
+          }
+        ],
+        "op": "any"
+      }
+    },
+    {
+      "block_code": "OBLIGATION_IN_DEFAULT_OR_ARREARS",
+      "id": "tax.us.2025.constraint.obligation-acquisition.in-default-or-arrears",
+      "meaning": "An obligation bought while in default or in arrears on its interest is the bonds-traded-flat neighbour, whose accrued interest is treated differently. The product detects the neighbour and refuses rather than applying the bounded treatment to it.",
+      "violated_when": {
+        "args": [
+          {
+            "field": "obligation_in_default_or_arrears_at_purchase",
+            "op": "field_absent"
+          },
+          {
+            "arg": "no",
+            "field": "obligation_in_default_or_arrears_at_purchase",
+            "op": "field_not_equals"
+          }
+        ],
+        "op": "any"
+      }
+    },
+    {
+      "block_code": "ACCRUED_NOT_SEPARATELY_STATED",
+      "id": "tax.us.2025.constraint.obligation-acquisition.accrued-not-separately-stated",
+      "meaning": "The bounded treatment applies where the accrued interest was a separately stated component of what the buyer paid the seller. Where the person cannot say that it was, the product refuses rather than inferring a component of a purchase price it has not been told about.",
+      "violated_when": {
+        "args": [
+          {
+            "field": "accrued_paid_as_separate_component",
+            "op": "field_absent"
+          },
+          {
+            "arg": "yes",
+            "field": "accrued_paid_as_separate_component",
+            "op": "field_not_equals"
+          }
+        ],
+        "op": "any"
+      }
+    }
+  ],
+  "member_predicate": {
+    "fact_type": "tax.us.2025.obligation.acquisition"
+  },
+  "schema": "source-family.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "title": "Synthetic 2025 obligation-acquisition circumstances",
+  "version": "v1"
+}

@@ -1,0 +1,22 @@
+{
+  "admission": {
+    "condition": "current-literal-true"
+  },
+  "admits_symbol": "tax.us.2025.interest.obligation-accrued-subtotal",
+  "closure_fact_type": {
+    "id": "tax.us.2025.obligation.accrued-interest-paid.source-closure",
+    "version": "v1"
+  },
+  "closure_horizon_key": "family-horizon",
+  "family": {
+    "id": "tax.us.2025.obligation.accrued-interest-paid",
+    "version": "v1"
+  },
+  "id": "tax.us.2025.closure-mapping.obligation-accrued-interest-paid",
+  "member_fact_type": {
+    "id": "tax.us.2025.obligation.acquisition.accrued-interest-paid",
+    "version": "v1"
+  },
+  "schema": "source-closure-mapping.v2",
+  "version": "v1"
+}
