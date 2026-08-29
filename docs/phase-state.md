@@ -36,13 +36,16 @@ a project to enumerate or implement the entire taxable-interest universe.
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
 - **Active milestone:** Document and Ordinary-Fact Translation Vertical —
-  **TRACK 2 BUILT 2026-08-28, awaiting independent review**.
+  **TRACK 2 REVIEWED 2026-08-28 — READY at `c4e74837`**.
 - **Base:** `origin/main` at
   `0869f10a90403f9ed35e27d326ba46dc4da57bba`, including the merged owner model.
 - **Branch:** `milestone/document-ordinary-fact-translation`, draft PR #188.
-- **Next move:** fresh independent review of the exact Track 2 candidate
-  against the Product Model, the fluid domain model, the plan, T1–T9, and the
-  complete production diff. Track 1 collapsed: Track 0 left one viable
+- **Next move:** owner decision on merging PR #188. Independent review
+  (Grok CLI reviewer, charter
+  `docs/reviews/charter-2026-08-28-document-ordinary-fact-translation-review.md`,
+  record alongside it) returned **READY** at `0cac5ce9` with one non-blocking
+  finding; that finding and three test-honesty defects it surfaced are
+  repaired at `c4e74837`. Track 1 collapsed: Track 0 left one viable
   canonical shape, so a discriminating prototype would compare it only against
   shapes already known non-viable or already decided.
 - **Track 2 result.** The canonical slice is implemented and projected onto
@@ -52,13 +55,16 @@ a project to enumerate or implement the entire taxable-interest universe.
   designed in Track 0) and `attachment-rule.v9`, which was **not** predicted —
   the adjustment-row `kind` is a class-authority key, not a display hint, so
   the fourth adjustment class could not borrow an existing one. T1–T9 run as
-  14 package-level tests. Two items are named future work: statement-level
+  15 package-level tests. Two items are named future work: statement-level
   association, and the masking-sibling amount guard, which would need a
   cross-family value read and therefore a decision about ADR-0066's closed
   predicate language.
-- **Pre-existing, not this milestone's:** five `fast-lane budget exceeded`
-  failures already present at HEAD `6758be16`, measured in a detached
-  worktree. Budget decay, not logic failure.
+- **Pre-existing, not this milestone's:** six `fast-lane budget exceeded`
+  failures, set-identical at `6758be16` and on this branch, confirmed
+  independently by the reviewer in sequential detached runs. Budget decay, not
+  logic failure. The count is timing-sensitive under `-n auto` (a contended run
+  produced 18 vs 17); compare the sets, not the counts. This wants its own
+  scheduled work — it is accumulating and no milestone owns it.
 - **Track 0 result.** The fluid domain model is
   `docs/domain-models/taxable-interest-translation.md`; the canonical slice,
   payloads, contract comparison, and adversarial closure are
