@@ -139,6 +139,7 @@ def _acquisition_acts(
     close: bool = True,
     extra_b1: list[tuple[str, str, float]] | None = None,
     corrections: list[tuple[Acquisition, dict[str, Any] | None, float | None]] | None = None,
+    correct_box1: float | None = None,
 ) -> list[dict[str, object]]:
     """The Schedule B adjustment base return plus an obligation-acquisition
     lifecycle, adopting the v34 package.
@@ -268,6 +269,20 @@ def _acquisition_acts(
                 accrued,
             )})
 
+    if correct_box1 is not None:
+        # The *payer* revises what it reported. Same act shape as an ordinary
+        # fact correction and for the same reason --- the box-1 member's value
+        # moves, its membership does not --- but it enters against the
+        # document's own fact id, so nothing here touches the acquisition.
+        # That separation is the whole of T6: the base return's box-1 closure
+        # still keys BASE_B1_HORIZON, because no horizon advanced.
+        add("assertion", {"finding": _attested(
+            "demo.oat.finding.b1.corrected",
+            "tax.us.2025.f1099int.box1-interest|payer=demo.md.bank,"
+            "statement=demo.md.1099int,tax-year=2025",
+            correct_box1,
+        )})
+
     if close:
         add("assertion", {"finding": _attested(
             "demo.oat.closure.acq",
@@ -320,6 +335,15 @@ def _dispositions(report: dict[str, Any], artifact_id: str) -> list[dict[str, An
 VALIDATION_ARTIFACT = "tax.us.2025.obligation.acquisition.member-validation"
 
 
+def _dispositions_blocked(report: dict[str, Any]) -> set[str]:
+    """Artifact ids this run refused, with the `.synthesized` suffix trimmed."""
+    return {
+        row["artifact_id"].removesuffix(".synthesized")
+        for row in report.get("dispositions", [])
+        if row.get("disposition") == "blocked"
+    }
+
+
 def _refusal_codes(report: dict[str, Any]) -> set[str]:
     """The block codes the acquisition family's own validation names.
 
@@ -354,12 +378,21 @@ class T1NoAcquisitionRecorded(unittest.TestCase):
         _, model = _run(_acquisition_acts(), "demo.oat.t1")
         self.assertEqual(_section(model, "line-2b")["resolved"]["value"], BASE_BOX1)
 
-    def test_no_adjustment_row_is_rendered_for_an_empty_family(self) -> None:
+    def test_the_declared_row_still_renders_and_subtracts_nothing(self) -> None:
+        """The row is declared by the rule, so it renders even when empty.
+
+        Named for what actually happens rather than for what one might expect:
+        presentation emits every declared `adjustment_row`
+        (`presentation_projection.py`), so absence of the *heading* is not the
+        observable. The observable is that it ties out to zero, which together
+        with its sibling's `line 2b == BASE_BOX1` is what "no contribution"
+        means here.
+        """
         _, model = _run(_acquisition_acts(), "demo.oat.t1-rows")
         group = next(g for g in model["citationGroups"] if g["id"] == SCHEDULE_B)
-        headings = [part["heading"] for part in group["parts"]]
-        # The class is declared, so the row exists; it just carries nothing.
-        self.assertIn(ADJUSTMENT_LABEL, headings)
+        row = next(p for p in group["parts"] if p["heading"] == ADJUSTMENT_LABEL)
+        self.assertIn("0", row["tieOutText"])
+        self.assertEqual(row["citationSites"], [])
 
 
 class T2OrdinaryFactsBecomeAnAdjustment(unittest.TestCase):
@@ -388,24 +421,39 @@ class T2OrdinaryFactsBecomeAnAdjustment(unittest.TestCase):
         """The recorded facts are about a purchase, end to end.
 
         This is the milestone's product claim stated as a test: the member
-        payload the user's acts carry names a date, an amount paid to a
-        seller, and three yes/no recognitions about the obligation. It never
-        names an adjustment, a Schedule B class, or a line.
+        payload names a date, an amount paid to a seller, and three yes/no
+        recognitions about the obligation. It never names an adjustment, a
+        Schedule B class, or a line.
+
+        The subject is the **committed** `value_schema`, not this module's
+        test helper. Asserting against the helper alone would only prove the
+        helper is well behaved; the schema is what actually constrains what a
+        real caller may assert, so the schema is what is read here and the
+        helper is checked for agreement with it.
         """
-        payload = Acquisition(token="orchard", accrued=300).record()
-        self.assertEqual(
-            sorted(payload),
-            [
-                "accrued_interest_paid_to_seller",
-                "accrued_paid_as_separate_component",
-                "acquired_on",
-                "concerns_reported_payer",
-                "obligation_in_default_or_arrears_at_purchase",
-                "obligation_pays_periodically_in_arrears",
-            ],
+        bundle = json.loads(
+            (CONTENT / "obligation-acquisition.bundle.json").read_text("utf-8")
         )
-        rendered = json.dumps(payload).lower()
-        for tax_word in ("adjustment", "schedule", "line", "taxable", "deduct"):
+        fact_type = next(
+            entry for entry in bundle["fact_types"] if entry["id"] == ACQUISITION
+        )
+        properties = fact_type["value_schema"]["properties"]
+        expected = [
+            "accrued_interest_paid_to_seller",
+            "accrued_paid_as_separate_component",
+            "acquired_on",
+            "concerns_reported_payer",
+            "obligation_in_default_or_arrears_at_purchase",
+            "obligation_pays_periodically_in_arrears",
+        ]
+        self.assertEqual(sorted(properties), expected)
+        # The helper may only assert what the schema admits.
+        self.assertEqual(sorted(Acquisition(token="orchard", accrued=300).record()), expected)
+
+        # No field name, description, or enum in the committed schema asks the
+        # person to name a tax treatment.
+        rendered = json.dumps(fact_type["value_schema"]).lower()
+        for tax_word in ("adjustment", "schedule", "taxable", "deduct"):
             self.assertNotIn(tax_word, rendered)
 
 
@@ -457,7 +505,50 @@ class T5MoreThanOnePlausibleReport(unittest.TestCase):
 
 
 class T6And7CorrectionsDisplaceIndependently(unittest.TestCase):
-    """T6/T7: correcting one recorded fact does not disturb the others."""
+    """T6/T7: correcting one recorded fact does not disturb the others.
+
+    The two directions are genuinely different claims and are tested
+    separately. T6 is the payer revising its own report; T7 is the person
+    revising theirs. What must hold in both is that the correction moves the
+    conclusions that depend on it and leaves the *other* author's statement
+    exactly as that author made it.
+    """
+
+    def test_correcting_the_report_leaves_the_purchase_record_untouched(self) -> None:
+        """T6: the payer restates box 1. The person's account does not move.
+
+        The observation the plan asks for is two-sided, so both sides are
+        asserted. Line 2b moves by the document's delta. And the subtraction
+        still cites the person's *original* finding id --- not a corrected
+        one, because nothing corrected it --- at its original amount.
+        Asserting only the line would pass even if the engine had quietly
+        rewritten the ordinary fact to reconcile the two authors.
+        """
+        acq = Acquisition(token="orchard", accrued=300)
+        report, model = _run(
+            _acquisition_acts(acquisitions=[acq], correct_box1=1800.0),
+            "demo.oat.t6",
+        )
+        line_2b = _section(model, "line-2b")
+        self.assertEqual(line_2b["resolved"]["value"], 1800.0 - 300)
+
+        # The corrected document finding is what carries the new number; the
+        # person's untouched finding is still what carries the subtraction.
+        pins = {site["pinId"] for site in line_2b["citationSites"]}
+        self.assertIn("demo.oat.finding.b1.corrected", pins)
+        self.assertIn(f"demo.oat.finding.accrued.{acq.token}", pins)
+
+        group = next(g for g in model["citationGroups"] if g["id"] == SCHEDULE_B)
+        row = next(p for p in group["parts"] if p["heading"] == ADJUSTMENT_LABEL)
+        self.assertEqual(
+            [site["pinId"] for site in row["citationSites"]],
+            [f"demo.oat.finding.accrued.{acq.token}"],
+        )
+        self.assertIn("-300", row["tieOutText"])
+
+        # And the family that holds the person's account is still satisfied:
+        # a document correction is not a reason to re-open their answers.
+        self.assertNotIn(VALIDATION_ARTIFACT, _dispositions_blocked(report))
 
     def test_correcting_the_accrued_amount_moves_only_that_amount(self) -> None:
         acq = Acquisition(token="orchard", accrued=300)

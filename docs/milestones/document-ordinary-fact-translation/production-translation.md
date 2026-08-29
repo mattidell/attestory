@@ -132,10 +132,20 @@ bijection checks, rather than silently widening them.
 The Schedule B exact-class-surface check was de-gated from
 `pin["version"] == "v4"` and now reads the same map, keyed by the same content
 version. The two artifacts are a matched pair enforced structurally, rather
-than by trusting that whoever mints a successor remembers to update both. This
-was verified safe against the three historical versions: Schedule B v1, v2 and
-v3 all carry empty `adjustment_rows`, so `.get(version, ())` yields `[]` and
-they pass.
+than by trusting that whoever mints a successor remembers to update both.
+
+Safe against the historical Schedule B versions, but **not for the reason first
+recorded here.** This document originally claimed v1, v2 and v3 "all carry
+empty `adjustment_rows`, so `.get(version, ())` yields `[]` and they pass."
+That is false twice over. Those citizens have no adjustment structure at all —
+no `parts`, no `adjustment_rows` key — and they never reach the check, because
+the whole 10c block is gated at `package_validation.py:1882` on
+`citizen["schema"] in {v6, v8, v9}`. Schedule B v1 is an `attachment-rule.v1`
+citizen and v2/v3 are `attachment-rule.v2` citizens, so all three `continue`
+before the surface comparison. The conclusion held; the mechanism was invented.
+Recorded rather than quietly corrected, because a verification argument that
+reaches the right answer by the wrong route is the kind of thing the next
+person reuses.
 
 ### A latent gap found on the way
 
@@ -161,19 +171,37 @@ current-year translation exists. It now exists.
 
 ## 6. T1 through T9
 
-`tests/test_obligation_acquisition_translation.py` — 14 tests, 3 subtests, all
-passing. Each case drives a real package run, not a unit stub.
+`tests/test_obligation_acquisition_translation.py` — 15 tests, 3 subtests, all
+passing. Each case drives a real package run through `live_coordinate_run`,
+not a unit stub.
 
 | Case | Test class | What it observes |
 | --- | --- | --- |
-| T1 | `T1NoAcquisitionRecorded` | Closed-empty family derives a closure-backed zero; line 2b stands at the reported total and no row renders |
+| T1 | `T1NoAcquisitionRecorded` | Closed-empty family derives a closure-backed zero; line 2b stands at the reported total and the declared row ties out to nothing |
 | T2 | `T2OrdinaryFactsBecomeAnAdjustment` | The purchase reduces line 2b and Schedule B renders it under its own label |
 | T3 | `T3MissingAmountIsNamedNotDefaulted` | An absent amount blocks and names the open question; line 2b publishes nothing |
 | T4 | `T4NothingToAttachTo` | An unmatched association blocks rather than inventing a report |
 | T5 | `T5MoreThanOnePlausibleReport` | Ambiguity blocks rather than choosing |
-| T6/T7 | `T6And7CorrectionsDisplaceIndependently` | Each correction moves only its own quantity |
+| T6 | `T6And7CorrectionsDisplaceIndependently` | The payer restates box 1: line 2b moves by the document's delta, and the subtraction still cites the person's original, uncorrected finding |
+| T7 | (same class) | The person restates the amount: line 2b moves and the report is untouched |
 | T8 | `T8SeveralObligationsUnderOnePayer` | Two obligations under one payer both subtract, discriminated by canonical identity |
 | T9 | `T9NeighbouringCasesAreRefused` | Each neighbour blocks under its own code, and an unanswered recognition refuses the same way as a "no" |
+
+### T6 was missing, and was added after review
+
+The first version of this suite claimed T6/T7 jointly and delivered only T7.
+Both tests corrected the *person's* facts; neither corrected the **document**,
+which is the direction T6 is actually about. Independent review caught it. The
+repair adds `correct_box1` to the act builder and
+`test_correcting_the_report_leaves_the_purchase_record_untouched`, which
+asserts both sides: line 2b moves by the document's delta, and the Schedule B
+row still cites `demo.oat.finding.accrued.<token>` — the person's original
+finding id, not a corrected one, because nothing corrected it.
+
+The test was mutation-checked rather than assumed: rewiring the correction to
+rewrite the ordinary fact instead of the report makes it fail on the pin
+assertion. A test for independence that passes when the two authors' facts are
+conflated would be worse than no test.
 
 Two test-construction facts worth recording, because both were initially got
 wrong and both are properties of the system rather than of the tests:
@@ -195,6 +223,16 @@ horizons.
 `BASE_BOX1` is `2000.0` because Schedule B's rendering threshold is `$1,500`.
 Below it Part I is not rendered at all and the derived class is computed but
 invisible, which is not the behavior under test.
+
+Two further honesty repairs came out of review. The no-tax-classification test
+originally inspected this module's own `Acquisition.record()` helper and never
+loaded the bundle — a rehearsal of the helper, not a guarantee about the
+committed schema. It now reads the committed `value_schema` and checks the
+helper for agreement with it. And a T1 test named
+`test_no_adjustment_row_is_rendered_for_an_empty_family` asserted the heading
+was *present*; presentation emits every declared `adjustment_row`, so absence
+of the heading was never the observable. Renamed to what it checks, and
+strengthened to assert the row ties out to zero with no citation sites.
 
 Every identity is `demo.*`; every amount is invented.
 
