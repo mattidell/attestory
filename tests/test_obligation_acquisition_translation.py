@@ -142,6 +142,23 @@ class TestStructuralClosure(unittest.TestCase):
         with self.assertRaises(OrdinaryInputError):
             validate_ordinary_answers(answers)
 
+    def test_whitespace_only_payer_name_is_rejected(self) -> None:
+        answers = _valid_answers(payer_name="   ")
+        with self.assertRaises(OrdinaryInputError):
+            validate_ordinary_answers(answers)
+        with self.assertRaises(OrdinaryInputError):
+            map_ordinary_acquisition_answers(
+                answers,
+                finding_id="demo.finding.bad-payer",
+                evidence_id="demo.evidence.bad-payer",
+                contribution_id="demo.contribution.bad-payer",
+            )
+
+    def test_future_acquisition_date_is_rejected(self) -> None:
+        answers = _valid_answers(acquisition_date="2099-01-01")
+        with self.assertRaises(OrdinaryInputError):
+            validate_ordinary_answers(answers)
+
 
 class TestIdentity(unittest.TestCase):
     def test_identity_rests_on_payer_and_reference_not_on_a_row(self) -> None:
@@ -279,6 +296,67 @@ class TestContributionAdmissionValidatesOutput(ContributionAdmissionFixture):
                 record_id="demo.crec.acq-mismatch",
                 workspace_revision=3,
             )
+
+
+class TestNonFiniteNumbersRejectedBeforeAdmission(ContributionAdmissionFixture):
+    """Decision-blocking finding (adversary-r1 §4): `inf`/`nan` for
+    `accrued_interest_paid_to_seller` must be rejected before a finding or
+    act is ever built, and must never reach contribution admission — not
+    merely fail admission for some unrelated reason later."""
+
+    def test_infinite_accrued_amount_is_rejected_before_admission(self) -> None:
+        answers = _valid_answers(accrued_interest_paid_to_seller=float("inf"))
+        with self.assertRaises(OrdinaryInputError):
+            validate_ordinary_answers(answers)
+        with self.assertRaises(OrdinaryInputError):
+            map_ordinary_acquisition_answers(
+                answers,
+                finding_id="demo.finding.acq-inf",
+                evidence_id="demo.evidence.acq-inf",
+                contribution_id="demo.contribution.acq-inf",
+            )
+        base = project(tuple(self.opening_acts()), self.registry)
+        with self.assertRaises(OrdinaryInputError):
+            contribute_ordinary_acquisition(
+                base,
+                answers,
+                registry=self.registry,
+                record_id="demo.crec.acq-inf",
+                act_index=2,
+                contribution_id="demo.contribution.acq-inf",
+                evidence_id="demo.evidence.acq-a",
+                finding_id="demo.finding.acq-inf",
+                committed_against=2,
+            )
+        self.assertNotIn("demo.contribution.acq-inf", base.contributions)
+        self.assertNotIn("demo.finding.acq-inf", base.findings)
+
+    def test_nan_accrued_amount_is_rejected_before_admission(self) -> None:
+        answers = _valid_answers(accrued_interest_paid_to_seller=float("nan"))
+        with self.assertRaises(OrdinaryInputError):
+            validate_ordinary_answers(answers)
+        with self.assertRaises(OrdinaryInputError):
+            map_ordinary_acquisition_answers(
+                answers,
+                finding_id="demo.finding.acq-nan",
+                evidence_id="demo.evidence.acq-nan",
+                contribution_id="demo.contribution.acq-nan",
+            )
+        base = project(tuple(self.opening_acts()), self.registry)
+        with self.assertRaises(OrdinaryInputError):
+            contribute_ordinary_acquisition(
+                base,
+                answers,
+                registry=self.registry,
+                record_id="demo.crec.acq-nan",
+                act_index=2,
+                contribution_id="demo.contribution.acq-nan",
+                evidence_id="demo.evidence.acq-a",
+                finding_id="demo.finding.acq-nan",
+                committed_against=2,
+            )
+        self.assertNotIn("demo.contribution.acq-nan", base.contributions)
+        self.assertNotIn("demo.finding.acq-nan", base.findings)
 
 
 class TestDataSafetySynthetic(unittest.TestCase):

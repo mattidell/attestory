@@ -39,7 +39,9 @@ hands them to the real applicator.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
+from datetime import date, datetime
 from typing import Any, Mapping
 
 import jsonschema
@@ -67,7 +69,7 @@ ORDINARY_ANSWERS_SCHEMA: dict[str, Any] = {
     "properties": {
         # "Who paid or reported this interest?" (as it appears on your
         # statement or 1099-INT — not a legal-entity lookup)
-        "payer_name": {"type": "string", "minLength": 1},
+        "payer_name": {"type": "string", "minLength": 1, "pattern": r"\S"},
         # "What obligation is this? Describe it well enough that you could
         # tell it apart from another one from the same payer."
         "obligation_description": {"type": "string", "minLength": 1},
@@ -134,6 +136,64 @@ class OrdinaryInputError(ValueError):
 
 _VALIDATOR = jsonschema.Draft202012Validator(ORDINARY_ANSWERS_SCHEMA)
 
+# Every schema property typed as a JSON Schema number/integer, computed once
+# so a newly added numeric field is covered automatically.
+_NUMERIC_FIELDS: tuple[str, ...] = tuple(
+    name
+    for name, spec in ORDINARY_ANSWERS_SCHEMA["properties"].items()
+    if spec.get("type") in ("number", "integer")
+)
+
+
+def _reject_non_finite_numbers(answers: Mapping[str, Any]) -> None:
+    """Reject ``inf``, ``-inf``, and ``nan`` for any numeric ordinary field.
+
+    JSON Schema's ``"type": "number"``/``"integer"`` constraint does not, by
+    itself, exclude IEEE-754 non-finite values: Python's ``jsonschema``
+    validator treats ``float('inf')`` and ``float('nan')`` as numbers that
+    satisfy a ``minimum`` bound like any other. Left unchecked, a non-finite
+    amount would pass ``validate_ordinary_answers`` and be admitted end to
+    end as a `"completed"` fact — a fail-*open* result the charter's
+    fail-closed requirement does not permit. This check runs before any
+    finding is built, so a non-finite value never reaches contribution
+    admission.
+    """
+    for name in _NUMERIC_FIELDS:
+        if name not in answers:
+            continue
+        value = answers[name]
+        if isinstance(value, bool):
+            continue
+        if isinstance(value, (int, float)) and not math.isfinite(value):
+            raise OrdinaryInputError(
+                f"ordinary answer set is invalid: {name!r} must be a finite "
+                f"number, not {value!r} (path: [{name!r}])"
+            )
+
+
+def _reject_future_acquisition_date(answers: Mapping[str, Any]) -> None:
+    """Reject an ``acquisition_date`` that has not happened yet.
+
+    The one circumstance this module names ("I acquired this obligation ...
+    and paid the seller the interest that had already accrued") is
+    inherently retrospective — a person cannot ordinarily state it about an
+    acquisition that has not occurred. A future date is therefore not a
+    legitimate instance of this circumstance, not merely an unlikely one;
+    see `examination.md` for the one-line decision record.
+    """
+    raw = answers.get("acquisition_date")
+    if not isinstance(raw, str):
+        return
+    try:
+        acquisition_date = datetime.strptime(raw, "%Y-%m-%d").date()
+    except ValueError:
+        return  # malformed value; the schema check below reports it
+    if acquisition_date > date.today():
+        raise OrdinaryInputError(
+            "ordinary answer set is invalid: 'acquisition_date' cannot be in "
+            f"the future, got {raw!r} (path: ['acquisition_date'])"
+        )
+
 
 def validate_ordinary_answers(answers: Mapping[str, Any]) -> None:
     """Fail closed on anything that is not one of the named ordinary facts.
@@ -141,8 +201,15 @@ def validate_ordinary_answers(answers: Mapping[str, Any]) -> None:
     This is the subject/scope guarantee made structural: an answer set with
     an extra key (a tax classification, an election, a computed adjustment)
     is rejected here, before it can reach a canonical fact, rather than
-    being silently ignored or silently admitted.
+    being silently ignored or silently admitted. This also rejects
+    non-finite numeric values (``inf``, ``-inf``, ``nan``) that the JSON
+    Schema `"type": "number"` check alone does not exclude — see
+    `_reject_non_finite_numbers` — and a future `acquisition_date`, since
+    this circumstance is inherently retrospective — see
+    `_reject_future_acquisition_date`.
     """
+    _reject_non_finite_numbers(answers)
+    _reject_future_acquisition_date(answers)
     errors = sorted(_VALIDATOR.iter_errors(dict(answers)), key=lambda e: e.path)
     if errors:
         first = errors[0]
@@ -220,16 +287,22 @@ _CIRCUMSTANCE_VALUE_SCHEMA: dict[str, Any] = {
 def build_obligation_acquisition_bundle(answers: Mapping[str, Any]) -> dict[str, Any]:
     """A one-off ``bundle.v1`` declaring this circumstance's fact type.
 
-    A kernel literal identity key must enumerate its admissible values at
-    declaration time (``fact-type.v1``). This module's own admission
-    fixture therefore declares a bundle whose literal domain is exactly the
-    payer, reference, and tax year the person just supplied, rather than an
-    open-ended domain — a minimal, honest way to let this seam's contribution
-    prove out through the real fact lattice without pre-deciding the
-    entity/association shape Seam 2 and Seam 1 are still choosing. A
-    production integration may adopt a richer, entity-keyed vocabulary
-    instead; this bundle is scoped to proving *this* seam's admission path,
-    not to fixing that later choice.
+    **Disposable test convenience — does not ship to production, and is not
+    a pre-selected answer to Seam 1/2's still-open canonical identity
+    design.** A kernel literal identity key must enumerate its admissible
+    values at declaration time (``fact-type.v1``). This module's own
+    admission fixture therefore declares a bundle whose literal domain is
+    exactly the payer, reference, and tax year the person just supplied,
+    rather than an open-ended domain — a minimal way to let this seam's
+    contribution prove out through the real fact lattice without
+    pre-deciding the entity/association shape Seam 2 and Seam 1 are still
+    choosing. It enumerates one instance's literal values per call and
+    cannot represent a second obligation from the same payer without a
+    fresh bundle, so it is not a producible vocabulary declaration. The
+    production fact-type/bundle declaration is Seam 1/2's output, not this
+    seam's; a production integration is expected to adopt whichever
+    identity-key kind (entity or literal) those seams select instead of
+    this fixture.
     """
     validate_ordinary_answers(answers)
     keys = _identity_key_values(
