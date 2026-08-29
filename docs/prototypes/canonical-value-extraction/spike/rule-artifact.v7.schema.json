@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/rule-artifact.v7",
+  "title": "PROTOTYPE ONLY (Seam 1 rung-2 spike, not a real schema version): rule artifact with an optional field selector on ref_expr for direct per-item access into an object-valued fact (candidate C, CV-P1).",
+  "type": "object",
+  "properties": {
+    "schema": {"const": "rule-artifact.v7"},
+    "id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^v[0-9]+$"},
+    "scope": {"$ref": "#/$defs/scope"},
+    "role": {"enum": ["computation", "applicability", "field-mapping", "cross-form-bridge"]},
+    "requires": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "pins": {"type": "array", "items": {"$ref": "#/$defs/pin"}},
+    "when": {"$ref": "#/$defs/expr"},
+    "value": {"$ref": "#/$defs/expr"},
+    "publishes": {"type": "string", "minLength": 1},
+    "blocked": {"type": "object", "properties": {"code": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]+$"}, "missing": {"type": "array", "items": {"type": "string", "minLength": 1}}}, "required": ["code", "missing"], "additionalProperties": false},
+    "composition": {"$ref": "#/$defs/exact_pin"},
+    "citations": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/exact_pin"}},
+    "notes": {"type": "string"}
+  },
+  "required": ["schema", "id", "version", "scope", "role", "requires", "pins", "when", "value", "publishes", "blocked"],
+  "additionalProperties": false,
+  "$defs": {
+    "scope": {"type": "object", "properties": {"tax_year": {"type": "integer"}, "jurisdiction": {"type": "string", "minLength": 1}, "family": {"type": "string", "minLength": 1}}, "required": ["tax_year", "jurisdiction", "family"], "additionalProperties": false},
+    "exact_pin": {"type": "object", "properties": {"id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}}, "required": ["id", "version"], "additionalProperties": false},
+    "pin": {"type": "object", "properties": {"role": {"enum": ["parameter", "input", "choice", "default", "composition", "citation", "operation-semantics"]}, "id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^v[0-9]+$"}, "origin": {"enum": ["assertion", "declared_default"]}}, "required": ["role", "id", "version"], "additionalProperties": false, "allOf": [{"if": {"properties": {"role": {"const": "input"}}, "required": ["role"]}, "then": {"required": ["origin"]}, "else": {"not": {"required": ["origin"]}}}]},
+    "ref_expr": {
+      "type": "object",
+      "properties": {
+        "op": {"const": "ref"},
+        "name": {"type": "string", "minLength": 1},
+        "field": {"type": "string", "minLength": 1}
+      },
+      "required": ["op", "name"],
+      "additionalProperties": false
+    },
+    "expr": {"oneOf": [
+      {"type": ["string", "number", "boolean", "null"]},
+      {"$ref": "#/$defs/ref_expr"},
+      {"type": "object", "properties": {"op": {"const": "collect"}, "name": {"type": "string", "minLength": 1}, "source_set": {"type": "string", "minLength": 1}}, "required": ["op", "name", "source_set"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "count"}, "name": {"type": "string", "minLength": 1}, "source_set": {"type": "string", "minLength": 1}}, "required": ["op", "name", "source_set"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "block"}, "code": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]+$"}}, "required": ["op", "code"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "parameter"}, "parameter_id": {"type": "string", "minLength": 1}, "key": {"$ref": "#/$defs/expr"}}, "required": ["op", "parameter_id"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"enum": ["add", "max", "all", "any"]}, "args": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/expr"}}}, "required": ["op", "args"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "subtract"}, "left": {"$ref": "#/$defs/expr"}, "right": {"$ref": "#/$defs/expr"}}, "required": ["op", "left", "right"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "multiply"}, "left": {"$ref": "#/$defs/expr"}, "right": {"$ref": "#/$defs/expr"}}, "required": ["op", "left", "right"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "divide"}, "left": {"$ref": "#/$defs/expr"}, "right": {"$ref": "#/$defs/expr"}, "min_decimal_places": {"type": "integer", "minimum": 0}, "rounding": {"enum": ["half_up", "half_even", "down", "up"]}}, "required": ["op", "left", "right", "min_decimal_places", "rounding"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "compare"}, "left": {"$ref": "#/$defs/expr"}, "right": {"$ref": "#/$defs/expr"}, "cmp": {"enum": ["eq", "ne", "gt", "gte", "lt", "lte"]}}, "required": ["op", "left", "right", "cmp"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "categorical_compare"}, "left": {"$ref": "#/$defs/expr"}, "right": {"$ref": "#/$defs/expr"}, "cmp": {"enum": ["eq", "ne"]}}, "required": ["op", "left", "right", "cmp"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "category_literal"}, "fact_type": {"$ref": "#/$defs/exact_pin"}, "value": {"type": "string", "minLength": 1}}, "required": ["op", "fact_type", "value"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "not"}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "value"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "choose"}, "when": {"$ref": "#/$defs/expr"}, "then": {"$ref": "#/$defs/expr"}, "else": {"$ref": "#/$defs/expr"}}, "required": ["op", "when", "then", "else"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "require_closed"}, "source_set": {"type": "string", "minLength": 1}}, "required": ["op", "source_set"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "range_lookup"}, "table_id": {"type": "string", "minLength": 1}, "key": {"$ref": "#/$defs/expr"}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "table_id", "key", "value"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "bracket_fold"}, "table_id": {"type": "string", "minLength": 1}, "key": {"$ref": "#/$defs/expr"}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "table_id", "key", "value"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "round"}, "value": {"$ref": "#/$defs/expr"}, "mode": {"$ref": "#/$defs/expr"}}, "required": ["op", "value", "mode"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "conditional_dependency_set"}, "condition": {"$ref": "#/$defs/expr"}, "members": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/ref_expr"}}}, "required": ["op", "condition", "members"], "additionalProperties": false},
+      {"type": "object", "properties": {"op": {"const": "collect_categorical_all_equal"}, "name": {"type": "string", "minLength": 1}, "value": {"$ref": "#/$defs/expr"}}, "required": ["op", "name", "value"], "additionalProperties": false}
+    ]}
+  }
+}
