@@ -100,9 +100,10 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     symbols = list(rule.get("requires", []))
     # v6 is v4's grammar plus multiply/divide/collect_categorical_all_equal
     # (Form 1098-E Student Loan Interest Deduction milestone Tracks 1/6b);
-    # it carries the same declared-refs-outside-requires capability as
+    # v7 is v6 plus an optional `field` selector on `ref_expr` (ADR-0067).
+    # Both carry the same declared-refs-outside-requires capability as
     # v3/v4/v5.
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
     return symbols
@@ -223,6 +224,8 @@ def marshal_run_context(
     input_bindings: list[dict[str, Any]] | None = None,
     collect_source_names: list[str] | None = None,
     companion_presence_pairs: dict[str, str | list[str]] | None = None,
+    authorization: Any | None = None,
+    reporting_year: int | None = None,
 ) -> RunContext:
     """Build a RunContext from current record state only (ADR-0032 MUST).
 
@@ -399,6 +402,8 @@ def marshal_run_context(
         fact_types=ftypes,
         input_bindings=bindings,
         companion_presence_pairs=dict(companion_presence_pairs or {}),
+        authorization=authorization,
+        reporting_year=reporting_year,
     )
 
 
@@ -418,6 +423,8 @@ def marshal_live_run_context(
     input_bindings: list[dict[str, Any]] | None = None,
     collect_source_names: list[str] | None = None,
     companion_presence_pairs: dict[str, str | list[str]] | None = None,
+    authorization: Any | None = None,
+    reporting_year: int | None = None,
 ) -> MarshalledRunContext:
     """Create the opaque marshalling result accepted by the production executor."""
     return MarshalledRunContext(
@@ -436,6 +443,8 @@ def marshal_live_run_context(
             input_bindings=input_bindings,
             collect_source_names=collect_source_names,
             companion_presence_pairs=companion_presence_pairs,
+            authorization=authorization,
+            reporting_year=reporting_year,
         ),
         _MARSHAL_SEAL,
     )

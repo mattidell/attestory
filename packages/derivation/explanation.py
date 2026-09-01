@@ -10,8 +10,10 @@ traversal of committed data — never a re-evaluation, and never a guess.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any
+
+from packages.derivation.authorization import AuthorizationResolution
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
 _DEPENDENCY_ROLES = frozenset({"input", "choice"})
@@ -52,16 +54,24 @@ def explain(
     role: str,
     derived: dict[str, dict[str, Any]],
     inputs: dict[str, dict[str, Any]] | None = None,
+    authorization: AuthorizationResolution | None = None,
     _seen: frozenset[str] = frozenset(),
     _memo: dict[str, ExplanationNode] | None = None,
 ) -> ExplanationNode:
-    """Explain one finding by walking its pins. `role` is how the parent cited it."""
+    """Explain one finding by walking its pins. `role` is how the parent cited it.
+
+    ``authorization`` is attached only at the walk's root as a provenance
+    sibling. Recursion does not re-attach it (the grant is run-scoped, not
+    per-pin). Published pin-role enums do not yet name this kind; see
+    ``authorization_provenance`` for the deferred schema-successor follow-on.
+    """
     inputs = inputs or {}
+    is_root = not _seen
     if finding_id in _seen:
         raise ValueError("CYCLIC_DEPENDENCY_ERROR")
 
     if _memo is not None and finding_id in _memo:
-        return _memo[finding_id]
+        return _attach_root_authorization(_memo[finding_id], authorization, is_root)
 
     if finding_id in derived:
         finding = derived[finding_id]
@@ -79,7 +89,7 @@ def explain(
                     derived=derived,
                     inputs=inputs,
                     _seen=seen,
-                    _memo=_memo
+                    _memo=_memo,
                 ))
             else:
                 children.append(_leaf(pin["id"], pin_role, pin_role, pin["version"]))
@@ -96,7 +106,7 @@ def explain(
         )
         if _memo is not None:
             _memo[finding_id] = node
-        return node
+        return _attach_root_authorization(node, authorization, is_root)
 
     # A leaf: a human input finding (if we know it) or a bare pinned reference.
     meta = inputs.get(finding_id)
@@ -113,11 +123,32 @@ def explain(
         )
         if _memo is not None:
             _memo[finding_id] = node
-        return node
+        return _attach_root_authorization(node, authorization, is_root)
     node = _leaf(finding_id, role, role, "v1")
     if _memo is not None:
         _memo[finding_id] = node
-    return node
+    return _attach_root_authorization(node, authorization, is_root)
+
+
+def _attach_root_authorization(
+    node: ExplanationNode,
+    authorization: AuthorizationResolution | None,
+    is_root: bool,
+) -> ExplanationNode:
+    if authorization is None or not is_root:
+        return node
+    extra = ExplanationNode(
+        finding_id=authorization.grant_id or "authorization.none",
+        role="authorization",
+        kind="authorization",
+        symbol=None,
+        value=authorization.status,
+        version="v1",
+        produced_by=None,
+        children=(),
+    )
+    children = tuple(sorted(node.children + (extra,), key=lambda c: (c.role, c.finding_id)))
+    return replace(node, children=children)
 
 
 def _leaf(finding_id: str, role: str, kind: str, version: str) -> ExplanationNode:

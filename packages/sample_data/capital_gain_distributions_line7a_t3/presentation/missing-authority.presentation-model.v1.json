@@ -10,6 +10,14 @@
       "title": "Schedule B (Interest and Ordinary Dividends)"
     }
   ],
+  "authorization": {
+    "admitted": false,
+    "detail": {},
+    "grant_id": null,
+    "kind": "authorization",
+    "role": "authorization",
+    "status": "AUTHORIZATION_ABSENT"
+  },
   "citationGroups": [],
   "pinLabels": {},
   "runId": "demo.cgd.t3.missing-authority",
@@ -944,5 +952,6 @@
         "disposition": "blocked"
       }
     }
-  ]
+  ],
+  "unsupportedSourceFindings": []
 }

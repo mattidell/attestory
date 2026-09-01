@@ -25,6 +25,7 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import Any
 
+from packages.derivation.authorization import AuthorizationResolution
 from packages.derivation.evaluator import (
     BLOCK_ABSENT,
     BLOCK_INVALID,
@@ -99,6 +100,20 @@ class RunContext:
     fact_types: list[dict[str, Any]] = field(default_factory=list)
     input_bindings: list[dict[str, Any]] = field(default_factory=list)
     companion_presence_pairs: dict[str, str | list[str]] = field(default_factory=dict)
+    # ADR-0069: optional pre-resolved standing authorization for this
+    # composition. The runner copies it onto Environment; evaluation does
+    # not consult it. Exhaustive-total admission that blocks on a non-
+    # admitted disposition is an Integration-checkpoint consumer.
+    authorization: AuthorizationResolution | None = None
+    # ADR-0068: the run's own reporting-year context, sourced from
+    # ``run_scope["year"]`` (see ``packages.derivation.live.
+    # live_coordinate_run``), never from any acquisition-supplied field.
+    # Consumed only by ``packages.tax.identity_association.associate`` (via
+    # ``try_publish_on_run``) to select which reports are in scope for its
+    # join. ``None`` when no run scope named a year (e.g. most fixture/test
+    # paths); the association path then treats every candidate as out of
+    # scope, the same honest zero-candidate behavior as any other case.
+    reporting_year: int | None = None
 
 
 @dataclass(frozen=True)
@@ -115,6 +130,11 @@ class RunResult:
     blocked: list[dict[str, Any]]
     stop_reason: str
     symbols: dict[str, Any] = field(default_factory=dict)
+    # ADR-0069 / Integration: tax publications are independent of standing
+    # authorization. When a resolution is bound, `current` is that
+    # resolution's admitted flag; when none is bound, the run is current.
+    current: bool = True
+    authorization_status: str | None = None
 
 
 def _value_str(value: Any) -> str:
@@ -145,6 +165,32 @@ ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
 # valued other than its declared required value - distinct from absence
 # (DEPENDENCY_ABSENT), never folded into it, never silence.
 COMPLETENESS_VALUE_VIOLATION = "COMPLETENESS_VALUE_VIOLATION"
+
+# derivation-record.v8 closed blocked-code set. Named pairing/supportability
+# codes must survive `_record_blocked` and pairing-scoped dispatch rather
+# than collapsing to DEPENDENCY_INVALID.
+RECORD_CODES = frozenset(
+    {
+        "DEPENDENCY_ABSENT",
+        "DEPENDENCY_INVALID",
+        "CATEGORICAL_DOMAIN_MISMATCH",
+        "SOURCE_SET_UNCLOSED",
+        "VALUE_INVALID",
+        "ITEMIZATION_TIE_OUT_VIOLATION",
+        "COMPLETENESS_VALUE_VIOLATION",
+        "MULTIPLE_F1098_OUT_OF_SCOPE",
+        "F1098_SCOPE_CONTRADICTION",
+        "SLI_MFS_INELIGIBLE",
+        "SLI_UNIVERSAL_COMPONENT_VIOLATION",
+        "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE",
+        "ASSOCIATION_AMBIGUOUS",
+        "ASSOCIATION_UNCONFIRMED",
+        "ACCRUED_EXCEEDS_ASSOCIATED_REPORT",
+        "SUPPORTABILITY_NOT_ESTABLISHED",
+        "AGGREGATE_ACCRUED_EXCEEDS_REPORT",
+        "ASSOCIATION_MIGRATION_ADOPTION_REQUIRED",
+    }
+)
 
 def _uses_attachment_machinery(rules: list[dict[str, Any]]) -> bool:
     return any(rule.get("schema") in ATTACHMENT_SCHEMAS for rule in rules)
@@ -185,7 +231,7 @@ class _Run:
         self.use_v2 = any(
             rule.get("schema") in {
                 "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
-                "rule-artifact.v5", "rule-artifact.v6",
+                "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
@@ -214,6 +260,11 @@ class _Run:
             self.symbol_pin[i.symbol] = (i.finding_id, "v1", i.role, provenance)
 
         self.publications: list[Publication] = []
+        # Mid-run copy so identity-association publications and pairing-scoped
+        # findings become collectable sources for later rules in this same
+        # saturation (Seam 2 → 3 → 5). Isolation tests that pre-marshal
+        # pairing findings keep them here from the start.
+        self.live_sources: list[SourceFact] = list(ctx.sources)
 
         if self.use_v2:
             for binding in ctx.input_bindings:
@@ -292,12 +343,25 @@ class _Run:
             canon=self.ctx.canon,
             symbol_fact_types=self.symbol_fact_types,
             categorical_domains=self.categorical_domains,
+            authorization=self.ctx.authorization,
         )
 
-    def pins_for(self, rule: dict[str, Any], access: AccessLog) -> list[dict[str, Any]]:
-        pins: list[dict[str, Any]] = [
-            {"role": rule["role"], "id": rule["id"], "version": rule["version"]}
-        ]
+    def dependency_pins_for_access(self, access: AccessLog) -> list[dict[str, Any]]:
+        """Convert one ``AccessLog``'s declared-dependency reads into pins.
+
+        Extracted from ``pins_for`` so a dispatch path that assembles its
+        own rule/citation/adoption/governance pins independently — the
+        pairing-scoped consequence rules in
+        ``packages.tax.pairing_consequences`` — can still convert whatever
+        parameters, tables, operations, refs, and closure reads the same
+        expression evaluator (``packages.derivation.evaluator.evaluate``)
+        recorded into the exact pin classes ordinary rule evaluation uses,
+        without duplicating the rule-identity/citation/adoption/governance
+        pins that caller already adds itself. Unsorted; callers combine this
+        with their own pins and sort once at the end (``_sorted_pins`` is
+        idempotent regardless of input order).
+        """
+        pins: list[dict[str, Any]] = []
         for name in access.refs:
             # A blocked evaluation can have read a declared ref only far
             # enough to establish that no current finding exists.  Absence is
@@ -386,6 +450,13 @@ class _Run:
             pins.append(pin)
         for op in access.operations:
             pins.append({"role": "operation-semantics", "id": op, "version": self.ctx.canon[op]["version"]})
+        return pins
+
+    def pins_for(self, rule: dict[str, Any], access: AccessLog) -> list[dict[str, Any]]:
+        pins: list[dict[str, Any]] = [
+            {"role": rule["role"], "id": rule["id"], "version": rule["version"]}
+        ]
+        pins.extend(self.dependency_pins_for_access(access))
         # Declared rule citations (ADR-0029 / ADR-0050 line-7b exact citation pin).
         for citation in rule.get("citations", []):
             pins.append({
@@ -444,6 +515,21 @@ class _Run:
         return list(rule["requires"])
 
     def is_eligible(self, rule: dict[str, Any]) -> bool:
+        from packages.tax.pairing_consequences import (
+            aggregate_supportability_eligibility,
+            consequence_eligibility,
+            is_aggregate_supportability_rule,
+            is_current_year_subtotal_rule,
+            is_pairing_scoped_consequence_rule,
+            subtotal_eligibility,
+        )
+
+        if is_current_year_subtotal_rule(rule):
+            return subtotal_eligibility(self)
+        if is_aggregate_supportability_rule(rule):
+            return aggregate_supportability_eligibility(self)
+        if is_pairing_scoped_consequence_rule(rule):
+            return consequence_eligibility(self)
         return all(req in self.symbols for req in self._requires(rule))
 
     def attempt(self, rule: dict[str, Any]) -> str:
@@ -458,8 +544,35 @@ class _Run:
         rule_id = rule["id"]
         access = AccessLog()
 
+        pairing_outcome = self._try_pairing_scoped(rule)
+        if pairing_outcome is not None:
+            return pairing_outcome
+
         if rule_id.endswith(".member-validation.synthesized"):
             return self._evaluate_family_validation(rule, access)
+
+        from packages.tax.pairing_consequences import is_pairing_scoped_consequence_rule
+
+        if is_pairing_scoped_consequence_rule(rule):
+            return self._evaluate_pairing_scoped_consequence(rule)
+
+        from packages.tax.pairing_consequences import is_aggregate_supportability_rule
+
+        if is_aggregate_supportability_rule(rule):
+            from packages.tax.pairing_consequences import (
+                dispatch_aggregate_supportability_on_run,
+            )
+
+            return dispatch_aggregate_supportability_on_run(self, rule)
+
+        from packages.tax.pairing_consequences import is_current_year_subtotal_rule
+
+        if is_current_year_subtotal_rule(rule):
+            from packages.tax.pairing_consequences import (
+                dispatch_current_year_subtotal_on_run,
+            )
+
+            return dispatch_current_year_subtotal_on_run(self, rule)
 
         # 1. If any declared dependency is absent -> blocked
         missing = [req for req in rule["requires"] if req not in self.symbols]
@@ -1162,28 +1275,266 @@ class _Run:
             "pins": self.ledger_pins_for(rule, access)
         }
         if self.use_v2:
-            # derivation-record.v6 enumerates a closed blocked-code set.
+            # derivation-record.v8 enumerates a closed blocked-code set.
             # Internal family-validation codes stay on `self.blocked`; the
             # recorded disposition uses the existing invalid-dependency
             # category and carries the named missing codes unchanged.
-            record_codes = {
-                "DEPENDENCY_ABSENT",
-                "DEPENDENCY_INVALID",
-                "CATEGORICAL_DOMAIN_MISMATCH",
-                "SOURCE_SET_UNCLOSED",
-                "VALUE_INVALID",
-                "ITEMIZATION_TIE_OUT_VIOLATION",
-                "COMPLETENESS_VALUE_VIOLATION",
-                "MULTIPLE_F1098_OUT_OF_SCOPE",
-                "F1098_SCOPE_CONTRADICTION",
-                "SLI_MFS_INELIGIBLE",
-                "SLI_UNIVERSAL_COMPONENT_VIOLATION",
-                "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE",
-            }
-            disposition_row["code"] = code if code in record_codes else "DEPENDENCY_INVALID"
+            disposition_row["code"] = (
+                code if code in RECORD_CODES else "DEPENDENCY_INVALID"
+            )
             disposition_row["missing"] = missing
         self.dispositions.append(disposition_row)
         self.resolved.add(rule_id)
+
+    def record_named_block(
+        self, *, rule_id: str, code: str, missing: list[str], pins: list[dict[str, Any]]
+    ) -> None:
+        """Append one named blocked disposition row without an ``AccessLog``.
+
+        For dispatch shapes that block per group rather than once per rule
+        id (ADR successor aggregate-supportability: one row per report
+        whose combined current-year claim exceeds it) and so cannot go
+        through ``_record_blocked``'s evaluator-access-derived pin
+        resolution. Mirrors its v2 disposition shape and the same
+        ``RECORD_CODES`` collapse-to-``DEPENDENCY_INVALID`` fallback.
+        Does not mark ``rule_id`` resolved — callers append one row per
+        group and resolve the rule id once, after every group is checked.
+        """
+        self.blocked.append({"artifact_id": rule_id, "code": code, "missing": list(missing)})
+        ledger_pins = [pin for pin in pins if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES]
+        disposition_row: dict[str, Any] = {
+            "artifact_id": rule_id,
+            "disposition": "blocked",
+            "pins": _sorted_pins(ledger_pins),
+        }
+        if self.use_v2:
+            disposition_row["code"] = code if code in RECORD_CODES else "DEPENDENCY_INVALID"
+            disposition_row["missing"] = list(missing)
+        self.dispositions.append(disposition_row)
+
+    def evaluate_pairing_scoped_rule(
+        self,
+        *,
+        pairing_type: str,
+        left_type: str,
+        right_type: str,
+        rule_id: str,
+        rule_version: str,
+        symbol_for: Any,
+        evaluate_one: Any,
+        rule_role: str = "computation",
+        extra_pins: list[dict[str, Any]] | None = None,
+    ) -> Any:
+        """Apply the ADR-0070/0071 per-pairing dispatch primitive on this run.
+
+        Later production rules (supportability; current-year and basis
+        consequences) call this once per rule id. Each call publishes at
+        most one finding per pairing; two rules are two independent calls.
+        Blocked pairings write the named code onto the schema-validated
+        disposition ledger when it is in RECORD_CODES.
+        """
+        from packages.derivation.pairing_dispatch import (
+            evaluate_pairing_scoped_rule as dispatch,
+        )
+
+        pins = (
+            list(extra_pins)
+            if extra_pins is not None
+            else [self.ctx.adoption_pin, *self.ctx.governance_pins]
+        )
+        result = dispatch(
+            sources=self.live_sources,
+            pairing_type=pairing_type,
+            left_type=left_type,
+            right_type=right_type,
+            rule_id=rule_id,
+            rule_version=rule_version,
+            rule_role=rule_role,
+            symbol_for=symbol_for,
+            evaluate_one=evaluate_one,
+            extra_pins=pins,
+            schemas=self.schemas,
+        )
+        for finding in result.publications:
+            self._record_derived_publication(finding, rule_id=rule_id)
+            self._append_live_source_from_finding(finding)
+        for row in result.blocked:
+            self.blocked.append({
+                "artifact_id": rule_id,
+                "code": row.code,
+                "missing": list(row.missing),
+                "pairing_fact_id": row.pairing_fact_id,
+            })
+            ledger_pins = [
+                pin for pin in row.pins
+                if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES
+            ]
+            disposition_row = {
+                "artifact_id": rule_id,
+                "disposition": "blocked",
+                "pins": ledger_pins,
+            }
+            if self.use_v2:
+                disposition_row["code"] = (
+                    row.code if row.code in RECORD_CODES else "DEPENDENCY_INVALID"
+                )
+                disposition_row["missing"] = list(row.missing)
+            self.dispositions.append(disposition_row)
+        self.resolved.add(rule_id)
+        return result
+
+    def _try_pairing_scoped(self, rule: dict[str, Any]) -> str | None:
+        """Dispatch a pairing-scoped adopted rule, or ``None`` if not one.
+
+        Lazy import keeps the derivation↔tax cycle at call time (the same
+        shape as this method's ``pairing_dispatch`` import): tax.supportability
+        already imports runner helpers, so a module-level import here would
+        fail at load.
+        """
+        from packages.tax.supportability import try_dispatch
+
+        return try_dispatch(self, rule)
+
+    def _evaluate_pairing_scoped_consequence(self, rule: dict[str, Any]) -> str:
+        """ADR-0071: one pairing-scoped consequence rule, via the shared primitive."""
+        from packages.tax.pairing_consequences import dispatch_consequence_on_run
+
+        result = dispatch_consequence_on_run(self, rule)
+        if result.publications:
+            return "published"
+        if result.blocked:
+            return "blocked"
+        return "published"
+
+    def _encode_source_value(self, value: Any) -> str:
+        if isinstance(value, (dict, list, bool)) or value is None:
+            return json.dumps(value, sort_keys=True)
+        return str(value)
+
+    def _append_live_source(
+        self, *, name: str, value: Any, finding_id: str, fact_id: str | None
+    ) -> None:
+        encoded = self._encode_source_value(value)
+        self.live_sources.append(
+            SourceFact(name=name, value=encoded, finding_id=finding_id, fact_id=fact_id)
+        )
+        self.sources.setdefault(name, []).append(encoded)
+        self.source_fids.setdefault(name, []).append(finding_id)
+        self.source_fact_ids.setdefault(name, []).append(fact_id or finding_id)
+
+    def _append_live_source_from_finding(self, finding: dict[str, Any]) -> None:
+        symbol = finding["symbol"]
+        prefix, separator, suffix = symbol.partition("|")
+        source_name = prefix
+        source_fact_id = suffix if separator else finding["id"]
+        self._append_live_source(
+            name=source_name,
+            value=finding["value"],
+            finding_id=finding["id"],
+            fact_id=source_fact_id or finding["id"],
+        )
+
+    def _record_derived_publication(
+        self, finding: dict[str, Any], *, rule_id: str
+    ) -> None:
+        act = {"run_id": self.ctx.run_id, "finding": finding}
+        self.publications.append(Publication(act=act, finding=finding))
+        self.symbols[finding["symbol"]] = finding["value"]
+        self.symbol_pin[finding["symbol"]] = (
+            finding["id"],
+            finding.get("version", "v2"),
+            "input",
+            "assertion" if self.use_v2 else None,
+        )
+        ledger_pins = [
+            pin for pin in finding["pins"]
+            if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES
+        ]
+        disposition_row = {
+            "artifact_id": rule_id,
+            "disposition": "published",
+            "pins": ledger_pins,
+        }
+        if self.use_v2:
+            disposition_row["finding_id"] = finding["id"]
+            disposition_row["act_id"] = _content_id("act:publication:", act)
+            disposition_row["symbol"] = finding["symbol"]
+        self.dispositions.append(disposition_row)
+
+    def absorb_association_result(self, result: Any) -> None:
+        """Fold ADR-0068 publications and refusals onto this run's ledger."""
+        from packages.tax.identity_association import (
+            ASSOCIATION_AMBIGUOUS,
+            ASSOCIATION_SYMBOL,
+        )
+
+        for finding in result.publications:
+            self._record_derived_publication(finding, rule_id=ASSOCIATION_SYMBOL)
+            self._append_live_source(
+                name=ASSOCIATION_SYMBOL,
+                value=finding["value"],
+                finding_id=finding["id"],
+                fact_id=finding["id"],
+            )
+        for refusal in result.refusals:
+            self.blocked.append({
+                "artifact_id": ASSOCIATION_SYMBOL,
+                "code": refusal.code,
+                "missing": list(refusal.candidate_right_fact_ids),
+                "left_fact_id": refusal.left_fact_id,
+            })
+            disposition_row = {
+                "artifact_id": ASSOCIATION_SYMBOL,
+                "disposition": "blocked",
+                # ADR-0072 production wiring: identity_association is not a
+                # package rule-artifact member (it has no "publishes"), so
+                # the presentation projector's ``_dispositions_by_symbol``
+                # cannot resolve ``artifact_id`` through ``rules_by_id`` the
+                # way it does for ordinary rule blocks. Naming the symbol
+                # directly (the same per-acquisition symbol a successful
+                # association would have published) closes this gap for
+                # every association refusal code, not only the new one.
+                "symbol": f"{ASSOCIATION_SYMBOL}|{refusal.left_fact_id}",
+                "pins": [self.ctx.adoption_pin, *self.ctx.governance_pins],
+            }
+            if self.use_v2:
+                disposition_row["code"] = (
+                    refusal.code if refusal.code in RECORD_CODES else ASSOCIATION_AMBIGUOUS
+                )
+                disposition_row["missing"] = list(refusal.candidate_right_fact_ids)
+            self.dispositions.append(disposition_row)
+
+    def publish_symbol_finding(
+        self,
+        *,
+        rule_id: str,
+        symbol: str,
+        value: Any,
+        pins: list[dict[str, Any]],
+        source_name: str,
+        source_fact_id: str,
+    ) -> dict[str, Any]:
+        """Publish one derived finding and expose it as a live source."""
+        sorted_pins = _sorted_pins(pins)
+        body = {"symbol": symbol, "value": value, "pins": sorted_pins}
+        finding = {
+            "schema": "derived-finding.v2",
+            "id": _content_id("finding:derived:", body),
+            "symbol": symbol,
+            "value": value,
+            "version": "v2",
+            "pins": sorted_pins,
+        }
+        self.schemas.validate_declared(finding)
+        self._record_derived_publication(finding, rule_id=rule_id)
+        self._append_live_source(
+            name=source_name,
+            value=value,
+            finding_id=finding["id"],
+            fact_id=source_fact_id,
+        )
+        self.resolved.add(rule_id)
+        return finding
 
     def finalize_unreached(self) -> None:
         """Rules that never became eligible saturate blocked on their gap."""
@@ -1330,6 +1681,7 @@ class _Run:
             self.resolved.add(rule["id"])
 
     def result(self) -> RunResult:
+        auth = self.ctx.authorization
         return RunResult(
             run_id=self.ctx.run_id,
             publications=self.publications,
@@ -1337,12 +1689,17 @@ class _Run:
             blocked=self.blocked,
             stop_reason="saturated",
             symbols=self.symbols,
+            current=True if auth is None else auth.admitted,
+            authorization_status=None if auth is None else auth.status,
         )
 
 
 def _execute(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
     """Evaluator implementation shared by fixture and marshalled live paths."""
     state = _Run(ctx, schemas)
+    from packages.tax.identity_association import try_publish_on_run
+
+    try_publish_on_run(state)
     progress = True
     while progress:
         progress = False
@@ -1412,7 +1769,7 @@ def run_and_record(
     use_v2 = any(
         rule.get("schema") in {
             "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
-            "rule-artifact.v5", "rule-artifact.v6",
+            "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)

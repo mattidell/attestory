@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Iterable, Mapping, Sequence
 
+from packages.derivation.authorization import authorization_provenance
 from packages.derivation.loader import DerivationSchemas, load_canon
 from packages.derivation.marshal import marshal_live_run_context
 from packages.derivation.presentation_projection import PresentationModelError, build_presentation_model
@@ -62,6 +63,8 @@ class LiveCoordinatorOutcome:
     # presentation projector but not for `explain()`'s node values. None on
     # refusal, same as output_path.
     publications: "tuple[Publication, ...] | None" = None
+    current: bool | None = None
+    authorization_status: str | None = None
 
 
 def _iter_collect_categorical_names(expr: Any) -> Iterable[str]:
@@ -98,7 +101,7 @@ def _resolved_run_material(graph: Any) -> tuple[
     # belongs in the same `rules` material the runner saturates over.
     rules = [
         member for member in members
-        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
+        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
     ]
     parameters = {member["id"]: member for member in members if member.get("schema") == "parameter-declaration.v1"}
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
@@ -138,6 +141,34 @@ def _resolved_run_material(graph: Any) -> tuple[
             if name not in collect_names:
                 collect_names.append(name)
         for name in _iter_collect_categorical_names(rule.get("value")):
+            if name not in collect_names:
+                collect_names.append(name)
+    # ADR-0070: the supportability rule reads pairing / acquisition /
+    # report sources by pinned fact id, not by an ordinary symbol binding.
+    from packages.tax.supportability import COLLECT_SOURCE_NAMES, RULE_ID
+    if any(rule.get("id") == RULE_ID for rule in rules):
+        for name in COLLECT_SOURCE_NAMES:
+            if name not in collect_names:
+                collect_names.append(name)
+
+    # ADR-0071: the two pairing-scoped consequence rules read the same way.
+    from packages.tax.pairing_consequences import (
+        is_pairing_scoped_consequence_rule,
+        pairing_scoped_collect_source_names,
+    )
+
+    if any(is_pairing_scoped_consequence_rule(rule) for rule in rules):
+        for name in pairing_scoped_collect_source_names():
+            if name not in collect_names:
+                collect_names.append(name)
+
+    from packages.tax.identity_association import collect_source_names as association_names
+
+    if any(
+        rule.get("id") == RULE_ID or is_pairing_scoped_consequence_rule(rule)
+        for rule in rules
+    ):
+        for name in association_names():
             if name not in collect_names:
                 collect_names.append(name)
     return rules, parameters, families, mappings, fact_types, list(graph.package["input_bindings"]), collect_names
@@ -200,6 +231,22 @@ def live_coordinate_run(
     retired = state.fact_state.retired_fact_type_ids
     if retired:
         fact_types = [ft for ft in fact_types if ft.get("id") not in retired]
+    authorization = _resolve_run_authorization(
+        authoritative_acts,
+        run_scope=run_scope,
+        scope_user=scope_user,
+        rules=rules,
+        corpus={member["id"]: member for member in resolved.resolved_members},
+        package=resolved.package,
+    )
+    # ADR-0068: the run's own reporting-year context for
+    # ``packages.tax.identity_association.associate`` (via
+    # ``try_publish_on_run``), read from the same ``run_scope`` this
+    # coordinator already threads for package resolution and standing
+    # authorization above -- never a new, separately-asked value. Absent or
+    # blank is honestly ``None`` (no reporting-year context), not a guess.
+    reporting_year_str = run_scope.get("year")
+    reporting_year = int(reporting_year_str) if reporting_year_str else None
     context = marshal_live_run_context(
         run_id=run_id, state=state, currency=currency, rules=rules, parameters=parameters,
         canon=load_canon(schemas),
@@ -208,6 +255,8 @@ def live_coordinate_run(
         family_declarations=families, closure_mappings=mappings, fact_types=fact_types,
         input_bindings=bindings, collect_source_names=collect_names,
         companion_presence_pairs=domain_companion_presence_pairs(),
+        authorization=authorization,
+        reporting_year=reporting_year,
     )
     stream = RecordStream(workspace.live_output_path(Path("records")), schemas)
     result = execute_and_record_marshaled(
@@ -229,6 +278,7 @@ def live_coordinate_run(
             state=state,
             publications=result.publications,
             dispositions=result.dispositions,
+            authorization=authorization_provenance(authorization),
         )
     except PresentationModelError:
         output_path.unlink(missing_ok=True)
@@ -239,11 +289,89 @@ def live_coordinate_run(
     output_path.write_text(json.dumps({
         "run_id": result.run_id, "stop_reason": result.stop_reason,
         "dispositions": result.dispositions,
+        # Persisted so a reader of this durable file can recover the standing
+        # authority, its status, or which grant it came from, without relying
+        # on the in-memory `LiveCoordinatorOutcome` alone.
+        "current": authorization.admitted,
+        "authorization_status": authorization.status,
+        "authorization_grant_id": authorization.grant_id,
     }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     presentation_path.write_text(json.dumps(model, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return LiveCoordinatorOutcome(
         refusal=None, output_path=output_path, run_id=run_id, presentation_path=presentation_path,
         publications=tuple(result.publications),
+        current=result.current,
+        authorization_status=result.authorization_status,
+    )
+
+
+def _resolve_run_authorization(
+    acts: Sequence[Mapping[str, Any]],
+    *,
+    run_scope: Mapping[str, str],
+    scope_user: str,
+    rules: Sequence[dict[str, Any]],
+    corpus: Mapping[str, dict[str, Any]],
+    package: Mapping[str, Any],
+) -> Any:
+    """Always resolve standing authorization -- absence is explicit, not unbound.
+
+    An act log with no grant/end acts still resolves through the same fold:
+    ``authorization.resolve`` falls through every precedence case to
+    ``STATUS_ABSENT`` when there is no live grant at this ``(subject, year)``
+    key. The prior behavior returned ``None`` here, which `runner.py`'s
+    `result()` then read as an unconditional `current=True` -- absence may
+    still permit the calculation (tax arithmetic is unaffected, matching the
+    suspend/withdraw invariant this milestone already established), but it
+    must never silently supply currentness that the standing-authorization
+    model assigns only to an actual admitted grant.
+
+    The calculation subject is ``scope_user`` -- the workspace actor this
+    run's authoritative-package selection is already independently scoped
+    to (``production_resolver.select_current_adoption`` admits only
+    ``act-package-adoption.v1`` acts by this same actor, per Decision 1).
+    It is supplied by the caller before any act log is folded, never
+    derived from the grants being checked: picking whichever subject a
+    grant happens to name and then resolving that same grant against
+    itself would always admit, defeating the check entirely.
+
+    ``root_rule_ids`` is the actually-executed root passed to
+    ``resolve_for_composition``: the package's own declared entrypoints
+    (the fixed roots ``package_validation.py``'s reachability BFS starts
+    from), restricted to the rule-schema members this run actually
+    resolved -- not every resolved rule. Every resolved rule is that BFS's
+    *output* (the whole reachable closure), not the calculation's roots;
+    rooting the re-authorization boundary there collapses back to a
+    whole-package digest, exactly what ADR-0069 Decision 5 rejects.
+
+    Production resolves and publishes every entrypoint in
+    ``root_rule_ids`` regardless of any
+    ``calculation-scope-declaration`` act on the log (there is no
+    run-request field able to select one calculation, ADR-0032 Decision 3),
+    so ``root_rule_ids`` is never replaced by a declared scope -- only
+    widened by one (``authorization.resolve_for_composition``). A
+    declaration can still shield a *genuinely unrelated* entrypoint the
+    package resolves but this run does not execute (see
+    ``root_rule_ids`` above -- it is already restricted to resolved rule
+    members), but it can never narrow the boundary below what this run
+    actually executes and publishes.
+    """
+    from packages.derivation.authorization import resolve_for_composition
+
+    subject_id = scope_user
+    tax_year = str(run_scope.get("year", ""))
+    entrypoint_ids = {
+        entry["id"] for entry in package.get("entrypoints", [])
+        if isinstance(entry, dict) and isinstance(entry.get("id"), str)
+    }
+    root_rule_ids = {rule["id"] for rule in rules if rule["id"] in entrypoint_ids}
+    return resolve_for_composition(
+        acts,
+        subject_id=subject_id,
+        tax_year=tax_year,
+        root_rule_ids=root_rule_ids,
+        corpus=dict(corpus),
+        package=package,
     )
 
 

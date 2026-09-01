@@ -8,6 +8,15 @@ own version and strict validator (below) — never a published schema, citizen,
 or caller-facing contract (ADR-0046 is unchanged; this module does not
 instantiate it).
 
+The model's ``unsupportedSourceFindings`` list is the same two inputs this
+projector already holds (``state`` and ``resolved_members``) run through
+``packages.tax.coverage.untranslated_source_findings`` (T9, milestone exit
+criterion 9): every current source-amount finding whose fact type the
+workspace recognizes but the adopted package's own content never genuinely
+consumes. This makes the unsupported boundary recoverable from the durable
+run's own presentation output, not only from a caller invoking the coverage
+helper directly against a separately reconstructed state.
+
 The projector performs no tax arithmetic and invents no display value,
 citation, attachment state, diagnostic, or label: every string that reaches
 the model is either a value the coordinator itself published/recorded, or
@@ -26,6 +35,7 @@ from decimal import Decimal, InvalidOperation
 from typing import Any, Mapping, Sequence, cast
 
 from packages.kernel.findings import FindingState
+from packages.tax.coverage import untranslated_source_findings
 
 PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 
@@ -452,6 +462,7 @@ def build_presentation_model(
     state: FindingState,
     publications: Sequence[Any],
     dispositions: Sequence[Mapping[str, Any]],
+    authorization: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build the presentation-model.v1 payload from coordinator-internal state only.
 
@@ -460,6 +471,14 @@ def build_presentation_model(
     Raises :class:`PresentationModelError` on any missing/ambiguous join,
     unknown disposition, invalid numeric publication, or untraceable citation
     lineage — never on a guess.
+
+    ``authorization``, when supplied, is the production
+    ``authorization.authorization_provenance(resolution)`` payload for this
+    run's resolved standing authorization, so the resolved authorization
+    reaches the production presentation/explanation root, not only the
+    in-memory ``LiveCoordinatorOutcome``. Optional and omitted entirely from
+    the model when ``None``, so existing callers that never resolve an
+    authorization are unaffected.
     """
     _reject_unsupported_presentation_schemas(resolved_members)
     fields = [m for m in resolved_members if m.get("schema") in FIELD_SCHEMAS]
@@ -505,6 +524,17 @@ def build_presentation_model(
         if group is not None:
             citation_groups.append(group)
 
+    unsupported_source_findings = [
+        {
+            "factTypeId": finding.fact_type_id,
+            "factTypeTitle": finding.fact_type_title,
+            "findingId": finding.finding_id,
+            "factId": finding.fact_id,
+            "value": finding.value,
+        }
+        for finding in untranslated_source_findings(state, resolved_members)
+    ]
+
     model = {
         "schema": PRESENTATION_MODEL_VERSION,
         "runId": run_id,
@@ -512,7 +542,10 @@ def build_presentation_model(
         "sections": sections,
         "citationGroups": citation_groups,
         "attachments": attachments_out,
+        "unsupportedSourceFindings": unsupported_source_findings,
     }
+    if authorization is not None:
+        model["authorization"] = dict(authorization)
     validate_presentation_model(model)
     return model
 
@@ -548,6 +581,30 @@ def _validate_citation_site(site: Mapping[str, Any], path: str) -> None:
     for key in ("siteId", "pinId", "pinVersion", "context"):
         if not isinstance(site[key], str) or not site[key]:
             raise PresentationModelError(f"{path}.{key}: expected non-empty string")
+
+
+def _validate_authorization_provenance(authorization: Any, path: str) -> None:
+    """The optional ``authorization.authorization_provenance(...)`` payload.
+
+    The resolved standing authorization is represented on the production
+    presentation root, not only on the in-memory coordinator outcome.
+    """
+    _require_keys(
+        authorization,
+        frozenset({"kind", "role", "status", "grant_id", "detail", "admitted"}),
+        frozenset(),
+        path,
+    )
+    if authorization["kind"] != "authorization" or authorization["role"] != "authorization":
+        raise PresentationModelError(f"{path}: expected kind/role 'authorization'")
+    if not isinstance(authorization["status"], str) or not authorization["status"]:
+        raise PresentationModelError(f"{path}.status: expected non-empty string")
+    if authorization["grant_id"] is not None and not isinstance(authorization["grant_id"], str):
+        raise PresentationModelError(f"{path}.grant_id: expected string or null")
+    if not isinstance(authorization["detail"], dict):
+        raise PresentationModelError(f"{path}.detail: expected an object")
+    if not isinstance(authorization["admitted"], bool):
+        raise PresentationModelError(f"{path}.admitted: expected boolean")
 
 
 def _validate_resolved(resolved: Mapping[str, Any], path: str) -> None:
@@ -599,10 +656,15 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
     """Strict structural validation: unknown keys and invalid combinations reject."""
     _require_keys(
         model,
-        frozenset({"schema", "runId", "pinLabels", "sections", "citationGroups", "attachments"}),
-        frozenset(),
+        frozenset({
+            "schema", "runId", "pinLabels", "sections", "citationGroups", "attachments",
+            "unsupportedSourceFindings",
+        }),
+        frozenset({"authorization"}),
         "$",
     )
+    if "authorization" in model:
+        _validate_authorization_provenance(model["authorization"], "$.authorization")
     if model["schema"] != PRESENTATION_MODEL_VERSION:
         raise PresentationModelError(f"$.schema: expected {PRESENTATION_MODEL_VERSION!r}")
     if not isinstance(model["runId"], str) or not model["runId"]:
@@ -668,6 +730,20 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
         if not isinstance(attachment["title"], str) or not attachment["title"]:
             raise PresentationModelError(f"{path}.title: expected non-empty string")
         _validate_attachment_resolved(attachment["resolved"], f"{path}.resolved")
+
+    if not isinstance(model["unsupportedSourceFindings"], list):
+        raise PresentationModelError("$.unsupportedSourceFindings: expected a list")
+    for index, entry in enumerate(model["unsupportedSourceFindings"]):
+        path = f"$.unsupportedSourceFindings[{index}]"
+        _require_keys(
+            entry,
+            frozenset({"factTypeId", "factTypeTitle", "findingId", "factId", "value"}),
+            frozenset(),
+            path,
+        )
+        for key in ("factTypeId", "factTypeTitle", "findingId", "factId"):
+            if not isinstance(entry[key], str) or not entry[key]:
+                raise PresentationModelError(f"{path}.{key}: expected non-empty string")
 
     _check_no_unsafe_strings(model, "$")
 
