@@ -1,0 +1,18 @@
+{
+  "schema": "rule-artifact.v7",
+  "id": "demo.rule.accrued-from-acquisition",
+  "version": "v1",
+  "scope": { "tax_year": 2025, "jurisdiction": "US-federal", "family": "demo" },
+  "role": "computation",
+  "requires": ["tax.us.obligation-acquisition-circumstance"],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "ref",
+    "name": "tax.us.obligation-acquisition-circumstance",
+    "field": "accrued_interest_paid_to_seller"
+  },
+  "publishes": "demo.tax.accrued-interest-from-acquisition",
+  "blocked": { "code": "DEPENDENCY_ABSENT", "missing": ["tax.us.obligation-acquisition-circumstance"] },
+  "notes": "Demo ADR-0067 fixture: a correctly-spelled field-ref reads one scalar off an object-valued acquisition fact."
+}
