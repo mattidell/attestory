@@ -1,0 +1,46 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.f1099int.box11-bond-premium",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.interest-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.1099int-statement",
+          "kind": "entity",
+          "name": "statement"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.taxable-interest",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Bond premium reported in box 11 of one logical Form 1099-INT statement instance furnished by a payer for 2025 on a taxable bond, for a taxpayer who did not elect to net premium against the reported box-1/box-3 interest amount; statement identity is peer to evidence and carries no file, upload, scan, document, or evidence key (ADR-0015). This product records the recognized fact only: it does not amortize the premium, does not net it against any interest subtotal, and does not yet translate it into any Schedule B adjustment or return consequence.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.f1099int.box11.vocabulary",
+  "label": "Form 1099-INT box-11 bond-premium recognition vocabulary for tax year 2025 (recognized, not yet translated)",
+  "schema": "bundle.v2",
+  "version": "v1"
+}
