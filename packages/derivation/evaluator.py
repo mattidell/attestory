@@ -18,6 +18,8 @@ from dataclasses import dataclass, field
 from decimal import Decimal, ROUND_DOWN, ROUND_HALF_EVEN, ROUND_HALF_UP, ROUND_UP
 from typing import Any
 
+from packages.derivation.authorization import AuthorizationResolution
+
 # Blocking categories (ADR-0006 decision 8). The vocabulary distinguishes a
 # dependency that is absent from one that is present but invalid, and an
 # unclosed source set from either.
@@ -70,6 +72,12 @@ class Environment:
     canon: dict[str, dict[str, Any]]        # operation -> operation-semantics citizen
     symbol_fact_types: dict[str, str] = field(default_factory=dict)
     categorical_domains: dict[str, list[str]] = field(default_factory=dict)
+    # ADR-0069: resolved standing-authorization disposition for this
+    # composition. Evaluation of expression trees does not consult it (tax
+    # arithmetic stays independent of currentness). Callers that need
+    # currentness read ``authorization`` and pin it via
+    # ``authorization_provenance`` / ``explain(..., authorization=...)``.
+    authorization: AuthorizationResolution | None = None
 
 
 def _as_decimal(value: Any) -> Decimal:
@@ -110,6 +118,16 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
         if expr["name"] not in env.symbols:
             raise EvalBlocked(BLOCK_ABSENT, [expr["name"]])
         val = env.symbols[expr["name"]]
+        field = expr.get("field")
+        if field is not None:
+            # ADR-0067 Decision 2: a `field` selector resolves to
+            # finding.value[field] off the currently bound finding, then
+            # flows through the existing scalar path. Fail closed — never a
+            # silent None/zero — if the bound value is not an object or the
+            # named property is absent at runtime.
+            if not isinstance(val, dict) or field not in val:
+                raise EvalBlocked(BLOCK_INVALID, [f"{expr['name']}.{field}"])
+            return val[field]
         fact_type_id = env.symbol_fact_types.get(expr["name"])
         if fact_type_id is not None:
             _validate_categorical_value(fact_type_id, str(val), env)

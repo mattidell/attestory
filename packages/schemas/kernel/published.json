@@ -11,6 +11,7 @@
   "act-horizon-genesis.v1.schema.json": "54e3363ce7c3f968eb51d2e504e052bb4a5bf6283e6861ef8dc4595fcb23b8f7",
   "act-member-transition.v1.schema.json": "32f9cb947eb13b7df76d36c9fa675b64fd29774d6c64f9a1ef4b3ca0a3617eb5",
   "act-member-transition.v2.schema.json": "77d3529449f7b3eef825028a801b23bb8217c7f2b293f6a32c74300ec2eef822",
+  "act-member-transition.v3.schema.json": "9ceee034bed8c8f8db8a9b514b8ab9e79ba9502b0f7f88fbddd2b55ef96df361",
   "act-migration-adoption.v1.schema.json": "1c098440b3363e937e6616bdecc85316c63031b6cf35718ff58a4335127ea6e7",
   "act-package-adoption.v1.schema.json": "de7723ee285b7c7d919415db2a0c70ab14758527105a13c70cd104433476dd4d",
   "act.v1.schema.json": "d71acc2e45850ee98c4a27e5ac1a5671e94ec8a8fdaabdd27cf6c41736e6b3c4",

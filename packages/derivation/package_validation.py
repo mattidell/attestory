@@ -61,7 +61,7 @@ def _families_reached(
     reached: set[tuple[str, str]] = set()
     schema = citizen.get("schema")
 
-    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
+    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}:
         for symbol in citizen.get("requires", []):
             if symbol in families_by_subtotal:
                 reached.add((families_by_subtotal[symbol], "reads_subtotal"))
@@ -190,7 +190,7 @@ def _predicate_depth(node: Any) -> int:
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
 _RULE_ARTIFACT_SCHEMAS = frozenset(
-    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}
+    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}
 )
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
@@ -220,6 +220,21 @@ _V11_ADJUSTMENT_SLOTS = (
     ("tax.us.2025.scheduleb.adjustment.abp-adjustment", "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal"),
 )
 
+# v6 migrated successor route: the legacy accrued-interest slot is dropped
+# (the legacy input surface is retired for new obligations); nominee and
+# abp-adjustment are unaffected, unrelated adjustment classes and remain.
+_V6_ADJUSTMENT_SLOTS = (
+    ("tax.us.2025.scheduleb.adjustment.nominee", "tax.us.2025.interest.scheduleb-nominee-subtotal"),
+    ("tax.us.2025.scheduleb.adjustment.abp-adjustment", "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal"),
+)
+
+# Pairing-scoped current-year-adjustment subtotal consumed by line-2b v5
+# (coexistence) and v6 (the migrated, single-subtractand successor).
+# Derived, not a source-family slot: no require_closed / family pin.
+_PAIRING_SCOPED_LINE2B_SUBTOTALS = (
+    "tax.us.2025.interest.current-year-adjustment-subtotal",
+)
+
 # E14.2 (extended by ADR-0032): record-kind and contribution citizens are never
 # permissible rule/package dependencies. Runs consume facts, not process accounts
 # or contribution events.
@@ -233,6 +248,7 @@ _NON_INPUT_SCHEMAS = frozenset({
     "derivation-record.v5",
     "derivation-record.v6",
     "derivation-record.v7",
+    "derivation-record.v8",
 })
 
 # ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
@@ -286,6 +302,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "rule-artifact.v4",
     "rule-artifact.v5",
     "rule-artifact.v6",
+    "rule-artifact.v7",
     "source-closure-mapping.v2",
     "source-family.v1",
     "source-family.v2",
@@ -483,6 +500,77 @@ def _iter_ref_names(expr: Any) -> Iterable[str]:
             yield from _iter_ref_names(item)
 
 
+def _iter_ref_field_bindings(expr: Any) -> Iterable[tuple[str, str]]:
+    """Yield ``(name, field)`` for every ``ref`` node that names a field."""
+    if isinstance(expr, dict):
+        if (
+            expr.get("op") == "ref"
+            and isinstance(expr.get("name"), str)
+            and isinstance(expr.get("field"), str)
+        ):
+            yield expr["name"], expr["field"]
+        for value in expr.values():
+            yield from _iter_ref_field_bindings(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_ref_field_bindings(item)
+
+
+FIELD_REF_UNKNOWN_FIELD = "FIELD_REF_UNKNOWN_FIELD"
+FIELD_REF_NOT_OBJECT = "FIELD_REF_NOT_OBJECT"
+
+
+def check_field_ref_bindings(
+    citizen: Mapping[str, Any],
+    fact_types_by_id: Mapping[str, Mapping[str, Any]],
+    binding_fact_types: Mapping[str, str],
+) -> list[MemberIssue]:
+    """Reject ``field`` selectors the bound fact type cannot support.
+
+    ADR-0067 Decision 4: a misspelled field, a field on a fact type with no
+    ``value_schema.properties``, and a field on a scalar fact type all fail
+    closed at load time — never a silent None/zero at evaluation.
+    """
+    issues: list[MemberIssue] = []
+    pin_id = str(citizen.get("id", ""))
+    pin_version = str(citizen.get("version", ""))
+    seen: set[tuple[str, str]] = set()
+    for expr_key in ("when", "value"):
+        for symbol, field in _iter_ref_field_bindings(citizen.get(expr_key)):
+            key = (symbol, field)
+            if key in seen:
+                continue
+            seen.add(key)
+            fact_type_id = binding_fact_types.get(symbol, symbol)
+            fact_type = fact_types_by_id.get(fact_type_id)
+            if fact_type is None:
+                issues.append(MemberIssue(
+                    pin_id, pin_version, FIELD_REF_UNKNOWN_FIELD,
+                    f"field-ref binds symbol {symbol!r} (fact type "
+                    f"{fact_type_id!r}), which is not a known fact type in "
+                    f"this package's surface",
+                ))
+                continue
+            value_schema = fact_type.get("value_schema")
+            properties = value_schema.get("properties") if isinstance(value_schema, dict) else None
+            if not isinstance(properties, dict):
+                issues.append(MemberIssue(
+                    pin_id, pin_version, FIELD_REF_NOT_OBJECT,
+                    f"field-ref names {field!r} on {fact_type_id!r}, which "
+                    f"has no value_schema.properties (scalar or non-object "
+                    f"fact types cannot be field-indexed)",
+                ))
+                continue
+            if field not in properties:
+                issues.append(MemberIssue(
+                    pin_id, pin_version, FIELD_REF_UNKNOWN_FIELD,
+                    f"field-ref names {field!r} on {fact_type_id!r}, which "
+                    f"has no such property in its value_schema "
+                    f"(known: {sorted(properties)})",
+                ))
+    return issues
+
+
 def _iter_cds_member_names(expr: Any) -> Iterable[str]:
     """Yield ``ref`` names declared as ``conditional_dependency_set`` members.
 
@@ -592,7 +680,7 @@ def compile_validation_graph(
 
     for member in resolved_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
             compiled.append(member)
             continue
 
@@ -663,7 +751,7 @@ def check_validation_graph(
 
     for member in compiled_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
             continue
 
         artifact_id = member["id"]
@@ -1158,20 +1246,20 @@ def validate_package(
             if pin["role"] == "composition" and citizen.get("publishes") == S:
                 comp_member = (pin, citizen)
                 break
-        # Schedule B interest-adjustment route: line 2b@v4 publishes taxable-total
+        # Schedule B interest-adjustment route: line 2b publishes taxable-total
         # after subtracting closed adjustment classes from the positive composition.
         # The selected composition citizen publishes the positive-total basis, not
         # taxable-total; resolve composition through the producer pin instead of
         # requiring a second selected version of the same composition id. This is a
-        # structural fact about rule.form1040-line2b@v4 itself, not about which
-        # package version adopts it, so no package-version gate is applied here.
+        # structural fact about rule.form1040-line2b (v4 and its v5 successor),
+        # not about which package version adopts it, so no package-version gate
+        # is applied here.
         if comp_member is None and S == "tax.us.2025.interest.taxable-total":
             for pin, citizen in resolved:
                 if (
                     citizen["schema"] in _RULE_ARTIFACT_SCHEMAS
                     and citizen.get("publishes") == S
                     and pin["id"] == "tax.us.2025.rule.form1040-line2b"
-                    and pin["version"] == "v4"
                 ):
                     r_comp = citizen.get("composition")
                     if not isinstance(r_comp, dict):
@@ -1212,12 +1300,32 @@ def validate_package(
                 rule_requires = set(rule_citizen.get("requires", []))
                 v11_adjustment_route = (
                     rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
-                    and rule_pin["version"] == "v4"
+                    and rule_pin["version"] in {"v4", "v5"}
                 )
-                expected_adjustment_subtotals = {
-                    subtotal for _family, subtotal in _V11_ADJUSTMENT_SLOTS
-                } if v11_adjustment_route else set()
-                expected_rule_requires = comp_constituents | expected_adjustment_subtotals
+                v6_adjustment_route = (
+                    rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
+                    and rule_pin["version"] == "v6"
+                )
+                pairing_scoped_line2b = (
+                    rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
+                    and rule_pin["version"] in {"v5", "v6"}
+                )
+                if v11_adjustment_route:
+                    expected_adjustment_subtotals = {
+                        subtotal for _family, subtotal in _V11_ADJUSTMENT_SLOTS
+                    }
+                elif v6_adjustment_route:
+                    expected_adjustment_subtotals = {
+                        subtotal for _family, subtotal in _V6_ADJUSTMENT_SLOTS
+                    }
+                else:
+                    expected_adjustment_subtotals = set()
+                expected_derived_subtotals = (
+                    set(_PAIRING_SCOPED_LINE2B_SUBTOTALS) if pairing_scoped_line2b else set()
+                )
+                expected_rule_requires = (
+                    comp_constituents | expected_adjustment_subtotals | expected_derived_subtotals
+                )
                 if expected_rule_requires != rule_requires:
                     issues.append(MemberIssue(comp_pin["id"], comp_pin["version"], "COMPOSITION_SLOT_BIJECTION_MISMATCH",
                                                f"composition constituents {expected_rule_requires} do not match rule requires {rule_requires}"))
@@ -1257,6 +1365,11 @@ def validate_package(
                 if v11_adjustment_route:
                     expected_subtotals.extend(subtotal for _family, subtotal in _V11_ADJUSTMENT_SLOTS)
                     expected_families.extend(family for family, _subtotal in _V11_ADJUSTMENT_SLOTS)
+                elif v6_adjustment_route:
+                    expected_subtotals.extend(subtotal for _family, subtotal in _V6_ADJUSTMENT_SLOTS)
+                    expected_families.extend(family for family, _subtotal in _V6_ADJUSTMENT_SLOTS)
+                if pairing_scoped_line2b:
+                    expected_subtotals.extend(_PAIRING_SCOPED_LINE2B_SUBTOTALS)
                 value_refs = list(_iter_ref_names(rule_citizen.get("value")))
                 closure_reads = list(_iter_require_closed_source_sets(rule_citizen.get("when")))
                 input_pins = [p["id"] for p in rule_citizen.get("pins", []) if p.get("role") == "input"]
@@ -1314,11 +1427,13 @@ def validate_package(
         # missing from this set, so a stale or dangling entrypoint in a
         # v22-schema package passed validation silently). v23 (migration-
         # artifact.v1), v24 (declarative-validation-substrate-f8949's
-        # source-family.v2), and v25 (rule-artifact.v6) are likewise v21's
-        # own entrypoint-pin contract unchanged.
+        # source-family.v2), v25 (rule-artifact.v6), and v26
+        # (rule-artifact.v7) are likewise v21's own entrypoint-pin contract
+        # unchanged.
         if package.get("schema") in {
             "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
             "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
+            "artifact-package.v26",
         }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
@@ -1392,7 +1507,7 @@ def validate_package(
                 # Interest Deduction milestone Tracks 1/6b), an additive
                 # expression-language extension only -- it carries the same
                 # declared-refs-outside-requires capability.
-                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
+                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}:
                     declared_refs.update(_iter_ref_names(citizen["when"]))
                     declared_refs.update(_iter_ref_names(citizen["value"]))
                 for req in declared_refs:
@@ -1971,7 +2086,7 @@ def validate_package(
         # (Form 1098-E Student Loan Interest Deduction milestone Tracks
         # 1/6b); the conditional_dependency_set/category_literal domain-match
         # check applies identically.
-        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6"}:
+        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}:
             continue
         member_names = set(_iter_cds_member_names(citizen["when"])) | set(
             _iter_cds_member_names(citizen["value"])
@@ -2016,6 +2131,17 @@ def validate_package(
                                           f"category_literal names {fact_type_id!r} version "
                                           f"{fact_type_version!r}, which is not a member of this "
                                           f"package's fact surface"))
+
+    # 10c. Field-ref load-time check (ADR-0067 Decision 4): a `ref` node's
+    # optional `field` must name a property on the bound fact type's
+    # value_schema.properties. Misspelled fields and field-on-scalar are
+    # rejected here, never as a silent None/zero at evaluation.
+    for pin, citizen in resolved:
+        if citizen["schema"] != "rule-artifact.v7":
+            continue
+        issues.extend(check_field_ref_bindings(
+            citizen, fact_types_by_id, binding_fact_types_local,
+        ))
 
     # 11. Unique output ownership (decision 7)
     declared_conflicts = {c["symbol"] for c in package.get("conflict_semantics", [])}

@@ -1,0 +1,69 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.interest.current-year-adjustment.pairing-scoped",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.acquisition-report-pairing",
+          "kind": "entity",
+          "name": "pairing"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.taxable-interest",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Current-year accrued-interest adjustment for one ADR-0068 acquisition-to-report pairing; identity is the pairing itself (plus tax year) and is never a Schedule B form-row entity.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.basis.item-level-consequence.pairing-scoped",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.acquisition-report-pairing",
+          "kind": "entity",
+          "name": "pairing"
+        },
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Item-level basis consequence of accrued interest paid to the seller for one ADR-0068 acquisition-to-report pairing; identity is the pairing itself (plus tax year) and is never a Schedule B form-row entity.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.pairing-scoped-consequences.vocabulary",
+  "label": "Synthetic 2025 pairing-scoped current-year adjustment and basis-consequence vocabulary",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

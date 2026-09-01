@@ -1,0 +1,21 @@
+{
+  "schema": "finding.v2",
+  "id": "demo.finding.acq.a2",
+  "fact_id": "tax.us.obligation-acquisition-circumstance|payer=demo.payer.bank-a,reference=DEMO-BOND-002,acquisition-year=2025",
+  "value": {
+    "obligation": {
+      "payer_name": "demo.payer.bank-a",
+      "description": "synthetic municipal bond series demo-2025-b",
+      "reference": "DEMO-BOND-002"
+    },
+    "acquisition_date": "2025-06-01",
+    "accrued_interest_paid_to_seller": 18.0,
+    "currency": "USD",
+    "reported_statement_reference": null,
+    "confirmed_report_match": false
+  },
+  "basis": "attested",
+  "evidence_ids": [
+    "demo.evidence.acq.a2"
+  ]
+}

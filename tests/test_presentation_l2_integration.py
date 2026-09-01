@@ -216,6 +216,7 @@ class ValidatorStrictness(unittest.TestCase):
             }],
             "citationGroups": [],
             "attachments": [],
+            "unsupportedSourceFindings": [],
         }
 
     def test_unknown_top_level_key_rejects(self) -> None:
@@ -281,7 +282,12 @@ class GoldenRegeneration(unittest.TestCase):
 
 
 class CoordinatorIntegration(unittest.TestCase):
-    def test_presentation_artifact_is_confined_and_result_json_is_unchanged_shape(self) -> None:
+    def test_presentation_artifact_is_confined_and_result_json_carries_authorization(self) -> None:
+        """The durable result file carries ``current``,
+        ``authorization_status``, and ``authorization_grant_id`` alongside
+        the run/stop_reason/dispositions shape -- a reader of this file, not
+        only the in-memory ``LiveCoordinatorOutcome``, must be able to
+        recover the resolved standing authorization."""
         acts = golden.canonical_acts()
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -297,11 +303,18 @@ class CoordinatorIntegration(unittest.TestCase):
             self.assertEqual(result.presentation_path.parent, result.output_path.parent)
 
             report = json.loads(result.output_path.read_text("utf-8"))
-            self.assertEqual(set(report), {"run_id", "stop_reason", "dispositions"})
+            self.assertEqual(
+                set(report),
+                {"run_id", "stop_reason", "dispositions", "current", "authorization_status", "authorization_grant_id"},
+            )
+            self.assertEqual(report["current"], result.current)
+            self.assertEqual(report["authorization_status"], result.authorization_status)
 
             model = json.loads(result.presentation_path.read_text("utf-8"))
             validate_presentation_model(model)  # must not raise
             self.assertTrue(len(model["sections"]) > 0)
+            self.assertIn("authorization", model)
+            self.assertEqual(model["authorization"]["status"], result.authorization_status)
 
     def test_resolver_refusal_writes_neither_result_nor_presentation_artifact(self) -> None:
         with TemporaryDirectory() as tmp:

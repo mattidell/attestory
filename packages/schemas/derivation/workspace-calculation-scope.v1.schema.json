@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/workspace-calculation-scope.v1",
+  "title": "Declared calculation scope",
+  "description": "ADR-0069 Decision 5/9: names the specific rule id(s) a workspace's calculation actually composes, as an out-of-kernel act-log entry (run-request.v1 is deliberately closed, ADR-0032 Decision 3) -- not a kernel-projected fact. It is never a Finding, is never addressable from env.sources or any rule's when/value expression, and no tax computation can read it; it is consumed by exactly one dedicated, non-kernel fold (packages/derivation/authorization.py's project()), the same tier of citizen as the calculation-authorization grant/end acts. The standing-authorization re-authorization boundary always includes at least the entrypoints a run actually resolves, executes, and publishes (root_rule_ids); when this declaration is present for the resolving (subject_id, tax_year), its named rule ids are unioned into that root -- the declaration can only widen the boundary, never replace or narrow it below what the run actually executes and publishes. A later declaration at the same (subject_id, tax_year) replaces this one in the fold; there is no supersedes chain because a scope declaration is descriptive, not a grant of anything.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "workspace-calculation-scope.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "subject_id": { "type": "string", "minLength": 1 },
+    "tax_year": { "type": "string", "minLength": 1 },
+    "rule_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": ["schema", "id", "subject_id", "tax_year", "rule_ids"],
+  "additionalProperties": false
+}

@@ -1,0 +1,145 @@
+{
+  "$id": "kernel/act-member-transition.v3",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One membership-changing transition \u2014 add, remove, or reclassify across the canonical member predicate \u2014 carrying exactly one same-family/scope horizon successor referencing the current predecessor (ADR-0017 decision 3). The transition is all-or-nothing: a member change without a successor, or a successor without a member change, is malformed and alters nothing. Family and scope are stated once here and bind both halves, so a differently-scoped successor is unrepresentable. A same-member value correction that does not change predicate membership uses the ordinary assertion act and never this kind (ADR-0017 decision 4). Additive over v2: the 'remove' and 'reclassify' member actions may optionally carry 'corresponds_to_fact_id', naming the fact_id of whatever current finding actually took over the withdrawn fact's computational role. This is a bare, checkable claim, not a semantic guarantee \u2014 the kernel only records it (packages/kernel/findings.py's FindingState.withdrawal_correspondence) for historical completeness; it never inspects whether the correspondence is 'the same real-world obligation' in any domain's terms, and no migration-adoption check consults it for authority (packages/kernel/findings.py's _refuse_unresolved_nonzero_withdrawals). Omitting the field is still a valid, schema-conformant withdrawal \u2014 it simply cannot resolve a 'resolved-required' migration's unresolved predecessor claim on its own.",
+  "properties": {
+    "family": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z][a-z0-9]*(\\.[a-z0-9-]+)+$",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "type": "object"
+    },
+    "member": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "assert"
+            },
+            "finding": {
+              "properties": {
+                "schema": {
+                  "const": "finding.v2"
+                }
+              },
+              "required": [
+                "schema"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "action",
+            "finding"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "remove"
+            },
+            "corresponds_to_fact_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "fact_id": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "action",
+            "fact_id"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "const": "reclassify"
+            },
+            "corresponds_to_fact_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "fact_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "finding": {
+              "properties": {
+                "schema": {
+                  "const": "finding.v2"
+                }
+              },
+              "required": [
+                "schema"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "action",
+            "fact_id",
+            "finding"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "scope": {
+      "additionalProperties": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "type": "object"
+    },
+    "successor": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "predecessor": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "predecessor"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "family",
+    "scope",
+    "member",
+    "successor"
+  ],
+  "title": "Atomic member transition act payload",
+  "type": "object"
+}

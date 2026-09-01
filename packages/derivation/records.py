@@ -33,11 +33,19 @@ RECORD_STREAM_FILENAME = "derivation_records.jsonl"
 # block-code vocabulary (SOURCE_SET_UNCLOSED, the code the runner actually
 # emits; ADR-0036 production condition 3) and the named tie-out invariant.
 # v4 adds COMPLETENESS_VALUE_VIOLATION (ADR-0055 Decision 2). v5 adds
-# MULTIPLE_F1098_OUT_OF_SCOPE. v6 adds F1098_SCOPE_CONTRADICTION (Track 2
-# repair round 3 finding 1). v7 adds SLI_MFS_INELIGIBLE,
-# SLI_UNIVERSAL_COMPONENT_VIOLATION, and SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE
-# (Form 1098-E Student Loan Interest Deduction milestone, Track 6).
-CURRENT_RECORD_SCHEMA = "derivation-record.v7"
+# MULTIPLE_F1098_OUT_OF_SCOPE. v6 adds F1098_SCOPE_CONTRADICTION. v7 adds
+# SLI_MFS_INELIGIBLE, SLI_UNIVERSAL_COMPONENT_VIOLATION, and
+# SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE (Form 1098-E Student Loan Interest
+# Deduction milestone, Track 6). v8 adds ASSOCIATION_AMBIGUOUS,
+# ACCRUED_EXCEEDS_ASSOCIATED_REPORT, AGGREGATE_ACCRUED_EXCEEDS_REPORT, and
+# SUPPORTABILITY_NOT_ESTABLISHED (Document and Ordinary-Fact Translation
+# Vertical's identity-association and per-pairing/aggregate accrued-interest
+# supportability seams), ASSOCIATION_UNCONFIRMED (a missing or stale
+# exact-report confirmation at either association tier), and
+# ASSOCIATION_MIGRATION_ADOPTION_REQUIRED (a new pairing's
+# collision against a live, pre-migration legacy Schedule B accrued-interest
+# finding at the same dollar amount).
+CURRENT_RECORD_SCHEMA = "derivation-record.v8"
 _VERSIONED_RECORD_SCHEMAS = frozenset(
     {
         "derivation-record.v2",
@@ -46,6 +54,7 @@ _VERSIONED_RECORD_SCHEMAS = frozenset(
         "derivation-record.v5",
         "derivation-record.v6",
         "derivation-record.v7",
+        "derivation-record.v8",
     }
 )
 

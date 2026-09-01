@@ -1,0 +1,41 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.2025.interest.accrued-interest-migrated.presented-claim",
+      "identity_keys": [
+        {
+          "kind": "literal",
+          "name": "tax-year",
+          "values": [
+            "2025"
+          ]
+        },
+        {
+          "entity_kind": "tax.us.scheduleb-adjustment-instance",
+          "kind": "entity",
+          "name": "adjustment-instance"
+        }
+      ],
+      "nature": "determinable",
+      "quantity": {
+        "id": "tax.us.2025.quantity.taxable-interest",
+        "version": "v1"
+      },
+      "schema": "fact-type.v2",
+      "source_amount": true,
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "A presented successor claim (ADR-0063) for a legacy Schedule B accrued-interest adjustment finding retired by tax.us.2025.scheduleb-accrued-interest.succession. Carries only what the retired legacy finding already attested; a person asserts this presented claim itself if they still hold it -- it is never silently converted. Never a computation input: rule.form1040-line2b v6 does not read this symbol, so a workspace that has migrated resolves entirely through the pairing-scoped current-year-adjustment subtotal.",
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.interest.accrued-interest-migrated.vocabulary",
+  "label": "Successor vocabulary: presented claim for a migrated legacy accrued-interest finding (ADR-0072/ADR-0063)",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

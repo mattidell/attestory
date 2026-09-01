@@ -1,0 +1,33 @@
+{
+  "blocked": {
+    "code": "SUPPORTABILITY_NOT_ESTABLISHED",
+    "missing": [
+      "tax.us.2025.relationship.accrued-supported"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.basis-adjustment.accrued-interest",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.basis.item-level-consequence.pairing-scoped",
+  "notes": "Pairing-scoped item-level basis consequence (ADR-0071). Independent rule artifact from the current-year adjustment: superseding this rule does not require touching the current-year rule. Dispatched once per ADR-0068 pairing via evaluate_pairing_scoped_rule. Gated on the ADR-0070 supportability verdict passing for the same pairing. A later-year disposition consumer of this finding is still open.",
+  "pins": [],
+  "publishes": "tax.us.2025.basis.item-level-consequence",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v7",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "field": "accrued_interest_paid_to_seller",
+    "name": "tax.us.obligation-acquisition-circumstance",
+    "op": "ref"
+  },
+  "version": "v1",
+  "when": true
+}

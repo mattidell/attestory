@@ -1,0 +1,23 @@
+{
+  "schema": "derived-finding.v2",
+  "id": "demo.finding.identity-association.one-sided",
+  "symbol": "tax.us.2025.identity-association.acquisition-to-box1|tax.us.obligation-acquisition-circumstance|payer=demo.payer.bank-a,reference=DEMO-BOND-001,acquisition-year=2025",
+  "value": {
+    "left_fact_id": "tax.us.obligation-acquisition-circumstance|payer=demo.payer.bank-a,reference=DEMO-BOND-001,acquisition-year=2025",
+    "right_fact_id": "tax.us.2025.f1099int.box1-interest|payer=demo.payer.bank-a,statement=demo.1099int-statement.s1,tax-year=2025"
+  },
+  "version": "v2",
+  "pins": [
+    {
+      "role": "input",
+      "id": "demo.finding.acq.a1",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "adoption",
+      "id": "demo.package.identity-association",
+      "version": "v1"
+    }
+  ]
+}

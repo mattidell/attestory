@@ -1,0 +1,32 @@
+{
+  "blocked": {
+    "code": "AGGREGATE_ACCRUED_EXCEEDS_REPORT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.scheduleb-adjustment.accrued-interest",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.interest.current-year-adjustment.aggregate-supportability",
+  "notes": "Aggregate accrued-interest supportability. ADR-0070 Decision 4's per-pairing check (each acquisition against its own report's full amount) is correct and unchanged; it cannot see a combined over-claim when several genuinely-associated (ADR-0068) acquisitions share one report. Dispatched once per run (not per pairing) after tax.us.2025.rule.interest.current-year-adjustment.pairing-scoped resolves: groups its publications by the exact report fact id each pairing names, sums the claims per report, and blocks only the report group whose combined claim exceeds that report's own real box-1 amount. Detects and blocks; never allocates. dispatch_aggregate_supportability_on_run intercepts this rule id in _Run.attempt before ordinary once-per-rule-id evaluation, the same interception shape as the current-year-adjustment-subtotal successor aggregator.",
+  "pins": [],
+  "publishes": "tax.us.2025.interest.current-year-adjustment.aggregate-supported",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v7",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "args": [
+      "0"
+    ],
+    "op": "add"
+  },
+  "version": "v1",
+  "when": true
+}

@@ -10,6 +10,14 @@
       "title": "Schedule B (Interest and Ordinary Dividends)"
     }
   ],
+  "authorization": {
+    "admitted": false,
+    "detail": {},
+    "grant_id": null,
+    "kind": "authorization",
+    "role": "authorization",
+    "status": "AUTHORIZATION_ABSENT"
+  },
   "citationGroups": [
     {
       "id": "tax.us.2025.rule.attachment.schedule-b",
@@ -1581,5 +1589,6 @@
         "value": 91600
       }
     }
-  ]
+  ],
+  "unsupportedSourceFindings": []
 }

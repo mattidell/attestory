@@ -1,0 +1,15 @@
+{
+  "finding_mapping": {
+    "policy": "presented-claim"
+  },
+  "id": "tax.us.2025.scheduleb-accrued-interest.succession",
+  "pairs": [
+    {
+      "predecessor": "tax.us.2025.scheduleb.adjustment.accrued-interest.amount",
+      "successor": "tax.us.2025.interest.accrued-interest-migrated.presented-claim"
+    }
+  ],
+  "schema": "migration-artifact.v1",
+  "title": "Succeed the legacy Schedule B accrued-interest adjustment fact type onto a presented-claim successor. Adoption is a direct supersession root: it retires tax.us.2025.scheduleb.adjustment.accrued-interest.amount for the adopting workspace and presents (never silently converts) any then-current legacy finding as a successor claim. This is the migration act a workspace takes up, together with package.core-calculations.v35's rule.form1040-line2b v6, to leave the coexistence rule.form1040-line2b v5 and move off the legacy Schedule B accrued-interest form-row path.",
+  "version": "v1"
+}

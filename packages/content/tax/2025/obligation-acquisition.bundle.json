@@ -1,0 +1,120 @@
+{
+  "fact_types": [
+    {
+      "id": "tax.us.obligation-acquisition-circumstance",
+      "identity_keys": [
+        {
+          "entity_kind": "tax.us.interest-payer",
+          "kind": "entity",
+          "name": "payer"
+        },
+        {
+          "entity_kind": "tax.us.interest-obligation",
+          "kind": "entity",
+          "name": "obligation"
+        },
+        {
+          "kind": "literal",
+          "name": "acquisition-year",
+          "values": [
+            "2025"
+          ]
+        }
+      ],
+      "nature": "determinable",
+      "schema": "fact-type.v2",
+      "supersession": {
+        "policy": "free"
+      },
+      "title": "Ordinary bond-acquisition and accrued-interest circumstance, identified by payer and obligation entity identity with a mandatory report-confirmation target whenever the report match is confirmed, at either tier.",
+      "value_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "if": {
+          "properties": {
+            "confirmed_report_match": {
+              "const": true
+            }
+          },
+          "required": [
+            "confirmed_report_match"
+          ]
+        },
+        "properties": {
+          "accrued_interest_paid_to_seller": {
+            "type": "number"
+          },
+          "acquisition_date": {
+            "type": "string"
+          },
+          "confirmed_report_fact_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "confirmed_report_match": {
+            "type": "boolean"
+          },
+          "currency": {
+            "const": "USD"
+          },
+          "obligation": {
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "payer_name": {
+                "type": "string"
+              },
+              "reference": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "payer_name",
+              "description",
+              "reference"
+            ],
+            "type": "object"
+          },
+          "reported_statement_reference": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "obligation",
+          "acquisition_date",
+          "accrued_interest_paid_to_seller",
+          "currency",
+          "reported_statement_reference",
+          "confirmed_report_match"
+        ],
+        "then": {
+          "properties": {
+            "confirmed_report_fact_id": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "confirmed_report_fact_id"
+          ]
+        },
+        "type": "object"
+      },
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.obligation-acquisition.vocabulary",
+  "label": "2025 obligation-acquisition circumstance vocabulary for the document and ordinary-fact translation vertical: payer/obligation entity-kind identity, an optional reported-statement reference, and a confirmed_report_fact_id naming the specific report fact a confirmation was made against, mandatory whenever confirmed_report_match is true at either tier.",
+  "schema": "bundle.v2",
+  "version": "v1"
+}

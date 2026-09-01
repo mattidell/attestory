@@ -9,6 +9,7 @@ derived evidentiary-standing view without rewriting findings.
 from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
+from decimal import Decimal, InvalidOperation
 from typing import Any
 
 import jsonschema
@@ -25,6 +26,19 @@ ADMITTED_FINDING_SCHEMAS = frozenset({FINDING_SCHEMA, FINDING_SCHEMA_V2})
 
 class FindingModelError(Exception):
     """An evidence or assertion act is semantically inadmissible."""
+
+
+# Named refusal code for a migration artifact declaring
+# ``resolution_policy.policy == "resolved-required"`` (ADR-0072 Decision 4):
+# adoption refuses while any predecessor fact this migration would retire --
+# live or withdrawn -- last recorded a nonzero value. The one currently
+# accepted way to resolve a nonzero claim is a same-identity correction to a
+# genuinely zero value (the predecessor fact type's own declared
+# ``supersession.policy: "free"``); a withdrawal (however it is annotated)
+# never resolves a nonzero claim on its own -- it only matters for a claim
+# whose last recorded value was already zero. Generic kernel mechanism,
+# opt-in per artifact -- no fact-type id is hardcoded here.
+MIGRATION_UNRESOLVED_PREDECESSOR_CLAIM = "MIGRATION_UNRESOLVED_PREDECESSOR_CLAIM"
 
 
 @dataclass(frozen=True)
@@ -67,6 +81,16 @@ class FindingState:
     # remove/reclassify. Withdrawal is a displacement *root* over the
     # fact's findings (like correction), never a new edge kind.
     withdrawn_fact_ids: frozenset[str] = frozenset()
+    # Withdrawn fact_id -> the fact_id the removing member-transition named
+    # (via act-member-transition.v3's optional ``corresponds_to_fact_id``)
+    # as whatever took over its computational role. Recorded for historical
+    # completeness whenever a v3-shaped removal names one -- v3 remains
+    # accepted, immutable published history -- but no migration-adoption
+    # check consults this map for authority: a real, current correspondence
+    # is not sufficient to establish that a nonzero claim's role actually
+    # transferred, so a nonzero legacy claim always blocks migration
+    # regardless of what this map holds.
+    withdrawal_correspondence: dict[str, str] = field(default_factory=dict)
     # Presented successor claims produced by a migration-adoption act.
     # Each is an input to a later user assertion; nothing here writes a
     # successor finding (ADR-0025 decision 7, finding half only).
@@ -722,6 +746,7 @@ def apply_member_transition(
     member = payload["member"]
     findings = dict(state.findings)
     withdrawn = state.withdrawn_fact_ids
+    withdrawal_correspondence = state.withdrawal_correspondence
     touched_fact_ids: list[str] = []
     if member["action"] in ("assert", "reclassify"):
         finding = member["finding"]
@@ -745,6 +770,10 @@ def apply_member_transition(
     if member["action"] in ("remove", "reclassify"):
         withdrawn = _withdraw_member_fact(state, member["fact_id"])
         touched_fact_ids.append(member["fact_id"])
+        corresponds_to_fact_id = member.get("corresponds_to_fact_id")
+        if corresponds_to_fact_id is not None:
+            withdrawal_correspondence = dict(withdrawal_correspondence)
+            withdrawal_correspondence[member["fact_id"]] = corresponds_to_fact_id
 
     entities = dict(state.fact_state.entities)
     predecessor_lifecycle = entities.get(predecessor_id)
@@ -765,6 +794,7 @@ def apply_member_transition(
         horizon_state=horizon_state,
         findings=findings,
         withdrawn_fact_ids=withdrawn,
+        withdrawal_correspondence=withdrawal_correspondence,
         fact_state=replace(state.fact_state, entities=entities),
     )
     _enforce_subset_invariants(new_state, registry, tuple(touched_fact_ids))
@@ -782,6 +812,18 @@ def _present_successor_claims(
     Only the last current finding on each predecessor fact is an input.
     Open predecessor facts produce no claim. The user asserts the
     presented value; this function does not write a successor finding.
+
+    A predecessor finding whose fact_id is in ``state.withdrawn_fact_ids``
+    is skipped entirely (see the ``if fact_id in state.withdrawn_fact_ids``
+    check below): a withdrawn finding's true value is preserved unmodified
+    in ``state.findings``, but it is no longer live, so no claim is built
+    for it. A withdrawn predecessor's own true, last-recorded value is
+    still separately checked for zero-ness by
+    ``_refuse_unresolved_nonzero_withdrawals`` (``apply_migration_adoption``
+    reads ``state.findings``/``state.withdrawn_fact_ids`` directly for that
+    check, not this function's ``claims`` output) -- withdrawal never
+    exempts a nonzero claim from that check on its own; it only ever
+    matters for a claim whose value was already genuinely zero.
     """
     lattice = facts.facts_of(state.fact_state)
     claims: list[dict[str, Any]] = []
@@ -814,6 +856,147 @@ def _present_successor_claims(
     return tuple(claims)
 
 
+def _is_zero_value(value: Any) -> bool:
+    """True only for a value that unambiguously means "no live claim".
+
+    A value this function cannot parse as a number is treated as *not*
+    zero -- refusing an unresolved-looking claim is the safe default,
+    never silently letting an unparseable value through. This is one of
+    two independent ways a predecessor claim resolves before migration
+    (the other is withdrawal, checked directly against
+    ``state.withdrawn_fact_ids`` in ``_present_successor_claims`` --
+    ``_is_zero_value`` never stands in for withdrawal, since a claim that
+    is truly nonzero must never be asserted as zero to unblock migration;
+    see ``_refuse_unresolved_nonzero_claims``).
+    """
+    if isinstance(value, bool):
+        return value is False
+    try:
+        return Decimal(str(value)) == 0
+    except (InvalidOperation, ValueError, TypeError):
+        return False
+
+
+def _refuse_unresolved_nonzero_claims(
+    migration: dict[str, Any], claims: tuple[dict[str, Any], ...], registry: SchemaRegistry
+) -> None:
+    """Enforce an opt-in, registry-declared ``resolved-required`` resolution
+    policy for this migration id (ADR-0072 Decision 4). Resolution for a
+    nonzero predecessor claim is a genuinely-zero correction, or a
+    withdrawal whose claim was already genuinely zero -- never a
+    withdrawal alone for a claim that is still nonzero.
+
+    Without this, adoption presents a claim for a then-current predecessor
+    finding and immediately retires the predecessor type -- a real, live
+    legacy value would be presented (never written) but no longer
+    contribute to any computation, discarded with no refusal and no trace.
+
+    A ``resolved-required`` migration id instead refuses adoption outright
+    while any predecessor claim remains live and nonzero. ``claims`` (built
+    by ``_present_successor_claims``) already omits any predecessor
+    finding whose fact_id is in ``state.withdrawn_fact_ids`` -- so a claim
+    reaching this function was never withdrawn; a withdrawn predecessor's
+    own nonzero value is separately checked by
+    ``_refuse_unresolved_nonzero_withdrawals``, which this function does
+    not duplicate. The one currently accepted way to resolve a live,
+    nonzero legacy claim before adoption is a same-identity correction to a
+    genuinely zero value -- the fact type's own declared
+    ``supersession.policy: "free"`` (as ADR-0072's amount-collision
+    resolution already uses) -- valid only when the amount genuinely
+    became zero (e.g. a data-entry correction), never to paper over a
+    claim that is still true. A member-transition withdrawal, with or
+    without a named ``corresponds_to_fact_id``, does not resolve a live,
+    nonzero claim: see ``_refuse_unresolved_nonzero_withdrawals``, which
+    refuses that shape unconditionally.
+
+    The policy is declared on ``registry.migration_resolution_policies``
+    (a domain loader populates the map, mirroring
+    ``companion_presence_pairs`` / ``declaration_signal_contradictions``),
+    never hardcoded to a migration or fact-type id in this generic kernel
+    mechanism -- a migration id absent from the map keeps today's
+    unconditional-adoption behavior.
+    """
+    if registry.migration_resolution_policies.get(migration["id"]) != "resolved-required":
+        return
+    unresolved = sorted(
+        claim["predecessor_fact_id"]
+        for claim in claims
+        if not _is_zero_value(claim["proposed_value"])
+    )
+    if unresolved:
+        raise FindingModelError(
+            f"migration {migration['id']}: {MIGRATION_UNRESOLVED_PREDECESSOR_CLAIM} -- "
+            "adoption refused: unresolved legacy claim(s) would be discarded "
+            "by this migration (never carried forward as a computation "
+            "input). A nonzero legacy claim blocks migration; the only "
+            "currently accepted resolution is a same-identity correction to "
+            "a genuinely zero value via the predecessor fact type's own "
+            "declared supersession policy. Withdrawing the claim does not "
+            "resolve it -- it must already be zero. Never assert zero for a "
+            f"claim that is still true: {', '.join(unresolved)}"
+        )
+
+
+def _refuse_unresolved_nonzero_withdrawals(
+    state: FindingState, migration: dict[str, Any], registry: SchemaRegistry
+) -> None:
+    """One coherent rule for a withdrawn predecessor fact under a
+    ``resolved-required`` migration: it blocks adoption if and only if its
+    own true, last-recorded value is still nonzero -- regardless of
+    whether the removing member-transition named a
+    ``corresponds_to_fact_id`` (act-member-transition.v3), and regardless
+    of whether any named correspondence is real, current, or displaced.
+
+    A named correspondence (``corresponds_to_fact_id``) is never checked or
+    consulted for a withdrawal, regardless of value: the predecessor fact
+    type carries no obligation, payer, or report identity anywhere in its
+    own declared identity keys for any correspondence to be checked
+    against, so a real, current, but domain-wrong correspondence could
+    otherwise let migration admit and publish a known-wrong result, and a
+    withdrawn predecessor whose value is already genuinely zero must never
+    be refused merely for omitting an irrelevant "replacement" for a
+    computational role that never existed. No correspondence is required,
+    checked, or consulted for any withdrawal, regardless of value. A
+    nonzero withdrawn predecessor always blocks; a zero withdrawn
+    predecessor never does. The only currently accepted way to resolve a
+    live or withdrawn nonzero legacy claim is a same-identity correction
+    to a genuinely zero value (see ``_refuse_unresolved_nonzero_claims``).
+    Whether to build a genuine representation-transfer adjudication act
+    remains an explicit, undecided owner question (ADR-0072, "Open and
+    owner-held" in ``docs/phase-state.md``) -- not something this function
+    should approximate with another structural proxy.
+    """
+    if registry.migration_resolution_policies.get(migration["id"]) != "resolved-required":
+        return
+    predecessor_types = {pair["predecessor"] for pair in migration["pairs"]}
+    lattice = facts.facts_of(state.fact_state)
+    last_by_fact: dict[str, dict[str, Any]] = {}
+    for finding in state.findings.values():
+        last_by_fact[finding["fact_id"]] = finding
+    unresolved = sorted(
+        fact.fact_id
+        for fact in lattice.values()
+        if fact.fact_type_id in predecessor_types
+        and fact.fact_id in state.withdrawn_fact_ids
+        and fact.fact_id in last_by_fact
+        and not _is_zero_value(last_by_fact[fact.fact_id]["value"])
+    )
+    if unresolved:
+        raise FindingModelError(
+            f"migration {migration['id']}: {MIGRATION_UNRESOLVED_PREDECESSOR_CLAIM} -- "
+            "adoption refused: withdrawn predecessor fact(s) still carry a "
+            "true, nonzero historical value. A nonzero legacy claim blocks "
+            "migration whether or not it was withdrawn, and whether or not "
+            "the withdrawal named a corresponds_to_fact_id -- no accepted "
+            "mechanism can check a claimed representation transfer against "
+            "anything, since the predecessor fact type carries no "
+            "obligation, payer, or report identity. The only currently "
+            "accepted resolution is a same-identity correction to a "
+            "genuinely zero value via the predecessor fact type's own "
+            f"declared supersession policy: {', '.join(unresolved)}"
+        )
+
+
 def apply_migration_adoption(
     state: FindingState, payload: dict[str, Any], registry: SchemaRegistry
 ) -> FindingState:
@@ -821,6 +1004,8 @@ def apply_migration_adoption(
     migration = payload["migration"]
     registry.validate_declared(migration)
     claims = _present_successor_claims(state, migration)
+    _refuse_unresolved_nonzero_claims(migration, claims, registry)
+    _refuse_unresolved_nonzero_withdrawals(state, migration, registry)
     new_fact_state = facts.apply_migration_adoption(
         state.fact_state, payload, registry
     )

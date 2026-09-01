@@ -1,0 +1,351 @@
+{
+  "$defs": {
+    "disposition": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "published"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "code"
+                  ]
+                },
+                {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                {
+                  "required": [
+                    "superseded_by"
+                  ]
+                }
+              ]
+            },
+            "required": [
+              "finding_id",
+              "act_id",
+              "symbol"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "blocked"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                {
+                  "required": [
+                    "superseded_by"
+                  ]
+                }
+              ]
+            },
+            "required": [
+              "code",
+              "missing"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "inapplicable"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "oneOf": [
+              {
+                "not": {
+                  "required": [
+                    "superseded_by"
+                  ]
+                },
+                "required": [
+                  "guard_result"
+                ]
+              },
+              {
+                "not": {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                "required": [
+                  "superseded_by"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "act_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "artifact_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "code": {
+          "enum": [
+            "DEPENDENCY_ABSENT",
+            "DEPENDENCY_INVALID",
+            "CATEGORICAL_DOMAIN_MISMATCH",
+            "SOURCE_SET_UNCLOSED",
+            "VALUE_INVALID",
+            "ITEMIZATION_TIE_OUT_VIOLATION",
+            "COMPLETENESS_VALUE_VIOLATION",
+            "MULTIPLE_F1098_OUT_OF_SCOPE",
+            "F1098_SCOPE_CONTRADICTION",
+            "SLI_MFS_INELIGIBLE",
+            "SLI_UNIVERSAL_COMPONENT_VIOLATION",
+            "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE",
+            "ASSOCIATION_AMBIGUOUS",
+            "ACCRUED_EXCEEDS_ASSOCIATED_REPORT",
+            "SUPPORTABILITY_NOT_ESTABLISHED",
+            "AGGREGATE_ACCRUED_EXCEEDS_REPORT",
+            "ASSOCIATION_UNCONFIRMED",
+            "ASSOCIATION_MIGRATION_ADOPTION_REQUIRED"
+          ]
+        },
+        "disposition": {
+          "enum": [
+            "published",
+            "blocked",
+            "inapplicable"
+          ]
+        },
+        "finding_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "guard_result": {
+          "const": false
+        },
+        "missing": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "pins": {
+          "items": {
+            "$ref": "#/$defs/pin"
+          },
+          "type": "array"
+        },
+        "superseded_by": {
+          "$ref": "#/$defs/pin"
+        },
+        "symbol": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "disposition",
+        "pins"
+      ],
+      "type": "object"
+    },
+    "pin": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "not": {
+              "required": [
+                "origin"
+              ]
+            }
+          },
+          "if": {
+            "properties": {
+              "role": {
+                "const": "input"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "then": {
+            "required": [
+              "origin"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "assertion",
+            "declared_default"
+          ]
+        },
+        "role": {
+          "enum": [
+            "adoption",
+            "governance",
+            "parameter",
+            "input",
+            "choice",
+            "default",
+            "composition",
+            "citation",
+            "package",
+            "operation-semantics"
+          ]
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "id",
+        "version"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "derivation/derivation-record.v8",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "required": [
+          "stop_reason",
+          "dispositions"
+        ]
+      },
+      "if": {
+        "properties": {
+          "phase": {
+            "const": "started"
+          }
+        },
+        "required": [
+          "phase"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "stop_reason"
+              ]
+            },
+            {
+              "required": [
+                "dispositions"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "description": "Additive successor to derivation-record.v7 (Document and Ordinary-Fact Translation Vertical). Widens the disposition block-code vocabulary with ASSOCIATION_AMBIGUOUS (Seam 2 identity association), ACCRUED_EXCEEDS_ASSOCIATED_REPORT and AGGREGATE_ACCRUED_EXCEEDS_REPORT (Seam 3 per-pairing and aggregate accrued-interest supportability), SUPPORTABILITY_NOT_ESTABLISHED (Seam 3), ASSOCIATION_UNCONFIRMED (a missing or stale exact-report confirmation at either association tier), and ASSOCIATION_MIGRATION_ADOPTION_REQUIRED (Seam 2's new-pairing collision against a live, pre-migration legacy Schedule B accrued-interest finding at the same dollar amount) so named pairing/supportability refusals survive the schema-validated disposition ledger instead of collapsing to DEPENDENCY_INVALID. v1-v7 remain immutable history; every other block is unchanged from v7.",
+  "properties": {
+    "adoption_pin": {
+      "$ref": "#/$defs/pin"
+    },
+    "dispositions": {
+      "items": {
+        "$ref": "#/$defs/disposition"
+      },
+      "type": "array"
+    },
+    "governance_pins": {
+      "items": {
+        "$ref": "#/$defs/pin"
+      },
+      "type": "array"
+    },
+    "phase": {
+      "enum": [
+        "started",
+        "completed",
+        "interrupted",
+        "failed"
+      ]
+    },
+    "record_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "run_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "derivation-record.v8"
+    },
+    "stop_reason": {
+      "enum": [
+        "saturated",
+        "interrupted",
+        "validation-failed",
+        "execution-failed"
+      ]
+    },
+    "workspace_revision": {
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema",
+    "record_id",
+    "run_id",
+    "phase",
+    "workspace_revision",
+    "governance_pins",
+    "adoption_pin"
+  ],
+  "title": "Derivation record with identity-association and accrued-interest supportability block codes",
+  "type": "object"
+}

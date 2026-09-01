@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/act-calculation-authorization.v1",
+  "title": "Calculation-authorization act payload",
+  "description": "ADR-0069: the non-kernel grant act that records a standing workspace-calculation-authorization.v1 citizen. Out-of-kernel: the kind is not registered in findings.KERNEL_ACT_KINDS. The nested citizen is the authority; optional supersedes on that citizen names the prior grant at the same (subject_id, tax_year).",
+  "type": "object",
+  "properties": {
+    "authorization": {
+      "type": "object",
+      "properties": {
+        "schema": { "const": "workspace-calculation-authorization.v1" },
+        "id": { "type": "string", "minLength": 1 },
+        "subject_id": { "type": "string", "minLength": 1 },
+        "tax_year": { "type": "string", "minLength": 1 },
+        "universe_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "supersedes": { "type": "string", "minLength": 1 }
+      },
+      "required": ["schema", "id", "subject_id", "tax_year", "universe_id"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["authorization"],
+  "additionalProperties": false
+}

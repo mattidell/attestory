@@ -51,9 +51,12 @@ def _payload_schema_id(kind: str, payload: dict[str, Any] | None = None) -> str:
     """Resolve the published payload schema for an act kind.
 
     Successor carrier acts (assertion / member-transition / bundle-adoption)
-    admit both v1 and v2 payloads. The nested citizen's declared schema
-    selects the payload schema so finding.v2 / bundle.v2 acts admit without
-    inventing a second envelope channel (ADR-0032 successor carriers).
+    admit their published successor payloads. The nested citizen's declared
+    schema (or, for member-transition's ``remove``/``reclassify`` actions,
+    the presence of the v3-only ``corresponds_to_fact_id`` field) selects the
+    payload schema so finding.v2 / bundle.v2 / act-member-transition.v3 acts
+    admit without inventing a second envelope channel (ADR-0032 successor
+    carriers).
     """
     if payload is not None:
         if kind == "assertion":
@@ -63,6 +66,8 @@ def _payload_schema_id(kind: str, payload: dict[str, Any] | None = None) -> str:
         elif kind == "member-transition":
             member = payload.get("member")
             if isinstance(member, dict):
+                if isinstance(member.get("corresponds_to_fact_id"), str):
+                    return "act-member-transition.v3"
                 finding = member.get("finding")
                 if isinstance(finding, dict) and finding.get("schema") == "finding.v2":
                     return "act-member-transition.v2"

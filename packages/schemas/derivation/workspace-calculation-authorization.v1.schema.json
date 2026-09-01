@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/workspace-calculation-authorization.v1",
+  "title": "Standing workspace calculation authorization",
+  "description": "ADR-0069: a durable permission citizen, decoupled from per-family closure, granting that the current workspace may be treated as the complete input record for a calculation scoped to one taxpayer/subject, one tax year, and one rule-scoped re-authorization boundary digest (universe_id). Not a finding, not a family horizon, and not an Ontology Grant. Workspace identity is the holding act log. A later grant at the same (subject_id, tax_year) supersedes this citizen; suspension and withdrawal are dedicated end acts, not absence.",
+  "type": "object",
+  "properties": {
+    "schema": { "const": "workspace-calculation-authorization.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "subject_id": { "type": "string", "minLength": 1 },
+    "tax_year": { "type": "string", "minLength": 1 },
+    "universe_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "supersedes": { "type": "string", "minLength": 1 }
+  },
+  "required": ["schema", "id", "subject_id", "tax_year", "universe_id"],
+  "additionalProperties": false
+}
