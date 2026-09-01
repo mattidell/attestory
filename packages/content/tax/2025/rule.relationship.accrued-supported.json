@@ -1,0 +1,47 @@
+{
+  "schema": "rule-artifact.v7",
+  "id": "tax.us.2025.rule.relationship.accrued-supported",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "gt",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.obligation-acquisition-circumstance",
+        "field": "accrued_interest_paid_to_seller"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.f1099int.box1-interest"
+      }
+    },
+    "then": {
+      "op": "block",
+      "code": "ACCRUED_EXCEEDS_ASSOCIATED_REPORT"
+    },
+    "else": true
+  },
+  "publishes": "tax.us.2025.relationship.accrued-supported",
+  "blocked": {
+    "code": "ACCRUED_EXCEEDS_ASSOCIATED_REPORT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.scheduleb-adjustment.accrued-interest",
+      "version": "v1"
+    }
+  ],
+  "notes": "ADR-0070: accrued amount cannot exceed the associated reported amount. Pairing-scoped — fires once per ADR-0068 pairing finding via evaluate_pairing_scoped_rule, never via ordinary attempt(). Accrued amount is the ADR-0067 field-ref on the acquisition; reported amount is the scalar box-1 value named by the pairing's pinned right_fact_id."
+}

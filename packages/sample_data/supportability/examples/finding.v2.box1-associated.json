@@ -1,0 +1,8 @@
+{
+  "schema": "finding.v2",
+  "id": "demo.finding.box1.associated",
+  "fact_id": "tax.us.2025.f1099int.box1-interest|payer=demo.payer.bank-a,statement=demo.1099int-statement.associated,tax-year=2025",
+  "value": 1000.0,
+  "basis": "documentary",
+  "evidence_ids": ["demo.evidence.box1.associated"]
+}

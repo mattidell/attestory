@@ -1,0 +1,44 @@
+{
+  "schema": "rule-artifact.v7",
+  "id": "demo.rule.relationship.accrued-supported.literal-else",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "demo"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "gt",
+      "left": {
+        "op": "ref",
+        "name": "tax.us.obligation-acquisition-circumstance",
+        "field": "accrued_interest_paid_to_seller"
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.f1099int.box1-interest"
+      }
+    },
+    "then": {
+      "op": "block",
+      "code": "ACCRUED_EXCEEDS_ASSOCIATED_REPORT"
+    },
+    "else": {
+      "op": "literal",
+      "arg": true
+    }
+  },
+  "publishes": "demo.relationship.accrued-supported",
+  "blocked": {
+    "code": "ACCRUED_EXCEEDS_ASSOCIATED_REPORT",
+    "missing": []
+  },
+  "notes": "Negative payload: {\"op\":\"literal\"} is not in the real evaluator grammar and must not validate as rule-artifact.v7."
+}
