@@ -116,6 +116,14 @@ class SchemaRegistry:
         # numeric companion fact type.  The kernel enforces the relation
         # generically at finding admission; domain loaders provide the map.
         self.companion_equality_pairs: dict[str, str] = {}
+        # Migration id -> resolution policy (e.g. "resolved-required"). Empty
+        # by default: apply_migration_adoption's unconditional-adoption
+        # behavior is unchanged for any migration id absent from this map.
+        # A domain loader populates entries (ADR-0072 Decision 4): resolution
+        # for a nonzero predecessor claim is withdrawal or a genuinely-zero
+        # correction, never a forced false zero; the kernel enforces the
+        # policy generically and never names a migration or fact-type id.
+        self.migration_resolution_policies: dict[str, str] = {}
         self._load()
 
     def _load(self) -> None:

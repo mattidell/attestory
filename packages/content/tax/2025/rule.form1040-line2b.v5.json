@@ -1,0 +1,280 @@
+{
+  "blocked": {
+    "code": "OPEN_DEPENDENCY",
+    "missing": [
+      "tax.us.2025.interest.b1-subtotal",
+      "tax.us.2025.interest.b3-subtotal",
+      "tax.us.2025.interest.oid-subtotal",
+      "tax.us.2025.interest.non-form-subtotal",
+      "tax.us.2025.interest.form1065-k1-box5-subtotal",
+      "tax.us.2025.interest.b10-market-discount-subtotal",
+      "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+      "tax.us.2025.interest.scheduleb-nominee-subtotal",
+      "tax.us.2025.interest.scheduleb-accrued-interest-subtotal",
+      "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal",
+      "tax.us.2025.interest.current-year-adjustment-subtotal"
+    ]
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.form1040.line-2b",
+      "version": "v1"
+    }
+  ],
+  "composition": {
+    "id": "tax.us.2025.interest-composition",
+    "version": "v4"
+  },
+  "id": "tax.us.2025.rule.form1040-line2b",
+  "notes": "Computes Form 1040 line 2b from the seven-family positive-interest composition less the three closed Schedule B adjustment classes and the pairing-scoped current-year-adjustment subtotal (ADR-0071 successor aggregator). Coexistence: the incumbent form-row accrued-interest subtotal is still subtracted; the pairing-scoped subtotal is additional. The comparison guard refuses a negative taxable-interest result.",
+  "pins": [
+    {
+      "id": "tax.us.2025.interest.b1-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.b3-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.oid-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.non-form-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.b10-market-discount-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.scheduleb-nominee-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.scheduleb-accrued-interest-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.current-year-adjustment-subtotal",
+      "origin": "assertion",
+      "role": "input",
+      "version": "v1"
+    }
+  ],
+  "publishes": "tax.us.2025.interest.taxable-total",
+  "requires": [
+    "tax.us.2025.interest.b1-subtotal",
+    "tax.us.2025.interest.b3-subtotal",
+    "tax.us.2025.interest.oid-subtotal",
+    "tax.us.2025.interest.non-form-subtotal",
+    "tax.us.2025.interest.form1065-k1-box5-subtotal",
+    "tax.us.2025.interest.b10-market-discount-subtotal",
+    "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+    "tax.us.2025.interest.scheduleb-nominee-subtotal",
+    "tax.us.2025.interest.scheduleb-accrued-interest-subtotal",
+    "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal",
+    "tax.us.2025.interest.current-year-adjustment-subtotal"
+  ],
+  "role": "computation",
+  "schema": "rule-artifact.v3",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "value": {
+    "left": {
+      "args": [
+        {
+          "name": "tax.us.2025.interest.b1-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.interest.b3-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.interest.oid-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.interest.non-form-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.interest.b10-market-discount-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+          "op": "ref"
+        }
+      ],
+      "op": "add"
+    },
+    "op": "subtract",
+    "right": {
+      "args": [
+        {
+          "name": "tax.us.2025.interest.scheduleb-nominee-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.interest.scheduleb-accrued-interest-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal",
+          "op": "ref"
+        },
+        {
+          "name": "tax.us.2025.interest.current-year-adjustment-subtotal",
+          "op": "ref"
+        }
+      ],
+      "op": "add"
+    }
+  },
+  "version": "v5",
+  "when": {
+    "args": [
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b1"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b3"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099oid.b1"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.non-form-interest"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.form1065-k1.box5"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099int.b10"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.f1099oid.b5"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.scheduleb.adjustment.nominee"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.scheduleb.adjustment.accrued-interest"
+      },
+      {
+        "op": "require_closed",
+        "source_set": "tax.us.2025.scheduleb.adjustment.abp-adjustment"
+      },
+      {
+        "cmp": "gte",
+        "left": {
+          "args": [
+            {
+              "name": "tax.us.2025.interest.b1-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.interest.b3-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.interest.oid-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.interest.non-form-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.interest.form1065-k1-box5-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.interest.b10-market-discount-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+              "op": "ref"
+            }
+          ],
+          "op": "add"
+        },
+        "op": "compare",
+        "right": {
+          "args": [
+            {
+              "name": "tax.us.2025.interest.scheduleb-nominee-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.interest.scheduleb-accrued-interest-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal",
+              "op": "ref"
+            },
+            {
+              "name": "tax.us.2025.interest.current-year-adjustment-subtotal",
+              "op": "ref"
+            }
+          ],
+          "op": "add"
+        }
+      }
+    ],
+    "op": "all"
+  }
+}

@@ -155,10 +155,63 @@ def install_domain_companion_equalities(registry: SchemaRegistry) -> SchemaRegis
     return registry
 
 
+def domain_migration_resolution_policies() -> dict[str, str]:
+    """Migration id -> opt-in resolution policy, enforced generically by
+    ``packages.kernel.findings.apply_migration_adoption`` (ADR-0072
+    Decision 4).
+
+    ``tax.us.2025.scheduleb-accrued-interest.succession``'s v1 artifact
+    presents a claim for any then-current legacy finding; without this
+    policy, adoption would immediately retire the predecessor type
+    regardless of that finding's value, silently discarding a live legacy
+    claim genuinely unrelated to any new pairing, with no refusal and no
+    trace. "resolved-required" refuses adoption outright while any
+    predecessor fact this migration would retire -- live or withdrawn --
+    last recorded a nonzero value.
+
+    A nonzero legacy claim blocks migration. The only currently accepted
+    resolution is a same-identity correction to a genuinely zero value
+    (the same free same-identity correction ADR-0072's amount-collision
+    case already uses), never by asserting zero for a claim that is still
+    true. Withdrawing a nonzero claim (an ordinary member-transition
+    removal, ADR-0017) does **not** resolve it, with or without naming
+    ``corresponds_to_fact_id`` (``act-member-transition.v3``): no accepted
+    mechanism can check a claimed representation transfer against
+    anything, since the predecessor fact type carries no obligation,
+    payer, or report identity -- a real, current, but domain-wrong
+    correspondence would otherwise let a genuinely distinct nonzero claim
+    be discarded. Withdrawal only matters for a claim whose value was
+    already genuinely zero, where it migrates without naming any
+    replacement. Whether to build a genuine representation-transfer
+    adjudication act that could let a nonzero claim resolve honestly
+    remains an explicit, undecided owner question (see ADR-0072 and
+    ``docs/phase-state.md``'s "Open and owner-held"); this policy does not
+    approximate that decision with a structural proxy.
+    """
+    return {
+        "tax.us.2025.scheduleb-accrued-interest.succession": "resolved-required",
+    }
+
+
+def install_domain_migration_resolution_policies(registry: SchemaRegistry) -> SchemaRegistry:
+    """Install domain migration-resolution policies on a published registry."""
+    registry.migration_resolution_policies.update(domain_migration_resolution_policies())
+    return registry
+
+
 def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistry:
     """Install domain companion-presence pairs on an existing published registry.
 
     Idempotent: re-applying the same pairs is a no-op for equal keys.
+
+    Also installs migration-resolution policies (``install_domain_
+    migration_resolution_policies``): this function's exact call sites
+    (``tax_registry()`` below and ``packages.derivation.live.live_
+    coordinate_run``) are the two places every registry a workspace fold
+    or production run actually uses gets domain maps layered onto it, so
+    folding the migration-resolution install in here -- rather than adding
+    a third call site to each -- reaches the live path without touching
+    ``packages/derivation/live.py``.
     """
     registry.companion_presence_pairs.update(domain_companion_presence_pairs())
     domains = getattr(registry, "companion_value_domains", None)
@@ -166,6 +219,7 @@ def install_domain_companion_presence(registry: SchemaRegistry) -> SchemaRegistr
         registry.companion_value_domains = {}
         domains = registry.companion_value_domains
     domains.update(domain_companion_value_domains())
+    install_domain_migration_resolution_policies(registry)
     return registry
 
 
