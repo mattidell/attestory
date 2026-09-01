@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/act-calculation-scope-declaration.v1",
+  "title": "Calculation-scope-declaration act payload",
+  "description": "ADR-0069 Decision 5/9: the non-kernel act that records a workspace-calculation-scope.v1 citizen naming the rule id(s) a workspace's calculation actually composes. Out-of-kernel: the kind is not registered in findings.KERNEL_ACT_KINDS, and the nested citizen is not a kernel-projected fact -- it is never addressable from env.sources or any rule's when/value expression. The nested citizen is the authority; a later declaration at the same (subject_id, tax_year) replaces the prior one in the fold, which can only widen the standing-authorization re-authorization boundary, never replace or narrow it below the entrypoints the run actually executes and publishes.",
+  "type": "object",
+  "properties": {
+    "scope": {
+      "type": "object",
+      "properties": {
+        "schema": { "const": "workspace-calculation-scope.v1" },
+        "id": { "type": "string", "minLength": 1 },
+        "subject_id": { "type": "string", "minLength": 1 },
+        "tax_year": { "type": "string", "minLength": 1 },
+        "rule_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": ["schema", "id", "subject_id", "tax_year", "rule_ids"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["scope"],
+  "additionalProperties": false
+}

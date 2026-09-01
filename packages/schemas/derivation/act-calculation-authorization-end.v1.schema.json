@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "derivation/act-calculation-authorization-end.v1",
+  "title": "Calculation-authorization-end act payload",
+  "description": "ADR-0069: the non-kernel act that suspends or withdraws a standing workspace authorization. One kind, two modes. Neither writes a finding nor asserts incompleteness. Absence of a grant is not an end act.",
+  "type": "object",
+  "properties": {
+    "authorization_id": { "type": "string", "minLength": 1 },
+    "ending": { "enum": ["suspend", "withdraw"] }
+  },
+  "required": ["authorization_id", "ending"],
+  "additionalProperties": false
+}
