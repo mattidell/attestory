@@ -1,0 +1,11 @@
+{
+  "schema": "finding.v2",
+  "id": "demo.finding.pair.a1-s1",
+  "fact_id": "tax.us.2025.identity-association.acquisition-to-box1|left=DEMO-BOND-001,right=s1",
+  "value": {
+    "left_fact_id": "tax.us.obligation-acquisition-circumstance|payer=demo.payer.bank-a,reference=DEMO-BOND-001,acquisition-year=2025",
+    "right_fact_id": "tax.us.2025.f1099int.box1-interest|payer=demo.payer.bank-a,statement=demo.1099int-statement.s1,tax-year=2025"
+  },
+  "basis": "attested",
+  "evidence_ids": ["demo.evidence.pair.a1-s1"]
+}

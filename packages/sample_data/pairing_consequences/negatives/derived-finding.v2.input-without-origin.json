@@ -1,0 +1,19 @@
+{
+  "schema": "derived-finding.v2",
+  "id": "demo.finding.current-year-adjustment.bad-origin",
+  "symbol": "tax.us.2025.interest.current-year-adjustment|demo.pair.bad",
+  "value": "42.0",
+  "version": "v2",
+  "pins": [
+    {
+      "role": "computation",
+      "id": "tax.us.2025.rule.interest.current-year-adjustment.pairing-scoped",
+      "version": "v1"
+    },
+    {
+      "role": "input",
+      "id": "demo.finding.acq.a1",
+      "version": "v1"
+    }
+  ]
+}

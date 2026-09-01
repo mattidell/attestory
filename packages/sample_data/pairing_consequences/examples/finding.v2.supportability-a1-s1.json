@@ -1,0 +1,8 @@
+{
+  "schema": "finding.v2",
+  "id": "demo.finding.supportability.a1-s1",
+  "fact_id": "tax.us.2025.relationship.accrued-supported|left=DEMO-BOND-001,right=s1",
+  "value": true,
+  "basis": "attested",
+  "evidence_ids": ["demo.evidence.supportability.a1-s1"]
+}

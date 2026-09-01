@@ -1,0 +1,48 @@
+{
+  "schema": "derived-finding.v2",
+  "id": "demo.finding.basis-consequence.a1-s1",
+  "symbol": "tax.us.2025.basis.item-level-consequence.pairing-scoped|tax.us.2025.identity-association.acquisition-to-box1|left=DEMO-BOND-001,right=s1",
+  "value": "42.0",
+  "version": "v2",
+  "pins": [
+    {
+      "role": "adoption",
+      "id": "demo.package.pairing-consequences",
+      "version": "v1"
+    },
+    {
+      "role": "citation",
+      "id": "tax.us.2025.citation.basis-adjustment.accrued-interest",
+      "version": "v1"
+    },
+    {
+      "role": "computation",
+      "id": "tax.us.2025.rule.basis.item-level-consequence.pairing-scoped",
+      "version": "v1"
+    },
+    {
+      "role": "input",
+      "id": "demo.finding.acq.a1",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "demo.finding.box1.s1",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "demo.finding.pair.a1-s1",
+      "version": "v1",
+      "origin": "assertion"
+    },
+    {
+      "role": "input",
+      "id": "demo.finding.supportability.a1-s1",
+      "version": "v1",
+      "origin": "assertion"
+    }
+  ]
+}
