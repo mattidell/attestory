@@ -44,18 +44,45 @@ retrospective decides what should be repeated or simplified before the
 roadmap is projected farther. Plan:
 [`milestones/document-ordinary-fact-translation.md`](milestones/document-ordinary-fact-translation.md).
 
-### 3. Later-Year Basis Reuse Test
+### 3. Investment Basis Concept and Coverage Model (updated: 2026-09-02)
+
+Establish a sufficiently complete conceptual model of investment basis —
+what has basis, how basis originates, what changes it, when changes apply,
+how documentary reports and ordinary circumstances contribute, how
+overlapping accounts are reconciled, how an adjusted-basis projection is
+produced, and how downstream calculations consume it — so that later
+tax-treatment breadth can usually be added inside a stable structure while
+tax-category completeness is backfilled separately.
+
+It is sequenced before the later-year basis reuse test and before a first
+basis-lifecycle production vertical because both depend on knowing what
+"basis" durably means beyond the single accrued-interest adjustment
+milestone 2 produced. The milestone concentrates on US-federal individual
+investment-property basis (debt obligations and securities), maps
+neighboring cases only far enough to test the structure, and normally
+stops after the domain model, structural coverage matrix, canonical
+propositions, and a consolidated contract specification — not a
+production vertical. Plan:
+[`milestones/investment-basis-concept-coverage.md`](milestones/investment-basis-concept-coverage.md).
+
+### 4. Later-Year Basis Reuse Test (updated: 2026-09-02)
 
 Use a later disposition of the same synthetic obligation to test whether the
-canonical acquisition and obligation model established by milestone 2 remains
-coherent when its basis consequence matters later. Later documentary evidence
-is an input to reconcile, not a substitute for the canonical history.
+canonical acquisition and obligation model established by milestone 2, and
+the adjusted-basis model established by milestone 3, remain coherent when a
+basis consequence matters in a later year. Later documentary evidence is an
+input to reconcile, not a substitute for the canonical history.
 
-This milestone is deferred until the current-year translation exists. It may
+Milestone 3's basis model now exists, so this milestone is unblocked. It
+is also the natural context in which a concrete consumer of a composed
+adjusted basis first appears — the consumer milestone 3 lacked, and
+therefore the setting in which milestone 3's deferred representation
+choice can be tested. Testing it there may discriminate the candidates or
+may show no material difference; neither outcome is assumed. It may
 expose new lifecycle or persistence requirements, but it does not reopen
 whether documentary and ordinary facts need a shared source-independent model.
 
-### 4. Adjacent Translation Case
+### 5. Adjacent Translation Case
 
 Apply the established cadence to one materially different taxable-interest
 translation selected for what it tests: ownership and allocation, a substantive
@@ -67,7 +94,7 @@ question.
 This is the first normalization test. It determines whether the accrued-
 interest result is a reusable product method or a case-specific success.
 
-### 5. Contrasting Tax Concept
+### 6. Contrasting Tax Concept
 
 Apply the method to a concept with a different structure, chosen after the
 interest work exposes which properties may be accidental. A deduction or
@@ -78,7 +105,7 @@ The purpose is to find which parts of the representation are genuinely common
 and which belong only to interest. Confirmation in a second concept is evidence
 of transfer, not proof of universality.
 
-### 6. Tax-Concept Question and Explanation Projection
+### 7. Tax-Concept Question and Explanation Projection
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
@@ -96,7 +123,8 @@ model must continue to serve computation and return generation.
 | --- | --- | --- |
 | Reported Interest to Tax Concept Vertical Slice | **Closed 2026-08-28 — no representation recommended** | Tax-domain model, synthetic fixtures, four-packaging comparison, derivation boundary |
 | Document and Ordinary-Fact Translation Vertical | **Closed 2026-08-30 — six ADRs accepted (0067-0072).** | Canonical workspace slice, identity association, supportability, standing authorization, rule-owned consequences, ordinary input mapping, legacy-migration decision |
-| Later-Year Basis Reuse Test | Unblocked, not yet selected | Cross-year reuse, reconciliation, lifecycle and persistence evidence |
+| Investment Basis Concept and Coverage Model | **Closed 2026-09-02 — explicit partial result.** | Basis domain model, structural coverage matrix, canonical propositions, A/B representation comparison deferred at paper (no forcing consumer), four named composition gaps recorded as reopening triggers |
+| Later-Year Basis Reuse Test | Unblocked, not yet selected | Cross-year reuse, reconciliation, lifecycle and persistence evidence; the natural context for a concrete adjusted-basis consumer, in which milestone 3's deferred A/B representation question can be tested |
 | Adjacent Translation Case | Not selected | Cadence normalization, canonical-model reuse, one bounded tax expansion |
 | Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
@@ -105,9 +133,30 @@ The Document and Ordinary-Fact Translation Vertical's plan is
 [`milestones/document-ordinary-fact-translation.md`](milestones/document-ordinary-fact-translation.md);
 its retrospective is
 [`2026-08-29-document-ordinary-fact-translation-seams.md`](../../milestone-retrospectives/2026-08-29-document-ordinary-fact-translation-seams.md).
-No later milestone is selected; `docs/phase-state.md` is the current,
-single re-entry pointer. The prior just-closed milestone remains recorded
-in
+**Roadmap changes on 2026-09-02.** Items 3 and 4 are annotated because
+both changed after initial planning. Item 3 was planned to stop after a
+consolidated contract specification and, if the evidence allowed, to name
+a first production vertical; it closed instead as an explicit partial
+result, because no concrete consumer distinguishes the candidate
+adjusted-basis representations and four concrete gaps stand between the
+established concept and a buildable vertical. Item 4 changed from
+"blocked on milestone 3" to unblocked, and gained a second purpose: it is
+now also the context in which milestone 3's deferred representation
+choice can be tested, since a later-year disposition is where a consumer
+of a composed adjusted basis first appears. That test may discriminate
+the candidates or may show no material difference.
+
+The just-closed milestone's plan is
+[`milestones/investment-basis-concept-coverage.md`](milestones/investment-basis-concept-coverage.md);
+its retrospective is
+[`2026-09-02-investment-basis-concept-coverage.md`](../../milestone-retrospectives/2026-09-02-investment-basis-concept-coverage.md).
+It closed as an explicit partial result: the basis domain model, coverage
+matrix, and canonical propositions are established, while the A/B
+representation choice is deferred at paper for want of a concrete
+consumer, and four named composition gaps are recorded as reopening
+triggers. No later milestone is selected; `docs/phase-state.md` is the
+current, single re-entry pointer. The prior just-closed milestone remains
+recorded in
 [`2026-08-28-reported-interest-tax-concept.md`](../../milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md).
 
 ## Starting evidence
@@ -150,9 +199,12 @@ production graphical interface.
 
 Reassess after each of the next three milestones.
 
-- After the active milestone, decide whether the tested cadence delivered a
-  useful domain abstraction and production capability at proportionate cost.
-  Change the cadence before projecting a longer roadmap if it did not.
+- After the active milestone, decide whether the four-state cadence trial
+  (rival/seam evidence, disposable integration evidence, consolidated
+  contracts, clean production build) reduced curation cost versus the prior
+  milestone, and whether the resulting basis domain model and coverage
+  matrix are stable enough to build the named first production vertical
+  directly.
 - If production integration requires a large migration of existing interest
   families, keep the selected slice working alongside the legacy path unless a
   broader migration has a better explicit value case.
