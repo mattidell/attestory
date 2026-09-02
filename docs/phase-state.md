@@ -2,13 +2,13 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "document-ordinary-fact-translation",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md",
-  "milestone_state": "closed",
-  "retrospective": "docs/milestone-retrospectives/2026-08-29-document-ordinary-fact-translation-seams.md",
-  "status": "Document and Ordinary-Fact Translation Vertical CLOSED 2026-08-30. Six ADRs accepted (0067-0072), establishing the first source-independent workspace translation: a documentary Form 1099-INT box-1 finding and an ordinary bond-acquisition circumstance associate through an explicit, accountable confirmation (never an inferred match); a supported pairing dispatches to rule-owned current-year and basis consequences; aggregate supportability catches a shared-report over-claim; standing authorization gates run currentness independent of per-family closure; the incumbent legacy accrued-interest surface coexists with, and can migrate to, the pairing path without ever silently discarding a live claim. package.core-calculations.v34 admits the full seam capability alongside the still-live legacy surface (coexistence); v35 is additive, admitting the migrated single-subtractand successor reached only through a real migration-adoption act. Merged into main. No milestone is currently active; the next one is unselected.",
-  "current_role": "Foreman — between-milestones selection",
-  "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md"
+  "topic": "investment-basis-concept-coverage",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/investment-basis-concept-coverage.md",
+  "milestone_state": "planned",
+  "status": "Investment Basis Concept and Coverage Model planned 2026-09-01. The milestone maps investment basis as a lifecycle, states the canonical propositions the application must be able to make about it, tests them against eight representative cases, and compares candidate adjusted-basis representations. It normally stops after the domain model, coverage account, and consolidated contract specification rather than a production vertical.",
+
+  "current_role": "Foreman — investment basis concept and coverage model",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/investment-basis-concept-coverage.md"
 }
 -->
 
@@ -36,19 +36,47 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
+- **Active milestone:** Investment Basis Concept and Coverage Model —
+  **planned 2026-09-01.**
 - **Just-closed milestone:** Document and Ordinary-Fact Translation Vertical —
   **CLOSED 2026-08-30.** Six ADRs accepted (0067–0072). See "Closed
-  milestone" below for the full design summary.
-- **Branch:** `milestone/document-ordinary-fact-translation-seams`, merged
-  into `main`.
-- **No milestone is currently active; the next one is unselected.**
+  milestone" below.
 - **TI-A1.** Prototype refuses coverage. The incumbent cannot determine whether
   § 135 applies and may publish full inclusion. The fixture does not prove the
   published number wrong.
-- **Authority.** Pub. 550 *Bonds Sold Between Interest Dates* against
-  IRC § 61(a)(4), not Treas. Reg. § 1.61-7(c).
+- **Authority (accrued interest paid to a bond seller, distinct from the
+  TI-A1 §135 probe above).** The controlling support is **Treas. Reg.
+  § 1.61-7(c)**, whose text reaches this buyer-side situation: its
+  operative wording covers interest "in arrears but... accrued at the
+  time of purchase," stating that such amounts are "not income" to the
+  buyer when later received and are instead "returns of capital which
+  reduce the remaining cost basis." This is
+  corroborated by IRC § 61(a)(4) (the general inclusion rule § 1.61-7(c)
+  displaces for the buyer), Pub. 550's "Bonds Sold Between Interest
+  Dates" (the IRS's plain-language restatement), and the *seller-side*
+  Treas. Reg. § 1.61-7(d), which requires the seller (not the buyer) to
+  report that same accrued-interest component as income — a different
+  paragraph governing a different party's obligation on the same
+  transaction, not the buyer-side basis authority itself. An earlier
+  closed milestone's archival analysis
+  (`docs/milestones/reported-interest-tax-concept/accrued-interest-item-model.md`,
+  unedited, historical record) read § 1.61-7(c) as limited to the
+  "bonds traded flat" default-bond pattern and concluded no regulation
+  reached the ordinary between-interest-dates buyer; the active
+  milestone's own direct reading of the regulation's text found that
+  conclusion too narrow, since (c)'s own wording reaches interest that
+  has merely "accrued but not been paid," not only defaulted interest. This is recorded here as the active milestone's
+  corrected account; it does not edit the closed milestone's own
+  archival document or ADR-0071's committed citation pin, neither of
+  which this milestone reopens.
 - **Decision posture:** ADR-0067 through ADR-0072 are accepted and stand as
-  written; none is superseded by another decision in this set.
+  written; none is superseded by another decision in this set. The active
+  milestone treats ADR-0071's basis consequence as a required tax case
+  (accrued interest received is a return of capital reducing basis) with a
+  partial implementation exhibit — the committed rule derives and
+  provenances the amount but does not yet encode property/lot identity,
+  direction, effective event, purpose, or a consumer — not as a settled,
+  complete instance of the general basis concept.
 
 ## Standing constraints and postures
 
@@ -104,10 +132,11 @@ a project to enumerate or implement the entire taxable-interest universe.
   made here — the alternative is accepting that such a claim simply stays on
   the legacy path (correct on its own terms) until the owner decides
   otherwise.
-- **Later-year basis reuse** (the roadmap's next candidate): consume this
-  slice's item-level basis consequence in a later disposition, exercising
-  cross-year identity and correction, to determine whether the canonical
-  model transfers beyond the current-year line-2b calculation.
+- **Later-year basis reuse** (roadmap item 4, blocked on the active
+  milestone): consume the item-level basis consequence in a later
+  disposition, exercising cross-year identity and correction, to
+  determine whether the canonical model transfers beyond the current-year
+  line-2b calculation.
 
 ## Closed milestone
 
@@ -162,15 +191,13 @@ Six ADRs, decomposed by architectural seam:
   `docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md`.
 - **Phase roadmap:**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
+- **Active milestone plan:**
+  `docs/phases/tax-concept-derivation/milestones/investment-basis-concept-coverage.md`.
+- **Accepted ADRs:** `docs/adr/0067` through `docs/adr/0072`, digested in
+  `docs/adr/INDEX.md`.
 - **Closed milestone plan:**
   `docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md`.
 - **Retrospective:**
   `docs/milestone-retrospectives/2026-08-29-document-ordinary-fact-translation-seams.md`.
-- **Accepted ADRs:** `docs/adr/0067` through `docs/adr/0072`, digested in
-  `docs/adr/INDEX.md`.
-- **Prior just-closed milestone:**
-  `docs/phases/tax-concept-derivation/milestones/reported-interest-tax-concept-vertical-slice.md`,
-  retrospective
-  `docs/milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md`.
 - **Previous phase close:**
   `docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md`.
