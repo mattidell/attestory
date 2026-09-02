@@ -3,7 +3,8 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "investment-basis-concept-coverage",
-  "status": "Planned. The milestone maps investment basis as a lifecycle, states the canonical propositions the application must be able to make about it, tests them against eight representative cases, and compares candidate adjusted-basis representations. It normally stops after the domain model, coverage account, discriminating evidence, and a consolidated contract specification.",
+  "retrospective": "docs/milestone-retrospectives/2026-09-02-investment-basis-concept-coverage.md",
+  "status": "CLOSED 2026-09-02 as an explicit partial result. The domain model, structural coverage matrix over RC1-RC8, canonical propositions, and representation comparison are established in docs/domain-models/investment-basis.md and docs/domain-models/investment-basis-coverage.md. No prototype code was written. The adjusted-basis representation choice is deferred at paper because no concrete consumer behaves differently under either shape (Frontier Reduction and Direct-Build Routing, fourth row); four composition gaps and the remaining open questions carry named reopening triggers.",
   "scope": [
     "build a plain-language, owner-readable domain model of US-federal individual investment-property basis (debt obligations and securities as the primary region), keeping evidence, ordinary circumstance, tax determination, adjusted basis, calculation consumption, and presentation as six distinct layers",
     "state canonical propositions the application must be able to assert about basis before selecting any storage shape for them",
@@ -53,10 +54,20 @@
 
 - Phase: Tax Concept Derivation
 - Milestone key: `investment-basis-concept-coverage`
-- State: planned
+- State: closed (explicit partial result, 2026-09-02)
 - Execution posture: domain mapping and paper evidence first; bounded
   prototype evidence only where a product behavior actually discriminates
   between representations; consolidation before any code reuse
+
+**Result.** The milestone closed as an explicit partial result. Its
+durable output is the domain model
+[`docs/domain-models/investment-basis.md`](../../../domain-models/investment-basis.md)
+and its coverage companion
+[`docs/domain-models/investment-basis-coverage.md`](../../../domain-models/investment-basis-coverage.md),
+which carry the coverage matrix, canonical propositions, representation
+comparison, and the open questions with their reopening triggers. Lessons
+are in
+[the retrospective](../../../milestone-retrospectives/2026-09-02-investment-basis-concept-coverage.md).
 
 ## Purpose
 
@@ -420,15 +431,21 @@ several propositions' contracts rather than merely confirm them, that is
 itself a trigger to stop and recommend splitting the remaining work into
 a following milestone rather than absorbing it here.
 
-## Execution
+## Execution record
 
-One paper-evidence unit produces the domain model, the structural
-coverage matrix over RC1–RC8, the canonical propositions with paper and
-committed-machinery evidence kept separate, the representation
+One paper-evidence unit ran, producing the domain model, the structural
+coverage matrix over RC1–RC8, the eight canonical propositions with paper
+and committed-machinery evidence kept separate, the representation
 comparison, and a disposition for each question in the decision inventory
-above. A further unit is chartered only if a question genuinely requires
-evidence beyond paper; chartering one before paper evidence requires it
-would violate the "if paper suffices, stop here" rule.
+above. No prototype code was written and no further unit was chartered:
+the representation question resolved to the routing table's
+stay-at-paper branch for want of a consumer that behaves differently
+under either shape, and the remaining questions resolved to deferral with
+named reopening triggers.
+
+The result is recorded in the two domain documents linked under
+"Milestone identity" above; the coverage companion carries the open
+questions and their triggers.
 
 ## Non-goals
 

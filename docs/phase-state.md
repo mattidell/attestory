@@ -4,11 +4,10 @@
   "phase": "Tax Concept Derivation",
   "topic": "investment-basis-concept-coverage",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/investment-basis-concept-coverage.md",
-  "milestone_state": "planned",
-  "status": "Investment Basis Concept and Coverage Model planned 2026-09-01. The milestone maps investment basis as a lifecycle, states the canonical propositions the application must be able to make about it, tests them against eight representative cases, and compares candidate adjusted-basis representations. It normally stops after the domain model, coverage account, and consolidated contract specification rather than a production vertical.",
-
-  "current_role": "Foreman — investment basis concept and coverage model",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/investment-basis-concept-coverage.md"
+  "milestone_state": "closed",
+  "status": "Investment Basis Concept and Coverage Model CLOSED 2026-09-02 as an explicit partial result. The basis concept, its representative cases (RC1-RC8), canonical propositions, and coverage verdicts are established in docs/domain-models/investment-basis.md and docs/domain-models/investment-basis-coverage.md. The adjusted-basis representation choice (durable components vs. a single published aggregate) is deferred at paper because no concrete consumer behaves differently under either shape; the missing discriminator is a consumer that must read a composed adjusted basis. A first basis-lifecycle production vertical cannot yet be specified: no purchase_price/acquisition_costs vocabulary, no basis-origin producer keyed by the acquisition identity, no content-declared per-acquisition publication path, and no declared traversal from an acquisition-keyed origin through the association record to the sibling accrued-interest consequence. Open questions and their reopening triggers are recorded in the coverage document. No milestone is currently active; the next one is unselected.",
+  "current_role": "Foreman — between-milestones selection",
+  "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md"
 }
 -->
 
@@ -36,11 +35,14 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
-- **Active milestone:** Investment Basis Concept and Coverage Model —
-  **planned 2026-09-01.**
-- **Just-closed milestone:** Document and Ordinary-Fact Translation Vertical —
-  **CLOSED 2026-08-30.** Six ADRs accepted (0067–0072). See "Closed
-  milestone" below.
+- **Just-closed milestone:** Investment Basis Concept and Coverage Model —
+  **CLOSED 2026-09-02 as an explicit partial result.** The basis concept
+  and its coverage are established; the adjusted-basis representation
+  choice is deferred for want of a consumer that behaves differently
+  under either shape. See "Closed milestone" below.
+- **No milestone is currently active; the next one is unselected.**
+- **Prior milestone:** Document and Ordinary-Fact Translation Vertical —
+  **CLOSED 2026-08-30.** Six ADRs accepted (0067–0072).
 - **TI-A1.** Prototype refuses coverage. The incumbent cannot determine whether
   § 135 applies and may publish full inclusion. The fixture does not prove the
   published number wrong.
@@ -132,58 +134,58 @@ a project to enumerate or implement the entire taxable-interest universe.
   made here — the alternative is accepting that such a claim simply stays on
   the legacy path (correct on its own terms) until the owner decides
   otherwise.
-- **Later-year basis reuse** (roadmap item 4, blocked on the active
-  milestone): consume the item-level basis consequence in a later
-  disposition, exercising cross-year identity and correction, to
-  determine whether the canonical model transfers beyond the current-year
-  line-2b calculation.
+- **Later-year basis reuse** (roadmap item 4, unblocked): consume the
+  item-level basis consequence in a later disposition, exercising
+  cross-year identity and correction. It is also the context in which a
+  consumer of a composed adjusted basis first appears, and therefore
+  where the deferred adjusted-basis representation choice can be tested.
+- **The adjusted-basis representation choice** and the four gaps blocking
+  a first basis-lifecycle production vertical: see "Closed milestone"
+  below and `docs/domain-models/investment-basis-coverage.md` for the
+  full statement and reopening triggers.
 
 ## Closed milestone
 
-The plan lived at
-`docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md`;
-the retrospective is
+Plan:
+`docs/phases/tax-concept-derivation/milestones/investment-basis-concept-coverage.md`.
+Retrospective:
+`docs/milestone-retrospectives/2026-09-02-investment-basis-concept-coverage.md`.
+
+**What is established.** A plain-language model of US-federal individual
+investment-property basis as a lifecycle — origin, adjusting events,
+allocation, reconciliation, and an as-of projection — keeping evidence,
+ordinary circumstance, tax determination, adjusted basis, calculation
+consumption, and presentation as six distinct layers
+(`docs/domain-models/investment-basis.md`). Against that model: a
+structural coverage matrix over eight representative cases, eight
+canonical propositions with paper and committed-machinery evidence kept
+separate, a comparison of three adjusted-basis representations, and the
+open questions with their reopening triggers
+(`docs/domain-models/investment-basis-coverage.md`).
+
+**What is deferred, and why.** The representation choice between durable
+components and a single published aggregate is undecided. Real
+differences exist — per-authority attribution, displacement granularity,
+independent supersession — but none is load-bearing for any consumer that
+exists or has been named, so the Frontier Reduction routing table's
+fourth row applies: stay at paper, record the missing discriminator,
+defer. The missing discriminator is a consumer that must read a composed
+adjusted basis.
+
+**What blocks a first production vertical.** Four gaps: no
+`purchase_price`/`acquisition_costs` vocabulary; no basis-origin producer
+keyed by the acquisition identity; no content-declared per-acquisition
+publication path; and no declared traversal from an acquisition-keyed
+origin, through the association record that holds the acquisition-to-report
+mapping, to the sibling accrued-interest consequence (which is keyed by a
+derived pairing finding id, not by the acquisition key). None is shown to
+require a new evaluator primitive or architectural kind; none is shown
+solvable with committed machinery.
+
+**The prior milestone,** Document and Ordinary-Fact Translation Vertical
+(closed 2026-08-30), established the six accepted ADRs 0067–0072 this one
+builds on; its own retrospective is
 `docs/milestone-retrospectives/2026-08-29-document-ordinary-fact-translation-seams.md`.
-
-Six ADRs, decomposed by architectural seam:
-
-1. **Direct field-ref extraction (ADR-0067).** A rule reads one named field
-   of a canonical object-valued fact directly, without a redundant per-field
-   scalar collectible.
-2. **Two-tiered obligation identity association (ADR-0068).**
-   Entity-kind payer/obligation/statement identity (exact string
-   canonicalization, arbitrary cardinality, not real-world entity
-   resolution). Association locates a candidate report by a named
-   statement/account reference or a coarse payer+year join, but a single
-   candidate is never associated on the match alone: `confirmed_report_match`
-   is a mandatory, explicit, accountable assertion scoped to the specific
-   report named, and a stale confirmation refuses rather than retargeting
-   when the sole candidate's identity changes.
-3. **Accrued-amount supportability, per-pairing and aggregate (ADR-0070).** A pairing's claimed amount is bounded by its report's own
-   amount; a separate aggregate check catches a shared report whose several
-   attested pairings jointly exceed it, retracting the group's findings and
-   blocking the current-year subtotal rather than presenting a
-   differently-scoped total as settled.
-4. **Standing workspace authorization (ADR-0069).** An out-of-kernel act-log
-   fold, decoupled from per-family closure; absence resolves to an explicit
-   non-current status; the re-authorization boundary can never fall below
-   what a run actually executes; resolved status is persisted to the durable
-   run output and presentation root.
-5. **Rule-owned pairing-scoped consequences (ADR-0071).** A supported
-   pairing's current-year and basis consequences are declared, checksum-
-   published rules whose own value expression genuinely controls execution,
-   with truthful dependency pins matching ordinary-rule fidelity.
-6. **Legacy/pairing coexistence and migration (ADR-0072).** The incumbent
-   accrued-interest surface is retired for new obligations; migration never
-   silently discards a live, nonzero legacy claim; only a genuine
-   same-identity zero correction resolves one.
-7. **Fluid domain model and structural unsupported-coverage disclosure.** A
-   non-contractual domain model maps the wider translation frontier; a
-   coverage read model names an adopted-but-unconsumed fact type from exact
-   semantic reference fields, never incidental metadata.
-8. **Integration.** The seams compose through the real production package
-   resolver, live coordinator, and presentation projection, proven through
-   `live_coordinate_run` rather than hand-built contexts.
 
 ## Pointers
 
@@ -191,13 +193,17 @@ Six ADRs, decomposed by architectural seam:
   `docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md`.
 - **Phase roadmap:**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
-- **Active milestone plan:**
+- **Closed milestone plan:**
   `docs/phases/tax-concept-derivation/milestones/investment-basis-concept-coverage.md`.
+- **Retrospective:**
+  `docs/milestone-retrospectives/2026-09-02-investment-basis-concept-coverage.md`.
+- **Durable result:** `docs/domain-models/investment-basis.md` and
+  `docs/domain-models/investment-basis-coverage.md`.
 - **Accepted ADRs:** `docs/adr/0067` through `docs/adr/0072`, digested in
   `docs/adr/INDEX.md`.
-- **Closed milestone plan:**
-  `docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md`.
-- **Retrospective:**
+- **Prior milestone:**
+  `docs/phases/tax-concept-derivation/milestones/document-ordinary-fact-translation.md`,
+  retrospective
   `docs/milestone-retrospectives/2026-08-29-document-ordinary-fact-translation-seams.md`.
 - **Previous phase close:**
   `docs/milestone-retrospectives/2026-08-20-claim-boundary-exploration.md`.
