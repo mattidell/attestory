@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "later-year-basis-reuse",
-  "milestone_state": "planned",
-  "status": "Planned. Track 0 has not started. The plan charters a later-year basis reuse test: whether a basis consequence established in an earlier tax context can be found, associated with the same investment, corrected, explained, and consumed when adjusted basis actually affects a later calculation. Two experimental dimensions are held separate -- access experiments (AS-1 retrieval, AS-2 re-execution) and representation strategy (aggregate A vs durable components B) -- and are not rival product architectures the owner must pick between. Owner-facing decisions named in advance as four separate items: the cross-scope consumption contract; consumption policy and the distinct historical-retention question; authorship of the broker-versus-derived comparison claim; and whether a collect-target universe guard defect, if found, is repaired.",
+  "milestone_state": "track-0",
+  "status": "TRACK 0 COMPLETE, AWAITING CLOSEOUT. Track 0 reached its disposition as an explicit partial result: no production packet, and no contract, production, or integration unit chartered. The milestone asked whether a basis consequence established in an earlier tax context can be found, associated with the same investment, corrected, explained, and consumed when adjusted basis actually affects a later calculation. It found that neither strategy supplies a production-authorized later-year delivery path today: AS-1 (retrieval) is blocked twice independently and needs a SUCCESSOR publication-act schema plus an independent projection change, and AS-2 re-executes the 2025 seam from real projected facts with no new schema or kernel machinery for that seam, but end-to-end later-year use remains unbuilt and delivery under an authorized package/scope contract is not established. Raw same-run mixed-scope computation DOES produce the value. That is a FIFTH composition gap - the absence of an authorized package/scope contract for composing the 2025 determination into a later disposition calculation - alongside the four inherited ones; all five are must-close and none is closed. C12 finds structural differences (pin topology, blocked-row naming) on two executed run observables, but no material product discriminator is established, so the A/B representation choice is deferred again on that ground. Owner-held decision areas are surfaced and not taken, each with its own applicability rather than as a blanket set: the contract permitting cross-scope consumption (gap 5), required for cross-context reuse; the later calculation's consumption policy, required when selecting what a later calculation consumes; historical retention/reportability, a distinct question required only when that capability is selected; authorship of the broker-versus-derived comparison claim, required when documentary reconciliation is in scope; and whether to repair the collect-target universe guard (COLLECT_TARGET_NOT_FAMILY), required if the chosen route depends on that traversal and otherwise an independent maintenance decision. Re-execution for consumption and historical retention for reporting are not rival architectures. The milestone did not establish whether resolving gap 5 or the other composition gaps requires schema, kernel, package, content, or other changes. Detail: docs/prototypes/later-year-basis-reuse/track-0-findings.md.",
   "scope": [
     "model one later disposition of the same synthetic interest-bearing obligation used by the accrued-interest work, and determine what a later calculation must know about adjusted basis",
     "establish, by execution against a production-shaped fixture rather than by code reading, what the committed engine can and cannot do when a run scoped to a later reporting year needs a determination established in an earlier one",
@@ -61,7 +61,8 @@
 - Branch: `milestone/later-year-basis-reuse-test` (the branch name carries a
   `-test` suffix the milestone key does not; the key above is authoritative
   for ledger and phase-state records)
-- State: planned. Track 0 has not started.
+- State: Track 0 complete, closing as an explicit partial result. Findings:
+  [`docs/prototypes/later-year-basis-reuse/track-0-findings.md`](../../../prototypes/later-year-basis-reuse/track-0-findings.md)
 - Execution posture: iterative construction in four passes, executed evidence
   before architectural conclusion, disposable consumer before production
   content
@@ -200,7 +201,10 @@ a **$310 gain**.
 **This reading is the one that governs, stated here because the figures are
 otherwise ambiguous.** The $150 is counted *into* the cost origin exactly once
 and removed from it exactly once — it is never both included in the $10,000 and
-added on top of it.
+added on top of it. The same reading is stated in the Track 0 findings §2.3 and
+is what `tests/test_later_year_basis_reuse_track0.py` encodes (`COST_ORIGIN`,
+`DISPOSITION_PROCEEDS`, `EXPECTED_GAIN_WITH_BASIS`,
+`EXPECTED_GAIN_WITHOUT_BASIS`).
 
 ### Why the earlier basis consequence matters
 
@@ -849,10 +853,259 @@ action.
 
 ## Track 0 adversarial closure
 
-PENDING. The six artifacts (authority-lifecycle table, empty/nonempty
-authority matrix, late-authority counterexample, claim-reuse proof,
-neighboring-capability dependency diff, and integration surface) and the
-declaration are produced at Track 0 close, not at plan time.
+Completed at the close of Track 0. The design under closure is the **Track 0
+disposable S-a experiment** — a test-local later-year consumer in
+`tests/test_later_year_basis_reuse_track0.py`, over one temporary act log,
+changing nothing under `packages/`. Evidence labels are **paper**,
+**executed**, **committed**, **proposed**, as elsewhere in this milestone.
+Executed evidence reproduces with
+`python3 -m pytest tests/test_later_year_basis_reuse_track0.py -q`. Full
+detail is in
+[`docs/prototypes/later-year-basis-reuse/track-0-findings.md`](../../../prototypes/later-year-basis-reuse/track-0-findings.md).
+
+### 1. Authority-lifecycle table
+
+Every contributed fact, reused declaration, aggregate declaration, and
+absence authority the design relies on. Storage identity is not treated as
+authority scope anywhere below.
+
+| Fact or claim | Meaning | Authority scope | Depends on | What invalidates it? | Label |
+| --- | --- | --- | --- | --- | --- |
+| `demo-bond-c` obligation-acquisition fact (contributed) | This taxpayer acquired this obligation on this date, paying `$150` of accrued interest to the seller | This subject and this obligation, carrying an **acquisition-year** component — not a tax-year lifecycle | The obligation-acquisition bundle adoption; the acquisition evidence | A same-fact-id correction (the fact type's supersession policy is `free`): the original finding moved to `displaced_finding_ids` and the correction to `current_finding_ids` | executed |
+| 1099-INT box-1 report fact (contributed, documentary) | This payer reported this interest amount for tax year 2025 on this statement | Payer + statement reference + the report's **own** tax year, which is a separate component from the run's reporting year | The `f1099int.bundle.json` adoption; the report evidence | A corrected report at the same fact id; and it becomes **inapplicable** — not invalid — when the run's own `reporting_year` differs, which produced zero candidates at `2029` | executed |
+| Obligation-acquisition bundle adoption (reused declaration) | The vocabulary declaring the acquisition fact type, its value schema, and its supersession policy | The workspace, from the adoption act forward | Nothing further | A later bundle adoption superseding it — **not exercised** by this design | committed / not exercised |
+| `f1099int.bundle.json` adoption (reused declaration, committed content, unmodified) | The vocabulary declaring the 1099-INT box-1 fact type | The workspace, from the adoption act forward | Nothing further | As above — **not exercised** | committed / not exercised |
+| Identity association (derived; ADR-0068 Decision 7) | This acquisition and this report describe the same obligation-interest relationship | The pair, **within one run's reporting year** | Both source findings, the acquisition's confirmation fields, and the run's `reporting_year` | It is **never stored**: it is recreated whenever the same pairing is evaluated, so it has no independent lifecycle to invalidate. Under a later reporting year it simply does not form | executed |
+| Supportability verdict (derived; ADR-0070) | The association is supportable | The pairing | The association | Same as the association — re-derived, not stored | executed |
+| Pairing-scoped basis consequence (derived; ADR-0071) | The acquisition reduces basis by the accrued amount | The pairing, keyed by the association's **derived finding id** — a runtime key, not a tax-year key | The association; the acquisition's accrued value; the basis rule at its governing version | A correction to the acquisition (value `150.0` → `200.0`, with a **new finding id**, never a rewrite — ADR-0010 Decision 5: displacement target, never correction root); a rule-version change (its `computation` pin moved `v1` → `v2`) | executed |
+| Test-local cost origin (contributed by a disposable rule) | The obligation's `$10,040` cost origin — a `$10,000` settlement price **whose $150 accrued-interest component is already included**, plus a `$40` commission (the reading fixed in the findings §2.3) | **None declared.** It carries no investment identity, no citation, and no fact type | Nothing | **Nothing.** No correction, supersession, or member transition can reach it | executed |
+| Test-local aggregate adjusted basis (aggregate declaration; shape A only) | The composed `$9,890` adjusted basis for this obligation | The one obligation in the fixture | The basis consequence and the cost origin | Either dependency changing: it is regenerated on every run and pins both, and it moved to `$9,840` when the acquisition was corrected | executed |
+| Test-local broker-reported basis (contributed, documentary; S3/S6 only) | A broker's figure for the same obligation | None declared | Nothing | **Nothing — and nothing consumes it**: neither shape's consumer publication pins it | executed |
+| Absence authority C9 | `append_publications` has no caller under `packages/` | The `packages/` tree at this commit | A regex call-site search plus a negative probe that finds the known test callers | Any production caller appearing | executed |
+| Absence authority C11 | No mechanism compares a broker-reported basis against a named product-derived adjustment | `.py` and `.json` under `packages/` at this commit | A **two-sided consumer trace** across all of `packages/`, by declared consumption (`requires` / `ref` / `collect` / `count`) plus a Python-module trace. Two categories, not ten inputs: **five** transaction-basis VALUE fact types (`tax.us.2025.f1099b.covered-{st,lt,ltcg,w-st,w-lt}-txn.basis`) — these, and **only** these, feed the **five** declared subtotal rule IDs (**seven** rule documents; two IDs are committed at both v1 and v2) and no Python module; **five** corresponding CLOSURE-AUTHORITY fact types (the `.source-closure` ones) establish source-set completeness and are **not** direct expression inputs to the subtotal rules; the pairing-scoped consequence consumed by **zero** declared rules and named only by its own producer — plus, **narrowed to the `taxpayer_side_adjustment` / Schedule D paths only**, a bounded search with two negative probes. File-level regex co-occurrence — counting artifacts that *name* two strings rather than consumers — is **not** relied on and would not support this claim | Any rule artifact or module consuming both sides | executed |
+| Absence authority C7 | The real projection/marshalling boundary omits derived findings | `packages.kernel.findings.apply_act`'s `KERNEL_ACT_KINDS` at this commit | Execution against a schema-compatible `derived-finding.v1` publication that **is** in the log and still never reaches `state.findings` | Adding `derived-publication` to the projected act kinds | executed |
+
+**The row that would fail if the design were wrong**, and the reason this
+table is load-bearing rather than decorative: the **test-local cost origin**
+has *no authority scope and no invalidator at all*. That is composition gaps
+1 and 2 stated as a lifecycle defect rather than as a to-do, and it is why
+Track 0 classifies both as must-close and closes as a partial result instead
+of chartering production. It is recorded on the known-limitations line below
+as requiring owner disposition, not downgraded to "nonblocking".
+
+**Grade: `PASS`** — every relied-upon authority is enumerated with meaning,
+scope, dependencies, and invalidator; the two rows with no authority scope
+are named as defects and routed to the owner rather than hidden.
+
+### 2. Empty/nonempty authority matrix
+
+**No source family, closure, or absence authority is adopted by this
+design.** The acquisition is a `contribution` + `assertion` and the report is
+a plain documentary `assertion`; `registry.family_member_predicates` never
+names either fact type, so `apply_assertion`'s SC-R1 member-transition
+requirement never triggers. The two **closed** states are therefore *not
+entered*, and this matrix enumerates them to establish that rather than
+omitting them — the completed-artifact-with-no-reliance form the gate
+permits.
+
+The set whose emptiness *can* affect the feature is the association's
+**candidate-report set**, filtered by the run's own `reporting_year`. That is
+what rows 3 and 4 exercise.
+
+| Family state | Universe / absence authority | Eligibility or applicability | Expected feature result | Expected neighboring result | Label |
+| --- | --- | --- | --- | --- | --- |
+| Closed empty — complete authority establishes no members | **Not entered.** No family is declared or closed anywhere in this design | n/a | n/a — the design makes no closed-empty claim, and no conclusion in Track 0 rests on one | Neighbors unaffected: no closure act is appended to the log | paper (enumeration) |
+| Closed empty — required universe / absence authority missing | **Not entered**, for the same reason | n/a | n/a | Neighbors unaffected | paper (enumeration) |
+| Nonempty — complete and eligible | Acquisition and report both current; run `reporting_year=2025` matches the report's tax year | Positive | **Computed.** One association, a passing verdict, a `"150.0"` basis consequence, and `$310` under **both** representations. **In a 2025-reporting-year run** — the consumer rules declare `scope.tax_year` 2029, but the engine does not check that against the run's reporting year, so this row is same-run consumer behaviour, not later-year reuse | The current-year consequence publishes alongside it; the aggregate and the disposition gain both resolve; nothing blocks | executed |
+| Nonempty — ineligible | Same acts, run `reporting_year=2029`; the 2025 report is out of scope | Negative | **Blocked, explicitly** — chosen deliberately, not inherited: `DEPENDENCY_ABSENT`. Shape B's consumer row names the pairing-scoped basis symbol; shape A's names the aggregate, with the basis symbol on the aggregating rule's own row. **Neither shape publishes an unadjusted `$160` gain** | The current-year consequence and the verdict are likewise absent; the association simply does not form, and no `ASSOCIATION_UNCONFIRMED` disposition is raised | executed |
+
+**Grade: `PASS`** — the two closed states are enumerated as not relied upon,
+and the two reachable states are exercised by execution with the negative
+state's disposition chosen explicitly (blocked, naming the missing symbol)
+rather than inherited from a convenient guard.
+
+### 3. Late-authority counterexample (paper trace)
+
+The design's only aggregate declaration is shape A's `test.later.adjusted-basis`.
+
+```text
+attest → close → compute → add member → reclose → recompute
+```
+
+| Transition | What becomes unusable, and why | Label |
+| --- | --- | --- |
+| **attest** | Nothing yet. The acquisition and the report are admitted as real acts on the log; both findings are current | executed |
+| **close** | **Not entered.** This design adopts no source family and appends no closure act, so there is no closure whose currency could be invalidated. Named rather than skipped | paper |
+| **compute** | Nothing becomes unusable. The association, verdict, `"150.0"` consequence, `$9,890` aggregate, and `$310` gain are produced from the current findings | executed |
+| **add member** (a corrected acquisition contribution at the same fact id) | The **original acquisition finding** becomes unusable: it moves to `displaced_finding_ids` and the correction to `current_finding_ids`. The **association** and the **supportability verdict** do not become unusable — they cease to exist, because ADR-0068 Decision 7 makes the association derived and recreated rather than stored. The **basis consequence** becomes unusable as a claim about current state: re-derivation yields `"200.0"` under a **new finding id**, and the prior consequence is a displacement target, never a correction root (ADR-0010 Decision 5). The **aggregate** and the **gain** become unusable and are regenerated at `$9,840` and `$360` | executed |
+| **reclose** | **Not entered**, for the same reason as `close` | paper |
+| **recompute** | Produces `$360` under **both** representations, from the corrected acquisition, with the aggregate pinning the new consequence's finding id | executed |
+
+**The gate's `FAIL` condition — a declaration that remains current after the
+authority it summarizes changes — does not occur**: the aggregate is
+regenerated with new pins and a new value on every call, asserted. That is a
+property of **AS-2**, however, and Track 0 states the limit plainly: under
+**AS-1**, where the determination would be a persisted historical artifact
+rather than a re-derivation, this transition is exactly the one that would
+need testing, and it **cannot be tested today** because the historical
+publication cannot be persisted at all (`act-derived-publication.v1` fixes
+`finding.schema` to `derived-finding.v1`, and that schema is **published
+and immutable** — AGENTS.md Article 9 / ADR-0003 — so reaching it requires a
+successor act schema, not an amendment). That untested branch is part of
+the deferred access decision, not a silent gap.
+
+A second limit, of the same kind: every transition above ran in a run
+carrying `reporting_year=2025`. The one tested report-filter/scope
+configuration (both at 2029) produces no consequence for either shape to
+summarize (findings §6.3 item 7) — one tested configuration, not proof
+against every possible composition — so the trace establishes lifecycle
+behaviour **within one scope**, not across scopes under any authorized
+package/scope contract. That is composition gap 5.
+
+**Grade: `PASS`** — the trace is produced, every transition names what
+becomes unusable and why, and the one untestable branch is named and routed
+to the owner.
+
+### 4. Claim-reuse proof
+
+Every candidate claim reuse in the design is enumerated; most are shown to be
+**not** reuses at all.
+
+| Candidate reuse | Same real-world proposition? | Same identity and lifecycle? | Same declared authority scope and explanation? | Verdict | Label |
+| --- | --- | --- | --- | --- | --- |
+| The projected **acquisition and report findings**, consumed by the earlier run, by the AS-2 re-execution, and by both C12 shapes | Yes — the same acquisition and the same report, from the same acts | Yes — the same finding ids throughout, asserted; and the same lifecycle, since the correction displaced the acquisition finding for every consumer at once | Yes — the same adopted bundle declarations, the same fact types, the same evidence ids | **Genuine reuse, and it passes all three** | executed |
+| The **association**, the **supportability verdict**, and the **basis consequence** | — | — | — | **Not a reuse.** All three are re-derived on every call and never retrieved or injected (ADR-0068 Decision 7). Asserted: AS-2 reads neither the earlier `RunResult` nor any retrieved finding | executed |
+| The demo `derived-finding.v1` W-2 publication retrieved in AS-1 | No — it is a demo wage line, not a basis claim | n/a | n/a | **Not a reuse of any basis claim.** It is generic corroborating evidence for the projection mechanism only, and no Track 0 conclusion about basis rests on it. Enumerated so it cannot be mistaken for one | executed |
+| The committed T2 fixture's `42.0` case | No — a different supplied amount | n/a | n/a | **Not reused.** This milestone supplies and executes its own `$150` case by overriding `_answers()`; the `42.0` execution is attributed to the existing test only | executed |
+
+**Grade: `PASS`** — the one genuine reuse satisfies all three tests
+independently, and every other candidate is shown to be a re-derivation or an
+unrelated artifact rather than a broadened source declaration.
+
+### 5. Neighboring-capability dependency diff
+
+| Neighboring capability | Prerequisites before | Prerequisites after | New feature-specific prerequisite imposed? |
+| --- | --- | --- | --- |
+| `tests/test_integration_checkpoint.py` (the accrued-interest seam) | Its own fixture helpers and the committed ADR-0068/0070/0071 content | Unchanged | None. Track 0 **imports** its helpers and never modifies them |
+| `tests/test_pairing_consequences.py` (displacement) | The pairing-consequence machinery | Unchanged | None. Track 0 runs its named displacement test programmatically and asserts success |
+| `tests/derivation/test_cascade.py`, `test_act_log_admission.py` (`append_publications`) | `ActLog`, `runner.append_publications` | Unchanged | None. Track 0 becomes a third, disposable caller and changes neither |
+| `tests/tax/test_track4_correction_cascade.py` (`workspace_currency`) | The projection/currency machinery | Unchanged | None |
+| `packages/derivation/package_validation.py` | Its own contracts | Unchanged | None. Track 0 exercises it with throwaway `demo.track0.*` packages only |
+| **A return in which this work has no activity** | — | **Identical to before.** Track 0 authors no content citizen, adopts no package member, and publishes only `test.later.*` / `demo.*` symbols inside throwaway `RunContext`s | None |
+
+**Evidence, not assertion:** `git diff --stat origin/main..HEAD` shows changes
+only under `docs/` and `tests/` — **zero** files changed under `packages/`;
+the new test module is imported by nothing but itself; and the regression
+suites named under Verification pass unchanged.
+
+**Grade: `PASS`** — no neighboring capability gains a prerequisite, and the
+no-activity return state is unchanged, both by direct inspection of the diff
+range rather than by argument.
+
+### 6. Integration surface
+
+**`N-A`**, and the condition for the `N-A` is stated as the evidence: **the
+work remains disposable S-a and binds no externally consumed symbol.**
+Concretely, and checkable —
+
+- No committed content citizen, package member, form field, attachment, or
+  presentation join was authored or modified. `git diff --stat
+  origin/main..HEAD` shows zero change under `packages/`.
+- Every symbol the work publishes is `test.later.*` or `demo.*`, produced
+  inside throwaway `RunContext`s and consumed only within the same test
+  method. No consumer outside the derivation graph binds or joins on any of
+  them.
+- The one temporary `ActLog` exists only at test runtime and is never
+  committed.
+
+Per the milestone plan, if this work ever produces or binds an externally consumed
+symbol — which is what escalating to **S-b** or **S-c** would mean — this
+artifact becomes **required in full**, with every binding enumerated, every
+cardinality stated, and a built end-to-end model for each materially distinct
+disposition path. That escalation is a **stop-and-report** before proceeding,
+not a grade the Foreman may re-derive here. Track 0 closes as a partial
+result and does not escalate.
+
+### Declaration
+
+```md
+## Track 0 adversarial closure
+
+- Authority-lifecycle table: PASS — 13 enumerated authorities with scope, dependencies, and invalidators; the correction row is executed (original acquisition finding → `displaced_finding_ids`, consequence re-derived under a new id at `"200.0"`), and the two rows carrying no authority scope (test-local cost origin, test-local broker figure) are named as composition gaps 1–2 and routed to the owner
+- Empty/nonempty authority matrix: PASS — the two closed states are enumerated as not entered (no family is declared or closed anywhere in this design); the two reachable states are executed, with the ineligible state's disposition chosen explicitly as `DEPENDENCY_ABSENT` naming the missing symbol, and neither representation publishing an unadjusted `$160` gain
+- Late-member lifecycle: PASS — the `attest → close → compute → add member → reclose → recompute` trace names what becomes unusable at every transition; the aggregate does not survive the change to the authority it summarizes (regenerated at `$9,840`/`$360` with new pins, executed), and the untestable AS-1 branch is named rather than assumed
+- Neighboring capability dependency diff: PASS — `git diff --stat origin/main..HEAD` shows zero files changed under `packages/`; no neighbor gains a prerequisite; the no-activity return state is identical
+- Reused-claim semantic/lifecycle equivalence: PASS — the one genuine reuse (the projected acquisition and report findings) satisfies all three tests independently; the association, verdict, and consequence are shown to be re-derived rather than reused (ADR-0068 Decision 7), and the T2 `42.0` case is not reused for this milestone's `$150` case
+- Integration surface: N-A — the work remains disposable S-a and binds no externally consumed symbol; every published symbol is `test.later.*` or `demo.*` inside throwaway `RunContext`s, and zero files changed under `packages/`. Becomes required in full, as a stop-and-report, if the milestone escalates to S-b or S-c
+- Known limitations affecting correctness: owner disposition required — the following are kept separate and never collapsed; item (iii) is a limitation rather than a decision: (i) **the contract permitting cross-scope consumption (gap 5)**, found by this milestone and prior to everything else: no **authorized package/scope contract** exists in committed content for composing a basis consequence into a later disposition calculation — no adopted 2029 package, no cross-scope composition contract, and the one tested report-filter/scope configuration is negative without injection (findings §6.3 item 7); `package_validation.py` independently refuses scope-mismatched package members (`SCOPE_MISMATCH`, C5). Neither strategy supplies a production-authorized later-year delivery path today; raw same-run mixed-scope computation does produce the value. The milestone did not establish whether resolving gap 5 (or the other composition gaps) requires schema, kernel, package, content, or other changes; (ii) **the later calculation's consumption policy** (historical execution, a newly derived determination, or a policy permitting either) **and the distinct historical-retention/reportability question** — not rival architectures, and not Track 0's to take. Retrieval as exercised is blocked twice (a **successor** publication-act schema plus an independent projection change, because `act-derived-publication.v1` is published and immutable). Re-executing the existing 2025 seam required no new schema or kernel machinery — that is executed and true — but end-to-end later-year use remains unbuilt; (iii) **all five** composition gaps are classified must-close and none is closed, so the cost origin the disposition calculation rests on has no declared authority scope and no invalidator; (iv) **authorship of the broker-versus-derived comparison claim** (S3/S6) is unresolved, with no mechanism committed — and the consumer trace shows the derived side has **no declared consumer at all**, so no comparison could exist yet (C11); (v) **whether to repair the collect-target universe guard** (`COLLECT_TARGET_NOT_FAMILY`), a **validator/authority gap in committed product code**, found as a byproduct of C8b and **deliberately not fixed**: `package_validation.py`'s guard documents itself as binding "artifact-package.v3 onward" but its allowlist ends at `artifact-package.v17`, so it is inactive for the current `artifact-package.v26` production package and has never bound a `rule-artifact.v7` collect. Track 0 therefore closes as an explicit partial result and charters no contract, production, or integration unit
+```
+
+## Execution record
+
+Track 0 only. No contract, production, or integration unit was chartered or
+begun. Zero files changed under `packages/`. Full detail lives in
+[`docs/prototypes/later-year-basis-reuse/track-0-findings.md`](../../../prototypes/later-year-basis-reuse/track-0-findings.md);
+this section records the outcome per claim so the plan can be read without
+it. Evidence labels are **paper**, **executed**, **committed**,
+**proposed**.
+
+| Claim | Outcome | Label |
+| --- | --- | --- |
+| C1, C2 | The tax propositions hold as read. The synthetic figures cohere on one stated reading: the `$10,000` settlement price **already includes** the `$150` accrued-interest component, `+ $40` commission = `$10,040` cost origin, `− $150` = `$9,890` adjusted basis, `$10,200 − $9,890 = $310`, versus `$160` unadjusted | paper |
+| C3, C4, C5, C6, C8a, C10, C13b | All executed and as predicted; this milestone ran its own `$150` case rather than attributing the committed T2 `42.0` case to itself | executed |
+| C7 | **Negative**, on two independent legs: the real basis consequence (a `derived-finding.v2`) cannot be persisted at all, and a persisted `derived-finding.v1` still never reaches a later run's `state.findings` | executed |
+| C8b | **Split three ways.** **(a)** Falsified *narrowly*: a **raw same-run evaluator rule** can aggregate the nonempty pairing-consequence live sources by the symbol's fixed prefix, with no runtime-keyed name, failing closed when none exists. **(b)** Upheld as to *selecting a named acquisition's* consequence: `collect` admits `{op, name, source_set}` and nothing else, and all pairing-scoped consequences share one prefix. **(c)** **No source-family-authorized traversal has been established.** Current package validation **mechanically ACCEPTS** the candidate rule, because `COLLECT_TARGET_NOT_FAMILY` is **inactive for `artifact-package.v26`**; that acceptance does **not** supply the missing **source-family declaration**, **closure mapping**, or **semantic authority**. The exhibited rule names an invented, undeclared `source_set` (`demo.set.pairing-scoped-basis`, zero occurrences anywhere under `packages/`), and the evaluator returns on the nonempty `collect` path *before* consulting the source set. Executed against the real production package: `validate_package` returns `ok is True` with zero issues — mechanical acceptance, not source-family authority. Bounded corpus search found no other committed traversal; its negative probe found 43 committed `collect` users | executed |
+| **Validator/authority gap (byproduct of C8b; committed product code)** | `package_validation.py`'s `universe_guard_active` is a literal allowlist of package schema versions **ending at `artifact-package.v17`**, while its adjacent comment says the collect-target guard binds "artifact-package.v3 onward" and the production package is `artifact-package.v26`. Sharper still: `rule-artifact.v7` is admitted **only** by `artifact-package.v26`, so the guard has never been able to bind any `rule-artifact.v7` collect. Probed both ways — the same invented `source_set` in a minimal `artifact-package.v4` package **is** rejected `COLLECT_TARGET_NOT_FAMILY`. **Recorded and deliberately NOT fixed**: product code is outside this milestone's boundary; escalated to the owner | executed |
+| C9, C11 | Absences confirmed. C11's repository-wide half rests on a genuine **two-sided consumer trace**, not on file-level regex co-occurrence, which counts artifacts that *name* two strings and cannot support the claim. Two categories, not ten inputs: **five** transaction-basis VALUE fact types (`tax.us.2025.f1099b.covered-{st,lt,ltcg,w-st,w-lt}-txn.basis`) — these, and **only** these, feed the **five** declared subtotal rule IDs (across **seven** rule documents; two IDs are committed at both v1 and v2), and **no** Python module under `packages/`; **five** corresponding CLOSURE-AUTHORITY fact types (the `.source-closure` ones) establish source-set completeness and are **not** direct expression inputs to the subtotal rules. The pairing-scoped basis consequence is consumed by **zero** declared rules and named only by its own producer, `packages/tax/pairing_consequences.py`. The intersection is empty *because the derived side has no consumer at all* — corroborated by the committed rule's own note, "A later-year disposition consumer of this finding is still open". The `taxpayer_side_adjustment` search supports the Schedule D paths only | executed |
+| C12 | **Structural differences observed and executed** — pin topology (S1: direct vs. transitive) and blocked-row naming (S2: direct vs. indirect), both structural facts about the rule graph. **No material product discriminator is established**: no test exercises `explanation.py`'s `walk_npe` or any other downstream reader-facing, action-driving, or calculation-result consumer of either shape. Displacement granularity and independent supersession are **unanswerable** under AS-2 and are recorded as unanswered, not null. The representation choice is **deferred again**, on the ground that no material discriminator was established, not a measured tradeoff | executed |
+| C14 (AS-1) | Blocked twice independently, before retrieval is reachable. Its cost is a **successor** publication-act schema and payload — `act-derived-publication.v1` is published with a checksum and immutable (AGENTS.md Article 9 / ADR-0003) — with the loader, registry, admission, and consumer changes a successor entails, **plus** the independent projection/marshalling change. Neither workstream suffices alone. No successor is designed here | executed (blockers); paper (cost) |
+| C15 (AS-2) | **Split.** The seam **re-executes** from real projected source facts under `reporting_year=2025` with no new schema or kernel machinery for that seam, reproduces `"150.0"`, passes its later-reporting-year negative control, and absorbs an S4 correction with no retrieval or injection. End-to-end later-year use remains unbuilt. **Delivery under an authorized package/scope contract is not established.** The separate later consumer receives the value by **injection** through a test-local `InputFinding`; the no-injection composition is **same-run, mixed-scope only** — its rule declares `scope.tax_year` 2029 while the run reports 2025, proving mixed-scope composition is mechanically expressible, **does produce the value**, and proves nothing about authorization. With the report filter itself set to the later year (one tested configuration), the value does **not** arrive under either authorable consumer form without injection; that is not proof no composition is possible, only that no authorized contract exists in committed content today | executed |
+
+**Composition gaps: four inherited, all must-close; plus a fifth found
+here.** Gaps 1, 2, 4, and 5 are must-close on executed evidence; gap 3's
+must-close classification is reasoned from a one-obligation fixture. **Gap 4
+has two surviving halves**, both must-close: **(i) selection** — no declared
+construct selects the consequence of a *named acquisition*; and **(ii)
+authorization** — no source-family-authorized traversal to the consequence
+has been established. Current package validation **mechanically ACCEPTS**
+the candidate, because `COLLECT_TARGET_NOT_FAMILY` is **inactive for
+`artifact-package.v26`**; that acceptance does **not** supply the missing
+**source-family declaration**, **closure mapping**, or **semantic
+authority**. **Neither of two opposite readings is supported.**
+"No declared rule can reach the consequence" is false — a raw same-run rule
+reaches it by fixed-prefix aggregation. And reaching it that way does **not**
+make it a source-family-authorized traversal: the candidate is mechanically
+accepted content that still lacks source-family authority.
+**Gap 5 is this milestone's own finding: the cross-context handoff /
+scope-composition gap.** The gap is about authority and contract, not about
+whether same-run mixed-scope computation is mechanically possible (it is:
+a rule scoped 2029 composes with a run reporting 2025 with no injection,
+because nothing compares the two). What is absent is an **authorized
+package/scope contract** for composing the 2025 determination into a later
+disposition calculation: no adopted 2029 package exists, and no cross-scope
+composition contract exists in committed content; `package_validation.py`
+independently refuses scope-mismatched package members (`SCOPE_MISMATCH`,
+C5). The `reporting_year=2029` negative-control experiment, testing one
+specific configuration, was run with **both** consumer forms declaring
+`scope.tax_year=2029`, and both block —
+`DEPENDENCY_ABSENT` and `SOURCE_SET_UNCLOSED`, no consequence published,
+neither under-reporting `$160`. A **cross-context basis-reuse** vertical
+meets gap 5 first; a later-year calculation that stays within one tax
+context does not meet it.
+
+**Disposition: an explicit partial result.** Production should not begin.
+The reopening triggers are the owner settling any of the four decisions
+(cross-scope consumption contract; consumption policy and historical
+retention; broker-versus-derived authorship; collect-target guard); gap 5
+being resolved by any means (which is what makes S-b reachable); **either**
+surviving half of gap 4 being closed — selection, or a source-family-authorized
+traversal — neither of which alone suffices, because gap 5
+stands; the owner repairing the collect-target universe guard so that it
+binds `artifact-package.v18`–`v26`, which would require re-running any
+C8b-shaped conclusion that rested on package validation staying silent; or a
+successor to `act-derived-publication.v1` **and** an opened projection
+boundary together, which would make retrieval measurable and reopen C12's two
+unanswered dimensions.
 
 ## Data safety
 
