@@ -65,7 +65,7 @@ propositions, and a consolidated contract specification — not a
 production vertical. Plan:
 [`milestones/investment-basis-concept-coverage.md`](milestones/investment-basis-concept-coverage.md).
 
-### 4. Later-Year Basis Reuse Test (updated: 2026-09-02)
+### 4. Later-Year Basis Reuse Test (closed 2026-09-03, updated: 2026-09-03)
 
 Use a later disposition of the same synthetic obligation to test whether the
 canonical acquisition and obligation model established by milestone 2, and
@@ -81,6 +81,80 @@ choice can be tested. Testing it there may discriminate the candidates or
 may show no material difference; neither outcome is assumed. It may
 expose new lifecycle or persistence requirements, but it does not reopen
 whether documentary and ordinary facts need a shared source-independent model.
+
+**Track 0's result, recorded here so the roadmap is not silent about it.**
+It did expose a new requirement, and it is prior to the ones this entry
+anticipated. **No authorized package/scope contract exists in committed
+content for composing a basis consequence into a later disposition
+calculation.** A raw same-run rule composes across a report-filter year and
+a rule's declared scope year with no injection — proving mixed-scope
+same-run computation is mechanically expressible, and proving nothing
+about authorization, since nothing in the evaluated path compares
+`reporting_year` to a rule's declared `scope.tax_year`. With the report
+filter itself set to the later year (one tested configuration, not the
+space of possible compositions), re-deriving there fails — the 2025 report
+does not associate under a later reporting year, which is correct
+behaviour — and carrying it across through the act log fails twice
+independently, at persistence and at projection. No adopted 2029 package
+exists, no cross-scope composition contract exists in committed content,
+and `package_validation.py` independently refuses scope-mismatched package
+members (`SCOPE_MISMATCH`). This is recorded as a **fifth composition
+gap** (cross-context handoff / scope composition) alongside the four
+milestone 3 named; all five are classified must-close and none is closed.
+Track 0 therefore closes as an **explicit partial result** and charters no
+contract, production, or integration unit. The A/B representation question
+was tested: structural differences were observed and executed (pin
+topology, blocked-row naming), but no material product discriminator was
+established, because no test exercises the explanation walker or any other
+downstream consumer of either shape. The choice is **deferred again**, on
+that cleaner ground — no material discriminator, not a measured tradeoff —
+and also because two of shape B's three recorded structural advantages
+cannot be measured under the only reachable experimental access path.
+
+**A byproduct finding, also outside Track 0's boundary to fix:**
+`package_validation.py`'s `COLLECT_TARGET_NOT_FAMILY` guard documents
+itself as binding "artifact-package.v3 onward" but its allowlist ends at
+`artifact-package.v17`, while the production package is
+`artifact-package.v26`; the guard has therefore never bound a
+`rule-artifact.v7` collect. Recorded and deliberately not fixed; owner's
+call.
+
+**Closed 2026-09-03 as an explicit partial result.** Plan:
+[`milestones/later-year-basis-reuse.md`](milestones/later-year-basis-reuse.md).
+Findings:
+[`../../prototypes/later-year-basis-reuse/track-0-findings.md`](../../prototypes/later-year-basis-reuse/track-0-findings.md).
+Retrospective:
+[`../../milestone-retrospectives/2026-09-03-later-year-basis-reuse.md`](../../milestone-retrospectives/2026-09-03-later-year-basis-reuse.md).
+Owner-facing decision areas are surfaced and not taken, each with its own
+applicability rather than as a blanket set: (1) the
+**contract permitting cross-scope consumption** (gap 5); (2) the later
+calculation's **consumption policy** — historical execution, a newly
+derived determination, or a policy permitting either — and the distinct
+**historical-retention/reportability** question (re-deriving for
+consumption does not prevent retaining history for reporting; neither
+policy is selected); (3) **authorship of the broker-versus-derived
+comparison claim**; (4) whether to repair the **collect-target universe
+guard** (`COLLECT_TARGET_NOT_FAMILY`) recorded in
+`packages/derivation/package_validation.py` (byproduct finding, outside
+this milestone's boundary to fix). Re-executing the existing 2025 seam
+required no new schema or kernel machinery — that is executed and true —
+but end-to-end later-year use remains unbuilt, and the milestone did not
+establish whether resolving gap 5 (or the other composition gaps)
+requires schema, kernel, package, content, or other changes.
+**Consequence for later items:** gap 5 (the cross-context handoff /
+scope-composition gap) is a prerequisite for a consumer that must use a
+determination from another tax context or scope — not for every later-year
+calculation. **Milestone 5 (Adjacent Translation Case) remains selectable**;
+gap 5 becomes a prerequisite for it only if the case it selects turns out to
+need a determination from another tax context or scope. None of the five
+composition gaps this phase has now named is closed. A milestone selecting a
+first basis-lifecycle production vertical resolves the owner-held questions
+that its own selected case actually reaches — the cross-scope contract for
+cross-context reuse; the consumption policy when selecting what a later
+calculation consumes; historical retention/reportability only when that
+capability is selected; broker-comparison authorship when documentary
+reconciliation is in scope; and the collect-target guard if the chosen route
+depends on that traversal, otherwise as an independent maintenance decision.
 
 ### 5. Adjacent Translation Case
 
@@ -124,7 +198,7 @@ model must continue to serve computation and return generation.
 | Reported Interest to Tax Concept Vertical Slice | **Closed 2026-08-28 — no representation recommended** | Tax-domain model, synthetic fixtures, four-packaging comparison, derivation boundary |
 | Document and Ordinary-Fact Translation Vertical | **Closed 2026-08-30 — six ADRs accepted (0067-0072).** | Canonical workspace slice, identity association, supportability, standing authorization, rule-owned consequences, ordinary input mapping, legacy-migration decision |
 | Investment Basis Concept and Coverage Model | **Closed 2026-09-02 — explicit partial result.** | Basis domain model, structural coverage matrix, canonical propositions, A/B representation comparison deferred at paper (no forcing consumer), four named composition gaps recorded as reopening triggers |
-| Later-Year Basis Reuse Test | Unblocked, not yet selected | Cross-year reuse, reconciliation, lifecycle and persistence evidence; the natural context for a concrete adjusted-basis consumer, in which milestone 3's deferred A/B representation question can be tested |
+| Later-Year Basis Reuse Test | **Closed 2026-09-03 — explicit partial result** | Access experiments vs representation strategy held separate. **Neither strategy supplies a production-authorized later-year delivery path today** (raw same-run mixed-scope computation does produce the value): AS-1 is blocked twice and needs a *successor* publication-act schema plus an independent projection change; AS-2 re-executes the 2025 seam with no new schema or kernel machinery for that seam, but end-to-end later-year use remains unbuilt and delivery under an authorized package/scope contract is unestablished. Consumption policy and historical retention are distinct open questions, not a forced choice. A **fifth composition gap** — cross-context handoff / scope composition, i.e. the absence of an authorized package/scope contract for composing the 2025 determination into a later disposition calculation — joins the four inherited ones, and a cross-context basis-reuse vertical meets it first. Structural differences (pin topology, blocked-row naming) were observed and executed on two run observables, but no material product discriminator was established, so the A/B choice is deferred again on that ground, not a measured tradeoff |
 | Adjacent Translation Case | Not selected | Cadence normalization, canonical-model reuse, one bounded tax expansion |
 | Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
@@ -146,16 +220,56 @@ choice can be tested, since a later-year disposition is where a consumer
 of a composed adjusted basis first appears. That test may discriminate
 the candidates or may show no material difference.
 
-The just-closed milestone's plan is
+**Roadmap change on 2026-09-02 (second entry).** Item 4 became the
+**selected** milestone; its plan is
+[`milestones/later-year-basis-reuse.md`](milestones/later-year-basis-reuse.md).
+The plan constrains it against a hazard the roadmap language did not name:
+the repository contains only `packages/content/tax/2025/`, so the milestone
+must not silently become the implementation of a 2026 package. Production
+tax-year content is a boundary to surface to the owner rather than a step
+to take. The plan also separates two dimensions the roadmap entry had
+folded together — **access** (how a later calculation obtains the earlier
+consequence) and **representation** (the deferred aggregate-versus-
+components choice) — and fixes the evidence posture: a disposable
+in-memory consumer would establish only that the rule vocabulary can
+express the calculation, not that a later run *finds* an earlier result, so
+one narrow disposable persisted-boundary experiment against a
+manual-injection negative control is required. That separation is what let
+the milestone keep consumption policy and historical retention as distinct
+open questions while the representation question stays deferred.
+
+**Two carry-forwards from item 4 that bear on later selection.** First, the
+**fifth composition gap** — cross-context handoff / scope composition —
+which a **cross-context basis-reuse** vertical meets before any of the four
+inherited gaps, so no implementation item whose consumer must use a
+determination from another tax context or scope is selectable until the owner
+settles it.
+Second, a **validator/authority gap in committed product code**, recorded
+and deliberately not fixed, that being outside the milestone's boundary:
+`packages/derivation/package_validation.py`'s collect-target universe guard
+documents itself as binding "artifact-package.v3 onward" but its allowlist
+ends at `artifact-package.v17`, so it is inactive for the current
+`artifact-package.v26` production package and has never bound a
+`rule-artifact.v7` collect. That is an **owner decision item independent of
+this phase's milestone sequence**, and any future claim that a
+source-family-authorized traversal has been established must be re-run
+against a repaired guard.
+
+**Roadmap change on 2026-09-03.** Item 4 **closed** as an explicit partial
+result — see the item-4 entry above for the full account. Its plan is
+[`milestones/later-year-basis-reuse.md`](milestones/later-year-basis-reuse.md);
+its retrospective is
+[`2026-09-03-later-year-basis-reuse.md`](../../milestone-retrospectives/2026-09-03-later-year-basis-reuse.md).
+No milestone is currently selected. The prior just-closed milestone's plan
+is
 [`milestones/investment-basis-concept-coverage.md`](milestones/investment-basis-concept-coverage.md);
 its retrospective is
 [`2026-09-02-investment-basis-concept-coverage.md`](../../milestone-retrospectives/2026-09-02-investment-basis-concept-coverage.md).
 It closed as an explicit partial result: the basis domain model, coverage
 matrix, and canonical propositions are established, while the A/B
-representation choice is deferred at paper for want of a concrete
-consumer, and four named composition gaps are recorded as reopening
-triggers. No later milestone is selected; `docs/phase-state.md` is the
-current, single re-entry pointer. The prior just-closed milestone remains
+representation choice was deferred at paper for want of a concrete
+consumer — item 4 supplied that consumer. `docs/phase-state.md` is the
+current, single re-entry pointer. An earlier just-closed milestone remains
 recorded in
 [`2026-08-28-reported-interest-tax-concept.md`](../../milestone-retrospectives/2026-08-28-reported-interest-tax-concept.md).
 
