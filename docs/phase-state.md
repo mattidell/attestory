@@ -4,10 +4,18 @@
   "phase": "Tax Concept Derivation",
   "topic": "nominee-interest-ownership-translation",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/nominee-interest-ownership-translation.md",
-  "milestone_state": "track-0",
-  "status": "Nominee Interest Ownership Translation is the phase's first cadence-normalization test: whether the document-and-ordinary-fact translation method transfers from accrued interest to an ownership/allocation case. Planning gates P1 (framing and product value) and P2 (tax and artifact evidence) are COMPLETE and their findings are absorbed into the plan; Gate P3 (experiments and track decomposition) is COMPLETE and absorbed; all three planning gates are closed and Track 0 is chartered at the PAPER rung, T0-A is COMPLETE and repaired (its review gate released by owner decision). T0-B (traces) is COMPLETE, independently reviewed, and its three review findings are absorbed. T0-C (synthesis) is COMPLETE. It returned a DECISION-READY CONTRACT PROPOSAL rather than a partial result, with eleven contract clauses a production successor must satisfy. Adversarial closure: artifacts 1-5 PASS, artifact 6 N-A because no successor producer of an externally bound symbol is proposed. Known limitations affecting correctness: owner disposition RECORDED 2026-09-05 -- T0-F5 is DEFERRED behind a hard production gate, and the Schedule B repair is not in this milestone. The enforceable condition: no production or integration unit may be accepted as complete for a state combining required Schedule B presentation with a nonzero pairing-scoped current-year adjustment until T0-F5 is repaired. Preparatory contract or production work outside that intersection is not prevented. T0-F5 remains a real, unrepaired neighboring limitation; deferral is not a finding that it is absent, repaired, or harmless. T0-C was independently reviewed and its findings absorbed, so TRACK 0 MAY CLOSE; the contract unit is not chartered. No production charter is authorized: the contract unit remains conditional, and a later unit naming a successor producer requires artifact 6 under a fresh charter. T0-C has NOT yet been independently reviewed. P3 found no material product discriminator between the R-A and R-B representations in N1a-N12, so the rival comparison is dropped and the choice deferred; set the authorized evidence rung to PAPER with no executable prototype pre-authorized; recast N5 as a paper transfer test against ADR-0070; and determined the durable-publication gap orthogonal, so Track 0 observes run-local RunResult provenance. P2 established the Schedule B belonging condition for the return reduction, and established NO normalized information-reporting predicate: literal IRC 6049(a)(2), the IRS filing instructions, and 26 CFR 1.6049-4 retain separate authority-indexed formulations whose relationship no retrieved source reconciles. P3 settled that the product must represent separate consequences and provenance without normalizing that unresolved legal relationship, and that the legal interpretation is not settled by this milestone; Track 0 carries that result forward; if implementation appears to require a unified predicate, the owner may choose the product posture (qualification, refusal, separate authority-indexed guidance, deferral, or seeking further authoritative reconciliation) but does not determine what unresolved law means; asserting one legally correct normalized predicate requires adequate authoritative reconciliation, and absent that the honest milestone result is partial rather than a convenient normalization. P2 found no independently established beneficial-ownership test behind the gating question. Branch B is BOUNDED to the searched committed production areas: no ordinary-language producer of the legacy nominee amount was found there, which is not a claim that none exists anywhere. Track 0 has three reviewed checkpoints before any production unit. No production shape, ADR, schema, or implementation is selected by the plan.",
-  "current_role": "Foreman — Track 0 closeout",
-  "current_prompt": "docs/prototypes/nominee-interest-ownership-translation/track-0-findings.md"
+  "milestone_state": "closed",
+  "status": "Nominee Interest Ownership Translation is CLOSED 2026-09-05. Track 0 completed at the PAPER evidence rung across three reviewed checkpoints and returned a decision-ready contract proposal; no production code, schema, ADR, or test changed. The accrued-interest translation method TRANSFERS to an ownership-allocation circumstance: supportability transfers unchanged (ADR-0070 Decisions 8-10); report association, rule-owned consequences, ordinary-input mapping, and legacy coexistence are bounded extensions; owner cardinality is a new decision. Adversarial closure: artifacts 1-5 PASS, artifact 6 N-A. Owner disposition 2026-09-05: T0-F5 deferred behind a hard production gate -- no production or integration unit may be accepted as complete for a state combining required Schedule B presentation with a nonzero pairing-scoped current-year adjustment until it is repaired. The contract, production, and integration units remain conditional and unchartered. The three information-reporting formulations remain unreconciled by design. No next milestone is selected.",
+  "current_role": "Foreman — between-milestones selection",
+  "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
+  "retrospective": "docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md",
+  "deep_reads": {
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md",
+      "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
+      "OWNER_MODEL.md#The Product Model"
+    ]
+  }
 }
 -->
 
@@ -35,23 +43,25 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
-- **Active milestone:** Nominee Interest Ownership Translation — **TRACK 0
-  CHARTERED at the paper rung; all three planning gates COMPLETE and absorbed.**
-  It is the first normalization test of the established translation cadence,
-  using a bounded ownership/allocation case. P1 settled framing and product
-  value. P2 settled the tax and artifact evidence, establishing the Schedule B
-  belonging condition for the reduction but **no normalized
-  information-reporting predicate** — literal IRC § 6049(a)(2), the IRS filing
-  instructions, and 26 CFR 1.6049-4 retain separate authority-indexed
-  formulations. **P3 is complete and absorbed**: no case supplies a material
-  discriminator between the R-A and R-B representations, so that choice is
-  deferred; the authorized evidence rung is **paper** with no executable
-  prototype pre-authorized; N5 is an ADR-0070 transfer test; and the durable
-  derived-publication gap is orthogonal. **Only checkpoint T0-A is currently
-  authorized**; T0-B and T0-C are chartered but gated behind independent review,
-  and no production unit follows until Track 0 closes. See
-  `docs/phases/tax-concept-derivation/milestones/nominee-interest-ownership-translation.md`.
-- **Just-closed milestone:** Later-Year Basis Reuse Test — **CLOSED
+- **No active milestone.** The next milestone is **unselected**; selection is the
+  next action. See
+  `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
+- **Just-closed milestone:** Nominee Interest Ownership Translation — **CLOSED
+  2026-09-05.** Track 0 completed at the **paper** evidence rung across three
+  reviewed checkpoints and returned a **decision-ready contract proposal**; no
+  production code, schema, ADR, or test changed. The accrued-interest
+  translation method **transfers** to an ownership-allocation circumstance:
+  supportability transfers unchanged (ADR-0070 Decisions 8–10); report
+  association, rule-owned consequences, ordinary-input mapping, and legacy
+  coexistence are bounded extensions; owner cardinality is a new decision. The
+  contract, production, and integration units remain **conditional and
+  unchartered**. The three information-reporting formulations remain
+  unreconciled by design. **T0-F5 is deferred behind a hard production gate**:
+  no production or integration unit may be accepted as complete for a state
+  combining required Schedule B presentation with a nonzero pairing-scoped
+  current-year adjustment until it is repaired. See
+  `docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md`.
+- **Prior milestone:** Later-Year Basis Reuse Test — **CLOSED
   2026-09-03 as an explicit partial result.** Neither strategy supplies
   a production-authorized later-year delivery path today (raw same-run
   mixed-scope computation does produce the value), a fifth composition

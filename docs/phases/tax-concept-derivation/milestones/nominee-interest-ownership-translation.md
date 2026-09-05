@@ -3,8 +3,8 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "nominee-interest-ownership-translation",
-  "milestone_state": "track-0",
-  "status": "Selected and planned. Gates P1 (framing and product value) and P2 (tax and artifact evidence) are both COMPLETE and their findings are absorbed into this plan; Gate P3 (experiments and track decomposition) is COMPLETE and its findings are absorbed, so all three planning gates are closed and Track 0 is CHARTERED at the PAPER rung, with only checkpoint T0-A authorized to begin and T0-B/T0-C gated behind independent review. P3 found that no case in N1a-N12 supplies a material product discriminator between the R-A and R-B representations, so the rival comparison is dropped and the representation choice is deferred; that the authorized evidence rung is PAPER with no executable prototype pre-authorized; that N5 is a paper transfer test against ADR-0070 Decisions 8-10 rather than two prototypes; and that the durable-publication gap is orthogonal, so Track 0 observes run-local RunResult provenance. P2 established the Schedule B reduction predicate (belonging, expressly applicable even if the income was later distributed) and found THREE authority-specific information-reporting formulations -- the literal IRC 6049(a)(2) conjunction with its $10 threshold, the form instructions' belonging/allocable-amount language, and the regulation's middleman/actual-ownership/credited-or-set-apart language -- whose relationship no retrieved source reconciles. No single normalized reporting predicate is established; P3 settled that Track 0 tests the separation of consequences and must not choose among or combine the formulations, and if implementation appears to require a unified predicate the owner may select qualification, refusal, separately attributed guidance, deferral, or further research, but cannot determine unresolved law -- a legally normalized predicate requires adequate authoritative reconciliation, and absent that the honest milestone result is partial. P2 also found no clean beneficial-ownership test, verified that committed arithmetic and rendering consume the legacy nominee fact when present, and found no ordinary-language producer of it in the searched committed production areas (bounded Branch B). P1 closed the negative-answer question -- an explicit no is a transient interaction response creating no durable allocation fact -- and required an ordinary-circumstance disambiguation before any nominee allocation is captured, because a bare who/how-much cannot separate nominee ownership from a bond buyer reimbursing a seller for accrued interest (N9b). Planning review is deliberately staged before Track 0: framing, evidence architecture, and experiment/track decomposition are reviewed independently and repaired in the plan before any implementation charter is issued. The milestone tests whether the document-and-ordinary-fact translation method transfers from accrued interest to nominee interest: a payer reports interest to the taxpayer, but a stated share actually belongs to another person. That legacy consumer path does not represent the owner, connect the allocation to a report or source-independent interest circumstance, derive the adjustment from ordinary facts, or surface the information-reporting consequence. The plan does not assume the Schedule B reduction and the information-reporting obligation share a factual predicate, and P2 established none; the paired cases N10 (ownership without established payment) and N12 (payment without established ownership) keep that assumption falsifiable in both directions, and their non-inference requirements are selected invariants. No production shape is selected by this plan.",
+  "milestone_state": "closed",
+  "status": "CLOSED 2026-09-05. Track 0 completed at the PAPER evidence rung across three reviewed checkpoints and returned a decision-ready contract proposal; no production code, schema, ADR, or test changed. The accrued-interest translation method TRANSFERS to an ownership-allocation circumstance: supportability transfers unchanged (ADR-0070 Decisions 8-10); report association, rule-owned consequences, ordinary-input mapping, and legacy coexistence are bounded extensions; owner cardinality is a new decision. Adversarial closure: artifacts 1-5 PASS, artifact 6 N-A. Owner disposition 2026-09-05: T0-F5 deferred behind a hard production gate -- no production or integration unit may be accepted as complete for a state combining required Schedule B presentation with a nonzero pairing-scoped current-year adjustment until it is repaired; preparatory work outside that intersection is not prevented. The contract, production, and integration units remain conditional and unchartered. Deferred with triggers: the R-A/R-B representation choice, owner-cardinality shapes, the explanation extension exposing attribution to a reader, and whether N12's onward transfer falls within another 6049 route. The three information-reporting formulations remain unreconciled by design.",
   "scope": [
     "model 2025 Form 1099-INT box-1 reports across bounded interaction and evidence conditions: no recorded nominee allocation and no response to the ownership question (N1a); an explicit negative response (N1b); one or more affirmative allocations to non-spouse actual owners (N2, N4); full allocation away from the taxpayer (N3); and two distinct same-payer reports in one tax year with an allocation attached to only one of them, both where that allocation is supportable on its own report (N11a) and where it is not (N11b). These describe interaction and evidence conditions, not findings about who owns the interest in the world; an unanswered question establishes no ownership proposition either way",
     "preserve the payer report as documentary evidence while eliciting ordinary ownership and allocation facts without asking the user to supply a preclassified Schedule B adjustment",
@@ -51,7 +51,8 @@
       "docs/roles/qualitative-review.md",
       "AGENTS.md#Data Safety Rules"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md"
 }
 -->
 
@@ -62,7 +63,7 @@
 - Phase: Tax Concept Derivation
 - Milestone key: `nominee-interest-ownership-translation`
 - Primary branch: `milestone/nominee-interest-ownership-translation`
-- State: Track 0 COMPLETE at the paper rung; adversarial closure graded, T0-F5 deferred behind a production gate; contract unit not chartered
+- State: **CLOSED 2026-09-05**; Track 0 complete at the paper rung, contract unit conditional and unchartered
 - Roadmap role: Adjacent Translation Case, the first normalization test
 
 ## Plain-language purpose
@@ -1088,6 +1089,28 @@ Do not stop merely because the selected result requires a bounded successor
 contract or a somewhat larger implementation. Agents may recommend and build a
 larger scope when they can explain its product value, cost, risk, and displaced
 work in plain language.
+
+## Execution record
+
+**Closed 2026-09-05.** Documentation only — no file under `packages/` or
+`tests/` changed anywhere in this milestone.
+
+| Stage | Result |
+| --- | --- |
+| Gate P1 — framing and product value | PASSED WITH REPAIRS; absorbed |
+| Gate P2 — tax and artifact evidence | PASSED WITH REPAIRS; absorbed |
+| Gate P3 — experiments and track decomposition | PASSED WITH REPAIRS; absorbed |
+| Track 0 T0-A — semantics | complete; repaired |
+| Track 0 T0-B — traces | complete; independently reviewed; repaired |
+| Track 0 T0-C — synthesis | complete; owner-reviewed; repaired |
+| Contract / production / integration units | **conditional, not chartered** |
+
+Track 0's record — the six adversarial-closure artifacts, the N1a–N12 traces
+with named kill conditions, and the decision-ready contract proposal — is
+`docs/prototypes/nominee-interest-ownership-translation/track-0-findings.md`.
+
+Retrospective:
+[`2026-09-05-nominee-interest-ownership-translation.md`](../../../milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md).
 
 ## Track 0 adversarial closure
 

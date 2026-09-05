@@ -145,8 +145,9 @@ requires schema, kernel, package, content, or other changes.
 scope-composition gap) is a prerequisite for a consumer that must use a
 determination from another tax context or scope — not for every later-year
 calculation. **Milestone 5 (Nominee Interest Ownership Translation) is now
-selected**; gap 5 becomes a prerequisite for it only if the bounded nominee
-case turns out to need a determination from another tax context or scope.
+CLOSED (2026-09-05)**, and **gap 5 did not bind it**: the bounded nominee case is
+same-year and same-report throughout, so it never needed a determination from
+another tax context or scope.
 None of the five
 composition gaps this phase has now named is closed. A milestone selecting a
 first basis-lifecycle production vertical resolves the owner-held questions
@@ -174,15 +175,42 @@ speak broadly of interest belonging to another person; IRC 6049(a)(2) speaks of
 a nominee who makes payments to that person. Establishing what separately
 supports each is assigned to planning gate P2.
 
-This is the first normalization test. It determines whether the accrued-
-interest method transfers from a purchase circumstance to an ownership and
-allocation circumstance. Planning itself is divided into three independently
-reviewed gates—framing, tax/artifact evidence, and experiment/track design—so
-contradictions are repaired before a Track 0 charter is issued. Track 0 then
-uses three reviewed checkpoints before any production unit may begin.
+**CLOSED 2026-09-05.** The first normalization test answered its question: the
+accrued-interest method **does** transfer from a purchase circumstance to an
+ownership-allocation circumstance. Supportability transfers unchanged
+(ADR-0070 Decisions 8–10); report association, rule-owned consequences,
+ordinary-input mapping, and legacy coexistence are **bounded extensions**; owner
+cardinality is a **new decision**.
+
+Track 0 completed at the **paper** evidence rung across three reviewed
+checkpoints and returned a **decision-ready contract proposal** — eleven clauses
+a production successor must satisfy. Adversarial closure: artifacts 1–5 PASS,
+artifact 6 N-A (no successor producer of an externally bound symbol proposed).
+**No production code, schema, ADR, or test changed.**
+
+**Bounded capability delivered:** a reviewed contract **proposal** for nominee
+ownership translation — specified and independently reviewed, but **not an
+accepted contract**: no ADR or schema is proposed or ratified by this milestone. **Not delivered, by design:** any implementation. The
+plan's contract, production, and integration units remain **conditional and
+unchartered**.
+
+**Deferred, with triggers:** the R-A/R-B representation choice (no case
+discriminates them); owner-cardinality shapes; the explanation extension that
+would expose attribution to a reader; whether N12's onward transfer falls within
+another § 6049 route. The three information-reporting formulations remain
+**unreconciled by design** — a unified predicate would require authoritative
+reconciliation beyond what Gate P2 could retrieve, and the owner may set a
+product posture but does not determine unresolved law.
+
+**Production gate (owner disposition, 2026-09-05).** T0-F5 is deferred: no
+production or integration unit may be accepted as complete for a state combining
+required Schedule B presentation with a nonzero pairing-scoped current-year
+adjustment, until it is repaired. Inherited, not caused by nominee interest.
 
 Plan:
 [`milestones/nominee-interest-ownership-translation.md`](milestones/nominee-interest-ownership-translation.md).
+Retrospective:
+[`2026-09-05-nominee-interest-ownership-translation.md`](../../milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md).
 
 ### 6. Contrasting Tax Concept
 
@@ -215,7 +243,7 @@ model must continue to serve computation and return generation.
 | Document and Ordinary-Fact Translation Vertical | **Closed 2026-08-30 — six ADRs accepted (0067-0072).** | Canonical workspace slice, identity association, supportability, standing authorization, rule-owned consequences, ordinary input mapping, legacy-migration decision |
 | Investment Basis Concept and Coverage Model | **Closed 2026-09-02 — explicit partial result.** | Basis domain model, structural coverage matrix, canonical propositions, A/B representation comparison deferred at paper (no forcing consumer), four named composition gaps recorded as reopening triggers |
 | Later-Year Basis Reuse Test | **Closed 2026-09-03 — explicit partial result** | Access experiments vs representation strategy held separate. **Neither strategy supplies a production-authorized later-year delivery path today** (raw same-run mixed-scope computation does produce the value): AS-1 is blocked twice and needs a *successor* publication-act schema plus an independent projection change; AS-2 re-executes the 2025 seam with no new schema or kernel machinery for that seam, but end-to-end later-year use remains unbuilt and delivery under an authorized package/scope contract is unestablished. Consumption policy and historical retention are distinct open questions, not a forced choice. A **fifth composition gap** — cross-context handoff / scope composition, i.e. the absence of an authorized package/scope contract for composing the 2025 determination into a later disposition calculation — joins the four inherited ones, and a cross-context basis-reuse vertical meets it first. Structural differences (pin topology, blocked-row naming) were observed and executed on two run observables, but no material product discriminator was established, so the A/B choice is deferred again on that ground, not a measured tradeoff |
-| Nominee Interest Ownership Translation | **Planned 2026-09-03 — planning review gates pending** | First cadence-normalization test: ownership/allocation translation, legacy nominee-path reconciliation, and early independent review during planning and Track 0 |
+| Nominee Interest Ownership Translation | **Closed 2026-09-05 — Track 0 complete at the paper rung; decision-ready contract proposal; no implementation chartered** | First cadence-normalization test: ownership/allocation translation, legacy nominee-path reconciliation, and early independent review during planning and Track 0 |
 | Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 
