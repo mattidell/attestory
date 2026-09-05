@@ -2,12 +2,20 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "later-year-basis-reuse",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/later-year-basis-reuse.md",
+  "topic": "nominee-interest-ownership-translation",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/nominee-interest-ownership-translation.md",
   "milestone_state": "closed",
-  "status": "Later-Year Basis Reuse Test CLOSED 2026-09-03 as an explicit partial result: no production packet, and no contract, production, or integration unit chartered. Neither strategy supplies a production-authorized later-year delivery path today. AS-1 (retrieval) is blocked twice independently - the real derived-finding.v2 consequence cannot be persisted (act-derived-publication.v1 pins finding.schema to derived-finding.v1 and is published and immutable per AGENTS.md Article 9 / ADR-0003), and a persisted v1 finding still never reaches a later run's state.findings - so its retrieval cost is a SUCCESSOR act schema with loader/registry/admission/consumer changes PLUS an independent projection change, two workstreams, neither sufficient alone. AS-2 (re-execution) re-executes the 2025 seam from real projected source facts with no new schema or kernel machinery for that seam, but end-to-end later-year use remains unbuilt and DELIVERY UNDER AN AUTHORIZED PACKAGE/SCOPE CONTRACT IS NOT ESTABLISHED: the separate later consumer is fed by injection, and the no-injection composition is same-run, mixed-scope only (proving mixed-scope computation is mechanically expressible and DOES produce the value, proving nothing about authorization). Re-execution for consumption and historical retention for reporting are distinct questions; neither is selected. That is a FIFTH composition gap - the absence of an authorized package/scope contract for composing the 2025 determination into a later disposition calculation (no adopted 2029 package, no cross-scope composition contract in committed content, and package_validation.py independently refuses scope-mismatched members per SCOPE_MISMATCH/C5) - alongside the four inherited ones; all five are must-close, none is closed, and a cross-context basis-reuse vertical meets the fifth first (a later-year calculation that stays within one tax context does not meet it). C8b is executed and split three ways: (a) a raw same-run rule can aggregate the consequence's live sources by fixed prefix; (b) nothing selects a NAMED acquisition's consequence; (c) current package validation mechanically ACCEPTS the invented candidate rule (zero issues against the real v26 package) because COLLECT_TARGET_NOT_FAMILY is inactive for artifact-package.v26; that acceptance does not supply the missing source-family declaration, closure mapping, or semantic authority, so no source-family-authorized traversal has been established. Gap 4 therefore survives on both halves, selection and authorization, and S-b is blocked by gap 5 first. A validator/authority gap in committed product code is recorded and deliberately NOT fixed (package_validation.py's collect-target guard allowlist ends at artifact-package.v17 while production is v26, so it has never bound a rule-artifact.v7 collect - collect itself is expressible in v2 through v7 alike, v7 is not special in that respect). C12 finds STRUCTURAL differences between representations (pin topology, blocked-row naming) on two executed run observables, but no MATERIAL PRODUCT DISCRIMINATOR is established because no test exercises the explanation walker or any other downstream consumer of either shape; the A/B representation choice is DEFERRED AGAIN on that cleaner ground, not a measured tradeoff. Owner-held decision areas are surfaced and not taken, each applying only where a selected case reaches it: the contract permitting cross-scope consumption (gap 5), for cross-context reuse; the later calculation's consumption policy, when selecting what a later calculation consumes; historical retention/reportability, a distinct question, only when that capability is selected; authorship of the broker-versus-derived comparison claim, when documentary reconciliation is in scope; and whether to repair the collect-target universe guard (COLLECT_TARGET_NOT_FAMILY), if the chosen route depends on that traversal and otherwise as an independent maintenance decision. The milestone did not establish whether resolving gap 5 or the other composition gaps requires schema, kernel, package, content, or other changes. Scope hazard recorded, not invented: only packages/content/tax/2025/ exists. The prior milestone's four composition gaps and deferred A/B choice are preserved unchanged as inputs. No milestone is currently active; the next one is unselected. Detail: docs/prototypes/later-year-basis-reuse/track-0-findings.md.",
+  "status": "Nominee Interest Ownership Translation is CLOSED 2026-09-05. Track 0 completed at the PAPER evidence rung across three reviewed checkpoints and returned a decision-ready contract proposal; no production code, schema, ADR, or test changed. The accrued-interest translation method TRANSFERS to an ownership-allocation circumstance: supportability transfers unchanged (ADR-0070 Decisions 8-10); report association, rule-owned consequences, ordinary-input mapping, and legacy coexistence are bounded extensions; owner cardinality is a new decision. Adversarial closure: artifacts 1-5 PASS, artifact 6 N-A. Owner disposition 2026-09-05: T0-F5 deferred behind a hard production gate -- no production or integration unit may be accepted as complete for a state combining required Schedule B presentation with a nonzero pairing-scoped current-year adjustment until it is repaired. The contract, production, and integration units remain conditional and unchartered. The three information-reporting formulations remain unreconciled by design. No next milestone is selected.",
   "current_role": "Foreman — between-milestones selection",
-  "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md"
+  "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
+  "retrospective": "docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md",
+  "deep_reads": {
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md",
+      "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
+      "OWNER_MODEL.md#The Product Model"
+    ]
+  }
 }
 -->
 
@@ -35,7 +43,25 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
-- **Just-closed milestone:** Later-Year Basis Reuse Test — **CLOSED
+- **No active milestone.** The next milestone is **unselected**; selection is the
+  next action. See
+  `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
+- **Just-closed milestone:** Nominee Interest Ownership Translation — **CLOSED
+  2026-09-05.** Track 0 completed at the **paper** evidence rung across three
+  reviewed checkpoints and returned a **decision-ready contract proposal**; no
+  production code, schema, ADR, or test changed. The accrued-interest
+  translation method **transfers** to an ownership-allocation circumstance:
+  supportability transfers unchanged (ADR-0070 Decisions 8–10); report
+  association, rule-owned consequences, ordinary-input mapping, and legacy
+  coexistence are bounded extensions; owner cardinality is a new decision. The
+  contract, production, and integration units remain **conditional and
+  unchartered**. The three information-reporting formulations remain
+  unreconciled by design. **T0-F5 is deferred behind a hard production gate**:
+  no production or integration unit may be accepted as complete for a state
+  combining required Schedule B presentation with a nonzero pairing-scoped
+  current-year adjustment until it is repaired. See
+  `docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md`.
+- **Prior milestone:** Later-Year Basis Reuse Test — **CLOSED
   2026-09-03 as an explicit partial result.** Neither strategy supplies
   a production-authorized later-year delivery path today (raw same-run
   mixed-scope computation does produce the value), a fifth composition
@@ -44,7 +70,6 @@ a project to enumerate or implement the entire taxable-interest universe.
   the four inherited ones, and the A/B representation choice is deferred
   again because no material product discriminator was established. See
   "Closed milestone" below.
-- **No milestone is currently active; the next one is unselected.**
 - **Prior milestone:** Investment Basis Concept and Coverage Model —
   **CLOSED 2026-09-02 as an explicit partial result.** The basis concept
   and its coverage are established; the adjusted-basis representation
