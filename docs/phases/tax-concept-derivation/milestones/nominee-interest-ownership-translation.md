@@ -3,15 +3,15 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "nominee-interest-ownership-translation",
-  "milestone_state": "planned",
-  "status": "Selected and planned. Gates P1 (framing and product value) and P2 (tax and artifact evidence) are both COMPLETE and their findings are absorbed into this plan; Gate P3 (experiments and track decomposition) is COMPLETE and its findings are absorbed, so all three planning gates are closed and a Track 0 charter may be issued. P3 found that no case in N1a-N12 supplies a material product discriminator between the R-A and R-B representations, so the rival comparison is dropped and the representation choice is deferred; that the authorized evidence rung is PAPER with no executable prototype pre-authorized; that N5 is a paper transfer test against ADR-0070 Decisions 8-10 rather than two prototypes; and that the durable-publication gap is orthogonal, so Track 0 observes run-local RunResult provenance. P2 established the Schedule B reduction predicate (belonging, expressly applicable even if the income was later distributed) and found THREE authority-specific information-reporting formulations -- the literal IRC 6049(a)(2) conjunction with its $10 threshold, the form instructions' belonging/allocable-amount language, and the regulation's middleman/actual-ownership/credited-or-set-apart language -- whose relationship no retrieved source reconciles. No single normalized reporting predicate is established; P3 may test the separation of consequences but must not choose among or combine the formulations, and if implementation appears to require a unified predicate the owner may select qualification, refusal, separately attributed guidance, deferral, or further research, but cannot determine unresolved law -- a legally normalized predicate requires adequate authoritative reconciliation, and absent that the honest milestone result is partial. P2 also found no clean beneficial-ownership test, verified that committed arithmetic and rendering consume the legacy nominee fact when present, and found no ordinary-language producer of it in the searched committed production areas (bounded Branch B). P1 closed the negative-answer question -- an explicit no is a transient interaction response creating no durable allocation fact -- and required an ordinary-circumstance disambiguation before any nominee allocation is captured, because a bare who/how-much cannot separate nominee ownership from a bond buyer reimbursing a seller for accrued interest (N9b). Planning review is deliberately staged before Track 0: framing, evidence architecture, and experiment/track decomposition are reviewed independently and repaired in the plan before any implementation charter is issued. The milestone tests whether the document-and-ordinary-fact translation method transfers from accrued interest to nominee interest: a payer reports interest to the taxpayer, but a stated share actually belongs to another person. That legacy consumer path does not represent the owner, connect the allocation to a report or source-independent interest circumstance, derive the adjustment from ordinary facts, or surface the information-reporting consequence. The plan does not assume the Schedule B reduction and the information-reporting obligation share a factual predicate, and P2 established none; the paired cases N10 (ownership without established payment) and N12 (payment without established ownership) keep that assumption falsifiable in both directions, and their non-inference requirements are selected invariants. No production shape is selected by this plan.",
+  "milestone_state": "track-0",
+  "status": "Selected and planned. Gates P1 (framing and product value) and P2 (tax and artifact evidence) are both COMPLETE and their findings are absorbed into this plan; Gate P3 (experiments and track decomposition) is COMPLETE and its findings are absorbed, so all three planning gates are closed and Track 0 is CHARTERED at the PAPER rung, with only checkpoint T0-A authorized to begin and T0-B/T0-C gated behind independent review. P3 found that no case in N1a-N12 supplies a material product discriminator between the R-A and R-B representations, so the rival comparison is dropped and the representation choice is deferred; that the authorized evidence rung is PAPER with no executable prototype pre-authorized; that N5 is a paper transfer test against ADR-0070 Decisions 8-10 rather than two prototypes; and that the durable-publication gap is orthogonal, so Track 0 observes run-local RunResult provenance. P2 established the Schedule B reduction predicate (belonging, expressly applicable even if the income was later distributed) and found THREE authority-specific information-reporting formulations -- the literal IRC 6049(a)(2) conjunction with its $10 threshold, the form instructions' belonging/allocable-amount language, and the regulation's middleman/actual-ownership/credited-or-set-apart language -- whose relationship no retrieved source reconciles. No single normalized reporting predicate is established; P3 settled that Track 0 tests the separation of consequences and must not choose among or combine the formulations, and if implementation appears to require a unified predicate the owner may select qualification, refusal, separately attributed guidance, deferral, or further research, but cannot determine unresolved law -- a legally normalized predicate requires adequate authoritative reconciliation, and absent that the honest milestone result is partial. P2 also found no clean beneficial-ownership test, verified that committed arithmetic and rendering consume the legacy nominee fact when present, and found no ordinary-language producer of it in the searched committed production areas (bounded Branch B). P1 closed the negative-answer question -- an explicit no is a transient interaction response creating no durable allocation fact -- and required an ordinary-circumstance disambiguation before any nominee allocation is captured, because a bare who/how-much cannot separate nominee ownership from a bond buyer reimbursing a seller for accrued interest (N9b). Planning review is deliberately staged before Track 0: framing, evidence architecture, and experiment/track decomposition are reviewed independently and repaired in the plan before any implementation charter is issued. The milestone tests whether the document-and-ordinary-fact translation method transfers from accrued interest to nominee interest: a payer reports interest to the taxpayer, but a stated share actually belongs to another person. That legacy consumer path does not represent the owner, connect the allocation to a report or source-independent interest circumstance, derive the adjustment from ordinary facts, or surface the information-reporting consequence. The plan does not assume the Schedule B reduction and the information-reporting obligation share a factual predicate, and P2 established none; the paired cases N10 (ownership without established payment) and N12 (payment without established ownership) keep that assumption falsifiable in both directions, and their non-inference requirements are selected invariants. No production shape is selected by this plan.",
   "scope": [
     "model 2025 Form 1099-INT box-1 reports across bounded interaction and evidence conditions: no recorded nominee allocation and no response to the ownership question (N1a); an explicit negative response (N1b); one or more affirmative allocations to non-spouse actual owners (N2, N4); full allocation away from the taxpayer (N3); and two distinct same-payer reports in one tax year with an allocation attached to only one of them, both where that allocation is supportable on its own report (N11a) and where it is not (N11b). These describe interaction and evidence conditions, not findings about who owns the interest in the world; an unanswered question establishes no ownership proposition either way",
     "preserve the payer report as documentary evidence while eliciting ordinary ownership and allocation facts without asking the user to supply a preclassified Schedule B adjustment",
     "determine whether the canonical translation seams accepted for accrued interest transfer unchanged, require parameterized extension, or expose a genuinely new identity, allocation, authority, lifecycle, or interaction decision",
     "derive and explain the taxpayer's nominee-distribution reduction, and determine what separately establishes the information-reporting obligation rather than assuming it shares the reduction's predicate (N10 and its converse N12, in which a transfer alone establishes no ownership), without implementing Forms 1096 or 1099-INT filing",
     "compare the canonical result with the current legacy nominee-adjustment path, preventing omission and double subtraction while preserving published history",
-    "use the smallest executable evidence that discriminates viable representations, then charter production only if no consequential semantic decision remains"
+    "use the cheapest authorized evidence for each proposition -- the authorized rung is PAPER and the representation comparison is deferred -- with executable work reached only through the plan's approval path (plan repair or the owner-approved prototype plan), then charter production only if no consequential semantic decision remains"
   ],
   "non_goals": [
     "no joint-return or spouse-allocation model; the spouse exception is a named boundary rather than an invented subject rule",
@@ -62,7 +62,7 @@
 - Phase: Tax Concept Derivation
 - Milestone key: `nominee-interest-ownership-translation`
 - Primary branch: `milestone/nominee-interest-ownership-translation`
-- State: planned; no implementation track is chartered
+- State: Track 0 COMPLETE at the paper rung; adversarial closure graded, T0-F5 deferred behind a production gate; contract unit not chartered
 - Roadmap role: Adjacent Translation Case, the first normalization test
 
 ## Plain-language purpose
@@ -647,7 +647,7 @@ Track 0 begins with a transfer table, not a blank-sheet design:
 | Canonical object-valued ordinary fact + field-ref access | Can an ownership allocation be expressed honestly as one current fact, or does arbitrary owner cardinality require a different shape? |
 | Report association | Does an allocation concern a specific report, a source-independent interest item/account, or both? Which correction cases discriminate them? |
 | Supportability | Can the existing per-item plus aggregate boundary establish `sum(allocated away) <= reported amount` without conflating several reports? |
-| Rule-owned consequences | The accrued-interest precedent already proves **multiple publications behind a shared gate** (ADR-0071 publishes two findings gated on the same supportability verdict). That is not the open question. Nominee interest asks whether consequences can be **independently gated and independently explained**: the belonging-supported Schedule B determination not gated on payment; the authority-indexed reporting evaluations not inferred from belonging; the extra payment/credit fact an input to literal § 6049(a)(2) only; and separate provenance and correction behavior for each. **N10 must detect suppression of the reduction merely because payment is absent. N12 must detect a reduction inferred from payment alone.** No experiment may select, combine, or rank the unreconciled formulations. |
+| Rule-owned consequences | The accrued-interest precedent already proves **multiple publications behind a shared gate** (ADR-0071 publishes two findings gated on the same supportability verdict). That is not the open question. Nominee interest asks whether consequences can be **independently gated and independently explained**: the belonging-supported Schedule B determination not gated on payment; the authority-indexed reporting evaluations not inferred from belonging; dependency stated **statement-specifically** rather than formulation-wide — literal § 6049(a)(2) **necessarily** requires the additional payment/credit fact, a regulation-attributed statement pins payment, credit, setting-apart, collection, or intermediary facts **only where that statement relies on them** and not where it is limited to the actually-owned-portion language, and payment **never** gates or pins the belonging-supported reduction; and separate provenance and correction behavior for each. **N10 must detect suppression of the reduction merely because payment is absent. N12 must detect a reduction inferred from payment alone.** No experiment may select, combine, or rank the unreconciled formulations. |
 | Ordinary-input mapping | Can the user answer in plain ownership language without supplying “nominee distribution” or a tax result? And can the intake elicit enough ordinary context to **route the circumstance** — interest held for another owner, a bond purchase reimbursing a seller for accrued interest, or another/uncertain case — before an allocation is captured? N9b shows that a bare “who and how much” cannot. Does the accrued-interest intake seam transfer, extend, or need a new routing decision? |
 | Legacy coexistence | Does ADR-0072's no-silent-conversion posture transfer, and what property differs if it does not? |
 
@@ -713,16 +713,36 @@ So **run-local provenance and durable act-log provenance are not the same
 thing**, and the durable `derived-finding.v2` publication chain **is not
 currently available**.
 
-**Gate P3 determined this gap is ORTHOGONAL to the nominee-interest decision.**
-Same-year translation never asks whether a *prior-year* derived finding can be
-retrieved — that was the previous milestone's question. Nominee correction asks
-only "given current facts, do not reuse a stale amount," which run-local
-re-derivation observes.
+Three questions live here and must not be collapsed into one deferral:
 
-So **Track 0 observes run-local `RunResult` provenance.** It must **not** claim
-ADR-0010 act-log displacement — such a claim would be false on the production
-path — and must **not** select a publication-schema repair. Durable derived
-findings are **not** a requirement of this milestone.
+1. **The durable-publication carrier gap — ORTHOGONAL.** Whether a derived
+   finding can be *persisted and later retrieved* through the act log. Gate P3
+   determined this is orthogonal: same-year translation never asks whether a
+   *prior-year* derived finding can be retrieved — that was the previous
+   milestone's question. Nominee correction asks only "given current facts, do
+   not reuse a stale amount," which run-local re-derivation observes. **Track 0
+   observes run-local `RunResult` provenance**, must **not** claim ADR-0010
+   act-log displacement, must **not** select a publication-schema repair, and
+   must **not** require act-log persistence. Durable derived findings are not a
+   requirement of this milestone.
+
+2. **Attribution recoverable from the underlying assertion act — LIVE.** The
+   `act.v1` record carries `actor`, `at`, and `committed_against`, and the
+   derived value pins the finding id. Whether the chain from a published number
+   back to the person who supplied the ordinary statement is *recoverable at all*
+   from committed records is a question Track 0 must answer, not assume.
+
+3. **Attribution actually exposed by the reader-facing explanation — LIVE, and
+   distinct from (2).** `ExplanationNode` carries `finding_id`, `role`, `kind`,
+   `symbol`, `value`, `version`, `produced_by`, and `children`. It does **not**
+   carry the asserting actor or timestamp. So a chain may be fully recoverable
+   from underlying records and still be **absent from what a reader is shown**.
+   Track 0 determines which of three states holds — recoverable only, available
+   to the current explanation consumer, or requiring a bounded explanation
+   extension — and **does not design the extension.**
+
+Recoverability and exposure are different product properties. Establishing (2)
+does not establish (3).
 
 ### Decision inventory and authorized evidence rung
 
@@ -753,8 +773,11 @@ it does not, which seam is a **bounded extension** versus a **new decision**?
 - **Producer → authority → consumer → failure:** ordinary intake produces an
   attributed finding → the assertion act carries actor and time → a rule derives
   the reduction against the payer report → line 2b and Schedule B consume the
-  subtotal. **Failure:** the derivation reaches the consumer with no recoverable
-  attribution chain, or reaches it from a circumstance that was never routed.
+  subtotal. **Failure, either of:** (i) the derivation reaches the consumer with
+  **no recoverable attribution chain**; or (ii) the chain **is** recoverable from
+  underlying records but a **required explanation surface cannot expose it**, so a
+  reader is shown a determination without who supported it. Also failure: the
+  derivation reaches the consumer from a circumstance that was never routed.
 - **Authorized rung: paper.**
 - **Single observation that would justify climbing:** paper cannot classify a
   seam as transfer, bounded extension, or new decision because the accepted
@@ -963,23 +986,55 @@ either information-reporting formulation.
 
 ## Verification
 
-Planning and Track 0 name exact commands after current consumers are mapped.
-At minimum:
+**Verification is staged.** What is authorized depends on the stage the
+milestone is actually in, not on the full list a completed milestone would carry.
+
+### Now — Track 0 at the paper rung
+
+Authorized:
+
+- source and committed-artifact **reads**, quoted with file and locator;
+- **paper traces**, tables, and matrices;
+- **mechanical document checks**: `governance_lint`, `envelope_scan` over
+  `origin/main..HEAD`, `git diff --check`, front-matter parsing, and link
+  resolution within the commit;
+- **existing tests run only as labelled observations** confirming a
+  committed-behavior claim being quoted. An observation is not an experiment and
+  must be labelled as such.
+
+**Not authorized now:** new N1a–N12 tests; the intake-routing probe; any
+executable compatibility probe; package or schema tests for a new artifact;
+presentation or explanation probes beyond reading committed code; production
+integration; repository-wide test runs as evidence of a design claim.
+
+### Conditional — a later approved executable spike
+
+These are retained as **obligations that attach if and when an executable rung is
+approved**, through the plan repair or the owner-approved
+`docs/prototypes/<topic>/plan.md` that `PROJECT_PLANNING.md` requires. They are
+not authorized by this list:
 
 - focused current-behavior tests for Schedule B interest adjustments;
 - the accrued-interest integration checkpoint as the transfer baseline;
+- new N1a–N12 tests at the approved rung, including a cross-report non-leakage
+  check for N11a, separate merging and borrowed-support checks for N11b, and a
+  no-inference-from-transfer check for N12;
 - an intake-routing probe showing that an affirmative gating answer is
   disambiguated before an allocation is captured, with N9b routed away from
-  nominee handling;
-- new N1a–N12 tests at the selected evidence rung, including a cross-report
-  non-leakage check for N11a, separate merging and borrowed-support checks for
-  N11b, and a no-inference-from-transfer check for N12;
-- package/schema tests for any new published artifact;
+  nominee handling.
+
+### Conditional — a production unit
+
+- package and schema tests for any new published artifact;
 - presentation and explanation probes for any externally visible consequence;
 - repository mypy for typed Python changes;
-- full test suite for any change under `packages/kernel/` or
+- the full test suite for any change under `packages/kernel/` or
   `packages/derivation/`;
 - governance lint, envelope scan, and diff check at handoff.
+
+**A concrete successor producer of an externally bound symbol triggers the
+Track 0 integration-surface artifact and a fresh charter**, with real-consumer
+execution mandatory at that point. That rule is unchanged by this staging.
 
 Only synthetic `demo.*` / `demo-*` identities and values may be committed.
 
@@ -1036,8 +1091,48 @@ work in plain language.
 
 ## Track 0 adversarial closure
 
-PENDING. Track 0 must complete the six artifacts required by
-`PROJECT_PLANNING.md`, including the integration-surface artifact if it proposes
-a successor producer for the externally bound nominee subtotal or taxable-
-interest symbol. No production charter is ready while any applicable row is
-missing or failed.
+**COMPLETE.** Track 0's three checkpoints are done and the six artifacts required
+by `PROJECT_PLANNING.md` are graded. Evidence is in
+`docs/prototypes/nominee-interest-ownership-translation/track-0-findings.md` §18.
+
+| # | Artifact | Grade |
+| --- | --- | --- |
+| 1 | Authority-lifecycle table | **PASS** |
+| 2 | Empty/nonempty authority matrix | **PASS** |
+| 3 | Late-authority counterexample | **PASS** |
+| 4 | Reused-claim semantic/lifecycle equivalence | **PASS** |
+| 5 | Neighboring-capability dependency diff | **PASS** |
+| 6 | Integration surface | **N-A** — no successor producer of an externally bound symbol is proposed |
+
+**Known limitations affecting correctness: owner disposition recorded
+(2026-09-05).**
+
+### The T0-F5 production gate (enforceable condition)
+
+**T0-F5** — when the shared Schedule B attachment is **required** and a
+**nonzero** pairing-scoped current-year adjustment is present, the Part I tie-out
+fails with `ITEMIZATION_TIE_OUT_VIOLATION`: line 2b (v5 and v6) subtracts
+`tax.us.2025.interest.current-year-adjustment-subtotal`, and neither Schedule B
+v4 nor v5 carries an adjustment row tying out to it.
+
+The owner **deferred T0-F5 behind a hard production gate**; the Schedule B repair
+is **not** in this milestone's scope. The gate is a condition on acceptance, not
+a note:
+
+> **No production or integration unit may be accepted as complete for a state
+> combining required Schedule B presentation with a nonzero pairing-scoped
+> current-year adjustment, until T0-F5 is repaired.**
+
+This does **not** prevent preparatory contract or production work **outside that
+affected intersection**. T0-F5 is a real, unrepaired **neighboring** correctness
+limitation — inherited rather than caused by nominee interest, and not affecting
+the nominee arithmetic, the line 2b figure, the independent-gating contract, or
+the reporting method. Deferral disposes of it; it does not make it absent,
+repaired, or harmless.
+
+### Standing conditions
+
+No production charter is ready while any applicable row is missing or failed.
+A later unit that proposes a **successor producer** of the externally bound
+nominee subtotal or taxable-interest symbol makes artifact 6 **mandatory**, with
+real-consumer execution, under a **fresh charter**.
