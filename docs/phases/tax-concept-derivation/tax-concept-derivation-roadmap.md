@@ -212,7 +212,48 @@ Plan:
 Retrospective:
 [`2026-09-05-nominee-interest-ownership-translation.md`](../../milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md).
 
-### 6. Contrasting Tax Concept
+### 6. Assertion Standing and Retraction Semantics
+
+Establish how a human-authored answer to a stable fact becomes current, is
+corrected, is retracted without asserting an opposite value, and is later
+asserted again. The milestone starts from that product lifecycle rather than
+repurposing entity succession or source-family membership because those
+mechanisms happen to remove a finding from one current view.
+
+The forcing case is the ordinary allocation statement surfaced by milestone 5,
+but the result is a bounded substrate contract rather than nominee-interest tax
+content. It must also resolve the observed disagreement between full currency
+projection and admission-time current-value readers, so every affected consumer
+agrees about whether an answer currently supplies support.
+
+**CLOSED 2026-09-06.** Both planning gates ran as reviewed cycles before any
+charter. Track 0 selected a dedicated act ending one finding's current support
+and disqualified entity succession and source-family withdrawal on executed
+evidence. ADR-0073 states the contract; one resolution of current standing now
+serves every reader, closing a production check that read a withdrawn
+filing-status authority as though it still stood. Fifteen fact types remain
+un-withdrawable because capability limits sit in the admission layer; that
+relocation is deferred to a successor milestone by owner disposition and is not
+a property of withdrawal. Plan:
+[`milestones/assertion-standing-retraction-semantics.md`](milestones/assertion-standing-retraction-semantics.md);
+retrospective: [`docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md`](/docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md).
+
+### 7. Nominee Allocation Assertion Recording
+
+Resume the first production stage of nominee-interest support after item 6
+settles assertion standing. Record the user's ordinary, attributed statement
+that a stated amount from one identified payer report belongs to one named other
+person, with stable proposition identity, correction, retraction, reassertion,
+and recoverable provenance. Do not ask the user to supply the nominee-interest
+tax classification.
+
+This stage remains separate from deriving the nominee reduction, reconciling
+the legacy adjustment, and integrating line 2b and Schedule B. Its exploratory
+branch is paused before contract selection; it must consume the lifecycle
+contract established by item 6 rather than selecting an entity or source-family
+workaround independently.
+
+### 8. Contrasting Tax Concept
 
 Apply the method to a concept with a different structure, chosen after the
 interest work exposes which properties may be accidental. A deduction or
@@ -223,7 +264,7 @@ The purpose is to find which parts of the representation are genuinely common
 and which belong only to interest. Confirmation in a second concept is evidence
 of transfer, not proof of universality.
 
-### 7. Tax-Concept Question and Explanation Projection
+### 9. Tax-Concept Question and Explanation Projection
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
@@ -244,6 +285,8 @@ model must continue to serve computation and return generation.
 | Investment Basis Concept and Coverage Model | **Closed 2026-09-02 — explicit partial result.** | Basis domain model, structural coverage matrix, canonical propositions, A/B representation comparison deferred at paper (no forcing consumer), four named composition gaps recorded as reopening triggers |
 | Later-Year Basis Reuse Test | **Closed 2026-09-03 — explicit partial result** | Access experiments vs representation strategy held separate. **Neither strategy supplies a production-authorized later-year delivery path today** (raw same-run mixed-scope computation does produce the value): AS-1 is blocked twice and needs a *successor* publication-act schema plus an independent projection change; AS-2 re-executes the 2025 seam with no new schema or kernel machinery for that seam, but end-to-end later-year use remains unbuilt and delivery under an authorized package/scope contract is unestablished. Consumption policy and historical retention are distinct open questions, not a forced choice. A **fifth composition gap** — cross-context handoff / scope composition, i.e. the absence of an authorized package/scope contract for composing the 2025 determination into a later disposition calculation — joins the four inherited ones, and a cross-context basis-reuse vertical meets it first. Structural differences (pin topology, blocked-row naming) were observed and executed on two run observables, but no material product discriminator was established, so the A/B choice is deferred again on that ground, not a measured tradeoff |
 | Nominee Interest Ownership Translation | **Closed 2026-09-05 — Track 0 complete at the paper rung; decision-ready contract proposal; no implementation chartered** | First cadence-normalization test: ownership/allocation translation, legacy nominee-path reconciliation, and early independent review during planning and Track 0 |
+| Assertion Standing and Retraction Semantics | **Closed 2026-09-06** | Withdrawal without a replacement value; one current-standing path across every reader; ADR-0073 |
+| Nominee Allocation Assertion Recording | Unblocked 2026-09-06; not selected | First production recording stage for the ordinary allocation assertion |
 | Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 

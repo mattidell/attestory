@@ -2,20 +2,21 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "nominee-interest-ownership-translation",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/nominee-interest-ownership-translation.md",
+  "topic": "assertion-standing-retraction-semantics",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/assertion-standing-retraction-semantics.md",
   "milestone_state": "closed",
-  "status": "Nominee Interest Ownership Translation is CLOSED 2026-09-05. Track 0 completed at the PAPER evidence rung across three reviewed checkpoints and returned a decision-ready contract proposal; no production code, schema, ADR, or test changed. The accrued-interest translation method TRANSFERS to an ownership-allocation circumstance: supportability transfers unchanged (ADR-0070 Decisions 8-10); report association, rule-owned consequences, ordinary-input mapping, and legacy coexistence are bounded extensions; owner cardinality is a new decision. Adversarial closure: artifacts 1-5 PASS, artifact 6 N-A. Owner disposition 2026-09-05: T0-F5 deferred behind a hard production gate -- no production or integration unit may be accepted as complete for a state combining required Schedule B presentation with a nonzero pairing-scoped current-year adjustment until it is repaired. The contract, production, and integration units remain conditional and unchartered. The three information-reporting formulations remain unreconciled by design. No next milestone is selected.",
-  "current_role": "Foreman — between-milestones selection",
+  "status": "CLOSED 2026-09-07. A recorded actor can end the workspace's current support for one identified answer without supplying a replacement value, and every reader agrees about which answer currently stands. A dedicated act contributes a fifth named displacement root behind six admission refusals; the two declared cascade edges are unchanged. One resolution of current standing replaced two across the five kernel admission enforcers, both read models, the derivation layer, the migration path, and both tax-layer readers, closing a production check that accepted a Social Security statement whose filing-status authority had been withdrawn, and preventing a retracted answer from being presented as a live migration claim without weakening ADR-0072's nonzero block. Entity succession and source-family withdrawal were disqualified on executed evidence. Fifteen fact types remain un-withdrawable because capability limits sit in the admission layer; that relocation is a successor milestone by owner disposition. Ratified by ADR-0073. Nominee Allocation Assertion Recording may resume.",
+  "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
-  "retrospective": "docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md",
   "deep_reads": {
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md",
+      "docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
+      "docs/phases/tax-concept-derivation/milestones/assertion-standing-retraction-semantics.md",
       "OWNER_MODEL.md#The Product Model"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md"
 }
 -->
 
@@ -43,10 +44,32 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
-- **No active milestone.** The next milestone is **unselected**; selection is the
-  next action. See
-  `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
-- **Just-closed milestone:** Nominee Interest Ownership Translation — **CLOSED
+- **Active milestone:** none. The next milestone choice is owner-held; the
+  roadmap is the selection instrument.
+- **Just-closed milestone:** Assertion Standing and Retraction Semantics —
+  **CLOSED 2026-09-07.** A recorded actor can end the workspace's current
+  support for one identified answer without supplying a replacement value, and
+  every reader agrees about which answer currently stands. A dedicated act
+  contributes a fifth named displacement root behind six admission refusals;
+  the two declared cascade edges are unchanged. One resolution of current
+  standing replaced two across the kernel admission enforcers, both read
+  models, the derivation layer, the migration path, and both tax-layer
+  readers, closing a production check that accepted a Social Security
+  statement whose filing-status authority had been withdrawn. Entity
+  succession and source-family withdrawal were disqualified on executed
+  evidence. An admitted retraction means a recorded actor ended current
+  support; it never establishes that the original author withdrew, and
+  whether it should require the original author is open and owner-held.
+  Fifteen fact types remain un-withdrawable because the engine's capability
+  limits are written as admission checks; relocating them is a successor
+  milestone by owner disposition, not a property of withdrawal. Ratified by
+  ADR-0073. See
+  `docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md`.
+- **Dependent production work:** Nominee Allocation Assertion Recording is
+  **unblocked but not selected.** The assertion-standing contract it waited
+  for exists, and the lifecycle was exercised against the per-report,
+  per-owner shape that work needs.
+- **Prior milestone:** Nominee Interest Ownership Translation — **CLOSED
   2026-09-05.** Track 0 completed at the **paper** evidence rung across three
   reviewed checkpoints and returned a **decision-ready contract proposal**; no
   production code, schema, ADR, or test changed. The accrued-interest
@@ -274,6 +297,17 @@ one tested with a real consumer; its own retrospective is
 
 ## Pointers
 
+- **Next-milestone selection instrument (owner-held):**
+  `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
+- **Just-closed milestone:**
+  `docs/phases/tax-concept-derivation/milestones/assertion-standing-retraction-semantics.md`,
+  retrospective
+  `docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md`,
+  contract `docs/adr/0073-assertion-standing-and-retraction-lifecycle.md`.
+- **Prior milestone:**
+  `docs/phases/tax-concept-derivation/milestones/nominee-interest-ownership-translation.md`,
+  retrospective
+  `docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md`.
 - **Phase overview:**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md`.
 - **Phase roadmap:**
