@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kernel/act-finding-retracted.v1",
+  "title": "Finding retraction act payload",
+  "description": "Ends the current support supplied by one identified finding. A retraction supplies no replacement value and asserts no opposite proposition: the stable fact keeps its identity and simply has no current answer until it is answered again by a later assertion, which is a new event with a new finding id (never a revival of this one). The payload names the finding, never the fact: the fact is derived from the named finding, so a client that reads the latest revision but names a superseded finding is refused rather than silently retracting a later correction. It names no value, no reason, no replacement, and no actor - who retracts is recorded in the act envelope and never consulted at admission, exactly as correction authority is a state gate and not a permission check (ADR-0041).",
+  "type": "object",
+  "properties": {
+    "finding_id": { "type": "string", "minLength": 1 }
+  },
+  "required": ["finding_id"],
+  "additionalProperties": false
+}

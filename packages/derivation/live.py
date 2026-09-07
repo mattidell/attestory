@@ -225,8 +225,13 @@ def live_coordinate_run(
     install_domain_companion_equalities(schemas.registry)
     install_domain_declaration_signal_contradictions(schemas.registry)
     state = project(tuple(dict(act) for act in authoritative_acts), schemas.registry)
-    validate_projected_source_boundary(state.findings.values(), state.withdrawn_fact_ids)
+    # ADR-0073 Decision 5 / substrate unit: the SSA source boundary reads
+    # the same full projection every other kernel reader uses, not a
+    # withdrawn-fact-id-only channel that could not see a retracted
+    # finding, an entity-superseded statement, or a migration-superseded
+    # fact type. Currency is computed once, here, and reused below.
     currency = compute_currency(state)
+    validate_projected_source_boundary(state.findings.values(), currency.current_finding_ids)
     rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)
     retired = state.fact_state.retired_fact_type_ids
     if retired:

@@ -796,8 +796,11 @@ def _dual_run(acts: list[dict[str, object]], run_id: str) -> tuple[Any, Any]:
     install_domain_companion_equalities(schemas.registry)
     install_domain_declaration_signal_contradictions(schemas.registry)
     state = project(tuple(dict(act) for act in acts), schemas.registry)
-    validate_projected_source_boundary(state.findings.values(), state.withdrawn_fact_ids)
+    # Mirrors the production call site (packages/derivation/live.py):
+    # currency is computed first and its current_finding_ids channel is
+    # what the SSA boundary reads (ADR-0073 Decision 5).
     currency = compute_currency(state)
+    validate_projected_source_boundary(state.findings.values(), currency.current_finding_ids)
     rules, parameters, families, mappings, fact_types, bindings, collect_names = _resolved_run_material(resolved)
     retired = state.fact_state.retired_fact_type_ids
     if retired:

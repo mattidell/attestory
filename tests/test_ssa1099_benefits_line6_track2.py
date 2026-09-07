@@ -1519,30 +1519,42 @@ class TestSsaVerificationRepair(unittest.TestCase):
 
         findings: list[dict[str, object]] = [
             {
+                "id": "f-box5",
                 "fact_id": "tax.us.2025.ssa1099.box5-net-benefits|statement=demo.ssa.statement.0",
                 "value": 1000.0,
             },
             {
+                "id": "f-box3",
                 "fact_id": "tax.us.2025.ssa1099.box3-benefits-paid|statement=demo.ssa.statement.0",
                 "value": 1000.0,
             },
             {
+                "id": "f-box4",
                 "fact_id": "tax.us.2025.ssa1099.box4-repayment|statement=demo.ssa.statement.0",
                 "value": 0.0,
             },
             {
+                "id": "f-recipient",
                 "fact_id": "tax.us.2025.ssa1099.recipient|statement=demo.ssa.statement.0",
                 "value": "spouse",
             },
             # A filing-status finding that would wrongly appear authoritative
             # under the old silent '2025' default, even though this suffix
             # names no tax year at all.
-            {"fact_id": "tax.us.2025.filing-status|tax-year=2025", "value": "married_filing_jointly"},
+            {
+                "id": "f-filing-status",
+                "fact_id": "tax.us.2025.filing-status|tax-year=2025",
+                "value": "married_filing_jointly",
+            },
         ]
+        # ADR-0073 Decision 5: current-standing is a required channel, not
+        # an optional withdrawn-fact-id-only default -- every finding above
+        # is asserted current so this exercises the tax-year guard alone.
+        current_finding_ids: set[str] = {str(finding["id"]) for finding in findings}
         with self.assertRaisesRegex(
             SsaBenefitsError, "requires an explicit tax-year key"
         ):
-            validate_projected_source_boundary(findings)
+            validate_projected_source_boundary(findings, current_finding_ids)
 
     def test_production_stale_correction_blocks(self) -> None:
         """A membership correction citing a superseded (stale) predecessor

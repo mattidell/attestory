@@ -730,7 +730,7 @@ class CaseFResolutionGuardBlocksSameObligationCollisionMigration(unittest.TestCa
     def test_bare_withdrawal_naming_no_correspondence_still_refuses(self) -> None:
         """Withdrawal alone -- even of the genuine same-obligation
         collision -- never resolves a nonzero claim. Its own true value
-        (42) is nonzero, so `_refuse_unresolved_nonzero_withdrawals`
+        (42) is nonzero, so `_refuse_unresolved_nonzero_noncurrent_predecessors`
         refuses regardless of any `corresponds_to_fact_id`; no
         correspondence is even consulted, exactly like Case G's
         genuinely-distinct obligation."""
@@ -828,7 +828,7 @@ class CaseGDistinctLegacyObligationNoLongerSilentlyDiscarded(unittest.TestCase):
         """Withdrawing the 15 with no ``corresponds_to_fact_id`` at all
         does not resolve the claim: `_present_successor_claims` excludes
         the withdrawn fact_id (it is genuinely no longer live), but
-        `_refuse_unresolved_nonzero_withdrawals` separately refuses
+        `_refuse_unresolved_nonzero_noncurrent_predecessors` separately refuses
         adoption because the claim's own true value (15) is still
         nonzero -- no correspondence is required, checked, or missed;
         it is simply irrelevant. 458 is never reached merely because the

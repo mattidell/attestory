@@ -51,24 +51,36 @@ class SsaBenefitsError(ValueError):
 
 def validate_projected_source_boundary(
     findings: Iterable[Mapping[str, object]],
-    withdrawn_fact_ids: Collection[str] = (),
+    current_finding_ids: Collection[str],
 ) -> None:
     """Validate SSA source relationships at the live production boundary.
 
     Live runs consume projected findings, so this checks the relationships
     that determine whether a projected SSA member is admissible: box 5 equals
     box 3 minus box 4, and a spouse recipient requires an authoritative
-    married-filing-jointly status. Values are read after correction
-    projection (last-inserted-wins per the fact type's ``free`` supersession
-    policy, matching ``packages/kernel/findings.py``'s
-    ``_current_value_for_fact``), so a filing-status correction or a
-    statement-value correction cannot leave a stale admission usable.
+    married-filing-jointly status.
+
+    ``current_finding_ids`` is the caller's own
+    ``compute_currency(state).current_finding_ids`` -- the single
+    current-standing path (ADR-0073 Decision 5), the same projection every
+    other kernel and derivation reader uses. This channel replaced a
+    withdrawn-fact-id-only parameter that had no way to see a retracted
+    finding, an entity-superseded statement, or a migration-superseded
+    fact type: a spouse-recipient statement whose married-filing-jointly
+    authority was ended by any of those was silently admitted (fail-open),
+    not merely by a member-transition withdrawal. The parameter is
+    required, not optional-with-a-permissive-default, so no caller can
+    silently reproduce that gap by omission. Each finding is discarded
+    unless its own id is a member of ``current_finding_ids``; a finding
+    with no ``id`` field is not a genuine finding shape at all and is
+    dropped defensively rather than trusted to be current.
     """
     current: dict[str, object] = {}
-    withdrawn = set(withdrawn_fact_ids)
+    standing = set(current_finding_ids)
     for finding in findings:
         fact_id = finding.get("fact_id")
-        if not isinstance(fact_id, str) or fact_id in withdrawn:
+        finding_id = finding.get("id")
+        if not isinstance(fact_id, str) or finding_id not in standing:
             continue
         current[fact_id] = finding.get("value")
 

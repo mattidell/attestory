@@ -114,6 +114,40 @@ def _member_withdrawals(
     return displaced, reasons
 
 
+def _finding_retractions(
+    state: FindingState,
+) -> tuple[set[str], dict[str, list[DisplacementReason]]]:
+    """Retracted findings are displacement roots.
+
+    Parallel to ``_member_withdrawals`` and ``_migration_supersessions``:
+    the recorded act contributes roots, never a new edge kind, so Article
+    7's two-edge closure is untouched. The reason kind is ``retraction``;
+    ``by`` is the retracting act's id, because a retraction creates no
+    citizen of its own and the act is the only thing that names *which*
+    retraction ended this answer - a fact can be retracted, reasserted,
+    and retracted again, so the fact id would not discriminate. The act id
+    is also the attribution path: the envelope carries actor and time.
+
+    The root is the finding, not the fact: the stable fact keeps its
+    identity and a later assertion answering it is admitted normally and
+    becomes current, unlike a member withdrawal, which is keyed by fact id
+    and therefore monotonic.
+    """
+    displaced: set[str] = set()
+    reasons: dict[str, list[DisplacementReason]] = {}
+    for finding_id in state.retracted_finding_ids:
+        if finding_id not in state.findings:
+            continue
+        displaced.add(finding_id)
+        reasons.setdefault(finding_id, []).append(
+            DisplacementReason(
+                kind="retraction",
+                by=state.retraction_acts.get(finding_id, finding_id),
+            )
+        )
+    return displaced, reasons
+
+
 def _declared_edges(state: FindingState) -> dict[str, dict[str, set[str]]]:
     edges: dict[str, dict[str, set[str]]] = {"derivation": {}, "individuation": {}}
     for finding_id, finding in state.findings.items():
@@ -170,9 +204,9 @@ def compute_currency(state: FindingState) -> CurrencyView:
 
     Displacement roots come from the record alone: corrections (a later
     finding for the same fact), member withdrawals, superseded entities,
-    and migration-artifact supersession. There is no caller-supplied
-    displacement — displacement is a consequence of the record, not an
-    argument (Article 7).
+    migration-artifact supersession, and finding retractions. There is no
+    caller-supplied displacement — displacement is a consequence of the
+    record, not an argument (Article 7).
     """
     correction_roots, reason_lists = _finding_corrections(state)
     roots = set(correction_roots)
@@ -184,6 +218,10 @@ def compute_currency(state: FindingState) -> CurrencyView:
     roots.update(migration_roots)
     for migrated_id, migrated_reasons in migration_reasons.items():
         reason_lists.setdefault(migrated_id, []).extend(migrated_reasons)
+    retraction_roots, retraction_reasons = _finding_retractions(state)
+    roots.update(retraction_roots)
+    for retracted_id, retracted_reasons in retraction_reasons.items():
+        reason_lists.setdefault(retracted_id, []).extend(retracted_reasons)
     roots.update(superseded_entity_ids(state.fact_state))
 
     closure, closure_reasons = displacement_closure(roots, _declared_edges(state))
