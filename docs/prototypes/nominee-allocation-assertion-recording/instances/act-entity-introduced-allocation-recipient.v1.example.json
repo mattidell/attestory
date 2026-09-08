@@ -1,0 +1,16 @@
+{
+  "schema": "act.v1",
+  "act_id": "demo.act.pat.1.assert.recipient",
+  "kind": "entity-introduced",
+  "actor": "demo-user-matt",
+  "at": "2026-09-07T03:10:00Z",
+  "committed_against": 5,
+  "payload": {
+    "entity": {
+      "schema": "entity.v1",
+      "id": "demo.alloc.recipient.pat",
+      "kind": "tax.us.interest-allocation-recipient",
+      "label": "Pat (allocation recipient)"
+    }
+  }
+}
