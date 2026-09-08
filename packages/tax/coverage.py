@@ -217,14 +217,25 @@ class UntranslatedFinding:
 def untranslated_source_findings(
     state: FindingState,
     package_members: Iterable[Mapping[str, Any]],
+    currency: CurrencyView | None = None,
 ) -> list[UntranslatedFinding]:
     """Every current source-amount finding whose fact type the workspace
     recognizes (``state.fact_state.fact_types``, populated only by a real
     ``bundle-adoption`` act -- never invented here) but the adopted
-    package never consumes. Withdrawn fact ids are excluded exactly as
-    ``findings._current_value_for_fact`` excludes them, and the
-    last-inserted finding for a fact id wins, mirroring the same
-    last-write rule."""
+    package never consumes.
+
+    "Current" is decided by ``compute_currency`` -- the single
+    current-standing path (ADR-0073 Decision 5) -- not a second, narrower
+    mirror of it: a retracted, entity-superseded, or migration-superseded
+    finding is excluded exactly as every other kernel reader excludes it,
+    where a prior version of this function only excluded a withdrawn fact
+    id. ``currency`` lets a caller that already computed a view for this
+    exact ``state`` (as ``coverage_report`` does) pass it in rather than
+    paying for the closure walk twice; omitting it computes one fresh."""
+    if currency is None:
+        from packages.kernel.currency import compute_currency
+
+        currency = compute_currency(state)
     referenced = _referenced_fact_type_ids(package_members)
     declared = {
         fact_type_id: fact_type
@@ -235,23 +246,20 @@ def untranslated_source_findings(
     if not unsupported_ids:
         return []
 
-    current_by_fact_id: dict[str, dict[str, Any]] = {}
-    for finding in state.findings.values():
-        fact_id = finding["fact_id"]
-        fact_type_id = fact_id.split("|", 1)[0]
-        if fact_type_id not in unsupported_ids:
-            continue
-        current_by_fact_id[fact_id] = finding
-
+    current_findings = {
+        finding_id: finding
+        for finding_id, finding in state.findings.items()
+        if finding_id in currency.current_finding_ids
+    }
     results = [
         UntranslatedFinding(
-            fact_type_id=fact_id.split("|", 1)[0],
-            fact_type_title=declared[fact_id.split("|", 1)[0]]["title"],
-            finding_id=finding["id"],
-            fact_id=fact_id,
+            fact_type_id=finding["fact_id"].split("|", 1)[0],
+            fact_type_title=declared[finding["fact_id"].split("|", 1)[0]]["title"],
+            finding_id=finding_id,
+            fact_id=finding["fact_id"],
             value=finding["value"],
         )
-        for fact_id, finding in current_by_fact_id.items()
-        if fact_id not in state.withdrawn_fact_ids
+        for finding_id, finding in current_findings.items()
+        if finding["fact_id"].split("|", 1)[0] in unsupported_ids
     ]
     return sorted(results, key=lambda item: (item.fact_type_id, item.fact_id))

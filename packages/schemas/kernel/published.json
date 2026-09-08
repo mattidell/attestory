@@ -8,6 +8,7 @@
   "act-entity-superseded.v1.schema.json": "33d6dda1e31e126f0c7e17b50814b9efc2d18a490a005423898db7c0bc41a354",
   "act-evidence-replaced.v1.schema.json": "d3935f225abcd7a932fea94b0f751c8249b0f4f78427970c604f6e31efb85208",
   "act-evidence-submitted.v1.schema.json": "cfb1b12f8171b7599b6a1fc9895fb6b18676b56d5988db1f6c723cd2d578e6dd",
+  "act-finding-retracted.v1.schema.json": "3ae8d0a7cff17e21069a6bcdf17233e30cffd5fa6eee75c056014a1e8589e191",
   "act-horizon-genesis.v1.schema.json": "54e3363ce7c3f968eb51d2e504e052bb4a5bf6283e6861ef8dc4595fcb23b8f7",
   "act-member-transition.v1.schema.json": "32f9cb947eb13b7df76d36c9fa675b64fd29774d6c64f9a1ef4b3ca0a3617eb5",
   "act-member-transition.v2.schema.json": "77d3529449f7b3eef825028a801b23bb8217c7f2b293f6a32c74300ec2eef822",

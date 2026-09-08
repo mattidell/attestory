@@ -95,6 +95,18 @@ class FindingState:
     # Each is an input to a later user assertion; nothing here writes a
     # successor finding (ADR-0025 decision 7, finding half only).
     presented_successor_claims: tuple[dict[str, Any], ...] = ()
+    # Findings whose current support was ended by a finding-retracted act.
+    # Retraction is a displacement *root* over exactly the named finding
+    # (like correction and member withdrawal), never a new edge kind and
+    # never a fact-level state: the stable fact keeps its identity and can
+    # be answered again by a later assertion carrying a new finding id.
+    retracted_finding_ids: frozenset[str] = frozenset()
+    # Retracted finding_id -> the act_id of the finding-retracted act that
+    # retracted it. ``DisplacementReason.by`` names that act, which is also
+    # the attribution path: the act envelope carries the actor and time.
+    # Parallel to ``withdrawal_correspondence``: a second, narrower map
+    # beside the membership set it annotates, never a second currency model.
+    retraction_acts: dict[str, str] = field(default_factory=dict)
 
 
 def initial_state() -> FindingState:
@@ -166,23 +178,79 @@ def apply_evidence_replaced(
     return replace(state, evidence=lifecycles)
 
 
-def _current_value_for_fact(state: FindingState, fact_id: str) -> Any:
+_NO_CURRENT_VALUE = object()
+
+
+def _compute_view(state: FindingState) -> Any:
+    """Deferred import: ``currency`` reads ``FindingState`` at module scope,
+    so importing it there would close an import cycle. This is the one
+    admission-side entry point that pays for a full projection when no
+    caller has already computed one for this exact state (ADR-0073
+    Decision 5, substrate unit)."""
+    from packages.kernel.currency import compute_currency
+
+    return compute_currency(state)
+
+
+def _admission_view_if_declared(
+    state: FindingState, registry: SchemaRegistry
+) -> Any:
+    """Compute one shared ``CurrencyView`` for this successor state, but
+    only when at least one of the four reused enforcers has something
+    declared to check.
+
+    Every enforcer below still resolves its own view lazily if it is
+    handed ``None`` (so nothing here is load-bearing for correctness);
+    this exists purely so ``apply_assertion``/``apply_member_transition``
+    pay for the closure walk once per admission rather than once per
+    enforcer per fact id, and pay nothing at all for a registry that
+    declares no subset, companion-presence, companion-equality, or
+    declaration/signal relation - most kernel-only tests and any content
+    that never installs the domain maps.
+    """
+    if (
+        getattr(registry, "subset_invariant_pairs", None)
+        or getattr(registry, "companion_presence_pairs", None)
+        or getattr(registry, "companion_equality_pairs", None)
+        or getattr(registry, "declaration_signal_contradictions", None)
+    ):
+        return _compute_view(state)
+    return None
+
+
+def _current_value_for_fact(
+    state: FindingState, fact_id: str, view: Any = None
+) -> Any:
     """The current value answering one fact, or a sentinel if none is current.
 
-    Mirrors ``currency.py``'s correction rule (the last-inserted finding for
-    a fact id wins) without pulling in the full displacement-closure
-    machinery; a withdrawn fact has no current value either.
+    The single source of current standing: this reads ``compute_currency``'s
+    full displacement closure, the only projection that knows about
+    correction, member withdrawal, migration supersession, entity
+    supersession, and retraction alike (ADR-0073 Decision 5). A second,
+    narrower rule used to mirror only correction, withdrawal, and
+    retraction here directly; unifying is exactly this milestone's
+    substrate unit, so there is now one path.
+
+    ``view`` lets a caller that is checking several fact ids against the
+    same successor state (an admission enforcer walking a declared pair,
+    or several pairs in one admission) pass its own already-computed
+    ``CurrencyView`` in, so the closure is walked once per admission
+    rather than once per fact-id lookup. Omitting it computes one fresh
+    for this exact ``state`` -- correct for a single lookup (as the test
+    corpus's direct calls use it), and the right default so no caller is
+    ever silently wrong for lack of a view to pass.
     """
-    if fact_id in state.withdrawn_fact_ids:
-        return _NO_CURRENT_VALUE
-    value: Any = _NO_CURRENT_VALUE
-    for existing in state.findings.values():
+    if view is None:
+        view = _compute_view(state)
+    latest_id: str | None = None
+    latest_value: Any = _NO_CURRENT_VALUE
+    for finding_id, existing in state.findings.items():
         if existing["fact_id"] == fact_id:
-            value = existing["value"]
-    return value
-
-
-_NO_CURRENT_VALUE = object()
+            latest_id = finding_id
+            latest_value = existing["value"]
+    if latest_id is None or latest_id not in view.current_finding_ids:
+        return _NO_CURRENT_VALUE
+    return latest_value
 
 
 def _enforce_closed_on_attestation(
@@ -190,6 +258,7 @@ def _enforce_closed_on_attestation(
     finding: dict[str, Any],
     fact: facts.Fact,
     fact_type: dict[str, Any],
+    view: Any = None,
 ) -> None:
     """ADR-0041 Decision §4: reject correction once the named gate closure
     fact is currently attested ``true``; permit otherwise (false, absent,
@@ -199,7 +268,7 @@ def _enforce_closed_on_attestation(
     fact's own key bindings onto the gate fact type's declared identity-key
     names (the same scope-projection ADR-0016's family-subtotal/closure-claim
     pattern already performs) - reusing ``_current_value_for_fact``, the
-    existing last-inserted-wins/withdrawal-aware current-value reader, so
+    single current-standing reader (ADR-0073 Decision 5), so
     horizon succession (ADR-0017 decision 5) reopens correction exactly as
     it already reopens closure-backed derived results: a horizon successor
     projects a distinct gate fact id with no recorded finding of its own,
@@ -232,7 +301,7 @@ def _enforce_closed_on_attestation(
             )
         gate_keys.append((name, own_keys[name]))
     gate_fact_id = facts.fact_id_for(gate_fact_type_id, tuple(gate_keys))
-    gate_value = _current_value_for_fact(state, gate_fact_id)
+    gate_value = _current_value_for_fact(state, gate_fact_id, view)
     if gate_value is True:
         raise FindingModelError(
             f"finding {finding['id']}: fact {fact.fact_id} is governed by "
@@ -243,7 +312,10 @@ def _enforce_closed_on_attestation(
 
 
 def _enforce_subset_invariants(
-    state: FindingState, registry: SchemaRegistry, touched_fact_ids: tuple[str, ...]
+    state: FindingState,
+    registry: SchemaRegistry,
+    touched_fact_ids: tuple[str, ...],
+    view: Any = None,
 ) -> None:
     """Enforce every domain-declared subset invariant a touched fact reaches.
 
@@ -265,6 +337,8 @@ def _enforce_subset_invariants(
     pairs = getattr(registry, "subset_invariant_pairs", None)
     if not pairs:
         return
+    if view is None:
+        view = _compute_view(state)
     reverse_pairs = {dominant: subordinate for subordinate, dominant in pairs.items()}
     checked: set[tuple[str, str]] = set()
     for fact_id in touched_fact_ids:
@@ -281,10 +355,10 @@ def _enforce_subset_invariants(
         checked.add(key)
         subordinate_id = f"{subordinate_type}|{suffix}"
         dominant_id = f"{dominant_type}|{suffix}"
-        subordinate_value = _current_value_for_fact(state, subordinate_id)
+        subordinate_value = _current_value_for_fact(state, subordinate_id, view)
         if subordinate_value is _NO_CURRENT_VALUE:
             continue
-        dominant_value = _current_value_for_fact(state, dominant_id)
+        dominant_value = _current_value_for_fact(state, dominant_id, view)
         if dominant_value is _NO_CURRENT_VALUE:
             raise FindingModelError(
                 f"subset invariant violated: {subordinate_id} is current "
@@ -318,7 +392,10 @@ def _companion_list(pairs: dict[str, Any], subordinate_type: str) -> list[str]:
 
 
 def _enforce_companion_presence(
-    state: FindingState, registry: SchemaRegistry, touched_fact_ids: tuple[str, ...]
+    state: FindingState,
+    registry: SchemaRegistry,
+    touched_fact_ids: tuple[str, ...],
+    view: Any = None,
 ) -> None:
     """Enforce every domain-declared companion-presence pair a touched fact reaches.
 
@@ -336,6 +413,8 @@ def _enforce_companion_presence(
     pairs = getattr(registry, "companion_presence_pairs", None)
     if not pairs:
         return
+    if view is None:
+        view = _compute_view(state)
     value_domains = getattr(registry, "companion_value_domains", None) or {}
     reverse_pairs: dict[str, str] = {}
     for subordinate, companions in pairs.items():
@@ -358,7 +437,7 @@ def _enforce_companion_presence(
         if not companions:
             continue
         subordinate_id = f"{subordinate_type}|{suffix}"
-        subordinate_value = _current_value_for_fact(state, subordinate_id)
+        subordinate_value = _current_value_for_fact(state, subordinate_id, view)
         if subordinate_value is _NO_CURRENT_VALUE:
             # Companion alone may stand; the bounded consumer requires both.
             continue
@@ -368,7 +447,7 @@ def _enforce_companion_presence(
                 continue
             checked.add(key)
             companion_id = f"{companion_type}|{suffix}"
-            companion_value = _current_value_for_fact(state, companion_id)
+            companion_value = _current_value_for_fact(state, companion_id, view)
             if companion_value is _NO_CURRENT_VALUE:
                 raise FindingModelError(
                     f"companion presence violated: {subordinate_id} is current "
@@ -385,7 +464,10 @@ def _enforce_companion_presence(
 
 
 def _enforce_companion_equalities(
-    state: FindingState, registry: SchemaRegistry, touched_fact_ids: tuple[str, ...]
+    state: FindingState,
+    registry: SchemaRegistry,
+    touched_fact_ids: tuple[str, ...],
+    view: Any = None,
 ) -> None:
     """Enforce domain-declared same-statement numeric equality at admission.
 
@@ -397,6 +479,8 @@ def _enforce_companion_equalities(
     pairs = getattr(registry, "companion_equality_pairs", None)
     if not pairs:
         return
+    if view is None:
+        view = _compute_view(state)
     reverse_pairs = {companion: subordinate for subordinate, companion in pairs.items()}
     checked: set[tuple[str, str]] = set()
     for fact_id in touched_fact_ids:
@@ -413,8 +497,8 @@ def _enforce_companion_equalities(
         checked.add(key)
         subordinate_id = f"{subordinate_type}|{suffix}"
         companion_id = f"{companion_type}|{suffix}"
-        subordinate_value = _current_value_for_fact(state, subordinate_id)
-        companion_value = _current_value_for_fact(state, companion_id)
+        subordinate_value = _current_value_for_fact(state, subordinate_id, view)
+        companion_value = _current_value_for_fact(state, companion_id, view)
         if subordinate_value is _NO_CURRENT_VALUE or companion_value is _NO_CURRENT_VALUE:
             continue
         try:
@@ -430,16 +514,23 @@ def _enforce_companion_equalities(
 
 
 def _current_values_for_fact_type(
-    state: FindingState, fact_type_id: str
+    state: FindingState, fact_type_id: str, view: Any = None
 ) -> dict[str, Any]:
     """Every currently-held finding's value for one fact type, keyed by fact id.
 
-    Mirrors ``_current_value_for_fact``'s last-inserted-wins rule but spans
-    every distinct fact id of the given type (e.g. every 1099-DIV statement's
-    own recorded-boxes finding), not one singular fact - a declaration fact
+    Reads ``_current_value_for_fact`` per fact id -- the single source of
+    current standing -- rather than a narrower mirror of it: this now sees
+    a fact id displaced by entity supersession or migration supersession,
+    not only correction, withdrawal, and retraction. Spans every distinct
+    fact id of the given type (e.g. every 1099-DIV statement's own
+    recorded-boxes finding), not one singular fact - a declaration fact
     type has exactly one fact id in practice, a per-statement recorded fact
-    type may have several.
+    type may have several. ``view`` is threaded through unchanged so a
+    caller checking several fact types against the same successor state
+    pays for the closure walk once.
     """
+    if view is None:
+        view = _compute_view(state)
     prefix = f"{fact_type_id}|"
     fact_ids = {
         finding["fact_id"]
@@ -448,14 +539,17 @@ def _current_values_for_fact_type(
     }
     values: dict[str, Any] = {}
     for fact_id in fact_ids:
-        value = _current_value_for_fact(state, fact_id)
+        value = _current_value_for_fact(state, fact_id, view)
         if value is not _NO_CURRENT_VALUE:
             values[fact_id] = value
     return values
 
 
 def _enforce_declaration_signal_contradictions(
-    state: FindingState, registry: SchemaRegistry, touched_fact_ids: tuple[str, ...]
+    state: FindingState,
+    registry: SchemaRegistry,
+    touched_fact_ids: tuple[str, ...],
+    view: Any = None,
 ) -> None:
     """Reject an admission making a declared value and a contributed signal
     both current (ADR-0038 decision 5: the bidirectional admission-locus
@@ -478,16 +572,18 @@ def _enforce_declaration_signal_contradictions(
     rules = getattr(registry, "declaration_signal_contradictions", None)
     if not rules:
         return
+    if view is None:
+        view = _compute_view(state)
     touched_types = {fact_id.split("|", 1)[0] for fact_id in touched_fact_ids}
     for rule in rules:
         declaration_type = rule["declaration_fact_type"]
         signal_type = rule["signal_fact_type"]
         if declaration_type not in touched_types and signal_type not in touched_types:
             continue
-        declared_values = _current_values_for_fact_type(state, declaration_type)
+        declared_values = _current_values_for_fact_type(state, declaration_type, view)
         if rule["declaration_value"] not in declared_values.values():
             continue
-        signal_values = _current_values_for_fact_type(state, signal_type)
+        signal_values = _current_values_for_fact_type(state, signal_type, view)
         signal_field = rule.get("signal_field")
         if signal_field is None:
             # ADR-0050 decision 2/4: successor signal is a current non-null
@@ -641,10 +737,11 @@ def apply_assertion(
     findings = dict(state.findings)
     findings[finding["id"]] = finding
     new_state = replace(state, findings=findings)
-    _enforce_subset_invariants(new_state, registry, (finding["fact_id"],))
-    _enforce_declaration_signal_contradictions(new_state, registry, (finding["fact_id"],))
-    _enforce_companion_presence(new_state, registry, (finding["fact_id"],))
-    _enforce_companion_equalities(new_state, registry, (finding["fact_id"],))
+    view = _admission_view_if_declared(new_state, registry)
+    _enforce_subset_invariants(new_state, registry, (finding["fact_id"],), view)
+    _enforce_declaration_signal_contradictions(new_state, registry, (finding["fact_id"],), view)
+    _enforce_companion_presence(new_state, registry, (finding["fact_id"],), view)
+    _enforce_companion_equalities(new_state, registry, (finding["fact_id"],), view)
     return new_state
 
 
@@ -797,15 +894,16 @@ def apply_member_transition(
         withdrawal_correspondence=withdrawal_correspondence,
         fact_state=replace(state.fact_state, entities=entities),
     )
-    _enforce_subset_invariants(new_state, registry, tuple(touched_fact_ids))
-    _enforce_declaration_signal_contradictions(new_state, registry, tuple(touched_fact_ids))
-    _enforce_companion_presence(new_state, registry, tuple(touched_fact_ids))
-    _enforce_companion_equalities(new_state, registry, tuple(touched_fact_ids))
+    view = _admission_view_if_declared(new_state, registry)
+    _enforce_subset_invariants(new_state, registry, tuple(touched_fact_ids), view)
+    _enforce_declaration_signal_contradictions(new_state, registry, tuple(touched_fact_ids), view)
+    _enforce_companion_presence(new_state, registry, tuple(touched_fact_ids), view)
+    _enforce_companion_equalities(new_state, registry, tuple(touched_fact_ids), view)
     return new_state
 
 
 def _present_successor_claims(
-    state: FindingState, migration: dict[str, Any]
+    state: FindingState, migration: dict[str, Any], view: Any = None
 ) -> tuple[dict[str, Any], ...]:
     """Build presented successor claims from then-current predecessor findings.
 
@@ -813,26 +911,48 @@ def _present_successor_claims(
     Open predecessor facts produce no claim. The user asserts the
     presented value; this function does not write a successor finding.
 
-    A predecessor finding whose fact_id is in ``state.withdrawn_fact_ids``
-    is skipped entirely (see the ``if fact_id in state.withdrawn_fact_ids``
-    check below): a withdrawn finding's true value is preserved unmodified
-    in ``state.findings``, but it is no longer live, so no claim is built
-    for it. A withdrawn predecessor's own true, last-recorded value is
-    still separately checked for zero-ness by
-    ``_refuse_unresolved_nonzero_withdrawals`` (``apply_migration_adoption``
-    reads ``state.findings``/``state.withdrawn_fact_ids`` directly for that
-    check, not this function's ``claims`` output) -- withdrawal never
-    exempts a nonzero claim from that check on its own; it only ever
-    matters for a claim whose value was already genuinely zero.
+    "Then-current" is decided through the authoritative projection, not
+    by mirroring one displacement root here and missing the rest: a
+    predecessor fact's last recorded finding is a claim only if that
+    finding's id is in the passed-in ``CurrencyView``'s
+    ``current_finding_ids``. This function's own loop ranges over
+    ``facts.facts_of(state.fact_state)`` -- the *current* lattice -- so
+    the ``current_finding_ids`` check only ever runs for a fact still in
+    that lattice; that single check covers correction (the corrected
+    finding is superseded, never the input; the correction itself, if it
+    is the last, is current and is the input), member withdrawal, and
+    retraction alike, the same closure ``compute_currency`` walks for
+    every other current-standing question in this module (ADR-0073
+    Decision 5). Entity supersession is different in kind: superseding
+    the keyed entity removes the fact itself from the lattice before this
+    loop ever reaches it, so no claim is presented for it and no
+    ``current_finding_ids`` check is ever consulted for it. A predecessor
+    *type* already retired by an earlier migration is excluded the same
+    way -- ``facts.apply_migration_adoption`` pops the type from
+    ``fact_types`` entirely, so no fact of that type is generated for any
+    later call; a migration cannot in any case re-name an already-retired
+    predecessor (``facts.apply_migration_adoption`` refuses it), and this
+    function itself runs before *its own* migration's predecessor types
+    are retired, so the fact is still present in the lattice for the
+    check above. ``view`` lets ``apply_migration_adoption`` compute
+    one shared view and thread it to both this function and the sibling
+    resolution guard, rather than each recomputing or reimplementing the
+    projection; omitting it computes one fresh for this exact ``state``.
+
+    A withdrawn or retracted predecessor's own true, last-recorded value
+    is still separately checked for zero-ness by
+    ``_refuse_unresolved_nonzero_noncurrent_predecessors`` -- neither
+    withdrawal nor retraction exempts a nonzero claim from that check on
+    its own; it only ever matters for a claim whose value was already
+    genuinely zero.
     """
+    if view is None:
+        view = _compute_view(state)
     lattice = facts.facts_of(state.fact_state)
     claims: list[dict[str, Any]] = []
     last_by_fact: dict[str, dict[str, Any]] = {}
     for finding in state.findings.values():
-        fact_id = finding["fact_id"]
-        if fact_id in state.withdrawn_fact_ids:
-            continue
-        last_by_fact[fact_id] = finding
+        last_by_fact[finding["fact_id"]] = finding
     successor_by_predecessor = {
         pair["predecessor"]: pair["successor"] for pair in migration["pairs"]
     }
@@ -842,6 +962,11 @@ def _present_successor_claims(
             continue
         current_finding = last_by_fact.get(fact.fact_id)
         if current_finding is None:
+            continue
+        if current_finding["id"] not in view.current_finding_ids:
+            # The last recorded finding on this predecessor fact is not
+            # current -- withdrawn, retracted, or otherwise displaced --
+            # so it is not a then-current claim and is never presented.
             continue
         claims.append(
             {
@@ -863,11 +988,11 @@ def _is_zero_value(value: Any) -> bool:
     zero -- refusing an unresolved-looking claim is the safe default,
     never silently letting an unparseable value through. This is one of
     two independent ways a predecessor claim resolves before migration
-    (the other is withdrawal, checked directly against
-    ``state.withdrawn_fact_ids`` in ``_present_successor_claims`` --
-    ``_is_zero_value`` never stands in for withdrawal, since a claim that
-    is truly nonzero must never be asserted as zero to unblock migration;
-    see ``_refuse_unresolved_nonzero_claims``).
+    (the other is a predecessor's answer no longer being live at all --
+    withdrawal or retraction, checked through the currency projection in
+    ``_present_successor_claims`` -- ``_is_zero_value`` never stands in
+    for that, since a claim that is truly nonzero must never be asserted
+    as zero to unblock migration; see ``_refuse_unresolved_nonzero_claims``).
     """
     if isinstance(value, bool):
         return value is False
@@ -894,20 +1019,21 @@ def _refuse_unresolved_nonzero_claims(
     A ``resolved-required`` migration id instead refuses adoption outright
     while any predecessor claim remains live and nonzero. ``claims`` (built
     by ``_present_successor_claims``) already omits any predecessor
-    finding whose fact_id is in ``state.withdrawn_fact_ids`` -- so a claim
-    reaching this function was never withdrawn; a withdrawn predecessor's
-    own nonzero value is separately checked by
-    ``_refuse_unresolved_nonzero_withdrawals``, which this function does
-    not duplicate. The one currently accepted way to resolve a live,
-    nonzero legacy claim before adoption is a same-identity correction to a
-    genuinely zero value -- the fact type's own declared
-    ``supersession.policy: "free"`` (as ADR-0072's amount-collision
-    resolution already uses) -- valid only when the amount genuinely
-    became zero (e.g. a data-entry correction), never to paper over a
-    claim that is still true. A member-transition withdrawal, with or
-    without a named ``corresponds_to_fact_id``, does not resolve a live,
-    nonzero claim: see ``_refuse_unresolved_nonzero_withdrawals``, which
-    refuses that shape unconditionally.
+    finding that is not current under the authoritative projection -- so
+    a claim reaching this function was never withdrawn or retracted; a
+    withdrawn or retracted predecessor's own nonzero value is separately
+    checked by ``_refuse_unresolved_nonzero_noncurrent_predecessors``,
+    which this function does not duplicate. The one currently accepted way
+    to resolve a live, nonzero legacy claim before adoption is a
+    same-identity correction to a genuinely zero value -- the fact type's
+    own declared ``supersession.policy: "free"`` (as ADR-0072's
+    amount-collision resolution already uses) -- valid only when the
+    amount genuinely became zero (e.g. a data-entry correction), never to
+    paper over a claim that is still true. A member-transition withdrawal
+    or a retraction, with or without a named ``corresponds_to_fact_id``,
+    does not resolve a live, nonzero claim: see
+    ``_refuse_unresolved_nonzero_noncurrent_predecessors``, which refuses
+    that shape unconditionally.
 
     The policy is declared on ``registry.migration_resolution_policies``
     (a domain loader populates the map, mirroring
@@ -937,37 +1063,76 @@ def _refuse_unresolved_nonzero_claims(
         )
 
 
-def _refuse_unresolved_nonzero_withdrawals(
-    state: FindingState, migration: dict[str, Any], registry: SchemaRegistry
+def _refuse_unresolved_nonzero_noncurrent_predecessors(
+    state: FindingState,
+    migration: dict[str, Any],
+    registry: SchemaRegistry,
+    view: Any = None,
 ) -> None:
-    """One coherent rule for a withdrawn predecessor fact under a
-    ``resolved-required`` migration: it blocks adoption if and only if its
-    own true, last-recorded value is still nonzero -- regardless of
-    whether the removing member-transition named a
-    ``corresponds_to_fact_id`` (act-member-transition.v3), and regardless
-    of whether any named correspondence is real, current, or displaced.
+    """One coherent rule for a predecessor fact, still present in the
+    current lattice, whose last-recorded finding has stopped being
+    current under a ``resolved-required`` migration: it blocks adoption
+    if and only if its own true, last-recorded value is still nonzero.
 
-    A named correspondence (``corresponds_to_fact_id``) is never checked or
-    consulted for a withdrawal, regardless of value: the predecessor fact
-    type carries no obligation, payer, or report identity anywhere in its
-    own declared identity keys for any correspondence to be checked
-    against, so a real, current, but domain-wrong correspondence could
-    otherwise let migration admit and publish a known-wrong result, and a
-    withdrawn predecessor whose value is already genuinely zero must never
-    be refused merely for omitting an irrelevant "replacement" for a
-    computational role that never existed. No correspondence is required,
-    checked, or consulted for any withdrawal, regardless of value. A
-    nonzero withdrawn predecessor always blocks; a zero withdrawn
-    predecessor never does. The only currently accepted way to resolve a
-    live or withdrawn nonzero legacy claim is a same-identity correction
-    to a genuinely zero value (see ``_refuse_unresolved_nonzero_claims``).
-    Whether to build a genuine representation-transfer adjudication act
-    remains an explicit, undecided owner question (ADR-0072, "Open and
-    owner-held" in ``docs/phase-state.md``) -- not something this function
-    should approximate with another structural proxy.
+    Both this function and ``_present_successor_claims`` range over
+    ``facts.facts_of(state.fact_state)`` -- the *current* lattice, not
+    the full historical one. Every predecessor fact this predicate can
+    reach is therefore still an entry in that lattice; only how its last
+    finding stopped being current varies, and the predicate is
+    indifferent to that: a live answer, a member-withdrawn answer, and a
+    retracted answer are all covered by the same check, because all
+    three leave the fact itself in the current lattice with a
+    last-recorded finding that is no longer in ``view.current_finding_ids``.
+
+    Entity succession is different in kind and is *not* covered here:
+    superseding the keyed entity removes the fact itself from
+    ``facts.facts_of`` (the lattice projects from current entities), so
+    a fact on a superseded entity never reaches this function's loop at
+    all -- it is not withdrawal, not retraction, and this function makes
+    no claim about it one way or the other. ADR-0072's "Open and
+    owner-held" question in ``docs/phase-state.md`` is precisely whether
+    a genuine representation-transfer adjudication act should exist for
+    that case; this function does not approximate one.
+
+    ADR-0072 Decision 4 is stated in value, not mechanism: a live or
+    withdrawn predecessor whose true last value is nonzero always blocks;
+    a genuinely zero predecessor migrates freely; the only accepted
+    resolution is a same-identity correction to a genuinely zero value.
+    Retraction is a third way a predecessor's answer stops being live
+    without leaving the lattice, and it no more resolves a nonzero claim
+    than withdrawal does -- so the predicate here is exactly "this
+    predecessor fact's last recorded finding is not current, and its
+    true last value is nonzero", read through the same ``CurrencyView``
+    ``_present_successor_claims`` uses (``view`` lets
+    ``apply_migration_adoption`` share one computation across both;
+    omitting it computes one fresh for this exact ``state``). A
+    *corrected* fact's last finding is the correction itself, which is
+    current, so this predicate never fires for ordinary correction -- a
+    nonzero corrected value is instead caught by
+    ``_refuse_unresolved_nonzero_claims``, the live-claim guard, exactly
+    as before this rule existed.
+
+    This subsumes what a withdrawal-only version of this rule checked, and
+    a real, current ``corresponds_to_fact_id`` (act-member-transition.v3)
+    named by a withdrawal is never checked or consulted, regardless of
+    value: the predecessor fact type carries no obligation, payer, or
+    report identity anywhere in its own declared identity keys for any
+    correspondence to be checked against, so a real, current, but
+    domain-wrong correspondence could otherwise let migration admit and
+    publish a known-wrong result, and a withdrawn or retracted predecessor
+    whose value is already genuinely zero must never be refused merely for
+    omitting an irrelevant "replacement" for a computational role that
+    never existed. No correspondence is required, checked, or consulted
+    for any withdrawal or retraction, regardless of value. The only
+    currently accepted way to resolve a live, withdrawn, or retracted
+    nonzero legacy claim -- for a fact still in the current lattice -- is
+    a same-identity correction to a genuinely zero value (see
+    ``_refuse_unresolved_nonzero_claims``).
     """
     if registry.migration_resolution_policies.get(migration["id"]) != "resolved-required":
         return
+    if view is None:
+        view = _compute_view(state)
     predecessor_types = {pair["predecessor"] for pair in migration["pairs"]}
     lattice = facts.facts_of(state.fact_state)
     last_by_fact: dict[str, dict[str, Any]] = {}
@@ -977,23 +1142,24 @@ def _refuse_unresolved_nonzero_withdrawals(
         fact.fact_id
         for fact in lattice.values()
         if fact.fact_type_id in predecessor_types
-        and fact.fact_id in state.withdrawn_fact_ids
         and fact.fact_id in last_by_fact
+        and last_by_fact[fact.fact_id]["id"] not in view.current_finding_ids
         and not _is_zero_value(last_by_fact[fact.fact_id]["value"])
     )
     if unresolved:
         raise FindingModelError(
             f"migration {migration['id']}: {MIGRATION_UNRESOLVED_PREDECESSOR_CLAIM} -- "
-            "adoption refused: withdrawn predecessor fact(s) still carry a "
-            "true, nonzero historical value. A nonzero legacy claim blocks "
-            "migration whether or not it was withdrawn, and whether or not "
-            "the withdrawal named a corresponds_to_fact_id -- no accepted "
-            "mechanism can check a claimed representation transfer against "
-            "anything, since the predecessor fact type carries no "
-            "obligation, payer, or report identity. The only currently "
-            "accepted resolution is a same-identity correction to a "
-            "genuinely zero value via the predecessor fact type's own "
-            f"declared supersession policy: {', '.join(unresolved)}"
+            "adoption refused: withdrawn or retracted predecessor fact(s) "
+            "still carry a true, nonzero historical value. A nonzero "
+            "legacy claim blocks migration whether it is live, withdrawn, "
+            "or retracted, and whether or not a withdrawal named a "
+            "corresponds_to_fact_id -- no accepted mechanism can check a "
+            "claimed representation transfer against anything, since the "
+            "predecessor fact type carries no obligation, payer, or report "
+            "identity. The only currently accepted resolution is a "
+            "same-identity correction to a genuinely zero value via the "
+            f"predecessor fact type's own declared supersession policy: "
+            f"{', '.join(unresolved)}"
         )
 
 
@@ -1003,9 +1169,10 @@ def apply_migration_adoption(
     """Adopt a migration artifact: retire named types, present claims."""
     migration = payload["migration"]
     registry.validate_declared(migration)
-    claims = _present_successor_claims(state, migration)
+    view = _compute_view(state)
+    claims = _present_successor_claims(state, migration, view)
     _refuse_unresolved_nonzero_claims(migration, claims, registry)
-    _refuse_unresolved_nonzero_withdrawals(state, migration, registry)
+    _refuse_unresolved_nonzero_noncurrent_predecessors(state, migration, registry, view)
     new_fact_state = facts.apply_migration_adoption(
         state.fact_state, payload, registry
     )
@@ -1014,6 +1181,179 @@ def apply_migration_adoption(
         fact_state=new_fact_state,
         presented_successor_claims=state.presented_successor_claims + claims,
     )
+
+
+def _retraction_refused_by_supersession_policy(
+    state: FindingState, finding: dict[str, Any], fact: facts.Fact
+) -> None:
+    """Gate a retraction on exactly the predicate that gates a correction.
+
+    ADR-0041's vocabulary is a *state* gate, never an identity check, and
+    this milestone's contract question 2 settles that retraction obeys the
+    same predicate as correction rather than inventing a second authority
+    model. The already-answered test the correction path computes is
+    trivially true here - the finding being retracted is itself a recorded
+    answer to the fact - so only the policy branch remains:
+
+    - ``free``: permitted.
+    - ``locked``: refused unconditionally. A locked fact's single answer
+      may not be retracted, because ``already_answered`` reads history and
+      would otherwise leave the fact permanently unanswerable.
+    - ``closed-on-attestation``: refused exactly when the named gate fact
+      is currently attested ``true``, and permitted otherwise, reusing the
+      correction path's own enforcement verbatim.
+    """
+    fact_type = state.fact_state.fact_types[fact.fact_type_id]
+    policy = fact_type["supersession"]["policy"]
+    if policy == "free":
+        return
+    if policy == "closed-on-attestation":
+        _enforce_closed_on_attestation(state, finding, fact, fact_type)
+        return
+    raise FindingModelError(
+        f"cannot retract finding {finding['id']}: fact {fact.fact_id} is "
+        f"governed by supersession policy '{policy}', which does not permit "
+        "ending this answer -- already_answered reads history, so retracting "
+        "the fact's single answer would leave it permanently unanswerable"
+    )
+
+
+# The four admission enforcers ``apply_assertion`` runs after recording a
+# finding. A retraction runs the identical four over the prospective
+# post-retraction state (T0-C): the kernel already decides that a declared
+# companion may not be left unanswered, so an act that *ends* an answer must
+# land inside the same admissible-state set as an act that supplies one.
+# These are reused, never reimplemented -- a second copy of an enforcer's
+# predicate would be a second contract, free to drift from this one.
+_ADMISSION_ENFORCERS = (
+    _enforce_subset_invariants,
+    _enforce_declaration_signal_contradictions,
+    _enforce_companion_presence,
+    _enforce_companion_equalities,
+)
+
+
+def _refuse_retraction_violating_admission_invariants(
+    prospective: FindingState,
+    registry: SchemaRegistry,
+    finding_id: str,
+    fact_id: str,
+) -> None:
+    """Sixth refusal: refuse a retraction whose resulting state violates any
+    declared admission invariant.
+
+    The enforcers already run against a fully-updated successor state and
+    read current values through ``_current_value_for_fact``, the single
+    current-standing path, so handing them the prospective post-retraction
+    state is all that is required -- no enforcer changes, and no predicate
+    is restated here. Their own messages already name the violated
+    invariant, so they are carried through verbatim rather than
+    paraphrased. One shared view is computed for the prospective state
+    (if any enforcer has something declared to check) rather than one per
+    enforcer.
+    """
+    view = _admission_view_if_declared(prospective, registry)
+    for enforce in _ADMISSION_ENFORCERS:
+        try:
+            enforce(prospective, registry, (fact_id,), view)
+        except FindingModelError as exc:
+            raise FindingModelError(
+                f"cannot retract finding {finding_id}: ending this answer would "
+                f"leave a state no assertion could create -- {exc}"
+            ) from exc
+
+
+def apply_finding_retracted(
+    state: FindingState,
+    payload: dict[str, Any],
+    registry: SchemaRegistry,
+    act_id: str,
+) -> FindingState:
+    """End the current support supplied by one identified finding.
+
+    The payload names a finding, never a fact. The fact is derived from the
+    named finding, so a client at the latest revision that names a
+    superseded finding is refused here rather than silently retracting the
+    later correction the act log's revision check cannot see.
+
+    Six refusals, each naming its rule:
+
+    1. the finding is unknown;
+    2. the finding is not current under the *full* projection - which is
+       one rule covering corrected-away, already-retracted,
+       entity-displaced, and migration-displaced findings alike, because
+       ``compute_currency`` is the only reader that knows all four;
+    3. the fact's supersession policy is ``locked``;
+    4. the fact's policy is ``closed-on-attestation`` and the gate is
+       currently attested true;
+    5. the fact is currently a source-family member - ADR-0023 routes
+       membership changes through member-transition, and a retraction
+       would otherwise leave a member fact with no current answer, a state
+       no closure or subtotal consumer was written for;
+    6. the resulting state would violate a declared subset,
+       declaration/signal, companion-presence, or companion-equality
+       invariant. Ending an answer must land inside the same
+       admissible-state set as supplying one, so the four enforcers
+       ``apply_assertion`` runs are re-run over the prospective
+       post-retraction state and their refusal is carried through.
+
+    The envelope's actor is recorded by the act log and never consulted.
+    """
+    finding_id = payload["finding_id"]
+    finding = state.findings.get(finding_id)
+    if finding is None:
+        raise FindingModelError(f"cannot retract unknown finding: {finding_id}")
+
+    # Deferred import: ``currency`` reads ``FindingState``, so importing it
+    # at module scope would close an import cycle. Admission deliberately
+    # consults the full projection rather than a second, weaker currency
+    # rule of its own - reproducing one here is exactly the duplicate
+    # currency model this milestone exists to avoid.
+    from packages.kernel.currency import compute_currency
+
+    view = compute_currency(state)
+    if finding_id not in view.current_finding_ids:
+        reasons = ", ".join(
+            f"{reason.kind} by {reason.by}" for reason in view.reasons.get(finding_id, ())
+        )
+        raise FindingModelError(
+            f"cannot retract finding {finding_id}: it is not current"
+            + (f" ({reasons})" if reasons else "")
+        )
+
+    fact_id = finding["fact_id"]
+    lattice = facts.facts_of(state.fact_state, include_displaced=True)
+    fact = lattice.get(fact_id)
+    if fact is None:
+        raise FindingModelError(
+            f"cannot retract finding {finding_id}: unknown fact {fact_id}"
+        )
+
+    _retraction_refused_by_supersession_policy(state, finding, fact)
+
+    # ADR-0023 routing, read exactly as ``apply_assertion`` reads it:
+    # history minus withdrawals.
+    if (
+        hasattr(registry, "family_member_predicates")
+        and fact.fact_type_id in registry.family_member_predicates
+        and fact_id not in state.withdrawn_fact_ids
+    ):
+        raise FindingModelError(
+            f"cannot retract finding {finding_id}: fact {fact_id} is currently "
+            f"a source-family member; use a member-transition removal instead"
+        )
+
+    retraction_acts = dict(state.retraction_acts)
+    retraction_acts[finding_id] = act_id
+    prospective = replace(
+        state,
+        retracted_finding_ids=state.retracted_finding_ids | {finding_id},
+        retraction_acts=retraction_acts,
+    )
+    _refuse_retraction_violating_admission_invariants(
+        prospective, registry, finding_id, fact_id
+    )
+    return prospective
 
 
 _APPLIERS = {
@@ -1026,6 +1366,15 @@ _APPLIERS = {
     "migration-adoption": apply_migration_adoption,
 }
 
+# Appliers that need the act envelope's own id, not just its payload. A
+# retraction creates no citizen of its own, so the only thing that can name
+# it in a displacement reason - and the only attribution path back to who
+# retracted and when - is the retracting act's id. Kept as a separate table
+# so the payload-scoped appliers keep their narrower signature.
+_ACT_SCOPED_APPLIERS = {
+    "finding-retracted": apply_finding_retracted,
+}
+
 _FACT_ACT_KINDS = frozenset({"bundle-adoption", "entity-introduced", "entity-superseded"})
 
 # The act kinds the kernel projection owns. Other families (e.g. the derivation
@@ -1034,7 +1383,7 @@ _FACT_ACT_KINDS = frozenset({"bundle-adoption", "entity-introduced", "entity-sup
 # This is safe: the act log validates every committed act against its payload
 # schema at read time, so a non-kernel kind here is a known other-family act,
 # never a typo.
-KERNEL_ACT_KINDS = _FACT_ACT_KINDS | frozenset(_APPLIERS)
+KERNEL_ACT_KINDS = _FACT_ACT_KINDS | frozenset(_APPLIERS) | frozenset(_ACT_SCOPED_APPLIERS)
 
 
 def apply_act(
@@ -1048,6 +1397,10 @@ def apply_act(
         return replace(
             state,
             fact_state=facts.apply_act(state.fact_state, act, registry),
+        )
+    if kind in _ACT_SCOPED_APPLIERS:
+        return _ACT_SCOPED_APPLIERS[kind](
+            state, act["payload"], registry, act["act_id"]
         )
     return _APPLIERS[kind](state, act["payload"], registry)
 
