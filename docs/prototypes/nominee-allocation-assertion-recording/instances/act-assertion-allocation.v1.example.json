@@ -1,0 +1,19 @@
+{
+  "schema": "act.v1",
+  "act_id": "demo.act.pat.1.assert",
+  "kind": "assertion",
+  "actor": "demo-user-matt",
+  "at": "2026-09-07T03:10:00Z",
+  "committed_against": 7,
+  "payload": {
+    "finding": {
+      "schema": "finding.v2",
+      "id": "demo-f-pat-1",
+      "fact_id": "tax.us.nominee-allocation.amount|payer=Demo Savings Bank,statement=Demo Savings Bank::statement::demo-stmt-a,tax-year=2025,recipient=demo.alloc.recipient.pat",
+      "value": 300,
+      "basis": "attested",
+      "evidence_ids": ["demo.evidence.nominee-alloc"],
+      "contribution_id": "demo.contribution.pat.1"
+    }
+  }
+}

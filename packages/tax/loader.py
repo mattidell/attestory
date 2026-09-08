@@ -37,6 +37,7 @@ SOURCE_FAMILY_SCHEMAS = {"source-family.v1", "source-family.v2"}
 CLOSURE_MAPPING_SCHEMA = "source-closure-mapping.v1"
 W2_BUNDLE_FILE = "w2.bundle.json"
 F1099INT_BUNDLE_FILE = "f1099int.bundle.json"
+NOMINEE_ALLOCATION_BUNDLE_FILE = "nominee-allocation.bundle.json"
 
 
 def _version_rank(version: str) -> int:
@@ -334,6 +335,17 @@ def load_f1099int_bundle(registry: SchemaRegistry | None = None) -> dict[str, An
     """Load and strictly validate the 2025 Form 1099-INT box-1 bundle."""
     reg = registry if registry is not None else tax_registry()
     return _load_bundle(F1099INT_BUNDLE_FILE, reg)
+
+
+def load_nominee_allocation_bundle(registry: SchemaRegistry | None = None) -> dict[str, Any]:
+    """Load and strictly validate the nominee-allocation recording bundle.
+
+    Nominee-Allocation Assertion Recording milestone, Track 1. Declares the
+    ordinary allocation fact type and its recipient entity kind only -- no
+    rule, no derived symbol, no nominee tax consequence.
+    """
+    reg = registry if registry is not None else tax_registry()
+    return _load_bundle(NOMINEE_ALLOCATION_BUNDLE_FILE, reg)
 
 
 def load_source_families(

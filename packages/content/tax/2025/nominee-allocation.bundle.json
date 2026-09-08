@@ -1,0 +1,27 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.nominee-allocation.vocabulary",
+  "version": "v1",
+  "label": "Ordinary nominee-allocation attribution vocabulary: a workspace actor's attested statement that a stated amount of interest reported on an identified Form 1099-INT belongs to a named other (non-spouse) recipient. Records the ordinary proposition only, without its speaker; a later adopted rule, not this fact type, decides any nominee-interest tax consequence.",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.nominee-allocation.amount",
+      "version": "v1",
+      "title": "The amount of interest reported on this identified Form 1099-INT that is allocated to this named other person. The enclosing act supplies who stated it and when; this fact carries no nominee-interest characterization, Schedule B classification, or reporting conclusion. Identity shares the box-1 report's own payer, statement, and tax-year components (packages/tax/report_statement_identity.py), plus an application-minted recipient entity, never derived from typed text.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.us.interest-payer"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1099int-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2024", "2025"]},
+        {"name": "recipient", "kind": "entity", "entity_kind": "tax.us.interest-allocation-recipient"}
+      ],
+      "value_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "supersession": {"policy": "free"}
+    }
+  ]
+}

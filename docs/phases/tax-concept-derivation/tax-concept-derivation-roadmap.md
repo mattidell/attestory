@@ -240,18 +240,55 @@ retrospective: [`docs/milestone-retrospectives/2026-09-06-assertion-standing-ret
 
 ### 7. Nominee Allocation Assertion Recording
 
-Resume the first production stage of nominee-interest support after item 6
-settles assertion standing. Record the user's ordinary, attributed statement
+The first production stage of nominee-interest support, built on item 6's
+assertion-standing contract. Records the ordinary, attributed statement
 that a stated amount from one identified payer report belongs to one named other
 person, with stable proposition identity, correction, retraction, reassertion,
 and recoverable provenance. Do not ask the user to supply the nominee-interest
 tax classification.
 
-This stage remains separate from deriving the nominee reduction, reconciling
-the legacy adjustment, and integrating line 2b and Schedule B. Its exploratory
-branch is paused before contract selection; it must consume the lifecycle
-contract established by item 6 rather than selecting an entity or source-family
-workaround independently.
+This stage is separate from deriving the nominee reduction, reconciling the
+legacy adjustment, and integrating line 2b and Schedule B. It consumes item 6's
+lifecycle contract rather than an entity or source-family workaround.
+
+**CLOSED 2026-09-08; owner-directed repairs 2026-09-08.** Two reviewed planning
+gates ran before any charter, and three tracks. Tracks 1 and 2 were each
+independently reviewed READY; Track 0 was closed by the Foreman on executed
+evidence rather than by an independent reviewer. Delivered: the
+`tax.us.nominee-allocation.amount` fact type (`bundle.v2` / `fact-type.v2`,
+keyed `payer` + `statement` + `tax-year` + `recipient`, sharing the committed
+box-1 report's identity components, `exclusiveMinimum: 0`, `free` supersession,
+no admission invariant over the amount); the
+`tax.us.interest-allocation-recipient` entity kind with an application-minted
+opaque workspace id; a producer that persists assertion and correction through
+the real contribution boundary; a separate bounded retraction operation on
+`act-finding-retracted.v1`; and recovery of current allocations and historical
+retracted assertions (what was said, who said it, who later ended current
+support), labels, contribution and evidence provenance, attribution, and the
+report join from a committed act log alone. An allocation assertion requires
+current `ordinary-language-entry` evidence whose submitted answers correspond
+to the mapped finding; missing, malformed, document-report, and unrelated
+modes are refused; production contribution construction does not invent
+whether the interaction was synthetic. **Hard gate:** no user-facing
+production caller may rely on `assert_nominee_allocation` until resumable or
+idempotent recovery of a persisted multi-act prefix is closed.
+
+The selected operation is **workspace-support retraction** under a **shared**
+workspace model: one current answer per report and recipient, any recorded actor
+may correct or retract it, actor is opaque provenance and never
+admission-validated, and no durable text claims the original actor recanted.
+The entity and source-family lifecycle candidates were disqualified on executed
+evidence — both remove the fact, so the proposition ceases to exist and its
+identity must be abandoned to answer again.
+
+Deferred with triggers: author-bound recantation and permission rules;
+author-indexed propositions and conflict reconciliation; recipient display-name
+correction (`entity.v1` labels are immutable); the R-B source-independent
+association model; and A10's routing destination, which no committed module
+owns. T0-F5 remains deferred behind its hard production gate. Plan:
+[`milestones/nominee-allocation-assertion-recording.md`](milestones/nominee-allocation-assertion-recording.md);
+retrospective:
+[`2026-09-08-nominee-allocation-assertion-recording.md`](../../milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md).
 
 ### 8. Contrasting Tax Concept
 
@@ -286,7 +323,7 @@ model must continue to serve computation and return generation.
 | Later-Year Basis Reuse Test | **Closed 2026-09-03 — explicit partial result** | Access experiments vs representation strategy held separate. **Neither strategy supplies a production-authorized later-year delivery path today** (raw same-run mixed-scope computation does produce the value): AS-1 is blocked twice and needs a *successor* publication-act schema plus an independent projection change; AS-2 re-executes the 2025 seam with no new schema or kernel machinery for that seam, but end-to-end later-year use remains unbuilt and delivery under an authorized package/scope contract is unestablished. Consumption policy and historical retention are distinct open questions, not a forced choice. A **fifth composition gap** — cross-context handoff / scope composition, i.e. the absence of an authorized package/scope contract for composing the 2025 determination into a later disposition calculation — joins the four inherited ones, and a cross-context basis-reuse vertical meets it first. Structural differences (pin topology, blocked-row naming) were observed and executed on two run observables, but no material product discriminator was established, so the A/B choice is deferred again on that ground, not a measured tradeoff |
 | Nominee Interest Ownership Translation | **Closed 2026-09-05 — Track 0 complete at the paper rung; decision-ready contract proposal; no implementation chartered** | First cadence-normalization test: ownership/allocation translation, legacy nominee-path reconciliation, and early independent review during planning and Track 0 |
 | Assertion Standing and Retraction Semantics | **Closed 2026-09-06** | Withdrawal without a replacement value; one current-standing path across every reader; ADR-0073 |
-| Nominee Allocation Assertion Recording | Unblocked 2026-09-06; not selected | First production recording stage for the ordinary allocation assertion |
+| Nominee Allocation Assertion Recording | **CLOSED 2026-09-08** | Ordinary allocation assertion recorded, corrected, retracted from current use, asserted again, and recovered from the log with attribution; no tax consequence or return integration |
 | Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 

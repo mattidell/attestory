@@ -2,21 +2,22 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "assertion-standing-retraction-semantics",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/assertion-standing-retraction-semantics.md",
+  "topic": "nominee-allocation-assertion-recording",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/nominee-allocation-assertion-recording.md",
   "milestone_state": "closed",
-  "status": "CLOSED 2026-09-07. A recorded actor can end the workspace's current support for one identified answer without supplying a replacement value, and every reader agrees about which answer currently stands. A dedicated act contributes a fifth named displacement root behind six admission refusals; the two declared cascade edges are unchanged. One resolution of current standing replaced two across the five kernel admission enforcers, both read models, the derivation layer, the migration path, and both tax-layer readers, closing a production check that accepted a Social Security statement whose filing-status authority had been withdrawn, and preventing a retracted answer from being presented as a live migration claim without weakening ADR-0072's nonzero block. Entity succession and source-family withdrawal were disqualified on executed evidence. Fifteen fact types remain un-withdrawable because capability limits sit in the admission layer; that relocation is a successor milestone by owner disposition. Ratified by ADR-0073. Nominee Allocation Assertion Recording may resume.",
+  "status": "Nominee Allocation Assertion Recording is CLOSED 2026-09-08; owner-directed repairs 2026-09-08. Three tracks; Tracks 1 and 2 were each independently reviewed READY, and Track 0 was closed by the Foreman on executed evidence rather than by an independent reviewer. The application records, corrects, retracts from current use, and asserts again the ordinary statement that a stated amount of interest reported on an identified Form 1099-INT is allocated to a named other person, and recovers current and historical retracted assertions — what was said, who said it, and who later ended current support — with attribution from a committed act log alone. An allocation assertion requires current ordinary-language-entry evidence whose submitted answers correspond to the mapped finding; production does not invent a synthetic flag. The workspace model is SHARED: one current answer per report and recipient; any recorded actor may correct or retract it; actor is opaque provenance, never admission-validated; no durable text claims the original actor recanted. Hard gate: no user-facing production caller may rely on assert_nominee_allocation until resumable or idempotent recovery of a persisted multi-act prefix is closed. No nominee tax consequence, line-2b change, Schedule B row, information-reporting implementation, legacy migration, or UI. Deferred with triggers: author-bound recantation and permission rules, author-indexed propositions and conflict reconciliation, recipient display-name correction, the R-B source-independent association model, and A10's routing destination. T0-F5 remains deferred behind its hard production gate. The next milestone is unselected.",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
+  "retrospective": "docs/milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md",
   "deep_reads": {
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md",
+      "docs/milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md",
+      "docs/phases/tax-concept-derivation/milestones/nominee-allocation-assertion-recording.md",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
-      "docs/phases/tax-concept-derivation/milestones/assertion-standing-retraction-semantics.md",
+      "docs/adr/0073-assertion-standing-and-retraction-lifecycle.md",
       "OWNER_MODEL.md#The Product Model"
     ]
-  },
-  "retrospective": "docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md"
+  }
 }
 -->
 
@@ -44,10 +45,39 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
-- **Active milestone:** none. The next milestone choice is owner-held; the
-  roadmap is the selection instrument.
-- **Just-closed milestone:** Assertion Standing and Retraction Semantics —
-  **CLOSED 2026-09-07.** A recorded actor can end the workspace's current
+- **No active milestone.** The next milestone is **unselected**; selection is
+  owner-held and the phase roadmap is the selection instrument.
+- **Just-closed milestone:** Nominee Allocation Assertion Recording — **CLOSED
+  2026-09-08**, with owner-directed repairs the same day. Three tracks; Tracks 1 and 2 were each independently
+  reviewed READY, and Track 0 was closed by the Foreman on executed evidence
+  rather than by an independent reviewer. The
+  application records, corrects, retracts from current use, and asserts again
+  the ordinary statement that a stated amount of interest reported on an
+  identified Form 1099-INT is allocated to a named other person, and recovers
+  current and historical retracted assertions — what was said, who said it,
+  and who later ended current support — with attribution from a committed act
+  log alone. **Hard gate:** no user-facing production caller may rely on
+  `assert_nominee_allocation` until resumable or idempotent recovery of a
+  persisted multi-act prefix is closed. Delivered:
+  `tax.us.nominee-allocation.amount` keyed `payer` + `statement` + `tax-year` +
+  `recipient`, sharing the committed box-1 report's identity components; the
+  `tax.us.interest-allocation-recipient` entity kind with an application-minted
+  opaque workspace id; a persisting producer; a separate bounded retraction
+  operation; and a recovery view consulting `compute_currency` as the sole
+  definition of current standing. An allocation assertion requires current
+  ordinary-language-entry evidence whose submitted answers correspond to the
+  mapped finding; production does not invent a synthetic flag. **The workspace model is shared:** one current
+  answer per report and recipient, any recorded actor may correct or retract it,
+  actor is opaque provenance and never admission-validated, and no durable text
+  claims the original actor recanted. No nominee tax consequence, line-2b
+  change, Schedule B row, information-reporting implementation, migration, or
+  UI. **T0-F5 remains deferred** behind its hard production gate. See
+  `docs/milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md`.
+  **Closure is complete**: the plan, retrospective, roadmap, and this document
+  are final, and nothing about this milestone is outstanding. Selecting the
+  next milestone is the only remaining action.
+- **Prior milestone:** Assertion Standing and Retraction Semantics — **CLOSED
+  2026-09-07.** A recorded actor can end the workspace's current
   support for one identified answer without supplying a replacement value, and
   every reader agrees about which answer currently stands. A dedicated act
   contributes a fifth named displacement root behind six admission refusals;
@@ -65,10 +95,6 @@ a project to enumerate or implement the entire taxable-interest universe.
   milestone by owner disposition, not a property of withdrawal. Ratified by
   ADR-0073. See
   `docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md`.
-- **Dependent production work:** Nominee Allocation Assertion Recording is
-  **unblocked but not selected.** The assertion-standing contract it waited
-  for exists, and the lifecycle was exercised against the per-report,
-  per-owner shape that work needs.
 - **Prior milestone:** Nominee Interest Ownership Translation — **CLOSED
   2026-09-05.** Track 0 completed at the **paper** evidence rung across three
   reviewed checkpoints and returned a **decision-ready contract proposal**; no
@@ -300,10 +326,15 @@ one tested with a real consumer; its own retrospective is
 - **Next-milestone selection instrument (owner-held):**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
 - **Just-closed milestone:**
+  `docs/phases/tax-concept-derivation/milestones/nominee-allocation-assertion-recording.md`,
+  retrospective
+  `docs/milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md`.
+- **Lifecycle contract it consumes:**
+  `docs/adr/0073-assertion-standing-and-retraction-lifecycle.md`,
+  plan
   `docs/phases/tax-concept-derivation/milestones/assertion-standing-retraction-semantics.md`,
   retrospective
-  `docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md`,
-  contract `docs/adr/0073-assertion-standing-and-retraction-lifecycle.md`.
+  `docs/milestone-retrospectives/2026-09-06-assertion-standing-retraction-semantics.md`.
 - **Prior milestone:**
   `docs/phases/tax-concept-derivation/milestones/nominee-interest-ownership-translation.md`,
   retrospective
