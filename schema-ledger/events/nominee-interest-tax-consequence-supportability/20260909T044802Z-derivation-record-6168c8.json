@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "milestone_key": "nominee-interest-tax-consequence-supportability",
+  "milestone_branch": "milestone/nominee-interest-tax-consequence-supportability",
+  "milestone_commit": "8a5622a9299728c6474a9f822a238f9604c76804",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "event_id": "20260909T044802Z-derivation-record-6168c8",
+  "recorded_at": "2026-09-09T04:48:02Z",
+  "schema_family": "derivation-record",
+  "schema_path": "packages/schemas/derivation/derivation-record.v9.schema.json",
+  "schema_version": "v9",
+  "summary": "Add NOMINEE_ALLOCATIONS_EXCEED_REPORT and an inapplicable no_groups_selected evidence form so grouped-rule C0-only and over-allocation rows are honest. v8 bytes untouched."
+}

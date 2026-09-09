@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "milestone_key": "nominee-interest-tax-consequence-supportability",
+  "milestone_branch": "milestone/nominee-interest-tax-consequence-supportability",
+  "milestone_commit": "8a5622a9299728c6474a9f822a238f9604c76804",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "event_id": "20260909T050200Z-artifact-package-190f6f",
+  "recorded_at": "2026-09-09T05:02:00Z",
+  "schema_family": "artifact-package",
+  "schema_path": "packages/schemas/derivation/artifact-package.v28.schema.json",
+  "schema_version": "v28",
+  "summary": "Admit rule-artifact.v8 as a package member schema so package.core-calculations.v36 can pin the nominee-reduction rule. v27 is already proposed by document-ordinary-fact-translation; v26 bytes untouched."
+}

@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "milestone_key": "nominee-interest-tax-consequence-supportability",
+  "milestone_branch": "milestone/nominee-interest-tax-consequence-supportability",
+  "milestone_commit": "8a5622a9299728c6474a9f822a238f9604c76804",
+  "action": "propose",
+  "change_kind": "additive",
+  "replaces_event": null,
+  "event_id": "20260909T044800Z-rule-artifact-3f4c88",
+  "recorded_at": "2026-09-09T04:48:00Z",
+  "schema_family": "rule-artifact",
+  "schema_path": "packages/schemas/derivation/rule-artifact.v8.schema.json",
+  "schema_version": "v8",
+  "summary": "Add bound_sources expression op so a coordinator-selected nonempty allocation group reaches declared add/compare without ordinary collect.source_set or a nominee-allocation source family."
+}
