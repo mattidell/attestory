@@ -77,13 +77,16 @@ class DerivationRecordV8Schema(unittest.TestCase):
     def setUp(self) -> None:
         self.registry = SchemaRegistry([DERIVATION_SCHEMA_DIR])
 
-    def test_v8_is_current_and_v7_bytes_are_untouched(self) -> None:
-        self.assertEqual(CURRENT_RECORD_SCHEMA, "derivation-record.v8")
+    def test_v8_is_published_and_v7_bytes_are_untouched(self) -> None:
         manifest = json.loads((DERIVATION_SCHEMA_DIR / "published.json").read_text("utf-8"))
         self.assertIn("derivation-record.v8.schema.json", manifest)
         self.assertEqual(
             manifest["derivation-record.v7.schema.json"],
             "7e00f5f7da9068fe246d4a9c07f0ecd496bac16d0858bf51de9b0e2231101572",
+        )
+        self.assertEqual(
+            manifest["derivation-record.v8.schema.json"],
+            "0e9acba1857b27ab4ae7a8827d1f36388b2e2e677b80299e886de6c1ca8dd3ca",
         )
 
     def test_v8_accepts_every_new_code(self) -> None:

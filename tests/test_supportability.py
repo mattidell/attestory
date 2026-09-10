@@ -33,7 +33,7 @@ from packages.derivation.package_validation import (
     FIELD_REF_UNKNOWN_FIELD,
     check_field_ref_bindings,
 )
-from packages.derivation.records import RecordStream
+from packages.derivation.records import CURRENT_RECORD_SCHEMA, RecordStream
 from packages.derivation.runner import RunContext, RunResult, run, run_and_record
 from packages.kernel.currency import CurrencyView
 from packages.kernel.facts import fact_id_for
@@ -338,7 +338,7 @@ class TestAmountExceeds(unittest.TestCase):
             )
             closing = stream.standings()[ctx.run_id].closing
         assert closing is not None
-        self.assertEqual(closing["schema"], "derivation-record.v8")
+        self.assertEqual(closing["schema"], CURRENT_RECORD_SCHEMA)
         self.assertEqual(result.blocked[0]["code"], ACCRUED_EXCEEDS_ASSOCIATED_REPORT)
         ledger = {row["artifact_id"]: row for row in closing["dispositions"]}
         self.assertEqual(ledger[RULE_ID]["disposition"], "blocked")

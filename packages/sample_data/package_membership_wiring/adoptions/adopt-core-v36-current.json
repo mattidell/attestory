@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v36",
+  "actor": "demo.user.filer-1",
+  "at": "2026-09-09T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic Track 1 v36 adoption of nominee-reduction graph; non-authoritative"
+    },
+    "package": {
+      "checksum": "fb1ca5674fa65f4029791bd352b04affa7b50738c63e5701eb0394f5041fe763",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v36"
+    },
+    "release": {
+      "checksum": "ba33891e7b77b1be94bd4862a888d3729207f8f7db28cc846bbc0185507af4de",
+      "id": "demo.release.2025",
+      "version": "v29"
+    },
+    "revision": 36,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}

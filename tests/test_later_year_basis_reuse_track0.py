@@ -1746,9 +1746,13 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
     collect-target universe guard documents itself as binding
     "artifact-package.v3 onward" but has not bound since v17.
     ``collect`` is expressible under ``rule-artifact.v2`` through ``v7``;
-    what is special is admission: ``rule-artifact.v7`` is admitted ONLY by
-    ``artifact-package.v26``, and the guard has therefore never bound a
-    ``rule-artifact.v7`` collect.
+    what is special is admission: ``rule-artifact.v7`` is admitted by
+    ``artifact-package.v26`` and, since ADR-0074, also by
+    ``artifact-package.v28`` -- both of which are past the guard's
+    allowlist, so the guard has still never bound a ``rule-artifact.v7``
+    collect. The probe below enumerates both admitting schemas; the
+    property it protects is that every schema admitting v7 lies beyond the
+    guard's reach, not that exactly one such schema exists.
     """
 
     def setUp(self) -> None:
@@ -1858,7 +1862,10 @@ class C8bCandidateAgainstCurrentPackageValidation(unittest.TestCase):
         ):
             if "rule-artifact.v7" in path.read_text(encoding="utf-8"):
                 admitting.append(path.name)
-        self.assertEqual(admitting, ["artifact-package.v26.schema.json"])
+        self.assertEqual(
+            admitting,
+            ["artifact-package.v26.schema.json", "artifact-package.v28.schema.json"],
+        )
 
     def test_negative_probe_the_guard_does_fire_at_a_guarded_generation(self) -> None:
         """The guard is real: the SAME invented ``source_set``, in a minimal

@@ -1,0 +1,30 @@
+{
+  "schema": "artifact-package.v28",
+  "id": "demo.package.bound-sources",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "admitted_schemas": [
+    "rule-artifact.v8"
+  ],
+  "members": [
+    {
+      "role": "computation",
+      "schema": "rule-artifact.v8",
+      "id": "demo.rule.bound-sources",
+      "version": "v1"
+    }
+  ],
+  "input_bindings": [],
+  "entrypoints": [
+    {
+      "id": "demo.rule.bound-sources",
+      "version": "v1"
+    }
+  ],
+  "composition_obligations": [],
+  "package_checksum": "9fe1fbd5b37c0d44c80aa6b2860ecccfd8982e849ec929133cbe49947717c211"
+}

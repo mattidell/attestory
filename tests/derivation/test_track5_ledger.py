@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from packages.derivation.loader import DerivationSchemas
-from packages.derivation.records import RecordStream
+from packages.derivation.records import CURRENT_RECORD_SCHEMA, RecordStream
 from packages.derivation.reference_runner import run_reference
 from packages.derivation.runner import InputFinding, RunContext, RunResult, run, run_and_record
 
@@ -80,6 +80,6 @@ class Track5Ledger(unittest.TestCase):
             )
             closing = stream.standings()["demo.track5.run"].closing
             assert closing is not None
-            self.assertEqual(closing["schema"], "derivation-record.v8")
+            self.assertEqual(closing["schema"], CURRENT_RECORD_SCHEMA)
             self.assertNotIn("blocked", closing)
             self.assertEqual({row["artifact_id"] for row in closing["dispositions"]}, {rule["id"] for rule in self.rules})

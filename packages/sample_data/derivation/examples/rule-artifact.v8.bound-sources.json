@@ -1,0 +1,53 @@
+{
+  "schema": "rule-artifact.v8",
+  "id": "demo.rule.bound-sources",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "demo"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "gt",
+      "left": {
+        "op": "add",
+        "args": [
+          {
+            "op": "bound_sources",
+            "name": "demo.allocation.amount"
+          }
+        ]
+      },
+      "right": {
+        "op": "ref",
+        "name": "demo.report.amount"
+      }
+    },
+    "then": {
+      "op": "block",
+      "code": "NOMINEE_ALLOCATIONS_EXCEED_REPORT"
+    },
+    "else": {
+      "op": "add",
+      "args": [
+        {
+          "op": "bound_sources",
+          "name": "demo.allocation.amount"
+        }
+      ]
+    }
+  },
+  "publishes": "demo.reduction",
+  "blocked": {
+    "code": "NOMINEE_ALLOCATIONS_EXCEED_REPORT",
+    "missing": []
+  },
+  "notes": "Demo ADR-0074 fixture: bound_sources supplies one coordinator-selected nonempty group; additionalProperties forbids source_set."
+}

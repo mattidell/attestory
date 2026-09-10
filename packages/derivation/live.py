@@ -101,7 +101,7 @@ def _resolved_run_material(graph: Any) -> tuple[
     # belongs in the same `rules` material the runner saturates over.
     rules = [
         member for member in members
-        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
+        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
     ]
     parameters = {member["id"]: member for member in members if member.get("schema") == "parameter-declaration.v1"}
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
@@ -159,6 +159,16 @@ def _resolved_run_material(graph: Any) -> tuple[
 
     if any(is_pairing_scoped_consequence_rule(rule) for rule in rules):
         for name in pairing_scoped_collect_source_names():
+            if name not in collect_names:
+                collect_names.append(name)
+
+    from packages.tax.nominee_consequences import (
+        COLLECT_SOURCE_NAMES as NOMINEE_COLLECT_SOURCE_NAMES,
+        RULE_ID as NOMINEE_RULE_ID,
+    )
+
+    if any(rule.get("id") == NOMINEE_RULE_ID for rule in rules):
+        for name in NOMINEE_COLLECT_SOURCE_NAMES:
             if name not in collect_names:
                 collect_names.append(name)
 

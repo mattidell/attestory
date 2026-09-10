@@ -61,7 +61,7 @@ def _families_reached(
     reached: set[tuple[str, str]] = set()
     schema = citizen.get("schema")
 
-    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}:
+    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}:
         for symbol in citizen.get("requires", []):
             if symbol in families_by_subtotal:
                 reached.add((families_by_subtotal[symbol], "reads_subtotal"))
@@ -190,7 +190,7 @@ def _predicate_depth(node: Any) -> int:
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
 _RULE_ARTIFACT_SCHEMAS = frozenset(
-    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}
+    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}
 )
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
@@ -249,6 +249,7 @@ _NON_INPUT_SCHEMAS = frozenset({
     "derivation-record.v6",
     "derivation-record.v7",
     "derivation-record.v8",
+    "derivation-record.v9",
 })
 
 # ADR-0066 Decision 7: closed supported-semantic-schema set. A registry-valid
@@ -303,6 +304,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "rule-artifact.v5",
     "rule-artifact.v6",
     "rule-artifact.v7",
+    "rule-artifact.v8",
     "source-closure-mapping.v2",
     "source-family.v1",
     "source-family.v2",
@@ -474,6 +476,22 @@ def _iter_collect_source_sets(expr: Any) -> Iterable[str]:
     elif isinstance(expr, list):
         for item in expr:
             yield from _iter_collect_source_sets(item)
+
+
+def _iter_bound_source_names(expr: Any) -> Iterable[str]:
+    """Yield ``name`` from every ``bound_sources`` node in an expression.
+
+    Applied to both ``when`` and ``value``, matching ``_iter_ref_names``.
+    Yields only for ``op == "bound_sources"`` (ADR-0074 Decision 2d).
+    """
+    if isinstance(expr, dict):
+        if expr.get("op") == "bound_sources" and isinstance(expr.get("name"), str):
+            yield expr["name"]
+        for value in expr.values():
+            yield from _iter_bound_source_names(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_bound_source_names(item)
 
 
 def _iter_require_closed_source_sets(expr: Any) -> Iterable[str]:
@@ -680,7 +698,7 @@ def compile_validation_graph(
 
     for member in resolved_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
             compiled.append(member)
             continue
 
@@ -751,7 +769,7 @@ def check_validation_graph(
 
     for member in compiled_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
             continue
 
         artifact_id = member["id"]
@@ -1008,6 +1026,18 @@ def validate_package(
             if pin_role != citizen["role"]:
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"package role {pin_role!r} != rule role {citizen['role']!r}"))
+            bound_names = set(_iter_bound_source_names(citizen.get("when"))) | set(
+                _iter_bound_source_names(citizen.get("value"))
+            )
+            from packages.tax.nominee_consequences import BOUND_SOURCE_RULE_IDS
+
+            if bound_names and citizen["id"] not in BOUND_SOURCE_RULE_IDS:
+                issues.append(MemberIssue(
+                    pin["id"],
+                    pin["version"],
+                    "MEMBER_NO_BINDING_PATH",
+                    f"bound_sources rule {citizen['id']!r} is not in the coordinator binding registry",
+                ))
             if citizen["id"] in _LINE_1A_8A_NON_CONFUSION_IDS:
                 confused_symbols = sorted({
                     name for name in (
@@ -1507,7 +1537,7 @@ def validate_package(
                 # Interest Deduction milestone Tracks 1/6b), an additive
                 # expression-language extension only -- it carries the same
                 # declared-refs-outside-requires capability.
-                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}:
+                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}:
                     declared_refs.update(_iter_ref_names(citizen["when"]))
                     declared_refs.update(_iter_ref_names(citizen["value"]))
                 for req in declared_refs:
@@ -1515,6 +1545,20 @@ def validate_package(
                         adj[m_id].add(p_id)
                     if closed_v2_surface:
                         adj[m_id].update(bundles_for_fact.get(binding_fact_types.get(req, ""), set()))
+                bound_names = set(_iter_bound_source_names(citizen["when"])) | set(
+                    _iter_bound_source_names(citizen["value"])
+                )
+                for bound_name in bound_names:
+                    declaring = bundles_for_fact.get(bound_name)
+                    if not declaring:
+                        issues.append(MemberIssue(
+                            pin["id"],
+                            pin["version"],
+                            "BOUND_SOURCE_TARGET_UNDECLARED",
+                            f"bound_sources name {bound_name!r} is not a fact type of an admitted bundle",
+                        ))
+                    else:
+                        adj[m_id].update(declaring)
                 if closed_v2_surface:
                     for source_set in _iter_collect_source_sets(citizen["when"]):
                         for p2, c2 in resolved:
@@ -1797,6 +1841,8 @@ def validate_package(
         consumed = collect_names | set(citizen.get("requires", []))
         consumed.update(_iter_ref_names(citizen["when"]))
         consumed.update(_iter_ref_names(citizen["value"]))
+        consumed.update(_iter_bound_source_names(citizen["when"]))
+        consumed.update(_iter_bound_source_names(citizen["value"]))
         for forbidden in sorted(consumed & recorded_non_composable):
             issues.append(MemberIssue(pin["id"], pin["version"], "RECORDED_NON_COMPOSABLE_INPUT",
                                       f"rule consumes recorded-non-composable content {forbidden!r}; the dividend universe does not compose residual recorded boxes"))
@@ -2086,7 +2132,7 @@ def validate_package(
         # (Form 1098-E Student Loan Interest Deduction milestone Tracks
         # 1/6b); the conditional_dependency_set/category_literal domain-match
         # check applies identically.
-        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}:
+        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}:
             continue
         member_names = set(_iter_cds_member_names(citizen["when"])) | set(
             _iter_cds_member_names(citizen["value"])
@@ -2137,7 +2183,7 @@ def validate_package(
     # value_schema.properties. Misspelled fields and field-on-scalar are
     # rejected here, never as a silent None/zero at evaluation.
     for pin, citizen in resolved:
-        if citizen["schema"] != "rule-artifact.v7":
+        if citizen["schema"] not in {"rule-artifact.v7", "rule-artifact.v8"}:
             continue
         issues.extend(check_field_ref_bindings(
             citizen, fact_types_by_id, binding_fact_types_local,

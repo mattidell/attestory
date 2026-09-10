@@ -23,6 +23,7 @@ import json
 from typing import Any, Mapping
 
 from packages.derivation.package_validation import (
+    _iter_bound_source_names,
     _iter_collect_source_sets,
     _iter_parameter_and_table_refs,
     _iter_ref_names,
@@ -40,6 +41,7 @@ _RULE_ARTIFACT_SCHEMAS = frozenset(
         "rule-artifact.v5",
         "rule-artifact.v6",
         "rule-artifact.v7",
+        "rule-artifact.v8",
     }
 )
 _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
@@ -49,6 +51,7 @@ _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
         "rule-artifact.v5",
         "rule-artifact.v6",
         "rule-artifact.v7",
+        "rule-artifact.v8",
     }
 )
 _FORM_FIELD_SCHEMAS = frozenset({"form-field.v1", "form-field.v2", "form-field.v3"})
@@ -143,6 +146,10 @@ def build_dependency_edges(
                     family_id = families_by_id.get(source_set)
                     if family_id is not None:
                         edges[cid].add(family_id)
+            for name in set(_iter_bound_source_names(when)) | set(
+                _iter_bound_source_names(value)
+            ):
+                edges[cid].update(bundles_for_fact.get(name, set()))
             for pid in set(_iter_parameter_and_table_refs(when)) | set(
                 _iter_parameter_and_table_refs(value)
             ):

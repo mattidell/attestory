@@ -1,0 +1,59 @@
+{
+  "schema": "rule-artifact.v8",
+  "id": "tax.us.2025.rule.interest.nominee-reduction",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "role": "computation",
+  "requires": [],
+  "pins": [],
+  "when": true,
+  "value": {
+    "op": "choose",
+    "when": {
+      "op": "compare",
+      "cmp": "gt",
+      "left": {
+        "op": "add",
+        "args": [
+          {
+            "op": "bound_sources",
+            "name": "tax.us.nominee-allocation.amount"
+          }
+        ]
+      },
+      "right": {
+        "op": "ref",
+        "name": "tax.us.2025.f1099int.box1-interest"
+      }
+    },
+    "then": {
+      "op": "block",
+      "code": "NOMINEE_ALLOCATIONS_EXCEED_REPORT"
+    },
+    "else": {
+      "op": "add",
+      "args": [
+        {
+          "op": "bound_sources",
+          "name": "tax.us.nominee-allocation.amount"
+        }
+      ]
+    }
+  },
+  "publishes": "tax.us.2025.interest.nominee-reduction",
+  "blocked": {
+    "code": "NOMINEE_ALLOCATIONS_EXCEED_REPORT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.interest.nominee-reduction",
+      "version": "v1"
+    }
+  ],
+  "notes": "ADR-0074: coordinator-selected nonempty report-local allocation group. Sum the bound allocation values; if the sum is gt this report's amount, block; else publish the sum as the report-scoped nominee reduction. Remainder is observed-only. Never ordinary collect of the allocation type."
+}

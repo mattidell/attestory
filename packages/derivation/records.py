@@ -44,8 +44,9 @@ RECORD_STREAM_FILENAME = "derivation_records.jsonl"
 # exact-report confirmation at either association tier), and
 # ASSOCIATION_MIGRATION_ADOPTION_REQUIRED (a new pairing's
 # collision against a live, pre-migration legacy Schedule B accrued-interest
-# finding at the same dollar amount).
-CURRENT_RECORD_SCHEMA = "derivation-record.v8"
+# finding at the same dollar amount). v9 adds NOMINEE_ALLOCATIONS_EXCEED_REPORT
+# and the no_groups_selected inapplicable form (ADR-0074).
+CURRENT_RECORD_SCHEMA = "derivation-record.v9"
 _VERSIONED_RECORD_SCHEMAS = frozenset(
     {
         "derivation-record.v2",
@@ -55,6 +56,7 @@ _VERSIONED_RECORD_SCHEMAS = frozenset(
         "derivation-record.v6",
         "derivation-record.v7",
         "derivation-record.v8",
+        "derivation-record.v9",
     }
 )
 
