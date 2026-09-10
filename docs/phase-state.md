@@ -2,22 +2,31 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "nominee-allocation-assertion-recording",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/nominee-allocation-assertion-recording.md",
+  "topic": "nominee-interest-tax-consequence-supportability",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md",
   "milestone_state": "closed",
-  "status": "Nominee Allocation Assertion Recording is CLOSED 2026-09-08; owner-directed repairs 2026-09-08. Three tracks; Tracks 1 and 2 were each independently reviewed READY, and Track 0 was closed by the Foreman on executed evidence rather than by an independent reviewer. The application records, corrects, retracts from current use, and asserts again the ordinary statement that a stated amount of interest reported on an identified Form 1099-INT is allocated to a named other person, and recovers current and historical retracted assertions — what was said, who said it, and who later ended current support — with attribution from a committed act log alone. An allocation assertion requires current ordinary-language-entry evidence whose submitted answers correspond to the mapped finding; production does not invent a synthetic flag. The workspace model is SHARED: one current answer per report and recipient; any recorded actor may correct or retract it; actor is opaque provenance, never admission-validated; no durable text claims the original actor recanted. Hard gate: no user-facing production caller may rely on assert_nominee_allocation until resumable or idempotent recovery of a persisted multi-act prefix is closed. No nominee tax consequence, line-2b change, Schedule B row, information-reporting implementation, legacy migration, or UI. Deferred with triggers: author-bound recantation and permission rules, author-indexed propositions and conflict reconciliation, recipient display-name correction, the R-B source-independent association model, and A10's routing destination. T0-F5 remains deferred behind its hard production gate. The next milestone is unselected.",
+  "status": "CLOSED 2026-09-09. A rule-owned, report-scoped nominee-interest reduction is derived from current attributed allocation assertions and executed through the real projection, marshalling, package, and run() boundary on package.core-calculations v36, for uniquely rendered identities. Remainder is observed only. The result is a RunResult publication, not act-log standing. It does not integrate Form 1040 line 2b or Schedule B, migrate the legacy nominee adjustment, normalize information-reporting law, or build UI, and it does not repair T0-F5, which remains a hard gate on the later legacy-and-return-integration stage. Completed: three independently reviewed planning gates, Track 0 paper contract closure, ADR-0074 accepted 2026-09-09 after independent review, Track 1 implementation with two owner-directed repairs, Track 2 live evidence independently reviewed READY with no blocking finding, and this closeout. Delivered: bound_sources on rule-artifact.v8 (not a collect, therefore outside ADR-0035's collect-family requirement); artifact-package.v28 and derivation-record.v9 with a no_groups_selected inapplicable branch schema-scoped to the nominee rule; package v36 with the nominee rule, reduction vocabulary, and citation, and no source-family or closure mapping for the allocation type; a tax-layer coordinator that owns grouping, year scope, C13, and per-report pins while the declared rule owns arithmetic. ADR-0074 narrows ADR-0020 Decisions 1/1a/4 for the exact rule id only. The result is bounded to identities that pass the execution-time ambiguity guard. T0-F5 and that substrate boundary (execution-time guard, not intake; two future options unchosen) are the next-stage input contract.",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
-  "retrospective": "docs/milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md",
   "deep_reads": {
-    "new_milestone": [
+    "planning": [
       "docs/milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md",
       "docs/phases/tax-concept-derivation/milestones/nominee-allocation-assertion-recording.md",
+      "docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
-      "docs/adr/0073-assertion-standing-and-retraction-lifecycle.md",
+      "docs/adr/0070-accrued-amount-supportability-rule.md",
+      "docs/adr/0071-rule-owned-current-year-and-basis-consequences.md",
+      "OWNER_MODEL.md#The Product Model"
+    ],
+    "new_milestone": [
+      "docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md",
+      "docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md",
+      "docs/adr/0074-bound-sources-and-nominee-report-group-ledger.md",
+      "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
       "OWNER_MODEL.md#The Product Model"
     ]
-  }
+  },
+  "retrospective": "docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md"
 }
 -->
 
@@ -44,10 +53,47 @@ a project to enumerate or implement the entire taxable-interest universe.
 
 ## Where the phase stands
 
-- **Phase:** Tax Concept Derivation — **ACTIVE**.
-- **No active milestone.** The next milestone is **unselected**; selection is
-  owner-held and the phase roadmap is the selection instrument.
-- **Just-closed milestone:** Nominee Allocation Assertion Recording — **CLOSED
+- **Phase:** Tax Concept Derivation — **ACTIVE**. No milestone is selected; the
+  next selection is owner-held.
+- **Just-closed milestone:** Nominee Interest Tax Consequence and Supportability
+  — **CLOSED 2026-09-09.** An adopted tax rule derives a report-scoped nominee
+  reduction from the current, attributed ordinary allocation assertions of one
+  identified Form 1099-INT report, executing through the real projection,
+  marshalling, package, and `run()` boundary on `package.core-calculations` v36
+  — **for uniquely rendered identities**. The remainder is observed only, never
+  published; the result is a `RunResult` publication, not act-log standing.
+  Whole-set over-allocation blocks that report group without clamping,
+  subsetting, or a negative remainder. A report with no current allocation
+  produces **no nominee consequence at all** rather than a published zero, and
+  that absence is never a denial or a proof of taxpayer ownership. Groups stay
+  isolated across reports, across same-payer reports, and across tax years.
+
+  New citizens: `bound_sources` on `rule-artifact.v8` — deliberately **not** a
+  `collect`, and therefore outside ADR-0035's collect-family requirement rather
+  than exempted from it; `artifact-package.v28`; and `derivation-record.v9`,
+  whose `no_groups_selected` inapplicable branch is scoped **in the schema** to
+  the nominee rule alone. Ratified by **ADR-0074**, which narrows ADR-0020
+  Decisions 1/1a/4 for that exact rule id only and introduces no reusable
+  grouped-rule class, marker, or coordinator framework.
+
+  **Two hard gates carry forward.** T0-F5 still blocks the later
+  legacy-and-return-integration stage. And the kernel's `fact_id` rendering is
+  **non-injective** — two distinct identities can render byte-identically — so
+  this milestone's coordinator refuses ambiguously rendered identities at
+  **execution time**. That is a guard, not an intake or admission gate: the
+  recording contracts admit such values first, and the guard raises mid-run,
+  leaving an open run and empty reserved outputs. Closing it needs **either** a
+  general identity repair **or** a real pre-execution intake restriction with
+  explicit failure semantics; neither is chosen. Ordinary punctuation, including
+  ordinary commas in payer names and statement references, is fully supported.
+
+  No line 2b, Schedule B, legacy nominee migration, information-return filing, or
+  UI. Plan:
+  `docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md`.
+  Retrospective:
+  `docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md`.
+  Contract: `docs/adr/0074-bound-sources-and-nominee-report-group-ledger.md`.
+- **Prior milestone:** Nominee Allocation Assertion Recording — **CLOSED
   2026-09-08**, with owner-directed repairs the same day. Three tracks; Tracks 1 and 2 were each independently
   reviewed READY, and Track 0 was closed by the Foreman on executed evidence
   rather than by an independent reviewer. The
@@ -234,7 +280,9 @@ a project to enumerate or implement the entire taxable-interest universe.
 - **The collect-target universe guard** in
   `packages/derivation/package_validation.py` is an owner decision
   independent of this phase's milestone sequence: its allowlist ends at
-  `artifact-package.v17` while production is `artifact-package.v26`, so the
+  `artifact-package.v17` while the v35 generation measured at the time was
+  `artifact-package.v26` (the current `package.core-calculations` v36 uses
+  `artifact-package.v28`), so the
   `COLLECT_TARGET_NOT_FAMILY` check has never bound a `rule-artifact.v7`
   collect. Any future claim that a source-family-authorized traversal has
   been established must be re-run against a repaired guard.
@@ -301,7 +349,8 @@ byproduct and deliberately not fixed.**
 `packages/derivation/package_validation.py`'s `COLLECT_TARGET_NOT_FAMILY`
 guard documents itself as binding "artifact-package.v3 onward" but its
 allowlist ends at `artifact-package.v17`, while the production package is
-`artifact-package.v26`; the guard has never bound a `rule-artifact.v7`
+`artifact-package.v26` at the time of that historical v35 measurement (v36
+now uses `artifact-package.v28`); the guard has never bound a `rule-artifact.v7`
 collect. Outside this milestone's boundary (no changes under `packages/`);
 escalated to the owner.
 
@@ -326,6 +375,11 @@ one tested with a real consumer; its own retrospective is
 - **Next-milestone selection instrument (owner-held):**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
 - **Just-closed milestone:**
+  `docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md`,
+  retrospective
+  `docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md`,
+  contract `docs/adr/0074-bound-sources-and-nominee-report-group-ledger.md`.
+- **Prior milestone:**
   `docs/phases/tax-concept-derivation/milestones/nominee-allocation-assertion-recording.md`,
   retrospective
   `docs/milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md`.
@@ -349,7 +403,9 @@ one tested with a real consumer; its own retrospective is
   `docs/prototypes/later-year-basis-reuse/track-0-findings.md`.
 - **Retrospective:**
   `docs/milestone-retrospectives/2026-09-03-later-year-basis-reuse.md`.
-- **Accepted ADRs:** `docs/adr/0067` through `docs/adr/0072`, digested in
+- **Accepted ADRs:** `docs/adr/0067` through `docs/adr/0074` — including
+  ADR-0073 (assertion standing and retraction lifecycle) and ADR-0074
+  (bound sources and the nominee report-group ledger) — digested in
   `docs/adr/INDEX.md`.
 - **Prior milestone:**
   `docs/phases/tax-concept-derivation/milestones/investment-basis-concept-coverage.md`,

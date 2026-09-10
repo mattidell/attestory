@@ -290,7 +290,68 @@ owns. T0-F5 remains deferred behind its hard production gate. Plan:
 retrospective:
 [`2026-09-08-nominee-allocation-assertion-recording.md`](../../milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md).
 
-### 8. Contrasting Tax Concept
+### 8. Nominee Interest Tax Consequence and Supportability (updated: 2026-09-09)
+
+The second production stage of nominee-interest support. Consume the current,
+attributed ordinary allocation statements delivered by item 7 and let an
+adopted tax rule derive a report-scoped nominee reduction and taxpayer
+remainder. Prove zero-, single-, multi-recipient, over-allocation, correction,
+retraction, reassertion, and cross-report behavior with truthful provenance.
+
+This stage deliberately stops before legacy migration and return presentation.
+It must first determine how the real runner groups current recipient-level
+allocations for one report and what authority supports the zero-allocation
+case. The semantic over-allocation posture from ADR-0070 is a precedent; its
+pairing-specific implementation is not assumed to transfer. The milestone also
+preserves the prior authority-indexed information-reporting boundary rather than
+inventing one normalized legal predicate.
+
+Three independently reviewed planning checkpoints precede Track 0. Production
+begins only after the product/tax boundary, committed artifact map, and
+executable design agree. The Schedule B T0-F5 defect remains a hard gate on the
+later legacy-and-return-integration stage; it does not prevent this internal
+tax-consequence stage from being built and tested outside the affected return
+surface.
+
+**CLOSED 2026-09-09.** Three independently reviewed planning gates ran before
+any charter, then a paper Track 0 contract closure, a ratified ADR, and two
+implementation tracks. ADR-0074 was independently reviewed and owner-ratified
+before Track 1 implemented against it; Track 1 and Track 2 were each
+independently reviewed, and Track 1 took two owner-directed repairs after its
+review.
+
+Delivered, bounded exactly: an adopted rule derives a report-scoped nominee
+reduction from the current attributed allocation assertions of one identified
+Form 1099-INT report, executing through the real projection, marshalling,
+package, and `run()` boundary on `package.core-calculations` v36 — **for
+uniquely rendered identities**. The remainder is observed only, not published.
+The result is a `RunResult` publication, not act-log standing. Whole-set
+over-allocation blocks the report group without clamping, subsetting, or a
+negative remainder; a report with no current allocation produces no nominee
+consequence at all rather than a published zero; groups stay isolated across
+reports and across tax years.
+
+New citizens: `bound_sources` on `rule-artifact.v8` — deliberately not a
+`collect`, and therefore outside ADR-0035's collect-family requirement rather
+than exempted from it; `artifact-package.v28`; and `derivation-record.v9`, whose
+`no_groups_selected` inapplicable branch is scoped **in the schema** to the
+nominee rule alone. **ADR-0074** narrows ADR-0020 Decisions 1/1a/4 for that exact
+rule id only, and introduces no reusable grouped-rule class or marker.
+
+Not done, and deliberately: Form 1040 line 2b, Schedule B, legacy
+nominee migration, information-return filing, and UI. **T0-F5 remains a hard
+gate** on the later legacy-and-return-integration stage. A second dependency
+joins it: the kernel's `fact_id` rendering is **non-injective**, so this
+milestone's coordinator refuses ambiguously rendered identities at execution
+time — a guard, not an intake gate. Closing that needs either a general identity
+repair or a real pre-execution intake restriction; neither is chosen here.
+
+Plan:
+[`milestones/nominee-interest-tax-consequence-supportability.md`](milestones/nominee-interest-tax-consequence-supportability.md).
+Retrospective:
+[`../../milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md`](../../milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md).
+
+### 9. Contrasting Tax Concept
 
 Apply the method to a concept with a different structure, chosen after the
 interest work exposes which properties may be accidental. A deduction or
@@ -301,7 +362,7 @@ The purpose is to find which parts of the representation are genuinely common
 and which belong only to interest. Confirmation in a second concept is evidence
 of transfer, not proof of universality.
 
-### 9. Tax-Concept Question and Explanation Projection
+### 10. Tax-Concept Question and Explanation Projection
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
@@ -324,6 +385,7 @@ model must continue to serve computation and return generation.
 | Nominee Interest Ownership Translation | **Closed 2026-09-05 — Track 0 complete at the paper rung; decision-ready contract proposal; no implementation chartered** | First cadence-normalization test: ownership/allocation translation, legacy nominee-path reconciliation, and early independent review during planning and Track 0 |
 | Assertion Standing and Retraction Semantics | **Closed 2026-09-06** | Withdrawal without a replacement value; one current-standing path across every reader; ADR-0073 |
 | Nominee Allocation Assertion Recording | **CLOSED 2026-09-08** | Ordinary allocation assertion recorded, corrected, retracted from current use, asserted again, and recovered from the log with attribution; no tax consequence or return integration |
+| Nominee Interest Tax Consequence and Supportability | **CLOSED 2026-09-09** | Rule-owned report-scoped nominee reduction derived and executed on package v36 for uniquely rendered identities, with whole-set blocking, cross-report and cross-year isolation, and walkable provenance; remainder observed only; no return integration, legacy migration, or information reporting |
 | Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 
