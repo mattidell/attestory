@@ -59,6 +59,10 @@ class AccessLog:
     # a closure-backed zero pins these, present-source aggregation never
     # populates it (ADR-0014 decision 5).
     closure_reads: set[str] = field(default_factory=set)
+    # ADR-0074: names read through bound_sources. Never merged into
+    # ``collects`` — dependency_pins_for_access pins every source_fids
+    # entry for collects, which is the run-wide pin leak.
+    bound_source_names: set[str] = field(default_factory=set)
 
 
 @dataclass(frozen=True)
@@ -78,6 +82,11 @@ class Environment:
     # currentness read ``authorization`` and pin it via
     # ``authorization_provenance`` / ``explain(..., authorization=...)``.
     authorization: AuthorizationResolution | None = None
+    # ADR-0074: coordinator-selected nonempty groups, keyed by fact type.
+    # Defaulted so the committed five-positional Environment construction
+    # at pairing_consequences.py keeps working. Ordinary _Run.env() leaves
+    # this empty; the operator then fail-closes.
+    bound_sources: dict[str, list[Any]] = field(default_factory=dict)
 
 
 def _as_decimal(value: Any) -> Decimal:
@@ -146,6 +155,17 @@ def evaluate(expr: Any, env: Environment, access: AccessLog) -> Any:
                 raise EvalBlocked(BLOCK_CLOSURE, [source_set or name])
             access.closure_reads.add(source_set)
             return []
+        return [_as_decimal(v) for v in rows]
+
+    if op == "bound_sources":
+        # ADR-0074 Decision 2f/2g: read only env.bound_sources; never
+        # env.sources; never access.collects. Missing or empty raises
+        # DEPENDENCY_ABSENT (not a manufactured zero, not SOURCE_SET_UNCLOSED).
+        name = expr["name"]
+        access.bound_source_names.add(name)
+        rows = env.bound_sources.get(name, [])
+        if not rows:
+            raise EvalBlocked(BLOCK_ABSENT, [name])
         return [_as_decimal(v) for v in rows]
 
     if op == "count":

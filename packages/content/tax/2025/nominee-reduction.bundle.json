@@ -1,0 +1,25 @@
+{
+  "schema": "bundle.v2",
+  "id": "tax.us.2025.interest.nominee-reduction.vocabulary",
+  "version": "v1",
+  "label": "Report-scoped nominee-interest reduction vocabulary for tax year 2025. The published prefix is a derived tax consequence for one identified Form 1099-INT report, not a source-document amount and not a Schedule B form-row claim.",
+  "fact_types": [
+    {
+      "schema": "fact-type.v2",
+      "id": "tax.us.2025.interest.nominee-reduction",
+      "version": "v1",
+      "title": "The report-scoped nominee-interest reduction for one identified Form 1099-INT: the sum of current nominee-allocation amounts on that report when the set is supportable. Identity shares the box-1 report's payer, statement, and tax-year components. Not a remainder citizen, not a source-document amount, and not a Schedule B line binding.",
+      "nature": "determinable",
+      "identity_keys": [
+        {"name": "payer", "kind": "entity", "entity_kind": "tax.us.interest-payer"},
+        {"name": "statement", "kind": "entity", "entity_kind": "tax.us.1099int-statement"},
+        {"name": "tax-year", "kind": "literal", "values": ["2025"]}
+      ],
+      "value_schema": {
+        "minimum": 0,
+        "type": "number"
+      },
+      "supersession": {"policy": "free"}
+    }
+  ]
+}

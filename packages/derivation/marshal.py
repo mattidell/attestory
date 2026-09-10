@@ -19,6 +19,7 @@ from packages.derivation.source_authority import (
     ClosureFindingRecord,
     SourceAuthorityError,
 )
+from packages.kernel import facts as kernel_facts
 from packages.kernel.currency import CurrencyView
 from packages.kernel.findings import FindingState
 
@@ -103,7 +104,7 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     # v7 is v6 plus an optional `field` selector on `ref_expr` (ADR-0067).
     # Both carry the same declared-refs-outside-requires capability as
     # v3/v4/v5.
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7"}:
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
     return symbols
@@ -303,6 +304,14 @@ def marshal_run_context(
             )
             used_finding_ids.add(finding["id"])
 
+    # Structured identity bindings for every current fact. ``fact_id`` is a
+    # lossy join (see SourceFact.keys); consumers that need a component read
+    # these instead of re-parsing the string. Fixture/stub states used by
+    # older scenario tests carry no kernel fact lattice; those sources get
+    # ``keys=None``, which every consumer must treat as fail-closed rather
+    # than falling back to parsing the rendered id.
+    _fact_state = getattr(state, "fact_state", None)
+    _lattice = kernel_facts.facts_of(_fact_state) if _fact_state is not None else {}
     sources: list[SourceFact] = []
     for name in sorted(collect_names):
         for finding in current_findings:
@@ -316,12 +325,14 @@ def marshal_run_context(
                 # scalar keeps its existing decimal string rendering
                 # untouched.
                 value = json.dumps(raw_value, sort_keys=True) if isinstance(raw_value, dict) else str(raw_value)
+                lattice_fact = _lattice.get(fact_id)
                 sources.append(
                     SourceFact(
                         name=name,
                         value=value,
                         finding_id=finding["id"],
                         fact_id=fact_id,
+                        keys=lattice_fact.keys if lattice_fact is not None else None,
                     )
                 )
                 used_finding_ids.add(finding["id"])

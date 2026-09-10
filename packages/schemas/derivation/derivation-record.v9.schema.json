@@ -1,0 +1,458 @@
+{
+  "$defs": {
+    "disposition": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "published"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "code"
+                  ]
+                },
+                {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                {
+                  "required": [
+                    "superseded_by"
+                  ]
+                },
+                {
+                  "required": [
+                    "no_groups_selected"
+                  ]
+                }
+              ]
+            },
+            "required": [
+              "finding_id",
+              "act_id",
+              "symbol"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "blocked"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "guard_result"
+                  ]
+                },
+                {
+                  "required": [
+                    "superseded_by"
+                  ]
+                },
+                {
+                  "required": [
+                    "no_groups_selected"
+                  ]
+                }
+              ]
+            },
+            "required": [
+              "code",
+              "missing"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "inapplicable"
+              }
+            },
+            "required": [
+              "disposition"
+            ]
+          },
+          "then": {
+            "oneOf": [
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "superseded_by"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "no_groups_selected"
+                      ]
+                    }
+                  ]
+                },
+                "required": [
+                  "guard_result"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "guard_result"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "no_groups_selected"
+                      ]
+                    }
+                  ]
+                },
+                "required": [
+                  "superseded_by"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "guard_result"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "superseded_by"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "code"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "finding_id"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "act_id"
+                      ]
+                    }
+                  ]
+                },
+                "properties": {
+                  "artifact_id": {
+                    "const": "tax.us.2025.rule.interest.nominee-reduction"
+                  },
+                  "no_groups_selected": {
+                    "const": true
+                  },
+                  "symbol": {
+                    "const": "tax.us.2025.interest.nominee-reduction"
+                  }
+                },
+                "required": [
+                  "artifact_id",
+                  "no_groups_selected",
+                  "symbol"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "code": {
+                "const": "NOMINEE_ALLOCATIONS_EXCEED_REPORT"
+              }
+            },
+            "required": [
+              "code"
+            ]
+          },
+          "then": {
+            "properties": {
+              "missing": {
+                "maxItems": 0,
+                "type": "array"
+              },
+              "symbol": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "symbol",
+              "missing"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "act_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "artifact_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "code": {
+          "enum": [
+            "DEPENDENCY_ABSENT",
+            "DEPENDENCY_INVALID",
+            "CATEGORICAL_DOMAIN_MISMATCH",
+            "SOURCE_SET_UNCLOSED",
+            "VALUE_INVALID",
+            "ITEMIZATION_TIE_OUT_VIOLATION",
+            "COMPLETENESS_VALUE_VIOLATION",
+            "MULTIPLE_F1098_OUT_OF_SCOPE",
+            "F1098_SCOPE_CONTRADICTION",
+            "SLI_MFS_INELIGIBLE",
+            "SLI_UNIVERSAL_COMPONENT_VIOLATION",
+            "SLI_SCHEDULE1_PART_II_OUT_OF_SCOPE",
+            "ASSOCIATION_AMBIGUOUS",
+            "ACCRUED_EXCEEDS_ASSOCIATED_REPORT",
+            "SUPPORTABILITY_NOT_ESTABLISHED",
+            "AGGREGATE_ACCRUED_EXCEEDS_REPORT",
+            "ASSOCIATION_UNCONFIRMED",
+            "ASSOCIATION_MIGRATION_ADOPTION_REQUIRED",
+            "NOMINEE_ALLOCATIONS_EXCEED_REPORT"
+          ]
+        },
+        "disposition": {
+          "enum": [
+            "published",
+            "blocked",
+            "inapplicable"
+          ]
+        },
+        "finding_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "guard_result": {
+          "const": false
+        },
+        "missing": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "no_groups_selected": {
+          "type": "boolean"
+        },
+        "pins": {
+          "items": {
+            "$ref": "#/$defs/pin"
+          },
+          "type": "array"
+        },
+        "superseded_by": {
+          "$ref": "#/$defs/pin"
+        },
+        "symbol": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "disposition",
+        "pins"
+      ],
+      "type": "object"
+    },
+    "pin": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "not": {
+              "required": [
+                "origin"
+              ]
+            }
+          },
+          "if": {
+            "properties": {
+              "role": {
+                "const": "input"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "then": {
+            "required": [
+              "origin"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "assertion",
+            "declared_default"
+          ]
+        },
+        "role": {
+          "enum": [
+            "adoption",
+            "governance",
+            "parameter",
+            "input",
+            "choice",
+            "default",
+            "composition",
+            "citation",
+            "package",
+            "operation-semantics"
+          ]
+        },
+        "version": {
+          "pattern": "^v[0-9]+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "id",
+        "version"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "derivation/derivation-record.v9",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "required": [
+          "stop_reason",
+          "dispositions"
+        ]
+      },
+      "if": {
+        "properties": {
+          "phase": {
+            "const": "started"
+          }
+        },
+        "required": [
+          "phase"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "stop_reason"
+              ]
+            },
+            {
+              "required": [
+                "dispositions"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "description": "Additive successor to derivation-record.v8 (ADR-0074). Widens the disposition block-code vocabulary with NOMINEE_ALLOCATIONS_EXCEED_REPORT and adds a third inapplicable evidence form (no_groups_selected) scoped to tax.us.2025.rule.interest.nominee-reduction with the unsuffixed publishes prefix as symbol. Every existing v8 requirement is preserved: published still requires symbol; existing blocked rows and both existing inapplicable forms may omit it. v1-v8 remain immutable history.",
+  "properties": {
+    "adoption_pin": {
+      "$ref": "#/$defs/pin"
+    },
+    "dispositions": {
+      "items": {
+        "$ref": "#/$defs/disposition"
+      },
+      "type": "array"
+    },
+    "governance_pins": {
+      "items": {
+        "$ref": "#/$defs/pin"
+      },
+      "type": "array"
+    },
+    "phase": {
+      "enum": [
+        "started",
+        "completed",
+        "interrupted",
+        "failed"
+      ]
+    },
+    "record_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "run_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "derivation-record.v9"
+    },
+    "stop_reason": {
+      "enum": [
+        "saturated",
+        "interrupted",
+        "validation-failed",
+        "execution-failed"
+      ]
+    },
+    "workspace_revision": {
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema",
+    "record_id",
+    "run_id",
+    "phase",
+    "workspace_revision",
+    "governance_pins",
+    "adoption_pin"
+  ],
+  "title": "Derivation record with nominee-allocation exceed-report code and no_groups_selected inapplicable form",
+  "type": "object"
+}

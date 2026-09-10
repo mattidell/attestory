@@ -149,6 +149,10 @@ def _context(scenario: dict[str, Any]) -> RunContext:
         parameters={p["id"]: p for p in scenario["parameters"]},
         canon=load_canon(DerivationSchemas()),
         inputs=[InputFinding(**i) for i in scenario["inputs"]],
+        # Fixture scenarios describe sources positionally and carry no kernel
+        # fact lattice, so `keys` is unset here. This path is production-fenced
+        # (it is not `marshal_run_context`); a consumer needing structured
+        # identity must refuse an unkeyed source rather than parse `fact_id`.
         sources=[SourceFact(**s) for s in scenario["sources"]],
         adoption_pin=scenario["adoption_pin"],
         governance_pins=scenario["governance_pins"],

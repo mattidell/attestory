@@ -73,6 +73,22 @@ class SourceFact:
     # working unchanged. Declared identity exclusivity reads this field;
     # an unset value carries no identity components.
     fact_id: str | None = None
+    # ADR-0011 identity key bindings, structured, exactly as the kernel
+    # fact lattice holds them. Scope of the guarantee: these avoid RE-PARSING
+    # a rendered id, which is what truncates an ordinary comma-bearing payer
+    # name. They do NOT repair the rendering itself, which is non-injective --
+    # two distinct binding tuples can render byte-identically, and the lattice
+    # is a dict keyed on that rendering, so a collision collapses before any
+    # consumer sees it. Consumers must additionally refuse ambiguously
+    # rendered identities. ``fact_id`` is a *lossy* rendering of these:
+    # ``_fact_id`` joins ``name=value`` pairs on "," without escaping, so a
+    # value legitimately containing "," (a payer name like "Demo Bank, N.A.")
+    # cannot be recovered by splitting the string. Any consumer needing a
+    # component of the identity must read this field, never re-parse
+    # ``fact_id``. Optional and defaulted so fixture-constructed sources keep
+    # working; ``None`` means the identity components are unavailable, which
+    # a consumer must treat as fail-closed rather than guessing.
+    keys: tuple[tuple[str, str], ...] | None = None
 
 
 @dataclass(frozen=True)
@@ -166,9 +182,10 @@ ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
 # (DEPENDENCY_ABSENT), never folded into it, never silence.
 COMPLETENESS_VALUE_VIOLATION = "COMPLETENESS_VALUE_VIOLATION"
 
-# derivation-record.v8 closed blocked-code set. Named pairing/supportability
+# derivation-record.v9 closed blocked-code set. Named pairing/supportability
 # codes must survive `_record_blocked` and pairing-scoped dispatch rather
-# than collapsing to DEPENDENCY_INVALID.
+# than collapsing to DEPENDENCY_INVALID. ADR-0074 adds
+# NOMINEE_ALLOCATIONS_EXCEED_REPORT.
 RECORD_CODES = frozenset(
     {
         "DEPENDENCY_ABSENT",
@@ -189,6 +206,7 @@ RECORD_CODES = frozenset(
         "SUPPORTABILITY_NOT_ESTABLISHED",
         "AGGREGATE_ACCRUED_EXCEEDS_REPORT",
         "ASSOCIATION_MIGRATION_ADOPTION_REQUIRED",
+        "NOMINEE_ALLOCATIONS_EXCEED_REPORT",
     }
 )
 
@@ -232,6 +250,7 @@ class _Run:
             rule.get("schema") in {
                 "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
                 "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
+                "rule-artifact.v8",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
@@ -555,6 +574,14 @@ class _Run:
 
         if is_pairing_scoped_consequence_rule(rule):
             return self._evaluate_pairing_scoped_consequence(rule)
+
+        from packages.tax.nominee_consequences import (
+            dispatch_nominee_consequences_on_run,
+            is_nominee_reduction_rule,
+        )
+
+        if is_nominee_reduction_rule(rule):
+            return dispatch_nominee_consequences_on_run(self, rule)
 
         from packages.tax.pairing_consequences import is_aggregate_supportability_rule
 
@@ -1287,7 +1314,13 @@ class _Run:
         self.resolved.add(rule_id)
 
     def record_named_block(
-        self, *, rule_id: str, code: str, missing: list[str], pins: list[dict[str, Any]]
+        self,
+        *,
+        rule_id: str,
+        code: str,
+        missing: list[str],
+        pins: list[dict[str, Any]],
+        symbol: str | None = None,
     ) -> None:
         """Append one named blocked disposition row without an ``AccessLog``.
 
@@ -1299,6 +1332,8 @@ class _Run:
         ``RECORD_CODES`` collapse-to-``DEPENDENCY_INVALID`` fallback.
         Does not mark ``rule_id`` resolved — callers append one row per
         group and resolve the rule id once, after every group is checked.
+        ``symbol`` is the ADR-0074 group identity on a nominee row; omitted
+        for existing aggregate-supportability callers.
         """
         self.blocked.append({"artifact_id": rule_id, "code": code, "missing": list(missing)})
         ledger_pins = [pin for pin in pins if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES]
@@ -1310,6 +1345,8 @@ class _Run:
         if self.use_v2:
             disposition_row["code"] = code if code in RECORD_CODES else "DEPENDENCY_INVALID"
             disposition_row["missing"] = list(missing)
+        if symbol is not None:
+            disposition_row["symbol"] = symbol
         self.dispositions.append(disposition_row)
 
     def evaluate_pairing_scoped_rule(
@@ -1414,6 +1451,13 @@ class _Run:
     def _append_live_source(
         self, *, name: str, value: Any, finding_id: str, fact_id: str | None
     ) -> None:
+        # Same-run publications carry no structured identity: a derived
+        # finding's `symbol` is a rendered prefix|suffix string, not kernel
+        # lattice bindings, so there is nothing lossless to propagate here.
+        # `keys` is therefore left unset, and any consumer that needs identity
+        # components must REFUSE such a source rather than parse the suffix --
+        # see packages/tax/nominee_consequences._validated_keys, which raises
+        # NomineeIdentityError instead of silently dropping it.
         encoded = self._encode_source_value(value)
         self.live_sources.append(
             SourceFact(name=name, value=encoded, finding_id=finding_id, fact_id=fact_id)
@@ -1770,6 +1814,7 @@ def run_and_record(
         rule.get("schema") in {
             "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
             "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
+            "rule-artifact.v8",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)
