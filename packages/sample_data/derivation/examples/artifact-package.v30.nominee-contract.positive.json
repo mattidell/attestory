@@ -1,0 +1,89 @@
+{
+  "schema": "artifact-package.v30",
+  "id": "demo.package.nominee-v9-contract",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "admitted_schemas": [
+    "bundle.v2",
+    "citation.v1",
+    "quantity-vocabulary.v1",
+    "rule-artifact.v8",
+    "rule-artifact.v9",
+    "source-family.v1"
+  ],
+  "members": [
+    {
+      "id": "tax.us.nominee-allocation.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.interest.nominee-reduction.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.scheduleb.adjustment.nominee.vocabulary",
+      "role": "fact-type-bundle",
+      "schema": "bundle.v2",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.form1040.line-2b",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.citation.interest.nominee-reduction",
+      "role": "citation",
+      "schema": "citation.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.quantity.taxable-interest",
+      "role": "parameter",
+      "schema": "quantity-vocabulary.v1",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.interest.nominee-reduction",
+      "role": "computation",
+      "schema": "rule-artifact.v8",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.rule.form1040-line2b",
+      "role": "computation",
+      "schema": "rule-artifact.v9",
+      "version": "v8"
+    },
+    {
+      "id": "tax.us.2025.rule.interest.derived-nominee-subtotal",
+      "role": "computation",
+      "schema": "rule-artifact.v9",
+      "version": "v1"
+    },
+    {
+      "id": "tax.us.2025.scheduleb.adjustment.nominee",
+      "role": "source-family",
+      "schema": "source-family.v1",
+      "version": "v1"
+    }
+  ],
+  "input_bindings": [],
+  "entrypoints": [
+    {
+      "id": "tax.us.2025.rule.form1040-line2b",
+      "version": "v8"
+    }
+  ],
+  "composition_obligations": [],
+  "package_checksum": "e1ed05ce17f7fda3b8251216d351a4cc4b6678a9b76ae3fc335127fd22fd7f0e"
+}

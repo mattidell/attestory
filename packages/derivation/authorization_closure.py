@@ -27,6 +27,7 @@ from packages.derivation.package_validation import (
     _iter_collect_source_sets,
     _iter_parameter_and_table_refs,
     _iter_ref_names,
+    _rule_expression_nodes,
 )
 
 Citizen = dict[str, Any]
@@ -42,6 +43,7 @@ _RULE_ARTIFACT_SCHEMAS = frozenset(
         "rule-artifact.v6",
         "rule-artifact.v7",
         "rule-artifact.v8",
+        "rule-artifact.v9",
     }
 )
 _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
@@ -52,12 +54,13 @@ _RULE_DECLARED_REFS_OUTSIDE_REQUIRES = frozenset(
         "rule-artifact.v6",
         "rule-artifact.v7",
         "rule-artifact.v8",
+        "rule-artifact.v9",
     }
 )
 _FORM_FIELD_SCHEMAS = frozenset({"form-field.v1", "form-field.v2", "form-field.v3"})
 _BUNDLE_SCHEMAS = frozenset({"bundle.v1", "bundle.v2"})
 _SOURCE_FAMILY_SCHEMAS = frozenset({"source-family.v1", "source-family.v2"})
-_ATTACHMENT_RULE_BFS_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8"})
+_ATTACHMENT_RULE_BFS_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"})
 
 
 def _closed_v2_surface(package: Mapping[str, Any] | None) -> bool:
@@ -128,10 +131,22 @@ def build_dependency_edges(
         if schema in _RULE_ARTIFACT_SCHEMAS:
             when = citizen.get("when", True)
             value = citizen.get("value", {})
+            expressions = _rule_expression_nodes(citizen)
             declared_refs = set(citizen.get("requires", []))
             if schema in _RULE_DECLARED_REFS_OUTSIDE_REQUIRES:
-                declared_refs.update(_iter_ref_names(when))
-                declared_refs.update(_iter_ref_names(value))
+                declared_refs.update(
+                    ref for expression in expressions
+                    for ref in _iter_ref_names(expression)
+                )
+                if schema == "rule-artifact.v9":
+                    selection = citizen.get("selection")
+                    if isinstance(selection, dict):
+                        for path in selection.get("paths", []):
+                            if isinstance(path, dict):
+                                declared_refs.update(path.get("requires", []))
+                        default = selection.get("default")
+                        if isinstance(default, dict):
+                            declared_refs.update(default.get("requires", []))
             for req in declared_refs:
                 for producer_id in produced.get(req, []):
                     edges[cid].add(producer_id)
@@ -140,19 +155,22 @@ def build_dependency_edges(
                         bundles_for_fact.get(binding_fact_types.get(req, ""), set())
                     )
             if closed:
-                for source_set in set(_iter_collect_source_sets(when)) | set(
-                    _iter_collect_source_sets(value)
-                ):
+                for source_set in {
+                    name for expression in expressions
+                    for name in _iter_collect_source_sets(expression)
+                }:
                     family_id = families_by_id.get(source_set)
                     if family_id is not None:
                         edges[cid].add(family_id)
-            for name in set(_iter_bound_source_names(when)) | set(
-                _iter_bound_source_names(value)
-            ):
+            for name in {
+                value for expression in expressions
+                for value in _iter_bound_source_names(expression)
+            }:
                 edges[cid].update(bundles_for_fact.get(name, set()))
-            for pid in set(_iter_parameter_and_table_refs(when)) | set(
-                _iter_parameter_and_table_refs(value)
-            ):
+            for pid in {
+                name for expression in expressions
+                for name in _iter_parameter_and_table_refs(expression)
+            }:
                 if pid in ids:
                     edges[cid].add(pid)
             composition = citizen.get("composition")
@@ -164,6 +182,36 @@ def build_dependency_edges(
                     cite_ver = citation.get("version")
                     if cite_ver is None or corpus[cite_id].get("version") == cite_ver:
                         edges[cid].add(cite_id)
+            if schema == "rule-artifact.v9":
+                selection = citizen.get("selection")
+                if isinstance(selection, dict):
+                    for path in selection.get("paths", []):
+                        if not isinstance(path, dict):
+                            continue
+                        activity = path.get("activity", {})
+                        if not isinstance(activity, dict):
+                            continue
+                        family_pin = activity.get("source_family")
+                        if isinstance(family_pin, dict) and family_pin.get("id") in ids:
+                            edges[cid].add(family_pin["id"])
+                        for pin_key in ("member_fact_type", "fact_type"):
+                            fact_pin = activity.get(pin_key)
+                            if isinstance(fact_pin, dict):
+                                fact_id = fact_pin.get("id")
+                                if isinstance(fact_id, str):
+                                    edges[cid].update(bundles_for_fact.get(fact_id, set()))
+                aggregation = citizen.get("aggregation")
+                if isinstance(aggregation, dict):
+                    source_fact = aggregation.get("source_fact_type", {})
+                    if isinstance(source_fact, dict):
+                        fact_id = source_fact.get("id")
+                        if isinstance(fact_id, str):
+                            edges[cid].update(bundles_for_fact.get(fact_id, set()))
+                    source_rule = aggregation.get("source_rule", {})
+                    if isinstance(source_rule, dict):
+                        source_id = source_rule.get("id")
+                        if source_id in ids:
+                            edges[cid].add(source_id)
 
         elif schema in _FORM_FIELD_SCHEMAS:
             symbol = citizen.get("binds_symbol")
@@ -228,15 +276,22 @@ def build_dependency_edges(
                 for adjustment in part.get("adjustment_rows", []):
                     if not isinstance(adjustment, dict):
                         continue
-                    rows = adjustment.get("rows", {})
-                    if not isinstance(rows, dict):
-                        continue
-                    family_pin = rows.get("source_family", {})
-                    if isinstance(family_pin, dict) and family_pin.get("id") in ids:
-                        edges[cid].add(family_pin["id"])
-                    member_pin = rows.get("member_fact_type", {})
-                    if isinstance(member_pin, dict) and member_pin.get("id") in ids:
-                        edges[cid].add(member_pin["id"])
+                    selection = adjustment.get("selection")
+                    if isinstance(selection, dict):
+                        row_specs = [
+                            path.get("rows", {})
+                            for path in selection.get("paths", [])
+                            if isinstance(path, dict)
+                        ]
+                    else:
+                        row_specs = [adjustment.get("rows", {})]
+                    for rows in row_specs:
+                        if not isinstance(rows, dict):
+                            continue
+                        for pin_key in ("source_family", "member_fact_type", "fact_type"):
+                            dependency_pin = rows.get(pin_key, {})
+                            if isinstance(dependency_pin, dict) and dependency_pin.get("id") in ids:
+                                edges[cid].add(dependency_pin["id"])
             for answer in citizen.get("completeness", {}).get("required_answers", []):
                 if not isinstance(answer, dict):
                     continue
@@ -254,6 +309,16 @@ def build_dependency_edges(
                 threshold_pin = requirement.get("threshold_parameter", {})
                 if isinstance(threshold_pin, dict) and threshold_pin.get("id") in ids:
                     edges[cid].add(threshold_pin["id"])
+                for trigger in requirement.get("triggers", []):
+                    if not isinstance(trigger, dict):
+                        continue
+                    for subtotal in trigger.get("subtotals", []):
+                        for producer_id in produced.get(subtotal, []):
+                            edges[cid].add(producer_id)
+                    for pin_key in ("citation", "threshold_parameter", "fact_type"):
+                        dependency_pin = trigger.get(pin_key, {})
+                        if isinstance(dependency_pin, dict) and dependency_pin.get("id") in ids:
+                            edges[cid].add(dependency_pin["id"])
 
         elif schema in _BUNDLE_SCHEMAS:
             for fact in citizen.get("fact_types", []):

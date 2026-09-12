@@ -1,0 +1,41 @@
+{
+  "aggregation": {
+    "absence": "inapplicable",
+    "blocked": "propagate",
+    "mode": "sum",
+    "pins": [],
+    "source_fact_type": {
+      "id": "tax.us.2025.interest.nominee-reduction",
+      "version": "v1"
+    },
+    "source_rule": {
+      "id": "tax.us.2025.rule.interest.nominee-reduction",
+      "version": "v1"
+    },
+    "source_symbol_prefix": "tax.us.2025.interest.nominee-reduction|"
+  },
+  "blocked": {
+    "code": "NOMINEE_ALLOCATIONS_EXCEED_REPORT",
+    "missing": []
+  },
+  "citations": [
+    {
+      "id": "tax.us.2025.citation.interest.nominee-reduction",
+      "version": "v1"
+    }
+  ],
+  "id": "tax.us.2025.rule.interest.derived-nominee-subtotal",
+  "notes": "Distinct owner of the unsuffixed nominee subtotal; sums current suffixed report reductions and never manufactures absence as zero.",
+  "pins": [],
+  "publishes": "tax.us.2025.interest.derived-nominee-subtotal",
+  "requires": [],
+  "role": "computation",
+  "schema": "rule-artifact.v9",
+  "scope": {
+    "family": "individual-income-tax",
+    "jurisdiction": "US-federal",
+    "tax_year": 2025
+  },
+  "version": "v1",
+  "when": true
+}

@@ -2,31 +2,31 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "nominee-interest-tax-consequence-supportability",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md",
+  "topic": "nominee-interest-return-integration",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/nominee-interest-return-integration.md",
   "milestone_state": "closed",
-  "status": "CLOSED 2026-09-09. A rule-owned, report-scoped nominee-interest reduction is derived from current attributed allocation assertions and executed through the real projection, marshalling, package, and run() boundary on package.core-calculations v36, for uniquely rendered identities. Remainder is observed only. The result is a RunResult publication, not act-log standing. It does not integrate Form 1040 line 2b or Schedule B, migrate the legacy nominee adjustment, normalize information-reporting law, or build UI, and it does not repair T0-F5, which remains a hard gate on the later legacy-and-return-integration stage. Completed: three independently reviewed planning gates, Track 0 paper contract closure, ADR-0074 accepted 2026-09-09 after independent review, Track 1 implementation with two owner-directed repairs, Track 2 live evidence independently reviewed READY with no blocking finding, and this closeout. Delivered: bound_sources on rule-artifact.v8 (not a collect, therefore outside ADR-0035's collect-family requirement); artifact-package.v28 and derivation-record.v9 with a no_groups_selected inapplicable branch schema-scoped to the nominee rule; package v36 with the nominee rule, reduction vocabulary, and citation, and no source-family or closure mapping for the allocation type; a tax-layer coordinator that owns grouping, year scope, C13, and per-report pins while the declared rule owns arithmetic. ADR-0074 narrows ADR-0020 Decisions 1/1a/4 for the exact rule id only. The result is bounded to identities that pass the execution-time ambiguity guard. T0-F5 and that substrate boundary (execution-time guard, not intake; two future options unchosen) are the next-stage input contract.",
+  "status": "CLOSED 2026-09-12. A current ordinary nominee allocation reaches one bounded taxable-interest result and an honest Schedule B Part I account on package.core-calculations v38. Dispatcher B is the form-facing aggregate; Schedule B v7 and line 2b v8 consume the same adjustment, including the pairing-scoped accrued-interest row that closes T0-F5. Legacy-only workspaces keep the legacy subtotal; both-present refuses. Ambiguous nominee identities return a typed pre-run NOMINEE_IDENTITY refusal with no run id, output, or start record. Ordinary commas remain valid. Not done: Form 8815 / section 135 and wider 2025 taxable-interest coverage, information-return filing, a general fact-id repair, I4 causal-block explanation, and UI.",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
   "deep_reads": {
     "planning": [
-      "docs/milestone-retrospectives/2026-09-08-nominee-allocation-assertion-recording.md",
-      "docs/phases/tax-concept-derivation/milestones/nominee-allocation-assertion-recording.md",
+      "docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md",
       "docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md",
+      "docs/phases/tax-concept-derivation/milestones/nominee-interest-return-integration.md",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
-      "docs/adr/0070-accrued-amount-supportability-rule.md",
-      "docs/adr/0071-rule-owned-current-year-and-basis-consequences.md",
+      "docs/adr/0072-legacy-pairing-scoped-interest-coexistence.md",
+      "docs/adr/0074-bound-sources-and-nominee-report-group-ledger.md",
       "OWNER_MODEL.md#The Product Model"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md",
-      "docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md",
+      "docs/milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md",
+      "docs/phases/tax-concept-derivation/milestones/nominee-interest-return-integration.md",
       "docs/adr/0074-bound-sources-and-nominee-report-group-ledger.md",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
       "OWNER_MODEL.md#The Product Model"
     ]
   },
-  "retrospective": "docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md"
+  "retrospective": "docs/milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md"
 }
 -->
 
@@ -55,7 +55,27 @@ a project to enumerate or implement the entire taxable-interest universe.
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**. No milestone is selected; the
   next selection is owner-held.
-- **Just-closed milestone:** Nominee Interest Tax Consequence and Supportability
+- **Just-closed milestone:** Nominee Interest Return Integration — **CLOSED
+  2026-09-12.** A current ordinary nominee allocation reaches one bounded
+  taxable-interest result and an honest Schedule B Part I account on
+  `package.core-calculations` v38. Dispatcher B is the form-facing aggregate.
+  Schedule B v7 and line 2b v8 consume the same adjustment, including the
+  pairing-scoped accrued-interest row that closes T0-F5. A below-threshold
+  current nominee allocation independently requires Schedule B. Legacy-only
+  workspaces keep the legacy subtotal; both-present refuses rather than
+  converting or double-subtracting. Ambiguous nominee identities return a
+  typed pre-run `NOMINEE_IDENTITY` refusal with no run id, output, or start
+  record. Ordinary commas remain valid. Published additive contracts:
+  `attachment-rule.v11`, `artifact-package.v29`/`v30`, and `rule-artifact.v9`.
+  Report-group lineage uses top-level `provenanceGroups`.
+
+  **Remaining exclusions.** Form 8815 / §135 and wider 2025 taxable-interest
+  coverage; information-return filing; a general fact-id redesign (the kernel
+  rendering remains non-injective); I4 causal-block explanation; UI. Plan:
+  `docs/phases/tax-concept-derivation/milestones/nominee-interest-return-integration.md`.
+  Retrospective:
+  `docs/milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md`.
+- **Prior milestone:** Nominee Interest Tax Consequence and Supportability
   — **CLOSED 2026-09-09.** An adopted tax rule derives a report-scoped nominee
   reduction from the current, attributed ordinary allocation assertions of one
   identified Form 1099-INT report, executing through the real projection,
@@ -67,28 +87,9 @@ a project to enumerate or implement the entire taxable-interest universe.
   produces **no nominee consequence at all** rather than a published zero, and
   that absence is never a denial or a proof of taxpayer ownership. Groups stay
   isolated across reports, across same-payer reports, and across tax years.
-
-  New citizens: `bound_sources` on `rule-artifact.v8` — deliberately **not** a
-  `collect`, and therefore outside ADR-0035's collect-family requirement rather
-  than exempted from it; `artifact-package.v28`; and `derivation-record.v9`,
-  whose `no_groups_selected` inapplicable branch is scoped **in the schema** to
-  the nominee rule alone. Ratified by **ADR-0074**, which narrows ADR-0020
-  Decisions 1/1a/4 for that exact rule id only and introduces no reusable
-  grouped-rule class, marker, or coordinator framework.
-
-  **Two hard gates carry forward.** T0-F5 still blocks the later
-  legacy-and-return-integration stage. And the kernel's `fact_id` rendering is
-  **non-injective** — two distinct identities can render byte-identically — so
-  this milestone's coordinator refuses ambiguously rendered identities at
-  **execution time**. That is a guard, not an intake or admission gate: the
-  recording contracts admit such values first, and the guard raises mid-run,
-  leaving an open run and empty reserved outputs. Closing it needs **either** a
-  general identity repair **or** a real pre-execution intake restriction with
-  explicit failure semantics; neither is chosen. Ordinary punctuation, including
-  ordinary commas in payer names and statement references, is fully supported.
-
-  No line 2b, Schedule B, legacy nominee migration, information-return filing, or
-  UI. Plan:
+  Ratified by **ADR-0074**. This successor closed T0-F5 and moved the identity
+  failure to a pre-run refusal; the kernel rendering itself remains
+  non-injective. Plan:
   `docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md`.
   Retrospective:
   `docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md`.
@@ -375,6 +376,10 @@ one tested with a real consumer; its own retrospective is
 - **Next-milestone selection instrument (owner-held):**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
 - **Just-closed milestone:**
+  `docs/phases/tax-concept-derivation/milestones/nominee-interest-return-integration.md`,
+  retrospective
+  `docs/milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md`.
+- **Prior milestone:**
   `docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md`,
   retrospective
   `docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md`,

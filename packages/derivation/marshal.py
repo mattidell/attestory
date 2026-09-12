@@ -87,11 +87,14 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     declaration assertion could never reach a run at all (the same gap Track
     2 closed for attachment-rule.v1's completeness answers).
     """
-    if rule.get("schema") in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+    if rule.get("schema") in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
         # ADR-0053 Decision 1: a categorical `family_nonempty` requirement has
         # no `subtotals` list - its own presence is the pinned source family,
         # not a symbol, so it contributes no requirement-side symbol here.
         symbols = list(rule["requirement"].get("subtotals", []))
+        for trigger in rule["requirement"].get("triggers", []):
+            if isinstance(trigger, dict):
+                symbols.extend(trigger.get("subtotals", []))
         completeness = rule["completeness"]
         symbols.extend(a["symbol"] for a in completeness["required_answers"])
         for branch in completeness.get("branch_requirements", []):
@@ -104,9 +107,21 @@ def _rule_required_symbols(rule: dict[str, Any]) -> list[str]:
     # v7 is v6 plus an optional `field` selector on `ref_expr` (ADR-0067).
     # Both carry the same declared-refs-outside-requires capability as
     # v3/v4/v5.
-    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}:
+    if rule.get("schema") in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9"}:
         symbols.extend(_iter_ref_names(rule.get("when")))
         symbols.extend(_iter_ref_names(rule.get("value")))
+        selection = rule.get("selection")
+        if isinstance(selection, dict):
+            for path in selection.get("paths", []):
+                if isinstance(path, dict):
+                    symbols.extend(path.get("requires", []))
+                    symbols.extend(_iter_ref_names(path.get("when")))
+                    symbols.extend(_iter_ref_names(path.get("value")))
+            default = selection.get("default")
+            if isinstance(default, dict):
+                symbols.extend(default.get("requires", []))
+                symbols.extend(_iter_ref_names(default.get("when")))
+                symbols.extend(_iter_ref_names(default.get("value")))
     return symbols
 
 

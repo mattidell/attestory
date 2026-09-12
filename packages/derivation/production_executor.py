@@ -8,6 +8,35 @@ from packages.derivation.records import RecordStream, closing_record, start_run
 from packages.derivation.runner import RunResult, _execute
 
 
+_LEDGER_EXCLUDED_PIN_ROLES = frozenset(
+    {"computation", "applicability", "field-mapping", "cross-form-bridge"}
+)
+
+
+def _record_safe_result(result: RunResult) -> RunResult:
+    """Normalize fixture-only inapplicable metadata for the v9 record ledger.
+
+    The bounded fixture runner retains ``no_source_activity`` on the distinct
+    nominee aggregate so its direct result can distinguish that outcome from
+    a blocked or published aggregate.  The published derivation-record.v9
+    schema represents that same outcome as an ordinary false guard and its
+    ledger pin vocabulary excludes computation-role pins.  Normalize only at
+    the production fence; the fixture-facing runner contract remains intact.
+    """
+    for row in result.dispositions:
+        if row.get("disposition") != "inapplicable" or not row.pop(
+            "no_source_activity", False
+        ):
+            continue
+        row["guard_result"] = False
+        row["pins"] = [
+            pin
+            for pin in row.get("pins", [])
+            if pin.get("role") not in _LEDGER_EXCLUDED_PIN_ROLES
+        ]
+    return result
+
+
 def execute_marshaled(context: MarshalledRunContext, schemas: DerivationSchemas) -> RunResult:
     """Evaluate only a context minted by the record-state marshaller.
 
@@ -17,7 +46,7 @@ def execute_marshaled(context: MarshalledRunContext, schemas: DerivationSchemas)
     """
     if type(context) is not MarshalledRunContext or not context._is_minted():
         raise TypeError("production execution requires a marshalled run context")
-    return _execute(context._context, schemas)
+    return _record_safe_result(_execute(context._context, schemas))
 
 
 def execute_and_record_marshaled(

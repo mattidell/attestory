@@ -101,7 +101,7 @@ def _resolved_run_material(graph: Any) -> tuple[
     # belongs in the same `rules` material the runner saturates over.
     rules = [
         member for member in members
-        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
+        if member.get("schema") in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
     ]
     parameters = {member["id"]: member for member in members if member.get("schema") == "parameter-declaration.v1"}
     families = [member for member in members if member.get("schema") in {"source-family.v1", "source-family.v2"}]
@@ -220,13 +220,6 @@ def live_coordinate_run(
     if isinstance(resolved, Refusal):
         return LiveCoordinatorOutcome(refusal=resolved, output_path=None, run_id=None)
     validate_run_request(request, schemas)
-    # Resolve the declared destinations before execution or opening the record
-    # stream.  An invalid/escaping request is a residency refusal, not a run
-    # that can create a started/completed account.
-    output_path = workspace.reserve_live_output_path(Path("outputs") / output_name)
-    presentation_path = workspace.reserve_live_output_path(
-        Path("outputs") / f"{Path(output_name).stem}.presentation.json"
-    )
     # Domain companion-presence pairs (B12-C3 box-13; B8-C2 box-9) and
     # declaration/signal contradictions (including Path A no-f1099int vs box-8)
     # live on tax_registry(); production projection must install the same maps
@@ -272,6 +265,38 @@ def live_coordinate_run(
         companion_presence_pairs=domain_companion_presence_pairs(),
         authorization=authorization,
         reporting_year=reporting_year,
+    )
+    # The nominee coordinator has a deliberately bounded identity policy.  It
+    # consumes only the current report/allocation sources marshalled for the
+    # adopted v38 graph, so validate that exact set before reserving outputs or
+    # opening the derivation record stream.  A malformed rendered identity is
+    # a typed live refusal, never an exception that can strand an open run.
+    from packages.tax.nominee_consequences import (
+        NomineeIdentityError,
+        RULE_ID as NOMINEE_RULE_ID,
+        validate_nominee_identity_sources,
+    )
+
+    if any(rule.get("id") == NOMINEE_RULE_ID for rule in rules):
+        try:
+            validate_nominee_identity_sources(
+                context._context.sources,
+                reporting_year=reporting_year,
+            )
+        except NomineeIdentityError as exc:
+            return LiveCoordinatorOutcome(
+                refusal=Refusal(reason="NOMINEE_IDENTITY", detail=str(exc)),
+                output_path=None,
+                run_id=None,
+                presentation_path=None,
+            )
+
+    # Resolve the declared destinations only after all pre-run checks.  An
+    # invalid/escaping request is a residency refusal, not a run that can
+    # create a started/completed account.
+    output_path = workspace.reserve_live_output_path(Path("outputs") / output_name)
+    presentation_path = workspace.reserve_live_output_path(
+        Path("outputs") / f"{Path(output_name).stem}.presentation.json"
     )
     stream = RecordStream(workspace.live_output_path(Path("records")), schemas)
     result = execute_and_record_marshaled(

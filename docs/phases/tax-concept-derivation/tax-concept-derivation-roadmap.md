@@ -351,7 +351,37 @@ Plan:
 Retrospective:
 [`../../milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md`](../../milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md).
 
-### 9. Contrasting Tax Concept
+### 9. Nominee Interest Return Integration (closed 2026-09-12, updated: 2026-09-12)
+
+Complete the nominee-interest vertical by connecting the current report-scoped
+reduction to the bounded 2025 taxable-interest calculation and Schedule B Part I
+presentation. Repair T0-F5 so Schedule B accounts for the pairing-scoped
+current-year adjustment already subtracted by line 2b, add nominee status as an
+independent Schedule B trigger below the ordinary dollar threshold, and ensure
+the new consequence is subtracted exactly once.
+
+This is not a mechanical wiring milestone. The legacy path asks the user to
+enter a tax-labelled Schedule B adjustment that cannot be assumed to identify
+the report, recipient, attribution, or ordinary proposition represented by the
+new allocation facts. Planning must therefore select an explicit compatibility,
+transition, or refusal policy for legacy-only, new-only, and both-present
+workspaces. It must also close the current ambiguous-identity failure before a
+durable run start or output reservation, either with a general identity repair
+or a clean pre-execution refusal.
+
+The result remains bounded. It does not establish that the repository's
+`tax.us.2025.interest.taxable-total` is a complete model of Schedule B line 4 or
+Form 1040 line 2b; the known section 135/Form 8815 and broader interest-coverage
+gaps remain. The plan develops tax/form, artifact/consumer, and executable
+design evidence in independently reviewed increments before Track 0 or
+implementation.
+
+Plan:
+[`milestones/nominee-interest-return-integration.md`](milestones/nominee-interest-return-integration.md).
+Retrospective:
+[`../../milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md`](../../milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md).
+
+### 10. Contrasting Tax Concept
 
 Apply the method to a concept with a different structure, chosen after the
 interest work exposes which properties may be accidental. A deduction or
@@ -362,7 +392,7 @@ The purpose is to find which parts of the representation are genuinely common
 and which belong only to interest. Confirmation in a second concept is evidence
 of transfer, not proof of universality.
 
-### 10. Tax-Concept Question and Explanation Projection
+### 11. Tax-Concept Question and Explanation Projection
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
@@ -386,6 +416,7 @@ model must continue to serve computation and return generation.
 | Assertion Standing and Retraction Semantics | **Closed 2026-09-06** | Withdrawal without a replacement value; one current-standing path across every reader; ADR-0073 |
 | Nominee Allocation Assertion Recording | **CLOSED 2026-09-08** | Ordinary allocation assertion recorded, corrected, retracted from current use, asserted again, and recovered from the log with attribution; no tax consequence or return integration |
 | Nominee Interest Tax Consequence and Supportability | **CLOSED 2026-09-09** | Rule-owned report-scoped nominee reduction derived and executed on package v36 for uniquely rendered identities, with whole-set blocking, cross-report and cross-year isolation, and walkable provenance; remainder observed only; no return integration, legacy migration, or information reporting |
+| Nominee Interest Return Integration | **CLOSED 2026-09-12** | Bounded line-2b and Schedule B integration on package v38; T0-F5 repaired; nominee applicability below threshold; legacy-only / new-only / both-present refusal; pre-run identity refusal. Form 8815 / §135, filing, general fact-id repair, and I4 causal-block explanation remain out |
 | Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 
@@ -434,9 +465,10 @@ Second, a **validator/authority gap in committed product code**, recorded
 and deliberately not fixed, that being outside the milestone's boundary:
 `packages/derivation/package_validation.py`'s collect-target universe guard
 documents itself as binding "artifact-package.v3 onward" but its allowlist
-ends at `artifact-package.v17`, so it is inactive for the current
-`artifact-package.v26` production package and has never bound a
-`rule-artifact.v7` collect. That is an **owner decision item independent of
+ends at `artifact-package.v17`, so it was inactive for the then-production
+v35 / `artifact-package.v26` package and remains inactive for the current
+v36 / `artifact-package.v28` package. It has never bound a `rule-artifact.v7`
+collect. That is an **owner decision item independent of
 this phase's milestone sequence**, and any future claim that a
 source-family-authorized traversal has been established must be re-run
 against a repaired guard.
@@ -446,8 +478,8 @@ result — see the item-4 entry above for the full account. Its plan is
 [`milestones/later-year-basis-reuse.md`](milestones/later-year-basis-reuse.md);
 its retrospective is
 [`2026-09-03-later-year-basis-reuse.md`](../../milestone-retrospectives/2026-09-03-later-year-basis-reuse.md).
-No milestone is currently selected. The prior just-closed milestone's plan
-is
+At that checkpoint no next milestone had been selected. The earlier milestone
+plan referenced by that decision was
 [`milestones/investment-basis-concept-coverage.md`](milestones/investment-basis-concept-coverage.md);
 its retrospective is
 [`2026-09-02-investment-basis-concept-coverage.md`](../../milestone-retrospectives/2026-09-02-investment-basis-concept-coverage.md).

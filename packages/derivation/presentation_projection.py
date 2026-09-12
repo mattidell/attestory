@@ -31,9 +31,11 @@ zero-authority) rather than guessing or rendering a fabricated value.
 from __future__ import annotations
 
 import re
+import inspect
 from decimal import Decimal, InvalidOperation
 from typing import Any, Mapping, Sequence, cast
 
+from packages.derivation.derived_enumeration import derived_activity_present, fact_type_matches_symbol
 from packages.kernel.findings import FindingState
 from packages.tax.coverage import untranslated_source_findings
 
@@ -46,7 +48,7 @@ PRESENTATION_MODEL_VERSION = "presentation-model.v1"
 # distinct presentation contract. Both are recognized field citizens.
 FIELD_SCHEMAS = frozenset({"form-field.v2", "form-field.v3"})
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v10"}
 )
 
 _NUMERIC_DISPOSITIONS = frozenset({"published_value", "computed_zero", "closure_backed_zero"})
@@ -316,6 +318,393 @@ def _require_declared_field_citation_chain(
         raise PresentationModelError(f"field {field['id']!r} cites an unresolved field citation")
 
 
+def _recorded_derived_pin_identities(
+    finding_id: str,
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+    *,
+    seen: frozenset[str],
+) -> set[tuple[str, str]]:
+    finding = publications_by_id.get(finding_id)
+    if finding is None:
+        return set()
+    identities: set[tuple[str, str]] = set()
+    next_seen = seen | {finding_id}
+    for pin in finding.get("pins") or []:
+        if not isinstance(pin, Mapping):
+            continue
+        pin_id = pin.get("id")
+        version = pin.get("version") or "v1"
+        role = pin.get("role")
+        if not isinstance(pin_id, str) or not pin_id:
+            continue
+        if pin_id in next_seen:
+            continue
+        if role in {"citation", "computation"}:
+            identities.add((pin_id, str(version)))
+        elif role in {"input", "choice"}:
+            if pin_id in publications_by_id:
+                identities |= _recorded_derived_pin_identities(
+                    pin_id, publications_by_id, seen=next_seen
+                )
+            else:
+                identities.add((pin_id, str(version)))
+    return identities
+
+
+def _reader_label_for_finding(finding: Mapping[str, Any], adjustment_label: str) -> str:
+    symbol = finding.get("symbol")
+    if isinstance(symbol, str):
+        tail = symbol.rsplit("|", 1)[-1]
+        for piece in tail.split(","):
+            piece = piece.strip()
+            if piece.startswith("payer="):
+                return f"{adjustment_label} — {piece.split('=', 1)[1]}"
+    return f"{adjustment_label} report group"
+
+
+def _pin_identity(value: Any) -> tuple[str, str] | None:
+    if not isinstance(value, Mapping):
+        return None
+    pin_id, version = value.get("id"), value.get("version")
+    if not isinstance(pin_id, str) or not pin_id or not isinstance(version, str) or not version:
+        return None
+    return pin_id, version
+
+
+def _declared_adjustment_specs(adjustment: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Flatten direct/selected declarations into presentation join specs."""
+    common = {
+        "kind": adjustment.get("kind"),
+        "label": adjustment.get("label"),
+        "sign": adjustment.get("sign"),
+    }
+    selection = adjustment.get("selection")
+    if isinstance(selection, Mapping):
+        specs: list[dict[str, Any]] = []
+        for path in selection.get("paths") or []:
+            if not isinstance(path, Mapping):
+                continue
+            spec = dict(common)
+            spec.update({
+                "path_id": path.get("id"),
+                "rows": path.get("rows"),
+                "subtotal_symbol": path.get("subtotal_symbol"),
+            })
+            specs.append(spec)
+        return specs
+    spec = dict(common)
+    spec.update({
+        "rows": adjustment.get("rows"),
+        "subtotal_symbol": adjustment.get("subtotal_symbol"),
+    })
+    return [spec]
+
+
+def _serialized_row_matches(
+    serialized: Mapping[str, Any],
+    declared: Mapping[str, Any],
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+) -> bool:
+    """Join one serialized adjustment row to its declared producer shape."""
+    for key in ("kind", "label", "sign"):
+        if serialized.get(key) != declared.get(key):
+            return False
+    subtotal = serialized.get("subtotal")
+    if not isinstance(subtotal, Mapping) or subtotal.get("symbol") != declared.get("subtotal_symbol"):
+        return False
+    rows_spec = declared.get("rows")
+    if not isinstance(rows_spec, Mapping):
+        return False
+    operation = rows_spec.get("op")
+    if operation == "collect_members":
+        return _pin_identity(serialized.get("source_family")) == _pin_identity(rows_spec.get("source_family"))
+    if operation != "enumerate_published":
+        return False
+    fact_type = rows_spec.get("fact_type")
+    serialized_fact_type = serialized.get("fact_type")
+    if _pin_identity(fact_type) == _pin_identity(serialized_fact_type):
+        return True
+    prefix = rows_spec.get("symbol_prefix")
+    if not isinstance(prefix, str) or not prefix:
+        return False
+    serialized_rows = serialized.get("rows")
+    if not isinstance(serialized_rows, list) or not serialized_rows:
+        return False
+    for row in serialized_rows:
+        if not isinstance(row, Mapping) or not isinstance(row.get("finding_id"), str):
+            return False
+        finding = publications_by_id.get(row["finding_id"])
+        if finding is None or not isinstance(finding.get("symbol"), str) or not finding["symbol"].startswith(prefix):
+            return False
+    return True
+
+
+def _declared_adjustment_active(
+    declared: Mapping[str, Any],
+    *,
+    current_finding_ids: frozenset[str],
+    state: FindingState,
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+    dispositions: Sequence[Mapping[str, Any]],
+) -> bool:
+    rows_spec = declared.get("rows")
+    if not isinstance(rows_spec, Mapping):
+        return False
+    operation = rows_spec.get("op")
+    if operation == "collect_members":
+        member_pin = _pin_identity(rows_spec.get("member_fact_type"))
+        if member_pin is None:
+            return False
+        fact_type_id, _version = member_pin
+        prefix = f"{fact_type_id}|"
+        return any(
+            finding_id in current_finding_ids
+            and isinstance(state.findings.get(finding_id, {}).get("fact_id"), str)
+            and (
+                state.findings[finding_id]["fact_id"] == fact_type_id
+                or state.findings[finding_id]["fact_id"].startswith(prefix)
+            )
+            for finding_id in current_finding_ids
+        )
+    if operation == "enumerate_published":
+        fact_pin = _pin_identity(rows_spec.get("fact_type"))
+        if fact_pin is not None:
+            fact_type_id, _version = fact_pin
+            return derived_activity_present(
+                publications=list(publications_by_id.values()),
+                dispositions=dispositions,
+                fact_type_id=fact_type_id,
+            )
+        symbol_prefix: Any = rows_spec.get("symbol_prefix")
+        return isinstance(symbol_prefix, str) and any(
+            isinstance(finding.get("symbol"), str) and finding["symbol"].startswith(symbol_prefix)
+            for finding in publications_by_id.values()
+        )
+    return False
+
+
+def _current_adjustment_contributor_ids(
+    declared: Mapping[str, Any],
+    *,
+    current_finding_ids: frozenset[str],
+    state: FindingState,
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+) -> frozenset[str]:
+    rows_spec = declared.get("rows")
+    if not isinstance(rows_spec, Mapping):
+        return frozenset()
+    if rows_spec.get("op") == "collect_members":
+        member_pin = _pin_identity(rows_spec.get("member_fact_type"))
+        if member_pin is None:
+            return frozenset()
+        fact_type_id, _version = member_pin
+        return frozenset(
+            finding_id
+            for finding_id in current_finding_ids
+            if isinstance(state.findings.get(finding_id, {}).get("fact_id"), str)
+            and (
+                state.findings[finding_id]["fact_id"] == fact_type_id
+                or state.findings[finding_id]["fact_id"].startswith(f"{fact_type_id}|")
+            )
+        )
+    if rows_spec.get("op") == "enumerate_published":
+        fact_pin = _pin_identity(rows_spec.get("fact_type"))
+        prefix = fact_pin[0] if fact_pin is not None else rows_spec.get("symbol_prefix")
+        if not isinstance(prefix, str):
+            return frozenset()
+        return frozenset(
+            finding_id
+            for finding_id, finding in publications_by_id.items()
+            if isinstance(finding.get("symbol"), str)
+            and (
+                fact_type_matches_symbol(finding["symbol"], prefix)
+                if fact_pin is not None
+                else finding["symbol"].startswith(prefix)
+            )
+        )
+    return frozenset()
+
+
+def _serialized_adjustment_contributors_match(
+    serialized: Mapping[str, Any],
+    declared: Mapping[str, Any],
+    *,
+    current_finding_ids: frozenset[str],
+    state: FindingState,
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+) -> bool:
+    rows = serialized.get("rows")
+    if not isinstance(rows, list):
+        return False
+    contributor_ids: list[str] = []
+    for row in rows:
+        if not isinstance(row, Mapping) or not isinstance(row.get("finding_id"), str):
+            return False
+        contributor_ids.append(row["finding_id"])
+    if len(contributor_ids) != len(set(contributor_ids)):
+        return False
+    return frozenset(contributor_ids) == _current_adjustment_contributor_ids(
+        declared,
+        current_finding_ids=current_finding_ids,
+        state=state,
+        publications_by_id=publications_by_id,
+    )
+
+
+def _validate_serialized_adjustment_correspondence(
+    attachment: Mapping[str, Any],
+    itemization: Mapping[str, Any],
+    value_itemization: Mapping[str, Any],
+    publications_by_id: Mapping[str, Mapping[str, Any]],
+    state: FindingState,
+    dispositions: Sequence[Mapping[str, Any]],
+) -> list[Mapping[str, Any]]:
+    """Require serialized adjustment rows to be declared and, for v11, selected."""
+    declared_adjustments = [
+        adjustment for adjustment in itemization.get("adjustment_rows", [])
+        if isinstance(adjustment, Mapping)
+    ]
+    serialized = value_itemization.get("adjustment_rows")
+    if not isinstance(serialized, list):
+        raise PresentationModelError("attachment finding has malformed adjustment_rows")
+    serialized_rows: list[Mapping[str, Any]] = []
+    for index, row in enumerate(serialized):
+        if not isinstance(row, Mapping):
+            raise PresentationModelError(f"serialized adjustment row {index} is not an object")
+        serialized_rows.append(row)
+
+    needs_activity = attachment.get("schema") == "attachment-rule.v11"
+    if needs_activity:
+        from packages.kernel.currency import compute_currency
+
+        current_finding_ids = compute_currency(state).current_finding_ids
+    else:
+        current_finding_ids = frozenset()
+    used: set[int] = set()
+    row_claims: dict[int, int] = {}
+    for adjustment in declared_adjustments:
+        claim_key = id(adjustment)
+        specs = _declared_adjustment_specs(adjustment)
+        if not specs:
+            raise PresentationModelError("adjustment declaration has no joinable row or selection path")
+        is_selection = isinstance(adjustment.get("selection"), Mapping)
+        if is_selection:
+            active_specs = [
+                spec for spec in specs
+                if _declared_adjustment_active(
+                    spec,
+                    current_finding_ids=current_finding_ids,
+                    state=state,
+                    publications_by_id=publications_by_id,
+                    dispositions=dispositions,
+                )
+            ]
+            if len(active_specs) > 1:
+                raise PresentationModelError(
+                    f"selected adjustment {adjustment.get('label')!r} has multiple active paths"
+                )
+            matched_rows: list[tuple[int, Any]] = []
+            for index, row in enumerate(serialized_rows):
+                matching_specs = [
+                    spec for spec in specs
+                    if _serialized_row_matches(row, spec, publications_by_id)
+                ]
+                if len(matching_specs) > 1:
+                    raise PresentationModelError(
+                        f"serialized adjustment row {index} ambiguously matches selected paths"
+                    )
+                if matching_specs:
+                    matched_rows.append((index, matching_specs[0].get("path_id")))
+            selected_paths = {path_id for _index, path_id in matched_rows}
+            if len(selected_paths) > 1:
+                raise PresentationModelError(
+                    f"selected adjustment {adjustment.get('label')!r} has multiple serialized paths"
+                )
+            if len(active_specs) == 1:
+                active_path_id: Any = active_specs[0].get("path_id")
+                active_spec = active_specs[0]
+                active_contributors = _current_adjustment_contributor_ids(
+                    active_spec,
+                    current_finding_ids=current_finding_ids,
+                    state=state,
+                    publications_by_id=publications_by_id,
+                )
+                active_fact_pin = _pin_identity(active_spec.get("rows", {}).get("fact_type"))
+                if (
+                    active_spec.get("rows", {}).get("op") == "enumerate_published"
+                    and not active_contributors
+                    and active_fact_pin is not None
+                    and any(
+                        row.get("disposition") == "blocked"
+                        and isinstance(row.get("symbol"), str)
+                        and fact_type_matches_symbol(row["symbol"], active_fact_pin[0])
+                        for row in dispositions
+                    )
+                ):
+                    raise PresentationModelError(
+                        f"active adjustment path {active_path_id!r} is blocked and cannot publish contributors"
+                    )
+                active_rows = [
+                    index for index, path_id in matched_rows if path_id == active_path_id
+                ]
+                if len(active_rows) != 1:
+                    raise PresentationModelError(
+                        f"active adjustment path {active_path_id!r} lacks exactly one serialized row"
+                    )
+                if not _serialized_adjustment_contributors_match(
+                    serialized_rows[active_rows[0]],
+                    active_spec,
+                    current_finding_ids=current_finding_ids,
+                    state=state,
+                    publications_by_id=publications_by_id,
+                ):
+                    raise PresentationModelError(
+                        f"active adjustment path {active_path_id!r} has incorrect contributors"
+                    )
+            elif matched_rows:
+                raise PresentationModelError(
+                    f"serialized adjustment {adjustment.get('label')!r} has no active declared path"
+                )
+            for index, _path_id in matched_rows:
+                prior_claim = row_claims.get(index)
+                if prior_claim is not None and prior_claim != claim_key:
+                    raise PresentationModelError(
+                        f"serialized adjustment row {index} satisfies multiple declarations"
+                    )
+                row_claims[index] = claim_key
+                used.add(index)
+            continue
+        matches = [
+            index for index, row in enumerate(serialized_rows)
+            if _serialized_row_matches(row, specs[0], publications_by_id)
+        ]
+        if len(matches) != 1:
+            raise PresentationModelError(
+                f"serialized adjustment rows do not correspond exactly to declared {adjustment.get('label')!r}"
+            )
+        row_index = matches[0]
+        if row_index in row_claims:
+            raise PresentationModelError(
+                f"serialized adjustment row {row_index} satisfies multiple declarations"
+            )
+        if attachment.get("schema") == "attachment-rule.v11" and not _serialized_adjustment_contributors_match(
+            serialized_rows[row_index],
+            specs[0],
+            current_finding_ids=current_finding_ids,
+            state=state,
+            publications_by_id=publications_by_id,
+        ):
+            raise PresentationModelError(
+                f"direct adjustment {adjustment.get('label')!r} has incorrect contributors"
+            )
+        row_claims[row_index] = claim_key
+        used.add(row_index)
+
+    if len(used) != len(serialized_rows):
+        raise PresentationModelError("serialized adjustment rows contain an undeclared adjustment")
+    return serialized_rows
+
+
 def _resolve_attachment(
     attachment: Mapping[str, Any],
     *,
@@ -323,6 +712,8 @@ def _resolve_attachment(
     publications_by_id: Mapping[str, Mapping[str, Any]],
     state: FindingState,
     pin_labels: dict[str, str],
+    dispositions: Sequence[Mapping[str, Any]] | None = None,
+    provenance_out: list[dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
     """Resolve one attachment citizen to its status entry and, only when
     published, its itemization detail (ADR-0056).
@@ -376,7 +767,7 @@ def _resolve_attachment(
                 (entry for entry in attachment_finding["value"].get("itemizations", []) if entry.get("part_id") == part_id),
                 None,
             )
-        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8"):
+        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v10"):
             if value_itemization is None:
                 raise PresentationModelError(f"attachment finding omits itemization value for {part_id!r}")
             assert isinstance(value_itemization, dict)
@@ -408,44 +799,138 @@ def _resolve_attachment(
             "citationSites": sites,
             "tieOutText": f"Reported subtotal: {value}",
         })
-        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8"):
+        if attachment.get("schema") in ("attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11", "attachment-rule.v10"):
             assert isinstance(value_itemization, dict)
-            for adjustment in itemization.get("adjustment_rows", []):
-                adjustment_value = next(
+            selected_adjustments = _validate_serialized_adjustment_correspondence(
+                attachment,
+                itemization,
+                value_itemization,
+                publications_by_id,
+                state,
+                dispositions or [row for rows in dispositions_by_symbol.values() for row in rows],
+            )
+            for adjustment_value in selected_adjustments:
+                if not isinstance(adjustment_value, dict):
+                    continue
+                adj_label = str(adjustment_value.get("label") or "")
+                adj_kind = str(adjustment_value.get("kind") or "")
+                adjustment_sites: list[dict[str, Any]] = []
+                existing_adjustment_part = next(
                     (
-                        row
-                        for row in value_itemization.get("adjustment_rows", [])
-                        if row.get("kind") == adjustment["kind"] and row.get("label") == adjustment["label"]
+                        part for part in parts
+                        if attachment.get("schema") == "attachment-rule.v11"
+                        and part.get("heading") == adj_label
+                        and part.get("adjustmentKind") == adj_kind
                     ),
                     None,
                 )
-                if adjustment_value is None:
-                    raise PresentationModelError(
-                        f"attachment finding omits adjustment row {adjustment['label']!r}"
-                    )
-                adjustment_sites: list[dict[str, Any]] = []
+                site_offset = len(existing_adjustment_part.get("citationSites", [])) if existing_adjustment_part else 0
                 for index, row in enumerate(adjustment_value.get("rows", [])):
                     leaf_id = row["finding_id"]
-                    if leaf_id not in state.findings:
+                    # v11's derived nominee path itemizes a published finding
+                    # rather than a projected source assertion.  Keep the
+                    # row-level citation on that published finding; the
+                    # provenance walk below expands it to the recorded source
+                    # leaves.  Direct/legacy rows still require a projected
+                    # finding, as before.
+                    if leaf_id not in state.findings and not (
+                        attachment.get("schema") == "attachment-rule.v11"
+                        and leaf_id in publications_by_id
+                        and str(leaf_id).startswith("finding:derived:")
+                    ):
                         raise PresentationModelError(f"citation lineage references unrecorded finding {leaf_id!r}")
-                    label = _evidence_label(leaf_id, state)
+                    label = _evidence_label(leaf_id, state) if leaf_id in state.findings else None
                     if label is not None:
                         if leaf_id in pin_labels and pin_labels[leaf_id] != label:
                             raise PresentationModelError(f"conflicting citation labels for pin {leaf_id!r}")
                         pin_labels[leaf_id] = label
                     adjustment_sites.append(
                         _citation_site(
-                            f"{part_id}-adjustment-{index}",
+                            f"{part_id}-adjustment-{site_offset + index}",
                             leaf_id,
                             "v1",
-                            adjustment["label"],
+                            adj_label,
                         )
                     )
-                parts.append({
-                    "heading": adjustment["label"],
+                adjustment_part = {
+                    "heading": adj_label,
                     "citationSites": adjustment_sites,
                     "tieOutText": f"Adjustment: -{adjustment_value['row_sum']}",
-                })
+                }
+                if attachment.get("schema") == "attachment-rule.v11":
+                    # Preserve the producer's declared kind beside the
+                    # displayed adjustment so standalone payload validation
+                    # can check the group relationship without tax-specific
+                    # labels or ids.
+                    adjustment_part["adjustmentKind"] = adj_kind
+                if existing_adjustment_part is None:
+                    parts.append(adjustment_part)
+                else:
+                    # The form displays one aggregate adjustment label while
+                    # provenanceGroups retain one group per report finding.
+                    existing_adjustment_part["citationSites"].extend(adjustment_sites)
+                    existing_adjustment_part["tieOutText"] += f"; {adjustment_part['tieOutText']}"
+                if provenance_out is None:
+                    continue
+                for index, row in enumerate(adjustment_value.get("rows") or []):
+                    fid = row.get("finding_id")
+                    if not isinstance(fid, str) or not fid.startswith("finding:derived:"):
+                        continue
+                    finding = publications_by_id.get(fid)
+                    if finding is None:
+                        continue
+                    finding_pins = finding.get("pins") or []
+                    if not any(pin.get("role") == "citation" for pin in finding_pins if isinstance(pin, Mapping)):
+                        raise PresentationModelError(
+                            f"derived adjustment finding {fid!r} is missing citation lineage"
+                        )
+                    if not any(pin.get("role") == "computation" for pin in finding_pins if isinstance(pin, Mapping)):
+                        raise PresentationModelError(
+                            f"derived adjustment finding {fid!r} is missing rule lineage"
+                        )
+                    if not any(
+                        pin.get("role") in {"input", "choice"}
+                        for pin in finding_pins
+                        if isinstance(pin, Mapping)
+                    ):
+                        raise PresentationModelError(
+                            f"derived adjustment finding {fid!r} is missing contributing input lineage"
+                        )
+                    identities = _recorded_derived_pin_identities(
+                        fid, publications_by_id, seen=frozenset()
+                    )
+                    if not identities:
+                        raise PresentationModelError(
+                            f"derived adjustment finding {fid!r} has empty recorded lineage"
+                        )
+                    reader = _reader_label_for_finding(finding, adj_label)
+                    sites = []
+                    for site_index, (leaf_id, leaf_version) in enumerate(sorted(identities)):
+                        if leaf_id in state.findings:
+                            elabel = _evidence_label(leaf_id, state)
+                            if elabel is not None:
+                                if leaf_id in pin_labels and pin_labels[leaf_id] != elabel:
+                                    raise PresentationModelError(
+                                        f"conflicting citation labels for pin {leaf_id!r}"
+                                    )
+                                pin_labels[leaf_id] = elabel
+                        sites.append(
+                            _citation_site(
+                                f"provenance-{fid}-{site_index}",
+                                leaf_id,
+                                leaf_version,
+                                reader,
+                            )
+                        )
+                    provenance_out.append({
+                        "id": fid,
+                        "attachmentId": attachment_id,
+                        "adjustmentKind": adj_kind,
+                        "adjustmentLabel": adj_label,
+                        "label": reader,
+                        "citationSites": sites,
+                        "tieOutText": f"Recorded contributing reduction {finding.get('value')}",
+                    })
 
     group = {"id": attachment_id, "title": title, "parts": parts}
     status = {
@@ -491,7 +976,15 @@ def build_presentation_model(
             if identity in citations:
                 raise PresentationModelError(f"duplicate resolved citation identity {identity!r}")
             citations[identity] = member
-    publications_by_id = {pub.finding["id"]: pub.finding for pub in publications}
+    publications_by_id: dict[str, Mapping[str, Any]] = {}
+    for publication in publications:
+        finding = publication.finding
+        finding_id = finding.get("id") if isinstance(finding, Mapping) else None
+        if not isinstance(finding_id, str) or not finding_id:
+            raise PresentationModelError("publication finding is missing a non-empty id")
+        if finding_id in publications_by_id:
+            raise PresentationModelError(f"duplicate publication finding id {finding_id!r}")
+        publications_by_id[finding_id] = finding
     by_symbol = _dispositions_by_symbol(dispositions, rules_by_id)
 
     pin_labels: dict[str, str] = {}
@@ -515,11 +1008,22 @@ def build_presentation_model(
 
     citation_groups: list[dict[str, Any]] = []
     attachments_out: list[dict[str, Any]] = []
+    provenance_groups: list[dict[str, Any]] = []
     for attachment in sorted(attachments, key=lambda a: a["id"]):
-        status, group = _resolve_attachment(
-            attachment, dispositions_by_symbol=by_symbol, publications_by_id=publications_by_id,
-            state=state, pin_labels=pin_labels,
-        )
+        resolver_kwargs: dict[str, Any] = {
+            "dispositions_by_symbol": by_symbol,
+            "publications_by_id": publications_by_id,
+            "state": state,
+            "pin_labels": pin_labels,
+            "dispositions": dispositions,
+        }
+        # The contract-unit prototype installs a temporary resolver wrapper
+        # with the pre-carrier signature. Keep that exploratory harness
+        # runnable while the production resolver receives the new collector
+        # explicitly; no prototype behavior is part of admission.
+        if "provenance_out" in inspect.signature(_resolve_attachment).parameters:
+            resolver_kwargs["provenance_out"] = provenance_groups
+        status, group = _resolve_attachment(attachment, **resolver_kwargs)
         attachments_out.append(status)
         if group is not None:
             citation_groups.append(group)
@@ -544,6 +1048,8 @@ def build_presentation_model(
         "attachments": attachments_out,
         "unsupportedSourceFindings": unsupported_source_findings,
     }
+    if provenance_groups:
+        model["provenanceGroups"] = provenance_groups
     if authorization is not None:
         model["authorization"] = dict(authorization)
     validate_presentation_model(model)
@@ -660,7 +1166,7 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
             "schema", "runId", "pinLabels", "sections", "citationGroups", "attachments",
             "unsupportedSourceFindings",
         }),
-        frozenset({"authorization"}),
+        frozenset({"authorization", "provenanceGroups"}),
         "$",
     )
     if "authorization" in model:
@@ -706,7 +1212,12 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
             raise PresentationModelError(f"{path}.parts: expected a non-empty list")
         for part_index, part in enumerate(group["parts"]):
             part_path = f"{path}.parts[{part_index}]"
-            _require_keys(part, frozenset({"heading", "citationSites", "tieOutText"}), frozenset(), part_path)
+            _require_keys(
+                part,
+                frozenset({"heading", "citationSites", "tieOutText"}),
+                frozenset({"adjustmentKind"}),
+                part_path,
+            )
             if not isinstance(part["heading"], str) or not part["heading"]:
                 raise PresentationModelError(f"{part_path}.heading: expected non-empty string")
             if not isinstance(part["tieOutText"], str) or not part["tieOutText"]:
@@ -730,6 +1241,116 @@ def validate_presentation_model(model: Mapping[str, Any]) -> None:
         if not isinstance(attachment["title"], str) or not attachment["title"]:
             raise PresentationModelError(f"{path}.title: expected non-empty string")
         _validate_attachment_resolved(attachment["resolved"], f"{path}.resolved")
+
+    if "provenanceGroups" in model:
+        groups = model["provenanceGroups"]
+        if not isinstance(groups, list):
+            raise PresentationModelError("$.provenanceGroups: expected a list")
+        published_group_ids = {
+            group["id"]
+            for group in model.get("citationGroups") or []
+            if isinstance(group, Mapping) and isinstance(group.get("id"), str)
+        }
+        parts_by_attachment: dict[str, list[dict[str, Any]]] = {}
+        for citation_group in model.get("citationGroups") or []:
+            if not isinstance(citation_group, Mapping):
+                continue
+            gid = citation_group.get("id")
+            if isinstance(gid, str):
+                parts_by_attachment[gid] = [
+                    part for part in (citation_group.get("parts") or []) if isinstance(part, dict)
+                ]
+        required = frozenset({
+            "id", "attachmentId", "adjustmentKind", "adjustmentLabel",
+            "label", "citationSites", "tieOutText",
+        })
+        seen_ids: set[str] = set()
+        kinds_by_part: dict[tuple[str, str], str] = {}
+        expected_ids_by_part: dict[tuple[str, str], set[str]] = {}
+        groups_by_part: dict[tuple[str, str], set[str]] = {}
+        for index, group in enumerate(groups):
+            path = f"$.provenanceGroups[{index}]"
+            _require_keys(group, required, frozenset(), path)
+            for key in (
+                "id", "attachmentId", "adjustmentKind", "adjustmentLabel", "label", "tieOutText",
+            ):
+                if not isinstance(group[key], str) or not group[key]:
+                    raise PresentationModelError(f"{path}.{key}: expected non-empty string")
+            if group["id"] in seen_ids:
+                raise PresentationModelError(f"{path}.id: duplicate provenance group id {group['id']!r}")
+            seen_ids.add(group["id"])
+            attachment_id = group["attachmentId"]
+            if attachment_id not in published_group_ids:
+                raise PresentationModelError(
+                    f"{path}.attachmentId: {attachment_id!r} is not a published citation group"
+                )
+            part_key = (attachment_id, group["adjustmentLabel"])
+            prior_kind = kinds_by_part.get(part_key)
+            if prior_kind is not None and prior_kind != group["adjustmentKind"]:
+                raise PresentationModelError(
+                    f"{path}: adjustmentKind {group['adjustmentKind']!r} conflicts with the other groups for adjustmentLabel {group['adjustmentLabel']!r}"
+                )
+            kinds_by_part[part_key] = group["adjustmentKind"]
+            matching_parts = [
+                part for part in parts_by_attachment.get(attachment_id, [])
+                if part.get("heading") == group["adjustmentLabel"]
+            ]
+            if len(matching_parts) != 1:
+                raise PresentationModelError(
+                    f"{path}.adjustmentLabel: {group['adjustmentLabel']!r} does not uniquely identify an adjustment part on {attachment_id!r}"
+                )
+            displayed_kind = matching_parts[0].get("adjustmentKind")
+            if not isinstance(displayed_kind, str) or not displayed_kind:
+                raise PresentationModelError(
+                    f"{path}.adjustmentKind: displayed adjustment does not declare its producer kind"
+                )
+            if group["adjustmentKind"] != displayed_kind:
+                raise PresentationModelError(
+                    f"{path}.adjustmentKind: does not match the displayed adjustment kind"
+                )
+            sites = group["citationSites"]
+            if not isinstance(sites, list) or not sites:
+                raise PresentationModelError(f"{path}.citationSites: expected a non-empty list")
+            site_ids: set[str] = set()
+            for site_index, site in enumerate(sites):
+                _validate_citation_site(site, f"{path}.citationSites[{site_index}]")
+                site_id = site["siteId"]
+                if site_id in site_ids:
+                    raise PresentationModelError(f"{path}.citationSites: duplicate site id {site_id!r}")
+                site_ids.add(site_id)
+            if group["id"] in {site["pinId"] for site in sites}:
+                raise PresentationModelError(f"{path}: grouping id must not be presented as a citation pin")
+            groups_by_part.setdefault(part_key, set()).add(group["id"])
+
+        # Each derived adjustment row is one and only one provenance group.
+        # The row's citation sites are the structural join available in this
+        # presentation-only model; this keeps cardinality checking generic
+        # and avoids teaching the validator tax-specific fact identities.
+        for attachment_id, parts in parts_by_attachment.items():
+            for part in parts:
+                label = part.get("heading")
+                if not isinstance(label, str):
+                    continue
+                part_key = (attachment_id, label)
+                expected = {
+                    site["pinId"]
+                    for site in part.get("citationSites", [])
+                    if isinstance(site, Mapping)
+                    and isinstance(site.get("pinId"), str)
+                    and site["pinId"].startswith("finding:derived:")
+                }
+                if expected:
+                    expected_ids_by_part[part_key] = expected
+                    actual = groups_by_part.get(part_key, set())
+                    if actual != expected:
+                        raise PresentationModelError(
+                            f"$.provenanceGroups: expected exactly one group for each contributing finding on {attachment_id!r}/{label!r}"
+                        )
+        for part_key in groups_by_part:
+            if part_key not in expected_ids_by_part:
+                raise PresentationModelError(
+                    f"$.provenanceGroups: group has no contributing finding on {part_key[0]!r}/{part_key[1]!r}"
+                )
 
     if not isinstance(model["unsupportedSourceFindings"], list):
         raise PresentationModelError("$.unsupportedSourceFindings: expected a list")
