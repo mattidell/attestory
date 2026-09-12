@@ -293,21 +293,16 @@ class _ReportGroup:
 class NomineeIdentityError(ValueError):
     """A nominee-relevant source carries unusable or inconsistent identity.
 
-    This is a loud, **execution-time** stop -- never a filter. A report or
+    This is a loud stop -- never a filter. A report or
     allocation that this run is supposed to consider must not disappear because
     its identity metadata is missing or disagrees with itself: silently dropping
     it would turn a real allocation into C0, a cross-year exclusion, or a
     smaller successful total -- all of which are wrong *tax* answers presented
-    as ordinary ones.
-
-    Scope, stated precisely because it is easy to overstate: this is **not** an
-    intake or admission gate and **not** a product ``Refusal``. The recording
-    contracts admit these values long before this coordinator sees them, and
-    through ``live_coordinate_run`` this exception is raised *after* output
-    paths are reserved and the start record is appended, leaving an open run
-    and empty reserved outputs. See the milestone plan, "Substrate boundary --
-    non-injective fact-id rendering", and the regression that pins that
-    measured state.
+    as ordinary ones. On the production path, the same check runs as a bounded
+    preflight and is converted to the live coordinator's typed
+    ``NOMINEE_IDENTITY`` refusal before output reservation or a start record.
+    The exception remains available as an in-run defense for fixture and
+    lower-level coordinator callers.
     """
 
 
@@ -491,6 +486,22 @@ def _build_universe(
     return universe
 
 
+def validate_nominee_identity_sources(
+    sources: Sequence[SourceFact], *, reporting_year: int | None
+) -> None:
+    """Validate the current nominee sources before a production run starts.
+
+    The production marshaller supplies the exact current report and allocation
+    sources that the v38 nominee rule can consume.  Reusing the same universe
+    builder here keeps the pre-run boundary identical to the in-run guard:
+    every relevant source is checked before year filtering, while unrelated
+    return facts remain outside this bounded identity policy.  The builder's
+    return value is intentionally discarded; this is an identity check, not a
+    second calculation or a source-selection path.
+    """
+    _build_universe(sources, reporting_year=reporting_year)
+
+
 def _shared_pins(run: Any, rule: Mapping[str, Any]) -> list[dict[str, Any]]:
     rule_pin = {
         "role": rule.get("role", "computation"),
@@ -562,6 +573,63 @@ def _reduction_blocks(run: Any) -> list[dict[str, Any]]:
         and isinstance(row.get("symbol"), str)
         and row["symbol"].startswith(prefix)
     ]
+
+
+def _aggregate_block_details(
+    blocked: Sequence[Mapping[str, Any]],
+) -> tuple[str, list[str]]:
+    """Propagate the truthful cause when a nominee group blocks aggregation.
+
+    ``NOMINEE_ALLOCATIONS_EXCEED_REPORT`` is specific to an over-allocation
+    group.  An absent current report is a different failure and must not be
+    relabeled as an over-allocation merely because it prevents the same
+    aggregate.  Preserve the strongest dependency cause and its missing ids;
+    retain the established over-allocation code when every blocked group has
+    that cause (and no missing dependency).
+    """
+    rows = list(blocked)
+    absent_missing = sorted(
+        {
+            str(missing)
+            for row in rows
+            if row.get("code") == DEPENDENCY_ABSENT
+            for missing in row.get("missing", [])
+            if isinstance(missing, str)
+        }
+    )
+    if absent_missing or any(row.get("code") == DEPENDENCY_ABSENT for row in rows):
+        return DEPENDENCY_ABSENT, absent_missing
+
+    invalid_missing = sorted(
+        {
+            str(missing)
+            for row in rows
+            if row.get("code") == DEPENDENCY_INVALID
+            for missing in row.get("missing", [])
+            if isinstance(missing, str)
+        }
+    )
+    if invalid_missing or any(row.get("code") == DEPENDENCY_INVALID for row in rows):
+        return DEPENDENCY_INVALID, invalid_missing
+
+    if rows and all(
+        row.get("code") in {None, NOMINEE_ALLOCATIONS_EXCEED_REPORT}
+        for row in rows
+    ):
+        return NOMINEE_ALLOCATIONS_EXCEED_REPORT, []
+
+    # This is a defensive fallback for a future nominee-group block code.  A
+    # generic invalid dependency is safer than naming a cause the row did not
+    # establish, while preserving any explicit missing identifiers.
+    missing = sorted(
+        {
+            str(item)
+            for row in rows
+            for item in row.get("missing", [])
+            if isinstance(item, str)
+        }
+    )
+    return DEPENDENCY_INVALID, missing
 
 
 def nominee_activity_present(run: Any) -> bool:
@@ -676,10 +744,11 @@ def dispatch_nominee_aggregate_producer_on_run(
             pins.extend(
                 dict(pin) for pin in row.get("pins", []) if isinstance(pin, Mapping)
             )
+        block_code, block_missing = _aggregate_block_details(blocked)
         run.record_named_block(
             rule_id=rule["id"],
-            code=NOMINEE_ALLOCATIONS_EXCEED_REPORT,
-            missing=[],
+            code=block_code,
+            missing=block_missing,
             pins=_sorted_pins(pins),
             symbol=DERIVED_NOMINEE_SYMBOL,
         )
@@ -734,14 +803,15 @@ def dispatch_nominee_aggregate_on_run(run: Any, rule: Mapping[str, Any]) -> str:
         pins = list(_shared_pins(run, rule))
         for row in blocked:
             pins.extend(dict(pin) for pin in row.get("pins", []) if isinstance(pin, Mapping))
+        block_code, block_missing = _aggregate_block_details(blocked)
         run.record_named_block(
             rule_id=rule["id"],
-            code=NOMINEE_ALLOCATIONS_EXCEED_REPORT,
-            # The v2 record contract requires this causal block code to carry
-            # no missing dependency.  The report-scoped rows retain their
-            # own symbols/pins; the aggregate is a single dependent block,
-            # not a second synthetic missing fact.
-            missing=[],
+            # The report-scoped rows retain their own symbols/pins; the
+            # aggregate is a single dependent block, not a second synthetic
+            # group outcome.  Preserve an absent-report cause instead of
+            # relabeling it as over-allocation.
+            code=block_code,
+            missing=block_missing,
             pins=_sorted_pins(pins),
             symbol=DERIVED_NOMINEE_SYMBOL,
         )

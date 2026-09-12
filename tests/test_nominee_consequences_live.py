@@ -29,7 +29,6 @@ from packages.tax.nominee_consequences import (
     NOMINEE_ALLOCATIONS_EXCEED_REPORT,
     PUBLISHES,
     RULE_ID,
-    NomineeIdentityError,
 )
 from packages.tax.report_statement_identity import (
     derive_1099int_box1_fact_id,
@@ -719,63 +718,72 @@ class NomineeConsequencesLive(unittest.TestCase):
         year scoping presented as an ordinary answer.
         """
         recipient = "demo.recipient.pat,tax-year=1999"
-        with self.assertRaises(NomineeIdentityError) as caught:
-            self._live(_c1_acts(recipient=recipient), "demo.run.nominee-comma-recipient")
-        self.assertIn("ambiguously rendered", str(caught.exception))
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp) / "L"
+            acts = _c1_acts(recipient=recipient)
+            outcome = live_coordinate_run(
+                WorkspaceCapability(root),
+                repo_root=ROOT,
+                authoritative_acts=acts,
+                workspace_revision=len(acts),
+                run_scope=SCOPE,
+                scope_user=USER,
+                request={"schema": "run-request.v1"},
+                run_id="demo.run.nominee-comma-recipient",
+                governance_pins=[],
+                surface=_surface(),
+                output_name="out.json",
+            )
+            self.assertIsNotNone(outcome.refusal)
+            assert outcome.refusal is not None
+            self.assertEqual(outcome.refusal.reason, "NOMINEE_IDENTITY")
+            self.assertIn("ambiguously rendered", outcome.refusal.detail)
+            self.assertIsNone(outcome.run_id)
+            self.assertIsNone(outcome.output_path)
+            self.assertIsNone(outcome.presentation_path)
+            self.assertFalse((root / "records" / "derivation_records.jsonl").exists())
+            self.assertFalse((root / "outputs").exists())
         # Critically: it did NOT quietly scope the run to 1999.
-        self.assertNotIn("1999 is the reporting year", str(caught.exception))
+        self.assertNotIn("1999 is the reporting year", outcome.refusal.detail)
 
-    def test_identity_guard_is_an_in_flight_exception_not_a_pre_run_refusal(self) -> None:
-        """Observe the CURRENT failure boundary so nobody can misdescribe it.
+    def test_identity_guard_is_a_clean_pre_run_refusal(self) -> None:
+        """The production identity boundary has no durable run effects.
 
-        NomineeIdentityError is an execution-time guard. Through
-        live_coordinate_run it is raised *after* output paths are reserved and
-        the derivation start record is appended, so it leaves an OPEN run and
-        EMPTY reserved output files. It is not a pre-run refusal and not a
-        Refusal-shaped product outcome.
+        The bounded nominee identity check runs after package resolution,
+        projection, and marshalling, but before output paths are reserved or
+        the derivation start record is appended. It returns the live
+        coordinator's typed refusal instead of leaking NomineeIdentityError.
 
-        This test exists to pin that measured state. If a later change makes
-        the boundary a clean product refusal, this test must fail and be
-        rewritten deliberately -- not quietly re-described. See the milestone
-        plan's "Substrate boundary -- non-injective fact-id rendering".
+        This test pins the selected bounded behavior: no run id, output or
+        presentation path, reserved empty output, or started/completed record.
         """
         acts = _c1_acts(recipient="demo.recipient.pat,tax-year=1999")
         with TemporaryDirectory() as tmp:
             root = Path(tmp) / "L"
-            with self.assertRaises(NomineeIdentityError):
-                live_coordinate_run(
-                    WorkspaceCapability(root),
-                    repo_root=ROOT,
-                    authoritative_acts=acts,
-                    workspace_revision=len(acts),
-                    run_scope=SCOPE,
-                    scope_user=USER,
-                    request={"schema": "run-request.v1"},
-                    run_id="demo.run.nominee-identity-boundary",
-                    governance_pins=[],
-                    surface=_surface(),
-                    output_name="out.json",
-                )
-
-            # The start record was already appended: the run is left OPEN.
-            records_path = root / "records" / "derivation_records.jsonl"
-            self.assertTrue(records_path.exists(), "no derivation record was written")
-            records = [
-                json.loads(line)
-                for line in records_path.read_text("utf-8").splitlines()
-                if line.strip()
-            ]
-            phases = [record.get("phase") for record in records]
-            self.assertIn("started", phases)
-            self.assertNotIn(
-                "completed", phases, "a completed record would mean this is not the boundary"
+            outcome = live_coordinate_run(
+                WorkspaceCapability(root),
+                repo_root=ROOT,
+                authoritative_acts=acts,
+                workspace_revision=len(acts),
+                run_scope=SCOPE,
+                scope_user=USER,
+                request={"schema": "run-request.v1"},
+                run_id="demo.run.nominee-identity-boundary",
+                governance_pins=[],
+                surface=_surface(),
+                output_name="out.json",
             )
+            self.assertIsNotNone(outcome.refusal)
+            assert outcome.refusal is not None
+            self.assertEqual(outcome.refusal.reason, "NOMINEE_IDENTITY")
+            self.assertIn("ambiguously rendered", outcome.refusal.detail)
+            self.assertIsNone(outcome.run_id)
+            self.assertIsNone(outcome.output_path)
+            self.assertIsNone(outcome.presentation_path)
 
-            # Output paths were reserved and left EMPTY.
-            for name in ("out.json", "out.presentation.json"):
-                reserved = root / "outputs" / name
-                self.assertTrue(reserved.exists(), f"{name} was not reserved")
-                self.assertEqual(reserved.stat().st_size, 0, f"{name} is not empty")
+            records_path = root / "records" / "derivation_records.jsonl"
+            self.assertFalse(records_path.exists())
+            self.assertFalse((root / "outputs").exists())
 
     def test_two_punctuation_bearing_reports_stay_isolated(self) -> None:
         """One real live run with TWO punctuation-bearing reports.
