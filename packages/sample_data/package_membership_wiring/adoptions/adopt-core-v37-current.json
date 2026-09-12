@@ -1,0 +1,28 @@
+{
+  "act_id": "demo.act.adopt.core.v37",
+  "actor": "demo.user.filer-1",
+  "at": "2026-09-11T12:00:00Z",
+  "committed_against": 0,
+  "kind": "package-adoption",
+  "payload": {
+    "audit": {
+      "note": "synthetic Track 1 v37 adoption of coherent nominee-interest return graph; non-authoritative"
+    },
+    "package": {
+      "checksum": "4e77ac57551f0bfb33b3ea9a1b705993e2fd3a9ee749e92046f28d6816fa5781",
+      "id": "tax.us.2025.package.core-calculations",
+      "version": "v37"
+    },
+    "release": {
+      "checksum": "79c0e6207d8f2254368b4877dfb6c510866076f72f25739318ba3ac3c9e48b93",
+      "id": "demo.release.2025",
+      "version": "v30"
+    },
+    "revision": 37,
+    "scope": {
+      "jurisdiction": "us",
+      "year": "2025"
+    }
+  },
+  "schema": "act.v1"
+}
