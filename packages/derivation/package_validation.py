@@ -61,18 +61,25 @@ def _families_reached(
     reached: set[tuple[str, str]] = set()
     schema = citizen.get("schema")
 
-    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}:
+    if schema in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9"}:
         for symbol in citizen.get("requires", []):
             if symbol in families_by_subtotal:
                 reached.add((families_by_subtotal[symbol], "reads_subtotal"))
-        for key in ("when", "value"):
-            for family_id in _iter_source_sets(citizen.get(key)):
+        for expression in _rule_expression_nodes(citizen):
+            for family_id in _iter_source_sets(expression):
                 reached.add((family_id, "itemizes_members"))
 
-    elif schema in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
-        for symbol in citizen.get("requirement", {}).get("subtotals", []):
+    elif schema in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
+        requirement = citizen.get("requirement", {})
+        for symbol in requirement.get("subtotals", []):
             if symbol in families_by_subtotal:
                 reached.add((families_by_subtotal[symbol], "reads_subtotal"))
+        for trigger in requirement.get("triggers", []):
+            if not isinstance(trigger, dict):
+                continue
+            for symbol in trigger.get("subtotals", []):
+                if symbol in families_by_subtotal:
+                    reached.add((families_by_subtotal[symbol], "reads_subtotal"))
         for item in citizen.get("itemizations", []):
             for family_id in _iter_source_sets(item):
                 reached.add((family_id, "itemizes_members"))
@@ -190,7 +197,7 @@ def _predicate_depth(node: Any) -> int:
 
 _RULE_ROLES = frozenset({"computation", "applicability", "field-mapping", "cross-form-bridge"})
 _RULE_ARTIFACT_SCHEMAS = frozenset(
-    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}
+    {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9"}
 )
 _SCOPE_KEYS = ("tax_year", "jurisdiction", "family")
 
@@ -227,6 +234,47 @@ _V6_ADJUSTMENT_SLOTS = (
     ("tax.us.2025.scheduleb.adjustment.nominee", "tax.us.2025.interest.scheduleb-nominee-subtotal"),
     ("tax.us.2025.scheduleb.adjustment.abp-adjustment", "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal"),
 )
+
+# Bounded nominee-return successor route: legacy and dispatcher-B nominee
+# subtotals are declared as an exclusive runtime union.  The derived subtotal
+# has no source-family closure read; only the legacy and ABP families remain
+# closure-backed slots.
+_V7_ADJUSTMENT_SUBTOTALS = (
+    "tax.us.2025.interest.scheduleb-nominee-subtotal",
+    "tax.us.2025.interest.derived-nominee-subtotal",
+    "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal",
+)
+_V7_ADJUSTMENT_FAMILIES = (
+    "tax.us.2025.scheduleb.adjustment.nominee",
+    "tax.us.2025.scheduleb.adjustment.abp-adjustment",
+)
+
+# The v9 contract is deliberately recognized by exact identity rather than by
+# a generic schema-version test.  General syntax remains schema-valid, but it
+# does not acquire a runtime binding path merely by copying these fields.
+_DECLARED_LINE2B_ID = "tax.us.2025.rule.form1040-line2b"
+_DECLARED_LINE2B_VERSION = "v8"
+_NOMINEE_AGGREGATE_ID = "tax.us.2025.rule.interest.derived-nominee-subtotal"
+_NOMINEE_AGGREGATE_VERSION = "v1"
+_NOMINEE_REDUCTION_ID = "tax.us.2025.rule.interest.nominee-reduction"
+_NOMINEE_REDUCTION_VERSION = "v1"
+_NOMINEE_REDUCTION_FACT_TYPE = "tax.us.2025.interest.nominee-reduction"
+_NOMINEE_REDUCTION_SYMBOL_PREFIX = _NOMINEE_REDUCTION_FACT_TYPE + "|"
+_DECLARED_LINE2B_BASE_REQUIRES = frozenset({
+    "tax.us.2025.interest.b1-subtotal",
+    "tax.us.2025.interest.b3-subtotal",
+    "tax.us.2025.interest.oid-subtotal",
+    "tax.us.2025.interest.non-form-subtotal",
+    "tax.us.2025.interest.form1065-k1-box5-subtotal",
+    "tax.us.2025.interest.b10-market-discount-subtotal",
+    "tax.us.2025.interest.oid-b5-market-discount-subtotal",
+    "tax.us.2025.interest.scheduleb-abp-adjustment-subtotal",
+    "tax.us.2025.interest.current-year-adjustment-subtotal",
+})
+_DECLARED_LINE2B_LEGACY_SUBTOTAL = "tax.us.2025.interest.scheduleb-nominee-subtotal"
+_DECLARED_LINE2B_DERIVED_SUBTOTAL = "tax.us.2025.interest.derived-nominee-subtotal"
+_DECLARED_LINE2B_LEGACY_FAMILY = "tax.us.2025.scheduleb.adjustment.nominee"
+_DECLARED_LINE2B_LEGACY_MEMBER = "tax.us.2025.scheduleb.adjustment.nominee.amount"
 
 # Pairing-scoped current-year-adjustment subtotal consumed by line-2b v5
 # (coexistence) and v6 (the migrated, single-subtractand successor).
@@ -267,7 +315,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "attachment-rule.v4",
     "attachment-rule.v5",
     "attachment-rule.v6",
-    "attachment-rule.v8",
+    "attachment-rule.v8", "attachment-rule.v11",
     "bundle.v1",
     "bundle.v2",
     "checked-conclusion-binding.v1",
@@ -305,6 +353,7 @@ _SUPPORTED_SEMANTIC_SCHEMAS = frozenset({
     "rule-artifact.v6",
     "rule-artifact.v7",
     "rule-artifact.v8",
+    "rule-artifact.v9",
     "source-closure-mapping.v2",
     "source-family.v1",
     "source-family.v2",
@@ -518,6 +567,66 @@ def _iter_ref_names(expr: Any) -> Iterable[str]:
             yield from _iter_ref_names(item)
 
 
+_BOUNDED_SELECTION_DYNAMIC_OPS = frozenset({
+    "bound_sources",
+    "bracket_fold",
+    "category_literal",
+    "categorical_compare",
+    "collect",
+    "collect_categorical_all_equal",
+    "conditional_dependency_set",
+    "count",
+    "parameter",
+    "range_lookup",
+    "require_closed",
+    "round",
+})
+
+
+def _iter_bounded_selection_dynamic_ops(expr: Any) -> Iterable[str]:
+    """Yield dynamic evaluator nodes outside the bounded path contract.
+
+    The v9 expression grammar is intentionally broader than the selected
+    nominee path.  A path/default may use ordinary refs and arithmetic, but a
+    source-set, parameter, table, categorical, rounding, or conditional
+    dependency node would need its own declaration and provenance surface.
+    Reject every such node here rather than letting one of the older walkers
+    miss a newly-added operation (for example ``count`` or
+    ``conditional_dependency_set``).
+    """
+    if isinstance(expr, dict):
+        op = expr.get("op")
+        if isinstance(op, str) and op in _BOUNDED_SELECTION_DYNAMIC_OPS:
+            yield op
+        for value in expr.values():
+            yield from _iter_bounded_selection_dynamic_ops(value)
+    elif isinstance(expr, list):
+        for item in expr:
+            yield from _iter_bounded_selection_dynamic_ops(item)
+
+
+def _rule_expression_nodes(citizen: Mapping[str, Any]) -> tuple[Any, ...]:
+    """Return every expression declared by an ordinary or v9 rule.
+
+    v9 keeps the evaluator grammar unchanged but moves the selected line-2b
+    expressions under ``selection``.  The aggregate producer has no value
+    expression.  Centralizing this walk keeps package reachability,
+    parameter closure, and the structural guards honest without inventing a
+    second expression language.
+    """
+    nodes: list[Any] = [citizen.get("when"), citizen.get("value")]
+    selection = citizen.get("selection")
+    if isinstance(selection, Mapping):
+        nodes.append(selection)
+        for path in selection.get("paths", []):
+            if isinstance(path, Mapping):
+                nodes.extend((path.get("when"), path.get("value")))
+        default = selection.get("default")
+        if isinstance(default, Mapping):
+            nodes.extend((default.get("when"), default.get("value")))
+    return tuple(nodes)
+
+
 def _iter_ref_field_bindings(expr: Any) -> Iterable[tuple[str, str]]:
     """Yield ``(name, field)`` for every ``ref`` node that names a field."""
     if isinstance(expr, dict):
@@ -698,7 +807,7 @@ def compile_validation_graph(
 
     for member in resolved_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
             compiled.append(member)
             continue
 
@@ -769,7 +878,7 @@ def check_validation_graph(
 
     for member in compiled_members:
         schema_val = member.get("schema")
-        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if schema_val not in {"rule-artifact.v1", "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9", "attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
             continue
 
         artifact_id = member["id"]
@@ -901,6 +1010,11 @@ def validate_package(
         for pin, citizen in resolved
         if citizen["schema"] == "citation.v1" and pin["role"] == "citation"
     }
+    parameter_keys = {
+        _corpus_key(pin["id"], pin["version"])
+        for pin, citizen in resolved
+        if citizen["schema"] == "parameter-declaration.v1"
+    }
     produced: dict[str, list[str]] = {}
 
     admitted = package.get("admitted_schemas", [])
@@ -1026,9 +1140,10 @@ def validate_package(
             if pin_role != citizen["role"]:
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"package role {pin_role!r} != rule role {citizen['role']!r}"))
-            bound_names = set(_iter_bound_source_names(citizen.get("when"))) | set(
-                _iter_bound_source_names(citizen.get("value"))
-            )
+            bound_names = {
+                name for expression in _rule_expression_nodes(citizen)
+                for name in _iter_bound_source_names(expression)
+            }
             from packages.tax.nominee_consequences import BOUND_SOURCE_RULE_IDS
 
             if bound_names and citizen["id"] not in BOUND_SOURCE_RULE_IDS:
@@ -1042,12 +1157,18 @@ def validate_package(
                 confused_symbols = sorted({
                     name for name in (
                         set(citizen.get("requires", []))
-                        | set(_iter_ref_names(citizen.get("when")))
-                        | set(_iter_ref_names(citizen.get("value")))
-                        | set(_iter_collect_source_sets(citizen.get("when")))
-                        | set(_iter_collect_source_sets(citizen.get("value")))
-                        | set(_iter_require_closed_source_sets(citizen.get("when")))
-                        | set(_iter_require_closed_source_sets(citizen.get("value")))
+                        | {
+                            ref for expression in _rule_expression_nodes(citizen)
+                            for ref in _iter_ref_names(expression)
+                        }
+                        | {
+                            source_set for expression in _rule_expression_nodes(citizen)
+                            for source_set in _iter_collect_source_sets(expression)
+                        }
+                        | {
+                            source_set for expression in _rule_expression_nodes(citizen)
+                            for source_set in _iter_require_closed_source_sets(expression)
+                        }
                     )
                     if "covered-w" in name
                 })
@@ -1107,7 +1228,7 @@ def validate_package(
             if pin_role != "checked-conclusion-binding":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"checked-conclusion-binding declared as role {pin_role!r}"))
-        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        elif citizen["schema"] in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
             if pin_role != "attachment-rule":
                 issues.append(MemberIssue(pin["id"], pin["version"], "ROLE_MISMATCH",
                                            f"attachment-rule declared as role {pin_role!r}"))
@@ -1124,9 +1245,10 @@ def validate_package(
 
         if citizen["schema"] in _RULE_ARTIFACT_SCHEMAS:
             produced.setdefault(citizen["publishes"], []).append(pin["id"])
-            for ref in set(_iter_parameter_and_table_refs(citizen["when"])) | set(
-                _iter_parameter_and_table_refs(citizen["value"])
-            ):
+            for ref in {
+                name for expression in _rule_expression_nodes(citizen)
+                for name in _iter_parameter_and_table_refs(expression)
+            }:
                 if ref not in member_ids:
                     issues.append(MemberIssue(pin["id"], pin["version"], "CLOSURE_MISSING_PARAMETER",
                                               f"references {ref!r}, absent from package"))
@@ -1163,6 +1285,381 @@ def validate_package(
             if cit_pin and _corpus_key(cit_pin["id"], cit_pin["version"]) not in citation_keys:
                 issues.append(MemberIssue(pin["id"], pin["version"], "CITATION_ABSENT",
                                           f"form-field citation {(cit_pin['id'], cit_pin['version'])} is not an exact citation package member"))
+
+    # 2b. Bounded declared nominee contract.  The v9 schema is intentionally
+    # generic enough to carry a future declarative shape, but only this exact
+    # line-2b successor and its distinct aggregate producer are authorized in
+    # this package family.  This keeps copied syntax inspectable and inert.
+    resolved_by_key = {
+        (pin["id"], pin["version"]): citizen for pin, citizen in resolved
+    }
+    declared_line2b = resolved_by_key.get((_DECLARED_LINE2B_ID, _DECLARED_LINE2B_VERSION))
+    aggregate_key = (_NOMINEE_AGGREGATE_ID, _NOMINEE_AGGREGATE_VERSION)
+    aggregate_member = resolved_by_key.get(aggregate_key)
+
+    def _contract_issue(
+        member: Mapping[str, Any], code: str, detail: str
+    ) -> None:
+        issues.append(MemberIssue(
+            str(member.get("id", package_id)),
+            str(member.get("version", package.get("version", ""))),
+            code,
+            detail,
+        ))
+
+    for _pin, citizen in resolved:
+        if citizen.get("schema") != "rule-artifact.v9":
+            continue
+        selection = citizen.get("selection")
+        aggregation = citizen.get("aggregation")
+        if selection is not None or aggregation is not None:
+            if (
+                citizen.get("when") is not True
+                or citizen.get("requires") != []
+                or citizen.get("pins") != []
+            ):
+                _contract_issue(
+                    citizen,
+                    "RULE_DECLARATIVE_TOP_LEVEL_INVALID",
+                    "v9 selection and aggregation variants must keep top-level "
+                    "when=true, requires=[], and pins=[]; execution uses their "
+                    "declared sub-shape instead",
+                )
+        if selection is not None:
+            authorized = (
+                citizen.get("id") == _DECLARED_LINE2B_ID
+                and citizen.get("version") == _DECLARED_LINE2B_VERSION
+            )
+            if not authorized:
+                _contract_issue(
+                    citizen,
+                    "RULE_SELECTION_UNAUTHORIZED",
+                    "rule-artifact.v9 selection is authorized only for the exact "
+                    "tax.us.2025.rule.form1040-line2b@v8 successor",
+                )
+                continue
+            if citizen.get("requires") or citizen.get("pins"):
+                _contract_issue(
+                    citizen,
+                    "RULE_SELECTION_TOP_LEVEL_GATE",
+                    "the bounded line-2b selection keeps inactive paths out of "
+                    "top-level eligibility; top-level requires and pins must be empty",
+                )
+            raw_paths = selection.get("paths", [])
+            raw_path_ids = [
+                path.get("id") for path in raw_paths if isinstance(path, Mapping)
+            ]
+            if len(raw_path_ids) != len(set(raw_path_ids)):
+                _contract_issue(
+                    citizen,
+                    "RULE_SELECTION_PATH_IDS_NOT_UNIQUE",
+                    "line-2b selection paths must have unique ids; duplicate "
+                    "objects may not be collapsed into one executable path",
+                )
+                continue
+            paths = {
+                str(path.get("id")): path
+                for path in raw_paths
+                if isinstance(path, Mapping)
+            }
+            expected_paths = {"legacy", "new"}
+            if set(paths) != expected_paths:
+                _contract_issue(
+                    citizen,
+                    "RULE_SELECTION_SHAPE_INVALID",
+                    f"line-2b selection must declare exactly legacy/new paths, got {sorted(paths)}",
+                )
+            expected_activity = {
+                "legacy": {
+                    "kind": "source_nonempty",
+                    "source_family": {
+                        "id": _DECLARED_LINE2B_LEGACY_FAMILY,
+                        "version": "v1",
+                    },
+                    "member_fact_type": {
+                        "id": _DECLARED_LINE2B_LEGACY_MEMBER,
+                        "version": "v1",
+                    },
+                },
+                "new": {
+                    "kind": "derived_activity",
+                    "fact_type": {
+                        "id": _NOMINEE_REDUCTION_FACT_TYPE,
+                        "version": "v1",
+                    },
+                },
+            }
+            contract_source_families = {
+                (pin["id"], pin["version"]): family
+                for pin, family in resolved
+                if family.get("schema") in {"source-family.v1", "source-family.v2"}
+            }
+            expected_requires = {
+                "legacy": _DECLARED_LINE2B_BASE_REQUIRES | {
+                    _DECLARED_LINE2B_LEGACY_SUBTOTAL,
+                },
+                "new": _DECLARED_LINE2B_BASE_REQUIRES | {
+                    _DECLARED_LINE2B_DERIVED_SUBTOTAL,
+                },
+            }
+            for path_id, expected in expected_activity.items():
+                path = paths.get(path_id)
+                if path is None:
+                    continue
+                if path.get("activity") != expected:
+                    _contract_issue(
+                        citizen,
+                        "RULE_SELECTION_ACTIVITY_INVALID",
+                        f"line-2b {path_id} path activity does not name the "
+                        "adopted legacy source or derived nominee fact type",
+                    )
+                activity = path.get("activity")
+                if isinstance(activity, Mapping):
+                    if path_id == "legacy":
+                        family_pin = activity.get("source_family")
+                        family = (
+                            contract_source_families.get((family_pin.get("id"), family_pin.get("version")))
+                            if isinstance(family_pin, Mapping)
+                            else None
+                        )
+                        member_pin = activity.get("member_fact_type")
+                        member_key = (
+                            (member_pin.get("id"), member_pin.get("version"))
+                            if isinstance(member_pin, Mapping)
+                            else (None, None)
+                        )
+                        expected_member_key = (
+                            _DECLARED_LINE2B_LEGACY_MEMBER,
+                            "v1",
+                        )
+                        if (
+                            family is None
+                            or family.get("authorizes_subtotal") != _DECLARED_LINE2B_LEGACY_SUBTOTAL
+                            or family.get("member_predicate", {}).get("fact_type")
+                            != _DECLARED_LINE2B_LEGACY_MEMBER
+                            or member_key != expected_member_key
+                            or member_key not in fact_surface
+                        ):
+                            _contract_issue(
+                                citizen,
+                                "RULE_SELECTION_ACTIVITY_SURFACE_INVALID",
+                                "line-2b legacy activity must resolve to its admitted "
+                                "nominee source family and member fact type",
+                            )
+                    else:
+                        fact_pin = activity.get("fact_type")
+                        fact_key = (
+                            (fact_pin.get("id"), fact_pin.get("version"))
+                            if isinstance(fact_pin, Mapping)
+                            else (None, None)
+                        )
+                        if fact_key != (_NOMINEE_REDUCTION_FACT_TYPE, "v1") or fact_key not in fact_surface:
+                            _contract_issue(
+                                citizen,
+                                "RULE_SELECTION_ACTIVITY_SURFACE_INVALID",
+                                "line-2b new activity must resolve to the admitted "
+                                "nominee-reduction fact type",
+                            )
+                actual_requires = set(path.get("requires", []))
+                if actual_requires != expected_requires[path_id]:
+                    _contract_issue(
+                        citizen,
+                        "RULE_SELECTION_DEPENDENCIES_INVALID",
+                        f"line-2b {path_id} path requires {sorted(actual_requires)}, "
+                        f"expected {sorted(expected_requires[path_id])}",
+                    )
+                when_refs = set(_iter_ref_names(path.get("when")))
+                value_refs = set(_iter_ref_names(path.get("value")))
+                expression_refs = when_refs | value_refs
+                if expression_refs != actual_requires:
+                    _contract_issue(
+                        citizen,
+                        "RULE_SELECTION_EXPRESSION_INVALID",
+                        f"line-2b {path_id} when/value refs {sorted(expression_refs)} "
+                        "do not equal its selected dependency surface",
+                    )
+                dynamic_dependencies = {
+                    *(_iter_parameter_and_table_refs(path.get("when"))),
+                    *(_iter_parameter_and_table_refs(path.get("value"))),
+                    *(_iter_bound_source_names(path.get("when"))),
+                    *(_iter_bound_source_names(path.get("value"))),
+                    *(_iter_collect_source_sets(path.get("when"))),
+                    *(_iter_collect_source_sets(path.get("value"))),
+                    *(_iter_require_closed_source_sets(path.get("when"))),
+                    *(_iter_require_closed_source_sets(path.get("value"))),
+                    *(
+                        f"op:{op}"
+                        for op in _iter_bounded_selection_dynamic_ops(path.get("when"))
+                    ),
+                    *(
+                        f"op:{op}"
+                        for op in _iter_bounded_selection_dynamic_ops(path.get("value"))
+                    ),
+                }
+                if dynamic_dependencies:
+                    _contract_issue(
+                        citizen,
+                        "RULE_SELECTION_DYNAMIC_DEPENDENCY_INVALID",
+                        f"line-2b {path_id} uses unsupported dynamic dependency "
+                        f"nodes {sorted(dynamic_dependencies)} in the bounded "
+                        "path declaration",
+                    )
+                path_pins = path.get("pins")
+                pin_ids: list[str] = []
+                pins_valid = isinstance(path_pins, list)
+                if isinstance(path_pins, list):
+                    for pin in path_pins:
+                        if not isinstance(pin, Mapping):
+                            pins_valid = False
+                            continue
+                        pin_id = pin.get("id")
+                        if (
+                            pin.get("role") != "input"
+                            or pin.get("version") != "v1"
+                            or pin.get("origin") != "assertion"
+                            or not isinstance(pin_id, str)
+                        ):
+                            pins_valid = False
+                        elif isinstance(pin_id, str):
+                            pin_ids.append(pin_id)
+                if (
+                    not pins_valid
+                    or len(pin_ids) != len(set(pin_ids))
+                    or set(pin_ids) != actual_requires
+                ):
+                    _contract_issue(
+                        citizen,
+                        "RULE_SELECTION_PINS_INVALID",
+                        f"line-2b {path_id} path input pins do not equal its "
+                        "selected dependency surface with v1 assertion origins",
+                    )
+            default = selection.get("default", {})
+            default_requires = set(default.get("requires", [])) if isinstance(default, Mapping) else set()
+            expected_default = set(_DECLARED_LINE2B_BASE_REQUIRES)
+            if default.get("id") != "neither" or default_requires != expected_default:
+                _contract_issue(
+                    citizen,
+                    "RULE_SELECTION_DEFAULT_INVALID",
+                    "line-2b neither path must be the ordinary base plus ABP/current "
+                    "expression with no nominee dependency",
+                )
+            if isinstance(default, Mapping):
+                default_when_refs = set(_iter_ref_names(default.get("when")))
+                default_value_refs = set(_iter_ref_names(default.get("value")))
+                default_refs = default_when_refs | default_value_refs
+                if default_refs != default_requires:
+                    _contract_issue(
+                        citizen,
+                        "RULE_SELECTION_EXPRESSION_INVALID",
+                        "line-2b neither when/value refs do not equal its "
+                        "declared dependency surface",
+                    )
+                default_dynamic_dependencies = {
+                    *(_iter_parameter_and_table_refs(default.get("when"))),
+                    *(_iter_parameter_and_table_refs(default.get("value"))),
+                    *(_iter_bound_source_names(default.get("when"))),
+                    *(_iter_bound_source_names(default.get("value"))),
+                    *(_iter_collect_source_sets(default.get("when"))),
+                    *(_iter_collect_source_sets(default.get("value"))),
+                    *(_iter_require_closed_source_sets(default.get("when"))),
+                    *(_iter_require_closed_source_sets(default.get("value"))),
+                    *(
+                        f"op:{op}"
+                        for op in _iter_bounded_selection_dynamic_ops(default.get("when"))
+                    ),
+                    *(
+                        f"op:{op}"
+                        for op in _iter_bounded_selection_dynamic_ops(default.get("value"))
+                    ),
+                }
+                if default_dynamic_dependencies:
+                    _contract_issue(
+                        citizen,
+                        "RULE_SELECTION_DYNAMIC_DEPENDENCY_INVALID",
+                        "line-2b neither uses unsupported dynamic dependency "
+                        f"nodes {sorted(default_dynamic_dependencies)}",
+                    )
+                default_pins = default.get("pins")
+                default_pin_ids: list[str] = []
+                default_pins_valid = isinstance(default_pins, list)
+                if isinstance(default_pins, list):
+                    for pin in default_pins:
+                        if not isinstance(pin, Mapping):
+                            default_pins_valid = False
+                            continue
+                        pin_id = pin.get("id")
+                        if (
+                            pin.get("role") != "input"
+                            or pin.get("version") != "v1"
+                            or pin.get("origin") != "assertion"
+                            or not isinstance(pin_id, str)
+                        ):
+                            default_pins_valid = False
+                        elif isinstance(pin_id, str):
+                            default_pin_ids.append(pin_id)
+                if (
+                    not default_pins_valid
+                    or len(default_pin_ids) != len(set(default_pin_ids))
+                    or set(default_pin_ids) != default_requires
+                ):
+                    _contract_issue(
+                        citizen,
+                        "RULE_SELECTION_DEFAULT_INVALID",
+                        "line-2b neither pins must match its declared base "
+                        "dependency surface with v1 assertion origins",
+                    )
+            refusal = selection.get("refusal", {})
+            if (
+                refusal.get("code") != "DEPENDENCY_INVALID"
+                or refusal.get("missing") != ["legacy-and-derived-nominee-both-present"]
+                or refusal.get("pins") != []
+            ):
+                _contract_issue(
+                    citizen,
+                    "RULE_SELECTION_REFUSAL_INVALID",
+                    "line-2b both-active refusal must preserve the named "
+                    "legacy-and-derived-nominee-both-present policy",
+                )
+            if aggregate_member is None:
+                _contract_issue(
+                    citizen,
+                    "NOMINEE_AGGREGATE_PRODUCER_MISSING",
+                    "the declared line-2b successor requires the distinct nominee "
+                    "aggregate producer member",
+                )
+        if aggregation is not None:
+            if citizen.get("id") != _NOMINEE_AGGREGATE_ID or citizen.get("version") != _NOMINEE_AGGREGATE_VERSION:
+                _contract_issue(
+                    citizen,
+                    "NOMINEE_AGGREGATE_ID_INVALID",
+                    "the nominee aggregation shape is authorized only on the "
+                    "distinct derived-nominee-subtotal producer",
+                )
+                continue
+            expected_source_rule = {
+                "id": _NOMINEE_REDUCTION_ID,
+                "version": _NOMINEE_REDUCTION_VERSION,
+            }
+            expected_source_fact = {
+                "id": _NOMINEE_REDUCTION_FACT_TYPE,
+                "version": "v1",
+            }
+            if citizen.get("publishes") != _DECLARED_LINE2B_DERIVED_SUBTOTAL:
+                _contract_issue(citizen, "NOMINEE_AGGREGATE_OUTPUT_INVALID", "nominee aggregate must publish the derived nominee subtotal")
+            if aggregation.get("source_rule") != expected_source_rule or aggregation.get("source_fact_type") != expected_source_fact:
+                _contract_issue(citizen, "NOMINEE_AGGREGATION_SOURCE_INVALID", "nominee aggregate must enumerate the nominee-reduction fact type from its exact report rule")
+            if aggregation.get("source_symbol_prefix") != _NOMINEE_REDUCTION_SYMBOL_PREFIX:
+                _contract_issue(citizen, "NOMINEE_AGGREGATION_PREFIX_INVALID", "nominee aggregate must enumerate the suffixed nominee-reduction symbol prefix")
+            declared_source = aggregation.get("source_fact_type")
+            source_key = (
+                (declared_source.get("id"), declared_source.get("version"))
+                if isinstance(declared_source, Mapping)
+                else (None, None)
+            )
+            if source_key not in fact_surface:
+                _contract_issue(citizen, "NOMINEE_AGGREGATION_FACT_TYPE_ABSENT", "nominee aggregate source fact type is not in the package fact surface")
+            if (_NOMINEE_REDUCTION_ID, _NOMINEE_REDUCTION_VERSION) not in resolved_by_key:
+                _contract_issue(citizen, "NOMINEE_AGGREGATION_RULE_ABSENT", "nominee aggregate source rule is not an exact package member")
 
     # 3. Input bindings validation
     input_symbols = set()
@@ -1222,7 +1719,7 @@ def validate_package(
                                               f"quantity name {q_name!r} not in vocabulary quantities {quantities}"))
 
     # Helper to resolve input quantity
-    source_families = {}
+    source_families: dict[str, str] = {}
     for pin, citizen in resolved:
         if citizen["schema"] == "source-family.v1":
             source_families[citizen["authorizes_subtotal"]] = citizen["member_predicate"]["fact_type"]
@@ -1336,9 +1833,18 @@ def validate_package(
                     rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
                     and rule_pin["version"] == "v6"
                 )
+                v7_adjustment_route = (
+                    rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
+                    and rule_pin["version"] == "v7"
+                )
+                declared_selection_route = (
+                    rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
+                    and rule_pin["version"] == "v8"
+                    and rule_citizen.get("schema") == "rule-artifact.v9"
+                )
                 pairing_scoped_line2b = (
                     rule_pin["id"] == "tax.us.2025.rule.form1040-line2b"
-                    and rule_pin["version"] in {"v5", "v6"}
+                    and rule_pin["version"] in {"v5", "v6", "v7"}
                 )
                 if v11_adjustment_route:
                     expected_adjustment_subtotals = {
@@ -1348,6 +1854,8 @@ def validate_package(
                     expected_adjustment_subtotals = {
                         subtotal for _family, subtotal in _V6_ADJUSTMENT_SLOTS
                     }
+                elif v7_adjustment_route:
+                    expected_adjustment_subtotals = set(_V7_ADJUSTMENT_SUBTOTALS)
                 else:
                     expected_adjustment_subtotals = set()
                 expected_derived_subtotals = (
@@ -1356,7 +1864,14 @@ def validate_package(
                 expected_rule_requires = (
                     comp_constituents | expected_adjustment_subtotals | expected_derived_subtotals
                 )
-                if expected_rule_requires != rule_requires:
+                # v8's declared selection keeps all nominee and composition
+                # dependencies inside its selected/default path objects.  The
+                # v9 contract validator above checks each path's exact
+                # dependency, expression, and pin surface; requiring those
+                # inactive paths to be copied into the neutral top level would
+                # reintroduce the hidden dependency/activation this successor
+                # exists to remove.
+                if not declared_selection_route and expected_rule_requires != rule_requires:
                     issues.append(MemberIssue(comp_pin["id"], comp_pin["version"], "COMPOSITION_SLOT_BIJECTION_MISMATCH",
                                                f"composition constituents {expected_rule_requires} do not match rule requires {rule_requires}"))
                 family_slots: list[tuple[str, str, str]] = []
@@ -1398,20 +1913,29 @@ def validate_package(
                 elif v6_adjustment_route:
                     expected_subtotals.extend(subtotal for _family, subtotal in _V6_ADJUSTMENT_SLOTS)
                     expected_families.extend(family for family, _subtotal in _V6_ADJUSTMENT_SLOTS)
+                elif v7_adjustment_route:
+                    expected_subtotals.extend(_V7_ADJUSTMENT_SUBTOTALS)
+                    expected_families.extend(_V7_ADJUSTMENT_FAMILIES)
                 if pairing_scoped_line2b:
                     expected_subtotals.extend(_PAIRING_SCOPED_LINE2B_SUBTOTALS)
-                value_refs = list(_iter_ref_names(rule_citizen.get("value")))
-                closure_reads = list(_iter_require_closed_source_sets(rule_citizen.get("when")))
-                input_pins = [p["id"] for p in rule_citizen.get("pins", []) if p.get("role") == "input"]
-                for actual, expected, code, label in (
-                    (value_refs, expected_subtotals, "COMPOSITION_VALUE_REFS_MISMATCH", "value refs"),
-                    (closure_reads, expected_families, "COMPOSITION_CLOSURE_READS_MISMATCH", "closure reads"),
-                    (input_pins, expected_subtotals, "COMPOSITION_INPUT_PINS_MISMATCH", "input pins"),
+                if declared_selection_route:
+                    # The selected path is the only production slot surface
+                    # for v8.  Its exact path-local surface was validated
+                    # above; do not compare the neutral top-level expression
+                    # against the historical v7 composition slots.
+                    continue
+                composition_value_refs = list(_iter_ref_names(rule_citizen.get("value")))
+                composition_closure_reads = list(_iter_require_closed_source_sets(rule_citizen.get("when")))
+                composition_input_pins = [p["id"] for p in rule_citizen.get("pins", []) if p.get("role") == "input"]
+                for composition_actual, composition_expected, composition_code, composition_label in (
+                    (composition_value_refs, expected_subtotals, "COMPOSITION_VALUE_REFS_MISMATCH", "value refs"),
+                    (composition_closure_reads, expected_families, "COMPOSITION_CLOSURE_READS_MISMATCH", "closure reads"),
+                    (composition_input_pins, expected_subtotals, "COMPOSITION_INPUT_PINS_MISMATCH", "input pins"),
                 ):
-                    if sorted(actual) != sorted(expected) or len(actual) != len(expected):
+                    if sorted(composition_actual) != sorted(composition_expected) or len(composition_actual) != len(composition_expected):
                         issues.append(MemberIssue(
-                            rule_pin["id"], rule_pin["version"], code,
-                            f"composition producer {label} {actual} do not form the exact declared slot surface {expected}",
+                            rule_pin["id"], rule_pin["version"], composition_code,
+                            f"composition producer {composition_label} {composition_actual} do not form the exact declared slot surface {composition_expected}",
                         ))
 
     # Interest-composition successor-graph coherence: each package version below
@@ -1434,6 +1958,18 @@ def validate_package(
             "tax.us.2025.form1040.line-2b": ("form-field.v3", "v4"),
             "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v2", "v3"),
         }),
+        "v37": ("NOMINEE_RETURN_SUCCESSOR_GRAPH_MIXED", {
+            "tax.us.2025.interest-composition": ("taxable-interest-composition.v1", "v4"),
+            "tax.us.2025.rule.form1040-line2b": ("rule-artifact.v3", "v7"),
+            "tax.us.2025.form1040.line-2b": ("form-field.v3", "v5"),
+            "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v11", "v6"),
+        }),
+        "v38": ("NOMINEE_RETURN_SUCCESSOR_GRAPH_MIXED", {
+            "tax.us.2025.interest-composition": ("taxable-interest-composition.v1", "v4"),
+            "tax.us.2025.rule.form1040-line2b": ("rule-artifact.v9", "v8"),
+            "tax.us.2025.form1040.line-2b": ("form-field.v3", "v5"),
+            "tax.us.2025.rule.attachment.schedule-b": ("attachment-rule.v11", "v7"),
+        }),
     }
     if package.get("id") == "tax.us.2025.package.core-calculations" and package.get("version") in _successor_graphs:
         pkg_version = str(package.get("version"))
@@ -1446,6 +1982,56 @@ def validate_package(
                     member_id, str(pin.get("version", "") if pin else ""), code,
                     f"{pkg_version} requires {member_id}@{version} under {schema}, got {pin!r}",
                 ))
+        if pkg_version in {"v37", "v38"}:
+            # The v11 attachment exposes the nominee route as an exclusive
+            # selection path, while line 2b exposes the same route as a
+            # subtractand.  Keep this cross-citizen join load-bearing: a
+            # package mutation that changes both the v11 tie-out declaration
+            # and its path must still fail if it no longer names the shared
+            # dispatcher-B subtotal.
+            attachment_version = "v6" if pkg_version == "v37" else "v7"
+            line2b_version = "v7" if pkg_version == "v37" else "v8"
+            attachment = next(
+                (
+                    citizen for pin, citizen in resolved
+                    if pin["id"] == "tax.us.2025.rule.attachment.schedule-b"
+                    and pin["version"] == attachment_version
+                ),
+                None,
+            )
+            line2b = next(
+                (
+                    citizen for pin, citizen in resolved
+                    if pin["id"] == "tax.us.2025.rule.form1040-line2b"
+                    and pin["version"] == line2b_version
+                ),
+                None,
+            )
+            schedule_symbols: set[str] = set()
+            if isinstance(attachment, dict):
+                for part in attachment.get("itemizations", []):
+                    for adjustment in part.get("adjustment_rows", []):
+                        selection = adjustment.get("selection")
+                        selection_paths = selection.get("paths", []) if isinstance(selection, dict) else [adjustment]
+                        for selection_path in selection_paths:
+                            if isinstance(selection_path, dict) and isinstance(selection_path.get("subtotal_symbol"), str):
+                                schedule_symbols.add(selection_path["subtotal_symbol"])
+            if pkg_version == "v37":
+                line2b_symbols = set(_iter_ref_names(line2b.get("value"))) if isinstance(line2b, dict) else set()
+            else:
+                line2b_symbols = {
+                    ref
+                    for expression in _rule_expression_nodes(line2b or {})
+                    for ref in _iter_ref_names(expression)
+                }
+            shared_nominee_symbol = "tax.us.2025.interest.derived-nominee-subtotal"
+            if shared_nominee_symbol in line2b_symbols and shared_nominee_symbol not in schedule_symbols:
+                issues.append(MemberIssue(
+                    "tax.us.2025.rule.attachment.schedule-b",
+                    attachment_version,
+                    "NOMINEE_RETURN_SYMBOL_MISMATCH",
+                    f"{pkg_version} line 2b names the dispatcher-B nominee subtotal but Schedule B does not",
+                ))
 
     # 8. Inbound Reachability validation (ADR-0027 decision 4)
     if "entrypoints" in package:
@@ -1457,13 +2043,13 @@ def validate_package(
         # missing from this set, so a stale or dangling entrypoint in a
         # v22-schema package passed validation silently). v23 (migration-
         # artifact.v1), v24 (declarative-validation-substrate-f8949's
-        # source-family.v2), v25 (rule-artifact.v6), and v26
-        # (rule-artifact.v7) are likewise v21's own entrypoint-pin contract
-        # unchanged.
+        # source-family.v2), v25 (rule-artifact.v6), v26 (rule-artifact.v7),
+        # and v29 (attachment-rule.v11) are likewise v21's own entrypoint-pin
+        # contract unchanged.
         if package.get("schema") in {
             "artifact-package.v20", "artifact-package.v21", "artifact-package.v22",
             "artifact-package.v23", "artifact-package.v24", "artifact-package.v25",
-            "artifact-package.v26",
+            "artifact-package.v26", "artifact-package.v29", "artifact-package.v30",
         }:
             members_by_key = {
                 (pin["id"], pin["version"]): pin for pin in package["members"]
@@ -1537,17 +2123,20 @@ def validate_package(
                 # Interest Deduction milestone Tracks 1/6b), an additive
                 # expression-language extension only -- it carries the same
                 # declared-refs-outside-requires capability.
-                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}:
-                    declared_refs.update(_iter_ref_names(citizen["when"]))
-                    declared_refs.update(_iter_ref_names(citizen["value"]))
+                if citizen["schema"] in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9"}:
+                    declared_refs.update(
+                        ref for expression in _rule_expression_nodes(citizen)
+                        for ref in _iter_ref_names(expression)
+                    )
                 for req in declared_refs:
                     for p_id in produced.get(req, []):
                         adj[m_id].add(p_id)
                     if closed_v2_surface:
                         adj[m_id].update(bundles_for_fact.get(binding_fact_types.get(req, ""), set()))
-                bound_names = set(_iter_bound_source_names(citizen["when"])) | set(
-                    _iter_bound_source_names(citizen["value"])
-                )
+                bound_names = {
+                    name for expression in _rule_expression_nodes(citizen)
+                    for name in _iter_bound_source_names(expression)
+                }
                 for bound_name in bound_names:
                     declaring = bundles_for_fact.get(bound_name)
                     if not declaring:
@@ -1560,17 +2149,17 @@ def validate_package(
                     else:
                         adj[m_id].update(declaring)
                 if closed_v2_surface:
-                    for source_set in _iter_collect_source_sets(citizen["when"]):
+                    for source_set in {
+                        value for expression in _rule_expression_nodes(citizen)
+                        for value in _iter_collect_source_sets(expression)
+                    }:
                         for p2, c2 in resolved:
                             if c2["schema"] == "source-family.v1" and c2["id"] == source_set:
                                 adj[m_id].add(p2["id"])
-                    for source_set in _iter_collect_source_sets(citizen["value"]):
-                        for p2, c2 in resolved:
-                            if c2["schema"] == "source-family.v1" and c2["id"] == source_set:
-                                adj[m_id].add(p2["id"])
-                for pid in set(_iter_parameter_and_table_refs(citizen["when"])) | set(
-                    _iter_parameter_and_table_refs(citizen["value"])
-                ):
+                for pid in {
+                    name for expression in _rule_expression_nodes(citizen)
+                    for name in _iter_parameter_and_table_refs(expression)
+                }:
                     if pid in member_ids:
                         adj[m_id].add(pid)
                 comp = citizen.get("composition")
@@ -1579,6 +2168,63 @@ def validate_package(
                 for citation in citizen.get("citations", []):
                     if _corpus_key(citation["id"], citation["version"]) in citation_keys:
                         adj[m_id].add(citation["id"])
+                # v9 declarations carry exact dependency pins outside the
+                # ordinary expression tree. Keep the closed-package graph in
+                # lockstep with the authorization-closure graph: the selected
+                # source family/fact surface and the aggregate's exact
+                # producer must all be reachable from the line-2b entrypoint.
+                if citizen["schema"] == "rule-artifact.v9":
+                    selection = citizen.get("selection")
+                    if isinstance(selection, dict):
+                        for path in selection.get("paths", []):
+                            if not isinstance(path, dict):
+                                continue
+                            activity = path.get("activity", {})
+                            if not isinstance(activity, dict):
+                                continue
+                            family_pin = activity.get("source_family")
+                            if isinstance(family_pin, dict):
+                                family_key = _corpus_key(
+                                    family_pin.get("id", ""),
+                                    family_pin.get("version", ""),
+                                )
+                                if family_key in resolved_by_key:
+                                    adj[m_id].add(family_key[0])
+                            for pin_key in ("member_fact_type", "fact_type"):
+                                fact_pin = activity.get(pin_key)
+                                if not isinstance(fact_pin, dict):
+                                    continue
+                                fact_id = fact_pin.get("id")
+                                fact_version = fact_pin.get("version")
+                                if not isinstance(fact_id, str) or not isinstance(fact_version, str):
+                                    continue
+                                fact_key = (fact_id, fact_version)
+                                if fact_key in resolved_by_key:
+                                    adj[m_id].add(fact_id)
+                                else:
+                                    adj[m_id].update(bundles_for_fact.get(fact_id, set()))
+                    aggregation = citizen.get("aggregation")
+                    if isinstance(aggregation, dict):
+                        source_fact = aggregation.get("source_fact_type")
+                        if isinstance(source_fact, dict):
+                            fact_id = source_fact.get("id")
+                            fact_version = source_fact.get("version")
+                            if isinstance(fact_id, str) and isinstance(fact_version, str):
+                                fact_key = (fact_id, fact_version)
+                                if fact_key in resolved_by_key:
+                                    adj[m_id].add(fact_id)
+                                else:
+                                    adj[m_id].update(bundles_for_fact.get(fact_id, set()))
+                        source_rule = aggregation.get("source_rule")
+                        if isinstance(source_rule, dict):
+                            source_id = source_rule.get("id")
+                            source_version = source_rule.get("version")
+                            if (
+                                isinstance(source_id, str)
+                                and isinstance(source_version, str)
+                                and (source_id, source_version) in resolved_by_key
+                            ):
+                                adj[m_id].add(source_id)
             elif citizen["schema"] in {"form-field.v1", "form-field.v2", "form-field.v3"}:
                 symbol = citizen["binds_symbol"]
                 for p_id in produced.get(symbol, []):
@@ -1610,7 +2256,7 @@ def validate_package(
                     if c2["schema"] == "source-closure-mapping.v2":
                         if c2.get("member_fact_type", {}).get("id") == ft_id:
                             adj[m_id].add(c2["id"])
-            elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8"}:
+            elif citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
                 for part in citizen.get("itemizations", []):
                     authority = part.get("authority", {})
                     if authority.get("kind") == "composition":
@@ -1626,13 +2272,23 @@ def validate_package(
                         if member_pin.get("id") in member_ids:
                             adj[m_id].add(member_pin["id"])
                     for adjustment in part.get("adjustment_rows", []):
-                        rows = adjustment.get("rows", {})
-                        family_pin = rows.get("source_family", {})
-                        if family_pin.get("id") in member_ids:
-                            adj[m_id].add(family_pin["id"])
-                        member_pin = rows.get("member_fact_type", {})
-                        if member_pin.get("id") in member_ids:
-                            adj[m_id].add(member_pin["id"])
+                        row_specs: list[dict[str, Any]] = []
+                        selection = adjustment.get("selection")
+                        if isinstance(selection, dict):
+                            row_specs.extend(
+                                path.get("rows", {})
+                                for path in selection.get("paths", [])
+                                if isinstance(path, dict)
+                            )
+                        else:
+                            row_specs.append(adjustment.get("rows", {}))
+                        for rows in row_specs:
+                            if not isinstance(rows, dict):
+                                continue
+                            for pin_key in ("source_family", "member_fact_type", "fact_type"):
+                                dependency_pin = rows.get(pin_key, {})
+                                if dependency_pin.get("id") in member_ids:
+                                    adj[m_id].add(dependency_pin["id"])
                 for answer in citizen.get("completeness", {}).get("required_answers", []):
                     fact_pin = answer.get("fact_type", {})
                     if fact_pin.get("id") in member_ids:
@@ -1647,6 +2303,20 @@ def validate_package(
                 threshold_pin = requirement.get("threshold_parameter", {})
                 if threshold_pin.get("id") in member_ids:
                     adj[m_id].add(threshold_pin["id"])
+                for trigger in requirement.get("triggers", []):
+                    if not isinstance(trigger, dict):
+                        continue
+                    # attachment-rule.v11 threshold triggers nest their
+                    # subtotal symbols under the trigger object.  Preserve
+                    # inbound reachability to those producers just as the
+                    # historical top-level requirement did.
+                    for subtotal in trigger.get("subtotals", []):
+                        for p_id in produced.get(subtotal, []):
+                            adj[m_id].add(p_id)
+                    for pin_key in ("citation", "threshold_parameter", "fact_type"):
+                        dependency_pin = trigger.get(pin_key, {})
+                        if dependency_pin.get("id") in member_ids:
+                            adj[m_id].add(dependency_pin["id"])
             elif citizen["schema"] in {"bundle.v1", "bundle.v2"}:
                 for ft in citizen.get("fact_types", []):
                     if "quantity" in ft:
@@ -1823,8 +2493,8 @@ def validate_package(
         if citizen["schema"] not in _RULE_ARTIFACT_SCHEMAS:
             continue
         collect_names: set[str] = set()
-        for expr_key in ("when", "value"):
-            for collect in _iter_collect_exprs(citizen[expr_key]):
+        for expression in _rule_expression_nodes(citizen):
+            for collect in _iter_collect_exprs(expression):
                 name = collect.get("name")
                 if isinstance(name, str):
                     collect_names.add(name)
@@ -1839,10 +2509,14 @@ def validate_package(
                     issues.append(MemberIssue(pin["id"], pin["version"], "COLLECT_TARGET_NOT_FAMILY",
                                               f"collect targets {name!r}, not the declared member fact type {declared_member!r} of family {collect_set!r}"))
         consumed = collect_names | set(citizen.get("requires", []))
-        consumed.update(_iter_ref_names(citizen["when"]))
-        consumed.update(_iter_ref_names(citizen["value"]))
-        consumed.update(_iter_bound_source_names(citizen["when"]))
-        consumed.update(_iter_bound_source_names(citizen["value"]))
+        consumed.update(
+            ref for expression in _rule_expression_nodes(citizen)
+            for ref in _iter_ref_names(expression)
+        )
+        consumed.update(
+            name for expression in _rule_expression_nodes(citizen)
+            for name in _iter_bound_source_names(expression)
+        )
         for forbidden in sorted(consumed & recorded_non_composable):
             issues.append(MemberIssue(pin["id"], pin["version"], "RECORDED_NON_COMPOSABLE_INPUT",
                                       f"rule consumes recorded-non-composable content {forbidden!r}; the dividend universe does not compose residual recorded boxes"))
@@ -1888,7 +2562,7 @@ def validate_package(
     # a boolean or otherwise falsy-encodable Part III answer fact type on an
     # attachment is rejected at admission.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if citizen["schema"] not in {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
             continue
         answers = list(citizen["completeness"]["required_answers"])
         for branch in citizen["completeness"].get("branch_requirements", []):
@@ -1922,6 +2596,35 @@ def validate_package(
                                           f"answer fact type {answer_pin['id']!r} check:value equals "
                                           f"{answer.get('equals')!r}, not in its own declared domain {domain}"))
 
+        requirement = citizen.get("requirement", {})
+        triggers = requirement.get("triggers", []) if requirement.get("kind") == "any_trigger" else []
+        for trigger in triggers:
+            if not isinstance(trigger, dict):
+                continue
+            if trigger.get("kind") == "derived_activity":
+                fact_pin = trigger.get("fact_type", {})
+                fact_key = _corpus_key(fact_pin.get("id", ""), fact_pin.get("version", ""))
+                if fact_key not in fact_types_by_key:
+                    issues.append(MemberIssue(
+                        pin["id"], pin["version"], "ATTACHMENT_TRIGGER_FACT_TYPE_ABSENT",
+                        f"derived_activity fact type {fact_key} not in package fact surface",
+                    ))
+            citation_pin = trigger.get("citation", {})
+            citation_key = _corpus_key(citation_pin.get("id", ""), citation_pin.get("version", ""))
+            if citation_key not in citation_keys:
+                issues.append(MemberIssue(
+                    pin["id"], pin["version"], "ATTACHMENT_TRIGGER_CITATION_ABSENT",
+                    f"trigger citation {citation_key} is not an exact citation package member",
+                ))
+            threshold_pin = trigger.get("threshold_parameter", {})
+            if threshold_pin:
+                threshold_key = _corpus_key(threshold_pin.get("id", ""), threshold_pin.get("version", ""))
+                if threshold_key not in parameter_keys:
+                    issues.append(MemberIssue(
+                        pin["id"], pin["version"], "ATTACHMENT_TRIGGER_PARAMETER_ABSENT",
+                        f"trigger threshold parameter {threshold_key} is not a package parameter member",
+                    ))
+
     # 10b. attachment-rule.v2 authority and row-set admission. Schema shape
     # alone cannot prove that a row set belongs to its declared family or that
     families_by_key = {
@@ -1933,7 +2636,7 @@ def validate_package(
         for _, citizen in resolved if citizen["schema"] == "taxable-interest-composition.v1"
     }
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}:
+        if citizen["schema"] not in {"attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
             continue
         for part in citizen["itemizations"]:
             actual_slots: list[tuple[str, str, str]] = []
@@ -1978,7 +2681,7 @@ def validate_package(
                                               f"part {part['part_id']!r} names absent composition {comp_pin}"))
                 elif part["tie_out"]["line_symbol"] != comp["publishes"]:
                     subtractive_positive_basis = (
-                        citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8"}
+                        citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
                         and part["tie_out"].get("operation") == "subtract"
                         and bool(part.get("adjustment_rows"))
                         and comp.get("publishes") == "tax.us.2025.interest.positive-total"
@@ -1992,11 +2695,16 @@ def validate_package(
     # closed, typed subtractive surface.  The schema fixes the vocabulary;
     # admission fixes the joins and the signed whole-part surface.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"attachment-rule.v6", "attachment-rule.v8"}:
+        if citizen["schema"] not in {"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}:
             continue
         for part in citizen["itemizations"]:
             actual_positive = [row_set["subtotal_symbol"] for row_set in part["row_sets"]]
-            actual_adjustments = [row["subtotal_symbol"] for row in part["adjustment_rows"]]
+            actual_adjustments: list[str] = []
+            for row in part["adjustment_rows"]:
+                if "selection" in row:
+                    actual_adjustments.extend(path["subtotal_symbol"] for path in row["selection"]["paths"])
+                else:
+                    actual_adjustments.append(row["subtotal_symbol"])
             tie_out = part["tie_out"]
             if tie_out["positive_subtotals"] != actual_positive:
                 issues.append(MemberIssue(
@@ -2031,32 +2739,66 @@ def validate_package(
                 actual_slots.append((family["id"], family["version"], row_set["subtotal_symbol"]))
             for adjustment in part["adjustment_rows"]:
                 expected_binding = _V3_ADJUSTMENT_BINDINGS.get(adjustment["kind"])
-                rows = adjustment["rows"]
-                family_pin = rows["source_family"]
                 if expected_binding is not None:
-                    expected_label, expected_family_token = expected_binding
+                    expected_label, _expected_family_token = expected_binding
                     if adjustment["label"] != expected_label:
                         issues.append(MemberIssue(
                             pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_LABEL_MISMATCH",
                             f"part {part['part_id']!r} kind {adjustment['kind']!r} requires label {expected_label!r}",
                         ))
-                    actual_family_token = family_pin["id"].rsplit(".", 1)[-1]
-                    if actual_family_token != expected_family_token:
+                sources: list[tuple[dict[str, Any], str]] = []
+                if "selection" in adjustment:
+                    selection = adjustment["selection"]
+                    paths = selection.get("paths", [])
+                    path_ids = [path.get("id") for path in paths]
+                    if selection.get("mode") != "exclusive_presence":
                         issues.append(MemberIssue(
-                            pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_AUTHORITY_MISMATCH",
-                            f"part {part['part_id']!r} kind {adjustment['kind']!r} requires the {expected_family_token!r} class authority, got {family_pin!r}",
+                            pin["id"], pin["version"], "ATTACHMENT_EXCLUSIVE_PRESENCE_MODE_INVALID",
+                            f"part {part['part_id']!r} exclusive_presence must declare mode exclusive_presence",
                         ))
-                family = families_by_key.get((family_pin["id"], family_pin["version"]))
-                if family is None:
-                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_FAMILY_ABSENT",
-                                              f"part {part['part_id']!r} names absent adjustment family {family_pin}"))
-                    continue
-                if rows["member_fact_type"]["id"] != family["member_predicate"]["fact_type"]:
-                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_MEMBER_MISMATCH",
-                                              f"part {part['part_id']!r} adjustment member does not equal family {family['id']!r} canonical predicate"))
-                if adjustment["subtotal_symbol"] != family["authorizes_subtotal"]:
-                    issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_SUBTOTAL_MISMATCH",
-                                              f"part {part['part_id']!r} adjustment subtotal is not authorized by family {family['id']!r}"))
+                    if len(paths) != 2 or len(set(path_ids)) != len(path_ids):
+                        issues.append(MemberIssue(
+                            pin["id"], pin["version"], "ATTACHMENT_EXCLUSIVE_PRESENCE_PATHS_INVALID",
+                            f"part {part['part_id']!r} exclusive_presence must declare exactly two uniquely identified paths",
+                        ))
+                    if selection.get("conflict") != "refuse":
+                        issues.append(MemberIssue(
+                            pin["id"], pin["version"], "ATTACHMENT_EXCLUSIVE_PRESENCE_CONFLICT_UNDECLARED",
+                            f"part {part['part_id']!r} exclusive_presence must declare conflict refuse",
+                        ))
+                    for path in adjustment["selection"]["paths"]:
+                        sources.append((path["rows"], path["subtotal_symbol"]))
+                else:
+                    sources.append((adjustment["rows"], adjustment["subtotal_symbol"]))
+                for rows, subtotal_symbol in sources:
+                    if rows.get("op") == "enumerate_published":
+                        ft = rows["fact_type"]
+                        if (ft["id"], ft["version"]) not in fact_types_by_key:
+                            issues.append(MemberIssue(
+                                pin["id"], pin["version"], "ATTACHMENT_ENUMERATE_FACT_TYPE_ABSENT",
+                                f"part {part['part_id']!r} enumerate_published names absent fact type {ft}",
+                            ))
+                        continue
+                    family_pin = rows["source_family"]
+                    if expected_binding is not None:
+                        _expected_label, expected_family_token = expected_binding
+                        actual_family_token = family_pin["id"].rsplit(".", 1)[-1]
+                        if actual_family_token != expected_family_token:
+                            issues.append(MemberIssue(
+                                pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_AUTHORITY_MISMATCH",
+                                f"part {part['part_id']!r} kind {adjustment['kind']!r} requires the {expected_family_token!r} class authority, got {family_pin!r}",
+                            ))
+                    family = families_by_key.get((family_pin["id"], family_pin["version"]))
+                    if family is None:
+                        issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_FAMILY_ABSENT",
+                                                  f"part {part['part_id']!r} names absent adjustment family {family_pin}"))
+                        continue
+                    if rows["member_fact_type"]["id"] != family["member_predicate"]["fact_type"]:
+                        issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_MEMBER_MISMATCH",
+                                                  f"part {part['part_id']!r} adjustment member does not equal family {family['id']!r} canonical predicate"))
+                    if subtotal_symbol != family["authorizes_subtotal"]:
+                        issues.append(MemberIssue(pin["id"], pin["version"], "ATTACHMENT_ADJUSTMENT_SUBTOTAL_MISMATCH",
+                                                  f"part {part['part_id']!r} adjustment subtotal is not authorized by family {family['id']!r}"))
             if (
                 pin["id"] == "tax.us.2025.rule.attachment.schedule-b"
                 and pin["version"] == "v4"
@@ -2094,7 +2836,7 @@ def validate_package(
                                               f"part {part['part_id']!r} names absent composition {comp_pin}"))
                 elif tie_out["line_symbol"] != comp["publishes"]:
                     subtractive_positive_basis = (
-                        citizen["schema"] == "attachment-rule.v6"
+                        citizen["schema"] in {"attachment-rule.v6", "attachment-rule.v11"}
                         and tie_out.get("operation") == "subtract"
                         and bool(part.get("adjustment_rows"))
                         and comp.get("publishes") == "tax.us.2025.interest.positive-total"
@@ -2132,14 +2874,16 @@ def validate_package(
         # (Form 1098-E Student Loan Interest Deduction milestone Tracks
         # 1/6b); the conditional_dependency_set/category_literal domain-match
         # check applies identically.
-        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8"}:
+        if citizen["schema"] not in {"rule-artifact.v3", "rule-artifact.v4", "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9"}:
             continue
-        member_names = set(_iter_cds_member_names(citizen["when"])) | set(
-            _iter_cds_member_names(citizen["value"])
-        )
-        categorical_fact_types = set(_iter_category_literal_fact_types(citizen["when"])) | set(
-            _iter_category_literal_fact_types(citizen["value"])
-        )
+        member_names = {
+            name for expression in _rule_expression_nodes(citizen)
+            for name in _iter_cds_member_names(expression)
+        }
+        categorical_fact_types = {
+            name for expression in _rule_expression_nodes(citizen)
+            for name in _iter_category_literal_fact_types(expression)
+        }
         for name in sorted(member_names):
             fact_type_id = binding_fact_types_local.get(name, name)
             if fact_type_id not in categorical_fact_types:
@@ -2168,9 +2912,10 @@ def validate_package(
     # while still not being the exact version the citizen's category_literal
     # names.
     for pin, citizen in resolved:
-        pinned = set(_iter_category_literal_fact_type_pins(citizen.get("when"))) | set(
-            _iter_category_literal_fact_type_pins(citizen.get("value"))
-        )
+        pinned = {
+            pin for expression in _rule_expression_nodes(citizen)
+            for pin in _iter_category_literal_fact_type_pins(expression)
+        }
         for fact_type_id, fact_type_version in sorted(pinned):
             if (fact_type_id, fact_type_version) not in fact_types_by_key:
                 issues.append(MemberIssue(pin["id"], pin["version"], "CATEGORY_LITERAL_PIN_STALE",
@@ -2183,11 +2928,20 @@ def validate_package(
     # value_schema.properties. Misspelled fields and field-on-scalar are
     # rejected here, never as a silent None/zero at evaluation.
     for pin, citizen in resolved:
-        if citizen["schema"] not in {"rule-artifact.v7", "rule-artifact.v8"}:
+        if citizen["schema"] not in {"rule-artifact.v7", "rule-artifact.v8", "rule-artifact.v9"}:
             continue
-        issues.extend(check_field_ref_bindings(
-            citizen, fact_types_by_id, binding_fact_types_local,
-        ))
+        if citizen["schema"] in {"rule-artifact.v7", "rule-artifact.v8"}:
+            issues.extend(check_field_ref_bindings(
+                citizen, fact_types_by_id, binding_fact_types_local,
+            ))
+            continue
+        for expression in _rule_expression_nodes(citizen):
+            field_rule = dict(citizen)
+            field_rule["when"] = expression
+            field_rule["value"] = None
+            issues.extend(check_field_ref_bindings(
+                field_rule, fact_types_by_id, binding_fact_types_local,
+            ))
 
     # 11. Unique output ownership (decision 7)
     declared_conflicts = {c["symbol"] for c in package.get("conflict_semantics", [])}

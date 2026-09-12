@@ -35,6 +35,10 @@ from packages.derivation.evaluator import (
     evaluate,
 )
 from packages.kernel.act_log import ActLog
+from packages.derivation.derived_enumeration import (
+    derived_activity_present,
+    enumerate_published_findings,
+)
 from packages.derivation.loader import DerivationSchemas, PUBLICATION_ACT_SCHEMA
 from packages.derivation.records import (
     RecordStream,
@@ -170,13 +174,14 @@ _LEDGER_EXCLUDED_PIN_ROLES = frozenset(
 # directly from their declarative requirement/itemizations/completeness
 # structure by `_Run.attempt_attachment`, not by `evaluate()`.
 ATTACHMENT_SCHEMAS = frozenset(
-    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"}
+    {"attachment-rule.v1", "attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"}
 )
 # attachment-rule.v8 is v6's exact inherited shape (Track 2: only the
 # additive optional `accounts_for[]` differs) - every v6-specific branch
 # below applies identically to v8.
-_V6_SHAPE_ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8"})
+_V6_SHAPE_ATTACHMENT_SCHEMAS = frozenset({"attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"})
 ITEMIZATION_TIE_OUT_VIOLATION = "ITEMIZATION_TIE_OUT_VIOLATION"
+EXCLUSIVE_PRESENCE_CONFLICT = "EXCLUSIVE_PRESENCE_CONFLICT"
 # ADR-0055 Decision 2: a required answer present as a current finding but
 # valued other than its declared required value - distinct from absence
 # (DEPENDENCY_ABSENT), never folded into it, never silence.
@@ -250,7 +255,7 @@ class _Run:
             rule.get("schema") in {
                 "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
                 "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
-                "rule-artifact.v8",
+                "rule-artifact.v8", "rule-artifact.v9",
             }
             for rule in ctx.rules
         ) or _uses_attachment_machinery(ctx.rules)
@@ -509,11 +514,11 @@ class _Run:
             # reads closure/membership state directly and blocks honestly
             # if the pinned family is unclosed.
             symbols = list(requirement.get("subtotals", []))
-            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"):
+            if rule.get("schema") in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"):
                 for part in rule["itemizations"]:
                     symbols.append(part["tie_out"]["line_symbol"])
                     symbols.extend(row_set["subtotal_symbol"] for row_set in part["row_sets"])
-                    if rule.get("schema") in _V6_SHAPE_ATTACHMENT_SCHEMAS:
+                    if rule.get("schema") in {"attachment-rule.v6", "attachment-rule.v8"}:
                         symbols.extend(
                             row["subtotal_symbol"] for row in part["adjustment_rows"]
                         )
@@ -549,7 +554,191 @@ class _Run:
             return aggregate_supportability_eligibility(self)
         if is_pairing_scoped_consequence_rule(rule):
             return consequence_eligibility(self)
+        from packages.tax.nominee_consequences import (
+            declarative_top_level_is_neutral,
+            declared_line2b_selection_requires,
+            is_line2b_declared_selection_rule,
+            is_line2b_nominee_successor,
+            is_nominee_aggregate_rule,
+            is_nominee_reduction_rule,
+            line2b_effective_requires,
+        )
+        if is_line2b_declared_selection_rule(rule):
+            if not declarative_top_level_is_neutral(rule):
+                return False
+            return all(
+                req in self.symbols
+                for req in declared_line2b_selection_requires(self, rule)
+            )
+        if is_nominee_aggregate_rule(rule):
+            if not declarative_top_level_is_neutral(rule):
+                return False
+            return any(
+                is_nominee_reduction_rule(candidate)
+                and candidate["id"] in self.resolved
+                for candidate in self.ctx.rules
+            )
+        if is_line2b_nominee_successor(rule):
+            return all(req in self.symbols for req in line2b_effective_requires(self, rule))
         return all(req in self.symbols for req in self._requires(rule))
+
+    def _attempt_declared_line2b_selection(self, rule: dict[str, Any]) -> str:
+        """Evaluate exactly the selected v9 path expression."""
+        from packages.tax.nominee_consequences import (
+            DECLARATIVE_TOP_LEVEL_INVALID,
+            SELECTION_PATH_ID_DUPLICATE,
+            declared_line2b_selection_plan,
+            declared_path_pin_contract_is_truthful,
+            declarative_top_level_is_neutral,
+            declared_selection_activity_pins,
+            selection_path_ids_are_unique,
+        )
+
+        def contract_block(missing: str) -> str:
+            self.record_named_block(
+                rule_id=rule["id"],
+                code=BLOCK_INVALID,
+                missing=[missing],
+                pins=_sorted_pins([
+                    {
+                        "role": rule.get("role", "computation"),
+                        "id": rule["id"],
+                        "version": rule["version"],
+                    },
+                    self.ctx.adoption_pin,
+                    *self.ctx.governance_pins,
+                ]),
+                symbol=rule.get("publishes"),
+            )
+            self.resolved.add(rule["id"])
+            return "blocked"
+
+        if not declarative_top_level_is_neutral(rule):
+            return contract_block(DECLARATIVE_TOP_LEVEL_INVALID)
+        if not selection_path_ids_are_unique(rule):
+            return contract_block(SELECTION_PATH_ID_DUPLICATE)
+
+        selection = rule.get("selection", {})
+        plan, declaration = declared_line2b_selection_plan(self, rule)
+        if plan == "conflict":
+            refusal = selection.get("refusal", {}) if isinstance(selection, dict) else {}
+            code = refusal.get("code", "DEPENDENCY_INVALID")
+            missing = list(refusal.get("missing", [
+                "legacy-and-derived-nominee-both-present"
+            ]))
+            pins = [
+                {
+                    "role": rule.get("role", "computation"),
+                    "id": rule["id"],
+                    "version": rule["version"],
+                },
+                self.ctx.adoption_pin,
+                *self.ctx.governance_pins,
+                *declared_selection_activity_pins(self, rule),
+            ]
+            self.record_named_block(
+                rule_id=rule["id"],
+                code=code,
+                missing=missing,
+                pins=_sorted_pins(pins),
+                symbol=rule.get("publishes"),
+            )
+            self.resolved.add(rule["id"])
+            return "blocked"
+
+        if not isinstance(declaration, dict) or not declared_path_pin_contract_is_truthful(declaration):
+            return contract_block("selection-path-pin-contract-invalid")
+
+        required = list(rule.get("requires", [])) + list(
+            declaration.get("requires", [])
+        )
+        missing = [req for req in required if req not in self.symbols]
+        if missing:
+            pins = [
+                {
+                    "role": rule.get("role", "computation"),
+                    "id": rule["id"],
+                    "version": rule["version"],
+                },
+                self.ctx.adoption_pin,
+                *self.ctx.governance_pins,
+            ]
+            self.record_named_block(
+                rule_id=rule["id"],
+                code="DEPENDENCY_ABSENT",
+                missing=missing,
+                pins=_sorted_pins(pins),
+                symbol=rule.get("publishes"),
+            )
+            self.resolved.add(rule["id"])
+            return "blocked"
+
+        symbol = rule["publishes"]
+        if symbol in self.symbols:
+            winner = self.symbol_publisher.get(symbol)
+            row: dict[str, Any] = {
+                "artifact_id": rule["id"],
+                "disposition": "inapplicable",
+                "pins": [],
+            }
+            if self.use_v2 and winner:
+                row["superseded_by"] = {
+                    "role": "package",
+                    "id": winner["id"],
+                    "version": winner["version"],
+                }
+            self.dispositions.append(row)
+            self.resolved.add(rule["id"])
+            return "inapplicable"
+
+        access = AccessLog()
+        try:
+            guard = evaluate(declaration["when"], self.env(), access)
+        except EvalBlocked as exc:
+            self._record_blocked(rule, access, exc.category, exc.missing)
+            return "blocked"
+        if not guard:
+            self.dispositions.append({
+                "artifact_id": rule["id"],
+                "disposition": "inapplicable",
+                "guard_result": False,
+                "pins": self.ledger_pins_for(rule, access),
+            })
+            self.resolved.add(rule["id"])
+            return "inapplicable"
+
+        try:
+            value = evaluate(declaration["value"], self.env(), access)
+        except EvalBlocked as exc:
+            self._record_blocked(rule, access, exc.category, exc.missing)
+            return "blocked"
+
+        pins = self.pins_for(rule, access)
+        body = {"symbol": symbol, "value": _value_str(value), "pins": pins}
+        finding = {
+            "schema": "derived-finding.v2",
+            "id": _content_id("finding:derived:", body),
+            "symbol": symbol,
+            "value": body["value"],
+            "version": "v2",
+            "pins": pins,
+        }
+        act = {"run_id": self.ctx.run_id, "finding": finding}
+        self.schemas.validate_declared(finding)
+        self.publications.append(Publication(act=act, finding=finding))
+        self.symbol_publisher[symbol] = rule
+        self.dispositions.append({
+            "artifact_id": rule["id"],
+            "disposition": "published",
+            "pins": self.ledger_pins_for(rule, access),
+            "finding_id": finding["id"],
+            "act_id": _content_id("act:publication:", act),
+            "symbol": symbol,
+        })
+        self.symbols[symbol] = value
+        self.symbol_pin[symbol] = (finding["id"], "v2", "input", "assertion")
+        self.resolved.add(rule["id"])
+        return "published"
 
     def attempt(self, rule: dict[str, Any]) -> str:
         """Fire one eligible rule, recording its outcome. Returns the outcome.
@@ -577,11 +766,89 @@ class _Run:
 
         from packages.tax.nominee_consequences import (
             dispatch_nominee_consequences_on_run,
+            dispatch_nominee_aggregate_producer_on_run,
+            is_line2b_declared_selection_rule,
             is_nominee_reduction_rule,
+            is_nominee_aggregate_rule,
         )
+
+        if is_nominee_aggregate_rule(rule):
+            return dispatch_nominee_aggregate_producer_on_run(self, rule)
 
         if is_nominee_reduction_rule(rule):
             return dispatch_nominee_consequences_on_run(self, rule)
+
+        if rule.get("schema") == "rule-artifact.v9" and (
+            "selection" in rule or "aggregation" in rule
+        ):
+            if is_line2b_declared_selection_rule(rule):
+                return self._attempt_declared_line2b_selection(rule)
+            # A copied v9 declarative shape is schema-valid but deliberately
+            # has no generic runtime binding path.
+            self.record_named_block(
+                rule_id=rule["id"],
+                code="DEPENDENCY_INVALID",
+                missing=["v9-declarative-binding-unauthorized"],
+                pins=_sorted_pins([
+                    {
+                        "role": rule.get("role", "computation"),
+                        "id": rule["id"],
+                        "version": rule["version"],
+                    },
+                    self.ctx.adoption_pin,
+                    *self.ctx.governance_pins,
+                ]),
+                symbol=rule.get("publishes"),
+            )
+            self.resolved.add(rule["id"])
+            return "blocked"
+
+        from packages.tax.nominee_consequences import (
+            BOTH_PRESENT_MISSING,
+            DERIVED_NOMINEE_SYMBOL,
+            DEPENDENCY_ABSENT as NOMINEE_DEPENDENCY_ABSENT,
+            DEPENDENCY_INVALID as NOMINEE_DEPENDENCY_INVALID,
+            is_line2b_nominee_successor,
+            prepare_line2b_nominee_successor,
+        )
+
+        # v7 is immutable historical compatibility.  The adopted v8 successor
+        # is handled by the exact declared-selection branch above, so the
+        # deep-copy/delete path below is never the production mechanism for the
+        # final package.
+        if is_line2b_nominee_successor(rule) and not rule.get("_runtime_nominee_paths"):
+            policy, prepared = prepare_line2b_nominee_successor(self, rule)
+            policy_pins = [
+                {
+                    "role": rule.get("role", "computation"),
+                    "id": rule["id"],
+                    "version": rule["version"],
+                },
+                self.ctx.adoption_pin,
+                *self.ctx.governance_pins,
+            ]
+            if policy == "refuse":
+                self.record_named_block(
+                    rule_id=rule["id"],
+                    code=NOMINEE_DEPENDENCY_INVALID,
+                    missing=[BOTH_PRESENT_MISSING],
+                    pins=_sorted_pins(policy_pins),
+                    symbol=rule.get("publishes"),
+                )
+                self.resolved.add(rule["id"])
+                return "blocked"
+            if policy == "blocked":
+                self.record_named_block(
+                    rule_id=rule["id"],
+                    code=NOMINEE_DEPENDENCY_ABSENT,
+                    missing=[DERIVED_NOMINEE_SYMBOL],
+                    pins=_sorted_pins(policy_pins),
+                    symbol=rule.get("publishes"),
+                )
+                self.resolved.add(rule["id"])
+                return "blocked"
+            if prepared is not None:
+                return self.attempt(prepared)
 
         from packages.tax.pairing_consequences import is_aggregate_supportability_rule
 
@@ -705,6 +972,12 @@ class _Run:
         self.dispositions.append({
             "artifact_id": rule_id,
             "disposition": "blocked",
+            # The durable derivation-record schema has a closed blocked-code
+            # vocabulary.  The production Schedule B v11 collision maps its
+            # internal exclusive-presence diagnostic to the existing
+            # dependency-invalid category before it reaches this helper.  A
+            # generic attachment keeps its internal diagnostic here so the
+            # runtime contract remains observable to direct consumers.
             "code": code,
             "missing": missing,
             "pins": _sorted_pins(pins),
@@ -995,6 +1268,111 @@ class _Run:
 
         return "published"
 
+    def _select_adjustment(
+        self, adjustment: dict[str, Any]
+    ) -> tuple[str, dict[str, Any] | None]:
+        """Return (omit|refuse|ok, spec). spec has rows_spec and subtotal_symbol."""
+        selection = adjustment.get("selection")
+        if not isinstance(selection, dict):
+            return "ok", {
+                "kind": adjustment["kind"],
+                "label": adjustment["label"],
+                "sign": adjustment["sign"],
+                "rows_spec": adjustment["rows"],
+                "subtotal_symbol": adjustment["subtotal_symbol"],
+            }
+        active: list[dict[str, Any]] = []
+        for path in selection.get("paths") or []:
+            if self._row_source_present(path["rows"]):
+                active.append(path)
+        if len(active) > 1:
+            return "refuse", None
+        if not active:
+            return "omit", None
+        path = active[0]
+        return "ok", {
+            "kind": adjustment["kind"],
+            "label": adjustment["label"],
+            "sign": adjustment["sign"],
+            "rows_spec": path["rows"],
+            "subtotal_symbol": path["subtotal_symbol"],
+            "path_id": path.get("id"),
+        }
+
+    def _row_source_present(self, rows_spec: dict[str, Any]) -> bool:
+        op = rows_spec.get("op")
+        if op == "collect_members":
+            fact_name = rows_spec["member_fact_type"]["id"]
+            return bool(self.sources.get(fact_name, []))
+        if op == "enumerate_published":
+            fact_type_id = rows_spec["fact_type"]["id"]
+            return derived_activity_present(
+                publications=self.publications,
+                dispositions=self.dispositions,
+                fact_type_id=fact_type_id,
+            )
+        raise RuntimeError(f"unsupported attachment row op {op!r}")
+
+    def _collect_row_source(self, rows_spec: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        """Return (row dicts, input pins) for one collect_members or enumerate_published spec."""
+        op = rows_spec.get("op")
+        if op == "collect_members":
+            fact_name = rows_spec["member_fact_type"]["id"]
+            values = self.sources.get(fact_name, [])
+            fids = self.source_fids.get(fact_name, [])
+            rows = [{"finding_id": fid, "value": val} for val, fid in zip(values, fids)]
+            pins = [
+                {"role": "input", "id": fid, "version": "v1",
+                 **({"origin": "assertion"} if self.use_v2 else {})}
+                for fid in fids
+            ]
+            return rows, pins
+        if op == "enumerate_published":
+            fact_type_id = rows_spec["fact_type"]["id"]
+            findings = enumerate_published_findings(self.publications, fact_type_id)
+            rows = []
+            pins = []
+            for finding in findings:
+                fid = str(finding["id"])
+                rows.append({"finding_id": fid, "value": str(finding.get("value"))})
+                pins.append(
+                    {"role": "input", "id": fid, "version": finding.get("version") or "v1",
+                     **({"origin": "assertion"} if self.use_v2 else {})}
+                )
+            return rows, pins
+        raise RuntimeError(f"unsupported attachment row op {op!r}")
+
+    def _attachment_threshold_trigger(
+        self,
+        requirement: dict[str, Any],
+        governance_pins: list[dict[str, Any]],
+        rule_id: str,
+    ) -> tuple[bool, list[dict[str, Any]], list[dict[str, Any]], str | None]:
+        subtotal_symbols: list[str] = requirement["subtotals"]
+        missing_subtotals = [s for s in subtotal_symbols if s not in self.symbols]
+        if missing_subtotals:
+            self._attachment_block(rule_id, BLOCK_ABSENT, missing_subtotals, governance_pins)
+            return False, [], [], "blocked"
+        threshold_pin = requirement["threshold_parameter"]
+        threshold_param = self.ctx.parameters.get(threshold_pin["id"])
+        if threshold_param is None:
+            self._attachment_block(rule_id, BLOCK_ABSENT, [threshold_pin["id"]], governance_pins)
+            return False, [], [], "blocked"
+        threshold = Decimal(str(threshold_param["values"]))
+        base_pins = [self._symbol_pin_entry(s) for s in subtotal_symbols]
+        base_pins.append({"role": "parameter", "id": threshold_pin["id"], "version": threshold_pin["version"]})
+        citation = requirement["citation"]
+        base_pins.append({"role": "citation", "id": citation["id"], "version": citation["version"]})
+        base_pins.append(self.ctx.adoption_pin)
+        base_pins.extend(self.ctx.governance_pins)
+        triggers = [
+            {"subtotal": s, "value": _value_str(self.symbols[s]),
+             "over": Decimal(str(self.symbols[s])) > threshold}
+            for s in subtotal_symbols
+        ]
+        required = any(t["over"] for t in triggers)
+        return required, base_pins, triggers, None
+
     def attempt_attachment(self, rule: dict[str, Any]) -> str:
         """Interpret one ADR-0036 attachment citizen directly from its
         declarative requirement/itemizations/completeness structure.
@@ -1020,37 +1398,41 @@ class _Run:
             )
             if outcome is not None:
                 return outcome
+        elif requirement.get("kind") == "any_trigger":
+            required = False
+            base_pins = [self.ctx.adoption_pin, *list(self.ctx.governance_pins)]
+            triggers = []
+            for trigger in requirement["triggers"]:
+                if trigger.get("kind") == "derived_activity":
+                    fact_type_id = trigger["fact_type"]["id"]
+                    active = derived_activity_present(
+                        publications=self.publications,
+                        dispositions=self.dispositions,
+                        fact_type_id=fact_type_id,
+                    )
+                    citation = trigger["citation"]
+                    base_pins.append({"role": "citation", "id": citation["id"], "version": citation["version"]})
+                    triggers.append({
+                        "kind": "derived_activity",
+                        "fact_type": fact_type_id,
+                        "over": active,
+                    })
+                    required = required or active
+                else:
+                    t_required, t_pins, t_triggers, outcome = self._attachment_threshold_trigger(
+                        trigger, governance_pins, rule_id
+                    )
+                    if outcome is not None:
+                        return outcome
+                    base_pins.extend(t_pins)
+                    triggers.extend(t_triggers)
+                    required = required or t_required
         else:
-            subtotal_symbols: list[str] = requirement["subtotals"]
-
-            missing_subtotals = [s for s in subtotal_symbols if s not in self.symbols]
-            if missing_subtotals:
-                self._attachment_block(rule_id, BLOCK_ABSENT, missing_subtotals, governance_pins)
-                return "blocked"
-
-            threshold_pin = requirement["threshold_parameter"]
-            threshold_param = self.ctx.parameters.get(threshold_pin["id"])
-            if threshold_param is None:
-                self._attachment_block(rule_id, BLOCK_ABSENT, [threshold_pin["id"]], governance_pins)
-                return "blocked"
-            threshold = Decimal(str(threshold_param["values"]))
-
-            base_pins = [self._symbol_pin_entry(s) for s in subtotal_symbols]
-            base_pins.append({"role": "parameter", "id": threshold_pin["id"], "version": threshold_pin["version"]})
-            citation = requirement["citation"]
-            base_pins.append({"role": "citation", "id": citation["id"], "version": citation["version"]})
-            base_pins.append(self.ctx.adoption_pin)
-            base_pins.extend(self.ctx.governance_pins)
-
-            # The requirement conditional is an "any subtotal over threshold"
-            # test with a per-trigger outcome recorded, never silence about
-            # which subtotal(s) crossed it (deliverable 5).
-            triggers = [
-                {"subtotal": s, "value": _value_str(self.symbols[s]),
-                 "over": Decimal(str(self.symbols[s])) > threshold}
-                for s in subtotal_symbols
-            ]
-            required = any(t["over"] for t in triggers)
+            required, base_pins, triggers, outcome = self._attachment_threshold_trigger(
+                requirement, governance_pins, rule_id
+            )
+            if outcome is not None:
+                return outcome
 
         if not required:
             self.dispositions.append({
@@ -1063,7 +1445,7 @@ class _Run:
             return "inapplicable"
 
         itemization_pins: list[dict[str, Any]] = []
-        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8"):
+        if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11"):
             itemization_symbols = sorted({
                 symbol
                 for part in rule["itemizations"]
@@ -1073,15 +1455,56 @@ class _Run:
                 )
             })
             if rule["schema"] in _V6_SHAPE_ATTACHMENT_SCHEMAS:
-                itemization_symbols = sorted(set(itemization_symbols) | {
-                    symbol
-                    for part in rule["itemizations"]
-                    for symbol in (
-                        *(row["subtotal_symbol"] for row in part["adjustment_rows"]),
-                        *part["tie_out"]["positive_subtotals"],
-                        *part["tie_out"]["adjustment_subtotals"],
-                    )
-                })
+                adjustment_symbols: list[str] = []
+                for part in rule["itemizations"]:
+                    has_selection = False
+                    for adjustment in part["adjustment_rows"]:
+                        selection = adjustment.get("selection")
+                        if isinstance(selection, dict):
+                            has_selection = True
+                            status, spec = self._select_adjustment(adjustment)
+                            if status == "refuse":
+                                missing = [f"{part['part_id']}:{adjustment['kind']}"]
+                                if (
+                                    rule["schema"] == "attachment-rule.v11"
+                                    and adjustment.get("kind") == "nominee_distribution"
+                                ):
+                                    # The legacy/new nominee collision has a
+                                    # shared bounded refusal vocabulary with
+                                    # line 2b.  Keep the internal exclusive
+                                    # diagnostic, but expose the same marker
+                                    # on both dependents' durable ledgers.
+                                    from packages.tax.nominee_consequences import BOTH_PRESENT_MISSING
+                                    missing = [BOTH_PRESENT_MISSING]
+                                block_code = (
+                                    "DEPENDENCY_INVALID"
+                                    if (
+                                        rule["schema"] == "attachment-rule.v11"
+                                        and rule_id == "tax.us.2025.rule.attachment.schedule-b"
+                                        and adjustment.get("kind") == "nominee_distribution"
+                                    )
+                                    else EXCLUSIVE_PRESENCE_CONFLICT
+                                )
+                                self._attachment_block(
+                                    rule_id,
+                                    block_code,
+                                    missing,
+                                    base_pins,
+                                )
+                                return "blocked"
+                            if status == "ok" and spec is not None:
+                                adjustment_symbols.append(spec["subtotal_symbol"])
+                        else:
+                            adjustment_symbols.append(adjustment["subtotal_symbol"])
+                    adjustment_symbols.extend(part["tie_out"]["positive_subtotals"])
+                    # A legacy direct row's tie-out may carry its subtotal
+                    # only at the tie-out level.  For an exclusive row, the
+                    # selected path above is the sole required adjustment
+                    # subtotal; the tie-out list intentionally also names
+                    # the unselected alternative(s).
+                    if not has_selection:
+                        adjustment_symbols.extend(part["tie_out"]["adjustment_subtotals"])
+                itemization_symbols = sorted(set(itemization_symbols) | set(adjustment_symbols))
             missing_itemization = [symbol for symbol in itemization_symbols if symbol not in self.symbols]
             if missing_itemization:
                 self._attachment_block(rule_id, BLOCK_ABSENT, missing_itemization, base_pins)
@@ -1194,42 +1617,80 @@ class _Run:
                 positive_subtotals = [
                     row_set["subtotal_symbol"] for row_set in part["row_sets"]
                 ]
-                adjustment_subtotals = [
-                    row["subtotal_symbol"] for row in part["adjustment_rows"]
-                ]
+                declared_adjustment_subtotals: list[str] = []
+                for row in part["adjustment_rows"]:
+                    if "selection" in row:
+                        declared_adjustment_subtotals.extend(
+                            path["subtotal_symbol"] for path in row["selection"]["paths"]
+                        )
+                    else:
+                        declared_adjustment_subtotals.append(row["subtotal_symbol"])
                 tie_out = part["tie_out"]
                 if (
                     tie_out["positive_subtotals"] != positive_subtotals
-                    or tie_out["adjustment_subtotals"] != adjustment_subtotals
+                    or tie_out["adjustment_subtotals"] != declared_adjustment_subtotals
                 ):
                     tie_out_violations.append(f"{part['part_id']}:tie_out_declaration")
                 for adjustment in part["adjustment_rows"]:
-                    rows_spec = adjustment["rows"]
-                    fact_name = rows_spec["member_fact_type"]["id"]
-                    values = self.sources.get(fact_name, [])
-                    fids = self.source_fids.get(fact_name, [])
-                    rows = [{"finding_id": fid, "value": val} for val, fid in zip(values, fids)]
-                    row_sum = sum((Decimal(v) for v in values), Decimal(0))
-                    subtotal_symbol = adjustment["subtotal_symbol"]
+                    status, spec = self._select_adjustment(adjustment)
+                    if status == "refuse":
+                        missing = [f"{part['part_id']}:{adjustment['kind']}"]
+                        if (
+                            rule["schema"] == "attachment-rule.v11"
+                            and rule_id == "tax.us.2025.rule.attachment.schedule-b"
+                            and adjustment.get("kind") == "nominee_distribution"
+                        ):
+                            from packages.tax.nominee_consequences import BOTH_PRESENT_MISSING
+                            missing = [BOTH_PRESENT_MISSING]
+                        block_code = (
+                            "DEPENDENCY_INVALID"
+                            if (
+                                rule["schema"] == "attachment-rule.v11"
+                                and rule_id == "tax.us.2025.rule.attachment.schedule-b"
+                                and adjustment.get("kind") == "nominee_distribution"
+                            )
+                            else EXCLUSIVE_PRESENCE_CONFLICT
+                        )
+                        self._attachment_block(
+                            rule_id,
+                            block_code,
+                            missing,
+                            governance_pins,
+                        )
+                        return "blocked"
+                    if status == "omit" or spec is None:
+                        continue
+                    rows_spec = spec["rows_spec"]
+                    rows, extra_pins = self._collect_row_source(rows_spec)
+                    row_sum = sum((Decimal(str(row["value"])) for row in rows), Decimal(0))
+                    subtotal_symbol = spec["subtotal_symbol"]
+                    if subtotal_symbol not in self.symbols:
+                        self._attachment_block(
+                            rule_id, BLOCK_ABSENT, [subtotal_symbol], governance_pins
+                        )
+                        return "blocked"
                     subtotal_value = Decimal(str(self.symbols[subtotal_symbol]))
+                    source_ref = (
+                        rows_spec["source_family"]
+                        if rows_spec.get("op") == "collect_members"
+                        else rows_spec.get("fact_type")
+                    )
                     adjustment_rows_value.append({
-                        "kind": adjustment["kind"],
-                        "label": adjustment["label"],
-                        "sign": adjustment["sign"],
-                        "source_family": rows_spec["source_family"],
+                        "kind": spec["kind"],
+                        "label": spec["label"],
+                        "sign": spec["sign"],
+                        **({"source_family": source_ref} if rows_spec.get("op") == "collect_members" else {"fact_type": source_ref}),
                         "rows": rows,
                         "row_sum": _value_str(row_sum),
                         "signed_sum": _value_str(-row_sum),
                         "subtotal": {"symbol": subtotal_symbol, "value": _value_str(subtotal_value)},
                     })
-                    if any(Decimal(v) < 0 for v in values) or row_sum != subtotal_value:
+                    if any(Decimal(str(row["value"])) < 0 for row in rows) or row_sum != subtotal_value:
                         tie_out_violations.append(
-                            f"{part['part_id']}:{rows_spec['source_family']['id']}:{subtotal_symbol}"
+                            f"{part['part_id']}:{source_ref}:{subtotal_symbol}"
                         )
                     part_sum -= row_sum
-                    row_pins.extend({"role": "input", "id": fid, "version": "v1",
-                                      **({"origin": "assertion"} if self.use_v2 else {})}
-                                     for fid in fids)
+                    row_pins.extend(extra_pins)
             tie_symbol = part["tie_out"]["line_symbol"]
             line_value = Decimal(str(self.symbols[tie_symbol]))
             if rule["schema"] == "attachment-rule.v1":
@@ -1254,7 +1715,7 @@ class _Run:
         if tie_out_violations:
             self._attachment_block(
                 rule_id, ITEMIZATION_TIE_OUT_VIOLATION, sorted(set(tie_out_violations)),
-                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8") else []),
+                base_pins + itemization_pins + answer_pins + (row_pins if rule["schema"] in ("attachment-rule.v2", "attachment-rule.v3", "attachment-rule.v4", "attachment-rule.v5", "attachment-rule.v6", "attachment-rule.v8", "attachment-rule.v11") else []),
             )
             return "blocked"
 
@@ -1604,6 +2065,15 @@ class _Run:
                 self.attempt_attachment(rule)
                 continue
 
+            if rule.get("schema") == "rule-artifact.v9" and (
+                "selection" in rule or "aggregation" in rule
+            ):
+                # Selection and aggregation declarations own their fallback
+                # behavior; the ordinary fallback below assumes a top-level
+                # `value`, which v9 deliberately omits for these shapes.
+                self.attempt(rule)
+                continue
+
             # A false guard is an atomic inapplicable disposition even when
             # later numeric dependencies are absent.  Preflight only far
             # enough to prove false: a true or blocked preflight retains the
@@ -1744,6 +2214,24 @@ def _execute(ctx: RunContext, schemas: DerivationSchemas) -> RunResult:
     from packages.tax.identity_association import try_publish_on_run
 
     try_publish_on_run(state)
+    # The report-scoped nominee dispatcher feeds a form-facing aggregate that
+    # line 2b and Schedule B may consume in the same saturation pass. Run that
+    # producer once before ordinary graph order so a lexicographically earlier
+    # form consumer cannot resolve against a not-yet-enumerated group.
+    from packages.tax.nominee_consequences import (
+        is_nominee_aggregate_rule,
+        is_nominee_reduction_rule,
+    )
+    for nominee_rule in ctx.rules:
+        if is_nominee_reduction_rule(nominee_rule):
+            if nominee_rule["id"] not in state.resolved and state.is_eligible(nominee_rule):
+                state.attempt(nominee_rule)
+            break
+    for aggregate_rule in ctx.rules:
+        if is_nominee_aggregate_rule(aggregate_rule):
+            if aggregate_rule["id"] not in state.resolved and state.is_eligible(aggregate_rule):
+                state.attempt(aggregate_rule)
+            break
     progress = True
     while progress:
         progress = False
@@ -1814,7 +2302,7 @@ def run_and_record(
         rule.get("schema") in {
             "rule-artifact.v2", "rule-artifact.v3", "rule-artifact.v4",
             "rule-artifact.v5", "rule-artifact.v6", "rule-artifact.v7",
-            "rule-artifact.v8",
+            "rule-artifact.v8", "rule-artifact.v9",
         }
         for rule in ctx.rules
     ) or _uses_attachment_machinery(ctx.rules)

@@ -1,0 +1,33 @@
+{
+  "schema": "artifact-package.v29",
+  "id": "demo.package.nominee-v11",
+  "version": "v1",
+  "scope": {
+    "tax_year": 2025,
+    "jurisdiction": "US-federal",
+    "family": "individual-income-tax"
+  },
+  "admitted_schemas": [
+    "attachment-rule.v11",
+    "bundle.v2",
+    "citation.v1",
+    "parameter-declaration.v1",
+    "source-family.v1"
+  ],
+  "members": [
+    {"id": "demo.rule.attachment.schedule-b", "role": "attachment-rule", "schema": "attachment-rule.v11", "version": "v1"},
+    {"id": "demo.bundle.v11", "role": "fact-type-bundle", "schema": "bundle.v2", "version": "v1"},
+    {"id": "demo.citation.nominee", "role": "citation", "schema": "citation.v1", "version": "v1"},
+    {"id": "demo.citation.schedule-b", "role": "citation", "schema": "citation.v1", "version": "v1"},
+    {"id": "demo.family.interest", "role": "source-family", "schema": "source-family.v1", "version": "v1"},
+    {"id": "demo.family.nominee", "role": "source-family", "schema": "source-family.v1", "version": "v1"},
+    {"id": "demo.parameter.threshold", "role": "parameter", "schema": "parameter-declaration.v1", "version": "v1"}
+  ],
+  "input_bindings": [],
+  "entrypoints": [
+    {"id": "demo.bundle.v11", "version": "v1"},
+    {"id": "demo.rule.attachment.schedule-b", "version": "v1"}
+  ],
+  "composition_obligations": [],
+  "package_checksum": "7aca4d2eaaa45c82deb57a5c09fcddbf6d2da87a7c9efbdd6990465d93b03145"
+}

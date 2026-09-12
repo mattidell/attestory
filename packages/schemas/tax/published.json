@@ -1,5 +1,7 @@
 {
   "attachment-rule.v1.schema.json": "1ce9cd6d6ff9c81bcd8fab3519d265762b5ede9b785dc6f02c6ea69c3d0782ba",
+  "attachment-rule.v10.schema.json": "b3f07cfc55d8dc79a3888080dcdbd8de904926f4c1f9917ceaa3b7594d115774",
+  "attachment-rule.v11.schema.json": "5d958c8d1aae6cb3d600a00b1da5110a5afe772b4cda9b3bf46daf0f781b8a6e",
   "attachment-rule.v2.schema.json": "bbcb3a679f8ca7bc01bcae681a6c33d51accaba6abe719d996eb01a3fd90e141",
   "attachment-rule.v3.schema.json": "5b3f219879095db24cab90e7b9bfdcf3b6555a022697299230eec94490099cab",
   "attachment-rule.v4.schema.json": "560c10c7814e9dba044bbc65a33ff7775da804248a8412f15da1bbc630a539db",
