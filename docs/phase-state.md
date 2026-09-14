@@ -2,31 +2,53 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "nominee-interest-return-integration",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/nominee-interest-return-integration.md",
+  "topic": "student-loan-interest-deduction-translation",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md",
   "milestone_state": "closed",
-  "status": "CLOSED 2026-09-12. A current ordinary nominee allocation reaches one bounded taxable-interest result and an honest Schedule B Part I account on package.core-calculations v38. Dispatcher B is the form-facing aggregate; Schedule B v7 and line 2b v8 consume the same adjustment, including the pairing-scoped accrued-interest row that closes T0-F5. Legacy-only workspaces keep the legacy subtotal; both-present refuses. Ambiguous nominee identities return a typed pre-run NOMINEE_IDENTITY refusal with no run id, output, or start record. Ordinary commas remain valid. Not done: Form 8815 / section 135 and wider 2025 taxable-interest coverage, information-return filing, a general fact-id repair, I4 causal-block explanation, and UI.",
+  "status": "CLOSED EXPLICITLY PARTIAL 2026-09-14. A completed bounded investigation with no production path. P0 settled, P1 selected and reviewed, P2 reviewed, P3 reviewed as a decision-ready partial design. Track 0 and all production tracks were not started; no production code, content, schema, or package version was written. The coverage frontier is unchanged. The milestone selected eligible-student status under section 221(d)(1)(C), mapped it through the committed engine, and established by executable probe a bounded result: No committed path can currently use every current Form 1098-E box-1 statement as the iteration subject, require exactly one usable statement association, resolve the heterogeneous related facts this case needs, fail closed on an unassociated statement, and preserve statement-isolated dependencies. The actual pairing dispatcher iterates existing pairing records, so an unpaired box-1 statement is never visited and produces neither a publication nor a blocked row. Three capability gaps were named. Gap 1, box-1-driven heterogeneous group-binding, has a proposed prerequisite milestone with this case as its forcing consumer. Gap 2, an authoritative institutional-catalog input contract, is a separate required blocker sequenced after it. Gap 3, an explanation carrier, is retained as a production condition. The selected tax direction, cases, narrow promise, and explanation requirement are preserved in the plan's deferral ledger.",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
   "deep_reads": {
     "planning": [
-      "docs/milestone-retrospectives/2026-09-09-nominee-interest-tax-consequence-supportability.md",
-      "docs/phases/tax-concept-derivation/milestones/nominee-interest-tax-consequence-supportability.md",
-      "docs/phases/tax-concept-derivation/milestones/nominee-interest-return-integration.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md",
+      "docs/milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
-      "docs/adr/0072-legacy-pairing-scoped-interest-coexistence.md",
-      "docs/adr/0074-bound-sources-and-nominee-report-group-ledger.md",
+      "packages/content/tax/2025/f1098e.bundle.json",
+      "packages/content/tax/2025/sli-scope.bundle.json",
+      "packages/content/tax/2025/rule.sli-worksheet.json",
+      "packages/content/tax/2025/rule.schedule1-line26.json",
+      "packages/content/tax/2025/package.core-calculations.v38.json",
+      "OWNER_MODEL.md#The Product Model",
+      "OWNER_MODEL.md#The Domain Model Model"
+    ],
+    "implementation": [
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md",
+      "docs/adr/0016-source-family-claim-and-composition.md",
+      "docs/adr/0038-qdcg-worksheet-and-declared-absence.md",
+      "docs/adr/0064-expression-language-extension-arithmetic-and-categorical.md",
+      "docs/adr/0065-schedule1-part-ii-completeness-and-line26-composition.md",
+      "packages/content/tax/2025/f1098e.bundle.json",
+      "packages/content/tax/2025/sli-scope.bundle.json",
+      "packages/content/tax/2025/rule.sli-worksheet.json",
+      "packages/content/tax/2025/rule.sli-worksheet-line1-subtotal.json",
+      "packages/content/tax/2025/rule.schedule1-line26.json",
+      "packages/content/tax/2025/rule.form1040-line11.v2.json",
+      "OWNER_MODEL.md#The Product Model",
+      "OWNER_MODEL.md#The Domain Model Model"
+    ],
+    "review": [
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md",
+      "docs/roles/qualitative-review.md",
       "OWNER_MODEL.md#The Product Model"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md",
-      "docs/phases/tax-concept-derivation/milestones/nominee-interest-return-integration.md",
-      "docs/adr/0074-bound-sources-and-nominee-report-group-ledger.md",
+      "docs/milestone-retrospectives/2026-09-14-student-loan-interest-deduction-translation.md",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
-      "OWNER_MODEL.md#The Product Model"
+      "docs/phases/tax-concept-derivation/milestones/PROPOSED-identified-evaluation-context.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md"
     ]
   },
-  "retrospective": "docs/milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md"
+  "retrospective": "docs/milestone-retrospectives/2026-09-14-student-loan-interest-deduction-translation.md"
 }
 -->
 
@@ -53,8 +75,18 @@ a project to enumerate or implement the entire taxable-interest universe.
 
 ## Where the phase stands
 
-- **Phase:** Tax Concept Derivation — **ACTIVE**. No milestone is selected; the
-  next selection is owner-held.
+- **Phase:** Tax Concept Derivation — **ACTIVE**.
+- **Active milestone:** Student Loan Interest Deduction Translation —
+  **PLANNED 2026-09-12.** This is the first contrasting tax concept after the
+  completed taxable-interest vertical. The current engine already computes a
+  bounded standard Student Loan Interest Deduction through Schedule 1 and AGI,
+  but it consumes several tax-shaped categorical conclusions. The milestone
+  will map those conclusions back to the underlying ordinary circumstances,
+  select one forcing case, and build one rule-owned translation without
+  pretending to model every student loan or education benefit. P0-P3 are
+  independently reviewed planning gates; Track 0 and implementation remain
+  pending. Plan:
+  `docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md`.
 - **Just-closed milestone:** Nominee Interest Return Integration — **CLOSED
   2026-09-12.** A current ordinary nominee allocation reaches one bounded
   taxable-interest result and an honest Schedule B Part I account on
@@ -373,7 +405,9 @@ one tested with a real consumer; its own retrospective is
 
 ## Pointers
 
-- **Next-milestone selection instrument (owner-held):**
+- **Active milestone:**
+  `docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md`.
+- **Phase roadmap:**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
 - **Just-closed milestone:**
   `docs/phases/tax-concept-derivation/milestones/nominee-interest-return-integration.md`,
@@ -400,8 +434,6 @@ one tested with a real consumer; its own retrospective is
   `docs/milestone-retrospectives/2026-09-05-nominee-interest-ownership-translation.md`.
 - **Phase overview:**
   `docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md`.
-- **Phase roadmap:**
-  `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
 - **Closed milestone plan:**
   `docs/phases/tax-concept-derivation/milestones/later-year-basis-reuse.md`.
 - **Findings:**
