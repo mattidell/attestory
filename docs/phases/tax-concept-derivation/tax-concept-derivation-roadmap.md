@@ -381,16 +381,27 @@ Plan:
 Retrospective:
 [`../../milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md`](../../milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md).
 
-### 10. Contrasting Tax Concept
+### 10. Student Loan Interest Deduction Translation (selected 2026-09-12)
 
-Apply the method to a concept with a different structure, chosen after the
-interest work exposes which properties may be accidental. A deduction or
-limitation whose result depends on taxpayer circumstances and another derived
-quantity is a stronger contrast than another document-box aggregation.
+Apply the method to a concept with a different structure. The current bounded
+Student Loan Interest Deduction starts from a Form 1098-E amount, but its
+eligibility depends on taxpayer, loan, education, payment, and coordination
+circumstances, and its amount is then limited by filing status and MAGI. That is
+a stronger contrast than another document-box aggregation.
+
+The current engine already carries the standard worksheet arithmetic through
+Schedule 1 and AGI. Its five per-statement eligibility witnesses are expressed
+as tax-shaped categorical conclusions, however, and do not establish that the
+application can obtain the underlying ordinary facts or derive those
+conclusions itself. The milestone maps the whole bounded translation, selects
+one of those gates as a forcing production slice, and tests whether the newer
+document-and-ordinary-fact method can replace it without rewriting settled
+worksheet arithmetic.
 
 The purpose is to find which parts of the representation are genuinely common
-and which belong only to interest. Confirmation in a second concept is evidence
-of transfer, not proof of universality.
+and which belong only to the taxable-interest cases. Confirmation in this
+second concept is evidence of transfer, not proof of universality. Plan:
+[`milestones/student-loan-interest-deduction-translation.md`](milestones/student-loan-interest-deduction-translation.md).
 
 ### 11. Tax-Concept Question and Explanation Projection
 
@@ -417,7 +428,7 @@ model must continue to serve computation and return generation.
 | Nominee Allocation Assertion Recording | **CLOSED 2026-09-08** | Ordinary allocation assertion recorded, corrected, retracted from current use, asserted again, and recovered from the log with attribution; no tax consequence or return integration |
 | Nominee Interest Tax Consequence and Supportability | **CLOSED 2026-09-09** | Rule-owned report-scoped nominee reduction derived and executed on package v36 for uniquely rendered identities, with whole-set blocking, cross-report and cross-year isolation, and walkable provenance; remainder observed only; no return integration, legacy migration, or information reporting |
 | Nominee Interest Return Integration | **CLOSED 2026-09-12** | Bounded line-2b and Schedule B integration on package v38; T0-F5 repaired; nominee applicability below threshold; legacy-only / new-only / both-present refusal; pre-run identity refusal. Form 8815 / §135, filing, general fact-id repair, and I4 causal-block explanation remain out |
-| Contrasting Tax Concept | Not selected | Cross-domain tax modeling and architecture validation |
+| Student Loan Interest Deduction Translation | **CLOSED 2026-09-14 — explicit partial result, no production path** | Bounded investigation. Eligible-student status under section 221(d)(1)(C) selected on a narrow promise; product map, ten-constituent tax-boundary record, artifact and consumer map, and a decision-ready partial design delivered. Track 0 and all production tracks not started; coverage frontier unchanged. An executable probe established that no committed path can use every current Form 1098-E box-1 statement as the iteration subject, require exactly one usable association, resolve this case's heterogeneous related facts, fail closed on an unassociated statement, and preserve statement-isolated dependencies. Three named gaps: box-1-driven heterogeneous group-binding (proposed prerequisite milestone, this case as forcing consumer); an authoritative institutional-catalog input contract (separate blocker, sequenced next); an explanation carrier (production condition) |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 
 The Document and Ordinary-Fact Translation Vertical's plan is
@@ -526,6 +537,24 @@ nominee ownership, bond-premium and market-discount elections, frozen-deposit
 timing, seller-financed mortgage interest, K-1 interest, joint-return subject
 modeling, general Schedule B triggers, full line-2b coverage, filing, or a
 production graphical interface.
+
+## Closure note — Student Loan Interest Deduction Translation, 2026-09-14
+
+Closed as a completed bounded investigation with no production path. The
+coverage frontier is **unchanged**: no new tax capability was delivered, and the
+2025 Student Loan Interest Deduction route remains exactly as
+`package.core-calculations.v38` left it.
+
+What the milestone established is a bounded negative result — No committed path can currently use every current Form 1098-E box-1 statement as the iteration subject, require exactly one usable statement association, resolve the heterogeneous related facts this case needs, fail closed on an unassociated statement, and preserve statement-isolated dependencies. The actual pairing dispatcher iterates existing pairing records, so an unpaired box-1 statement is never visited and produces neither a publication nor a blocked row. — with three named capability gaps, the first of which now has a proposed prerequisite milestone
+(`milestones/PROPOSED-identified-evaluation-context.md`) with the student-loan
+box-1 case as its forcing consumer. The authoritative institutional catalog is a
+separate required blocker, sequenced after that prerequisite and before
+production implementation resumes.
+
+The contrasting-concept question this milestone was selected to answer —
+whether the translation method transfers from an income adjustment to a
+deduction — is **not answered**. It was not reached: the blocker is engine
+composition, not tax translation.
 
 ## Roadmap reassessment points
 
