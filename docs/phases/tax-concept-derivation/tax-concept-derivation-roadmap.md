@@ -403,7 +403,56 @@ and which belong only to the taxable-interest cases. Confirmation in this
 second concept is evidence of transfer, not proof of universality. Plan:
 [`milestones/student-loan-interest-deduction-translation.md`](milestones/student-loan-interest-deduction-translation.md).
 
-### 11. Tax-Concept Question and Explanation Projection
+The milestone closed explicitly partial on 2026-09-14. Its attempted
+eligible-student decomposition exposed a real limitation in the existing
+association-driven dispatcher, but did not establish that ordinary product use
+must independently reconstruct every constituent represented by an
+uncontradicted Form 1098-E. The proposed Identified Evaluation Context remains
+an unselected backlog investigation rather than the automatic next dependency.
+
+### 11. Student Loan Interest Bounded Method Transfer (selected 2026-09-14)
+
+**CLOSED 2026-09-15 as a validated method with production deferred.**
+
+Resume the contrasting-concept question without presuming a general execution
+abstraction. Preserve Form 1098-E evidence, select one understandable ordinary
+circumstance from the eligible-student boundary, let an adopted rule own the
+tax consequence, and test whether the accepted nominee-interest method carries
+that separation through the bounded deduction.
+
+Compare practical documentary reliance, focused reevaluation when ordinary
+facts contradict the represented classification, and direct constituent
+derivation. Fixture premises may discriminate architecture but cannot become
+production authority. The result may be a bounded production route or a
+validated method with production deferred. It does not implement Identified
+Evaluation Context, an institutional catalog, complete student-loan support, or
+deep user explanation. Plan:
+[`milestones/student-loan-interest-bounded-method-transfer.md`](milestones/student-loan-interest-bounded-method-transfer.md).
+
+**The result.** Four independently reviewed gates ran; none produced production
+code, a contract, a schema or an ADR, and the conditional production tracks were
+never opened. **The bounded capability actually delivered is disposable evidence,
+not product behaviour**: through real engine machinery over the production Form
+1098-E box-1 source, with disposable candidate artifacts never adopted into the
+production package, an ordinary statement a person can honestly make —
+*"I took individual classes; I wasn't enrolled in or accepted into a credential
+program"* — drove a rule-owned monetary consequence (interest supported as to
+§ 221(d)(1)(C)) that cited its authority, preserved the document unchanged, and
+was consumed downstream by symbol, **with the filer never supplying the legal
+conclusion**.
+
+**Only the adverse direction.** The favorable direction is not established as a
+product route. **Production is deferred** because the statement-to-loan-and-period
+relationship has no committed production representation and the favorable route's
+three institution/public-authority determinations have no producer; real worksheet
+integration and multi-statement behaviour remain unbuilt. Remaining work is carried
+in the deferral ledger at
+[`milestones/student-loan-interest-bounded-method-transfer-evidence/track-0-adversarial-closure.md`](milestones/student-loan-interest-bounded-method-transfer-evidence/track-0-adversarial-closure.md)
+§ 5.5. **Identified Evaluation Context remains unselected** — no executed case
+meets every conjunct of its reopening trigger. Retrospective:
+[`../../milestone-retrospectives/2026-09-15-student-loan-interest-bounded-method-transfer.md`](../../milestone-retrospectives/2026-09-15-student-loan-interest-bounded-method-transfer.md).
+
+### 12. Tax-Concept Question and Explanation Projection
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
@@ -429,6 +478,7 @@ model must continue to serve computation and return generation.
 | Nominee Interest Tax Consequence and Supportability | **CLOSED 2026-09-09** | Rule-owned report-scoped nominee reduction derived and executed on package v36 for uniquely rendered identities, with whole-set blocking, cross-report and cross-year isolation, and walkable provenance; remainder observed only; no return integration, legacy migration, or information reporting |
 | Nominee Interest Return Integration | **CLOSED 2026-09-12** | Bounded line-2b and Schedule B integration on package v38; T0-F5 repaired; nominee applicability below threshold; legacy-only / new-only / both-present refusal; pre-run identity refusal. Form 8815 / §135, filing, general fact-id repair, and I4 causal-block explanation remain out |
 | Student Loan Interest Deduction Translation | **CLOSED 2026-09-14 — explicit partial result, no production path** | Bounded investigation. Eligible-student status under section 221(d)(1)(C) selected on a narrow promise; product map, ten-constituent tax-boundary record, artifact and consumer map, and a decision-ready partial design delivered. Track 0 and all production tracks not started; coverage frontier unchanged. An executable probe established that no committed path can use every current Form 1098-E box-1 statement as the iteration subject, require exactly one usable association, resolve this case's heterogeneous related facts, fail closed on an unassociated statement, and preserve statement-isolated dependencies. Three named gaps: box-1-driven heterogeneous group-binding (proposed prerequisite milestone, this case as forcing consumer); an authoritative institutional-catalog input contract (separate blocker, sequenced next); an explanation carrier (production condition) |
+| Student Loan Interest Bounded Method Transfer | **CLOSED 2026-09-15 — validated method, production deferred** | The adverse-direction translation method validated in disposable evidence only: through real engine machinery over the production Form 1098-E box-1 source, with disposable candidate artifacts never adopted into the production package, an ordinary statement drives a rule-owned monetary consequence that cites its authority, preserves the document, and is consumed downstream — with the filer never supplying the legal conclusion. No production code, contract, schema or ADR; conditional production tracks never opened; coverage frontier unchanged. The favorable direction is not established as a product route. Production deferred: the statement-to-loan-and-period relationship has no committed production representation and the favorable route's three institution or public-authority determinations have no producer; multi-statement behaviour and real worksheet integration remain unbuilt. Identified Evaluation Context remains unselected — no executed case meets every conjunct of its reopening trigger |
 | Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
 
 The Document and Ordinary-Fact Translation Vertical's plan is
@@ -546,10 +596,20 @@ coverage frontier is **unchanged**: no new tax capability was delivered, and the
 `package.core-calculations.v38` left it.
 
 What the milestone established is a bounded negative result — No committed path can currently use every current Form 1098-E box-1 statement as the iteration subject, require exactly one usable statement association, resolve the heterogeneous related facts this case needs, fail closed on an unassociated statement, and preserve statement-isolated dependencies. The actual pairing dispatcher iterates existing pairing records, so an unpaired box-1 statement is never visited and produces neither a publication nor a blocked row. — with three named capability gaps, the first of which now has a proposed prerequisite milestone
-(`milestones/PROPOSED-identified-evaluation-context.md`) with the student-loan
-box-1 case as its forcing consumer. The authoritative institutional catalog is a
-separate required blocker, sequenced after that prerequisite and before
-production implementation resumes.
+(`milestones/PROPOSED-identified-evaluation-context.md`). At close, that proposal
+treated the student-loan box-1 case as its forcing consumer and treated an
+institutional catalog as another required blocker.
+
+**Roadmap change on 2026-09-14.** The owner separated the mechanism failure from
+the product requirement. The probe proves that the attempted constituent
+decomposition cannot run through the pairing dispatcher; it does not prove that
+ordinary preparation must perform that decomposition for an uncontradicted Form
+1098-E. Identified Evaluation Context is therefore retained as an unselected
+backlog investigation, not the next prerequisite. An external institutional
+catalog is one possible evidence route, not a presumed product requirement.
+Item 11 resumes the original method-transfer question with explicit experimental
+premises and a bounded comparison of documentary, contradiction-triggered, and
+constituent-derived support.
 
 The contrasting-concept question this milestone was selected to answer —
 whether the translation method transfers from an income adjustment to a

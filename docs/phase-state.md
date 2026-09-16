@@ -2,53 +2,51 @@
 {
   "version": 1,
   "phase": "Tax Concept Derivation",
-  "topic": "student-loan-interest-deduction-translation",
-  "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md",
+  "topic": "student-loan-interest-bounded-method-transfer",
+  "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-interest-bounded-method-transfer.md",
   "milestone_state": "closed",
-  "status": "CLOSED EXPLICITLY PARTIAL 2026-09-14. A completed bounded investigation with no production path. P0 settled, P1 selected and reviewed, P2 reviewed, P3 reviewed as a decision-ready partial design. Track 0 and all production tracks were not started; no production code, content, schema, or package version was written. The coverage frontier is unchanged. The milestone selected eligible-student status under section 221(d)(1)(C), mapped it through the committed engine, and established by executable probe a bounded result: No committed path can currently use every current Form 1098-E box-1 statement as the iteration subject, require exactly one usable statement association, resolve the heterogeneous related facts this case needs, fail closed on an unassociated statement, and preserve statement-isolated dependencies. The actual pairing dispatcher iterates existing pairing records, so an unpaired box-1 statement is never visited and produces neither a publication nor a blocked row. Three capability gaps were named. Gap 1, box-1-driven heterogeneous group-binding, has a proposed prerequisite milestone with this case as its forcing consumer. Gap 2, an authoritative institutional-catalog input contract, is a separate required blocker sequenced after it. Gap 3, an explanation carrier, is retained as a production condition. The selected tax direction, cases, narrow promise, and explanation requirement are preserved in the plan's deferral ledger.",
+  "status": "CLOSED 2026-09-15 as a validated-method result with production deferred (plan result 3). The bounded adverse-direction translation method works in a disposable, single-statement, stipulated-relationship experiment: through real engine machinery over the production Form 1098-E box-1 source, with disposable candidate artifacts never adopted into the production package, an ordinary statement drives a rule-owned monetary consequence that cites its authority, preserves the document unchanged, and is consumed downstream by symbol, with the filer never supplying the legal conclusion. No production code, contract, schema or ADR; the conditional production tracks were never opened. The favorable direction is not established as a product route. Production is deferred because the statement-to-loan-and-period relationship has no committed production representation and the favorable route lacks authoritative institution and public-authority determinations; multi-statement behaviour and real worksheet integration remain unbuilt. Identified Evaluation Context remains unselected — no executed case meets every conjunct of its reopening trigger. The next action is selecting a new milestone.",
   "current_role": "Foreman (present next-milestone candidates; selection is owner-held)",
   "current_prompt": "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
   "deep_reads": {
     "planning": [
-      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-bounded-method-transfer.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md#Execution record — CLOSED EXPLICITLY PARTIAL 2026-09-14",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation-evidence/p1-loan-qualification.md",
       "docs/milestone-retrospectives/2026-09-12-nominee-interest-return-integration.md",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
+      "OWNER_MODEL.md#The Product Model",
+      "OWNER_MODEL.md#The Domain Model Model",
+      "PROJECT_PLANNING.md#Lean Production Loop"
+    ],
+    "implementation": [
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-bounded-method-transfer.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation-evidence/p3-partial-design.md",
+      "docs/prototypes/sli-eligible-student/README.md",
       "packages/content/tax/2025/f1098e.bundle.json",
       "packages/content/tax/2025/sli-scope.bundle.json",
       "packages/content/tax/2025/rule.sli-worksheet.json",
       "packages/content/tax/2025/rule.schedule1-line26.json",
       "packages/content/tax/2025/package.core-calculations.v38.json",
-      "OWNER_MODEL.md#The Product Model",
-      "OWNER_MODEL.md#The Domain Model Model"
-    ],
-    "implementation": [
-      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md",
-      "docs/adr/0016-source-family-claim-and-composition.md",
-      "docs/adr/0038-qdcg-worksheet-and-declared-absence.md",
-      "docs/adr/0064-expression-language-extension-arithmetic-and-categorical.md",
-      "docs/adr/0065-schedule1-part-ii-completeness-and-line26-composition.md",
-      "packages/content/tax/2025/f1098e.bundle.json",
-      "packages/content/tax/2025/sli-scope.bundle.json",
-      "packages/content/tax/2025/rule.sli-worksheet.json",
-      "packages/content/tax/2025/rule.sli-worksheet-line1-subtotal.json",
-      "packages/content/tax/2025/rule.schedule1-line26.json",
-      "packages/content/tax/2025/rule.form1040-line11.v2.json",
-      "OWNER_MODEL.md#The Product Model",
-      "OWNER_MODEL.md#The Domain Model Model"
+      "PROJECT_PLANNING.md#Lean Production Loop",
+      "PROJECT_PLANNING.md#Payload Instantiation Gate",
+      "AGENTS.md#Data Safety Rules"
     ],
     "review": [
-      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-bounded-method-transfer.md",
       "docs/roles/qualitative-review.md",
-      "OWNER_MODEL.md#The Product Model"
+      "OWNER_MODEL.md#The Product Model",
+      "AGENTS.md#Data Safety Rules"
     ],
     "new_milestone": [
-      "docs/milestone-retrospectives/2026-09-14-student-loan-interest-deduction-translation.md",
+      "docs/milestone-retrospectives/2026-09-15-student-loan-interest-bounded-method-transfer.md",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md",
-      "docs/phases/tax-concept-derivation/milestones/PROPOSED-identified-evaluation-context.md",
-      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md"
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-bounded-method-transfer.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-interest-bounded-method-transfer-evidence/track-0-adversarial-closure.md",
+      "docs/phases/tax-concept-derivation/milestones/PROPOSED-identified-evaluation-context.md"
     ]
   },
-  "retrospective": "docs/milestone-retrospectives/2026-09-14-student-loan-interest-deduction-translation.md"
+  "retrospective": "docs/milestone-retrospectives/2026-09-15-student-loan-interest-bounded-method-transfer.md"
 }
 -->
 
@@ -76,18 +74,43 @@ a project to enumerate or implement the entire taxable-interest universe.
 ## Where the phase stands
 
 - **Phase:** Tax Concept Derivation — **ACTIVE**.
-- **Active milestone:** Student Loan Interest Deduction Translation —
-  **PLANNED 2026-09-12.** This is the first contrasting tax concept after the
-  completed taxable-interest vertical. The current engine already computes a
-  bounded standard Student Loan Interest Deduction through Schedule 1 and AGI,
-  but it consumes several tax-shaped categorical conclusions. The milestone
-  will map those conclusions back to the underlying ordinary circumstances,
-  select one forcing case, and build one rule-owned translation without
-  pretending to model every student loan or education benefit. P0-P3 are
-  independently reviewed planning gates; Track 0 and implementation remain
-  pending. Plan:
+- **Active milestone:** none — **the next action is selecting a new
+  milestone.** Candidates are on the phase roadmap:
+  `docs/phases/tax-concept-derivation/tax-concept-derivation-roadmap.md`.
+- **Just-closed milestone:** Student Loan Interest Bounded Method Transfer —
+  **CLOSED 2026-09-15 as a validated method with production deferred (result
+  3).** The bounded adverse-direction translation method works in a
+  **disposable, single-statement, stipulated-relationship experiment**: through
+  real engine machinery over the production Form 1098-E box-1 source, with
+  disposable candidate artifacts never adopted into the production package, an
+  ordinary statement drives a rule-owned monetary consequence that cites its
+  authority, preserves the document unchanged, and is consumed downstream by
+  symbol — with the filer never supplying the legal conclusion. **It does not
+  establish that the production application performs this translation.** No
+  production code, contract, schema or ADR; the conditional production tracks
+  were never opened. The favorable direction is **not** established as a product
+  route. Production is deferred because the statement-to-loan-and-period
+  relationship has no committed production representation and the favorable
+  route lacks authoritative institution and public-authority determinations;
+  multi-statement behaviour and real worksheet integration remain unbuilt.
+  Identified Evaluation Context remains **unselected** — no executed case meets
+  every conjunct of its reopening trigger. Remaining work is carried in the
+  deferral ledger at
+  `docs/phases/tax-concept-derivation/milestones/student-loan-interest-bounded-method-transfer-evidence/track-0-adversarial-closure.md`
+  § 5.5. Plan:
+  `docs/phases/tax-concept-derivation/milestones/student-loan-interest-bounded-method-transfer.md`.
+  Retrospective:
+  `docs/milestone-retrospectives/2026-09-15-student-loan-interest-bounded-method-transfer.md`.
+- **Prior milestone:** Student Loan Interest Deduction Translation —
+  **CLOSED EXPLICITLY PARTIAL 2026-09-14.** The investigation established the
+  tax boundary, selected eligible-student status, mapped current consumers, and
+  demonstrated a limitation of association-driven per-statement evaluation.
+  It delivered no production path and did not answer whether the nominee
+  translation method transfers. Its proposed Evaluation Context abstraction
+  remains useful working material, but is not an accepted product requirement.
+  Plan:
   `docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation.md`.
-- **Just-closed milestone:** Nominee Interest Return Integration — **CLOSED
+- **Prior milestone:** Nominee Interest Return Integration — **CLOSED
   2026-09-12.** A current ordinary nominee allocation reaches one bounded
   taxable-interest result and an honest Schedule B Part I account on
   `package.core-calculations` v38. Dispatcher B is the form-facing aggregate.
