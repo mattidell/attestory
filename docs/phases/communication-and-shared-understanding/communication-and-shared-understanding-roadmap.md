@@ -1,5 +1,21 @@
 # Communication and Shared Understanding Roadmap
 
+## How this roadmap develops
+
+Experience and feedback from participating agents will substantially shape this
+roadmap. The owner will solicit that feedback throughout each milestone and
+revise its plan while the work is underway, not only at planning or closeout.
+Agents can also offer observations and alternatives without waiting to be asked.
+Their feedback can change the question, scope, approach, or judgment of what is
+worth completing, as well as which milestone comes next.
+
+Plans express the current shared understanding; they are not predictions to
+defend against what the work reveals. Keep the working plan useful to people
+acting on it as that understanding changes. This needs conversation and visible
+updates, not a new feedback form or approval ceremony. Later milestones may be
+reordered, replaced, combined, or dropped. Revising an active milestone in light
+of experience is an intended part of the phase, not inherently a planning failure.
+
 ## Starting sequence
 
 Only the opening milestone is selected. The later candidates can change as we

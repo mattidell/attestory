@@ -150,6 +150,10 @@ deployment setup is an explicit part of that choice, not assumed available.
 
 ## Working rhythm
 
+Use the roadmap's [evolving-plan approach](../communication-and-shared-understanding-roadmap.md#how-this-roadmap-develops)
+throughout this pilot, including during implementation. Owner-solicited and
+agent-initiated feedback can reshape the milestone while it is running.
+
 Owner-directed mode applies to this phase's exploratory planning. Work moves
 through an opening conversation, a bounded prototype, and a trial that informs
 the next choice. The familiar P0–P3 ladder, rival implementations, and a formal
