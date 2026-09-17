@@ -16,7 +16,7 @@
 ## Where we are
 
 **Communication and Shared Understanding is open.** Its first milestone is
-**Shared Inquiry Pilot**, on `milestone/shared-inquiry-pilot` in
+**Shared Inquiry Pilot**, on `milestone/shared-inquiry-pilot-execution` in
 `engine-worktree-1`.
 
 The owner wants understanding to travel between owner and agents and among

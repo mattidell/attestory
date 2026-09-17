@@ -39,7 +39,7 @@
 # Shared Inquiry Pilot
 
 Milestone key: `shared-inquiry-pilot`. Primary branch:
-`milestone/shared-inquiry-pilot`. Primary worktree: `engine-worktree-1`.
+`milestone/shared-inquiry-pilot-execution`. Primary worktree: `engine-worktree-1`.
 Opened 2026-09-17 in Communication and Shared Understanding.
 
 ## What we are trying to make possible
