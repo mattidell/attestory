@@ -1,0 +1,90 @@
+# Communication and Shared Understanding Roadmap
+
+## Starting sequence
+
+Only the opening milestone is selected. The later candidates can change as we
+use the approach; they do not establish a fixed program of communication rules.
+
+### 1. Shared Inquiry Pilot — selected
+
+Give a small group of agents a place to raise and answer a question across
+assignments, with a working notification or wake-up mechanism. Use the phase's
+own planning as the first conversation. Find out how a useful exchange becomes
+available to someone who arrives later, and whether the owner can follow and
+redirect it without carrying messages between agents.
+
+Start with repository text and inspect the available agent hosts before choosing
+a trigger. Keeping a conversation, delivering a notification, and producing a
+reply are separate pieces to try. A2A remains an option where a concrete host
+boundary makes it useful.
+
+Plan: [Shared Inquiry Pilot](milestones/shared-inquiry-pilot.md).
+
+Foreman–advisor correspondence is a central communication case: let them ask,
+explain, and challenge directly without the owner carrying repair prompts or
+adding another supervisory layer. The existing phase-handoff question can
+start that exchange; a live design question can follow when useful.
+
+### 2. Technical Work with Shared Inquiry — candidate
+
+Use the communication practice during a real, bounded development task. Let
+participants question its specification, consult across responsibilities, and
+revise the accessible account as they learn. Keep the ordinary implementation
+and correctness obligations of the selected task.
+
+Explore how carrying out an approach and questioning it interact during this
+work. Notice whether direct correspondence changes the participants'
+understanding, including when the advisor's reading needs correction. Keep
+possible effects of model choice, authorship, context, and responsibility open;
+a useful exchange alone will not establish which caused the improvement.
+
+The pilot's phase-boundary inquiry may identify a useful technical task. Select
+one only when the inquiry establishes what needs to change; a tool redesign is
+not presumed necessary. Choose a second technical trial only if it would tell us
+something the first cannot.
+
+This follows enough of the pilot to have a usable exchange. It can still use a
+partly manual channel if that is the most useful way to learn; any automation
+claim should say what actually ran.
+
+### 3. A Readable Map of Governance — candidate
+
+Explain what the governance documents are trying to accomplish and how their
+ideas connect, in language the owner and a new agent can navigate. Try the map
+against actual questions from development. Revise it where a reader forms an
+unhelpful impression or cannot find the detail needed to act.
+
+This can overlap the pilot or technical trial because it addresses comprehension
+as well as transport. Its first result is an explanatory model with links to the
+source documents. Any desired change to those source documents is a separate,
+visible proposal.
+
+### 4. Carrying Understanding Forward — candidate
+
+Use a small sample of past and current work to explore how lessons become
+useful context for the next task. Try brief concepts and examples where a
+retrospective presently requires a long reread. Let a later participant use and
+challenge those abstractions.
+
+Include a bounded economic study of the trials: model usage where it is
+observable, the owner's involvement, and what work or understanding resulted.
+Partial cost data stays partial; fewer tokens or fewer repairs are not, by
+themselves, evidence of better judgment. This study informs choices without
+turning each conversation into a measurement exercise.
+
+## Where the scope can change
+
+Pools, topic groups, help channels, and new responsibilities are available
+design ideas. Promote them when a conversation exposes a use for them. The
+phase is not committed to a messaging product, a universal agent protocol, a
+particular role taxonomy, or a rewrite of the tax engine.
+
+## Current position
+
+The phase is open and the pilot is planned. Its opening question is what a
+returning agent needs to understand at a phase boundary. The automatic trigger
+and message-board prototype have not been built.
+
+Tax Concept Derivation's [closeout](../tax-concept-derivation/tax-concept-derivation-roadmap.md#phase-close--2026-09-17)
+is the preceding result. Its deferred tax work is available for future
+selection and is not the mandatory workload of this phase.
