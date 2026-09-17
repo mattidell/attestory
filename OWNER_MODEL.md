@@ -116,6 +116,66 @@ stated problem is the wrong problem or that a larger scope would produce
 substantially more value. Decisions remain visible through ordinary review,
 and I may change them whenever my understanding changes.
 
+## Learning through language and agent judgment
+
+I want this project to put a thesis about agent development into practice.
+A common approach gives agents a concrete, verifiable target and autonomy to
+reach it. I want to explore how far agents can act intelligently from a shared
+understanding expressed in language, including where the purpose cannot be
+exhaustively specified or measured in advance.
+
+For this purpose, I do not need to settle whether a model is intelligent or
+whether it learns in the way a human brain does. I want to treat agents as
+intelligent actors: give them room to interpret purpose, form abstractions,
+exercise judgment, question a framing, and communicate what they learn. My
+thesis is that this treatment, supported by a developing shared language, can
+produce increasingly intelligent action within the project.
+
+Language itself can carry the adaptation. An agent can articulate a better
+understanding, preserve it in a working model, and transmit it to another
+agent or to me. That understanding can shape later action, whose results may
+change the model again. This is the recursive self-improvement I want to
+explore: an evolving project understanding carried through language. It does
+not require an individual model's underlying parameters to change, and it is
+an intention to test rather than an outcome we have already established.
+
+“Common sense” is an example of the capacity I want to use. The phrase is
+imprecise, yet it carries many connected expectations about relevance,
+proportion, purpose, and judgment. Its usefulness comes partly from that
+compression. We can develop similarly useful shared concepts without spelling
+out every possible application as an instruction. When our interpretations
+diverge, we can examine the divergence and improve the language together.
+
+The models we write serve comprehension and communication. A rough,
+plain-language abstraction may be more useful for that purpose than a detailed
+account that neither I nor the next agent can readily understand. I want each
+phase, milestone, and substantial unit of work to begin with an understandable
+account of what it contributes to the application and what we hope to learn.
+That account should develop with the work. A retrospective can revisit it;
+we should not need a retrospective to discover why the work mattered.
+
+I want governance and the project's working models to become the backbone of
+this intelligent development: language that helps agents understand and
+exercise judgment about product purpose, usability, economics, and boundaries.
+Compliance reports alone do not show that this understanding exists. Agents
+should be able to explain why a direction serves the product, recognize when
+a local success misses the purpose, and communicate a better framing. I want
+them to work beyond habitual responses that substitute explicit compliance
+for understanding what the owner and users are trying to accomplish.
+
+For this effort, progress is primarily qualitative. Can understanding survive
+between me and an agent, between agents, and between a plan and the work it
+guides? Can we explain what became clearer and where our communication broke
+down? I am not asking for counts of repair rounds, tool calls, or tokens as
+the measure of this thesis. Mistakes are compatible with progress, and every
+mistake need not become another documented lesson. I expect improvements in
+clarity and shared judgment to help with the more specific problems over time.
+
+This is an intended direction for a future phase or a separately chosen
+exercise. The current tax-concept work should continue on its trajectory.
+We can develop the thesis gradually; recording it does not introduce a new
+ceremony or require us to redesign the development process immediately.
+
 ## The Domain Model Model
 
 We can and should make at least rudimentary textual models of the domains
