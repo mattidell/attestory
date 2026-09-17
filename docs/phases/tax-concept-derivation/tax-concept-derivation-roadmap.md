@@ -1,6 +1,11 @@
 # Tax Concept Derivation Roadmap
 
-## Planned roadmap
+Status: **CLOSED 2026-09-17 by owner direction as a bounded viability
+demonstration.** No successor phase or milestone is selected. The numbered
+roadmap below records the work and its original sequence; unfinished items do
+not automatically become the next phase's plan. See [Phase close](#phase-close--2026-09-17).
+
+## Roadmap history
 
 ### 1. Reported Interest to Tax Concept Vertical Slice
 
@@ -452,17 +457,18 @@ in the deferral ledger at
 meets every conjunct of its reopening trigger. Retrospective:
 [`../../milestone-retrospectives/2026-09-15-student-loan-interest-bounded-method-transfer.md`](../../milestone-retrospectives/2026-09-15-student-loan-interest-bounded-method-transfer.md).
 
-### 12. Tax-Concept Question and Explanation Projection
+### 12. Tax-Concept Question and Explanation Projection — carried forward, unselected
 
 Expose the committed model as user assistance: what the source reported, which
 ordinary fact changed its treatment, which rule performed the classification,
 where the result appears, what question would resolve an open branch, and where
 an authoritative answer can be checked.
 
-This milestone comes after production semantics so explanation is projected
-from real structure rather than used to compensate for missing structure. It
-may produce interface work, but it is not limited to explainability; the same
-model must continue to serve computation and return generation.
+This remains a candidate for a later phase, not an unfinished milestone to run
+automatically inside this closed one. Explanation should be projected from real
+structure rather than used to compensate for missing structure. The owner has
+deferred the broader user journey; its scope and timing belong to the next
+phase decision.
 
 ## Status
 
@@ -479,7 +485,7 @@ model must continue to serve computation and return generation.
 | Nominee Interest Return Integration | **CLOSED 2026-09-12** | Bounded line-2b and Schedule B integration on package v38; T0-F5 repaired; nominee applicability below threshold; legacy-only / new-only / both-present refusal; pre-run identity refusal. Form 8815 / §135, filing, general fact-id repair, and I4 causal-block explanation remain out |
 | Student Loan Interest Deduction Translation | **CLOSED 2026-09-14 — explicit partial result, no production path** | Bounded investigation. Eligible-student status under section 221(d)(1)(C) selected on a narrow promise; product map, ten-constituent tax-boundary record, artifact and consumer map, and a decision-ready partial design delivered. Track 0 and all production tracks not started; coverage frontier unchanged. An executable probe established that no committed path can use every current Form 1098-E box-1 statement as the iteration subject, require exactly one usable association, resolve this case's heterogeneous related facts, fail closed on an unassociated statement, and preserve statement-isolated dependencies. Three named gaps: box-1-driven heterogeneous group-binding (proposed prerequisite milestone, this case as forcing consumer); an authoritative institutional-catalog input contract (separate blocker, sequenced next); an explanation carrier (production condition) |
 | Student Loan Interest Bounded Method Transfer | **CLOSED 2026-09-15 — validated method, production deferred** | The adverse-direction translation method validated in disposable evidence only: through real engine machinery over the production Form 1098-E box-1 source, with disposable candidate artifacts never adopted into the production package, an ordinary statement drives a rule-owned monetary consequence that cites its authority, preserves the document, and is consumed downstream — with the filer never supplying the legal conclusion. No production code, contract, schema or ADR; conditional production tracks never opened; coverage frontier unchanged. The favorable direction is not established as a product route. Production deferred: the statement-to-loan-and-period relationship has no committed production representation and the favorable route's three institution or public-authority determinations have no producer; multi-statement behaviour and real worksheet integration remain unbuilt. Identified Evaluation Context remains unselected — no executed case meets every conjunct of its reopening trigger |
-| Tax-Concept Question and Explanation Projection | Not selected | Presentation, question routing, provenance, user assistance |
+| Tax-Concept Question and Explanation Projection | Carried forward, unselected | Presentation, question routing, provenance, user assistance; no production UI delivered by this phase |
 
 The Document and Ordinary-Fact Translation Vertical's plan is
 [`milestones/document-ordinary-fact-translation.md`](milestones/document-ordinary-fact-translation.md);
@@ -581,8 +587,9 @@ enters implementation when the plan names:
 - the cheapest evidence capable of resolving the question; and
 - the work that is displaced or deferred if the candidate is admitted.
 
-The active milestone may locate neighboring interest categories in its domain
-model but does not implement original issue discount, education exclusions,
+During this phase, a selected milestone could locate neighboring interest
+categories in its domain model without implementing original issue discount,
+education exclusions,
 nominee ownership, bond-premium and market-discount elections, frozen-deposit
 timing, seller-financed mortgage interest, K-1 interest, joint-return subject
 modeling, general Schedule B triggers, full line-2b coverage, filing, or a
@@ -616,11 +623,13 @@ whether the translation method transfers from an income adjustment to a
 deduction — is **not answered**. It was not reached: the blocker is engine
 composition, not tax translation.
 
-## Roadmap reassessment points
+## Historical roadmap reassessment points
 
-Reassess after each of the next three milestones.
+These checkpoints guided the earlier sequence. They are not instructions for a
+successor phase.
 
-- After the active milestone, decide whether the four-state cadence trial
+- After the Document and Ordinary-Fact Translation Vertical, decide whether
+  the four-state cadence trial
   (rival/seam evidence, disposable integration evidence, consolidated
   contracts, clean production build) reduced curation cost versus the prior
   milestone, and whether the resulting basis domain model and coverage
@@ -636,3 +645,44 @@ Reassess after each of the next three milestones.
   that frontier.
 - If a contrasting concept breaks the purported common model, preserve the
   domain-specific distinction rather than forcing a universal abstraction.
+
+## Phase close — 2026-09-17
+
+**Tax Concept Derivation closed by owner direction on a bounded result, not by
+exhausting the domain.** The production nominee-interest vertical demonstrates
+the essential separation: preserve what a payer reported, record an ordinary
+allocation, let an adopted rule derive its tax consequence, and carry that
+consequence into a bounded return calculation and Schedule B account. The
+student-loan-interest experiment tested the method in a contrasting deduction
+and validated its adverse direction with disposable artifacts, not a second
+production route. Together these establish viability of the method, not a
+universal tax-concept model.
+
+The [phase overview's exit reading](tax-concept-derivation-overview.md#closeout-reading-of-the-exit-criteria)
+records the important qualification: the contrasting test was experimental,
+and the user-facing question/explanation criterion remains partial. The owner
+chose to defer that broader reader journey rather than prolong this phase to
+build it. No successor phase or milestone is selected by this close.
+
+**Carried forward, unselected:**
+
+- the question-and-explanation projection in item 12, including what a user
+  can understand about a blocked result;
+- student-loan statement-to-loan-and-period representation, authoritative
+  favorable-route premises, multi-statement handling, and real worksheet
+  integration, as bounded in the [student-loan deferral ledger](milestones/student-loan-interest-bounded-method-transfer-evidence/track-0-adversarial-closure.md#55-deferral-ledger);
+- later-year basis reuse and cross-context composition, with their separate
+  consumption and retention questions, as bounded in item 4 and the
+  [investment-basis coverage model](../../domain-models/investment-basis-coverage.md);
+- wider taxable-interest and deduction coverage, Form 8815 / § 135, filing,
+  and other tax categories not delivered by the bounded production path; and
+- the nominee intake recovery gate, general identity repair, and blocked-path
+  causal explanation, each with its existing trigger in the relevant milestone
+  retrospective.
+
+These are a map of remaining work, not a queue. The next phase should be
+chosen from the owner's next product intention, with this bounded result as
+an input rather than an obligation to keep widening the same tax slice.
+
+Phase retrospective:
+[`2026-09-17-tax-concept-derivation-phase.md`](../../milestone-retrospectives/2026-09-17-tax-concept-derivation-phase.md).
