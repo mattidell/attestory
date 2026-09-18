@@ -23,11 +23,11 @@ use the approach; they do not establish a fixed program of communication rules.
 
 ### 1. Shared Inquiry Pilot — selected
 
-Give a small group of agents a place to raise and answer a question across
-assignments, with a working notification or wake-up mechanism. Use the phase's
-own planning as the first conversation. Find out how a useful exchange becomes
-available to someone who arrives later, and whether the owner can follow and
-redirect it without carrying messages between agents.
+Replay a bounded part of Nominee Interest Return Integration with a cold
+participant and an advisor prepared through adversarial source review. The
+milestone foreman facilitates; it is not the participant under observation.
+Learn how questions and proactive guidance affect actual planning work, and
+which messaging and wake-up mechanism supports that exchange without owner relay.
 
 Start with repository text and inspect the available agent hosts before choosing
 a trigger. Keeping a conversation, delivering a notification, and producing a
@@ -36,10 +36,10 @@ boundary makes it useful.
 
 Plan: [Shared Inquiry Pilot](milestones/shared-inquiry-pilot.md).
 
-Foreman–advisor correspondence is a central communication case: let them ask,
-explain, and challenge directly without the owner carrying repair prompts or
-adding another supervisory layer. The existing phase-handoff question can
-start that exchange; a live design question can follow when useful.
+Foreman–advisor correspondence is the communication case: let the participant
+and advisor ask, explain, and challenge directly while the participant advances
+the historical task. Establish the advisor's bounded competence before treating
+its guidance as informed, and independently assess the resulting work.
 
 ### 2. Technical Work with Shared Inquiry — candidate
 
@@ -54,10 +54,10 @@ understanding, including when the advisor's reading needs correction. Keep
 possible effects of model choice, authorship, context, and responsibility open;
 a useful exchange alone will not establish which caused the improvement.
 
-The pilot's phase-boundary inquiry may identify a useful technical task. Select
-one only when the inquiry establishes what needs to change; a tool redesign is
-not presumed necessary. Choose a second technical trial only if it would tell us
-something the first cannot.
+The historical replay can inform a live technical task with unknown answers.
+Choose that task from the remaining learning question, rather than repeating
+the replay on a larger scale. A second trial should tell us something the first
+cannot.
 
 This follows enough of the pilot to have a usable exchange. It can still use a
 partly manual channel if that is the most useful way to learn; any automation
@@ -97,9 +97,9 @@ particular role taxonomy, or a rewrite of the tax engine.
 
 ## Current position
 
-The phase is open and the pilot is planned. Its opening question is what a
-returning agent needs to understand at a phase boundary. The automatic trigger
-and message-board prototype have not been built.
+The phase is open and the pilot is planned. The first experiment uses a cold
+participant and a source-tested advisor on historical nominee-return planning.
+Advisor preparation, messaging implementation, and the live trial have not run.
 
 Tax Concept Derivation's [closeout](../tax-concept-derivation/tax-concept-derivation-roadmap.md#phase-close--2026-09-17)
 is the preceding result. Its deferred tax work is available for future

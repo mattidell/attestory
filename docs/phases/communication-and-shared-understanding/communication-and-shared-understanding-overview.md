@@ -108,11 +108,14 @@ We will use the approach while planning the work. Early conversations may
 change the milestones themselves. The [roadmap](communication-and-shared-understanding-roadmap.md)
 offers a starting sequence and leaves later selections open.
 
-Start with a small message-board experiment. Repository text is the preferred
-first candidate because people and agents can inspect and edit it. Test the
-channel separately from the mechanism that notices a question and wakes a
-participant. A2A is a candidate to investigate if communication across agent
-hosts needs it; adopting a protocol is not an outcome in itself.
+Start with a messaging experiment serving actual historical milestone work:
+a cold participant resumes a bounded task with access to an advisor prepared
+through adversarial source review. The milestone foreman facilitates the
+experiment rather than acting as its subject. Repository text is the preferred
+channel candidate because people and agents can inspect it. Test the channel
+separately from the mechanism that notices work and wakes a participant, and
+from the quality of guidance and resulting work. A2A is a candidate if a real
+host boundary calls for it; adopting a protocol is not an outcome in itself.
 
 Then use the practice during one or two real technical milestones. A readable
 governance model and a bounded study of lessons and costs can develop alongside

@@ -5,9 +5,9 @@
   "topic": "shared-inquiry-pilot",
   "active_plan": "docs/phases/communication-and-shared-understanding/milestones/shared-inquiry-pilot.md",
   "milestone_state": "planned",
-  "status": "Communication and Shared Understanding is open. Shared Inquiry Pilot is planned. Explore what a returning agent needs to understand at a phase boundary, then inspect delivery and wake-up capabilities. Direct foreman-advisor correspondence is a central case. No automatic message board or trigger has been implemented.",
-  "current_role": "Foreman (conduct opening inquiry and shape the first prototype)",
-  "current_prompt": "docs/phases/communication-and-shared-understanding/milestones/shared-inquiry-pilot.md#Opening work"
+  "status": "Shared Inquiry Pilot is planned as a historical nominee-return planning replay with a cold participant and an advisor prepared through adversarial source review. The milestone foreman facilitates and is not the experimental subject. Prepare and check the advisor, select and test messaging, then run and independently assess the bounded task. No live trial or automatic delivery is established.",
+  "current_role": "Foreman (facilitate advisor preparation and historical replay)",
+  "current_prompt": "docs/phases/communication-and-shared-understanding/milestones/shared-inquiry-pilot.md#Historical work packet"
 }
 -->
 
@@ -27,15 +27,16 @@ begin with a communication scorecard or a compulsory prose template.
 
 ## Immediate work
 
-Start from the [pilot plan](phases/communication-and-shared-understanding/milestones/shared-inquiry-pilot.md#opening-work).
-Explore what a returning agent should understand at a phase boundary, using
-direct peer inquiry before selecting a software task. Then establish which
-delivery and wake-up mechanisms are available and choose a small prototype.
-Automatic peer communication has not yet been demonstrated.
+Start from the [pilot plan](phases/communication-and-shared-understanding/milestones/shared-inquiry-pilot.md#historical-work-packet).
+Prepare a bounded historical nominee-return task and a separate advisor whose
+understanding is tested through adversarial review. Select and verify the
+messaging route before launching a cold participant. The advisor may respond
+to questions or offer unsolicited guidance; an independent assessor examines
+the work. The facilitating foreman is not the participant. No trial has run.
 
-Owner-directed exploratory planning applies as described in the plan. Its
-opening-work section is the first participation brief; a compact implementation
-brief follows the mechanism choice. No builder track is currently dispatched.
+Owner-directed exploratory planning applies as described in the plan. Prepare
+separate launch briefs without exposing later answers to the cold participant.
+No experimental agent or implementation unit is currently dispatched.
 
 ## Context to carry
 
