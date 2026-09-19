@@ -5,9 +5,9 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "planned",
-  "status": "Student Loan Circumstance Association remains planned -- no track is open. Work sequence item 1, the product and evidence outline, is complete and independently reviewed with no material findings. Recording, recovery, confirmed association and lifecycle have adopted production precedent on the structurally identical Form 1099-INT aggregation problem. Following an asserted relationship is possible only through ADR-0070/0071 pairing dispatch, outside the evaluator; the prior milestone's bounded consumer cannot be lifted into that scope unchanged and must be restructured without its cardinality gate. Iteration completeness -- a statement with no relationship is never visited -- has no adopted precedent and is now Track 0's gate. The readiness gate has been executed and passed: the primitive carries the relationship and already blocks by name when the target is lost, the prior consumer's cardinality gate is confirmed unliftable (SOURCE_SET_UNCLOSED pairing-scoped), and an unassociated statement is confirmed to produce no row at all. Track 0 must answer that completeness gap; the structured-circumstance question is an owner decision. No representation, new contract, or implementation has been selected.",
-  "current_role": "Foreman (charter the readiness-gate checks, then Track 0)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#Readiness gate before any producer is chartered"
+  "status": "Student Loan Circumstance Association remains planned -- no track is open. Work sequence item 1, the product and evidence outline, is complete and independently reviewed with no material findings. Recording, recovery, confirmed association and lifecycle have adopted production precedent on the structurally identical Form 1099-INT aggregation problem. Following an asserted relationship is possible only through ADR-0070/0071 pairing dispatch, outside the evaluator; the prior milestone's bounded consumer cannot be lifted into that scope unchanged and must be restructured without its cardinality gate. Iteration completeness -- a statement with no relationship is never visited -- has no adopted precedent and is now Track 0's gate. The plan is organised as seven actions the development team will take, refined and reviewed one at a time; the plan's state table is the authority on progress. A1 (what we ask a person) is refined and awaiting review; A2 is next. A4 has partly run: following a recorded connection works and already refuses by name when the named target is gone, the prior calculation cannot be reused inside that mechanism, and a statement nobody connected is not accounted for at all. The earlier framing of storage grouping as a question about what the person is asked has been withdrawn as unfounded. No representation, new contract, or implementation has been selected.",
+  "current_role": "Foreman (refine the plan one action at a time; A1 awaiting review, A2 next)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#What we will do"
 }
 -->
 
@@ -24,13 +24,11 @@ schooling circumstance to a tax consequence. It supplied the connection to
 reported interest itself. This milestone obtains and records that connection,
 keeps its subjects distinct, and lets a consumer use recovered current support.
 
-**Item 1 of the work sequence is done and reviewed.** Recording, recovery,
-confirmed association and lifecycle turn out to have adopted production
-precedent, because Form 1099-INT aggregates obligations the same way Form
-1098-E aggregates loans. Two findings redirect the rest: the engine can follow
-an asserted relationship only through pairing dispatch, outside the evaluator,
-which the prior bounded consumer cannot enter unchanged; and a statement nobody
-associated is never visited at all, which nothing adopted addresses.
+**The plan is developed one action at a time.** It describes seven things the
+development team will do, in ordinary language, and is refined one action per
+round with an independent review of each refinement before the next. The plan's
+own state table says how far along each action is; nothing counts as specified
+because related technical work succeeded.
 
 ## Begin here
 
@@ -39,17 +37,18 @@ then the [product and evidence outline](phases/tax-concept-derivation/milestones
 it now leads with. Everything the outline says about existing software is
 evidence level `read`.
 
-The readiness gate is **done and passed**
-([results](phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md)):
-the adopted per-pairing primitive does carry a report-to-circumstance
-relationship, already refuses by name when the named target is gone, and cannot
-admit the prior consumer's cardinality gate. An unassociated statement is
-confirmed to produce no row at all.
+Read the plan at whichever of its three levels you need: the opening paragraph,
+the seven actions, or the one action refined so far.
 
-The next action is Track 0, whose gate is that completeness question. Two
-decisions are the owner's and are recorded in the plan: whether the person's
-schooling answer is one structured finding or several separate facts, and
-whether honest refusal is an adequate answer for the two multi-borrowing cases.
+A1 — what we ask a person, and why they can answer it — is refined and awaiting
+independent review. A2 — what makes an answer enough to rely on, and what takes
+that away — is next. A4 has partly run and its results are recorded as bounds on
+the other actions, with their ceilings, in the
+[readiness-gate results](phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md).
+
+The plan's open-decisions table names which choices are the owner's. Two are:
+whether one undescribed statement should block the others, and whether honest
+refusal is adequate for the two multi-borrowing cases.
 
 The intended result is adopted recording and recovery with an executed bounded
 consumer. Full worksheet integration, favorable eligibility, and a deep user

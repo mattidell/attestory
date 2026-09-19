@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "PLANNED, no track open. The readiness gate has been executed and passed -- see the readiness-gate results. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Work sequence item 1 (product and evidence outline) is complete and independently reviewed with no material findings: recording, recovery, confirmed association and lifecycle all have adopted precedent on the structurally identical Form 1099-INT problem, while iteration completeness -- a statement with no relationship is never visited -- has none and is now Track 0's gate. The prior milestone's bounded consumer cannot be lifted into pairing scope unchanged and must be restructured. Two executed checks are a readiness gate before any producer is chartered. Representation is still unsettled; no mechanism selected.",
+  "status": "PLANNED, no track open. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. The plan is organised as seven actions the development team will take, refined one at a time and reviewed one at a time; the state table in 'What we will do' is the authority on how far along each is. A1 (what we ask a person) is refined and awaiting review. A4 (what the software can hold, follow and refuse) has partly run: following a recorded connection works and refuses by name when the named target is gone, the prior milestone's calculation cannot be reused inside that mechanism, and a statement nobody connected is currently not accounted for at all. A2, A3, A5, A6 and A7 are stated but not yet specific. No representation or mechanism is selected, and the earlier framing of storage grouping as a question about what the person is asked has been withdrawn.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -53,10 +53,56 @@ Milestone key: `student-loan-circumstance-association`.
 Primary branch: `milestone/student-loan-circumstance-association`.
 Primary worktree: `engine-worktree-1`.
 State: planned; no track open, nothing implemented. Opened 2026-09-18.
-Work sequence item 1 — the product
-and evidence outline — is complete and independently reviewed; see
-[Findings from item 1](#findings-from-item-1-and-what-they-changed). No
-representation, mechanism, or contract is selected.
+No representation, mechanism, or contract is selected. Of the seven actions in
+[What we will do](#what-we-will-do), one (A1) is refined and awaiting review and
+one (A4) has partly run; the rest are stated but not yet made specific.
+
+## What this milestone is
+
+A company that lent someone money for school reports how much interest they
+paid. The person can describe their schooling. Whether that interest reduces
+their taxes depends on what the borrowed money actually paid for — which neither
+the report nor the description says on its own. This milestone is about getting
+that missing link from the person in a form they can honestly give, keeping it,
+letting a calculation use it, and — just as much — making the application say
+plainly when it does not have the link instead of guessing.
+
+The way we will go about it: settle what we ask a person and what makes their
+answer good enough *before* choosing how to store it, find out what the existing
+software can and cannot carry, then build the smallest version that works and
+refuses correctly.
+
+## How to read this plan
+
+Three levels. Stop at whichever gives you what you need.
+
+1. The paragraph above.
+2. [What we will do](#what-we-will-do) — seven actions in ordinary language,
+   with a table showing where each one stands.
+3. A section per action, once that action has been refined. Only A1 has one so
+   far.
+
+This plan describes **what the development team will do**. Tax concepts and
+engine machinery appear only where they constrain what we can do, kept to
+[one section](#what-the-technical-investigation-established-and-what-it-constrains)
+that points at the evidence documents rather than reproducing them.
+
+**How it becomes more specific.** One action at a time, one step at a time. A
+refinement must stay congruous with the general statement it refines: if
+refining an action contradicts its one-line description, the description changes
+first, visibly, and that is a finding worth reporting rather than a silent edit.
+We do not refine every action before starting work, and we do not jump from a
+general statement to a wall of concrete constraints — that produces reviews that
+are a hodge-podge of corrections with no sense of how close to done anything is.
+
+**How it gets reviewed.** Each refinement is reviewed on its own, against the
+question that action is supposed to answer, before the next refinement begins. A
+review of a refinement is not a review of the whole plan.
+
+**How we know how close to done we are.** The state table in
+[What we will do](#what-we-will-do). An action counts as specified only after a
+refinement of it has survived review — never by assertion, and never because
+related technical work happened to succeed.
 
 ## Product purpose
 
@@ -204,108 +250,164 @@ per-statement association; a surviving provenance id alone cannot prove the
 calculation used the amount. Include a changed-amount case and a wrong-target
 case capable of breaking the intended behavior.
 
-## Findings from item 1, and what they changed
+## What we will do
 
-The [product and evidence outline](student-loan-circumstance-association-evidence/outline-product-and-evidence.md)
-is complete and independently reviewed; the review found no material defect in
-its source claims. Three findings changed this plan.
+Seven actions. Each is something the development team does, not a component it
+touches. They are listed in the order their answers are needed, which is not
+necessarily the order of the work — A4 has already begun because it was cheap
+and it bounds the others.
 
-**Most of the recording half has adopted precedent on the same problem.** Form
-1099-INT aggregates several obligations into one box-1 number with no
-per-obligation identifier, exactly as Form 1098-E aggregates loans. The nominee
-vertical met that and adopted an answer: narrow to a candidate, then require the
-person's confirmation — mandatory, never inferred, never substituted by a match
-however specific (ADR-0068). Ordinary-answer recording, recovery from the
-committed act log alone, attribution, and correction/retraction/reassertion at a
-stable `fact_id` are production code, not proposals.
+The numbered questions in
+[Initial planning and early review](#initial-planning-and-early-review) are the
+owner's statement of what must become visible. Each action below names which of
+them it answers, so this list stays accountable to that one rather than
+replacing it.
 
-**Following an asserted relationship is possible in exactly one place, and it is
-not the evaluator.** `ref` resolves a literal symbol name and source rows carry
-no member identity, so no rule expression can relate one statement to one
-circumstance. ADR-0070/0071's pairing dispatch does the dereference outside the
-evaluator, per item, pinning both sides and blocking one item by name.
+**A1 — Work out what we ask a person, and why they can answer it.** Settle, in
+the words a person would actually read, what they are being asked to connect and
+what they are never asked to conclude. *Answers question 1.*
 
-**The prior bounded consumer cannot be lifted into pairing scope.** That
-environment binds only the two paired values, with no sources and no closed
-sets, so `require_closed`, `count` and `collect` block inside it — and the prior
-candidate gates on `require_closed` plus `count(box1) == 1`. That cardinality
-gate is the stipulation this milestone exists to remove, so it is deleted rather
-than carried. The consumer is restructured work, not a reused artifact.
+**A2 — Decide what makes an answer enough to rely on, and what takes that
+away.** Distinguish having the latest information from that information still
+supporting the earlier claim. Decide which changes oblige a person to look
+again. *Answers question 3.*
 
-**Iteration completeness is the unsolved half.** The dispatcher iterates the
-pairings a run has, so a statement nobody associated is never visited and
-produces neither an answer nor a refusal. The obvious repair — collect over the
-Form 1098-E family and publish a completeness symbol — is closed off by ADR-0016
-as enforced in `source_authority.audit_collect_authority`: collecting over a
-mapped family forces publishing that family's authorized subtotal. This needs a
-decision and is now Track 0's gate.
+**A3 — Decide what the application does when it cannot establish the
+connection.** Including what it says, and whether one undescribed statement
+affects the others. *Answers question 5, and part of question 4.*
 
-### Readiness gate before any producer is chartered
+**A4 — Find out what the software can hold, follow, and refuse.** Establish by
+execution, not by reading, which of A1–A3's answers the existing engine can
+carry and which it cannot. This bounds the possible answers; it does not choose
+among them. *Bounds questions 2 and 4.*
 
-Every claim above about existing software is evidence level `read`. Two executed
-checks, on synthetic `demo.*` identities with source values intact and no
-production change, must raise the load-bearing ones to `run`:
+**A5 — Choose how to represent the answer and the connection, and record why.**
+This is where storage shape is decided — after A1, and constrained by A4, never
+in place of either. *Answers question 2.*
 
-1. **Dereference check.** One declared rule dispatched pairing-scoped over a
-   disposable pairing whose sides are a Form 1098-E box-1 source and a
-   schooling-circumstance source. Assert the value the expression read, the
-   pinned finding ids, and the blocked code and named fact id when the right
-   side is retracted.
-2. **Omission check.** Two statements, one associated and one not, with the
-   expected disposition for the unassociated statement recorded *before*
-   execution. Silence about it makes the completeness decision required rather
-   than deferrable.
+**A6 — Build the smallest honest version, and prove it fails correctly.** A
+producer, a recovery path, and a consumer that uses recovered state. The proof
+that matters is the refusals, not the successes.
 
-A count of publications alone settles neither. No implementation unit is
-chartered on `read`-level claims about the dispatcher.
+**A7 — Say what we learned and what the next milestone inherits.** Including
+what we disproved and what we chose not to settle.
 
-**Both checks are executed and passed**
-([results](student-loan-circumstance-association-evidence/readiness-gate-results.md),
-`tests/test_sli_circumstance_association_readiness.py`). The primitive does
-carry a report/circumstance relationship dependent on both sides; losing the
-named target already yields `DEPENDENCY_ABSENT` naming it, with no rule-author
-work; `require_closed` and `count` block pairing-scoped with
-`SOURCE_SET_UNCLOSED`, so the prior consumer's cardinality gate is confirmed
-unliftable; and a statement with no relationship produces **neither a
-publication nor a blocked row**, exactly as predicted. U2 is therefore a
-confirmed open gap rather than a suspicion, and it is what Track 0 must answer.
+### Where each action stands
 
-### Owner-visible product choice
+An action is **outlined** when its general statement above is agreed;
+**specified** when it has been refined one step and independently reviewed;
+**done** when its work is complete. This table is how we answer "how close is
+this to done" without reading the whole plan.
 
-Pairing scope offers two symbols, and ADR-0067's `field` selector reads named
-properties off a bound finding's value. That favours **one schooling-circumstance
-finding with a structured value** over the prior milestone's several separate
-premise facts. This changes what the person is asked and what a single
-correction corrects, so it is an owner decision, not an implementation detail.
-The dereference check supplies its mechanical half only.
+| Action | State | Notes |
+| --- | --- | --- |
+| A1 | specified pending review | Refined below; review not yet returned |
+| A2 | outlined | Next to refine |
+| A3 | outlined | Depends on A2's distinction being made first |
+| A4 | outlined, partly done | Two checks executed; see the constraints section |
+| A5 | outlined | Blocked on A1 and A2 |
+| A6 | outlined | Blocked on A5 |
+| A7 | outlined | — |
 
-## Work sequence
+No action is specified by asserting it; it is specified by refining it one step
+and surviving a review of that refinement alone.
 
-1. **Product and evidence outline.** Independent early review, then focused
-   source and payload investigation. The foreman plans and charters this work.
-2. **Track 0 — bounded design and consumer evidence.** Its gate is the
-   completeness question: what accounts for a statement with no relationship.
-   That is the part with no adopted precedent, and the milestone should not pass
-   this point with it merely carried as a case. Otherwise prototype only choices
-   whose consequences the named consumer can distinguish. Rival builders are
-   appropriate when competing shapes genuinely remain; otherwise explain why a
-   direct build is sufficient. Independently review the design and evidence.
-3. **Contract unit, if needed.** Consolidate the selected propositions, identity,
-   lifecycle, and consumer obligations. Determine whether accepted ADRs already
-   suffice or a new decision/schema is needed. Review new contract work before
-   implementation relies on it; preserve published history.
-4. **Production recording and recovery.** Charter coherent implementation units.
-   Test the actual producer, record, currency projection, and recovery path.
-5. **Consumer integration evidence and final review.** Restructure the bounded
-   consequence rule for pairing scope — removing its cardinality gate rather
-   than preserving it — feed it recovered inputs, verify the cases and declared
-   limitations, and independently review the candidate before curation and
-   closeout. The prior milestone's rule is a starting point for that
-   restructuring, not a reusable consumer.
+## A1 in detail — the question we ask a person
 
-The foreman can split implementation units after the design makes the dependencies
-clear. Do not split by arbitrary document count or create a general grouping
-framework to avoid evaluating a specific requirement.
+This is A1 refined one step. It states the work and its standard of completion;
+it does not contain the answer, and it deliberately settles nothing about
+storage.
+
+**What A1 must answer.**
+
+1. What is the person being asked to connect — and to what are they connecting
+   it? The candidate is a lender's statement on one side. What sits on the other
+   side is not yet settled: a period of schooling, an episode of borrowing, or
+   the purpose the money served are different answers with different demands on
+   the person.
+2. What can a person reasonably be expected to know about their own borrowing
+   years later, without records the lender never sent them?
+3. In what words? A question that is technically answerable but reads as a legal
+   test will be answered badly or not at all.
+4. What must never be asked: any conclusion about deductibility or eligibility,
+   and any fact about an institution's legal standing.
+5. What a person may legitimately be unable to answer, and how they say so
+   without it reading as a failure on their part.
+
+**How we will answer it.** Write the question as a person would read it. Walk it
+against the plan's own
+[case list](#cases-to-carry-through-design-and-execution) and ask, for each
+case, whether a person in that situation could answer honestly, answer wrongly
+without noticing, or be unable to answer. Where a case cannot be answered
+honestly, that is a finding about the question, not about the person.
+
+**What done looks like.** One question in ordinary words that a person could
+answer; a short statement of what we will never ask and why; and a named list of
+the situations in which the honest answer is "I cannot say."
+
+**How it is reviewed.** One independent reviewer, on two things only: whether an
+ordinary person could answer it, and whether it smuggles in a conclusion or an
+institutional fact. Not on mechanism.
+
+**What A1 does not settle.** How the answer is stored, how many records it
+becomes, or which engine mechanism carries it. Those are A5, constrained by A4.
+
+A correction is owed here. An earlier revision of this plan presented "one
+structured finding or several separate facts" as a product choice about what the
+person is asked, reasoning from the fact that the available mechanism binds two
+values. That inference does not hold: several questions can produce one stored
+record and one question can produce several, so the relationship between
+interaction and storage is itself something A1 and A5 must establish rather than
+assume. The storage question is real and belongs to A5; it is withdrawn from
+here.
+
+## What the technical investigation established, and what it constrains
+
+A4 has begun. It produced useful, narrow results, and they belong here — as
+bounds on the answers A1–A3 may take — rather than as the plan's organizing
+structure. Details and their ceilings are in the evidence documents; this is
+only what constrains the plan.
+
+- Following a recorded connection is possible, and one existing adopted
+  mechanism does it. So a design that depends on the application following a
+  stated connection is not ruled out.
+- That mechanism, when it cannot find the thing a connection names, already
+  refuses and says which thing is missing. So A2's "the reference survives but
+  the support does not" case has a mechanical answer available. It does not tell
+  us which changes should oblige a person to reconsider; that is still A2's
+  work, and the distinction the owner drew between identity continuity and
+  continued applicability is untouched by this result.
+- The prior milestone's calculation cannot be reused inside that mechanism. So
+  A6 includes restructuring it, and the earlier assumption that it could be fed
+  recovered inputs unchanged is withdrawn.
+- A statement that nobody connected is currently not accounted for at all —
+  neither answered nor refused. So A3 has real work to do, and cannot be
+  satisfied by silence.
+
+Sources, with their stated limits:
+[outline](student-loan-circumstance-association-evidence/outline-product-and-evidence.md),
+[readiness-gate results](student-loan-circumstance-association-evidence/readiness-gate-results.md),
+`tests/test_sli_circumstance_association_readiness.py`.
+
+The outline is retained for its traced source claims, which an independent
+review checked. It is **not** the plan, and it is not a complete account of the
+product questions; it moves too quickly from the problem into machinery, and
+A1–A3 are the work it skipped.
+
+## Open decisions
+
+| Decision | Owner | Needed by | Status |
+| --- | --- | --- | --- |
+| What we ask a person, in words | Team, with owner sign-off on the wording | Before A5 | A1, in progress |
+| Whether one undescribed statement blocks the others | Owner — it changes what a person experiences | A3 | Open, not yet framed in ordinary language |
+| How the answer is stored and how many records it becomes | Team, recorded with reasons | A5 | Open; explicitly not settled by A1 |
+| Whether refusal is an adequate answer for the two multi-borrowing cases | Owner | A5 | Open |
+| Whether a separately identified borrowing is needed now | Team, constrained by the case list | A5 | Open |
+
+Reliance under a standing authorization is owner context, not an adopted rule.
+It is brought back only if a concrete case would change what the producer
+asserts without a person's confirmation.
+
 
 ## Exit and stop conditions
 

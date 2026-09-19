@@ -1,8 +1,16 @@
 # Outline — product and evidence
 
-Work sequence item 1 of
-[the milestone plan](../student-loan-circumstance-association.md). This is an
-outline for review, not a design and not a specification. Every claim below
+**What this is, and what it is not.** This document is retained for its traced
+source claims about existing software, which an independent review checked
+against committed code. It is **not** the plan, and it is not a complete account
+of the product questions: it moves quickly from the problem into machinery, and
+the plan's actions A1–A3 — what we ask a person, what makes an answer enough to
+rely on, and what the application does when it cannot establish the connection —
+are the work it skipped. Read
+[the plan](../student-loan-circumstance-association.md) for what the team will
+do; read this for what the engine can and cannot carry.
+
+This is an outline, not a design and not a specification. Every claim below
 about existing software is **evidence level `read`**: it comes from reading
 committed source at `b4f601f6`, not from executing anything. Section 9 says
 which claims must be raised to `run` before they can carry a build.
