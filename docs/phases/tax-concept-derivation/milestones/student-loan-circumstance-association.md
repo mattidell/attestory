@@ -18,6 +18,7 @@
   ],
   "deep_reads": {
     "planning": [
+      "docs/process/planning-and-development.md",
       "OWNER_MODEL.md#The Product Model",
       "OWNER_MODEL.md#The Domain Model Model",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md",
@@ -26,6 +27,7 @@
       "docs/phases/tax-concept-derivation/milestones/student-loan-interest-deduction-translation-evidence/p3-partial-design.md#2c. A statement-scoped association that earns its scope — discharged"
     ],
     "implementation": [
+      "docs/process/planning-and-development.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
       "docs/adr/0067-canonical-acquisition-field-ref-access.md",
       "docs/adr/0073-assertion-standing-and-retraction-lifecycle.md",
@@ -33,6 +35,7 @@
       "PROJECT_PLANNING.md#Payload Instantiation Gate"
     ],
     "review": [
+      "docs/process/planning-and-development.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
       "docs/roles/qualitative-review.md",
       "AGENTS.md#Data Safety Rules"
@@ -129,6 +132,11 @@ integration is a subsequent milestone. Existing production behavior remains
 unchanged until explicitly selected and reviewed.
 
 ## Initial planning and early review
+
+Use the [planning and development guidelines](../../../process/planning-and-development.md)
+throughout this work. The sequence below is an initial route, not a settled
+division of implementation: revise it as the relationship and its consumer
+become better understood.
 
 Begin with a short outline: the ordinary interaction, the proposition it would
 record, the downstream decision it supports, and how the relationship could be
