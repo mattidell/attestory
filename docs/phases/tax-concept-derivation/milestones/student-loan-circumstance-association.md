@@ -53,9 +53,10 @@ Milestone key: `student-loan-circumstance-association`.
 Primary branch: `milestone/student-loan-circumstance-association`.
 Primary worktree: `engine-worktree-1`.
 State: planned; no track open, nothing implemented. Opened 2026-09-18.
-No representation, mechanism, or contract is selected. Of the seven actions in
-[What we will do](#what-we-will-do), one (A1) is refined and awaiting review and
-one (A4) has partly run; the rest are stated but not yet made specific.
+No representation, mechanism, or contract is selected. Of the eight actions in
+[What we will do](#what-we-will-do), A2 is specified, A0 is drafted and under
+review, A4 has partly run, and the rest are stated but not yet made specific.
+The state table there is the authority.
 
 ## What this milestone is
 
@@ -66,8 +67,9 @@ not going to make a person answer for tax rules they have no reason to know.
 
 So this milestone is not about extracting a missing prerequisite. It is about
 modelling the things that are true at each stage of the calculation, the
-different ways the application can come to know each of them, and what each of
-those ways does and does not tell us. Once that is modelled, a person's ordinary
+different ways the application can come to know each of them, what each of those
+ways does and does not tell us, and which things bear on an answer without being
+a step toward working it out. Once that is modelled, a person's ordinary
 account of their schooling has something to connect *to*.
 
 The way we will go about it: model those facts and their routes first, because
@@ -87,7 +89,7 @@ reach toward the user before that.
 Three levels. Stop at whichever gives you what you need.
 
 1. The two paragraphs above.
-2. [What we will do](#what-we-will-do) — seven actions in ordinary language,
+2. [What we will do](#what-we-will-do) — eight actions in ordinary language,
    with a table showing where each one stands.
 3. A section per action, once that action has been refined. Only A1 has one so
    far.
@@ -270,9 +272,10 @@ bounds the others.
 **A0 was added after the plan was already under way**, and it is kept at the
 front rather than renumbered so the change stays visible. The plan began at "what
 we ask a person", which presupposes a model of the facts that question would
-connect to. Nothing downstream of A0 can be settled before it: the translation
+connect to. A0 blocks most of what follows: the translation
 layer between ordinary circumstances and form data cannot be defined until the
-tax concept facts the engine operates with are modelled. A1 and A3 returned to
+tax concept facts the engine operates with are modelled. A2 is the exception —
+its distinctions hold whatever route reaches a fact. A1 and A3 returned to
 `outlined` because their refinements rested on that missing model.
 
 The numbered questions in
@@ -284,8 +287,9 @@ replacing it, and so a question cannot go unowned.
 
 **A0 — Model the tax concept facts the engine operates with.** Say which facts
 of the matter this milestone touches, at which stage of the calculation each
-sits, which routes reach each one, and what each route does and does not
-establish.
+sits, which routes reach each one and what each route does and does not
+establish, which facts sit behind others without being on any path to them, and
+which of them the engine represents today.
 
 **A1 — Work out what the application puts to a person, and why they can answer
 it.** Settle, in
@@ -359,7 +363,7 @@ whole plan.
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
 | A3 | outlined | Was specified at `5ae15c13`; returned to outlined — "unresolved statement" described a deficiency that does not exist when box 1 is itself a route |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
-| A5 | outlined | Blocked on A1 and A2 |
+| A5 | outlined | Blocked on A0, A1 and A2 |
 | A6 | outlined | Blocked on A5 |
 | A7 | outlined | — |
 
@@ -387,44 +391,62 @@ that does not exist.
 2. For each, which routes reach it? A route is a way the system can come to hold
    the fact. List them without ranking them.
 3. For each route, what does it establish, and what does it not? A route reaching
-   a fact does not establish the facts that sit behind that fact.
-4. Which facts sit behind which others, and by what relation? Distinguish "sits
-   behind" from "is on the path to" explicitly, in each case.
+   a fact does not establish the facts that sit behind that fact. Say also what
+   kind of thing each route rests on, and whether one fact can be reached by more
+   than one route at once.
+4. Which facts sit behind which others, and by what relation? Draw "sits behind"
+   apart from "is on the path to" for every fact, not only where the two might be
+   confused.
 5. Which of these facts does the engine already hold, in what form, and which
    have no representation at all? Established against committed content, not
    assumed.
-6. For each fact, what origins can it have — stated by a person, read off a form,
-   derived — and can one fact have more than one origin at once?
 
 **How we will answer it.** Work from what the engine already computes for this
-vertical and from what the statute requires, and for each item ask whether it is
-a fact of the matter at some stage or merely a step in reaching one. Those are
-different and the distinction is the substance of this action. Where a fact has
-more than one route, write both out, because the second route is where the
-milestone's actual difficulty lives.
+vertical and from what the statute requires. For each item, first ask whether it
+is a fact of the matter at some stage or merely a step in reaching one — that is
+the quality bar for getting onto the list at all, not the substance of the
+action.
 
-**What done looks like.** A list of the facts of the matter, each with its stage,
-its routes, what each route establishes and does not, what sits behind it, its
-possible origins, and whether the engine represents it today.
+The substance is the two distinctions. For each fact, write out every route that
+reaches it without ranking them and without writing either as a lesser stand-in
+for the other; the difficulty is that more than one route reaches the same fact,
+not that one of them is deficient. Then, separately and for every fact, say which
+other facts sit behind it and by what relation, stating in each case that this is
+not "on the path to". A list of facts and routes with no behind-relations mapped
+is an unfinished A0, not a finished one.
 
-**How it is reviewed.** One independent reviewer, on five things, one per thing
-`done` requires:
+**What done looks like.** A list of the facts of the matter, each entry carrying:
+its stage; its routes, written unranked and with neither presented as a lesser
+version of another; what each route establishes and does not, and what each rests
+on; which facts sit behind it and by what relation, marked as distinct from being
+on a path to it; and whether the engine represents it today.
 
-1. Whether each entry is genuinely a fact of the matter at a stage, rather than a
-   computation step promoted to one.
-2. Whether any route is written as a deficient version of another, or the routes
-   are implicitly ranked.
-3. Whether "sits behind" is kept distinct from "is on the path to" in every case
-   where both could be claimed.
-4. Whether the representation claims are evidenced against committed content, and
-   whether anything is asserted as absent without being checked.
-5. Whether any entry smuggles in what the application should do about the fact,
-   which is not A0's business.
+**How it is reviewed.** One independent reviewer. There is a criterion per field
+`done` requires, so no deliverable goes unchecked:
+
+1. **Facts and stages** — whether each entry is genuinely a fact of the matter at
+   a stage rather than a computation step promoted to one, and whether the stage
+   assigned to it is the right one.
+2. **Routes** — whether every route is listed, whether any is ranked, and whether
+   any is written as a deficient version of another.
+3. **What each route establishes** — whether the establishes-and-does-not is
+   present for every route, whether what it rests on is stated, and whether any
+   route is credited with establishing something that sits behind its fact.
+4. **Behind-relations** — whether the behind-versus-path cut is drawn for every
+   fact. An artifact that maps no behind-relations at all fails this criterion; it
+   does not pass for having nothing to blur.
+5. **Representation** — whether the representation claims are evidenced against
+   committed content, and whether anything is asserted absent without being
+   checked.
+
+And one boundary check, which is not a `done` field: whether any entry smuggles
+in what the application should *do* about a fact, which is not A0's business.
 
 **What A0 does not settle.** What the application poses to a person or when (A1);
 which changes remove support (A2); what happens when a fact cannot be
-established (A3); whether the engine can carry any of it (A4); how any of it is
-stored (A5). It also does not settle the translation layer between ordinary
+established (A3); whether the engine can hold, follow and refuse a *recorded
+connection* (A4 — which is not the same as question 5's inventory of what
+representation these facts have today); how any of it is stored (A5). It also does not settle the translation layer between ordinary
 circumstances and form data — it is what that layer will translate *into*.
 
 ## A1 in detail — the question we ask a person
