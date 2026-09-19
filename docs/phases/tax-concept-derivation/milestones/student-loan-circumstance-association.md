@@ -331,8 +331,8 @@ whole plan.
 | Action | State | Notes |
 | --- | --- | --- |
 | A1 | specified | Refined below; refinement independently reviewed at `7083ae5d` and found sound |
-| A2 | outlined | Refinement drafted below; review pending, so it stays outlined |
-| A3 | outlined | Depends on A2's distinction being made first |
+| A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed |
+| A3 | outlined | Refinement drafted below; review pending, so it stays outlined |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
 | A5 | outlined | Blocked on A1 and A2 |
 | A6 | outlined | Blocked on A5 |
@@ -480,6 +480,98 @@ answer must be distinguishable from an absent one. Deciding what the application
 then says for those states is A3's, and anything past the minimum needed to keep
 them distinguishable is outside this milestone — the non-goals exclude a deep
 explanation surface.
+
+## A3 in detail — what the application does when it cannot establish the connection
+
+This is A3 refined one step. It states the work, not the answers. It also
+contains the one question in this milestone that is the owner's to decide, and
+its job is to frame that question properly rather than to answer it.
+
+**Failing to establish the connection is not one thing.** At least these are
+different, and a person in one of them should not be shown what a person in
+another is shown:
+
+- it was never asked for, or never given;
+- it was given, and then withdrawn;
+- it was given, and the thing it named no longer exists (A2's territory hands
+  this over);
+- it cannot be given, because the person's real situation does not fit the
+  question — the loan paid for two terms, or they cannot tell which loans the
+  lender combined;
+- it was given, and it is wrong, and nobody has noticed.
+
+The last is the only one where the application believes it has an answer. It is
+the case that matters most and the one a test is least likely to contain.
+
+**What A3 must answer.**
+
+1. For each way of failing above: what happens to the reported amount, and what
+   is the person told?
+2. Is "we do not know" the same as "this does not reduce your taxes"? A2 has
+   already ruled that a standing unfavourable answer and an absent one must be
+   distinguishable. A3 owes the consequence: whether an unestablished connection
+   produces a refusal, a zero, or nothing at all, and what that looks like.
+3. **Does one unresolved statement affect the others?** Framed in ordinary
+   language, the choice is between: each statement stands on its own, so the
+   described ones produce a result and the undescribed ones are reported as
+   unresolved; or nothing is produced until every statement has been described.
+   A3's job is to state what a person experiences under each and what each risks
+   — the first that someone believes their return is complete while part of it is
+   unaccounted for, the second that someone who genuinely cannot describe an old
+   statement is blocked from a deduction they are owed. **This is the owner's
+   decision.** A3 brings it with both consequences stated and does not presume
+   it.
+4. What counts as a wrong or a stale connection that the application ought to be
+   able to notice at all? A6 is accountable for building the smallest thing that
+   reveals one; A3 owes the list of what must be revealable.
+5. What must never happen: an unresolved statement producing silence; an
+   unresolved statement being presented as though the answer were unfavourable;
+   a person being asked again for something they have already given.
+
+**A constraint A3 must reconcile, not assume away.** The owner's
+[build boundary](#intended-result-and-build-boundary) states that this milestone
+does not change the existing worksheet's treatment of unlinked statements. If the
+answer to question 3 above is that nothing is produced until every statement is
+described, that may require exactly such a change. A3 must say plainly whether
+the two can hold together; if they cannot, that is a conflict to surface with the
+options, not to resolve by preferring one silently. The owner's section governs.
+
+**How we will answer it.** Take the failure kinds one at a time and say, in
+ordinary words, what happens to the amount, what the person is told, and what
+happens to the rest of their return. Then state question 3 as a plain question
+with its two consequences and bring it to the owner. Check each row against the
+plan's [case list](#cases-to-carry-through-design-and-execution), and against the
+existing worksheet's current behaviour for an unlinked statement — which must be
+established as a fact, not assumed.
+
+**What done looks like.** A table over the failure kinds giving, for each: what
+happens to the amount, what the person is told, and the effect on other
+statements. The one-versus-all question stated in ordinary language with both
+consequences, put to the owner. A named list of the wrong-or-stale conditions A6
+must be able to reveal. And an explicit statement of whether the answer holds
+together with the owner's build boundary.
+
+**How it is reviewed.** One independent reviewer, on five things, one per thing
+`done` requires:
+
+1. Whether each failure kind is genuinely distinct in what a person experiences,
+   or whether two rows have collapsed into one.
+2. Whether any row lets an unresolved connection be presented as an unfavourable
+   answer — A2's boundary, carried forward.
+3. Whether question 3 is stated without presupposing its answer, and whether both
+   consequences are given their real weight rather than one being made obviously
+   worse.
+4. Whether the wrong-or-stale list is something A6 could actually build against,
+   or is a restatement of the problem.
+5. Whether the reconciliation with the owner's build boundary is honest,
+   including naming a conflict if there is one.
+
+Not on mechanism, and not on whether the engine can carry any of it.
+
+**What A3 does not settle.** How any of it is stored (A5), whether the engine can
+detect or express it (A4), the words of the question a person is asked (A1), or
+which changes remove support in the first place (A2). It also does not settle
+how small the revealing consumer can be — that is A6's, working from A3's list.
 
 ## What the technical investigation established, and what it constrains
 
