@@ -402,6 +402,12 @@ treated as one, and only the first is mechanical:
 2. the person's earlier claim still holds, given that current version;
 3. the person would still say the same thing if asked again today.
 
+The third is never observable. The application cannot know what a person would
+now say, and any design that behaves as though it does is asserting something on
+their behalf. That is why the third leg produces an *obligation to ask* rather
+than a determination — and why "which changes oblige a person to look again" is
+a real question with a real cost rather than a detection problem.
+
 The owner's question 3 is the second of these, and it states the trap directly:
 identity continuity alone does not settle whether the asserted composition
 remains supported. A2 is done when that sentence has been turned into something
@@ -445,14 +451,35 @@ whether the claim survives, whether the person is asked again, and what the
 application shows while that is unresolved. Plus the named boundary between a
 standing unfavourable answer and an absent one.
 
-**How it is reviewed.** One independent reviewer, on two things only: whether the
-distinction between "can be found" and "still supported" is maintained in every
-row, and whether any row quietly reduces to the reference resolving. Not on
-mechanism, and not on whether the engine can detect any of it.
+**How it is reviewed.** One independent reviewer, on four things, one per thing
+`done` requires:
+
+1. Whether the distinction between "can be found" and "still supported" is
+   maintained in every row, and whether any row quietly reduces to the reference
+   resolving.
+2. Whether every row that depends on what the person would now say converts that
+   into an obligation to ask them, rather than into an assumption about their
+   answer. A row that decides a claim still stands *because the person has not
+   said otherwise* fails this.
+3. Whether the "what the application shows while this is unresolved" column is
+   filled for every row, and whether it is distinguishable from the row's
+   settled outcome.
+4. Whether the boundary between a standing unfavourable answer and an absent one
+   is stated in terms a person could act on, and whether any row lets the two
+   collapse.
+
+Not on mechanism, and not on whether the engine can detect any of it.
 
 **What A2 does not settle.** How any of this is stored or noticed, whether the
 existing engine can carry it (A4), what the question's words are (A1), or what
 happens to *other* statements when one is unresolved (A3).
+
+Nor the actual words a person is shown. A2 establishes *that* the unresolved
+interval is a state needing its own account, and *that* a standing unfavourable
+answer must be distinguishable from an absent one. Deciding what the application
+then says for those states is A3's, and anything past the minimum needed to keep
+them distinguishable is outside this milestone — the non-goals exclude a deep
+explanation surface.
 
 ## What the technical investigation established, and what it constrains
 
