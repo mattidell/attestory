@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "PLANNED, no track open. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Work sequence item 1 (product and evidence outline) is complete and independently reviewed with no material findings: recording, recovery, confirmed association and lifecycle all have adopted precedent on the structurally identical Form 1099-INT problem, while iteration completeness -- a statement with no relationship is never visited -- has none and is now Track 0's gate. The prior milestone's bounded consumer cannot be lifted into pairing scope unchanged and must be restructured. Two executed checks are a readiness gate before any producer is chartered. Representation is still unsettled; no mechanism selected.",
+  "status": "PLANNED, no track open. The readiness gate has been executed and passed -- see the readiness-gate results. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Work sequence item 1 (product and evidence outline) is complete and independently reviewed with no material findings: recording, recovery, confirmed association and lifecycle all have adopted precedent on the structurally identical Form 1099-INT problem, while iteration completeness -- a statement with no relationship is never visited -- has none and is now Track 0's gate. The prior milestone's bounded consumer cannot be lifted into pairing scope unchanged and must be restructured. Two executed checks are a readiness gate before any producer is chartered. Representation is still unsettled; no mechanism selected.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -20,6 +20,7 @@
     "planning": [
       "docs/process/planning-and-development.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
       "OWNER_MODEL.md#The Domain Model Model",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md",
@@ -257,6 +258,17 @@ production change, must raise the load-bearing ones to `run`:
 
 A count of publications alone settles neither. No implementation unit is
 chartered on `read`-level claims about the dispatcher.
+
+**Both checks are executed and passed**
+([results](student-loan-circumstance-association-evidence/readiness-gate-results.md),
+`tests/test_sli_circumstance_association_readiness.py`). The primitive does
+carry a report/circumstance relationship dependent on both sides; losing the
+named target already yields `DEPENDENCY_ABSENT` naming it, with no rule-author
+work; `require_closed` and `count` block pairing-scoped with
+`SOURCE_SET_UNCLOSED`, so the prior consumer's cardinality gate is confirmed
+unliftable; and a statement with no relationship produces **neither a
+publication nor a blocked row**, exactly as predicted. U2 is therefore a
+confirmed open gap rather than a suspicion, and it is what Track 0 must answer.
 
 ### Owner-visible product choice
 

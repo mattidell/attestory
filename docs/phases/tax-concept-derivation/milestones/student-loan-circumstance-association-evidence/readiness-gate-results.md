@@ -130,6 +130,15 @@ it, which is the gate outline section 10 asks for.
   `qualified_fraction` property, and the pairing-local `Environment`
   reconstruction used here are disposable test fixtures, not a proposal.
   Nothing in the production package changed.
+- **Observation 4 tested the shape, not the production function.** The
+  environment was rebuilt in the test module because
+  `pairing_consequences._pairing_local_environment` is private and binds two
+  nominee-specific fact-type constants. So what executed is that *an
+  environment with empty sources and empty closed sets* blocks
+  `require_closed`/`count` — which is the property the claim rests on — and not
+  that production function itself. The rebuild also passes empty
+  parameters/canon where production carries the run's over, so nothing here
+  exercises a `parameter` operation pairing-scoped.
 - **No tax conclusion.** Neither check establishes eligibility, a favorable
   or unfavorable determination, or that a production consumer route exists.
   Check 1's arithmetic (`multiply`) is illustrative dependence-proving only,

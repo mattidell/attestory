@@ -256,7 +256,14 @@ Stated before choosing, as the plan requires.
 
 ## 9. The smallest evidence that would settle this
 
-Two executed checks, in this order, before any production charter:
+**Both checks have since been executed**; results and their ceilings are in
+[readiness-gate-results.md](readiness-gate-results.md). Both came out as
+predicted, so sections 5, 6(a) and 6(b) now rest on `run`-level evidence for the
+claims that document lists — with one code recorded that this outline did not
+predict: `require_closed` and `count` block pairing-scoped with
+`SOURCE_SET_UNCLOSED`, not `DEPENDENCY_ABSENT`. U1 and U2 remain open.
+
+The checks as chartered, in this order, before any production charter:
 
 1. **Dereference check.** Build a disposable pairing whose left side is a
    Form 1098-E box-1 source and whose right side is a schooling-circumstance
