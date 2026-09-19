@@ -76,7 +76,7 @@ refuses correctly.
 
 Three levels. Stop at whichever gives you what you need.
 
-1. The paragraph above.
+1. The two paragraphs above.
 2. [What we will do](#what-we-will-do) — seven actions in ordinary language,
    with a table showing where each one stands.
 3. A section per action, once that action has been refined. Only A1 has one so
@@ -259,49 +259,78 @@ and it bounds the others.
 
 The numbered questions in
 [Initial planning and early review](#initial-planning-and-early-review) are the
-owner's statement of what must become visible. Each action below names which of
-them it answers, so this list stays accountable to that one rather than
-replacing it.
+owner's statement of what must become visible. The
+[coverage table](#which-action-answers-which-of-the-owners-questions) below maps
+them onto these actions, so this list stays accountable to that one rather than
+replacing it, and so a question cannot go unowned.
 
 **A1 — Work out what we ask a person, and why they can answer it.** Settle, in
 the words a person would actually read, what they are being asked to connect and
-what they are never asked to conclude. *Answers question 1.*
+what they are never asked to conclude.
 
 **A2 — Decide what makes an answer enough to rely on, and what takes that
 away.** Distinguish having the latest information from that information still
 supporting the earlier claim. Decide which changes oblige a person to look
-again. *Answers question 3.*
+again.
 
 **A3 — Decide what the application does when it cannot establish the
 connection.** Including what it says, and whether one undescribed statement
-affects the others. *Answers question 5, and part of question 4.*
+affects the others, and what counts as a wrong or stale connection that the
+application ought to be able to notice.
 
 **A4 — Find out what the software can hold, follow, and refuse.** Establish by
 execution, not by reading, which of A1–A3's answers the existing engine can
 carry and which it cannot. This bounds the possible answers; it does not choose
-among them. *Bounds questions 2 and 4.*
+among them.
 
 **A5 — Choose how to represent the answer and the connection, and record why.**
 This is where storage shape is decided — after A1, and constrained by A4, never
-in place of either. *Answers question 2.*
+in place of either. It is also where we decide which distinctions must be
+represented now and which are deferred.
 
 **A6 — Build the smallest honest version, and prove it fails correctly.** A
-producer, a recovery path, and a consumer that uses recovered state. The proof
-that matters is the refusals, not the successes.
+producer, a recovery path, and a consumer that uses recovered state. Decide how
+small that consumer can be while still revealing a wrong or stale connection.
+The proof that matters is the refusals, not the successes.
 
 **A7 — Say what we learned and what the next milestone inherits.** Including
 what we disproved and what we chose not to settle.
 
+### Which action answers which of the owner's questions
+
+| Question | Answered by | Note |
+| --- | --- | --- |
+| 1 — evidence supporting the relationship without a tax conclusion | A1 | |
+| 2 — is a separately identified borrowing needed, and what correspondence can be asserted or checked | A5 | A4 bounds what can be checked |
+| 3 — how correction affects continued applicability | A2 | Identity continuity is not the answer; A2 owes the distinction |
+| 4a — what happens when several records refer to one borrowing, or one record covers several | A3 | Behaviour, including honest refusal |
+| 4b — which distinctions must be represented now | A5 | The representation half; A4 bounds it |
+| 5 — the smallest consumer that reveals a wrong or stale association | A6 | A2 and A3 define what must be revealable; A6 decides how small the consumer can be |
+
+Every question has exactly one action accountable for it. If a refinement finds
+that its action cannot answer its question, that reassignment is a visible
+change to this table, not a quiet omission.
+
 ### Where each action stands
 
 An action is **outlined** when its general statement above is agreed;
-**specified** when it has been refined one step and independently reviewed;
-**done** when its work is complete. This table is how we answer "how close is
-this to done" without reading the whole plan.
+**specified** when it has been refined one step and that refinement has
+independently been reviewed; **done** when its work is complete. Those are the
+only three states.
+
+An action may have work under way while still only outlined — work can start
+ahead of its refinement when it is cheap and bounds the other actions, which is
+how A4 began. That is recorded as "outlined, partly done", and it never becomes
+"specified" on the strength of the work having succeeded. There is no status
+between outlined and specified for a refinement that has been drafted but not
+reviewed; a drafted refinement leaves its action outlined.
+
+This table is how we answer "how close is this to done" without reading the
+whole plan.
 
 | Action | State | Notes |
 | --- | --- | --- |
-| A1 | specified pending review | Refined below; review not yet returned |
+| A1 | specified | Refined below; refinement independently reviewed at `7083ae5d` and found sound |
 | A2 | outlined | Next to refine |
 | A3 | outlined | Depends on A2's distinction being made first |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
