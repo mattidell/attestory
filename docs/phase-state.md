@@ -5,9 +5,9 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "planned",
-  "status": "Student Loan Circumstance Association is selected. Build a bounded ordinary-fact recording and recovery path to replace the prior student-loan experiment's stipulated statement-to-loan-and-period relationship, then exercise it through a bounded consumer. Start with an independently reviewed product/evidence outline. No representation, new contract, or implementation has been selected.",
-  "current_role": "Foreman (plan and charter the relationship-recording milestone)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#Initial planning and early review"
+  "status": "Student Loan Circumstance Association remains planned -- no track is open. Work sequence item 1, the product and evidence outline, is complete and independently reviewed with no material findings. Recording, recovery, confirmed association and lifecycle have adopted production precedent on the structurally identical Form 1099-INT aggregation problem. Following an asserted relationship is possible only through ADR-0070/0071 pairing dispatch, outside the evaluator; the prior milestone's bounded consumer cannot be lifted into that scope unchanged and must be restructured without its cardinality gate. Iteration completeness -- a statement with no relationship is never visited -- has no adopted precedent and is now Track 0's gate. Two executed checks are a readiness gate before any producer is chartered. No representation, new contract, or implementation has been selected.",
+  "current_role": "Foreman (charter the readiness-gate checks, then Track 0)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#Readiness gate before any producer is chartered"
 }
 -->
 
@@ -21,15 +21,30 @@
 
 The previous experiment demonstrated a bounded translation from an ordinary
 schooling circumstance to a tax consequence. It supplied the connection to
-reported interest itself. The next build obtains and records that connection,
+reported interest itself. This milestone obtains and records that connection,
 keeps its subjects distinct, and lets a consumer use recovered current support.
+
+**Item 1 of the work sequence is done and reviewed.** Recording, recovery,
+confirmed association and lifecycle turn out to have adopted production
+precedent, because Form 1099-INT aggregates obligations the same way Form
+1098-E aggregates loans. Two findings redirect the rest: the engine can follow
+an asserted relationship only through pairing dispatch, outside the evaluator,
+which the prior bounded consumer cannot enter unchanged; and a statement nobody
+associated is never visited at all, which nothing adopted addresses.
 
 ## Begin here
 
-Read the [milestone plan](phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md).
-Prepare a short product/evidence outline and obtain independent review before
-settling the representation or chartering implementation. The earlier
-single-statement association proposal is a paper candidate, not a contract.
+Read the [milestone plan](phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md),
+then the [product and evidence outline](phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md)
+it now leads with. Everything the outline says about existing software is
+evidence level `read`.
+
+The next action is the readiness gate: two executed checks — a dereference check
+and an omission check — on synthetic identities with no production change. No
+producer is chartered until they pass, and Track 0's gate is the completeness
+question they inform. One product choice is the owner's and is recorded in the
+plan: whether the person's schooling answer is one structured finding or several
+separate facts.
 
 The intended result is adopted recording and recovery with an executed bounded
 consumer. Full worksheet integration, favorable eligibility, and a deep user

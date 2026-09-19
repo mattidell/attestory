@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "PLANNED. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Start with an independently reviewed product and evidence outline before settling the representation or chartering implementation.",
+  "status": "PLANNED, no track open. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Work sequence item 1 (product and evidence outline) is complete and independently reviewed with no material findings: recording, recovery, confirmed association and lifecycle all have adopted precedent on the structurally identical Form 1099-INT problem, while iteration completeness -- a statement with no relationship is never visited -- has none and is now Track 0's gate. The prior milestone's bounded consumer cannot be lifted into pairing scope unchanged and must be restructured. Two executed checks are a readiness gate before any producer is chartered. Representation is still unsettled; no mechanism selected.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -19,6 +19,7 @@
   "deep_reads": {
     "planning": [
       "docs/process/planning-and-development.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "OWNER_MODEL.md#The Product Model",
       "OWNER_MODEL.md#The Domain Model Model",
       "docs/phases/tax-concept-derivation/tax-concept-derivation-overview.md",
@@ -29,6 +30,7 @@
     "implementation": [
       "docs/process/planning-and-development.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/adr/0067-canonical-acquisition-field-ref-access.md",
       "docs/adr/0073-assertion-standing-and-retraction-lifecycle.md",
       "AGENTS.md#Data Safety Rules",
@@ -49,7 +51,11 @@
 Milestone key: `student-loan-circumstance-association`.
 Primary branch: `milestone/student-loan-circumstance-association`.
 Primary worktree: `engine-worktree-1`.
-State: planned; no implementation or contract selected. Opened 2026-09-18.
+State: planned; no track open, nothing implemented. Opened 2026-09-18.
+Work sequence item 1 — the product
+and evidence outline — is complete and independently reviewed; see
+[Findings from item 1](#findings-from-item-1-and-what-they-changed). No
+representation, mechanism, or contract is selected.
 
 ## Product purpose
 
@@ -197,11 +203,78 @@ per-statement association; a surviving provenance id alone cannot prove the
 calculation used the amount. Include a changed-amount case and a wrong-target
 case capable of breaking the intended behavior.
 
+## Findings from item 1, and what they changed
+
+The [product and evidence outline](student-loan-circumstance-association-evidence/outline-product-and-evidence.md)
+is complete and independently reviewed; the review found no material defect in
+its source claims. Three findings changed this plan.
+
+**Most of the recording half has adopted precedent on the same problem.** Form
+1099-INT aggregates several obligations into one box-1 number with no
+per-obligation identifier, exactly as Form 1098-E aggregates loans. The nominee
+vertical met that and adopted an answer: narrow to a candidate, then require the
+person's confirmation — mandatory, never inferred, never substituted by a match
+however specific (ADR-0068). Ordinary-answer recording, recovery from the
+committed act log alone, attribution, and correction/retraction/reassertion at a
+stable `fact_id` are production code, not proposals.
+
+**Following an asserted relationship is possible in exactly one place, and it is
+not the evaluator.** `ref` resolves a literal symbol name and source rows carry
+no member identity, so no rule expression can relate one statement to one
+circumstance. ADR-0070/0071's pairing dispatch does the dereference outside the
+evaluator, per item, pinning both sides and blocking one item by name.
+
+**The prior bounded consumer cannot be lifted into pairing scope.** That
+environment binds only the two paired values, with no sources and no closed
+sets, so `require_closed`, `count` and `collect` block inside it — and the prior
+candidate gates on `require_closed` plus `count(box1) == 1`. That cardinality
+gate is the stipulation this milestone exists to remove, so it is deleted rather
+than carried. The consumer is restructured work, not a reused artifact.
+
+**Iteration completeness is the unsolved half.** The dispatcher iterates the
+pairings a run has, so a statement nobody associated is never visited and
+produces neither an answer nor a refusal. The obvious repair — collect over the
+Form 1098-E family and publish a completeness symbol — is closed off by ADR-0016
+as enforced in `source_authority.audit_collect_authority`: collecting over a
+mapped family forces publishing that family's authorized subtotal. This needs a
+decision and is now Track 0's gate.
+
+### Readiness gate before any producer is chartered
+
+Every claim above about existing software is evidence level `read`. Two executed
+checks, on synthetic `demo.*` identities with source values intact and no
+production change, must raise the load-bearing ones to `run`:
+
+1. **Dereference check.** One declared rule dispatched pairing-scoped over a
+   disposable pairing whose sides are a Form 1098-E box-1 source and a
+   schooling-circumstance source. Assert the value the expression read, the
+   pinned finding ids, and the blocked code and named fact id when the right
+   side is retracted.
+2. **Omission check.** Two statements, one associated and one not, with the
+   expected disposition for the unassociated statement recorded *before*
+   execution. Silence about it makes the completeness decision required rather
+   than deferrable.
+
+A count of publications alone settles neither. No implementation unit is
+chartered on `read`-level claims about the dispatcher.
+
+### Owner-visible product choice
+
+Pairing scope offers two symbols, and ADR-0067's `field` selector reads named
+properties off a bound finding's value. That favours **one schooling-circumstance
+finding with a structured value** over the prior milestone's several separate
+premise facts. This changes what the person is asked and what a single
+correction corrects, so it is an owner decision, not an implementation detail.
+The dereference check supplies its mechanical half only.
+
 ## Work sequence
 
 1. **Product and evidence outline.** Independent early review, then focused
    source and payload investigation. The foreman plans and charters this work.
-2. **Track 0 — bounded design and consumer evidence.** Prototype only choices
+2. **Track 0 — bounded design and consumer evidence.** Its gate is the
+   completeness question: what accounts for a statement with no relationship.
+   That is the part with no adopted precedent, and the milestone should not pass
+   this point with it merely carried as a case. Otherwise prototype only choices
    whose consequences the named consumer can distinguish. Rival builders are
    appropriate when competing shapes genuinely remain; otherwise explain why a
    direct build is sufficient. Independently review the design and evidence.
@@ -211,9 +284,12 @@ case capable of breaking the intended behavior.
    implementation relies on it; preserve published history.
 4. **Production recording and recovery.** Charter coherent implementation units.
    Test the actual producer, record, currency projection, and recovery path.
-5. **Consumer integration evidence and final review.** Feed recovered inputs to
-   the bounded consequence consumer, verify the cases and declared limitations,
-   and independently review the candidate before curation and closeout.
+5. **Consumer integration evidence and final review.** Restructure the bounded
+   consequence rule for pairing scope — removing its cardinality gate rather
+   than preserving it — feed it recovered inputs, verify the cases and declared
+   limitations, and independently review the candidate before curation and
+   closeout. The prior milestone's rule is a starting point for that
+   restructuring, not a reusable consumer.
 
 The foreman can split implementation units after the design makes the dependencies
 clear. Do not split by arbitrary document count or create a general grouping

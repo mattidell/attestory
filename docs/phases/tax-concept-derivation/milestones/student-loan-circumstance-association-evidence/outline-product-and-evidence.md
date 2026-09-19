@@ -138,6 +138,12 @@ unkeyed `ref` would otherwise force marshalling to pick an arbitrary current
 finding. `input_bindings` match by **fact type only**
 (`marshal.py:_fact_id_has_type`), never by key.
 
+One operator is worth naming so it is not mistaken for a way around this.
+ADR-0074's `bound_sources` reads a group that was *already selected for it*, so
+the identity work again happens outside the evaluator; ADR-0074 also forbids
+any rule other than the one it names from using it without a new decision. It
+is not a general keyed-access mechanism.
+
 `pairing_dispatch.py` states the same boundary from the other side — an
 ordinary declared family has "no dereference of a fact id stored inside another
 finding's value" — and then performs that dereference itself, outside the
@@ -158,13 +164,20 @@ step 5 — "feed recovered inputs to the bounded consequence consumer" — there
 understates the work: the consumer must be **restructured**, and that is a
 design task with a product consequence (see decision U1).
 
-**(b) Completeness of iteration is the unsolved part, and the plan has it
-ranked second.** The dispatcher iterates the pairings a run has
+**(b) Completeness of iteration is the unsolved part, and nothing flags it as
+such.** The dispatcher iterates the pairings a run has
 (`[s for s in sources if s.name == pairing_type]`). A statement with no
-relationship is never visited — failure 4, and exactly the prior milestone's
-recorded negative result. Nothing in the recording half fixes this. The plan
-reads as though recording is the hard part and the consumer is a check; the
-evidence says the reverse.
+relationship is never visited — failure 4. Nothing in the recording half fixes
+this.
+
+Two precisions. The plan's sequencing (step 4 recording, step 5 consumer) is a
+natural build order, not a stated judgement about difficulty, and its case list
+already requires the absent-relationship case; the point is that neither marks
+this as the harder half, so it is easy to arrive at it late. And this is the
+same class of gap the prior milestone's deferral ledger named as E3
+("differentiated or bounded multi-statement behaviour — unbuilt production
+obligation"), not a diagnosis E3 already made: E3 is broader, and locating the
+gap at the dispatcher's iteration source is new here.
 
 **(c) A constraint on the obvious repair.** Accounting for every statement by
 collecting over the Form 1098-E family runs into ADR-0016, enforced in
@@ -183,8 +196,12 @@ finding with a structured value" the shape the mechanism favours, against the
 prior milestone's several separate premise facts. *Why it matters:* it changes
 what the person is asked and what a single correction corrects. *Depends on it:*
 the recording payload, the consumer's expression, the correction cases.
-*Resolved by:* a small executed payload through the real boundary plus one
-pairing-scoped evaluation. *When:* before any producer is chartered.
+*Resolved by:* section 9's first check supplies the mechanical half — that a
+structured value can be read pairing-scoped at all. It does **not** settle the
+product half: whether one structured finding gives the right correction
+granularity is a judgement about what a person should be able to revise alone,
+and needs an owner decision rather than a passing test. *When:* before any
+producer is chartered.
 
 **U2 — What accounts for a statement with no relationship?** Options: a
 separate closed-family rule over statements (constrained by (c)); a
@@ -200,9 +217,13 @@ stated in advance. *When:* this is the gate for Track 0.
 period directly and let the composition claim make the loan implicit, as the
 earlier paper candidate proposed. That holds only while one statement means one
 loan and one period. *Why it matters:* inventing a loan-account system with no
-consumer is waste; relabelling a statement as a loan is an error. *Resolved by:*
-whether any case in the plan's case list needs to refer to a borrowing across
-two statements. *When:* before the contract unit.
+consumer is waste; relabelling a statement as a loan is an error. *Resolved by:* the plan's case list has already partly
+constrained this — it requires exercising "two statements concerning one
+borrowing" and "one statement covering more than one borrowing or period",
+either through a selected representation or through honest unsupported
+behaviour. So the open question is narrower than whether to model a borrowing
+at all: it is whether refusal is an adequate answer for those two cases.
+*When:* before the contract unit.
 
 **U4 — Does the existing pairing seam generalise, or is a sibling needed?**
 `pairing_consequences` binds two hardcoded fact-type constants. Reuse means
