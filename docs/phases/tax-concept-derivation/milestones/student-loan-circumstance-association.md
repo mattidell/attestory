@@ -332,7 +332,7 @@ whole plan.
 | --- | --- | --- |
 | A1 | specified | Refined below; refinement independently reviewed at `7083ae5d` and found sound |
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed |
-| A3 | outlined | Refinement drafted below; review pending, so it stays outlined |
+| A3 | specified | Refined below; reviewed at `5ae15c13`, two minor repairs applied |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
 | A5 | outlined | Blocked on A1 and A2 |
 | A6 | outlined | Blocked on A5 |
@@ -493,8 +493,8 @@ another is shown:
 
 - it was never asked for, or never given;
 - it was given, and then withdrawn;
-- it was given, and the thing it named no longer exists (A2's territory hands
-  this over);
+- it was given, and the thing it named no longer exists (A2 determines that this
+  is a failure state; A3 still owes this row's behaviour, like any other);
 - it cannot be given, because the person's real situation does not fit the
   question — the loan paid for two terms, or they cannot tell which loans the
   lender combined;
@@ -528,13 +528,31 @@ the case that matters most and the one a test is least likely to contain.
    unresolved statement being presented as though the answer were unfavourable;
    a person being asked again for something they have already given.
 
-**A constraint A3 must reconcile, not assume away.** The owner's
+**A constraint A3 must reconcile, not assume away, and a fact that changes its
+shape.** The owner's
 [build boundary](#intended-result-and-build-boundary) states that this milestone
-does not change the existing worksheet's treatment of unlinked statements. If the
-answer to question 3 above is that nothing is produced until every statement is
-described, that may require exactly such a change. A3 must say plainly whether
-the two can hold together; if they cannot, that is a conflict to surface with the
-options, not to resolve by preferring one silently. The owner's section governs.
+does not change the existing worksheet's treatment of unlinked statements.
+
+The existing treatment is not "nothing". Evidence level `read`, from
+`packages/content/tax/2025/rule.sli-worksheet.json` and the box-1 family
+declaration: closure over the Form 1098-E box-1 family is unconditional, and
+every current member is summed into the line-1 subtotal the worksheet deducts
+from. So **today, a statement nobody has described contributes its interest to
+the deduction**, subject only to the twelve eligibility components and MAGI —
+there is no circumstance check at all. A3 must confirm this rather than inherit
+it from this paragraph.
+
+That reframes the reconciliation rather than dissolving it. Nothing this
+milestone builds violates the boundary under either answer, because the bounded
+consumer it builds is separate from the production worksheet and the plan already
+holds existing production behaviour unchanged until explicitly selected. The
+force of the decision lands on the *next* milestone's worksheet integration,
+where either answer changes a real deduction outcome relative to today: each
+statement standing alone removes an undescribed statement's interest from a total
+that currently includes it, and blocking removes all of it. A3 must say plainly
+which milestone bears the change, and must not present a policy that only works
+by changing the existing worksheet as though it were free here. The owner's
+section governs.
 
 **How we will answer it.** Take the failure kinds one at a time and say, in
 ordinary words, what happens to the amount, what the person is told, and what
