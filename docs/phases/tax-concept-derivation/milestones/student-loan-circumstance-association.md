@@ -60,17 +60,27 @@ one (A4) has partly run; the rest are stated but not yet made specific.
 ## What this milestone is
 
 A company that lent someone money for school reports how much interest they
-paid. The person can describe their schooling. Whether that interest reduces
-their taxes depends on what the borrowed money actually paid for — which neither
-the report nor the description says on its own. This milestone is about getting
-that missing link from the person in a form they can honestly give, keeping it,
-letting a calculation use it, and — just as much — making the application say
-plainly when it does not have the link instead of guessing.
+paid. Whether that interest reduces someone's taxes depends, in the law, on what
+the borrowed money paid for — but the form does not say, and the application is
+not going to make a person answer for tax rules they have no reason to know.
 
-The way we will go about it: settle what we ask a person and what makes their
-answer good enough *before* choosing how to store it, find out what the existing
-software can and cannot carry, then build the smallest version that works and
-refuses correctly.
+So this milestone is not about extracting a missing prerequisite. It is about
+modelling the things that are true at each stage of the calculation, the
+different ways the application can come to know each of them, and what each of
+those ways does and does not tell us. Once that is modelled, a person's ordinary
+account of their schooling has something to connect *to*.
+
+The way we will go about it: model those facts and their routes first, because
+nothing downstream can be defined without them; then work out what the
+application puts to a person and when; then find out what the existing software
+can carry; then build the smallest version that works.
+
+This is a **Tax Concept Derivation** milestone. The subject is the tax concept
+and how it serves as the interface between the engine and the user. Forms do not
+model tax concepts — that is why the concepts have to be derived, and why a
+translation layer sits between a person's ordinary circumstances and form data.
+The work stays inside the engine until the facts are modelled there; it does not
+reach toward the user before that.
 
 ## How to read this plan
 
@@ -252,10 +262,18 @@ case capable of breaking the intended behavior.
 
 ## What we will do
 
-Seven actions. Each is something the development team does, not a component it
+Eight actions. Each is something the development team does, not a component it
 touches. They are listed in the order their answers are needed, which is not
-necessarily the order of the work — A4 has already begun because it was cheap
-and it bounds the others.
+necessarily the order of the work — A4 began early because it was cheap and it
+bounds the others.
+
+**A0 was added after the plan was already under way**, and it is kept at the
+front rather than renumbered so the change stays visible. The plan began at "what
+we ask a person", which presupposes a model of the facts that question would
+connect to. Nothing downstream of A0 can be settled before it: the translation
+layer between ordinary circumstances and form data cannot be defined until the
+tax concept facts the engine operates with are modelled. A1 and A3 returned to
+`outlined` because their refinements rested on that missing model.
 
 The numbered questions in
 [Initial planning and early review](#initial-planning-and-early-review) are the
@@ -264,9 +282,15 @@ owner's statement of what must become visible. The
 them onto these actions, so this list stays accountable to that one rather than
 replacing it, and so a question cannot go unowned.
 
-**A1 — Work out what we ask a person, and why they can answer it.** Settle, in
-the words a person would actually read, what they are being asked to connect and
-what they are never asked to conclude.
+**A0 — Model the tax concept facts the engine operates with.** Say which facts
+of the matter this milestone touches, at which stage of the calculation each
+sits, which routes reach each one, and what each route does and does not
+establish.
+
+**A1 — Work out what the application puts to a person, and why they can answer
+it.** Settle, in
+the words a person would actually read, what the application poses, where an
+exchange may legitimately end, and what a person is never asked to conclude.
 
 **A2 — Decide what makes an answer enough to rely on, and what takes that
 away.** Distinguish having the latest information from that information still
@@ -300,11 +324,11 @@ what we disproved and what we chose not to settle.
 
 | Question | Answered by | Note |
 | --- | --- | --- |
-| 1 — evidence supporting the relationship without a tax conclusion | A1 | |
+| 1 — evidence supporting the relationship without a tax conclusion | A1 | A0 first: what evidence can support depends on which routes reach which fact |
 | 2 — is a separately identified borrowing needed, and what correspondence can be asserted or checked | A5 | A4 bounds what can be checked |
 | 3 — how correction affects continued applicability | A2 | Identity continuity is not the answer; A2 owes the distinction |
 | 4a — what happens when several records refer to one borrowing, or one record covers several | A3 | Behaviour, including honest refusal |
-| 4b — which distinctions must be represented now | A5 | The representation half; A4 bounds it |
+| 4b — which distinctions must be represented now | A5 | The representation half; A4 bounds it, A0 supplies what there is to distinguish |
 | 5 — the smallest consumer that reveals a wrong or stale association | A6 | A2 and A3 define what must be revealable; A6 decides how small the consumer can be |
 
 Every question has exactly one action accountable for it. If a refinement finds
@@ -330,9 +354,10 @@ whole plan.
 
 | Action | State | Notes |
 | --- | --- | --- |
-| A1 | specified | Refined below; refinement independently reviewed at `7083ae5d` and found sound |
-| A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed |
-| A3 | specified | Refined below; reviewed at `5ae15c13`, two minor repairs applied |
+| A0 | outlined | Refinement drafted below; review pending, so it stays outlined. Blocks A1, A3 and A5 |
+| A1 | outlined | Was specified at `7083ae5d`; returned to outlined — its refinement presumed the connection was a prerequisite the person must supply |
+| A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
+| A3 | outlined | Was specified at `5ae15c13`; returned to outlined — "unresolved statement" described a deficiency that does not exist when box 1 is itself a route |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
 | A5 | outlined | Blocked on A1 and A2 |
 | A6 | outlined | Blocked on A5 |
@@ -340,6 +365,67 @@ whole plan.
 
 No action is specified by asserting it; it is specified by refining it one step
 and surviving a review of that refinement alone.
+
+## A0 in detail — modelling the tax concept facts
+
+This is A0 refined one step. It states the work; the model itself is the work.
+
+**Why this action exists.** A fact of the matter is something that is true at a
+stage of the calculation. More than one route can reach the same fact, and the
+routes are not ranked: "here is box 1 of a Form 1098-E" and "here is a collection
+of loans and their terms" both reach total deductible student loan interest, and
+neither is a deficient proxy for the other. Separately, some facts sit *behind* a
+fact without being on any path that reaches it — whether every loan is eligible
+bears on the deduction total without being a step toward computing it. The plan
+previously collapsed those two relations, which is what produced a prerequisite
+that does not exist.
+
+**What A0 must answer.**
+
+1. Which facts of the matter does this milestone touch? State each as a
+   proposition, and say at which stage of the calculation it sits.
+2. For each, which routes reach it? A route is a way the system can come to hold
+   the fact. List them without ranking them.
+3. For each route, what does it establish, and what does it not? A route reaching
+   a fact does not establish the facts that sit behind that fact.
+4. Which facts sit behind which others, and by what relation? Distinguish "sits
+   behind" from "is on the path to" explicitly, in each case.
+5. Which of these facts does the engine already hold, in what form, and which
+   have no representation at all? Established against committed content, not
+   assumed.
+6. For each fact, what origins can it have — stated by a person, read off a form,
+   derived — and can one fact have more than one origin at once?
+
+**How we will answer it.** Work from what the engine already computes for this
+vertical and from what the statute requires, and for each item ask whether it is
+a fact of the matter at some stage or merely a step in reaching one. Those are
+different and the distinction is the substance of this action. Where a fact has
+more than one route, write both out, because the second route is where the
+milestone's actual difficulty lives.
+
+**What done looks like.** A list of the facts of the matter, each with its stage,
+its routes, what each route establishes and does not, what sits behind it, its
+possible origins, and whether the engine represents it today.
+
+**How it is reviewed.** One independent reviewer, on five things, one per thing
+`done` requires:
+
+1. Whether each entry is genuinely a fact of the matter at a stage, rather than a
+   computation step promoted to one.
+2. Whether any route is written as a deficient version of another, or the routes
+   are implicitly ranked.
+3. Whether "sits behind" is kept distinct from "is on the path to" in every case
+   where both could be claimed.
+4. Whether the representation claims are evidenced against committed content, and
+   whether anything is asserted as absent without being checked.
+5. Whether any entry smuggles in what the application should do about the fact,
+   which is not A0's business.
+
+**What A0 does not settle.** What the application poses to a person or when (A1);
+which changes remove support (A2); what happens when a fact cannot be
+established (A3); whether the engine can carry any of it (A4); how any of it is
+stored (A5). It also does not settle the translation layer between ordinary
+circumstances and form data — it is what that layer will translate *into*.
 
 ## A1 in detail — the question we ask a person
 

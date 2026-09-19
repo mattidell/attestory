@@ -5,9 +5,9 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "planned",
-  "status": "Student Loan Circumstance Association remains planned -- no track is open. Work sequence item 1, the product and evidence outline, is complete and independently reviewed with no material findings. Recording, recovery, confirmed association and lifecycle have adopted production precedent on the structurally identical Form 1099-INT aggregation problem. Following an asserted relationship is possible only through ADR-0070/0071 pairing dispatch, outside the evaluator; the prior milestone's bounded consumer cannot be lifted into that scope unchanged and must be restructured without its cardinality gate. Iteration completeness -- a statement with no relationship is never visited -- has no adopted precedent and is now Track 0's gate. The plan is organised as seven actions the development team will take, refined and reviewed one at a time; the plan's state table is the authority on progress. A1 (what we ask a person) and A2 (when an answer can still be relied on) are refined, independently reviewed and specified. A3 (what the application does when it cannot establish the connection) is refined, reviewed and specified. It carries the milestone's one owner decision -- whether one unresolved statement affects the others -- and establishes that the existing worksheet already deducts an undescribed statement's interest unconditionally, so either answer changes a real outcome at the next milestone's worksheet integration rather than at this one's bounded consumer. The review also found two defects in the plan's own refinement apparatus -- a status that let an unreviewed draft claim to be specified, and two of the owner's questions left unowned or misassigned -- both repaired, so the state table and the question-coverage table can be trusted for A2. A4 has partly run: following a recorded connection works and already refuses by name when the named target is gone, the prior calculation cannot be reused inside that mechanism, and a statement nobody connected is not accounted for at all. The earlier framing of storage grouping as a question about what the person is asked has been withdrawn as unfounded. No representation, new contract, or implementation has been selected.",
-  "current_role": "Foreman (refine the plan one action at a time; A1, A2 and A3 specified; A4 next)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#What we will do"
+  "status": "Student Loan Circumstance Association remains planned -- no track is open. Work sequence item 1, the product and evidence outline, is complete and independently reviewed with no material findings. Recording, recovery, confirmed association and lifecycle have adopted production precedent on the structurally identical Form 1099-INT aggregation problem. Following an asserted relationship is possible only through ADR-0070/0071 pairing dispatch, outside the evaluator; the prior milestone's bounded consumer cannot be lifted into that scope unchanged and must be restructured without its cardinality gate. Iteration completeness -- a statement with no relationship is never visited -- has no adopted precedent and is now Track 0's gate. The plan is organised as seven actions the development team will take, refined and reviewed one at a time; the plan's state table is the authority on progress. A0 was added after planning was under way and blocks most of the rest: the plan began at what we ask a person, which presupposes a model of the tax concept facts that question would connect to. A0 models those facts -- which facts of the matter exist, at which stage, which routes reach each, and what each route does and does not establish. Box 1 and an enumeration of loans are both routes to total deductible student loan interest, neither a proxy for the other; loan eligibility sits behind that fact rather than on the path to it. A0 is drafted and under review. A1 and A3 returned to outlined because their refinements presumed a prerequisite that does not exist. A2 survives. This is Tax Concept Derivation: the work stays in the engine until the facts are modelled there and does not reach toward the user before that.",
+  "current_role": "Foreman (refine the plan one action at a time; A0 added and drafted, blocks A1/A3/A5)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A0 in detail — modelling the tax concept facts"
 }
 -->
 
@@ -40,9 +40,16 @@ evidence level `read`.
 Read the plan at whichever of its three levels you need: the opening paragraph,
 the seven actions, or the one action refined so far.
 
-A1 — what we ask a person — A2 — when an answer can still be relied on — and A3 —
-what the application does when it cannot establish the connection — are refined,
-reviewed and specified. A4 is next.
+The plan now opens with **A0 — model the tax concept facts the engine operates
+with**, added after planning was under way and kept at the front so the change
+stays visible. Nothing downstream can be settled first: the translation layer
+between a person's ordinary circumstances and form data cannot be defined until
+the facts it translates into are modelled.
+
+A0 is drafted and under review. A2 — when an answer can still be relied on —
+remains specified. A1 and A3 returned to `outlined`: both refinements presumed
+the person must supply a missing prerequisite, and box 1 is itself a route to the
+deduction total, so nothing is missing by default.
 
 A2 established one thing worth carrying: what a person would now say is never
 observable, so it produces an obligation to ask rather than a determination, and
