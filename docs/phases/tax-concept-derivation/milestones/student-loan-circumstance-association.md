@@ -331,7 +331,7 @@ whole plan.
 | Action | State | Notes |
 | --- | --- | --- |
 | A1 | specified | Refined below; refinement independently reviewed at `7083ae5d` and found sound |
-| A2 | outlined | Next to refine |
+| A2 | outlined | Refinement drafted below; review pending, so it stays outlined |
 | A3 | outlined | Depends on A2's distinction being made first |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
 | A5 | outlined | Blocked on A1 and A2 |
@@ -390,6 +390,70 @@ interaction and storage is itself something A1 and A5 must establish rather than
 assume. The storage question is real and belongs to A5; it is withdrawn from
 here.
 
+## A2 in detail — when an answer can still be relied on
+
+This is A2 refined one step. As with A1 it states the work and its standard of
+completion, and contains no answers.
+
+**The distinction this action exists to protect.** Three things are routinely
+treated as one, and only the first is mechanical:
+
+1. the application can find the current version of the thing a connection names;
+2. the person's earlier claim still holds, given that current version;
+3. the person would still say the same thing if asked again today.
+
+The owner's question 3 is the second of these, and it states the trap directly:
+identity continuity alone does not settle whether the asserted composition
+remains supported. A2 is done when that sentence has been turned into something
+a builder can apply.
+
+**What A2 must answer.**
+
+1. What does a person's answer actually commit to? A claim about a fixed past
+   arrangement and a claim about a state of affairs behave differently when the
+   world is corrected underneath them. A1 settles the words; A2 settles what
+   those words put at stake.
+2. For each kind of change that can happen to the things a connection names,
+   which of the three above does it touch? The changes are already enumerated in
+   this plan's [case list](#cases-to-carry-through-design-and-execution):
+   correcting the circumstance, correcting what the connection points at,
+   retracting support, reasserting it, correcting the reported amount, and
+   changing what the report is composed of.
+3. Which changes were *inside* the claim — the person's answer anticipated them
+   and still holds — and which put it *outside* its own terms, so that it is
+   about a situation that no longer exists?
+4. Which changes oblige the person to look again, and **what does the
+   application do in the interval** between the change and their response? That
+   interval is a real state a person can sit in, and nothing in this plan yet
+   says what it looks like.
+5. What must never happen silently: a claim continuing to be relied on because
+   the thing it points at can still be found.
+6. Where is the line between an answer that stands and is unfavourable, and an
+   answer we no longer have? Both produce no deduction; they are not the same
+   thing and a person should not be shown the same thing for both.
+
+**How we will answer it.** Take the change kinds from the case list one at a
+time. For each, say which of the three things it touches, whether the earlier
+claim survives it, and whether the person must be asked again. Do it in ordinary
+language and against the cases, not against the engine — if a change's honest
+answer is "the claim is now about something that did not happen," that is a
+finding about the claim, not a gap to be closed by detecting something.
+
+**What done looks like.** One stated principle separating continuity from
+continued applicability, and a table over the change kinds giving, for each:
+whether the claim survives, whether the person is asked again, and what the
+application shows while that is unresolved. Plus the named boundary between a
+standing unfavourable answer and an absent one.
+
+**How it is reviewed.** One independent reviewer, on two things only: whether the
+distinction between "can be found" and "still supported" is maintained in every
+row, and whether any row quietly reduces to the reference resolving. Not on
+mechanism, and not on whether the engine can detect any of it.
+
+**What A2 does not settle.** How any of this is stored or noticed, whether the
+existing engine can carry it (A4), what the question's words are (A1), or what
+happens to *other* statements when one is unresolved (A3).
+
 ## What the technical investigation established, and what it constrains
 
 A4 has begun. It produced useful, narrow results, and they belong here — as
@@ -428,7 +492,7 @@ A1–A3 are the work it skipped.
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
 | What we ask a person, in words | Team, with owner sign-off on the wording | Before A5 | A1, in progress |
-| Whether one undescribed statement blocks the others | Owner — it changes what a person experiences | A3 | Open, not yet framed in ordinary language |
+| Whether one undescribed statement blocks the others | Owner — it changes what a person experiences | A3 | Deferred to A3, deliberately. It was raised early because a mechanism constraint suggested a shape; nothing needs it yet, and framing it is A3's work |
 | How the answer is stored and how many records it becomes | Team, recorded with reasons | A5 | Open; explicitly not settled by A1 |
 | Whether refusal is an adequate answer for the two multi-borrowing cases | Owner | A5 | Open |
 | Whether a separately identified borrowing is needed now | Team, constrained by the case list | A5 | Open |
