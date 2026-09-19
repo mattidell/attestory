@@ -1,5 +1,9 @@
 # Tax Concept Derivation
 
+Status: **CLOSED 2026-09-17 by owner direction as a bounded demonstration of
+viability.** The phase did not complete broad tax-concept coverage or a
+user-facing explanation journey. See [the phase closeout](tax-concept-derivation-roadmap.md#phase-close--2026-09-17).
+
 ## Purpose
 
 This phase establishes the missing semantic layer between facts held in a
@@ -184,3 +188,26 @@ The phase is ready to close when:
 
 Closing the phase does not require complete taxable-interest coverage or a
 general-purpose tax ontology.
+
+## Closeout reading of the exit criteria
+
+The production nominee-interest path gives bounded evidence for criteria 1–6:
+the payer report remains intact, a current ordinary allocation changes a
+rule-owned tax consequence, and the bounded result reaches Schedule B and
+Form 1040 line 2b with versioned rules, provenance, and defined refusal or
+blocking behavior for adjacent unsupported states. It does not establish a
+general item-level tax-concept representation or a complete taxable-interest
+model.
+
+Criterion 7 was tested, but only at an experimental rung. A contrasting
+student-loan-interest case showed that an ordinary statement can drive a
+separate rule-owned consequence through real engine machinery; the candidate
+artifacts were disposable, the statement-to-loan relationship was stipulated,
+and no production student-loan route was adopted.
+
+Criterion 8 is **partial**. Committed artifacts and bounded presentation
+provenance let a technical reader trace the delivered nominee result, but the
+planned user-facing question and explanation projection was not built. By
+owner direction, the phase closes on demonstrated bounded viability rather
+than treating that unfinished reader journey as complete. It is carried
+forward unselected, not silently waived.
