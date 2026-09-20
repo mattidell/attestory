@@ -1154,35 +1154,40 @@ test — eligible-student status — **acts only as a disqualifier**. It is requ
 the sense that it is **always present**, and it must **not gate the computation or
 the derivation**.
 
-Two things follow, and the second is the trap.
+**Three layers, and they need not share a logical value.** An earlier version of
+this record fused the first two, and the design it produced was wrong.
 
-**The mechanism is adopted.** A fact type may declare an `optional_default`, and a
-binding may use `mode: "optional_default"`, which resolves an unasserted fact to a
-parameter-supplied value and pins the parameter. Five bindings in the production
-package already work this way. So "always present" needs no new capability: the
-consumer reads the fact unconditionally and never sees it absent, and absence
-therefore cannot block.
+1. **What the person says** — an ordinary statement in their words.
+2. **What is recorded** — a fact describing their circumstance.
+3. **What the rule concludes** — whether that circumstance defeats a requirement.
 
-**The default cannot be the favourable value.** A two-valued `{yes, no}` fact
-defaulted to `yes` would affirm eligible-student status on the person's behalf,
-which is precisely the affirmation
-[A1 stage 1](student-loan-circumstance-association-evidence/a1-stage1-requirement-or-conclusion.md)
-established the product must never manufacture. Defaulted to `no` it would
-disqualify everyone who said nothing, which is gating. Neither is available.
+A statement affirmative in form ("I was taking evening classes that term") can
+produce a descriptive fact whose consequence for the deduction is negative. The
+polarity of the saying, of the record, and of the effect are three separate things.
 
-What falls out is a **phrasing consequence**: the fact must state the *adverse*
-proposition — that the student was not enrolled in a programme leading to a
-credential — and default to false. Then false means "nothing has been said", the
-computation proceeds, and nothing has been affirmed; true disqualifies. Every
-existing `optional_default` in the package defaults to `default-false` or
-`default-zero`, so this is the established direction.
+**So the fact stays descriptive.** The previous milestone's enrolment fact had the
+domain `["credential-program", "individual-classes-only"]` — a description of what
+the person was doing, not a yes/no about a legal requirement. That is the shape to
+keep, and it is the project's stated principle: *a later tax rule, not this fact,
+decides any consequence*. An earlier version of this record proposed a fact stating
+"the student was not enrolled in a programme leading to a credential", defaulting to
+false. That makes the fact a verdict on a requirement, which is asking for the
+conclusion through the design of the record rather than through a question.
 
-Note that this **inverts the convention of the five existing witnesses**, which
-state a requirement's satisfaction (`no-related-person-interest`) and require the
-person to affirm it. That convention works where a person can affirm. Constituent 4
-is one they cannot, so it is phrased adversely instead. A5 should expect the same
-inversion for any constituent whose favourable side has no producer, and should not
-read the five witnesses as the pattern to copy here.
+**And "never gating" belongs to the consumer, not to a default on the fact.** This
+is the owner's own earlier correction: obligation comes from a named consumer's
+declaration. A rule that declares its dependency so that an absent enrolment
+description does not block is never gating, whatever the fact looks like. Nothing
+needs defaulting, so nothing is affirmed on the person's behalf, and the
+default-polarity trap does not arise at all.
+
+`optional_default` is real, adopted, and the wrong layer here: defaulting a
+descriptive fact would manufacture a description nobody gave.
+
+**What "always present" then means.** Not that the fact always carries a value, but
+that the *consideration* is always part of the derivation — the rule always looks,
+and proceeds when there is nothing to see. That is what makes it a disqualifier
+rather than a gate.
 
 Still open, and the owner's: whether to **pose** a requirement we cannot help a
 person resolve favourably. Constituent 4 is one instance and constituent 3, the
