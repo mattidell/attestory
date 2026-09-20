@@ -92,8 +92,7 @@ Three levels. Stop at whichever gives you what you need.
 1. The two paragraphs above.
 2. [What we will do](#what-we-will-do) — eight actions in ordinary language,
    with a table showing where each one stands.
-3. A section per action, once that action has been refined. Only A1 has one so
-   far.
+3. A section per action, once that action has been refined.
 
 This plan describes **what the development team will do**. Tax concepts and
 engine machinery appear only where they constrain what we can do, kept to
@@ -112,10 +111,14 @@ are a hodge-podge of corrections with no sense of how close to done anything is.
 question that action is supposed to answer, before the next refinement begins. A
 review of a refinement is not a review of the whole plan.
 
-**How we know how close to done we are.** The state table in
-[What we will do](#what-we-will-do). An action counts as specified only after a
-refinement of it has survived review — never by assertion, and never because
-related technical work happened to succeed.
+**How we know how close to done we are.** Two axes, read together. The
+[state table](#where-each-action-stands) tracks *specificity* — how concrete each
+action has been made. The [readiness gates](#readiness-gates) track *readiness* —
+whether a class of dependent work can responsibly begin. They are different
+questions: an action can be fully specified while we are nowhere near ready to
+implement anything. An action counts as specified only after a refinement of it
+has survived review — never by assertion, and never because related technical work
+happened to succeed.
 
 ## Product purpose
 
@@ -325,6 +328,56 @@ The proof that matters is the refusals, not the successes.
 
 **A7 — Say what we learned and what the next milestone inherits.** Including
 what we disproved and what we chose not to settle.
+
+### Readiness gates
+
+Three gates, at the seams where one class of work depends on another. A gate asks
+one practical question — do we understand enough to take the next step
+responsibly — and is answered by decisions and evidence, not by a document
+looking finished.
+
+**G1 — ready to select a representation.** *Decides:* whether we know enough
+about what is true, what we put to a person, when an answer can be relied on, and
+what happens when there is no route, to choose how any of it is represented.
+*Requires:* A0, A1, A2 and A3 done, and A4's bounds known. *Evidence:* A0's fact
+list with routes, behind-relations and support-versus-proof; A1's posed question
+and its resting points; A2's change table; A3's account. *Blocks:* A5. *Fails
+if:* a fact on A0's list has no stated route, or A1 poses something A0 never
+placed.
+
+**G2 — ready to implement.** *Decides:* whether a producer can be chartered.
+*Requires:* A5 selected with its reasons recorded, and every mechanism claim the
+selected representation depends on established by execution rather than by
+reading. *Evidence:* A4's executed checks, covering the representation actually
+chosen rather than a neighbouring one. *Blocks:* A6. *Fails if:* any load-bearing
+mechanism claim is still `read`-level.
+
+This gate reinstates a bar this plan previously had and lost. An earlier version
+carried "no implementation unit is chartered on `read`-level claims about the
+dispatcher"; the restructure into actions kept the two executed checks and
+dissolved the bar that made them binding. Keeping the work while dropping what
+made it binding is a failure this plan has made more than once.
+
+**G3 — ready to close.** *Decides:* whether the milestone can be finished
+honestly. *Requires:* A6's refusals demonstrated by execution — not its successes
+— and A7's handoff written. *Evidence:* the refusal cases from the
+[case list](#cases-to-carry-through-design-and-execution) executed and failing in
+the way the design says they should. *Blocks:* closing, curation, and the next
+milestone's charter. *Fails if:* a refusal is asserted rather than executed, or
+something left unsettled is left implicit rather than named.
+
+| Gate | State | Waiting on |
+| --- | --- | --- |
+| G1 | not reached | A0, A1, A3 (A2 done; A4 partial) |
+| G2 | not reached | G1, then A5 |
+| G3 | not reached | G2, then A6 |
+
+Two rules apply to all three. **A gate is not passed because a later section
+assumes its answer** — if work downstream has quietly proceeded as though a gate
+were cleared, that is a defect in the work, not evidence about the gate. And
+**changing a gate's conclusion reopens everything downstream of it**, which is
+already how this plan has behaved: A1 and A3 returned to `outlined` the moment A0
+was added.
 
 ### Which action answers which of the owner's questions
 
