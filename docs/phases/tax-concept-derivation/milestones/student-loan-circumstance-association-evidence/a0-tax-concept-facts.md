@@ -10,13 +10,27 @@ Evidence levels: **`read`** for anything read off committed content or statute;
 
 ## The two relations, and a third thing
 
-- **On the path to** — a fact is a step in working out another fact.
-- **Sits behind** — a fact bears on another fact's correctness without being a
-  step in working it out. Removing it changes whether the answer is right; it
-  never appears in the arithmetic.
+Both relations are **relative to a route**, and they are **not mutually
+exclusive**. The same fact can be on the path by one route and behind by another,
+and it can be both at once for a single route when it enters the working in one
+place and constrains the result in another. Asking "is this fact behind or on the
+path" without naming a route is malformed.
+
+- **On the path, by a route** — the fact is a step in working out another fact by
+  that route.
+- **Sits behind, for a route** — the fact bears on whether the result that route
+  produces is correct, without being a step in producing it.
 - **Support** — what the product accepts as adequate grounds for taking a route.
   Not the same as the fact being proven. A supported determination is a
   determination; it is not a finding that the underlying fact is true.
+
+**Worked example of the relativity, so it is not mistaken for pedantry.** Filing
+status is behind the deduction for the married-filing-separately exclusion, and
+simultaneously on the path, because the MAGI threshold and the phase range are
+both filing-status-keyed parameters. Qualified-education-loan status is behind the
+deduction by the box-1 route, and plausibly on the path by an enumeration route,
+where one would sum the interest on qualifying loans. Neither fact has a single
+intrinsic answer.
 
 ## Stages of the calculation
 
@@ -147,16 +161,29 @@ own.
 per statement. Read with `collect_categorical_all_equal`, which asks whether
 **every** member answers the same way — a universal negative, not a per-statement
 lookup. A single "no" blocks with `SLI_UNIVERSAL_COMPONENT_VIOLATION`; it never
-silently zeroes. *Standing of the result:* supported only. What stays unproven is
-twofold — that the composition is as the person says, and, because the operator
-is a universal over members, *which* statement any particular answer was about.
-A "yes" from every member is not five attributed facts.
+silently zeroes. *Standing of the result:* supported only. What stays unproven is that the
+composition is as the person says.
+
+**Attribution is not lost, and an earlier version of this entry said it was.**
+Each witness fact type is keyed `lender` + `statement` + `tax-year`, exactly like
+box 1, so every witness finding carries the identity of the statement it concerns.
+Marshalling preserves those identities, and the runner pins **every collected
+finding individually** by finding id (`packages/derivation/runner.py`, the
+`access.collects` loop). So the records supporting the answer remain identifiable
+in provenance.
+
+What the operator yields is one aggregate Boolean: the expression sees no
+per-member value and cannot branch on one. That is a limit on what a *rule
+expression* can read, not a loss of identity in the record. The two must not be
+conflated — a consumer that returns one Boolean has not erased its inputs.
 **Engine represents them today:** yes, five `f1098e.no-*` fact types.
 
 ### F5 — Every loan the interest was paid on is a qualified education loan
 
-**Stage:** behind F2. **Sits behind, not on the path**, established `read` from
-the worksheet itself: no step from box 1 through the cap, the threshold, the
+**Stage:** behind F2 **by the box-1 route**. Plausibly on the path by an
+enumeration route, where the interest summed would be that on qualifying loans;
+that route does not exist, so nothing here settles it. For R1a, established `read`
+from the worksheet itself: no step from box 1 through the cap, the threshold, the
 phase-out ratio and the reduction computes or reads loan qualification. Its only
 appearance anywhere in the route is as one per-statement negative witness in the
 conditional set. The owner's statement that *loan eligibility status does not
@@ -223,8 +250,13 @@ worksheet arithmetic.
 `sli-scope.no-form-4563`, `sli-scope.no-puerto-rico-or-samoa-income`, and, outside
 the conditional set because its domain is five statuses rather than yes/no, filing
 status, where married-filing-separately blocks with `SLI_MFS_INELIGIBLE`. Each is
-separately answerable and separately behind F2, grouped here only because their
-grounds are alike. **On no path:** none appears in the arithmetic.
+separately answerable, grouped here only because their grounds are alike.
+
+**Filing status is both behind and on the path**, and is the clearest instance of
+the relativity above: behind, for the MFS exclusion; on the path, because
+`parameter.sli-magi-threshold` and `parameter.sli-magi-phase-range` are each keyed
+by the five filing statuses, so it selects the arithmetic. The four
+`sli-scope.*` absences are behind only — none appears in the arithmetic.
 *Grounds:* the person's answers, and for filing status the return's own.
 *Standing:* supported, and least troubling of the set — these are facts a person
 ordinarily knows about themselves. What stays unproven is what another return or
@@ -277,13 +309,23 @@ carry what this milestone needs is finding 2, and the answer there is no.
 
 **2. But the existing shape is a universal negative, and the new fact may not be
 one.** `collect_categorical_all_equal` asks whether every member answers the same
-way. It carries "no statement's interest is on a non-qualified loan". It cannot
-carry "this statement's interest concerns that period". A5 still has to choose a
-shape, and reusing the universal negative is **one candidate among others**,
-attractive because the adverse direction is what the previous milestone validated
-at `run`. This does not shrink A5's question: the statement-to-borrowing-and-period
-relationship is still listed above as unrepresented, and nothing here shows it can
-be avoided.
+way, so a rule expression using it sees one Boolean and cannot branch per member.
+It carries "no statement's interest is on a non-qualified loan". It does not carry
+"this statement's interest concerns that period" as a value the expression can read.
+
+A5 still has to choose a shape, and reusing the universal negative is **one
+candidate among others**. Nothing here narrows the question: the
+statement-to-borrowing-and-period relationship is still listed above as
+unrepresented, and nothing shows it can be avoided.
+
+**What this is not.** It is not a finding that the engine cannot dispatch per
+identified item, and it is not a requirement to restructure the prior
+calculation. The pairing-scope observation was made in an environment **rebuilt in
+a test module**, mirroring the shape of a **specialized adapter written for
+nominee interest**, whose two bound symbols and empty source set are that adapter's
+choices rather than the dispatcher's limits. What is bounded is that environment.
+The mechanism choice is open, and includes adapting or writing an adapter with a
+different environment.
 
 **3. F6 is two levels behind F2, not one.** It sits behind F5, which sits behind
 F2. The plan has been treating the schooling circumstance as though it bore
@@ -305,18 +347,21 @@ them is required, and an absent member raises `DEPENDENCY_ABSENT` naming it. The
 five per-statement witnesses are likewise required, and a single "no" blocks with
 `SLI_UNIVERSAL_COMPONENT_VIOLATION`.
 
-So the engine's established convention is **model a behind-fact, then require it**.
-What happens today is not that unanswered behind-facts are ignored; it is that F5
-and F6 are *not modelled at all*, so they are never asked and never block. The
-deduction computes without them because they are absent from the model, not because
-absence is tolerated.
+**What follows is a fact about that rule, not a law about representation.** The
+worksheet rule requires *those particular named answers* because its own
+declaration names them in its dependency set. Representing a fact does not make it
+mandatory: an obligation exists only where some consumer's declaration creates one.
+Nothing about adding a schooling fact to the model would, by itself, make any
+existing rule require it.
 
-That matters to A3 and A5. A3 cannot treat "never posed" as owing no response on
-the general ground that unanswered behind-facts are the norm — they are not. It is
-owed no response only while the fact sits outside the model, and the moment this
-milestone models a schooling fact, the existing convention would require it.
-Whether to follow that convention is a real choice with a real consequence, and it
-is not settled here.
+So the question is not "will modelling it make it required" but **which named
+consumer would need this information, and what does that consumer do when it is
+absent**. That is a question about a specific rule and a specific case, and it is
+answerable only once there is a consumer to name — which is A3's and A5's work,
+not something settled by observing the worksheet's current dependency list.
+
+What happens today is simply that F5 and F6 are not modelled, so no consumer names
+them, so nothing asks and nothing blocks.
 
 **5. A6 will need the difference between "the person said so" and "this is
 established" to be visible — and the kernel already draws a coarse version of it.**
@@ -325,12 +370,18 @@ and nothing in the entries above records that standing alongside the result.
 
 The search this finding previously declined to make has since been made, and it
 found something: `packages/schemas/kernel/finding.v2.schema.json` carries a `basis`
-of `documentary` / `attested` / `elective`. That is not this model's five qualities,
-but it is not nothing, and it maps onto the coarsest cut here — R1a's payer return is
-documentary, the person's answers are attested. So the need is **finer** than the
-gap: the distinction A6 wants exists at three classes, and what is missing is
-resolution *within* `attested`, where F4, F5, F7 and F8 all sit together despite A0
-having found their grounds to differ.
+of `documentary` / `attested` / `elective`. That maps onto the coarsest cut here —
+R1a's payer return is documentary, the person's answers are attested.
+
+**No storage conclusion follows, and an earlier version of this finding drew one.**
+It concluded that what was missing is finer resolution *within* `attested`. That is
+a proposal about representation derived from a distinction in the domain model, with
+no consumer asked. The distinctions belong here, in the model, because they are true
+of the facts. Whether anything needs to *store* them differently depends on what a
+concrete consumer must distinguish, and on whether the existing facts, evidence and
+rules already let it — a rule can read the facts themselves, and provenance already
+names the findings a result rests on. That question is for whoever names the
+consumer; it is not answered by this model and must not be pre-empted by it.
 
 **6. Standing is not uniform, and it varies in a way that matters.** Reading the
 per-route standing across the list:
@@ -347,15 +398,17 @@ per-route standing across the list:
 
 So grounds come in at least five qualities, of which four are testimonial.
 
-**The engine does not record them identically, but it records only the coarse
-split.** `finding.v2`'s `basis` separates `documentary` from `attested` from
-`elective`, which cleanly divides R1a from the person's answers. What it does not do
-is separate the four testimonial qualities from each other: F4's unattributed
-universal, F5's statutory-test conclusion, F6's asymmetry and F7/F8's ordinary
-self-knowledge all land in `attested` together. That is the actual gap, and it is
-narrower and more specific than "records them identically".
+**These are distinctions in the domain, and this model is where they belong.**
+`finding.v2`'s `basis` separates `documentary` from `attested` from `elective`,
+which cleanly divides R1a from the person's answers; the four testimonial qualities
+sit inside `attested` together. Whether that matters is not a question this model
+can answer, because it depends on what a consumer must distinguish and on whether
+the facts, their evidence and the rules already supply it — provenance, for
+instance, already names the findings behind a result, and a rule can read the facts
+themselves rather than a label about them.
 
-A1 should put different things to a person across the four testimonial ones — F3 is
-not among them, being nobody's answer, and R1a is not either — and A6 should be able
-to show which kind of grounds a result rests on, which means resolution inside
-`attested` rather than a new axis.
+What follows for later actions is narrower than a storage need: A1 should put
+different things to a person across the four testimonial qualities — F3 is not among
+them, being nobody's answer, and R1a is not either — and whoever names a consumer
+that must show what a result rests on should first establish what it needs to
+distinguish and trace whether that already survives.

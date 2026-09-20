@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "PLANNED, no track open. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. The plan is organised as eight actions the development team will take, refined one at a time and reviewed one at a time; the state table in 'What we will do' is the authority on how far along each is. A0 -- model the tax concept facts the engine operates with -- was added after planning was under way and blocks A1, A3 and A5: the plan began at what we ask a person, which presupposes a model of the facts that question connects to. A fact of the matter can be reached by more than one route and the routes are not ranked (box 1 and an enumeration of loans both reach total deductible student loan interest); some facts sit behind a fact without being on the path to it (loan eligibility behind the deduction total). A0 is drafted and under review. A2 is specified. A1 and A3 returned to outlined because their refinements presumed a prerequisite that does not exist. A4 has partly run: following a recorded connection works and refuses by name when the named target is gone, and the prior milestone's calculation cannot be reused inside that mechanism. No representation or mechanism is selected. This is Tax Concept Derivation: the work stays in the engine until the facts are modelled there and does not reach toward the user before that.",
+  "status": "PLANNED, no track open. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Organised as eight actions the development team will take, refined and reviewed one at a time; progress reads on two axes -- the state table for how specific each action is, and three readiness gates for whether dependent work may begin, the gate governing where they could disagree. A0 (model the tax concept facts) is done and reviewed; A1, A2 and A3 are specified; A4's refinement is drafted and repaired after review; A5, A6 and A7 are stated only. Load-bearing findings: a fact of the matter can be reached by more than one route and routes are not ranked (box 1 and an enumeration of loans both reach total deductible student loan interest); 'on the path' and 'sits behind' are relative to a route and not mutually exclusive (filing status is both -- it gates the MFS exclusion and keys the threshold and phase-range parameters); representing a fact does not make it mandatory, since obligation comes from a named consumer's declaration, so the question is which consumer needs the information and what it does when absent; member identity is not lost by an aggregate Boolean, because witness facts are keyed lender + statement + tax-year and the runner pins every collected finding, so what is limited is what an expression can branch on; and the pairing-scope observation bounds the one environment tested -- a shape rebuilt in a test module mirroring a nominee-specific adapter -- not the dispatcher, leaving the mechanism choice open. No representation, mechanism or contract is selected. This is Tax Concept Derivation: forms do not model tax concepts, a translation layer sits between ordinary circumstances and form data, and the work stays in the engine until the facts are modelled there.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -596,7 +596,8 @@ their grounds — and A0's sixth finding is that those grounds are not all of on
 kind. Some are things a person ordinarily knows about themselves. Some are about
 what a lender's statement consists of. One is effectively the conclusion of a
 statutory test. One is asymmetric: adequate to support failure when the answer is
-adverse, weak when it is favourable. A1 cannot put one kind of question to a person across all of them.
+adverse, weak when it is favourable. A0's relations are relative to a route, so a
+fact A1 poses may be behind the deduction by one route and on the path by another. A1 cannot put one kind of question to a person across all of them.
 
 **What A1 must answer.**
 
@@ -778,24 +779,23 @@ This is A3 refined one step, rewritten after A0. The previous refinement listed
 five ways of "failing to establish the connection" and is withdrawn: it described
 a deficiency that does not exist.
 
-**What A0 changed here, and the part of it that is counter-intuitive.** Every
-fact on the path to the deduction is represented; what is absent is entirely facts
-sitting *behind* it. But A0's fourth finding then establishes something that cuts
-against the obvious conclusion: **an unanswered behind-fact is not tolerated today
-— it blocks.** The seventeen scope and absence facts are required the moment a Form
-1098-E exists, and an absent one raises `DEPENDENCY_ABSENT`.
+**What A0 changed here.** Every fact on the path to the deduction is represented;
+what is absent is entirely facts sitting *behind* it, by the box-1 route. A0 also
+establishes that the worksheet rule requires seventeen particular named answers the
+moment a Form 1098-E exists, and blocks by name when one is absent.
 
-So the engine's convention is *model a behind-fact, then require it*. The reason
-schooling is never asked about is not that absence is tolerated; it is that the
-fact is not modelled at all. A3's question is therefore: **which states of a
-behind-fact are owed a response, given that modelling one is what makes it
-required?**
+**That is a fact about that rule's own declaration, not a law about
+representation.** An obligation exists where a consumer's declaration creates one.
+Modelling a schooling fact would not, by itself, make any existing rule require it.
+So A3's question is **which states of a behind-fact are owed a response, and by
+which named consumer** — the response and the obligation both belong to a specific
+consumer in a specific case, not to the act of representing something.
 
 **The states, and the first thing to decide about them.**
 
-- not modelled at all — today's case for schooling, and the reason nothing is
+- no consumer needs it — today's case for schooling, and the reason nothing is
   asked or blocked;
-- modelled and posed, but the person has not yet been asked;
+- a consumer needs it, and the person has not yet been asked;
 - posed, and the exchange rested with no answer;
 - answered favourably;
 - **answered adversely** — the owner's worked thread ends here: the person says
@@ -809,13 +809,13 @@ required?**
 These are not degrees of the same thing. A3 must say for each whether a response is
 owed at all before saying what it is.
 
-**And the first state is a choice, not a given.** A fact outside the model is owed
-no response because nothing asks about it. The moment this milestone models a
-schooling fact, the existing convention would make it required, and an unanswered
-one would block the deduction — for every return, including those of people who
-have nothing adverse to say. Whether to follow that convention, or to model a fact
-the engine does not require, is the real question behind question 1, and it is not
-settled by observing that nothing blocks today.
+**And the first state is a choice, not a given.** Nothing is owed while no consumer
+needs the information. The choice A3 actually faces is which consumer, if any, needs
+a schooling fact and in which cases — because that is what creates an obligation and
+determines what absence does. A consumer that needs it unconditionally would block
+every return with an unanswered one, including those of people with nothing adverse
+to say; a consumer that needs it only in some cases would not. Both are available;
+neither is settled by observing the worksheet's current dependency list.
 
 **What A3 must answer.**
 
@@ -940,8 +940,9 @@ forbids chartering implementation on `read`-level mechanism claims.
    Three demands are already `run`, from the two checks recorded in
    [readiness-gate-results.md](student-loan-circumstance-association-evidence/readiness-gate-results.md):
    a per-item dispatch follows a recorded connection and refuses by name when its
-   target is gone; the prior calculation cannot be lifted into that scope; an
-   unassociated subject produces no row at all. A fourth is `run` from elsewhere —
+   target is gone; the prior calculation does not run in the one pairing-scope
+   environment that was tested, which bounds that environment rather than the
+   dispatcher; an unassociated subject produces no row at all. A fourth is `run` from elsewhere —
    an absent member of the worksheet's conditional set blocks and is named
    (`tests/test_sli_worksheet_line21_track3.py`, which drops one member from the
    production rule and asserts the code and the name). Its ceiling: that is the
@@ -951,10 +952,11 @@ forbids chartering implementation on `read`-level mechanism claims.
    **Every other demand below is unclassified — classifying it is the work.** Do not
    carry a level into the table from this list.
 
-   From A0: whether a universal-over-members operator can attribute an answer to a
-   particular statement; whether a result can carry the qualities of grounds A0's
-   finding 6 distinguishes, given that `finding.v2` already carries a coarse
-   `basis` of `documentary` / `attested` / `elective`.
+   From A0: whether a rule expression can read a *per-member value* from a
+   universal-over-members operator — noting that member identity is **not** lost,
+   since the witness fact types are keyed `lender` + `statement` + `tax-year` and the
+   runner pins every collected finding individually, so this is a question about what
+   an expression can branch on, not about recovering identity that already survives.
 
    From A2: whether the engine can tell "still resolvable" from "still supported" —
    A2's middle leg, and the one most likely to be mistaken for something else;
@@ -963,14 +965,15 @@ forbids chartering implementation on `read`-level mechanism claims.
    leg; whether the unresolved interval can be held as a state; whether a standing
    unfavourable answer stays distinguishable from an absent one.
 
-   From A3: whether a behind-fact can be modelled *without* being required, since
-   the engine's convention is to require what it models and A3 names departing from
-   that as a live option; whether A3's eight states can be held as distinct; whether
-   a telling can be published without changing an amount; whether the second adverse
-   reading — stop treating a statement's box 1 as adequate grounds until enumeration
-   — is expressible at all, the third having already been executed by the previous
-   milestone; and whether one statement's adverse answer can be kept from leaking
-   onto another, which check 2 did **not** establish because it observed an
+   From A3: whether a named consumer can require a fact **conditionally** — in some
+   cases and not others — since obligation comes from a consumer's declaration and
+   not from representation, and A3's states differ in whether anything needs the
+   information; whether A3's states can be held as distinct; whether a telling can be
+   published without changing an amount; whether the second adverse reading — stop
+   treating a statement's box 1 as adequate grounds until enumeration — is
+   expressible at all, the third having already been executed by the previous
+   milestone; and whether one statement's adverse answer can be kept from affecting
+   another's result, which check 2 did **not** establish, since it observed an
    unassociated statement rather than an isolated one.
 
    From A1: no additional mechanism demand of its own yet. Until A1 produces words,
@@ -1029,7 +1032,10 @@ approximate it with a fixture that would pass for the wrong reason.
 
 **What A4 does not settle.** Which shape A5 chooses; what is posed to a person
 (A1); what the response to any state is (A3); whether a demand *should* be met at
-all, which is a product question and not a capability one.
+all, which is a product question and not a capability one. Nor does it settle
+whether any storage or schema change is needed: a demand is met if the existing
+facts, evidence and rules can satisfy it, and A4 must trace whether they already do
+before recording a gap.
 
 **Its relation to the gates.** G1 needs A4's **bounds** — the classification and
 the two lists — not A4's completion. G2 needs execution against the representation
@@ -1052,9 +1058,15 @@ only what constrains the plan.
   us which changes should oblige a person to reconsider; that is still A2's
   work, and the distinction the owner drew between identity continuity and
   continued applicability is untouched by this result.
-- The prior milestone's calculation cannot be reused inside that mechanism. So
-  A6 includes restructuring it, and the earlier assumption that it could be fed
-  recovered inputs unchanged is withdrawn.
+- The prior milestone's calculation did not run inside the **one environment that
+  was tested** — a shape rebuilt in a test module, mirroring a specialized adapter
+  written for nominee interest, whose two bound symbols and empty source set are
+  that adapter's choices and not the dispatcher's limits. That bounds the tested
+  environment. It is not a general dispatcher limitation and not an unconditional
+  requirement to restructure the calculation; adapting the environment, or writing
+  a different adapter, remains open. The earlier assumption that the calculation
+  could be fed recovered inputs *unchanged* is still withdrawn — what replaces it is
+  an open mechanism choice, not a mandated rewrite.
 - A statement that nobody connected is currently not accounted for at all —
   neither answered nor refused. So A3 has real work to do, and cannot be
   satisfied by silence.

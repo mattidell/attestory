@@ -5,7 +5,7 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "planned",
-  "status": "Student Loan Circumstance Association remains planned -- no track is open. The plan is organised as eight actions the development team will take, refined and reviewed one at a time; progress is read on two axes -- the state table for how specific each action is, and three readiness gates (select a representation, implement, close) for whether dependent work can begin. A0 -- model the tax concept facts the engine operates with -- was added after planning was under way and blocks most of the rest, because the plan began at what we ask a person, which presupposes a model of the facts that question connects to. A fact of the matter can be reached by more than one route and the routes are not ranked: box 1 of a Form 1098-E and an enumeration of loans and their terms both reach total deductible student loan interest, and neither is a deficient proxy for the other. Separately, some facts sit behind a fact without being on any path to it -- whether every loan is eligible bears on the deduction total without being a step toward computing it. A0 is drafted and under review. A2 is specified and survives A0 because its distinctions hold whatever route reaches a fact. A1 and A3 returned to outlined: their refinements presumed the person must supply a missing prerequisite, and box 1 is itself a route, so nothing is missing by default. A4 has partly run -- following a recorded connection works and refuses by name when the named target is gone, and the prior milestone's calculation cannot be reused inside that mechanism. No representation or mechanism is selected. This is Tax Concept Derivation: forms do not model tax concepts, a translation layer sits between ordinary circumstances and form data, and the work stays in the engine until the facts are modelled there rather than reaching toward the user first.",
+  "status": "Student Loan Circumstance Association: PLANNED, no track open. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Organised as eight actions the development team will take, refined and reviewed one at a time; progress reads on two axes -- the state table for how specific each action is, and three readiness gates for whether dependent work may begin, the gate governing where they could disagree. A0 (model the tax concept facts) is done and reviewed; A1, A2 and A3 are specified; A4's refinement is drafted and repaired after review; A5, A6 and A7 are stated only. Load-bearing findings: a fact of the matter can be reached by more than one route and routes are not ranked (box 1 and an enumeration of loans both reach total deductible student loan interest); 'on the path' and 'sits behind' are relative to a route and not mutually exclusive (filing status is both -- it gates the MFS exclusion and keys the threshold and phase-range parameters); representing a fact does not make it mandatory, since obligation comes from a named consumer's declaration, so the question is which consumer needs the information and what it does when absent; member identity is not lost by an aggregate Boolean, because witness facts are keyed lender + statement + tax-year and the runner pins every collected finding, so what is limited is what an expression can branch on; and the pairing-scope observation bounds the one environment tested -- a shape rebuilt in a test module mirroring a nominee-specific adapter -- not the dispatcher, leaving the mechanism choice open. No representation, mechanism or contract is selected. This is Tax Concept Derivation: forms do not model tax concepts, a translation layer sits between ordinary circumstances and form data, and the work stays in the engine until the facts are modelled there.",
   "current_role": "Foreman (refine the plan one action at a time; A0 added and drafted, blocks A1/A3/A5)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A0 in detail — modelling the tax concept facts"
 }
@@ -46,10 +46,16 @@ stays visible. Nothing downstream can be settled first: the translation layer
 between a person's ordinary circumstances and form data cannot be defined until
 the facts it translates into are modelled.
 
-A0 is drafted and under review. A2 — when an answer can still be relied on —
-remains specified. A1 and A3 returned to `outlined`: both refinements presumed
-the person must supply a missing prerequisite, and box 1 is itself a route to the
-deduction total, so nothing is missing by default.
+A0 is done and reviewed. A1, A2 and A3 are specified. A4's refinement is drafted
+and repaired after review, and is the last thing G1 waits on.
+
+Four premises were corrected after review and matter to whoever picks this up:
+"on the path" and "sits behind" are relative to a route and not mutually
+exclusive; representing a fact does not make it mandatory, because obligation
+comes from a named consumer's declaration; an aggregate Boolean does not erase
+member identity, which the keyed witness facts and the runner's pinning preserve;
+and the pairing-scope observation bounds the one environment tested rather than
+the dispatcher.
 
 A2 established one thing worth carrying: what a person would now say is never
 observable, so it produces an obligation to ask rather than a determination, and
