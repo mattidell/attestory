@@ -21,6 +21,7 @@
       "docs/process/planning-and-development.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/owner-stated-facts.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a0-tax-concept-facts.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a4-bounds.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -388,7 +389,7 @@ something left unsettled is left implicit rather than named.
 
 | Gate | State | Waiting on |
 | --- | --- | --- |
-| G1 | not reached | A4's bounds stated (A0 done, A1, A2, A3 specified) |
+| G1 | reachable once A4's bounds are reviewed | A0 done; A1, A2, A3 specified; A4 pass 1 produced |
 | G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
@@ -437,7 +438,7 @@ whole plan.
 | A1 | specified | Rewritten after A0; reviewed at `5ae15c13` and `c40c6169`, repaired, confirmed. The `7083ae5d` version presumed a prerequisite and is withdrawn |
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
 | A3 | specified | One-liner and refinement rewritten after A0; reviewed and repaired, confirmed. The `5ae15c13` version described a deficiency that does not arise |
-| A4 | outlined, partly done | Two checks executed; refinement drafted below, review pending. Runs twice: bounds now for G1, execution against the chosen shape for G2 |
+| A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
 | A5 | outlined | Blocked by G1, so: A0, A1, A2 and A3 done, and A4's bounds known |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
