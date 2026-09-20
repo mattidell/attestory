@@ -310,10 +310,15 @@ away.** Distinguish having the latest information from that information still
 supporting the earlier claim. Decide which changes oblige a person to look
 again.
 
-**A3 — Decide what the application does when it cannot establish the
-connection.** Including what it says, and whether one undescribed statement
-affects the others, and what counts as a wrong or stale connection that the
-application ought to be able to notice.
+**A3 — Decide what the application does when a fact behind the answer is
+unanswered or answered adversely.** Including what it says, whether one
+statement's answer affects the others, and what counts as a wrong or stale answer
+the application ought to be able to notice.
+
+*This one-liner changed after A0.* It previously read "when it cannot establish
+the connection", which described a deficiency A0 showed does not arise: nothing on
+any path to the deduction is missing, and an unanswered behind-fact is the normal
+state of every return today rather than a failure.
 
 **A4 — Find out what the software can hold, follow, and refuse.** Establish by
 execution, not by reading, which of A1–A3's answers the existing engine can
@@ -420,7 +425,7 @@ whole plan.
 | A0 | done, pending review of the model | Refinement drafted below; the model itself is in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md). Blocks A1, A3 and A5 |
 | A1 | outlined | Refinement rewritten after A0 and drafted below; review pending. The `7083ae5d` version presumed a prerequisite the person must supply and is withdrawn |
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
-| A3 | outlined | Was specified at `5ae15c13`; returned to outlined — "unresolved statement" described a deficiency that does not exist when box 1 is itself a route |
+| A3 | outlined | One-liner and refinement rewritten after A0 and drafted below; review pending. The `5ae15c13` version described a deficiency that does not arise |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
 | A5 | outlined | Blocked by G1, so: A0, A1, A2 and A3 done, and A4's bounds known |
 | A6 | outlined | Blocked on A5 |
@@ -742,115 +747,103 @@ then says for those states is A3's, and anything past the minimum needed to keep
 them distinguishable is outside this milestone — the non-goals exclude a deep
 explanation surface.
 
-## A3 in detail — what the application does when it cannot establish the connection
+## A3 in detail — an unanswered or adverse behind-fact
 
-This is A3 refined one step. It states the work, not the answers. It also
-contains the one question in this milestone that is the owner's to decide, and
-its job is to frame that question properly rather than to answer it.
+This is A3 refined one step, rewritten after A0. The previous refinement listed
+five ways of "failing to establish the connection" and is withdrawn: it described
+a deficiency that does not exist.
 
-**Failing to establish the connection is not one thing.** At least these are
-different, and a person in one of them should not be shown what a person in
-another is shown:
+**What A0 changed here.** Every route and every step on the path to the deduction
+is represented; what is absent is entirely facts sitting *behind* it. So an
+unanswered behind-fact is not a failure state — it is the state of every return
+the product handles today, and the deduction is computed anyway. A3's question is
+therefore narrower and sharper than before: **which states of a behind-fact are
+owed a response at all, and what is that response?**
 
-- it was never asked for, or never given;
-- it was given, and then withdrawn;
-- it was given, and the thing it named no longer exists (A2 determines that this
-  is a failure state; A3 still owes this row's behaviour, like any other);
-- it cannot be given, because the person's real situation does not fit the
-  question — the loan paid for two terms, or they cannot tell which loans the
-  lender combined;
-- it was given, and it is wrong, and nobody has noticed.
+**The states, and the first thing to decide about them.**
 
-The last is the only one where the application believes it has an answer. It is
-the case that matters most and the one a test is least likely to contain.
+- never posed — today's normal case;
+- posed, and the exchange rested with no answer;
+- answered favourably;
+- **answered adversely** — the owner's worked thread ends here: the person says
+  they have an ineligible loan and confirms it touches a particular statement;
+- answered, then withdrawn;
+- answered about something that no longer exists (A2 decides when this has
+  happened; A3 owes the response);
+- answered wrongly, with nobody aware — the only state where the application
+  believes it has an answer.
+
+The first four are not degrees of the same thing. A3 must say for each whether a
+response is owed at all before saying what it is; treating "never posed" as
+needing a response is how the previous refinement went wrong.
 
 **What A3 must answer.**
 
-1. For each way of failing above: what happens to the reported amount, and what
-   is the person told?
-2. Is "we do not know" the same as "this does not reduce your taxes"? A2 has
-   already ruled that a standing unfavourable answer and an absent one must be
-   distinguishable. A3 owes the consequence: whether an unestablished connection
-   produces a refusal, a zero, or nothing at all, and what that looks like.
-3. **Does one unresolved statement affect the others?** Framed in ordinary
-   language, the choice is between: each statement stands on its own, so the
-   described ones produce a result and the undescribed ones are reported as
-   unresolved; or nothing is produced until every statement has been described.
-   A3's job is to state what a person experiences under each and what each risks
-   — the first that someone believes their return is complete while part of it is
-   unaccounted for, the second that someone who genuinely cannot describe an old
-   statement is blocked from a deduction they are owed. **This is the owner's
-   decision.** A3 brings it with both consequences stated and does not presume
-   it.
-4. What counts as a wrong or a stale connection that the application ought to be
-   able to notice at all? A6 is accountable for building the smallest thing that
-   reveals one; A3 owes the list of what must be revealable.
-5. What must never happen: an unresolved statement producing silence; an
-   unresolved statement being presented as though the answer were unfavourable;
-   a person being asked again for something they have already given.
+1. For each state: is a response owed, what happens to the amount, what is the
+   person told, and what is the effect on other statements?
+2. For an adverse answer, what has the application become responsible for? Three
+   readings, none yet chosen: record it and offer the enumeration route, leaving
+   the figure alone; stop treating that statement's box 1 as adequate grounds
+   until the person enumerates; or compute a changed result from the adverse fact
+   directly, which is what the previous milestone validated by execution. A3 states
+   each with its consequence for the person.
+3. **Does one statement's adverse answer affect the others?** The owner's
+   decision. A3 frames it with both consequences at their real weight and does not
+   presume it.
+4. What counts as a wrong or a stale answer the application ought to be able to
+   notice? A6 builds the smallest thing that reveals one; A3 owes the list.
+5. What must never happen: an unanswered behind-fact quietly reducing the
+   deduction; an adverse answer presented as though the person had made a mistake;
+   a legitimate resting point turned into a blocking demand.
 
-**A constraint A3 must reconcile, not assume away, and a fact that changes its
-shape.** The owner's
-[build boundary](#intended-result-and-build-boundary) states that this milestone
-does not change the existing worksheet's treatment of unlinked statements.
+**The constraint, and where the change lands.** Established `read` in
+[A0](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md):
+today the closed Form 1098-E family is summed unconditionally into the worksheet's
+line 1, so an undescribed statement's interest **is** deducted. Today's behaviour
+is therefore the most permissive of the available answers, not a neutral baseline.
+The owner's
+[build boundary](#intended-result-and-build-boundary) excludes changing the
+existing worksheet's treatment of unlinked statements in this milestone, and the
+bounded consumer this milestone builds is separate from that worksheet, so no
+answer here violates it *here*. A3 must say plainly which milestone bears the
+outcome change, and must not present a policy that only works by changing the
+existing worksheet as though it were free.
 
-The existing treatment is not "nothing". Evidence level `read`, from
-`packages/content/tax/2025/rule.sli-worksheet.json` and the box-1 family
-declaration: closure over the Form 1098-E box-1 family is unconditional, and
-every current member is summed into the line-1 subtotal the worksheet deducts
-from. So **today, a statement nobody has described contributes its interest to
-the deduction**, subject only to the twelve eligibility components and MAGI —
-there is no circumstance check at all. A3 must confirm this rather than inherit
-it from this paragraph.
+**How we will answer it.** Take the states one at a time and say, in ordinary
+words, whether a response is owed and what it is. Then frame question 3 with both
+consequences and put it to the owner. Check each row against the plan's
+[case list](#cases-to-carry-through-design-and-execution).
 
-That reframes the reconciliation rather than dissolving it. Nothing this
-milestone builds violates the boundary under either answer, because the bounded
-consumer it builds is separate from the production worksheet and the plan already
-holds existing production behaviour unchanged until explicitly selected. The
-force of the decision lands on the *next* milestone's worksheet integration,
-where either answer changes a real deduction outcome relative to today: each
-statement standing alone removes an undescribed statement's interest from a total
-that currently includes it, and blocking removes all of it. A3 must say plainly
-which milestone bears the change, and must not present a policy that only works
-by changing the existing worksheet as though it were free here. The owner's
-section governs.
+**What done looks like.** A table over the states giving, for each: whether a
+response is owed, what happens to the amount, what the person is told, and the
+effect on other statements. The one-versus-all question stated in ordinary
+language with both consequences, put to the owner. The list of wrong-or-stale
+conditions A6 must be able to reveal. And an explicit statement of which milestone
+bears any change in outcome.
 
-**How we will answer it.** Take the failure kinds one at a time and say, in
-ordinary words, what happens to the amount, what the person is told, and what
-happens to the rest of their return. Then state question 3 as a plain question
-with its two consequences and bring it to the owner. Check each row against the
-plan's [case list](#cases-to-carry-through-design-and-execution), and against the
-existing worksheet's current behaviour for an unlinked statement — which must be
-established as a fact, not assumed.
+**How it is reviewed.** One independent reviewer, a criterion per `done` field:
 
-**What done looks like.** A table over the failure kinds giving, for each: what
-happens to the amount, what the person is told, and the effect on other
-statements. The one-versus-all question stated in ordinary language with both
-consequences, put to the owner. A named list of the wrong-or-stale conditions A6
-must be able to reveal. And an explicit statement of whether the answer holds
-together with the owner's build boundary.
-
-**How it is reviewed.** One independent reviewer, on five things, one per thing
-`done` requires:
-
-1. Whether each failure kind is genuinely distinct in what a person experiences,
-   or whether two rows have collapsed into one.
-2. Whether any row lets an unresolved connection be presented as an unfavourable
-   answer — A2's boundary, carried forward.
-3. Whether question 3 is stated without presupposing its answer, and whether both
-   consequences are given their real weight rather than one being made obviously
-   worse.
-4. Whether the wrong-or-stale list is something A6 could actually build against,
-   or is a restatement of the problem.
-5. Whether the reconciliation with the owner's build boundary is honest,
-   including naming a conflict if there is one.
+1. **The states** — whether each is genuinely distinct in what happens, whether
+   any two have collapsed, and whether "never posed" is correctly treated as
+   owing no response rather than as a deficiency.
+2. **The amount and the telling** — whether any row lets an unanswered behind-fact
+   reduce the deduction silently, and whether an adverse answer is ever presented
+   as the person's mistake. A2's boundary carries forward: a standing adverse
+   answer must stay distinguishable from an absent one.
+3. **The owner question** — whether it is stated without presupposing its answer,
+   and whether both consequences are given real weight rather than one made
+   obviously worse.
+4. **The wrong-or-stale list** — whether A6 could build against it, or whether it
+   restates the problem.
+5. **Where the change lands** — whether the account of which milestone bears the
+   outcome change is honest, and whether today's unconditional deduction is
+   correctly described as the most permissive answer rather than as neutral.
 
 Not on mechanism, and not on whether the engine can carry any of it.
 
-**What A3 does not settle.** How any of it is stored (A5), whether the engine can
-detect or express it (A4), the words of the question a person is asked (A1), or
-which changes remove support in the first place (A2). It also does not settle
-how small the revealing consumer can be — that is A6's, working from A3's list.
+**What A3 does not settle.** The words a person reads (A1); when support is
+removed in the first place (A2); how any of it is stored (A5); how small the
+revealing consumer can be (A6).
 
 ## What the technical investigation established, and what it constrains
 
