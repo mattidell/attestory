@@ -11,10 +11,12 @@ the application does with an answer (A3).
 ## The two things that could be meant
 
 **Asking for a conclusion.** *"Were all of your student loans qualified education
-loans?"* This asks the person to apply a five-part statutory test — incurred solely
-to pay qualified higher education expenses, for the taxpayer or a spouse or a
-dependent, for education furnished while the student was an eligible student, paid
-within a reasonable period, and not a related-person or employer-plan loan. It is
+loans?"* This asks the person to apply a **six-constituent** statutory test, as our own
+P1 record enumerates them: incurred solely to pay qualified higher education
+expenses (chapeau); the person on whose behalf those expenses were incurred, as of
+origination (A); within a reasonable period of time (B); eligible-student status
+(C); not related-person indebtedness; and not qualified-employer-plan indebtedness
+(both from the concluding sentence). It is
 exactly the question the milestone's boundaries forbid, and a person answering it
 confidently is the worst case: the answer looks usable and is not.
 
