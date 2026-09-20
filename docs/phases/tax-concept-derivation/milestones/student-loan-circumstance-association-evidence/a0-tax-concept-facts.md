@@ -390,8 +390,11 @@ per-route standing across the list:
   person's word nor a computation, and not to be folded under "the person told us".
 - F3's is arithmetic.
 - F7 and F8 rest on things a person ordinarily knows about themselves.
-- F4's rests on the person's answer and, because its operator is a universal over
-  members, does not attribute an answer to a statement at all.
+- F4's rests on the person's answer. Its operator yields one Boolean, so a rule
+  expression cannot branch on a member's answer — but the answers themselves are
+  keyed by statement and each supporting finding is pinned, so attribution is
+  preserved in the record. What is coarse is the *expression's* view, not the
+  evidence.
 - F5 asks the person for what is effectively the conclusion of a statutory test.
 - F6's is asymmetric: adequate to support failure when adverse, weak when
   favourable.
@@ -411,4 +414,7 @@ What follows for later actions is narrower than a storage need: A1 should put
 different things to a person across the four testimonial qualities — F3 is not among
 them, being nobody's answer, and R1a is not either — and whoever names a consumer
 that must show what a result rests on should first establish what it needs to
-distinguish and trace whether that already survives.
+distinguish and trace whether that already survives. In F4's case it does: the
+statement-keyed findings and their pins are there, so a consumer needing
+per-statement attribution would be reading the record rather than asking for a new
+one.

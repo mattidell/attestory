@@ -366,8 +366,17 @@ looking finished.
 
 **G1 — ready to select a representation.** *Decides:* whether we know enough
 about what is true, what we put to a person, when an answer can be relied on, and
-what happens when there is no route, to choose how any of it is represented.
-*Requires:* A0, A1, A2 and A3 done, and A4's bounds known. *Evidence:* A0's fact
+what happens when information is absent, adverse or conflicting, to choose how any
+of it is represented.
+
+*Requires:* A0 done, A4's bounds known, and **A1, A2 and A3 to have produced their
+answers** — not merely to have had their refinements reviewed. A reviewed refinement
+is an accepted assignment; it is not the knowledge the assignment was meant to
+produce. Specifically still owed: **A1** the statements and questions actually put
+to a person, with their resting points; **A2** the change-and-applicability table
+separating what can be found from what still holds; **A3** the behaviour for absent,
+adverse and conflicting information, including what counts as an established
+contradiction. *Evidence:* A0's fact
 list with routes, behind-relations and support-versus-proof; A1's posed question
 and its resting points; A2's change table; A3's account; **and A4's classification
 and its two lists**, which are the bounds this gate names. *Blocks:* A5. *Fails
@@ -397,7 +406,7 @@ something left unsettled is left implicit rather than named.
 
 | Gate | State | Waiting on |
 | --- | --- | --- |
-| G1 | reachable once A4's bounds are reviewed | A0 done; A1, A2, A3 specified; A4 pass 1 produced |
+| G1 | not reached | A0 done and A4's bounds produced. Still owed: A1's statements and questions, A2's change-and-applicability table, A3's behaviour for absent / adverse / conflicting information. Their refinements being specified is not those answers |
 | G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
@@ -427,8 +436,9 @@ change to this table, not a quiet omission.
 
 An action is **outlined** when its general statement above is agreed;
 **specified** when it has been refined one step and that refinement has
-independently been reviewed; **done** when its work is complete. Those are the
-only three states.
+independently been reviewed; **done** when its work is complete — meaning it has
+produced the answer, not that its assignment was accepted. A1, A2 and A3 are
+specified and not done. The gates depend on *done*, never on *specified*.
 
 An action may have work under way while still only outlined — work can start
 ahead of its refinement when it is cheap and bounds the other actions, which is
@@ -447,7 +457,7 @@ whole plan.
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
 | A3 | specified | One-liner and refinement rewritten after A0; reviewed and repaired, confirmed. The `5ae15c13` version described a deficiency that does not arise |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | outlined | Blocked by G1, so: A0, A1, A2 and A3 done, and A4's bounds known |
+| A5 | outlined | Blocked by G1, which needs A1's, A2's and A3's actual answers, not their specified refinements |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
@@ -736,8 +746,11 @@ a builder can apply.
 5. What must never happen silently: a claim continuing to be relied on because
    the thing it points at can still be found.
 6. Where is the line between an answer that stands and is unfavourable, and an
-   answer we no longer have? Both produce no deduction; they are not the same
-   thing and a person should not be shown the same thing for both.
+   answer we no longer have? They are not the same thing and a person should not be
+   shown the same thing for both. **What each does to a figure is not A2's to
+   assert** — an earlier version of this said both produce no deduction, which
+   presumed a consumer. A2 draws the distinction; A3 determines the consequence for
+   the consumer it names.
 
 **How we will answer it.** Take the change kinds from the case list one at a
 time. For each, say which of the three things it touches, whether the earlier
@@ -884,8 +897,12 @@ worksheet's treatment is still a worksheet policy, and A3 must name the later
 milestone that bears it rather than write it as though it were free now.
 
 **How we will answer it.** Take the states one at a time and say, in ordinary
-words, whether a response is owed and what it is. Then frame question 3 with both
-consequences and put it to the owner. Check each row against the plan's
+words, whether a response is owed and what it is, **for a named consumer** — the
+consequence belongs to a consumer and not to the milestone in general. Then work
+question 3: for each state, say whether the person could supply further facts that
+would let the return proceed with adjustments, naming the statements that would
+require; and say whether the state amounts to an established contradiction, in which
+case the return does not proceed. Check each row against the plan's
 [case list](#cases-to-carry-through-design-and-execution).
 
 **What done looks like.** Five things:
@@ -897,8 +914,10 @@ consequences and put it to the owner. Check each row against the plan's
    presenting an adverse answer as the person's mistake, a standing adverse answer
    distinguishable from an absent one, and no resting point turned into a blocking
    demand.
-3. The one-versus-all question in ordinary language with both consequences, put to
-   the owner.
+3. For each state, whether further ordinary facts could let the return proceed with
+   adjustments — with the additional statements a person would have to make, named
+   and not designed — or whether it is an established contradiction, in which case
+   the return does not proceed. Plus the account of what counts as a contradiction.
 4. The list of wrong-or-stale conditions A6 must be able to reveal.
 5. Which milestone bears any change in outcome, with today's treatment described as
    permissive about schooling specifically rather than as neutral or as general
@@ -919,9 +938,12 @@ consequences and put it to the owner. Check each row against the plan's
    person's mistake; whether a standing adverse answer stays distinguishable from
    an absent one, carrying A2's boundary forward; and whether any legitimate
    resting point has become a blocking demand.
-3. **The owner question** — whether it is stated without presupposing its answer,
-   and whether both consequences are given real weight rather than one made
-   obviously worse.
+3. **Contradiction and clarification** — whether the account of what counts as an
+   established contradiction is argued rather than assumed, whether the
+   ineligible-loan case is tested against it rather than presumed to be one, and
+   whether the additional statements needed to proceed with adjustments are named
+   without being designed. A row that presents a preference between isolating a
+   statement and holding the return fails this: that framing is withdrawn.
 4. **The wrong-or-stale list** — whether A6 could build against it, or whether it
    restates the problem.
 5. **Where the change lands** — whether the account of which milestone bears the

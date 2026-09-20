@@ -31,7 +31,7 @@ looked for.
 | D4 | A consumer can require a fact **conditionally** — in some cases and not others | A3 | `run` | The production worksheet's own `conditional_dependency_set`, condition `count(box1) > 0`; `tests/test_sli_worksheet_line21_track3.py` drops a member and asserts the block and the name |
 | D5 | A supported negative publishes a value while missing support blocks | A2, A3 | `run` | Prior milestone's disposable candidate: adverse answer publishes `0`, absent premise blocks |
 | D6 | A rule can publish a **categorical conclusion** rather than an amount | A3 | `run` | `tests/test_capital_gain_distributions_line7a_t2_coordinator.py` runs `rule.schedule-d-required.conclusion` through `live_coordinate_run`: `EligibleSinglePayer` exercises the `no` branch, `ComponentNo` the `yes` branch, `ComponentAbsence` the `DEPENDENCY_ABSENT` path. Ceiling: the tests assert dispositions and downstream routing, not the literal string |
-| D7 | A rule expression can branch on a **per-member value** from a universal-over-members operator | A0 | `read` — and the answer is no | `collect_categorical_all_equal` returns one Boolean. **This is a limit on what an expression reads, not on what the record keeps**: witness facts are keyed `lender`+`statement`+`tax-year` and the runner pins every collected finding |
+| D7 | A rule expression can obtain a **member value** from `collect_categorical_all_equal` | A0 | `read` — and the answer is no, **for that operator only**. Nothing here bears on per-member branching by other mechanisms; per-item dispatch is D1 and D13a | `collect_categorical_all_equal` returns one Boolean. **This is a limit on what an expression reads, not on what the record keeps**: witness facts are keyed `lender`+`statement`+`tax-year` and the runner pins every collected finding |
 | D8 | The dispatcher follows a **corrected** target rather than a stale one | A2 | `run` | `tests/test_nominee_consequences_live.py::test_c5a_report_correction_yields_corrected_remainder` — a live per-item consumer (nominee reduction, grouping bound sources by report `fact_id`, not `evaluate_pairing_scoped_rule`): both findings in the act log, the current one pinned and the stale one excluded. Ceiling: follows the current finding at the same `fact_id`; settles nothing about D9 |
 | D9 | Tell "still resolvable" from "still supported" — A2's middle leg | A2 | `untested` | Nothing. D2 and D8 are findability; this is the further question and must not be discharged by them |
 | D10 | Hold the unresolved interval as its own state | A2 | `untested` | Nothing |
@@ -52,19 +52,29 @@ looked for.
   two bound symbols and empty source set are that adapter's choices. This bounds
   that environment. It is not a dispatcher limitation, and it mandates no rewrite
   of the prior calculation.
-- **No parameter read has executed in pairing scope.** The rebuilt environment
-  passed empty parameters and canon.
+- **Parameter reads and dependency pins do execute in pairing scope.**
+  `tests/test_pairing_consequences.py::TestDependencyPinFidelity` publishes and pins
+  a declared `parameter` reference from a pairing-scoped expression. The
+  empty-parameter limitation belongs to **this milestone's own probe**, which passed
+  empty parameters and canon into a rebuilt environment; it is not a property of
+  pairing scope.
 - **D4's ceiling:** the conditional set executed is the production worksheet's own,
   not one containing a schooling fact.
 - **D5's ceiling:** disposable artifacts, never adopted.
 
 ## Only testable by changing production
 
-One entry: whether the **existing worksheet** would require or tolerate a
-schooling fact. Its dependency set is a committed production rule, and the owner's
-build boundary excludes changing the existing worksheet's treatment here. Cost if
-ever taken: an adopted-rule change with its own review, in a later milestone. Not
-approximated with a disposable fixture, which would pass for the wrong reason.
+One entry: whether the **existing worksheet** would require or tolerate a schooling
+fact. Its dependency set is a committed production rule, and the owner's build
+boundary excludes changing the existing worksheet's treatment here. Cost if ever
+taken: an adopted-rule change with its own review, in a later milestone.
+
+**This is not a bar on testing a candidate dependency declaration.** A disposable
+candidate rule may declare a schooling fact in its own dependency set and be run, and
+that needs no production change — the previous milestone did exactly this. What such
+a test establishes is candidate-scoped: that *a* rule can require the fact and block
+by name when it is absent. It says nothing about what the adopted worksheet would
+do, and must not be reported as though it did.
 
 ## What A5 may rely on
 
