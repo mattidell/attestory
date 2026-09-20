@@ -58,7 +58,8 @@ State: planned; no track open, nothing implemented. Opened 2026-09-18.
 No representation, mechanism, or contract is selected. Of the eight actions in
 [What we will do](#what-we-will-do), A2 is specified, A0 is drafted and under
 review, A4 has partly run, and the rest are stated but not yet made specific.
-The state table there is the authority.
+The state table there tracks how specific each action is; the readiness gates
+govern whether dependent work may begin.
 
 ## What this milestone is
 
@@ -115,7 +116,9 @@ review of a refinement is not a review of the whole plan.
 **How we know how close to done we are.** Two axes, read together. The
 [state table](#where-each-action-stands) tracks *specificity* — how concrete each
 action has been made. The [readiness gates](#readiness-gates) track *readiness* —
-whether a class of dependent work can responsibly begin. They are different
+whether a class of dependent work can responsibly begin. Where they could
+disagree about whether work may start, **the gate governs**: an action being
+specified has never meant the work depending on it may begin. They are different
 questions: an action can be fully specified while we are nowhere near ready to
 implement anything. An action counts as specified only after a refinement of it
 has survived review — never by assertion, and never because related technical work
@@ -369,9 +372,9 @@ something left unsettled is left implicit rather than named.
 
 | Gate | State | Waiting on |
 | --- | --- | --- |
-| G1 | not reached | A0, A1, A3 (A2 done; A4 partial) |
-| G2 | not reached | G1, then A5 |
-| G3 | not reached | G2, then A6 |
+| G1 | not reached | A0's model reviewed, A1, A3; A4's bounds known (A2 done) |
+| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid |
+| G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
 Two rules apply to all three. **A gate is not passed because a later section
 assumes its answer** — if work downstream has quietly proceeded as though a gate
@@ -419,7 +422,7 @@ whole plan.
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
 | A3 | outlined | Was specified at `5ae15c13`; returned to outlined — "unresolved statement" described a deficiency that does not exist when box 1 is itself a route |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
-| A5 | outlined | Blocked on A0, A1 and A2 |
+| A5 | outlined | Blocked by G1, so: A0, A1, A2 and A3 done, and A4's bounds known |
 | A6 | outlined | Blocked on A5 |
 | A7 | outlined | — |
 
@@ -479,30 +482,54 @@ rather than to find a single tidy account.
 5. Which of these facts does the engine already hold, in what form, and which
    have no representation at all? Established against committed content, not
    assumed.
-6. For each route, what does the product accept as adequate support for taking
-   it, and how does that differ from the fact itself being proven? Say this per
-   route, not once for the fact.
+6. For each route, what would make a determination reached by that route a
+   **supported determination rather than a proven finding**? Name what the
+   product accepts as adequate grounds, and name what remains unproven once it
+   has them. Per route, not once for the fact. Question 3 asks what a route
+   establishes; this asks what standing the result has, and an answer to 3 does
+   not discharge it.
 
-**How we will answer it.** Start from the
-[owner-stated facts](student-loan-circumstance-association-evidence/owner-stated-facts.md),
-which must be consulted during execution and which contain one worked example of
-an entry. Then work from what the engine already computes for this vertical and
-from what the statute requires. For each item, first ask whether it
+**How we will answer it.** Consult the
+[owner-stated facts](student-loan-circumstance-association-evidence/owner-stated-facts.md)
+first. They illustrate the shape of an entry; consulting them is not the same as
+copying them, and nothing from them reaches the list until it has been
+established against statute and committed content like anything else. Then work
+from what the engine already computes for this vertical and from what the statute
+requires.
+
+Three moves from the precedent, which are part of the method and not background:
+organise by fact rather than by form or by user statement, asking "what
+establishes this?" once per fact; label every source by authority level — statute,
+regulation, form instruction, explanatory publication — with a locator; and where
+sources do not agree, record that as an unresolved relationship among
+authority-specific formulations rather than harmonising it into one convenient
+rule. For each item, first ask whether it
 is a fact of the matter at some stage or merely a step in reaching one — that is
 the quality bar for getting onto the list at all, not the substance of the
 action.
 
-The substance is the two distinctions. For each fact, write out every route that
-reaches it without ranking them and without writing either as a lesser stand-in
-for the other; the difficulty is that more than one route reaches the same fact,
-not that one of them is deficient. Then, separately and for every fact, say which
-other facts sit behind it and by what relation, stating in each case that this is
-not "on the path to". A list of facts and routes with no behind-relations mapped
-is an unfinished A0, not a finished one.
+The substance is the three distinctions, and the method runs each of them
+explicitly.
+
+*Routes, unranked.* For each fact, write out every route that reaches it without
+ranking them and without writing either as a lesser stand-in for the other; the
+difficulty is that more than one route reaches the same fact, not that one of them
+is deficient. Say also whether more than one route can reach it at once.
+
+*Behind, not on the path.* Separately and for every fact, say which other facts
+sit behind it and by what relation, stating in each case that this is not "on the
+path to". A list of facts and routes with no behind-relations mapped is an
+unfinished A0.
+
+*Supported, not proven.* Then, per route, say what the product accepts as
+adequate grounds for taking that route, and say in the same breath that taking it
+yields a supported determination and not a finding that the fact is true. A list
+that states what routes establish but never what makes a route acceptable is
+equally unfinished.
 
 **What done looks like.** A list of the facts of the matter, each entry carrying:
 its stage; its routes, written unranked and with neither presented as a lesser
-version of another; what each route establishes and does not, and what each rests
+version of another, and whether more than one can reach it at once; what each route establishes and does not, and what each rests
 on; which facts sit behind it and by what relation, marked as distinct from being
 on a path to it; what the product accepts as adequate support for each route,
 distinguished from the fact being proven; and whether the engine represents it
@@ -514,8 +541,9 @@ today.
 1. **Facts and stages** — whether each entry is genuinely a fact of the matter at
    a stage rather than a computation step promoted to one, and whether the stage
    assigned to it is the right one.
-2. **Routes** — whether every route is listed, whether any is ranked, and whether
-   any is written as a deficient version of another.
+2. **Routes** — whether every route is listed, whether any is ranked, whether
+   any is written as a deficient version of another, and whether concurrency is
+   stated.
 3. **What each route establishes** — whether the establishes-and-does-not is
    present for every route, whether what it rests on is stated, and whether any
    route is credited with establishing something that sits behind its fact.
@@ -525,9 +553,10 @@ today.
 5. **Representation** — whether the representation claims are evidenced against
    committed content, and whether anything is asserted absent without being
    checked.
-6. **Support versus proof** — whether each route states what the product accepts
-   as adequate support for it, and whether any entry lets a supported
-   determination read as a proven finding.
+6. **Supported versus proven** — whether each route names both what the product
+   accepts as adequate grounds and what stays unproven once it has them, and
+   whether any entry lets a supported determination read as a proven finding. An
+   entry that only restates what the route establishes fails this.
 
 And one boundary check, which is not a `done` field: whether any entry smuggles
 in what the application should *do* about a fact, which is not A0's business.

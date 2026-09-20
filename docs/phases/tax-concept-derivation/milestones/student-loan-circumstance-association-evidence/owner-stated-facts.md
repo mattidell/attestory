@@ -50,11 +50,22 @@ how the earlier error happened.
 
 ## How A0 uses these
 
-Items 1–3 are one worked example of what A0's list must contain: a fact, its
-stage, two routes that are not ranked, and a fact that sits behind it rather than
-on a path to it. Item 7 is a second fact of the matter, and A0 must place it
-rather than assume it is a step toward the first.
+Items 1–3 **illustrate the shape** of an entry: a fact, its stage, two routes
+that are not ranked, and a fact that sits behind it rather than on a path to it.
+They do not populate A0's list. Every element of them, this example included,
+still has to be established against statute and committed content like anything
+else — consulting is not copying, and an owner statement is not the evidence for
+a behind-relation A0 exists to model. Where A0's own work confirms one of these,
+the owner statement is corroboration and should be cited as such.
 
-Items 6 and 8–11 are about what the application poses and where exchanges rest.
-Those are **A1's** work, not A0's, and A0 must not settle them. They are recorded
-here because they were stated together and because A1 will need them intact.
+Assignment of the rest:
+
+| Items | Whose work | Note |
+| --- | --- | --- |
+| 1–3 | A0 | Illustrative; to be established independently |
+| 4 — moving numbers between boxes | A0 | Bears on what counts as a stage |
+| 5 — facts are not more than they are | All | A standing caution, not an entry |
+| 6, 8–11 | **A1** | What the application poses, and where an exchange may rest. A0 must not settle these; recorded here because they were stated together and A1 will need them intact |
+| 7 — "all of your student loans must be eligible" | A0 places the fact; A1 decides the posing | A0 must place it rather than assume it is a step toward item 1 |
+| 12 — the 1098-E may not enumerate loans, issuers, institutions | **A0**, to verify | Directly about what that route does not carry |
+| 13 — many ways through | All | Expectation-setting |

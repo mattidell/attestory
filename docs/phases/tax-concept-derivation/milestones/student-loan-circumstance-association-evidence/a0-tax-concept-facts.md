@@ -116,10 +116,13 @@ per-statement lookup. A single "no" blocks with
 
 ### F5 — Every loan the interest was paid on is a qualified education loan
 
-**Stage:** behind F2. **Sits behind**, emphatically not on the path — no step of
-the worksheet computes it, and the owner states the matching product fact
-directly: *loan eligibility status does not directly impact total student loan
-interest deduction.*
+**Stage:** behind F2. **Sits behind, not on the path**, established `read` from
+the worksheet itself: no step from box 1 through the cap, the threshold, the
+phase-out ratio and the reduction computes or reads loan qualification. Its only
+appearance anywhere in the route is as one per-statement negative witness in the
+conditional set. The owner's statement that *loan eligibility status does not
+directly impact total student loan interest deduction* corroborates this; it is
+not the evidence for it.
 
 **Routes.** *R5a:* the person states it, in the form the application poses —
 "all of your student loans must be eligible", per the owner's item 7. *R5b:*
@@ -171,6 +174,17 @@ where married-filing-separately blocks with `SLI_MFS_INELIGIBLE`.
 | F6 — eligible student for the period | Nothing at all |
 | R1b — an enumeration route to F1 | No route exists |
 | The relationship between a statement and a borrowing and a period | Nothing. This is the deferred item E1 |
+
+## Verified: what the 1098-E route does not carry
+
+Owner item 12 — the 1098-E may not enumerate the loans, the issuers, and what
+institution the user attended — is confirmed `read` against
+`packages/content/tax/2025/f1098e.bundle.json`. Box 1's identity keys are lender,
+statement and tax-year; its value is a single number; the fact type's own title
+records that a lender may aggregate several qualified student loans on one
+statement. There is no loan identifier, no per-loan amount, no institution and no
+academic period anywhere in the bundle. So the absence is a property of the form
+as modelled, not an omission in our content.
 
 ## Findings that bear on later actions
 
