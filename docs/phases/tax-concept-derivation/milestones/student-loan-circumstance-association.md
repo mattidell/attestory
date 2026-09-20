@@ -113,6 +113,14 @@ are a hodge-podge of corrections with no sense of how close to done anything is.
 question that action is supposed to answer, before the next refinement begins. A
 review of a refinement is not a review of the whole plan.
 
+**One standing rule, because this failure has recurred four times.** Every
+refinement states what `done` requires and how it will be reviewed. Those two lists
+must correspond in both directions — every `done` field reached by a criterion, and
+no criterion demanding something `done` does not ask for. Matching counts are not
+correspondence, and a criterion must never require a particular *answer* to the
+work it checks. Whenever a `done` field or a criterion is added or changed, both
+lists are re-read against each other before the change is committed.
+
 **How we know how close to done we are.** Two axes, read together. The
 [state table](#where-each-action-stands) tracks *specificity* — how concrete each
 action has been made. The [readiness gates](#readiness-gates) track *readiness* —
@@ -600,14 +608,16 @@ is favourable. A1 cannot put one kind of question to a person across all of them
    the application knowing and not knowing? The owner names three for the
    eligibility thread: after the fact is posed, after the person says they have an
    ineligible loan, and after they confirm it touches a particular statement.
-   **Resting is not failure**, and A1 must make that survivable in the wording.
-4. **Is posing a requirement the same as asking for a conclusion?** It appears not
-   — "all of your student loans must be eligible" tells a person what the rule
-   requires, which is not the same as asking them to certify that it is met. A1
-   must settle this, because qualified-education-loan status is the one fact whose
-   grounds A0 found to be in tension with the milestone's own boundary against
-   asking for a tax conclusion. If the distinction does not hold, that boundary
-   forbids the question and A1 must say so rather than soften it.
+   **Resting is not failure**, and the wording must make it available without
+   implied fault. A1 owns the words up to and including the offer to rest, and must
+   not assert any consequence for the person's return; what is said once a rest has
+   been taken is A3's.
+4. **Is posing a requirement the same as asking for a conclusion?** A1 must settle
+   this. Qualified-education-loan status is the one fact whose grounds A0 found to
+   be in tension with the milestone's boundary against asking for a tax
+   conclusion, and the owner's phrasing — "all of your student loans must be
+   eligible" — sits exactly on that line. If the distinction does not hold, the
+   boundary forbids the question and A1 must say so rather than soften it.
 5. How does a person say "I cannot say"? A0 records that a loan covering two terms,
    or a statement whose composition the person cannot reconstruct, are ordinary
    situations. The wording must let someone say so without it reading as their
@@ -623,23 +633,31 @@ point and what it leaves unknown. Test every phrasing against the plan's
 person in that situation could answer honestly, could answer wrongly without
 noticing, or could not answer at all.
 
-**What done looks like.** For each of A0's answerable facts: what is posed in
-ordinary words; what occasions it; its legitimate resting points and what each
-leaves known and unknown; how "I cannot say" is expressed; and what is never
-asked. Plus a settled account of whether posing a requirement differs from asking
-for a conclusion, with the consequence for qualified-education-loan status
-followed through.
+**What done looks like.** Six things:
+
+1. For each of A0's answerable facts, what is posed in ordinary words, and one line
+   on why a person can be expected to answer it.
+2. What occasions each — what opens the thread.
+3. The legitimate resting points, and what each leaves known **and** unknown.
+4. How "I cannot say" is expressed.
+5. What is never asked.
+6. A settled account of whether posing a requirement differs from asking for a
+   conclusion, with the consequence for qualified-education-loan status followed
+   through.
 
 **How it is reviewed.** One independent reviewer, a criterion per `done` field:
 
-1. **What is posed** — whether an ordinary person could answer each question, and
-   whether the six are genuinely differentiated by quality of grounds rather than
-   one template repeated.
+1. **What is posed** — whether an ordinary person could answer each question,
+   whether the stated reason they can answer it holds, and whether any single
+   template is reused across *different* qualities of grounds. Two facts of the
+   same quality may properly share a shape; six distinct templates are not required
+   and must not be demanded.
 2. **What occasions it** — whether each thread has a stated opening, and whether
    any question is posed unprompted that the owner's account says should not be.
 3. **Resting points** — whether each is a genuine stopping place, whether what it
-   leaves unknown is stated, and whether the wording makes resting read as
-   completion rather than abandonment.
+   leaves both known and unknown is stated, and whether rest is available without
+   implied fault. A1 asserting any consequence for the return fails this; that is
+   A3's.
 4. **"I cannot say"** — whether it is expressible for every fact where A0 says the
    situation arises, and whether it is free of implied fault.
 5. **Never asked** — whether any question smuggles in a tax conclusion or an
@@ -800,8 +818,9 @@ settled by observing that nothing blocks today.
    readings, none yet chosen: record it and offer the enumeration route, leaving
    the figure alone; stop treating that statement's box 1 as adequate grounds
    until the person enumerates; or compute a changed result from the adverse fact
-   directly, which is what the previous milestone validated by execution. A3 states
-   each with its consequence for the person.
+   directly. A3 states each with its consequence for the person. That the third is
+   mechanically feasible — the previous milestone executed it — is a fact about
+   feasibility, not a reason to prefer it; the other two are untested either way.
 3. **Does one statement's adverse answer affect the others?** The owner's
    decision. A3 frames it with both consequences at their real weight and does not
    presume it.
@@ -820,49 +839,69 @@ That is permissive about schooling specifically, and it is not permissiveness in
 general: every behind-fact the engine does model is required, and an absent one
 blocks. Today's behaviour is therefore not a neutral baseline, and neither is it
 evidence that a new unanswered fact could be tolerated.
+The concrete stakes, against today: each statement standing alone would remove an
+undescribed statement's interest from a total that currently includes it, and
+blocking would remove all of it. Both are changes in the same direction, of
+different size.
+
 The owner's
 [build boundary](#intended-result-and-build-boundary) excludes changing the
-existing worksheet's treatment of unlinked statements in this milestone, and the
-bounded consumer this milestone builds is separate from that worksheet, so no
-answer here violates it *here*. A3 must say plainly which milestone bears the
-outcome change, and must not present a policy that only works by changing the
-existing worksheet as though it were free.
+existing worksheet's treatment of unlinked statements in this milestone. Because
+the consumer this milestone builds is separate from that worksheet, this milestone
+does not *ship* an amount change under any answer — but that is scheduling, not
+licence. An answer whose amount column only works by changing the existing
+worksheet's treatment is still a worksheet policy, and A3 must name the later
+milestone that bears it rather than write it as though it were free now.
 
 **How we will answer it.** Take the states one at a time and say, in ordinary
 words, whether a response is owed and what it is. Then frame question 3 with both
 consequences and put it to the owner. Check each row against the plan's
 [case list](#cases-to-carry-through-design-and-execution).
 
-**What done looks like.** A table over the states giving, for each: whether a
-response is owed, what happens to the amount, what the person is told, and the
-effect on other statements. The one-versus-all question stated in ordinary
-language with both consequences, put to the owner. The list of wrong-or-stale
-conditions A6 must be able to reveal. And an explicit statement of which milestone
-bears any change in outcome.
+**What done looks like.** Five things:
+
+1. The states, each marked as owed a response or not — whichever way that comes
+   out.
+2. For each state: what happens to the amount, what the person is told, and the
+   effect on other statements.
+3. The one-versus-all question in ordinary language with both consequences, put to
+   the owner.
+4. The list of wrong-or-stale conditions A6 must be able to reveal.
+5. Which milestone bears any change in outcome, with today's treatment described as
+   permissive about schooling specifically rather than as neutral.
 
 **How it is reviewed.** One independent reviewer, a criterion per `done` field:
 
-1. **The states** — whether each is genuinely distinct in what happens, whether
-   any two have collapsed, and whether "never posed" is correctly treated as
-   owing no response rather than as a deficiency.
-2. **The amount and the telling** — whether any row lets an unanswered behind-fact
-   reduce the deduction silently, and whether an adverse answer is ever presented
-   as the person's mistake. A2's boundary carries forward: a standing adverse
-   answer must stay distinguishable from an absent one.
+1. **The states** — whether each is genuinely distinct in what happens, whether any
+   two have collapsed, and whether "not modelled" is kept from being labelled a
+   deficiency. **This criterion must not require a particular answer for the
+   owed-or-not column.** A telling can be owed where no change to the amount is —
+   that eligibility was never asked and the deduction proceeded anyway — so
+   "nothing, and that is correct" has to be written in the table and argued for,
+   not graded in advance.
+2. **The amount, the telling, and the effect on others** — whether all three are
+   filled for every state; whether any row lets an unanswered behind-fact reduce
+   the deduction silently; whether an adverse answer is ever presented as the
+   person's mistake; whether a standing adverse answer stays distinguishable from
+   an absent one, carrying A2's boundary forward; and whether any legitimate
+   resting point has become a blocking demand.
 3. **The owner question** — whether it is stated without presupposing its answer,
    and whether both consequences are given real weight rather than one made
    obviously worse.
 4. **The wrong-or-stale list** — whether A6 could build against it, or whether it
    restates the problem.
 5. **Where the change lands** — whether the account of which milestone bears the
-   outcome change is honest, and whether today's unconditional deduction is
-   correctly described as the most permissive answer rather than as neutral.
+   outcome change is honest, and whether today's treatment is described as
+   permissive about schooling specifically rather than as neutral or as general
+   permissiveness.
 
 Not on mechanism, and not on whether the engine can carry any of it.
 
-**What A3 does not settle.** The words a person reads (A1); when support is
-removed in the first place (A2); how any of it is stored (A5); how small the
-revealing consumer can be (A6).
+**What A3 does not settle.** The words a person reads up to the offer to rest
+(A1) — though what is said once a rest has been taken is A3's; when support is
+removed in the first place (A2); whether the engine can hold, follow or refuse any
+of it (A4); how any of it is stored (A5); how small the revealing consumer can be
+(A6).
 
 ## What the technical investigation established, and what it constrains
 
