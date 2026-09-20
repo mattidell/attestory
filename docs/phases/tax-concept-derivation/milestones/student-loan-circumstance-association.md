@@ -114,6 +114,14 @@ are a hodge-podge of corrections with no sense of how close to done anything is.
 question that action is supposed to answer, before the next refinement begins. A
 review of a refinement is not a review of the whole plan.
 
+**Review small scopes, and stage the work inside an action.** Several
+review-and-repair cycles per piece of work are expected and are not a sign of
+trouble. The remedy is not fewer reviews but smaller ones: carry an action from
+general to concrete in stages, and review a stage's progress rather than an
+action's whole output. That produces more iterations at lower total cost, because
+each repair is bounded and cannot silently invalidate work done beside it. An
+action whose output arrives in one piece has been staged badly.
+
 **One standing rule, because this failure has recurred four times.** Every
 refinement states what `done` requires and how it will be reviewed. Those two lists
 must correspond in both directions — every `done` field reached by a criterion, and
@@ -829,9 +837,23 @@ neither is settled by observing the worksheet's current dependency list.
    directly. A3 states each with its consequence for the person. That the third is
    mechanically feasible — the previous milestone executed it — is a fact about
    feasibility, not a reason to prefer it; the other two are untested either way.
-3. **Does one statement's adverse answer affect the others?** The owner's
-   decision. A3 frames it with both consequences at their real weight and does not
-   presume it.
+3. **What counts as a contradiction, and what follows from one?** An earlier
+   version of this refinement posed this as a policy choice between isolating a
+   statement and holding the whole return, to be decided by the owner. That was the
+   wrong shape. It is not the product's decision which to prefer: the person
+   supplies facts, and the product must know what to do with them. Two cases to
+   separate, and the separation is the work:
+
+   - **The person can supply more.** Where further ordinary facts would let the
+     return proceed with adjustments, that is how it proceeds. The follow-up
+     questions this requires may fall outside this milestone — A3 **names the
+     additional statements a person would have to make** and stops there. Naming
+     them is not expanding the milestone.
+   - **A contradiction is established.** Then the return does not proceed. A3 owes
+     the account of what counts as one. "This statement is invalid", and an adverse
+     fact that cannot be reconciled with a statement's reported amount, are
+     candidates rather than settled instances. The ineligible-loan case looks like a
+     contradiction, but that is a claim to investigate rather than assume.
 4. What counts as a wrong or a stale answer the application ought to be able to
    notice? A6 builds the smallest thing that reveals one; A3 owes the list.
 5. What must never happen: an unanswered behind-fact quietly reducing the
@@ -908,6 +930,11 @@ consequences and put it to the owner. Check each row against the plan's
    permissiveness.
 
 Not on mechanism, and not on whether the engine can carry any of it.
+
+**Scope that may expand, named rather than taken.** Supporting a person who can
+supply more will imply follow-up questions this milestone does not design. A3
+records what those statements would have to be and leaves them there. Identifying
+where scope may grow does not require rewriting the plan to absorb it.
 
 **What A3 does not settle.** The words a person reads up to the offer to rest
 (A1) — though what is said once a rest has been taken is A3's; when support is
@@ -1087,7 +1114,7 @@ A1–A3 are the work it skipped.
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
 | What we ask a person, in words | Team, with owner sign-off on the wording | Before A5 | A1, in progress |
-| Whether one undescribed statement blocks the others | Owner — it changes what a person experiences | A3 | Deferred to A3, deliberately. It was raised early because a mechanism constraint suggested a shape; nothing needs it yet, and framing it is A3's work |
+| What counts as an established contradiction, and what the system does with one | Team, from the facts — not an owner preference | A3 | Reframed. Not a choice between isolating and blocking: the person supplies facts and the product must know what to do. Where more facts would let the return proceed with adjustments, it proceeds; where a contradiction is established, it does not |
 | How the answer is stored and how many records it becomes | Team, recorded with reasons | A5 | Open; explicitly not settled by A1 |
 | Whether refusal is an adequate answer for the two multi-borrowing cases | Owner | A5 | Open |
 | Whether a separately identified borrowing is needed now | Team, constrained by the case list | A5 | Open |
