@@ -319,12 +319,18 @@ Whether to follow that convention is a real choice with a real consequence, and 
 is not settled here.
 
 **5. A6 will need the difference between "the person said so" and "this is
-established" to be visible.** Stated as a need, not as a survey: every behind-fact
-in this model is accepted on the person's own categorical answer, and nothing in the
-entries above records that standing alongside the result. Whether some other part of
-the engine draws that distinction was not searched, so this is not a claim that it
-is absent everywhere. F5 and F6 are where a person's answer is least like proof,
-which is where the need bites.
+established" to be visible — and the kernel already draws a coarse version of it.**
+Every behind-fact in this model is accepted on the person's own categorical answer,
+and nothing in the entries above records that standing alongside the result.
+
+The search this finding previously declined to make has since been made, and it
+found something: `packages/schemas/kernel/finding.v2.schema.json` carries a `basis`
+of `documentary` / `attested` / `elective`. That is not this model's five qualities,
+but it is not nothing, and it maps onto the coarsest cut here — R1a's payer return is
+documentary, the person's answers are attested. So the need is **finer** than the
+gap: the distinction A6 wants exists at three classes, and what is missing is
+resolution *within* `attested`, where F4, F5, F7 and F8 all sit together despite A0
+having found their grounds to differ.
 
 **6. Standing is not uniform, and it varies in a way that matters.** Reading the
 per-route standing across the list:
@@ -339,8 +345,17 @@ per-route standing across the list:
 - F6's is asymmetric: adequate to support failure when adverse, weak when
   favourable.
 
-So grounds come in at least five qualities, of which four are testimonial, and the
-engine records them identically. A1 should put different things to a person across
-the four testimonial ones — F3 is not among them, being nobody's answer, and R1a is
-not either — and A6 should be able to show which kind of grounds a result rests
-on.
+So grounds come in at least five qualities, of which four are testimonial.
+
+**The engine does not record them identically, but it records only the coarse
+split.** `finding.v2`'s `basis` separates `documentary` from `attested` from
+`elective`, which cleanly divides R1a from the person's answers. What it does not do
+is separate the four testimonial qualities from each other: F4's unattributed
+universal, F5's statutory-test conclusion, F6's asymmetry and F7/F8's ordinary
+self-knowledge all land in `attested` together. That is the actual gap, and it is
+narrower and more specific than "records them identically".
+
+A1 should put different things to a person across the four testimonial ones — F3 is
+not among them, being nobody's answer, and R1a is not either — and A6 should be able
+to show which kind of grounds a result rests on, which means resolution inside
+`attested` rather than a new axis.

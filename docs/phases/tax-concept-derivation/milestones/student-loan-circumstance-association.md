@@ -360,7 +360,8 @@ about what is true, what we put to a person, when an answer can be relied on, an
 what happens when there is no route, to choose how any of it is represented.
 *Requires:* A0, A1, A2 and A3 done, and A4's bounds known. *Evidence:* A0's fact
 list with routes, behind-relations and support-versus-proof; A1's posed question
-and its resting points; A2's change table; A3's account. *Blocks:* A5. *Fails
+and its resting points; A2's change table; A3's account; **and A4's classification
+and its two lists**, which are the bounds this gate names. *Blocks:* A5. *Fails
 if:* a fact on A0's list has no stated route, or A1 poses something A0 never
 placed.
 
@@ -931,22 +932,55 @@ forbids chartering implementation on `read`-level mechanism claims.
 
 **What A4 must answer.**
 
-1. For each demand A0, A1 and A3 place on the engine, is it established by
-   execution, by reading, or not at all? The demands include: that a per-item
-   dispatch can follow a recorded connection and refuse by name when its target is
-   gone (`run`); that the prior calculation cannot be lifted into that scope
-   (`run`); that an unassociated subject produces no row at all (`run`); that a
-   universal-over-members operator cannot attribute an answer to a particular
-   statement (`read`); that an absent member of the worksheet's conditional set
-   blocks and is named (`read`); that nothing records which *kind* of grounds a
-   result rests on (`read`, and only partially searched).
-2. Which demands are new since the two checks ran, and therefore untested by
-   anything? At least these, all arising from A0 and A3: whether the engine can
-   publish a telling without changing an amount — A3 needs it if a response is owed
-   where no figure changes; whether it can distinguish a target that was *corrected*
-   from one that was *lost*, which A2's middle leg requires; and whether a result
-   can carry what quality of grounds it rests on, which A0's fifth and sixth
-   findings both want.
+1. For each demand **A0, A1, A2 and A3** place on the engine, is it established by
+   execution, by reading, or not at all? A2 is included deliberately: it leaves
+   "whether the existing engine can carry it" to A4, so omitting it would produce
+   bounds G1 cannot use for half of when an answer can be relied on.
+
+   Three demands are already `run`, from the two checks recorded in
+   [readiness-gate-results.md](student-loan-circumstance-association-evidence/readiness-gate-results.md):
+   a per-item dispatch follows a recorded connection and refuses by name when its
+   target is gone; the prior calculation cannot be lifted into that scope; an
+   unassociated subject produces no row at all. A fourth is `run` from elsewhere —
+   an absent member of the worksheet's conditional set blocks and is named
+   (`tests/test_sli_worksheet_line21_track3.py`, which drops one member from the
+   production rule and asserts the code and the name). Its ceiling: that is the
+   production SLI worksheet's own set, not a conditional set containing a schooling
+   fact.
+
+   **Every other demand below is unclassified — classifying it is the work.** Do not
+   carry a level into the table from this list.
+
+   From A0: whether a universal-over-members operator can attribute an answer to a
+   particular statement; whether a result can carry the qualities of grounds A0's
+   finding 6 distinguishes, given that `finding.v2` already carries a coarse
+   `basis` of `documentary` / `attested` / `elective`.
+
+   From A2: whether the engine can tell "still resolvable" from "still supported" —
+   A2's middle leg, and the one most likely to be mistaken for something else;
+   whether a target that was *corrected* can be distinguished from one that was
+   *lost*, which is A2's first leg succeeding versus failing rather than its middle
+   leg; whether the unresolved interval can be held as a state; whether a standing
+   unfavourable answer stays distinguishable from an absent one.
+
+   From A3: whether a behind-fact can be modelled *without* being required, since
+   the engine's convention is to require what it models and A3 names departing from
+   that as a live option; whether A3's eight states can be held as distinct; whether
+   a telling can be published without changing an amount; whether the second adverse
+   reading — stop treating a statement's box 1 as adequate grounds until enumeration
+   — is expressible at all, the third having already been executed by the previous
+   milestone; and whether one statement's adverse answer can be kept from leaking
+   onto another, which check 2 did **not** establish because it observed an
+   unassociated statement rather than an isolated one.
+
+   From A1: no additional mechanism demand of its own yet. Until A1 produces words,
+   its carry-demands are the states A3 already lists — the resting point and "I
+   cannot say".
+2. Which of those demands is new since the two checks ran, and therefore untested
+   by anything at all? The list in question 1 is the working set and is not to be
+   treated as complete — this project's recorded failure is taking a worked list for
+   the set — but it must be worked through rather than sampled, because G1's bounds
+   are built from it.
 3. Which of those can be executed cheaply on disposable artifacts, and which could
    only be tested by changing production — the latter being a finding about cost,
    not a licence to change production here.
@@ -966,8 +1000,9 @@ approximate it with a fixture that would pass for the wrong reason.
 
 **What done looks like.** Four things:
 
-1. A table of every demand from A0, A1 and A3, each marked `run`, `read`, or
-   untested, and for the `run` ones what established it.
+1. A table of every demand from A0, A1, A2 and A3, each marked `run`, `read`, or
+   untested, and for the `run` ones what established it — naming the test, not the
+   reasoning.
 2. The ceilings of the two checks already executed, restated as bounds on what
    later actions may claim.
 3. The list of demands that can only be tested by changing production, with what
@@ -977,9 +1012,11 @@ approximate it with a fixture that would pass for the wrong reason.
 
 **How it is reviewed.** One independent reviewer, a criterion per `done` field:
 
-1. **The demand table** — whether every demand A0, A1 and A3 actually place appears,
-   whether any is marked `run` on evidence that is really reading, and whether a
-   reviewer reading the same source independently has been mistaken for execution.
+1. **The demand table** — whether every demand A0, A1, A2 and A3 actually place
+   appears; whether any is marked `run` on evidence that is really reading, including
+   a reviewer reading the same source independently; **and whether any is marked
+   `read` or untested on evidence that is really execution**, which is the direction
+   that has already gone wrong once here.
 2. **The ceilings** — whether each is stated as a bound on later claims rather than
    as a caveat, and whether the rebuilt-environment and empty-parameter limits are
    both carried.
