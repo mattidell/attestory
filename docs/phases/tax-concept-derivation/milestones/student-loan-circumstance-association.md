@@ -1137,6 +1137,8 @@ A1–A3 are the work it skipped.
 | --- | --- | --- | --- |
 | What we ask a person, in words | Team, with owner sign-off on the wording | Before A5 | A1, in progress |
 | What counts as an established contradiction, and what the system does with one | Team, from the facts — not an owner preference | A3 | Reframed. Not a choice between isolating and blocking: the person supplies facts and the product must know what to do. Where more facts would let the return proceed with adjustments, it proceeds; where a contradiction is established, it does not |
+| How eligible-student status participates | **Decided** by the owner, 2026-09-20 | — | Always present, never gating, disqualifier only. See below for the phrasing consequence |
+| Whether to pose a requirement we cannot help a person resolve favourably | Owner | A1 | Open. Constituents 4 and 3 are the instances |
 | How the answer is stored and how many records it becomes | Team, recorded with reasons | A5 | Open; explicitly not settled by A1 |
 | Whether refusal is an adequate answer for the two multi-borrowing cases | Owner | A5 | Open |
 | Whether a separately identified borrowing is needed now | Team, constrained by the case list | A5 | Open |
@@ -1144,6 +1146,48 @@ A1–A3 are the work it skipped.
 Reliance under a standing authorization is owner context, not an adopted rule.
 It is brought back only if a concrete case would change what the producer
 asserts without a person's confirmation.
+
+### Decided — eligible-student status is always present and never gating
+
+The owner's decision, 2026-09-20. Constituent 4 of the qualified-education-loan
+test — eligible-student status — **acts only as a disqualifier**. It is required in
+the sense that it is **always present**, and it must **not gate the computation or
+the derivation**.
+
+Two things follow, and the second is the trap.
+
+**The mechanism is adopted.** A fact type may declare an `optional_default`, and a
+binding may use `mode: "optional_default"`, which resolves an unasserted fact to a
+parameter-supplied value and pins the parameter. Five bindings in the production
+package already work this way. So "always present" needs no new capability: the
+consumer reads the fact unconditionally and never sees it absent, and absence
+therefore cannot block.
+
+**The default cannot be the favourable value.** A two-valued `{yes, no}` fact
+defaulted to `yes` would affirm eligible-student status on the person's behalf,
+which is precisely the affirmation
+[A1 stage 1](student-loan-circumstance-association-evidence/a1-stage1-requirement-or-conclusion.md)
+established the product must never manufacture. Defaulted to `no` it would
+disqualify everyone who said nothing, which is gating. Neither is available.
+
+What falls out is a **phrasing consequence**: the fact must state the *adverse*
+proposition — that the student was not enrolled in a programme leading to a
+credential — and default to false. Then false means "nothing has been said", the
+computation proceeds, and nothing has been affirmed; true disqualifies. Every
+existing `optional_default` in the package defaults to `default-false` or
+`default-zero`, so this is the established direction.
+
+Note that this **inverts the convention of the five existing witnesses**, which
+state a requirement's satisfaction (`no-related-person-interest`) and require the
+person to affirm it. That convention works where a person can affirm. Constituent 4
+is one they cannot, so it is phrased adversely instead. A5 should expect the same
+inversion for any constituent whose favourable side has no producer, and should not
+read the five witnesses as the pattern to copy here.
+
+Still open, and the owner's: whether to **pose** a requirement we cannot help a
+person resolve favourably. Constituent 4 is one instance and constituent 3, the
+reasonable-period standard, is the other. The decision above settles what the
+product does with an answer, not whether the question is put.
 
 
 ## Exit and stop conditions
