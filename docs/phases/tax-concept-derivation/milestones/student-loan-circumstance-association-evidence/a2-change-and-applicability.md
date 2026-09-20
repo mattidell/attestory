@@ -36,7 +36,7 @@ response.
 | --- | --- | --- | --- | --- |
 | **The circumstance is corrected at its own identity** — "actually I was in a degree programme" | Yes; the current finding is the correction | The association survives — it names an identity that still exists. The adverse *consequence* does not | No; the person has just spoken | Nothing unresolved; the correction applies at once |
 | **The association is corrected to name a different circumstance** | Yes, the new target | Survives as a new finding at the same association identity; the previous is displaced. Whether a consequence follows depends on the new target | No | Nothing unresolved |
-| **The named target is retracted, nothing replaces it** | **No** — leg 1 fails | Cannot survive; there is nothing left to support it. The reference still resolving is not support | Yes — the person withdrew what the claim rested on | The figure is not defended from that association. Per A3, an adverse basis withdrawn returns the statement to evaluable |
+| **The named target is retracted, nothing replaces it** | **No** — leg 1 fails | Cannot survive; there is nothing left to support it. The reference still resolving is not support | Yes — the person withdrew what the claim rested on. **This ask does not hold the figure** | The figure is not defended from that association, and per A3 an adverse basis withdrawn returns the statement to evaluable. So the interval here *is* the settled outcome — unlike the blocked intervals below, where the ask does hold |
 | **The adverse answer is reasserted after withdrawal** | Yes | New finding, new current support. Earlier findings stay stored and non-current | No | Nothing unresolved. The earlier retraction does not mean the person recanted |
 | **The reported amount is corrected** | Yes | **Depends on which kind of amount the person's claim was.** An independently sourced per-loan figure stands; the remainder changes around it. An *allocation* of the reported figure does not — it was a share of a total that has changed | Only for an allocation or a completeness claim: the total it was about is different | Blocked for the allocation case; nothing unresolved for the independently sourced case |
 | **The report's composition changes** — a corrected form covering different loans | Yes; everything named still exists | **No**, for any scope or completeness claim. Nothing is missing and nothing is corrected; the claim is simply about a different set now | Yes. This is where continuity most plainly fails to settle applicability | Blocked. A scope claim over a changed population supports nothing |
@@ -73,16 +73,33 @@ under.** An assertion does not name a horizon. So a scope claim survives a horiz
 succession without any recorded reason to doubt it — resolvable, and silently about
 the earlier population.
 
-That reframes the last two rows. Their "claim survives: no" is still a statement about
-what ought to follow rather than observed behaviour, but the thing needed to make it
-observable is **keying a scope claim to the horizon it was made under**, which is how
-closure claims already work one level up. A5 has a precedent to weigh rather than a
-capability to invent.
+**But horizon identity-keying is not the thing these rows need**, and an earlier
+version of this section proposed it as though it were. Three distinctions A5 must
+weigh rather than inherit:
 
-Two cautions stay. The kernel explicitly *cannot* detect a membership change smuggled
-through an ordinary assertion — routing membership changes through transition acts is
-the contract of the layers above, so a design that lets a person's ordinary statement
-change a population silently gets no protection from the kernel. And A4 still records
-telling "still resolvable" from "still supported" as untested; these two rows are the
-concrete case that would test it, and they are the ones most likely to pass by
-construction if A6's fixture is built carelessly.
+- **Horizons record source-family membership** — which statements are in `f1098e.1` —
+  **not loans inside a statement.** So they fire for the last row, where a further
+  statement arrives, and not for the row above it: a corrected form covering different
+  loans is a same-member value correction, which takes the ordinary assertion path and
+  does not advance the horizon (ADR-0017 decision 4). Those two rows do **not** share
+  one missing link, and treating them as though they did was the error.
+- **Closure-style identity-keying displaces a claim rather than leaving it
+  unsupported.** The runner admits a closure finding only when it is keyed on the
+  chain's current horizon, so a finding on a superseded horizon is *indistinguishable
+  from an absent one* on the dispatch path. That is leg 1 — findability. These rows are
+  leg 2: findable, not supported, blocked meanwhile.
+- **So copying it would collapse the distinction A3 exists to protect.** A horizon
+  succession would displace a horizon-keyed adverse scope claim; A3's consumer treats
+  absence of enrolment information as evaluable and publishes a figure. A stale adverse
+  claim would become indistinguishable from never having been said. Whatever A5
+  selects must stay distinguishable from absence.
+
+Three cautions stay. The kernel explicitly *cannot* detect a membership change
+smuggled through an ordinary assertion — routing those through transition acts is the
+contract of the layers above — so a design letting a person's ordinary statement change
+a population silently gets no protection from below. A4 records telling "still
+resolvable" from "still supported" (D9) as untested, and these rows are the case that
+would test it — but only if what is built is leg 2; individuation would prove something
+else. And every "Blocked" cell in the table above also depends on **D10**, holding the
+unresolved interval as its own state, which A4 also records as untested: A2 may specify
+that state, and A5 may not assume it is already holdable.
