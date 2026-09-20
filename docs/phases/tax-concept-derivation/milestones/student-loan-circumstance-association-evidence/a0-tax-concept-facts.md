@@ -44,21 +44,31 @@ received from this person. *Does not establish:* which loans it was on, whether
 each is a qualified education loan, which institution or academic period any of
 it financed, or whether the whole amount is even interest of the deductible kind.
 *Rests on:* a payer's information return, admitted as evidence.
-*Support the product accepts:* the admitted statement itself, plus five separate
-per-statement statements from the person (see F4). Nothing about the loans is
-proven.
+*Grounds the product accepts:* the admitted statement itself. *Standing of the
+result:* a supported figure, not a proven one — what stays unproven is that the
+amount is interest of the deductible kind, since the five composition statements
+in F4 are the person's own answers and the statement itself distinguishes
+nothing.
 
 *R1b — an enumeration of loans.* The person's qualified education loans and the
 interest paid on each. *Establishes:* per-loan amounts and what each loan was
 for. *Does not establish:* that the person's account of each loan is correct, or
 that the enumeration is complete. *Rests on:* the person's own records.
-*Support the product accepts:* not yet decided — there is no such route in the
+*Grounds the product accepts:* not yet decided — there is no such route in the
 engine. The owner names a "fill out student loan data into this spreadsheet"
-action as where it would live.
+action as where it would live. *Standing of the result:* whatever is decided, it
+would rest entirely on the person's own account, so it could not be stronger than
+supported.
 
 **Neither is a lesser version of the other.** R1a is complete as to amounts and
 silent as to composition. R1b is the reverse: it can be wrong or partial about
 amounts while saying exactly what each loan was for.
+
+**Both at once is a real case.** A person can hold statements *and* enumerate,
+and the two need not agree. Nothing in this model says which governs when they
+disagree, and nothing should: that is a product decision for a later action, and
+it is the strongest argument against treating either route as the canonical
+one.
 
 **Sits behind it:** F4 (what the reported amount consists of).
 **Engine represents it today:** yes, via R1a only — `f1098e.box1-student-loan-interest`
@@ -74,9 +84,12 @@ keyed on lender + statement + tax-year, summed into
 and the phase-out. *Establishes:* the deduction as the worksheet computes it.
 *Does not establish:* any of the facts behind it — it consumes their answers.
 *Rests on:* the arithmetic plus every behind-fact having been answered.
-*Support the product accepts:* a computed result whose provenance names the
+*Grounds the product accepts:* a computed result whose provenance names the
 statement findings, the scope findings, the parameters, the rule and its
-authority.
+authority. *Standing of the result:* a supported determination, never a proven
+one — every fact behind it is accepted on the person's own categorical answer, so
+the deduction inherits their standing. This is the same distinction the
+nominee-interest milestone drew about its own reduction.
 
 **On the path to it:** F1, F3 (modified AGI), and the parameters.
 **Sits behind it:** F4, F5, F6, F7, F8.
@@ -88,7 +101,10 @@ authority.
 arithmetic.
 
 **Route.** From total income and the filing-status-keyed threshold and phase
-range. *Rests on:* `income.total-income` and two parameters.
+range. *Rests on:* `income.total-income` and two parameters. *Grounds:* the
+computation itself. *Standing:* as good as total income is — this is the one fact
+here whose standing is arithmetic rather than testimonial, which is why it is on
+the path and not behind.
 **Engine represents it today:** yes.
 
 ### F4 — What the reported amount consists of
@@ -107,11 +123,14 @@ from the person, per statement. That is this milestone's pattern already
 implemented: a route reaching a fact, and the facts behind it gathered on their
 own.
 
-*Support the product accepts:* the person's own answer, as a categorical
-yes/no per statement. Read with `collect_categorical_all_equal`, which asks
-whether **every** member answers the same way — a universal negative, not a
-per-statement lookup. A single "no" blocks with
-`SLI_UNIVERSAL_COMPONENT_VIOLATION`; it never silently zeroes.
+*Grounds the product accepts:* the person's own answer, as a categorical yes/no
+per statement. Read with `collect_categorical_all_equal`, which asks whether
+**every** member answers the same way — a universal negative, not a per-statement
+lookup. A single "no" blocks with `SLI_UNIVERSAL_COMPONENT_VIOLATION`; it never
+silently zeroes. *Standing of the result:* supported only. What stays unproven is
+twofold — that the composition is as the person says, and, because the operator
+is a universal over members, *which* statement any particular answer was about.
+A "yes" from every member is not five attributed facts.
 **Engine represents them today:** yes, five `f1098e.no-*` fact types.
 
 ### F5 — Every loan the interest was paid on is a qualified education loan
@@ -128,10 +147,14 @@ not the evidence for it.
 "all of your student loans must be eligible", per the owner's item 7. *R5b:*
 derived from an enumeration plus facts about the institution and the borrowing.
 
-*Support the product accepts:* today, partially and obliquely — the
+*Grounds the product accepts:* today, partially and obliquely — the
 `no-non-qualified-loan-component` witness in F4 is a per-statement negative that
 covers part of this ground. There is **no** fact type for qualified-education-loan
-status as such. *Does not establish:* the constituents below.
+status as such. *Standing of the result:* supported at best, and weakest of any
+fact here — the person is being asked, in effect, for the conclusion of a
+statutory test, which is exactly what the milestone's boundaries forbid asking
+for directly. That tension is real and belongs to A1. *Does not establish:* the
+constituents below.
 **Engine represents it today:** no, not as a fact. Only the negative witness.
 
 ### F6 — The student was an eligible student for the academic period the loan financed
@@ -146,17 +169,23 @@ period — which the previous milestone showed works in the adverse direction an
 not the favourable one. *R6b:* institutional and public-authority
 determinations, for which no producer exists.
 
-*Support the product accepts:* undecided. The previous milestone established, at
+*Grounds the product accepts:* undecided. The previous milestone established, at
 `run`, that an adverse ordinary answer defeats the test on its own, while a
 favourable answer needs credential recognition, institution eligibility and a
-half-time threshold, none of which has a producer.
+half-time threshold, none of which has a producer. *Standing of the result:*
+asymmetric, and this is the milestone's central fact. An adverse answer is
+strong — one required conjunct fails and the test fails with it, on the person's
+ordinary knowledge alone. A favourable answer is weak, and could not rise above
+supported without producers that do not exist.
 **Engine represents it today:** no. Nothing.
 
 ### F7 — The person is legally obligated to pay the interest
 
 **Stage:** behind F2. **Engine represents it today:** yes,
-`sli-scope.legally-obligated-for-interest`, a filer-level statement by the
-person. *Support:* their own answer.
+`sli-scope.legally-obligated-for-interest`, a filer-level statement by the person.
+*Grounds:* their own answer. *Standing:* supported only; whether a legal
+obligation exists is a question about the loan documents, which nothing here
+reads.
 
 ### F8 — The person is not claimed as a dependent, and other filer-level exclusions
 
@@ -164,6 +193,9 @@ person. *Support:* their own answer.
 `no-form-4563`, `no-puerto-rico-or-samoa-income`, and — outside the conditional
 set, because its domain is five statuses rather than yes/no — filing status,
 where married-filing-separately blocks with `SLI_MFS_INELIGIBLE`.
+*Grounds:* the person's answers, and for filing status the return's own.
+*Standing:* supported, and least troubling of the set — these are facts a person
+ordinarily knows about themselves.
 **Engine represents them today:** yes, all of them.
 
 ## What has no representation
@@ -216,3 +248,14 @@ behind-fact is accepted on the person's own categorical answer, with no record
 distinguishing "the person said so" from "this is established". A6 will need that
 distinction to be visible, because F5 and F6 are where a person's answer is least
 like proof.
+
+**6. Standing is not uniform, and it varies in a way that matters.** Reading the
+per-route standing across the list: F3's is arithmetic; F7 and F8 rest on things a
+person ordinarily knows about themselves; F4's rests on the person's answer and,
+because its operator is a universal over members, does not even attribute an
+answer to a statement; F5 asks the person for what is effectively the conclusion
+of a statutory test; F6's is asymmetric, strong adverse and weak favourable. So
+"the person told us" covers at least four different qualities of grounds, and the
+engine records them identically. A1 should ask different things of a person in
+each case, and A6 should be able to show which kind of grounds a result rests
+on.
