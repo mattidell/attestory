@@ -453,7 +453,7 @@ whole plan.
 | Action | State | Notes |
 | --- | --- | --- |
 | A0 | done | Model in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md), independently reviewed and judged sound enough to depend on |
-| A1 | specified | Rewritten after A0; reviewed at `5ae15c13` and `c40c6169`, repaired, confirmed. The `7083ae5d` version presumed a prerequisite and is withdrawn |
+| A1 | specified; stage 1 answered | Stage 1 — [posing a requirement versus asking for a conclusion](student-loan-circumstance-association-evidence/a1-stage1-requirement-or-conclusion.md), on the qualified-loan fact. Five facts and the wording still owed |
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
 | A3 | specified | One-liner and refinement rewritten after A0; reviewed and repaired, confirmed. The `5ae15c13` version described a deficiency that does not arise |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
