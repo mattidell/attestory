@@ -55,17 +55,34 @@ the same. What separates them is what the person can do next. The consumer must 
 able to reach these two states by different routes and must never present them
 identically, however it words either.
 
-## What cannot be detected today
+## What the population-change rows depend on — traced, not assumed
 
-Two rows above depend on noticing that a claim's population has changed, and **nothing
-records the population as of the assertion.** A scope claim names what it covers at
-the time it is made; a later change to the underlying set leaves the claim resolvable
-and silently no longer about the right thing.
+An earlier version of this section said nothing records the population as of an
+assertion. That is wrong, and the correction is a design lead rather than a gap.
 
-So the last two rows are the honest weak point of this account. Their "claim survives:
-no" is a statement about what *ought* to follow, not about behaviour anything
-currently exhibits. A4 records the neighbouring capability — telling "still
-resolvable" from "still supported" — as untested, and this is the concrete case that
-would test it. A5 should not assume detection comes free, and A6 should treat these
-two rows as the ones most likely to pass by construction if the fixture is built
-carelessly.
+**Something does record a population with succession.** `packages/kernel/horizons.py`
+owns *family membership horizons*: per family and scope, a recorded citizen with
+explicit succession — one genesis, successors only from the current predecessor, ids
+never reused, and a superseded horizon never returning. Closure fact types key on
+horizons as ordinary entity keys, and the Form 1098-E closure mapping does exactly
+that (`closure_horizon_key: "family-horizon"`). So "what the set was as of a point" is
+already a recorded, successive thing.
+
+**What is missing is the link from a person's claim to the horizon it was made
+under.** An assertion does not name a horizon. So a scope claim survives a horizon
+succession without any recorded reason to doubt it — resolvable, and silently about
+the earlier population.
+
+That reframes the last two rows. Their "claim survives: no" is still a statement about
+what ought to follow rather than observed behaviour, but the thing needed to make it
+observable is **keying a scope claim to the horizon it was made under**, which is how
+closure claims already work one level up. A5 has a precedent to weigh rather than a
+capability to invent.
+
+Two cautions stay. The kernel explicitly *cannot* detect a membership change smuggled
+through an ordinary assertion — routing membership changes through transition acts is
+the contract of the layers above, so a design that lets a person's ordinary statement
+change a population silently gets no protection from the kernel. And A4 still records
+telling "still resolvable" from "still supported" as untested; these two rows are the
+concrete case that would test it, and they are the ones most likely to pass by
+construction if A6's fixture is built carelessly.
