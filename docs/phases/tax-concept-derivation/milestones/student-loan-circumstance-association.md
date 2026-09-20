@@ -19,6 +19,7 @@
   "deep_reads": {
     "planning": [
       "docs/process/planning-and-development.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/owner-stated-facts.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -401,8 +402,11 @@ that does not exist.
    have no representation at all? Established against committed content, not
    assumed.
 
-**How we will answer it.** Work from what the engine already computes for this
-vertical and from what the statute requires. For each item, first ask whether it
+**How we will answer it.** Start from the
+[owner-stated facts](student-loan-circumstance-association-evidence/owner-stated-facts.md),
+which must be consulted during execution and which contain one worked example of
+an entry. Then work from what the engine already computes for this vertical and
+from what the statute requires. For each item, first ask whether it
 is a fact of the matter at some stage or merely a step in reaching one — that is
 the quality bar for getting onto the list at all, not the substance of the
 action.
