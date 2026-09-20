@@ -325,8 +325,10 @@ the application ought to be able to notice.
 
 *This one-liner changed after A0.* It previously read "when it cannot establish
 the connection", which described a deficiency A0 showed does not arise: nothing on
-any path to the deduction is missing, and an unanswered behind-fact is the normal
-state of every return today rather than a failure.
+any path to the deduction is missing, and what is absent is behind-facts that are
+**not modelled at all**. That is not the same as an unanswered modelled behind-fact
+being tolerated — A0 established that those are required and block. The deficiency
+was invented; the requirement is real.
 
 **A4 — Find out what the software can hold, follow, and refuse.** Establish by
 execution, not by reading, which of A1–A3's answers the existing engine can
@@ -385,7 +387,7 @@ something left unsettled is left implicit rather than named.
 
 | Gate | State | Waiting on |
 | --- | --- | --- |
-| G1 | not reached | A0's model reviewed, A1, A3; A4's bounds known (A2 done) |
+| G1 | not reached | A4's bounds stated (A0 done, A1, A2, A3 specified) |
 | G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
@@ -430,13 +432,13 @@ whole plan.
 
 | Action | State | Notes |
 | --- | --- | --- |
-| A0 | done, pending review of the model | Refinement drafted below; the model itself is in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md). Blocks A1, A3 and A5 |
-| A1 | outlined | Refinement rewritten after A0 and drafted below; review pending. The `7083ae5d` version presumed a prerequisite the person must supply and is withdrawn |
+| A0 | done | Model in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md), independently reviewed and judged sound enough to depend on |
+| A1 | specified | Rewritten after A0; reviewed at `5ae15c13` and `c40c6169`, repaired, confirmed. The `7083ae5d` version presumed a prerequisite and is withdrawn |
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
-| A3 | outlined | One-liner and refinement rewritten after A0 and drafted below; review pending. The `5ae15c13` version described a deficiency that does not arise |
+| A3 | specified | One-liner and refinement rewritten after A0; reviewed and repaired, confirmed. The `5ae15c13` version described a deficiency that does not arise |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
 | A5 | outlined | Blocked by G1, so: A0, A1, A2 and A3 done, and A4's bounds known |
-| A6 | outlined | Blocked on A5 |
+| A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
 No action is specified by asserting it; it is specified by refining it one step
@@ -592,8 +594,8 @@ to the deduction is missing, so there is no prerequisite to extract.
 their grounds — and A0's sixth finding is that those grounds are not all of one
 kind. Some are things a person ordinarily knows about themselves. Some are about
 what a lender's statement consists of. One is effectively the conclusion of a
-statutory test. One is asymmetric: strong when the answer is adverse, weak when it
-is favourable. A1 cannot put one kind of question to a person across all of them.
+statutory test. One is asymmetric: adequate to support failure when the answer is
+adverse, weak when it is favourable. A1 cannot put one kind of question to a person across all of them.
 
 **What A1 must answer.**
 
@@ -635,11 +637,15 @@ noticing, or could not answer at all.
 
 **What done looks like.** Six things:
 
-1. For each of A0's answerable facts, what is posed in ordinary words, and one line
-   on why a person can be expected to answer it.
+1. For each of A0's answerable facts, what is posed in ordinary words, grouped by
+   A0's qualities of grounds, and one line on why a person can be expected to
+   answer it.
 2. What occasions each — what opens the thread.
-3. The legitimate resting points, and what each leaves known **and** unknown.
-4. How "I cannot say" is expressed.
+3. The legitimate resting points, and what each leaves known **and** unknown,
+   stated without implied fault and without asserting any consequence for the
+   return.
+4. How "I cannot say" is expressed, for each situation A0 names, and without
+   implied fault.
 5. What is never asked.
 6. A settled account of whether posing a requirement differs from asking for a
    conclusion, with the consequence for qualified-education-loan status followed
@@ -863,12 +869,16 @@ consequences and put it to the owner. Check each row against the plan's
 1. The states, each marked as owed a response or not — whichever way that comes
    out.
 2. For each state: what happens to the amount, what the person is told, and the
-   effect on other statements.
+   effect on other statements — no row reducing the deduction silently, none
+   presenting an adverse answer as the person's mistake, a standing adverse answer
+   distinguishable from an absent one, and no resting point turned into a blocking
+   demand.
 3. The one-versus-all question in ordinary language with both consequences, put to
    the owner.
 4. The list of wrong-or-stale conditions A6 must be able to reveal.
 5. Which milestone bears any change in outcome, with today's treatment described as
-   permissive about schooling specifically rather than as neutral.
+   permissive about schooling specifically rather than as neutral or as general
+   permissiveness.
 
 **How it is reviewed.** One independent reviewer, a criterion per `done` field:
 

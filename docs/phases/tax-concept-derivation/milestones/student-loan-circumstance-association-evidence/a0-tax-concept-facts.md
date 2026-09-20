@@ -227,8 +227,24 @@ separately answerable and separately behind F2, grouped here only because their
 grounds are alike. **On no path:** none appears in the arithmetic.
 *Grounds:* the person's answers, and for filing status the return's own.
 *Standing:* supported, and least troubling of the set — these are facts a person
-ordinarily knows about themselves.
+ordinarily knows about themselves. What stays unproven is what another return or
+the underlying documents would say, not the person's knowledge of their own
+status.
 **Engine represents them today:** yes, all of them.
+
+## What has no representation, and how that was checked
+
+**The search.** Every `fact_types` entry in every JSON file under
+`packages/content/` was enumerated and filtered for `loan`, `eligible` or
+`student` in its **id**. The complete result is two ids:
+`tax.us.2025.f1098e.box1-student-loan-interest` and
+`tax.us.2025.f1098e.no-non-qualified-loan-component`. Nothing matching
+`qualified-education-loan` or `eligible-student` exists anywhere in committed
+content. The absences below are therefore `read` findings from that search, not
+inferences from the worksheet failing to read something. (Filtering the whole
+fact-type body rather than the id matches more entries, mostly "student loan" in
+SLI titles; the id filter is the right search for "is there a fact type for
+this".)
 
 ## What has no representation
 
@@ -252,10 +268,12 @@ as modelled, not an omission in our content.
 
 ## Findings that bear on later actions
 
-**1. The pattern this milestone needs is already implemented once.** F4 is a set
-of behind-facts collected from the person, per statement, precisely because the
-box-1 route cannot say what the amount consists of. A5 does not need to invent the
-shape of a behind-fact; one exists, with a producer and a consumer.
+**1. The abstract pattern exists already; whether its shape transfers is a separate
+question.** F4 is a set of behind-facts collected from the person, per statement,
+precisely because the box-1 route cannot say what the amount consists of. So the
+*idea* of a route reaching a fact while the facts behind it are gathered on their
+own is implemented, with a producer and a consumer. Whether its concrete shape can
+carry what this milestone needs is finding 2, and the answer there is no.
 
 **2. But the existing shape is a universal negative, and the new fact may not be
 one.** `collect_categorical_all_equal` asks whether every member answers the same
@@ -300,19 +318,29 @@ milestone models a schooling fact, the existing convention would require it.
 Whether to follow that convention is a real choice with a real consequence, and it
 is not settled here.
 
-**5. The engine never separates support from proof in one place.** Every
-behind-fact is accepted on the person's own categorical answer, with no record
-distinguishing "the person said so" from "this is established". A6 will need that
-distinction to be visible, because F5 and F6 are where a person's answer is least
-like proof.
+**5. A6 will need the difference between "the person said so" and "this is
+established" to be visible.** Stated as a need, not as a survey: every behind-fact
+in this model is accepted on the person's own categorical answer, and nothing in the
+entries above records that standing alongside the result. Whether some other part of
+the engine draws that distinction was not searched, so this is not a claim that it
+is absent everywhere. F5 and F6 are where a person's answer is least like proof,
+which is where the need bites.
 
 **6. Standing is not uniform, and it varies in a way that matters.** Reading the
-per-route standing across the list: F3's is arithmetic; F7 and F8 rest on things a
-person ordinarily knows about themselves; F4's rests on the person's answer and,
-because its operator is a universal over members, does not even attribute an
-answer to a statement; F5 asks the person for what is effectively the conclusion
-of a statutory test; F6's is asymmetric, strong adverse and weak favourable. So
-"the person told us" covers at least four different qualities of grounds, and the
-engine records them identically. A1 should ask different things of a person in
-each case, and A6 should be able to show which kind of grounds a result rests
+per-route standing across the list:
+
+- **F1 by R1a is documentary** — a third party's information return. Neither the
+  person's word nor a computation, and not to be folded under "the person told us".
+- F3's is arithmetic.
+- F7 and F8 rest on things a person ordinarily knows about themselves.
+- F4's rests on the person's answer and, because its operator is a universal over
+  members, does not attribute an answer to a statement at all.
+- F5 asks the person for what is effectively the conclusion of a statutory test.
+- F6's is asymmetric: adequate to support failure when adverse, weak when
+  favourable.
+
+So grounds come in at least five qualities, of which four are testimonial, and the
+engine records them identically. A1 should put different things to a person across
+the four testimonial ones — F3 is not among them, being nobody's answer, and R1a is
+not either — and A6 should be able to show which kind of grounds a result rests
 on.
