@@ -446,8 +446,9 @@ in what the application should *do* about a fact, which is not A0's business.
 which changes remove support (A2); what happens when a fact cannot be
 established (A3); whether the engine can hold, follow and refuse a *recorded
 connection* (A4 — which is not the same as question 5's inventory of what
-representation these facts have today); how any of it is stored (A5). It also does not settle the translation layer between ordinary
-circumstances and form data — it is what that layer will translate *into*.
+representation these facts have today); how any of it is stored (A5). It also
+does not settle the translation layer between ordinary circumstances and form
+data — it is what that layer will translate *into*.
 
 ## A1 in detail — the question we ask a person
 
