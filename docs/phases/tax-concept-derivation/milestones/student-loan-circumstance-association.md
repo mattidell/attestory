@@ -20,6 +20,7 @@
     "planning": [
       "docs/process/planning-and-development.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/owner-stated-facts.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a0-tax-concept-facts.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -413,7 +414,7 @@ whole plan.
 
 | Action | State | Notes |
 | --- | --- | --- |
-| A0 | outlined | Refinement drafted below; review pending, so it stays outlined. Blocks A1, A3 and A5 |
+| A0 | done, pending review of the model | Refinement drafted below; the model itself is in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md). Blocks A1, A3 and A5 |
 | A1 | outlined | Was specified at `7083ae5d`; returned to outlined — its refinement presumed the connection was a prerequisite the person must supply |
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
 | A3 | outlined | Was specified at `5ae15c13`; returned to outlined — "unresolved statement" described a deficiency that does not exist when box 1 is itself a route |
