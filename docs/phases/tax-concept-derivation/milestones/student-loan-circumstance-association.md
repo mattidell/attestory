@@ -436,7 +436,7 @@ whole plan.
 | A1 | specified | Rewritten after A0; reviewed at `5ae15c13` and `c40c6169`, repaired, confirmed. The `7083ae5d` version presumed a prerequisite and is withdrawn |
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
 | A3 | specified | One-liner and refinement rewritten after A0; reviewed and repaired, confirmed. The `5ae15c13` version described a deficiency that does not arise |
-| A4 | outlined, partly done | Two checks executed; see the constraints section |
+| A4 | outlined, partly done | Two checks executed; refinement drafted below, review pending. Runs twice: bounds now for G1, execution against the chosen shape for G2 |
 | A5 | outlined | Blocked by G1, so: A0, A1, A2 and A3 done, and A4's bounds known |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
@@ -912,6 +912,92 @@ Not on mechanism, and not on whether the engine can carry any of it.
 removed in the first place (A2); whether the engine can hold, follow or refuse any
 of it (A4); how any of it is stored (A5); how small the revealing consumer can be
 (A6).
+
+## A4 in detail — what the engine can hold, follow and refuse
+
+This is A4 refined one step. A4 began before its refinement because it was cheap
+and it bounds the others; two checks have run. Its remaining job is mostly
+**subtraction** — saying what those checks did not establish, and what A0, A1 and A3
+have since demanded of the engine that nobody has executed.
+
+**What A4 is for, and what it is not.** It establishes by execution which demands
+the engine can meet. It does not choose among them; that is A5. A demand that turns
+out to be unmeetable removes a candidate shape without selecting the survivor.
+
+**The two evidence levels that matter here.** `run` means executed. `read` means
+inferred from committed source, however carefully — including by a reviewer reading
+the same code independently. A4's product is the boundary between them, because G2
+forbids chartering implementation on `read`-level mechanism claims.
+
+**What A4 must answer.**
+
+1. For each demand A0, A1 and A3 place on the engine, is it established by
+   execution, by reading, or not at all? The demands include: that a per-item
+   dispatch can follow a recorded connection and refuse by name when its target is
+   gone (`run`); that the prior calculation cannot be lifted into that scope
+   (`run`); that an unassociated subject produces no row at all (`run`); that a
+   universal-over-members operator cannot attribute an answer to a particular
+   statement (`read`); that an absent member of the worksheet's conditional set
+   blocks and is named (`read`); that nothing records which *kind* of grounds a
+   result rests on (`read`, and only partially searched).
+2. Which demands are new since the two checks ran, and therefore untested by
+   anything? At least these, all arising from A0 and A3: whether the engine can
+   publish a telling without changing an amount — A3 needs it if a response is owed
+   where no figure changes; whether it can distinguish a target that was *corrected*
+   from one that was *lost*, which A2's middle leg requires; and whether a result
+   can carry what quality of grounds it rests on, which A0's fifth and sixth
+   findings both want.
+3. Which of those can be executed cheaply on disposable artifacts, and which could
+   only be tested by changing production — the latter being a finding about cost,
+   not a licence to change production here.
+4. What are the ceilings of what has already run? Specifically: the
+   `require_closed`/`count` observation rebuilt the pairing-local environment in the
+   test module rather than exercising the production function, and passed empty
+   parameters, so nothing has executed a parameter read in pairing scope.
+5. What may A5 rely on, and what may it not rely on without new execution? Two
+   explicit lists, because that division is what G1 needs and what G2 enforces.
+
+**How we will answer it.** Take the demands one at a time and classify them
+against what has actually run. Execute the cheap ones in the style of the existing
+readiness-gate module — synthetic `demo.*` identities, disposable artifacts, no
+production change — and record each ceiling as it is found rather than afterwards.
+Where a demand cannot be tested without production change, say so and stop; do not
+approximate it with a fixture that would pass for the wrong reason.
+
+**What done looks like.** Four things:
+
+1. A table of every demand from A0, A1 and A3, each marked `run`, `read`, or
+   untested, and for the `run` ones what established it.
+2. The ceilings of the two checks already executed, restated as bounds on what
+   later actions may claim.
+3. The list of demands that can only be tested by changing production, with what
+   each would cost.
+4. Two lists: what A5 may rely on, and what it may not rely on without new
+   execution.
+
+**How it is reviewed.** One independent reviewer, a criterion per `done` field:
+
+1. **The demand table** — whether every demand A0, A1 and A3 actually place appears,
+   whether any is marked `run` on evidence that is really reading, and whether a
+   reviewer reading the same source independently has been mistaken for execution.
+2. **The ceilings** — whether each is stated as a bound on later claims rather than
+   as a caveat, and whether the rebuilt-environment and empty-parameter limits are
+   both carried.
+3. **Untestable-without-production** — whether each entry is genuinely untestable
+   here rather than merely awkward, and whether any was approximated by a fixture
+   that could pass for the wrong reason.
+4. **The two lists** — whether they partition the table with nothing falling
+   between them, and whether anything appears on the may-rely list that the table
+   marks `read` or untested.
+
+**What A4 does not settle.** Which shape A5 chooses; what is posed to a person
+(A1); what the response to any state is (A3); whether a demand *should* be met at
+all, which is a product question and not a capability one.
+
+**Its relation to the gates.** G1 needs A4's **bounds** — the classification and
+the two lists — not A4's completion. G2 needs execution against the representation
+A5 actually chooses, which cannot happen before A5 exists. So A4 is expected to run
+twice: once now, to bound A5's options, and once after A5, to discharge G2.
 
 ## What the technical investigation established, and what it constrains
 
