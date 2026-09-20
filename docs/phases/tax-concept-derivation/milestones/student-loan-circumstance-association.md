@@ -289,8 +289,9 @@ replacing it, and so a question cannot go unowned.
 **A0 — Model the tax concept facts the engine operates with.** Say which facts
 of the matter this milestone touches, at which stage of the calculation each
 sits, which routes reach each one and what each route does and does not
-establish, which facts sit behind others without being on any path to them, and
-which of them the engine represents today.
+establish, which facts sit behind others without being on any path to them,
+what the product accepts as adequate support for each route as against the fact
+being proven, and which of them the engine represents today.
 
 **A1 — Work out what the application puts to a person, and why they can answer
 it.** Settle, in
@@ -385,6 +386,29 @@ bears on the deduction total without being a step toward computing it. The plan
 previously collapsed those two relations, which is what produced a prerequisite
 that does not exist.
 
+There is a third layer, and it is the one most easily lost: **what the product
+accepts as adequate support for taking a route is not the same as the fact being
+proven.** The nominee-interest milestone states this about its own case — the
+Schedule B reduction is "a supported tax determination whose provenance
+identifies the assertion, payer report, rule, and authority", and explicitly
+"**not** an independently proven beneficial-ownership finding". A0 must keep that
+distinction visible per route, or a later action will read "this route reaches the
+fact" as "the fact is established".
+
+**Precedent to follow.** That milestone's own tax boundary — sections A1 to A4 of
+[`nominee-interest-ownership-translation.md`](nominee-interest-ownership-translation.md)
+— did this work, and its "consequences" are the same thing this plan calls facts
+of the matter. Three of its moves carry over. It organised by consequence rather
+than by form or by user statement, asking "what establishes this?" once per
+consequence, which is what revealed that two consequences did not share a
+predicate. It labelled every source by authority level — statute, regulation,
+form instruction, explanatory publication — with locators, so the account stayed
+supportable after its working review record was removed. And where sources did
+not agree, it recorded that as an unresolved relationship among
+authority-specific formulations, refusing both to call it a proven contradiction
+and to harmonise it into one convenient rule. A0 should expect to do the same
+rather than to find a single tidy account.
+
 **What A0 must answer.**
 
 1. Which facts of the matter does this milestone touch? State each as a
@@ -401,6 +425,9 @@ that does not exist.
 5. Which of these facts does the engine already hold, in what form, and which
    have no representation at all? Established against committed content, not
    assumed.
+6. For each route, what does the product accept as adequate support for taking
+   it, and how does that differ from the fact itself being proven? Say this per
+   route, not once for the fact.
 
 **How we will answer it.** Start from the
 [owner-stated facts](student-loan-circumstance-association-evidence/owner-stated-facts.md),
@@ -423,7 +450,9 @@ is an unfinished A0, not a finished one.
 its stage; its routes, written unranked and with neither presented as a lesser
 version of another; what each route establishes and does not, and what each rests
 on; which facts sit behind it and by what relation, marked as distinct from being
-on a path to it; and whether the engine represents it today.
+on a path to it; what the product accepts as adequate support for each route,
+distinguished from the fact being proven; and whether the engine represents it
+today.
 
 **How it is reviewed.** One independent reviewer. There is a criterion per field
 `done` requires, so no deliverable goes unchecked:
@@ -442,6 +471,9 @@ on a path to it; and whether the engine represents it today.
 5. **Representation** — whether the representation claims are evidenced against
    committed content, and whether anything is asserted absent without being
    checked.
+6. **Support versus proof** — whether each route states what the product accepts
+   as adequate support for it, and whether any entry lets a supported
+   determination read as a proven finding.
 
 And one boundary check, which is not a `done` field: whether any entry smuggles
 in what the application should *do* about a fact, which is not A0's business.
