@@ -34,7 +34,8 @@ Established `read` from `rule.sli-worksheet.json` and
 
 ### F1 — The amount of student loan interest this person paid in the tax year
 
-**Stage:** 1 → 2, before the worksheet's own arithmetic.
+**Stage:** 1, aggregated to the *uncapped* line 1. The cap is a limit on the
+deduction and belongs to F2's path, not to how much interest was paid.
 
 **Routes.**
 
@@ -50,9 +51,12 @@ amount is interest of the deductible kind, since the five composition statements
 in F4 are the person's own answers and the statement itself distinguishes
 nothing.
 
-*R1b — an enumeration of loans.* The person's qualified education loans and the
-interest paid on each. *Establishes:* per-loan amounts and what each loan was
-for. *Does not establish:* that the person's account of each loan is correct, or
+*R1b — an enumeration of loans.* The person's student loans and the interest paid
+on each. Not "qualified" loans — that is F5, and a route to an amount must not
+arrive pre-filtered by a fact that sits behind it. *Establishes:* the amount, via
+per-loan figures. It also *exposes* what each loan was for, which R1a cannot — but
+exposing composition is not establishing this fact, which is an amount.
+*Does not establish:* that the person's account of each loan is correct, or
 that the enumeration is complete. *Rests on:* the person's own records.
 *Grounds the product accepts:* not yet decided — there is no such route in the
 engine. The owner names a "fill out student loan data into this spreadsheet"
@@ -80,15 +84,19 @@ keyed on lender + statement + tax-year, summed into
 
 **Stage:** 5. The fact the owner named.
 
-**Routes.** One, today: through the worksheet from F1, F3 and F5, with the cap
-and the phase-out. *Establishes:* the deduction as the worksheet computes it.
-*Does not establish:* any of the facts behind it — it consumes their answers.
-*Rests on:* the arithmetic plus every behind-fact having been answered.
+**Routes.** Through the worksheet from F1 and F3, with the cap and the phase-out.
+It inherits F1's two routes to the amount rather than having a single conceptual
+path of its own. **F5 is not an input to this arithmetic** — see the behind-list
+below. *Establishes:* the deduction as the worksheet computes it. *Does not
+establish:* any of the facts behind it. *Rests on:* the arithmetic over F1, F3,
+the cap and the phase range.
 *Grounds the product accepts:* a computed result whose provenance names the
 statement findings, the scope findings, the parameters, the rule and its
 authority. *Standing of the result:* a supported determination, never a proven
-one — every fact behind it is accepted on the person's own categorical answer, so
-the deduction inherits their standing. This is the same distinction the
+one. Its standing is **mixed rather than uniformly testimonial**: F1 by R1a rests
+on a payer's information return, F3 is arithmetic, and the behind-facts rest on
+the person's own categorical answers. The deduction is no stronger than the
+weakest of those. This is the same distinction the
 nominee-interest milestone drew about its own reduction.
 
 **On the path to it:** F1, F3 (modified AGI), and the parameters.
@@ -101,21 +109,33 @@ nominee-interest milestone drew about its own reduction.
 arithmetic.
 
 **Route.** From total income and the filing-status-keyed threshold and phase
-range. *Rests on:* `income.total-income` and two parameters. *Grounds:* the
-computation itself. *Standing:* as good as total income is — this is the one fact
-here whose standing is arithmetic rather than testimonial, which is why it is on
-the path and not behind.
-**Engine represents it today:** yes.
+range. *Rests on:* `tax.us.2025.income.total-income`,
+`tax.us.2025.parameter.sli-magi-threshold` and
+`tax.us.2025.parameter.sli-magi-phase-range`. *Grounds:* the computation itself.
+*Standing:* as good as total income is; what stays unproven is whatever total
+income rests on, which is outside this model. One route only; no concurrency.
+
+**It is on the path because it appears in the arithmetic of lines 2–7**, not
+because its standing is arithmetic rather than testimonial. Path-versus-behind asks
+whether a fact is a step in the working, never how good its grounds are — F1 rests
+on a payer's return and is squarely on the path. Using standing as the test would
+mis-sort later facts.
+
+Strictly this entry holds two things: modified AGI, a fact; and where it falls in
+the phase range, which is arithmetic over it. Treat the ratio as path-arithmetic
+from MAGI rather than as a second fact.
+**Engine represents it today:** yes — the three symbols named above, consumed by
+the worksheet's lines 2–7.
 
 ### F4 — What the reported amount consists of
 
 **Stage:** behind stage 1–2. **Sits behind F1**, and through it behind F2.
 
 This is five separate facts the engine already keeps, each a statement by the
-person about one Form 1098-E: that none of the interest is related-person
-interest, none is on a qualified employer plan, none is a non-qualified loan
-component, none is employer educational assistance, and no qualified tuition
-programme earnings were used.
+person about one Form 1098-E:
+`tax.us.2025.f1098e.no-related-person-interest`,
+`no-qualified-employer-plan-interest`, `no-non-qualified-loan-component`,
+`no-employer-educational-assistance-interest`, `no-qtp-earnings-used`.
 
 **Why they exist is the point.** Route R1a reaches F1 and cannot say what the
 amount consists of, so the engine collects the composition facts *separately*,
@@ -146,6 +166,10 @@ not the evidence for it.
 **Routes.** *R5a:* the person states it, in the form the application poses —
 "all of your student loans must be eligible", per the owner's item 7. *R5b:*
 derived from an enumeration plus facts about the institution and the borrowing.
+*Concurrency:* both could hold at once and could disagree; nothing here says which
+governs.
+
+**Sits behind it:** F6.
 
 *Grounds the product accepts:* today, partially and obliquely — the
 `no-non-qualified-loan-component` witness in F4 is a per-statement negative that
@@ -167,15 +191,18 @@ This is the previous milestone's subject: `§ 221(d)(1)(C) → § 221(d)(3) →
 **Routes.** *R6a:* the person's ordinary account of their schooling for a named
 period — which the previous milestone showed works in the adverse direction and
 not the favourable one. *R6b:* institutional and public-authority
-determinations, for which no producer exists.
+determinations, for which no producer exists. *Concurrency:* not a real case
+today, since R6b has no producer.
 
 *Grounds the product accepts:* undecided. The previous milestone established, at
 `run`, that an adverse ordinary answer defeats the test on its own, while a
 favourable answer needs credential recognition, institution eligibility and a
 half-time threshold, none of which has a producer. *Standing of the result:*
 asymmetric, and this is the milestone's central fact. An adverse answer is
-strong — one required conjunct fails and the test fails with it, on the person's
-ordinary knowledge alone. A favourable answer is weak, and could not rise above
+**adequate grounds for a supported determination that the test fails** — one
+required conjunct fails and the test fails with it, on the person's ordinary
+knowledge alone. It is not proof that the person was ineligible, and a later action
+must not promote it to one. A favourable answer is weaker, and could not rise above
 supported without producers that do not exist.
 **Engine represents it today:** no. Nothing.
 
@@ -183,16 +210,21 @@ supported without producers that do not exist.
 
 **Stage:** behind F2. **Engine represents it today:** yes,
 `sli-scope.legally-obligated-for-interest`, a filer-level statement by the person.
-*Grounds:* their own answer. *Standing:* supported only; whether a legal
-obligation exists is a question about the loan documents, which nothing here
-reads.
+*Routes:* the person's answer; or the loan documents, which would be a second route
+and has no producer. *Concurrency:* not a real case today. *Grounds:* their own
+answer. *Standing:* supported only — what stays unproven is whether the obligation
+exists, a question about the documents. **On no path:** it appears nowhere in the
+worksheet arithmetic.
 
 ### F8 — The person is not claimed as a dependent, and other filer-level exclusions
 
-**Stage:** behind F2. Covers `not-claimed-as-dependent`, `no-form-2555`,
-`no-form-4563`, `no-puerto-rico-or-samoa-income`, and — outside the conditional
-set, because its domain is five statuses rather than yes/no — filing status,
-where married-filing-separately blocks with `SLI_MFS_INELIGIBLE`.
+**Stage:** behind F2. **A family of distinct facts, not one proposition** —
+`sli-scope.not-claimed-as-dependent`, `sli-scope.no-form-2555`,
+`sli-scope.no-form-4563`, `sli-scope.no-puerto-rico-or-samoa-income`, and, outside
+the conditional set because its domain is five statuses rather than yes/no, filing
+status, where married-filing-separately blocks with `SLI_MFS_INELIGIBLE`. Each is
+separately answerable and separately behind F2, grouped here only because their
+grounds are alike. **On no path:** none appears in the arithmetic.
 *Grounds:* the person's answers, and for filing status the return's own.
 *Standing:* supported, and least troubling of the set — these are facts a person
 ordinarily knows about themselves.
@@ -228,20 +260,45 @@ shape of a behind-fact; one exists, with a producer and a consumer.
 **2. But the existing shape is a universal negative, and the new fact may not be
 one.** `collect_categorical_all_equal` asks whether every member answers the same
 way. It carries "no statement's interest is on a non-qualified loan". It cannot
-carry "this statement's interest concerns that period". So whether the schooling
-fact can use the existing shape depends on whether it can be honestly put as a
-universal negative — which is the adverse direction the previous milestone
-validated at `run`. That is a question for A5, and it is now a much narrower one
-than "design a relationship".
+carry "this statement's interest concerns that period". A5 still has to choose a
+shape, and reusing the universal negative is **one candidate among others**,
+attractive because the adverse direction is what the previous milestone validated
+at `run`. This does not shrink A5's question: the statement-to-borrowing-and-period
+relationship is still listed above as unrepresented, and nothing here shows it can
+be avoided.
 
 **3. F6 is two levels behind F2, not one.** It sits behind F5, which sits behind
 F2. The plan has been treating the schooling circumstance as though it bore
 directly on the deduction. It does not.
 
-**4. Nothing on any path to F2 is missing.** Every route and every step is
-represented. What is missing is entirely behind-facts — which is why no
-prerequisite was blocking a number, and why A3's earlier account of an
-"unresolved statement" described a state that does not arise.
+**4. What is missing is behind the answer, not on the path — but "missing" and
+"tolerated" are different, and this is where an earlier version of this finding was
+wrong.**
+
+First, **not every route is represented**: R1b is a route to F1, which is on the
+path to F2, and it does not exist in the engine. The accurate statement is that
+every *fact* currently on the path has a representation.
+
+Second, and more consequentially: **an unanswered behind-fact is not tolerated
+today — it blocks.** Established `read` from `rule.sli-worksheet.json`: the
+seventeen scope and absence facts sit in a `conditional_dependency_set` whose
+condition is `count(box1) > 0`, so the moment a Form 1098-E exists every one of
+them is required, and an absent member raises `DEPENDENCY_ABSENT` naming it. The
+five per-statement witnesses are likewise required, and a single "no" blocks with
+`SLI_UNIVERSAL_COMPONENT_VIOLATION`.
+
+So the engine's established convention is **model a behind-fact, then require it**.
+What happens today is not that unanswered behind-facts are ignored; it is that F5
+and F6 are *not modelled at all*, so they are never asked and never block. The
+deduction computes without them because they are absent from the model, not because
+absence is tolerated.
+
+That matters to A3 and A5. A3 cannot treat "never posed" as owing no response on
+the general ground that unanswered behind-facts are the norm — they are not. It is
+owed no response only while the fact sits outside the model, and the moment this
+milestone models a schooling fact, the existing convention would require it.
+Whether to follow that convention is a real choice with a real consequence, and it
+is not settled here.
 
 **5. The engine never separates support from proof in one place.** Every
 behind-fact is accepted on the person's own categorical answer, with no record

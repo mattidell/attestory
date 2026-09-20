@@ -753,16 +753,24 @@ This is A3 refined one step, rewritten after A0. The previous refinement listed
 five ways of "failing to establish the connection" and is withdrawn: it described
 a deficiency that does not exist.
 
-**What A0 changed here.** Every route and every step on the path to the deduction
-is represented; what is absent is entirely facts sitting *behind* it. So an
-unanswered behind-fact is not a failure state — it is the state of every return
-the product handles today, and the deduction is computed anyway. A3's question is
-therefore narrower and sharper than before: **which states of a behind-fact are
-owed a response at all, and what is that response?**
+**What A0 changed here, and the part of it that is counter-intuitive.** Every
+fact on the path to the deduction is represented; what is absent is entirely facts
+sitting *behind* it. But A0's fourth finding then establishes something that cuts
+against the obvious conclusion: **an unanswered behind-fact is not tolerated today
+— it blocks.** The seventeen scope and absence facts are required the moment a Form
+1098-E exists, and an absent one raises `DEPENDENCY_ABSENT`.
+
+So the engine's convention is *model a behind-fact, then require it*. The reason
+schooling is never asked about is not that absence is tolerated; it is that the
+fact is not modelled at all. A3's question is therefore: **which states of a
+behind-fact are owed a response, given that modelling one is what makes it
+required?**
 
 **The states, and the first thing to decide about them.**
 
-- never posed — today's normal case;
+- not modelled at all — today's case for schooling, and the reason nothing is
+  asked or blocked;
+- modelled and posed, but the person has not yet been asked;
 - posed, and the exchange rested with no answer;
 - answered favourably;
 - **answered adversely** — the owner's worked thread ends here: the person says
@@ -773,9 +781,16 @@ owed a response at all, and what is that response?**
 - answered wrongly, with nobody aware — the only state where the application
   believes it has an answer.
 
-The first four are not degrees of the same thing. A3 must say for each whether a
-response is owed at all before saying what it is; treating "never posed" as
-needing a response is how the previous refinement went wrong.
+These are not degrees of the same thing. A3 must say for each whether a response is
+owed at all before saying what it is.
+
+**And the first state is a choice, not a given.** A fact outside the model is owed
+no response because nothing asks about it. The moment this milestone models a
+schooling fact, the existing convention would make it required, and an unanswered
+one would block the deduction — for every return, including those of people who
+have nothing adverse to say. Whether to follow that convention, or to model a fact
+the engine does not require, is the real question behind question 1, and it is not
+settled by observing that nothing blocks today.
 
 **What A3 must answer.**
 
@@ -799,8 +814,12 @@ needing a response is how the previous refinement went wrong.
 **The constraint, and where the change lands.** Established `read` in
 [A0](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md):
 today the closed Form 1098-E family is summed unconditionally into the worksheet's
-line 1, so an undescribed statement's interest **is** deducted. Today's behaviour
-is therefore the most permissive of the available answers, not a neutral baseline.
+line 1, and no modelled fact stands between that sum and the deduction on the
+question of schooling — so an undescribed statement's interest **is** deducted.
+That is permissive about schooling specifically, and it is not permissiveness in
+general: every behind-fact the engine does model is required, and an absent one
+blocks. Today's behaviour is therefore not a neutral baseline, and neither is it
+evidence that a new unanswered fact could be tolerated.
 The owner's
 [build boundary](#intended-result-and-build-boundary) excludes changing the
 existing worksheet's treatment of unlinked statements in this milestone, and the
