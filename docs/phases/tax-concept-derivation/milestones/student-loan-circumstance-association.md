@@ -23,6 +23,7 @@
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a0-tax-concept-facts.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a4-bounds.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a3-worked-path.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a2-change-and-applicability.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -455,7 +456,7 @@ whole plan.
 | --- | --- | --- |
 | A0 | done | Model in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md), independently reviewed and judged sound enough to depend on |
 | A1 | specified; stage 1 answered | Stage 1 — [posing a requirement versus asking for a conclusion](student-loan-circumstance-association-evidence/a1-stage1-requirement-or-conclusion.md), on the qualified-loan fact. Five facts and the wording still owed |
-| A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
+| A2 | specified; answer drafted | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | specified; answer drafted | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
 | A5 | outlined | Blocked by G1, which needs A1's, A2's and A3's actual answers, not their specified refinements |
