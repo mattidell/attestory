@@ -22,6 +22,7 @@
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/owner-stated-facts.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a0-tax-concept-facts.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a4-bounds.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a3-worked-path.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -455,7 +456,7 @@ whole plan.
 | A0 | done | Model in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md), independently reviewed and judged sound enough to depend on |
 | A1 | specified; stage 1 answered | Stage 1 — [posing a requirement versus asking for a conclusion](student-loan-circumstance-association-evidence/a1-stage1-requirement-or-conclusion.md), on the qualified-loan fact. Five facts and the wording still owed |
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
-| A3 | specified | One-liner and refinement rewritten after A0; reviewed and repaired, confirmed. The `5ae15c13` version described a deficiency that does not arise |
+| A3 | specified; answer drafted | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
 | A5 | outlined | Blocked by G1, which needs A1's, A2's and A3's actual answers, not their specified refinements |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
@@ -1165,14 +1166,28 @@ A statement affirmative in form ("I was taking evening classes that term") can
 produce a descriptive fact whose consequence for the deduction is negative. The
 polarity of the saying, of the record, and of the effect are three separate things.
 
-**So the fact stays descriptive.** The previous milestone's enrolment fact had the
-domain `["credential-program", "individual-classes-only"]` — a description of what
-the person was doing, not a yes/no about a legal requirement. That is the shape to
-keep, and it is the project's stated principle: *a later tax rule, not this fact,
-decides any consequence*. An earlier version of this record proposed a fact stating
-"the student was not enrolled in a programme leading to a credential", defaulting to
-false. That makes the fact a verdict on a requirement, which is asking for the
-conclusion through the design of the record rather than through a question.
+**So what is recorded stays descriptive — and "descriptive" is a property of the
+proposition, not of the wording or the stored type.** Information is classified by
+the proposition it expresses. "I was not enrolled in a credential programme" is a
+perfectly ordinary description; being negatively phrased does not make it a legal
+verdict, and being stored as a Boolean rather than a category would not make it one
+either. A verdict would be "this loan is not a qualified education loan" — a
+conclusion about the rule's application. The previous milestone's enrolment fact
+described what the person was doing, which is the right kind of thing, and the
+project states the principle directly: *a later tax rule, not this fact, decides any
+consequence*.
+
+An earlier version of this record proposed a fact stating "the student was not
+enrolled in a programme leading to a credential", defaulting to false, and then
+blamed the negative phrasing. That was the wrong diagnosis. **The error was the
+default.** False on that proposition records that the student *was* enrolled — a
+favourable description nobody supplied. Defaulting a descriptive fact manufactures a
+description, whichever way it is phrased, and the deeper mistake was assuming
+"always present" required a default at all.
+
+Nothing here prescribes a storage shape. Whether the recorded circumstance is
+categorical, Boolean, or something else is A5's, decided against a consumer rather
+than derived from this distinction.
 
 **And "never gating" belongs to the consumer, not to a default on the fact.** This
 is the owner's own earlier correction: obligation comes from a named consumer's
