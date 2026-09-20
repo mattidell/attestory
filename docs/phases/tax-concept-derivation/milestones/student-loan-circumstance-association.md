@@ -418,7 +418,7 @@ whole plan.
 | Action | State | Notes |
 | --- | --- | --- |
 | A0 | done, pending review of the model | Refinement drafted below; the model itself is in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md). Blocks A1, A3 and A5 |
-| A1 | outlined | Was specified at `7083ae5d`; returned to outlined — its refinement presumed the connection was a prerequisite the person must supply |
+| A1 | outlined | Refinement rewritten after A0 and drafted below; review pending. The `7083ae5d` version presumed a prerequisite the person must supply and is withdrawn |
 | A2 | specified | Refined below; reviewed at `3f8d605f`, repaired at `c786659c`, confirmed. Its three-way distinction is route-independent, so it survives A0; recheck congruity once A0 lands |
 | A3 | outlined | Was specified at `5ae15c13`; returned to outlined — "unresolved statement" described a deficiency that does not exist when box 1 is itself a route |
 | A4 | outlined, partly done | Two checks executed; see the constraints section |
@@ -569,54 +569,87 @@ representation these facts have today); how any of it is stored (A5). It also
 does not settle the translation layer between ordinary circumstances and form
 data — it is what that layer will translate *into*.
 
-## A1 in detail — the question we ask a person
+## A1 in detail — what the application puts to a person
 
-This is A1 refined one step. It states the work and its standard of completion;
-it does not contain the answer, and it deliberately settles nothing about
-storage.
+This is A1 refined one step, rewritten after A0. The previous refinement of this
+action asked what we *require* of a person, and is withdrawn: nothing on any path
+to the deduction is missing, so there is no prerequisite to extract.
+
+**What A0 handed over.** Eight facts, of which six can have a person's answer as
+their grounds — and A0's sixth finding is that those grounds are not all of one
+kind. Some are things a person ordinarily knows about themselves. Some are about
+what a lender's statement consists of. One is effectively the conclusion of a
+statutory test. One is asymmetric: strong when the answer is adverse, weak when it
+is favourable. A1 cannot put one kind of question to a person across all of them.
 
 **What A1 must answer.**
 
-1. What is the person being asked to connect — and to what are they connecting
-   it? The candidate is a lender's statement on one side. What sits on the other
-   side is not yet settled: a period of schooling, an episode of borrowing, or
-   the purpose the money served are different answers with different demands on
-   the person.
-2. What can a person reasonably be expected to know about their own borrowing
-   years later, without records the lender never sent them?
-3. In what words? A question that is technically answerable but reads as a legal
-   test will be answered badly or not at all.
-4. What must never be asked: any conclusion about deductibility or eligibility,
-   and any fact about an institution's legal standing.
-5. What a person may legitimately be unable to answer, and how they say so
-   without it reading as a failure on their part.
+1. For each fact that admits a person's answer, what does the application put to
+   them, in the words they would read? Grouped by the quality of grounds A0
+   identified, not one question shape for all six.
+2. What occasions each? The owner's account is that the application poses a fact
+   when the person asks what they should know about their responsibility, or when
+   they volunteer something, or when they choose to enter loan data — not as
+   unprompted interrogation. A1 must say what opens each thread.
+3. Where may an exchange legitimately end, and what does each resting point leave
+   the application knowing and not knowing? The owner names three for the
+   eligibility thread: after the fact is posed, after the person says they have an
+   ineligible loan, and after they confirm it touches a particular statement.
+   **Resting is not failure**, and A1 must make that survivable in the wording.
+4. **Is posing a requirement the same as asking for a conclusion?** It appears not
+   — "all of your student loans must be eligible" tells a person what the rule
+   requires, which is not the same as asking them to certify that it is met. A1
+   must settle this, because qualified-education-loan status is the one fact whose
+   grounds A0 found to be in tension with the milestone's own boundary against
+   asking for a tax conclusion. If the distinction does not hold, that boundary
+   forbids the question and A1 must say so rather than soften it.
+5. How does a person say "I cannot say"? A0 records that a loan covering two terms,
+   or a statement whose composition the person cannot reconstruct, are ordinary
+   situations. The wording must let someone say so without it reading as their
+   failure.
+6. What is never asked, restated against A0's list: any conclusion about
+   deductibility, and any fact about an institution's legal standing.
 
-**How we will answer it.** Write the question as a person would read it. Walk it
-against the plan's own
-[case list](#cases-to-carry-through-design-and-execution) and ask, for each
-case, whether a person in that situation could answer honestly, answer wrongly
-without noticing, or be unable to answer. Where a case cannot be answered
-honestly, that is a finding about the question, not about the person.
+**How we will answer it.** Take A0's six answerable facts, group them by quality
+of grounds, and for each write what is posed and what is never asked. Then walk
+the owner's eligibility thread end to end as a worked example, naming each resting
+point and what it leaves unknown. Test every phrasing against the plan's
+[case list](#cases-to-carry-through-design-and-execution) by asking whether a
+person in that situation could answer honestly, could answer wrongly without
+noticing, or could not answer at all.
 
-**What done looks like.** One question in ordinary words that a person could
-answer; a short statement of what we will never ask and why; and a named list of
-the situations in which the honest answer is "I cannot say."
+**What done looks like.** For each of A0's answerable facts: what is posed in
+ordinary words; what occasions it; its legitimate resting points and what each
+leaves known and unknown; how "I cannot say" is expressed; and what is never
+asked. Plus a settled account of whether posing a requirement differs from asking
+for a conclusion, with the consequence for qualified-education-loan status
+followed through.
 
-**How it is reviewed.** One independent reviewer, on two things only: whether an
-ordinary person could answer it, and whether it smuggles in a conclusion or an
-institutional fact. Not on mechanism.
+**How it is reviewed.** One independent reviewer, a criterion per `done` field:
 
-**What A1 does not settle.** How the answer is stored, how many records it
-becomes, or which engine mechanism carries it. Those are A5, constrained by A4.
+1. **What is posed** — whether an ordinary person could answer each question, and
+   whether the six are genuinely differentiated by quality of grounds rather than
+   one template repeated.
+2. **What occasions it** — whether each thread has a stated opening, and whether
+   any question is posed unprompted that the owner's account says should not be.
+3. **Resting points** — whether each is a genuine stopping place, whether what it
+   leaves unknown is stated, and whether the wording makes resting read as
+   completion rather than abandonment.
+4. **"I cannot say"** — whether it is expressible for every fact where A0 says the
+   situation arises, and whether it is free of implied fault.
+5. **Never asked** — whether any question smuggles in a tax conclusion or an
+   institutional fact, checked against A0's list rather than against intuition.
+6. **Requirement versus conclusion** — whether the account is settled rather than
+   assumed, and whether its consequence for qualified-education-loan status is
+   followed through even if the consequence is that the question cannot be asked.
 
-A correction is owed here. An earlier revision of this plan presented "one
-structured finding or several separate facts" as a product choice about what the
-person is asked, reasoning from the fact that the available mechanism binds two
-values. That inference does not hold: several questions can produce one stored
-record and one question can produce several, so the relationship between
-interaction and storage is itself something A1 and A5 must establish rather than
-assume. The storage question is real and belongs to A5; it is withdrawn from
-here.
+**Owner sign-off.** The wording itself is the owner's to approve. A1 produces it;
+it is not adopted on the team's judgement alone.
+
+**What A1 does not settle.** How any answer is stored (A5); which later changes
+remove its support (A2); what the application does when a fact ends up with no
+answer or an adverse one (A3) — A1 stops at the resting point and does not decide
+the consequence; whether the engine can carry any of it (A4).
 
 ## A2 in detail — when an answer can still be relied on
 
