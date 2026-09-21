@@ -24,6 +24,7 @@
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a4-bounds.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a3-worked-path.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a2-change-and-applicability.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-stage2-what-is-posed.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -408,7 +409,7 @@ something left unsettled is left implicit rather than named.
 
 | Gate | State | Waiting on |
 | --- | --- | --- |
-| G1 | not reached | A0 done and A4's bounds produced. Still owed: A1's statements and questions, A2's change-and-applicability table, A3's behaviour for absent / adverse / conflicting information. Their refinements being specified is not those answers |
+| G1 | not reached | A0 done; A4's bounds produced; A2's and A3's answers produced and repaired after review. **Still owed: A1.** Its group 4 posing awaits the owner's decision on whether to pose a requirement we cannot help a person resolve favourably, and its resting-point and "I cannot say" fields are worked for one group of four |
 | G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
@@ -455,7 +456,7 @@ whole plan.
 | Action | State | Notes |
 | --- | --- | --- |
 | A0 | done | Model in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md), independently reviewed and judged sound enough to depend on |
-| A1 | specified; stage 1 answered | Stage 1 — [posing a requirement versus asking for a conclusion](student-loan-circumstance-association-evidence/a1-stage1-requirement-or-conclusion.md), on the qualified-loan fact. Five facts and the wording still owed |
+| A1 | specified; stages 1–2 answered | [Stage 1](student-loan-circumstance-association-evidence/a1-stage1-requirement-or-conclusion.md) — a classification cannot be asked, a condition can be posed. [Stage 2](student-loan-circumstance-association-evidence/a1-stage2-what-is-posed.md) — what is posed per quality of grounds. **Incomplete**: group 4's posing awaits the owner's decision, and the resting points and "I cannot say" are worked only for group 3 |
 | A2 | specified; answer drafted | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | specified; answer drafted | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
