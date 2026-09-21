@@ -1089,6 +1089,19 @@ whether any storage or schema change is needed: a demand is met if the existing
 facts, evidence and rules can satisfy it, and A4 must trace whether they already do
 before recording a gap.
 
+**What A6 is expected to distinguish, from A2 and A3's answers.** Three states, never
+two: no adverse information; an adverse circumstance with a determined effect; and an
+adverse circumstance whose effect is unresolved. And three effects of a change, never
+one: recalculation, surviving support, and genuinely unresolved applicability. A
+fixture that treats every record change as invalidation passes for the wrong reason,
+and so does one that preserves everything.
+
+Two concrete cases A6 must carry, because they are where the collapse happens: a loan
+transferred between servicers, where two statements concern one borrowing and the
+amounts are separate payments — subtract each statement's attributable amount, never
+the loan-level total from both; and an irrelevant description offered, which must
+record nothing and ask nothing.
+
 **Its relation to the gates.** G1 needs A4's **bounds** — the classification and
 the two lists — not A4's completion. G2 needs execution against the representation
 A5 actually chooses, which cannot happen before A5 exists. So A4 is expected to run

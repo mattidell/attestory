@@ -46,11 +46,21 @@ The blocking arises from **aggregation, not from the adverse fact.**
 | Enumerated loans alone | The loan and its amount are already supplied. Determinable at once |
 | Form plus enumerated loans | Depends on membership and completeness, below |
 
-So the clarification that unblocks the aggregate route **is** enumeration, supplied
-only as far as needed — the same route arriving piecemeal rather than a bespoke
-clarification device. What the mixed case does add, and this document's earlier
-version wrongly denied, is the pair of questions below: enumerating alongside a form
-raises membership and completeness, which enumerating alone does not.
+Two routes out of the blocked state were already identified above, and **enumeration
+is not required for either.** A person may supply an adequate statement covering the
+whole reported amount — "that applies to everything on this form" — which determines
+the portion without naming a loan at all. Or they may identify the affected portions
+sufficiently, which enumeration is one way to do and not the only one.
+
+An earlier version of this document said the clarification *is* enumeration. That
+overstated it, and it would have led A5 to require loan-level detail from someone
+whose scope statement had already made the portion determinable. Ask only what the
+selected route needs: a scope statement needs no loan identity or amount, and an
+identified-portion route needs membership and an attributable amount for the portions
+named — not for the rest.
+
+What the mixed case adds, where a person does supply loan information alongside a
+form, is the pair of questions below.
 
 ## The mixed route: membership and completeness
 
@@ -105,12 +115,28 @@ A3 owes this, and an earlier version of this document did not answer it.
   product selection and not a capability finding.
 - **A loan identified as a member of one statement is not thereby a member of
   another.** Membership is claimed per statement or it is not established.
-- **Two statements concerning one borrowing:** the affected amount is subtracted from
-  the statement whose membership is claimed, and the other is untouched unless
-  membership is claimed there too. If membership is claimed on both for the same
-  borrowing, **that is a contradiction to name** — not a licence to subtract the same
-  amount twice. Membership alone does not prevent double subtraction, so this has to
-  be said.
+- **Two statements concerning one borrowing is ordinary, and is not a
+  contradiction.** An earlier version of this document said membership claimed on both
+  was a contradiction to name. It is not. The common case: a loan is transferred from
+  one servicer to another partway through the year, and each reports the interest **it
+  received**. Both statements legitimately concern the same borrowing, and the two
+  amounts are separate payments rather than duplicates.
+
+  What matters is not shared loan identity but **overlapping interest amounts**. The
+  duplicate case — two statements each reporting the same amount for the same loan and
+  the same period — is where something is wrong and needs resolving, and it is
+  recognised by the amounts, not by the shared loan.
+
+- **So what must be known before subtracting is a per-statement attributable amount,
+  not a loan-level one.** If a disqualified loan's interest for the year was 1,200,
+  paid 700 to the first servicer and 500 to the second, then disqualifying it removes
+  700 from the first statement and 500 from the second. Subtracting 1,200 from each is
+  the error this row exists to prevent, and it is an error about amounts rather than
+  about identity.
+
+  Where only the loan-level total is known and its split across statements is not, the
+  affected portion is not determinable for either statement, and each is blocked on
+  that ground — not reduced by a guess and not reduced twice.
 
 ## The owner's cases
 
@@ -127,11 +153,17 @@ would manufacture an adverse circumstance from a neutral one.
 have. For the consumer's purposes this is *no adverse information*, not adverse
 information of unresolved scope.
 
-One care in testing it: "the state is unchanged" is true of the consequence and not
-of the workspace, which now holds a description it did not hold before. So the
-executable case is that a **non-disqualifying description present** still publishes a
-figure — which is what fails an implementation that blocks on any schooling fact
-whatsoever.
+**This case is an interpretation test and should not become a workspace fact.**
+Evening attendance is not a relevant circumstance for any requirement here, so there
+is no reason to record it. Its value as a case is negative: it must not manufacture an
+adverse circumstance, and it must not trigger questioning that has no bearing on
+anything. An implementation that records it, or that asks a follow-up because of it, has
+failed.
+
+Where a test needs a **recorded, non-disqualifying circumstance** — to show that the
+consumer does not block on the mere presence of a schooling fact — use a genuinely
+relevant description instead, such as being enrolled full-time in a degree programme
+for the period concerned. That is relevant, recordable, and not disqualifying.
 
 ### An adverse circumstance concerning one loan within a form
 
@@ -205,7 +237,8 @@ consumer reveals them is A6's.
 | Condition | Consequence the consumer can justify |
 | --- | --- |
 | No enrolment information | The figure publishes |
-| A non-disqualifying description is present | The figure still publishes |
+| A relevant, non-disqualifying circumstance is recorded — enrolled full-time in a degree programme for the period | The figure still publishes |
+| An irrelevant description is offered — evening attendance | Nothing recorded, nothing asked, the figure publishes |
 | Adverse, scope undetermined | Blocked, distinguishably from the first row |
 | Adverse, portion determined | A reduced figure; zero only if the portion is the whole |
 | Membership unknown | No subtraction from this statement |

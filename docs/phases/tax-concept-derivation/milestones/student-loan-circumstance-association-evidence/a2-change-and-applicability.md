@@ -26,6 +26,23 @@ Because the third is unobservable, wherever applicability turns on it the system
 incurs an **obligation to ask**, not a determination. A row deciding that a claim
 still stands *because the person has not said otherwise* fails this document.
 
+## Three kinds of effect, which an earlier version of this table collapsed
+
+A change to a record is not by itself a reason to doubt an answer. Three effects have
+to be kept apart, and the previous version treated all three as invalidation:
+
+- **Recalculation** — the proposition still holds and a figure derived from it moves.
+  Nothing to ask.
+- **Surviving support** — the proposition still holds of what it was about, even though
+  something around it changed. Nothing to ask about *that* proposition.
+- **Genuinely unresolved applicability** — a named proposition no longer holds, or it is
+  unknown whether it does. Ask, and hold where the figure depends on it.
+
+The test for each row is: **name the proposition, and say which one no longer holds.**
+Ask again when a material dependency needs clarification — not because a record
+changed. And the correction is not blanket preservation either: each row below says the
+condition under which support actually fails.
+
 ## The table
 
 "Asked again?" means an obligation to ask arises, not that a question is designed —
@@ -38,9 +55,9 @@ response.
 | **The association is corrected to name a different circumstance** | Yes, the new target | Survives as a new finding at the same association identity; the previous is displaced. Whether a consequence follows depends on the new target | No | Nothing unresolved |
 | **The named target is retracted, nothing replaces it** | **No** — leg 1 fails | Cannot survive; there is nothing left to support it. The reference still resolving is not support | Yes — the person withdrew what the claim rested on. **This ask does not hold the figure** | The figure is not defended from that association, and per A3 an adverse basis withdrawn returns the statement to evaluable. So the interval here *is* the settled outcome — unlike the blocked intervals below, where the ask does hold |
 | **The adverse answer is reasserted after withdrawal** | Yes | New finding, new current support. Earlier findings stay stored and non-current | No | Nothing unresolved. The earlier retraction does not mean the person recanted |
-| **The reported amount is corrected** | Yes | **Depends on which kind of amount the person's claim was.** An independently sourced per-loan figure stands; the remainder changes around it. An *allocation* of the reported figure does not — it was a share of a total that has changed | Only for an allocation or a completeness claim: the total it was about is different | Blocked for the allocation case; nothing unresolved for the independently sourced case |
-| **The report's composition changes** — a corrected form covering different loans | Yes; everything named still exists | **No**, for any scope or completeness claim. Nothing is missing and nothing is corrected; the claim is simply about a different set now | Yes. This is where continuity most plainly fails to settle applicability | Blocked. A scope claim over a changed population supports nothing |
-| **A further statement arrives after a claim about "all my loans"** | Yes | No, for the same reason one level up | Yes — and leg 3 bites hardest here, because whether the person would say the same of the enlarged set is exactly what cannot be known | Blocked |
+| **The reported amount is corrected** | Yes | **Mostly recalculation, not invalidation.** The proposition "loan ABC accounts for 700 of this statement" does not stop holding because the statement's total moved from 1,200 to 1,300; ABC may still account for 700 and the extra 100 be another loan's. What moves is the *remainder*. Support fails only in two named cases: an allocation that now **exceeds** the corrected total, or a **completeness** claim over an allocation that no longer covers it | Only in those two cases. A corrected total alone is not a reason to ask | Recalculated remainder, nothing unresolved, in the ordinary case. Blocked in the overshoot or failed-completeness case |
+| **The report's composition changes** — a corrected form covering different loans | Yes; everything named still exists | **Partly surviving.** What was said about the members that are still there continues to hold — a population changing does not erase what is known about its existing members. A **completeness** claim over the old composition does fail, because that is precisely a claim about the whole set. A per-member claim about a member that remains does not | For the completeness claim, and for any member newly present whose circumstance is unknown. Not for members already described | Blocked only as to the part that is unresolved: the new or unaccounted members. The described members keep their established treatment |
+| **A further statement arrives after a claim about "all my loans"** | Yes | **Often surviving, and an earlier version of this row said otherwise.** A new *statement* is not a new *loan*. The common case is a loan transferred between servicers, so the second form reports interest on borrowing already covered — and "these are all my loans" is untouched. Support fails only where it is unknown whether the new statement introduces a loan the claim did not cover | Yes, but only to settle that one dependency: does this form concern borrowing already described? Not because a form arrived | Blocked only as to the unsettled part. Statements already accounted for keep their treatment |
 
 ## Standing unfavourable versus absent
 
@@ -83,6 +100,11 @@ weigh rather than inherit:
   loans is a same-member value correction, which takes the ordinary assertion path and
   does not advance the horizon (ADR-0017 decision 4). Those two rows do **not** share
   one missing link, and treating them as though they did was the error.
+- And note what the reworked rows now need detecting: **not** that a population
+  changed, but the narrower question each row names — whether a new statement
+  introduces uncovered borrowing, and whether a completeness claim still covers the
+  set. A mechanism that fires on any population change would ask where support
+  survives, which is the failure this table was just repaired for.
 - **Closure-style identity-keying displaces a claim rather than leaving it
   unsupported.** The runner admits a closure finding only when it is keyed on the
   chain's current horizon, so a finding on a superseded horizon is *indistinguishable
