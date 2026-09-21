@@ -43,7 +43,7 @@ worksheet; it describes what the **new bounded consumer** may ask and depend on.
 | --- | --- | --- | --- | --- |
 | `no-related-person-interest` | Categorical per statement; a "no" blocks the route | Who lent them the money — "my aunt lent me this" | Whether that relationship is a *related person* in the statutory sense | — |
 | `no-qualified-employer-plan-interest` | Same | Where the money came from — "I borrowed against my employer's plan" | Whether that plan is a *qualified employer plan* | — |
-| **`no-non-qualified-loan-component`** | Same | **None.** There is no smaller ordinary fact underneath it | The whole six-constituent qualified-education-loan classification | Institutional eligibility and credential recognition, which it contains |
+| **`no-non-qualified-loan-component`** | Same | **No single answer supplies it** — but its constituents draw on ordinary circumstances that are posed elsewhere: use of proceeds (group 3), who borrowed, enrolment (group 4), and the related-person and employer-plan circumstances in the rows above | The composite six-constituent classification, assembled from those circumstances rather than asked | Institutional eligibility and credential recognition, which sit inside constituent 4 |
 | `no-employer-educational-assistance-interest` | Same | What their employer paid toward their education | Whether that assistance is excludable | — |
 | `no-qtp-earnings-used` | Same | Whether they used a 529 or similar for these costs | Whether those earnings were excluded | — |
 
@@ -54,6 +54,14 @@ classification, which group 3 rules out. And because that classification contain
 eligible-student status, which contains institutional eligibility, adopting it would
 reintroduce institutional-eligibility confirmation through the back door — the thing
 the responsibility category exists to avoid.
+
+**That prohibition is about the composite, not about the facts beneath it.** No single
+ordinary answer supplies the classification, and it does not follow that there is
+nothing ordinary to ask. Its constituents draw on circumstances this milestone already
+poses: whether the borrowing was solely for school (group 3), who borrowed and for
+whom, what the person was enrolled in (group 4), and the related-person and
+employer-plan circumstances above. Those are asked, normalised and translated in the
+ordinary way. What is never asked is the assembled verdict.
 
 **Which of the other four the new consumer depends on is A5's**, not settled here. The
 incumbent consumes all five; that is a fact about the incumbent, not an argument that

@@ -69,10 +69,22 @@ evaluate.
 
 **What the calculation consumes**
 
-The reported amount, the scope facts, the composition witnesses, and any adverse
-circumstance with a determined effect. **It consumes none of the three conditions
-above.** Representing a responsibility introduces no confirmation requirement, no
-block, and no favourable finding — the selected non-gating behaviour is unchanged.
+In this example, nothing adverse has been said, so the figure follows the reported
+amount and the return-level scope facts, exactly as it would have before the person
+described anything.
+
+What the bounded consumer depends on beyond that is **A5's to select**, and is not
+settled by this example. Two things are settled. It does not depend on the composite
+qualified-loan witness, which A1 excludes. And **it consumes none of the three
+conditions above** — representing a responsibility introduces no confirmation
+requirement, no block, and no favourable finding, so the selected non-gating behaviour
+is unchanged.
+
+The circumstances the person supplied are not inert: had the enrolment description
+been adverse, it could have carried a determined effect into the figure. That is the
+story the table and this example tell together — **ordinary circumstances can
+contribute to tax treatment without establishing every condition**, while the
+conditions stay represented separately and establish nothing.
 
 ## Two things to keep apart, and one argument withdrawn
 
