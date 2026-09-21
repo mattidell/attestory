@@ -18,8 +18,11 @@ dependent; the filer-level exclusions; filing status.
 situation. "Are you legally obliged to repay this loan?" is answerable because a
 person knows whose debt it is.
 
-*Why answerable:* no institutional fact and no rule is involved. Someone who
-co-signed, or whose parent borrowed, knows which they did.
+*Why answerable, per question rather than as a blanket:* being obliged to repay is
+the person's own arrangement — someone who co-signed, or whose parent borrowed, knows
+which they did. Being claimed as a dependent is a fact about another return they can
+find out. Filing status is on their own return. Each is answerable for its own reason;
+"no rule is involved" is not one of them, and was the wrong warrant.
 
 *Occasion:* return-level, at the point the deduction is being worked out. Not
 prompted by any particular statement.
@@ -28,19 +31,39 @@ prompted by any particular statement.
 
 ## Group 2 — what a lender's statement consists of
 
-*Facts:* the five composition witnesses — no related-person interest, no
-qualified-employer-plan interest, no non-qualified loan component, no employer
-educational assistance, no qualified-tuition-programme earnings used.
+*Facts:* the five composition witnesses the incumbent worksheet consumes. An earlier
+version of this stage listed all five as ordinary questions on the warrant that "no
+rule is involved". That warrant was wrong, and it hid a contradiction with group 3:
+one of the five asks for exactly the classification group 3 says cannot be asked.
 
-*What is posed:* one question per statement, about that statement's own amount.
-These are already asked today and already keyed per statement.
+Each witness is separated four ways. Nothing here proposes changing the incumbent
+worksheet; it describes what the **new bounded consumer** may ask and depend on.
 
-*Why answerable:* each concerns the person's own borrowing arrangements, not the
-lender's classification of them. Whether a relative lent them the money is ordinary
-knowledge.
+| Incumbent witness | What the engine consumes today | Ordinary circumstance a person can supply | Needs translation or rule application | Remains a responsibility |
+| --- | --- | --- | --- | --- |
+| `no-related-person-interest` | Categorical per statement; a "no" blocks the route | Who lent them the money — "my aunt lent me this" | Whether that relationship is a *related person* in the statutory sense | — |
+| `no-qualified-employer-plan-interest` | Same | Where the money came from — "I borrowed against my employer's plan" | Whether that plan is a *qualified employer plan* | — |
+| **`no-non-qualified-loan-component`** | Same | **None.** There is no smaller ordinary fact underneath it | The whole six-constituent qualified-education-loan classification | Institutional eligibility and credential recognition, which it contains |
+| `no-employer-educational-assistance-interest` | Same | What their employer paid toward their education | Whether that assistance is excludable | — |
+| `no-qtp-earnings-used` | Same | Whether they used a 529 or similar for these costs | Whether those earnings were excluded | — |
 
-*Occasion:* when a statement is entered. Per statement, because the answer can
-differ between them.
+**The third must not be adopted as a question or as a dependency of the new
+consumer.** Negative wording does not remove a classification burden: asking whether
+any part is on a *non-qualified* loan is asking for the qualified-education-loan
+classification, which group 3 rules out. And because that classification contains
+eligible-student status, which contains institutional eligibility, adopting it would
+reintroduce institutional-eligibility confirmation through the back door — the thing
+the responsibility category exists to avoid.
+
+**Which of the other four the new consumer depends on is A5's**, not settled here. The
+incumbent consumes all five; that is a fact about the incumbent, not an argument that
+a new consumer should.
+
+*What is posed:* for the four with an ordinary core, the ordinary core — who lent it,
+where the money came from — leaving the classification to translation.
+
+*Occasion:* when a statement is entered. Per statement, because the answer can differ
+between them.
 
 *A caution carried from A0:* the operator reading these yields one Boolean, so a rule
 cannot branch on a member's answer — but the answers are keyed by statement and each

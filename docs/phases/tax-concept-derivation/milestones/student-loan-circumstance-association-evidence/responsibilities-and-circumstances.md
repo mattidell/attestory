@@ -62,6 +62,11 @@ applies — because they claimed this deduction and described this enrolment —
 generic disclaimer text attached to a screen, but a condition bound to the
 circumstances and treatment that made it applicable.
 
+What this requires is a **recoverable connection** between the condition, the
+circumstance and the treatment. Whether that connection is stored or reconstructed
+from what is already recorded is not decided by the requirement, and is A5's to
+evaluate.
+
 **What the calculation consumes**
 
 The reported amount, the scope facts, the composition witnesses, and any adverse
@@ -69,23 +74,31 @@ circumstance with a determined effect. **It consumes none of the three condition
 above.** Representing a responsibility introduces no confirmation requirement, no
 block, and no favourable finding — the selected non-gating behaviour is unchanged.
 
-## Where this sits in the existing ontology
+## Two things to keep apart, and one argument withdrawn
 
-Traced rather than assumed. The kernel gives a fact type exactly two natures:
-`determinable` — answers that report the world — and `elective` — answers constituted
-by choice. The kernel enforces the match both ways, so an election cannot be closed by
-a report nor a worldly fact settled by fiat.
+**Withdrawn:** an earlier version of this document argued that a responsibility can be
+neither `determinable` nor `elective`, on the grounds that nothing has determined it
+and the person's saying so would not make it true. That does not follow. Whether an
+institution is eligible **is** a fact about the world — determinable in the kernel's
+sense, which describes the nature of the answer and not whether anyone has answered
+it. Undetermined is not undeterminable, and the argument was reaching for a
+representational conclusion the restriction never required.
 
-**A responsibility is neither.** It does not report the world, because nothing has
-determined it; it is not constituted by choice, because the person's saying so would
-not make it true. So it is not a finding of either nature, and that is the precise
-reason it cannot simply be modelled as one.
+**The restriction, stated at its actual width:** no finding establishing the
+institution's eligibility is requested of the person or manufactured by the
+application. That is all. It says nothing about what kind of thing may represent that
+a condition *applies*.
 
-The nearest existing citizen is a **citation**: represented, attached to a treatment,
-inspectable, pinned into provenance, and never consumed as a value. A citation says
-*this is the authority for what we did*. A responsibility would say *this is a
-condition you are responsible for, which we have not established*. The analogy is a
-starting point for A5, not a selection.
+**And those are two different things.** The underlying condition — *Riverside College
+is an eligible institution* — is one. The representation that this condition **applies
+to this circumstance and this treatment** is another, and it is the second that this
+milestone needs. Nothing establishes the first by recording the second.
+
+How the second is represented is open. It may or may not need a new citizen; it may or
+may not resemble a citation; it may or may not sit inside provenance. Citations are
+worth looking at because they are represented, attached and never consumed as values —
+but that is a place to start looking, not a shape to adopt, and an earlier version of
+this document went further than that while calling the question open.
 
 ## The representation decisions this creates
 
@@ -93,11 +106,11 @@ Named, not resolved. Each says where it should be settled.
 
 | Decision | Where |
 | --- | --- |
-| What kind of citizen a responsibility is — it must not be a finding that establishes the condition, and the citation shape is the nearest precedent | **A5**, against a named consumer |
-| What makes a responsibility *apply* — the relationship between a normalised circumstance, a treatment taken, and a condition. Whether that relationship is declared in content or in code | **A5**; may prove to be a contract decision, which is the point at which to say so |
-| Whether it has a lifecycle — if the circumstance it arose from is corrected or retracted, does the responsibility lapse? A2's principle applies: supported only while what it was about obtains | **A5**, against A2 |
-| Whether it appears in the derivation record — a publication's pins name what a result rests on, and a responsibility is explicitly not that | **A5**; adjacent to provenance rather than part of it |
-| Whether it needs durable persistence — a returning person must be able to inspect it, so it is not computed and discarded | **A5** |
+| How the applies-to relation is represented — whether an existing citizen carries it, or a new one is needed. Open in both directions | **A5**, against a named consumer |
+| What makes a responsibility *apply* — the relation between a normalised circumstance, a treatment taken, and a condition; and whether that relation is declared in content or in code | **A5**; may prove to be a contract decision, which is the point at which to say so |
+| Whether it has a lifecycle — if the circumstance it arose from is corrected or retracted, does the applies-to relation lapse? A2's principle would bear on it | **A5**, against A2 |
+| Whether it appears in the derivation record — open. A publication's pins name what a result rests on, and a responsibility is not that; whether that places it outside provenance or merely in a different role there is not settled | **A5** |
+| Whether inspection needs durable persistence or can be reconstructed from what is already recorded — inspectability requires a **recoverable connection**, which does not by itself select a storage mechanism | **A5** |
 
 ## What this does not license
 

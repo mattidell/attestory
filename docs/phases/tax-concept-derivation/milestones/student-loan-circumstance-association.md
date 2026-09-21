@@ -409,7 +409,7 @@ something left unsettled is left implicit rather than named.
 
 | Gate | State | Waiting on |
 | --- | --- | --- |
-| G1 | not reached | A0 done; A4's bounds produced; A2's and A3's answers produced and repaired after review. **Still owed: A1.** Its group 4 posing awaits the owner's decision on whether to pose a requirement we cannot help a person resolve favourably, and its resting-point and "I cannot say" fields are worked for one group of four |
+| G1 | not reached | A0 done; A4's bounds produced; A2's and A3's answers produced and repaired after review. **Still owed: A1.** Its resting-point and "I cannot say" fields are worked for one group of four, and the wording of every group awaits the owner's approval. The posing question is resolved — conditions are represented as responsibilities rather than posed or omitted |
 | G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
@@ -1006,11 +1006,13 @@ forbids chartering implementation on `read`-level mechanism claims.
    **Every other demand below is unclassified — classifying it is the work.** Do not
    carry a level into the table from this list.
 
-   From the responsibility category: whether anything can be represented, persisted
-   and inspected **without** being a finding of either declared nature — the kernel
-   gives fact types only `determinable` and `elective`, and a responsibility is
-   neither. Citations are the nearest citizen that is represented and never consumed;
-   whether that shape carries this is untested.
+   From the responsibility category: whether the relation that a condition **applies
+   to** a circumstance and a treatment can be represented and recovered later, by
+   whatever citizen carries it. Open in both directions — an existing citizen may
+   carry it, or a new one may be needed. Citations are worth examining because they
+   are represented, attached and never consumed as values, but nothing here
+   establishes that the shape fits. Note the restriction this must satisfy: no
+   finding establishing the institution's eligibility is requested or manufactured.
 
    From A0: whether a rule expression can read a *per-member value* from a
    universal-over-members operator — noting that member identity is **not** lost,
