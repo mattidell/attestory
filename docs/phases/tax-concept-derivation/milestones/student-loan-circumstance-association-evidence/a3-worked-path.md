@@ -122,10 +122,21 @@ A3 owes this, and an earlier version of this document did not answer it.
   received**. Both statements legitimately concern the same borrowing, and the two
   amounts are separate payments rather than duplicates.
 
-  What matters is not shared loan identity but **overlapping interest amounts**. The
-  duplicate case — two statements each reporting the same amount for the same loan and
-  the same period — is where something is wrong and needs resolving, and it is
-  recognised by the amounts, not by the shared loan.
+  What matters is not shared loan identity but whether the **same payments** were
+  reported twice — and equal amounts do not establish that. Three states, which an
+  earlier version of this document collapsed into one:
+
+  - **A duplicate supported by evidence** — the same statement reference filed twice, or
+    the person saying it is the same form. Resolve it as a duplicate.
+  - **A suspected overlap needing clarification** — equal amounts on one borrowing, with
+    nothing indicating either way. Ask; do not assume.
+  - **Separate payments whose totals happen to be equal** — a loan transferred at the
+    midpoint of the year, each servicer receiving exactly 600. Entirely legitimate, and
+    no adjustment is due.
+
+  Equal amounts, shared loan identity and a shared period are together a **reason to
+  ask**, not proof of anything. No general duplicate-detection mechanism is needed or
+  proposed here.
 
 - **So what must be known before subtracting is a per-statement attributable amount,
   not a loan-level one.** If a disqualified loan's interest for the year was 1,200,
@@ -155,10 +166,14 @@ information of unresolved scope.
 
 **This case is an interpretation test and should not become a workspace fact.**
 Evening attendance is not a relevant circumstance for any requirement here, so there
-is no reason to record it. Its value as a case is negative: it must not manufacture an
-adverse circumstance, and it must not trigger questioning that has no bearing on
-anything. An implementation that records it, or that asks a follow-up because of it, has
-failed.
+is no reason to derive a tax circumstance from it. Its value as a case is negative: it
+must not manufacture an adverse circumstance, and it must not trigger questioning that
+has no bearing on anything. An implementation that turns it into a canonical
+circumstance, or that asks a follow-up because of it, has failed.
+
+"Nothing recorded" means no canonical tax circumstance and no unnecessary follow-up. It
+does **not** mean the original evidence of what the person said must be discarded —
+retaining what was said is a separate matter from deriving a circumstance from it.
 
 Where a test needs a **recorded, non-disqualifying circumstance** — to show that the
 consumer does not block on the mere presence of a schooling fact — use a genuinely
@@ -181,8 +196,8 @@ contradiction either — nothing conflicts.
 **This selects among A3's three adverse readings, so the selection is stated rather
 than left implicit.** Reading 1 — record it and leave the figure alone — is rejected:
 it deducts interest now known to be doubtful. Reading 2 — stop treating that
-statement's box 1 as adequate grounds until the person enumerates — is selected for
-the undetermined case. Reading 3 — compute a changed result from the adverse fact — is
+statement's box 1 as adequate grounds until the affected scope or amount is determined,
+by whichever route does it — is selected for the undetermined case. Reading 3 — compute a changed result from the adverse fact — is
 selected once a portion is determined. The readings turn out to be stages of one
 path rather than alternatives.
 
@@ -238,10 +253,12 @@ consumer reveals them is A6's.
 | --- | --- |
 | No enrolment information | The figure publishes |
 | A relevant, non-disqualifying circumstance is recorded — enrolled full-time in a degree programme for the period | The figure still publishes |
-| An irrelevant description is offered — evening attendance | Nothing recorded, nothing asked, the figure publishes |
+| An irrelevant description is offered — evening attendance | No canonical tax circumstance derived from it, no follow-up prompted by it, the figure publishes. This does not forbid retaining the original evidence of what was said |
 | Adverse, scope undetermined | Blocked, distinguishably from the first row |
 | Adverse, portion determined | A reduced figure; zero only if the portion is the whole |
 | Membership unknown | No subtraction from this statement |
+| A loan is newly present and nothing adverse has been said about it | The figure publishes. Nothing is asked — there is no earlier claim whose applicability is in question |
+| A loan is newly present and an existing adverse claim's scope may reach it | Blocked as to that loan, and asked — because a claim already made now has unresolved applicability |
 | Membership known to be absent | This statement proceeds as no-adverse |
 | An allocation exceeds box 1, or a completeness claim fails to cover it | Contradiction; does not proceed |
 | The association names a retracted or superseded target | The figure is not defended from that association — the reference resolving is not support |

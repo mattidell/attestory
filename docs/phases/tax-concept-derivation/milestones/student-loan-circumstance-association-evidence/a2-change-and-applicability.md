@@ -43,6 +43,19 @@ Ask again when a material dependency needs clarification — not because a recor
 changed. And the correction is not blanket preservation either: each row below says the
 condition under which support actually fails.
 
+**A newly present loan is not itself a reason to ask anything.** Three states, and only
+the last two carry adverse consequences:
+
+- **No adverse information about that loan.** The ordinary case for almost every loan on
+  almost every return. The figure publishes; nothing is asked.
+- **Existing adverse information whose scope may reach it.** Here there is a claim
+  already on the record whose applicability is genuinely unresolved, and *that* is what
+  makes clarification mandatory — not the loan's newness.
+- **Established adverse information with a determined effect on it.** Subtract the
+  attributable amount.
+
+Clarification is owed because an earlier claim needs it, never because a record is new.
+
 ## The table
 
 "Asked again?" means an obligation to ask arises, not that a question is designed —
@@ -55,9 +68,9 @@ response.
 | **The association is corrected to name a different circumstance** | Yes, the new target | Survives as a new finding at the same association identity; the previous is displaced. Whether a consequence follows depends on the new target | No | Nothing unresolved |
 | **The named target is retracted, nothing replaces it** | **No** — leg 1 fails | Cannot survive; there is nothing left to support it. The reference still resolving is not support | Yes — the person withdrew what the claim rested on. **This ask does not hold the figure** | The figure is not defended from that association, and per A3 an adverse basis withdrawn returns the statement to evaluable. So the interval here *is* the settled outcome — unlike the blocked intervals below, where the ask does hold |
 | **The adverse answer is reasserted after withdrawal** | Yes | New finding, new current support. Earlier findings stay stored and non-current | No | Nothing unresolved. The earlier retraction does not mean the person recanted |
-| **The reported amount is corrected** | Yes | **Mostly recalculation, not invalidation.** The proposition "loan ABC accounts for 700 of this statement" does not stop holding because the statement's total moved from 1,200 to 1,300; ABC may still account for 700 and the extra 100 be another loan's. What moves is the *remainder*. Support fails only in two named cases: an allocation that now **exceeds** the corrected total, or a **completeness** claim over an allocation that no longer covers it | Only in those two cases. A corrected total alone is not a reason to ask | Recalculated remainder, nothing unresolved, in the ordinary case. Blocked in the overshoot or failed-completeness case |
+| **The reported amount is corrected** | Yes | **Turns on whether the correction touches this component's basis, and arithmetic does not settle that.** "Loan ABC accounts for 700 of this statement" does not stop holding merely because the total moved from 1,200 to 1,300 — but neither does it survive merely because 700 still fits inside 1,300. Contrast: a correction *known to concern another component* (the second loan's interest was understated) leaves ABC's basis untouched and support survives; a correction that **changes or leaves unresolved** what ABC's 700 rested on — an unexplained restatement, or a revised servicer breakdown — leaves that support unresolved, whatever the arithmetic permits. Overshoot and a failed completeness claim are two ways support fails, **not the only ways** | When the basis for this component is changed or unknown. Not when the correction is known to concern something else, and not because a total moved | Recalculated remainder where the basis survives. Blocked as to this component where its basis is unresolved |
 | **The report's composition changes** — a corrected form covering different loans | Yes; everything named still exists | **Partly surviving.** What was said about the members that are still there continues to hold — a population changing does not erase what is known about its existing members. A **completeness** claim over the old composition does fail, because that is precisely a claim about the whole set. A per-member claim about a member that remains does not | For the completeness claim, and for any member newly present whose circumstance is unknown. Not for members already described | Blocked only as to the part that is unresolved: the new or unaccounted members. The described members keep their established treatment |
-| **A further statement arrives after a claim about "all my loans"** | Yes | **Often surviving, and an earlier version of this row said otherwise.** A new *statement* is not a new *loan*. The common case is a loan transferred between servicers, so the second form reports interest on borrowing already covered — and "these are all my loans" is untouched. Support fails only where it is unknown whether the new statement introduces a loan the claim did not cover | Yes, but only to settle that one dependency: does this form concern borrowing already described? Not because a form arrived | Blocked only as to the unsettled part. Statements already accounted for keep their treatment |
+| **A further statement arrives after a claim about "all my loans"** | Yes | **Often surviving.** A new *statement* is not a new *loan*: the common case is a loan transferred between servicers, so the second form reports interest on borrowing already covered, and "these are all my loans" is untouched. Support fails only where it is unknown whether the new statement introduces borrowing the claim did not cover | **Only because an earlier claim exists whose applicability is now in question.** Without such a claim there is nothing to clarify, and a new statement with nothing said about it is asked nothing at all. Not because a form arrived | Blocked only as to the unsettled part. Statements already accounted for keep their treatment |
 
 ## Standing unfavourable versus absent
 

@@ -848,8 +848,9 @@ neither is settled by observing the worksheet's current dependency list.
 2. For an adverse answer, what has the application become responsible for? Three
    readings, none yet chosen: record it and offer the enumeration route, leaving
    the figure alone; stop treating that statement's box 1 as adequate grounds
-   until the person enumerates; or compute a changed result from the adverse fact
-   directly. A3 states each with its consequence for the person. That the third is
+   until the affected scope or amount is determined — by a statement covering the whole
+   reported amount or by sufficiently identified portions, enumeration being one way and
+   not a requirement; or compute a changed result from the adverse fact directly. A3 states each with its consequence for the person. That the third is
    mechanically feasible — the previous milestone executed it — is a fact about
    feasibility, not a reason to prefer it; the other two are untested either way.
 3. **What counts as a contradiction, and what follows from one?** An earlier
@@ -1096,11 +1097,17 @@ one: recalculation, surviving support, and genuinely unresolved applicability. A
 fixture that treats every record change as invalidation passes for the wrong reason,
 and so does one that preserves everything.
 
-Two concrete cases A6 must carry, because they are where the collapse happens: a loan
-transferred between servicers, where two statements concern one borrowing and the
-amounts are separate payments — subtract each statement's attributable amount, never
-the loan-level total from both; and an irrelevant description offered, which must
-record nothing and ask nothing.
+Four concrete cases A6 must carry, because they are where the collapse happens:
+
+- a loan transferred between servicers, where two statements concern one borrowing and
+  the amounts are separate payments — subtract each statement's attributable amount,
+  never the loan-level total from both;
+- two statements whose totals happen to be equal, which is a reason to ask and not
+  proof that the same payments were reported twice;
+- a newly present loan with nothing adverse said about it — the figure publishes and
+  nothing is asked, because no earlier claim's applicability is in question;
+- an irrelevant description offered, which must derive no canonical circumstance and
+  prompt no follow-up — while not requiring that the original evidence be discarded.
 
 **Its relation to the gates.** G1 needs A4's **bounds** — the classification and
 the two lists — not A4's completion. G2 needs execution against the representation
