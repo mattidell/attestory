@@ -261,6 +261,7 @@ consumer reveals them is A6's.
 | A loan is newly present and an existing adverse claim's scope may reach it | Blocked as to that loan, and asked — because a claim already made now has unresolved applicability |
 | Membership known to be absent | This statement proceeds as no-adverse |
 | An allocation exceeds box 1, or a completeness claim fails to cover it | Contradiction; does not proceed |
+| A completeness claim becomes inapplicable because the composition changed | Not a contradiction. Blocked only for a calculation that depended on the set being exhaustive; per-portion subtraction and unaffected members proceed |
 | The association names a retracted or superseded target | The figure is not defended from that association — the reference resolving is not support |
 | Similar names or equal amounts, no relationship evidence | No inferred match; the circumstance does not reach that statement |
 | An adverse answer is withdrawn | Returns to evaluable; still distinguishable from a standing unfavourable answer |

@@ -1105,7 +1105,11 @@ Four concrete cases A6 must carry, because they are where the collapse happens:
 - two statements whose totals happen to be equal, which is a reason to ask and not
   proof that the same payments were reported twice;
 - a newly present loan with nothing adverse said about it — the figure publishes and
-  nothing is asked, because no earlier claim's applicability is in question;
+  nothing is asked, because no earlier claim's applicability is in question, and this
+  holds whether it arrived by a changed form composition or a further statement;
+- a completeness claim that lapses because the composition changed — blocking only the
+  calculation that depended on the set being exhaustive, never every newly represented
+  loan;
 - an irrelevant description offered, which must derive no canonical circumstance and
   prompt no follow-up — while not requiring that the original evidence be discarded.
 
