@@ -460,7 +460,7 @@ whole plan.
 | A2 | specified; answer drafted | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | specified; answer drafted | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | outlined | Blocked by G1, which needs A1's, A2's and A3's actual answers, not their specified refinements |
+| A5 | outlined | Blocked by G1. Carries five representation decisions from the responsibility category — what kind of citizen it is, what makes it apply, its lifecycle, its relation to provenance, and its persistence |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
@@ -1006,6 +1006,12 @@ forbids chartering implementation on `read`-level mechanism claims.
    **Every other demand below is unclassified — classifying it is the work.** Do not
    carry a level into the table from this list.
 
+   From the responsibility category: whether anything can be represented, persisted
+   and inspected **without** being a finding of either declared nature — the kernel
+   gives fact types only `determinable` and `elective`, and a responsibility is
+   neither. Citations are the nearest citizen that is represented and never consumed;
+   whether that shape carries this is untested.
+
    From A0: whether a rule expression can read a *per-member value* from a
    universal-over-members operator — noting that member identity is **not** lost,
    since the witness fact types are keyed `lender` + `statement` + `tax-year` and the
@@ -1112,7 +1118,12 @@ Four concrete cases A6 must carry, because they are where the collapse happens:
   calculation that depended on the set being exhaustive, never every newly represented
   loan;
 - an irrelevant description offered, which must derive no canonical circumstance and
-  prompt no follow-up — while not requiring that the original evidence be discarded.
+  prompt no follow-up — while not requiring that the original evidence be discarded;
+- a normalised statement that uses the person's own word "eligible" — the circumstance
+  recorded is attendance at the named institution, and no finding establishing that
+  institution's eligibility may appear anywhere as a result;
+- a condition the person is responsible for, applying alongside a published figure —
+  represented and inspectable, establishing nothing and blocking nothing.
 
 **Its relation to the gates.** G1 needs A4's **bounds** — the classification and
 the two lists — not A4's completion. G2 needs execution against the representation
@@ -1165,7 +1176,7 @@ A1–A3 are the work it skipped.
 | What we ask a person, in words | Team, with owner sign-off on the wording | Before A5 | A1, in progress |
 | What counts as an established contradiction, and what the system does with one | Team, from the facts — not an owner preference | A3 | Reframed. Not a choice between isolating and blocking: the person supplies facts and the product must know what to do. Where more facts would let the return proceed with adjustments, it proceeds; where a contradiction is established, it does not |
 | How eligible-student status participates | **Decided** by the owner, 2026-09-20 | — | Always present, never gating, disqualifier only. See below for the phrasing consequence |
-| Whether to pose a requirement we cannot help a person resolve favourably | Owner | A1 | Open. Constituents 4 and 3 are the instances |
+| Whether to pose a requirement we cannot help a person resolve favourably | **Decided** by the owner, 2026-09-21 | — | Neither posed as a question nor omitted. Institutional eligibility and credential recognition are represented as inspectable conditions the person is responsible for: understood and represented, never established by a finding, solicited as an attestation, or consumed by a calculation |
 | How the answer is stored and how many records it becomes | Team, recorded with reasons | A5 | Open; explicitly not settled by A1 |
 | Whether refusal is an adequate answer for the two multi-borrowing cases | Owner | A5 | Open |
 | Whether a separately identified borrowing is needed now | Team, constrained by the case list | A5 | Open |

@@ -253,6 +253,7 @@ consumer reveals them is A6's.
 | --- | --- |
 | No enrolment information | The figure publishes |
 | A relevant, non-disqualifying circumstance is recorded — enrolled full-time in a degree programme for the period | The figure still publishes |
+| A condition the person is responsible for applies — institutional eligibility, credential recognition, the half-time standard | The figure still publishes. The condition is represented and inspectable, establishes nothing, blocks nothing, and is consumed by no calculation |
 | An irrelevant description is offered — evening attendance | No canonical tax circumstance derived from it, no follow-up prompted by it, the figure publishes. This does not forbid retaining the original evidence of what was said |
 | Adverse, scope undetermined | Blocked, distinguishably from the first row |
 | Adverse, portion determined | A reduced figure; zero only if the portion is the whole |

@@ -66,23 +66,22 @@ interrogation.
 *What is decided:* its behaviour. Always present as a consideration, never gating,
 acting only as a disqualifier.
 
-*What is not decided:* **whether it is posed at all.** Posing it invites the adverse
-volunteer, which is the only thing the product can use, and costs nothing
-epistemically because silence adds nothing. Against that, it tells someone about a
-requirement they cannot resolve favourably — there is no producer for credential
-recognition, institution eligibility or a half-time threshold — so the product would
-be raising a doubt it cannot settle.
+*Resolved by the owner, 2026-09-21* — and not by choosing between posing it and
+omitting it. Both of those treated the condition as a question. See
+[circumstances and responsibilities](responsibilities-and-circumstances.md).
 
-This is the owner's decision, recorded in the plan. **A1 cannot be complete until it
-is made**, and G1 depends on A1 being complete.
+*What is asked:* the person describes where they studied, what they were enrolled in,
+and their course load. Ordinary circumstances, normalised by the translation layer.
 
-*If it is posed:* as a condition, in the same shape as group 3 — the deduction is for
-borrowing that paid for education while the student was enrolled at least half-time in
-a programme leading to a credential. Never as a question about recognition or
-eligibility.
+*What is not asked:* whether the institution was eligible, whether the programme led
+to a recognised credential, whether the load met that institution's half-time
+standard. Those are **represented as conditions the person is responsible for** —
+inspectable, bound to the circumstance and treatment that made them applicable, and
+consumed by no calculation.
 
-*If it is not posed:* the product learns of an adverse circumstance only where the
-person volunteers it unprompted, which A3's cases already accommodate.
+*What this removes:* the doubt-without-recourse problem. The product is not raising a
+question it cannot help settle; it is telling someone which conditions are theirs, and
+why they apply.
 
 ## What is posed when a person supplies a portion
 
@@ -104,7 +103,8 @@ being resolved by a guess.
 
 ## What this stage leaves
 
-Group 4's posing, pending the owner's decision. The exact wording of every group,
-which is the owner's to approve once the set is complete. And A1's remaining `done`
-fields — the resting points and the "I cannot say" expression for the groups above,
-which stage 1 worked only for group 3.
+The exact wording of every group, which is the owner's to approve once the set is
+complete. A1's remaining `done` fields — the resting points and the "I cannot say"
+expression for the groups above, which stage 1 worked only for group 3. And the
+representation questions the responsibility category creates, which are A5's and are
+listed in [circumstances and responsibilities](responsibilities-and-circumstances.md).
