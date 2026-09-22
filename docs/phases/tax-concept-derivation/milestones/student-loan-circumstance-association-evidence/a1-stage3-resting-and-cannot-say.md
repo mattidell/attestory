@@ -31,8 +31,10 @@ another, and a statement left unanswered does not put the others in question.
 the rest.
 
 **"I cannot say."** The likeliest case in this group: someone may not know whether an
-employer's assistance or a 529 withdrawal was applied to the costs these loans covered,
-particularly years later.
+employer paid any of the **interest** on these loans under an educational assistance
+programme, or whether qualified-tuition-programme earnings were used to pay **that
+interest**, particularly years later. Those are the two A0 places; neither is about the
+costs the loans covered.
 
 *What it must not do:* be read as either answer. A1 records only that it must remain
 expressible and distinguishable; what a consumer does about it is A3's, and A3's

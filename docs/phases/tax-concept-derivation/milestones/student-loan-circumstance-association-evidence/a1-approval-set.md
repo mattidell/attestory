@@ -7,17 +7,16 @@ Polarity follows the owner's rule of 2026-09-22: **phrase so that "yes" is what
 materially changes production**, and no / unknown / no-answer collapse into one
 harmless state.
 
-**A constraint the wording cannot fix, carried for A5.** "The system will assume it is
-in your name" is safe as *rule behaviour* — proceeding when nothing adverse was said. It
-is not safe as a defaulted finding: a fact "the loan is in another person's name"
-defaulted to false records that it is in yours, an affirmation nobody made. Absence
-should be nothing recorded.
+**A constraint the wording cannot fix, carried for A5.** "The system will assume you are
+obligated" is safe as *rule behaviour* — proceeding when nothing adverse was said. It is
+not safe as a defaulted finding: recording silence as the filer being obligated is an
+affirmation nobody made. Absence should be nothing recorded.
 
 ## Return-level
 
 | Proposition | Answers | What "yes" does | Candidate wording | Uncertain |
 | --- | --- | --- | --- | --- |
-| Someone other than the filer is obliged to pay the interest | yes / no / unknown | Deduction is **zero** — a real answer, not a refusal | *Is someone else responsible for paying the interest on this loan?* | Phrased as the obligation, not as whose name is on the loan: who incurred the debt is a different fact, unposed and unplaced. Whether co-signing satisfies the obligation is translation, not a question |
+| The filer is **not** legally obligated to pay the interest — the adverse face of F7 | yes / no / unknown | Deduction is **zero** — a real answer, not a refusal | *Is it the case that you are not required to pay the interest on this loan?* (wording needs work; the proposition is what matters) | Not "is someone else obliged", which is a different proposition — it is true of a co-signer, where the filer is obliged too and the deduction proceeds. Who incurred the debt is a further different fact, unposed and unplaced. Whether co-signing satisfies the obligation is translation |
 | Someone else can claim the person as a dependent | yes / no / unknown | Deduction is **zero** | *Can anyone else claim you as a dependent?* | A person may genuinely not know. Stage 3's "I cannot say" applies |
 | The return files Form 2555 or Form 4563 | yes / no / unknown | **Blocks** — modified AGI needs an add-back this calculation does not do | *Do you file Form 2555 or Form 4563?* | Whether 2555 and 4563 are one question or two |
 | Income is excluded as a bona fide resident of Puerto Rico or American Samoa | yes / no / unknown | **Blocks**, same reason | *Do you exclude income as a resident of Puerto Rico or American Samoa?* | — |

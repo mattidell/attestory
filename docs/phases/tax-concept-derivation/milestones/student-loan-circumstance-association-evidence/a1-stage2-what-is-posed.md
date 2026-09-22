@@ -24,9 +24,8 @@ fact that produces a zero with one that defeats a constituent.
 *Why answerable, per question rather than as a blanket:* being obliged to pay the
 interest is the person's own arrangement, and they know what they are paying. Being
 claimed as a dependent is a fact about another return they can find out. Filing status
-is on their own return. Each is answerable for its own reason. Being claimed as a dependent is a fact about another return they can
-find out. Filing status is on their own return. Each is answerable for its own reason;
-"no rule is involved" is not one of them, and was the wrong warrant.
+is on their own return. Each is answerable for its own reason; "no rule is involved" is
+not one of them, and was the wrong warrant.
 
 *Occasion:* return-level, at the point the deduction is being worked out. Not
 prompted by any particular statement.
