@@ -190,11 +190,12 @@ conditional set. The owner's statement that *loan eligibility status does not
 directly impact total student loan interest deduction* corroborates this; it is
 not the evidence for it.
 
-**Routes.** *R5a:* the person states it, in the form the application poses —
-"all of your student loans must be eligible", per the owner's item 7. *R5b:*
-derived from an enumeration plus facts about the institution and the borrowing.
-*Concurrency:* both could hold at once and could disagree; nothing here says which
-governs.
+**Routes.** *R5a:* assembled by rule from the F9 circumstances that bear on its
+constituents — never asked of the person as a classification, per A1. *R5b:* derived
+additionally from facts about the institution; **that is not a route this milestone
+builds**, because institutional eligibility and credential recognition are represented
+as conditions the person is responsible for rather than determined. *Concurrency:* not
+a live question while R5b is not a route.
 
 **Sits behind it:** F6.
 
@@ -215,11 +216,13 @@ constituents below.
 This is the previous milestone's subject: `§ 221(d)(1)(C) → § 221(d)(3) →
 § 25A(b)(3)(A) → HEA § 484(a)(1)`, with `26 CFR 1.221-1(e)(3)(i)(B)`.
 
-**Routes.** *R6a:* the person's ordinary account of their schooling for a named
-period — which the previous milestone showed works in the adverse direction and
-not the favourable one. *R6b:* institutional and public-authority
-determinations, for which no producer exists. *Concurrency:* not a real case
-today, since R6b has no producer.
+**Routes.** *R6a:* the person's ordinary account of their schooling for a named period
+— the F9 circumstances — which the previous milestone showed works in the adverse
+direction and not the favourable one. *R6b:* institutional and public-authority
+determinations. **R6b is not an unbuilt route; it is not a route.** Institutional
+eligibility, credential recognition and the half-time standard are represented as
+conditions the person is responsible for, which the application does not establish and
+no calculation consumes. *Concurrency:* not applicable.
 
 *Grounds the product accepts:* undecided. The previous milestone established, at
 `run`, that an adverse ordinary answer defeats the test on its own, while a
@@ -232,6 +235,36 @@ knowledge alone. It is not proof that the person was ineligible, and a later act
 must not promote it to one. A favourable answer is weaker, and could not rise above
 supported without producers that do not exist.
 **Engine represents it today:** no. Nothing.
+
+### F9 — The ordinary circumstances that contribute to F5 and F6
+
+**Added after A1 and the responsibility direction.** F5 and F6 were placed as
+composites, and A1 then posed the circumstances beneath them. Those circumstances are
+facts in their own right and belong on this list; without them A1 poses what this model
+never placed.
+
+Each is an ordinary description a person supplies, normalised by the translation layer.
+None is a classification, and none establishes the composite it contributes to.
+
+| Circumstance | Contributes to | Stage |
+| --- | --- | --- |
+| What the borrowed money paid for, and whether it paid for **only** that | F5, constituent 1 (the chapeau) | Behind F2 by the box-1 route |
+| Whose education it paid for — the person, a spouse, a dependent | F5, constituent 2 | Same |
+| Who lent the money | F5, constituent 5 (related-person indebtedness) | Same |
+| Where the money came from — an employer's plan, a 529, employer assistance | F5, constituents 6 and F4's members | Same |
+| Attendance at an identified institution for an identified period | F6 | Behind F5, which is behind F2 |
+| Enrolment in an identified programme | F6 | Same |
+| Course load for that period | F6, with the threshold itself a responsibility | Same |
+
+*Routes:* the person's own account, normalised. *Grounds:* their own answer.
+*Standing:* supported only, and the qualities differ — what money paid for is ordinary
+recall; who lent it is ordinary; a course load is ordinary but its sufficiency is not.
+*Engine represents them today:* no, except where F4's members already cover part of the
+fourth row.
+
+**What they do not do.** No combination of them establishes F5 or F6. They contribute
+to constituents; the composite is assembled by rule, never asked, and its institutional
+constituents are not established at all — see the responsibility account.
 
 ### F7 — The person is legally obligated to pay the interest
 

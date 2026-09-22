@@ -49,24 +49,40 @@ adverse; after they confirm it concerns a particular statement.
 ordinary fact about at least one loan. At the third, that fact attached to an
 identified statement.
 
-**"I cannot say."** Two distinct forms, and they are not the same:
+**"I cannot say."** Two distinct forms, and what each does depends on what already
+stands in the workspace — not on the phrase alone.
 
 - *I don't remember what I was enrolled in that term.* An inability about the
   circumstance itself.
 - *I know I wasn't enrolled, but I can't tell you which of these loans it affects, or
   how much of this total that is.* The circumstance is known; its scope or amount is
-  not.
+  not. This is A3's blocked state, reached honestly.
 
-The second is A3's blocked state, reached honestly. The first is not — it leaves the
-product where it was. **Both must be expressible, and they must not share an
-expression**, because they have opposite consequences: one leaves the return
-computable and the other does not.
+**Both must be expressible, and they must not share an expression**, because they can
+carry opposite consequences.
+
+Two short histories, because the first form is not self-interpreting:
+
+- **No adverse information stands, and the person cannot remember.** Nothing changes.
+  No block is introduced, and the figure follows as it did — there was never anything
+  for the uncertainty to unsettle.
+- **An adverse statement already stands, and the person later cannot remember.** The
+  earlier statement **remains current.** Not remembering now does not erase it, retract
+  it, or restore the unadjusted figure. Inability to recall is not withdrawal.
+
+If the person is in fact questioning or withdrawing what they said earlier, that is a
+**different meaning** and must be expressed as such. It is not to be inferred from
+uncertainty alone — treating "I don't remember" as a retraction would let a figure
+move on a phrase rather than on a statement.
 
 ## What must never happen, across all groups
 
 - A resting point presented as an abandoned task.
 - "I cannot say" recorded as an answer of either polarity.
-- A question re-asked that the person has already answered.
+- A question repeated **unnecessarily** — where the earlier answer remains applicable,
+  it is not asked again. This is not a blanket prohibition on asking twice: A2's
+  justified clarification stands, so where a material change has left an earlier
+  answer's applicability unresolved, asking again is correct and is not repetition.
 - Any group's unanswered question used to infer an answer in another.
 
 ## What A1 still leaves
