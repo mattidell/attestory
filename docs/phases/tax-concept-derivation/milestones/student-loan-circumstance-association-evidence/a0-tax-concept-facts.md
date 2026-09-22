@@ -226,17 +226,19 @@ eligibility, credential recognition and the half-time standard are represented a
 conditions the person is responsible for, which the application does not establish and
 no calculation consumes. *Concurrency:* not applicable.
 
-*Grounds the product accepts:* undecided. The previous milestone established, at
-`run`, that an adverse ordinary answer defeats the test on its own, while a
-favourable answer needs credential recognition, institution eligibility and a
-half-time threshold, none of which has a producer. *Standing of the result:*
-asymmetric, and this is the milestone's central fact. An adverse answer is
-**adequate grounds for a supported determination that the test fails** — one
-required conjunct fails and the test fails with it, on the person's ordinary
-knowledge alone. It is not proof that the person was ineligible, and a later action
-must not promote it to one. A favourable answer is weaker, and could not rise above
-supported without producers that do not exist.
-**Engine represents it today:** no. Nothing.
+*Grounds the product accepts:* an adverse ordinary account, and nothing on the other
+side. *Standing of the result:* asymmetric, and this is the milestone's central fact.
+
+An adverse answer is **adequate grounds for a supported determination that the test
+fails** — one required conjunct fails and the test fails with it, on the person's
+ordinary knowledge alone, established at `run` by the previous milestone. It is not
+proof that the person was ineligible, and a later action must not promote it to one.
+
+**A favourable ordinary answer establishes nothing.** Not a weak positive, not a
+determination of lesser standing — nothing. The institutional conditions it would need
+are not unbuilt producers waiting to be supplied; they are conditions the person is
+responsible for, and no route reaches them. Where no adverse answer is supported the
+calculation proceeds, and that is F9's second outcome, never its third.
 
 ### F9 — The ordinary circumstances that contribute to F5 and F6
 
@@ -248,12 +250,23 @@ never placed.
 Each is an ordinary description a person supplies, normalised by the translation layer.
 None is a classification, and none establishes the composite it contributes to.
 
+**Two of them are not about the loan at all.** Employer-paid interest and
+qualified-tuition-programme earnings concern what paid the *interest* reported on a
+statement — the double-benefit rule — not whether the borrowing qualifies. Grouping
+them with the employer-plan circumstance, as an earlier version of this table did,
+would let an adverse answer disqualify a loan when what it actually bears on is an
+amount. **What the incumbent worksheet does with either is block the whole route**; a
+different consumer treating them as amount facts is A5's to select, not something this
+model asserts.
+
 | Circumstance | Contributes to | Stage |
 | --- | --- | --- |
 | What the borrowed money paid for, and whether it paid for **only** that | F5, constituent 1 (the chapeau) | Behind F2 by the box-1 route |
 | Whose education it paid for — the person, a spouse, a dependent | F5, constituent 2 | Same |
 | Who lent the money | F5, constituent 5 (related-person indebtedness) | Same |
-| Where the money came from — an employer's plan, a 529, employer assistance | F5, constituents 6 and F4's members | Same |
+| Borrowing against an employer's plan | F5, constituent 6 — takes the indebtedness out of the class | Same |
+| An employer paid interest on these loans under an educational assistance programme | **Not a constituent.** A § 221(e)(1) double-benefit witness about what paid the *interest*, not about the loan's classification | Behind F1's amount |
+| Qualified-tuition-programme earnings were used to pay this interest | **Not a constituent**, same double-benefit ground | Behind F1's amount |
 | Attendance at an identified institution for an identified period | F6 | Behind F5, which is behind F2 |
 | Enrolment in an identified programme | F6 | Same |
 | Course load for that period | F6, with the threshold itself a responsibility | Same |
@@ -447,9 +460,10 @@ per-route standing across the list:
   keyed by statement and each supporting finding is pinned, so attribution is
   preserved in the record. What is coarse is the *expression's* view, not the
   evidence.
-- F5 asks the person for what is effectively the conclusion of a statutory test.
-- F6's is asymmetric: adequate to support failure when adverse, weak when
-  favourable.
+- F5's grounds *would be* the conclusion of a statutory test, which is precisely why
+  A1 does not ask for it.
+- F6's is asymmetric: adequate to support failure when adverse, and **nothing at all**
+  when favourable.
 
 So grounds come in at least five qualities, of which four are testimonial.
 

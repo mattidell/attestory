@@ -40,12 +40,17 @@ owes their wording; whether it is this milestone is the owner's call.
 The composite qualified-loan witness is **excluded** — see A1 stage 2. These four ask
 the ordinary core and leave classification to translation.
 
+**The last two are not about the loan.** They are double-benefit questions about what
+paid the *interest* on a statement, not about whether the borrowing qualifies. An
+earlier version of these rows said "education costs", which is neither what the fact
+types concern nor what the rule reads.
+
 | Proposition | Answers | What "yes" does | Candidate wording |
 | --- | --- | --- | --- |
 | A related person lent the money | yes / no / unknown | Defeats a constituent | *Did a relative or someone close to you lend you this money?* |
 | The borrowing was against an employer plan | yes / no / unknown | Defeats a constituent | *Did you borrow against a plan through your employer?* |
-| An employer paid toward these education costs | yes / no / unknown | Bears on the amount | *Did an employer pay any of these education costs?* |
-| A 529 or similar was used for these costs | yes / no / unknown | Bears on the amount | *Did you use a 529 or similar savings plan for these costs?* |
+| An employer paid **interest** on these loans under an educational assistance programme | yes / no / unknown | Bears on the amount, under a consumer A5 selects. **The incumbent worksheet blocks the whole route** | *Did an employer pay any of the interest on these loans?* |
+| Qualified-tuition-programme earnings were used to pay **this interest** | yes / no / unknown | Same | *Did you use money from a 529 or similar plan to pay this interest?* |
 
 ## The use-of-proceeds condition
 

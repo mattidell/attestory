@@ -43,7 +43,7 @@ worksheet; it describes what the **new bounded consumer** may ask and depend on.
 | --- | --- | --- | --- | --- |
 | `no-related-person-interest` | Categorical per statement; a "no" blocks the route | Who lent them the money — "my aunt lent me this" | Whether that relationship is a *related person* in the statutory sense | — |
 | `no-qualified-employer-plan-interest` | Same | Where the money came from — "I borrowed against my employer's plan" | Whether that plan is a *qualified employer plan* | — |
-| **`no-non-qualified-loan-component`** | Same | **No single answer supplies it** — but its constituents draw on ordinary circumstances that are posed elsewhere: use of proceeds (group 3), who borrowed, enrolment (group 4), and the related-person and employer-plan circumstances in the rows above | The composite classification is never asked and never favourably derived. A rule reads the circumstances and may conclude it **fails**; where nothing adverse is supported the calculation proceeds without concluding it holds (A0 F9) | Institutional eligibility and credential recognition, which sit inside constituent 4 |
+| **`no-non-qualified-loan-component`** | Same | **No single answer supplies it** — but its constituents draw on ordinary circumstances posed elsewhere: use of proceeds (group 3), enrolment (group 4), and the related-person and employer-plan circumstances in the rows above. Two constituents are **not** posed: whose education it paid for, and who incurred the debt | The composite classification is never asked and never favourably derived. A rule reads the circumstances and may conclude it **fails**; where nothing adverse is supported the calculation proceeds without concluding it holds (A0 F9) | Institutional eligibility and credential recognition, which sit inside constituent 4 |
 | `no-employer-educational-assistance-interest` | Same | What their employer paid toward their education | Whether that assistance is excludable | — |
 | `no-qtp-earnings-used` | Same | Whether they used a 529 or similar for these costs | Whether those earnings were excluded | — |
 
@@ -58,10 +58,16 @@ the responsibility category exists to avoid.
 **That prohibition is about the composite, not about the facts beneath it.** No single
 ordinary answer supplies the classification, and it does not follow that there is
 nothing ordinary to ask. Its constituents draw on circumstances this milestone already
-poses: whether the borrowing was solely for school (group 3), who borrowed and for
-whom, what the person was enrolled in (group 4), and the related-person and
-employer-plan circumstances above. Those are asked, normalised and translated in the
-ordinary way. What is never asked — and never favourably derived — is the verdict
+poses: whether the borrowing was solely for school (group 3), what the person was
+enrolled in (group 4), and the related-person and employer-plan circumstances above.
+Those are asked, normalised and translated in the ordinary way.
+
+Two constituents are **not** posed, and saying so is more useful than implying
+coverage. *Whose education the borrowing paid for* — constituent 2 — is placed in A0's
+F9 and has no question in the approval set; it is available only where the person
+volunteers it. *Who incurred the indebtedness* is not placed in A0 at all, and must not
+be folded into the legal-obligation question, which is a different fact with a
+different consequence: that one produces a zero, not a defeated constituent. What is never asked — and never favourably derived — is the verdict
 itself.
 
 **Which of the other four the new consumer depends on is A5's**, not settled here. The
