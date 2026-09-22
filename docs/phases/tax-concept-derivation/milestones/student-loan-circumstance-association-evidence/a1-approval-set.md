@@ -4,8 +4,13 @@ What the owner is asked to approve: **the wording**. Everything else in each row
 settled by A0–A4 and is given so the wording question is answerable.
 
 Polarity follows the owner's rule of 2026-09-22: **phrase so that "yes" is what
-materially changes production**, and no / unknown / no-answer collapse into one
-harmless state.
+materially changes production**, and no / unknown / no-answer collapse into one harmless
+state.
+
+**One exception, by design.** A *positive entitlement condition* must hold for the
+treatment to be available, so its material answer is "no". The legal-obligation row is
+the instance. The rule is not abandoned there; the condition's logical form is inverted,
+so applying the rule inverts the question. See A0's account of form versus treatment.
 
 **A constraint the wording cannot fix, carried for A5.** "The system will assume you are
 obligated" is safe as *rule behaviour* — proceeding when nothing adverse was said. It is
@@ -16,8 +21,8 @@ affirmation nobody made. Absence should be nothing recorded.
 
 | Proposition | Answers | What "yes" does | Candidate wording | Uncertain |
 | --- | --- | --- | --- | --- |
-| The filer is **not** legally obligated to pay the interest — the adverse face of F7 | yes / no / unknown | Deduction is **zero** — a real answer, not a refusal | *Is it the case that you are not required to pay the interest on this loan?* (wording needs work; the proposition is what matters) | Not "is someone else obliged", which is a different proposition — it is true of a co-signer, where the filer is obliged too and the deduction proceeds. Who incurred the debt is a further different fact, unposed and unplaced. Whether co-signing satisfies the obligation is translation |
-| Someone else can claim the person as a dependent | yes / no / unknown | Deduction is **zero** | *Can anyone else claim you as a dependent?* | A person may genuinely not know. Stage 3's "I cannot say" applies |
+| The filer is legally obligated to pay the interest (F7) | yes / no / unknown | **"No" is the material answer here**, producing the zero — this is a *positive entitlement condition* and its polarity is inverted by design, not by oversight | *Are you legally obligated to pay the interest on this loan?* | A co-signer **is** obligated, so someone else being responsible in practice does not remove it; and a third party paying on your behalf does not either (26 CFR § 1.221-1(b)(4)(i)). What it takes to be legally obligated is deferred |
+| Someone else will claim the person as a dependent | yes / no / unknown | Deduction is **zero** | *Will anyone else claim you as a dependent?* | A person may genuinely not know. Stage 3's "I cannot say" applies. Our record notes claiming and being *allowed* to claim are distinct (§ 221(c) via § 151); the committed fact says "claimed", and which the statute requires is unsettled here |
 | The return files Form 2555 or Form 4563 | yes / no / unknown | **Blocks** — modified AGI needs an add-back this calculation does not do | *Do you file Form 2555 or Form 4563?* | Whether 2555 and 4563 are one question or two |
 | Income is excluded as a bona fide resident of Puerto Rico or American Samoa | yes / no / unknown | **Blocks**, same reason | *Do you exclude income as a resident of Puerto Rico or American Samoa?* | — |
 

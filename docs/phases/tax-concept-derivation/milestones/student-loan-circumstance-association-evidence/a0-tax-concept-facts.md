@@ -8,6 +8,37 @@ Evidence levels: **`read`** for anything read off committed content or statute;
 **`run`** only where the readiness-gate checks executed it. No claim here is
 `run` unless marked.
 
+## A condition's logical form, and the polarity that follows
+
+Owner direction, 2026-09-22. Conditions come in two logical forms, and the form
+predicts which answer materially changes production rather than each question being
+settled case by case.
+
+- **Positive entitlement condition** — it must hold for the treatment to be available.
+  26 CFR § 1.221-1(b)(1) is one: a taxpayer is entitled to the deduction *only if* the
+  taxpayer has a legal obligation to make interest payments. **"No" is the material
+  answer**, so the question is asked in its positive form and the polarity rule is
+  inverted for it.
+- **Disqualifying condition** — it bars the treatment when it holds. § 221(c)'s
+  dependent bar, the § 221(d)(1) related-person and employer-plan exclusions, and the
+  § 221(e)(1) amount reductions are these. **"Yes" is the material answer**, which is
+  the ordinary polarity rule.
+
+A third kind is neither: the Form 2555/4563 and territorial-exclusion facts are **scope
+triggers**. A "yes" means this calculation does not cover the situation, which is not a
+statement about entitlement at all.
+
+**Form and treatment can diverge, and eligible-student status is where they do.** It is
+logically a positive entitlement condition, and it is nonetheless treated
+adversely-only — because the favourable side has no producer and its institutional
+constituents are the person's responsibility. So the form tells you the natural
+polarity; what can actually be established tells you the treatment. Do not infer one
+from the other.
+
+**Deferred, not blocking:** what it takes to *be* legally obligated. The regulation
+supplies the test and not its application, and a co-signer being obligated is as far as
+this milestone needs to go.
+
 ## The two relations, and a third thing
 
 Both relations are **relative to a route**, and they are **not mutually

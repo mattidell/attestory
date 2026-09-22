@@ -15,10 +15,12 @@ Settles no wording finally: the words are the owner's to approve. Settles no sto
 dependent; the filer-level exclusions; filing status.
 
 *What is posed:* these are asked directly, as questions about the person's own
-situation. The obligation question asks whether the person is obliged to pay the
-**interest** — F7 — and is answerable because a person knows what they are on the hook
-for. It is deliberately not explained as who borrowed or whose name is on the loan:
-who incurred the debt is unposed and unplaced, and folding it in here would merge a
+situation. The obligation question asks plainly whether the person is legally obligated
+to pay the **interest** — F7 — and is answerable because a person knows what they are on
+the hook for. **Its material answer is "no", not "yes"**, because a legal obligation is a
+positive entitlement condition; A0 records why that inverts the polarity rule rather
+than breaking it. It is deliberately not explained as who borrowed or whose name is on
+the loan: who incurred the debt is unposed and unplaced, and folding it in would merge a
 fact that produces a zero with one that defeats a constituent.
 
 *Why answerable, per question rather than as a blanket:* being obliged to pay the
