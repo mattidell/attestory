@@ -8,32 +8,40 @@ Evidence levels: **`read`** for anything read off committed content or statute;
 **`run`** only where the readiness-gate checks executed it. No claim here is
 `run` unless marked.
 
-## A condition's logical form, and the polarity that follows
+## The default expectation, and what polarity is really tracking
 
-Owner direction, 2026-09-22. Conditions come in two logical forms, and the form
-predicts which answer materially changes production rather than each question being
-settled case by case.
+Owner direction, 2026-09-22. **The criterion is the person's default expectation, not a
+condition's logical form.**
 
-- **Positive entitlement condition** — it must hold for the treatment to be available.
-  26 CFR § 1.221-1(b)(1) is one: a taxpayer is entitled to the deduction *only if* the
-  taxpayer has a legal obligation to make interest payments. **"No" is the material
-  answer**, so the question is asked in its positive form and the polarity rule is
-  inverted for it.
-- **Disqualifying condition** — it bars the treatment when it holds. § 221(c)'s
-  dependent bar, the § 221(d)(1) related-person and employer-plan exclusions, and the
-  § 221(e)(1) amount reductions are these. **"Yes" is the material answer**, which is
-  the ordinary polarity rule.
+Someone who puts a student loan in their workspace is presumably doing it because they
+are obligated on it and because they take it to be an eligible loan. Nobody adds a loan
+in the expectation that it has no tax consequence for them. That implicit expectation is
+the baseline, and **the questions exist to detect departures from it** — which is why a
+disqualifier's material answer is "yes". We are asking what would change the material
+conditions of what the person already assumes.
 
-A third kind is neither: the Form 2555/4563 and territorial-exclusion facts are **scope
-triggers**. A "yes" means this calculation does not cover the situation, which is not a
-statement about entitlement at all.
+A condition's logical form is **evidence about where the default lies, not the rule
+itself**. A disqualifying condition — the § 221(c) dependent bar, the § 221(d)(1)
+related-person and employer-plan exclusions, the § 221(e)(1) reductions — usually sits
+against a default of "not disqualified", so "yes" departs. A positive entitlement
+condition like 26 CFR § 1.221-1(b)(1)'s legal obligation usually sits against a default
+of "entitled", so "no" departs. Useful, and not a law: do not take the distinction so
+literally that it decides a question the default expectation should decide.
 
-**Form and treatment can diverge, and eligible-student status is where they do.** It is
-logically a positive entitlement condition, and it is nonetheless treated
-adversely-only — because the favourable side has no producer and its institutional
-constituents are the person's responsibility. So the form tells you the natural
-polarity; what can actually be established tells you the treatment. Do not infer one
-from the other.
+**The obligation question is asked positively for a contingent reason.** Not because
+being an entitlement condition settles it, but because **we cannot yet enumerate the
+circumstances that would defeat it**. If disqualifying conditions for legal obligation
+can later be enumerated, that question's polarity should flip like the others. This is a
+current state, not a principle.
+
+**A third kind is neither:** the Form 2555/4563 and territorial facts are **scope
+triggers**. A "yes" says this calculation does not cover the situation — not a statement
+about entitlement, and not a departure from a tax expectation.
+
+**No tax consequence does not mean no record.** A loan the person is not obligated on
+still gets reported and its facts still maintained. What the default expectation governs
+is which question is asked and which answer is material; it governs nothing about what
+is kept.
 
 **Deferred, not blocking:** what it takes to *be* legally obligated. The regulation
 supplies the test and not its application, and a co-signer being obligated is as far as

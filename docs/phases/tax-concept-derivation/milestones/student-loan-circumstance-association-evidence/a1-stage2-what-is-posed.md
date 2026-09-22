@@ -17,9 +17,10 @@ dependent; the filer-level exclusions; filing status.
 *What is posed:* these are asked directly, as questions about the person's own
 situation. The obligation question asks plainly whether the person is legally obligated
 to pay the **interest** — F7 — and is answerable because a person knows what they are on
-the hook for. **Its material answer is "no", not "yes"**, because a legal obligation is a
-positive entitlement condition; A0 records why that inverts the polarity rule rather
-than breaking it. It is deliberately not explained as who borrowed or whose name is on
+the hook for. **Its material answer is "no", not "yes"** — because the circumstances that would
+defeat an obligation cannot yet be enumerated, so there is nothing adverse to ask for.
+A0 records that this is a current state rather than a principle, and that the rule is
+really tracking the person's default expectation. It is deliberately not explained as who borrowed or whose name is on
 the loan: who incurred the debt is unposed and unplaced, and folding it in would merge a
 fact that produces a zero with one that defeats a constituent.
 

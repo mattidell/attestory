@@ -7,10 +7,12 @@ Polarity follows the owner's rule of 2026-09-22: **phrase so that "yes" is what
 materially changes production**, and no / unknown / no-answer collapse into one harmless
 state.
 
-**One exception, by design.** A *positive entitlement condition* must hold for the
-treatment to be available, so its material answer is "no". The legal-obligation row is
-the instance. The rule is not abandoned there; the condition's logical form is inverted,
-so applying the rule inverts the question. See A0's account of form versus treatment.
+**What the rule is really tracking** is the person's default expectation — someone
+entering a loan presumes they are obligated on it and that it is eligible, and the
+questions exist to detect departures from that. The legal-obligation row runs the other
+way, with "no" as its material answer, **because the circumstances that would defeat an
+obligation cannot yet be enumerated** — not because its logical form settles it. If they
+can later be enumerated, that row should flip like the others. See A0.
 
 **A constraint the wording cannot fix, carried for A5.** "The system will assume you are
 obligated" is safe as *rule behaviour* — proceeding when nothing adverse was said. It is
