@@ -8,40 +8,33 @@ Evidence levels: **`read`** for anything read off committed content or statute;
 **`run`** only where the readiness-gate checks executed it. No claim here is
 `run` unless marked.
 
-## The default expectation, and what polarity is really tracking
+## What belongs in this model, and what does not
 
-Owner direction, 2026-09-22. **The criterion is the person's default expectation, not a
-condition's logical form.**
+Owner direction, 2026-09-22. Two pursuits run alongside each other and must not be
+conflated.
 
-Someone who puts a student loan in their workspace is presumably doing it because they
-are obligated on it and because they take it to be an eligible loan. Nobody adds a loan
-in the expectation that it has no tax consequence for them. That implicit expectation is
-the baseline, and **the questions exist to detect departures from it** — which is why a
-disqualifier's material answer is "yes". We are asking what would change the material
-conditions of what the person already assumes.
+**Tax concept derivation — this document.** The tax concept represents the *nature of
+the tax consequence rules*, so the facts here are held **along the same lines as the
+rule**. `legally obligated to pay the interest` is a positive fact because
+26 CFR § 1.221-1(b)(1) states it positively; `eligible student` is a positive fact
+because § 221(d)(1)(C) does. The model does not reshape a condition to suit how it will
+be obtained.
 
-A condition's logical form is **evidence about where the default lies, not the rule
-itself**. A disqualifying condition — the § 221(c) dependent bar, the § 221(d)(1)
-related-person and employer-plan exclusions, the § 221(e)(1) reductions — usually sits
-against a default of "not disqualified", so "yes" departs. A positive entitlement
-condition like 26 CFR § 1.221-1(b)(1)'s legal obligation usually sits against a default
-of "entitled", so "no" departs. Useful, and not a law: do not take the distinction so
-literally that it decides a question the default expectation should decide.
+**The translation layer — A1's territory, not this document's.** How a positive
+condition is *arrived at* from ordinary statements is a different question, and its
+formula is **default user expectation plus any disqualifiers**. An earlier version of
+this section held that material here; it has moved to A1, where it belongs.
 
-**The obligation question is asked positively for a contingent reason.** Not because
-being an entitlement condition settles it, but because **we cannot yet enumerate the
-circumstances that would defeat it**. If disqualifying conditions for legal obligation
-can later be enumerated, that question's polarity should flip like the others. This is a
-current state, not a principle.
+Two consequences worth stating, because they are what the separation buys:
 
-**A third kind is neither:** the Form 2555/4563 and territorial facts are **scope
-triggers**. A "yes" says this calculation does not cover the situation — not a statement
-about entitlement, and not a departure from a tax expectation.
-
-**No tax consequence does not mean no record.** A loan the person is not obligated on
-still gets reported and its facts still maintained. What the default expectation governs
-is which question is asked and which answer is material; it governs nothing about what
-is kept.
+- **A translation-layer limitation is not a tax-concept change.** That we cannot yet
+  enumerate the circumstances defeating a legal obligation is a fact about the
+  translation layer. The concept stays positive either way, and the question's polarity
+  can change without the fact changing.
+- **It is also why the responsibility category is coherent.** Institutional eligibility
+  remains a condition of the rule and stays in the model. What the translation layer
+  declines to do is *establish* it. Keeping the condition while declining to produce it
+  is only expressible because the two layers are separate.
 
 **Deferred, not blocking:** what it takes to *be* legally obligated. The regulation
 supplies the test and not its application, and a co-signer being obligated is as far as

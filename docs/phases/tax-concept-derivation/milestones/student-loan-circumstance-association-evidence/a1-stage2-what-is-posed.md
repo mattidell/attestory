@@ -9,6 +9,29 @@ share a shape.
 Settles no wording finally: the words are the owner's to approve. Settles no storage
 (A5) and no consequence (A3).
 
+## How a positive condition is arrived at
+
+A1 is the translation layer. Its formula for reaching a condition the tax concept states
+positively is **the person's default expectation plus any disqualifiers**.
+
+Someone who puts a student loan in their workspace is presumably doing it because they
+are obligated on it and take it to be eligible. Nobody adds a loan expecting it to have
+no tax consequence for them. That implicit expectation is the baseline, and **the
+questions exist to detect departures from it** — which is why a disqualifier's material
+answer is "yes".
+
+Where the disqualifiers are enumerable, the condition is reached without asking the
+condition itself: assume the default, ask for departures. Where they are **not**
+enumerable, the translation layer has no way to reach the condition that way and asks it
+directly, with "no" as the material answer. That is the legal-obligation question's
+situation today, and it is a limitation of this layer rather than a property of the
+fact — A0 holds the concept positively either way, and this question's polarity can
+change without the fact changing.
+
+**No tax consequence does not mean no record.** A loan the person is not obligated on is
+still reported and its facts still maintained. This formula governs which question is
+asked and which answer is material; it governs nothing about what is kept.
+
 ## Group 1 — things a person ordinarily knows about themselves
 
 *Facts:* being legally obligated to pay the interest; not being claimed as a
