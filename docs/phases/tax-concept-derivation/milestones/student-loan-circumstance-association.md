@@ -26,6 +26,7 @@
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a2-change-and-applicability.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-stage2-what-is-posed.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-stage3-resting-and-cannot-say.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-approval-set.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -457,7 +458,7 @@ whole plan.
 | Action | State | Notes |
 | --- | --- | --- |
 | A0 | done | Model in [`a0-tax-concept-facts.md`](student-loan-circumstance-association-evidence/a0-tax-concept-facts.md), independently reviewed and judged sound enough to depend on |
-| A1 | specified; answered, pending owner wording | [Stage 1](student-loan-circumstance-association-evidence/a1-stage1-requirement-or-conclusion.md) — a classification cannot be asked, a condition can be posed. [Stage 2](student-loan-circumstance-association-evidence/a1-stage2-what-is-posed.md) — what is posed per quality of grounds. [Stage 3](student-loan-circumstance-association-evidence/a1-stage3-resting-and-cannot-say.md) — resting points and "I cannot say" for the remaining groups. What is left is the owner's approval of wording |
+| A1 | specified; answered, pending owner wording | [Stage 1](student-loan-circumstance-association-evidence/a1-stage1-requirement-or-conclusion.md) — a classification cannot be asked, a condition can be posed. [Stage 2](student-loan-circumstance-association-evidence/a1-stage2-what-is-posed.md) — what is posed per quality of grounds. [Stage 3](student-loan-circumstance-association-evidence/a1-stage3-resting-and-cannot-say.md) — resting points and "I cannot say" for the remaining groups. The [approval set](student-loan-circumstance-association-evidence/a1-approval-set.md) is what the owner approves: wording only, with each proposition, its answers and its effect given |
 | A2 | specified; answer drafted | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | specified; answer drafted | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
@@ -1176,7 +1177,8 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
-| What we ask a person, in words | Team, with owner sign-off on the wording | Before A5 | A1, in progress |
+| The wording of every question, condition and responsibility message | Owner | Before A5 | Ready — see the [approval set](student-loan-circumstance-association-evidence/a1-approval-set.md). Polarity follows the owner's rule: yes is what materially changes production |
+| Whether the twelve other-Schedule-1-adjustment facts are this milestone's business | Owner | Before A5 | Open. Return-level and required by the worksheet, not in A0's model, and arguably a scope device rather than a circumstance |
 | What counts as an established contradiction, and what the system does with one | Team, from the facts — not an owner preference | A3 | Reframed. Not a choice between isolating and blocking: the person supplies facts and the product must know what to do. Where more facts would let the return proceed with adjustments, it proceeds; where a contradiction is established, it does not |
 | How eligible-student status participates | **Decided** by the owner, 2026-09-20 | — | Always present, never gating, disqualifier only. See below for the phrasing consequence |
 | Whether to pose a requirement we cannot help a person resolve favourably | **Decided** by the owner, 2026-09-21 | — | Neither posed as a question nor omitted. Institutional eligibility and credential recognition are represented as inspectable conditions the person is responsible for: understood and represented, never established by a finding, solicited as an attestation, or consumed by a calculation |
