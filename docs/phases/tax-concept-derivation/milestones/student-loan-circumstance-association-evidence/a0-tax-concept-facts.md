@@ -266,11 +266,20 @@ fails** — one required conjunct fails and the test fails with it, on the perso
 ordinary knowledge alone, established at `run` by the previous milestone. It is not
 proof that the person was ineligible, and a later action must not promote it to one.
 
-**A favourable ordinary answer establishes nothing.** Not a weak positive, not a
-determination of lesser standing — nothing. The institutional conditions it would need
-are not unbuilt producers waiting to be supplied; they are conditions the person is
-responsible for, and no route reaches them. Where no adverse answer is supported the
-calculation proceeds, and that is F9's second outcome, never its third.
+**The favourable value comes from the default, not from a favourable answer.** The
+application does produce a favourable eligible-student value where no enumerated
+disqualifier is supported — on a **default-supported** basis, which its record must
+carry. An earlier version of this entry said a favourable answer "establishes nothing",
+which read as though no favourable value existed at all. What a favourable *ordinary
+answer* does is neither establish the status nor be needed for it: the default already
+produces the value, and an adverse answer is what defeats it.
+
+Three things that must not be run together: independent proof of every constituent,
+which nothing here produces; a user affirmation, which nobody made; and an
+application-derived value on a stated basis, which is what this is. The institutional
+conditions stay the person's responsibility either way — producing the value
+manufactures no finding establishing them. See the
+[worked paths](worked-paths-eligibility-and-obligation.md).
 
 ### F9 — The ordinary circumstances that contribute to F5 and F6
 
@@ -325,13 +334,18 @@ conclude from these circumstances is one of:
 2. **No adverse determination is supported**, so the bounded calculation proceeds.
    *Selected behaviour* — the owner's non-gating posture. Not yet executed in the new
    consumer.
-3. **A complete favourable classification is established.** *Nothing produces this.* No
-   route reaches it, and the bounded calculation does not require it.
+3. **A favourable value is produced from the default**, where no enumerated
+   disqualifier is supported. *Selected behaviour.* Its basis is default-supported, and
+   its record must say so.
+4. **Every constituent is independently proven.** *Nothing produces this*, and nothing
+   needs to.
 
-**The second does not establish the third.** Proceeding because nothing adverse was
-said is not a finding that the loan qualifies, and no part of this model may be read as
-though it were. The institutional constituents are not established at all — they are
-conditions the person is responsible for.
+**Outcomes 3 and 4 are different, and an earlier version of this list collapsed them.**
+The application derives a favourable value; it does not prove the constituents, and it
+records no affirmation the person never made. Reading outcome 3 as outcome 4 would
+overclaim; reading it as nothing at all — which the previous wording invited — denies a
+value the design actually produces. The institutional constituents stay the person's
+responsibility in either reading.
 
 ### F7 — The person is legally obligated to pay the interest
 

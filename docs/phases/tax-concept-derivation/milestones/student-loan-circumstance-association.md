@@ -27,6 +27,7 @@
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-stage2-what-is-posed.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-stage3-resting-and-cannot-say.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-approval-set.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/worked-paths-eligibility-and-obligation.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -462,7 +463,7 @@ whole plan.
 | A2 | specified; answer drafted | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | specified; answer drafted | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | outlined; **unblocked by G1** | Carries the five representation decisions from the responsibility category — how the applies-to relation is represented, what makes it apply, its lifecycle, its relation to provenance, and persistence versus reconstruction — plus storage shape, record count, and whether a separately identified borrowing is needed. Six demands remain `read` or untested in A4's bounds and may not be relied on without new execution |
+| A5 | outlined; **unblocked by G1** | Carries the five representation decisions from the responsibility category — how the applies-to relation is represented, what makes it apply, its lifecycle, its relation to provenance, and persistence versus reconstruction — plus storage shape, record count, and whether a separately identified borrowing is needed. **It also decides how the layers connect** — tax-concept facts, ordinary-circumstance representations and intermediate derivations are all available, and it inherits a prohibition on none of them; what a derivation may not do is record an affirmation nobody made or claim every constituent proven. A value's **basis** must stay visible: default-supported, direct answer and derived-from-circumstances are three different things producing the same value. Six demands remain `read` or untested in A4's bounds and may not be relied on without new execution |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 

@@ -72,7 +72,7 @@ worksheet; it describes what the **new bounded consumer** may ask and depend on.
 | --- | --- | --- | --- | --- |
 | `no-related-person-interest` | Categorical per statement; a "no" blocks the route | Who lent them the money — "my aunt lent me this" | Whether that relationship is a *related person* in the statutory sense | — |
 | `no-qualified-employer-plan-interest` | Same | Where the money came from — "I borrowed against my employer's plan" | Whether that plan is a *qualified employer plan* | — |
-| **`no-non-qualified-loan-component`** | Same | **No single answer supplies it** — but its constituents draw on ordinary circumstances posed elsewhere: use of proceeds (group 3), enrolment (group 4), and the related-person and employer-plan circumstances in the rows above. Two constituents are **not** posed: whose education it paid for, and who incurred the debt | The composite classification is never asked and never favourably derived. A rule reads the circumstances and may conclude it **fails**; where nothing adverse is supported the calculation proceeds without concluding it holds (A0 F9) | Institutional eligibility and credential recognition, which sit inside constituent 4 |
+| **`no-non-qualified-loan-component`** | Same | **No single answer supplies it** — but its constituents draw on ordinary circumstances posed elsewhere: use of proceeds (group 3), enrolment (group 4), and the related-person and employer-plan circumstances in the rows above. Two constituents are **not** posed: whose education it paid for, and who incurred the debt | The composite classification is never **asked**. Whether and how it is *derived* — from a favourable default, from circumstances, or through intermediate steps — is A5's to design, and nothing here forbids it. What a derivation may not do is record an affirmation nobody made or claim every constituent proven (A0 F9) | Institutional eligibility and credential recognition, which sit inside constituent 4 |
 | `no-employer-educational-assistance-interest` | Same | Whether an employer paid any of the **interest** on these loans under an educational assistance programme | Whether that payment is the double benefit § 221(e)(1) excludes | — |
 | `no-qtp-earnings-used` | Same | Whether money from a 529 or similar was used to pay **this interest** | Whether those earnings were excluded | — |
 
@@ -96,7 +96,7 @@ coverage. *Whose education the borrowing paid for* — constituent 2 — is plac
 F9 and has no question in the approval set; it is available only where the person
 volunteers it. *Who incurred the indebtedness* is not placed in A0 at all, and must not
 be folded into the legal-obligation question, which is a different fact with a
-different consequence: that one produces a zero, not a defeated constituent. What is never asked — and never favourably derived — is the verdict
+different consequence: that one produces a zero, not a defeated constituent. What is never asked is the verdict
 itself.
 
 **Which of the other four the new consumer depends on is A5's**, not settled here. The
