@@ -15,12 +15,16 @@ Settles no wording finally: the words are the owner's to approve. Settles no sto
 dependent; the filer-level exclusions; filing status.
 
 *What is posed:* these are asked directly, as questions about the person's own
-situation. "Are you legally obliged to repay this loan?" is answerable because a
-person knows whose debt it is.
+situation. The obligation question asks whether the person is obliged to pay the
+**interest** — F7 — and is answerable because a person knows what they are on the hook
+for. It is deliberately not explained as who borrowed or whose name is on the loan:
+who incurred the debt is unposed and unplaced, and folding it in here would merge a
+fact that produces a zero with one that defeats a constituent.
 
-*Why answerable, per question rather than as a blanket:* being obliged to repay is
-the person's own arrangement — someone who co-signed, or whose parent borrowed, knows
-which they did. Being claimed as a dependent is a fact about another return they can
+*Why answerable, per question rather than as a blanket:* being obliged to pay the
+interest is the person's own arrangement, and they know what they are paying. Being
+claimed as a dependent is a fact about another return they can find out. Filing status
+is on their own return. Each is answerable for its own reason. Being claimed as a dependent is a fact about another return they can
 find out. Filing status is on their own return. Each is answerable for its own reason;
 "no rule is involved" is not one of them, and was the wrong warrant.
 
@@ -44,8 +48,8 @@ worksheet; it describes what the **new bounded consumer** may ask and depend on.
 | `no-related-person-interest` | Categorical per statement; a "no" blocks the route | Who lent them the money — "my aunt lent me this" | Whether that relationship is a *related person* in the statutory sense | — |
 | `no-qualified-employer-plan-interest` | Same | Where the money came from — "I borrowed against my employer's plan" | Whether that plan is a *qualified employer plan* | — |
 | **`no-non-qualified-loan-component`** | Same | **No single answer supplies it** — but its constituents draw on ordinary circumstances posed elsewhere: use of proceeds (group 3), enrolment (group 4), and the related-person and employer-plan circumstances in the rows above. Two constituents are **not** posed: whose education it paid for, and who incurred the debt | The composite classification is never asked and never favourably derived. A rule reads the circumstances and may conclude it **fails**; where nothing adverse is supported the calculation proceeds without concluding it holds (A0 F9) | Institutional eligibility and credential recognition, which sit inside constituent 4 |
-| `no-employer-educational-assistance-interest` | Same | What their employer paid toward their education | Whether that assistance is excludable | — |
-| `no-qtp-earnings-used` | Same | Whether they used a 529 or similar for these costs | Whether those earnings were excluded | — |
+| `no-employer-educational-assistance-interest` | Same | Whether an employer paid any of the **interest** on these loans under an educational assistance programme | Whether that payment is the double benefit § 221(e)(1) excludes | — |
+| `no-qtp-earnings-used` | Same | Whether money from a 529 or similar was used to pay **this interest** | Whether those earnings were excluded | — |
 
 **The third must not be adopted as a question or as a dependency of the new
 consumer.** Negative wording does not remove a classification burden: asking whether
@@ -74,8 +78,11 @@ itself.
 incumbent consumes all five; that is a fact about the incumbent, not an argument that
 a new consumer should.
 
-*What is posed:* for the four with an ordinary core, the ordinary core — who lent it,
-where the money came from — leaving the classification to translation.
+*What is posed:* for the four with an ordinary core, the ordinary core — who lent the
+money; whether the borrowing was against an employer's plan; whether an employer paid
+any of the **interest**; whether 529 money was used to pay **that interest** — leaving
+the classification to translation. The last two are double-benefit questions about what
+paid the interest, not about the education costs and not about the loan.
 
 *Occasion:* when a statement is entered. Per statement, because the answer can differ
 between them.

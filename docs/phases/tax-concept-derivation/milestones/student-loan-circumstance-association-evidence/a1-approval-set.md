@@ -17,7 +17,7 @@ should be nothing recorded.
 
 | Proposition | Answers | What "yes" does | Candidate wording | Uncertain |
 | --- | --- | --- | --- | --- |
-| The loan is in another person's name | yes / no / unknown | Deduction is **zero** — a real answer, not a refusal | *Is this loan in someone else's name?* | A co-signer is legally obligated too; whether co-signing counts is translation, not a question |
+| Someone other than the filer is obliged to pay the interest | yes / no / unknown | Deduction is **zero** — a real answer, not a refusal | *Is someone else responsible for paying the interest on this loan?* | Phrased as the obligation, not as whose name is on the loan: who incurred the debt is a different fact, unposed and unplaced. Whether co-signing satisfies the obligation is translation, not a question |
 | Someone else can claim the person as a dependent | yes / no / unknown | Deduction is **zero** | *Can anyone else claim you as a dependent?* | A person may genuinely not know. Stage 3's "I cannot say" applies |
 | The return files Form 2555 or Form 4563 | yes / no / unknown | **Blocks** — modified AGI needs an add-back this calculation does not do | *Do you file Form 2555 or Form 4563?* | Whether 2555 and 4563 are one question or two |
 | Income is excluded as a bona fide resident of Puerto Rico or American Samoa | yes / no / unknown | **Blocks**, same reason | *Do you exclude income as a resident of Puerto Rico or American Samoa?* | — |
