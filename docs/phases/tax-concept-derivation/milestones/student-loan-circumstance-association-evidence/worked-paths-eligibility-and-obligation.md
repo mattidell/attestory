@@ -42,11 +42,18 @@ interest payments* (26 CFR § 1.221-1(b)(1)).
 
 | | A — asked and answered | B — not answered |
 | --- | --- | --- |
-| **Input** | "Yes, I'm the one paying it" | The question rests unanswered |
+| **Input** | "Yes, I'm legally obligated to pay the interest on this loan" | The question rests unanswered |
 | **Translation** | Direct answer accepted, because the circumstances that would defeat an obligation **have not been decomposed** — there are no enumerated disqualifiers to ask for instead | Favourable default holds |
 | **Tax-concept value** | legally obligated: **favourable** | legally obligated: **favourable** |
 | **Basis** | **direct user answer** | **default-supported** |
 | **Consumer** | § 1.221-1(b)(1)'s entitlement condition, into the deduction | Same |
+
+**Payment is not obligation, and an earlier version of this path confused them.** The
+input was "Yes, I'm the one paying it", which is a statement about payment. Obligation
+and payment are separate conditions — 26 CFR § 1.221-1(b)(1) and § 221(a) respectively —
+and a non-obligated person can pay while an obligated one does not. Normalisation must
+never turn an ordinary payment statement into an obligation value. See the
+[whose-deduction model](whose-deduction-model.md).
 
 **Same value, two bases, and they must stay distinguishable.** A person who said "yes"
 and a person who said nothing produce the same tax-concept value and are not in the same

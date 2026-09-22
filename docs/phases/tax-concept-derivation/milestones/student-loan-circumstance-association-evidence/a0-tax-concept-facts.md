@@ -222,10 +222,13 @@ conditional set. The owner's statement that *loan eligibility status does not
 directly impact total student loan interest deduction* corroborates this; it is
 not the evidence for it.
 
-**Routes.** **There is no route that establishes this favourably.** *R5a:* a rule reads
-the F9 circumstances and can conclude that the classification **fails**, one defeated
-constituent being sufficient; it concludes nothing in the other direction, and the
-bounded calculation does not need it to. *R5b:* additionally from facts about the
+**Routes.** *R5a:* a favourable value is produced from the application's authorised
+default where no supported, enumerated disqualifier is present; a rule reading the F9
+circumstances can conclude the classification **fails**, one defeated constituent being
+sufficient. An earlier version of this entry said no route establishes it favourably,
+which denied a value the design produces. What no route does is **prove every
+constituent** or record an affirmation nobody made — the favourable value's basis is
+default-supported and its record must say so. *R5b:* additionally from facts about the
 institution; **not a route this milestone builds**, because those are conditions the
 person is responsible for rather than things determined. *Concurrency:* not a live
 question while R5b is not a route. See F9's three outcomes — proceeding is not
@@ -290,6 +293,14 @@ never placed.
 
 Each is an ordinary description a person supplies, normalised by the translation layer.
 None is a classification, and none establishes the composite it contributes to.
+
+**Qualification is taxpayer-relative, and this list is per loan.** § 221(d)(1)(A)
+conditions the expenses on being incurred for the taxpayer, their spouse, or their
+dependent *as of the time the indebtedness was incurred*, so the same loan may be a
+qualified education loan for one person and not another. Whose education it paid for is
+therefore not a fact about a return; it is a fact about a loan, relative to a taxpayer.
+The [whose-deduction model](whose-deduction-model.md) works this through, including the
+incumbent's return-level keying of an obligation that holds per loan.
 
 **Two of them are not about the loan at all.** Employer-paid interest and
 qualified-tuition-programme earnings concern what paid the *interest* reported on a

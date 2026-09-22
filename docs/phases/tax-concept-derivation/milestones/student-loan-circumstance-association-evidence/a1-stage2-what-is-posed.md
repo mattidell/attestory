@@ -68,6 +68,13 @@ one of the five asks for exactly the classification group 3 says cannot be asked
 Each witness is separated four ways. Nothing here proposes changing the incumbent
 worksheet; it describes what the **new bounded consumer** may ask and depend on.
 
+**What the incumbent witnesses actually hold**, so they are not mistaken for work already
+done: each is a categorical yes/no the filer asserts at the classification level, keyed
+per statement. They are **not** representations of the ordinary life circumstances
+beneath them, and their existence is no evidence that any translation from circumstance
+to classification has been designed. That translation is still to be designed, and the
+ordinary circumstances are different facts — A0's F9 places them.
+
 | Incumbent witness | What the engine consumes today | Ordinary circumstance a person can supply | Needs translation or rule application | Remains a responsibility |
 | --- | --- | --- | --- | --- |
 | `no-related-person-interest` | Categorical per statement; a "no" blocks the route | Who lent them the money — "my aunt lent me this" | Whether that relationship is a *related person* in the statutory sense | — |

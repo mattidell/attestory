@@ -53,10 +53,10 @@ types concern nor what the rule reads.
 
 | Proposition | Answers | What "yes" does | Candidate wording |
 | --- | --- | --- | --- |
-| A related person lent the money | yes / no / unknown | Defeats a constituent | *Did a relative or someone close to you lend you this money?* |
+| The creditor on this indebtedness is a person related to the filer **within § 267(b) or § 707(b)(1)** | yes / no / unknown | Bears on the exclusion; does **not** by itself establish it | *Did you borrow this money from a member of your family?* — and the ordinary answer is then tested against the statutory categories, which for family are siblings of whole or half blood, spouse, ancestors and lineal descendants (§ 267(c)(4)). A parent or grandparent is related; an aunt, uncle, cousin or friend is not, so "someone close to you" is the wrong question |
 | The borrowing was against an employer plan | yes / no / unknown | Defeats a constituent | *Did you borrow against a plan through your employer?* |
 | An employer paid **interest** on these loans under an educational assistance programme | yes / no / unknown | Bears on the amount, under a consumer A5 selects. **The incumbent worksheet blocks the whole route** | *Did an employer pay any of the interest on these loans?* |
-| Qualified-tuition-programme earnings were used to pay **this interest** | yes / no / unknown | Same | *Did you use money from a 529 or similar plan to pay this interest?* |
+| Qualified-tuition-programme earnings were used to pay **this statement's interest** | yes / no / unknown | Same, **within a boundary narrower than the statute** | *Did you use money from a 529 or similar plan to pay this interest?* — the supported boundary is this statement's interest. § 221(e)(1)'s second sentence reduces by § 529(c)(9) distributions with respect to **loans of the taxpayer**, which per § 529(c)(9)(A)–(B) reach **principal as well as interest** and a **sibling's** loan, up to a $10,000 lifetime limit per individual. The incumbent witness does not cover that, and must not be presented as the whole rule |
 
 ## The use-of-proceeds condition
 

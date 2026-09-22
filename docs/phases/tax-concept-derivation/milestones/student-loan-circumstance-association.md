@@ -28,6 +28,7 @@
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-stage3-resting-and-cannot-say.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-approval-set.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/worked-paths-eligibility-and-obligation.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/whose-deduction-model.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -1186,6 +1187,7 @@ A1–A3 are the work it skipped.
 | How the answer is stored and how many records it becomes | Team, recorded with reasons | A5 | Open; explicitly not settled by A1 |
 | Whether refusal is an adequate answer for the two multi-borrowing cases | Owner | A5 | Open |
 | Whether a separately identified borrowing is needed now | Team, constrained by the case list | A5 | Open |
+| **Whether this milestone represents the payer at all**, or only the filer's own obligation and payment | Owner | A5 | Open. Representing the payer opens two-returns-one-loan cases and the deferred allocation questions; not representing it means the product cannot record the difference between "I pay it" and "I'm obligated on it", only ask it. Depends on it: whether A5 needs a payer concept, whether the interest amount needs a per-payer dimension, and whether the borrower-and-co-signer case is testable in A6 |
 
 Reliance under a standing authorization is owner context, not an adopted rule.
 It is brought back only if a concrete case would change what the producer
