@@ -190,12 +190,14 @@ conditional set. The owner's statement that *loan eligibility status does not
 directly impact total student loan interest deduction* corroborates this; it is
 not the evidence for it.
 
-**Routes.** *R5a:* assembled by rule from the F9 circumstances that bear on its
-constituents — never asked of the person as a classification, per A1. *R5b:* derived
-additionally from facts about the institution; **that is not a route this milestone
-builds**, because institutional eligibility and credential recognition are represented
-as conditions the person is responsible for rather than determined. *Concurrency:* not
-a live question while R5b is not a route.
+**Routes.** **There is no route that establishes this favourably.** *R5a:* a rule reads
+the F9 circumstances and can conclude that the classification **fails**, one defeated
+constituent being sufficient; it concludes nothing in the other direction, and the
+bounded calculation does not need it to. *R5b:* additionally from facts about the
+institution; **not a route this milestone builds**, because those are conditions the
+person is responsible for rather than things determined. *Concurrency:* not a live
+question while R5b is not a route. See F9's three outcomes — proceeding is not
+establishing.
 
 **Sits behind it:** F6.
 
@@ -217,8 +219,8 @@ This is the previous milestone's subject: `§ 221(d)(1)(C) → § 221(d)(3) →
 § 25A(b)(3)(A) → HEA § 484(a)(1)`, with `26 CFR 1.221-1(e)(3)(i)(B)`.
 
 **Routes.** *R6a:* the person's ordinary account of their schooling for a named period
-— the F9 circumstances — which the previous milestone showed works in the adverse
-direction and not the favourable one. *R6b:* institutional and public-authority
+— the F9 circumstances. It supports an **adverse** determination and nothing favourable,
+which is F9's first and third outcomes and not a deficiency in the first. *R6b:* institutional and public-authority
 determinations. **R6b is not an unbuilt route; it is not a route.** Institutional
 eligibility, credential recognition and the half-time standard are represented as
 conditions the person is responsible for, which the application does not establish and
@@ -262,9 +264,26 @@ recall; who lent it is ordinary; a course load is ordinary but its sufficiency i
 *Engine represents them today:* no, except where F4's members already cover part of the
 fourth row.
 
-**What they do not do.** No combination of them establishes F5 or F6. They contribute
-to constituents; the composite is assembled by rule, never asked, and its institutional
-constituents are not established at all — see the responsibility account.
+**Three outcomes, kept apart.** An earlier version said the composite is "assembled by
+rule", which implied the classification gets derived. It does not. What a rule can
+conclude from these circumstances is one of:
+
+1. **An adverse determination is supported.** A relevant circumstance defeats a
+   constituent, and one failed constituent defeats the classification. This is a real
+   conclusion and it stands on its own — it is not weakened by the fact that
+   establishing the favourable classification would need more. *Conceptual relationship
+   from the statute's conjunction; executed at `run` for the enrolment case by the
+   previous milestone, on disposable artifacts.*
+2. **No adverse determination is supported**, so the bounded calculation proceeds.
+   *Selected behaviour* — the owner's non-gating posture. Not yet executed in the new
+   consumer.
+3. **A complete favourable classification is established.** *Nothing produces this.* No
+   route reaches it, and the bounded calculation does not require it.
+
+**The second does not establish the third.** Proceeding because nothing adverse was
+said is not a finding that the loan qualifies, and no part of this model may be read as
+though it were. The institutional constituents are not established at all — they are
+conditions the person is responsible for.
 
 ### F7 — The person is legally obligated to pay the interest
 

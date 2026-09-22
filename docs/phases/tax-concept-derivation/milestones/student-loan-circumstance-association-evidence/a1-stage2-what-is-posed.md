@@ -43,7 +43,7 @@ worksheet; it describes what the **new bounded consumer** may ask and depend on.
 | --- | --- | --- | --- | --- |
 | `no-related-person-interest` | Categorical per statement; a "no" blocks the route | Who lent them the money — "my aunt lent me this" | Whether that relationship is a *related person* in the statutory sense | — |
 | `no-qualified-employer-plan-interest` | Same | Where the money came from — "I borrowed against my employer's plan" | Whether that plan is a *qualified employer plan* | — |
-| **`no-non-qualified-loan-component`** | Same | **No single answer supplies it** — but its constituents draw on ordinary circumstances that are posed elsewhere: use of proceeds (group 3), who borrowed, enrolment (group 4), and the related-person and employer-plan circumstances in the rows above | The composite six-constituent classification, assembled from those circumstances rather than asked | Institutional eligibility and credential recognition, which sit inside constituent 4 |
+| **`no-non-qualified-loan-component`** | Same | **No single answer supplies it** — but its constituents draw on ordinary circumstances that are posed elsewhere: use of proceeds (group 3), who borrowed, enrolment (group 4), and the related-person and employer-plan circumstances in the rows above | The composite classification is never asked and never favourably derived. A rule reads the circumstances and may conclude it **fails**; where nothing adverse is supported the calculation proceeds without concluding it holds (A0 F9) | Institutional eligibility and credential recognition, which sit inside constituent 4 |
 | `no-employer-educational-assistance-interest` | Same | What their employer paid toward their education | Whether that assistance is excludable | — |
 | `no-qtp-earnings-used` | Same | Whether they used a 529 or similar for these costs | Whether those earnings were excluded | — |
 
@@ -61,7 +61,8 @@ nothing ordinary to ask. Its constituents draw on circumstances this milestone a
 poses: whether the borrowing was solely for school (group 3), who borrowed and for
 whom, what the person was enrolled in (group 4), and the related-person and
 employer-plan circumstances above. Those are asked, normalised and translated in the
-ordinary way. What is never asked is the assembled verdict.
+ordinary way. What is never asked — and never favourably derived — is the verdict
+itself.
 
 **Which of the other four the new consumer depends on is A5's**, not settled here. The
 incumbent consumes all five; that is a fact about the incumbent, not an argument that
