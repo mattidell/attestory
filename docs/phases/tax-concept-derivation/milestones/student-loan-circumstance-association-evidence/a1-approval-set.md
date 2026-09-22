@@ -14,16 +14,18 @@ way, with "no" as its material answer, **because the circumstances that would de
 obligation cannot yet be enumerated** — not because its logical form settles it. If they
 can later be enumerated, that row should flip like the others. See A0.
 
-**A constraint the wording cannot fix, carried for A5.** "The system will assume you are
-obligated" is safe as *rule behaviour* — proceeding when nothing adverse was said. It is
-not safe as a defaulted finding: recording silence as the filer being obligated is an
-affirmation nobody made. Absence should be nothing recorded.
+**A constraint the wording cannot fix, carried for A5.** A **default-supported value may
+be recorded** — that is the owner's selected posture, and an earlier version of this
+paragraph wrongly said absence must mean nothing recorded. What must never happen is
+recording it *as though the person said it*. The value's **basis** carries the
+difference: default-supported is not attested, and a later action that reads one as the
+other has attributed an affirmation nobody made.
 
 ## Return-level
 
 | Proposition | Answers | What "yes" does | Candidate wording | Uncertain |
 | --- | --- | --- | --- | --- |
-| The filer is legally obligated to pay the interest (F7) | yes / no / unknown | **"No" is the material answer here**, producing the zero — this is a *positive entitlement condition* and its polarity is inverted by design, not by oversight | *Are you legally obligated to pay the interest on this loan?* | A co-signer **is** obligated, so someone else being responsible in practice does not remove it; and a third party paying on your behalf does not either (26 CFR § 1.221-1(b)(4)(i)). What it takes to be legally obligated is deferred |
+| The filer is legally obligated to pay the interest (F7) — **per borrowing, not per return** | yes / no / unknown | **"No" is the material answer**, because the circumstances defeating an obligation are not yet enumerated. **Incumbent behaviour:** the committed fact is keyed on tax-year alone and a "no" produces a return-wide zero. **Proposed consumer:** obligation holds per borrowing, and one borrowing's adverse answer must not decide the treatment of unrelated borrowings. A5 selects the keying | *Are you legally obligated to pay the interest on this loan?* | A co-signer **is** obligated, so someone else paying in practice does not remove it; and a third party paying on your behalf does not either (26 CFR § 1.221-1(b)(4)(i)). What it takes to be legally obligated is deferred |
 | Someone else will claim the person as a dependent | yes / no / unknown | Deduction is **zero** | *Will anyone else claim you as a dependent?* | A person may genuinely not know. Stage 3's "I cannot say" applies. Our record notes claiming and being *allowed* to claim are distinct (§ 221(c) via § 151); the committed fact says "claimed", and which the statute requires is unsettled here |
 | The return files Form 2555 or Form 4563 | yes / no / unknown | **Blocks** — modified AGI needs an add-back this calculation does not do | *Do you file Form 2555 or Form 4563?* | Whether 2555 and 4563 are one question or two |
 | Income is excluded as a bona fide resident of Puerto Rico or American Samoa | yes / no / unknown | **Blocks**, same reason | *Do you exclude income as a resident of Puerto Rico or American Samoa?* | — |
@@ -53,7 +55,8 @@ types concern nor what the rule reads.
 
 | Proposition | Answers | What "yes" does | Candidate wording |
 | --- | --- | --- | --- |
-| The creditor on this indebtedness is a person related to the filer **within § 267(b) or § 707(b)(1)** | yes / no / unknown | Bears on the exclusion; does **not** by itself establish it | *Did you borrow this money from a member of your family?* — and the ordinary answer is then tested against the statutory categories, which for family are siblings of whole or half blood, spouse, ancestors and lineal descendants (§ 267(c)(4)). A parent or grandparent is related; an aunt, uncle, cousin or friend is not, so "someone close to you" is the wrong question |
+| **Ordinary circumstance:** the filer borrowed this money from a family member, and which one | free description, or none | Feeds the translation below. **By itself it establishes nothing** | *Did you borrow this money from a family member? If so, who?* |
+| **Statutory conclusion, derived not asked:** the creditor is a related person within § 267(b) or § 707(b)(1) | derived | Excludes the indebtedness from the qualified-education-loan class | Not posed. Derived from the ordinary answer against the statutory categories — for family, § 267(c)(4): siblings of whole or half blood, spouse, ancestors, lineal descendants. A parent or grandparent is related; an aunt, uncle, cousin or friend is **not**, which is why "someone close to you" would have been the wrong question and why a bare "a relative" cannot carry the conclusion |
 | The borrowing was against an employer plan | yes / no / unknown | Defeats a constituent | *Did you borrow against a plan through your employer?* |
 | An employer paid **interest** on these loans under an educational assistance programme | yes / no / unknown | Bears on the amount, under a consumer A5 selects. **The incumbent worksheet blocks the whole route** | *Did an employer pay any of the interest on these loans?* |
 | Qualified-tuition-programme earnings were used to pay **this statement's interest** | yes / no / unknown | Same, **within a boundary narrower than the statute** | *Did you use money from a 529 or similar plan to pay this interest?* — the supported boundary is this statement's interest. § 221(e)(1)'s second sentence reduces by § 529(c)(9) distributions with respect to **loans of the taxpayer**, which per § 529(c)(9)(A)–(B) reach **principal as well as interest** and a **sibling's** loan, up to a $10,000 lifetime limit per individual. The incumbent witness does not cover that, and must not be presented as the whole rule |

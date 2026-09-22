@@ -326,11 +326,15 @@ model asserts.
 *Routes:* the person's own account, normalised. *Grounds:* their own answer.
 *Standing:* supported only, and the qualities differ — what money paid for is ordinary
 recall; who lent it is ordinary; a course load is ordinary but its sufficiency is not.
-*Engine represents them today:* four of them are, each by its own committed fact type —
-`f1098e.no-related-person-interest`, `no-qualified-employer-plan-interest`,
-`no-employer-educational-assistance-interest` and `no-qtp-earnings-used`, one per row
-rather than part of a bundled one. The use-of-proceeds, whose-education, attendance,
-enrolment and course-load rows have no representation.
+*Engine represents them today:* **none of these circumstances is represented.** An
+earlier version of this line said four of them were, naming the committed witnesses. That
+was wrong: `f1098e.no-related-person-interest`,
+`no-qualified-employer-plan-interest`, `no-employer-educational-assistance-interest` and
+`no-qtp-earnings-used` hold **classification-level answers** the filer asserts — whether
+an excluded class is absent from a statement's figure. They are not the ordinary
+circumstances beneath them, and their existence is no evidence that any translation from
+circumstance to classification has been designed. That translation is still to be
+designed, for all seven rows.
 
 **Three outcomes, kept apart.** An earlier version said the composite is "assembled by
 rule", which implied the classification gets derived. It does not. What a rule can

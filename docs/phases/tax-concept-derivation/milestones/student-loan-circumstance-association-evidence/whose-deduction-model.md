@@ -24,22 +24,53 @@ time the indebtedness was incurred**. Qualification is therefore *taxpayer-relat
 dated at origination — the same loan can be a qualified education loan for one person and
 not for another.
 
-**How they combine.** All of obligation, payment and taxpayer-relative qualification must
-hold, for that person, on that loan. Each is necessary; none is sufficient; and the
-amount deducted is the interest *that person* paid.
+**How they combine.** Obligation, payment **or deemed payment**, and taxpayer-relative
+qualification must all hold, for that person, on that loan. Each is necessary; none is
+sufficient; and what they establish together is that an amount is **attributable to that
+filer** — not that any deduction follows. The remaining conditions and limits still
+apply: dependent status, filing status, the cap, the MAGI phase-out, and the rest.
 
 ## The five cases
 
-| Case | Obligated | Paid | Qualifies for them | Result |
+Written from the filer's side: each row says what is attributable to **the filer**, not
+what anyone else's return does.
+
+| Case | Obligated | Paid, or deemed paid | Qualifies for them | What is established |
 | --- | --- | --- | --- | --- |
-| Obligated borrower pays | yes | yes | normally yes — own education | Deducts what they paid |
-| Obligated co-signer pays nothing | yes | **no** | — | **Nothing.** Obligation alone deducts nothing |
-| Obligated co-signer pays some or all | yes | yes | **the open one** | Deducts only if the education was for them, their spouse, or their dependent *at origination*. A paying parent whose child was not their dependent then gets nothing |
-| Non-obligated person pays for the borrower | payer: **no** | payer: yes | — | Payer deducts nothing. The borrower is *treated as* paying and deducts, if obligated and qualifying |
-| Borrower and co-signer each pay part | each: yes | each: partly | tested separately for each | Each may deduct the part **they** paid, on their own return, if all three hold for them |
+| The filer is the obligated borrower and pays | yes | yes | normally yes — own education | The interest they paid is attributable to them. Whether a deduction follows depends on the remaining conditions and limits |
+| The filer is an obligated co-signer who pays nothing | yes | **no** | — | **No attributable amount.** Obligation alone attributes nothing |
+| The filer is an obligated co-signer who pays some or all | yes | yes | **the open one** | Attributable only if the education was for them, their spouse, or their dependent *at origination*. A paying parent whose child was not their dependent then has no attributable amount |
+| Someone not obligated pays for the filer | filer: yes | filer: **deemed** yes | — | The filer is treated as paying, so the amount is attributable to them. The payer's own position is not modelled and does not need to be |
+| The filer and another obligor each pay part | filer: yes | filer: partly | tested for the filer | The part **the filer** paid is attributable to them. What the other person's return does is outside this model |
 
 Two errors these cases exist to block: **a paying co-signer does not automatically
 qualify**, and **whoever sends the money does not automatically own the deduction**.
+
+## The actual open question: obtaining the filer-attributable amount
+
+Three different things that an earlier version of this work ran together:
+
+- **The reported total** — what a Form 1098-E box 1 says.
+- **The amount attributable to the filer** — the interest they paid or are treated as
+  paying, on borrowing they are obligated on and that qualifies for them.
+- **The final deduction** — after the cap, the phase-out and every other condition.
+
+In the ordinary case the first two coincide. In a shared-payment case they do not, and
+**the reported total must not be used silently as the attributable amount.**
+
+Four candidate paths for obtaining it, none selected here:
+
+1. **From evidence** — something in the workspace distinguishes the filer's payments.
+2. **From an ordinary statement** — the filer says what they paid.
+3. **Derived** — from other facts already held.
+4. **Unresolved** — the amount is not determinable, which is A3's blocked state and an
+   honest outcome.
+
+**What A6 can test within this boundary.** One filer's treatment in a shared-payment
+scenario, with no second return and no payer identity. If the fixture simply supplies
+the filer-attributable amount, that proves the consumer uses an attributable amount
+rather than the reported total — and proves **nothing** about how such an amount is
+obtained, which is exactly what paths 1 to 4 leave open.
 
 ## Where the incumbent applies a loan-level condition return-wide
 
@@ -60,25 +91,33 @@ key its facts on.
 
 ## The smallest coherent implementation boundary
 
-**Represent now:** that obligation and payment are separate conditions; that the amount
-is the interest *this taxpayer* paid; and that qualification is taxpayer-relative. Enough
-to stop a payment statement being read as an obligation statement, and to stop one
-person's circumstances deciding another's deduction.
+**Filer-centered.** No second person's identity, no per-payer ledger, no two-return
+coordination. Everything below is about the filer.
 
-**Defer, named not designed:** allocation between two payers on one loan; determining
-dependency *at origination*; the case where a paying co-signer has no Form 1098-E of
-their own; and any household or payment-allocation framework, which is explicitly not
-wanted.
+**Represent now** — as conceptual distinctions, not as three prescribed fields; A5
+selects the representation:
 
-## Consequential owner decision
+- the filer's legal obligation concerning the relevant borrowing;
+- interest the filer actually paid;
+- interest **treated as paid** by the filer under an applicable rule, where supported.
 
-**Does this milestone represent the payer at all, or only the filer's own obligation and
-payment?** Representing the payer opens multi-person cases — two returns, one loan — and
-the deferred items above. Not representing it means the product cannot yet distinguish
-"I pay it" from "I'm obligated on it" in what it records, only in what it asks.
+That is enough to stop a payment statement being read as an obligation statement, and to
+stop the reported total standing in for an attributable amount.
 
-*Depends on it:* whether A5 needs a payer concept, whether the interest amount needs a
-per-payer dimension, and whether case 5 is testable at all in A6.
+**Defer, named not designed:** how a shared-payment amount is obtained, where paths 1–4
+above are the options; determining dependency *at origination*; the case where a paying
+co-signer has no Form 1098-E of their own. No household or payment-allocation framework.
+
+## Resolved: filer-centered
+
+The owner's direction of 2026-09-22. No other payer's identity is represented unless a
+concrete supported case demonstrates that identity is necessary — and none of the five
+cases above does. Each is expressible from the filer's side alone.
+
+An earlier version of this section posed a choice between representing the payer and
+recording payment separately from obligation. That was false: obligation, payment and
+deemed payment are three things about **one** person, and keeping them distinct needs no
+second identity.
 
 ## Remaining limitations
 
