@@ -14,48 +14,80 @@ The key follows the subject of the proposition, not the document it arrived with
 | Borrowing against an employer's plan | The **borrowing** | borrowing |
 | An employer paid interest under an educational assistance programme | § 221(e)(1) **first sentence** — see below | **not selected** |
 | Qualified-tuition-programme earnings used to pay this interest | § 221(e)(1) **second sentence**, a different object — see below | **not selected** |
-| Attendance at an identified institution for an identified period | The **student's situation at a period** | borrowing + period |
-| Enrolment in an identified programme | Same | borrowing + period |
-| Course load for that period | Same | borrowing + period |
+| Attendance at an identified institution for an identified period | Attendance **at that institution** in that period | borrowing + period + institution |
+| Enrolment in an identified programme | Enrolment **in that programme** | borrowing + period + institution + programme |
+| Course load for that period | A load **at that institution** in that period | borrowing + period + institution |
 
-**None of these is keyed on a statement.** A statement is where an amount is reported; it is
-not what any of these propositions is about. The incumbent keys its witnesses per statement,
-and A0 records why that is wrong for at least the related-person case: relatedness is between
-the taxpayer and the creditor on an indebtedness, and a statement may aggregate a
+**None of these *circumstances* is about a statement.** A statement is where an amount is
+reported; it is not what any of these propositions says. The incumbent keys its witnesses per
+statement, and A0 records why that is wrong for at least the related-person case: relatedness
+is between the taxpayer and the creditor on an indebtedness, and a statement may aggregate a
 related-person loan with an unrelated one.
 
-## The schooling circumstances need no second person's identity
+**That is not a ban on statement-scoped representation**, and an earlier version of this stage
+came close to one. What a person says a circumstance *applies to* is a separate thing from what
+the circumstance is about, and a statement is a perfectly good population to apply something
+to. Whether some claim is keyed on a statement stays genuinely open — see the scope section
+below.
 
-Enrolment is about a student, and the student may be a spouse or a dependent rather than the
-filer. That does **not** require modelling that person.
+## Borrowing plus period does not identify one schooling situation
 
-The selection: key the schooling circumstances on **borrowing plus period**. The borrowing
-already carries whose education it financed — that is the second row of the table — so the
-borrowing identifies which student's situation is being described without naming them. What
-is needed is the information and its relation to the borrowing, not an identity.
+An earlier version of this stage keyed the schooling circumstances on **borrowing + period**
+and assumed that pair picked out one account. It does not, and the case is ordinary.
 
-This is the same move the deeming rule got: a rule turning on another person's relationship
-to something does not require creating that person.
+**The case.** The filer takes one loan in autumn 2024. It pays for a full-time degree
+programme at Riverside College *and* for two individual evening classes at Metro Community
+College, both in that same period. Two attendances, two enrolments, two loads — one borrowing,
+one period.
 
-## A tension stage 1's routes create, named rather than dissolved
+On a `borrowing + period` key, the second account collides with the first. A representation
+that displaces it would record the Metro classes **as a correction of** the Riverside
+enrolment, which is false and would also put the adverse account in place of the favourable
+one by accident.
 
-Stage 1 selected three scope routes, and route **(a)** asserts a circumstance over a whole
-statement with **no borrowing identified**. But every circumstance above is keyed on a
-borrowing. Those cannot both be satisfied by one shape.
+**The accommodation, and it is not an addition.** The propositions already name the missing
+discriminators: attendance is *at an identified institution*, enrolment is *in an identified
+programme*. Dropping those from the key was the same error as keying on a statement —
+under-keying against what the proposition is actually about. With the institution and the
+programme in the key, two institutions in one period are two subjects, and neither displaces
+the other.
 
-Two ways out, and this stage does not choose:
+**What this does not need:** no other-person identity, and no general model of education.
+Only the identifiers the propositions already carry.
 
-- **The circumstance keys on its subject and route (a) is a separate claim.** The person's
-  whole-statement assertion is a scope claim over that statement, and the circumstance it
-  carries is still about a borrowing — an unidentified one. The scope claim is what attaches
-  to the statement.
-- **The circumstance's subject varies by route.** The same circumstance type keys on a
-  borrowing where one is identified and on a statement where none is.
+## Whose education does not identify a unique student, and this milestone's student is the filer
 
-The first keeps one subject per proposition and adds a claim; the second keeps one claim and
-admits two subjects. **Stage 4's lifecycle work decides it**, because the two differ in what a
-correction reaches: correcting a circumstance about an unidentified borrowing, versus
-correcting a statement-scoped claim, are not the same event.
+A second assumption is withdrawn. I wrote that the borrowing carries whose education it
+financed and therefore identifies which student's situation is described. It does not:
+§ 221(d)(1)(A) admits expenses for the taxpayer, a spouse, **or any dependent**, and one
+borrowing may have paid expenses for more than one of them.
+
+**This milestone's scope is the filer as the student.** That is where the bounded consumer
+works, and keying the schooling circumstances on the borrowing, period, institution and
+programme is sufficient there. The broader possibilities — a spouse's or a dependent's
+education — are in A0's domain model as facts of the matter and are **not represented here**,
+which is a scope bound and not a claim that they do not arise.
+
+Filer-as-student is also what keeps the earlier point true in its narrow form: no second
+person's identity is needed, because within this scope there is no second person.
+
+## Whole-statement scope, without a placeholder borrowing
+
+Route (a) — *"this applies to everything on this statement"* — needs no borrowing, and an
+earlier version of this stage mis-described it as a circumstance about **one unidentified
+borrowing**. It is not. Such a statement may cover several borrowings while naming none of
+them, and inventing a singular subject to hold it would be exactly the "make reality fit the
+identifier" move this stage exists to avoid.
+
+**What separates cleanly:** what the circumstance *says* — a proposition with its own subject
+— and the **population or portion** the person says it applies to. Route (a) supplies the
+second without the first being individuated. The circumstance is what it is; the scope claim
+says it reaches everything this statement reports.
+
+So no placeholder borrowing, and no requirement that route (a) resolve to one. **Whether the
+scope claim is itself keyed on the statement is left open** — it is the natural reading, and
+stage 4 settles it alongside the lifecycle question of what a correction to such a claim
+reaches, which differs from what a correction to a circumstance reaches.
 
 ## What this milestone's consumer depends on, and what it does not
 
@@ -65,9 +97,10 @@ The milestone connects schooling circumstances to reported interest. That fixes 
 These are the path the bounded consumer exercises.
 
 **Represented by the same shapes, not depended on here:** who lent the money, and borrowing
-against an employer's plan. They defeat different constituents by the same mechanism, and
-adding them would widen the consumer without testing anything the schooling path does not
-already test.
+against an employer's plan. **Not because they would test nothing new** — each defeats a
+different constituent and each would be worth exercising eventually. They are simply not
+needed for the selected demonstration, which is the schooling path, and including them would
+widen the consumer past what this milestone set out to show.
 
 **Not this milestone's, and deliberately not redesigned:** the two double-benefit
 circumstances. They are § 221(e)(1) amount operations about what paid the interest, not
@@ -92,6 +125,28 @@ witness. A later milestone may treat either as an amount fact. **That key is not
 and borrowing-plus-year is not a default it inherits** — withdrawing the statement key was
 right, and putting both sentences on the borrowing was not.
 
+## The boundary, stated in one place
+
+The plan gives this stage the double-benefit rows and asks it to select their handling. It has:
+**no key is selected and neither is adopted as a dependency.** Stated as four things so the
+deferral does not read as something else.
+
+| | |
+| --- | --- |
+| **Circumstances represented** | Use of proceeds; whose education (filer-as-student); attendance, enrolment and course load, keyed on borrowing, period, institution and programme. Who lent and the employer-plan circumstance are representable by these shapes |
+| **What the bounded consumer evaluates** | The schooling path only: whether a supported, enumerated adverse schooling circumstance defeats a constituent, and what that does to the interest on a statement |
+| **Deferred** | Both § 221(e)(1) double-benefit conditions; the related-person and employer-plan constituents; origination dating for whose-education; a student other than the filer |
+| **What the output does *not* establish** | That any deferred condition is **satisfied**. The consumer does not evaluate them, and not evaluating a condition is not a finding that it holds |
+
+**That last row is the one that matters.** A figure this consumer publishes has not been
+checked against employer-paid interest, against qualified-tuition-programme earnings, against
+the related-person exclusion, or against the employer-plan exclusion. Absence of
+implementation must never read as a determination — which is the same discipline A0 applies to
+a default-supported value, and the same reason the responsibility category exists.
+
+Deferral here creates no production dependency and commissions no broader tax implementation.
+It does oblige whatever consumes this output to carry the limit with it.
+
 ## Storage shape
 
 **Provisional, and it follows the keys rather than preceding them.** A circumstance about a
@@ -100,8 +155,10 @@ are separately addressable. Whether that means separate fact types, or one type 
 subject, is left to stage 3's basis work — a value's basis and its key are chosen together,
 and choosing the shape first would prejudge that.
 
-What is fixed: circumstances are **not** keyed on the statement their amount was reported on,
-and correcting one must not silently rewrite another.
+What is fixed: a *circumstance* is not keyed on the statement its amount was reported on,
+because that is not what a circumstance is about; and correcting one must not silently rewrite
+another. What is **not** fixed is whether a *scope claim* is keyed on a statement — that stays
+open for stage 4.
 
 ## Dependence on A4
 
