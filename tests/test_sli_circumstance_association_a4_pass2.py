@@ -2343,5 +2343,347 @@ class MembershipWithoutPortion(unittest.TestCase):
         )
 
 
+# --- P3b. The link publishes the reduction; the statement subtracts the sum. ---
+
+P3B_LINK_REDUCTION = "demo.tax.link-reduction"
+P3B_LINK_RULE = "demo.rule.link-reduction"
+P3B_AMOUNT_RULE = "demo.rule.statement-box-minus-reductions"
+
+
+def _p3b_rules() -> list[dict[str, Any]]:
+    status = next(rule for rule in _p3_rules() if rule["id"] == T2_STATUS_RULE)
+    return [
+        status,
+        _t2_rule(
+            rule_id=P3B_LINK_RULE,
+            citation_id="demo.citation.link-reduction",
+            role="computation",
+            requires=[STATEMENT_BORROWING, STATUS],
+            when={
+                "op": "any",
+                "args": [
+                    _t2_eq(STATUS, STATUS, "adverse"),
+                    _t2_eq(STATUS, STATUS, "not-adverse"),
+                ],
+            },
+            value={
+                "op": "choose",
+                "when": _t2_eq(STATUS, STATUS, "adverse"),
+                "then": {"op": "ref", "name": STATEMENT_BORROWING},
+                "else": 0,
+            },
+            publishes=P3B_LINK_REDUCTION,
+        ),
+        _t2_rule(
+            rule_id=P3B_AMOUNT_RULE,
+            citation_id="demo.citation.statement-box-minus-reductions",
+            role="computation",
+            requires=[BOX1],
+            when={
+                "op": "compare",
+                "cmp": "gt",
+                "left": {"op": "ref", "name": BOX1},
+                "right": 0,
+            },
+            value={
+                "op": "subtract",
+                "left": {"op": "ref", "name": BOX1},
+                "right": {
+                    "op": "add",
+                    "args": [{"op": "collect", "name": P3B_LINK_REDUCTION}],
+                },
+            },
+            publishes=STATEMENT_AMOUNT,
+        ),
+    ]
+
+
+def _p3b_execute(
+    findings: dict[str, dict[str, Any]],
+) -> tuple[FindingState, CurrencyView, RunContext, _Run]:
+    state = FindingState(
+        findings=dict(findings),
+        fact_state=KernelState(fact_types=_t2_lattice()),
+    )
+    currency = compute_currency(state)
+    rules = _p3b_rules()
+    ctx = marshal_run_context(
+        run_id="demo.sli-a4-pass2-p3b",
+        state=state,
+        currency=currency,
+        rules=rules,
+        parameters={T2_PARAM: {"id": T2_PARAM, "version": "v1", "values": "not-adverse"}},
+        canon={},
+        adoption_pin=ADOPTION_PIN,
+        governance_pins=GOVERNANCE_PINS,
+        fact_types=_p3_fact_types(),
+        input_bindings=[{
+            "symbol": ENROLMENT,
+            "fact_type": {"id": ENROLMENT, "version": "v1"},
+            "mode": "optional_default",
+        }],
+        collect_source_names=[FINANCING, ENROLMENT, BOX1, STATEMENT_BORROWING],
+    )
+    run = _Run(ctx, SCHEMAS)
+    by_id = {rule["id"]: rule for rule in rules}
+    run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=by_id[T2_STATUS_RULE])
+    run.evaluate_subject_scoped_rule(
+        subject_type=STATEMENT_BORROWING, rule=by_id[P3B_LINK_RULE]
+    )
+    run.evaluate_subject_scoped_rule(subject_type=BOX1, rule=by_id[P3B_AMOUNT_RULE])
+    return state, currency, ctx, run
+
+
+class ReductionShapedRules(unittest.TestCase):
+    """The link publishes the reduction. The statement subtracts the sum.
+
+    Adverse publishes the portion. Not-adverse publishes 0. The statement
+    publishes box 1 minus ``collect`` of those reductions, and does not
+    ``requires`` the reduction. North's box is 1500. The same scenario and
+    findings as ``CollectedPortionReduction``.
+    """
+
+    def setUp(self) -> None:
+        self.north = _t2_box_fact_id(LENDER, STATEMENT_S1)
+        self.west = _t2_box_fact_id(T2_LENDER_WEST, STATEMENT_S3)
+        self.link_inst = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST)
+        self.link_priv = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_PRIV)
+        self.link_south = _t2_link_fact_id(
+            P2_LENDER_SOUTH, STATEMENT_S2, P2_BORROWING_PRIV
+        )
+        self.inst = _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN)
+        self.priv = _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING)
+        link = next(rule for rule in _p3b_rules() if rule["id"] == P3B_LINK_RULE)
+        amount = next(rule for rule in _p3b_rules() if rule["id"] == P3B_AMOUNT_RULE)
+        choose = link["value"]
+        self.assertEqual(choose["op"], "choose")
+        self.assertEqual(choose["when"], _t2_eq(STATUS, STATUS, "adverse"))
+        self.assertEqual(choose["then"], {"op": "ref", "name": STATEMENT_BORROWING})
+        self.assertEqual(choose["else"], 0)
+        self.assertEqual(amount["requires"], [BOX1])
+        self.assertNotIn(P3B_LINK_REDUCTION, amount["requires"])
+        subtract = amount["value"]
+        self.assertEqual(subtract["op"], "subtract")
+        self.assertEqual(subtract["left"], {"op": "ref", "name": BOX1})
+        self.assertEqual(subtract["right"]["op"], "add")
+        collected = subtract["right"]["args"][0]
+        self.assertEqual(collected, {"op": "collect", "name": P3B_LINK_REDUCTION})
+        self.assertNotIn("source_set", collected)
+        self.assertNotEqual(self.link_inst, self.link_priv)
+
+    def test_exhausting_portions(self) -> None:
+        """Portions 1000 and 500 on box 1500. 1500 before, 500 after.
+
+        Both published reductions are in the pin walk. After the correction
+        the walk also reaches the later enrolment finding, not the displaced
+        one, and not the other statement's reduction.
+        """
+        _before_state, before_currency, _before_ctx, before = _p3b_execute(
+            _p3_findings(corrected=False)
+        )
+        _state, currency, _ctx, run = _p3b_execute(_p3_findings(corrected=True))
+        self.assertEqual(before_currency.displaced_finding_ids, frozenset())
+        self.assertEqual(currency.displaced_finding_ids, frozenset({T2_ENROL_EARLIER}))
+        self.assertEqual(
+            [(reason.kind, reason.by) for reason in currency.reasons[T2_ENROL_EARLIER]],
+            [("correction", T2_ENROL_LATER)],
+        )
+
+        before_inst = _t2_finding(before, P3B_LINK_REDUCTION, self.link_inst)
+        before_priv = _t2_finding(before, P3B_LINK_REDUCTION, self.link_priv)
+        inst_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_inst)
+        priv_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_priv)
+        south_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_south)
+        self.assertEqual(before_inst["value"], "0")
+        self.assertEqual(before_priv["value"], "0")
+        self.assertEqual(inst_reduction["value"], "1000")
+        self.assertEqual(priv_reduction["value"], "0")
+        self.assertNotEqual(inst_reduction["value"], "0")
+        self.assertNotEqual(priv_reduction["value"], "500")
+
+        before_amount = _t2_finding(before, STATEMENT_AMOUNT, self.north)
+        amount = _t2_finding(run, STATEMENT_AMOUNT, self.north)
+        self.assertEqual(before_amount["value"], "1500")
+        self.assertEqual(amount["value"], "500")
+        self.assertEqual(
+            _t2_row(before, self.north, STATEMENT_AMOUNT)["disposition"], "published"
+        )
+        self.assertEqual(
+            _t2_row(run, self.north, STATEMENT_AMOUNT)["disposition"], "published"
+        )
+        self.assertEqual(
+            _input_ids(_pins(before_amount)),
+            {T2_BOX_NORTH, before_inst["id"], before_priv["id"]},
+        )
+        self.assertEqual(
+            _input_ids(_pins(amount)),
+            {T2_BOX_NORTH, inst_reduction["id"], priv_reduction["id"]},
+        )
+        self.assertNotIn(south_reduction["id"], _input_ids(_pins(amount)))
+
+        before_walk = _t2_walk(before, before_amount)
+        walk = _t2_walk(run, amount)
+        self.assertIn(before_inst["id"], before_walk)
+        self.assertIn(before_priv["id"], before_walk)
+        self.assertNotIn(T2_ENROL_LATER, before_walk)
+        self.assertNotIn(T2_ENROL_EARLIER, before_walk)
+        self.assertIn(inst_reduction["id"], walk)
+        self.assertIn(priv_reduction["id"], walk)
+        self.assertIn(T2_ENROL_LATER, walk)
+        self.assertNotIn(T2_ENROL_EARLIER, walk)
+        self.assertNotIn(south_reduction["id"], walk)
+        self.assertNotIn(P3_LINK_SOUTH, walk)
+
+    def test_undershoot(self) -> None:
+        """Portions 1000 and 300 on box 1500. Before 1500. After, 500.
+
+        The institutional correction subtracts 1000. The private reduction
+        stays 0. The unpublished 200 is still inside the published 500.
+        """
+        _before_state, before_currency, _before_ctx, before = _p3b_execute(
+            _p3_findings(corrected=False, priv_portion=300)
+        )
+        state, currency, _ctx, run = _p3b_execute(
+            _p3_findings(corrected=True, priv_portion=300)
+        )
+        self.assertEqual(before_currency.displaced_finding_ids, frozenset())
+        self.assertEqual(currency.displaced_finding_ids, frozenset({T2_ENROL_EARLIER}))
+        self.assertEqual(state.findings[P3_LINK_INST]["value"], 1000)
+        self.assertEqual(state.findings[P3_LINK_PRIV]["value"], 300)
+        self.assertEqual(_t2_finding(run, STATUS, self.inst)["value"], "adverse")
+        self.assertEqual(_t2_finding(run, STATUS, self.priv)["value"], "not-adverse")
+
+        before_inst = _t2_finding(before, P3B_LINK_REDUCTION, self.link_inst)
+        before_priv = _t2_finding(before, P3B_LINK_REDUCTION, self.link_priv)
+        inst_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_inst)
+        priv_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_priv)
+        self.assertEqual(before_inst["value"], "0")
+        self.assertEqual(before_priv["value"], "0")
+        self.assertEqual(inst_reduction["value"], "1000")
+        self.assertEqual(priv_reduction["value"], "0")
+        self.assertNotEqual(priv_reduction["value"], "300")
+
+        before_amount = _t2_finding(before, STATEMENT_AMOUNT, self.north)
+        amount = _t2_finding(run, STATEMENT_AMOUNT, self.north)
+        unassigned = 1500 - 1000 - 300
+        self.assertEqual(unassigned, 200)
+        self.assertEqual(before_amount["value"], "1500")
+        self.assertEqual(amount["value"], "500")
+        self.assertEqual(int(amount["value"]), 300 + unassigned)
+        self.assertNotEqual(amount["value"], "300")
+        self.assertNotEqual(amount["value"], "200")
+        self.assertEqual(
+            _t2_row(run, self.north, STATEMENT_AMOUNT)["disposition"], "published"
+        )
+
+    def test_route_c_unknown_portion_adverse(self) -> None:
+        """Adverse membership token: the statement publishes no figure.
+
+        The reduction is the token, which is not a number. A known portion
+        of 1000 on the same correction publishes 500. These outcomes differ.
+        """
+        known_state, known_currency, _known_ctx, known = _p3b_execute(
+            _p3_findings(corrected=True)
+        )
+        state, currency, _ctx, unknown = _p3b_execute(
+            _p3_findings(corrected=True, inst_portion=P3_MEMBERSHIP)
+        )
+        self.assertEqual(currency.displaced_finding_ids, frozenset({T2_ENROL_EARLIER}))
+        self.assertEqual(
+            known_currency.displaced_finding_ids, currency.displaced_finding_ids
+        )
+        self.assertEqual(state.findings[P3_LINK_INST]["value"], P3_MEMBERSHIP)
+        self.assertEqual(known_state.findings[P3_LINK_INST]["value"], 1000)
+        self.assertNotEqual(
+            state.findings[P3_LINK_INST]["value"],
+            known_state.findings[P3_LINK_INST]["value"],
+        )
+
+        unknown_reduction = _t2_finding(unknown, P3B_LINK_REDUCTION, self.link_inst)
+        known_reduction = _t2_finding(known, P3B_LINK_REDUCTION, self.link_inst)
+        unknown_private = _t2_finding(unknown, P3B_LINK_REDUCTION, self.link_priv)
+        self.assertEqual(unknown_reduction["value"], P3_MEMBERSHIP)
+        self.assertEqual(known_reduction["value"], "1000")
+        self.assertNotEqual(unknown_reduction["value"], known_reduction["value"])
+        self.assertNotEqual(unknown_reduction["value"], "0")
+        self.assertEqual(unknown_private["value"], "0")
+
+        known_amount = _t2_finding(known, STATEMENT_AMOUNT, self.north)
+        known_row = _t2_row(known, self.north, STATEMENT_AMOUNT)
+        self.assertEqual(known_amount["value"], "500")
+        self.assertEqual(known_row["disposition"], "published")
+
+        row = _t2_row(unknown, self.north, STATEMENT_AMOUNT)
+        self.assertEqual(row["disposition"], "blocked")
+        self.assertEqual(row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(row["missing"], ["not a number: 'included'"])
+        self.assertEqual(
+            _input_ids(_pins(row)),
+            {T2_BOX_NORTH, unknown_reduction["id"], unknown_private["id"]},
+        )
+        self.assertNotIn(
+            _t2_symbol(STATEMENT_AMOUNT, self.north),
+            {pub.finding["symbol"] for pub in unknown.publications},
+        )
+        self.assertNotEqual(row["disposition"], "published")
+        self.assertNotEqual(_t2_canonical(row), _t2_canonical(known_row))
+        self.assertNotEqual(row["disposition"], known_row["disposition"])
+
+    def test_route_c_unknown_portion_not_adverse(self) -> None:
+        """The same membership link, with no correction, publishes 1500.
+
+        Neither reduction is adverse, so both publish 0. The token is never
+        read. The unknown portion is not required.
+        """
+        state, currency, _ctx, run = _p3b_execute(
+            _p3_findings(corrected=False, inst_portion=P3_MEMBERSHIP)
+        )
+        self.assertEqual(currency.displaced_finding_ids, frozenset())
+        self.assertEqual(state.findings[P3_LINK_INST]["value"], P3_MEMBERSHIP)
+        self.assertNotEqual(state.findings[P3_LINK_INST]["value"], 1000)
+        inst_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_inst)
+        priv_reduction = _t2_finding(run, P3B_LINK_REDUCTION, self.link_priv)
+        self.assertEqual(inst_reduction["value"], "0")
+        self.assertEqual(priv_reduction["value"], "0")
+        self.assertNotEqual(inst_reduction["value"], P3_MEMBERSHIP)
+        amount = _t2_finding(run, STATEMENT_AMOUNT, self.north)
+        row = _t2_row(run, self.north, STATEMENT_AMOUNT)
+        self.assertEqual(amount["value"], "1500")
+        self.assertEqual(row["disposition"], "published")
+        self.assertNotEqual(row["disposition"], "blocked")
+        self.assertEqual(
+            _input_ids(_pins(amount)),
+            {T2_BOX_NORTH, inst_reduction["id"], priv_reduction["id"]},
+        )
+
+    def test_no_joined_link(self) -> None:
+        """West has a box and no link. Record the statement outcome.
+
+        Reductions exist on the run. None is keyed to this statement.
+        """
+        _state, _currency, _ctx, run = _p3b_execute(_p3_findings(corrected=True))
+        reductions = [
+            source for source in run.live_sources if source.name == P3B_LINK_REDUCTION
+        ]
+        self.assertGreater(len(reductions), 0)
+        self.assertFalse(
+            any(
+                dict(source.keys or ()).get("statement") == STATEMENT_S3
+                for source in reductions
+            )
+        )
+        row = _t2_row(run, self.west, STATEMENT_AMOUNT)
+        self.assertEqual(row["disposition"], "blocked")
+        self.assertEqual(row["code"], "SOURCE_SET_UNCLOSED")
+        self.assertEqual(row["missing"], [P3B_LINK_REDUCTION])
+        self.assertNotIn(
+            _t2_symbol(STATEMENT_AMOUNT, self.west),
+            {pub.finding["symbol"] for pub in run.publications},
+        )
+        self.assertNotEqual(row["disposition"], "published")
+        self.assertNotEqual(row["code"], "DEPENDENCY_ABSENT")
+        self.assertNotEqual(row["code"], "DEPENDENCY_INVALID")
+
+
 if __name__ == "__main__":
     unittest.main()

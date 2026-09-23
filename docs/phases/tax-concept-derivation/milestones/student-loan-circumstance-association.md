@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "A4 PASS 2 AT P3. Track 1 (per-subject dispatch) and Track 2 (keyed same-run sources, a bounded test) are built. P2 complete: a corrected circumstance reaches every borrowing and statement that depends on it, publishes the changed statement amount, and leaves a pin chain to the corrected finding -- in memory, within one run; nothing durable is claimed until P4. Observed for P3: a statement over two borrowings pins only one link when they agree and blocks when they differ. Next: P3, partial reduction. G2 (producer) not reached.",
+  "status": "A4 PASS 2 AT P3, OWNER DECISION PENDING. Tracks 1 and 2 built. P2 complete in memory within one run. P3: partial reduction runs with no production change using reduction-shaped rules (box 1 minus collected reductions) -- undershoot keeps its remainder, an unknown adverse portion blocks, an unknown unneeded portion publishes. A statement with no joined link -- case 2, the ordinary return -- blocks on an unclosed collection, the same closed-set wall Track 1 met. Owner decision needed before P4. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1167,7 +1167,7 @@ earlier.
 | --- | --- | --- |
 | **P1** — *done: untestable without production change; Track 1 builds the mechanism* | Can one categorical conclusion be published **per key of a single subject** — student-and-period, statement — carrying its rule's declared citations, and recorded `inapplicable` for a key where an adverse circumstance is supported? | — |
 | **P2** — *done: `run` at the borrowing and statement grains, in memory within one run (Track 2)* | Does one corrected schooling circumstance reach **every** statement whose result depended on it, on re-derivation? | P1 |
-| **P3** | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
+| **P3** — *done: `run` for statements with links, with reduction-shaped rules; a statement with no link blocks* | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
 | **P4** | Can a reader **recover**, from durable output, the conclusion's identity and meaning and, for the provisional responsibility candidate, each condition's identity, circumstance and treatment — and where does wording fail to have a home? | P1 |
 
 Results go into [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md),

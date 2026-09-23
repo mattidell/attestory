@@ -242,6 +242,44 @@ Neither is a partial reduction. Carrying keys does not address it.
 Track 2 they do. The test now records what still holds: a statement cannot join a financing
 conclusion directly — their key names are disjoint — and reaches it only through the link.
 
+## Second pass — P3 result: partial reduction runs; a statement with no link does not
+
+No production change. Probe classes in `tests/test_sli_circumstance_association_a4_pass2.py`,
+on Track 1 and Track 2's mechanism, three per-subject rules in one run: status per financing
+claim, **reduction** per statement-to-borrowing link (the portion when the status is adverse,
+0 otherwise), and a statement amount of **box 1 minus the sum of the collected reductions** —
+`collect` in the statement's scope sees exactly its joined links and pins every one.
+
+| Case | Result | Test |
+| --- | --- | --- |
+| Portions exhaust box 1 (1000 + 500 on 1500) | `run` — 1500, then **500** after the correction; pin walk reaches both reductions and the corrected enrolment, not the displaced one | `ReductionShapedRules.test_exhausting_portions` |
+| **Undershoot** (1000 + 300 on 1500) | `run` — **500**: the unassigned 200 stays in the figure (A3's remainder) | `…test_undershoot` |
+| Route (c), portion unknown, borrowing adverse | `run` — the statement **blocks** `DEPENDENCY_INVALID`; no figure, and distinct from a known portion reduced | `…test_route_c_unknown_portion_adverse` |
+| Route (c), portion unknown, nothing adverse | `run` — **1500** publishes; the unknown portion is never needed | `…test_route_c_unknown_portion_not_adverse` |
+| An unaffected statement | `run` — byte-identical before and after | `CollectedPortionReduction.test_unaffected_statement_is_byte_identical` |
+| **A statement with no joined link** — case 2, the ordinary return | **blocks** `SOURCE_SET_UNCLOSED`; no figure | `…test_no_joined_link` |
+
+**The rule's shape decided two of these.** P3's first shape summed the *surviving* portions: it
+dropped an unassigned remainder, and an unknown portion on an adverse borrowing published as a
+known zero (`CollectedPortionReduction`, `MembershipWithoutPortion`). Subtracting *reductions*
+fixes both, because a reduction must be computed exactly when it is needed. Recorded so a later
+rule does not reintroduce the first shape.
+
+**What remains, and it is the same wall Track 1 met.** The evaluator reads "none" from an empty
+collection only over a closed source set. A statement nobody connected to any borrowing has no
+link reductions, so its collection is empty and the figure blocks — while stage 4 and A3 say it
+proceeds on the default. No honest closure is available: an absent link does not mean the
+statement covers no borrowing, only that nothing was described. Track 1 met this for required
+inputs and answered it with a per-subject declared default; nothing yet does the same for a
+collected name.
+
+**Ceilings.** Currency is `compute_currency` over a `FindingState` in correction order, not an
+act-log fold. The probe rules are **not** validated against `rule-artifact.v6`, which requires a
+`source_set` on every `collect` — a production rule must name one. A non-empty collection does
+not consult closure, so that does not change the non-empty results. The multi-link statement pins
+every link under this shape, which closes the provenance gap Track 2 observed under the scalar
+join.
+
 ## What A5 may not rely on without new execution
 
 D7, D9, D10, D11, D12, D14 and D16b. In particular, a shape that depends on **an
