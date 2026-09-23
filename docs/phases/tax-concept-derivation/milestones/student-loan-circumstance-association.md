@@ -416,7 +416,7 @@ something left unsettled is left implicit rather than named.
 | Gate | State | Waiting on |
 | --- | --- | --- |
 | G1 | **passed** at `41b77472` | Passed on its own conditions after failing twice: every fact on A0's list has a stated route, A1 — every stage and the approval set — poses only propositions A0 places, and A0 claims no coverage A1 does not provide. **What this is not:** evidence that any consumer works. None has been implemented |
-| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader — tested on the nine-credit case and on a financing claim with no schooling circumstance; the case with no identified period waits on A5 stage 4. A component or analogue having run is not the behaviour having run |
+| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader — tested on the nine-credit case, on a financing claim with no schooling circumstance, and on a statement with no financing claim, where A5 stage 4 attaches the default to the statement; the conditions left to the filer must reach the reader with it. A component or analogue having run is not the behaviour having run |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
 Two rules apply to all three. **A gate is not passed because a later section
@@ -466,8 +466,8 @@ whole plan.
 | A2 | **done** | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | **done** | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | specified; pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both reviewed and repaired, and G1 passed citing them. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | **specified**; stages 1–3 selected | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
-schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md) [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md) and [stage 3](student-loan-circumstance-association-evidence/a5-stage3-values-and-basis.md) for its selections |
+| A5 | **specified**; stages 1–4 selected | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
+schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md), [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md), [stage 3](student-loan-circumstance-association-evidence/a5-stage3-values-and-basis.md) and [stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md) for its selections |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
@@ -1215,7 +1215,7 @@ before the next.
    reach the reader**: the presentation projection walks through intermediates and cites the
    raw circumstances, and `origin: "assertion"` means only "not via a declared default". The carrier
    to the reader is left open and owed to G2 and A6. Where no financing claim identifies a
-   period there is no key and no conclusion; that case is stage 4's scope question. Obligation is keyed on the borrowing, not
+   period there is no period key; stage 4 keys that case on the statement. Obligation is keyed on the borrowing, not
    the tax year, and has no consumer in this milestone.
 4. **The responsibility applies-to relation.** Whether an existing citizen carries it or a
    new one is needed — open in both directions; what makes it apply, including whether that
@@ -1225,7 +1225,14 @@ before the next.
    outside provenance or in a different role there; and whether inspection needs
    persistence or can be reconstructed. Horizon identity-keying is an alternative to be
    **weighed, not copied** — A2 records that copying it collapses findable-but-unsupported
-   into absence — and D10 may not be assumed holdable.
+   into absence — and D10 may not be assumed holdable. **Selected:** a responsibility applies
+   where a deduction is taken on the default, and is carried as the rule citations of stage 3's
+   named conclusion — gated to the favourable case, never consumed, re-derived rather than
+   given a lifecycle of its own, inside provenance in the citation role, and reconstructable
+   from the durable record on paper though it does not reach the reader today. The stage also
+   takes the scope questions stage 3 handed on: a whole-statement scope claim is keyed on the
+   statement plus what it applies; where no period is identified the default attaches to the
+   statement; obligation follows the same shape and still has no consumer.
 5. **What the filer paid.** Select a supported route for the shared-payment case — from
    evidence, from an ordinary statement, or derived — **or record it as explicitly
    unresolved**, which is an acceptable outcome. Same for the deeming rule's information

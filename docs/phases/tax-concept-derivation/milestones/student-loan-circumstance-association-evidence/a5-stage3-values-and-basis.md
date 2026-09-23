@@ -225,9 +225,11 @@ tested:
 conclusion's identity and its meaning, in **two** test cases this stage has traced: the
 nine-credit case, where examined circumstances must not read as grounds; and case 1, where a
 cited financing claim must not read as the grounds for eligible student, and the reader must be
-told that status rests on the default. **Case 2 is not a G2/A6 test case yet.** It has no
-conclusion under this selection, and becomes a test obligation once stage 4 selects the scope a
-default attaches to where no period is identified. Added to `a4-bounds.md`'s owed table.
+told that status rests on the default. **Case 2 was not a G2/A6 test case at this stage.** It had no
+conclusion under this selection. **Stage 4 has since selected the statement** as the scope a
+default attaches to where no period is identified, which gives case 2 a key, pins and a traced
+citation, and makes it the third test case — see
+[stage 4](a5-stage4-scope-and-responsibility.md). Added to `a4-bounds.md`'s owed table.
 
 **The subject's key is the one stage 2 selected for the value**, so the conclusion is per
 subject rather than per statement: the student and the period for eligible-student; the
@@ -362,5 +364,5 @@ row and G2's to see.
 | A return-wide default marked at source and transitively | `read` — runner. Five `optional_default` uses exist in the production package |
 | A categorical conclusion published in the same run as amounts | `run` — D6, D16a |
 | One categorical conclusion published per key of a single subject | **untested** — owed; see above |
-| The named conclusion's identity and meaning reaching the reader | **untested**, and traced as **not reached** by `presentation.json` today — owed to G2 and A6, for the nine-credit case and case 1. Case 2 waits on stage 4 |
+| The named conclusion's identity and meaning reaching the reader | **untested**, and traced as **not reached** by `presentation.json` today — owed to G2 and A6, for the nine-credit case, case 1, and — since stage 4 — case 2 |
 | A correction reaching every statement from one shared record | **untested** — owed, `a4-bounds.md` first row |
