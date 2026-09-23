@@ -47,7 +47,7 @@ Stage 2 said these differ. Here is how, using A2's rows.
 | The scope claim is **narrowed** — "actually only one of these loans" | That statement only | Route (a) becomes route (b): a different population, so retraction of the (a) claim and assertion at the borrowing's grain — not a correction in place |
 | The scope claim is **retracted**, nothing replaces it | That statement only | A2's retraction row: an adverse basis withdrawn returns the statement to evaluable (A3). The ask does not hold the figure |
 | A **further statement** arrives | Nothing | The claim is keyed on one statement and says nothing about another. A new statement with nothing said about it publishes like any other — A2's last row, answered by the key rather than by detection |
-| The statement's **composition** changes — a corrected form covering different loans | **Unresolved for that statement** | "Everything on this statement" is a claim about the whole set, which is exactly the claim A2 says fails when the set changes. But a corrected form is a same-member value correction: the claim still resolves (leg 1) and may no longer hold (leg 2). Detecting that is **D9**, and holding the interval is **D10** — both untested and on `a4-bounds.md`'s may-not-rely list. The bounded consumer's demonstration must not depend on it |
+| The statement's **composition** changes — a corrected form covering different loans | **A2's partly-surviving row, with one thing route (a) cannot supply** | A2: what was said about members still present keeps holding; an adverse claim whose scope may reach a *newly present* member is unresolved as to that member; blocked only where a calculation depends on the lapsed part. That applies here unchanged, and only to an **adverse** route-(a) claim — a non-adverse one leaves a new member with nothing adverse said about it, which publishes. What route (a) cannot supply is **which members are new**: it enumerates none, so the surviving part and the unresolved part cannot be told apart from the claim itself. Detecting the change at all is **D9** (a corrected form is a same-member value correction, so the claim still resolves), and holding the unresolved part is **D10** — both untested and on the may-not-rely list. The bounded consumer's demonstration must not depend on this case |
 
 The key does real work in the fifth row: a statement-keyed claim cannot silently reach a
 statement nobody spoke about, which the "all my loans" claim in A2 could.
@@ -65,12 +65,14 @@ present when there is interest to compute.
 - **Why not the borrowing.** In case 2 there may be no identified borrowing at all (a statement
   with nothing enumerated), and where borrowings *are* identified, a borrowing-level default
   conclusion says nothing the statement-level one does not unless a partial reduction needs it.
-- **Input pins.** The statement's own reported-interest finding — the finding that establishes
-  the subject, as the financing claim did in case 1 — pinned the way per-item dispatch pins its
-  item (D1 pins both sides of a pairing). No schooling input, because nothing about schooling
-  exists. So the conclusion has an asserted input, and the origin hazard stage 3 handed on —
-  a conclusion with no asserted input still marked `"assertion"` — **does not arise here.**
-  It stays a hazard for any scope with nothing to pin; none is selected.
+- **Input pins — as designed, not as demonstrated.** The statement's own reported-interest
+  finding, the finding that establishes the subject, as the financing claim did in case 1. That
+  depends on the owed per-key publication pinning its item. Pairing dispatch (D1, `run`) is the
+  nearest analogue and pins both sides of a pairing, but `a4-bounds.md` is explicit that a
+  conclusion keyed on one subject is not a pairing, so D1 does not show this. No schooling input, because nothing about schooling
+  exists. **If** the item is pinned as designed, the conclusion has an asserted input and the
+  origin hazard stage 3 handed on — a conclusion with no asserted input still marked
+  `"assertion"` — does not arise. Whether it is pinned is part of what G2 must see.
 - **What the current presentation projection would cite.** The walk passes through the
   favourable value and the conclusion to the statement's box-1 finding, which is already the
   amount's citation. The reader sees the 1098-E cited and **nothing about eligibility** — the
@@ -112,8 +114,17 @@ situation's conditions being established** — which is exactly where the favour
 on stage 3's named conclusion. It does not apply where an adverse circumstance is supported: no
 deduction is taken on that path, so there is nothing for a condition to be left open *for*.
 
-So the applies-to relation has three parts, all of which are already on the record in the
-favourable case: the **condition** (for the schooling path: that the institution is an eligible
+**And only where a circumstance was described.** The responsibility direction binds a condition
+to *the circumstances and treatment that made it applicable* — "because they claimed this
+deduction **and described this enrolment**" — and rules out generic disclaimer text. In case 2
+nothing about schooling was described, so **no responsibility applies there**: stating the
+schooling conditions against a bare statement would be exactly the generic disclaimer the
+direction forbids. What case 2 owes the reader is stage 3's — that eligibility rests on the
+default — which is a basis, not a responsibility. So the statement-level conclusion's rule
+declares none of the schooling conditions; only the student-and-period conclusion's does.
+
+So in the nine-credit case and case 1 the applies-to relation has three parts, all of which are
+on the record in the favourable case: the **condition** (for the schooling path: that the institution is an eligible
 educational institution, that the programme leads to a recognised credential, that the load is
 at least half-time by the institution's own standard); the **circumstance** it concerns (the
 schooling situation, reached through the financing claim or scope claim); and the **treatment**
@@ -122,8 +133,14 @@ schooling situation, reached through the financing claim or scope claim); and th
 ### Is an existing citizen enough — selected: rule citations on the named conclusion
 
 **The named conclusion's rule declares, as its `citations`, the authority for each condition
-it leaves to the filer.** The runner already pins every declared rule citation on every
-publication of that rule (`runner.pins_for`, role `citation`). The instance binding comes from
+it leaves to the filer.** On the ordinary evaluation path the runner pins every declared rule
+citation on the publication (`runner.pins_for`, role `citation`). **That is not every path.** The
+per-item and dispatch paths assemble their own pins and do not call `pins_for`: the current-year
+subtotal dispatch pins only the rule, adoption and governance, and a pairing-scoped rule gets a
+citation only where the calling code adds one explicitly (`pairing_consequences.py`, the one
+`_citation_pin` call). The named conclusion is per-key, so it will not be on the ordinary path —
+**carrying its declared citations is part of the owed per-key publication**, not something the
+existing per-item paths already do. The instance binding comes from
 the same publication's input pins — the financing claim or scope claim naming the situation, or
 in case 2 the statement. Condition, circumstance and treatment are then all on one publication.
 
@@ -167,14 +184,15 @@ mean "left to the filer" would be defining new semantics while appearing to reus
 **Re-derivation, with no separate state.** A responsibility applies while the conclusion that
 carries it is published from current findings. Correct the circumstance to something adverse
 and the conclusion becomes inapplicable — the responsibility lapses. Retract the financing
-claim and the path moves to case 2 — the statement-level conclusion carries its conditions
-generically. Leave an applicability unresolved (the composition row above) and the figure is
-held, the treatment is not taken, and no responsibility applies meanwhile. Nothing here needs
-D10: a responsibility never holds a figure.
+claim and the path moves to case 2 — the responsibilities lapse, because no described
+circumstance remains to bind them, and only the default basis is left to show. Where A2 holds
+part of a figure as unresolved, that part's treatment is not taken, and no responsibility
+applies to it meanwhile. Nothing here needs D10: a responsibility never holds a figure.
 
 ### Whether it is in the derivation record
 
-**Inside provenance, in the citation role, on the default conclusion only.** The responsibility
+**Inside provenance, in the citation role, on the default conclusion only** — provided the
+per-key publication carries the citations, which above is owed. The responsibility
 direction left open whether a responsibility sits outside provenance or in a different role
 there. It is the second: the default conclusion's favourable value *does* rest on those
 conditions being left to the filer, so they are part of what it rests on, in a role that is not
@@ -190,10 +208,15 @@ value), its citation pins and its input pins. The recorded findings hold the fin
 situation; the package holds the citation citizens. So nothing new would need to be stored to
 recover *condition, circumstance, treatment*. `read`, not demonstrated.
 
-**And it does not reach the reader today**, for the reason stage 3 traced: the presentation
-projection walks through derived findings on `input` and `choice` pins only, and shows citations
-only for the rule that owns a form field (`_require_declared_field_citation_chain`). An
-intermediate conclusion's citations are dropped with the conclusion.
+**And it does not reach the reader today.** On the field path the presentation projection walks
+through derived findings on `input` and `choice` pins only (`_leaf_pins`), and validates
+citations only for the rule that owns a form field (`_require_declared_field_citation_chain`);
+an intermediate conclusion and its citations are not emitted there. One path does emit an
+intermediate derived finding's `citation` pins: the attachment-adjustment provenance walk
+(`_recorded_derived_pin_identities` keeps `citation` and `computation` pins) writes them as
+`citationSites` in `provenanceGroups` — the narrow precedent stage 3 recorded, limited to
+nominee adjustment rows, and not read by the citation-walk page. So the claim is: **not emitted
+on the path the reader reads**, rather than dropped everywhere.
 
 So this narrows stage 3's open carrier question without closing it: of its three candidates,
 read-time reconstruction from the durable record now has everything it would need on the
@@ -205,15 +228,18 @@ conclusion, its meaning, and the conditions it leaves to the filer.
 
 **To stage 5** — what the filer paid in a shared-payment case — nothing new from this stage.
 
-**To A6** — three reader test cases, each needing the default and its conditions shown: the
-nine-credit case, case 1 (a financing claim with no schooling circumstance), and case 2 (no
-financing claim; the statement-level conclusion).
+**To A6** — three reader test cases, each needing the default basis shown: the nine-credit case
+and case 1 (a financing claim with no schooling circumstance), which also need the conditions
+left to the filer shown; and case 2 (no financing claim; the statement-level conclusion), which
+must show the default basis and must **not** show schooling conditions it has no circumstance
+to bind to.
 
 ## Dependence on A4
 
 | Depends on | Level |
 | --- | --- |
-| Rule citations pinned on every publication and kept in the durable record | `read` — `pins_for`, `ledger_pins_for`, `derivation-record.v9` |
+| Rule citations pinned on the ordinary evaluation path and kept in the durable record | `read` — `pins_for`, `ledger_pins_for`, `derivation-record.v9` |
+| Declared rule citations carried by a **per-key** publication | **untested**, and the existing per-item paths do not do it by default — part of the owed per-key publication |
 | An applicability-gated rule recorded `inapplicable` when it does not apply | `read` — runner, record v9 disposition enum |
 | One conclusion published per key of a single subject — student-and-period, borrowing, **and now statement** | **untested** — owed, `a4-bounds.md` |
 | The conclusion and its conditions reaching the reader | **untested**, traced as not reached — owed to G2 and A6 |

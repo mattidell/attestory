@@ -416,7 +416,7 @@ something left unsettled is left implicit rather than named.
 | Gate | State | Waiting on |
 | --- | --- | --- |
 | G1 | **passed** at `41b77472` | Passed on its own conditions after failing twice: every fact on A0's list has a stated route, A1 — every stage and the approval set — poses only propositions A0 places, and A0 claims no coverage A1 does not provide. **What this is not:** evidence that any consumer works. None has been implemented |
-| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader — tested on the nine-credit case, on a financing claim with no schooling circumstance, and on a statement with no financing claim, where A5 stage 4 attaches the default to the statement; the conditions left to the filer must reach the reader with it. A component or analogue having run is not the behaviour having run |
+| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader — tested on the nine-credit case, on a financing claim with no schooling circumstance, and on a statement with no financing claim, where A5 stage 4 attaches the default to the statement; the conditions left to the filer must reach the reader in the first two, and none in the third. A component or analogue having run is not the behaviour having run |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
 Two rules apply to all three. **A gate is not passed because a later section
@@ -1227,9 +1227,12 @@ before the next.
    **weighed, not copied** — A2 records that copying it collapses findable-but-unsupported
    into absence — and D10 may not be assumed holdable. **Selected:** a responsibility applies
    where a deduction is taken on the default, and is carried as the rule citations of stage 3's
-   named conclusion — gated to the favourable case, never consumed, re-derived rather than
-   given a lifecycle of its own, inside provenance in the citation role, and reconstructable
-   from the durable record on paper though it does not reach the reader today. The stage also
+   named conclusion for a described schooling situation — gated to the favourable case, never
+   consumed, re-derived rather than given a lifecycle of its own, inside provenance in the
+   citation role, and reconstructable from the durable record on paper though it does not
+   reach the reader today. Carrying declared citations on a per-key publication is itself owed:
+   the existing per-item paths assemble their own pins. No responsibility applies where no
+   circumstance was described. The stage also
    takes the scope questions stage 3 handed on: a whole-statement scope claim is keyed on the
    statement plus what it applies; where no period is identified the default attaches to the
    statement; obligation follows the same shape and still has no consumer.
