@@ -1193,9 +1193,11 @@ before the next.
    does not inherit either incumbent key: obligation on tax-year alone, or the
    related-person exclusion on a statement. **Selected:** each circumstance is keyed on the
    subject of its own proposition — the borrowing, or a schooling situation of period,
-   institution and course of study — and whether a borrowing financed schooling is a separate
-   record about the pair, so that two loans over one course of study share one circumstance
-   rather than holding two copies that can disagree. The double-benefit rows are deferred with
+   institution and course of study — and what a borrowing paid for at a course of study is a
+   separate record about the pair, so that two loans over one course of study share one
+   circumstance rather than holding two copies that can disagree. That record is an ordinary
+   telling of what the money went to; whether those were *qualified* expenses, and whether the
+   student was an eligible student in the period, remain the rule's conclusions to reach. The double-benefit rows are deferred with
    no key selected and no dependency adopted.
 3. **Tax-concept values and their basis.** How default-supported, direct-answer and
    derived-from-circumstances stay distinguishable when they produce the same value, judged

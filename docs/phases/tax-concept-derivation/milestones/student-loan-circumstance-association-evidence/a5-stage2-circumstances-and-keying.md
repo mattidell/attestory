@@ -17,7 +17,7 @@ The key follows the subject of the proposition, not the document it arrived with
 | Attendance at an identified institution for an identified period | Attendance **at that institution** in that period | period + institution |
 | Enrolment in an identified programme | Enrolment **in that programme** | period + institution + programme |
 | Course load for that period | A load **in that course of study** in that period | period + institution + programme |
-| *(not an F9 circumstance)* A borrowing financed education this circumstance is about | The **pair** — that borrowing and that schooling situation | borrowing + period + institution + programme |
+| *(not an F9 circumstance)* What the borrowed money paid for at an identified course of study — *"this loan paid my tuition and housing for the Riverside BSc that autumn"* | The **pair** — that borrowing and that schooling situation | borrowing + period + institution + programme |
 
 **No borrowing appears in a schooling circumstance's key**, and the last row is why: the
 connection to a borrowing is its own claim rather than part of the circumstance's identity.
@@ -62,8 +62,9 @@ Only the identifiers the propositions already carry.
 **What it does not license.** The Metro classes are not adverse because they are two classes,
 or evening ones. A3 settled that: an irrelevant description of a schedule derives no canonical
 circumstance, and reading one out of it manufactures an adverse circumstance from a neutral
-one. Where this stage needs an adverse account it states the ordinary circumstance that makes
-it so — see the adverse variant below.
+one. Nor does this test need an adverse account at all: it is about two identities, not about
+a favourable one and an unfavourable one. Where this stage does need an adverse account, it
+traces one — see "the adverse case" below.
 
 ## Test 2 — two borrowings, one schooling situation, and a correction
 
@@ -89,9 +90,24 @@ statement.
 - **The schooling circumstance** — *the filer was enrolled in the Riverside BSc in autumn 2024
   and carried this load.* Its subject is the course of study in that period. It has one truth
   value however many loans exist, and none if no loan exists.
-- **The financing claim** — *this borrowing paid qualified education expenses for that course
-  of study.* Its subject is the **pair**. It is per borrowing, it is about origination, and it
-  is the claim that can differ between two loans while the schooling does not.
+- **The financing claim** — *this borrowing paid for that course of study*, in the ordinary
+  terms a person would use: tuition, fees, housing, books, or simply "my studies there". Its
+  subject is the **pair**. It is per borrowing, it is about origination, and it is the claim
+  that can differ between two loans while the schooling does not.
+
+**What the financing claim must not assert.** An earlier wording had the person saying the
+borrowing paid *qualified education expenses*. That is a conclusion, not an ordinary telling:
+qualified higher education expenses are defined at § 221(d)(2) as the cost of attendance under
+HEA § 472 at an eligible educational institution, reduced by the amounts § 221(d)(2)(A) and
+(B) name. Whether what the filer describes meets that definition is the rule's to reach, and
+putting it in the person's mouth would repeat the defect A0 names for F5 — a composite
+presented as something a person can be asked. The filer says what the money went to. The rule
+says whether those are qualified.
+
+This is the per-situation form of F9's existing use-of-proceeds row, not a rival to it. The
+borrowing-level row keeps the part that is about the whole borrowing — **whether the proceeds
+went *solely* to such expenses**, which § 221(d)(1) requires of the indebtedness and which no
+single situation can answer.
 
 **Selected: the smallest representation that keeps them apart.** The circumstance is keyed on
 the schooling situation and nothing else; the financing claim is a separate record keyed on
@@ -148,36 +164,82 @@ workload test is about the course of study. That gap is not cosmetic.
 certificate programme, and takes five credits in the first and four in the second. Riverside's
 normal full-time load is twelve credits for each.
 
-**What an institution-keyed record would say:** *nine credits at Riverside.* Evaluated against
-a normal full-time load of twelve, nine clears half, and the eligible-student constituent
-publishes a favourable value. Per course of study, five of twelve and four of twelve clear
-half in **neither**. The institution-keyed key does not merely lose precision; it produces the
-favourable answer in a case the statute answers adversely.
+**Withdrawn: that the statute answers this case adversely.** An earlier version compared nine
+credits to a twelve-credit standard, found it clears half, compared five and four to the same
+standard, found neither does, and concluded the institution-level key produces a favourable
+answer where the statute is adverse. That conclusion is not established, for two reasons.
 
-**Why:** the workload clause is § 25A(b)(3)(**B**) — *"is carrying at least ½ the normal
-full-time work load for the course of study the student is pursuing"*. It measures the load
-against a standard belonging to a course of study. With two courses of study there is no single
-standard for an institution total to be compared to, so the institution-level figure is not an
-under-specified answer to the workload question — it is not an answer to it.
+- **Whether credits in a second programme count toward the first programme's standard is the
+  institution's determination**, and nothing traced here settles it. A school may well certify
+  a student's enrolment status on their total registration. A0 already places the half-time
+  standard among the conditions the person is responsible for, which the application does not
+  establish and no calculation consumes — so the application is in no position to run the
+  comparison either way.
+- **No course-load telling produces a favourable value in the first place.** A0's R6a supports
+  an adverse determination and nothing favourable; the favourable eligible-student value comes
+  from the **default**, on a default-supported basis. So the coarse record cannot "produce the
+  favourable answer" — that answer arrives the same way at either grain.
+
+**What the case does show, which is the reason to keep it.** § 25A(b)(3)(**B**) — *"is carrying
+at least ½ the normal full-time work load for the course of study the student is pursuing"* —
+attaches the standard to a course of study. An adverse telling therefore has a course of study
+as its subject: *"I dropped below half-time in the BSc."* A school-wide total has no course of
+study to attach to, so it loses the very subject an adverse telling needs. That is an
+information loss about **what can be said**, not a determination about what is true.
 
 **Selected:** course load is keyed on period, institution and programme, the same grain as
-enrolment, which is the grain § 25A(b)(3)(B) actually speaks at.
+enrolment, because that is the grain at which the person's account can be adverse at all.
 
-**And what an institution total means when that is all the filer said.** It means what it says
-— nine credits at Riverside — and the workload constituent is **unresolved**, not favourable.
-That is detectable rather than silent: the enrolment records at that institution and period
-say there are two courses of study, so the condition for the total being evaluable fails
-observably. It matters because the favourable value would otherwise arrive from F6's default
-rather than from anything the filer said, which A0 requires be distinguishable.
+**And what a combined total means when that is all the filer said — reconciled with A0 and
+A3.** It means what it says: nine credits at Riverside. It supports no adverse determination
+about the work load in either course of study, and an earlier version of this section then
+called the constituent **unresolved**, which was wrong and is withdrawn. A3 is explicit that no
+adverse information and adverse information of unresolved scope are opposite in consequence,
+and that the first is the normal condition of every return: **the consumer proceeds.** Holding
+the calculation on a combined total would manufacture an adverse circumstance out of an
+absence — the same error as reading adversity out of a class schedule.
 
-**The adverse variant test 1 needs.** Add one ordinary circumstance to the Metro account: the
-filer took those two classes **not as part of any programme leading to a degree, certificate
-or other recognised credential** — an à la carte enrolment. That defeats the *other*
-subparagraph, § 25A(b)(3)(**A**), which requires meeting HEA § 484(a)(1), and it does so before
-any workload question arises, so the Metro situation
-carries an adverse enrolment while Riverside's remains favourable. The adverse quality is
-traced from what the filer was enrolled in. Nothing about the class schedule contributes to
-it.
+So the calculation proceeds, on F6's default, and what the grain protects is the **basis**: the
+favourable value must record that it came from the default and not from the filer's nine-credit
+telling, which said nothing either way about the § 25A(b)(3)(B) standard.
+
+**What would justify holding it** is supported adverse information, and only that: the filer
+saying they were below half-time in the course of study they were pursuing, or an adverse
+account of enrolment for the period of the kind traced below. A combined total is neither.
+
+## The adverse case, and one that was withdrawn
+
+**Withdrawn: the à la carte Metro enrolment as an adverse account.** An earlier version added
+one circumstance to test 1 — that the Metro classes led to no degree, certificate or other
+recognised credential — and concluded that the Metro situation was adverse while Riverside's
+was not. Tracing it does not support that conclusion.
+
+§ 221(d)(1)(C) requires the expenses to be attributable to education furnished during **a
+period during which the recipient was an eligible student**. § 221(d)(3) sends "eligible
+student" to § 25A(b)(3), which is a status of *the student in that period*: (A) meeting HEA
+§ 484(a)(1), and (B) carrying at least half the normal full-time work load for the course of
+study pursued. In test 1 the filer is enrolled in the Riverside degree programme in that same
+autumn. Whatever the Metro classes are, the person was an eligible student during the period,
+so (C) is not defeated for education furnished in it. Nothing traced establishes that a
+second, non-credential enrolment subtracts from a status the first one confers.
+
+**A keying consequence worth carrying, and it is what the test actually found.** Eligible
+student is keyed on **the student and the period** — the circumstances that feed it are per
+course of study, but the status they feed is not. Test 1 therefore stands as what it was
+before the variant was bolted on: two schooling situations in one period keep **separate
+identities**, and neither is a correction of the other. It is a cardinality test, and it does
+not need an adverse party.
+
+**The adverse case, traced.** Take a different period. In spring 2025 the loan pays for a
+short Metro course, and in that term the filer is enrolled in no programme leading to a
+degree, certificate or other recognised credential — at Metro or anywhere else — and carries
+no qualifying work load. Now § 25A(b)(3)(A) fails through HEA § 484(a)(1) with nothing else in
+the period to confer the status, so the recipient was not an eligible student during the
+period that education was furnished, and § 221(d)(1)(C) fails for expenses attributable to it.
+
+That is the shape A0's R6a accepts: an ordinary account of one's schooling that supports an
+**adverse** determination. It is adverse because of what the person was enrolled in across the
+whole period, not because of what any one class was.
 
 ## Whose education does not identify a unique student, and this milestone's student is the filer
 
@@ -264,7 +326,7 @@ deferral does not read as something else.
 
 | | |
 | --- | --- |
-| **Circumstances represented** | Use of proceeds and whose education (filer-as-student), keyed on the borrowing; attendance keyed on period and institution; enrolment and course load keyed on period, institution and programme; and, joining them, a financing claim keyed on the borrowing together with a schooling situation. Who lent and the employer-plan circumstance are representable by the borrowing-keyed shape |
+| **Circumstances represented** | Use of proceeds and whose education (filer-as-student), keyed on the borrowing; attendance keyed on period and institution; enrolment and course load keyed on period, institution and programme; and, joining them, a financing claim — what the money paid for, in ordinary terms — keyed on the borrowing together with a schooling situation. Who lent and the employer-plan circumstance are representable by the borrowing-keyed shape |
 | **What the bounded consumer evaluates** | The schooling path only: whether a supported, enumerated adverse schooling circumstance defeats a constituent, and what that does to the interest on a statement |
 | **Deferred** | Both § 221(e)(1) double-benefit conditions; the related-person and employer-plan constituents; origination dating for whose-education; a student other than the filer |
 | **What the output does *not* establish** | That any deferred condition is **satisfied**. The consumer does not evaluate them, and not evaluating a condition is not a finding that it holds |
@@ -292,8 +354,9 @@ What is fixed by the three tests:
   not what a circumstance is about.
 - A *schooling* circumstance is not keyed on a borrowing either, because it is about a course
   of study in a period and would otherwise exist in as many copies as there are loans.
-- Whether a borrowing financed that schooling is a **separate record about the pair**, and it
-  is the record that legitimately varies per borrowing.
+- What a borrowing paid for at a particular course of study is a **separate record about the
+  pair**, stated in ordinary terms, and it is the record that legitimately varies per
+  borrowing. Whether those payments were *qualified* expenses is not part of it.
 - Correcting a circumstance must not silently rewrite another, and must not leave a second copy
   of the same circumstance saying something else.
 
@@ -324,11 +387,26 @@ What stage 3 receives as selected, and must give a basis to:
 
 | Record | Key | Stage 3 owes |
 | --- | --- | --- |
-| Use of proceeds; whose education; who lent; employer-plan borrowing | borrowing | Basis of each, and whether a default-supported value is distinguishable from a stated one |
+| Use of proceeds — including whether the proceeds went *solely* to such expenses; whose education; who lent; employer-plan borrowing | borrowing | Basis of each, and whether a default-supported value is distinguishable from a stated one |
 | Attendance | period + institution | Same |
-| Enrolment; course load | period + institution + programme | Same, plus the unresolved case from test 3: an institution total with two courses of study is not a favourable answer, and its basis must not read as one |
-| A borrowing financed that schooling | borrowing + period + institution + programme | Whether the pair's own basis can differ from the basis of the circumstance it names — a well-grounded financing claim pointing at a default-supported enrolment, and the reverse |
+| Enrolment; course load | period + institution + programme | Same, plus test 3's case: where only a combined institution total is known, nothing adverse is supported, the calculation **proceeds on F6's default**, and the basis must record that the value came from the default rather than from the total the filer gave |
+| What the borrowed money paid for at an identified course of study | borrowing + period + institution + programme | Whether the pair's own basis can differ from the basis of the circumstance it names — a well-grounded financing claim pointing at a default-supported enrolment, and the reverse |
 | Legal obligation (a tax-concept fact, not an F9 row) | not selected here — stage 3's | — |
+
+**The ordinary/derived boundary this table must hold**, which is the distinction test 2's
+repair turned on. The filer's record says what the money paid for. Three further things are
+the rule's to reach, each with its own basis and none of them assertable by the person:
+
+| Derived, not told | Reached from | Authority |
+| --- | --- | --- |
+| That what the money paid for were **qualified higher education expenses** | The financing claim, plus what the expenses were | § 221(d)(2) → HEA § 472, less § 221(d)(2)(A) and (B) |
+| That the recipient was an **eligible student** during the period the education was furnished | The period's schooling circumstances, taken together across situations | § 221(d)(1)(C) → § 221(d)(3) → § 25A(b)(3) |
+| That the indebtedness was incurred **solely** to pay such expenses | The borrowing-level use-of-proceeds row, not any single situation | § 221(d)(1), flush language |
+
+The second row carries test 1's finding and stage 3 should not lose it: the **circumstances**
+are keyed per course of study, but the **status** they feed is keyed on the student and the
+period. A second enrolment in a period does not subtract from a status another enrolment in
+that period confers, and a representation that keyed the status per situation would let it.
 
 Stage 3 also inherits the question test 2 raised and did not answer: whether a correction to a
 shared record reaching every dependent statement needs anything carried on the record itself,
