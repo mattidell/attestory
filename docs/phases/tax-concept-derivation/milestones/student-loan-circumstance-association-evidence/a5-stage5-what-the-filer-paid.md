@@ -55,9 +55,12 @@ from the third party and, in turn, paying the interest."*
 1. **The other payer was not legally obligated** to make the interest payment.
 2. **The payment was made on the filer's behalf.**
 3. **The filer was legally obligated** — F7.
-4. **The loan is a qualified education loan** — F5, which for this filer is what the schooling
-   path decides. A supported adverse schooling circumstance defeats deeming as well as the
-   treatment of the filer's own payments.
+4. **The loan is a qualified education loan** — F5. The schooling path bears on it **in one
+   direction only**. A supported adverse schooling circumstance can defeat qualification, and
+   with it deeming as well as the treatment of the filer's own payments. The converse does not
+   hold: a favourable or default-supported schooling result does **not** establish F5, because
+   F5 has other constituents stage 2 defers — who lent, borrowing against an employer's plan,
+   whose education at origination — which nothing in this milestone evaluates.
 
 **The clues the filer can give are not the premises.** An earlier version of this stage asked one
 follow-up — *were they on the loan?* — and read the answer as settling the first premise, and
@@ -171,7 +174,7 @@ Consequences:
   bear on them and no grounds for them are selected.
 - **To stage 2's boundary:** payment added to the deferred row, with its limit.
 - **To A5 overall:** stages 1–3 and 5 selected; stage 4's scope claims and the owner's case-2
-  display choice recorded, its responsibility representation a preferred candidate for G2/A6.
+  display choice recorded, its responsibility representation a provisional candidate for A4's second pass.
 
 ## Dependence on A4
 

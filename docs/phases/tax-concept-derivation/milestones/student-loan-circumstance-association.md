@@ -395,7 +395,10 @@ placed.
 **G2 — ready to implement.** *Decides:* whether a producer can be chartered.
 *Requires:* A5 selected with its reasons recorded, and every mechanism claim the
 selected representation depends on established by execution rather than by
-reading. *Evidence:* A4's executed checks, covering the representation actually
+reading. Where A5 holds a **provisional candidate** rather than a selection, A4's second
+pass executes and challenges it first, and A5 then selects it with reasons, revises it, or
+reports an explicit partial result; only that outcome, with its executed evidence, can meet
+this gate. A paper comparison is never a pass. *Evidence:* A4's executed checks, covering the representation actually
 chosen rather than a neighbouring one. *Blocks:* A6. *Fails if:* any load-bearing
 mechanism claim is still `read`-level.
 
@@ -466,7 +469,7 @@ whole plan.
 | A2 | **done** | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | **done** | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | specified; pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both reviewed and repaired, and G1 passed citing them. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | **specified**; stages 1–3 and 5 selected; stage 4's scope claims and the owner's case-2 display choice recorded, its responsibility representation a preferred candidate that G2/A6 must demonstrate | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
+| A5 | **specified**; stages 1–3 and 5 selected; stage 4's scope claims and the owner's case-2 display choice recorded, its responsibility representation a provisional candidate for A4's second pass to execute and challenge before A5 selects, revises or reports it partial | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
 schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md), [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md), [stage 3](student-loan-circumstance-association-evidence/a5-stage3-values-and-basis.md) [stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md) and [stage 5](student-loan-circumstance-association-evidence/a5-stage5-what-the-filer-paid.md) for its selections |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
@@ -1138,7 +1141,9 @@ Four concrete cases A6 must carry, because they are where the collapse happens:
 **Its relation to the gates.** G1 needs A4's **bounds** — the classification and
 the two lists — not A4's completion. G2 needs execution against the representation
 A5 actually chooses, which cannot happen before A5 exists. So A4 is expected to run
-twice: once now, to bound A5's options, and once after A5, to discharge G2.
+twice: once now, to bound A5's options, and once after A5, to discharge G2 — executing A5's
+selections and challenging its provisional candidates, which A5 then selects, revises or
+reports as partial.
 
 ## A5 in detail — choosing how to represent it
 
@@ -1232,8 +1237,9 @@ before the next.
    contextual explanation behind a short default-basis note; never as questions, confirmations or
    a screen-wide warning. The citation-pin representation was tested against the three conditions and is
    unproven: a legal locator identifies no condition, cannot be told from ordinary citations,
-   and carries no wording. The preferred candidate is one responsibility rule per condition,
-   with the approved wording's home still open; nothing is selected until something runs.
+   and carries no wording. The provisional candidate is one responsibility rule per condition,
+   with the approved wording's home still open — for A4's second pass to execute and challenge,
+   after which A5 selects it with reasons, revises it, or reports an explicit partial result.
    **Selected in the same stage:** the scope questions stage 3 handed on — a whole-statement
    scope claim is keyed on the statement plus what it applies; where no period is identified the default attaches to the
    statement; obligation follows the same shape and still has no consumer.
@@ -1244,7 +1250,8 @@ before the next.
    basis; Form 1098-E box 1 is interest the lender received and supplies no split by who paid.
    A supported telling that someone else paid stops it. The filer's own part then comes from
    their ordinary statement or is explicitly unresolved. The deeming rule's premises — the other
-   payer not legally obligated, the payment made on the filer's behalf, F7, F5 — are kept apart
+   payer not legally obligated, the payment made on the filer's behalf, F7, F5 (which adverse
+   schooling can defeat but favourable schooling does not establish) — are kept apart
    from the ordinary clues that bear on them (*were they on the loan*, *did they pay it for
    you*); no grounds for the first two are selected, so the other payer's part is unresolved in
    this milestone. Not from evidence, not from a share of payments. No consumer in

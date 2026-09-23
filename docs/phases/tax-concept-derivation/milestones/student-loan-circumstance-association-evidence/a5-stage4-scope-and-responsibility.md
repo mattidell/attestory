@@ -1,7 +1,7 @@
 # A5 stage 4 — scope claims and the responsibility applies-to relation
 
-Part 1 provisional. Part 2: the owner's case-2 choice is recorded (A); the representation stays a
-preferred candidate that G2 and A6 must demonstrate. Filer-centered. No implementation. Two relations, each saying that something
+Part 1 provisional. Part 2: the owner's case-2 choice is recorded (A); the representation is a
+provisional candidate for A4's second pass to execute and challenge. Filer-centered. No implementation. Two relations, each saying that something
 **applies to** something else, and they are kept apart because they have different bases:
 
 - a **scope claim** is the filer's — they say a circumstance, or an answer, reaches some
@@ -248,11 +248,12 @@ rows.
 | A content declaration mapping each condition to its authorities, grain and wording | Yes | Yes | **Yes** — the only candidate with a governed home for approved wording | Via declared grain | Not by itself | Very likely a new citizen kind and schema |
 | Wording held in A6's consumer, keyed by condition rule id | — | — | Yes, but owner-approved tax wording would sit in code, outside content governance | — | — | No schema. Pairs only with the first row |
 
-**Preferred candidate, not selected:** the per-condition rule for identity, circumstance and
-treatment, with the **wording home open** between a content declaration and A6's consumer. It is
-not selected because the owner's case-2 choice changes what it publishes, and because every
-column it satisfies depends on the owed per-key publication and has not run. Whether any schema
-is needed is open with the wording home, and is not assumed.
+**Provisional candidate for A4's second pass — not an adopted contract:** the per-condition rule
+for identity, circumstance and treatment, with the **wording home open** between a content
+declaration and A6's consumer. Every column it satisfies depends on the owed per-key publication
+and has not run, so it is not selected on paper. A4's second pass executes and challenges it;
+**after those checks A5 selects it with reasons, revises it, or reports an explicit partial
+result.** Whether any schema is needed is open with the wording home, and is not assumed.
 
 ### What still holds from the withdrawn selection
 
@@ -289,8 +290,8 @@ and case 2, where the three conditions are shown tied to the statement with scho
 explicitly unknown — in a contextual explanation behind a short default-basis note, never as a
 question, a required confirmation or a screen-wide warning — with each condition's identity,
 approved wording and the treatment it qualifies recoverable, and its circumstance shown as
-unknown rather than recovered. The representation is the preferred candidate above until something
-runs.
+unknown rather than recovered. The representation is the provisional candidate above, for A4's second pass to execute and
+challenge before A5 selects, revises or reports it partial.
 
 ## Dependence on A4
 
@@ -299,7 +300,7 @@ runs.
 | Rule citations pinned on the ordinary evaluation path and kept in the durable record | `read` — `pins_for`, `ledger_pins_for`, `derivation-record.v9` |
 | Declared rule citations carried by a **per-key** publication | **untested**, and the existing per-item paths do not do it by default — part of the owed per-key publication |
 | An applicability-gated rule recorded `inapplicable` when it does not apply | `read` — runner, record v9 disposition enum |
-| One conclusion published per key of a single subject — student-and-period, borrowing, statement — and, under the preferred candidate, one responsibility finding per condition per situation | **untested** — owed, `a4-bounds.md` |
+| One conclusion published per key of a single subject — student-and-period, borrowing, statement — and, under the provisional candidate, one responsibility finding per condition per situation | **untested** — owed, `a4-bounds.md` |
 | A reader recovering, per condition, its identity, approved wording, circumstance and treatment, distinct from ordinary citations | **untested**; citation-only representation fails three of the five on current artifacts — owed to G2 and A6 |
 | Telling "still resolvable" from "still supported" on a statement's composition change | **untested** — D9; may not be relied on |
 | Holding that interval as its own state | **untested** — D10; may not be relied on |
