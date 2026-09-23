@@ -12,8 +12,8 @@ The key follows the subject of the proposition, not the document it arrived with
 | Whose education it paid for | The **borrowing**, at origination | borrowing |
 | Who lent the money | The **borrowing** — the creditor on that indebtedness | borrowing |
 | Borrowing against an employer's plan | The **borrowing** | borrowing |
-| An employer paid interest under an educational assistance programme | A **payment** on a borrowing, in a tax year | borrowing + tax year |
-| Qualified-tuition-programme earnings used to pay this interest | Same | borrowing + tax year |
+| An employer paid interest under an educational assistance programme | § 221(e)(1) **first sentence** — see below | **not selected** |
+| Qualified-tuition-programme earnings used to pay this interest | § 221(e)(1) **second sentence**, a different object — see below | **not selected** |
 | Attendance at an identified institution for an identified period | The **student's situation at a period** | borrowing + period |
 | Enrolment in an identified programme | Same | borrowing + period |
 | Course load for that period | Same | borrowing + period |
@@ -70,12 +70,27 @@ adding them would widen the consumer without testing anything the schooling path
 already test.
 
 **Not this milestone's, and deliberately not redesigned:** the two double-benefit
-circumstances. They are § 221(e)(1) **amount** operations about what paid the interest, not
-schooling circumstances, and the milestone's purpose does not reach them. The incumbent holds
-them as per-statement categorical witnesses that block the whole route; this milestone neither
-adopts them as dependencies nor changes them. Treating them as amount-bearing facts keyed on
-borrowing and year remains available to a later milestone, and would need an amount nobody
-collects today — which is A1's question and is not asked.
+circumstances. They are § 221(e)(1) amount operations about what paid the interest, not
+schooling circumstances, and the milestone's purpose does not reach them.
+
+**They are also two different objects, and an earlier version of this stage keyed them as one.**
+That compression is a defect our own authority record already identified and corrected, and it
+was reintroduced here by writing "same" against the second row:
+
+- **Employer-paid interest — § 221(e)(1) first sentence.** An *amount* for which a § 127
+  exclusion is allowable, by reason of the employer's payment of indebtedness on a qualified
+  education loan of the taxpayer. The employer's payment is the *reason*, not the identity of
+  the fact. Not a classification of the borrowing, and not a statement. **Key not selected.**
+- **Qualified-tuition-programme earnings — § 221(e)(1) second sentence.** A reduction, for the
+  taxable year, of the deduction otherwise allowable under § 221(a) before § 221(b), by the
+  earnings on § 529(c)(9) distributions with respect to **loans** of the taxpayer. One
+  year-level amount measured across loans, not a payment on one borrowing. **Key not
+  selected.**
+
+This milestone adopts neither as a dependency and changes neither incumbent per-statement
+witness. A later milestone may treat either as an amount fact. **That key is not chosen here,
+and borrowing-plus-year is not a default it inherits** — withdrawing the statement key was
+right, and putting both sentences on the borrowing was not.
 
 ## Storage shape
 
