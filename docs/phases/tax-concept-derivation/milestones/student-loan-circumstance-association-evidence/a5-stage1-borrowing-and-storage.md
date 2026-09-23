@@ -97,12 +97,17 @@ publish that the person has already given us reason to doubt — the failure A3'
 distinction between no-adverse-information and adverse-with-unresolved-scope exists to
 prevent.
 
-**Moving from (c) to (b) is a resolution, not a correction.** When an amount is later
-supplied for a borrowing already known to be included, nothing that was said before becomes
-wrong. A2's change rules govern corrections to what was said; they do not govern the arrival
-of something that was never said, and treating the transition as a correction would suggest
-the earlier record had been mistaken. A3's revealable list carries the (c) state as its own
-row, distinguishable from both membership-unknown and no-adverse-information.
+**Moving from (c) to (b) is a resolution in the plain sense:** supplying an amount for a
+borrowing already known to be included resolves an uncertainty without making the earlier
+membership claim wrong. Nothing that was said before becomes false.
+
+That is a statement about meaning, not an exemption. An earlier version of this section said
+A2's rules do not govern the arrival of something never said; **withdrawn.** Newly supplied
+information is subject to A2's applicability principles and to consistency checks like any
+other, and how the transition is represented is a lifecycle question later stages design.
+"Resolution" names what happens; it neither preselects nor forbids a storage transition.
+A3's revealable list carries the (c) state as its own row, distinguishable from both
+membership-unknown and no-adverse-information.
 
 **Carried forward rather than selected here:** whether the portion in (b) is a value on the
 correspondence or its own finding, and whether (c) is the same correspondence lacking an
@@ -116,11 +121,18 @@ version of this sentence said it recorded one as untested, which is false of
 
 ## Selection: how an answer is stored, and how many records
 
-**The requirement, which is not a record count.** Circumstances, relationships and
-amounts must remain **independently applicable and independently correctable**. Correcting
-an amount must not disturb whether a circumstance applies; retracting a circumstance must
-not silently alter a relationship; and a correction to one must not read as a correction to
-another.
+**The requirement, which is not a record count.** Two things, and the second is not the
+first:
+
+- **A correction must not silently rewrite an unrelated assertion.** Correcting an amount
+  must not alter what a circumstance says; retracting a circumstance must not alter what a
+  relationship says; and a correction to one must not read as a correction to another.
+- **Dependent applicability and consequences must still be reconsidered when their basis
+  changes.** This is not independence. An earlier version of this section said correcting an
+  amount must not disturb *whether a circumstance applies*, which promised an independence
+  that would be wrong: where applicability rests on something that moved, it is reconsidered.
+  What must not happen is the *assertion* being rewritten; what must happen is what depends
+  on it being re-examined.
 
 **Provisionally separate records**, because their lifetimes differ — a borrowing reference
 persists across statements and years, a portion is per statement per tax year, a
@@ -148,9 +160,11 @@ writes back from a tax-concept value into an ordinary circumstance.
 | Per-item dispatch following a recorded connection, refusing by name when its target is gone | `run` — D1, D2 |
 | An unassociated subject producing no row | `run` — D3 |
 | A consumer requiring a fact conditionally | `run` — D4 |
-| A later correction to a circumstance reaching every statement its reference bears on | `run` — D8. Ceiling: the dispatcher follows the current finding at the same `fact_id`, which settles nothing about D9 |
+| A consumer following the **current** finding at a `fact_id` after a correction at that same `fact_id` | `run` — D8, and that is all it establishes. Its test corrects one nominee report and checks the current finding is used |
+| **One corrected circumstance reaching every statement its reference bears on** | **not demonstrated.** D8 is a component, not this behaviour. Carried to the later execution checks |
 | State 4 confined to that statement's calculation rather than the return | `run` — D13a, **pairing dispatch only**. D13b is `run` in the opposite direction: the incumbent worksheet fold is *not* isolated and must not be treated as though it were |
-| States 2 and 3 publishing a reduced figure once a portion is determined | `run` — D5, for a determined adverse result only, on disposable artifacts never adopted. D5's other half, missing support blocking, is the prior candidate's absence behaviour and is **not** selected here: no adverse information proceeds |
+| An adverse answer producing a determined **zero** | `run` — D5, on disposable artifacts never adopted, and that is all it establishes. D5's other half, missing support blocking, is the prior candidate's absence behaviour and is **not** selected here: no adverse information proceeds |
+| **A partial reduction of a statement — states 2 and 3 publishing a reduced figure once a portion is determined** | **not demonstrated.** D5 is an analogue at the whole-statement zero, not this path. Carried to the later execution checks |
 | Telling "still resolvable" from "still supported" | **untested** — D9 |
 | Holding the unresolved interval as its own state | **untested** — D10 |
 | Holding A3's states apart — specifically no-adverse, membership-unknown, and membership-known-portion-unknown | **untested** — D11. D10 alone is not enough: one blocked bucket can satisfy D10 and still collapse (c) into either of the others |
@@ -164,6 +178,12 @@ it, which is a dependence `a4-bounds.md` does not support.
 **Four demands on A4's may-not-rely list — D9, D10, D11 and D12 — are depended on here**, so
 this selection cannot be chartered until they run. That is G2's bar, stated here rather than
 left to be discovered.
+
+**And two behaviours this selection needs are not demonstrated by anything**, though
+components or analogues of them have run: one corrected circumstance reaching every statement
+its reference bears on, and a partial reduction of a statement. A component having run is not
+the behaviour having run. Both are added to what A4's second pass must execute and what G2
+must see, and neither requires a new prototype to state.
 
 ## Deferred, named not designed
 

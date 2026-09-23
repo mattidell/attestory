@@ -415,7 +415,7 @@ something left unsettled is left implicit rather than named.
 | Gate | State | Waiting on |
 | --- | --- | --- |
 | G1 | **passed** at `41b77472` | Passed on its own conditions after failing twice: every fact on A0's list has a stated route, A1 — every stage and the approval set — poses only propositions A0 places, and A0 claims no coverage A1 does not provide. **What this is not:** evidence that any consumer works. None has been implemented |
-| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid |
+| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Two behaviours are already owed to this gate from A5 stage 1, neither demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, and a partial reduction of a statement. A component or analogue having run is not the behaviour having run |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
 Two rules apply to all three. **A gate is not passed because a later section

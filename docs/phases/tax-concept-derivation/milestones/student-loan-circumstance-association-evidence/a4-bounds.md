@@ -93,6 +93,17 @@ D13b is on this list in the opposite sense: a design may **rely on knowing** tha
 the incumbent worksheet fold is not isolated, and must not treat it as though it
 were.
 
+## Owed to A4's second pass, from A5's selections
+
+Behaviours a selection needs that nothing demonstrates today, though a component or an
+analogue has run. **A component having run is not the behaviour having run**, and these are
+G2's to see rather than A4 pass 1's to have covered:
+
+| Behaviour | Nearest thing that has run | Why that is not it |
+| --- | --- | --- |
+| One corrected circumstance reaching every statement its reference bears on | D8 — a consumer follows the current finding at a `fact_id` after a correction there | D8's test corrects one nominee report and checks the current finding is used. It exercises no shared subject across several statements |
+| A partial reduction of a statement — a reduced figure once a portion is determined | D5 — an adverse answer produces a determined zero on disposable artifacts | A whole-statement zero is not a partial reduction. The arithmetic and the disposition both differ |
+
 ## What A5 may not rely on without new execution
 
 D7, D9, D10, D11, D12, D14 and D16b. In particular, a shape that depends on **an
