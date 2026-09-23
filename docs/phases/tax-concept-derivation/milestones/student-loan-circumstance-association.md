@@ -1145,6 +1145,28 @@ twice: once now, to bound A5's options, and once after A5, to discharge G2 — e
 selections and challenging its provisional candidates, which A5 then selects, revises or
 reports as partial.
 
+### A4's second pass — the probes, in order
+
+The first pass bounded A5's options. The second executes what A5 selected and challenges
+what it left provisional, against the four behaviours owed to G2. Same method as the first
+pass: a disposable test module, synthetic `demo.*` identities, **no production change**;
+where a behaviour cannot be exercised without changing production, record that and its cost
+and stop — never approximate it with a fixture that passes for the wrong reason. One probe
+per cycle, each reviewed before the next starts, because each later probe stands on the
+earlier.
+
+| Probe | Question | Stands on |
+| --- | --- | --- |
+| **P1** | Can one categorical conclusion be published **per key of a single subject** — student-and-period, statement — carrying its rule's declared citations, and recorded `inapplicable` for a key where an adverse circumstance is supported? | — |
+| **P2** | Does one corrected schooling circumstance reach **every** statement whose result depended on it, on re-derivation? | P1 |
+| **P3** | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
+| **P4** | Can a reader **recover**, from durable output, the conclusion's identity and meaning and, for the provisional responsibility candidate, each condition's identity, circumstance and treatment — and where does wording fail to have a home? | P1 |
+
+Results go into [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md),
+each owed row moving to `run`, staying untested with the reason, or becoming
+untestable-without-production with its cost. After P4, A5 selects, revises or reports a
+partial result for the provisional responsibility candidate, and G2 is assessed on what ran.
+
 ## A5 in detail — choosing how to represent it
 
 This is A5 refined one step. It selects representations; it does not implement them, and
