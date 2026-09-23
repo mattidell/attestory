@@ -260,6 +260,7 @@ consumer reveals them is A6's.
 | Adverse, scope undetermined | Blocked, distinguishably from the first row |
 | Adverse, portion determined | A reduced figure; zero only if the portion is the whole |
 | Membership unknown | No subtraction from this statement |
+| **Membership known, portion unknown** | Blocked for this statement, and distinguishably from both membership-unknown and no-adverse-information. The adverse circumstance and the membership are on the record; only the amount is not |
 | A loan is newly present and nothing adverse has been said about it | The figure publishes. Nothing is asked — there is no earlier claim whose applicability is in question |
 | A loan is newly present and an existing adverse claim's scope may reach it | Blocked as to that loan, and asked — because a claim already made now has unresolved applicability |
 | Membership known to be absent | This statement proceeds as no-adverse |
