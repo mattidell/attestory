@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "PLANNED, no track open. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Organised as eight actions refined and reviewed one at a time; progress reads on two axes -- the state table for specificity, three readiness gates for readiness, the gate governing where they disagree. A0 is done including F9, the ordinary circumstances that contribute to the qualified-loan and eligible-student composites. A1, A2 and A3 have produced their answers and been repaired after review; A4's bounds are produced and repaired. G1 is PASSED at 41b77472, on its own conditions, after failing twice -- first because A1 posed what A0 never placed, then because A0 claimed coverage A1 does not provide and F6 still gave a favourable answer positive standing. A5's refinement is specified after two review rounds and its first stage -- whether a borrowing is identified and how an answer is stored -- is next. Load-bearing findings: routes are unranked and 'on the path' versus 'sits behind' is relative to a route; representing a fact does not make it mandatory, obligation coming from a named consumer's declaration; an aggregate Boolean does not erase member identity; the pairing-scope observation bounds one tested environment rather than the dispatcher. Owner decisions taken: eligible-student status is always present, never gating, disqualifier only; and institutional eligibility and credential recognition are represented as inspectable conditions the person is responsible for -- never established by a finding, solicited as an attestation, or consumed by a calculation. Three outcomes are kept apart: an adverse determination can be supported, absence of one lets the calculation proceed, and a favourable classification is established by nothing -- the second never establishing the third. Outstanding: the owner's approval of A1's wording, for which the approval set is ready, and whether the twelve other-Schedule-1-adjustment facts are in scope. No representation, mechanism or contract is selected, and no consumer has been implemented.",
+  "status": "PLANNED, no track open. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Organised as eight actions refined and reviewed one at a time; progress reads on two axes -- the state table for specificity, three readiness gates for readiness, the gate governing where they disagree. A0 is done including F9, the ordinary circumstances that contribute to the qualified-loan and eligible-student composites. A1, A2 and A3 have produced their answers and been repaired after review; A4's bounds are produced and repaired. G1 is PASSED at 41b77472, on its own conditions, after failing twice -- first because A1 posed what A0 never placed, then because A0 claimed coverage A1 does not provide and F6 still gave a favourable answer positive standing. A5's refinement is specified after two review rounds and its first stage -- whether a borrowing is identified and how an answer is stored -- is next. Load-bearing findings: routes are unranked and 'on the path' versus 'sits behind' is relative to a route; representing a fact does not make it mandatory, obligation coming from a named consumer's declaration; an aggregate Boolean does not erase member identity; the pairing-scope observation bounds one tested environment rather than the dispatcher. Owner decisions taken: eligible-student status is always present, never gating, disqualifier only; and institutional eligibility and credential recognition are represented as inspectable conditions the person is responsible for -- never established by a finding, solicited as an attestation, or consumed by a calculation. Outcomes are kept apart: an adverse determination can be supported; absence of one lets the calculation proceed; a favourable value is produced from the application's authorised default, on a default-supported basis its record must carry; and independent verification of every constituent is produced by nothing and is not required. A default-supported value is neither a user affirmation nor independent verification. Outstanding: the owner's approval of A1's wording, for which the approval set is ready, and whether the twelve other-Schedule-1-adjustment facts are in scope. No representation, mechanism or contract is selected, and no consumer has been implemented.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -29,6 +29,7 @@
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a1-approval-set.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/worked-paths-eligibility-and-obligation.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/whose-deduction-model.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -464,7 +465,7 @@ whole plan.
 | A2 | **done** | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | **done** | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | specified; pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both reviewed and repaired, and G1 passed citing them. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | **specified**; stage 1 next | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below for the full assignment |
+| A5 | **specified**; stage 1 selected, review pending | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md) for its first selections |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
@@ -1167,7 +1168,13 @@ was.
 **Staged, because its output should not arrive in one piece.** Each stage is reviewed
 before the next.
 
-1. **Whether a borrowing is identified, and how an answer is stored.** Whether a
+1. **Whether a borrowing is identified, and how an answer is stored.** *Selected
+   provisionally — see the stage 1 record.* **Pending clarification is for the case where
+   relevant adverse information exists and the affected amount genuinely cannot be
+   determined.** It is not permission to refuse a multi-borrowing structure: two statements
+   on one borrowing, or one statement over several, must not trigger it merely by being
+   that shape. Where the information exists and the representation cannot use it, that is
+   a **design limitation** and is recorded as one. Whether a
    separately identified borrowing is needed now; what correspondence can be asserted,
    with what can be *checked* left to A4's bounds rather than reopened; how an answer is
    stored and how many records it becomes; and how tax-concept facts,
@@ -1224,11 +1231,12 @@ charter that rests on one.
 1. **The selections** — whether each is a selection rather than an inheritance, whether
    its reasons are given, and whether any rejected alternative was rejected on an
    unstated premise.
-2. **Keying** — whether each represented fact states what it is keyed on and why. A
-   per-borrowing condition keyed per return or per statement fails only where that key is
-   presented as copied from the incumbent and is given no reason of its own. A reasoned
-   selection of that key, or of any other, passes. **The criterion requires no particular
-   key.**
+2. **Keying** — whether each represented fact states what it is keyed on and why, **and
+   whether the selected representation preserves the required distinctions and behaviour
+   across the actual cases**, including mixed treatment within one statement and
+   correction. No particular key is prescribed; a well-explained key that loses those
+   distinctions still fails, and a reason is not a defence. A key copied from the
+   incumbent with no reason of its own fails on both counts.
 3. **Dependence on A4** — whether each selection states every A4 demand it depends on and
    that demand's evidence level, `run` included, and whether any demand A4 marks `read` or
    untested is presented as settled.
