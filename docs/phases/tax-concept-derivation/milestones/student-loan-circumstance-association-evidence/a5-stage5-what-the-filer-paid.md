@@ -25,6 +25,11 @@ here to meet it.
 
 ## What makes it a shared-payment case
 
+**Why box 1 cannot answer it.** Form 1098-E box 1 is the interest **the lender received** on the
+student loans during the year. It supplies **no split by who paid**, and the form goes to the
+borrower on the lender's books — the principal borrower where there are several — not to
+whoever sent the money. So nothing in the reported amount says whether it was all the filer's.
+
 **An ordinary telling:** *someone else also paid interest on this loan this year.* A person
 knows this — they know whether a parent sent the servicer money, or a co-signer made payments.
 
@@ -38,49 +43,56 @@ knows this — they know whether a parent sent the servicer money, or a co-signe
   amount is determined, or is recorded as undeterminable. Nothing here is asked because a record
   is new; it is asked because a supported telling made the reported amount unreliable (A2).
 
-## The follow-up that separates actual payment from deemed payment
+## The deeming rule's premises, kept apart from the clues that bear on them
 
-The deeming rule turns on whether the other payer was legally obligated on the loan, and the
-filer can usually say so without the application knowing who that person is. **One ordinary
-follow-up: *were they on the loan?*** — or, under a whole-statement scope, on these loans.
-Three answers.
+26 CFR § 1.221-1(b)(4)(i): *"If a third party who is not legally obligated to make a payment of
+interest on a qualified education loan makes a payment of interest on behalf of a taxpayer who
+is legally obligated to make the payment, then the taxpayer is treated as receiving the payment
+from the third party and, in turn, paying the interest."*
 
-**Not on the loan, and paying for me.** A parent who is not a co-signer paid some of the
-interest on the filer's behalf. 26 CFR § 1.221-1(b)(4)(i): *"If a third party who is not legally
-obligated to make a payment of interest on a qualified education loan makes a payment of
-interest on behalf of a taxpayer who is legally obligated to make the payment, then the taxpayer
-is treated as receiving the payment from the third party and, in turn, paying the interest."*
+**The premises.** Four propositions, each of which must be supported before anything is deemed:
 
-- **What is deemed is that payment, not box 1.** The filer is treated as paying the interest the
-  third party paid, and nothing more. What the filer paid is then **two parts with two bases**:
-  their own payments, an event; and the third party's payment, which the filer is treated as
-  paying, a conclusion. Where nobody obligated paid anything, the two parts together come to the
-  reported amount — the same number the ordinary case produces, by a different route. The sum
-  is not a third thing with a basis of its own.
-- **The conclusion has four premises, not three:** the payer was not obligated (the filer's
-  telling); the payment was made on the filer's behalf (the same telling); the filer was
-  obligated (F7); and **the loan is a qualified education loan** — F5, which for this filer is
-  exactly what the schooling path decides. So a supported adverse schooling circumstance
-  defeats the deeming conclusion as well as the filer's own payment's treatment.
-- **The invariant stays with the event.** If a premise changes — the payer was on the loan after
-  all — only the deemed part is **reconsidered**. The filer's own payments are unaffected, and so
-  is the third party's payment, which happened.
-- **Which is why the split matters even when the total does not.** If the filer does not say how
-  much was theirs and how much the parent's, the figure is still the reported amount, but part
-  of it rests on a conclusion and the parts are not separated. Should a premise then fail, what
-  remains is the filer's own part, which nobody stated: **unresolved**, not zero and not the
-  whole. Recording the split when the filer can give it keeps that from happening; it is not
-  required for the figure.
-- **It depends on F7 and F5**, and stage 3 found F7 has no consumer in this milestone. So the
-  deeming conclusion can be specified but **cannot be derived inside the bounded consumer**.
-  Stated, not worked around.
+1. **The other payer was not legally obligated** to make the interest payment.
+2. **The payment was made on the filer's behalf.**
+3. **The filer was legally obligated** — F7.
+4. **The loan is a qualified education loan** — F5, which for this filer is what the schooling
+   path decides. A supported adverse schooling circumstance defeats deeming as well as the
+   treatment of the filer's own payments.
 
-**On the loan too.** A co-signer or co-borrower made some of the payments. Their payments are
-theirs; nothing is deemed. What the filer paid is what the filer **actually** paid, and only the
-filer can say it.
+**The clues the filer can give are not the premises.** An earlier version of this stage asked one
+follow-up — *were they on the loan?* — and read the answer as settling the first premise, and
+the same answer as settling the second. Neither holds.
 
-**Don't know.** The premise of the deeming rule is unknown, so neither route can be taken.
-**Unresolved** for that statement.
+- ***Were they on the loan?*** is the filer's understanding of whose name is on the lender's
+  paperwork. It is an ordinary clue **bearing on** the first premise. Legal obligation is a
+  question about the terms of the loan and any other undertaking; what the filer believes about
+  the paperwork is evidence about that, not the answer. Recorded as what was said.
+- ***Did they pay it for you?*** is a separate clue bearing on the second premise. A co-borrower
+  paying their own share and a parent paying as a gift can both be "not me", and only one is
+  on the filer's behalf. It is not implied by the first clue and does not imply it.
+
+**Selected: deeming only where both premises about the other payment are supported; otherwise
+that part is unresolved.** What would count as adequate grounds for the first two premises is
+**not selected here** — the path is deferred and has no consumer, and grounds belong with the
+consumer that relies on them. So, in this milestone, every clue the filer can give leaves at
+least one premise uncertain, and **the other payer's part is unresolved** in each case:
+
+| The filer says | First premise | Second premise | The other payer's part |
+| --- | --- | --- | --- |
+| Not on the loan; paid it for me | A clue toward it, not established | A clue toward it, not established | **Unresolved** — not deemed on clues |
+| On the loan | A clue against it, not established | — | **Unresolved** — not deemed, and not determined to be excluded either |
+| Not on the loan; paying their own way, not for me | A clue toward it | A clue against it | **Unresolved** |
+| Doesn't know | Unknown | Unknown | **Unresolved** |
+
+Excluding the other payment outright on a clue would be as much a determination as deeming it;
+the owner's direction is that an uncertain case stays unresolved.
+
+**What stays true whatever grounds a later consumer selects.** What is deemed is **that payment,
+not box 1**; the filer's total would then be two parts with two bases — their own payments, an
+event, and the deemed part, a conclusion — and the sum is not a third thing with a basis of its
+own. The whose-deduction model's invariant stays with the event: if a premise later fails, only
+the deemed part is reconsidered. And the conclusion depends on F7 and F5, and F7 has no consumer
+in this milestone, so it **cannot be derived inside the bounded consumer**.
 
 ## Where the filer's own amount comes from
 
@@ -103,6 +115,11 @@ only its treatment moves.
   filer's payments, so its only subject is the filer's own. The precedent is for the *shape* —
   an attested amount on an identified report, admitted through the contribution boundary — and
   not for its identity model.
+
+**With the other payer's part unresolved** (above), the filer's stated amount determines their
+own part and nothing more. Whether a figure could publish on that part while the rest stays
+unresolved is the partial behaviour already owed to G2 elsewhere; here there is no consumer, so
+it is neither needed nor claimed.
 
 **Unresolved.** Where the filer cannot say an interest amount, the statement is **explicitly
 unresolved** — A3's stop state, shown as something to supply rather than something to correct
@@ -139,8 +156,8 @@ Consequences:
 
 - **No new behaviour is owed to G2 from this stage.** Nothing here is exercised by the bounded
   consumer.
-- **No questions are posed in this milestone.** The three tellings above — someone else paid,
-  were they on the loan, how much did you pay — are not in A1's approval set. If a later consumer
+- **No questions are posed in this milestone.** The tellings above — someone else paid, were
+  they on the loan, did they pay it for you, how much did you pay — are not in A1's approval set. If a later consumer
   poses them, their wording is the owner's first.
 - **A6 does not demonstrate it.** The whose-deduction model notes that a fixture supplying the
   filer's amount would show only downstream handling, and nothing about how the amount is
@@ -148,9 +165,10 @@ Consequences:
 
 ## Handoff
 
-- **To the plan:** the open decision on how what the filer paid is obtained is answered —
-  ordinary statement or explicit unresolved, with the deeming route specified — it deems only the third party's
-  payment — and its F7 and F5 dependence stated.
+- **To the plan:** the open decision on how what the filer paid is obtained is answered — the
+  filer's own part by ordinary statement or explicitly unresolved; the other payer's part
+  unresolved in this milestone, because the deeming premises are kept apart from the clues that
+  bear on them and no grounds for them are selected.
 - **To stage 2's boundary:** payment added to the deferred row, with its limit.
 - **To A5 overall:** stages 1–3 and 5 selected; stage 4's responsibility part waits on the
   owner's case-2 choice.

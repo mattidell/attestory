@@ -1,7 +1,7 @@
 # A5 stage 4 — scope claims and the responsibility applies-to relation
 
-Part 1 provisional; **Part 2 not settled** — it returns a product choice to the owner and
-leaves the representation at a preferred candidate. Filer-centered. No implementation. Two relations, each saying that something
+Part 1 provisional. Part 2: the owner's case-2 choice is recorded (A); the representation stays a
+preferred candidate that G2 and A6 must demonstrate. Filer-centered. No implementation. Two relations, each saying that something
 **applies to** something else, and they are kept apart because they have different bases:
 
 - a **scope claim** is the filer's — they say a circumstance, or an answer, reaches some
@@ -177,38 +177,51 @@ Riverside"* would attribute an enrolment telling nobody gave, which is the same 
 stage 3 traced at the citation layer, now in words.
 
 **Case 2 — a bare statement.** Nothing about schooling and nothing about what the loans paid
-for. The conditions apply (A0); nothing names their object. Two candidates, and the choice
-between them is the owner's:
+for. The conditions apply (A0); nothing names their object, and nothing says the loans paid for
+any particular school. The wording must not imply otherwise — an earlier candidate spoke of
+*"the school these loans paid for"*, which presupposes one known school.
 
-> **A.** *You are responsible for these conditions: that the school these loans paid for was an
-> eligible institution; that the programme led to a recognised credential; and that your course
-> load met that school's half-time standard. They apply because you claimed the student loan
-> interest deduction for [statement]. You haven't said what these loans paid for, so the school
-> isn't named here.*
+A short default-basis note in the ordinary return view:
 
-> **B.** No condition message. Only the default basis stage 3 requires: *eligibility for this
-> deduction is taken as met because nothing you described says otherwise.*
+> *Eligibility for this deduction is taken as met because nothing you've described says
+> otherwise.*
 
-A third shape — inviting the person to describe their schooling — is excluded by A1's register:
-the message "must not read as a question or as something to resolve here".
+And, where the person examines the deduction for this statement, the conditions:
 
-### The product choice returned to the owner
+> *You are responsible for these conditions on the interest reported on [statement]: that
+> whatever education these loans paid for was at an eligible institution; that it was in a
+> programme leading to a recognised credential; and that the course load met that institution's
+> half-time standard. They apply because you claimed the student loan interest deduction for this
+> statement. Which school and programme are not known here — nothing you've described names
+> them.*
 
-**What happens at the reader when a condition applies but the application cannot name its
-school or programme?**
+Candidate wording; approval is the owner's.
+
+### The owner's choice: A
+
+The owner chose **A** for inspectable content (2026-09-23). The comparison that informed it:
 
 | | A — show it, bound to the statement, unnamed | B — show only the default basis |
 | --- | --- | --- |
-| A0 | Kept: the conditions apply and are shown | A0's applicability stands, but at the reader the conditions are silent where nothing names them. That changes what A0 means to the person, and is the owner's to decide, not this stage's |
-| Responsibility direction | Bound to a treatment — this statement's interest — and says why it cannot be more specific. Not screen-level text, but not bound to a described circumstance either | Satisfies "bound to a circumstance" by never showing an unbound one |
-| Who sees it | Case 2 is the **ordinary** return: a 1098-E and nothing else said. Under A nearly every filer claiming this deduction sees the conditions | Under B most filers never see them; only those who describe schooling do, which makes describing your schooling the way to acquire responsibilities |
-| Reads as | Closer to a disclaimer, softened by naming the statement | Quieter; risks the silence stage 3 called a failure |
+| A0 | Kept: the conditions apply and are shown | A0's applicability stands, but at the reader the conditions are silent where nothing names them |
+| Responsibility direction | Bound to a treatment — this statement's interest — and says why it cannot be more specific | Satisfies "bound to a circumstance" by never showing an unbound one |
+| Who sees it | Case 2 is the ordinary return; nearly every filer claiming this deduction can see the conditions | Only those who describe schooling see them, which rewards silence |
 
-**Recommendation: A.** A0 says the conditions are the person's either way, and B would hide them
-from exactly the people who said least — while showing them to people who volunteered more,
-which rewards silence. A's binding to one statement and its plain reason for not naming the school
-are what keep it from being screen-level boilerplate. **A0 is not changed by this stage under
-either choice**; if the owner chooses B, A0's reader consequence is amended by that decision.
+**What the choice fixes at the reader:**
+
+- **Where the conditions appear.** When the person examines the deduction for a bare 1098-E,
+  the three applicable conditions are shown, tied to that statement, with the school and
+  programme **explicitly unknown**. The ordinary return view may carry only the short
+  default-basis note and reveal the conditions in a contextual explanation.
+- **What they must not become.** Not questions, not required confirmations, and not a generic
+  screen-wide warning. They are bound to the statement's treatment and read as information.
+- **A0 is unchanged**, and its reader consequence is what A0 already said: the conditions are
+  the person's either way.
+
+**What the choice does not establish.** How each condition's identity, its approved wording and
+the carrier to the reader are realised — which the next two sections show a citation-only
+representation cannot do on current artifacts — stays something **G2 and A6 must demonstrate**.
+This is a decision about what the reader shows, not evidence that it can.
 
 ### Testing the citation-pin representation against the three conditions
 
@@ -263,18 +276,19 @@ and none is demonstrated.
 
 ## Handoff
 
-**To the owner** — the case-2 choice above, A or B, with A recommended. And A1's candidate
-responsibility message needs the half-time condition and a "because" clause per case before it
-can be approved.
+**To the owner** — approval of the per-case candidate wording above. A1's single candidate
+responsibility message lacked the half-time condition and had a "because" clause true only in the
+nine-credit case; the three candidates here replace it for approval.
 
-**To stage 5** — what the filer paid in a shared-payment case. Nothing from this part; stage 5
-does not depend on the case-2 choice or the representation.
+**To stage 5** — nothing from this part.
 
 **To A6** — three reader test cases, each needing the default basis shown: the nine-credit case
 and case 1, which also need each of the three conditions shown with its approved wording, the
 circumstance it concerns and the treatment it qualifies, distinguishable from ordinary citations;
-and case 2, whose condition display follows the owner's choice. The representation is the
-preferred candidate above until something runs.
+and case 2, where the three conditions are shown tied to the statement with school and programme
+explicitly unknown — in a contextual explanation, never as a question, a required confirmation
+or a screen-wide warning. The representation is the preferred candidate above until something
+runs.
 
 ## Dependence on A4
 

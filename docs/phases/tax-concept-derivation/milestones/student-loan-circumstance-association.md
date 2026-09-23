@@ -416,7 +416,7 @@ something left unsettled is left implicit rather than named.
 | Gate | State | Waiting on |
 | --- | --- | --- |
 | G1 | **passed** at `41b77472` | Passed on its own conditions after failing twice: every fact on A0's list has a stated route, A1 — every stage and the approval set — poses only propositions A0 places, and A0 claims no coverage A1 does not provide. **What this is not:** evidence that any consumer works. None has been implemented |
-| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader — tested on the nine-credit case, on a financing claim with no schooling circumstance, and on a statement with no financing claim, where A5 stage 4 attaches the default to the statement; in the first two each of the three conditions left to the filer must reach the reader with its identity, approved wording, circumstance and treatment, distinguishable from ordinary citations; in the third, what is shown follows the owner's case-2 choice. A paper selection does not discharge any of this. A component or analogue having run is not the behaviour having run |
+| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader — tested on the nine-credit case, on a financing claim with no schooling circumstance, and on a statement with no financing claim, where A5 stage 4 attaches the default to the statement; in the first two each of the three conditions left to the filer must reach the reader with its identity, approved wording, circumstance and treatment, distinguishable from ordinary citations; in the third, the three conditions tied to the statement with school and programme explicitly unknown, in a contextual explanation. A paper selection does not discharge any of this. A component or analogue having run is not the behaviour having run |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
 Two rules apply to all three. **A gate is not passed because a later section
@@ -466,7 +466,7 @@ whole plan.
 | A2 | **done** | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | **done** | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | specified; pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both reviewed and repaired, and G1 passed citing them. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | **specified**; stages 1–3 and 5 selected; stage 4's scope claims selected, its responsibility representation open on an owner choice | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
+| A5 | **specified**; stages 1–3 and 5 selected; stage 4's scope claims and the owner's case-2 display choice recorded, its responsibility representation a preferred candidate that G2/A6 must demonstrate | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
 schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md), [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md), [stage 3](student-loan-circumstance-association-evidence/a5-stage3-values-and-basis.md) [stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md) and [stage 5](student-loan-circumstance-association-evidence/a5-stage5-what-the-filer-paid.md) for its selections |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
@@ -1227,9 +1227,10 @@ before the next.
    **weighed, not copied** — A2 records that copying it collapses findable-but-unsupported
    into absence — and D10 may not be assumed holdable. **Not settled.** Per A0 the three conditions apply wherever the deduction rests on the
    default, in every case; what varies is whether the application can name the school or
-   programme. What the reader shows when it cannot — case 2, the ordinary return — is returned
-   to the owner as a product choice, recommended: show the conditions bound to the statement,
-   unnamed. The citation-pin representation was tested against the three conditions and is
+   programme. Where it cannot — case 2, the ordinary return — the owner chose to show the three
+   conditions tied to the statement with school and programme explicitly unknown, revealed in a
+   contextual explanation behind a short default-basis note; never as questions, confirmations or
+   a screen-wide warning. The citation-pin representation was tested against the three conditions and is
    unproven: a legal locator identifies no condition, cannot be told from ordinary citations,
    and carries no wording. The preferred candidate is one responsibility rule per condition,
    with the approved wording's home still open; nothing is selected until something runs.
@@ -1240,11 +1241,13 @@ before the next.
    evidence, from an ordinary statement, or derived — **or record it as explicitly
    unresolved**, which is an acceptable outcome. Same for the deeming rule's information
    and its basis. **Selected:** in the ordinary case the reported amount stands on a default
-   basis; a supported telling that someone else paid stops it; a follow-up — were they on the
-   loan — separates a deemed payment (a derived conclusion covering only the third party's payment,
-   whose premises include F7 and F5, so not derivable in the bounded consumer) from a co-signer's own payments, where the filer's amount
-   comes from their ordinary statement or is explicitly unresolved. Not from evidence (none
-   distinguishes payers) and not from a share (that is payment allocation). No consumer in
+   basis; Form 1098-E box 1 is interest the lender received and supplies no split by who paid.
+   A supported telling that someone else paid stops it. The filer's own part then comes from
+   their ordinary statement or is explicitly unresolved. The deeming rule's premises — the other
+   payer not legally obligated, the payment made on the filer's behalf, F7, F5 — are kept apart
+   from the ordinary clues that bear on them (*were they on the loan*, *did they pay it for
+   you*); no grounds for the first two are selected, so the other payer's part is unresolved in
+   this milestone. Not from evidence, not from a share of payments. No consumer in
    this milestone.
 
 **How we will answer it.** Stage by stage, each against a named consumer rather than in
@@ -1343,8 +1346,8 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
-| What the reader shows when a condition applies but the application cannot name its school or programme — the ordinary return with nothing described. A: the conditions, bound to the statement, unnamed (recommended). B: only the default basis | Owner | Before A6 | Open — see [A5 stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md). A0 is unchanged under either; B would amend its reader consequence |
-| The wording of every question, condition and responsibility message | Owner | Before A5 | Ready for the questions — see the [approval set](student-loan-circumstance-association-evidence/a1-approval-set.md). Polarity follows the owner's rule: yes is what materially changes production. **The responsibility message is not ready:** A5 stage 4 found its candidate omits the half-time condition and its "described studying at" clause is true only where enrolment was described; candidates per case are in stage 4 |
+| What the reader shows when a condition applies but the application cannot name its school or programme — the ordinary return with nothing described. A: the conditions, bound to the statement, unnamed (recommended). B: only the default basis | Owner | Before A6 | **Decided 2026-09-23: A**, for inspectable content — the three conditions tied to the statement, school and programme explicitly unknown, in a contextual explanation behind a short default-basis note; not questions, confirmations or a screen-wide warning. See [A5 stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md). A0 unchanged |
+| The wording of every question, condition and responsibility message | Owner | Before A5 | Ready for the questions — see the [approval set](student-loan-circumstance-association-evidence/a1-approval-set.md). Polarity follows the owner's rule: yes is what materially changes production. **The responsibility message is not ready:** A5 stage 4 found its candidate omits the half-time condition and its "described studying at" clause is true only where enrolment was described; candidates per case, including a case-2 wording that names no school, are in stage 4 and await approval |
 | Whether the twelve other-Schedule-1-adjustment facts are this milestone's business | Owner | Before A5 | Open. Return-level and required by the worksheet, not in A0's model, and arguably a scope device rather than a circumstance |
 | What counts as an established contradiction, and what the system does with one | Team, from the facts — not an owner preference | A3 | Reframed. Not a choice between isolating and blocking: the person supplies facts and the product must know what to do. Where more facts would let the return proceed with adjustments, it proceeds; where a contradiction is established, it does not |
 | How eligible-student status participates | **Decided** by the owner, 2026-09-20 | — | Always present, never gating, disqualifier only. See below for the phrasing consequence |
@@ -1353,7 +1356,7 @@ A1–A3 are the work it skipped.
 | Whether refusal is an adequate answer for the two multi-borrowing cases | Owner | A5 | Open |
 | Whether a separately identified borrowing is needed now | Team, constrained by the case list | A5 | Open |
 | Whether this milestone represents another payer | **Decided** by the owner, 2026-09-22 | — | **Filer-centered.** No other payer's identity unless a concrete supported case shows it necessary, and none of the five cases does. The filer's obligation, interest they paid, and interest treated as paid by them are three distinctions about one person and need no second identity |
-| How **what the filer paid** is obtained in a shared-payment case | Team | A5 | **Selected in [A5 stage 5](student-loan-circumstance-association-evidence/a5-stage5-what-the-filer-paid.md):** the filer's ordinary statement of their own amount, or explicitly unresolved; a deemed payment where the other payer was not on the loan. The reported amount stands only in the ordinary case, on a default basis. No consumer in this milestone, and the questions are not posed |
+| How **what the filer paid** is obtained in a shared-payment case | Team | A5 | **Selected in [A5 stage 5](student-loan-circumstance-association-evidence/a5-stage5-what-the-filer-paid.md):** the filer's ordinary statement of their own amount, or explicitly unresolved; the other payer's part unresolved, since the deeming premises are kept apart from the clues bearing on them and no grounds are selected. The reported amount stands only in the ordinary case, on a default basis. No consumer in this milestone, and the questions are not posed |
 
 Reliance under a standing authorization is owner context, not an adopted rule.
 It is brought back only if a concrete case would change what the producer
