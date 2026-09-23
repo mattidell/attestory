@@ -1225,18 +1225,16 @@ before the next.
    outside provenance or in a different role there; and whether inspection needs
    persistence or can be reconstructed. Horizon identity-keying is an alternative to be
    **weighed, not copied** — A2 records that copying it collapses findable-but-unsupported
-   into absence — and D10 may not be assumed holdable. **Selected:** a responsibility applies
-   where a deduction is taken on the default, and is carried as the rule citations of stage 3's
-   **Not settled.** Per A0 the three conditions apply wherever the deduction rests on the
+   into absence — and D10 may not be assumed holdable. **Not settled.** Per A0 the three conditions apply wherever the deduction rests on the
    default, in every case; what varies is whether the application can name the school or
    programme. What the reader shows when it cannot — case 2, the ordinary return — is returned
    to the owner as a product choice, recommended: show the conditions bound to the statement,
    unnamed. The citation-pin representation was tested against the three conditions and is
    unproven: a legal locator identifies no condition, cannot be told from ordinary citations,
    and carries no wording. The preferred candidate is one responsibility rule per condition,
-   with the approved wording's home still open; nothing is selected until something runs. The stage also
-   takes the scope questions stage 3 handed on: a whole-statement scope claim is keyed on the
-   statement plus what it applies; where no period is identified the default attaches to the
+   with the approved wording's home still open; nothing is selected until something runs.
+   **Selected in the same stage:** the scope questions stage 3 handed on — a whole-statement
+   scope claim is keyed on the statement plus what it applies; where no period is identified the default attaches to the
    statement; obligation follows the same shape and still has no consumer.
 5. **What the filer paid.** Select a supported route for the shared-payment case — from
    evidence, from an ordinary statement, or derived — **or record it as explicitly
