@@ -1,12 +1,14 @@
 # A5 stage 4 — scope claims and the responsibility applies-to relation
 
-Provisional. Filer-centered. No implementation. Two relations, each saying that something
+Part 1 provisional; **Part 2 not settled** — it returns a product choice to the owner and
+leaves the representation at a preferred candidate. Filer-centered. No implementation. Two relations, each saying that something
 **applies to** something else, and they are kept apart because they have different bases:
 
 - a **scope claim** is the filer's — they say a circumstance, or an answer, reaches some
   population of reported interest. It is a telling, `attested`.
 - a **responsibility** is the application's — a condition applies because a deduction was taken
-  through a schooling situation. Nobody asserts it; it is derived, and it establishes nothing.
+  on a default-supported eligibility value (A0). Nobody asserts it; it is derived, and it
+  establishes nothing.
 
 Engine claims were traced at this commit; levels are stated where they matter.
 
@@ -103,137 +105,176 @@ posed per loan or per statement through the incumbent tax-year fact.
 
 ## Part 2 — the responsibility applies-to relation
 
-The five decisions `responsibilities-and-circumstances.md` routed here, each answered against
-the named consumer: A6's revealing consumer, which must let the person see each condition that
-applies, why, and what it concerns — *this treatment, this period, this statement's interest.*
+**Not settled.** An earlier version of this part selected a representation and said no
+responsibility applies in case 2. Both are withdrawn below: the case-2 claim contradicted A0, and
+the representation does not carry what a reader needs. What remains is a distinction, three
+worked messages, a product choice for the owner, and a comparison of representations.
 
-### What makes a responsibility apply
+The named consumer is A6's revealing consumer, which must let the person see each condition that
+applies, why, and what it concerns.
 
-A responsibility applies **where a deduction is taken through a schooling situation without the
-situation's conditions being established** — which is exactly where the favourable value rests
-on stage 3's named conclusion. It does not apply where an adverse circumstance is supported: no
-deduction is taken on that path, so there is nothing for a condition to be left open *for*.
+### A condition applying, and the application being able to name it
 
-**And only where a circumstance was described.** The responsibility direction binds a condition
-to *the circumstances and treatment that made it applicable* — "because they claimed this
-deduction **and described this enrolment**" — and rules out generic disclaimer text. In case 2
-nothing about schooling was described, so **no responsibility applies there**: stating the
-schooling conditions against a bare statement would be exactly the generic disclaimer the
-direction forbids. What case 2 owes the reader is stage 3's — that eligibility rests on the
-default — which is a basis, not a responsibility. So the statement-level conclusion's rule
-declares none of the schooling conditions; only the student-and-period conclusion's does.
+**A0 is unchanged and governs applicability.** F6: institutional eligibility, credential
+recognition and the half-time standard "stay the person's responsibility either way — producing
+the value manufactures no finding establishing them." So wherever a deduction is taken on a
+favourable eligible-student value that came from the default, **the three conditions apply** —
+in the nine-credit case, in case 1, and in case 2 alike.
 
-So in the nine-credit case and case 1 the applies-to relation has three parts, all of which are
-on the record in the favourable case: the **condition** (for the schooling path: that the institution is an eligible
-educational institution, that the programme leads to a recognised credential, that the load is
-at least half-time by the institution's own standard); the **circumstance** it concerns (the
-schooling situation, reached through the financing claim or scope claim); and the **treatment**
-(the interest on the statement whose figure depends on it).
+**What a described circumstance changes is not whether they apply but what the application can
+say about them.** Two things were run together in the withdrawn claim:
 
-### Is an existing citizen enough — selected: rule citations on the named conclusion
+- **Whether a condition applies** — fixed by A0 and the treatment taken. It does not depend on
+  anything the person described.
+- **Whether the application has the context to name its object** — which school, which
+  programme, whose half-time standard. That depends entirely on what the person said, and it
+  varies by case.
 
-**The named conclusion's rule declares, as its `citations`, the authority for each condition
-it leaves to the filer.** On the ordinary evaluation path the runner pins every declared rule
-citation on the publication (`runner.pins_for`, role `citation`). **That is not every path.** The
-per-item and dispatch paths assemble their own pins and do not call `pins_for`: the current-year
-subtotal dispatch pins only the rule, adoption and governance, and a pairing-scoped rule gets a
-citation only where the calling code adds one explicitly (`pairing_consequences.py`, the one
-`_citation_pin` call). The named conclusion is per-key, so it will not be on the ordinary path —
-**carrying its declared citations is part of the owed per-key publication**, not something the
-existing per-item paths already do. The instance binding comes from
-the same publication's input pins — the financing claim or scope claim naming the situation.
-Condition, circumstance and treatment are then all on one publication. (Case 2's statement-level
-conclusion declares none of these conditions; see above.)
+The responsibility direction's rule against "generic disclaimer text attached to a screen" is a
+rule about the **second**: a condition must be bound to the treatment and, where known, the
+circumstance that made it applicable. It is not a rule that a condition stops applying when the
+circumstance is unknown. Reading it that way was the error.
 
-Three facts make this fit rather than approximate:
+### The three cases, through the actual message
 
-- **It is gated exactly right.** The named conclusion is published only when nothing adverse is
-  supported — an applicability gate, recorded as `inapplicable` otherwise — so its citations
-  appear only where a deduction is taken on the default. An adverse value pins its adverse
-  circumstance and carries none of them.
-- **It is never consumed as a value.** Citation pins are not read by the evaluator. So the
-  selection introduces no confirmation requirement, no block, and no favourable finding about
-  any condition, which is what the responsibility direction requires.
-- **Its value is its identity.** Because the conclusion is published only in the favourable
-  case, which conclusion it is says what its value is. That matters below, since the durable
-  record carries no values.
+A1's approval set carries one candidate message, not yet approved:
 
-**What it does not carry, stated so it is not assumed.** A citation citizen (`citation.v1`) is a
-legal locator — a U.S. Code title and section, an IRS form, instructions or publication. It
-does not say *"applies but not established"*; that meaning comes from being pinned by a
-default conclusion, and a citation pinned by an ordinary rule means the authority it applied.
-It carries no plain-language condition either; the wording of every responsibility message is
-the owner's, in A1's approval set. And the pin list is flat: which component of the situation
-each condition concerns — the institution, the programme, the load — is not on it. The
-responsibility direction asks for *what it concerns* at the grain of treatment, period and
-statement, which the input pins give; component-level binding is not needed and not claimed.
+> *You are responsible for this condition: that the school was an eligible institution and the
+> programme led to a recognised credential. It applies because you claimed the student loan
+> interest deduction and described studying at [institution] in [period].*
 
-**The `default` pin role is not used.** It exists in the pin-role enums of `derived-finding.v2`
-and `derivation-record.v9`, and nothing in the runner produces it. Adopting an unused role to
-mean "left to the filer" would be defining new semantics while appearing to reuse old ones.
+Worked through the three cases, it has two problems before any product choice: it omits the
+half-time standard, one of A0's three conditions; and its "because" clause is **true only in the
+first case**. The candidates below keep A1's register — it tells someone a condition is theirs
+and claims nothing about whether it is met — and vary only what each case supports. All wording
+remains the owner's.
 
-**Alternatives, and why not.**
+**The nine-credit case.** The person said they were enrolled in the BSc and the certificate
+programme at Riverside in autumn 2024, nine credits in all, and a financing claim names the
+period.
 
-| Alternative | Why not |
+> *You are responsible for these conditions: that Riverside College was an eligible institution;
+> that the programme you were pursuing led to a recognised credential; and that your course load
+> met Riverside's half-time standard for that programme. They apply because you claimed the
+> student loan interest deduction for [statement] and **described enrolling at Riverside College
+> in autumn 2024**.*
+
+True as stated. Institution and programmes can be named because the person named them. The
+third condition is stated against the course of study, which is where the standard attaches
+(stage 2, test 3), and says nothing about whether nine credits met it.
+
+**Case 1 — a financing claim, no attendance or enrolment telling.** The person said only
+*this loan paid my tuition for the Riverside BSc in autumn 2024.*
+
+> *You are responsible for these conditions: that Riverside College was an eligible institution;
+> that the BSc led to a recognised credential; and that your course load met Riverside's
+> half-time standard. They apply because you claimed the student loan interest deduction for
+> [statement] and **said this loan paid for the Riverside BSc in autumn 2024**.*
+
+The institution and programme can still be named — the financing claim's key carries them — but
+the "because" clause must say what the person actually said. *"You described studying at
+Riverside"* would attribute an enrolment telling nobody gave, which is the same misattribution
+stage 3 traced at the citation layer, now in words.
+
+**Case 2 — a bare statement.** Nothing about schooling and nothing about what the loans paid
+for. The conditions apply (A0); nothing names their object. Two candidates, and the choice
+between them is the owner's:
+
+> **A.** *You are responsible for these conditions: that the school these loans paid for was an
+> eligible institution; that the programme led to a recognised credential; and that your course
+> load met that school's half-time standard. They apply because you claimed the student loan
+> interest deduction for [statement]. You haven't said what these loans paid for, so the school
+> isn't named here.*
+
+> **B.** No condition message. Only the default basis stage 3 requires: *eligibility for this
+> deduction is taken as met because nothing you described says otherwise.*
+
+A third shape — inviting the person to describe their schooling — is excluded by A1's register:
+the message "must not read as a question or as something to resolve here".
+
+### The product choice returned to the owner
+
+**What happens at the reader when a condition applies but the application cannot name its
+school or programme?**
+
+| | A — show it, bound to the statement, unnamed | B — show only the default basis |
+| --- | --- | --- |
+| A0 | Kept: the conditions apply and are shown | A0's applicability stands, but at the reader the conditions are silent where nothing names them. That changes what A0 means to the person, and is the owner's to decide, not this stage's |
+| Responsibility direction | Bound to a treatment — this statement's interest — and says why it cannot be more specific. Not screen-level text, but not bound to a described circumstance either | Satisfies "bound to a circumstance" by never showing an unbound one |
+| Who sees it | Case 2 is the **ordinary** return: a 1098-E and nothing else said. Under A nearly every filer claiming this deduction sees the conditions | Under B most filers never see them; only those who describe schooling do, which makes describing your schooling the way to acquire responsibilities |
+| Reads as | Closer to a disclaimer, softened by naming the statement | Quieter; risks the silence stage 3 called a failure |
+
+**Recommendation: A.** A0 says the conditions are the person's either way, and B would hide them
+from exactly the people who said least — while showing them to people who volunteered more,
+which rewards silence. A's binding to one statement and its plain reason for not naming the school
+are what keep it from being screen-level boilerplate. **A0 is not changed by this stage under
+either choice**; if the owner chooses B, A0's reader consequence is amended by that decision.
+
+### Testing the citation-pin representation against the three conditions
+
+The withdrawn selection carried responsibilities as the named conclusion's rule `citations`.
+Tested against what a durable reader must recover for each condition:
+
+| A durable reader must recover | Citation-only, on current artifacts |
 | --- | --- |
-| A derived finding per responsibility — *condition C applies to situation S for treatment T* | Gives each responsibility its own identity and component binding, at the cost of another per-key publication for every condition on every situation. Nothing in the named consumer needs per-responsibility identity yet; revisit if A6 does |
-| Reconstruct purely from content and findings, with nothing pinned | Content can say which conditions attach to schooling situations, but only the conclusion's pins say which situations the deduction actually ran through. Without them a reconstruction can attach conditions to situations not on the path |
-| Horizon identity-keying | Weighed, as the plan requires, and not taken. It displaces a claim rather than re-deriving it, and a responsibility has no *findable-but-unsupported* state to protect — it is not the person's claim, so A2's third leg never arises, and the first two are given by re-derivation from current findings |
+| **Which condition applies** | **No.** `citation.v1` is a legal locator. Locator granularity is whatever content declares, so one citation to § 25A(b)(3) would stand for both credential and half-time. The credential condition runs through § 25A(b)(3)(A) to HEA § 484(a)(1), and the same authority backs the **adverse** enrolment determination stage 2 traced for spring 2025 — so one locator appears both as an applied rule and as a responsibility. Eligible institution rests on the definition in § 221(d)(2), which refers to § 25A(f)(2). Nothing maps a set of citations to a condition. No citation citizens for any of these exist in content today |
+| **That these are responsibilities, not ordinary citations** | **No.** Same role, same list, same citizen type. "Pinned by a default conclusion" would distinguish them only if that rule cited nothing of its own — and it should cite its own authority, § 221(d)(1)(C) and (d)(3) |
+| **The approved wording** | **No home.** `citation.v1` has no text. The rule's `notes` field is free developer text, not governed wording. The projector admits reader text only from a form field's label, description or citation, an attachment's title or itemization label, or a finding's evidence label — none is a condition message |
+| **The circumstance it concerns** | **Partly.** The conclusion's input pins give the financing claim, hence institution, programme and period; which component each condition concerns is not carried |
+| **The treatment it qualifies** | **Yes, by reverse join** in the durable record: the dispositions whose pins name the conclusion's finding id, up to the amount. `read` |
 
-### Lifecycle under A2
+**Citation-only representation is unproven**, and on current artifacts it fails the first three
+rows.
 
-**Re-derivation, with no separate state.** A responsibility applies while the conclusion that
-carries it is published from current findings. Correct the circumstance to something adverse
-and the conclusion becomes inapplicable — the responsibility lapses. Retract the financing
-claim and the path moves to case 2 — the responsibilities lapse, because no described
-circumstance remains to bind them, and only the default basis is left to show. Where A2 holds
-part of a figure as unresolved, that part's treatment is not taken, and no responsibility
-applies to it meanwhile. Nothing here needs D10: a responsibility never holds a figure.
+### Smallest viable alternatives, compared
 
-### Whether it is in the derivation record
+| Alternative | Condition identity | Distinct from ordinary citations | Wording | Circumstance | Treatment | Cost |
+| --- | --- | --- | --- | --- | --- | --- |
+| **One responsibility rule per condition**, each publishing a categorical finding per schooling situation (and per statement in case 2, if A is chosen) | The rule and its symbol | Yes — the rule *is* the condition, so its citations are that condition's authorities and nothing else's | **No home** — same gap as above | Input pins: the financing or scope claim, and the grain in the symbol's key | Input pin to the favourable conclusion, then reverse join | Three per-key publications per situation — the same owed mechanism, with its citation carriage also owed. No new schema to derive it. Never read by another rule, so never consumed |
+| A fact type per condition, its `title` as wording and `identity_keys` as grain | Yes | Yes | Only by repurposing `title`, which today holds developer description and which the projector does not read | Via keys | Not by itself | Fact types type kernel findings, which are someone's assertion; a responsibility is not. Whether a derived symbol can carry a fact type's identity was not traced. Not smaller |
+| A content declaration mapping each condition to its authorities, grain and wording | Yes | Yes | **Yes** — the only candidate with a governed home for approved wording | Via declared grain | Not by itself | Very likely a new citizen kind and schema |
+| Wording held in A6's consumer, keyed by condition rule id | — | — | Yes, but owner-approved tax wording would sit in code, outside content governance | — | — | No schema. Pairs only with the first row |
 
-**Inside provenance, in the citation role, on the default conclusion only** — provided the
-per-key publication carries the citations, which above is owed. The responsibility
-direction left open whether a responsibility sits outside provenance or in a different role
-there. It is the second: the default conclusion's favourable value *does* rest on those
-conditions being left to the filer, so they are part of what it rests on, in a role that is not
-`input`. Citation pins survive into `derivation-record.v9` — the ledger drops only
-`computation`, `applicability`, `field-mapping` and `cross-form-bridge` (`runner.ledger_pins_for`)
-— and `inapplicable` is a recorded disposition. `read`.
+**Preferred candidate, not selected:** the per-condition rule for identity, circumstance and
+treatment, with the **wording home open** between a content declaration and A6's consumer. It is
+not selected because the owner's case-2 choice changes what it publishes, and because every
+column it satisfies depends on the owed per-key publication and has not run. Whether any schema
+is needed is open with the wording home, and is not assumed.
 
-### Persistence or reconstruction
+### What still holds from the withdrawn selection
 
-**Reconstructable from what is durable, on paper.** The completed record holds the conclusion's
-disposition row (its symbol and rule, which fix its meaning and — being favourable-only — its
-value), its citation pins and its input pins. The recorded findings hold the financing claim's
-situation; the package holds the citation citizens. So nothing new would need to be stored to
-recover *condition, circumstance, treatment*. `read`, not demonstrated.
+These were argued for the citation shape; each carries to the per-condition rule unchanged,
+and none is demonstrated.
 
-**And it does not reach the reader today.** On the field path the presentation projection walks
-through derived findings on `input` and `choice` pins only (`_leaf_pins`), and validates
-citations only for the rule that owns a form field (`_require_declared_field_citation_chain`);
-an intermediate conclusion and its citations are not emitted there. One path does emit an
-intermediate derived finding's `citation` pins: the attachment-adjustment provenance walk
-(`_recorded_derived_pin_identities` keeps `citation` and `computation` pins) writes them as
-`citationSites` in `provenanceGroups` — the narrow precedent stage 3 recorded, limited to
-nominee adjustment rows, and not read by the citation-walk page. So the claim is: **not emitted
-on the path the reader reads**, rather than dropped everywhere.
-
-So this narrows stage 3's open carrier question without closing it: of its three candidates,
-read-time reconstruction from the durable record now has everything it would need on the
-record. **It is not selected.** The carrier stays open until A6 tests one, and the responsibility
-belongs to the same owed reader behaviour: A6's consumer recovering, at the reader, the
-conclusion, its meaning, and the conditions it leaves to the filer.
+- **Lifecycle: re-derivation, no separate state.** A responsibility applies while the favourable
+  conclusion it rests on is published from current findings. An adverse circumstance makes the
+  conclusion inapplicable and the responsibility lapses. Horizon identity-keying was weighed and
+  not taken: it displaces rather than re-derives, and a responsibility has no
+  *findable-but-unsupported* state — it is not the person's claim, so A2's third leg never arises.
+  Where A2 holds part of a figure unresolved, that part's treatment is not taken and no
+  responsibility applies to it meanwhile; nothing here needs D10.
+- **Inside provenance, never as an input.** Under the per-condition rule each responsibility is
+  its own derived finding with its own disposition row; nothing reads it, so nothing consumes it.
+- **Does not reach the reader today.** On the field path the projector walks through derived
+  findings on `input` and `choice` pins and validates citations only for the rule owning a form
+  field; a finding nothing pins is not reached at all. The attachment-adjustment
+  `provenanceGroups` walk is the one place intermediate citation pins are emitted, limited to
+  nominee rows and not read by the citation-walk page. The reader carrier stays open (stage 3).
 
 ## Handoff
 
-**To stage 5** — what the filer paid in a shared-payment case — nothing new from this stage.
+**To the owner** — the case-2 choice above, A or B, with A recommended. And A1's candidate
+responsibility message needs the half-time condition and a "because" clause per case before it
+can be approved.
+
+**To stage 5** — what the filer paid in a shared-payment case. Nothing from this part; stage 5
+does not depend on the case-2 choice or the representation.
 
 **To A6** — three reader test cases, each needing the default basis shown: the nine-credit case
-and case 1 (a financing claim with no schooling circumstance), which also need the conditions
-left to the filer shown; and case 2 (no financing claim; the statement-level conclusion), which
-must show the default basis and must **not** show schooling conditions it has no circumstance
-to bind to.
+and case 1, which also need each of the three conditions shown with its approved wording, the
+circumstance it concerns and the treatment it qualifies, distinguishable from ordinary citations;
+and case 2, whose condition display follows the owner's choice. The representation is the
+preferred candidate above until something runs.
 
 ## Dependence on A4
 
@@ -242,7 +283,7 @@ to bind to.
 | Rule citations pinned on the ordinary evaluation path and kept in the durable record | `read` — `pins_for`, `ledger_pins_for`, `derivation-record.v9` |
 | Declared rule citations carried by a **per-key** publication | **untested**, and the existing per-item paths do not do it by default — part of the owed per-key publication |
 | An applicability-gated rule recorded `inapplicable` when it does not apply | `read` — runner, record v9 disposition enum |
-| One conclusion published per key of a single subject — student-and-period, borrowing, **and now statement** | **untested** — owed, `a4-bounds.md` |
-| The conclusion and its conditions reaching the reader | **untested**, traced as not reached — owed to G2 and A6 |
+| One conclusion published per key of a single subject — student-and-period, borrowing, statement — and, under the preferred candidate, one responsibility finding per condition per situation | **untested** — owed, `a4-bounds.md` |
+| A reader recovering, per condition, its identity, approved wording, circumstance and treatment, distinct from ordinary citations | **untested**; citation-only representation fails three of the five on current artifacts — owed to G2 and A6 |
 | Telling "still resolvable" from "still supported" on a statement's composition change | **untested** — D9; may not be relied on |
 | Holding that interval as its own state | **untested** — D10; may not be relied on |

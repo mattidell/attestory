@@ -416,7 +416,7 @@ something left unsettled is left implicit rather than named.
 | Gate | State | Waiting on |
 | --- | --- | --- |
 | G1 | **passed** at `41b77472` | Passed on its own conditions after failing twice: every fact on A0's list has a stated route, A1 — every stage and the approval set — poses only propositions A0 places, and A0 claims no coverage A1 does not provide. **What this is not:** evidence that any consumer works. None has been implemented |
-| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader — tested on the nine-credit case, on a financing claim with no schooling circumstance, and on a statement with no financing claim, where A5 stage 4 attaches the default to the statement; the conditions left to the filer must reach the reader in the first two, and none in the third. A component or analogue having run is not the behaviour having run |
+| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader — tested on the nine-credit case, on a financing claim with no schooling circumstance, and on a statement with no financing claim, where A5 stage 4 attaches the default to the statement; in the first two each of the three conditions left to the filer must reach the reader with its identity, approved wording, circumstance and treatment, distinguishable from ordinary citations; in the third, what is shown follows the owner's case-2 choice. A paper selection does not discharge any of this. A component or analogue having run is not the behaviour having run |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
 Two rules apply to all three. **A gate is not passed because a later section
@@ -466,7 +466,7 @@ whole plan.
 | A2 | **done** | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | **done** | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | specified; pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both reviewed and repaired, and G1 passed citing them. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | **specified**; stages 1–4 selected | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
+| A5 | **specified**; stages 1–3 selected; stage 4's scope claims selected, its responsibility representation open on an owner choice | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
 schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md), [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md), [stage 3](student-loan-circumstance-association-evidence/a5-stage3-values-and-basis.md) and [stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md) for its selections |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
@@ -1227,12 +1227,14 @@ before the next.
    **weighed, not copied** — A2 records that copying it collapses findable-but-unsupported
    into absence — and D10 may not be assumed holdable. **Selected:** a responsibility applies
    where a deduction is taken on the default, and is carried as the rule citations of stage 3's
-   named conclusion for a described schooling situation — gated to the favourable case, never
-   consumed, re-derived rather than given a lifecycle of its own, inside provenance in the
-   citation role, and reconstructable from the durable record on paper though it does not
-   reach the reader today. Carrying declared citations on a per-key publication is itself owed:
-   the existing per-item paths assemble their own pins. No responsibility applies where no
-   circumstance was described. The stage also
+   **Not settled.** Per A0 the three conditions apply wherever the deduction rests on the
+   default, in every case; what varies is whether the application can name the school or
+   programme. What the reader shows when it cannot — case 2, the ordinary return — is returned
+   to the owner as a product choice, recommended: show the conditions bound to the statement,
+   unnamed. The citation-pin representation was tested against the three conditions and is
+   unproven: a legal locator identifies no condition, cannot be told from ordinary citations,
+   and carries no wording. The preferred candidate is one responsibility rule per condition,
+   with the approved wording's home still open; nothing is selected until something runs. The stage also
    takes the scope questions stage 3 handed on: a whole-statement scope claim is keyed on the
    statement plus what it applies; where no period is identified the default attaches to the
    statement; obligation follows the same shape and still has no consumer.
@@ -1337,7 +1339,8 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
-| The wording of every question, condition and responsibility message | Owner | Before A5 | Ready — see the [approval set](student-loan-circumstance-association-evidence/a1-approval-set.md). Polarity follows the owner's rule: yes is what materially changes production |
+| What the reader shows when a condition applies but the application cannot name its school or programme — the ordinary return with nothing described. A: the conditions, bound to the statement, unnamed (recommended). B: only the default basis | Owner | Before A6 | Open — see [A5 stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md). A0 is unchanged under either; B would amend its reader consequence |
+| The wording of every question, condition and responsibility message | Owner | Before A5 | Ready for the questions — see the [approval set](student-loan-circumstance-association-evidence/a1-approval-set.md). Polarity follows the owner's rule: yes is what materially changes production. **The responsibility message is not ready:** A5 stage 4 found its candidate omits the half-time condition and its "described studying at" clause is true only where enrolment was described; candidates per case are in stage 4 |
 | Whether the twelve other-Schedule-1-adjustment facts are this milestone's business | Owner | Before A5 | Open. Return-level and required by the worksheet, not in A0's model, and arguably a scope device rather than a circumstance |
 | What counts as an established contradiction, and what the system does with one | Team, from the facts — not an owner preference | A3 | Reframed. Not a choice between isolating and blocking: the person supplies facts and the product must know what to do. Where more facts would let the return proceed with adjustments, it proceeds; where a contradiction is established, it does not |
 | How eligible-student status participates | **Decided** by the owner, 2026-09-20 | — | Always present, never gating, disqualifier only. See below for the phrasing consequence |
