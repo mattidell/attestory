@@ -169,7 +169,12 @@ makes true and the durable identity join it makes possible.
 **Not selected:** how the conclusion reaches the reader. Candidates, none chosen until one is
 tested:
 
-- project intermediate conclusions into the presentation model rather than walking through them;
+- project intermediate conclusions into the presentation model rather than walking through them.
+  There is one narrow precedent: for a nominee attachment's adjustment row, the projector writes
+  a derived finding's id, a reader label and its value into `presentation.json`'s
+  `provenanceGroups` (`presentation_projection.py`, "Recorded contributing reduction"). It is
+  durable, it is limited to that row kind, it still walks through any further derived inputs,
+  and the citation-walk page does not read it. A precedent for the shape, not a carrier;
 - persist the publications, or the conclusions among them, where a reader can reach them;
 - have the revealing consumer re-derive, or `explain()`, at read time from what is durable.
 
