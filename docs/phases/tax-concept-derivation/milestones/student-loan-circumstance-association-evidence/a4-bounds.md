@@ -42,7 +42,7 @@ looked for.
 | D16a | A categorical telling can be **published in the same run** as amounts | A3 | `run` | `tests/test_capital_gain_distributions_line7a_t2_coordinator.py::test_line7a_publishes_and_line9_includes_once` — the conclusion publishes alongside line 7a, line 7b and line 9. Ceiling: this consumer **gates** line 7a on the conclusion (`requires` it, and its `when` is a `categorical_compare` against it), and line 7b publishes the literal `"checked"` and is a checkbox rather than an amount. The test never varies a rule that omits the declaration |
 | D16b | A telling can be published **without changing** an amount | A3 | `read` | Nothing executes this. A rule reads what it declares, so a telling changes an amount only where some rule is wired to it — but the wiring can be **transitive**: line 9 does not name the conclusion, yet the conclusion gates line 7a and line 9 requires line 7a's total. So "does the amount rule declare a dependency on the telling" is not the whole coupling question |
 | D14 | Two routes to the interest amount holding at once | A0 | `untested` | The enumeration route does not exist |
-| D15 | A result carries A0's qualities of grounds | A0 | **no consumer named** | `finding.v2` carries a coarse `basis`; provenance already names the findings behind a result. Whether more is needed depends on a consumer nobody has named, so this is not recorded as a gap |
+| D15 | A result carries A0's qualities of grounds | A0 | **no consumer named** | `finding.v2` carries a coarse `basis`; provenance already names the findings behind a result. Whether more is needed depends on a consumer nobody has named, so this is not recorded as a gap. **A5 stage 3 names it** — A6's revealing consumer and A0 F6's record requirement — and finds `basis` the wrong place and pins sufficient once a favourable value rests on a named conclusion |
 
 ## Ceilings on what has already run
 
@@ -93,7 +93,7 @@ D13b is on this list in the opposite sense: a design may **rely on knowing** tha
 the incumbent worksheet fold is not isolated, and must not treat it as though it
 were.
 
-## Owed to A4's second pass, from A5's selections
+## Owed to A4's second pass, from A5's selections (stages 1 and 3)
 
 Behaviours a selection needs that nothing demonstrates today, though a component or an
 analogue has run. **A component having run is not the behaviour having run**, and these are
@@ -103,6 +103,7 @@ G2's to see rather than A4 pass 1's to have covered:
 | --- | --- | --- |
 | One corrected circumstance reaching every statement its reference bears on | D8 — a consumer follows the current finding at a `fact_id` after a correction there | D8's test corrects one nominee report and checks the current finding is used. It exercises no shared subject across several statements |
 | A partial reduction of a statement — a reduced figure once a portion is determined | D5 — an adverse answer produces a determined zero on disposable artifacts | A whole-statement zero is not a partial reduction. The arithmetic and the disposition both differ |
+| One categorical conclusion published **per key of a single subject** — one per student-and-period, one per borrowing (A5 stage 3) | D6 and D16a — a categorical conclusion published in the same run as amounts; D1 and D13a — per-item publication under pairing dispatch | D6 publishes one conclusion per return. Pairing dispatch publishes one finding per **pairing**, a pair of pinned sides; a conclusion keyed on one subject is not a pairing |
 
 ## What A5 may not rely on without new execution
 

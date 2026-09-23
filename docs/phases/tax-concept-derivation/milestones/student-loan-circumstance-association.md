@@ -416,7 +416,7 @@ something left unsettled is left implicit rather than named.
 | Gate | State | Waiting on |
 | --- | --- | --- |
 | G1 | **passed** at `41b77472` | Passed on its own conditions after failing twice: every fact on A0's list has a stated route, A1 — every stage and the approval set — poses only propositions A0 places, and A0 claims no coverage A1 does not provide. **What this is not:** evidence that any consumer works. None has been implemented |
-| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Two behaviours are already owed to this gate from A5 stage 1, neither demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, and a partial reduction of a statement. A component or analogue having run is not the behaviour having run |
+| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Three behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, and one categorical conclusion published per key of a single subject. A component or analogue having run is not the behaviour having run |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
 Two rules apply to all three. **A gate is not passed because a later section
@@ -466,8 +466,8 @@ whole plan.
 | A2 | **done** | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | **done** | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | specified; pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both reviewed and repaired, and G1 passed citing them. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | **specified**; stages 1–2 selected | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
-schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md) and [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md) for its selections |
+| A5 | **specified**; stages 1–3 selected | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
+schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md) [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md) and [stage 3](student-loan-circumstance-association-evidence/a5-stage3-values-and-basis.md) for its selections |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
@@ -1205,7 +1205,13 @@ before the next.
    tax-concept fact and not an F9 row. Includes the possibility that the facts and their
    provenance already show which is which, so nothing is added; and, **only if** something
    must be carried, whether `finding.v2`'s existing `basis` vocabulary suffices or the
-   distinction needs somewhere else to live. Not selected here.
+   distinction needs somewhere else to live. **Selected:** direct and derived values, and a
+   return-wide default, are already distinguishable in the record, so nothing is added for
+   them; `basis` is the wrong place rather than an insufficient one, since derived findings do
+   not carry it. The one case that fails is a favourable value over keyed circumstances, whose
+   pins would read as support from everything it examined; it now rests on a named conclusion
+   that nothing adverse is supported for its subject. Obligation is keyed on the borrowing, not
+   the tax year, and has no consumer in this milestone.
 4. **The responsibility applies-to relation.** Whether an existing citizen carries it or a
    new one is needed — open in both directions; what makes it apply, including whether that
    relation is declared in content or in code; whether it has a lifecycle under A2's
