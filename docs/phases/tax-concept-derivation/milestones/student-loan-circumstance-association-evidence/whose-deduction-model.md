@@ -24,8 +24,10 @@ time the indebtedness was incurred**. Qualification is therefore *taxpayer-relat
 dated at origination — the same loan can be a qualified education loan for one person and
 not for another.
 
-**How they combine.** Obligation, payment **or deemed payment**, and taxpayer-relative
-qualification must all hold, for that person, on that loan. Each is necessary; none is
+**How they combine.** Obligation, taxpayer-relative qualification, and either an actual
+payment by the filer **or** a supported deemed-payment conclusion, must all hold for that
+person on that loan. The two payment routes are not interchangeable in kind: one is an
+event, the other a conclusion carrying its own premises. Each is necessary; none is
 sufficient; and what they establish together is **how the interest the filer paid is
 treated** — not that any deduction follows. The remaining conditions and limits still
 apply: dependent status, filing status, the cap, the MAGI phase-out, and the rest.
@@ -40,7 +42,7 @@ what anyone else's return does.
 | The filer is the obligated borrower and pays | yes | yes | normally yes — own education | They paid that interest. Whether it counts, and what deduction follows, depends on the remaining conditions and limits |
 | The filer is an obligated co-signer who pays nothing | yes | **no** | — | **Nothing was paid**, so there is no payment to treat. Obligation alone supplies one condition and no quantity |
 | The filer is an obligated co-signer who pays some or all | yes | yes | **the open one** | **They paid that interest, and that stays true.** Whether it counts depends on whether the education was for them, their spouse, or their dependent *at origination*. A paying parent whose child was not their dependent then still paid — the payment is preserved and excluded by a named condition, not erased |
-| Someone not obligated pays for the filer | filer: yes | filer: **deemed** yes | — | The filer is treated as paying that interest. The payer's own position is not modelled and does not need to be |
+| Someone not obligated pays for the filer | filer: yes | filer: **deemed**, not actual | — | The filer is *concluded* to have paid, under § 1.221-1(b)(4)(i). The event is the other person's payment; the filer's payment is a rule's conclusion from it, and rests on the payer not having been obligated |
 | The filer and another obligor each pay part | filer: yes | filer: partly | tested for the filer | **The filer paid their part.** How that part is obtained is the open question below. What the other person's return does is outside this model |
 
 Two errors these cases exist to block: **a paying co-signer does not automatically
@@ -52,11 +54,16 @@ An earlier version of this work used "attributable amount" for two of these at o
 what happened, and how the rules treat it. They are separate:
 
 1. **The reported amount** — what a Form 1098-E box 1 says.
-2. **Interest the filer paid**, or is treated as paying under § 1.221-1(b)(4)(i). A fact
-   about what happened. It does not depend on any tax condition holding.
-3. **How that interest is treated** under the loan and deduction conditions — whether it
+2. **Interest the filer actually paid** — an underlying event. It depends on no tax
+   condition, and nothing in the tax analysis can change it.
+3. **The filer being *treated* as paying** under § 1.221-1(b)(4)(i) — **a rule-based
+   conclusion, not an event.** It has its own premises: that the person who paid was not
+   legally obligated, that the filer was, and that the payment was made on the filer's
+   behalf. An earlier version of this list put this with (2) and called both facts about
+   what happened depending on no tax condition. That was wrong about this one.
+4. **How the interest is treated** under the loan and deduction conditions — whether it
    counts, and if not, which condition excludes it.
-4. **The deduction** — after the cap, the phase-out and the rest.
+5. **The deduction** — after the cap, the phase-out and the rest.
 
 These are distinctions to preserve, not four fields or four mandatory processing stages.
 A5 decides the representation.
@@ -67,9 +74,15 @@ origination. Then: the reported amount is whatever the form says; **the filer pa
 and that stays true**; the treatment is that the $400 does not count, *because* that
 condition failed; the deduction reflects none of it.
 
-The point of keeping (2) and (3) apart is that **changing the qualification later must not
+The point of keeping (2) and (4) apart is that **changing the qualification later must not
 require pretending the payment changed.** If the condition turns out to hold after all,
 the $400 was always $400 and only its treatment moves.
+
+**That invariant belongs to actual payments, and does not extend to (3).** A deemed-payment
+conclusion rests on premises, and if one of them changes — the payer turns out to have been
+obligated after all, or the payment was not made on the filer's behalf — the conclusion
+must be **reconsidered**. What stays unchanged is the underlying payment the third party
+actually made. A conclusion is not protected by the invariant that protects an event.
 
 **And what an ordinary answer supplies is only (2).** "I paid $400" is a payment
 statement. It establishes nothing about obligation, nothing about qualification, and
@@ -125,14 +138,24 @@ coordination. Everything below is about the filer.
 selects the representation:
 
 - the filer's legal obligation concerning the relevant borrowing;
-- interest the filer actually paid, **or is treated as paying** under
-  § 1.221-1(b)(4)(i) where supported;
-- how that interest is **treated** under the applicable conditions, kept separate from
-  the payment itself.
+- interest the filer **actually paid** — an event;
+- where supported, the **conclusion** that the filer is treated as paying under
+  § 1.221-1(b)(4)(i), kept distinguishable from an actual payment because its premises can
+  change;
+- how the interest is **treated** under the applicable conditions, kept separate from the
+  payment and from the deeming conclusion.
 
 That is enough to stop a payment statement being read as an obligation statement, to stop
 the reported amount standing in for what the filer paid, and to stop an excluded payment
 being recorded as though it never happened.
+
+**The deeming rule within the filer-only boundary.** § 1.221-1(b)(4)(i) turns on the
+payer *not* being legally obligated, which is a fact about another person's relationship
+to the payment — and that does **not** require creating that person as an identity. What
+is needed is the information and its basis: whether it can come from the filer's own
+ordinary statement that someone not on the loan paid it for them, whether it needs
+something more, or whether the route is **left explicitly unresolved**. A5 decides which,
+and unresolved is an acceptable answer.
 
 **Defer, named not designed:** how a shared-payment amount is obtained, where paths 1–4
 above are the options; determining dependency *at origination*; the case where a paying

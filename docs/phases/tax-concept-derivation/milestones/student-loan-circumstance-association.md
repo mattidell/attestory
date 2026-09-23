@@ -465,8 +465,11 @@ whole plan.
 | A3 | specified; answer drafted | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
 | A5 | outlined; **unblocked by G1** | Carries the five representation decisions from the responsibility category — how the applies-to relation is represented, what makes it apply, its lifecycle, its relation to provenance, and persistence versus reconstruction — plus storage shape, record count, and whether a separately identified borrowing is needed. **It also decides how much the filer paid is obtained, or records that case as
-unresolved** — the reported amount, what the filer paid, how that is treated, and the
-deduction are four different things. And **how the layers connect** — tax-concept facts, ordinary-circumstance representations and intermediate derivations are all available, and it inherits a prohibition on none of them; what a derivation may not do is record an affirmation nobody made or claim every constituent proven. A value's **basis** must stay visible: default-supported, direct answer and derived-from-circumstances are three different things producing the same value. Six demands remain `read` or untested in A4's bounds and may not be relied on without new execution |
+unresolved** — the reported amount, what the filer actually paid, a deemed-payment
+conclusion, how the interest is treated, and the deduction are five different things, and
+the deeming conclusion is not an event. Throughout A5's choices, **actual events,
+application defaults and rule-derived conclusions must stay distinguishable**. And **how
+the layers connect** — tax-concept facts, ordinary-circumstance representations and intermediate derivations are all available, and it inherits a prohibition on none of them; what a derivation may not do is record an affirmation nobody made or claim every constituent proven. A value's **basis** must stay visible: default-supported, direct answer and derived-from-circumstances are three different things producing the same value. Six demands remain `read` or untested in A4's bounds and may not be relied on without new execution |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
