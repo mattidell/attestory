@@ -196,9 +196,10 @@ Two ways through, neither built:
   taken from the subject `SourceFact` at dispatch time rather than parsed from the symbol — which
   keeps the runner's refusal to parse rendered ids intact. Chains of single-hop per-subject rules
   then compose: financing conclusions join a per-link rule on `borrowing`, and link conclusions
-  join a per-statement rule on the statement's keys. Each hop is its own pinned finding. Cost:
-  small — the dispatch passes its subject's keys, and `_append_live_source` accepts them from
-  this caller only.
+  join a per-statement rule on the statement's keys. Each hop is its own pinned finding. The
+  owner chose this **as a bounded test** (Track 2); its total cost is not yet known. It does not
+  by itself solve one statement covering several borrowings, which the scalar join cannot
+  aggregate — left to P3.
 - **Multi-hop joins.** `_scope` walks a declared path of types in one evaluation. No intermediate
   findings; a larger change to the join contract.
 

@@ -4,10 +4,10 @@
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
-  "milestone_state": "track-1",
-  "status": "A4 PASS 2 AT P2. Track 1's per-subject dispatch is built. P2: a corrected circumstance reaches every borrowing that depends on it (run), but not any Form 1098-E statement -- the path is four records long and Track 1's joins are single-hop, and same-run publications carry no keys. Statement reach needs keyed publications or multi-hop joins; owner decision pending. P3 and P4 need statement reach. G2 (producer) not reached.",
-  "current_role": "Foreman (A4 second pass: owner decision on statement reach before P3)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A4's second pass — the probes, in order"
+  "milestone_state": "track-2",
+  "status": "TRACK 2 OPEN. Track 1's per-subject dispatch is built. P2 Part A: a corrected circumstance reaches every borrowing (run). Part B, statement reach, re-runs under Track 2 -- a bounded test of carrying the subject's structured keys on temporary same-run sources so single-hop rules chain to the statement; it must carry the adverse correction to a changed statement amount with a recoverable dependency. One statement over several borrowings is left to P3. G2 (producer) not reached.",
+  "current_role": "Track 2 Builder (keyed same-run sources)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track2-keyed-same-run-sources.md"
 }
 -->
 
@@ -28,9 +28,9 @@ keeps its subjects distinct, and lets a consumer use recovered current support.
 time; its state table says how far each has got. A4's second pass found that the
 engine cannot publish one conclusion per key of a single subject without a
 production change, and the owner chose to build that mechanism as a bounded
-track. Track 1 has built it and passes the probe's own questions; its joins are
-single-hop. The remaining probes run against it before any producer is
-considered.
+track. Track 1 has built it; its joins are single-hop. Track 2 tests, as a bounded
+experiment, whether keys carried on same-run sources let a correction reach a
+statement. The remaining probes run before any producer is considered.
 
 ## Begin here
 

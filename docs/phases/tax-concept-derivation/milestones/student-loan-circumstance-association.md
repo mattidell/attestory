@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "A4 PASS 2 AT P2. Track 1's per-subject dispatch is built. P2: a corrected circumstance reaches every borrowing that depends on it (run), but not any Form 1098-E statement -- the path is four records long and Track 1's joins are single-hop, and same-run publications carry no keys. Statement reach needs keyed publications or multi-hop joins; owner decision pending. P3 and P4 need statement reach. G2 (producer) not reached.",
+  "status": "TRACK 2 OPEN. Track 1's per-subject dispatch is built. P2 Part A: a corrected circumstance reaches every borrowing (run). Part B, statement reach, re-runs under Track 2 -- a bounded test of carrying the subject's structured keys on temporary same-run sources so single-hop rules chain to the statement; it must carry the adverse correction to a changed statement amount with a recoverable dependency. One statement over several borrowings is left to P3. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1166,7 +1166,7 @@ earlier.
 | Probe | Question | Stands on |
 | --- | --- | --- |
 | **P1** — *done: untestable without production change; Track 1 builds the mechanism* | Can one categorical conclusion be published **per key of a single subject** — student-and-period, statement — carrying its rule's declared citations, and recorded `inapplicable` for a key where an adverse circumstance is supported? | — |
-| **P2** — *done: `run` at the borrowing grain; untestable without production change at the statement grain* | Does one corrected schooling circumstance reach **every** statement whose result depended on it, on re-derivation? | P1 |
+| **P2** — *Part A `run` at the borrowing grain; Part B re-runs under Track 2* | Does one corrected schooling circumstance reach **every** statement whose result depended on it, on re-derivation? | P1 |
 | **P3** | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
 | **P4** | Can a reader **recover**, from durable output, the conclusion's identity and meaning and, for the provisional responsibility candidate, each condition's identity, circumstance and treatment — and where does wording fail to have a home? | P1 |
 
@@ -1186,6 +1186,22 @@ results bound what follows: its joins are **single-hop**, so a statement cannot 
 circumstance through a financing claim; and the favourable per-key result comes from a
 **declared default** because the evaluator reads "none" only over a closed set — which asks A5 to
 revisit stage 3's selection after P2–P4. See [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md), "Track 1".
+
+**Track 2 — keyed same-run sources, a bounded test of statement reach.** P2 found a corrected
+circumstance reaches every borrowing but no statement. The owner chose to test one way through —
+**as a bounded test, not a settled general solution**: a per-subject publication's temporary
+same-run source carries its subject's structured keys, so single-hop rules can chain from
+circumstance to statement. It must carry the **adverse** correction to a changed statement-facing
+amount with a recoverable dependency on the corrected finding — a statement that only blocks
+because an intermediate vanished does not count. Isolation: two statements on one borrowing, and
+a mismatched link. Keys on a temporary same-run source are **not** keys stored in a derived
+finding, and nothing here claims durable reader-visible links; that is P4's. **Its known limit,
+stated plainly:** one statement covering several borrowings is not solved by carrying keys — the
+current scalar join selects one equal-valued match or blocks on differing values — and is left to
+P3; if P3 needs more than this bounded mechanism, the result comes back with evidence and revised
+options rather than widening Track 2. Its total cost is not yet known. If it cannot carry the
+adverse correction honestly, multi-hop joins and stopping at the borrowing grain are reconsidered.
+Charter: [`charter-track2-keyed-same-run-sources.md`](student-loan-circumstance-association-evidence/charter-track2-keyed-same-run-sources.md).
 
 ## A5 in detail — choosing how to represent it
 
@@ -1395,6 +1411,7 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
+| How to reach a Form 1098-E statement after P2 — A: keyed same-run sources; B: multi-hop joins; C: stop at the borrowing grain | Owner | Before P3 | **Decided 2026-09-23: A, as a bounded test.** Track 2 |
 | How to proceed after P1 found per-key publication untestable without production change — A: charter the mechanism as a bounded track; B: a hand-built loop in the test module; C: stop with a partial result | Owner | Before P2 | **Decided 2026-09-23: A.** Track 1 |
 | What the reader shows when a condition applies but the application cannot name its school or programme — the ordinary return with nothing described. A: the conditions, bound to the statement, unnamed (recommended). B: only the default basis | Owner | Before A6 | **Decided 2026-09-23: A**, for inspectable content — the three conditions tied to the statement, school and programme explicitly unknown, in a contextual explanation behind a short default-basis note; not questions, confirmations or a screen-wide warning. See [A5 stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md). A0 unchanged |
 | The wording of every question, condition and responsibility message | Owner | Before A5 | Ready for the questions — see the [approval set](student-loan-circumstance-association-evidence/a1-approval-set.md). Polarity follows the owner's rule: yes is what materially changes production. **The responsibility message is not ready:** A5 stage 4 found its candidate omits the half-time condition and its "described studying at" clause is true only where enrolment was described; candidates per case, including a case-2 wording that names no school, are in stage 4 and await approval |
