@@ -56,7 +56,7 @@ An earlier version of this document said the clarification *is* enumeration. Tha
 overstated it, and it would have led A5 to require loan-level detail from someone
 whose scope statement had already made the portion determinable. Ask only what the
 selected route needs: a scope statement needs no loan identity or amount, and an
-identified-portion route needs membership and an attributable amount for the portions
+identified-portion route needs membership and a stated amount for the portions
 named — not for the rest.
 
 What the mixed case adds, where a person does supply loan information alongside a
@@ -138,8 +138,10 @@ A3 owes this, and an earlier version of this document did not answer it.
   ask**, not proof of anything. No general duplicate-detection mechanism is needed or
   proposed here.
 
-- **So what must be known before subtracting is a per-statement attributable amount,
-  not a loan-level one.** If a disqualified loan's interest for the year was 1,200,
+- **So what must be known before subtracting is the portion of *that statement's*
+  reported amount which the affected loan accounts for, not a loan-level total.** This
+  "portion of a statement" sense is distinct from what the filer paid; the
+  [whose-deduction model](whose-deduction-model.md) keeps those apart. If a disqualified loan's interest for the year was 1,200,
   paid 700 to the first servicer and 500 to the second, then disqualifying it removes
   700 from the first statement and 500 from the second. Subtracting 1,200 from each is
   the error this row exists to prevent, and it is an error about amounts rather than

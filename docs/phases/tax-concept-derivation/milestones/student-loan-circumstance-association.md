@@ -464,9 +464,9 @@ whole plan.
 | A2 | specified; answer drafted | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | specified; answer drafted | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | outlined; **unblocked by G1** | Carries the five representation decisions from the responsibility category — how the applies-to relation is represented, what makes it apply, its lifecycle, its relation to provenance, and persistence versus reconstruction — plus storage shape, record count, and whether a separately identified borrowing is needed. **It also decides how the filer-attributable amount is obtained** — the reported total,
-the amount attributable to the filer, and the final deduction are three different things.
-And **how the layers connect** — tax-concept facts, ordinary-circumstance representations and intermediate derivations are all available, and it inherits a prohibition on none of them; what a derivation may not do is record an affirmation nobody made or claim every constituent proven. A value's **basis** must stay visible: default-supported, direct answer and derived-from-circumstances are three different things producing the same value. Six demands remain `read` or untested in A4's bounds and may not be relied on without new execution |
+| A5 | outlined; **unblocked by G1** | Carries the five representation decisions from the responsibility category — how the applies-to relation is represented, what makes it apply, its lifecycle, its relation to provenance, and persistence versus reconstruction — plus storage shape, record count, and whether a separately identified borrowing is needed. **It also decides how much the filer paid is obtained, or records that case as
+unresolved** — the reported amount, what the filer paid, how that is treated, and the
+deduction are four different things. And **how the layers connect** — tax-concept facts, ordinary-circumstance representations and intermediate derivations are all available, and it inherits a prohibition on none of them; what a derivation may not do is record an affirmation nobody made or claim every constituent proven. A value's **basis** must stay visible: default-supported, direct answer and derived-from-circumstances are three different things producing the same value. Six demands remain `read` or untested in A4's bounds and may not be relied on without new execution |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
@@ -1115,7 +1115,8 @@ and so does one that preserves everything.
 Four concrete cases A6 must carry, because they are where the collapse happens:
 
 - a loan transferred between servicers, where two statements concern one borrowing and
-  the amounts are separate payments — subtract each statement's attributable amount,
+  the amounts are separate payments — subtract the portion of each statement's reported
+  amount that the affected loan accounts for,
   never the loan-level total from both;
 - two statements whose totals happen to be equal, which is a reason to ask and not
   proof that the same payments were reported twice;
@@ -1190,7 +1191,7 @@ A1–A3 are the work it skipped.
 | Whether refusal is an adequate answer for the two multi-borrowing cases | Owner | A5 | Open |
 | Whether a separately identified borrowing is needed now | Team, constrained by the case list | A5 | Open |
 | Whether this milestone represents another payer | **Decided** by the owner, 2026-09-22 | — | **Filer-centered.** No other payer's identity unless a concrete supported case shows it necessary, and none of the five cases does. The filer's obligation, interest they paid, and interest treated as paid by them are three distinctions about one person and need no second identity |
-| How the **filer-attributable amount** is obtained in a shared-payment case | Team | A5 | Open. From evidence, from an ordinary statement, derived, or left unresolved. The reported total must not silently stand in for it |
+| How **what the filer paid** is obtained in a shared-payment case | Team | A5 | Open. From evidence, from an ordinary statement, derived, or **explicitly left unresolved** — A5 selects a supported route or records the case as unresolved, and a fixture-supplied amount settles neither. The reported amount must not silently stand in for it |
 
 Reliance under a standing authorization is owner context, not an adopted rule.
 It is brought back only if a concrete case would change what the producer

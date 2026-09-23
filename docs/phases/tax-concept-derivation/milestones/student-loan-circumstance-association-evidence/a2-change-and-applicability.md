@@ -52,7 +52,7 @@ the last two carry adverse consequences:
   already on the record whose applicability is genuinely unresolved, and *that* is what
   makes clarification mandatory — not the loan's newness.
 - **Established adverse information with a determined effect on it.** Subtract the
-  attributable amount.
+  portion of that statement's reported amount.
 
 Clarification is owed because an earlier claim needs it, never because a record is new.
 

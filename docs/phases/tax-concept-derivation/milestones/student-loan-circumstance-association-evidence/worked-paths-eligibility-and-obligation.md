@@ -46,7 +46,7 @@ interest payments* (26 CFR § 1.221-1(b)(1)).
 | **Translation** | Direct answer accepted, because the circumstances that would defeat an obligation **have not been decomposed** — there are no enumerated disqualifiers to ask for instead | Favourable default holds |
 | **Tax-concept value** | legally obligated: **favourable** | legally obligated: **favourable** |
 | **Basis** | **direct user answer** | **default-supported** |
-| **Consumer** | § 1.221-1(b)(1)'s entitlement condition. It establishes an attributable amount, not a deduction — the cap, the phase-out and the remaining conditions still apply | Same |
+| **Consumer** | § 1.221-1(b)(1)'s entitlement condition. It supplies **one condition only** — neither a payment nor a quantity — and an earlier version wrongly said it establishes an attributable amount. What the filer paid, how that is treated, and the resulting deduction are three further things | Same |
 
 **Payment is not obligation, and an earlier version of this path confused them.** The
 input was "Yes, I'm the one paying it", which is a statement about payment. Obligation

@@ -26,39 +26,61 @@ not for another.
 
 **How they combine.** Obligation, payment **or deemed payment**, and taxpayer-relative
 qualification must all hold, for that person, on that loan. Each is necessary; none is
-sufficient; and what they establish together is that an amount is **attributable to that
-filer** — not that any deduction follows. The remaining conditions and limits still
+sufficient; and what they establish together is **how the interest the filer paid is
+treated** — not that any deduction follows. The remaining conditions and limits still
 apply: dependent status, filing status, the cap, the MAGI phase-out, and the rest.
 
 ## The five cases
 
-Written from the filer's side: each row says what is attributable to **the filer**, not
+Written from the filer's side: each row says what **the filer** paid and how it is treated, not
 what anyone else's return does.
 
 | Case | Obligated | Paid, or deemed paid | Qualifies for them | What is established |
 | --- | --- | --- | --- | --- |
-| The filer is the obligated borrower and pays | yes | yes | normally yes — own education | The interest they paid is attributable to them. Whether a deduction follows depends on the remaining conditions and limits |
-| The filer is an obligated co-signer who pays nothing | yes | **no** | — | **No attributable amount.** Obligation alone attributes nothing |
-| The filer is an obligated co-signer who pays some or all | yes | yes | **the open one** | Attributable only if the education was for them, their spouse, or their dependent *at origination*. A paying parent whose child was not their dependent then has no attributable amount |
-| Someone not obligated pays for the filer | filer: yes | filer: **deemed** yes | — | The filer is treated as paying, so the amount is attributable to them. The payer's own position is not modelled and does not need to be |
-| The filer and another obligor each pay part | filer: yes | filer: partly | tested for the filer | The part **the filer** paid is attributable to them. What the other person's return does is outside this model |
+| The filer is the obligated borrower and pays | yes | yes | normally yes — own education | They paid that interest. Whether it counts, and what deduction follows, depends on the remaining conditions and limits |
+| The filer is an obligated co-signer who pays nothing | yes | **no** | — | **Nothing was paid**, so there is no payment to treat. Obligation alone supplies one condition and no quantity |
+| The filer is an obligated co-signer who pays some or all | yes | yes | **the open one** | **They paid that interest, and that stays true.** Whether it counts depends on whether the education was for them, their spouse, or their dependent *at origination*. A paying parent whose child was not their dependent then still paid — the payment is preserved and excluded by a named condition, not erased |
+| Someone not obligated pays for the filer | filer: yes | filer: **deemed** yes | — | The filer is treated as paying that interest. The payer's own position is not modelled and does not need to be |
+| The filer and another obligor each pay part | filer: yes | filer: partly | tested for the filer | **The filer paid their part.** How that part is obtained is the open question below. What the other person's return does is outside this model |
 
 Two errors these cases exist to block: **a paying co-signer does not automatically
 qualify**, and **whoever sends the money does not automatically own the deduction**.
 
-## The actual open question: obtaining the filer-attributable amount
+## Four things to keep apart
 
-Three different things that an earlier version of this work ran together:
+An earlier version of this work used "attributable amount" for two of these at once —
+what happened, and how the rules treat it. They are separate:
 
-- **The reported total** — what a Form 1098-E box 1 says.
-- **The amount attributable to the filer** — the interest they paid or are treated as
-  paying, on borrowing they are obligated on and that qualifies for them.
-- **The final deduction** — after the cap, the phase-out and every other condition.
+1. **The reported amount** — what a Form 1098-E box 1 says.
+2. **Interest the filer paid**, or is treated as paying under § 1.221-1(b)(4)(i). A fact
+   about what happened. It does not depend on any tax condition holding.
+3. **How that interest is treated** under the loan and deduction conditions — whether it
+   counts, and if not, which condition excludes it.
+4. **The deduction** — after the cap, the phase-out and the rest.
 
-In the ordinary case the first two coincide. In a shared-payment case they do not, and
-**the reported total must not be used silently as the attributable amount.**
+These are distinctions to preserve, not four fields or four mandatory processing stages.
+A5 decides the representation.
 
-Four candidate paths for obtaining it, none selected here:
+**Worked small case.** The filer paid **$400**, and the borrowing fails a qualification
+condition — say the education was not for them, their spouse or their dependent at
+origination. Then: the reported amount is whatever the form says; **the filer paid $400,
+and that stays true**; the treatment is that the $400 does not count, *because* that
+condition failed; the deduction reflects none of it.
+
+The point of keeping (2) and (3) apart is that **changing the qualification later must not
+require pretending the payment changed.** If the condition turns out to hold after all,
+the $400 was always $400 and only its treatment moves.
+
+**And what an ordinary answer supplies is only (2).** "I paid $400" is a payment
+statement. It establishes nothing about obligation, nothing about qualification, and
+nothing about the deduction — those come from defaults, from other circumstances, and
+from rules. A definition that packs the conditions into the amount cannot be satisfied by
+that answer.
+
+In the ordinary case (1) and (2) coincide. In a shared-payment case they do not, and
+**the reported amount must not silently stand in for what the filer paid.**
+
+Four candidate paths for obtaining what the filer paid, none selected here:
 
 1. **From evidence** — something in the workspace distinguishes the filer's payments.
 2. **From an ordinary statement** — the filer says what they paid.
@@ -67,10 +89,15 @@ Four candidate paths for obtaining it, none selected here:
    honest outcome.
 
 **What A6 can test within this boundary.** One filer's treatment in a shared-payment
-scenario, with no second return and no payer identity. If the fixture simply supplies
-the filer-attributable amount, that proves the consumer uses an attributable amount
-rather than the reported total — and proves **nothing** about how such an amount is
-obtained, which is exactly what paths 1 to 4 leave open.
+scenario, with no second return and no payer identity. If the fixture simply supplies what
+the filer paid, that demonstrates **downstream handling** — that the consumer works from
+what the filer paid rather than from the reported amount — and demonstrates **nothing**
+about acquisition or translation. How such an amount is obtained is what paths 1 to 4
+leave open.
+
+**A5 either selects a supported route or leaves this case explicitly unresolved.** Both
+are acceptable outcomes; what is not acceptable is proceeding as though a fixture had
+settled it.
 
 ## Where the incumbent applies a loan-level condition return-wide
 
@@ -98,11 +125,14 @@ coordination. Everything below is about the filer.
 selects the representation:
 
 - the filer's legal obligation concerning the relevant borrowing;
-- interest the filer actually paid;
-- interest **treated as paid** by the filer under an applicable rule, where supported.
+- interest the filer actually paid, **or is treated as paying** under
+  § 1.221-1(b)(4)(i) where supported;
+- how that interest is **treated** under the applicable conditions, kept separate from
+  the payment itself.
 
-That is enough to stop a payment statement being read as an obligation statement, and to
-stop the reported total standing in for an attributable amount.
+That is enough to stop a payment statement being read as an obligation statement, to stop
+the reported amount standing in for what the filer paid, and to stop an excluded payment
+being recorded as though it never happened.
 
 **Defer, named not designed:** how a shared-payment amount is obtained, where paths 1–4
 above are the options; determining dependency *at origination*; the case where a paying
