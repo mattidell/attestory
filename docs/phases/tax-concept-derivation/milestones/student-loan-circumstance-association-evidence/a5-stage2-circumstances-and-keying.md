@@ -77,8 +77,8 @@ two were ever the same load, so nothing detects the disagreement: one statement'
 defeated and the other's is deducted, on the same schooling, in the same period, for the same
 student.
 
-**That is a state the world cannot be in.** The eligible-student test in § 25A(b)(3)(A),
-which § 221(d)(3) adopts, is a fact about the student in an academic period. Two loans cannot
+**That is a state the world cannot be in.** The eligible-student test in § 25A(b)(3), which
+§ 221(d)(3) adopts, is a fact about the student in an academic period. Two loans cannot
 disagree about whether the filer carried half the normal full-time load at Riverside in autumn
 2024. A representation that permits the disagreement is admitting states the subject matter
 excludes — the same objection this stage raised against keying a relatedness circumstance on a
@@ -103,12 +103,30 @@ addresses. Both borrowings' financing claims name that record, so both use the c
 value on the next derivation, and there is no second copy to reconcile or leave stale. The
 contradictory state above is not merely detected — it is unrepresentable.
 
-**Why borrowing-keyed facts plus a fan-out is not smaller.** The alternative is to keep the
-duplicate records and propagate a correction to every copy of the same load. To do that the
-engine must recognise two records as the same load, which means computing the very identity
-— period, institution, programme — this selection names. Reconstructing an identity
+**Two smaller-looking alternatives, and why neither is taken.**
+
+*Keep the duplicate records and propagate a correction to every copy of the same load.* To do
+that the engine must recognise two records as the same load, which means computing the very
+identity — period, institution, programme — this selection names. Reconstructing an identity
 implicitly to repair the consequences of having left it out is larger, not smaller, and it is
 larger in the part that is easy to get wrong.
+
+*Make the financing claim one record per borrowing whose value is the **set** of situations
+that borrowing financed.* This is genuinely fewer records than one per pair, and it does keep
+the circumstance separate, so it is a real alternative rather than a straw one. Two reasons it
+is not selected, the second decisive:
+
+- A set loses independent grounds and independent correction per situation. "This borrowing
+  financed the BSc" and "this borrowing financed the certificate" then cannot be supported,
+  corrected or refused separately, and stage 1's route (b) — a *known portion* concerning an
+  identified borrowing — is exactly where they need to be.
+- **No demonstrated consumer can reach a member.** D7 is `read` and negative for
+  `collect_categorical_all_equal`, which returns one Boolean; the one per-item mechanism A4
+  marks `run` is pairing dispatch, and it resolves a single pinned `left_fact_id` and
+  `right_fact_id` per record — the pair *is* the record. D7's cell is careful that this limits
+  what an expression reads rather than what a record may keep, so the set-valued form is not
+  impossible; it is undemonstrated, and selecting it would rest this stage on a behaviour A4
+  has not seen. The per-pair record is the shape the demonstrated mechanism already has.
 
 **What this does not settle, and it is the one that stays owed.** A single shared record
 removes the inconsistent copies. It does not by itself establish that correcting it *reaches*
@@ -136,13 +154,14 @@ publishes a favourable value. Per course of study, five of twelve and four of tw
 half in **neither**. The institution-keyed key does not merely lose precision; it produces the
 favourable answer in a case the statute answers adversely.
 
-**Why:** § 25A(b)(3)(A) measures the load against the normal full-time work load *for the
-course of study the student is pursuing*. With two courses of study there is no single
+**Why:** the workload clause is § 25A(b)(3)(**B**) — *"is carrying at least ½ the normal
+full-time work load for the course of study the student is pursuing"*. It measures the load
+against a standard belonging to a course of study. With two courses of study there is no single
 standard for an institution total to be compared to, so the institution-level figure is not an
 under-specified answer to the workload question — it is not an answer to it.
 
 **Selected:** course load is keyed on period, institution and programme, the same grain as
-enrolment, which is the grain § 25A(b)(3)(A) actually speaks at.
+enrolment, which is the grain § 25A(b)(3)(B) actually speaks at.
 
 **And what an institution total means when that is all the filer said.** It means what it says
 — nine credits at Riverside — and the workload constituent is **unresolved**, not favourable.
@@ -153,8 +172,9 @@ rather than from anything the filer said, which A0 requires be distinguishable.
 
 **The adverse variant test 1 needs.** Add one ordinary circumstance to the Metro account: the
 filer took those two classes **not as part of any programme leading to a degree, certificate
-or other recognised credential** — an à la carte enrolment. That defeats § 25A(b)(3)(A)'s
-enrolment requirement on its own terms, before any workload question, so the Metro situation
+or other recognised credential** — an à la carte enrolment. That defeats the *other*
+subparagraph, § 25A(b)(3)(**A**), which requires meeting HEA § 484(a)(1), and it does so before
+any workload question arises, so the Metro situation
 carries an adverse enrolment while Riverside's remains favourable. The adverse quality is
 traced from what the filer was enrolled in. Nothing about the class schedule contributes to
 it.
