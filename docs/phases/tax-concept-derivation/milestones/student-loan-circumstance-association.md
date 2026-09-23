@@ -469,7 +469,7 @@ unresolved** — the reported amount, what the filer actually paid, a deemed-pay
 conclusion, how the interest is treated, and the deduction are five different things, and
 the deeming conclusion is not an event. Throughout A5's choices, **actual events,
 application defaults and rule-derived conclusions must stay distinguishable**. And **how
-the layers connect** — tax-concept facts, ordinary-circumstance representations and intermediate derivations are all available, and it inherits a prohibition on none of them; what a derivation may not do is record an affirmation nobody made or claim every constituent proven. A value's **basis** must stay visible: default-supported, direct answer and derived-from-circumstances are three different things producing the same value. Six demands remain `read` or untested in A4's bounds and may not be relied on without new execution |
+the layers connect** — tax-concept facts, ordinary-circumstance representations and intermediate derivations are all available, and it inherits a prohibition on none of them; what a derivation may not do is record an affirmation nobody made or claim every constituent proven. A value's **basis** must stay visible: default-supported, direct answer and derived-from-circumstances are three different things producing the same value. The demands on A4's may-not-rely list — D7, D9, D10, D11, D12, D14 and D16b — are `read` or untested and may not be relied on without new execution |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
@@ -1149,8 +1149,9 @@ it prescribes no field or processing stage in advance.
 
 **What A5 inherits.** A0's fact model including F9's ordinary circumstances; A1's posed
 questions and the responsibility direction; A2's change-and-applicability account; A3's
-three states and its revealable list; A4's bounds, where six demands are `read` or
-untested and may not be relied on without new execution. And the filer-centered scope: no
+three states and its revealable list; A4's bounds, where the demands on its
+may-not-rely list — **D7, D9, D10, D11, D12, D14 and D16b** — are `read` or untested and
+may not be relied on without new execution. And the filer-centered scope: no
 other person's identity unless a concrete supported case requires it, and none found so
 far does.
 
@@ -1161,23 +1162,48 @@ the conclusion that the filer is treated as paying; how that interest is treated
 deduction. A representation that collapses any pair of them fails regardless of how
 economical it looks.
 
+The filer's legal obligation is neither a payment nor a deemed payment, and a payment
+statement must not be normalised into an obligation value. And the invariance of an actual
+payment — a later qualification change does not make the payment pretend to have changed —
+**does not extend to the treated-as-paying conclusion**: if one of that conclusion's
+premises changes, the conclusion is reconsidered while the underlying payment stays what it
+was.
+
 **Staged, because its output should not arrive in one piece.** Each stage is reviewed
 before the next.
 
-1. **The ordinary circumstances.** How A0's F9 rows are represented, and — the question
-   with a known defect behind it — what they are **keyed** on. Obligation holds per
-   borrowing while the incumbent fact is keyed on tax-year alone; the related-person
-   exclusion is a relation to the creditor on an indebtedness, not to a statement. A5
-   chooses keying deliberately rather than inheriting either.
-2. **Tax-concept values and their basis.** How a value and its basis are carried, given
-   that default-supported, direct-answer and derived-from-circumstances can produce the
-   same value. Includes whether `finding.v2`'s existing `basis` vocabulary suffices or
-   the distinction needs somewhere else to live.
-3. **The responsibility applies-to relation.** Whether an existing citizen carries it or
-   a new one is needed — open in both directions; what makes it apply; its lifecycle
-   under A2's principle; whether it appears in the derivation record; and whether
-   inspection needs persistence or can be reconstructed.
-4. **What the filer paid.** Select a supported route for the shared-payment case — from
+1. **Whether a borrowing is identified, and how an answer is stored.** Whether a
+   separately identified borrowing is needed now; what correspondence can be asserted,
+   with what can be *checked* left to A4's bounds rather than reopened; how an answer is
+   stored and how many records it becomes; and how tax-concept facts,
+   ordinary-circumstance representations and intermediate derivations connect, no layer
+   prohibited in advance. The owner's still-open question — whether refusal is an adequate
+   answer for the two multi-borrowing cases — is an **input**. This stage does not answer
+   it on the owner's behalf, and it keys nothing.
+2. **The ordinary circumstances.** How A0's F9 rows are represented and what **they** are
+   keyed on — the use-of-proceeds, whose-education, who-lent, employer-plan, employer-paid
+   interest, qualified-tuition-programme and schooling rows. The two double-benefit rows
+   are part of this, including whether the named consumer treats them as amount facts
+   rather than as the incumbent's whole-route block. A5 chooses the key deliberately, and
+   does not inherit either incumbent key: obligation on tax-year alone, or the
+   related-person exclusion on a statement.
+3. **Tax-concept values and their basis.** How default-supported, direct-answer and
+   derived-from-circumstances stay distinguishable when they produce the same value, judged
+   against a named consumer — including the keying of the obligation fact itself, which is a
+   tax-concept fact and not an F9 row. Includes the possibility that the facts and their
+   provenance already show which is which, so nothing is added; and, **only if** something
+   must be carried, whether `finding.v2`'s existing `basis` vocabulary suffices or the
+   distinction needs somewhere else to live. Not selected here.
+4. **The responsibility applies-to relation.** Whether an existing citizen carries it or a
+   new one is needed — open in both directions; what makes it apply, including whether that
+   relation is declared in content or in code; whether it has a lifecycle under A2's
+   principle, including whether correction or retraction of the circumstance makes it
+   lapse; whether it appears in the derivation record and, if so, whether that places it
+   outside provenance or in a different role there; and whether inspection needs
+   persistence or can be reconstructed. Horizon identity-keying is an alternative to be
+   **weighed, not copied** — A2 records that copying it collapses findable-but-unsupported
+   into absence — and D10 may not be assumed holdable.
+5. **What the filer paid.** Select a supported route for the shared-payment case — from
    evidence, from an ordinary statement, or derived — **or record it as explicitly
    unresolved**, which is an acceptable outcome. Same for the deeming rule's information
    and its basis.
@@ -1202,23 +1228,36 @@ charter that rests on one.
 1. **The selections** — whether each is a selection rather than an inheritance, whether
    its reasons are given, and whether any rejected alternative was rejected on an
    unstated premise.
-2. **Keying** — whether each fact is keyed on the thing its proposition is actually
-   about; specifically whether a per-borrowing condition has been keyed per return or
-   per statement, which is the incumbent's defect and the easiest one to copy.
-3. **Dependence on A4** — whether every selection's `read` or untested dependencies are
-   named, and whether any is presented as settled.
-4. **Unresolved is honest** — whether a route recorded as unresolved genuinely is, and
-   whether one recorded as selected is actually supported.
+2. **Keying** — whether each represented fact states what it is keyed on and why. A
+   per-borrowing condition keyed per return or per statement fails only where the text
+   presents that key as the selection rather than identifying it as the incumbent defect.
+   **The criterion requires no particular key.**
+3. **Dependence on A4** — whether each selection states every A4 demand it depends on and
+   that demand's evidence level, `run` included, and whether any demand A4 marks `read` or
+   untested is presented as settled.
+4. **Unresolved is honest** — for **both** the shared-payment route and the deeming rule:
+   whether one recorded as unresolved genuinely is, and whether one recorded as selected is
+   actually supported.
 5. **Deferrals** — whether each is named without being designed, and whether any
    amounts to a silent narrowing of the milestone.
 
-And one boundary check, not a `done` field: whether any selection collapses an actual
-event, an application default, and a rule-derived conclusion into one thing — or
-introduces another person's identity without a concrete case requiring it.
+And one boundary check, not a `done` field: whether any selection collapses **any pair**
+among the reported amount, interest the filer actually paid, the treated-as-paying
+conclusion, how that interest is treated, and the deduction; collapses obligation into
+either payment; treats a deemed-payment conclusion as an event that survives a changed
+premise; collapses any pair among an actual event, an application default and a
+rule-derived conclusion; or introduces another person's identity without a concrete case
+requiring it.
+
+**What stays deferred.** Dependency-at-origination, and the case of a paying co-signer
+with no Form 1098-E of their own, stay deferred unless a stage explicitly takes one up —
+and taking one up is designing it, which criterion 5 rejects.
 
 **What A5 does not settle.** Whether the engine can carry a selection, which is A4's
 second pass and G2's bar; the words a person reads (A1); what any state does to a figure
-(A3); and the implementation itself, which is A6's.
+(A3); and the implementation itself, which is A6's. Nor the twelve Schedule 1 absence
+facts: whether they are this milestone's business remains the owner's open call, and they
+are not a stage of A5 unless the owner puts them in.
 
 ## What the technical investigation established, and what it constrains
 
