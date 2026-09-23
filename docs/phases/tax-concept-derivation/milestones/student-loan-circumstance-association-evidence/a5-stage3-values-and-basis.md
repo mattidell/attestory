@@ -141,25 +141,68 @@ consumer's interest amount reads the eligible-student value.
    presentation of it is not. This holds whatever the favourable value pins, since every
    intermediate is walked through; the named conclusion does not cause it and cannot cure it.
 
-**The no-schooling case**, the same trace with nothing said about schooling at all.
+**No schooling circumstance — two cases, not one.** An earlier version of this section treated
+"nothing said about schooling" as a single case, gave the conclusion an empty input list, and
+had the reader see the 1098-E alone. That merged two situations that trace differently, and the
+second is not one this stage's selection covers.
 
-- The named conclusion — if the owed per-key publication produces it with nothing to examine,
-  which is itself part of what G2 must see — is published with no schooling input pin — at most the financing claim
-  that established the period, and with no financing claim either, no input pin. What it says,
-  *no enumerated adverse circumstance is supported*, is true, and its empty input list is the
-  honest record that nothing was examined.
-- **The favourable value's input pin to it still reads `origin: "assertion"`.** Publication
+**Case 1 — a financing claim identifies the period; no schooling circumstance.** The filer said
+*this loan paid my tuition for the Riverside BSc in autumn 2024* and nothing about enrolment,
+attendance or load.
+
+- **Key.** The filer and autumn 2024. The period comes from the financing claim's own key
+  (borrowing, period, institution, programme); the conclusion takes the student-and-period grain
+  stage 2 selected for eligible-student.
+- **Input pins.** The **financing claim** — the finding that establishes there is a period to
+  conclude about — with `origin: "assertion"`. No schooling circumstance is pinned, because none
+  exists to collect. With two borrowings over the same period, both financing claims would be
+  pinned. Plus the rule, its citations, adoption and governance, as for any derived finding.
+- **What the conclusion says.** *No enumerated adverse schooling circumstance is supported for
+  the filer, autumn 2024.* True, and its input pins show exactly what it rested on: that a
+  period was identified, and nothing about schooling in it.
+- **Origin.** The favourable value's pin to the conclusion reads `origin: "assertion"`, and here
+  something *was* asserted — the financing claim. That is still not an assertion about
+  schooling. `"assertion"` means only **"not reached through a declared default"**: publication
   provenance starts as `"assertion"` and changes only when an input pin is `declared_default`
-  (`runner.py`, publication provenance; `_symbol_pin_entry` falls back to `"assertion"`).
-  `"assertion"` therefore means **"not reached through a declared default"** — it is not
-  evidence that anyone asserted anything. A reader taking it at its word would attribute the
-  favourable status to an answer the filer never gave. **Origin must not be read as the filer's
-  telling**, and no consumer this milestone builds may present it as one.
-- At the reader, there is **nothing to misattribute and nothing said**: no schooling leaf exists
-  to become a citation, so the interest amount cites the 1098-E alone, and nothing reports that
-  eligibility was taken by default. The nine-credit case over-attributes; this one is silent.
-  Both fail A0's requirement that the record carry a default-supported basis to whoever reads
-  the figure.
+  (`runner.py`, publication provenance; `_symbol_pin_entry`). It says nothing about whether the
+  subject of the conclusion was described, and no consumer this milestone builds may present it
+  as the filer's telling.
+- **What the current presentation projection would cite.** The interest amount's lineage walk
+  recurses through the eligible-student value and the conclusion to raw leaves. The financing
+  claim is a recorded, non-closure finding, so it becomes a **citation site of the interest
+  amount**, beside the statement's box 1 — labelled with its evidence label if it has one, or
+  shown as `pinId@pinVersion` if attested without evidence. The conclusion is not emitted.
+- **What the reader therefore sees.** The amount cited to the 1098-E and to *"this loan paid my
+  tuition for the Riverside BSc that autumn"*. The citation is a real input and relevant to the
+  deduction — it is what connects the borrowing to education — but nothing tells the reader that
+  **eligible student rests on the default** and not on that telling, which says nothing about
+  enrolment or load. The same shape as the nine-credit case, milder: the cited finding is a true
+  input, presented where its role as grounds for eligibility cannot be told apart.
+
+**Case 2 — no financing claim, and therefore no identified period.** The filer has described
+no connection between the borrowing and any schooling.
+
+- **Key: none under this selection.** The conclusion is keyed on the student and the period, and
+  in this design only a financing claim supplies a period. Nothing does here, so **no conclusion
+  is published** — and this stage does not claim otherwise. A per-period publication is not
+  supported for a case with no period; it is not even well-formed.
+- **Input pins: none can be stated**, because there is no conclusion to carry them.
+- **What the favourable value rests on, and what the reader would see: not traced here**, because
+  both depend on the scope stage 4 selects. Whether the default attaches to the borrowing, to the
+  statement under route (a), or to something else decides what is pinned, what the projection
+  walks through, and what it cites. **This is stage 4's unresolved scope question** — the
+  asymmetry below — **not a case this stage's mechanism handles.**
+- **One thing that can be said, about the incumbent rather than the selection.** Today an
+  undescribed statement's interest is included by the incumbent worksheet's route. A figure
+  published that way cites what that route read, and nothing about eligibility at all. That is
+  the silence risk stage 4's selection has to answer, and it is why case 2 must be designed
+  before it is tested.
+
+**The general hazard, stated without attaching it to a case that does not arise.** A derived
+finding with **no** asserted input still gets `origin: "assertion"`. Neither case above produces
+one under this selection — case 1 pins a financing claim, case 2 publishes no conclusion. It
+becomes live if stage 4 attaches a default to a scope with nothing to pin, and stage 4 inherits
+it with the scope question.
 
 ## The carrier is open, and it is A6's to demonstrate
 
@@ -179,9 +222,12 @@ tested:
 - have the revealing consumer re-derive, or `explain()`, at read time from what is durable.
 
 **Owed to G2 and A6:** A6's revealing consumer recovering, at the reader, both the named
-conclusion's identity and its meaning for a favourable default-supported case — and, in the
-no-schooling case, stating that eligibility was taken by default rather than presenting nothing.
-Added to `a4-bounds.md`'s owed table.
+conclusion's identity and its meaning, in **two** test cases this stage has traced: the
+nine-credit case, where examined circumstances must not read as grounds; and case 1, where a
+cited financing claim must not read as the grounds for eligible student, and the reader must be
+told that status rests on the default. **Case 2 is not a G2/A6 test case yet.** It has no
+conclusion under this selection, and becomes a test obligation once stage 4 selects the scope a
+default attaches to where no period is identified. Added to `a4-bounds.md`'s owed table.
 
 **The subject's key is the one stage 2 selected for the value**, so the conclusion is per
 subject rather than per statement: the student and the period for eligible-student; the
@@ -221,9 +267,10 @@ table.
 ## The asymmetry the status key exposes
 
 Stage 2 keyed eligible-student on the student and the period. An adverse value needs a period —
-an adverse telling is *about* one. The favourable default needs none: where the filer described
-no schooling at all, or no financing claim names a period, there is no period to key the
-conclusion on, and A3 still says the consumer proceeds.
+an adverse telling is *about* one. The favourable default needs none: where no financing claim
+names a period — case 2 above — there is no period to key the conclusion on, and A3 still says
+the consumer proceeds. Where a financing claim names one but nothing about schooling was said,
+the period exists and the conclusion is keyed on it — case 1, which this stage does cover.
 
 So the favourable value can arise where the status key has nothing to fill it. That is the
 asymmetry A0 calls the milestone's central fact, showing up in the keying. **Not resolved
@@ -297,8 +344,12 @@ row and G2's to see.
 
 ## Handoff to stage 4
 
-- Where a favourable default attaches when no period is known, and whether that scope is the
-  borrowing or the statement.
+- Where a favourable default attaches when no financing claim identifies a period (case 2), and
+  whether that scope is the borrowing or the statement — including what it pins, and therefore
+  what the presentation projection would cite. Case 2 becomes a G2/A6 test case only once this
+  is selected.
+- If that scope has nothing to pin, the conclusion would carry `origin: "assertion"` with no
+  asserted input; stage 4 inherits that hazard with the scope.
 - Whether a scope claim — including an obligation answer applied to a statement's contents — is
   keyed on the statement, and what a correction to it reaches (carried from stage 2).
 - The responsibility applies-to relation, as the plan defines stage 4.
@@ -311,5 +362,5 @@ row and G2's to see.
 | A return-wide default marked at source and transitively | `read` — runner. Five `optional_default` uses exist in the production package |
 | A categorical conclusion published in the same run as amounts | `run` — D6, D16a |
 | One categorical conclusion published per key of a single subject | **untested** — owed; see above |
-| The named conclusion's identity and meaning reaching the reader | **untested**, and traced as **not reached** by `presentation.json` today — owed to G2 and A6 |
+| The named conclusion's identity and meaning reaching the reader | **untested**, and traced as **not reached** by `presentation.json` today — owed to G2 and A6, for the nine-credit case and case 1. Case 2 waits on stage 4 |
 | A correction reaching every statement from one shared record | **untested** — owed, `a4-bounds.md` first row |
