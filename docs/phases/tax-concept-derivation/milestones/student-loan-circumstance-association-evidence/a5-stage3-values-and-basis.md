@@ -64,14 +64,25 @@ its value.
 
 **Why the existing default mark cannot be used here.** Two independent reasons.
 
-- `optional_default` substitutes a value **for a fact that is absent**. It fires only when a
-  binding's symbol has no current finding at all. The default this milestone needs is not that:
-  it is *"no enumerated disqualifier is supported among the facts that are present"* — a
-  conclusion about present facts, not a stand-in for a missing one.
-- It works **per fact type**. Keyed circumstances with several members are marshalled as
-  collected sources, not bound inputs (`marshal`, the several-members branch), and a default
-  never reaches them. A default for *this* period while another period has an answer is not
-  something the mechanism expresses.
+- `optional_default` substitutes a value **for a symbol that is unbound**. The runner publishes
+  the default whenever the binding's symbol was not bound as an input
+  (`runner.py`, `if symbol in self.symbols: continue`). The default this milestone needs is not
+  that: it is *"no enumerated disqualifier is supported among the facts that are present"* — a
+  conclusion about present facts, not a stand-in for an unbound symbol.
+- It produces **one value per symbol**, not one per key. An earlier version of this section said
+  a default never reaches keyed facts with several members. That was wrong: marshal leaves such
+  a symbol unbound and puts the members in sources, so the default **still publishes** — one
+  value for the symbol, sitting beside the members rather than applying to any of them. A
+  default for *this* period while another period has an answer is still not something the
+  mechanism expresses; it simply fails differently from how this section first described.
+
+**A related behaviour, recorded rather than pursued.** Marshal also leaves a symbol unbound
+when it is *not* a collect name and its current findings **disagree** — the Track 6b guard,
+whose comment says the intent is that the runner then blocks with `DEPENDENCY_ABSENT`. On an
+`optional_default` binding, the runner would instead publish the default. Whether any
+production binding reaches that combination was not checked, and it is outside this milestone.
+It is one more reason the rejected alternative below — every disqualifier an
+`optional_default` fact — is not taken. `read`.
 
 So the one mark the record has for default-supported cannot be produced for the value that
 most needs it.
@@ -88,8 +99,19 @@ Read in order, the record then says what happened:
 > ← *no enumerated adverse schooling circumstance is supported for the filer, autumn 2024*
 > ← the circumstances examined, the nine-credit telling among them
 
-The nine-credit telling appears as something examined and found not adverse. It no longer reads
-as support.
+**What this changes, stated exactly.** The nine-credit finding is still pinned, still as an
+`assertion`-origin input — now an input to the absence conclusion rather than to the favourable
+value. There is no pin role meaning "examined, not grounds", and this selection does not need
+one: for a conclusion that nothing adverse is supported, everything examined **is** its grounds,
+so the pin is true. What is false in the obvious build is the nine-credit finding pinned
+directly as grounds for *eligible student*, and that is what the selection removes.
+
+**The limit, which a reviewer found.** The distinction is carried by **what the pinned finding
+is** — its symbol — and not by anything on the pin, which carries an id, a version, a role and an
+origin. A reader who walks pins by origin alone sees an assertion two hops up and learns
+nothing. A6's revealing consumer must dereference the finding a favourable value rests on and
+report what it is. That is ordinary for a consumer whose job is to say why; it is stated so it is
+not assumed.
 
 **The subject's key is the one stage 2 selected for the value**, so the conclusion is per
 subject rather than per statement: the student and the period for eligible-student; the
@@ -100,8 +122,8 @@ selection covers each constituent the bounded consumer evaluates, not only F6.
 **Why this is the smallest.**
 
 - **No schema change.** Both findings are ordinary derived findings. The distinction lives in
-  *what the favourable value pins and what that thing is called* — which is exactly what
-  provenance already carries.
+  *what the favourable value pins and what that thing is* — which provenance already carries,
+  for a reader who follows the pin to the finding.
 - **It makes the pairing path's hard-coded origin correct rather than wrong.** The named
   conclusion really is derived from assertions, so `origin: "assertion"` on a pin to it is true.
   Carrying the default in `origin` instead would make that hard-coding a mislabel by
