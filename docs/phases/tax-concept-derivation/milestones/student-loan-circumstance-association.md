@@ -464,7 +464,7 @@ whole plan.
 | A2 | specified; answer drafted | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | specified; answer drafted | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | outlined, pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both awaiting review. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | outlined; **unblocked by G1** | Carries the five representation decisions from the responsibility category — how the applies-to relation is represented, what makes it apply, its lifecycle, its relation to provenance, and persistence versus reconstruction — plus storage shape, record count, and whether a separately identified borrowing is needed. **It also decides how much the filer paid is obtained, or records that case as
+| A5 | outlined; refinement drafted below, review pending | Carries the five representation decisions from the responsibility category — how the applies-to relation is represented, what makes it apply, its lifecycle, its relation to provenance, and persistence versus reconstruction — plus storage shape, record count, and whether a separately identified borrowing is needed. **It also decides how much the filer paid is obtained, or records that case as
 unresolved** — the reported amount, what the filer actually paid, a deemed-payment
 conclusion, how the interest is treated, and the deduction are five different things, and
 the deeming conclusion is not an event. Throughout A5's choices, **actual events,
@@ -1141,6 +1141,84 @@ Four concrete cases A6 must carry, because they are where the collapse happens:
 the two lists — not A4's completion. G2 needs execution against the representation
 A5 actually chooses, which cannot happen before A5 exists. So A4 is expected to run
 twice: once now, to bound A5's options, and once after A5, to discharge G2.
+
+## A5 in detail — choosing how to represent it
+
+This is A5 refined one step. It selects representations; it does not implement them, and
+it prescribes no field or processing stage in advance.
+
+**What A5 inherits.** A0's fact model including F9's ordinary circumstances; A1's posed
+questions and the responsibility direction; A2's change-and-applicability account; A3's
+three states and its revealable list; A4's bounds, where six demands are `read` or
+untested and may not be relied on without new execution. And the filer-centered scope: no
+other person's identity unless a concrete supported case requires it, and none found so
+far does.
+
+**The distinction A5 must not lose.** Actual events, application defaults, and
+rule-derived conclusions have to stay distinguishable in whatever is selected. Five
+things that are not one thing: a form's reported amount; interest the filer actually paid;
+the conclusion that the filer is treated as paying; how that interest is treated; and the
+deduction. A representation that collapses any pair of them fails regardless of how
+economical it looks.
+
+**Staged, because its output should not arrive in one piece.** Each stage is reviewed
+before the next.
+
+1. **The ordinary circumstances.** How A0's F9 rows are represented, and — the question
+   with a known defect behind it — what they are **keyed** on. Obligation holds per
+   borrowing while the incumbent fact is keyed on tax-year alone; the related-person
+   exclusion is a relation to the creditor on an indebtedness, not to a statement. A5
+   chooses keying deliberately rather than inheriting either.
+2. **Tax-concept values and their basis.** How a value and its basis are carried, given
+   that default-supported, direct-answer and derived-from-circumstances can produce the
+   same value. Includes whether `finding.v2`'s existing `basis` vocabulary suffices or
+   the distinction needs somewhere else to live.
+3. **The responsibility applies-to relation.** Whether an existing citizen carries it or
+   a new one is needed — open in both directions; what makes it apply; its lifecycle
+   under A2's principle; whether it appears in the derivation record; and whether
+   inspection needs persistence or can be reconstructed.
+4. **What the filer paid.** Select a supported route for the shared-payment case — from
+   evidence, from an ordinary statement, or derived — **or record it as explicitly
+   unresolved**, which is an acceptable outcome. Same for the deeming rule's information
+   and its basis.
+
+**How we will answer it.** Stage by stage, each against a named consumer rather than in
+the abstract, and each recording why the selection was made and what it rejected. Where a
+selection depends on a demand A4 marks `read` or untested, say so — G2 will refuse a
+charter that rests on one.
+
+**What done looks like.** Five things:
+
+1. For each stage, the selection made, with its reasons and the alternatives rejected.
+2. The keying decision for each represented fact, with what it is keyed on and why.
+3. A statement, per selection, of which A4 demands it depends on and at what evidence
+   level.
+4. Whether the shared-payment route is selected or explicitly unresolved, and likewise
+   for the deeming rule.
+5. What is deferred, named and not designed.
+
+**How it is reviewed.** One independent reviewer, a criterion per `done` field:
+
+1. **The selections** — whether each is a selection rather than an inheritance, whether
+   its reasons are given, and whether any rejected alternative was rejected on an
+   unstated premise.
+2. **Keying** — whether each fact is keyed on the thing its proposition is actually
+   about; specifically whether a per-borrowing condition has been keyed per return or
+   per statement, which is the incumbent's defect and the easiest one to copy.
+3. **Dependence on A4** — whether every selection's `read` or untested dependencies are
+   named, and whether any is presented as settled.
+4. **Unresolved is honest** — whether a route recorded as unresolved genuinely is, and
+   whether one recorded as selected is actually supported.
+5. **Deferrals** — whether each is named without being designed, and whether any
+   amounts to a silent narrowing of the milestone.
+
+And one boundary check, not a `done` field: whether any selection collapses an actual
+event, an application default, and a rule-derived conclusion into one thing — or
+introduces another person's identity without a concrete case requiring it.
+
+**What A5 does not settle.** Whether the engine can carry a selection, which is A4's
+second pass and G2's bar; the words a person reads (A1); what any state does to a figure
+(A3); and the implementation itself, which is A6's.
 
 ## What the technical investigation established, and what it constrains
 
