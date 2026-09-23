@@ -50,8 +50,10 @@ that as establishing both results. It does not. It establishes a **connection**.
 each statement's result determinable is additional scope or portion information:
 
 - **Each statement covers only that borrowing.** Then each statement's *whole* reported
-  amount is affected — a whole-statement scope, situation (a) below, determinable without
-  any portion figure.
+  amount is affected, determinable without any portion figure. Which route that is depends
+  on what the person said: asserting the circumstance applies to the whole statement is
+  **(a)**, needing no borrowing at all; naming the borrowing and saying the statement covers
+  only it is **(b)** with its portion at the whole reported amount.
 - **One statement also covers another borrowing and the split is unknown.** Shared
   borrowing identity does **not** resolve that statement. It stays situation (c): known to
   be included, portion unknown, pending clarification — while the other statement, covering
@@ -76,8 +78,9 @@ made-up borrowing to fit the shape**:
 
 **(a) The circumstance applies to the whole statement, with no borrowing enumerated or
 identified.** A whole-statement scope claim attached to the circumstance. **No borrowing
-reference, no portion.** This is a complete route and stays available; it is how the
-servicer-transfer case resolves when each statement covers only the affected borrowing.
+reference, no portion.** A complete route that stays available, and the only one that does
+not require knowing what a statement covers — which is what distinguishes it from (b)
+asserted at a whole-statement portion.
 
 **(b) A known portion of the statement concerns an identified borrowing.** Borrowing
 reference, plus an asserted portion of that statement's reported amount.
@@ -103,12 +106,13 @@ row, distinguishable from both membership-unknown and no-adverse-information.
 
 **Carried forward rather than selected here:** whether the portion in (b) is a value on the
 correspondence or its own finding, and whether (c) is the same correspondence lacking an
-amount or a distinct membership-only claim. Stage 2's basis work and stage 4's lifecycle
-work both bear on it.
+amount or a distinct membership-only claim. Stage 3's basis work and stage 4's lifecycle work
+both bear on it.
 
 All three are asserted by the person and confirmed, never inferred from a name, an equal
-amount, or a convenient reference. Whether a correspondence can be *checked* is A4's; it
-records the membership demand as untested.
+amount, or a convenient reference. **A4 records no membership demand at all** — an earlier
+version of this sentence said it recorded one as untested, which is false of
+`a4-bounds.md`. Inclusion is asserted, not tested for.
 
 ## Selection: how an answer is stored, and how many records
 
@@ -139,21 +143,32 @@ writes back from a tax-concept value into an ordinary circumstance.
 
 ## What this stage depends on, and at what level
 
-| Depends on | A4 level |
+| Depends on | A4 level and ceiling |
 | --- | --- |
-| Per-item dispatch following a recorded connection, refusing by name when its target is gone | `run` (D1, D2) |
-| An unassociated subject producing no row | `run` (D3) |
-| A consumer requiring a fact conditionally | `run` (D4) |
-| Membership — telling whether a loan is inside a given box 1 | **untested** |
-| Telling "still resolvable" from "still supported" | **untested** (D9) |
-| Holding the unresolved interval as its own state | **untested** (D10) |
+| Per-item dispatch following a recorded connection, refusing by name when its target is gone | `run` — D1, D2 |
+| An unassociated subject producing no row | `run` — D3 |
+| A consumer requiring a fact conditionally | `run` — D4 |
+| A later correction to a circumstance reaching every statement its reference bears on | `run` — D8. Ceiling: the dispatcher follows the current finding at the same `fact_id`, which settles nothing about D9 |
+| State 4 confined to that statement's calculation rather than the return | `run` — D13a, **pairing dispatch only**. D13b is `run` in the opposite direction: the incumbent worksheet fold is *not* isolated and must not be treated as though it were |
+| States 2 and 3 publishing a reduced figure once a portion is determined | `run` — D5, for a determined adverse result only, on disposable artifacts never adopted. D5's other half, missing support blocking, is the prior candidate's absence behaviour and is **not** selected here: no adverse information proceeds |
+| Telling "still resolvable" from "still supported" | **untested** — D9 |
+| Holding the unresolved interval as its own state | **untested** — D10 |
+| Holding A3's states apart — specifically no-adverse, membership-unknown, and membership-known-portion-unknown | **untested** — D11. D10 alone is not enough: one blocked bucket can satisfy D10 and still collapse (c) into either of the others |
+| The second adverse reading being expressible — stop using that statement's reported amount as adequate grounds, without zeroing it and without proceeding | **untested** — D12. The dependence is the **stop**; D12's own cell still says "until enumeration", which A3 corrected and route (a) supersedes. Naming D12 does not drag an enumeration requirement back in |
 
-The last three are on A4's may-not-rely list. **This selection depends on them**, so it
-cannot be chartered until they run — G2's bar, stated here rather than left to be
-discovered.
+**Inclusion of a borrowing in a statement is not an A4 demand.** It is a claim the person
+asserts and confirms — A3's membership — and A4 records no untested capability that *tells*
+it. An earlier version of this stage invented such a row and attached G2's charter bar to
+it, which is a dependence `a4-bounds.md` does not support.
+
+**Four demands on A4's may-not-rely list — D9, D10, D11 and D12 — are depended on here**, so
+this selection cannot be chartered until they run. That is G2's bar, stated here rather than
+left to be discovered.
 
 ## Deferred, named not designed
 
 Origination dating for § 221(d)(1)(A). A paying co-signer with no Form 1098-E of their own.
-How a portion is obtained where the person cannot apportion — that is stage 5's question,
-and state 4 is its honest answer meanwhile.
+Where the share of a statement's reported amount cannot be apportioned, **state 4 is the
+answer** — that question is closed here, and it is missing information rather than a design
+limitation. Stage 5 is named only for what the filer paid and for the deeming rule, which
+are different things from a share of a reported amount.
