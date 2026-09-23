@@ -1894,5 +1894,454 @@ class ObservedScalarJoin(unittest.TestCase):
         self.assertNotEqual(row["disposition"], "inapplicable")
 
 
+# --- P3. Partial reduction: collected link portions, one statement. ---
+
+P3_LINK_PORTION = "demo.tax.link-portion"
+P3_LINK_RULE = "demo.rule.link-portion"
+P3_AMOUNT_RULE = "demo.rule.statement-portion-sum"
+P3_LINK_INST = "demo.finding.link.p3-inst"
+P3_LINK_PRIV = "demo.finding.link.p3-priv"
+P3_LINK_SOUTH = "demo.finding.link.p3-south"
+P3_MEMBERSHIP = "included"
+
+
+def _p3_fact_types() -> list[dict[str, Any]]:
+    # The link value is the portion, a number, or the membership token.
+    # No enum: a categorical domain would reject both shapes on ref.
+    return [
+        {"id": FINANCING, "version": "v1", "value_schema": {"enum": ["tuition"]}},
+        {
+            "id": ENROLMENT,
+            "version": "v1",
+            "value_schema": {"enum": ["adverse", "not-adverse"]},
+            "optional_default": {"parameter": {"id": T2_PARAM, "version": "v1"}},
+        },
+        {"id": STATEMENT_BORROWING, "version": "v1", "value_schema": {"type": "number"}},
+        {
+            "id": STATUS,
+            "version": "v1",
+            "value_schema": {"enum": ["adverse", "not-adverse"]},
+        },
+    ]
+
+
+def _p3_rules() -> list[dict[str, Any]]:
+    return [
+        _t2_rule(
+            rule_id=T2_STATUS_RULE,
+            citation_id="demo.citation.schooling-status",
+            role="applicability",
+            requires=[FINANCING, ENROLMENT],
+            when=_t2_eq(FINANCING, FINANCING, "tuition"),
+            value={"op": "ref", "name": ENROLMENT},
+            publishes=STATUS,
+        ),
+        _t2_rule(
+            rule_id=P3_LINK_RULE,
+            citation_id="demo.citation.link-portion",
+            role="computation",
+            requires=[STATEMENT_BORROWING, STATUS],
+            when={
+                "op": "any",
+                "args": [
+                    _t2_eq(STATUS, STATUS, "adverse"),
+                    _t2_eq(STATUS, STATUS, "not-adverse"),
+                ],
+            },
+            value={
+                "op": "choose",
+                "when": _t2_eq(STATUS, STATUS, "adverse"),
+                "then": 0,
+                "else": {"op": "ref", "name": STATEMENT_BORROWING},
+            },
+            publishes=P3_LINK_PORTION,
+        ),
+        _t2_rule(
+            rule_id=P3_AMOUNT_RULE,
+            citation_id="demo.citation.statement-portion-sum",
+            role="computation",
+            requires=[BOX1],
+            when={
+                "op": "compare",
+                "cmp": "gt",
+                "left": {"op": "ref", "name": BOX1},
+                "right": 0,
+            },
+            value={
+                "op": "add",
+                "args": [{"op": "collect", "name": P3_LINK_PORTION}],
+            },
+            publishes=STATEMENT_AMOUNT,
+        ),
+    ]
+
+
+def _p3_findings(
+    *,
+    corrected: bool,
+    inst_portion: Any = 1000,
+    priv_portion: Any = 500,
+) -> dict[str, dict[str, Any]]:
+    # Enrolment findings stay in record order when present: earlier
+    # not-adverse, then the later adverse correction.
+    findings = {
+        T2_FIN_INST: _finding(
+            T2_FIN_INST,
+            _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN),
+            "tuition",
+        ),
+        T2_FIN_PRIV: _finding(
+            T2_FIN_PRIV,
+            _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING),
+            "tuition",
+        ),
+        T2_BOX_NORTH: _finding(
+            T2_BOX_NORTH, _t2_box_fact_id(LENDER, STATEMENT_S1), 1500
+        ),
+        T2_BOX_SOUTH: _finding(
+            T2_BOX_SOUTH, _t2_box_fact_id(P2_LENDER_SOUTH, STATEMENT_S2), 800
+        ),
+        T2_BOX_WEST: _finding(
+            T2_BOX_WEST, _t2_box_fact_id(T2_LENDER_WEST, STATEMENT_S3), 400
+        ),
+        P3_LINK_INST: _finding(
+            P3_LINK_INST,
+            _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST),
+            inst_portion,
+        ),
+        P3_LINK_PRIV: _finding(
+            P3_LINK_PRIV,
+            _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_PRIV),
+            priv_portion,
+        ),
+        P3_LINK_SOUTH: _finding(
+            P3_LINK_SOUTH,
+            _t2_link_fact_id(P2_LENDER_SOUTH, STATEMENT_S2, P2_BORROWING_PRIV),
+            800,
+        ),
+    }
+    if corrected:
+        enrol = _t2_enrolment_fact_id()
+        findings[T2_ENROL_EARLIER] = _finding(T2_ENROL_EARLIER, enrol, "not-adverse")
+        findings[T2_ENROL_LATER] = _finding(T2_ENROL_LATER, enrol, "adverse")
+    return findings
+
+
+def _p3_execute(
+    findings: dict[str, dict[str, Any]],
+) -> tuple[FindingState, CurrencyView, RunContext, _Run]:
+    state = FindingState(
+        findings=dict(findings),
+        fact_state=KernelState(fact_types=_t2_lattice()),
+    )
+    currency = compute_currency(state)
+    rules = _p3_rules()
+    ctx = marshal_run_context(
+        run_id="demo.sli-a4-pass2-p3",
+        state=state,
+        currency=currency,
+        rules=rules,
+        parameters={T2_PARAM: {"id": T2_PARAM, "version": "v1", "values": "not-adverse"}},
+        canon={},
+        adoption_pin=ADOPTION_PIN,
+        governance_pins=GOVERNANCE_PINS,
+        fact_types=_p3_fact_types(),
+        input_bindings=[{
+            "symbol": ENROLMENT,
+            "fact_type": {"id": ENROLMENT, "version": "v1"},
+            "mode": "optional_default",
+        }],
+        collect_source_names=[FINANCING, ENROLMENT, BOX1, STATEMENT_BORROWING],
+    )
+    run = _Run(ctx, SCHEMAS)
+    by_id = {rule["id"]: rule for rule in rules}
+    run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=by_id[T2_STATUS_RULE])
+    run.evaluate_subject_scoped_rule(
+        subject_type=STATEMENT_BORROWING, rule=by_id[P3_LINK_RULE]
+    )
+    run.evaluate_subject_scoped_rule(subject_type=BOX1, rule=by_id[P3_AMOUNT_RULE])
+    return state, currency, ctx, run
+
+
+class CollectedPortionReduction(unittest.TestCase):
+    """One statement, two route-(b) portions, summed with ``collect``.
+
+    North's box is 1500: 1000 on the institutional borrowing, 500 on the
+    private one. The institutional enrolment is autumn, so a correction
+    there reaches only that portion. South is the private borrowing's own
+    statement. West has a box and no link.
+    """
+
+    def setUp(self) -> None:
+        self.north = _t2_box_fact_id(LENDER, STATEMENT_S1)
+        self.south = _t2_box_fact_id(P2_LENDER_SOUTH, STATEMENT_S2)
+        self.west = _t2_box_fact_id(T2_LENDER_WEST, STATEMENT_S3)
+        self.link_inst = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST)
+        self.link_priv = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_PRIV)
+        self.link_south = _t2_link_fact_id(
+            P2_LENDER_SOUTH, STATEMENT_S2, P2_BORROWING_PRIV
+        )
+        self.inst = _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN)
+        self.priv = _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING)
+        self.enrol = _t2_enrolment_fact_id()
+        amount = next(rule for rule in _p3_rules() if rule["id"] == P3_AMOUNT_RULE)
+        collected = amount["value"]["args"][0]
+        self.assertNotIn(P3_LINK_PORTION, amount["requires"])
+        self.assertEqual(collected["op"], "collect")
+        self.assertNotIn("source_set", collected)
+        self.assertNotEqual(self.link_inst, self.link_priv)
+
+    def test_joined_portions_sum_and_every_link_is_pinned(self) -> None:
+        """Before the correction the statement publishes 1500. After, 500.
+
+        Both link portions are pinned each time, including once their values
+        disagree. The walk reaches the institutional chain and the private
+        chain, and not the other statement's link.
+        """
+        _before_state, before_currency, before_ctx, before = _p3_execute(
+            _p3_findings(corrected=False)
+        )
+        state, currency, ctx, run = _p3_execute(_p3_findings(corrected=True))
+        self.assertEqual(before_currency.displaced_finding_ids, frozenset())
+        self.assertIn(T2_ENROL_EARLIER, state.findings)
+        self.assertIn(T2_ENROL_LATER, state.findings)
+        self.assertEqual(currency.displaced_finding_ids, frozenset({T2_ENROL_EARLIER}))
+        self.assertIn(T2_ENROL_LATER, currency.current_finding_ids)
+        self.assertEqual(
+            [(reason.kind, reason.by) for reason in currency.reasons[T2_ENROL_EARLIER]],
+            [("correction", T2_ENROL_LATER)],
+        )
+        self.assertEqual(
+            {source.finding_id for source in ctx.sources if source.name == ENROLMENT},
+            {T2_ENROL_LATER},
+        )
+        default_id = _t2_default_id(before_ctx)
+        self.assertEqual(default_id, _t2_default_id(ctx))
+
+        before_inst = _t2_finding(before, P3_LINK_PORTION, self.link_inst)
+        before_priv = _t2_finding(before, P3_LINK_PORTION, self.link_priv)
+        inst_portion = _t2_finding(run, P3_LINK_PORTION, self.link_inst)
+        priv_portion = _t2_finding(run, P3_LINK_PORTION, self.link_priv)
+        south_portion = _t2_finding(run, P3_LINK_PORTION, self.link_south)
+        self.assertEqual(before_inst["value"], "1000")
+        self.assertEqual(before_priv["value"], "500")
+        self.assertEqual(inst_portion["value"], "0")
+        self.assertEqual(priv_portion["value"], "500")
+        self.assertNotEqual(inst_portion["value"], priv_portion["value"])
+        carried = next(
+            source for source in run.live_sources
+            if source.name == P3_LINK_PORTION and source.fact_id == self.link_inst
+        )
+        self.assertEqual(
+            dict(carried.keys or ()),
+            {
+                "lender": LENDER,
+                "statement": STATEMENT_S1,
+                "tax-year": YEAR,
+                "borrowing": P2_BORROWING_INST,
+            },
+        )
+
+        before_amount = _t2_finding(before, STATEMENT_AMOUNT, self.north)
+        amount = _t2_finding(run, STATEMENT_AMOUNT, self.north)
+        self.assertEqual(before_amount["value"], "1500")
+        self.assertEqual(amount["value"], "500")
+        self.assertEqual(
+            _t2_row(run, self.north, STATEMENT_AMOUNT)["disposition"], "published"
+        )
+        self.assertEqual(
+            _input_ids(_pins(before_amount)),
+            {T2_BOX_NORTH, before_inst["id"], before_priv["id"]},
+        )
+        self.assertEqual(
+            _input_ids(_pins(amount)),
+            {T2_BOX_NORTH, inst_portion["id"], priv_portion["id"]},
+        )
+        self.assertNotIn(south_portion["id"], _input_ids(_pins(amount)))
+
+        before_status = _t2_finding(before, STATUS, self.inst)
+        before_priv_status = _t2_finding(before, STATUS, self.priv)
+        inst_status = _t2_finding(run, STATUS, self.inst)
+        priv_status = _t2_finding(run, STATUS, self.priv)
+        self.assertEqual(before_status["value"], "not-adverse")
+        self.assertEqual(inst_status["value"], "adverse")
+        self.assertEqual(priv_status["value"], "not-adverse")
+        for status in (before_status, before_priv_status, priv_status):
+            self.assertEqual(
+                next(
+                    pin["origin"]
+                    for pin in status["pins"]
+                    if pin["role"] == "input" and pin["id"] == default_id
+                ),
+                "declared_default",
+            )
+        self.assertEqual(
+            _input_ids(_pins(inst_status)),
+            {T2_FIN_INST, T2_ENROL_LATER},
+        )
+        self.assertNotIn(default_id, _input_ids(_pins(inst_status)))
+        self.assertNotIn(T2_ENROL_EARLIER, _input_ids(_pins(inst_status)))
+
+        before_walk = _t2_walk(before, before_amount)
+        walk = _t2_walk(run, amount)
+        for link_id in (before_inst["id"], before_priv["id"], P3_LINK_INST, P3_LINK_PRIV):
+            self.assertIn(link_id, before_walk)
+        self.assertIn(default_id, before_walk)
+        self.assertNotIn(T2_ENROL_EARLIER, before_walk)
+        self.assertNotIn(T2_ENROL_LATER, before_walk)
+        for link_id in (inst_portion["id"], priv_portion["id"], P3_LINK_INST, P3_LINK_PRIV):
+            self.assertIn(link_id, walk)
+        self.assertIn(inst_status["id"], walk)
+        self.assertIn(priv_status["id"], walk)
+        self.assertIn(T2_ENROL_LATER, walk)
+        self.assertIn(default_id, walk)
+        self.assertNotIn(T2_ENROL_EARLIER, walk)
+        self.assertNotIn(south_portion["id"], walk)
+        self.assertNotIn(P3_LINK_SOUTH, walk)
+
+    def test_no_joined_link_blocks_on_an_unclosed_collection(self) -> None:
+        """West shares no link. Empty ``collect`` blocks; it does not publish 0.
+
+        Link portions exist in the run. None join this statement, and the
+        collect names no closed source set.
+        """
+        _state, _currency, _ctx, run = _p3_execute(_p3_findings(corrected=True))
+        portions = [source for source in run.live_sources if source.name == P3_LINK_PORTION]
+        self.assertGreater(len(portions), 0)
+        self.assertFalse(
+            any(
+                dict(source.keys or ()).get("statement") == STATEMENT_S3
+                for source in portions
+            )
+        )
+        row = _t2_row(run, self.west, STATEMENT_AMOUNT)
+        self.assertEqual(row["disposition"], "blocked")
+        self.assertEqual(row["code"], "SOURCE_SET_UNCLOSED")
+        self.assertEqual(row["missing"], [P3_LINK_PORTION])
+        self.assertNotIn(
+            _t2_symbol(STATEMENT_AMOUNT, self.west),
+            {pub.finding["symbol"] for pub in run.publications},
+        )
+        self.assertNotEqual(row["disposition"], "published")
+        self.assertNotEqual(row["code"], "DEPENDENCY_ABSENT")
+
+    def test_unaffected_statement_is_byte_identical(self) -> None:
+        """South's only borrowing is the private one. Its bytes do not move.
+
+        North changes in the same pair of runs.
+        """
+        _before_state, _before_currency, _before_ctx, before = _p3_execute(
+            _p3_findings(corrected=False)
+        )
+        _state, _currency, _ctx, after = _p3_execute(_p3_findings(corrected=True))
+        self.assertEqual(
+            _t2_canonical(_t2_finding(before, STATEMENT_AMOUNT, self.south)),
+            _t2_canonical(_t2_finding(after, STATEMENT_AMOUNT, self.south)),
+        )
+        self.assertEqual(
+            _t2_canonical(_t2_row(before, self.south, STATEMENT_AMOUNT)),
+            _t2_canonical(_t2_row(after, self.south, STATEMENT_AMOUNT)),
+        )
+        self.assertEqual(
+            _t2_finding(before, STATEMENT_AMOUNT, self.south)["value"], "800"
+        )
+        self.assertEqual(
+            _t2_finding(before, P3_LINK_PORTION, self.link_south)["value"], "800"
+        )
+        self.assertNotEqual(
+            _t2_finding(before, STATEMENT_AMOUNT, self.north)["value"],
+            _t2_finding(after, STATEMENT_AMOUNT, self.north)["value"],
+        )
+
+
+class MembershipWithoutPortion(unittest.TestCase):
+    """Route (c): the link names the borrowing and carries no portion.
+
+    The value is the membership token ``included``. The portion rules are
+    the same rules as ``CollectedPortionReduction``.
+    """
+
+    def setUp(self) -> None:
+        self.north = _t2_box_fact_id(LENDER, STATEMENT_S1)
+        self.west = _t2_box_fact_id(T2_LENDER_WEST, STATEMENT_S3)
+        self.link_inst = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST)
+        self.link_priv = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_PRIV)
+
+    def test_non_numeric_portion_blocks_instead_of_publishing(self) -> None:
+        """A not-adverse membership link is collected and is not a number.
+
+        The statement does not publish the sibling's 1000, or 1500, or 0.
+        The block is not the empty-collection block.
+        """
+        _state, _currency, _ctx, run = _p3_execute(
+            _p3_findings(corrected=False, priv_portion=P3_MEMBERSHIP)
+        )
+        inst_portion = _t2_finding(run, P3_LINK_PORTION, self.link_inst)
+        priv_portion = _t2_finding(run, P3_LINK_PORTION, self.link_priv)
+        self.assertEqual(inst_portion["value"], "1000")
+        self.assertEqual(priv_portion["value"], P3_MEMBERSHIP)
+        self.assertNotEqual(priv_portion["value"], "0")
+        row = _t2_row(run, self.north, STATEMENT_AMOUNT)
+        self.assertEqual(row["disposition"], "blocked")
+        self.assertEqual(row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(row["missing"], ["not a number: 'included'"])
+        self.assertEqual(
+            _input_ids(_pins(row)),
+            {T2_BOX_NORTH, inst_portion["id"], priv_portion["id"]},
+        )
+        self.assertNotIn(
+            _t2_symbol(STATEMENT_AMOUNT, self.north),
+            {pub.finding["symbol"] for pub in run.publications},
+        )
+        self.assertNotEqual(row["disposition"], "published")
+        west = _t2_row(run, self.west, STATEMENT_AMOUNT)
+        self.assertEqual(west["code"], "SOURCE_SET_UNCLOSED")
+        self.assertNotEqual(row["code"], west["code"])
+        self.assertNotEqual(row["missing"], west["missing"])
+
+    def test_adverse_branch_matches_a_known_zero_portion(self) -> None:
+        """Adverse ``choose`` returns 0 without reading the link value.
+
+        The statement publishes 500, the same finding as the route-(b)
+        correction, where the institutional portion was the known number
+        1000. The raw link values differ. The published figure does not.
+        """
+        known_state, known_currency, _known_ctx, known = _p3_execute(
+            _p3_findings(corrected=True)
+        )
+        state, currency, _ctx, unknown = _p3_execute(
+            _p3_findings(corrected=True, inst_portion=P3_MEMBERSHIP)
+        )
+        self.assertEqual(currency.displaced_finding_ids, frozenset({T2_ENROL_EARLIER}))
+        self.assertEqual(
+            known_currency.displaced_finding_ids, currency.displaced_finding_ids
+        )
+        self.assertEqual(state.findings[P3_LINK_INST]["value"], P3_MEMBERSHIP)
+        self.assertEqual(known_state.findings[P3_LINK_INST]["value"], 1000)
+        self.assertNotEqual(
+            state.findings[P3_LINK_INST]["value"],
+            known_state.findings[P3_LINK_INST]["value"],
+        )
+        unknown_portion = _t2_finding(unknown, P3_LINK_PORTION, self.link_inst)
+        known_portion = _t2_finding(known, P3_LINK_PORTION, self.link_inst)
+        self.assertEqual(unknown_portion["value"], "0")
+        self.assertEqual(known_portion["value"], "0")
+        self.assertEqual(_t2_canonical(unknown_portion), _t2_canonical(known_portion))
+        unknown_amount = _t2_finding(unknown, STATEMENT_AMOUNT, self.north)
+        known_amount = _t2_finding(known, STATEMENT_AMOUNT, self.north)
+        self.assertEqual(unknown_amount["value"], "500")
+        self.assertEqual(_t2_canonical(unknown_amount), _t2_canonical(known_amount))
+        self.assertEqual(
+            _t2_canonical(_t2_row(unknown, self.north, STATEMENT_AMOUNT)),
+            _t2_canonical(_t2_row(known, self.north, STATEMENT_AMOUNT)),
+        )
+        self.assertEqual(
+            _t2_row(unknown, self.north, STATEMENT_AMOUNT)["disposition"], "published"
+        )
+        self.assertNotEqual(
+            _t2_row(unknown, self.north, STATEMENT_AMOUNT)["disposition"], "blocked"
+        )
+
+
 if __name__ == "__main__":
     unittest.main()
