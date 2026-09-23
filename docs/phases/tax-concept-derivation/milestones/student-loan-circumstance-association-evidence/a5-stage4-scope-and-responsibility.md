@@ -108,7 +108,7 @@ posed per loan or per statement through the incumbent tax-year fact.
 **Not settled.** An earlier version of this part selected a representation and said no
 responsibility applies in case 2. Both are withdrawn below: the case-2 claim contradicted A0, and
 the representation does not carry what a reader needs. What remains is a distinction, three
-worked messages, a product choice for the owner, and a comparison of representations.
+worked messages, the owner's case-2 choice, and a comparison of representations.
 
 The named consumer is A6's revealing consumer, which must let the person see each condition that
 applies, why, and what it concerns.
@@ -243,7 +243,7 @@ rows.
 
 | Alternative | Condition identity | Distinct from ordinary citations | Wording | Circumstance | Treatment | Cost |
 | --- | --- | --- | --- | --- | --- | --- |
-| **One responsibility rule per condition**, each publishing a categorical finding per schooling situation (and per statement in case 2, if A is chosen) | The rule and its symbol | Yes — the rule *is* the condition, so its citations are that condition's authorities and nothing else's | **No home** — same gap as above | Input pins: the financing or scope claim, and the grain in the symbol's key | Input pin to the favourable conclusion, then reverse join | Three per-key publications per situation — the same owed mechanism, with its citation carriage also owed. No new schema to derive it. Never read by another rule, so never consumed |
+| **One responsibility rule per condition**, each publishing a categorical finding per schooling situation (and per statement in case 2, since A was chosen) | The rule and its symbol | Yes — the rule *is* the condition, so its citations are that condition's authorities and nothing else's | **No home** — same gap as above | Input pins: the financing or scope claim, and the grain in the symbol's key | Input pin to the favourable conclusion, then reverse join | Three per-key publications per situation — the same owed mechanism, with its citation carriage also owed. No new schema to derive it. Never read by another rule, so never consumed |
 | A fact type per condition, its `title` as wording and `identity_keys` as grain | Yes | Yes | Only by repurposing `title`, which today holds developer description and which the projector does not read | Via keys | Not by itself | Fact types type kernel findings, which are someone's assertion; a responsibility is not. Whether a derived symbol can carry a fact type's identity was not traced. Not smaller |
 | A content declaration mapping each condition to its authorities, grain and wording | Yes | Yes | **Yes** — the only candidate with a governed home for approved wording | Via declared grain | Not by itself | Very likely a new citizen kind and schema |
 | Wording held in A6's consumer, keyed by condition rule id | — | — | Yes, but owner-approved tax wording would sit in code, outside content governance | — | — | No schema. Pairs only with the first row |
@@ -286,8 +286,10 @@ nine-credit case; the three candidates here replace it for approval.
 and case 1, which also need each of the three conditions shown with its approved wording, the
 circumstance it concerns and the treatment it qualifies, distinguishable from ordinary citations;
 and case 2, where the three conditions are shown tied to the statement with school and programme
-explicitly unknown — in a contextual explanation, never as a question, a required confirmation
-or a screen-wide warning. The representation is the preferred candidate above until something
+explicitly unknown — in a contextual explanation behind a short default-basis note, never as a
+question, a required confirmation or a screen-wide warning — with each condition's identity,
+approved wording and the treatment it qualifies recoverable, and its circumstance shown as
+unknown rather than recovered. The representation is the preferred candidate above until something
 runs.
 
 ## Dependence on A4

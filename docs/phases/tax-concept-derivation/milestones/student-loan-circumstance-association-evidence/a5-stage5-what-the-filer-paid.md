@@ -1,7 +1,7 @@
 # A5 stage 5 — what the filer paid
 
-Provisional. Filer-centered. No implementation. Independent of stage 4's open responsibility
-choice: nothing here depends on how a condition is shown or represented.
+Provisional. Filer-centered. No implementation. Independent of stage 4's responsibility
+work: nothing here depends on how a condition is shown or represented.
 
 The plan asks for a supported route to what the filer paid in a shared-payment case — from
 evidence, from an ordinary statement, or derived — **or** an explicit record that it is
@@ -170,8 +170,8 @@ Consequences:
   unresolved in this milestone, because the deeming premises are kept apart from the clues that
   bear on them and no grounds for them are selected.
 - **To stage 2's boundary:** payment added to the deferred row, with its limit.
-- **To A5 overall:** stages 1–3 and 5 selected; stage 4's responsibility part waits on the
-  owner's case-2 choice.
+- **To A5 overall:** stages 1–3 and 5 selected; stage 4's scope claims and the owner's case-2
+  display choice recorded, its responsibility representation a preferred candidate for G2/A6.
 
 ## Dependence on A4
 
