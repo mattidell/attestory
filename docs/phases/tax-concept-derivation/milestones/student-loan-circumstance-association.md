@@ -466,8 +466,8 @@ whole plan.
 | A2 | **done** | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | **done** | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | specified; pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both reviewed and repaired, and G1 passed citing them. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | **specified**; stages 1–3 selected; stage 4's scope claims selected, its responsibility representation open on an owner choice | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
-schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md), [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md), [stage 3](student-loan-circumstance-association-evidence/a5-stage3-values-and-basis.md) and [stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md) for its selections |
+| A5 | **specified**; stages 1–3 and 5 selected; stage 4's scope claims selected, its responsibility representation open on an owner choice | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
+schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md), [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md), [stage 3](student-loan-circumstance-association-evidence/a5-stage3-values-and-basis.md) [stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md) and [stage 5](student-loan-circumstance-association-evidence/a5-stage5-what-the-filer-paid.md) for its selections |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
@@ -1241,7 +1241,13 @@ before the next.
 5. **What the filer paid.** Select a supported route for the shared-payment case — from
    evidence, from an ordinary statement, or derived — **or record it as explicitly
    unresolved**, which is an acceptable outcome. Same for the deeming rule's information
-   and its basis.
+   and its basis. **Selected:** in the ordinary case the reported amount stands on a default
+   basis; a supported telling that someone else paid stops it; a follow-up — were they on the
+   loan — separates a deemed payment (a derived conclusion whose premises include F7, so not
+   derivable in the bounded consumer) from a co-signer's own payments, where the filer's amount
+   comes from their ordinary statement or is explicitly unresolved. Not from evidence (none
+   distinguishes payers) and not from a share (that is payment allocation). No consumer in
+   this milestone.
 
 **How we will answer it.** Stage by stage, each against a named consumer rather than in
 the abstract, and each recording why the selection was made and what it rejected. Where a
@@ -1349,7 +1355,7 @@ A1–A3 are the work it skipped.
 | Whether refusal is an adequate answer for the two multi-borrowing cases | Owner | A5 | Open |
 | Whether a separately identified borrowing is needed now | Team, constrained by the case list | A5 | Open |
 | Whether this milestone represents another payer | **Decided** by the owner, 2026-09-22 | — | **Filer-centered.** No other payer's identity unless a concrete supported case shows it necessary, and none of the five cases does. The filer's obligation, interest they paid, and interest treated as paid by them are three distinctions about one person and need no second identity |
-| How **what the filer paid** is obtained in a shared-payment case | Team | A5 | Open. From evidence, from an ordinary statement, derived, or **explicitly left unresolved** — A5 selects a supported route or records the case as unresolved, and a fixture-supplied amount settles neither. The reported amount must not silently stand in for it |
+| How **what the filer paid** is obtained in a shared-payment case | Team | A5 | **Selected in [A5 stage 5](student-loan-circumstance-association-evidence/a5-stage5-what-the-filer-paid.md):** the filer's ordinary statement of their own amount, or explicitly unresolved; a deemed payment where the other payer was not on the loan. The reported amount stands only in the ordinary case, on a default basis. No consumer in this milestone, and the questions are not posed |
 
 Reliance under a standing authorization is owner context, not an adopted rule.
 It is brought back only if a concrete case would change what the producer

@@ -328,13 +328,14 @@ deferral does not read as something else.
 | --- | --- |
 | **Circumstances represented** | Use of proceeds and whose education (filer-as-student), keyed on the borrowing; attendance keyed on period and institution; enrolment and course load keyed on period, institution and programme; and, joining them, a financing claim — what the money paid for, in ordinary terms — keyed on the borrowing together with a schooling situation. Who lent and the employer-plan circumstance are representable by the borrowing-keyed shape |
 | **What the bounded consumer evaluates** | The schooling path only: whether a supported, enumerated adverse schooling circumstance defeats a constituent, and what that does to the interest on a statement |
-| **Deferred** | Both § 221(e)(1) double-benefit conditions; the related-person and employer-plan constituents; legal obligation, whose key stage 3 selects but which nothing here consumes; origination dating for whose-education; a student other than the filer |
+| **Deferred** | Both § 221(e)(1) double-benefit conditions; the related-person and employer-plan constituents; legal obligation, whose key stage 3 selects but which nothing here consumes; what the filer paid, which stage 5 specifies and nothing here consumes; origination dating for whose-education; a student other than the filer |
 | **What the output does *not* establish** | That any deferred condition is **satisfied**. The consumer does not evaluate them, and not evaluating a condition is not a finding that it holds |
 
 **That last row is the one that matters.** A figure this consumer publishes has not been
 checked against employer-paid interest, against qualified-tuition-programme earnings, against
-the related-person exclusion, against the employer-plan exclusion, or against legal obligation
-on any particular loan. Absence of
+the related-person exclusion, against the employer-plan exclusion, against legal obligation
+on any particular loan, or against whether anyone other than the filer paid the reported
+interest. Absence of
 implementation must never read as a determination — which is the same discipline A0 applies to
 a default-supported value, and the same reason the responsibility category exists.
 
