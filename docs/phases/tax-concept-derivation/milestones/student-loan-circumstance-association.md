@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "TRACK 1 OPEN. A0-A3 done; A4 pass 1 done; A5 stages 1-3 and 5 selected, stage 4's scope claims and the owner's case-2 display choice recorded, its responsibility representation a provisional candidate. A4 pass 2 probe P1 found one conclusion per key of a single subject untestable without production change; the owner chose to build the mechanism (G2a passed). Track 1 builds a generic per-subject dispatch whose acceptance tests are P1's questions. P2-P4 then run against it; G2 (producer) not reached.",
+  "status": "TRACK 1 COMPLETE. A5 stages 1-3 and 5 selected; stage 4's scope claims and the owner's case-2 display choice recorded, its responsibility representation a provisional candidate. A4 pass 2: P1 found per-key publication untestable without production change; the owner chose to build it; Track 1 built a per-subject dispatch that now runs P1's questions. Its joins are single-hop (a statement cannot yet reach a circumstance through a financing claim), and its favourable result comes from a per-subject declared default because the evaluator reads 'none' only over a closed set, which asks A5 to revisit stage 3. Next: probe P2 (correction reach) against it. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1180,6 +1180,12 @@ per key; the owner chose to build the mechanism as a bounded track (G2a). Its ac
 are P1's questions; it adds no consumer, no content and no schema. Charter:
 [`charter-track1-per-subject-dispatch.md`](student-loan-circumstance-association-evidence/charter-track1-per-subject-dispatch.md).
 P2–P4 then run against it, and G2 is assessed on those.
+
+**Track 1 is complete.** The mechanism runs P1's questions and is committed with its tests. Two
+results bound what follows: its joins are **single-hop**, so a statement cannot yet reach a
+circumstance through a financing claim; and the favourable per-key result comes from a
+**declared default** because the evaluator reads "none" only over a closed set — which asks A5 to
+revisit stage 3's selection after P2–P4. See [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md), "Track 1".
 
 ## A5 in detail — choosing how to represent it
 

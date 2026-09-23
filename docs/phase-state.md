@@ -5,9 +5,9 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-1",
-  "status": "TRACK 1 OPEN. A0-A3 done; A4 pass 1 done; A5 stages 1-3 and 5 selected, stage 4's scope claims and the owner's case-2 display choice recorded, its responsibility representation a provisional candidate. A4 pass 2 probe P1 found one conclusion per key of a single subject untestable without production change; the owner chose to build the mechanism (G2a passed). Track 1 builds a generic per-subject dispatch whose acceptance tests are P1's questions. P2-P4 then run against it; G2 (producer) not reached.",
-  "current_role": "Track 1 Builder (per-subject dispatch)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track1-per-subject-dispatch.md"
+  "status": "TRACK 1 COMPLETE. A5 stages 1-3 and 5 selected; stage 4's scope claims and the owner's case-2 display choice recorded, its responsibility representation a provisional candidate. A4 pass 2: P1 found per-key publication untestable without production change; the owner chose to build it; Track 1 built a per-subject dispatch that now runs P1's questions. Its joins are single-hop (a statement cannot yet reach a circumstance through a financing claim), and its favourable result comes from a per-subject declared default because the evaluator reads 'none' only over a closed set, which asks A5 to revisit stage 3. Next: probe P2 (correction reach) against it. G2 (producer) not reached.",
+  "current_role": "Foreman (A4 second pass: charter probe P2 against Track 1's dispatch)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A4's second pass — the probes, in order"
 }
 -->
 
@@ -28,9 +28,9 @@ keeps its subjects distinct, and lets a consumer use recovered current support.
 time; its state table says how far each has got. A4's second pass found that the
 engine cannot publish one conclusion per key of a single subject without a
 production change, and the owner chose to build that mechanism as a bounded
-track. Track 1's builder charter is the current prompt; its acceptance tests are
-the probe's own questions. The remaining probes run against it before any
-producer is considered.
+track. Track 1 has built it and passes the probe's own questions; its joins are
+single-hop. The remaining probes run against it before any producer is
+considered.
 
 ## Begin here
 

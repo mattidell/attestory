@@ -1881,6 +1881,73 @@ class _Run:
         self.resolved.add(rule_id)
         return result
 
+    def evaluate_subject_scoped_rule(
+        self,
+        *,
+        subject_type: str,
+        rule: dict[str, Any],
+    ) -> Any:
+        """Evaluate one declared rule once per collected subject.
+
+        Calling code invokes this. Nothing in the rule content selects it.
+        Each subject records one published finding, one inapplicable row, or
+        one blocked row, and one subject's outcome does not bind another
+        subject's findings.
+        """
+        from packages.derivation.subject_dispatch import (
+            evaluate_subject_scoped_rule as dispatch,
+        )
+
+        result = dispatch(
+            sources=self.live_sources,
+            subject_type=subject_type,
+            rule=rule,
+            run=self,
+        )
+        rule_id = str(rule["id"])
+        for finding in result.publications:
+            self._record_derived_publication(finding, rule_id=rule_id)
+            self._append_live_source_from_finding(finding)
+        for inapplicable_outcome in result.inapplicable:
+            ledger_pins = [
+                pin for pin in inapplicable_outcome.pins
+                if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES
+            ]
+            inapplicable_row: dict[str, Any] = {
+                "artifact_id": rule_id,
+                "disposition": "inapplicable",
+                "guard_result": False,
+                "pins": ledger_pins,
+            }
+            if self.use_v2:
+                inapplicable_row["symbol"] = inapplicable_outcome.symbol
+            self.dispositions.append(inapplicable_row)
+        for blocked_outcome in result.blocked:
+            self.blocked.append({
+                "artifact_id": rule_id,
+                "code": blocked_outcome.code,
+                "missing": list(blocked_outcome.missing),
+                "subject_fact_id": blocked_outcome.subject_fact_id,
+            })
+            ledger_pins = [
+                pin for pin in blocked_outcome.pins
+                if pin["role"] not in _LEDGER_EXCLUDED_PIN_ROLES
+            ]
+            blocked_row: dict[str, Any] = {
+                "artifact_id": rule_id,
+                "disposition": "blocked",
+                "pins": ledger_pins,
+            }
+            if self.use_v2:
+                blocked_row["code"] = (
+                    blocked_outcome.code if blocked_outcome.code in RECORD_CODES else "DEPENDENCY_INVALID"
+                )
+                blocked_row["missing"] = list(blocked_outcome.missing)
+                blocked_row["symbol"] = blocked_outcome.symbol
+            self.dispositions.append(blocked_row)
+        self.resolved.add(rule_id)
+        return result
+
     def _try_pairing_scoped(self, rule: dict[str, Any]) -> str | None:
         """Dispatch a pairing-scoped adopted rule, or ``None`` if not one.
 

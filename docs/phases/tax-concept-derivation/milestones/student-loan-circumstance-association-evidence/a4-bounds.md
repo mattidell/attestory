@@ -104,7 +104,7 @@ G2's to see rather than A4 pass 1's to have covered:
 | One corrected circumstance reaching every statement its reference bears on | D8 — a consumer follows the current finding at a `fact_id` after a correction there | D8's test corrects one nominee report and checks the current finding is used. It exercises no shared subject across several statements |
 | A partial reduction of a statement — a reduced figure once a portion is determined | D5 — an adverse answer produces a determined zero on disposable artifacts | A whole-statement zero is not a partial reduction. The arithmetic and the disposition both differ |
 | A revealing consumer recovering an intermediate conclusion's identity **and meaning** at the reader, and stating a default-supported basis (A5 stage 3). Test cases: the nine-credit case; a financing claim identifying the period with no schooling circumstance, where the cited financing claim must not read as grounds for eligible student; and no financing claim at all, where A5 stage 4 attaches the default to the statement and the reader today sees the 1098-E and nothing about eligibility. In all three the conditions left to the filer apply (A0). In the first two the reader must recover, for each of the three conditions separately, its identity, its approved wording, the circumstance it concerns and the treatment it qualifies, distinguishable from ordinary rule citations — which A5 stage 4 found a citation-only representation cannot do on current artifacts. In the third, per the owner's choice (A5 stage 4), the three conditions are shown tied to the statement with school and programme explicitly unknown, in a contextual explanation behind a short default-basis note — never as a question, a required confirmation or a screen-wide warning — with each condition's identity, approved wording and treatment recoverable, and its circumstance shown as unknown rather than recovered | `explain()` over `LiveCoordinatorOutcome.publications` — in memory — returns the intermediate node with symbol, value and rule | Nothing durable holds values; `presentation.json` walks through intermediates and emits raw leaves as citations. An in-memory walk is not a reader, and the carrier is not chosen |
-| One categorical conclusion published **per key of a single subject** — **untestable without production change (second pass, P1)**; see below. — one per student-and-period, one per borrowing (A5 stage 3). The period key is supplied by a financing claim or a statement-grain scope claim; where neither exists, A5 stage 4 keys the conclusion on the **statement**, a third key kind this row now covers. The per-key publication must also **carry the rule's declared citations**, which the existing per-item paths do not do by default — they assemble their own pins without `pins_for`. Under A5 stage 4's provisional responsibility candidate — which this second pass executes and challenges — the same mechanism would also publish one responsibility finding per condition per situation | D6 and D16a — a categorical conclusion published in the same run as amounts; D1 and D13a — per-item publication under pairing dispatch | D6 publishes one conclusion per return. Pairing dispatch publishes one finding per **pairing**, a pair of pinned sides; a conclusion keyed on one subject is not a pairing |
+| One categorical conclusion published **per key of a single subject** — **untestable without production change at P1; built by Track 1 and now `run` for single-hop joins** (see below). — one per student-and-period, one per borrowing (A5 stage 3). The period key is supplied by a financing claim or a statement-grain scope claim; where neither exists, A5 stage 4 keys the conclusion on the **statement**, a third key kind this row now covers. The per-key publication must also **carry the rule's declared citations**, which the existing per-item paths do not do by default — they assemble their own pins without `pins_for`. Under A5 stage 4's provisional responsibility candidate — which this second pass executes and challenges — the same mechanism would also publish one responsibility finding per condition per situation | D6 and D16a — a categorical conclusion published in the same run as amounts; D1 and D13a — per-item publication under pairing dispatch | D6 publishes one conclusion per return. Pairing dispatch publishes one finding per **pairing**, a pair of pinned sides; a conclusion keyed on one subject is not a pairing |
 
 ## Second pass — P1 result: per-key publication is untestable without production change
 
@@ -136,6 +136,42 @@ callback copying a string, not the engine deriving a key.
 **Consequence for the rest of the pass.** P2, P3 and P4 each stand on P1. Against the selected
 shape, none can run until the per-subject dispatch exists. The owed row for per-key publication
 moves from *untested* to **untestable without production change**, with the cost above.
+
+## Track 1 — the per-subject dispatch, built
+
+`packages/derivation/subject_dispatch.py`, invoked through `_Run.evaluate_subject_scoped_rule`;
+tests `tests/derivation/test_subject_dispatch.py` (six). P1's questions now **run** on the
+mechanism itself, with no hand-built environment:
+
+| P1 question | Now |
+| --- | --- |
+| One conclusion per student-and-period, the adverse period `inapplicable`, independent of sort order | `run` — `StudentAndPeriod` (swapping the adverse period swaps the outcomes) |
+| One conclusion per statement, each pinning only its own box-1 finding | `run` — `StatementSubjects` |
+| Declared citations pinned, identical to `pins_for` | `run` — `StatementSubjects` |
+| One subject's block leaves another's publication byte-identical | `run` — `Isolation` |
+| Dispositions validate against `derivation-record.v9` and name their subject | `run` — `DurableRecord`, via the existing `symbol` field; no schema change |
+| A type unrelated to the subject is neither read nor pinned | `run` — `UnrelatedCollectedType`, added on review after a leak was found |
+
+**The join contract, and its limits — bounds on every later probe.**
+
+- Other collected types join to a subject by **agreeing values on shared key names**. That is
+  the whole of the association; there is no declared relation.
+- The join is **single-hop**. A statement reaches a schooling circumstance only through a
+  financing or scope claim, which is two hops — so a statement-level conclusion **cannot** yet
+  read a circumstance connected to it that way. P2 and P3 run into this directly.
+- A type sharing no key names with the subject is **not joined** (repaired on review; the
+  first build made it visible to every subject). Missing keys fail closed.
+
+**Accepted beyond the charter, with the reason recorded.** Where a required type has no joined
+source and the run declares an `optional_default` for it, that subject alone takes the default,
+pinned `origin: declared_default`. The charter did not ask for this, and A5 stage 3 had rejected
+disqualifiers-as-defaults. It is accepted because the evaluator reads "none" from an empty
+collection only over a **closed** source set (`collect` and `count` block with `BLOCK_CLOSURE`
+otherwise), so "no adverse circumstance among the facts present" cannot be computed without a
+completeness claim A3 does not require. A declared default is the engine-consistent form of A0's
+"the favourable value comes from the default" — and it carries the default basis per key, which
+stage 3 concluded could not be marked per key. **Stage 3's selection is to be revisited by A5**
+in light of this once P2–P4 have run; it is not reversed here.
 
 ## What A5 may not rely on without new execution
 
