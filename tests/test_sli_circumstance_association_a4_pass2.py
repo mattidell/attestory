@@ -28,9 +28,10 @@ from packages.derivation.pairing_dispatch import (
     PairingScopedResult,
     evaluate_pairing_scoped_rule,
 )
-from packages.derivation.runner import RunContext, RunResult, run
-from packages.kernel.currency import CurrencyView
-from packages.kernel.facts import fact_id_for
+from packages.derivation.runner import RunContext, RunResult, _Run, run
+from packages.kernel.currency import CurrencyView, compute_currency
+from packages.kernel.facts import KernelState, fact_id_for
+from packages.kernel.findings import FindingState
 
 FINANCING = "demo.tax.financing-claim"
 CIRCUMSTANCE = "demo.tax.schooling-circumstance"
@@ -627,6 +628,576 @@ class PairingDispatchIsNotASingleSubject(unittest.TestCase):
         autumn_fact = _financing_fact_id(PERIOD_AUTUMN)
         self.assertNotIn(autumn_fact, blocked.missing)
         self.assertNotIn(AUTUMN_FINDING, _input_ids(list(blocked.pins)))
+
+
+# --- P2. Enrolment keyed on the schooling situation, not on a borrowing. ---
+
+ENROLMENT = "demo.tax.enrolment-circumstance"
+STATEMENT_BORROWING = "demo.tax.statement-to-borrowing"
+P2_BORROWING_INST = "demo.borrowing.institutional"
+P2_BORROWING_PRIV = "demo.borrowing.private"
+P2_LENDER_SOUTH = "demo.lender.south"
+P2_INST_FINDING = "demo.finding.financing.institutional"
+P2_PRIV_FINDING = "demo.finding.financing.private"
+P2_ENROL_EARLIER = "demo.finding.enrolment.1-not-adverse"
+P2_ENROL_LATER = "demo.finding.enrolment.2-adverse"
+P2_BOX_NORTH = "demo.finding.box1.north"
+P2_BOX_SOUTH = "demo.finding.box1.south"
+P2_LINK_NORTH = "demo.finding.link.north"
+P2_LINK_SOUTH = "demo.finding.link.south"
+
+_WHEN_FINANCING_NOT_ADVERSE: dict[str, Any] = {
+    "op": "all",
+    "args": [
+        {
+            "op": "categorical_compare",
+            "left": {"op": "ref", "name": FINANCING},
+            "right": {
+                "op": "category_literal",
+                "fact_type": {"id": FINANCING, "version": "v1"},
+                "value": "tuition",
+            },
+            "cmp": "eq",
+        },
+        {
+            "op": "categorical_compare",
+            "left": {"op": "ref", "name": ENROLMENT},
+            "right": {
+                "op": "category_literal",
+                "fact_type": {"id": ENROLMENT, "version": "v1"},
+                "value": "not-adverse",
+            },
+            "cmp": "eq",
+        },
+    ],
+}
+
+_WHEN_STATEMENT_NOT_ADVERSE: dict[str, Any] = {
+    "op": "all",
+    "args": [
+        _WHEN_BOX1_PRESENT,
+        {
+            "op": "categorical_compare",
+            "left": {"op": "ref", "name": STATEMENT_BORROWING},
+            "right": {
+                "op": "category_literal",
+                "fact_type": {"id": STATEMENT_BORROWING, "version": "v1"},
+                "value": "reported",
+            },
+            "cmp": "eq",
+        },
+        {
+            "op": "categorical_compare",
+            "left": {"op": "ref", "name": ENROLMENT},
+            "right": {
+                "op": "category_literal",
+                "fact_type": {"id": ENROLMENT, "version": "v1"},
+                "value": "not-adverse",
+            },
+            "cmp": "eq",
+        },
+    ],
+}
+
+_WHEN_PUBLISHED_CONCLUSION: dict[str, Any] = {
+    "op": "categorical_compare",
+    "left": {"op": "ref", "name": CONCLUSION},
+    "right": {
+        "op": "category_literal",
+        "fact_type": {"id": CONCLUSION, "version": "v1"},
+        "value": FAVOURABLE,
+    },
+    "cmp": "eq",
+}
+
+
+def _p2_literal(
+    type_id: str, keys: tuple[tuple[str, tuple[str, ...]], ...]
+) -> dict[str, Any]:
+    return {
+        "id": type_id,
+        "nature": "record",
+        "identity_keys": [
+            {"name": name, "kind": "literal", "values": list(values)}
+            for name, values in keys
+        ],
+    }
+
+
+def _p2_financing_fact_id(borrowing: str) -> str:
+    return fact_id_for(
+        FINANCING,
+        (
+            ("borrowing", borrowing),
+            ("period", PERIOD_AUTUMN),
+            ("institution", INSTITUTION),
+            ("programme", PROGRAMME),
+        ),
+    )
+
+
+def _p2_enrolment_fact_id() -> str:
+    return fact_id_for(
+        ENROLMENT,
+        (
+            ("period", PERIOD_AUTUMN),
+            ("institution", INSTITUTION),
+            ("programme", PROGRAMME),
+        ),
+    )
+
+
+def _p2_box_fact_id(lender: str, statement: str) -> str:
+    return fact_id_for(
+        BOX1,
+        (("lender", lender), ("statement", statement), ("tax-year", YEAR)),
+    )
+
+
+def _p2_link_fact_id(lender: str, statement: str, borrowing: str) -> str:
+    return fact_id_for(
+        STATEMENT_BORROWING,
+        (
+            ("lender", lender),
+            ("statement", statement),
+            ("tax-year", YEAR),
+            ("borrowing", borrowing),
+        ),
+    )
+
+
+def _p2_lattice() -> dict[str, dict[str, Any]]:
+    borrowings = (P2_BORROWING_INST, P2_BORROWING_PRIV)
+    lenders = (LENDER, P2_LENDER_SOUTH)
+    statements = (STATEMENT_S1, STATEMENT_S2)
+    return {
+        FINANCING: _p2_literal(FINANCING, (
+            ("borrowing", borrowings),
+            ("period", (PERIOD_AUTUMN,)),
+            ("institution", (INSTITUTION,)),
+            ("programme", (PROGRAMME,)),
+        )),
+        ENROLMENT: _p2_literal(ENROLMENT, (
+            ("period", (PERIOD_AUTUMN,)),
+            ("institution", (INSTITUTION,)),
+            ("programme", (PROGRAMME,)),
+        )),
+        BOX1: _p2_literal(BOX1, (
+            ("lender", lenders),
+            ("statement", statements),
+            ("tax-year", (YEAR,)),
+        )),
+        STATEMENT_BORROWING: _p2_literal(STATEMENT_BORROWING, (
+            ("lender", lenders),
+            ("statement", statements),
+            ("tax-year", (YEAR,)),
+            ("borrowing", borrowings),
+        )),
+    }
+
+
+def _p2_fact_types() -> list[dict[str, Any]]:
+    return [
+        {"id": FINANCING, "version": "v1", "value_schema": {"enum": ["tuition"]}},
+        {
+            "id": ENROLMENT,
+            "version": "v1",
+            "value_schema": {"enum": ["adverse", "not-adverse"]},
+        },
+        {
+            "id": STATEMENT_BORROWING,
+            "version": "v1",
+            "value_schema": {"enum": ["reported"]},
+        },
+        {
+            "id": CONCLUSION,
+            "version": "v1",
+            "value_schema": {"enum": [FAVOURABLE]},
+        },
+    ]
+
+
+def _p2_findings(*, corrected: bool, statements: bool) -> dict[str, dict[str, Any]]:
+    # compute_currency walks findings in record order. The earlier enrolment
+    # answer has to be inserted before the later one or it is not a correction.
+    enrol_fact = _p2_enrolment_fact_id()
+    findings = {
+        P2_INST_FINDING: _finding(
+            P2_INST_FINDING, _p2_financing_fact_id(P2_BORROWING_INST), "tuition"
+        ),
+        P2_PRIV_FINDING: _finding(
+            P2_PRIV_FINDING, _p2_financing_fact_id(P2_BORROWING_PRIV), "tuition"
+        ),
+        P2_ENROL_EARLIER: _finding(P2_ENROL_EARLIER, enrol_fact, "not-adverse"),
+    }
+    if corrected:
+        findings[P2_ENROL_LATER] = _finding(P2_ENROL_LATER, enrol_fact, "adverse")
+    if statements:
+        findings[P2_BOX_NORTH] = _finding(
+            P2_BOX_NORTH, _p2_box_fact_id(LENDER, STATEMENT_S1), 1500
+        )
+        findings[P2_BOX_SOUTH] = _finding(
+            P2_BOX_SOUTH, _p2_box_fact_id(P2_LENDER_SOUTH, STATEMENT_S2), 800
+        )
+        findings[P2_LINK_NORTH] = _finding(
+            P2_LINK_NORTH,
+            _p2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST),
+            "reported",
+        )
+        findings[P2_LINK_SOUTH] = _finding(
+            P2_LINK_SOUTH,
+            _p2_link_fact_id(P2_LENDER_SOUTH, STATEMENT_S2, P2_BORROWING_PRIV),
+            "reported",
+        )
+    return findings
+
+
+def _p2_execute(
+    findings: dict[str, dict[str, Any]],
+    rules: list[dict[str, Any]],
+    *,
+    collect: list[str],
+) -> tuple[FindingState, CurrencyView, RunContext, _Run]:
+    state = FindingState(
+        findings=dict(findings),
+        fact_state=KernelState(fact_types=_p2_lattice()),
+    )
+    currency = compute_currency(state)
+    ctx = marshal_run_context(
+        run_id="demo.sli-a4-pass2-p2",
+        state=state,
+        currency=currency,
+        rules=rules,
+        parameters={},
+        canon={},
+        adoption_pin=ADOPTION_PIN,
+        governance_pins=GOVERNANCE_PINS,
+        fact_types=_p2_fact_types(),
+        collect_source_names=collect,
+    )
+    return state, currency, ctx, _Run(ctx, SCHEMAS)
+
+
+def _p2_symbol(fact_id: str) -> str:
+    return f"{CONCLUSION}|{fact_id}"
+
+
+def _p2_row(run: _Run, fact_id: str) -> dict[str, Any]:
+    symbol = _p2_symbol(fact_id)
+    rows = [row for row in run.dispositions if row.get("symbol") == symbol]
+    if len(rows) != 1:
+        raise AssertionError(f"{symbol}: {run.dispositions!r}")
+    return rows[0]
+
+
+def _p2_published(run: _Run, fact_id: str) -> dict[str, Any]:
+    symbol = _p2_symbol(fact_id)
+    matches = [pub.finding for pub in run.publications if pub.finding["symbol"] == symbol]
+    if len(matches) != 1:
+        raise AssertionError(f"{symbol}: {[pub.finding['symbol'] for pub in run.publications]!r}")
+    return matches[0]
+
+
+def _p2_key_names(sources: list[Any], name: str) -> set[str]:
+    names: set[str] = set()
+    seen = False
+    for source in sources:
+        if source.name != name:
+            continue
+        seen = True
+        keys = source.keys
+        if keys is None:
+            raise AssertionError(f"{name} source {source.finding_id} has no keys")
+        names.update(key for key, _value in keys)
+    if not seen:
+        raise AssertionError(f"no {name} source")
+    return names
+
+
+class CorrectedEnrolmentReachesBothBorrowings(unittest.TestCase):
+    """Two borrowings, one autumn enrolment. A later finding corrects it.
+
+    Financing subjects are keyed borrowing + period + institution + programme.
+    The enrolment is keyed period + institution + programme. Currency, not the
+    test, decides which enrolment finding is current.
+    """
+
+    def setUp(self) -> None:
+        self.inst_fact = _p2_financing_fact_id(P2_BORROWING_INST)
+        self.priv_fact = _p2_financing_fact_id(P2_BORROWING_PRIV)
+        self.enrol_fact = _p2_enrolment_fact_id()
+        self.rule = _rule(requires=[FINANCING, ENROLMENT], when=_WHEN_FINANCING_NOT_ADVERSE)
+        self.assertLess(P2_ENROL_EARLIER, P2_ENROL_LATER)
+        self.assertNotEqual(self.inst_fact, self.priv_fact)
+        self.assertNotIn("borrowing=", self.enrol_fact)
+        self.assertIn(f"period={PERIOD_AUTUMN}", self.enrol_fact)
+        self.assertIn(f"institution={INSTITUTION}", self.enrol_fact)
+        self.assertIn(f"programme={PROGRAMME}", self.enrol_fact)
+
+    def _run(self, *, corrected: bool) -> tuple[FindingState, CurrencyView, RunContext, _Run]:
+        findings = _p2_findings(corrected=corrected, statements=False)
+        state, currency, ctx, run = _p2_execute(
+            findings,
+            [self.rule],
+            collect=[FINANCING, ENROLMENT],
+        )
+        run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=self.rule)
+        return state, currency, ctx, run
+
+    def test_both_borrowings_follow_the_corrected_enrolment(self) -> None:
+        """Run 1 publishes both subjects off the favourable finding.
+
+        Run 2 is a fresh marshal over the same record plus a later adverse
+        finding for that same enrolment fact. Both subjects become
+        inapplicable and pin the later finding. The earlier finding is still
+        in the record and in neither pin set.
+        """
+        first_state, first_currency, first_ctx, first_run = self._run(corrected=False)
+        self.assertNotIn(P2_ENROL_LATER, first_state.findings)
+        self.assertEqual(first_currency.displaced_finding_ids, frozenset())
+        self.assertEqual(
+            first_currency.current_finding_ids,
+            frozenset({P2_INST_FINDING, P2_PRIV_FINDING, P2_ENROL_EARLIER}),
+        )
+        self.assertEqual(
+            _p2_key_names(first_ctx.sources, FINANCING) & _p2_key_names(first_ctx.sources, ENROLMENT),
+            {"period", "institution", "programme"},
+        )
+        self.assertEqual(first_run.blocked, [])
+        self.assertEqual(
+            {source.finding_id for source in first_ctx.sources if source.name == ENROLMENT},
+            {P2_ENROL_EARLIER},
+        )
+        for fact_id, finding_id in (
+            (self.inst_fact, P2_INST_FINDING),
+            (self.priv_fact, P2_PRIV_FINDING),
+        ):
+            with self.subTest(run=1, borrowing=fact_id):
+                row = _p2_row(first_run, fact_id)
+                published = _p2_published(first_run, fact_id)
+                self.assertEqual(row["disposition"], "published")
+                self.assertEqual(published["value"], FAVOURABLE)
+                self.assertEqual(
+                    _input_ids(_pins(published)),
+                    {finding_id, P2_ENROL_EARLIER},
+                )
+                self.assertNotIn(P2_ENROL_LATER, _input_ids(_pins(published)))
+                self.assertNotIn(P2_ENROL_LATER, _input_ids(_pins(row)))
+
+        second_state, second_currency, second_ctx, second_run = self._run(corrected=True)
+        self.assertIn(P2_ENROL_EARLIER, second_state.findings)
+        self.assertIn(P2_ENROL_LATER, second_state.findings)
+        self.assertEqual(second_currency.displaced_finding_ids, frozenset({P2_ENROL_EARLIER}))
+        self.assertEqual(
+            second_currency.current_finding_ids,
+            frozenset({P2_INST_FINDING, P2_PRIV_FINDING, P2_ENROL_LATER}),
+        )
+        self.assertEqual(
+            [(reason.kind, reason.by) for reason in second_currency.reasons[P2_ENROL_EARLIER]],
+            [("correction", P2_ENROL_LATER)],
+        )
+        self.assertEqual(
+            {source.finding_id for source in second_ctx.sources if source.name == ENROLMENT},
+            {P2_ENROL_LATER},
+        )
+        self.assertNotIn(
+            P2_ENROL_EARLIER,
+            {source.finding_id for source in second_ctx.sources},
+        )
+        self.assertEqual(second_run.blocked, [])
+        self.assertEqual(len(second_run.publications), 0)
+        for fact_id, finding_id in (
+            (self.inst_fact, P2_INST_FINDING),
+            (self.priv_fact, P2_PRIV_FINDING),
+        ):
+            with self.subTest(run=2, borrowing=fact_id):
+                row = _p2_row(second_run, fact_id)
+                self.assertEqual(row["disposition"], "inapplicable")
+                self.assertIs(row["guard_result"], False)
+                self.assertNotIn("finding_id", row)
+                self.assertEqual(row["symbol"], _p2_symbol(fact_id))
+                self.assertEqual(
+                    _input_ids(_pins(row)),
+                    {finding_id, P2_ENROL_LATER},
+                )
+                self.assertNotIn(P2_ENROL_EARLIER, _input_ids(_pins(row)))
+                other = self.priv_fact if fact_id == self.inst_fact else self.inst_fact
+                self.assertNotIn(other, row["symbol"])
+
+
+class StatementSubjectDoesNotReachCorrectedEnrolment(unittest.TestCase):
+    """A statement subject, a statement-to-borrowing claim, then re-derivation.
+
+    The claim is keyed on the statement's keys plus borrowing. The enrolment
+    correction is the same record as Part A. This class records what the
+    statement rule actually pins.
+    """
+
+    def setUp(self) -> None:
+        self.inst_fact = _p2_financing_fact_id(P2_BORROWING_INST)
+        self.priv_fact = _p2_financing_fact_id(P2_BORROWING_PRIV)
+        self.north_fact = _p2_box_fact_id(LENDER, STATEMENT_S1)
+        self.south_fact = _p2_box_fact_id(P2_LENDER_SOUTH, STATEMENT_S2)
+        self.financing_rule = _rule(
+            requires=[FINANCING, ENROLMENT], when=_WHEN_FINANCING_NOT_ADVERSE
+        )
+        self.link_rule = _rule(
+            requires=[BOX1, STATEMENT_BORROWING, ENROLMENT],
+            when=_WHEN_STATEMENT_NOT_ADVERSE,
+        )
+        self.conclusion_rule = _rule(
+            requires=[BOX1, CONCLUSION], when=_WHEN_PUBLISHED_CONCLUSION
+        )
+        self.collect = [FINANCING, ENROLMENT, BOX1, STATEMENT_BORROWING]
+
+    def _open(self, *, corrected: bool) -> tuple[CurrencyView, RunContext, _Run]:
+        _state, currency, ctx, run = _p2_execute(
+            _p2_findings(corrected=corrected, statements=True),
+            [self.financing_rule, self.link_rule, self.conclusion_rule],
+            collect=self.collect,
+        )
+        return currency, ctx, run
+
+    def test_statement_does_not_join_enrolment_through_the_borrowing_claim(self) -> None:
+        """The claim joins. The enrolment does not. Correction does not change that.
+
+        Both statement rows block ``DEPENDENCY_ABSENT`` for the enrolment on
+        the favourable record and again after the correction. Each pins its
+        own box-1 finding and its own statement-to-borrowing finding. Neither
+        pins either enrolment finding, though the corrected finding is current
+        and is what both financing subjects pin.
+        """
+        favourable_currency, favourable_ctx, favourable = self._open(corrected=False)
+        favourable.evaluate_subject_scoped_rule(
+            subject_type=FINANCING, rule=self.financing_rule
+        )
+        favourable.evaluate_subject_scoped_rule(subject_type=BOX1, rule=self.link_rule)
+
+        corrected_currency, corrected_ctx, corrected = self._open(corrected=True)
+        corrected.evaluate_subject_scoped_rule(
+            subject_type=FINANCING, rule=self.financing_rule
+        )
+        corrected.evaluate_subject_scoped_rule(subject_type=BOX1, rule=self.link_rule)
+
+        self.assertEqual(
+            corrected_currency.displaced_finding_ids, frozenset({P2_ENROL_EARLIER})
+        )
+        self.assertIn(P2_ENROL_LATER, corrected_currency.current_finding_ids)
+        self.assertEqual(
+            {source.finding_id for source in corrected_ctx.sources if source.name == ENROLMENT},
+            {P2_ENROL_LATER},
+        )
+        for fact_id, finding_id in (
+            (self.inst_fact, P2_INST_FINDING),
+            (self.priv_fact, P2_PRIV_FINDING),
+        ):
+            financing_row = _p2_row(corrected, fact_id)
+            self.assertEqual(financing_row["disposition"], "inapplicable")
+            self.assertEqual(
+                _input_ids(_pins(financing_row)),
+                {finding_id, P2_ENROL_LATER},
+            )
+
+        statement_keys = _p2_key_names(corrected_ctx.sources, BOX1)
+        self.assertEqual(statement_keys, {"lender", "statement", "tax-year"})
+        self.assertEqual(
+            statement_keys & _p2_key_names(corrected_ctx.sources, ENROLMENT),
+            set(),
+        )
+        self.assertEqual(
+            statement_keys & _p2_key_names(corrected_ctx.sources, FINANCING),
+            set(),
+        )
+        self.assertEqual(
+            statement_keys & _p2_key_names(corrected_ctx.sources, STATEMENT_BORROWING),
+            {"lender", "statement", "tax-year"},
+        )
+        self.assertEqual(favourable_currency.displaced_finding_ids, frozenset())
+
+        for fact_id, box_finding, link_finding in (
+            (self.north_fact, P2_BOX_NORTH, P2_LINK_NORTH),
+            (self.south_fact, P2_BOX_SOUTH, P2_LINK_SOUTH),
+        ):
+            with self.subTest(statement=fact_id):
+                before = _p2_row(favourable, fact_id)
+                after = _p2_row(corrected, fact_id)
+                self.assertEqual(before["disposition"], "blocked")
+                self.assertEqual(before["code"], "DEPENDENCY_ABSENT")
+                self.assertEqual(before["missing"], [ENROLMENT])
+                self.assertEqual(after["disposition"], before["disposition"])
+                self.assertEqual(after["code"], before["code"])
+                self.assertEqual(after["missing"], before["missing"])
+                self.assertEqual(
+                    _input_ids(_pins(before)),
+                    {box_finding, link_finding},
+                )
+                self.assertEqual(_input_ids(_pins(after)), _input_ids(_pins(before)))
+                for enrolment_finding in (P2_ENROL_EARLIER, P2_ENROL_LATER):
+                    self.assertNotIn(enrolment_finding, _input_ids(_pins(after)))
+                    self.assertNotIn(enrolment_finding, _input_ids(_pins(before)))
+                self.assertNotIn(P2_INST_FINDING, _input_ids(_pins(after)))
+                self.assertNotIn(P2_PRIV_FINDING, _input_ids(_pins(after)))
+
+    def test_published_financing_conclusion_is_not_a_keyed_source(self) -> None:
+        """Same-run financing conclusions are live sources with no keys.
+
+        Requiring that published name fail-closes. It does not join, and it
+        does not pin the enrolment. After the correction nothing is published,
+        so the same require is absent instead. Still not the enrolment finding.
+        """
+        _favourable_currency, _favourable_ctx, favourable = self._open(corrected=False)
+        favourable.evaluate_subject_scoped_rule(
+            subject_type=FINANCING, rule=self.financing_rule
+        )
+        published_sources = [
+            source for source in favourable.live_sources if source.name == CONCLUSION
+        ]
+        self.assertEqual(
+            {source.fact_id for source in published_sources},
+            {self.inst_fact, self.priv_fact},
+        )
+        self.assertTrue(all(source.keys is None for source in published_sources))
+        self.assertIn(_p2_symbol(self.inst_fact), favourable.symbols)
+        self.assertNotIn(
+            _p2_symbol(self.inst_fact),
+            {source.name for source in favourable.live_sources},
+        )
+        favourable.evaluate_subject_scoped_rule(subject_type=BOX1, rule=self.conclusion_rule)
+
+        _corrected_currency, _corrected_ctx, corrected = self._open(corrected=True)
+        corrected.evaluate_subject_scoped_rule(
+            subject_type=FINANCING, rule=self.financing_rule
+        )
+        self.assertEqual(
+            [source for source in corrected.live_sources if source.name == CONCLUSION],
+            [],
+        )
+        for fact_id in (self.inst_fact, self.priv_fact):
+            self.assertEqual(_p2_row(corrected, fact_id)["disposition"], "inapplicable")
+            self.assertIn(P2_ENROL_LATER, _input_ids(_pins(_p2_row(corrected, fact_id))))
+        corrected.evaluate_subject_scoped_rule(subject_type=BOX1, rule=self.conclusion_rule)
+
+        for fact_id, box_finding in (
+            (self.north_fact, P2_BOX_NORTH),
+            (self.south_fact, P2_BOX_SOUTH),
+        ):
+            with self.subTest(statement=fact_id):
+                before = _p2_row(favourable, fact_id)
+                after = _p2_row(corrected, fact_id)
+                self.assertEqual(before["disposition"], "blocked")
+                self.assertEqual(before["code"], "DEPENDENCY_INVALID")
+                self.assertEqual(before["missing"], [CONCLUSION])
+                self.assertEqual(_input_ids(_pins(before)), {box_finding})
+                self.assertEqual(after["disposition"], "blocked")
+                self.assertEqual(after["code"], "DEPENDENCY_ABSENT")
+                self.assertEqual(after["missing"], [CONCLUSION])
+                self.assertEqual(_input_ids(_pins(after)), {box_finding})
+                for enrolment_finding in (P2_ENROL_EARLIER, P2_ENROL_LATER):
+                    self.assertNotIn(enrolment_finding, _input_ids(_pins(before)))
+                    self.assertNotIn(enrolment_finding, _input_ids(_pins(after)))
+                self.assertNotIn(self.inst_fact, before["symbol"])
+                self.assertNotEqual(before["disposition"], "inapplicable")
+                self.assertNotEqual(after["disposition"], "inapplicable")
 
 
 if __name__ == "__main__":

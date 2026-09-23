@@ -5,8 +5,8 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-1",
-  "status": "TRACK 1 COMPLETE. A5 stages 1-3 and 5 selected; stage 4's scope claims and the owner's case-2 display choice recorded, its responsibility representation a provisional candidate. A4 pass 2: P1 found per-key publication untestable without production change; the owner chose to build it; Track 1 built a per-subject dispatch that now runs P1's questions. Its joins are single-hop (a statement cannot yet reach a circumstance through a financing claim), and its favourable result comes from a per-subject declared default because the evaluator reads 'none' only over a closed set, which asks A5 to revisit stage 3. Next: probe P2 (correction reach) against it. G2 (producer) not reached.",
-  "current_role": "Foreman (A4 second pass: charter probe P2 against Track 1's dispatch)",
+  "status": "A4 PASS 2 AT P2. Track 1's per-subject dispatch is built. P2: a corrected circumstance reaches every borrowing that depends on it (run), but not any Form 1098-E statement -- the path is four records long and Track 1's joins are single-hop, and same-run publications carry no keys. Statement reach needs keyed publications or multi-hop joins; owner decision pending. P3 and P4 need statement reach. G2 (producer) not reached.",
+  "current_role": "Foreman (A4 second pass: owner decision on statement reach before P3)",
   "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A4's second pass — the probes, in order"
 }
 -->

@@ -173,6 +173,35 @@ completeness claim A3 does not require. A declared default is the engine-consist
 stage 3 concluded could not be marked per key. **Stage 3's selection is to be revisited by A5**
 in light of this once P2–P4 have run; it is not reversed here.
 
+## Second pass — P2 result: correction reaches every borrowing, not yet any statement
+
+Probe classes appended to `tests/test_sli_circumstance_association_a4_pass2.py`, run on Track 1's
+dispatch through real kernel currency (`compute_currency` over a `FindingState` in correction
+order; marshal drops the displaced finding itself).
+
+| Part | Result | What ran |
+| --- | --- | --- |
+| **A** — two borrowings over one schooling situation share one enrolment circumstance; the circumstance is corrected | **`run`** — `CorrectedEnrolmentReachesBothBorrowings` | Run 1: both financing subjects publish, pinning the favourable finding. A later finding for the same fact displaces it (reason `correction`). Run 2: **both** subjects become `inapplicable`, each pinning the corrected finding and neither the displaced one |
+| **B** — the same correction reaching a Form 1098-E statement | **untestable-without-production** — `StatementSubjectDoesNotReachCorrectedEnrolment` | A statement shares no key names with the enrolment or the financing claim; a statement-to-borrowing claim joins it in one hop and still does not carry the enrolment. Both statements block `DEPENDENCY_ABSENT` before and after the correction, pinning neither enrolment finding. A financing conclusion published earlier in the run is appended as a live source with **no keys** (`runner._append_live_source`, deliberately: same-run publications carry no structured identity), so a statement rule requiring it fails closed |
+
+**So `a4-bounds.md`'s first owed row splits.** One corrected circumstance reaching every result
+that depends on it is **`run` at the borrowing grain** and **untestable without production
+change at the statement grain**, which is where the figure is.
+
+**What the statement grain needs.** The path is four records long — statement →
+statement-to-borrowing claim → financing claim → circumstance — and Track 1's joins are single-hop.
+Two ways through, neither built:
+
+- **Keyed publications.** A per-subject publication carries its **subject's** structured keys,
+  taken from the subject `SourceFact` at dispatch time rather than parsed from the symbol — which
+  keeps the runner's refusal to parse rendered ids intact. Chains of single-hop per-subject rules
+  then compose: financing conclusions join a per-link rule on `borrowing`, and link conclusions
+  join a per-statement rule on the statement's keys. Each hop is its own pinned finding. Cost:
+  small — the dispatch passes its subject's keys, and `_append_live_source` accepts them from
+  this caller only.
+- **Multi-hop joins.** `_scope` walks a declared path of types in one evaluation. No intermediate
+  findings; a larger change to the join contract.
+
 ## What A5 may not rely on without new execution
 
 D7, D9, D10, D11, D12, D14 and D16b. In particular, a shape that depends on **an
