@@ -26,6 +26,10 @@ Traced, not assumed.
 | Derived from circumstances | A `derived-finding.v2` published by a rule. Its pins name the rule, its citations, every `ref` it read, and **every collected finding it read**; each input pin carries `origin` | The rule and everything it read | `read` — `runner.pins_for`, `dependency_pins_for_access` |
 | Default, through an `optional_default` binding | A `derived-finding.v2` with `resolved_input.origin: "declared_default"`, pinned to the default's parameter. Any rule reading it publishes with provenance `declared_default`, and pins to *that* finding carry `origin: "declared_default"` — **transitively** | `origin: "declared_default"` on every downstream input pin | `read` — `runner.py` binding setup, publication provenance, `_symbol_pin_entry` |
 
+**"Record" in this table means the in-memory publication**, `RunResult.publications`. What
+survives into the durable files and the reader is narrower, and is traced layer by layer under
+the selection below; nothing in this table should be read as a claim about what a reader sees.
+
 Two further facts matter below. `derived-finding.v2` has **no `basis` field** — `basis` exists
 only on kernel findings. And the per-item pairing path stamps every input pin
 `origin: "assertion"` unconditionally (`pairing_dispatch._input_pin`).
@@ -87,31 +91,92 @@ It is one more reason the rejected alternative below — every disqualifier an
 So the one mark the record has for default-supported cannot be produced for the value that
 most needs it.
 
-## Selected (provisional): a favourable value rests on a named conclusion
+## Selected for the derivation, not yet for the reader: a favourable value rests on a named conclusion
 
 **The favourable value pins a separate, named conclusion — *no enumerated adverse circumstance
 is supported for this subject* — and that conclusion is what pins the circumstances it
 examined.** An adverse value pins the adverse circumstance directly.
 
-Read in order, the record then says what happened:
+In the in-memory publications the chain then reads:
 
 > favourable eligible-student for the filer, autumn 2024
 > ← *no enumerated adverse schooling circumstance is supported for the filer, autumn 2024*
 > ← the circumstances examined, the nine-credit telling among them
 
-**What this changes, stated exactly.** The nine-credit finding is still pinned, still as an
-`assertion`-origin input — now an input to the absence conclusion rather than to the favourable
-value. There is no pin role meaning "examined, not grounds", and this selection does not need
-one: for a conclusion that nothing adverse is supported, everything examined **is** its grounds,
-so the pin is true. What is false in the obvious build is the nine-credit finding pinned
-directly as grounds for *eligible student*, and that is what the selection removes.
+**What this changes in the derivation, stated exactly.** The nine-credit finding is still
+pinned, still as an `assertion`-origin input — now an input to the absence conclusion rather than
+to the favourable value. For a conclusion that nothing adverse is supported, everything examined
+**is** its grounds, so that pin is true. What is false in the obvious build is the nine-credit
+finding pinned directly as grounds for *eligible student*, and that is what the selection
+removes.
 
-**The limit, which a reviewer found.** The distinction is carried by **what the pinned finding
-is** — its symbol — and not by anything on the pin, which carries an id, a version, a role and an
-origin. A reader who walks pins by origin alone sees an assertion two hops up and learns
-nothing. A6's revealing consumer must dereference the finding a favourable value rests on and
-report what it is. That is ordinary for a consumer whose job is to say why; it is stated so it is
-not assumed.
+**What it does not yet establish is that any reader sees it.** An earlier version of this
+section said the distinction is carried "for a reader who follows the pin to the finding". A pin
+carries an id, a version, a role and an origin; following it requires the finding behind the id
+to be available where the reader is. Traced below, it mostly is not.
+
+## Where the named conclusion reaches today — the live path, layer by layer
+
+Traced in `packages/derivation/live.py`, `production_executor.py`, `records.py`,
+`presentation_projection.py` and `explanation.py`, for one favourable, default-supported case:
+the filer gave a combined nine-credit total for autumn 2024, nothing adverse, and the bounded
+consumer's interest amount reads the eligible-student value.
+
+| Layer | What it holds | Can the reader recover the conclusion's identity? | Its meaning? |
+| --- | --- | --- | --- |
+| `RunResult.publications`, in memory | Every derived finding: symbol, value, pins with `origin`. Returned to the live caller as `LiveCoordinatorOutcome.publications` | **Yes** — the favourable finding pins the conclusion's id, and the conclusion's finding is in the same list | **Yes** — its symbol, its value, and its producing rule. `explain()` walks exactly this and returns the conclusion as an intermediate node. Nothing durable holds it, and `explain()`'s nodes do not carry `origin` |
+| Completed derivation record (`derivation-record.v9`) | `dispositions` only; under v2 the `published` list is not written (`records.closing_record`). Each published row: rule id, symbol, `finding_id`, `act_id`, and ledger pins — input pins keep `origin`. **No values** | **Yes, by join** — the favourable row's input pin names the conclusion's finding id, and the conclusion's own published row carries that `finding_id` with its symbol and rule | **Partly** — its symbol and the rule that produced it, not its value |
+| `out.json` | The same `dispositions`, plus run id, stop reason and authorization | Same as the record | Same as the record |
+| `presentation.json` | Built from publications and dispositions, but each field embeds **only its own top finding**. Its lineage walk (`_leaf_pins`) **recurses through every derived finding** to raw leaves, and the non-closure raw leaves become the field's citation sites | **No** — the conclusion is walked through and not emitted. Its id survives only inside the top finding's own pins, with nothing behind it in the file | **No** |
+| The reader — the citation-walk renderer | `presentation.json` | **No** | **No** |
+
+**Two consequences, and the second is worse than the defect stage 3 set out to fix.**
+
+1. **The mechanism reaches the in-memory publications fully, and the durable record and
+   `out.json` by identity only.** It does not reach `presentation.json` or the reader.
+2. **At the reader, the flattening re-creates the misattribution one layer out.** Because the
+   projector walks through derived findings to raw leaves, the nine-credit finding becomes a
+   **citation site of the deducted interest amount** — cited beside the 1098-E's box 1, with the
+   named conclusion that said *examined, not adverse* gone. The derivation is now honest and the
+   presentation of it is not. This holds whatever the favourable value pins, since every
+   intermediate is walked through; the named conclusion does not cause it and cannot cure it.
+
+**The no-schooling case**, the same trace with nothing said about schooling at all.
+
+- The named conclusion — if the owed per-key publication produces it with nothing to examine,
+  which is itself part of what G2 must see — is published with no schooling input pin — at most the financing claim
+  that established the period, and with no financing claim either, no input pin. What it says,
+  *no enumerated adverse circumstance is supported*, is true, and its empty input list is the
+  honest record that nothing was examined.
+- **The favourable value's input pin to it still reads `origin: "assertion"`.** Publication
+  provenance starts as `"assertion"` and changes only when an input pin is `declared_default`
+  (`runner.py`, publication provenance; `_symbol_pin_entry` falls back to `"assertion"`).
+  `"assertion"` therefore means **"not reached through a declared default"** — it is not
+  evidence that anyone asserted anything. A reader taking it at its word would attribute the
+  favourable status to an answer the filer never gave. **Origin must not be read as the filer's
+  telling**, and no consumer this milestone builds may present it as one.
+- At the reader, there is **nothing to misattribute and nothing said**: no schooling leaf exists
+  to become a citation, so the interest amount cites the 1098-E alone, and nothing reports that
+  eligibility was taken by default. The nine-credit case over-attributes; this one is silent.
+  Both fail A0's requirement that the record carry a default-supported basis to whoever reads
+  the figure.
+
+## The carrier is open, and it is A6's to demonstrate
+
+**Selected:** the named conclusion as the **shape of the derivation**, for the in-memory chain it
+makes true and the durable identity join it makes possible.
+
+**Not selected:** how the conclusion reaches the reader. Candidates, none chosen until one is
+tested:
+
+- project intermediate conclusions into the presentation model rather than walking through them;
+- persist the publications, or the conclusions among them, where a reader can reach them;
+- have the revealing consumer re-derive, or `explain()`, at read time from what is durable.
+
+**Owed to G2 and A6:** A6's revealing consumer recovering, at the reader, both the named
+conclusion's identity and its meaning for a favourable default-supported case — and, in the
+no-schooling case, stating that eligibility was taken by default rather than presenting nothing.
+Added to `a4-bounds.md`'s owed table.
 
 **The subject's key is the one stage 2 selected for the value**, so the conclusion is per
 subject rather than per statement: the student and the period for eligible-student; the
@@ -121,13 +186,15 @@ selection covers each constituent the bounded consumer evaluates, not only F6.
 
 **Why this is the smallest.**
 
-- **No schema change.** Both findings are ordinary derived findings. The distinction lives in
-  *what the favourable value pins and what that thing is* — which provenance already carries,
-  for a reader who follows the pin to the finding.
-- **It makes the pairing path's hard-coded origin correct rather than wrong.** The named
-  conclusion really is derived from assertions, so `origin: "assertion"` on a pin to it is true.
-  Carrying the default in `origin` instead would make that hard-coding a mislabel by
-  construction on any per-item path.
+- **No schema change to *derive* it.** Both findings are ordinary derived findings and the
+  distinction lives in what the favourable value pins. Whether **reaching the reader** needs a
+  change is open with the carrier: the presentation model is an internal, versioned shape rather
+  than a published schema, and the derivation record is a schema. Neither is ruled in or out
+  until A6's carrier is tested.
+- **It leaves the pairing path's hard-coded origin true.** `origin: "assertion"` means only
+  "not reached through a declared default", which is true of the named conclusion whether it
+  examined tellings or none. Carrying the default in `origin` instead would make that
+  hard-coding a mislabel by construction on any per-item path.
 
 **Alternatives, and why not.**
 
@@ -135,7 +202,7 @@ selection covers each constituent the bounded consumer evaluates, not only F6.
 | --- | --- |
 | Add a third `origin` value for "favourable because nothing adverse" | A schema and runner change to carry what a named conclusion already carries. `origin` is computed from a finding's inputs, not from which branch of a rule produced its value, so it would need new runner logic as well, and the pairing path would mislabel it |
 | Add a `basis` to derived findings | `basis` grades an assertion's grounds. Putting a derivation's quality there conflates the two layers A0 separates |
-| Leave it to presentation to infer from the value and the rule | A reader who sees a favourable value pinning the nine-credit finding cannot tell from the record whether that finding supported it. A0 requires the record to carry it, not a reader to reconstruct it |
+| Leave it to presentation to infer from the value and the rule | Presentation today does not see the intermediate at all — it walks through it — and a reader cannot infer from a value and a rule whether a telling supported it. A0 requires the record to carry it, not a reader to reconstruct it |
 | Make every disqualifier an `optional_default` fact defaulting to "not adverse" | Reintroduces the per-fact-type limit above, and substitutes a value for each unasked question — which is a claim about each one rather than the one true statement that nothing adverse was supported |
 
 **What the selection depends on that nothing demonstrates.** Publishing one categorical
@@ -239,4 +306,5 @@ row and G2's to see.
 | A return-wide default marked at source and transitively | `read` — runner. Five `optional_default` uses exist in the production package |
 | A categorical conclusion published in the same run as amounts | `run` — D6, D16a |
 | One categorical conclusion published per key of a single subject | **untested** — owed; see above |
+| The named conclusion's identity and meaning reaching the reader | **untested**, and traced as **not reached** by `presentation.json` today — owed to G2 and A6 |
 | A correction reaching every statement from one shared record | **untested** — owed, `a4-bounds.md` first row |

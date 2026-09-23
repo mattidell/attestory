@@ -416,7 +416,7 @@ something left unsettled is left implicit rather than named.
 | Gate | State | Waiting on |
 | --- | --- | --- |
 | G1 | **passed** at `41b77472` | Passed on its own conditions after failing twice: every fact on A0's list has a stated route, A1 — every stage and the approval set — poses only propositions A0 places, and A0 claims no coverage A1 does not provide. **What this is not:** evidence that any consumer works. None has been implemented |
-| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Three behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, and one categorical conclusion published per key of a single subject. A component or analogue having run is not the behaviour having run |
+| G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader. A component or analogue having run is not the behaviour having run |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
 Two rules apply to all three. **A gate is not passed because a later section
@@ -1209,8 +1209,12 @@ before the next.
    return-wide default, are already distinguishable in the record, so nothing is added for
    them; `basis` is the wrong place rather than an insufficient one, since derived findings do
    not carry it. The one case that fails is a favourable value over keyed circumstances, whose
-   pins would read as support from everything it examined; it now rests on a named conclusion
-   that nothing adverse is supported for its subject. Obligation is keyed on the borrowing, not
+   pins would read as support from everything it examined; its **derivation** now rests on a
+   named conclusion that nothing adverse is supported for its subject. That shape is honest in
+   the in-memory publications and joinable by identity in the durable record, but **does not
+   reach the reader**: the presentation projection walks through intermediates and cites the
+   raw circumstances, and `origin: "assertion"` appears even where nothing was said. The carrier
+   to the reader is left open and owed to G2 and A6. Obligation is keyed on the borrowing, not
    the tax year, and has no consumer in this milestone.
 4. **The responsibility applies-to relation.** Whether an existing citizen carries it or a
    new one is needed — open in both directions; what makes it apply, including whether that
