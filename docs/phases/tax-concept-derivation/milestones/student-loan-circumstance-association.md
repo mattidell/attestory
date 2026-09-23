@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "PLANNED, no track open. Replace the prior experiment's stipulated statement-to-loan-and-period relationship with a bounded recorded ordinary-fact path and a tested consumer. Organised as eight actions refined and reviewed one at a time; progress reads on two axes -- the state table for specificity, three readiness gates for readiness, the gate governing where they disagree. A0 is done including F9, the ordinary circumstances that contribute to the qualified-loan and eligible-student composites. A1, A2 and A3 have produced their answers and been repaired after review; A4's bounds are produced and repaired. G1 is PASSED at 41b77472, on its own conditions, after failing twice -- first because A1 posed what A0 never placed, then because A0 claimed coverage A1 does not provide and F6 still gave a favourable answer positive standing. A5's refinement is specified after two review rounds and its first stage -- whether a borrowing is identified and how an answer is stored -- is next. Load-bearing findings: routes are unranked and 'on the path' versus 'sits behind' is relative to a route; representing a fact does not make it mandatory, obligation coming from a named consumer's declaration; an aggregate Boolean does not erase member identity; the pairing-scope observation bounds one tested environment rather than the dispatcher. Owner decisions taken: eligible-student status is always present, never gating, disqualifier only; and institutional eligibility and credential recognition are represented as inspectable conditions the person is responsible for -- never established by a finding, solicited as an attestation, or consumed by a calculation. Outcomes are kept apart: an adverse determination can be supported; absence of one lets the calculation proceed; a favourable value is produced from the application's authorised default, on a default-supported basis its record must carry; and independent verification of every constituent is produced by nothing and is not required. A default-supported value is neither a user affirmation nor independent verification. Outstanding: the owner's approval of A1's wording, for which the approval set is ready, and whether the twelve other-Schedule-1-adjustment facts are in scope. No representation, mechanism or contract is selected, and no consumer has been implemented.",
+  "status": "TRACK 1 OPEN. A0-A3 done; A4 pass 1 done; A5 stages 1-3 and 5 selected, stage 4's scope claims and the owner's case-2 display choice recorded, its responsibility representation a provisional candidate. A4 pass 2 probe P1 found one conclusion per key of a single subject untestable without production change; the owner chose to build the mechanism (G2a passed). Track 1 builds a generic per-subject dispatch whose acceptance tests are P1's questions. P2-P4 then run against it; G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -392,6 +392,13 @@ and its two lists**, which are the bounds this gate names. *Blocks:* A5. *Fails
 if:* a fact on A0's list has no stated route, or A1 poses something A0 never
 placed.
 
+**G2a — a mechanism track may be chartered.** *Decides:* whether a production change may be
+chartered to make an owed behaviour executable at all. *Requires:* an A4 probe that recorded
+the behaviour as untestable without production change, with the missing mechanism and its cost;
+and the owner's choice to build it. *Evidence:* the probe module and its recorded result. The
+track's acceptance tests are the probe's own questions, and it builds nothing beyond the
+mechanism. *Blocks:* nothing else — it does **not** license a producer.
+
 **G2 — ready to implement.** *Decides:* whether a producer can be chartered.
 *Requires:* A5 selected with its reasons recorded, and every mechanism claim the
 selected representation depends on established by execution rather than by
@@ -419,6 +426,7 @@ something left unsettled is left implicit rather than named.
 | Gate | State | Waiting on |
 | --- | --- | --- |
 | G1 | **passed** at `41b77472` | Passed on its own conditions after failing twice: every fact on A0's list has a stated route, A1 — every stage and the approval set — poses only propositions A0 places, and A0 claims no coverage A1 does not provide. **What this is not:** evidence that any consumer works. None has been implemented |
+| G2a | **passed** — P1 recorded per-key publication untestable without production change, with its cost (`f48c8491`); the owner chose to build it (2026-09-23) | P1's result; owner's choice. Opens Track 1 only |
 | G2 | not reached | G1; A5 chosen with reasons; **and A4 executed against the representation actually chosen** — a charter issued while G2 is unpassed is invalid. Four behaviours are already owed to this gate from A5 stages 1 and 3, none demonstrated by anything today: one corrected circumstance reaching every statement its reference bears on, a partial reduction of a statement, one categorical conclusion published per key of a single subject, and a revealing consumer recovering that conclusion's identity and meaning at the reader — tested on the nine-credit case, on a financing claim with no schooling circumstance, and on a statement with no financing claim, where A5 stage 4 attaches the default to the statement; in the first two each of the three conditions left to the filer must reach the reader with its identity, approved wording, circumstance and treatment, distinguishable from ordinary citations; in the third, the three conditions tied to the statement with school and programme explicitly unknown, in a contextual explanation behind a short default-basis note — never as a question, a required confirmation or a screen-wide warning — with identity, wording and treatment recoverable and the circumstance shown as unknown. A paper selection does not discharge any of this. A component or analogue having run is not the behaviour having run |
 | G3 | not reached | G2; A6's refusals demonstrated by execution; A7 written |
 
@@ -1157,7 +1165,7 @@ earlier.
 
 | Probe | Question | Stands on |
 | --- | --- | --- |
-| **P1** | Can one categorical conclusion be published **per key of a single subject** — student-and-period, statement — carrying its rule's declared citations, and recorded `inapplicable` for a key where an adverse circumstance is supported? | — |
+| **P1** — *done: untestable without production change; Track 1 builds the mechanism* | Can one categorical conclusion be published **per key of a single subject** — student-and-period, statement — carrying its rule's declared citations, and recorded `inapplicable` for a key where an adverse circumstance is supported? | — |
 | **P2** | Does one corrected schooling circumstance reach **every** statement whose result depended on it, on re-derivation? | P1 |
 | **P3** | Can a statement's figure be **partially reduced** — the adverse portion removed, the remainder publishing on its own basis? | P1 |
 | **P4** | Can a reader **recover**, from durable output, the conclusion's identity and meaning and, for the provisional responsibility candidate, each condition's identity, circumstance and treatment — and where does wording fail to have a home? | P1 |
@@ -1166,6 +1174,12 @@ Results go into [`a4-bounds.md`](student-loan-circumstance-association-evidence/
 each owed row moving to `run`, staying untested with the reason, or becoming
 untestable-without-production with its cost. After P4, A5 selects, revises or reports a
 partial result for the provisional responsibility candidate, and G2 is assessed on what ran.
+
+**Track 1 — the per-subject dispatch**, between P1 and P2. P1 found the engine cannot publish
+per key; the owner chose to build the mechanism as a bounded track (G2a). Its acceptance tests
+are P1's questions; it adds no consumer, no content and no schema. Charter:
+[`charter-track1-per-subject-dispatch.md`](student-loan-circumstance-association-evidence/charter-track1-per-subject-dispatch.md).
+P2–P4 then run against it, and G2 is assessed on those.
 
 ## A5 in detail — choosing how to represent it
 
@@ -1375,6 +1389,7 @@ A1–A3 are the work it skipped.
 
 | Decision | Owner | Needed by | Status |
 | --- | --- | --- | --- |
+| How to proceed after P1 found per-key publication untestable without production change — A: charter the mechanism as a bounded track; B: a hand-built loop in the test module; C: stop with a partial result | Owner | Before P2 | **Decided 2026-09-23: A.** Track 1 |
 | What the reader shows when a condition applies but the application cannot name its school or programme — the ordinary return with nothing described. A: the conditions, bound to the statement, unnamed (recommended). B: only the default basis | Owner | Before A6 | **Decided 2026-09-23: A**, for inspectable content — the three conditions tied to the statement, school and programme explicitly unknown, in a contextual explanation behind a short default-basis note; not questions, confirmations or a screen-wide warning. See [A5 stage 4](student-loan-circumstance-association-evidence/a5-stage4-scope-and-responsibility.md). A0 unchanged |
 | The wording of every question, condition and responsibility message | Owner | Before A5 | Ready for the questions — see the [approval set](student-loan-circumstance-association-evidence/a1-approval-set.md). Polarity follows the owner's rule: yes is what materially changes production. **The responsibility message is not ready:** A5 stage 4 found its candidate omits the half-time condition and its "described studying at" clause is true only where enrolment was described; candidates per case, including a case-2 wording that names no school, are in stage 4 and await approval |
 | Whether the twelve other-Schedule-1-adjustment facts are this milestone's business | Owner | Before A5 | Open. Return-level and required by the worksheet, not in A0's model, and arguably a scope device rather than a circumstance |
