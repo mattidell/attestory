@@ -42,24 +42,38 @@ knows this — they know whether a parent sent the servicer money, or a co-signe
 
 The deeming rule turns on whether the other payer was legally obligated on the loan, and the
 filer can usually say so without the application knowing who that person is. **One ordinary
-follow-up: *were they on the loan?*** Three answers.
+follow-up: *were they on the loan?*** — or, under a whole-statement scope, on these loans.
+Three answers.
 
 **Not on the loan, and paying for me.** A parent who is not a co-signer paid some of the
-interest on the filer's behalf. § 1.221-1(b)(4)(i): the filer is treated as receiving that
-payment and paying the interest. So the filer is **treated as paying** that part — a rule's
-conclusion, derived from three premises: the payer was not obligated (the filer's telling); the
-payment was on the filer's behalf (the same telling); and the filer was obligated (F7). Where
-everyone else who paid was of this kind, the filer is treated as paying the whole reported
-amount, and the figure is the same number the ordinary case would have produced — **by a
-different route, with a different basis**, which the record must keep apart.
+interest on the filer's behalf. 26 CFR § 1.221-1(b)(4)(i): *"If a third party who is not legally
+obligated to make a payment of interest on a qualified education loan makes a payment of
+interest on behalf of a taxpayer who is legally obligated to make the payment, then the taxpayer
+is treated as receiving the payment from the third party and, in turn, paying the interest."*
 
-- **The basis is a derived conclusion, not an event.** The whose-deduction model's invariant
-  — that a stated payment stays true when its treatment moves — does not extend to it. If a
-  premise changes (the payer was on the loan after all), the conclusion is **reconsidered**; the
-  third party's payment, which happened, is unaffected.
-- **It depends on F7**, and stage 3 found F7 has no consumer in this milestone. So the deeming
-  conclusion can be specified but **cannot be derived inside the bounded consumer**. Stated, not
-  worked around.
+- **What is deemed is that payment, not box 1.** The filer is treated as paying the interest the
+  third party paid, and nothing more. What the filer paid is then **two parts with two bases**:
+  their own payments, an event; and the third party's payment, which the filer is treated as
+  paying, a conclusion. Where nobody obligated paid anything, the two parts together come to the
+  reported amount — the same number the ordinary case produces, by a different route. The sum
+  is not a third thing with a basis of its own.
+- **The conclusion has four premises, not three:** the payer was not obligated (the filer's
+  telling); the payment was made on the filer's behalf (the same telling); the filer was
+  obligated (F7); and **the loan is a qualified education loan** — F5, which for this filer is
+  exactly what the schooling path decides. So a supported adverse schooling circumstance
+  defeats the deeming conclusion as well as the filer's own payment's treatment.
+- **The invariant stays with the event.** If a premise changes — the payer was on the loan after
+  all — only the deemed part is **reconsidered**. The filer's own payments are unaffected, and so
+  is the third party's payment, which happened.
+- **Which is why the split matters even when the total does not.** If the filer does not say how
+  much was theirs and how much the parent's, the figure is still the reported amount, but part
+  of it rests on a conclusion and the parts are not separated. Should a premise then fail, what
+  remains is the filer's own part, which nobody stated: **unresolved**, not zero and not the
+  whole. Recording the split when the filer can give it keeps that from happening; it is not
+  required for the figure.
+- **It depends on F7 and F5**, and stage 3 found F7 has no consumer in this milestone. So the
+  deeming conclusion can be specified but **cannot be derived inside the bounded consumer**.
+  Stated, not worked around.
 
 **On the loan too.** A co-signer or co-borrower made some of the payments. Their payments are
 theirs; nothing is deemed. What the filer paid is what the filer **actually** paid, and only the
@@ -135,8 +149,8 @@ Consequences:
 ## Handoff
 
 - **To the plan:** the open decision on how what the filer paid is obtained is answered —
-  ordinary statement or explicit unresolved, with the deeming route specified and its F7
-  dependence stated.
+  ordinary statement or explicit unresolved, with the deeming route specified — it deems only the third party's
+  payment — and its F7 and F5 dependence stated.
 - **To stage 2's boundary:** payment added to the deferred row, with its limit.
 - **To A5 overall:** stages 1–3 and 5 selected; stage 4's responsibility part waits on the
   owner's case-2 choice.

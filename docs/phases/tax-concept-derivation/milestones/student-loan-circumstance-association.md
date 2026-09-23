@@ -1241,8 +1241,8 @@ before the next.
    unresolved**, which is an acceptable outcome. Same for the deeming rule's information
    and its basis. **Selected:** in the ordinary case the reported amount stands on a default
    basis; a supported telling that someone else paid stops it; a follow-up — were they on the
-   loan — separates a deemed payment (a derived conclusion whose premises include F7, so not
-   derivable in the bounded consumer) from a co-signer's own payments, where the filer's amount
+   loan — separates a deemed payment (a derived conclusion covering only the third party's payment,
+   whose premises include F7 and F5, so not derivable in the bounded consumer) from a co-signer's own payments, where the filer's amount
    comes from their ordinary statement or is explicitly unresolved. Not from evidence (none
    distinguishes payers) and not from a share (that is payment allocation). No consumer in
    this milestone.
