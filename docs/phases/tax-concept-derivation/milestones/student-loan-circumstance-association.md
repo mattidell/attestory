@@ -30,6 +30,7 @@
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/worked-paths-eligibility-and-obligation.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/whose-deduction-model.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md",
+      "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/outline-product-and-evidence.md",
       "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/readiness-gate-results.md",
       "OWNER_MODEL.md#The Product Model",
@@ -465,7 +466,7 @@ whole plan.
 | A2 | **done** | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | **done** | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | specified; pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both reviewed and repaired, and G1 passed citing them. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | **specified**; stage 1 selected, review pending | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md) for its first selections |
+| A5 | **specified**; stages 1–2 selected, stage 2 review pending | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md) and [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md) for its selections |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
