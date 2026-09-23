@@ -154,7 +154,7 @@ writes back from a tax-concept value into an ordinary circumstance.
 | Telling "still resolvable" from "still supported" | **untested** — D9 |
 | Holding the unresolved interval as its own state | **untested** — D10 |
 | Holding A3's states apart — specifically no-adverse, membership-unknown, and membership-known-portion-unknown | **untested** — D11. D10 alone is not enough: one blocked bucket can satisfy D10 and still collapse (c) into either of the others |
-| The second adverse reading being expressible — stop using that statement's reported amount as adequate grounds, without zeroing it and without proceeding | **untested** — D12. The dependence is the **stop**; D12's own cell still says "until enumeration", which A3 corrected and route (a) supersedes. Naming D12 does not drag an enumeration requirement back in |
+| The second adverse reading being expressible — stop using that statement's reported amount as adequate grounds, without zeroing it and without proceeding | **untested** — D12. The dependence is the **stop**, not an enumeration requirement: A3 withdrew "until enumeration" and route (a) supersedes it, and D12's cell in `a4-bounds.md` now reads that way |
 
 **Inclusion of a borrowing in a statement is not an A4 demand.** It is a claim the person
 asserts and confirms — A3's membership — and A4 records no untested capability that *tells*
