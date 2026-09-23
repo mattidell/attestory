@@ -1178,8 +1178,9 @@ before the next.
 2. **The ordinary circumstances.** How A0's F9 rows are represented and what **they** are
    keyed on — the use-of-proceeds, whose-education, who-lent, employer-plan, employer-paid
    interest, qualified-tuition-programme and schooling rows. The two double-benefit rows
-   are part of this, including whether the named consumer treats them as amount facts
-   rather than as the incumbent's whole-route block. A5 chooses the key deliberately, and
+   are part of this, including how the named consumer treats them: the incumbent blocks the
+   whole route on either, and whether a new consumer treats them as amount facts instead is
+   A5's to select either way. A5 chooses the key deliberately, and
    does not inherit either incumbent key: obligation on tax-year alone, or the
    related-person exclusion on a statement.
 3. **Tax-concept values and their basis.** How default-supported, direct-answer and
@@ -1224,9 +1225,10 @@ charter that rests on one.
    its reasons are given, and whether any rejected alternative was rejected on an
    unstated premise.
 2. **Keying** — whether each represented fact states what it is keyed on and why. A
-   per-borrowing condition keyed per return or per statement fails only where the text
-   presents that key as the selection rather than identifying it as the incumbent defect.
-   **The criterion requires no particular key.**
+   per-borrowing condition keyed per return or per statement fails only where that key is
+   presented as copied from the incumbent and is given no reason of its own. A reasoned
+   selection of that key, or of any other, passes. **The criterion requires no particular
+   key.**
 3. **Dependence on A4** — whether each selection states every A4 demand it depends on and
    that demand's evidence level, `run` included, and whether any demand A4 marks `read` or
    untested is presented as settled.
