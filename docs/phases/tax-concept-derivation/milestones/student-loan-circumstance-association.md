@@ -466,7 +466,8 @@ whole plan.
 | A2 | **done** | [Change and applicability](student-loan-circumstance-association-evidence/a2-change-and-applicability.md) — the principle, the three legs, seven change kinds, and the standing-unfavourable versus absent boundary. Awaiting review |
 | A3 | **done** | [Worked path](student-loan-circumstance-association-evidence/a3-worked-path.md) — three states, the determinability condition, membership versus completeness, the owner's cases, and the divergence from the prior prototype. Awaiting review |
 | A4 | specified; pass 1 done | Bounds in [`a4-bounds.md`](student-loan-circumstance-association-evidence/a4-bounds.md); refinement and bounds both reviewed and repaired, and G1 passed citing them. Runs twice: bounds for G1, execution against the chosen shape for G2 |
-| A5 | **specified**; stages 1–2 selected, stage 2 review pending | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md) and [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md) for its selections |
+| A5 | **specified**; stages 1–2 selected | Five staged decisions: whether a borrowing is identified and how an answer is stored; the ordinary circumstances and their keying, including the financing claim that joins a borrowing to a
+schooling situation; tax-concept values and their basis; the responsibility applies-to relation; and what the filer paid or an explicit unresolved. Actual events, application defaults and rule-derived conclusions must stay distinguishable throughout. See the refinement below, and [stage 1](student-loan-circumstance-association-evidence/a5-stage1-borrowing-and-storage.md) and [stage 2](student-loan-circumstance-association-evidence/a5-stage2-circumstances-and-keying.md) for its selections |
 | A6 | outlined | Blocked by G2, so: A5 chosen and A4 executed against it |
 | A7 | outlined | — |
 
@@ -1190,7 +1191,12 @@ before the next.
    whole route on either, and whether a new consumer treats them as amount facts instead is
    A5's to select either way. A5 chooses the key deliberately, and
    does not inherit either incumbent key: obligation on tax-year alone, or the
-   related-person exclusion on a statement.
+   related-person exclusion on a statement. **Selected:** each circumstance is keyed on the
+   subject of its own proposition — the borrowing, or a schooling situation of period,
+   institution and course of study — and whether a borrowing financed schooling is a separate
+   record about the pair, so that two loans over one course of study share one circumstance
+   rather than holding two copies that can disagree. The double-benefit rows are deferred with
+   no key selected and no dependency adopted.
 3. **Tax-concept values and their basis.** How default-supported, direct-answer and
    derived-from-circumstances stay distinguishable when they produce the same value, judged
    against a named consumer — including the keying of the obligation fact itself, which is a
