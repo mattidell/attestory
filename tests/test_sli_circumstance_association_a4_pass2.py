@@ -16,6 +16,7 @@ record has no kernel fact lattice, so marshalled ``SourceFact.keys`` is
 
 from __future__ import annotations
 
+import json
 import unittest
 from typing import Any
 
@@ -28,7 +29,15 @@ from packages.derivation.pairing_dispatch import (
     PairingScopedResult,
     evaluate_pairing_scoped_rule,
 )
-from packages.derivation.runner import RunContext, RunResult, _Run, run
+from packages.derivation.runner import (
+    RunContext,
+    RunResult,
+    _Run,
+    _content_id,
+    _sorted_pins,
+    _value_str,
+    run,
+)
 from packages.kernel.currency import CurrencyView, compute_currency
 from packages.kernel.facts import KernelState, fact_id_for
 from packages.kernel.findings import FindingState
@@ -1138,12 +1147,19 @@ class StatementSubjectDoesNotReachCorrectedEnrolment(unittest.TestCase):
                 self.assertNotIn(P2_INST_FINDING, _input_ids(_pins(after)))
                 self.assertNotIn(P2_PRIV_FINDING, _input_ids(_pins(after)))
 
-    def test_published_financing_conclusion_is_not_a_keyed_source(self) -> None:
-        """Same-run financing conclusions are live sources with no keys.
+    def test_published_financing_conclusion_does_not_join_a_statement_directly(self) -> None:
+        """A statement cannot skip the link, keys or no keys.
 
-        Requiring that published name fail-closes. It does not join, and it
-        does not pin the enrolment. After the correction nothing is published,
-        so the same require is absent instead. Still not the enrolment finding.
+        Recorded at P2 when same-run conclusions carried no keys: requiring
+        the published name then failed closed as DEPENDENCY_INVALID. Since
+        Track 2 the per-subject publication's same-run source carries its
+        subject's structured keys, but those key names (borrowing, period,
+        institution, programme) share nothing with a statement's (lender,
+        statement, tax-year), so the join finds no match and the require is
+        DEPENDENCY_ABSENT on both records. Carrying keys does not let a
+        statement reach a financing conclusion without the statement-to-
+        borrowing link -- the chain in KeyedSameRunStatementChain is what
+        reaches it. Still never the enrolment finding.
         """
         _favourable_currency, _favourable_ctx, favourable = self._open(corrected=False)
         favourable.evaluate_subject_scoped_rule(
@@ -1156,7 +1172,9 @@ class StatementSubjectDoesNotReachCorrectedEnrolment(unittest.TestCase):
             {source.fact_id for source in published_sources},
             {self.inst_fact, self.priv_fact},
         )
-        self.assertTrue(all(source.keys is None for source in published_sources))
+        for source in published_sources:
+            self.assertIsNotNone(source.keys)
+            self.assertFalse({name for name, _ in source.keys or ()} & {"lender", "statement", "tax-year"})
         self.assertIn(_p2_symbol(self.inst_fact), favourable.symbols)
         self.assertNotIn(
             _p2_symbol(self.inst_fact),
@@ -1185,7 +1203,7 @@ class StatementSubjectDoesNotReachCorrectedEnrolment(unittest.TestCase):
                 before = _p2_row(favourable, fact_id)
                 after = _p2_row(corrected, fact_id)
                 self.assertEqual(before["disposition"], "blocked")
-                self.assertEqual(before["code"], "DEPENDENCY_INVALID")
+                self.assertEqual(before["code"], "DEPENDENCY_ABSENT")
                 self.assertEqual(before["missing"], [CONCLUSION])
                 self.assertEqual(_input_ids(_pins(before)), {box_finding})
                 self.assertEqual(after["disposition"], "blocked")
@@ -1198,6 +1216,682 @@ class StatementSubjectDoesNotReachCorrectedEnrolment(unittest.TestCase):
                 self.assertNotIn(self.inst_fact, before["symbol"])
                 self.assertNotEqual(before["disposition"], "inapplicable")
                 self.assertNotEqual(after["disposition"], "inapplicable")
+
+
+# --- Track 2. Keyed same-run sources, one hop at a time, out to the statement. ---
+
+T2_PARAM = "demo.parameter.enrolment-default"
+STATUS = "demo.tax.schooling-status"
+LINK_CONSEQUENCE = "demo.tax.link-consequence"
+STATEMENT_AMOUNT = "demo.tax.statement-facing-amount"
+T2_STATUS_RULE = "demo.rule.schooling-status"
+T2_LINK_RULE = "demo.rule.link-consequence"
+T2_AMOUNT_RULE = "demo.rule.statement-facing-amount"
+T2_LENDER_WEST = "demo.lender.west"
+STATEMENT_S3 = "demo.statement.s3"
+STATEMENT_MISSING = "demo.statement.missing"
+T2_FIN_INST = "demo.finding.financing.institutional"
+T2_FIN_PRIV = "demo.finding.financing.private"
+T2_ENROL_EARLIER = "demo.finding.enrolment.1-not-adverse"
+T2_ENROL_LATER = "demo.finding.enrolment.2-adverse"
+T2_BOX_NORTH = "demo.finding.box1.north"
+T2_BOX_SOUTH = "demo.finding.box1.south"
+T2_BOX_WEST = "demo.finding.box1.west"
+T2_LINK_NORTH = "demo.finding.link.north"
+T2_LINK_SOUTH = "demo.finding.link.south"
+T2_LINK_WEST = "demo.finding.link.west"
+T2_LINK_MISSING = "demo.finding.link.missing"
+T2_LINK_SPLIT = "demo.finding.link.north-private"
+
+
+def _t2_eq(name: str, fact_type: str, value: str) -> dict[str, Any]:
+    return {
+        "op": "categorical_compare",
+        "left": {"op": "ref", "name": name},
+        "right": {
+            "op": "category_literal",
+            "fact_type": {"id": fact_type, "version": "v1"},
+            "value": value,
+        },
+        "cmp": "eq",
+    }
+
+
+def _t2_rule(
+    *,
+    rule_id: str,
+    citation_id: str,
+    role: str,
+    requires: list[str],
+    when: dict[str, Any],
+    value: Any,
+    publishes: str,
+) -> dict[str, Any]:
+    return {
+        "schema": "rule-artifact.v6",
+        "id": rule_id,
+        "version": "v1",
+        "role": role,
+        "requires": requires,
+        "when": when,
+        "value": value,
+        "publishes": publishes,
+        "citations": [{"id": citation_id, "version": "v1"}],
+    }
+
+
+def _t2_rules() -> list[dict[str, Any]]:
+    return [
+        _t2_rule(
+            rule_id=T2_STATUS_RULE,
+            citation_id="demo.citation.schooling-status",
+            role="applicability",
+            requires=[FINANCING, ENROLMENT],
+            when=_t2_eq(FINANCING, FINANCING, "tuition"),
+            value={"op": "ref", "name": ENROLMENT},
+            publishes=STATUS,
+        ),
+        _t2_rule(
+            rule_id=T2_LINK_RULE,
+            citation_id="demo.citation.link-consequence",
+            role="applicability",
+            requires=[STATEMENT_BORROWING, STATUS],
+            when=_t2_eq(STATEMENT_BORROWING, STATEMENT_BORROWING, "reported"),
+            value={"op": "ref", "name": STATUS},
+            publishes=LINK_CONSEQUENCE,
+        ),
+        _t2_rule(
+            rule_id=T2_AMOUNT_RULE,
+            citation_id="demo.citation.statement-facing-amount",
+            role="computation",
+            requires=[BOX1, LINK_CONSEQUENCE],
+            when={
+                "op": "compare",
+                "cmp": "gt",
+                "left": {"op": "ref", "name": BOX1},
+                "right": 0,
+            },
+            value={
+                "op": "choose",
+                "when": _t2_eq(LINK_CONSEQUENCE, LINK_CONSEQUENCE, "adverse"),
+                "then": 0,
+                "else": {"op": "ref", "name": BOX1},
+            },
+            publishes=STATEMENT_AMOUNT,
+        ),
+    ]
+
+
+def _t2_fact_types() -> list[dict[str, Any]]:
+    return [
+        {"id": FINANCING, "version": "v1", "value_schema": {"enum": ["tuition"]}},
+        {
+            "id": ENROLMENT,
+            "version": "v1",
+            "value_schema": {"enum": ["adverse", "not-adverse"]},
+            "optional_default": {"parameter": {"id": T2_PARAM, "version": "v1"}},
+        },
+        {
+            "id": STATEMENT_BORROWING,
+            "version": "v1",
+            "value_schema": {"enum": ["reported"]},
+        },
+        {
+            "id": STATUS,
+            "version": "v1",
+            "value_schema": {"enum": ["adverse", "not-adverse"]},
+        },
+        {
+            "id": LINK_CONSEQUENCE,
+            "version": "v1",
+            "value_schema": {"enum": ["adverse", "not-adverse"]},
+        },
+    ]
+
+
+def _t2_lattice() -> dict[str, dict[str, Any]]:
+    borrowings = (P2_BORROWING_INST, P2_BORROWING_PRIV)
+    periods = (PERIOD_AUTUMN, PERIOD_SPRING)
+    lenders = (LENDER, P2_LENDER_SOUTH, T2_LENDER_WEST)
+    statements = (STATEMENT_S1, STATEMENT_S2, STATEMENT_S3, STATEMENT_MISSING)
+    return {
+        FINANCING: _p2_literal(FINANCING, (
+            ("borrowing", borrowings),
+            ("period", periods),
+            ("institution", (INSTITUTION,)),
+            ("programme", (PROGRAMME,)),
+        )),
+        ENROLMENT: _p2_literal(ENROLMENT, (
+            ("period", periods),
+            ("institution", (INSTITUTION,)),
+            ("programme", (PROGRAMME,)),
+        )),
+        BOX1: _p2_literal(BOX1, (
+            ("lender", lenders),
+            ("statement", statements),
+            ("tax-year", (YEAR,)),
+        )),
+        STATEMENT_BORROWING: _p2_literal(STATEMENT_BORROWING, (
+            ("lender", lenders),
+            ("statement", statements),
+            ("tax-year", (YEAR,)),
+            ("borrowing", borrowings),
+        )),
+    }
+
+
+def _t2_financing_fact_id(borrowing: str, period: str) -> str:
+    return fact_id_for(
+        FINANCING,
+        (
+            ("borrowing", borrowing),
+            ("period", period),
+            ("institution", INSTITUTION),
+            ("programme", PROGRAMME),
+        ),
+    )
+
+
+def _t2_enrolment_fact_id() -> str:
+    return fact_id_for(
+        ENROLMENT,
+        (
+            ("period", PERIOD_AUTUMN),
+            ("institution", INSTITUTION),
+            ("programme", PROGRAMME),
+        ),
+    )
+
+
+def _t2_box_fact_id(lender: str, statement: str) -> str:
+    return fact_id_for(
+        BOX1,
+        (("lender", lender), ("statement", statement), ("tax-year", YEAR)),
+    )
+
+
+def _t2_link_fact_id(lender: str, statement: str, borrowing: str) -> str:
+    return fact_id_for(
+        STATEMENT_BORROWING,
+        (
+            ("lender", lender),
+            ("statement", statement),
+            ("tax-year", YEAR),
+            ("borrowing", borrowing),
+        ),
+    )
+
+
+def _t2_default_id(ctx: RunContext) -> str:
+    pins = _sorted_pins([
+        ctx.adoption_pin,
+        *ctx.governance_pins,
+        {"role": "parameter", "id": T2_PARAM, "version": "v1"},
+    ])
+    body = {
+        "symbol": ENROLMENT,
+        "value": _value_str(ctx.parameters[T2_PARAM]["values"]),
+        "pins": pins,
+        "resolved_input": {"fact_id": ENROLMENT, "origin": "declared_default"},
+    }
+    return _content_id("finding:derived:", body)
+
+
+def _t2_symbol(publishes: str, fact_id: str) -> str:
+    return f"{publishes}|{fact_id}"
+
+
+def _t2_finding(run: _Run, publishes: str, fact_id: str) -> dict[str, Any]:
+    symbol = _t2_symbol(publishes, fact_id)
+    matches = [pub.finding for pub in run.publications if pub.finding["symbol"] == symbol]
+    if len(matches) != 1:
+        raise AssertionError(
+            f"{symbol}: {[pub.finding['symbol'] for pub in run.publications]!r}"
+        )
+    return matches[0]
+
+
+def _t2_row(run: _Run, fact_id: str, publishes: str) -> dict[str, Any]:
+    symbol = _t2_symbol(publishes, fact_id)
+    rows = [row for row in run.dispositions if row.get("symbol") == symbol]
+    if len(rows) != 1:
+        raise AssertionError(f"{symbol}: {run.dispositions!r}")
+    return rows[0]
+
+
+def _t2_canonical(payload: dict[str, Any]) -> str:
+    return json.dumps(payload, sort_keys=True, separators=(",", ":"))
+
+
+def _t2_walk(run: _Run, finding: dict[str, Any]) -> set[str]:
+    by_id = {pub.finding["id"]: pub.finding for pub in run.publications}
+    seen: set[str] = set()
+    stack = [finding]
+    while stack:
+        current = stack.pop()
+        for pin in current["pins"]:
+            if pin.get("role") != "input":
+                continue
+            fid = str(pin["id"])
+            if fid in seen:
+                continue
+            seen.add(fid)
+            nxt = by_id.get(fid)
+            if nxt is not None:
+                stack.append(nxt)
+    return seen
+
+
+def _t2_execute(
+    findings: dict[str, dict[str, Any]],
+) -> tuple[FindingState, CurrencyView, RunContext, _Run]:
+    state = FindingState(
+        findings=dict(findings),
+        fact_state=KernelState(fact_types=_t2_lattice()),
+    )
+    currency = compute_currency(state)
+    rules = _t2_rules()
+    ctx = marshal_run_context(
+        run_id="demo.sli-a4-pass2-track2",
+        state=state,
+        currency=currency,
+        rules=rules,
+        parameters={T2_PARAM: {"id": T2_PARAM, "version": "v1", "values": "not-adverse"}},
+        canon={},
+        adoption_pin=ADOPTION_PIN,
+        governance_pins=GOVERNANCE_PINS,
+        fact_types=_t2_fact_types(),
+        input_bindings=[{
+            "symbol": ENROLMENT,
+            "fact_type": {"id": ENROLMENT, "version": "v1"},
+            "mode": "optional_default",
+        }],
+        collect_source_names=[FINANCING, ENROLMENT, BOX1, STATEMENT_BORROWING],
+    )
+    run = _Run(ctx, SCHEMAS)
+    by_id = {rule["id"]: rule for rule in rules}
+    run.evaluate_subject_scoped_rule(subject_type=FINANCING, rule=by_id[T2_STATUS_RULE])
+    run.evaluate_subject_scoped_rule(
+        subject_type=STATEMENT_BORROWING, rule=by_id[T2_LINK_RULE]
+    )
+    run.evaluate_subject_scoped_rule(subject_type=BOX1, rule=by_id[T2_AMOUNT_RULE])
+    return state, currency, ctx, run
+
+
+def _t2_chain_findings(*, corrected: bool, dangling: bool) -> dict[str, dict[str, Any]]:
+    # Enrolment findings, when present, stay in record order: the earlier
+    # not-adverse answer is inserted before the later adverse one.
+    findings = {
+        T2_FIN_INST: _finding(
+            T2_FIN_INST,
+            _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN),
+            "tuition",
+        ),
+        T2_FIN_PRIV: _finding(
+            T2_FIN_PRIV,
+            _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING),
+            "tuition",
+        ),
+        T2_BOX_NORTH: _finding(
+            T2_BOX_NORTH, _t2_box_fact_id(LENDER, STATEMENT_S1), 1500
+        ),
+        T2_BOX_SOUTH: _finding(
+            T2_BOX_SOUTH, _t2_box_fact_id(P2_LENDER_SOUTH, STATEMENT_S2), 800
+        ),
+        T2_BOX_WEST: _finding(
+            T2_BOX_WEST, _t2_box_fact_id(T2_LENDER_WEST, STATEMENT_S3), 400
+        ),
+        T2_LINK_NORTH: _finding(
+            T2_LINK_NORTH,
+            _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST),
+            "reported",
+        ),
+        T2_LINK_SOUTH: _finding(
+            T2_LINK_SOUTH,
+            _t2_link_fact_id(P2_LENDER_SOUTH, STATEMENT_S2, P2_BORROWING_INST),
+            "reported",
+        ),
+        T2_LINK_WEST: _finding(
+            T2_LINK_WEST,
+            _t2_link_fact_id(T2_LENDER_WEST, STATEMENT_S3, P2_BORROWING_PRIV),
+            "reported",
+        ),
+    }
+    if corrected:
+        enrol = _t2_enrolment_fact_id()
+        findings[T2_ENROL_EARLIER] = _finding(T2_ENROL_EARLIER, enrol, "not-adverse")
+        findings[T2_ENROL_LATER] = _finding(T2_ENROL_LATER, enrol, "adverse")
+    if dangling:
+        findings[T2_LINK_MISSING] = _finding(
+            T2_LINK_MISSING,
+            _t2_link_fact_id(LENDER, STATEMENT_MISSING, P2_BORROWING_INST),
+            "reported",
+        )
+    return findings
+
+
+def _t2_split_findings(*, adverse: bool) -> dict[str, dict[str, Any]]:
+    """One statement, two links, two borrowings. Statuses agree or differ."""
+    findings = {
+        T2_FIN_INST: _finding(
+            T2_FIN_INST,
+            _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN),
+            "tuition",
+        ),
+        T2_FIN_PRIV: _finding(
+            T2_FIN_PRIV,
+            _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING),
+            "tuition",
+        ),
+        T2_BOX_NORTH: _finding(
+            T2_BOX_NORTH, _t2_box_fact_id(LENDER, STATEMENT_S1), 1500
+        ),
+        T2_LINK_NORTH: _finding(
+            T2_LINK_NORTH,
+            _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST),
+            "reported",
+        ),
+        T2_LINK_SPLIT: _finding(
+            T2_LINK_SPLIT,
+            _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_PRIV),
+            "reported",
+        ),
+    }
+    if adverse:
+        findings[T2_ENROL_LATER] = _finding(
+            T2_ENROL_LATER, _t2_enrolment_fact_id(), "adverse"
+        )
+    return findings
+
+
+class KeyedSameRunStatementChain(unittest.TestCase):
+    """Status, link consequence, then the statement amount. Three dispatches.
+
+    The institutional borrowing is autumn, so the autumn enrolment joins it.
+    The private borrowing is spring, so that enrolment does not. North and
+    south are two statements on the institutional borrowing. West is the
+    private borrowing's statement.
+    """
+
+    def setUp(self) -> None:
+        self.inst = _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN)
+        self.priv = _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING)
+        self.north = _t2_box_fact_id(LENDER, STATEMENT_S1)
+        self.south = _t2_box_fact_id(P2_LENDER_SOUTH, STATEMENT_S2)
+        self.west = _t2_box_fact_id(T2_LENDER_WEST, STATEMENT_S3)
+        self.link_north = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST)
+        self.link_south = _t2_link_fact_id(
+            P2_LENDER_SOUTH, STATEMENT_S2, P2_BORROWING_INST
+        )
+        self.link_west = _t2_link_fact_id(T2_LENDER_WEST, STATEMENT_S3, P2_BORROWING_PRIV)
+        self.link_missing = _t2_link_fact_id(
+            LENDER, STATEMENT_MISSING, P2_BORROWING_INST
+        )
+        self.enrol = _t2_enrolment_fact_id()
+        self.assertLess(T2_ENROL_EARLIER, T2_ENROL_LATER)
+        self.assertNotEqual(self.inst, self.priv)
+        self.assertNotIn("borrowing=", self.enrol)
+        self.assertIn(f"period={PERIOD_AUTUMN}", self.inst)
+        self.assertIn(f"period={PERIOD_AUTUMN}", self.enrol)
+        self.assertIn(f"period={PERIOD_SPRING}", self.priv)
+
+    def test_favourable_path_publishes_each_reported_amount_and_pins_the_default(self) -> None:
+        """No enrolment finding. Each statement publishes its reported amount.
+
+        The pin walk reaches that statement's link consequence, the financing
+        status, and the declared not-adverse default. It does not reach an
+        enrolment finding.
+        """
+        state, currency, ctx, run = _t2_execute(
+            _t2_chain_findings(corrected=False, dangling=False)
+        )
+        self.assertNotIn(T2_ENROL_EARLIER, state.findings)
+        self.assertNotIn(T2_ENROL_LATER, state.findings)
+        self.assertEqual(currency.displaced_finding_ids, frozenset())
+        self.assertEqual(
+            [source for source in ctx.sources if source.name == ENROLMENT],
+            [],
+        )
+        default_id = _t2_default_id(ctx)
+        statements = (
+            (self.north, T2_BOX_NORTH, self.link_north, self.inst, "1500"),
+            (self.south, T2_BOX_SOUTH, self.link_south, self.inst, "800"),
+            (self.west, T2_BOX_WEST, self.link_west, self.priv, "400"),
+        )
+        for box_fact, box_finding, link_fact, financing_fact, amount in statements:
+            with self.subTest(statement=box_fact):
+                finding = _t2_finding(run, STATEMENT_AMOUNT, box_fact)
+                status = _t2_finding(run, STATUS, financing_fact)
+                link = _t2_finding(run, LINK_CONSEQUENCE, link_fact)
+                self.assertEqual(
+                    _t2_row(run, box_fact, STATEMENT_AMOUNT)["disposition"], "published"
+                )
+                self.assertEqual(finding["value"], amount)
+                self.assertEqual(status["value"], "not-adverse")
+                self.assertEqual(
+                    _t2_row(run, financing_fact, STATUS)["disposition"], "published"
+                )
+                self.assertEqual(link["value"], "not-adverse")
+                walk = _t2_walk(run, finding)
+                self.assertIn(link["id"], walk)
+                self.assertIn(status["id"], walk)
+                self.assertIn(default_id, walk)
+                self.assertIn(box_finding, walk)
+                self.assertEqual(
+                    next(
+                        pin["origin"]
+                        for pin in status["pins"]
+                        if pin["role"] == "input" and pin["id"] == default_id
+                    ),
+                    "declared_default",
+                )
+                self.assertNotIn(T2_ENROL_EARLIER, walk)
+                self.assertNotIn(T2_ENROL_LATER, walk)
+
+    def test_corrected_adverse_path_publishes_a_changed_amount(self) -> None:
+        """A later adverse finding displaces the earlier one. The amount changes.
+
+        The affected statement publishes zero, not a block. Its pin walk
+        reaches the corrected enrolment finding and not the displaced one.
+        """
+        _before_state, _before_currency, before_ctx, before = _t2_execute(
+            _t2_chain_findings(corrected=False, dangling=False)
+        )
+        state, currency, ctx, run = _t2_execute(
+            _t2_chain_findings(corrected=True, dangling=False)
+        )
+        self.assertIn(T2_ENROL_EARLIER, state.findings)
+        self.assertIn(T2_ENROL_LATER, state.findings)
+        self.assertEqual(currency.displaced_finding_ids, frozenset({T2_ENROL_EARLIER}))
+        self.assertIn(T2_ENROL_LATER, currency.current_finding_ids)
+        self.assertEqual(
+            [(reason.kind, reason.by) for reason in currency.reasons[T2_ENROL_EARLIER]],
+            [("correction", T2_ENROL_LATER)],
+        )
+        self.assertEqual(
+            {source.finding_id for source in ctx.sources if source.name == ENROLMENT},
+            {T2_ENROL_LATER},
+        )
+        self.assertNotIn(
+            T2_ENROL_EARLIER,
+            {source.finding_id for source in ctx.sources},
+        )
+        before_finding = _t2_finding(before, STATEMENT_AMOUNT, self.north)
+        finding = _t2_finding(run, STATEMENT_AMOUNT, self.north)
+        row = _t2_row(run, self.north, STATEMENT_AMOUNT)
+        status = _t2_finding(run, STATUS, self.inst)
+        link = _t2_finding(run, LINK_CONSEQUENCE, self.link_north)
+        self.assertEqual(before_finding["value"], "1500")
+        self.assertEqual(finding["value"], "0")
+        self.assertNotEqual(finding["value"], before_finding["value"])
+        self.assertEqual(row["disposition"], "published")
+        self.assertNotEqual(row["disposition"], "blocked")
+        self.assertNotEqual(row["disposition"], "inapplicable")
+        self.assertEqual(status["value"], "adverse")
+        self.assertEqual(_t2_row(run, self.inst, STATUS)["disposition"], "published")
+        self.assertEqual(link["value"], "adverse")
+        walk = _t2_walk(run, finding)
+        self.assertIn(link["id"], walk)
+        self.assertIn(status["id"], walk)
+        self.assertIn(T2_ENROL_LATER, walk)
+        self.assertNotIn(T2_ENROL_EARLIER, walk)
+        self.assertNotIn(_t2_default_id(before_ctx), walk)
+        self.assertNotIn(T2_ENROL_EARLIER, _input_ids(_pins(status)))
+        self.assertIn(T2_ENROL_LATER, _input_ids(_pins(status)))
+
+    def test_servicer_transfer_both_statements_follow_the_correction(self) -> None:
+        """Two statements on the corrected borrowing both publish zero.
+
+        Each walk reaches the corrected enrolment finding and not the
+        displaced one. Each favourable amount was that statement's own
+        reported amount.
+        """
+        _before_state, _before_currency, _before_ctx, before = _t2_execute(
+            _t2_chain_findings(corrected=False, dangling=False)
+        )
+        _state, _currency, _ctx, run = _t2_execute(
+            _t2_chain_findings(corrected=True, dangling=False)
+        )
+        for box_fact, link_fact, reported in (
+            (self.north, self.link_north, "1500"),
+            (self.south, self.link_south, "800"),
+        ):
+            with self.subTest(statement=box_fact):
+                before_finding = _t2_finding(before, STATEMENT_AMOUNT, box_fact)
+                finding = _t2_finding(run, STATEMENT_AMOUNT, box_fact)
+                self.assertEqual(before_finding["value"], reported)
+                self.assertEqual(finding["value"], "0")
+                self.assertEqual(
+                    _t2_row(run, box_fact, STATEMENT_AMOUNT)["disposition"], "published"
+                )
+                walk = _t2_walk(run, finding)
+                self.assertIn(_t2_finding(run, LINK_CONSEQUENCE, link_fact)["id"], walk)
+                self.assertIn(_t2_finding(run, STATUS, self.inst)["id"], walk)
+                self.assertIn(T2_ENROL_LATER, walk)
+                self.assertNotIn(T2_ENROL_EARLIER, walk)
+
+    def test_statement_linked_to_an_unaffected_borrowing_is_byte_identical(self) -> None:
+        """Spring does not join the autumn enrolment. West's finding is unchanged.
+
+        The institutional statement changes in the same pair of runs, so the
+        identical bytes are not a run that ignored the correction.
+        """
+        _before_state, _before_currency, _before_ctx, before = _t2_execute(
+            _t2_chain_findings(corrected=False, dangling=False)
+        )
+        _after_state, _after_currency, _after_ctx, after = _t2_execute(
+            _t2_chain_findings(corrected=True, dangling=False)
+        )
+        before_finding = _t2_finding(before, STATEMENT_AMOUNT, self.west)
+        after_finding = _t2_finding(after, STATEMENT_AMOUNT, self.west)
+        self.assertEqual(before_finding["value"], "400")
+        self.assertEqual(_t2_canonical(before_finding), _t2_canonical(after_finding))
+        self.assertEqual(
+            _t2_canonical(_t2_row(before, self.west, STATEMENT_AMOUNT)),
+            _t2_canonical(_t2_row(after, self.west, STATEMENT_AMOUNT)),
+        )
+        self.assertEqual(
+            _t2_finding(before, STATUS, self.priv)["value"],
+            _t2_finding(after, STATUS, self.priv)["value"],
+        )
+        self.assertNotEqual(
+            _t2_finding(before, STATEMENT_AMOUNT, self.north)["value"],
+            _t2_finding(after, STATEMENT_AMOUNT, self.north)["value"],
+        )
+
+    def test_link_naming_a_statement_that_does_not_exist_changes_no_statement(self) -> None:
+        """The dangling link publishes. No statement's bytes or pin walk include it."""
+        _plain_state, _plain_currency, _plain_ctx, plain = _t2_execute(
+            _t2_chain_findings(corrected=False, dangling=False)
+        )
+        _state, _currency, ctx, run = _t2_execute(
+            _t2_chain_findings(corrected=False, dangling=True)
+        )
+        self.assertNotIn(
+            self.link_missing,
+            {source.fact_id for source in ctx.sources if source.name == BOX1},
+        )
+        link = _t2_finding(run, LINK_CONSEQUENCE, self.link_missing)
+        self.assertEqual(
+            _t2_row(run, self.link_missing, LINK_CONSEQUENCE)["disposition"],
+            "published",
+        )
+        for box_fact in (self.north, self.south, self.west):
+            with self.subTest(statement=box_fact):
+                self.assertEqual(
+                    _t2_canonical(_t2_finding(plain, STATEMENT_AMOUNT, box_fact)),
+                    _t2_canonical(_t2_finding(run, STATEMENT_AMOUNT, box_fact)),
+                )
+                self.assertNotIn(
+                    link["id"],
+                    _t2_walk(run, _t2_finding(run, STATEMENT_AMOUNT, box_fact)),
+                )
+
+
+class ObservedScalarJoin(unittest.TestCase):
+    """One statement, two borrowings. Observed, not solved.
+
+    Equal status values: the scalar join publishes once and pins the
+    sort-first link consequence. Differing values: it blocks
+    ``DEPENDENCY_INVALID`` and publishes nothing for that statement.
+    """
+
+    def test_one_statement_over_two_borrowings_selects_one_equal_value_or_blocks(self) -> None:
+        box = _t2_box_fact_id(LENDER, STATEMENT_S1)
+        link_inst = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_INST)
+        link_priv = _t2_link_fact_id(LENDER, STATEMENT_S1, P2_BORROWING_PRIV)
+        self.assertNotEqual(link_inst, link_priv)
+
+        _equal_state, _equal_currency, _equal_ctx, equal = _t2_execute(
+            _t2_split_findings(adverse=False)
+        )
+        inst_link = _t2_finding(equal, LINK_CONSEQUENCE, link_inst)
+        priv_link = _t2_finding(equal, LINK_CONSEQUENCE, link_priv)
+        self.assertEqual(inst_link["value"], "not-adverse")
+        self.assertEqual(priv_link["value"], "not-adverse")
+        joined = [
+            source for source in equal.live_sources
+            if source.name == LINK_CONSEQUENCE and source.fact_id in {link_inst, link_priv}
+        ]
+        self.assertEqual({source.fact_id for source in joined}, {link_inst, link_priv})
+        self.assertEqual({source.value for source in joined}, {"not-adverse"})
+        chosen = min(joined, key=lambda source: source.finding_id)
+        other = next(source for source in joined if source.finding_id != chosen.finding_id)
+        published = _t2_finding(equal, STATEMENT_AMOUNT, box)
+        self.assertEqual(published["value"], "1500")
+        self.assertEqual(
+            _t2_row(equal, box, STATEMENT_AMOUNT)["disposition"], "published"
+        )
+        self.assertEqual(
+            _input_ids(_pins(published)),
+            {T2_BOX_NORTH, chosen.finding_id},
+        )
+        self.assertNotIn(other.finding_id, _input_ids(_pins(published)))
+
+        _state, currency, ctx, differing = _t2_execute(_t2_split_findings(adverse=True))
+        self.assertEqual(currency.displaced_finding_ids, frozenset())
+        self.assertEqual(
+            {source.finding_id for source in ctx.sources if source.name == ENROLMENT},
+            {T2_ENROL_LATER},
+        )
+        inst_fact = _t2_financing_fact_id(P2_BORROWING_INST, PERIOD_AUTUMN)
+        priv_fact = _t2_financing_fact_id(P2_BORROWING_PRIV, PERIOD_SPRING)
+        self.assertEqual(_t2_finding(differing, STATUS, inst_fact)["value"], "adverse")
+        self.assertEqual(_t2_finding(differing, STATUS, priv_fact)["value"], "not-adverse")
+        self.assertEqual(_t2_finding(differing, LINK_CONSEQUENCE, link_inst)["value"], "adverse")
+        self.assertEqual(
+            _t2_finding(differing, LINK_CONSEQUENCE, link_priv)["value"], "not-adverse"
+        )
+        row = _t2_row(differing, box, STATEMENT_AMOUNT)
+        self.assertEqual(row["disposition"], "blocked")
+        self.assertEqual(row["code"], "DEPENDENCY_INVALID")
+        self.assertEqual(row["missing"], sorted([link_inst, link_priv]))
+        self.assertNotIn(
+            _t2_symbol(STATEMENT_AMOUNT, box),
+            {pub.finding["symbol"] for pub in differing.publications},
+        )
+        self.assertNotEqual(row["disposition"], "published")
+        self.assertNotEqual(row["disposition"], "inapplicable")
 
 
 if __name__ == "__main__":

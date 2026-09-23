@@ -16,8 +16,16 @@ from typing import Any
 from packages.derivation.evaluator import AccessLog
 from packages.derivation.loader import DerivationSchemas
 from packages.derivation.marshal import marshal_run_context
+from packages.derivation.pairing_dispatch import PairingPublish
 from packages.derivation.records import closing_record
-from packages.derivation.runner import RunContext, _Run, _content_id, _sorted_pins, _value_str
+from packages.derivation.runner import (
+    RunContext,
+    SourceFact,
+    _Run,
+    _content_id,
+    _sorted_pins,
+    _value_str,
+)
 from packages.kernel.currency import CurrencyView
 from packages.kernel.facts import KernelState, fact_id_for
 
@@ -749,6 +757,138 @@ class DurableRecord(unittest.TestCase):
             use_v2=True,
         )
         SCHEMAS.validate("derivation-record.v9", record)
+
+
+class SameRunSourceKeys(unittest.TestCase):
+    """The temporary source carries the subject's keys. The finding does not.
+
+    Pairing dispatch and ``publish_symbol_finding`` are other callers of
+    the same append. Their sources stay unkeyed.
+    """
+
+    def test_appended_source_carries_the_subject_keys_and_other_callers_carry_none(self) -> None:
+        s1 = _box_fact_id(STATEMENT_S1)
+        s2 = _box_fact_id(STATEMENT_S2)
+        findings = {
+            BOX_S1_FINDING: _finding(BOX_S1_FINDING, s1, 1500),
+            BOX_S2_FINDING: _finding(BOX_S2_FINDING, s2, 2500),
+        }
+        lattice = {
+            BOX1: _literal_type(BOX1, (
+                ("lender", (LENDER,)),
+                ("statement", (STATEMENT_S1, STATEMENT_S2)),
+                ("tax-year", (YEAR,)),
+            )),
+        }
+        rule = _rule(requires=[BOX1], when=_gt(BOX1))
+        ctx, run, _result = _dispatch(
+            findings,
+            rule,
+            subject_type=BOX1,
+            collect=[BOX1],
+            lattice=lattice,
+        )
+        subjects = {
+            source.fact_id: source
+            for source in ctx.sources
+            if source.name == BOX1
+        }
+        self.assertEqual(set(subjects), {s1, s2})
+        self.assertNotEqual(subjects[s1].keys, subjects[s2].keys)
+
+        for fact_id in (s1, s2):
+            finding = _publication(run, _symbol(fact_id))
+            self.assertNotIn("keys", finding)
+            act = next(
+                pub.act for pub in run.publications if pub.finding["id"] == finding["id"]
+            )
+            self.assertNotIn("keys", act["finding"])
+            self.assertIs(act["finding"], finding)
+            appended = [
+                source for source in run.live_sources
+                if source.name == CONCLUSION and source.fact_id == fact_id
+            ]
+            self.assertEqual(len(appended), 1)
+            self.assertEqual(appended[0].keys, subjects[fact_id].keys)
+            self.assertIsNotNone(appended[0].keys)
+
+        record = closing_record(
+            record_id="demo.record.subject-dispatch-keys",
+            run_id=ctx.run_id,
+            phase="completed",
+            workspace_revision=1,
+            governance_pins=list(ctx.governance_pins),
+            adoption_pin=dict(ctx.adoption_pin),
+            stop_reason="saturated",
+            published=[],
+            blocked=[],
+            dispositions=run.dispositions,
+            use_v2=True,
+        )
+        SCHEMAS.validate("derivation-record.v9", record)
+        self.assertTrue(all("keys" not in row for row in record["dispositions"]))
+        self.assertTrue(all("keys" not in row for row in run.dispositions))
+
+        other = run.publish_symbol_finding(
+            rule_id="demo.rule.other-caller",
+            symbol="demo.tax.other-caller|demo.fact.other",
+            value="untouched",
+            pins=[ADOPTION_PIN, *GOVERNANCE_PINS],
+            source_name="demo.tax.other-caller",
+            source_fact_id="demo.fact.other",
+        )
+        self.assertNotIn("keys", other)
+        other_sources = [
+            source for source in run.live_sources if source.name == "demo.tax.other-caller"
+        ]
+        self.assertEqual(len(other_sources), 1)
+        self.assertIsNone(other_sources[0].keys)
+
+        pair_keys = (("payer", "demo.payer.north"), ("reference", "demo.ref.one"))
+        left_id = "demo.fact.pair-left"
+        right_id = "demo.fact.pair-right"
+        pair_id = "demo.fact.pair"
+        run.live_sources.extend([
+            SourceFact(
+                name="demo.pairing.left",
+                value="1",
+                finding_id="demo.finding.pair-left",
+                fact_id=left_id,
+                keys=pair_keys,
+            ),
+            SourceFact(
+                name="demo.pairing.right",
+                value="2",
+                finding_id="demo.finding.pair-right",
+                fact_id=right_id,
+                keys=pair_keys,
+            ),
+            SourceFact(
+                name="demo.pairing.record",
+                value=json.dumps({"left_fact_id": left_id, "right_fact_id": right_id}),
+                finding_id="demo.finding.pair",
+                fact_id=pair_id,
+                keys=pair_keys + (("borrowing", BORROWING),),
+            ),
+        ])
+        run.evaluate_pairing_scoped_rule(
+            pairing_type="demo.pairing.record",
+            left_type="demo.pairing.left",
+            right_type="demo.pairing.right",
+            rule_id="demo.rule.pairing-other-caller",
+            rule_version="v1",
+            symbol_for=lambda _binding: f"demo.tax.pairing-outcome|{pair_id}",
+            evaluate_one=lambda _binding: PairingPublish(value="reported"),
+        )
+        paired = [
+            source for source in run.live_sources
+            if source.name == "demo.tax.pairing-outcome"
+        ]
+        self.assertEqual(len(paired), 1)
+        self.assertEqual(paired[0].fact_id, pair_id)
+        self.assertIsNone(paired[0].keys)
+        paired_finding = _publication(run, f"demo.tax.pairing-outcome|{pair_id}")
+        self.assertNotIn("keys", paired_finding)
 
 
 if __name__ == "__main__":

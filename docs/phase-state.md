@@ -5,9 +5,9 @@
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
   "milestone_state": "track-2",
-  "status": "TRACK 2 OPEN. Track 1's per-subject dispatch is built. P2 Part A: a corrected circumstance reaches every borrowing (run). Part B, statement reach, re-runs under Track 2 -- a bounded test of carrying the subject's structured keys on temporary same-run sources so single-hop rules chain to the statement; it must carry the adverse correction to a changed statement amount with a recoverable dependency. One statement over several borrowings is left to P3. G2 (producer) not reached.",
-  "current_role": "Track 2 Builder (keyed same-run sources)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track2-keyed-same-run-sources.md"
+  "status": "A4 PASS 2 AT P3. Track 1 (per-subject dispatch) and Track 2 (keyed same-run sources, a bounded test) are built. P2 complete: a corrected circumstance reaches every borrowing and statement that depends on it, publishes the changed statement amount, and leaves a pin chain to the corrected finding -- in memory, within one run; nothing durable is claimed until P4. Observed for P3: a statement over two borrowings pins only one link when they agree and blocks when they differ. Next: P3, partial reduction. G2 (producer) not reached.",
+  "current_role": "Foreman (A4 second pass: charter probe P3, partial reduction)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A4's second pass — the probes, in order"
 }
 -->
 

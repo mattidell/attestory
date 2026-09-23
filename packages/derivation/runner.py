@@ -1893,6 +1893,10 @@ class _Run:
         Each subject records one published finding, one inapplicable row, or
         one blocked row, and one subject's outcome does not bind another
         subject's findings.
+
+        A published finding is also appended as a temporary same-run source
+        carrying that subject's structured keys, taken from the subject
+        ``SourceFact`` at dispatch time. The finding itself gains no keys.
         """
         from packages.derivation.subject_dispatch import (
             evaluate_subject_scoped_rule as dispatch,
@@ -1905,9 +1909,11 @@ class _Run:
             run=self,
         )
         rule_id = str(rule["id"])
-        for finding in result.publications:
+        for finding, subject_keys in zip(
+            result.publications, result.publication_subject_keys, strict=True
+        ):
             self._record_derived_publication(finding, rule_id=rule_id)
-            self._append_live_source_from_finding(finding)
+            self._append_live_source_from_finding(finding, keys=subject_keys)
         for inapplicable_outcome in result.inapplicable:
             ledger_pins = [
                 pin for pin in inapplicable_outcome.pins
@@ -1977,24 +1983,40 @@ class _Run:
         return str(value)
 
     def _append_live_source(
-        self, *, name: str, value: Any, finding_id: str, fact_id: str | None
+        self,
+        *,
+        name: str,
+        value: Any,
+        finding_id: str,
+        fact_id: str | None,
+        keys: tuple[tuple[str, str], ...] | None = None,
     ) -> None:
-        # Same-run publications carry no structured identity: a derived
-        # finding's `symbol` is a rendered prefix|suffix string, not kernel
-        # lattice bindings, so there is nothing lossless to propagate here.
-        # `keys` is therefore left unset, and any consumer that needs identity
-        # components must REFUSE such a source rather than parse the suffix --
-        # see packages/tax/nominee_consequences._validated_keys, which raises
-        # NomineeIdentityError instead of silently dropping it.
+        # Keys are supplied by the caller or omitted. The rendered symbol is
+        # not parsed for them. Per-subject dispatch passes the subject
+        # SourceFact's structured keys onto this temporary source only.
+        # Every other caller leaves them unset, and a consumer that needs
+        # identity from an unkeyed source must refuse it rather than parse
+        # the suffix (packages/tax/nominee_consequences._validated_keys).
         encoded = self._encode_source_value(value)
         self.live_sources.append(
-            SourceFact(name=name, value=encoded, finding_id=finding_id, fact_id=fact_id)
+            SourceFact(
+                name=name,
+                value=encoded,
+                finding_id=finding_id,
+                fact_id=fact_id,
+                keys=keys,
+            )
         )
         self.sources.setdefault(name, []).append(encoded)
         self.source_fids.setdefault(name, []).append(finding_id)
         self.source_fact_ids.setdefault(name, []).append(fact_id or finding_id)
 
-    def _append_live_source_from_finding(self, finding: dict[str, Any]) -> None:
+    def _append_live_source_from_finding(
+        self,
+        finding: dict[str, Any],
+        *,
+        keys: tuple[tuple[str, str], ...] | None = None,
+    ) -> None:
         symbol = finding["symbol"]
         prefix, separator, suffix = symbol.partition("|")
         source_name = prefix
@@ -2004,6 +2026,7 @@ class _Run:
             value=finding["value"],
             finding_id=finding["id"],
             fact_id=source_fact_id or finding["id"],
+            keys=keys,
         )
 
     def _record_derived_publication(

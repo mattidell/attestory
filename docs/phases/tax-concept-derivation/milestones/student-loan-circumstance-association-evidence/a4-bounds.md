@@ -203,6 +203,45 @@ Two ways through, neither built:
 - **Multi-hop joins.** `_scope` walks a declared path of types in one evaluation. No intermediate
   findings; a larger change to the join contract.
 
+## Track 2 — keyed same-run sources: statement reach, as a bounded test
+
+A per-subject publication's **temporary same-run source** now carries its subject's structured
+keys, taken from the subject `SourceFact` at dispatch time (`subject_dispatch`,
+`runner._append_live_source`). Nothing is parsed; every other caller still appends with no keys.
+**The derived finding gains no keys, and the durable record gains nothing** — so these are keys on
+a same-run carrier, not keys stored anywhere a later reader could find them. Nothing here
+establishes a durable, reader-visible link; that is P4's to test.
+
+A three-hop chain in one run — status per financing claim, consequence per statement-to-borrowing
+link (joined on `borrowing`), amount per statement (joined on the statement's keys):
+
+| Criterion | Result | Test |
+| --- | --- | --- |
+| Favourable path: each statement publishes its reported amount; its pin walk reaches link, status and the declared default, never an enrolment finding | `run` | `KeyedSameRunStatementChain.test_favourable_path_…` |
+| **Corrected-adverse path:** after a correction through kernel currency, the statement **publishes** a changed amount (1500 → 0), and its pin walk reaches the **corrected** enrolment finding, not the displaced one or the default | `run` | `…test_corrected_adverse_path_publishes_a_changed_amount` |
+| Two statements on one borrowing both follow the correction | `run` | `…test_servicer_transfer_…` |
+| A statement linked to an unaffected borrowing is byte-identical; a link naming a non-existent statement changes no statement | `run` | `…test_statement_linked_to_an_unaffected_borrowing_…`, `…test_link_naming_a_statement_that_does_not_exist_…` |
+| Keys carried on the same-run source, absent from the finding and the record; other callers append none | `run` | `SameRunSourceKeys` in `tests/derivation/test_subject_dispatch.py` |
+
+**So P2 is complete:** a corrected schooling circumstance reaches every borrowing and every
+statement that depends on it, publishes the changed statement-facing amount, and leaves a pin
+chain from the statement to the corrected finding — **in memory, in one run.**
+
+**Observed and left to P3 — one statement covering two borrowings.** The scalar join selects one
+match or blocks:
+
+- When both links agree, the statement publishes but pins **only the link consequence with the
+  lesser finding id** — the other borrowing's contribution is unpinned. A provenance gap, not
+  just an aggregation gap.
+- When they differ (one adverse), the statement blocks `DEPENDENCY_INVALID` naming both links. No
+  amount publishes.
+
+Neither is a partial reduction. Carrying keys does not address it.
+
+**One P2 observation superseded.** P2 recorded that same-run conclusions carried no keys; since
+Track 2 they do. The test now records what still holds: a statement cannot join a financing
+conclusion directly — their key names are disjoint — and reaches it only through the link.
+
 ## What A5 may not rely on without new execution
 
 D7, D9, D10, D11, D12, D14 and D16b. In particular, a shape that depends on **an

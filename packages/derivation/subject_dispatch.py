@@ -60,6 +60,10 @@ class SubjectScopedResult:
     publications: tuple[dict[str, Any], ...]
     inapplicable: tuple[SubjectInapplicable, ...]
     blocked: tuple[SubjectBlocked, ...]
+    # Parallel to ``publications``. The subject ``SourceFact``'s structured
+    # keys at dispatch time. Not a field of the derived finding, and not
+    # recovered from its rendered symbol.
+    publication_subject_keys: tuple[tuple[tuple[str, str], ...] | None, ...]
 
 
 def _decode(raw: Any) -> Any:
@@ -301,6 +305,7 @@ def evaluate_subject_scoped_rule(
         key=_subject_id,
     )
     publications: list[dict[str, Any]] = []
+    publication_keys: list[tuple[tuple[str, str], ...] | None] = []
     inapplicable: list[SubjectInapplicable] = []
     blocked: list[SubjectBlocked] = []
     required = _requires(rule)
@@ -434,9 +439,11 @@ def evaluate_subject_scoped_rule(
             continue
         pins = _assemble_pins(run, rule, access, symbol_pin, *maps, subject_type)
         publications.append(_publication(run, symbol, value, pins))
+        publication_keys.append(subject.keys)
 
     return SubjectScopedResult(
         publications=tuple(publications),
         inapplicable=tuple(inapplicable),
         blocked=tuple(blocked),
+        publication_subject_keys=tuple(publication_keys),
     )
