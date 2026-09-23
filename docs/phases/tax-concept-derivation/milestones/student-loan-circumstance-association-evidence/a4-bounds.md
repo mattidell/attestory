@@ -104,7 +104,38 @@ G2's to see rather than A4 pass 1's to have covered:
 | One corrected circumstance reaching every statement its reference bears on | D8 — a consumer follows the current finding at a `fact_id` after a correction there | D8's test corrects one nominee report and checks the current finding is used. It exercises no shared subject across several statements |
 | A partial reduction of a statement — a reduced figure once a portion is determined | D5 — an adverse answer produces a determined zero on disposable artifacts | A whole-statement zero is not a partial reduction. The arithmetic and the disposition both differ |
 | A revealing consumer recovering an intermediate conclusion's identity **and meaning** at the reader, and stating a default-supported basis (A5 stage 3). Test cases: the nine-credit case; a financing claim identifying the period with no schooling circumstance, where the cited financing claim must not read as grounds for eligible student; and no financing claim at all, where A5 stage 4 attaches the default to the statement and the reader today sees the 1098-E and nothing about eligibility. In all three the conditions left to the filer apply (A0). In the first two the reader must recover, for each of the three conditions separately, its identity, its approved wording, the circumstance it concerns and the treatment it qualifies, distinguishable from ordinary rule citations — which A5 stage 4 found a citation-only representation cannot do on current artifacts. In the third, per the owner's choice (A5 stage 4), the three conditions are shown tied to the statement with school and programme explicitly unknown, in a contextual explanation behind a short default-basis note — never as a question, a required confirmation or a screen-wide warning — with each condition's identity, approved wording and treatment recoverable, and its circumstance shown as unknown rather than recovered | `explain()` over `LiveCoordinatorOutcome.publications` — in memory — returns the intermediate node with symbol, value and rule | Nothing durable holds values; `presentation.json` walks through intermediates and emits raw leaves as citations. An in-memory walk is not a reader, and the carrier is not chosen |
-| One categorical conclusion published **per key of a single subject** — one per student-and-period, one per borrowing (A5 stage 3). The period key is supplied by a financing claim or a statement-grain scope claim; where neither exists, A5 stage 4 keys the conclusion on the **statement**, a third key kind this row now covers. The per-key publication must also **carry the rule's declared citations**, which the existing per-item paths do not do by default — they assemble their own pins without `pins_for`. Under A5 stage 4's provisional responsibility candidate — which this second pass executes and challenges — the same mechanism would also publish one responsibility finding per condition per situation | D6 and D16a — a categorical conclusion published in the same run as amounts; D1 and D13a — per-item publication under pairing dispatch | D6 publishes one conclusion per return. Pairing dispatch publishes one finding per **pairing**, a pair of pinned sides; a conclusion keyed on one subject is not a pairing |
+| One categorical conclusion published **per key of a single subject** — **untestable without production change (second pass, P1)**; see below. — one per student-and-period, one per borrowing (A5 stage 3). The period key is supplied by a financing claim or a statement-grain scope claim; where neither exists, A5 stage 4 keys the conclusion on the **statement**, a third key kind this row now covers. The per-key publication must also **carry the rule's declared citations**, which the existing per-item paths do not do by default — they assemble their own pins without `pins_for`. Under A5 stage 4's provisional responsibility candidate — which this second pass executes and challenges — the same mechanism would also publish one responsibility finding per condition per situation | D6 and D16a — a categorical conclusion published in the same run as amounts; D1 and D13a — per-item publication under pairing dispatch | D6 publishes one conclusion per return. Pairing dispatch publishes one finding per **pairing**, a pair of pinned sides; a conclusion keyed on one subject is not a pairing |
+
+## Second pass — P1 result: per-key publication is untestable without production change
+
+Probe `tests/test_sli_circumstance_association_a4_pass2.py` (10 tests, synthetic `demo.*`
+identities, public entry points only — `marshal_run_context`, `run`,
+`evaluate_pairing_scoped_rule`; no hand-built `Environment`, no production file touched).
+
+| Sub-question | Result | What ran |
+| --- | --- | --- |
+| One conclusion per student-and-period | **untestable-without-production** | Two financing claims, one adverse period: marshal binds one financing input per fact type (the sort-first finding), the rule records **one** `inapplicable` row at rule grain, and the favourable period is withheld with it. With a declared default, one conclusion publishes for both periods together. Pairing dispatch with no pairing finding publishes and blocks nothing |
+| One conclusion per statement | **untestable-without-production** | Two statements: disagreeing amounts leave the symbol unbound and the rule blocks with pins `[]`; agreeing amounts bind only the sort-first statement; collecting both publishes one conclusion pinning both. No per-row publication |
+| Published only when favourable, adverse key recorded | **partial** | `inapplicable` is engine-recorded, but at rule grain; a pairing callback's refusal is recorded as `blocked`, and the pairing result type has no `inapplicable` outcome |
+| Declared citations pinned | **partial** | On the ordinary path, yes (`pins_for`). Pairing dispatch never calls `pins_for` and has no rule argument to read citations from. Ineligible blocks carry pins `[]` |
+| Subject finding pinned | **partial** | A `ref` pins whichever finding marshal kept; a `collect` pins every member; pairing pins both sides and the pairing. None attaches one subject finding to one conclusion per key |
+
+**The missing mechanism, and its cost.** A per-subject dispatch beside
+`evaluate_pairing_scoped_rule`, called from `_Run.attempt`: iterate the collected
+`SourceFact`s of the subject type, evaluate once per subject, publish one finding or record one
+`inapplicable` row per subject, pin `pins_for`'s declared citations and the subject's own
+finding. `derived-finding.v2` already admits the pin roles, so no published-schema change; the
+disposition recording needs a per-subject `inapplicable` row. On the order of the existing
+pairing dispatch.
+
+**Ceilings.** The stub record has no fact lattice (`SourceFact.keys` is `None`); period and
+statement identity live in fact ids only. That is not what decided the result — no published
+symbol carries either. Where the pairing path's symbol names a subject, that is the test's
+callback copying a string, not the engine deriving a key.
+
+**Consequence for the rest of the pass.** P2, P3 and P4 each stand on P1. Against the selected
+shape, none can run until the per-subject dispatch exists. The owed row for per-key publication
+moves from *untested* to **untestable without production change**, with the cost above.
 
 ## What A5 may not rely on without new execution
 
