@@ -141,8 +141,9 @@ citation only where the calling code adds one explicitly (`pairing_consequences.
 `_citation_pin` call). The named conclusion is per-key, so it will not be on the ordinary path —
 **carrying its declared citations is part of the owed per-key publication**, not something the
 existing per-item paths already do. The instance binding comes from
-the same publication's input pins — the financing claim or scope claim naming the situation, or
-in case 2 the statement. Condition, circumstance and treatment are then all on one publication.
+the same publication's input pins — the financing claim or scope claim naming the situation.
+Condition, circumstance and treatment are then all on one publication. (Case 2's statement-level
+conclusion declares none of these conditions; see above.)
 
 Three facts make this fit rather than approximate:
 
