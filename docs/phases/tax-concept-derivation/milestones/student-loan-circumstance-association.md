@@ -3,7 +3,7 @@
   "version": 1,
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
-  "status": "A4 PASS 2 COMPLETE; CONTINUING (owner: no partial milestone). Tracks 1-3 built; P1-P4 run. P4: the record carries identities joinably; the presentation reaches only box 1 and an error code -- reader carrier owed (A6). Dangling default pin repaired. Owner chose option B for ADR 0075 (reusable admission of the link names, confinement dropped); ADR under independent review; the joinability repair and the B admission change follow. Then A6's reader carrier and G2's scheduling/binding. G2 (producer) not reached.",
+  "status": "TRACK 4 OPEN. Tracks 1-3 built; A4 pass 2 (P1-P4) run; dangling default pin repaired. ADR 0075 repaired through two independent reviews and a confirmation; proposed, awaiting the owner's acceptance. Track 4 implements its required changes: option B (link type admitted through an emission-only channel, confinement dropped), a block for present unjoinable link rows, and no reduction-name registration. Then A6's reader carrier and G2's scheduling/binding. G2 (producer) not reached.",
   "scope": [
     "record and recover ordinary schooling circumstances and their explicit connection to identified student-loan interest",
     "preserve document evidence, source-independent subjects, attribution, and relationship lifecycle",
@@ -1241,6 +1241,11 @@ flips the defect tests:
 run, the two defect tests are flipped, and a missing derived reduction is never read as no reduction.
 Runs remain hand-assembled; ADR 0075 remains **proposed**. **Next: P4**, what the durable reader
 actually sees.
+
+**After P4:** ADR 0075 was repaired on the owner's review into a stand-alone operator contract and
+through two independent reviews and a confirmation; the owner chose option B. **Track 4** implements the
+ADR's required changes — reusable link admission, the unjoinable block, no reduction registration:
+[`charter-track4-reusable-admission-and-joinability.md`](student-loan-circumstance-association-evidence/charter-track4-reusable-admission-and-joinability.md).
 
 ## A5 in detail — choosing how to represent it
 

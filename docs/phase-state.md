@@ -4,10 +4,10 @@
   "phase": "Tax Concept Derivation",
   "topic": "student-loan-circumstance-association",
   "active_plan": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md",
-  "milestone_state": "track-3",
-  "status": "A4 PASS 2 COMPLETE; CONTINUING (owner: no partial milestone). Tracks 1-3 built; P1-P4 run. P4: the record carries identities joinably; the presentation reaches only box 1 and an error code -- reader carrier owed (A6). Dangling default pin repaired. Owner chose option B for ADR 0075 (reusable admission of the link names, confinement dropped); ADR under independent review; the joinability repair and the B admission change follow. Then A6's reader carrier and G2's scheduling/binding. G2 (producer) not reached.",
-  "current_role": "Foreman (ADR 0075 review in flight; charter the option-B admission change and joinability repair)",
-  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association.md#A4's second pass — the probes, in order"
+  "milestone_state": "track-4",
+  "status": "TRACK 4 OPEN. Tracks 1-3 built; A4 pass 2 (P1-P4) run; dangling default pin repaired. ADR 0075 repaired through two independent reviews and a confirmation; proposed, awaiting the owner's acceptance. Track 4 implements its required changes: option B (link type admitted through an emission-only channel, confinement dropped), a block for present unjoinable link rows, and no reduction-name registration. Then A6's reader carrier and G2's scheduling/binding. G2 (producer) not reached.",
+  "current_role": "Track 4 Builder (reusable admission and joinability)",
+  "current_prompt": "docs/phases/tax-concept-derivation/milestones/student-loan-circumstance-association-evidence/charter-track4-reusable-admission-and-joinability.md"
 }
 -->
 
